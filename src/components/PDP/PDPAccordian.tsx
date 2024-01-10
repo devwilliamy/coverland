@@ -85,7 +85,7 @@ export function PDPAccordion() {
           </AccordionItem>
         </Accordion>
 
-        <Button className="flex h-12 w-[216px] mx-auto mt-9 text-lg hover:bg-transparent bg-[#1A1A1A] rounded border border-[#1A1A1A] text-base font-bold hover:text-[#1A1A1A] text-white uppercase">
+        <Button className="flex h-12 w-[216px] mx-auto mt-9 text-lg hover:bg-transparent bg-[#1A1A1A] rounded border border-[#1A1A1A]  font-bold hover:text-[#1A1A1A] text-white uppercase">
           ask a question
         </Button>
       </div>

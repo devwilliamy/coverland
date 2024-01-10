@@ -131,7 +131,7 @@ function CarSelector({
             ))}
           </div>
 
-          <Button className="h-12 w-[216px] mx-auto mt-9 text-lg bg-transparent hover:bg-[#1A1A1A] rounded border border-[#1A1A1A] text-base font-normal text-[#1A1A1A] hover:text-white capitalize">
+          <Button className="h-12 w-[216px] mx-auto mt-9 text-lg bg-transparent hover:bg-[#1A1A1A] rounded border border-[#1A1A1A] font-normal text-[#1A1A1A] hover:text-white capitalize">
             show more images
           </Button>
         </div>
@@ -324,7 +324,7 @@ function CarSelector({
                 </Card>
                 <Popover>
                   <PopoverTrigger asChild>
-                    <Button className="h-[35px] md:h-[60px] w-full mt-4 text-lg bg-[#BE1B1B] rounded text-white uppercase font-bold text-base md:text-xl">
+                    <Button className="h-[35px] md:h-[60px] w-full mt-4 text-lg bg-[#BE1B1B] rounded text-white uppercase font-bold md:text-xl">
                       Add To Cart
                     </Button>
                   </PopoverTrigger>

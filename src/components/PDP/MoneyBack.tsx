@@ -11,9 +11,9 @@ export function MoneyBack() {
           60-days money back guaranteed
         </p>
         <p className="text-[#DBDBDB] font-normal text-lg w-full lg:w-[840px]">
-          If you're not satisfied, we've got you covered with an easy return
+          {`If you're not satisfied, we've got you covered with an easy return
           process and full refunds. We're here to make your shopping experience
-          as smooth as possible.
+          as smooth as possible.`}
         </p>
       </div>
       <div className="w-1/5">

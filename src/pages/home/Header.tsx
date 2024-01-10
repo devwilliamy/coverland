@@ -4,7 +4,7 @@ import Logo from '@/components/header/Logo';
 import { Search, ShoppingCart, User } from 'lucide-react';
 import Image from 'next/image';
 import Models from '@/data/car_year_make_model_list.json';
-import { useState } from 'react';
+import { Dispatch, ReactNode, SetStateAction, useState } from 'react';
 import Cart from '@/components/header/Cart';
 import {
   Hits,
@@ -125,7 +125,15 @@ const SearchHits = () => {
   );
 };
 
-function NoResultsBoundary({ children, showHits, setShowHits }) {
+function NoResultsBoundary({
+  children,
+  showHits,
+  setShowHits,
+}: {
+  children: ReactNode;
+  showHits: boolean;
+  setShowHits: Dispatch<SetStateAction<boolean>>;
+}) {
   const { results, indexUiState } = useInstantSearch();
 
   console.log(indexUiState);
@@ -144,16 +152,16 @@ function NoResultsBoundary({ children, showHits, setShowHits }) {
   return children;
 }
 
-function AlgoliaWrapper({ children }) {
+function AlgoliaWrapper({ children }: { children: ReactNode }) {
   const searchClient = algoliasearch(
-    process.env.NEXT_PUBLIC_ALGOLIA_APP_ID,
-    process.env.NEXT_PUBLIC_ALGOLIA_SEARCH_KEY
+    process.env.NEXT_PUBLIC_ALGOLIA_APP_ID ?? '',
+    process.env.NEXT_PUBLIC_ALGOLIA_SEARCH_KEY ?? ''
   );
 
   const customSearchClient = {
     ...searchClient,
-    search<TObject>(requests) {
-      if (requests.every(({ params }) => !params.query)) {
+    search<TObject>(requests: any) {
+      if (requests.every(({ params }: any) => !params.query)) {
         return Promise.resolve({
           results: requests.map(() => ({
             hits: [],
@@ -182,7 +190,7 @@ function AlgoliaWrapper({ children }) {
   );
 }
 
-const AlgoliaSearchBox = ({ setShowHits }) => {
+const AlgoliaSearchBox = ({ setShowHits }: any) => {
   const { refine } = useSearchBox();
 
   return (
