@@ -138,8 +138,13 @@ function CarSelector({
 
         {/* Right Panel */}
         <div className=" h-auto w-full lg:w-2/5 pl-0">
-          {/* Color options */}
-          <p className="font-black text-lg text-[#1A1A1A] mb-2 ml-2">
+          <div className=" mt-[29px] border-solid border-2 p-10 rounded-lg">
+            <h2 className="text-lg md:text-[28px] font-roboto font-extrabold text-[#1A1A1A]">
+              {`${selectedProduct?.year_generation}
+                ${selectedProduct?.make} ${selectedProduct?.product_name} ${selectedProduct?.submodel1}`}
+            </h2>
+          </div>
+          <p className="font-black text-lg text-[#1A1A1A] mb-2 ml-2 ">
             {isReadyForSelection
               ? `Cover Colors`
               : `Please select your car's details below`}{' '}
