@@ -15,7 +15,7 @@ export function YearSearch({
   currentSelection?: TProductData;
 }) {
   const [value, setValue] = useState('');
-  const years = Array.from({ length: 100 }, (_, i) => 1924 + i).reverse();
+  const years = Array.from({ length: 101 }, (_, i) => 1924 + i).reverse();
   const { setQuery } = queryObj;
 
   const handleChange = (event: ChangeEvent<HTMLSelectElement>) => {

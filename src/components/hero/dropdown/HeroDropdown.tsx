@@ -90,52 +90,6 @@ export function HeroDropdown() {
     ),
   ];
 
-  // const subModelData = data?.data
-  //   ?.filter((model) => modelData?.includes(query?.model))
-  //   .map((d) => d.submodel);
-  // console.log('subModelData', subModelData);
-
-  // const goToProductPage = (query: TQuery) => {
-  //   if (!query) return null;
-  //   const slugify = (str: string) => {
-  //     if (!str) return null;
-  //     return str
-  //       .toLowerCase()
-  //       .trim()
-  //       .replace(/[^\w\s-]/g, '')
-  //       .replace(/[\s_-]+/g, '-')
-  //       .replace(/^-+|-+$/g, '');
-  //   };
-
-  //   const convertToUrl = (obj: TQuery) => {
-  //     if (!obj) return null; // Check if obj is undefined
-
-  //     const { type, year, make, model } = obj;
-  //     let url = `/${slugify(type)}/${slugify(make)}/${slugify(model)}`;
-  //     console.log(url);
-
-  //     let isFirstQueryParam = true; // Variable to track the first query parameter
-
-  //     // Function to append query parameters correctly
-  //     const appendQueryParam = (paramName: any, paramValue: any) => {
-  //       if (paramValue) {
-  //         url += isFirstQueryParam ? `?` : `&`;
-  //         url += `${paramName}=${encodeURIComponent(paramValue)}`;
-  //         isFirstQueryParam = false;
-  //       }
-  //     };
-
-  //     // Append year_generation and submodel parameters
-  //     appendQueryParam('year', displayModel?.year_generation);
-  //     appendQueryParam('submodel', slugify(obj.submodel));
-
-  //     return url;
-  //   };
-
-  //   const url = convertToUrl(query) ?? '';
-  //   router.push(url);
-  // };
-
   const handleSubmitDropdown = async () => {
     setLoading(true);
     const response = await fetchDropdownData(

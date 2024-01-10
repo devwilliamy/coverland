@@ -8,7 +8,7 @@ import { IoRibbonSharp } from 'react-icons/io5';
 import { FaShippingFast, FaThumbsUp } from 'react-icons/fa';
 import { MdSupportAgent } from 'react-icons/md';
 import Link from 'next/link';
-import { useState } from 'react';
+import { ReactPropTypes, useState } from 'react';
 import { BsBoxSeam, BsGift, BsInfoCircle } from 'react-icons/bs';
 import { DropdownPDP } from './DropdownPDP';
 import { useToast } from '@/components/ui/use-toast';
@@ -24,11 +24,28 @@ import {
 } from '@radix-ui/react-popover';
 import { Button } from '../ui/button';
 import { generationDefaultCarCovers } from '@/lib/constants';
-import { Card, CardHeader, CardTitle } from '../ui/card';
+import { Card, CardContent, CardHeader, CardTitle } from '../ui/card';
 import AgentProfile from '@/images/PDP/agent_profile.png';
+import { useMediaQuery } from '@mantine/hooks';
 import { ProductVideo } from './ProductVideo';
 import { FolderUpIcon, SecureIcon, ThumbsUpIcon } from './images';
 import { MoneyBackIcon } from './images/MoneyBack';
+import { EditIcon } from './components/icons';
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from '../ui/dialog';
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from '../ui/carousel';
 
 function CarSelector({
   modelData,
@@ -57,6 +74,7 @@ function CarSelector({
     selectedProduct?.feature as string
   );
   const [showDropdown, setShowDropdown] = useState(false);
+  const isMobile = useMediaQuery('(max-width: 768px)');
 
   const { toast } = useToast();
   const { addToCart } = useCartContext();
@@ -87,6 +105,7 @@ function CarSelector({
 
   const productImages = selectedProduct?.product?.split(',') ?? [];
   console.log('productImages', productImages);
+  const modalProductImages = productImages.slice(5);
 
   return (
     <section className="h-auto w-full max-w-[1440px] mx-auto my-8">
@@ -95,15 +114,22 @@ function CarSelector({
         <div className=" h-auto w-full lg:w-3/5 flex flex-col justify-center items-stretch pb-8 lg:pb-0 mt-[29px]">
           {/* Featured Image */}
           <div className="w-full h-[400px] md:h-[500px] lg:h-[650px] rounded-xl bg-[#F2F2F2] flex justify-center items-center">
-            <Image
-              id="featured-image"
-              src={featuredImage ?? ''}
-              alt="a car with a car cover on it"
-              width={500}
-              height={500}
-              className="w-full h-full md:w-[250px] md:h-[250px] lg:w-[500px] lg:h-[500px]"
-              // onClick={console.log(selectedImage)}
-            />
+            {isMobile ? (
+              <MobileImageCarousel
+                selectedProduct={selectedProduct}
+                productImages={productImages}
+              />
+            ) : (
+              <Image
+                id="featured-image"
+                src={featuredImage ?? ''}
+                alt="a car with a car cover on it"
+                width={500}
+                height={500}
+                className="w-full h-full md:w-[250px] md:h-[250px] lg:w-[500px] lg:h-[500px]"
+                // onClick={console.log(selectedImage)}
+              />
+            )}
           </div>
           {/* Product Video */}
           <ProductVideo />
@@ -130,30 +156,34 @@ function CarSelector({
               </div>
             ))}
           </div>
-
-          <Button className="h-12 w-[216px] mx-auto mt-9 text-lg bg-transparent hover:bg-[#1A1A1A] rounded border border-[#1A1A1A] font-normal text-[#1A1A1A] hover:text-white capitalize">
-            show more images
-          </Button>
+          <DesktopShowMoreCarousel
+            selectedProduct={selectedProduct}
+            modalProductImages={modalProductImages}
+          />
         </div>
 
         {/* Right Panel */}
         <div className=" h-auto w-full lg:w-2/5 pl-0">
-          <div className=" mt-[29px] border-solid border-2 p-10 rounded-lg">
+          <div className=" mt-[29px] border-solid border-2 py-7 px-3 rounded-lg flex flex-col gap-2">
             <h2 className="text-lg md:text-[28px] font-roboto font-extrabold text-[#1A1A1A]">
               {`${selectedProduct?.year_generation}
                 ${selectedProduct?.make} ${selectedProduct?.product_name} ${selectedProduct?.submodel1}`}
             </h2>
+            <div className="flex gap-2 items-center">
+              <EditIcon />
+              <p className="underline">Edit Vehicle</p>
+            </div>
           </div>
-          <p className="font-black text-lg text-[#1A1A1A] mb-2 ml-2 ">
+          <p className="font-black text-lg text-[#1A1A1A] mt-5 ml-3 ">
             {isReadyForSelection
               ? `Cover Colors`
               : `Please select your car's details below`}{' '}
-            <span className="font-normal ml-4 text-lg text-[#767676]">
+            <span className="font-normal ml-2 text-lg text-[#767676]">
               {isReadyForSelection && `${selectedProduct?.display_color}`}
             </span>
           </p>
           {isReadyForSelection && (
-            <div className="grid grid-cols-5 w-auto gap-[7px] ">
+            <div className="grid grid-cols-5 w-auto gap-[7px] px-3 ">
               {uniqueColors?.map((sku) => {
                 return (
                   <div
@@ -178,11 +208,11 @@ function CarSelector({
           )}
           {isReadyForSelection && (
             <>
-              {/* <Separator className="my-4" /> */}
-              <div className="mt-10">
-                <p className="font-black text-lg text-[#1A1A1A] mb-2 ml-2">
+              <Separator className="my-4" />
+              <div>
+                <p className="font-black text-lg text-[#1A1A1A] ml-3">
                   Cover Types
-                  <span className="font-normal ml-4 text-lg text-[#767676]">
+                  <span className="font-normal ml-2 text-lg text-[#767676]">
                     {isReadyForSelection && ` ${selectedProduct?.display_id}`}
                   </span>
                 </p>
@@ -190,7 +220,7 @@ function CarSelector({
             </>
           )}
           {isReadyForSelection && (
-            <div className="grid grid-cols-5 w-auto gap-[7px]">
+            <div className="grid grid-cols-5 w-auto gap-[7px] px-3">
               {uniqueTypes.map((type, idx) => {
                 return (
                   <button
@@ -218,7 +248,7 @@ function CarSelector({
           {/* Title and Descriptions*/}
           <div className="grid grid-cols-1 gap-4">
             <div className="lg:h-20">
-              <h2 className="text-lg md:text-[28px] font-roboto font-extrabold text-[#1A1A1A] pb-4">
+              <h2 className="text-lg md:text-[28px] font-roboto text-[#1A1A1A] pb-4">
                 {`${selectedProduct?.year_generation}
                 ${selectedProduct?.make} ${selectedProduct?.product_name} ${selectedProduct?.display_id}`}
                 &trade; {`${selectedProduct?.display_color}`}
@@ -342,7 +372,7 @@ function CarSelector({
               </>
             ) : (
               <Button
-                className="h-[60px] md:w-[400px] w-full mt-4 text-lg bg-[#BE1B1B] disabled:bg-[#BE1B1B]"
+                className="h-[60px] w-full mt-4 text-lg bg-[#BE1B1B] disabled:bg-[#BE1B1B]"
                 // onClick={() => {
                 //   handleAddToCart();
                 //   toast({
@@ -510,3 +540,86 @@ function CarSelector({
 }
 
 export default CarSelector;
+
+const DesktopShowMoreCarousel = ({
+  selectedProduct,
+  modalProductImages,
+}: {
+  selectedProduct: TProductData;
+  modalProductImages: string[];
+}) => {
+  return (
+    <Dialog>
+      <DialogTrigger asChild>
+        <Button className="h-12 w-[216px] mx-auto mt-9 text-lg bg-transparent hover:bg-[#1A1A1A] rounded border border-[#1A1A1A] font-normal text-[#1A1A1A] hover:text-white capitalize">
+          show more images
+        </Button>
+      </DialogTrigger>
+      <DialogContent className="">
+        <Carousel>
+          <CarouselContent>
+            {modalProductImages.map((image, index) => (
+              <CarouselItem key={index}>
+                <div className="p-1">
+                  <Card>
+                    <CardContent className="flex aspect-square items-center justify-center p-6">
+                      <Image
+                        src={image}
+                        alt={`Additional images of the ${selectedProduct.display_id} cover`}
+                        width={500}
+                        height={500}
+                      />
+                    </CardContent>
+                  </Card>
+                </div>
+              </CarouselItem>
+            ))}
+          </CarouselContent>
+          <CarouselPrevious />
+          <CarouselNext />
+        </Carousel>
+      </DialogContent>
+    </Dialog>
+  );
+};
+
+const MobileImageCarousel = ({
+  selectedProduct,
+  productImages,
+}: {
+  selectedProduct: TProductData;
+  productImages: string[];
+}) => {
+  // const [emblaRef, emblaApi] = useEmblaCarousel(options)
+  // const [selectedIndex, setSelectedIndex] = useState(0)
+  // const [scrollSnaps, setScrollSnaps] = useState<number[]>([])
+
+  return (
+    <Carousel>
+      <CarouselContent>
+        <CarouselItem>
+          <Image
+            src={selectedProduct.feature as string}
+            alt={`Additional images of the ${selectedProduct.display_id} cover`}
+            width={500}
+            height={500}
+          />
+        </CarouselItem>
+        {productImages.map((image, index) => (
+          <CarouselItem key={index}>
+            <Image
+              src={image}
+              alt={`Additional images of the ${selectedProduct.display_id} cover`}
+              width={500}
+              height={500}
+            />
+          </CarouselItem>
+        ))}
+      </CarouselContent>
+    </Carousel>
+  );
+};
+
+// const DotButtons = () => {
+//   return <button type="button" className="rounded-full" onClick={() => scrollTo(index)} />;
+// };
