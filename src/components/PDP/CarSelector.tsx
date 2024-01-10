@@ -603,6 +603,7 @@ const MobileImageCarousel = ({
             alt={`Additional images of the ${selectedProduct.display_id} cover`}
             width={500}
             height={500}
+            placeholder="blur"
           />
         </CarouselItem>
         {productImages.map((image, index) => (
@@ -612,6 +613,7 @@ const MobileImageCarousel = ({
               alt={`Additional images of the ${selectedProduct.display_id} cover`}
               width={500}
               height={500}
+              placeholder="blur"
             />
           </CarouselItem>
         ))}
