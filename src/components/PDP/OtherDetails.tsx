@@ -181,7 +181,7 @@ const ReviewSection = ({
   reviewData: TReviewData[] | null;
 }) => {
   const [displayedReviews, setDisplayedReviews] = useState<number>(3);
-  if (!!reviewData?.length) return null;
+  if (!reviewData) return null;
   console.log('reviewData', reviewData);
   console.log(reviewData);
   return (
