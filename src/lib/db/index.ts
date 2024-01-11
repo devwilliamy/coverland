@@ -4,6 +4,8 @@ import {
   TPDPPathParams,
   TPDPQueryParams,
 } from '@/app/[productType]/[...product]/page';
+import { modelStrings } from '../constants';
+import { deslugify } from '../utils';
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL ?? '';
 const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_KEY ?? '';
@@ -23,6 +25,8 @@ export type TableColumn<T extends TableRow> =
   keyof Database['public']['Tables'][T]['Row'];
 
 export type TProducts20204 = Tables<'Products-2024'>;
+
+export type TReviewData = Tables<'Product-Reviews'>;
 export interface TProductsInColumnArgs {
   where?: {
     [key in keyof TProducts20204]?: TProducts20204[key];
@@ -204,6 +208,53 @@ export async function fetchModelToDisplay(fk: string) {
     console.log(error);
   }
   return data;
+}
+
+export async function fetchReviewData(
+  queryParams: TPDPQueryParams,
+  params: TPDPPathParams
+) {
+  const make = params?.product[0];
+  const model = params?.product[1];
+  const year = params?.product[2];
+  const submodel1 = queryParams?.submodel;
+  const submodel2 = queryParams?.second_submodel;
+
+  const modelDisplayName = modelStrings[model];
+  const makeDisplayName = modelStrings[make];
+
+  let fetch = supabase
+    .from('Product-Reviews')
+    .select('*')
+    .eq('model', modelDisplayName)
+    .eq('make', makeDisplayName);
+
+  if (year) {
+    fetch = fetch.eq('year_generation', year);
+  }
+
+  if (submodel1) {
+    const submodelDisplayname = deslugify(submodel1);
+
+    fetch = fetch.textSearch('submodel1', submodelDisplayname);
+  }
+
+  if (submodel2) {
+    const submodelDisplayname = deslugify(submodel2);
+
+    fetch = fetch.eq('submodel2', submodelDisplayname);
+  }
+
+  const { data, error } = await fetch;
+  if (error) {
+    console.log(error);
+  }
+
+  if (data?.length) {
+    return data;
+  }
+
+  return null;
 }
 
 export async function fetchPDPDataWithQuery(

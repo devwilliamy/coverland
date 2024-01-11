@@ -1,7 +1,9 @@
 import {
   TProductData,
+  TReviewData,
   fetchPDPData,
   fetchPDPDataWithQuery,
+  fetchReviewData,
   getAllDefaultGenerations,
 } from '@/lib/db';
 import Image from 'next/image';
@@ -25,6 +27,9 @@ export default async function ProductPDP({
   searchParams: TPDPQueryParams;
 }) {
   const submodelParam = searchParams.submodel;
+  const make = pathParams?.product[0];
+  const model = pathParams?.product[1];
+  const year = pathParams?.product[2];
   if (
     pathParams.productType !== 'car-covers' &&
     pathParams.productType !== 'suv-covers' &&
@@ -40,6 +45,12 @@ export default async function ProductPDP({
     : (await fetchPDPData(pathParams)) ?? [];
 
   if (!productData) return null;
+
+  const reviewData: TReviewData[] | null = await fetchReviewData(
+    searchParams,
+    pathParams
+  );
+  console.log(reviewData);
 
   console.log(productData);
 
@@ -75,13 +86,14 @@ export default async function ProductPDP({
         searchParams={searchParams}
         submodels={submodels}
         secondSubmodels={secondSubmodels}
+        reviewData={reviewData}
       />
       <div
         id="product-details"
         className="w-full h-auto"
         // flex flex-col justify-center items-center max-w-[1440px] py-4 lg:py-20 px-4 md:px-20"
       >
-        <ExtraProductDetails />
+        <ExtraProductDetails reviewData={reviewData} />
       </div>
     </>
   );

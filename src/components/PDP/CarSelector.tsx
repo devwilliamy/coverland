@@ -1,6 +1,6 @@
 'use client';
 
-import { TProductData, fetchPDPData } from '@/lib/db';
+import { TProductData, TReviewData, fetchPDPData } from '@/lib/db';
 import { Separator } from '@/components/ui/separator';
 import Image from 'next/image';
 import { GoDotFill } from 'react-icons/go';
@@ -13,6 +13,7 @@ import { BsBoxSeam, BsGift, BsInfoCircle } from 'react-icons/bs';
 import { DropdownPDP } from './DropdownPDP';
 import { useToast } from '@/components/ui/use-toast';
 import { useCartContext } from '@/providers/CartProvider';
+import Rating from '@mui/material/Rating';
 import {
   TPDPPathParams,
   TPDPQueryParams,
@@ -46,6 +47,7 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from '../ui/carousel';
+import { EditVehicleDropdown } from './EditVehicleDropdown';
 
 function CarSelector({
   modelData,
@@ -53,12 +55,14 @@ function CarSelector({
   searchParams,
   submodels,
   secondSubmodels,
+  reviewData,
 }: {
   modelData: TProductData[];
   pathParams: TPDPPathParams;
   submodels: string[];
   secondSubmodels: string[];
   searchParams: TPDPQueryParams;
+  reviewData: TReviewData[];
 }) {
   const initialProduct = modelData.find(
     (product) =>
@@ -74,6 +78,7 @@ function CarSelector({
     selectedProduct?.feature as string
   );
   const [showDropdown, setShowDropdown] = useState(false);
+  const [showMore, setShowMore] = useState(false);
   const isMobile = useMediaQuery('(max-width: 768px)');
 
   const { toast } = useToast();
@@ -102,64 +107,83 @@ function CarSelector({
   //   console.log('running');
   //   return addToCart({ ...selectedProduct, quantity: 1 });
   // };
+  console.log(showMore);
 
   const productImages = selectedProduct?.product?.split(',') ?? [];
   console.log('productImages', productImages);
   const modalProductImages = productImages.slice(5);
+  const reviewScore = reviewData?.reduce(
+    (acc, review) => acc + Number(review.rating_stars ?? 0),
+    0
+  );
+  const reviewCount = reviewData?.length ?? 50;
+
+  const avgReviewScore = (reviewScore / reviewCount).toFixed(1);
+
+  console.log(avgReviewScore);
 
   return (
     <section className="h-auto w-full max-w-[1440px] mx-auto my-8">
       <div className="flex flex-col lg:flex-row justify-between w-full items-start gap-14">
         {/* Left Panel */}
-        <div className=" h-auto w-full lg:w-3/5 flex flex-col justify-center items-stretch pb-8 lg:pb-0 mt-[29px]">
+        <div className=" h-auto w-full lg:w-3/5 flex flex-col justify-center items-stretch pb-8 lg:pb-0 mt-[29px] ">
           {/* Featured Image */}
-          <div className="w-full h-[400px] md:h-[500px] lg:h-[650px] rounded-xl bg-[#F2F2F2] flex justify-center items-center">
-            {isMobile ? (
-              <MobileImageCarousel
-                selectedProduct={selectedProduct}
-                productImages={productImages}
-              />
-            ) : (
-              <Image
-                id="featured-image"
-                src={featuredImage ?? ''}
-                alt="a car with a car cover on it"
-                width={500}
-                height={500}
-                className="w-full h-full md:w-[250px] md:h-[250px] lg:w-[500px] lg:h-[500px]"
-                // onClick={console.log(selectedImage)}
-              />
-            )}
-          </div>
-          {/* Product Video */}
-          <ProductVideo />
-          {/* Gallery Images */}
-          <div className="grid grid-cols-2 w-auto gap-[16px] pt-4">
-            {productImages.slice(0, 4).map((img, idx) => (
-              <div
-                className="w-full h-auto md:h-[350px] bg-[#F2F2F2] rounded-xl p-3.5 border-transparent"
-                key={img}
-              >
+          <div
+            className={`${
+              showMore ? 'overflow-scroll' : 'overflow-hidden max-h-[1775px]'
+            }`}
+          >
+            <div className="w-full h-[400px] md:h-[500px] lg:h-[650px] rounded-xl bg-[#F2F2F2] flex justify-center items-center">
+              {isMobile ? (
+                <MobileImageCarousel
+                  selectedProduct={selectedProduct}
+                  productImages={productImages}
+                />
+              ) : (
                 <Image
-                  key={idx}
-                  src={img}
-                  width={200}
-                  height={200}
-                  alt="car cover details"
-                  className={`w-full h-full cursor-pointer object-cover 
+                  id="featured-image"
+                  src={featuredImage ?? ''}
+                  alt="a car with a car cover on it"
+                  width={400}
+                  height={400}
+                  className="w-full h-full md:w-[250px] md:h-[250px] lg:w-[500px] lg:h-[500px]"
+                  // onClick={console.log(selectedImage)}
+                />
+              )}
+            </div>
+
+            {/* Product Video */}
+            <ProductVideo />
+            {/* Gallery Images */}
+            <div className="grid grid-cols-2 w-auto gap-[16px] pt-4 ">
+              {productImages.map((img, idx) => (
+                <div
+                  className="w-full h-auto md:h-[350px] bg-[#F2F2F2] rounded-xl p-3.5 border-transparent"
+                  key={img}
+                >
+                  <Image
+                    key={idx}
+                    src={img}
+                    width={200}
+                    height={200}
+                    alt="car cover details"
+                    className={`w-full h-full cursor-pointer object-contain 
                     // selectedProduct.product?.includes(img)
                     //   ? 'border-4 border-red-600 rounded-lg'
                     //   : ''
                   `}
-                  onClick={() => setFeaturedImage(img)}
-                />
-              </div>
-            ))}
+                    onClick={() => setFeaturedImage(img)}
+                  />
+                </div>
+              ))}
+            </div>
           </div>
-          <DesktopShowMoreCarousel
-            selectedProduct={selectedProduct}
-            modalProductImages={modalProductImages}
-          />
+          <Button
+            className="h-12 w-[216px] mx-auto mt-9 text-lg bg-transparent hover:bg-[#1A1A1A] rounded border border-[#1A1A1A] font-normal text-[#1A1A1A] hover:text-white capitalize"
+            onClick={() => setShowMore((p) => !p)}
+          >
+            {showMore ? 'show less images' : 'show more images'}
+          </Button>
         </div>
 
         {/* Right Panel */}
@@ -167,11 +191,20 @@ function CarSelector({
           <div className=" mt-[29px] border-solid border-2 py-7 px-3 rounded-lg flex flex-col gap-2">
             <h2 className="text-lg md:text-[28px] font-roboto font-extrabold text-[#1A1A1A]">
               {`${selectedProduct?.year_generation}
-                ${selectedProduct?.make} ${selectedProduct?.product_name} ${selectedProduct?.submodel1}`}
+                ${selectedProduct?.make} ${selectedProduct?.product_name} ${
+                selectedProduct?.submodel1 ?? ''
+              }`}
             </h2>
             <div className="flex gap-2 items-center">
               <EditIcon />
-              <p className="underline">Edit Vehicle</p>
+              <Popover>
+                <PopoverTrigger asChild>
+                  <button className="underline">Edit Vehicle</button>
+                </PopoverTrigger>
+                <PopoverContent className="p-5 min-w-[100px] bg-white border border-gray-300 rounded-xl shadow-lg">
+                  <EditVehicleDropdown />
+                </PopoverContent>
+              </Popover>
             </div>
           </div>
           <p className="font-black text-lg text-[#1A1A1A] mt-5 ml-3 ">
@@ -187,7 +220,11 @@ function CarSelector({
               {uniqueColors?.map((sku) => {
                 return (
                   <div
-                    className="flex flex-col justify-center items-center"
+                    className={`flex flex-col justify-center items-center p-1 ${
+                      sku?.display_color === selectedProduct?.display_color
+                        ? 'border-4 border-[#6F6F6F] rounded-lg'
+                        : ''
+                    }`}
                     key={sku?.sku}
                   >
                     <Image
@@ -195,7 +232,7 @@ function CarSelector({
                       width={98}
                       height={98}
                       alt="car cover details"
-                      className={`w-full h-full m-1 border border-gray-300 rounded cursor-pointer`}
+                      className="w-full h-full rounded cursor-pointer bg-[#F2F2F2]"
                       onClick={() => {
                         setFeaturedImage(sku?.feature as string);
                         setSelectedProduct(sku as TProductData);
@@ -221,23 +258,27 @@ function CarSelector({
           )}
           {isReadyForSelection && (
             <div className="grid grid-cols-5 w-auto gap-[7px] px-3">
-              {uniqueTypes.map((type, idx) => {
+              {uniqueTypes.map((sku, idx) => {
                 return (
                   <button
-                    className="flex flex-col justify-center items-center"
-                    key={type?.sku}
+                    className={`flex flex-col justify-center items-center p-1 ${
+                      sku?.display_id === selectedProduct?.display_id
+                        ? 'border-4 border-[#6F6F6F] rounded-lg'
+                        : ''
+                    }`}
+                    key={sku?.sku}
                     onClick={() => {
-                      setFeaturedImage(type?.feature as string);
-                      setSelectedProduct(type as TProductData);
+                      setFeaturedImage(sku?.feature as string);
+                      setSelectedProduct(sku as TProductData);
                     }}
                     // disabled={isOptionDisabled(productOption, 'cover')}
                   >
                     <Image
-                      src={type?.feature as string}
+                      src={sku?.feature as string}
                       width={98}
                       height={98}
                       alt="car cover details"
-                      className={`w-full h-full m-1 border border-gray-300 rounded cursor-pointer`}
+                      className={`w-full h-full rounded cursor-pointer bg-[#F2F2F2]`}
                     />
                   </button>
                 );
@@ -246,27 +287,60 @@ function CarSelector({
           )}
           <Separator className="mt-4 mb-8" />
           {/* Title and Descriptions*/}
-          <div className="grid grid-cols-1 gap-4">
-            <div className="lg:h-20">
-              <h2 className="text-lg md:text-[28px] font-roboto text-[#1A1A1A] pb-4">
-                {`${selectedProduct?.year_generation}
-                ${selectedProduct?.make} ${selectedProduct?.product_name} ${selectedProduct?.display_id}`}
+          <div className="grid grid-cols-1">
+            <div className="flex flex-col gap-0.5">
+              <h2 className="text-lg md:text-[28px] font-roboto font-bold text-[#1A1A1A]">
+                {`${selectedProduct?.display_id}`}
                 &trade; {`${selectedProduct?.display_color}`}
               </h2>
+              <div className="flex items-center gap-1">
+                <Rating
+                  name="read-only"
+                  value={5}
+                  readOnly
+                  style={{
+                    height: '25px',
+                  }}
+                />
+                <Popover>
+                  <PopoverTrigger className="underline text-blue-400">
+                    {reviewCount} ratings
+                  </PopoverTrigger>
+                  <PopoverContent>
+                    <div className=" bg-white border-gray-300 border shadow-lg flex flex-col items-center p-4">
+                      <div className="flex gap-4 items-center">
+                        <p className="text-2xl font-bold">
+                          {avgReviewScore} out of 5
+                        </p>
+                        <Rating
+                          name="read-only"
+                          value={5}
+                          readOnly
+                          style={{
+                            height: '25px',
+                          }}
+                        />
+                      </div>
+                      <button className="underline">
+                        Show all reviews ({reviewData?.length})
+                      </button>
+                    </div>
+                  </PopoverContent>
+                </Popover>
+              </div>
+              <p className="text-gray-500 mb-2">100+ Bought In Past Month</p>
             </div>
-            <div className="grid grid-cols-1 gap-2">
-              <div className="flex flex-start items-center leading-4">
-                <GoDotFill size={10} color="#008000 " />
-                <p className="text-black font-medium text-sm capitalize pl-1">
-                  Full Warranty 7 years
-                </p>
-              </div>
-              <div className="flex flex-start items-center leading-4">
-                <GoDotFill size={10} color="#008000 " />
-                <p className="text-black font-medium text-sm capitalize pl-1">
-                  In Stock
-                </p>
-              </div>
+            <div className="flex flex-start items-center">
+              <GoDotFill size={10} color="#008000 " />
+              <p className="text-black font-medium text-sm capitalize pl-1">
+                Full Warranty 7 years
+              </p>
+            </div>
+            <div className="flex flex-start items-center leading-4">
+              <GoDotFill size={10} color="#008000 " />
+              <p className="text-black font-medium text-sm capitalize pl-1">
+                In Stock
+              </p>
             </div>
           </div>
           {/* Pricing */}
@@ -274,7 +348,7 @@ function CarSelector({
             <div className="grid grid-cols-1">
               <p className="text-dark text-xl md:text-3xl font-bold capitalize relative mb-2.5">
                 ${selectedProduct?.msrp}
-                <span className="text-xl capitalize text-[#D13C3F] font-normal absolute top-0 ml-2.5">
+                <span className="text-xl capitalize text-[#D13C3F] font-normal absolute top ml-2.5">
                   only 3 left
                 </span>
               </p>
@@ -283,7 +357,7 @@ function CarSelector({
                   <span className="text-[#9C9C9C] line-through mr-2">
                     ${selectedProduct?.price}
                   </span>
-                  Save 50% ( $
+                  Save 50% ($
                   {String(
                     Number(selectedProduct?.price) -
                       Number(selectedProduct?.msrp)
