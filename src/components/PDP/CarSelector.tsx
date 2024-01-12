@@ -58,10 +58,13 @@ import {
   AccordionTrigger,
 } from '../ui/accordion';
 
-import DeliveryDate from './components/DeliveryDate';
 import { Car } from 'lucide-react';
 
-
+// TODO: Have a loading component for this
+const DeliveryDate = dynamic(() => import('./components/DeliveryDate'), {
+  loading: () => <span className="font-normal">Loading...</span>,
+  ssr: false,
+});
 const ProductVideo = dynamic(() => import('./ProductVideo'), { ssr: false });
 
 function CarSelector({
