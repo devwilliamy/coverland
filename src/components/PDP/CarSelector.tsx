@@ -57,7 +57,10 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from '../ui/accordion';
+
 import DeliveryDate from './components/DeliveryDate';
+import { Car } from 'lucide-react';
+
 
 const ProductVideo = dynamic(() => import('./ProductVideo'), { ssr: false });
 
@@ -148,7 +151,7 @@ function CarSelector({
   //console.log(selectedProduct);
 
   return (
-    <section className="h-auto w-full max-w-[1440px] mx-auto my-8">
+    <section className="h-auto w-full max-w-[1440px] mx-auto lg:my-8">
       <div className="flex flex-col lg:flex-row justify-between w-full items-start lg:gap-14">
         {isMobile && (
           <div className=" flex flex-col gap-2 z-50">
@@ -199,7 +202,7 @@ function CarSelector({
             </div>
 
             {/* Product Video */}
-            <ProductVideo />
+            {!isMobile && <ProductVideo />}
             {/* Gallery Images */}
             <div className="hidden lg:grid grid-cols-2 w-auto gap-[16px] pt-4 ">
               {productImages.map((img, idx) => (
@@ -261,34 +264,34 @@ function CarSelector({
               {isReadyForSelection && `${selectedProduct?.display_color}`}
             </span>
           </p>
-          {isReadyForSelection && (
-            <div className="grid grid-cols-5 w-auto gap-[7px] px-3 ">
-              {uniqueColors?.map((sku) => {
-                return (
-                  <div
-                    className={`flex flex-col justify-center items-center p-1 ${
-                      sku?.display_color === selectedProduct?.display_color
-                        ? 'border-4 border-[#6F6F6F] rounded-lg'
-                        : ''
-                    }`}
-                    key={sku?.sku}
-                  >
-                    <Image
-                      src={sku?.feature as string}
-                      width={98}
-                      height={98}
-                      alt="car cover details"
-                      className="w-full h-full rounded cursor-pointer bg-[#F2F2F2]"
-                      onClick={() => {
-                        setFeaturedImage(sku?.feature as string);
-                        setSelectedProduct(sku as TProductData);
-                      }}
-                    />
-                  </div>
-                );
-              })}
-            </div>
-          )}
+
+          <div className="grid grid-cols-5 w-auto gap-[7px] px-3 ">
+            {uniqueColors?.map((sku) => {
+              return (
+                <div
+                  className={`flex flex-col justify-center items-center p-1 ${
+                    sku?.display_color === selectedProduct?.display_color
+                      ? 'border-4 border-[#6F6F6F] rounded-lg'
+                      : ''
+                  }`}
+                  key={sku?.sku}
+                >
+                  <Image
+                    src={sku?.feature as string}
+                    width={98}
+                    height={98}
+                    alt="car cover details"
+                    className="w-full h-full rounded cursor-pointer bg-[#F2F2F2]"
+                    onClick={() => {
+                      setFeaturedImage(sku?.feature as string);
+                      setSelectedProduct(sku as TProductData);
+                    }}
+                  />
+                </div>
+              );
+            })}
+          </div>
+
           {isReadyForSelection && (
             <>
               <Separator className="my-4" />
@@ -583,113 +586,117 @@ function CarSelector({
               </div>
             </div>
           </div>
-          <Separator className="my-10" />
+          <Separator className="my-10 hidden lg:block" />
+          <div className="bg-[#F1F1F1] h-10 my-4 w-screen -mx-4 lg:hidden"></div>
           <div className="lg:px-0 pt-4 lg:pt-0">
-            <h3 className=" hidden lg:flexfont-black text-[#1A1A1A] text-xl uppercase mb-[28px]">
+            <h3 className="hidden lg:flex font-black text-[#1A1A1A] text-xl uppercase mb-[28px]">
               car cover features
             </h3>
-            {isMobile && (
-              <Accordion type="single" collapsible>
-                <AccordionItem value="item-1">
-                  <AccordionTrigger className="font-black text-[#1A1A1A] text-xl uppercase mb-[28px]">
-                    car cover features
-                  </AccordionTrigger>
-                  <AccordionContent>
-                    <div className="flex flex-start items-center leading-4 pb-2 ml-2">
-                      <GoDotFill size={10} color="#000000 " />
-                      <p className="text-black font-medium text-lg pl-1 capitalize">
-                        Tailored to your car model
-                      </p>
-                    </div>
-                    <div className="flex flex-start items-center leading-4 pb-2 ml-2">
-                      <GoDotFill size={10} color="#000000 " />
-                      <p className="text-black font-medium text-lg pl-1 capitalize">
-                        all-season waterproof protection
-                      </p>
-                    </div>
-                    <div className="flex flex-start items-center leading-4 pb-2 ml-2">
-                      <GoDotFill size={10} color="#000000 " />
-                      <p className="text-black font-medium text-lg pl-1 capitalize">
-                        Scratchproof, durable & lightweight
-                      </p>
-                    </div>
-                    <div className="flex flex-start items-center leading-4 pb-2 ml-2">
-                      <GoDotFill size={10} color="#000000 " />
-                      <p className="text-black font-medium text-lg pl-1 capitalize">
-                        Soft Inner-lining
-                      </p>
-                    </div>
-                    <div className="flex flex-start items-center leading-4 pb-2 ml-2">
-                      <GoDotFill size={10} color="#000000 " />
-                      <p className="text-black font-medium text-lg pl-1 capitalize">
-                        100% Waterproof - Zero Leaks Guaranteed
-                      </p>
-                    </div>
-                    <div className="flex flex-start items-center leading-4 pb-2 ml-2">
-                      <GoDotFill size={10} color="#000000 " />
-                      <p className="text-black font-medium text-lg pl-1 capitalize">
-                        100% UV Protection
-                      </p>
-                    </div>
-                    <div className="flex flex-start items-center leading-4 pb-2 ml-2">
-                      <GoDotFill size={10} color="#000000 " />
-                      <p className="text-black font-medium text-lg pl-1 capitalize">
-                        Easy On/Off with elastic hems
-                      </p>
-                    </div>
-                    <div className="flex flex-start items-center leading-4 pb-2 ml-2">
-                      <GoDotFill size={10} color="#000000 " />
-                      <p className="text-black font-medium text-lg pl-1 capitalize">
-                        effortless cleaning
-                      </p>
-                    </div>
-                  </AccordionContent>
-                </AccordionItem>
-              </Accordion>
-            )}
-            <div className="flex flex-start items-center leading-4 pb-2 ml-2">
+            <Accordion
+              type="single"
+              defaultValue="item-1"
+              collapsible
+              className="lg:hidden"
+            >
+              <AccordionItem value="item-1">
+                <AccordionTrigger className="!no-underline text-[#1A1A1A] uppercase font-bold text-lg">
+                  Car Cover Features
+                </AccordionTrigger>
+                <AccordionContent>
+                  <div className="flex flex-start items-center leading-4 pb-2 ml-2">
+                    <GoDotFill size={10} color="#000000 " />
+                    <p className="text-black font-medium text-lg pl-1 capitalize">
+                      Tailored to your car model
+                    </p>
+                  </div>
+                  <div className="flex flex-start items-center leading-4 pb-2 ml-2">
+                    <GoDotFill size={10} color="#000000 " />
+                    <p className="text-black font-medium text-lg pl-1 capitalize">
+                      all-season waterproof protection
+                    </p>
+                  </div>
+                  <div className="flex flex-start items-center leading-4 pb-2 ml-2">
+                    <GoDotFill size={10} color="#000000 " />
+                    <p className="text-black font-medium text-lg pl-1 capitalize">
+                      Scratchproof, durable & lightweight
+                    </p>
+                  </div>
+                  <div className="flex flex-start items-center leading-4 pb-2 ml-2">
+                    <GoDotFill size={10} color="#000000 " />
+                    <p className="text-black font-medium text-lg pl-1 capitalize">
+                      Soft Inner-lining
+                    </p>
+                  </div>
+                  <div className="flex flex-start items-center leading-4 pb-2 ml-2">
+                    <GoDotFill size={10} color="#000000 " />
+                    <p className="text-black font-medium text-lg pl-1 capitalize">
+                      100% Waterproof - Zero Leaks Guaranteed
+                    </p>
+                  </div>
+                  <div className="flex flex-start items-center leading-4 pb-2 ml-2">
+                    <GoDotFill size={10} color="#000000 " />
+                    <p className="text-black font-medium text-lg pl-1 capitalize">
+                      100% UV Protection
+                    </p>
+                  </div>
+                  <div className="flex flex-start items-center leading-4 pb-2 ml-2">
+                    <GoDotFill size={10} color="#000000 " />
+                    <p className="text-black font-medium text-lg pl-1 capitalize">
+                      Easy On/Off with elastic hems
+                    </p>
+                  </div>
+                  <div className="flex flex-start items-center leading-4 pb-2 ml-2">
+                    <GoDotFill size={10} color="#000000 " />
+                    <p className="text-black font-medium text-lg pl-1 capitalize">
+                      effortless cleaning
+                    </p>
+                  </div>
+                </AccordionContent>
+              </AccordionItem>
+            </Accordion>
+            <div className="lg:flex hidden flex-start items-center leading-4 pb-2 ml-2">
               <GoDotFill size={10} color="#000000 " />
               <p className="text-black font-medium text-lg pl-1 capitalize">
                 Tailored to your car model
               </p>
             </div>
-            <div className="flex flex-start items-center leading-4 pb-2 ml-2">
+            <div className=" lg:flex hidden flex-start items-center leading-4 pb-2 ml-2">
               <GoDotFill size={10} color="#000000 " />
               <p className="text-black font-medium text-lg pl-1 capitalize">
                 all-season waterproof protection
               </p>
             </div>
-            <div className="flex flex-start items-center leading-4 pb-2 ml-2">
+            <div className="lg:flex hidden flex-start items-center leading-4 pb-2 ml-2">
               <GoDotFill size={10} color="#000000 " />
               <p className="text-black font-medium text-lg pl-1 capitalize">
                 Scratchproof, durable & lightweight
               </p>
             </div>
-            <div className="flex flex-start items-center leading-4 pb-2 ml-2">
+            <div className="lg:flex hidden flex-start items-center leading-4 pb-2 ml-2">
               <GoDotFill size={10} color="#000000 " />
               <p className="text-black font-medium text-lg pl-1 capitalize">
                 Soft Inner-lining
               </p>
             </div>
-            <div className="flex flex-start items-center leading-4 pb-2 ml-2">
+            <div className="lg:flex hidden flex-start items-center leading-4 pb-2 ml-2">
               <GoDotFill size={10} color="#000000 " />
               <p className="text-black font-medium text-lg pl-1 capitalize">
                 100% Waterproof - Zero Leaks Guaranteed
               </p>
             </div>
-            <div className="flex flex-start items-center leading-4 pb-2 ml-2">
+            <div className="lg:flex hidden flex-start items-center leading-4 pb-2 ml-2">
               <GoDotFill size={10} color="#000000 " />
               <p className="text-black font-medium text-lg pl-1 capitalize">
                 100% UV Protection
               </p>
             </div>
-            <div className="flex flex-start items-center leading-4 pb-2 ml-2">
+            <div className="lg:flex hidden flex-start items-center leading-4 pb-2 ml-2">
               <GoDotFill size={10} color="#000000 " />
               <p className="text-black font-medium text-lg pl-1 capitalize">
                 Easy On/Off with elastic hems
               </p>
             </div>
-            <div className="flex flex-start items-center leading-4 pb-2 ml-2">
+            <div className="lg:flex hidden flex-start items-center leading-4 pb-2 ml-2">
               <GoDotFill size={10} color="#000000 " />
               <p className="text-black font-medium text-lg pl-1 capitalize">
                 effortless cleaning
@@ -784,7 +791,7 @@ const MobileImageCarousel = ({
 
   return (
     <Carousel setApi={setApi}>
-      <CarouselContent>
+      <CarouselContent className="p-2">
         <CarouselItem>
           <Image
             src={selectedProduct.feature as string}
@@ -793,6 +800,9 @@ const MobileImageCarousel = ({
             height={500}
             // placeholder="blur"
           />
+        </CarouselItem>
+        <CarouselItem>
+          <ProductVideo />
         </CarouselItem>
         {productImages.map((image, index) => (
           <CarouselItem key={index}>
@@ -806,7 +816,7 @@ const MobileImageCarousel = ({
           </CarouselItem>
         ))}
       </CarouselContent>
-      <div className="flex w-full items-center gap-2 my-1 justify-center">
+      <div className="flex w-full items-center gap-2 justify-center">
         {scrollSnaps.map((_, index) =>
           index === current ? <ActiveDot key={index} /> : <Dot key={index} />
         )}

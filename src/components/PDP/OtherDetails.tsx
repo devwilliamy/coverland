@@ -22,6 +22,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from '../ui/accordion';
+import { useMediaQuery } from '@mantine/hooks';
 
 export function ExtraProductDetails({
   reviewData,
@@ -131,64 +132,133 @@ export function ExtraProductDetails({
           car cover reviews
         </h1>
       </div>
-      <Accordion type="single" collapsible className="w-full">
-        <AccordionItem value="item-1">
-          <AccordionTrigger>Product Details</AccordionTrigger>
-          <AccordionContent>
-            <div ref={pdRef}>
-              <ProductHero />
-              <div className="mt-8 md:mt-18 lg:mt-28">
-                <Video />
-              </div>
-            </div>
-          </AccordionContent>
-        </AccordionItem>
 
-        <AccordionItem value="item-2">
-          <AccordionTrigger>Benefits</AccordionTrigger>
-          <AccordionContent>
-            <div ref={layersRef} className="mt-8 md:mt-18 lg:mt-28">
-              <ClimateCrisis />
-              <NoGarage />
-              <OurCarCovers />
-              <ProductChecklist />
-            </div>
-          </AccordionContent>
-        </AccordionItem>
+      <MobilePDPDetails reviewData={reviewData} />
 
-        <AccordionItem value="item-3">
-          <AccordionTrigger>Specification</AccordionTrigger>
-          <AccordionContent>
-            <div ref={specsRef} className="mt-8 md:mt-18 lg:mt-28">
-              <ProductSpecGrid />
-              <ProductPackage />
-            </div>
-          </AccordionContent>
-        </AccordionItem>
+      <div className="hidden lg:flex lg:flex-col">
+        <div ref={pdRef}>
+          <ProductHero />
+        </div>
+        <div className="mt-8 md:mt-18 lg:mt-28">
+          <Video />
+        </div>
+        <div ref={carCoverRef} className="mt-8 md:mt-18 lg:mt-28">
+          <Layers />
+        </div>
+        <div className="mt-8 md:mt-18 lg:mt-28">
+          <ClimateCrisis />
+        </div>
 
-        <AccordionItem value="item-4">
-          <AccordionTrigger>Q&A</AccordionTrigger>
-          <AccordionContent>
-            <div ref={faqRef} className="mt-8 md:mt-18 lg:mt-28">
-              {/* Content for Q&A Section */}
-            </div>
-          </AccordionContent>
-        </AccordionItem>
-
-        <AccordionItem value="item-5">
-          <AccordionTrigger>Car Cover Instruction</AccordionTrigger>
-          <AccordionContent>
-            <div ref={carCoverRef} className="mt-8 md:mt-18 lg:mt-28">
-              {/* Content for Car Cover Instruction Section */}
-            </div>
-          </AccordionContent>
-        </AccordionItem>
-
-        {/* Additional AccordionItem sections as needed... */}
-      </Accordion>
+        <div className="mt-8 md:mt-18 lg:mt-28">
+          <NoGarage />
+        </div>
+        <div className="mt-8 md:mt-18 lg:mt-28">
+          <OurCarCovers />
+        </div>
+        <div className="mt-8 md:mt-18 lg:mt-28">
+          <ProductChecklist />
+        </div>
+        <div ref={specsRef} className="mt-8 md:mt-18 lg:mt-28">
+          <ProductSpecGrid />
+          <ProductPackage />
+        </div>
+        <div ref={faqRef} className="mt-8 md:mt-18 lg:mt-28">
+          <PDPAccordion />
+        </div>
+        <div className="my-8 md:my-18 lg:my-28">
+          <MoneyBack />
+        </div>
+        <div id="#reviews" className="mt-8 md:mt-18 lg:mt-28">
+          <ReviewSection reviewData={reviewData} />
+        </div>
+      </div>
     </>
   );
 }
+
+const MobilePDPDetails = ({ reviewData }: { reviewData: TReviewData[] }) => {
+  return (
+    <Accordion
+      type="single"
+      collapsible
+      className="w-full lg:hidden font-black text-[#1A1A1A] uppercase"
+      defaultValue="item-6"
+    >
+      <AccordionItem value="item-1">
+        <AccordionTrigger className="uppercase font-black">
+          Product Details
+        </AccordionTrigger>
+        <AccordionContent>
+          <div>
+            <ProductHero />
+            <div className=" md:mt-18 lg:mt-28">
+              <Video />
+            </div>
+          </div>
+        </AccordionContent>
+      </AccordionItem>
+
+      <AccordionItem value="item-2">
+        <AccordionTrigger className="uppercase font-black">
+          Benefits
+        </AccordionTrigger>
+        <AccordionContent>
+          <div className=" md:mt-18 lg:mt-28">
+            <ClimateCrisis />
+            <NoGarage />
+            <OurCarCovers />
+            <ProductChecklist />
+          </div>
+        </AccordionContent>
+      </AccordionItem>
+
+      <AccordionItem value="item-3">
+        <AccordionTrigger className="uppercase font-black">
+          Specification
+        </AccordionTrigger>
+        <AccordionContent>
+          <div className=" md:mt-18 lg:mt-28">
+            <ProductSpecGrid />
+            <ProductPackage />
+          </div>
+        </AccordionContent>
+      </AccordionItem>
+
+      <AccordionItem value="item-4">
+        <AccordionTrigger className="uppercase font-black">
+          Q&A
+        </AccordionTrigger>
+        <AccordionContent>
+          <div className=" md:mt-18 lg:mt-28">
+            {/* Content for Q&A Section */}
+          </div>
+        </AccordionContent>
+      </AccordionItem>
+
+      <AccordionItem value="item-5">
+        <AccordionTrigger className="uppercase font-black">
+          Car Cover Instruction
+        </AccordionTrigger>
+        <AccordionContent>
+          <div className=" md:mt-18 lg:mt-28">
+            {/* Content for Car Cover Instruction Section */}
+          </div>
+        </AccordionContent>
+      </AccordionItem>
+
+      <AccordionItem value="item-6">
+        <AccordionTrigger className="uppercase font-black !no-underline">
+          Car Cover Reviews
+        </AccordionTrigger>
+        <AccordionContent>
+          <div className="lg:mt-28">
+            <ReviewSection reviewData={reviewData} />
+          </div>
+        </AccordionContent>
+      </AccordionItem>
+    </Accordion>
+  );
+};
 
 const StarIcon = () => {
   return (
@@ -196,7 +266,7 @@ const StarIcon = () => {
       viewBox="0 0 59 55"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      className="lg:w-[55px] lg:h-[55px] w-[40px] h-[40px]"
+      className="lg:w-[55px] lg:h-[55px] w-[32px] h-[32px]"
     >
       <path
         id="Star 19"
@@ -215,24 +285,23 @@ const ReviewSection = ({
 }) => {
   const [displayedReviews, setDisplayedReviews] = useState<number>(3);
   if (!reviewData) return null;
-  const starHeightAndWidthSm = '40';
   console.log('reviewData', reviewData);
   console.log(reviewData);
   return (
-    <>
+    <div className="relative py-2">
       <p
-        className="text-black text-center font-black text-xl md:text-3xl lg:text-[42px] mb-5 lg:mb-20 uppercase"
+        className="text-black hidden lg:block text-center font-black text-xl md:text-3xl lg:text-[42px] mb-5 lg:mb-20 uppercase"
         id="reviews"
       >
         Car Cover Reviews
       </p>
       <div className="flex flex-col lg:flex-row justify-around items-center">
-        <div className="flex flex-col items-center">
+        <div className="flex flex-col items-center gap-4">
           <div className="flex items-center gap-2">
             <p className="lg:text-[80px] text-[40px] font-black">4.9</p>
             <p className="lg:mt-11">{reviewData?.length} reviews</p>
           </div>
-          <div className="flex text-yellow-300 h-[60px] items-stretch">
+          <div className="flex text-yellow-300 items-stretch">
             <StarIcon />
             <StarIcon />
             <StarIcon />
@@ -241,7 +310,7 @@ const ReviewSection = ({
           </div>
         </div>
         <div className="flex items-center gap-2 justify-center">
-          <div className="relative w-[75px] h-[75px] lg:w-[135px] lg:h-[135px] z-10">
+          <div className="relative my-3 w-[75px] h-[75px] lg:w-[135px] lg:h-[135px] z-10">
             <svg
               width="137"
               height="135"
@@ -286,7 +355,7 @@ const ReviewSection = ({
             <ReviewCard key={review.id} review={review} />
           ))}
           <button
-            className="text-black max-w-[160px] font-black leading-4 tracking-wide whitespace-nowrap justify-center items-stretch border bg-white hover:bg-black hover:text-white transition-colors duration-150 px-8 py-3.5 rounded-full border-solid border-black"
+            className="text-black max-w-[160px] my-4 font-black leading-4 tracking-wide whitespace-nowrap justify-center items-stretch border bg-white hover:bg-black hover:text-white transition-colors duration-150 px-8 py-3.5 rounded-full border-solid border-black"
             aria-label="View more"
             role="button"
             onClick={() => setDisplayedReviews(displayedReviews + 4)}
@@ -295,42 +364,90 @@ const ReviewSection = ({
           </button>
         </div>
       )}
-    </>
+    </div>
   );
 };
 
 function ReviewCard({ review }: { review: TReviewData }) {
+  const StarIcon = () => {
+    return (
+      <svg
+        viewBox="0 0 59 55"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+        className="lg:w-[55px] lg:h-[55px] w-[25px] h-[25px]"
+      >
+        <path
+          id="Star 19"
+          d="M29.5 1.61804L35.7599 20.884L35.8722 21.2295H36.2354H56.4929L40.1042 33.1365L39.8104 33.35L39.9226 33.6955L46.1825 52.9615L29.7939 41.0545L29.5 40.8409L29.2061 41.0545L12.8175 52.9615L19.0774 33.6955L19.1896 33.35L18.8958 33.1365L2.50715 21.2295H22.7646H23.1279L23.2401 20.884L29.5 1.61804Z"
+          fill="#FFD80E"
+          stroke="#FF9F47"
+        />
+      </svg>
+    );
+  };
+
+  const CheckIcon = () => {
+    return (
+      <svg
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <g id="check_circle">
+          <mask
+            id="mask0_330_1310"
+            maskUnits="userSpaceOnUse"
+            x="0"
+            y="0"
+            width="24"
+            height="24"
+          >
+            <rect id="Bounding box" width="24" height="24" fill="#D9D9D9" />
+          </mask>
+          <g mask="url(#mask0_330_1310)">
+            <path
+              id="check_circle_2"
+              d="M10.6 16.6L17.65 9.55L16.25 8.15L10.6 13.8L7.75 10.95L6.35 12.35L10.6 16.6ZM12 22C10.6167 22 9.31667 21.7375 8.1 21.2125C6.88333 20.6875 5.825 19.975 4.925 19.075C4.025 18.175 3.3125 17.1167 2.7875 15.9C2.2625 14.6833 2 13.3833 2 12C2 10.6167 2.2625 9.31667 2.7875 8.1C3.3125 6.88333 4.025 5.825 4.925 4.925C5.825 4.025 6.88333 3.3125 8.1 2.7875C9.31667 2.2625 10.6167 2 12 2C13.3833 2 14.6833 2.2625 15.9 2.7875C17.1167 3.3125 18.175 4.025 19.075 4.925C19.975 5.825 20.6875 6.88333 21.2125 8.1C21.7375 9.31667 22 10.6167 22 12C22 13.3833 21.7375 14.6833 21.2125 15.9C20.6875 17.1167 19.975 18.175 19.075 19.075C18.175 19.975 17.1167 20.6875 15.9 21.2125C14.6833 21.7375 13.3833 22 12 22Z"
+              fill="#1D8044"
+            />
+          </g>
+        </g>
+      </svg>
+    );
+  };
   return (
     <span className="rounded border self-stretch flex w-full flex-col items-stretch my-5 pl-10 pr-16 py-9 border-solid border-stone-300 max-md:max-w-full max-md:px-5">
-      <div className="text-neutral-700 text-3xl font-bold max-md:max-w-full">
+      <div className="text-neutral-700 normal-case lg:text-3xl text-xl font-bold max-md:max-w-full">
         {review.review_title}
       </div>
-      <div className="flex gap-1 text-yellow-300">
-        <StarIcon height="40" width="40" />
-        <StarIcon height="40" width="40" />
-        <StarIcon height="40" width="40" />
-        <StarIcon height="40" width="40" />
-        <StarIcon height="40" width="40" />
+      <div className="flex gap-1 text-yellow-300 my-2 lg:my-0">
+        <StarIcon />
+        <StarIcon />
+        <StarIcon />
+        <StarIcon />
+        <StarIcon />
       </div>
       <div className="items-stretch flex w-[216px] max-w-full gap-1 mt-5 self-start">
         {/* images go here */}
       </div>
       <div className="flex justify-between">
-        <div className="overflow-hidden text-zinc-900 max-w-[75%] text-lg max-md:max-w-full">
-          Great products with customer service second to none. Attention to
-          detail is extremely impressive.
+        <div className="overflow-hidden text-zinc-900 max-w-[75%] text-base font-normal normal-case max-md:max-w-full">
+          {review.review_description}
         </div>
         {/* <div className="text-neutral-500 text-lg">
           Purchased on date
         </div> */}
       </div>
-      <div className="overflow-hidden text-zinc-900 text-ellipsis whitespace-nowrap text-lg leading-8 mt-24 max-md:max-w-full max-md:mt-10">
+      <div className="overflow-hidden text-zinc-900 text-ellipsis whitespace-nowrap text-base font-normal normal-case leading-8 lg:mt-24 max-md:max-w-full max-md:mt-10">
         {review.review_author}
       </div>
-      <span className="flex items-stretch gap-3 mt-7 self-start">
+      <span className="flex items-center gap-3 lg:mt-7 self-start">
         {/* images go here */}
-
-        <div className="text-zinc-900 text-base font-bold leading-3 self-center grow whitespace-nowrap my-auto">
+        <CheckIcon />
+        <div className="text-zinc-900 my-2 text-md font-bold normal-case leading-3 self-center grow whitespace-nowrap">
           Yes, I would recommend.
         </div>
       </span>
