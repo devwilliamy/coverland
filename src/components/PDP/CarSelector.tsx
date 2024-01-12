@@ -28,7 +28,7 @@ import { generationDefaultCarCovers } from '@/lib/constants';
 import { Card, CardContent, CardHeader, CardTitle } from '../ui/card';
 import AgentProfile from '@/images/PDP/agent_profile.png';
 import { useMediaQuery } from '@mantine/hooks';
-import { ProductVideo } from './ProductVideo';
+// import { ProductVideo } from './ProductVideo';
 import { FolderUpIcon, SecureIcon, ThumbsUpIcon } from './images';
 import { MoneyBackIcon } from './images/MoneyBack';
 import { EditIcon } from './components/icons';
@@ -48,6 +48,10 @@ import {
   CarouselPrevious,
 } from '../ui/carousel';
 import { EditVehicleDropdown } from './EditVehicleDropdown';
+import { ToastAction } from '../ui/toast';
+import dynamic from 'next/dynamic';
+
+const ProductVideo = dynamic(() => import('./ProductVideo'), { ssr: false });
 
 function CarSelector({
   modelData,
@@ -64,12 +68,14 @@ function CarSelector({
   searchParams: TPDPQueryParams;
   reviewData: TReviewData[];
 }) {
-  const initialProduct = modelData.find(
-    (product) =>
-      (product.display_color === 'Black Red Stripe' ||
-        product.display_color === 'Black Gray Stripe') &&
-      generationDefaultCarCovers.includes(product.sku.slice(-6))
-  );
+  const initialProduct =
+    modelData.find((product) => product.display_color === 'Black Red Stripe') ??
+    modelData.find((product) => product.display_color === 'Black Gray Stripe');
+
+  console.log(initialProduct);
+
+  const displays = modelData.map((model) => model.display_color);
+  console.log('displays', displays);
 
   const [selectedProduct, setSelectedProduct] = useState<TProductData>(
     initialProduct ?? modelData[0]
@@ -77,7 +83,6 @@ function CarSelector({
   const [featuredImage, setFeaturedImage] = useState<string>(
     selectedProduct?.feature as string
   );
-  const [showDropdown, setShowDropdown] = useState(false);
   const [showMore, setShowMore] = useState(false);
   const isMobile = useMediaQuery('(max-width: 768px)');
 
@@ -101,15 +106,17 @@ function CarSelector({
   console.log('uniqueCoverColors', uniqueColors);
   console.log('uniqueCoverTypes', uniqueTypes);
 
-  // const handleAddToCart = () => {
-  //   const selectedProduct = displayedProduct;
-  //   if (!selectedProduct) return;
-  //   console.log('running');
-  //   return addToCart({ ...selectedProduct, quantity: 1 });
-  // };
+  const handleAddToCart = () => {
+    if (!selectedProduct) return;
+    console.log('running');
+    return addToCart({ ...selectedProduct, quantity: 1 });
+  };
   console.log(showMore);
 
-  const productImages = selectedProduct?.product?.split(',') ?? [];
+  const productImages =
+    selectedProduct?.product
+      ?.split(',')
+      .filter((img) => img !== featuredImage) ?? [];
   console.log('productImages', productImages);
   const modalProductImages = productImages.slice(5);
   const reviewScore = reviewData?.reduce(
@@ -124,7 +131,28 @@ function CarSelector({
 
   return (
     <section className="h-auto w-full max-w-[1440px] mx-auto my-8">
-      <div className="flex flex-col lg:flex-row justify-between w-full items-start gap-14">
+      <div className="flex flex-col lg:flex-row justify-between w-full items-start lg:gap-14">
+        {isMobile && (
+          <div className=" flex flex-col gap-2 z-50">
+            <h2 className="text-2xl font-roboto font-extrabold text-[#1A1A1A]">
+              {`${selectedProduct?.year_generation}
+                        ${selectedProduct?.make} ${
+                selectedProduct?.product_name
+              } ${selectedProduct?.submodel1 ?? ''}`}
+            </h2>
+            <div className="flex gap-2 items-center z-50">
+              <EditIcon />
+              <Popover>
+                <PopoverTrigger asChild>
+                  <button className="underline">Edit Vehicle</button>
+                </PopoverTrigger>
+                <PopoverContent className="p-5 z-50 min-w-[100px] bg-white border border-gray-300 rounded-xl shadow-lg">
+                  <EditVehicleDropdown />
+                </PopoverContent>
+              </Popover>
+            </div>
+          </div>
+        )}
         {/* Left Panel */}
         <div className=" h-auto w-full lg:w-3/5 flex flex-col justify-center items-stretch pb-8 lg:pb-0 mt-[29px] ">
           {/* Featured Image */}
@@ -155,7 +183,7 @@ function CarSelector({
             {/* Product Video */}
             <ProductVideo />
             {/* Gallery Images */}
-            <div className="grid grid-cols-2 w-auto gap-[16px] pt-4 ">
+            <div className="hidden lg:grid grid-cols-2 w-auto gap-[16px] pt-4 ">
               {productImages.map((img, idx) => (
                 <div
                   className="w-full h-auto md:h-[350px] bg-[#F2F2F2] rounded-xl p-3.5 border-transparent"
@@ -179,7 +207,7 @@ function CarSelector({
             </div>
           </div>
           <Button
-            className="h-12 w-[216px] mx-auto mt-9 text-lg bg-transparent hover:bg-[#1A1A1A] rounded border border-[#1A1A1A] font-normal text-[#1A1A1A] hover:text-white capitalize"
+            className="h-12 w-[216px] mx-auto mt-9 text-lg hidden lg:block bg-transparent hover:bg-[#1A1A1A] rounded border border-[#1A1A1A] font-normal text-[#1A1A1A] hover:text-white capitalize"
             onClick={() => setShowMore((p) => !p)}
           >
             {showMore ? 'show less images' : 'show more images'}
@@ -188,7 +216,7 @@ function CarSelector({
 
         {/* Right Panel */}
         <div className=" h-auto w-full lg:w-2/5 pl-0">
-          <div className=" mt-[29px] border-solid border-2 py-7 px-3 rounded-lg flex flex-col gap-2">
+          <div className=" hidden mt-[29px] border-solid border-2 py-7 px-3 rounded-lg lg:flex flex-col gap-2">
             <h2 className="text-lg md:text-[28px] font-roboto font-extrabold text-[#1A1A1A]">
               {`${selectedProduct?.year_generation}
                 ${selectedProduct?.make} ${selectedProduct?.product_name} ${
@@ -321,9 +349,9 @@ function CarSelector({
                           }}
                         />
                       </div>
-                      <button className="underline">
+                      <Link className="underline" scroll href={'#reviews'}>
                         Show all reviews ({reviewData?.length})
-                      </button>
+                      </Link>
                     </div>
                   </PopoverContent>
                 </Popover>
@@ -447,17 +475,17 @@ function CarSelector({
             ) : (
               <Button
                 className="h-[60px] w-full mt-4 text-lg bg-[#BE1B1B] disabled:bg-[#BE1B1B]"
-                // onClick={() => {
-                //   handleAddToCart();
-                //   toast({
-                //     duration: 3000,
-                //     action: (
-                //       <ToastAction altText="Success" className="w-full">
-                //         Added your item to cart!
-                //       </ToastAction>
-                //     ),
-                //   });
-                // }}
+                onClick={() => {
+                  handleAddToCart();
+                  toast({
+                    duration: 3000,
+                    action: (
+                      <ToastAction altText="Success" className="w-full">
+                        Added your item to cart!
+                      </ToastAction>
+                    ),
+                  });
+                }}
               >
                 Add To Cart
               </Button>
@@ -677,7 +705,7 @@ const MobileImageCarousel = ({
             alt={`Additional images of the ${selectedProduct.display_id} cover`}
             width={500}
             height={500}
-            placeholder="blur"
+            // placeholder="blur"
           />
         </CarouselItem>
         {productImages.map((image, index) => (
@@ -687,7 +715,7 @@ const MobileImageCarousel = ({
               alt={`Additional images of the ${selectedProduct.display_id} cover`}
               width={500}
               height={500}
-              placeholder="blur"
+              // placeholder="blur"
             />
           </CarouselItem>
         ))}

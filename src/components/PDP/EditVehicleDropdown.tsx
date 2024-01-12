@@ -107,7 +107,7 @@ export function EditVehicleDropdown() {
   };
 
   return (
-    <div className="flex gap-2 flex-col items-stretch justify-center relative font-medium w-full *:flex-1 ">
+    <div className="flex gap-2 flex-col items-stretch justify-center relative font-medium w-full *:flex-1 z-100">
       <TypeSearch queryObj={queryObj} />
       <YearSearch queryObj={queryObj} />
       <MakeSearch
@@ -128,7 +128,7 @@ export function EditVehicleDropdown() {
         />
       )}
       <Button
-        className="h-[40px] max-w-[58px] text-lg mx-auto"
+        className="h-[40px] max-w-[px] text-lg mx-auto"
         onClick={handleSubmitDropdown}
       >
         {loading ? (

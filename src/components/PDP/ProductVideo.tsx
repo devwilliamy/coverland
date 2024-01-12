@@ -1,6 +1,6 @@
 'use client';
 
-export function ProductVideo() {
+export default function ProductVideo() {
   return (
     <div
       id="product-video"

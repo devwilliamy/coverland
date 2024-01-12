@@ -107,7 +107,7 @@ export function HeroDropdown() {
   };
 
   return (
-    <div className="flex gap-2 flex-col md:flex-row justify-center relative font-medium w-full px-16 *:flex-1 ">
+    <div className="flex gap-2 flex-col md:flex-row justify-center relative font-medium w-full lg:px-16 *:flex-1 *:py-3 lg:*:py-4 px-4">
       <TypeSearch queryObj={queryObj} />
       <YearSearch queryObj={queryObj} />
       <MakeSearch
@@ -128,7 +128,7 @@ export function HeroDropdown() {
         />
       )}
       <Button
-        className="h-[58px] max-w-[58px] text-lg"
+        className="w-full lg:max-w-[58px] lg:h-[58px] text-lg border border-red-300 lg:border-0"
         onClick={handleSubmitDropdown}
       >
         {loading ? (

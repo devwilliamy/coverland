@@ -25,9 +25,11 @@ import {
 import { TCartItems } from '@/lib/cart/useCart';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useMediaQuery } from '@mantine/hooks';
 
 function Cart() {
   const { cartItems } = useCartContext();
+  const isMobile = useMediaQuery('(max-width: 500px)');
   const cartColor = cartItems.length > 0 ? '#BE1B1B' : '#000000';
 
   return (
@@ -35,7 +37,7 @@ function Cart() {
       <Sheet>
         <SheetTrigger asChild>
           <ShoppingCart
-            size={32}
+            size={isMobile ? 24 : 32}
             color={cartColor}
             className="hover:cursor-pointer"
           />

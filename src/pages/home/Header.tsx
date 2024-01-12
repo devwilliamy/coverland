@@ -34,7 +34,7 @@ const AlgoliaSearchbar = dynamic(
 
 function Header() {
   return (
-    <header className="bg-white flex flex-col items-stretch pt-2.5">
+    <header className="bg-white flex max-w-[1440px] mx-auto flex-col items-stretch lg:ml-auto lg:pt-2.5 w-screen lg:w-auto">
       <section className="flex w-full flex-col items-stretch px-16 max-md:max-w-full max-md:px-5">
         <div className="flex w-full items-center justify-between max-md:max-w-full max-md:flex-wrap">
           <Logo />
@@ -42,7 +42,7 @@ function Header() {
             <Cart />
             {/* <User size={32} /> */}
           </div>
-          <div className="flex w-full items-center self-center relative min-h-[39px] gap-2.5 pt-2.5 pb-1 px-5 max-md:max-w-full max-md:flex-wrap">
+          <div className="flex w-full items-center self-center relative min-h-[39px] gap-2.5 pt-2.5 pb-1 lg:px-5 max-md:max-w-full max-md:flex-wrap">
             <AlgoliaSearchbar />
             {/* <input
               className="relative flex text-lg p-2 bg-gray-100 rounded-2xl leading-6 self-center grow shrink basis-auto my-auto"
@@ -73,10 +73,12 @@ function Header() {
           </div>
         </div> */}
       </section>
-      <div className="text-white text-center w-full  font-bold leading-6 bg-zinc-900 justify-center items-center mt-5 py-3.5 ">
-        <p className="text-lg md:text-xl lg:text-4xl font-bold italic text-[#FF0000] uppercase">
+      <div className="text-white order-first lg:order-none text-center w-full  font-bold leading-6 bg-zinc-900 justify-center items-center lg:mt-5 lg:py-3.5 ">
+        <p className="text-3xl lg:text-4xl font-bold italic text-[#FF0000] uppercase">
           Flash Sale: 50% off{' '}
-          <span className="text-white">sale ends this week! </span>{' '}
+          <span className="text-white hidden lg:inline-block">
+            sale ends this week!{' '}
+          </span>{' '}
         </p>
       </div>
     </header>
