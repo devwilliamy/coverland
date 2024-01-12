@@ -57,6 +57,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from '../ui/accordion';
+import DeliveryDate from './components/DeliveryDate';
 
 const ProductVideo = dynamic(() => import('./ProductVideo'), { ssr: false });
 
@@ -87,10 +88,10 @@ function CarSelector({
         product.year_generation === pathParams.product[2]
     );
 
-  console.log(initialProduct);
+  // console.log(initialProduct);
 
   const displays = modelData.map((model) => model.display_color);
-  console.log('displays', displays);
+  // console.log('displays', displays);
 
   const [selectedProduct, setSelectedProduct] = useState<TProductData>(
     initialProduct ?? modelData[0]
@@ -108,8 +109,8 @@ function CarSelector({
     : pathParams?.product?.length === 3;
 
   const shouldSubmodelDisplay = !!submodels.length && !searchParams?.submodel;
-  console.log('shouldSubmodelDisplay', shouldSubmodelDisplay);
-  console.log(modelData.filter((product) => product.sku.includes('100983')));
+  // console.log('shouldSubmodelDisplay', shouldSubmodelDisplay);
+  // console.log(modelData.filter((product) => product.sku.includes('100983')));
 
   const uniqueColors = Array.from(
     new Set(modelData.map((model) => model.display_color))
@@ -118,8 +119,8 @@ function CarSelector({
   const uniqueTypes = Array.from(
     new Set(modelData.map((model) => model.display_id))
   ).map((type) => modelData.find((model) => model.display_id === type));
-  console.log('uniqueCoverColors', uniqueColors);
-  console.log('uniqueCoverTypes', uniqueTypes);
+  // console.log('uniqueCoverColors', uniqueColors);
+  // console.log('uniqueCoverTypes', uniqueTypes);
 
   const handleAddToCart = () => {
     if (!selectedProduct) return;
@@ -132,7 +133,7 @@ function CarSelector({
     selectedProduct?.product
       ?.split(',')
       .filter((img) => img !== featuredImage) ?? [];
-  console.log('productImages', productImages);
+  //console.log('productImages', productImages);
   const modalProductImages = productImages.slice(5);
   const reviewScore = reviewData?.reduce(
     (acc, review) => acc + Number(review.rating_stars ?? 0),
@@ -142,9 +143,9 @@ function CarSelector({
 
   const avgReviewScore = (reviewScore / reviewCount).toFixed(1);
 
-  console.log(avgReviewScore);
-  console.log(searchParams?.submodel);
-  console.log(selectedProduct);
+  //console.log(avgReviewScore);
+  //console.log(searchParams?.submodel);
+  //console.log(selectedProduct);
 
   return (
     <section className="h-auto w-full max-w-[1440px] mx-auto my-8">
@@ -432,9 +433,7 @@ function CarSelector({
                   </span>
                   <br className="xl:hidden" />
                   <span className="hidden xl:block md:mr-1">-</span>
-                  <span className="font-normal">
-                    Delivery by <span className="uppercase">oct18</span>
-                  </span>
+                  <DeliveryDate />
                 </div>
                 <p className="text-dark text-sm">
                   Order within{' '}
