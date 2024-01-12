@@ -1,7 +1,6 @@
 'use client';
 
 import { DateTime } from 'luxon';
-import { useMounted } from '@/components/hooks/useMount';
 
 const getClientTimeZone = (): string => {
   const timeZoneOffset: number = new Date().getTimezoneOffset();
@@ -69,12 +68,9 @@ const determineDeliveryByDate = (): string => {
 };
 
 export default function DeliveryDate(): JSX.Element {
-  const isMounted = useMounted();
-  return isMounted ? (
+  return (
     <span className="font-normal">
       Delivery by <span className="uppercase">{determineDeliveryByDate()}</span>
     </span>
-  ) : (
-    <span className="font-normal">Loading...</span>
   );
 }
