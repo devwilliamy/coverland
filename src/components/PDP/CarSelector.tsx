@@ -159,7 +159,7 @@ function CarSelector({
             </h2>
             <div className="flex gap-2 items-center z-50">
               <EditIcon />
-              <Popover>
+              <Popover modal={false}>
                 <PopoverTrigger asChild>
                   <button className="underline">Edit Vehicle</button>
                 </PopoverTrigger>
