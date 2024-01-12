@@ -28,15 +28,15 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${roboto.className} ${roboto.variable}`}>
-        <Header />
-        <main className="max-w-[1440px] px-4 lg:px-0 mx-auto">
-          <Providers>
+        <Providers>
+          <Header />
+          <main className="max-w-[1440px] px-4 lg:px-0 mx-auto">
             {children}
             {/* <ReactQueryDevtools initialIsOpen={false} /> */}
             <Toaster />
-          </Providers>
-        </main>
-        <Footer />
+          </main>
+          <Footer />
+        </Providers>
       </body>
     </html>
   );
