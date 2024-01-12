@@ -33,8 +33,9 @@ export function DropdownPDP({
   submodels: string[];
   secondSubmodels: string[];
 }) {
+  if (submodels.length === 0) return null;
   return (
-    <div className="flex flex-col gap-2 md:w-[400px] w-full">
+    <div className="flex flex-col gap-2 w-full ">
       <SubDropdowns
         modelData={modelData}
         submodels={submodels}

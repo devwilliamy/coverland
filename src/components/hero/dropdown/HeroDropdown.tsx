@@ -14,6 +14,7 @@ import {
   TProductData,
   fetchDropdownData,
   fetchModelToDisplay,
+  generatePDPUrl,
 } from '@/lib/db';
 
 export type TQuery = {
@@ -90,20 +91,26 @@ export function HeroDropdown() {
     ),
   ];
 
+  // const handleSubmitDropdown = async () => {
+  //   setLoading(true);
+  //   const response = await fetchDropdownData(
+  //     displayModel?.generation_default ?? String(displayModel?.fk)
+  //   );
+  //   if (response.data) {
+  //     const { product_url_slug, year_generation, submodel1_slug } =
+  //       response.data[0];
+  //     let url = `${product_url_slug}/${year_generation}`;
+  //     if (submodel1_slug) {
+  //       url += `?submodel=${submodel1_slug}`;
+  //     }
+  //     router.push(url);
+  //   }
+  // };
+
   const handleSubmitDropdown = async () => {
     setLoading(true);
-    const response = await fetchDropdownData(
-      displayModel?.generation_default ?? String(displayModel?.fk)
-    );
-    if (response.data) {
-      const { product_url_slug, year_generation, submodel1_slug } =
-        response.data[0];
-      let url = `${product_url_slug}/${year_generation}`;
-      if (submodel1_slug) {
-        url += `?submodel=${submodel1_slug}`;
-      }
-      router.push(url);
-    }
+    const url = await generatePDPUrl({ ...query });
+    router.push(url);
   };
 
   return (

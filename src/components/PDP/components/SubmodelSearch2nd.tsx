@@ -1,5 +1,7 @@
+'use client';
+
 import { TProductData } from '@/lib/db';
-import { Dispatch, SetStateAction, useState } from 'react';
+import { ChangeEvent, Dispatch, SetStateAction, useState } from 'react';
 import { extractUniqueValues } from '../utils';
 import { Button } from '@/components/ui/button';
 import { Check, ChevronDown } from 'lucide-react';
@@ -18,61 +20,35 @@ import {
 import { cn } from '@/lib/utils';
 
 export function SubmodelSearch2nd({
-  setSelectedSubmodel,
+  setSelectedSecondSubmodel,
   modelData,
   submodelParam2nd,
   secondSubmodels,
 }: {
   modelData: TProductData[];
-  setSelectedSubmodel: Dispatch<SetStateAction<string | null>>;
+  setSelectedSecondSubmodel: Dispatch<SetStateAction<string | null>>;
   submodelParam2nd: string | null;
   secondSubmodels: string[];
 }) {
-  const [open, setOpen] = useState(false);
   const [value, setValue] = useState(() => submodelParam2nd ?? '');
 
-  console.log('secondSubmodels', secondSubmodels);
-
+  const handleChange = (event: ChangeEvent<HTMLSelectElement>) => {
+    const newValue = event.target.value;
+    setValue(newValue);
+    setSelectedSecondSubmodel(newValue);
+  };
   return (
-    <Popover open={open} onOpenChange={(open) => setOpen(open)}>
-      <PopoverTrigger asChild>
-        <Button
-          variant="outline"
-          role="combobox"
-          aria-expanded={open}
-          className="w-full h-[60px] justify-between"
-        >
-          {value ? value : 'Select your additional car submodel'}
-          <ChevronDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
-        </Button>
-      </PopoverTrigger>
-      <PopoverContent className="w-[400px] h-[300px] p-0 text-xl">
-        <Command>
-          <CommandInput placeholder="Enter Generation" />
-          <CommandEmpty>No submodel found.</CommandEmpty>
-          <CommandGroup className="overflow-scroll">
-            {secondSubmodels.map((sub) => (
-              <CommandItem
-                key={`generation-${sub}`}
-                value={sub}
-                onSelect={(value) => {
-                  setValue(value);
-                  setOpen(false);
-                  setSelectedSubmodel(value);
-                }}
-              >
-                <Check
-                  className={cn(
-                    'mr-2 h-4 w-4',
-                    value === sub ? 'opacity-100' : 'opacity-0'
-                  )}
-                />
-                {sub}
-              </CommandItem>
-            ))}
-          </CommandGroup>
-        </Command>
-      </PopoverContent>
-    </Popover>
+    <select
+      value={value}
+      onChange={handleChange}
+      className="text-lg rounded-lg py-3 px-2"
+    >
+      <option value="">Select car model</option>
+      {secondSubmodels?.sort()?.map((submodel) => (
+        <option key={`model-${submodel}`} value={submodel}>
+          {submodel}
+        </option>
+      ))}
+    </select>
   );
 }

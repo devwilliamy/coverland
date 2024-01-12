@@ -26,9 +26,9 @@ export function TypeSearch({
     <select
       value={value}
       onChange={handleChange}
-      className="text-lg rounded-lg px-2 py-4 w-full lg:w-auto"
+      className="text-lg rounded-lg px-2 w-full lg:w-auto"
     >
-      <option value="" disabled selected>
+      <option value="" selected>
         Product Type
       </option>
       {types.map((type, i) => (

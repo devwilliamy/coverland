@@ -16,6 +16,12 @@ import { TReviewData } from '@/lib/db';
 import { Rating } from '@mui/material';
 import CircularProgress from '@mui/joy/CircularProgress';
 import { Button } from '../ui/button';
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from '../ui/accordion';
 
 export function ExtraProductDetails({
   reviewData,
@@ -50,9 +56,16 @@ export function ExtraProductDetails({
   const FAQ_ID = 'faq-sec';
   const CAR_COVER_INS_ID = 'car-cover-inst-sec';
 
+  // <AccordionItem value="item-1">
+  //   <AccordionTrigger>Is it accessible?</AccordionTrigger>
+  //   <AccordionContent>
+  //     Yes. It adheres to the WAI-ARIA design pattern.
+  //   </AccordionContent>
+  // </AccordionItem>
+
   return (
     <>
-      <div className="mt-8 md:mt-18 lg:mt-28 py-6 flex flex-col md:flex-row items-stretch gap-4 md:gap-0 md:items-center justify-between flex-wrap border-t border-b border-[#DADADA]">
+      <div className="hidden  mt-8 md:mt-18 lg:mt-28 py-6 lg:flex flex-col md:flex-row items-stretch gap-4 md:gap-0 md:items-center justify-between flex-wrap border-t border-b border-[#DADADA]">
         <h1
           onClick={() => scrollToSection(pdRef, PD_ID)}
           className={`text-lg text-black font-normal capitalize cursor-pointer ${
@@ -118,42 +131,61 @@ export function ExtraProductDetails({
           car cover reviews
         </h1>
       </div>
+      <Accordion type="single" collapsible className="w-full">
+        <AccordionItem value="item-1">
+          <AccordionTrigger>Product Details</AccordionTrigger>
+          <AccordionContent>
+            <div ref={pdRef}>
+              <ProductHero />
+              <div className="mt-8 md:mt-18 lg:mt-28">
+                <Video />
+              </div>
+            </div>
+          </AccordionContent>
+        </AccordionItem>
 
-      <div ref={pdRef}>
-        <ProductHero />
-      </div>
-      <div className="mt-8 md:mt-18 lg:mt-28">
-        <Video />
-      </div>
-      <div ref={carCoverRef} className="mt-8 md:mt-18 lg:mt-28">
-        <Layers />
-      </div>
-      <div className="mt-8 md:mt-18 lg:mt-28">
-        <ClimateCrisis />
-      </div>
+        <AccordionItem value="item-2">
+          <AccordionTrigger>Benefits</AccordionTrigger>
+          <AccordionContent>
+            <div ref={layersRef} className="mt-8 md:mt-18 lg:mt-28">
+              <ClimateCrisis />
+              <NoGarage />
+              <OurCarCovers />
+              <ProductChecklist />
+            </div>
+          </AccordionContent>
+        </AccordionItem>
 
-      <div className="mt-8 md:mt-18 lg:mt-28">
-        <NoGarage />
-      </div>
-      <div className="mt-8 md:mt-18 lg:mt-28">
-        <OurCarCovers />
-      </div>
-      <div className="mt-8 md:mt-18 lg:mt-28">
-        <ProductChecklist />
-      </div>
-      <div ref={specsRef} className="mt-8 md:mt-18 lg:mt-28">
-        <ProductSpecGrid />
-        <ProductPackage />
-      </div>
-      <div ref={faqRef} className="mt-8 md:mt-18 lg:mt-28">
-        <PDPAccordion />
-      </div>
-      <div className="my-8 md:my-18 lg:my-28">
-        <MoneyBack />
-      </div>
-      <div className="my-8 md:my-18 lg:my-28">
-        <ReviewSection reviewData={reviewData} />
-      </div>
+        <AccordionItem value="item-3">
+          <AccordionTrigger>Specification</AccordionTrigger>
+          <AccordionContent>
+            <div ref={specsRef} className="mt-8 md:mt-18 lg:mt-28">
+              <ProductSpecGrid />
+              <ProductPackage />
+            </div>
+          </AccordionContent>
+        </AccordionItem>
+
+        <AccordionItem value="item-4">
+          <AccordionTrigger>Q&A</AccordionTrigger>
+          <AccordionContent>
+            <div ref={faqRef} className="mt-8 md:mt-18 lg:mt-28">
+              {/* Content for Q&A Section */}
+            </div>
+          </AccordionContent>
+        </AccordionItem>
+
+        <AccordionItem value="item-5">
+          <AccordionTrigger>Car Cover Instruction</AccordionTrigger>
+          <AccordionContent>
+            <div ref={carCoverRef} className="mt-8 md:mt-18 lg:mt-28">
+              {/* Content for Car Cover Instruction Section */}
+            </div>
+          </AccordionContent>
+        </AccordionItem>
+
+        {/* Additional AccordionItem sections as needed... */}
+      </Accordion>
     </>
   );
 }

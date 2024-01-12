@@ -1,3 +1,4 @@
+import { slugify } from './../utils';
 import { createClient } from '@supabase/supabase-js';
 import { Database, Enums, Tables } from './types';
 import {
@@ -196,6 +197,52 @@ export async function fetchDropdownData(fkey: string) {
   return modelData;
 }
 
+export async function generatePDPUrl({
+  type,
+  year,
+  make,
+  model,
+  submodel1,
+}: {
+  type: string;
+  year: string;
+  make: string;
+  model: string;
+  submodel1?: string;
+}) {
+  console.log(type, year, make, model, submodel1);
+  let fetch = supabase
+    .from('Products')
+    .select('generation_default, year_generation, fk')
+    .eq('type', type)
+    .eq('make', make)
+    .eq('model', model)
+    .textSearch('year_options', year);
+
+  if (submodel1) {
+    fetch = fetch.eq('submodel1', submodel1);
+  }
+
+  const { data, error } = await fetch;
+  const { generation_default, year_generation, fk } = data?.[0] ?? {};
+  let url;
+
+  const defaultYear = data?.filter(
+    (row) => String(row.fk) === generation_default
+  )?.[0]?.year_generation;
+
+  console.log(defaultYear);
+
+  if (generation_default) {
+    url = `/${slugify(type)}/${slugify(make)}/${slugify(model)}/${defaultYear}`;
+  } else {
+    url = `/${slugify(type)}/${slugify(make)}/${slugify(model)}/${slugify(
+      year_generation
+    )}`;
+  }
+  return url;
+}
+
 export async function fetchModelToDisplay(fk: string) {
   const { data, error } = await supabase
     .from('Products')
@@ -220,8 +267,10 @@ export async function fetchReviewData(
   const submodel1 = queryParams?.submodel;
   const submodel2 = queryParams?.second_submodel;
 
-  const modelDisplayName = modelStrings[model];
-  const makeDisplayName = modelStrings[make];
+  const modelDisplayName = deslugify(model);
+  const makeDisplayName = deslugify(make);
+
+  console.log(modelDisplayName, makeDisplayName);
 
   let fetch = supabase
     .from('Product-Reviews')
@@ -229,18 +278,15 @@ export async function fetchReviewData(
     .eq('model', modelDisplayName)
     .eq('make', makeDisplayName);
 
-  if (year) {
-    fetch = fetch.eq('year_generation', year);
-  }
-
   if (submodel1) {
     const submodelDisplayname = deslugify(submodel1);
-
+    console.log('submodel1', submodel1);
     fetch = fetch.textSearch('submodel1', submodelDisplayname);
   }
 
   if (submodel2) {
     const submodelDisplayname = deslugify(submodel2);
+    console.log('submodel1', submodel2);
 
     fetch = fetch.eq('submodel2', submodelDisplayname);
   }
@@ -249,6 +295,7 @@ export async function fetchReviewData(
   if (error) {
     console.log(error);
   }
+  console.log(data);
 
   if (data?.length) {
     return data;
@@ -263,27 +310,30 @@ export async function fetchPDPDataWithQuery(
 ): Promise<TProductData[] | null> {
   const make = params?.product[0];
   const model = params?.product[1];
-  const year = params?.product[2];
   const submodel1 = queryParams?.submodel;
   const submodel2 = queryParams?.second_submodel;
+  const yearFromPathStart = params?.product[2]?.split('-')[0];
+  const yearFromPathEnd = params?.product[2]?.split('-')[1];
 
   let fetch = supabase
     .from('Products-2024')
-    .select()
+    .select('*')
     .eq('model_slug', model)
     .eq('make_slug', make)
-    .eq('year_generation', year);
+    .or(
+      `year_range.ilike.%${yearFromPathStart}%,year_range.ilike.%${yearFromPathEnd}%`
+    );
 
   if (submodel1) {
     console.log('submodel1', submodel1);
-    fetch = fetch.textSearch('submodel1_slug', submodel1);
+    fetch = fetch.eq('submodel1_slug', submodel1);
   }
 
   if (submodel2) {
     fetch = fetch.textSearch('submodel2_slug', submodel2);
   }
 
-  console.log(make, model, year, submodel1);
+  console.log(make, model, submodel1);
 
   const { data, error } = await fetch;
   console.log(data);

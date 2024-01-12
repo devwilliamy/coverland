@@ -20,6 +20,7 @@ export const slugify = (str: string) =>
     .replace(/^-+|-+$/g, '');
 
 export const deslugify = (slug: string) => {
+  if (typeof slug !== 'string') return;
   return slug
     .replace(/-/g, ' ')
     .trim()
