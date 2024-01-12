@@ -1,23 +1,22 @@
-import { createClient } from "@/lib/db/server";
-import Link from "next/link";
-import { cookies } from "next/headers";
-import { redirect } from "next/navigation";
+import { createSupabaseServerClient } from '@/lib/db/supabaseClients';
+import Link from 'next/link';
+import { cookies } from 'next/headers';
+import { redirect } from 'next/navigation';
+import { ReadonlyRequestCookies } from 'next/dist/server/web/spec-extension/adapters/request-cookies';
+import { SupabaseClient } from '@supabase/supabase-js';
 
 export default async function Profile() {
-    const cookieStore = cookies();
-  const supabase = createClient(cookieStore);
+  const cookieStore: ReadonlyRequestCookies = cookies();
+  const supabase: SupabaseClient = createSupabaseServerClient(cookieStore);
 
   const {
     data: { user },
   } = await supabase.auth.getUser();
 
   const signOut = async () => {
-    "use server";
-
-    const cookieStore = cookies();
-    const supabase = createClient(cookieStore);
+    'use server';
     await supabase.auth.signOut();
-    return redirect("/login");
+    return redirect('/login');
   };
 
   return user ? (
