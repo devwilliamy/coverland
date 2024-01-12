@@ -394,7 +394,12 @@ function CarSelector({
               <p className="text-dark text-xl md:text-3xl font-bold capitalize relative mb-2.5">
                 ${selectedProduct?.msrp}
                 <span className="text-xl capitalize text-[#D13C3F] font-normal absolute top ml-2.5">
-                  only {`${Math.floor(Math.random() * 6) + 2}`} left
+                  only{' '}
+                  {`${Math.max(
+                    2,
+                    Math.min(7, Math.floor(reviewCount / 25) + 2)
+                  )}`}{' '}
+                  left
                 </span>
               </p>
               {selectedProduct?.price && (
