@@ -54,10 +54,10 @@ function Header() {
             {/* <User size={32} /> */}
           </div>
           <div className="flex w-full items-center self-center relative min-h-[39px] gap-2.5 pt-2.5 pb-1 px-5 max-md:max-w-full max-md:flex-wrap">
-            <AlgoliaWrapper>
+            {/* <AlgoliaWrapper>
               <AlgoliaSearchBox setShowHits={setShowHits} />
               {showHits && <SearchHits />}
-            </AlgoliaWrapper>
+            </AlgoliaWrapper> */}
             {/* <input
               className="relative flex text-lg p-2 bg-gray-100 rounded-2xl leading-6 self-center grow shrink basis-auto my-auto"
               aria-label="What vehicle are you looking for?"

@@ -74,11 +74,11 @@ function CheckoutPage() {
       )} */}
       {!!cartItems.length && (
         <div className="flex gap-12">
-          <Table className="mt-4 lg:w-full md:w-8/12">
+          <Table className="mt-4 md:w-8/12 lg:w-full">
             <TableCaption></TableCaption>
             <TableHeader>
               <TableRow>
-                <TableHead className="flex items-center text-3xl font-bold color-black gap-2">
+                <TableHead className="color-black flex items-center gap-2 text-3xl font-bold">
                   Cart
                   <div className="text-xl font-thin">
                     {cartItems.length} Items
@@ -95,9 +95,9 @@ function CheckoutPage() {
               return (
                 <TableBody key={item.sku}>
                   <TableRow>
-                    <TableCell className="flex w-full font-medium text-2xl">
+                    <TableCell className="flex w-full text-2xl font-medium">
                       {/* {`${item.make} ${item.product_name} - ${item.display_id} ${item.display_color}`} */}
-                      <div className="w-3/12 h-9/12 justify-items-center p-2">
+                      <div className="h-9/12 w-3/12 justify-items-center p-2">
                         <Image
                           className="bg-gray-100 p-2"
                           src={item?.feature as string}
@@ -106,7 +106,7 @@ function CheckoutPage() {
                           alt={`The image for a ${item.product_name} car cover`}
                         />
                         <div className="text-xl">Same-Day Shipping</div>
-                        <div className="flex text-xl items-center gap-2">
+                        <div className="flex items-center gap-2 text-xl">
                           <div>Free Delivery</div>
                           <IoInformationCircleOutline />
                         </div>
@@ -122,7 +122,7 @@ function CheckoutPage() {
                         <div className="text-lg font-thin text-gray-500">
                           Color: {item.display_color}
                         </div>
-                        <div className="flex text-lg font-thin text-gray-500 gap-3">
+                        <div className="flex gap-3 text-lg font-thin text-gray-500">
                           <div className="font-bold">Quantity</div>
                           <select className="min-w-[50px]">
                             {/* <option> Delete </option> */}
@@ -137,12 +137,12 @@ function CheckoutPage() {
                           className: 'cursor-pointer',
                         }}
                       >
-                        <div className="flex flex-col w-2/12 h-12/12 text-right justify-between items-end ">
+                        <div className="h-12/12 flex w-2/12 flex-col items-end justify-between text-right ">
                           <div className="">
                             <div className="font-bold">
                               Price: ${item.price}
                             </div>
-                            <div className="text-xl line-through font-thin text-gray-400 decoration-gray-400">
+                            <div className="text-xl font-thin text-gray-400 line-through decoration-gray-400">
                               ${parseInt(item.price) * 2}
                             </div>
                           </div>
@@ -158,10 +158,10 @@ function CheckoutPage() {
           </Table>
           <div className="mt-4 p-2 md:w-4/12">
             <div className="text-3xl font-bold">Summary</div>
-            <div className="text-2xl font-thin mt-[3vh]">
+            <div className="mt-[3vh] text-2xl font-thin">
               Do you have a Promo Code?
             </div>
-            <div className="flex justify-center min-h-[4vh] gap-2 mt-[3vh]">
+            <div className="mt-[3vh] flex min-h-[4vh] justify-center gap-2">
               <input
                 className="w-8/12 rounded border border-gray-400"
                 value={promoCode}
@@ -171,11 +171,11 @@ function CheckoutPage() {
               />
               <div
                 className={`
-                flex text-lg w-4/12 justify-center
-                items-center border border-black
-                font-bold rounded cursor-pointer
-                hover:bg-black hover:text-white
-                transition 100 ease-in-out
+                100 flex w-4/12 cursor-pointer
+                items-center justify-center rounded
+                border border-black text-lg
+                font-bold transition
+                ease-in-out hover:bg-black hover:text-white
                 ${promoError && 'bg-red-600'}
                 `}
                 onClick={() => {
@@ -188,7 +188,7 @@ function CheckoutPage() {
                 Apply
               </div>
             </div>
-            <div className="text-xl font-thin border-b border-grey py-[3vh]">
+            <div className="border-grey border-b py-[3vh] text-xl font-thin">
               <div className="flex justify-between ">
                 <div>Order Subtotal</div>
                 <div>${`${total}.00`}</div>
@@ -198,7 +198,7 @@ function CheckoutPage() {
                 <div>${`${total}.00`}</div>
               </div>
             </div>
-            <div className="flex justify-between text-xl font-thin border-b border-grey py-[3vh]">
+            <div className="border-grey flex justify-between border-b py-[3vh] text-xl font-thin">
               <div>Order Total</div>
               <div>${`${total}.00`}</div>
             </div>
@@ -209,12 +209,12 @@ function CheckoutPage() {
               </Link> */}
             <div
               className="
-                flex flex-col justify-center
-                items-center text-white bg-black
-                min-h-[5vh] text-[2vh] rounded
-                mt-[4vh] cursor-pointer hover:bg-white
-                hover:border-black hover:border 
-                hover:text-black transition 100 ease-in-out
+                100 mt-[4vh] flex
+                min-h-[5vh] cursor-pointer flex-col
+                items-center justify-center rounded
+                bg-black text-[2vh] text-white
+                transition ease-in-out 
+                hover:border hover:border-black hover:bg-white hover:text-black
               "
             >
               CHECKOUT
