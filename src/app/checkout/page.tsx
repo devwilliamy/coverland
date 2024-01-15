@@ -17,7 +17,6 @@ import React, { ChangeEvent, FormEvent, useState } from 'react';
 import Stripe from 'stripe';
 import { loadStripe } from '@stripe/stripe-js';
 import { IoInformationCircleOutline, IoTrashBin } from 'react-icons/io5';
-import { dummyCartData } from '@/lib/constants';
 import Link from 'next/link';
 import { FaRegTrashAlt } from 'react-icons/fa';
 import { IconContext } from 'react-icons';
