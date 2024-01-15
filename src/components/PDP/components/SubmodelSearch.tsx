@@ -30,11 +30,11 @@ export function SubmodelSearch({
 }) {
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState(() => submodelParam ?? '');
-  console.log('modelData', modelData);
+  // console.log('modelData', modelData);
 
   const { uniqueSubmodel1 } = extractUniqueValues(modelData as TProductData[]);
 
-  console.log(uniqueSubmodel1);
+  // console.log(uniqueSubmodel1);
 
   if (uniqueSubmodel1.length < 2) return null;
 

@@ -65,8 +65,8 @@ function CarSelector({
     : pathParams?.product?.length === 3;
 
   const shouldSubmodelDisplay = !!submodels.length && !searchParams?.submodel;
-  console.log('shouldSubmodelDisplay', shouldSubmodelDisplay);
-  console.log(modelData.filter((product) => product.sku.includes('100983')));
+  // console.log('shouldSubmodelDisplay', shouldSubmodelDisplay);
+  // console.log(modelData.filter((product) => product.sku.includes('100983')));
 
   const uniqueColors = Array.from(
     new Set(modelData.map((model) => model.display_color))
@@ -75,8 +75,8 @@ function CarSelector({
   const uniqueTypes = Array.from(
     new Set(modelData.map((model) => model.display_id))
   ).map((type) => modelData.find((model) => model.display_id === type));
-  console.log('uniqueCoverColors', uniqueColors);
-  console.log('uniqueCoverTypes', uniqueTypes);
+  // console.log('uniqueCoverColors', uniqueColors);
+  // console.log('uniqueCoverTypes', uniqueTypes);
 
   // const handleAddToCart = () => {
   //   const selectedProduct = displayedProduct;
@@ -86,32 +86,32 @@ function CarSelector({
   // };
 
   const productImages = selectedProduct?.product?.split(',') ?? [];
-  console.log('productImages', productImages);
+  // console.log('productImages', productImages);
 
   return (
-    <section className="h-auto w-full max-w-[1440px] mx-auto my-8">
-      <div className="flex flex-col lg:flex-row justify-between w-full items-start gap-14">
+    <section className="mx-auto my-8 h-auto w-full max-w-[1440px]">
+      <div className="flex w-full flex-col items-start justify-between gap-14 lg:flex-row">
         {/* Left Panel */}
-        <div className=" h-auto w-full lg:w-3/5 flex flex-col justify-center items-stretch pb-8 lg:pb-0 mt-[29px]">
+        <div className=" mt-[29px] flex h-auto w-full flex-col items-stretch justify-center pb-8 lg:w-3/5 lg:pb-0">
           {/* Featured Image */}
-          <div className="w-full h-[400px] md:h-[500px] lg:h-[650px] rounded-xl bg-[#F2F2F2] flex justify-center items-center">
+          <div className="flex h-[400px] w-full items-center justify-center rounded-xl bg-[#F2F2F2] md:h-[500px] lg:h-[650px]">
             <Image
               id="featured-image"
               src={featuredImage ?? ''}
               alt="a car with a car cover on it"
               width={500}
               height={500}
-              className="w-full h-full md:w-[250px] md:h-[250px] lg:w-[500px] lg:h-[500px]"
+              className="h-full w-full md:h-[250px] md:w-[250px] lg:h-[500px] lg:w-[500px]"
               // onClick={console.log(selectedImage)}
             />
           </div>
           {/* Product Video */}
           <ProductVideo />
           {/* Gallery Images */}
-          <div className="grid grid-cols-2 w-auto gap-[16px] pt-4">
+          <div className="grid w-auto grid-cols-2 gap-[16px] pt-4">
             {productImages.slice(0, 4).map((img, idx) => (
               <div
-                className="w-full h-auto md:h-[350px] bg-[#F2F2F2] rounded-xl p-3.5 border-transparent"
+                className="h-auto w-full rounded-xl border-transparent bg-[#F2F2F2] p-3.5 md:h-[350px]"
                 key={img}
               >
                 <Image
@@ -120,10 +120,10 @@ function CarSelector({
                   width={200}
                   height={200}
                   alt="car cover details"
-                  className={`w-full h-full cursor-pointer object-cover 
-                    // selectedProduct.product?.includes(img)
-                    //   ? 'border-4 border-red-600 rounded-lg'
-                    //   : ''
+                  className={`// selectedProduct.product?.includes(img) // ? 
+                    'border-4 rounded-lg'
+                    //   : '' h-full w-full
+                    cursor-pointer   border-red-600 object-cover
                   `}
                   onClick={() => setFeaturedImage(img)}
                 />
@@ -131,28 +131,28 @@ function CarSelector({
             ))}
           </div>
 
-          <Button className="h-12 w-[216px] mx-auto mt-9 text-lg bg-transparent hover:bg-[#1A1A1A] rounded border border-[#1A1A1A] text-base font-normal text-[#1A1A1A] hover:text-white capitalize">
+          <Button className="mx-auto mt-9 h-12 w-[216px] rounded border border-[#1A1A1A] bg-transparent text-base text-lg font-normal capitalize text-[#1A1A1A] hover:bg-[#1A1A1A] hover:text-white">
             show more images
           </Button>
         </div>
 
         {/* Right Panel */}
-        <div className=" h-auto w-full lg:w-2/5 pl-0">
+        <div className=" h-auto w-full pl-0 lg:w-2/5">
           {/* Color options */}
-          <p className="font-black text-lg text-[#1A1A1A] mb-2 ml-2">
+          <p className="mb-2 ml-2 text-lg font-black text-[#1A1A1A]">
             {isReadyForSelection
               ? `Cover Colors`
               : `Please select your car's details below`}{' '}
-            <span className="font-normal ml-4 text-lg text-[#767676]">
+            <span className="ml-4 text-lg font-normal text-[#767676]">
               {isReadyForSelection && `${selectedProduct?.display_color}`}
             </span>
           </p>
           {isReadyForSelection && (
-            <div className="grid grid-cols-5 w-auto gap-[7px] ">
+            <div className="grid w-auto grid-cols-5 gap-[7px] ">
               {uniqueColors?.map((sku) => {
                 return (
                   <div
-                    className="flex flex-col justify-center items-center"
+                    className="flex flex-col items-center justify-center"
                     key={sku?.sku}
                   >
                     <Image
@@ -160,7 +160,7 @@ function CarSelector({
                       width={98}
                       height={98}
                       alt="car cover details"
-                      className={`w-full h-full m-1 border border-gray-300 rounded cursor-pointer`}
+                      className={`m-1 h-full w-full cursor-pointer rounded border border-gray-300`}
                       onClick={() => {
                         setFeaturedImage(sku?.feature as string);
                         setSelectedProduct(sku as TProductData);
@@ -175,9 +175,9 @@ function CarSelector({
             <>
               {/* <Separator className="my-4" /> */}
               <div className="mt-10">
-                <p className="font-black text-lg text-[#1A1A1A] mb-2 ml-2">
+                <p className="mb-2 ml-2 text-lg font-black text-[#1A1A1A]">
                   Cover Types
-                  <span className="font-normal ml-4 text-lg text-[#767676]">
+                  <span className="ml-4 text-lg font-normal text-[#767676]">
                     {isReadyForSelection && ` ${selectedProduct?.display_id}`}
                   </span>
                 </p>
@@ -185,11 +185,11 @@ function CarSelector({
             </>
           )}
           {isReadyForSelection && (
-            <div className="grid grid-cols-5 w-auto gap-[7px]">
+            <div className="grid w-auto grid-cols-5 gap-[7px]">
               {uniqueTypes.map((type, idx) => {
                 return (
                   <button
-                    className="flex flex-col justify-center items-center"
+                    className="flex flex-col items-center justify-center"
                     key={type?.sku}
                     onClick={() => {
                       setFeaturedImage(type?.feature as string);
@@ -202,33 +202,33 @@ function CarSelector({
                       width={98}
                       height={98}
                       alt="car cover details"
-                      className={`w-full h-full m-1 border border-gray-300 rounded cursor-pointer`}
+                      className={`m-1 h-full w-full cursor-pointer rounded border border-gray-300`}
                     />
                   </button>
                 );
               })}
             </div>
           )}
-          <Separator className="mt-4 mb-8" />
+          <Separator className="mb-8 mt-4" />
           {/* Title and Descriptions*/}
           <div className="grid grid-cols-1 gap-4">
             <div className="lg:h-20">
-              <h2 className="text-lg md:text-[28px] font-black text-[#1A1A1A] pb-4">
+              <h2 className="pb-4 text-lg font-black text-[#1A1A1A] md:text-[28px]">
                 {`${selectedProduct?.year_generation}
                 ${selectedProduct?.make} ${selectedProduct?.product_name} ${selectedProduct?.display_id}`}
                 &trade; {`${selectedProduct?.display_color}`}
               </h2>
             </div>
             <div className="grid grid-cols-1 gap-2">
-              <div className="flex flex-start items-center leading-4">
+              <div className="flex-start flex items-center leading-4">
                 <GoDotFill size={10} color="#008000 " />
-                <p className="text-black font-medium text-sm capitalize pl-1">
+                <p className="pl-1 text-sm font-medium capitalize text-black">
                   Full Warranty 7 years
                 </p>
               </div>
-              <div className="flex flex-start items-center leading-4">
+              <div className="flex-start flex items-center leading-4">
                 <GoDotFill size={10} color="#008000 " />
-                <p className="text-black font-medium text-sm capitalize pl-1">
+                <p className="pl-1 text-sm font-medium capitalize text-black">
                   In Stock
                 </p>
               </div>
@@ -237,15 +237,15 @@ function CarSelector({
           {/* Pricing */}
           <div className="pt-6 md:pt-11">
             <div className="grid grid-cols-1">
-              <p className="text-dark text-xl md:text-3xl font-bold capitalize relative mb-2.5">
+              <p className="text-dark relative mb-2.5 text-xl font-bold capitalize md:text-3xl">
                 ${selectedProduct?.msrp}
-                <span className="text-xl capitalize text-[#D13C3F] font-normal absolute top-0 ml-2.5">
+                <span className="absolute top-0 ml-2.5 text-xl font-normal capitalize text-[#D13C3F]">
                   only 3 left
                 </span>
               </p>
               {selectedProduct?.price && (
-                <p className="text-[#1A1A1A] text-lg md:text-[22px] font-normal">
-                  <span className="text-[#9C9C9C] line-through mr-2">
+                <p className="text-lg font-normal text-[#1A1A1A] md:text-[22px]">
+                  <span className="mr-2 text-[#9C9C9C] line-through">
                     ${selectedProduct?.price}
                   </span>
                   Save 50% ( $
@@ -261,18 +261,18 @@ function CarSelector({
           {/* Product Description */}
           {/* <ProductDropdown dropdownItems={dropdownItems} /> */}
           {/* info stuff */}
-          <div className="flex flex-col justify-start items-start pt-8">
-            <div className="flex flex-row justify-start items-start">
-              <div className="flex flex-col justify-start items-start pt-0 pr-4">
+          <div className="flex flex-col items-start justify-start pt-8">
+            <div className="flex flex-row items-start justify-start">
+              <div className="flex flex-col items-start justify-start pr-4 pt-0">
                 <BsBoxSeam size={20} color="#000" />
               </div>
-              <div className="flex flex-col justify-start items-start w-full md:w-auto">
-                <div className="text-dark text-base md:text-lg capitalize leading-4 xl:flex flex-row justify-start items-center">
-                  <span className="text-base md:text-lg uppercase leading-6 font-bold xl:mr-1">
+              <div className="flex w-full flex-col items-start justify-start md:w-auto">
+                <div className="text-dark flex-row items-center justify-start text-base capitalize leading-4 md:text-lg xl:flex">
+                  <span className="text-base font-bold uppercase leading-6 md:text-lg xl:mr-1">
                     Free shipping
                   </span>
                   <br className="xl:hidden" />
-                  <span className="hidden xl:block md:mr-1">-</span>
+                  <span className="hidden md:mr-1 xl:block">-</span>
                   <span className="font-normal">
                     Delivery by <span className="uppercase">oct18</span>
                   </span>
@@ -281,15 +281,15 @@ function CarSelector({
                   Order within{' '}
                   <span className="text-[#767676]">9 Hours 3 Mins</span>
                 </p>
-                <p className="text-[#1B8500] font-normal text-sm pt-1.5">
+                <p className="pt-1.5 text-sm font-normal text-[#1B8500]">
                   Free Returns for 30 Days
                 </p>
               </div>
             </div>
-            <div className="flex justify-start items-center pt-4">
+            <div className="flex items-center justify-start pt-4">
               <BsGift size={20} color="#000" />
-              <p className="text-[#1A1A1A] text-lg font-normal capitalize ml-4 mr-1">
-                <span className="uppercase font-bold">$30 free</span> value kit
+              <p className="ml-4 mr-1 text-lg font-normal capitalize text-[#1A1A1A]">
+                <span className="font-bold uppercase">$30 free</span> value kit
                 included
               </p>
               <BsInfoCircle size={20} color="#767676" />
@@ -303,9 +303,9 @@ function CarSelector({
             </div>
             {!isReadyForSelection && selectedProduct ? (
               <>
-                <Card className="w-full px-4 py-6 flex flex-col justify-center items-center bg-[#393939]">
+                <Card className="flex w-full flex-col items-center justify-center bg-[#393939] px-4 py-6">
                   <CardHeader>
-                    <CardTitle className="font-black text-white text-base md:text-[22px] uppercase">
+                    <CardTitle className="text-base font-black uppercase text-white md:text-[22px]">
                       select your vehicle
                     </CardTitle>
                   </CardHeader>
@@ -324,7 +324,7 @@ function CarSelector({
                 </Card>
                 <Popover>
                   <PopoverTrigger asChild>
-                    <Button className="h-[35px] md:h-[60px] w-full mt-4 text-lg bg-[#BE1B1B] rounded text-white uppercase font-bold text-base md:text-xl">
+                    <Button className="mt-4 h-[35px] w-full rounded bg-[#BE1B1B] text-base text-lg font-bold uppercase text-white md:h-[60px] md:text-xl">
                       Add To Cart
                     </Button>
                   </PopoverTrigger>
@@ -337,7 +337,7 @@ function CarSelector({
               </>
             ) : (
               <Button
-                className="h-[60px] md:w-[400px] w-full mt-4 text-lg bg-[#BE1B1B] disabled:bg-[#BE1B1B]"
+                className="mt-4 h-[60px] w-full bg-[#BE1B1B] text-lg disabled:bg-[#BE1B1B] md:w-[400px]"
                 // onClick={() => {
                 //   handleAddToCart();
                 //   toast({
@@ -354,15 +354,15 @@ function CarSelector({
               </Button>
             )}
           </div>
-          <div className="pt-5 ml-2">
-            <p className="text-[#1A1A1A] text-base font-normal">
+          <div className="ml-2 pt-5">
+            <p className="text-base font-normal text-[#1A1A1A]">
               As low as <span className="font-black">$32.50/mo</span> with{' '}
               <span className="font-black">PayPal</span>. Check your purchasing
               power.
             </p>
             <Link
               href="#"
-              className="font-normal underline text-[#1A1A1A] text-base capitalize cursor-pointer"
+              className="cursor-pointer text-base font-normal capitalize text-[#1A1A1A] underline"
             >
               learn more
             </Link>
@@ -372,21 +372,21 @@ function CarSelector({
           {/* Selling Attributes */}
           <div className="grid grid-cols-2 gap-4 pb-4">
             <div className="flex flex-row">
-              <div className="rounded-full border border-dark w-10 h-10 flex flex-col justify-center items-center">
+              <div className="border-dark flex h-10 w-10 flex-col items-center justify-center rounded-full border">
                 <ThumbsUpIcon />
               </div>
               <div className="flex flex-col justify-center pl-2">
-                <p className="text-sm text-black font-normal w-20">
+                <p className="w-20 text-sm font-normal text-black">
                   Fit Guaranteed
                 </p>
               </div>
             </div>
             <div className="flex flex-row">
-              <div className="rounded-full border border-dark w-10 h-10 flex flex-col justify-center items-center">
+              <div className="border-dark flex h-10 w-10 flex-col items-center justify-center rounded-full border">
                 <SecureIcon />
               </div>
               <div className="flex flex-col justify-center pl-2">
-                <p className="text-sm text-black font-normal w-24">
+                <p className="w-24 text-sm font-normal text-black">
                   Secure Shopping
                 </p>
               </div>
@@ -394,21 +394,21 @@ function CarSelector({
           </div>
           <div className="grid grid-cols-2 gap-4">
             <div className="flex flex-row">
-              <div className="rounded-full border border-dark w-10 h-10 flex flex-col justify-center items-center">
+              <div className="border-dark flex h-10 w-10 flex-col items-center justify-center rounded-full border">
                 <FolderUpIcon />
               </div>
               <div className="flex flex-col justify-center pl-2">
-                <p className="text-sm text-black font-normal w-24">
+                <p className="w-24 text-sm font-normal text-black">
                   30-Days Free Returns
                 </p>
               </div>
             </div>
             <div className="flex flex-row">
-              <div className="rounded-full border border-dark w-10 h-10 flex flex-col justify-center items-center">
+              <div className="border-dark flex h-10 w-10 flex-col items-center justify-center rounded-full border">
                 <MoneyBackIcon />
               </div>
               <div className="flex flex-col justify-center pl-2">
-                <p className="text-sm text-black font-normal w-24">
+                <p className="w-24 text-sm font-normal text-black">
                   60-Days Full Money Back
                 </p>
               </div>
@@ -416,27 +416,27 @@ function CarSelector({
           </div>
           {/* CSR */}
           <div className="flex flex-row items-center gap-2.5 pt-8">
-            <div className="h-[58px] w-[58px] flex flex-col justify-center items-center">
+            <div className="flex h-[58px] w-[58px] flex-col items-center justify-center">
               <Image
                 src={AgentProfile}
                 alt="agent-profile"
                 width={58}
                 height={58}
-                className="rounded-full w-full h-full"
+                className="h-full w-full rounded-full"
               />
             </div>
-            <div className="flex flex-col justify-center items-start">
-              <p className="text-[#1A1A1A] font-black text-lg">Need Help?</p>
+            <div className="flex flex-col items-start justify-center">
+              <p className="text-lg font-black text-[#1A1A1A]">Need Help?</p>
               <div className="grid grid-cols-2 gap-2">
                 <Link
                   href="tel:1-800-799-5165"
-                  className="text-[#1A1A1A] hover-underline-animation-dark text-lg font-normal"
+                  className="hover-underline-animation-dark text-lg font-normal text-[#1A1A1A]"
                 >
                   1-800-799-5165
                 </Link>
                 <Link
                   href="#"
-                  className="text-[#0C87B8] text-base font-normal underline capitalize"
+                  className="text-base font-normal capitalize text-[#0C87B8] underline"
                 >
                   live chat
                 </Link>
@@ -445,55 +445,55 @@ function CarSelector({
             </div>
           </div>
           <Separator className="my-10" />
-          <div className="lg:px-0 pt-4 lg:pt-0">
-            <h3 className="font-black text-[#1A1A1A] text-xl uppercase mb-[28px]">
+          <div className="pt-4 lg:px-0 lg:pt-0">
+            <h3 className="mb-[28px] text-xl font-black uppercase text-[#1A1A1A]">
               car cover features
             </h3>
-            <div className="flex flex-start items-center leading-4 pb-2 ml-2">
+            <div className="flex-start ml-2 flex items-center pb-2 leading-4">
               <GoDotFill size={10} color="#000000 " />
-              <p className="text-black font-medium text-lg pl-1 capitalize">
+              <p className="pl-1 text-lg font-medium capitalize text-black">
                 Tailored to your car model
               </p>
             </div>
-            <div className="flex flex-start items-center leading-4 pb-2 ml-2">
+            <div className="flex-start ml-2 flex items-center pb-2 leading-4">
               <GoDotFill size={10} color="#000000 " />
-              <p className="text-black font-medium text-lg pl-1 capitalize">
+              <p className="pl-1 text-lg font-medium capitalize text-black">
                 all-season waterproof protection
               </p>
             </div>
-            <div className="flex flex-start items-center leading-4 pb-2 ml-2">
+            <div className="flex-start ml-2 flex items-center pb-2 leading-4">
               <GoDotFill size={10} color="#000000 " />
-              <p className="text-black font-medium text-lg pl-1 capitalize">
+              <p className="pl-1 text-lg font-medium capitalize text-black">
                 Scratchproof, durable & lightweight
               </p>
             </div>
-            <div className="flex flex-start items-center leading-4 pb-2 ml-2">
+            <div className="flex-start ml-2 flex items-center pb-2 leading-4">
               <GoDotFill size={10} color="#000000 " />
-              <p className="text-black font-medium text-lg pl-1 capitalize">
+              <p className="pl-1 text-lg font-medium capitalize text-black">
                 Soft Inner-lining
               </p>
             </div>
-            <div className="flex flex-start items-center leading-4 pb-2 ml-2">
+            <div className="flex-start ml-2 flex items-center pb-2 leading-4">
               <GoDotFill size={10} color="#000000 " />
-              <p className="text-black font-medium text-lg pl-1 capitalize">
+              <p className="pl-1 text-lg font-medium capitalize text-black">
                 100% Waterproof - Zero Leaks Guaranteed
               </p>
             </div>
-            <div className="flex flex-start items-center leading-4 pb-2 ml-2">
+            <div className="flex-start ml-2 flex items-center pb-2 leading-4">
               <GoDotFill size={10} color="#000000 " />
-              <p className="text-black font-medium text-lg pl-1 capitalize">
+              <p className="pl-1 text-lg font-medium capitalize text-black">
                 100% UV Protection
               </p>
             </div>
-            <div className="flex flex-start items-center leading-4 pb-2 ml-2">
+            <div className="flex-start ml-2 flex items-center pb-2 leading-4">
               <GoDotFill size={10} color="#000000 " />
-              <p className="text-black font-medium text-lg pl-1 capitalize">
+              <p className="pl-1 text-lg font-medium capitalize text-black">
                 Easy On/Off with elastic hems
               </p>
             </div>
-            <div className="flex flex-start items-center leading-4 pb-2 ml-2">
+            <div className="flex-start ml-2 flex items-center pb-2 leading-4">
               <GoDotFill size={10} color="#000000 " />
-              <p className="text-black font-medium text-lg pl-1 capitalize">
+              <p className="pl-1 text-lg font-medium capitalize text-black">
                 effortless cleaning
               </p>
             </div>

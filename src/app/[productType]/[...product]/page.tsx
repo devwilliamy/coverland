@@ -41,7 +41,7 @@ export default async function ProductPDP({
 
   if (!productData) return null;
 
-  console.log(productData);
+  // console.log(productData);
 
   const submodels = Array.from(
     new Set(
@@ -59,8 +59,8 @@ export default async function ProductPDP({
     )
   );
 
-  console.log(secondSubmodels);
-  console.log(submodels);
+  // console.log(secondSubmodels);
+  // console.log(submodels);
   const modelData = productData?.filter((item) => item.msrp);
 
   if (modelData.length === 0) {
@@ -78,7 +78,7 @@ export default async function ProductPDP({
       />
       <div
         id="product-details"
-        className="w-full h-auto"
+        className="h-auto w-full"
         // flex flex-col justify-center items-center max-w-[1440px] py-4 lg:py-20 px-4 md:px-20"
       >
         <ExtraProductDetails />
@@ -89,8 +89,8 @@ export default async function ProductPDP({
 
 function BreadCrumbsTitle() {
   return (
-    <div className="w-full mt-8">
-      <h6 className="text-[#343434] text-sm font-normal">Home / Car Covers</h6>
+    <div className="mt-8 w-full">
+      <h6 className="text-sm font-normal text-[#343434]">Home / Car Covers</h6>
     </div>
   );
 }
@@ -163,9 +163,9 @@ const ProductSwatch = () => {
 
   return (
     <div id="productSwatch">
-      <div className="flex flex-start ">
-        <p className="font-bold text-sm text-dark mr-2">Color Option</p>
-        <p className="font-normal text-gray text-sm">Color</p>
+      <div className="flex-start flex ">
+        <p className="text-dark mr-2 text-sm font-bold">Color Option</p>
+        <p className="text-gray text-sm font-normal">Color</p>
       </div>
       {/* <Slider {...settings} className="product-swatch-item">
         {products.map((product, index) => (

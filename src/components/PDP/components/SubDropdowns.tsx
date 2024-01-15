@@ -43,7 +43,7 @@ export default function SubDropdowns({
 
   console.log(searchParams);
 
-  console.log(modelData);
+  // console.log(modelData);
   const yearData = [
     ...new Set(
       modelData
@@ -82,7 +82,7 @@ export default function SubDropdowns({
 
   console.log(pathname);
 
-  console.log(modelData.filter((car) => car?.submodel1));
+  // console.log(modelData.filter((car) => car?.submodel1));
 
   const hasSubmodel = new Set(modelData.map((car) => car?.submodel1)).size > 1;
   console.log(hasSubmodel);

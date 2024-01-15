@@ -8,7 +8,7 @@ export function GooglePayCard() {
       xmlns="http://www.w3.org/2000/svg"
       style={{ filter: 'grayScale(1)' }}
     >
-      <g clip-path="url(#clip0_85_548)">
+      <g clipPath="url(#clip0_85_548)">
         <path
           opacity="0.07"
           d="M40.538 0H4.00817C2.06752 0 0.583496 1.48403 0.583496 3.42468V23.9727C0.583496 25.9134 2.18168 27.3974 4.00817 27.3974H40.538C42.4787 27.3974 43.9627 25.9134 43.9627 23.9727V3.42468C43.9627 1.48403 42.3645 0 40.538 0Z"

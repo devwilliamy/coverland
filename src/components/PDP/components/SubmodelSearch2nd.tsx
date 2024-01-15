@@ -31,7 +31,7 @@ export function SubmodelSearch2nd({
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState(() => submodelParam2nd ?? '');
 
-  console.log('secondSubmodels', secondSubmodels);
+  // console.log('secondSubmodels', secondSubmodels);
 
   return (
     <Popover open={open} onOpenChange={(open) => setOpen(open)}>

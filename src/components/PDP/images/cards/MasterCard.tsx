@@ -8,7 +8,7 @@ export function MasterCard() {
       xmlns="http://www.w3.org/2000/svg"
       style={{ filter: 'grayScale(1)' }}
     >
-      <g clip-path="url(#clip0_85_565)">
+      <g clipPath="url(#clip0_85_565)">
         <path
           opacity="0.07"
           d="M40.8296 0H4.29968C2.35903 0 0.875 1.48403 0.875 3.42468V23.9727C0.875 25.9134 2.47318 27.3974 4.29968 27.3974H40.8296C42.7702 27.3974 44.2542 25.9134 44.2542 23.9727V3.42468C44.2542 1.48403 42.656 0 40.8296 0Z"
