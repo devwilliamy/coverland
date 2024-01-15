@@ -24,7 +24,7 @@ export type TQuery = {
   submodel: string;
 };
 
-export function EditVehicleDropdown() {
+export default function EditVehicleDropdown() {
   const [displayModel, setDisplayModel] = useState<TModelFitData>();
   const [query, setQuery] = useState<TQuery>({
     year: '',

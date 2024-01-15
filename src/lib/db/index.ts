@@ -5,8 +5,9 @@ import {
   TPDPPathParams,
   TPDPQueryParams,
 } from '@/app/[productType]/[...product]/page';
-import { modelStrings } from '../constants';
 import { deslugify } from '../utils';
+import productJson from '@/data/staticGenerationTableData.json';
+import { refreshRoute } from '@/app/[productType]/[...product]/actions';
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL ?? '';
 const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_KEY ?? '';
@@ -35,6 +36,17 @@ export interface TProductsInColumnArgs {
   includes?: {
     [key in keyof TProducts20204]?: TProducts20204[key];
   };
+}
+
+export interface ProductJson {
+  fk: number;
+  generation_default: number;
+  year_generation: string;
+  make: string;
+  model: string;
+  submodel1: string;
+  submodel2: string | null;
+  year_options: string;
 }
 
 //If the table you want to access isn't listed in TableRow,
@@ -175,8 +187,16 @@ export const getGenerationData = async (make: string, model: string) => {
 export async function fetchPDPData(
   pathParams: TPDPPathParams
 ): Promise<TProductData[] | null> {
-  const modelFromPath = pathParams?.product[1];
   const makeFromPath = pathParams?.product[0];
+  const modelFromPath = pathParams?.product[1];
+  const yearFromPath = pathParams?.product[2];
+
+  console.log(
+    makeFromPath,
+    modelFromPath,
+    yearFromPath,
+    pathParams?.product[2]
+  );
 
   const { data, error } = await supabase
     .from('Products-2024')
@@ -184,12 +204,12 @@ export async function fetchPDPData(
     .eq('make_slug', makeFromPath)
     .eq('model_slug', modelFromPath);
 
-  console.log('pdp', data);
-
-  console.log('fetching with path params', data?.length, modelFromPath);
+  console.log(data);
   if (error) {
     console.log(error);
   }
+  refreshRoute('/');
+
   return data;
 }
 
@@ -238,9 +258,10 @@ export async function generatePDPUrl({
   const { generation_default, year_generation, fk } = data?.[0] ?? {};
   let url;
 
-  const defaultYear = data?.filter(
-    (row) => String(row.fk) === generation_default
-  )?.[0]?.year_generation;
+  console.log(data);
+
+  const defaultYear = data?.filter((row) => row.fk === generation_default)?.[0]
+    ?.year_generation;
 
   console.log(defaultYear);
 

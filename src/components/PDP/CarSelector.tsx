@@ -47,9 +47,8 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from '../ui/carousel';
-import { EditVehicleDropdown } from './EditVehicleDropdown';
 import { ToastAction } from '../ui/toast';
-import dynamic from 'next/dynamic';
+import dynamicImport from 'next/dynamic';
 import { type CarouselApi } from '@/components/ui/carousel';
 import {
   Accordion,
@@ -57,9 +56,30 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from '../ui/accordion';
-import { Car } from 'lucide-react';
+import { Car, Edit } from 'lucide-react';
+import { useRouter } from 'next/navigation';
+import { usePathname } from 'next/navigation';
+import { refreshRoute } from '@/app/[productType]/[...product]/actions';
 
-const ProductVideo = dynamic(() => import('./ProductVideo'), { ssr: false });
+const ProductVideo = dynamicImport(() => import('./ProductVideo'), {
+  ssr: false,
+});
+
+const EditVehiclePopover = dynamicImport(
+  () => import('./components/EditVehiclePopover'),
+  {
+    ssr: false,
+  }
+);
+
+const EditVehicleDropdown = dynamicImport(
+  () => import('./EditVehicleDropdown'),
+  {
+    ssr: false,
+  }
+);
+
+export const dynamic = 'force-dynamic';
 
 function CarSelector({
   modelData,
@@ -76,31 +96,30 @@ function CarSelector({
   searchParams: TPDPQueryParams;
   reviewData: TReviewData[];
 }) {
-  const initialProduct =
-    modelData.find(
-      (product) =>
-        product.display_color === 'Black Red Stripe' &&
-        product.year_generation === pathParams.product[2]
-    ) ??
-    modelData.find(
-      (product) =>
-        product.display_color === 'Black Gray Stripe' &&
-        product.year_generation === pathParams.product[2]
-    );
-
-  console.log(initialProduct);
-
   const displays = modelData.map((model) => model.display_color);
   console.log('displays', displays);
 
   const [selectedProduct, setSelectedProduct] = useState<TProductData>(
-    initialProduct ?? modelData[0]
+    modelData[0]
   );
+  console.log(selectedProduct);
   const [featuredImage, setFeaturedImage] = useState<string>(
     selectedProduct?.feature as string
   );
+  const router = useRouter();
+  const path = usePathname();
+
+  useEffect(() => {
+    refreshRoute('/');
+    //eslint-disable-next-line
+    setSelectedProduct(modelData[0]);
+    setFeaturedImage(modelData[0]?.feature as string);
+  }, [path]);
+
   const [showMore, setShowMore] = useState(false);
   const isMobile = useMediaQuery('(max-width: 768px)');
+
+  console.log(selectedProduct);
 
   const { toast } = useToast();
   const { addToCart } = useCartContext();
@@ -110,7 +129,6 @@ function CarSelector({
 
   const shouldSubmodelDisplay = !!submodels.length && !searchParams?.submodel;
   console.log('shouldSubmodelDisplay', shouldSubmodelDisplay);
-  console.log(modelData.filter((product) => product.sku.includes('100983')));
 
   const uniqueColors = Array.from(
     new Set(modelData.map((model) => model.display_color))
@@ -151,25 +169,10 @@ function CarSelector({
     <section className="h-auto w-full max-w-[1440px] mx-auto lg:my-8">
       <div className="flex flex-col lg:flex-row justify-between w-full items-start lg:gap-14">
         {isMobile && (
-          <div className=" flex flex-col gap-2 z-50">
-            <h2 className="text-2xl font-roboto font-extrabold text-[#1A1A1A]">
-              {`${selectedProduct?.year_generation}
-                        ${selectedProduct?.make} ${
-                selectedProduct?.product_name
-              } ${searchParams?.submodel ? selectedProduct?.submodel1 : ''}`}
-            </h2>
-            <div className="flex gap-2 items-center z-50">
-              <EditIcon />
-              <Popover modal={false}>
-                <PopoverTrigger asChild>
-                  <button className="underline">Edit Vehicle</button>
-                </PopoverTrigger>
-                <PopoverContent className="p-5 z-50 min-w-[100px] bg-white border border-gray-300 rounded-xl shadow-lg">
-                  <EditVehicleDropdown />
-                </PopoverContent>
-              </Popover>
-            </div>
-          </div>
+          <EditVehiclePopover
+            selectedProduct={selectedProduct}
+            submodel={searchParams?.submodel}
+          />
         )}
         {/* Left Panel */}
         <div className=" h-auto w-full lg:w-3/5 flex flex-col justify-center items-stretch pb-8 lg:pb-0 mt-[29px] ">

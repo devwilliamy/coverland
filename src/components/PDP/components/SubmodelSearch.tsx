@@ -12,15 +12,18 @@ export function SubmodelSearch({
   modelData,
   submodelParam,
   shouldTriggerSetParams,
+  submodels,
 }: {
   modelData: TProductData[];
   setSelectedSubmodel: Dispatch<SetStateAction<string | null>>;
   submodelParam: string | null;
   shouldTriggerSetParams: boolean;
+  submodels: string[];
 }) {
   const [value, setValue] = useState(() => submodelParam ?? '');
   const pathname = usePathname();
   const router = useRouter();
+  console.log(submodels);
 
   const setSearchParams = (value: string) => {
     const currentParams = new URLSearchParams(window.location.search);
@@ -43,7 +46,7 @@ export function SubmodelSearch({
 
   console.log(shouldTriggerSetParams);
 
-  if (uniqueSubmodel1.length < 2) return null;
+  if (submodels.length < 2) return null;
   const handleChange = (event: ChangeEvent<HTMLSelectElement>) => {
     const newValue = event.target.value;
     setValue(newValue);
@@ -59,7 +62,7 @@ export function SubmodelSearch({
       className="text-lg rounded-lg px-2 py-3"
     >
       <option value="">Select car submodel</option>
-      {uniqueSubmodel1?.sort()?.map((submodel) => (
+      {submodels?.sort()?.map((submodel) => (
         <option key={`model-${submodel}`} value={submodel}>
           {deslugify(submodel)}
         </option>

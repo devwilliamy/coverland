@@ -437,9 +437,9 @@ function ReviewCard({ review }: { review: TReviewData }) {
         <div className="overflow-hidden text-zinc-900 max-w-[75%] text-base font-normal normal-case max-md:max-w-full">
           {review.review_description}
         </div>
-        {/* <div className="text-neutral-500 text-lg">
-          Purchased on date
-        </div> */}
+        <div className="text-neutral-500 text-lg">
+          {new Date(review?.reviewed_at).toLocaleString()}
+        </div>
       </div>
       <div className="overflow-hidden text-zinc-900 text-ellipsis whitespace-nowrap text-base font-normal normal-case leading-8 lg:mt-24 max-md:max-w-full max-md:mt-10">
         {review.review_author}

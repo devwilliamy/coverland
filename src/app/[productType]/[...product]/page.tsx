@@ -1,4 +1,5 @@
 import {
+  ProductJson,
   TProductData,
   TReviewData,
   fetchPDPData,
@@ -8,9 +9,12 @@ import {
 } from '@/lib/db';
 import Image from 'next/image';
 import CarSelector from '@/components/PDP/CarSelector';
-
+import productJson from '@/data/staticGenerationTableData.json';
 import { redirect } from 'next/navigation';
 import { ExtraProductDetails } from '@/components/PDP/OtherDetails';
+import { colorOrder } from '@/lib/constants';
+import { deslugify, slugify } from '@/lib/utils';
+import { refreshRoute } from './actions';
 
 export type TPDPPathParams = { productType: string; product: string[] };
 
@@ -38,13 +42,15 @@ export default async function ProductPDP({
   ) {
     redirect('/404');
   }
-  let productData = [];
+  refreshRoute('/');
 
-  productData = submodelParam
-    ? (await fetchPDPDataWithQuery(searchParams, pathParams)) ?? []
-    : (await fetchPDPData(pathParams)) ?? [];
+  const productData = await fetchPDPData(pathParams);
 
   if (!productData) return null;
+
+  const modelJson = productJson as ProductJson[];
+  const yearFk = modelJson.filter((row) => row.year_generation === year)?.[0]
+    ?.fk;
 
   const reviewData: TReviewData[] | null = await fetchReviewData(
     searchParams,
@@ -53,14 +59,86 @@ export default async function ProductPDP({
   console.log(reviewData);
 
   console.log(productData);
-
-  const submodels = Array.from(
-    new Set(
-      productData
-        ?.map((row) => row.submodel1)
-        .filter((row): row is string => Boolean(row))
-    )
+  console.log(
+    productData.filter((product) => product.submodel1_slug === submodelParam)
   );
+  console.log(submodelParam);
+  console.log(deslugify(submodelParam));
+
+  const initModelData = productData.filter((product) => {
+    const validSubmodelYear = modelJson.filter(
+      (obj) =>
+        obj.generation_default === yearFk &&
+        obj.submodel1.toLowerCase() === deslugify(submodelParam)?.toLowerCase()
+    )[0]?.year_generation;
+    console.log(validSubmodelYear);
+    return (
+      product.year_generation === validSubmodelYear &&
+      product.submodel1_slug === submodelParam
+    );
+  });
+
+  console.log(initModelData);
+
+  let submodels = [];
+
+  const modelData = (() => {
+    if (!submodelParam) {
+      console.log('running with no submodel');
+      return productData
+        ?.filter((item) => item.msrp && item.year_generation === year)
+        .sort((a, b) => {
+          let colorIndexA = colorOrder.indexOf(a.display_color);
+          let colorIndexB = colorOrder.indexOf(b.display_color);
+
+          if (colorIndexA === -1) colorIndexA = Infinity;
+          if (colorIndexB === -1) colorIndexB = Infinity;
+
+          return colorIndexA - colorIndexB;
+        });
+    }
+    if (submodelParam) {
+      console.log('running with a submodel', submodelParam);
+      console.log(initModelData);
+
+      return initModelData.sort((a, b) => {
+        let colorIndexA = colorOrder.indexOf(a.display_color);
+        let colorIndexB = colorOrder.indexOf(b.display_color);
+
+        if (colorIndexA === -1) colorIndexA = Infinity;
+        if (colorIndexB === -1) colorIndexB = Infinity;
+
+        return colorIndexA - colorIndexB;
+      });
+    }
+  })()?.filter((model) => model.msrp && model.price);
+
+  console.log(modelData);
+
+  if (modelData?.length === 0) {
+    redirect('/');
+  }
+
+  if (!submodelParam) {
+    const submodelsOfGeneration = modelJson
+      .filter((model) => model.generation_default === yearFk)
+      .map((model) => model.submodel1);
+    submodels = Array.from(
+      new Set(
+        submodelsOfGeneration.filter((row): row is string => Boolean(row))
+      )
+    );
+  }
+
+  if (submodelParam) {
+    submodels = Array.from(
+      new Set(
+        modelData
+          ?.map((row) => row.submodel1)
+          .filter((row): row is string => Boolean(row))
+      )
+    );
+  }
 
   const secondSubmodels = Array.from(
     new Set(
@@ -70,13 +148,14 @@ export default async function ProductPDP({
     )
   );
 
-  console.log(secondSubmodels);
-  console.log(submodels);
-  const modelData = productData?.filter((item) => item.msrp);
+  // if (submodels?.length === 1) {
+  //   const query = new URLSearchParams(window.location.search);
+  //   query.set('submodel', submodels[0]);
+  //   const newUrl = `${window.location.pathname}?${query.toString()}`;
+  //   redirect(newUrl);
+  // }
 
-  if (modelData.length === 0) {
-    redirect('/');
-  }
+  console.log(secondSubmodels);
 
   return (
     <>
@@ -87,6 +166,7 @@ export default async function ProductPDP({
         submodels={submodels}
         secondSubmodels={secondSubmodels}
         reviewData={reviewData}
+        key={submodelParam ?? ''}
       />
       <div
         id="product-details"

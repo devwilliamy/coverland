@@ -9,18 +9,57 @@ export type Json =
 export interface Database {
   public: {
     Tables: {
+      MakeModelLink: {
+        Row: {
+          created_at: string;
+          id: number;
+          make_id: number | null;
+          model_id: number | null;
+        };
+        Insert: {
+          created_at?: string;
+          id?: number;
+          make_id?: number | null;
+          model_id?: number | null;
+        };
+        Update: {
+          created_at?: string;
+          id?: number;
+          make_id?: number | null;
+          model_id?: number | null;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'MakeModelLink_make_id_fkey';
+            columns: ['make_id'];
+            isOneToOne: false;
+            referencedRelation: 'Vehicle-Makes';
+            referencedColumns: ['id'];
+          },
+          {
+            foreignKeyName: 'MakeModelLink_model_id_fkey';
+            columns: ['model_id'];
+            isOneToOne: false;
+            referencedRelation: 'Vehicle-Models';
+            referencedColumns: ['id'];
+          }
+        ];
+      };
       MakeProductTypeLink: {
         Row: {
+          created_at: string;
           id: number;
           make_id: number | null;
           product_type_id: number | null;
         };
         Insert: {
+          created_at?: string;
           id?: number;
           make_id?: number | null;
           product_type_id?: number | null;
         };
         Update: {
+          created_at?: string;
           id?: number;
           make_id?: number | null;
           product_type_id?: number | null;
@@ -59,16 +98,19 @@ export interface Database {
       };
       MakeYearLink: {
         Row: {
+          created_at: string;
           id: number;
           make_id: number | null;
           year_id: number | null;
         };
         Insert: {
+          created_at?: string;
           id?: number;
           make_id?: number | null;
           year_id?: number | null;
         };
         Update: {
+          created_at?: string;
           id?: number;
           make_id?: number | null;
           year_id?: number | null;
@@ -86,6 +128,42 @@ export interface Database {
             columns: ['year_id'];
             isOneToOne: false;
             referencedRelation: 'Vehicle-Years';
+            referencedColumns: ['id'];
+          }
+        ];
+      };
+      ModelProductTypeLink: {
+        Row: {
+          created_at: string;
+          id: number;
+          model_id: number | null;
+          product_type_id: number | null;
+        };
+        Insert: {
+          created_at?: string;
+          id?: number;
+          model_id?: number | null;
+          product_type_id?: number | null;
+        };
+        Update: {
+          created_at?: string;
+          id?: number;
+          model_id?: number | null;
+          product_type_id?: number | null;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'ModelProductTypeLink_model_id_fkey';
+            columns: ['model_id'];
+            isOneToOne: false;
+            referencedRelation: 'Vehicle-Models';
+            referencedColumns: ['id'];
+          },
+          {
+            foreignKeyName: 'ModelProductTypeLink_product_type_id_fkey';
+            columns: ['product_type_id'];
+            isOneToOne: false;
+            referencedRelation: 'Product-Types';
             referencedColumns: ['id'];
           }
         ];
@@ -113,6 +191,78 @@ export interface Database {
             isOneToOne: false;
             referencedRelation: 'Makes';
             referencedColumns: ['make'];
+          }
+        ];
+      };
+      ModelSubmodelLink: {
+        Row: {
+          created_at: string;
+          id: number;
+          model_id: number | null;
+          submodel_id: number | null;
+        };
+        Insert: {
+          created_at?: string;
+          id?: number;
+          model_id?: number | null;
+          submodel_id?: number | null;
+        };
+        Update: {
+          created_at?: string;
+          id?: number;
+          model_id?: number | null;
+          submodel_id?: number | null;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'ModelSubmodelLink_model_id_fkey';
+            columns: ['model_id'];
+            isOneToOne: false;
+            referencedRelation: 'Vehicle-Models';
+            referencedColumns: ['id'];
+          },
+          {
+            foreignKeyName: 'ModelSubmodelLink_submodel_id_fkey';
+            columns: ['submodel_id'];
+            isOneToOne: false;
+            referencedRelation: 'Vehicle-Submodels';
+            referencedColumns: ['id'];
+          }
+        ];
+      };
+      ModelYearLink: {
+        Row: {
+          created_at: string;
+          id: number;
+          model_id: number | null;
+          year_id: number | null;
+        };
+        Insert: {
+          created_at?: string;
+          id?: number;
+          model_id?: number | null;
+          year_id?: number | null;
+        };
+        Update: {
+          created_at?: string;
+          id?: number;
+          model_id?: number | null;
+          year_id?: number | null;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'ModelYearLink_model_id_fkey';
+            columns: ['model_id'];
+            isOneToOne: false;
+            referencedRelation: 'Vehicle-Models';
+            referencedColumns: ['id'];
+          },
+          {
+            foreignKeyName: 'ModelYearLink_year_id_fkey';
+            columns: ['year_id'];
+            isOneToOne: false;
+            referencedRelation: 'Vehicle-Years';
+            referencedColumns: ['id'];
           }
         ];
       };
@@ -219,6 +369,7 @@ export interface Database {
           review_description: string | null;
           review_image: string | null;
           review_title: string | null;
+          reviewed_at: string | null;
           sku: string | null;
           sku_id: number | null;
           submodel1: string | null;
@@ -238,6 +389,7 @@ export interface Database {
           review_description?: string | null;
           review_image?: string | null;
           review_title?: string | null;
+          reviewed_at?: string | null;
           sku?: string | null;
           sku_id?: number | null;
           submodel1?: string | null;
@@ -257,6 +409,7 @@ export interface Database {
           review_description?: string | null;
           review_image?: string | null;
           review_title?: string | null;
+          reviewed_at?: string | null;
           sku?: string | null;
           sku_id?: number | null;
           submodel1?: string | null;
@@ -380,7 +533,7 @@ export interface Database {
           feature_sp_gr_1to: string | null;
           feature_ss_gr_1to: string | null;
           fk: number;
-          generation_default: string | null;
+          generation_default: number | null;
           listpage_gallery_image: string | null;
           make: string | null;
           make_id: number | null;
@@ -541,7 +694,7 @@ export interface Database {
           feature_sp_gr_1to?: string | null;
           feature_ss_gr_1to?: string | null;
           fk: number;
-          generation_default?: string | null;
+          generation_default?: number | null;
           listpage_gallery_image?: string | null;
           make?: string | null;
           make_id?: number | null;
@@ -702,7 +855,7 @@ export interface Database {
           feature_sp_gr_1to?: string | null;
           feature_ss_gr_1to?: string | null;
           fk?: number;
-          generation_default?: string | null;
+          generation_default?: number | null;
           listpage_gallery_image?: string | null;
           make?: string | null;
           make_id?: number | null;
@@ -780,9 +933,108 @@ export interface Database {
           year_id?: string | null;
           year_options?: string | null;
         };
-        Relationships: [];
+        Relationships: [
+          {
+            foreignKeyName: 'Products_generation_default_fkey';
+            columns: ['generation_default'];
+            isOneToOne: false;
+            referencedRelation: 'product_join_mv';
+            referencedColumns: ['fk'];
+          },
+          {
+            foreignKeyName: 'Products_generation_default_fkey';
+            columns: ['generation_default'];
+            isOneToOne: false;
+            referencedRelation: 'Products';
+            referencedColumns: ['fk'];
+          }
+        ];
       };
       'Products-2024': {
+        Row: {
+          base_sku: string | null;
+          display_color: string | null;
+          display_id: string | null;
+          feature: string | null;
+          generation_end: number | null;
+          generation_start: number | null;
+          make: string | null;
+          make_slug: string | null;
+          model: string | null;
+          model_slug: string | null;
+          msrp: string | null;
+          price: string | null;
+          product: string | null;
+          product_name: string | null;
+          product_type: string | null;
+          product_url_slug: string | null;
+          sku: string;
+          sku_suffix: string | null;
+          submodel1: string | null;
+          submodel1_slug: string | null;
+          submodel2: string | null;
+          submodel2_slug: string | null;
+          type: string | null;
+          year_generation: string | null;
+          year_range: string | null;
+        };
+        Insert: {
+          base_sku?: string | null;
+          display_color?: string | null;
+          display_id?: string | null;
+          feature?: string | null;
+          generation_end?: number | null;
+          generation_start?: number | null;
+          make?: string | null;
+          make_slug?: string | null;
+          model?: string | null;
+          model_slug?: string | null;
+          msrp?: string | null;
+          price?: string | null;
+          product?: string | null;
+          product_name?: string | null;
+          product_type?: string | null;
+          product_url_slug?: string | null;
+          sku: string;
+          sku_suffix?: string | null;
+          submodel1?: string | null;
+          submodel1_slug?: string | null;
+          submodel2?: string | null;
+          submodel2_slug?: string | null;
+          type?: string | null;
+          year_generation?: string | null;
+          year_range?: string | null;
+        };
+        Update: {
+          base_sku?: string | null;
+          display_color?: string | null;
+          display_id?: string | null;
+          feature?: string | null;
+          generation_end?: number | null;
+          generation_start?: number | null;
+          make?: string | null;
+          make_slug?: string | null;
+          model?: string | null;
+          model_slug?: string | null;
+          msrp?: string | null;
+          price?: string | null;
+          product?: string | null;
+          product_name?: string | null;
+          product_type?: string | null;
+          product_url_slug?: string | null;
+          sku?: string;
+          sku_suffix?: string | null;
+          submodel1?: string | null;
+          submodel1_slug?: string | null;
+          submodel2?: string | null;
+          submodel2_slug?: string | null;
+          type?: string | null;
+          year_generation?: string | null;
+          year_range?: string | null;
+        };
+        Relationships: [];
+      };
+      'Products-2024_duplicate': {
         Row: {
           base_sku: string | null;
           display_color: string | null;
@@ -939,37 +1191,76 @@ export interface Database {
       };
       'Vehicle-Makes': {
         Row: {
+          created_at: string;
           default_make_images: string | null;
           id: number;
-          name: string;
+          name: string | null;
         };
         Insert: {
+          created_at?: string;
           default_make_images?: string | null;
           id?: number;
-          name: string;
+          name?: string | null;
         };
         Update: {
+          created_at?: string;
           default_make_images?: string | null;
           id?: number;
-          name?: string;
+          name?: string | null;
         };
         Relationships: [];
       };
       'Vehicle-Models': {
         Row: {
           default_model_images: string | null;
+          fk: string | null;
+          generation_default: string | null;
           id: number;
           name: string | null;
         };
         Insert: {
           default_model_images?: string | null;
+          fk?: string | null;
+          generation_default?: string | null;
           id?: number;
           name?: string | null;
         };
         Update: {
           default_model_images?: string | null;
+          fk?: string | null;
+          generation_default?: string | null;
           id?: number;
           name?: string | null;
+        };
+        Relationships: [];
+      };
+      'Vehicle-Submodels': {
+        Row: {
+          fk: string | null;
+          generation: string | null;
+          generation_default: string | null;
+          id: number;
+          model: string | null;
+          name: string | null;
+          options: string | null;
+        };
+        Insert: {
+          fk?: string | null;
+          generation?: string | null;
+          generation_default?: string | null;
+          id?: number;
+          model?: string | null;
+          name?: string | null;
+          options?: string | null;
+        };
+        Update: {
+          fk?: string | null;
+          generation?: string | null;
+          generation_default?: string | null;
+          id?: number;
+          model?: string | null;
+          name?: string | null;
+          options?: string | null;
         };
         Relationships: [];
       };
@@ -993,7 +1284,185 @@ export interface Database {
       };
     };
     Views: {
-      [_ in never]: never;
+      product_join_mv: {
+        Row: {
+          bannerimage: string | null;
+          bannerimage_m: string | null;
+          color_code_pe_bkgr_str: string | null;
+          color_code_pe_bkrd_str: string | null;
+          color_code_pp_bkgr_2to: string | null;
+          color_code_pp_bkgr_str: string | null;
+          color_code_pp_bkrd_2to: string | null;
+          color_code_pp_bkrd_str: string | null;
+          color_code_pp_grbk_str: string | null;
+          color_code_pp_grbk_tri: string | null;
+          color_code_ps_gr_1to: string | null;
+          color_code_sp_gr_1to: string | null;
+          color_code_ss_gr_1to: string | null;
+          color_url_pe_bkgr_str: string | null;
+          color_url_pe_bkrd_str: string | null;
+          color_url_pp_bkgr_2to: string | null;
+          color_url_pp_bkgr_str: string | null;
+          color_url_pp_bkrd_2to: string | null;
+          color_url_pp_bkrd_str: string | null;
+          color_url_pp_grbk_str: string | null;
+          color_url_pp_grbk_tri: string | null;
+          color_url_ps_gr_1to: string | null;
+          color_url_sp_gr_1to: string | null;
+          color_url_ss_gr_1to: string | null;
+          cover_type_pe_bkgr_str: string | null;
+          cover_type_pe_bkrd_str: string | null;
+          cover_type_pp_bkgr_2to: string | null;
+          cover_type_pp_bkgr_str: string | null;
+          cover_type_pp_bkrd_2to: string | null;
+          cover_type_pp_bkrd_str: string | null;
+          cover_type_pp_grbk_str: string | null;
+          cover_type_pp_grbk_tri: string | null;
+          cover_type_ps_gr_1to: string | null;
+          cover_type_sp_gr_1to: string | null;
+          cover_type_ss_gr_1to: string | null;
+          default_make_images: string | null;
+          default_model_images: string | null;
+          display_color_pe_bkgr_str: string | null;
+          display_color_pe_bkrd_str: string | null;
+          display_color_pp_bkgr_2to: string | null;
+          display_color_pp_bkgr_str: string | null;
+          display_color_pp_bkrd_2to: string | null;
+          display_color_pp_bkrd_str: string | null;
+          display_color_pp_grbk_str: string | null;
+          display_color_pp_grbk_tri: string | null;
+          display_color_ps_gr_1to: string | null;
+          display_color_sp_gr_1to: string | null;
+          display_color_ss_gr_1to: string | null;
+          display_id_pe_bkgr_str: string | null;
+          display_id_pe_bkrd_str: string | null;
+          display_id_pp_bkgr_2to: string | null;
+          display_id_pp_bkgr_str: string | null;
+          display_id_pp_bkrd_2to: string | null;
+          display_id_pp_bkrd_str: string | null;
+          display_id_pp_grbk_str: string | null;
+          display_id_pp_grbk_tri: string | null;
+          display_id_ps_gr_1to: string | null;
+          display_id_sp_gr_1to: string | null;
+          display_id_ss_gr_1to: string | null;
+          display_quantity_pe_bkgr_str: string | null;
+          display_quantity_pe_bkrd_str: string | null;
+          display_quantity_pp_bkgr_2to: string | null;
+          display_quantity_pp_bkgr_str: string | null;
+          display_quantity_pp_bkrd_2to: string | null;
+          display_quantity_pp_bkrd_str: string | null;
+          display_quantity_pp_grbk_str: string | null;
+          display_quantity_pp_grbk_tri: string | null;
+          display_quantity_ps_gr_1to: string | null;
+          display_quantity_sp_gr_1to: string | null;
+          display_quantity_ss_gr_1to: string | null;
+          feature_pe_bkgr_str: string | null;
+          feature_pe_bkrd_str: string | null;
+          feature_pp_bkgr_2to: string | null;
+          feature_pp_bkgr_str: string | null;
+          feature_pp_bkrd_2to: string | null;
+          feature_pp_bkrd_str: string | null;
+          feature_pp_grbk_str: string | null;
+          feature_pp_grbk_tri: string | null;
+          feature_ps_gr_1to: string | null;
+          feature_sp_gr_1to: string | null;
+          feature_ss_gr_1to: string | null;
+          fk: number | null;
+          generation_default: number | null;
+          listpage_gallery_image: string | null;
+          make: string | null;
+          make_id: number | null;
+          mirror: string | null;
+          model: string | null;
+          model_id: string | null;
+          msrp_pe_bkgr_str: string | null;
+          msrp_pe_bkrd_str: string | null;
+          msrp_pp_bkgr_2to: string | null;
+          msrp_pp_bkgr_str: number | null;
+          msrp_pp_bkrd_2to: string | null;
+          msrp_pp_bkrd_str: string | null;
+          msrp_pp_grbk_str: string | null;
+          msrp_pp_grbk_tri: string | null;
+          msrp_ps_gr_1to: number | null;
+          msrp_sp_gr_1to: number | null;
+          msrp_ss_gr_1to: number | null;
+          OR: string | null;
+          price_pe_bkgr_str: string | null;
+          price_pe_bkrd_str: string | null;
+          price_pp_bkgr_2to: string | null;
+          price_pp_bkgr_str: number | null;
+          price_pp_bkrd_2to: string | null;
+          price_pp_bkrd_str: string | null;
+          price_pp_grbk_str: string | null;
+          price_pp_grbk_tri: string | null;
+          price_ps_gr_1to: number | null;
+          price_sp_gr_1to: string | null;
+          price_ss_gr_1to: string | null;
+          product_pe_bkgr_str: string | null;
+          product_pe_bkrd_str: string | null;
+          product_pp_bkgr_2to: string | null;
+          product_pp_bkgr_str: string | null;
+          product_pp_bkrd_2to: string | null;
+          product_pp_bkrd_str: string | null;
+          product_pp_grbk_str: string | null;
+          product_pp_grbk_tri: string | null;
+          product_ps_gr_1to: string | null;
+          product_sp_gr_1to: string | null;
+          product_ss_gr_1to: string | null;
+          quantity_pe_bkgr_str: string | null;
+          quantity_pe_bkrd_str: string | null;
+          quantity_pp_bkgr_2to: string | null;
+          quantity_pp_bkgr_str: string | null;
+          quantity_pp_bkrd_2to: string | null;
+          quantity_pp_bkrd_str: string | null;
+          quantity_pp_grbk_str: string | null;
+          quantity_pp_grbk_tri: string | null;
+          quantity_ps_gr_1to: string | null;
+          quantity_sp_gr_1to: string | null;
+          quantity_ss_gr_1to: string | null;
+          Size: string | null;
+          SKU_pe_bkgr_str: string | null;
+          SKU_pe_bkrd_str: string | null;
+          SKU_pp_bkgr_2to: string | null;
+          SKU_pp_bkgr_str: string | null;
+          SKU_pp_bkrd_2to: string | null;
+          SKU_pp_bkrd_str: string | null;
+          SKU_pp_grbk_str: string | null;
+          SKU_pp_grbk_tri: string | null;
+          SKU_ps_gr_1to: string | null;
+          SKU_sp_gr_1to: string | null;
+          SKU_ss_gr_1to: string | null;
+          sub1_id: string | null;
+          sub2_id: string | null;
+          sub3_id: string | null;
+          submodel1: string | null;
+          submodel2: string | null;
+          submodel3: string | null;
+          type: string | null;
+          uc_description: string | null;
+          uc_image_link: string | null;
+          uc_title: string | null;
+          year_generation: string | null;
+          year_id: string | null;
+          year_options: string | null;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'Products_generation_default_fkey';
+            columns: ['generation_default'];
+            isOneToOne: false;
+            referencedRelation: 'Products';
+            referencedColumns: ['fk'];
+          },
+          {
+            foreignKeyName: 'Products_generation_default_fkey';
+            columns: ['generation_default'];
+            isOneToOne: false;
+            referencedRelation: 'product_join_mv';
+            referencedColumns: ['fk'];
+          }
+        ];
+      };
     };
     Functions: {
       get_car_covers: {
@@ -1001,6 +1470,36 @@ export interface Database {
         Returns: {
           make: string;
           models: string[];
+        }[];
+      };
+      get_joined_products: {
+        Args: Record<PropertyKey, never>;
+        Returns: {
+          fk: number;
+          generation_default: number;
+          year_generation: string;
+          make: string;
+          model: string;
+          submodel1: string;
+          submodel2: string;
+          SKU_pe_bkgr_str: string;
+          SKU_pe_bkrd_str: string;
+          SKU_pp_bkgr_str: string;
+          SKU_pp_bkrd_str: string;
+          SKU_pp_bkrd_2to: string;
+          SKU_pp_grbk_tri: string;
+          SKU_pp_grbk_str: string;
+          SKU_ps_gr_1to: string;
+          SKU_sp_gr_1to: string;
+          SKU_ss_gr_1to: string;
+          SKU_pp_bkgr_2to: string;
+        }[];
+      };
+      join_products: {
+        Args: Record<PropertyKey, never>;
+        Returns: {
+          product1: string;
+          product2: string;
         }[];
       };
     };

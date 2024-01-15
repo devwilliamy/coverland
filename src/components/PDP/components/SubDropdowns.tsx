@@ -11,6 +11,7 @@ import { extractUniqueValues } from '../utils';
 import { SubmodelSearch } from './SubmodelSearch';
 import { YearSearch } from './YearSearch';
 import { SubmodelSearch2nd } from './SubmodelSearch2nd';
+import { refreshRoute } from '@/app/[productType]/[...product]/actions';
 
 export default function SubDropdowns({
   modelData,
@@ -75,26 +76,14 @@ export default function SubDropdowns({
     }
 
     console.log(`${pathname}?${currentParams.toString()}`);
-
+    refreshRoute('/');
     router.push(`${pathname}?${currentParams.toString()}`);
+    // refreshRoute(`${pathname}?${currentParams.toString()}`);
   };
 
-  console.log(selectedSubmodel);
-
-  console.log(pathname);
-
-  console.log(modelData.filter((car) => car?.submodel1));
-
   const hasSubmodel = new Set(modelData.map((car) => car?.submodel1)).size > 1;
-  console.log(hasSubmodel);
   const hasSecondSubModel =
-    modelData.filter((car) => car?.submodel2).length > 0;
-
-  console.log(hasSecondSubModel);
-
-  console.log(secondSubmodels);
-
-  console.log(selectedSubmodel);
+    modelData.filter((car) => car?.submodel2).length > 1;
 
   if (submodelParam) return null;
 
@@ -116,6 +105,7 @@ export default function SubDropdowns({
           {!!submodels.length && (
             <SubmodelSearch
               modelData={modelData}
+              submodels={submodels}
               setSelectedSubmodel={setSelectedSubmodel}
               submodelParam={submodelParam}
               shouldTriggerSetParams={shouldTriggerSetParams}

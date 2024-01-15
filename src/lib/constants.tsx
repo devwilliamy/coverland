@@ -933,3 +933,17 @@ export const typeOrder = [
   'Standard Pro',
   'Standard',
 ];
+
+export const skuTypes = [
+  'SKU_pe_bkgr_str',
+  'SKU_pe_bkrd_str',
+  'SKU_pp_bkgr_str',
+  'SKU_pp_bkrd_str',
+  'SKU_pp_grbk_str',
+  'SKU_pp_bkgr_2to',
+  'SKU_pp_bkrd_2to',
+  'SKU_pp_grbk_tri',
+  'SKU_ps_gr_1to',
+  'SKU_sp_gr_1to',
+  'SKU_ss_gr_1to',
+];
