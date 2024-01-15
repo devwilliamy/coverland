@@ -4,7 +4,7 @@ import { TProductData } from '@/lib/db';
 import { ChangeEvent, Dispatch, SetStateAction, useState } from 'react';
 import { extractUniqueValues } from '../utils';
 import { usePathname } from 'next/navigation';
-import { slugify } from '@/lib/utils';
+import { deslugify, slugify } from '@/lib/utils';
 import { useRouter } from 'next/navigation';
 
 export function SubmodelSearch({
@@ -58,10 +58,10 @@ export function SubmodelSearch({
       onChange={handleChange}
       className="text-lg rounded-lg px-2 py-3"
     >
-      <option value="">Select car model</option>
+      <option value="">Select car submodel</option>
       {uniqueSubmodel1?.sort()?.map((submodel) => (
         <option key={`model-${submodel}`} value={submodel}>
-          {submodel}
+          {deslugify(submodel)}
         </option>
       ))}
     </select>

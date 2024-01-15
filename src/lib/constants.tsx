@@ -916,3 +916,20 @@ export const generationDefaultKeys = [
 export const generationDefaultCarCovers = generationDefaultKeys.filter((key) =>
   key.startsWith('1')
 );
+
+export const colorOrder = [
+  'Black Red Stripe',
+  'Black Gray Stripe',
+  'Gray Black Stripe',
+  'Black Gray 2-Tone',
+  'Black Red 2-Tone',
+  'Gray Black Tribe',
+  'Solid Gray',
+];
+
+export const typeOrder = [
+  'Premium Plus',
+  'Premium',
+  'Standard Pro',
+  'Standard',
+];

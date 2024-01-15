@@ -154,24 +154,35 @@ export const getAllDefaultGenerations = async () => {
   return set;
 };
 
+export const getGenerationData = async (make: string, model: string) => {
+  let fetch = supabase
+    .from('Products')
+    .select(
+      `fk,generation_default,year_generation,submodel1,submodel2,SKU_pe_bkgr_str,SKU_pe_bkrd_str,SKU_pp_bkgr_str,SKU_pp_bkrd_str,SKU_pp_grbk_str,SKU_pp_bkgr_2to,SKU_pp_bkrd_2to,SKU_pp_grbk_tri,SKU_ps_gr_1to,SKU_sp_gr_1to,SKU_ss_gr_1to`
+    )
+    .textSearch('make', make)
+    .textSearch('model', model);
+
+  const { data, error } = await fetch;
+
+  if (error) {
+    console.log(error);
+  }
+
+  return data;
+};
+
 export async function fetchPDPData(
   pathParams: TPDPPathParams
 ): Promise<TProductData[] | null> {
   const modelFromPath = pathParams?.product[1];
   const makeFromPath = pathParams?.product[0];
-  const yearFromPathStart = pathParams?.product[2]?.split('-')[0];
-  const yearFromPathEnd = pathParams?.product[2]?.split('-')[1];
-
-  console.log(modelFromPath, makeFromPath, yearFromPathStart, yearFromPathEnd);
 
   const { data, error } = await supabase
     .from('Products-2024')
     .select('*')
     .eq('make_slug', makeFromPath)
-    .eq('model_slug', modelFromPath)
-    .or(
-      `year_range.ilike.%${yearFromPathStart}%,year_range.ilike.%${yearFromPathEnd}%`
-    );
+    .eq('model_slug', modelFromPath);
 
   console.log('pdp', data);
 
