@@ -455,7 +455,7 @@ function CarSelector({
                 <span className="uppercase font-bold">$30 free</span> value kit
                 included
               </p>
-              <BsInfoCircle size={20} color="#767676" />
+              {/* <BsInfoCircle size={20} color="#767676" /> */}
             </div>
             <div className="mt-8 w-full">
               <DropdownPDP
@@ -498,7 +498,7 @@ function CarSelector({
               </Button>
             )}
           </div>
-          <div className="pt-5 ml-2">
+          {/* <div className="pt-5 ml-2">
             <p className="text-[#1A1A1A] text-base font-normal">
               As low as <span className="font-black">$32.50/mo</span> with{' '}
               <span className="font-black">PayPal</span>. Check your purchasing
@@ -510,7 +510,7 @@ function CarSelector({
             >
               learn more
             </Link>
-          </div>
+          </div> */}
 
           <Separator className="my-8" />
           {/* Selling Attributes */}
@@ -559,7 +559,7 @@ function CarSelector({
             </div>
           </div>
           {/* CSR */}
-          <div className="flex flex-row items-center gap-2.5 pt-8">
+          {/* <div className="flex flex-row items-center gap-2.5 pt-8">
             <div className="h-[58px] w-[58px] flex flex-col justify-center items-center">
               <Image
                 src={AgentProfile}
@@ -584,7 +584,7 @@ function CarSelector({
                 >
                   live chat
                 </Link>
-                {/* PUT LIVE CHAT BTN HERE */}
+                 PUT LIVE CHAT BTN HERE 
               </div>
             </div>
           </div>
