@@ -19,7 +19,6 @@ export default async function Profile() {
   const {
     data: { user },
   } = await supabase.auth.getUser();
-  console.log('User:', user);
 
   return user ? (
     <div className="flex items-center gap-4">
