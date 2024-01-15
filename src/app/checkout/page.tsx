@@ -127,7 +127,7 @@ function CheckoutPage() {
                           <select className="min-w-[50px]">
                             {/* <option> Delete </option> */}
                             {[...new Array(6)].map((item, index) => (
-                              <option>{index + 1}</option>
+                              <option key={item}>{index + 1}</option>
                             ))}
                           </select>
                         </div>
