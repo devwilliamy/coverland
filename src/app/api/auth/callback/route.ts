@@ -1,6 +1,7 @@
 import { createSupabaseServerClient } from '@/lib/db/supabaseClients';
 import { NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
+import { createRouteHandlerClient } from '@supabase/auth-helpers-nextjs';
 
 export async function GET(request: Request) {
   // The `/auth/callback` route is required for the server-side auth flow implemented
@@ -12,9 +13,16 @@ export async function GET(request: Request) {
   if (code) {
     const cookieStore = cookies();
     const supabase = createSupabaseServerClient(cookieStore);
+    // const supabase = createRouteHandlerClient(
+    //   { cookies: () => cookieStore },
+    //   {
+    //     supabaseUrl: process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    //     supabaseKey: process.env.NEXT_PUBLIC_SUPABASE_KEY!,
+    //   }
+    // );
     await supabase.auth.exchangeCodeForSession(code);
   }
 
   // URL to redirect to after sign in process completes
-  return NextResponse.redirect(requestUrl.origin);
+  return NextResponse.redirect(requestUrl.origin + '/profile');
 }

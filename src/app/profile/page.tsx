@@ -5,25 +5,27 @@ import { redirect } from 'next/navigation';
 import { ReadonlyRequestCookies } from 'next/dist/server/web/spec-extension/adapters/request-cookies';
 import { SupabaseClient } from '@supabase/supabase-js';
 
+export async function signOut() {
+  'use server';
+  const cookieStore: ReadonlyRequestCookies = cookies();
+  const supabase: SupabaseClient = createSupabaseServerClient(cookieStore);
+  await supabase.auth.signOut();
+  return redirect('/login');
+}
+
 export default async function Profile() {
   const cookieStore: ReadonlyRequestCookies = cookies();
   const supabase: SupabaseClient = createSupabaseServerClient(cookieStore);
-
   const {
     data: { user },
   } = await supabase.auth.getUser();
-
-  const signOut = async () => {
-    'use server';
-    await supabase.auth.signOut();
-    return redirect('/login');
-  };
+  console.log('User:', user);
 
   return user ? (
     <div className="flex items-center gap-4">
       Hey, {user.email}!
       <form action={signOut}>
-        <button className="py-2 px-4 rounded-md no-underline bg-btn-background hover:bg-btn-background-hover">
+        <button className="bg-btn-background hover:bg-btn-background-hover rounded-md px-4 py-2 no-underline">
           Logout
         </button>
       </form>
@@ -31,7 +33,7 @@ export default async function Profile() {
   ) : (
     <Link
       href="/login"
-      className="py-2 px-3 flex rounded-md no-underline bg-btn-background hover:bg-btn-background-hover"
+      className="bg-btn-background hover:bg-btn-background-hover flex rounded-md px-3 py-2 no-underline"
     >
       Login
     </Link>

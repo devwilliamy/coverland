@@ -1,4 +1,8 @@
-import { createServerClient, type CookieOptions } from '@supabase/ssr';
+import {
+  createServerClient,
+  type CookieOptions,
+  createBrowserClient,
+} from '@supabase/ssr';
 import { cookies } from 'next/headers';
 import { Database } from './types';
 import { SupabaseClient } from '@supabase/supabase-js';
@@ -43,4 +47,11 @@ export const createSupabaseFrontendClient = (): SupabaseClient => {
     supabaseUrl: process.env.NEXT_PUBLIC_SUPABASE_URL!,
     supabaseKey: process.env.NEXT_PUBLIC_SUPABASE_KEY!,
   });
+};
+
+export const createSupabaseBrowserClient = (): SupabaseClient => {
+  return createBrowserClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.NEXT_PUBLIC_SUPABASE_KEY!
+  );
 };
