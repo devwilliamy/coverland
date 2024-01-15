@@ -175,7 +175,7 @@ function CarSelector({
           />
         )}
         {/* Left Panel */}
-        <div className=" mt-[29px] flex h-auto w-full flex-col items-stretch justify-center pb-8 lg:w-3/5 lg:pb-0 ">
+        <div className=" mt-[29px] flex h-auto w-full flex-col items-stretch justify-center pb-2 lg:w-3/5 lg:pb-0 ">
           {/* Featured Image */}
           <div
             className={`${
@@ -256,7 +256,7 @@ function CarSelector({
               </Popover>
             </div>
           </div>
-          <p className="ml-3 mt-5 text-lg font-black text-[#1A1A1A] ">
+          <p className="ml-3 mt-2 text-lg font-black text-[#1A1A1A] ">
             {isReadyForSelection
               ? `Cover Colors`
               : `Please select your car's details below`}{' '}

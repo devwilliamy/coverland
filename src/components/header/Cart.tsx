@@ -26,6 +26,7 @@ import { TCartItems } from '@/lib/cart/useCart';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useMediaQuery } from '@mantine/hooks';
+import { useState } from 'react';
 
 function Cart() {
   const { cartItems } = useCartContext();
@@ -44,8 +45,8 @@ function Cart() {
         </SheetTrigger>
         {cartItems.length > 0 && (
           <span className="relative flex h-4 w-4">
-            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#BE1B1B] opacity-75"></span>
-            <span className="relative inline-flex justify-center items-center rounded-full h-4 w-4 bg-[#BE1B1B] text-white text-xs">
+            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#BE1B1B] opacity-75"></span>
+            <span className="relative inline-flex h-4 w-4 items-center justify-center rounded-full bg-[#BE1B1B] text-xs text-white">
               {cartItems.length}
             </span>
           </span>
@@ -62,7 +63,7 @@ function Cart() {
           })}
           <SheetFooter>
             <SheetClose asChild>
-              <Button type="submit" className="w-full mt-10" asChild>
+              <Button type="submit" className="mt-10 w-full" asChild>
                 <Link href="/checkout">Checkout</Link>
               </Button>
             </SheetClose>

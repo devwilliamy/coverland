@@ -230,7 +230,7 @@ const MobilePDPDetails = ({ reviewData }: { reviewData: TReviewData[] }) => {
         </AccordionTrigger>
         <AccordionContent>
           <div className=" md:mt-18 lg:mt-28">
-            {/* Content for Q&A Section */}
+            <PDPAccordion />
           </div>
         </AccordionContent>
       </AccordionItem>
@@ -430,6 +430,14 @@ function ReviewCard({ review }: { review: TReviewData }) {
         <StarIcon />
         <StarIcon />
       </div>
+      <div className="text-sm font-light normal-case text-neutral-500">
+        Purchased on{' '}
+        {new Date(review?.reviewed_at ?? '').toLocaleDateString('en-US', {
+          month: 'long',
+          day: 'numeric',
+          year: 'numeric',
+        })}
+      </div>
       <div className="mt-5 flex w-[216px] max-w-full items-stretch gap-1 self-start">
         {/* images go here */}
       </div>
@@ -437,8 +445,13 @@ function ReviewCard({ review }: { review: TReviewData }) {
         <div className="max-w-[75%] overflow-hidden text-base font-normal normal-case text-zinc-900 max-md:max-w-full">
           {review.review_description}
         </div>
-        <div className="text-lg text-neutral-500">
-          {new Date(review?.reviewed_at ?? '').toLocaleString()}
+        <div className="hidden text-lg font-light normal-case text-neutral-500 lg:block">
+          Purchased on{' '}
+          {new Date(review?.reviewed_at ?? '').toLocaleDateString('en-US', {
+            month: 'long',
+            day: 'numeric',
+            year: 'numeric',
+          })}
         </div>
       </div>
       <div className="overflow-hidden text-ellipsis whitespace-nowrap text-base font-normal normal-case leading-8 text-zinc-900 max-md:mt-10 max-md:max-w-full lg:mt-24">
