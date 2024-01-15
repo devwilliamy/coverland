@@ -93,7 +93,8 @@ export default function EditVehicleDropdown() {
   const handleSubmitDropdown = async () => {
     setLoading(true);
     const response = await fetchDropdownData(
-      displayModel?.generation_default ?? String(displayModel?.fk)
+      (String(displayModel?.generation_default) as string) ??
+        (String(displayModel?.fk.toString).toString() as string)
     );
     if (response.data) {
       const { product_url_slug, year_generation, submodel1_slug } =
@@ -107,7 +108,7 @@ export default function EditVehicleDropdown() {
   };
 
   return (
-    <div className="flex gap-2 flex-col items-stretch justify-center relative font-medium w-full *:flex-1 z-100">
+    <div className="z-100 relative flex w-full flex-col items-stretch justify-center gap-2 font-medium *:flex-1">
       <TypeSearch queryObj={queryObj} />
       <YearSearch queryObj={queryObj} />
       <MakeSearch
@@ -128,7 +129,7 @@ export default function EditVehicleDropdown() {
         />
       )}
       <Button
-        className="h-[40px] max-w-[px] text-lg mx-auto"
+        className="mx-auto h-[40px] max-w-[px] text-lg"
         onClick={handleSubmitDropdown}
       >
         {loading ? (

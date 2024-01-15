@@ -30,7 +30,7 @@ function CheckoutPage() {
   const redirectToCheckout = async () => {
     try {
       const stripe = await loadStripe(
-        process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY
+        process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY ?? ''
       );
 
       if (!stripe) throw new Error('Stripe failed to initialize.');
@@ -58,7 +58,7 @@ function CheckoutPage() {
     let totalNum = 0;
 
     for (const item of cartItems) {
-      totalNum += parseInt(item.price);
+      totalNum += parseInt(item?.price as string);
     }
     total = totalNum;
   }
@@ -142,7 +142,7 @@ function CheckoutPage() {
                               Price: ${item.price}
                             </div>
                             <div className="text-xl font-thin text-gray-400 line-through decoration-gray-400">
-                              ${parseInt(item.price) * 2}
+                              ${parseInt(item?.price as string) * 2}
                             </div>
                           </div>
                           {/* <IoTrashBin /> */}

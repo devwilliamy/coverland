@@ -52,10 +52,8 @@ export default async function ProductPDP({
   const yearFk = modelJson.filter((row) => row.year_generation === year)?.[0]
     ?.fk;
 
-  const reviewData: TReviewData[] | null = await fetchReviewData(
-    searchParams,
-    pathParams
-  );
+  const reviewData: TReviewData[] | null =
+    (await fetchReviewData(searchParams, pathParams)) ?? [];
   console.log(reviewData);
 
   console.log(productData);
@@ -80,38 +78,39 @@ export default async function ProductPDP({
 
   console.log(initModelData);
 
-  let submodels = [];
+  let submodels: string[] = [];
 
-  const modelData = (() => {
-    if (!submodelParam) {
-      console.log('running with no submodel');
-      return productData
-        ?.filter((item) => item.msrp && item.year_generation === year)
-        .sort((a, b) => {
-          let colorIndexA = colorOrder.indexOf(a.display_color);
-          let colorIndexB = colorOrder.indexOf(b.display_color);
+  const modelData =
+    (() => {
+      if (!submodelParam) {
+        console.log('running with no submodel');
+        return productData
+          ?.filter((item) => item.msrp && item.year_generation === year)
+          .sort((a, b) => {
+            let colorIndexA = colorOrder.indexOf(a?.display_color as string);
+            let colorIndexB = colorOrder.indexOf(b?.display_color as string);
+
+            if (colorIndexA === -1) colorIndexA = Infinity;
+            if (colorIndexB === -1) colorIndexB = Infinity;
+
+            return colorIndexA - colorIndexB;
+          });
+      }
+      if (submodelParam) {
+        console.log('running with a submodel', submodelParam);
+        console.log(initModelData);
+
+        return initModelData.sort((a, b) => {
+          let colorIndexA = colorOrder.indexOf(a?.display_color as string);
+          let colorIndexB = colorOrder.indexOf(b?.display_color as string);
 
           if (colorIndexA === -1) colorIndexA = Infinity;
           if (colorIndexB === -1) colorIndexB = Infinity;
 
           return colorIndexA - colorIndexB;
         });
-    }
-    if (submodelParam) {
-      console.log('running with a submodel', submodelParam);
-      console.log(initModelData);
-
-      return initModelData.sort((a, b) => {
-        let colorIndexA = colorOrder.indexOf(a.display_color);
-        let colorIndexB = colorOrder.indexOf(b.display_color);
-
-        if (colorIndexA === -1) colorIndexA = Infinity;
-        if (colorIndexB === -1) colorIndexB = Infinity;
-
-        return colorIndexA - colorIndexB;
-      });
-    }
-  })()?.filter((model) => model.msrp && model.price);
+      }
+    })()?.filter((model) => model.msrp && model.price) ?? [];
 
   console.log(modelData);
 
@@ -160,7 +159,7 @@ export default async function ProductPDP({
   return (
     <>
       <CarSelector
-        modelData={modelData}
+        modelData={modelData as TProductData[]}
         pathParams={pathParams}
         searchParams={searchParams}
         submodels={submodels}
@@ -170,7 +169,7 @@ export default async function ProductPDP({
       />
       <div
         id="product-details"
-        className="w-full h-auto"
+        className="h-auto w-full"
         // flex flex-col justify-center items-center max-w-[1440px] py-4 lg:py-20 px-4 md:px-20"
       >
         <ExtraProductDetails reviewData={reviewData} />
@@ -181,8 +180,8 @@ export default async function ProductPDP({
 
 function BreadCrumbsTitle() {
   return (
-    <div className="w-full mt-8">
-      <h6 className="text-[#343434] text-sm font-normal">Home / Car Covers</h6>
+    <div className="mt-8 w-full">
+      <h6 className="text-sm font-normal text-[#343434]">Home / Car Covers</h6>
     </div>
   );
 }
@@ -255,9 +254,9 @@ const ProductSwatch = () => {
 
   return (
     <div id="productSwatch">
-      <div className="flex flex-start ">
-        <p className="font-bold text-sm text-dark mr-2">Color Option</p>
-        <p className="font-normal text-gray text-sm">Color</p>
+      <div className="flex-start flex ">
+        <p className="text-dark mr-2 text-sm font-bold">Color Option</p>
+        <p className="text-gray text-sm font-normal">Color</p>
       </div>
       {/* <Slider {...settings} className="product-swatch-item">
         {products.map((product, index) => (

@@ -269,7 +269,7 @@ export async function generatePDPUrl({
     url = `/${slugify(type)}/${slugify(make)}/${slugify(model)}/${defaultYear}`;
   } else {
     url = `/${slugify(type)}/${slugify(make)}/${slugify(model)}/${slugify(
-      year_generation
+      year_generation ?? ''
     )}`;
   }
   return url;

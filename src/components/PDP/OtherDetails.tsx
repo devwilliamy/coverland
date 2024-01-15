@@ -66,10 +66,10 @@ export function ExtraProductDetails({
 
   return (
     <>
-      <div className="hidden  mt-8 md:mt-18 lg:mt-28 py-6 lg:flex flex-col md:flex-row items-stretch gap-4 md:gap-0 md:items-center justify-between flex-wrap border-t border-b border-[#DADADA]">
+      <div className="md:mt-18  mt-8 hidden flex-col flex-wrap items-stretch justify-between gap-4 border-b border-t border-[#DADADA] py-6 md:flex-row md:items-center md:gap-0 lg:mt-28 lg:flex">
         <h1
           onClick={() => scrollToSection(pdRef, PD_ID)}
-          className={`text-lg text-black font-normal capitalize cursor-pointer ${
+          className={`cursor-pointer text-lg font-normal capitalize text-black ${
             selectedSection === PD_ID ? 'underline' : ''
           }`}
         >
@@ -77,7 +77,7 @@ export function ExtraProductDetails({
         </h1>
         <h1
           onClick={() => scrollToSection(layersRef, LAYERS_ID)}
-          className={`text-lg text-black font-normal capitalize cursor-pointer ${
+          className={`cursor-pointer text-lg font-normal capitalize text-black ${
             selectedSection === LAYERS_ID ? 'underline' : ''
           }`}
         >
@@ -85,7 +85,7 @@ export function ExtraProductDetails({
         </h1>
         <h1
           onClick={() => scrollToSection(specsRef, SPECS_ID)}
-          className={`text-lg text-black font-normal capitalize cursor-pointer ${
+          className={`cursor-pointer text-lg font-normal capitalize text-black ${
             selectedSection === SPECS_ID ? 'underline' : ''
           }`}
         >
@@ -93,7 +93,7 @@ export function ExtraProductDetails({
         </h1>
         <h1
           onClick={() => scrollToSection(faqRef, FAQ_ID)}
-          className={`text-lg text-black font-normal capitalize cursor-pointer ${
+          className={`cursor-pointer text-lg font-normal capitalize text-black ${
             selectedSection === FAQ_ID ? 'underline' : ''
           }`}
         >
@@ -101,7 +101,7 @@ export function ExtraProductDetails({
         </h1>
         <h1
           onClick={() => scrollToSection(layersRef, LAYERS_ID)}
-          className={`text-lg text-black font-normal capitalize cursor-pointer ${
+          className={`cursor-pointer text-lg font-normal capitalize text-black ${
             selectedSection === LAYERS_ID ? 'underline' : ''
           }`}
         >
@@ -109,7 +109,7 @@ export function ExtraProductDetails({
         </h1>
         <h1
           onClick={() => scrollToSection(layersRef, LAYERS_ID)}
-          className={`text-lg text-black font-normal capitalize cursor-pointer ${
+          className={`cursor-pointer text-lg font-normal capitalize text-black ${
             selectedSection === LAYERS_ID ? 'underline' : ''
           }`}
         >
@@ -117,7 +117,7 @@ export function ExtraProductDetails({
         </h1>
         <h1
           onClick={() => scrollToSection(carCoverRef, CAR_COVER_INS_ID)}
-          className={`text-lg text-black font-normal capitalize cursor-pointer ${
+          className={`cursor-pointer text-lg font-normal capitalize text-black ${
             selectedSection === CAR_COVER_INS_ID ? 'underline' : ''
           }`}
         >
@@ -125,7 +125,7 @@ export function ExtraProductDetails({
         </h1>
         <h1
           onClick={() => scrollToSection(layersRef, LAYERS_ID)}
-          className={`text-lg text-black font-normal capitalize cursor-pointer ${
+          className={`cursor-pointer text-lg font-normal capitalize text-black ${
             selectedSection === LAYERS_ID ? 'underline' : ''
           }`}
         >
@@ -139,36 +139,36 @@ export function ExtraProductDetails({
         <div ref={pdRef}>
           <ProductHero />
         </div>
-        <div className="mt-8 md:mt-18 lg:mt-28">
+        <div className="md:mt-18 mt-8 lg:mt-28">
           <Video />
         </div>
-        <div ref={carCoverRef} className="mt-8 md:mt-18 lg:mt-28">
+        <div ref={carCoverRef} className="md:mt-18 mt-8 lg:mt-28">
           <Layers />
         </div>
-        <div className="mt-8 md:mt-18 lg:mt-28">
+        <div className="md:mt-18 mt-8 lg:mt-28">
           <ClimateCrisis />
         </div>
 
-        <div className="mt-8 md:mt-18 lg:mt-28">
+        <div className="md:mt-18 mt-8 lg:mt-28">
           <NoGarage />
         </div>
-        <div className="mt-8 md:mt-18 lg:mt-28">
+        <div className="md:mt-18 mt-8 lg:mt-28">
           <OurCarCovers />
         </div>
-        <div className="mt-8 md:mt-18 lg:mt-28">
+        <div className="md:mt-18 mt-8 lg:mt-28">
           <ProductChecklist />
         </div>
-        <div ref={specsRef} className="mt-8 md:mt-18 lg:mt-28">
+        <div ref={specsRef} className="md:mt-18 mt-8 lg:mt-28">
           <ProductSpecGrid />
           <ProductPackage />
         </div>
-        <div ref={faqRef} className="mt-8 md:mt-18 lg:mt-28">
+        <div ref={faqRef} className="md:mt-18 mt-8 lg:mt-28">
           <PDPAccordion />
         </div>
-        <div className="my-8 md:my-18 lg:my-28">
+        <div className="md:my-18 my-8 lg:my-28">
           <MoneyBack />
         </div>
-        <div id="#reviews" className="mt-8 md:mt-18 lg:mt-28">
+        <div id="#reviews" className="md:mt-18 mt-8 lg:mt-28">
           <ReviewSection reviewData={reviewData} />
         </div>
       </div>
@@ -181,11 +181,11 @@ const MobilePDPDetails = ({ reviewData }: { reviewData: TReviewData[] }) => {
     <Accordion
       type="single"
       collapsible
-      className="w-full lg:hidden font-black text-[#1A1A1A] uppercase"
+      className="w-full font-black uppercase text-[#1A1A1A] lg:hidden"
       defaultValue="item-6"
     >
       <AccordionItem value="item-1">
-        <AccordionTrigger className="uppercase font-black">
+        <AccordionTrigger className="font-black uppercase">
           Product Details
         </AccordionTrigger>
         <AccordionContent>
@@ -199,7 +199,7 @@ const MobilePDPDetails = ({ reviewData }: { reviewData: TReviewData[] }) => {
       </AccordionItem>
 
       <AccordionItem value="item-2">
-        <AccordionTrigger className="uppercase font-black">
+        <AccordionTrigger className="font-black uppercase">
           Benefits
         </AccordionTrigger>
         <AccordionContent>
@@ -213,7 +213,7 @@ const MobilePDPDetails = ({ reviewData }: { reviewData: TReviewData[] }) => {
       </AccordionItem>
 
       <AccordionItem value="item-3">
-        <AccordionTrigger className="uppercase font-black">
+        <AccordionTrigger className="font-black uppercase">
           Specification
         </AccordionTrigger>
         <AccordionContent>
@@ -225,7 +225,7 @@ const MobilePDPDetails = ({ reviewData }: { reviewData: TReviewData[] }) => {
       </AccordionItem>
 
       <AccordionItem value="item-4">
-        <AccordionTrigger className="uppercase font-black">
+        <AccordionTrigger className="font-black uppercase">
           Q&A
         </AccordionTrigger>
         <AccordionContent>
@@ -236,7 +236,7 @@ const MobilePDPDetails = ({ reviewData }: { reviewData: TReviewData[] }) => {
       </AccordionItem>
 
       <AccordionItem value="item-5">
-        <AccordionTrigger className="uppercase font-black">
+        <AccordionTrigger className="font-black uppercase">
           Car Cover Instruction
         </AccordionTrigger>
         <AccordionContent>
@@ -247,7 +247,7 @@ const MobilePDPDetails = ({ reviewData }: { reviewData: TReviewData[] }) => {
       </AccordionItem>
 
       <AccordionItem value="item-6">
-        <AccordionTrigger className="uppercase font-black !no-underline">
+        <AccordionTrigger className="font-black uppercase !no-underline">
           Car Cover Reviews
         </AccordionTrigger>
         <AccordionContent>
@@ -266,7 +266,7 @@ const StarIcon = () => {
       viewBox="0 0 59 55"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      className="lg:w-[55px] lg:h-[55px] w-[32px] h-[32px]"
+      className="h-[32px] w-[32px] lg:h-[55px] lg:w-[55px]"
     >
       <path
         id="Star 19"
@@ -290,18 +290,18 @@ const ReviewSection = ({
   return (
     <div className="relative py-2">
       <p
-        className="text-black hidden lg:block text-center font-black text-xl md:text-3xl lg:text-[42px] mb-5 lg:mb-20 uppercase"
+        className="mb-5 hidden text-center text-xl font-black uppercase text-black md:text-3xl lg:mb-20 lg:block lg:text-[42px]"
         id="reviews"
       >
         Car Cover Reviews
       </p>
-      <div className="flex flex-col lg:flex-row justify-around items-center">
+      <div className="flex flex-col items-center justify-around lg:flex-row">
         <div className="flex flex-col items-center gap-4">
           <div className="flex items-center gap-2">
-            <p className="lg:text-[80px] text-[40px] font-black">4.9</p>
+            <p className="text-[40px] font-black lg:text-[80px]">4.9</p>
             <p className="lg:mt-11">{reviewData?.length} reviews</p>
           </div>
-          <div className="flex text-yellow-300 items-stretch">
+          <div className="flex items-stretch text-yellow-300">
             <StarIcon />
             <StarIcon />
             <StarIcon />
@@ -309,22 +309,22 @@ const ReviewSection = ({
             <StarIcon />
           </div>
         </div>
-        <div className="flex items-center gap-2 justify-center">
-          <div className="relative my-3 w-[75px] h-[75px] lg:w-[135px] lg:h-[135px] z-10">
+        <div className="flex items-center justify-center gap-2">
+          <div className="relative z-10 my-3 h-[75px] w-[75px] lg:h-[135px] lg:w-[135px]">
             <svg
               width="137"
               height="135"
               viewBox="0 0 137 135"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
-              className="relative w-[75px] h-[75px] lg:w-[135px] lg:h-[135px] z-10"
+              className="relative z-10 h-[75px] w-[75px] lg:h-[135px] lg:w-[135px]"
             >
               <path
                 d="M136.039 67.2705C136.039 104.449 105.898 134.617 68.6023 134.926C31.063 135.236 0.128084 104.846 0.000385799 67.5047C-0.0913973 40.1034 16.2021 16.4612 39.6906 5.75157C43.4657 4.02881 47.9112 6.00164 49.2001 9.93143C50.2935 13.2698 48.7173 16.9137 45.5088 18.3745C27.0285 26.8017 14.1549 45.2876 13.9634 66.7863C13.7 96.2239 37.6394 120.616 67.2295 121.037C97.4421 121.47 122.08 97.2321 122.08 67.2705C122.08 39.6549 101.149 16.9058 74.213 13.8493C70.6853 13.4484 68.0236 10.4832 68.0236 6.95432C68.0236 2.84194 71.6032 -0.417001 75.7135 0.0434587C109.657 3.84225 136.043 32.4939 136.043 67.2745L136.039 67.2705Z"
                 fill="#1D8044"
               />
             </svg>
-            <p className="absolute z-40 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-2xl lg:text-4xl font-black text-green-700">
+            <p className="absolute left-1/2 top-1/2 z-40 -translate-x-1/2 -translate-y-1/2 transform text-2xl font-black text-green-700 lg:text-4xl">
               95%
             </p>
           </div>
@@ -351,11 +351,11 @@ const ReviewSection = ({
       </div> */}
       {!!reviewData?.length && (
         <div className="flex flex-col items-center">
-          {reviewData?.slice(0, displayedReviews).map((review) => (
-            <ReviewCard key={review.id} review={review} />
-          ))}
+          {reviewData
+            ?.slice(0, displayedReviews)
+            .map((review) => <ReviewCard key={review.id} review={review} />)}
           <button
-            className="text-black max-w-[160px] my-4 font-black leading-4 tracking-wide whitespace-nowrap justify-center items-stretch border bg-white hover:bg-black hover:text-white transition-colors duration-150 px-8 py-3.5 rounded-full border-solid border-black"
+            className="my-4 max-w-[160px] items-stretch justify-center whitespace-nowrap rounded-full border border-solid border-black bg-white px-8 py-3.5 font-black leading-4 tracking-wide text-black transition-colors duration-150 hover:bg-black hover:text-white"
             aria-label="View more"
             role="button"
             onClick={() => setDisplayedReviews(displayedReviews + 4)}
@@ -375,7 +375,7 @@ function ReviewCard({ review }: { review: TReviewData }) {
         viewBox="0 0 59 55"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
-        className="lg:w-[55px] lg:h-[55px] w-[25px] h-[25px]"
+        className="h-[25px] w-[25px] lg:h-[55px] lg:w-[55px]"
       >
         <path
           id="Star 19"
@@ -419,35 +419,35 @@ function ReviewCard({ review }: { review: TReviewData }) {
     );
   };
   return (
-    <span className="rounded border self-stretch flex w-full flex-col items-stretch my-5 pl-10 pr-16 py-9 border-solid border-stone-300 max-md:max-w-full max-md:px-5">
-      <div className="text-neutral-700 normal-case lg:text-3xl text-xl font-bold max-md:max-w-full">
+    <span className="my-5 flex w-full flex-col items-stretch self-stretch rounded border border-solid border-stone-300 py-9 pl-10 pr-16 max-md:max-w-full max-md:px-5">
+      <div className="text-xl font-bold normal-case text-neutral-700 max-md:max-w-full lg:text-3xl">
         {review.review_title}
       </div>
-      <div className="flex gap-1 text-yellow-300 my-2 lg:my-0">
+      <div className="my-2 flex gap-1 text-yellow-300 lg:my-0">
         <StarIcon />
         <StarIcon />
         <StarIcon />
         <StarIcon />
         <StarIcon />
       </div>
-      <div className="items-stretch flex w-[216px] max-w-full gap-1 mt-5 self-start">
+      <div className="mt-5 flex w-[216px] max-w-full items-stretch gap-1 self-start">
         {/* images go here */}
       </div>
       <div className="flex justify-between">
-        <div className="overflow-hidden text-zinc-900 max-w-[75%] text-base font-normal normal-case max-md:max-w-full">
+        <div className="max-w-[75%] overflow-hidden text-base font-normal normal-case text-zinc-900 max-md:max-w-full">
           {review.review_description}
         </div>
-        <div className="text-neutral-500 text-lg">
-          {new Date(review?.reviewed_at).toLocaleString()}
+        <div className="text-lg text-neutral-500">
+          {new Date(review?.reviewed_at ?? '').toLocaleString()}
         </div>
       </div>
-      <div className="overflow-hidden text-zinc-900 text-ellipsis whitespace-nowrap text-base font-normal normal-case leading-8 lg:mt-24 max-md:max-w-full max-md:mt-10">
+      <div className="overflow-hidden text-ellipsis whitespace-nowrap text-base font-normal normal-case leading-8 text-zinc-900 max-md:mt-10 max-md:max-w-full lg:mt-24">
         {review.review_author}
       </div>
-      <span className="flex items-center gap-3 lg:mt-7 self-start">
+      <span className="flex items-center gap-3 self-start lg:mt-7">
         {/* images go here */}
         <CheckIcon />
-        <div className="text-zinc-900 my-2 text-md font-bold normal-case leading-3 self-center grow whitespace-nowrap">
+        <div className="text-md my-2 grow self-center whitespace-nowrap font-bold normal-case leading-3 text-zinc-900">
           Yes, I would recommend.
         </div>
       </span>
@@ -478,9 +478,9 @@ function Video() {
   return (
     <div
       id="productvideo"
-      className="py-8 md:py-8 w-full h-auto flex flex-col justify-center items-center max-w-full "
+      className="flex h-auto w-full max-w-full flex-col items-center justify-center py-8 md:py-8 "
     >
-      <div className="w-full h-[550px]">
+      <div className="h-[550px] w-full">
         <iframe
           width="100%"
           height="100%"
@@ -490,14 +490,14 @@ function Video() {
           allowFullScreen
         ></iframe>
       </div>
-      <div className="w-full h-auto bg-[#1A1A1A] flex flex-col justify-center items-start p-4 md:p-8 lg:p-14">
+      <div className="flex h-auto w-full flex-col items-start justify-center bg-[#1A1A1A] p-4 md:p-8 lg:p-14">
         <div>
-          <p className="text-white font-black sm:text-xl md:text-3xl lg:text-5xl uppercase text-left tracking-[1.35px]">
+          <p className="text-left font-black uppercase tracking-[1.35px] text-white sm:text-xl md:text-3xl lg:text-5xl">
             Tailored for the perfect fit
           </p>
         </div>
-        <div className="pt-4 pb-3">
-          <p className="capitalize text-white opacity-80 text-lg md:text-2xl font-normal tracking-[0.48px]">
+        <div className="pb-3 pt-4">
+          <p className="text-lg font-normal capitalize tracking-[0.48px] text-white opacity-80 md:text-2xl">
             Your Car, Your Shield. Experience the superior custom fit we offer.{' '}
           </p>
         </div>
