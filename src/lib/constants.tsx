@@ -917,8 +917,6 @@ export const generationDefaultCarCovers = generationDefaultKeys.filter((key) =>
   key.startsWith('1')
 );
 
-
-
 export const dummyCartData = [
   {
     sku: 'CL-CC-CS-15-J-BKRD-STR-PP-100013',
@@ -951,7 +949,7 @@ export const dummyCartData = [
     generation_default: null,
     quantity: 1,
   },
-  
+
   {
     sku: 'CL-CC-CS-15-F-GRBK-STR-PP-101092',
     product_type: 'GRBK-STR-PP',
@@ -1032,7 +1030,6 @@ export const typeOrder = [
   'Standard Pro',
   'Standard',
 ];
-
 
 export const skuTypes = [
   'SKU_pe_bkgr_str',

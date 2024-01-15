@@ -23,8 +23,7 @@ import { FaRegTrashAlt } from 'react-icons/fa';
 import { IconContext } from 'react-icons';
 
 function CheckoutPage() {
-  // const { cartItems, adjustItemQuantity, addToCart } = useCartContext();
-  const cartItems = dummyCartData;
+  const { cartItems, adjustItemQuantity, addToCart } = useCartContext();
   const [promoCode, setPromoCode] = useState('');
   const [promoError, setPromoError] = useState(false);
   let total = 0;
