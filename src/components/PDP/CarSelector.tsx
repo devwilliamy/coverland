@@ -805,7 +805,9 @@ const MobileImageCarousel = ({
             />
           </CarouselItem>
           <CarouselItem>
-            <ProductVideo />
+            <div>
+              <ProductVideo />
+            </div>
           </CarouselItem>
           {productImages.map((image, index) => (
             <CarouselItem key={index}>
