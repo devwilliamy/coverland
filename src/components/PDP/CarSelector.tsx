@@ -630,8 +630,8 @@ function CarSelector({
             </div>
           </div>
           <Separator className="my-10 hidden lg:block" />
-          <div className="-mx-4 my-4 h-10 w-screen bg-[#F1F1F1] lg:hidden"></div>
-          <div className="pt-4 lg:px-0 lg:pt-0">
+          <div className="-mx-4 mt-4 h-10 w-screen border border-gray-300 bg-[#F1F1F1] lg:hidden"></div>
+          <div className="pt-3 lg:px-0 lg:pt-0">
             <h3 className="mb-[28px] hidden text-xl font-black uppercase text-[#1A1A1A] lg:flex">
               car cover features
             </h3>
@@ -642,105 +642,108 @@ function CarSelector({
               className="lg:hidden"
             >
               <AccordionItem value="item-1">
-                <AccordionTrigger className="text-lg font-bold uppercase text-[#1A1A1A] !no-underline">
+                <AccordionTrigger className="text-xl font-black uppercase text-[#1A1A1A] !no-underline">
                   Car Cover Features
                 </AccordionTrigger>
                 <AccordionContent>
-                  <div className="flex-start ml-2 flex items-center pb-2 leading-4">
-                    <GoDotFill size={10} color="#000000 " />
-                    <p className="pl-1 text-lg font-medium capitalize text-black">
-                      Tailored to your car model
-                    </p>
-                  </div>
-                  <div className="flex-start ml-2 flex items-center pb-2 leading-4">
-                    <GoDotFill size={10} color="#000000 " />
-                    <p className="pl-1 text-lg font-medium capitalize text-black">
-                      all-season waterproof protection
-                    </p>
-                  </div>
-                  <div className="flex-start ml-2 flex items-center pb-2 leading-4">
-                    <GoDotFill size={10} color="#000000 " />
-                    <p className="pl-1 text-lg font-medium capitalize text-black">
-                      Scratchproof, durable & lightweight
-                    </p>
-                  </div>
-                  <div className="flex-start ml-2 flex items-center pb-2 leading-4">
-                    <GoDotFill size={10} color="#000000 " />
-                    <p className="pl-1 text-lg font-medium capitalize text-black">
-                      Soft Inner-lining
-                    </p>
-                  </div>
-                  <div className="flex-start ml-2 flex items-center pb-2 leading-4">
-                    <GoDotFill size={10} color="#000000 " />
-                    <p className="pl-1 text-lg font-medium capitalize text-black">
-                      100% Waterproof - Zero Leaks Guaranteed
-                    </p>
-                  </div>
-                  <div className="flex-start ml-2 flex items-center pb-2 leading-4">
-                    <GoDotFill size={10} color="#000000 " />
-                    <p className="pl-1 text-lg font-medium capitalize text-black">
-                      100% UV Protection
-                    </p>
-                  </div>
-                  <div className="flex-start ml-2 flex items-center pb-2 leading-4">
-                    <GoDotFill size={10} color="#000000 " />
-                    <p className="pl-1 text-lg font-medium capitalize text-black">
-                      Easy On/Off with elastic hems
-                    </p>
-                  </div>
-                  <div className="flex-start ml-2 flex items-center pb-2 leading-4">
-                    <GoDotFill size={10} color="#000000 " />
-                    <p className="pl-1 text-lg font-medium capitalize text-black">
-                      effortless cleaning
-                    </p>
+                  <Separator className="mb-7 mt-3 lg:hidden" />
+                  <div className="pl-4">
+                    <div className="flex-start ml-2 flex items-center pb-2 leading-4">
+                      <GoDotFill size={10} color="#000000" />
+                      <p className="pl-1 text-sm font-medium capitalize text-black">
+                        Tailored to your car model
+                      </p>
+                    </div>
+                    <div className="flex-start ml-2 flex items-center pb-2 leading-4">
+                      <GoDotFill size={10} color="#000000" />
+                      <p className="pl-1 text-sm font-medium capitalize text-black">
+                        all-season waterproof protection
+                      </p>
+                    </div>
+                    <div className="flex-start ml-2 flex items-center pb-2 leading-4">
+                      <GoDotFill size={10} color="#000000" />
+                      <p className="pl-1 text-sm font-medium capitalize text-black">
+                        Scratchproof, durable & lightweight
+                      </p>
+                    </div>
+                    <div className="flex-start ml-2 flex items-center pb-2 leading-4">
+                      <GoDotFill size={10} color="#000000" />
+                      <p className="pl-1 text-sm font-medium capitalize text-black">
+                        Soft Inner-lining
+                      </p>
+                    </div>
+                    <div className="flex-start ml-2 flex items-center pb-2 leading-4">
+                      <GoDotFill size={10} color="#000000" />
+                      <p className="pl-1 text-sm font-medium capitalize text-black">
+                        100% Waterproof - Zero Leaks Guaranteed
+                      </p>
+                    </div>
+                    <div className="flex-start ml-2 flex items-center pb-2 leading-4">
+                      <GoDotFill size={10} color="#000000" />
+                      <p className="pl-1 text-sm font-medium capitalize text-black">
+                        100% UV Protection
+                      </p>
+                    </div>
+                    <div className="flex-start ml-2 flex items-center pb-2 leading-4">
+                      <GoDotFill size={10} color="#000000" />
+                      <p className="pl-1 text-sm font-medium capitalize text-black">
+                        Easy On/Off with elastic hems
+                      </p>
+                    </div>
+                    <div className="flex-start ml-2 flex items-center pb-2 leading-4">
+                      <GoDotFill size={10} color="#000000" />
+                      <p className="pl-1 text-sm font-medium capitalize text-black">
+                        effortless cleaning
+                      </p>
+                    </div>
                   </div>
                 </AccordionContent>
               </AccordionItem>
             </Accordion>
             <div className="flex-start ml-2 hidden items-center pb-2 leading-4 lg:flex">
-              <GoDotFill size={10} color="#000000 " />
+              <GoDotFill size={10} color="#000000" />
               <p className="pl-1 text-lg font-medium capitalize text-black">
                 Tailored to your car model
               </p>
             </div>
             <div className=" flex-start ml-2 hidden items-center pb-2 leading-4 lg:flex">
-              <GoDotFill size={10} color="#000000 " />
+              <GoDotFill size={10} color="#000000" />
               <p className="pl-1 text-lg font-medium capitalize text-black">
                 all-season waterproof protection
               </p>
             </div>
             <div className="flex-start ml-2 hidden items-center pb-2 leading-4 lg:flex">
-              <GoDotFill size={10} color="#000000 " />
+              <GoDotFill size={10} color="#000000" />
               <p className="pl-1 text-lg font-medium capitalize text-black">
                 Scratchproof, durable & lightweight
               </p>
             </div>
             <div className="flex-start ml-2 hidden items-center pb-2 leading-4 lg:flex">
-              <GoDotFill size={10} color="#000000 " />
+              <GoDotFill size={10} color="#000000" />
               <p className="pl-1 text-lg font-medium capitalize text-black">
                 Soft Inner-lining
               </p>
             </div>
             <div className="flex-start ml-2 hidden items-center pb-2 leading-4 lg:flex">
-              <GoDotFill size={10} color="#000000 " />
+              <GoDotFill size={10} color="#000000" />
               <p className="pl-1 text-lg font-medium capitalize text-black">
                 100% Waterproof - Zero Leaks Guaranteed
               </p>
             </div>
             <div className="flex-start ml-2 hidden items-center pb-2 leading-4 lg:flex">
-              <GoDotFill size={10} color="#000000 " />
+              <GoDotFill size={10} color="#000000" />
               <p className="pl-1 text-lg font-medium capitalize text-black">
                 100% UV Protection
               </p>
             </div>
             <div className="flex-start ml-2 hidden items-center pb-2 leading-4 lg:flex">
-              <GoDotFill size={10} color="#000000 " />
+              <GoDotFill size={10} color="#000000" />
               <p className="pl-1 text-lg font-medium capitalize text-black">
                 Easy On/Off with elastic hems
               </p>
             </div>
             <div className="flex-start ml-2 hidden items-center pb-2 leading-4 lg:flex">
-              <GoDotFill size={10} color="#000000 " />
+              <GoDotFill size={10} color="#000000" />
               <p className="pl-1 text-lg font-medium capitalize text-black">
                 effortless cleaning
               </p>
