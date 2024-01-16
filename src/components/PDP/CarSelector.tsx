@@ -8,7 +8,13 @@ import { IoRibbonSharp } from 'react-icons/io5';
 import { FaShippingFast, FaThumbsUp } from 'react-icons/fa';
 import { MdSupportAgent } from 'react-icons/md';
 import Link from 'next/link';
-import { ReactPropTypes, useEffect, useState } from 'react';
+import React, {
+  ReactPropTypes,
+  RefObject,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
 import { BsBoxSeam, BsGift, BsInfoCircle } from 'react-icons/bs';
 import { DropdownPDP } from './DropdownPDP';
 import { useToast } from '@/components/ui/use-toast';
@@ -108,6 +114,17 @@ function CarSelector({
   );
   const router = useRouter();
   const path = usePathname();
+
+  interface ProductRefs {
+    [key: string]: RefObject<HTMLElement>; // Replace 'YourElementType' with the actual type
+  }
+
+  const productRefs = useRef<ProductRefs>(
+    modelData.reduce((acc: ProductRefs, item: TProductData) => {
+      acc[item.sku] = React.createRef();
+      return acc;
+    }, {})
+  );
 
   useEffect(() => {
     refreshRoute('/');
@@ -277,6 +294,11 @@ function CarSelector({
                 >
                   <Image
                     src={sku?.feature as string}
+                    ref={
+                      productRefs?.current[
+                        sku?.sku as TProductData['sku']
+                      ] as any
+                    }
                     width={98}
                     height={98}
                     alt="car cover details"
@@ -284,6 +306,16 @@ function CarSelector({
                     onClick={() => {
                       setFeaturedImage(sku?.feature as string);
                       setSelectedProduct(sku as TProductData);
+                      const skuRef = sku?.sku
+                        ? (productRefs?.current[
+                            sku?.sku
+                          ] as React.RefObject<HTMLElement>)
+                        : null;
+                      skuRef?.current?.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'center',
+                        inline: 'center',
+                      });
                     }}
                   />
                 </div>
@@ -292,48 +324,56 @@ function CarSelector({
             {/* </div> */}
           </div>
 
-          {isReadyForSelection && (
-            <>
-              <Separator className="my-4" />
-              <div>
-                <p className="ml-3 text-lg font-black text-[#1A1A1A]">
-                  Cover Types
-                  <span className="ml-2 text-lg font-normal text-[#767676]">
-                    {isReadyForSelection && ` ${selectedProduct?.display_id}`}
-                  </span>
-                </p>
-              </div>
-            </>
-          )}
-          {isReadyForSelection && (
-            <div className="flex flex-row space-x-1 overflow-x-auto whitespace-nowrap p-2 lg:grid lg:w-auto lg:grid-cols-5 lg:gap-[7px] lg:px-3">
-              {uniqueTypes.map((sku, idx) => {
-                return (
-                  <button
-                    className={`flex-shrink-0 p-1 lg:flex lg:flex-col lg:items-center lg:justify-center ${
-                      sku?.display_id === selectedProduct?.display_id
-                        ? 'rounded-lg border-4 border-[#6F6F6F]'
-                        : ''
-                    }`}
-                    key={sku?.sku}
-                    onClick={() => {
-                      setFeaturedImage(sku?.feature as string);
-                      setSelectedProduct(sku as TProductData);
-                    }}
-                    // disabled={isOptionDisabled(productOption, 'cover')}
-                  >
-                    <Image
-                      src={sku?.feature as string}
-                      width={98}
-                      height={98}
-                      alt="car cover details"
-                      className="h-20 w-20 cursor-pointer rounded bg-[#F2F2F2] lg:h-full lg:w-full"
-                    />
-                  </button>
-                );
-              })}
+          <>
+            <Separator className="my-4" />
+            <div>
+              <p className="ml-3 text-lg font-black text-[#1A1A1A]">
+                Cover Types
+                <span className="ml-2 text-lg font-normal text-[#767676]">
+                  {selectedProduct?.display_id}
+                </span>
+              </p>
             </div>
-          )}
+          </>
+
+          <div className="flex flex-row space-x-1 overflow-x-auto whitespace-nowrap p-2 lg:grid lg:w-auto lg:grid-cols-5 lg:gap-[7px] lg:px-3">
+            {uniqueTypes.map((sku, idx) => {
+              return (
+                <button
+                  className={`flex-shrink-0 p-1 lg:flex lg:flex-col lg:items-center lg:justify-center ${
+                    sku?.display_id === selectedProduct?.display_id
+                      ? 'rounded-lg border-4 border-[#6F6F6F]'
+                      : ''
+                  }`}
+                  key={sku?.sku}
+                  onClick={() => {
+                    setFeaturedImage(sku?.feature as string);
+                    setSelectedProduct(sku as TProductData);
+                    const skuRef = sku?.sku
+                      ? (productRefs?.current[
+                          sku?.sku
+                        ] as React.RefObject<HTMLElement>)
+                      : null;
+                    skuRef?.current?.scrollIntoView({
+                      behavior: 'smooth',
+                      block: 'nearest',
+                      inline: 'center',
+                    });
+                  }}
+                  // disabled={isOptionDisabled(productOption, 'cover')}
+                >
+                  <Image
+                    src={sku?.feature as string}
+                    width={98}
+                    height={98}
+                    alt="car cover details"
+                    className="h-20 w-20 cursor-pointer rounded bg-[#F2F2F2] lg:h-full lg:w-full"
+                  />
+                </button>
+              );
+            })}
+          </div>
+
           <Separator className="mb-8 mt-4" />
           {/* Title and Descriptions*/}
           <div className="grid grid-cols-1">
@@ -353,13 +393,13 @@ function CarSelector({
                 />
                 <Popover>
                   <PopoverTrigger className="text-blue-400 underline">
-                    {reviewCount} ratings
+                    {reviewCount ?? '45'} ratings
                   </PopoverTrigger>
                   <PopoverContent>
                     <div className=" flex flex-col items-center border border-gray-300 bg-white p-4 shadow-lg">
                       <div className="flex items-center gap-4">
                         <p className="text-2xl font-bold">
-                          {avgReviewScore} out of 5
+                          {avgReviewScore ?? '4.9'} out of 5
                         </p>
                         <Rating
                           name="read-only"
@@ -370,9 +410,11 @@ function CarSelector({
                           }}
                         />
                       </div>
-                      <Link className="underline" scroll href={'#reviews'}>
-                        Show all reviews ({reviewData?.length})
-                      </Link>
+                      {!!reviewData.length && (
+                        <Link className="underline" scroll href={'#reviews'}>
+                          Show all reviews ({reviewData?.length})
+                        </Link>
+                      )}
                     </div>
                   </PopoverContent>
                 </Popover>

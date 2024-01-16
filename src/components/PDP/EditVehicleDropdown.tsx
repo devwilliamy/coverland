@@ -9,6 +9,7 @@ import {
   TProductData,
   fetchDropdownData,
   fetchModelToDisplay,
+  generatePDPUrl,
 } from '@/lib/db';
 import { TypeSearch } from '../hero/dropdown/TypeSearch';
 import { MakeSearch } from '../hero/dropdown/MakeSearch';
@@ -90,21 +91,27 @@ export default function EditVehicleDropdown() {
     ),
   ];
 
+  // const handleSubmitDropdown = async () => {
+  //   setLoading(true);
+  //   const response = await fetchDropdownData(
+  //     (String(displayModel?.generation_default) as string) ??
+  //       (String(displayModel?.fk.toString).toString() as string)
+  //   );
+  //   if (response.data) {
+  //     const { product_url_slug, year_generation, submodel1_slug } =
+  //       response.data[0];
+  //     let url = `${product_url_slug}/${year_generation}`;
+  //     if (submodel1_slug) {
+  //       url += `?submodel=${submodel1_slug}`;
+  //     }
+  //     router.push(url);
+  //   }
+  // };
+
   const handleSubmitDropdown = async () => {
     setLoading(true);
-    const response = await fetchDropdownData(
-      (String(displayModel?.generation_default) as string) ??
-        (String(displayModel?.fk.toString).toString() as string)
-    );
-    if (response.data) {
-      const { product_url_slug, year_generation, submodel1_slug } =
-        response.data[0];
-      let url = `${product_url_slug}/${year_generation}`;
-      if (submodel1_slug) {
-        url += `?submodel=${submodel1_slug}`;
-      }
-      router.push(url);
-    }
+    const url = await generatePDPUrl({ ...query });
+    router.push(url);
   };
 
   return (

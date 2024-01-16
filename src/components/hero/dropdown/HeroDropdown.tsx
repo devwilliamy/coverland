@@ -45,6 +45,7 @@ export function HeroDropdown() {
     },
   });
   const { year, type, make, model, submodel } = query;
+  const isReadyForSubmit = year && type && make && model;
 
   const carToDisplay = data?.filter(
     (car) =>
@@ -114,7 +115,7 @@ export function HeroDropdown() {
   };
 
   return (
-    <div className="flex gap-2 flex-col md:flex-row justify-center relative font-medium w-full lg:px-16 *:flex-1 *:py-3 lg:*:py-4 px-4">
+    <div className="relative flex w-full flex-col justify-center gap-2 px-4 font-medium *:flex-1 *:py-3 md:flex-row lg:px-16 lg:*:py-4">
       <TypeSearch queryObj={queryObj} />
       <YearSearch queryObj={queryObj} />
       <MakeSearch
@@ -135,8 +136,9 @@ export function HeroDropdown() {
         />
       )}
       <Button
-        className="w-full lg:max-w-[58px] lg:h-[58px] text-lg border border-red-300 lg:border-0"
+        className="w-full border border-red-300 text-lg lg:h-[58px] lg:max-w-[58px] lg:border-0"
         onClick={handleSubmitDropdown}
+        disabled={!isReadyForSubmit}
       >
         {loading ? (
           <AiOutlineLoading3Quarters className="animate-spin" />

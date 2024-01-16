@@ -155,12 +155,12 @@ const Footer = () => {
               Information
             </p>
             <ul className="list-none">
-              <li className="hover-underline-animation mb-4 text-base font-normal capitalize text-[#DBDBDB]">
+              {/* <li className="hover-underline-animation mb-4 text-base font-normal capitalize text-[#DBDBDB]">
                 <Link href="about">About Us</Link>
-              </li>
-              <li className="hover-underline-animation mb-4 text-base font-normal capitalize text-[#DBDBDB]">
+              </li> */}
+              {/* <li className="hover-underline-animation mb-4 text-base font-normal capitalize text-[#DBDBDB]">
                 <Link href="buying-guides">Buying Guides</Link>
-              </li>
+              </li> */}
               <li className="hover-underline-animation mb-4 text-base font-normal capitalize text-[#DBDBDB]">
                 <Link href="/policies/warranty-policy">Warranty</Link>
               </li>
