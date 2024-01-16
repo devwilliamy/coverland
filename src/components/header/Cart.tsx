@@ -26,7 +26,9 @@ import { TCartItems } from '@/lib/cart/useCart';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useMediaQuery } from '@mantine/hooks';
-import { useState } from 'react';
+import { HiOutlineShoppingCart } from 'react-icons/hi';
+import { FaCheck } from 'react-icons/fa6';
+import { IoIosClose } from 'react-icons/io';
 
 function Cart() {
   const { cartItems } = useCartContext();
@@ -34,50 +36,55 @@ function Cart() {
   const cartColor = cartItems.length > 0 ? '#BE1B1B' : '#000000';
 
   return (
-    <div>
-      <Sheet>
-        <SheetTrigger asChild>
-          <ShoppingCart
+    <Sheet>
+      <SheetTrigger asChild>
+        <button className="mt-1 flex h-[40px] w-5 items-center md:order-last">
+          <div className="h-[17px] w-[17px] *:h-full *:w-full lg:h-[20px] lg:w-[20px]">
+            <HiOutlineShoppingCart />
+          </div>
+        </button>
+        {/* <ShoppingCart
             size={isMobile ? 24 : 32}
             color={cartColor}
             className="hover:cursor-pointer"
-          />
-        </SheetTrigger>
-        {cartItems.length > 0 && (
-          <span className="relative flex h-4 w-4">
-            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#BE1B1B] opacity-75"></span>
-            <span className="relative inline-flex h-4 w-4 items-center justify-center rounded-full bg-[#BE1B1B] text-xs text-white">
-              {cartItems.length}
-            </span>
-          </span>
-        )}
-        <SheetContent>
-          <SheetHeader>
-            <SheetTitle>Your Cart</SheetTitle>
-            <SheetDescription>
-              Ready to checkout? Click the button below
-            </SheetDescription>
-          </SheetHeader>
-          {cartItems.map((item) => {
-            return <CartLineItem key={item.sku} item={item} />;
-          })}
-          <SheetFooter>
-            <SheetClose asChild>
-              <Button type="submit" className="mt-10 w-full" asChild>
-                <Link href="/checkout">Checkout</Link>
-              </Button>
+          /> */}
+      </SheetTrigger>
+      <SheetContent>
+        <SheetHeader>
+          <SheetTitle className="flex w-full items-center justify-between">
+            <div className="text-green-600 *:h-5 *:w-5">
+              <FaCheck />
+            </div>
+            Your Cart
+            <SheetClose
+              asChild
+              className="cursor-pointer bg-gray-200 text-black *:h-8 *:w-8"
+            >
+              <div className="rounded-full">
+                <IoIosClose />
+              </div>
             </SheetClose>
-          </SheetFooter>
-        </SheetContent>
-      </Sheet>
-    </div>
+          </SheetTitle>
+        </SheetHeader>
+        {cartItems.map((item) => {
+          return <CartLineItem key={item.sku} item={item} />;
+        })}
+        <SheetFooter>
+          <SheetClose asChild>
+            <Button type="submit" className="mt-10 w-full" asChild>
+              <Link href="/checkout">Checkout</Link>
+            </Button>
+          </SheetClose>
+        </SheetFooter>
+      </SheetContent>
+    </Sheet>
   );
 }
 
 const CartLineItem = ({ item }: { item: TCartItems }) => {
   console.log(item);
   return (
-    <Card>
+    <Card className="my-1 w-full">
       <CardHeader>
         <CardTitle>{item.product_name}</CardTitle>
         <CardDescription>

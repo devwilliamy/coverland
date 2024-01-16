@@ -175,14 +175,14 @@ function CarSelector({
           />
         )}
         {/* Left Panel */}
-        <div className=" mt-[29px] flex h-auto w-full flex-col items-stretch justify-center pb-2 lg:w-3/5 lg:pb-0 ">
+        <div className=" -ml-4 mt-[29px] flex h-auto w-screen flex-col items-stretch justify-center pb-2 lg:w-3/5 lg:pb-0 ">
           {/* Featured Image */}
           <div
             className={`${
               showMore ? 'overflow-scroll' : 'max-h-[1775px] overflow-hidden'
             }`}
           >
-            <div className="flex h-[400px] w-full items-center justify-center rounded-xl bg-[#F2F2F2] md:h-[500px] lg:h-[650px]">
+            <div className="flex h-[400px] w-full items-center justify-center bg-[#F2F2F2] md:h-[500px] lg:h-[650px] lg:rounded-xl">
               {isMobile ? (
                 <MobileImageCarousel
                   selectedProduct={selectedProduct}
@@ -584,7 +584,6 @@ function CarSelector({
                 >
                   live chat
                 </Link>
-                PUT LIVE CHAT BTN HERE
               </div>
             </div>
           </div>

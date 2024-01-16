@@ -168,9 +168,11 @@ export function ExtraProductDetails({
         <div className="md:my-18 my-8 lg:my-28">
           <MoneyBack />
         </div>
-        <div id="#reviews" className="md:mt-18 mt-8 lg:mt-28">
-          <ReviewSection reviewData={reviewData} />
-        </div>
+        {!!reviewData.length && (
+          <div id="#reviews" className="md:mt-18 mt-8 lg:mt-28">
+            <ReviewSection reviewData={reviewData} />
+          </div>
+        )}
       </div>
     </>
   );
@@ -246,16 +248,18 @@ const MobilePDPDetails = ({ reviewData }: { reviewData: TReviewData[] }) => {
         </AccordionContent>
       </AccordionItem>
 
-      <AccordionItem value="item-6">
-        <AccordionTrigger className="font-black uppercase !no-underline">
-          Car Cover Reviews
-        </AccordionTrigger>
-        <AccordionContent>
-          <div className="lg:mt-28">
-            <ReviewSection reviewData={reviewData} />
-          </div>
-        </AccordionContent>
-      </AccordionItem>
+      {!!reviewData.length && (
+        <AccordionItem value="item-6">
+          <AccordionTrigger className="font-black uppercase !no-underline">
+            Car Cover Reviews
+          </AccordionTrigger>
+          <AccordionContent>
+            <div className="lg:mt-28">
+              <ReviewSection reviewData={reviewData} />
+            </div>
+          </AccordionContent>
+        </AccordionItem>
+      )}
     </Accordion>
   );
 };
