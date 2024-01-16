@@ -9,7 +9,7 @@ export default function ProductVideo() {
       <iframe
         width="100%"
         height="100%"
-        src="https://www.youtube.com/embed/MzF7jIIkDAo?si=t-6lccUtdSOH0NZM"
+        src="https://www.youtube.com/embed/TigF03eH0yE?controls=0&modestbranding=1&rel=0&autoplay=1&mute=1"
         title="YouTube video player"
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
         allowFullScreen

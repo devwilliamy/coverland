@@ -49,6 +49,13 @@ export default async function ProductPDP({
   if (!productData) return null;
 
   const modelJson = productJson as ProductJson[];
+
+  const jsonForData = modelJson.filter(
+    (row) =>
+      row.year_generation === year &&
+      deslugify(make).toLowerCase() === row.make.toLowerCase()
+  )?.[0];
+
   const yearFk = modelJson.filter((row) => row.year_generation === year)?.[0]
     ?.fk;
 
@@ -118,7 +125,7 @@ export default async function ProductPDP({
     redirect('/');
   }
 
-  if (!submodelParam) {
+  if (!submodelParam && jsonForData) {
     const submodelsOfGeneration = modelJson
       .filter((model) => model.generation_default === yearFk)
       .map((model) => model.submodel1);
@@ -138,6 +145,9 @@ export default async function ProductPDP({
       )
     );
   }
+
+  console.log(submodels);
+  console.log(modelData.map((row) => row.submodel1));
 
   const secondSubmodels = Array.from(
     new Set(

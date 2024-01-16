@@ -67,6 +67,8 @@ export function HeroDropdown() {
     };
     getData();
   }, [carToDisplay]);
+
+  console.log(data);
   const queryObj = {
     query,
     setQuery,
@@ -74,6 +76,10 @@ export function HeroDropdown() {
   const makeData = [
     ...new Set(data?.map((d) => d.make).filter((val): val is string => !!val)),
   ];
+
+  console.log(
+    data?.map((d) => d.submodel1).filter((val): val is string => !!val)
+  );
 
   const subModelData = [
     ...new Set(
@@ -111,8 +117,12 @@ export function HeroDropdown() {
   const handleSubmitDropdown = async () => {
     setLoading(true);
     const url = await generatePDPUrl({ ...query });
+    console.log(url);
     router.push(url);
   };
+
+  console.log(submodel);
+  console.log(subModelData);
 
   return (
     <div className="relative flex w-full flex-col justify-center gap-2 px-4 font-medium *:flex-1 *:py-3 md:flex-row lg:px-16 lg:*:py-4">

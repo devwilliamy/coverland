@@ -49,7 +49,7 @@ function Cart() {
             className="hover:cursor-pointer"
           /> */}
       </SheetTrigger>
-      <SheetContent>
+      <SheetContent className="overflow-scroll">
         <SheetHeader>
           <SheetTitle className="flex w-full items-center justify-between">
             <div className="text-green-600 *:h-5 *:w-5">
