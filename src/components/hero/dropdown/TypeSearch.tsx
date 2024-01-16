@@ -26,9 +26,11 @@ export function TypeSearch({
     <select
       value={value}
       onChange={handleChange}
-      className="text-lg rounded-lg px-2"
+      className="text-lg rounded-lg px-2 w-full lg:w-auto"
     >
-      <option value="">Product Type</option>
+      <option value="" selected>
+        Product Type
+      </option>
       {types.map((type, i) => (
         <option key={`type-${type}-${i}`} value={type}>
           {type}

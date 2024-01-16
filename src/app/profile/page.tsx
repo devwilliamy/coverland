@@ -21,21 +21,19 @@ export default async function Profile() {
     data: { user },
   } = await supabase.auth.getUser();
 
-  const handleLogout = async () => {
-    await supabase.auth.signOut();
-    // Redirect to home page or login page after logout
-  };
-
   return user ? (
-    <div className="flex gap-4">
-      <div className="container mx-auto p-4">
-        <div className="flex flex-col items-center justify-center">
-          <h1 className="mb-4 text-2xl font-bold">Profile</h1>
-          <p className="mb-2">Email: {user.email}</p>
-          <form action={signOut}>
-            <Button>Log Out</Button>
-          </form>
-        </div>
+    <div className="flex h-[70vh] min-h-[70vh]">
+      <div className="flex h-full w-3/12 flex-col items-center bg-green-400 p-2 ">
+        <div className="text-2xl font-extrabold ">My Account</div>
+        <p className="mb-2">Email: {user.email}</p>
+        <form action={signOut}>
+          <Button>Log Out</Button>
+        </form>
+        <div className="pt-2 text-xl font-thin">My Orders</div>
+      </div>
+      <div className="flex h-full w-9/12 flex-col bg-blue-400">
+        <div>My Account</div>
+        <div className="div"></div>
       </div>
     </div>
   ) : (

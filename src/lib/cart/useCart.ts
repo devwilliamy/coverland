@@ -13,6 +13,7 @@ const useCart = () => {
     }
     return [];
   });
+  const [cartOpen, setCartOpen] = useState(false);
 
   useEffect(() => {
     if (cartItems.length === 0) {
@@ -67,6 +68,8 @@ const useCart = () => {
     removeItemFromCart,
     adjustItemQuantity,
     getTotalPrice,
+    cartOpen,
+    setCartOpen,
   };
 };
 

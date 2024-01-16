@@ -3,7 +3,7 @@
 import { Button } from '@/components/ui/button';
 import { TProductData } from '@/lib/db';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import useCarSelection from '@/lib/db/hooks/useCarSelection';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 
@@ -11,6 +11,7 @@ import { extractUniqueValues } from '../utils';
 import { SubmodelSearch } from './SubmodelSearch';
 import { YearSearch } from './YearSearch';
 import { SubmodelSearch2nd } from './SubmodelSearch2nd';
+import { refreshRoute } from '@/app/[productType]/[...product]/actions';
 
 export default function SubDropdowns({
   modelData,
@@ -54,7 +55,8 @@ export default function SubDropdowns({
     ),
   ];
 
-  console.log(yearData);
+  const shouldTriggerSetParams =
+    secondSubmodels.length === 0 && !!selectedSubmodel;
 
   const setSearchParams = () => {
     const currentParams = new URLSearchParams(window.location.search);
@@ -73,55 +75,58 @@ export default function SubDropdowns({
       );
     }
 
-    currentParams.append('selected', 'true');
-
+    console.log(`${pathname}?${currentParams.toString()}`);
+    refreshRoute('/');
     router.push(`${pathname}?${currentParams.toString()}`);
+    // refreshRoute(`${pathname}?${currentParams.toString()}`);
   };
 
-  console.log(selectedSubmodel);
-
-  console.log(pathname);
-
-  // console.log(modelData.filter((car) => car?.submodel1));
-
   const hasSubmodel = new Set(modelData.map((car) => car?.submodel1)).size > 1;
-  console.log(hasSubmodel);
   const hasSecondSubModel =
-    modelData.filter((car) => car?.submodel2).length > 0;
+    modelData.filter((car) => car?.submodel2).length > 1;
+  console.log(hasSecondSubModel);
 
-  console.log(secondSubmodels);
+  if (submodelParam) return null;
 
   return (
     <>
-      {!isYearInPath && (
-        <YearSearch
-          setYear={setSelectedYear}
-          yearData={yearData}
-          yearParam={yearParam}
-        />
-      )}
+      <div className="rounded-lg bg-[#1A1A1A] px-4 py-4">
+        <p className="mb-3 text-center text-xl font-bold capitalize text-white">
+          SELECT YOUR VEHICLE
+        </p>
+        <div className="mb-4 *:w-full">
+          {!isYearInPath && (
+            <YearSearch
+              setYear={setSelectedYear}
+              yearData={yearData}
+              yearParam={yearParam}
+            />
+          )}
 
-      {!!submodels.length && (
-        <SubmodelSearch
-          modelData={modelData}
-          setSelectedSubmodel={setSelectedSubmodel}
-          submodelParam={submodelParam}
-        />
-      )}
-      {secondSubmodels.length > 1 && (
-        <SubmodelSearch2nd
-          modelData={modelData}
-          setSelectedSubmodel={setSelectedSecondSubmodel}
-          submodelParam2nd={submodelParam2nd}
-          secondSubmodels={secondSubmodels}
-        />
-      )}
-
-      {hasSubmodel && (
-        <Button className="h-[60px] text-lg" onClick={setSearchParams}>
-          Set Selection
-        </Button>
-      )}
+          {!!submodels.length && (
+            <SubmodelSearch
+              modelData={modelData}
+              submodels={submodels}
+              setSelectedSubmodel={setSelectedSubmodel}
+              submodelParam={submodelParam}
+              shouldTriggerSetParams={shouldTriggerSetParams}
+            />
+          )}
+          {secondSubmodels.length > 1 && (
+            <SubmodelSearch2nd
+              modelData={modelData}
+              setSelectedSecondSubmodel={setSelectedSecondSubmodel}
+              submodelParam2nd={submodelParam2nd}
+              secondSubmodels={secondSubmodels}
+            />
+          )}
+        </div>
+        {hasSecondSubModel && (
+          <Button className="h-[60px] w-full text-lg" onClick={setSearchParams}>
+            Set Selection
+          </Button>
+        )}
+      </div>
     </>
   );
 }

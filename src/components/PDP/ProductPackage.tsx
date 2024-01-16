@@ -52,7 +52,7 @@ export function ProductPackage() {
                 <br className="hidden md:block md" /> 1 Pair of grommets
               </p>
               <p className="text-[#767676] text-base md:text-lg font-normal w-full md:w-[521px]">
-                Anxious that the cover won't fit because of the antenna? The
+                Anxious that the cover {`won't`} fit because of the antenna? The
                 antenna patch and grommets are here to help to create an antenna
                 hole in the antenna location.
               </p>

@@ -14,6 +14,7 @@ import {
   TProductData,
   fetchDropdownData,
   fetchModelToDisplay,
+  generatePDPUrl,
 } from '@/lib/db';
 
 export type TQuery = {
@@ -90,70 +91,30 @@ export function HeroDropdown() {
     ),
   ];
 
-  // const subModelData = data?.data
-  //   ?.filter((model) => modelData?.includes(query?.model))
-  //   .map((d) => d.submodel);
-  // console.log('subModelData', subModelData);
-
-  // const goToProductPage = (query: TQuery) => {
-  //   if (!query) return null;
-  //   const slugify = (str: string) => {
-  //     if (!str) return null;
-  //     return str
-  //       .toLowerCase()
-  //       .trim()
-  //       .replace(/[^\w\s-]/g, '')
-  //       .replace(/[\s_-]+/g, '-')
-  //       .replace(/^-+|-+$/g, '');
-  //   };
-
-  //   const convertToUrl = (obj: TQuery) => {
-  //     if (!obj) return null; // Check if obj is undefined
-
-  //     const { type, year, make, model } = obj;
-  //     let url = `/${slugify(type)}/${slugify(make)}/${slugify(model)}`;
-  //     console.log(url);
-
-  //     let isFirstQueryParam = true; // Variable to track the first query parameter
-
-  //     // Function to append query parameters correctly
-  //     const appendQueryParam = (paramName: any, paramValue: any) => {
-  //       if (paramValue) {
-  //         url += isFirstQueryParam ? `?` : `&`;
-  //         url += `${paramName}=${encodeURIComponent(paramValue)}`;
-  //         isFirstQueryParam = false;
-  //       }
-  //     };
-
-  //     // Append year_generation and submodel parameters
-  //     appendQueryParam('year', displayModel?.year_generation);
-  //     appendQueryParam('submodel', slugify(obj.submodel));
-
-  //     return url;
-  //   };
-
-  //   const url = convertToUrl(query) ?? '';
-  //   router.push(url);
+  // const handleSubmitDropdown = async () => {
+  //   setLoading(true);
+  //   const response = await fetchDropdownData(
+  //     displayModel?.generation_default ?? String(displayModel?.fk)
+  //   );
+  //   if (response.data) {
+  //     const { product_url_slug, year_generation, submodel1_slug } =
+  //       response.data[0];
+  //     let url = `${product_url_slug}/${year_generation}`;
+  //     if (submodel1_slug) {
+  //       url += `?submodel=${submodel1_slug}`;
+  //     }
+  //     router.push(url);
+  //   }
   // };
 
   const handleSubmitDropdown = async () => {
     setLoading(true);
-    const response = await fetchDropdownData(
-      displayModel?.generation_default ?? String(displayModel?.fk)
-    );
-    if (response.data) {
-      const { product_url_slug, year_generation, submodel1_slug } =
-        response.data[0];
-      let url = `${product_url_slug}/${year_generation}`;
-      if (submodel1_slug) {
-        url += `?submodel=${submodel1_slug}`;
-      }
-      router.push(url);
-    }
+    const url = await generatePDPUrl({ ...query });
+    router.push(url);
   };
 
   return (
-    <div className="flex gap-2 flex-col md:flex-row justify-center relative font-medium w-full px-16 *:flex-1 ">
+    <div className="flex gap-2 flex-col md:flex-row justify-center relative font-medium w-full lg:px-16 *:flex-1 *:py-3 lg:*:py-4 px-4">
       <TypeSearch queryObj={queryObj} />
       <YearSearch queryObj={queryObj} />
       <MakeSearch
@@ -174,7 +135,7 @@ export function HeroDropdown() {
         />
       )}
       <Button
-        className="h-[58px] max-w-[58px] text-lg"
+        className="w-full lg:max-w-[58px] lg:h-[58px] text-lg border border-red-300 lg:border-0"
         onClick={handleSubmitDropdown}
       >
         {loading ? (

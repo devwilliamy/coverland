@@ -34,7 +34,7 @@ export function Layers() {
           </div>
           <div className="flex flex-col justify-between lg:justify-evenly w-full lg:w-2/4 items-stretch gap-4 lg:gap-0 lg:items-center md:px-4 lg:px-16">
             <div className="grid grid-cols-1 gap-4">
-              <p className="text-[#1A1A1A] font-bold capitalize text-2xl capitalize">
+              <p className="text-[#1A1A1A] font-bold text-2xl capitalize">
                 Waterproof Car Cover
               </p>
               <p className="text-[#767676] font-normal text-lg w-full lg:w-96">
@@ -43,7 +43,7 @@ export function Layers() {
               </p>
             </div>
             <div className="grid grid-cols-1 gap-4">
-              <p className="text-[#1A1A1A] font-bold capitalize text-2xl capitalize">
+              <p className="text-[#1A1A1A] font-bold text-2xl capitalize">
                 Premium Car Cover
               </p>
               <p className="text-[#767676] font-normal text-lg w-full lg:w-96">
@@ -52,7 +52,7 @@ export function Layers() {
               </p>
             </div>
             <div className="grid grid-cols-1 gap-4">
-              <p className="text-[#1A1A1A] font-bold capitalize text-2xl capitalize">
+              <p className="text-[#1A1A1A] font-bold text-2xl capitalize">
                 Long-lasting Car Cover
               </p>
               <p className="text-[#767676] font-normal text-lg w-full lg:w-96">
@@ -75,7 +75,7 @@ export function Layers() {
             />
           </div>
           <div className="grid grid-cols-1 gap-4">
-            <p className="text-[#1A1A1A] font-bold capitalize text-2xl capitalize">
+            <p className="text-[#1A1A1A] font-bold text-2xl capitalize">
               Zero Leaks
             </p>
             <p className="text-[#707070] font-normal text-lg">
@@ -95,7 +95,7 @@ export function Layers() {
             />
           </div>
           <div className="grid grid-cols-1 gap-4">
-            <p className="text-[#1A1A1A] font-bold capitalize text-2xl capitalize">
+            <p className="text-[#1A1A1A] font-bold text-2xl capitalize">
               Soft Touch
             </p>
             <p className="text-[#707070] font-normal text-lg">
@@ -115,7 +115,7 @@ export function Layers() {
             />
           </div>
           <div className="grid grid-cols-1 gap-4">
-            <p className="text-[#1A1A1A] font-bold capitalize text-2xl capitalize">
+            <p className="text-[#1A1A1A] font-bold text-2xl capitalize">
               Keeps it dry
             </p>
             <p className="text-[#707070] font-normal text-lg">

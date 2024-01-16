@@ -11,6 +11,7 @@
   "dependencies": {
     "@emotion/react": "^11.11.3",
     "@emotion/styled": "^11.11.0",
+    "@livechat/widget-react": "^1.3.2",
     "@mantine/hooks": "^7.4.1",
     "@mui/icons-material": "^5.15.4",
     "@mui/joy": "^5.0.0-beta.22",
@@ -19,6 +20,7 @@
     "@radix-ui/react-dialog": "^1.0.5",
     "@radix-ui/react-popover": "^1.0.7",
     "@radix-ui/react-scroll-area": "^1.0.5",
+    "@radix-ui/react-select": "^2.0.0",
     "@radix-ui/react-separator": "^1.0.3",
     "@radix-ui/react-slot": "^1.0.2",
     "@radix-ui/react-toast": "^1.1.5",
@@ -54,6 +56,7 @@
     "@types/react": "^18",
     "@types/react-dom": "^18",
     "autoprefixer": "^10.0.1",
+    "embla-carousel": "^8.0.0-rc19",
     "eslint": "^8",
     "eslint-config-next": "14.0.4",
     "postcss": "^8",

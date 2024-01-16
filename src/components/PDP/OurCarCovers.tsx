@@ -28,7 +28,7 @@ export function OurCarCovers() {
       </div>
       <div>
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          <div className="flex md:flex-row flex-col gap-4 lg:grid lg:grid-cols-4 gap-2 justify-center md:justify-items-center items-center md:items-start">
+          <div className="flex md:flex-row flex-col gap-4 lg:grid lg:grid-cols-4 justify-center md:justify-items-center items-center md:items-start">
             <div className="w-[50px] h-[50px] lg:h-[60px] lg:w-[60px]">
               <div className="bg-blue rounded-full h-full w-full flex flex-col justify-center items-center">
                 <UVHarmIcon />
@@ -44,7 +44,7 @@ export function OurCarCovers() {
               </p>
             </div>
           </div>
-          <div className="flex md:flex-row flex-col gap-4 lg:grid lg:grid-cols-4 gap-2 justify-center md:justify-items-center items-center md:items-start">
+          <div className="flex md:flex-row flex-col gap-4 lg:grid lg:grid-cols-4 justify-center md:justify-items-center items-center md:items-start">
             <div className="w-[50px] h-[50px] lg:h-[60px] lg:w-[60px]">
               <div className="bg-blue rounded-full h-full w-full flex flex-col justify-center items-center">
                 <WaterHumidityIcon />
@@ -60,7 +60,7 @@ export function OurCarCovers() {
               </p>
             </div>
           </div>
-          <div className="flex md:flex-row flex-col gap-4 lg:grid lg:grid-cols-4 gap-2 justify-center md:justify-items-center items-center md:items-start">
+          <div className="flex md:flex-row flex-col gap-4 lg:grid lg:grid-cols-4 justify-center md:justify-items-center items-center md:items-start">
             <div className="w-[50px] h-[50px] lg:h-[60px] lg:w-[60px]">
               <div className="bg-blue rounded-full h-full w-full flex flex-col justify-center items-center">
                 <WaterHumidityIcon />
@@ -71,12 +71,12 @@ export function OurCarCovers() {
                 Strong Wind
               </p>
               <p className="text-[#707070] text-lg font-normal">
-                Don't let strong winds unsettle your car cover. Our wind straps
-                keep it steady in gusty conditions.
+                {`Don't let strong winds unsettle your car cover. Our wind straps
+                keep it steady in gusty conditions.`}
               </p>
             </div>
           </div>
-          <div className="flex md:flex-row flex-col gap-4 lg:grid lg:grid-cols-4 gap-2 justify-center md:justify-items-center items-center md:items-start">
+          <div className="flex md:flex-row flex-col gap-4 lg:grid lg:grid-cols-4 justify-center md:justify-items-center items-center md:items-start">
             <div className="w-[50px] h-[50px] lg:h-[60px] lg:w-[60px]">
               <div className="bg-blue rounded-full h-full w-full flex flex-col justify-center items-center">
                 <TempShiftsIcon />
@@ -92,7 +92,7 @@ export function OurCarCovers() {
               </p>
             </div>
           </div>
-          <div className="flex md:flex-row flex-col gap-4 lg:grid lg:grid-cols-4 gap-2 justify-center md:justify-items-center items-center md:items-start">
+          <div className="flex md:flex-row flex-col gap-4 lg:grid lg:grid-cols-4 justify-center md:justify-items-center items-center md:items-start">
             <div className="w-[50px] h-[50px] lg:h-[60px] lg:w-[60px]">
               <div className="bg-blue rounded-full h-full w-full flex flex-col justify-center items-center">
                 <LeavesTreeIcon />
@@ -108,7 +108,7 @@ export function OurCarCovers() {
               </p>
             </div>
           </div>
-          <div className="flex md:flex-row flex-col gap-4 lg:grid lg:grid-cols-4 gap-2 justify-center md:justify-items-center items-center md:items-start">
+          <div className="flex md:flex-row flex-col gap-4 lg:grid lg:grid-cols-4 justify-center md:justify-items-center items-center md:items-start">
             <div className="w-[50px] h-[50px] lg:h-[60px] lg:w-[60px]">
               <div className="bg-blue rounded-full h-full w-full flex flex-col justify-center items-center">
                 <BirdsAnimalIcon />

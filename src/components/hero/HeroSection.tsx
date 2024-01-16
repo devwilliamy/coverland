@@ -1,43 +1,35 @@
+'use client';
+
+import { useMediaQuery } from '@mantine/hooks';
 import { HeroDropdown } from './dropdown/HeroDropdown';
 import bg from '/public/images/hero/home-hero_D.webp';
+import hero from '@/images/hero/hero.webp';
+import heroMobile from '@/images/hero/hero_mobile.webp';
+import Image from 'next/image';
 
 const HeroSection = () => {
+  const isMobile = useMediaQuery('(max-width: 500px)');
+  console.log('isMobile', isMobile);
   return (
-    <section className="h-auto flex flex-col justify-start lg:justify-start items-center ">
-      <div
-        className="w-full lg:max-w-[1440px] h-[360px] lg:h-[500px] relative"
-        style={{ backgroundImage: `url(${bg.src})` }}
-      >
-        <div className="w-full h-full flex flex-col justify-between items-center py-8 z-10">
-          <div className="flex flex-row justify-center items-center w-full pb-24">
-            <p className="uppercase italic text-white whitespace-nowrap xs:text-md md:text-3xl lg:text-2xl font-semibold lg:whitespace-wrap">
-              limited time offer <span className="text-red">50% off</span>
-            </p>
-          </div>
-          <div className="flex flex-col justify-between items-start px-4">
-            <div className="flex flex-col justify-start xs:items-start md:items-center">
-              <div className="pb-2">
-                <p className="text-6xl text-left font-black text-white uppercase">
-                  Select your Vehicle
-                </p>
-              </div>
-              <div>
-                <p className="text-sm uppercase text-white md:text-2xl md:font-semibold">
-                  #1 Rated Car Cover in the USA
-                </p>
-              </div>
-            </div>
-          </div>
-          <div id="desktop-filter" className="pt-16 hidden w-full lg:block">
+    <section className="h-auto flex flex-col justify-start lg:justify-start items-center px-4 lg:px-0">
+      <div className="w-full h-[530px] relative">
+        <Image
+          className=""
+          src={isMobile ? heroMobile.src : hero.src}
+          alt="hero"
+          layout="fill"
+        />
+        <div className="pb-2 relative h-full flex flex-col justify-end text-center">
+          <p className="text-xs lg:text-2xl lg:my-2 tracking-wider uppercase text-white">
+            #1 Rated Car Cover in the USA
+          </p>
+          <p className="lg:text-6xl lg:my-2 text-xl tracking-wide font-black text-white uppercase">
+            Select your Vehicle
+          </p>
+          <div id="desktop-filter" className="my-4">
             <HeroDropdown />
           </div>
         </div>
-      </div>
-      <div
-        id="mobile-filter"
-        className="pt-4 md:pt-20 w-full flex flex-col items-center bg-[#F9F9FB] md:hidden"
-      >
-        <HeroDropdown />
       </div>
     </section>
   );

@@ -24,8 +24,8 @@ export function ClimateCrisis() {
         </p>
       </div>
 
-      <div className="absolute bottom-2.5 md:bottom-[57px] bottom-2.5 left-2.5 md:left-[57px] leading-normal bg-[#1A1A1A] p-2 md:p-5 w-3/4 md:w-[515px]">
-        <p className="text-white text-sm md:text-base md:text-xl font-normal">
+      <div className="absolute bottom-2.5 md:bottom-[57px] left-2.5 md:left-[57px] leading-normal bg-[#1A1A1A] p-2 md:p-5 w-3/4 md:w-[515px]">
+        <p className="text-white text-sm md:text-xl font-normal">
           From snowstorms to downpours,
           <br /> our car covers guarantee year-round protection providing
           top-notch car care in any weather.

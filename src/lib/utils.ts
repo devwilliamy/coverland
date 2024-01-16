@@ -19,7 +19,18 @@ export const slugify = (str: string) =>
     .replace(/[\s_-]+/g, '-')
     .replace(/^-+|-+$/g, '');
 
-export const deslugify = (slug: string) => {
+export const deslugify = (slug: any) => {
+  if (typeof slug !== 'string') return slug;
+
+  // Handle specific cases
+  if (slug.toLowerCase() === 'bmw') return 'BMW';
+  if (slug.toLowerCase() === '3-series') return '3-Series';
+
+  // Check if the format is like a date range (e.g., 2006-2016)
+  const dateRangePattern = /^\d{4}-\d{4}$/;
+  if (dateRangePattern.test(slug)) return slug;
+
+  // General case
   return slug
     .replace(/-/g, ' ')
     .trim()

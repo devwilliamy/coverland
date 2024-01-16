@@ -7,11 +7,13 @@ import Providers from '@/providers';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import Footer from '@/pages/home/Footer';
 import { Toaster } from '@/components/ui/toaster';
+import LiveChat from '@/components/LiveChat';
 
 const roboto = Roboto({
-  weight: '400',
+  weight: ['400', '500', '700', '900'],
   subsets: ['latin'],
   display: 'swap',
+  variable: '--font-roboto',
 });
 
 export const metadata: Metadata = {
@@ -26,16 +28,16 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`${roboto.className}`}>
-        <main className="max-w-[1440px] mx-auto px-4">
-          <Providers>
-            <Header />
+      <body className={`${roboto.className} ${roboto.variable}`}>
+        <Providers>
+          <Header />
+          <main className="mx-auto max-w-[1440px] lg:px-0">
             {children}
             {/* <ReactQueryDevtools initialIsOpen={false} /> */}
             <Toaster />
-          </Providers>
+          </main>
           <Footer />
-        </main>
+        </Providers>
       </body>
     </html>
   );

@@ -3,6 +3,7 @@
 import { ChangeEvent, useState } from 'react';
 import { TQuery } from './HeroDropdown';
 import { TProductData } from '@/lib/db';
+import { AiOutlineLoading3Quarters } from 'react-icons/ai';
 
 export function MakeSearch({
   queryObj,
@@ -26,6 +27,8 @@ export function MakeSearch({
     setQuery((p) => ({ ...p, make: newValue }));
   };
 
+  console.log(isLoading);
+
   return (
     <select
       value={value}
@@ -34,15 +37,20 @@ export function MakeSearch({
       className="text-lg rounded-lg  px-2"
     >
       <option value="" disabled selected>
-        Select car make
+        {isLoading ? (
+          <div className="w-full h-full">
+            {'Loading...'}{' '}
+            <AiOutlineLoading3Quarters className="animate-spin bg-black" />
+          </div>
+        ) : (
+          'Select car make'
+        )}
       </option>
-      {isLoading
-        ? 'Loading...'
-        : sortedData.map((make) => (
-            <option key={make} value={make}>
-              {make}
-            </option>
-          ))}
+      {sortedData.map((make) => (
+        <option key={make} value={make}>
+          {make}
+        </option>
+      ))}
     </select>
   );
 }
