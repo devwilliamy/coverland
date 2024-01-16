@@ -24,10 +24,17 @@ import {
   VisaCard,
 } from '@/components/PDP/images/cards';
 import { FbCustomIcon, YtCustomIcon } from '@/components/PDP/images';
+import { createClient } from '@supabase/supabase-js';
+import { Database } from '@/lib/db/types';
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL ?? '';
+  const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_KEY ?? '';
+  const supabase = createClient<Database>(supabaseUrl, supabaseKey);
+
   console.log('Footer component is rendering');
+
   return (
     <footer className="flex flex-col justify-center items-center bg-[#1A1A1A] py-2 md:py-8 px-2 md:px-8 lg:py-10 lg:px-14 ">
       {/* <Membership /> */}

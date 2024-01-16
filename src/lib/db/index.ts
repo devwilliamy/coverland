@@ -7,10 +7,9 @@ import {
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL ?? '';
 const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_KEY ?? '';
+const supabase = createClient<Database>(supabaseUrl, supabaseKey);
 
 console.log(supabaseUrl, supabaseKey);
-
-const supabase = createClient<Database>(supabaseUrl, supabaseKey);
 
 export type TProductData = Database['public']['Tables']['Products-2024']['Row'];
 export type TModelFitData = Database['public']['Tables']['Products']['Row'];
@@ -56,6 +55,21 @@ export const fetchModelsOfMake = async (make: string) => {
     console.log(error);
   }
   return Models;
+};
+
+export const postSubscriberEmail = async (form: FormDataEntryValue) => {
+  if (!form) return;
+  const { error } = await supabase
+    .from('_Subscriber-Emails')
+    .insert({ email: form as string })
+    .not('email', 'is', null);
+
+  if (error) {
+    console.log(error);
+  }
+
+
+  
 };
 
 export async function fetchSubmodelsOfModel(model: string) {
