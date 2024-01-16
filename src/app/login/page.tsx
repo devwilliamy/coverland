@@ -1,6 +1,9 @@
 'use client';
-import SignInForm from '@/components/login/SigninForm';
+import dynamic from 'next/dynamic';
+const DynamicSignIn = dynamic(() => import('@/components/login/SigninForm'), {
+  ssr: false,
+});
 
 export default function Login() {
-  return <SignInForm />;
+  return <DynamicSignIn />;
 }
