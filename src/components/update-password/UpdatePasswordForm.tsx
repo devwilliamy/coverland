@@ -2,10 +2,33 @@
 import { createSupabaseBrowserClient } from '@/lib/db/supabaseClients';
 import { UpdatePassword } from '@supabase/auth-ui-react';
 import { ThemeSupa } from '@supabase/auth-ui-shared';
-import { User } from '@supabase/supabase-js';
+import { SupabaseClient, User } from '@supabase/supabase-js';
+import { useRouter } from 'next/navigation';
 
-export default function PasswordForm({ user }: { user: User | undefined }) {
-  const supabase = createSupabaseBrowserClient();
+export default function UpdatePasswordForm({
+  user,
+}: {
+  user: User | undefined;
+}) {
+  const router = useRouter();
+  const supabase: SupabaseClient = createSupabaseBrowserClient();
+
+  const { data } = supabase.auth.onAuthStateChange(async (event, session) => {
+    console.log('Session:', session);
+    console.log('Data:', data);
+    console.log('Event:', event);
+    /*
+        Note: Create CONSTANTS for these events
+        Sample Events: 
+         - INITIAL_SESSION
+         - SIGNED_IN
+         - USER_UPDATED (when password change happens)
+    */
+    // if (session && event === 'SIGNED_IN') {
+    //   router.push('/profile');
+    // }
+  });
+
   return (
     <div className="flex justify-center">
       <div className="w-11/12 rounded-lg p-12 px-6 py-10 sm:w-8/12 sm:px-10 sm:py-6 md:w-6/12 lg:w-5/12 2xl:w-3/12">

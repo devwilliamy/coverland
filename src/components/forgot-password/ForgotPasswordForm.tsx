@@ -10,19 +10,10 @@ export default function ForgotPasswordForm() {
   const router = useRouter();
   const supabase: SupabaseClient = createSupabaseBrowserClient();
 
-  const { data } = supabase.auth.onAuthStateChange(async (_, session) => {
-    if (session) {
-      router.push('/profile');
-    }
-  });
-
   return (
     <div className="flex justify-center">
       <div className="w-11/12 rounded-lg p-12 px-6 py-10 sm:w-8/12 sm:px-10 sm:py-6 md:w-6/12 lg:w-5/12 2xl:w-3/12">
         <h2 className="mb-4 text-4xl font-semibold">Forgot Password</h2>
-        <p className="mb-4 font-medium">
-          Looks like you&apos;ve forgotten your password
-        </p>
         <ForgottenPassword
           supabaseClient={supabase}
           // redirectTo={`${origin}/api/auth/forgot-password/callback`}
