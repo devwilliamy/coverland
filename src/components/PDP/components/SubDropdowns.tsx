@@ -84,16 +84,17 @@ export default function SubDropdowns({
   const hasSubmodel = new Set(modelData.map((car) => car?.submodel1)).size > 1;
   const hasSecondSubModel =
     modelData.filter((car) => car?.submodel2).length > 1;
+  console.log(hasSecondSubModel);
 
   if (submodelParam) return null;
 
   return (
     <>
-      <div className="bg-[#1A1A1A] rounded-lg py-4 px-4">
-        <p className="capitalize text-white text-xl mb-3 font-bold text-center">
+      <div className="rounded-lg bg-[#1A1A1A] px-4 py-4">
+        <p className="mb-3 text-center text-xl font-bold capitalize text-white">
           SELECT YOUR VEHICLE
         </p>
-        <div className="*:w-full mb-4">
+        <div className="mb-4 *:w-full">
           {!isYearInPath && (
             <YearSearch
               setYear={setSelectedYear}

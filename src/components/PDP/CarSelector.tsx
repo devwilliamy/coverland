@@ -166,7 +166,7 @@ function CarSelector({
   console.log(selectedProduct);
 
   return (
-    <section className="mx-auto h-auto w-full max-w-[1440px] lg:my-8">
+    <section className="mx-auto h-auto w-full max-w-[1440px] px-4 lg:my-8">
       <div className="flex w-full flex-col items-start justify-between lg:flex-row lg:gap-14">
         {isMobile && (
           <EditVehiclePopover
