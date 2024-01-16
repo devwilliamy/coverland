@@ -1,3 +1,4 @@
+import LiveChat from '@/components/LiveChat';
 import HeroSection from '@/components/hero/HeroSection';
 // import CategoryCards from '@/pages/home/CategoryCards';
 import ImageAndBlurb from '@/pages/home/ImageAndBlurb';

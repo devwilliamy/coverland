@@ -24,6 +24,7 @@ import {
   VisaCard,
 } from '@/components/PDP/images/cards';
 import { FbCustomIcon, YtCustomIcon } from '@/components/PDP/images';
+import LiveChat from '@/components/LiveChat';
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -67,7 +68,7 @@ const Footer = () => {
 
         <div
           id="footer-right"
-          className="align-center flex w-full flex-col items-start justify-between lg:w-1/2 lg:flex-row"
+          className="align-center flex w-full flex-col items-start justify-around lg:w-1/2 lg:flex-row"
         >
           <div
             id="contacts-nav"
@@ -120,7 +121,7 @@ const Footer = () => {
               </li> */}
             </ul>
           </div>
-          <div
+          {/* <div
             id="csr-nav"
             className="flex flex-col items-start justify-start pb-8 lg:pb-0"
           >
@@ -128,9 +129,9 @@ const Footer = () => {
               Customer Service
             </p>
             <ul className="list-none">
-              {/* <li className="text-[#DBDBDB] font-normal text-base capitalize mb-4 hover-underline-animation">
+              <li className="text-[#DBDBDB] font-normal text-base capitalize mb-4 hover-underline-animation">
                 <Link href="/profile">My Orders</Link>
-              </li> */}
+              </li>
 
               <li className="hover-underline-animation mb-4 text-base font-normal capitalize text-[#DBDBDB]">
                 <Link href="faqs">FAQs</Link>
@@ -145,7 +146,7 @@ const Footer = () => {
                 <Link href="customer-reviews">Customer Reviews</Link>
               </li>
             </ul>
-          </div>
+          </div> */}
           <div
             id="info-nav"
             className="flex flex-col items-start justify-start pb-8 lg:pb-0"
@@ -218,6 +219,7 @@ const Footer = () => {
         </div>
       </div>
       {/* </div */}
+      <LiveChat />
     </footer>
   );
 };

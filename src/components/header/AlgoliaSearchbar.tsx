@@ -43,20 +43,15 @@ const SearchHits = () => {
   const { refine } = useSearchBox();
   const { hits } = useHits();
 
-  const uniqueHits = removeDuplicates(hits);
-  const hitsToDisplay = uniqueHits.filter((hit: any) =>
-    generationDefaultKeys.includes(hit.sku.slice(-6))
-  );
-
-  // console.log(hitsToDisplay);
-
+  console.log(hits);
   return (
-    <div className="w-[300px] max-h-32 bg-gray-100 flex-col z-50 absolute top-14 text-center overflow-y-scroll rounded">
-      {hitsToDisplay.map((hit: any) => (
-        <div className="hover:bg-gray-300 my-2 " key={hit.sku}>
+    <div className="absolute top-14 z-50 max-h-32 w-[300px] flex-col overflow-y-scroll rounded bg-gray-100 text-center">
+      {hits.map((hit: any) => (
+        <div className="my-2 hover:bg-gray-300 " key={hit.sku}>
           <Link href={hit.product_url_slug}>
             <p>
-              {hit.make} {hit.model} {hit.submodel1}
+              {hit.year_generation} {hit.make} {hit.model} {hit.submodel1}{' '}
+              {hit.submodel2}
             </p>
           </Link>
         </div>
@@ -122,7 +117,7 @@ function AlgoliaWrapper({ children }: { children: ReactNode }) {
   };
   return (
     <InstantSearch
-      indexName="coverland_all_products"
+      indexName="coverland_products_by_generation"
       searchClient={customSearchClient}
     >
       {children}
