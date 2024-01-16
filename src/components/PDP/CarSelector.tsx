@@ -182,7 +182,7 @@ function CarSelector({
               showMore ? 'overflow-scroll' : 'max-h-[1775px] overflow-hidden'
             }`}
           >
-            <div className="flex h-[400px] w-full items-center justify-center rounded-xl bg-[#F2F2F2] md:h-[500px] lg:h-[650px]">
+            <div className="flex h-[400px] w-full items-center justify-center rounded-xl bg-white md:h-[500px] md:bg-[#F2F2F2] lg:h-[650px]">
               {isMobile ? (
                 <MobileImageCarousel
                   selectedProduct={selectedProduct}
@@ -780,50 +780,52 @@ const MobileImageCarousel = ({
   }, [api]);
 
   const Dot = () => (
-    <div className="relative flex h-3 w-3">
-      <span className="relative inline-flex h-3 w-3 rounded-full bg-gray-300"></span>
+    <div className="relative flex h-2 w-2">
+      <span className="relative inline-flex h-2 w-2 rounded-full bg-gray-300"></span>
     </div>
   );
 
   const ActiveDot = () => (
-    <div className="relative flex h-5 w-5">
-      <span className="relative inline-flex h-5 w-5 rounded-full bg-gray-600"></span>
+    <div className="relative flex h-2.5 w-2.5">
+      <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-gray-600"></span>
     </div>
   );
 
   return (
-    <Carousel setApi={setApi}>
-      <CarouselContent className="p-2">
-        <CarouselItem>
-          <Image
-            src={selectedProduct.feature as string}
-            alt={`Additional images of the ${selectedProduct.display_id} cover`}
-            width={500}
-            height={500}
-            // placeholder="blur"
-          />
-        </CarouselItem>
-        <CarouselItem>
-          <ProductVideo />
-        </CarouselItem>
-        {productImages.map((image, index) => (
-          <CarouselItem key={index}>
+    <div>
+      <Carousel setApi={setApi}>
+        <CarouselContent className="bg-[#F2F2F2] p-2">
+          <CarouselItem>
             <Image
-              src={image}
+              src={selectedProduct.feature as string}
               alt={`Additional images of the ${selectedProduct.display_id} cover`}
               width={500}
               height={500}
               // placeholder="blur"
             />
           </CarouselItem>
-        ))}
-      </CarouselContent>
-      <div className="flex w-full items-center justify-center gap-2">
+          <CarouselItem>
+            <ProductVideo />
+          </CarouselItem>
+          {productImages.map((image, index) => (
+            <CarouselItem key={index}>
+              <Image
+                src={image}
+                alt={`Additional images of the ${selectedProduct.display_id} cover`}
+                width={500}
+                height={500}
+                // placeholder="blur"
+              />
+            </CarouselItem>
+          ))}
+        </CarouselContent>
+      </Carousel>
+      <div className="flex w-full items-center justify-center gap-2 bg-white py-2">
         {scrollSnaps.map((_, index) =>
           index === current ? <ActiveDot key={index} /> : <Dot key={index} />
         )}
       </div>
-    </Carousel>
+    </div>
   );
 };
 
