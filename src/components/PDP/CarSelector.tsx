@@ -71,6 +71,11 @@ const ProductVideo = dynamicImport(() => import('./ProductVideo'), {
   ssr: false,
 });
 
+const DeliveryDate = dynamicImport(() => import('./components/DeliveryDate'), {
+  loading: () => <span className="font-normal">Loading...</span>,
+  ssr: false,
+});
+
 const EditVehiclePopover = dynamicImport(
   () => import('./components/EditVehiclePopover'),
   {
