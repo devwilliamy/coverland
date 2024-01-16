@@ -92,6 +92,47 @@ const EditVehicleDropdown = dynamicImport(
 
 export const dynamic = 'force-dynamic';
 
+function TimeTo2PMPST() {
+  const [timeRemaining, setTimeRemaining] = useState('');
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setTimeRemaining(calculateTimeTo2PM());
+    }, 60000); // Update every minute
+
+    return () => clearInterval(interval);
+  }, []);
+
+  console.log(timeRemaining);
+
+  function calculateTimeTo2PM() {
+    const now = new Date();
+    const target = new Date();
+
+    target.setHours(14 + 7); // 2 PM PST in UTC (PST is UTC-7)
+    target.setMinutes(0);
+    target.setSeconds(0);
+    target.setMilliseconds(0);
+
+    // If it's already past 2 PM PST, set target to 2 PM PST next day
+    if (now > target) {
+      target.setDate(target.getDate() + 1);
+    }
+
+    const diff = (target as unknown as number) - (now as unknown as number);
+    const hours = Math.floor(diff / 1000 / 60 / 60);
+    const minutes = Math.floor((diff / 1000 / 60) % 60);
+
+    return `${hours} Hours ${minutes} Mins`;
+  }
+
+  return (
+    <p className="text-dark text-sm">
+      Order within <span className="text-[#767676]">{timeRemaining}</span>
+    </p>
+  );
+}
+
 function CarSelector({
   modelData,
   pathParams,
@@ -483,13 +524,13 @@ function CarSelector({
                   </span>
                   <br className="xl:hidden" />
                   <span className="hidden md:mr-1 xl:block">-</span>
-                  <span className="font-normal">
-                    Delivery by <span className="uppercase">oct18</span>
-                  </span>
+                  <DeliveryDate />
                 </div>
                 <p className="text-dark text-sm">
                   Order within{' '}
-                  <span className="text-[#767676]">9 Hours 3 Mins</span>
+                  <span className="text-[#767676]">
+                    <TimeTo2PMPST />
+                  </span>
                 </p>
                 <p className="pt-1.5 text-sm font-normal text-[#1B8500]">
                   Free Returns for 30 Days

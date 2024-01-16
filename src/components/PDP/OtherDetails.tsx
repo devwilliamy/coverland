@@ -180,87 +180,89 @@ export function ExtraProductDetails({
 
 const MobilePDPDetails = ({ reviewData }: { reviewData: TReviewData[] }) => {
   return (
-    <Accordion
-      type="single"
-      collapsible
-      className="w-full font-black uppercase text-[#1A1A1A] lg:hidden"
-      defaultValue="item-6"
-    >
-      <AccordionItem value="item-1">
-        <AccordionTrigger className="font-black uppercase">
-          Product Details
-        </AccordionTrigger>
-        <AccordionContent>
-          <div>
-            <ProductHero />
-            {/* <div className=" md:mt-18 lg:mt-28">
-              <Video />
-            </div> */}
-          </div>
-        </AccordionContent>
-      </AccordionItem>
-
-      <AccordionItem value="item-2">
-        <AccordionTrigger className="font-black uppercase">
-          Benefits
-        </AccordionTrigger>
-        <AccordionContent>
-          <div className=" md:mt-18 lg:mt-28">
-            <ClimateCrisis />
-            <NoGarage />
-            <OurCarCovers />
-            <ProductChecklist />
-          </div>
-        </AccordionContent>
-      </AccordionItem>
-
-      <AccordionItem value="item-3">
-        <AccordionTrigger className="font-black uppercase">
-          Specification
-        </AccordionTrigger>
-        <AccordionContent>
-          <div className=" md:mt-18 lg:mt-28">
-            <ProductSpecGrid />
-            <ProductPackage />
-          </div>
-        </AccordionContent>
-      </AccordionItem>
-
-      <AccordionItem value="item-4">
-        <AccordionTrigger className="font-black uppercase">
-          Q&A
-        </AccordionTrigger>
-        <AccordionContent>
-          <div className=" md:mt-18 lg:mt-28">
-            <PDPAccordion />
-          </div>
-        </AccordionContent>
-      </AccordionItem>
-
-      <AccordionItem value="item-5">
-        <AccordionTrigger className="font-black uppercase">
-          Car Cover Instruction
-        </AccordionTrigger>
-        <AccordionContent>
-          <div className=" md:mt-18 lg:mt-28">
-            {/* Content for Car Cover Instruction Section */}
-          </div>
-        </AccordionContent>
-      </AccordionItem>
-
-      {!!reviewData.length && (
-        <AccordionItem value="item-6">
-          <AccordionTrigger className="font-black uppercase !no-underline">
-            Car Cover Reviews
+    <div className="px-4">
+      <Accordion
+        type="single"
+        collapsible
+        className="w-full font-black uppercase text-[#1A1A1A] lg:hidden"
+        defaultValue="item-6"
+      >
+        <AccordionItem value="item-1">
+          <AccordionTrigger className="font-black uppercase">
+            Product Details
           </AccordionTrigger>
           <AccordionContent>
-            <div className="lg:mt-28">
-              <ReviewSection reviewData={reviewData} />
+            <div>
+              <ProductHero />
+              {/* <div className=" md:mt-18 lg:mt-28">
+              <Video />
+            </div> */}
             </div>
           </AccordionContent>
         </AccordionItem>
-      )}
-    </Accordion>
+
+        <AccordionItem value="item-2">
+          <AccordionTrigger className="font-black uppercase">
+            Benefits
+          </AccordionTrigger>
+          <AccordionContent>
+            <div className=" md:mt-18 lg:mt-28">
+              <ClimateCrisis />
+              <NoGarage />
+              <OurCarCovers />
+              <ProductChecklist />
+            </div>
+          </AccordionContent>
+        </AccordionItem>
+
+        <AccordionItem value="item-3">
+          <AccordionTrigger className="font-black uppercase">
+            Specification
+          </AccordionTrigger>
+          <AccordionContent>
+            <div className=" md:mt-18 lg:mt-28">
+              <ProductSpecGrid />
+              <ProductPackage />
+            </div>
+          </AccordionContent>
+        </AccordionItem>
+
+        <AccordionItem value="item-4">
+          <AccordionTrigger className="font-black uppercase">
+            Q&A
+          </AccordionTrigger>
+          <AccordionContent>
+            <div className=" md:mt-18 lg:mt-28">
+              <PDPAccordion />
+            </div>
+          </AccordionContent>
+        </AccordionItem>
+
+        <AccordionItem value="item-5">
+          <AccordionTrigger className="font-black uppercase">
+            Car Cover Instruction
+          </AccordionTrigger>
+          <AccordionContent>
+            <div className=" md:mt-18 lg:mt-28">
+              {/* Content for Car Cover Instruction Section */}
+            </div>
+          </AccordionContent>
+        </AccordionItem>
+
+        {!!reviewData.length && (
+          <AccordionItem value="item-6">
+            <AccordionTrigger className="font-black uppercase !no-underline">
+              Car Cover Reviews
+            </AccordionTrigger>
+            <AccordionContent>
+              <div className="lg:mt-28">
+                <ReviewSection reviewData={reviewData} />
+              </div>
+            </AccordionContent>
+          </AccordionItem>
+        )}
+      </Accordion>
+    </div>
   );
 };
 
