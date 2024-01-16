@@ -4,7 +4,7 @@ export default function ProductVideo() {
   return (
     <div
       id="product-video"
-      className="lg:my-4 w-full h-[351px] lg:flex hidden flex-col justify-center items-center max-w-full border rounded-xl overflow-hidden"
+      className="h-[351px] w-full max-w-full flex-col items-center justify-center overflow-hidden rounded-xl border lg:my-4 lg:flex"
     >
       <iframe
         width="100%"

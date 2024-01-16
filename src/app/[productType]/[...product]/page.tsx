@@ -54,14 +54,14 @@ export default async function ProductPDP({
 
   const reviewData: TReviewData[] | null =
     (await fetchReviewData(searchParams, pathParams)) ?? [];
-  console.log(reviewData);
+  // console.log(reviewData);
 
-  console.log(productData);
-  console.log(
-    productData.filter((product) => product.submodel1_slug === submodelParam)
-  );
-  console.log(submodelParam);
-  console.log(deslugify(submodelParam));
+  // console.log(productData);
+  // console.log(
+  //   productData.filter((product) => product.submodel1_slug === submodelParam)
+  // );
+  // console.log(submodelParam);
+  // console.log(deslugify(submodelParam));
 
   const initModelData = productData.filter((product) => {
     const validSubmodelYear = modelJson.filter(
@@ -69,14 +69,14 @@ export default async function ProductPDP({
         obj.generation_default === yearFk &&
         obj.submodel1.toLowerCase() === deslugify(submodelParam)?.toLowerCase()
     )[0]?.year_generation;
-    console.log(validSubmodelYear);
+    // console.log(validSubmodelYear);
     return (
       product.year_generation === validSubmodelYear &&
       product.submodel1_slug === submodelParam
     );
   });
 
-  console.log(initModelData);
+  // console.log(initModelData);
 
   let submodels: string[] = [];
 
@@ -98,7 +98,7 @@ export default async function ProductPDP({
       }
       if (submodelParam) {
         console.log('running with a submodel', submodelParam);
-        console.log(initModelData);
+        // console.log(initModelData);
 
         return initModelData.sort((a, b) => {
           let colorIndexA = colorOrder.indexOf(a?.display_color as string);
@@ -112,7 +112,7 @@ export default async function ProductPDP({
       }
     })()?.filter((model) => model.msrp && model.price) ?? [];
 
-  console.log(modelData);
+  // console.log(modelData);
 
   if (modelData?.length === 0) {
     redirect('/');
@@ -154,7 +154,7 @@ export default async function ProductPDP({
   //   redirect(newUrl);
   // }
 
-  console.log(secondSubmodels);
+  // console.log(secondSubmodels);
 
   return (
     <>

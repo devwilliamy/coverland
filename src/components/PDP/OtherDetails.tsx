@@ -193,9 +193,9 @@ const MobilePDPDetails = ({ reviewData }: { reviewData: TReviewData[] }) => {
         <AccordionContent>
           <div>
             <ProductHero />
-            <div className=" md:mt-18 lg:mt-28">
+            {/* <div className=" md:mt-18 lg:mt-28">
               <Video />
-            </div>
+            </div> */}
           </div>
         </AccordionContent>
       </AccordionItem>
@@ -289,8 +289,8 @@ const ReviewSection = ({
 }) => {
   const [displayedReviews, setDisplayedReviews] = useState<number>(3);
   if (!reviewData) return null;
-  console.log('reviewData', reviewData);
-  console.log(reviewData);
+  // console.log('reviewData', reviewData);
+  // console.log(reviewData);
   return (
     <div className="relative py-2">
       <p

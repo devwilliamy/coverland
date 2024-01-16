@@ -67,7 +67,7 @@ export const fetchModelsOfMake = async (make: string) => {
     .eq('make', make);
   console.log('ran');
 
-  console.log(Models);
+  // console.log(Models);
 
   if (error) {
     console.log(error);
@@ -143,7 +143,7 @@ export async function fetchFilteredProducts({
         (value, index, self) => self.indexOf(value) === index && !!value.model
       );
 
-    console.log('models', uniqueModels, data.length);
+    // console.log('models', uniqueModels, data.length);
 
     return uniqueModels.length ? uniqueModels : [];
   } catch (error) {
@@ -223,7 +223,7 @@ export async function fetchDropdownData(fkey: string) {
     .from('Products-2024')
     .select('*')
     .textSearch('sku', fkey);
-  console.log(modelData);
+  // console.log(modelData);
 
   return modelData;
 }
@@ -241,7 +241,7 @@ export async function generatePDPUrl({
   model: string;
   submodel1?: string;
 }) {
-  console.log(type, year, make, model, submodel1);
+  // console.log(type, year, make, model, submodel1);
   let fetch = supabase
     .from('Products')
     .select('generation_default, year_generation, fk')
@@ -258,7 +258,7 @@ export async function generatePDPUrl({
   const { generation_default, year_generation, fk } = data?.[0] ?? {};
   let url;
 
-  console.log(data);
+  // console.log(data);
 
   const defaultYear = data?.filter((row) => row.fk === generation_default)?.[0]
     ?.year_generation;
@@ -281,7 +281,7 @@ export async function fetchModelToDisplay(fk: string) {
     .select('*')
     .eq('fk', fk);
 
-  console.log(data);
+  // console.log(data);
 
   if (error) {
     console.log(error);
@@ -302,7 +302,7 @@ export async function fetchReviewData(
   const modelDisplayName = deslugify(model);
   const makeDisplayName = deslugify(make);
 
-  console.log(modelDisplayName, makeDisplayName);
+  // console.log(modelDisplayName, makeDisplayName);
 
   let fetch = supabase
     .from('Product-Reviews')
@@ -312,13 +312,13 @@ export async function fetchReviewData(
 
   if (submodel1) {
     const submodelDisplayname = deslugify(submodel1);
-    console.log('submodel1', submodel1);
+    // console.log('submodel1', submodel1);
     fetch = fetch.textSearch('submodel1', submodelDisplayname);
   }
 
   if (submodel2) {
     const submodelDisplayname = deslugify(submodel2);
-    console.log('submodel1', submodel2);
+    // console.log('submodel1', submodel2);
 
     fetch = fetch.eq('submodel2', submodelDisplayname);
   }
@@ -327,7 +327,7 @@ export async function fetchReviewData(
   if (error) {
     console.log(error);
   }
-  console.log(data);
+  // console.log(data);
 
   if (data?.length) {
     return data;
@@ -357,7 +357,7 @@ export async function fetchPDPDataWithQuery(
     );
 
   if (submodel1) {
-    console.log('submodel1', submodel1);
+    // console.log('submodel1', submodel1);
     fetch = fetch.eq('submodel1_slug', submodel1);
   }
 
@@ -365,10 +365,10 @@ export async function fetchPDPDataWithQuery(
     fetch = fetch.textSearch('submodel2_slug', submodel2);
   }
 
-  console.log(make, model, submodel1);
+  // console.log(make, model, submodel1);
 
   const { data, error } = await fetch;
-  console.log(data);
+  // console.log(data);
 
   console.log('fetching with query params', data?.length);
   if (error) {
