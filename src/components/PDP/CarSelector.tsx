@@ -97,12 +97,12 @@ function CarSelector({
   reviewData: TReviewData[];
 }) {
   const displays = modelData.map((model) => model.display_color);
-  console.log('displays', displays);
+  // console.log('displays', displays);
 
   const [selectedProduct, setSelectedProduct] = useState<TProductData>(
     modelData[0]
   );
-  console.log(selectedProduct);
+  // console.log(selectedProduct);
   const [featuredImage, setFeaturedImage] = useState<string>(
     selectedProduct?.feature as string
   );
@@ -119,7 +119,7 @@ function CarSelector({
   const [showMore, setShowMore] = useState(false);
   const isMobile = useMediaQuery('(max-width: 768px)');
 
-  console.log(selectedProduct);
+  // console.log(selectedProduct);
 
   const { toast } = useToast();
   const { addToCart } = useCartContext();
@@ -128,7 +128,7 @@ function CarSelector({
     : pathParams?.product?.length === 3;
 
   const shouldSubmodelDisplay = !!submodels.length && !searchParams?.submodel;
-  console.log('shouldSubmodelDisplay', shouldSubmodelDisplay);
+  // console.log('shouldSubmodelDisplay', shouldSubmodelDisplay);
 
   const uniqueColors = Array.from(
     new Set(modelData.map((model) => model.display_color))
@@ -137,8 +137,8 @@ function CarSelector({
   const uniqueTypes = Array.from(
     new Set(modelData.map((model) => model.display_id))
   ).map((type) => modelData.find((model) => model.display_id === type));
-  console.log('uniqueCoverColors', uniqueColors);
-  console.log('uniqueCoverTypes', uniqueTypes);
+  // console.log('uniqueCoverColors', uniqueColors);
+  // console.log('uniqueCoverTypes', uniqueTypes);
 
   const handleAddToCart = () => {
     if (!selectedProduct) return;
@@ -151,7 +151,7 @@ function CarSelector({
     selectedProduct?.product
       ?.split(',')
       .filter((img) => img !== featuredImage) ?? [];
-  console.log('productImages', productImages);
+  // console.log('productImages', productImages);
   const modalProductImages = productImages.slice(5);
   const reviewScore = reviewData?.reduce(
     (acc, review) => acc + Number(review.rating_stars ?? 0),
@@ -161,9 +161,9 @@ function CarSelector({
 
   const avgReviewScore = (reviewScore / reviewCount).toFixed(1);
 
-  console.log(avgReviewScore);
-  console.log(searchParams?.submodel);
-  console.log(selectedProduct);
+  // console.log(avgReviewScore);
+  // console.log(searchParams?.submodel);
+  // console.log(selectedProduct);
 
   return (
     <section className="mx-auto h-auto w-full max-w-[1440px] lg:my-8">
@@ -264,12 +264,11 @@ function CarSelector({
               {isReadyForSelection && `${selectedProduct?.display_color}`}
             </span>
           </p>
-
-          <div className="grid w-auto grid-cols-5 gap-[7px] px-3 ">
+          <div className="flex flex-row space-x-1 overflow-x-auto whitespace-nowrap p-2 lg:grid lg:w-auto lg:grid-cols-5 lg:gap-[7px] lg:px-3">
             {uniqueColors?.map((sku) => {
               return (
                 <div
-                  className={`flex flex-col items-center justify-center p-1 ${
+                  className={`flex-shrink-0 p-1 lg:flex lg:flex-col lg:items-center lg:justify-center ${
                     sku?.display_color === selectedProduct?.display_color
                       ? 'rounded-lg border-4 border-[#6F6F6F]'
                       : ''
@@ -281,7 +280,7 @@ function CarSelector({
                     width={98}
                     height={98}
                     alt="car cover details"
-                    className="h-full w-full cursor-pointer rounded bg-[#F2F2F2]"
+                    className="h-20 w-20 cursor-pointer rounded bg-[#F2F2F2] lg:h-full lg:w-full"
                     onClick={() => {
                       setFeaturedImage(sku?.feature as string);
                       setSelectedProduct(sku as TProductData);
@@ -290,6 +289,7 @@ function CarSelector({
                 </div>
               );
             })}
+            {/* </div> */}
           </div>
 
           {isReadyForSelection && (
@@ -306,11 +306,11 @@ function CarSelector({
             </>
           )}
           {isReadyForSelection && (
-            <div className="grid w-auto grid-cols-5 gap-[7px] px-3">
+            <div className="flex flex-row space-x-1 overflow-x-auto whitespace-nowrap p-2 lg:grid lg:w-auto lg:grid-cols-5 lg:gap-[7px] lg:px-3">
               {uniqueTypes.map((sku, idx) => {
                 return (
                   <button
-                    className={`flex flex-col items-center justify-center p-1 ${
+                    className={`flex-shrink-0 p-1 lg:flex lg:flex-col lg:items-center lg:justify-center ${
                       sku?.display_id === selectedProduct?.display_id
                         ? 'rounded-lg border-4 border-[#6F6F6F]'
                         : ''
@@ -327,7 +327,7 @@ function CarSelector({
                       width={98}
                       height={98}
                       alt="car cover details"
-                      className={`h-full w-full cursor-pointer rounded bg-[#F2F2F2]`}
+                      className="h-20 w-20 cursor-pointer rounded bg-[#F2F2F2] lg:h-full lg:w-full"
                     />
                   </button>
                 );
