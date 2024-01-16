@@ -8,7 +8,6 @@ import Link from 'next/link';
 
 export default function ForgotPasswordForm() {
   const router = useRouter();
-
   const supabase: SupabaseClient = createSupabaseBrowserClient();
 
   const { data } = supabase.auth.onAuthStateChange(async (_, session) => {

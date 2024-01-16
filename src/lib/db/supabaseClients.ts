@@ -6,7 +6,6 @@ import {
 import { cookies } from 'next/headers';
 import { Database } from './types';
 import { SupabaseClient } from '@supabase/supabase-js';
-import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 
 export const createSupabaseServerClient = (
   cookieStore: ReturnType<typeof cookies>
@@ -40,13 +39,6 @@ export const createSupabaseServerClient = (
       },
     }
   );
-};
-
-export const createSupabaseFrontendClient = (): SupabaseClient => {
-  return createClientComponentClient({
-    supabaseUrl: process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    supabaseKey: process.env.NEXT_PUBLIC_SUPABASE_KEY!,
-  });
 };
 
 export const createSupabaseBrowserClient = (): SupabaseClient => {

@@ -1,7 +1,8 @@
 import { createSupabaseServerClient } from '@/lib/db/supabaseClients';
 import { NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
-import { createRouteHandlerClient } from '@supabase/auth-helpers-nextjs';
+import { ReadonlyRequestCookies } from 'next/dist/server/web/spec-extension/adapters/request-cookies';
+import { SupabaseClient } from '@supabase/supabase-js';
 
 // NOTE: - Might not actually need this. Thought it was needed for the forgot password but
 // this might be messing with session token
@@ -14,15 +15,8 @@ export async function GET(request: Request) {
   console.log('Inside forgot-password callback');
 
   if (code) {
-    const cookieStore = cookies();
-    const supabase = createSupabaseServerClient(cookieStore);
-    // const supabase = createRouteHandlerClient(
-    //   { cookies: () => cookieStore },
-    //   {
-    //     supabaseUrl: process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    //     supabaseKey: process.env.NEXT_PUBLIC_SUPABASE_KEY!,
-    //   }
-    // );
+    const cookieStore: ReadonlyRequestCookies = cookies();
+    const supabase: SupabaseClient = createSupabaseServerClient(cookieStore);
     await supabase.auth.exchangeCodeForSession(code);
   }
 

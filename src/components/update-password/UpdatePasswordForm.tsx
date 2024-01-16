@@ -1,8 +1,8 @@
 'use client';
-import { User } from '@supabase/auth-helpers-nextjs';
 import { createSupabaseBrowserClient } from '@/lib/db/supabaseClients';
 import { UpdatePassword } from '@supabase/auth-ui-react';
 import { ThemeSupa } from '@supabase/auth-ui-shared';
+import { User } from '@supabase/supabase-js';
 
 export default function PasswordForm({ user }: { user: User | undefined }) {
   const supabase = createSupabaseBrowserClient();
