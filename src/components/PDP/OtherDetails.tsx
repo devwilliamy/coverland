@@ -180,6 +180,39 @@ export function ExtraProductDetails({
 
 const MobilePDPDetails = ({ reviewData }: { reviewData: TReviewData[] }) => {
   return (
+
+    <Accordion
+      type="single"
+      collapsible
+      className="w-full px-4 pt-2 font-black uppercase text-[#1A1A1A] lg:hidden"
+      defaultValue="item-6"
+    >
+      <AccordionItem value="item-1">
+        <AccordionTrigger className="text-xl font-black uppercase text-[#1A1A1A] !no-underline">
+          Product Details
+        </AccordionTrigger>
+        <AccordionContent>
+          <ProductHero />
+          {/* <div className=" md:mt-18 lg:mt-28">
+              <Video />
+            </div> */}
+        </AccordionContent>
+      </AccordionItem>
+
+      <AccordionItem value="item-2">
+        <AccordionTrigger className="font-black uppercase">
+          Benefits
+        </AccordionTrigger>
+        <AccordionContent>
+          <div className=" md:mt-18 lg:mt-28">
+            <ClimateCrisis />
+            <NoGarage />
+            <OurCarCovers />
+            <ProductChecklist />
+          </div>
+        </AccordionContent>
+      </AccordionItem>
+
     <div className="px-4">
       <Accordion
         type="single"
@@ -200,6 +233,7 @@ const MobilePDPDetails = ({ reviewData }: { reviewData: TReviewData[] }) => {
             </div>
           </AccordionContent>
         </AccordionItem>
+
 
         <AccordionItem value="item-2">
           <AccordionTrigger className="font-black uppercase">
@@ -227,16 +261,17 @@ const MobilePDPDetails = ({ reviewData }: { reviewData: TReviewData[] }) => {
           </AccordionContent>
         </AccordionItem>
 
-        <AccordionItem value="item-4">
-          <AccordionTrigger className="font-black uppercase">
-            Q&A
-          </AccordionTrigger>
-          <AccordionContent>
-            <div className=" md:mt-18 lg:mt-28">
-              <PDPAccordion />
-            </div>
-          </AccordionContent>
-        </AccordionItem>
+
+      {/* <AccordionItem value="item-5">
+        <AccordionTrigger className="font-black uppercase">
+          Car Cover Instruction
+        </AccordionTrigger>
+        <AccordionContent>
+          <div className=" md:mt-18 lg:mt-28">
+          //  Content for Car Cover Instruction Section
+          </div>
+        </AccordionContent>
+      </AccordionItem> */}
 
         <AccordionItem value="item-5">
           <AccordionTrigger className="font-black uppercase">
