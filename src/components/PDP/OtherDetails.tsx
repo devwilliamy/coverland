@@ -161,7 +161,7 @@ export function ExtraProductDetails({
           <ProductChecklist />
         </div>
         <div ref={specsRef} className="md:mt-18 mt-8 lg:mt-28">
-          <ProductSpecGrid />
+          {/* <ProductSpecGrid /> */}
           <ProductPackage />
         </div>
         <div ref={faqRef} className="md:mt-18 mt-8 lg:mt-28">
