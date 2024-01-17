@@ -195,6 +195,9 @@ const MobilePDPDetails = ({ reviewData }: { reviewData: TReviewData[] }) => {
           {/* <div className=" md:mt-18 lg:mt-28">
               <Video />
             </div> */}
+            <div  className="">
+          <Layers />
+        </div>
         </AccordionContent>
       </AccordionItem>
 
