@@ -207,7 +207,7 @@ const MobilePDPDetails = ({ reviewData }: { reviewData: TReviewData[] }) => {
       </AccordionItem>
 
       <AccordionItem value="item-2">
-        <AccordionTrigger className="font-black uppercase">
+        <AccordionTrigger className="text-xl font-black uppercase text-[#1A1A1A] !no-underline">
           Benefits
         </AccordionTrigger>
         <AccordionContent>
@@ -221,7 +221,7 @@ const MobilePDPDetails = ({ reviewData }: { reviewData: TReviewData[] }) => {
       </AccordionItem>
 
       {/* <AccordionItem value="item-3">
-          <AccordionTrigger className="font-black uppercase">
+          <AccordionTrigger className="text-xl font-black uppercase text-[#1A1A1A] !no-underline">
             Specification
           </AccordionTrigger>
           <AccordionContent>
@@ -233,7 +233,7 @@ const MobilePDPDetails = ({ reviewData }: { reviewData: TReviewData[] }) => {
         </AccordionItem> */}
 
       <AccordionItem value="item-4">
-        <AccordionTrigger className="font-black uppercase">
+        <AccordionTrigger className="text-xl font-black uppercase text-[#1A1A1A] !no-underline">
           Q&A
         </AccordionTrigger>
         <AccordionContent>
@@ -244,7 +244,7 @@ const MobilePDPDetails = ({ reviewData }: { reviewData: TReviewData[] }) => {
       </AccordionItem>
 
       {/* <AccordionItem value="item-5">
-          <AccordionTrigger className="font-black uppercase">
+          <AccordionTrigger className="text-xl font-black uppercase text-[#1A1A1A] !no-underline">
             Car Cover Instruction
           </AccordionTrigger>
           <AccordionContent>
@@ -256,7 +256,7 @@ const MobilePDPDetails = ({ reviewData }: { reviewData: TReviewData[] }) => {
 
       {!!reviewData.length && (
         <AccordionItem value="item-6">
-          <AccordionTrigger className="font-black uppercase !no-underline">
+          <AccordionTrigger className="text-xl font-black uppercase text-[#1A1A1A] !no-underline">
             Car Cover Reviews
           </AccordionTrigger>
           <AccordionContent>
