@@ -148,7 +148,7 @@ function CarSelector({
   secondSubmodels: string[];
   searchParams: TPDPQueryParams;
   reviewData: TReviewData[];
-  parentGeneration: TSkuJson;
+  parentGeneration: any;
 }) {
   const defaultModel = modelData.find(
     (model) =>
@@ -162,7 +162,7 @@ function CarSelector({
     (!secondSubmodels.length || !!searchParams?.second_submodel);
 
   const [selectedProduct, setSelectedProduct] = useState<TProductData>(
-    isFullySelected ? modelData[0] : defaultModel
+    isFullySelected ? modelData[0] : defaultModel ?? modelData[0]
   );
   const [featuredImage, setFeaturedImage] = useState<string>(
     selectedProduct?.feature as string
