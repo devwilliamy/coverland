@@ -260,15 +260,15 @@ function CheckoutPage() {
               CHECKOUT
             </div>
           </div>
-          {/* <div className="w-full my-10 flex justify-center">
+          <div className="my-10 flex w-full justify-center">
             <Button
               variant={'default'}
-              className="text-xl w-40 bg-[#BE1B1B]"
+              className="w-40 bg-[#BE1B1B] text-xl"
               onClick={redirectToCheckout}
             >
               Checkout
             </Button>
-          </div> */}
+          </div>
         </div>
       )}
     </div>
