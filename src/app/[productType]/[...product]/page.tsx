@@ -196,9 +196,9 @@ export default async function ProductPDP({
 
   // // console.log(modelData);
 
-  // // if (modelData?.length === 0) {
-  // //   redirect('/');
-  // // }
+  if (modelData?.length === 0) {
+    redirect('/');
+  }
 
   // if (!submodelParam && jsonForData) {
   //   const submodelsOfGeneration = modelJson
