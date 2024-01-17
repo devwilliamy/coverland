@@ -19,7 +19,7 @@ export function stringToSlug(str: string) {
     .replace(/[^a-z0-9 ]/g, '') // Remove all non-word chars except spaces
     .replace(/\s+/g, '+'); // Replace spaces with +
 
-  console.log(slug);
+  // console.log(slug);
   return slug;
 }
 
