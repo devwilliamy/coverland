@@ -366,7 +366,7 @@ function CarSelector({
                         : null;
                       skuRef?.current?.scrollIntoView({
                         behavior: 'smooth',
-                        block: 'center',
+                        // block: 'center',
                         inline: 'center',
                       });
                     }}
