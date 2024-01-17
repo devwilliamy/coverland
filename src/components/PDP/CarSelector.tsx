@@ -153,12 +153,12 @@ function CarSelector({
   reviewData: TReviewData[];
   parentGeneration: any;
 }) {
-  console.log(
-    modelData.map((model) => model.submodel2),
-    'huh'
-  );
+  //console.log(
+  //   modelData.map((model) => model.submodel2),
+  //   'huh'
+  // );
 
-  console.log(secondSubmodels);
+  //console.log(secondSubmodels);
   const defaultModel = modelData.find(
     (model) =>
       model.fk ===
@@ -180,19 +180,19 @@ function CarSelector({
       ) ?? modelsBySubmodel
     : modelsBySubmodel;
 
-  console.log(modelsBySubmodel);
+  //console.log(modelsBySubmodel);
 
-  console.log(
-    stringToSlug(modelData[4]?.submodel1 as string),
-    searchParams.submodel
-  );
+  //console.log(
+  //   stringToSlug(modelData[4]?.submodel1 as string),
+  //   searchParams.submodel
+  // );
 
   const isFullySelected =
     pathParams?.product?.length === 3 &&
     (submodels.length === 0 || !!searchParams?.submodel) &&
     (secondSubmodels.length === 0 || !!searchParams?.second_submodel);
 
-  console.log(modelData);
+  //console.log(modelData);
 
   let displayedModelData = searchParams?.submodel
     ? modelsBySubmodel
@@ -210,7 +210,7 @@ function CarSelector({
   const [featuredImage, setFeaturedImage] = useState<string>(
     selectedProduct?.feature as string
   );
-  console.log(submodels, secondSubmodels, defaultModel);
+  //console.log(submodels, secondSubmodels, defaultModel);
   const router = useRouter();
   const path = usePathname();
 
@@ -229,8 +229,8 @@ function CarSelector({
     [key: string]: RefObject<HTMLElement>;
   }
 
-  console.log(modelData);
-  console.log(selectedProduct);
+  //console.log(modelData);
+  //console.log(selectedProduct);
 
   const productRefs = useRef<ProductRefs>(
     displayedModelData.reduce((acc: ProductRefs, item: TProductData) => {
@@ -254,7 +254,7 @@ function CarSelector({
     displayedModelData.find((model) => model.display_color === color)
   );
 
-  console.log(uniqueColors);
+  //console.log(uniqueColors);
 
   const uniqueTypes = Array.from(
     new Set(displayedModelData.map((model) => model.display_id))
@@ -279,11 +279,11 @@ function CarSelector({
 
   const avgReviewScore = (reviewScore / reviewCount).toFixed(1);
 
-  console.log(isFullySelected, isReadyForSelection);
+  //console.log(isFullySelected, isReadyForSelection);
 
-  console.log(submodels, secondSubmodels);
+  //console.log(submodels, secondSubmodels);
 
-  // console.log(avgReviewScore);
+  //// console.log(avgReviewScore);
   // console.log(searchParams?.submodel);
   // console.log(selectedProduct);
 
@@ -445,7 +445,7 @@ function CarSelector({
               </p>
             </div>
           </>
-
+          {/* Cover Types Section */}
           <div className="flex flex-row space-x-1 overflow-x-auto whitespace-nowrap p-2 lg:grid lg:w-auto lg:grid-cols-5 lg:gap-[7px] lg:px-3">
             {uniqueTypes.map((sku, idx) => {
               return (
@@ -495,6 +495,7 @@ function CarSelector({
                 {`${selectedProduct?.display_id}`}
                 &trade; {`${selectedProduct?.display_color}`}
               </h2>
+              {/* Reviews */}
               <div className="flex items-center gap-1">
                 <Rating
                   name="read-only"
@@ -590,7 +591,7 @@ function CarSelector({
           </div>
           {/* Product Description */}
           {/* <ProductDropdown dropdownItems={dropdownItems} /> */}
-          {/* info stuff */}
+          {/* Shipping info stuff */}
           <div className="flex flex-col items-start justify-start pt-8">
             <div className="flex flex-row items-start justify-start">
               <div className="flex flex-col items-start justify-start pr-4 pt-0">
@@ -621,6 +622,8 @@ function CarSelector({
               </p>
               {/* <BsInfoCircle size={20} color="#767676" /> */}
             </div>
+
+            {/* Select Your Vehicle */}
             {!isFullySelected && (
               <div className="mt-8 w-full">
                 <DropdownPDP
@@ -630,6 +633,7 @@ function CarSelector({
                 />
               </div>
             )}
+            {/* Add to Cart Button */}
             {!isFullySelected && selectedProduct ? (
               <>
                 <Popover>
