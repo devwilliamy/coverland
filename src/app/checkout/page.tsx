@@ -168,14 +168,14 @@ function CheckoutPage() {
                         <div className="text-xl">Same-Day Shipping</div>
                         <div className="flex items-center gap-2 text-xl">
                           <div>Free Delivery</div>
-                          <IconContext.Provider
+                          {/* <IconContext.Provider
                             // Info Circle Icon
                             value={{
                               className: 'cursor-pointer h-full w-[3vh]',
                             }}
                           >
                             <IoInformationCircleOutline />
-                          </IconContext.Provider>
+                          </IconContext.Provider> */}
                         </div>
                       </div>
                       <IconContext.Provider
