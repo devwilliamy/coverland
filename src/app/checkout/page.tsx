@@ -64,8 +64,8 @@ function CheckoutPage() {
       // total = totalNum
     }
   };
-  total = getTotalPrice();
-  console.log(cartItems);
+  total = getTotalPrice().toFixed(2) as unknown as number;
+  console.log(total);
   return (
     <div className="">
       {cartItems.length === 0 && (

@@ -354,6 +354,7 @@ function CarSelector({
                     }
                     width={98}
                     height={98}
+                    priority
                     alt="car cover details"
                     className="h-20 w-20 cursor-pointer rounded bg-[#F2F2F2] lg:h-full lg:w-full"
                     onClick={() => {
@@ -670,12 +671,12 @@ function CarSelector({
                 >
                   1-800-799-5165
                 </Link>
-                <Link
+                {/* <Link
                   href="#"
                   className="text-base font-normal capitalize text-[#0C87B8] underline"
                 >
                   live chat
-                </Link>
+                </Link> */}
               </div>
             </div>
           </div>
