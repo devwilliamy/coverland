@@ -5,7 +5,7 @@ type Props = {};
 
 const ShippingPolicy = (props: Props) => {
   return (
-    <div>
+    <div className="max-w-screen flex flex-col p-4">
       <p className="py-[5vh] font-thin italic">
         Effective date: November 1, 2023
       </p>

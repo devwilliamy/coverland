@@ -2,7 +2,7 @@ type Props = {};
 
 function About({}: Props) {
   return (
-    <div className="my-[5vh]">
+    <div className="max-w-screen my-[5vh] flex flex-col p-3">
       <h2 className="mb-[5vh] text-5xl"> About Us </h2>
       <p className="mb-[5vh]">
         <p className="mb-[5vh] text-3xl font-black">Coverland</p>
@@ -14,7 +14,7 @@ function About({}: Props) {
         <br />
         Phone: (800) 799-5165
       </p>
-      <p>
+      {/* <p>
         The view of the earth from the moon fascinated me - a small disk,
         240,000 miles away. It was hard to think that that little thing held so
         many problems, so many frustrations. Raging nationalistic interests,
@@ -26,7 +26,7 @@ function About({}: Props) {
         it must inevitably be interwoven and joined. We are one hunk of ground,
         water, air, clouds, floating around in space. From out there it really
         is one world.
-      </p>
+      </p> */}
     </div>
   );
 }

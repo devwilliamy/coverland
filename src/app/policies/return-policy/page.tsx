@@ -7,7 +7,7 @@ type Props = {};
 
 function ReturnPolicy({}: Props) {
   return (
-    <div className="relative">
+    <div className="relative max-w-screen flex flex-col p-4">
       <p className="py-[5vh] font-thin italic">
         Effective date: November 1, 2023
       </p>

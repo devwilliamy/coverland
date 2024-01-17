@@ -5,7 +5,7 @@ type Props = {};
 
 export default function PrivacyPolicy({}: Props) {
   return (
-    <div className="pb-[3vh]">
+    <div className="max-w-screen max-w-screen my-[5vh] flex flex-col p-4 pb-[3vh]">
       <p className="py-[5vh] font-thin italic">
         Effective date: November 1, 2023
       </p>

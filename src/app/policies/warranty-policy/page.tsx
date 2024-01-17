@@ -5,7 +5,7 @@ type Props = {};
 
 function WarrantyPolicy({}: Props) {
   return (
-    <div>
+    <div className="max-w-screen my-[5vh] flex flex-col p-3">
       <p className="py-[5vh] font-thin italic">
         Effective date: November 1, 2023
       </p>
