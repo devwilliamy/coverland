@@ -41,9 +41,9 @@ export function SubmodelSearch2nd({
     <select
       value={value}
       onChange={handleChange}
-      className="text-lg rounded-lg py-3 px-2"
+      className="my-2 rounded-lg px-2 py-3 text-lg"
     >
-      <option value="">Select car model</option>
+      <option value="">Select car submodel</option>
       {secondSubmodels?.sort()?.map((submodel) => (
         <option key={`model-${submodel}`} value={submodel}>
           {submodel}
