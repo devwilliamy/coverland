@@ -215,7 +215,7 @@ const MobilePDPDetails = ({ reviewData }: { reviewData: TReviewData[] }) => {
           </AccordionContent>
         </AccordionItem>
 
-        <AccordionItem value="item-3">
+        {/* <AccordionItem value="item-3">
           <AccordionTrigger className="font-black uppercase">
             Specification
           </AccordionTrigger>
@@ -225,7 +225,7 @@ const MobilePDPDetails = ({ reviewData }: { reviewData: TReviewData[] }) => {
               <ProductPackage />
             </div>
           </AccordionContent>
-        </AccordionItem>
+        </AccordionItem> */}
 
         <AccordionItem value="item-4">
           <AccordionTrigger className="font-black uppercase">
@@ -238,16 +238,16 @@ const MobilePDPDetails = ({ reviewData }: { reviewData: TReviewData[] }) => {
           </AccordionContent>
         </AccordionItem>
 
-        <AccordionItem value="item-5">
+        {/* <AccordionItem value="item-5">
           <AccordionTrigger className="font-black uppercase">
             Car Cover Instruction
           </AccordionTrigger>
           <AccordionContent>
             <div className=" md:mt-18 lg:mt-28">
-              {/* Content for Car Cover Instruction Section */}
+              Content for Car Cover Instruction Section
             </div>
           </AccordionContent>
-        </AccordionItem>
+        </AccordionItem> */}
 
         {!!reviewData.length && (
           <AccordionItem value="item-6">
