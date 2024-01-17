@@ -11,6 +11,7 @@ import Link from 'next/link';
 import React, {
   ReactPropTypes,
   RefObject,
+  useCallback,
   useEffect,
   useRef,
   useState,
@@ -71,6 +72,11 @@ const ProductVideo = dynamicImport(() => import('./ProductVideo'), {
   ssr: false,
 });
 
+const DeliveryDate = dynamicImport(() => import('./components/DeliveryDate'), {
+  loading: () => <span className="font-normal">Loading...</span>,
+  ssr: false,
+});
+
 const EditVehiclePopover = dynamicImport(
   () => import('./components/EditVehiclePopover'),
   {
@@ -86,6 +92,51 @@ const EditVehicleDropdown = dynamicImport(
 );
 
 export const dynamic = 'force-dynamic';
+
+function TimeTo2PMPST() {
+  const [timeRemaining, setTimeRemaining] = useState(calculateTimeTo2PM()); // Set initial value
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setTimeRemaining(calculateTimeTo2PM());
+    }, 60000); // Update every minute
+
+    return () => clearInterval(interval);
+  }, []);
+
+  function calculateTimeTo2PM() {
+    const now = new Date();
+    const target = new Date();
+
+    target.setHours(14); // Set to 2 PM local time
+    target.setMinutes(0);
+    target.setSeconds(0);
+    target.setMilliseconds(0);
+
+    if (now.getHours() >= 14) {
+      // Adjust for PST timezone offset
+      target.setDate(target.getDate() + 1); // Set to next day if past 2 PM
+    }
+
+    const diff: number = target.getTime() - now.getTime();
+
+    // Convert milliseconds to hours and minutes
+    const hours = Math.floor(diff / 1000 / 60 / 60);
+    const minutes = Math.floor((diff / 1000 / 60) % 60);
+
+    if (hours < 0 || minutes < 0) {
+      return ''; // In case of negative values
+    }
+
+    return `${hours} Hours ${minutes} Mins`;
+  }
+
+  return (
+    <p className="text-dark text-sm">
+      Order within <span className="text-[#767676]">{timeRemaining}</span>
+    </p>
+  );
+}
 
 function CarSelector({
   modelData,
@@ -163,6 +214,8 @@ function CarSelector({
     return addToCart({ ...selectedProduct, quantity: 1 });
   };
   console.log(showMore);
+
+  console.log(selectedProduct.feature);
 
   const productImages =
     selectedProduct?.product
@@ -478,13 +531,10 @@ function CarSelector({
                   </span>
                   <br className="xl:hidden" />
                   <span className="hidden md:mr-1 xl:block">-</span>
-                  <span className="font-normal">
-                    Delivery by <span className="uppercase">oct18</span>
-                  </span>
+                  <DeliveryDate />
                 </div>
-                <p className="text-dark text-sm">
-                  Order within{' '}
-                  <span className="text-[#767676]">9 Hours 3 Mins</span>
+                <p className="text-sm text-[#767676]">
+                  <TimeTo2PMPST />
                 </p>
                 <p className="pt-1.5 text-sm font-normal text-[#1B8500]">
                   Free Returns for 30 Days
@@ -822,11 +872,15 @@ const MobileImageCarousel = ({
       setCurrent(api.selectedScrollSnap());
     });
   }, [api]);
+  const scrollTo = useCallback(
+    (index: number) => api && api.scrollTo(index),
+    [api]
+  );
 
-  const Dot = () => (
-    <div className="relative flex h-2 w-2">
+  const Dot = ({ index }: { index: number }) => (
+    <button className="relative flex h-2 w-2" onClick={() => scrollTo(index)}>
       <span className="relative inline-flex h-2 w-2 rounded-full bg-gray-300"></span>
-    </div>
+    </button>
   );
 
   const ActiveDot = () => (
@@ -868,7 +922,11 @@ const MobileImageCarousel = ({
       </Carousel>
       <div className="flex w-full items-center justify-center gap-2 bg-white py-2">
         {scrollSnaps.map((_, index) =>
-          index === current ? <ActiveDot key={index} /> : <Dot key={index} />
+          index === current ? (
+            <ActiveDot key={index} />
+          ) : (
+            <Dot key={index} index={index} />
+          )
         )}
       </div>
     </div>
