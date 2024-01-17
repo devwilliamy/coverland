@@ -9,21 +9,21 @@ import Image from 'next/image';
 
 const HeroSection = () => {
   const isMobile = useMediaQuery('(max-width: 500px)');
-  console.log('isMobile', isMobile);
+  // console.log('isMobile', isMobile);
   return (
-    <section className="h-auto flex flex-col justify-start lg:justify-start items-center px-4 lg:px-0">
-      <div className="w-full h-[530px] relative">
+    <section className="flex h-auto flex-col items-center justify-start px-4 lg:justify-start lg:px-0">
+      <div className="relative h-[530px] w-full">
         <Image
           className=""
           src={isMobile ? heroMobile.src : hero.src}
           alt="hero"
           layout="fill"
         />
-        <div className="pb-2 relative h-full flex flex-col justify-end text-center">
-          <p className="text-xs lg:text-2xl lg:my-2 tracking-wider uppercase text-white">
+        <div className="relative flex h-full flex-col justify-end pb-2 text-center">
+          <p className="text-xs uppercase tracking-wider text-white lg:my-2 lg:text-2xl">
             #1 Rated Car Cover in the USA
           </p>
-          <p className="lg:text-6xl lg:my-2 text-xl tracking-wide font-black text-white uppercase">
+          <p className="text-xl font-black uppercase tracking-wide text-white lg:my-2 lg:text-6xl">
             Select your Vehicle
           </p>
           <div id="desktop-filter" className="my-4">

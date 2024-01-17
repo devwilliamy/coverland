@@ -52,14 +52,13 @@ export default function SubDropdowns({
     ),
   ];
 
-  // Checks if there aren't any second submodals & if submodal is truthy
   const shouldTriggerSetParams =
     secondSubmodels.length === 0 && !!selectedSubmodel;
-
   const createQueryString = useCallback(
     (name: string, value: string) => {
       const params = new URLSearchParams(searchParams?.toString());
       params.set(name, value);
+
       return params.toString().toLowerCase();
     },
     [searchParams]
@@ -82,6 +81,7 @@ export default function SubDropdowns({
 
   const setSearchParams = () => {
     let url: string = '';
+
     // if (selectedYear) {
     //   url += createQueryString('year', selectedYear);
     // }
@@ -92,7 +92,6 @@ export default function SubDropdowns({
     if (selectedSecondSubmodel) {
       url += `&${createQueryString('second_submodel', selectedSecondSubmodel)}`;
     }
-
     // refreshRoute('/');
     router.push(`?${url}`);
     // refreshRoute(`${pathname}?${currentParams.toString()}`);
