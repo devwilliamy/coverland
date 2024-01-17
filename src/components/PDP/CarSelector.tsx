@@ -167,14 +167,14 @@ function CarSelector({
     modelData.filter(
       (model) =>
         stringToSlug(model?.submodel1 as string) ===
-        stringToSlug(searchParams?.submodel)
+        stringToSlug(searchParams?.submodel as string)
     ) ?? [];
 
   const modelsBySecondSubmodel = searchParams?.second_submodel
     ? modelData.filter(
         (model) =>
           stringToSlug(model?.submodel2 as string) ===
-          stringToSlug(searchParams?.second_submodel)
+          stringToSlug(searchParams?.second_submodel as string)
       ) ?? modelsBySubmodel
     : modelsBySubmodel;
 
