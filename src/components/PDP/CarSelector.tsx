@@ -161,10 +161,23 @@ function CarSelector({
   );
   console.log(selectedProduct);
   const [featuredImage, setFeaturedImage] = useState<string>(
-    selectedProduct?.feature as string
+    removeBeforeCom(selectedProduct?.feature) as string
   );
   const router = useRouter();
   const path = usePathname();
+
+  function removeBeforeCom(url: string) {
+    // Find the position of '.com'
+    const pos = url.indexOf('.com');
+
+    // If '.com' is not found, return the original url
+    if (pos === -1) {
+      return url;
+    }
+
+    // Return the substring starting from the character after '.com/'
+    return url.substring(pos + 4);
+  }
 
   interface ProductRefs {
     [key: string]: RefObject<HTMLElement>; // Replace 'YourElementType' with the actual type
@@ -349,7 +362,7 @@ function CarSelector({
                   key={sku?.sku}
                 >
                   <Image
-                    src={sku?.feature as string}
+                    src={removeBeforeCom(sku?.feature as string)}
                     ref={
                       productRefs?.current[
                         sku?.sku as TProductData['sku']
@@ -407,7 +420,7 @@ function CarSelector({
                   }`}
                   key={sku?.sku}
                   onClick={() => {
-                    setFeaturedImage(sku?.feature as string);
+                    setFeaturedImage(removeBeforeCom(sku?.feature as string));
                     setSelectedProduct(sku as TProductData);
                     const skuRef = sku?.sku
                       ? (productRefs?.current[

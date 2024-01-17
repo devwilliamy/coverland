@@ -93,7 +93,18 @@ export default async function ProductPDP({
     ? productsWithSubmodels
     : generationDefaultChildren;
 
-  modelData = modelData.filter((product) => product.msrp && product.price);
+  modelData = modelData
+    .filter((product) => product.msrp && product.price)
+    .sort((a, b) => {
+      let colorIndexA = colorOrder.indexOf(a?.display_color as string);
+      let colorIndexB = colorOrder.indexOf(b?.display_color as string);
+
+      if (colorIndexA === -1) colorIndexA = Infinity;
+      if (colorIndexB === -1) colorIndexB = Infinity;
+
+      return colorIndexA - colorIndexB;
+    });
+
   if (secondSubmodelParam) {
     modelData = modelData.filter(
       (product) => product.submodel2?.toLowerCase() === secondSubmodelParam
