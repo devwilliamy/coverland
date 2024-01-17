@@ -62,6 +62,7 @@ import {
 import { useRouter } from 'next/navigation';
 import { usePathname } from 'next/navigation';
 import skuDisplayData from '@/data/skuDisplayData.json';
+import { slugify, stringToSlug } from '@/lib/utils';
 
 const ProductVideo = dynamicImport(() => import('./ProductVideo'), {
   ssr: false,
@@ -150,19 +151,59 @@ function CarSelector({
   reviewData: TReviewData[];
   parentGeneration: any;
 }) {
+  console.log(
+    modelData.map((model) => model.submodel2),
+    'huh'
+  );
+
+  console.log(secondSubmodels);
   const defaultModel = modelData.find(
     (model) =>
       model.fk ===
       skuDisplayData.find((row) => row.fk === parentGeneration?.fk)?.fk
   );
 
+  const modelsBySubmodel =
+    modelData.filter(
+      (model) =>
+        stringToSlug(model?.submodel1 as string) ===
+        stringToSlug(searchParams?.submodel)
+    ) ?? [];
+
+  const modelsBySecondSubmodel = searchParams?.second_submodel
+    ? modelData.filter(
+        (model) =>
+          stringToSlug(model?.submodel2 as string) ===
+          stringToSlug(searchParams?.second_submodel)
+      ) ?? modelsBySubmodel
+    : modelsBySubmodel;
+
+  console.log(modelsBySubmodel);
+
+  console.log(
+    stringToSlug(modelData[4]?.submodel1 as string),
+    searchParams.submodel
+  );
+
   const isFullySelected =
     pathParams?.product?.length === 3 &&
-    (!submodels.length || !!searchParams?.submodel) &&
-    (!secondSubmodels.length || !!searchParams?.second_submodel);
+    (submodels.length === 0 || !!searchParams?.submodel) &&
+    (secondSubmodels.length === 0 || !!searchParams?.second_submodel);
+
+  console.log(modelData);
+
+  let displayedModelData = searchParams?.submodel
+    ? modelsBySubmodel
+    : modelData;
+
+  displayedModelData = searchParams?.second_submodel
+    ? modelsBySecondSubmodel
+    : displayedModelData;
 
   const [selectedProduct, setSelectedProduct] = useState<TProductData>(
-    isFullySelected ? modelData[0] : defaultModel ?? modelData[0]
+    isFullySelected
+      ? displayedModelData[0]
+      : defaultModel ?? displayedModelData[0]
   );
   const [featuredImage, setFeaturedImage] = useState<string>(
     selectedProduct?.feature as string
@@ -188,7 +229,7 @@ function CarSelector({
   console.log(selectedProduct);
 
   const productRefs = useRef<ProductRefs>(
-    modelData.reduce((acc: ProductRefs, item: TProductData) => {
+    displayedModelData.reduce((acc: ProductRefs, item: TProductData) => {
       acc[item.sku] = React.createRef();
       return acc;
     }, {})
@@ -204,23 +245,17 @@ function CarSelector({
     : pathParams?.product?.length === 3;
 
   const uniqueColors = Array.from(
-    new Set(modelData.map((model) => model.display_color))
+    new Set(displayedModelData.map((model) => model.display_color))
   ).map((color) =>
-    modelData.find(
-      (model) =>
-        model.display_color === color &&
-        (!isFullySelected ? model.submodel1 === defaultModel?.submodel1 : true)
-    )
+    displayedModelData.find((model) => model.display_color === color)
   );
 
+  console.log(uniqueColors);
+
   const uniqueTypes = Array.from(
-    new Set(modelData.map((model) => model.display_id))
+    new Set(displayedModelData.map((model) => model.display_id))
   ).map((type) =>
-    modelData.find(
-      (model) =>
-        model.display_id === type &&
-        (!isFullySelected ? model.submodel1 === defaultModel?.submodel1 : true)
-    )
+    displayedModelData.find((model) => model.display_id === type)
   );
 
   const handleAddToCart = () => {
@@ -239,6 +274,10 @@ function CarSelector({
   const reviewCount = reviewData?.length ?? 50;
 
   const avgReviewScore = (reviewScore / reviewCount).toFixed(1);
+
+  console.log(isFullySelected, isReadyForSelection);
+
+  console.log(submodels, secondSubmodels);
 
   // console.log(avgReviewScore);
   // console.log(searchParams?.submodel);
@@ -569,14 +608,16 @@ function CarSelector({
               </p>
               {/* <BsInfoCircle size={20} color="#767676" /> */}
             </div>
-            <div className="mt-8 w-full">
-              <DropdownPDP
-                modelData={modelData}
-                submodels={submodels}
-                secondSubmodels={secondSubmodels}
-              />
-            </div>
-            {!isReadyForSelection && selectedProduct ? (
+            {!isFullySelected && (
+              <div className="mt-8 w-full">
+                <DropdownPDP
+                  modelData={displayedModelData}
+                  submodels={submodels}
+                  secondSubmodels={secondSubmodels}
+                />
+              </div>
+            )}
+            {!isFullySelected && selectedProduct ? (
               <>
                 <Popover>
                   <PopoverTrigger asChild>

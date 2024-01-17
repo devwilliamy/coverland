@@ -15,6 +15,7 @@ import { useRouter } from 'next/navigation';
 
 export function SubmodelSearch({
   setSelectedSubmodel,
+  selectedSubmodel,
   modelData,
   submodelParam,
   shouldTriggerSetParams,
@@ -25,11 +26,14 @@ export function SubmodelSearch({
   submodelParam: string | null;
   shouldTriggerSetParams: boolean;
   submodels: string[];
+  selectedSubmodel: string | null;
 }) {
   const [value, setValue] = useState(() => submodelParam ?? '');
   const pathname = usePathname();
   const router = useRouter();
   const searchParams = useSearchParams();
+
+  console.log(searchParams);
 
   // Get a new searchParams string by merging the current
   // searchParams with a provided key/value pair
@@ -43,30 +47,44 @@ export function SubmodelSearch({
     [searchParams]
   );
 
-  const setSearchParams = (value: string) => {
-    const currentParams = new URLSearchParams(window.location.search);
-    const newParams = createQueryString('submodel', value);
-    if (!value) {
-      currentParams.delete('submodel');
+  if (selectedSubmodel !== value) {
+    setSelectedSubmodel(value);
+  }
+
+  const handleSubmitDropdown = async (value: string) => {
+    let url = '';
+    if (value) {
+      url += `?${createQueryString('submodel', value)}`;
     }
 
-    value.length && router.push(newParams);
+    // refreshRoute('/');
+    router.push(url.toLowerCase());
+    // refreshRoute(`${pathname}?${currentParams.toString()}`);
   };
 
   const { uniqueSubmodel1 } = extractUniqueValues(modelData as TProductData[]);
+  console.log(shouldTriggerSetParams);
 
   const uniqueSubmodelsFromModelData = Array.from(
     new Set(
       modelData.map((row) => row.submodel1).filter((model) => Boolean(model))
     )
   );
+  console.log(value);
+  // const submodelParam = searchParams?.get('submodel') ?? '';
+  console.log(submodelParam);
+
+  console.log(submodels, uniqueSubmodelsFromModelData);
 
   if (submodels.length < 2) return null;
   const handleChange = (event: ChangeEvent<HTMLSelectElement>) => {
     const newValue = event.target.value;
     setValue(newValue);
     setSelectedSubmodel(newValue);
-    newValue && setSearchParams(newValue);
+    if (!shouldTriggerSetParams) {
+      return;
+    }
+    newValue && handleSubmitDropdown(newValue);
   };
 
   return (
@@ -75,7 +93,7 @@ export function SubmodelSearch({
       onChange={handleChange}
       className="rounded-lg px-2 py-3 text-lg"
     >
-      <option value="">
+      <option value={submodelParam ?? ''}>
         {submodelParam ? deslugify(submodelParam) : 'Select car submodel'}
       </option>
       {uniqueSubmodelsFromModelData?.sort()?.map((submodel) => (

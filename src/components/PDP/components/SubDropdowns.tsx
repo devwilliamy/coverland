@@ -12,6 +12,8 @@ import { SubmodelSearch } from './SubmodelSearch';
 import { YearSearch } from './YearSearch';
 import { SubmodelSearch2nd } from './SubmodelSearch2nd';
 import { refreshRoute } from '@/app/[productType]/[...product]/actions';
+import modelJson from '@/data/staticGenerationTableData.json';
+import { slugify } from '@/lib/utils';
 
 export default function SubDropdowns({
   modelData,
@@ -62,29 +64,44 @@ export default function SubDropdowns({
     [searchParams]
   );
 
+  console.log(selectedSubmodel);
+
+  const modelsWithSubmodel = modelJson.filter(
+    (car) =>
+      car?.submodel1?.toLowerCase() === submodelParam.toLowerCase() &&
+      slugify(car?.model) === (pathname?.split('/')[3] as string)
+  );
+
+  const availableSecondSubmodels = Array.from(
+    new Set(modelsWithSubmodel.map((car) => car?.submodel2))
+  );
+
+  console.log(selectedSubmodel);
+  console.log(availableSecondSubmodels);
+
   const setSearchParams = () => {
     let url: string = '';
 
-    if (selectedYear) {
-      url = createQueryString('year', selectedYear);
-    }
-    if (selectedSubmodel) {
-      url = createQueryString('submodel', selectedSubmodel);
+    // if (selectedYear) {
+    //   url += createQueryString('year', selectedYear);
+    // }
+    if (selectedSubmodel && !submodelParam) {
+      url += createQueryString('submodel', selectedSubmodel);
     }
 
     if (selectedSecondSubmodel) {
-      url = createQueryString('second_submodel', selectedSecondSubmodel);
+      url += createQueryString('second_submodel', selectedSecondSubmodel);
     }
     // refreshRoute('/');
     router.push(`?${url}`);
     // refreshRoute(`${pathname}?${currentParams.toString()}`);
   };
 
+  console.log(!!submodels.length, !submodelParam);
+
   const hasSubmodel = new Set(modelData.map((car) => car?.submodel1)).size > 1;
   const hasSecondSubModel =
     modelData.filter((car) => car?.submodel2).length > 1;
-
-  if ((submodelParam && submodelParam2nd) || !hasSecondSubModel) return null;
 
   return (
     <>
@@ -100,22 +117,22 @@ export default function SubDropdowns({
               yearParam={yearParam}
             />
           )}
-
-          {!!submodels.length && !submodelParam && (
+          {!!submodels.length && (
             <SubmodelSearch
               modelData={modelData}
               submodels={submodels}
               setSelectedSubmodel={setSelectedSubmodel}
               submodelParam={submodelParam}
+              selectedSubmodel={selectedSubmodel}
               shouldTriggerSetParams={shouldTriggerSetParams}
             />
           )}
-          {secondSubmodels.length > 1 && !submodelParam2nd && (
+          {secondSubmodels.length > 0 && !submodelParam2nd && (
             <SubmodelSearch2nd
               modelData={modelData}
               setSelectedSecondSubmodel={setSelectedSecondSubmodel}
               submodelParam2nd={submodelParam2nd}
-              secondSubmodels={secondSubmodels}
+              secondSubmodels={availableSecondSubmodels as string[]}
             />
           )}
         </div>

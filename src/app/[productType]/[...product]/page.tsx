@@ -57,7 +57,10 @@ export default async function ProductPDP({
   console.log(initialProductData);
 
   const parentGeneration = skuDisplayData.find(
-    (row) => row.year_generation === year && slugify(row.make) === make
+    (row) =>
+      row.year_generation === year &&
+      slugify(row.make) === make &&
+      slugify(row.model) === model
   );
 
   console.log(parentGeneration);
@@ -66,17 +69,25 @@ export default async function ProductPDP({
     return skuDisplayData.find((row) => row.fk === fk);
   };
 
-  const generationDefaultChildren = initialProductData.filter((product) => {
-    return (
-      jsonForSku(product.fk as number)?.generation_default ===
-      parentGeneration?.generation_default
-    );
-  });
+  const generationDefaultChildren = parentGeneration?.generation_default
+    ? initialProductData.filter((product) => {
+        return (
+          jsonForSku(product.fk as number)?.generation_default ===
+          parentGeneration?.generation_default
+        );
+      })
+    : initialProductData.filter(
+        (product) => product.fk === parentGeneration?.fk
+      );
+
+  console.log(generationDefaultChildren, 'gen');
 
   const productsWithSubmodels = generationDefaultChildren.filter(
-    (product) => product.submodel1
+    (product) =>
+      product.submodel1 &&
+      generationDefaultChildren.map((p) => p.fk).includes(product.fk)
   );
-
+  console.log(productsWithSubmodels);
   const submodels = Array.from(
     new Set(productsWithSubmodels.map((product) => product.submodel1))
   ).filter(Boolean) as string[];
@@ -89,6 +100,8 @@ export default async function ProductPDP({
     ? productsWithSubmodels
     : generationDefaultChildren;
 
+  console.log(modelData);
+  modelData.map((product) => console.log(product.submodel1, product.submodel2));
   modelData = modelData
     .filter((product) => product.msrp && product.price)
     .sort((a, b) => {
@@ -106,6 +119,8 @@ export default async function ProductPDP({
       (product) => product.submodel2?.toLowerCase() === secondSubmodelParam
     );
   }
+
+  console.log(secondSubmodelParam);
 
   // console.log(productData);
 
