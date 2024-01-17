@@ -52,7 +52,6 @@ export function SubmodelSearch({
 
     value.length && router.push(newParams);
   };
-  console.log('modelData', modelData);
 
   const { uniqueSubmodel1 } = extractUniqueValues(modelData as TProductData[]);
 
@@ -61,18 +60,12 @@ export function SubmodelSearch({
       modelData.map((row) => row.submodel1).filter((model) => Boolean(model))
     )
   );
-  console.log(uniqueSubmodelsFromModelData);
-
-  console.log(uniqueSubmodel1);
-
-  console.log(shouldTriggerSetParams);
 
   if (submodels.length < 2) return null;
   const handleChange = (event: ChangeEvent<HTMLSelectElement>) => {
     const newValue = event.target.value;
     setValue(newValue);
     setSelectedSubmodel(newValue);
-    console.log('shouldTriggerSetParams', shouldTriggerSetParams);
     newValue && setSearchParams(newValue);
   };
 

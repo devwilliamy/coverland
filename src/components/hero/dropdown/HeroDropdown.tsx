@@ -10,12 +10,7 @@ import { useProductData } from '@/lib/db/hooks/useProductData';
 import { useCallback, useEffect, useState } from 'react';
 import { SubmodelDropdown } from './SubmodelDropdown';
 import skuDisplayData from '@/data/skuDisplayData.json';
-import {
-  TModelFitData,
-  TProductData,
-  fetchDropdownData,
-  fetchModelToDisplay,
-} from '@/lib/db';
+import { TModelFitData, TProductData } from '@/lib/db';
 import { slugify } from '@/lib/utils';
 
 export type TQuery = {
@@ -49,8 +44,6 @@ export function HeroDropdown() {
     (sku) => sku.year_options.includes(year) && String(sku.fk)[0] === typeIndex
   );
 
-  console.log(availableMakes);
-
   const availableModels = availableMakes.filter((sku) => sku.make === make);
 
   const finalAvailableModels = availableModels.filter((sku) =>
@@ -58,14 +51,6 @@ export function HeroDropdown() {
       ? sku.submodel1 === submodel && sku.model === model
       : sku.model === model
   );
-
-  console.log(submodel);
-
-  console.log(model);
-
-  console.log(finalAvailableModels);
-
-  console.log(availableModels);
 
   const queryObj = {
     query,
@@ -114,15 +99,10 @@ export function HeroDropdown() {
       url += `?${createQueryString('submodel', submodel)}`;
     }
 
-    console.log(url);
     // refreshRoute('/');
     router.push(url);
     // refreshRoute(`${pathname}?${currentParams.toString()}`);
-    console.log(query);
   };
-
-  console.log(submodel);
-  console.log(subModelData);
 
   return (
     <div className="relative flex w-full flex-col justify-center gap-2 px-4 font-medium *:flex-1 *:py-3 md:flex-row lg:px-16 lg:*:py-4">

@@ -38,13 +38,8 @@ export default function SubDropdowns({
   const submodelParam = searchParams?.get('submodel') ?? '';
   const submodelParam2nd = searchParams?.get('second_submodel') ?? '';
 
-  console.log(pathname);
-
   const isYearInPath = pathname?.split('/').length === 5;
 
-  console.log(searchParams);
-
-  console.log(modelData);
   const yearData = [
     ...new Set(
       modelData
@@ -80,7 +75,6 @@ export default function SubDropdowns({
     if (selectedSecondSubmodel) {
       url = createQueryString('second_submodel', selectedSecondSubmodel);
     }
-    console.log(url);
     // refreshRoute('/');
     router.push(`?${url}`);
     // refreshRoute(`${pathname}?${currentParams.toString()}`);
@@ -89,10 +83,8 @@ export default function SubDropdowns({
   const hasSubmodel = new Set(modelData.map((car) => car?.submodel1)).size > 1;
   const hasSecondSubModel =
     modelData.filter((car) => car?.submodel2).length > 1;
-  console.log(hasSecondSubModel);
 
   if ((submodelParam && submodelParam2nd) || !hasSecondSubModel) return null;
-  console.log(submodels);
 
   return (
     <>

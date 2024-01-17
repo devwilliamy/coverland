@@ -4,9 +4,6 @@ import { TProductData, TReviewData, fetchPDPData } from '@/lib/db';
 import { Separator } from '@/components/ui/separator';
 import Image from 'next/image';
 import { GoDotFill } from 'react-icons/go';
-import { IoRibbonSharp } from 'react-icons/io5';
-import { FaShippingFast, FaThumbsUp } from 'react-icons/fa';
-import { MdSupportAgent } from 'react-icons/md';
 import Link from 'next/link';
 import React, {
   ReactPropTypes,
@@ -24,6 +21,7 @@ import Rating from '@mui/material/Rating';
 import {
   TPDPPathParams,
   TPDPQueryParams,
+  TSkuJson,
 } from '@/app/[productType]/[...product]/page';
 import {
   Popover,
@@ -31,11 +29,9 @@ import {
   PopoverTrigger,
 } from '@radix-ui/react-popover';
 import { Button } from '../ui/button';
-import { generationDefaultCarCovers } from '@/lib/constants';
 import { Card, CardContent, CardHeader, CardTitle } from '../ui/card';
 import AgentProfile from '@/images/PDP/agent_profile.png';
 import { useMediaQuery } from '@mantine/hooks';
-// import { ProductVideo } from './ProductVideo';
 import { FolderUpIcon, SecureIcon, ThumbsUpIcon } from './images';
 import { MoneyBackIcon } from './images/MoneyBack';
 import { EditIcon } from './components/icons';
@@ -63,10 +59,9 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from '../ui/accordion';
-import { Car, Edit } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { usePathname } from 'next/navigation';
-import { refreshRoute } from '@/app/[productType]/[...product]/actions';
+import skuDisplayData from '@/data/skuDisplayData.json';
 
 const ProductVideo = dynamicImport(() => import('./ProductVideo'), {
   ssr: false,
@@ -145,6 +140,7 @@ function CarSelector({
   submodels,
   secondSubmodels,
   reviewData,
+  parentGeneration,
 }: {
   modelData: TProductData[];
   pathParams: TPDPPathParams;
@@ -152,36 +148,44 @@ function CarSelector({
   secondSubmodels: string[];
   searchParams: TPDPQueryParams;
   reviewData: TReviewData[];
+  parentGeneration: TSkuJson;
 }) {
-  const displays = modelData.map((model) => model.display_color);
-  // console.log('displays', displays);
+  const defaultModel = modelData.find(
+    (model) =>
+      model.fk ===
+      skuDisplayData.find((row) => row.fk === parentGeneration?.fk)?.fk
+  );
+
+  const isFullySelected =
+    pathParams?.product?.length === 3 &&
+    (!submodels.length || !!searchParams?.submodel) &&
+    (!secondSubmodels.length || !!searchParams?.second_submodel);
 
   const [selectedProduct, setSelectedProduct] = useState<TProductData>(
-    modelData[0]
+    isFullySelected ? modelData[0] : defaultModel
   );
-  console.log(selectedProduct);
   const [featuredImage, setFeaturedImage] = useState<string>(
-    removeBeforeCom(selectedProduct?.feature) as string
+    selectedProduct?.feature as string
   );
+  console.log(submodels, secondSubmodels, defaultModel);
   const router = useRouter();
   const path = usePathname();
 
-  function removeBeforeCom(url: string) {
-    // Find the position of '.com'
-    const pos = url.indexOf('.com');
+  // function removeBeforeCom(url: string) {
+  //   const pos = url?.indexOf('.com');
 
-    // If '.com' is not found, return the original url
-    if (pos === -1) {
-      return url;
-    }
-
-    // Return the substring starting from the character after '.com/'
-    return url.substring(pos + 4);
-  }
+  //   if (pos === -1) {
+  //     return url;
+  //   }
+  //   return url?.substring(pos + 4);
+  // }
 
   interface ProductRefs {
-    [key: string]: RefObject<HTMLElement>; // Replace 'YourElementType' with the actual type
+    [key: string]: RefObject<HTMLElement>;
   }
+
+  console.log(modelData);
+  console.log(selectedProduct);
 
   const productRefs = useRef<ProductRefs>(
     modelData.reduce((acc: ProductRefs, item: TProductData) => {
@@ -190,17 +194,8 @@ function CarSelector({
     }, {})
   );
 
-  useEffect(() => {
-    refreshRoute('/');
-    setSelectedProduct(modelData[0]);
-    setFeaturedImage(modelData[0]?.feature as string);
-    //eslint-disable-next-line
-  }, [path]);
-
   const [showMore, setShowMore] = useState(false);
   const isMobile = useMediaQuery('(max-width: 768px)');
-
-  // console.log(selectedProduct);
 
   const { toast } = useToast();
   const { addToCart } = useCartContext();
@@ -208,36 +203,35 @@ function CarSelector({
     ? pathParams?.product?.length === 3 && !!searchParams?.submodel
     : pathParams?.product?.length === 3;
 
-  const shouldSubmodelDisplay = !!submodels.length && !searchParams?.submodel;
-  // console.log('shouldSubmodelDisplay', shouldSubmodelDisplay);
-
   const uniqueColors = Array.from(
     new Set(modelData.map((model) => model.display_color))
-  ).map((color) => modelData.find((model) => model.display_color === color));
+  ).map((color) =>
+    modelData.find(
+      (model) =>
+        model.display_color === color &&
+        (!isFullySelected ? model.submodel1 === defaultModel?.submodel1 : true)
+    )
+  );
 
   const uniqueTypes = Array.from(
     new Set(modelData.map((model) => model.display_id))
-  ).map((type) => modelData.find((model) => model.display_id === type));
-  // console.log('uniqueCoverColors', uniqueColors);
-  // console.log('uniqueCoverTypes', uniqueTypes);
+  ).map((type) =>
+    modelData.find(
+      (model) =>
+        model.display_id === type &&
+        (!isFullySelected ? model.submodel1 === defaultModel?.submodel1 : true)
+    )
+  );
 
   const handleAddToCart = () => {
     if (!selectedProduct) return;
-    console.log('running');
     return addToCart({ ...selectedProduct, quantity: 1 });
   };
-  console.log(showMore);
-
-  console.log(modelData);
-
-  console.log(selectedProduct.feature);
 
   const productImages =
     selectedProduct?.product
       ?.split(',')
       .filter((img) => img !== featuredImage) ?? [];
-  // console.log('productImages', productImages);
-  const modalProductImages = productImages.slice(5);
   const reviewScore = reviewData?.reduce(
     (acc, review) => acc + Number(review.rating_stars ?? 0),
     0
@@ -362,7 +356,7 @@ function CarSelector({
                   key={sku?.sku}
                 >
                   <Image
-                    src={removeBeforeCom(sku?.feature as string)}
+                    src={sku?.feature as string}
                     ref={
                       productRefs?.current[
                         sku?.sku as TProductData['sku']
@@ -420,7 +414,7 @@ function CarSelector({
                   }`}
                   key={sku?.sku}
                   onClick={() => {
-                    setFeaturedImage(removeBeforeCom(sku?.feature as string));
+                    setFeaturedImage(sku?.feature as string);
                     setSelectedProduct(sku as TProductData);
                     const skuRef = sku?.sku
                       ? (productRefs?.current[

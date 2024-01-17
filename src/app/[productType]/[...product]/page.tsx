@@ -5,8 +5,6 @@ import {
   fetchPDPData,
   fetchPDPDataWithQuery,
   fetchReviewData,
-  getAllDefaultGenerations,
-  getGenerationData,
 } from '@/lib/db';
 import Image from 'next/image';
 import CarSelector from '@/components/PDP/CarSelector';
@@ -23,6 +21,8 @@ export type TPDPQueryParams = {
   submodel: string | undefined;
   second_submodel: string | undefined;
 };
+
+export type TSkuJson = typeof skuDisplayData;
 
 export default async function ProductPDP({
   params: pathParams,
@@ -60,6 +60,8 @@ export default async function ProductPDP({
     (row) => row.year_generation === year && slugify(row.make) === make
   );
 
+  console.log(parentGeneration);
+
   const jsonForSku = (fk: number) => {
     return skuDisplayData.find((row) => row.fk === fk);
   };
@@ -71,15 +73,9 @@ export default async function ProductPDP({
     );
   });
 
-  console.log(generationDefaultChildren);
-
-  console.log(parentGeneration);
-
   const productsWithSubmodels = generationDefaultChildren.filter(
     (product) => product.submodel1
   );
-
-  console.log(productsWithSubmodels);
 
   const submodels = Array.from(
     new Set(productsWithSubmodels.map((product) => product.submodel1))
@@ -110,14 +106,6 @@ export default async function ProductPDP({
       (product) => product.submodel2?.toLowerCase() === secondSubmodelParam
     );
   }
-
-  console.log(secondSubmodelParam);
-
-  console.log(modelData);
-
-  console.log(secondSubmodelParam, submodelParam);
-
-  console.log(submodels, secondSubmodels);
 
   // console.log(productData);
 
@@ -242,6 +230,7 @@ export default async function ProductPDP({
         submodels={submodels}
         secondSubmodels={secondSubmodels}
         reviewData={reviewData}
+        parentGeneration={parentGeneration}
         key={submodelParam ?? ''}
       />
       <div

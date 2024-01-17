@@ -13,7 +13,6 @@ const CartContext = createContext(defaultCartValue);
 
 const CartProvider = ({ children }: { children: React.ReactNode }) => {
   const cart = useCart();
-  console.log(cart);
 
   return <CartContext.Provider value={cart}>{children}</CartContext.Provider>;
 };

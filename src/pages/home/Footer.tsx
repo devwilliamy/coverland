@@ -28,7 +28,6 @@ import LiveChat from '@/components/LiveChat';
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
-  console.log('Footer component is rendering');
   return (
     <footer className="flex flex-col items-center justify-center bg-[#1A1A1A] px-2 py-2 md:px-8 md:py-8 lg:px-14 lg:py-10 ">
       {/* <Membership /> */}
