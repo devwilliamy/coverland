@@ -45,7 +45,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
     success_url: `${headersList.get(
       'origin'
     )}/thank-you?order-number=${generateOrderId()}`,
-    cancel_url: `${headersList.get('origin')}/cart`,
+    cancel_url: `${headersList.get('origin')}/checkout`,
   };
 
   try {
