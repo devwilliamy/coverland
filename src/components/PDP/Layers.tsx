@@ -17,11 +17,14 @@ export function Layers() {
         <p className="mb-4 text-lg font-normal capitalize text-[#343434] md:text-2xl">
           High-Quality Car Cover
         </p>
-        <p className="text-left text-2xl font-black uppercase text-[#1A1A1A] md:text-3xl lg:text-5xl">
+        <p
+          className="text-left text-2xl font-black uppercase text-[#1A1A1A] md:text-3xl lg:text-5xl"
+          id="benefits"
+        >
           Engineered to {isMobile ? <br /> : ''} Perfection
         </p>
       </div>
-      <div className="flex h-full w-full flex-col bg-[#F9F9FB] md:p-8 lg:px-14 lg:py-10">
+      <div className="flex h-full w-full flex-col gap-10 bg-[#F9F9FB] p-4 md:p-8 lg:px-14 lg:py-10">
         <div className="flex w-full items-stretch justify-stretch lg:w-auto lg:items-center lg:justify-center">
           <Image src={Crystal} alt="crystal" className="w-full" />
         </div>

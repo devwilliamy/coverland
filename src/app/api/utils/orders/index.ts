@@ -30,10 +30,6 @@ function formatDateString(dateString) {
 }
 
 const handleOrderConfirmationEmail = async (order) => {
-  console.log('ORDER DATA FOR EMAIL: ');
-  console.log(order);
-  console.log(formatDateString(order.order_placed));
-
   const orderDateString = formatDateString(order.order_placed);
   const emailData = {
     to: order.shipping_address.email,
@@ -55,9 +51,6 @@ const handleOrderConfirmationEmail = async (order) => {
     },
   };
 
-  console.log('EMAIL CONFIRMATION DATA: ');
-  console.log(emailData);
-
   try {
     const response = await fetch(orderConfirmationEmailURL, {
       method: 'POST',
@@ -65,7 +58,6 @@ const handleOrderConfirmationEmail = async (order) => {
       body: JSON.stringify(emailData),
     });
     const data = await response.json();
-    console.log(data);
   } catch (error) {
     console.error('Error sending order confirmation email:', error);
   }

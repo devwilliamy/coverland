@@ -7,13 +7,14 @@ const defaultCartValue = {
   removeItemFromCart: (sku: TCartItems['sku']) => {},
   adjustItemQuantity: (sku: string, quantity: number) => {},
   getTotalPrice: (): number => 0,
+  setCartOpen: (open: boolean) => {},
+  cartOpen: false,
 };
 
 const CartContext = createContext(defaultCartValue);
 
 const CartProvider = ({ children }: { children: React.ReactNode }) => {
   const cart = useCart();
-  console.log(cart);
 
   return <CartContext.Provider value={cart}>{children}</CartContext.Provider>;
 };

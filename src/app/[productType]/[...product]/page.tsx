@@ -5,11 +5,10 @@ import {
   fetchPDPData,
   fetchPDPDataWithQuery,
   fetchReviewData,
-  getAllDefaultGenerations,
 } from '@/lib/db';
 import Image from 'next/image';
 import CarSelector from '@/components/PDP/CarSelector';
-import productJson from '@/data/staticGenerationTableData.json';
+import skuDisplayData from '@/data/skuDisplayData.json';
 import { redirect } from 'next/navigation';
 import { ExtraProductDetails } from '@/components/PDP/OtherDetails';
 import { colorOrder } from '@/lib/constants';
@@ -23,6 +22,8 @@ export type TPDPQueryParams = {
   second_submodel: string | undefined;
 };
 
+export type TSkuJson = typeof skuDisplayData;
+
 export default async function ProductPDP({
   params: pathParams,
   searchParams,
@@ -31,6 +32,7 @@ export default async function ProductPDP({
   searchParams: TPDPQueryParams;
 }) {
   const submodelParam = searchParams.submodel;
+  const secondSubmodelParam = searchParams.second_submodel;
   const make = pathParams?.product[0];
   const model = pathParams?.product[1];
   const year = pathParams?.product[2];
@@ -42,129 +44,203 @@ export default async function ProductPDP({
   ) {
     redirect('/404');
   }
-  refreshRoute('/');
-
-  const productData = await fetchPDPData(pathParams);
-
-  if (!productData) return null;
-
-  const modelJson = productJson as ProductJson[];
-
-  const jsonForData = modelJson.filter(
-    (row) =>
-      row.year_generation === year &&
-      deslugify(make).toLowerCase() === row.make.toLowerCase()
-  )?.[0];
-
-  const yearFk = modelJson.filter((row) => row.year_generation === year)?.[0]
-    ?.fk;
+  // refreshRoute('/');
+  const initialProductData = await fetchPDPData(pathParams);
 
   const reviewData: TReviewData[] | null =
     (await fetchReviewData(searchParams, pathParams)) ?? [];
-  // console.log(reviewData);
+
+  console.log(reviewData);
+
+  if (!initialProductData) {
+    redirect('/');
+  }
+
+  console.log(initialProductData);
+
+  const parentGeneration = skuDisplayData.find(
+    (row) =>
+      row.year_generation === year &&
+      slugify(row.make) === make &&
+      slugify(row.model) === model
+  );
+
+  console.log(parentGeneration);
+
+  const jsonForSku = (fk: number) => {
+    return skuDisplayData.find((row) => row.fk === fk);
+  };
+
+  const generationDefaultChildren = parentGeneration?.generation_default
+    ? initialProductData.filter((product) => {
+        return (
+          jsonForSku(product.fk as number)?.generation_default ===
+          parentGeneration?.generation_default
+        );
+      })
+    : initialProductData.filter(
+        (product) => product.fk === parentGeneration?.fk
+      );
+
+  console.log(generationDefaultChildren, 'gen');
+
+  const productsWithSubmodels = generationDefaultChildren.filter(
+    (product) =>
+      product.submodel1 &&
+      generationDefaultChildren.map((p) => p.fk).includes(product.fk)
+  );
+  console.log(productsWithSubmodels);
+  const submodels = Array.from(
+    new Set(productsWithSubmodels.map((product) => product.submodel1))
+  ).filter(Boolean) as string[];
+
+  const secondSubmodels = Array.from(
+    new Set(productsWithSubmodels.map((product) => product.submodel2))
+  ).filter(Boolean) as string[];
+
+  let modelData = submodelParam
+    ? productsWithSubmodels
+    : generationDefaultChildren;
+
+  // !year && (modelData = initialProductData);
+
+  console.log(modelData);
+  modelData.map((product) => console.log(product.submodel1, product.submodel2));
+  modelData = modelData
+    .filter((product) => product.msrp && product.price)
+    .sort((a, b) => {
+      let colorIndexA = colorOrder.indexOf(a?.display_color as string);
+      let colorIndexB = colorOrder.indexOf(b?.display_color as string);
+
+      if (colorIndexA === -1) colorIndexA = Infinity;
+      if (colorIndexB === -1) colorIndexB = Infinity;
+
+      return colorIndexA - colorIndexB;
+    });
+  console.log(modelData);
+
+  if (secondSubmodelParam) {
+    modelData = modelData.filter(
+      (product) => product.submodel2?.toLowerCase() === secondSubmodelParam
+    );
+  }
+  console.log(modelData);
+
+  console.log(secondSubmodelParam);
 
   // console.log(productData);
-  // console.log(
-  //   productData.filter((product) => product.submodel1_slug === submodelParam)
+
+  // if (!productData) return null;
+
+  // const modelJson = productJson as ProductJson[];
+
+  // const jsonForData = modelJson.filter(
+  //   (row) =>
+  //     row.year_generation === year &&
+  //     deslugify(make).toLowerCase() === row.make.toLowerCase()
+  // )?.[0];
+
+  // console.log(jsonForData);
+
+  // const yearFk = modelJson.filter((row) => row.year_generation === year)?.[0]
+  //   ?.fk;
+
+  // // console.log(reviewData);
+
+  // // console.log(productData);
+  // // console.log(
+  // //   productData.filter((product) => product.submodel1_slug === submodelParam)
+  // // );
+  // // console.log(submodelParam);
+  // // console.log(deslugify(submodelParam));
+
+  // const filteredModelData = productData.filter(
+  //   (product) =>
+  //     jsonForData.generation_default ==
+  //     modelJson.find((row) => String(row.fk) == product.sku.slice(-6))
+  //       ?.generation_default
   // );
-  // console.log(submodelParam);
-  // console.log(deslugify(submodelParam));
+  // console.log(filteredModelData);
 
-  const initModelData = productData.filter((product) => {
-    const validSubmodelYear = modelJson.filter(
-      (obj) =>
-        obj.generation_default === yearFk &&
-        obj.submodel1.toLowerCase() === deslugify(submodelParam)?.toLowerCase()
-    )[0]?.year_generation;
-    // console.log(validSubmodelYear);
-    return (
-      product.year_generation === validSubmodelYear &&
-      product.submodel1_slug === submodelParam
-    );
-  });
+  // let submodels: string[] = [];
 
-  // console.log(initModelData);
+  // const modelData =
+  //   (() => {
+  //     if (!submodelParam) {
+  //       console.log('running with no submodel');
+  //       return productData
+  //         ?.filter((item) => item.msrp && item.year_generation === year)
+  //         .sort((a, b) => {
+  //           let colorIndexA = colorOrder.indexOf(a?.display_color as string);
+  //           let colorIndexB = colorOrder.indexOf(b?.display_color as string);
 
-  let submodels: string[] = [];
+  //           if (colorIndexA === -1) colorIndexA = Infinity;
+  //           if (colorIndexB === -1) colorIndexB = Infinity;
 
-  const modelData =
-    (() => {
-      if (!submodelParam) {
-        console.log('running with no submodel');
-        return productData
-          ?.filter((item) => item.msrp && item.year_generation === year)
-          .sort((a, b) => {
-            let colorIndexA = colorOrder.indexOf(a?.display_color as string);
-            let colorIndexB = colorOrder.indexOf(b?.display_color as string);
+  //           return colorIndexA - colorIndexB;
+  //         });
+  //     }
+  //     if (submodelParam) {
+  //       console.log('running with a submodel', submodelParam);
+  //       // console.log(initModelData);
 
-            if (colorIndexA === -1) colorIndexA = Infinity;
-            if (colorIndexB === -1) colorIndexB = Infinity;
+  //       return filteredModelData.sort((a, b) => {
+  //         let colorIndexA = colorOrder.indexOf(a?.display_color as string);
+  //         let colorIndexB = colorOrder.indexOf(b?.display_color as string);
 
-            return colorIndexA - colorIndexB;
-          });
-      }
-      if (submodelParam) {
-        console.log('running with a submodel', submodelParam);
-        // console.log(initModelData);
+  //         if (colorIndexA === -1) colorIndexA = Infinity;
+  //         if (colorIndexB === -1) colorIndexB = Infinity;
 
-        return initModelData.sort((a, b) => {
-          let colorIndexA = colorOrder.indexOf(a?.display_color as string);
-          let colorIndexB = colorOrder.indexOf(b?.display_color as string);
+  //         return colorIndexA - colorIndexB;
+  //       });
+  //     }
+  //   })()?.filter((model) => model.msrp && model.price) ?? [];
 
-          if (colorIndexA === -1) colorIndexA = Infinity;
-          if (colorIndexB === -1) colorIndexB = Infinity;
-
-          return colorIndexA - colorIndexB;
-        });
-      }
-    })()?.filter((model) => model.msrp && model.price) ?? [];
-
-  // console.log(modelData);
+  // // console.log(modelData);
 
   if (modelData?.length === 0) {
     redirect('/');
   }
 
-  if (!submodelParam && jsonForData) {
-    const submodelsOfGeneration = modelJson
-      .filter((model) => model.generation_default === yearFk)
-      .map((model) => model.submodel1);
-    submodels = Array.from(
-      new Set(
-        submodelsOfGeneration.filter((row): row is string => Boolean(row))
-      )
-    );
-  }
-
-  if (submodelParam) {
-    submodels = Array.from(
-      new Set(
-        modelData
-          ?.map((row) => row.submodel1)
-          .filter((row): row is string => Boolean(row))
-      )
-    );
-  }
-
-  console.log(submodels);
-  console.log(modelData.map((row) => row.submodel1));
-
-  const secondSubmodels = Array.from(
-    new Set(
-      productData
-        ?.map((row) => row.submodel2)
-        .filter((row): row is string => Boolean(row))
-    )
-  );
-
-  // if (submodels?.length === 1) {
-  //   const query = new URLSearchParams(window.location.search);
-  //   query.set('submodel', submodels[0]);
-  //   const newUrl = `${window.location.pathname}?${query.toString()}`;
-  //   redirect(newUrl);
+  // if (!submodelParam && jsonForData) {
+  //   const submodelsOfGeneration = modelJson
+  //     .filter((model) => model.generation_default === yearFk)
+  //     .map((model) => model.submodel1);
+  //   submodels = Array.from(
+  //     new Set(
+  //       submodelsOfGeneration.filter((row): row is string => Boolean(row))
+  //     )
+  //   );
   // }
 
-  // console.log(secondSubmodels);
+  // submodels = Array.from(
+  //   new Set(
+  //     modelData
+  //       ?.map((row) => row.submodel1)
+  //       .filter((row): row is string => Boolean(row))
+  //   )
+  // );
+
+  // console.log(submodels);
+  // console.log(modelData.map((row) => row.submodel1));
+
+  // const secondSubmodels = Array.from(
+  //   new Set(
+  //     productData
+  //       ?.map((row) => row.submodel2)
+  //       .filter((row): row is string => Boolean(row))
+  //   )
+  // );
+
+  // // if (submodels?.length === 1) {
+  // //   const query = new URLSearchParams(window.location.search);
+  // //   query.set('submodel', submodels[0]);
+  // //   const newUrl = `${window.location.pathname}?${query.toString()}`;
+  // //   redirect(newUrl);
+  // // }
+
+  // console.log(secondSubmodels, submodels);
+  // console.log(modelData);
 
   return (
     <>
@@ -175,6 +251,7 @@ export default async function ProductPDP({
         submodels={submodels}
         secondSubmodels={secondSubmodels}
         reviewData={reviewData}
+        parentGeneration={parentGeneration}
         key={submodelParam ?? ''}
       />
       <div

@@ -6,13 +6,10 @@ import {
   TPDPQueryParams,
 } from '@/app/[productType]/[...product]/page';
 import { deslugify } from '../utils';
-import productJson from '@/data/staticGenerationTableData.json';
 import { refreshRoute } from '@/app/[productType]/[...product]/actions';
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL ?? '';
 const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_KEY ?? '';
-
-console.log(supabaseUrl, supabaseKey);
 
 const supabase = createClient<Database>(supabaseUrl, supabaseKey);
 
@@ -65,7 +62,6 @@ export const fetchModelsOfMake = async (make: string) => {
     .from('Models')
     .select('model')
     .eq('make', make);
-  console.log('ran');
 
   // console.log(Models);
 
@@ -93,97 +89,6 @@ export async function fetchSubmodelsOfModel(model: string) {
   };
 }
 
-export async function fetchFilteredProducts({
-  where,
-  includes,
-}: TProductsInColumnArgs) {
-  console.log(where);
-  if (!where?.type || !includes?.year_range) return [];
-  try {
-    console.log('fetching products');
-    let query = supabase.from('Products-2024').select();
-
-    if (where) {
-      Object.entries(where).forEach(([key, value]) => {
-        if (!key || !value) return;
-        console.log('updating query');
-
-        if (key && value) query = query.eq(key, value);
-      });
-    }
-
-    if (includes) {
-      Object.entries(includes).forEach(([key, value]) => {
-        console.log('updating query');
-
-        if (key && typeof value === 'string')
-          query = query.textSearch(key, value);
-      });
-    }
-
-    const { data, error } = await query;
-
-    if (error) {
-      throw error;
-    }
-    const uniqueModels = data
-      .map((item) => {
-        return {
-          model: item.model,
-          make: item.make,
-          submodel1: item.submodel1,
-          submodel2: item.submodel2,
-          year_range: item.year_range,
-          slug: item.product_url_slug,
-          generation: item.year_generation,
-          sku: item.sku,
-        };
-      })
-      .filter(
-        (value, index, self) => self.indexOf(value) === index && !!value.model
-      );
-
-    // console.log('models', uniqueModels, data.length);
-
-    return uniqueModels.length ? uniqueModels : [];
-  } catch (error) {
-    console.error('Error fetching products:', error);
-    throw error;
-  }
-}
-
-export const getAllDefaultGenerations = async () => {
-  const { data, error } = await supabase
-    .from('Products')
-    .select('generation_default')
-    .not('generation_default', 'is', null);
-
-  if (error) {
-    console.log(error);
-  }
-
-  const set = Array.from(new Set(data?.map((row) => row.generation_default)));
-  return set;
-};
-
-export const getGenerationData = async (make: string, model: string) => {
-  let fetch = supabase
-    .from('Products')
-    .select(
-      `fk,generation_default,year_generation,submodel1,submodel2,SKU_pe_bkgr_str,SKU_pe_bkrd_str,SKU_pp_bkgr_str,SKU_pp_bkrd_str,SKU_pp_grbk_str,SKU_pp_bkgr_2to,SKU_pp_bkrd_2to,SKU_pp_grbk_tri,SKU_ps_gr_1to,SKU_sp_gr_1to,SKU_ss_gr_1to`
-    )
-    .textSearch('make', make)
-    .textSearch('model', model);
-
-  const { data, error } = await fetch;
-
-  if (error) {
-    console.log(error);
-  }
-
-  return data;
-};
-
 export async function fetchPDPData(
   pathParams: TPDPPathParams
 ): Promise<TProductData[] | null> {
@@ -201,10 +106,9 @@ export async function fetchPDPData(
   const { data, error } = await supabase
     .from('Products-2024')
     .select('*')
-    .eq('make_slug', makeFromPath)
     .eq('model_slug', modelFromPath);
 
-  console.log(data);
+  console.log(data?.length);
   if (error) {
     console.log(error);
   }
@@ -213,75 +117,10 @@ export async function fetchPDPData(
   return data;
 }
 
-export async function fetchDropdownData(fkey: string) {
-  // const { data, error } = await supabase
-  //   .from('Products')
-  //   .select('*')
-  //   .eq('fk', fkey);
-
-  const modelData = await supabase
-    .from('Products-2024')
-    .select('*')
-    .textSearch('sku', fkey);
-  // console.log(modelData);
-
-  return modelData;
-}
-
-export async function generatePDPUrl({
-  type,
-  year,
-  make,
-  model,
-  submodel1,
-}: {
-  type: string;
-  year: string;
-  make: string;
-  model: string;
-  submodel1?: string;
-}) {
-  // console.log(type, year, make, model, submodel1);
-  let fetch = supabase
-    .from('Products')
-    .select('generation_default, year_generation, fk')
-    .eq('type', type)
-    .eq('make', make)
-    .eq('model', model)
-    .textSearch('year_options', year);
-
-  if (submodel1) {
-    fetch = fetch.eq('submodel1', submodel1);
-  }
-
-  const { data, error } = await fetch;
-  const { generation_default, year_generation, fk } = data?.[0] ?? {};
-  let url;
-
-  // console.log(data);
-
-  const defaultYear = data?.filter((row) => row.fk === generation_default)?.[0]
-    ?.year_generation;
-
-  console.log(defaultYear);
-
-  if (generation_default) {
-    url = `/${slugify(type)}/${slugify(make)}/${slugify(model)}/${defaultYear}`;
-  } else {
-    url = `/${slugify(type)}/${slugify(make)}/${slugify(model)}/${slugify(
-      year_generation ?? ''
-    )}`;
-  }
-  return url;
-}
-
-export async function fetchModelToDisplay(fk: string) {
+export async function addOrderToDb(order: any) {
   const { data, error } = await supabase
-    .from('Products')
-    .select('*')
-    .eq('fk', fk);
-
-  // console.log(data);
+    .from('_temp_orders')
+    .insert({ order: order });
 
   if (error) {
     console.log(error);
@@ -312,8 +151,8 @@ export async function fetchReviewData(
 
   if (submodel1) {
     const submodelDisplayname = deslugify(submodel1);
-    // console.log('submodel1', submodel1);
-    fetch = fetch.textSearch('submodel1', submodelDisplayname);
+    console.log('submodel1', submodelDisplayname);
+    fetch = fetch.textSearch('submodel1', `'${submodel1}'`);
   }
 
   if (submodel2) {

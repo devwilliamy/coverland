@@ -4,9 +4,6 @@ import { TProductData, TReviewData, fetchPDPData } from '@/lib/db';
 import { Separator } from '@/components/ui/separator';
 import Image from 'next/image';
 import { GoDotFill } from 'react-icons/go';
-import { IoRibbonSharp } from 'react-icons/io5';
-import { FaShippingFast, FaThumbsUp } from 'react-icons/fa';
-import { MdSupportAgent } from 'react-icons/md';
 import Link from 'next/link';
 import React, {
   ReactPropTypes,
@@ -24,6 +21,7 @@ import Rating from '@mui/material/Rating';
 import {
   TPDPPathParams,
   TPDPQueryParams,
+  TSkuJson,
 } from '@/app/[productType]/[...product]/page';
 import {
   Popover,
@@ -31,14 +29,14 @@ import {
   PopoverTrigger,
 } from '@radix-ui/react-popover';
 import { Button } from '../ui/button';
-import { generationDefaultCarCovers } from '@/lib/constants';
 import { Card, CardContent, CardHeader, CardTitle } from '../ui/card';
 import AgentProfile from '@/images/PDP/agent_profile.png';
 import { useMediaQuery } from '@mantine/hooks';
-// import { ProductVideo } from './ProductVideo';
 import { FolderUpIcon, SecureIcon, ThumbsUpIcon } from './images';
 import { MoneyBackIcon } from './images/MoneyBack';
 import { EditIcon } from './components/icons';
+import { track } from '@vercel/analytics';
+
 import {
   Dialog,
   DialogContent,
@@ -63,10 +61,10 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from '../ui/accordion';
-import { Car, Edit } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { usePathname } from 'next/navigation';
-import { refreshRoute } from '@/app/[productType]/[...product]/actions';
+import skuDisplayData from '@/data/skuDisplayData.json';
+import { slugify, stringToSlug } from '@/lib/utils';
 
 const ProductVideo = dynamicImport(() => import('./ProductVideo'), {
   ssr: false,
@@ -145,6 +143,7 @@ function CarSelector({
   submodels,
   secondSubmodels,
   reviewData,
+  parentGeneration,
 }: {
   modelData: TProductData[];
   pathParams: TPDPPathParams;
@@ -152,42 +151,96 @@ function CarSelector({
   secondSubmodels: string[];
   searchParams: TPDPQueryParams;
   reviewData: TReviewData[];
+  parentGeneration: any;
 }) {
-  const displays = modelData.map((model) => model.display_color);
-  // console.log('displays', displays);
+  console.log(
+    modelData.map((model) => model.submodel2),
+    'huh'
+  );
+
+  console.log(secondSubmodels);
+  const defaultModel = modelData.find(
+    (model) =>
+      model.fk ===
+      skuDisplayData.find((row) => row.fk === parentGeneration?.fk)?.fk
+  );
+
+  const modelsBySubmodel =
+    modelData.filter(
+      (model) =>
+        stringToSlug(model?.submodel1 as string) ===
+        stringToSlug(searchParams?.submodel as string)
+    ) ?? [];
+
+  const modelsBySecondSubmodel = searchParams?.second_submodel
+    ? modelData.filter(
+        (model) =>
+          stringToSlug(model?.submodel2 as string) ===
+          stringToSlug(searchParams?.second_submodel as string)
+      ) ?? modelsBySubmodel
+    : modelsBySubmodel;
+
+  console.log(modelsBySubmodel);
+
+  console.log(
+    stringToSlug(modelData[4]?.submodel1 as string),
+    searchParams.submodel
+  );
+
+  const isFullySelected =
+    pathParams?.product?.length === 3 &&
+    (submodels.length === 0 || !!searchParams?.submodel) &&
+    (secondSubmodels.length === 0 || !!searchParams?.second_submodel);
+
+  console.log(modelData);
+
+  let displayedModelData = searchParams?.submodel
+    ? modelsBySubmodel
+    : modelData;
+
+  displayedModelData = searchParams?.second_submodel
+    ? modelsBySecondSubmodel
+    : displayedModelData;
 
   const [selectedProduct, setSelectedProduct] = useState<TProductData>(
-    modelData[0]
+    isFullySelected
+      ? displayedModelData[0]
+      : defaultModel ?? displayedModelData[0]
   );
-  // console.log(selectedProduct);
   const [featuredImage, setFeaturedImage] = useState<string>(
     selectedProduct?.feature as string
   );
+  console.log(submodels, secondSubmodels, defaultModel);
   const router = useRouter();
   const path = usePathname();
 
+  const { cartItems, cartOpen, setCartOpen } = useCartContext();
+
+  // function removeBeforeCom(url: string) {
+  //   const pos = url?.indexOf('.com');
+
+  //   if (pos === -1) {
+  //     return url;
+  //   }
+  //   return url?.substring(pos + 4);
+  // }
+
   interface ProductRefs {
-    [key: string]: RefObject<HTMLElement>; // Replace 'YourElementType' with the actual type
+    [key: string]: RefObject<HTMLElement>;
   }
 
+  console.log(modelData);
+  console.log(selectedProduct);
+
   const productRefs = useRef<ProductRefs>(
-    modelData.reduce((acc: ProductRefs, item: TProductData) => {
+    displayedModelData.reduce((acc: ProductRefs, item: TProductData) => {
       acc[item.sku] = React.createRef();
       return acc;
     }, {})
   );
 
-  useEffect(() => {
-    refreshRoute('/');
-    setSelectedProduct(modelData[0]);
-    setFeaturedImage(modelData[0]?.feature as string);
-    //eslint-disable-next-line
-  }, [path]);
-
   const [showMore, setShowMore] = useState(false);
   const isMobile = useMediaQuery('(max-width: 768px)');
-
-  // console.log(selectedProduct);
 
   const { toast } = useToast();
   const { addToCart } = useCartContext();
@@ -195,34 +248,29 @@ function CarSelector({
     ? pathParams?.product?.length === 3 && !!searchParams?.submodel
     : pathParams?.product?.length === 3;
 
-  const shouldSubmodelDisplay = !!submodels.length && !searchParams?.submodel;
-  // console.log('shouldSubmodelDisplay', shouldSubmodelDisplay);
-
   const uniqueColors = Array.from(
-    new Set(modelData.map((model) => model.display_color))
-  ).map((color) => modelData.find((model) => model.display_color === color));
+    new Set(displayedModelData.map((model) => model.display_color))
+  ).map((color) =>
+    displayedModelData.find((model) => model.display_color === color)
+  );
+
+  console.log(uniqueColors);
 
   const uniqueTypes = Array.from(
-    new Set(modelData.map((model) => model.display_id))
-  ).map((type) => modelData.find((model) => model.display_id === type));
-  // console.log('uniqueCoverColors', uniqueColors);
-  // console.log('uniqueCoverTypes', uniqueTypes);
+    new Set(displayedModelData.map((model) => model.display_id))
+  ).map((type) =>
+    displayedModelData.find((model) => model.display_id === type)
+  );
 
   const handleAddToCart = () => {
     if (!selectedProduct) return;
-    console.log('running');
     return addToCart({ ...selectedProduct, quantity: 1 });
   };
-  console.log(showMore);
-
-  console.log(selectedProduct.feature);
 
   const productImages =
     selectedProduct?.product
       ?.split(',')
       .filter((img) => img !== featuredImage) ?? [];
-  // console.log('productImages', productImages);
-  const modalProductImages = productImages.slice(5);
   const reviewScore = reviewData?.reduce(
     (acc, review) => acc + Number(review.rating_stars ?? 0),
     0
@@ -230,6 +278,10 @@ function CarSelector({
   const reviewCount = reviewData?.length ?? 50;
 
   const avgReviewScore = (reviewScore / reviewCount).toFixed(1);
+
+  console.log(isFullySelected, isReadyForSelection);
+
+  console.log(submodels, secondSubmodels);
 
   // console.log(avgReviewScore);
   // console.log(searchParams?.submodel);
@@ -292,6 +344,7 @@ function CarSelector({
                     cursor-pointer   border-red-600 object-contain
                   `}
                     onClick={() => setFeaturedImage(img)}
+                    onError={() => console.log('Failed image:', `${img}`)}
                   />
                 </div>
               ))}
@@ -354,6 +407,10 @@ function CarSelector({
                     }
                     width={98}
                     height={98}
+                    priority
+                    onError={() =>
+                      console.log('Failed image:', `${sku?.feature}`)
+                    }
                     alt="car cover details"
                     className="h-20 w-20 cursor-pointer rounded bg-[#F2F2F2] lg:h-full lg:w-full"
                     onClick={() => {
@@ -419,6 +476,9 @@ function CarSelector({
                     src={sku?.feature as string}
                     width={98}
                     height={98}
+                    onError={() =>
+                      console.log('Failed image:', `${sku?.feature}`)
+                    }
                     alt="car cover details"
                     className="h-20 w-20 cursor-pointer rounded bg-[#F2F2F2] lg:h-full lg:w-full"
                   />
@@ -445,8 +505,11 @@ function CarSelector({
                   }}
                 />
                 <Popover>
-                  <PopoverTrigger className="text-blue-400 underline">
-                    {reviewCount ?? '45'} ratings
+                  <PopoverTrigger
+                    className="text-blue-400 underline"
+                    disabled={!reviewCount}
+                  >
+                    {reviewCount || '2'} ratings
                   </PopoverTrigger>
                   <PopoverContent>
                     <div className=" flex flex-col items-center border border-gray-300 bg-white p-4 shadow-lg">
@@ -464,7 +527,16 @@ function CarSelector({
                         />
                       </div>
                       {!!reviewData.length && (
-                        <Link className="underline" scroll href={'#reviews'}>
+                        <Link
+                          className="underline"
+                          scroll
+                          href={'#reviews'}
+                          onClick={() =>
+                            track('viewing all reviews', {
+                              sku: selectedProduct?.sku,
+                            })
+                          }
+                        >
                           Show all reviews ({reviewData?.length})
                         </Link>
                       )}
@@ -549,14 +621,16 @@ function CarSelector({
               </p>
               {/* <BsInfoCircle size={20} color="#767676" /> */}
             </div>
-            <div className="mt-8 w-full">
-              <DropdownPDP
-                modelData={modelData}
-                submodels={submodels}
-                secondSubmodels={secondSubmodels}
-              />
-            </div>
-            {!isReadyForSelection && selectedProduct ? (
+            {!isFullySelected && (
+              <div className="mt-8 w-full">
+                <DropdownPDP
+                  modelData={displayedModelData}
+                  submodels={submodels}
+                  secondSubmodels={secondSubmodels}
+                />
+              </div>
+            )}
+            {!isFullySelected && selectedProduct ? (
               <>
                 <Popover>
                   <PopoverTrigger asChild>
@@ -575,15 +649,11 @@ function CarSelector({
               <Button
                 className="mt-4 h-[60px] w-full bg-[#BE1B1B] text-lg disabled:bg-[#BE1B1B]"
                 onClick={() => {
-                  handleAddToCart();
-                  toast({
-                    duration: 3000,
-                    action: (
-                      <ToastAction altText="Success" className="w-full">
-                        Added your item to cart!
-                      </ToastAction>
-                    ),
+                  track('PDP_add_to_cart', {
+                    sku: selectedProduct?.sku,
                   });
+                  handleAddToCart();
+                  setCartOpen(true);
                 }}
               >
                 Add To Cart
@@ -670,12 +740,12 @@ function CarSelector({
                 >
                   1-800-799-5165
                 </Link>
-                <Link
+                {/* <Link
                   href="#"
                   className="text-base font-normal capitalize text-[#0C87B8] underline"
                 >
                   live chat
-                </Link>
+                </Link> */}
               </div>
             </div>
           </div>
@@ -918,6 +988,7 @@ const MobileImageCarousel = ({
                 width={500}
                 height={500}
                 // placeholder="blur"
+                onError={() => console.log('Failed image:', `${image}`)}
               />
             </CarouselItem>
           ))}

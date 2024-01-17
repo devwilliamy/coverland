@@ -64,8 +64,7 @@ function CheckoutPage() {
       // total = totalNum
     }
   };
-  total = getTotalPrice();
-  console.log(cartItems);
+  total = getTotalPrice().toFixed(2) as unknown as number;
   return (
     <div className="">
       {cartItems.length === 0 && (
@@ -168,14 +167,14 @@ function CheckoutPage() {
                         <div className="text-xl">Same-Day Shipping</div>
                         <div className="flex items-center gap-2 text-xl">
                           <div>Free Delivery</div>
-                          <IconContext.Provider
+                          {/* <IconContext.Provider
                             // Info Circle Icon
                             value={{
                               className: 'cursor-pointer h-full w-[3vh]',
                             }}
                           >
                             <IoInformationCircleOutline />
-                          </IconContext.Provider>
+                          </IconContext.Provider> */}
                         </div>
                       </div>
                       <IconContext.Provider
@@ -243,32 +242,21 @@ function CheckoutPage() {
               <div>Order Total</div>
               <div>${total}</div>
             </div>
+            <div className="my-10 flex w-full justify-center">
+              <Button
+                variant={'default'}
+                className="w-40 bg-[#BE1B1B] text-xl"
+                onClick={redirectToCheckout}
+              >
+                Checkout
+              </Button>
+            </div>
             {/* <Link
                 href=""
                 className="flex flex-col text-white bg-black"
               >
               </Link> */}
-            <div
-              className="mt-[4vh] flex
-                h-[48px] cursor-pointer flex-col
-                items-center justify-center rounded
-                bg-black text-[2vh] text-white
-                transition ease-in-out hover:border  
-                hover:border-black hover:bg-white hover:text-black
-              "
-            >
-              CHECKOUT
-            </div>
           </div>
-          {/* <div className="w-full my-10 flex justify-center">
-            <Button
-              variant={'default'}
-              className="text-xl w-40 bg-[#BE1B1B]"
-              onClick={redirectToCheckout}
-            >
-              Checkout
-            </Button>
-          </div> */}
         </div>
       )}
     </div>
