@@ -6,7 +6,6 @@ import { TypeSearch } from './TypeSearch';
 import { MakeSearch } from './MakeSearch';
 import { ModelSearch } from './ModelSearch';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { useProductData } from '@/lib/db/hooks/useProductData';
 import { useCallback, useEffect, useState } from 'react';
 import { SubmodelDropdown } from './SubmodelDropdown';
 import skuDisplayData from '@/data/skuDisplayData.json';

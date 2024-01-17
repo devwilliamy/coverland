@@ -2,7 +2,6 @@
 import { AiOutlineLoading3Quarters } from 'react-icons/ai';
 import { Button } from '@/components/ui/button';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { useProductData } from '@/lib/db/hooks/useProductData';
 import { useCallback, useEffect, useState } from 'react';
 import { TModelFitData, TProductData } from '@/lib/db';
 import { TypeSearch } from '../hero/dropdown/TypeSearch';
