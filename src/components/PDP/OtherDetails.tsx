@@ -23,6 +23,8 @@ import {
   AccordionTrigger,
 } from '../ui/accordion';
 import { useMediaQuery } from '@mantine/hooks';
+import { NoGarageMobile } from './components/NoGarageMobile';
+import { ClimateCrisisMobile } from './components/ClimateCrisisMobile';
 
 export function ExtraProductDetails({
   reviewData,
@@ -207,8 +209,8 @@ const MobilePDPDetails = ({ reviewData }: { reviewData: TReviewData[] }) => {
           </AccordionTrigger>
           <AccordionContent>
             <div className=" md:mt-18 lg:mt-28">
-              <ClimateCrisis />
-              <NoGarage />
+              <ClimateCrisisMobile />
+              <NoGarageMobile />
               <OurCarCovers />
               <ProductChecklist />
             </div>
