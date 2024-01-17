@@ -42,6 +42,13 @@ export function SubmodelSearch({
 
   const { uniqueSubmodel1 } = extractUniqueValues(modelData as TProductData[]);
 
+  const uniqueSubmodelsFromModelData = Array.from(
+    new Set(
+      modelData.map((row) => row.submodel1).filter((model) => Boolean(model))
+    )
+  );
+  console.log(uniqueSubmodelsFromModelData);
+
   console.log(uniqueSubmodel1);
 
   console.log(shouldTriggerSetParams);
@@ -59,11 +66,11 @@ export function SubmodelSearch({
     <select
       value={value}
       onChange={handleChange}
-      className="text-lg rounded-lg px-2 py-3"
+      className="rounded-lg px-2 py-3 text-lg"
     >
       <option value="">Select car submodel</option>
-      {submodels?.sort()?.map((submodel) => (
-        <option key={`model-${submodel}`} value={submodel}>
+      {uniqueSubmodelsFromModelData?.sort()?.map((submodel) => (
+        <option key={`model-${submodel}`} value={submodel as string}>
           {deslugify(submodel)}
         </option>
       ))}

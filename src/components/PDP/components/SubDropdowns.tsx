@@ -87,6 +87,7 @@ export default function SubDropdowns({
   console.log(hasSecondSubModel);
 
   if (submodelParam) return null;
+  console.log(submodels);
 
   return (
     <>
