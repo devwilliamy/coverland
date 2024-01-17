@@ -76,7 +76,7 @@ export function SubmodelSearch({
 
   console.log(submodels, uniqueSubmodelsFromModelData);
 
-  if (submodels.length < 2) return null;
+  if (submodels.length < 1) return null;
   const handleChange = (event: ChangeEvent<HTMLSelectElement>) => {
     const newValue = event.target.value;
     setValue(newValue);

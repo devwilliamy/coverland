@@ -83,6 +83,9 @@ export default function EditVehicleDropdown() {
   const createQueryString = useCallback(
     (name: string, value: string) => {
       const params = new URLSearchParams(searchParams?.toString());
+      if (params.has('second_submodel')) {
+        params.delete('second_submodel');
+      }
       params.set(name, value);
 
       return params.toString().toLowerCase();

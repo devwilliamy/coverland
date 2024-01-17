@@ -113,12 +113,14 @@ export default async function ProductPDP({
 
       return colorIndexA - colorIndexB;
     });
+  console.log(modelData);
 
   if (secondSubmodelParam) {
     modelData = modelData.filter(
       (product) => product.submodel2?.toLowerCase() === secondSubmodelParam
     );
   }
+  console.log(modelData);
 
   console.log(secondSubmodelParam);
 

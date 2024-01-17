@@ -90,7 +90,7 @@ export default function SubDropdowns({
     }
 
     if (selectedSecondSubmodel) {
-      url += createQueryString('second_submodel', selectedSecondSubmodel);
+      url += `&${createQueryString('second_submodel', selectedSecondSubmodel)}`;
     }
     // refreshRoute('/');
     router.push(`?${url}`);
