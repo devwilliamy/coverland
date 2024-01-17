@@ -42,7 +42,7 @@ export default async function ProductPDP({
   ) {
     redirect('/404');
   }
-  refreshRoute('/');
+  // refreshRoute('/');
 
   const productData = await fetchPDPData(pathParams);
 
@@ -121,9 +121,9 @@ export default async function ProductPDP({
 
   // console.log(modelData);
 
-  if (modelData?.length === 0) {
-    redirect('/');
-  }
+  // if (modelData?.length === 0) {
+  //   redirect('/');
+  // }
 
   if (!submodelParam && jsonForData) {
     const submodelsOfGeneration = modelJson
@@ -136,15 +136,13 @@ export default async function ProductPDP({
     );
   }
 
-  if (submodelParam) {
-    submodels = Array.from(
-      new Set(
-        modelData
-          ?.map((row) => row.submodel1)
-          .filter((row): row is string => Boolean(row))
-      )
-    );
-  }
+  submodels = Array.from(
+    new Set(
+      modelData
+        ?.map((row) => row.submodel1)
+        .filter((row): row is string => Boolean(row))
+    )
+  );
 
   console.log(submodels);
   console.log(modelData.map((row) => row.submodel1));
@@ -164,7 +162,7 @@ export default async function ProductPDP({
   //   redirect(newUrl);
   // }
 
-  // console.log(secondSubmodels);
+  console.log(secondSubmodels, submodels);
 
   return (
     <>

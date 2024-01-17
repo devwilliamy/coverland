@@ -243,31 +243,20 @@ function CheckoutPage() {
               <div>Order Total</div>
               <div>${total}</div>
             </div>
+            <div className="my-10 flex w-full justify-center">
+              <Button
+                variant={'default'}
+                className="w-40 bg-[#BE1B1B] text-xl"
+                onClick={redirectToCheckout}
+              >
+                Checkout
+              </Button>
+            </div>
             {/* <Link
                 href=""
                 className="flex flex-col text-white bg-black"
               >
               </Link> */}
-            <div
-              className="mt-[4vh] flex
-                h-[48px] cursor-pointer flex-col
-                items-center justify-center rounded
-                bg-black text-[2vh] text-white
-                transition ease-in-out hover:border  
-                hover:border-black hover:bg-white hover:text-black
-              "
-            >
-              CHECKOUT
-            </div>
-          </div>
-          <div className="my-10 flex w-full justify-center">
-            <Button
-              variant={'default'}
-              className="w-40 bg-[#BE1B1B] text-xl"
-              onClick={redirectToCheckout}
-            >
-              Checkout
-            </Button>
           </div>
         </div>
       )}

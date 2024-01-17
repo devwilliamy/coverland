@@ -213,6 +213,17 @@ export async function fetchPDPData(
   return data;
 }
 
+export async function addOrderToDb(order: any) {
+  const { data, error } = await supabase
+    .from('_temp_orders')
+    .insert({ order: order });
+
+  if (error) {
+    console.log(error);
+  }
+  return data;
+}
+
 export async function fetchDropdownData(fkey: string) {
   // const { data, error } = await supabase
   //   .from('Products')
