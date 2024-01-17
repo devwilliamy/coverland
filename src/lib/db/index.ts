@@ -6,7 +6,6 @@ import {
   TPDPQueryParams,
 } from '@/app/[productType]/[...product]/page';
 import { deslugify } from '../utils';
-import productJson from '@/data/staticGenerationTableData.json';
 import { refreshRoute } from '@/app/[productType]/[...product]/actions';
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL ?? '';
@@ -166,14 +165,8 @@ export const getAllDefaultGenerations = async () => {
   return set;
 };
 
-export const getGenerationData = async (make: string, model: string) => {
-  let fetch = supabase
-    .from('Products')
-    .select(
-      `fk,generation_default,year_generation,submodel1,submodel2,SKU_pe_bkgr_str,SKU_pe_bkrd_str,SKU_pp_bkgr_str,SKU_pp_bkrd_str,SKU_pp_grbk_str,SKU_pp_bkgr_2to,SKU_pp_bkrd_2to,SKU_pp_grbk_tri,SKU_ps_gr_1to,SKU_sp_gr_1to,SKU_ss_gr_1to`
-    )
-    .textSearch('make', make)
-    .textSearch('model', model);
+export const getGenerationData = async () => {
+  let fetch = supabase.from('Products').select(`fk, generation_default`);
 
   const { data, error } = await fetch;
 
@@ -201,10 +194,9 @@ export async function fetchPDPData(
   const { data, error } = await supabase
     .from('Products-2024')
     .select('*')
-    .eq('make_slug', makeFromPath)
     .eq('model_slug', modelFromPath);
 
-  console.log(data);
+  console.log(data?.length);
   if (error) {
     console.log(error);
   }
@@ -237,53 +229,6 @@ export async function fetchDropdownData(fkey: string) {
   // console.log(modelData);
 
   return modelData;
-}
-
-export async function generatePDPUrl({
-  type,
-  year,
-  make,
-  model,
-  submodel1,
-}: {
-  type: string;
-  year: string;
-  make: string;
-  model: string;
-  submodel1?: string;
-}) {
-  // console.log(type, year, make, model, submodel1);
-  let fetch = supabase
-    .from('Products')
-    .select('generation_default, year_generation, fk')
-    .eq('type', type)
-    .eq('make', make)
-    .eq('model', model)
-    .textSearch('year_options', year);
-
-  if (submodel1) {
-    fetch = fetch.eq('submodel1', submodel1);
-  }
-
-  const { data, error } = await fetch;
-  const { generation_default, year_generation, fk } = data?.[0] ?? {};
-  let url;
-
-  // console.log(data);
-
-  const defaultYear = data?.filter((row) => row.fk === generation_default)?.[0]
-    ?.year_generation;
-
-  console.log(defaultYear);
-
-  if (generation_default) {
-    url = `/${slugify(type)}/${slugify(make)}/${slugify(model)}/${defaultYear}`;
-  } else {
-    url = `/${slugify(type)}/${slugify(make)}/${slugify(model)}/${slugify(
-      year_generation ?? ''
-    )}`;
-  }
-  return url;
 }
 
 export async function fetchModelToDisplay(fk: string) {

@@ -9,6 +9,39 @@ export type Json =
 export interface Database {
   public: {
     Tables: {
+      '_Subscriber-Emails': {
+        Row: {
+          email: string | null;
+          id: number;
+        };
+        Insert: {
+          email?: string | null;
+          id?: number;
+        };
+        Update: {
+          email?: string | null;
+          id?: number;
+        };
+        Relationships: [];
+      };
+      _temp_orders: {
+        Row: {
+          created_at: string;
+          id: number;
+          order: string | null;
+        };
+        Insert: {
+          created_at?: string;
+          id?: number;
+          order?: string | null;
+        };
+        Update: {
+          created_at?: string;
+          id?: number;
+          order?: string | null;
+        };
+        Relationships: [];
+      };
       MakeModelLink: {
         Row: {
           created_at: string;
@@ -42,7 +75,7 @@ export interface Database {
             isOneToOne: false;
             referencedRelation: 'Vehicle-Models';
             referencedColumns: ['id'];
-          }
+          },
         ];
       };
       MakeProductTypeLink: {
@@ -78,7 +111,7 @@ export interface Database {
             isOneToOne: false;
             referencedRelation: 'Product-Types';
             referencedColumns: ['id'];
-          }
+          },
         ];
       };
       Makes: {
@@ -129,7 +162,7 @@ export interface Database {
             isOneToOne: false;
             referencedRelation: 'Vehicle-Years';
             referencedColumns: ['id'];
-          }
+          },
         ];
       };
       ModelProductTypeLink: {
@@ -165,7 +198,7 @@ export interface Database {
             isOneToOne: false;
             referencedRelation: 'Product-Types';
             referencedColumns: ['id'];
-          }
+          },
         ];
       };
       Models: {
@@ -191,7 +224,7 @@ export interface Database {
             isOneToOne: false;
             referencedRelation: 'Makes';
             referencedColumns: ['make'];
-          }
+          },
         ];
       };
       ModelSubmodelLink: {
@@ -227,7 +260,7 @@ export interface Database {
             isOneToOne: false;
             referencedRelation: 'Vehicle-Submodels';
             referencedColumns: ['id'];
-          }
+          },
         ];
       };
       ModelYearLink: {
@@ -263,7 +296,7 @@ export interface Database {
             isOneToOne: false;
             referencedRelation: 'Vehicle-Years';
             referencedColumns: ['id'];
-          }
+          },
         ];
       };
       Orders: {
@@ -431,7 +464,7 @@ export interface Database {
             isOneToOne: false;
             referencedRelation: 'Skus';
             referencedColumns: ['sku'];
-          }
+          },
         ];
       };
       'Product-Types': {
@@ -947,7 +980,7 @@ export interface Database {
             isOneToOne: false;
             referencedRelation: 'Products';
             referencedColumns: ['fk'];
-          }
+          },
         ];
       };
       'Products-2024': {
@@ -956,6 +989,7 @@ export interface Database {
           display_color: string | null;
           display_id: string | null;
           feature: string | null;
+          fk: number | null;
           generation_end: number | null;
           generation_start: number | null;
           make: string | null;
@@ -983,6 +1017,7 @@ export interface Database {
           display_color?: string | null;
           display_id?: string | null;
           feature?: string | null;
+          fk?: number | null;
           generation_end?: number | null;
           generation_start?: number | null;
           make?: string | null;
@@ -1010,6 +1045,7 @@ export interface Database {
           display_color?: string | null;
           display_id?: string | null;
           feature?: string | null;
+          fk?: number | null;
           generation_end?: number | null;
           generation_start?: number | null;
           make?: string | null;
@@ -1041,6 +1077,7 @@ export interface Database {
           display_id: string | null;
           feature: string | null;
           fit_key: string | null;
+          fk: number | null;
           generation_end: number | null;
           generation_start: number | null;
           make: string | null;
@@ -1069,6 +1106,7 @@ export interface Database {
           display_id?: string | null;
           feature?: string | null;
           fit_key?: string | null;
+          fk?: number | null;
           generation_end?: number | null;
           generation_start?: number | null;
           make?: string | null;
@@ -1097,6 +1135,7 @@ export interface Database {
           display_id?: string | null;
           feature?: string | null;
           fit_key?: string | null;
+          fk?: number | null;
           generation_end?: number | null;
           generation_start?: number | null;
           make?: string | null;
@@ -1151,7 +1190,7 @@ export interface Database {
             isOneToOne: false;
             referencedRelation: 'Vehicle-Years';
             referencedColumns: ['id'];
-          }
+          },
         ];
       };
       Skus: {
@@ -1186,7 +1225,7 @@ export interface Database {
             isOneToOne: false;
             referencedRelation: 'Models';
             referencedColumns: ['id'];
-          }
+          },
         ];
       };
       'Vehicle-Makes': {
@@ -1460,7 +1499,7 @@ export interface Database {
             isOneToOne: false;
             referencedRelation: 'product_join_mv';
             referencedColumns: ['fk'];
-          }
+          },
         ];
       };
     };
@@ -1519,7 +1558,7 @@ export type Tables<
   TableName extends PublicTableNameOrOptions extends { schema: keyof Database }
     ? keyof (Database[PublicTableNameOrOptions['schema']]['Tables'] &
         Database[PublicTableNameOrOptions['schema']]['Views'])
-    : never = never
+    : never = never,
 > = PublicTableNameOrOptions extends { schema: keyof Database }
   ? (Database[PublicTableNameOrOptions['schema']]['Tables'] &
       Database[PublicTableNameOrOptions['schema']]['Views'])[TableName] extends {
@@ -1528,14 +1567,14 @@ export type Tables<
     ? R
     : never
   : PublicTableNameOrOptions extends keyof (Database['public']['Tables'] &
-      Database['public']['Views'])
-  ? (Database['public']['Tables'] &
-      Database['public']['Views'])[PublicTableNameOrOptions] extends {
-      Row: infer R;
-    }
-    ? R
-    : never
-  : never;
+        Database['public']['Views'])
+    ? (Database['public']['Tables'] &
+        Database['public']['Views'])[PublicTableNameOrOptions] extends {
+        Row: infer R;
+      }
+      ? R
+      : never
+    : never;
 
 export type TablesInsert<
   PublicTableNameOrOptions extends
@@ -1543,7 +1582,7 @@ export type TablesInsert<
     | { schema: keyof Database },
   TableName extends PublicTableNameOrOptions extends { schema: keyof Database }
     ? keyof Database[PublicTableNameOrOptions['schema']]['Tables']
-    : never = never
+    : never = never,
 > = PublicTableNameOrOptions extends { schema: keyof Database }
   ? Database[PublicTableNameOrOptions['schema']]['Tables'][TableName] extends {
       Insert: infer I;
@@ -1551,12 +1590,12 @@ export type TablesInsert<
     ? I
     : never
   : PublicTableNameOrOptions extends keyof Database['public']['Tables']
-  ? Database['public']['Tables'][PublicTableNameOrOptions] extends {
-      Insert: infer I;
-    }
-    ? I
-    : never
-  : never;
+    ? Database['public']['Tables'][PublicTableNameOrOptions] extends {
+        Insert: infer I;
+      }
+      ? I
+      : never
+    : never;
 
 export type TablesUpdate<
   PublicTableNameOrOptions extends
@@ -1564,7 +1603,7 @@ export type TablesUpdate<
     | { schema: keyof Database },
   TableName extends PublicTableNameOrOptions extends { schema: keyof Database }
     ? keyof Database[PublicTableNameOrOptions['schema']]['Tables']
-    : never = never
+    : never = never,
 > = PublicTableNameOrOptions extends { schema: keyof Database }
   ? Database[PublicTableNameOrOptions['schema']]['Tables'][TableName] extends {
       Update: infer U;
@@ -1572,12 +1611,12 @@ export type TablesUpdate<
     ? U
     : never
   : PublicTableNameOrOptions extends keyof Database['public']['Tables']
-  ? Database['public']['Tables'][PublicTableNameOrOptions] extends {
-      Update: infer U;
-    }
-    ? U
-    : never
-  : never;
+    ? Database['public']['Tables'][PublicTableNameOrOptions] extends {
+        Update: infer U;
+      }
+      ? U
+      : never
+    : never;
 
 export type Enums<
   PublicEnumNameOrOptions extends
@@ -1585,9 +1624,9 @@ export type Enums<
     | { schema: keyof Database },
   EnumName extends PublicEnumNameOrOptions extends { schema: keyof Database }
     ? keyof Database[PublicEnumNameOrOptions['schema']]['Enums']
-    : never = never
+    : never = never,
 > = PublicEnumNameOrOptions extends { schema: keyof Database }
   ? Database[PublicEnumNameOrOptions['schema']]['Enums'][EnumName]
   : PublicEnumNameOrOptions extends keyof Database['public']['Enums']
-  ? Database['public']['Enums'][PublicEnumNameOrOptions]
-  : never;
+    ? Database['public']['Enums'][PublicEnumNameOrOptions]
+    : never;

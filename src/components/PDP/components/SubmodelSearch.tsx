@@ -1,9 +1,15 @@
 'use client';
 
 import { TProductData } from '@/lib/db';
-import { ChangeEvent, Dispatch, SetStateAction, useState } from 'react';
+import {
+  ChangeEvent,
+  Dispatch,
+  SetStateAction,
+  useCallback,
+  useState,
+} from 'react';
 import { extractUniqueValues } from '../utils';
-import { usePathname } from 'next/navigation';
+import { usePathname, useSearchParams } from 'next/navigation';
 import { deslugify, slugify } from '@/lib/utils';
 import { useRouter } from 'next/navigation';
 
@@ -23,20 +29,28 @@ export function SubmodelSearch({
   const [value, setValue] = useState(() => submodelParam ?? '');
   const pathname = usePathname();
   const router = useRouter();
-  console.log(submodels);
+  const searchParams = useSearchParams();
+
+  // Get a new searchParams string by merging the current
+  // searchParams with a provided key/value pair
+  const createQueryString = useCallback(
+    (name: string, value: string) => {
+      const params = new URLSearchParams(searchParams?.toString());
+      params.set(name, value);
+
+      return params.toString();
+    },
+    [searchParams]
+  );
 
   const setSearchParams = (value: string) => {
     const currentParams = new URLSearchParams(window.location.search);
-
-    if (value) {
-      currentParams.set('submodel', slugify(value));
-    } else {
+    const newParams = createQueryString('submodel', value);
+    if (!value) {
       currentParams.delete('submodel');
     }
 
-    const newUrl = `${pathname}?${currentParams.toString()}`;
-    console.log(`Navigating to URL: ${newUrl}`);
-    value.length && router.push(newUrl);
+    value.length && router.push(newParams);
   };
   console.log('modelData', modelData);
 
@@ -68,7 +82,9 @@ export function SubmodelSearch({
       onChange={handleChange}
       className="rounded-lg px-2 py-3 text-lg"
     >
-      <option value="">Select car submodel</option>
+      <option value="">
+        {submodelParam ? deslugify(submodelParam) : 'Select car submodel'}
+      </option>
       {uniqueSubmodelsFromModelData?.sort()?.map((submodel) => (
         <option key={`model-${submodel}`} value={submodel as string}>
           {deslugify(submodel)}

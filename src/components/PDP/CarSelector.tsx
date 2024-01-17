@@ -159,7 +159,7 @@ function CarSelector({
   const [selectedProduct, setSelectedProduct] = useState<TProductData>(
     modelData[0]
   );
-  // console.log(selectedProduct);
+  console.log(selectedProduct);
   const [featuredImage, setFeaturedImage] = useState<string>(
     selectedProduct?.feature as string
   );
@@ -214,6 +214,8 @@ function CarSelector({
     return addToCart({ ...selectedProduct, quantity: 1 });
   };
   console.log(showMore);
+
+  console.log(modelData);
 
   console.log(selectedProduct.feature);
 
@@ -292,6 +294,7 @@ function CarSelector({
                     cursor-pointer   border-red-600 object-contain
                   `}
                     onClick={() => setFeaturedImage(img)}
+                    onError={() => console.log('Failed image:', `${img}`)}
                   />
                 </div>
               ))}
@@ -355,6 +358,9 @@ function CarSelector({
                     width={98}
                     height={98}
                     priority
+                    onError={() =>
+                      console.log('Failed image:', `${sku?.feature}`)
+                    }
                     alt="car cover details"
                     className="h-20 w-20 cursor-pointer rounded bg-[#F2F2F2] lg:h-full lg:w-full"
                     onClick={() => {
@@ -420,6 +426,9 @@ function CarSelector({
                     src={sku?.feature as string}
                     width={98}
                     height={98}
+                    onError={() =>
+                      console.log('Failed image:', `${sku?.feature}`)
+                    }
                     alt="car cover details"
                     className="h-20 w-20 cursor-pointer rounded bg-[#F2F2F2] lg:h-full lg:w-full"
                   />
@@ -446,8 +455,11 @@ function CarSelector({
                   }}
                 />
                 <Popover>
-                  <PopoverTrigger className="text-blue-400 underline">
-                    {reviewCount ?? '45'} ratings
+                  <PopoverTrigger
+                    className="text-blue-400 underline"
+                    disabled={!reviewCount}
+                  >
+                    {reviewCount || '2'} ratings
                   </PopoverTrigger>
                   <PopoverContent>
                     <div className=" flex flex-col items-center border border-gray-300 bg-white p-4 shadow-lg">
@@ -919,6 +931,7 @@ const MobileImageCarousel = ({
                 width={500}
                 height={500}
                 // placeholder="blur"
+                onError={() => console.log('Failed image:', `${image}`)}
               />
             </CarouselItem>
           ))}

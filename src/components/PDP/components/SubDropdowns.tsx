@@ -3,7 +3,7 @@
 import { Button } from '@/components/ui/button';
 import { TProductData } from '@/lib/db';
 
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import useCarSelection from '@/lib/db/hooks/useCarSelection';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 
@@ -57,27 +57,32 @@ export default function SubDropdowns({
 
   const shouldTriggerSetParams =
     secondSubmodels.length === 0 && !!selectedSubmodel;
+  const createQueryString = useCallback(
+    (name: string, value: string) => {
+      const params = new URLSearchParams(searchParams?.toString());
+      params.set(name, value);
+
+      return params.toString().toLowerCase();
+    },
+    [searchParams]
+  );
 
   const setSearchParams = () => {
-    const currentParams = new URLSearchParams(window.location.search);
+    let url: string = '';
 
     if (selectedYear) {
-      currentParams.append('year', selectedYear.toString().toLowerCase());
+      url = createQueryString('year', selectedYear);
     }
     if (selectedSubmodel) {
-      currentParams.append('submodel', selectedSubmodel.toLowerCase());
+      url = createQueryString('submodel', selectedSubmodel);
     }
 
     if (selectedSecondSubmodel) {
-      currentParams.append(
-        'second_submodel',
-        selectedSecondSubmodel.toLowerCase()
-      );
+      url = createQueryString('second_submodel', selectedSecondSubmodel);
     }
-
-    console.log(`${pathname}?${currentParams.toString()}`);
-    refreshRoute('/');
-    router.push(`${pathname}?${currentParams.toString()}`);
+    console.log(url);
+    // refreshRoute('/');
+    router.push(`?${url}`);
     // refreshRoute(`${pathname}?${currentParams.toString()}`);
   };
 
@@ -86,7 +91,7 @@ export default function SubDropdowns({
     modelData.filter((car) => car?.submodel2).length > 1;
   console.log(hasSecondSubModel);
 
-  if (submodelParam) return null;
+  if ((submodelParam && submodelParam2nd) || !hasSecondSubModel) return null;
   console.log(submodels);
 
   return (
@@ -104,7 +109,7 @@ export default function SubDropdowns({
             />
           )}
 
-          {!!submodels.length && (
+          {!!submodels.length && !submodelParam && (
             <SubmodelSearch
               modelData={modelData}
               submodels={submodels}
@@ -113,7 +118,7 @@ export default function SubDropdowns({
               shouldTriggerSetParams={shouldTriggerSetParams}
             />
           )}
-          {secondSubmodels.length > 1 && (
+          {secondSubmodels.length > 1 && !submodelParam2nd && (
             <SubmodelSearch2nd
               modelData={modelData}
               setSelectedSecondSubmodel={setSelectedSecondSubmodel}
@@ -122,7 +127,7 @@ export default function SubDropdowns({
             />
           )}
         </div>
-        {hasSecondSubModel && (
+        {hasSecondSubModel && !submodelParam2nd && (
           <Button className="h-[60px] w-full text-lg" onClick={setSearchParams}>
             Set Selection
           </Button>

@@ -1,23 +1,34 @@
 'use client';
 
-import { ChangeEvent, Dispatch, SetStateAction, useState } from 'react';
+import {
+  ChangeEvent,
+  Dispatch,
+  SetStateAction,
+  use,
+  useEffect,
+  useState,
+} from 'react';
 import { TQuery } from './HeroDropdown';
 import { TProductData } from '@/lib/db';
 
 export function SubmodelDropdown({
   queryObj,
   submodelData,
-  isLoading,
 }: {
   queryObj: {
     query: TQuery;
     setQuery: Dispatch<SetStateAction<TQuery>>;
   };
   submodelData: string[];
-  isLoading: boolean;
 }) {
   const [value, setValue] = useState('');
   const { query, setQuery } = queryObj;
+
+  useEffect(() => {
+    return () => {
+      setQuery((p) => ({ ...p, submodel: '' }));
+    };
+  }, [setQuery]);
 
   const handleChange = (event: ChangeEvent<HTMLSelectElement>) => {
     const newValue = event.target.value;
@@ -32,16 +43,14 @@ export function SubmodelDropdown({
       value={value}
       onChange={handleChange}
       disabled={isDisabled}
-      className="text-lg rounded-lg  px-2"
+      className="rounded-lg px-2  text-lg"
     >
       <option value="">Select car model</option>
-      {isLoading
-        ? 'Loading...'
-        : submodelData?.sort()?.map((submodel) => (
-            <option key={`model-${submodel}`} value={submodel}>
-              {submodel}
-            </option>
-          ))}
+      {submodelData?.sort()?.map((submodel) => (
+        <option key={`model-${submodel}`} value={submodel}>
+          {submodel}
+        </option>
+      ))}
     </select>
   );
 }

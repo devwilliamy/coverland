@@ -5,17 +5,18 @@ import { YearSearch } from './YearSearch';
 import { TypeSearch } from './TypeSearch';
 import { MakeSearch } from './MakeSearch';
 import { ModelSearch } from './ModelSearch';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { useProductData } from '@/lib/db/hooks/useProductData';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { SubmodelDropdown } from './SubmodelDropdown';
+import skuDisplayData from '@/data/skuDisplayData.json';
 import {
   TModelFitData,
   TProductData,
   fetchDropdownData,
   fetchModelToDisplay,
-  generatePDPUrl,
 } from '@/lib/db';
+import { slugify } from '@/lib/utils';
 
 export type TQuery = {
   year: string;
@@ -36,54 +37,49 @@ export function HeroDropdown() {
   });
   const [loading, setLoading] = useState(false);
   const router = useRouter();
-  const { data, isLoading } = useProductData({
-    where: {
-      type: query.type ?? '',
-    },
-    includes: {
-      year_range: query.year ?? '',
-    },
-  });
+  const searchParams = useSearchParams();
+
   const { year, type, make, model, submodel } = query;
   const isReadyForSubmit = year && type && make && model;
+  const types = ['Car Covers', 'SUV Covers', 'Truck Covers'];
 
-  const carToDisplay = data?.filter(
-    (car) =>
-      car?.make === make &&
-      car?.model === model &&
-      car?.year_range?.includes(year)
-  )[0];
+  const typeIndex = String(types.indexOf(type) + 1);
 
-  useEffect(() => {
-    if (!carToDisplay) return;
-    const modelFk = carToDisplay.sku.slice(-6);
-    console.log('modelFk', modelFk);
-    const getData = async () => {
-      const data = await fetchModelToDisplay(modelFk);
-      console.log('ultimate', data);
-      if (data) {
-        setDisplayModel(data[0]);
-      }
-    };
-    getData();
-  }, [carToDisplay]);
+  const availableMakes = skuDisplayData.filter(
+    (sku) => sku.year_options.includes(year) && String(sku.fk)[0] === typeIndex
+  );
 
-  console.log(data);
+  console.log(availableMakes);
+
+  const availableModels = availableMakes.filter((sku) => sku.make === make);
+
+  const finalAvailableModels = availableModels.filter((sku) =>
+    submodel
+      ? sku.submodel1 === submodel && sku.model === model
+      : sku.model === model
+  );
+
+  console.log(submodel);
+
+  console.log(model);
+
+  console.log(finalAvailableModels);
+
+  console.log(availableModels);
+
   const queryObj = {
     query,
     setQuery,
   };
   const makeData = [
-    ...new Set(data?.map((d) => d.make).filter((val): val is string => !!val)),
+    ...new Set(
+      availableMakes?.map((d) => d.make).filter((val): val is string => !!val)
+    ),
   ];
-
-  console.log(
-    data?.map((d) => d.submodel1).filter((val): val is string => !!val)
-  );
 
   const subModelData = [
     ...new Set(
-      data
+      availableModels
         ?.filter((car) => make === car.make && car?.model === model)
         ?.map((d) => d.submodel1)
         .filter((val): val is string => !!val)
@@ -91,34 +87,38 @@ export function HeroDropdown() {
   ];
   const modelData = [
     ...new Set(
-      data
+      availableModels
         ?.filter((car) => query.make === car.make && !!car?.model)
         ?.map((d) => d.model)
         .filter((val): val is string => !!val)
     ),
   ];
 
-  // const handleSubmitDropdown = async () => {
-  //   setLoading(true);
-  //   const response = await fetchDropdownData(
-  //     displayModel?.generation_default ?? String(displayModel?.fk)
-  //   );
-  //   if (response.data) {
-  //     const { product_url_slug, year_generation, submodel1_slug } =
-  //       response.data[0];
-  //     let url = `${product_url_slug}/${year_generation}`;
-  //     if (submodel1_slug) {
-  //       url += `?submodel=${submodel1_slug}`;
-  //     }
-  //     router.push(url);
-  //   }
-  // };
+  const yearInUrl = finalAvailableModels?.[0]?.year_generation;
+
+  const createQueryString = useCallback(
+    (name: string, value: string) => {
+      const params = new URLSearchParams(searchParams?.toString());
+      params.set(name, value);
+
+      return params.toString().toLowerCase();
+    },
+    [searchParams]
+  );
 
   const handleSubmitDropdown = async () => {
     setLoading(true);
-    const url = await generatePDPUrl({ ...query });
+    let url = `/${slugify(type)}/${slugify(make)}/${slugify(model)}/${yearInUrl}`;
+
+    if (submodel) {
+      url += `?${createQueryString('submodel', submodel)}`;
+    }
+
     console.log(url);
+    // refreshRoute('/');
     router.push(url);
+    // refreshRoute(`${pathname}?${currentParams.toString()}`);
+    console.log(query);
   };
 
   console.log(submodel);
@@ -128,22 +128,10 @@ export function HeroDropdown() {
     <div className="relative flex w-full flex-col justify-center gap-2 px-4 font-medium *:flex-1 *:py-3 md:flex-row lg:px-16 lg:*:py-4">
       <TypeSearch queryObj={queryObj} />
       <YearSearch queryObj={queryObj} />
-      <MakeSearch
-        queryObj={queryObj}
-        makeData={makeData}
-        isLoading={isLoading}
-      />
-      <ModelSearch
-        queryObj={queryObj}
-        modelData={modelData}
-        isLoading={isLoading}
-      />
+      <MakeSearch queryObj={queryObj} makeData={makeData} />
+      <ModelSearch queryObj={queryObj} modelData={modelData} />
       {subModelData.length > 1 && (
-        <SubmodelDropdown
-          queryObj={queryObj}
-          submodelData={subModelData}
-          isLoading={isLoading}
-        />
+        <SubmodelDropdown queryObj={queryObj} submodelData={subModelData} />
       )}
       <Button
         className="w-full border border-red-300 text-lg lg:h-[58px] lg:max-w-[58px] lg:border-0"
