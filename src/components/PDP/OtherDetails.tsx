@@ -183,20 +183,18 @@ const MobilePDPDetails = ({ reviewData }: { reviewData: TReviewData[] }) => {
     <Accordion
       type="single"
       collapsible
-      className="w-full font-black uppercase text-[#1A1A1A] lg:hidden"
+      className="w-full px-4 pt-2 font-black uppercase text-[#1A1A1A] lg:hidden"
       defaultValue="item-6"
     >
       <AccordionItem value="item-1">
-        <AccordionTrigger className="font-black uppercase">
+        <AccordionTrigger className="text-xl font-black uppercase text-[#1A1A1A] !no-underline">
           Product Details
         </AccordionTrigger>
         <AccordionContent>
-          <div>
-            <ProductHero />
-            {/* <div className=" md:mt-18 lg:mt-28">
+          <ProductHero />
+          {/* <div className=" md:mt-18 lg:mt-28">
               <Video />
             </div> */}
-          </div>
         </AccordionContent>
       </AccordionItem>
 
