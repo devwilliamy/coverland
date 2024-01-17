@@ -7,6 +7,8 @@ const defaultCartValue = {
   removeItemFromCart: (sku: TCartItems['sku']) => {},
   adjustItemQuantity: (sku: string, quantity: number) => {},
   getTotalPrice: (): number => 0,
+  setCartOpen: (open: boolean) => {},
+  cartOpen: false,
 };
 
 const CartContext = createContext(defaultCartValue);

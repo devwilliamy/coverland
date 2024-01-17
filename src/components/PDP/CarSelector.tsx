@@ -212,6 +212,8 @@ function CarSelector({
   const router = useRouter();
   const path = usePathname();
 
+  const { cartItems, cartOpen, setCartOpen } = useCartContext();
+
   // function removeBeforeCom(url: string) {
   //   const pos = url?.indexOf('.com');
 
@@ -637,14 +639,7 @@ function CarSelector({
                 className="mt-4 h-[60px] w-full bg-[#BE1B1B] text-lg disabled:bg-[#BE1B1B]"
                 onClick={() => {
                   handleAddToCart();
-                  toast({
-                    duration: 3000,
-                    action: (
-                      <ToastAction altText="Success" className="w-full">
-                        Added your item to cart!
-                      </ToastAction>
-                    ),
-                  });
+                  setCartOpen(true);
                 }}
               >
                 Add To Cart
