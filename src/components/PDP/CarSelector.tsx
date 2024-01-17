@@ -35,6 +35,8 @@ import { useMediaQuery } from '@mantine/hooks';
 import { FolderUpIcon, SecureIcon, ThumbsUpIcon } from './images';
 import { MoneyBackIcon } from './images/MoneyBack';
 import { EditIcon } from './components/icons';
+import { track } from '@vercel/analytics';
+
 import {
   Dialog,
   DialogContent,
@@ -525,7 +527,16 @@ function CarSelector({
                         />
                       </div>
                       {!!reviewData.length && (
-                        <Link className="underline" scroll href={'#reviews'}>
+                        <Link
+                          className="underline"
+                          scroll
+                          href={'#reviews'}
+                          onClick={() =>
+                            track('viewing all reviews', {
+                              sku: selectedProduct?.sku,
+                            })
+                          }
+                        >
                           Show all reviews ({reviewData?.length})
                         </Link>
                       )}
@@ -638,6 +649,9 @@ function CarSelector({
               <Button
                 className="mt-4 h-[60px] w-full bg-[#BE1B1B] text-lg disabled:bg-[#BE1B1B]"
                 onClick={() => {
+                  track('PDP_add_to_cart', {
+                    sku: selectedProduct?.sku,
+                  });
                   handleAddToCart();
                   setCartOpen(true);
                 }}

@@ -11,6 +11,7 @@ import { SubmodelDropdown } from './SubmodelDropdown';
 import skuDisplayData from '@/data/skuDisplayData.json';
 import { TModelFitData, TProductData } from '@/lib/db';
 import { slugify } from '@/lib/utils';
+import { track } from '@vercel/analytics';
 
 export type TQuery = {
   year: string;
@@ -98,6 +99,10 @@ export function HeroDropdown() {
   );
 
   const handleSubmitDropdown = async () => {
+    track('hero_dropdown_submit', {
+      year,
+      model,
+    });
     setLoading(true);
     let url = `/${slugify(type)}/${slugify(make)}/${slugify(model)}/${yearInUrl}`;
 

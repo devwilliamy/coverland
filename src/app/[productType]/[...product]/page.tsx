@@ -102,6 +102,8 @@ export default async function ProductPDP({
     ? productsWithSubmodels
     : generationDefaultChildren;
 
+  // !year && (modelData = initialProductData);
+
   console.log(modelData);
   modelData.map((product) => console.log(product.submodel1, product.submodel2));
   modelData = modelData

@@ -2,7 +2,7 @@
 
 import { Button } from '@/components/ui/button';
 import { TProductData } from '@/lib/db';
-
+import { track } from '@vercel/analytics';
 import { useCallback, useEffect, useState } from 'react';
 import useCarSelection from '@/lib/db/hooks/useCarSelection';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
@@ -137,7 +137,16 @@ export default function SubDropdowns({
           )}
         </div>
         {hasSecondSubModel && !submodelParam2nd && (
-          <Button className="h-[60px] w-full text-lg" onClick={setSearchParams}>
+          <Button
+            className="h-[60px] w-full text-lg"
+            onClick={() => {
+              setSearchParams();
+              track('PDP_submodels', {
+                submodel: selectedSubmodel,
+                second_submodel: selectedSecondSubmodel,
+              });
+            }}
+          >
             Set Selection
           </Button>
         )}
