@@ -366,7 +366,7 @@ function CarSelector({
                         : null;
                       skuRef?.current?.scrollIntoView({
                         behavior: 'smooth',
-                        block: 'center',
+                        block: 'end',
                         inline: 'center',
                       });
                     }}
@@ -692,7 +692,10 @@ function CarSelector({
               className="lg:hidden"
             >
               <AccordionItem value="item-1">
-                <AccordionTrigger className="text-xl font-black uppercase text-[#1A1A1A] !no-underline">
+                <AccordionTrigger
+                  className="text-xl font-black uppercase text-[#1A1A1A] !no-underline"
+                  id="#reviews"
+                >
                   Car Cover Features
                 </AccordionTrigger>
                 <AccordionContent>

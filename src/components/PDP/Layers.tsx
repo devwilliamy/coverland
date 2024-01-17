@@ -36,8 +36,7 @@ export function Layers() {
             />
           </div>
           <div className="flex w-full flex-col items-stretch justify-between gap-4 md:px-4 lg:w-2/4 lg:items-center lg:justify-evenly lg:gap-0 lg:px-16">
-            <div className="flex w-full flex-col items-stretch justify-between gap-4 md:px-4 lg:w-2/4 lg:items-center lg:justify-evenly lg:gap-0 lg:px-16"></div>
-            <div className="grid grid-cols-1">
+            <div className="grid grid-cols-1 gap-4">
               <p className="text-lg font-bold capitalize text-[#1A1A1A] lg:text-2xl">
                 Waterproof Car Cover
               </p>
