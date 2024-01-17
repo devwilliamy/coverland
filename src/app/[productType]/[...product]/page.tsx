@@ -50,6 +50,8 @@ export default async function ProductPDP({
   const reviewData: TReviewData[] | null =
     (await fetchReviewData(searchParams, pathParams)) ?? [];
 
+  console.log(reviewData);
+
   if (!initialProductData) {
     redirect('/');
   }

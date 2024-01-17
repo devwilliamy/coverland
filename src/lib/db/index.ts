@@ -151,8 +151,8 @@ export async function fetchReviewData(
 
   if (submodel1) {
     const submodelDisplayname = deslugify(submodel1);
-    // console.log('submodel1', submodel1);
-    fetch = fetch.textSearch('submodel1', submodelDisplayname);
+    console.log('submodel1', submodelDisplayname);
+    fetch = fetch.textSearch('submodel1', `'${submodel1}'`);
   }
 
   if (submodel2) {

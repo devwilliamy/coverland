@@ -25,6 +25,7 @@ import {
 import { useMediaQuery } from '@mantine/hooks';
 import { NoGarageMobile } from './components/NoGarageMobile';
 import { ClimateCrisisMobile } from './components/ClimateCrisisMobile';
+import Link from 'next/link';
 
 export function ExtraProductDetails({
   reviewData,
@@ -83,16 +84,18 @@ export function ExtraProductDetails({
             selectedSection === LAYERS_ID ? 'underline' : ''
           }`}
         >
-          benefits
+          <Link href="#benefits" className="">
+            benefits
+          </Link>
         </h1>
-        <h1
+        {/* <h1
           onClick={() => scrollToSection(specsRef, SPECS_ID)}
           className={`cursor-pointer text-lg font-normal capitalize text-black ${
             selectedSection === SPECS_ID ? 'underline' : ''
           }`}
         >
           specification
-        </h1>
+        </h1> */}
         <h1
           onClick={() => scrollToSection(faqRef, FAQ_ID)}
           className={`cursor-pointer text-lg font-normal capitalize text-black ${
@@ -101,14 +104,14 @@ export function ExtraProductDetails({
         >
           Q&A
         </h1>
-        <h1
+        {/* <h1
           onClick={() => scrollToSection(layersRef, LAYERS_ID)}
           className={`cursor-pointer text-lg font-normal capitalize text-black ${
             selectedSection === LAYERS_ID ? 'underline' : ''
           }`}
         >
           Shipping & Returns
-        </h1>
+        </h1> */}
         <h1
           onClick={() => scrollToSection(layersRef, LAYERS_ID)}
           className={`cursor-pointer text-lg font-normal capitalize text-black ${
@@ -117,14 +120,14 @@ export function ExtraProductDetails({
         >
           warranty
         </h1>
-        <h1
+        {/* <h1
           onClick={() => scrollToSection(carCoverRef, CAR_COVER_INS_ID)}
           className={`cursor-pointer text-lg font-normal capitalize text-black ${
             selectedSection === CAR_COVER_INS_ID ? 'underline' : ''
           }`}
         >
           car cover instruction
-        </h1>
+        </h1> */}
         <h1
           onClick={() => scrollToSection(layersRef, LAYERS_ID)}
           className={`cursor-pointer text-lg font-normal capitalize text-black ${
