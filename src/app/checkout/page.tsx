@@ -154,11 +154,16 @@ function CheckoutPage() {
                           <div className="font-bold">
                             $
                             {item.msrp
-                              ? parseInt(item.msrp) * item.quantity
+                              ? (parseFloat(item.msrp) * item.quantity).toFixed(
+                                  2
+                                )
                               : ''}
                           </div>
                           <div className="text-xl font-thin text-gray-400 line-through decoration-gray-400">
-                            ${parseInt(item?.price as string) * item.quantity}
+                            $
+                            {(
+                              parseFloat(item?.price as string) * item.quantity
+                            ).toFixed(2)}
                           </div>
                         </div>
                       </div>
