@@ -6,7 +6,7 @@ import { ReadonlyRequestCookies } from 'next/dist/server/web/spec-extension/adap
 import { SupabaseClient } from '@supabase/supabase-js';
 import { Button } from '@/components/ui/button';
 
-export async function signOut() {
+async function signOut() {
   'use server';
   const cookieStore: ReadonlyRequestCookies = cookies();
   const supabase: SupabaseClient = createSupabaseServerClient(cookieStore);
