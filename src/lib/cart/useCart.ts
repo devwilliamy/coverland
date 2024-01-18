@@ -1,10 +1,7 @@
 'use client';
-
 import { useState, useCallback, useEffect } from 'react';
 import { TProductData } from '../db';
-
 export type TCartItems = TProductData & { quantity: number };
-
 const useCart = () => {
   const [cartItems, setCartItems] = useState<TCartItems[]>(() => {
     if (typeof window !== 'undefined') {
@@ -14,22 +11,18 @@ const useCart = () => {
     return [];
   });
   const [cartOpen, setCartOpen] = useState(false);
-
   useEffect(() => {
     if (cartItems.length === 0) {
       localStorage.removeItem('cartItems');
     }
-
     localStorage.setItem('cartItems', JSON.stringify(cartItems));
   }, [cartItems]);
-
   const addToCart = useCallback((item: TProductData) => {
     if (!item?.msrp) {
       return;
     }
     setCartItems((prevItems) => {
       const existingItem = prevItems.find((i) => i.sku === item.sku);
-
       if (existingItem) {
         return prevItems.map((i) =>
           i.sku === item.sku ? { ...i, quantity: i.quantity + 1 } : i
@@ -39,11 +32,9 @@ const useCart = () => {
       }
     });
   }, []);
-
   const removeItemFromCart = useCallback((sku: TCartItems['sku']) => {
     setCartItems((prevItems) => prevItems.filter((item) => item.sku !== sku));
   }, []);
-
   const adjustItemQuantity = useCallback((sku: string, quantity: number) => {
     setCartItems((prevItems) => {
       const updatedItems = prevItems
@@ -52,25 +43,40 @@ const useCart = () => {
       return updatedItems;
     });
   }, []);
-
-  const getTotalPrice = useCallback(() => {
+  const getOrderSubtotal = useCallback(() => {
+    return cartItems.reduce(
+      (total, item) => total + Number(item.price as string) * item.quantity,
+      0
+    );
+  }, [cartItems]);
+  const getMsrpTotal = useCallback(() => {
     return cartItems.reduce(
       (total, item) => total + Number(item.msrp as string) * item.quantity,
       0
     );
   }, [cartItems]);
-
+  const getTotalDiscountPrice = useCallback(() => {
+    return cartItems.reduce(
+      (total, item) =>
+        total + Number(Number(item.price) - Number(item.msrp)) * item.quantity,
+      0
+    );
+  }, [cartItems]);
+  const getTotalCartQuantity = useCallback(() => {
+    return cartItems.reduce((total, item) => total + item.quantity, 0);
+  }, [cartItems]);
   console.log(cartItems);
-
   return {
     cartItems,
     addToCart,
     removeItemFromCart,
     adjustItemQuantity,
-    getTotalPrice,
+    getTotalPrice: getMsrpTotal,
+    getOrderSubtotal,
+    getTotalDiscountPrice,
+    getTotalCartQuantity,
     cartOpen,
     setCartOpen,
   };
 };
-
 export default useCart;
