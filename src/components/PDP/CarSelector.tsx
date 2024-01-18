@@ -203,12 +203,22 @@ function CarSelector({
       : defaultModel ?? displayedModelData[0]
   );
 
+  const router = useRouter();
+  const path = usePathname();
+
+  // Sometimes when submodel2 is selected, selectedProduct won't update to the right one
+  useEffect(() => {
+    const updateSelectedProduct = () => {
+      setSelectedProduct(displayedModelData[0]);
+    };
+    if (isFullySelected) {
+      updateSelectedProduct();
+    }
+  }, [searchParams, isFullySelected, displayedModelData]);
+
   const [featuredImage, setFeaturedImage] = useState<string>(
     selectedProduct?.feature as string
   );
-
-  const router = useRouter();
-  const path = usePathname();
 
   const { cartItems, cartOpen, setCartOpen } = useCartContext();
 

@@ -66,7 +66,8 @@ export function SubmodelSearch2nd({
     setValue(newValue);
     setSelectedSecondSubmodel(newValue);
   };
-
+  console.log('2ndSearch availableSecondSubmodels:', availableSecondSubmodels);
+  console.log('2ndSearch value:', value);
   return (
     <select
       value={value}
