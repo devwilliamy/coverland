@@ -91,6 +91,10 @@ const EditVehicleDropdown = dynamicImport(
 
 export const dynamic = 'force-dynamic';
 
+interface ProductRefs {
+  [key: string]: RefObject<HTMLElement>;
+}
+
 function TimeTo2PMPST() {
   const [timeRemaining, setTimeRemaining] = useState(calculateTimeTo2PM()); // Set initial value
 
@@ -153,12 +157,6 @@ function CarSelector({
   reviewData: TReviewData[];
   parentGeneration: any;
 }) {
-  //console.log(
-  //   modelData.map((model) => model.submodel2),
-  //   'huh'
-  // );
-
-  //console.log(secondSubmodels);
   const defaultModel = modelData.find(
     (model) =>
       model.fk ===
@@ -173,26 +171,23 @@ function CarSelector({
     ) ?? [];
 
   const modelsBySecondSubmodel = searchParams?.second_submodel
-    ? modelData.filter(
-        (model) =>
-          stringToSlug(model?.submodel2 as string) ===
-          stringToSlug(searchParams?.second_submodel as string)
-      ) ?? modelsBySubmodel
+    ? modelData
+        .filter(
+          (model) =>
+            stringToSlug(model?.submodel1 as string) ===
+            stringToSlug(searchParams?.submodel as string)
+        )
+        .filter(
+          (model) =>
+            stringToSlug(model?.submodel2 as string) ===
+            stringToSlug(searchParams?.second_submodel as string)
+        ) ?? modelsBySubmodel
     : modelsBySubmodel;
-
-  //console.log(modelsBySubmodel);
-
-  //console.log(
-  //   stringToSlug(modelData[4]?.submodel1 as string),
-  //   searchParams.submodel
-  // );
 
   const isFullySelected =
     pathParams?.product?.length === 3 &&
     (submodels.length === 0 || !!searchParams?.submodel) &&
     (secondSubmodels.length === 0 || !!searchParams?.second_submodel);
-
-  //console.log(modelData);
 
   let displayedModelData = searchParams?.submodel
     ? modelsBySubmodel
@@ -203,34 +198,19 @@ function CarSelector({
     : displayedModelData;
 
   const [selectedProduct, setSelectedProduct] = useState<TProductData>(
-    isFullySelected
+    isFullySelected || searchParams?.submodel
       ? displayedModelData[0]
       : defaultModel ?? displayedModelData[0]
   );
+
   const [featuredImage, setFeaturedImage] = useState<string>(
     selectedProduct?.feature as string
   );
-  //console.log(submodels, secondSubmodels, defaultModel);
+
   const router = useRouter();
   const path = usePathname();
 
   const { cartItems, cartOpen, setCartOpen } = useCartContext();
-
-  // function removeBeforeCom(url: string) {
-  //   const pos = url?.indexOf('.com');
-
-  //   if (pos === -1) {
-  //     return url;
-  //   }
-  //   return url?.substring(pos + 4);
-  // }
-
-  interface ProductRefs {
-    [key: string]: RefObject<HTMLElement>;
-  }
-
-  //console.log(modelData);
-  //console.log(selectedProduct);
 
   const productRefs = useRef<ProductRefs>(
     displayedModelData.reduce((acc: ProductRefs, item: TProductData) => {
@@ -253,8 +233,6 @@ function CarSelector({
   ).map((color) =>
     displayedModelData.find((model) => model.display_color === color)
   );
-
-  //console.log(uniqueColors);
 
   const uniqueTypes = Array.from(
     new Set(displayedModelData.map((model) => model.display_id))
@@ -628,7 +606,7 @@ function CarSelector({
               <>
                 <Popover>
                   <PopoverTrigger asChild>
-                    <Button className="mt-4 h-[35px] w-full rounded bg-[#BE1B1B] text-lg font-bold uppercase text-white md:h-[60px] md:text-xl">
+                    <Button className="mt-4 h-[48px] w-full bg-[#BE1B1B] text-lg font-bold uppercase text-white disabled:bg-[#BE1B1B] md:h-[62px] md:text-xl">
                       Add To Cart
                     </Button>
                   </PopoverTrigger>
@@ -641,7 +619,7 @@ function CarSelector({
               </>
             ) : (
               <Button
-                className="mt-4 h-[60px] w-full bg-[#BE1B1B] text-lg disabled:bg-[#BE1B1B]"
+                className="mt-4 h-[48px] w-full bg-[#BE1B1B] text-lg font-bold uppercase text-white disabled:bg-[#BE1B1B] md:h-[62px] md:text-xl"
                 onClick={() => {
                   track('PDP_add_to_cart', {
                     sku: selectedProduct?.sku,

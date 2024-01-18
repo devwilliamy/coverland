@@ -34,8 +34,6 @@ export function SubmodelSearch({
   const router = useRouter();
   const searchParams = useSearchParams();
 
-  //console.log(searchParams);
-
   // Get a new searchParams string by merging the current
   // searchParams with a provided key/value pair
   const createQueryString = useCallback(
@@ -67,18 +65,12 @@ export function SubmodelSearch({
   );
 
   const { uniqueSubmodel1 } = extractUniqueValues(modelData as TProductData[]);
-  //console.log(shouldTriggerSetParams);
 
   const uniqueSubmodelsFromModelData = Array.from(
     new Set(
       modelData.map((row) => row.submodel1).filter((model) => Boolean(model))
     )
   );
-  //console.log(value);
-  // const submodelParam = searchParams?.get('submodel') ?? '';
-  //console.log(submodelParam);
-
-  //console.log(submodels, uniqueSubmodelsFromModelData);
 
   // Need to trigger when value is updated and shouldTriggerSetParams is set to
   // true so handleSubmitDropdown will trigger
@@ -102,15 +94,17 @@ export function SubmodelSearch({
 
   return (
     <select
-      value={value}
+      value={value.toLowerCase()}
+      defaultValue={value.toLowerCase() ?? ''}
       onChange={handleChange}
       className="rounded-lg px-2 py-3 text-lg"
     >
-      <option value={submodelParam ?? ''}>
-        {submodelParam ? deslugify(submodelParam) : 'Select car submodel'}
-      </option>
+      <option value={''}>{'Select car submodel'}</option>
       {uniqueSubmodelsFromModelData?.sort()?.map((submodel) => (
-        <option key={`model-${submodel}`} value={submodel as string}>
+        <option
+          key={`model-${submodel}`}
+          value={submodel?.toLowerCase() as string}
+        >
           {deslugify(submodel)}
         </option>
       ))}

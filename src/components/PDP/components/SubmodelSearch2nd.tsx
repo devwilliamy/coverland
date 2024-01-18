@@ -29,11 +29,16 @@ export function SubmodelSearch2nd({
   >([]);
 
   // Updates the second submodel based on when first submodel is selected
+  // Checking for lower case because if only submodel is in search params, it'll pass down
+  // as string to slug (lower case) but submodel is Camel Cased
   useEffect(() => {
     const secondSubmodelData: string[] = Array.from(
       new Set(
         modelData
-          .filter((d) => d.submodel1 === selectedSubmodel)
+          .filter(
+            (d) =>
+              d.submodel1?.toLowerCase() === selectedSubmodel?.toLowerCase()
+          )
           .map((d) => d.submodel2)
           .filter((submodel) => submodel !== null && submodel !== undefined)
           .map((submodel) => submodel as string)
