@@ -1,5 +1,4 @@
 'use client';
-
 import { Button } from '@/components/ui/button';
 import {
   Table,
@@ -10,32 +9,45 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
-
 import { useCartContext } from '@/providers/CartProvider';
 import Image from 'next/image';
-import React, { ChangeEvent, FormEvent, useState } from 'react';
+import React, { ChangeEvent, FormEvent, useEffect, useState } from 'react';
 import Stripe from 'stripe';
 import { loadStripe } from '@stripe/stripe-js';
 import { IoInformationCircleOutline, IoTrashBin } from 'react-icons/io5';
 import Link from 'next/link';
 import { FaRegTrashAlt } from 'react-icons/fa';
 import { IconContext } from 'react-icons';
-
+import { revalidatePath } from 'next/cache';
 function CheckoutPage() {
-  const { cartItems, adjustItemQuantity, removeItemFromCart, getTotalPrice } =
-    useCartContext();
+  const {
+    cartItems,
+    adjustItemQuantity,
+    removeItemFromCart,
+    getTotalPrice,
+    getOrderSubtotal,
+    getTotalDiscountPrice,
+    getTotalCartQuantity,
+  } = useCartContext();
   const [promoCode, setPromoCode] = useState('');
   const [promoError, setPromoError] = useState(false);
-  let total = 0;
-  const [quantity, setQuantity] = useState(Number);
+  // const [quantity, setQuantity] = useState(Number);
+  // let totalMsrpPrice = Number(0);
+  // let totalDiscountedPrice = Number(0);
+  // let orderSubtotal = Number(0);
+  // useEffect(() => {
+  //   totalMsrpPrice = getTotalPrice().toFixed(2) as unknown as number;
+  //   totalDiscountedPrice = getTotalDiscountPrice().toFixed(
+  //     2
+  //   ) as unknown as number;
+  //   orderSubtotal = getOrderSubtotal().toFixed(2) as unknown as number;
+  // }, [cartItems]);
   const redirectToCheckout = async () => {
     try {
       const stripe = await loadStripe(
         process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY ?? ''
       );
-
       if (!stripe) throw new Error('Stripe failed to initialize.');
-
       const checkoutResponse = await fetch('/api/checkout-sessions', {
         method: 'POST',
         headers: {
@@ -43,10 +55,8 @@ function CheckoutPage() {
         },
         body: JSON.stringify({ cartItems }),
       });
-
       const { sessionId } = await checkoutResponse.json();
       const stripeError = await stripe.redirectToCheckout({ sessionId });
-
       if (stripeError) {
         console.error(stripeError);
       }
@@ -54,17 +64,12 @@ function CheckoutPage() {
       console.error(error);
     }
   };
-
-  const calculateTotal = () => {
-    if (cartItems.length > 0) {
-      // let totalNum = 0;
-      // for (const item of cartItems) {
-      //   totalNum += parseInt(item?.price as string);
-      // }
-      // total = totalNum
-    }
-  };
-  total = getTotalPrice().toFixed(2) as unknown as number;
+  let totalMsrpPrice = getTotalPrice().toFixed(2) as unknown as number;
+  let totalDiscountedPrice = getTotalDiscountPrice().toFixed(
+    2
+  ) as unknown as number;
+  let orderSubtotal = getOrderSubtotal().toFixed(2) as unknown as number;
+  let cartQuantity = getTotalCartQuantity();
   return (
     <div className="">
       {cartItems.length === 0 && (
@@ -84,9 +89,7 @@ function CheckoutPage() {
                 md:flex md:items-start md:gap-2"
                 >
                   <div className="font-black text-black">Cart</div>
-                  <div className="text-xl font-thin">
-                    {cartItems.length} Items
-                  </div>
+                  <div className="text-xl font-thin">{cartQuantity} Items</div>
                 </TableHead>
                 {/* <TableHead className="text-xl"> Summary </TableHead> */}
                 {/* <TableHead className="text-xl">QTY</TableHead>
@@ -94,29 +97,29 @@ function CheckoutPage() {
                 <TableHead className="text-right text-xl">Total</TableHead> */}
               </TableRow>
             </TableHeader>
-
             {cartItems.map((item) => {
               return (
                 <TableBody key={item.sku}>
                   <TableRow className="flex flex-col">
-                    <TableCell className="flex w-full text-2xl font-medium">
+                    <TableCell className="flex w-full justify-items-center gap-2 text-2xl font-medium">
                       {/* {`${item.make} ${item.product_name} - ${item.display_id} ${item.display_color}`} */}
-                      <div className="h-9/12 w-3/12 justify-items-center p-2">
+                      <div className="h-9/12  w-3/12 justify-items-center ">
                         <Image
-                          className="bg-gray-100 p-2"
+                          className="bg-gray-100 p-[6.5px] "
                           src={item?.feature as string}
-                          width={200}
-                          height={200}
+                          width={137.5}
+                          height={137.5}
                           alt={`The image for a ${item.product_name} car cover`}
                         />
                       </div>
-
-                      <div className="flex w-7/12 flex-col gap-2 p-2">
+                      <div className="flex w-7/12 flex-col gap-2">
                         <div className="w-10/12 text-3xl font-bold">
                           {item?.display_id} {item.type}
                         </div>
                         <div className="text-lg font-thin text-gray-500">
-                          Vehicle: {item?.make} {item.model}
+                          Vehicle: {item?.make} {item.model}{' '}
+                          {item.year_generation}
+                          {/* {item.submodel1 && item.submodel1} */}
                         </div>
                         <div className="text-lg font-thin text-gray-500">
                           Color: {item.display_color}
@@ -124,36 +127,42 @@ function CheckoutPage() {
                         <div className="flex gap-3 text-lg font-thin text-gray-500">
                           <div className="font-bold">Quantity</div>
                           <div> {item.quantity}</div>
-                          {/* <select
-                            className="min-w-[50px]"
-                            // value={item.quantity}
-                          >
-                            ^ Will want to add cursor Pointer Here ^
-                            <option> Delete </option>
-                            {[...new Array(6)].map((optionNumber, optionIndex) => (
-                              <option
-                                key={optionNumber}
-                                onClick={() => {
-                                  // setQuantity(index + 1);
-                                  adjustItemQuantity(item.sku, optionIndex + 1);
-                                  console.log("Option Clicked:");
-                                  
-                                  // calculateTotal();
-                                }}
-                              >
-                                {optionIndex + 1}
-                              </option>
-                            ))}
-                          </select> */}
+                          {/* <form>
+                            <select
+                              className="min-w-[50px]"
+                              value={item.quantity}
+                            >
+                              ^ Will want to add cursor Pointer Here ^
+                              {[...new Array(6)].map(
+                                (optionNumber, optionIndex) => (
+                                  <option
+                                    key={optionNumber}
+                                    onClick={() => {
+                                      // setQuantity(index + 1);
+                                      adjustItemQuantity(
+                                        item.sku,
+                                        optionIndex + 1
+                                      );
+                                      console.log('Option Clicked:');
+                                      // calculateTotal();
+                                    }}
+                                  >
+                                    <button>{optionIndex + 1}</button>
+                                  </option>
+                                )
+                              )}
+                            </select>
+                          </form> */}
                         </div>
                       </div>
-
                       <div className="h-12/12 flex w-2/12 flex-col items-end justify-between text-right ">
                         <div className="">
                           <div className="font-bold">
                             $
                             {item.msrp
-                              ? parseInt(item.msrp) * item.quantity
+                              ? (parseFloat(item.msrp) * item.quantity).toFixed(
+                                  2
+                                )
                               : ''}
                           </div>
                           <div className="text-xl font-thin text-gray-400 line-through decoration-gray-400">
@@ -165,7 +174,7 @@ function CheckoutPage() {
                     <TableCell className="flex items-end justify-between">
                       <div className="flex flex-col">
                         <div className="text-xl">Same-Day Shipping</div>
-                        <div className="flex items-center gap-2 text-xl">
+                        <div className="flex items-center gap-3 text-xl">
                           <div>Free Delivery</div>
                           {/* <IconContext.Provider
                             // Info Circle Icon
@@ -212,10 +221,10 @@ function CheckoutPage() {
               />
               <div
                 className={`
-                100 flex w-4/12 cursor-pointer
-                items-center justify-center rounded
-                border border-black text-lg
-                font-bold transition ease-in-out hover:bg-black hover:text-white
+                100 flex h-[32px] w-4/12 cursor-pointer items-center
+                justify-center rounded border
+                border-black text-lg font-bold
+                transition ease-in-out hover:bg-black hover:text-white sm:h-[48px]
                 ${promoError && 'bg-red-600'}
                 `}
                 onClick={() => {
@@ -231,21 +240,21 @@ function CheckoutPage() {
             <div className="border-grey border-b py-[3vh] text-xl font-thin">
               <div className="flex justify-between ">
                 <div>Order Subtotal</div>
-                <div>${total}</div>
+                <div>${orderSubtotal}</div>
               </div>
               <div className="flex justify-between text-red-500">
                 <div>Sale-discount</div>
-                <div>${total}</div>
+                <div>-${totalDiscountedPrice}</div>
               </div>
             </div>
-            <div className="border-grey flex justify-between border-b py-[3vh] text-xl font-thin">
+            <div className="border-grey flex justify-between  border-b py-[3vh] text-xl font-bold">
               <div>Order Total</div>
-              <div>${total}</div>
+              <div>${totalMsrpPrice}</div>
             </div>
             <div className="my-10 flex w-full justify-center">
               <Button
                 variant={'default'}
-                className="w-40 bg-[#BE1B1B] text-xl"
+                className="h-[63px] w-full bg-black text-xl uppercase sm:h-[48px] "
                 onClick={redirectToCheckout}
               >
                 Checkout
@@ -262,5 +271,4 @@ function CheckoutPage() {
     </div>
   );
 }
-
 export default CheckoutPage;
