@@ -279,23 +279,16 @@ function CarSelector({
 
   const avgReviewScore = (reviewScore / reviewCount).toFixed(1);
 
-  //console.log(isFullySelected, isReadyForSelection);
-
-  //console.log(submodels, secondSubmodels);
-
-  //// console.log(avgReviewScore);
-  // console.log(searchParams?.submodel);
-  // console.log(selectedProduct);
+  const fullProductName = `${selectedProduct?.year_generation}
+  ${selectedProduct?.make} ${selectedProduct?.product_name} 
+  ${searchParams?.submodel ? selectedProduct?.submodel1 : ''}
+  ${searchParams?.second_submodel ? selectedProduct?.submodel2 : ''}
+  `;
 
   return (
     <section className="mx-auto h-auto w-full max-w-[1440px] px-4 lg:my-8">
       <div className="flex w-full flex-col items-start justify-between lg:flex-row lg:gap-14">
-        {isMobile && (
-          <EditVehiclePopover
-            selectedProduct={selectedProduct}
-            submodel={searchParams?.submodel}
-          />
-        )}
+        {isMobile && <EditVehiclePopover fullProductName={fullProductName} />}
         {/* Left Panel */}
         <div className=" -ml-4 mt-[29px] flex h-auto w-screen flex-col items-stretch justify-center pb-2 lg:w-3/5 lg:pb-0 ">
           {/* Featured Image */}
@@ -362,10 +355,7 @@ function CarSelector({
         <div className=" h-auto w-full pl-0 lg:w-2/5">
           <div className=" mt-[29px] hidden flex-col gap-2 rounded-lg border-2 border-solid px-3 py-7 lg:flex">
             <h2 className="font-roboto text-lg font-extrabold text-[#1A1A1A] md:text-[28px]">
-              {`${selectedProduct?.year_generation}
-                ${selectedProduct?.make} ${selectedProduct?.product_name} ${
-                  searchParams?.submodel ? selectedProduct?.submodel1 : ''
-                }`}
+              {fullProductName}
             </h2>
             <div className="flex items-center gap-2">
               <EditIcon />
