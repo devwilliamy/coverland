@@ -6,12 +6,13 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
+import { addOrderToDb } from '@/lib/db';
 import Link from 'next/link';
 import { redirect } from 'next/navigation';
 
 import { BsFillEnvelopeFill } from 'react-icons/bs';
 
-function OrderConfirmationPage({
+async function OrderConfirmationPage({
   searchParams,
 }: {
   searchParams: { 'order-number': string } | undefined;
@@ -21,6 +22,7 @@ function OrderConfirmationPage({
     redirect('/');
   }
   const orderNumber = searchParams['order-number'];
+
   return (
     <Card className="text-center">
       <CardHeader>
@@ -39,10 +41,10 @@ function OrderConfirmationPage({
         <Link
           href="mailto:info@coverland.com"
           target="_blank"
-          className="w-full text-center flex justify-center items-center"
+          className="flex w-full items-center justify-center text-center"
         >
           <BsFillEnvelopeFill color="#000000" size={15} />
-          <p className="ml-2 xl:ml-4 hover-underline-animation">
+          <p className="hover-underline-animation ml-2 xl:ml-4">
             info@coverland.com
           </p>
         </Link>

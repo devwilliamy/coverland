@@ -6,11 +6,14 @@ import SecuritySection from '@/pages/home/SecuritySection';
 import SolutionSection from '@/pages/home/SolutionSection';
 import TrustBanner from '@/pages/home/TrustBanner';
 import Image from 'next/image';
+import { Suspense } from 'react';
 
 export default function Home() {
   return (
     <>
-      <HeroSection />
+      <Suspense>
+        <HeroSection />
+      </Suspense>
       {/* <CategoryCards /> */}
       <TrustBanner />
       {/* <SolutionSection /> */}

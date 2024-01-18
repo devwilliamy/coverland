@@ -1,14 +1,22 @@
 'use client';
 
 import { TProductData } from '@/lib/db';
-import { ChangeEvent, Dispatch, SetStateAction, useState } from 'react';
+import {
+  ChangeEvent,
+  Dispatch,
+  SetStateAction,
+  useCallback,
+  useEffect,
+  useState,
+} from 'react';
 import { extractUniqueValues } from '../utils';
-import { usePathname } from 'next/navigation';
+import { usePathname, useSearchParams } from 'next/navigation';
 import { deslugify, slugify } from '@/lib/utils';
 import { useRouter } from 'next/navigation';
 
 export function SubmodelSearch({
   setSelectedSubmodel,
+  selectedSubmodel,
   modelData,
   submodelParam,
   shouldTriggerSetParams,
@@ -19,51 +27,84 @@ export function SubmodelSearch({
   submodelParam: string | null;
   shouldTriggerSetParams: boolean;
   submodels: string[];
+  selectedSubmodel: string | null;
 }) {
   const [value, setValue] = useState(() => submodelParam ?? '');
   const pathname = usePathname();
   const router = useRouter();
-  // console.log(submodels);
+  const searchParams = useSearchParams();
 
-  const setSearchParams = (value: string) => {
-    const currentParams = new URLSearchParams(window.location.search);
+  // Get a new searchParams string by merging the current
+  // searchParams with a provided key/value pair
+  const createQueryString = useCallback(
+    (name: string, value: string) => {
+      const params = new URLSearchParams(searchParams?.toString());
+      params.set(name, value);
 
-    if (value) {
-      currentParams.set('submodel', slugify(value));
-    } else {
-      currentParams.delete('submodel');
-    }
+      return params.toString();
+    },
+    [searchParams]
+  );
 
-    const newUrl = `${pathname}?${currentParams.toString()}`;
-    console.log(`Navigating to URL: ${newUrl}`);
-    value.length && router.push(newUrl);
-  };
-  // console.log('modelData', modelData);
+  if (selectedSubmodel !== value) {
+    setSelectedSubmodel(value);
+  }
+
+  const handleSubmitDropdown = useCallback(
+    async (value: string) => {
+      let url = '';
+      if (value) {
+        url += `?${createQueryString('submodel', value)}`;
+      }
+
+      // refreshRoute('/');
+      router.push(url.toLowerCase());
+      // refreshRoute(`${pathname}?${currentParams.toString()}`);
+    },
+    [router, createQueryString]
+  );
 
   const { uniqueSubmodel1 } = extractUniqueValues(modelData as TProductData[]);
 
-  // console.log(uniqueSubmodel1);
+  const uniqueSubmodelsFromModelData = Array.from(
+    new Set(
+      modelData.map((row) => row.submodel1).filter((model) => Boolean(model))
+    )
+  );
 
-  console.log(shouldTriggerSetParams);
+  // Need to trigger when value is updated and shouldTriggerSetParams is set to
+  // true so handleSubmitDropdown will trigger
+  useEffect(() => {
+    if (value && shouldTriggerSetParams) {
+      handleSubmitDropdown(value);
+    }
+  }, [value, shouldTriggerSetParams, handleSubmitDropdown]);
 
-  if (submodels.length < 2) return null;
+  if (submodels.length < 1) return null;
+
   const handleChange = (event: ChangeEvent<HTMLSelectElement>) => {
     const newValue = event.target.value;
     setValue(newValue);
     setSelectedSubmodel(newValue);
-    console.log('shouldTriggerSetParams', shouldTriggerSetParams);
-    newValue && setSearchParams(newValue);
+    if (!shouldTriggerSetParams) {
+      return;
+    }
+    newValue && handleSubmitDropdown(newValue);
   };
 
   return (
     <select
-      value={value}
+      value={value.toLowerCase()}
+      defaultValue={value.toLowerCase() ?? ''}
       onChange={handleChange}
-      className="text-lg rounded-lg px-2 py-3"
+      className="rounded-lg px-2 py-3 text-lg"
     >
-      <option value="">Select car submodel</option>
-      {submodels?.sort()?.map((submodel) => (
-        <option key={`model-${submodel}`} value={submodel}>
+      <option value={''}>{'Select car submodel'}</option>
+      {uniqueSubmodelsFromModelData?.sort()?.map((submodel) => (
+        <option
+          key={`model-${submodel}`}
+          value={submodel?.toLowerCase() as string}
+        >
           {deslugify(submodel)}
         </option>
       ))}

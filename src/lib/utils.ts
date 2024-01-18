@@ -11,9 +11,21 @@ export function slugToDisplayName(model: string) {
   return modelStrings[model] ?? model;
 }
 
+export function stringToSlug(str: string) {
+  // Replace spaces with + and remove special characters, then convert to lower case
+  const slug = str
+    ?.trim() // Remove whitespace from both ends of a string
+    .toLowerCase() // Convert the string to lowercase letters
+    .replace(/[^a-z0-9 ]/g, '') // Remove all non-word chars except spaces
+    .replace(/\s+/g, '+'); // Replace spaces with +
+
+  // console.log(slug);
+  return slug;
+}
+
 export const slugify = (str: string) =>
   str
-    .toLowerCase()
+    ?.toLowerCase()
     .trim()
     .replace(/[^\w\s-]/g, '')
     .replace(/[\s_-]+/g, '-')
@@ -75,14 +87,17 @@ export function groupProductsBy(
   attribute: keyof TProductData,
   array: TProductData[]
 ) {
-  const groups = array.reduce((accumulator, currentValue) => {
-    const groupKey = String(currentValue[attribute]);
-    if (!accumulator[groupKey]) {
-      accumulator[groupKey] = [];
-    }
-    accumulator[groupKey].push(currentValue);
-    return accumulator;
-  }, {} as Record<string, TProductData[]>);
+  const groups = array.reduce(
+    (accumulator, currentValue) => {
+      const groupKey = String(currentValue[attribute]);
+      if (!accumulator[groupKey]) {
+        accumulator[groupKey] = [];
+      }
+      accumulator[groupKey].push(currentValue);
+      return accumulator;
+    },
+    {} as Record<string, TProductData[]>
+  );
 
   return Object.keys(groups);
 }

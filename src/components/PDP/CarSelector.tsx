@@ -4,11 +4,15 @@ import { TProductData, TReviewData, fetchPDPData } from '@/lib/db';
 import { Separator } from '@/components/ui/separator';
 import Image from 'next/image';
 import { GoDotFill } from 'react-icons/go';
-import { IoRibbonSharp } from 'react-icons/io5';
-import { FaShippingFast, FaThumbsUp } from 'react-icons/fa';
-import { MdSupportAgent } from 'react-icons/md';
 import Link from 'next/link';
-import { ReactPropTypes, useEffect, useState } from 'react';
+import React, {
+  ReactPropTypes,
+  RefObject,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
 import { BsBoxSeam, BsGift, BsInfoCircle } from 'react-icons/bs';
 import { DropdownPDP } from './DropdownPDP';
 import { useToast } from '@/components/ui/use-toast';
@@ -17,6 +21,7 @@ import Rating from '@mui/material/Rating';
 import {
   TPDPPathParams,
   TPDPQueryParams,
+  TSkuJson,
 } from '@/app/[productType]/[...product]/page';
 import {
   Popover,
@@ -24,14 +29,14 @@ import {
   PopoverTrigger,
 } from '@radix-ui/react-popover';
 import { Button } from '../ui/button';
-import { generationDefaultCarCovers } from '@/lib/constants';
 import { Card, CardContent, CardHeader, CardTitle } from '../ui/card';
 import AgentProfile from '@/images/PDP/agent_profile.png';
 import { useMediaQuery } from '@mantine/hooks';
-// import { ProductVideo } from './ProductVideo';
 import { FolderUpIcon, SecureIcon, ThumbsUpIcon } from './images';
 import { MoneyBackIcon } from './images/MoneyBack';
 import { EditIcon } from './components/icons';
+import { track } from '@vercel/analytics';
+
 import {
   Dialog,
   DialogContent,
@@ -56,12 +61,17 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from '../ui/accordion';
-import { Car, Edit } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { usePathname } from 'next/navigation';
-import { refreshRoute } from '@/app/[productType]/[...product]/actions';
+import skuDisplayData from '@/data/skuDisplayData.json';
+import { slugify, stringToSlug } from '@/lib/utils';
 
 const ProductVideo = dynamicImport(() => import('./ProductVideo'), {
+  ssr: false,
+});
+
+const DeliveryDate = dynamicImport(() => import('./components/DeliveryDate'), {
+  loading: () => <span className="font-normal">Loading...</span>,
   ssr: false,
 });
 
@@ -81,6 +91,55 @@ const EditVehicleDropdown = dynamicImport(
 
 export const dynamic = 'force-dynamic';
 
+interface ProductRefs {
+  [key: string]: RefObject<HTMLElement>;
+}
+
+function TimeTo2PMPST() {
+  const [timeRemaining, setTimeRemaining] = useState(calculateTimeTo2PM()); // Set initial value
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setTimeRemaining(calculateTimeTo2PM());
+    }, 60000); // Update every minute
+
+    return () => clearInterval(interval);
+  }, []);
+
+  function calculateTimeTo2PM() {
+    const now = new Date();
+    const target = new Date();
+
+    target.setHours(14); // Set to 2 PM local time
+    target.setMinutes(0);
+    target.setSeconds(0);
+    target.setMilliseconds(0);
+
+    if (now.getHours() >= 14) {
+      // Adjust for PST timezone offset
+      target.setDate(target.getDate() + 1); // Set to next day if past 2 PM
+    }
+
+    const diff: number = target.getTime() - now.getTime();
+
+    // Convert milliseconds to hours and minutes
+    const hours = Math.floor(diff / 1000 / 60 / 60);
+    const minutes = Math.floor((diff / 1000 / 60) % 60);
+
+    if (hours < 0 || minutes < 0) {
+      return ''; // In case of negative values
+    }
+
+    return `${hours} Hours ${minutes} Mins`;
+  }
+
+  return (
+    <p className="text-dark text-sm">
+      Order within <span className="text-[#767676]">{timeRemaining}</span>
+    </p>
+  );
+}
+
 function CarSelector({
   modelData,
   pathParams,
@@ -88,6 +147,7 @@ function CarSelector({
   submodels,
   secondSubmodels,
   reviewData,
+  parentGeneration,
 }: {
   modelData: TProductData[];
   pathParams: TPDPPathParams;
@@ -95,31 +155,82 @@ function CarSelector({
   secondSubmodels: string[];
   searchParams: TPDPQueryParams;
   reviewData: TReviewData[];
+  parentGeneration: any;
 }) {
-  const displays = modelData.map((model) => model.display_color);
-  console.log('displays', displays);
+  const defaultModel = modelData.find(
+    (model) =>
+      model.fk ===
+      skuDisplayData.find((row) => row.fk === parentGeneration?.fk)?.fk
+  );
+
+  const modelsBySubmodel =
+    modelData.filter(
+      (model) =>
+        stringToSlug(model?.submodel1 as string) ===
+        stringToSlug(searchParams?.submodel as string)
+    ) ?? [];
+
+  const modelsBySecondSubmodel = searchParams?.second_submodel
+    ? modelData
+        .filter(
+          (model) =>
+            stringToSlug(model?.submodel1 as string) ===
+            stringToSlug(searchParams?.submodel as string)
+        )
+        .filter(
+          (model) =>
+            stringToSlug(model?.submodel2 as string) ===
+            stringToSlug(searchParams?.second_submodel as string)
+        ) ?? modelsBySubmodel
+    : modelsBySubmodel;
+
+  const isFullySelected =
+    pathParams?.product?.length === 3 &&
+    (submodels.length === 0 || !!searchParams?.submodel) &&
+    (secondSubmodels.length === 0 || !!searchParams?.second_submodel);
+
+  let displayedModelData = searchParams?.submodel
+    ? modelsBySubmodel
+    : modelData;
+
+  displayedModelData = searchParams?.second_submodel
+    ? modelsBySecondSubmodel
+    : displayedModelData;
 
   const [selectedProduct, setSelectedProduct] = useState<TProductData>(
-    modelData[0]
+    isFullySelected || searchParams?.submodel
+      ? displayedModelData[0]
+      : defaultModel ?? displayedModelData[0]
   );
-  console.log(selectedProduct);
-  const [featuredImage, setFeaturedImage] = useState<string>(
-    selectedProduct?.feature as string
-  );
+
   const router = useRouter();
   const path = usePathname();
 
+  // Sometimes when submodel2 is selected, selectedProduct won't update to the right one
   useEffect(() => {
-    refreshRoute('/');
-    setSelectedProduct(modelData[0]);
-    setFeaturedImage(modelData[0]?.feature as string);
-    //eslint-disable-next-line
-  }, [path]);
+    const updateSelectedProduct = () => {
+      setSelectedProduct(displayedModelData[0]);
+    };
+    if (isFullySelected) {
+      updateSelectedProduct();
+    }
+  }, [searchParams, isFullySelected, displayedModelData]);
+
+  const [featuredImage, setFeaturedImage] = useState<string>(
+    selectedProduct?.feature as string
+  );
+
+  const { cartItems, cartOpen, setCartOpen } = useCartContext();
+
+  const productRefs = useRef<ProductRefs>(
+    displayedModelData.reduce((acc: ProductRefs, item: TProductData) => {
+      acc[item.sku] = React.createRef();
+      return acc;
+    }, {})
+  );
 
   const [showMore, setShowMore] = useState(false);
   const isMobile = useMediaQuery('(max-width: 768px)');
-
-  console.log(selectedProduct);
 
   const { toast } = useToast();
   const { addToCart } = useCartContext();
@@ -127,32 +238,27 @@ function CarSelector({
     ? pathParams?.product?.length === 3 && !!searchParams?.submodel
     : pathParams?.product?.length === 3;
 
-  const shouldSubmodelDisplay = !!submodels.length && !searchParams?.submodel;
-  console.log('shouldSubmodelDisplay', shouldSubmodelDisplay);
-
   const uniqueColors = Array.from(
-    new Set(modelData.map((model) => model.display_color))
-  ).map((color) => modelData.find((model) => model.display_color === color));
+    new Set(displayedModelData.map((model) => model.display_color))
+  ).map((color) =>
+    displayedModelData.find((model) => model.display_color === color)
+  );
 
   const uniqueTypes = Array.from(
-    new Set(modelData.map((model) => model.display_id))
-  ).map((type) => modelData.find((model) => model.display_id === type));
-  // console.log('uniqueCoverColors', uniqueColors);
-  // console.log('uniqueCoverTypes', uniqueTypes);
+    new Set(displayedModelData.map((model) => model.display_id))
+  ).map((type) =>
+    displayedModelData.find((model) => model.display_id === type)
+  );
 
   const handleAddToCart = () => {
     if (!selectedProduct) return;
-    console.log('running');
     return addToCart({ ...selectedProduct, quantity: 1 });
   };
-  console.log(showMore);
 
   const productImages =
     selectedProduct?.product
       ?.split(',')
       .filter((img) => img !== featuredImage) ?? [];
-  // console.log('productImages', productImages);
-  const modalProductImages = productImages.slice(5);
   const reviewScore = reviewData?.reduce(
     (acc, review) => acc + Number(review.rating_stars ?? 0),
     0
@@ -161,19 +267,16 @@ function CarSelector({
 
   const avgReviewScore = (reviewScore / reviewCount).toFixed(1);
 
-  console.log(avgReviewScore);
-  console.log(searchParams?.submodel);
-  console.log(selectedProduct);
+  const fullProductName = `${selectedProduct?.year_generation}
+  ${selectedProduct?.make} ${selectedProduct?.product_name} 
+  ${searchParams?.submodel ? selectedProduct?.submodel1 : ''}
+  ${searchParams?.second_submodel ? selectedProduct?.submodel2 : ''}
+  `;
 
   return (
     <section className="mx-auto h-auto w-full max-w-[1440px] px-4 lg:my-8">
       <div className="flex w-full flex-col items-start justify-between lg:flex-row lg:gap-14">
-        {isMobile && (
-          <EditVehiclePopover
-            selectedProduct={selectedProduct}
-            submodel={searchParams?.submodel}
-          />
-        )}
+        {isMobile && <EditVehiclePopover fullProductName={fullProductName} />}
         {/* Left Panel */}
         <div className=" -ml-4 mt-[29px] flex h-auto w-screen flex-col items-stretch justify-center pb-2 lg:w-3/5 lg:pb-0 ">
           {/* Featured Image */}
@@ -222,6 +325,7 @@ function CarSelector({
                     cursor-pointer   border-red-600 object-contain
                   `}
                     onClick={() => setFeaturedImage(img)}
+                    onError={() => console.log('Failed image:', `${img}`)}
                   />
                 </div>
               ))}
@@ -239,10 +343,7 @@ function CarSelector({
         <div className=" h-auto w-full pl-0 lg:w-2/5">
           <div className=" mt-[29px] hidden flex-col gap-2 rounded-lg border-2 border-solid px-3 py-7 lg:flex">
             <h2 className="font-roboto text-lg font-extrabold text-[#1A1A1A] md:text-[28px]">
-              {`${selectedProduct?.year_generation}
-                ${selectedProduct?.make} ${selectedProduct?.product_name} ${
-                  searchParams?.submodel ? selectedProduct?.submodel1 : ''
-                }`}
+              {fullProductName}
             </h2>
             <div className="flex items-center gap-2">
               <EditIcon />
@@ -264,12 +365,11 @@ function CarSelector({
               {isReadyForSelection && `${selectedProduct?.display_color}`}
             </span>
           </p>
-
-          <div className="grid w-auto grid-cols-5 gap-[7px] px-3 ">
+          <div className="flex flex-row space-x-1 overflow-x-auto whitespace-nowrap p-2 lg:grid lg:w-auto lg:grid-cols-5 lg:gap-[7px] lg:px-3">
             {uniqueColors?.map((sku) => {
               return (
                 <div
-                  className={`flex flex-col items-center justify-center p-1 ${
+                  className={`flex-shrink-0 p-1 lg:flex lg:flex-col lg:items-center lg:justify-center ${
                     sku?.display_color === selectedProduct?.display_color
                       ? 'rounded-lg border-4 border-[#6F6F6F]'
                       : ''
@@ -278,62 +378,93 @@ function CarSelector({
                 >
                   <Image
                     src={sku?.feature as string}
+                    ref={
+                      productRefs?.current[
+                        sku?.sku as TProductData['sku']
+                      ] as any
+                    }
                     width={98}
                     height={98}
+                    priority
+                    onError={() =>
+                      console.log('Failed image:', `${sku?.feature}`)
+                    }
                     alt="car cover details"
-                    className="h-full w-full cursor-pointer rounded bg-[#F2F2F2]"
+                    className="h-20 w-20 cursor-pointer rounded bg-[#F2F2F2] lg:h-full lg:w-full"
                     onClick={() => {
                       setFeaturedImage(sku?.feature as string);
                       setSelectedProduct(sku as TProductData);
+                      const skuRef = sku?.sku
+                        ? (productRefs?.current[
+                            sku?.sku
+                          ] as React.RefObject<HTMLElement>)
+                        : null;
+                      skuRef?.current?.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'end',
+                        inline: 'center',
+                      });
                     }}
                   />
                 </div>
               );
             })}
+            {/* </div> */}
           </div>
 
-          {isReadyForSelection && (
-            <>
-              <Separator className="my-4" />
-              <div>
-                <p className="ml-3 text-lg font-black text-[#1A1A1A]">
-                  Cover Types
-                  <span className="ml-2 text-lg font-normal text-[#767676]">
-                    {isReadyForSelection && ` ${selectedProduct?.display_id}`}
-                  </span>
-                </p>
-              </div>
-            </>
-          )}
-          {isReadyForSelection && (
-            <div className="grid w-auto grid-cols-5 gap-[7px] px-3">
-              {uniqueTypes.map((sku, idx) => {
-                return (
-                  <button
-                    className={`flex flex-col items-center justify-center p-1 ${
-                      sku?.display_id === selectedProduct?.display_id
-                        ? 'rounded-lg border-4 border-[#6F6F6F]'
-                        : ''
-                    }`}
-                    key={sku?.sku}
-                    onClick={() => {
-                      setFeaturedImage(sku?.feature as string);
-                      setSelectedProduct(sku as TProductData);
-                    }}
-                    // disabled={isOptionDisabled(productOption, 'cover')}
-                  >
-                    <Image
-                      src={sku?.feature as string}
-                      width={98}
-                      height={98}
-                      alt="car cover details"
-                      className={`h-full w-full cursor-pointer rounded bg-[#F2F2F2]`}
-                    />
-                  </button>
-                );
-              })}
+          <>
+            <Separator className="my-4" />
+            <div>
+              <p className="ml-3 text-lg font-black text-[#1A1A1A]">
+                Cover Types
+                <span className="ml-2 text-lg font-normal text-[#767676]">
+                  {selectedProduct?.display_id}
+                </span>
+              </p>
             </div>
-          )}
+          </>
+          {/* Cover Types Section */}
+          <div className="flex flex-row space-x-1 overflow-x-auto whitespace-nowrap p-2 lg:grid lg:w-auto lg:grid-cols-5 lg:gap-[7px] lg:px-3">
+            {uniqueTypes.map((sku, idx) => {
+              return (
+                <button
+                  className={`flex-shrink-0 p-1 lg:flex lg:flex-col lg:items-center lg:justify-center ${
+                    sku?.display_id === selectedProduct?.display_id
+                      ? 'rounded-lg border-4 border-[#6F6F6F]'
+                      : ''
+                  }`}
+                  key={sku?.sku}
+                  onClick={() => {
+                    setFeaturedImage(sku?.feature as string);
+                    setSelectedProduct(sku as TProductData);
+                    const skuRef = sku?.sku
+                      ? (productRefs?.current[
+                          sku?.sku
+                        ] as React.RefObject<HTMLElement>)
+                      : null;
+                    skuRef?.current?.scrollIntoView({
+                      behavior: 'smooth',
+                      block: 'nearest',
+                      inline: 'center',
+                    });
+                  }}
+                  // disabled={isOptionDisabled(productOption, 'cover')}
+                >
+                  <Image
+                    src={sku?.feature as string}
+                    width={98}
+                    height={98}
+                    onError={() =>
+                      console.log('Failed image:', `${sku?.feature}`)
+                    }
+                    alt="car cover details"
+                    className="h-20 w-20 cursor-pointer rounded bg-[#F2F2F2] lg:h-full lg:w-full"
+                  />
+                </button>
+              );
+            })}
+          </div>
+
           <Separator className="mb-8 mt-4" />
           {/* Title and Descriptions*/}
           <div className="grid grid-cols-1">
@@ -342,6 +473,7 @@ function CarSelector({
                 {`${selectedProduct?.display_id}`}
                 &trade; {`${selectedProduct?.display_color}`}
               </h2>
+              {/* Reviews */}
               <div className="flex items-center gap-1">
                 <Rating
                   name="read-only"
@@ -352,14 +484,17 @@ function CarSelector({
                   }}
                 />
                 <Popover>
-                  <PopoverTrigger className="text-blue-400 underline">
-                    {reviewCount} ratings
+                  <PopoverTrigger
+                    className="text-blue-400 underline"
+                    disabled={!reviewCount}
+                  >
+                    {reviewCount || '2'} ratings
                   </PopoverTrigger>
                   <PopoverContent>
                     <div className=" flex flex-col items-center border border-gray-300 bg-white p-4 shadow-lg">
                       <div className="flex items-center gap-4">
                         <p className="text-2xl font-bold">
-                          {avgReviewScore} out of 5
+                          {avgReviewScore ?? '4.9'} out of 5
                         </p>
                         <Rating
                           name="read-only"
@@ -370,9 +505,20 @@ function CarSelector({
                           }}
                         />
                       </div>
-                      <Link className="underline" scroll href={'#reviews'}>
-                        Show all reviews ({reviewData?.length})
-                      </Link>
+                      {!!reviewData.length && (
+                        <Link
+                          className="underline"
+                          scroll
+                          href={'#reviews'}
+                          onClick={() =>
+                            track('viewing all reviews', {
+                              sku: selectedProduct?.sku,
+                            })
+                          }
+                        >
+                          Show all reviews ({reviewData?.length})
+                        </Link>
+                      )}
                     </div>
                   </PopoverContent>
                 </Popover>
@@ -423,7 +569,7 @@ function CarSelector({
           </div>
           {/* Product Description */}
           {/* <ProductDropdown dropdownItems={dropdownItems} /> */}
-          {/* info stuff */}
+          {/* Shipping info stuff */}
           <div className="flex flex-col items-start justify-start pt-8">
             <div className="flex flex-row items-start justify-start">
               <div className="flex flex-col items-start justify-start pr-4 pt-0">
@@ -436,13 +582,10 @@ function CarSelector({
                   </span>
                   <br className="xl:hidden" />
                   <span className="hidden md:mr-1 xl:block">-</span>
-                  <span className="font-normal">
-                    Delivery by <span className="uppercase">oct18</span>
-                  </span>
+                  <DeliveryDate />
                 </div>
-                <p className="text-dark text-sm">
-                  Order within{' '}
-                  <span className="text-[#767676]">9 Hours 3 Mins</span>
+                <p className="text-sm text-[#767676]">
+                  <TimeTo2PMPST />
                 </p>
                 <p className="pt-1.5 text-sm font-normal text-[#1B8500]">
                   Free Returns for 30 Days
@@ -457,18 +600,23 @@ function CarSelector({
               </p>
               {/* <BsInfoCircle size={20} color="#767676" /> */}
             </div>
-            <div className="mt-8 w-full">
-              <DropdownPDP
-                modelData={modelData}
-                submodels={submodels}
-                secondSubmodels={secondSubmodels}
-              />
-            </div>
-            {!isReadyForSelection && selectedProduct ? (
+
+            {/* Select Your Vehicle */}
+            {!isFullySelected && (
+              <div className="mt-8 w-full">
+                <DropdownPDP
+                  modelData={displayedModelData}
+                  submodels={submodels}
+                  secondSubmodels={secondSubmodels}
+                />
+              </div>
+            )}
+            {/* Add to Cart Button */}
+            {!isFullySelected && selectedProduct ? (
               <>
                 <Popover>
                   <PopoverTrigger asChild>
-                    <Button className="mt-4 h-[35px] w-full rounded bg-[#BE1B1B] text-lg font-bold uppercase text-white md:h-[60px] md:text-xl">
+                    <Button className="mt-4 h-[48px] w-full bg-[#BE1B1B] text-lg font-bold uppercase text-white disabled:bg-[#BE1B1B] md:h-[62px] md:text-xl">
                       Add To Cart
                     </Button>
                   </PopoverTrigger>
@@ -481,17 +629,13 @@ function CarSelector({
               </>
             ) : (
               <Button
-                className="mt-4 h-[60px] w-full bg-[#BE1B1B] text-lg disabled:bg-[#BE1B1B]"
+                className="mt-4 h-[48px] w-full bg-[#BE1B1B] text-lg font-bold uppercase text-white disabled:bg-[#BE1B1B] md:h-[62px] md:text-xl"
                 onClick={() => {
-                  handleAddToCart();
-                  toast({
-                    duration: 3000,
-                    action: (
-                      <ToastAction altText="Success" className="w-full">
-                        Added your item to cart!
-                      </ToastAction>
-                    ),
+                  track('PDP_add_to_cart', {
+                    sku: selectedProduct?.sku,
                   });
+                  handleAddToCart();
+                  setCartOpen(true);
                 }}
               >
                 Add To Cart
@@ -578,18 +722,18 @@ function CarSelector({
                 >
                   1-800-799-5165
                 </Link>
-                <Link
+                {/* <Link
                   href="#"
                   className="text-base font-normal capitalize text-[#0C87B8] underline"
                 >
                   live chat
-                </Link>
+                </Link> */}
               </div>
             </div>
           </div>
           <Separator className="my-10 hidden lg:block" />
-          <div className="-mx-4 my-4 h-10 w-screen bg-[#F1F1F1] lg:hidden"></div>
-          <div className="pt-4 lg:px-0 lg:pt-0">
+          <div className="-mx-4 mt-4 h-10 w-screen border border-gray-300 bg-[#F1F1F1] lg:hidden"></div>
+          <div className="pt-3 lg:px-0 lg:pt-0">
             <h3 className="mb-[28px] hidden text-xl font-black uppercase text-[#1A1A1A] lg:flex">
               car cover features
             </h3>
@@ -600,105 +744,111 @@ function CarSelector({
               className="lg:hidden"
             >
               <AccordionItem value="item-1">
-                <AccordionTrigger className="text-lg font-bold uppercase text-[#1A1A1A] !no-underline">
+                <AccordionTrigger
+                  className="text-xl font-black uppercase text-[#1A1A1A] !no-underline"
+                  id="#reviews"
+                >
                   Car Cover Features
                 </AccordionTrigger>
                 <AccordionContent>
-                  <div className="flex-start ml-2 flex items-center pb-2 leading-4">
-                    <GoDotFill size={10} color="#000000 " />
-                    <p className="pl-1 text-lg font-medium capitalize text-black">
-                      Tailored to your car model
-                    </p>
-                  </div>
-                  <div className="flex-start ml-2 flex items-center pb-2 leading-4">
-                    <GoDotFill size={10} color="#000000 " />
-                    <p className="pl-1 text-lg font-medium capitalize text-black">
-                      all-season waterproof protection
-                    </p>
-                  </div>
-                  <div className="flex-start ml-2 flex items-center pb-2 leading-4">
-                    <GoDotFill size={10} color="#000000 " />
-                    <p className="pl-1 text-lg font-medium capitalize text-black">
-                      Scratchproof, durable & lightweight
-                    </p>
-                  </div>
-                  <div className="flex-start ml-2 flex items-center pb-2 leading-4">
-                    <GoDotFill size={10} color="#000000 " />
-                    <p className="pl-1 text-lg font-medium capitalize text-black">
-                      Soft Inner-lining
-                    </p>
-                  </div>
-                  <div className="flex-start ml-2 flex items-center pb-2 leading-4">
-                    <GoDotFill size={10} color="#000000 " />
-                    <p className="pl-1 text-lg font-medium capitalize text-black">
-                      100% Waterproof - Zero Leaks Guaranteed
-                    </p>
-                  </div>
-                  <div className="flex-start ml-2 flex items-center pb-2 leading-4">
-                    <GoDotFill size={10} color="#000000 " />
-                    <p className="pl-1 text-lg font-medium capitalize text-black">
-                      100% UV Protection
-                    </p>
-                  </div>
-                  <div className="flex-start ml-2 flex items-center pb-2 leading-4">
-                    <GoDotFill size={10} color="#000000 " />
-                    <p className="pl-1 text-lg font-medium capitalize text-black">
-                      Easy On/Off with elastic hems
-                    </p>
-                  </div>
-                  <div className="flex-start ml-2 flex items-center pb-2 leading-4">
-                    <GoDotFill size={10} color="#000000 " />
-                    <p className="pl-1 text-lg font-medium capitalize text-black">
-                      effortless cleaning
-                    </p>
+                  <Separator className="mb-7 mt-3 lg:hidden" />
+                  <div className="pl-4">
+                    <div className="flex-start ml-2 flex items-center pb-2 leading-4">
+                      <GoDotFill size={10} color="#000000" />
+                      <p className="pl-1 text-sm font-medium capitalize text-black">
+                        Tailored to your car model
+                      </p>
+                    </div>
+                    <div className="flex-start ml-2 flex items-center pb-2 leading-4">
+                      <GoDotFill size={10} color="#000000" />
+                      <p className="pl-1 text-sm font-medium capitalize text-black">
+                        all-season waterproof protection
+                      </p>
+                    </div>
+                    <div className="flex-start ml-2 flex items-center pb-2 leading-4">
+                      <GoDotFill size={10} color="#000000" />
+                      <p className="pl-1 text-sm font-medium capitalize text-black">
+                        Scratchproof, durable & lightweight
+                      </p>
+                    </div>
+                    <div className="flex-start ml-2 flex items-center pb-2 leading-4">
+                      <GoDotFill size={10} color="#000000" />
+                      <p className="pl-1 text-sm font-medium capitalize text-black">
+                        Soft Inner-lining
+                      </p>
+                    </div>
+                    <div className="flex-start ml-2 flex items-center pb-2 leading-4">
+                      <GoDotFill size={10} color="#000000" />
+                      <p className="pl-1 text-sm font-medium capitalize text-black">
+                        100% Waterproof - Zero Leaks Guaranteed
+                      </p>
+                    </div>
+                    <div className="flex-start ml-2 flex items-center pb-2 leading-4">
+                      <GoDotFill size={10} color="#000000" />
+                      <p className="pl-1 text-sm font-medium capitalize text-black">
+                        100% UV Protection
+                      </p>
+                    </div>
+                    <div className="flex-start ml-2 flex items-center pb-2 leading-4">
+                      <GoDotFill size={10} color="#000000" />
+                      <p className="pl-1 text-sm font-medium capitalize text-black">
+                        Easy On/Off with elastic hems
+                      </p>
+                    </div>
+                    <div className="flex-start ml-2 flex items-center pb-2 leading-4">
+                      <GoDotFill size={10} color="#000000" />
+                      <p className="pl-1 text-sm font-medium capitalize text-black">
+                        effortless cleaning
+                      </p>
+                    </div>
                   </div>
                 </AccordionContent>
               </AccordionItem>
             </Accordion>
             <div className="flex-start ml-2 hidden items-center pb-2 leading-4 lg:flex">
-              <GoDotFill size={10} color="#000000 " />
+              <GoDotFill size={10} color="#000000" />
               <p className="pl-1 text-lg font-medium capitalize text-black">
                 Tailored to your car model
               </p>
             </div>
             <div className=" flex-start ml-2 hidden items-center pb-2 leading-4 lg:flex">
-              <GoDotFill size={10} color="#000000 " />
+              <GoDotFill size={10} color="#000000" />
               <p className="pl-1 text-lg font-medium capitalize text-black">
                 all-season waterproof protection
               </p>
             </div>
             <div className="flex-start ml-2 hidden items-center pb-2 leading-4 lg:flex">
-              <GoDotFill size={10} color="#000000 " />
+              <GoDotFill size={10} color="#000000" />
               <p className="pl-1 text-lg font-medium capitalize text-black">
                 Scratchproof, durable & lightweight
               </p>
             </div>
             <div className="flex-start ml-2 hidden items-center pb-2 leading-4 lg:flex">
-              <GoDotFill size={10} color="#000000 " />
+              <GoDotFill size={10} color="#000000" />
               <p className="pl-1 text-lg font-medium capitalize text-black">
                 Soft Inner-lining
               </p>
             </div>
             <div className="flex-start ml-2 hidden items-center pb-2 leading-4 lg:flex">
-              <GoDotFill size={10} color="#000000 " />
+              <GoDotFill size={10} color="#000000" />
               <p className="pl-1 text-lg font-medium capitalize text-black">
                 100% Waterproof - Zero Leaks Guaranteed
               </p>
             </div>
             <div className="flex-start ml-2 hidden items-center pb-2 leading-4 lg:flex">
-              <GoDotFill size={10} color="#000000 " />
+              <GoDotFill size={10} color="#000000" />
               <p className="pl-1 text-lg font-medium capitalize text-black">
                 100% UV Protection
               </p>
             </div>
             <div className="flex-start ml-2 hidden items-center pb-2 leading-4 lg:flex">
-              <GoDotFill size={10} color="#000000 " />
+              <GoDotFill size={10} color="#000000" />
               <p className="pl-1 text-lg font-medium capitalize text-black">
                 Easy On/Off with elastic hems
               </p>
             </div>
             <div className="flex-start ml-2 hidden items-center pb-2 leading-4 lg:flex">
-              <GoDotFill size={10} color="#000000 " />
+              <GoDotFill size={10} color="#000000" />
               <p className="pl-1 text-lg font-medium capitalize text-black">
                 effortless cleaning
               </p>
@@ -777,52 +927,65 @@ const MobileImageCarousel = ({
       setCurrent(api.selectedScrollSnap());
     });
   }, [api]);
+  const scrollTo = useCallback(
+    (index: number) => api && api.scrollTo(index),
+    [api]
+  );
 
-  const Dot = () => (
-    <div className="relative flex h-3 w-3">
-      <span className="relative inline-flex h-3 w-3 rounded-full bg-gray-300"></span>
-    </div>
+  const Dot = ({ index }: { index: number }) => (
+    <button className="relative flex h-2 w-2" onClick={() => scrollTo(index)}>
+      <span className="relative inline-flex h-2 w-2 rounded-full bg-gray-300"></span>
+    </button>
   );
 
   const ActiveDot = () => (
-    <div className="relative flex h-5 w-5">
-      <span className="relative inline-flex h-5 w-5 rounded-full bg-gray-600"></span>
+    <div className="relative flex h-2.5 w-2.5">
+      <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-gray-600"></span>
     </div>
   );
 
   return (
-    <Carousel setApi={setApi}>
-      <CarouselContent className="p-2">
-        <CarouselItem>
-          <Image
-            src={selectedProduct.feature as string}
-            alt={`Additional images of the ${selectedProduct.display_id} cover`}
-            width={500}
-            height={500}
-            // placeholder="blur"
-          />
-        </CarouselItem>
-        <CarouselItem>
-          <ProductVideo />
-        </CarouselItem>
-        {productImages.map((image, index) => (
-          <CarouselItem key={index}>
+    <div>
+      <Carousel setApi={setApi}>
+        <CarouselContent className="bg-[#F2F2F2] p-2">
+          <CarouselItem>
             <Image
-              src={image}
+              src={selectedProduct.feature as string}
               alt={`Additional images of the ${selectedProduct.display_id} cover`}
               width={500}
               height={500}
               // placeholder="blur"
             />
           </CarouselItem>
-        ))}
-      </CarouselContent>
-      <div className="flex w-full items-center justify-center gap-2">
+          <CarouselItem>
+            <div>
+              <ProductVideo />
+            </div>
+          </CarouselItem>
+          {productImages.map((image, index) => (
+            <CarouselItem key={index}>
+              <Image
+                src={image}
+                alt={`Additional images of the ${selectedProduct.display_id} cover`}
+                width={500}
+                height={500}
+                // placeholder="blur"
+                onError={() => console.log('Failed image:', `${image}`)}
+              />
+            </CarouselItem>
+          ))}
+        </CarouselContent>
+      </Carousel>
+      <div className="flex w-full items-center justify-center gap-2 bg-white py-2">
         {scrollSnaps.map((_, index) =>
-          index === current ? <ActiveDot key={index} /> : <Dot key={index} />
+          index === current ? (
+            <ActiveDot key={index} />
+          ) : (
+            <Dot key={index} index={index} />
+          )
         )}
       </div>
-    </Carousel>
+    </div>
   );
 };
 

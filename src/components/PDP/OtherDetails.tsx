@@ -23,6 +23,9 @@ import {
   AccordionTrigger,
 } from '../ui/accordion';
 import { useMediaQuery } from '@mantine/hooks';
+import { NoGarageMobile } from './components/NoGarageMobile';
+import { ClimateCrisisMobile } from './components/ClimateCrisisMobile';
+import Link from 'next/link';
 
 export function ExtraProductDetails({
   reviewData,
@@ -81,16 +84,18 @@ export function ExtraProductDetails({
             selectedSection === LAYERS_ID ? 'underline' : ''
           }`}
         >
-          benefits
+          <Link href="#benefits" className="">
+            benefits
+          </Link>
         </h1>
-        <h1
+        {/* <h1
           onClick={() => scrollToSection(specsRef, SPECS_ID)}
           className={`cursor-pointer text-lg font-normal capitalize text-black ${
             selectedSection === SPECS_ID ? 'underline' : ''
           }`}
         >
           specification
-        </h1>
+        </h1> */}
         <h1
           onClick={() => scrollToSection(faqRef, FAQ_ID)}
           className={`cursor-pointer text-lg font-normal capitalize text-black ${
@@ -99,14 +104,14 @@ export function ExtraProductDetails({
         >
           Q&A
         </h1>
-        <h1
+        {/* <h1
           onClick={() => scrollToSection(layersRef, LAYERS_ID)}
           className={`cursor-pointer text-lg font-normal capitalize text-black ${
             selectedSection === LAYERS_ID ? 'underline' : ''
           }`}
         >
           Shipping & Returns
-        </h1>
+        </h1> */}
         <h1
           onClick={() => scrollToSection(layersRef, LAYERS_ID)}
           className={`cursor-pointer text-lg font-normal capitalize text-black ${
@@ -115,14 +120,14 @@ export function ExtraProductDetails({
         >
           warranty
         </h1>
-        <h1
+        {/* <h1
           onClick={() => scrollToSection(carCoverRef, CAR_COVER_INS_ID)}
           className={`cursor-pointer text-lg font-normal capitalize text-black ${
             selectedSection === CAR_COVER_INS_ID ? 'underline' : ''
           }`}
         >
           car cover instruction
-        </h1>
+        </h1> */}
         <h1
           onClick={() => scrollToSection(layersRef, LAYERS_ID)}
           className={`cursor-pointer text-lg font-normal capitalize text-black ${
@@ -159,7 +164,7 @@ export function ExtraProductDetails({
           <ProductChecklist />
         </div>
         <div ref={specsRef} className="md:mt-18 mt-8 lg:mt-28">
-          <ProductSpecGrid />
+          {/* <ProductSpecGrid /> */}
           <ProductPackage />
         </div>
         <div ref={faqRef} className="md:mt-18 mt-8 lg:mt-28">
@@ -180,87 +185,89 @@ export function ExtraProductDetails({
 
 const MobilePDPDetails = ({ reviewData }: { reviewData: TReviewData[] }) => {
   return (
-    <Accordion
-      type="single"
-      collapsible
-      className="w-full font-black uppercase text-[#1A1A1A] lg:hidden"
-      defaultValue="item-6"
-    >
-      <AccordionItem value="item-1">
-        <AccordionTrigger className="font-black uppercase">
-          Product Details
-        </AccordionTrigger>
-        <AccordionContent>
-          <div>
-            <ProductHero />
-            <div className=" md:mt-18 lg:mt-28">
-              <Video />
-            </div>
-          </div>
-        </AccordionContent>
-      </AccordionItem>
-
-      <AccordionItem value="item-2">
-        <AccordionTrigger className="font-black uppercase">
-          Benefits
-        </AccordionTrigger>
-        <AccordionContent>
-          <div className=" md:mt-18 lg:mt-28">
-            <ClimateCrisis />
-            <NoGarage />
-            <OurCarCovers />
-            <ProductChecklist />
-          </div>
-        </AccordionContent>
-      </AccordionItem>
-
-      <AccordionItem value="item-3">
-        <AccordionTrigger className="font-black uppercase">
-          Specification
-        </AccordionTrigger>
-        <AccordionContent>
-          <div className=" md:mt-18 lg:mt-28">
-            <ProductSpecGrid />
-            <ProductPackage />
-          </div>
-        </AccordionContent>
-      </AccordionItem>
-
-      <AccordionItem value="item-4">
-        <AccordionTrigger className="font-black uppercase">
-          Q&A
-        </AccordionTrigger>
-        <AccordionContent>
-          <div className=" md:mt-18 lg:mt-28">
-            <PDPAccordion />
-          </div>
-        </AccordionContent>
-      </AccordionItem>
-
-      <AccordionItem value="item-5">
-        <AccordionTrigger className="font-black uppercase">
-          Car Cover Instruction
-        </AccordionTrigger>
-        <AccordionContent>
-          <div className=" md:mt-18 lg:mt-28">
-            {/* Content for Car Cover Instruction Section */}
-          </div>
-        </AccordionContent>
-      </AccordionItem>
-
-      {!!reviewData.length && (
-        <AccordionItem value="item-6">
-          <AccordionTrigger className="font-black uppercase !no-underline">
-            Car Cover Reviews
+    <div className="px-4">
+      <Accordion
+        type="single"
+        collapsible
+        className="w-full font-black uppercase text-[#1A1A1A] lg:hidden"
+        defaultValue="item-6"
+      >
+        <AccordionItem value="item-1">
+          <AccordionTrigger className="font-black uppercase">
+            Product Details
           </AccordionTrigger>
           <AccordionContent>
-            <div className="lg:mt-28">
-              <ReviewSection reviewData={reviewData} />
+            <div>
+              <ProductHero />
+              {/* <div className=" md:mt-18 lg:mt-28">
+              <Video />
+            </div> */}
             </div>
           </AccordionContent>
         </AccordionItem>
-      )}
-    </Accordion>
+
+        <AccordionItem value="item-2">
+          <AccordionTrigger className="font-black uppercase">
+            Benefits
+          </AccordionTrigger>
+          <AccordionContent>
+            <div className=" md:mt-18 lg:mt-28">
+              <ClimateCrisisMobile />
+              <NoGarageMobile />
+              <OurCarCovers />
+              <ProductChecklist />
+            </div>
+          </AccordionContent>
+        </AccordionItem>
+
+        {/* <AccordionItem value="item-3">
+          <AccordionTrigger className="font-black uppercase">
+            Specification
+          </AccordionTrigger>
+          <AccordionContent>
+            <div className=" md:mt-18 lg:mt-28">
+              <ProductSpecGrid />
+              <ProductPackage />
+            </div>
+          </AccordionContent>
+        </AccordionItem> */}
+
+        <AccordionItem value="item-4">
+          <AccordionTrigger className="font-black uppercase">
+            Q&A
+          </AccordionTrigger>
+          <AccordionContent>
+            <div className=" md:mt-18 lg:mt-28">
+              <PDPAccordion />
+            </div>
+          </AccordionContent>
+        </AccordionItem>
+
+        {/* <AccordionItem value="item-5">
+          <AccordionTrigger className="font-black uppercase">
+            Car Cover Instruction
+          </AccordionTrigger>
+          <AccordionContent>
+            <div className=" md:mt-18 lg:mt-28">
+              Content for Car Cover Instruction Section
+            </div>
+          </AccordionContent>
+        </AccordionItem> */}
+
+        {!!reviewData.length && (
+          <AccordionItem value="item-6">
+            <AccordionTrigger className="font-black uppercase !no-underline">
+              Car Cover Reviews
+            </AccordionTrigger>
+            <AccordionContent>
+              <div className="lg:mt-28">
+                <ReviewSection reviewData={reviewData} />
+              </div>
+            </AccordionContent>
+          </AccordionItem>
+        )}
+      </Accordion>
+    </div>
   );
 };
 
@@ -289,8 +296,8 @@ const ReviewSection = ({
 }) => {
   const [displayedReviews, setDisplayedReviews] = useState<number>(3);
   if (!reviewData) return null;
-  console.log('reviewData', reviewData);
-  console.log(reviewData);
+  // console.log('reviewData', reviewData);
+  // console.log(reviewData);
   return (
     <div className="relative py-2">
       <p

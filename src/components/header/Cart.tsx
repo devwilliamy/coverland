@@ -31,14 +31,17 @@ import { FaCheck } from 'react-icons/fa6';
 import { IoIosClose } from 'react-icons/io';
 
 function Cart() {
-  const { cartItems } = useCartContext();
+  const { cartItems, cartOpen, setCartOpen } = useCartContext();
   const isMobile = useMediaQuery('(max-width: 500px)');
   const cartColor = cartItems.length > 0 ? '#BE1B1B' : '#000000';
 
   return (
-    <Sheet>
+    <Sheet open={cartOpen}>
       <SheetTrigger asChild>
-        <button className="mt-1 flex h-[40px] w-5 items-center md:order-last">
+        <button
+          className="mt-1 flex h-[40px] w-5 items-center md:order-last"
+          onClick={() => setCartOpen(!cartOpen)}
+        >
           <div className="h-[17px] w-[17px] *:h-full *:w-full lg:h-[20px] lg:w-[20px]">
             <HiOutlineShoppingCart />
           </div>
@@ -49,7 +52,7 @@ function Cart() {
             className="hover:cursor-pointer"
           /> */}
       </SheetTrigger>
-      <SheetContent>
+      <SheetContent className="overflow-scroll">
         <SheetHeader>
           <SheetTitle className="flex w-full items-center justify-between">
             <div className="text-green-600 *:h-5 *:w-5">
@@ -60,9 +63,12 @@ function Cart() {
               asChild
               className="cursor-pointer bg-gray-200 text-black *:h-8 *:w-8"
             >
-              <div className="rounded-full">
+              <button
+                className="rounded-full"
+                onClick={() => setCartOpen(false)}
+              >
                 <IoIosClose />
-              </div>
+              </button>
             </SheetClose>
           </SheetTitle>
         </SheetHeader>
@@ -72,7 +78,9 @@ function Cart() {
         <SheetFooter>
           <SheetClose asChild>
             <Button type="submit" className="mt-10 w-full" asChild>
-              <Link href="/checkout">Checkout</Link>
+              <Link href="/checkout" onClick={() => setCartOpen(false)}>
+                Checkout
+              </Link>
             </Button>
           </SheetClose>
         </SheetFooter>

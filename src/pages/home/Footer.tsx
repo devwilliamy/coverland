@@ -28,7 +28,6 @@ import LiveChat from '@/components/LiveChat';
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
-  console.log('Footer component is rendering');
   return (
     <footer className="flex flex-col items-center justify-center bg-[#1A1A1A] px-2 py-2 md:px-8 md:py-8 lg:px-14 lg:py-10 ">
       {/* <Membership /> */}
@@ -155,12 +154,12 @@ const Footer = () => {
               Information
             </p>
             <ul className="list-none">
-              <li className="hover-underline-animation mb-4 text-base font-normal capitalize text-[#DBDBDB]">
+              {/* <li className="hover-underline-animation mb-4 text-base font-normal capitalize text-[#DBDBDB]">
                 <Link href="about">About Us</Link>
-              </li>
-              <li className="hover-underline-animation mb-4 text-base font-normal capitalize text-[#DBDBDB]">
+              </li> */}
+              {/* <li className="hover-underline-animation mb-4 text-base font-normal capitalize text-[#DBDBDB]">
                 <Link href="buying-guides">Buying Guides</Link>
-              </li>
+              </li> */}
               <li className="hover-underline-animation mb-4 text-base font-normal capitalize text-[#DBDBDB]">
                 <Link href="/policies/warranty-policy">Warranty</Link>
               </li>
@@ -219,7 +218,7 @@ const Footer = () => {
         </div>
       </div>
       {/* </div */}
-      <LiveChat />
+      {/* <LiveChat /> */}
     </footer>
   );
 };

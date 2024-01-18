@@ -2,8 +2,8 @@
 
 import { Button } from '@/components/ui/button';
 import { TProductData } from '@/lib/db';
-
-import { useEffect, useState } from 'react';
+import { track } from '@vercel/analytics';
+import { useCallback } from 'react';
 import useCarSelection from '@/lib/db/hooks/useCarSelection';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 
@@ -12,6 +12,8 @@ import { SubmodelSearch } from './SubmodelSearch';
 import { YearSearch } from './YearSearch';
 import { SubmodelSearch2nd } from './SubmodelSearch2nd';
 import { refreshRoute } from '@/app/[productType]/[...product]/actions';
+import modelJson from '@/data/staticGenerationTableData.json';
+import { slugify } from '@/lib/utils';
 
 export default function SubDropdowns({
   modelData,
@@ -38,13 +40,8 @@ export default function SubDropdowns({
   const submodelParam = searchParams?.get('submodel') ?? '';
   const submodelParam2nd = searchParams?.get('second_submodel') ?? '';
 
-  console.log(pathname);
-
   const isYearInPath = pathname?.split('/').length === 5;
 
-  console.log(searchParams);
-
-  // console.log(modelData);
   const yearData = [
     ...new Set(
       modelData
@@ -57,36 +54,45 @@ export default function SubDropdowns({
 
   const shouldTriggerSetParams =
     secondSubmodels.length === 0 && !!selectedSubmodel;
+  const createQueryString = useCallback(
+    (name: string, value: string) => {
+      const params = new URLSearchParams(searchParams?.toString());
+      params.set(name, value);
+
+      return params.toString().toLowerCase();
+    },
+    [searchParams]
+  );
+
+  //console.log(selectedSubmodel);
+
+  const modelsWithSubmodel = modelJson.filter(
+    (car) =>
+      car?.submodel1?.toLowerCase() === submodelParam.toLowerCase() &&
+      slugify(car?.model) === (pathname?.split('/')[3] as string)
+  );
 
   const setSearchParams = () => {
-    const currentParams = new URLSearchParams(window.location.search);
+    let url: string = '';
 
-    if (selectedYear) {
-      currentParams.append('year', selectedYear.toString().toLowerCase());
-    }
-    if (selectedSubmodel) {
-      currentParams.append('submodel', selectedSubmodel.toLowerCase());
+    // if (selectedYear) {
+    //   url += createQueryString('year', selectedYear);
+    // }
+    if (selectedSubmodel && !submodelParam) {
+      url += createQueryString('submodel', selectedSubmodel);
     }
 
     if (selectedSecondSubmodel) {
-      currentParams.append(
-        'second_submodel',
-        selectedSecondSubmodel.toLowerCase()
-      );
+      url += `&${createQueryString('second_submodel', selectedSecondSubmodel)}`;
     }
-
-    console.log(`${pathname}?${currentParams.toString()}`);
-    refreshRoute('/');
-    router.push(`${pathname}?${currentParams.toString()}`);
+    // refreshRoute('/');
+    router.push(`?${url}`);
     // refreshRoute(`${pathname}?${currentParams.toString()}`);
   };
 
   const hasSubmodel = new Set(modelData.map((car) => car?.submodel1)).size > 1;
   const hasSecondSubModel =
     modelData.filter((car) => car?.submodel2).length > 1;
-  console.log(hasSecondSubModel);
-
-  if (submodelParam) return null;
 
   return (
     <>
@@ -102,27 +108,36 @@ export default function SubDropdowns({
               yearParam={yearParam}
             />
           )}
-
           {!!submodels.length && (
             <SubmodelSearch
               modelData={modelData}
               submodels={submodels}
               setSelectedSubmodel={setSelectedSubmodel}
               submodelParam={submodelParam}
+              selectedSubmodel={selectedSubmodel}
               shouldTriggerSetParams={shouldTriggerSetParams}
             />
           )}
-          {secondSubmodels.length > 1 && (
+          {secondSubmodels.length > 0 && !submodelParam2nd && (
             <SubmodelSearch2nd
               modelData={modelData}
               setSelectedSecondSubmodel={setSelectedSecondSubmodel}
               submodelParam2nd={submodelParam2nd}
-              secondSubmodels={secondSubmodels}
+              selectedSubmodel={selectedSubmodel}
             />
           )}
         </div>
-        {hasSecondSubModel && (
-          <Button className="h-[60px] w-full text-lg" onClick={setSearchParams}>
+        {hasSecondSubModel && !submodelParam2nd && (
+          <Button
+            className="h-[60px] w-full text-lg"
+            onClick={() => {
+              setSearchParams();
+              track('PDP_submodels', {
+                submodel: selectedSubmodel,
+                second_submodel: selectedSecondSubmodel,
+              });
+            }}
+          >
             Set Selection
           </Button>
         )}

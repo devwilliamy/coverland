@@ -1,37 +1,66 @@
+'use client';
 import Image from 'next/image';
 import product from '@/images/PDP/product_details_01.webp';
+import productMobile from '@/images/PDP/product_details_01_mobile.webp';
 import WhiteLogo from '@/images/logos/logo-white.png';
+import { useMediaQuery } from '@mantine/hooks';
+import { Separator } from '../ui/separator';
 
 export function ProductHero() {
+  const isMobile = useMediaQuery('(max-width: 1024px)'); //lg
+
   return (
     <div className="relative w-full">
+      <Separator className="mb-10 mt-3 lg:hidden" />
+
       <div className="-z-0">
-        <Image
-          alt="product"
-          src={product}
-          placeholder="blur"
-          quality={75}
-          className="object-cover w-full"
-        />
+        {isMobile ? (
+          <Image
+            alt="product"
+            src={productMobile}
+            placeholder="blur"
+            quality={75}
+            className="w-full object-cover"
+          />
+        ) : (
+          <Image
+            alt="product"
+            src={product}
+            placeholder="blur"
+            quality={75}
+            className="w-full object-cover"
+          />
+        )}
       </div>
-      <div className="absolute top-2.5 md:top-[75px] left-0 w-full h-full flex flex-col items-center">
-        <p className="text-white font-black sm:text-xl md:text-3xl lg:text-5xl uppercase text-center">
-          Your car deserves the Best
+      <div className="absolute left-0 top-[100px] flex h-full w-full flex-col items-center md:top-[75px]">
+        <p className="w-60 text-center text-2xl font-black uppercase leading-9 text-[#F2F2F2] md:text-3xl lg:w-full lg:text-5xl lg:text-white">
+          Your car deserves the best
         </p>
-        <p className="capitalize text-white opacity-80 text-lg md:text-2xl font-normal pt-4 flex flex-row flex-nowrap tracking-[0.48px]">
-          Timeless Resilience
-          <br className="invisible md:visible" />
-          <span className="hidden lg:block mr-1">. </span> Ultimate durability
-        </p>
+        {isMobile ? (
+          <>
+            <p className="flex flex-row flex-nowrap pt-[340px] text-lg font-normal capitalize tracking-[0.48px] text-[#F2F2F2] md:text-2xl lg:pt-4 lg:text-white lg:opacity-80">
+              Timeless Resilience
+            </p>
+            <p className="flex flex-row flex-nowrap text-lg font-normal capitalize tracking-[0.49px] text-[#F2F2F2]">
+              Ultimate durability
+            </p>
+          </>
+        ) : (
+          <p className="flex flex-row flex-nowrap pt-[340px] text-lg font-normal capitalize tracking-[0.48px] text-[#F2F2F2] md:text-2xl lg:pt-4 lg:text-white lg:opacity-80">
+            Timeless Resilience
+            <br className="invisible md:visible" />
+            <span className="mr-1 hidden lg:block">. </span> Ultimate durability
+          </p>
+        )}
       </div>
 
-      <div className="absolute bottom-2.5 md:bottom-[57px] left-2.5 md:left-[71px]">
+      <div className="absolute bottom-[26px] right-[30px] md:bottom-[57px] md:left-[71px]">
         <Image
           alt="coverland"
           src={WhiteLogo}
           placeholder="blur"
-          width={184}
-          height={31}
+          width={isMobile ? 120 : 184}
+          height={isMobile ? 22 : 31}
         />
       </div>
     </div>

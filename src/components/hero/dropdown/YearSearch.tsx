@@ -29,7 +29,7 @@ export function YearSearch({
       value={value}
       onChange={(event) => handleChange(event)}
       disabled={!queryObj.query.type}
-      className="text-lg rounded-lg  px-2"
+      className="rounded-lg px-2  text-lg"
     >
       <option value="">Select car year</option>
       {years.map((year) => (

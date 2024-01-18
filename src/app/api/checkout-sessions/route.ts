@@ -23,7 +23,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
       item.submodel1 ? item.submodel1 : ''
     } ${item.submodel2 ? item.submodel2 : ''} Car Cover ${item.display_id} ${
       item.display_color
-    }`;
+    } ${item.sku}`;
 
     return {
       price_data: {
@@ -45,7 +45,8 @@ export async function POST(req: NextRequest, res: NextResponse) {
     success_url: `${headersList.get(
       'origin'
     )}/thank-you?order-number=${generateOrderId()}`,
-    cancel_url: `${headersList.get('origin')}/cart`,
+    cancel_url: `${headersList.get('origin')}/checkout`,
+    billing_address_collection: 'required',
   };
 
   try {
