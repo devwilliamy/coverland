@@ -9,6 +9,7 @@ import Footer from '@/pages/home/Footer';
 import { Toaster } from '@/components/ui/toaster';
 import LiveChat from '@/components/LiveChat';
 import { Analytics } from '@vercel/analytics/react';
+import AppScripts from './scripts/AppScripts';
 
 const roboto = Roboto({
   weight: ['400', '500', '700', '900'],
@@ -40,6 +41,7 @@ export default function RootLayout({
           <Footer />
         </Providers>
         <Analytics />
+        <AppScripts />
       </body>
     </html>
   );
