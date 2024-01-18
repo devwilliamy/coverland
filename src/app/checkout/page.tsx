@@ -19,6 +19,7 @@ import Link from 'next/link';
 import { FaRegTrashAlt } from 'react-icons/fa';
 import { IconContext } from 'react-icons';
 import { revalidatePath } from 'next/cache';
+import { AiOutlineLoading3Quarters } from 'react-icons/ai';
 function CheckoutPage() {
   const {
     cartItems,
@@ -31,6 +32,7 @@ function CheckoutPage() {
   } = useCartContext();
   const [promoCode, setPromoCode] = useState('');
   const [promoError, setPromoError] = useState(false);
+  const [loading, setLoading] = useState(false);
   // const [quantity, setQuantity] = useState(Number);
   // let totalMsrpPrice = Number(0);
   // let totalDiscountedPrice = Number(0);
@@ -113,11 +115,11 @@ function CheckoutPage() {
                         />
                       </div>
                       <div className="flex w-7/12 flex-col gap-2">
-                        <div className="w-10/12 text-3xl font-bold">
-                          {item?.display_id} {item.type}
+                        <div className="w-10/12 text-[22px] font-bold">
+                          {item?.display_id}&trade; {item.type}
                         </div>
                         <div className="text-lg font-thin text-gray-500">
-                          Vehicle: {item?.make} {item.model}{' '}
+                          Vehicle: {item?.make} {item.model}
                           {item.year_generation}
                           {/* {item.submodel1 && item.submodel1} */}
                         </div>
@@ -255,9 +257,16 @@ function CheckoutPage() {
               <Button
                 variant={'default'}
                 className="h-[63px] w-full bg-black text-xl uppercase sm:h-[48px] "
-                onClick={redirectToCheckout}
+                onClick={() => {
+                  redirectToCheckout();
+                  setLoading(true);
+                }}
               >
-                Checkout
+                {loading ? (
+                  <AiOutlineLoading3Quarters className="animate-spin" />
+                ) : (
+                  'Checkout'
+                )}
               </Button>
             </div>
             {/* <Link
