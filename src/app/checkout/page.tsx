@@ -115,11 +115,11 @@ function CheckoutPage() {
                         />
                       </div>
                       <div className="flex w-7/12 flex-col gap-2">
-                        <div className="w-10/12 text-3xl font-bold">
-                          {item?.display_id} {item.type}
+                        <div className="w-10/12 text-[22px] font-bold">
+                          {item?.display_id}&trade; {item.type}
                         </div>
                         <div className="text-lg font-thin text-gray-500">
-                          Vehicle: {item?.make} {item.model}{' '}
+                          Vehicle: {item?.make} {item.model}
                           {item.year_generation}
                           {/* {item.submodel1 && item.submodel1} */}
                         </div>
