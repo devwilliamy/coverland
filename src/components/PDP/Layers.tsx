@@ -13,7 +13,7 @@ export function Layers() {
 
   return (
     <>
-      <div className="flex-start flex h-auto w-full flex-col justify-start pb-8 pt-10 lg:pt-0">
+      <div className="flex-start flex h-auto w-full flex-col justify-start pb-[18px] pt-10 lg:pt-0">
         <p className="mb-4 text-lg font-normal capitalize text-[#343434] md:text-2xl">
           High-Quality Car Cover
         </p>
@@ -24,7 +24,7 @@ export function Layers() {
           Engineered to {isMobile ? <br /> : ''} Perfection
         </p>
       </div>
-      <div className="flex h-full w-full flex-col gap-10 bg-[#F9F9FB] p-4 md:p-8 lg:px-14 lg:py-10">
+      <div className="flex h-full w-full flex-col md:p-8 lg:gap-10 lg:px-14 lg:py-10">
         <div className="flex w-full items-stretch justify-stretch lg:w-auto lg:items-center lg:justify-center">
           <Image src={Crystal} alt="crystal" className="w-full" />
         </div>

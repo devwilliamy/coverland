@@ -12,7 +12,7 @@ export function ProductHero() {
     <div className="relative w-full">
       <Separator className="mb-10 mt-3 lg:hidden" />
 
-      <div className="-z-0">
+      <div className="relative -z-0">
         {isMobile ? (
           <Image
             alt="product"
@@ -30,27 +30,35 @@ export function ProductHero() {
             className="w-full object-cover"
           />
         )}
-      </div>
-      <div className="absolute left-0 top-[100px] flex h-full w-full flex-col items-center md:top-[75px]">
-        <p className="w-60 text-center text-2xl font-black uppercase leading-9 text-[#F2F2F2] md:text-3xl lg:w-full lg:text-5xl lg:text-white">
-          Your car deserves the best
-        </p>
-        {isMobile ? (
-          <>
+        <div className="absolute top-0 flex h-full w-full flex-col items-center">
+          <p className="absolute top-[10%] w-60 text-center text-2xl font-black uppercase leading-9 text-[#F2F2F2] md:text-3xl lg:w-full lg:text-5xl lg:text-white">
+            Your car deserves the best
+          </p>
+          {isMobile ? (
+            <div
+              className="absolute bottom-[15%] flex flex-col items-center 
+            text-lg"
+            >
+              <p
+                className="flex flex-row flex-nowrap 
+              capitalize tracking-[0.48px] text-[#F2F2F2] 
+              md:text-2xl lg:pt-4 lg:text-white lg:opacity-80"
+              >
+                Timeless Resilience
+              </p>
+              <p className="flex flex-row flex-nowrap   capitalize tracking-[0.49px] text-[#F2F2F2]">
+                Ultimate durability
+              </p>
+            </div>
+          ) : (
             <p className="flex flex-row flex-nowrap pt-[340px] text-lg font-normal capitalize tracking-[0.48px] text-[#F2F2F2] md:text-2xl lg:pt-4 lg:text-white lg:opacity-80">
               Timeless Resilience
+              <br className="invisible md:visible" />
+              <span className="mr-1 hidden lg:block">. </span> Ultimate
+              durability
             </p>
-            <p className="flex flex-row flex-nowrap text-lg font-normal capitalize tracking-[0.49px] text-[#F2F2F2]">
-              Ultimate durability
-            </p>
-          </>
-        ) : (
-          <p className="flex flex-row flex-nowrap pt-[340px] text-lg font-normal capitalize tracking-[0.48px] text-[#F2F2F2] md:text-2xl lg:pt-4 lg:text-white lg:opacity-80">
-            Timeless Resilience
-            <br className="invisible md:visible" />
-            <span className="mr-1 hidden lg:block">. </span> Ultimate durability
-          </p>
-        )}
+          )}
+        </div>
       </div>
 
       <div className="absolute bottom-[26px] right-[30px] md:bottom-[57px] md:left-[71px]">
