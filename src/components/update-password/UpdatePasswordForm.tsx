@@ -12,21 +12,17 @@ export default function UpdatePasswordForm({
 }) {
   const router = useRouter();
   const supabase: SupabaseClient = createSupabaseBrowserClient();
+  let currentSession: string;
 
   const { data } = supabase.auth.onAuthStateChange(async (event, session) => {
-    console.log('Session:', session);
-    console.log('Data:', data);
-    console.log('Event:', event);
-    /*
-        Note: Create CONSTANTS for these events
-        Sample Events: 
-         - INITIAL_SESSION
-         - SIGNED_IN
-         - USER_UPDATED (when password change happens)
-    */
-    // if (session && event === 'SIGNED_IN') {
-    //   router.push('/profile');
-    // }
+    if (!currentSession) currentSession = session?.access_token as string;
+    if (
+      event === 'SIGNED_IN' &&
+      currentSession &&
+      currentSession !== session?.access_token
+    ) {
+      router.push('/profile');
+    }
   });
 
   return (
