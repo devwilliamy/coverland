@@ -1,11 +1,28 @@
 import { slugify } from '@/lib/utils';
 import CarPDP from './page';
 import generationData from '@/data/generationData.json';
-import { fetchCarPDPData, fetchPDPData } from '@/lib/db';
+import {
+  TReviewData,
+  fetchCarPDPData,
+  fetchGenerationReviewData,
+  fetchPDPData,
+} from '@/lib/db';
 import { redirect } from 'next/navigation';
+import { colorOrder } from '@/lib/constants';
+import { Suspense } from 'react';
 
-export default async function CarPDPYearLayout({ params, searchParams }) {
-  console.log(params, searchParams);
+export type TCarCoverSlugParams = {
+  params: {
+    make: string;
+    model: string;
+    year: string;
+  };
+};
+
+export default async function CarPDPYearLayout({
+  params,
+}: TCarCoverSlugParams) {
+  console.log(params);
   const generationFk = generationData.filter(
     (gen) =>
       slugify(gen.make) === params.make &&
@@ -20,42 +37,46 @@ export default async function CarPDPYearLayout({ params, searchParams }) {
   if (!modelData) {
     redirect('/404');
   }
+  const reviewData: TReviewData[] | null = await fetchGenerationReviewData(
+    String(generationFk)
+  );
 
   modelData = modelData.filter((car) =>
     car.generation_default
-      ? car.fk === generationFk
-      : car.generation_default !== generationFk
+      ? car.generation_default === generationFk
+      : car.fk === generationFk
   );
+  console.log(modelData.length);
 
-  if (searchParams?.get('submodel')) {
-    modelData = modelData?.filter(
-      (car) =>
-        car?.submodel1_slug === searchParams?.get('submodel')?.toLowerCase()
-    );
-  }
+  modelData = modelData
+    ?.filter((product) => product.msrp && product.price)
+    .sort((a, b) => {
+      let colorIndexA = colorOrder.indexOf(a?.display_color as string);
+      let colorIndexB = colorOrder.indexOf(b?.display_color as string);
 
-  if (searchParams?.get('second_submodel')) {
-    modelData = modelData?.filter(
-      (car) =>
-        car?.submodel2_slug ===
-        searchParams?.get('second_submodel')?.toLowerCase()
-    );
-  }
+      if (colorIndexA === -1) colorIndexA = Infinity;
+      if (colorIndexB === -1) colorIndexB = Infinity;
+
+      return colorIndexA - colorIndexB;
+    });
 
   if (modelData?.length === 0) {
     redirect('/404');
   }
 
-  console.log(modelData);
+  console.log(modelData.length);
 
   return (
     <>
-      <CarPDP
-        params={params}
-        searchParams={searchParams}
-        generationFk={generationFk}
-        modelData={modelData}
-      />
+      <Suspense fallback={<div>Loading...</div>}>
+        <CarPDP
+          params={params}
+          generationFk={generationFk}
+          modelData={modelData}
+          key={params.year}
+          reviewData={reviewData}
+        />
+      </Suspense>
     </>
   );
 }

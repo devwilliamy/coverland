@@ -141,6 +141,18 @@ export async function addOrderToDb(order: any) {
   return data;
 }
 
+export async function fetchGenerationReviewData(fk: string) {
+  const { data, error } = await supabase
+    .from('Product-Reviews')
+    .select('*')
+    .textSearch('sku', fk);
+
+  if (error) {
+    console.log(error);
+  }
+  return data;
+}
+
 export async function fetchReviewData(
   queryParams: TPDPQueryParams,
   params: TPDPPathParams

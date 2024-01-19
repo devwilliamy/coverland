@@ -20,7 +20,7 @@ export default function EditVehiclePopover({
   submodel,
 }: {
   selectedProduct: TProductData;
-  submodel: string | undefined;
+  submodel: string | undefined | null;
 }) {
   return (
     <div className=" z-50 flex flex-col gap-2">
