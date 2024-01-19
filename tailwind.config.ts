@@ -16,6 +16,7 @@ const config: Config = {
       },
       fontFamily: {
         sans: ['var(--font-roboto)'],
+        raleway: 'var(--font-raleway',
       },
     },
   },
