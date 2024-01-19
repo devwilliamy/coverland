@@ -40,10 +40,13 @@ export default async function ProductPDP({
   ) {
     redirect('/404');
   }
+  // refreshRoute('/');
   const initialProductData = await fetchPDPData(pathParams);
 
   const reviewData: TReviewData[] | null =
     (await fetchReviewData(searchParams, pathParams)) ?? [];
+
+  // console.log(reviewData);
 
   if (!initialProductData) {
     redirect('/');
@@ -55,6 +58,8 @@ export default async function ProductPDP({
       slugify(row.make) === make &&
       slugify(row.model) === model
   );
+
+  console.log(parentGeneration);
 
   const jsonForSku = (fk: number) => {
     return skuDisplayData.find((row) => row.fk === fk);
@@ -71,11 +76,14 @@ export default async function ProductPDP({
         (product) => product.fk === parentGeneration?.fk
       );
 
+  console.log(generationDefaultChildren, 'gen');
+
   const productsWithSubmodels = generationDefaultChildren.filter(
     (product) =>
       product.submodel1 &&
       generationDefaultChildren.map((p) => p.fk).includes(product.fk)
   );
+  // console.log(productsWithSubmodels);
   const submodels = Array.from(
     new Set(productsWithSubmodels.map((product) => product.submodel1))
   ).filter(Boolean) as string[];
@@ -87,8 +95,6 @@ export default async function ProductPDP({
   let modelData = submodelParam
     ? productsWithSubmodels
     : generationDefaultChildren;
-
-  // !year && (modelData = initialProductData);
 
   modelData = modelData
     .filter((product) => product.msrp && product.price)

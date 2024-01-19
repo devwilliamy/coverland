@@ -50,6 +50,8 @@ export function HeroDropdown() {
       : sku.model === model
   );
 
+  console.log(finalAvailableModels);
+
   const queryObj = {
     query,
     setQuery,
@@ -81,6 +83,8 @@ export function HeroDropdown() {
     skuDisplayData.find(
       (sku) => sku.fk === finalAvailableModels?.[0]?.generation_default
     )?.year_generation ?? finalAvailableModels?.[0]?.year_generation;
+
+  console.log(yearInUrl);
 
   const createQueryString = useCallback(
     (name: string, value: string) => {
