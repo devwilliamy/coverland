@@ -1,13 +1,4 @@
-const tabs1 = [
-  { name: 'Warranty', href: '/policies/warranty', current: false },
-  { name: 'Return Policy', href: '/policies/return-policy', current: false },
-  { name: 'Privacy Policy', href: '/policies/privacy-policy', current: false },
-  {
-    name: 'Shipping Policy',
-    href: '/policies/shipping-policy',
-    current: false,
-  },
-];
+import Link from 'next/link';
 
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(' ');
@@ -30,7 +21,7 @@ export default function FullWidthTabs({ tabs }: FullWidthTabsProps) {
         <div className="border-b border-gray-200">
           <nav className="-mb-px flex" aria-label="Tabs">
             {tabs.map((tab) => (
-              <a
+              <Link
                 key={tab.name}
                 href={tab.href}
                 className={classNames(
@@ -42,7 +33,7 @@ export default function FullWidthTabs({ tabs }: FullWidthTabsProps) {
                 aria-current={tab.current ? 'page' : undefined}
               >
                 {tab.name}
-              </a>
+              </Link>
             ))}
           </nav>
         </div>
