@@ -2,7 +2,7 @@
 import { AiOutlineLoading3Quarters } from 'react-icons/ai';
 import { Button } from '@/components/ui/button';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
-import { useCallback, useState } from 'react';
+import { Dispatch, SetStateAction, useCallback, useState } from 'react';
 import { TypeSearch } from '../hero/dropdown/TypeSearch';
 import { MakeSearch } from '../hero/dropdown/MakeSearch';
 import { ModelSearch } from '../hero/dropdown/ModelSearch';
@@ -19,7 +19,11 @@ export type TQuery = {
   submodel: string;
 };
 
-export default function EditVehicleDropdown() {
+export default function EditVehicleDropdown({
+  setOpen,
+}: {
+  setOpen?: Dispatch<SetStateAction<boolean>>;
+}) {
   const searchParams = useSearchParams();
   const pathname = usePathname();
 
@@ -35,6 +39,10 @@ export default function EditVehicleDropdown() {
   const { year, type, make, model, submodel } = query;
   // const isReadyForSubmit = year && type && make && model;
   const types = ['Car Covers', 'SUV Covers', 'Truck Covers'];
+
+  const closePopover = useCallback(() => {
+    setOpen && setOpen(false);
+  }, [setOpen]);
 
   const typeIndex = String(types.indexOf(type) + 1);
 
@@ -100,7 +108,12 @@ export default function EditVehicleDropdown() {
   const handleSubmitDropdown = async () => {
     setLoading(true);
     let url = `/${slugify(type)}/${slugify(make)}/${slugify(model)}/${yearInUrl}`;
-    const currentUrl = `${pathname}?${searchParams}`;
+    const currentUrl = `${pathname}${searchParams?.toString() ? `?${searchParams.toString()}` : ''}`;
+    if (url === currentUrl) {
+      setLoading(false);
+      closePopover();
+      return;
+    }
 
     if (submodel) {
       url += `?${createQueryString('submodel', submodel)}`;
@@ -109,10 +122,7 @@ export default function EditVehicleDropdown() {
     // refreshRoute('/');
     router.push(url);
     router.refresh();
-    if (url == currentUrl) {
-      setLoading(false);
-      return;
-    }
+    closePopover();
   };
 
   return (
