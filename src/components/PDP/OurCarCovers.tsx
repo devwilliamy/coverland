@@ -31,7 +31,7 @@ export function OurCarCovers() {
           Our car covers <br /> have you covered
         </p>
       </div>
-      <div className="flex flex-col gap-[30px] lg:grid lg:grid-cols-3">
+      <div className="flex flex-col items-center justify-center gap-[30px] lg:grid lg:grid-cols-3">
         {/* <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
           <div className="flex items-center justify-center gap-4 md:flex-row md:items-start md:justify-items-center lg:grid lg:grid-cols-4">
             <div className="h-[50px] w-[50px] lg:h-[60px] lg:w-[60px]">
@@ -164,7 +164,7 @@ export function OurCarCovers() {
 
 const OurCoversBlock = (props: Props) => {
   return (
-    <div className="flex justify-center gap-4 md:flex-row md:items-start md:justify-items-center lg:grid lg:grid-cols-4">
+    <div className="flex w-full gap-4 md:flex-row md:items-start md:justify-items-center lg:grid lg:grid-cols-4">
       <div className="h-[77px] w-[77px] lg:h-[60px] lg:w-[60px]">
         <div className="bg-blue flex h-full w-full flex-col items-center justify-center rounded-full">
           {props.icon}
