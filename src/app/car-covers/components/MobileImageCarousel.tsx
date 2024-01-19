@@ -1,12 +1,10 @@
 import { useCallback, useEffect, useState } from 'react';
-import { TCarCoverData } from './CarCoverSelector';
+import { TCarCoverData } from './CarPDP';
 import {
   Carousel,
   CarouselApi,
   CarouselContent,
   CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
 } from '@/components/ui/carousel';
 import Image from 'next/image';
 import ProductVideo from '@/components/PDP/ProductVideo';

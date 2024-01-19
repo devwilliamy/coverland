@@ -5,7 +5,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from '@/components/ui/popover';
-import { TCarCoverData } from './CarCoverSelector';
+import { TCarCoverData } from './CarPDP';
 
 export function EditVehicleModal({
   selectedProduct,

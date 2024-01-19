@@ -1,35 +1,32 @@
 'use client';
 
-import { TProductData, TReviewData, fetchPDPData } from '@/lib/db';
+import { TProductData, TReviewData } from '@/lib/db';
 import { Separator } from '@/components/ui/separator';
 import Image from 'next/image';
 import { GoDotFill } from 'react-icons/go';
 import Link from 'next/link';
 import React, {
-  ReactPropTypes,
+  Ref,
   RefObject,
   useCallback,
   useEffect,
   useRef,
   useState,
 } from 'react';
-import { BsBoxSeam, BsGift, BsInfoCircle } from 'react-icons/bs';
+import { BsBoxSeam, BsGift } from 'react-icons/bs';
 import { DropdownPDP } from './DropdownPDP';
-import { useToast } from '@/components/ui/use-toast';
 import { useCartContext } from '@/providers/CartProvider';
 import Rating from '@mui/material/Rating';
 import {
   TPDPPathParams,
   TPDPQueryParams,
-  TSkuJson,
-} from '@/app/(headerFooter)/[productType]/[...product]/page';
+} from '@/app/(main)/[productType]/[...product]/page';
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from '@radix-ui/react-popover';
 import { Button } from '../ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '../ui/card';
 import AgentProfile from '@/images/PDP/agent_profile.png';
 import { useMediaQuery } from '@mantine/hooks';
 import { FolderUpIcon, SecureIcon, ThumbsUpIcon } from './images';
@@ -37,22 +34,7 @@ import { MoneyBackIcon } from './images/MoneyBack';
 import { EditIcon } from './components/icons';
 import { track } from '@vercel/analytics';
 
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from '../ui/dialog';
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from '../ui/carousel';
-import { ToastAction } from '../ui/toast';
+import { Carousel, CarouselContent, CarouselItem } from '../ui/carousel';
 import dynamicImport from 'next/dynamic';
 import { type CarouselApi } from '@/components/ui/carousel';
 import {
@@ -61,10 +43,8 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from '../ui/accordion';
-import { useRouter } from 'next/navigation';
-import { usePathname } from 'next/navigation';
 import skuDisplayData from '@/data/skuDisplayData.json';
-import { slugify, stringToSlug } from '@/lib/utils';
+import { stringToSlug } from '@/lib/utils';
 
 const ProductVideo = dynamicImport(() => import('./ProductVideo'), {
   ssr: false,
@@ -203,9 +183,6 @@ function CarSelector({
       : defaultModel ?? displayedModelData[0]
   );
 
-  const router = useRouter();
-  const path = usePathname();
-
   // Sometimes when submodel2 is selected, selectedProduct won't update to the right one
   useEffect(() => {
     const updateSelectedProduct = () => {
@@ -220,7 +197,7 @@ function CarSelector({
     selectedProduct?.feature as string
   );
 
-  const { cartItems, cartOpen, setCartOpen } = useCartContext();
+  const { setCartOpen } = useCartContext();
 
   const productRefs = useRef<ProductRefs>(
     displayedModelData.reduce((acc: ProductRefs, item: TProductData) => {
@@ -232,7 +209,6 @@ function CarSelector({
   const [showMore, setShowMore] = useState(false);
   const isMobile = useMediaQuery('(max-width: 768px)');
 
-  const { toast } = useToast();
   const { addToCart } = useCartContext();
   const isReadyForSelection = submodels.length
     ? pathParams?.product?.length === 3 && !!searchParams?.submodel
@@ -381,7 +357,7 @@ function CarSelector({
                     ref={
                       productRefs?.current[
                         sku?.sku as TProductData['sku']
-                      ] as any
+                      ] as Ref<HTMLImageElement>
                     }
                     width={98}
                     height={98}
@@ -425,7 +401,7 @@ function CarSelector({
           </>
           {/* Cover Types Section */}
           <div className="flex flex-row space-x-1 overflow-x-auto whitespace-nowrap p-2 lg:grid lg:w-auto lg:grid-cols-5 lg:gap-[7px] lg:px-3">
-            {uniqueTypes.map((sku, idx) => {
+            {uniqueTypes.map((sku) => {
               return (
                 <button
                   className={`flex-shrink-0 p-1 lg:flex lg:flex-col lg:items-center lg:justify-center ${
@@ -862,47 +838,47 @@ function CarSelector({
 
 export default CarSelector;
 
-const DesktopShowMoreCarousel = ({
-  selectedProduct,
-  modalProductImages,
-}: {
-  selectedProduct: TProductData;
-  modalProductImages: string[];
-}) => {
-  return (
-    <Dialog>
-      <DialogTrigger asChild>
-        <Button className="mx-auto mt-9 h-12 w-[216px] rounded border border-[#1A1A1A] bg-transparent text-lg font-normal capitalize text-[#1A1A1A] hover:bg-[#1A1A1A] hover:text-white">
-          show more images
-        </Button>
-      </DialogTrigger>
-      <DialogContent className="">
-        <Carousel>
-          <CarouselContent>
-            {modalProductImages.map((image, index) => (
-              <CarouselItem key={index}>
-                <div className="p-1">
-                  <Card>
-                    <CardContent className="flex aspect-square items-center justify-center p-6">
-                      <Image
-                        src={image}
-                        alt={`Additional images of the ${selectedProduct.display_id} cover`}
-                        width={500}
-                        height={500}
-                      />
-                    </CardContent>
-                  </Card>
-                </div>
-              </CarouselItem>
-            ))}
-          </CarouselContent>
-          <CarouselPrevious />
-          <CarouselNext />
-        </Carousel>
-      </DialogContent>
-    </Dialog>
-  );
-};
+// const DesktopShowMoreCarousel = ({
+//   selectedProduct,
+//   modalProductImages,
+// }: {
+//   selectedProduct: TProductData;
+//   modalProductImages: string[];
+// }) => {
+//   return (
+//     <Dialog>
+//       <DialogTrigger asChild>
+//         <Button className="mx-auto mt-9 h-12 w-[216px] rounded border border-[#1A1A1A] bg-transparent text-lg font-normal capitalize text-[#1A1A1A] hover:bg-[#1A1A1A] hover:text-white">
+//           show more images
+//         </Button>
+//       </DialogTrigger>
+//       <DialogContent className="">
+//         <Carousel>
+//           <CarouselContent>
+//             {modalProductImages.map((image, index) => (
+//               <CarouselItem key={index}>
+//                 <div className="p-1">
+//                   <Card>
+//                     <CardContent className="flex aspect-square items-center justify-center p-6">
+//                       <Image
+//                         src={image}
+//                         alt={`Additional images of the ${selectedProduct.display_id} cover`}
+//                         width={500}
+//                         height={500}
+//                       />
+//                     </CardContent>
+//                   </Card>
+//                 </div>
+//               </CarouselItem>
+//             ))}
+//           </CarouselContent>
+//           <CarouselPrevious />
+//           <CarouselNext />
+//         </Carousel>
+//       </DialogContent>
+//     </Dialog>
+//   );
+// };
 
 const MobileImageCarousel = ({
   selectedProduct,

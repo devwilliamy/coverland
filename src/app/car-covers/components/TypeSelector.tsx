@@ -1,7 +1,7 @@
 'use client';
 
 import { RefObject } from 'react';
-import { TCarCoverData } from './CarCoverSelector';
+import { TCarCoverData } from './CarPDP';
 import Image from 'next/image';
 
 interface ProductRefs {
@@ -33,7 +33,7 @@ export function TypeSelector({
       </div>
       {/* Cover Types Section */}
       <div className="flex flex-row space-x-1 overflow-x-auto whitespace-nowrap p-2 lg:grid lg:w-auto lg:grid-cols-5 lg:gap-[7px] lg:px-3">
-        {uniqueTypes.map((sku, idx) => {
+        {uniqueTypes.map((sku) => {
           return (
             <button
               className={`flex-shrink-0 p-1 lg:flex lg:flex-col lg:items-center lg:justify-center ${

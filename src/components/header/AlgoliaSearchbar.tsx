@@ -1,30 +1,9 @@
 'use client';
 
 import algoliasearch from 'algoliasearch';
-import { Dispatch, ReactNode, SetStateAction, useState } from 'react';
-import {
-  InstantSearch,
-  SearchBox,
-  useHits,
-  useInstantSearch,
-  useSearchBox,
-} from 'react-instantsearch';
-import { generationDefaultKeys } from '@/lib/constants';
+import { ReactNode, useState } from 'react';
+import { InstantSearch, SearchBox, useHits } from 'react-instantsearch';
 import Link from 'next/link';
-
-function removeDuplicates(items: any[]) {
-  const uniqueItems: any = [];
-  const objectIds = new Set();
-
-  items.forEach((item) => {
-    if (!objectIds.has(`${item.model}-${item.submodel1}`)) {
-      uniqueItems.push(item);
-      objectIds.add(item.model);
-    }
-  });
-
-  return uniqueItems;
-}
 
 export default function AlgoliaSearchbar() {
   const [showHits, setShowHits] = useState(false);
@@ -38,7 +17,6 @@ export default function AlgoliaSearchbar() {
 }
 
 const SearchHits = () => {
-  const { refine } = useSearchBox();
   const { hits } = useHits();
 
   console.log(hits);
@@ -57,30 +35,6 @@ const SearchHits = () => {
     </div>
   );
 };
-
-function NoResultsBoundary({
-  children,
-  showHits,
-  setShowHits,
-}: {
-  children: ReactNode;
-  showHits: boolean;
-  setShowHits: Dispatch<SetStateAction<boolean>>;
-}) {
-  const { results, indexUiState } = useInstantSearch();
-
-  // The `__isArtificial` flag makes sure not to display the No Results message
-  // when no hits have been returned.
-  if (
-    (!results.__isArtificial && results.nbHits === 0) ||
-    !indexUiState.query ||
-    !showHits
-  ) {
-    return null;
-  }
-
-  return children;
-}
 
 function AlgoliaWrapper({ children }: { children: ReactNode }) {
   const searchClient = algoliasearch(
@@ -121,8 +75,6 @@ function AlgoliaWrapper({ children }: { children: ReactNode }) {
 }
 
 const AlgoliaSearchBox = ({ setShowHits }: any) => {
-  const { refine } = useSearchBox();
-
   return (
     <SearchBox
       classNames={{

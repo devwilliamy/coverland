@@ -2,7 +2,6 @@
 
 import { useMediaQuery } from '@mantine/hooks';
 import { HeroDropdown } from './dropdown/HeroDropdown';
-import bg from '/public/images/hero/home-hero_D.webp';
 import hero from '@/images/hero/hero.webp';
 import heroMobile from '@/images/hero/hero_mobile.webp';
 import Image from 'next/image';

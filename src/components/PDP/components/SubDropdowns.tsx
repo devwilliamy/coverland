@@ -7,13 +7,9 @@ import { useCallback } from 'react';
 import useCarSelection from '@/lib/db/hooks/useCarSelection';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 
-import { extractUniqueValues } from '../utils';
 import { SubmodelSearch } from './SubmodelSearch';
 import { YearSearch } from './YearSearch';
 import { SubmodelSearch2nd } from './SubmodelSearch2nd';
-import { refreshRoute } from '@/app/(headerFooter)/[productType]/[...product]/actions';
-import modelJson from '@/data/staticGenerationTableData.json';
-import { slugify } from '@/lib/utils';
 
 export default function SubDropdowns({
   modelData,
@@ -25,7 +21,6 @@ export default function SubDropdowns({
   secondSubmodels: string[];
 }) {
   const {
-    selectedYear,
     setSelectedYear,
     selectedSubmodel,
     setSelectedSubmodel,
@@ -64,12 +59,6 @@ export default function SubDropdowns({
     [searchParams]
   );
 
-  const modelsWithSubmodel = modelJson.filter(
-    (car) =>
-      car?.submodel1?.toLowerCase() === submodelParam.toLowerCase() &&
-      slugify(car?.model) === (pathname?.split('/')[3] as string)
-  );
-
   const setSearchParams = () => {
     let url: string = '';
 
@@ -88,7 +77,6 @@ export default function SubDropdowns({
     // refreshRoute(`${pathname}?${currentParams.toString()}`);
   };
 
-  const hasSubmodel = new Set(modelData.map((car) => car?.submodel1)).size > 1;
   const hasSecondSubModel =
     modelData.filter((car) => car?.submodel2).length > 1;
 

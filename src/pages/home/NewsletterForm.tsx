@@ -1,11 +1,11 @@
 'use client';
-import React, { useState } from 'react';
+import { FormEvent, useState } from 'react';
 import { BsChevronRight } from 'react-icons/bs';
 const NewsletterForm = () => {
   const [email_address, setEmail] = useState('');
   const [message, setMessage] = useState('');
 
-  const handleSubmit = async (e: any) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     try {
@@ -35,17 +35,17 @@ const NewsletterForm = () => {
 
   return (
     <div>
-      <form onSubmit={handleSubmit} className="flex flex-row h-12">
+      <form onSubmit={handleSubmit} className="flex h-12 flex-row">
         <input
           type="email"
           placeholder="Your Email"
           value={email_address}
           onChange={(e) => setEmail(e.target.value)}
-          className="bg-white w-full rounded-l p-4 text-[#767676]"
+          className="w-full rounded-l bg-white p-4 text-[#767676]"
         />
         <button
           type="submit"
-          className=" w-12 h-12 bg-[#BE1B1B] duration-300 hover:bg-red flex flex-col justify-center items-center"
+          className=" hover:bg-red flex h-12 w-12 flex-col items-center justify-center bg-[#BE1B1B] duration-300"
         >
           <BsChevronRight size={20} color={'#fff'} />
         </button>

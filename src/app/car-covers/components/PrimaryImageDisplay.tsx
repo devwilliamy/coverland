@@ -3,12 +3,11 @@
 import { useState } from 'react';
 import { MobileImageCarousel } from './MobileImageCarousel';
 import { useMediaQuery } from '@mantine/hooks';
-import { TProductData } from '@/lib/db';
 import Image from 'next/image';
 import ProductVideo from '@/components/PDP/ProductVideo';
 import { SelectedProductImages } from './SelectedProductImages';
 import { Button } from '@/components/ui/button';
-import { TCarCoverData } from './CarCoverSelector';
+import { TCarCoverData } from './CarPDP';
 
 export function PrimaryImageDisplay({
   productImages,

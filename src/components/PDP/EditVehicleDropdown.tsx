@@ -2,8 +2,7 @@
 import { AiOutlineLoading3Quarters } from 'react-icons/ai';
 import { Button } from '@/components/ui/button';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { useCallback, useEffect, useState } from 'react';
-import { TModelFitData, TProductData } from '@/lib/db';
+import { useCallback, useState } from 'react';
 import { TypeSearch } from '../hero/dropdown/TypeSearch';
 import { MakeSearch } from '../hero/dropdown/MakeSearch';
 import { ModelSearch } from '../hero/dropdown/ModelSearch';
@@ -21,7 +20,6 @@ export type TQuery = {
 };
 
 export default function EditVehicleDropdown() {
-  const [displayModel, setDisplayModel] = useState<TModelFitData>();
   const searchParams = useSearchParams();
 
   const [query, setQuery] = useState<TQuery>({
@@ -34,7 +32,7 @@ export default function EditVehicleDropdown() {
   const [loading, setLoading] = useState(false);
   const router = useRouter();
   const { year, type, make, model, submodel } = query;
-  const isReadyForSubmit = year && type && make && model;
+  // const isReadyForSubmit = year && type && make && model;
   const types = ['Car Covers', 'SUV Covers', 'Truck Covers'];
 
   const typeIndex = String(types.indexOf(type) + 1);

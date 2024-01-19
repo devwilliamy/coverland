@@ -1,7 +1,7 @@
 import Image from 'next/image';
-import { TCarCoverData } from './CarCoverSelector';
+import { TCarCoverData } from './CarPDP';
 import { TProductData } from '@/lib/db';
-import { RefObject } from 'react';
+import { Ref, RefObject } from 'react';
 
 interface ProductRefs {
   [key: string]: RefObject<HTMLElement>;
@@ -34,7 +34,11 @@ export function ColorSelector({
           >
             <Image
               src={sku?.feature as string}
-              ref={productRefs?.current[sku?.sku as TProductData['sku']] as any}
+              ref={
+                productRefs?.current[
+                  sku?.sku as TProductData['sku']
+                ] as Ref<HTMLImageElement>
+              }
               width={98}
               height={98}
               priority

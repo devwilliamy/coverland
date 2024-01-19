@@ -1,17 +1,8 @@
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from '@/components/ui/popover';
-import { TProductData } from '@/lib/db';
 import { EditIcon } from 'lucide-react';
 import EditVehicleDropdown from '../EditVehicleDropdown';
 import {
   DropdownMenu,
   DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 

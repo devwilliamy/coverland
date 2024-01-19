@@ -1,12 +1,11 @@
-import { slugify } from './../utils';
 import { createClient } from '@supabase/supabase-js';
-import { Database, Enums, Tables } from './types';
+import { Database, Tables } from './types';
 import {
   TPDPPathParams,
   TPDPQueryParams,
-} from '@/app/(headerFooter)/[productType]/[...product]/page';
+} from '@/app/(main)/[productType]/[...product]/page';
 import { deslugify } from '../utils';
-import { refreshRoute } from '@/app/(headerFooter)/[productType]/[...product]/actions';
+import { refreshRoute } from '@/app/(main)/[productType]/[...product]/actions';
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL ?? '';
 const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_KEY ?? '';
@@ -50,15 +49,9 @@ export interface ProductJson {
 //generate new types in the Supabase dashboard to update
 //them and replace the types.ts file in this folder
 
-// Define the type for filters
-interface FilterCriterion {
-  filterBy: string;
-  filterValue: any;
-}
-
 // Adjust the type definition
 export const fetchModelsOfMake = async (make: string) => {
-  let { data: Models, error } = await supabase
+  const { data: Models, error } = await supabase
     .from('Models')
     .select('model')
     .eq('make', make);
@@ -70,7 +63,7 @@ export const fetchModelsOfMake = async (make: string) => {
 };
 
 export async function fetchSubmodelsOfModel(model: string) {
-  let { data, error } = await supabase
+  const { data, error } = await supabase
     .from('Products-2024')
     .select('*')
     .eq('model', model);
@@ -126,7 +119,7 @@ export async function fetchCarPDPData(generationFk: number) {
   return data;
 }
 
-export async function addOrderToDb(order: any) {
+export async function addOrderToDb(order: string) {
   const { data, error } = await supabase
     .from('_temp_orders')
     .insert({ order: order });
@@ -155,7 +148,7 @@ export async function fetchReviewData(
 ) {
   const make = params?.product[0];
   const model = params?.product[1];
-  const year = params?.product[2];
+  // const year = params?.product[2];
   const submodel1 = queryParams?.submodel;
   const submodel2 = queryParams?.second_submodel;
 

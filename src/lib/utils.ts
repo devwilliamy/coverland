@@ -31,7 +31,7 @@ export const slugify = (str: string) =>
     .replace(/[\s_-]+/g, '-')
     .replace(/^-+|-+$/g, '');
 
-export const deslugify = (slug: any) => {
+export const deslugify = (slug: string) => {
   if (typeof slug !== 'string') return slug;
 
   // Handle specific cases
@@ -77,11 +77,6 @@ export function getUniqueYearGenerations(array: TProductData[]) {
 
   return Array.from(unique);
 }
-
-type Model = {
-  year_generation: number;
-  feature?: string[] | null;
-};
 
 export function groupProductsBy(
   attribute: keyof TProductData,

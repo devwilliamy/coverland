@@ -14,7 +14,12 @@ export default function UpdatePasswordForm({
   const supabase: SupabaseClient = createSupabaseBrowserClient();
   let currentSession: string;
 
-  const { data } = supabase.auth.onAuthStateChange(async (event, session) => {
+  // User isn't used anywhere; is it necessary?
+  if (!user) {
+    console.log('no user');
+  }
+
+  supabase.auth.onAuthStateChange(async (event, session) => {
     if (!currentSession) currentSession = session?.access_token as string;
     if (
       event === 'SIGNED_IN' &&
@@ -45,7 +50,8 @@ export default function UpdatePasswordForm({
             },
           }}
           theme="default"
-          //@ts-ignore
+          //@ts-expect-error
+          //include explanation here to make the linter happy
           providers={['google']}
           redirectTo={`${origin}/api/auth/callback`}
           showLinks={false}

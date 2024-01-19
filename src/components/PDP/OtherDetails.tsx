@@ -6,23 +6,17 @@ import { PDPAccordion } from './PDPAccordian';
 import { ProductHero } from './ProductHero';
 import { ProductPackage } from './ProductPackage';
 import { OurCarCovers } from './OurCarCovers';
-import { ProductSpecGrid } from './ProductSpecification';
 import { ProductChecklist } from './ProductChecklist';
 import { NoGarage } from './NoGarage';
 import { ClimateCrisis } from './ClimateCrisis';
 import { Layers } from './Layers';
-import { Separator } from '../ui/separator';
 import { TReviewData } from '@/lib/db';
-import { Rating } from '@mui/material';
-import CircularProgress from '@mui/joy/CircularProgress';
-import { Button } from '../ui/button';
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
 } from '../ui/accordion';
-import { useMediaQuery } from '@mantine/hooks';
 import { NoGarageMobile } from './components/NoGarageMobile';
 import { ClimateCrisisMobile } from './components/ClimateCrisisMobile';
 import Link from 'next/link';
@@ -56,9 +50,7 @@ export function ExtraProductDetails({
 
   const PD_ID = 'product-details';
   const LAYERS_ID = 'layers-sec';
-  const SPECS_ID = 'specs-sec';
   const FAQ_ID = 'faq-sec';
-  const CAR_COVER_INS_ID = 'car-cover-inst-sec';
 
   // <AccordionItem value="item-1">
   //   <AccordionTrigger>Is it accessible?</AccordionTrigger>

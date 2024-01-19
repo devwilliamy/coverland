@@ -1,18 +1,18 @@
 'use client';
 
-import { TProductData, TReviewData, fetchPDPData } from '@/lib/db';
+import { TReviewData } from '@/lib/db';
 import { Separator } from '@/components/ui/separator';
 import React, { RefObject, useRef, useState } from 'react';
 import { useCartContext } from '@/providers/CartProvider';
 import { useMediaQuery } from '@mantine/hooks';
 import dynamicImport from 'next/dynamic';
-import { Tables } from '@/lib/db/types';
 import { TCartItems } from '@/lib/cart/useCart';
 import { PrimaryImageDisplay } from './PrimaryImageDisplay';
 import { ColorSelector } from './ColorSelector';
 import { TypeSelector } from './TypeSelector';
 import { ProductContent } from './ProductContent';
 import { EditVehicleModal } from './EditVehicleModal';
+import { TCarCoverData } from './CarPDP';
 
 const EditVehiclePopover = dynamicImport(
   () => import('@/components/PDP/components/EditVehiclePopover'),
@@ -26,8 +26,6 @@ type TCarCoverPathParams = {
   model: string;
   year: string;
 };
-
-export type TCarCoverData = Tables<'product_2024_join'>;
 
 export function CarCoverSelector({
   params,

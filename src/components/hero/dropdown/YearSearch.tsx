@@ -6,7 +6,6 @@ import { TQuery } from './HeroDropdown';
 
 export function YearSearch({
   queryObj,
-  currentSelection,
 }: {
   queryObj: {
     query: TQuery;
