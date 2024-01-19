@@ -22,7 +22,7 @@ import {
   TPDPPathParams,
   TPDPQueryParams,
   TSkuJson,
-} from '@/app/[productType]/[...product]/page';
+} from '@/app/(headerFooter)/[productType]/[...product]/page';
 import {
   Popover,
   PopoverContent,
