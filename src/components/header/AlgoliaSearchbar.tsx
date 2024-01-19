@@ -15,8 +15,6 @@ import Link from 'next/link';
 function removeDuplicates(items: any[]) {
   const uniqueItems: any = [];
   const objectIds = new Set();
-  // console.log(uniqueItems);
-  // console.log(objectIds);
 
   items.forEach((item) => {
     if (!objectIds.has(`${item.model}-${item.submodel1}`)) {
@@ -70,9 +68,6 @@ function NoResultsBoundary({
   setShowHits: Dispatch<SetStateAction<boolean>>;
 }) {
   const { results, indexUiState } = useInstantSearch();
-
-  // console.log(indexUiState);
-  // console.log(results);
 
   // The `__isArtificial` flag makes sure not to display the No Results message
   // when no hits have been returned.
