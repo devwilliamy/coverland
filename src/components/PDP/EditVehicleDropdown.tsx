@@ -9,7 +9,7 @@ import { MakeSearch } from '../hero/dropdown/MakeSearch';
 import { ModelSearch } from '../hero/dropdown/ModelSearch';
 import { YearSearch } from '../hero/dropdown/YearSearch';
 import { SubmodelDropdown } from '../hero/dropdown/SubmodelDropdown';
-import generationJson from '@/data/staticGenerationTableData.json';
+import skuDisplayData from '@/data/skuDisplayData.json';
 import { slugify } from '@/lib/utils';
 
 export type TQuery = {
@@ -39,7 +39,7 @@ export default function EditVehicleDropdown() {
 
   const typeIndex = String(types.indexOf(type) + 1);
 
-  const availableMakes = generationJson.filter(
+  const availableMakes = skuDisplayData.filter(
     (sku) => sku.year_options.includes(year) && String(sku.fk)[0] === typeIndex
   );
 
@@ -78,10 +78,7 @@ export default function EditVehicleDropdown() {
     ),
   ];
 
-  const yearInUrl = finalAvailableModels?.find(
-    (sku) => sku.generation_default === sku.fk
-  )?.year_generation;
-  console.log(yearInUrl);
+  const yearInUrl = finalAvailableModels?.[0]?.year_generation;
 
   const createQueryString = useCallback(
     (name: string, value: string) => {
