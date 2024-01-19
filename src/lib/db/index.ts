@@ -90,12 +90,12 @@ export async function fetchPDPData(
   const modelFromPath = pathParams?.product[1];
   const yearFromPath = pathParams?.product[2];
 
-  console.log(
-    makeFromPath,
-    modelFromPath,
-    yearFromPath,
-    pathParams?.product[2]
-  );
+  // console.log(
+  //   makeFromPath,
+  //   modelFromPath,
+  //   yearFromPath,
+  //   pathParams?.product[2]
+  // );
 
   const { data, error } = await supabase
     .from('Products-2024')
@@ -159,7 +159,7 @@ export async function fetchReviewData(
 
   if (submodel1) {
     const submodelDisplayname = deslugify(submodel1);
-    console.log('submodel1', submodelDisplayname);
+    // console.log('submodel1', submodelDisplayname);
     fetch = fetch.textSearch('submodel1', `'${submodel1}'`);
   }
 

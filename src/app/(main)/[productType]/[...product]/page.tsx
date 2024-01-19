@@ -76,7 +76,7 @@ export default async function ProductPDP({
         (product) => product.fk === parentGeneration?.fk
       );
 
-  console.log(generationDefaultChildren, 'gen');
+  // console.log(generationDefaultChildren, 'gen');
 
   const productsWithSubmodels = generationDefaultChildren.filter(
     (product) =>
