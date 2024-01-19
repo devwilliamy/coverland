@@ -650,7 +650,7 @@ function CarSelector({
             </p>
             <Link
               href="#"
-              className="font-normal underline text-[#1A1A1A] text-base capitalize cursor-pointer"
+              className="cursor-pointer text-base font-normal capitalize text-[#1A1A1A] underline"
             >
               learn more
             </Link>

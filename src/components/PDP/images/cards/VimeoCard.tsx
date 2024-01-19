@@ -8,15 +8,15 @@ export function VimeoCard() {
       xmlns="http://www.w3.org/2000/svg"
       style={{ filter: 'grayScale(1)' }}
     >
-      <g clip-path="url(#clip0_85_580)">
+      <g clipPath="url(#clip0_85_580)">
         <path
           d="M40.7671 0H4.23718C2.34578 0 0.8125 1.53328 0.8125 3.42468V23.9727C0.8125 25.8641 2.34578 27.3974 4.23718 27.3974H40.7671C42.6584 27.3974 44.1917 25.8641 44.1917 23.9727V3.42468C44.1917 1.53328 42.6584 0 40.7671 0Z"
           fill="black"
-          fill-opacity="0.07"
+          fillOpacity="0.07"
         />
         <path
-          fill-rule="evenodd"
-          clip-rule="evenodd"
+          fillRule="evenodd"
+          clipRule="evenodd"
           d="M40.7671 1.1416C42.0228 1.1416 43.0502 2.169 43.0502 3.42472V23.9728C43.0502 25.2285 42.0228 26.2559 40.7671 26.2559H4.23722C2.9815 26.2559 1.9541 25.2285 1.9541 23.9728V3.42472C1.9541 2.169 2.9815 1.1416 4.23722 1.1416H40.7671Z"
           fill="#3D95CE"
         />
