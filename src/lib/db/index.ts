@@ -86,9 +86,9 @@ export async function fetchSubmodelsOfModel(model: string) {
 export async function fetchPDPData(
   pathParams: TPDPPathParams
 ): Promise<TProductData[] | null> {
-  const makeFromPath = pathParams?.product[0];
+  // const makeFromPath = pathParams?.product[0];
   const modelFromPath = pathParams?.product[1];
-  const yearFromPath = pathParams?.product[2];
+  // const yearFromPath = pathParams?.product[2];
 
   // console.log(
   //   makeFromPath,
@@ -158,7 +158,7 @@ export async function fetchReviewData(
     .eq('make', makeDisplayName);
 
   if (submodel1) {
-    const submodelDisplayname = deslugify(submodel1);
+    // const submodelDisplayname = deslugify(submodel1);
     // console.log('submodel1', submodelDisplayname);
     fetch = fetch.textSearch('submodel1', `'${submodel1}'`);
   }
