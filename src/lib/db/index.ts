@@ -6,6 +6,7 @@ import {
 } from '@/app/(main)/[productType]/[...product]/page';
 import { deslugify } from '../utils';
 import { refreshRoute } from '@/app/(main)/[productType]/[...product]/actions';
+import { TCarCoverData } from '@/app/car-covers/components/CarPDP';
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL ?? '';
 const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_KEY ?? '';
@@ -110,7 +111,9 @@ export async function fetchPDPData(
   return data;
 }
 
-export async function fetchCarPDPData(generationFk: number) {
+export async function fetchCarPDPData(
+  generationFk: number
+): Promise<TCarCoverData[] | null> {
   const { data, error } = await supabase
     .from('product_2024_join')
     .select('*')
@@ -178,6 +181,18 @@ export async function fetchReviewData(
   }
 
   return null;
+}
+
+export async function fetchGenerationReviewData(fk: string) {
+  const { data, error } = await supabase
+    .from('Product-Reviews')
+    .select('*')
+    .textSearch('sku', fk);
+
+  if (error) {
+    console.log(error);
+  }
+  return data;
 }
 
 export async function fetchPDPDataWithQuery(

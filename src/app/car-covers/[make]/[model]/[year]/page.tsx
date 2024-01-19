@@ -9,7 +9,7 @@ import { redirect } from 'next/navigation';
 import { colorOrder } from '@/lib/constants';
 import { Suspense } from 'react';
 import { ExtraProductDetails } from '@/components/PDP/OtherDetails';
-import CarPDP from '@/app/car-covers/components/CarPDP';
+import CarPDP, { TCarCoverData } from '@/app/car-covers/components/CarPDP';
 
 export type TCarCoverSlugParams = {
   params: {
@@ -31,7 +31,7 @@ export default async function CarPDPDataLayer({
       gen.year_generation === params.year
   )[0]?.generation;
 
-  let modelData = await fetchCarPDPData(generationFk);
+  const modelData: TCarCoverData[] | null = await fetchCarPDPData(generationFk);
 
   if (!modelData) {
     redirect('/404');
@@ -40,13 +40,13 @@ export default async function CarPDPDataLayer({
     String(generationFk)
   );
 
-  modelData = modelData.filter((car) =>
+  let filteredModelData = modelData.filter((car) =>
     car.generation_default
       ? car.generation_default === generationFk
       : car.fk === generationFk
   );
 
-  modelData = modelData
+  filteredModelData = modelData
     ?.filter((product) => product.msrp && product.price)
     .sort((a, b) => {
       let colorIndexA = colorOrder.indexOf(a?.display_color as string);
@@ -67,7 +67,7 @@ export default async function CarPDPDataLayer({
       <Suspense fallback={<div>Loading...</div>}>
         <CarPDP
           params={params}
-          modelData={modelData}
+          modelData={filteredModelData}
           generationFk={generationFk}
           reviewData={reviewData}
         />
