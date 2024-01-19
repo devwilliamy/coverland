@@ -19,10 +19,10 @@ export default function PolicyHeader({ headerText }: PolicyHeaderProps) {
   return (
     <>
       <div className="relative">
-        <div className="h-28">
+        <div className="h-28 lg:h-44">
           <div className="absolute inset-0 bg-gradient-to-r from-[rgba(0,0,0,0.50)] from-0% via-[rgba(0,0,0,0.50)] via-100%"></div>
           <Image
-            className="h-28 bg-gray-300 bg-no-repeat object-cover "
+            className="h-28 bg-gray-300 bg-no-repeat object-cover lg:h-44 "
             alt="policies banner"
             src={PolicyBanner}
           />

@@ -18,7 +18,7 @@ export default function FullWidthTabs({ tabs }: FullWidthTabsProps) {
   return (
     <>
       <div className="block">
-        <div className="border-b border-gray-200">
+        <div className="border-b border-gray-200 bg-[#F9F9FB]">
           <nav className="-mb-px flex" aria-label="Tabs">
             {tabs.map((tab) => (
               <Link
