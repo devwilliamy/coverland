@@ -903,6 +903,7 @@ const MobileImageCarousel = ({
       setCurrent(api.selectedScrollSnap());
     });
   }, [api]);
+
   const scrollTo = useCallback(
     (index: number) => api && api.scrollTo(index),
     [api]
