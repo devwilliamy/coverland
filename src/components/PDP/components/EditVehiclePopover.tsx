@@ -18,11 +18,7 @@ import {
 export default function EditVehiclePopover({
   fullProductName,
 }: {
-
-  selectedProduct: TProductData;
-  submodel: string | undefined | null;
   fullProductName: string;
-
 }) {
   return (
     <div className=" z-50 flex flex-col gap-2">

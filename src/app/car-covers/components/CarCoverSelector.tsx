@@ -125,15 +125,15 @@ export function CarCoverSelector({
 
   const avgReviewScore = (reviewScore / reviewCount).toFixed(1) || '4.9';
 
+  const fullProductName = `${selectedProduct?.year_generation}
+  ${selectedProduct?.make} ${selectedProduct?.product_name} 
+  ${submodelParam ? selectedProduct?.submodel1 : ''}
+  ${secondSubmodelParam ? selectedProduct?.submodel2 : ''}
+  `;
   return (
     <section className="mx-auto h-auto w-full max-w-[1440px] px-4 lg:my-8">
       <div className="flex w-full flex-col items-start justify-between lg:flex-row lg:gap-14">
-        {isMobile && (
-          <EditVehiclePopover
-            selectedProduct={selectedProduct as TProductData}
-            submodel={submodelParam}
-          />
-        )}
+        {isMobile && <EditVehiclePopover fullProductName={fullProductName} />}
         {/* Left Panel */}
         <PrimaryImageDisplay
           productImages={productImages}
