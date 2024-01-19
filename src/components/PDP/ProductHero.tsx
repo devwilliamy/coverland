@@ -10,8 +10,7 @@ export function ProductHero() {
 
   return (
     <div className="relative w-full">
-      <Separator className="mb-10 mt-3 lg:hidden" />
-
+      {/* <Separator className="mb-10 mt-3 lg:hidden" /> */}
       <div className="relative -z-0">
         {isMobile ? (
           <Image
@@ -32,28 +31,20 @@ export function ProductHero() {
         )}
         <div className="absolute top-0 flex h-full w-full flex-col items-center">
           <p
-            className="absolute top-[10%]  text-center 
-          text-xl font-black
-          uppercase leading-9 tracking-[4px]
-          text-[#F2F2F2] sm:w-8/12 
-          sm:text-3xl md:text-3xl lg:w-full 
-          lg:text-5xl lg:text-white"
+            className="absolute top-[10%] max-w-[65%] text-center text-[5vw] font-black uppercase leading-[10vw] tracking-[2px] 
+           text-white lg:text-5xl"
           >
             Your car deserves the best
           </p>
           {isMobile ? (
-            <div
-              className="absolute bottom-[15%] flex flex-col items-center text-lg 
-            "
-            >
+            <div className="absolute bottom-[15%] flex flex-col items-center text-base">
               <p
-                className="flex flex-row flex-nowrap 
-              font-thin capitalize 
-              tracking-[3px] text-[#F2F2F2] md:text-2xl lg:pt-4 lg:text-white lg:opacity-80"
+                className="flex flex-row flex-nowrap font-thin capitalize 
+              tracking-[3px] text-[#F2F2F2] md:text-3xl lg:pt-4 lg:text-white lg:opacity-80 "
               >
                 Timeless Resilience
               </p>
-              <p className="flex flex-row flex-nowrap font-thin capitalize tracking-[3px] text-[#F2F2F2] md:text-2xl">
+              <p className="flex flex-row flex-nowrap font-thin capitalize tracking-[3px] text-[#F2F2F2] md:text-3xl">
                 Ultimate durability
               </p>
             </div>
