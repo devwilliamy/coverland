@@ -1,93 +1,88 @@
-import { PolicyDetailItem } from '../util';
+import React from 'react';
+import PolicyHeader from '@/components/policy/PolicyHeader';
+import Link from 'next/link';
+import PolicyTitle from '@/components/policy/PolicyTitle';
+import PolicyDetail from '@/components/policy/PolicyDetail';
+import PolicyFurtherAssistance from '@/components/policy/PolicyFurtherAssistance';
 
 function WarrantyPolicy() {
   return (
-    <div>
-      <p className="py-[5vh] font-thin italic">
-        Effective date: November 1, 2023
-      </p>
-      <PolicyDetailItem title="Introduction">
-        <p>
-          At Coverland, we stand behind the quality of our products. This
-          document outlines our product warranty and guarantees, ensuring that
-          our customers can shop with confidence.
-        </p>
-      </PolicyDetailItem>
-      <PolicyDetailItem title="Product Warranty">
-        <p>
-          Coverland offers a 7-year warranty on all car covers from the date of
-          purchase. This warranty covers defects in materials and workmanship
-          under normal use. If a defect arises during the warranty period,
-          Coverland will repair or replace the product at no additional cost to
-          the customer.
-        </p>
-      </PolicyDetailItem>
-
-      <PolicyDetailItem title="Warranty Conditions">
-        <p>
-          The warranty is valid only for the original purchaser and is not
-          transferable. Proof of purchase is required to validate the warranty
-          claim. This warranty does not cover damages resulting from misuse,
-          abuse, accidents, alterations, improper installation, or unauthorized
-          repairs.
-        </p>
-      </PolicyDetailItem>
-      <PolicyDetailItem title="Guarantee of Satisfaction">
-        <p>
-          In addition to our warranty, we offer a satisfaction guarantee on all
-          our products. If you are not completely satisfied with your purchase,
-          you can return it within 14 days for a full refund or exchange.
-        </p>
-      </PolicyDetailItem>
-
-      <PolicyDetailItem title="How to Make a Warranty Claim">
-        <p>
-          To initiate a warranty claim, contact our customer service team at
-          info@coverland.com or call (800) 799-5165. Provide a description of
-          the issue, photos (if applicable), and your proof of purchase. Our
-          team will guide you through the process and provide instructions for
-          returning the product, if necessary.
-        </p>
-      </PolicyDetailItem>
-
-      <PolicyDetailItem title="Limitations">
-        <p>
-          The warranty does not cover normal wear and tear or damage due to
-          environmental factors. Any modifications to the product will void the
-          warranty.
-        </p>
-      </PolicyDetailItem>
-
-      <PolicyDetailItem title="Exclusions">
-        <p>
-          {
-            "This warranty does not apply to products purchased from unauthorized rsellers. Clearance or 'as-is' items may be excluded from the warranty (if applicable)."
-          }
-        </p>
-      </PolicyDetailItem>
-      <PolicyDetailItem title="Customer Responsibilities">
-        <p>
-          Customers are responsible for shipping costs when returning a product
-          for warranty service, unless otherwise specified. Ensure that the
-          product is properly packaged to prevent damage during transit.
-        </p>
-      </PolicyDetailItem>
-
-      <PolicyDetailItem title="Contact Information">
-        <p>
-          For any questions regarding our Product Warranty and Guarantees,
-          please contact us at:
-          <br />
-          Coverland
-          <br />
-          15529 Blackburn Ave, Norwalk, CA 90650
-          <br />
-          Email: info@coverland.com
-          <br />
-          Phone: (800) 799-5165
-        </p>
-      </PolicyDetailItem>
-    </div>
+    <>
+      <PolicyHeader headerText="Warranty" />
+      <div className="relative px-5 pb-[70px] pt-8">
+        <PolicyTitle title="Up to a 10-Year Comprehensive Warranty" uppercase />
+        <div className="py-5"></div>
+        <PolicyTitle title="Welcome to Coverland's Warranty Page" uppercase />
+        <PolicyDetail>
+          At Coverland, we are committed to providing our customers with
+          exceptional quality products and peace of mind. We stand behind the
+          craftsmanship and durability of our items with a comprehensive up to a
+          10-year warranty.
+        </PolicyDetail>
+        <div className="pt-5"></div>
+        <PolicyTitle title="Warranty Coverage" uppercase />
+        <PolicyDetail>
+          Our warranty provides coverage for a period of up to ten years,
+          depending on the specific warranty period of your product. It starts
+          from the date of purchase and includes protection against various
+          issues:
+        </PolicyDetail>
+        <ol>
+          <li>
+            Normal Wear and Tear: We understand that regolar use over time can
+            cause natural wear. Our warranty ensures your product remains
+            functional throughout its lifespan.
+          </li>
+          <li>
+            Weather-Related Damages: Be it intense sun, heavy rain, snow, or
+            hail, our products are designed to withstand diverse weather
+            conditions. If your product fails to protect your vehicle due to
+            weather-related damages, we’ve got you covered.
+          </li>
+          <li>
+            Ripping and Tears: Despite the high durability of our materials,
+            accidents happen. If your product rips or tears during normal usage,
+            we will replace it.
+          </li>
+        </ol>
+        <PolicyDetail>
+          Merchandise that is exchangeable can be returned by mailing to the
+          address mentioned above. There are no additional fees for an exchange.
+          Once the original item is received, the replacement merchandise will
+          arrive to you within 2-3 business days.
+        </PolicyDetail>
+        <div className="pt-5"></div>
+        <PolicyTitle title="How to Claim Your Warranty" uppercase />
+        <PolicyDetail>
+          If you encounter any issues covered under this warranty, please follow
+          these steps: Contact Us: Reach out to our customer service team via
+          phone or email, providing your purchase details and a brief
+          description of the issue. Documentation: We may request photos or a
+          short video of the damage for our records. Review and Approval: Our
+          team will review your claim and, upon approval, will initiate the
+          replacement process. Replacement: A replacement cover will be sent to
+          you at no additional cost, except for shipping.
+        </PolicyDetail>
+        <div className="pt-5"></div>
+        <PolicyTitle title="Limitations and Exclusions" uppercase />
+        <PolicyDetail>
+          This warranty does not cover: Damage due to improper use or
+          installation. Alterations or modifications made to the car cover.
+          Damage caused by accidents, abuse, or neglect.
+        </PolicyDetail>
+        <div className="pt-5"></div>
+        <PolicyTitle title="Customer Satisfaction Guarantee" uppercase />
+        <PolicyDetail>
+          At Coverland, your satisfaction is our priority. We strive to ensure
+          every customer is confident in their purchase. This comprehensive
+          warranty is our promise of quality and reliability. Thank you for
+          choosing Coverland for your product needs. We value your trust and
+          look forward to serving you.
+        </PolicyDetail>
+        <div className="pt-5"></div>
+        <PolicyFurtherAssistance />
+      </div>
+    </>
   );
 }
 

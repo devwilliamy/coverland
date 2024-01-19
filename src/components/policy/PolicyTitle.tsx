@@ -1,7 +1,12 @@
 type PolicyTitleProps = {
   title: string;
+  uppercase?: boolean;
 };
 
-export function PolicyTitle({ title }: PolicyTitleProps) {
-  return <p className="text-base font-bold">{title}</p>;
+export default function PolicyTitle({ title, uppercase }: PolicyTitleProps) {
+  return (
+    <p className={`text-base font-bold ${uppercase ? 'uppercase' : ''}`}>
+      {title}
+    </p>
+  );
 }

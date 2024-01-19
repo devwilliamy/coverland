@@ -1,8 +1,8 @@
 import React from 'react';
 import PolicyHeader from '@/components/policy/PolicyHeader';
 import Link from 'next/link';
-import { PolicyTitle } from '@/components/policy/PolicyTitle';
-import { PolicyDetail } from '@/components/policy/PolicyDetail';
+import PolicyTitle from '@/components/policy/PolicyTitle';
+import PolicyDetail from '@/components/policy/PolicyDetail';
 import PolicyFurtherAssistance from '@/components/policy/PolicyFurtherAssistance';
 
 function ReturnPolicy() {
