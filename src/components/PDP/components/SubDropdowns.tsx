@@ -11,7 +11,7 @@ import { extractUniqueValues } from '../utils';
 import { SubmodelSearch } from './SubmodelSearch';
 import { YearSearch } from './YearSearch';
 import { SubmodelSearch2nd } from './SubmodelSearch2nd';
-import { refreshRoute } from '@/app/[productType]/[...product]/actions';
+import { refreshRoute } from '@/app/(headerFooter)/[productType]/[...product]/actions';
 import modelJson from '@/data/staticGenerationTableData.json';
 import { slugify } from '@/lib/utils';
 
