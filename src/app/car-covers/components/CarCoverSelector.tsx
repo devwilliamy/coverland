@@ -12,6 +12,7 @@ import { PrimaryImageDisplay } from './PrimaryImageDisplay';
 import { ColorSelector } from './ColorSelector';
 import { TypeSelector } from './TypeSelector';
 import { ProductContent } from './ProductContent';
+import { EditVehicleModal } from './EditVehicleModal';
 
 const EditVehiclePopover = dynamicImport(
   () => import('@/components/PDP/components/EditVehiclePopover'),
@@ -142,14 +143,10 @@ export function CarCoverSelector({
         />
         {/* Right Panel */}
         <div className=" h-auto w-full pl-0 lg:w-2/5">
-          <div className=" mt-[29px] hidden flex-col gap-2 rounded-lg border-2 border-solid px-3 py-7 lg:flex">
-            <h2 className="font-roboto text-lg font-extrabold text-[#1A1A1A] md:text-[28px]">
-              {`${selectedProduct?.year_generation}
-                ${selectedProduct?.make} ${selectedProduct?.product_name} ${
-                  submodelParam ? selectedProduct?.submodel1 : ''
-                }`}
-            </h2>
-          </div>
+          <EditVehicleModal
+            selectedProduct={selectedProduct}
+            submodelParam={submodelParam}
+          />
           <p className="ml-3 mt-2 text-lg font-black text-[#1A1A1A] ">
             {isReadyForProductSelection
               ? `Cover Colors`
