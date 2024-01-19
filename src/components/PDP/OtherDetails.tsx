@@ -300,8 +300,6 @@ const ReviewSection = ({
 }) => {
   const [displayedReviews, setDisplayedReviews] = useState<number>(3);
   if (!reviewData) return null;
-  // console.log('reviewData', reviewData);
-  // console.log(reviewData);
   return (
     <div className="relative py-2">
       <p

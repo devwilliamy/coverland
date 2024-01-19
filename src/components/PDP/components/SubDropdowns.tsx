@@ -64,8 +64,6 @@ export default function SubDropdowns({
     [searchParams]
   );
 
-  //console.log(selectedSubmodel);
-
   const modelsWithSubmodel = modelJson.filter(
     (car) =>
       car?.submodel1?.toLowerCase() === submodelParam.toLowerCase() &&

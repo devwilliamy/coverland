@@ -22,15 +22,12 @@ export type TCarCoverSlugParams = {
 export default async function CarPDPYearLayout({
   params,
 }: TCarCoverSlugParams) {
-  console.log(params);
   const generationFk = generationData.filter(
     (gen) =>
       slugify(gen.make) === params.make &&
       slugify(gen.model) === params.model &&
       gen.year_generation === params.year
   )[0]?.generation;
-
-  console.log(generationFk);
 
   let modelData = await fetchCarPDPData(generationFk);
 
@@ -46,7 +43,6 @@ export default async function CarPDPYearLayout({
       ? car.generation_default === generationFk
       : car.fk === generationFk
   );
-  console.log(modelData.length);
 
   modelData = modelData
     ?.filter((product) => product.msrp && product.price)
@@ -63,8 +59,6 @@ export default async function CarPDPYearLayout({
   if (modelData?.length === 0) {
     redirect('/404');
   }
-
-  console.log(modelData.length);
 
   return (
     <>

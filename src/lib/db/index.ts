@@ -63,8 +63,6 @@ export const fetchModelsOfMake = async (make: string) => {
     .select('model')
     .eq('make', make);
 
-  // console.log(Models);
-
   if (error) {
     console.log(error);
   }
@@ -108,7 +106,6 @@ export async function fetchPDPData(
     .select('*')
     .eq('model_slug', modelFromPath);
 
-  console.log(data?.length);
   if (error) {
     console.log(error);
   }
@@ -123,7 +120,6 @@ export async function fetchCarPDPData(generationFk: number) {
     .select('*')
     .eq('generation_default', generationFk);
 
-  console.log(data?.length);
   if (error) {
     console.log(error);
   }
@@ -166,8 +162,6 @@ export async function fetchReviewData(
   const modelDisplayName = deslugify(model);
   const makeDisplayName = deslugify(make);
 
-  // console.log(modelDisplayName, makeDisplayName);
-
   let fetch = supabase
     .from('Product-Reviews')
     .select('*')
@@ -182,7 +176,6 @@ export async function fetchReviewData(
 
   if (submodel2) {
     const submodelDisplayname = deslugify(submodel2);
-    // console.log('submodel1', submodel2);
 
     fetch = fetch.eq('submodel2', submodelDisplayname);
   }
@@ -191,7 +184,6 @@ export async function fetchReviewData(
   if (error) {
     console.log(error);
   }
-  // console.log(data);
 
   if (data?.length) {
     return data;
@@ -221,7 +213,6 @@ export async function fetchPDPDataWithQuery(
     );
 
   if (submodel1) {
-    // console.log('submodel1', submodel1);
     fetch = fetch.eq('submodel1_slug', submodel1);
   }
 
@@ -229,12 +220,8 @@ export async function fetchPDPDataWithQuery(
     fetch = fetch.textSearch('submodel2_slug', submodel2);
   }
 
-  // console.log(make, model, submodel1);
-
   const { data, error } = await fetch;
-  // console.log(data);
 
-  console.log('fetching with query params', data?.length);
   if (error) {
     console.log(error);
   }
