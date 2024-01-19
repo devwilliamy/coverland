@@ -8,7 +8,7 @@ export function DinersClubCard() {
       xmlns="http://www.w3.org/2000/svg"
       style={{ filter: 'grayScale(1)' }}
     >
-      <g clip-path="url(#clip0_85_538)">
+      <g clipPath="url(#clip0_85_538)">
         <path
           opacity="0.07"
           d="M40.2461 0H3.71618C1.77553 0 0.291504 1.48403 0.291504 3.42468V23.9727C0.291504 25.9134 1.88969 27.3974 3.71618 27.3974H40.2461C42.1867 27.3974 43.6707 25.9134 43.6707 23.9727V3.42468C43.6707 1.48403 42.0726 0 40.2461 0Z"

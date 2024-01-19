@@ -90,7 +90,7 @@ function Cart() {
 }
 
 const CartLineItem = ({ item }: { item: TCartItems }) => {
-  console.log(item);
+  // console.log(item);
   return (
     <Card className="my-1 w-full">
       <CardHeader>

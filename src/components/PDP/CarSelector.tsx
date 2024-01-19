@@ -22,7 +22,7 @@ import {
   TPDPPathParams,
   TPDPQueryParams,
   TSkuJson,
-} from '@/app/[productType]/[...product]/page';
+} from '@/app/(headerFooter)/[productType]/[...product]/page';
 import {
   Popover,
   PopoverContent,
@@ -91,6 +91,10 @@ const EditVehicleDropdown = dynamicImport(
 
 export const dynamic = 'force-dynamic';
 
+interface ProductRefs {
+  [key: string]: RefObject<HTMLElement>;
+}
+
 function TimeTo2PMPST() {
   const [timeRemaining, setTimeRemaining] = useState(calculateTimeTo2PM()); // Set initial value
 
@@ -153,12 +157,6 @@ function CarSelector({
   reviewData: TReviewData[];
   parentGeneration: any;
 }) {
-  //console.log(
-  //   modelData.map((model) => model.submodel2),
-  //   'huh'
-  // );
-
-  //console.log(secondSubmodels);
   const defaultModel = modelData.find(
     (model) =>
       model.fk ===
@@ -173,26 +171,23 @@ function CarSelector({
     ) ?? [];
 
   const modelsBySecondSubmodel = searchParams?.second_submodel
-    ? modelData.filter(
-        (model) =>
-          stringToSlug(model?.submodel2 as string) ===
-          stringToSlug(searchParams?.second_submodel as string)
-      ) ?? modelsBySubmodel
+    ? modelData
+        .filter(
+          (model) =>
+            stringToSlug(model?.submodel1 as string) ===
+            stringToSlug(searchParams?.submodel as string)
+        )
+        .filter(
+          (model) =>
+            stringToSlug(model?.submodel2 as string) ===
+            stringToSlug(searchParams?.second_submodel as string)
+        ) ?? modelsBySubmodel
     : modelsBySubmodel;
-
-  //console.log(modelsBySubmodel);
-
-  //console.log(
-  //   stringToSlug(modelData[4]?.submodel1 as string),
-  //   searchParams.submodel
-  // );
 
   const isFullySelected =
     pathParams?.product?.length === 3 &&
     (submodels.length === 0 || !!searchParams?.submodel) &&
     (secondSubmodels.length === 0 || !!searchParams?.second_submodel);
-
-  //console.log(modelData);
 
   let displayedModelData = searchParams?.submodel
     ? modelsBySubmodel
@@ -203,34 +198,29 @@ function CarSelector({
     : displayedModelData;
 
   const [selectedProduct, setSelectedProduct] = useState<TProductData>(
-    isFullySelected
+    isFullySelected || searchParams?.submodel
       ? displayedModelData[0]
       : defaultModel ?? displayedModelData[0]
   );
-  const [featuredImage, setFeaturedImage] = useState<string>(
-    selectedProduct?.feature as string
-  );
-  //console.log(submodels, secondSubmodels, defaultModel);
+
   const router = useRouter();
   const path = usePathname();
 
+  // Sometimes when submodel2 is selected, selectedProduct won't update to the right one
+  useEffect(() => {
+    const updateSelectedProduct = () => {
+      setSelectedProduct(displayedModelData[0]);
+    };
+    if (isFullySelected) {
+      updateSelectedProduct();
+    }
+  }, [searchParams, isFullySelected, displayedModelData]);
+
+  const [featuredImage, setFeaturedImage] = useState<string>(
+    selectedProduct?.feature as string
+  );
+
   const { cartItems, cartOpen, setCartOpen } = useCartContext();
-
-  // function removeBeforeCom(url: string) {
-  //   const pos = url?.indexOf('.com');
-
-  //   if (pos === -1) {
-  //     return url;
-  //   }
-  //   return url?.substring(pos + 4);
-  // }
-
-  interface ProductRefs {
-    [key: string]: RefObject<HTMLElement>;
-  }
-
-  //console.log(modelData);
-  //console.log(selectedProduct);
 
   const productRefs = useRef<ProductRefs>(
     displayedModelData.reduce((acc: ProductRefs, item: TProductData) => {
@@ -253,8 +243,6 @@ function CarSelector({
   ).map((color) =>
     displayedModelData.find((model) => model.display_color === color)
   );
-
-  //console.log(uniqueColors);
 
   const uniqueTypes = Array.from(
     new Set(displayedModelData.map((model) => model.display_id))
@@ -279,23 +267,16 @@ function CarSelector({
 
   const avgReviewScore = (reviewScore / reviewCount).toFixed(1);
 
-  //console.log(isFullySelected, isReadyForSelection);
-
-  //console.log(submodels, secondSubmodels);
-
-  //// console.log(avgReviewScore);
-  // console.log(searchParams?.submodel);
-  // console.log(selectedProduct);
+  const fullProductName = `${selectedProduct?.year_generation}
+  ${selectedProduct?.make} ${selectedProduct?.product_name} 
+  ${searchParams?.submodel ? selectedProduct?.submodel1 : ''}
+  ${searchParams?.second_submodel ? selectedProduct?.submodel2 : ''}
+  `;
 
   return (
     <section className="mx-auto h-auto w-full max-w-[1440px] px-4 lg:my-8">
       <div className="flex w-full flex-col items-start justify-between lg:flex-row lg:gap-14">
-        {isMobile && (
-          <EditVehiclePopover
-            selectedProduct={selectedProduct}
-            submodel={searchParams?.submodel}
-          />
-        )}
+        {isMobile && <EditVehiclePopover fullProductName={fullProductName} />}
         {/* Left Panel */}
         <div className=" -ml-4 mt-[29px] flex h-auto w-screen flex-col items-stretch justify-center pb-2 lg:w-3/5 lg:pb-0 ">
           {/* Featured Image */}
@@ -362,10 +343,7 @@ function CarSelector({
         <div className=" h-auto w-full pl-0 lg:w-2/5">
           <div className=" mt-[29px] hidden flex-col gap-2 rounded-lg border-2 border-solid px-3 py-7 lg:flex">
             <h2 className="font-roboto text-lg font-extrabold text-[#1A1A1A] md:text-[28px]">
-              {`${selectedProduct?.year_generation}
-                ${selectedProduct?.make} ${selectedProduct?.product_name} ${
-                  searchParams?.submodel ? selectedProduct?.submodel1 : ''
-                }`}
+              {fullProductName}
             </h2>
             <div className="flex items-center gap-2">
               <EditIcon />
@@ -638,7 +616,7 @@ function CarSelector({
               <>
                 <Popover>
                   <PopoverTrigger asChild>
-                    <Button className="mt-4 h-[35px] w-full rounded bg-[#BE1B1B] text-lg font-bold uppercase text-white md:h-[60px] md:text-xl">
+                    <Button className="mt-4 h-[48px] w-full bg-[#BE1B1B] text-lg font-bold uppercase text-white disabled:bg-[#BE1B1B] md:h-[62px] md:text-xl">
                       Add To Cart
                     </Button>
                   </PopoverTrigger>
@@ -651,7 +629,7 @@ function CarSelector({
               </>
             ) : (
               <Button
-                className="mt-4 h-[60px] w-full bg-[#BE1B1B] text-lg disabled:bg-[#BE1B1B]"
+                className="mt-4 h-[48px] w-full bg-[#BE1B1B] text-lg font-bold uppercase text-white disabled:bg-[#BE1B1B] md:h-[62px] md:text-xl"
                 onClick={() => {
                   track('PDP_add_to_cart', {
                     sku: selectedProduct?.sku,
@@ -672,7 +650,7 @@ function CarSelector({
             </p>
             <Link
               href="#"
-              className="font-normal underline text-[#1A1A1A] text-base capitalize cursor-pointer"
+              className="cursor-pointer text-base font-normal capitalize text-[#1A1A1A] underline"
             >
               learn more
             </Link>

@@ -16,19 +16,18 @@ import {
 } from '@/components/ui/dropdown-menu';
 
 export default function EditVehiclePopover({
-  selectedProduct,
-  submodel,
+  fullProductName,
 }: {
+
   selectedProduct: TProductData;
   submodel: string | undefined | null;
+  fullProductName: string;
+
 }) {
   return (
     <div className=" z-50 flex flex-col gap-2">
       <h2 className="font-roboto text-2xl font-extrabold text-[#1A1A1A]">
-        {`${selectedProduct?.year_generation}
-                        ${selectedProduct?.make} ${
-                          selectedProduct?.product_name
-                        } ${submodel ? selectedProduct?.submodel1 : ''}`}
+        {fullProductName}
       </h2>
       <div className="z-50 flex items-center gap-2">
         <EditIcon />

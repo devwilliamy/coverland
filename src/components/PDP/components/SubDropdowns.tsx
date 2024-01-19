@@ -3,7 +3,7 @@
 import { Button } from '@/components/ui/button';
 import { TProductData } from '@/lib/db';
 import { track } from '@vercel/analytics';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback } from 'react';
 import useCarSelection from '@/lib/db/hooks/useCarSelection';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 
@@ -11,7 +11,7 @@ import { extractUniqueValues } from '../utils';
 import { SubmodelSearch } from './SubmodelSearch';
 import { YearSearch } from './YearSearch';
 import { SubmodelSearch2nd } from './SubmodelSearch2nd';
-import { refreshRoute } from '@/app/[productType]/[...product]/actions';
+import { refreshRoute } from '@/app/(headerFooter)/[productType]/[...product]/actions';
 import modelJson from '@/data/staticGenerationTableData.json';
 import { slugify } from '@/lib/utils';
 
@@ -72,13 +72,6 @@ export default function SubDropdowns({
       slugify(car?.model) === (pathname?.split('/')[3] as string)
   );
 
-  const availableSecondSubmodels = Array.from(
-    new Set(modelsWithSubmodel.map((car) => car?.submodel2))
-  );
-
-  //console.log(selectedSubmodel);
-  //console.log(availableSecondSubmodels);
-
   const setSearchParams = () => {
     let url: string = '';
 
@@ -96,8 +89,6 @@ export default function SubDropdowns({
     router.push(`?${url}`);
     // refreshRoute(`${pathname}?${currentParams.toString()}`);
   };
-
-  //console.log(!!submodels.length, !submodelParam);
 
   const hasSubmodel = new Set(modelData.map((car) => car?.submodel1)).size > 1;
   const hasSecondSubModel =
@@ -132,7 +123,7 @@ export default function SubDropdowns({
               modelData={modelData}
               setSelectedSecondSubmodel={setSelectedSecondSubmodel}
               submodelParam2nd={submodelParam2nd}
-              secondSubmodels={availableSecondSubmodels as string[]}
+              selectedSubmodel={selectedSubmodel}
             />
           )}
         </div>

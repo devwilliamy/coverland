@@ -5,7 +5,7 @@ import PolicyBanner from '@/images/policies/banner.webp';
 
 import React from 'react';
 import Image from 'next/image';
-import theme from '../../../tsconfig.json';
+import theme from '../../../../tsconfig.json';
 
 type Props = {};
 
