@@ -4,9 +4,9 @@ import { Database, Enums, Tables } from './types';
 import {
   TPDPPathParams,
   TPDPQueryParams,
-} from '@/app/[productType]/[...product]/page';
+} from '@/app/(headerFooter)/[productType]/[...product]/page';
 import { deslugify } from '../utils';
-import { refreshRoute } from '@/app/[productType]/[...product]/actions';
+import { refreshRoute } from '@/app/(headerFooter)/[productType]/[...product]/actions';
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL ?? '';
 const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_KEY ?? '';

@@ -29,10 +29,11 @@ export function MakeSearch({
     <select
       value={value}
       onChange={handleChange}
+      defaultValue=""
       disabled={!query.type || !query.year}
       className="rounded-lg px-2  text-lg"
     >
-      <option value="" disabled selected>
+      <option value="" disabled>
         Select car make
       </option>
       {sortedData.map((make) => (

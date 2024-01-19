@@ -89,7 +89,7 @@ export default async function ProductPDP({
       product.submodel1 &&
       generationDefaultChildren.map((p) => p.fk).includes(product.fk)
   );
-  console.log(productsWithSubmodels);
+  // console.log(productsWithSubmodels);
   const submodels = Array.from(
     new Set(productsWithSubmodels.map((product) => product.submodel1))
   ).filter(Boolean) as string[];
@@ -105,7 +105,7 @@ export default async function ProductPDP({
   // !year && (modelData = initialProductData);
 
   // console.log(modelData);
-  modelData.map((product) => console.log(product.submodel1, product.submodel2));
+  // modelData.map((product) => console.log(product.submodel1, product.submodel2));
   modelData = modelData
     .filter((product) => product.msrp && product.price)
     .sort((a, b) => {
