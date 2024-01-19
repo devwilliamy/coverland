@@ -934,7 +934,7 @@ const MobileImageCarousel = ({
             />
           </CarouselItem>
           <CarouselItem>
-            <div>
+            <div className="flex h-full flex-col justify-center">
               <ProductVideo />
             </div>
           </CarouselItem>

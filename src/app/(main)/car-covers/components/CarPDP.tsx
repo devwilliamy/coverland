@@ -40,8 +40,10 @@ export default function CarPDP({
         params={params}
         generationFk={generationFk}
         modelData={filteredModelData}
-        key={params.year}
+        key={`${params.make}-${params.model}-${params.year}-${submodelParam}-${secondSubmodelParam}`}
         reviewData={reviewData}
+        submodelParam={submodelParam}
+        secondSubmodelParam={secondSubmodelParam}
       />
     </>
   );

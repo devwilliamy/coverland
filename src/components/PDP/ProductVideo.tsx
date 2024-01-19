@@ -1,20 +1,20 @@
 'use client';
 
+import { VIMEO_VIDEO_LINK } from '@/lib/constants';
 import ReactPlayer from 'react-player/vimeo';
 
 export default function ProductVideo() {
   return (
     <div
       id="product-video"
-      className="h-[370px] w-full max-w-full flex-col items-center justify-center overflow-hidden rounded-xl border lg:my-4 lg:flex"
+      className="h-[250px] w-full lg:my-4 lg:flex lg:h-[500px]"
     >
       <ReactPlayer
-        url="https://vimeo.com/904161479"
+        url={VIMEO_VIDEO_LINK}
         width="100%"
         height="100%"
         controls
         muted
-        playing
         loop
       />
     </div>

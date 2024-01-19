@@ -9,7 +9,9 @@ import { redirect } from 'next/navigation';
 import { colorOrder } from '@/lib/constants';
 import { Suspense } from 'react';
 import { ExtraProductDetails } from '@/components/PDP/OtherDetails';
-import CarPDP, { TCarCoverData } from '@/app/car-covers/components/CarPDP';
+import CarPDP, {
+  TCarCoverData,
+} from '@/app/(main)/car-covers/components/CarPDP';
 
 export type TCarCoverSlugParams = {
   params: {

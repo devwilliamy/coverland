@@ -946,3 +946,5 @@ export const skuTypes = [
   'SKU_sp_gr_1to',
   'SKU_ss_gr_1to',
 ];
+
+export const VIMEO_VIDEO_LINK = 'https://vimeo.com/904161479';

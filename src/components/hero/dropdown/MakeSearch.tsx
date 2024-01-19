@@ -27,7 +27,6 @@ export function MakeSearch({
     <select
       value={value}
       onChange={handleChange}
-      defaultValue=""
       disabled={!query.type || !query.year}
       className="rounded-lg px-2  text-lg"
     >

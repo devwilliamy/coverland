@@ -1,14 +1,14 @@
 'use client';
 import { AiOutlineLoading3Quarters } from 'react-icons/ai';
 import { Button } from '@/components/ui/button';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { useCallback, useState } from 'react';
 import { TypeSearch } from '../hero/dropdown/TypeSearch';
 import { MakeSearch } from '../hero/dropdown/MakeSearch';
 import { ModelSearch } from '../hero/dropdown/ModelSearch';
 import { YearSearch } from '../hero/dropdown/YearSearch';
 import { SubmodelDropdown } from '../hero/dropdown/SubmodelDropdown';
-import skuDisplayData from '@/data/skuDisplayData.json';
+import generationJson from '@/data/staticGenerationTableData.json';
 import { slugify } from '@/lib/utils';
 
 export type TQuery = {
@@ -21,6 +21,7 @@ export type TQuery = {
 
 export default function EditVehicleDropdown() {
   const searchParams = useSearchParams();
+  const pathname = usePathname();
 
   const [query, setQuery] = useState<TQuery>({
     year: '',
@@ -37,7 +38,7 @@ export default function EditVehicleDropdown() {
 
   const typeIndex = String(types.indexOf(type) + 1);
 
-  const availableMakes = skuDisplayData.filter(
+  const availableMakes = generationJson.filter(
     (sku) => sku.year_options.includes(year) && String(sku.fk)[0] === typeIndex
   );
 
@@ -76,7 +77,12 @@ export default function EditVehicleDropdown() {
     ),
   ];
 
-  const yearInUrl = finalAvailableModels?.[0]?.year_generation;
+  const yearInUrl = finalAvailableModels?.find(
+    (sku) => sku.generation_default === sku.fk
+  )?.year_generation;
+  console.log(yearInUrl);
+
+  console.log(finalAvailableModels);
 
   const createQueryString = useCallback(
     (name: string, value: string) => {
@@ -94,6 +100,7 @@ export default function EditVehicleDropdown() {
   const handleSubmitDropdown = async () => {
     setLoading(true);
     let url = `/${slugify(type)}/${slugify(make)}/${slugify(model)}/${yearInUrl}`;
+    const currentUrl = `${pathname}?${searchParams}`;
 
     if (submodel) {
       url += `?${createQueryString('submodel', submodel)}`;
@@ -101,7 +108,11 @@ export default function EditVehicleDropdown() {
 
     // refreshRoute('/');
     router.push(url);
-    // refreshRoute(`${pathname}?${currentParams.toString()}`);
+    router.refresh();
+    if (url == currentUrl) {
+      setLoading(false);
+      return;
+    }
   };
 
   return (

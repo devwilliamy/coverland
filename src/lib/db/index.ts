@@ -6,7 +6,7 @@ import {
 } from '@/app/(main)/[productType]/[...product]/page';
 import { deslugify } from '../utils';
 import { refreshRoute } from '@/app/(main)/[productType]/[...product]/actions';
-import { TCarCoverData } from '@/app/car-covers/components/CarPDP';
+import { TCarCoverData } from '@/app/(main)/car-covers/components/CarPDP';
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL ?? '';
 const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_KEY ?? '';

@@ -59,7 +59,6 @@ export function CarCoverSelector({
   const defaultModel = isDefaultGeneration
     ? defaultGenerationModel ?? modelData[0]
     : modelData[0];
-
   const isReadyForProductSelection = !!(
     (params?.year && !hasSubmodels) ||
     (hasSubmodels && submodelParam) ||
