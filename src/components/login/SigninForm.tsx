@@ -3,18 +3,17 @@ import { createSupabaseBrowserClient } from '@/lib/db/supabaseClients';
 import { SupabaseClient } from '@supabase/supabase-js';
 import { ThemeSupa } from '@supabase/auth-ui-shared';
 import { useRouter } from 'next/navigation';
-import dynamic from 'next/dynamic';
 import Link from 'next/link';
 import { SignIn } from '@supabase/auth-ui-react';
 
-const DynamicSignIn = dynamic(() =>
-  import('@supabase/auth-ui-react').then((mod) => mod.SignIn)
-);
+// const DynamicSignIn = dynamic(() =>
+//   import('@supabase/auth-ui-react').then((mod) => mod.SignIn)
+// );
 export default function SignInForm() {
   const router = useRouter();
   const supabase: SupabaseClient = createSupabaseBrowserClient();
 
-  const { data } = supabase.auth.onAuthStateChange(async (_, session) => {
+  supabase.auth.onAuthStateChange(async (_, session) => {
     if (session) {
       router.push('/profile');
     }

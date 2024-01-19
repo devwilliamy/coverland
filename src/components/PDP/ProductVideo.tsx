@@ -1,19 +1,22 @@
 'use client';
 
+import { VIMEO_VIDEO_LINK } from '@/lib/constants';
+import ReactPlayer from 'react-player/vimeo';
+
 export default function ProductVideo() {
   return (
     <div
       id="product-video"
-      className="h-[370px] w-full max-w-full flex-col items-center justify-center overflow-hidden rounded-xl border lg:my-4 lg:flex"
+      className="h-[250px] w-full lg:my-4 lg:flex lg:h-[500px]"
     >
-      <iframe
+      <ReactPlayer
+        url={VIMEO_VIDEO_LINK}
         width="100%"
         height="100%"
-        src="https://www.youtube.com/embed/TigF03eH0yE?controls=0&modestbranding=1&rel=0&autoplay=0"
-        title="YouTube video player"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-        allowFullScreen
-      ></iframe>
+        controls
+        muted
+        loop
+      />
     </div>
   );
 }

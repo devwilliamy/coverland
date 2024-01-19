@@ -4,12 +4,10 @@ import {
   ChangeEvent,
   Dispatch,
   SetStateAction,
-  use,
   useEffect,
   useState,
 } from 'react';
 import { TQuery } from './HeroDropdown';
-import { TProductData } from '@/lib/db';
 
 export function SubmodelDropdown({
   queryObj,

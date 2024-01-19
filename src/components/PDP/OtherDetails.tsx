@@ -6,23 +6,17 @@ import { PDPAccordion } from './PDPAccordian';
 import { ProductHero } from './ProductHero';
 import { ProductPackage } from './ProductPackage';
 import { OurCarCovers } from './OurCarCovers';
-import { ProductSpecGrid } from './ProductSpecification';
 import { ProductChecklist } from './ProductChecklist';
 import { NoGarage } from './NoGarage';
 import { ClimateCrisis } from './ClimateCrisis';
 import { Layers } from './Layers';
-import { Separator } from '../ui/separator';
 import { TReviewData } from '@/lib/db';
-import { Rating } from '@mui/material';
-import CircularProgress from '@mui/joy/CircularProgress';
-import { Button } from '../ui/button';
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
 } from '../ui/accordion';
-import { useMediaQuery } from '@mantine/hooks';
 import { NoGarageMobile } from './components/NoGarageMobile';
 import { ClimateCrisisMobile } from './components/ClimateCrisisMobile';
 import Link from 'next/link';
@@ -30,7 +24,7 @@ import Link from 'next/link';
 export function ExtraProductDetails({
   reviewData,
 }: {
-  reviewData: TReviewData[];
+  reviewData: TReviewData[] | null;
 }) {
   const [selectedSection, setSelectedSection] = useState<string>('');
 
@@ -56,9 +50,7 @@ export function ExtraProductDetails({
 
   const PD_ID = 'product-details';
   const LAYERS_ID = 'layers-sec';
-  const SPECS_ID = 'specs-sec';
   const FAQ_ID = 'faq-sec';
-  const CAR_COVER_INS_ID = 'car-cover-inst-sec';
 
   // <AccordionItem value="item-1">
   //   <AccordionTrigger>Is it accessible?</AccordionTrigger>
@@ -173,7 +165,7 @@ export function ExtraProductDetails({
         <div className="md:my-18 my-8 lg:my-28">
           <MoneyBack />
         </div>
-        {!!reviewData.length && (
+        {!!reviewData?.length && (
           <div id="#reviews" className="md:mt-18 mt-8 lg:mt-28">
             <ReviewSection reviewData={reviewData} />
           </div>
@@ -183,7 +175,11 @@ export function ExtraProductDetails({
   );
 }
 
-const MobilePDPDetails = ({ reviewData }: { reviewData: TReviewData[] }) => {
+const MobilePDPDetails = ({
+  reviewData,
+}: {
+  reviewData: TReviewData[] | null;
+}) => {
   return (
     <div className="px-4">
       <Accordion
@@ -254,7 +250,7 @@ const MobilePDPDetails = ({ reviewData }: { reviewData: TReviewData[] }) => {
           </AccordionContent>
         </AccordionItem> */}
 
-        {!!reviewData.length && (
+        {!!reviewData?.length && (
           <AccordionItem value="item-6">
             <AccordionTrigger className="font-black uppercase !no-underline">
               Car Cover Reviews

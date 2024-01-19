@@ -1,36 +1,6 @@
 import dynamic from 'next/dynamic';
 import Logo from '@/components/header/Logo';
-import { Search, ShoppingCart, User } from 'lucide-react';
-import Image from 'next/image';
-import Models from '@/data/car_year_make_model_list.json';
-import { Dispatch, ReactNode, SetStateAction, useState } from 'react';
-// import Cart from '@/components/header/Cart';
-import {
-  Hits,
-  InstantSearch,
-  SearchBox,
-  useInstantSearch,
-  useSearchBox,
-} from 'react-instantsearch';
-import { useHits } from 'react-instantsearch';
-import algoliasearch from 'algoliasearch';
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui/card';
-import Link from 'next/link';
-import { generationDefaultKeys } from '@/lib/constants';
-// import { AlgoliaSearchbar } from '@/components/header/AlgoliaSearchbar';
-
 const Cart = dynamic(() => import('@/components/header/Cart'), { ssr: false });
-const AlgoliaSearchbar = dynamic(
-  () => import('@/components/header/AlgoliaSearchbar'),
-  { ssr: false }
-);
 
 function Header() {
   return (

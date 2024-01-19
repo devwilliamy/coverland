@@ -9,9 +9,8 @@ import {
   useEffect,
   useState,
 } from 'react';
-import { extractUniqueValues } from '../utils';
-import { usePathname, useSearchParams } from 'next/navigation';
-import { deslugify, slugify } from '@/lib/utils';
+import { useSearchParams } from 'next/navigation';
+import { deslugify } from '@/lib/utils';
 import { useRouter } from 'next/navigation';
 
 export function SubmodelSearch({
@@ -30,7 +29,6 @@ export function SubmodelSearch({
   selectedSubmodel: string | null;
 }) {
   const [value, setValue] = useState(() => submodelParam ?? '');
-  const pathname = usePathname();
   const router = useRouter();
   const searchParams = useSearchParams();
 
@@ -63,8 +61,6 @@ export function SubmodelSearch({
     },
     [router, createQueryString]
   );
-
-  const { uniqueSubmodel1 } = extractUniqueValues(modelData as TProductData[]);
 
   const uniqueSubmodelsFromModelData = Array.from(
     new Set(
@@ -105,7 +101,7 @@ export function SubmodelSearch({
           key={`model-${submodel}`}
           value={submodel?.toLowerCase() as string}
         >
-          {deslugify(submodel)}
+          {deslugify(submodel as string)}
         </option>
       ))}
     </select>
