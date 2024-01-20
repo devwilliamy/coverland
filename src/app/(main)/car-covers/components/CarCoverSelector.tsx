@@ -59,12 +59,18 @@ export function CarCoverSelector({
   const defaultModel = isDefaultGeneration
     ? defaultGenerationModel ?? modelData[0]
     : modelData[0];
-  const isReadyForProductSelection = !!(
+  const isReadyForProductSelection =
     (params?.year && !hasSubmodels) ||
-    (hasSubmodels && submodelParam) ||
-    (hasSecondSubModels && secondSubmodelParam)
-  );
+    (hasSubmodels === !!submodelParam &&
+      hasSecondSubModels === !!secondSubmodelParam);
 
+  console.log(
+    isReadyForProductSelection,
+    hasSubmodels,
+    submodelParam,
+    secondSubmodelParam,
+    params?.year && !hasSubmodels
+  );
   const [selectedProduct, setSelectedProduct] =
     useState<TCarCoverData>(defaultModel);
 

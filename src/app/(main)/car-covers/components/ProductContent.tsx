@@ -192,7 +192,7 @@ export function ProductContent({
           </div>
         )}
         {/* Add to Cart Button */}
-        {isReadyForProductSelection && selectedProduct ? (
+        {!isReadyForProductSelection || !selectedProduct ? (
           <>
             <Popover>
               <PopoverTrigger asChild>

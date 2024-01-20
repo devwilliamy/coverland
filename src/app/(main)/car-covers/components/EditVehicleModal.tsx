@@ -31,7 +31,9 @@ export function EditVehicleModal({
         <EditIcon />
         <Popover open={open}>
           <PopoverTrigger asChild>
-            <button className="underline">Edit Vehicle</button>
+            <button className="underline" onClick={() => setOpen(!open)}>
+              Edit Vehicle
+            </button>
           </PopoverTrigger>
           <PopoverContent className="min-w-[100px] rounded-xl border border-gray-300 bg-white p-5 shadow-lg">
             <EditVehicleDropdown setOpen={setOpen} />
