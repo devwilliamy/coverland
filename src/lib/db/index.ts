@@ -7,6 +7,7 @@ import {
 import { deslugify } from '../utils';
 import { refreshRoute } from '@/app/(main)/[productType]/[...product]/actions';
 import { TCarCoverData } from '@/app/(main)/car-covers/components/CarPDP';
+import { TGenerationData } from '@/app/(main)/car-covers/[make]/[model]/[year]/page';
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL ?? '';
 const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_KEY ?? '';
@@ -112,12 +113,19 @@ export async function fetchPDPData(
 }
 
 export async function fetchCarPDPData(
-  generationFk: number
+  generationFk: number,
+  availableGenerations: TGenerationData
 ): Promise<TCarCoverData[] | null> {
-  const { data, error } = await supabase
-    .from('product_2024_join')
-    .select('*')
-    .eq('generation_default', generationFk);
+  let fetch = supabase.from('product_2024_join').select('*');
+
+  console.log(availableGenerations.length);
+  if (availableGenerations.length > 1) {
+    fetch = fetch.eq('generation_default', generationFk);
+  } else {
+    fetch = fetch.eq('fk', generationFk);
+  }
+
+  const { data, error } = await fetch;
 
   if (error) {
     console.log(error);
