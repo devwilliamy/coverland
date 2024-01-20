@@ -80,8 +80,10 @@ export function HeroDropdown() {
   ];
 
   const yearInUrl =
-    skuDisplayData.find(
-      (sku) => sku.fk === finalAvailableModels?.[0]?.generation_default
+    skuDisplayData.find((sku) =>
+      submodel
+        ? sku.fk === finalAvailableModels?.[0]?.fk
+        : sku.fk === finalAvailableModels?.[0]?.generation_default
     )?.year_generation ?? finalAvailableModels?.[0]?.year_generation;
 
   console.log(yearInUrl);

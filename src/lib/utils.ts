@@ -23,7 +23,7 @@ export function stringToSlug(str: string) {
   return slug;
 }
 
-//TODO - slowly migrate from slugify to compareRawStrings to more accurately compare strings
+//TODO - slowly migrate from slugify to compareRawStrings for string comparison (not for URL generation)
 export const slugify = (str: string) =>
   str
     ?.toLowerCase()
@@ -79,7 +79,7 @@ export function getUniqueYearGenerations(array: TProductData[]) {
   return Array.from(unique);
 }
 
-//TODO - slowly migrate from slugify to compareRawStrings to more accurately compare strings
+//TODO - slowly migrate from slugify to compareRawStrings for string comparison (not for URL generation)
 export function compareRawStrings(str1: string, str2: string) {
   let processedStr1 = str1.toLowerCase();
   let processedStr2 = str2.toLowerCase();
