@@ -42,6 +42,7 @@ import { MoneyBackMobile } from './MoneyBackMobile';
 import { GoDotFill } from 'react-icons/go';
 import AccordionDrawerItem from './components/AccordionDrawerItem';
 import { MobilePDPDetails } from './MobilePDPDetails';
+import { WarrantyDesktop } from './components/WarrantyDesktop';
 
 export function ExtraProductDetails({
   reviewData,
@@ -51,10 +52,15 @@ export function ExtraProductDetails({
   const [selectedSection, setSelectedSection] = useState<string>('');
 
   const pdRef = useRef<HTMLDivElement>(null);
+  const benefitsRef = useRef<HTMLDivElement>(null);
   const layersRef = useRef<HTMLDivElement>(null);
   const carCoverRef = useRef<HTMLDivElement>(null);
   const specsRef = useRef<HTMLDivElement>(null);
   const faqRef = useRef<HTMLDivElement>(null);
+  const shippingRef = useRef<HTMLDivElement>(null);
+  const warrantyRef = useRef<HTMLDivElement>(null);
+  const reviewsRef = useRef<HTMLDivElement>(null);
+
   // Add refs for other sections similarly...
 
   const scrollToSection = (
@@ -72,9 +78,13 @@ export function ExtraProductDetails({
 
   const PD_ID = 'product-details';
   const LAYERS_ID = 'layers-sec';
+  const BENEFITS_ID = 'benefits-sec';
   const SPECS_ID = 'specs-sec';
   const FAQ_ID = 'faq-sec';
   const CAR_COVER_INS_ID = 'car-cover-inst-sec';
+  const WARRANTY_ID = 'warranty-sec';
+  const SHIPPING_ID = 'shipping-sec';
+  const REVIEWS_ID = 'reviews-sec';
 
   // <AccordionItem value="item-1">
   //   <AccordionTrigger>Is it accessible?</AccordionTrigger>
@@ -84,37 +94,63 @@ export function ExtraProductDetails({
   // </AccordionItem>
 
   return (
-    <>
-      <div className="md:mt-18  mt-8 hidden w-full flex-col flex-wrap items-stretch justify-between gap-4 border-b border-t border-[#DADADA] py-6 md:flex-row md:items-center md:gap-0 lg:mt-28 lg:flex">
+    <div className="flex w-full flex-col">
+      <div className="hidden w-full max-w-full items-center justify-between border-b border-t border-[#DADADA] py-[22px] text-[18px] lg:flex lg:px-[30px]">
         <h1
           onClick={() => scrollToSection(pdRef, PD_ID)}
-          className={`cursor-pointer text-lg font-normal capitalize text-black ${
+          className={`cursor-pointer  font-normal capitalize text-black ${
             selectedSection === PD_ID ? 'underline' : ''
           }`}
         >
           product details
         </h1>
-        <h1
+        {/* <h1
           onClick={() => scrollToSection(layersRef, LAYERS_ID)}
-          className={`cursor-pointer text-lg font-normal capitalize text-black ${
+          className={`cursor-pointer  font-normal capitalize text-black ${
             selectedSection === LAYERS_ID ? 'underline' : ''
           }`}
         >
           <Link href="#benefits" className="">
             benefits
           </Link>
+        </h1> */}
+        <h1
+          onClick={() => scrollToSection(benefitsRef, BENEFITS_ID)}
+          className={`cursor-pointer  font-normal capitalize text-black ${
+            selectedSection === PD_ID ? 'underline' : ''
+          }`}
+        >
+          benefits
+        </h1>
+        {/* <h1
+          onClick={() => scrollToSection(shippingRef, SHIPPING_ID)}
+          className={`cursor-pointer  font-normal capitalize text-black ${
+            selectedSection === LAYERS_ID ? 'underline' : ''
+          }`}
+        >
+          <Link href="#shipping" className="">
+            Shipping & Returns
+          </Link>
+        </h1> */}
+        <h1
+          onClick={() => scrollToSection(shippingRef, SHIPPING_ID)}
+          className={`cursor-pointer  font-normal capitalize text-black ${
+            selectedSection === FAQ_ID ? 'underline' : ''
+          }`}
+        >
+          Shipping & Returns
         </h1>
         {/* <h1
           onClick={() => scrollToSection(specsRef, SPECS_ID)}
-          className={`cursor-pointer text-lg font-normal capitalize text-black ${
+          className={`cursor-pointer  font-normal capitalize text-black ${
             selectedSection === SPECS_ID ? 'underline' : ''
           }`}
-        >
+          >
           specification
-        </h1> */}
+          </h1> */}
         <h1
           onClick={() => scrollToSection(faqRef, FAQ_ID)}
-          className={`cursor-pointer text-lg font-normal capitalize text-black ${
+          className={`cursor-pointer  font-normal capitalize text-black ${
             selectedSection === FAQ_ID ? 'underline' : ''
           }`}
         >
@@ -122,432 +158,93 @@ export function ExtraProductDetails({
         </h1>
         {/* <h1
           onClick={() => scrollToSection(layersRef, LAYERS_ID)}
-          className={`cursor-pointer text-lg font-normal capitalize text-black ${
+          className={`cursor-pointer  font-normal capitalize text-black ${
             selectedSection === LAYERS_ID ? 'underline' : ''
           }`}
-        >
+          >
           Shipping & Returns
-        </h1> */}
+          </h1> */}
         <h1
-          onClick={() => scrollToSection(layersRef, LAYERS_ID)}
-          className={`cursor-pointer text-lg font-normal capitalize text-black ${
-            selectedSection === LAYERS_ID ? 'underline' : ''
+          onClick={() => scrollToSection(warrantyRef, WARRANTY_ID)}
+          className={`cursor-pointer  font-normal capitalize text-black ${
+            selectedSection === FAQ_ID ? 'underline' : ''
           }`}
         >
-          warranty
+          Warranty
         </h1>
         {/* <h1
           onClick={() => scrollToSection(carCoverRef, CAR_COVER_INS_ID)}
-          className={`cursor-pointer text-lg font-normal capitalize text-black ${
+          className={`cursor-pointer  font-normal capitalize text-black ${
             selectedSection === CAR_COVER_INS_ID ? 'underline' : ''
           }`}
-        >
+          >
           car cover instruction
-        </h1> */}
+          </h1> */}
         <h1
-          onClick={() => scrollToSection(layersRef, LAYERS_ID)}
-          className={`cursor-pointer text-lg font-normal capitalize text-black ${
-            selectedSection === LAYERS_ID ? 'underline' : ''
+          onClick={() => scrollToSection(reviewsRef, REVIEWS_ID)}
+          className={`cursor-pointer  font-normal capitalize text-black ${
+            selectedSection === FAQ_ID ? 'underline' : ''
           }`}
         >
           car cover reviews
         </h1>
       </div>
+      <div
+        className="flex w-full max-w-full flex-col lg:px-[30px]"
+        // className="md:mt-18 max-w-screen mt-8 hidden w-full flex-col flex-wrap items-stretch justify-between gap-4 border-b border-t border-[#DADADA] py-6 md:flex-row md:items-center md:gap-0 lg:mt-28 lg:flex"
+      >
+        <MobilePDPDetails reviewData={reviewData} />
 
-      <MobilePDPDetails reviewData={reviewData} />
-
-      <div className="hidden lg:flex lg:flex-col">
-        <div ref={pdRef}>
-          <ProductHero />
-        </div>
-        <div className="md:mt-18 mt-8 lg:mt-28">
-          <Video />
-        </div>
-        <div ref={carCoverRef} className="md:mt-18 mt-8 lg:mt-28">
-          <Layers />
-        </div>
-        <div className="md:mt-18 mt-8 lg:mt-28">
-          <ClimateCrisis />
-        </div>
-
-        <div className="md:mt-18 mt-8 lg:mt-28">
-          <NoGarage />
-        </div>
-        <div className="md:mt-18 mt-8 lg:mt-28">
-          <OurCarCovers />
-        </div>
-        <div className="md:mt-18 mt-8 lg:mt-28">
-          <ProductChecklist />
-        </div>
-        <div ref={specsRef} className="md:mt-18 mt-8 lg:mt-28">
-          {/* <ProductSpecGrid /> */}
-          <ProductPackage />
-        </div>
-        <div ref={faqRef} className="md:mt-18 mt-8 lg:mt-28">
-          <PDPAccordion />
-        </div>
-        <div className="md:my-18 my-8 lg:my-28">
-          <MoneyBack />
-        </div>
-        {!!reviewData.length && (
-          <div id="#reviews" className="md:mt-18 mt-8 lg:mt-28">
-            <ReviewSection reviewData={reviewData} />
+        <div className="hidden lg:flex lg:flex-col">
+          <div ref={pdRef}>
+            <ProductHero />
           </div>
-        )}
+          <div className="md:mt-18 mt-8 lg:mt-28">
+            <Video />
+          </div>
+          <div ref={benefitsRef} className="md:mt-18 mt-8 lg:mt-28">
+            <Layers />
+          </div>
+          <div className="md:mt-18 mt-8 lg:mt-28">
+            <ClimateCrisis />
+          </div>
+
+          <div className="md:mt-18 mt-8 lg:mt-28">
+            <NoGarage />
+          </div>
+          <div className="md:mt-18 mt-8 lg:mt-28">
+            <OurCarCovers />
+          </div>
+          <div className="md:mt-18 mt-8 lg:mt-28">
+            <ProductChecklist />
+          </div>
+          <div ref={specsRef} className="md:mt-18 mt-8 lg:mt-28">
+            {/* <ProductSpecGrid /> */}
+            <ProductPackage />
+          </div>
+          <div ref={faqRef} className="md:mt-18 mt-8 lg:mt-28">
+            <PDPAccordion />
+          </div>
+          <div ref={shippingRef} className="md:my-18 my-8 lg:my-28">
+            <MoneyBack />
+          </div>
+          <div ref={warrantyRef} className="md:my-18 my-8 lg:my-28">
+            <WarrantyDesktop />
+          </div>
+          {!!reviewData.length && (
+            <div
+              id="#reviews"
+              ref={reviewsRef}
+              className="md:mt-18 mt-8 lg:mt-28"
+            >
+              <ReviewSection reviewData={reviewData} />
+            </div>
+          )}
+        </div>
       </div>
-    </>
+    </div>
   );
 }
-
-// const MobilePDPDetails = ({ reviewData }: { reviewData: TReviewData[] }) => {
-//   return (
-//     <Accordion
-//       type="single"
-//       collapsible
-//       className="w-full px-4 font-black uppercase text-[#1A1A1A] lg:hidden"
-//       defaultValue="item-6"
-//     >
-//       {/* <AccordionItem value="item-1">
-//         <AccordionTrigger
-//           className="disabled text-xl font-black uppercase text-[#1A1A1A] !no-underline"
-//           id="#reviews"
-//         >
-//           <Drawer>
-//             <DrawerTrigger className="disabled text-xl font-black uppercase text-[#1A1A1A] !no-underline">
-//               Car Cover Features
-//             </DrawerTrigger>
-//             <DrawerContent>
-//               <DrawerHeader>
-//                 <DrawerTitle> Car Cover Features</DrawerTitle>
-//                 <DrawerDescription>
-//                   This action cannot be undone.
-//                 </DrawerDescription>
-//               </DrawerHeader>
-//               <div className="pl-4">
-//                 <div className="flex-start ml-2 flex items-center pb-2 leading-4">
-//                   <GoDotFill size={10} color="#000000" />
-//                   <p className="pl-1 text-sm font-medium capitalize text-black">
-//                     Tailored to your car model
-//                   </p>
-//                 </div>
-//                 <div className="flex-start ml-2 flex items-center pb-2 leading-4">
-//                   <GoDotFill size={10} color="#000000" />
-//                   <p className="pl-1 text-sm font-medium capitalize text-black">
-//                     all-season waterproof protection
-//                   </p>
-//                 </div>
-//                 <div className="flex-start ml-2 flex items-center pb-2 leading-4">
-//                   <GoDotFill size={10} color="#000000" />
-//                   <p className="pl-1 text-sm font-medium capitalize text-black">
-//                     Scratchproof, durable & lightweight
-//                   </p>
-//                 </div>
-//                 <div className="flex-start ml-2 flex items-center pb-2 leading-4">
-//                   <GoDotFill size={10} color="#000000" />
-//                   <p className="pl-1 text-sm font-medium capitalize text-black">
-//                     Soft Inner-lining
-//                   </p>
-//                 </div>
-//                 <div className="flex-start ml-2 flex items-center pb-2 leading-4">
-//                   <GoDotFill size={10} color="#000000" />
-//                   <p className="pl-1 text-sm font-medium capitalize text-black">
-//                     100% Waterproof - Zero Leaks Guaranteed
-//                   </p>
-//                 </div>
-//                 <div className="flex-start ml-2 flex items-center pb-2 leading-4">
-//                   <GoDotFill size={10} color="#000000" />
-//                   <p className="pl-1 text-sm font-medium capitalize text-black">
-//                     100% UV Protection
-//                   </p>
-//                 </div>
-//                 <div className="flex-start ml-2 flex items-center pb-2 leading-4">
-//                   <GoDotFill size={10} color="#000000" />
-//                   <p className="pl-1 text-sm font-medium capitalize text-black">
-//                     Easy On/Off with elastic hems
-//                   </p>
-//                 </div>
-//                 <div className="flex-start ml-2 flex items-center pb-2 leading-4">
-//                   <GoDotFill size={10} color="#000000" />
-//                   <p className="pl-1 text-sm font-medium capitalize text-black">
-//                     effortless cleaning
-//                   </p>
-//                 </div>
-//               </div>
-//               <DrawerFooter>
-//                 <Button>Submit</Button>
-//                 <DrawerClose>
-//                   <Button variant="outline">Cancel</Button>
-//                 </DrawerClose>
-//               </DrawerFooter>
-//             </DrawerContent>
-//           </Drawer>
-//         </AccordionTrigger>
-//       </AccordionItem> */}
-//       <AccordianDrawerItem title="Car Cover Features" value="item-1">
-//         <div className="pl-4">
-//           <div className="flex-start ml-2 flex items-center pb-2 leading-4">
-//             <GoDotFill size={10} color="#000000" />
-//             <p className="pl-1 text-sm font-medium capitalize text-black">
-//               Tailored to your car model
-//             </p>
-//           </div>
-//           <div className="flex-start ml-2 flex items-center pb-2 leading-4">
-//             <GoDotFill size={10} color="#000000" />
-//             <p className="pl-1 text-sm font-medium capitalize text-black">
-//               all-season waterproof protection
-//             </p>
-//           </div>
-//           <div className="flex-start ml-2 flex items-center pb-2 leading-4">
-//             <GoDotFill size={10} color="#000000" />
-//             <p className="pl-1 text-sm font-medium capitalize text-black">
-//               Scratchproof, durable & lightweight
-//             </p>
-//           </div>
-//           <div className="flex-start ml-2 flex items-center pb-2 leading-4">
-//             <GoDotFill size={10} color="#000000" />
-//             <p className="pl-1 text-sm font-medium capitalize text-black">
-//               Soft Inner-lining
-//             </p>
-//           </div>
-//           <div className="flex-start ml-2 flex items-center pb-2 leading-4">
-//             <GoDotFill size={10} color="#000000" />
-//             <p className="pl-1 text-sm font-medium capitalize text-black">
-//               100% Waterproof - Zero Leaks Guaranteed
-//             </p>
-//           </div>
-//           <div className="flex-start ml-2 flex items-center pb-2 leading-4">
-//             <GoDotFill size={10} color="#000000" />
-//             <p className="pl-1 text-sm font-medium capitalize text-black">
-//               100% UV Protection
-//             </p>
-//           </div>
-//           <div className="flex-start ml-2 flex items-center pb-2 leading-4">
-//             <GoDotFill size={10} color="#000000" />
-//             <p className="pl-1 text-sm font-medium capitalize text-black">
-//               Easy On/Off with elastic hems
-//             </p>
-//           </div>
-//           <div className="flex-start ml-2 flex items-center pb-2 leading-4">
-//             <GoDotFill size={10} color="#000000" />
-//             <p className="pl-1 text-sm font-medium capitalize text-black">
-//               effortless cleaning
-//             </p>
-//           </div>
-//         </div>
-//       </AccordianDrawerItem>
-
-//       {/* <AccordionItem value="item-2">
-//         <AccordionTrigger className="text-xl font-black uppercase text-[#1A1A1A] !no-underline">
-//           Product Details
-//         </AccordionTrigger>
-//         <AccordionContent>
-
-//         </AccordionContent>
-//       </AccordionItem> */}
-
-//       <AccordianDrawerItem title="Product Details" value="item-2">
-//         <ProductHero />
-//         {/* <div className=" md:mt-18 lg:mt-28">
-//               <Video />
-//             </div> */}
-//         <div className="">
-//           <Layers />
-//         </div>
-//       </AccordianDrawerItem>
-//       <AccordianDrawerItem title="Benefits" value="item-3">
-//         <div className=" md:mt-18 lg:mt-28">
-//           <ClimateCrisisMobile />
-//           <NoGarageMobile />
-//           <OurCarCovers />
-//           <ProductChecklist />
-//         </div>
-//       </AccordianDrawerItem>
-
-//       {/* <AccordionItem value="item-3">
-//         <AccordionTrigger className="text-xl font-black uppercase text-[#1A1A1A] !no-underline">
-//           Benefits
-//         </AccordionTrigger>
-//         <AccordionContent>
-//           <div className=" md:mt-18 lg:mt-28">
-//             <ClimateCrisisMobile />
-//             <NoGarageMobile />
-//             <OurCarCovers />
-//             <ProductChecklist />
-//           </div>
-//         </AccordionContent>
-//       </AccordionItem> */}
-
-//       {/* <AccordionItem value="item-4">
-//           <AccordionTrigger className="text-xl font-black uppercase text-[#1A1A1A] !no-underline">
-//             Specification
-//           </AccordionTrigger>
-//           <AccordionContent>
-//             <div className=" md:mt-18 lg:mt-28">
-//               <ProductSpecGrid />
-//               <ProductPackage />
-//             </div>
-//           </AccordionContent>
-//         </AccordionItem> */}
-
-//       <AccordianDrawerItem value="item-5" title="Q&A">
-//         <div className="md:mt-18 lg:mt-28">
-//           <PDPAccordion />
-//         </div>
-//       </AccordianDrawerItem>
-
-//       {/* <AccordionItem className="" value="item-5">
-//         <AccordionTrigger className="text-xl font-black uppercase text-[#1A1A1A] !no-underline">
-//           Q&A
-//         </AccordionTrigger>
-//         <AccordionContent>
-//           <div className="md:mt-18 lg:mt-28">
-//             <PDPAccordion />
-//           </div>
-//         </AccordionContent>
-//       </AccordionItem> */}
-
-//       <AccordianDrawerItem value="item-6" title="Shipping & Returns">
-//         <div className=" md:mt-18 lg:mt-28">
-//           <div className="flex flex-col gap-5 px-2 py-[30px] normal-case">
-//             <div className="mb-[-15px] text-lg font-black">
-//               Shipping Details
-//             </div>
-//             <div className="font-thin">
-//               Enjoy free ground shipping! Please note that these shipping times
-//               are estimates, and actual delivery times may vary.
-//             </div>
-//             <ul className="flex list-disc flex-col gap-4">
-//               <li className="font-thin">
-//                 - Free Ground Shipping: Delivered within 1-5 business days.
-//               </li>
-//               <li className="font-thin ">
-//                 - Express Shipping: Delivered within 2 days with a flat rate of
-//                 $19.99.
-//               </li>
-//             </ul>
-//             <div className="mb-[-15px] text-lg font-black">Return Details</div>
-//             <div className="font-thin">
-//               This item must be returned within 30 days of the date it was
-//               purchased. See the return policy for the complete information.
-//             </div>
-//           </div>
-//           <MoneyBackMobile />
-//         </div>
-//       </AccordianDrawerItem>
-
-//       {/* <AccordionItem value="item-6">
-//         <AccordionTrigger className="border-b text-xl font-black uppercase text-[#1A1A1A] !no-underline">
-//           Shipping & Returns
-//         </AccordionTrigger>
-//         <AccordionContent>
-//           <div className=" md:mt-18 lg:mt-28">
-//             <div className="flex flex-col gap-5 px-2 py-[30px] normal-case">
-//               <div className="mb-[-15px] text-lg font-black">
-//                 Shipping Details
-//               </div>
-//               <div className="font-thin">
-//                 Enjoy free ground shipping! Please note that these shipping
-//                 times are estimates, and actual delivery times may vary.
-//               </div>
-//               <ul className="flex list-disc flex-col gap-4">
-//                 <li className="font-thin">
-//                   - Free Ground Shipping: Delivered within 1-5 business days.
-//                 </li>
-//                 <li className="font-thin ">
-//                   - Express Shipping: Delivered within 2 days with a flat rate
-//                   of $19.99.
-//                 </li>
-//               </ul>
-//               <div className="mb-[-15px] text-lg font-black">
-//                 Return Details
-//               </div>
-//               <div className="font-thin">
-//                 This item must be returned within 30 days of the date it was
-//                 purchased. See the return policy for the complete information.
-//               </div>
-//             </div>
-//             <MoneyBackMobile />
-//           </div>
-//         </AccordionContent>
-//       </AccordionItem> */}
-
-//       <AccordianDrawerItem value="item-7" title="Warranty">
-//         <div className=" md:mt-18 mb-[-10px] lg:mt-28">
-//           <div className="flex flex-col gap-5 py-[30px] normal-case">
-//             <div className="mb-[-15px] text-lg font-black">
-//               7-Years Warranty
-//             </div>
-//             <div className="font-thin">
-//               Safeguard your valuable investment with the peace of mind that
-//               comes from our industry-leading
-//             </div>
-//             <div className="font-thin">
-//               {
-//                 " 7-years car cover warranty. Your car deserves the best protection, and we're here to deliver it."
-//               }
-//             </div>
-//           </div>
-//         </div>
-//       </AccordianDrawerItem>
-
-//       {/* <AccordionItem value="item-7">
-//         <AccordionTrigger className="border-b text-xl font-black uppercase text-[#1A1A1A] !no-underline">
-//           Warranty
-//         </AccordionTrigger>
-//         <AccordionContent>
-//           <div className=" md:mt-18 mb-[-10px] lg:mt-28">
-//             <div className="flex flex-col gap-5 py-[30px] normal-case">
-//               <div className="mb-[-15px] text-lg font-black">
-//                 7-Years Warranty
-//               </div>
-//               <div className="font-thin">
-//                 Safeguard your valuable investment with the peace of mind that
-//                 comes from our industry-leading
-//               </div>
-//               <div className="font-thin">
-//                 {
-//                   " 7-years car cover warranty. Your car deserves the best protection, and we're here to deliver it."
-//                 }
-//               </div>
-//             </div>
-//           </div>
-//         </AccordionContent>
-//       </AccordionItem> */}
-
-//       {/* <AccordionItem value="item-8">
-//           <AccordionTrigger className="text-xl font-black uppercase text-[#1A1A1A] !no-underline">
-//             Car Cover Instruction
-//           </AccordionTrigger>
-//           <AccordionContent>
-//             <div className=" md:mt-18 lg:mt-28">
-//               Content for Car Cover Instruction Section
-//             </div>
-//           </AccordionContent>
-//         </AccordionItem> */}
-
-//       {!!reviewData.length && (
-//         <AccordianDrawerItem value="item-9" title="Q&A">
-//           <div className="md:mt-18 lg:mt-28">
-//             <PDPAccordion />
-//           </div>
-//         </AccordianDrawerItem>
-//       )}
-//       {/*
-//       {!!reviewData.length && (
-//         <AccordionItem value="item-9">
-//           <AccordionTrigger className="text-xl font-black uppercase text-[#1A1A1A] !no-underline">
-//             Car Cover Reviews
-//           </AccordionTrigger>
-//           <AccordionContent>
-//             <div className="lg:mt-28">
-//               <ReviewSection reviewData={reviewData} />
-//             </div>
-//           </AccordionContent>
-//         </AccordionItem>
-//       )} */}
-//     </Accordion>
-//   );
-// };
 
 const StarIcon = () => {
   return (

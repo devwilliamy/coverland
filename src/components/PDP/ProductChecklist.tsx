@@ -13,12 +13,12 @@ export function ProductChecklist() {
             Premium Car covers:
           </p>
         </div>
-        <div className="mt-4 grid grid-cols-1 gap-5 normal-case md:mt-8">
+        <div className="mt-4 grid grid-cols-1 gap-[24px] normal-case md:mt-8">
           <div className="flex flex-row items-center justify-start">
             <FaCheckSquare color="ffffff" size={24} />
             <div className="ml-2 md:ml-4">
               <p className="text-base font-normal text-white md:text-lg lg:text-xl">
-                <b>Car Enthusiasts</b>
+                <b>Car Enthusiasts.</b>
               </p>
             </div>
           </div>
@@ -26,7 +26,7 @@ export function ProductChecklist() {
             <FaCheckSquare color="ffffff" size={24} />
             <div className="ml-2 md:ml-4">
               <p className="text-base font-normal text-white md:text-lg lg:text-xl">
-                Those Who Prefer <b>Minimal Car Washing</b>
+                Those Who Prefer <b>Minimal Car Washing.</b>
               </p>
             </div>
           </div>
@@ -35,7 +35,7 @@ export function ProductChecklist() {
             <div className="ml-2 md:ml-4">
               <p className="text-base font-normal text-white md:text-lg lg:text-xl">
                 Residents of <b className="capitalize">wildlife</b> and{' '}
-                <b className="capitalize">Tree-abundant</b> Areas
+                <b className="capitalize">Tree-abundant</b> Areas.
               </p>
             </div>
           </div>
@@ -43,7 +43,7 @@ export function ProductChecklist() {
             <FaCheckSquare color="ffffff" size={24} />
             <div className="ml-2 md:ml-4">
               <p className="text-base font-normal text-white md:text-lg lg:text-xl">
-                Cars frequently exposed to <b>rain</b> and <b>humidity</b>
+                Cars frequently exposed to <b>rain</b> and <b>humidity.</b>
               </p>
             </div>
           </div>
@@ -51,7 +51,7 @@ export function ProductChecklist() {
             <FaCheckSquare color="ffffff" size={24} />
             <div className="ml-2 md:ml-4">
               <p className="text-base font-normal text-white md:text-lg lg:text-xl">
-                Car owners in <b>hurricane-prone</b> regions
+                Car owners in <b>typhoon-prone</b> regions.
               </p>
             </div>
           </div>
@@ -59,7 +59,7 @@ export function ProductChecklist() {
             <FaCheckSquare color="ffffff" size={24} />
             <div className="ml-2 md:ml-4">
               <p className="text-base font-normal text-white md:text-lg lg:text-xl">
-                Car owners in <b>snowy</b> climates
+                Car owners in <b>snowy</b> climates.
               </p>
             </div>
           </div>
@@ -67,7 +67,7 @@ export function ProductChecklist() {
             <FaCheckSquare color="ffffff" size={24} />
             <div className="ml-2 md:ml-4">
               <p className="text-base font-normal text-white md:text-lg lg:text-xl">
-                Car owners in <b>sunny</b> climates
+                Car owners in <b>sunny</b> climates.
               </p>
             </div>
           </div>

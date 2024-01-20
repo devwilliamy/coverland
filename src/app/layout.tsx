@@ -11,7 +11,7 @@ import LiveChat from '@/components/LiveChat';
 import { Analytics } from '@vercel/analytics/react';
 
 const roboto = Roboto({
-  weight: ['400', '500', '700', '900'],
+  weight: ['100', '300', '400', '500', '700', '900'],
   subsets: ['latin'],
   display: 'swap',
   variable: '--font-roboto',

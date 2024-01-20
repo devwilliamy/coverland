@@ -24,97 +24,14 @@ export function OurCarCovers() {
   return (
     <div className="flex flex-col">
       <div className="w-full py-8 lg:py-16">
-        <p className="text-center text-2xl font-black uppercase tracking-[1.35px] text-[#1A1A1A] md:text-3xl lg:text-5xl">
+        <p className="w-full text-center text-2xl font-black uppercase tracking-[1.35px] text-[#1A1A1A] md:text-3xl lg:text-[45px]">
           Our car covers have you covered
         </p>
         <p className="hidden text-left text-2xl font-black uppercase tracking-[1.35px] text-[#1A1A1A] md:text-3xl lg:text-5xl">
           Our car covers <br /> have you covered
         </p>
       </div>
-      <div className="flex flex-col items-center justify-center gap-[30px] lg:grid lg:grid-cols-3">
-        {/* <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
-          <div className="flex items-center justify-center gap-4 md:flex-row md:items-start md:justify-items-center lg:grid lg:grid-cols-4">
-            <div className="h-[50px] w-[50px] lg:h-[60px] lg:w-[60px]">
-              <div className="bg-blue flex h-full w-full flex-col items-center justify-center rounded-full">
-                <UVHarmIcon />
-              </div>
-            </div>
-            <div className="text-center md:col-span-3 md:text-left">
-              <p className="mb-4 text-2xl font-bold capitalize text-[#1A1A1A]">
-                UV Harm
-              </p>
-              <p className="text-lg font-normal text-[#707070]">
-                Prolonged sun exposure can harm your paint. Keep it looking
-                fresh with our cover.
-              </p>
-            </div>
-          </div>
-          <div className="flex  items-center justify-center gap-4 md:flex-row md:items-start md:justify-items-center lg:grid lg:grid-cols-4">
-            <div className="h-[50px] w-[50px] lg:h-[60px] lg:w-[60px]">
-              <div className="bg-blue flex h-full w-full flex-col items-center justify-center rounded-full">
-                <WaterHumidityIcon />
-              </div>
-            </div>
-            <div className="text-center md:col-span-3 md:text-left">
-              <p className="mb-4 text-2xl font-bold capitalize text-[#1A1A1A]">
-                Water and humidity
-              </p>
-              <p className="text-lg font-normal text-[#707070]">
-                Fear rust? Our car covers are waterproof with air vents for full
-                protection.
-              </p>
-            </div>
-          </div>
-          <div className="flex  items-center justify-center gap-4 md:flex-row md:items-start md:justify-items-center lg:grid lg:grid-cols-4">
-            <div className="h-[50px] w-[50px] lg:h-[60px] lg:w-[60px]">
-              <div className="bg-blue flex h-full w-full flex-col items-center justify-center rounded-full">
-                <WaterHumidityIcon />
-              </div>
-            </div>
-            <div className="text-center md:col-span-3 md:text-left">
-              <p className="mb-4 text-2xl font-bold capitalize text-[#1A1A1A]">
-                Strong Wind
-              </p>
-              <p className="text-lg font-normal text-[#707070]">
-                {`Don't let strong winds unsettle your car cover. Our wind straps
-                keep it steady in gusty conditions.`}
-              </p>
-            </div>
-          </div>
-          <div className="flex flex-col items-center justify-center gap-4 md:flex-row md:items-start md:justify-items-center lg:grid lg:grid-cols-4">
-            <div className="h-[50px] w-[50px] lg:h-[60px] lg:w-[60px]">
-              <div className="bg-blue flex h-full w-full flex-col items-center justify-center rounded-full">
-                <TempShiftsIcon />
-              </div>
-            </div>
-            <div className="text-center md:col-span-3 md:text-left">
-              <p className="mb-4 text-2xl font-bold capitalize text-[#1A1A1A]">
-                Temperature Shifts
-              </p>
-              <p className="text-lg font-normal text-[#707070]">
-                Shield your car from temperature changes. prevent overheating
-                and cold-related issues.
-              </p>
-            </div>
-          </div>
-
-          <div className="flex flex-col items-center justify-center gap-4 md:flex-row md:items-start md:justify-items-center lg:grid lg:grid-cols-4">
-            <div className="h-[50px] w-[50px] lg:h-[60px] lg:w-[60px]">
-              <div className="bg-blue flex h-full w-full flex-col items-center justify-center rounded-full">
-                <BirdsAnimalIcon />
-              </div>
-            </div>
-            <div className="text-center md:col-span-3 md:text-left">
-              <p className="mb-4 text-2xl font-bold capitalize text-[#1A1A1A]">
-                Birds and Animals
-              </p>
-              <p className="text-lg font-normal text-[#707070]">
-                Rest easy - No more unexpected bird droppings or curious animals
-                causing potential damage to your car.
-              </p>
-            </div>
-          </div>
-        </div> */}
+      <div className="lg: flex flex-col items-center justify-center gap-[30px] lg:grid lg:grid-cols-3">
         <OurCoversBlock
           icon={<UVHarmIcon />}
           title={'UV Harm'}
@@ -124,7 +41,7 @@ export function OurCarCovers() {
         />
         <OurCoversBlock
           icon={<WaterHumidityIcon />}
-          title={'Water and humidity'}
+          title={'Water and Humidity'}
           text={
             'Fear rust? Our car covers are waterproof with air vents for full protection.'
           }
@@ -164,17 +81,18 @@ export function OurCarCovers() {
 
 const OurCoversBlock = (props: Props) => {
   return (
-    <div className="flex w-full gap-4 md:flex-row md:items-start md:justify-items-center lg:grid lg:grid-cols-4">
-      <div className="h-[77px] w-[77px] lg:h-[60px] lg:w-[60px]">
-        <div className="bg-blue flex h-full w-full flex-col items-center justify-center rounded-full">
-          {props.icon}
-        </div>
+    <div className="flex h-full w-full items-start">
+      <div className="mt-[-22px]  flex  max-h-[77px] w-3/12 max-w-[77px] justify-center lg:mt-[-5px] lg:max-h-[101px] lg:w-4/12  lg:max-w-[101px]">
+        {props.icon}
       </div>
-      <div className="md:col-span-3 md:text-left">
-        <p className="mb-4 text-2xl font-bold normal-case text-[#1A1A1A]">
+      <div
+        id="description-container"
+        className="flex w-9/12 flex-col  pl-[20px] lg:w-8/12 "
+      >
+        <p className="mb-4 w-full text-[18px] font-[900] normal-case text-[#1A1A1A]">
           {props.title}
         </p>
-        <p className="text-base font-normal normal-case text-[#707070]">
+        <p className="text-[16px] font-[400] normal-case text-[#707070]">
           {props.text}
         </p>
       </div>

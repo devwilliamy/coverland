@@ -16,10 +16,10 @@ export function MoneyBackMobile() {
             height={190}
           />
         </div>
-        <div className="mb-[46px] w-full px-2 text-[6vw] font-black leading-[8vw]">
+        <div className="mb-[22.5px] w-full px-2 text-[6vw] font-black uppercase leading-[8vw]">
           60-days Money back guaranteed
         </div>
-        <div className="mb-[46px] px-2 text-[4vw] font-thin normal-case leading-[4vw] md:text-[3.5vw]">
+        <div className="mb-[46px] px-2 text-[16px] font-thin normal-case leading-[140%] md:text-[3.5vw]">
           {
             "If you're not satisfied, we've got you covered. with an easy return process and full refunds. We're here to make your shopping as smooth as possible."
           }

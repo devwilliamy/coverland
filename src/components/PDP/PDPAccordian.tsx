@@ -11,17 +11,16 @@ import { Button } from '../ui/button';
 export function PDPAccordion() {
   return (
     <>
-      <div className="bg-[#F9F9FB] px-2 py-4 md:p-8 lg:p-14">
-        <h2 className="text-[#1A1A1A] font-black text-2xl md:text-3xl lg:text-5xl uppercase text-center">
+      <div className="bg-[#F9F9FB] px-2 md:p-8 lg:p-14">
+        <h2 className="hidden text-center text-2xl font-black uppercase text-[#1A1A1A] md:text-3xl lg:text-5xl">
           q&a
         </h2>
-        <Separator className="my-8 opacity-30" />
         <Accordion type="single" collapsible className="w-full">
           <AccordionItem value="item-1">
-            <AccordionTrigger className="font-black text-[#1A1A1A] text-base md:text-xl lg:text-[28px] capitalize py-4 md:py-6 lg:py-8">
+            <AccordionTrigger className="text-base font-black capitalize text-[#1A1A1A]  md:text-xl lg:py-8 lg:text-[28px]">
               Is putting this car cover on a hassle ?
             </AccordionTrigger>
-            <AccordionContent className="text-sm md:text-lg font-normal text-[#1A1A1A]">
+            <AccordionContent className="text-sm font-normal text-[#1A1A1A] md:text-lg">
               We make buying the right cover simple and easy. Simply use our
               cover finder tool on the homepage to find the exact custom-fit car
               cover for your make and model. Once you insert the information,
@@ -32,10 +31,10 @@ export function PDPAccordion() {
             </AccordionContent>
           </AccordionItem>
           <AccordionItem value="item-2">
-            <AccordionTrigger className="font-black text-[#1A1A1A] text-base md:text-xl lg:text-[28px] capitalize py-4 md:py-6 lg:py-8">
+            <AccordionTrigger className="py-4 text-base font-black capitalize text-[#1A1A1A] md:py-6 md:text-xl lg:py-8 lg:text-[28px]">
               Guaranteed Durability & quality
             </AccordionTrigger>
-            <AccordionContent className="text-sm md:text-lg font-normal text-[#1A1A1A]">
+            <AccordionContent className="text-sm font-normal text-[#1A1A1A] md:text-lg">
               We make sure to guarantee your satisfaction with our exceptional
               customer service. At the heart of our commitment lies a dedication
               to understanding and fulfilling your needs with utmost precision
@@ -45,10 +44,10 @@ export function PDPAccordion() {
             </AccordionContent>
           </AccordionItem>
           <AccordionItem value="item-3">
-            <AccordionTrigger className="font-black text-[#1A1A1A] text-base md:text-xl lg:text-[28px] capitalize py-4 md:py-6 lg:py-8">
+            <AccordionTrigger className="py-4 text-base font-black capitalize text-[#1A1A1A] md:py-6 md:text-xl lg:py-8 lg:text-[28px]">
               how to order Full custom car cover?
             </AccordionTrigger>
-            <AccordionContent className="text-sm md:text-lg font-normal text-[#1A1A1A]">
+            <AccordionContent className="text-sm font-normal text-[#1A1A1A] md:text-lg">
               We make sure to guarantee your satisfaction with our exceptional
               customer service. At the heart of our commitment lies a dedication
               to understanding and fulfilling your needs with utmost precision
@@ -58,10 +57,10 @@ export function PDPAccordion() {
             </AccordionContent>
           </AccordionItem>
           <AccordionItem value="item-4">
-            <AccordionTrigger className="font-black text-[#1A1A1A] text-base md:text-xl lg:text-[28px] capitalize py-4 md:py-6 lg:py-8">
+            <AccordionTrigger className="py-4 text-base font-black capitalize text-[#1A1A1A] md:py-6 md:text-xl lg:py-8 lg:text-[28px]">
               Car cover cleaning guide
             </AccordionTrigger>
-            <AccordionContent className="text-sm md:text-lg font-normal text-[#1A1A1A]">
+            <AccordionContent className="text-sm font-normal text-[#1A1A1A] md:text-lg">
               We make sure to guarantee your satisfaction with our exceptional
               customer service. At the heart of our commitment lies a dedication
               to understanding and fulfilling your needs with utmost precision
@@ -71,10 +70,10 @@ export function PDPAccordion() {
             </AccordionContent>
           </AccordionItem>
           <AccordionItem value="item-5">
-            <AccordionTrigger className="font-black text-[#1A1A1A] text-base md:text-xl lg:text-[28px] capitalize py-4 md:py-6 lg:py-8">
+            <AccordionTrigger className="py-4 text-base font-black capitalize text-[#1A1A1A] md:py-6 md:text-xl lg:py-8 lg:text-[28px]">
               Exceptional Customer Service
             </AccordionTrigger>
-            <AccordionContent className="text-sm md:text-lg font-normal text-[#1A1A1A]">
+            <AccordionContent className="text-sm font-normal text-[#1A1A1A] md:text-lg">
               We make sure to guarantee your satisfaction with our exceptional
               customer service. At the heart of our commitment lies a dedication
               to understanding and fulfilling your needs with utmost precision
@@ -85,9 +84,9 @@ export function PDPAccordion() {
           </AccordionItem>
         </Accordion>
 
-        <Button className="flex h-12 w-[216px] mx-auto mt-9 text-lg hover:bg-transparent bg-[#1A1A1A] rounded border border-[#1A1A1A]  font-bold hover:text-[#1A1A1A] text-white uppercase">
+        {/* <Button className="flex h-12 w-[216px] mx-auto mt-9 text-lg hover:bg-transparent bg-[#1A1A1A] rounded border border-[#1A1A1A]  font-bold hover:text-[#1A1A1A] text-white uppercase">
           ask a question
-        </Button> 
+        </Button>  */}
       </div>
     </>
   );
