@@ -88,9 +88,6 @@ export default function EditVehicleDropdown({
   const yearInUrl = finalAvailableModels?.find(
     (sku) => sku.generation_default === sku.fk
   )?.year_generation;
-  console.log(yearInUrl);
-
-  console.log(finalAvailableModels);
 
   const createQueryString = useCallback(
     (name: string, value: string) => {
