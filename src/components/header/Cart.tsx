@@ -1,13 +1,11 @@
 'use client';
 
 import { useCartContext } from '@/providers/CartProvider';
-import { ShoppingCart } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import {
   Sheet,
   SheetClose,
   SheetContent,
-  SheetDescription,
   SheetFooter,
   SheetHeader,
   SheetTitle,
@@ -25,15 +23,12 @@ import {
 import { TCartItems } from '@/lib/cart/useCart';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useMediaQuery } from '@mantine/hooks';
 import { HiOutlineShoppingCart } from 'react-icons/hi';
 import { FaCheck } from 'react-icons/fa6';
 import { IoIosClose } from 'react-icons/io';
 
 function Cart() {
   const { cartItems, cartOpen, setCartOpen } = useCartContext();
-  const isMobile = useMediaQuery('(max-width: 500px)');
-  const cartColor = cartItems.length > 0 ? '#BE1B1B' : '#000000';
 
   return (
     <Sheet open={cartOpen}>

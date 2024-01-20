@@ -23,6 +23,7 @@ export function stringToSlug(str: string) {
   return slug;
 }
 
+//TODO - slowly migrate from slugify to compareRawStrings to more accurately compare strings
 export const slugify = (str: string) =>
   str
     ?.toLowerCase()
@@ -31,7 +32,7 @@ export const slugify = (str: string) =>
     .replace(/[\s_-]+/g, '-')
     .replace(/^-+|-+$/g, '');
 
-export const deslugify = (slug: any) => {
+export const deslugify = (slug: string) => {
   if (typeof slug !== 'string') return slug;
 
   // Handle specific cases
@@ -78,10 +79,16 @@ export function getUniqueYearGenerations(array: TProductData[]) {
   return Array.from(unique);
 }
 
-type Model = {
-  year_generation: number;
-  feature?: string[] | null;
-};
+//TODO - slowly migrate from slugify to compareRawStrings to more accurately compare strings
+export function compareRawStrings(str1: string, str2: string) {
+  let processedStr1 = str1.toLowerCase();
+  let processedStr2 = str2.toLowerCase();
+
+  processedStr1 = processedStr1.replace(/[^a-z0-9]/g, '');
+  processedStr2 = processedStr2.replace(/[^a-z0-9]/g, '');
+
+  return processedStr1 === processedStr2;
+}
 
 export function groupProductsBy(
   attribute: keyof TProductData,

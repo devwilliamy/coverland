@@ -1,5 +1,8 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+
 import React, { createContext, useContext } from 'react';
 import useCart, { TCartItems } from '@/lib/cart/useCart';
+
 const defaultCartValue = {
   cartItems: [] as TCartItems[],
   addToCart: (item: TCartItems) => {},

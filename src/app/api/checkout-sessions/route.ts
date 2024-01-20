@@ -1,10 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { headers } from 'next/headers';
 import { TCartItems } from '@/lib/cart/useCart';
-import { getStripe } from '../utils/orders';
+// import { getStripe } from '../utils/orders';
 import Stripe from 'stripe';
 
-export async function POST(req: NextRequest, res: NextResponse) {
+export async function POST(req: NextRequest) {
   const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string);
   const headersList = headers();
   const { cartItems } = await req.json();

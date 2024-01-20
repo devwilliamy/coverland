@@ -5,11 +5,9 @@ import {
   ChangeEvent,
   Dispatch,
   SetStateAction,
-  useCallback,
   useEffect,
   useState,
 } from 'react';
-import { useSearchParams } from 'next/navigation';
 
 export function SubmodelSearch2nd({
   setSelectedSecondSubmodel,
@@ -23,7 +21,6 @@ export function SubmodelSearch2nd({
   selectedSubmodel: string | null;
 }) {
   const [value, setValue] = useState(() => submodelParam2nd ?? '');
-  const searchParams = useSearchParams();
   const [availableSecondSubmodels, setAvailableSecondSubmodels] = useState<
     string[]
   >([]);
@@ -48,18 +45,6 @@ export function SubmodelSearch2nd({
       setAvailableSecondSubmodels(secondSubmodelData);
     }
   }, [selectedSubmodel, modelData]);
-
-  // Get a new searchParams string by merging the current
-  // searchParams with a provided key/value pair
-  const createQueryString = useCallback(
-    (name: string, value: string) => {
-      const params = new URLSearchParams(searchParams?.toString());
-      params.set(name, value);
-
-      return params.toString();
-    },
-    [searchParams]
-  );
 
   const handleChange = (event: ChangeEvent<HTMLSelectElement>) => {
     const newValue = event.target.value;

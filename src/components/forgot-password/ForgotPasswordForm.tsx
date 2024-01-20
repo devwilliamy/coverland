@@ -3,11 +3,9 @@ import { createSupabaseBrowserClient } from '@/lib/db/supabaseClients';
 import { ForgottenPassword } from '@supabase/auth-ui-react';
 import { ThemeSupa } from '@supabase/auth-ui-shared';
 import { SupabaseClient } from '@supabase/supabase-js';
-import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 
 export default function ForgotPasswordForm() {
-  const router = useRouter();
   const supabase: SupabaseClient = createSupabaseBrowserClient();
 
   return (

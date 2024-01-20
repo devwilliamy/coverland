@@ -1,5 +1,3 @@
-// @ts-nocheck
-
 // const devURL = process.env.NEXT_PUBLIC_DEV_BASE_URL
 // const orderConfirmationEmailURL = `${devURL}/api/emails/send-order-confirmation`
 import { Stripe, loadStripe } from '@stripe/stripe-js';
@@ -7,7 +5,7 @@ import { Stripe, loadStripe } from '@stripe/stripe-js';
 const baseURL = process.env.NEXT_PUBLIC_STRAPI_BASE_URL;
 const orderConfirmationEmailURL = `${baseURL}/api/emails/send-order-confirmation`;
 
-function formatDateString(dateString) {
+function formatDateString(dateString: any) {
   const date = new Date(dateString);
   const months = [
     'January',
@@ -29,7 +27,7 @@ function formatDateString(dateString) {
   return `${month} ${day}, ${year}`;
 }
 
-const handleOrderConfirmationEmail = async (order) => {
+const handleOrderConfirmationEmail = async (order: any) => {
   const orderDateString = formatDateString(order.order_placed);
   const emailData = {
     to: order.shipping_address.email,
@@ -57,7 +55,7 @@ const handleOrderConfirmationEmail = async (order) => {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(emailData),
     });
-    const data = await response.json();
+    await response.json();
   } catch (error) {
     console.error('Error sending order confirmation email:', error);
   }

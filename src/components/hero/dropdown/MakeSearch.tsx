@@ -2,8 +2,6 @@
 
 import { ChangeEvent, useState } from 'react';
 import { TQuery } from './HeroDropdown';
-import { TProductData } from '@/lib/db';
-import { AiOutlineLoading3Quarters } from 'react-icons/ai';
 
 export function MakeSearch({
   queryObj,
@@ -29,7 +27,6 @@ export function MakeSearch({
     <select
       value={value}
       onChange={handleChange}
-      defaultValue=""
       disabled={!query.type || !query.year}
       className="rounded-lg px-2  text-lg"
     >

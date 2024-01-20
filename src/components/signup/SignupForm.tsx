@@ -10,7 +10,7 @@ export default function SignupForm() {
   const router = useRouter();
   const supabase: SupabaseClient = createSupabaseBrowserClient();
 
-  const { data } = supabase.auth.onAuthStateChange(async (_, session) => {
+  supabase.auth.onAuthStateChange(async (_, session) => {
     if (session) {
       router.push('/login');
     }
