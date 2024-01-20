@@ -9,8 +9,8 @@ function ReturnPolicy() {
   return (
     <>
       <PolicyHeader headerText="Return Policy" />
-      <div className="lg:mx-auto lg:flex lg:w-1/2 lg:flex-col lg:justify-center">
-        <div className="relative px-5 py-8 lg:py-[70px] ">
+      <div className="lg:mx-auto lg:flex lg:w-[842px] lg:flex-col lg:justify-center">
+        <div className="relative px-5 py-8 lg:py-[70px]">
           <PolicyTitle title="FREE RETURNS" />
           <PolicyDetail>
             We are currently offering 30-Day hassle free returns. If you are not
