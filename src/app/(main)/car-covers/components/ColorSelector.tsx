@@ -20,7 +20,6 @@ export function ColorSelector({
   setSelectedProduct: (product: TCarCoverData) => void;
   selectedProduct: TCarCoverData;
 }) {
-  console.log(uniqueColors);
   return (
     <div className="flex flex-row space-x-1 overflow-x-auto whitespace-nowrap p-2 lg:grid lg:w-auto lg:grid-cols-5 lg:gap-[7px] lg:px-3">
       {uniqueColors?.map((sku) => {

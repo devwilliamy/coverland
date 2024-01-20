@@ -4,6 +4,7 @@ import { useSearchParams } from 'next/navigation';
 import { TCarCoverSlugParams } from '../[make]/[model]/[year]/page';
 import { Tables } from '@/lib/db/types';
 import CarCoverSelector from './CarCoverSelector';
+import { compareRawStrings } from '@/lib/utils';
 
 export type TCarCoverData = Tables<'product_2024_join'>;
 
@@ -30,7 +31,8 @@ export default function CarPDP({
 
   if (secondSubmodelParam) {
     filteredModelData = modelData?.filter(
-      (car) => car?.submodel2_slug === secondSubmodelParam
+      (car) =>
+        car.submodel2 && compareRawStrings(car?.submodel2, secondSubmodelParam)
     );
   }
 

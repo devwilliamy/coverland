@@ -23,6 +23,7 @@ export function stringToSlug(str: string) {
   return slug;
 }
 
+//TODO - slowly migrate from slugify to compareRawStrings to more accurately compare strings
 export const slugify = (str: string) =>
   str
     ?.toLowerCase()
@@ -76,6 +77,17 @@ export function getUniqueYearGenerations(array: TProductData[]) {
   });
 
   return Array.from(unique);
+}
+
+//TODO - slowly migrate from slugify to compareRawStrings to more accurately compare strings
+export function compareRawStrings(str1: string, str2: string) {
+  let processedStr1 = str1.toLowerCase();
+  let processedStr2 = str2.toLowerCase();
+
+  processedStr1 = processedStr1.replace(/[^a-z0-9]/g, '');
+  processedStr2 = processedStr2.replace(/[^a-z0-9]/g, '');
+
+  return processedStr1 === processedStr2;
 }
 
 export function groupProductsBy(
