@@ -29,7 +29,7 @@ export function EditVehicleModal({
       </h2>
       <div className="flex items-center gap-2">
         <EditIcon />
-        <Popover open={open}>
+        <Popover open={open} onOpenChange={(o) => setOpen(o)}>
           <PopoverTrigger asChild>
             <button className="underline" onClick={() => setOpen(!open)}>
               Edit Vehicle
