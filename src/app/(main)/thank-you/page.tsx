@@ -9,6 +9,7 @@ import {
 // import { addOrderToDb } from '@/lib/db';
 import Link from 'next/link';
 import { redirect } from 'next/navigation';
+import { useEffect } from 'react';
 
 import { BsFillEnvelopeFill } from 'react-icons/bs';
 
@@ -22,6 +23,11 @@ async function OrderConfirmationPage({
     redirect('/');
   }
   const orderNumber = searchParams['order-number'];
+
+  useEffect(() => {
+  }, []);
+
+
 
   return (
     <Card className="text-center">
