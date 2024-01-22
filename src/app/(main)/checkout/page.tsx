@@ -114,7 +114,7 @@ function CheckoutPage() {
                           {item?.display_id}&trade; {item.type}
                         </div>
                         <div className="text-lg font-thin text-gray-500">
-                          Vehicle: {item?.make} {item.model}
+                          Vehicle: {item?.make} {item.model}{' '}
                           {item.year_generation}
                           {/* {item.submodel1 && item.submodel1} */}
                         </div>
