@@ -256,7 +256,7 @@ export default async function ProductPDP({
       />
       <div
         id="product-details"
-        className="flex h-auto w-full max-w-[1440px] flex-col items-center justify-center pb-4 lg:py-20"
+        className="flex h-auto w-full max-w-[1440px] flex-col items-center justify-center py-[110px]"
       >
         <ExtraProductDetails reviewData={reviewData} />
       </div>

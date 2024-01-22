@@ -110,7 +110,7 @@ export function ExtraProductDetails({
             selectedSection === LAYERS_ID ? 'underline' : ''
           }`}
         >
-          <Link href="#benefits" className="">
+          <Link href="#benefits" >
             benefits
           </Link>
         </h1> */}
@@ -128,7 +128,7 @@ export function ExtraProductDetails({
             selectedSection === LAYERS_ID ? 'underline' : ''
           }`}
         >
-          <Link href="#shipping" className="">
+          <Link href="#shipping" >
             Shipping & Returns
           </Link>
         </h1> */}
@@ -195,48 +195,78 @@ export function ExtraProductDetails({
       >
         <MobilePDPDetails reviewData={reviewData} />
 
-        <div className="hidden lg:flex lg:flex-col">
+        <div className="hidden gap-[110px] lg:flex lg:flex-col">
           <div ref={pdRef}>
             <ProductHero />
           </div>
-          <div className="md:mt-18 mt-8 lg:mt-28">
+          <div>
             <Video />
           </div>
-          <div ref={benefitsRef} className="md:mt-18 mt-8 lg:mt-28">
+          <div ref={benefitsRef}>
             <Layers />
           </div>
-          <div className="md:mt-18 mt-8 lg:mt-28">
+          <div>
             <ClimateCrisis />
           </div>
 
-          <div className="md:mt-18 mt-8 lg:mt-28">
+          <div>
             <NoGarage />
           </div>
-          <div className="md:mt-18 mt-8 lg:mt-28">
+          <div>
             <OurCarCovers />
           </div>
-          <div className="md:mt-18 mt-8 lg:mt-28">
+          <div>
             <ProductChecklist />
           </div>
-          <div ref={specsRef} className="md:mt-18 mt-8 lg:mt-28">
+          <div ref={specsRef}>
             {/* <ProductSpecGrid /> */}
             <ProductPackage />
           </div>
-          <div ref={faqRef} className="md:mt-18 mt-8 lg:mt-28">
+          <div ref={faqRef}>
             <PDPAccordion />
           </div>
-          <div ref={shippingRef} className="md:my-18 my-8 lg:my-28">
-            <MoneyBack />
+          <div ref={shippingRef}>
+            <div>
+              <div className=" mb-[50px] flex gap-5 px-2 normal-case">
+                <div className="flex flex-col gap-[12px]">
+                  <div className="flex flex-col text-[28px] font-black">
+                    Shipping Details
+                  </div>
+                  <div className="font-normal text-[#767676]">
+                    Enjoy free ground shipping! Please note that these shipping
+                    times are estimates, and actual delivery times may vary.
+                  </div>
+                  <ul className="flex flex-col gap-4 font-normal text-[#767676]">
+                    <li>
+                      - Free Ground Shipping: Delivered within 1-5 business
+                      days.
+                    </li>
+                    <li>
+                      - Express Shipping: Delivered within 2 days with a flat
+                      rate of $19.99.
+                    </li>
+                  </ul>
+                </div>
+                <div className="flex flex-col gap-[12px]">
+                  <div className="text-[28px] font-black">Return Details</div>
+                  <div className="font-normal text-[#767676]">
+                    This item must be returned within 30 days of the date it was
+                    purchased. See the{' '}
+                    <a className="underline " href="/policies/shipping-policy">
+                      return policy
+                    </a>{' '}
+                    for the complete information.
+                  </div>
+                </div>
+              </div>
+              <MoneyBack />
+            </div>
           </div>
-          <div ref={warrantyRef} className="md:my-18 my-8 lg:my-28">
+          <div ref={warrantyRef}>
             <WarrantyDesktop />
           </div>
           {!!reviewData.length && (
-            <div
-              id="#reviews"
-              ref={reviewsRef}
-              className="md:mt-18 mt-8 lg:mt-28"
-            >
+            <div id="#reviews" ref={reviewsRef}>
               <ReviewSection reviewData={reviewData} />
             </div>
           )}
@@ -335,7 +365,7 @@ const ReviewSection = ({
           <option value="mercedes">Most Helpful</option>
         </select>
       </div> */}
-      {/* {!!reviewData?.length && (
+      {!!reviewData?.length && (
         <div className="flex flex-col items-center">
           {reviewData
             ?.slice(0, displayedReviews)
@@ -349,7 +379,7 @@ const ReviewSection = ({
             View 4 More
           </button>
         </div>
-      )} */}
+      )}
     </div>
   );
 };
