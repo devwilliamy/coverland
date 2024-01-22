@@ -10,7 +10,7 @@ function ReturnPolicy() {
     <>
       <PolicyHeader headerText="Return Policy" />
       <div className="lg:mx-auto lg:flex lg:w-[842px] lg:flex-col lg:justify-center">
-        <div className="relative px-5 py-8 lg:py-[70px]">
+        <div className="relative px-5 py-5 lg:py-14">
           <PolicyTitle title="FREE RETURNS" />
           <PolicyDetail>
             We are currently offering 30-Day hassle free returns. If you are not
@@ -42,7 +42,6 @@ function ReturnPolicy() {
             <li>15529 Blackburn Ave</li>
             <li>Norwalk, CA 90650</li>
           </ul>
-          <div className="pt-5"></div>
           <PolicyTitle title="FREE EXCHANGES" />
           <PolicyDetail>
             If you wish to exchange an item purchased, please contact our
@@ -56,7 +55,6 @@ function ReturnPolicy() {
             exchange. Once the original item is received, the replacement
             merchandise will arrive to you within 2-3 business days.
           </PolicyDetail>
-          <div className="pt-5"></div>
           <PolicyTitle title="RETURN INSTRUCTIONS" />
           <PolicyDetail>
             All return labels are sent via email in PDF file format, service
@@ -65,7 +63,6 @@ function ReturnPolicy() {
             Please allow 1 to 2 billing cycles for refunds to appear on your
             credit card statement.
           </PolicyDetail>
-          <div className="pt-5"></div>
           <PolicyTitle title="INTERNATIONAL ORDERS" />
           <PolicyDetail>
             All orders shipped outside the USA are not eligible for returns.

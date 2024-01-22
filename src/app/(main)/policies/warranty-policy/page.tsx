@@ -9,12 +9,11 @@ function WarrantyPolicy() {
     <>
       <PolicyHeader headerText="Warranty" />
       <div className="lg:mx-auto lg:flex lg:w-[842px] lg:flex-col lg:justify-center">
-        <div className="relative px-5 py-8 lg:py-[70px]">
+        <div className="relative px-5 py-5 lg:py-14">
           <PolicyTitle
             title="Up to a 10-Year Comprehensive Warranty"
             uppercase
           />
-          <div className="py-5"></div>
           <PolicyTitle title="Welcome to Coverland's Warranty Page" uppercase />
           <PolicyDetail>
             At Coverland, we are committed to providing our customers with
@@ -22,7 +21,6 @@ function WarrantyPolicy() {
             craftsmanship and durability of our items with a comprehensive up to
             a 10-year warranty.
           </PolicyDetail>
-          <div className="pt-5"></div>
           <PolicyTitle title="Warranty Coverage" uppercase />
           <PolicyDetail>
             Our warranty provides coverage for a period of up to ten years,
@@ -50,7 +48,6 @@ function WarrantyPolicy() {
               product rips or tears during normal usage, we will replace it.
             </li>
           </ol>
-          <div className="pt-5"></div>
           <PolicyTitle title="How to Claim Your Warranty" uppercase />
           <PolicyDetail>
             If you encounter any issues covered under this warranty, please
@@ -77,7 +74,6 @@ function WarrantyPolicy() {
               shipping.
             </li>
           </ol>
-          <div className="pt-5"></div>
           <PolicyTitle title="Limitations and Exclusions" uppercase />
           <PolicyDetail>This warranty does not cover:</PolicyDetail>
           <ol className="list-disc pl-6 pt-4">
@@ -85,7 +81,6 @@ function WarrantyPolicy() {
             <li>Alterations or modifications made to the car cover.</li>
             <li>Damage caused by accidents, abuse, or neglect.</li>
           </ol>
-          <div className="pt-5"></div>
           <PolicyTitle title="Customer Satisfaction Guarantee" uppercase />
           <PolicyDetail>
             At Coverland, your satisfaction is our priority. We strive to ensure
