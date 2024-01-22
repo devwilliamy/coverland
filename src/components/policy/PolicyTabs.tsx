@@ -4,10 +4,10 @@ import { usePathname } from 'next/navigation';
 
 const tabs = [
   { name: 'Warranty', href: '/policies/warranty-policy', current: false },
-  { name: 'Returns', href: '/policies/return-policy', current: false },
-  { name: 'Privacy', href: '/policies/privacy-policy', current: false },
+  { name: 'Return Policy', href: '/policies/return-policy', current: false },
+  { name: 'Privacy Policy', href: '/policies/privacy-policy', current: false },
   {
-    name: 'Shipping',
+    name: 'Shipping Policy',
     href: '/policies/shipping-policy',
     current: false,
   },
@@ -19,6 +19,13 @@ export default function PolicyTabs() {
     ...tab,
     current: pathname === tab.href,
   }));
+
+  // Trying to make it so if the selected tab is off screen it'll appear in the middle
+  const currentIndex = updatedTabs.findIndex((tab) => tab.current);
+  if (currentIndex !== -1 && currentIndex > 2) {
+    const [currentTab] = updatedTabs.splice(currentIndex, 1);
+    updatedTabs.splice(1, 0, currentTab);
+  }
 
   return <FullWidthTabs tabs={updatedTabs} />;
 }
