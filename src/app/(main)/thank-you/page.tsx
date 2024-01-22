@@ -1,3 +1,4 @@
+import { handleAddOrderId } from '@/app/api/utils/orders';
 import {
   Card,
   CardContent,
@@ -9,9 +10,10 @@ import {
 // import { addOrderToDb } from '@/lib/db';
 import Link from 'next/link';
 import { redirect } from 'next/navigation';
-import { useEffect } from 'react';
+// import { useEffect } from 'react';
 
 import { BsFillEnvelopeFill } from 'react-icons/bs';
+// const orderNumberRegex = /^C{1}L{1}-{1}[[:alnum:]]{6}$/g;
 
 async function OrderConfirmationPage({
   searchParams,
@@ -23,11 +25,16 @@ async function OrderConfirmationPage({
     redirect('/');
   }
   const orderNumber = searchParams['order-number'];
+  const validOderNumber =
+    orderNumber.length == 9 &&
+    parseInt(orderNumber.slice(2)) &&
+    orderNumber.slice(0, 3) == 'CL-';
 
-  useEffect(() => {
-  }, []);
-
-
+  if (validOderNumber) {
+    handleAddOrderId(orderNumber);
+  } else {
+    return <InvalidOrderNumber orderNumber={orderNumber} />;
+  }
 
   return (
     <Card className="text-center">
@@ -59,4 +66,20 @@ async function OrderConfirmationPage({
   );
 }
 
+type orderNumberObj = {
+  orderNumber: string;
+};
+
+const InvalidOrderNumber = (e: orderNumberObj) => (
+  <Card className="flex min-h-[30vh] flex-col items-center justify-center text-center">
+    <CardHeader>
+      <CardTitle> Invalid Order Number </CardTitle>
+      <CardDescription>
+        Order number : <span>{e.orderNumber}</span>
+      </CardDescription>
+    </CardHeader>
+  </Card>
+);
+
 export default OrderConfirmationPage;
+
