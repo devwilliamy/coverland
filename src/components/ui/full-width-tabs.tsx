@@ -1,5 +1,4 @@
 import Link from 'next/link';
-import { useEffect, useRef } from 'react';
 
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(' ');
