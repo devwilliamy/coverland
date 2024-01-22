@@ -4,13 +4,13 @@ import { usePathname } from 'next/navigation';
 
 const tabs = [
   { name: 'Warranty', href: '/policies/warranty-policy', current: false },
-  { name: 'Return Policy', href: '/policies/return-policy', current: false },
-  { name: 'Privacy Policy', href: '/policies/privacy-policy', current: false },
-  // {
-  //   name: 'Shipping Policy',
-  //   href: '/policies/shipping-policy',
-  //   current: false,
-  // },
+  { name: 'Returns', href: '/policies/return-policy', current: false },
+  { name: 'Privacy', href: '/policies/privacy-policy', current: false },
+  {
+    name: 'Shipping',
+    href: '/policies/shipping-policy',
+    current: false,
+  },
 ];
 
 export default function PolicyTabs() {
