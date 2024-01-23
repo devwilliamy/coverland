@@ -64,13 +64,6 @@ export function CarCoverSelector({
     (hasSubmodels === !!submodelParam &&
       hasSecondSubModels === !!secondSubmodelParam);
 
-  console.log(
-    isReadyForProductSelection,
-    hasSubmodels,
-    submodelParam,
-    secondSubmodelParam,
-    params?.year && !hasSubmodels
-  );
   const [selectedProduct, setSelectedProduct] =
     useState<TCarCoverData>(defaultModel);
 

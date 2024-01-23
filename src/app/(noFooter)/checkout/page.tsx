@@ -53,12 +53,15 @@ function CheckoutPage() {
         body: JSON.stringify({ cartItems }),
       });
       const { sessionId } = await checkoutResponse.json();
+      setLoading(false);
       const stripeError = await stripe.redirectToCheckout({ sessionId });
       if (stripeError) {
         console.error(stripeError);
       }
     } catch (error) {
       console.error(error);
+    } finally {
+      setLoading(false);
     }
   };
   const totalMsrpPrice = getTotalPrice().toFixed(2) as unknown as number;
@@ -75,18 +78,20 @@ function CheckoutPage() {
         </p>
       )}
       {!!cartItems.length && (
-        <div className="flex flex-col md:flex md:flex-row md:gap-12">
+        <div className="flex flex-col md:flex md:flex-row md:gap-12 md:px-12 lg:px-24">
           <Table className="mt-4 w-full">
             <TableCaption></TableCaption>
             <TableHeader>
               <TableRow>
                 <TableHead
-                  className="color-black flex h-full
-                flex-col items-center text-3xl font-bold
-                md:flex md:items-start md:gap-2"
+                  className="flex h-full
+                flex-col items-center text-3xl
+                md:flex md:flex-row md:gap-2"
                 >
-                  <div className="font-black text-black">Cart</div>
-                  <div className="text-xl font-thin">{cartQuantity} Items</div>
+                  <div className="text-[22px] font-bold text-black">Cart</div>
+                  <div className="pb-2 text-base font-normal md:pb-0">
+                    {cartQuantity} Items
+                  </div>
                 </TableHead>
                 {/* <TableHead className="text-xl"> Summary </TableHead> */}
                 {/* <TableHead className="text-xl">QTY</TableHead>
@@ -97,10 +102,10 @@ function CheckoutPage() {
             {cartItems.map((item) => {
               return (
                 <TableBody key={item.sku}>
-                  <TableRow className="flex flex-col">
+                  <TableRow className="flex flex-col py-3">
                     <TableCell className="flex w-full justify-items-center gap-2 text-2xl font-medium">
                       {/* {`${item.make} ${item.product_name} - ${item.display_id} ${item.display_color}`} */}
-                      <div className="h-9/12  w-3/12 justify-items-center ">
+                      <div className="h-9/12 w-3/12 justify-items-center ">
                         <Image
                           className="bg-gray-100 p-[6.5px] "
                           src={item?.feature as string}
@@ -110,20 +115,24 @@ function CheckoutPage() {
                         />
                       </div>
                       <div className="flex w-7/12 flex-col gap-2">
-                        <div className="w-10/12 text-[22px] font-bold">
+                        <div className="w-10/12 text-base font-bold lg:text-lg">
                           {item?.display_id}&trade; {item.type}
                         </div>
-                        <div className="text-lg font-thin text-gray-500">
-                          Vehicle: {item?.make} {item.model}
+                        <div className="text-sm font-normal text-[#707070] lg:text-base">
+                          Vehicle: {item?.make} {item.model}{' '}
                           {item.year_generation}
                           {/* {item.submodel1 && item.submodel1} */}
                         </div>
-                        <div className="text-lg font-thin text-gray-500">
+                        <div className="text-sm font-normal text-[#707070] lg:text-base">
                           Color: {item.display_color}
                         </div>
-                        <div className="flex gap-3 text-lg font-thin text-gray-500">
-                          <div className="font-bold">Quantity</div>
-                          <div> {item.quantity}</div>
+                        <div className="flex gap-3 text-sm font-normal text-[#707070] lg:text-base">
+                          <div className="font-medium lg:text-base">
+                            Quantity
+                          </div>
+                          <div className="font-medium lg:text-base">
+                            {item.quantity}
+                          </div>
                           {/* <form>
                             <select
                               className="min-w-[50px]"
@@ -152,26 +161,27 @@ function CheckoutPage() {
                           </form> */}
                         </div>
                       </div>
-                      <div className="h-12/12 flex w-2/12 flex-col items-end justify-between text-right ">
-                        <div className="">
-                          <div className="font-bold">
-                            $
-                            {item.msrp
-                              ? (parseFloat(item.msrp) * item.quantity).toFixed(
-                                  2
-                                )
-                              : ''}
-                          </div>
-                          <div className="text-xl font-thin text-gray-400 line-through decoration-gray-400">
-                            ${parseInt(item?.price as string) * item.quantity}
-                          </div>
+                      <div className="flex w-2/12 flex-col text-right ">
+                        <div className="text-base font-bold lg:text-lg">
+                          $
+                          {item.msrp
+                            ? (parseFloat(item.msrp) * item.quantity).toFixed(2)
+                            : ''}
+                        </div>
+                        <div className="text-sm font-normal text-[#707070] line-through decoration-[#707070] lg:text-base">
+                          $
+                          {(
+                            parseFloat(item?.price as string) * item.quantity
+                          ).toFixed(2)}
                         </div>
                       </div>
                     </TableCell>
                     <TableCell className="flex items-end justify-between">
                       <div className="flex flex-col">
-                        <div className="text-xl">Same-Day Shipping</div>
-                        <div className="flex items-center gap-3 text-xl">
+                        <div className="text-sm font-normal text-[#343434] lg:text-base">
+                          Same-Day Shipping
+                        </div>
+                        <div className="flex items-center gap-3 pt-1 text-sm font-normal text-[#343434] lg:text-base">
                           <div>Free Delivery</div>
                           {/* <IconContext.Provider
                             // Info Circle Icon
@@ -186,11 +196,11 @@ function CheckoutPage() {
                       <IconContext.Provider
                         // Trash Icon
                         value={{
-                          className: 'cursor-pointer h-full w-[3vh]',
+                          className: 'cursor-pointer',
                         }}
                       >
                         <FaRegTrashAlt
-                          className=""
+                          size={20}
                           color="grey"
                           onClick={() => {
                             removeItemFromCart(item.sku);
@@ -203,14 +213,14 @@ function CheckoutPage() {
               );
             })}
           </Table>
-          <div className="mt-4 p-2 pb-[4vh] md:w-4/12">
-            <div className="text-3xl font-bold">Summary</div>
-            <div className="mt-[3vh] text-2xl font-thin">
+          <div className="mt-4 px-4 pb-[4vh] md:w-4/12">
+            <div className="text-xl font-bold lg:text-[22px]">Summary</div>
+            <div className="mt-[3vh] text-base font-normal text-[#343434]">
               Do you have a Promo Code?
             </div>
-            <div className="mt-[3vh] flex min-h-[4vh] justify-center gap-2">
+            <div className="mt-[2vh] flex h-8 justify-center gap-2">
               <input
-                className="w-8/12 rounded border border-gray-400"
+                className="w-8/12 rounded border border-[#9C9C9C]"
                 value={promoCode}
                 onChange={(e: ChangeEvent<HTMLInputElement>) => {
                   setPromoCode(e.target.value);
@@ -218,10 +228,10 @@ function CheckoutPage() {
               />
               <div
                 className={`
-                100 flex h-[32px] w-4/12 cursor-pointer items-center
+                flex h-8 w-4/12 cursor-pointer items-center
                 justify-center rounded border
-                border-black text-lg font-bold
-                transition ease-in-out hover:bg-black hover:text-white sm:h-[48px]
+                border-[#343434] text-lg font-bold text-[#1A1A1A]
+                transition ease-in-out hover:bg-black hover:text-white
                 ${promoError && 'bg-red-600'}
                 `}
                 onClick={() => {
@@ -234,24 +244,24 @@ function CheckoutPage() {
                 Apply
               </div>
             </div>
-            <div className="border-grey border-b py-[3vh] text-xl font-thin">
+            <div className="border-grey border-b py-[3vh] text-base font-normal text-[#343434]">
               <div className="flex justify-between ">
                 <div>Order Subtotal</div>
                 <div>${orderSubtotal}</div>
               </div>
-              <div className="flex justify-between text-red-500">
+              <div className="flex justify-between text-[#D13C3F]">
                 <div>Sale-discount</div>
                 <div>-${totalDiscountedPrice}</div>
               </div>
             </div>
-            <div className="border-grey flex justify-between  border-b py-[3vh] text-xl font-bold">
+            <div className="border-grey flex justify-between  border-b py-5 text-base font-semibold lg:font-bold">
               <div>Order Total</div>
               <div>${totalMsrpPrice}</div>
             </div>
-            <div className="my-10 flex w-full justify-center">
+            <div className="my-8 flex w-full justify-center">
               <Button
                 variant={'default'}
-                className="h-[63px] w-full bg-black text-xl uppercase sm:h-[48px] "
+                className="h-[63px] w-full rounded-lg  bg-black text-base font-bold uppercase text-white sm:h-[48px] lg:text-xl"
                 onClick={() => {
                   redirectToCheckout();
                   setLoading(true);

@@ -5,6 +5,7 @@ import { ThemeSupa } from '@supabase/auth-ui-shared';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { SignIn } from '@supabase/auth-ui-react';
+import Logo from '../header/Logo';
 
 // const DynamicSignIn = dynamic(() =>
 //   import('@supabase/auth-ui-react').then((mod) => mod.SignIn)
@@ -25,6 +26,9 @@ export default function SignInForm() {
     //     <div className="border-2 px-14 sm:max-w-md">
     <div className="flex justify-center">
       <div className="w-11/12 rounded-lg p-12 px-6 py-10 sm:w-8/12 sm:px-10 sm:py-6 md:w-6/12 lg:w-5/12 2xl:w-3/12">
+        <div className="flex justify-center pb-4">
+          <Logo />
+        </div>
         <SignIn
           supabaseClient={supabase}
           // view="magic_link"
@@ -58,8 +62,5 @@ export default function SignInForm() {
         </div>
       </div>
     </div>
-    //     </div>
-    //   </div>
-    // </div>
   );
 }

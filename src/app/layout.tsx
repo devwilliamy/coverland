@@ -1,6 +1,5 @@
 import type { Metadata } from 'next';
 import { Roboto } from 'next/font/google';
-
 import './globals.css';
 import Providers from '@/providers';
 import { Toaster } from '@/components/ui/toaster';
@@ -8,7 +7,7 @@ import { Analytics } from '@vercel/analytics/react';
 import AppScripts from './scripts/AppScripts';
 
 const roboto = Roboto({
-  weight: ['400', '500', '700', '900'],
+  weight: ['100', '300', '400', '500', '700', '900'],
   subsets: ['latin'],
   display: 'swap',
   variable: '--font-roboto',
@@ -25,7 +24,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className="scroll-smooth">
+    <html
+      lang="en"
+      // className="scroll-smooth"
+    >
       <body className={`${roboto.className} ${roboto.variable}`}>
         <Providers>
           <main className="mx-auto max-w-[1440px] lg:px-0">
