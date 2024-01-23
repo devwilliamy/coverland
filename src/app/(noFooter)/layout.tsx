@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   description: 'The ultimate marketplace for car protection',
 };
 
-export default function RootLayout({
+export default function NoFooterLayout({
   children,
 }: {
   children: React.ReactNode;
