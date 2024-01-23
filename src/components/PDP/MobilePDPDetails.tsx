@@ -128,7 +128,7 @@ export const MobilePDPDetails = ({
             <div className="mb-4 font-normal text-[#767676]">
               This item must be returned within 30 days of the date it was
               purchased. See the{' '}
-              <a className="underline " href="/policies/shipping-policy">
+              <a className="underline " href="/policies/return-policy">
                 return policy
               </a>{' '}
               for the complete information.

@@ -46,7 +46,7 @@ export function Layers() {
   ];
 
   return (
-    <>
+    <div className="pb-[60px] lg:pb-0">
       <div className="flex-start flex h-auto w-full flex-col justify-start pb-[18px] pt-10 lg:pt-0">
         <p className="mb-4 text-lg font-normal capitalize text-[#343434] md:text-2xl">
           High-Quality Car Cover
@@ -93,7 +93,7 @@ export function Layers() {
           />
         ))}
       </div>
-    </>
+    </div>
   );
 }
 

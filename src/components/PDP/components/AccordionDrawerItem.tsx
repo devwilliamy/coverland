@@ -26,7 +26,7 @@ function AccordionDrawerItem(props: AccordianDrawerProps) {
           <Drawer.Content className="fixed bottom-0 left-0 right-0 flex flex-col rounded-t-[20px] bg-white ">
             <div
               id="DrawerContentContainer"
-              className="mx-auto flex max-h-[90vh] min-h-[90vh] w-full flex-col overflow-y-scroll px-4 pt-[175px]"
+              className="mx-auto flex max-h-[75vh] min-h-[75vh] w-full flex-col overflow-y-scroll px-4 pt-[175px]"
             >
               <div
                 id="DrawerHeader"
