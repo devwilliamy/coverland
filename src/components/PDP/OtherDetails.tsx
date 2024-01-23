@@ -4,40 +4,12 @@ import { useRef, useState } from 'react';
 import { MoneyBack } from './MoneyBack';
 import { PDPAccordion } from './PDPAccordian';
 import { ProductHero } from './ProductHero';
-import { ProductPackage } from './ProductPackage';
 import { OurCarCovers } from './OurCarCovers';
 import { ProductChecklist } from './ProductChecklist';
 import { NoGarage } from './NoGarage';
 import { ClimateCrisis } from './ClimateCrisis';
 import { Layers } from './Layers';
 import { TReviewData } from '@/lib/db';
-import { Rating } from '@mui/material';
-import CircularProgress from '@mui/joy/CircularProgress';
-import { Button } from '../ui/button';
-import {
-  Drawer,
-  DrawerClose,
-  DrawerContent,
-  DrawerDescription,
-  DrawerFooter,
-  DrawerHeader,
-  DrawerTitle,
-  DrawerTrigger,
-} from '@/components/ui/drawer';
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from '../ui/accordion';
-import { NoGarageMobile } from './components/NoGarageMobile';
-import { ClimateCrisisMobile } from './components/ClimateCrisisMobile';
-import Link from 'next/link';
-import Image from 'next/image';
-import SatisfactionGuranteed from '@/images/PDP/100-percent_satisfaction.png';
-import { MoneyBackMobile } from './MoneyBackMobile';
-import { GoDotFill } from 'react-icons/go';
-import AccordionDrawerItem from './components/AccordionDrawerItem';
 import { MobilePDPDetails } from './MobilePDPDetails';
 import { WarrantyDesktop } from './components/WarrantyDesktop';
 
@@ -50,9 +22,9 @@ export function ExtraProductDetails({
 
   const pdRef = useRef<HTMLDivElement>(null);
   const benefitsRef = useRef<HTMLDivElement>(null);
-  const layersRef = useRef<HTMLDivElement>(null);
-  const carCoverRef = useRef<HTMLDivElement>(null);
-  const specsRef = useRef<HTMLDivElement>(null);
+  // const layersRef = useRef<HTMLDivElement>(null);
+  // const carCoverRef = useRef<HTMLDivElement>(null);
+  // const specsRef = useRef<HTMLDivElement>(null);
   const faqRef = useRef<HTMLDivElement>(null);
   const shippingRef = useRef<HTMLDivElement>(null);
   const warrantyRef = useRef<HTMLDivElement>(null);
@@ -74,11 +46,11 @@ export function ExtraProductDetails({
   };
 
   const PD_ID = 'product-details';
-  const LAYERS_ID = 'layers-sec';
+  // const LAYERS_ID = 'layers-sec';
+  // const CAR_COVER_INS_ID = 'car-cover-inst-sec';
+  // const SPECS_ID = 'specs-sec';
   const BENEFITS_ID = 'benefits-sec';
-  const SPECS_ID = 'specs-sec';
   const FAQ_ID = 'faq-sec';
-  const CAR_COVER_INS_ID = 'car-cover-inst-sec';
   const WARRANTY_ID = 'warranty-sec';
   const SHIPPING_ID = 'shipping-sec';
   const REVIEWS_ID = 'reviews-sec';
@@ -89,6 +61,8 @@ export function ExtraProductDetails({
   //     Yes. It adheres to the WAI-ARIA design pattern.
   //   </AccordionContent>
   // </AccordionItem>
+
+  // !reviewData &&  return
 
   return (
     <div className="flex w-full flex-col">
@@ -261,7 +235,7 @@ export function ExtraProductDetails({
           <div ref={warrantyRef}>
             <WarrantyDesktop />
           </div>
-          {!!reviewData.length && (
+          {!!reviewData?.length && (
             <div id="#reviews" ref={reviewsRef}>
               <ReviewSection reviewData={reviewData} />
             </div>

@@ -10,15 +10,13 @@ import { NoGarageMobile } from './components/NoGarageMobile';
 import { MoneyBackMobile } from './MoneyBackMobile';
 import { Accordion } from '../ui/accordion';
 import { TReviewData } from '@/lib/db';
-import { DrawerTrigger } from '../ui/drawer';
-import { FaChevronDown } from 'react-icons/fa';
 import { StarIcon } from 'lucide-react';
 import { useState } from 'react';
 
 export const MobilePDPDetails = ({
   reviewData,
 }: {
-  reviewData: TReviewData[];
+  reviewData: TReviewData[] | null;
 }) => {
   return (
     <Accordion
@@ -157,7 +155,7 @@ export const MobilePDPDetails = ({
         </div>
       </AccordionDrawerItem>
 
-      {!!reviewData.length && (
+      {!!reviewData?.length && (
         <AccordionDrawerItem value="item-9" title="Car Cover Reviews">
           <div className="md:mt-18 lg:mt-28">
             <ReviewSection reviewData={reviewData} />
