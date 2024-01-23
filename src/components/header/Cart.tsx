@@ -29,22 +29,26 @@ import { IoIosClose } from 'react-icons/io';
 
 function Cart() {
   const { cartItems, cartOpen, setCartOpen } = useCartContext();
+  const cartColor = cartItems.length > 0 ? '#BE1B1B' : '#000000';
 
   return (
     <Sheet open={cartOpen}>
       <SheetTrigger asChild>
-        <button
-          className="mt-1 flex h-[40px] w-5 items-center md:order-last"
+        <HiOutlineShoppingCart
+          size={24}
+          color={cartColor}
+          className="mt-1 flex h-[40px] w-5 items-center hover:cursor-pointer md:order-last"
           onClick={() => setCartOpen(!cartOpen)}
-        >
-          <HiOutlineShoppingCart className="h-[24px] w-[24px] *:h-full *:w-full lg:h-[24px] lg:w-[24px]" />
-        </button>
-        {/* <ShoppingCart
-            size={isMobile ? 24 : 32}
-            color={cartColor}
-            className="hover:cursor-pointer"
-          /> */}
+        />
       </SheetTrigger>
+      {cartItems.length > 0 && (
+        <span className="relative flex h-4 w-4">
+          <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#BE1B1B] opacity-75"></span>
+          <span className="relative inline-flex h-4 w-4 items-center justify-center rounded-full bg-[#BE1B1B] text-xs text-white">
+            {cartItems.length}
+          </span>
+        </span>
+      )}
       <SheetContent className="overflow-scroll">
         <SheetHeader>
           <SheetTitle className="flex w-full items-center justify-between">
