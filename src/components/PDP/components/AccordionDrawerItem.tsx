@@ -1,20 +1,6 @@
-import React, { useState } from 'react';
-import {
-  // Drawer,
-  DrawerClose,
-  DrawerContent,
-  DrawerDescription,
-  DrawerFooter,
-  DrawerHeader,
-  DrawerOverlay,
-  DrawerPortal,
-  DrawerTitle,
-  DrawerTrigger,
-} from '@/components/ui/drawer';
-import { AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
-import { GoDotFill } from 'react-icons/go';
-import { Button } from '@/components/ui/button';
-import { FaChevronDown, FaPlus } from 'react-icons/fa';
+import { useState } from 'react';
+import { AccordionItem } from '@/components/ui/accordion';
+import { FaPlus } from 'react-icons/fa';
 import { IoClose } from 'react-icons/io5';
 import { Drawer } from 'vaul';
 
