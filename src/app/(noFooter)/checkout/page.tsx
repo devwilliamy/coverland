@@ -77,7 +77,7 @@ function CheckoutPage() {
         </p>
       )}
       {!!cartItems.length && (
-        <div className="flex flex-col md:flex md:flex-row md:gap-12">
+        <div className="flex flex-col md:flex md:flex-row md:gap-12 md:px-12 lg:px-24">
           <Table className="mt-4 w-full">
             <TableCaption></TableCaption>
             <TableHeader>
@@ -85,10 +85,10 @@ function CheckoutPage() {
                 <TableHead
                   className="flex h-full
                 flex-col items-center text-3xl
-                md:flex md:items-start md:gap-2"
+                md:flex md:flex-row md:gap-2"
                 >
                   <div className="text-[22px] font-bold text-black">Cart</div>
-                  <div className="text-base font-normal">
+                  <div className="pb-2 text-base font-normal md:pb-0">
                     {cartQuantity} Items
                   </div>
                 </TableHead>
@@ -212,14 +212,14 @@ function CheckoutPage() {
               );
             })}
           </Table>
-          <div className="mt-4 p-2 pb-[4vh] md:w-4/12">
-            <div className="text-3xl font-bold">Summary</div>
-            <div className="mt-[3vh] text-2xl font-thin">
+          <div className="mt-4 px-4 pb-[4vh] md:w-4/12">
+            <div className="text-xl font-bold lg:text-[22px]">Summary</div>
+            <div className="mt-[3vh] text-base font-normal text-[#343434]">
               Do you have a Promo Code?
             </div>
-            <div className="mt-[3vh] flex min-h-[4vh] justify-center gap-2">
+            <div className="mt-[2vh] flex h-8 justify-center gap-2">
               <input
-                className="w-8/12 rounded border border-gray-400"
+                className="w-8/12 rounded border border-[#9C9C9C]"
                 value={promoCode}
                 onChange={(e: ChangeEvent<HTMLInputElement>) => {
                   setPromoCode(e.target.value);
@@ -227,10 +227,10 @@ function CheckoutPage() {
               />
               <div
                 className={`
-                flex h-[32px] w-4/12 cursor-pointer items-center
+                flex h-8 w-4/12 cursor-pointer items-center
                 justify-center rounded border
-                border-black text-lg font-bold
-                transition ease-in-out hover:bg-black hover:text-white sm:h-[48px]
+                border-[#343434] text-lg font-bold text-[#1A1A1A]
+                transition ease-in-out hover:bg-black hover:text-white
                 ${promoError && 'bg-red-600'}
                 `}
                 onClick={() => {
@@ -243,24 +243,24 @@ function CheckoutPage() {
                 Apply
               </div>
             </div>
-            <div className="border-grey border-b py-[3vh] text-xl font-thin">
+            <div className="border-grey border-b py-[3vh] text-base font-normal text-[#343434]">
               <div className="flex justify-between ">
                 <div>Order Subtotal</div>
                 <div>${orderSubtotal}</div>
               </div>
-              <div className="flex justify-between text-red-500">
+              <div className="flex justify-between text-[#D13C3F]">
                 <div>Sale-discount</div>
                 <div>-${totalDiscountedPrice}</div>
               </div>
             </div>
-            <div className="border-grey flex justify-between  border-b py-[3vh] text-xl font-bold">
+            <div className="border-grey flex justify-between  border-b py-5 text-base font-semibold lg:font-bold">
               <div>Order Total</div>
               <div>${totalMsrpPrice}</div>
             </div>
-            <div className="my-10 flex w-full justify-center">
+            <div className="my-8 flex w-full justify-center">
               <Button
                 variant={'default'}
-                className="h-[63px] w-full bg-black text-xl uppercase sm:h-[48px] "
+                className="h-[63px] w-full rounded-lg  bg-black text-base font-bold uppercase text-white sm:h-[48px] lg:text-xl"
                 onClick={() => {
                   redirectToCheckout();
                   setLoading(true);
