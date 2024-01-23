@@ -39,7 +39,7 @@ const OrderConfirmationContent = ({
   }
   const validOrderNumber =
     orderNumber.length === 9 &&
-    !isNaN(parseInt(orderNumber.slice(3))) &&
+    !isNaN(Number(orderNumber.slice(3))) &&
     orderNumber.slice(0, 3) === 'CL-';
 
   if (validOrderNumber) {
@@ -76,7 +76,7 @@ const OrderConfirmationContent = ({
       </CardFooter>
     </Card>
   );
-}
+};
 
 type OrderNumberObj = {
   orderNumber: string;
@@ -92,4 +92,3 @@ const InvalidOrderNumber = ({ orderNumber }: OrderNumberObj) => (
     </CardHeader>
   </Card>
 );
-
