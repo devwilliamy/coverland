@@ -96,7 +96,7 @@ const SecuritySection = () => {
           </div>
         </div>
       </section>
-      <div className="xxl:px-0 flex h-auto w-screen max-w-[1440px] flex-col items-center bg-white px-4 pt-8 md:px-24 md:pt-20 lg:px-20">
+      <div className="xxl:px-0 flex h-auto w-screen max-w-[1440px] flex-col items-center bg-white px-4 pt-8 md:px-24 md:pt-20 lg:px-20 lg:py-20">
         <div className="flex flex-col items-start justify-center lg:flex-row ">
           <div className="flex h-full flex-col items-center justify-center">
             <div className="w-full pb-10 pt-0 lg:pb-20">
@@ -104,7 +104,7 @@ const SecuritySection = () => {
                 Buy with confidence
               </h1>
             </div>
-            <div className="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-4 xl:gap-8">
+            <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4 lg:gap-x-32">
               <BuyWithConfidenceIcon
                 icon={<FreeReturnPackageIcon />}
                 title="30-Day Free Returns"
