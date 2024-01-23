@@ -53,6 +53,7 @@ function CheckoutPage() {
         body: JSON.stringify({ cartItems }),
       });
       const { sessionId } = await checkoutResponse.json();
+      setLoading(false);
       const stripeError = await stripe.redirectToCheckout({ sessionId });
       if (stripeError) {
         console.error(stripeError);
