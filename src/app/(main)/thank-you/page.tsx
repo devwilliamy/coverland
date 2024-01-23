@@ -10,7 +10,7 @@ import {
 // import { addOrderToDb } from '@/lib/db';
 import Link from 'next/link';
 import { redirect } from 'next/navigation';
-// import { useEffect } from 'react';
+import { Suspense } from 'react';
 
 import { BsFillEnvelopeFill } from 'react-icons/bs';
 // const orderNumberRegex = /^C{1}L{1}-{1}[[:alnum:]]{6}$/g;
@@ -20,8 +20,23 @@ async function OrderConfirmationPage({
 }: {
   searchParams: { 'order-number': string } | undefined;
 }) {
-  console.log(searchParams);
-  if (!searchParams || !searchParams['order-number']) {
+  const orderNumber = searchParams?.['order-number'];
+
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <OrderConfirmationContent orderNumber={orderNumber} />
+    </Suspense>
+  );
+}
+
+export default OrderConfirmationPage;
+
+const OrderConfirmationContent = ({
+  orderNumber,
+}: {
+  orderNumber: string | undefined;
+}) => {
+  if (!orderNumber) {
     redirect('/');
   }
   const orderNumber = searchParams['order-number'];

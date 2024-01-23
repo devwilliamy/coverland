@@ -30,8 +30,6 @@ export default function CarPDP({
     );
   }
 
-  console.log(submodelParam);
-
   if (secondSubmodelParam) {
     filteredModelData = modelData?.filter(
       (car) =>

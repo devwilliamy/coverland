@@ -1,6 +1,5 @@
 import type { Metadata } from 'next';
 import { Roboto } from 'next/font/google';
-
 import './globals.css';
 import Providers from '@/providers';
 import { Toaster } from '@/components/ui/toaster';
