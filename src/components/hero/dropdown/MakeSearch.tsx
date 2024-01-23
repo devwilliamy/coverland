@@ -2,8 +2,6 @@
 
 import { ChangeEvent, useState } from 'react';
 import { TQuery } from './HeroDropdown';
-import { TProductData } from '@/lib/db';
-import { AiOutlineLoading3Quarters } from 'react-icons/ai';
 
 export function MakeSearch({
   queryObj,
@@ -32,7 +30,7 @@ export function MakeSearch({
       disabled={!query.type || !query.year}
       className="rounded-lg px-2  text-lg"
     >
-      <option value="" disabled selected>
+      <option value="" disabled>
         Select car make
       </option>
       {sortedData.map((make) => (

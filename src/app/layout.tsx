@@ -1,14 +1,10 @@
 import type { Metadata } from 'next';
 import { Roboto } from 'next/font/google';
-
 import './globals.css';
-import Header from '@/pages/home/Header';
 import Providers from '@/providers';
-import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
-import Footer from '@/pages/home/Footer';
 import { Toaster } from '@/components/ui/toaster';
-import LiveChat from '@/components/LiveChat';
 import { Analytics } from '@vercel/analytics/react';
+import AppScripts from './scripts/AppScripts';
 
 const roboto = Roboto({
   weight: ['100', '300', '400', '500', '700', '900'],
@@ -34,15 +30,14 @@ export default function RootLayout({
     >
       <body className={`${roboto.className} ${roboto.variable}`}>
         <Providers>
-          <Header />
           <main className="mx-auto max-w-[1440px] lg:px-0">
             {children}
             {/* <ReactQueryDevtools initialIsOpen={false} /> */}
             <Toaster />
           </main>
-          <Footer />
         </Providers>
         <Analytics />
+        <AppScripts />
       </body>
     </html>
   );

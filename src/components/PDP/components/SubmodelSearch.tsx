@@ -6,11 +6,11 @@ import {
   Dispatch,
   SetStateAction,
   useCallback,
+  useEffect,
   useState,
 } from 'react';
-import { extractUniqueValues } from '../utils';
-import { usePathname, useSearchParams } from 'next/navigation';
-import { deslugify, slugify } from '@/lib/utils';
+import { useSearchParams } from 'next/navigation';
+import { deslugify } from '@/lib/utils';
 import { useRouter } from 'next/navigation';
 
 export function SubmodelSearch({
@@ -29,11 +29,8 @@ export function SubmodelSearch({
   selectedSubmodel: string | null;
 }) {
   const [value, setValue] = useState(() => submodelParam ?? '');
-  const pathname = usePathname();
   const router = useRouter();
   const searchParams = useSearchParams();
-
-  console.log(searchParams);
 
   // Get a new searchParams string by merging the current
   // searchParams with a provided key/value pair
@@ -51,32 +48,36 @@ export function SubmodelSearch({
     setSelectedSubmodel(value);
   }
 
-  const handleSubmitDropdown = async (value: string) => {
-    let url = '';
-    if (value) {
-      url += `?${createQueryString('submodel', value)}`;
-    }
+  const handleSubmitDropdown = useCallback(
+    async (value: string) => {
+      let url = '';
+      if (value) {
+        url += `?${createQueryString('submodel', value)}`;
+      }
 
-    // refreshRoute('/');
-    router.push(url.toLowerCase());
-    // refreshRoute(`${pathname}?${currentParams.toString()}`);
-  };
-
-  const { uniqueSubmodel1 } = extractUniqueValues(modelData as TProductData[]);
-  console.log(shouldTriggerSetParams);
+      // refreshRoute('/');
+      router.push(url.toLowerCase());
+      // refreshRoute(`${pathname}?${currentParams.toString()}`);
+    },
+    [router, createQueryString]
+  );
 
   const uniqueSubmodelsFromModelData = Array.from(
     new Set(
       modelData.map((row) => row.submodel1).filter((model) => Boolean(model))
     )
   );
-  console.log(value);
-  // const submodelParam = searchParams?.get('submodel') ?? '';
-  console.log(submodelParam);
 
-  console.log(submodels, uniqueSubmodelsFromModelData);
+  // Need to trigger when value is updated and shouldTriggerSetParams is set to
+  // true so handleSubmitDropdown will trigger
+  useEffect(() => {
+    if (value && shouldTriggerSetParams) {
+      handleSubmitDropdown(value);
+    }
+  }, [value, shouldTriggerSetParams, handleSubmitDropdown]);
 
   if (submodels.length < 1) return null;
+
   const handleChange = (event: ChangeEvent<HTMLSelectElement>) => {
     const newValue = event.target.value;
     setValue(newValue);
@@ -89,16 +90,18 @@ export function SubmodelSearch({
 
   return (
     <select
-      value={value}
+      value={value.toLowerCase()}
+      defaultValue={value.toLowerCase() ?? ''}
       onChange={handleChange}
       className="rounded-lg px-2 py-3 text-lg"
     >
-      <option value={submodelParam ?? ''}>
-        {submodelParam ? deslugify(submodelParam) : 'Select car submodel'}
-      </option>
+      <option value={''}>{'Select car submodel'}</option>
       {uniqueSubmodelsFromModelData?.sort()?.map((submodel) => (
-        <option key={`model-${submodel}`} value={submodel as string}>
-          {deslugify(submodel)}
+        <option
+          key={`model-${submodel}`}
+          value={submodel?.toLowerCase() as string}
+        >
+          {deslugify(submodel as string)}
         </option>
       ))}
     </select>

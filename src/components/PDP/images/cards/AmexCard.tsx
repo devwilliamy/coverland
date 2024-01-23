@@ -8,7 +8,7 @@ export function AmexCard() {
       xmlns="http://www.w3.org/2000/svg"
       style={{ filter: 'grayScale(1)' }}
     >
-      <g clip-path="url(#clip0_85_522)">
+      <g clipPath="url(#clip0_85_522)">
         <path
           opacity="0.07"
           d="M39.9546 0H3.42468C1.48403 0 0 1.48403 0 3.42468V23.9727C0 25.9134 1.59818 27.3974 3.42468 27.3974H39.9546C41.8952 27.3974 43.3792 25.9134 43.3792 23.9727V3.42468C43.3792 1.48403 41.781 0 39.9546 0Z"

@@ -1,35 +1,32 @@
 'use client';
 
-import { TProductData, TReviewData, fetchPDPData } from '@/lib/db';
+import { TProductData, TReviewData } from '@/lib/db';
 import { Separator } from '@/components/ui/separator';
 import Image from 'next/image';
 import { GoDotFill } from 'react-icons/go';
 import Link from 'next/link';
 import React, {
-  ReactPropTypes,
+  Ref,
   RefObject,
   useCallback,
   useEffect,
   useRef,
   useState,
 } from 'react';
-import { BsBoxSeam, BsGift, BsInfoCircle } from 'react-icons/bs';
+import { BsBoxSeam, BsGift } from 'react-icons/bs';
 import { DropdownPDP } from './DropdownPDP';
-import { useToast } from '@/components/ui/use-toast';
 import { useCartContext } from '@/providers/CartProvider';
 import Rating from '@mui/material/Rating';
 import {
   TPDPPathParams,
   TPDPQueryParams,
-  TSkuJson,
-} from '@/app/[productType]/[...product]/page';
+} from '@/app/(main)/[productType]/[...product]/page';
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from '@radix-ui/react-popover';
 import { Button } from '../ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '../ui/card';
 import AgentProfile from '@/images/PDP/agent_profile.png';
 import { useMediaQuery } from '@mantine/hooks';
 import { FolderUpIcon, SecureIcon, ThumbsUpIcon } from './images';
@@ -37,22 +34,7 @@ import { MoneyBackIcon } from './images/MoneyBack';
 import { EditIcon } from './components/icons';
 import { track } from '@vercel/analytics';
 
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from '../ui/dialog';
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from '../ui/carousel';
-import { ToastAction } from '../ui/toast';
+import { Carousel, CarouselContent, CarouselItem } from '../ui/carousel';
 import dynamicImport from 'next/dynamic';
 import { type CarouselApi } from '@/components/ui/carousel';
 import {
@@ -61,10 +43,8 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from '../ui/accordion';
-import { useRouter } from 'next/navigation';
-import { usePathname } from 'next/navigation';
 import skuDisplayData from '@/data/skuDisplayData.json';
-import { slugify, stringToSlug } from '@/lib/utils';
+import { stringToSlug } from '@/lib/utils';
 
 const ProductVideo = dynamicImport(() => import('./ProductVideo'), {
   ssr: false,
@@ -90,6 +70,10 @@ const EditVehicleDropdown = dynamicImport(
 );
 
 export const dynamic = 'force-dynamic';
+
+interface ProductRefs {
+  [key: string]: RefObject<HTMLElement>;
+}
 
 function TimeTo2PMPST() {
   const [timeRemaining, setTimeRemaining] = useState(calculateTimeTo2PM()); // Set initial value
@@ -153,12 +137,6 @@ function CarSelector({
   reviewData: TReviewData[];
   parentGeneration: any;
 }) {
-  console.log(
-    modelData.map((model) => model.submodel2),
-    'huh'
-  );
-
-  console.log(secondSubmodels);
   const defaultModel = modelData.find(
     (model) =>
       model.fk ===
@@ -173,26 +151,23 @@ function CarSelector({
     ) ?? [];
 
   const modelsBySecondSubmodel = searchParams?.second_submodel
-    ? modelData.filter(
-        (model) =>
-          stringToSlug(model?.submodel2 as string) ===
-          stringToSlug(searchParams?.second_submodel as string)
-      ) ?? modelsBySubmodel
+    ? modelData
+        .filter(
+          (model) =>
+            stringToSlug(model?.submodel1 as string) ===
+            stringToSlug(searchParams?.submodel as string)
+        )
+        .filter(
+          (model) =>
+            stringToSlug(model?.submodel2 as string) ===
+            stringToSlug(searchParams?.second_submodel as string)
+        ) ?? modelsBySubmodel
     : modelsBySubmodel;
-
-  console.log(modelsBySubmodel);
-
-  console.log(
-    stringToSlug(modelData[4]?.submodel1 as string),
-    searchParams.submodel
-  );
 
   const isFullySelected =
     pathParams?.product?.length === 3 &&
     (submodels.length === 0 || !!searchParams?.submodel) &&
     (secondSubmodels.length === 0 || !!searchParams?.second_submodel);
-
-  console.log(modelData);
 
   let displayedModelData = searchParams?.submodel
     ? modelsBySubmodel
@@ -203,34 +178,26 @@ function CarSelector({
     : displayedModelData;
 
   const [selectedProduct, setSelectedProduct] = useState<TProductData>(
-    isFullySelected
+    isFullySelected || searchParams?.submodel
       ? displayedModelData[0]
       : defaultModel ?? displayedModelData[0]
   );
+
+  // Sometimes when submodel2 is selected, selectedProduct won't update to the right one
+  useEffect(() => {
+    const updateSelectedProduct = () => {
+      setSelectedProduct(displayedModelData[0]);
+    };
+    if (isFullySelected) {
+      updateSelectedProduct();
+    }
+  }, [searchParams, isFullySelected, displayedModelData]);
+
   const [featuredImage, setFeaturedImage] = useState<string>(
     selectedProduct?.feature as string
   );
-  console.log(submodels, secondSubmodels, defaultModel);
-  const router = useRouter();
-  const path = usePathname();
 
-  const { cartItems, cartOpen, setCartOpen } = useCartContext();
-
-  // function removeBeforeCom(url: string) {
-  //   const pos = url?.indexOf('.com');
-
-  //   if (pos === -1) {
-  //     return url;
-  //   }
-  //   return url?.substring(pos + 4);
-  // }
-
-  interface ProductRefs {
-    [key: string]: RefObject<HTMLElement>;
-  }
-
-  console.log(modelData);
-  console.log(selectedProduct);
+  const { setCartOpen } = useCartContext();
 
   const productRefs = useRef<ProductRefs>(
     displayedModelData.reduce((acc: ProductRefs, item: TProductData) => {
@@ -242,7 +209,6 @@ function CarSelector({
   const [showMore, setShowMore] = useState(false);
   const isMobile = useMediaQuery('(max-width: 768px)');
 
-  const { toast } = useToast();
   const { addToCart } = useCartContext();
   const isReadyForSelection = submodels.length
     ? pathParams?.product?.length === 3 && !!searchParams?.submodel
@@ -253,8 +219,6 @@ function CarSelector({
   ).map((color) =>
     displayedModelData.find((model) => model.display_color === color)
   );
-
-  console.log(uniqueColors);
 
   const uniqueTypes = Array.from(
     new Set(displayedModelData.map((model) => model.display_id))
@@ -279,23 +243,16 @@ function CarSelector({
 
   const avgReviewScore = (reviewScore / reviewCount).toFixed(1);
 
-  console.log(isFullySelected, isReadyForSelection);
-
-  console.log(submodels, secondSubmodels);
-
-  // console.log(avgReviewScore);
-  // console.log(searchParams?.submodel);
-  // console.log(selectedProduct);
+  const fullProductName = `${selectedProduct?.year_generation}
+  ${selectedProduct?.make} ${selectedProduct?.product_name} 
+  ${searchParams?.submodel ? selectedProduct?.submodel1 : ''}
+  ${searchParams?.second_submodel ? selectedProduct?.submodel2 : ''}
+  `;
 
   return (
     <section className="mx-auto h-auto w-full max-w-[1440px] px-4 lg:my-8">
       <div className="flex w-full flex-col items-start justify-between lg:flex-row lg:gap-14">
-        {isMobile && (
-          <EditVehiclePopover
-            selectedProduct={selectedProduct}
-            submodel={searchParams?.submodel}
-          />
-        )}
+        {isMobile && <EditVehiclePopover fullProductName={fullProductName} />}
         {/* Left Panel */}
         <div className=" -ml-4 mt-[29px] flex h-auto w-screen flex-col items-stretch justify-center pb-2 lg:w-3/5 lg:pb-0 ">
           {/* Featured Image */}
@@ -362,10 +319,7 @@ function CarSelector({
         <div className=" h-auto w-full pl-0 lg:w-2/5">
           <div className=" mt-[29px] hidden flex-col gap-2 rounded-lg border-2 border-solid px-3 py-7 lg:flex">
             <h2 className="font-roboto text-lg font-extrabold text-[#1A1A1A] md:text-[28px]">
-              {`${selectedProduct?.year_generation}
-                ${selectedProduct?.make} ${selectedProduct?.product_name} ${
-                  searchParams?.submodel ? selectedProduct?.submodel1 : ''
-                }`}
+              {fullProductName}
             </h2>
             <div className="flex items-center gap-2">
               <EditIcon />
@@ -403,7 +357,7 @@ function CarSelector({
                     ref={
                       productRefs?.current[
                         sku?.sku as TProductData['sku']
-                      ] as any
+                      ] as Ref<HTMLImageElement>
                     }
                     width={98}
                     height={98}
@@ -445,9 +399,9 @@ function CarSelector({
               </p>
             </div>
           </>
-
+          {/* Cover Types Section */}
           <div className="flex flex-row space-x-1 overflow-x-auto whitespace-nowrap p-2 lg:grid lg:w-auto lg:grid-cols-5 lg:gap-[7px] lg:px-3">
-            {uniqueTypes.map((sku, idx) => {
+            {uniqueTypes.map((sku) => {
               return (
                 <button
                   className={`flex-shrink-0 p-1 lg:flex lg:flex-col lg:items-center lg:justify-center ${
@@ -495,6 +449,7 @@ function CarSelector({
                 {`${selectedProduct?.display_id}`}
                 &trade; {`${selectedProduct?.display_color}`}
               </h2>
+              {/* Reviews */}
               <div className="flex items-center gap-1">
                 <Rating
                   name="read-only"
@@ -590,7 +545,7 @@ function CarSelector({
           </div>
           {/* Product Description */}
           {/* <ProductDropdown dropdownItems={dropdownItems} /> */}
-          {/* info stuff */}
+          {/* Shipping info stuff */}
           <div className="flex flex-col items-start justify-start pt-8">
             <div className="flex flex-row items-start justify-start">
               <div className="flex flex-col items-start justify-start pr-4 pt-0">
@@ -621,6 +576,8 @@ function CarSelector({
               </p>
               {/* <BsInfoCircle size={20} color="#767676" /> */}
             </div>
+
+            {/* Select Your Vehicle */}
             {!isFullySelected && (
               <div className="mt-8 w-full">
                 <DropdownPDP
@@ -630,11 +587,12 @@ function CarSelector({
                 />
               </div>
             )}
+            {/* Add to Cart Button */}
             {!isFullySelected && selectedProduct ? (
               <>
                 <Popover>
                   <PopoverTrigger asChild>
-                    <Button className="mt-4 h-[35px] w-full rounded bg-[#BE1B1B] text-lg font-bold uppercase text-white md:h-[60px] md:text-xl">
+                    <Button className="mt-4 h-[48px] w-full bg-[#BE1B1B] text-lg font-bold uppercase text-white disabled:bg-[#BE1B1B] md:h-[62px] md:text-xl">
                       Add To Cart
                     </Button>
                   </PopoverTrigger>
@@ -647,7 +605,7 @@ function CarSelector({
               </>
             ) : (
               <Button
-                className="mt-4 h-[60px] w-full bg-[#BE1B1B] text-lg disabled:bg-[#BE1B1B]"
+                className="mt-4 h-[48px] w-full bg-[#BE1B1B] text-lg font-bold uppercase text-white disabled:bg-[#BE1B1B] md:h-[62px] md:text-xl"
                 onClick={() => {
                   track('PDP_add_to_cart', {
                     sku: selectedProduct?.sku,
@@ -668,7 +626,7 @@ function CarSelector({
             </p>
             <Link
               href="#"
-              className="font-normal underline text-[#1A1A1A] text-base capitalize cursor-pointer"
+              className="cursor-pointer text-base font-normal capitalize text-[#1A1A1A] underline"
             >
               learn more
             </Link>
@@ -812,47 +770,47 @@ function CarSelector({
 
 export default CarSelector;
 
-const DesktopShowMoreCarousel = ({
-  selectedProduct,
-  modalProductImages,
-}: {
-  selectedProduct: TProductData;
-  modalProductImages: string[];
-}) => {
-  return (
-    <Dialog>
-      <DialogTrigger asChild>
-        <Button className="mx-auto mt-9 h-12 w-[216px] rounded border border-[#1A1A1A] bg-transparent text-lg font-normal capitalize text-[#1A1A1A] hover:bg-[#1A1A1A] hover:text-white">
-          show more images
-        </Button>
-      </DialogTrigger>
-      <DialogContent className="">
-        <Carousel>
-          <CarouselContent>
-            {modalProductImages.map((image, index) => (
-              <CarouselItem key={index}>
-                <div className="p-1">
-                  <Card>
-                    <CardContent className="flex aspect-square items-center justify-center p-6">
-                      <Image
-                        src={image}
-                        alt={`Additional images of the ${selectedProduct.display_id} cover`}
-                        width={500}
-                        height={500}
-                      />
-                    </CardContent>
-                  </Card>
-                </div>
-              </CarouselItem>
-            ))}
-          </CarouselContent>
-          <CarouselPrevious />
-          <CarouselNext />
-        </Carousel>
-      </DialogContent>
-    </Dialog>
-  );
-};
+// const DesktopShowMoreCarousel = ({
+//   selectedProduct,
+//   modalProductImages,
+// }: {
+//   selectedProduct: TProductData;
+//   modalProductImages: string[];
+// }) => {
+//   return (
+//     <Dialog>
+//       <DialogTrigger asChild>
+//         <Button className="mx-auto mt-9 h-12 w-[216px] rounded border border-[#1A1A1A] bg-transparent text-lg font-normal capitalize text-[#1A1A1A] hover:bg-[#1A1A1A] hover:text-white">
+//           show more images
+//         </Button>
+//       </DialogTrigger>
+//       <DialogContent className="">
+//         <Carousel>
+//           <CarouselContent>
+//             {modalProductImages.map((image, index) => (
+//               <CarouselItem key={index}>
+//                 <div className="p-1">
+//                   <Card>
+//                     <CardContent className="flex aspect-square items-center justify-center p-6">
+//                       <Image
+//                         src={image}
+//                         alt={`Additional images of the ${selectedProduct.display_id} cover`}
+//                         width={500}
+//                         height={500}
+//                       />
+//                     </CardContent>
+//                   </Card>
+//                 </div>
+//               </CarouselItem>
+//             ))}
+//           </CarouselContent>
+//           <CarouselPrevious />
+//           <CarouselNext />
+//         </Carousel>
+//       </DialogContent>
+//     </Dialog>
+//   );
+// };
 
 const MobileImageCarousel = ({
   selectedProduct,
@@ -877,6 +835,7 @@ const MobileImageCarousel = ({
       setCurrent(api.selectedScrollSnap());
     });
   }, [api]);
+
   const scrollTo = useCallback(
     (index: number) => api && api.scrollTo(index),
     [api]
@@ -908,7 +867,7 @@ const MobileImageCarousel = ({
             />
           </CarouselItem>
           <CarouselItem>
-            <div>
+            <div className="flex h-full flex-col justify-center">
               <ProductVideo />
             </div>
           </CarouselItem>

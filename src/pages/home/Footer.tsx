@@ -1,15 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
-import {
-  BsFacebook,
-  BsYoutube,
-  BsTelephoneFill,
-  BsFillEnvelopeFill,
-  BsFillChatDotsFill,
-  BsPinMapFill,
-} from 'react-icons/bs';
+import { BsFillEnvelopeFill } from 'react-icons/bs';
 import NewsletterForm from './NewsletterForm';
-import Membership from './Membership';
 import {
   AmexCard,
   ApplePayCard,
@@ -24,7 +16,6 @@ import {
   VisaCard,
 } from '@/components/PDP/images/cards';
 import { FbCustomIcon, YtCustomIcon } from '@/components/PDP/images';
-import LiveChat from '@/components/LiveChat';
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -183,7 +174,7 @@ const Footer = () => {
         <div className="flex w-full flex-col items-center justify-end opacity-70 lg:w-2/4 lg:items-start">
           <p className="text-center text-xs text-[#DBDBDB] lg:text-left">
             {' '}
-            Copyright &#169; {currentYear} Coverland, Inc. All Rights Reserved.
+            Copyright &#169; {currentYear} Coverland.com. All Rights Reserved.
             {/* <br className="lg:hidden" /> Site built by{' '}
             <Link
               href="https://www.mcbportfolio.com?ref=coverland"
@@ -218,7 +209,7 @@ const Footer = () => {
         </div>
       </div>
       {/* </div */}
-      <LiveChat />
+      {/* <LiveChat /> */}
     </footer>
   );
 };

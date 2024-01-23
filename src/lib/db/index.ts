@@ -1,12 +1,13 @@
-import { slugify } from './../utils';
 import { createClient } from '@supabase/supabase-js';
-import { Database, Enums, Tables } from './types';
+import { Database, Tables } from './types';
 import {
   TPDPPathParams,
   TPDPQueryParams,
-} from '@/app/[productType]/[...product]/page';
+} from '@/app/(main)/[productType]/[...product]/page';
 import { deslugify } from '../utils';
-import { refreshRoute } from '@/app/[productType]/[...product]/actions';
+import { refreshRoute } from '@/app/(main)/[productType]/[...product]/actions';
+import { TCarCoverData } from '@/app/(main)/car-covers/components/CarPDP';
+import { TGenerationData } from '@/app/(main)/car-covers/[make]/[model]/[year]/page';
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL ?? '';
 const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_KEY ?? '';
@@ -50,15 +51,9 @@ export interface ProductJson {
 //generate new types in the Supabase dashboard to update
 //them and replace the types.ts file in this folder
 
-// Define the type for filters
-interface FilterCriterion {
-  filterBy: string;
-  filterValue: any;
-}
-
 // Adjust the type definition
 export const fetchModelsOfMake = async (make: string) => {
-  let { data: Models, error } = await supabase
+  const { data: Models, error } = await supabase
     .from('Models')
     .select('model')
     .eq('make', make);
@@ -72,7 +67,7 @@ export const fetchModelsOfMake = async (make: string) => {
 };
 
 export async function fetchSubmodelsOfModel(model: string) {
-  let { data, error } = await supabase
+  const { data, error } = await supabase
     .from('Products-2024')
     .select('*')
     .eq('model', model);
@@ -92,16 +87,16 @@ export async function fetchSubmodelsOfModel(model: string) {
 export async function fetchPDPData(
   pathParams: TPDPPathParams
 ): Promise<TProductData[] | null> {
-  const makeFromPath = pathParams?.product[0];
+  // const makeFromPath = pathParams?.product[0];
   const modelFromPath = pathParams?.product[1];
-  const yearFromPath = pathParams?.product[2];
+  // const yearFromPath = pathParams?.product[2];
 
-  console.log(
-    makeFromPath,
-    modelFromPath,
-    yearFromPath,
-    pathParams?.product[2]
-  );
+  // console.log(
+  //   makeFromPath,
+  //   modelFromPath,
+  //   yearFromPath,
+  //   pathParams?.product[2]
+  // );
 
   const { data, error } = await supabase
     .from('Products-2024')
@@ -117,7 +112,28 @@ export async function fetchPDPData(
   return data;
 }
 
-export async function addOrderToDb(order: any) {
+export async function fetchCarPDPData(
+  generationFk: number,
+  availableGenerations: TGenerationData[]
+): Promise<TCarCoverData[] | null> {
+  let fetch = supabase.from('product_2024_join').select('*');
+
+  console.log(availableGenerations.length);
+  if (availableGenerations.length > 1) {
+    fetch = fetch.eq('generation_default', generationFk);
+  } else {
+    fetch = fetch.eq('fk', generationFk);
+  }
+
+  const { data, error } = await fetch;
+
+  if (error) {
+    console.log(error);
+  }
+  return data;
+}
+
+export async function addOrderToDb(order: string) {
   const { data, error } = await supabase
     .from('_temp_orders')
     .insert({ order: order });
@@ -134,7 +150,7 @@ export async function fetchReviewData(
 ) {
   const make = params?.product[0];
   const model = params?.product[1];
-  const year = params?.product[2];
+  // const year = params?.product[2];
   const submodel1 = queryParams?.submodel;
   const submodel2 = queryParams?.second_submodel;
 
@@ -150,8 +166,8 @@ export async function fetchReviewData(
     .eq('make', makeDisplayName);
 
   if (submodel1) {
-    const submodelDisplayname = deslugify(submodel1);
-    console.log('submodel1', submodelDisplayname);
+    // const submodelDisplayname = deslugify(submodel1);
+    // console.log('submodel1', submodelDisplayname);
     fetch = fetch.textSearch('submodel1', `'${submodel1}'`);
   }
 
@@ -173,6 +189,18 @@ export async function fetchReviewData(
   }
 
   return null;
+}
+
+export async function fetchGenerationReviewData(fk: string) {
+  const { data, error } = await supabase
+    .from('Product-Reviews')
+    .select('*')
+    .textSearch('sku', fk);
+
+  if (error) {
+    console.log(error);
+  }
+  return data;
 }
 
 export async function fetchPDPDataWithQuery(

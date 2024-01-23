@@ -1,34 +1,20 @@
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from '@/components/ui/popover';
-import { TProductData } from '@/lib/db';
 import { EditIcon } from 'lucide-react';
 import EditVehicleDropdown from '../EditVehicleDropdown';
 import {
   DropdownMenu,
   DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 
 export default function EditVehiclePopover({
-  selectedProduct,
-  submodel,
+  fullProductName,
 }: {
-  selectedProduct: TProductData;
-  submodel: string | undefined;
+  fullProductName: string;
 }) {
   return (
     <div className=" z-50 flex flex-col gap-2">
       <h2 className="font-roboto text-2xl font-extrabold text-[#1A1A1A]">
-        {`${selectedProduct?.year_generation}
-                        ${selectedProduct?.make} ${
-                          selectedProduct?.product_name
-                        } ${submodel ? selectedProduct?.submodel1 : ''}`}
+        {fullProductName}
       </h2>
       <div className="z-50 flex items-center gap-2">
         <EditIcon />

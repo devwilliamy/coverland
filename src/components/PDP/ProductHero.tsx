@@ -1,3 +1,4 @@
+'use client';
 import Image from 'next/image';
 import product from '@/images/PDP/product_details_01.webp';
 import productMobile from '@/images/PDP/product_details_01_mobile.webp';

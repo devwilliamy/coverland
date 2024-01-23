@@ -1,15 +1,4 @@
 'use client';
-
-import {
-  FaEyeDropper,
-  FaPaw,
-  FaShieldAlt,
-  FaShieldVirus,
-  FaSun,
-  FaTemperatureLow,
-  FaTree,
-  FaWind,
-} from 'react-icons/fa';
 import {
   BirdsAnimalIcon,
   TempShiftsIcon,

@@ -1,13 +1,15 @@
-// @ts-nocheck
-
 // const devURL = process.env.NEXT_PUBLIC_DEV_BASE_URL
 // const orderConfirmationEmailURL = `${devURL}/api/emails/send-order-confirmation`
+import { createSupabaseServerClient } from '@/lib/db/supabaseClients';
 import { Stripe, loadStripe } from '@stripe/stripe-js';
+import { SupabaseClient } from '@supabase/supabase-js';
+import { ReadonlyRequestCookies } from 'next/dist/server/web/spec-extension/adapters/request-cookies';
+import { cookies } from 'next/headers';
 
 const baseURL = process.env.NEXT_PUBLIC_STRAPI_BASE_URL;
 const orderConfirmationEmailURL = `${baseURL}/api/emails/send-order-confirmation`;
 
-function formatDateString(dateString) {
+function formatDateString(dateString: any) {
   const date = new Date(dateString);
   const months = [
     'January',
@@ -29,7 +31,7 @@ function formatDateString(dateString) {
   return `${month} ${day}, ${year}`;
 }
 
-const handleOrderConfirmationEmail = async (order) => {
+const handleOrderConfirmationEmail = async (order: any) => {
   const orderDateString = formatDateString(order.order_placed);
   const emailData = {
     to: order.shipping_address.email,
@@ -57,7 +59,7 @@ const handleOrderConfirmationEmail = async (order) => {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(emailData),
     });
-    const data = await response.json();
+    await response.json();
   } catch (error) {
     console.error('Error sending order confirmation email:', error);
   }
@@ -71,4 +73,18 @@ export const getStripe = () => {
     stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!);
   }
   return stripePromise;
+};
+
+export const handleAddOrderId = async (order_id: string) => {
+  const cookieStore: ReadonlyRequestCookies = cookies();
+  const supabase: SupabaseClient = createSupabaseServerClient(cookieStore);
+  await supabase
+    .from('_Orders')
+    .insert({ order_id: order_id })
+    .then((e) => {
+      e.error &&
+        Number(e.error.code) == 23505 &&
+        console.log('Order Already Exists');
+      return;
+    });
 };

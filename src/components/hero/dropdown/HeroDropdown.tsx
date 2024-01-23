@@ -6,10 +6,9 @@ import { TypeSearch } from './TypeSearch';
 import { MakeSearch } from './MakeSearch';
 import { ModelSearch } from './ModelSearch';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useState } from 'react';
 import { SubmodelDropdown } from './SubmodelDropdown';
 import skuDisplayData from '@/data/skuDisplayData.json';
-import { TModelFitData, TProductData } from '@/lib/db';
 import { slugify } from '@/lib/utils';
 import { track } from '@vercel/analytics';
 
@@ -22,7 +21,6 @@ export type TQuery = {
 };
 
 export function HeroDropdown() {
-  const [displayModel, setDisplayModel] = useState<TModelFitData>();
   const [query, setQuery] = useState<TQuery>({
     year: '',
     type: '',
@@ -81,10 +79,15 @@ export function HeroDropdown() {
     ),
   ];
 
-  const yearInUrl =
-    skuDisplayData.find(
-      (sku) => sku.fk === finalAvailableModels?.[0]?.generation_default
-    )?.year_generation ?? finalAvailableModels?.[0]?.year_generation;
+  //If there's no submodel selected, either there's some available but they haven't been
+  //selected, or there's none available. If the former, use the parent generation.
+  //If the latter, finalAvailableModels will only have one item, so use it's year_generation.
+
+  const yearInUrl = !submodel
+    ? finalAvailableModels.filter((sku) => sku.generation_default === sku.fk)[0]
+        ?.year_generation ?? finalAvailableModels?.[0]?.year_generation
+    : skuDisplayData.find((sku) => sku.fk === finalAvailableModels?.[0]?.fk)
+        ?.year_generation ?? finalAvailableModels?.[0]?.year_generation;
 
   console.log(yearInUrl);
 

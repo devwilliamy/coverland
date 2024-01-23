@@ -1,7 +1,6 @@
 'use client';
 
 import Image from 'next/image';
-import { ProductHero } from '@/components/PDP/ProductHero';
 import Package_01 from '@/images/PDP/package_01.webp';
 import Package_02 from '@/images/PDP/package_02.webp';
 import Package_03 from '@/images/PDP/package_03.webp';
