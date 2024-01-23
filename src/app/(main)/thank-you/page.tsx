@@ -25,12 +25,12 @@ async function OrderConfirmationPage({
     redirect('/');
   }
   const orderNumber = searchParams['order-number'];
-  const validOderNumber =
-    orderNumber.length == 9 &&
-    parseInt(orderNumber.slice(2)) &&
-    orderNumber.slice(0, 3) == 'CL-';
+  const validOrderNumber =
+    orderNumber.length === 9 &&
+    !isNaN(parseInt(orderNumber.slice(3))) &&
+    orderNumber.slice(0, 3) === 'CL-';
 
-  if (validOderNumber) {
+  if (validOrderNumber) {
     handleAddOrderId(orderNumber);
   } else {
     return <InvalidOrderNumber orderNumber={orderNumber} />;
@@ -66,20 +66,19 @@ async function OrderConfirmationPage({
   );
 }
 
-type orderNumberObj = {
+type OrderNumberObj = {
   orderNumber: string;
 };
 
-const InvalidOrderNumber = (e: orderNumberObj) => (
+const InvalidOrderNumber = ({ orderNumber }: OrderNumberObj) => (
   <Card className="flex min-h-[30vh] flex-col items-center justify-center text-center">
     <CardHeader>
       <CardTitle> Invalid Order Number </CardTitle>
       <CardDescription>
-        Order number : <span>{e.orderNumber}</span>
+        Order number : <span>{orderNumber}</span>
       </CardDescription>
     </CardHeader>
   </Card>
 );
 
 export default OrderConfirmationPage;
-
