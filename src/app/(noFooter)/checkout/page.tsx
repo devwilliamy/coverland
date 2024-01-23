@@ -59,6 +59,8 @@ function CheckoutPage() {
       }
     } catch (error) {
       console.error(error);
+    } finally {
+      setLoading(false);
     }
   };
   const totalMsrpPrice = getTotalPrice().toFixed(2) as unknown as number;
