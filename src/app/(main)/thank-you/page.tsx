@@ -7,13 +7,11 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
-// import { addOrderToDb } from '@/lib/db';
 import Link from 'next/link';
 import { redirect } from 'next/navigation';
 import { Suspense } from 'react';
 
 import { BsFillEnvelopeFill } from 'react-icons/bs';
-// const orderNumberRegex = /^C{1}L{1}-{1}[[:alnum:]]{6}$/g;
 
 async function OrderConfirmationPage({
   searchParams,
@@ -39,7 +37,6 @@ const OrderConfirmationContent = ({
   if (!orderNumber) {
     redirect('/');
   }
-  const orderNumber = searchParams['order-number'];
   const validOrderNumber =
     orderNumber.length === 9 &&
     !isNaN(parseInt(orderNumber.slice(3))) &&
@@ -96,4 +93,3 @@ const InvalidOrderNumber = ({ orderNumber }: OrderNumberObj) => (
   </Card>
 );
 
-export default OrderConfirmationPage;
