@@ -83,12 +83,14 @@ function CheckoutPage() {
             <TableHeader>
               <TableRow>
                 <TableHead
-                  className="color-black flex h-full
-                flex-col items-center text-3xl font-bold
+                  className="flex h-full
+                flex-col items-center text-3xl
                 md:flex md:items-start md:gap-2"
                 >
-                  <div className="font-black text-black">Cart</div>
-                  <div className="text-xl font-thin">{cartQuantity} Items</div>
+                  <div className="text-[22px] font-bold text-black">Cart</div>
+                  <div className="text-base font-normal">
+                    {cartQuantity} Items
+                  </div>
                 </TableHead>
                 {/* <TableHead className="text-xl"> Summary </TableHead> */}
                 {/* <TableHead className="text-xl">QTY</TableHead>
@@ -99,10 +101,10 @@ function CheckoutPage() {
             {cartItems.map((item) => {
               return (
                 <TableBody key={item.sku}>
-                  <TableRow className="flex flex-col">
+                  <TableRow className="flex flex-col py-3">
                     <TableCell className="flex w-full justify-items-center gap-2 text-2xl font-medium">
                       {/* {`${item.make} ${item.product_name} - ${item.display_id} ${item.display_color}`} */}
-                      <div className="h-9/12  w-3/12 justify-items-center ">
+                      <div className="h-9/12 w-3/12 justify-items-center ">
                         <Image
                           className="bg-gray-100 p-[6.5px] "
                           src={item?.feature as string}
@@ -112,20 +114,24 @@ function CheckoutPage() {
                         />
                       </div>
                       <div className="flex w-7/12 flex-col gap-2">
-                        <div className="w-10/12 text-[22px] font-bold">
+                        <div className="w-10/12 text-base font-bold lg:text-lg">
                           {item?.display_id}&trade; {item.type}
                         </div>
-                        <div className="text-lg font-thin text-gray-500">
+                        <div className="text-sm font-normal text-[#707070] lg:text-base">
                           Vehicle: {item?.make} {item.model}{' '}
                           {item.year_generation}
                           {/* {item.submodel1 && item.submodel1} */}
                         </div>
-                        <div className="text-lg font-thin text-gray-500">
+                        <div className="text-sm font-normal text-[#707070] lg:text-base">
                           Color: {item.display_color}
                         </div>
-                        <div className="flex gap-3 text-lg font-thin text-gray-500">
-                          <div className="font-bold">Quantity</div>
-                          <div> {item.quantity}</div>
+                        <div className="flex gap-3 text-sm font-normal text-[#707070] lg:text-base">
+                          <div className="font-medium lg:text-base">
+                            Quantity
+                          </div>
+                          <div className="font-medium lg:text-base">
+                            {item.quantity}
+                          </div>
                           {/* <form>
                             <select
                               className="min-w-[50px]"
@@ -154,26 +160,27 @@ function CheckoutPage() {
                           </form> */}
                         </div>
                       </div>
-                      <div className="h-12/12 flex w-2/12 flex-col items-end justify-between text-right ">
-                        <div className="">
-                          <div className="font-bold">
-                            $
-                            {item.msrp
-                              ? (parseFloat(item.msrp) * item.quantity).toFixed(
-                                  2
-                                )
-                              : ''}
-                          </div>
-                          <div className="text-xl font-thin text-gray-400 line-through decoration-gray-400">
-                            ${parseInt(item?.price as string) * item.quantity}
-                          </div>
+                      <div className="flex w-2/12 flex-col text-right ">
+                        <div className="text-base font-bold lg:text-lg">
+                          $
+                          {item.msrp
+                            ? (parseFloat(item.msrp) * item.quantity).toFixed(2)
+                            : ''}
+                        </div>
+                        <div className="text-sm font-normal text-[#707070] line-through decoration-[#707070] lg:text-base">
+                          $
+                          {(
+                            parseFloat(item?.price as string) * item.quantity
+                          ).toFixed(2)}
                         </div>
                       </div>
                     </TableCell>
                     <TableCell className="flex items-end justify-between">
                       <div className="flex flex-col">
-                        <div className="text-xl">Same-Day Shipping</div>
-                        <div className="flex items-center gap-3 text-xl">
+                        <div className="text-sm font-normal text-[#343434] lg:text-base">
+                          Same-Day Shipping
+                        </div>
+                        <div className="flex items-center gap-3 pt-1 text-sm font-normal text-[#343434] lg:text-base">
                           <div>Free Delivery</div>
                           {/* <IconContext.Provider
                             // Info Circle Icon
@@ -188,11 +195,11 @@ function CheckoutPage() {
                       <IconContext.Provider
                         // Trash Icon
                         value={{
-                          className: 'cursor-pointer h-full w-[3vh]',
+                          className: 'cursor-pointer',
                         }}
                       >
                         <FaRegTrashAlt
-                          className=""
+                          size={20}
                           color="grey"
                           onClick={() => {
                             removeItemFromCart(item.sku);
@@ -220,7 +227,7 @@ function CheckoutPage() {
               />
               <div
                 className={`
-                100 flex h-[32px] w-4/12 cursor-pointer items-center
+                flex h-[32px] w-4/12 cursor-pointer items-center
                 justify-center rounded border
                 border-black text-lg font-bold
                 transition ease-in-out hover:bg-black hover:text-white sm:h-[48px]
