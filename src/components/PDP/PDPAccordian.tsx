@@ -5,8 +5,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from '@/components/ui/accordion';
-import { Separator } from '../ui/separator';
-import { Button } from '../ui/button';
+
 
 export function PDPAccordion() {
   return (
