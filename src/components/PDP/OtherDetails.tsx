@@ -218,10 +218,10 @@ export function ExtraProductDetails({
           <div>
             <ProductChecklist />
           </div>
-          <div ref={specsRef}>
-            {/* <ProductSpecGrid /> */}
+          {/* <div ref={specsRef}>
+            <ProductSpecGrid />
             <ProductPackage />
-          </div>
+          </div> */}
           <div ref={faqRef}>
             <PDPAccordion />
           </div>
@@ -238,8 +238,7 @@ export function ExtraProductDetails({
                   </div>
                   <ul className="flex flex-col gap-4 font-normal text-[#767676]">
                     <li>
-                      - Free Ground Shipping: Delivered within 1-5 business
-                      days.
+                      - Ground Shipping: Delivered within 1-5 business days.
                     </li>
                     <li>
                       - Express Shipping: Delivered within 2 days with a flat
@@ -252,7 +251,7 @@ export function ExtraProductDetails({
                   <div className="font-normal text-[#767676]">
                     This item must be returned within 30 days of the date it was
                     purchased. See the{' '}
-                    <a className="underline " href="/policies/shipping-policy">
+                    <a className="underline " href="/policies/return-policy">
                       return policy
                     </a>{' '}
                     for the complete information.

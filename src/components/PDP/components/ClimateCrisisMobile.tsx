@@ -25,11 +25,15 @@ export function ClimateCrisisMobile() {
         </p>
       </div>
 
-      <div className="bg-[#1A1A1A] p-5 text-[14px] font-[100] normal-case leading-[200%] text-white md:text-xl">
-        <p>
+      <div className="bg-[#1A1A1A] px-[19px] py-[30px] text-[14px] font-[100] normal-case leading-[200%] text-white md:text-xl">
+        <p className="flex sm:hidden">
           From snowstorms to downpours,
           <br /> our car covers guarantee year-round protection providing
           top-notch car care in any weather.
+        </p>
+        <p className="hidden sm:flex sm:flex-col">
+          From snowstorms to downpours, our car covers guarantee year-round
+          protection providing top-notch car care in any weather.
         </p>
       </div>
     </div>

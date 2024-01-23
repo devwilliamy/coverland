@@ -16,6 +16,9 @@ export function PDPAccordion() {
           q&a
         </h2>
         <Accordion type="single" collapsible className="w-full">
+          <div className=" hidden h-[137px] w-full flex-col text-center text-[45px] font-black lg:flex ">
+            Q&A
+          </div>
           <AccordionItem value="item-1">
             <AccordionTrigger className="text-base font-black capitalize text-[#1A1A1A]  md:text-xl lg:py-8 lg:text-[28px]">
               Is putting this car cover on a hassle ?

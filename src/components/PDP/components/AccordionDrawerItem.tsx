@@ -14,7 +14,7 @@ import {
 import { AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { GoDotFill } from 'react-icons/go';
 import { Button } from '@/components/ui/button';
-import { FaChevronDown } from 'react-icons/fa';
+import { FaChevronDown, FaPlus } from 'react-icons/fa';
 import { IoClose } from 'react-icons/io5';
 import { Drawer } from 'vaul';
 
@@ -32,7 +32,8 @@ function AccordionDrawerItem(props: AccordianDrawerProps) {
       <Drawer.Root open={open} onOpenChange={setOpen}>
         <Drawer.Trigger className="flex w-full flex-row justify-between py-4 text-left text-xl font-black text-[#1A1A1A] !no-underline">
           <button className="uppercase">{props.title}</button>
-          <FaChevronDown />
+          {/* <FaChevronDown /> */}
+          <FaPlus />
         </Drawer.Trigger>
         <Drawer.Portal>
           <Drawer.Overlay className="fixed inset-0 bg-black/40"></Drawer.Overlay>
