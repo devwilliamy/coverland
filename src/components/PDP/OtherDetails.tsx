@@ -198,7 +198,7 @@ export function ExtraProductDetails({
           </div>
           <div ref={shippingRef}>
             <div>
-              <div className=" mb-[50px] flex gap-5 px-2 normal-case">
+              <div className=" mb-[50px] flex gap-[144px] px-2 normal-case">
                 <div className="flex flex-col gap-[12px]">
                   <div className="flex flex-col text-[28px] font-black">
                     Shipping Details
