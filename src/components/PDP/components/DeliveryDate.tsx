@@ -2,7 +2,7 @@
 
 import { DateTime } from 'luxon';
 
-const getClientTimeZone = (): string => {
+export const getClientTimeZone = (): string => {
   const timeZoneOffset: number = new Date().getTimezoneOffset();
   // Timezone offset in minutes for PST, MST, CST, EST
   const PST: number = 480; // UTC -8
@@ -32,7 +32,7 @@ const getClientTimeZone = (): string => {
  * Currently don't know what to do for other time zones and defaulting to 5 days later.
  * @returns string
  */
-const determineDeliveryByDate = (): string => {
+export const determineDeliveryByDate = (): string => {
   const clientTimeZone: string = getClientTimeZone();
   const now: DateTime = DateTime.now().setZone(clientTimeZone);
   let daysToAdd: number;
