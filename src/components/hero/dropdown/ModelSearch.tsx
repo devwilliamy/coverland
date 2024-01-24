@@ -22,21 +22,27 @@ export function ModelSearch({
     setQuery((p) => ({ ...p, model: newValue }));
   };
 
-  const isDisabled = !query.make || !query.year || !query.type;
+  const isDisabled = !query.type || !query.year || !query.make;
 
   return (
-    <select
-      value={value}
-      onChange={handleChange}
+    <button
+      className={`flex w-full items-center rounded-lg ${!queryObj.query.make ? 'bg-gray-100/75' : 'bg-white'} px-2 text-lg lg:w-auto`}
       disabled={isDisabled}
-      className="rounded-lg px-2  text-lg"
     >
-      <option value="">Select car model</option>
-      {modelData?.sort()?.map((model) => (
-        <option key={`model-${model}`} value={model}>
-          {model}
-        </option>
-      ))}
-    </select>
+      <div className="pr-[15px]">4</div>
+      <select
+        value={value}
+        onChange={handleChange}
+        disabled={isDisabled}
+        className="w-full bg-transparent"
+      >
+        <option value="">Select car model</option>
+        {modelData?.sort()?.map((model) => (
+          <option key={`model-${model}`} value={model}>
+            {model}
+          </option>
+        ))}
+      </select>
+    </button>
   );
 }

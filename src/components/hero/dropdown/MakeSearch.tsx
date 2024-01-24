@@ -24,20 +24,26 @@ export function MakeSearch({
   };
 
   return (
-    <select
-      value={value}
-      onChange={handleChange}
+    <button
+      className={`flex w-full items-center rounded-lg ${!queryObj.query.year ? 'bg-gray-100/75' : 'bg-white'} px-2 text-lg lg:w-auto`}
       disabled={!query.type || !query.year}
-      className="rounded-lg px-2  text-lg"
-    >
-      <option value="" disabled>
-        Select car make
-      </option>
-      {sortedData.map((make) => (
-        <option key={make} value={make}>
-          {make}
+      >
+      <div className="pr-[15px]">3</div>
+      <select
+        value={value}
+        onChange={handleChange}
+        disabled={!query.type || !query.year}
+        className="w-full bg-transparent"
+      >
+        <option value="" disabled>
+          Select car make
         </option>
-      ))}
-    </select>
+        {sortedData.map((make) => (
+          <option key={make} value={make}>
+            {make}
+          </option>
+        ))}
+      </select>
+    </button>
   );
 }

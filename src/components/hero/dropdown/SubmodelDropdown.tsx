@@ -37,18 +37,25 @@ export function SubmodelDropdown({
   const isDisabled = !query.make || !query.year || !query.type;
 
   return (
-    <select
-      value={value}
-      onChange={handleChange}
+    <button
+      className={`flex w-full items-center rounded-lg ${!queryObj.query.make ? 'bg-gray-100/75' : 'bg-white'} px-2 text-lg lg:w-auto`}
       disabled={isDisabled}
-      className="rounded-lg px-2  text-lg"
     >
-      <option value="">Select car model</option>
-      {submodelData?.sort()?.map((submodel) => (
-        <option key={`model-${submodel}`} value={submodel}>
-          {submodel}
-        </option>
-      ))}
-    </select>
+      <div className="pr-[15px]">4</div>
+
+      <select
+        value={value}
+        onChange={handleChange}
+        disabled={isDisabled}
+        className="rounded-lg px-2  text-lg"
+      >
+        <option value="">Select car model</option>
+        {submodelData?.sort()?.map((submodel) => (
+          <option key={`model-${submodel}`} value={submodel}>
+            {submodel}
+          </option>
+        ))}
+      </select>
+    </button>
   );
 }

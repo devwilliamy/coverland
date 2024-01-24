@@ -136,7 +136,7 @@ export default function EditVehicleDropdown({
         <SubmodelDropdown queryObj={queryObj} submodelData={subModelData} />
       )}
       <Button
-        className="mx-auto h-[40px] max-w-[px] text-lg"
+        className="mx-auto h-[40px] w-full max-w-[px] rounded-[4px] bg-black text-lg "
         onClick={handleSubmitDropdown}
         disabled={!year || !type || !make || !model}
       >
