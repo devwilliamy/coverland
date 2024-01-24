@@ -136,14 +136,14 @@ export default function EditVehicleDropdown({
         <SubmodelDropdown queryObj={queryObj} submodelData={subModelData} />
       )}
       <Button
-        className="mx-auto h-[40px] w-full max-w-[px] rounded-[4px] bg-black text-lg "
+        className="mx-auto h-[40px] max-h-[44px] w-full max-w-[px] rounded-[4px] bg-black text-lg "
         onClick={handleSubmitDropdown}
         disabled={!year || !type || !make || !model}
       >
         {loading ? (
           <AiOutlineLoading3Quarters className="animate-spin" />
         ) : (
-          'Go'
+          'GO'
         )}
       </Button>
     </div>

@@ -24,7 +24,7 @@ export function TypeSearch({
 
   return (
     <button
-      className={`flex w-full items-center rounded-lg  bg-white px-2 text-lg lg:w-auto`}
+      className={` flex w-full items-center rounded-lg border-2 border-solid border-black bg-white px-2 text-lg lg:w-auto`}
       disabled={!queryObj.query.type}
     >
       <div className="pr-[15px]">1</div>

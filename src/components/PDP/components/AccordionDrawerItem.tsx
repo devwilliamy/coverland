@@ -15,7 +15,7 @@ function AccordionDrawerItem(props: AccordianDrawerProps) {
   const [open, setOpen] = useState(false);
   const titleSpacing = 60;
   return (
-    <AccordionItem className="relative" value="item-1">
+    <AccordionItem className="relative" value={props.value}>
       <Drawer.Root open={open} onOpenChange={setOpen}>
         <Drawer.Trigger className="flex w-full flex-row items-center justify-between py-4 text-left text-xl font-black text-[#1A1A1A] !no-underline">
           <button className="uppercase">{props.title}</button>
