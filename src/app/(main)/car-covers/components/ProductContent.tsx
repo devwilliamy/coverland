@@ -24,21 +24,12 @@ import { GoDotFill } from 'react-icons/go';
 import AgentProfile from '@/images/PDP/agent_profile.png';
 import { TCarCoverData } from './CarPDP';
 import { useMediaQuery } from '@mantine/hooks';
-import {
-  Sheet,
-  SheetClose,
-  SheetContent,
-  SheetFooter,
-  SheetHeader,
-  SheetTitle,
-  SheetTrigger,
-} from '@/components/ui/sheet';
-import { IoClose } from 'react-icons/io5';
 import AddToCartHeader from '@/components/cart/AddToCartHeader';
 import AddToCartBody from '@/components/cart/AddToCartBody';
 import AddToCartFooter from '@/components/cart/AddToCartFooter';
 import BottomUpDrawer from '@/components/ui/bottom-up-drawer';
 import { useState } from 'react';
+import CartSheet from '@/components/cart/CartSheet';
 
 export function ProductContent({
   selectedProduct,
@@ -127,7 +118,7 @@ export function ProductContent({
         <div className="flex-start flex items-center">
           <GoDotFill size={10} color="#008000 " />
           <p className="pl-1 text-sm font-medium capitalize text-black">
-            Full Warranty 7 years
+            Full Warranty 10 years
           </p>
         </div>
         <div className="flex-start flex items-center leading-4">
@@ -388,38 +379,11 @@ export function ProductContent({
           <AddToCartBody selectedProduct={selectedProduct} />
         </BottomUpDrawer>
       ) : (
-        <Sheet open={addToCartOpen}>
-          <SheetTrigger asChild></SheetTrigger>
-          <SheetContent className="flex flex-col">
-            <SheetHeader>
-              <SheetTitle className="flex w-full items-center justify-between py-7 pl-4 pr-7">
-                <AddToCartHeader />
-                <SheetClose
-                  asChild
-                  className="cursor-pointer bg-gray-200 text-black *:h-6 *:w-6"
-                >
-                  <button
-                    className="rounded-full p-[5px]"
-                    onClick={() => setAddToCartOpen(false)}
-                  >
-                    <IoClose />
-                  </button>
-                </SheetClose>
-              </SheetTitle>
-              <div className="border-b bg-white shadow-[0_4px_4px_0px_rgba(0,0,0,0.1)]"></div>
-            </SheetHeader>
-            <div className="mx-auto flex h-screen w-full flex-col overflow-y-scroll px-4 pt-20">
-              <AddToCartBody selectedProduct={selectedProduct} />
-            </div>
-            <div className="w-full bg-white shadow-[0_-4px_4px_-0px_rgba(0,0,0,0.1)]">
-              <SheetFooter>
-                <SheetClose asChild>
-                  <AddToCartFooter />
-                </SheetClose>
-              </SheetFooter>
-            </div>
-          </SheetContent>
-        </Sheet>
+        <CartSheet
+          open={addToCartOpen}
+          setOpen={setAddToCartOpen}
+          selectedProduct={selectedProduct}
+        />
       )}
     </>
   );

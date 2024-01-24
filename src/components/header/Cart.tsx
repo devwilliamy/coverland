@@ -82,30 +82,6 @@ function Cart() {
   );
 }
 
-// const CartLineItem = ({ item }: { item: TCartItems }) => {
-//   // console.log(item);
-//   return (
-//     <Card className="my-1 w-full">
-//       <CardHeader>
-//         <CardTitle>{item.product_name}</CardTitle>
-//         <CardDescription>
-//           {item.display_color} {item.product_name}
-//         </CardDescription>
-//       </CardHeader>
-//       <CardContent>
-//         <Image
-//           src={item.feature as string}
-//           alt={item.product_name as string}
-//           width={150}
-//           height={150}
-//         />
-//         <p>${item.msrp}</p>
-//       </CardContent>
-//       <CardFooter>{/* <p>Card Footer</p> */}</CardFooter>
-//     </Card>
-//   );
-// };
-
 type ItemsInCartAnimation = {
   cartItems: TCartItems[];
 };
