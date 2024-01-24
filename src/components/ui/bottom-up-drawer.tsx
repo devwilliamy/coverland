@@ -30,7 +30,7 @@ export default function BottomUpDrawer({
             id="DrawerHeader"
             className="absolute left-0 top-0 z-[100] mx-[-0.05px] max-h-[175px] w-full rounded-t-[20px] bg-white px-4 "
           >
-            <div className="flex items-center justify-end border-b-2 border-[#C8C7C7]">
+            <div className="flex items-center justify-end border-b border-[#C8C7C7]">
               <div className="flex w-full pb-4 pt-6">{title}</div>
               <div
                 className="my-4 flex items-center justify-center rounded-full bg-gray-200 p-[5px]"
@@ -49,7 +49,7 @@ export default function BottomUpDrawer({
             <div>{children}</div>
           </div>
           <div id="DrawerFooterContainer">
-            <div className="min-h-[5vh] w-full border-2 bg-white shadow-[0_-4px_4px_-0px_rgba(0,0,0,0.1)]">
+            <div className="min-h-[5vh] w-full bg-white shadow-[0_-4px_4px_-0px_rgba(0,0,0,0.1)]">
               {footer}
             </div>
           </div>
