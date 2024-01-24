@@ -513,7 +513,7 @@ function CarSelector({
             <div className="flex-start flex items-center">
               <GoDotFill size={10} color="#008000 " />
               <p className="pl-1 text-sm font-medium capitalize text-black">
-                Full Warranty 7 years
+                Full Warranty 10 years
               </p>
             </div>
             <div className="flex-start flex items-center leading-4">
