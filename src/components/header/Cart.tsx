@@ -1,7 +1,5 @@
 'use client';
-
 import { useCartContext } from '@/providers/CartProvider';
-import { Button } from '@/components/ui/button';
 import {
   Sheet,
   SheetClose,
@@ -11,98 +9,97 @@ import {
   SheetTitle,
   SheetTrigger,
 } from '@/components/ui/sheet';
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui/card';
-
 import { TCartItems } from '@/lib/cart/useCart';
-import Image from 'next/image';
-import Link from 'next/link';
 import { HiOutlineShoppingCart } from 'react-icons/hi';
-import { FaCheck } from 'react-icons/fa6';
-import { IoIosClose } from 'react-icons/io';
+import { IoClose } from 'react-icons/io5';
+import AddToCartBody from '../cart/AddToCartBody';
+import AddToCartFooter from '../cart/AddToCartFooter';
+import YourCartHeader from '../cart/YourCartHeader';
+import { useMediaQuery } from '@mui/material';
+import BottomUpDrawer from '../ui/bottom-up-drawer';
 
 function Cart() {
   const { cartItems, cartOpen, setCartOpen } = useCartContext();
+  const cartColor = cartItems.length > 0 ? '#BE1B1B' : '#000000';
+  const isMobile = useMediaQuery('(max-width: 768px)');
 
   return (
-    <Sheet open={cartOpen}>
-      <SheetTrigger asChild>
-        <button
-          className="mt-1 flex h-[40px] w-5 items-center md:order-last"
-          onClick={() => setCartOpen(!cartOpen)}
-        >
-          <HiOutlineShoppingCart className="h-[24px] w-[24px] *:h-full *:w-full lg:h-[24px] lg:w-[24px]" />
-        </button>
-        {/* <ShoppingCart
-            size={isMobile ? 24 : 32}
-            color={cartColor}
-            className="hover:cursor-pointer"
-          /> */}
-      </SheetTrigger>
-      <SheetContent className="overflow-scroll">
-        <SheetHeader>
-          <SheetTitle className="flex w-full items-center justify-between">
-            <div className="text-green-600 *:h-5 *:w-5">
-              <FaCheck />
+    <>
+      <Sheet open={cartOpen}>
+        <SheetTrigger asChild>
+          <>
+            <HiOutlineShoppingCart
+              size={24}
+              color={cartColor}
+              className="mt-1 flex h-[40px] w-5 items-center hover:cursor-pointer md:order-last"
+              onClick={() => setCartOpen(!cartOpen)}
+            />
+          </>
+        </SheetTrigger>
+        <ItemsInCartAnimation cartItems={cartItems} />
+        {isMobile ? (
+          <BottomUpDrawer
+            title={<YourCartHeader />}
+            open={cartOpen}
+            setOpen={setCartOpen}
+            footer={<AddToCartFooter />}
+          >
+            <AddToCartBody />
+          </BottomUpDrawer>
+        ) : (
+          <SheetContent className="flex flex-col">
+            <SheetHeader>
+              <SheetTitle className="flex w-full items-center justify-between py-7 pl-4 pr-7">
+                <YourCartHeader />
+                <SheetClose
+                  asChild
+                  className="cursor-pointer bg-gray-200 text-black *:h-6 *:w-6"
+                >
+                  <button
+                    className="rounded-full"
+                    onClick={() => setCartOpen(false)}
+                  >
+                    <IoClose />
+                  </button>
+                </SheetClose>
+              </SheetTitle>
+              <div className="border-b bg-white shadow-[0_4px_4px_0px_rgba(0,0,0,0.1)]"></div>
+            </SheetHeader>
+            <div className="mx-auto flex h-screen w-full flex-col overflow-y-scroll px-4 pt-20">
+              <AddToCartBody />
             </div>
-            Your Cart
-            <SheetClose
-              asChild
-              className="cursor-pointer bg-gray-200 text-black *:h-8 *:w-8"
-            >
-              <button
-                className="rounded-full"
-                onClick={() => setCartOpen(false)}
-              >
-                <IoIosClose />
-              </button>
-            </SheetClose>
-          </SheetTitle>
-        </SheetHeader>
-        {cartItems.map((item) => {
-          return <CartLineItem key={item.sku} item={item} />;
-        })}
-        <SheetFooter>
-          <SheetClose asChild>
-            <Button type="submit" className="mt-10 w-full" asChild>
-              <Link href="/checkout" onClick={() => setCartOpen(false)}>
-                Checkout
-              </Link>
-            </Button>
-          </SheetClose>
-        </SheetFooter>
-      </SheetContent>
-    </Sheet>
+            <div className="w-full bg-white shadow-[0_-4px_4px_-0px_rgba(0,0,0,0.1)]">
+              <SheetFooter>
+                <SheetClose asChild>
+                  <AddToCartFooter />
+                </SheetClose>
+              </SheetFooter>
+            </div>
+          </SheetContent>
+        )}
+      </Sheet>
+    </>
   );
 }
 
-const CartLineItem = ({ item }: { item: TCartItems }) => {
-  // console.log(item);
+type ItemsInCartAnimation = {
+  cartItems: TCartItems[];
+};
+
+const ItemsInCartAnimation = ({
+  cartItems,
+}: ItemsInCartAnimation): JSX.Element => {
   return (
-    <Card className="my-1 w-full">
-      <CardHeader>
-        <CardTitle>{item.product_name}</CardTitle>
-        <CardDescription>
-          {item.display_color} {item.product_name}
-        </CardDescription>
-      </CardHeader>
-      <CardContent>
-        <Image
-          src={item.feature as string}
-          alt={item.product_name as string}
-          width={150}
-          height={150}
-        />
-        <p>${item.msrp}</p>
-      </CardContent>
-      <CardFooter>{/* <p>Card Footer</p> */}</CardFooter>
-    </Card>
+    <>
+      {cartItems?.length > 0 && (
+        <span className="relative flex h-4 w-4">
+          <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#BE1B1B] opacity-75"></span>
+          <span className="relative inline-flex h-4 w-4 items-center justify-center rounded-full bg-[#BE1B1B] text-xs text-white">
+            {cartItems?.length}
+          </span>
+        </span>
+      )}
+    </>
   );
 };
 

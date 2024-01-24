@@ -65,7 +65,7 @@ const useCart = () => {
   const getTotalCartQuantity = useCallback(() => {
     return cartItems.reduce((total, item) => total + item.quantity, 0);
   }, [cartItems]);
-  console.log(cartItems);
+
   return {
     cartItems,
     addToCart,

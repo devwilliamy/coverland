@@ -23,6 +23,13 @@ import { BsBoxSeam, BsGift } from 'react-icons/bs';
 import { GoDotFill } from 'react-icons/go';
 import AgentProfile from '@/images/PDP/agent_profile.png';
 import { TCarCoverData } from './CarPDP';
+import { useMediaQuery } from '@mantine/hooks';
+import AddToCartHeader from '@/components/cart/AddToCartHeader';
+import AddToCartBody from '@/components/cart/AddToCartBody';
+import AddToCartFooter from '@/components/cart/AddToCartFooter';
+import BottomUpDrawer from '@/components/ui/bottom-up-drawer';
+import { useState } from 'react';
+import CartSheet from '@/components/cart/CartSheet';
 
 export function ProductContent({
   selectedProduct,
@@ -34,7 +41,6 @@ export function ProductContent({
   secondSubmodels,
   isReadyForProductSelection,
   handleAddToCart,
-  setCartOpen,
 }: {
   selectedProduct: TCarCoverData | null | undefined;
   reviewCount: number;
@@ -45,8 +51,10 @@ export function ProductContent({
   secondSubmodels: string[];
   isReadyForProductSelection: boolean;
   handleAddToCart: () => void;
-  setCartOpen: (value: boolean) => void;
 }) {
+  const isMobile = useMediaQuery('(max-width: 768px)');
+  const [addToCartOpen, setAddToCartOpen] = useState<boolean>(false);
+
   return (
     <>
       <div className="grid grid-cols-1">
@@ -110,7 +118,7 @@ export function ProductContent({
         <div className="flex-start flex items-center">
           <GoDotFill size={10} color="#008000 " />
           <p className="pl-1 text-sm font-medium capitalize text-black">
-            Full Warranty 7 years
+            Full Warranty 10 years
           </p>
         </div>
         <div className="flex-start flex items-center leading-4">
@@ -210,7 +218,7 @@ export function ProductContent({
                   sku: selectedProduct?.sku,
                 });
               handleAddToCart();
-              setCartOpen(true);
+              setAddToCartOpen(true);
             }}
           >
             Add To Cart
@@ -361,6 +369,22 @@ export function ProductContent({
           </p>
         </div>
       </div>
+      {isMobile ? (
+        <BottomUpDrawer
+          title={<AddToCartHeader />}
+          open={addToCartOpen}
+          setOpen={setAddToCartOpen}
+          footer={<AddToCartFooter />}
+        >
+          <AddToCartBody selectedProduct={selectedProduct} />
+        </BottomUpDrawer>
+      ) : (
+        <CartSheet
+          open={addToCartOpen}
+          setOpen={setAddToCartOpen}
+          selectedProduct={selectedProduct}
+        />
+      )}
     </>
   );
 }

@@ -39,6 +39,11 @@ import dynamicImport from 'next/dynamic';
 import { type CarouselApi } from '@/components/ui/carousel';
 import skuDisplayData from '@/data/skuDisplayData.json';
 import { stringToSlug } from '@/lib/utils';
+import BottomUpDrawer from '../ui/bottom-up-drawer';
+import AddToCartHeader from '../cart/AddToCartHeader';
+import AddToCartBody from '../cart/AddToCartBody';
+import AddToCartFooter from '../cart/AddToCartFooter';
+import CartSheet from '../cart/CartSheet';
 
 const ProductVideo = dynamicImport(() => import('./ProductVideo'), {
   ssr: false,
@@ -191,7 +196,9 @@ function CarSelector({
     selectedProduct?.feature as string
   );
 
-  const { setCartOpen } = useCartContext();
+  const { addToCart } = useCartContext();
+
+  const [addToCartOpen, setAddToCartOpen] = useState<boolean>(false);
 
   const productRefs = useRef<ProductRefs>(
     displayedModelData.reduce((acc: ProductRefs, item: TProductData) => {
@@ -203,7 +210,6 @@ function CarSelector({
   const [showMore, setShowMore] = useState(false);
   const isMobile = useMediaQuery('(max-width: 768px)');
 
-  const { addToCart } = useCartContext();
   const isReadyForSelection = submodels.length
     ? pathParams?.product?.length === 3 && !!searchParams?.submodel
     : pathParams?.product?.length === 3;
@@ -498,7 +504,7 @@ function CarSelector({
             <div className="flex-start flex items-center">
               <GoDotFill size={10} color="#008000 " />
               <p className="pl-1 text-sm font-medium capitalize text-black">
-                Full Warranty 7 years
+                Full Warranty 10 years
               </p>
             </div>
             <div className="flex-start flex items-center leading-4">
@@ -605,7 +611,7 @@ function CarSelector({
                     sku: selectedProduct?.sku,
                   });
                   handleAddToCart();
-                  setCartOpen(true);
+                  setAddToCartOpen(true);
                 }}
               >
                 Add To Cart
@@ -758,53 +764,27 @@ function CarSelector({
           </div>
         </div>
       </div>
+      {isMobile ? (
+        <BottomUpDrawer
+          title={<AddToCartHeader />}
+          open={addToCartOpen}
+          setOpen={setAddToCartOpen}
+          footer={<AddToCartFooter />}
+        >
+          <AddToCartBody selectedProduct={selectedProduct} />
+        </BottomUpDrawer>
+      ) : (
+        <CartSheet
+          open={addToCartOpen}
+          setOpen={setAddToCartOpen}
+          selectedProduct={selectedProduct}
+        />
+      )}
     </section>
   );
 }
 
 export default CarSelector;
-
-// const DesktopShowMoreCarousel = ({
-//   selectedProduct,
-//   modalProductImages,
-// }: {
-//   selectedProduct: TProductData;
-//   modalProductImages: string[];
-// }) => {
-//   return (
-//     <Dialog>
-//       <DialogTrigger asChild>
-//         <Button className="mx-auto mt-9 h-12 w-[216px] rounded border border-[#1A1A1A] bg-transparent text-lg font-normal capitalize text-[#1A1A1A] hover:bg-[#1A1A1A] hover:text-white">
-//           show more images
-//         </Button>
-//       </DialogTrigger>
-//       <DialogContent className="">
-//         <Carousel>
-//           <CarouselContent>
-//             {modalProductImages.map((image, index) => (
-//               <CarouselItem key={index}>
-//                 <div className="p-1">
-//                   <Card>
-//                     <CardContent className="flex aspect-square items-center justify-center p-6">
-//                       <Image
-//                         src={image}
-//                         alt={`Additional images of the ${selectedProduct.display_id} cover`}
-//                         width={500}
-//                         height={500}
-//                       />
-//                     </CardContent>
-//                   </Card>
-//                 </div>
-//               </CarouselItem>
-//             ))}
-//           </CarouselContent>
-//           <CarouselPrevious />
-//           <CarouselNext />
-//         </Carousel>
-//       </DialogContent>
-//     </Dialog>
-//   );
-// };
 
 const MobileImageCarousel = ({
   selectedProduct,
@@ -839,12 +819,6 @@ const MobileImageCarousel = ({
     <button className="relative flex h-2 w-2" onClick={() => scrollTo(index)}>
       <span className="relative inline-flex h-2 w-2 rounded-full bg-gray-300"></span>
     </button>
-  );
-
-  const ActiveDot = () => (
-    <div className="relative flex h-2.5 w-2.5">
-      <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-gray-600"></span>
-    </div>
   );
 
   return (
@@ -892,6 +866,8 @@ const MobileImageCarousel = ({
   );
 };
 
-// const DotButtons = () => {
-//   return <button type="button" className="rounded-full" onClick={() => scrollTo(index)} />;
-// };
+const ActiveDot = () => (
+  <div className="relative flex h-2.5 w-2.5">
+    <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-gray-600"></span>
+  </div>
+);

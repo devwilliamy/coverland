@@ -330,7 +330,7 @@ function ReviewCard({ review }: { review: TReviewData }) {
         {/* images go here */}
       </div>
       <div className="flex justify-between">
-        <div className="max-w-[75%] overflow-hidden text-base font-normal normal-case text-[#767676] text-zinc-900 max-md:max-w-full">
+        <div className="max-w-[75%] overflow-hidden text-base font-normal normal-case text-[#1A1A1A] max-md:max-w-full">
           {review.review_description}
         </div>
         <div className="hidden text-lg font-light normal-case text-neutral-500 lg:block">
@@ -342,7 +342,7 @@ function ReviewCard({ review }: { review: TReviewData }) {
           })}
         </div>
       </div>
-      <div className="overflow-hidden text-ellipsis whitespace-nowrap text-base font-normal normal-case leading-8 text-[#767676] text-zinc-900 max-md:mt-10 max-md:max-w-full lg:mt-24">
+      <div className="overflow-hidden text-ellipsis whitespace-nowrap text-base font-normal normal-case leading-8 text-[#1A1A1A] max-md:mt-10 max-md:max-w-full lg:mt-24">
         {review.review_author}
       </div>
       <span className="flex items-center gap-3 self-start lg:mt-7">
