@@ -42,6 +42,17 @@ import { stringToSlug } from '@/lib/utils';
 import BottomUpDrawer from '../ui/bottom-up-drawer';
 import { FaCheck } from 'react-icons/fa6';
 import LineSeparator from '../ui/line-separator';
+import {
+  Sheet,
+  SheetClose,
+  SheetContent,
+  SheetFooter,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from '@/components/ui/sheet';
+import { TCartItems } from '@/lib/cart/useCart';
+import { IoClose } from 'react-icons/io5';
 
 const ProductVideo = dynamicImport(() => import('./ProductVideo'), {
   ssr: false,
@@ -194,7 +205,10 @@ function CarSelector({
     selectedProduct?.feature as string
   );
 
-  const { setCartOpen } = useCartContext();
+  const { addToCart, getTotalPrice, getTotalCartQuantity } = useCartContext();
+  const totalMsrpPrice = getTotalPrice().toFixed(2) as unknown as number;
+  const cartQuantity = getTotalCartQuantity();
+
   const [addToCartOpen, setAddToCartOpen] = useState<boolean>(true);
   const productRefs = useRef<ProductRefs>(
     displayedModelData.reduce((acc: ProductRefs, item: TProductData) => {
@@ -206,7 +220,6 @@ function CarSelector({
   const [showMore, setShowMore] = useState(false);
   const isMobile = useMediaQuery('(max-width: 768px)');
 
-  const { addToCart } = useCartContext();
   const isReadyForSelection = submodels.length
     ? pathParams?.product?.length === 3 && !!searchParams?.submodel
     : pathParams?.product?.length === 3;
@@ -763,21 +776,63 @@ function CarSelector({
       </div>
       {isMobile ? (
         <BottomUpDrawer
-          title={<AddToCart />}
+          title={<AddToCartHeader />}
           open={addToCartOpen}
           setOpen={setAddToCartOpen}
           footer={<AddToCartFooter />}
         >
           <AddToCartBody selectedProduct={selectedProduct} />
         </BottomUpDrawer>
-      ) : null}
+      ) : (
+        <Sheet open={addToCartOpen}>
+          <SheetTrigger asChild></SheetTrigger>
+          <SheetContent className="flex flex-col">
+            <SheetHeader>
+              <SheetTitle className="flex w-full items-center justify-between py-7 pl-4 pr-7">
+                <AddToCartHeader />
+                <SheetClose
+                  asChild
+                  className="cursor-pointer bg-gray-200 text-black *:h-6 *:w-6"
+                >
+                  <button
+                    className="rounded-full"
+                    onClick={() => setAddToCartOpen(false)}
+                  >
+                    <IoClose />
+                  </button>
+                </SheetClose>
+              </SheetTitle>
+              <div className="border-b bg-white shadow-[0_4px_4px_0px_rgba(0,0,0,0.1)]"></div>
+            </SheetHeader>
+            <div className="mx-auto flex h-screen w-full flex-col overflow-y-scroll px-4 pt-20">
+              <AddToCartBody selectedProduct={selectedProduct} />
+            </div>
+            <div className="w-full bg-white shadow-[0_-4px_4px_-0px_rgba(0,0,0,0.1)]">
+              <SheetFooter>
+                <SheetClose asChild>
+                  <div className="p-5">
+                    <div className="text-end text-lg font-extrabold lg:text-[22px] lg:font-black">
+                      <div>Total: ${totalMsrpPrice}</div>
+                    </div>
+                    <Link href="/checkout">
+                      <Button className="my-3 h-[48px] w-full bg-[#BE1B1B] text-base font-bold uppercase text-white disabled:bg-[#BE1B1B] md:h-[62px] md:text-lg">
+                        View Cart ({cartQuantity})
+                      </Button>
+                    </Link>
+                  </div>
+                </SheetClose>
+              </SheetFooter>
+            </div>
+          </SheetContent>
+        </Sheet>
+      )}
     </section>
   );
 }
 
 export default CarSelector;
 
-const AddToCart = (): JSX.Element => {
+const AddToCartHeader = (): JSX.Element => {
   return (
     <div>
       <div className="flex flex-row ">
@@ -819,7 +874,7 @@ const CartItem = ({ item }: CartItemProps) => {
           alt="a car with a car cover on it"
           width={180}
           height={180}
-          className="h-[180px] w-[180px] md:h-[250px] md:w-[250px] lg:h-[500px] lg:w-[500px]"
+          className="h-[180px] w-[180px] md:h-[194px] md:w-[194px] lg:h-[194px] lg:w-[194px]"
           // onClick={console.log(selectedImage)}
         />
       </div>
@@ -827,16 +882,16 @@ const CartItem = ({ item }: CartItemProps) => {
         <div className="w-10/12 text-base font-bold lg:text-lg">
           {item?.display_id}&trade; {item.type}
         </div>
-        <div className="text-sm font-normal text-[#707070] lg:text-base">
+        <div className="text-sm font-normal text-[#707070] lg:text-sm">
           Vehicle: {item?.make} {item.model} {item.year_generation}
           {/* {item.submodel1 && item.submodel1} */}
         </div>
-        <div className="text-sm font-normal text-[#707070] lg:text-base">
+        <div className="text-sm font-normal text-[#707070] lg:text-sm">
           Color: {item.display_color}
         </div>
-        <div className="flex text-sm font-normal text-[#707070] lg:text-base">
-          <div className="font-medium lg:text-base">Quantity: </div>
-          <div className="pl-1  font-medium lg:text-base">{item.quantity}</div>
+        <div className="flex text-sm font-normal text-[#707070] lg:text-sm">
+          <div>Quantity: </div>
+          <div className="pl-1">{item.quantity}</div>
         </div>
       </div>
       <LineSeparator />
@@ -853,6 +908,7 @@ const CartItem = ({ item }: CartItemProps) => {
     </>
   );
 };
+
 const AddToCartFooter = () => {
   const { getTotalPrice, getTotalCartQuantity } = useCartContext();
   const totalMsrpPrice = getTotalPrice().toFixed(2) as unknown as number;
