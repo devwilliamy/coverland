@@ -25,7 +25,7 @@ export default function BottomUpDrawer({
       {underTrigger}
       <Drawer.Portal>
         <Drawer.Overlay className="fixed inset-0 bg-black/40"></Drawer.Overlay>
-        <Drawer.Content className="fixed bottom-0 left-0 right-0 z-[100] flex flex-col rounded-t-[20px] bg-white">
+        <Drawer.Content className="fixed bottom-0 left-0 right-0 z-[100] flex max-h-[75vh] flex-col rounded-t-[20px] bg-white">
           <div
             id="DrawerHeader"
             className="absolute left-0 top-0 z-[100] mx-[-0.05px] max-h-[175px] w-full rounded-t-[20px] bg-white px-4 "
@@ -44,7 +44,7 @@ export default function BottomUpDrawer({
           </div>
           <div
             id="DrawerContentContainer"
-            className="mx-auto flex max-h-[75vh] w-full flex-col overflow-y-scroll px-4 pt-20"
+            className="mx-auto flex w-full flex-col overflow-y-scroll px-4 pt-20"
           >
             <div>{children}</div>
           </div>
