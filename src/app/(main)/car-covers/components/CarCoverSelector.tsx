@@ -71,8 +71,6 @@ export function CarCoverSelector({
     selectedProduct?.feature as string
   );
 
-  const { setCartOpen } = useCartContext();
-
   interface ProductRefs {
     [key: string]: RefObject<HTMLElement>;
   }
@@ -178,7 +176,6 @@ export function CarCoverSelector({
             submodels={submodels as string[]}
             secondSubmodels={secondSubmodels as string[]}
             handleAddToCart={handleAddToCart}
-            setCartOpen={setCartOpen}
             isReadyForProductSelection={isReadyForProductSelection}
           />
         </div>
