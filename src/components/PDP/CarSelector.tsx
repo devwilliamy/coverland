@@ -25,7 +25,7 @@ import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from '@radix-ui/react-popover';
+} from '@/components/ui/popover';
 import { Button } from '../ui/button';
 import AgentProfile from '@/images/PDP/agent_profile.png';
 import { useMediaQuery } from '@mantine/hooks';
@@ -249,6 +249,7 @@ function CarSelector({
   ${searchParams?.submodel ? selectedProduct?.submodel1 : ''}
   ${searchParams?.second_submodel ? selectedProduct?.submodel2 : ''}
   `;
+  const [open, setOpen] = useState(false);
 
   return (
     <section className="mx-auto h-auto w-full max-w-[1280px] px-4 lg:my-8">
@@ -324,12 +325,14 @@ function CarSelector({
             </h2>
             <div className="flex items-center gap-2">
               <EditIcon />
-              <Popover>
+              <Popover open={open} onOpenChange={(o) => setOpen(o)}>
                 <PopoverTrigger asChild>
-                  <button className="underline">Edit Vehicle</button>
+                  <button className="underline" onClick={() => setOpen(!open)}>
+                    Edit Vehicle
+                  </button>
                 </PopoverTrigger>
                 <PopoverContent className="min-w-[100px] rounded-xl border border-gray-300 bg-white p-5 shadow-lg">
-                  <EditVehicleDropdown />
+                  <EditVehicleDropdown setOpen={setOpen} />
                 </PopoverContent>
               </Popover>
             </div>
