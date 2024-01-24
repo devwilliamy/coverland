@@ -39,6 +39,9 @@ import dynamicImport from 'next/dynamic';
 import { type CarouselApi } from '@/components/ui/carousel';
 import skuDisplayData from '@/data/skuDisplayData.json';
 import { stringToSlug } from '@/lib/utils';
+import BottomUpDrawer from '../ui/bottom-up-drawer';
+import { FaCheck } from 'react-icons/fa6';
+import LineSeparator from '../ui/line-separator';
 
 const ProductVideo = dynamicImport(() => import('./ProductVideo'), {
   ssr: false,
@@ -192,7 +195,7 @@ function CarSelector({
   );
 
   const { setCartOpen } = useCartContext();
-
+  const [addToCartOpen, setAddToCartOpen] = useState<boolean>(true);
   const productRefs = useRef<ProductRefs>(
     displayedModelData.reduce((acc: ProductRefs, item: TProductData) => {
       acc[item.sku] = React.createRef();
@@ -605,7 +608,7 @@ function CarSelector({
                     sku: selectedProduct?.sku,
                   });
                   handleAddToCart();
-                  setCartOpen(true);
+                  setAddToCartOpen(true);
                 }}
               >
                 Add To Cart
@@ -758,54 +761,116 @@ function CarSelector({
           </div>
         </div>
       </div>
+      {isMobile ? (
+        <BottomUpDrawer
+          title={<AddToCart />}
+          open={addToCartOpen}
+          setOpen={setAddToCartOpen}
+          footer={<AddToCartFooter />}
+        >
+          <AddToCartBody selectedProduct={selectedProduct} />
+        </BottomUpDrawer>
+      ) : null}
     </section>
   );
 }
 
 export default CarSelector;
 
-// const DesktopShowMoreCarousel = ({
-//   selectedProduct,
-//   modalProductImages,
-// }: {
-//   selectedProduct: TProductData;
-//   modalProductImages: string[];
-// }) => {
-//   return (
-//     <Dialog>
-//       <DialogTrigger asChild>
-//         <Button className="mx-auto mt-9 h-12 w-[216px] rounded border border-[#1A1A1A] bg-transparent text-lg font-normal capitalize text-[#1A1A1A] hover:bg-[#1A1A1A] hover:text-white">
-//           show more images
-//         </Button>
-//       </DialogTrigger>
-//       <DialogContent className="">
-//         <Carousel>
-//           <CarouselContent>
-//             {modalProductImages.map((image, index) => (
-//               <CarouselItem key={index}>
-//                 <div className="p-1">
-//                   <Card>
-//                     <CardContent className="flex aspect-square items-center justify-center p-6">
-//                       <Image
-//                         src={image}
-//                         alt={`Additional images of the ${selectedProduct.display_id} cover`}
-//                         width={500}
-//                         height={500}
-//                       />
-//                     </CardContent>
-//                   </Card>
-//                 </div>
-//               </CarouselItem>
-//             ))}
-//           </CarouselContent>
-//           <CarouselPrevious />
-//           <CarouselNext />
-//         </Carousel>
-//       </DialogContent>
-//     </Dialog>
-//   );
-// };
+const AddToCart = (): JSX.Element => {
+  return (
+    <div>
+      <div className="flex flex-row ">
+        <FaCheck className="text-green-600" size={28} />
+        <p className="pl-3 text-xl font-black">Added to Cart</p>
+      </div>
+    </div>
+  );
+};
 
+type AddToCartBodyProps = {
+  selectedProduct: TProductData;
+};
+const AddToCartBody = ({ selectedProduct }: AddToCartBodyProps) => {
+  const { cartItems } = useCartContext();
+  const sortedCartItems = cartItems.sort((a, b) =>
+    b.sku === selectedProduct.sku ? 1 : -1
+  );
+
+  return (
+    <>
+      {sortedCartItems.map((item) => {
+        return <CartItem key={item.sku} item={item} />;
+      })}
+    </>
+  );
+};
+
+type CartItemProps = {
+  item: TCartItems;
+};
+const CartItem = ({ item }: CartItemProps) => {
+  return (
+    <>
+      <div className="flex justify-center">
+        <Image
+          id="featured-image"
+          src={item.feature ?? ''}
+          alt="a car with a car cover on it"
+          width={180}
+          height={180}
+          className="h-[180px] w-[180px] md:h-[250px] md:w-[250px] lg:h-[500px] lg:w-[500px]"
+          // onClick={console.log(selectedImage)}
+        />
+      </div>
+      <div className="pb-3 pl-5">
+        <div className="w-10/12 text-base font-bold lg:text-lg">
+          {item?.display_id}&trade; {item.type}
+        </div>
+        <div className="text-sm font-normal text-[#707070] lg:text-base">
+          Vehicle: {item?.make} {item.model} {item.year_generation}
+          {/* {item.submodel1 && item.submodel1} */}
+        </div>
+        <div className="text-sm font-normal text-[#707070] lg:text-base">
+          Color: {item.display_color}
+        </div>
+        <div className="flex text-sm font-normal text-[#707070] lg:text-base">
+          <div className="font-medium lg:text-base">Quantity: </div>
+          <div className="pl-1  font-medium lg:text-base">{item.quantity}</div>
+        </div>
+      </div>
+      <LineSeparator />
+      <div className="py-3 pr-4">
+        <div className="flex flex-col text-right ">
+          <div className="text-xl font-bold lg:text-lg">
+            ${item.msrp ? (parseFloat(item.msrp) * 1).toFixed(2) : ''}
+          </div>
+          <div className="text-lg font-normal text-[#707070] line-through decoration-[#707070] lg:text-base">
+            ${(parseFloat(item?.price as string) * 1).toFixed(2)}
+          </div>
+        </div>
+      </div>
+    </>
+  );
+};
+const AddToCartFooter = () => {
+  const { getTotalPrice, getTotalCartQuantity } = useCartContext();
+  const totalMsrpPrice = getTotalPrice().toFixed(2) as unknown as number;
+  const cartQuantity = getTotalCartQuantity();
+
+  return (
+    <div className="p-4">
+      <div className="text-end text-lg font-extrabold lg:font-bold">
+        <div>Total: ${totalMsrpPrice}</div>
+      </div>
+      <Link href="/checkout">
+        <Button className="my-3 h-[48px] w-full bg-[#BE1B1B] text-base font-bold uppercase text-white disabled:bg-[#BE1B1B] md:h-[62px] md:text-lg">
+          View Cart ({cartQuantity})
+        </Button>
+      </Link>
+    </div>
+  );
+};
 const MobileImageCarousel = ({
   selectedProduct,
   productImages,
@@ -839,12 +904,6 @@ const MobileImageCarousel = ({
     <button className="relative flex h-2 w-2" onClick={() => scrollTo(index)}>
       <span className="relative inline-flex h-2 w-2 rounded-full bg-gray-300"></span>
     </button>
-  );
-
-  const ActiveDot = () => (
-    <div className="relative flex h-2.5 w-2.5">
-      <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-gray-600"></span>
-    </div>
   );
 
   return (
@@ -892,6 +951,8 @@ const MobileImageCarousel = ({
   );
 };
 
-// const DotButtons = () => {
-//   return <button type="button" className="rounded-full" onClick={() => scrollTo(index)} />;
-// };
+const ActiveDot = () => (
+  <div className="relative flex h-2.5 w-2.5">
+    <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-gray-600"></span>
+  </div>
+);
