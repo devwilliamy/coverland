@@ -40,8 +40,6 @@ import { type CarouselApi } from '@/components/ui/carousel';
 import skuDisplayData from '@/data/skuDisplayData.json';
 import { stringToSlug } from '@/lib/utils';
 import BottomUpDrawer from '../ui/bottom-up-drawer';
-import { FaCheck } from 'react-icons/fa6';
-import LineSeparator from '../ui/line-separator';
 import {
   Sheet,
   SheetClose,
@@ -51,8 +49,10 @@ import {
   SheetTitle,
   SheetTrigger,
 } from '@/components/ui/sheet';
-import { TCartItems } from '@/lib/cart/useCart';
 import { IoClose } from 'react-icons/io5';
+import AddToCartHeader from '../cart/AddToCartHeader';
+import AddToCartBody from '../cart/AddToCartBody';
+import AddToCartFooter from '../cart/AddToCartFooter';
 
 const ProductVideo = dynamicImport(() => import('./ProductVideo'), {
   ssr: false,
@@ -205,11 +205,10 @@ function CarSelector({
     selectedProduct?.feature as string
   );
 
-  const { addToCart, getTotalPrice, getTotalCartQuantity } = useCartContext();
-  const totalMsrpPrice = getTotalPrice().toFixed(2) as unknown as number;
-  const cartQuantity = getTotalCartQuantity();
+  const { addToCart } = useCartContext();
 
-  const [addToCartOpen, setAddToCartOpen] = useState<boolean>(true);
+  const [addToCartOpen, setAddToCartOpen] = useState<boolean>(false);
+
   const productRefs = useRef<ProductRefs>(
     displayedModelData.reduce((acc: ProductRefs, item: TProductData) => {
       acc[item.sku] = React.createRef();
@@ -795,7 +794,7 @@ function CarSelector({
                   className="cursor-pointer bg-gray-200 text-black *:h-6 *:w-6"
                 >
                   <button
-                    className="rounded-full"
+                    className="rounded-full p-[5px]"
                     onClick={() => setAddToCartOpen(false)}
                   >
                     <IoClose />
@@ -810,16 +809,7 @@ function CarSelector({
             <div className="w-full bg-white shadow-[0_-4px_4px_-0px_rgba(0,0,0,0.1)]">
               <SheetFooter>
                 <SheetClose asChild>
-                  <div className="p-5">
-                    <div className="text-end text-lg font-extrabold lg:text-[22px] lg:font-black">
-                      <div>Total: ${totalMsrpPrice}</div>
-                    </div>
-                    <Link href="/checkout">
-                      <Button className="my-3 h-[48px] w-full bg-[#BE1B1B] text-base font-bold uppercase text-white disabled:bg-[#BE1B1B] md:h-[62px] md:text-lg">
-                        View Cart ({cartQuantity})
-                      </Button>
-                    </Link>
-                  </div>
+                  <AddToCartFooter />
                 </SheetClose>
               </SheetFooter>
             </div>
@@ -832,101 +822,6 @@ function CarSelector({
 
 export default CarSelector;
 
-const AddToCartHeader = (): JSX.Element => {
-  return (
-    <div>
-      <div className="flex flex-row ">
-        <FaCheck className="text-green-600" size={28} />
-        <p className="pl-3 text-xl font-black">Added to Cart</p>
-      </div>
-    </div>
-  );
-};
-
-type AddToCartBodyProps = {
-  selectedProduct: TProductData;
-};
-const AddToCartBody = ({ selectedProduct }: AddToCartBodyProps) => {
-  const { cartItems } = useCartContext();
-  const sortedCartItems = cartItems.sort((a, b) =>
-    b.sku === selectedProduct.sku ? 1 : -1
-  );
-
-  return (
-    <>
-      {sortedCartItems.map((item) => {
-        return <CartItem key={item.sku} item={item} />;
-      })}
-    </>
-  );
-};
-
-type CartItemProps = {
-  item: TCartItems;
-};
-const CartItem = ({ item }: CartItemProps) => {
-  return (
-    <>
-      <div className="flex justify-center">
-        <Image
-          id="featured-image"
-          src={item.feature ?? ''}
-          alt="a car with a car cover on it"
-          width={180}
-          height={180}
-          className="h-[180px] w-[180px] md:h-[194px] md:w-[194px] lg:h-[194px] lg:w-[194px]"
-          // onClick={console.log(selectedImage)}
-        />
-      </div>
-      <div className="pb-3 pl-5">
-        <div className="w-10/12 text-base font-bold lg:text-lg">
-          {item?.display_id}&trade; {item.type}
-        </div>
-        <div className="text-sm font-normal text-[#707070] lg:text-sm">
-          Vehicle: {item?.make} {item.model} {item.year_generation}
-          {/* {item.submodel1 && item.submodel1} */}
-        </div>
-        <div className="text-sm font-normal text-[#707070] lg:text-sm">
-          Color: {item.display_color}
-        </div>
-        <div className="flex text-sm font-normal text-[#707070] lg:text-sm">
-          <div>Quantity: </div>
-          <div className="pl-1">{item.quantity}</div>
-        </div>
-      </div>
-      <LineSeparator />
-      <div className="py-3 pr-4">
-        <div className="flex flex-col text-right ">
-          <div className="text-xl font-bold lg:text-lg">
-            ${item.msrp ? (parseFloat(item.msrp) * 1).toFixed(2) : ''}
-          </div>
-          <div className="text-lg font-normal text-[#707070] line-through decoration-[#707070] lg:text-base">
-            ${(parseFloat(item?.price as string) * 1).toFixed(2)}
-          </div>
-        </div>
-      </div>
-    </>
-  );
-};
-
-const AddToCartFooter = () => {
-  const { getTotalPrice, getTotalCartQuantity } = useCartContext();
-  const totalMsrpPrice = getTotalPrice().toFixed(2) as unknown as number;
-  const cartQuantity = getTotalCartQuantity();
-
-  return (
-    <div className="p-4">
-      <div className="text-end text-lg font-extrabold lg:font-bold">
-        <div>Total: ${totalMsrpPrice}</div>
-      </div>
-      <Link href="/checkout">
-        <Button className="my-3 h-[48px] w-full bg-[#BE1B1B] text-base font-bold uppercase text-white disabled:bg-[#BE1B1B] md:h-[62px] md:text-lg">
-          View Cart ({cartQuantity})
-        </Button>
-      </Link>
-    </div>
-  );
-};
 const MobileImageCarousel = ({
   selectedProduct,
   productImages,
