@@ -16,6 +16,7 @@ import {
   VisaCard,
 } from '@/components/PDP/images/cards';
 import { FbCustomIcon, YtCustomIcon } from '@/components/PDP/images';
+import LiveChat from '@/components/LiveChat';
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -209,7 +210,7 @@ const Footer = () => {
         </div>
       </div>
       {/* </div */}
-      {/* <LiveChat /> */}
+      <LiveChat />
     </footer>
   );
 };
