@@ -25,7 +25,7 @@ export function MakeSearch({
 
   return (
     <button
-      className={`flex w-full items-center rounded-lg ${!queryObj.query.year ? 'bg-gray-100/75' : 'bg-white'} px-2 text-lg outline outline-1 outline-offset-1 lg:w-auto`}
+      className={`flex max-h-[44px] outline-[#767676] min-h-[44px] w-full items-center rounded-[4px] ${!queryObj.query.year ? 'bg-gray-100/75' : 'bg-white'} px-2 text-lg outline outline-1 outline-offset-1 lg:w-auto`}
       disabled={!query.type || !query.year}
     >
       <div className="ml-[10px] pr-[15px]">3</div>

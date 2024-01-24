@@ -127,7 +127,7 @@ export default function EditVehicleDropdown({
   };
 
   return (
-    <div className="z-100 relative flex w-full flex-col items-stretch justify-center gap-2 font-medium *:flex-1">
+    <div className="z-100 relative flex w-full flex-col items-stretch  gap-[16px] *:flex-1">
       <TypeSearch queryObj={queryObj} />
       <YearSearch queryObj={queryObj} />
       <MakeSearch queryObj={queryObj} makeData={makeData} />

@@ -95,7 +95,7 @@ export function SubmodelSearch({
       onChange={handleChange}
       className="rounded-lg px-2 py-3 text-lg outline outline-1 outline-offset-1 "
     >
-      <option value={''}>Sub-Model</option>
+      <option value={''}>Submodel</option>
       {uniqueSubmodelsFromModelData?.sort()?.map((submodel) => (
         <option
           key={`model-${submodel}`}

@@ -26,7 +26,7 @@ export function ModelSearch({
 
   return (
     <button
-      className={`flex w-full items-center rounded-lg outline outline-1 outline-offset-1 ${!queryObj.query.make ? 'bg-gray-100/75' : 'bg-white'} px-2 text-lg lg:w-auto`}
+      className={`flex max-h-[44px] outline-[#767676] min-h-[44px] w-full items-center rounded-[4px] outline outline-1 outline-offset-1 ${!queryObj.query.make ? 'bg-gray-100/75' : 'bg-white'} px-2 text-lg lg:w-auto`}
       disabled={isDisabled}
     >
       <div className="ml-[10px] pr-[15px]">4</div>

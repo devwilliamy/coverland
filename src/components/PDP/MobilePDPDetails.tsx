@@ -19,8 +19,9 @@ export const MobilePDPDetails = ({
   reviewData: TReviewData[] | null;
 }) => {
   return (
-    <div className="w-full px-4 font-black uppercase text-[#1A1A1A] lg:hidden">
+    <div className=" w-full px-4 font-black uppercase text-[#1A1A1A] lg:hidden">
       <div id="CarCoverFeatures">
+        <div className="-mx-4 h-[41px] w-screen border-b-2 border-t-2 border-[#DBDBDB] bg-[#F1F1F1] lg:hidden"></div>
         <div className=" flex w-full flex-row items-center justify-between border-b-2 border-[#C8C7C7] py-4 text-left text-[22px] font-black uppercase text-[#1A1A1A] !no-underline">
           Car Cover Features
         </div>
@@ -171,29 +172,23 @@ const ReviewSection = ({
   // console.log('reviewData', reviewData);
   // console.log(reviewData);
   return (
-    <div className="relative py-2">
-      <p
-        className="mb-5 hidden text-center text-xl font-black uppercase text-black md:text-3xl lg:mb-20 lg:block lg:text-[42px]"
-        id="reviews"
-      >
-        Car Cover Reviews
-      </p>
-      <div className="flex flex-col items-center justify-around lg:flex-row">
-        <div className="flex flex-col items-center gap-4">
-          <div className="flex items-center gap-2">
+    <div className="relative ">
+      <div className="flex flex-col gap-[20px] lg:flex-row">
+        <div className="flex w-full min-w-[188px] flex-col ">
+          <div className="flex items-center gap-[14px] ">
             <p className="text-[40px] font-black lg:text-[80px]">4.9</p>
             <p className="lg:mt-11">{reviewData?.length} reviews</p>
           </div>
-          <div className="flex items-stretch text-yellow-300">
-            <StarIcon />
-            <StarIcon />
-            <StarIcon />
-            <StarIcon />
-            <StarIcon />
+          <div className="flex items-stretch gap-1 text-yellow-300">
+            <StarIcon fill="#FFD80E" stroke="#FF9F47" />
+            <StarIcon fill="#FFD80E" stroke="#FF9F47" />
+            <StarIcon fill="#FFD80E" stroke="#FF9F47" />
+            <StarIcon fill="#FFD80E" stroke="#FF9F47" />
+            <StarIcon fill="#FFD80E" stroke="#FF9F47" />
           </div>
         </div>
-        <div className="flex items-center justify-center gap-2">
-          <div className="relative z-10 my-3 h-[75px] w-[75px] lg:h-[135px] lg:w-[135px]">
+        <div className="flex w-full items-center  gap-2">
+          <div className="relative z-10  h-[75px] w-[75px] lg:h-[135px] lg:w-[135px]">
             <svg
               width="137"
               height="135"
@@ -211,7 +206,9 @@ const ReviewSection = ({
               95%
             </p>
           </div>
-          <p className="text-[18px] lg:text-[28px]">would recommend</p>
+          <p className="text-[18px] font-bold lg:text-[28px]">
+            95% would recommend
+          </p>
         </div>
       </div>
       {/* <div className="flex gap-4 *:rounded-lg my-4">
@@ -252,24 +249,6 @@ const ReviewSection = ({
 };
 
 function ReviewCard({ review }: { review: TReviewData }) {
-  const StarIcon = () => {
-    return (
-      <svg
-        viewBox="0 0 59 55"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-        className="h-[25px] w-[25px] lg:h-[55px] lg:w-[55px]"
-      >
-        <path
-          id="Star 19"
-          d="M29.5 1.61804L35.7599 20.884L35.8722 21.2295H36.2354H56.4929L40.1042 33.1365L39.8104 33.35L39.9226 33.6955L46.1825 52.9615L29.7939 41.0545L29.5 40.8409L29.2061 41.0545L12.8175 52.9615L19.0774 33.6955L19.1896 33.35L18.8958 33.1365L2.50715 21.2295H22.7646H23.1279L23.2401 20.884L29.5 1.61804Z"
-          fill="#FFD80E"
-          stroke="#FF9F47"
-        />
-      </svg>
-    );
-  };
-
   const CheckIcon = () => {
     return (
       <svg
@@ -307,11 +286,11 @@ function ReviewCard({ review }: { review: TReviewData }) {
         {review.review_title}
       </div>
       <div className="my-2 flex gap-1 text-yellow-300 lg:my-0">
-        <StarIcon />
-        <StarIcon />
-        <StarIcon />
-        <StarIcon />
-        <StarIcon />
+        <StarIcon fill="#FFD80E" stroke="#FF9F47" />
+        <StarIcon fill="#FFD80E" stroke="#FF9F47" />
+        <StarIcon fill="#FFD80E" stroke="#FF9F47" />
+        <StarIcon fill="#FFD80E" stroke="#FF9F47" />
+        <StarIcon fill="#FFD80E" stroke="#FF9F47" />
       </div>
       <div className="text-sm font-light normal-case text-neutral-500">
         Purchased on{' '}

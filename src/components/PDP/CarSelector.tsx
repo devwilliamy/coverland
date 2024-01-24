@@ -44,6 +44,7 @@ import AddToCartHeader from '../cart/AddToCartHeader';
 import AddToCartBody from '../cart/AddToCartBody';
 import AddToCartFooter from '../cart/AddToCartFooter';
 import CartSheet from '../cart/CartSheet';
+import { StarIcon } from 'lucide-react';
 
 const ProductVideo = dynamicImport(() => import('./ProductVideo'), {
   ssr: false,
@@ -327,7 +328,7 @@ function CarSelector({
                 <PopoverTrigger asChild>
                   <button className="underline">Edit Vehicle</button>
                 </PopoverTrigger>
-                <PopoverContent className="min-h-[10vh] min-w-[100px] rounded-xl border border-gray-300 bg-white p-5 shadow-lg">
+                <PopoverContent className="min-w-[100px] rounded-xl border border-gray-300 bg-white p-5 shadow-lg">
                   <EditVehicleDropdown />
                 </PopoverContent>
               </Popover>
@@ -450,18 +451,17 @@ function CarSelector({
                 &trade; {`${selectedProduct?.display_color}`}
               </h2>
               {/* Reviews */}
-              <div className="flex items-center gap-1">
-                <Rating
-                  name="read-only"
-                  value={5}
-                  readOnly
-                  style={{
-                    height: '25px',
-                  }}
-                />
+              <div className="flex items-center gap-4">
+                <div className=" flex gap-1 text-yellow-300 ">
+                  <StarIcon fill="#FFD80E" stroke="#FF9F47" />
+                  <StarIcon fill="#FFD80E" stroke="#FF9F47" />
+                  <StarIcon fill="#FFD80E" stroke="#FF9F47" />
+                  <StarIcon fill="#FFD80E" stroke="#FF9F47" />
+                  <StarIcon fill="#FFD80E" stroke="#FF9F47" />
+                </div>
                 <Popover>
                   <PopoverTrigger
-                    className="text-blue-400 underline"
+                    className="ml-2 text-blue-400 underline"
                     disabled={!reviewCount}
                   >
                     {reviewCount || '2'} ratings

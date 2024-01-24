@@ -24,7 +24,7 @@ export default function EditVehiclePopover({
         <EditIcon />
         <Drawer.Root open={open} onOpenChange={setOpen}>
           <Drawer.Trigger className="justify-betweentext-left flex w-full flex-row items-center text-xl font-black text-[#1A1A1A] !no-underline">
-            <button className="hover:underline">Edit Vehicle</button>
+            <button className="hover:underline font-normal">Edit Vehicle</button>
           </Drawer.Trigger>
           <Drawer.Portal>
             <Drawer.Overlay className="fixed inset-0 bg-black/40"></Drawer.Overlay>
@@ -32,13 +32,13 @@ export default function EditVehiclePopover({
               {/* We want to keep the padding top of DrawerContentContainer to be the same as the max-height of DrawerHeader */}
               <div
                 id="DrawerContentContainer"
-                className={`relative mx-auto flex max-h-[75vh] min-h-[75vh] w-full flex-col overflow-y-scroll px-4 `}
+                className={`relative mx-auto flex max-h-[75vh] min-h-[75vh] w-full flex-col px-4 `}
               >
                 <div
                   id="DrawerHeader"
                   className={`absolute z-[100] mx-[-0.05px] my-[22px] ml-[-1rem] flex w-full flex-col justify-center  rounded-t-[20px] bg-white px-4 `}
                 >
-                  <div className="flex max-h-[68px] items-center justify-between">
+                  <div className="flex max-h-[75px] items-center justify-between">
                     <div
                       id="DrawerTitle"
                       className="flex w-full items-center justify-center text-[22px] font-black uppercase"
@@ -58,7 +58,7 @@ export default function EditVehiclePopover({
                 </div>
                 <div
                   id="EditVehicleContainer"
-                  className="flex min-h-[50vh] pt-[68px] "
+                  className="flex min-h-[50vh] pt-[75px] "
                 >
                   <EditVehicleDropdown />
                 </div>

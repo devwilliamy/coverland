@@ -30,6 +30,7 @@ import AddToCartFooter from '@/components/cart/AddToCartFooter';
 import BottomUpDrawer from '@/components/ui/bottom-up-drawer';
 import { useState } from 'react';
 import CartSheet from '@/components/cart/CartSheet';
+import { StarIcon } from 'lucide-react';
 
 export function ProductContent({
   selectedProduct,
@@ -65,17 +66,16 @@ export function ProductContent({
           </h2>
           {/* Reviews */}
           <div className="flex items-center gap-1">
-            <Rating
-              name="read-only"
-              value={5}
-              readOnly
-              style={{
-                height: '25px',
-              }}
-            />
+            <div className="flex gap-1 text-yellow-300 ">
+              <StarIcon fill="#FFD80E" stroke="#FF9F47" />
+              <StarIcon fill="#FFD80E" stroke="#FF9F47" />
+              <StarIcon fill="#FFD80E" stroke="#FF9F47" />
+              <StarIcon fill="#FFD80E" stroke="#FF9F47" />
+              <StarIcon fill="#FFD80E" stroke="#FF9F47" />
+            </div>
             <Popover>
               <PopoverTrigger
-                className="text-blue-400 underline"
+                className="ml-2 text-blue-400 underline"
                 disabled={!reviewCount}
               >
                 {reviewCount || '2'} ratings
@@ -315,7 +315,6 @@ export function ProductContent({
         </div>
       </div>
       <Separator className="my-10 hidden lg:block" />
-      <div className="-mx-4 mt-4 h-10 w-screen border border-gray-300 bg-[#F1F1F1] lg:hidden"></div>
       <div className="pt-3 lg:px-0 lg:pt-0">
         <h3 className="mb-[28px] hidden text-xl font-black uppercase text-[#1A1A1A] lg:flex">
           car cover features

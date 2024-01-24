@@ -9,7 +9,7 @@ export function ProductHero() {
   const isMobile = useMediaQuery('(max-width: 1023px)'); //lg
 
   return (
-    <div className="relative w-full pt-[40px] lg:pt-0">
+    <div className="relative w-full lg:pt-0">
       {/* <Separator className="mb-10 mt-3 lg:hidden" /> */}
       <div className="relative -z-0">
         {isMobile ? (

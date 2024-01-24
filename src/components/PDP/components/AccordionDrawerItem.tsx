@@ -20,7 +20,7 @@ type AccordianDrawerProps = {
 function AccordionDrawerItem(props: AccordianDrawerProps) {
   const [open, setOpen] = useState(false);
   return (
-    <div className="relative">
+    <div className="relative ">
       <Drawer open={open} onOpenChange={setOpen}>
         <DrawerTrigger className=" flex w-full flex-row items-center justify-between border-b-2 border-[#C8C7C7] py-4 text-left text-[22px] font-black uppercase text-[#1A1A1A] !no-underline">
           {props.title}
@@ -28,7 +28,7 @@ function AccordionDrawerItem(props: AccordianDrawerProps) {
         </DrawerTrigger>
         <DrawerContent className="">
           <DrawerHeader draggable={false}>
-            <DrawerTitle className="flex w-full items-center border-b-2 border-[#BE1B1B] py-[22px] font-black uppercase">
+            <DrawerTitle className="flex w-full items-center border-b-2 border-[#C8C7C7] py-[22px] font-black uppercase">
               <div
                 id="DrawerTitle"
                 className=" flex w-full text-[22px] font-black uppercase"
@@ -51,7 +51,7 @@ function AccordionDrawerItem(props: AccordianDrawerProps) {
               <></>
             )}
           </DrawerHeader>
-          <div className="mx-auto flex max-h-[76vh] w-full flex-col overflow-y-scroll px-4">
+          <div className="mx-auto flex max-h-[76vh] w-full flex-col overflow-y-scroll pt-[40px] px-4">
             {props.children}
           </div>
         </DrawerContent>
