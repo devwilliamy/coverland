@@ -30,7 +30,7 @@ export default function BottomUpDrawer({
             id="DrawerHeader"
             className="absolute left-0 top-0 z-[100] mx-[-0.05px] max-h-[175px] w-full rounded-t-[20px] bg-white px-4 "
           >
-            <div className="border-gray-[#C8C7C7] flex items-center justify-end border-b-2">
+            <div className="flex items-center justify-end border-b-2 border-[#C8C7C7]">
               <div className="flex w-full pb-4 pt-6">{title}</div>
               <div
                 className="my-4 flex items-center justify-center rounded-full bg-gray-200 p-[5px]"

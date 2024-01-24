@@ -3,10 +3,12 @@ import { TProductData } from '@/lib/db';
 import { useCartContext } from '@/providers/CartProvider';
 import Image from 'next/image';
 import LineSeparator from '../ui/line-separator';
+import { TCarCoverData } from '@/app/(main)/car-covers/components/CarPDP';
 
 type AddToCartBodyProps = {
-  selectedProduct?: TProductData;
+  selectedProduct?: TProductData | TCarCoverData | null | undefined;
 };
+
 const AddToCartBody = ({ selectedProduct }: AddToCartBodyProps) => {
   const { cartItems } = useCartContext();
   const sortedCartItems = selectedProduct
@@ -25,6 +27,7 @@ const AddToCartBody = ({ selectedProduct }: AddToCartBodyProps) => {
 type CartItemProps = {
   item: TCartItems;
 };
+
 const CartItem = ({ item }: CartItemProps) => {
   return (
     <>
