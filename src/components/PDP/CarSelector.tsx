@@ -321,7 +321,7 @@ function CarSelector({
                 <PopoverTrigger asChild>
                   <button className="underline">Edit Vehicle</button>
                 </PopoverTrigger>
-                <PopoverContent className="min-w-[100px] rounded-xl border border-gray-300 bg-white p-5 shadow-lg">
+                <PopoverContent className="min-h-[10vh] min-w-[100px] rounded-xl border border-gray-300 bg-white p-5 shadow-lg">
                   <EditVehicleDropdown />
                 </PopoverContent>
               </Popover>
@@ -371,7 +371,7 @@ function CarSelector({
                         : null;
                       skuRef?.current?.scrollIntoView({
                         behavior: 'smooth',
-                        block: 'end',
+                        block: 'nearest',
                         inline: 'center',
                       });
                     }}

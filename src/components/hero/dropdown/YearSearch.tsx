@@ -25,17 +25,17 @@ export function YearSearch({
 
   return (
     <button
-      className={`flex w-full items-center rounded-lg  ${!queryObj.query.type ? 'bg-gray-100/75' : 'bg-white'} px-2 text-lg lg:w-auto`}
+      className={`flex w-full items-center rounded-lg  ${!queryObj.query.type ? 'bg-gray-100/75' : 'bg-white'} px-2 text-lg outline outline-1 outline-offset-1 lg:w-auto`}
       disabled={!queryObj.query.type}
     >
-      <div className="pr-[15px]">2</div>
+      <div className="ml-[10px] pr-[15px]">2</div>
       <select
         value={value}
         onChange={(event) => handleChange(event)}
         disabled={!queryObj.query.type}
-        className="w-full bg-transparent text-black"
+        className="w-full bg-transparent outline-none"
       >
-        <option value="">Select car year</option>
+        <option value="capitalize">Year</option>
         {years.map((year) => (
           <option key={`year-${year}`} value={year.toString()}>
             {year}

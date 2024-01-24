@@ -1,11 +1,17 @@
+import {
+  Drawer,
+  // DrawerClose,
+  DrawerContent,
+  DrawerDescription,
+  DrawerHeader,
+  DrawerTitle,
+  DrawerTrigger,
+} from '@/components/ui/drawer';
 import { useState } from 'react';
-import { AccordionItem } from '@/components/ui/accordion';
 import { FaPlus } from 'react-icons/fa';
 import { IoClose } from 'react-icons/io5';
-import { Drawer } from 'vaul';
 
 type AccordianDrawerProps = {
-  value: string;
   title: string;
   description?: string | null;
   children: JSX.Element | JSX.Element[];
@@ -13,50 +19,44 @@ type AccordianDrawerProps = {
 
 function AccordionDrawerItem(props: AccordianDrawerProps) {
   const [open, setOpen] = useState(false);
-  const titleSpacing = 60;
   return (
-    <AccordionItem className="relative" value={props.value}>
-      <Drawer.Root open={open} onOpenChange={setOpen}>
-        <Drawer.Trigger className="flex w-full flex-row items-center justify-between py-4 text-left text-xl font-black text-[#1A1A1A] !no-underline">
-          <button className="uppercase">{props.title}</button>
+    <div className="relative">
+      <Drawer open={open} onOpenChange={setOpen}>
+        <DrawerTrigger className=" flex w-full flex-row items-center justify-between border-b-2 border-[#C8C7C7] py-4 text-left text-[22px] font-black uppercase text-[#1A1A1A] !no-underline">
+          {props.title}
           <FaPlus className="h-[15px] w-[15px]" />
-        </Drawer.Trigger>
-        <Drawer.Portal>
-          <Drawer.Overlay className="fixed inset-0 bg-black/40"></Drawer.Overlay>
-          <Drawer.Content className="fixed bottom-0 left-0 right-0 flex flex-col rounded-t-[20px] bg-white ">
-            {/* We want to keep the padding top of DrawerContentContainer to be the same as the max-height of DrawerHeader */}
-            <div
-              id="DrawerContentContainer"
-              className={`relative mx-auto flex max-h-[75vh] min-h-[75vh] w-full flex-col overflow-y-scroll px-4 pt-[100px]`}
-            >
+        </DrawerTrigger>
+        <DrawerContent className="">
+          <DrawerHeader draggable={false}>
+            <DrawerTitle className="flex w-full items-center border-b-2 border-[#BE1B1B] py-[22px] font-black uppercase">
               <div
-                id="DrawerHeader"
-                className={`absolute left-0 top-0 z-[100] mx-[-0.05px] max-h-[${titleSpacing}px] w-full rounded-t-[20px] bg-white px-4 `}
+                id="DrawerTitle"
+                className=" flex w-full text-[22px] font-black uppercase"
               >
-                <div className="border-gray-[#BEBEBE] mb-[39px] flex items-center justify-between border-b-2">
-                  <div
-                    id="DrawerTitle"
-                    className=" flex w-full py-4 text-xl font-black uppercase"
-                  >
-                    {props.title}
-                  </div>
-                  <div
-                    id="CloseModalButton"
-                    className="my-4 flex items-center justify-center rounded-full bg-gray-200 p-[5px]"
-                    onClick={() => {
-                      setOpen(false);
-                    }}
-                  >
-                    <IoClose className="h-[24px] w-[24px]" />
-                  </div>
-                </div>
+                {props.title}
               </div>
-              <div>{props.children}</div>
-            </div>
-          </Drawer.Content>
-        </Drawer.Portal>
-      </Drawer.Root>
-    </AccordionItem>
+              <div
+                id="CloseModalButton"
+                className="flex items-center justify-center rounded-full bg-gray-200 p-[5px]"
+                onClick={() => {
+                  setOpen(false);
+                }}
+              >
+                <IoClose className="h-[24px] w-[24px]" />
+              </div>
+            </DrawerTitle>
+            {props.description ? (
+              <DrawerDescription>{props.description}</DrawerDescription>
+            ) : (
+              <></>
+            )}
+          </DrawerHeader>
+          <div className="mx-auto flex max-h-[76vh] w-full flex-col overflow-y-scroll px-4">
+            {props.children}
+          </div>
+        </DrawerContent>
+      </Drawer>
+    </div>
   );
 }
 

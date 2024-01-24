@@ -24,16 +24,16 @@ export function TypeSearch({
 
   return (
     <button
-      className={` flex w-full items-center rounded-lg border-2 border-solid border-black bg-white px-2 text-lg lg:w-auto`}
+      className={` flex w-full items-center rounded-lg bg-white px-2 text-lg outline outline-1 outline-offset-1 lg:w-auto`}
       disabled={!queryObj.query.type}
     >
-      <div className="pr-[15px]">1</div>
+      <div className=" ml-[10px] pr-[15px]">1</div>
       <select
         value={value}
         onChange={handleChange}
-        className="w-full bg-transparent"
+        className={`bg w-full bg-transparent outline-none `}
       >
-        <option value="">Product Type</option>
+        <option value="">Type</option>
         {types.map((type, i) => (
           <option key={`type-${type}-${i}`} value={type}>
             {type}

@@ -8,7 +8,7 @@ import AccordionDrawerItem from './components/AccordionDrawerItem';
 import { ClimateCrisisMobile } from './components/ClimateCrisisMobile';
 import { NoGarageMobile } from './components/NoGarageMobile';
 import { MoneyBackMobile } from './MoneyBackMobile';
-import { Accordion } from '../ui/accordion';
+// import { Accordion } from '../ui/accordion';
 import { TReviewData } from '@/lib/db';
 import { StarIcon } from 'lucide-react';
 import { useState } from 'react';
@@ -19,17 +19,12 @@ export const MobilePDPDetails = ({
   reviewData: TReviewData[] | null;
 }) => {
   return (
-    <Accordion
-      type="single"
-      collapsible
-      className="w-full px-4 font-black uppercase text-[#1A1A1A] lg:hidden"
-      defaultValue="item-6"
-    >
+    <div className="w-full px-4 font-black uppercase text-[#1A1A1A] lg:hidden">
       <div id="CarCoverFeatures">
-        <div className=" mb-4 flex w-full flex-row justify-between border-b-[1px] border-gray-200 py-4 text-left text-xl font-black uppercase text-[#1A1A1A] !no-underline">
+        <div className=" flex w-full flex-row items-center justify-between border-b-2 border-[#C8C7C7] py-4 text-left text-[22px] font-black uppercase text-[#1A1A1A] !no-underline">
           Car Cover Features
         </div>
-        <div className="pl-4">
+        <div className="pl-4 pt-4">
           <div className="flex-start ml-2 flex items-center pb-2 leading-4">
             <GoDotFill size={10} color="#000000" />
             <p className="pl-1 text-sm font-medium capitalize text-black">
@@ -81,7 +76,7 @@ export const MobilePDPDetails = ({
         </div>
       </div>
 
-      <AccordionDrawerItem title="Product Details" value="item-2">
+      <AccordionDrawerItem title="Product Details">
         <ProductHero />
         {/* <div className=" md:mt-18 lg:mt-28">
                 <Video />
@@ -90,7 +85,7 @@ export const MobilePDPDetails = ({
           <Layers />
         </div>
       </AccordionDrawerItem>
-      <AccordionDrawerItem title="Benefits" value="item-3">
+      <AccordionDrawerItem title="Benefits">
         <div className=" md:mt-18 lg:mt-28">
           <ClimateCrisisMobile />
           <NoGarageMobile />
@@ -99,13 +94,13 @@ export const MobilePDPDetails = ({
         </div>
       </AccordionDrawerItem>
 
-      <AccordionDrawerItem value="item-5" title="Q&A">
+      <AccordionDrawerItem title="Q&A">
         <div className="lg:mt-28">
           <PDPAccordion />
         </div>
       </AccordionDrawerItem>
 
-      <AccordionDrawerItem value="item-6" title="Shipping & Returns">
+      <AccordionDrawerItem title="Shipping & Returns">
         <div className=" md:mt-18 lg:mt-28">
           <div className="flex flex-col gap-5 px-2  normal-case">
             <div className="mb-[-15px] text-lg font-black">
@@ -138,7 +133,7 @@ export const MobilePDPDetails = ({
         </div>
       </AccordionDrawerItem>
 
-      <AccordionDrawerItem value="item-7" title="Warranty">
+      <AccordionDrawerItem title="Warranty">
         <div className=" md:mt-18 mb-[-10px] lg:mt-28">
           <div className="flex flex-col gap-5  normal-case">
             <div className="flex text-[18px] font-black">10-Years Warranty</div>
@@ -156,13 +151,13 @@ export const MobilePDPDetails = ({
       </AccordionDrawerItem>
 
       {!!reviewData?.length && (
-        <AccordionDrawerItem value="item-9" title="Car Cover Reviews">
+        <AccordionDrawerItem title="Car Cover Reviews">
           <div className="md:mt-18 lg:mt-28">
             <ReviewSection reviewData={reviewData} />
           </div>
         </AccordionDrawerItem>
       )}
-    </Accordion>
+    </div>
   );
 };
 

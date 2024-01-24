@@ -49,7 +49,7 @@ export function SubmodelDropdown({
         disabled={isDisabled}
         className="rounded-lg px-2  text-lg"
       >
-        <option value="">Select car model</option>
+        <option value="">Sub-Model</option>
         {submodelData?.sort()?.map((submodel) => (
           <option key={`model-${submodel}`} value={submodel}>
             {submodel}

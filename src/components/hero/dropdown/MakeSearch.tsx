@@ -25,18 +25,18 @@ export function MakeSearch({
 
   return (
     <button
-      className={`flex w-full items-center rounded-lg ${!queryObj.query.year ? 'bg-gray-100/75' : 'bg-white'} px-2 text-lg lg:w-auto`}
+      className={`flex w-full items-center rounded-lg ${!queryObj.query.year ? 'bg-gray-100/75' : 'bg-white'} px-2 text-lg outline outline-1 outline-offset-1 lg:w-auto`}
       disabled={!query.type || !query.year}
-      >
-      <div className="pr-[15px]">3</div>
+    >
+      <div className="ml-[10px] pr-[15px]">3</div>
       <select
         value={value}
         onChange={handleChange}
         disabled={!query.type || !query.year}
-        className="w-full bg-transparent"
+        className="w-full bg-transparent outline-none "
       >
         <option value="" disabled>
-          Select car make
+          Make
         </option>
         {sortedData.map((make) => (
           <option key={make} value={make}>

@@ -14,7 +14,6 @@ export default function EditVehiclePopover({
 }: {
   fullProductName: string;
 }) {
-  const titleSpacing = 90;
   const [open, setOpen] = useState(false);
   return (
     <div className=" z-50 flex flex-col gap-2">
@@ -23,16 +22,8 @@ export default function EditVehiclePopover({
       </h2>
       <div className="z-50 flex items-center gap-2">
         <EditIcon />
-        {/* <DropdownMenu>
-          <DropdownMenuTrigger>
-            <button className="underline">Edit Vehicle</button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent className="min-w-[100px] rounded-xl border border-gray-300 bg-white p-5 shadow-lg">
-            <EditVehicleDropdown />
-          </DropdownMenuContent>
-        </DropdownMenu> */}
         <Drawer.Root open={open} onOpenChange={setOpen}>
-          <Drawer.Trigger className="flex w-full flex-row items-center justify-between py-4 text-left text-xl font-black text-[#1A1A1A] !no-underline">
+          <Drawer.Trigger className="justify-betweentext-left flex w-full flex-row items-center text-xl font-black text-[#1A1A1A] !no-underline">
             <button className="hover:underline">Edit Vehicle</button>
           </Drawer.Trigger>
           <Drawer.Portal>
@@ -41,22 +32,22 @@ export default function EditVehiclePopover({
               {/* We want to keep the padding top of DrawerContentContainer to be the same as the max-height of DrawerHeader */}
               <div
                 id="DrawerContentContainer"
-                className={`relative mx-auto flex max-h-[75vh] min-h-[75vh] w-full flex-col overflow-y-scroll px-4 pt-[110px]`}
+                className={`relative mx-auto flex max-h-[75vh] min-h-[75vh] w-full flex-col overflow-y-scroll px-4 `}
               >
                 <div
                   id="DrawerHeader"
-                  className={`absolute left-0 top-0 z-[100] mx-[-0.05px] min-h-[${titleSpacing}px] max-h-[${titleSpacing}px] w-full rounded-t-[20px] bg-white px-4 `}
+                  className={`absolute z-[100] mx-[-0.05px] my-[22px] ml-[-1rem] flex w-full flex-col justify-center  rounded-t-[20px] bg-white px-4 `}
                 >
-                  <div className="border-gray-[#BEBEBE] mb-[39px] flex items-center justify-between border-b-2">
+                  <div className="flex max-h-[68px] items-center justify-between">
                     <div
                       id="DrawerTitle"
-                      className=" flex w-full items-center justify-center py-4 text-[22px] font-black uppercase"
+                      className="flex w-full items-center justify-center text-[22px] font-black uppercase"
                     >
                       SELECT YOUR VEHICLE
                     </div>
                     <div
                       id="CloseModalButton"
-                      className="my-4 flex items-center justify-center rounded-full bg-gray-200 p-[5px]"
+                      className=" flex items-center justify-center rounded-full bg-gray-200 p-[5px]"
                       onClick={() => {
                         setOpen(false);
                       }}
@@ -65,7 +56,10 @@ export default function EditVehiclePopover({
                     </div>
                   </div>
                 </div>
-                <div id="DrawerBody" className="flex min-h-[40vh]">
+                <div
+                  id="EditVehicleContainer"
+                  className="flex min-h-[50vh] pt-[68px] "
+                >
                   <EditVehicleDropdown />
                 </div>
               </div>
