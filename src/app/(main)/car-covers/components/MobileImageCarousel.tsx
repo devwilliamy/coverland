@@ -63,9 +63,7 @@ export const MobileImageCarousel = ({
             />
           </CarouselItem>
           <CarouselItem>
-            <div className="flex h-full flex-col justify-center">
-              <ProductVideo />
-            </div>
+            <ProductVideo />
           </CarouselItem>
           {productImages.map((image, index) => (
             <CarouselItem key={index}>

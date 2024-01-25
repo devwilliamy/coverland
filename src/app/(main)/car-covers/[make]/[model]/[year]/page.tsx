@@ -99,7 +99,7 @@ export default async function CarPDPDataLayer({
       <div
         id="product-details"
         className="h-auto w-full"
-        // flex flex-col justify-center items-center max-w-[1440px] py-4 lg:py-20 px-4 md:px-20"
+        // flex flex-col justify-center items-center max-w-[1280px] py-4 lg:py-20 px-4 md:px-20"
       >
         <ExtraProductDetails reviewData={reviewData} />
       </div>

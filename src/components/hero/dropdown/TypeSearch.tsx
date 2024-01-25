@@ -23,17 +23,23 @@ export function TypeSearch({
   };
 
   return (
-    <select
-      value={value}
-      onChange={handleChange}
-      className="w-full rounded-lg px-2 text-lg lg:w-auto"
+    <button
+      className={`flex max-h-[44px] md:max-h-[58px] min-h-[44px] w-full items-center rounded-[4px] bg-white px-2 text-lg outline outline-1 outline-offset-1 outline-[#767676] lg:w-auto`}
+      disabled={!queryObj.query.type}
     >
-      <option value="">Product Type</option>
-      {types.map((type, i) => (
-        <option key={`type-${type}-${i}`} value={type}>
-          {type}
-        </option>
-      ))}
-    </select>
+      <div className=" ml-[10px] pr-[15px]">1</div>
+      <select
+        value={value}
+        onChange={handleChange}
+        className={`bg w-full bg-transparent outline-none `}
+      >
+        <option value="">Type</option>
+        {types.map((type, i) => (
+          <option key={`type-${type}-${i}`} value={type}>
+            {type}
+          </option>
+        ))}
+      </select>
+    </button>
   );
 }

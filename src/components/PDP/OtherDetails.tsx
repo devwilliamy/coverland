@@ -12,6 +12,7 @@ import { Layers } from './Layers';
 import { TReviewData } from '@/lib/db';
 import { MobilePDPDetails } from './MobilePDPDetails';
 import { WarrantyDesktop } from './components/WarrantyDesktop';
+import { StarIcon } from 'lucide-react';
 
 export function ExtraProductDetails({
   reviewData,
@@ -160,10 +161,7 @@ export function ExtraProductDetails({
           car cover reviews
         </h1>
       </div>
-      <div
-        className="flex w-full max-w-full flex-col lg:px-[30px]"
-        // className="md:mt-18 max-w-screen mt-8 hidden w-full flex-col flex-wrap items-stretch justify-between gap-4 border-b border-t border-[#DADADA] py-6 md:flex-row md:items-center md:gap-0 lg:mt-28 lg:flex"
-      >
+      <div className="flex w-full max-w-full flex-col lg:px-[30px]">
         <MobilePDPDetails reviewData={reviewData} />
 
         <div className="hidden gap-[110px] lg:flex lg:flex-col">
@@ -246,24 +244,6 @@ export function ExtraProductDetails({
   );
 }
 
-const StarIcon = () => {
-  return (
-    <svg
-      viewBox="0 0 59 55"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      className="h-[32px] w-[32px] lg:h-[55px] lg:w-[55px]"
-    >
-      <path
-        id="Star 19"
-        d="M29.5 1.61804L35.7599 20.884L35.8722 21.2295H36.2354H56.4929L40.1042 33.1365L39.8104 33.35L39.9226 33.6955L46.1825 52.9615L29.7939 41.0545L29.5 40.8409L29.2061 41.0545L12.8175 52.9615L19.0774 33.6955L19.1896 33.35L18.8958 33.1365L2.50715 21.2295H22.7646H23.1279L23.2401 20.884L29.5 1.61804Z"
-        fill="#FFD80E"
-        stroke="#FF9F47"
-      />
-    </svg>
-  );
-};
-
 const ReviewSection = ({
   reviewData,
 }: {
@@ -288,11 +268,11 @@ const ReviewSection = ({
             <p className="lg:mt-11">{reviewData?.length} reviews</p>
           </div>
           <div className="flex items-stretch text-yellow-300">
-            <StarIcon />
-            <StarIcon />
-            <StarIcon />
-            <StarIcon />
-            <StarIcon />
+            <StarIcon fill="#FFD80E" stroke="#FF9F47" />
+            <StarIcon fill="#FFD80E" stroke="#FF9F47" />
+            <StarIcon fill="#FFD80E" stroke="#FF9F47" />
+            <StarIcon fill="#FFD80E" stroke="#FF9F47" />
+            <StarIcon fill="#FFD80E" stroke="#FF9F47" />
           </div>
         </div>
         <div className="flex items-center justify-center gap-2">
@@ -355,24 +335,6 @@ const ReviewSection = ({
 };
 
 function ReviewCard({ review }: { review: TReviewData }) {
-  const StarIcon = () => {
-    return (
-      <svg
-        viewBox="0 0 59 55"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-        className="h-[25px] w-[25px] lg:h-[55px] lg:w-[55px]"
-      >
-        <path
-          id="Star 19"
-          d="M29.5 1.61804L35.7599 20.884L35.8722 21.2295H36.2354H56.4929L40.1042 33.1365L39.8104 33.35L39.9226 33.6955L46.1825 52.9615L29.7939 41.0545L29.5 40.8409L29.2061 41.0545L12.8175 52.9615L19.0774 33.6955L19.1896 33.35L18.8958 33.1365L2.50715 21.2295H22.7646H23.1279L23.2401 20.884L29.5 1.61804Z"
-          fill="#FFD80E"
-          stroke="#FF9F47"
-        />
-      </svg>
-    );
-  };
-
   const CheckIcon = () => {
     return (
       <svg
@@ -410,11 +372,11 @@ function ReviewCard({ review }: { review: TReviewData }) {
         {review.review_title}
       </div>
       <div className="my-2 flex gap-1 text-yellow-300 lg:my-0">
-        <StarIcon />
-        <StarIcon />
-        <StarIcon />
-        <StarIcon />
-        <StarIcon />
+        <StarIcon fill="#FFD80E" stroke="#FF9F47" />
+        <StarIcon fill="#FFD80E" stroke="#FF9F47" />
+        <StarIcon fill="#FFD80E" stroke="#FF9F47" />
+        <StarIcon fill="#FFD80E" stroke="#FF9F47" />
+        <StarIcon fill="#FFD80E" stroke="#FF9F47" />
       </div>
       <div className="text-sm font-light normal-case text-neutral-500">
         Purchased on{' '}

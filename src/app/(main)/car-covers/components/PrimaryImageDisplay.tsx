@@ -31,7 +31,7 @@ export function PrimaryImageDisplay({
           showMore ? 'overflow-scroll' : 'max-h-[1775px] overflow-hidden'
         }`}
       >
-        <div className="flex h-[400px] w-full items-center justify-center bg-[#F2F2F2] md:h-[500px] lg:h-[650px] lg:rounded-xl">
+        <div className="flex h-full w-full items-center justify-center bg-[#F2F2F2] md:h-[500px] lg:h-[650px] lg:rounded-xl">
           {isMobile ? (
             <MobileImageCarousel
               selectedProduct={selectedProduct}

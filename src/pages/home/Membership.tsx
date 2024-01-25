@@ -8,7 +8,7 @@ import { FaArrowAltCircleRight } from 'react-icons/fa';
 
 const Membership = () => {
   return (
-    <section className="membership flex w-full max-w-[1440px] flex-col items-center justify-center md:flex-row md:justify-between md:px-4  lg:justify-center lg:px-0">
+    <section className="membership flex w-full max-w-[1280px] flex-col items-center justify-center md:flex-row md:justify-between md:px-4  lg:justify-center lg:px-0">
       <div className=" flex h-auto w-full flex-col items-center justify-between px-4 py-8 md:flex-row lg:px-20 lg:py-16">
         <div className="flex w-full flex-col items-center justify-center  pb-8 md:w-2/3 md:items-start md:pb-0 xl:w-3/4">
           <div className="flex w-full flex-row items-center justify-center md:hidden">

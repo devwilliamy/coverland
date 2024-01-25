@@ -25,7 +25,7 @@ import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from '@radix-ui/react-popover';
+} from '@/components/ui/popover';
 import { Button } from '../ui/button';
 import AgentProfile from '@/images/PDP/agent_profile.png';
 import { useMediaQuery } from '@mantine/hooks';
@@ -44,6 +44,7 @@ import AddToCartHeader from '../cart/AddToCartHeader';
 import AddToCartBody from '../cart/AddToCartBody';
 import AddToCartFooter from '../cart/AddToCartFooter';
 import CartSheet from '../cart/CartSheet';
+import { StarIcon } from 'lucide-react';
 
 const ProductVideo = dynamicImport(() => import('./ProductVideo'), {
   ssr: false,
@@ -248,9 +249,10 @@ function CarSelector({
   ${searchParams?.submodel ? selectedProduct?.submodel1 : ''}
   ${searchParams?.second_submodel ? selectedProduct?.submodel2 : ''}
   `;
+  const [open, setOpen] = useState(false);
 
   return (
-    <section className="mx-auto h-auto w-full max-w-[1440px] px-4 lg:my-8">
+    <section className="mx-auto h-auto w-full max-w-[1280px] px-4 lg:my-8">
       <div className="flex w-full flex-col items-start justify-between lg:flex-row lg:gap-14">
         {isMobile && <EditVehiclePopover fullProductName={fullProductName} />}
         {/* Left Panel */}
@@ -261,7 +263,7 @@ function CarSelector({
               showMore ? 'overflow-scroll' : 'max-h-[1775px] overflow-hidden'
             }`}
           >
-            <div className="flex h-[400px] w-full items-center justify-center bg-[#F2F2F2] md:h-[500px] lg:h-[650px] lg:rounded-xl">
+            <div className="flex h-full w-full items-center justify-center bg-[#F2F2F2] md:h-[500px] lg:h-[650px] lg:rounded-xl">
               {isMobile ? (
                 <MobileImageCarousel
                   selectedProduct={selectedProduct}
@@ -323,12 +325,14 @@ function CarSelector({
             </h2>
             <div className="flex items-center gap-2">
               <EditIcon />
-              <Popover>
+              <Popover open={open} onOpenChange={(o) => setOpen(o)}>
                 <PopoverTrigger asChild>
-                  <button className="underline">Edit Vehicle</button>
+                  <button className="underline" onClick={() => setOpen(!open)}>
+                    Edit Vehicle
+                  </button>
                 </PopoverTrigger>
                 <PopoverContent className="min-w-[100px] rounded-xl border border-gray-300 bg-white p-5 shadow-lg">
-                  <EditVehicleDropdown />
+                  <EditVehicleDropdown setOpen={setOpen} />
                 </PopoverContent>
               </Popover>
             </div>
@@ -377,7 +381,7 @@ function CarSelector({
                         : null;
                       skuRef?.current?.scrollIntoView({
                         behavior: 'smooth',
-                        block: 'end',
+                        block: 'nearest',
                         inline: 'center',
                       });
                     }}
@@ -450,18 +454,17 @@ function CarSelector({
                 &trade; {`${selectedProduct?.display_color}`}
               </h2>
               {/* Reviews */}
-              <div className="flex items-center gap-1">
-                <Rating
-                  name="read-only"
-                  value={5}
-                  readOnly
-                  style={{
-                    height: '25px',
-                  }}
-                />
+              <div className="flex items-center gap-4">
+                <div className=" flex gap-1 text-yellow-300 ">
+                  <StarIcon fill="#FFD80E" stroke="#FF9F47" />
+                  <StarIcon fill="#FFD80E" stroke="#FF9F47" />
+                  <StarIcon fill="#FFD80E" stroke="#FF9F47" />
+                  <StarIcon fill="#FFD80E" stroke="#FF9F47" />
+                  <StarIcon fill="#FFD80E" stroke="#FF9F47" />
+                </div>
                 <Popover>
                   <PopoverTrigger
-                    className="text-blue-400 underline"
+                    className="ml-2 text-blue-400 underline"
                     disabled={!reviewCount}
                   >
                     {reviewCount || '2'} ratings

@@ -127,7 +127,7 @@ export default function EditVehicleDropdown({
   };
 
   return (
-    <div className="z-100 relative flex w-full flex-col items-stretch justify-center gap-2 font-medium *:flex-1">
+    <div className="z-100 relative flex w-full flex-col items-stretch  gap-[16px] *:flex-1">
       <TypeSearch queryObj={queryObj} />
       <YearSearch queryObj={queryObj} />
       <MakeSearch queryObj={queryObj} makeData={makeData} />
@@ -136,14 +136,14 @@ export default function EditVehicleDropdown({
         <SubmodelDropdown queryObj={queryObj} submodelData={subModelData} />
       )}
       <Button
-        className="mx-auto h-[40px] max-w-[px] text-lg"
+        className="mx-auto h-[40px] max-h-[44px] w-full max-w-[px] rounded-[4px] bg-black text-lg "
         onClick={handleSubmitDropdown}
         disabled={!year || !type || !make || !model}
       >
         {loading ? (
           <AiOutlineLoading3Quarters className="animate-spin" />
         ) : (
-          'Go'
+          'GO'
         )}
       </Button>
     </div>

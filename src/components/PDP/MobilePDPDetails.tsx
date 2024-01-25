@@ -8,7 +8,7 @@ import AccordionDrawerItem from './components/AccordionDrawerItem';
 import { ClimateCrisisMobile } from './components/ClimateCrisisMobile';
 import { NoGarageMobile } from './components/NoGarageMobile';
 import { MoneyBackMobile } from './MoneyBackMobile';
-import { Accordion } from '../ui/accordion';
+// import { Accordion } from '../ui/accordion';
 import { TReviewData } from '@/lib/db';
 import { StarIcon } from 'lucide-react';
 import { useState } from 'react';
@@ -19,17 +19,13 @@ export const MobilePDPDetails = ({
   reviewData: TReviewData[] | null;
 }) => {
   return (
-    <Accordion
-      type="single"
-      collapsible
-      className="w-full px-4 font-black uppercase text-[#1A1A1A] lg:hidden"
-      defaultValue="item-6"
-    >
+    <div className=" w-full px-4 font-black uppercase text-[#1A1A1A] lg:hidden">
       <div id="CarCoverFeatures">
-        <div className=" mb-4 flex w-full flex-row justify-between border-b-[1px] border-gray-200 py-4 text-left text-xl font-black uppercase text-[#1A1A1A] !no-underline">
+        <div className="-mx-4 h-[41px] w-screen border-b-2 border-t-2 border-[#DBDBDB] bg-[#F1F1F1] lg:hidden"></div>
+        <div className=" flex w-full flex-row items-center justify-between border-b-2 border-[#C8C7C7] py-4 text-left text-[22px] font-black uppercase text-[#1A1A1A] !no-underline">
           Car Cover Features
         </div>
-        <div className="pl-4">
+        <div className="pl-4 pt-4">
           <div className="flex-start ml-2 flex items-center pb-2 leading-4">
             <GoDotFill size={10} color="#000000" />
             <p className="pl-1 text-sm font-medium capitalize text-black">
@@ -81,7 +77,7 @@ export const MobilePDPDetails = ({
         </div>
       </div>
 
-      <AccordionDrawerItem title="Product Details" value="item-2">
+      <AccordionDrawerItem title="Product Details">
         <ProductHero />
         {/* <div className=" md:mt-18 lg:mt-28">
                 <Video />
@@ -90,7 +86,7 @@ export const MobilePDPDetails = ({
           <Layers />
         </div>
       </AccordionDrawerItem>
-      <AccordionDrawerItem title="Benefits" value="item-3">
+      <AccordionDrawerItem title="Benefits">
         <div className=" md:mt-18 lg:mt-28">
           <ClimateCrisisMobile />
           <NoGarageMobile />
@@ -99,13 +95,13 @@ export const MobilePDPDetails = ({
         </div>
       </AccordionDrawerItem>
 
-      <AccordionDrawerItem value="item-5" title="Q&A">
+      <AccordionDrawerItem title="Q&A">
         <div className="lg:mt-28">
           <PDPAccordion />
         </div>
       </AccordionDrawerItem>
 
-      <AccordionDrawerItem value="item-6" title="Shipping & Returns">
+      <AccordionDrawerItem title="Shipping & Returns">
         <div className=" md:mt-18 lg:mt-28">
           <div className="flex flex-col gap-5 px-2  normal-case">
             <div className="mb-[-15px] text-lg font-black">
@@ -138,7 +134,7 @@ export const MobilePDPDetails = ({
         </div>
       </AccordionDrawerItem>
 
-      <AccordionDrawerItem value="item-7" title="Warranty">
+      <AccordionDrawerItem title="Warranty">
         <div className=" md:mt-18 mb-[-10px] lg:mt-28">
           <div className="flex flex-col gap-5  normal-case">
             <div className="flex text-[18px] font-black">10-Years Warranty</div>
@@ -156,13 +152,13 @@ export const MobilePDPDetails = ({
       </AccordionDrawerItem>
 
       {!!reviewData?.length && (
-        <AccordionDrawerItem value="item-9" title="Car Cover Reviews">
+        <AccordionDrawerItem title="Car Cover Reviews">
           <div className="md:mt-18 lg:mt-28">
             <ReviewSection reviewData={reviewData} />
           </div>
         </AccordionDrawerItem>
       )}
-    </Accordion>
+    </div>
   );
 };
 
@@ -176,29 +172,23 @@ const ReviewSection = ({
   // console.log('reviewData', reviewData);
   // console.log(reviewData);
   return (
-    <div className="relative py-2">
-      <p
-        className="mb-5 hidden text-center text-xl font-black uppercase text-black md:text-3xl lg:mb-20 lg:block lg:text-[42px]"
-        id="reviews"
-      >
-        Car Cover Reviews
-      </p>
-      <div className="flex flex-col items-center justify-around lg:flex-row">
-        <div className="flex flex-col items-center gap-4">
-          <div className="flex items-center gap-2">
+    <div className="relative ">
+      <div className="flex flex-col gap-[20px] lg:flex-row">
+        <div className="flex w-full min-w-[188px] flex-col ">
+          <div className="flex items-center gap-[14px] ">
             <p className="text-[40px] font-black lg:text-[80px]">4.9</p>
             <p className="lg:mt-11">{reviewData?.length} reviews</p>
           </div>
-          <div className="flex items-stretch text-yellow-300">
-            <StarIcon />
-            <StarIcon />
-            <StarIcon />
-            <StarIcon />
-            <StarIcon />
+          <div className="flex items-stretch gap-1 text-yellow-300">
+            <StarIcon fill="#FFD80E" stroke="#FF9F47" />
+            <StarIcon fill="#FFD80E" stroke="#FF9F47" />
+            <StarIcon fill="#FFD80E" stroke="#FF9F47" />
+            <StarIcon fill="#FFD80E" stroke="#FF9F47" />
+            <StarIcon fill="#FFD80E" stroke="#FF9F47" />
           </div>
         </div>
-        <div className="flex items-center justify-center gap-2">
-          <div className="relative z-10 my-3 h-[75px] w-[75px] lg:h-[135px] lg:w-[135px]">
+        <div className="flex w-full items-center  gap-2">
+          <div className="relative z-10  h-[75px] w-[75px] lg:h-[135px] lg:w-[135px]">
             <svg
               width="137"
               height="135"
@@ -216,7 +206,9 @@ const ReviewSection = ({
               95%
             </p>
           </div>
-          <p className="text-[18px] lg:text-[28px]">would recommend</p>
+          <p className="text-[18px] font-bold lg:text-[28px]">
+            95% would recommend
+          </p>
         </div>
       </div>
       {/* <div className="flex gap-4 *:rounded-lg my-4">
@@ -257,24 +249,6 @@ const ReviewSection = ({
 };
 
 function ReviewCard({ review }: { review: TReviewData }) {
-  const StarIcon = () => {
-    return (
-      <svg
-        viewBox="0 0 59 55"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-        className="h-[25px] w-[25px] lg:h-[55px] lg:w-[55px]"
-      >
-        <path
-          id="Star 19"
-          d="M29.5 1.61804L35.7599 20.884L35.8722 21.2295H36.2354H56.4929L40.1042 33.1365L39.8104 33.35L39.9226 33.6955L46.1825 52.9615L29.7939 41.0545L29.5 40.8409L29.2061 41.0545L12.8175 52.9615L19.0774 33.6955L19.1896 33.35L18.8958 33.1365L2.50715 21.2295H22.7646H23.1279L23.2401 20.884L29.5 1.61804Z"
-          fill="#FFD80E"
-          stroke="#FF9F47"
-        />
-      </svg>
-    );
-  };
-
   const CheckIcon = () => {
     return (
       <svg
@@ -312,11 +286,11 @@ function ReviewCard({ review }: { review: TReviewData }) {
         {review.review_title}
       </div>
       <div className="my-2 flex gap-1 text-yellow-300 lg:my-0">
-        <StarIcon />
-        <StarIcon />
-        <StarIcon />
-        <StarIcon />
-        <StarIcon />
+        <StarIcon fill="#FFD80E" stroke="#FF9F47" />
+        <StarIcon fill="#FFD80E" stroke="#FF9F47" />
+        <StarIcon fill="#FFD80E" stroke="#FF9F47" />
+        <StarIcon fill="#FFD80E" stroke="#FF9F47" />
+        <StarIcon fill="#FFD80E" stroke="#FF9F47" />
       </div>
       <div className="text-sm font-light normal-case text-neutral-500">
         Purchased on{' '}

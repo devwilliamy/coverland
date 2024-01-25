@@ -84,7 +84,7 @@ export default function SubDropdowns({
     <>
       <div className="rounded-lg bg-[#1A1A1A] px-4 py-4">
         <p className="mb-3 text-center text-xl font-bold capitalize text-white">
-          SELECT YOUR VEHICLE
+          {/* SELECT YOUR VEHICLE */}
         </p>
         <div className="mb-4 *:w-full">
           {!isYearInPath && (
