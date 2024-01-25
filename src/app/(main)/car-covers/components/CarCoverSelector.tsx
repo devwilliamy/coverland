@@ -142,12 +142,9 @@ export function CarCoverSelector({
             submodelParam={submodelParam}
           />
           <p className="ml-3 mt-2 text-lg font-black text-[#1A1A1A] ">
-            {isReadyForProductSelection
-              ? `Cover Colors`
-              : `Please select your car's details below`}{' '}
+            Cover Colors
             <span className="ml-2 text-lg font-normal text-[#767676]">
-              {isReadyForProductSelection &&
-                `${selectedProduct?.display_color}`}
+              {selectedProduct?.display_color}
             </span>
           </p>
           <ColorSelector
