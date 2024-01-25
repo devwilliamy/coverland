@@ -119,7 +119,7 @@ export function HeroDropdown() {
   };
 
   return (
-    <div className="relative flex w-full flex-col justify-center gap-2 px-4 font-medium *:flex-1 *:py-3 md:flex-row lg:max-h-[58px] lg:px-16 lg:*:py-4">
+    <div className="relative flex w-full flex-col items-center justify-center gap-2 px-4 font-medium *:flex-1 *:py-3 md:flex-row lg:max-h-[58px] lg:px-16 lg:*:py-4">
       <TypeSearch queryObj={queryObj} />
       <YearSearch queryObj={queryObj} />
       <MakeSearch queryObj={queryObj} makeData={makeData} />
