@@ -6,7 +6,7 @@ import { TReviewData } from '@/lib/db';
 const ReviewSection = ({
   reviewData,
 }: {
-  reviewData: TReviewData[] | null;
+  reviewData: TReviewData[] | null | undefined;
 }) => {
   const [displayedReviews, setDisplayedReviews] = useState<number>(3);
   if (!reviewData) return null;
