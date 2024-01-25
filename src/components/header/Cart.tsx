@@ -9,7 +9,7 @@ import {
   SheetTitle,
   SheetTrigger,
 } from '@/components/ui/sheet';
-import { TCartItems } from '@/lib/cart/useCart';
+import { TCartItem } from '@/lib/cart/useCart';
 import { HiOutlineShoppingCart } from 'react-icons/hi';
 import { IoClose } from 'react-icons/io5';
 import AddToCartBody from '../cart/AddToCartBody';
@@ -83,7 +83,7 @@ function Cart() {
 }
 
 type ItemsInCartAnimation = {
-  cartItems: TCartItems[];
+  cartItems: TCartItem[];
 };
 
 const ItemsInCartAnimation = ({

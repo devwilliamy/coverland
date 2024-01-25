@@ -2,265 +2,117 @@
 
 import { TProductData, TReviewData } from '@/lib/db';
 import { Separator } from '@/components/ui/separator';
-import Image from 'next/image';
-import { GoDotFill } from 'react-icons/go';
-import Link from 'next/link';
 import React, {
+  Ref,
   RefObject,
   useCallback,
   useEffect,
   useRef,
   useState,
 } from 'react';
-import { BsBoxSeam, BsGift } from 'react-icons/bs';
-import { DropdownPDP } from './DropdownPDP';
-import { useCartContext } from '@/providers/CartProvider';
-import Rating from '@mui/material/Rating';
+import { useMediaQuery } from '@mantine/hooks';
+import dynamicImport from 'next/dynamic';
+import AgentProfile from '@/images/PDP/agent_profile.png';
+import { PRODUCT_IMAGES } from '@/lib/constants';
 import {
-  TPDPPathParams,
-  TPDPQueryParams,
-} from '@/app/(main)/[productType]/[...product]/page';
+  Carousel,
+  CarouselApi,
+  CarouselContent,
+  CarouselItem,
+} from '@/components/ui/carousel';
+import Image from 'next/image';
+import ProductVideo from '@/components/PDP/ProductVideo';
+import { Button } from '@/components/ui/button';
+import { EditIcon } from '@/components/PDP/components/icons';
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from '@/components/ui/popover';
-import { Button } from '../ui/button';
-import AgentProfile from '@/images/PDP/agent_profile.png';
-import { useMediaQuery } from '@mantine/hooks';
-import { FolderUpIcon, SecureIcon, ThumbsUpIcon } from './images';
-import { MoneyBackIcon } from './images/MoneyBack';
-import { EditIcon } from './components/icons';
-import { track } from '@vercel/analytics';
-
-import { Carousel, CarouselContent, CarouselItem } from '../ui/carousel';
-import dynamicImport from 'next/dynamic';
-import { type CarouselApi } from '@/components/ui/carousel';
-import skuDisplayData from '@/data/skuDisplayData.json';
-import { stringToSlug } from '@/lib/utils';
-import BottomUpDrawer from '../ui/bottom-up-drawer';
-import AddToCartHeader from '../cart/AddToCartHeader';
-import AddToCartBody from '../cart/AddToCartBody';
-import AddToCartFooter from '../cart/AddToCartFooter';
-import CartSheet from '../cart/CartSheet';
+import EditVehicleDropdown from '@/components/PDP/EditVehicleDropdown';
+import { Rating } from '@mui/material';
+import Link from 'next/link';
+import { track } from '@vercel/analytics/react';
+import { GoDotFill } from 'react-icons/go';
+import { BsBoxSeam, BsGift } from 'react-icons/bs';
+import DeliveryDate from '@/components/PDP/components/DeliveryDate';
+import { TimeTo2PMPST } from '@/components/PDP/components/TimeTo2PM';
 import {
-  Drawer,
-  DrawerContent,
-  DrawerHeader,
-  DrawerTitle,
-  DrawerTrigger,
-} from '@/components/ui/drawer';
-import { IoClose } from 'react-icons/io5';
-import ReviewSection from './components/ReviewSection';
-
-const ProductVideo = dynamicImport(() => import('./ProductVideo'), {
-  ssr: false,
-});
-
-const DeliveryDate = dynamicImport(() => import('./components/DeliveryDate'), {
-  loading: () => <span className="font-normal">Loading...</span>,
-  ssr: false,
-});
+  FolderUpIcon,
+  SecureIcon,
+  ThumbsUpIcon,
+} from '@/components/PDP/images';
+import { MoneyBackIcon } from '@/components/PDP/images/MoneyBack';
+import { DropdownPDP } from '@/components/PDP/DropdownPDP';
 
 const EditVehiclePopover = dynamicImport(
-  () => import('./components/EditVehiclePopover'),
+  () => import('@/components/PDP/components/EditVehiclePopover'),
   {
     ssr: false,
   }
 );
 
-const EditVehicleDropdown = dynamicImport(
-  () => import('./EditVehicleDropdown'),
-  {
-    ssr: false,
-  }
-);
-
-export const dynamic = 'force-dynamic';
-
-interface ProductRefs {
-  [key: string]: RefObject<HTMLElement>;
-}
-
-function TimeTo2PMPST() {
-  const [timeRemaining, setTimeRemaining] = useState(calculateTimeTo2PM()); // Set initial value
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setTimeRemaining(calculateTimeTo2PM());
-    }, 60000); // Update every minute
-
-    return () => clearInterval(interval);
-  }, []);
-
-  function calculateTimeTo2PM() {
-    const now = new Date();
-    const target = new Date();
-
-    target.setHours(14); // Set to 2 PM local time
-    target.setMinutes(0);
-    target.setSeconds(0);
-    target.setMilliseconds(0);
-
-    if (now.getHours() >= 14) {
-      // Adjust for PST timezone offset
-      target.setDate(target.getDate() + 1); // Set to next day if past 2 PM
-    }
-
-    const diff: number = target.getTime() - now.getTime();
-
-    // Convert milliseconds to hours and minutes
-    const hours = Math.floor(diff / 1000 / 60 / 60);
-    const minutes = Math.floor((diff / 1000 / 60) % 60);
-
-    if (hours < 0 || minutes < 0) {
-      return ''; // In case of negative values
-    }
-
-    return `${hours} Hours ${minutes} Mins`;
-  }
-
-  return (
-    <p className="text-dark text-sm">
-      Order within <span className="text-[#767676]">{timeRemaining}</span>
-    </p>
-  );
-}
-
-function CarSelector({
+export function PartialCoverSelector({
   modelData,
-  pathParams,
-  searchParams,
-  submodels,
-  secondSubmodels,
   reviewData,
-  parentGeneration,
+  modelParam,
+  makeParam,
 }: {
-  modelData: TProductData[];
-  pathParams: TPDPPathParams;
-  submodels: string[];
-  secondSubmodels: string[];
-  searchParams: TPDPQueryParams;
-  reviewData: TReviewData[];
-  parentGeneration: any;
+  modelData: Partial<TProductData>[];
+  reviewData: TReviewData[] | null | undefined;
+  modelParam: string | undefined;
+  makeParam: string | undefined;
 }) {
-  const defaultModel = modelData.find(
-    (model) =>
-      model.fk ===
-      skuDisplayData.find((row) => row.fk === parentGeneration?.fk)?.fk
-  );
+  const [selectedProductIndex, setSelectedProductIndex] = useState(0);
 
-  const modelsBySubmodel =
-    modelData.filter(
-      (model) =>
-        stringToSlug(model?.submodel1 as string) ===
-        stringToSlug(searchParams?.submodel as string)
-    ) ?? [];
-
-  const modelsBySecondSubmodel = searchParams?.second_submodel
-    ? modelData
-        .filter(
-          (model) =>
-            stringToSlug(model?.submodel1 as string) ===
-            stringToSlug(searchParams?.submodel as string)
-        )
-        .filter(
-          (model) =>
-            stringToSlug(model?.submodel2 as string) ===
-            stringToSlug(searchParams?.second_submodel as string)
-        ) ?? modelsBySubmodel
-    : modelsBySubmodel;
-
-  const isFullySelected =
-    pathParams?.product?.length === 3 &&
-    (submodels.length === 0 || !!searchParams?.submodel) &&
-    (secondSubmodels.length === 0 || !!searchParams?.second_submodel);
-
-  let displayedModelData = searchParams?.submodel
-    ? modelsBySubmodel
-    : modelData;
-
-  displayedModelData = searchParams?.second_submodel
-    ? modelsBySecondSubmodel
-    : displayedModelData;
-
-  const [selectedProduct, setSelectedProduct] = useState<TProductData>(
-    isFullySelected || searchParams?.submodel
-      ? displayedModelData[0]
-      : defaultModel ?? displayedModelData[0]
-  );
-
-  // Sometimes when submodel2 is selected, selectedProduct won't update to the right one
-  useEffect(() => {
-    const updateSelectedProduct = () => {
-      setSelectedProduct(displayedModelData[0]);
-    };
-    if (isFullySelected) {
-      updateSelectedProduct();
-    }
-  }, [searchParams, isFullySelected, displayedModelData]);
-
-  const [featuredImage, setFeaturedImage] = useState<string>(
-    selectedProduct?.feature as string
-  );
-
-  const { addToCart } = useCartContext();
-
-  const [addToCartOpen, setAddToCartOpen] = useState<boolean>(false);
-  const [reviewDrawerOpen, setReviewDrawerOpen] = useState<boolean>(false);
-
-  const productRefs = useRef<ProductRefs>(
-    displayedModelData.reduce((acc: ProductRefs, item: TProductData) => {
-      acc[item?.sku as string] = React.createRef();
-      return acc;
-    }, {})
-  );
+  const [featuredImageIndex, setFeaturedImageIndex] = useState(0);
 
   const [showMore, setShowMore] = useState(false);
+
+  interface ProductRefs {
+    [key: string]: RefObject<HTMLElement>;
+  }
+
+  const productRefs = useRef<ProductRefs>(
+    PRODUCT_IMAGES.reduce((acc, item) => {
+      if (!item?.images?.length) return acc;
+
+      const refKey = `${item.images[0]}`;
+      acc[refKey] = React.createRef();
+
+      return acc;
+    }, {} as ProductRefs)
+  );
+
+  const selectedCover = PRODUCT_IMAGES[selectedProductIndex];
+
+  const coverTypeOptions =
+    selectedCover.type === 'Premium Plus'
+      ? [
+          selectedCover,
+          PRODUCT_IMAGES.find((cover) => cover.type === 'Premium') as {
+            name: string;
+            type: string;
+            images: string[];
+          },
+        ]
+      : [selectedCover, PRODUCT_IMAGES[0]];
+
   const isMobile = useMediaQuery('(max-width: 768px)');
 
-  const isReadyForSelection = submodels.length
-    ? pathParams?.product?.length === 3 && !!searchParams?.submodel
-    : pathParams?.product?.length === 3;
-
-  const uniqueColors = Array.from(
-    new Set(displayedModelData.map((model) => model.display_color))
-  ).map((color) =>
-    displayedModelData.find((model) => model.display_color === color)
-  );
-
-  const uniqueTypes = Array.from(
-    new Set(displayedModelData.map((model) => model.display_id))
-  ).map((type) =>
-    displayedModelData.find((model) => model.display_id === type)
-  );
-
-  const handleAddToCart = () => {
-    if (!selectedProduct) return;
-    return addToCart({ ...selectedProduct, quantity: 1 });
-  };
-
-  const productImages =
-    selectedProduct?.product
-      ?.split(',')
-      .filter((img) => img !== featuredImage) ?? [];
-  const reviewScore = reviewData?.reduce(
-    (acc, review) => acc + Number(review.rating_stars ?? 0),
-    0
-  );
+  const reviewScore =
+    reviewData?.reduce(
+      (acc, review) => acc + Number(review.rating_stars ?? 0),
+      0
+    ) ?? 0;
   const reviewCount = reviewData?.length ?? 50;
 
-  const avgReviewScore = (reviewScore / reviewCount).toFixed(1);
+  const avgReviewScore = (reviewScore / reviewCount).toFixed(1) || '4.9';
 
-  const fullProductName = `${selectedProduct?.year_generation}
-  ${selectedProduct?.make} ${selectedProduct?.product_name} 
-  ${searchParams?.submodel ? selectedProduct?.submodel1 : ''}
-  ${searchParams?.second_submodel ? selectedProduct?.submodel2 : ''}
-  `;
-  const [open, setOpen] = useState(false);
+  const fullProductName = `${makeParam ? modelData[0]?.make : 'Car Covers'} ${modelParam ? modelData[0]?.model : ''}`;
 
   return (
-    <section className="mx-auto h-auto w-full max-w-[1280px] px-4 lg:my-8">
+    <section className="mx-auto h-auto w-full max-w-[1440px] px-4 lg:my-8">
       <div className="flex w-full flex-col items-start justify-between lg:flex-row lg:gap-14">
         {isMobile && <EditVehiclePopover fullProductName={fullProductName} />}
         {/* Left Panel */}
@@ -271,16 +123,13 @@ function CarSelector({
               showMore ? 'overflow-scroll' : 'max-h-[1775px] overflow-hidden'
             }`}
           >
-            <div className="flex h-full w-full items-center justify-center bg-[#F2F2F2] md:h-[500px] lg:h-[650px] lg:rounded-xl">
+            <div className="flex h-[400px] w-full items-center justify-center bg-[#F2F2F2] md:h-[500px] lg:h-[650px] lg:rounded-xl">
               {isMobile ? (
-                <MobileImageCarousel
-                  selectedProduct={selectedProduct}
-                  productImages={productImages}
-                />
+                <MobileImageCarousel selectedCover={selectedCover} />
               ) : (
                 <Image
                   id="featured-image"
-                  src={featuredImage ?? ''}
+                  src={PRODUCT_IMAGES[featuredImageIndex].images[0]}
                   alt="a car with a car cover on it"
                   width={400}
                   height={400}
@@ -294,7 +143,7 @@ function CarSelector({
             {!isMobile && <ProductVideo />}
             {/* Gallery Images */}
             <div className="hidden w-auto grid-cols-2 gap-[16px] pt-4 lg:grid ">
-              {productImages.map((img, idx) => (
+              {selectedCover.images.map((img, idx) => (
                 <div
                   className="h-auto w-full rounded-xl border-transparent bg-[#F2F2F2] p-3.5 md:h-[350px]"
                   key={img}
@@ -310,7 +159,7 @@ function CarSelector({
                     //   : '' h-full w-full
                     cursor-pointer   border-red-600 object-contain
                   `}
-                    onClick={() => setFeaturedImage(img)}
+                    onClick={() => setFeaturedImageIndex(idx)}
                     onError={() => console.log('Failed image:', `${img}`)}
                   />
                 </div>
@@ -333,63 +182,60 @@ function CarSelector({
             </h2>
             <div className="flex items-center gap-2">
               <EditIcon />
-              <Popover open={open} onOpenChange={(o) => setOpen(o)}>
+              <Popover>
                 <PopoverTrigger asChild>
-                  <button className="underline" onClick={() => setOpen(!open)}>
-                    Edit Vehicle
-                  </button>
+                  <button className="underline">Edit Vehicle</button>
                 </PopoverTrigger>
                 <PopoverContent className="min-w-[100px] rounded-xl border border-gray-300 bg-white p-5 shadow-lg">
-                  <EditVehicleDropdown setOpen={setOpen} />
+                  <EditVehicleDropdown />
                 </PopoverContent>
               </Popover>
             </div>
           </div>
           <p className="ml-3 mt-2 text-lg font-black text-[#1A1A1A] ">
-            {isReadyForSelection
-              ? `Cover Colors`
-              : `Please select your car's details below`}{' '}
-            <span className="ml-2 text-lg font-normal text-[#767676]">
-              {isReadyForSelection && `${selectedProduct?.display_color}`}
-            </span>
+            {`Please select your car's details below`}
+          </p>
+          <p className="ml-2 text-lg font-normal text-[#767676]">
+            {selectedCover.name}
           </p>
           <div className="flex flex-row space-x-1 overflow-x-auto whitespace-nowrap p-2 lg:grid lg:w-auto lg:grid-cols-5 lg:gap-[7px] lg:px-3">
-            {uniqueColors?.map((sku) => {
+            {PRODUCT_IMAGES.map((product, idx) => {
               return (
-                <button
+                <div
                   className={`flex-shrink-0 p-1 lg:flex lg:flex-col lg:items-center lg:justify-center ${
-                    sku?.display_color === selectedProduct?.display_color
+                    product.name === selectedCover.name
                       ? 'rounded-lg border-4 border-[#6F6F6F]'
                       : ''
                   }`}
-                  key={sku?.sku}
-                  onClick={() => {
-                    setFeaturedImage(sku?.feature as string);
-                    setSelectedProduct(sku as TProductData);
-                    const skuRef = sku?.sku
-                      ? (productRefs?.current[
-                          sku?.sku
-                        ] as React.RefObject<HTMLElement>)
-                      : null;
-                    skuRef?.current?.scrollIntoView({
-                      behavior: 'smooth',
-                      block: 'nearest',
-                      inline: 'center',
-                    });
-                  }}
+                  key={product.name}
                 >
                   <Image
-                    src={sku?.feature as string}
+                    src={product.images[0] as string}
+                    ref={
+                      productRefs?.current[
+                        product.images[0]
+                      ] as Ref<HTMLImageElement>
+                    }
                     width={98}
                     height={98}
                     priority
-                    onError={() =>
-                      console.log('Failed image:', `${sku?.feature}`)
-                    }
                     alt="car cover details"
                     className="h-20 w-20 cursor-pointer rounded bg-[#F2F2F2] lg:h-full lg:w-full"
+                    onClick={() => {
+                      setFeaturedImageIndex(idx);
+                      setSelectedProductIndex(idx);
+                      const ref = productRefs?.current[
+                        product.images[0]
+                      ] as React.RefObject<HTMLElement>;
+
+                      ref?.current?.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'end',
+                        inline: 'center',
+                      });
+                    }}
                   />
-                </button>
+                </div>
               );
             })}
             {/* </div> */}
@@ -401,51 +247,70 @@ function CarSelector({
               <p className="ml-3 text-lg font-black text-[#1A1A1A]">
                 Cover Types
                 <span className="ml-2 text-lg font-normal text-[#767676]">
-                  {selectedProduct?.display_id}
+                  {selectedCover.type}
                 </span>
               </p>
             </div>
           </>
           {/* Cover Types Section */}
           <div className="flex flex-row space-x-1 overflow-x-auto whitespace-nowrap p-2 lg:grid lg:w-auto lg:grid-cols-5 lg:gap-[7px] lg:px-3">
-            {uniqueTypes.map((sku) => {
-              return (
+            {coverTypeOptions &&
+              coverTypeOptions.map((type) => (
                 <button
                   className={`flex-shrink-0 p-1 lg:flex lg:flex-col lg:items-center lg:justify-center ${
-                    sku?.display_id === selectedProduct?.display_id
+                    type.type === selectedCover.type
                       ? 'rounded-lg border-4 border-[#6F6F6F]'
                       : ''
                   }`}
-                  key={sku?.sku}
-                  onClick={() => {
-                    setFeaturedImage(sku?.feature as string);
-                    setSelectedProduct(sku as TProductData);
-                    const skuRef = sku?.sku
-                      ? (productRefs?.current[
-                          sku?.sku
-                        ] as React.RefObject<HTMLElement>)
-                      : null;
-                    skuRef?.current?.scrollIntoView({
-                      behavior: 'smooth',
-                      block: 'nearest',
-                      inline: 'center',
-                    });
-                  }}
+                  key={type.name}
+                  // onClick={() => {
+                  //   setFeaturedImageIndex();
+                  //   setSelectedProduct(sku as TProductData);
+                  //   const skuRef = sku?.sku
+                  //     ? (productRefs?.current[
+                  //         sku?.sku
+                  //       ] as React.RefObject<HTMLElement>)
+                  //     : null;
+                  //   skuRef?.current?.scrollIntoView({
+                  //     behavior: 'smooth',
+                  //     block: 'nearest',
+                  //     inline: 'center',
+                  //   });
+                  // }}
                   // disabled={isOptionDisabled(productOption, 'cover')}
                 >
                   <Image
-                    src={sku?.feature as string}
+                    src={
+                      selectedCover.type === type.type
+                        ? selectedCover.images[0]
+                        : type.images[0]
+                    }
+                    ref={
+                      productRefs?.current[
+                        selectedCover.images[0]
+                      ] as Ref<HTMLImageElement>
+                    }
                     width={98}
                     height={98}
-                    onError={() =>
-                      console.log('Failed image:', `${sku?.feature}`)
-                    }
+                    priority
                     alt="car cover details"
                     className="h-20 w-20 cursor-pointer rounded bg-[#F2F2F2] lg:h-full lg:w-full"
+                    onClick={() => {
+                      setFeaturedImageIndex(0);
+                      setSelectedProductIndex(0);
+                      const ref = productRefs?.current[
+                        selectedCover.images[0]
+                      ] as React.RefObject<HTMLElement>;
+
+                      ref?.current?.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'end',
+                        inline: 'center',
+                      });
+                    }}
                   />
                 </button>
-              );
-            })}
+              ))}
           </div>
 
           <Separator className="mb-8 mt-4" />
@@ -453,107 +318,64 @@ function CarSelector({
           <div className="grid grid-cols-1">
             <div className="flex flex-col gap-0.5">
               <h2 className="font-roboto text-lg font-bold text-[#1A1A1A] md:text-[28px]">
-                {`${selectedProduct?.display_id}`}
-                &trade; {`${selectedProduct?.display_color}`}
+                {`${selectedCover.type}`}&trade; {`${selectedCover.name}`}
               </h2>
               {/* Reviews */}
-              <div className="flex items-center gap-4">
-                <div className=" flex gap-1 text-yellow-300 ">
-                  <Rating
-                    name="read-only"
-                    value={5}
-                    readOnly
-                    style={{
-                      height: '25px',
-                    }}
-                  />
-                </div>
-                <div className="hidden lg:flex">
-                  <Popover>
-                    <PopoverTrigger
-                      className="ml-2 text-blue-400 underline"
-                      disabled={!reviewCount}
-                    >
-                      {reviewCount || '2'} ratings
-                    </PopoverTrigger>
-                    <PopoverContent>
-                      <div className=" flex flex-col items-center border border-gray-300 bg-white p-4 shadow-lg">
-                        <div className="flex items-center gap-4">
-                          <p className="text-2xl font-bold">
-                            {avgReviewScore ?? '4.9'} out of 5
-                          </p>
-                          <Rating
-                            name="read-only"
-                            value={5}
-                            readOnly
-                            style={{
-                              height: '25px',
-                            }}
-                          />
-                        </div>
-                        {!!reviewData.length && (
-                          <Link
-                            className="underline"
-                            scroll
-                            href={'#reviews'}
-                            onClick={() =>
-                              track('viewing all reviews', {
-                                sku: selectedProduct?.sku,
-                              })
-                            }
-                          >
-                            Show all reviews ({reviewData?.length})
-                          </Link>
-                        )}
-                      </div>
-                    </PopoverContent>
-                  </Popover>
-                </div>
-                <div className="lg:hidden">
-                  <Drawer
-                    open={reviewDrawerOpen}
-                    onOpenChange={setReviewDrawerOpen}
+              <div className="flex items-center gap-1">
+                <Rating
+                  name="read-only"
+                  value={5}
+                  readOnly
+                  style={{
+                    height: '25px',
+                  }}
+                />
+                <Popover>
+                  <PopoverTrigger
+                    className="text-blue-400 underline"
+                    disabled={!reviewCount}
                   >
-                    <DrawerTrigger
-                      className="ml-2 text-blue-400 underline"
-                      disabled={!reviewCount}
-                      // className=" flex w-full flex-row items-center justify-between border-b-2 border-[#C8C7C7] py-4 text-left text-[22px] font-black uppercase text-[#1A1A1A] !no-underline"
-                    >
-                      {reviewCount || '2'} ratings
-                    </DrawerTrigger>
-                    <DrawerContent className="">
-                      <DrawerHeader draggable={false}>
-                        <DrawerTitle className="flex w-full items-center border-b-2 border-[#C8C7C7] py-[22px] font-black uppercase">
-                          <div
-                            id="DrawerTitle"
-                            className=" flex w-full text-[22px] font-black uppercase"
-                          >
-                            Car Cover Reviews
-                          </div>
-                          <button
-                            id="CloseModalButton"
-                            className="flex items-center justify-center rounded-full bg-gray-200 p-[5px]"
-                            onClick={() => {
-                              setReviewDrawerOpen(false);
-                            }}
-                          >
-                            <IoClose className="h-[24px] w-[24px]" />
-                          </button>
-                        </DrawerTitle>
-                      </DrawerHeader>
-                      <div className="mx-auto flex max-h-[76vh] w-full flex-col overflow-y-scroll px-4 pt-[40px]">
-                        <ReviewSection reviewData={reviewData} />
+                    {reviewCount || '2'} ratings
+                  </PopoverTrigger>
+                  <PopoverContent>
+                    <div className=" flex flex-col items-center border border-gray-300 bg-white p-4 shadow-lg">
+                      <div className="flex items-center gap-4">
+                        <p className="text-2xl font-bold">
+                          {avgReviewScore ?? '4.9'} out of 5
+                        </p>
+                        <Rating
+                          name="read-only"
+                          value={5}
+                          readOnly
+                          style={{
+                            height: '25px',
+                          }}
+                        />
                       </div>
-                    </DrawerContent>
-                  </Drawer>
-                </div>
+                      {!!reviewData?.length && (
+                        <Link
+                          className="underline"
+                          scroll
+                          href={'#reviews'}
+                          onClick={() =>
+                            track('viewing all reviews', {
+                              model: modelData[0]?.model as string,
+                            })
+                          }
+                        >
+                          Show all reviews ({reviewData?.length})
+                        </Link>
+                      )}
+                    </div>
+                  </PopoverContent>
+                </Popover>
               </div>
               <p className="mb-2 text-gray-500">100+ Bought In Past Month</p>
             </div>
             <div className="flex-start flex items-center">
               <GoDotFill size={10} color="#008000 " />
               <p className="pl-1 text-sm font-medium capitalize text-black">
-                Full Warranty 10 years
+                Full Warranty 7 years
               </p>
             </div>
             <div className="flex-start flex items-center leading-4">
@@ -567,7 +389,7 @@ function CarSelector({
           <div className="pt-6 md:pt-11">
             <div className="grid grid-cols-1">
               <p className="text-dark relative mb-2.5 text-xl font-bold capitalize md:text-3xl">
-                ${selectedProduct?.msrp}
+                $159.95
                 <span className="top absolute ml-2.5 text-xl font-normal capitalize text-[#D13C3F]">
                   only{' '}
                   {`${Math.max(
@@ -577,19 +399,10 @@ function CarSelector({
                   left
                 </span>
               </p>
-              {selectedProduct?.price && (
-                <p className="text-lg font-normal text-[#1A1A1A] md:text-[22px]">
-                  <span className="mr-2 text-[#9C9C9C] line-through">
-                    ${selectedProduct?.price}
-                  </span>
-                  Save 50% ($
-                  {String(
-                    Number(selectedProduct?.price) -
-                      Number(selectedProduct?.msrp)
-                  )}
-                  )
-                </p>
-              )}
+              <p className="text-lg font-normal text-[#1A1A1A] md:text-[22px]">
+                <span className="mr-2 text-[#9C9C9C] line-through">$320</span>
+                Save 50% ($160.05)
+              </p>
             </div>
           </div>
           {/* Product Description */}
@@ -631,35 +444,20 @@ function CarSelector({
               <DropdownPDP />
             </div>
             {/* Add to Cart Button */}
-            {!isFullySelected && selectedProduct ? (
-              <>
-                <Popover>
-                  <PopoverTrigger asChild>
-                    <Button className="mt-4 h-[48px] w-full bg-[#BE1B1B] text-lg font-bold uppercase text-white disabled:bg-[#BE1B1B] md:h-[62px] md:text-xl">
-                      Add To Cart
-                    </Button>
-                  </PopoverTrigger>
-                  <PopoverContent>
-                    <div className="">
-                      <p>Please finish your selection</p>
-                    </div>
-                  </PopoverContent>
-                </Popover>
-              </>
-            ) : (
-              <Button
-                className="mt-4 h-[48px] w-full bg-[#BE1B1B] text-lg font-bold uppercase text-white disabled:bg-[#BE1B1B] md:h-[62px] md:text-xl"
-                onClick={() => {
-                  track('PDP_add_to_cart', {
-                    sku: selectedProduct?.sku,
-                  });
-                  handleAddToCart();
-                  setAddToCartOpen(true);
-                }}
-              >
-                Add To Cart
-              </Button>
-            )}
+            <>
+              <Popover>
+                <PopoverTrigger asChild>
+                  <Button className="mt-4 h-[48px] w-full bg-[#BE1B1B] text-lg font-bold uppercase text-white disabled:bg-[#BE1B1B] md:h-[62px] md:text-xl">
+                    Add To Cart
+                  </Button>
+                </PopoverTrigger>
+                <PopoverContent>
+                  <div className="">
+                    <p>Please finish your selection</p>
+                  </div>
+                </PopoverContent>
+              </Popover>
+            </>
           </div>
           {/* <div className="pt-5 ml-2">
             <p className="text-[#1A1A1A] text-base font-normal">
@@ -751,6 +549,7 @@ function CarSelector({
             </div>
           </div>
           <Separator className="my-10 hidden lg:block" />
+          <div className="-mx-4 mt-4 h-10 w-screen border border-gray-300 bg-[#F1F1F1] lg:hidden"></div>
           <div className="pt-3 lg:px-0 lg:pt-0">
             <h3 className="mb-[28px] hidden text-xl font-black uppercase text-[#1A1A1A] lg:flex">
               car cover features
@@ -806,34 +605,61 @@ function CarSelector({
           </div>
         </div>
       </div>
-      {isMobile ? (
-        <BottomUpDrawer
-          title={<AddToCartHeader />}
-          open={addToCartOpen}
-          setOpen={setAddToCartOpen}
-          footer={<AddToCartFooter />}
-        >
-          <AddToCartBody selectedProduct={selectedProduct} />
-        </BottomUpDrawer>
-      ) : (
-        <CartSheet
-          open={addToCartOpen}
-          setOpen={setAddToCartOpen}
-          selectedProduct={selectedProduct}
-        />
-      )}
     </section>
   );
 }
 
-export default CarSelector;
+export default PartialCoverSelector;
+
+// const DesktopShowMoreCarousel = ({
+//   selectedProduct,
+//   modalProductImages,
+// }: {
+//   selectedProduct: TProductData;
+//   modalProductImages: string[];
+// }) => {
+//   return (
+//     <Dialog>
+//       <DialogTrigger asChild>
+//         <Button className="mx-auto mt-9 h-12 w-[216px] rounded border border-[#1A1A1A] bg-transparent text-lg font-normal capitalize text-[#1A1A1A] hover:bg-[#1A1A1A] hover:text-white">
+//           show more images
+//         </Button>
+//       </DialogTrigger>
+//       <DialogContent className="">
+//         <Carousel>
+//           <CarouselContent>
+//             {modalProductImages.map((image, index) => (
+//               <CarouselItem key={index}>
+//                 <div className="p-1">
+//                   <Card>
+//                     <CardContent className="flex aspect-square items-center justify-center p-6">
+//                       <Image
+//                         src={image}
+//                         alt={`Additional images of the ${selectedProduct.display_id} cover`}
+//                         width={500}
+//                         height={500}
+//                       />
+//                     </CardContent>
+//                   </Card>
+//                 </div>
+//               </CarouselItem>
+//             ))}
+//           </CarouselContent>
+//           <CarouselPrevious />
+//           <CarouselNext />
+//         </Carousel>
+//       </DialogContent>
+//     </Dialog>
+//   );
+// };
 
 const MobileImageCarousel = ({
-  selectedProduct,
-  productImages,
+  selectedCover,
 }: {
-  selectedProduct: TProductData;
-  productImages: string[];
+  selectedCover: {
+    name: string;
+    images: string[];
+  };
 }) => {
   const [api, setApi] = useState<CarouselApi>();
   const [current, setCurrent] = useState(0);
@@ -863,14 +689,20 @@ const MobileImageCarousel = ({
     </button>
   );
 
+  const ActiveDot = () => (
+    <div className="relative flex h-2.5 w-2.5">
+      <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-gray-600"></span>
+    </div>
+  );
+
   return (
     <div>
       <Carousel setApi={setApi}>
         <CarouselContent className="bg-[#F2F2F2] p-2">
           <CarouselItem>
             <Image
-              src={selectedProduct.feature as string}
-              alt={`Additional images of the ${selectedProduct.display_id} cover`}
+              src={selectedCover.images[0]}
+              alt={`Additional images of a car cover cover`}
               width={500}
               height={500}
               // placeholder="blur"
@@ -881,11 +713,11 @@ const MobileImageCarousel = ({
               <ProductVideo />
             </div>
           </CarouselItem>
-          {productImages.map((image, index) => (
+          {selectedCover.images.map((image, index) => (
             <CarouselItem key={index}>
               <Image
                 src={image}
-                alt={`Additional images of the ${selectedProduct.display_id} cover`}
+                alt={`Additional images of the car cover`}
                 width={500}
                 height={500}
                 // placeholder="blur"
@@ -908,8 +740,6 @@ const MobileImageCarousel = ({
   );
 };
 
-const ActiveDot = () => (
-  <div className="relative flex h-2.5 w-2.5">
-    <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-gray-600"></span>
-  </div>
-);
+// const DotButtons = () => {
+//   return <button type="button" className="rounded-full" onClick={() => scrollTo(index)} />;
+// };

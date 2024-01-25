@@ -1,24 +1,14 @@
-import { slugify } from '@/lib/utils';
-import generationData from '@/data/generationData.json';
-import {
-  TReviewData,
-  fetchCarPDPData,
-  fetchGenerationReviewData,
-} from '@/lib/db';
+import { TReviewData, getProductData, getReviewData } from '@/lib/db';
 import { redirect } from 'next/navigation';
 import { colorOrder } from '@/lib/constants';
 import { Suspense } from 'react';
 import { ExtraProductDetails } from '@/components/PDP/OtherDetails';
-import CarPDP, {
-  TCarCoverData,
-} from '@/app/(main)/car-covers/components/CarPDP';
+import CarPDP from '@/app/(main)/car-covers/components/CarPDP';
 
 export type TCarCoverSlugParams = {
-  params: {
-    make: string;
-    model: string;
-    year: string;
-  };
+  make: string;
+  model: string;
+  year: string;
 };
 
 export type TGenerationData = {
@@ -34,40 +24,23 @@ export type TGenerationData = {
 export default async function CarPDPDataLayer({
   params,
 }: {
-  params: TCarCoverSlugParams['params'];
+  params: TCarCoverSlugParams;
 }) {
-  const generationFk = generationData.filter(
-    (gen) =>
-      slugify(gen.make) === params.make &&
-      slugify(gen.model) === params.model &&
-      gen.year_generation === params.year
-  )[0]?.generation;
-
-  const availableGenerations = generationData.filter(
-    (gen) => gen.generation === generationFk
-  );
-
-  console.log(availableGenerations, generationFk);
-
-  const modelData: TCarCoverData[] | null = await fetchCarPDPData(
-    generationFk,
-    availableGenerations
-  );
+  const modelData = await getProductData({
+    make: params.make,
+    model: params.model,
+    year: params.year,
+  });
 
   if (!modelData) {
     redirect('/404');
   }
-  const reviewData: TReviewData[] | null = await fetchGenerationReviewData(
-    String(generationFk)
-  );
+  const reviewData: TReviewData[] | null = await getReviewData({
+    make: params.make,
+    model: params.model,
+  });
 
-  let filteredModelData = modelData.filter((car) =>
-    car.generation_default
-      ? car.generation_default === generationFk
-      : car.fk === generationFk
-  );
-
-  filteredModelData = modelData
+  const validAndSortedData = modelData
     ?.filter((product) => product.msrp && product.price)
     .sort((a, b) => {
       let colorIndexA = colorOrder.indexOf(a?.display_color as string);
@@ -83,16 +56,13 @@ export default async function CarPDPDataLayer({
     redirect('/404');
   }
 
-  console.log(filteredModelData);
-
   return (
     <>
       <Suspense fallback={<div>Loading...</div>}>
         <CarPDP
-          params={params}
-          modelData={filteredModelData}
-          generationFk={generationFk}
+          modelData={validAndSortedData}
           reviewData={reviewData}
+          params={params}
         />
       </Suspense>
 

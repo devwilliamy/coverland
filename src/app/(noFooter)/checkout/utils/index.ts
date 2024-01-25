@@ -1,12 +1,10 @@
-//this was the previous implementation for checkout on the original
-//coverland.com Next.Js site. We're currently redirecting to Stripe but we may need
-//to restore some of this logic
+// TODO: this was the previous implementation for checkout on the original coverland.com Next.Js site. We're currently redirecting to Stripe but we may need to restore some of this logic
 
-// import { TCartItems } from '@/lib/cart/useCart';
+// import { TCartItem } from '@/lib/cart/useCart';
 // import { SHIPPING_RATES } from '@/lib/constants';
 
 export const getEligibleShippingOptions = () =>
-  // cartItems: TCartItems[],
+  // cartItems: TCartItem[],
   // shippingState: string[]
   {
     // Get unique product types from cart
