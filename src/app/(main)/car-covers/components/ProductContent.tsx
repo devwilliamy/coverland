@@ -30,7 +30,6 @@ import AddToCartFooter from '@/components/cart/AddToCartFooter';
 import BottomUpDrawer from '@/components/ui/bottom-up-drawer';
 import { useState } from 'react';
 import CartSheet from '@/components/cart/CartSheet';
-import { StarIcon } from 'lucide-react';
 
 export function ProductContent({
   selectedProduct,
@@ -67,11 +66,14 @@ export function ProductContent({
           {/* Reviews */}
           <div className="flex items-center gap-1">
             <div className="flex gap-1 text-yellow-300 ">
-              <StarIcon fill="#FFD80E" stroke="#FF9F47" />
-              <StarIcon fill="#FFD80E" stroke="#FF9F47" />
-              <StarIcon fill="#FFD80E" stroke="#FF9F47" />
-              <StarIcon fill="#FFD80E" stroke="#FF9F47" />
-              <StarIcon fill="#FFD80E" stroke="#FF9F47" />
+              <Rating
+                name="read-only"
+                value={5}
+                readOnly
+                style={{
+                  height: '25px',
+                }}
+              />
             </div>
             <Popover>
               <PopoverTrigger
