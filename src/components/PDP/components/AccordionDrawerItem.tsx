@@ -22,9 +22,11 @@ function AccordionDrawerItem(props: AccordianDrawerProps) {
   return (
     <div className="relative ">
       <Drawer open={open} onOpenChange={setOpen}>
-        <DrawerTrigger className=" flex w-full flex-row items-center justify-between border-b-2 border-[#C8C7C7] py-4 text-left text-[22px] font-black uppercase text-[#1A1A1A] !no-underline">
-          {props.title}
-          <FaPlus className="h-[15px] w-[15px]" />
+        <DrawerTrigger asChild className=" ">
+          <div className="flex w-full flex-row items-center justify-between border-b-2 border-[#C8C7C7] py-4 text-left text-[22px] font-black uppercase text-[#1A1A1A] !no-underline">
+            {props.title}
+            <FaPlus className="h-[15px] w-[15px]" />
+          </div>
         </DrawerTrigger>
         <DrawerContent className="">
           <DrawerHeader draggable={false}>
@@ -38,7 +40,8 @@ function AccordionDrawerItem(props: AccordianDrawerProps) {
               <div
                 id="CloseModalButton"
                 className="flex items-center justify-center rounded-full bg-gray-200 p-[5px]"
-                onClick={() => {
+                onClick={(e) => {
+                  e.preventDefault();
                   setOpen(false);
                 }}
               >
@@ -51,7 +54,7 @@ function AccordionDrawerItem(props: AccordianDrawerProps) {
               <></>
             )}
           </DrawerHeader>
-          <div className="mx-auto flex max-h-[76vh] w-full flex-col overflow-y-scroll pt-[40px] px-4">
+          <div className="mx-auto flex max-h-[76vh] w-full flex-col overflow-y-scroll px-4 pt-[40px]">
             {props.children}
           </div>
         </DrawerContent>
