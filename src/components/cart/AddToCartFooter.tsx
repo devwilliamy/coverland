@@ -9,7 +9,7 @@ const AddToCartFooter = () => {
 
   return (
     <div className="p-4 lg:p-5">
-      <div className="text-end text-lg font-extrabold lg:font-bold">
+      <div className="pr-4 text-end text-xl font-extrabold lg:font-bold">
         <div>Total: ${totalMsrpPrice}</div>
       </div>
       <Link href="/checkout">
