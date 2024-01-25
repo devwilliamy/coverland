@@ -258,7 +258,7 @@ function CheckoutPage() {
               <div>Order Total</div>
               <div>${totalMsrpPrice}</div>
             </div>
-            <div className="my-8 flex w-full justify-center">
+            <div className="my-8 hidden w-full justify-center md:flex">
               <Button
                 variant={'default'}
                 className="h-[63px] w-full rounded-lg  bg-black text-base font-bold uppercase text-white sm:h-[48px] lg:text-xl"
@@ -274,6 +274,26 @@ function CheckoutPage() {
                 )}
               </Button>
             </div>
+            <div className="pb-20"></div>
+            <div className="fixed bottom-5 w-11/12 bg-white md:hidden">
+              <div className="flex w-full items-center">
+                <Button
+                  variant={'default'}
+                  className="h-[63px] w-full  rounded-lg bg-black text-base font-bold uppercase text-white sm:h-[48px] lg:text-xl"
+                  onClick={() => {
+                    redirectToCheckout();
+                    setLoading(true);
+                  }}
+                >
+                  {loading ? (
+                    <AiOutlineLoading3Quarters className="animate-spin" />
+                  ) : (
+                    'Checkout'
+                  )}
+                </Button>
+              </div>
+            </div>
+
             {/* <Link
                 href=""
                 className="flex flex-col text-white bg-black"
