@@ -3,13 +3,11 @@ import Link from 'next/link';
 import { Button } from '../ui/button';
 
 const AddToCartFooter = () => {
-  const { getTotalPrice, getTotalCartQuantity, cartOpen, setCartOpen } =
-    useCartContext();
+  const { getTotalPrice, getTotalCartQuantity, setCartOpen } = useCartContext();
   const totalMsrpPrice = getTotalPrice().toFixed(2) as unknown as number;
   const cartQuantity = getTotalCartQuantity();
 
   const handleClick = () => {
-    // event.preventDefault();
     setCartOpen(false);
   };
 
