@@ -30,6 +30,15 @@ import AddToCartFooter from '@/components/cart/AddToCartFooter';
 import BottomUpDrawer from '@/components/ui/bottom-up-drawer';
 import { useState } from 'react';
 import CartSheet from '@/components/cart/CartSheet';
+import {
+  Drawer,
+  DrawerContent,
+  DrawerHeader,
+  DrawerTitle,
+  DrawerTrigger,
+} from '@/components/ui/drawer';
+import { IoClose } from 'react-icons/io5';
+import ReviewSection from '@/components/PDP/components/ReviewSection';
 
 export function ProductContent({
   selectedProduct,
@@ -54,6 +63,7 @@ export function ProductContent({
 }) {
   const isMobile = useMediaQuery('(max-width: 768px)');
   const [addToCartOpen, setAddToCartOpen] = useState<boolean>(false);
+  const [reviewDrawerOpen, setReviewDrawerOpen] = useState<boolean>(false);
 
   return (
     <>
@@ -75,45 +85,85 @@ export function ProductContent({
                 }}
               />
             </div>
-            <Popover>
-              <PopoverTrigger
-                className="ml-2 text-blue-400 underline"
-                disabled={!reviewCount}
-              >
-                {reviewCount || '2'} ratings
-              </PopoverTrigger>
-              <PopoverContent>
-                <div className=" flex flex-col items-center border border-gray-300 bg-white p-4 shadow-lg">
-                  <div className="flex items-center gap-4">
-                    <p className="text-2xl font-bold">
-                      {avgReviewScore ?? '4.9'} out of 5
-                    </p>
-                    <Rating
-                      name="read-only"
-                      value={5}
-                      readOnly
-                      style={{
-                        height: '25px',
-                      }}
-                    />
+            <div className="hidden lg:flex">
+              <Popover>
+                <PopoverTrigger
+                  className="ml-2 text-blue-400 underline"
+                  disabled={!reviewCount}
+                >
+                  {reviewCount || '2'} ratings
+                </PopoverTrigger>
+                <PopoverContent>
+                  <div className=" flex flex-col items-center border border-gray-300 bg-white p-4 shadow-lg">
+                    <div className="flex items-center gap-4">
+                      <p className="text-2xl font-bold">
+                        {avgReviewScore ?? '4.9'} out of 5
+                      </p>
+                      <Rating
+                        name="read-only"
+                        value={5}
+                        readOnly
+                        style={{
+                          height: '25px',
+                        }}
+                      />
+                    </div>
+                    {!!reviewData?.length && (
+                      <Link
+                        className="underline"
+                        scroll
+                        href={'#reviews'}
+                        onClick={() =>
+                          track('viewing all reviews', {
+                            sku: selectedProduct?.sku || '',
+                          })
+                        }
+                      >
+                        Show all reviews ({reviewData?.length})
+                      </Link>
+                    )}
                   </div>
-                  {!!reviewData?.length && selectedProduct?.sku && (
-                    <Link
-                      className="underline"
-                      scroll
-                      href={'#reviews'}
-                      onClick={() =>
-                        track('viewing all reviews', {
-                          sku: selectedProduct?.sku,
-                        })
-                      }
-                    >
-                      Show all reviews ({reviewData?.length})
-                    </Link>
-                  )}
-                </div>
-              </PopoverContent>
-            </Popover>
+                </PopoverContent>
+              </Popover>
+            </div>
+            <div className="lg:hidden">
+              <Drawer
+                open={reviewDrawerOpen}
+                onOpenChange={setReviewDrawerOpen}
+              >
+                <DrawerTrigger
+                  className="ml-2 text-blue-400 underline"
+                  disabled={!reviewCount}
+                  // className=" flex w-full flex-row items-center justify-between border-b-2 border-[#C8C7C7] py-4 text-left text-[22px] font-black uppercase text-[#1A1A1A] !no-underline"
+                >
+                  {reviewCount || '2'} ratings
+                </DrawerTrigger>
+                <DrawerContent className="">
+                  <DrawerHeader draggable={false}>
+                    <DrawerTitle className="flex w-full items-center border-b-2 border-[#C8C7C7] py-[22px] font-black uppercase">
+                      <div
+                        id="DrawerTitle"
+                        className=" flex w-full text-[22px] font-black uppercase"
+                      >
+                        Car Cover Reviews
+                      </div>
+                      <button
+                        id="CloseModalButton"
+                        className="flex items-center justify-center rounded-full bg-gray-200 p-[5px]"
+                        onClick={() => {
+                          setReviewDrawerOpen(false);
+                        }}
+                      >
+                        <IoClose className="h-[24px] w-[24px]" />
+                      </button>
+                    </DrawerTitle>
+                  </DrawerHeader>
+                  <div className="mx-auto flex max-h-[76vh] w-full flex-col overflow-y-scroll px-4 pt-[40px]">
+                    <ReviewSection reviewData={reviewData} />
+                  </div>
+                </DrawerContent>
+              </Drawer>
+            </div>
           </div>
           <p className="mb-2 text-gray-500">100+ Bought In Past Month</p>
         </div>
