@@ -3,9 +3,15 @@ import Link from 'next/link';
 import { Button } from '../ui/button';
 
 const AddToCartFooter = () => {
-  const { getTotalPrice, getTotalCartQuantity } = useCartContext();
+  const { getTotalPrice, getTotalCartQuantity, cartOpen, setCartOpen } =
+    useCartContext();
   const totalMsrpPrice = getTotalPrice().toFixed(2) as unknown as number;
   const cartQuantity = getTotalCartQuantity();
+
+  const handleClick = () => {
+    // event.preventDefault();
+    setCartOpen(false);
+  };
 
   return (
     <div className="p-4 lg:p-5">
@@ -13,7 +19,10 @@ const AddToCartFooter = () => {
         <div>Total: ${totalMsrpPrice}</div>
       </div>
       <Link href="/checkout">
-        <Button className="my-3 h-[48px] w-full bg-[#BE1B1B] text-base font-bold uppercase text-white disabled:bg-[#BE1B1B] md:h-[62px] md:text-lg">
+        <Button
+          onClick={handleClick}
+          className="my-3 h-[48px] w-full bg-[#BE1B1B] text-base font-bold uppercase text-white disabled:bg-[#BE1B1B] md:h-[62px] md:text-lg"
+        >
           View Cart ({cartQuantity})
         </Button>
       </Link>

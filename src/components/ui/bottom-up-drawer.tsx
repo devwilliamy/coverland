@@ -44,7 +44,7 @@ export default function BottomUpDrawer({
           </div>
           <div
             id="DrawerContentContainer"
-            className="mx-auto flex w-full flex-col overflow-y-scroll px-4 pt-20"
+            className="mx-auto flex min-h-[50vh] w-full flex-col overflow-y-scroll px-4 pt-20"
           >
             <div>{children}</div>
           </div>
