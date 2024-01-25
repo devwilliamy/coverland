@@ -32,7 +32,7 @@ export default function EditVehiclePopover({
               {/* We want to keep the padding top of DrawerContentContainer to be the same as the max-height of DrawerHeader */}
               <div
                 id="DrawerContentContainer"
-                className={`relative mx-auto flex max-h-[75vh] min-h-[75vh] w-full flex-col px-4 `}
+                className={`relative mx-auto ml-[-4px] flex max-h-[75vh] min-h-[75vh] w-full flex-col px-4 `}
               >
                 <div
                   id="DrawerHeader"
