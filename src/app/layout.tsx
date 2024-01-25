@@ -30,7 +30,7 @@ export default function RootLayout({
     >
       <body className={`${roboto.className} ${roboto.variable}`}>
         <Providers>
-          <main className="mx-auto max-w-[1440px] lg:px-0">
+          <main className="mx-auto max-w-[1280px] lg:px-0">
             {children}
             {/* <ReactQueryDevtools initialIsOpen={false} /> */}
             <Toaster />

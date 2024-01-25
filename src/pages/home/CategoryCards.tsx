@@ -7,21 +7,21 @@ import Link from 'next/link';
 
 export default function CategoryCards() {
   return (
-    <section className="w-screen h-auto px-3 pt-20 lg:px-20 md:px-24 bg-[#F9F9FB] lg:bg-white flex flex-col md:pt-20 max-w-[1440px]  text-center">
-      <div className="flex flex-row justify-center md:justify-between items-center flex-nowrap w-full">
+    <section className="flex h-auto w-screen max-w-[1280px] flex-col bg-[#F9F9FB] px-3 pt-20 text-center md:px-24 md:pt-20 lg:bg-white  lg:px-20">
+      <div className="flex w-full flex-row flex-nowrap items-center justify-center md:justify-between">
         <Link
           href="/car-covers"
-          className="cat-links flex flex-col-reverse lg:flex-row justify-center lg:justify-right xl:justify-evenly items-center w-[45%] lg:w-[49%] h-auto lg:h-60 bg-[#F9F9FB] rounded-xl mr-2 lg:mr-0 overflow-hidden"
+          className="cat-links lg:justify-right mr-2 flex h-auto w-[45%] flex-col-reverse items-center justify-center overflow-hidden rounded-xl bg-[#F9F9FB] lg:mr-0 lg:h-60 lg:w-[49%] lg:flex-row xl:justify-evenly"
         >
-          <div className="lg:pr-12 relative bottom-5 md:bottom-0 md:pl-3 lg:pt-0 lg:pb-0 flex flex-col justify-center items-center">
-            <p className="text-sm font-extrabold pt-5 xs:pt-0 md:pb-10 lg:pb-0 uppercase hover-underline-animation-dark sm:text-2xl md:mg-10">
+          <div className="relative bottom-5 flex flex-col items-center justify-center md:bottom-0 md:pl-3 lg:pb-0 lg:pr-12 lg:pt-0">
+            <p className="xs:pt-0 hover-underline-animation-dark md:mg-10 pt-5 text-sm font-extrabold uppercase sm:text-2xl md:pb-10 lg:pb-0">
               Car <br className="hidden lg:block xl:hidden" /> Covers
             </p>
           </div>
           <div className="test">
             <Image
               src={carCoverCategory}
-              className="h-auto lg:h-60 w-auto"
+              className="h-auto w-auto lg:h-60"
               height={300}
               width={300}
               alt="coverland car covers"
@@ -30,10 +30,10 @@ export default function CategoryCards() {
         </Link>
         <Link
           href="/truck-covers"
-          className="cat-links flex flex-col-reverse lg:flex-row justify-center lg:justify-right xl:justify-evenly items-center w-[45%] lg:w-[49%] h-auto lg:h-60 bg-[#F9F9FB] rounded-xl ml-2 lg:ml-0 overflow-hidden"
+          className="cat-links lg:justify-right ml-2 flex h-auto w-[45%] flex-col-reverse items-center justify-center overflow-hidden rounded-xl bg-[#F9F9FB] lg:ml-0 lg:h-60 lg:w-[49%] lg:flex-row xl:justify-evenly"
         >
-          <div className="lg:pr-12 relative bottom-5 md:bottom-0 md:pl-3 lg:pt-0 lg:pb-0 flex flex-col justify-center items-center">
-            <p className="text-sm font-extrabold pt-5 xs:pt-0 md:pb-10 lg:pb-0 uppercase hover-underline-animation-dark sm:text-2xl md:mg-10">
+          <div className="relative bottom-5 flex flex-col items-center justify-center md:bottom-0 md:pl-3 lg:pb-0 lg:pr-12 lg:pt-0">
+            <p className="xs:pt-0 hover-underline-animation-dark md:mg-10 pt-5 text-sm font-extrabold uppercase sm:text-2xl md:pb-10 lg:pb-0">
               Truck <br className="hidden lg:block xl:hidden" /> Covers
             </p>
           </div>
@@ -41,27 +41,27 @@ export default function CategoryCards() {
             {' '}
             <Image
               src={truckCoverCategory}
-              className="h-auto lg:h-60 w-auto"
+              className="h-auto w-auto lg:h-60"
               height={300}
               alt="coverland truck covers"
             />
           </div>
         </Link>
       </div>
-      <div className="flex flex-row justify-center md:justify-between items-center flex-nowrap w-full pt-10 lg:pt-8">
+      <div className="flex w-full flex-row flex-nowrap items-center justify-center pt-10 md:justify-between lg:pt-8">
         <Link
           href="/suv-covers"
-          className="cat-links flex flex-col-reverse lg:flex-row justify-center lg:justify-right xl:justify-evenly items-center w-[45%] lg:w-[49%] h-auto lg:h-60 bg-[#F9F9FB] rounded-xl mr-2 lg:mr-0 overflow-hidden"
+          className="cat-links lg:justify-right mr-2 flex h-auto w-[45%] flex-col-reverse items-center justify-center overflow-hidden rounded-xl bg-[#F9F9FB] lg:mr-0 lg:h-60 lg:w-[49%] lg:flex-row xl:justify-evenly"
         >
-          <div className="lg:pr-12 relative bottom-5 md:bottom-0 md:pl-3 lg:pt-0 lg:pb-0 flex flex-col justify-center items-center">
-            <p className="text-sm font-extrabold pt-5 xs:pt-0 md:pb-10 lg:pb-0 uppercase hover-underline-animation-dark sm:text-2xl md:mg-10">
+          <div className="relative bottom-5 flex flex-col items-center justify-center md:bottom-0 md:pl-3 lg:pb-0 lg:pr-12 lg:pt-0">
+            <p className="xs:pt-0 hover-underline-animation-dark md:mg-10 pt-5 text-sm font-extrabold uppercase sm:text-2xl md:pb-10 lg:pb-0">
               SUV <br className="hidden lg:block xl:hidden" /> Covers
             </p>
           </div>
           <div className="">
             <Image
               src={suvCoverCategory}
-              className="h-auto lg:h-60 w-auto"
+              className="h-auto w-auto lg:h-60"
               height={300}
               alt="coverland suv covers"
             />
@@ -69,17 +69,17 @@ export default function CategoryCards() {
         </Link>
         <Link
           href="/van-cover"
-          className="cat-links flex flex-col-reverse lg:flex-row justify-center lg:justify-right xl:justify-evenly items-center w-[45%] lg:w-[49%] h-auto lg:h-60 bg-[#F9F9FB] rounded-xl ml-2 lg:ml-0 overflow-hidden"
+          className="cat-links lg:justify-right ml-2 flex h-auto w-[45%] flex-col-reverse items-center justify-center overflow-hidden rounded-xl bg-[#F9F9FB] lg:ml-0 lg:h-60 lg:w-[49%] lg:flex-row xl:justify-evenly"
         >
-          <div className="lg:pr-12 relative bottom-5 md:bottom-0 md:pl-3 lg:pt-0 lg:pb-0 flex flex-col justify-center items-center">
-            <p className="text-sm font-extrabold pt-5 xs:pt-0 md:pb-10 lg:pb-0 uppercase hover-underline-animation-dark sm:text-2xl md:mg-10">
+          <div className="relative bottom-5 flex flex-col items-center justify-center md:bottom-0 md:pl-3 lg:pb-0 lg:pr-12 lg:pt-0">
+            <p className="xs:pt-0 hover-underline-animation-dark md:mg-10 pt-5 text-sm font-extrabold uppercase sm:text-2xl md:pb-10 lg:pb-0">
               Van <br className="hidden lg:block xl:hidden" /> Covers
             </p>
           </div>
           <div className="">
             <Image
               src={vanCoverCategory}
-              className="h-auto lg:h-60 w-auto"
+              className="h-auto w-auto lg:h-60"
               height={300}
               alt="coverland van covers"
             />

@@ -15,21 +15,21 @@ import { BsBoxSeamFill } from 'react-icons/bs';
 const SecuritySection = () => {
   return (
     <>
-      <section className="px-4 md:px-24 lg:px-20 xxl:px-0 w-screen h-auto bg-white flex flex-col max-w-[1440px] lg:pt-20">
-        <div className="flex flex-col xl:flex-row justify-center items-center ">
-          <div className="flex flex-col justify-center items-start h-full">
-            <div className="pb-20 lg:pb-10 pt-20 lg:pt-0 w-full">
-              <h1 className=" text-2xl uppercase font-extrabold md:text-5xl text-dark text-center xl:text-left">
+      <section className="xxl:px-0 flex h-auto w-screen max-w-[1280px] flex-col bg-white px-4 md:px-24 lg:px-20 lg:pt-20">
+        <div className="flex flex-col items-center justify-center xl:flex-row ">
+          <div className="flex h-full flex-col items-start justify-center">
+            <div className="w-full pb-20 pt-20 lg:pb-10 lg:pt-0">
+              <h1 className=" text-dark text-center text-2xl font-extrabold uppercase md:text-5xl xl:text-left">
                 Experience the Best Security
               </h1>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-1 gap-6">
-              <div className="flex flex-row w-full pb-8 lg:pb-10">
-                <div className="bg-offWhite flex flex-row justify-center items-center w-14 h-14 icon-shadow rounded-lg mr-8">
+            <div className="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-1">
+              <div className="flex w-full flex-row pb-8 lg:pb-10">
+                <div className="bg-offWhite icon-shadow mr-8 flex h-14 w-14 flex-row items-center justify-center rounded-lg">
                   <Umbrella size={30} color="#185CFF" />
                 </div>
-                <div className="flex flex-col justify-start items-start w-3/4">
-                  <h2 className="text-xl lg:text-lg capitalize lg:uppercase font-semibold text-dark">
+                <div className="flex w-3/4 flex-col items-start justify-start">
+                  <h2 className="text-dark text-xl font-semibold capitalize lg:text-lg lg:uppercase">
                     Weatherproof
                   </h2>
                   <p className=" text-dark">
@@ -38,12 +38,12 @@ const SecuritySection = () => {
                   </p>
                 </div>
               </div>
-              <div className="flex flex-row w-full pb-8 md:pb-10">
-                <div className="bg-offWhite flex flex-row justify-center items-center w-14 h-14 icon-shadow rounded-lg mr-8">
+              <div className="flex w-full flex-row pb-8 md:pb-10">
+                <div className="bg-offWhite icon-shadow mr-8 flex h-14 w-14 flex-row items-center justify-center rounded-lg">
                   <SunMedium size={30} color="#185CFF" />
                 </div>
-                <div className="flex flex-col justify-start items-start w-3/4">
-                  <h2 className="text-xl lg:text-lg capitalize lg:uppercase font-semibold text-dark">
+                <div className="flex w-3/4 flex-col items-start justify-start">
+                  <h2 className="text-dark text-xl font-semibold capitalize lg:text-lg lg:uppercase">
                     UV & Heat Protection
                   </h2>
                   <p className=" text-dark">
@@ -52,12 +52,12 @@ const SecuritySection = () => {
                   </p>
                 </div>
               </div>
-              <div className="flex flex-row w-full pb-8 md:pb-10">
-                <div className="bg-offWhite flex flex-row justify-center items-center w-14 h-14 icon-shadow rounded-lg mr-8">
+              <div className="flex w-full flex-row pb-8 md:pb-10">
+                <div className="bg-offWhite icon-shadow mr-8 flex h-14 w-14 flex-row items-center justify-center rounded-lg">
                   <Shield size={30} color="#185CFF" />
                 </div>
-                <div className="flex flex-col justify-start items-start w-3/4">
-                  <h2 className="text-xl lg:text-lg capitalize lg:uppercase font-semibold text-dark">
+                <div className="flex w-3/4 flex-col items-start justify-start">
+                  <h2 className="text-dark text-xl font-semibold capitalize lg:text-lg lg:uppercase">
                     Scratchproof
                   </h2>
                   <p className=" text-dark">
@@ -66,12 +66,12 @@ const SecuritySection = () => {
                   </p>
                 </div>
               </div>
-              <div className="flex flex-row w-full pb-4 lg:pb-0">
-                <div className="bg-offWhite flex flex-row justify-center items-center w-14 h-14 icon-shadow rounded-lg mr-8">
+              <div className="flex w-full flex-row pb-4 lg:pb-0">
+                <div className="bg-offWhite icon-shadow mr-8 flex h-14 w-14 flex-row items-center justify-center rounded-lg">
                   <CloudRainWind size={30} color="#185CFF" />
                 </div>
-                <div className="flex flex-col justify-start items-start w-3/4">
-                  <h2 className="text-xl lg:text-lg capitalize lg:uppercase font-semibold text-dark">
+                <div className="flex w-3/4 flex-col items-start justify-start">
+                  <h2 className="text-dark text-xl font-semibold capitalize lg:text-lg lg:uppercase">
                     Hail, Storm & Snow Protection
                   </h2>
                   <p className="text-dark text-base">
@@ -82,7 +82,7 @@ const SecuritySection = () => {
               </div>
             </div>
           </div>
-          <div className="flex flex-col justify-end items-start object-cover pb-4 pt-4 md:pt-16 md:pb-0 w-full">
+          <div className="flex w-full flex-col items-start justify-end object-cover pb-4 pt-4 md:pb-0 md:pt-16">
             <Image
               src={Beach}
               className=" w-full rounded-xl"
@@ -91,62 +91,62 @@ const SecuritySection = () => {
           </div>
         </div>
       </section>
-      <div className="px-4 md:px-24 lg:px-20 xxl:px-0 w-screen h-auto bg-white flex flex-col max-w-[1440px] pt-8 md:pt-20">
-        <div className="flex flex-col lg:flex-row justify-center items-start ">
-          <div className="flex flex-col justify-center items-start h-full">
-            <div className="pb-10 lg:pb-20 pt-0 w-full">
-              <h1 className=" text-2xl uppercase font-extrabold md:text-5xl text-dark text-center  xl:text-center">
+      <div className="xxl:px-0 flex h-auto w-screen max-w-[1280px] flex-col bg-white px-4 pt-8 md:px-24 md:pt-20 lg:px-20">
+        <div className="flex flex-col items-start justify-center lg:flex-row ">
+          <div className="flex h-full flex-col items-start justify-center">
+            <div className="w-full pb-10 pt-0 lg:pb-20">
+              <h1 className=" text-dark text-center text-2xl font-extrabold uppercase md:text-5xl  xl:text-center">
                 Buy with confidence
               </h1>
             </div>
-            <div className='grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6 xl:gap-8"'>
-              <div className="flex flex-row md:flex-col md:justify-start md:items-center w-full pb-8 lg:pb-0">
+            <div className='xl:gap-8" grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-4'>
+              <div className="flex w-full flex-row pb-8 md:flex-col md:items-center md:justify-start lg:pb-0">
                 <CircleDollarSign size={55} color="#185CFF" />
 
-                <div className="flex flex-col justify-start items-start md:items-center w-full ml-8 md:ml-0">
-                  <h2 className="text-xl lg:text-lg capitalize lg:uppercase font-semibold text-dark xl:py-4 text-left md:text-center">
+                <div className="ml-8 flex w-full flex-col items-start justify-start md:ml-0 md:items-center">
+                  <h2 className="text-dark text-left text-xl font-semibold capitalize md:text-center lg:text-lg lg:uppercase xl:py-4">
                     90-Day Money Back
                   </h2>
-                  <p className=" text-dark text-base text-left md:text-center">
+                  <p className=" text-dark text-left text-base md:text-center">
                     Purchase confidently, knowing we offer a full 90-day
                     money-back guarantee.
                   </p>
                 </div>
               </div>
-              <div className="flex flex-row md:flex-col md:justify-start md:items-center w-full pb-8 lg:pb-0">
+              <div className="flex w-full flex-row pb-8 md:flex-col md:items-center md:justify-start lg:pb-0">
                 <RiSecurePaymentFill size={55} color="#185CFF" />
 
-                <div className="flex flex-col justify-start items-start md:items-center w-full ml-8 md:ml-0">
-                  <h2 className="text-xl lg:text-lg capitalize lg:uppercase font-semibold text-dark xl:py-4 text-left md:text-center">
+                <div className="ml-8 flex w-full flex-col items-start justify-start md:ml-0 md:items-center">
+                  <h2 className="text-dark text-left text-xl font-semibold capitalize md:text-center lg:text-lg lg:uppercase xl:py-4">
                     Secure Shopping
                   </h2>
-                  <p className=" text-dark text-base text-left md:text-center">
+                  <p className=" text-dark text-left text-base md:text-center">
                     Rest easy with our commitment to the highest standards of
                     secure shopping.
                   </p>
                 </div>
               </div>
-              <div className="flex flex-row md:flex-col md:justify-start md:items-center w-full pb-8 lg:pb-0">
+              <div className="flex w-full flex-row pb-8 md:flex-col md:items-center md:justify-start lg:pb-0">
                 <FaShippingFast size={55} color="#185CFF" />
 
-                <div className="flex flex-col justify-start items-start md:items-center w-full ml-8 md:ml-0">
-                  <h2 className="text-xl lg:text-lg capitalize lg:uppercase font-semibold text-dark xl:py-4 text-left md:text-center whitespace-nowrap">
+                <div className="ml-8 flex w-full flex-col items-start justify-start md:ml-0 md:items-center">
+                  <h2 className="text-dark whitespace-nowrap text-left text-xl font-semibold capitalize md:text-center lg:text-lg lg:uppercase xl:py-4">
                     Same-Day Processing
                   </h2>
-                  <p className=" text-dark text-base text-left md:text-center">
+                  <p className=" text-dark text-left text-base md:text-center">
                     {`Place your order today, and we'll ensure immediate, same-day
                     processing.`}
                   </p>
                 </div>
               </div>
-              <div className="flex flex-row md:flex-col md:justify-start md:items-center w-full pb-4 lg:pb-0">
+              <div className="flex w-full flex-row pb-4 md:flex-col md:items-center md:justify-start lg:pb-0">
                 <BsBoxSeamFill size={55} color="#185CFF" />
 
-                <div className="flex flex-col justify-start items-start md:items-center w-full ml-8 md:ml-0">
-                  <h2 className="text-xl lg:text-lg capitalize lg:uppercase font-semibold text-dark xl:py-4 text-left md:text-center">
+                <div className="ml-8 flex w-full flex-col items-start justify-start md:ml-0 md:items-center">
+                  <h2 className="text-dark text-left text-xl font-semibold capitalize md:text-center lg:text-lg lg:uppercase xl:py-4">
                     30-Day Free Returns
                   </h2>
-                  <p className="text-dark text-base text-left md:text-center">
+                  <p className="text-dark text-left text-base md:text-center">
                     Changed your mind? No worries; we offer free returns for 30
                     days.
                   </p>

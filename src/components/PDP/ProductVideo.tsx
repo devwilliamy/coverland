@@ -7,7 +7,7 @@ export default function ProductVideo() {
   return (
     <div
       id="product-video"
-      className="h-[250px] w-full lg:my-4 lg:flex lg:h-[500px]"
+      className="flex flex-col items-center h-[250px] w-full lg:my-4 lg:flex lg:h-[500px]"
     >
       <ReactPlayer
         url={VIMEO_VIDEO_LINK}
