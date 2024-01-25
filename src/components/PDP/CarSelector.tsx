@@ -220,10 +220,6 @@ function CarSelector({
   const [showMore, setShowMore] = useState(false);
   const isMobile = useMediaQuery('(max-width: 768px)');
 
-  const isReadyForSelection = submodels.length
-    ? pathParams?.product?.length === 3 && !!searchParams?.submodel
-    : pathParams?.product?.length === 3;
-
   const uniqueColors = Array.from(
     new Set(displayedModelData.map((model) => model.display_color))
   ).map((color) =>
