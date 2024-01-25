@@ -4,7 +4,7 @@ import { Drawer } from 'vaul';
 type BottomUpDrawerProps = {
   title: React.ReactNode;
   children: React.ReactNode;
-  open: boolean;
+  open?: boolean;
   setOpen: (open: boolean) => void;
   trigger?: React.ReactNode;
   underTrigger?: React.ReactNode;
