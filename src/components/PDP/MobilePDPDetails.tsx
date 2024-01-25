@@ -8,7 +8,6 @@ import AccordionDrawerItem from './components/AccordionDrawerItem';
 import { ClimateCrisisMobile } from './components/ClimateCrisisMobile';
 import { NoGarageMobile } from './components/NoGarageMobile';
 import { MoneyBackMobile } from './MoneyBackMobile';
-// import { Accordion } from '../ui/accordion';
 import { TReviewData } from '@/lib/db';
 import ReviewSection from './components/ReviewSection';
 
@@ -160,7 +159,3 @@ export const MobilePDPDetails = ({
     </div>
   );
 };
-
-
-
-

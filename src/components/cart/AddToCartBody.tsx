@@ -17,9 +17,15 @@ const AddToCartBody = ({ selectedProduct }: AddToCartBodyProps) => {
 
   return (
     <>
-      {sortedCartItems.map((item) => {
-        return <CartItem key={item.sku} item={item} />;
-      })}
+      {sortedCartItems.length > 0 ? (
+        sortedCartItems.map((item) => {
+          return <CartItem key={item.sku} item={item} />;
+        })
+      ) : (
+        <div className="flex flex-row items-center justify-center pt-20">
+          <p className="text-lg font-normal">Your cart is empty</p>
+        </div>
+      )}
     </>
   );
 };
