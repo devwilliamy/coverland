@@ -133,7 +133,7 @@ export const MobilePDPDetails = ({
       </AccordionDrawerItem>
 
       <AccordionDrawerItem title="Warranty">
-        <div className=" md:mt-18 mb-[-10px] lg:mt-28">
+        <div className=" md:mt-18 mb-[-10px] min-h-[60vh] lg:mt-28">
           <div className="flex flex-col gap-5  normal-case">
             <div className="flex text-[18px] font-black">10-Years Warranty</div>
             <div className="mb-[-15px] text-[14px] font-[500]">
