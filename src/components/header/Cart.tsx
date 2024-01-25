@@ -32,7 +32,7 @@ function Cart() {
               size={24}
               color={cartColor}
               className="mt-1 flex h-[40px] w-5 items-center hover:cursor-pointer md:order-last"
-              onClick={() => setCartOpen(!cartOpen)}
+              onClick={() => setCartOpen(true)}
             />
           </>
         </SheetTrigger>
