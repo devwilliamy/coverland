@@ -1,4 +1,4 @@
-import { EditIcon } from 'lucide-react';
+import { EditIcon } from '@/components/PDP/components/icons';
 import EditVehicleDropdown from '../EditVehicleDropdown';
 // import {
 //   DropdownMenu,
@@ -23,8 +23,8 @@ export default function EditVehiclePopover({
       <div className="z-50 flex items-center gap-2">
         <EditIcon />
         <Drawer.Root open={open} onOpenChange={setOpen}>
-          <Drawer.Trigger className="justify-betweentext-left flex w-full flex-row items-center text-xl font-black text-[#1A1A1A] !no-underline">
-            <button className="hover:underline font-normal">Edit Vehicle</button>
+          <Drawer.Trigger className="text-left text-base font-black text-[#1A1A1A] !no-underline">
+            <button className="font-normal underline">Edit Vehicle</button>
           </Drawer.Trigger>
           <Drawer.Portal>
             <Drawer.Overlay className="fixed inset-0 bg-black/40"></Drawer.Overlay>
