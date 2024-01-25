@@ -262,16 +262,17 @@ const ReviewSection = ({
         Car Cover Reviews
       </p>
       <div className="flex flex-col items-center justify-around lg:flex-row">
-        <div className="flex flex-col items-center gap-4">
+        <div className="flex flex-col items-center gap-4 lg:gap-0">
           <div className="flex items-center gap-2">
             <p className="text-[40px] font-black lg:text-[80px]">4.9</p>
             <p className="lg:mt-11">{reviewData?.length} reviews</p>
           </div>
-          <div className=" flex items-stretch text-yellow-300">
+          <div className="lg:flex">
             <Rating
               name="read-only"
               value={5}
               readOnly
+              size="large"
               style={{
                 height: '25px',
               }}
