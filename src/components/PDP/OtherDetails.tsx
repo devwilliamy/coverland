@@ -12,7 +12,7 @@ import { Layers } from './Layers';
 import { TReviewData } from '@/lib/db';
 import { MobilePDPDetails } from './MobilePDPDetails';
 import { WarrantyDesktop } from './components/WarrantyDesktop';
-import { StarIcon } from 'lucide-react';
+import { Rating } from '@mui/material';
 
 export function ExtraProductDetails({
   reviewData,
@@ -267,12 +267,15 @@ const ReviewSection = ({
             <p className="text-[40px] font-black lg:text-[80px]">4.9</p>
             <p className="lg:mt-11">{reviewData?.length} reviews</p>
           </div>
-          <div className="flex items-stretch text-yellow-300">
-            <StarIcon fill="#FFD80E" stroke="#FF9F47" />
-            <StarIcon fill="#FFD80E" stroke="#FF9F47" />
-            <StarIcon fill="#FFD80E" stroke="#FF9F47" />
-            <StarIcon fill="#FFD80E" stroke="#FF9F47" />
-            <StarIcon fill="#FFD80E" stroke="#FF9F47" />
+          <div className=" flex items-stretch text-yellow-300">
+            <Rating
+              name="read-only"
+              value={5}
+              readOnly
+              style={{
+                height: '25px',
+              }}
+            />
           </div>
         </div>
         <div className="flex items-center justify-center gap-2">
@@ -372,11 +375,14 @@ function ReviewCard({ review }: { review: TReviewData }) {
         {review.review_title}
       </div>
       <div className="my-2 flex gap-1 text-yellow-300 lg:my-0">
-        <StarIcon fill="#FFD80E" stroke="#FF9F47" />
-        <StarIcon fill="#FFD80E" stroke="#FF9F47" />
-        <StarIcon fill="#FFD80E" stroke="#FF9F47" />
-        <StarIcon fill="#FFD80E" stroke="#FF9F47" />
-        <StarIcon fill="#FFD80E" stroke="#FF9F47" />
+        <Rating
+          name="read-only"
+          value={5}
+          readOnly
+          style={{
+            height: '25px',
+          }}
+        />
       </div>
       <div className="text-sm font-light normal-case text-neutral-500">
         Purchased on{' '}

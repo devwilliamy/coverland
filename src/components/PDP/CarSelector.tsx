@@ -44,7 +44,6 @@ import AddToCartHeader from '../cart/AddToCartHeader';
 import AddToCartBody from '../cart/AddToCartBody';
 import AddToCartFooter from '../cart/AddToCartFooter';
 import CartSheet from '../cart/CartSheet';
-import { StarIcon } from 'lucide-react';
 
 const ProductVideo = dynamicImport(() => import('./ProductVideo'), {
   ssr: false,
@@ -456,11 +455,14 @@ function CarSelector({
               {/* Reviews */}
               <div className="flex items-center gap-4">
                 <div className=" flex gap-1 text-yellow-300 ">
-                  <StarIcon fill="#FFD80E" stroke="#FF9F47" />
-                  <StarIcon fill="#FFD80E" stroke="#FF9F47" />
-                  <StarIcon fill="#FFD80E" stroke="#FF9F47" />
-                  <StarIcon fill="#FFD80E" stroke="#FF9F47" />
-                  <StarIcon fill="#FFD80E" stroke="#FF9F47" />
+                  <Rating
+                    name="read-only"
+                    value={5}
+                    readOnly
+                    style={{
+                      height: '25px',
+                    }}
+                  />
                 </div>
                 <Popover>
                   <PopoverTrigger
