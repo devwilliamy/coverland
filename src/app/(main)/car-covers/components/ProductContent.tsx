@@ -30,7 +30,6 @@ import AddToCartFooter from '@/components/cart/AddToCartFooter';
 import BottomUpDrawer from '@/components/ui/bottom-up-drawer';
 import { useState } from 'react';
 import CartSheet from '@/components/cart/CartSheet';
-import { StarIcon } from 'lucide-react';
 import {
   Drawer,
   DrawerContent,
@@ -77,11 +76,14 @@ export function ProductContent({
           {/* Reviews */}
           <div className="flex items-center gap-1">
             <div className="flex gap-1 text-yellow-300 ">
-              <StarIcon fill="#FFD80E" stroke="#FF9F47" />
-              <StarIcon fill="#FFD80E" stroke="#FF9F47" />
-              <StarIcon fill="#FFD80E" stroke="#FF9F47" />
-              <StarIcon fill="#FFD80E" stroke="#FF9F47" />
-              <StarIcon fill="#FFD80E" stroke="#FF9F47" />
+              <Rating
+                name="read-only"
+                value={5}
+                readOnly
+                style={{
+                  height: '25px',
+                }}
+              />
             </div>
             <div className="hidden lg:flex">
               <Popover>
@@ -248,7 +250,7 @@ export function ProductContent({
           <>
             <Popover>
               <PopoverTrigger asChild>
-                <Button className="mt-4 h-[35px] w-full rounded bg-[#BE1B1B] text-lg font-bold uppercase text-white md:h-[60px] md:text-xl">
+                <Button className="mt-4 h-[48px] w-full rounded bg-[#BE1B1B] text-lg font-bold uppercase text-white disabled:bg-[#BE1B1B] md:h-[62px] md:text-xl">
                   Add To Cart
                 </Button>
               </PopoverTrigger>
@@ -261,7 +263,7 @@ export function ProductContent({
           </>
         ) : (
           <Button
-            className="mt-4 h-[60px] w-full bg-[#BE1B1B] text-lg disabled:bg-[#BE1B1B]"
+            className="mt-4 h-[48px] w-full rounded bg-[#BE1B1B] text-lg font-bold uppercase text-white disabled:bg-[#BE1B1B] md:h-[62px] md:text-xl"
             onClick={() => {
               selectedProduct?.sku &&
                 track('PDP_add_to_cart', {

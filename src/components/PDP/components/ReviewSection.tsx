@@ -1,7 +1,7 @@
-import { StarIcon } from 'lucide-react';
 import ReviewCard from './ReviewCard';
 import { useState } from 'react';
 import { TReviewData } from '@/lib/db';
+import { Rating } from '@mui/material';
 
 const ReviewSection = ({
   reviewData,
@@ -21,11 +21,14 @@ const ReviewSection = ({
             <p className="lg:mt-11">{reviewData?.length} reviews</p>
           </div>
           <div className="flex items-stretch gap-1 text-yellow-300">
-            <StarIcon fill="#FFD80E" stroke="#FF9F47" />
-            <StarIcon fill="#FFD80E" stroke="#FF9F47" />
-            <StarIcon fill="#FFD80E" stroke="#FF9F47" />
-            <StarIcon fill="#FFD80E" stroke="#FF9F47" />
-            <StarIcon fill="#FFD80E" stroke="#FF9F47" />
+            <Rating
+              name="read-only"
+              value={5}
+              readOnly
+              style={{
+                height: '25px',
+              }}
+            />
           </div>
         </div>
         <div className="flex w-full items-center  gap-2">
