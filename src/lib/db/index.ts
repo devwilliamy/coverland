@@ -290,12 +290,22 @@ export async function getAllProductData({
   year,
   make,
   model,
+  type = null,
 }: {
   year?: string;
   make?: string;
   model?: string;
+  type?: string | null;
 }) {
   let fetch = supabase.from('Products-2024').select('*');
+
+  if (type) {
+    const query = deslugify(type).toLowerCase();
+    console.log('type', query);
+    fetch = fetch.textSearch('type', query, {
+      type: 'websearch',
+    });
+  }
 
   if (year) {
     fetch = fetch.eq('parent_generation', year);

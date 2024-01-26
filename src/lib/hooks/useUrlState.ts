@@ -4,7 +4,7 @@ const useUrlState = () => {
   const pathname = usePathname();
   const searchParams = useSearchParams();
   //Do not use the params returned from this hook outside of the 'car-covers' path for now
-  const params = useParams<{ make: string; model: string; year: string }>() ?? {
+  const params = useParams() ?? {
     make: '',
     model: '',
     year: '',

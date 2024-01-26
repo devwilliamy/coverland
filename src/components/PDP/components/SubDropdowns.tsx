@@ -11,14 +11,22 @@ import { ModelSearch } from './ModelSearch';
 import { MakeSearch } from './MakeSearch';
 import { TCarCoverData } from '@/app/(main)/car-covers/components/CarPDP';
 import { TProductData } from '@/lib/db';
+import { useEffect, useState } from 'react';
+import { Button } from '@/components/ui/button';
 
 export default function SubDropdowns({
   modelData,
 }: {
   modelData: TCarCoverData[] | TProductData[];
 }) {
-  const { selectionOptions, setDropdown, queryUrl, isFullySelected, state } =
-    useCarDropdown(modelData);
+  const {
+    selectionOptions,
+    setDropdown,
+    queryUrl,
+    isFullySelected,
+    state,
+    setStateChangeOrigin,
+  } = useCarDropdown(modelData);
   const router = useRouter();
   const { currentUrl, params, submodelParam } = useUrlState();
 
@@ -28,30 +36,36 @@ export default function SubDropdowns({
   const setSearchParams = () => {
     if (!queryUrl) return;
     router.push(`${queryUrl}`);
+    router.refresh();
     setDropdown({ type: 'RESET' });
   };
 
-  const showYearDropdown = !params.year;
-  const showMakeDropdown = !params.make;
-  const showModelDropdown = !params.model;
+  console.log('params', params);
+
+  const showYearDropdown = currentUrl?.includes('car-covers')
+    ? !params.year
+    : !(params?.product?.length === 3);
+  const showMakeDropdown = currentUrl?.includes('car-covers')
+    ? !params.make
+    : !params?.product?.length;
+  const showModelDropdown = currentUrl?.includes('car-covers')
+    ? !params.model
+    : params?.product?.length < 2;
   const showSubmodelDropdown = !!submodelOpts.length && !submodelParam;
   const showSecondSubmodelDropdown =
     !!secondSubmodelOpts.length &&
     !currentUrl?.includes('second_submodel') &&
     !!state.selectedSubmodel;
 
-  console.log('show', isFullySelected);
+  console.log('show', showModelDropdown);
 
   console.log('submodelOpts', secondSubmodelOpts);
 
-  if (
-    isFullySelected &&
-    (currentUrl?.includes('submodel') !== !!state.selectedSubmodel ||
-      currentUrl?.includes('second_submodel') !==
-        !!state.selectedSecondSubmodel)
-  ) {
-    setSearchParams();
-  }
+  console.log('state', showYearDropdown);
+
+  console.log(
+    currentUrl?.includes('second_submodel') !== !!state.selectedSecondSubmodel
+  );
 
   if (
     !(
@@ -99,19 +113,17 @@ export default function SubDropdowns({
             />
           )}
         </div>
-        {/* {isFullySelected && (
+        {isFullySelected && !!queryUrl && (
           <Button
             className="h-[60px] w-full text-lg"
             onClick={() => {
+              console.log(queryUrl);
               setSearchParams();
-              track('PDP_submodels', {
-                url: queryUrl,
-              });
             }}
           >
             Set Selection
           </Button>
-        )} */}
+        )}
       </div>
     </>
   );

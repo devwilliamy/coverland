@@ -108,14 +108,17 @@ export default function EditVehicleDropdown({
     let url = `/${slugify(type)}/${slugify(make)}/${slugify(model)}/${yearInUrl}`;
     console.log('url', url);
     const currentUrl = `${pathname}${searchParams?.toString() ? `?${searchParams.toString()}` : ''}`;
+    console.log('currentUrl', currentUrl, yearInUrl);
+
+    if (submodel) {
+      url += `?${createQueryString('submodel', submodel)}`;
+      console.log('url', url);
+    }
+
     if (url === currentUrl) {
       setLoading(false);
       closePopover();
       return;
-    }
-
-    if (submodel) {
-      url += `?${createQueryString('submodel', submodel)}`;
     }
 
     // refreshRoute('/');

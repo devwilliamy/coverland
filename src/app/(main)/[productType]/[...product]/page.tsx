@@ -44,6 +44,7 @@ export default async function ProductPDP({
   }
   // refreshRoute('/');
   const initialProductData = await getAllProductData({
+    type: pathParams.productType,
     make,
     model,
     year,

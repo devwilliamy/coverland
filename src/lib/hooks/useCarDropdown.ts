@@ -40,7 +40,6 @@ const useCarDropdown = (modelData: TProductData[] | TCarCoverData[]) => {
       : 'Truck Covers';
   const submodelParam = searchParams?.get('submodel');
   const secondSubmodelParam = searchParams?.get('second_submodel');
-  const [queryUrl, setQueryUrl] = useState('');
 
   const [typePath, makePath, modelPath, yearPath] = pathnameParts;
 
@@ -94,6 +93,7 @@ const useCarDropdown = (modelData: TProductData[] | TCarCoverData[]) => {
 
   const createQueryString = useCallback(
     (name: string, value: string) => {
+      console.log(name, value);
       const params = new URLSearchParams(searchParams?.toString());
       console.log(params.toString());
       params.set(name, value);
@@ -110,7 +110,9 @@ const useCarDropdown = (modelData: TProductData[] | TCarCoverData[]) => {
     const urlParts = [
       selectedMake && slugify(selectedMake),
       selectedModel && slugify(selectedModel),
-      selectedYear && modelData[0]?.parent_generation,
+      selectedYear &&
+        modelData.filter((car) => car.year_options.includes(selectedYear))[0]
+          ?.parent_generation,
     ]
       .filter(Boolean)
       .join('/');
@@ -186,22 +188,17 @@ const useCarDropdown = (modelData: TProductData[] | TCarCoverData[]) => {
   }, [modelData, selectedSubmodel, selectedModel]);
 
   const isFullySelected =
-    (selectionOptions.yearOpts.length > 0 ? !!selectedYear : true) &&
-    (selectionOptions.makeOpts.length > 0 ? !!selectedMake : true) &&
-    (selectionOptions.modelOpts.length > 0 ? !!selectedModel : true) &&
+    !!selectedYear &&
+    !!selectedMake &&
+    !!selectedModel &&
     (selectionOptions.submodelOpts.length > 0 ? !!selectedSubmodel : true) &&
     (selectionOptions.secondSubmodelOpts.length > 0
       ? !!selectedSecondSubmodel
       : true);
 
-  useEffect(() => {
-    const url = createQueryUrl();
-    if (
-      isFullySelected &&
-      (!submodelParam || selectionOptions.secondSubmodelOpts.length > 0)
-    )
-      setQueryUrl(url);
-  }, [createQueryUrl, isFullySelected, submodelParam]);
+  console.log(isFullySelected);
+
+  const queryUrl = createQueryUrl();
 
   console.log(selectionOptions.secondSubmodelOpts);
   console.log(

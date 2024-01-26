@@ -1,8 +1,8 @@
 import { Suspense } from 'react';
-import SubDropdowns from './components/SubDropdowns';
 import { TCarCoverData } from '@/app/(main)/car-covers/components/CarPDP';
 import { TProductData } from '@/lib/db';
 import DefaultDropdown from './components/DefaultDropdown';
+import DropdownRenderer from './components/DropdownRenderer';
 
 export function DropdownPDP({
   modelData,
@@ -21,7 +21,7 @@ export function DropdownPDP({
   return (
     <div className="flex w-full flex-col gap-2 ">
       <Suspense fallback={<div>Loading...</div>}>
-        <SubDropdowns modelData={modelData} />
+        <DropdownRenderer modelData={modelData} />
       </Suspense>
     </div>
   );
