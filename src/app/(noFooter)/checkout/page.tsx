@@ -88,7 +88,7 @@ function CheckoutPage() {
               <TableRow>
                 <TableHead
                   className="flex h-full
-                flex-row items-center justify-between text-3xl
+                flex-row items-center justify-between text-xl
                 md:flex md:flex-row md:gap-2"
                 >
                   <div onClick={() => router.back()}>
@@ -96,11 +96,11 @@ function CheckoutPage() {
                   </div>
                   <div
                     className="flex h-full flex-1
-                flex-col items-center text-3xl 
+                flex-col items-center 
                 md:flex md:flex-row md:gap-2"
                   >
-                    <div className="text-[22px] font-bold text-black">Cart</div>
-                    <div className="pb-2 text-base font-normal md:pb-0">
+                    <div className="text-lg font-bold text-black">Cart</div>
+                    <div className="pb-2 text-sm font-normal md:pb-0">
                       {cartQuantity} Items
                     </div>
                   </div>
@@ -126,19 +126,19 @@ function CheckoutPage() {
                           alt={`The image for a ${item.product_name} car cover`}
                         />
                       </div>
-                      <div className="flex w-7/12 flex-col gap-2">
-                        <div className="w-10/12 text-base font-bold leading-5 lg:text-lg lg:leading-6">
+                      <div className="flex w-7/12 flex-col gap-0.5">
+                        <div className="w-10/12 text-sm font-bold leading-5 lg:text-lg lg:leading-6">
                           {item?.display_id}&trade; {item.type}
                         </div>
-                        <div className="text-sm font-normal text-[#707070] lg:text-base">
+                        <div className="text-xs font-normal text-[#707070] lg:text-base">
                           Vehicle: {item?.make} {item.model}{' '}
                           {item.year_generation}
                           {/* {item.submodel1 && item.submodel1} */}
                         </div>
-                        <div className="text-sm font-normal text-[#707070] lg:text-base">
+                        <div className="text-xs font-normal text-[#707070] lg:text-base">
                           Color: {item.display_color}
                         </div>
-                        <div className="flex gap-3 text-sm font-normal text-[#707070] lg:text-base">
+                        <div className="flex gap-3 text-xs font-normal text-[#707070] lg:text-base">
                           <div className="font-medium lg:text-base">
                             Quantity
                           </div>
@@ -190,10 +190,10 @@ function CheckoutPage() {
                     </TableCell>
                     <TableCell className="flex items-end justify-between py-2 lg:py-4">
                       <div className="flex flex-col">
-                        <div className="text-sm font-normal text-[#343434] lg:text-base">
+                        <div className="text-xs font-normal text-[#343434] lg:text-base">
                           Same-Day Shipping
                         </div>
-                        <div className="flex items-center gap-3 pt-1 text-sm font-normal text-[#343434] lg:text-base">
+                        <div className="flex items-center gap-3 pt-1 text-xs font-normal text-[#343434] lg:text-base">
                           <div>Free Delivery</div>
                           {/* <IconContext.Provider
                             // Info Circle Icon
@@ -212,7 +212,7 @@ function CheckoutPage() {
                         }}
                       >
                         <FaRegTrashAlt
-                          size={20}
+                          size={18}
                           color="grey"
                           onClick={() => {
                             removeItemFromCart(item.sku);
@@ -226,11 +226,11 @@ function CheckoutPage() {
             })}
           </Table>
           <div className="px-4 pb-[4vh] md:mt-4 md:w-4/12">
-            <div className="text-xl font-bold lg:text-[22px]">Summary</div>
-            <div className="mt-2 text-base font-normal text-[#343434] md:mt-[3vh] lg:mt-4">
+            <div className="text-lg font-bold lg:text-[22px]">Summary</div>
+            <div className="mt-2 text-sm font-normal text-[#343434] md:mt-[3vh] lg:mt-4">
               Do you have a Promo Code?
             </div>
-            <div className="mt-[2vh] flex h-8 justify-center gap-2">
+            <div className=" mt-[1vh] flex h-6 justify-center gap-2 lg:mt-[2vh] lg:h-8">
               <input
                 className="w-8/12 rounded border border-[#9C9C9C]"
                 value={promoCode}
@@ -240,10 +240,10 @@ function CheckoutPage() {
               />
               <div
                 className={`
-                flex h-8 w-4/12 cursor-pointer items-center
-                justify-center rounded border
-                border-[#343434] text-lg font-bold text-[#1A1A1A]
-                transition ease-in-out hover:bg-black hover:text-white
+                flex h-6 w-4/12 cursor-pointer items-center justify-center
+                rounded border border-[#343434]
+                text-base font-bold text-[#1A1A1A] transition
+                ease-in-out hover:bg-black hover:text-white lg:h-8
                 ${promoError && 'bg-red-600'}
                 `}
                 onClick={() => {
@@ -256,7 +256,7 @@ function CheckoutPage() {
                 Apply
               </div>
             </div>
-            <div className="border-grey border-b py-4 text-base font-normal text-[#343434] lg:py-[3vh]">
+            <div className="border-grey border-b py-4 text-sm font-normal text-[#343434] lg:py-[3vh]">
               <div className="flex justify-between ">
                 <div>Order Subtotal</div>
                 <div>${orderSubtotal}</div>
@@ -266,7 +266,7 @@ function CheckoutPage() {
                 <div>-${totalDiscountedPrice}</div>
               </div>
             </div>
-            <div className="lg:border-grey flex justify-between py-4 text-base font-semibold lg:border-b lg:py-5 lg:font-bold">
+            <div className="lg:border-grey flex justify-between py-4 text-sm font-semibold lg:border-b lg:py-5 lg:font-bold">
               <div>Order Total</div>
               <div>${totalMsrpPrice}</div>
             </div>
@@ -286,7 +286,7 @@ function CheckoutPage() {
                 )}
               </Button>
             </div>
-            {/* <div className="pb-14"></div> */}
+            <div className="pb-14"></div>
             <div className="fixed inset-x-0 bottom-0 bg-white p-4 shadow-[0_-4px_4px_-0px_rgba(0,0,0,0.1)] md:hidden">
               <div className="flex items-center justify-center">
                 <Button
