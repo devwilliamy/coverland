@@ -1,10 +1,13 @@
 import HeroSection from '@/components/hero/HeroSection';
+import BestSellingSection from '@/components/home/BestSellingSection';
 import BuyWithConfidenceSection from '@/components/home/BuyWithConfdienceSection';
-import CoverCards from '@/components/home/CoverCards';
+import CoversGrid from '@/components/home/CoversGrid';
 import SecuritySection from '@/components/home/SecuritySection';
+import TrendingCarsSection from '@/components/home/TrendingCarsSection';
 // import CategoryCards from '@/pages/home/CategoryCards';
 import ImageAndBlurb from '@/pages/home/ImageAndBlurb';
 import TrustBanner from '@/pages/home/TrustBanner';
+
 import { Suspense } from 'react';
 
 export default function Home() {
@@ -13,7 +16,9 @@ export default function Home() {
       <Suspense>
         <HeroSection />
       </Suspense>
-      <CoverCards />
+      <CoversGrid />
+      <BestSellingSection />
+      <TrendingCarsSection />
       <TrustBanner />
       {/* <SolutionSection /> */}
       <BuyWithConfidenceSection />

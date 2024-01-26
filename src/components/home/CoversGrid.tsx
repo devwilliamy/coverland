@@ -10,9 +10,9 @@ const coverTypes = [
   { title: 'SUV Covers', img: SUV },
 ];
 
-const CoverCards = () => {
+const CoversGrid = () => {
   return (
-    <div className=" mt-[40px] hidden h-full  flex-col items-center  lg:flex">
+    <div className=" mb-[110px] mt-[40px] hidden h-full  flex-col items-center  lg:flex">
       <div className="grid h-full max-w-[1280px]  grid-cols-2 grid-rows-2 place-items-center gap-[20px]  ">
         {coverTypes.map(({ title, img }) => (
           <div
@@ -32,4 +32,4 @@ const CoverCards = () => {
   );
 };
 
-export default CoverCards;
+export default CoversGrid;
