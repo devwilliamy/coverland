@@ -10,12 +10,15 @@ import { NoGarageMobile } from './components/NoGarageMobile';
 import { MoneyBackMobile } from './MoneyBackMobile';
 import { TReviewData } from '@/lib/db';
 import ReviewSection from './components/ReviewSection';
+import { useState } from 'react';
 
 export const MobilePDPDetails = ({
   reviewData,
 }: {
   reviewData: TReviewData[] | null;
 }) => {
+  const [open, setOpen] = useState(false);
+
   return (
     <div className=" w-full px-4 font-black uppercase text-[#1A1A1A] lg:hidden">
       <div id="CarCoverFeatures">
@@ -75,7 +78,11 @@ export const MobilePDPDetails = ({
         </div>
       </div>
 
-      <AccordionDrawerItem title="Product Details">
+      <AccordionDrawerItem
+        open={open}
+        setOpen={setOpen}
+        title="Product Details"
+      >
         <ProductHero />
         {/* <div className=" md:mt-18 lg:mt-28">
                 <Video />
@@ -84,7 +91,7 @@ export const MobilePDPDetails = ({
           <Layers />
         </div>
       </AccordionDrawerItem>
-      <AccordionDrawerItem title="Benefits">
+      <AccordionDrawerItem open={open} setOpen={setOpen} title="Benefits">
         <div className=" md:mt-18 lg:mt-28">
           <ClimateCrisisMobile />
           <NoGarageMobile />
@@ -93,13 +100,17 @@ export const MobilePDPDetails = ({
         </div>
       </AccordionDrawerItem>
 
-      <AccordionDrawerItem title="Q&A">
+      <AccordionDrawerItem open={open} setOpen={setOpen} title="Q&A">
         <div className="lg:mt-28">
           <PDPAccordion />
         </div>
       </AccordionDrawerItem>
 
-      <AccordionDrawerItem title="Shipping & Returns">
+      <AccordionDrawerItem
+        open={open}
+        setOpen={setOpen}
+        title="Shipping & Returns"
+      >
         <div className=" md:mt-18 lg:mt-28">
           <div className="flex flex-col gap-5 px-2  normal-case">
             <div className="mb-[-15px] text-lg font-black">
@@ -132,7 +143,7 @@ export const MobilePDPDetails = ({
         </div>
       </AccordionDrawerItem>
 
-      <AccordionDrawerItem title="Warranty">
+      <AccordionDrawerItem open={open} setOpen={setOpen} title="Warranty">
         <div className=" md:mt-18 mb-[-10px] lg:mt-28">
           <div className="flex flex-col gap-5  normal-case">
             <div className="flex text-[18px] font-black">10-Years Warranty</div>
@@ -150,7 +161,11 @@ export const MobilePDPDetails = ({
       </AccordionDrawerItem>
 
       {!!reviewData?.length && (
-        <AccordionDrawerItem title="Car Cover Reviews">
+        <AccordionDrawerItem
+          open={open}
+          setOpen={setOpen}
+          title="Car Cover Reviews"
+        >
           <div className="md:mt-18 lg:mt-28">
             <ReviewSection reviewData={reviewData} />
           </div>
