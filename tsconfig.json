@@ -22,7 +22,8 @@
       "@/*": ["./src/*"],
       "@/images/*": ["./public/images/*"],
       "@/videos/*": ["./public/videos/*"],
-      "@/data/*": ["./public/data/*"]
+      "@/data/*": ["./public/data/*"],
+      "@/category-images-new/*": ["./public/category-images-new/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],

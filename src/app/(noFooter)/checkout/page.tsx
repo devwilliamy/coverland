@@ -16,6 +16,8 @@ import { loadStripe } from '@stripe/stripe-js';
 import { FaRegTrashAlt } from 'react-icons/fa';
 import { IconContext } from 'react-icons';
 import { AiOutlineLoading3Quarters } from 'react-icons/ai';
+import { IoArrowBack } from 'react-icons/io5';
+import { useRouter } from 'next/navigation';
 function CheckoutPage() {
   const {
     cartItems,
@@ -28,6 +30,7 @@ function CheckoutPage() {
   const [promoCode, setPromoCode] = useState('');
   const [promoError, setPromoError] = useState(false);
   const [loading, setLoading] = useState(false);
+  const router = useRouter();
   // const [quantity, setQuantity] = useState(Number);
   // let totalMsrpPrice = Number(0);
   // let totalDiscountedPrice = Number(0);
@@ -85,12 +88,21 @@ function CheckoutPage() {
               <TableRow>
                 <TableHead
                   className="flex h-full
-                flex-col items-center text-3xl
+                flex-row items-center justify-between text-3xl
                 md:flex md:flex-row md:gap-2"
                 >
-                  <div className="text-[22px] font-bold text-black">Cart</div>
-                  <div className="pb-2 text-base font-normal md:pb-0">
-                    {cartQuantity} Items
+                  <div onClick={() => router.back()}>
+                    <IoArrowBack />
+                  </div>
+                  <div
+                    className="flex h-full flex-1
+                flex-col items-center text-3xl
+                md:flex md:flex-row md:gap-2"
+                  >
+                    <div className="text-[22px] font-bold text-black">Cart</div>
+                    <div className="pb-2 text-base font-normal md:pb-0">
+                      {cartQuantity} Items
+                    </div>
                   </div>
                 </TableHead>
                 {/* <TableHead className="text-xl"> Summary </TableHead> */}

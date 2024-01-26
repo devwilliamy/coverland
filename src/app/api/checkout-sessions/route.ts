@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { headers } from 'next/headers';
-import { TCartItems } from '@/lib/cart/useCart';
+import { TCartItem } from '@/lib/cart/useCart';
 // import { getStripe } from '../utils/orders';
 import Stripe from 'stripe';
 
@@ -15,7 +15,7 @@ export async function POST(req: NextRequest) {
   };
 
   const order_id = generateOrderId();
-  const lineItems = cartItems.map((item: TCartItems) => {
+  const lineItems = cartItems.map((item: TCartItem) => {
     const unitAmount = item.msrp
       ? parseInt((parseFloat(item.msrp) * 100).toFixed(0))
       : 0;
