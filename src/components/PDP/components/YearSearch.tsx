@@ -20,11 +20,10 @@ export function YearSearch({
   return (
     <select
       value={value}
-      defaultValue={value.toLowerCase() ?? ''}
       onChange={handleChange}
       className="rounded-lg px-2 py-3 text-lg outline outline-1 outline-offset-1 "
     >
-      <option value={''}>Submodel</option>
+      <option value={''}>Years</option>
       {yearOpts.map((year) => (
         <option key={`model-${year}`} value={year}>
           {year}

@@ -2,6 +2,7 @@ import { Suspense } from 'react';
 import SubDropdowns from './components/SubDropdowns';
 
 export function DropdownPDP() {
+  console.log('rendering');
   // console.log(submodels, secondSubmodels);
   // console.log('submodels', submodels);
   return (

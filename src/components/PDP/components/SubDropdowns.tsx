@@ -10,30 +10,52 @@ import { SubmodelSearch2nd } from './SubmodelSearch2nd';
 import useDropdownSelector from '@/lib/hooks/useDropdownSelector';
 import useUrlState from '@/lib/hooks/useUrlState';
 import { ModelSearch } from './ModelSearch';
+import { MakeSearch } from './MakeSearch';
 
 export default function SubDropdowns() {
-  const { selectionOptions, setDropdown, url, isFullySelected } =
-    useDropdownSelector();
+  const {
+    selectionOptions,
+    setDropdown,
+    queryUrl,
+    isFullySelected,
+    state: selectionState,
+  } = useDropdownSelector();
   const router = useRouter();
   const { currentUrl, params } = useUrlState();
-  console.log(params);
 
-  const { yearOpts, modelOpts, submodelOpts, secondSubmodelOpts } =
+  const { yearOpts, modelOpts, submodelOpts, secondSubmodelOpts, makeOpts } =
     selectionOptions;
 
   const setSearchParams = () => {
-    router.push(`?${url}`);
+    if (!queryUrl) return;
+    router.push(`${queryUrl}`);
   };
 
-  const isYearInPath = !!params.year;
-
+  const showYearDropdown = !params.year && !isFullySelected;
+  const showMakeDropdown = !params.make && !isFullySelected;
   const showSubmodelDropdown =
-    !!submodelOpts.length && !currentUrl?.includes('submodel');
+    !!submodelOpts.length &&
+    !currentUrl?.includes('submodel') &&
+    selectionState.selectedModel;
   const showSecondSubmodelDropdown =
-    !!secondSubmodelOpts.length && currentUrl?.includes('second_submodel');
-  const showModelDropdown = !!modelOpts.length && !!params.model;
+    !!secondSubmodelOpts.length &&
+    currentUrl?.includes('second_submodel') &&
+    selectionState.selectedModel;
+  const showModelDropdown =
+    !!modelOpts.length && !params.model && !isFullySelected;
 
   if (isFullySelected) {
+    setSearchParams();
+  }
+
+  if (
+    !(
+      showModelDropdown ||
+      showSubmodelDropdown ||
+      showSecondSubmodelDropdown ||
+      showYearDropdown
+    )
+  ) {
     return null;
   }
 
@@ -43,9 +65,12 @@ export default function SubDropdowns() {
         <p className="mb-3 text-center text-xl font-bold capitalize text-white">
           {/* SELECT YOUR VEHICLE */}
         </p>
-        <div className="mb-4 *:w-full">
-          {!isYearInPath && (
+        <div className="mb-4 flex flex-col gap-3 *:w-full">
+          {showYearDropdown && (
             <YearSearch setDropdown={setDropdown} yearOpts={yearOpts} />
+          )}
+          {showMakeDropdown && (
+            <MakeSearch setDropdown={setDropdown} makeOpts={makeOpts} />
           )}
           {showModelDropdown && (
             <ModelSearch setDropdown={setDropdown} modelOpts={modelOpts} />
@@ -69,7 +94,7 @@ export default function SubDropdowns() {
             onClick={() => {
               setSearchParams();
               track('PDP_submodels', {
-                url: url,
+                url: queryUrl,
               });
             }}
           >

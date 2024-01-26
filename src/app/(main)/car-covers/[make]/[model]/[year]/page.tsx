@@ -26,19 +26,29 @@ export default async function CarPDPDataLayer({
 }: {
   params: TCarCoverSlugParams;
 }) {
-  const modelData = await getProductData({
-    make: params.make,
-    model: params.model,
-    year: params.year,
-  });
+  let modelData = [];
+  let reviewData: TReviewData[] | null = [];
 
-  if (!modelData) {
+  try {
+    [modelData, reviewData] = await Promise.all([
+      getProductData({
+        make: params.make,
+        model: params.model,
+        year: params.year,
+      }),
+      getReviewData({
+        make: params.make,
+        model: params.model,
+      }),
+    ]);
+
+    if (!modelData) {
+      redirect('/404');
+    }
+  } catch (error) {
+    console.error('Error fetching data:', error);
     redirect('/404');
   }
-  const reviewData: TReviewData[] | null = await getReviewData({
-    make: params.make,
-    model: params.model,
-  });
 
   const validAndSortedData = modelData
     ?.filter((product) => product.msrp && product.price)

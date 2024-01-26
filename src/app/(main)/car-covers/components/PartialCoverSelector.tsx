@@ -193,11 +193,12 @@ export function PartialCoverSelector({
             </div>
           </div>
           <p className="ml-3 mt-2 text-lg font-black text-[#1A1A1A] ">
-            {`Please select your car's details below`}
+            Cover Colors:
+            <span className="ml-2 text-lg font-normal text-[#767676]">
+              {selectedCover.name}
+            </span>
           </p>
-          <p className="ml-2 text-lg font-normal text-[#767676]">
-            {selectedCover.name}
-          </p>
+
           <div className="flex flex-row space-x-1 overflow-x-auto whitespace-nowrap p-2 lg:grid lg:w-auto lg:grid-cols-5 lg:gap-[7px] lg:px-3">
             {PRODUCT_IMAGES.map((product, idx) => {
               return (

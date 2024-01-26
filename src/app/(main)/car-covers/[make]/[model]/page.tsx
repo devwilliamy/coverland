@@ -24,7 +24,6 @@ export default async function CarPDPModelDataLayer({
   const makeParam = params.make;
 
   const initData = await getProductData({ model: modelParam, make: makeParam });
-  console.log('initData', initData);
 
   const modelData = initData
     ?.map((data) => {

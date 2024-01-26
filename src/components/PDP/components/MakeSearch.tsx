@@ -3,31 +3,30 @@
 import { ChangeEvent, Dispatch, useState } from 'react';
 import { CarSelectorAction } from '@/lib/hooks/useDropdownSelector';
 
-export function ModelSearch({
+export function MakeSearch({
   setDropdown,
-  modelOpts,
+  makeOpts,
 }: {
   setDropdown: Dispatch<CarSelectorAction>;
-  modelOpts: string[];
+  makeOpts: string[];
 }) {
-  const [value, setValue] = useState<string>('');
+  const [value, setValue] = useState('');
 
   function handleChange(e: ChangeEvent<HTMLSelectElement>) {
     setValue(e.target.value);
-    setDropdown({ type: 'SET_MODEL', payload: e.target.value });
+    setDropdown({ type: 'SET_MAKE', payload: e.target.value });
   }
 
   return (
     <select
-      value={value.toLowerCase()}
-      defaultValue={value.toLowerCase() ?? ''}
+      value={value}
       onChange={handleChange}
       className="rounded-lg px-2 py-3 text-lg outline outline-1 outline-offset-1 "
     >
-      <option value={''}>Model</option>
-      {modelOpts.map((model) => (
-        <option key={`model-${model}`} value={model?.toLowerCase() as string}>
-          {model}
+      <option value={''}>Makes</option>
+      {makeOpts.map((make) => (
+        <option key={`${make}`} value={make}>
+          {make}
         </option>
       ))}
     </select>
