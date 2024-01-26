@@ -31,7 +31,7 @@ export default function Dialog({ open, setOpen }: DialogProps) {
         </Transition.Child>
 
         <div className="z-100 fixed inset-0 w-screen overflow-y-auto">
-          <div className=" min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
+          <div className=" max-h-[75vh] min-h-[50vh] items-end justify-center p-4 text-center sm:items-center sm:p-0">
             <Transition.Child
               as={Fragment}
               enter="ease-out duration-300"

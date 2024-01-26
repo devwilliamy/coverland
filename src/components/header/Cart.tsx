@@ -17,12 +17,13 @@ import AddToCartFooter from '../cart/AddToCartFooter';
 import YourCartHeader from '../cart/YourCartHeader';
 import { useMediaQuery } from '@mui/material';
 import Dialog from '../ui/dialog-tailwind-ui';
-
+import { nanoid } from 'nanoid';
+import { useRouter } from 'next/navigation';
 function Cart() {
   const { cartItems, cartOpen, setCartOpen } = useCartContext();
   const cartColor = cartItems.length > 0 ? '#BE1B1B' : '#000000';
   const isMobile = useMediaQuery('(max-width: 768px)');
-
+  const router = useRouter();
   return (
     <>
       <Sheet open={cartOpen}>
@@ -32,13 +33,13 @@ function Cart() {
               size={24}
               color={cartColor}
               className="mt-1 flex h-[40px] w-5 items-center hover:cursor-pointer md:order-last"
-              onClick={() => setCartOpen(true)}
+              onClick={() => router.push('/checkout')}
             />
           </>
         </SheetTrigger>
         <ItemsInCartAnimation cartItems={cartItems} />
         {isMobile ? (
-          <Dialog open={cartOpen} setOpen={setCartOpen} />
+          <Dialog key={nanoid()} open={cartOpen} setOpen={setCartOpen} />
         ) : (
           // <BottomUpDrawer
           //   title={<YourCartHeader />}
