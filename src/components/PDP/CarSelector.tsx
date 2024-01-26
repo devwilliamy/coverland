@@ -134,7 +134,6 @@ function CarSelector({
   submodels,
   secondSubmodels,
   reviewData,
-  parentGeneration,
 }: {
   modelData: TProductData[];
   pathParams: TPDPPathParams;
@@ -142,13 +141,9 @@ function CarSelector({
   secondSubmodels: string[];
   searchParams: TPDPQueryParams;
   reviewData: TReviewData[];
-  parentGeneration: any;
 }) {
-  const defaultModel = modelData.find(
-    (model) =>
-      model.fk ===
-      skuDisplayData.find((row) => row.fk === parentGeneration?.fk)?.fk
-  );
+  const defaultModel = modelData[0];
+  console.log(pathParams);
 
   const modelsBySubmodel =
     modelData.filter(
@@ -248,7 +243,7 @@ function CarSelector({
 
   const avgReviewScore = (reviewScore / reviewCount).toFixed(1);
 
-  const fullProductName = `${selectedProduct?.year_generation}
+  const fullProductName = `${pathParams.product.length > 2 ? selectedProduct?.parent_generation : ''}
   ${selectedProduct?.make} ${selectedProduct?.product_name} 
   ${searchParams?.submodel ? selectedProduct?.submodel1 : ''}
   ${searchParams?.second_submodel ? selectedProduct?.submodel2 : ''}
@@ -622,7 +617,7 @@ function CarSelector({
 
             {/* Select Your Vehicle */}
             <div className="mt-8 w-full">
-              <DropdownPDP />
+              <DropdownPDP modelData={modelData} />
             </div>
             {/* Add to Cart Button */}
             {!isFullySelected && selectedProduct ? (

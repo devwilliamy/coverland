@@ -87,9 +87,9 @@ export async function fetchSubmodelsOfModel(model: string) {
 export async function fetchPDPData(
   pathParams: TPDPPathParams
 ): Promise<TProductData[] | null> {
-  // const makeFromPath = pathParams?.product[0];
+  const makeFromPath = pathParams?.product[0];
   const modelFromPath = pathParams?.product[1];
-  // const yearFromPath = pathParams?.product[2];
+  const yearFromPath = pathParams?.product[2];
 
   // console.log(
   //   makeFromPath,
@@ -268,7 +268,7 @@ export async function getProductData({
   }
 
   if (make) {
-    fetch = fetch.eq('make_string', make);
+    fetch = fetch.textSearch('make_string', make);
   }
 
   if (model) {
@@ -276,6 +276,42 @@ export async function getProductData({
   }
 
   const { data, error } = await fetch;
+
+  console.log(data, year, model, make);
+
+  if (error) {
+    throw new Error(error.message);
+  }
+
+  return data;
+}
+
+export async function getAllProductData({
+  year,
+  make,
+  model,
+}: {
+  year?: string;
+  make?: string;
+  model?: string;
+}) {
+  let fetch = supabase.from('Products-2024').select('*');
+
+  if (year) {
+    fetch = fetch.eq('parent_generation', year);
+  }
+
+  if (make) {
+    fetch = fetch.eq('make_slug', make);
+  }
+
+  if (model) {
+    fetch = fetch.eq('model_slug', model);
+  }
+
+  const { data, error } = await fetch;
+
+  console.log(data, year, model, make);
 
   if (error) {
     throw new Error(error.message);

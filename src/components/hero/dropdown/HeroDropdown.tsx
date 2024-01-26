@@ -8,7 +8,7 @@ import { ModelSearch } from './ModelSearch';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useCallback, useState } from 'react';
 import { SubmodelDropdown } from './SubmodelDropdown';
-import skuDisplayData from '@/data/skuDisplayData.json';
+import parentGenerationJson from '@/data/parent_generation_data.json';
 import { slugify } from '@/lib/utils';
 import { track } from '@vercel/analytics';
 

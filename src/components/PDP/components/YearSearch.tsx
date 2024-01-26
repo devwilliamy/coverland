@@ -1,7 +1,7 @@
 'use client';
 
 import { ChangeEvent, Dispatch, useState } from 'react';
-import { CarSelectorAction } from '@/lib/hooks/useDropdownSelector';
+import { CarSelectorAction } from '@/lib/hooks/useCarDropdown';
 
 export function YearSearch({
   setDropdown,

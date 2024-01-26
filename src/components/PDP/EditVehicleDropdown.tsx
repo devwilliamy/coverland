@@ -92,6 +92,8 @@ export default function EditVehicleDropdown({
 
   const yearInUrl = finalAvailableModels?.[0]?.year_generation;
 
+  console.log('yearInUrl', yearInUrl);
+
   const createQueryString = useCallback(
     (name: string, value: string) => {
       const params = new URLSearchParams(searchParams?.toString());

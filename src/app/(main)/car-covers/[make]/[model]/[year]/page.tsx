@@ -23,9 +23,12 @@ export type TGenerationData = {
 
 export default async function CarPDPDataLayer({
   params,
+  searchParams,
 }: {
   params: TCarCoverSlugParams;
+  searchParams: { submodel?: string; second_submodel?: string };
 }) {
+  const { submodel, second_submodel } = searchParams;
   let modelData = [];
   let reviewData: TReviewData[] | null = [];
 
@@ -35,6 +38,7 @@ export default async function CarPDPDataLayer({
         model: params.model.replace(/[^a-z0-9]/g, ''),
         make: params.make.replace(/[^a-z0-9]/g, ''),
         year: params.year,
+        submodel,
       }),
       getReviewData({
         make: params.make,
@@ -51,6 +55,7 @@ export default async function CarPDPDataLayer({
     redirect('/404');
   }
 
+  console.log(modelData.map((c) => c.submodel2));
   const validAndSortedData = modelData
     ?.filter((product) => product.msrp && product.price)
     .sort((a, b) => {
@@ -64,9 +69,13 @@ export default async function CarPDPDataLayer({
     });
 
   if (modelData?.length === 0) {
-    redirect('/404');
+    // redirect('/404');
   }
 
+  console.log(
+    'validAndSortedData',
+    validAndSortedData.filter((c) => c.submodel2)
+  );
   return (
     <>
       <Suspense fallback={<div>Loading...</div>}>

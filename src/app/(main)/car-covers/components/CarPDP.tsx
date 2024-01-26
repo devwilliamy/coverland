@@ -42,17 +42,30 @@ export default function CarPDP({
   }
 
   if (secondSubmodelParam) {
+    console.log(
+      'filteredModelData',
+      filteredModelData.map((car) => car?.submodel2)
+    );
+
     filteredModelData = filteredModelData?.filter(
       (car) =>
-        car.submodel2 && compareRawStrings(car?.submodel2, secondSubmodelParam)
+        car.submodel2 && compareRawStrings(car.submodel2, secondSubmodelParam)
     );
+    console.log(secondSubmodelParam);
   }
 
-  if (!isCompleteSelection()) {
-    filteredModelData = filteredModelData?.filter(
-      (car) => car.year_generation === year
-    );
-  }
+  // if (!isCompleteSelection()) {
+  //   filteredModelData = filteredModelData?.filter(
+  //     (car) => car.year_generation === year
+  //   );
+  // }
+
+  console.log(
+    'filteredModelData',
+    filteredModelData.map((car) => car?.submodel2)
+  );
+
+  console.log(filteredModelData);
 
   return (
     <>
@@ -62,6 +75,7 @@ export default function CarPDP({
         submodelParam={submodelParam}
         secondSubmodelParam={secondSubmodelParam}
         isCompleteSelection={isCompleteSelection()}
+        yearParam={year}
       />
     </>
   );

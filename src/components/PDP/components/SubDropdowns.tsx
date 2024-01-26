@@ -1,27 +1,26 @@
 'use client';
 
-import { Button } from '@/components/ui/button';
-import { track } from '@vercel/analytics';
 import { useRouter } from 'next/navigation';
 
 import { SubmodelSearch } from './SubmodelSearch';
 import { YearSearch } from './YearSearch';
 import { SubmodelSearch2nd } from './SubmodelSearch2nd';
-import useDropdownSelector from '@/lib/hooks/useDropdownSelector';
+import useCarDropdown from '@/lib/hooks/useCarDropdown';
 import useUrlState from '@/lib/hooks/useUrlState';
 import { ModelSearch } from './ModelSearch';
 import { MakeSearch } from './MakeSearch';
+import { TCarCoverData } from '@/app/(main)/car-covers/components/CarPDP';
+import { TProductData } from '@/lib/db';
 
-export default function SubDropdowns() {
-  const {
-    selectionOptions,
-    setDropdown,
-    queryUrl,
-    isFullySelected,
-    state: selectionState,
-  } = useDropdownSelector();
+export default function SubDropdowns({
+  modelData,
+}: {
+  modelData: TCarCoverData[] | TProductData[];
+}) {
+  const { selectionOptions, setDropdown, queryUrl, isFullySelected, state } =
+    useCarDropdown(modelData);
   const router = useRouter();
-  const { currentUrl, params } = useUrlState();
+  const { currentUrl, params, submodelParam } = useUrlState();
 
   const { yearOpts, modelOpts, submodelOpts, secondSubmodelOpts, makeOpts } =
     selectionOptions;
@@ -29,22 +28,28 @@ export default function SubDropdowns() {
   const setSearchParams = () => {
     if (!queryUrl) return;
     router.push(`${queryUrl}`);
+    setDropdown({ type: 'RESET' });
   };
 
-  const showYearDropdown = !params.year && !isFullySelected;
-  const showMakeDropdown = !params.make && !isFullySelected;
-  const showSubmodelDropdown =
-    !!submodelOpts.length &&
-    !currentUrl?.includes('submodel') &&
-    selectionState.selectedModel;
+  const showYearDropdown = !params.year;
+  const showMakeDropdown = !params.make;
+  const showModelDropdown = !params.model;
+  const showSubmodelDropdown = !!submodelOpts.length && !submodelParam;
   const showSecondSubmodelDropdown =
     !!secondSubmodelOpts.length &&
-    currentUrl?.includes('second_submodel') &&
-    selectionState.selectedModel;
-  const showModelDropdown =
-    !!modelOpts.length && !params.model && !isFullySelected;
+    !currentUrl?.includes('second_submodel') &&
+    !!state.selectedSubmodel;
 
-  if (isFullySelected) {
+  console.log('show', isFullySelected);
+
+  console.log('submodelOpts', secondSubmodelOpts);
+
+  if (
+    isFullySelected &&
+    (currentUrl?.includes('submodel') !== !!state.selectedSubmodel ||
+      currentUrl?.includes('second_submodel') !==
+        !!state.selectedSecondSubmodel)
+  ) {
     setSearchParams();
   }
 
@@ -70,10 +75,16 @@ export default function SubDropdowns() {
             <YearSearch setDropdown={setDropdown} yearOpts={yearOpts} />
           )}
           {showMakeDropdown && (
-            <MakeSearch setDropdown={setDropdown} makeOpts={makeOpts} />
+            <MakeSearch
+              setDropdown={setDropdown}
+              makeOpts={makeOpts as string[]}
+            />
           )}
           {showModelDropdown && (
-            <ModelSearch setDropdown={setDropdown} modelOpts={modelOpts} />
+            <ModelSearch
+              setDropdown={setDropdown}
+              modelOpts={modelOpts as string[]}
+            />
           )}
           {showSubmodelDropdown && (
             <SubmodelSearch
@@ -88,7 +99,7 @@ export default function SubDropdowns() {
             />
           )}
         </div>
-        {isFullySelected && (
+        {/* {isFullySelected && (
           <Button
             className="h-[60px] w-full text-lg"
             onClick={() => {
@@ -100,7 +111,7 @@ export default function SubDropdowns() {
           >
             Set Selection
           </Button>
-        )}
+        )} */}
       </div>
     </>
   );
