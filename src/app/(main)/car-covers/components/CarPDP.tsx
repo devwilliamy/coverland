@@ -76,6 +76,7 @@ export default function CarPDP({
         secondSubmodelParam={secondSubmodelParam}
         isCompleteSelection={isCompleteSelection()}
         yearParam={year}
+        key={`${make}-${model}-${year}-${submodelParam}-${secondSubmodelParam}`}
       />
     </>
   );
