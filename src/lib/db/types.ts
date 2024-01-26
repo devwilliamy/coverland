@@ -24,6 +24,66 @@ export interface Database {
         };
         Relationships: [];
       };
+      '_Products-2024': {
+        Row: {
+          base_sku: string | null;
+          display_color: string | null;
+          display_id: string | null;
+          feature: string | null;
+          make: string | null;
+          model: string | null;
+          msrp: string | null;
+          price: string | null;
+          product: string | null;
+          product_name: string | null;
+          product_type: string | null;
+          sku: string | null;
+          sku_suffix: string | null;
+          submodel1: string | null;
+          submodel2: string | null;
+          type: string | null;
+          year_generation: string | null;
+        };
+        Insert: {
+          base_sku?: string | null;
+          display_color?: string | null;
+          display_id?: string | null;
+          feature?: string | null;
+          make?: string | null;
+          model?: string | null;
+          msrp?: string | null;
+          price?: string | null;
+          product?: string | null;
+          product_name?: string | null;
+          product_type?: string | null;
+          sku?: string | null;
+          sku_suffix?: string | null;
+          submodel1?: string | null;
+          submodel2?: string | null;
+          type?: string | null;
+          year_generation?: string | null;
+        };
+        Update: {
+          base_sku?: string | null;
+          display_color?: string | null;
+          display_id?: string | null;
+          feature?: string | null;
+          make?: string | null;
+          model?: string | null;
+          msrp?: string | null;
+          price?: string | null;
+          product?: string | null;
+          product_name?: string | null;
+          product_type?: string | null;
+          sku?: string | null;
+          sku_suffix?: string | null;
+          submodel1?: string | null;
+          submodel2?: string | null;
+          type?: string | null;
+          year_generation?: string | null;
+        };
+        Relationships: [];
+      };
       '_Subscriber-Emails': {
         Row: {
           email: string | null;
@@ -64,7 +124,9 @@ export interface Database {
           display_id: string | null;
           feature: string | null;
           make: string | null;
+          make_string: string | null;
           model: string | null;
+          model_string: string | null;
           msrp: string | null;
           parent_generation: string | null;
           price: string | null;
@@ -85,7 +147,9 @@ export interface Database {
           display_id?: string | null;
           feature?: string | null;
           make?: string | null;
+          make_string?: string | null;
           model?: string | null;
+          model_string?: string | null;
           msrp?: string | null;
           parent_generation?: string | null;
           price?: string | null;
@@ -106,7 +170,9 @@ export interface Database {
           display_id?: string | null;
           feature?: string | null;
           make?: string | null;
+          make_string?: string | null;
           model?: string | null;
+          model_string?: string | null;
           msrp?: string | null;
           parent_generation?: string | null;
           price?: string | null;
@@ -830,7 +896,7 @@ export interface Database {
           product_name: string | null;
           product_type: string | null;
           product_url_slug: string | null;
-          sku: string | null;
+          sku: string;
           sku_suffix: string | null;
           submodel1: string | null;
           submodel1_slug: string | null;
@@ -858,7 +924,7 @@ export interface Database {
           product_name?: string | null;
           product_type?: string | null;
           product_url_slug?: string | null;
-          sku?: string | null;
+          sku: string;
           sku_suffix?: string | null;
           submodel1?: string | null;
           submodel1_slug?: string | null;
@@ -886,7 +952,7 @@ export interface Database {
           product_name?: string | null;
           product_type?: string | null;
           product_url_slug?: string | null;
-          sku?: string | null;
+          sku?: string;
           sku_suffix?: string | null;
           submodel1?: string | null;
           submodel1_slug?: string | null;

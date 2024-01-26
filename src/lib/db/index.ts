@@ -264,15 +264,15 @@ export async function getProductData({
   let fetch = supabase.from('Car-Data-Master').select('*');
 
   if (year) {
-    fetch = fetch.textSearch('parent_generation', year);
+    fetch = fetch.eq('parent_generation', year);
   }
 
   if (make) {
-    fetch = fetch.textSearch('make', make);
+    fetch = fetch.eq('make_string', make);
   }
 
   if (model) {
-    fetch = fetch.textSearch('model', model);
+    fetch = fetch.textSearch('model_string', model);
   }
 
   const { data, error } = await fetch;

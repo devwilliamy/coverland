@@ -32,8 +32,8 @@ export default async function CarPDPDataLayer({
   try {
     [modelData, reviewData] = await Promise.all([
       getProductData({
-        make: params.make,
-        model: params.model,
+        model: params.model.replace(/[^a-z0-9]/g, ''),
+        make: params.make.replace(/[^a-z0-9]/g, ''),
         year: params.year,
       }),
       getReviewData({

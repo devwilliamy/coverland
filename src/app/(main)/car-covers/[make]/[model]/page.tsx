@@ -23,7 +23,10 @@ export default async function CarPDPModelDataLayer({
   const modelParam = params.model;
   const makeParam = params.make;
 
-  const initData = await getProductData({ model: modelParam, make: makeParam });
+  const initData = await getProductData({
+    model: modelParam.replace(/[^a-z0-9]/g, ''),
+    make: makeParam.replace(/[^a-z0-9]/g, ''),
+  });
 
   const modelData = initData
     ?.map((data) => {

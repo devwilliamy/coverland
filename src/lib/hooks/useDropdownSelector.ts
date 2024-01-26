@@ -131,6 +131,8 @@ const useDropdownSelector = () => {
 
     const url = `/${typePath}/${urlParts}${queryParams.length ? '?' + queryParams.join('&') : ''}`;
 
+    console.log(url);
+
     return url;
   }, [
     state,
