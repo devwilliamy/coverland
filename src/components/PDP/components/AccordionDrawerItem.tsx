@@ -7,7 +7,6 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from '@/components/ui/drawer';
-import { useState } from 'react';
 import { FaPlus } from 'react-icons/fa';
 import { IoClose } from 'react-icons/io5';
 
@@ -15,6 +14,8 @@ type AccordianDrawerProps = {
   title: string;
   description?: string | null;
   children: JSX.Element | JSX.Element[];
+  open: boolean;
+  setOpen: (open: boolean) => void;
 };
 
 // function AccordionDrawerItem2(props: AccordianDrawerProps) {
@@ -64,9 +65,8 @@ type AccordianDrawerProps = {
 // }
 
 function AccordionDrawerItem(props: AccordianDrawerProps) {
-  const [open, setOpen] = useState(false);
   return (
-    <Drawer open={open} onOpenChange={setOpen}>
+    <Drawer open={props.open} onOpenChange={props.setOpen}>
       <DrawerTrigger asChild className=" ">
         <div className="flex w-full flex-row items-center justify-between border-b-2 border-[#C8C7C7] py-4 text-left text-[22px] font-black uppercase text-[#1A1A1A] !no-underline">
           {props.title}
@@ -87,7 +87,7 @@ function AccordionDrawerItem(props: AccordianDrawerProps) {
               className="flex items-center justify-center rounded-full bg-gray-200 p-[5px]"
               onClick={(e) => {
                 e.preventDefault();
-                setOpen(false);
+                props.setOpen(false);
               }}
             >
               <IoClose className="h-[24px] w-[24px]" />
