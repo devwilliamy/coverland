@@ -10,7 +10,7 @@ import { NoGarageMobile } from './components/NoGarageMobile';
 import { MoneyBackMobile } from './MoneyBackMobile';
 import { TReviewData } from '@/lib/db';
 import ReviewSection from './components/ReviewSection';
-
+import { nanoid } from 'nanoid';
 export const MobilePDPDetails = ({
   reviewData,
 }: {
@@ -75,7 +75,7 @@ export const MobilePDPDetails = ({
         </div>
       </div>
 
-      <AccordionDrawerItem title="Product Details">
+      <AccordionDrawerItem key={nanoid()} title="Product Details">
         <ProductHero />
         {/* <div className=" md:mt-18 lg:mt-28">
                 <Video />
@@ -84,7 +84,7 @@ export const MobilePDPDetails = ({
           <Layers />
         </div>
       </AccordionDrawerItem>
-      <AccordionDrawerItem title="Benefits">
+      <AccordionDrawerItem key={nanoid()} title="Benefits">
         <div className=" md:mt-18 lg:mt-28">
           <ClimateCrisisMobile />
           <NoGarageMobile />
@@ -93,13 +93,13 @@ export const MobilePDPDetails = ({
         </div>
       </AccordionDrawerItem>
 
-      <AccordionDrawerItem title="Q&A">
+      <AccordionDrawerItem key={nanoid()} title="Q&A">
         <div className="lg:mt-28">
           <PDPAccordion />
         </div>
       </AccordionDrawerItem>
 
-      <AccordionDrawerItem title="Shipping & Returns">
+      <AccordionDrawerItem key={nanoid()} title="Shipping & Returns">
         <div className=" md:mt-18 lg:mt-28">
           <div className="flex flex-col gap-5 px-2  normal-case">
             <div className="mb-[-15px] text-lg font-black">
@@ -132,7 +132,7 @@ export const MobilePDPDetails = ({
         </div>
       </AccordionDrawerItem>
 
-      <AccordionDrawerItem title="Warranty">
+      <AccordionDrawerItem key={nanoid()} title="Warranty">
         <div className=" md:mt-18 mb-[-10px] lg:mt-28">
           <div className="flex flex-col gap-5  normal-case">
             <div className="flex text-[18px] font-black">10-Years Warranty</div>
@@ -150,7 +150,7 @@ export const MobilePDPDetails = ({
       </AccordionDrawerItem>
 
       {!!reviewData?.length && (
-        <AccordionDrawerItem title="Car Cover Reviews">
+        <AccordionDrawerItem key={nanoid()} title="Car Cover Reviews">
           <div className="md:mt-18 lg:mt-28">
             <ReviewSection reviewData={reviewData} />
           </div>
