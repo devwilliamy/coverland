@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { FaPlus } from 'react-icons/fa';
 import { IoClose } from 'react-icons/io5';
 import { Drawer } from 'vaul';
@@ -57,7 +57,13 @@ type AccordianDrawerProps = {
 
 function AccordionDrawerItem(props: AccordianDrawerProps) {
   const [open, setOpen] = useState(false);
-
+  useEffect(() => {
+    if (!open) {
+      setTimeout(() => {
+        document.body.style.pointerEvents = 'auto';
+      }, 1000);
+    }
+  }, [open]);
   return (
     <Drawer.Root open={open} onOpenChange={setOpen}>
       <Drawer.Trigger className="">
