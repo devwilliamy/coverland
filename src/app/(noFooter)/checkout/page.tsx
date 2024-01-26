@@ -115,7 +115,7 @@ function CheckoutPage() {
               return (
                 <TableBody key={item.sku}>
                   <TableRow className="flex flex-col py-1 lg:py-3">
-                    <TableCell className="flex w-full justify-items-center gap-2 px-4 pt-4 text-2xl font-medium lg:p-4">
+                    <TableCell className="flex w-full justify-items-center gap-2 px-4 pb-1 pt-4 text-2xl font-medium lg:p-4">
                       {/* {`${item.make} ${item.product_name} - ${item.display_id} ${item.display_color}`} */}
                       <div className="h-9/12 w-3/12 justify-items-center ">
                         <Image
@@ -188,7 +188,7 @@ function CheckoutPage() {
                         </div>
                       </div>
                     </TableCell>
-                    <TableCell className="flex items-end justify-between pt-2">
+                    <TableCell className="flex items-end justify-between py-2 lg:py-4">
                       <div className="flex flex-col">
                         <div className="text-sm font-normal text-[#343434] lg:text-base">
                           Same-Day Shipping
@@ -227,7 +227,7 @@ function CheckoutPage() {
           </Table>
           <div className="px-4 pb-[4vh] md:mt-4 md:w-4/12">
             <div className="text-xl font-bold lg:text-[22px]">Summary</div>
-            <div className="mt-4 text-base font-normal text-[#343434] md:mt-[3vh]">
+            <div className="mt-2 text-base font-normal text-[#343434] md:mt-[3vh] lg:mt-4">
               Do you have a Promo Code?
             </div>
             <div className="mt-[2vh] flex h-8 justify-center gap-2">
@@ -256,7 +256,7 @@ function CheckoutPage() {
                 Apply
               </div>
             </div>
-            <div className="border-grey border-b py-[3vh] text-base font-normal text-[#343434]">
+            <div className="border-grey border-b py-4 text-base font-normal text-[#343434] lg:py-[3vh]">
               <div className="flex justify-between ">
                 <div>Order Subtotal</div>
                 <div>${orderSubtotal}</div>
@@ -266,7 +266,7 @@ function CheckoutPage() {
                 <div>-${totalDiscountedPrice}</div>
               </div>
             </div>
-            <div className="lg:border-grey flex justify-between py-5 text-base font-semibold lg:border-b lg:font-bold">
+            <div className="lg:border-grey flex justify-between py-4 text-base font-semibold lg:border-b lg:py-5 lg:font-bold">
               <div>Order Total</div>
               <div>${totalMsrpPrice}</div>
             </div>
@@ -286,12 +286,12 @@ function CheckoutPage() {
                 )}
               </Button>
             </div>
-            <div className="pb-14"></div>
+            {/* <div className="pb-14"></div> */}
             <div className="fixed inset-x-0 bottom-0 bg-white p-4 shadow-[0_-4px_4px_-0px_rgba(0,0,0,0.1)] md:hidden">
               <div className="flex items-center justify-center">
                 <Button
                   variant={'default'}
-                  className="h-[63px] w-full max-w-xs rounded-lg bg-black text-base font-bold uppercase text-white sm:h-[48px] lg:text-xl"
+                  className="h-[48px] w-full max-w-xs rounded-lg bg-black text-base font-bold uppercase text-white lg:h-[63px] lg:text-xl"
                   onClick={() => {
                     redirectToCheckout();
                     setLoading(true);
