@@ -29,7 +29,7 @@ function AccordionDrawerItem(props: AccordianDrawerProps) {
           </div>
         </DrawerTrigger>
         <DrawerContent className="">
-          <DrawerHeader draggable={false}>
+          <DrawerHeader>
             <DrawerTitle className="flex w-full items-center border-b-2 border-[#C8C7C7] py-[22px] font-black uppercase">
               <div
                 id="DrawerTitle"
