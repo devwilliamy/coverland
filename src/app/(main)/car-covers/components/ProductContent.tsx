@@ -24,10 +24,6 @@ import { GoDotFill } from 'react-icons/go';
 import AgentProfile from '@/images/PDP/agent_profile.png';
 import { TCarCoverData } from './CarPDP';
 import { useMediaQuery } from '@mantine/hooks';
-import AddToCartHeader from '@/components/cart/AddToCartHeader';
-import AddToCartBody from '@/components/cart/AddToCartBody';
-import AddToCartFooter from '@/components/cart/AddToCartFooter';
-import BottomUpDrawer from '@/components/ui/bottom-up-drawer';
 import { useState } from 'react';
 import CartSheet from '@/components/cart/CartSheet';
 import {
@@ -39,6 +35,7 @@ import {
 } from '@/components/ui/drawer';
 import { IoClose } from 'react-icons/io5';
 import ReviewSection from '@/components/PDP/components/ReviewSection';
+import Dialog from '@/components/ui/dialog-tailwind-ui';
 
 export function ProductContent({
   selectedProduct,
@@ -411,15 +408,16 @@ export function ProductContent({
         </div>
       </div>
       {isMobile ? (
-        <BottomUpDrawer
-          title={<AddToCartHeader />}
-          open={addToCartOpen}
-          setOpen={setAddToCartOpen}
-          footer={<AddToCartFooter />}
-        >
-          <AddToCartBody selectedProduct={selectedProduct} />
-        </BottomUpDrawer>
+        <Dialog open={addToCartOpen} setOpen={setAddToCartOpen} />
       ) : (
+        // <BottomUpDrawer
+        //   title={<AddToCartHeader />}
+        //   open={addToCartOpen}
+        //   setOpen={setAddToCartOpen}
+        //   footer={<AddToCartFooter />}
+        // >
+        //   <AddToCartBody selectedProduct={selectedProduct} />
+        // </BottomUpDrawer>
         <CartSheet
           open={addToCartOpen}
           setOpen={setAddToCartOpen}
