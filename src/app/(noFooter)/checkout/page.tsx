@@ -96,7 +96,7 @@ function CheckoutPage() {
                   </div>
                   <div
                     className="flex h-full flex-1
-                flex-col items-center text-3xl
+                flex-col items-center text-3xl 
                 md:flex md:flex-row md:gap-2"
                   >
                     <div className="text-[22px] font-bold text-black">Cart</div>
@@ -114,8 +114,8 @@ function CheckoutPage() {
             {cartItems.map((item) => {
               return (
                 <TableBody key={item.sku}>
-                  <TableRow className="flex flex-col py-3">
-                    <TableCell className="flex w-full justify-items-center gap-2 text-2xl font-medium">
+                  <TableRow className="flex flex-col py-1 lg:py-3">
+                    <TableCell className="flex w-full justify-items-center gap-2 px-4 pt-4 text-2xl font-medium lg:p-4">
                       {/* {`${item.make} ${item.product_name} - ${item.display_id} ${item.display_color}`} */}
                       <div className="h-9/12 w-3/12 justify-items-center ">
                         <Image
@@ -127,7 +127,7 @@ function CheckoutPage() {
                         />
                       </div>
                       <div className="flex w-7/12 flex-col gap-2">
-                        <div className="w-10/12 text-base font-bold lg:text-lg">
+                        <div className="w-10/12 text-base font-bold leading-5 lg:text-lg lg:leading-6">
                           {item?.display_id}&trade; {item.type}
                         </div>
                         <div className="text-sm font-normal text-[#707070] lg:text-base">
@@ -173,7 +173,7 @@ function CheckoutPage() {
                           </form> */}
                         </div>
                       </div>
-                      <div className="flex w-2/12 flex-col text-right ">
+                      <div className="flex w-3/12 flex-col text-right ">
                         <div className="text-base font-bold lg:text-lg">
                           $
                           {item.msrp
@@ -188,7 +188,7 @@ function CheckoutPage() {
                         </div>
                       </div>
                     </TableCell>
-                    <TableCell className="flex items-end justify-between">
+                    <TableCell className="flex items-end justify-between pt-2">
                       <div className="flex flex-col">
                         <div className="text-sm font-normal text-[#343434] lg:text-base">
                           Same-Day Shipping
@@ -225,9 +225,9 @@ function CheckoutPage() {
               );
             })}
           </Table>
-          <div className="mt-4 px-4 pb-[4vh] md:w-4/12">
+          <div className="px-4 pb-[4vh] md:mt-4 md:w-4/12">
             <div className="text-xl font-bold lg:text-[22px]">Summary</div>
-            <div className="mt-[3vh] text-base font-normal text-[#343434]">
+            <div className="mt-4 text-base font-normal text-[#343434] md:mt-[3vh]">
               Do you have a Promo Code?
             </div>
             <div className="mt-[2vh] flex h-8 justify-center gap-2">
@@ -266,7 +266,7 @@ function CheckoutPage() {
                 <div>-${totalDiscountedPrice}</div>
               </div>
             </div>
-            <div className="border-grey flex justify-between  border-b py-5 text-base font-semibold lg:font-bold">
+            <div className="lg:border-grey flex justify-between py-5 text-base font-semibold lg:border-b lg:font-bold">
               <div>Order Total</div>
               <div>${totalMsrpPrice}</div>
             </div>
@@ -286,12 +286,12 @@ function CheckoutPage() {
                 )}
               </Button>
             </div>
-            <div className="pb-20"></div>
-            <div className="fixed bottom-5 w-11/12 bg-white md:hidden">
-              <div className="flex w-full items-center">
+            <div className="pb-14"></div>
+            <div className="fixed inset-x-0 bottom-0 bg-white p-4 shadow-[0_-4px_4px_-0px_rgba(0,0,0,0.1)] md:hidden">
+              <div className="flex items-center justify-center">
                 <Button
                   variant={'default'}
-                  className="h-[63px] w-full  rounded-lg bg-black text-base font-bold uppercase text-white sm:h-[48px] lg:text-xl"
+                  className="h-[63px] w-full max-w-xs rounded-lg bg-black text-base font-bold uppercase text-white sm:h-[48px] lg:text-xl"
                   onClick={() => {
                     redirectToCheckout();
                     setLoading(true);
