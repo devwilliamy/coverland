@@ -58,8 +58,6 @@ export default function EditVehicleDropdown({
       ? sku.submodel1 === submodel && sku.model === model
       : sku.model === model
   );
-  console.log(availableModels);
-  console.log(finalAvailableModels);
 
   const queryObj = {
     query,
@@ -89,8 +87,6 @@ export default function EditVehicleDropdown({
   ];
 
   const yearInUrl = finalAvailableModels?.[0]?.year_generation;
-
-  console.log(yearInUrl);
 
   const createQueryString = useCallback(
     (name: string, value: string) => {

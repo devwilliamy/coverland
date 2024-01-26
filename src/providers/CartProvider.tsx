@@ -1,12 +1,12 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 
 import React, { createContext, useContext } from 'react';
-import useCart, { TCartItems } from '@/lib/cart/useCart';
+import useCart, { TCartItem } from '@/lib/cart/useCart';
 
 const defaultCartValue = {
-  cartItems: [] as TCartItems[],
-  addToCart: (item: TCartItems) => {},
-  removeItemFromCart: (sku: TCartItems['sku']) => {},
+  cartItems: [] as TCartItem[],
+  addToCart: (item: TCartItem) => {},
+  removeItemFromCart: (sku: TCartItem['sku']) => {},
   adjustItemQuantity: (sku: string, quantity: number) => {},
   getTotalPrice: (): number => 0,
   getOrderSubtotal: (): number => 0,

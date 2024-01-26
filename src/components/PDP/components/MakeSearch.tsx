@@ -3,18 +3,18 @@
 import { ChangeEvent, Dispatch, useState } from 'react';
 import { CarSelectorAction } from '@/lib/hooks/useDropdownSelector';
 
-export function YearSearch({
+export function MakeSearch({
   setDropdown,
-  yearOpts,
+  makeOpts,
 }: {
   setDropdown: Dispatch<CarSelectorAction>;
-  yearOpts: string[];
+  makeOpts: string[];
 }) {
   const [value, setValue] = useState('');
 
   function handleChange(e: ChangeEvent<HTMLSelectElement>) {
     setValue(e.target.value);
-    setDropdown({ type: 'SET_YEAR', payload: e.target.value });
+    setDropdown({ type: 'SET_MAKE', payload: e.target.value });
   }
 
   return (
@@ -23,10 +23,10 @@ export function YearSearch({
       onChange={handleChange}
       className="rounded-lg px-2 py-3 text-lg outline outline-1 outline-offset-1 "
     >
-      <option value={''}>Years</option>
-      {yearOpts.map((year) => (
-        <option key={`model-${year}`} value={year}>
-          {year}
+      <option value={''}>Makes</option>
+      {makeOpts.map((make) => (
+        <option key={`${make}`} value={make}>
+          {make}
         </option>
       ))}
     </select>
