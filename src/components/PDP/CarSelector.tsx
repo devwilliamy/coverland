@@ -38,10 +38,6 @@ import dynamicImport from 'next/dynamic';
 import { type CarouselApi } from '@/components/ui/carousel';
 import skuDisplayData from '@/data/skuDisplayData.json';
 import { stringToSlug } from '@/lib/utils';
-import BottomUpDrawer from '../ui/bottom-up-drawer';
-import AddToCartHeader from '../cart/AddToCartHeader';
-import AddToCartBody from '../cart/AddToCartBody';
-import AddToCartFooter from '../cart/AddToCartFooter';
 import CartSheet from '../cart/CartSheet';
 import {
   Drawer,
