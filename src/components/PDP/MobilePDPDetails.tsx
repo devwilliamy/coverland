@@ -18,15 +18,6 @@ import {
 } from '../ui/drawer';
 import { IoClose } from 'react-icons/io5';
 import { useRef } from 'react';
-import {
-  Drawer,
-  DrawerClose,
-  DrawerContent,
-  DrawerTitle,
-  DrawerTrigger,
-} from '../ui/drawer';
-import { IoClose } from 'react-icons/io5';
-import { useRef } from 'react';
 
 export const MobilePDPDetails = ({
   reviewData,
