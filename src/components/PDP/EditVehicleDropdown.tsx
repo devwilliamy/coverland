@@ -53,6 +53,8 @@ export default function EditVehicleDropdown({
 
   const availableModels = availableMakes.filter((sku) => sku.make === make);
 
+  console.log(availableModels);
+
   const finalAvailableModels = availableModels.filter((sku) =>
     submodel
       ? sku.submodel1 === submodel && sku.model === model
@@ -86,6 +88,8 @@ export default function EditVehicleDropdown({
     ),
   ];
 
+  console.log('finalAvailableModels', finalAvailableModels);
+
   const yearInUrl = finalAvailableModels?.[0]?.year_generation;
 
   const createQueryString = useCallback(
@@ -102,9 +106,11 @@ export default function EditVehicleDropdown({
   );
 
   const handleSubmitDropdown = async () => {
+    console.log(year, make, model, type);
     if (!year || !type || !make || !model) return;
     setLoading(true);
     let url = `/${slugify(type)}/${slugify(make)}/${slugify(model)}/${yearInUrl}`;
+    console.log('url', url);
     const currentUrl = `${pathname}${searchParams?.toString() ? `?${searchParams.toString()}` : ''}`;
     if (url === currentUrl) {
       setLoading(false);
