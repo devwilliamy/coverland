@@ -11,10 +11,6 @@ import { MoneyBackMobile } from './MoneyBackMobile';
 import { TReviewData } from '@/lib/db';
 import ReviewSection from './components/ReviewSection';
 import WarrantyPolicy from '@/app/(main)/policies/warranty-policy/page';
-import PolicyHeader from '../policy/PolicyHeader';
-import PolicyTitle from '../policy/PolicyTitle';
-import PolicyDetail from '../policy/PolicyDetail';
-import PolicyFurtherAssistance from '../policy/PolicyFurtherAssistance';
 
 export const MobilePDPDetails = ({
   reviewData,
@@ -138,7 +134,9 @@ export const MobilePDPDetails = ({
       </AccordionDrawerItem>
 
       <AccordionDrawerItem title="Warranty">
-        <WarrantyPolicy hideHeader />
+        <div className="-mx-4 mt-[-40px]">
+          <WarrantyPolicy hideHeader />
+        </div>
       </AccordionDrawerItem>
 
       {!!reviewData?.length && (
