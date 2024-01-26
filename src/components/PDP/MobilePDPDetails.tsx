@@ -134,7 +134,7 @@ export const MobilePDPDetails = ({
       </AccordionDrawerItem>
 
       <AccordionDrawerItem title="Warranty">
-        <div className="-mx-4 mt-[-40px]">
+        <div className="-mx-5 mt-[-40px]">
           <WarrantyPolicy hideHeader />
         </div>
       </AccordionDrawerItem>
