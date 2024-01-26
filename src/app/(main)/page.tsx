@@ -1,5 +1,6 @@
 import HeroSection from '@/components/hero/HeroSection';
 import BuyWithConfidenceSection from '@/components/home/BuyWithConfdienceSection';
+import CoverCards from '@/components/home/CoverCards';
 import SecuritySection from '@/components/home/SecuritySection';
 // import CategoryCards from '@/pages/home/CategoryCards';
 import ImageAndBlurb from '@/pages/home/ImageAndBlurb';
@@ -12,7 +13,7 @@ export default function Home() {
       <Suspense>
         <HeroSection />
       </Suspense>
-      {/* <CategoryCards /> */}
+      <CoverCards />
       <TrustBanner />
       {/* <SolutionSection /> */}
       <BuyWithConfidenceSection />
