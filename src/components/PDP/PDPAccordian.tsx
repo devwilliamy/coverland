@@ -6,11 +6,10 @@ import {
   AccordionTrigger,
 } from '@/components/ui/accordion';
 
-
 export function PDPAccordion() {
   return (
     <>
-      <div className="bg-[#F9F9FB] px-2 md:p-8 lg:p-14">
+      <div className="min-h-[60vh] bg-[#F9F9FB] px-2 md:p-8 lg:max-h-none lg:p-14">
         <h2 className="hidden text-center text-2xl font-black uppercase text-[#1A1A1A] md:text-3xl lg:text-5xl">
           q&a
         </h2>

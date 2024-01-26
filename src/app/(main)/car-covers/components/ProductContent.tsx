@@ -14,7 +14,7 @@ import {
   PopoverTrigger,
 } from '@/components/ui/popover';
 import { Separator } from '@/components/ui/separator';
-import { TProductData, TReviewData } from '@/lib/db';
+import { TReviewData } from '@/lib/db';
 import { Rating } from '@mui/material';
 import { track } from '@vercel/analytics';
 import Image from 'next/image';
@@ -45,9 +45,6 @@ export function ProductContent({
   reviewCount,
   avgReviewScore,
   reviewData,
-  modelData,
-  submodels,
-  secondSubmodels,
   isReadyForProductSelection,
   handleAddToCart,
 }: {
@@ -55,9 +52,6 @@ export function ProductContent({
   reviewCount: number;
   avgReviewScore: string;
   reviewData: TReviewData[] | undefined | null;
-  modelData: TCarCoverData[];
-  submodels: string[];
-  secondSubmodels: string[];
   isReadyForProductSelection: boolean;
   handleAddToCart: () => void;
 }) {
@@ -238,11 +232,7 @@ export function ProductContent({
         {/* Select Your Vehicle */}
         {!isReadyForProductSelection && (
           <div className="mt-8 w-full">
-            <DropdownPDP
-              modelData={modelData as TProductData[]}
-              submodels={submodels}
-              secondSubmodels={secondSubmodels}
-            />
+            <DropdownPDP />
           </div>
         )}
         {/* Add to Cart Button */}

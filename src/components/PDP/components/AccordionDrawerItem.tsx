@@ -61,7 +61,7 @@ function AccordionDrawerItem(props: AccordianDrawerProps) {
               <></>
             )}
           </DrawerHeader>
-          <div className="mx-auto flex max-h-[76vh] w-full flex-col overflow-y-scroll px-4 pt-[40px]">
+          <div className="mx-auto flex max-h-[76vh]  min-h-[76vh] w-full flex-col overflow-y-scroll px-4 pt-[40px]">
             {props.children}
           </div>
         </DrawerContent>
