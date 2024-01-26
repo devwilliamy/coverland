@@ -16,7 +16,7 @@ import AddToCartBody from '../cart/AddToCartBody';
 import AddToCartFooter from '../cart/AddToCartFooter';
 import YourCartHeader from '../cart/YourCartHeader';
 import { useMediaQuery } from '@mui/material';
-import BottomUpDrawer from '../ui/bottom-up-drawer';
+import Dialog from '../ui/dialog-tailwind-ui';
 
 function Cart() {
   const { cartItems, cartOpen, setCartOpen } = useCartContext();
@@ -38,15 +38,16 @@ function Cart() {
         </SheetTrigger>
         <ItemsInCartAnimation cartItems={cartItems} />
         {isMobile ? (
-          <BottomUpDrawer
-            title={<YourCartHeader />}
-            open={cartOpen}
-            setOpen={setCartOpen}
-            footer={<AddToCartFooter />}
-          >
-            <AddToCartBody />
-          </BottomUpDrawer>
+          <Dialog open={cartOpen} setOpen={setCartOpen} />
         ) : (
+          // <BottomUpDrawer
+          //   title={<YourCartHeader />}
+          //   open={cartOpen}
+          //   setOpen={setCartOpen}
+          //   footer={<AddToCartFooter />}
+          // >
+          //   <AddToCartBody />
+          // </BottomUpDrawer>
           <SheetContent className="flex flex-col">
             <SheetHeader>
               <SheetTitle className="flex w-full items-center justify-between py-7 pl-4 pr-7">
