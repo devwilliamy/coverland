@@ -34,12 +34,9 @@ export function HeroDropdown() {
 
   const { year, type, make, model, submodel } = query;
   const isReadyForSubmit = year && type && make && model;
-  const types = ['Car Covers', 'SUV Covers', 'Truck Covers'];
 
-  const typeIndex = String(types.indexOf(type) + 1);
-
-  const availableMakes = skuDisplayData.filter(
-    (sku) => sku.year_options.includes(year) && String(sku.fk)[0] === typeIndex
+  const availableMakes = parentGenerationJson.filter(
+    (sku) => sku.year_options.includes(year) && sku.type === type
   );
 
   const availableModels = availableMakes.filter((sku) => sku.make === make);
@@ -81,11 +78,15 @@ export function HeroDropdown() {
   //selected, or there's none available. If the former, use the parent generation.
   //If the latter, finalAvailableModels will only have one item, so use it's year_generation.
 
-  const yearInUrl = !submodel
-    ? finalAvailableModels.filter((sku) => sku.generation_default === sku.fk)[0]
-        ?.year_generation ?? finalAvailableModels?.[0]?.year_generation
-    : skuDisplayData.find((sku) => sku.fk === finalAvailableModels?.[0]?.fk)
-        ?.year_generation ?? finalAvailableModels?.[0]?.year_generation;
+  // const yearInUrl = !submodel
+  //   ? finalAvailableModels.filter((sku) => sku.generation_default === sku.fk)[0]
+  //       ?.year_generation ?? finalAvailableModels?.[0]?.year_generation
+  //   : skuDisplayData.find((sku) => sku.fk === finalAvailableModels?.[0]?.fk)
+  //       ?.year_generation ?? finalAvailableModels?.[0]?.year_generation;
+
+  //       console.log()
+
+  const yearInUrl = finalAvailableModels?.[0]?.parent_generation;
 
   const createQueryString = useCallback(
     (name: string, value: string) => {
