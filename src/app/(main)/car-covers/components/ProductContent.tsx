@@ -39,6 +39,7 @@ import {
 } from '@/components/ui/drawer';
 import { IoClose } from 'react-icons/io5';
 import ReviewSection from '@/components/PDP/components/ReviewSection';
+import { generateProductsLeft } from '@/lib/utils';
 
 export function ProductContent({
   selectedProduct,
@@ -64,23 +65,6 @@ export function ProductContent({
   const isMobile = useMediaQuery('(max-width: 768px)');
   const [addToCartOpen, setAddToCartOpen] = useState<boolean>(false);
   const [reviewDrawerOpen, setReviewDrawerOpen] = useState<boolean>(false);
-  let productAmount = 0;
-  let p = selectedProduct;
-  if (p && p.sku) {
-    for (let i = 0; i < p.sku.length; i++) {
-      const char = p.sku[i];
-      productAmount += char.charCodeAt(0) * i;
-    }
-    productAmount = Math.log(productAmount);
-    let string = productAmount.toString();
-    for (let i = 5; i < string.length; i++) {
-      const num = parseInt(string[i]);
-      if (num > 2 && num < 7) {
-        productAmount = num;
-        break;
-      }
-    }
-  }
   return (
     <>
       <div className="grid grid-cols-1">
@@ -200,9 +184,11 @@ export function ProductContent({
         <div className="grid grid-cols-1">
           <p className="text-dark relative mb-2.5 text-xl font-bold capitalize md:text-3xl">
             ${selectedProduct?.msrp}
-            <span className="top absolute ml-2.5 text-xl font-normal capitalize text-[#D13C3F]">
-              only{' '}{productAmount} left
-            </span>
+            {selectedProduct?.display_id !== 'Premium' && (
+              <span className="top absolute ml-2.5 text-xl font-normal capitalize text-[#D13C3F]">
+                only {generateProductsLeft(selectedProduct)} left
+              </span>
+            )}
           </p>
           {selectedProduct?.price && (
             <p className="text-lg font-normal text-[#1A1A1A] md:text-[22px]">

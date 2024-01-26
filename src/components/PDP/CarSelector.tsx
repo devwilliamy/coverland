@@ -38,7 +38,7 @@ import { Carousel, CarouselContent, CarouselItem } from '../ui/carousel';
 import dynamicImport from 'next/dynamic';
 import { type CarouselApi } from '@/components/ui/carousel';
 import skuDisplayData from '@/data/skuDisplayData.json';
-import { stringToSlug } from '@/lib/utils';
+import { generateProductsLeft, stringToSlug } from '@/lib/utils';
 import BottomUpDrawer from '../ui/bottom-up-drawer';
 import AddToCartHeader from '../cart/AddToCartHeader';
 import AddToCartBody from '../cart/AddToCartBody';
@@ -258,24 +258,6 @@ function CarSelector({
   ${searchParams?.second_submodel ? selectedProduct?.submodel2 : ''}
   `;
   const [open, setOpen] = useState(false);
-  let productAmount = 0;
-  let p = selectedProduct;
-  if (p && p.sku) {
-    for (let i = 0; i < p.sku.length; i++) {
-      const char = p.sku[i];
-      productAmount += char.charCodeAt(0) * i;
-    }
-    productAmount = Math.log(productAmount);
-    let string = productAmount.toString();
-    for (let i = 4; i < string.length; i++) {
-      const num = parseInt(string[i]);
-      if (num > 2 && num < 7) {
-        productAmount = num;
-        break;
-      }
-    }
-  }
-
   return (
     <section className="mx-auto h-auto w-full max-w-[1280px] px-4 lg:my-8">
       <div className="flex w-full flex-col items-start justify-between lg:flex-row lg:gap-14">
@@ -590,9 +572,11 @@ function CarSelector({
             <div className="grid grid-cols-1">
               <p className="text-dark relative mb-2.5 text-xl font-bold capitalize md:text-3xl">
                 ${selectedProduct?.msrp}
-                <span className="top absolute ml-2.5 text-xl font-normal capitalize text-[#D13C3F]">
-                only{' '}{productAmount} left
-                </span>
+                {selectedProduct?.display_id !== 'Premium' && (
+                  <span className="top absolute ml-2.5 text-xl font-normal capitalize text-[#D13C3F]">
+                    only {generateProductsLeft(selectedProduct)} left
+                  </span>
+                )}
               </p>
               {selectedProduct?.price && (
                 <p className="text-lg font-normal text-[#1A1A1A] md:text-[22px]">

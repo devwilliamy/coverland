@@ -2,6 +2,7 @@ import { TProductData } from './db/index';
 import { type ClassValue, clsx } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 import { modelStrings } from './constants';
+import { TCarCoverData } from '@/app/(main)/car-covers/components/CarPDP';
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -108,6 +109,28 @@ export function groupProductsBy(
 
   return Object.keys(groups);
 }
+
+export const generateProductsLeft = (
+  selectedProduct: TCarCoverData | TProductData | null | undefined
+): number => {
+  let productAmount = 0;
+  if (selectedProduct && selectedProduct.sku) {
+    for (let i = 0; i < selectedProduct.sku.length; i++) {
+      const char = selectedProduct.sku[i];
+      productAmount += char.charCodeAt(0) * i;
+    }
+    productAmount = Math.log(productAmount);
+    const productString = productAmount.toString();
+    for (let i = 5; i < productString.length; i++) {
+      const num = parseInt(productString[i]);
+      if (num > 2 && num < 7) {
+        productAmount = num;
+        break;
+      }
+    }
+  }
+  return productAmount;
+};
 
 // export function getColorOptions(data: Model[], selectedModel: { year_generation: number }): string[] {
 //   return data
