@@ -16,13 +16,12 @@ import AddToCartBody from '../cart/AddToCartBody';
 import AddToCartFooter from '../cart/AddToCartFooter';
 import YourCartHeader from '../cart/YourCartHeader';
 import { useMediaQuery } from '@mui/material';
-import BottomUpDrawer from '../ui/bottom-up-drawer';
-
+import { useRouter } from 'next/navigation';
 function Cart() {
   const { cartItems, cartOpen, setCartOpen } = useCartContext();
   const cartColor = cartItems.length > 0 ? '#BE1B1B' : '#000000';
   const isMobile = useMediaQuery('(max-width: 768px)');
-
+  const router = useRouter();
   return (
     <>
       <Sheet open={cartOpen}>
@@ -32,21 +31,21 @@ function Cart() {
               size={24}
               color={cartColor}
               className="mt-1 flex h-[40px] w-5 items-center hover:cursor-pointer md:order-last"
-              onClick={() => setCartOpen(true)}
+              onClick={() => router.push('/checkout')}
             />
           </>
         </SheetTrigger>
         <ItemsInCartAnimation cartItems={cartItems} />
-        {isMobile ? (
-          <BottomUpDrawer
-            title={<YourCartHeader />}
-            open={cartOpen}
-            setOpen={setCartOpen}
-            footer={<AddToCartFooter />}
-          >
-            <AddToCartBody />
-          </BottomUpDrawer>
-        ) : (
+        {isMobile ? null : (
+          // <Dialog key={nanoid()} open={cartOpen} setOpen={setCartOpen} />
+          // <BottomUpDrawer
+          //   title={<YourCartHeader />}
+          //   open={cartOpen}
+          //   setOpen={setCartOpen}
+          //   footer={<AddToCartFooter />}
+          // >
+          //   <AddToCartBody />
+          // </BottomUpDrawer>
           <SheetContent className="flex flex-col">
             <SheetHeader>
               <SheetTitle className="flex w-full items-center justify-between py-7 pl-4 pr-7">
