@@ -266,14 +266,14 @@ function CheckoutPage() {
                 <div>-${totalDiscountedPrice}</div>
               </div>
             </div>
-            <div className="lg:border-grey flex justify-between py-4 text-sm font-semibold lg:border-b lg:py-5 lg:font-bold">
+            <div className="lg:border-grey flex justify-between py-4 text-base font-semibold lg:border-b lg:py-5 lg:font-bold">
               <div>Order Total</div>
               <div>${totalMsrpPrice}</div>
             </div>
             <div className="my-8 hidden w-full justify-center md:flex">
               <Button
                 variant={'default'}
-                className="h-[63px] w-full rounded-lg  bg-black text-base font-bold uppercase text-white sm:h-[48px] lg:text-xl"
+                className="h-[48px] w-full rounded-lg  bg-black text-base font-bold uppercase text-white lg:h-[63px] lg:text-xl"
                 onClick={() => {
                   redirectToCheckout();
                   setLoading(true);
