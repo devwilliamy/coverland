@@ -87,6 +87,8 @@ export function compareRawStrings(str1: string, str2: string) {
   processedStr1 = processedStr1.replace(/[^a-z0-9]/g, '');
   processedStr2 = processedStr2.replace(/[^a-z0-9]/g, '');
 
+  console.log('strings', processedStr1, processedStr2);
+
   return processedStr1 === processedStr2;
 }
 

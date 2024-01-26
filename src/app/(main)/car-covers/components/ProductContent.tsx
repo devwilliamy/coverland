@@ -1,4 +1,3 @@
-import { DropdownPDP } from '@/components/PDP/DropdownPDP';
 import DeliveryDate from '@/components/PDP/components/DeliveryDate';
 import { TimeTo2PMPST } from '@/components/PDP/components/TimeTo2PM';
 import {
@@ -23,6 +22,7 @@ import { BsBoxSeam, BsGift } from 'react-icons/bs';
 import { GoDotFill } from 'react-icons/go';
 import AgentProfile from '@/images/PDP/agent_profile.png';
 import { TCarCoverData } from './CarPDP';
+import { DropdownPDP } from '@/components/PDP/DropdownPDP';
 
 export function ProductContent({
   selectedProduct,

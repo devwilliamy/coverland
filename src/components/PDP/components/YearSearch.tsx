@@ -38,13 +38,13 @@ export function YearSearch({
           variant="outline"
           role="combobox"
           aria-expanded={open}
-          className="w-full h-[60px] justify-between"
+          className="h-[60px] w-full justify-between"
         >
           {value ? value : 'Select car year'}
           <ChevronDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="w-[400px] h-[300px] p-0 text-xl">
+      <PopoverContent className="h-[300px] w-[400px] p-0 text-xl">
         <Command>
           <CommandInput placeholder="Enter Year" />
           <CommandEmpty>No year found.</CommandEmpty>
