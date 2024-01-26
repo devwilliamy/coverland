@@ -84,7 +84,8 @@ function AccordionDrawerItem(props: AccordianDrawerProps) {
               <div className="flex w-full pb-4 pt-6">{props.title}</div>
               <div
                 className="my-4 flex items-center justify-center rounded-full bg-gray-200 p-[5px]"
-                onClick={() => {
+                onClick={(e) => {
+                  e.preventDefault();
                   setOpen(false);
                 }}
               >
