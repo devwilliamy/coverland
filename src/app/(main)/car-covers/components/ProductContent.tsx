@@ -36,6 +36,7 @@ import {
 import { IoClose } from 'react-icons/io5';
 import ReviewSection from '@/components/PDP/components/ReviewSection';
 import Dialog from '@/components/ui/dialog-tailwind-ui';
+import { useRouter } from 'next/navigation';
 
 export function ProductContent({
   selectedProduct,
@@ -55,7 +56,7 @@ export function ProductContent({
   const isMobile = useMediaQuery('(max-width: 768px)');
   const [addToCartOpen, setAddToCartOpen] = useState<boolean>(false);
   const [reviewDrawerOpen, setReviewDrawerOpen] = useState<boolean>(false);
-
+  const router = useRouter();
   return (
     <>
       <div className="grid grid-cols-1">
@@ -257,7 +258,9 @@ export function ProductContent({
                   sku: selectedProduct?.sku,
                 });
               handleAddToCart();
-              setAddToCartOpen(true);
+              isMobile ? router.push('/checkout') : setAddToCartOpen(true);
+
+              // setAddToCartOpen(true);
             }}
           >
             Add To Cart

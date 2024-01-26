@@ -16,8 +16,6 @@ import AddToCartBody from '../cart/AddToCartBody';
 import AddToCartFooter from '../cart/AddToCartFooter';
 import YourCartHeader from '../cart/YourCartHeader';
 import { useMediaQuery } from '@mui/material';
-import Dialog from '../ui/dialog-tailwind-ui';
-import { nanoid } from 'nanoid';
 import { useRouter } from 'next/navigation';
 function Cart() {
   const { cartItems, cartOpen, setCartOpen } = useCartContext();
@@ -38,9 +36,8 @@ function Cart() {
           </>
         </SheetTrigger>
         <ItemsInCartAnimation cartItems={cartItems} />
-        {isMobile ? (
-          <Dialog key={nanoid()} open={cartOpen} setOpen={setCartOpen} />
-        ) : (
+        {isMobile ? null : (
+          // <Dialog key={nanoid()} open={cartOpen} setOpen={setCartOpen} />
           // <BottomUpDrawer
           //   title={<YourCartHeader />}
           //   open={cartOpen}

@@ -49,6 +49,7 @@ import {
 import { IoClose } from 'react-icons/io5';
 import ReviewSection from './components/ReviewSection';
 import Dialog from '../ui/dialog-tailwind-ui';
+import { useRouter } from 'next/navigation';
 
 const ProductVideo = dynamicImport(() => import('./ProductVideo'), {
   ssr: false,
@@ -251,7 +252,7 @@ function CarSelector({
   ${searchParams?.second_submodel ? selectedProduct?.submodel2 : ''}
   `;
   const [open, setOpen] = useState(false);
-
+  const router = useRouter();
   return (
     <section className="mx-auto h-auto w-full max-w-[1280px] px-4 lg:my-8">
       <div className="flex w-full flex-col items-start justify-between lg:flex-row lg:gap-14">
@@ -645,7 +646,8 @@ function CarSelector({
                     sku: selectedProduct?.sku,
                   });
                   handleAddToCart();
-                  setAddToCartOpen(true);
+                  // setAddToCartOpen(true);
+                  isMobile ? router.push('/checkout') : setAddToCartOpen(true);
                 }}
               >
                 Add To Cart
