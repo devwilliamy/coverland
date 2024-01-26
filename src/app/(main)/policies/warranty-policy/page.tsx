@@ -4,10 +4,10 @@ import PolicyTitle from '@/components/policy/PolicyTitle';
 import PolicyDetail from '@/components/policy/PolicyDetail';
 import PolicyFurtherAssistance from '@/components/policy/PolicyFurtherAssistance';
 
-function WarrantyPolicy() {
+function WarrantyPolicy({ hideHeader }: { hideHeader?: boolean }) {
   return (
     <>
-      <PolicyHeader headerText="Warranty" />
+      {!hideHeader && <PolicyHeader headerText="Warranty" />}
       <div className="lg:mx-auto lg:flex lg:w-[842px] lg:flex-col lg:justify-center">
         <div className="relative px-5 py-5 lg:py-14">
           <PolicyTitle

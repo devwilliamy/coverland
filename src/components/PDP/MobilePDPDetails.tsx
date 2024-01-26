@@ -10,6 +10,11 @@ import { NoGarageMobile } from './components/NoGarageMobile';
 import { MoneyBackMobile } from './MoneyBackMobile';
 import { TReviewData } from '@/lib/db';
 import ReviewSection from './components/ReviewSection';
+import WarrantyPolicy from '@/app/(main)/policies/warranty-policy/page';
+import PolicyHeader from '../policy/PolicyHeader';
+import PolicyTitle from '../policy/PolicyTitle';
+import PolicyDetail from '../policy/PolicyDetail';
+import PolicyFurtherAssistance from '../policy/PolicyFurtherAssistance';
 
 export const MobilePDPDetails = ({
   reviewData,
@@ -133,20 +138,7 @@ export const MobilePDPDetails = ({
       </AccordionDrawerItem>
 
       <AccordionDrawerItem title="Warranty">
-        <div className=" md:mt-18 mb-[-10px] lg:mt-28">
-          <div className="flex flex-col gap-5  normal-case">
-            <div className="flex text-[18px] font-black">10-Years Warranty</div>
-            <div className="mb-[-15px] text-[14px] font-[500]">
-              Safeguard your valuable investment with the peace of mind that
-              comes from our industry-leading
-            </div>
-            <div className="text-[14px] font-[500]">
-              {
-                " 10-years car cover warranty. Your car deserves the best protection, and we're here to deliver it."
-              }
-            </div>
-          </div>
-        </div>
+        <WarrantyPolicy hideHeader />
       </AccordionDrawerItem>
 
       {!!reviewData?.length && (
