@@ -55,7 +55,6 @@ export default async function CarPDPDataLayer({
     redirect('/404');
   }
 
-  console.log(modelData.map((c) => c.submodel2));
   const validAndSortedData = modelData
     ?.filter((product) => product.msrp && product.price)
     .sort((a, b) => {
@@ -72,10 +71,6 @@ export default async function CarPDPDataLayer({
     // redirect('/404');
   }
 
-  console.log(
-    'validAndSortedData',
-    validAndSortedData.filter((c) => c.submodel2)
-  );
   return (
     <>
       <Suspense fallback={<div>Loading...</div>}>
