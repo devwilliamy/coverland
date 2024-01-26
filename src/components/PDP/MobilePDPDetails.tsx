@@ -103,12 +103,12 @@ export const MobilePDPDetails = ({
         <DrawerContent className="px-[1px]">
           <div
             id="DrawerScrollable"
-            className="relative max-h-[80vh] overflow-y-scroll px-[15px] pt-[40px] "
+            className="relative flex max-h-[80vh] flex-col gap-[60px] overflow-y-scroll px-[15px]  "
           >
-            <DrawerClose className="sticky left-full top-[-34px] z-[400] mr-[-5px] mt-[-40px] flex items-center py-[4px]">
+            <DrawerClose className="fixed right-0 z-[400] mr-[16px] flex items-center py-[4px]">
               <div
                 id="CloseModalButton"
-                className=" justify-center rounded-full bg-gray-200 p-[5px]"
+                className=" mt-[17px] justify-center rounded-full bg-gray-200 p-[5px] "
               >
                 <IoClose className="h-[24px] w-[24px]" />
               </div>
@@ -172,7 +172,10 @@ export const MobilePDPDetails = ({
             </StickyDrawerItem>
 
             <StickyDrawerItem title="Warranty">
-              <div className=" md:mt-18 mb-[-10px] lg:mt-28" ref={warRef}>
+              <div
+                className="md:mt-18 mb-[-10px] min-h-[40vh] lg:mt-28"
+                ref={warRef}
+              >
                 <div className="flex flex-col gap-5  normal-case">
                   <div className="flex text-[18px] font-black">
                     10-Years Warranty
@@ -212,8 +215,8 @@ const StickyDrawerItem = ({
   children: JSX.Element | JSX.Element[];
 }) => (
   <span id="DrawerSection" className=" flex h-full flex-col">
-    <DrawerTitle className="sticky top-[-40.5px] z-[100] mt-[-40px] flex justify-between border-b-2 border-[#C8C7C7] bg-white">
-      <div className=" flex w-full flex-row items-center justify-between  py-4 text-left text-[22px] font-black uppercase text-[#1A1A1A] !no-underline">
+    <DrawerTitle className="sticky top-0 z-[100]  flex justify-between border-b-2 border-[#C8C7C7] bg-white">
+      <div className=" flex w-full flex-row items-center justify-between py-[28px] text-left text-[22px] font-black uppercase text-[#1A1A1A] !no-underline">
         {title}
       </div>
     </DrawerTitle>
