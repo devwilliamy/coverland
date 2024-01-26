@@ -43,6 +43,7 @@ export default async function CarPDPDataLayer({
     ]);
 
     if (!modelData) {
+      console.log('No model data found');
       redirect('/404');
     }
   } catch (error) {
