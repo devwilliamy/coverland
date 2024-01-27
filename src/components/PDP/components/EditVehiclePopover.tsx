@@ -16,11 +16,11 @@ export default function EditVehiclePopover({
 }) {
   const [open, setOpen] = useState(false);
   return (
-    <div className=" z-50 flex flex-col gap-2">
+    <div className="flex flex-col gap-2">
       <h2 className="font-roboto text-2xl font-extrabold text-[#1A1A1A]">
         {fullProductName}
       </h2>
-      <div className="z-200 flex items-center gap-2">
+      <div className="flex items-center gap-2">
         <EditIcon />
         <Drawer.Root open={open} onOpenChange={setOpen}>
           <Drawer.Trigger className="text-left text-base font-black text-[#1A1A1A] !no-underline">
@@ -28,7 +28,7 @@ export default function EditVehiclePopover({
           </Drawer.Trigger>
           <Drawer.Portal>
             <Drawer.Overlay className="fixed inset-0 bg-black/40"></Drawer.Overlay>
-            <Drawer.Content className="fixed bottom-0 left-0 right-0 z-[200] flex flex-col rounded-t-[20px] bg-white ">
+            <Drawer.Content className="fixed bottom-0 left-0 right-0 z-[100] flex flex-col rounded-t-[20px] bg-white ">
               {/* We want to keep the padding top of DrawerContentContainer to be the same as the max-height of DrawerHeader */}
               <div
                 id="DrawerContentContainer"

@@ -1,0 +1,35 @@
+'use client';
+
+import { ChangeEvent, Dispatch, useState } from 'react';
+import { CarSelectorAction } from '@/lib/hooks/useDropdownSelector';
+
+export function ModelSearch({
+  setDropdown,
+  modelOpts,
+}: {
+  setDropdown: Dispatch<CarSelectorAction>;
+  modelOpts: string[];
+}) {
+  const [value, setValue] = useState<string>('');
+
+  function handleChange(e: ChangeEvent<HTMLSelectElement>) {
+    setValue(e.target.value);
+    setDropdown({ type: 'SET_MODEL', payload: e.target.value });
+  }
+
+  return (
+    <select
+      value={value.toLowerCase()}
+      defaultValue={value.toLowerCase() ?? ''}
+      onChange={handleChange}
+      className="rounded-lg px-2 py-3 text-lg outline outline-1 outline-offset-1 "
+    >
+      <option value={''}>Model</option>
+      {modelOpts.map((model) => (
+        <option key={`model-${model}`} value={model?.toLowerCase() as string}>
+          {model}
+        </option>
+      ))}
+    </select>
+  );
+}

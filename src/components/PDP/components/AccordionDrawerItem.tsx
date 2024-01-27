@@ -26,7 +26,7 @@ function AccordionDrawerItem(props: AccordianDrawerProps) {
           {props.title}
           <FaPlus className="h-[15px] w-[15px]" />
         </DrawerTrigger>
-        <DrawerContent className="">
+        <DrawerContent>
           <DrawerHeader draggable={false}>
             <DrawerTitle className="flex w-full items-center border-b-2 border-[#C8C7C7] py-[22px] font-black uppercase">
               <div
@@ -51,7 +51,7 @@ function AccordionDrawerItem(props: AccordianDrawerProps) {
               <></>
             )}
           </DrawerHeader>
-          <div className="mx-auto flex max-h-[76vh] w-full flex-col overflow-y-scroll pt-[40px] px-4">
+          <div className="mx-auto flex min-h-[76vh]  max-h-[76vh] w-full flex-col overflow-y-scroll px-4 pt-[40px]">
             {props.children}
           </div>
         </DrawerContent>
