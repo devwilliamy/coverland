@@ -165,8 +165,14 @@ function CarSelector({
 
   const isFullySelected =
     pathParams?.product?.length === 3 &&
-    (submodels.length === 0 || !!searchParams?.submodel) &&
-    (secondSubmodels.length === 0 || !!searchParams?.second_submodel);
+    (submodels.length === 0 ||
+      !!searchParams?.submodel ||
+      submodels.length === 1) &&
+    (secondSubmodels.length === 0 ||
+      !!searchParams?.second_submodel ||
+      secondSubmodels.length === 1);
+
+  console.log(isFullySelected);
 
   let displayedModelData = searchParams?.submodel
     ? modelsBySubmodel

@@ -243,6 +243,7 @@ export function SubDropdowns({
     });
     handleSubmitDropdown();
   }
+
   if (isFullySelected && isAllSameSku) {
     return null;
   }

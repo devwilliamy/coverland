@@ -20,14 +20,26 @@ export default function CarPDP({
   const { submodelParam, secondSubmodelParam } = useUrlState();
   const { make, model, year } = params;
 
-  const isCompleteSelection = () => {
+  const isCompleteSelection = (modelData: TCarDataMaster[]) => {
     if (!make || !model || !year) return false;
 
+    const isAllSameSku = modelData?.every(
+      (item) =>
+        compareRawStrings(
+          String(item.submodel1),
+          String(modelData[0]?.submodel1)
+        ) &&
+        compareRawStrings(
+          String(item.submodel2),
+          String(modelData[0]?.submodel2)
+        )
+    );
     const hasSubmodels = modelData?.some((car) => car.submodel1);
     const hasSecondSubModels = modelData?.some((car) => car.submodel2);
-
-    if (hasSubmodels && !submodelParam) return false;
-    if (hasSecondSubModels && !secondSubmodelParam) return false;
+    if (!isAllSameSku) {
+      if (hasSubmodels && !submodelParam) return false;
+      if (hasSecondSubModels && !secondSubmodelParam) return false;
+    }
 
     return true;
   };
@@ -55,7 +67,7 @@ export default function CarPDP({
         reviewData={reviewData}
         submodelParam={submodelParam}
         secondSubmodelParam={secondSubmodelParam}
-        isCompleteSelection={isCompleteSelection()}
+        isCompleteSelection={isCompleteSelection(filteredModelData)}
         yearParam={year}
         key={`${make}-${model}-${year}-${submodelParam}-${secondSubmodelParam}`}
       />
