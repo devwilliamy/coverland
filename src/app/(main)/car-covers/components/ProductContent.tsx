@@ -24,10 +24,6 @@ import { GoDotFill } from 'react-icons/go';
 import AgentProfile from '@/images/PDP/agent_profile.png';
 import { TCarCoverData } from './CarPDP';
 import { useMediaQuery } from '@mantine/hooks';
-import AddToCartHeader from '@/components/cart/AddToCartHeader';
-import AddToCartBody from '@/components/cart/AddToCartBody';
-import AddToCartFooter from '@/components/cart/AddToCartFooter';
-import BottomUpDrawer from '@/components/ui/bottom-up-drawer';
 import { useState } from 'react';
 import CartSheet from '@/components/cart/CartSheet';
 import {
@@ -39,6 +35,8 @@ import {
 } from '@/components/ui/drawer';
 import { IoClose } from 'react-icons/io5';
 import ReviewSection from '@/components/PDP/components/ReviewSection';
+import Dialog from '@/components/ui/dialog-tailwind-ui';
+import { useRouter } from 'next/navigation';
 
 export function ProductContent({
   selectedProduct,
@@ -60,7 +58,7 @@ export function ProductContent({
   const isMobile = useMediaQuery('(max-width: 768px)');
   const [addToCartOpen, setAddToCartOpen] = useState<boolean>(false);
   const [reviewDrawerOpen, setReviewDrawerOpen] = useState<boolean>(false);
-
+  const router = useRouter();
   return (
     <>
       <div className="grid grid-cols-1">
@@ -206,12 +204,11 @@ export function ProductContent({
             <BsBoxSeam size={20} color="#000" />
           </div>
           <div className="flex w-full flex-col items-start justify-start md:w-auto">
-            <div className="text-dark flex-row items-center justify-start text-base capitalize leading-4 md:text-lg xl:flex">
+            <div className=" text-dark flex flex-row items-center justify-start gap-[5px] text-base capitalize leading-4 md:text-lg xl:flex">
               <span className="text-base font-bold uppercase leading-6 md:text-lg xl:mr-1">
                 Free shipping
               </span>
-              <br className="xl:hidden" />
-              <span className="hidden md:mr-1 xl:block">-</span>
+              <span className=" md:mr-1 xl:block"> - </span>
               <DeliveryDate />
             </div>
             <p className="text-sm text-[#767676]">
@@ -262,7 +259,9 @@ export function ProductContent({
                   sku: selectedProduct?.sku,
                 });
               handleAddToCart();
-              setAddToCartOpen(true);
+              isMobile ? router.push('/checkout') : setAddToCartOpen(true);
+
+              // setAddToCartOpen(true);
             }}
           >
             Add To Cart
@@ -413,15 +412,16 @@ export function ProductContent({
         </div>
       </div>
       {isMobile ? (
-        <BottomUpDrawer
-          title={<AddToCartHeader />}
-          open={addToCartOpen}
-          setOpen={setAddToCartOpen}
-          footer={<AddToCartFooter />}
-        >
-          <AddToCartBody selectedProduct={selectedProduct} />
-        </BottomUpDrawer>
+        <Dialog open={addToCartOpen} setOpen={setAddToCartOpen} />
       ) : (
+        // <BottomUpDrawer
+        //   title={<AddToCartHeader />}
+        //   open={addToCartOpen}
+        //   setOpen={setAddToCartOpen}
+        //   footer={<AddToCartFooter />}
+        // >
+        //   <AddToCartBody selectedProduct={selectedProduct} />
+        // </BottomUpDrawer>
         <CartSheet
           open={addToCartOpen}
           setOpen={setAddToCartOpen}

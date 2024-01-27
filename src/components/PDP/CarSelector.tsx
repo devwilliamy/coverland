@@ -37,10 +37,6 @@ import { Carousel, CarouselContent, CarouselItem } from '../ui/carousel';
 import dynamicImport from 'next/dynamic';
 import { type CarouselApi } from '@/components/ui/carousel';
 import { stringToSlug } from '@/lib/utils';
-import BottomUpDrawer from '../ui/bottom-up-drawer';
-import AddToCartHeader from '../cart/AddToCartHeader';
-import AddToCartBody from '../cart/AddToCartBody';
-import AddToCartFooter from '../cart/AddToCartFooter';
 import CartSheet from '../cart/CartSheet';
 import {
   Drawer,
@@ -51,6 +47,8 @@ import {
 } from '@/components/ui/drawer';
 import { IoClose } from 'react-icons/io5';
 import ReviewSection from './components/ReviewSection';
+import Dialog from '../ui/dialog-tailwind-ui';
+import { useRouter } from 'next/navigation';
 
 const ProductVideo = dynamicImport(() => import('./ProductVideo'), {
   ssr: false,
@@ -248,7 +246,7 @@ function CarSelector({
   ${searchParams?.second_submodel ? selectedProduct?.submodel2 : ''}
   `;
   const [open, setOpen] = useState(false);
-
+  const router = useRouter();
   return (
     <section className="mx-auto h-auto w-full max-w-[1280px] px-4 lg:my-8">
       <div className="flex w-full flex-col items-start justify-between lg:flex-row lg:gap-14">
@@ -589,12 +587,11 @@ function CarSelector({
                 <BsBoxSeam size={20} color="#000" />
               </div>
               <div className="flex w-full flex-col items-start justify-start md:w-auto">
-                <div className="text-dark flex-row items-center justify-start text-base capitalize leading-4 md:text-lg xl:flex">
+                <div className=" text-dark flex flex-row items-center justify-start gap-[5px] text-base capitalize leading-4 md:text-lg xl:flex">
                   <span className="text-base font-bold uppercase leading-6 md:text-lg xl:mr-1">
                     Free shipping
                   </span>
-                  <br className="xl:hidden" />
-                  <span className="hidden md:mr-1 xl:block">-</span>
+                  <span className="md:mr-1 xl:block">-</span>
                   <DeliveryDate />
                 </div>
                 <p className="text-sm text-[#767676]">
@@ -642,7 +639,8 @@ function CarSelector({
                     sku: selectedProduct?.sku,
                   });
                   handleAddToCart();
-                  setAddToCartOpen(true);
+                  // setAddToCartOpen(true);
+                  isMobile ? router.push('/checkout') : setAddToCartOpen(true);
                 }}
               >
                 Add To Cart
@@ -795,15 +793,16 @@ function CarSelector({
         </div>
       </div>
       {isMobile ? (
-        <BottomUpDrawer
-          title={<AddToCartHeader />}
-          open={addToCartOpen}
-          setOpen={setAddToCartOpen}
-          footer={<AddToCartFooter />}
-        >
-          <AddToCartBody selectedProduct={selectedProduct} />
-        </BottomUpDrawer>
+        <Dialog open={addToCartOpen} setOpen={setAddToCartOpen} />
       ) : (
+        // <BottomUpDrawer
+        //   title={<AddToCartHeader />}
+        //   open={addToCartOpen}
+        //   setOpen={setAddToCartOpen}
+        //   footer={<AddToCartFooter />}
+        // >
+        //   <AddToCartBody selectedProduct={selectedProduct} />
+        // </BottomUpDrawer>
         <CartSheet
           open={addToCartOpen}
           setOpen={setAddToCartOpen}
