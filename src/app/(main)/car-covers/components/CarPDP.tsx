@@ -44,13 +44,7 @@ export default function CarPDP({
   if (secondSubmodelParam) {
     filteredModelData = filteredModelData?.filter(
       (car) =>
-        car.submodel2 && compareRawStrings(car?.submodel2, secondSubmodelParam)
-    );
-  }
-
-  if (!isCompleteSelection()) {
-    filteredModelData = filteredModelData?.filter(
-      (car) => car.year_generation === year
+        car.submodel2 && compareRawStrings(car.submodel2, secondSubmodelParam)
     );
   }
 
@@ -62,6 +56,8 @@ export default function CarPDP({
         submodelParam={submodelParam}
         secondSubmodelParam={secondSubmodelParam}
         isCompleteSelection={isCompleteSelection()}
+        yearParam={year}
+        key={`${make}-${model}-${year}-${submodelParam}-${secondSubmodelParam}`}
       />
     </>
   );

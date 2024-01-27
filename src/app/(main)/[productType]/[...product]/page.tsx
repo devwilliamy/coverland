@@ -1,15 +1,15 @@
 import {
   TProductData,
   TReviewData,
-  fetchPDPData,
   fetchReviewData,
+  getAllProductData,
 } from '@/lib/db';
 import CarSelector from '@/components/PDP/CarSelector';
-import skuDisplayData from '@/data/skuDisplayData.json';
+import parentGenerationData from '@/data/parent_generation_data.json';
 import { redirect } from 'next/navigation';
 import { ExtraProductDetails } from '@/components/PDP/OtherDetails';
 import { colorOrder } from '@/lib/constants';
-import { slugify } from '@/lib/utils';
+import { compareRawStrings } from '@/lib/utils';
 
 export type TPDPPathParams = { productType: string; product: string[] };
 
@@ -18,7 +18,7 @@ export type TPDPQueryParams = {
   second_submodel: string | undefined;
 };
 
-export type TSkuJson = typeof skuDisplayData;
+export type TSkuJson = typeof parentGenerationData;
 
 export default async function ProductPDP({
   params: pathParams,
@@ -31,7 +31,7 @@ export default async function ProductPDP({
   const secondSubmodelParam = searchParams.second_submodel;
   const make = pathParams?.product[0];
   const model = pathParams?.product[1];
-  const year = pathParams?.product[2];
+  const year = pathParams?.product[2]?.slice(0, 9);
   if (
     pathParams.productType !== 'car-covers' &&
     pathParams.productType !== 'suv-covers' &&
@@ -41,7 +41,12 @@ export default async function ProductPDP({
     redirect('/404');
   }
   // refreshRoute('/');
-  const initialProductData = await fetchPDPData(pathParams);
+  const initialProductData = await getAllProductData({
+    type: pathParams.productType,
+    make,
+    model,
+    year,
+  });
 
   const reviewData: TReviewData[] | null =
     (await fetchReviewData(searchParams, pathParams)) ?? [];
@@ -49,52 +54,10 @@ export default async function ProductPDP({
   // console.log(reviewData);
 
   if (!initialProductData) {
-    redirect('/');
+    console.error('Error fetching data:', initialProductData);
   }
 
-  const parentGeneration = skuDisplayData.find(
-    (row) =>
-      row.year_generation === year &&
-      slugify(row.make) === make &&
-      slugify(row.model) === model
-  );
-
-  console.log(parentGeneration);
-
-  const jsonForSku = (fk: number) => {
-    return skuDisplayData.find((row) => row.fk === fk);
-  };
-
-  const generationDefaultChildren = parentGeneration?.generation_default
-    ? initialProductData.filter((product) => {
-        return (
-          jsonForSku(product.fk as number)?.generation_default ===
-          parentGeneration?.generation_default
-        );
-      })
-    : initialProductData.filter(
-        (product) => product.fk === parentGeneration?.fk
-      );
-
-  // console.log(generationDefaultChildren, 'gen');
-
-  const productsWithSubmodels = generationDefaultChildren.filter(
-    (product) =>
-      product.submodel1 &&
-      generationDefaultChildren.map((p) => p.fk).includes(product.fk)
-  );
-  // console.log(productsWithSubmodels);
-  const submodels = Array.from(
-    new Set(productsWithSubmodels.map((product) => product.submodel1))
-  ).filter(Boolean) as string[];
-
-  const secondSubmodels = Array.from(
-    new Set(productsWithSubmodels.map((product) => product.submodel2))
-  ).filter(Boolean) as string[];
-
-  let modelData = submodelParam
-    ? productsWithSubmodels
-    : generationDefaultChildren;
+  let modelData = initialProductData;
 
   modelData = modelData
     .filter((product) => product.msrp && product.price)
@@ -108,15 +71,29 @@ export default async function ProductPDP({
       return colorIndexA - colorIndexB;
     });
 
+  if (submodelParam) {
+    modelData = modelData.filter((product) =>
+      compareRawStrings(product.submodel1, submodelParam)
+    );
+  }
+
   if (secondSubmodelParam) {
-    modelData = modelData.filter(
-      (product) => product.submodel2?.toLowerCase() === secondSubmodelParam
+    modelData = modelData.filter((product) =>
+      compareRawStrings(product.submodel2, secondSubmodelParam)
     );
   }
 
   if (modelData?.length === 0) {
     redirect('/');
   }
+
+  const submodels = Array.from(
+    new Set(modelData.map((model) => model.submodel1))
+  ).filter(Boolean) as string[];
+
+  const secondSubmodels = Array.from(
+    new Set(modelData.map((model) => model.submodel2))
+  ).filter(Boolean) as string[];
 
   return (
     <>
@@ -127,7 +104,6 @@ export default async function ProductPDP({
         submodels={submodels}
         secondSubmodels={secondSubmodels}
         reviewData={reviewData}
-        parentGeneration={parentGeneration}
         key={submodelParam ?? ''}
       />
       <div

@@ -45,8 +45,10 @@ export function ProductContent({
   reviewData,
   isReadyForProductSelection,
   handleAddToCart,
+  modelData,
 }: {
   selectedProduct: TCarCoverData | null | undefined;
+  modelData: TCarCoverData[];
   reviewCount: number;
   avgReviewScore: string;
   reviewData: TReviewData[] | undefined | null;
@@ -229,7 +231,7 @@ export function ProductContent({
         {/* Select Your Vehicle */}
         {!isReadyForProductSelection && (
           <div className="mt-8 w-full">
-            <DropdownPDP />
+            <DropdownPDP modelData={modelData} />
           </div>
         )}
         {/* Add to Cart Button */}

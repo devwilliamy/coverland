@@ -25,6 +25,7 @@ export default async function CarPDPDataLayer({
   params,
 }: {
   params: TCarCoverSlugParams;
+  searchParams: { submodel?: string; second_submodel?: string };
 }) {
   let modelData = [];
   let reviewData: TReviewData[] | null = [];
@@ -43,7 +44,6 @@ export default async function CarPDPDataLayer({
     ]);
 
     if (!modelData) {
-      console.log('No model data found');
       redirect('/404');
     }
   } catch (error) {
@@ -64,7 +64,7 @@ export default async function CarPDPDataLayer({
     });
 
   if (modelData?.length === 0) {
-    redirect('/404');
+    // redirect('/404');
   }
 
   return (

@@ -1,20 +1,20 @@
 'use client';
 
-import { ChangeEvent, Dispatch, useState } from 'react';
-import { CarSelectorAction } from '@/lib/hooks/useDropdownSelector';
+import { ChangeEvent, Dispatch, SetStateAction, useState } from 'react';
+import { TQuery } from './SubDropdowns';
 
 export function YearSearch({
-  setDropdown,
+  setQuery,
   yearOpts,
 }: {
-  setDropdown: Dispatch<CarSelectorAction>;
+  setQuery: Dispatch<SetStateAction<TQuery>>;
   yearOpts: string[];
 }) {
   const [value, setValue] = useState('');
 
   function handleChange(e: ChangeEvent<HTMLSelectElement>) {
     setValue(e.target.value);
-    setDropdown({ type: 'SET_YEAR', payload: e.target.value });
+    setQuery((p) => ({ ...p, year: e.target.value }));
   }
 
   return (
