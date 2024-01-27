@@ -1,17 +1,10 @@
 'use client';
-
 import { TProductData, TReviewData } from '@/lib/db';
 import { Separator } from '@/components/ui/separator';
 import Image from 'next/image';
 import { GoDotFill } from 'react-icons/go';
 import Link from 'next/link';
-import React, {
-  RefObject,
-  useCallback,
-  useEffect,
-  useRef,
-  useState,
-} from 'react';
+import React, { RefObject, useEffect, useRef, useState } from 'react';
 import { BsBoxSeam, BsGift } from 'react-icons/bs';
 import { DropdownPDP } from './DropdownPDP';
 import { useCartContext } from '@/providers/CartProvider';
@@ -33,9 +26,7 @@ import { MoneyBackIcon } from './images/MoneyBack';
 import { EditIcon } from './components/icons';
 import { track } from '@vercel/analytics';
 
-import { Carousel, CarouselContent, CarouselItem } from '../ui/carousel';
 import dynamicImport from 'next/dynamic';
-import { type CarouselApi } from '@/components/ui/carousel';
 import skuDisplayData from '@/data/skuDisplayData.json';
 import { stringToSlug } from '@/lib/utils';
 import CartSheet from '../cart/CartSheet';
@@ -50,6 +41,7 @@ import { IoClose } from 'react-icons/io5';
 import ReviewSection from './components/ReviewSection';
 import Dialog from '../ui/dialog-tailwind-ui';
 import { useRouter } from 'next/navigation';
+import { MobileImageCarousel } from '@/app/(main)/car-covers/components/MobileImageCarousel';
 
 const ProductVideo = dynamicImport(() => import('./ProductVideo'), {
   ssr: false,
@@ -802,14 +794,6 @@ function CarSelector({
       {isMobile ? (
         <Dialog open={addToCartOpen} setOpen={setAddToCartOpen} />
       ) : (
-        // <BottomUpDrawer
-        //   title={<AddToCartHeader />}
-        //   open={addToCartOpen}
-        //   setOpen={setAddToCartOpen}
-        //   footer={<AddToCartFooter />}
-        // >
-        //   <AddToCartBody selectedProduct={selectedProduct} />
-        // </BottomUpDrawer>
         <CartSheet
           open={addToCartOpen}
           setOpen={setAddToCartOpen}
@@ -821,89 +805,3 @@ function CarSelector({
 }
 
 export default CarSelector;
-
-const MobileImageCarousel = ({
-  selectedProduct,
-  productImages,
-}: {
-  selectedProduct: TProductData;
-  productImages: string[];
-}) => {
-  const [api, setApi] = useState<CarouselApi>();
-  const [current, setCurrent] = useState(0);
-  const [scrollSnaps, setScrollSnaps] = useState<number[]>([]);
-
-  useEffect(() => {
-    if (!api) {
-      return;
-    }
-
-    setScrollSnaps(api.scrollSnapList());
-    setCurrent(api.selectedScrollSnap());
-
-    api.on('select', () => {
-      setCurrent(api.selectedScrollSnap());
-    });
-  }, [api]);
-
-  const scrollTo = useCallback(
-    (index: number) => api && api.scrollTo(index),
-    [api]
-  );
-
-  const Dot = ({ index }: { index: number }) => (
-    <button className="relative flex h-2 w-2" onClick={() => scrollTo(index)}>
-      <span className="relative inline-flex h-2 w-2 rounded-full bg-gray-300"></span>
-    </button>
-  );
-
-  return (
-    <div>
-      <Carousel setApi={setApi}>
-        <CarouselContent className="bg-[#F2F2F2] p-2">
-          <CarouselItem>
-            <Image
-              src={selectedProduct.feature as string}
-              alt={`Additional images of the ${selectedProduct.display_id} cover`}
-              width={500}
-              height={500}
-              // placeholder="blur"
-            />
-          </CarouselItem>
-          <CarouselItem>
-            <div className="flex h-full flex-col justify-center">
-              <ProductVideo />
-            </div>
-          </CarouselItem>
-          {productImages.map((image, index) => (
-            <CarouselItem key={index}>
-              <Image
-                src={image}
-                alt={`Additional images of the ${selectedProduct.display_id} cover`}
-                width={500}
-                height={500}
-                // placeholder="blur"
-                onError={() => console.log('Failed image:', `${image}`)}
-              />
-            </CarouselItem>
-          ))}
-        </CarouselContent>
-      </Carousel>
-      <div className="flex w-full items-center justify-center gap-2 bg-white py-2">
-        {scrollSnaps.map((_, index) =>
-          index === current ? (
-            <ActiveDot key={index} />
-          ) : (
-            <Dot key={index} index={index} />
-          )
-        )}
-      </div>
-    </div>
-  );
-};
-
-const ActiveDot = () => (
-  <div className="relative flex h-2.5 w-2.5">
-    <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-gray-600"></span>
-  </div>
-);

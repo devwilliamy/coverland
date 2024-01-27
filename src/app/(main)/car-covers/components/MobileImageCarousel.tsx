@@ -8,12 +8,19 @@ import {
 } from '@/components/ui/carousel';
 import Image from 'next/image';
 import ProductVideo from '@/components/PDP/ProductVideo';
+import { TProductData } from '@/lib/db';
+
+const ActiveDot = () => (
+  <div className="relative flex h-2.5 w-2.5">
+    <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-gray-600"></span>
+  </div>
+);
 
 export const MobileImageCarousel = ({
   selectedProduct,
   productImages,
 }: {
-  selectedProduct: TCarCoverData;
+  selectedProduct: TCarCoverData | TProductData;
   productImages: string[];
 }) => {
   const [api, setApi] = useState<CarouselApi>();
@@ -41,12 +48,6 @@ export const MobileImageCarousel = ({
     <button className="relative flex h-2 w-2" onClick={() => scrollTo(index)}>
       <span className="relative inline-flex h-2 w-2 rounded-full bg-gray-300"></span>
     </button>
-  );
-
-  const ActiveDot = () => (
-    <div className="relative flex h-2.5 w-2.5">
-      <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-gray-600"></span>
-    </div>
   );
 
   return (
