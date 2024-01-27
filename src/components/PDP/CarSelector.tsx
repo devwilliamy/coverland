@@ -36,7 +36,6 @@ import { track } from '@vercel/analytics';
 import { Carousel, CarouselContent, CarouselItem } from '../ui/carousel';
 import dynamicImport from 'next/dynamic';
 import { type CarouselApi } from '@/components/ui/carousel';
-import skuDisplayData from '@/data/skuDisplayData.json';
 import { stringToSlug } from '@/lib/utils';
 import BottomUpDrawer from '../ui/bottom-up-drawer';
 import AddToCartHeader from '../cart/AddToCartHeader';
@@ -244,7 +243,7 @@ function CarSelector({
   const avgReviewScore = (reviewScore / reviewCount).toFixed(1);
 
   const fullProductName = `${pathParams.product.length > 2 ? selectedProduct?.parent_generation : ''}
-  ${selectedProduct?.make} ${pathParams.product.length > 2 ? selectedProduct?.product_name : ''} 
+  ${selectedProduct?.make} ${pathParams.product.length > 1 ? selectedProduct?.product_name : ''} 
   ${searchParams?.submodel ? selectedProduct?.submodel1 : ''}
   ${searchParams?.second_submodel ? selectedProduct?.submodel2 : ''}
   `;

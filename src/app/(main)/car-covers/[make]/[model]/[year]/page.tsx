@@ -23,12 +23,10 @@ export type TGenerationData = {
 
 export default async function CarPDPDataLayer({
   params,
-  searchParams,
 }: {
   params: TCarCoverSlugParams;
   searchParams: { submodel?: string; second_submodel?: string };
 }) {
-  const { submodel, second_submodel } = searchParams;
   let modelData = [];
   let reviewData: TReviewData[] | null = [];
 
@@ -46,7 +44,6 @@ export default async function CarPDPDataLayer({
     ]);
 
     if (!modelData) {
-      console.log('No model data found');
       redirect('/404');
     }
   } catch (error) {

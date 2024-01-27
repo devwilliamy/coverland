@@ -42,10 +42,6 @@ export function CarCoverSelector({
       : modelData.filter((car) => car.year_generation === yearParam)[0]
   );
 
-  console.log(yearParam);
-
-  console.log(modelData);
-
   const [featuredImage, setFeaturedImage] = useState<string>(
     selectedProduct?.feature as string
   );

@@ -13,7 +13,7 @@ const useUrlState = () => {
   const submodelParam = searchParams?.get('submodel') ?? null;
   const secondSubmodelParam = searchParams?.get('second_submodel') ?? null;
 
-  const currentUrl = `${pathname}?${searchParams}`;
+  const currentUrl = `${pathname}${submodelParam || secondSubmodelParam ? `?${searchParams}` : ''}`;
 
   return { submodelParam, secondSubmodelParam, currentUrl, params };
 };

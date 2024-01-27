@@ -87,9 +87,7 @@ export async function fetchSubmodelsOfModel(model: string) {
 export async function fetchPDPData(
   pathParams: TPDPPathParams
 ): Promise<TProductData[] | null> {
-  const makeFromPath = pathParams?.product[0];
   const modelFromPath = pathParams?.product[1];
-  const yearFromPath = pathParams?.product[2];
 
   // console.log(
   //   makeFromPath,
@@ -245,9 +243,7 @@ export async function fetchPDPDataWithQuery(
   const { data, error } = await fetch;
   // console.log(data);
 
-  console.log('fetching with query params', data?.length);
   if (error) {
-    console.log(error);
   }
   return data;
 }
@@ -261,7 +257,6 @@ export async function getProductData({
   make?: string;
   model?: string;
 }) {
-  console.log(year, make, model);
   let fetch = supabase.from('Car-Data-Master').select('*');
 
   if (year) {
@@ -282,8 +277,6 @@ export async function getProductData({
 
   const { data, error } = await fetch;
 
-  console.log(data, year, model, make);
-
   if (error) {
     throw new Error(error.message);
   }
@@ -303,11 +296,9 @@ export async function getAllProductData({
   type?: string | null;
 }) {
   let fetch = supabase.from('Products-2024').select('*');
-  console.log(year);
 
   if (type) {
     const query = deslugify(type).toLowerCase();
-    console.log('type', query);
     fetch = fetch.textSearch('type', query, {
       type: 'websearch',
     });
@@ -326,8 +317,6 @@ export async function getAllProductData({
   }
 
   const { data, error } = await fetch;
-
-  console.log(data, year, model, make);
 
   if (error) {
     throw new Error(error.message);

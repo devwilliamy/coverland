@@ -49,7 +49,7 @@ export default async function CarPDPModelDataLayer({
     <>
       <Suspense fallback={<div>Loading...</div>}>
         <PartialCoverSelector
-          modelData={modelData}
+          modelData={modelData as TProductData[]}
           reviewData={reviewData}
           modelParam={modelParam}
           makeParam={makeParam}

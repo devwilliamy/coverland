@@ -5,7 +5,7 @@ import { YearSearch } from './YearSearch';
 import { TypeSearch } from './TypeSearch';
 import { MakeSearch } from './MakeSearch';
 import { ModelSearch } from './ModelSearch';
-import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { useCallback, useState } from 'react';
 import { SubmodelDropdown } from './SubmodelDropdown';
 import parentGenerationJson from '@/data/parent_generation_data.json';

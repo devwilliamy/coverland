@@ -66,8 +66,6 @@ export function PartialPathDropdowns() {
     compareRawStrings(sku.make, makeUrl ?? '')
   );
 
-  console.log('availableModels', availableModels);
-
   const finalAvailableModels = availableModels.filter(
     (sku) =>
       (year ? sku.year_options.includes(year) : true) &&
@@ -76,8 +74,6 @@ export function PartialPathDropdowns() {
       (submodel ? compareRawStrings(sku.submodel1, submodel) : true) &&
       (secondSubmodel ? compareRawStrings(sku.submodel2, secondSubmodel) : true)
   );
-
-  console.log(finalAvailableModels);
 
   const makeData = [
     ...new Set(
@@ -109,14 +105,6 @@ export function PartialPathDropdowns() {
         .filter((val): val is string => !!val)
     ),
   ];
-
-  console.log(
-    'findlog!',
-    secondSubmodelData,
-    subModelData,
-    modelData,
-    makeData
-  );
 
   function parseUrl(url: string | null) {
     if (!url) return {};
@@ -152,25 +140,16 @@ export function PartialPathDropdowns() {
   } = parseUrl(pathname);
 
   const isFullySelected =
-    (!!year || isYearUrl) &&
-    (!!type || isTypeUrl) &&
-    (!!make || isMakeUrl) &&
-    (!!model || isModelUrl) &&
-    (!!subModelData.length ? submodel : true) &&
-    (!!secondSubmodelData.length ? secondSubmodelData : true);
-
-  console.log(!!year || isYearUrl);
-  console.log(!!type || isYearUrl);
-  console.log(!!make || isMakeUrl);
-  console.log(!!model || isModelUrl);
-  console.log(!!subModelData.length ? submodel : true);
-  console.log(!!secondSubmodelData.length ? secondSubmodelData : true);
-
-  console.log('isFullySelected', isFullySelected);
+    (!!year || !!isYearUrl) &&
+    (!!type || !!isTypeUrl) &&
+    (!!make || !!isMakeUrl) &&
+    (!!model || !!isModelUrl) &&
+    (!!subModelData.length ? !!isSubmodelUrl || !!submodel : true) &&
+    (!!secondSubmodelData.length
+      ? !!isSecondSubmodelUrl || !!secondSubmodel
+      : true);
 
   const yearInUrl = finalAvailableModels?.[0]?.parent_generation;
-
-  console.log('yearInUrl', yearInUrl);
 
   const createQueryString = useCallback(
     (name: string, value: string) => {
@@ -189,14 +168,11 @@ export function PartialPathDropdowns() {
     });
     setLoading(true);
     let url = `/${slugify(type || typeUrl)}/${slugify(make || makeUrl || '')}/${slugify(model || modelUrl || '')}/${yearInUrl}`;
-    console.log('url', url);
-    console.log(type, typeUrl, make, makeUrl, model, modelUrl, yearInUrl);
     if (submodel) {
       url += `?${createQueryString('submodel', submodel)}`;
     }
 
     if (secondSubmodel) {
-      console.log('second_submodel', secondSubmodel);
       url += `&${createQueryString('second_submodel', secondSubmodel)}`;
     }
 
@@ -207,10 +183,20 @@ export function PartialPathDropdowns() {
   const showSubmodel =
     !isSubmodelUrl && (!!year || isYearUrl) && subModelData.length > 0;
 
-  console.log('showSubmodel', subModelData);
-
   const showSecondSubmodel =
     !isSecondSubmodelUrl && !!submodel && secondSubmodelData.length > 0;
+
+  if (isFullySelected) {
+    setQuery({
+      year: '',
+      type: '',
+      make: '',
+      model: '',
+      submodel: '',
+      secondSubmodel: '',
+    });
+    handleSubmitDropdown();
+  }
 
   return (
     <>

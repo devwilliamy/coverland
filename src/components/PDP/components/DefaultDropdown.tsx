@@ -57,8 +57,6 @@ export default function DefaultDropdown() {
       : sku.model === model
   );
 
-  console.log('finalAvailableModels', finalAvailableModels);
-
   const queryObj = {
     query,
     setQuery,
@@ -113,7 +111,6 @@ export default function DefaultDropdown() {
       year,
       model,
     });
-    console.log('submitting');
     setLoading(!loading);
     let url = `/${slugify(type)}/${slugify(make)}/${slugify(model)}/${yearInUrl}`;
 

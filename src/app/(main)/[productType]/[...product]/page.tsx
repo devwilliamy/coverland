@@ -1,17 +1,15 @@
 import {
   TProductData,
   TReviewData,
-  fetchPDPData,
   fetchReviewData,
   getAllProductData,
-  getProductData,
 } from '@/lib/db';
 import CarSelector from '@/components/PDP/CarSelector';
 import parentGenerationData from '@/data/parent_generation_data.json';
 import { redirect } from 'next/navigation';
 import { ExtraProductDetails } from '@/components/PDP/OtherDetails';
 import { colorOrder } from '@/lib/constants';
-import { compareRawStrings, slugify } from '@/lib/utils';
+import { compareRawStrings } from '@/lib/utils';
 
 export type TPDPPathParams = { productType: string; product: string[] };
 
@@ -33,8 +31,7 @@ export default async function ProductPDP({
   const secondSubmodelParam = searchParams.second_submodel;
   const make = pathParams?.product[0];
   const model = pathParams?.product[1];
-  const year = pathParams?.product[2].slice(0, 9);
-  console.log(year);
+  const year = pathParams?.product[2]?.slice(0, 9);
   if (
     pathParams.productType !== 'car-covers' &&
     pathParams.productType !== 'suv-covers' &&
@@ -50,7 +47,6 @@ export default async function ProductPDP({
     model,
     year,
   });
-  console.log(initialProductData);
 
   const reviewData: TReviewData[] | null =
     (await fetchReviewData(searchParams, pathParams)) ?? [];
@@ -58,7 +54,6 @@ export default async function ProductPDP({
   // console.log(reviewData);
 
   if (!initialProductData) {
-    console.log('No model data found');
     console.error('Error fetching data:', initialProductData);
   }
 
@@ -80,19 +75,15 @@ export default async function ProductPDP({
     modelData = modelData.filter((product) =>
       compareRawStrings(product.submodel1, submodelParam)
     );
-    console.log(modelData);
   }
 
   if (secondSubmodelParam) {
     modelData = modelData.filter((product) =>
       compareRawStrings(product.submodel2, secondSubmodelParam)
     );
-    console.log(modelData);
   }
 
   if (modelData?.length === 0) {
-    console.log('No model data found');
-
     redirect('/');
   }
 
@@ -103,8 +94,6 @@ export default async function ProductPDP({
   const secondSubmodels = Array.from(
     new Set(modelData.map((model) => model.submodel2))
   ).filter(Boolean) as string[];
-
-  console.log(modelData);
 
   return (
     <>

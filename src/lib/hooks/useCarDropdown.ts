@@ -3,7 +3,6 @@
 import { useCallback, useMemo, useReducer } from 'react';
 import { compareRawStrings, slugify } from '@/lib/utils';
 import { ReadonlyURLSearchParams } from 'next/navigation';
-import { TProductData } from '../db';
 import { TCarCoverData } from '@/app/(main)/car-covers/components/CarPDP';
 
 export type CarSelectorAction =
@@ -29,21 +28,15 @@ export type TCarDataJson = {
 };
 
 const useCarDropdown = (
-  modelData: TProductData[] | TCarCoverData[],
+  modelData: TCarCoverData[],
   pathname: string | null,
   searchParams: ReadonlyURLSearchParams | null
 ) => {
-  console.log(modelData.map((car) => car.submodel2));
   const pathnameParts = pathname?.split('/').filter(Boolean) as string[];
-  console.log(pathnameParts);
   const submodelParam = searchParams?.get('submodel');
   const secondSubmodelParam = searchParams?.get('second_submodel');
 
   const [typePath, makePath, modelPath, yearPath] = pathnameParts ?? [];
-
-  console.log(typePath, makePath, modelPath, yearPath);
-
-  console.log(pathnameParts);
 
   type TCarSelectorState = {
     selectedYear: string | null;
@@ -91,9 +84,7 @@ const useCarDropdown = (
 
   const createQueryString = useCallback(
     (name: string, value: string) => {
-      console.log(name, value);
       const params = new URLSearchParams(searchParams?.toString());
-      console.log(params.toString());
       params.set(name, value);
 
       return params.toString().toLowerCase();
@@ -123,11 +114,7 @@ const useCarDropdown = (
         createQueryString('second_submodel', selectedSecondSubmodel)
       );
 
-    console.log(typePath, urlParts, queryParams.join('&'));
-
     const url = `/${typePath}/${urlParts}${queryParams.length ? '?' + queryParams.join('&') : ''}`;
-
-    console.log(url);
 
     return url;
   }, [
@@ -141,13 +128,11 @@ const useCarDropdown = (
     secondSubmodelParam,
   ]);
 
-  console.log(state);
-
   const selectionOptions = useMemo(() => {
     const yearOpts = Array.from(
       new Set(
         modelData.flatMap((car) =>
-          car.year_options.split(',').map((year) => year.trim())
+          car?.year_options?.split(',').map((year) => year.trim())
         )
       )
     ).sort((a, b) => Number(b) - Number(a));
@@ -169,8 +154,6 @@ const useCarDropdown = (
       )
     ).sort();
 
-    console.log(submodelOpts);
-
     const secondSubmodelOpts = Array.from(
       new Set(
         modelData
@@ -179,8 +162,6 @@ const useCarDropdown = (
           .filter(Boolean)
       )
     ).sort();
-
-    console.log(secondSubmodelOpts);
 
     return { yearOpts, makeOpts, modelOpts, submodelOpts, secondSubmodelOpts };
   }, [modelData, selectedSubmodel, selectedModel]);
@@ -194,16 +175,7 @@ const useCarDropdown = (
       ? !!selectedSecondSubmodel
       : true);
 
-  console.log(isFullySelected);
-
   const queryUrl = createQueryUrl();
-
-  console.log(selectionOptions.secondSubmodelOpts);
-  console.log(
-    isFullySelected &&
-      (!submodelParam || selectionOptions.secondSubmodelOpts.length > 0)
-  );
-  console.log(queryUrl);
 
   return {
     selectionOptions,
