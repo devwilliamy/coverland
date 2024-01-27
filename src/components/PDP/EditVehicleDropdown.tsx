@@ -44,7 +44,7 @@ export default function EditVehicleDropdown({
   }, [setOpen]);
 
   const availableMakes = parentGenerationJson.filter(
-    (sku) => sku.year_options.includes(year) && sku.type === type
+    (sku) => String(sku.year_options).includes(year) && sku.type === type
   );
 
   const availableModels = availableMakes.filter((sku) => sku.make === make);

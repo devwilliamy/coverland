@@ -9,7 +9,8 @@ export function DropdownPDP({
 }: {
   modelData: TCarCoverData[] | TProductData[];
 }) {
-  if (!modelData[0]?.sku)
+  if (!modelData[0]?.sku) {
+    console.log('here');
     return (
       <div className="flex w-full flex-col gap-2 ">
         <Suspense fallback={<div>Loading...</div>}>
@@ -17,11 +18,11 @@ export function DropdownPDP({
         </Suspense>
       </div>
     );
-
+  }
   return (
     <div className="flex w-full flex-col gap-2 ">
       <Suspense fallback={<div>Loading...</div>}>
-        <DropdownRenderer modelData={modelData} />
+        <DropdownRenderer />
       </Suspense>
     </div>
   );

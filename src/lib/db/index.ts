@@ -261,6 +261,7 @@ export async function getProductData({
   make?: string;
   model?: string;
 }) {
+  console.log(year, make, model);
   let fetch = supabase.from('Car-Data-Master').select('*');
 
   if (year) {
@@ -268,11 +269,15 @@ export async function getProductData({
   }
 
   if (make) {
-    fetch = fetch.textSearch('make_string', make);
+    fetch = fetch.textSearch('make_string', make, {
+      type: 'websearch',
+    });
   }
 
   if (model) {
-    fetch = fetch.textSearch('model_string', model);
+    fetch = fetch.textSearch('model_string', model, {
+      type: 'websearch',
+    });
   }
 
   const { data, error } = await fetch;
@@ -298,6 +303,7 @@ export async function getAllProductData({
   type?: string | null;
 }) {
   let fetch = supabase.from('Products-2024').select('*');
+  console.log(year);
 
   if (type) {
     const query = deslugify(type).toLowerCase();

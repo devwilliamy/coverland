@@ -9,7 +9,7 @@ import {
   useEffect,
   useState,
 } from 'react';
-import skuDisplayData from '@/data/skuDisplayData.json';
+import parentGenerationJson from '@/data/parent_generation_data.json';
 import { slugify } from '@/lib/utils';
 import { track } from '@vercel/analytics';
 import useUrlState from '@/lib/hooks/useUrlState';
@@ -42,12 +42,11 @@ export default function DefaultDropdown() {
   const searchParams = useSearchParams();
 
   const { year, type, make, model, submodel } = query;
-  const types = ['Car Covers', 'SUV Covers', 'Truck Covers'];
 
-  const typeIndex = String(types.indexOf(type) + 1);
+  const isReadyForSubmit = year && type && make && model;
 
-  const availableMakes = skuDisplayData.filter(
-    (sku) => sku.year_options.includes(year) && String(sku.fk)[0] === typeIndex
+  const availableMakes = parentGenerationJson.filter(
+    (sku) => sku.year_options.includes(year) && sku.type === type
   );
 
   const availableModels = availableMakes.filter((sku) => sku.make === make);
@@ -57,6 +56,8 @@ export default function DefaultDropdown() {
       ? sku.submodel1 === submodel && sku.model === model
       : sku.model === model
   );
+
+  console.log('finalAvailableModels', finalAvailableModels);
 
   const queryObj = {
     query,
@@ -89,11 +90,13 @@ export default function DefaultDropdown() {
   //selected, or there's none available. If the former, use the parent generation.
   //If the latter, finalAvailableModels will only have one item, so use it's year_generation.
 
-  const yearInUrl = !submodel
-    ? finalAvailableModels.filter((sku) => sku.generation_default === sku.fk)[0]
-        ?.year_generation ?? finalAvailableModels?.[0]?.year_generation
-    : skuDisplayData.find((sku) => sku.fk === finalAvailableModels?.[0]?.fk)
-        ?.year_generation ?? finalAvailableModels?.[0]?.year_generation;
+  // const yearInUrl = !submodel
+  //   ? finalAvailableModels.filter((sku) => sku.generation_default === sku.fk)[0]
+  //       ?.year_generation ?? finalAvailableModels?.[0]?.year_generation
+  //   : skuDisplayData.find((sku) => sku.fk === finalAvailableModels?.[0]?.fk)
+  //       ?.year_generation ?? finalAvailableModels?.[0]?.year_generation;
+
+  const yearInUrl = finalAvailableModels?.[0]?.parent_generation;
 
   const createQueryString = useCallback(
     (name: string, value: string) => {
@@ -104,14 +107,13 @@ export default function DefaultDropdown() {
     },
     [searchParams]
   );
-  const isReadyForSubmit = year && type && make && model;
-
   const handleSubmitDropdown = () => {
     if (!isReadyForSubmit) return;
     track('pdp_dropdown_submit', {
       year,
       model,
     });
+    console.log('submitting');
     setLoading(!loading);
     let url = `/${slugify(type)}/${slugify(make)}/${slugify(model)}/${yearInUrl}`;
 

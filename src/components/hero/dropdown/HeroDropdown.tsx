@@ -5,10 +5,11 @@ import { YearSearch } from './YearSearch';
 import { TypeSearch } from './TypeSearch';
 import { MakeSearch } from './MakeSearch';
 import { ModelSearch } from './ModelSearch';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { useCallback, useState } from 'react';
 import { SubmodelDropdown } from './SubmodelDropdown';
 import parentGenerationJson from '@/data/parent_generation_data.json';
+import carDataJson from '@/data/car_data_master.json';
 import { slugify } from '@/lib/utils';
 import { track } from '@vercel/analytics';
 
@@ -33,10 +34,18 @@ export function HeroDropdown() {
   const searchParams = useSearchParams();
 
   const { year, type, make, model, submodel } = query;
+
+  let json = [];
+
+  if (type === 'Car Covers') {
+    json = carDataJson;
+  } else {
+    json = parentGenerationJson;
+  }
   const isReadyForSubmit = year && type && make && model;
 
-  const availableMakes = parentGenerationJson.filter(
-    (sku) => sku.year_options.includes(year) && sku.type === type
+  const availableMakes = json.filter(
+    (sku) => String(sku.year_options).includes(year) && sku.type === type
   );
 
   const availableModels = availableMakes.filter((sku) => sku.make === make);

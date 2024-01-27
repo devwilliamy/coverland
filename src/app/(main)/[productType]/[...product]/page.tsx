@@ -33,7 +33,8 @@ export default async function ProductPDP({
   const secondSubmodelParam = searchParams.second_submodel;
   const make = pathParams?.product[0];
   const model = pathParams?.product[1];
-  const year = pathParams?.product[2];
+  const year = pathParams?.product[2].slice(0, 9);
+  console.log(year);
   if (
     pathParams.productType !== 'car-covers' &&
     pathParams.productType !== 'suv-covers' &&
@@ -58,7 +59,7 @@ export default async function ProductPDP({
 
   if (!initialProductData) {
     console.log('No model data found');
-    redirect('/');
+    console.error('Error fetching data:', initialProductData);
   }
 
   let modelData = initialProductData;
@@ -77,14 +78,16 @@ export default async function ProductPDP({
 
   if (submodelParam) {
     modelData = modelData.filter((product) =>
-      compareRawStrings(product.submodel1_slug, submodelParam)
+      compareRawStrings(product.submodel1, submodelParam)
     );
+    console.log(modelData);
   }
 
   if (secondSubmodelParam) {
     modelData = modelData.filter((product) =>
-      compareRawStrings(product.submodel2_slug, secondSubmodelParam)
+      compareRawStrings(product.submodel2, secondSubmodelParam)
     );
+    console.log(modelData);
   }
 
   if (modelData?.length === 0) {

@@ -1,23 +1,27 @@
 'use client';
 import useUrlState from '@/lib/hooks/useUrlState';
-import { TCarCoverData } from '@/app/(main)/car-covers/components/CarPDP';
-import { TProductData } from '@/lib/db';
-import QueryParamSubdropdowns from './QueryParamSubdropdowns';
-import SubDropdowns from './SubDropdowns';
+import { SubDropdowns } from './SubDropdowns';
+import { QueryParamSubdropdowns } from './QueryParamSubdropdowns';
+import { PartialPathDropdowns } from './PartialPathDropdowns';
 
-export default function DropdownRenderer({
-  modelData,
-}: {
-  modelData: TCarCoverData[] | TProductData[];
-}) {
+export default function DropdownRenderer({}) {
   const { currentUrl } = useUrlState();
+
+  const modelUrl = currentUrl?.split('/')[3];
+  const yearUrl = currentUrl?.split('/')[4];
+  console.log('currentUrl', modelUrl, yearUrl);
+
+  if (!modelUrl && !yearUrl) {
+    console.log('partial');
+    return <PartialPathDropdowns />;
+  }
 
   if (
     currentUrl.includes('submodel') ||
     currentUrl.includes('second_submodel')
   ) {
-    return <QueryParamSubdropdowns modelData={modelData} />;
+    return <QueryParamSubdropdowns />;
   }
 
-  return <SubDropdowns modelData={modelData} />;
+  return <SubDropdowns />;
 }

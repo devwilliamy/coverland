@@ -1,8 +1,8 @@
 'use client';
 
-import { useCallback, useEffect, useMemo, useReducer, useState } from 'react';
+import { useCallback, useMemo, useReducer } from 'react';
 import { compareRawStrings, slugify } from '@/lib/utils';
-import { usePathname, useSearchParams } from 'next/navigation';
+import { ReadonlyURLSearchParams } from 'next/navigation';
 import { TProductData } from '../db';
 import { TCarCoverData } from '@/app/(main)/car-covers/components/CarPDP';
 
@@ -28,20 +28,18 @@ export type TCarDataJson = {
   sku: string;
 };
 
-const useCarDropdown = (modelData: TProductData[] | TCarCoverData[]) => {
+const useCarDropdown = (
+  modelData: TProductData[] | TCarCoverData[],
+  pathname: string | null,
+  searchParams: ReadonlyURLSearchParams | null
+) => {
   console.log(modelData.map((car) => car.submodel2));
-  const pathname = usePathname();
-  const searchParams = useSearchParams();
   const pathnameParts = pathname?.split('/').filter(Boolean) as string[];
-  const productType = pathname?.includes('car-covers')
-    ? 'Car Covers'
-    : pathname?.includes('suv-covers')
-      ? 'SUV Covers'
-      : 'Truck Covers';
+  console.log(pathnameParts);
   const submodelParam = searchParams?.get('submodel');
   const secondSubmodelParam = searchParams?.get('second_submodel');
 
-  const [typePath, makePath, modelPath, yearPath] = pathnameParts;
+  const [typePath, makePath, modelPath, yearPath] = pathnameParts ?? [];
 
   console.log(typePath, makePath, modelPath, yearPath);
 
@@ -111,7 +109,7 @@ const useCarDropdown = (modelData: TProductData[] | TCarCoverData[]) => {
       selectedMake && slugify(selectedMake),
       selectedModel && slugify(selectedModel),
       selectedYear &&
-        modelData.filter((car) => car.year_options.includes(selectedYear))[0]
+        modelData.filter((car) => car?.year_options?.includes(selectedYear))[0]
           ?.parent_generation,
     ]
       .filter(Boolean)

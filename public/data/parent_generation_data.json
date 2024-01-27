@@ -2966,7 +2966,7 @@
     "model": "Camaro",
     "submodel1": "Z28 Heritage Edition",
     "submodel2": null,
-    "parent_generation": "1989-2002",
+    "parent_generation": "1982-1992",
     "year_options": "1992"
   },
   {
@@ -3479,7 +3479,7 @@
     "model": "Camaro",
     "submodel1": null,
     "submodel2": null,
-    "parent_generation": "1974-1981",
+    "parent_generation": "1967-1969",
     "year_options": "1974,1975,1976,1977,1978,1979,1980,1981"
   },
   {
@@ -9275,7 +9275,7 @@
     "model": "Camaro",
     "submodel1": "LT",
     "submodel2": null,
-    "parent_generation": "1982-1988",
+    "parent_generation": "1982-1992",
     "year_options": "1987"
   },
   {
@@ -11588,7 +11588,7 @@
     "model": "Camaro",
     "submodel1": "Z28",
     "submodel2": null,
-    "parent_generation": "1982-1988",
+    "parent_generation": "1982-1992",
     "year_options": "1982,1983,1984,1985,1986,1987,1988"
   },
   {
@@ -13028,7 +13028,7 @@
     "model": "Camaro",
     "submodel1": "RS Heritage Edition",
     "submodel2": null,
-    "parent_generation": "1989-2002",
+    "parent_generation": "1982-1992",
     "year_options": "1992"
   },
   {
@@ -16610,7 +16610,7 @@
     "model": "Camaro",
     "submodel1": "Base",
     "submodel2": null,
-    "parent_generation": "1989-2002",
+    "parent_generation": "1993-2002",
     "year_options": "1993,1994,1995,1996,1997,1998,1999,2000,2001,2002"
   },
   {
@@ -17384,7 +17384,7 @@
     "model": "Camaro",
     "submodel1": "Berlinetta",
     "submodel2": null,
-    "parent_generation": "1982-1988",
+    "parent_generation": "1982-1992",
     "year_options": "1982,1983,1984,1985,1986"
   },
   {
@@ -22469,8 +22469,8 @@
     "model": "Camaro",
     "submodel1": "Z28",
     "submodel2": null,
-    "parent_generation": "1989-2002",
-    "year_options": "1989,1990,1991,1992,1993,1994,1995,1996,1997,1998,1999,2000,2001,2002"
+    "parent_generation": "1993-2002",
+    "year_options": "1993,1994,1995,1996,1997,1998,1999,2000,2001,2002"
   },
   {
     "type": "Truck Covers",
@@ -24053,7 +24053,7 @@
     "model": "Camaro",
     "submodel1": "Indianapolis 500 Pace Car",
     "submodel2": null,
-    "parent_generation": "1989-2002",
+    "parent_generation": "1993-2002",
     "year_options": "1993"
   },
   {

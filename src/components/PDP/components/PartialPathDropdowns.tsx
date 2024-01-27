@@ -20,7 +20,7 @@ export type TQuery = {
   secondSubmodel: string;
 };
 
-export function SubDropdowns() {
+export function PartialPathDropdowns() {
   const [query, setQuery] = useState<TQuery>({
     year: '',
     type: '',
@@ -42,7 +42,6 @@ export function SubDropdowns() {
         : 'Truck Covers';
   const makeUrl = pathname?.split('/')[2];
   const modelUrl = pathname?.split('/')[3];
-  const yearUrl = pathname?.split('/')[4];
 
   const { year, type, make, model, submodel, secondSubmodel } = query;
   const availableData = parentGenerationJson.filter(
@@ -69,21 +68,16 @@ export function SubDropdowns() {
 
   console.log('availableModels', availableModels);
 
-  const finalAvailableModels =
-    yearUrl && modelUrl
-      ? availableModels.filter(
-          (sku) =>
-            sku.parent_generation === yearUrl &&
-            compareRawStrings(sku.model, modelUrl ?? model ?? '') &&
-            compareRawStrings(sku.make, makeUrl ?? make) &&
-            (submodel ? compareRawStrings(sku.submodel1, submodel) : true) &&
-            (secondSubmodel
-              ? compareRawStrings(sku.submodel2, secondSubmodel)
-              : true)
-        )
-      : availableModels.filter((sku) =>
-          year ? sku.year_options.includes(year) : true
-        );
+  const finalAvailableModels = availableModels.filter(
+    (sku) =>
+      (year ? sku.year_options.includes(year) : true) &&
+      (make ? compareRawStrings(sku.make, make) : true) &&
+      (model ? compareRawStrings(sku.model, model) : true) &&
+      (submodel ? compareRawStrings(sku.submodel1, submodel) : true) &&
+      (secondSubmodel ? compareRawStrings(sku.submodel2, secondSubmodel) : true)
+  );
+
+  console.log(finalAvailableModels);
 
   const makeData = [
     ...new Set(
@@ -101,7 +95,6 @@ export function SubDropdowns() {
   const modelData = [
     ...new Set(
       finalAvailableModels
-        ?.filter((car) => query.make === car.make && !!car?.model)
         ?.map((d) => d.model)
         .filter((val): val is string => !!val)
     ),
@@ -218,10 +211,6 @@ export function SubDropdowns() {
 
   const showSecondSubmodel =
     !isSecondSubmodelUrl && !!submodel && secondSubmodelData.length > 0;
-
-  if (subModelData.length === 0 && secondSubmodelData.length === 0) {
-    return null;
-  }
 
   return (
     <>

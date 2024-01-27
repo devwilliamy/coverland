@@ -38,7 +38,6 @@ export default async function CarPDPDataLayer({
         model: params.model.replace(/[^a-z0-9]/g, ''),
         make: params.make.replace(/[^a-z0-9]/g, ''),
         year: params.year,
-        submodel,
       }),
       getReviewData({
         make: params.make,
