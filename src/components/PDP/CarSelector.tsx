@@ -6,7 +6,6 @@ import Image from 'next/image';
 import { GoDotFill } from 'react-icons/go';
 import Link from 'next/link';
 import React, {
-  Ref,
   RefObject,
   useCallback,
   useEffect,
@@ -39,10 +38,6 @@ import dynamicImport from 'next/dynamic';
 import { type CarouselApi } from '@/components/ui/carousel';
 import skuDisplayData from '@/data/skuDisplayData.json';
 import { stringToSlug } from '@/lib/utils';
-import BottomUpDrawer from '../ui/bottom-up-drawer';
-import AddToCartHeader from '../cart/AddToCartHeader';
-import AddToCartBody from '../cart/AddToCartBody';
-import AddToCartFooter from '../cart/AddToCartFooter';
 import CartSheet from '../cart/CartSheet';
 import {
   Drawer,
@@ -53,6 +48,8 @@ import {
 } from '@/components/ui/drawer';
 import { IoClose } from 'react-icons/io5';
 import ReviewSection from './components/ReviewSection';
+import Dialog from '../ui/dialog-tailwind-ui';
+import { useRouter } from 'next/navigation';
 
 const ProductVideo = dynamicImport(() => import('./ProductVideo'), {
   ssr: false,
@@ -212,17 +209,13 @@ function CarSelector({
 
   const productRefs = useRef<ProductRefs>(
     displayedModelData.reduce((acc: ProductRefs, item: TProductData) => {
-      acc[item.sku] = React.createRef();
+      acc[item?.sku as string] = React.createRef();
       return acc;
     }, {})
   );
 
   const [showMore, setShowMore] = useState(false);
   const isMobile = useMediaQuery('(max-width: 768px)');
-
-  const isReadyForSelection = submodels.length
-    ? pathParams?.product?.length === 3 && !!searchParams?.submodel
-    : pathParams?.product?.length === 3;
 
   const uniqueColors = Array.from(
     new Set(displayedModelData.map((model) => model.display_color))
@@ -259,7 +252,7 @@ function CarSelector({
   ${searchParams?.second_submodel ? selectedProduct?.submodel2 : ''}
   `;
   const [open, setOpen] = useState(false);
-
+  const router = useRouter();
   return (
     <section className="mx-auto h-auto w-full max-w-[1280px] px-4 lg:my-8">
       <div className="flex w-full flex-col items-start justify-between lg:flex-row lg:gap-14">
@@ -347,31 +340,38 @@ function CarSelector({
             </div>
           </div>
           <p className="ml-3 mt-2 text-lg font-black text-[#1A1A1A] ">
-            {isReadyForSelection
-              ? `Cover Colors`
-              : `Please select your car's details below`}{' '}
+            Cover Colors
             <span className="ml-2 text-lg font-normal text-[#767676]">
-              {isReadyForSelection && `${selectedProduct?.display_color}`}
+              {selectedProduct?.display_color}
             </span>
           </p>
           <div className="flex flex-row space-x-1 overflow-x-auto whitespace-nowrap p-2 lg:grid lg:w-auto lg:grid-cols-5 lg:gap-[7px] lg:px-3">
             {uniqueColors?.map((sku) => {
               return (
-                <div
+                <button
                   className={`flex-shrink-0 p-1 lg:flex lg:flex-col lg:items-center lg:justify-center ${
                     sku?.display_color === selectedProduct?.display_color
                       ? 'rounded-lg border-4 border-[#6F6F6F]'
                       : ''
                   }`}
                   key={sku?.sku}
+                  onClick={() => {
+                    setFeaturedImage(sku?.feature as string);
+                    setSelectedProduct(sku as TProductData);
+                    const skuRef = sku?.sku
+                      ? (productRefs?.current[
+                          sku?.sku
+                        ] as React.RefObject<HTMLElement>)
+                      : null;
+                    skuRef?.current?.scrollIntoView({
+                      behavior: 'smooth',
+                      block: 'nearest',
+                      inline: 'center',
+                    });
+                  }}
                 >
                   <Image
                     src={sku?.feature as string}
-                    ref={
-                      productRefs?.current[
-                        sku?.sku as TProductData['sku']
-                      ] as Ref<HTMLImageElement>
-                    }
                     width={98}
                     height={98}
                     priority
@@ -380,22 +380,8 @@ function CarSelector({
                     }
                     alt="car cover details"
                     className="h-20 w-20 cursor-pointer rounded bg-[#F2F2F2] lg:h-full lg:w-full"
-                    onClick={() => {
-                      setFeaturedImage(sku?.feature as string);
-                      setSelectedProduct(sku as TProductData);
-                      const skuRef = sku?.sku
-                        ? (productRefs?.current[
-                            sku?.sku
-                          ] as React.RefObject<HTMLElement>)
-                        : null;
-                      skuRef?.current?.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'nearest',
-                        inline: 'center',
-                      });
-                    }}
                   />
-                </div>
+                </button>
               );
             })}
             {/* </div> */}
@@ -633,15 +619,9 @@ function CarSelector({
             </div>
 
             {/* Select Your Vehicle */}
-            {!isFullySelected && (
-              <div className="mt-8 w-full">
-                <DropdownPDP
-                  modelData={displayedModelData}
-                  submodels={submodels}
-                  secondSubmodels={secondSubmodels}
-                />
-              </div>
-            )}
+            <div className="mt-8 w-full">
+              <DropdownPDP />
+            </div>
             {/* Add to Cart Button */}
             {!isFullySelected && selectedProduct ? (
               <>
@@ -666,7 +646,8 @@ function CarSelector({
                     sku: selectedProduct?.sku,
                   });
                   handleAddToCart();
-                  setAddToCartOpen(true);
+                  // setAddToCartOpen(true);
+                  isMobile ? router.push('/checkout') : setAddToCartOpen(true);
                 }}
               >
                 Add To Cart
@@ -819,15 +800,16 @@ function CarSelector({
         </div>
       </div>
       {isMobile ? (
-        <BottomUpDrawer
-          title={<AddToCartHeader />}
-          open={addToCartOpen}
-          setOpen={setAddToCartOpen}
-          footer={<AddToCartFooter />}
-        >
-          <AddToCartBody selectedProduct={selectedProduct} />
-        </BottomUpDrawer>
+        <Dialog open={addToCartOpen} setOpen={setAddToCartOpen} />
       ) : (
+        // <BottomUpDrawer
+        //   title={<AddToCartHeader />}
+        //   open={addToCartOpen}
+        //   setOpen={setAddToCartOpen}
+        //   footer={<AddToCartFooter />}
+        // >
+        //   <AddToCartBody selectedProduct={selectedProduct} />
+        // </BottomUpDrawer>
         <CartSheet
           open={addToCartOpen}
           setOpen={setAddToCartOpen}

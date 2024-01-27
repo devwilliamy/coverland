@@ -1,4 +1,4 @@
-import { TCartItems } from '@/lib/cart/useCart';
+import { TCartItem } from '@/lib/cart/useCart';
 import { TProductData } from '@/lib/db';
 import { useCartContext } from '@/providers/CartProvider';
 import Image from 'next/image';
@@ -31,7 +31,7 @@ const AddToCartBody = ({ selectedProduct }: AddToCartBodyProps) => {
 };
 
 type CartItemProps = {
-  item: TCartItems;
+  item: TCartItem;
 };
 
 const CartItem = ({ item }: CartItemProps) => {
