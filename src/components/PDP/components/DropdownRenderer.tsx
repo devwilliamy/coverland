@@ -3,8 +3,14 @@ import useUrlState from '@/lib/hooks/useUrlState';
 import { SubDropdowns } from './SubDropdowns';
 import { QueryParamSubdropdowns } from './QueryParamSubdropdowns';
 import { PartialPathDropdowns } from './PartialPathDropdowns';
+import { TCarCoverData } from '@/app/(main)/car-covers/components/CarPDP';
+import { TProductData } from '@/lib/db';
 
-export default function DropdownRenderer({}) {
+export default function DropdownRenderer({
+  modelData,
+}: {
+  modelData: TCarCoverData[] | TProductData[];
+}) {
   const { currentUrl } = useUrlState();
   const modelUrl = currentUrl?.split('/')[3];
   const yearUrl = currentUrl?.split('/')[4];
@@ -20,5 +26,5 @@ export default function DropdownRenderer({}) {
     return <QueryParamSubdropdowns />;
   }
 
-  return <SubDropdowns />;
+  return <SubDropdowns modelData={modelData} />;
 }

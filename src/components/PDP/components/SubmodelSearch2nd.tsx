@@ -6,15 +6,22 @@ import { TQuery } from './SubDropdowns';
 export function SubmodelSearch2nd({
   setQuery,
   secondSubmodelOpts,
+  query,
 }: {
   setQuery: Dispatch<SetStateAction<TQuery>>;
   secondSubmodelOpts: string[];
+  query: TQuery;
 }) {
   const [value, setValue] = useState<string>('');
 
   function handleChange(e: ChangeEvent<HTMLSelectElement>) {
     setValue(e.target.value);
     setQuery((p) => ({ ...p, secondSubmodel: e.target.value }));
+  }
+
+  if (secondSubmodelOpts.length < 2 && !query.secondSubmodel) {
+    setQuery((p) => ({ ...p, secondSubmodel: secondSubmodelOpts[0] }));
+    return null;
   }
 
   return (

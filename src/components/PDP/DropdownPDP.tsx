@@ -22,7 +22,7 @@ export function DropdownPDP({
   return (
     <div className="flex w-full flex-col gap-2 ">
       <Suspense fallback={<div>Loading...</div>}>
-        <DropdownRenderer />
+        <DropdownRenderer modelData={modelData} />
       </Suspense>
     </div>
   );
