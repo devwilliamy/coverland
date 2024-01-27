@@ -80,6 +80,7 @@ export function getUniqueYearGenerations(array: TProductData[]) {
 }
 
 //TODO - slowly migrate from slugify to compareRawStrings for string comparison (not for URL generation)
+//TODO - maybe a library of function to more reliably compare strings
 export function compareRawStrings(str1: string | null, str2: string | null) {
   if (!str1 || !str2) return false;
   let processedStr1 = str1.toLowerCase();
