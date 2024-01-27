@@ -12,7 +12,7 @@ const coverTypes = [
 
 const CoversGrid = () => {
   return (
-    <div className=" mb-[110px] mt-[40px] hidden h-full  flex-col items-center  lg:flex">
+    <div className="mt-[-70px] hidden h-full  flex-col items-center  lg:flex">
       <div className="grid h-full max-w-[1280px]  grid-cols-2 grid-rows-2 place-items-center gap-[20px]  ">
         {coverTypes.map(({ title, img }) => (
           <div

@@ -13,18 +13,20 @@ const BestSelling = [
 ];
 const BestSellingSection = () => {
   return (
-    <div className="flex w-full flex-col px-[56px]">
+    <div className="flex w-full flex-col lg:px-[56px]">
       <p className="text-[32px] font-black">BEST-SELLING CAR MODELS</p>
-      <div className="flex min-h-[422px] max-w-full gap-[20px]">
+      <div className="max-w-screen flex gap-[20px] overflow-x-scroll">
         {BestSelling.map(({ title, img }) => (
           <div key={``} className="flex flex-col items-center">
             <Image alt="Best-Selling-Car-Cover" src={img} />
-            <p className="mb-[18px] text-[22px] font-[500] leading-[24px]">
-              {title}
-            </p>
-            <button className="flex h-[44px] items-center rounded-[100px] px-[40px] py-[17px] text-[16px] font-[900] leading-[110%] tracking-[0.32px] outline outline-[1px]">
-              Shop Now
-            </button>
+            <div>
+              <p className="mb-[18px] text-[22px] font-[500] leading-[24px]">
+                {title}
+              </p>
+              <button className="flex h-[44px] items-center rounded-[100px] px-[40px] py-[17px] text-[16px] font-[900] leading-[110%] tracking-[0.32px] outline outline-[1px]">
+                Shop Now
+              </button>
+            </div>
           </div>
         ))}
       </div>

@@ -6,16 +6,18 @@ import Chevy from '@/images/hero/trending-chevy.png';
 import Image from 'next/image';
 
 const TrendingCars = [
-  { title: 'Chevy', img: Ford },
-  { title: 'Dodge', img: Ram },
-  { title: 'Ford', img: Dodge },
-  { title: 'Ram', img: Chevy },
+  { title: 'Chevy', img: Chevy },
+  { title: 'Dodge', img: Dodge },
+  { title: 'Ford', img: Ford },
+  { title: 'Ram', img: Ram },
 ];
 const TrendingCarsSection = () => {
   return (
-    <div className="mt-[44px] flex w-full flex-col px-[56px]">
-      <p className="text-[32px] font-black uppercase">trending car brands</p>
-      <div className="flex min-h-[422px] max-w-full gap-[20px]">
+    <div className="mt-[40px] flex w-full flex-col px-[56px]">
+      <p className="mb-[30px] text-[32px] font-black uppercase">
+        trending car brands
+      </p>
+      <div className="flex  max-w-full gap-[20px]">
         {TrendingCars.map(({ title, img }) => (
           <div key={``} className="relative flex flex-col items-center">
             <Image
@@ -23,7 +25,7 @@ const TrendingCarsSection = () => {
               className="rounded-[6px]"
               src={img}
             />
-            <div className="absolute bottom-[110px] left-[40px]">
+            <div className="absolute bottom-[55px] left-[35px]">
               <p className=" mb-[20px] text-[38px] font-black leading-[24px] tracking-wide text-white">
                 {title}
               </p>
@@ -35,7 +37,6 @@ const TrendingCarsSection = () => {
                 >
                   Custom Car Covers
                 </button>
-                
               </p>
             </div>
           </div>

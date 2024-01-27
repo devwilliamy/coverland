@@ -4,27 +4,27 @@ import BuyWithConfidenceSection from '@/components/home/BuyWithConfdienceSection
 import CoversGrid from '@/components/home/CoversGrid';
 import SecuritySection from '@/components/home/SecuritySection';
 import TrendingCarsSection from '@/components/home/TrendingCarsSection';
-// import CategoryCards from '@/pages/home/CategoryCards';
 import ImageAndBlurb from '@/pages/home/ImageAndBlurb';
 import TrustBanner from '@/pages/home/TrustBanner';
-
+import SolutionSection from '@/pages/home/SolutionSection';
 import { Suspense } from 'react';
 
 export default function Home() {
   return (
-    <>
+    <div className="flex flex-col gap-[110px]">
       <Suspense>
         <HeroSection />
       </Suspense>
       <CoversGrid />
-      <BestSellingSection />
-      <TrendingCarsSection />
+      <>
+        <BestSellingSection />
+        <TrendingCarsSection />
+      </>
+      <SolutionSection />
       <TrustBanner />
-      {/* <SolutionSection /> */}
       <BuyWithConfidenceSection />
       <SecuritySection />
-      {/* <SolutionSection /> */}
       <ImageAndBlurb />
-    </>
+    </div>
   );
 }

@@ -6,7 +6,7 @@ import BuyWithConfidenceIcon from './BuyWithConfidenceIcon';
 
 export default function BuyWithConfidenceSection() {
   return (
-    <div className="xxl:px-0 flex h-auto w-screen max-w-[1440px] flex-col items-center bg-white px-4 pt-8 md:px-24 md:pt-20 lg:px-20 lg:py-20">
+    <div className=" flex h-auto w-screen max-w-[1440px] flex-col items-center bg-white ">
       <div className="flex flex-col items-start justify-center lg:flex-row ">
         <div className="flex h-full flex-col items-center justify-center">
           <div className="w-full pb-10 pt-0 lg:pb-20">
