@@ -5,6 +5,7 @@ import { QueryParamSubdropdowns } from './QueryParamSubdropdowns';
 import { PartialPathDropdowns } from './PartialPathDropdowns';
 import { TCarCoverData } from '@/app/(main)/car-covers/components/CarPDP';
 import { TProductData } from '@/lib/db';
+import { ModelPDPDropdown } from './MakePDPDropdown';
 
 export default function DropdownRenderer({
   modelData,
@@ -24,6 +25,10 @@ export default function DropdownRenderer({
     currentUrl.includes('second_submodel')
   ) {
     return <QueryParamSubdropdowns />;
+  }
+
+  if (!yearUrl) {
+    return <ModelPDPDropdown modelData={modelData} />;
   }
 
   return <SubDropdowns modelData={modelData} />;
