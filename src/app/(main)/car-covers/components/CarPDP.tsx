@@ -60,6 +60,8 @@ export default function CarPDP({
     );
   }
 
+  console.log('filteredModelData', filteredModelData);
+
   return (
     <>
       <CarCoverSelector

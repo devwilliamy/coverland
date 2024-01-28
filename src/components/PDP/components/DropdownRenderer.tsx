@@ -5,7 +5,7 @@ import { QueryParamSubdropdowns } from './QueryParamSubdropdowns';
 import { PartialPathDropdowns } from './PartialPathDropdowns';
 import { TCarCoverData } from '@/app/(main)/car-covers/components/CarPDP';
 import { TProductData } from '@/lib/db';
-import { ModelPDPDropdown } from './MakePDPDropdown';
+import { ModelPDPDropdown } from './ModelPDPDropdown';
 
 export default function DropdownRenderer({
   modelData,

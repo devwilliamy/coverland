@@ -52,7 +52,6 @@ export function ModelPDPDropdown({
   });
   const [loading, setLoading] = useState(false);
   console.log('loading', loading);
-  console.log(query);
   const router = useRouter();
   const searchParams = useSearchParams();
   const pathname = usePathname();
