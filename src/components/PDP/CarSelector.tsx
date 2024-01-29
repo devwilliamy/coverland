@@ -246,7 +246,7 @@ function CarSelector({
 
   const avgReviewScore = (reviewScore / reviewCount).toFixed(1);
 
-  const fullProductName = `${pathParams.product.length > 2 ? selectedProduct?.parent_generation : ''}
+  const fullProductName = `${pathParams.product.length > 2 ? selectedProduct?.year_generation : ''}
   ${selectedProduct?.make} ${pathParams.product.length > 1 ? selectedProduct?.product_name : ''} 
   ${searchParams?.submodel ? selectedProduct?.submodel1 : ''}
   ${searchParams?.second_submodel ? selectedProduct?.submodel2 : ''}
