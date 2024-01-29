@@ -45,7 +45,7 @@ export default function EditVehiclePopover({
                     >
                       SELECT YOUR VEHICLE
                     </div>
-                    <div
+                    <button
                       id="CloseModalButton"
                       className=" flex items-center justify-center rounded-full bg-gray-200 p-[5px]"
                       onClick={() => {
@@ -53,7 +53,7 @@ export default function EditVehiclePopover({
                       }}
                     >
                       <IoClose className="h-[24px] w-[24px]" />
-                    </div>
+                    </button>
                   </div>
                 </div>
                 <div

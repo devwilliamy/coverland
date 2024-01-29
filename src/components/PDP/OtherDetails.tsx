@@ -19,7 +19,7 @@ export function ExtraProductDetails({
 }: {
   reviewData: TReviewData[] | null;
 }) {
-  const [selectedSection, setSelectedSection] = useState<string>('');
+  // const [selectedSection, setSelectedSection] = useState<string>('');
 
   const pdRef = useRef<HTMLDivElement>(null);
   const benefitsRef = useRef<HTMLDivElement>(null);
@@ -33,28 +33,28 @@ export function ExtraProductDetails({
 
   // Add refs for other sections similarly...
 
-  const scrollToSection = (
-    ref: React.RefObject<HTMLDivElement>,
-    sectionName: string
-  ) => {
-    if (ref && ref.current) {
-      window.scrollTo({
-        top: ref.current.offsetTop,
-        behavior: 'smooth',
-      });
-      setSelectedSection(sectionName);
-    }
-  };
+  // const scrollToSection = (
+  //   ref: React.RefObject<HTMLDivElement>,
+  //   sectionName: string
+  // ) => {
+  //   if (ref && ref.current) {
+  //     window.scrollTo({
+  //       top: ref.current.offsetTop,
+  //       behavior: 'smooth',
+  //     });
+  //     setSelectedSection(sectionName);
+  //   }
+  // };
 
-  const PD_ID = 'product-details';
+  // const PD_ID = 'product-details';
   // const LAYERS_ID = 'layers-sec';
   // const CAR_COVER_INS_ID = 'car-cover-inst-sec';
   // const SPECS_ID = 'specs-sec';
-  const BENEFITS_ID = 'benefits-sec';
-  const FAQ_ID = 'faq-sec';
-  const WARRANTY_ID = 'warranty-sec';
-  const SHIPPING_ID = 'shipping-sec';
-  const REVIEWS_ID = 'reviews-sec';
+  // const BENEFITS_ID = 'benefits-sec';
+  // const FAQ_ID = 'faq-sec';
+  // const WARRANTY_ID = 'warranty-sec';
+  // const SHIPPING_ID = 'shipping-sec';
+  // const REVIEWS_ID = 'reviews-sec';
 
   // <AccordionItem value="item-1">
   //   <AccordionTrigger>Is it accessible?</AccordionTrigger>
@@ -69,10 +69,10 @@ export function ExtraProductDetails({
     <div className="flex w-full flex-col">
       <div className="hidden w-full max-w-full items-center justify-between border-b border-t border-[#DADADA] py-[22px] text-[18px] lg:flex lg:px-[30px]">
         <h1
-          onClick={() => scrollToSection(pdRef, PD_ID)}
-          className={`cursor-pointer  font-normal capitalize text-black ${
-            selectedSection === PD_ID ? 'underline' : ''
-          }`}
+        // onClick={() => scrollToSection(pdRef, PD_ID)}
+        // className={`cursor-pointer  font-normal capitalize text-black ${
+        //   selectedSection === PD_ID ? 'underline' : ''
+        // }`}
         >
           product details
         </h1>
@@ -87,10 +87,10 @@ export function ExtraProductDetails({
           </Link>
         </h1> */}
         <h1
-          onClick={() => scrollToSection(benefitsRef, BENEFITS_ID)}
-          className={`cursor-pointer  font-normal capitalize text-black ${
-            selectedSection === PD_ID ? 'underline' : ''
-          }`}
+        // onClick={() => scrollToSection(benefitsRef, BENEFITS_ID)}
+        // className={`cursor-pointer  font-normal capitalize text-black ${
+        //   selectedSection === PD_ID ? 'underline' : ''
+        // }`}
         >
           benefits
         </h1>
@@ -105,10 +105,10 @@ export function ExtraProductDetails({
           </Link>
         </h1> */}
         <h1
-          onClick={() => scrollToSection(shippingRef, SHIPPING_ID)}
-          className={`cursor-pointer  font-normal capitalize text-black ${
-            selectedSection === FAQ_ID ? 'underline' : ''
-          }`}
+        // onClick={() => scrollToSection(shippingRef, SHIPPING_ID)}
+        // className={`cursor-pointer  font-normal capitalize text-black ${
+        //   selectedSection === FAQ_ID ? 'underline' : ''
+        // }`}
         >
           Shipping & Returns
         </h1>
@@ -121,10 +121,10 @@ export function ExtraProductDetails({
           specification
           </h1> */}
         <h1
-          onClick={() => scrollToSection(faqRef, FAQ_ID)}
-          className={`cursor-pointer  font-normal capitalize text-black ${
-            selectedSection === FAQ_ID ? 'underline' : ''
-          }`}
+        // onClick={() => scrollToSection(faqRef, FAQ_ID)}
+        // className={`cursor-pointer  font-normal capitalize text-black ${
+        //   selectedSection === FAQ_ID ? 'underline' : ''
+        // }`}
         >
           Q&A
         </h1>
@@ -137,10 +137,10 @@ export function ExtraProductDetails({
           Shipping & Returns
           </h1> */}
         <h1
-          onClick={() => scrollToSection(warrantyRef, WARRANTY_ID)}
-          className={`cursor-pointer  font-normal capitalize text-black ${
-            selectedSection === FAQ_ID ? 'underline' : ''
-          }`}
+        // onClick={() => scrollToSection(warrantyRef, WARRANTY_ID)}
+        // className={`cursor-pointer  font-normal capitalize text-black ${
+        //   selectedSection === FAQ_ID ? 'underline' : ''
+        // }`}
         >
           Warranty
         </h1>
@@ -153,10 +153,10 @@ export function ExtraProductDetails({
           car cover instruction
           </h1> */}
         <h1
-          onClick={() => scrollToSection(reviewsRef, REVIEWS_ID)}
-          className={`cursor-pointer  font-normal capitalize text-black ${
-            selectedSection === FAQ_ID ? 'underline' : ''
-          }`}
+        // onClick={() => scrollToSection(reviewsRef, REVIEWS_ID)}
+        // className={`cursor-pointer  font-normal capitalize text-black ${
+        //   selectedSection === FAQ_ID ? 'underline' : ''
+        // }`}
         >
           car cover reviews
         </h1>

@@ -35,7 +35,7 @@ function AccordionDrawerItem(props: AccordianDrawerProps) {
               >
                 {props.title}
               </div>
-              <div
+              <button
                 id="CloseModalButton"
                 className="flex items-center justify-center rounded-full bg-gray-200 p-[5px]"
                 onClick={() => {
@@ -43,7 +43,7 @@ function AccordionDrawerItem(props: AccordianDrawerProps) {
                 }}
               >
                 <IoClose className="h-[24px] w-[24px]" />
-              </div>
+              </button>
             </DrawerTitle>
             {props.description ? (
               <DrawerDescription>{props.description}</DrawerDescription>
@@ -51,7 +51,7 @@ function AccordionDrawerItem(props: AccordianDrawerProps) {
               <></>
             )}
           </DrawerHeader>
-          <div className="mx-auto flex min-h-[76vh]  max-h-[76vh] w-full flex-col overflow-y-scroll px-4 pt-[40px]">
+          <div className="mx-auto flex max-h-[76vh]  min-h-[76vh] w-full flex-col overflow-y-scroll px-4 pt-[40px]">
             {props.children}
           </div>
         </DrawerContent>
