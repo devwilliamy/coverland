@@ -7,16 +7,19 @@ export function SubmodelSearch({
   setQuery,
   submodelOpts,
   query,
+  handleSubmitDropdown,
 }: {
   setQuery: Dispatch<SetStateAction<TQuery>>;
   submodelOpts: string[];
   query: TQuery;
+  handleSubmitDropdown: () => void;
 }) {
   const [value, setValue] = useState<string>('');
 
   function handleChange(e: ChangeEvent<HTMLSelectElement>) {
     setValue(e.target.value);
     setQuery((p) => ({ ...p, submodel: e.target.value }));
+    handleSubmitDropdown();
   }
 
   if (submodelOpts.length < 2 && !query.submodel) {

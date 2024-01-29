@@ -207,6 +207,16 @@ export function SubDropdowns({
       console.log('yearUrl', yearUrl);
       return;
     }
+    if (isFullySelected && isAllSameSku && subModelData.length > 0) {
+      setQuery({
+        year: '',
+        type: '',
+        make: '',
+        model: '',
+        submodel: '',
+        secondSubmodel: '',
+      });
+    }
     track('dropdown_submit', {
       year,
       model,
@@ -233,21 +243,7 @@ export function SubDropdowns({
   const showSecondSubmodel =
     !isSecondSubmodelUrl && !!submodel && secondSubmodelData.length > 1;
 
-  console.log(isFullySelected);
-
-  if (isFullySelected && isAllSameSku) {
-    setQuery({
-      year: '',
-      type: '',
-      make: '',
-      model: '',
-      submodel: '',
-      secondSubmodel: '',
-    });
-    handleSubmitDropdown();
-  }
-
-  if (isFullySelected && isAllSameSku) {
+  if (isFullySelected) {
     return null;
   }
 
@@ -268,6 +264,7 @@ export function SubDropdowns({
             <ModelSearch
               setQuery={setQuery}
               modelOpts={modelData as string[]}
+              handleSubmitDropdown={handleSubmitDropdown}
             />
           )}
           {!isFullySelected && showSubmodel && (
@@ -275,6 +272,7 @@ export function SubDropdowns({
               query={query}
               setQuery={setQuery}
               submodelOpts={subModelData}
+              handleSubmitDropdown={handleSubmitDropdown}
             />
           )}
           {!isFullySelected && showSecondSubmodel && (
@@ -282,6 +280,7 @@ export function SubDropdowns({
               query={query}
               setQuery={setQuery}
               secondSubmodelOpts={secondSubmodelData}
+              handleSubmitDropdown={handleSubmitDropdown}
             />
           )}
         </div>

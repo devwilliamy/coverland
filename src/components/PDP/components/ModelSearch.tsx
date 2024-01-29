@@ -6,15 +6,18 @@ import { TQuery } from './SubDropdowns';
 export function ModelSearch({
   setQuery,
   modelOpts,
+  handleSubmitDropdown,
 }: {
   setQuery: Dispatch<SetStateAction<TQuery>>;
   modelOpts: string[];
+  handleSubmitDropdown: () => void;
 }) {
   const [value, setValue] = useState<string>('');
 
   function handleChange(e: ChangeEvent<HTMLSelectElement>) {
     setValue(e.target.value);
     setQuery((p) => ({ ...p, model: e.target.value }));
+    handleSubmitDropdown();
   }
 
   return (
