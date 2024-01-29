@@ -91,7 +91,7 @@ export function CarCoverSelector({
   const fullProductName = `${selectedProduct?.year_generation}
   ${selectedProduct?.make} ${selectedProduct?.product_name} 
   ${submodelParam ? selectedProduct?.submodel1 : ''}
-  ${secondSubmodelParam ? selectedProduct?.submodel2 : ''}
+  ${secondSubmodelParam ? selectedProduct?.submodel2 : ''} ${selectedProduct.type} 
   `;
   return (
     <section className="mx-auto h-auto w-full max-w-[1280px] px-4 lg:my-8">
