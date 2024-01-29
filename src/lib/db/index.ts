@@ -6,8 +6,6 @@ import {
 } from '@/app/(main)/[productType]/[...product]/page';
 import { deslugify } from '../utils';
 import { refreshRoute } from '@/app/(main)/[productType]/[...product]/actions';
-import { TCarCoverData } from '@/app/(main)/car-covers/components/CarPDP';
-import { TGenerationData } from '@/app/(main)/car-covers/[make]/[model]/[year]/page';
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL ?? '';
 const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_KEY ?? '';
@@ -25,6 +23,8 @@ export type TableColumn<T extends TableRow> =
   keyof Database['public']['Tables'][T]['Row'];
 
 export type TProducts20204 = Tables<'Products-2024'>;
+
+export type TCarDataMaster = Tables<'Car-Data-Master'>;
 
 export type TReviewData = Tables<'Product-Reviews'>;
 export interface TProductsInColumnArgs {
@@ -87,9 +87,7 @@ export async function fetchSubmodelsOfModel(model: string) {
 export async function fetchPDPData(
   pathParams: TPDPPathParams
 ): Promise<TProductData[] | null> {
-  // const makeFromPath = pathParams?.product[0];
   const modelFromPath = pathParams?.product[1];
-  // const yearFromPath = pathParams?.product[2];
 
   // console.log(
   //   makeFromPath,
@@ -109,27 +107,6 @@ export async function fetchPDPData(
   }
   refreshRoute('/');
 
-  return data;
-}
-
-export async function fetchCarPDPData(
-  generationFk: number,
-  availableGenerations: TGenerationData[]
-): Promise<TCarCoverData[] | null> {
-  let fetch = supabase.from('product_2024_join').select('*');
-
-  console.log(availableGenerations.length);
-  if (availableGenerations.length > 1) {
-    fetch = fetch.eq('generation_default', generationFk);
-  } else {
-    fetch = fetch.eq('fk', generationFk);
-  }
-
-  const { data, error } = await fetch;
-
-  if (error) {
-    console.log(error);
-  }
   return data;
 }
 
@@ -203,6 +180,35 @@ export async function fetchGenerationReviewData(fk: string) {
   return data;
 }
 
+export async function getReviewData({
+  year,
+  make,
+  model,
+}: {
+  year?: string;
+  make?: string;
+  model?: string;
+}) {
+  let fetch = supabase.from('Product-Reviews').select('*');
+
+  if (make) {
+    fetch = fetch.textSearch('make', make);
+  }
+
+  if (model) {
+    fetch = fetch.textSearch('model', model);
+  }
+
+  const { data, error } = await fetch;
+
+  if (year) {
+  }
+  if (error) {
+    console.log(error);
+  }
+  return data;
+}
+
 export async function fetchPDPDataWithQuery(
   queryParams: TPDPQueryParams,
   params: TPDPPathParams
@@ -237,9 +243,84 @@ export async function fetchPDPDataWithQuery(
   const { data, error } = await fetch;
   // console.log(data);
 
-  console.log('fetching with query params', data?.length);
   if (error) {
-    console.log(error);
   }
+  return data;
+}
+
+export async function getProductData({
+  year,
+  make,
+  model,
+}: {
+  year?: string;
+  make?: string;
+  model?: string;
+}) {
+  let fetch = supabase.from('Car-Data-Master').select('*');
+
+  if (year) {
+    fetch = fetch.eq('parent_generation', year);
+  }
+
+  if (make) {
+    fetch = fetch.textSearch('make_string', make, {
+      type: 'websearch',
+    });
+  }
+
+  if (model) {
+    fetch = fetch.textSearch('model_string', model, {
+      type: 'websearch',
+    });
+  }
+
+  const { data, error } = await fetch;
+
+  if (error) {
+    throw new Error(error.message);
+  }
+
+  return data;
+}
+
+export async function getAllProductData({
+  year,
+  make,
+  model,
+  type = null,
+}: {
+  year?: string;
+  make?: string;
+  model?: string;
+  type?: string | null;
+}) {
+  let fetch = supabase.from('Products-2024').select('*');
+
+  if (type) {
+    const query = deslugify(type).toLowerCase();
+    fetch = fetch.textSearch('type', query, {
+      type: 'websearch',
+    });
+  }
+
+  if (year) {
+    fetch = fetch.eq('parent_generation', year);
+  }
+
+  if (make) {
+    fetch = fetch.eq('make_slug', make);
+  }
+
+  if (model) {
+    fetch = fetch.eq('model_slug', model);
+  }
+
+  const { data, error } = await fetch;
+
+  if (error) {
+    throw new Error(error.message);
+  }
+
   return data;
 }

@@ -6,7 +6,7 @@ import React, { RefObject, useRef, useState } from 'react';
 import { useCartContext } from '@/providers/CartProvider';
 import { useMediaQuery } from '@mantine/hooks';
 import dynamicImport from 'next/dynamic';
-import { TCartItems } from '@/lib/cart/useCart';
+import { TCartItem } from '@/lib/cart/useCart';
 import { PrimaryImageDisplay } from './PrimaryImageDisplay';
 import { ColorSelector } from './ColorSelector';
 import { TypeSelector } from './TypeSelector';
@@ -21,51 +21,26 @@ const EditVehiclePopover = dynamicImport(
   }
 );
 
-type TCarCoverPathParams = {
-  make: string;
-  model: string;
-  year: string;
-};
-
 export function CarCoverSelector({
-  params,
   modelData,
-  generationFk,
   submodelParam,
   secondSubmodelParam,
   reviewData,
+  isCompleteSelection,
+  yearParam,
 }: {
-  params: TCarCoverPathParams;
   modelData: TCarCoverData[];
-  generationFk: number;
-  submodelParam?: string | null | undefined;
-  secondSubmodelParam?: string | null | undefined;
+  submodelParam?: string | null;
+  secondSubmodelParam?: string | null;
   reviewData: TReviewData[] | null | undefined;
+  isCompleteSelection: boolean;
+  yearParam: string;
 }) {
-  const submodels = Array.from(
-    new Set(modelData.map((model) => model.submodel1))
-  ).filter((submodel) => submodel);
-  const secondSubmodels = Array.from(
-    new Set(modelData.map((model) => model.submodel2))
-  ).filter((submodel) => submodel);
-
-  const hasSubmodels = modelData.some((model) => model.submodel1);
-  const hasSecondSubModels = modelData.some((model) => model.submodel2);
-  const defaultGenerationModel = modelData.find(
-    (model) => model.fk === generationFk
+  const [selectedProduct, setSelectedProduct] = useState<TCarCoverData>(() =>
+    submodelParam && modelData.some((car) => car.submodel1)
+      ? modelData[0]
+      : modelData.filter((car) => car.year_generation === yearParam)[0]
   );
-
-  const isDefaultGeneration = hasSubmodels && !submodelParam;
-  const defaultModel = isDefaultGeneration
-    ? defaultGenerationModel ?? modelData[0]
-    : modelData[0];
-  const isReadyForProductSelection =
-    (params?.year && !hasSubmodels) ||
-    (hasSubmodels === !!submodelParam &&
-      hasSecondSubModels === !!secondSubmodelParam);
-
-  const [selectedProduct, setSelectedProduct] =
-    useState<TCarCoverData>(defaultModel);
 
   const [featuredImage, setFeaturedImage] = useState<string>(
     selectedProduct?.feature as string
@@ -87,23 +62,17 @@ export function CarCoverSelector({
 
   const { addToCart } = useCartContext();
 
-  const modelsToDisplay = isDefaultGeneration
-    ? modelData.filter((model) => model.fk === generationFk)
-    : modelData;
-
   const uniqueColors = Array.from(
-    new Set(modelsToDisplay.map((model) => model.display_color))
-  ).map((color) =>
-    modelsToDisplay.find((model) => model.display_color === color)
-  );
+    new Set(modelData.map((model) => model.display_color))
+  ).map((color) => modelData.find((model) => model.display_color === color));
 
   const uniqueTypes = Array.from(
-    new Set(modelsToDisplay.map((model) => model.display_id))
-  ).map((type) => modelsToDisplay.find((model) => model.display_id === type));
+    new Set(modelData.map((model) => model.display_id))
+  ).map((type) => modelData.find((model) => model.display_id === type));
 
   const handleAddToCart = () => {
     if (!selectedProduct) return;
-    return addToCart({ ...selectedProduct, quantity: 1 } as TCartItems);
+    return addToCart({ ...selectedProduct, quantity: 1 } as TCartItem);
   };
 
   const productImages =
@@ -142,12 +111,9 @@ export function CarCoverSelector({
             submodelParam={submodelParam}
           />
           <p className="ml-3 mt-2 text-lg font-black text-[#1A1A1A] ">
-            {isReadyForProductSelection
-              ? `Cover Colors`
-              : `Please select your car's details below`}{' '}
+            Cover Colors
             <span className="ml-2 text-lg font-normal text-[#767676]">
-              {isReadyForProductSelection &&
-                `${selectedProduct?.display_color}`}
+              {selectedProduct?.display_color}
             </span>
           </p>
           <ColorSelector
@@ -168,15 +134,13 @@ export function CarCoverSelector({
 
           <Separator className="mb-8 mt-4" />
           <ProductContent
+            modelData={modelData}
             selectedProduct={selectedProduct}
             reviewCount={reviewCount}
             avgReviewScore={avgReviewScore}
             reviewData={reviewData}
-            modelData={modelData as TCarCoverData[]}
-            submodels={submodels as string[]}
-            secondSubmodels={secondSubmodels as string[]}
             handleAddToCart={handleAddToCart}
-            isReadyForProductSelection={isReadyForProductSelection}
+            isReadyForProductSelection={isCompleteSelection}
           />
         </div>
       </div>

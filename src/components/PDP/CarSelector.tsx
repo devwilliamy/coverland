@@ -6,7 +6,6 @@ import Image from 'next/image';
 import { GoDotFill } from 'react-icons/go';
 import Link from 'next/link';
 import React, {
-  Ref,
   RefObject,
   useCallback,
   useEffect,
@@ -37,12 +36,7 @@ import { track } from '@vercel/analytics';
 import { Carousel, CarouselContent, CarouselItem } from '../ui/carousel';
 import dynamicImport from 'next/dynamic';
 import { type CarouselApi } from '@/components/ui/carousel';
-import skuDisplayData from '@/data/skuDisplayData.json';
 import { stringToSlug } from '@/lib/utils';
-import BottomUpDrawer from '../ui/bottom-up-drawer';
-import AddToCartHeader from '../cart/AddToCartHeader';
-import AddToCartBody from '../cart/AddToCartBody';
-import AddToCartFooter from '../cart/AddToCartFooter';
 import CartSheet from '../cart/CartSheet';
 import {
   Drawer,
@@ -53,6 +47,9 @@ import {
 } from '@/components/ui/drawer';
 import { IoClose } from 'react-icons/io5';
 import ReviewSection from './components/ReviewSection';
+import Dialog from '../ui/dialog-tailwind-ui';
+import { useRouter } from 'next/navigation';
+import VimeoPlayer from 'react-player/vimeo';
 
 const ProductVideo = dynamicImport(() => import('./ProductVideo'), {
   ssr: false,
@@ -135,7 +132,6 @@ function CarSelector({
   submodels,
   secondSubmodels,
   reviewData,
-  parentGeneration,
 }: {
   modelData: TProductData[];
   pathParams: TPDPPathParams;
@@ -143,13 +139,9 @@ function CarSelector({
   secondSubmodels: string[];
   searchParams: TPDPQueryParams;
   reviewData: TReviewData[];
-  parentGeneration: any;
 }) {
-  const defaultModel = modelData.find(
-    (model) =>
-      model.fk ===
-      skuDisplayData.find((row) => row.fk === parentGeneration?.fk)?.fk
-  );
+  const defaultModel = modelData[0];
+  console.log(pathParams);
 
   const modelsBySubmodel =
     modelData.filter(
@@ -174,8 +166,12 @@ function CarSelector({
 
   const isFullySelected =
     pathParams?.product?.length === 3 &&
-    (submodels.length === 0 || !!searchParams?.submodel) &&
-    (secondSubmodels.length === 0 || !!searchParams?.second_submodel);
+    (submodels.length === 0 ||
+      !!searchParams?.submodel ||
+      submodels.length === 1) &&
+    (secondSubmodels.length === 0 ||
+      !!searchParams?.second_submodel ||
+      secondSubmodels.length === 1);
 
   let displayedModelData = searchParams?.submodel
     ? modelsBySubmodel
@@ -212,17 +208,14 @@ function CarSelector({
 
   const productRefs = useRef<ProductRefs>(
     displayedModelData.reduce((acc: ProductRefs, item: TProductData) => {
-      acc[item.sku] = React.createRef();
+      acc[item?.sku as string] = React.createRef();
       return acc;
     }, {})
   );
 
   const [showMore, setShowMore] = useState(false);
   const isMobile = useMediaQuery('(max-width: 768px)');
-
-  const isReadyForSelection = submodels.length
-    ? pathParams?.product?.length === 3 && !!searchParams?.submodel
-    : pathParams?.product?.length === 3;
+  const playerRef = useRef<VimeoPlayer | null>(null);
 
   const uniqueColors = Array.from(
     new Set(displayedModelData.map((model) => model.display_color))
@@ -253,13 +246,13 @@ function CarSelector({
 
   const avgReviewScore = (reviewScore / reviewCount).toFixed(1);
 
-  const fullProductName = `${selectedProduct?.year_generation}
-  ${selectedProduct?.make} ${selectedProduct?.product_name} 
+  const fullProductName = `${pathParams.product.length > 2 ? selectedProduct?.parent_generation : ''}
+  ${selectedProduct?.make} ${pathParams.product.length > 1 ? selectedProduct?.product_name : ''} 
   ${searchParams?.submodel ? selectedProduct?.submodel1 : ''}
   ${searchParams?.second_submodel ? selectedProduct?.submodel2 : ''}
   `;
   const [open, setOpen] = useState(false);
-
+  const router = useRouter();
   return (
     <section className="mx-auto h-auto w-full max-w-[1280px] px-4 lg:my-8">
       <div className="flex w-full flex-col items-start justify-between lg:flex-row lg:gap-14">
@@ -292,7 +285,7 @@ function CarSelector({
             </div>
 
             {/* Product Video */}
-            {!isMobile && <ProductVideo />}
+            {!isMobile && <ProductVideo playerRef={playerRef} />}
             {/* Gallery Images */}
             <div className="hidden w-auto grid-cols-2 gap-[16px] pt-4 lg:grid ">
               {productImages.map((img, idx) => (
@@ -347,55 +340,47 @@ function CarSelector({
             </div>
           </div>
           <p className="ml-3 mt-2 text-lg font-black text-[#1A1A1A] ">
-            {isReadyForSelection
-              ? `Cover Colors`
-              : `Please select your car's details below`}{' '}
+            Cover Colors
             <span className="ml-2 text-lg font-normal text-[#767676]">
-              {isReadyForSelection && `${selectedProduct?.display_color}`}
+              {selectedProduct?.display_color}
             </span>
           </p>
           <div className="flex flex-row space-x-1 overflow-x-auto whitespace-nowrap p-2 lg:grid lg:w-auto lg:grid-cols-5 lg:gap-[7px] lg:px-3">
             {uniqueColors?.map((sku) => {
               return (
-                <div
+                <button
                   className={`flex-shrink-0 p-1 lg:flex lg:flex-col lg:items-center lg:justify-center ${
                     sku?.display_color === selectedProduct?.display_color
                       ? 'rounded-lg border-4 border-[#6F6F6F]'
                       : ''
                   }`}
                   key={sku?.sku}
+                  onClick={() => {
+                    setFeaturedImage(sku?.feature as string);
+                    setSelectedProduct(sku as TProductData);
+                    const skuRef = sku?.sku
+                      ? (productRefs?.current[
+                          sku?.sku
+                        ] as React.RefObject<HTMLElement>)
+                      : null;
+                    skuRef?.current?.scrollIntoView({
+                      behavior: 'smooth',
+                      block: 'nearest',
+                      inline: 'center',
+                    });
+                  }}
                 >
                   <Image
                     src={sku?.feature as string}
-                    ref={
-                      productRefs?.current[
-                        sku?.sku as TProductData['sku']
-                      ] as Ref<HTMLImageElement>
-                    }
                     width={98}
                     height={98}
-                    priority
                     onError={() =>
                       console.log('Failed image:', `${sku?.feature}`)
                     }
                     alt="car cover details"
                     className="h-20 w-20 cursor-pointer rounded bg-[#F2F2F2] lg:h-full lg:w-full"
-                    onClick={() => {
-                      setFeaturedImage(sku?.feature as string);
-                      setSelectedProduct(sku as TProductData);
-                      const skuRef = sku?.sku
-                        ? (productRefs?.current[
-                            sku?.sku
-                          ] as React.RefObject<HTMLElement>)
-                        : null;
-                      skuRef?.current?.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'nearest',
-                        inline: 'center',
-                      });
-                    }}
                   />
-                </div>
+                </button>
               );
             })}
             {/* </div> */}
@@ -607,12 +592,11 @@ function CarSelector({
                 <BsBoxSeam size={20} color="#000" />
               </div>
               <div className="flex w-full flex-col items-start justify-start md:w-auto">
-                <div className="text-dark flex-row items-center justify-start text-base capitalize leading-4 md:text-lg xl:flex">
+                <div className=" text-dark flex flex-row items-center justify-start gap-[5px] text-base capitalize leading-4 md:text-lg xl:flex">
                   <span className="text-base font-bold uppercase leading-6 md:text-lg xl:mr-1">
                     Free shipping
                   </span>
-                  <br className="xl:hidden" />
-                  <span className="hidden md:mr-1 xl:block">-</span>
+                  <span className="md:mr-1 xl:block">-</span>
                   <DeliveryDate />
                 </div>
                 <p className="text-sm text-[#767676]">
@@ -633,15 +617,9 @@ function CarSelector({
             </div>
 
             {/* Select Your Vehicle */}
-            {!isFullySelected && (
-              <div className="mt-8 w-full">
-                <DropdownPDP
-                  modelData={displayedModelData}
-                  submodels={submodels}
-                  secondSubmodels={secondSubmodels}
-                />
-              </div>
-            )}
+            <div className="mt-8 w-full">
+              <DropdownPDP modelData={modelData} />
+            </div>
             {/* Add to Cart Button */}
             {!isFullySelected && selectedProduct ? (
               <>
@@ -666,7 +644,8 @@ function CarSelector({
                     sku: selectedProduct?.sku,
                   });
                   handleAddToCart();
-                  setAddToCartOpen(true);
+                  // setAddToCartOpen(true);
+                  isMobile ? router.push('/checkout') : setAddToCartOpen(true);
                 }}
               >
                 Add To Cart
@@ -819,15 +798,16 @@ function CarSelector({
         </div>
       </div>
       {isMobile ? (
-        <BottomUpDrawer
-          title={<AddToCartHeader />}
-          open={addToCartOpen}
-          setOpen={setAddToCartOpen}
-          footer={<AddToCartFooter />}
-        >
-          <AddToCartBody selectedProduct={selectedProduct} />
-        </BottomUpDrawer>
+        <Dialog open={addToCartOpen} setOpen={setAddToCartOpen} />
       ) : (
+        // <BottomUpDrawer
+        //   title={<AddToCartHeader />}
+        //   open={addToCartOpen}
+        //   setOpen={setAddToCartOpen}
+        //   footer={<AddToCartFooter />}
+        // >
+        //   <AddToCartBody selectedProduct={selectedProduct} />
+        // </BottomUpDrawer>
         <CartSheet
           open={addToCartOpen}
           setOpen={setAddToCartOpen}
@@ -850,6 +830,7 @@ const MobileImageCarousel = ({
   const [api, setApi] = useState<CarouselApi>();
   const [current, setCurrent] = useState(0);
   const [scrollSnaps, setScrollSnaps] = useState<number[]>([]);
+  const playerRef = useRef<VimeoPlayer | null>(null);
 
   useEffect(() => {
     if (!api) {
@@ -890,7 +871,7 @@ const MobileImageCarousel = ({
           </CarouselItem>
           <CarouselItem>
             <div className="flex h-full flex-col justify-center">
-              <ProductVideo />
+              <ProductVideo playerRef={playerRef} />
             </div>
           </CarouselItem>
           {productImages.map((image, index) => (

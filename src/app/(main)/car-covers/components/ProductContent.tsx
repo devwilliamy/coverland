@@ -1,3 +1,5 @@
+'use client';
+
 import { DropdownPDP } from '@/components/PDP/DropdownPDP';
 import DeliveryDate from '@/components/PDP/components/DeliveryDate';
 import { TimeTo2PMPST } from '@/components/PDP/components/TimeTo2PM';
@@ -14,7 +16,7 @@ import {
   PopoverTrigger,
 } from '@/components/ui/popover';
 import { Separator } from '@/components/ui/separator';
-import { TProductData, TReviewData } from '@/lib/db';
+import { TReviewData } from '@/lib/db';
 import { Rating } from '@mui/material';
 import { track } from '@vercel/analytics';
 import Image from 'next/image';
@@ -24,10 +26,6 @@ import { GoDotFill } from 'react-icons/go';
 import AgentProfile from '@/images/PDP/agent_profile.png';
 import { TCarCoverData } from './CarPDP';
 import { useMediaQuery } from '@mantine/hooks';
-import AddToCartHeader from '@/components/cart/AddToCartHeader';
-import AddToCartBody from '@/components/cart/AddToCartBody';
-import AddToCartFooter from '@/components/cart/AddToCartFooter';
-import BottomUpDrawer from '@/components/ui/bottom-up-drawer';
 import { useState } from 'react';
 import CartSheet from '@/components/cart/CartSheet';
 import {
@@ -39,32 +37,30 @@ import {
 } from '@/components/ui/drawer';
 import { IoClose } from 'react-icons/io5';
 import ReviewSection from '@/components/PDP/components/ReviewSection';
+import Dialog from '@/components/ui/dialog-tailwind-ui';
+import { useRouter } from 'next/navigation';
 
 export function ProductContent({
   selectedProduct,
   reviewCount,
   avgReviewScore,
   reviewData,
-  modelData,
-  submodels,
-  secondSubmodels,
   isReadyForProductSelection,
   handleAddToCart,
+  modelData,
 }: {
   selectedProduct: TCarCoverData | null | undefined;
+  modelData: TCarCoverData[];
   reviewCount: number;
   avgReviewScore: string;
   reviewData: TReviewData[] | undefined | null;
-  modelData: TCarCoverData[];
-  submodels: string[];
-  secondSubmodels: string[];
   isReadyForProductSelection: boolean;
   handleAddToCart: () => void;
 }) {
   const isMobile = useMediaQuery('(max-width: 768px)');
   const [addToCartOpen, setAddToCartOpen] = useState<boolean>(false);
   const [reviewDrawerOpen, setReviewDrawerOpen] = useState<boolean>(false);
-
+  const router = useRouter();
   return (
     <>
       <div className="grid grid-cols-1">
@@ -210,17 +206,16 @@ export function ProductContent({
             <BsBoxSeam size={20} color="#000" />
           </div>
           <div className="flex w-full flex-col items-start justify-start md:w-auto">
-            <div className="text-dark flex-row items-center justify-start text-base capitalize leading-4 md:text-lg xl:flex">
+            <div className=" text-dark flex flex-row items-center justify-start gap-[5px] text-base capitalize leading-4 md:text-lg xl:flex">
               <span className="text-base font-bold uppercase leading-6 md:text-lg xl:mr-1">
                 Free shipping
               </span>
-              <br className="xl:hidden" />
-              <span className="hidden md:mr-1 xl:block">-</span>
+              <span className=" md:mr-1 xl:block"> - </span>
               <DeliveryDate />
             </div>
-            <p className="text-sm text-[#767676]">
+            <div className="text-sm text-[#767676]">
               <TimeTo2PMPST />
-            </p>
+            </div>
             <p className="pt-1.5 text-sm font-normal text-[#1B8500]">
               Free Returns for 30 Days
             </p>
@@ -238,11 +233,7 @@ export function ProductContent({
         {/* Select Your Vehicle */}
         {!isReadyForProductSelection && (
           <div className="mt-8 w-full">
-            <DropdownPDP
-              modelData={modelData as TProductData[]}
-              submodels={submodels}
-              secondSubmodels={secondSubmodels}
-            />
+            <DropdownPDP modelData={modelData} />
           </div>
         )}
         {/* Add to Cart Button */}
@@ -270,7 +261,9 @@ export function ProductContent({
                   sku: selectedProduct?.sku,
                 });
               handleAddToCart();
-              setAddToCartOpen(true);
+              isMobile ? router.push('/checkout') : setAddToCartOpen(true);
+
+              // setAddToCartOpen(true);
             }}
           >
             Add To Cart
@@ -421,15 +414,16 @@ export function ProductContent({
         </div>
       </div>
       {isMobile ? (
-        <BottomUpDrawer
-          title={<AddToCartHeader />}
-          open={addToCartOpen}
-          setOpen={setAddToCartOpen}
-          footer={<AddToCartFooter />}
-        >
-          <AddToCartBody selectedProduct={selectedProduct} />
-        </BottomUpDrawer>
+        <Dialog open={addToCartOpen} setOpen={setAddToCartOpen} />
       ) : (
+        // <BottomUpDrawer
+        //   title={<AddToCartHeader />}
+        //   open={addToCartOpen}
+        //   setOpen={setAddToCartOpen}
+        //   footer={<AddToCartFooter />}
+        // >
+        //   <AddToCartBody selectedProduct={selectedProduct} />
+        // </BottomUpDrawer>
         <CartSheet
           open={addToCartOpen}
           setOpen={setAddToCartOpen}

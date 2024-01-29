@@ -1,3 +1,5 @@
+'use client';
+
 import {
   Drawer,
   // DrawerClose,
@@ -20,13 +22,13 @@ type AccordianDrawerProps = {
 function AccordionDrawerItem(props: AccordianDrawerProps) {
   const [open, setOpen] = useState(false);
   return (
-    <div className="relative ">
-      <Drawer open={open} onOpenChange={setOpen}>
+    <div className="relative">
+      <Drawer open={open} onOpenChange={setOpen} scrollLockTimeout={200}>
         <DrawerTrigger className=" flex w-full flex-row items-center justify-between border-b-2 border-[#C8C7C7] py-4 text-left text-[22px] font-black uppercase text-[#1A1A1A] !no-underline">
           {props.title}
           <FaPlus className="h-[15px] w-[15px]" />
         </DrawerTrigger>
-        <DrawerContent className="">
+        <DrawerContent>
           <DrawerHeader draggable={false}>
             <DrawerTitle className="flex w-full items-center border-b-2 border-[#C8C7C7] py-[22px] font-black uppercase">
               <div
@@ -35,7 +37,7 @@ function AccordionDrawerItem(props: AccordianDrawerProps) {
               >
                 {props.title}
               </div>
-              <div
+              <button
                 id="CloseModalButton"
                 className="flex items-center justify-center rounded-full bg-gray-200 p-[5px]"
                 onClick={() => {
@@ -43,7 +45,7 @@ function AccordionDrawerItem(props: AccordianDrawerProps) {
                 }}
               >
                 <IoClose className="h-[24px] w-[24px]" />
-              </div>
+              </button>
             </DrawerTitle>
             {props.description ? (
               <DrawerDescription>{props.description}</DrawerDescription>
@@ -51,7 +53,7 @@ function AccordionDrawerItem(props: AccordianDrawerProps) {
               <></>
             )}
           </DrawerHeader>
-          <div className="mx-auto flex max-h-[76vh] w-full flex-col overflow-y-scroll pt-[40px] px-4">
+          <div className="mx-auto flex max-h-[76vh]  min-h-[76vh] w-full flex-col overflow-y-scroll px-4 pt-[40px]">
             {props.children}
           </div>
         </DrawerContent>

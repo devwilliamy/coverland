@@ -1,66 +1,42 @@
 'use client';
 
-import { TProductData } from '@/lib/db';
-import {
-  ChangeEvent,
-  Dispatch,
-  SetStateAction,
-  useEffect,
-  useState,
-} from 'react';
+import { ChangeEvent, Dispatch, SetStateAction, useState } from 'react';
+import { TQuery } from './SubDropdowns';
 
 export function SubmodelSearch2nd({
-  setSelectedSecondSubmodel,
-  modelData,
-  submodelParam2nd,
-  selectedSubmodel,
+  setQuery,
+  secondSubmodelOpts,
+  query,
 }: {
-  modelData: TProductData[];
-  setSelectedSecondSubmodel: Dispatch<SetStateAction<string | null>>;
-  submodelParam2nd: string | null;
-  selectedSubmodel: string | null;
+  setQuery: Dispatch<SetStateAction<TQuery>>;
+  secondSubmodelOpts: string[];
+  query: TQuery;
 }) {
-  const [value, setValue] = useState(() => submodelParam2nd ?? '');
-  const [availableSecondSubmodels, setAvailableSecondSubmodels] = useState<
-    string[]
-  >([]);
+  const [value, setValue] = useState<string>('');
 
-  // Updates the second submodel based on when first submodel is selected
-  // Checking for lower case because if only submodel is in search params, it'll pass down
-  // as string to slug (lower case) but submodel is Camel Cased
-  useEffect(() => {
-    const secondSubmodelData: string[] = Array.from(
-      new Set(
-        modelData
-          .filter(
-            (d) =>
-              d.submodel1?.toLowerCase() === selectedSubmodel?.toLowerCase()
-          )
-          .map((d) => d.submodel2)
-          .filter((submodel) => submodel !== null && submodel !== undefined)
-          .map((submodel) => submodel as string)
-      )
-    );
-    if (selectedSubmodel) {
-      setAvailableSecondSubmodels(secondSubmodelData);
-    }
-  }, [selectedSubmodel, modelData]);
+  function handleChange(e: ChangeEvent<HTMLSelectElement>) {
+    setValue(e.target.value);
+    setQuery((p) => ({ ...p, secondSubmodel: e.target.value }));
+  }
 
-  const handleChange = (event: ChangeEvent<HTMLSelectElement>) => {
-    const newValue = event.target.value;
-    setValue(newValue);
-    setSelectedSecondSubmodel(newValue);
-  };
+  if (secondSubmodelOpts.length < 2 && !query.secondSubmodel) {
+    setQuery((p) => ({ ...p, secondSubmodel: secondSubmodelOpts[0] }));
+    return null;
+  }
 
   return (
     <select
-      value={value}
+      value={value.toLowerCase()}
+      defaultValue={value.toLowerCase() ?? ''}
       onChange={handleChange}
-      className="my-2 rounded-lg px-2 py-3 text-lg"
+      className="rounded-lg px-2 py-3 text-lg outline outline-1 outline-offset-1 "
     >
-      <option value="">Select your secondary submodel</option>
-      {availableSecondSubmodels?.sort()?.map((submodel) => (
-        <option key={`model-${submodel}`} value={submodel ?? ''}>
+      <option value={''}>Select 2nd submodel</option>
+      {secondSubmodelOpts.map((submodel) => (
+        <option
+          key={`model-${submodel}`}
+          value={submodel?.toLowerCase() as string}
+        >
           {submodel}
         </option>
       ))}
