@@ -1,6 +1,6 @@
 'use client';
 import Video from 'next-video';
-import CarCoverVideo from '../../../videos/Premium Plus Car Cover_1080p.mp4';
+import CarCoverVideo from 'https://x2kly621zrgfgwll.public.blob.vercel-storage.com/file_example_MP4_1920_18MG-F6bfQjmTzdbNLcmwQjWMqvE18dbkEV.mp4';
 
 export default function ProductVideo() {
   return (
