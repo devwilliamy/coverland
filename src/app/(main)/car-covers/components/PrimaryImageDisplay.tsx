@@ -52,6 +52,7 @@ export function PrimaryImageDisplay({
               width={400}
               height={400}
               className="h-full w-full md:h-[250px] md:w-[250px] lg:h-[500px] lg:w-[500px]"
+              priority
               // onClick={console.log(selectedImage)}
             />
           )}

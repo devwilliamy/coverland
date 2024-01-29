@@ -36,7 +36,6 @@ export function ColorSelector({
               ref={productRefs?.current[sku?.sku] as Ref<HTMLImageElement>}
               width={98}
               height={98}
-              priority
               onError={() => console.log('Failed image:', `${sku?.feature}`)}
               alt="car cover details"
               className="h-20 w-20 cursor-pointer rounded bg-[#F2F2F2] lg:h-full lg:w-full"

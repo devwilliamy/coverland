@@ -374,7 +374,6 @@ function CarSelector({
                     src={sku?.feature as string}
                     width={98}
                     height={98}
-                    priority
                     onError={() =>
                       console.log('Failed image:', `${sku?.feature}`)
                     }

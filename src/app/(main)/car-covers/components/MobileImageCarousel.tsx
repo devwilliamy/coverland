@@ -65,6 +65,7 @@ export const MobileImageCarousel = ({
               alt={`Additional images of the ${selectedProduct.display_id} cover`}
               width={500}
               height={500}
+              priority
               // placeholder="blur"
             />
           </CarouselItem>

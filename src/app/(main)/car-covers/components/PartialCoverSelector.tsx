@@ -221,7 +221,6 @@ export function PartialCoverSelector({
                     }
                     width={98}
                     height={98}
-                    priority
                     alt="car cover details"
                     className="h-20 w-20 cursor-pointer rounded bg-[#F2F2F2] lg:h-full lg:w-full"
                     onClick={() => {
@@ -295,7 +294,6 @@ export function PartialCoverSelector({
                     }
                     width={98}
                     height={98}
-                    priority
                     alt="car cover details"
                     className="h-20 w-20 cursor-pointer rounded bg-[#F2F2F2] lg:h-full lg:w-full"
                     onClick={() => {
