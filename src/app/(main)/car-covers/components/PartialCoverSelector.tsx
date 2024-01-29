@@ -44,6 +44,7 @@ import {
 } from '@/components/PDP/images';
 import { MoneyBackIcon } from '@/components/PDP/images/MoneyBack';
 import { DropdownPDP } from '@/components/PDP/DropdownPDP';
+import VimeoPlayer from 'react-player/vimeo';
 
 const EditVehiclePopover = dynamicImport(
   () => import('@/components/PDP/components/EditVehiclePopover'),
@@ -64,6 +65,7 @@ export function PartialCoverSelector({
   makeParam: string | undefined;
 }) {
   const [selectedProductIndex, setSelectedProductIndex] = useState(0);
+  const playerRef = useRef<VimeoPlayer | null>(null);
 
   const [featuredImageIndex, setFeaturedImageIndex] = useState(0);
 
@@ -140,7 +142,7 @@ export function PartialCoverSelector({
             </div>
 
             {/* Product Video */}
-            {!isMobile && <ProductVideo />}
+            {<ProductVideo playerRef={playerRef} />}
             {/* Gallery Images */}
             <div className="hidden w-auto grid-cols-2 gap-[16px] pt-4 lg:grid ">
               {selectedCover.images.map((img, idx) => (
@@ -423,9 +425,9 @@ export function PartialCoverSelector({
                   <span className="hidden md:mr-1 xl:block">-</span>
                   <DeliveryDate />
                 </div>
-                <p className="text-sm text-[#767676]">
+                <div className="text-sm text-[#767676]">
                   <TimeTo2PMPST />
-                </p>
+                </div>
                 <p className="pt-1.5 text-sm font-normal text-[#1B8500]">
                   Free Returns for 30 Days
                 </p>
@@ -665,6 +667,7 @@ const MobileImageCarousel = ({
   const [api, setApi] = useState<CarouselApi>();
   const [current, setCurrent] = useState(0);
   const [scrollSnaps, setScrollSnaps] = useState<number[]>([]);
+  const playerRef = useRef<VimeoPlayer | null>(null);
 
   useEffect(() => {
     if (!api) {
@@ -711,7 +714,7 @@ const MobileImageCarousel = ({
           </CarouselItem>
           <CarouselItem>
             <div className="flex h-full flex-col justify-center">
-              <ProductVideo />
+              <ProductVideo playerRef={playerRef} />
             </div>
           </CarouselItem>
           {selectedCover.images.map((image, index) => (

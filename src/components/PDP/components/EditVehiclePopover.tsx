@@ -1,3 +1,5 @@
+'use client';
+
 import { EditIcon } from '@/components/PDP/components/icons';
 import EditVehicleDropdown from '../EditVehicleDropdown';
 // import {
@@ -16,7 +18,7 @@ export default function EditVehiclePopover({
 }) {
   const [open, setOpen] = useState(false);
   return (
-    <div className="flex flex-col gap-2">
+    <div className="flex flex-col gap-2 lg:hidden">
       <h2 className="font-roboto text-2xl font-extrabold text-[#1A1A1A]">
         {fullProductName}
       </h2>
@@ -24,7 +26,7 @@ export default function EditVehiclePopover({
         <EditIcon />
         <Drawer.Root open={open} onOpenChange={setOpen}>
           <Drawer.Trigger className="text-left text-base font-black text-[#1A1A1A] !no-underline">
-            <button className="font-normal underline">Edit Vehicle</button>
+            <p className="font-normal underline">Edit Vehicle</p>
           </Drawer.Trigger>
           <Drawer.Portal>
             <Drawer.Overlay className="fixed inset-0 bg-black/40"></Drawer.Overlay>

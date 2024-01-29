@@ -1,3 +1,5 @@
+'use client';
+
 import { DropdownPDP } from '@/components/PDP/DropdownPDP';
 import DeliveryDate from '@/components/PDP/components/DeliveryDate';
 import { TimeTo2PMPST } from '@/components/PDP/components/TimeTo2PM';
@@ -211,9 +213,9 @@ export function ProductContent({
               <span className=" md:mr-1 xl:block"> - </span>
               <DeliveryDate />
             </div>
-            <p className="text-sm text-[#767676]">
+            <div className="text-sm text-[#767676]">
               <TimeTo2PMPST />
-            </p>
+            </div>
             <p className="pt-1.5 text-sm font-normal text-[#1B8500]">
               Free Returns for 30 Days
             </p>

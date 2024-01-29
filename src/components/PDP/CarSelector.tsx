@@ -49,6 +49,7 @@ import { IoClose } from 'react-icons/io5';
 import ReviewSection from './components/ReviewSection';
 import Dialog from '../ui/dialog-tailwind-ui';
 import { useRouter } from 'next/navigation';
+import VimeoPlayer from 'react-player/vimeo';
 
 const ProductVideo = dynamicImport(() => import('./ProductVideo'), {
   ssr: false,
@@ -172,8 +173,6 @@ function CarSelector({
       !!searchParams?.second_submodel ||
       secondSubmodels.length === 1);
 
-  console.log(isFullySelected);
-
   let displayedModelData = searchParams?.submodel
     ? modelsBySubmodel
     : modelData;
@@ -216,6 +215,7 @@ function CarSelector({
 
   const [showMore, setShowMore] = useState(false);
   const isMobile = useMediaQuery('(max-width: 768px)');
+  const playerRef = useRef<VimeoPlayer | null>(null);
 
   const uniqueColors = Array.from(
     new Set(displayedModelData.map((model) => model.display_color))
@@ -285,7 +285,7 @@ function CarSelector({
             </div>
 
             {/* Product Video */}
-            {!isMobile && <ProductVideo />}
+            {!isMobile && <ProductVideo playerRef={playerRef} />}
             {/* Gallery Images */}
             <div className="hidden w-auto grid-cols-2 gap-[16px] pt-4 lg:grid ">
               {productImages.map((img, idx) => (
@@ -831,6 +831,7 @@ const MobileImageCarousel = ({
   const [api, setApi] = useState<CarouselApi>();
   const [current, setCurrent] = useState(0);
   const [scrollSnaps, setScrollSnaps] = useState<number[]>([]);
+  const playerRef = useRef<VimeoPlayer | null>(null);
 
   useEffect(() => {
     if (!api) {
@@ -871,7 +872,7 @@ const MobileImageCarousel = ({
           </CarouselItem>
           <CarouselItem>
             <div className="flex h-full flex-col justify-center">
-              <ProductVideo />
+              <ProductVideo playerRef={playerRef} />
             </div>
           </CarouselItem>
           {productImages.map((image, index) => (
