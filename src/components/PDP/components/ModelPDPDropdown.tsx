@@ -22,7 +22,7 @@ export type TQuery = {
   secondSubmodel: string;
 };
 
-export function SubDropdowns({
+export function ModelPDPDropdown({
   modelData: fetchedModelData,
 }: {
   modelData: TCarCoverData[] | TProductData[];
@@ -203,10 +203,6 @@ export function SubDropdowns({
   console.log('isAllSameSku', isAllSameSku);
 
   const handleSubmitDropdown = () => {
-    if (yearUrl || isAllSameSku) {
-      console.log('yearUrl', yearUrl);
-      return;
-    }
     track('dropdown_submit', {
       year,
       model,
@@ -235,7 +231,7 @@ export function SubDropdowns({
 
   console.log(isFullySelected);
 
-  if (isFullySelected && isAllSameSku) {
+  if (isFullySelected) {
     setQuery({
       year: '',
       type: '',
@@ -247,7 +243,7 @@ export function SubDropdowns({
     handleSubmitDropdown();
   }
 
-  if (isFullySelected && isAllSameSku) {
+  if (isFullySelected) {
     return null;
   }
 

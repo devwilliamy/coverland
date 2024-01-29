@@ -87,9 +87,7 @@ export async function fetchSubmodelsOfModel(model: string) {
 export async function fetchPDPData(
   pathParams: TPDPPathParams
 ): Promise<TProductData[] | null> {
-  // const makeFromPath = pathParams?.product[0];
   const modelFromPath = pathParams?.product[1];
-  // const yearFromPath = pathParams?.product[2];
 
   // console.log(
   //   makeFromPath,
@@ -245,9 +243,7 @@ export async function fetchPDPDataWithQuery(
   const { data, error } = await fetch;
   // console.log(data);
 
-  console.log('fetching with query params', data?.length);
   if (error) {
-    console.log(error);
   }
   return data;
 }
@@ -268,11 +264,56 @@ export async function getProductData({
   }
 
   if (make) {
-    fetch = fetch.eq('make_string', make);
+    fetch = fetch.textSearch('make_string', make, {
+      type: 'websearch',
+    });
   }
 
   if (model) {
-    fetch = fetch.textSearch('model_string', model);
+    fetch = fetch.textSearch('model_string', model, {
+      type: 'websearch',
+    });
+  }
+
+  const { data, error } = await fetch;
+
+  if (error) {
+    throw new Error(error.message);
+  }
+
+  return data;
+}
+
+export async function getAllProductData({
+  year,
+  make,
+  model,
+  type = null,
+}: {
+  year?: string;
+  make?: string;
+  model?: string;
+  type?: string | null;
+}) {
+  let fetch = supabase.from('Products-2024').select('*');
+
+  if (type) {
+    const query = deslugify(type).toLowerCase();
+    fetch = fetch.textSearch('type', query, {
+      type: 'websearch',
+    });
+  }
+
+  if (year) {
+    fetch = fetch.eq('parent_generation', year);
+  }
+
+  if (make) {
+    fetch = fetch.eq('make_slug', make);
+  }
+
+  if (model) {
+    fetch = fetch.eq('model_slug', model);
   }
 
   const { data, error } = await fetch;

@@ -32,14 +32,14 @@ export default function BottomUpDrawer({
           >
             <div className="flex items-center justify-end border-b border-[#C8C7C7]">
               <div className="flex w-full pb-4 pt-6">{title}</div>
-              <div
+              <button
                 className="my-4 flex items-center justify-center rounded-full bg-gray-200 p-[5px]"
                 onClick={() => {
                   setOpen(false);
                 }}
               >
                 <IoClose className="h-[24px] w-[24px]" />
-              </div>
+              </button>
             </div>
           </div>
           <div

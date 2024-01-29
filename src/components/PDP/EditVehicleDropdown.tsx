@@ -8,7 +8,7 @@ import { MakeSearch } from '../hero/dropdown/MakeSearch';
 import { ModelSearch } from '../hero/dropdown/ModelSearch';
 import { YearSearch } from '../hero/dropdown/YearSearch';
 import { SubmodelDropdown } from '../hero/dropdown/SubmodelDropdown';
-import generationData from '@/data/generationData.json';
+import parentGenerationJson from '@/data/parent_generation_data.json';
 import { slugify } from '@/lib/utils';
 
 export type TQuery = {
@@ -38,22 +38,16 @@ export default function EditVehicleDropdown({
   const router = useRouter();
   const { year, type, make, model, submodel } = query;
   // const isReadyForSubmit = year && type && make && model;
-  const types = ['Car Covers', 'SUV Covers', 'Truck Covers'];
 
   const closePopover = useCallback(() => {
     setOpen && setOpen(false);
   }, [setOpen]);
 
-  const typeIndex = String(types.indexOf(type) + 1);
-
-  const availableMakes = generationData.filter(
-    (sku) =>
-      sku.year_options.includes(year) && String(sku.generation)[0] === typeIndex
+  const availableMakes = parentGenerationJson.filter(
+    (sku) => String(sku.year_options).includes(year) && sku.type === type
   );
 
   const availableModels = availableMakes.filter((sku) => sku.make === make);
-
-  console.log(availableModels);
 
   const finalAvailableModels = availableModels.filter((sku) =>
     submodel
@@ -88,9 +82,7 @@ export default function EditVehicleDropdown({
     ),
   ];
 
-  console.log('finalAvailableModels', finalAvailableModels);
-
-  const yearInUrl = finalAvailableModels?.[0]?.year_generation;
+  const yearInUrl = finalAvailableModels?.[0]?.parent_generation;
 
   const createQueryString = useCallback(
     (name: string, value: string) => {
@@ -106,20 +98,19 @@ export default function EditVehicleDropdown({
   );
 
   const handleSubmitDropdown = async () => {
-    console.log(year, make, model, type);
     if (!year || !type || !make || !model) return;
     setLoading(true);
     let url = `/${slugify(type)}/${slugify(make)}/${slugify(model)}/${yearInUrl}`;
-    console.log('url', url);
     const currentUrl = `${pathname}${searchParams?.toString() ? `?${searchParams.toString()}` : ''}`;
+
+    if (submodel) {
+      url += `?${createQueryString('submodel', submodel)}`;
+    }
+
     if (url === currentUrl) {
       setLoading(false);
       closePopover();
       return;
-    }
-
-    if (submodel) {
-      url += `?${createQueryString('submodel', submodel)}`;
     }
 
     // refreshRoute('/');
