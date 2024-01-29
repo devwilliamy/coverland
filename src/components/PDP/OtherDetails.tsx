@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef, useState } from 'react';
+import { Suspense, useRef, useState } from 'react';
 import { MoneyBack } from './MoneyBack';
 import { PDPAccordion } from './PDPAccordian';
 import { ProductHero } from './ProductHero';
@@ -162,7 +162,9 @@ export function ExtraProductDetails({
         </h1>
       </div>
       <div className="flex w-full max-w-full flex-col lg:px-[30px]">
-        <MobilePDPDetails reviewData={reviewData} />
+        <Suspense fallback={<div>Loading...</div>}>
+          <MobilePDPDetails reviewData={reviewData} />
+        </Suspense>
 
         <div className="hidden gap-[110px] lg:flex lg:flex-col">
           <div ref={pdRef}>

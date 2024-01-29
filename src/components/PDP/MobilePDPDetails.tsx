@@ -1,3 +1,5 @@
+'use client';
+
 import { GoDotFill } from 'react-icons/go';
 import { Layers } from './Layers';
 import { OurCarCovers } from './OurCarCovers';
