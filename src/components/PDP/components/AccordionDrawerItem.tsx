@@ -23,7 +23,7 @@ function AccordionDrawerItem(props: AccordianDrawerProps) {
   const [open, setOpen] = useState(false);
   return (
     <div className="relative ">
-      <Drawer open={open} onOpenChange={setOpen}>
+      <Drawer open={open} onOpenChange={setOpen} scrollLockTimeout={200}>
         <DrawerTrigger className=" flex w-full flex-row items-center justify-between border-b-2 border-[#C8C7C7] py-4 text-left text-[22px] font-black uppercase text-[#1A1A1A] !no-underline">
           {props.title}
           <FaPlus className="h-[15px] w-[15px]" />
