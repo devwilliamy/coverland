@@ -41,7 +41,6 @@ import ReviewSection from './components/ReviewSection';
 import Dialog from '../ui/dialog-tailwind-ui';
 import { useRouter } from 'next/navigation';
 import { MobileImageCarousel } from '@/app/(main)/car-covers/components/MobileImageCarousel';
-import VimeoPlayer from 'react-player/vimeo';
 import { TCarCoverData } from '@/app/(main)/car-covers/components/CarPDP';
 
 const ProductVideo = dynamicImport(() => import('./ProductVideo'), {
@@ -210,7 +209,6 @@ function CarSelector({
 
   const [showMore, setShowMore] = useState(false);
   const isMobile = useMediaQuery('(max-width: 768px)');
-  const playerRef = useRef<VimeoPlayer | null>(null);
 
   const uniqueColors = Array.from(
     new Set(displayedModelData.map((model) => model.display_color))
@@ -280,7 +278,7 @@ function CarSelector({
             </div>
 
             {/* Product Video */}
-            {!isMobile && <ProductVideo playerRef={playerRef} />}
+            {!isMobile && <ProductVideo />}
             {/* Gallery Images */}
             <div className="hidden w-auto grid-cols-2 gap-[16px] pt-4 lg:grid ">
               {productImages.map((img, idx) => (

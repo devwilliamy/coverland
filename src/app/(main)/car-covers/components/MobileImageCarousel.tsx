@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { TCarCoverData } from './CarPDP';
 import {
   Carousel,
@@ -15,7 +15,6 @@ const ActiveDot = () => (
   </div>
 );
 import dynamic from 'next/dynamic';
-import VimeoPlayer from 'react-player/vimeo';
 
 const ProductVideo = dynamic(() => import('@/components/PDP/ProductVideo'), {
   ssr: false,
@@ -28,7 +27,6 @@ export const MobileImageCarousel = ({
   selectedProduct: TCarCoverData | TProductData;
   productImages: string[];
 }) => {
-  const playerRef = useRef<VimeoPlayer | null>(null);
   const [api, setApi] = useState<CarouselApi>();
   const [current, setCurrent] = useState(0);
   const [scrollSnaps, setScrollSnaps] = useState<number[]>([]);
@@ -71,7 +69,7 @@ export const MobileImageCarousel = ({
             />
           </CarouselItem>
           <CarouselItem>
-            <ProductVideo playerRef={playerRef} />
+            <ProductVideo />
           </CarouselItem>
           {productImages.map((image, index) => (
             <CarouselItem key={index}>
