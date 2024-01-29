@@ -27,15 +27,19 @@ export function CarCoverSelector({
   secondSubmodelParam,
   reviewData,
   isCompleteSelection,
+  yearParam,
 }: {
   modelData: TCarCoverData[];
   submodelParam?: string | null;
   secondSubmodelParam?: string | null;
   reviewData: TReviewData[] | null | undefined;
   isCompleteSelection: boolean;
+  yearParam: string;
 }) {
-  const [selectedProduct, setSelectedProduct] = useState<TCarCoverData>(
-    modelData[0]
+  const [selectedProduct, setSelectedProduct] = useState<TCarCoverData>(() =>
+    submodelParam && modelData.some((car) => car.submodel1)
+      ? modelData[0]
+      : modelData.filter((car) => car.year_generation === yearParam)[0]
   );
 
   const [featuredImage, setFeaturedImage] = useState<string>(
@@ -130,6 +134,7 @@ export function CarCoverSelector({
 
           <Separator className="mb-8 mt-4" />
           <ProductContent
+            modelData={modelData}
             selectedProduct={selectedProduct}
             reviewCount={reviewCount}
             avgReviewScore={avgReviewScore}

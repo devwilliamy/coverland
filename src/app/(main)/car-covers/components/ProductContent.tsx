@@ -45,8 +45,10 @@ export function ProductContent({
   reviewData,
   isReadyForProductSelection,
   handleAddToCart,
+  modelData,
 }: {
   selectedProduct: TCarCoverData | null | undefined;
+  modelData: TCarCoverData[];
   reviewCount: number;
   avgReviewScore: string;
   reviewData: TReviewData[] | undefined | null;
@@ -202,12 +204,11 @@ export function ProductContent({
             <BsBoxSeam size={20} color="#000" />
           </div>
           <div className="flex w-full flex-col items-start justify-start md:w-auto">
-            <div className="text-dark flex-row items-center justify-start text-base capitalize leading-4 md:text-lg xl:flex">
+            <div className=" text-dark flex flex-row items-center justify-start gap-[5px] text-base capitalize leading-4 md:text-lg xl:flex">
               <span className="text-base font-bold uppercase leading-6 md:text-lg xl:mr-1">
                 Free shipping
               </span>
-              <br className="xl:hidden" />
-              <span className="hidden md:mr-1 xl:block">-</span>
+              <span className=" md:mr-1 xl:block"> - </span>
               <DeliveryDate />
             </div>
             <p className="text-sm text-[#767676]">
@@ -230,7 +231,7 @@ export function ProductContent({
         {/* Select Your Vehicle */}
         {!isReadyForProductSelection && (
           <div className="mt-8 w-full">
-            <DropdownPDP />
+            <DropdownPDP modelData={modelData} />
           </div>
         )}
         {/* Add to Cart Button */}

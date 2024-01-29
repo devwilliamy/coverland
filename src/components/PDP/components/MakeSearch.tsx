@@ -1,20 +1,20 @@
 'use client';
 
-import { ChangeEvent, Dispatch, useState } from 'react';
-import { CarSelectorAction } from '@/lib/hooks/useDropdownSelector';
+import { ChangeEvent, Dispatch, SetStateAction, useState } from 'react';
+import { TQuery } from './SubDropdowns';
 
 export function MakeSearch({
-  setDropdown,
+  setQuery,
   makeOpts,
 }: {
-  setDropdown: Dispatch<CarSelectorAction>;
+  setQuery: Dispatch<SetStateAction<TQuery>>;
   makeOpts: string[];
 }) {
   const [value, setValue] = useState('');
 
   function handleChange(e: ChangeEvent<HTMLSelectElement>) {
     setValue(e.target.value);
-    setDropdown({ type: 'SET_MAKE', payload: e.target.value });
+    setQuery((p) => ({ ...p, make: e.target.value }));
   }
 
   return (

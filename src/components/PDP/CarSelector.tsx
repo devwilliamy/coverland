@@ -36,7 +36,6 @@ import { track } from '@vercel/analytics';
 import { Carousel, CarouselContent, CarouselItem } from '../ui/carousel';
 import dynamicImport from 'next/dynamic';
 import { type CarouselApi } from '@/components/ui/carousel';
-import skuDisplayData from '@/data/skuDisplayData.json';
 import { stringToSlug } from '@/lib/utils';
 import CartSheet from '../cart/CartSheet';
 import {
@@ -132,7 +131,6 @@ function CarSelector({
   submodels,
   secondSubmodels,
   reviewData,
-  parentGeneration,
 }: {
   modelData: TProductData[];
   pathParams: TPDPPathParams;
@@ -140,13 +138,9 @@ function CarSelector({
   secondSubmodels: string[];
   searchParams: TPDPQueryParams;
   reviewData: TReviewData[];
-  parentGeneration: any;
 }) {
-  const defaultModel = modelData.find(
-    (model) =>
-      model.fk ===
-      skuDisplayData.find((row) => row.fk === parentGeneration?.fk)?.fk
-  );
+  const defaultModel = modelData[0];
+  console.log(pathParams);
 
   const modelsBySubmodel =
     modelData.filter(
@@ -171,8 +165,14 @@ function CarSelector({
 
   const isFullySelected =
     pathParams?.product?.length === 3 &&
-    (submodels.length === 0 || !!searchParams?.submodel) &&
-    (secondSubmodels.length === 0 || !!searchParams?.second_submodel);
+    (submodels.length === 0 ||
+      !!searchParams?.submodel ||
+      submodels.length === 1) &&
+    (secondSubmodels.length === 0 ||
+      !!searchParams?.second_submodel ||
+      secondSubmodels.length === 1);
+
+  console.log(isFullySelected);
 
   let displayedModelData = searchParams?.submodel
     ? modelsBySubmodel
@@ -246,8 +246,8 @@ function CarSelector({
 
   const avgReviewScore = (reviewScore / reviewCount).toFixed(1);
 
-  const fullProductName = `${selectedProduct?.year_generation}
-  ${selectedProduct?.make} ${selectedProduct?.product_name} 
+  const fullProductName = `${pathParams.product.length > 2 ? selectedProduct?.parent_generation : ''}
+  ${selectedProduct?.make} ${pathParams.product.length > 1 ? selectedProduct?.product_name : ''} 
   ${searchParams?.submodel ? selectedProduct?.submodel1 : ''}
   ${searchParams?.second_submodel ? selectedProduct?.submodel2 : ''}
   `;
@@ -593,12 +593,11 @@ function CarSelector({
                 <BsBoxSeam size={20} color="#000" />
               </div>
               <div className="flex w-full flex-col items-start justify-start md:w-auto">
-                <div className="text-dark flex-row items-center justify-start text-base capitalize leading-4 md:text-lg xl:flex">
+                <div className=" text-dark flex flex-row items-center justify-start gap-[5px] text-base capitalize leading-4 md:text-lg xl:flex">
                   <span className="text-base font-bold uppercase leading-6 md:text-lg xl:mr-1">
                     Free shipping
                   </span>
-                  <br className="xl:hidden" />
-                  <span className="hidden md:mr-1 xl:block">-</span>
+                  <span className="md:mr-1 xl:block">-</span>
                   <DeliveryDate />
                 </div>
                 <p className="text-sm text-[#767676]">
@@ -620,7 +619,7 @@ function CarSelector({
 
             {/* Select Your Vehicle */}
             <div className="mt-8 w-full">
-              <DropdownPDP />
+              <DropdownPDP modelData={modelData} />
             </div>
             {/* Add to Cart Button */}
             {!isFullySelected && selectedProduct ? (

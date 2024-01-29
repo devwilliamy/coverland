@@ -58,7 +58,7 @@ export function PartialCoverSelector({
   modelParam,
   makeParam,
 }: {
-  modelData: Partial<TProductData>[];
+  modelData: TProductData[];
   reviewData: TReviewData[] | null | undefined;
   modelParam: string | undefined;
   makeParam: string | undefined;
@@ -442,7 +442,7 @@ export function PartialCoverSelector({
 
             {/* Select Your Vehicle */}
             <div className="mt-8 w-full">
-              <DropdownPDP />
+              <DropdownPDP modelData={modelData} />
             </div>
             {/* Add to Cart Button */}
             <>
