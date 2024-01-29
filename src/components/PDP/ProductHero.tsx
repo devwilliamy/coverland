@@ -5,7 +5,7 @@ import productMobile from '@/images/PDP/product_details_01_mobile.webp';
 import WhiteLogo from '@/images/logos/logo-white.png';
 import { useMediaQuery } from '@mantine/hooks';
 
-export function ProductHero() {
+export default function ProductHero() {
   const isMobile = useMediaQuery('(max-width: 1023px)'); //lg
 
   return (

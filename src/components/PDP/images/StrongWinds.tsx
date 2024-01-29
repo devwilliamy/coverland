@@ -7,7 +7,7 @@ export function StrongWindsIcon() {
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
-      <g clip-path="url(#clip0_153_59437)">
+      <g clipPath="url(#clip0_153_59437)">
         <path
           d="M50.5 101C78.3904 101 101 78.3904 101 50.5C101 22.6096 78.3904 0 50.5 0C22.6096 0 0 22.6096 0 50.5C0 78.3904 22.6096 101 50.5 101Z"
           fill="#1A1A1A"
