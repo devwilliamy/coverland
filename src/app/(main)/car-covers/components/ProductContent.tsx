@@ -39,6 +39,7 @@ import { IoClose } from 'react-icons/io5';
 import ReviewSection from '@/components/PDP/components/ReviewSection';
 import Dialog from '@/components/ui/dialog-tailwind-ui';
 import { useRouter } from 'next/navigation';
+import { compareRawStrings } from '@/lib/utils';
 
 export function ProductContent({
   selectedProduct,
@@ -57,6 +58,11 @@ export function ProductContent({
   isReadyForProductSelection: boolean;
   handleAddToCart: () => void;
 }) {
+  const productType = compareRawStrings(selectedProduct?.type, 'car covers')
+    ? 'Car Cover'
+    : compareRawStrings(selectedProduct?.type, 'SUV Covers')
+      ? 'SUV Cover'
+      : 'Truck Cover';
   const isMobile = useMediaQuery('(max-width: 768px)');
   const [addToCartOpen, setAddToCartOpen] = useState<boolean>(false);
   const [reviewDrawerOpen, setReviewDrawerOpen] = useState<boolean>(false);
@@ -67,7 +73,7 @@ export function ProductContent({
         <div className="flex flex-col gap-0.5">
           <h2 className="font-roboto text-lg font-bold text-[#1A1A1A] md:text-[28px]">
             {`${selectedProduct?.display_id}`}
-            &trade; {`${selectedProduct?.display_color}`}
+            &trade; {`${selectedProduct?.display_color} ${productType}`}
           </h2>
           {/* Reviews */}
           <div className="flex items-center gap-1">
@@ -166,7 +172,7 @@ export function ProductContent({
         <div className="flex-start flex items-center">
           <GoDotFill size={10} color="#008000 " />
           <p className="pl-1 text-sm font-medium capitalize text-black">
-            Full Warranty 10 years
+            Lifetime Warranty
           </p>
         </div>
         <div className="flex-start flex items-center leading-4">
