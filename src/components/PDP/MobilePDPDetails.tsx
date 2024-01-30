@@ -18,6 +18,7 @@ import {
 } from '../ui/drawer';
 import { IoClose } from 'react-icons/io5';
 import { useRef } from 'react';
+import WarrantyPolicy from '@/app/(main)/policies/warranty-policy/page';
 
 export const MobilePDPDetails = ({
   reviewData,
@@ -176,23 +177,11 @@ export const MobilePDPDetails = ({
                 className="md:mt-18 mb-[-10px] min-h-[40vh] lg:mt-28"
                 ref={warRef}
               >
-                <div className="flex flex-col gap-5  normal-case">
-                  <div className="flex text-[18px] font-black">
-                    10-Years Warranty
-                  </div>
-                  <div className="mb-[-15px] text-[14px] font-[500]">
-                    Safeguard your valuable investment with the peace of mind
-                    that comes from our industry-leading
-                  </div>
-                  <div className="text-[14px] font-[500]">
-                    {
-                      " 10-years car cover warranty. Your car deserves the best protection, and we're here to deliver it."
-                    }
-                  </div>
+                <div className="-mx-5 mt-[-20px]">
+                  <WarrantyPolicy hideHeader />
                 </div>
               </div>
             </StickyDrawerItem>
-
             {!!reviewData?.length && (
               <StickyDrawerItem title="Car Cover Reviews">
                 <div className="md:mt-18 lg:mt-28" ref={ccrRef}>
@@ -231,22 +220,20 @@ const ScrollDrawerTrigger = ({
   title: string;
   toRef: React.RefObject<HTMLDivElement>;
 }) => (
-  <DrawerTrigger className=" flex w-full flex-row items-center justify-between border-b-2 border-[#C8C7C7] py-4 text-left text-[22px] font-black uppercase text-[#1A1A1A] !no-underline">
-    <button
-      className="uppercase"
-      onClick={() => {
-        setTimeout(() => {
-          const DrawerScrollable = document.getElementById('DrawerScrollable');
-          DrawerScrollable?.scrollTo({
-            top: toRef.current?.offsetTop
-              ? toRef.current?.offsetTop - 100
-              : toRef.current?.offsetTop,
-            behavior: 'instant',
-          });
-        }, 200);
-      }}
-    >
-      {title}
-    </button>
+  <DrawerTrigger
+    className=" flex w-full flex-row items-center justify-between border-b-2 border-[#C8C7C7] py-4 text-left text-[22px] font-black uppercase text-[#1A1A1A] !no-underline"
+    onClick={() => {
+      setTimeout(() => {
+        const DrawerScrollable = document.getElementById('DrawerScrollable');
+        DrawerScrollable?.scrollTo({
+          top: toRef.current?.offsetTop
+            ? toRef.current?.offsetTop - 100
+            : toRef.current?.offsetTop,
+          behavior: 'instant',
+        });
+      }, 200);
+    }}
+  >
+    <div className="uppercase">{title}</div>
   </DrawerTrigger>
 );
