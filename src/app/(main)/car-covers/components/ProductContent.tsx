@@ -1,3 +1,5 @@
+'use client';
+
 import { DropdownPDP } from '@/components/PDP/DropdownPDP';
 import DeliveryDate from '@/components/PDP/components/DeliveryDate';
 import { TimeTo2PMPST } from '@/components/PDP/components/TimeTo2PM';
@@ -37,6 +39,7 @@ import { IoClose } from 'react-icons/io5';
 import ReviewSection from '@/components/PDP/components/ReviewSection';
 import Dialog from '@/components/ui/dialog-tailwind-ui';
 import { useRouter } from 'next/navigation';
+import { compareRawStrings } from '@/lib/utils';
 
 export function ProductContent({
   selectedProduct,
@@ -45,14 +48,21 @@ export function ProductContent({
   reviewData,
   isReadyForProductSelection,
   handleAddToCart,
+  modelData,
 }: {
   selectedProduct: TCarCoverData | null | undefined;
+  modelData: TCarCoverData[];
   reviewCount: number;
   avgReviewScore: string;
   reviewData: TReviewData[] | undefined | null;
   isReadyForProductSelection: boolean;
   handleAddToCart: () => void;
 }) {
+  const productType = compareRawStrings(selectedProduct?.type, 'car covers')
+    ? 'Car Cover'
+    : compareRawStrings(selectedProduct?.type, 'SUV Covers')
+      ? 'SUV Cover'
+      : 'Truck Cover';
   const isMobile = useMediaQuery('(max-width: 768px)');
   const [addToCartOpen, setAddToCartOpen] = useState<boolean>(false);
   const [reviewDrawerOpen, setReviewDrawerOpen] = useState<boolean>(false);
@@ -63,7 +73,7 @@ export function ProductContent({
         <div className="flex flex-col gap-0.5">
           <h2 className="font-roboto text-lg font-bold text-[#1A1A1A] md:text-[28px]">
             {`${selectedProduct?.display_id}`}
-            &trade; {`${selectedProduct?.display_color}`}
+            &trade; {`${selectedProduct?.display_color} ${productType}`}
           </h2>
           {/* Reviews */}
           <div className="flex items-center gap-1">
@@ -162,7 +172,7 @@ export function ProductContent({
         <div className="flex-start flex items-center">
           <GoDotFill size={10} color="#008000 " />
           <p className="pl-1 text-sm font-medium capitalize text-black">
-            Full Warranty 10 years
+            Lifetime Warranty
           </p>
         </div>
         <div className="flex-start flex items-center leading-4">
@@ -202,17 +212,16 @@ export function ProductContent({
             <BsBoxSeam size={20} color="#000" />
           </div>
           <div className="flex w-full flex-col items-start justify-start md:w-auto">
-            <div className="text-dark flex-row items-center justify-start text-base capitalize leading-4 md:text-lg xl:flex">
+            <div className=" text-dark flex flex-row items-center justify-start gap-[5px] text-base capitalize leading-4 md:text-lg xl:flex">
               <span className="text-base font-bold uppercase leading-6 md:text-lg xl:mr-1">
                 Free shipping
               </span>
-              <br className="xl:hidden" />
-              <span className="hidden md:mr-1 xl:block">-</span>
+              <span className=" md:mr-1 xl:block"> - </span>
               <DeliveryDate />
             </div>
-            <p className="text-sm text-[#767676]">
+            <div className="text-sm text-[#767676]">
               <TimeTo2PMPST />
-            </p>
+            </div>
             <p className="pt-1.5 text-sm font-normal text-[#1B8500]">
               Free Returns for 30 Days
             </p>
@@ -230,7 +239,7 @@ export function ProductContent({
         {/* Select Your Vehicle */}
         {!isReadyForProductSelection && (
           <div className="mt-8 w-full">
-            <DropdownPDP />
+            <DropdownPDP modelData={modelData} />
           </div>
         )}
         {/* Add to Cart Button */}

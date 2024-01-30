@@ -1,30 +1,42 @@
 'use client';
 
 import { useCallback, useMemo, useReducer } from 'react';
-import carData from '@/data/car_data_master.json';
 import { compareRawStrings, slugify } from '@/lib/utils';
-import { usePathname, useSearchParams } from 'next/navigation';
+import { ReadonlyURLSearchParams } from 'next/navigation';
+import { TCarCoverData } from '@/app/(main)/car-covers/components/CarPDP';
 
 export type CarSelectorAction =
   | { type: 'SET_YEAR'; payload: string | null }
   | { type: 'SET_MAKE'; payload: string | null }
   | { type: 'SET_MODEL'; payload: string | null }
   | { type: 'SET_SUBMODEL'; payload: string | null }
-  | { type: 'SET_SECOND_SUBMODEL'; payload: string | null };
+  | { type: 'SET_SECOND_SUBMODEL'; payload: string | null }
+  | { type: 'RESET' };
 
 //TODO: Change the structure of the json to an object so we get better performance
 
-const useDropdownSelector = () => {
-  const pathname = usePathname();
-  const searchParams = useSearchParams();
-  const pathnameParts = pathname?.split('/').filter(Boolean) as string[];
-  const productType = pathname?.includes('car-covers')
-    ? 'Car Covers'
-    : pathname?.includes('suv-covers')
-      ? 'SUV Covers'
-      : 'Truck Covers';
+export type TCarDataJson = {
+  type: string;
+  make: string;
+  model: string;
+  year_options: string;
+  year_generation: string;
+  parent_generation: string;
+  submodel1: string | undefined;
+  submodel2: string | undefined;
+  sku: string;
+};
 
-  const [typePath, makePath, modelPath] = pathnameParts;
+const useCarDropdown = (
+  modelData: TCarCoverData[],
+  pathname: string | null,
+  searchParams: ReadonlyURLSearchParams | null
+) => {
+  const pathnameParts = pathname?.split('/').filter(Boolean) as string[];
+  const submodelParam = searchParams?.get('submodel');
+  const secondSubmodelParam = searchParams?.get('second_submodel');
+
+  const [typePath, makePath, modelPath, yearPath] = pathnameParts ?? [];
 
   type TCarSelectorState = {
     selectedYear: string | null;
@@ -35,11 +47,11 @@ const useDropdownSelector = () => {
   };
 
   const initialState = {
-    selectedYear: '',
+    selectedYear: yearPath ?? '',
     selectedMake: makePath ?? '',
     selectedModel: modelPath ?? '',
-    selectedSubmodel: '',
-    selectedSecondSubmodel: '',
+    selectedSubmodel: submodelParam ?? '',
+    selectedSecondSubmodel: secondSubmodelParam ?? '',
   };
 
   function reducer(state: TCarSelectorState, action: CarSelectorAction) {
@@ -54,6 +66,8 @@ const useDropdownSelector = () => {
         return { ...state, selectedSubmodel: action.payload };
       case 'SET_SECOND_SUBMODEL':
         return { ...state, selectedSecondSubmodel: action.payload };
+      case 'RESET':
+        return initialState;
       default:
         throw new Error();
     }
@@ -68,38 +82,6 @@ const useDropdownSelector = () => {
     selectedSecondSubmodel,
   } = state;
 
-  let filteredData = carData.filter((car) => car.type === productType);
-
-  if (selectedYear) {
-    filteredData = filteredData.filter((car) =>
-      car.year_options.includes(selectedYear)
-    );
-  }
-
-  if (selectedMake) {
-    filteredData = filteredData.filter((car) =>
-      compareRawStrings(car.make, selectedMake)
-    );
-  }
-
-  if (selectedModel) {
-    filteredData = filteredData.filter((car) =>
-      compareRawStrings(car.model, selectedModel)
-    );
-  }
-
-  if (selectedSubmodel) {
-    filteredData = filteredData.filter((car) =>
-      compareRawStrings(car.submodel1, selectedSubmodel)
-    );
-  }
-
-  if (selectedSecondSubmodel) {
-    filteredData = filteredData.filter((car) =>
-      compareRawStrings(car.submodel2, selectedSecondSubmodel)
-    );
-  }
-
   const createQueryString = useCallback(
     (name: string, value: string) => {
       const params = new URLSearchParams(searchParams?.toString());
@@ -111,75 +93,89 @@ const useDropdownSelector = () => {
   );
 
   const createQueryUrl = useCallback(() => {
-    if (!filteredData.length) return null;
+    if (!modelData.length) return '';
     const { selectedMake, selectedModel, selectedYear } = state;
+
     const urlParts = [
       selectedMake && slugify(selectedMake),
       selectedModel && slugify(selectedModel),
-      selectedYear && filteredData[0].parent_generation,
+      selectedYear &&
+        modelData.filter((car) => car?.year_options?.includes(selectedYear))[0]
+          ?.parent_generation,
     ]
       .filter(Boolean)
       .join('/');
 
     const queryParams = [];
-    if (selectedSubmodel)
+    if (selectedSubmodel && !submodelParam)
       queryParams.push(createQueryString('submodel', selectedSubmodel));
-    if (selectedSecondSubmodel)
+    if (selectedSecondSubmodel && !secondSubmodelParam)
       queryParams.push(
         createQueryString('second_submodel', selectedSecondSubmodel)
       );
 
     const url = `/${typePath}/${urlParts}${queryParams.length ? '?' + queryParams.join('&') : ''}`;
 
-    console.log(url);
-
     return url;
   }, [
     state,
-    filteredData,
     typePath,
     createQueryString,
     selectedSubmodel,
     selectedSecondSubmodel,
+    modelData,
+    submodelParam,
+    secondSubmodelParam,
   ]);
 
-  const selectionOptions = useMemo(
-    () => ({
-      yearOpts: Array.from(
-        new Set(filteredData.flatMap((car) => car.year_options.split(',')))
-      ).sort((a, b) => Number(b) - Number(a)),
-      makeOpts: Array.from(new Set(filteredData.map((car) => car.make))),
-      modelOpts: Array.from(new Set(filteredData.map((car) => car.model))),
-      submodelOpts: Array.from(
-        new Set(
-          filteredData
-            .map((car) => car.submodel1)
-            .sort()
-            .filter(Boolean) as string[]
+  const selectionOptions = useMemo(() => {
+    const yearOpts = Array.from(
+      new Set(
+        modelData.flatMap((car) =>
+          car?.year_options?.split(',').map((year) => year.trim())
         )
-      ),
-      secondSubmodelOpts: Array.from(
-        new Set(
-          filteredData
-            .map((car) => car.submodel2)
-            .sort()
-            .filter(Boolean) as string[]
-        )
-      ),
-    }),
-    [filteredData]
-  );
+      )
+    ).sort((a, b) => Number(b) - Number(a));
+
+    const makeOpts = Array.from(
+      new Set(modelData.map((car) => car?.make?.trim()))
+    );
+
+    const modelOpts = Array.from(
+      new Set(modelData.map((car) => car.model?.trim()))
+    );
+
+    const submodelOpts = Array.from(
+      new Set(
+        modelData
+          .filter((car) => compareRawStrings(car.model, selectedModel))
+          .map((car) => car.submodel1?.trim())
+          .filter(Boolean)
+      )
+    ).sort();
+
+    const secondSubmodelOpts = Array.from(
+      new Set(
+        modelData
+          .filter((car) => compareRawStrings(car.submodel1, selectedSubmodel))
+          .map((car) => car.submodel2)
+          .filter(Boolean)
+      )
+    ).sort();
+
+    return { yearOpts, makeOpts, modelOpts, submodelOpts, secondSubmodelOpts };
+  }, [modelData, selectedSubmodel, selectedModel]);
 
   const isFullySelected =
-    (selectionOptions.yearOpts.length > 0 ? !!selectedYear : true) &&
-    (selectionOptions.makeOpts.length > 0 ? !!selectedMake : true) &&
-    (selectionOptions.modelOpts.length > 0 ? !!selectedModel : true) &&
+    !!selectedYear &&
+    !!selectedMake &&
+    !!selectedModel &&
     (selectionOptions.submodelOpts.length > 0 ? !!selectedSubmodel : true) &&
     (selectionOptions.secondSubmodelOpts.length > 0
       ? !!selectedSecondSubmodel
       : true);
 
-  const queryUrl = isFullySelected ? createQueryUrl() : '';
+  const queryUrl = createQueryUrl();
 
   return {
     selectionOptions,
@@ -190,4 +186,4 @@ const useDropdownSelector = () => {
   };
 };
 
-export default useDropdownSelector;
+export default useCarDropdown;

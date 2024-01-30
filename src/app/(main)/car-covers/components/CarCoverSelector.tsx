@@ -27,15 +27,19 @@ export function CarCoverSelector({
   secondSubmodelParam,
   reviewData,
   isCompleteSelection,
+  yearParam,
 }: {
   modelData: TCarCoverData[];
   submodelParam?: string | null;
   secondSubmodelParam?: string | null;
   reviewData: TReviewData[] | null | undefined;
   isCompleteSelection: boolean;
+  yearParam: string;
 }) {
-  const [selectedProduct, setSelectedProduct] = useState<TCarCoverData>(
-    modelData[0]
+  const [selectedProduct, setSelectedProduct] = useState<TCarCoverData>(() =>
+    submodelParam && modelData.some((car) => car.submodel1)
+      ? modelData[0]
+      : modelData.filter((car) => car.year_generation === yearParam)[0]
   );
 
   const [featuredImage, setFeaturedImage] = useState<string>(
@@ -87,7 +91,7 @@ export function CarCoverSelector({
   const fullProductName = `${selectedProduct?.year_generation}
   ${selectedProduct?.make} ${selectedProduct?.product_name} 
   ${submodelParam ? selectedProduct?.submodel1 : ''}
-  ${secondSubmodelParam ? selectedProduct?.submodel2 : ''}
+  ${secondSubmodelParam ? selectedProduct?.submodel2 : ''} ${selectedProduct.type} 
   `;
   return (
     <section className="mx-auto h-auto w-full max-w-[1280px] px-4 lg:my-8">
@@ -130,6 +134,7 @@ export function CarCoverSelector({
 
           <Separator className="mb-8 mt-4" />
           <ProductContent
+            modelData={modelData}
             selectedProduct={selectedProduct}
             reviewCount={reviewCount}
             avgReviewScore={avgReviewScore}
