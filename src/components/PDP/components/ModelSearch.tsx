@@ -10,14 +10,14 @@ export function ModelSearch({
 }: {
   setQuery: Dispatch<SetStateAction<TQuery>>;
   modelOpts: string[];
-  handleSubmitDropdown: () => void;
+  handleSubmitDropdown?: () => void;
 }) {
   const [value, setValue] = useState<string>('');
 
   function handleChange(e: ChangeEvent<HTMLSelectElement>) {
     setValue(e.target.value);
     setQuery((p) => ({ ...p, model: e.target.value }));
-    handleSubmitDropdown();
+    handleSubmitDropdown && handleSubmitDropdown();
   }
 
   return (

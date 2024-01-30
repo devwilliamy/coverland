@@ -11,8 +11,8 @@ export function SubmodelSearch2nd({
 }: {
   setQuery: Dispatch<SetStateAction<TQuery>>;
   secondSubmodelOpts: string[];
-  query: TQuery;
-  handleSubmitDropdown: () => void;
+  query?: TQuery;
+  handleSubmitDropdown?: () => void;
 }) {
   const [value, setValue] = useState<string>('');
 
@@ -22,7 +22,7 @@ export function SubmodelSearch2nd({
     handleSubmitDropdown;
   }
 
-  if (secondSubmodelOpts.length < 2 && !query.secondSubmodel) {
+  if (secondSubmodelOpts.length < 2 && !query?.secondSubmodel) {
     setQuery((p) => ({ ...p, secondSubmodel: secondSubmodelOpts[0] }));
     return null;
   }
