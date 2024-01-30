@@ -22,7 +22,7 @@ const IconSection = ({
   img: StaticImageData;
   children: React.ReactNode;
 }) => (
-  <div className="flex w-full max-w-[430px] flex-row items-center justify-center">
+  <div className="flex w-full flex-row items-center justify-center">
     <div className="flex w-full gap-[25px] ">
       <div className="-m-[8px]">
         <Image
@@ -45,28 +45,8 @@ const IconSection = ({
 
 export default function SecuritySection() {
   return (
-    <section className="h-auto max-w-[1440px] gap-[115px] bg-white lg:flex ">
-      {/* <div
-          id="ImageContainer"
-          className="relative flex max-h-[386px] min-h-[386px] w-full  lg:max-h-[562px] lg:min-h-[562px]  lg:justify-end"
-        >
-          <div className="absolute top-0">
-            <Image
-              src={Beach}
-              className="flex h-fit min-h-[200px] w-fit min-w-[200px] rounded-[8px] object-cover md:max-h-[462px] md:min-h-[462px] md:min-w-[517px] md:max-w-[517px]"
-              alt="a fully-covered vehicle with a coverland car cover on it"
-            />
-            <div className="absolute bottom-[27px] left-[14px] z-10 flex flex-col gap-[20px] lg:bottom-[42px] lg:left-[42px]">
-              <p className="text-[18px] font-[700] capitalize text-white lg:text-[24px]">
-                outdoor car covers
-              </p>
-              <button className="flex h-[44px] max-w-[160px] items-center rounded-[100px] bg-white px-[40px] py-[17px] text-[16px] font-[900] leading-[110%] tracking-[0.32px]">
-                Shop Now
-              </button>
-            </div>
-          </div>
-        </div> */}
-      <div className="flex w-full flex-col justify-center  lg:flex-row ">
+    <section className="mx-[16px] mt-[-24px] h-auto max-w-[1440px] gap-[115px] px-4  lg:mx-0  lg:flex ">
+      <div className="flex w-full flex-col items-center justify-center lg:flex-row ">
         <div className="relative aspect-square max-h-[562px] w-full max-w-[617px]  ">
           <Image
             className="rounded-[15px]"
@@ -74,20 +54,20 @@ export default function SecuritySection() {
             src={Beach}
             alt="a fully-covered vehicle with a coverland car cover on it"
           />
-          <div className="absolute bottom-[27px] left-[14px] z-10 flex flex-col gap-[20px] lg:bottom-[42px] lg:left-[42px]">
+          <div className="absolute  bottom-[27px] left-[14px] z-10 flex flex-col gap-[12px] lg:bottom-[42px] lg:left-[42px]">
             <p className="text-[18px] font-[700] capitalize text-white lg:text-[24px]">
               Outdoor car covers
             </p>
             <button className="flex h-[44px] max-w-[160px] items-center rounded-[100px] bg-white px-[40px] py-[17px] text-[16px] font-[900] leading-[110%] tracking-[0.32px]">
-              Shop Now
+              <a href="/car-covers">Shop Now</a>
             </button>
           </div>
         </div>
         <div
           id="SecurityBenefits"
-          className="flex h-full flex-col items-start gap-[32px] px-[20px] lg:ml-[114px] lg:min-w-[415px] lg:px-0 "
+          className="flex h-full flex-col items-center gap-[32px] px-[20px] lg:ml-[54px] lg:min-w-[415px] lg:px-0 "
         >
-          <p className=" max-w-[382px] text-left text-[24px] font-black uppercase leading-[40px] lg:text-[34px] ">
+          <p className=" mt-[32px] w-full text-left text-[24px] font-black uppercase leading-[32px] lg:mt-0 lg:text-[34px] lg:leading-[40px] ">
             Experience the Best <br /> Car Cover In THe USA
           </p>
           <div
@@ -98,14 +78,14 @@ export default function SecuritySection() {
               It fully protects my car in all weather conditions. Built to be
               effective in all seasons.
             </IconSection>
-            <IconSection img={Sun} title="UV & Heat Protection">
+            <IconSection img={Sun} title="UV & Heatproof Car Covers">
               Without heat accumulation, our covers reflect 100% of all UV rays.
             </IconSection>
-            <IconSection img={Scratch} title="Scratchproof">
+            <IconSection img={Scratch} title="Scratchproof Car Covers">
               Serving as a protective coat, our covers guard against scratches
               by kids, dirt and even cats.
             </IconSection>
-            <IconSection img={Storm} title="Hail, Storm & Snow Protection">
+            <IconSection img={Storm} title="Hail, Storm & Snowproof Car Covers">
               Regardless of weather conditions, our covers are snowproof,
               waterproof and windproof.
             </IconSection>

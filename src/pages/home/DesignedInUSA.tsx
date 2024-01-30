@@ -4,7 +4,7 @@ import Indoor from '@/images/solutions/indoor-car-cover-picture.png';
 
 export default function DesignedInUSA() {
   return (
-    <section className="px-[16px] lg:px-0">
+    <section className="px-[16px]  lg:px-0">
       <div className="flex w-full flex-col items-center justify-center  lg:flex-row-reverse ">
         <div className="relative aspect-square max-h-[562px] w-full max-w-[617px] lg:w-1/2  ">
           <Image
@@ -13,12 +13,12 @@ export default function DesignedInUSA() {
             src={Indoor}
             alt="a fully-covered vehicle with a coverland car cover on it"
           />
-          <div className="absolute bottom-[27px] left-[14px] z-10 flex flex-col gap-[20px] lg:bottom-[42px] lg:left-[42px]">
+          <div className="absolute bottom-[27px] left-[14px] z-10 flex flex-col  gap-[12px] lg:bottom-[42px] lg:left-[42px]">
             <p className="text-[18px] font-[700] capitalize text-white lg:text-[24px]">
               Indoor car covers
             </p>
             <button className="flex h-[44px] max-w-[160px] items-center rounded-[100px] bg-white px-[40px] py-[17px] text-[16px] font-[900] leading-[110%] tracking-[0.32px]">
-              Shop Now
+              <a href="/car-covers">Shop Now</a>
             </button>
           </div>
         </div>
@@ -26,7 +26,7 @@ export default function DesignedInUSA() {
           id="USADetails"
           className="flex h-full max-w-[527px] flex-col gap-[32px] lg:mr-[83px] lg:w-1/2 lg:items-start "
         >
-          <p className=" mb-[-10px] max-w-[382px] text-left text-[24px] font-black uppercase leading-[40px] lg:mb-0 lg:whitespace-nowrap lg:text-[34px] ">
+          <p className=" mb-[-10px] mt-[32px] max-w-[382px] text-left text-[24px] font-black uppercase leading-[32px] lg:mb-0 lg:mt-0 lg:whitespace-nowrap lg:text-[34px] lg:leading-[40px] ">
             Custom-Fit Car Covers <br /> Designed In The USA
           </p>
           <div className="">

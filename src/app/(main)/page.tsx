@@ -29,9 +29,11 @@ export default function Home() {
       <ReviewsSection />
       <TrustBanner />
       <BuyWithConfidenceSection />
-      <SecuritySection />
-      <DesignedInUSA />
-      <WhyChooseCoverland />
+      <div className="flex flex-col gap-[60px] bg-[#F9F9FB] lg:gap-[110px] lg:py-[110px]">
+        <SecuritySection />
+        <DesignedInUSA />
+        <WhyChooseCoverland />
+      </div>
     </div>
   );
 }

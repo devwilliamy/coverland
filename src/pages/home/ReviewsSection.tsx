@@ -18,22 +18,22 @@ const ReviewsSection = () => {
     {
       rating: 5,
       img: Reviews1,
-      title: 'Enance your Miata with this cover',
-      body: 'Fits perfectly, no problems. perfectly snug fit, no complaints. stays put even in wind',
+      title: 'Reliable in all sorts of weather',
+      body: 'Fits perfectly, no problems. Perfectly snug fit, no complaints. Stays put even in strong winds!',
       owner: 'Henry Green',
     },
     {
       rating: 4,
       img: Reviews2,
       title: 'Car covers are important for vehicle protection',
-      body: "peace of mind, no worriz it's the perfect acessory for my car that I wouldn't go without this covr surpassd my expectatns Dependable and reliable, year after year.",
+      body: "Peace of mind, no worries. It's the perfect accessory for my car that I wouldn't go without this cover surpassed my expectations. Dependable and reliable, year after year.",
       owner: 'Marilyn Adams',
     },
     {
       rating: 5,
       img: Reviews4,
       title: 'Invest in your car with this cover',
-      body: "It's like having a shield for my prized possess. maintaining my car's beauty has never been easier. this cover is a game-changer. extremely satisfied with this purchase. Stylish design, worth the cost.",
+      body: "It's like having a shield for my prized possess. Maintaining my car's beauty has never been easier. this cover is a game-changer. extremely satisfied with this purchase. Stylish design, worth the cost.",
       owner: 'Carol Mccoy',
     },
     {
@@ -80,10 +80,10 @@ const ReviewsSection = () => {
   return (
     <div>
       <div className="flex w-full flex-col items-center px-[39px]  uppercase">
-        <div className="mb-[18px] text-[14px] capitalize lg:text-[24px] ">
+        <div className="text-[14px] capitalize lg:text-[24px] ">
           Thousands of happy customers
         </div>
-        <div className="mb-[22px] text-[24px] font-[900] lg:text-[54px] uppercase">
+        <div className="mb-[22px] text-[24px] font-[900] uppercase lg:text-[54px]">
           car cover REVIEWS
         </div>
       </div>
@@ -154,7 +154,7 @@ const ReviewsItem = ({ key, item }: { key: string; item: ReviewData }) => (
         {item?.owner}
       </div>
       <button className=" flex min-h-[48px] w-full max-w-[214px]  flex-col items-center justify-center rounded-[4px] bg-[#BE1B1B] px-[40px] py-[15px] text-[16px] font-black text-white outline outline-[1px] outline-white">
-        Shop Now
+        <a href="/car-covers">Shop Now</a>
       </button>
     </div>
   </CarouselItem>

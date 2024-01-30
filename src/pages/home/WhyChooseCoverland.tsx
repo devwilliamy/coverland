@@ -5,7 +5,7 @@ import { BsCheckSquareFill } from 'react-icons/bs';
 
 const WhyChooseCoverland = () => {
   return (
-    <section className="px-[16px] lg:px-0">
+    <section className="px-4 lg:px-0">
       <div className="flex w-full flex-col justify-center lg:flex-row ">
         <div className="relative aspect-square max-h-[562px] w-full max-w-[617px]  lg:w-1/2 ">
           <Image
@@ -15,24 +15,24 @@ const WhyChooseCoverland = () => {
             // className=" rounded-[8px] object-cover md:max-h-[462px] md:min-h-[462px] md:min-w-[517px] md:max-w-[517px]  lg:max-h-[562px] lg:min-h-[562px] lg:min-w-[617px] lg:max-w-[617px]"
             alt="a fully-covered vehicle with a coverland car cover on it"
           />
-          <div className="absolute bottom-[27px] left-[14px] z-10 flex flex-col gap-[20px] lg:bottom-[42px] lg:left-[42px]">
+          <div className="absolute bottom-[27px] left-[14px] z-10 flex flex-col gap-[12px] lg:bottom-[42px] lg:left-[42px]">
             <p className="text-[18px] font-[700] capitalize text-white lg:text-[24px]">
               Waterproof car covers
             </p>
             <button className="flex h-[44px] max-w-[160px] items-center rounded-[100px] bg-white px-[40px] py-[17px] text-[16px] font-[900] leading-[110%] tracking-[0.32px]">
-              Shop Now
+              <a href="/car-covers">Shop Now</a>
             </button>
           </div>
         </div>
         <div
           id="Content"
-          className="flex w-full max-w-[580px] flex-col lg:ml-[72px] lg:w-1/2 "
+          className="flex w-full max-w-[580px] flex-col lg:ml-[62px] lg:w-1/2 "
         >
           <div className="flex h-full w-full flex-col">
             <div className="hidden w-full text-[34px] font-extrabold uppercase leading-[40px] lg:flex lg:whitespace-nowrap ">
               Why Choose <br /> CoverLand Car Covers?
             </div>
-            <div className="mb-[22px] flex w-full text-[24px] font-extrabold uppercase leading-[32px] lg:hidden lg:whitespace-nowrap ">
+            <div className="mb-[22px] mt-[32px] flex w-full text-[24px] font-extrabold uppercase leading-[32px] lg:mt-0 lg:hidden lg:whitespace-nowrap lg:leading-[40px] ">
               Why Choose CoverLand <br /> Car Covers?
             </div>
             <div className="flex flex-col items-start justify-start  pt-0 lg:pt-7 ">

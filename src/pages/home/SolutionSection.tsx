@@ -19,7 +19,7 @@ export default function SolutionSection() {
           alt="Perfect Solution Image"
         />
         <button className="my-[30px] flex min-h-[48px] w-full max-w-[214px]  flex-col items-center justify-center rounded-[4px] bg-[#BE1B1B] px-[40px] py-[15px] text-[16px] font-black text-white outline outline-[1px] outline-white">
-          Shop Now
+          <a href="/car-covers">Shop Now</a>
         </button>
       </span>
     </div>
