@@ -9,7 +9,7 @@ function WarrantyPolicy({ hideHeader }: { hideHeader?: boolean }) {
     <>
       {!hideHeader && <PolicyHeader headerText="Warranty" />}
       <div className="lg:mx-auto lg:flex lg:w-[842px] lg:flex-col lg:justify-center">
-        <div className="relative px-5 py-5 lg:py-14">
+        <div className="relative px-5 lg:py-14">
           <PolicyTitle
             title="Up to a 10-Year Comprehensive Warranty"
             uppercase

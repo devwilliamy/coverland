@@ -177,7 +177,7 @@ export const MobilePDPDetails = ({
                 className="md:mt-18 mb-[-10px] min-h-[40vh] lg:mt-28"
                 ref={warRef}
               >
-                <div className="-mx-5 mt-[-40px]">
+                <div className="-mx-5 mt-[-20px]">
                   <WarrantyPolicy hideHeader />
                 </div>
               </div>
