@@ -1,5 +1,5 @@
 import { slugify } from '@/lib/utils';
-import generationData from '@/data/generationData.json';
+import generationData from '@/data/staticGenerationTableData.json';
 import {
   TReviewData,
   fetchCarPDPData,
@@ -22,14 +22,15 @@ export type TCarCoverSlugParams = {
 };
 
 export type TGenerationData = {
-  generation: number;
+  fk: number;
+  generation_default: number;
   year_generation: string;
   make: string;
   model: string;
   submodel1: string | null;
   submodel2: string | null;
   year_options: string;
-};
+}[];
 
 export default async function CarPDPDataLayer({
   params,
@@ -41,13 +42,11 @@ export default async function CarPDPDataLayer({
       slugify(gen.make) === params.make &&
       slugify(gen.model) === params.model &&
       gen.year_generation === params.year
-  )[0]?.generation;
+  )[0]?.generation_default;
 
   const availableGenerations = generationData.filter(
-    (gen) => gen.generation === generationFk
+    (gen) => gen.generation_default === generationFk || gen.fk === generationFk
   );
-
-  console.log(availableGenerations, generationFk);
 
   const modelData: TCarCoverData[] | null = await fetchCarPDPData(
     generationFk,
@@ -82,8 +81,6 @@ export default async function CarPDPDataLayer({
   if (modelData?.length === 0) {
     redirect('/404');
   }
-
-  console.log(filteredModelData);
 
   return (
     <>

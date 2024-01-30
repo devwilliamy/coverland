@@ -14,8 +14,8 @@ export function NoGarageMobile() {
           className="w-full object-cover"
         />
       </div>
-      <div className="absolute top-[10%] flex h-full w-full flex-col items-stretch text-center">
-        <p className="text-[5.2vw] font-black uppercase tracking-[1.35px] text-[#494949] sm:text-3xl md:text-5xl">
+      <div className="absolute left-[-40px] top-[35px] flex h-full w-full flex-col items-stretch">
+        <p className="text-right font-black uppercase tracking-[1.35px] text-[#494949] sm:text-xl md:text-3xl lg:text-5xl">
           No Garage? No problem!
         </p>
       </div>

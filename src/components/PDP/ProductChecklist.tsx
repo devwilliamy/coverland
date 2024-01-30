@@ -5,90 +5,83 @@ import { FaCheckSquare } from 'react-icons/fa';
 
 export function ProductChecklist() {
   return (
-    <div className="mt-[40px] flex flex-col lg:mt-0 lg:flex-row">
-      <div className="w-full lg:order-last lg:w-2/4">
+    <div className="w-full h-full flex flex-col-reverse lg:flex-row pt-8 lg:pt-20">
+      <div className="w-full lg:w-2/4 flex flex-col justify-stretch items-start bg-dark px-2 md:px-12 py-4 md:py-8 pt-16 bg-[#1A1A1A]">
+        <div className="pb-8">
+          <p className="text-white font-black text-xl md:text-3xl uppercase leading-normal">
+            Who Can Benefit From <br className="hidden md:visible" /> Our
+            Premium Car covers:
+          </p>
+        </div>
+        <div className="grid grid-cols-1 gap-5 mt-4 md:mt-8">
+          <div className="flex flex-row justify-start items-center">
+            <FaCheckSquare color="ffffff" size={24} />
+            <div className="ml-2 md:ml-4">
+              <p className="text-white font-normal text-base md:text-lg lg:text-xl">
+                <b>Car Enthusiasts</b>
+              </p>
+            </div>
+          </div>
+          <div className="flex flex-row justify-start items-center">
+            <FaCheckSquare color="ffffff" size={24} />
+            <div className="ml-2 md:ml-4">
+              <p className="text-white font-normal text-base md:text-lg lg:text-xl">
+                Those Who Prefer <b>Minimal Car Washing</b>
+              </p>
+            </div>
+          </div>
+          <div className="flex flex-row justify-start items-center">
+            <FaCheckSquare color="ffffff" size={24} />
+            <div className="ml-2 md:ml-4">
+              <p className="text-white font-normal text-base md:text-lg lg:text-xl">
+                Residents of <b className="capitalize">wildlife</b> and{' '}
+                <b className="capitalize">Tree-abundant</b> Areas
+              </p>
+            </div>
+          </div>
+          <div className="flex flex-row justify-start items-center">
+            <FaCheckSquare color="ffffff" size={24} />
+            <div className="ml-2 md:ml-4">
+              <p className="text-white font-normal text-base md:text-lg lg:text-xl">
+                Cars frequently exposed to <b>rain</b> and <b>humidity</b>
+              </p>
+            </div>
+          </div>
+          <div className="flex flex-row justify-start items-center">
+            <FaCheckSquare color="ffffff" size={24} />
+            <div className="ml-2 md:ml-4">
+              <p className="text-white font-normal text-base md:text-lg lg:text-xl">
+                Car owners in <b>hurricane-prone</b> regions
+              </p>
+            </div>
+          </div>
+          <div className="flex flex-row justify-start items-center">
+            <FaCheckSquare color="ffffff" size={24} />
+            <div className="ml-2 md:ml-4">
+              <p className="text-white font-normal text-base md:text-lg lg:text-xl">
+                Car owners in <b>snowy</b> climates
+              </p>
+            </div>
+          </div>
+          <div className="flex flex-row justify-start items-center">
+            <FaCheckSquare color="ffffff" size={24} />
+            <div className="ml-2 md:ml-4">
+              <p className="text-white font-normal text-base md:text-lg lg:text-xl">
+                Car owners in <b>sunny</b> climates
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div className="w-full lg:w-2/4">
         <Image
           src={Waterproof}
           alt="a car sitting inside of a building"
           width={500}
           height={500}
-          className="h-full w-full"
+          className="w-full h-full"
         />
-      </div>
-      <div className="bg-dark flex w-full flex-col items-start justify-stretch bg-[#1A1A1A] px-[10px] py-[56px] lg:w-2/4 lg:px-[56px] lg:py-[61px]">
-        <div className="pb-[56px]">
-          <p className=" text-[22px] font-black uppercase leading-[163.636%] text-white lg:text-3xl">
-            Who Can Benefit From <br /> Our Premium Car covers:
-          </p>
-        </div>
-        <div className=" grid grid-cols-1 gap-[28px] normal-case ">
-          <BenefitCheckPoint>
-            <FaCheckSquare color="ffffff" size={24} />
-            <div className="ml-2 md:ml-4">
-              <p className="text-base font-normal text-white md:text-lg lg:text-xl">
-                <b>Car Enthusiasts.</b>
-              </p>
-            </div>
-          </BenefitCheckPoint>
-          <BenefitCheckPoint>
-            <FaCheckSquare color="ffffff" size={24} />
-            <div className="ml-2 md:ml-4">
-              <p className="text-base font-normal text-white md:text-lg lg:text-xl">
-                Those Who Prefer <b>Minimal Car Washing.</b>
-              </p>
-            </div>
-          </BenefitCheckPoint>
-          <BenefitCheckPoint>
-            <FaCheckSquare color="ffffff" size={24} />
-            <div className="ml-2 md:ml-4">
-              <p className="text-base font-normal text-white md:text-lg lg:text-xl">
-                Residents of <b className="capitalize">wildlife</b> and{' '}
-                <b className="capitalize">Tree-abundant</b> Areas.
-              </p>
-            </div>
-          </BenefitCheckPoint>
-          <BenefitCheckPoint>
-            <FaCheckSquare color="ffffff" size={24} />
-            <div className="ml-2 md:ml-4">
-              <p className="text-base font-normal text-white md:text-lg lg:text-xl">
-                Cars frequently exposed to <b>rain</b> and <b>humidity.</b>
-              </p>
-            </div>
-          </BenefitCheckPoint>
-          <BenefitCheckPoint>
-            <FaCheckSquare color="ffffff" size={24} />
-            <div className="ml-2 md:ml-4">
-              <p className="text-base font-normal text-white md:text-lg lg:text-xl">
-                Car owners in <b>typhoon-prone</b> regions.
-              </p>
-            </div>
-          </BenefitCheckPoint>
-          <BenefitCheckPoint>
-            <FaCheckSquare color="ffffff" size={24} />
-            <div className="ml-2 md:ml-4">
-              <p className="text-base font-normal text-white md:text-lg lg:text-xl">
-                Car owners in <b>snowy</b> climates.
-              </p>
-            </div>
-          </BenefitCheckPoint>
-          <BenefitCheckPoint>
-            <FaCheckSquare color="ffffff" size={24} />
-            <div className="ml-2 md:ml-4">
-              <p className="text-base font-normal text-white md:text-lg lg:text-xl">
-                Car owners in <b>sunny</b> climates.
-              </p>
-            </div>
-          </BenefitCheckPoint>
-        </div>
       </div>
     </div>
   );
 }
-type BenefitCheckPointData = {
-  children: JSX.Element[] | JSX.Element;
-};
-const BenefitCheckPoint = ({ children }: BenefitCheckPointData) => (
-  <div className="flex flex-row items-center justify-start gap-[27px]">
-    {children}
-  </div>
-);

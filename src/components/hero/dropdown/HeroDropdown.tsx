@@ -79,15 +79,12 @@ export function HeroDropdown() {
     ),
   ];
 
-  //If there's no submodel selected, either there's some available but they haven't been
-  //selected, or there's none available. If the former, use the parent generation.
-  //If the latter, finalAvailableModels will only have one item, so use it's year_generation.
-
-  const yearInUrl = !submodel
-    ? finalAvailableModels.filter((sku) => sku.generation_default === sku.fk)[0]
-        ?.year_generation ?? finalAvailableModels?.[0]?.year_generation
-    : skuDisplayData.find((sku) => sku.fk === finalAvailableModels?.[0]?.fk)
-        ?.year_generation ?? finalAvailableModels?.[0]?.year_generation;
+  const yearInUrl =
+    skuDisplayData.find((sku) =>
+      submodel
+        ? sku.fk === finalAvailableModels?.[0]?.fk
+        : sku.fk === finalAvailableModels?.[0]?.generation_default
+    )?.year_generation ?? finalAvailableModels?.[0]?.year_generation;
 
   console.log(yearInUrl);
 

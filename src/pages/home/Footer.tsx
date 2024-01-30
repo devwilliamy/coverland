@@ -174,7 +174,7 @@ const Footer = () => {
         <div className="flex w-full flex-col items-center justify-end opacity-70 lg:w-2/4 lg:items-start">
           <p className="text-center text-xs text-[#DBDBDB] lg:text-left">
             {' '}
-            Copyright &#169; {currentYear} Coverland.com. All Rights Reserved.
+            Copyright &#169; {currentYear} Coverland, Inc. All Rights Reserved.
             {/* <br className="lg:hidden" /> Site built by{' '}
             <Link
               href="https://www.mcbportfolio.com?ref=coverland"

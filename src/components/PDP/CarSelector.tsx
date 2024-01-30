@@ -37,6 +37,12 @@ import { track } from '@vercel/analytics';
 import { Carousel, CarouselContent, CarouselItem } from '../ui/carousel';
 import dynamicImport from 'next/dynamic';
 import { type CarouselApi } from '@/components/ui/carousel';
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from '../ui/accordion';
 import skuDisplayData from '@/data/skuDisplayData.json';
 import { stringToSlug } from '@/lib/utils';
 
@@ -707,6 +713,74 @@ function CarSelector({
             <h3 className="mb-[28px] hidden text-xl font-black uppercase text-[#1A1A1A] lg:flex">
               car cover features
             </h3>
+            <Accordion
+              type="single"
+              defaultValue="item-1"
+              collapsible
+              className="lg:hidden"
+            >
+              <AccordionItem value="item-1">
+                <AccordionTrigger
+                  className="text-xl font-black uppercase text-[#1A1A1A] !no-underline"
+                  id="#reviews"
+                >
+                  Car Cover Features
+                </AccordionTrigger>
+                <AccordionContent>
+                  <Separator className="mb-7 mt-3 lg:hidden" />
+                  <div className="pl-4">
+                    <div className="flex-start ml-2 flex items-center pb-2 leading-4">
+                      <GoDotFill size={10} color="#000000" />
+                      <p className="pl-1 text-sm font-medium capitalize text-black">
+                        Tailored to your car model
+                      </p>
+                    </div>
+                    <div className="flex-start ml-2 flex items-center pb-2 leading-4">
+                      <GoDotFill size={10} color="#000000" />
+                      <p className="pl-1 text-sm font-medium capitalize text-black">
+                        all-season waterproof protection
+                      </p>
+                    </div>
+                    <div className="flex-start ml-2 flex items-center pb-2 leading-4">
+                      <GoDotFill size={10} color="#000000" />
+                      <p className="pl-1 text-sm font-medium capitalize text-black">
+                        Scratchproof, durable & lightweight
+                      </p>
+                    </div>
+                    <div className="flex-start ml-2 flex items-center pb-2 leading-4">
+                      <GoDotFill size={10} color="#000000" />
+                      <p className="pl-1 text-sm font-medium capitalize text-black">
+                        Soft Inner-lining
+                      </p>
+                    </div>
+                    <div className="flex-start ml-2 flex items-center pb-2 leading-4">
+                      <GoDotFill size={10} color="#000000" />
+                      <p className="pl-1 text-sm font-medium capitalize text-black">
+                        100% Waterproof - Zero Leaks Guaranteed
+                      </p>
+                    </div>
+                    <div className="flex-start ml-2 flex items-center pb-2 leading-4">
+                      <GoDotFill size={10} color="#000000" />
+                      <p className="pl-1 text-sm font-medium capitalize text-black">
+                        100% UV Protection
+                      </p>
+                    </div>
+                    <div className="flex-start ml-2 flex items-center pb-2 leading-4">
+                      <GoDotFill size={10} color="#000000" />
+                      <p className="pl-1 text-sm font-medium capitalize text-black">
+                        Easy On/Off with elastic hems
+                      </p>
+                    </div>
+                    <div className="flex-start ml-2 flex items-center pb-2 leading-4">
+                      <GoDotFill size={10} color="#000000" />
+                      <p className="pl-1 text-sm font-medium capitalize text-black">
+                        effortless cleaning
+                      </p>
+                    </div>
+                  </div>
+                </AccordionContent>
+              </AccordionItem>
+            </Accordion>
             <div className="flex-start ml-2 hidden items-center pb-2 leading-4 lg:flex">
               <GoDotFill size={10} color="#000000" />
               <p className="pl-1 text-lg font-medium capitalize text-black">
@@ -752,7 +826,7 @@ function CarSelector({
             <div className="flex-start ml-2 hidden items-center pb-2 leading-4 lg:flex">
               <GoDotFill size={10} color="#000000" />
               <p className="pl-1 text-lg font-medium capitalize text-black">
-                Effortless cleaning
+                effortless cleaning
               </p>
             </div>
           </div>

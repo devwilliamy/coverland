@@ -37,7 +37,9 @@ function Cart() {
           className="mt-1 flex h-[40px] w-5 items-center md:order-last"
           onClick={() => setCartOpen(!cartOpen)}
         >
-          <HiOutlineShoppingCart className="h-[24px] w-[24px] *:h-full *:w-full lg:h-[24px] lg:w-[24px]" />
+          <div className="h-[17px] w-[17px] *:h-full *:w-full lg:h-[20px] lg:w-[20px]">
+            <HiOutlineShoppingCart />
+          </div>
         </button>
         {/* <ShoppingCart
             size={isMobile ? 24 : 32}

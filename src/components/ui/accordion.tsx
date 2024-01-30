@@ -2,7 +2,7 @@
 
 import * as React from 'react';
 import * as AccordionPrimitive from '@radix-ui/react-accordion';
-import { FaPlus } from 'react-icons/fa6';
+import { ChevronDown } from 'lucide-react';
 
 import { cn } from '@/lib/utils';
 
@@ -34,8 +34,7 @@ const AccordionTrigger = React.forwardRef<
       {...props}
     >
       {children}
-      {/* <ChevronDown className="h-6 w-6 shrink-0 transition-transform duration-200" /> */}
-      <FaPlus className="h-6 w-6 shrink-0 transition-transform duration-200" />
+      <ChevronDown className="h-6 w-6 shrink-0 transition-transform duration-200" />
     </AccordionPrimitive.Trigger>
   </AccordionPrimitive.Header>
 ));

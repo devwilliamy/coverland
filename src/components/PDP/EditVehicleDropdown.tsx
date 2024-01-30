@@ -8,7 +8,7 @@ import { MakeSearch } from '../hero/dropdown/MakeSearch';
 import { ModelSearch } from '../hero/dropdown/ModelSearch';
 import { YearSearch } from '../hero/dropdown/YearSearch';
 import { SubmodelDropdown } from '../hero/dropdown/SubmodelDropdown';
-import generationData from '@/data/generationData.json';
+import generationJson from '@/data/staticGenerationTableData.json';
 import { slugify } from '@/lib/utils';
 
 export type TQuery = {
@@ -46,9 +46,8 @@ export default function EditVehicleDropdown({
 
   const typeIndex = String(types.indexOf(type) + 1);
 
-  const availableMakes = generationData.filter(
-    (sku) =>
-      sku.year_options.includes(year) && String(sku.generation)[0] === typeIndex
+  const availableMakes = generationJson.filter(
+    (sku) => sku.year_options.includes(year) && String(sku.fk)[0] === typeIndex
   );
 
   const availableModels = availableMakes.filter((sku) => sku.make === make);
@@ -58,8 +57,6 @@ export default function EditVehicleDropdown({
       ? sku.submodel1 === submodel && sku.model === model
       : sku.model === model
   );
-  console.log(availableModels);
-  console.log(finalAvailableModels);
 
   const queryObj = {
     query,
@@ -88,9 +85,9 @@ export default function EditVehicleDropdown({
     ),
   ];
 
-  const yearInUrl = finalAvailableModels?.[0]?.year_generation;
-
-  console.log(yearInUrl);
+  const yearInUrl = finalAvailableModels?.find(
+    (sku) => sku.generation_default === sku.fk
+  )?.year_generation;
 
   const createQueryString = useCallback(
     (name: string, value: string) => {
@@ -106,7 +103,6 @@ export default function EditVehicleDropdown({
   );
 
   const handleSubmitDropdown = async () => {
-    if (!year || !type || !make || !model) return;
     setLoading(true);
     let url = `/${slugify(type)}/${slugify(make)}/${slugify(model)}/${yearInUrl}`;
     const currentUrl = `${pathname}${searchParams?.toString() ? `?${searchParams.toString()}` : ''}`;
@@ -138,7 +134,6 @@ export default function EditVehicleDropdown({
       <Button
         className="mx-auto h-[40px] max-w-[px] text-lg"
         onClick={handleSubmitDropdown}
-        disabled={!year || !type || !make || !model}
       >
         {loading ? (
           <AiOutlineLoading3Quarters className="animate-spin" />

@@ -1,60 +1,95 @@
-import React from 'react';
-import PolicyHeader from '@/components/policy/PolicyHeader';
-import PolicyTitle from '@/components/policy/PolicyTitle';
-import PolicyDetail from '@/components/policy/PolicyDetail';
-import PolicyFurtherAssistance from '@/components/policy/PolicyFurtherAssistance';
+import { PolicyDetailItem } from '../util';
 
-function ShippingPolicy() {
+const ShippingPolicy = () => {
   return (
-    <>
-      <PolicyHeader headerText="Shipping Policy" />
-      <div className="lg:mx-auto lg:flex lg:w-[842px] lg:flex-col lg:justify-center">
-        <div className="relative px-5 py-5 lg:py-14">
-          <PolicyTitle title="Free Delivery" uppercase />
-          <PolicyDetail>
-            All items on Coverland.com are shipped from the warehouse in
-            California and will be shipped on the same business day if an order
-            is placed before 2:00pm PST. All items are subject to be delivered
-            within 1-5 days based on your location. If we do not have the items
-            you ordered in our warehouse, we will get them from one of our over
-            100 retail stores and ship them to you within 1-5 business days.
-          </PolicyDetail>
-          <PolicyDetail>
-            Our preferred US Carrier is UPS. For some US destinations, USPS may
-            be used.
-          </PolicyDetail>
-          <PolicyDetail>
-            All orders priced at $75 or more shipped to a destination within the
-            Contiguous United States are shipped free of charge. For US Domestic
-            orders below $75 the shipping cost depends on the zip code or the
-            city that the order is being shipped to. All shipping cost rates are
-            determined by the shipping location and all costs may vary based on
-            location. To determine your shipping cost, you may do so at Checkout
-            by selecting your zip code and city.
-          </PolicyDetail>
-          <PolicyTitle title="EXPEDITE SHIPPING" uppercase />
-          <PolicyDetail>
-            We currently offer FedEx 2-Day Air only for $19.99.
-          </PolicyDetail>
-          <PolicyTitle title="INTERNATIONAL SHIPPING" uppercase />
-          <PolicyDetail>
-            We are currently offering international orders for Canada only.
-          </PolicyDetail>
-          <PolicyTitle
-            title="AK, HI, PR, VI, GUAM, APO & FPO ADDRESSES"
-            uppercase
-          />
-          <PolicyDetail>
-            Free shipping is not available for Alaska, Hawaii, Puerto Rico,
-            Virgin Island, Guam, APO and FPO addresses. Rates will be available
-            at Check Out.
-          </PolicyDetail>
-          <div className="pt-5 lg:pt-12"></div>
-          <PolicyFurtherAssistance />
-        </div>
-      </div>
-    </>
+    <div>
+      <p className="py-[5vh] font-thin italic">
+        Effective date: November 1, 2023
+      </p>
+      <PolicyDetailItem title="Introduction">
+        <p>
+          At Coverland, we understand the importance of receiving your car cover
+          purchases promptly and safely. This Shipping Policy outlines our
+          shipping procedures and guidelines. Coverland reserves the right to
+          change this info at any time and without notice.
+        </p>
+      </PolicyDetailItem>
+
+      <PolicyDetailItem title="Shipping Carrier">
+        <p>All our products are shipped via United Parcel Service (UPS).</p>
+      </PolicyDetailItem>
+
+      <PolicyDetailItem title="Shipping Options and Delivery Times">
+        <p>
+          We offer a range of UPS shipping options, including UPS Ground, UPS
+          2nd Day Air, and UPS Next Day Air. The availability of these options
+          may vary depending on the destination. Delivery times depend on the
+          selected shipping option and your location. Estimated delivery times
+          for each option will be provided at checkout. Please note that while
+          we strive to meet these delivery estimates, actual delivery times may
+          vary due to factors beyond our control, such as weather conditions or
+          carrier delays.
+        </p>
+      </PolicyDetailItem>
+      <PolicyDetailItem title="Order Processing">
+        <p>
+          Orders are usually processed within 5 business days. Once your order
+          is shipped, we will send you a confirmation email with a tracking
+          number so you can track your shipment.
+        </p>
+      </PolicyDetailItem>
+      <PolicyDetailItem title="Shipping Costs">
+        <p>
+          Shipping costs are calculated based on the shipping option selected,
+          the weight and dimensions of the product, and the delivery
+          destination. The total shipping cost will be displayed at checkout
+          before you finalize your order.
+        </p>
+      </PolicyDetailItem>
+      <PolicyDetailItem title="International Shipping">
+        <p>
+          Coverland offers interntional shipping. Please contact us for more
+          info and pricing.
+        </p>
+      </PolicyDetailItem>
+
+      <PolicyDetailItem title="Shipping Restrictions">
+        <p>
+          Shipping restrictions may apply, such as shipping to P.O. boxes,
+          military addresses, or certain geographic areas. Please contact us for
+          the most up-to-date shipping restrictions.
+        </p>
+      </PolicyDetailItem>
+
+      <PolicyDetailItem title="Damaged or Lost Shipments">
+        <p>
+          If your order is lost or arrives damaged, please contact us
+          immediately at info@coverland.com. We will work with UPS to resolve
+          the issue and, if necessary, arrange for a replacement or refund.
+        </p>
+      </PolicyDetailItem>
+
+      <PolicyDetailItem title="Customer Responsibilities">
+        <p>
+          Ensure that the shipping address provided is correct. Coverland is not
+          responsible for shipments sent to incorrect addresses if they were
+          provided at the time of order. Be aware of any local customs or import
+          duties, particularly for international orders, as these are the
+          responsibility of the customer.
+        </p>
+      </PolicyDetailItem>
+      <PolicyDetailItem title="Contact Information">
+        <p>
+          For questions or concerns regarding shipping, please reach out to us
+          at: <br />
+          Coverland <br />
+          15529 Blackburn Ave, Norwalk, CA 90650 <br />
+          Email: info@coverland.com <br />
+          Phone: (800) 799-5165
+        </p>
+      </PolicyDetailItem>
+    </div>
   );
-}
+};
 
 export default ShippingPolicy;

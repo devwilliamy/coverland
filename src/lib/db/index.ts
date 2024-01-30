@@ -114,7 +114,7 @@ export async function fetchPDPData(
 
 export async function fetchCarPDPData(
   generationFk: number,
-  availableGenerations: TGenerationData[]
+  availableGenerations: TGenerationData
 ): Promise<TCarCoverData[] | null> {
   let fetch = supabase.from('product_2024_join').select('*');
 

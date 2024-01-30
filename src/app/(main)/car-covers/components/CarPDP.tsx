@@ -25,8 +25,7 @@ export default function CarPDP({
 
   if (submodelParam) {
     filteredModelData = modelData?.filter(
-      (car) =>
-        car?.submodel1 && compareRawStrings(car?.submodel1, submodelParam)
+      (car) => car?.submodel1_slug === submodelParam
     );
   }
 

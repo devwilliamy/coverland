@@ -14,7 +14,6 @@ export async function POST(req: NextRequest) {
     return `CL-${randomNumber}`;
   };
 
-  const order_id = generateOrderId();
   const lineItems = cartItems.map((item: TCartItems) => {
     const unitAmount = item.msrp
       ? parseInt((parseFloat(item.msrp) * 100).toFixed(0))
@@ -24,7 +23,7 @@ export async function POST(req: NextRequest) {
       item.submodel1 ? item.submodel1 : ''
     } ${item.submodel2 ? item.submodel2 : ''} Car Cover ${item.display_id} ${
       item.display_color
-    } ${item.sku} ${order_id}`;
+    } ${item.sku}`;
 
     return {
       price_data: {
@@ -45,7 +44,7 @@ export async function POST(req: NextRequest) {
     mode: 'payment',
     success_url: `${headersList.get(
       'origin'
-    )}/thank-you?order-number=${order_id}`,
+    )}/thank-you?order-number=${generateOrderId()}`,
     cancel_url: `${headersList.get('origin')}/checkout`,
     billing_address_collection: 'required',
   };
