@@ -29,7 +29,7 @@ export default function DesignedInUSA() {
           <p className=" mb-[-10px] max-w-[382px] text-left text-[24px] font-black uppercase leading-[40px] lg:mb-0 lg:whitespace-nowrap lg:text-[34px] ">
             Custom-Fit Car Covers <br /> Designed In The USA
           </p>
-          <p className="">
+          <div className="">
             For every car enthusiast, owning a car is a considerable investment.
             Therefore, investing some money and effort for its protection is
             also an important step that involves buying premium quality car
@@ -48,7 +48,7 @@ export default function DesignedInUSA() {
               indoor and outdoor covers are custom made to be perfectly fitted,
               durable, and cost-effective.
             </div>
-          </p>
+          </div>
         </div>
       </div>
     </section>
