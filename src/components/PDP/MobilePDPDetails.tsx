@@ -18,6 +18,7 @@ import {
 } from '../ui/drawer';
 import { IoClose } from 'react-icons/io5';
 import { useRef } from 'react';
+import WarrantyPolicy from '@/app/(main)/policies/warranty-policy/page';
 
 export const MobilePDPDetails = ({
   reviewData,
@@ -171,12 +172,16 @@ export const MobilePDPDetails = ({
               </div>
             </StickyDrawerItem>
 
-      <AccordionDrawerItem title="Warranty">
-        <div className="-mx-5 mt-[-40px]">
-          <WarrantyPolicy hideHeader />
-        </div>
-      </AccordionDrawerItem>
-
+            <StickyDrawerItem title="Warranty">
+              <div
+                className="md:mt-18 mb-[-10px] min-h-[40vh] lg:mt-28"
+                ref={warRef}
+              >
+                <div className="-mx-5 mt-[-40px]">
+                  <WarrantyPolicy hideHeader />
+                </div>
+              </div>
+            </StickyDrawerItem>
             {!!reviewData?.length && (
               <StickyDrawerItem title="Car Cover Reviews">
                 <div className="md:mt-18 lg:mt-28" ref={ccrRef}>
