@@ -1,3 +1,4 @@
+'use client';
 import React from 'react';
 import Challenger from '@/images/hero/best-selling-challenger.png';
 import ElCamino from '@/images/hero/best-selling-el-camino.png';
@@ -13,24 +14,29 @@ const BestSelling = [
 ];
 const BestSellingSection = () => {
   return (
-    <div className="flex w-full flex-col lg:px-[56px]">
-      <p className="text-[32px] font-black">BEST-SELLING CAR MODELS</p>
+    <span className="flex w-full flex-col px-[16px] py-[10px] lg:px-[56px]">
+      <p className="text-[20px] font-black lg:text-[32px]">
+        BEST-SELLING CAR MODELS
+      </p>
       <div className="max-w-screen flex gap-[20px] overflow-x-scroll">
         {BestSelling.map(({ title, img }) => (
-          <div key={``} className="flex flex-col items-center">
-            <Image alt="Best-Selling-Car-Cover" src={img} />
-            <div>
-              <p className="mb-[18px] text-[22px] font-[500] leading-[24px]">
+          <div
+            key={``}
+            className="flex flex-[25%] flex-col items-center justify-between"
+          >
+            <Image alt="Best-Selling-Car-Cover" className="" src={img} />
+            <div className="flex flex-col">
+              <p className="mb-[18px] whitespace-nowrap text-[22px] font-[500] leading-[24px]">
                 {title}
               </p>
-              <button className="flex h-[44px] items-center rounded-[100px] px-[40px] py-[17px] text-[16px] font-[900] leading-[110%] tracking-[0.32px] outline outline-[1px]">
+              <button className="mb-[2px] flex h-[44px] max-w-[153px] items-center justify-center whitespace-nowrap rounded-[100px] px-[40px] py-[17px] text-[16px] font-[900] leading-[110%] tracking-[0.32px] outline outline-[1px]">
                 Shop Now
               </button>
             </div>
           </div>
         ))}
       </div>
-    </div>
+    </span>
   );
 };
 

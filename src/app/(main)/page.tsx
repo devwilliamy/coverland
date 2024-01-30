@@ -4,14 +4,19 @@ import BuyWithConfidenceSection from '@/components/home/BuyWithConfdienceSection
 import CoversGrid from '@/components/home/CoversGrid';
 import SecuritySection from '@/components/home/SecuritySection';
 import TrendingCarsSection from '@/components/home/TrendingCarsSection';
-import ImageAndBlurb from '@/pages/home/ImageAndBlurb';
+import DesignedInUSA from '@/pages/home/DesignedInUSA';
 import TrustBanner from '@/pages/home/TrustBanner';
 import SolutionSection from '@/pages/home/SolutionSection';
 import { Suspense } from 'react';
+import WhyChooseCoverland from '@/pages/home/WhyChooseCoverland';
+import ReviewsSection from '@/pages/home/ReviewsSection';
 
 export default function Home() {
+  // const reviewData: TReviewData[] | null =
+  //   (await fetchReviewData(searchParams, pathParams)) ?? [];
+
   return (
-    <div className="flex flex-col gap-[110px]">
+    <div className="flex flex-col gap-[60px] py-4 lg:gap-[110px]">
       <Suspense>
         <HeroSection />
       </Suspense>
@@ -21,10 +26,12 @@ export default function Home() {
         <TrendingCarsSection />
       </>
       <SolutionSection />
+      <ReviewsSection />
       <TrustBanner />
       <BuyWithConfidenceSection />
       <SecuritySection />
-      <ImageAndBlurb />
+      <DesignedInUSA />
+      <WhyChooseCoverland />
     </div>
   );
 }

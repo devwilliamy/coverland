@@ -79,6 +79,7 @@ export const MobileImageCarousel = ({
               />
             </CarouselItem>
           ))}
+          
         </CarouselContent>
       </Carousel>
       <div className="flex w-full items-center justify-center gap-2 bg-white py-2">
