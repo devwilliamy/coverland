@@ -15,7 +15,7 @@ function Header() {
           </div>
           <div className="flex flex-row items-center">
             <Link href="/login" className="mr-4 mt-1 lg:pr-8">
-              <UserRound />
+              <UserRound size={20} />
             </Link>
             <Cart />
           </div>
