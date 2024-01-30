@@ -1,1 +1,20 @@
-{"status":"uploading","originalFilePath":"videos\\Square Ratio.mp4","providerMetadata":{"mux":{"uploadId":"XyZ4y00rgTqtnZ7c9W02tgpo7ZDxE4MonN9FBgEj2Av5g"}},"createdAt":1706576584806,"updatedAt":1706577589599,"size":626555169}
+{
+  "status": "ready",
+  "originalFilePath": "videos/Square Ratio.mp4",
+  "provider": "vercel-blob",
+  "providerMetadata": {
+    "vercel-blob": {
+      "url": "https://x2kly621zrgfgwll.public.blob.vercel-storage.com/videos/Square%20Ratio-GEN0ddRjA9O8FkCQ6NngRe5bDv0wlt.mp4",
+      "contentType": "video/mp4"
+    }
+  },
+  "createdAt": 1706643221412,
+  "updatedAt": 1706643592006,
+  "size": 626555169,
+  "sources": [
+    {
+      "src": "https://x2kly621zrgfgwll.public.blob.vercel-storage.com/videos/Square%20Ratio-GEN0ddRjA9O8FkCQ6NngRe5bDv0wlt.mp4",
+      "type": "video/mp4"
+    }
+  ]
+}
