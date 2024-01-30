@@ -22,7 +22,7 @@ export type TQuery = {
   secondSubmodel: string;
 };
 
-export function SubDropdowns({
+export function ModelPDPDropdown({
   modelData: fetchedModelData,
 }: {
   modelData: TCarCoverData[] | TProductData[];
@@ -203,20 +203,6 @@ export function SubDropdowns({
   console.log('isAllSameSku', isAllSameSku);
 
   const handleSubmitDropdown = () => {
-    if (yearUrl || isAllSameSku) {
-      console.log('yearUrl', yearUrl);
-      return;
-    }
-    if (isFullySelected && isAllSameSku && subModelData.length > 0) {
-      setQuery({
-        year: '',
-        type: '',
-        make: '',
-        model: '',
-        submodel: '',
-        secondSubmodel: '',
-      });
-    }
     track('dropdown_submit', {
       year,
       model,
@@ -243,6 +229,20 @@ export function SubDropdowns({
   const showSecondSubmodel =
     !isSecondSubmodelUrl && !!submodel && secondSubmodelData.length > 1;
 
+  console.log(isFullySelected);
+
+  if (isFullySelected) {
+    setQuery({
+      year: '',
+      type: '',
+      make: '',
+      model: '',
+      submodel: '',
+      secondSubmodel: '',
+    });
+    handleSubmitDropdown();
+  }
+
   if (isFullySelected) {
     return null;
   }
@@ -264,7 +264,6 @@ export function SubDropdowns({
             <ModelSearch
               setQuery={setQuery}
               modelOpts={modelData as string[]}
-              handleSubmitDropdown={handleSubmitDropdown}
             />
           )}
           {!isFullySelected && showSubmodel && (
@@ -272,7 +271,6 @@ export function SubDropdowns({
               query={query}
               setQuery={setQuery}
               submodelOpts={subModelData}
-              handleSubmitDropdown={handleSubmitDropdown}
             />
           )}
           {!isFullySelected && showSecondSubmodel && (
@@ -280,7 +278,6 @@ export function SubDropdowns({
               query={query}
               setQuery={setQuery}
               secondSubmodelOpts={secondSubmodelData}
-              handleSubmitDropdown={handleSubmitDropdown}
             />
           )}
         </div>

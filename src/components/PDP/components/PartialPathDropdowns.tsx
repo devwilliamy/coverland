@@ -1,5 +1,5 @@
 'use client';
-// import { Button } from '@/components/ui/button';
+import { Button } from '@/components/ui/button';
 import { YearSearch } from './YearSearch';
 import { MakeSearch } from './MakeSearch';
 import { ModelSearch } from './ModelSearch';
@@ -10,8 +10,6 @@ import { compareRawStrings, slugify } from '@/lib/utils';
 import { track } from '@vercel/analytics';
 import { SubmodelSearch } from './SubmodelSearch';
 import { SubmodelSearch2nd } from './SubmodelSearch2nd';
-import { TCarCoverData } from '@/app/(main)/car-covers/components/CarPDP';
-import { TProductData } from '@/lib/db';
 
 export type TQuery = {
   year: string;
@@ -22,33 +20,14 @@ export type TQuery = {
   secondSubmodel: string;
 };
 
-export function SubDropdowns({
-  modelData: fetchedModelData,
-}: {
-  modelData: TCarCoverData[] | TProductData[];
-}) {
-  const isAllSameSku = fetchedModelData.every(
-    (item) =>
-      compareRawStrings(
-        String(item.submodel1),
-        String(fetchedModelData[0]?.submodel1)
-      ) &&
-      compareRawStrings(
-        String(item.submodel2),
-        String(fetchedModelData[0]?.submodel2)
-      )
-  );
-
-  const initSubmodel = isAllSameSku ? fetchedModelData[0]?.submodel1 : '';
-  const initSecondSubmodel = isAllSameSku ? fetchedModelData[0]?.submodel2 : '';
-
+export function PartialPathDropdowns() {
   const [query, setQuery] = useState<TQuery>({
     year: '',
     type: '',
     make: '',
     model: '',
-    submodel: initSubmodel ?? '',
-    secondSubmodel: initSecondSubmodel ?? '',
+    submodel: '',
+    secondSubmodel: '',
   });
   const [loading, setLoading] = useState(false);
   console.log('loading', loading);
@@ -63,7 +42,6 @@ export function SubDropdowns({
         : 'Truck Covers';
   const makeUrl = pathname?.split('/')[2];
   const modelUrl = pathname?.split('/')[3];
-  const yearUrl = pathname?.split('/')[4];
 
   const { year, type, make, model, submodel, secondSubmodel } = query;
   const availableData = parentGenerationJson.filter(
@@ -88,21 +66,14 @@ export function SubDropdowns({
     compareRawStrings(sku.make, makeUrl ?? '')
   );
 
-  const finalAvailableModels =
-    yearUrl && modelUrl
-      ? availableModels.filter(
-          (sku) =>
-            sku.parent_generation === yearUrl &&
-            compareRawStrings(sku.model, modelUrl ?? model ?? '') &&
-            compareRawStrings(sku.make, makeUrl ?? make) &&
-            (submodel ? compareRawStrings(sku.submodel1, submodel) : true) &&
-            (secondSubmodel
-              ? compareRawStrings(sku.submodel2, secondSubmodel)
-              : true)
-        )
-      : availableModels.filter((sku) =>
-          year ? sku.year_options.includes(year) : true
-        );
+  const finalAvailableModels = availableModels.filter(
+    (sku) =>
+      (year ? sku.year_options.includes(year) : true) &&
+      (make ? compareRawStrings(sku.make, make) : true) &&
+      (model ? compareRawStrings(sku.model, model) : true) &&
+      (submodel ? compareRawStrings(sku.submodel1, submodel) : true) &&
+      (secondSubmodel ? compareRawStrings(sku.submodel2, secondSubmodel) : true)
+  );
 
   const makeData = [
     ...new Set(
@@ -120,7 +91,6 @@ export function SubDropdowns({
   const modelData = [
     ...new Set(
       finalAvailableModels
-        ?.filter((car) => query.make === car.make && !!car?.model)
         ?.map((d) => d.model)
         .filter((val): val is string => !!val)
     ),
@@ -191,40 +161,13 @@ export function SubDropdowns({
     [searchParams]
   );
 
-  console.log(
-    'fetchedModelData',
-    fetchedModelData.map((item) => item.submodel1)
-  );
-
-  console.log(
-    'fetchedModelData',
-    fetchedModelData.map((item) => item.submodel2)
-  );
-  console.log('isAllSameSku', isAllSameSku);
-
   const handleSubmitDropdown = () => {
-    if (yearUrl || isAllSameSku) {
-      console.log('yearUrl', yearUrl);
-      return;
-    }
-    if (isFullySelected && isAllSameSku && subModelData.length > 0) {
-      setQuery({
-        year: '',
-        type: '',
-        make: '',
-        model: '',
-        submodel: '',
-        secondSubmodel: '',
-      });
-    }
-    track('dropdown_submit', {
+    track('hero_dropdown_submit', {
       year,
       model,
     });
     setLoading(true);
     let url = `/${slugify(type || typeUrl)}/${slugify(make || makeUrl || '')}/${slugify(model || modelUrl || '')}/${yearInUrl}`;
-    console.log('url', url);
-
     if (submodel) {
       url += `?${createQueryString('submodel', submodel)}`;
     }
@@ -238,13 +181,21 @@ export function SubDropdowns({
     // refreshRoute(`${pathname}?${currentParams.toString()}`);
   };
   const showSubmodel =
-    !isSubmodelUrl && (!!year || isYearUrl) && subModelData.length > 1;
+    !isSubmodelUrl && (!!year || isYearUrl) && subModelData.length > 0;
 
   const showSecondSubmodel =
-    !isSecondSubmodelUrl && !!submodel && secondSubmodelData.length > 1;
+    !isSecondSubmodelUrl && !!submodel && secondSubmodelData.length > 0;
 
   if (isFullySelected) {
-    return null;
+    setQuery({
+      year: '',
+      type: '',
+      make: '',
+      model: '',
+      submodel: '',
+      secondSubmodel: '',
+    });
+    handleSubmitDropdown();
   }
 
   return (
@@ -254,37 +205,27 @@ export function SubDropdowns({
           {/* SELECT YOUR VEHICLE */}
         </p>
         <div className="mb-4 flex flex-col gap-3 *:w-full">
-          {!isFullySelected && !isYearUrl && (
-            <YearSearch setQuery={setQuery} yearOpts={yearOpts} />
-          )}
-          {!isFullySelected && !isMakeUrl && (
+          {!isYearUrl && <YearSearch setQuery={setQuery} yearOpts={yearOpts} />}
+          {!isMakeUrl && (
             <MakeSearch setQuery={setQuery} makeOpts={makeData as string[]} />
           )}
-          {!isFullySelected && !isModelUrl && (
+          {!isModelUrl && (
             <ModelSearch
               setQuery={setQuery}
               modelOpts={modelData as string[]}
-              handleSubmitDropdown={handleSubmitDropdown}
             />
           )}
-          {!isFullySelected && showSubmodel && (
-            <SubmodelSearch
-              query={query}
-              setQuery={setQuery}
-              submodelOpts={subModelData}
-              handleSubmitDropdown={handleSubmitDropdown}
-            />
+          {showSubmodel && (
+            <SubmodelSearch setQuery={setQuery} submodelOpts={subModelData} />
           )}
-          {!isFullySelected && showSecondSubmodel && (
+          {showSecondSubmodel && (
             <SubmodelSearch2nd
-              query={query}
               setQuery={setQuery}
               secondSubmodelOpts={secondSubmodelData}
-              handleSubmitDropdown={handleSubmitDropdown}
             />
           )}
         </div>
-        {/* {isFullySelected && (
+        {isFullySelected && (
           <Button
             className="h-[60px] w-full text-lg"
             onClick={() => {
@@ -293,7 +234,7 @@ export function SubDropdowns({
           >
             Set Selection
           </Button>
-        )} */}
+        )}
       </div>
     </>
   );
