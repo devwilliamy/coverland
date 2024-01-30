@@ -1,12 +1,36 @@
 import { GoDotFill } from 'react-icons/go';
+import { Layers } from './Layers';
+import { OurCarCovers } from './OurCarCovers';
+import { PDPAccordion } from './PDPAccordian';
+import { ProductChecklist } from './ProductChecklist';
+import ProductHero from './ProductHero';
+import { ClimateCrisisMobile } from './components/ClimateCrisisMobile';
+import { NoGarageMobile } from './components/NoGarageMobile';
+import { MoneyBackMobile } from './MoneyBackMobile';
 import { TReviewData } from '@/lib/db';
-import { MobilePDPAccordions } from './MobilePDPAccordions';
+import ReviewSection from './components/ReviewSection';
+import {
+  Drawer,
+  DrawerClose,
+  DrawerContent,
+  DrawerTitle,
+  DrawerTrigger,
+} from '../ui/drawer';
+import { IoClose } from 'react-icons/io5';
+import { useRef } from 'react';
 
 export const MobilePDPDetails = ({
   reviewData,
 }: {
   reviewData: TReviewData[] | null;
 }) => {
+  const pdRef = useRef<HTMLDivElement>(null);
+  const benRef = useRef<HTMLDivElement>(null);
+  const qaRef = useRef<HTMLDivElement>(null);
+  const srRef = useRef<HTMLDivElement>(null);
+  const warRef = useRef<HTMLDivElement>(null);
+  const ccrRef = useRef<HTMLDivElement>(null);
+
   return (
     <div className=" w-full px-4 font-black uppercase text-[#1A1A1A] lg:hidden">
       <div id="CarCoverFeatures">
@@ -66,7 +90,163 @@ export const MobilePDPDetails = ({
         </div>
       </div>
 
-      <MobilePDPAccordions reviewData={reviewData} />
+      <Drawer>
+        <ScrollDrawerTrigger title="Product Details" toRef={pdRef} />
+        <ScrollDrawerTrigger title="Benefits" toRef={benRef} />
+        <ScrollDrawerTrigger title="Q&A" toRef={qaRef} />
+        <ScrollDrawerTrigger title="Shipping & Returns" toRef={srRef} />
+        <ScrollDrawerTrigger title="Warranty" toRef={warRef} />
+        {!!reviewData?.length && (
+          <ScrollDrawerTrigger title="Car Cover Reviews" toRef={ccrRef} />
+        )}
+
+        <DrawerContent className="px-[1px]">
+          <div
+            id="DrawerScrollable"
+            className="relative flex max-h-[80vh] flex-col gap-[60px] overflow-y-scroll px-[15px]  "
+          >
+            <DrawerClose className="fixed right-0 z-[400] mr-[16px] flex items-center py-[4px]">
+              <div
+                id="CloseModalButton"
+                className=" mt-[17px] justify-center rounded-full bg-gray-200 p-[5px] "
+              >
+                <IoClose className="h-[24px] w-[24px]" />
+              </div>
+            </DrawerClose>
+            <StickyDrawerItem title="Product Details">
+              <div ref={pdRef}>
+                <ProductHero />
+                <Layers />
+              </div>
+            </StickyDrawerItem>
+
+            <StickyDrawerItem title="Benefits">
+              <div className=" md:mt-18 lg:mt-28" ref={benRef}>
+                <ClimateCrisisMobile />
+                <NoGarageMobile />
+                <OurCarCovers />
+                <ProductChecklist />
+              </div>
+            </StickyDrawerItem>
+
+            <StickyDrawerItem title="Q&A">
+              <div className="lg:mt-28" ref={qaRef}>
+                <PDPAccordion />
+              </div>
+            </StickyDrawerItem>
+
+            <StickyDrawerItem title="Shipping & Returns">
+              <div className=" md:mt-18 lg:mt-28" ref={srRef}>
+                <div className="flex flex-col gap-5 px-2  normal-case">
+                  <div className="mb-[-15px] text-lg font-black">
+                    Shipping Details
+                  </div>
+                  <div className="font-normal text-[#767676]">
+                    Enjoy free ground shipping! Please note that these shipping
+                    times are estimates, and actual delivery times may vary.
+                  </div>
+                  <ul className="flex flex-col gap-4">
+                    <li className="font-normal text-[#767676]">
+                      - Free Ground Shipping: Delivered within 1-5 business
+                      days.
+                    </li>
+                    <li className="font-normal text-[#767676] ">
+                      - Express Shipping: Delivered within 2 days with a flat
+                      rate of $19.99.
+                    </li>
+                  </ul>
+                  <div className="mb-[-15px] text-lg font-black">
+                    Return Details
+                  </div>
+                  <div className="mb-4 font-normal text-[#767676]">
+                    This item must be returned within 30 days of the date it was
+                    purchased. See the{' '}
+                    <a className="underline " href="/policies/return-policy">
+                      return policy
+                    </a>{' '}
+                    for the complete information.
+                  </div>
+                </div>
+                <MoneyBackMobile />
+              </div>
+            </StickyDrawerItem>
+
+            <StickyDrawerItem title="Warranty">
+              <div
+                className="md:mt-18 mb-[-10px] min-h-[40vh] lg:mt-28"
+                ref={warRef}
+              >
+                <div className="flex flex-col gap-5  normal-case">
+                  <div className="flex text-[18px] font-black">
+                    10-Years Warranty
+                  </div>
+                  <div className="mb-[-15px] text-[14px] font-[500]">
+                    Safeguard your valuable investment with the peace of mind
+                    that comes from our industry-leading
+                  </div>
+                  <div className="text-[14px] font-[500]">
+                    {
+                      " 10-years car cover warranty. Your car deserves the best protection, and we're here to deliver it."
+                    }
+                  </div>
+                </div>
+              </div>
+            </StickyDrawerItem>
+
+            {!!reviewData?.length && (
+              <StickyDrawerItem title="Car Cover Reviews">
+                <div className="md:mt-18 lg:mt-28" ref={ccrRef}>
+                  <ReviewSection reviewData={reviewData} />
+                </div>
+              </StickyDrawerItem>
+            )}
+          </div>
+        </DrawerContent>
+      </Drawer>
     </div>
   );
 };
+
+const StickyDrawerItem = ({
+  title,
+  children,
+}: {
+  title: string;
+  children: JSX.Element | JSX.Element[];
+}) => (
+  <span id="DrawerSection" className=" flex h-full flex-col">
+    <DrawerTitle className="sticky top-0 z-[100]  flex justify-between border-b-2 border-[#C8C7C7] bg-white">
+      <div className=" flex w-full flex-row items-center justify-between py-[28px] text-left text-[22px] font-black uppercase text-[#1A1A1A] !no-underline">
+        {title}
+      </div>
+    </DrawerTitle>
+    <div className="pt-[40px]">{children}</div>
+  </span>
+);
+
+const ScrollDrawerTrigger = ({
+  title,
+  toRef,
+}: {
+  title: string;
+  toRef: React.RefObject<HTMLDivElement>;
+}) => (
+  <DrawerTrigger className=" flex w-full flex-row items-center justify-between border-b-2 border-[#C8C7C7] py-4 text-left text-[22px] font-black uppercase text-[#1A1A1A] !no-underline">
+    <button
+      className="uppercase"
+      onClick={() => {
+        setTimeout(() => {
+          const DrawerScrollable = document.getElementById('DrawerScrollable');
+          DrawerScrollable?.scrollTo({
+            top: toRef.current?.offsetTop
+              ? toRef.current?.offsetTop - 100
+              : toRef.current?.offsetTop,
+            behavior: 'instant',
+          });
+        }, 200);
+      }}
+    >
+      {title}
+    </button>
+  </DrawerTrigger>
+);
