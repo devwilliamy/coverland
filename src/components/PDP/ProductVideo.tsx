@@ -1,14 +1,16 @@
 'use client';
 import Video from 'next-video';
-import CarCoverVideo from '../../../videos/Square Sample.mp4';
 
 export default function ProductVideo() {
   return (
     <div
       id="product-video"
-      className="flex h-[250px] w-full flex-col items-center lg:my-4 lg:flex lg:h-[500px]"
+      className="flex flex-col lg:my-4 lg:flex lg:h-[500px]"
     >
-      <Video src={CarCoverVideo} />
+      <Video
+        playbackId="x02004Q3mOljwEZKIj5cyWebBI9ioTGBsNUG01pN4JZo4k" // Square Ratio.mp4
+        muted
+      />
     </div>
   );
 }
