@@ -1,107 +1,42 @@
 'use client';
 
-import { TProductData } from '@/lib/db';
-import {
-  ChangeEvent,
-  Dispatch,
-  SetStateAction,
-  useCallback,
-  useEffect,
-  useState,
-} from 'react';
-import { useSearchParams } from 'next/navigation';
-import { deslugify } from '@/lib/utils';
-import { useRouter } from 'next/navigation';
+import { ChangeEvent, Dispatch, SetStateAction, useState } from 'react';
+import { TQuery } from './SubDropdowns';
 
 export function SubmodelSearch({
-  setSelectedSubmodel,
-  selectedSubmodel,
-  modelData,
-  submodelParam,
-  shouldTriggerSetParams,
-  submodels,
+  setQuery,
+  submodelOpts,
+  query,
+  handleSubmitDropdown,
 }: {
-  modelData: TProductData[];
-  setSelectedSubmodel: Dispatch<SetStateAction<string | null>>;
-  submodelParam: string | null;
-  shouldTriggerSetParams: boolean;
-  submodels: string[];
-  selectedSubmodel: string | null;
+  setQuery: Dispatch<SetStateAction<TQuery>>;
+  submodelOpts: string[];
+  query: TQuery;
+  handleSubmitDropdown: () => void;
 }) {
-  const [value, setValue] = useState(() => submodelParam ?? '');
-  const router = useRouter();
-  const searchParams = useSearchParams();
+  const [value, setValue] = useState<string>('');
 
-  // Get a new searchParams string by merging the current
-  // searchParams with a provided key/value pair
-  const createQueryString = useCallback(
-    (name: string, value: string) => {
-      const params = new URLSearchParams(searchParams?.toString());
-      params.set(name, value);
-
-      return params.toString();
-    },
-    [searchParams]
-  );
-
-  if (selectedSubmodel !== value) {
-    setSelectedSubmodel(value);
+  function handleChange(e: ChangeEvent<HTMLSelectElement>) {
+    setValue(e.target.value);
+    setQuery((p) => ({ ...p, submodel: e.target.value }));
+    handleSubmitDropdown();
   }
 
-  const handleSubmitDropdown = useCallback(
-    async (value: string) => {
-      let url = '';
-      if (value) {
-        url += `?${createQueryString('submodel', value)}`;
-      }
-
-      // refreshRoute('/');
-      router.push(url.toLowerCase());
-      // refreshRoute(`${pathname}?${currentParams.toString()}`);
-    },
-    [router, createQueryString]
-  );
-
-  const uniqueSubmodelsFromModelData = Array.from(
-    new Set(
-      modelData.map((row) => row.submodel1).filter((model) => Boolean(model))
-    )
-  );
-
-  // Need to trigger when value is updated and shouldTriggerSetParams is set to
-  // true so handleSubmitDropdown will trigger
-  useEffect(() => {
-    if (value && shouldTriggerSetParams) {
-      handleSubmitDropdown(value);
-    }
-  }, [value, shouldTriggerSetParams, handleSubmitDropdown]);
-
-  if (submodels.length < 1) return null;
-
-  const handleChange = (event: ChangeEvent<HTMLSelectElement>) => {
-    const newValue = event.target.value;
-    setValue(newValue);
-    setSelectedSubmodel(newValue);
-    if (!shouldTriggerSetParams) {
-      return;
-    }
-    newValue && handleSubmitDropdown(newValue);
-  };
+  if (submodelOpts.length < 2 && !query.submodel) {
+    setQuery((p) => ({ ...p, submodel: submodelOpts[0] }));
+    return null;
+  }
 
   return (
     <select
-      value={value.toLowerCase()}
-      defaultValue={value.toLowerCase() ?? ''}
+      value={value}
       onChange={handleChange}
-      className="rounded-lg px-2 py-3 text-lg"
+      className="rounded-lg px-2 py-3 text-lg outline outline-1 outline-offset-1 "
     >
-      <option value={''}>{'Select car submodel'}</option>
-      {uniqueSubmodelsFromModelData?.sort()?.map((submodel) => (
-        <option
-          key={`model-${submodel}`}
-          value={submodel?.toLowerCase() as string}
-        >
-          {deslugify(submodel as string)}
+      <option value={''}>{value || 'Select submodel'}</option>
+      {submodelOpts.map((submodel) => (
+        <option key={submodel} value={submodel}>
+          {submodel}
         </option>
       ))}
     </select>

@@ -7,7 +7,7 @@ const Cart = dynamic(() => import('@/components/header/Cart'), { ssr: false });
 
 function Header() {
   return (
-    <header className="mx-auto flex w-screen max-w-[1440px] flex-col items-stretch bg-white sm:mb-0 lg:ml-auto lg:w-auto lg:pt-2.5">
+    <header className="mx-auto flex w-screen max-w-[1280px] flex-col items-stretch bg-white sm:mb-0 lg:ml-auto lg:w-auto lg:pt-2.5">
       <section className="flex w-full flex-col items-stretch px-16 max-md:max-w-full max-md:px-5">
         <div className="flex w-full items-center justify-between max-md:max-w-full max-md:flex-wrap">
           <div className="mr-auto">

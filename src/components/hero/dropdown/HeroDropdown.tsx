@@ -8,7 +8,8 @@ import { ModelSearch } from './ModelSearch';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useCallback, useState } from 'react';
 import { SubmodelDropdown } from './SubmodelDropdown';
-import skuDisplayData from '@/data/skuDisplayData.json';
+import parentGenerationJson from '@/data/parent_generation_data.json';
+import carDataJson from '@/data/car_data_master.json';
 import { slugify } from '@/lib/utils';
 import { track } from '@vercel/analytics';
 
@@ -33,13 +34,18 @@ export function HeroDropdown() {
   const searchParams = useSearchParams();
 
   const { year, type, make, model, submodel } = query;
+
+  let json = [];
+
+  if (type === 'Car Covers') {
+    json = carDataJson;
+  } else {
+    json = parentGenerationJson;
+  }
   const isReadyForSubmit = year && type && make && model;
-  const types = ['Car Covers', 'SUV Covers', 'Truck Covers'];
 
-  const typeIndex = String(types.indexOf(type) + 1);
-
-  const availableMakes = skuDisplayData.filter(
-    (sku) => sku.year_options.includes(year) && String(sku.fk)[0] === typeIndex
+  const availableMakes = json.filter(
+    (sku) => String(sku.year_options).includes(year) && sku.type === type
   );
 
   const availableModels = availableMakes.filter((sku) => sku.make === make);
@@ -49,8 +55,6 @@ export function HeroDropdown() {
       ? sku.submodel1 === submodel && sku.model === model
       : sku.model === model
   );
-
-  console.log(finalAvailableModels);
 
   const queryObj = {
     query,
@@ -83,13 +87,15 @@ export function HeroDropdown() {
   //selected, or there's none available. If the former, use the parent generation.
   //If the latter, finalAvailableModels will only have one item, so use it's year_generation.
 
-  const yearInUrl = !submodel
-    ? finalAvailableModels.filter((sku) => sku.generation_default === sku.fk)[0]
-        ?.year_generation ?? finalAvailableModels?.[0]?.year_generation
-    : skuDisplayData.find((sku) => sku.fk === finalAvailableModels?.[0]?.fk)
-        ?.year_generation ?? finalAvailableModels?.[0]?.year_generation;
+  // const yearInUrl = !submodel
+  //   ? finalAvailableModels.filter((sku) => sku.generation_default === sku.fk)[0]
+  //       ?.year_generation ?? finalAvailableModels?.[0]?.year_generation
+  //   : skuDisplayData.find((sku) => sku.fk === finalAvailableModels?.[0]?.fk)
+  //       ?.year_generation ?? finalAvailableModels?.[0]?.year_generation;
 
-  console.log(yearInUrl);
+  //       console.log()
+
+  const yearInUrl = finalAvailableModels?.[0]?.parent_generation;
 
   const createQueryString = useCallback(
     (name: string, value: string) => {
@@ -119,7 +125,7 @@ export function HeroDropdown() {
   };
 
   return (
-    <div className="relative flex w-full flex-col justify-center gap-2 px-4 font-medium *:flex-1 *:py-3 md:flex-row lg:px-16 lg:*:py-4">
+    <div className="relative flex w-full flex-col items-center justify-center gap-2 px-4 font-medium *:flex-1 *:py-3 md:flex-row lg:max-h-[58px] lg:px-16 lg:*:py-4">
       <TypeSearch queryObj={queryObj} />
       <YearSearch queryObj={queryObj} />
       <MakeSearch queryObj={queryObj} makeData={makeData} />
@@ -128,7 +134,7 @@ export function HeroDropdown() {
         <SubmodelDropdown queryObj={queryObj} submodelData={subModelData} />
       )}
       <Button
-        className="w-full border border-red-300 text-lg lg:h-[58px] lg:max-w-[58px] lg:border-0"
+        className="flex h-full w-full items-center justify-center border border-red-300 text-lg lg:h-[58px] lg:max-w-[58px] lg:border-0"
         onClick={handleSubmitDropdown}
         disabled={!isReadyForSubmit}
       >

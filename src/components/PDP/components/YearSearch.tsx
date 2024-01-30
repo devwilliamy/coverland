@@ -1,76 +1,34 @@
 'use client';
 
-import { Dispatch, SetStateAction, useState } from 'react';
-import { Button } from '@/components/ui/button';
-import { Check, ChevronDown } from 'lucide-react';
-import {
-  Command,
-  CommandEmpty,
-  CommandGroup,
-  CommandInput,
-  CommandItem,
-} from '@/components/ui/command';
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from '@/components/ui/popover';
-import { cn } from '@/lib/utils';
+import { ChangeEvent, Dispatch, SetStateAction, useState } from 'react';
+import { TQuery } from './SubDropdowns';
 
 export function YearSearch({
-  setYear,
-  yearData,
-  yearParam,
+  setQuery,
+  yearOpts,
 }: {
-  setYear: Dispatch<SetStateAction<string | null>>;
-  yearData: string[];
-  yearParam: string | null;
+  setQuery: Dispatch<SetStateAction<TQuery>>;
+  yearOpts: string[];
 }) {
-  const [open, setOpen] = useState(false);
-  const [value, setValue] = useState(() => yearParam ?? '');
+  const [value, setValue] = useState('');
 
-  if (yearParam) return null;
+  function handleChange(e: ChangeEvent<HTMLSelectElement>) {
+    setValue(e.target.value);
+    setQuery((p) => ({ ...p, year: e.target.value }));
+  }
 
   return (
-    <Popover open={open} onOpenChange={(open) => setOpen(open)}>
-      <PopoverTrigger asChild>
-        <Button
-          variant="outline"
-          role="combobox"
-          aria-expanded={open}
-          className="w-full h-[60px] justify-between"
-        >
-          {value ? value : 'Select car year'}
-          <ChevronDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
-        </Button>
-      </PopoverTrigger>
-      <PopoverContent className="w-[400px] h-[300px] p-0 text-xl">
-        <Command>
-          <CommandInput placeholder="Enter Year" />
-          <CommandEmpty>No year found.</CommandEmpty>
-          <CommandGroup className="overflow-scroll">
-            {yearData.map((year) => (
-              <CommandItem
-                key={`year-${year}`}
-                value={year}
-                onSelect={(value) => {
-                  setValue(value);
-                  setOpen(false);
-                  setYear(value);
-                }}
-              >
-                <Check
-                  className={cn(
-                    'mr-2 h-4 w-4',
-                    value === year ? 'opacity-100' : 'opacity-0'
-                  )}
-                />
-                {year}
-              </CommandItem>
-            ))}
-          </CommandGroup>
-        </Command>
-      </PopoverContent>
-    </Popover>
+    <select
+      value={value}
+      onChange={handleChange}
+      className="rounded-lg px-2 py-3 text-lg outline outline-1 outline-offset-1 "
+    >
+      <option value={''}>Years</option>
+      {yearOpts.map((year) => (
+        <option key={`model-${year}`} value={year}>
+          {year}
+        </option>
+      ))}
+    </select>
   );
 }

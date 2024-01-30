@@ -1,3 +1,5 @@
+'use client';
+
 import { DropdownPDP } from '@/components/PDP/DropdownPDP';
 import DeliveryDate from '@/components/PDP/components/DeliveryDate';
 import { TimeTo2PMPST } from '@/components/PDP/components/TimeTo2PM';
@@ -7,12 +9,6 @@ import {
   ThumbsUpIcon,
 } from '@/components/PDP/images';
 import { MoneyBackIcon } from '@/components/PDP/images/MoneyBack';
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from '@/components/ui/accordion';
 import { Button } from '@/components/ui/button';
 import {
   Popover,
@@ -20,7 +16,7 @@ import {
   PopoverTrigger,
 } from '@/components/ui/popover';
 import { Separator } from '@/components/ui/separator';
-import { TProductData, TReviewData } from '@/lib/db';
+import { TReviewData } from '@/lib/db';
 import { Rating } from '@mui/material';
 import { track } from '@vercel/analytics';
 import Image from 'next/image';
@@ -29,94 +25,154 @@ import { BsBoxSeam, BsGift } from 'react-icons/bs';
 import { GoDotFill } from 'react-icons/go';
 import AgentProfile from '@/images/PDP/agent_profile.png';
 import { TCarCoverData } from './CarPDP';
+import { useMediaQuery } from '@mantine/hooks';
+import { useState } from 'react';
+import CartSheet from '@/components/cart/CartSheet';
+import {
+  Drawer,
+  DrawerContent,
+  DrawerHeader,
+  DrawerTitle,
+  DrawerTrigger,
+} from '@/components/ui/drawer';
+import { IoClose } from 'react-icons/io5';
+import ReviewSection from '@/components/PDP/components/ReviewSection';
+import Dialog from '@/components/ui/dialog-tailwind-ui';
+import { useRouter } from 'next/navigation';
+import { compareRawStrings } from '@/lib/utils';
 
 export function ProductContent({
   selectedProduct,
   reviewCount,
   avgReviewScore,
   reviewData,
-  modelData,
-  submodels,
-  secondSubmodels,
   isReadyForProductSelection,
   handleAddToCart,
-  setCartOpen,
+  modelData,
 }: {
   selectedProduct: TCarCoverData | null | undefined;
+  modelData: TCarCoverData[];
   reviewCount: number;
   avgReviewScore: string;
   reviewData: TReviewData[] | undefined | null;
-  modelData: TCarCoverData[];
-  submodels: string[];
-  secondSubmodels: string[];
   isReadyForProductSelection: boolean;
   handleAddToCart: () => void;
-  setCartOpen: (value: boolean) => void;
 }) {
+  const productType = compareRawStrings(selectedProduct?.type, 'car covers')
+    ? 'Car Cover'
+    : compareRawStrings(selectedProduct?.type, 'SUV Covers')
+      ? 'SUV Cover'
+      : 'Truck Cover';
+  const isMobile = useMediaQuery('(max-width: 768px)');
+  const [addToCartOpen, setAddToCartOpen] = useState<boolean>(false);
+  const [reviewDrawerOpen, setReviewDrawerOpen] = useState<boolean>(false);
+  const router = useRouter();
   return (
     <>
       <div className="grid grid-cols-1">
         <div className="flex flex-col gap-0.5">
           <h2 className="font-roboto text-lg font-bold text-[#1A1A1A] md:text-[28px]">
             {`${selectedProduct?.display_id}`}
-            &trade; {`${selectedProduct?.display_color}`}
+            &trade; {`${selectedProduct?.display_color} ${productType}`}
           </h2>
           {/* Reviews */}
           <div className="flex items-center gap-1">
-            <Rating
-              name="read-only"
-              value={5}
-              readOnly
-              style={{
-                height: '25px',
-              }}
-            />
-            <Popover>
-              <PopoverTrigger
-                className="text-blue-400 underline"
-                disabled={!reviewCount}
-              >
-                {reviewCount || '2'} ratings
-              </PopoverTrigger>
-              <PopoverContent>
-                <div className=" flex flex-col items-center border border-gray-300 bg-white p-4 shadow-lg">
-                  <div className="flex items-center gap-4">
-                    <p className="text-2xl font-bold">
-                      {avgReviewScore ?? '4.9'} out of 5
-                    </p>
-                    <Rating
-                      name="read-only"
-                      value={5}
-                      readOnly
-                      style={{
-                        height: '25px',
-                      }}
-                    />
+            <div className="flex gap-1 text-yellow-300 ">
+              <Rating
+                name="read-only"
+                value={5}
+                readOnly
+                style={{
+                  height: '25px',
+                }}
+              />
+            </div>
+            <div className="hidden lg:flex">
+              <Popover>
+                <PopoverTrigger
+                  className="ml-2 text-blue-400 underline"
+                  disabled={!reviewCount}
+                >
+                  {reviewCount || '2'} ratings
+                </PopoverTrigger>
+                <PopoverContent>
+                  <div className=" flex flex-col items-center border border-gray-300 bg-white p-4 shadow-lg">
+                    <div className="flex items-center gap-4">
+                      <p className="text-2xl font-bold">
+                        {avgReviewScore ?? '4.9'} out of 5
+                      </p>
+                      <Rating
+                        name="read-only"
+                        value={5}
+                        readOnly
+                        style={{
+                          height: '25px',
+                        }}
+                      />
+                    </div>
+                    {!!reviewData?.length && (
+                      <Link
+                        className="underline"
+                        scroll
+                        href={'#reviews'}
+                        onClick={() =>
+                          track('viewing all reviews', {
+                            sku: selectedProduct?.sku || '',
+                          })
+                        }
+                      >
+                        Show all reviews ({reviewData?.length})
+                      </Link>
+                    )}
                   </div>
-                  {!!reviewData?.length && selectedProduct?.sku && (
-                    <Link
-                      className="underline"
-                      scroll
-                      href={'#reviews'}
-                      onClick={() =>
-                        track('viewing all reviews', {
-                          sku: selectedProduct?.sku,
-                        })
-                      }
-                    >
-                      Show all reviews ({reviewData?.length})
-                    </Link>
-                  )}
-                </div>
-              </PopoverContent>
-            </Popover>
+                </PopoverContent>
+              </Popover>
+            </div>
+            <div className="lg:hidden">
+              <Drawer
+                open={reviewDrawerOpen}
+                onOpenChange={setReviewDrawerOpen}
+              >
+                <DrawerTrigger
+                  className="ml-2 text-blue-400 underline"
+                  disabled={!reviewCount}
+                  // className=" flex w-full flex-row items-center justify-between border-b-2 border-[#C8C7C7] py-4 text-left text-[22px] font-black uppercase text-[#1A1A1A] !no-underline"
+                >
+                  {reviewCount || '2'} ratings
+                </DrawerTrigger>
+                <DrawerContent className="">
+                  <DrawerHeader draggable={false}>
+                    <DrawerTitle className="flex w-full items-center border-b-2 border-[#C8C7C7] py-[22px] font-black uppercase">
+                      <div
+                        id="DrawerTitle"
+                        className=" flex w-full text-[22px] font-black uppercase"
+                      >
+                        Car Cover Reviews
+                      </div>
+                      <button
+                        id="CloseModalButton"
+                        className="flex items-center justify-center rounded-full bg-gray-200 p-[5px]"
+                        onClick={() => {
+                          setReviewDrawerOpen(false);
+                        }}
+                      >
+                        <IoClose className="h-[24px] w-[24px]" />
+                      </button>
+                    </DrawerTitle>
+                  </DrawerHeader>
+                  <div className="mx-auto flex max-h-[76vh] w-full flex-col overflow-y-scroll px-4 pt-[40px]">
+                    <ReviewSection reviewData={reviewData} />
+                  </div>
+                </DrawerContent>
+              </Drawer>
+            </div>
           </div>
           <p className="mb-2 text-gray-500">100+ Bought In Past Month</p>
         </div>
         <div className="flex-start flex items-center">
           <GoDotFill size={10} color="#008000 " />
           <p className="pl-1 text-sm font-medium capitalize text-black">
-            Full Warranty 7 years
+            Lifetime Warranty
           </p>
         </div>
         <div className="flex-start flex items-center leading-4">
@@ -156,17 +212,16 @@ export function ProductContent({
             <BsBoxSeam size={20} color="#000" />
           </div>
           <div className="flex w-full flex-col items-start justify-start md:w-auto">
-            <div className="text-dark flex-row items-center justify-start text-base capitalize leading-4 md:text-lg xl:flex">
+            <div className=" text-dark flex flex-row items-center justify-start gap-[5px] text-base capitalize leading-4 md:text-lg xl:flex">
               <span className="text-base font-bold uppercase leading-6 md:text-lg xl:mr-1">
                 Free shipping
               </span>
-              <br className="xl:hidden" />
-              <span className="hidden md:mr-1 xl:block">-</span>
+              <span className=" md:mr-1 xl:block"> - </span>
               <DeliveryDate />
             </div>
-            <p className="text-sm text-[#767676]">
+            <div className="text-sm text-[#767676]">
               <TimeTo2PMPST />
-            </p>
+            </div>
             <p className="pt-1.5 text-sm font-normal text-[#1B8500]">
               Free Returns for 30 Days
             </p>
@@ -184,11 +239,7 @@ export function ProductContent({
         {/* Select Your Vehicle */}
         {!isReadyForProductSelection && (
           <div className="mt-8 w-full">
-            <DropdownPDP
-              modelData={modelData as TProductData[]}
-              submodels={submodels}
-              secondSubmodels={secondSubmodels}
-            />
+            <DropdownPDP modelData={modelData} />
           </div>
         )}
         {/* Add to Cart Button */}
@@ -196,7 +247,7 @@ export function ProductContent({
           <>
             <Popover>
               <PopoverTrigger asChild>
-                <Button className="mt-4 h-[35px] w-full rounded bg-[#BE1B1B] text-lg font-bold uppercase text-white md:h-[60px] md:text-xl">
+                <Button className="mt-4 h-[48px] w-full rounded bg-[#BE1B1B] text-lg font-bold uppercase text-white disabled:bg-[#BE1B1B] md:h-[62px] md:text-xl">
                   Add To Cart
                 </Button>
               </PopoverTrigger>
@@ -209,14 +260,16 @@ export function ProductContent({
           </>
         ) : (
           <Button
-            className="mt-4 h-[60px] w-full bg-[#BE1B1B] text-lg disabled:bg-[#BE1B1B]"
+            className="mt-4 h-[48px] w-full rounded bg-[#BE1B1B] text-lg font-bold uppercase text-white disabled:bg-[#BE1B1B] md:h-[62px] md:text-xl"
             onClick={() => {
               selectedProduct?.sku &&
                 track('PDP_add_to_cart', {
                   sku: selectedProduct?.sku,
                 });
               handleAddToCart();
-              setCartOpen(true);
+              isMobile ? router.push('/checkout') : setAddToCartOpen(true);
+
+              // setAddToCartOpen(true);
             }}
           >
             Add To Cart
@@ -313,79 +366,10 @@ export function ProductContent({
         </div>
       </div>
       <Separator className="my-10 hidden lg:block" />
-      <div className="-mx-4 mt-4 h-10 w-screen border border-gray-300 bg-[#F1F1F1] lg:hidden"></div>
       <div className="pt-3 lg:px-0 lg:pt-0">
         <h3 className="mb-[28px] hidden text-xl font-black uppercase text-[#1A1A1A] lg:flex">
           car cover features
         </h3>
-        <Accordion
-          type="single"
-          defaultValue="item-1"
-          collapsible
-          className="lg:hidden"
-        >
-          <AccordionItem value="item-1">
-            <AccordionTrigger
-              className="text-xl font-black uppercase text-[#1A1A1A] !no-underline"
-              id="#reviews"
-            >
-              Car Cover Features
-            </AccordionTrigger>
-            <AccordionContent>
-              <Separator className="mb-7 mt-3 lg:hidden" />
-              <div className="pl-4">
-                <div className="flex-start ml-2 flex items-center pb-2 leading-4">
-                  <GoDotFill size={10} color="#000000" />
-                  <p className="pl-1 text-sm font-medium capitalize text-black">
-                    Tailored to your car model
-                  </p>
-                </div>
-                <div className="flex-start ml-2 flex items-center pb-2 leading-4">
-                  <GoDotFill size={10} color="#000000" />
-                  <p className="pl-1 text-sm font-medium capitalize text-black">
-                    all-season waterproof protection
-                  </p>
-                </div>
-                <div className="flex-start ml-2 flex items-center pb-2 leading-4">
-                  <GoDotFill size={10} color="#000000" />
-                  <p className="pl-1 text-sm font-medium capitalize text-black">
-                    Scratchproof, durable & lightweight
-                  </p>
-                </div>
-                <div className="flex-start ml-2 flex items-center pb-2 leading-4">
-                  <GoDotFill size={10} color="#000000" />
-                  <p className="pl-1 text-sm font-medium capitalize text-black">
-                    Soft Inner-lining
-                  </p>
-                </div>
-                <div className="flex-start ml-2 flex items-center pb-2 leading-4">
-                  <GoDotFill size={10} color="#000000" />
-                  <p className="pl-1 text-sm font-medium capitalize text-black">
-                    100% Waterproof - Zero Leaks Guaranteed
-                  </p>
-                </div>
-                <div className="flex-start ml-2 flex items-center pb-2 leading-4">
-                  <GoDotFill size={10} color="#000000" />
-                  <p className="pl-1 text-sm font-medium capitalize text-black">
-                    100% UV Protection
-                  </p>
-                </div>
-                <div className="flex-start ml-2 flex items-center pb-2 leading-4">
-                  <GoDotFill size={10} color="#000000" />
-                  <p className="pl-1 text-sm font-medium capitalize text-black">
-                    Easy On/Off with elastic hems
-                  </p>
-                </div>
-                <div className="flex-start ml-2 flex items-center pb-2 leading-4">
-                  <GoDotFill size={10} color="#000000" />
-                  <p className="pl-1 text-sm font-medium capitalize text-black">
-                    effortless cleaning
-                  </p>
-                </div>
-              </div>
-            </AccordionContent>
-          </AccordionItem>
-        </Accordion>
         <div className="flex-start ml-2 hidden items-center pb-2 leading-4 lg:flex">
           <GoDotFill size={10} color="#000000" />
           <p className="pl-1 text-lg font-medium capitalize text-black">
@@ -435,6 +419,23 @@ export function ProductContent({
           </p>
         </div>
       </div>
+      {isMobile ? (
+        <Dialog open={addToCartOpen} setOpen={setAddToCartOpen} />
+      ) : (
+        // <BottomUpDrawer
+        //   title={<AddToCartHeader />}
+        //   open={addToCartOpen}
+        //   setOpen={setAddToCartOpen}
+        //   footer={<AddToCartFooter />}
+        // >
+        //   <AddToCartBody selectedProduct={selectedProduct} />
+        // </BottomUpDrawer>
+        <CartSheet
+          open={addToCartOpen}
+          setOpen={setAddToCartOpen}
+          selectedProduct={selectedProduct}
+        />
+      )}
     </>
   );
 }

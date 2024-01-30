@@ -1,57 +1,60 @@
 'use client';
 
-import { useRef, useState } from 'react';
+import { Suspense, useRef, useState } from 'react';
 import { MoneyBack } from './MoneyBack';
 import { PDPAccordion } from './PDPAccordian';
-import { ProductHero } from './ProductHero';
-import { ProductPackage } from './ProductPackage';
+import ProductHero from './ProductHero';
 import { OurCarCovers } from './OurCarCovers';
 import { ProductChecklist } from './ProductChecklist';
 import { NoGarage } from './NoGarage';
 import { ClimateCrisis } from './ClimateCrisis';
 import { Layers } from './Layers';
 import { TReviewData } from '@/lib/db';
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from '../ui/accordion';
-import { NoGarageMobile } from './components/NoGarageMobile';
-import { ClimateCrisisMobile } from './components/ClimateCrisisMobile';
-import Link from 'next/link';
-import StarIcon from '../icons/StarIcon';
+import { MobilePDPDetails } from './MobilePDPDetails';
+import { WarrantyDesktop } from './components/WarrantyDesktop';
+import { Rating } from '@mui/material';
 
 export function ExtraProductDetails({
   reviewData,
 }: {
   reviewData: TReviewData[] | null;
 }) {
-  const [selectedSection, setSelectedSection] = useState<string>('');
+  // const [selectedSection, setSelectedSection] = useState<string>('');
 
   const pdRef = useRef<HTMLDivElement>(null);
-  const layersRef = useRef<HTMLDivElement>(null);
-  const carCoverRef = useRef<HTMLDivElement>(null);
-  const specsRef = useRef<HTMLDivElement>(null);
+  const benefitsRef = useRef<HTMLDivElement>(null);
+  // const layersRef = useRef<HTMLDivElement>(null);
+  // const carCoverRef = useRef<HTMLDivElement>(null);
+  // const specsRef = useRef<HTMLDivElement>(null);
   const faqRef = useRef<HTMLDivElement>(null);
+  const shippingRef = useRef<HTMLDivElement>(null);
+  const warrantyRef = useRef<HTMLDivElement>(null);
+  const reviewsRef = useRef<HTMLDivElement>(null);
+
   // Add refs for other sections similarly...
 
-  const scrollToSection = (
-    ref: React.RefObject<HTMLDivElement>,
-    sectionName: string
-  ) => {
-    if (ref && ref.current) {
-      window.scrollTo({
-        top: ref.current.offsetTop,
-        behavior: 'smooth',
-      });
-      setSelectedSection(sectionName);
-    }
-  };
+  // const scrollToSection = (
+  //   ref: React.RefObject<HTMLDivElement>,
+  //   sectionName: string
+  // ) => {
+  //   if (ref && ref.current) {
+  //     window.scrollTo({
+  //       top: ref.current.offsetTop,
+  //       behavior: 'smooth',
+  //     });
+  //     setSelectedSection(sectionName);
+  //   }
+  // };
 
-  const PD_ID = 'product-details';
-  const LAYERS_ID = 'layers-sec';
-  const FAQ_ID = 'faq-sec';
+  // const PD_ID = 'product-details';
+  // const LAYERS_ID = 'layers-sec';
+  // const CAR_COVER_INS_ID = 'car-cover-inst-sec';
+  // const SPECS_ID = 'specs-sec';
+  // const BENEFITS_ID = 'benefits-sec';
+  // const FAQ_ID = 'faq-sec';
+  // const WARRANTY_ID = 'warranty-sec';
+  // const SHIPPING_ID = 'shipping-sec';
+  // const REVIEWS_ID = 'reviews-sec';
 
   // <AccordionItem value="item-1">
   //   <AccordionTrigger>Is it accessible?</AccordionTrigger>
@@ -60,214 +63,188 @@ export function ExtraProductDetails({
   //   </AccordionContent>
   // </AccordionItem>
 
+  // !reviewData &&  return
+
   return (
-    <>
-      <div className="md:mt-18  mt-8 hidden flex-col flex-wrap items-stretch justify-between gap-4 border-b border-t border-[#DADADA] py-6 md:flex-row md:items-center md:gap-0 lg:mt-28 lg:flex">
+    <div className="flex w-full flex-col">
+      <div className="hidden w-full max-w-full items-center justify-between border-b border-t border-[#DADADA] py-[22px] text-[18px] lg:flex lg:px-[30px]">
         <h1
-          onClick={() => scrollToSection(pdRef, PD_ID)}
-          className={`cursor-pointer text-lg font-normal capitalize text-black ${
-            selectedSection === PD_ID ? 'underline' : ''
-          }`}
+        // onClick={() => scrollToSection(pdRef, PD_ID)}
+        // className={`cursor-pointer  font-normal capitalize text-black ${
+        //   selectedSection === PD_ID ? 'underline' : ''
+        // }`}
         >
           product details
         </h1>
-        <h1
+        {/* <h1
           onClick={() => scrollToSection(layersRef, LAYERS_ID)}
-          className={`cursor-pointer text-lg font-normal capitalize text-black ${
+          className={`cursor-pointer  font-normal capitalize text-black ${
             selectedSection === LAYERS_ID ? 'underline' : ''
           }`}
         >
-          <Link href="#benefits" className="">
+          <Link href="#benefits" >
             benefits
           </Link>
+        </h1> */}
+        <h1
+        // onClick={() => scrollToSection(benefitsRef, BENEFITS_ID)}
+        // className={`cursor-pointer  font-normal capitalize text-black ${
+        //   selectedSection === PD_ID ? 'underline' : ''
+        // }`}
+        >
+          benefits
+        </h1>
+        {/* <h1
+          onClick={() => scrollToSection(shippingRef, SHIPPING_ID)}
+          className={`cursor-pointer  font-normal capitalize text-black ${
+            selectedSection === LAYERS_ID ? 'underline' : ''
+          }`}
+        >
+          <Link href="#shipping" >
+            Shipping & Returns
+          </Link>
+        </h1> */}
+        <h1
+        // onClick={() => scrollToSection(shippingRef, SHIPPING_ID)}
+        // className={`cursor-pointer  font-normal capitalize text-black ${
+        //   selectedSection === FAQ_ID ? 'underline' : ''
+        // }`}
+        >
+          Shipping & Returns
         </h1>
         {/* <h1
           onClick={() => scrollToSection(specsRef, SPECS_ID)}
-          className={`cursor-pointer text-lg font-normal capitalize text-black ${
+          className={`cursor-pointer  font-normal capitalize text-black ${
             selectedSection === SPECS_ID ? 'underline' : ''
           }`}
-        >
+          >
           specification
-        </h1> */}
+          </h1> */}
         <h1
-          onClick={() => scrollToSection(faqRef, FAQ_ID)}
-          className={`cursor-pointer text-lg font-normal capitalize text-black ${
-            selectedSection === FAQ_ID ? 'underline' : ''
-          }`}
+        // onClick={() => scrollToSection(faqRef, FAQ_ID)}
+        // className={`cursor-pointer  font-normal capitalize text-black ${
+        //   selectedSection === FAQ_ID ? 'underline' : ''
+        // }`}
         >
           Q&A
         </h1>
         {/* <h1
           onClick={() => scrollToSection(layersRef, LAYERS_ID)}
-          className={`cursor-pointer text-lg font-normal capitalize text-black ${
+          className={`cursor-pointer  font-normal capitalize text-black ${
             selectedSection === LAYERS_ID ? 'underline' : ''
           }`}
-        >
+          >
           Shipping & Returns
-        </h1> */}
+          </h1> */}
         <h1
-          onClick={() => scrollToSection(layersRef, LAYERS_ID)}
-          className={`cursor-pointer text-lg font-normal capitalize text-black ${
-            selectedSection === LAYERS_ID ? 'underline' : ''
-          }`}
+        // onClick={() => scrollToSection(warrantyRef, WARRANTY_ID)}
+        // className={`cursor-pointer  font-normal capitalize text-black ${
+        //   selectedSection === FAQ_ID ? 'underline' : ''
+        // }`}
         >
-          warranty
+          Warranty
         </h1>
         {/* <h1
           onClick={() => scrollToSection(carCoverRef, CAR_COVER_INS_ID)}
-          className={`cursor-pointer text-lg font-normal capitalize text-black ${
+          className={`cursor-pointer  font-normal capitalize text-black ${
             selectedSection === CAR_COVER_INS_ID ? 'underline' : ''
           }`}
-        >
+          >
           car cover instruction
-        </h1> */}
+          </h1> */}
         <h1
-          onClick={() => scrollToSection(layersRef, LAYERS_ID)}
-          className={`cursor-pointer text-lg font-normal capitalize text-black ${
-            selectedSection === LAYERS_ID ? 'underline' : ''
-          }`}
+        // onClick={() => scrollToSection(reviewsRef, REVIEWS_ID)}
+        // className={`cursor-pointer  font-normal capitalize text-black ${
+        //   selectedSection === FAQ_ID ? 'underline' : ''
+        // }`}
         >
           car cover reviews
         </h1>
       </div>
+      <div className="flex w-full max-w-full flex-col lg:px-[30px]">
+        <Suspense fallback={<div>Loading...</div>}>
+          <MobilePDPDetails reviewData={reviewData} />
+        </Suspense>
 
-      <MobilePDPDetails reviewData={reviewData} />
-
-      <div className="hidden lg:flex lg:flex-col">
-        <div ref={pdRef}>
-          <ProductHero />
-        </div>
-        <div className="md:mt-18 mt-8 lg:mt-28">
-          <Video />
-        </div>
-        <div ref={carCoverRef} className="md:mt-18 mt-8 lg:mt-28">
-          <Layers />
-        </div>
-        <div className="md:mt-18 mt-8 lg:mt-28">
-          <ClimateCrisis />
-        </div>
-
-        <div className="md:mt-18 mt-8 lg:mt-28">
-          <NoGarage />
-        </div>
-        <div className="md:mt-18 mt-8 lg:mt-28">
-          <OurCarCovers />
-        </div>
-        <div className="md:mt-18 mt-8 lg:mt-28">
-          <ProductChecklist />
-        </div>
-        <div ref={specsRef} className="md:mt-18 mt-8 lg:mt-28">
-          {/* <ProductSpecGrid /> */}
-          <ProductPackage />
-        </div>
-        <div ref={faqRef} className="md:mt-18 mt-8 lg:mt-28">
-          <PDPAccordion />
-        </div>
-        <div className="md:my-18 my-8 lg:my-28">
-          <MoneyBack />
-        </div>
-        {!!reviewData?.length && (
-          <div id="#reviews" className="md:mt-18 mt-8 lg:mt-28">
-            <ReviewSection reviewData={reviewData} />
+        <div className="hidden gap-[110px] lg:flex lg:flex-col">
+          <div ref={pdRef}>
+            <ProductHero />
           </div>
-        )}
-      </div>
-    </>
-  );
-}
+          <div>
+            <Video />
+          </div>
+          <div ref={benefitsRef}>
+            <Layers />
+          </div>
+          <div>
+            <ClimateCrisis />
+          </div>
 
-const MobilePDPDetails = ({
-  reviewData,
-}: {
-  reviewData: TReviewData[] | null;
-}) => {
-  return (
-    <div className="px-4">
-      <Accordion
-        type="single"
-        collapsible
-        className="w-full font-black uppercase text-[#1A1A1A] lg:hidden"
-        defaultValue="item-6"
-      >
-        <AccordionItem value="item-1">
-          <AccordionTrigger className="font-black uppercase">
-            Product Details
-          </AccordionTrigger>
-          <AccordionContent>
+          <div>
+            <NoGarage />
+          </div>
+          <div>
+            <OurCarCovers />
+          </div>
+          <div>
+            <ProductChecklist />
+          </div>
+          {/* <div ref={specsRef}>
+            <ProductSpecGrid />
+            <ProductPackage />
+          </div> */}
+          <div ref={faqRef}>
+            <PDPAccordion />
+          </div>
+          <div ref={shippingRef}>
             <div>
-              <ProductHero />
-              {/* <div className=" md:mt-18 lg:mt-28">
-              <Video />
-            </div> */}
-            </div>
-          </AccordionContent>
-        </AccordionItem>
-
-        <AccordionItem value="item-2">
-          <AccordionTrigger className="font-black uppercase">
-            Benefits
-          </AccordionTrigger>
-          <AccordionContent>
-            <div className=" md:mt-18 lg:mt-28">
-              <ClimateCrisisMobile />
-              <NoGarageMobile />
-              <OurCarCovers />
-              <ProductChecklist />
-            </div>
-          </AccordionContent>
-        </AccordionItem>
-
-        {/* <AccordionItem value="item-3">
-          <AccordionTrigger className="font-black uppercase">
-            Specification
-          </AccordionTrigger>
-          <AccordionContent>
-            <div className=" md:mt-18 lg:mt-28">
-              <ProductSpecGrid />
-              <ProductPackage />
-            </div>
-          </AccordionContent>
-        </AccordionItem> */}
-
-        <AccordionItem value="item-4">
-          <AccordionTrigger className="font-black uppercase">
-            Q&A
-          </AccordionTrigger>
-          <AccordionContent>
-            <div className=" md:mt-18 lg:mt-28">
-              <PDPAccordion />
-            </div>
-          </AccordionContent>
-        </AccordionItem>
-
-        {/* <AccordionItem value="item-5">
-          <AccordionTrigger className="font-black uppercase">
-            Car Cover Instruction
-          </AccordionTrigger>
-          <AccordionContent>
-            <div className=" md:mt-18 lg:mt-28">
-              Content for Car Cover Instruction Section
-            </div>
-          </AccordionContent>
-        </AccordionItem> */}
-
-        {!!reviewData?.length && (
-          <AccordionItem value="item-6">
-            <AccordionTrigger className="font-black uppercase !no-underline">
-              Car Cover Reviews
-            </AccordionTrigger>
-            <AccordionContent>
-              <div className="lg:mt-28">
-                <ReviewSection reviewData={reviewData} />
+              <div className=" mb-[50px] flex gap-[144px] px-[59px] normal-case">
+                <div className="flex flex-col gap-[12px]">
+                  <div className="flex flex-col text-[28px] font-black">
+                    Shipping Details
+                  </div>
+                  <div className="font-normal text-[#767676]">
+                    Enjoy free ground shipping! Please note that these shipping
+                    times are estimates, and actual delivery times may vary.
+                  </div>
+                  <ul className="flex flex-col gap-4 font-normal text-[#767676]">
+                    <li>
+                      - Ground Shipping: Delivered within 1-5 business days.
+                    </li>
+                    <li>
+                      - Express Shipping: Delivered within 2 days with a flat
+                      rate of $19.99.
+                    </li>
+                  </ul>
+                </div>
+                <div className="flex flex-col gap-[12px]">
+                  <div className="text-[28px] font-black">Return Details</div>
+                  <div className="font-normal text-[#767676]">
+                    This item must be returned within 30 days of the date it was
+                    purchased. See the{' '}
+                    <a className="underline " href="/policies/return-policy">
+                      return policy
+                    </a>{' '}
+                    for the complete information.
+                  </div>
+                </div>
               </div>
-            </AccordionContent>
-          </AccordionItem>
-        )}
-      </Accordion>
+              <MoneyBack />
+            </div>
+          </div>
+          <div ref={warrantyRef}>
+            <WarrantyDesktop />
+          </div>
+          {!!reviewData?.length && (
+            <div id="#reviews" ref={reviewsRef}>
+              <ReviewSection reviewData={reviewData} />
+            </div>
+          )}
+        </div>
+      </div>
     </div>
   );
-};
-
+}
 
 const ReviewSection = ({
   reviewData,
@@ -287,17 +264,21 @@ const ReviewSection = ({
         Car Cover Reviews
       </p>
       <div className="flex flex-col items-center justify-around lg:flex-row">
-        <div className="flex flex-col items-center gap-4">
+        <div className="flex flex-col items-center gap-4 lg:gap-0">
           <div className="flex items-center gap-2">
             <p className="text-[40px] font-black lg:text-[80px]">4.9</p>
             <p className="lg:mt-11">{reviewData?.length} reviews</p>
           </div>
-          <div className="flex items-stretch text-yellow-300">
-            <StarIcon />
-            <StarIcon />
-            <StarIcon />
-            <StarIcon />
-            <StarIcon />
+          <div className="lg:flex">
+            <Rating
+              name="read-only"
+              value={5}
+              readOnly
+              size="large"
+              style={{
+                height: '25px',
+              }}
+            />
           </div>
         </div>
         <div className="flex items-center justify-center gap-2">
@@ -360,24 +341,6 @@ const ReviewSection = ({
 };
 
 function ReviewCard({ review }: { review: TReviewData }) {
-  const StarIcon = () => {
-    return (
-      <svg
-        viewBox="0 0 59 55"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-        className="h-[25px] w-[25px] lg:h-[55px] lg:w-[55px]"
-      >
-        <path
-          id="Star 19"
-          d="M29.5 1.61804L35.7599 20.884L35.8722 21.2295H36.2354H56.4929L40.1042 33.1365L39.8104 33.35L39.9226 33.6955L46.1825 52.9615L29.7939 41.0545L29.5 40.8409L29.2061 41.0545L12.8175 52.9615L19.0774 33.6955L19.1896 33.35L18.8958 33.1365L2.50715 21.2295H22.7646H23.1279L23.2401 20.884L29.5 1.61804Z"
-          fill="#FFD80E"
-          stroke="#FF9F47"
-        />
-      </svg>
-    );
-  };
-
   const CheckIcon = () => {
     return (
       <svg
@@ -415,11 +378,14 @@ function ReviewCard({ review }: { review: TReviewData }) {
         {review.review_title}
       </div>
       <div className="my-2 flex gap-1 text-yellow-300 lg:my-0">
-        <StarIcon />
-        <StarIcon />
-        <StarIcon />
-        <StarIcon />
-        <StarIcon />
+        <Rating
+          name="read-only"
+          value={5}
+          readOnly
+          style={{
+            height: '25px',
+          }}
+        />
       </div>
       <div className="text-sm font-light normal-case text-neutral-500">
         Purchased on{' '}

@@ -1,6 +1,5 @@
 import Image from 'next/image';
 import { TCarCoverData } from './CarPDP';
-import { TProductData } from '@/lib/db';
 import { Ref, RefObject } from 'react';
 
 interface ProductRefs {
@@ -34,14 +33,9 @@ export function ColorSelector({
           >
             <Image
               src={sku?.feature as string}
-              ref={
-                productRefs?.current[
-                  sku?.sku as TProductData['sku']
-                ] as Ref<HTMLImageElement>
-              }
+              ref={productRefs?.current[sku?.sku] as Ref<HTMLImageElement>}
               width={98}
               height={98}
-              priority
               onError={() => console.log('Failed image:', `${sku?.feature}`)}
               alt="car cover details"
               className="h-20 w-20 cursor-pointer rounded bg-[#F2F2F2] lg:h-full lg:w-full"

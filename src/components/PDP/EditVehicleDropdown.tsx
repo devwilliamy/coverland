@@ -8,7 +8,7 @@ import { MakeSearch } from '../hero/dropdown/MakeSearch';
 import { ModelSearch } from '../hero/dropdown/ModelSearch';
 import { YearSearch } from '../hero/dropdown/YearSearch';
 import { SubmodelDropdown } from '../hero/dropdown/SubmodelDropdown';
-import generationData from '@/data/generationData.json';
+import parentGenerationJson from '@/data/parent_generation_data.json';
 import { slugify } from '@/lib/utils';
 
 export type TQuery = {
@@ -38,17 +38,13 @@ export default function EditVehicleDropdown({
   const router = useRouter();
   const { year, type, make, model, submodel } = query;
   // const isReadyForSubmit = year && type && make && model;
-  const types = ['Car Covers', 'SUV Covers', 'Truck Covers'];
 
   const closePopover = useCallback(() => {
     setOpen && setOpen(false);
   }, [setOpen]);
 
-  const typeIndex = String(types.indexOf(type) + 1);
-
-  const availableMakes = generationData.filter(
-    (sku) =>
-      sku.year_options.includes(year) && String(sku.generation)[0] === typeIndex
+  const availableMakes = parentGenerationJson.filter(
+    (sku) => String(sku.year_options).includes(year) && sku.type === type
   );
 
   const availableModels = availableMakes.filter((sku) => sku.make === make);
@@ -58,8 +54,6 @@ export default function EditVehicleDropdown({
       ? sku.submodel1 === submodel && sku.model === model
       : sku.model === model
   );
-  console.log(availableModels);
-  console.log(finalAvailableModels);
 
   const queryObj = {
     query,
@@ -88,9 +82,7 @@ export default function EditVehicleDropdown({
     ),
   ];
 
-  const yearInUrl = finalAvailableModels?.[0]?.year_generation;
-
-  console.log(yearInUrl);
+  const yearInUrl = finalAvailableModels?.[0]?.parent_generation;
 
   const createQueryString = useCallback(
     (name: string, value: string) => {
@@ -110,14 +102,15 @@ export default function EditVehicleDropdown({
     setLoading(true);
     let url = `/${slugify(type)}/${slugify(make)}/${slugify(model)}/${yearInUrl}`;
     const currentUrl = `${pathname}${searchParams?.toString() ? `?${searchParams.toString()}` : ''}`;
+
+    if (submodel) {
+      url += `?${createQueryString('submodel', submodel)}`;
+    }
+
     if (url === currentUrl) {
       setLoading(false);
       closePopover();
       return;
-    }
-
-    if (submodel) {
-      url += `?${createQueryString('submodel', submodel)}`;
     }
 
     // refreshRoute('/');
@@ -127,7 +120,7 @@ export default function EditVehicleDropdown({
   };
 
   return (
-    <div className="z-100 relative flex w-full flex-col items-stretch justify-center gap-2 font-medium *:flex-1">
+    <div className="z-100 relative flex w-full flex-col items-stretch  gap-[16px] *:flex-1">
       <TypeSearch queryObj={queryObj} />
       <YearSearch queryObj={queryObj} />
       <MakeSearch queryObj={queryObj} makeData={makeData} />
@@ -136,14 +129,14 @@ export default function EditVehicleDropdown({
         <SubmodelDropdown queryObj={queryObj} submodelData={subModelData} />
       )}
       <Button
-        className="mx-auto h-[40px] max-w-[px] text-lg"
+        className="mx-auto h-[40px] max-h-[44px] w-full max-w-[px] rounded-[4px] bg-black text-lg "
         onClick={handleSubmitDropdown}
         disabled={!year || !type || !make || !model}
       >
         {loading ? (
           <AiOutlineLoading3Quarters className="animate-spin" />
         ) : (
-          'Go'
+          'GO'
         )}
       </Button>
     </div>

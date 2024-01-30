@@ -1,3 +1,4 @@
+import { handleAddOrderId } from '@/app/api/utils/orders';
 import {
   Card,
   CardContent,
@@ -6,7 +7,6 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
-// import { addOrderToDb } from '@/lib/db';
 import Link from 'next/link';
 import { redirect } from 'next/navigation';
 import { Suspense } from 'react';
@@ -36,6 +36,16 @@ const OrderConfirmationContent = ({
 }) => {
   if (!orderNumber) {
     redirect('/');
+  }
+  const validOrderNumber =
+    orderNumber.length === 9 &&
+    !isNaN(Number(orderNumber.slice(3))) &&
+    orderNumber.slice(0, 3) === 'CL-';
+
+  if (validOrderNumber) {
+    handleAddOrderId(orderNumber);
+  } else {
+    return <InvalidOrderNumber orderNumber={orderNumber} />;
   }
 
   return (
@@ -67,3 +77,18 @@ const OrderConfirmationContent = ({
     </Card>
   );
 };
+
+type OrderNumberObj = {
+  orderNumber: string;
+};
+
+const InvalidOrderNumber = ({ orderNumber }: OrderNumberObj) => (
+  <Card className="flex min-h-[30vh] flex-col items-center justify-center text-center">
+    <CardHeader>
+      <CardTitle> Invalid Order Number </CardTitle>
+      <CardDescription>
+        Order number : <span>{orderNumber}</span>
+      </CardDescription>
+    </CardHeader>
+  </Card>
+);

@@ -1,32 +1,29 @@
+import { Suspense } from 'react';
+import { TCarCoverData } from '@/app/(main)/car-covers/components/CarPDP';
 import { TProductData } from '@/lib/db';
-import SubDropdowns from './components/SubDropdowns';
-
-export type TQuery = {
-  year?: string;
-  type?: string;
-  make?: string;
-  model?: string;
-};
+import DefaultDropdown from './components/DefaultDropdown';
+import DropdownRenderer from './components/DropdownRenderer';
 
 export function DropdownPDP({
   modelData,
-  submodels,
-  secondSubmodels,
 }: {
-  modelData: TProductData[];
-  submodels: string[];
-  secondSubmodels: string[];
+  modelData: TCarCoverData[] | TProductData[];
 }) {
-  // console.log(submodels, secondSubmodels);
-  if (secondSubmodels.length === 0 && submodels.length === 0) return null;
-  // console.log('submodels', submodels);
+  if (!modelData[0]?.sku) {
+    console.log('here');
+    return (
+      <div className="flex w-full flex-col gap-2 ">
+        <Suspense fallback={<div>Loading...</div>}>
+          <DefaultDropdown />
+        </Suspense>
+      </div>
+    );
+  }
   return (
     <div className="flex w-full flex-col gap-2 ">
-      <SubDropdowns
-        modelData={modelData}
-        submodels={submodels}
-        secondSubmodels={secondSubmodels}
-      />
+      <Suspense fallback={<div>Loading...</div>}>
+        <DropdownRenderer modelData={modelData} />
+      </Suspense>
     </div>
   );
 }
