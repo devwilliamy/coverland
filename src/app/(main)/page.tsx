@@ -11,7 +11,6 @@ export default function Home() {
       <Suspense>
         <HeroSection />
       </Suspense>
-
       {/* <CategoryCards /> */}
       <TrustBanner />
       {/* <SolutionSection /> */}
