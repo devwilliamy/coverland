@@ -2,10 +2,12 @@ type UmbrellaIconProps = {
   width?: number | string;
   height?: number | string;
 };
-const UmbrellaIcon: React.FC<UmbrellaIconProps> = ({
-  width = 82,
-  height = 82,
-}) => {
+const UmbrellaIcon: React.FC<UmbrellaIconProps> = (
+  {
+    // width = 82,
+    // height = 82,
+  }
+) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
