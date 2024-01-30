@@ -220,22 +220,20 @@ const ScrollDrawerTrigger = ({
   title: string;
   toRef: React.RefObject<HTMLDivElement>;
 }) => (
-  <DrawerTrigger className=" flex w-full flex-row items-center justify-between border-b-2 border-[#C8C7C7] py-4 text-left text-[22px] font-black uppercase text-[#1A1A1A] !no-underline">
-    <button
-      className="uppercase"
-      onClick={() => {
-        setTimeout(() => {
-          const DrawerScrollable = document.getElementById('DrawerScrollable');
-          DrawerScrollable?.scrollTo({
-            top: toRef.current?.offsetTop
-              ? toRef.current?.offsetTop - 100
-              : toRef.current?.offsetTop,
-            behavior: 'instant',
-          });
-        }, 200);
-      }}
-    >
-      {title}
-    </button>
+  <DrawerTrigger
+    className=" flex w-full flex-row items-center justify-between border-b-2 border-[#C8C7C7] py-4 text-left text-[22px] font-black uppercase text-[#1A1A1A] !no-underline"
+    onClick={() => {
+      setTimeout(() => {
+        const DrawerScrollable = document.getElementById('DrawerScrollable');
+        DrawerScrollable?.scrollTo({
+          top: toRef.current?.offsetTop
+            ? toRef.current?.offsetTop - 100
+            : toRef.current?.offsetTop,
+          behavior: 'instant',
+        });
+      }, 200);
+    }}
+  >
+    <div className="uppercase">{title}</div>
   </DrawerTrigger>
 );
