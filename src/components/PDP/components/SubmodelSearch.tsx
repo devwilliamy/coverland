@@ -1,8 +1,6 @@
 'use client';
 
 import { TProductData } from '@/lib/db';
-import { deslugify } from '@/lib/utils';
-import { useRouter, useSearchParams } from 'next/navigation';
 import {
   ChangeEvent,
   Dispatch,
@@ -11,6 +9,9 @@ import {
   useEffect,
   useState,
 } from 'react';
+import { useSearchParams } from 'next/navigation';
+import { deslugify } from '@/lib/utils';
+import { useRouter } from 'next/navigation';
 
 export function SubmodelSearch({
   setSelectedSubmodel,
