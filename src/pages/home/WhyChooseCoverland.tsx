@@ -35,12 +35,12 @@ const WhyChooseCoverland = () => {
             <div className="mb-[22px] mt-[32px] flex w-full text-[24px] font-extrabold uppercase leading-[32px] lg:mt-0 lg:hidden lg:whitespace-nowrap lg:leading-[40px] ">
               Why Choose CoverLand <br /> Car Covers?
             </div>
-            <div className="flex flex-col items-start justify-start  pt-0 lg:pt-7 ">
+            <div className="flex flex-col items-start justify-start pt-0 text-[14px] font-[400] leading-[140%] lg:pt-7 lg:text-[16px] lg:leading-[36px] ">
               <span className="flex flex-row items-center justify-center pb-4">
                 <div>
                   <BsCheckSquareFill size={24} color="#000" />
                 </div>
-                <p className="text-dark pl-4 text-base font-semibold">
+                <p className="text-dark pl-4 text-base ">
                   Luxury thick microfiber material
                 </p>
               </span>
@@ -48,7 +48,7 @@ const WhyChooseCoverland = () => {
                 <div>
                   <BsCheckSquareFill size={24} color="#000" />
                 </div>
-                <p className="text-dark pl-4 text-base font-semibold">
+                <p className="text-dark pl-4 text-base ">
                   Indoor/Outdoor Choices
                 </p>
               </span>
@@ -56,7 +56,7 @@ const WhyChooseCoverland = () => {
                 <div>
                   <BsCheckSquareFill size={24} color="#000" />
                 </div>
-                <p className="text-dark pl-4 text-base font-semibold">
+                <p className="text-dark pl-4 text-base ">
                   Water resistant shiled to give protection from impairment
                   caused by water
                 </p>
@@ -65,7 +65,7 @@ const WhyChooseCoverland = () => {
                 <div>
                   <BsCheckSquareFill size={24} color="#000" />
                 </div>
-                <p className="text-dark pl-4 text-base font-semibold">
+                <p className="text-dark pl-4 text-base ">
                   Varied size and color option
                 </p>
               </span>
@@ -73,7 +73,7 @@ const WhyChooseCoverland = () => {
                 <div>
                   <BsCheckSquareFill size={24} color="#000" />
                 </div>
-                <p className="text-dark pl-4 text-base font-semibold">
+                <p className="text-dark pl-4 text-base ">
                   Protection against damage from sun and UV rays
                 </p>
               </span>
@@ -81,7 +81,7 @@ const WhyChooseCoverland = () => {
                 <div>
                   <BsCheckSquareFill size={24} color="#000" />
                 </div>
-                <p className="text-dark pl-4 text-base font-semibold">
+                <p className="text-dark pl-4 text-base ">
                   Windproof, easy buckle nylon straps and two small grommets.
                 </p>
               </span>

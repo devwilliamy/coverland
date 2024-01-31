@@ -35,7 +35,7 @@ const IconSection = ({
         <p className="text-[18px] font-bold capitalize leading-[26px] text-[#1A1A1A]">
           {title}
         </p>
-        <p className="text-[16px] font-normal leading-[26px] text-[#767676]">
+        <p className="max-w-[330px] text-[16px] font-normal leading-[26px] text-[#767676]">
           {children}
         </p>
       </div>
@@ -45,7 +45,7 @@ const IconSection = ({
 
 export default function SecuritySection() {
   return (
-    <section className="mx-[16px] mt-[-24px] h-auto max-w-[1440px] gap-[115px] px-4  lg:mx-0  lg:flex ">
+    <section className="h-auto max-w-[1440px]  gap-[115px] px-[16px] pt-[36px]  lg:mx-0  lg:flex ">
       <div className="flex w-full flex-col items-center justify-center lg:flex-row ">
         <div className="relative aspect-square max-h-[562px] w-full max-w-[617px]  ">
           <Image

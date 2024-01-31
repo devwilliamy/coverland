@@ -80,7 +80,7 @@ const ReviewsSection = () => {
   return (
     <div>
       <div className="flex w-full flex-col items-center px-[39px]  uppercase">
-        <div className="text-[14px] capitalize lg:text-[24px] ">
+        <div className="mb-1 text-[14px] capitalize lg:text-[24px] ">
           Thousands of happy customers
         </div>
         <div className="mb-[22px] text-[24px] font-[900] uppercase lg:text-[54px]">

@@ -52,11 +52,8 @@ function Header() {
         </div> */}
       </section>
       <div className="order-first w-full items-center justify-center bg-zinc-900  text-center font-bold leading-6 text-white lg:order-none lg:mt-5 lg:py-3.5 ">
-        <p className="text-3xl font-bold uppercase italic text-[#FF0000] lg:text-4xl">
-          Flash Sale: 50% off{' '}
-          <span className="hidden text-white lg:inline-block">
-            sale ends this week!{' '}
-          </span>{' '}
+        <p className="text-[35px] font-[600] uppercase italic leading-[41px] tracking-wider text-[#F0FF3F] lg:text-4xl">
+          *Today&apos;s Special: 50% OFF!*
         </p>
       </div>
     </header>

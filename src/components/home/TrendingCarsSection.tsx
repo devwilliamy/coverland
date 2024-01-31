@@ -4,26 +4,27 @@ import Ram from '@/images/hero/trending-ram.png';
 import Dodge from '@/images/hero/trending-dodge.png';
 import Chevy from '@/images/hero/trending-chevy.png';
 import Image from 'next/image';
+// import "./"
 
 const TrendingCars = [
-  { title: 'Chevy', img: Chevy, link: 'chevrolet' },
-  { title: 'Dodge', img: Dodge, link: 'dodge' },
-  { title: 'Ford', img: Ford, link: 'ford' },
-  { title: 'Ram', img: Ram, link: 'ram' },
+  { title: 'Chevy', img: Chevy, link: '/car-covers/chevrolet' },
+  { title: 'Dodge', img: Dodge, link: '/car-covers/dodge' },
+  { title: 'Ford', img: Ford, link: '/car-covers/ford' },
+  { title: 'Ram', img: Ram, link: '/car-covers' },
 ];
 const TrendingCarsSection = () => {
   return (
-    <div className="mb-[40px] mt-[13px] flex w-full flex-col px-[16px] lg:mb-[60px] lg:mt-[-50px] lg:px-[56px]">
+    <div className="mb-[20px] mt-[13px] flex w-full flex-col px-[16px] lg:mb-[60px] lg:mt-[-50px] lg:px-[56px]">
       <p className="mb-[30px] text-[20px] font-black uppercase lg:text-[32px]">
         trending car brands
       </p>
-      <div className="max-w-screen flex gap-[20px] overflow-x-scroll">
+      <div className="max-w-screen flex gap-[20px] overflow-x-auto">
         {TrendingCars.map(({ title, img, link }) => (
           <div
             key={``}
             className="relative flex min-h-[229px] min-w-[197px] flex-col items-center"
           >
-            <a href={`/car-covers/${link}`}>
+            <a href={link}>
               <Image
                 alt="Best-Selling-Car-Cover"
                 className="min-h-[229px] rounded-[6px] "

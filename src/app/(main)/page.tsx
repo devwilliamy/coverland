@@ -6,7 +6,7 @@ import SecuritySection from '@/components/home/SecuritySection';
 import TrendingCarsSection from '@/components/home/TrendingCarsSection';
 import DesignedInUSA from '@/pages/home/DesignedInUSA';
 import TrustBanner from '@/pages/home/TrustBanner';
-import SolutionSection from '@/pages/home/SolutionSection';
+import HomepageVideoSection from '@/pages/home/HomepageVideoSection';
 import { Suspense } from 'react';
 import WhyChooseCoverland from '@/pages/home/WhyChooseCoverland';
 import ReviewsSection from '@/pages/home/ReviewsSection';
@@ -21,11 +21,11 @@ export default function Home() {
         <HeroSection />
       </Suspense>
       <CoversGrid />
-      <>
+      <div className="flex flex-col gap-[60px] bg-[#F9F9FB] lg:gap-[110px] lg:py-[44px]">
         <BestSellingSection />
         <TrendingCarsSection />
-      </>
-      <SolutionSection />
+      </div>
+      <HomepageVideoSection />
       <ReviewsSection />
       <TrustBanner />
       <BuyWithConfidenceSection />
