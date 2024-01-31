@@ -10,12 +10,12 @@ import { MoneyBackMobile } from './MoneyBackMobile';
 import { TReviewData } from '@/lib/db';
 import ReviewSection from './components/ReviewSection';
 import {
-  Drawer,
-  DrawerClose,
-  DrawerContent,
-  DrawerTitle,
-  DrawerTrigger,
-} from '../ui/drawer';
+  Sheet,
+  SheetClose,
+  SheetContent,
+  SheetTitle,
+  SheetTrigger,
+} from '@/components/ui/sheet';
 import { IoClose } from 'react-icons/io5';
 import { useRef } from 'react';
 import WarrantyPolicy from '@/app/(main)/policies/warranty-policy/page';
@@ -91,52 +91,52 @@ export const MobilePDPDetails = ({
         </div>
       </div>
 
-      <Drawer>
-        <ScrollDrawerTrigger title="Product Details" toRef={pdRef} />
-        <ScrollDrawerTrigger title="Benefits" toRef={benRef} />
-        <ScrollDrawerTrigger title="Q&A" toRef={qaRef} />
-        <ScrollDrawerTrigger title="Shipping & Returns" toRef={srRef} />
-        <ScrollDrawerTrigger title="Warranty" toRef={warRef} />
+      <Sheet>
+        <ScrollSheetTrigger title="Product Details" toRef={pdRef} />
+        <ScrollSheetTrigger title="Benefits" toRef={benRef} />
+        <ScrollSheetTrigger title="Q&A" toRef={qaRef} />
+        <ScrollSheetTrigger title="Shipping & Returns" toRef={srRef} />
+        <ScrollSheetTrigger title="Warranty" toRef={warRef} />
         {!!reviewData?.length && (
-          <ScrollDrawerTrigger title="Car Cover Reviews" toRef={ccrRef} />
+          <ScrollSheetTrigger title="Car Cover Reviews" toRef={ccrRef} />
         )}
 
-        <DrawerContent className="px-[1px]">
+        <SheetContent className="rounded-t-[10px] px-[1px]" side="bottom">
           <div
             id="DrawerScrollable"
             className="relative flex max-h-[80vh] flex-col gap-[60px] overflow-y-scroll px-[15px]  "
           >
-            <DrawerClose className="fixed right-0 z-[400] mr-[16px] flex items-center py-[4px]">
+            <SheetClose className="fixed right-0 z-[400] mr-[16px] flex items-center py-[4px]">
               <div
                 id="CloseModalButton"
                 className=" mt-[17px] justify-center rounded-full bg-gray-200 p-[5px] "
               >
                 <IoClose className="h-[24px] w-[24px]" />
               </div>
-            </DrawerClose>
-            <StickyDrawerItem title="Product Details">
+            </SheetClose>
+            <StickySheetItem title="Product Details">
               <div ref={pdRef}>
                 <ProductHero />
                 <Layers />
               </div>
-            </StickyDrawerItem>
+            </StickySheetItem>
 
-            <StickyDrawerItem title="Benefits">
+            <StickySheetItem title="Benefits">
               <div className=" md:mt-18 lg:mt-28" ref={benRef}>
                 <ClimateCrisisMobile />
                 <NoGarageMobile />
                 <OurCarCovers />
                 <ProductChecklist />
               </div>
-            </StickyDrawerItem>
+            </StickySheetItem>
 
-            <StickyDrawerItem title="Q&A">
+            <StickySheetItem title="Q&A">
               <div className="lg:mt-28" ref={qaRef}>
                 <PDPAccordion />
               </div>
-            </StickyDrawerItem>
+            </StickySheetItem>
 
-            <StickyDrawerItem title="Shipping & Returns">
+            <StickySheetItem title="Shipping & Returns">
               <div className=" md:mt-18 lg:mt-28" ref={srRef}>
                 <div className="flex flex-col gap-5 px-2  normal-case">
                   <div className="mb-[-15px] text-lg font-black">
@@ -170,9 +170,9 @@ export const MobilePDPDetails = ({
                 </div>
                 <MoneyBackMobile />
               </div>
-            </StickyDrawerItem>
+            </StickySheetItem>
 
-            <StickyDrawerItem title="Warranty">
+            <StickySheetItem title="Warranty">
               <div
                 className="md:mt-18 mb-[-10px] min-h-[40vh] lg:mt-28"
                 ref={warRef}
@@ -181,22 +181,22 @@ export const MobilePDPDetails = ({
                   <WarrantyPolicy hideHeader />
                 </div>
               </div>
-            </StickyDrawerItem>
+            </StickySheetItem>
             {!!reviewData?.length && (
-              <StickyDrawerItem title="Car Cover Reviews">
+              <StickySheetItem title="Car Cover Reviews">
                 <div className="md:mt-18 lg:mt-28" ref={ccrRef}>
                   <ReviewSection reviewData={reviewData} />
                 </div>
-              </StickyDrawerItem>
+              </StickySheetItem>
             )}
           </div>
-        </DrawerContent>
-      </Drawer>
+        </SheetContent>
+      </Sheet>
     </div>
   );
 };
 
-const StickyDrawerItem = ({
+const StickySheetItem = ({
   title,
   children,
 }: {
@@ -204,23 +204,23 @@ const StickyDrawerItem = ({
   children: JSX.Element | JSX.Element[];
 }) => (
   <span id="DrawerSection" className=" flex h-full flex-col">
-    <DrawerTitle className="sticky top-0 z-[100]  flex justify-between border-b-2 border-[#C8C7C7] bg-white">
+    <SheetTitle className="sticky top-0 z-[100]  flex justify-between border-b-2 border-[#C8C7C7] bg-white">
       <div className=" flex w-full flex-row items-center justify-between py-[28px] text-left text-[22px] font-black uppercase text-[#1A1A1A] !no-underline">
         {title}
       </div>
-    </DrawerTitle>
+    </SheetTitle>
     <div className="pt-[40px]">{children}</div>
   </span>
 );
 
-const ScrollDrawerTrigger = ({
+const ScrollSheetTrigger = ({
   title,
   toRef,
 }: {
   title: string;
   toRef: React.RefObject<HTMLDivElement>;
 }) => (
-  <DrawerTrigger
+  <SheetTrigger
     className=" flex w-full flex-row items-center justify-between border-b-2 border-[#C8C7C7] py-4 text-left text-[22px] font-black uppercase text-[#1A1A1A] !no-underline"
     onClick={() => {
       setTimeout(() => {
@@ -235,5 +235,5 @@ const ScrollDrawerTrigger = ({
     }}
   >
     <div className="uppercase">{title}</div>
-  </DrawerTrigger>
+  </SheetTrigger>
 );
