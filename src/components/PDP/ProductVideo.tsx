@@ -6,7 +6,12 @@ export default function ProductVideo() {
     <Video
       src={SquareVideo}
       muted
-      style={{ aspectRatio: 4 / 3, height: '100%' }}
+      style={{
+        aspectRatio: 4 / 3,
+        height: '100%',
+        '--seek-backward-button': 'none',
+        '--seek-forward-button': 'none',
+      }}
     />
   );
 }
