@@ -7,7 +7,7 @@ import Image from 'next/image';
 import { ArrowRight } from 'lucide-react';
 // import "./"
 
-const TrendingCars = [
+const trendingCars = [
   { title: 'Chevy', img: Chevy, link: '/car-covers/chevrolet' },
   { title: 'Dodge', img: Dodge, link: '/car-covers/dodge' },
   { title: 'Ford', img: Ford, link: '/car-covers/ford' },
@@ -20,9 +20,9 @@ const TrendingCarsSection = () => {
         trending car brands
       </p>
       <div className="max-w-screen flex gap-[20px] overflow-x-auto">
-        {TrendingCars.map(({ title, img, link }) => (
+        {trendingCars.map(({ title, img, link }, i) => (
           <div
-            key={``}
+            key={`${title}-${i}`}
             className="relative flex min-h-[229px] min-w-[197px] flex-col items-center"
           >
             <a href={link}>
