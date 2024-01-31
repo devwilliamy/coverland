@@ -9,7 +9,7 @@ const WhyChooseCoverland = () => {
       <div className="flex w-full flex-col justify-center lg:flex-row ">
         <div className="relative aspect-square max-h-[562px] w-full max-w-[617px]  lg:w-1/2 ">
           <Image
-            className="rounded-[15px]"
+            className="rounded-[8px] lg:rounded-[15px]"
             layout="fill"
             src={Waterproof}
             // className=" rounded-[8px] object-cover md:max-h-[462px] md:min-h-[462px] md:min-w-[517px] md:max-w-[517px]  lg:max-h-[562px] lg:min-h-[562px] lg:min-w-[617px] lg:max-w-[617px]"
@@ -87,7 +87,7 @@ const WhyChooseCoverland = () => {
               </span>
             </div>
             <div className="pb-10 pt-7">
-              <p className="text-dark">
+              <p className="text-[14px] font-[400]">
                 Our top covers are specifically made to be closely fitted on
                 your vehicle in order to safeguard it from outside elements.
                 With all the above-mentioned features, keep in mind our

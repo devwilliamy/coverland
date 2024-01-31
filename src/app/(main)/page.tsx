@@ -9,7 +9,7 @@ import TrustBanner from '@/pages/home/TrustBanner';
 import HomepageVideoSection from '@/pages/home/HomepageVideoSection';
 import { Suspense } from 'react';
 import WhyChooseCoverland from '@/pages/home/WhyChooseCoverland';
-import ReviewsSection from '@/pages/home/ReviewsSection';
+import HomepageReviews from '@/pages/home/HomepageReviews';
 
 export default function Home() {
   // const reviewData: TReviewData[] | null =
@@ -26,7 +26,7 @@ export default function Home() {
         <TrendingCarsSection />
       </div>
       <HomepageVideoSection />
-      <ReviewsSection />
+      <HomepageReviews />
       <TrustBanner />
       <BuyWithConfidenceSection />
       <div className="flex flex-col gap-[60px] bg-[#F9F9FB] lg:gap-[110px] lg:py-[110px]">

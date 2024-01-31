@@ -10,7 +10,7 @@ const TrendingCars = [
   { title: 'Chevy', img: Chevy, link: '/car-covers/chevrolet' },
   { title: 'Dodge', img: Dodge, link: '/car-covers/dodge' },
   { title: 'Ford', img: Ford, link: '/car-covers/ford' },
-  { title: 'Ram', img: Ram, link: '/car-covers' },
+  { title: 'Ram', img: Ram, link: '/truck-covers/ram' },
 ];
 const TrendingCarsSection = () => {
   return (

@@ -13,7 +13,7 @@ import Reviews2 from '@/images/reviews/review1_1.jpg';
 import Reviews3 from '@/images/reviews/review1_2.jpg';
 import Reviews4 from '@/images/reviews/review1_5.jpg';
 
-const ReviewsSection = () => {
+const HomepageReviews = () => {
   const Reviews = [
     {
       rating: 5,
@@ -83,7 +83,7 @@ const ReviewsSection = () => {
         <div className="mb-1 text-[14px] capitalize lg:text-[24px] ">
           Thousands of happy customers
         </div>
-        <div className="mb-[22px] text-[24px] font-[900] uppercase lg:text-[54px]">
+        <div className="mb-[22px] text-[24px] font-[900] uppercase lg:text-[45px]">
           car cover REVIEWS
         </div>
       </div>
@@ -119,21 +119,21 @@ type ReviewData = {
 const ReviewsItem = ({ key, item }: { key: string; item: ReviewData }) => (
   <CarouselItem
     key={key}
-    className=" flex w-full flex-col bg-[#ECECEC]  px-[54px] pb-[44px] pt-[60px]  lg:flex-row"
+    className=" flex w-full flex-col bg-[#ECECEC] px-[54px]  pb-[44px] pt-[88px] lg:flex-row  lg:items-start"
   >
     <div
       id="ImageContainer"
-      className="mb-[42px] flex flex-col items-center justify-center lg:w-1/2 lg:flex-row"
+      className="mb-[42px] flex flex-col  justify-center lg:mb-0 lg:w-1/2 lg:flex-row lg:items-start"
     >
       {item.img && (
         <Image
           src={item?.img}
-          className=" h-[204px] w-[296px] rounded-[15px] bg-black object-cover lg:h-[397px] lg:w-[619px] "
+          className=" h-[204px] w-[296px] max-w-[617px] rounded-[15px] bg-black object-cover lg:h-[397px] lg:w-[619px] "
           alt="a fully-covered vehicle with a coverland car cover on it"
         />
       )}
     </div>
-    <div className="flex min-h-[390px] flex-col items-center gap-[44px] text-center lg:ml-[142.5px] lg:max-w-[524px]">
+    <div className="flex min-h-[390px] flex-col items-center gap-[44px] text-center lg:ml-[142.5px] lg:max-w-[524px] lg:items-start lg:text-left">
       <div className="mb-[-26px] flex">
         {[...Array(item?.rating)].map((index) => (
           <div key={`star-${index}`} className="flex flex-col">
@@ -142,22 +142,19 @@ const ReviewsItem = ({ key, item }: { key: string; item: ReviewData }) => (
         ))}
       </div>
       <div className="mb-[-10px] w-full  text-[18px] font-[700] lg:text-[26px]">
-        {/* Excellent Quality Cover For My Car */}
         {item?.title}
       </div>
-      <div className="mb-[-22px]  line-clamp-3 h-full w-full text-[22px] font-[400] leading-[40px]">
-        {/* “Great products with customer service second to none. Attention to
-        detail is extremely impressive.” */}
-        {item?.body}
+      <div className="mb-[-22px] line-clamp-3 h-full w-full overflow-hidden text-[16px] font-[400] leading-[30px] lg:text-[22px] lg:leading-[40px]">
+        &quot;{item?.body}&quot;
       </div>
-      <div className="mb-[-3px] w-full text-[28px] font-[400] italic text-[#626262]">
+      <div className="mb-[-3px] w-full text-[18px] font-[400] italic text-[#626262] lg:text-[28px]">
         {item?.owner}
       </div>
-      <button className=" flex min-h-[48px] w-full max-w-[214px]  flex-col items-center justify-center rounded-[4px] bg-[#BE1B1B] px-[40px] py-[15px] text-[16px] font-black text-white outline outline-[1px] outline-white">
+      <button className=" flex max-h-[48px] min-h-[48px] w-full max-w-[214px]  flex-col items-center justify-center rounded-[4px] bg-[#BE1B1B] px-[40px] py-[15px] text-[16px] font-black text-white ">
         <a href="/car-covers">Shop Now</a>
       </button>
     </div>
   </CarouselItem>
 );
 
-export default ReviewsSection;
+export default HomepageReviews;

@@ -8,9 +8,9 @@ import Image from 'next/image';
 
 const BestSelling = [
   { title: 'Dodge Challenger', img: Challenger },
-  { title: 'Chevy Corvette', img: ElCamino },
+  { title: 'Chevy Corvette', img: Corvette },
   { title: 'Mazda Miata', img: Miata },
-  { title: 'Chevy El-camino', img: Corvette },
+  { title: 'Chevy El-camino', img: ElCamino },
 ];
 const BestSellingSection = () => {
   return (

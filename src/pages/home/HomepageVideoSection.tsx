@@ -1,9 +1,9 @@
-import PerfectSolution from '@/images/hero/perfect-solution-video.png';
+import PerfectSolutionThumbnail from '@/images/hero/perfect-solution-thumbnail.webp';
 import Image from 'next/image';
 
 export default function HomepageVideoSection() {
   return (
-    <div className="flex flex-col items-center">
+    <span className="flex flex-col items-center">
       <p className=" mb-[32px] text-center text-[24px] font-black uppercase leading-[26px] lg:hidden">
         Perfect Solution <br />
         for All Weather
@@ -11,10 +11,10 @@ export default function HomepageVideoSection() {
       <p className="mb-[40px] hidden text-center text-[45px] font-black uppercase leading-[36px] lg:flex ">
         Perfect Solution for All Weather
       </p>
-      <span className="flex w-full flex-col items-center bg-[#1A1A1A] px-[18px] lg:px-[150px] lg:pt-[92px]">
+      <span className="pt-[40px] flex w-full flex-col items-center bg-[#1A1A1A] px-[18px] lg:px-[150px] lg:pt-[92px]">
         {/* <Video /> */}
         <Image
-          src={PerfectSolution}
+          src={PerfectSolutionThumbnail}
           className="min-h-[190px] min-w-[339px] "
           alt="Perfect Solution Image"
         />
@@ -22,6 +22,6 @@ export default function HomepageVideoSection() {
           <a href="/car-covers">Shop Now</a>
         </button>
       </span>
-    </div>
+    </span>
   );
 }
