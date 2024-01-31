@@ -88,7 +88,7 @@ export function PDPAccordion() {
               Does this cover protect from the Sun?{' '}
             </AccordionTrigger>
             <AccordionContent className="text-sm font-normal text-[#1A1A1A] md:text-lg">
-              Yes. This car cover guarantee to provide you with 100% protection
+              Yes. This car cover guarantees to provide you with 100% protection
               from the sun&apos;s heat and UV rays. We ensure that your
               car&apos;s interior temperature is regulated while protecting the
               exterior from any kind of damage.
