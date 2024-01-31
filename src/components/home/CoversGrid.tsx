@@ -14,9 +14,9 @@ const CoversGrid = () => {
   return (
     <span className="mt-[-70px] h-full flex-col items-center px-4 lg:flex lg:px-[80px]">
       <div className="grid h-full max-w-[1280px]  grid-cols-2 grid-rows-2 place-items-center gap-[7px] lg:gap-[20px]  ">
-        {coverTypes.map(({ title, img }) => (
+        {coverTypes.map(({ title, img }, i) => (
           <div
-            key={`${title}-block`}
+            key={`${title}-${i}-block`}
             className={`${title !== 'Car Covers' ? 'pointer-events-none' : ''}`}
           >
             <a

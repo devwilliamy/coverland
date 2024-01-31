@@ -6,7 +6,7 @@ import Miata from '@/images/hero/best-selling-miata.png';
 import Corvette from '@/images/hero/best-selling-corvette.png';
 import Image from 'next/image';
 
-const BestSelling = [
+const bestSelling = [
   { title: 'Dodge Challenger', img: Challenger },
   { title: 'Chevy Corvette', img: Corvette },
   { title: 'Mazda Miata', img: Miata },
@@ -19,9 +19,10 @@ const BestSellingSection = () => {
         BEST-SELLING CAR MODELS
       </p>
       <div className="max-w-screen flex gap-[20px] overflow-x-auto">
-        {BestSelling.map(({ title, img }) => (
-          <div
-            key={``}
+        {bestSelling.map(({ title, img }, i) => (
+          <a
+            key={`${title}-${i}`}
+            href="/car-covers"
             className="flex min-h-[209px] min-w-[209px] flex-[25%] flex-col items-center justify-between"
           >
             <Image alt="Best-Selling-Car-Cover" className="" src={img} />
@@ -30,10 +31,10 @@ const BestSellingSection = () => {
                 {title}
               </p>
               <button className="mb-[2px] flex h-[44px] max-w-[153px] items-center justify-center whitespace-nowrap rounded-[100px] px-[40px] py-[17px] text-[16px] font-[900] leading-[110%] tracking-[0.32px] outline outline-[1px]">
-                <a href="/car-covers">Shop Now</a>
+                <div>Shop Now</div>
               </button>
             </div>
-          </div>
+          </a>
         ))}
       </div>
     </span>
