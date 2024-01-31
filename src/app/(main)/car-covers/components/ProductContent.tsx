@@ -37,6 +37,7 @@ import {
 } from '@/components/ui/drawer';
 import { IoClose } from 'react-icons/io5';
 import ReviewSection from '@/components/PDP/components/ReviewSection';
+import { generateProductsLeft } from '@/lib/utils';
 import Dialog from '@/components/ui/dialog-tailwind-ui';
 import { useRouter } from 'next/navigation';
 import { compareRawStrings } from '@/lib/utils';
@@ -186,11 +187,11 @@ export function ProductContent({
         <div className="grid grid-cols-1">
           <p className="text-dark relative mb-2.5 text-xl font-bold capitalize md:text-3xl">
             ${selectedProduct?.msrp}
-            <span className="top absolute ml-2.5 text-xl font-normal capitalize text-[#D13C3F]">
-              only{' '}
-              {`${Math.max(2, Math.min(7, Math.floor(reviewCount / 25) + 2))}`}{' '}
-              left
-            </span>
+            {selectedProduct?.display_id !== 'Premium' && (
+              <span className="top absolute ml-2.5 text-xl font-normal capitalize text-[#D13C3F]">
+                only {generateProductsLeft(selectedProduct)} left
+              </span>
+            )}
           </p>
           {selectedProduct?.price && (
             <p className="text-lg font-normal text-[#1A1A1A] md:text-[22px]">

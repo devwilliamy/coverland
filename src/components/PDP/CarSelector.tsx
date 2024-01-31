@@ -27,7 +27,7 @@ import { EditIcon } from './components/icons';
 import { track } from '@vercel/analytics';
 
 import dynamicImport from 'next/dynamic';
-import { stringToSlug } from '@/lib/utils';
+import { generateProductsLeft, stringToSlug } from '@/lib/utils';
 import CartSheet from '../cart/CartSheet';
 import {
   Drawer,
@@ -79,7 +79,6 @@ function TimeTo2PMPST() {
     const interval = setInterval(() => {
       setTimeRemaining(calculateTimeTo2PM());
     }, 60000); // Update every minute
-
     return () => clearInterval(interval);
   }, []);
 
@@ -552,14 +551,11 @@ function CarSelector({
             <div className="grid grid-cols-1">
               <p className="text-dark relative mb-2.5 text-xl font-bold capitalize md:text-3xl">
                 ${selectedProduct?.msrp}
-                <span className="top absolute ml-2.5 text-xl font-normal capitalize text-[#D13C3F]">
-                  only{' '}
-                  {`${Math.max(
-                    2,
-                    Math.min(7, Math.floor(reviewCount / 25) + 2)
-                  )}`}{' '}
-                  left
-                </span>
+                {selectedProduct?.display_id !== 'Premium' && (
+                  <span className="top absolute ml-2.5 text-xl font-normal capitalize text-[#D13C3F]">
+                    only {generateProductsLeft(selectedProduct)} left
+                  </span>
+                )}
               </p>
               {selectedProduct?.price && (
                 <p className="text-lg font-normal text-[#1A1A1A] md:text-[22px]">
