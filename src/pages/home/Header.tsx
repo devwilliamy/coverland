@@ -7,7 +7,12 @@ const Cart = dynamic(() => import('@/components/header/Cart'), { ssr: false });
 
 function Header() {
   return (
-    <header className="mx-auto flex w-screen max-w-[1280px] flex-col items-stretch bg-white sm:mb-0 lg:ml-auto lg:w-auto lg:pt-2.5">
+    <header className="mx-auto flex w-screen max-w-[1280px] flex-col items-stretch bg-white sm:mb-0 lg:ml-auto lg:w-auto ">
+      <div className="order-first max-h-[47px] w-full items-center justify-center bg-zinc-900  text-center ">
+        <p className="text-[26px] font-[600] uppercase italic leading-[41px] text-[#F0FF3F] lg:text-4xl lg:text-[35px]">
+          *Today&apos;s Special: 50% OFF!*
+        </p>
+      </div>
       <section className="flex w-full flex-col items-stretch px-16 max-md:max-w-full max-md:px-5">
         <div className="flex w-full items-center justify-between max-md:max-w-full max-md:flex-wrap">
           <div className="mr-auto">
@@ -15,7 +20,7 @@ function Header() {
           </div>
           <div className="flex flex-row items-center">
             <Link href="/login" className="mr-4 mt-1 lg:pr-8">
-              <UserRound />
+              <UserRound size={20} />
             </Link>
             <Cart />
           </div>
@@ -51,14 +56,6 @@ function Header() {
           </div>
         </div> */}
       </section>
-      <div className="order-first w-full items-center justify-center bg-zinc-900  text-center font-bold leading-6 text-white lg:order-none lg:mt-5 lg:py-3.5 ">
-        <p className="text-3xl font-bold uppercase italic text-[#FF0000] lg:text-4xl">
-          Flash Sale: 50% off{' '}
-          <span className="hidden text-white lg:inline-block">
-            sale ends this week!{' '}
-          </span>{' '}
-        </p>
-      </div>
     </header>
   );
 }
