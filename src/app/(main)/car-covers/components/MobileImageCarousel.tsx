@@ -8,12 +8,6 @@ import {
 } from '@/components/ui/carousel';
 import Image from 'next/image';
 import { TProductData } from '@/lib/db';
-
-const ActiveDot = () => (
-  <div className="relative flex h-2.5 w-2.5">
-    <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-gray-600"></span>
-  </div>
-);
 import dynamic from 'next/dynamic';
 
 const ProductVideo = dynamic(() => import('@/components/PDP/ProductVideo'), {
@@ -43,19 +37,29 @@ export const MobileImageCarousel = ({
       setCurrent(api.selectedScrollSnap());
     });
   }, [api]);
+
   const scrollTo = useCallback(
     (index: number) => api && api.scrollTo(index),
     [api]
   );
 
-  const Dot = ({ index }: { index: number }) => (
-    <button className="relative flex h-2 w-2" onClick={() => scrollTo(index)}>
-      <span className="relative inline-flex h-2 w-2 rounded-full bg-gray-300"></span>
+  const CarouselPositionItem = ({ index }: { index: number }) => (
+    <button
+      className={`relative flex min-h-[80px] min-w-[80px] rounded-[4px] ${index === current && 'outline outline-1  '} `}
+      onClick={() => scrollTo(index)}
+    >
+      <Image
+        className="rounded-[4px]"
+        width={80}
+        height={80}
+        src={productImages[index]}
+        alt=""
+      />
     </button>
   );
 
   return (
-    <div>
+    <div className="flex max-w-full flex-col">
       <Carousel setApi={setApi}>
         <CarouselContent className="bg-[#F2F2F2] p-2">
           <CarouselItem>
@@ -83,17 +87,12 @@ export const MobileImageCarousel = ({
               />
             </CarouselItem>
           ))}
-          
         </CarouselContent>
       </Carousel>
-      <div className="flex w-full items-center justify-center gap-2 bg-white py-2">
-        {scrollSnaps.map((_, index) =>
-          index === current ? (
-            <ActiveDot key={index} />
-          ) : (
-            <Dot key={index} index={index} />
-          )
-        )}
+      <div className="flex flex-row gap-[6px] overflow-x-auto whitespace-nowrap p-[6px]">
+        {productImages.map((_, index) => (
+          <CarouselPositionItem key={index} index={index} />
+        ))}
       </div>
     </div>
   );
