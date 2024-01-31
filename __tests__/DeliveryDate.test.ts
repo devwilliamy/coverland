@@ -3,9 +3,8 @@ import {
   getClientTimeZone,
   determineDeliveryByDate,
 } from '@/components/PDP/components/DeliveryDate';
-// import { DateTime } from 'luxon';
+import { DateTime } from 'luxon';
 
-// Mock the Date object to return a specific time zone offset for the test
 // Mocking Date.getTimezoneOffset
 const mockGetTimezoneOffset = (offset: number) => {
   jest.spyOn(Date.prototype, 'getTimezoneOffset').mockReturnValue(offset);
@@ -42,112 +41,90 @@ describe('getClientTimeZone', () => {
   });
 });
 
-// jest.mock('@/components/PDP/components/DeliveryDate', () => ({
-//   getClientTimeZone: jest.fn(),
-// }));
-
-// jest.spyOn(DateTime, 'now').mockImplementation(() => {
-//     // Return a mocked DateTime object
-//     return DateTime.fromObject({ /* your mock date and time */ }, { zone: 'UTC' });
-//   });
-
-// jest.mock('luxon', () => {
-//   const actualLuxon = jest.requireActual('luxon');
-//   return {
-//     ...actualLuxon,
-//     DateTime: {
-//       ...actualLuxon.DateTime,
-//       now: jest.fn(),
-//     },
-//   };
-// });
-
-// jest.mock('luxon', () => ({
-//   DateTime: {
-//     now: () => ({
-//       setZone: () => ({
-//         hour: 13, // Mocking 1 PM (hour 13)
-//         plus: (options: any) => ({
-//           toFormat: (format: string) => `Mocked Delivery Date: ${format}`,
-//         }),
-//       }),
-//     }),
-//   },
-// }));
-
-describe.only('determineDeliveryByDate', () => {
+describe('determineDeliveryByDate on 1/20 1 PM', () => {
   // Mock DateTime.now() before each test
   beforeAll(() => {
-    jest.spyOn(Date.prototype, 'getTimezoneOffset').mockImplementation(() => {
-      // Return the desired offset value here
-      return 480; // This would simulate PST
-    });
+    jest
+      .spyOn(DateTime, 'now')
+      .mockImplementation(
+        () => DateTime.fromISO('2024-01-20T13:00:00') as DateTime<true>
+      );
   });
 
-  afterEach(() => {
+  afterAll(() => {
     jest.restoreAllMocks();
   });
 
-  it('should return America/Los_Angeles for PST', () => {
-    jest.spyOn(Date.prototype, 'getTimezoneOffset').mockImplementation(() => {
-      // Return the desired offset value here
-      return 480; // This would simulate PST
-    });
-    const timeZone = getClientTimeZone();
-    expect(timeZone).toBe('America/Los_Angeles');
-  });
-
   it('should add 2 days for America/Los_Angeles timezone', () => {
+    // Mock getClientTimeZone
     jest.spyOn(Date.prototype, 'getTimezoneOffset').mockImplementation(() => {
       return 480;
     });
-    expect(determineDeliveryByDate()).toBe('Feb 01'); // Adjust the expected value based on your logic
+    expect(determineDeliveryByDate()).toBe('Jan 22');
   });
 
   it('should add 3 days for America/Denver timezone', () => {
-    jest
-      .spyOn(Date.prototype, 'getTimezoneOffset')
-      .mockImplementation(() => 420);
-    expect(determineDeliveryByDate()).toBe('Feb 02');
+    jest.spyOn(Date.prototype, 'getTimezoneOffset').mockImplementation(() => {
+      return 420;
+    });
+    expect(determineDeliveryByDate()).toBe('Jan 23');
   });
 
-  // it('should add 4 days for America/Chicago timezone', () => {
-  //   jest.spyOn(Date.prototype, 'getTimezoneOffset').mockImplementation(() => {
-  //     return 360; // Offset for CST
-  //   });
-  //   jest
-  //     .spyOn(DateTime, 'now')
-  //     .mockReturnValue(DateTime.fromISO('2024-01-28T13:00:00')); // Mock current date and time
-  //   expect(determineDeliveryByDate()).toBe('Feb 01'); // Adjust the expected value based on your logic
-  // });
+  it('should add 4 days for America/Chicago timezone', () => {
+    jest.spyOn(Date.prototype, 'getTimezoneOffset').mockImplementation(() => {
+      return 360;
+    });
+    expect(determineDeliveryByDate()).toBe('Jan 24');
+  });
 
-  // it('should add 5 days for America/New_York timezone', () => {
-  //   jest.spyOn(Date.prototype, 'getTimezoneOffset').mockImplementation(() => {
-  //     return 300; // Offset for EST
-  //   });
-  //   jest
-  //     .spyOn(DateTime, 'now')
-  //     .mockReturnValue(DateTime.fromISO('2024-01-28T13:00:00')); // Mock current date and time
-  //   expect(determineDeliveryByDate()).toBe('Feb 02'); // Adjust the expected value based on your logic
-  // });
+  it('should add 5 days for America/New_York timezone', () => {
+    jest.spyOn(Date.prototype, 'getTimezoneOffset').mockImplementation(() => {
+      return 300;
+    });
+    expect(determineDeliveryByDate()).toBe('Jan 25');
+  });
+});
 
-  // // Add more tests for other time zones...
+describe('determineDeliveryByDate on 1/20 2:01 PM', () => {
+  // Mock DateTime.now() before each test
+  beforeAll(() => {
+    jest
+      .spyOn(DateTime, 'now')
+      .mockImplementation(
+        () => DateTime.fromISO('2024-01-20T14:01:00') as DateTime<true>
+      );
+  });
 
-  // it('should add an extra day if after 2 PM', () => {
-  //   // Mock DateTime.now() to a time after 2 PM
-  //   DateTime.now.mockImplementation(() => {
-  //     return DateTime.fromObject({
-  //       year: 2024,
-  //       month: 1,
-  //       day: 18,
-  //       hour: 15,
-  //       zone: 'UTC',
-  //     });
-  //   });
+  afterAll(() => {
+    jest.restoreAllMocks();
+  });
 
-  //   getClientTimeZone.mockReturnValue('America/Los_Angeles');
-  //   expect(determineDeliveryByDate()).toBe('Jan 21'); // Assuming it's 1 day extra after 2 PM
-  // });
+  it('should add 3 days for America/Los_Angeles timezone', () => {
+    // Mock getClientTimeZone
+    jest.spyOn(Date.prototype, 'getTimezoneOffset').mockImplementation(() => {
+      return 480;
+    });
+    expect(determineDeliveryByDate()).toBe('Jan 23');
+  });
 
-  // Add more tests as needed...
+  it('should add 4 days for America/Denver timezone', () => {
+    jest.spyOn(Date.prototype, 'getTimezoneOffset').mockImplementation(() => {
+      return 420;
+    });
+    expect(determineDeliveryByDate()).toBe('Jan 24');
+  });
+
+  it('should add 5 days for America/Chicago timezone', () => {
+    jest.spyOn(Date.prototype, 'getTimezoneOffset').mockImplementation(() => {
+      return 360;
+    });
+    expect(determineDeliveryByDate()).toBe('Jan 25');
+  });
+
+  it('should add 6 days for America/New_York timezone', () => {
+    jest.spyOn(Date.prototype, 'getTimezoneOffset').mockImplementation(() => {
+      return 300;
+    });
+    expect(determineDeliveryByDate()).toBe('Jan 26');
+  });
 });
