@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { TCarCoverData } from './CarPDP';
 import {
   Carousel,
@@ -7,8 +7,14 @@ import {
   CarouselItem,
 } from '@/components/ui/carousel';
 import Image from 'next/image';
+import { TProductData } from '@/lib/db';
+
+const ActiveDot = () => (
+  <div className="relative flex h-2.5 w-2.5">
+    <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-gray-600"></span>
+  </div>
+);
 import dynamic from 'next/dynamic';
-import VimeoPlayer from 'react-player/vimeo';
 
 const ProductVideo = dynamic(() => import('@/components/PDP/ProductVideo'), {
   ssr: false,
@@ -18,10 +24,9 @@ export const MobileImageCarousel = ({
   selectedProduct,
   productImages,
 }: {
-  selectedProduct: TCarCoverData;
+  selectedProduct: TCarCoverData | TProductData;
   productImages: string[];
 }) => {
-  const playerRef = useRef<VimeoPlayer | null>(null);
   const [api, setApi] = useState<CarouselApi>();
   const [current, setCurrent] = useState(0);
   const [scrollSnaps, setScrollSnaps] = useState<number[]>([]);
@@ -49,12 +54,6 @@ export const MobileImageCarousel = ({
     </button>
   );
 
-  const ActiveDot = () => (
-    <div className="relative flex h-2.5 w-2.5">
-      <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-gray-600"></span>
-    </div>
-  );
-
   return (
     <div>
       <Carousel setApi={setApi}>
@@ -70,7 +69,7 @@ export const MobileImageCarousel = ({
             />
           </CarouselItem>
           <CarouselItem>
-            <ProductVideo playerRef={playerRef} />
+            <ProductVideo />
           </CarouselItem>
           {productImages.map((image, index) => (
             <CarouselItem key={index}>
