@@ -27,8 +27,6 @@ import { EditIcon } from './components/icons';
 import { track } from '@vercel/analytics';
 
 import dynamicImport from 'next/dynamic';
-import { type CarouselApi } from '@/components/ui/carousel';
-import skuDisplayData from '@/data/skuDisplayData.json';
 import { generateProductsLeft, stringToSlug } from '@/lib/utils';
 import CartSheet from '../cart/CartSheet';
 import {
