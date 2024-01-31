@@ -234,6 +234,6 @@ const ScrollDrawerTrigger = ({
       }, 200);
     }}
   >
-    <div className="uppercase">{title}</div>
+    {title}
   </DrawerTrigger>
 );
