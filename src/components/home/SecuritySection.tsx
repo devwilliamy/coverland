@@ -32,10 +32,10 @@ const IconSection = ({
         />
       </div>
       <div className="flex flex-col items-start justify-start">
-        <p className="text-[18px] font-bold capitalize leading-[26px] text-[#1A1A1A]">
+        <p className="text-[16px] font-bold capitalize leading-[26px] text-[#1A1A1A] lg:text-[18px]">
           {title}
         </p>
-        <p className="text-[16px] font-normal leading-[26px] text-[#767676]">
+        <p className="max-w-[330px] text-[14px] font-normal leading-[26px] text-[#767676] lg:text-[16px]">
           {children}
         </p>
       </div>
@@ -45,11 +45,11 @@ const IconSection = ({
 
 export default function SecuritySection() {
   return (
-    <section className="mx-[16px] mt-[-24px] h-auto max-w-[1440px] gap-[115px] px-4  lg:mx-0  lg:flex ">
+    <section className="h-auto max-w-[1440px]  gap-[115px] px-[16px] pt-[36px]  lg:mx-0  lg:flex ">
       <div className="flex w-full flex-col items-center justify-center lg:flex-row ">
         <div className="relative aspect-square max-h-[562px] w-full max-w-[617px]  ">
           <Image
-            className="rounded-[15px]"
+            className="rounded-[8px] lg:rounded-[15px]"
             layout="fill"
             src={Beach}
             alt="a fully-covered vehicle with a coverland car cover on it"

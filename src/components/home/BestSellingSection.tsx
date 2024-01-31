@@ -8,9 +8,9 @@ import Image from 'next/image';
 
 const BestSelling = [
   { title: 'Dodge Challenger', img: Challenger },
-  { title: 'Chevy Corvette', img: ElCamino },
+  { title: 'Chevy Corvette', img: Corvette },
   { title: 'Mazda Miata', img: Miata },
-  { title: 'Chevy El-camino', img: Corvette },
+  { title: 'Chevy El-camino', img: ElCamino },
 ];
 const BestSellingSection = () => {
   return (
@@ -18,7 +18,7 @@ const BestSellingSection = () => {
       <p className="text-[20px] font-black lg:text-[32px]">
         BEST-SELLING CAR MODELS
       </p>
-      <div className="max-w-screen flex gap-[20px] overflow-x-scroll">
+      <div className="max-w-screen flex gap-[20px] overflow-x-auto">
         {BestSelling.map(({ title, img }) => (
           <div
             key={``}
@@ -26,7 +26,7 @@ const BestSellingSection = () => {
           >
             <Image alt="Best-Selling-Car-Cover" className="" src={img} />
             <div className="flex flex-col">
-              <p className="mb-[18px] whitespace-nowrap text-[22px] font-[500] leading-[24px]">
+              <p className="mb-[18px] whitespace-nowrap text-[16px] font-[500] leading-[24px] lg:text-[22px]">
                 {title}
               </p>
               <button className="mb-[2px] flex h-[44px] max-w-[153px] items-center justify-center whitespace-nowrap rounded-[100px] px-[40px] py-[17px] text-[16px] font-[900] leading-[110%] tracking-[0.32px] outline outline-[1px]">
