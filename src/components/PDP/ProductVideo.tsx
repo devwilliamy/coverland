@@ -1,7 +1,7 @@
 'use client';
 import Video from 'next-video';
 import SquareVideo from '../../../videos/Square Ratio.mp4';
-import PerfectSolutionThumbnail from '@/images/hero/perfect-solution-thumbnail.webp';
+import PerfectSolutionThumbnail from '@/video/Thumbnail_Square.webp';
 import Image from 'next/image';
 
 export default function ProductVideo() {
