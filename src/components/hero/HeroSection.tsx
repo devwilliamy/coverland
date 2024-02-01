@@ -16,7 +16,7 @@ const HeroSection = () => {
           className="absolute"
           src={isMobile ? heroMobile.src : hero.src}
           alt="hero"
-          layout="fill"
+          fill
         />
         <div className="relative flex h-full flex-col   pb-2 text-center">
           <p className="text-xs uppercase tracking-wider text-white lg:my-2 lg:text-2xl">
