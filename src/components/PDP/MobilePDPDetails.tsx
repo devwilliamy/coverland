@@ -104,7 +104,7 @@ export const MobilePDPDetails = ({
         <SheetContent className="rounded-t-[10px] px-[1px]" side="bottom">
           <div
             id="DrawerScrollable"
-            className="relative flex max-h-[80vh] flex-col gap-[60px] overflow-y-scroll px-[15px]  "
+            className="relative flex max-h-[85vh] flex-col gap-[60px] overflow-y-scroll px-[15px]  "
           >
             <SheetClose className="fixed right-0 z-[400] mr-[16px] flex items-center py-[4px]">
               <div
