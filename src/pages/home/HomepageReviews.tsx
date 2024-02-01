@@ -117,11 +117,8 @@ type ReviewData = {
   owner: string;
 };
 
-const ReviewsItem = ({ key, item }: { key: string; item: ReviewData }) => (
-  <CarouselItem
-    key={key}
-    className=" flex w-full flex-col bg-[#ECECEC] px-[54px]  pb-[44px] pt-[88px] lg:flex-row  lg:items-start"
-  >
+const ReviewsItem = ({ item }: { item: ReviewData }) => (
+  <CarouselItem className=" flex w-full flex-col bg-[#ECECEC] px-[54px]  pb-[44px] pt-[88px] lg:flex-row  lg:items-start">
     <div
       id="ImageContainer"
       className="mb-[42px] flex flex-col  justify-center lg:mb-0 lg:w-1/2 lg:flex-row lg:items-start"
