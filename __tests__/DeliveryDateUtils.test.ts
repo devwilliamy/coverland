@@ -2,15 +2,14 @@ import '@testing-library/jest-dom';
 import {
   getClientTimeZone,
   determineDeliveryByDate,
-} from '@/components/PDP/components/DeliveryDate';
+} from '@/lib/utils/deliveryDateUtils';
 import { DateTime } from 'luxon';
 
-// Mocking Date.getTimezoneOffset
-const mockGetTimezoneOffset = (offset: number) => {
-  jest.spyOn(Date.prototype, 'getTimezoneOffset').mockReturnValue(offset);
-};
-
 describe('getClientTimeZone', () => {
+  // Mocking Date.getTimezoneOffset
+  const mockGetTimezoneOffset = (offset: number) => {
+    jest.spyOn(Date.prototype, 'getTimezoneOffset').mockReturnValue(offset);
+  };
   afterEach(() => {
     jest.restoreAllMocks();
   });
