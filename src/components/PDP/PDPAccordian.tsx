@@ -13,74 +13,105 @@ export function PDPAccordion() {
         <h2 className="hidden text-center text-2xl font-black uppercase text-[#1A1A1A] md:text-3xl lg:text-5xl">
           q&a
         </h2>
-        <Accordion type="single" collapsible className="w-full">
-          <div className=" hidden h-[137px] w-full flex-col text-center text-[45px] font-black lg:flex ">
+        <Accordion type="single" collapsible className="w-full ">
+          <div className=" hidden h-[137px] w-full flex-col text-center text-[45px] font-black lg:flex  ">
             Q&A
           </div>
           <AccordionItem value="item-1">
-            <AccordionTrigger className="text-base font-black capitalize text-[#1A1A1A]  md:text-xl lg:py-8 lg:text-[28px]">
-              Is putting this car cover on a hassle ?
+            <AccordionTrigger className="text-left text-base font-black capitalize  text-[#1A1A1A] md:text-xl lg:py-8 lg:text-[28px]">
+              Why is this car cover a good choice?
             </AccordionTrigger>
             <AccordionContent className="text-sm font-normal text-[#1A1A1A] md:text-lg">
-              We make buying the right cover simple and easy. Simply use our
-              cover finder tool on the homepage to find the exact custom-fit car
-              cover for your make and model. Once you insert the information,
-              you will be directed to a page where you can choose from 2
-              different options: standard versus premium. With over 120,000 car
-              covers available, we have the exact custom-fit, tailored car cover
-              for your vehicle, no matter the year, make, or model.
+              If you are looking for the best of the best on the market,
+              you&apos;ve found the right one. Engineered to fight off rain,
+              sun, and dust, it keeps your car in pristine condition for years.
+              It&apos;s a must-have for long-lasting car care protection.
             </AccordionContent>
           </AccordionItem>
           <AccordionItem value="item-2">
-            <AccordionTrigger className="py-4 text-base font-black capitalize text-[#1A1A1A] md:py-6 md:text-xl lg:py-8 lg:text-[28px]">
-              Guaranteed Durability & quality
+            <AccordionTrigger className="py-4 text-left text-base font-black capitalize text-[#1A1A1A] md:py-6 md:text-xl lg:py-8 lg:text-[28px]">
+              How many layers does your car cover have?
             </AccordionTrigger>
             <AccordionContent className="text-sm font-normal text-[#1A1A1A] md:text-lg">
-              We make sure to guarantee your satisfaction with our exceptional
-              customer service. At the heart of our commitment lies a dedication
-              to understanding and fulfilling your needs with utmost precision
-              and care. Our team of friendly, knowledgeable professionals is
-              always ready to provide personalized assistance, ensuring a
-              seamless and enjoyable experience.
+              Our car cover features a cutting-edge single-layer design, free of
+              bonding welds, offering all the benefits of multilayered materials
+              without the drawbacks. This design forms a tight bond, eliminating
+              the risk of material separation and ensuring optimal performance.
             </AccordionContent>
           </AccordionItem>
           <AccordionItem value="item-3">
-            <AccordionTrigger className="py-4 text-base font-black capitalize text-[#1A1A1A] md:py-6 md:text-xl lg:py-8 lg:text-[28px]">
-              how to order Full custom car cover?
+            <AccordionTrigger className="py-4 text-left text-base font-black capitalize text-[#1A1A1A] md:py-6 md:text-xl lg:py-8 lg:text-[28px]">
+              What special features does this cover have?{' '}
             </AccordionTrigger>
             <AccordionContent className="text-sm font-normal text-[#1A1A1A] md:text-lg">
-              We make sure to guarantee your satisfaction with our exceptional
-              customer service. At the heart of our commitment lies a dedication
-              to understanding and fulfilling your needs with utmost precision
-              and care. Our team of friendly, knowledgeable professionals is
-              always ready to provide personalized assistance, ensuring a
-              seamless and enjoyable experience.
+              Beyond weather protection, it also guards against bird droppings
+              and tree sap. Additionally, this car cover&apos;s design prevents
+              moisture buildup, ensuring top-tier care for your car.
             </AccordionContent>
           </AccordionItem>
           <AccordionItem value="item-4">
-            <AccordionTrigger className="py-4 text-base font-black capitalize text-[#1A1A1A] md:py-6 md:text-xl lg:py-8 lg:text-[28px]">
-              Car cover cleaning guide
+            <AccordionTrigger className="py-4 text-left text-base font-black capitalize text-[#1A1A1A] md:py-6 md:text-xl lg:py-8 lg:text-[28px]">
+              Will this fit my car?{' '}
             </AccordionTrigger>
             <AccordionContent className="text-sm font-normal text-[#1A1A1A] md:text-lg">
-              We make sure to guarantee your satisfaction with our exceptional
-              customer service. At the heart of our commitment lies a dedication
-              to understanding and fulfilling your needs with utmost precision
-              and care. Our team of friendly, knowledgeable professionals is
-              always ready to provide personalized assistance, ensuring a
-              seamless and enjoyable experience.
+              Our car covers are specially designed for a precise fit, offering
+              ultimate protection for your vehicle.
             </AccordionContent>
           </AccordionItem>
           <AccordionItem value="item-5">
-            <AccordionTrigger className="py-4 text-base font-black capitalize text-[#1A1A1A] md:py-6 md:text-xl lg:py-8 lg:text-[28px]">
-              Exceptional Customer Service
+            <AccordionTrigger className="py-4 text-left text-base font-black capitalize text-[#1A1A1A] md:py-6 md:text-xl lg:py-8 lg:text-[28px]">
+              What if I&apos;m not happy with it?{' '}
             </AccordionTrigger>
             <AccordionContent className="text-sm font-normal text-[#1A1A1A] md:text-lg">
-              We make sure to guarantee your satisfaction with our exceptional
-              customer service. At the heart of our commitment lies a dedication
-              to understanding and fulfilling your needs with utmost precision
-              and care. Our team of friendly, knowledgeable professionals is
-              always ready to provide personalized assistance, ensuring a
-              seamless and enjoyable experience.
+              No worries! We prioritize your happiness. If you&apos;re not
+              completely satisfied, you&apos;re covered by our free 30-day
+              return policy, along with a 60-day full money-back guarantee. Shop
+              with confidence!
+            </AccordionContent>
+          </AccordionItem>
+          <AccordionItem value="item-6">
+            <AccordionTrigger className="py-4 text-left text-base font-black capitalize text-[#1A1A1A] md:py-6 md:text-xl lg:py-8 lg:text-[28px]">
+              Is it safe to leave my car covered outside in heavy rain?{' '}
+            </AccordionTrigger>
+            <AccordionContent className="text-sm font-normal text-[#1A1A1A] md:text-lg">
+              Of course! You can leave your vehicle outdoors during heavy rain
+              with this cover on. Our unique car covers are built with
+              heavy-duty materials designed to protect your car from extreme and
+              harsh weather conditions, including rain, snow, hail, and storms.
+              The strong construction not only ensures all-weather protection
+              but also safeguards against abrasion, thanks to a soft cotton
+              inner lining.
+            </AccordionContent>
+          </AccordionItem>
+          <AccordionItem value="item-7">
+            <AccordionTrigger className="py-4 text-left text-base font-black capitalize text-[#1A1A1A] md:py-6 md:text-xl lg:py-8 lg:text-[28px]">
+              Does this cover protect from the Sun?{' '}
+            </AccordionTrigger>
+            <AccordionContent className="text-sm font-normal text-[#1A1A1A] md:text-lg">
+              Yes. This car cover guarantees to provide you with 100% protection
+              from the sun&apos;s heat and UV rays. We ensure that your
+              car&apos;s interior temperature is regulated while protecting the
+              exterior from any kind of damage.
+            </AccordionContent>
+          </AccordionItem>
+          <AccordionItem value="item-8">
+            <AccordionTrigger className="py-4 text-left text-base font-black capitalize text-[#1A1A1A] md:py-6 md:text-xl lg:py-8 lg:text-[28px]">
+              Can I use your car cover on a windy day?{' '}
+            </AccordionTrigger>
+            <AccordionContent className="text-sm font-normal text-[#1A1A1A] md:text-lg">
+              Yes, this car cover comes with three tie-down straps in the front,
+              middle, and back, preventing the car cover from blowing away, even
+              in winds of up to 50 mph.
+            </AccordionContent>
+          </AccordionItem>
+          <AccordionItem value="item-9">
+            <AccordionTrigger className="py-4 text-left text-base font-black capitalize text-[#1A1A1A] md:py-6 md:text-xl lg:py-8 lg:text-[28px]">
+              When will I receive my order?{' '}
+            </AccordionTrigger>
+            <AccordionContent className="text-sm font-normal text-[#1A1A1A] md:text-lg">
+              We offer same-day shipping with a cut-off time at 2 pm PST. Your
+              item will typically arrive within 1-5 business days after
+              shipment.
             </AccordionContent>
           </AccordionItem>
         </Accordion>

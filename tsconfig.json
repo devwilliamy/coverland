@@ -21,7 +21,7 @@
     "paths": {
       "@/*": ["./src/*"],
       "@/images/*": ["./public/images/*"],
-      "@/videos/*": ["./public/videos/*"],
+      "@/video/*": ["./public/video/*"],
       "@/data/*": ["./public/data/*"],
       "@/category-images-new/*": ["./public/category-images-new/*"]
     }

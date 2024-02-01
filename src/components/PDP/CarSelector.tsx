@@ -551,11 +551,12 @@ function CarSelector({
             <div className="grid grid-cols-1">
               <p className="text-dark relative mb-2.5 text-xl font-bold capitalize md:text-3xl">
                 ${selectedProduct?.msrp}
-                {selectedProduct?.display_id !== 'Premium' && (
-                  <span className="top absolute ml-2.5 text-xl font-normal capitalize text-[#D13C3F]">
-                    only {generateProductsLeft(selectedProduct)} left
-                  </span>
-                )}
+                {selectedProduct?.display_id !== 'Premium' &&
+                  isFullySelected && (
+                    <span className="top absolute ml-2.5 text-xl font-normal capitalize text-[#D13C3F]">
+                      only {generateProductsLeft(selectedProduct)} left
+                    </span>
+                  )}
               </p>
               {selectedProduct?.price && (
                 <p className="text-lg font-normal text-[#1A1A1A] md:text-[22px]">

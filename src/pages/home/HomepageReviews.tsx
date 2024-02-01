@@ -7,14 +7,14 @@ import {
 } from '@/components/ui/carousel';
 import Image, { StaticImageData } from 'next/image';
 import React, { useCallback, useEffect, useState } from 'react';
-import StarIcon from '@/components/icons/StarIcon';
 import Reviews1 from '@/images/reviews/review2_1.jpg';
 import Reviews2 from '@/images/reviews/review1_1.jpg';
 import Reviews3 from '@/images/reviews/review1_2.jpg';
 import Reviews4 from '@/images/reviews/review1_5.jpg';
+import ReviewRatingStar from '@/components/icons/ReviewRatingStar';
 
 const HomepageReviews = () => {
-  const Reviews = [
+  const reviews = [
     {
       rating: 5,
       img: Reviews1,
@@ -23,7 +23,7 @@ const HomepageReviews = () => {
       owner: 'Henry Green',
     },
     {
-      rating: 4,
+      rating: 5,
       img: Reviews2,
       title: 'Car covers are important for vehicle protection',
       body: "Peace of mind, no worries. It's the perfect accessory for my car that I wouldn't go without this cover surpassed my expectations. Dependable and reliable, year after year.",
@@ -90,7 +90,7 @@ const HomepageReviews = () => {
       <div>
         <Carousel setApi={setApi}>
           <CarouselContent>
-            {Reviews.map((item, index) => (
+            {reviews.map((item, index) => (
               <ReviewsItem key={`carousel-item-${index}`} item={item} />
             ))}
           </CarouselContent>
@@ -116,6 +116,7 @@ type ReviewData = {
   body: string;
   owner: string;
 };
+
 const ReviewsItem = ({ key, item }: { key: string; item: ReviewData }) => (
   <CarouselItem
     key={key}
@@ -135,11 +136,7 @@ const ReviewsItem = ({ key, item }: { key: string; item: ReviewData }) => (
     </div>
     <div className="flex min-h-[390px] flex-col items-center gap-[44px] text-center lg:ml-[142.5px] lg:max-w-[524px] lg:items-start lg:text-left">
       <div className="mb-[-26px] flex">
-        {[...Array(item?.rating)].map((index) => (
-          <div key={`star-${index}`} className="flex flex-col">
-            <StarIcon />
-          </div>
-        ))}
+        <ReviewRatingStar rating={item?.rating} />
       </div>
       <div className="mb-[-10px] w-full  text-[18px] font-[700] lg:text-[26px]">
         {item?.title}
