@@ -11,6 +11,7 @@ import { TProductData } from '@/lib/db';
 import dynamic from 'next/dynamic';
 import { StaticImport } from 'next/dist/shared/lib/get-img-props';
 import { Asset } from 'next-video/dist/assets.js';
+import SquareVideoThumbnail from '@/video/Thumbnail_Square.webp';
 
 const ProductVideo = dynamic(() => import('@/components/PDP/ProductVideo'), {
   ssr: false,
@@ -86,18 +87,21 @@ export const MobileImageCarousel = ({
           <CarouselItem>
             <ProductVideo />
           </CarouselItem>
-          {productImages.map((image, index) => (
-            <CarouselItem key={index}>
-              <Image
-                src={image}
-                alt={`Additional images of the ${selectedProduct.display_id} cover`}
-                width={500}
-                height={500}
-                // placeholder="blur"
-                onError={() => console.log('Failed image:', `${image}`)}
-              />
-            </CarouselItem>
-          ))}
+          {productImages.map((image, index) => {
+            if (index <= 1) return;
+            return (
+              <CarouselItem key={index}>
+                <Image
+                  src={image}
+                  alt={`Additional images of the ${selectedProduct.display_id} cover`}
+                  width={500}
+                  height={500}
+                  // placeholder="blur"
+                  onError={() => console.log('Failed image:', `${image}`)}
+                />
+              </CarouselItem>
+            );
+          })}
         </CarouselContent>
       </Carousel>
       <div className="mb-[16px] flex flex-row gap-[6px] overflow-x-auto whitespace-nowrap p-[6px]">
@@ -118,12 +122,17 @@ export const MobileImageCarousel = ({
           className={`relative flex aspect-square min-h-[80px] min-w-[80px] items-center justify-center rounded-[4px] ${1 === current && 'outline outline-1  '} `}
           onClick={() => scrollTo(1)}
         >
-          
+          <Image
+            alt="Video Thumbnail"
+            slot="poster"
+            src={SquareVideoThumbnail}
+            aria-hidden="true"
+          />
         </button>
         {productImages.map((_, index) => (
           <CarouselPositionItem
-            key={`Carousel-Caption-Item-${index + 2}`}
-            index={index + 2}
+            key={`Carousel-Caption-Item-${Number(index + 2)}`}
+            index={Number(index + 2)}
           />
         ))}
       </div>
