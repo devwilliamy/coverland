@@ -85,7 +85,7 @@ export function PDPAccordion() {
           </AccordionItem>
           <AccordionItem value="item-7">
             <AccordionTrigger className="py-4 text-left text-base font-black text-[#1A1A1A] md:py-6 md:text-xl lg:py-8 lg:text-[28px]">
-              Does this cover protect from the Sun?{' '}
+              Does this cover protect from the sun?{' '}
             </AccordionTrigger>
             <AccordionContent className="text-sm font-normal text-[#1A1A1A] md:text-lg">
               Yes. This car cover guarantees to provide you with 100% protection
