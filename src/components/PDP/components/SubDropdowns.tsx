@@ -10,7 +10,7 @@ import { compareRawStrings, slugify } from '@/lib/utils';
 import { track } from '@vercel/analytics';
 import { SubmodelSearch } from './SubmodelSearch';
 import { SubmodelSearch2nd } from './SubmodelSearch2nd';
-import { TCarCoverData } from '@/app/(main)/car-covers/components/CarPDP';
+import { TCarCoverData } from '@/app/(main)/[productType]/components/CarPDP';
 import { TProductData } from '@/lib/db';
 
 export type TQuery = {

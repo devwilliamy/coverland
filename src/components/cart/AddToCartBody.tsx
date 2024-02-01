@@ -3,7 +3,7 @@ import { TProductData } from '@/lib/db';
 import { useCartContext } from '@/providers/CartProvider';
 import Image from 'next/image';
 import LineSeparator from '../ui/line-separator';
-import { TCarCoverData } from '@/app/(main)/car-covers/components/CarPDP';
+import { TCarCoverData } from '@/app/(main)/[productType]/components/CarPDP';
 
 type AddToCartBodyProps = {
   selectedProduct?: TProductData | TCarCoverData | null | undefined;

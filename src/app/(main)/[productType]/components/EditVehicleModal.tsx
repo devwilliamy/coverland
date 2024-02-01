@@ -7,18 +7,24 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from '@/components/ui/popover';
-import { TCarCoverData } from './CarPDP';
-import { useState } from 'react';
+import { CarSelectionContext } from './CarPDP';
+import { useContext, useState } from 'react';
 import { compareRawStrings } from '@/lib/utils';
+import { useStore } from 'zustand';
+import { TProductData } from '@/lib/db';
 
 export function EditVehicleModal({
   selectedProduct,
-  submodelParam,
 }: {
-  selectedProduct: TCarCoverData;
-  submodelParam: string | undefined | null;
+  selectedProduct: TProductData;
 }) {
   const [open, setOpen] = useState(false);
+
+  const store = useContext(CarSelectionContext);
+  if (!store) throw new Error('Missing CarContext.Provider in the tree');
+
+  const submodelState = useStore(store, (s) => s.query).submodel;
+  const secondSubmodelState = useStore(store, (s) => s.query).secondSubmodel;
 
   const productType = compareRawStrings(selectedProduct?.type, 'car covers')
     ? 'Car Cover'
@@ -28,8 +34,14 @@ export function EditVehicleModal({
 
   const productName = `${selectedProduct?.year_generation}
             ${selectedProduct?.make} ${selectedProduct?.product_name} ${
-              submodelParam ? selectedProduct?.submodel1 : ''
+              !!submodelState ? selectedProduct?.submodel1 : ''
+            } ${
+              !!secondSubmodelState ? selectedProduct?.submodel2 : ''
             } ${productType}`;
+
+  console.log(!!submodelState);
+
+  console.log('productName', productName);
 
   return (
     <div className=" mt-[29px] hidden flex-col gap-2 rounded-lg border-2 border-solid px-3 py-7 lg:flex">

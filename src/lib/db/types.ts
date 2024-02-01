@@ -284,6 +284,96 @@ export interface Database {
         };
         Relationships: [];
       };
+      product_2024_join: {
+        Row: {
+          base_sku: string | null;
+          display_color: string | null;
+          display_id: string | null;
+          feature: string | null;
+          fk: number | null;
+          generation_default: string | null;
+          generation_end: string | null;
+          generation_start: string | null;
+          make: string | null;
+          make_slug: string | null;
+          model: string | null;
+          model_slug: string | null;
+          msrp: string | null;
+          price: string | null;
+          product: string | null;
+          product_name: string | null;
+          product_type: string | null;
+          product_url_slug: string | null;
+          sku: string;
+          sku_suffix: string | null;
+          submodel1: string | null;
+          submodel1_slug: string | null;
+          submodel2: string | null;
+          submodel2_slug: string | null;
+          type: string | null;
+          year_generation: string | null;
+          year_range: string | null;
+        };
+        Insert: {
+          base_sku?: string | null;
+          display_color?: string | null;
+          display_id?: string | null;
+          feature?: string | null;
+          fk?: number | null;
+          generation_default?: string | null;
+          generation_end?: string | null;
+          generation_start?: string | null;
+          make?: string | null;
+          make_slug?: string | null;
+          model?: string | null;
+          model_slug?: string | null;
+          msrp?: string | null;
+          price?: string | null;
+          product?: string | null;
+          product_name?: string | null;
+          product_type?: string | null;
+          product_url_slug?: string | null;
+          sku: string;
+          sku_suffix?: string | null;
+          submodel1?: string | null;
+          submodel1_slug?: string | null;
+          submodel2?: string | null;
+          submodel2_slug?: string | null;
+          type?: string | null;
+          year_generation?: string | null;
+          year_range?: string | null;
+        };
+        Update: {
+          base_sku?: string | null;
+          display_color?: string | null;
+          display_id?: string | null;
+          feature?: string | null;
+          fk?: number | null;
+          generation_default?: string | null;
+          generation_end?: string | null;
+          generation_start?: string | null;
+          make?: string | null;
+          make_slug?: string | null;
+          model?: string | null;
+          model_slug?: string | null;
+          msrp?: string | null;
+          price?: string | null;
+          product?: string | null;
+          product_name?: string | null;
+          product_type?: string | null;
+          product_url_slug?: string | null;
+          sku?: string;
+          sku_suffix?: string | null;
+          submodel1?: string | null;
+          submodel1_slug?: string | null;
+          submodel2?: string | null;
+          submodel2_slug?: string | null;
+          type?: string | null;
+          year_generation?: string | null;
+          year_range?: string | null;
+        };
+        Relationships: [];
+      };
       'Product-Promo-Codes': {
         Row: {
           created_at: string;
@@ -891,6 +981,7 @@ export interface Database {
           model: string | null;
           model_slug: string | null;
           msrp: string | null;
+          parent_generation: string | null;
           price: string | null;
           product: string | null;
           product_name: string | null;
@@ -904,7 +995,7 @@ export interface Database {
           submodel2_slug: string | null;
           type: string | null;
           year_generation: string | null;
-          year_range: string | null;
+          year_options: string | null;
         };
         Insert: {
           base_sku?: string | null;
@@ -919,6 +1010,7 @@ export interface Database {
           model?: string | null;
           model_slug?: string | null;
           msrp?: string | null;
+          parent_generation?: string | null;
           price?: string | null;
           product?: string | null;
           product_name?: string | null;
@@ -932,7 +1024,7 @@ export interface Database {
           submodel2_slug?: string | null;
           type?: string | null;
           year_generation?: string | null;
-          year_range?: string | null;
+          year_options?: string | null;
         };
         Update: {
           base_sku?: string | null;
@@ -947,6 +1039,7 @@ export interface Database {
           model?: string | null;
           model_slug?: string | null;
           msrp?: string | null;
+          parent_generation?: string | null;
           price?: string | null;
           product?: string | null;
           product_name?: string | null;
@@ -960,7 +1053,7 @@ export interface Database {
           submodel2_slug?: string | null;
           type?: string | null;
           year_generation?: string | null;
-          year_range?: string | null;
+          year_options?: string | null;
         };
         Relationships: [];
       };

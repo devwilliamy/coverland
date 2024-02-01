@@ -3,12 +3,14 @@ import { redirect } from 'next/navigation';
 import { colorOrder } from '@/lib/constants';
 import { Suspense } from 'react';
 import { ExtraProductDetails } from '@/components/PDP/OtherDetails';
-import CarPDP from '@/app/(main)/car-covers/components/CarPDP';
+import CarPDP from '@/app/(main)/[productType]/components/CarPDP';
+import { compareRawStrings } from '@/lib/utils';
 
 export type TCarCoverSlugParams = {
   make: string;
   model: string;
   year: string;
+  productType: string;
 };
 
 export type TGenerationData = {
@@ -33,8 +35,8 @@ export default async function CarPDPDataLayer({
   try {
     [modelData, reviewData] = await Promise.all([
       getProductData({
-        model: params.model.replace(/[^a-z0-9]/g, ''),
-        make: params.make.replace(/[^a-z0-9]/g, ''),
+        model: params.model,
+        make: params.make,
         year: params.year,
       }),
       getReviewData({
@@ -52,7 +54,12 @@ export default async function CarPDPDataLayer({
   }
 
   const validAndSortedData = modelData
-    ?.filter((product) => product.msrp && product.price)
+    ?.filter(
+      (product) =>
+        product.msrp &&
+        product.price &&
+        compareRawStrings(product.type, params.productType)
+    )
     .sort((a, b) => {
       let colorIndexA = colorOrder.indexOf(a?.display_color as string);
       let colorIndexB = colorOrder.indexOf(b?.display_color as string);

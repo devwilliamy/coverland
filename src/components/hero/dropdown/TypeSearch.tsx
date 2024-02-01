@@ -23,15 +23,15 @@ export function TypeSearch({
   };
 
   return (
-    <button
-      className={`flex max-h-[44px] md:max-h-[58px] min-h-[44px] w-full items-center rounded-[4px] bg-white px-2 text-lg outline outline-1 outline-offset-1 outline-[#767676] lg:w-auto`}
-      disabled={!queryObj.query.type}
+    <div
+      className={`flex max-h-[44px] min-h-[44px] w-full items-center rounded-[4px] bg-white px-2 text-lg outline outline-1 outline-offset-1 outline-[#767676] md:max-h-[58px] lg:w-auto`}
     >
       <div className=" ml-[10px] pr-[15px]">1</div>
       <select
         value={value}
         onChange={handleChange}
         className={`bg w-full bg-transparent outline-none `}
+        disabled={!queryObj.query.type}
       >
         <option value="">Type</option>
         {types.map((type, i) => (
@@ -40,6 +40,6 @@ export function TypeSearch({
           </option>
         ))}
       </select>
-    </button>
+    </div>
   );
 }

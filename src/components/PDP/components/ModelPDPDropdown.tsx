@@ -4,14 +4,18 @@ import { YearSearch } from './YearSearch';
 import { MakeSearch } from './MakeSearch';
 import { ModelSearch } from './ModelSearch';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
-import { useCallback, useState } from 'react';
+import { useCallback, useContext, useState } from 'react';
 import parentGenerationJson from '@/data/parent_generation_data.json';
 import { compareRawStrings, slugify } from '@/lib/utils';
 import { track } from '@vercel/analytics';
 import { SubmodelSearch } from './SubmodelSearch';
 import { SubmodelSearch2nd } from './SubmodelSearch2nd';
-import { TCarCoverData } from '@/app/(main)/car-covers/components/CarPDP';
+import {
+  CarSelectionContext,
+  TCarCoverData,
+} from '@/app/(main)/[productType]/components/CarPDP';
 import { TProductData } from '@/lib/db';
+import { useStore } from 'zustand';
 
 export type TQuery = {
   year: string;
@@ -27,29 +31,26 @@ export function ModelPDPDropdown({
 }: {
   modelData: TCarCoverData[] | TProductData[];
 }) {
-  const isAllSameSku = fetchedModelData.every(
-    (item) =>
-      compareRawStrings(
-        String(item.submodel1),
-        String(fetchedModelData[0]?.submodel1)
-      ) &&
-      compareRawStrings(
-        String(item.submodel2),
-        String(fetchedModelData[0]?.submodel2)
-      )
-  );
+  // const isAllSameSku = fetchedModelData.every(
+  //   (item) =>
+  //     compareRawStrings(
+  //       String(item.submodel1),
+  //       String(fetchedModelData[0]?.submodel1)
+  //     ) &&
+  //     compareRawStrings(
+  //       String(item.submodel2),
+  //       String(fetchedModelData[0]?.submodel2)
+  //     )
+  // );
 
-  const initSubmodel = isAllSameSku ? fetchedModelData[0]?.submodel1 : '';
-  const initSecondSubmodel = isAllSameSku ? fetchedModelData[0]?.submodel2 : '';
+  // const initSubmodel = isAllSameSku ? fetchedModelData[0]?.submodel1 : '';
+  // const initSecondSubmodel = isAllSameSku ? fetchedModelData[0]?.submodel2 : '';
 
-  const [query, setQuery] = useState<TQuery>({
-    year: '',
-    type: '',
-    make: '',
-    model: '',
-    submodel: initSubmodel ?? '',
-    secondSubmodel: initSecondSubmodel ?? '',
-  });
+  const store = useContext(CarSelectionContext);
+  if (!store) throw new Error('Missing CarContext.Provider in the tree');
+
+  const query = useStore(store, (s) => s.query);
+
   const [loading, setLoading] = useState(false);
   console.log('loading', loading);
   const router = useRouter();
@@ -191,17 +192,6 @@ export function ModelPDPDropdown({
     [searchParams]
   );
 
-  console.log(
-    'fetchedModelData',
-    fetchedModelData.map((item) => item.submodel1)
-  );
-
-  console.log(
-    'fetchedModelData',
-    fetchedModelData.map((item) => item.submodel2)
-  );
-  console.log('isAllSameSku', isAllSameSku);
-
   const handleSubmitDropdown = () => {
     track('dropdown_submit', {
       year,
@@ -230,18 +220,6 @@ export function ModelPDPDropdown({
     !isSecondSubmodelUrl && !!submodel && secondSubmodelData.length > 1;
 
   console.log(isFullySelected);
-
-  if (isFullySelected) {
-    setQuery({
-      year: '',
-      type: '',
-      make: '',
-      model: '',
-      submodel: '',
-      secondSubmodel: '',
-    });
-    handleSubmitDropdown();
-  }
 
   if (isFullySelected) {
     return null;

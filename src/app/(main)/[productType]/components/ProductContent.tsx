@@ -16,7 +16,7 @@ import {
   PopoverTrigger,
 } from '@/components/ui/popover';
 import { Separator } from '@/components/ui/separator';
-import { TReviewData } from '@/lib/db';
+import { TProductData, TReviewData } from '@/lib/db';
 import { Rating } from '@mui/material';
 import { track } from '@vercel/analytics';
 import Image from 'next/image';
@@ -24,13 +24,14 @@ import Link from 'next/link';
 import { BsBoxSeam, BsGift } from 'react-icons/bs';
 import { GoDotFill } from 'react-icons/go';
 import AgentProfile from '@/images/PDP/agent_profile.png';
-import { TCarCoverData } from './CarPDP';
+import { CarSelectionContext } from './CarPDP';
 import { useMediaQuery } from '@mantine/hooks';
-import { useState } from 'react';
+import { SetStateAction, useContext, useState } from 'react';
 import CartSheet from '@/components/cart/CartSheet';
 import {
   Drawer,
   DrawerContent,
+  DrawerFooter,
   DrawerHeader,
   DrawerTitle,
   DrawerTrigger,
@@ -40,18 +41,17 @@ import ReviewSection from '@/components/PDP/components/ReviewSection';
 import Dialog from '@/components/ui/dialog-tailwind-ui';
 import { useRouter } from 'next/navigation';
 import { compareRawStrings } from '@/lib/utils';
+import { useStore } from 'zustand';
+import { useCartContext } from '@/providers/CartProvider';
 
 export function ProductContent({
   selectedProduct,
   reviewCount,
   avgReviewScore,
   reviewData,
-  isReadyForProductSelection,
-  handleAddToCart,
-  modelData,
 }: {
-  selectedProduct: TCarCoverData | null | undefined;
-  modelData: TCarCoverData[];
+  selectedProduct: TProductData | null | undefined;
+  modelData: TProductData[];
   reviewCount: number;
   avgReviewScore: string;
   reviewData: TReviewData[] | undefined | null;
@@ -66,7 +66,16 @@ export function ProductContent({
   const isMobile = useMediaQuery('(max-width: 768px)');
   const [addToCartOpen, setAddToCartOpen] = useState<boolean>(false);
   const [reviewDrawerOpen, setReviewDrawerOpen] = useState<boolean>(false);
-  const router = useRouter();
+  const [submodelSelectionOpen, setSubmodelSelectionOpen] =
+    useState<boolean>(false);
+
+  const store = useContext(CarSelectionContext);
+  if (!store) throw new Error('Missing CarContext.Provider in the tree');
+
+  const modelData = useStore(store, (s) => s.hasSubmodels());
+
+  console.log(modelData);
+
   return (
     <>
       <div className="grid grid-cols-1">
@@ -237,44 +246,32 @@ export function ProductContent({
         </div>
 
         {/* Select Your Vehicle */}
-        {!isReadyForProductSelection && (
-          <div className="mt-8 w-full">
-            <DropdownPDP modelData={modelData} />
-          </div>
-        )}
-        {/* Add to Cart Button */}
-        {!isReadyForProductSelection || !selectedProduct ? (
-          <>
-            <Popover>
-              <PopoverTrigger asChild>
-                <Button className="mt-4 h-[48px] w-full rounded bg-[#BE1B1B] text-lg font-bold uppercase text-white disabled:bg-[#BE1B1B] md:h-[62px] md:text-xl">
-                  Add To Cart
-                </Button>
-              </PopoverTrigger>
-              <PopoverContent>
-                <div className="">
-                  <p>Please finish your selection</p>
-                </div>
-              </PopoverContent>
-            </Popover>
-          </>
-        ) : (
-          <Button
-            className="mt-4 h-[48px] w-full rounded bg-[#BE1B1B] text-lg font-bold uppercase text-white disabled:bg-[#BE1B1B] md:h-[62px] md:text-xl"
-            onClick={() => {
-              selectedProduct?.sku &&
-                track('PDP_add_to_cart', {
-                  sku: selectedProduct?.sku,
-                });
-              handleAddToCart();
-              isMobile ? router.push('/checkout') : setAddToCartOpen(true);
 
-              // setAddToCartOpen(true);
-            }}
-          >
-            Add To Cart
-          </Button>
-        )}
+        <div className="mt-8 w-full">
+          <DropdownPDP />
+          <AddToCartSelector
+            submodelSelectionOpen={submodelSelectionOpen}
+            setSubmodelSelectionOpen={setSubmodelSelectionOpen}
+          />
+        </div>
+
+        {/* Add to Cart Button */}
+        <Button
+          className="mt-4 h-[48px] w-full rounded bg-[#BE1B1B] text-lg font-bold uppercase text-white disabled:bg-[#BE1B1B] md:h-[62px] md:text-xl"
+          onClick={() => {
+            // selectedProduct?.sku &&
+            //   track('PDP_add_to_cart', {
+            //     sku: selectedProduct?.sku,
+            //   });
+            // handleAddToCart();
+            // isMobile ? router.push('/checkout') : setAddToCartOpen(true);
+            setSubmodelSelectionOpen((p) => !p);
+
+            // setAddToCartOpen(true);
+          }}
+        >
+          Add To Cart
+        </Button>
       </div>
       {/* <div className="pt-5 ml-2">
         <p className="text-[#1A1A1A] text-base font-normal">
@@ -439,3 +436,232 @@ export function ProductContent({
     </>
   );
 }
+
+const AddToCartSelector = ({
+  submodelSelectionOpen,
+  setSubmodelSelectionOpen,
+}: {
+  submodelSelectionOpen: boolean;
+  setSubmodelSelectionOpen: (value: SetStateAction<boolean>) => void;
+}) => {
+  const store = useContext(CarSelectionContext);
+  if (!store) throw new Error('Missing CarContext.Provider in the tree');
+
+  const modelData = useStore(store, (s) => s.modelData);
+  const initModelData = useStore(store, (s) => s.initialModelData);
+  const queryState = useStore(store, (s) => s.query);
+  const setQuery = useStore(store, (s) => s.setQuery);
+  const selectedProduct = useStore(store, (s) => s.selectedProduct);
+  const color = useStore(store, (s) => s.selectedColor);
+
+  console.log(modelData.length, modelData);
+
+  const router = useRouter();
+
+  const TypeDropdown = () => {
+    return (
+      <div
+        className={`flex max-h-[44px] min-h-[44px] w-full items-center rounded-[4px] bg-white px-2 text-lg outline outline-1 outline-offset-1 outline-[#767676] md:max-h-[58px] lg:w-auto`}
+      >
+        <div className=" ml-[10px] pr-[15px]">1</div>
+        <select
+          value={modelData[0]?.type as string}
+          className={`bg w-full bg-transparent outline-none `}
+          disabled={true}
+        >
+          <option value="">{modelData[0]?.type as string}</option>
+        </select>
+      </div>
+    );
+  };
+
+  const MakeDropdown = () => {
+    return (
+      <div
+        className={`flex max-h-[44px] min-h-[44px] w-full items-center rounded-[4px] bg-white px-2 text-lg outline outline-1 outline-offset-1 outline-[#767676] md:max-h-[58px] lg:w-auto`}
+      >
+        <div className=" ml-[10px] pr-[15px]">2</div>
+        <select
+          value={modelData[0]?.make as string}
+          className={`bg w-full bg-transparent outline-none `}
+          disabled={queryState.make ? true : false}
+        >
+          <option value="">{modelData[0]?.make as string}</option>
+        </select>
+      </div>
+    );
+  };
+
+  const ModelDropdown = () => {
+    return (
+      <div
+        className={`flex max-h-[44px] min-h-[44px] w-full items-center rounded-[4px] bg-white px-2 text-lg outline outline-1 outline-offset-1 outline-[#767676] md:max-h-[58px] lg:w-auto`}
+      >
+        <div className=" ml-[10px] pr-[15px]">3</div>
+        <select
+          value={modelData[0]?.model as string}
+          className={`bg w-full bg-transparent outline-none `}
+          disabled={queryState.model ? true : false}
+        >
+          <option value="">{modelData[0]?.model as string}</option>
+        </select>
+      </div>
+    );
+  };
+
+  const YearDropdown = () => {
+    const yearOptions = Array.from(
+      new Set(
+        modelData.flatMap((model) =>
+          model.year_options
+            ?.split(',')
+
+            .filter(Boolean)
+        )
+      )
+    ).sort((a, b) => Number(a) - Number(b));
+    console.log(queryState);
+    return (
+      <div
+        className={`flex max-h-[44px] min-h-[44px] w-full items-center rounded-[4px] bg-white px-2 text-lg outline outline-1 outline-offset-1 outline-[#767676] md:max-h-[58px] lg:w-auto`}
+      >
+        <div className=" ml-[10px] pr-[15px]">4</div>
+        <select
+          value={queryState.year}
+          className={`bg w-full bg-transparent outline-none `}
+          onChange={(e) =>
+            setQuery({
+              ...queryState,
+              year: e.target.value,
+            })
+          }
+        >
+          <option value="">Year</option>
+          {yearOptions.map((year) => (
+            <option key={year} value={year}>
+              {year}
+            </option>
+          ))}
+        </select>
+      </div>
+    );
+  };
+
+  const submodelOptions = queryState.year
+    ? Array.from(
+        new Set(
+          initModelData
+            .filter((model) => model.year_options?.includes(queryState.year))
+            .map((model) => model.submodel1)
+            .filter(Boolean)
+        )
+      ).sort()
+    : [];
+
+  const secondSubmodelOptions = queryState.submodel
+    ? Array.from(
+        new Set(
+          initModelData
+            .filter((model) => model.submodel1 === queryState.submodel)
+            .map((model) => model.submodel2)
+            .filter(Boolean)
+        )
+      ).sort()
+    : [];
+
+  console.log(submodelOptions);
+
+  const SubmodelDropdown = () => {
+    if (submodelOptions.length === 0) return null;
+    return (
+      <div
+        className={`flex max-h-[44px] min-h-[44px] w-full items-center rounded-[4px] bg-white px-2 text-lg outline outline-1 outline-offset-1 outline-[#767676] md:max-h-[58px] lg:w-auto`}
+      >
+        <div className=" ml-[10px] pr-[15px]">5</div>
+        <select
+          value={queryState.submodel}
+          className={`bg w-full bg-transparent outline-none `}
+          onChange={(e) => setQuery({ submodel: e.target.value })}
+        >
+          <option value="">Submodel</option>
+          {submodelOptions.map((submodel) => (
+            <option key={submodel} value={submodel as string}>
+              {submodel}
+            </option>
+          ))}
+        </select>
+      </div>
+    );
+  };
+
+  const SecondSubmodelDropdown = () => {
+    if (secondSubmodelOptions.length === 0) return null;
+    return (
+      <div
+        className={`flex max-h-[44px] min-h-[44px] w-full items-center rounded-[4px] bg-white px-2 text-lg outline outline-1 outline-offset-1 outline-[#767676] md:max-h-[58px] lg:w-auto`}
+      >
+        <div className=" ml-[10px] pr-[15px]">5</div>
+        <select
+          value={queryState.secondSubmodel}
+          className={`bg w-full bg-transparent outline-none `}
+          onChange={(e) => setQuery({ secondSubmodel: e.target.value })}
+        >
+          <option value="">Submodel</option>
+          {secondSubmodelOptions.map((submodel) => (
+            <option key={submodel} value={submodel as string}>
+              {submodel}
+            </option>
+          ))}
+        </select>
+      </div>
+    );
+  };
+
+  const { addToCart } = useCartContext();
+
+  console.log(modelData, selectedProduct);
+
+  const cartProduct = modelData.find((p) => p.display_color === color);
+
+  const handleAddToCart = () => {
+    if (!cartProduct) return;
+    console.log(cartProduct);
+    return addToCart({ ...cartProduct, quantity: 1 });
+  };
+
+  return (
+    <Drawer
+      open={submodelSelectionOpen}
+      onOpenChange={(o) => setSubmodelSelectionOpen(o)}
+    >
+      <DrawerContent className="h-[75vh] bg-neutral-800 pt-8">
+        <DrawerHeader>
+          <DrawerTitle className="my-4 text-center text-[22px] font-bold uppercase text-white">
+            Complete Your Vehicle
+          </DrawerTitle>
+        </DrawerHeader>
+        <div className="flex w-full flex-col gap-4 px-4">
+          <TypeDropdown />
+          <MakeDropdown />
+          <ModelDropdown />
+          <YearDropdown />
+          <SubmodelDropdown />
+          <SecondSubmodelDropdown />
+        </div>
+        <DrawerFooter className="bg-white">
+          <p className="text-right text-black">
+            Total: ${selectedProduct.msrp}
+          </p>
+          <Button
+            onClick={() => {
+              handleAddToCart();
+              router.push('/checkout');
+            }}
+          >
+            Add To Cart
+          </Button>
+        </DrawerFooter>
+      </DrawerContent>
+    </Drawer>
+  );
+};

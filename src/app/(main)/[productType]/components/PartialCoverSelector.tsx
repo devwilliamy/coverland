@@ -5,6 +5,7 @@ import { Separator } from '@/components/ui/separator';
 import React, {
   Ref,
   RefObject,
+  SetStateAction,
   useCallback,
   useEffect,
   useRef,
@@ -44,6 +45,14 @@ import {
 } from '@/components/PDP/images';
 import { MoneyBackIcon } from '@/components/PDP/images/MoneyBack';
 import { DropdownPDP } from '@/components/PDP/DropdownPDP';
+import {
+  Drawer,
+  DrawerContent,
+  DrawerFooter,
+  DrawerHeader,
+  DrawerTitle,
+} from '@/components/ui/drawer';
+import { useCartContext } from '@/providers/CartProvider';
 
 const EditVehiclePopover = dynamicImport(
   () => import('@/components/PDP/components/EditVehiclePopover'),
@@ -68,6 +77,9 @@ export function PartialCoverSelector({
   const [featuredImageIndex, setFeaturedImageIndex] = useState(0);
 
   const [showMore, setShowMore] = useState(false);
+
+  const [submodelSelectionOpen, setSubmodelSelectionOpen] =
+    useState<boolean>(false);
 
   interface ProductRefs {
     [key: string]: RefObject<HTMLElement>;
@@ -440,22 +452,26 @@ export function PartialCoverSelector({
 
             {/* Select Your Vehicle */}
             <div className="mt-8 w-full">
-              <DropdownPDP modelData={modelData} />
+              {/* <DropdownPDP modelData={modelData} /> */}
             </div>
             {/* Add to Cart Button */}
             <>
-              <Popover>
-                <PopoverTrigger asChild>
-                  <Button className="mt-4 h-[48px] w-full bg-[#BE1B1B] text-lg font-bold uppercase text-white disabled:bg-[#BE1B1B] md:h-[62px] md:text-xl">
-                    Add To Cart
-                  </Button>
-                </PopoverTrigger>
-                <PopoverContent>
-                  <div className="">
-                    <p>Please finish your selection</p>
-                  </div>
-                </PopoverContent>
-              </Popover>
+              <Button
+                className="mt-4 h-[48px] w-full rounded bg-[#BE1B1B] text-lg font-bold uppercase text-white disabled:bg-[#BE1B1B] md:h-[62px] md:text-xl"
+                onClick={() => {
+                  // selectedProduct?.sku &&
+                  //   track('PDP_add_to_cart', {
+                  //     sku: selectedProduct?.sku,
+                  //   });
+                  // handleAddToCart();
+                  // isMobile ? router.push('/checkout') : setAddToCartOpen(true);
+                  setSubmodelSelectionOpen((p) => !p);
+
+                  // setAddToCartOpen(true);
+                }}
+              >
+                Add To Cart
+              </Button>
             </>
           </div>
           {/* <div className="pt-5 ml-2">
@@ -742,3 +758,194 @@ const MobileImageCarousel = ({
 // const DotButtons = () => {
 //   return <button type="button" className="rounded-full" onClick={() => scrollTo(index)} />;
 // };
+
+const AddToCartSelector = ({
+  submodelSelectionOpen,
+  setSubmodelSelectionOpen,
+}: {
+  submodelSelectionOpen: boolean;
+  setSubmodelSelectionOpen: (value: SetStateAction<boolean>) => void;
+}) => {
+  const store = useContext(CarSelectionContext);
+  if (!store) throw new Error('Missing CarContext.Provider in the tree');
+
+  const modelData = useStore(store, (s) => s.modelData);
+  const initModelData = useStore(store, (s) => s.initialModelData);
+  const queryState = useStore(store, (s) => s.query);
+  const setQuery = useStore(store, (s) => s.setQuery);
+  const selectedProduct = useStore(store, (s) => s.selectedProduct);
+  const color = useStore(store, (s) => s.selectedColor);
+
+  console.log(modelData.length, modelData);
+
+  const router = useRouter();
+
+  const TypeDropdown = () => {
+    return (
+      <div
+        className={`flex max-h-[44px] min-h-[44px] w-full items-center rounded-[4px] bg-white px-2 text-lg outline outline-1 outline-offset-1 outline-[#767676] md:max-h-[58px] lg:w-auto`}
+      >
+        <div className=" ml-[10px] pr-[15px]">1</div>
+        <select
+          value={modelData[0]?.type as string}
+          className={`bg w-full bg-transparent outline-none `}
+          disabled={true}
+        >
+          <option value="">{modelData[0]?.type as string}</option>
+        </select>
+      </div>
+    );
+  };
+
+  const MakeDropdown = () => {
+    return (
+      <div
+        className={`flex max-h-[44px] min-h-[44px] w-full items-center rounded-[4px] bg-white px-2 text-lg outline outline-1 outline-offset-1 outline-[#767676] md:max-h-[58px] lg:w-auto`}
+      >
+        <div className=" ml-[10px] pr-[15px]">2</div>
+        <select
+          value={modelData[0]?.make as string}
+          className={`bg w-full bg-transparent outline-none `}
+          disabled={queryState.make ? true : false}
+        >
+          <option value="">{modelData[0]?.make as string}</option>
+        </select>
+      </div>
+    );
+  };
+
+  const ModelDropdown = () => {
+    return (
+      <div
+        className={`flex max-h-[44px] min-h-[44px] w-full items-center rounded-[4px] bg-white px-2 text-lg outline outline-1 outline-offset-1 outline-[#767676] md:max-h-[58px] lg:w-auto`}
+      >
+        <div className=" ml-[10px] pr-[15px]">3</div>
+        <select
+          value={modelData[0]?.model as string}
+          className={`bg w-full bg-transparent outline-none `}
+          disabled={queryState.model ? true : false}
+        >
+          <option value="">{modelData[0]?.model as string}</option>
+        </select>
+      </div>
+    );
+  };
+
+  const YearDropdown = () => {
+    const yearOptions = Array.from(
+      new Set(
+        modelData.flatMap((model) =>
+          model.year_options
+            ?.split(',')
+
+            .filter(Boolean)
+        )
+      )
+    ).sort((a, b) => Number(a) - Number(b));
+    console.log(yearOptions);
+    return (
+      <div
+        className={`flex max-h-[44px] min-h-[44px] w-full items-center rounded-[4px] bg-white px-2 text-lg outline outline-1 outline-offset-1 outline-[#767676] md:max-h-[58px] lg:w-auto`}
+      >
+        <div className=" ml-[10px] pr-[15px]">4</div>
+        <select
+          value={queryState.year}
+          className={`bg w-full bg-transparent outline-none `}
+          onChange={(e) =>
+            setQuery({
+              year: e.target.value,
+              submodel: '',
+            })
+          }
+        >
+          <option value="">Year</option>
+          {yearOptions.map((year) => (
+            <option key={year} value={year}>
+              {year}
+            </option>
+          ))}
+        </select>
+      </div>
+    );
+  };
+
+  const submodelOptions = queryState.year
+    ? Array.from(
+        new Set(
+          initModelData
+            .filter((model) => model.year_options?.includes(queryState.year))
+            .map((model) => model.submodel1)
+            .filter(Boolean)
+        )
+      ).sort()
+    : [];
+
+  console.log(submodelOptions);
+
+  const SubmodelDropdown = () => {
+    return (
+      <div
+        className={`flex max-h-[44px] min-h-[44px] w-full items-center rounded-[4px] bg-white px-2 text-lg outline outline-1 outline-offset-1 outline-[#767676] md:max-h-[58px] lg:w-auto`}
+      >
+        <div className=" ml-[10px] pr-[15px]">5</div>
+        <select
+          value={queryState.submodel}
+          className={`bg w-full bg-transparent outline-none `}
+          onChange={(e) => setQuery({ submodel: e.target.value })}
+        >
+          <option value="">Submodel</option>
+          {submodelOptions.map((submodel) => (
+            <option key={submodel} value={submodel as string}>
+              {submodel}
+            </option>
+          ))}
+        </select>
+      </div>
+    );
+  };
+
+  const { addToCart } = useCartContext();
+
+  console.log(modelData, selectedProduct);
+
+  const cartProduct = modelData.find((p) => p.display_color === color);
+
+  const handleAddToCart = () => {
+    if (!cartProduct) return;
+    console.log(cartProduct);
+    return addToCart({ ...cartProduct, quantity: 1 });
+  };
+
+  return (
+    <Drawer
+      open={submodelSelectionOpen}
+      onOpenChange={(o) => setSubmodelSelectionOpen(o)}
+    >
+      <DrawerContent className="h-[75vh] bg-neutral-800">
+        <DrawerHeader>
+          <DrawerTitle className="text-center text-[22px] font-black text-white">
+            Complete Your Vehicle
+          </DrawerTitle>
+        </DrawerHeader>
+        <div className="flex w-full flex-col gap-4 px-4">
+          <TypeDropdown />
+          <MakeDropdown />
+          <ModelDropdown />
+          <YearDropdown />
+          <SubmodelDropdown />
+        </div>
+        <DrawerFooter>
+          <p className="text-white">${selectedProduct.msrp}</p>
+          <Button
+            onClick={() => {
+              handleAddToCart();
+              router.push('/checkout');
+            }}
+          >
+            Add To Cart
+          </Button>
+        </DrawerFooter>
+      </DrawerContent>
+    </Drawer>
+  );
+};

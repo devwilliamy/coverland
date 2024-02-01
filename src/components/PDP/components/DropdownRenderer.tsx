@@ -6,22 +6,19 @@ import { PartialPathDropdowns } from './PartialPathDropdowns';
 import {
   CarSelectionContext,
   TCarCoverData,
-} from '@/app/(main)/car-covers/components/CarPDP';
+} from '@/app/(main)/[productType]/components/CarPDP';
 import { TProductData } from '@/lib/db';
 import { ModelPDPDropdown } from './ModelPDPDropdown';
 import { useContext } from 'react';
 import { useStore } from 'zustand';
 
-export default function DropdownRenderer({
-  modelData,
-}: {
-  modelData: TCarCoverData[] | TProductData[];
-}) {
+export default function DropdownRenderer() {
   const { currentUrl } = useUrlState();
   const modelUrl = currentUrl?.split('/')[3];
   const yearUrl = currentUrl?.split('/')[4];
 
   const store = useContext(CarSelectionContext);
+  if (!store) throw new Error('Missing CarContext.Provider in the tree');
 
   const modelDataState =
     useStore(store, (s) => s?.modelData) ?? ([] as TCarCoverData[]);
@@ -40,8 +37,8 @@ export default function DropdownRenderer({
   }
 
   if (!yearUrl) {
-    return <ModelPDPDropdown modelData={modelData} />;
+    return <ModelPDPDropdown />;
   }
 
-  return <SubDropdowns modelData={modelData} />;
+  return <SubDropdowns />;
 }

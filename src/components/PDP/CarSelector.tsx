@@ -40,8 +40,8 @@ import { IoClose } from 'react-icons/io5';
 import ReviewSection from './components/ReviewSection';
 import Dialog from '../ui/dialog-tailwind-ui';
 import { useRouter } from 'next/navigation';
-import { MobileImageCarousel } from '@/app/(main)/car-covers/components/MobileImageCarousel';
-import { TCarCoverData } from '@/app/(main)/car-covers/components/CarPDP';
+import { MobileImageCarousel } from '@/app/(main)/[productType]/components/MobileImageCarousel';
+import { TCarCoverData } from '@/app/(main)/[productType]/components/CarPDP';
 
 const ProductVideo = dynamicImport(() => import('./ProductVideo'), {
   ssr: false,
@@ -159,11 +159,13 @@ function CarSelector({
   const isFullySelected =
     pathParams?.product?.length === 3 &&
     (submodels.length === 0 ||
-      !!searchParams?.submodel ||
+      modelData.some((model) => model.submodel1) ||
       submodels.length === 1) &&
     (secondSubmodels.length === 0 ||
-      !!searchParams?.second_submodel ||
+      modelData.some((model) => model.submodel2) ||
       secondSubmodels.length === 1);
+
+  console.log(isFullySelected);
 
   let displayedModelData = searchParams?.submodel
     ? modelsBySubmodel

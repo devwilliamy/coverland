@@ -12,7 +12,7 @@ import AddToCartHeader from '../cart/AddToCartHeader';
 import AddToCartBody from '../cart/AddToCartBody';
 import AddToCartFooter from '../cart/AddToCartFooter';
 import { TProductData } from '@/lib/db';
-import { TCarCoverData } from '@/app/(main)/car-covers/components/CarPDP';
+import { TCarCoverData } from '@/app/(main)/[productType]/components/CarPDP';
 
 type CartSheetProps = {
   open: boolean;
