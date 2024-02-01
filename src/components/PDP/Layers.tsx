@@ -14,15 +14,15 @@ export function Layers() {
 
   const LayersStaticData: layerProps[] = [
     {
-      title: 'Waterproof Car Cover',
+      title: 'Waterproof',
       text: ' Extra waterproof coating provides the ultimate shield against rain and moisture as well as the elements.',
     },
     {
-      title: 'Premium Car Cover',
+      title: 'Premium',
       text: 'Made with top-quality premium polyester, our cover ensures resilience. Enjoy year-round security in all climates',
     },
     {
-      title: 'Long-lasting Car Cover',
+      title: 'Long-lasting',
       text: 'Our exclusive coating preserves the original color, preventing fading over time.',
     },
   ];
