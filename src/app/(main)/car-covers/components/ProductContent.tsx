@@ -26,7 +26,7 @@ import { GoDotFill } from 'react-icons/go';
 import AgentProfile from '@/images/PDP/agent_profile.png';
 import { TCarCoverData } from './CarPDP';
 import { useMediaQuery } from '@mantine/hooks';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import CartSheet from '@/components/cart/CartSheet';
 import {
   Drawer,
@@ -41,6 +41,13 @@ import { generateProductsLeft } from '@/lib/utils';
 import Dialog from '@/components/ui/dialog-tailwind-ui';
 import { useRouter } from 'next/navigation';
 import { compareRawStrings } from '@/lib/utils';
+
+const getOffset = (
+  element: HTMLElement | null | undefined
+): number | undefined => {
+  const elementRect = element?.getBoundingClientRect();
+  return elementRect?.top;
+};
 
 export function ProductContent({
   selectedProduct,
@@ -67,7 +74,42 @@ export function ProductContent({
   const isMobile = useMediaQuery('(max-width: 768px)');
   const [addToCartOpen, setAddToCartOpen] = useState<boolean>(false);
   const [reviewDrawerOpen, setReviewDrawerOpen] = useState<boolean>(false);
+  const [showStickyAddToCartButton, setShowStickyAddToCartButton] =
+    useState<boolean>(false);
   const router = useRouter();
+
+  // For sticky Add To Cart on mobile only (can maybe extract this out)
+  // Will check if Add To Cart has been scroll past, if so, will show sticky button
+  useEffect(() => {
+    const listenToScroll = () => {
+      if (!isMobile) return;
+      const heightToHide = getOffset(
+        document.getElementById('addToCartButton')
+      );
+      const windowScrollHeight =
+        document.body.scrollTop || document.documentElement.scrollTop;
+      if (
+        heightToHide !== undefined &&
+        heightToHide < -100 &&
+        windowScrollHeight > heightToHide
+      ) {
+        setShowStickyAddToCartButton(true);
+      } else {
+        setShowStickyAddToCartButton(false);
+      }
+    };
+
+    if (isMobile) {
+      window.addEventListener('scroll', listenToScroll);
+    }
+
+    return () => {
+      if (isMobile) {
+        window.removeEventListener('scroll', listenToScroll);
+      }
+    };
+  }, [isMobile]);
+
   return (
     <>
       <div className="grid grid-cols-1">
@@ -248,7 +290,10 @@ export function ProductContent({
           <>
             <Popover>
               <PopoverTrigger asChild>
-                <Button className="mt-4 h-[48px] w-full rounded bg-[#BE1B1B] text-lg font-bold uppercase text-white disabled:bg-[#BE1B1B] md:h-[62px] md:text-xl">
+                <Button
+                  id="addToCartButton"
+                  className="mt-4 h-[48px] w-full rounded bg-[#BE1B1B] text-lg font-bold uppercase text-white disabled:bg-[#BE1B1B] md:h-[62px] md:text-xl"
+                >
                   Add To Cart
                 </Button>
               </PopoverTrigger>
@@ -262,6 +307,7 @@ export function ProductContent({
         ) : (
           <Button
             className="mt-4 h-[48px] w-full rounded bg-[#BE1B1B] text-lg font-bold uppercase text-white disabled:bg-[#BE1B1B] md:h-[62px] md:text-xl"
+            id="addToCartButton"
             onClick={() => {
               selectedProduct?.sku &&
                 track('PDP_add_to_cart', {
@@ -275,6 +321,25 @@ export function ProductContent({
           >
             Add To Cart
           </Button>
+        )}
+        {showStickyAddToCartButton && (
+          <div className="fixed inset-x-0 bottom-0 bg-white p-4 shadow-[0_-4px_4px_-0px_rgba(0,0,0,0.1)] md:hidden">
+            <Button
+              className="mt-4 h-[48px] w-full rounded bg-[#BE1B1B] text-lg font-bold uppercase text-white disabled:bg-[#BE1B1B] md:hidden"
+              onClick={() => {
+                selectedProduct?.sku &&
+                  track('PDP_add_to_cart', {
+                    sku: selectedProduct?.sku,
+                  });
+                handleAddToCart();
+                isMobile ? router.push('/checkout') : setAddToCartOpen(true);
+
+                // setAddToCartOpen(true);
+              }}
+            >
+              Add To Cart (STICKY)
+            </Button>
+          </div>
         )}
       </div>
       {/* <div className="pt-5 ml-2">
