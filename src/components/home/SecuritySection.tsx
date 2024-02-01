@@ -50,7 +50,7 @@ export default function SecuritySection() {
         <div className="relative aspect-square max-h-[562px] w-full max-w-[617px]  ">
           <Image
             className="rounded-[8px] lg:rounded-[15px]"
-            layout="fill"
+            fill
             src={Beach}
             alt="a fully-covered vehicle with a coverland car cover on it"
           />
