@@ -1,6 +1,5 @@
 'use client';
 
-import { DropdownPDP } from '@/components/PDP/DropdownPDP';
 import DeliveryDate from '@/components/PDP/components/DeliveryDate';
 import { TimeTo2PMPST } from '@/components/PDP/components/TimeTo2PM';
 import {
@@ -249,7 +248,6 @@ export function ProductContent({
         {/* Select Your Vehicle */}
 
         <div className="mt-8 w-full">
-          <DropdownPDP />
           <AddToCartSelector
             submodelSelectionOpen={submodelSelectionOpen}
             setSubmodelSelectionOpen={setSubmodelSelectionOpen}

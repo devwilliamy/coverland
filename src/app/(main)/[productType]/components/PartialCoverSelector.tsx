@@ -44,15 +44,6 @@ import {
   ThumbsUpIcon,
 } from '@/components/PDP/images';
 import { MoneyBackIcon } from '@/components/PDP/images/MoneyBack';
-import { DropdownPDP } from '@/components/PDP/DropdownPDP';
-import {
-  Drawer,
-  DrawerContent,
-  DrawerFooter,
-  DrawerHeader,
-  DrawerTitle,
-} from '@/components/ui/drawer';
-import { useCartContext } from '@/providers/CartProvider';
 
 const EditVehiclePopover = dynamicImport(
   () => import('@/components/PDP/components/EditVehiclePopover'),
@@ -77,9 +68,6 @@ export function PartialCoverSelector({
   const [featuredImageIndex, setFeaturedImageIndex] = useState(0);
 
   const [showMore, setShowMore] = useState(false);
-
-  const [submodelSelectionOpen, setSubmodelSelectionOpen] =
-    useState<boolean>(false);
 
   interface ProductRefs {
     [key: string]: RefObject<HTMLElement>;
@@ -112,14 +100,7 @@ export function PartialCoverSelector({
 
   const isMobile = useMediaQuery('(max-width: 768px)');
 
-  const reviewScore =
-    reviewData?.reduce(
-      (acc, review) => acc + Number(review.rating_stars ?? 0),
-      0
-    ) ?? 0;
   const reviewCount = reviewData?.length ?? 50;
-
-  const avgReviewScore = (reviewScore / reviewCount).toFixed(1) || '4.9';
 
   const fullProductName = `${makeParam ? modelData[0]?.make : 'Car Covers'} ${modelParam ? modelData[0]?.model : ''}`;
 
@@ -151,8 +132,6 @@ export function PartialCoverSelector({
               )}
             </div>
 
-            {/* Product Video */}
-            {<ProductVideo />}
             {/* Gallery Images */}
             <div className="hidden w-auto grid-cols-2 gap-[16px] pt-4 lg:grid ">
               {selectedCover.images.map((img, idx) => (
@@ -346,14 +325,12 @@ export function PartialCoverSelector({
                     className="text-blue-400 underline"
                     disabled={!reviewCount}
                   >
-                    {reviewCount || '2'} ratings
+                    10,000 ratings
                   </PopoverTrigger>
                   <PopoverContent>
                     <div className=" flex flex-col items-center border border-gray-300 bg-white p-4 shadow-lg">
                       <div className="flex items-center gap-4">
-                        <p className="text-2xl font-bold">
-                          {avgReviewScore ?? '4.9'} out of 5
-                        </p>
+                        <p className="text-2xl font-bold">4.9 out of 5</p>
                         <Rating
                           name="read-only"
                           value={5}
@@ -374,7 +351,7 @@ export function PartialCoverSelector({
                             })
                           }
                         >
-                          Show all reviews ({reviewData?.length})
+                          Show all reviews (10,000+)
                         </Link>
                       )}
                     </div>
@@ -448,22 +425,7 @@ export function PartialCoverSelector({
             </div>
             {/* Add to Cart Button */}
             <>
-              <Button
-                className="mt-4 h-[48px] w-full rounded bg-[#BE1B1B] text-lg font-bold uppercase text-white disabled:bg-[#BE1B1B] md:h-[62px] md:text-xl"
-                onClick={() => {
-                  // selectedProduct?.sku &&
-                  //   track('PDP_add_to_cart', {
-                  //     sku: selectedProduct?.sku,
-                  //   });
-                  // handleAddToCart();
-                  // isMobile ? router.push('/checkout') : setAddToCartOpen(true);
-                  setSubmodelSelectionOpen((p) => !p);
-
-                  // setAddToCartOpen(true);
-                }}
-              >
-                Add To Cart
-              </Button>
+              <VehicleSelector />
             </>
           </div>
           {/* <div className="pt-5 ml-2">
@@ -751,193 +713,9 @@ const MobileImageCarousel = ({
 //   return <button type="button" className="rounded-full" onClick={() => scrollTo(index)} />;
 // };
 
-const AddToCartSelector = ({
-  submodelSelectionOpen,
-  setSubmodelSelectionOpen,
-}: {
-  submodelSelectionOpen: boolean;
+const VehicleSelector = ({}: {
+  // submodelSelectionOpen: boolean;
   setSubmodelSelectionOpen: (value: SetStateAction<boolean>) => void;
 }) => {
-  const store = useContext(CarSelectionContext);
-  if (!store) throw new Error('Missing CarContext.Provider in the tree');
-
-  const modelData = useStore(store, (s) => s.modelData);
-  const initModelData = useStore(store, (s) => s.initialModelData);
-  const queryState = useStore(store, (s) => s.query);
-  const setQuery = useStore(store, (s) => s.setQuery);
-  const selectedProduct = useStore(store, (s) => s.selectedProduct);
-  const color = useStore(store, (s) => s.selectedColor);
-
-  console.log(modelData.length, modelData);
-
-  const router = useRouter();
-
-  const TypeDropdown = () => {
-    return (
-      <div
-        className={`flex max-h-[44px] min-h-[44px] w-full items-center rounded-[4px] bg-white px-2 text-lg outline outline-1 outline-offset-1 outline-[#767676] md:max-h-[58px] lg:w-auto`}
-      >
-        <div className=" ml-[10px] pr-[15px]">1</div>
-        <select
-          value={modelData[0]?.type as string}
-          className={`bg w-full bg-transparent outline-none `}
-          disabled={true}
-        >
-          <option value="">{modelData[0]?.type as string}</option>
-        </select>
-      </div>
-    );
-  };
-
-  const MakeDropdown = () => {
-    return (
-      <div
-        className={`flex max-h-[44px] min-h-[44px] w-full items-center rounded-[4px] bg-white px-2 text-lg outline outline-1 outline-offset-1 outline-[#767676] md:max-h-[58px] lg:w-auto`}
-      >
-        <div className=" ml-[10px] pr-[15px]">2</div>
-        <select
-          value={modelData[0]?.make as string}
-          className={`bg w-full bg-transparent outline-none `}
-          disabled={queryState.make ? true : false}
-        >
-          <option value="">{modelData[0]?.make as string}</option>
-        </select>
-      </div>
-    );
-  };
-
-  const ModelDropdown = () => {
-    return (
-      <div
-        className={`flex max-h-[44px] min-h-[44px] w-full items-center rounded-[4px] bg-white px-2 text-lg outline outline-1 outline-offset-1 outline-[#767676] md:max-h-[58px] lg:w-auto`}
-      >
-        <div className=" ml-[10px] pr-[15px]">3</div>
-        <select
-          value={modelData[0]?.model as string}
-          className={`bg w-full bg-transparent outline-none `}
-          disabled={queryState.model ? true : false}
-        >
-          <option value="">{modelData[0]?.model as string}</option>
-        </select>
-      </div>
-    );
-  };
-
-  const YearDropdown = () => {
-    const yearOptions = Array.from(
-      new Set(
-        modelData.flatMap((model) =>
-          model.year_options
-            ?.split(',')
-
-            .filter(Boolean)
-        )
-      )
-    ).sort((a, b) => Number(a) - Number(b));
-    console.log(yearOptions);
-    return (
-      <div
-        className={`flex max-h-[44px] min-h-[44px] w-full items-center rounded-[4px] bg-white px-2 text-lg outline outline-1 outline-offset-1 outline-[#767676] md:max-h-[58px] lg:w-auto`}
-      >
-        <div className=" ml-[10px] pr-[15px]">4</div>
-        <select
-          value={queryState.year}
-          className={`bg w-full bg-transparent outline-none `}
-          onChange={(e) =>
-            setQuery({
-              year: e.target.value,
-              submodel: '',
-            })
-          }
-        >
-          <option value="">Year</option>
-          {yearOptions.map((year) => (
-            <option key={year} value={year}>
-              {year}
-            </option>
-          ))}
-        </select>
-      </div>
-    );
-  };
-
-  const submodelOptions = queryState.year
-    ? Array.from(
-        new Set(
-          initModelData
-            .filter((model) => model.year_options?.includes(queryState.year))
-            .map((model) => model.submodel1)
-            .filter(Boolean)
-        )
-      ).sort()
-    : [];
-
-  console.log(submodelOptions);
-
-  const SubmodelDropdown = () => {
-    return (
-      <div
-        className={`flex max-h-[44px] min-h-[44px] w-full items-center rounded-[4px] bg-white px-2 text-lg outline outline-1 outline-offset-1 outline-[#767676] md:max-h-[58px] lg:w-auto`}
-      >
-        <div className=" ml-[10px] pr-[15px]">5</div>
-        <select
-          value={queryState.submodel}
-          className={`bg w-full bg-transparent outline-none `}
-          onChange={(e) => setQuery({ submodel: e.target.value })}
-        >
-          <option value="">Submodel</option>
-          {submodelOptions.map((submodel) => (
-            <option key={submodel} value={submodel as string}>
-              {submodel}
-            </option>
-          ))}
-        </select>
-      </div>
-    );
-  };
-
-  const { addToCart } = useCartContext();
-
-  console.log(modelData, selectedProduct);
-
-  const cartProduct = modelData.find((p) => p.display_color === color);
-
-  const handleAddToCart = () => {
-    if (!cartProduct) return;
-    console.log(cartProduct);
-    return addToCart({ ...cartProduct, quantity: 1 });
-  };
-
-  return (
-    <Drawer
-      open={submodelSelectionOpen}
-      onOpenChange={(o) => setSubmodelSelectionOpen(o)}
-    >
-      <DrawerContent className="h-[75vh] bg-neutral-800">
-        <DrawerHeader>
-          <DrawerTitle className="text-center text-[22px] font-black text-white">
-            Complete Your Vehicle
-          </DrawerTitle>
-        </DrawerHeader>
-        <div className="flex w-full flex-col gap-4 px-4">
-          <TypeDropdown />
-          <MakeDropdown />
-          <ModelDropdown />
-          <YearDropdown />
-          <SubmodelDropdown />
-        </div>
-        <DrawerFooter>
-          <p className="text-white">${selectedProduct.msrp}</p>
-          <Button
-            onClick={() => {
-              handleAddToCart();
-              router.push('/checkout');
-            }}
-          >
-            Add To Cart
-          </Button>
-        </DrawerFooter>
-      </DrawerContent>
-    </Drawer>
-  );
+  return <EditVehicleDropdown />;
 };

@@ -33,7 +33,6 @@ export function TypeSearch({
         value={value}
         onChange={handleChange}
         className={`bg w-full bg-transparent outline-none `}
-        disabled={!queryObj.query.type}
       >
         <option value="">Type</option>
         {types.map((type, i) => (
