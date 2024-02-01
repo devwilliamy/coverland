@@ -129,12 +129,15 @@ export const MobileImageCarousel = ({
             aria-hidden="true"
           />
         </button>
-        {productImages.map((_, index) => (
-          <CarouselPositionItem
-            key={`Carousel-Caption-Item-${Number(index + 2)}`}
-            index={Number(index + 2)}
-          />
-        ))}
+        {productImages.map((_, index) => {
+          if (index + 2 >= productImages.length) return;
+          return (
+            <CarouselPositionItem
+              key={`Carousel-Caption-Item-${Number(index + 2)}`}
+              index={Number(index + 2)}
+            />
+          );
+        })}
       </div>
       <span
         id="seperator"
