@@ -234,6 +234,6 @@ const ScrollSheetTrigger = ({
       }, 200);
     }}
   >
-    <div className="uppercase">{title}</div>
+    {title}
   </SheetTrigger>
 );
