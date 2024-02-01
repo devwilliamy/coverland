@@ -67,7 +67,7 @@ export function ExtraProductDetails({
 
   return (
     <div className="flex w-full flex-col">
-      <div className="hidden w-full max-w-full items-center justify-between border-b border-t border-[#DADADA] py-[22px] text-[18px] lg:flex lg:px-[30px]">
+      <div className="hidden w-full max-w-full items-center justify-between border-b border-t border-[#DADADA] py-[22px] text-[18px] capitalize lg:flex lg:px-[30px]">
         <h1
         // onClick={() => scrollToSection(pdRef, PD_ID)}
         // className={`cursor-pointer  font-normal capitalize text-black ${
