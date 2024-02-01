@@ -701,7 +701,7 @@ function CarSelector({
                     // setAddToCartOpen(true);
                   }}
                 >
-                  Add To Cart (STICKY)
+                  Add To Cart
                 </Button>
               </div>
             )}
