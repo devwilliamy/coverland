@@ -4,43 +4,40 @@ import PolicyTitle from '@/components/policy/PolicyTitle';
 import PolicyDetail from '@/components/policy/PolicyDetail';
 import PolicyFurtherAssistance from '@/components/policy/PolicyFurtherAssistance';
 
-function WarrantyPolicy() {
+function WarrantyPolicy({ hideHeader }: { hideHeader?: boolean }) {
   return (
     <>
-      <PolicyHeader headerText="Warranty" />
+      {!hideHeader && <PolicyHeader headerText="Warranty" />}
       <div className="lg:mx-auto lg:flex lg:w-[842px] lg:flex-col lg:justify-center">
-        <div className="relative px-5 py-5 lg:py-14">
-          <PolicyTitle
-            title="Up to a 10-Year Comprehensive Warranty"
-            uppercase
-          />
+        <div className="relative px-5 pb-4 lg:py-14">
+          <PolicyTitle title="FULL WARRANTY FOR UP TO A LIFETIME!" uppercase />
           <PolicyTitle title="Welcome to Coverland's Warranty Page" uppercase />
           <PolicyDetail>
             At Coverland, we are committed to providing our customers with
             exceptional quality products and peace of mind. We stand behind the
-            craftsmanship and durability of our items with a comprehensive up to
-            a 10-year warranty.
+            craftsmanship and durability of our items, offering a comprehensive
+            warranty for up to a lifetime.
           </PolicyDetail>
           <PolicyTitle title="Warranty Coverage" uppercase />
           <PolicyDetail>
-            Our warranty provides coverage for a period of up to ten years,
-            depending on the specific warranty period of your product. It starts
-            from the date of purchase and includes protection against various
-            issues:
+            Our warranty covers your product for up to a lifetime, depending on
+            its specific warranty period, starting from the date of purchase. It
+            includes protection against various issues:
           </PolicyDetail>
           <ol className="list-disc pl-6 pt-4">
             <li>
-              <span className="font-bold">Normal Wear and Tear:</span> We
-              understand that regolar use over time can cause natural wear. Our
-              warranty ensures your product remains functional throughout its
-              lifespan.
+              <span className="font-bold">Normal Wear and Tear:</span> Whether
+              it&apos;s intense sun, heavy rain, snow, or hail, our products are
+              designed to withstand diverse weather conditions. If your product
+              fails to protect your vehicle due to weather-related damages,
+              we&apos;ve got you covered.
             </li>
             <li>
               <span className="font-bold">Weather-Related Damages:</span> Be it
               intense sun, heavy rain, snow, or hail, our products are designed
               to withstand diverse weather conditions. If your product fails to
-              protect your vehicle due to weather-related damages, we’ve got you
-              covered.
+              protect your vehicle due to weather-related damages, we&apos;ve
+              got you covered.
             </li>
             <li>
               <span className="font-bold">Ripping and Tears:</span> Despite the
@@ -85,9 +82,11 @@ function WarrantyPolicy() {
           <PolicyDetail>
             At Coverland, your satisfaction is our priority. We strive to ensure
             every customer is confident in their purchase. This comprehensive
-            warranty is our promise of quality and reliability. Thank you for
-            choosing Coverland for your product needs. We value your trust and
-            look forward to serving you.
+            warranty is our promise of quality and reliability.
+          </PolicyDetail>
+          <PolicyDetail>
+            Thank you for choosing Coverland for your product needs. We value
+            your trust and look forward to serving you.
           </PolicyDetail>
           <div className="pt-5 lg:pt-12"></div>
           <PolicyFurtherAssistance />
