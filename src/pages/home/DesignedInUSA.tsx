@@ -8,7 +8,7 @@ export default function DesignedInUSA() {
       <div className="flex w-full flex-col items-center justify-center  lg:flex-row-reverse ">
         <div className="relative aspect-square max-h-[562px] w-full max-w-[617px] lg:w-1/2  ">
           <Image
-            className="rounded-[15px]"
+            className="rounded-[8px] lg:rounded-[15px]"
             layout="fill"
             src={Indoor}
             alt="a fully-covered vehicle with a coverland car cover on it"
@@ -29,7 +29,9 @@ export default function DesignedInUSA() {
           <p className=" mb-[-10px] mt-[32px] max-w-[382px] text-left text-[24px] font-black uppercase leading-[32px] lg:mb-0 lg:mt-0 lg:whitespace-nowrap lg:text-[34px] lg:leading-[40px] ">
             Custom-Fit Car Covers <br /> Designed In The USA
           </p>
-          <div className="">
+          <div 
+          className="text-[14px] font-[400]"
+          >
             For every car enthusiast, owning a car is a considerable investment.
             Therefore, investing some money and effort for its protection is
             also an important step that involves buying premium quality car

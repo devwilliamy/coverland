@@ -389,14 +389,6 @@ export function PartialCoverSelector({
             <div className="grid grid-cols-1">
               <p className="text-dark relative mb-2.5 text-xl font-bold capitalize md:text-3xl">
                 $159.95
-                <span className="top absolute ml-2.5 text-xl font-normal capitalize text-[#D13C3F]">
-                  only{' '}
-                  {`${Math.max(
-                    2,
-                    Math.min(7, Math.floor(reviewCount / 25) + 2)
-                  )}`}{' '}
-                  left
-                </span>
               </p>
               <p className="text-lg font-normal text-[#1A1A1A] md:text-[22px]">
                 <span className="mr-2 text-[#9C9C9C] line-through">$320</span>
