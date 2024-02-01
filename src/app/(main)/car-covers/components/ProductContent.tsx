@@ -238,7 +238,7 @@ export function ProductContent({
           <p className="mb-[16px] flex max-h-[20px] items-center gap-[15px] text-[28px] font-[900] leading-[32px] ">
             ${selectedProduct?.msrp}
             {selectedProduct?.display_id !== 'Premium' && (
-              <span className="top absolute ml-2.5 text-xl font-normal capitalize text-[#D13C3F]">
+              <span className=" text-lg font-[400] capitalize leading-[14px] text-[#FF0005]">
                 only {generateProductsLeft(selectedProduct)} left
               </span>
             )}
