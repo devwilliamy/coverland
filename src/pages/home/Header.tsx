@@ -10,6 +10,7 @@ const Cart = dynamic(() => import('@/components/header/Cart'), { ssr: false });
 function Header() {
   return (
     <header className="mx-auto flex w-screen max-w-[1280px] flex-col items-stretch  sm:mb-0 lg:ml-auto lg:w-auto lg:pt-2.5">
+      <section className="min-h-[7px] w-full bg-black" />
       <section className="whitespace-nowrap bg-white  px-20 text-center text-[18px] font-[600] uppercase text-black lg:text-4xl">
         <p>February Special Sale!</p>
       </section>
@@ -39,7 +40,6 @@ function Header() {
       <section className="flex w-full items-center justify-between px-16 pb-3 pt-2 max-md:max-w-full max-md:px-5">
         <AlgoliaSearchbar />
       </section>
-      
     </header>
   );
 }
