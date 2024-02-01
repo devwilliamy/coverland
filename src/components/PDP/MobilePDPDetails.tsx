@@ -19,6 +19,7 @@ import {
 import { IoClose } from 'react-icons/io5';
 import { useRef } from 'react';
 import WarrantyPolicy from '@/app/(main)/policies/warranty-policy/page';
+import { Plus } from 'lucide-react';
 
 export const MobilePDPDetails = ({
   reviewData,
@@ -235,5 +236,6 @@ const ScrollSheetTrigger = ({
     }}
   >
     {title}
+    <Plus />
   </SheetTrigger>
 );

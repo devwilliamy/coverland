@@ -1,7 +1,7 @@
 'use client';
 import { TCarDataMaster, TReviewData } from '@/lib/db';
 import { Tables } from '@/lib/db/types';
-import CarCoverSelector from './CarCoverSelector';
+import MobileCarCoverSelector from './MobileCarCoverSelector';
 import { compareRawStrings } from '@/lib/utils';
 import useUrlState from '@/lib/hooks/useUrlState';
 import { TCarCoverSlugParams } from '../[make]/[model]/[year]/page';
@@ -64,7 +64,7 @@ export default function CarPDP({
 
   return (
     <>
-      <CarCoverSelector
+      <MobileCarCoverSelector
         modelData={filteredModelData}
         reviewData={reviewData}
         submodelParam={submodelParam}
