@@ -71,15 +71,24 @@ export const MobileImageCarousel = ({
               // placeholder="blur"
             />
           </CarouselItem>
-          <CarouselItem>
-            <ProductVideo src={SquareVideo} imgSrc={SquareThumbnail} />
-          </CarouselItem>
           {productImages.map((image, index) => (
             <>
-              {index === 1 ? (
-                <CarouselItem key={index}>
-                  <ProductVideo src={SevenSecVideo} autoplay loop />
-                </CarouselItem>
+              {index === 2 ? (
+                <>
+                  <CarouselItem key={index}>
+                    <ProductVideo src={SevenSecVideo} autoplay loop />
+                  </CarouselItem>
+                  <CarouselItem key={index}>
+                    <Image
+                      src={image}
+                      alt={`Additional images of the ${selectedProduct.display_id} cover`}
+                      width={500}
+                      height={500}
+                      // placeholder="blur"
+                      onError={() => console.log('Failed image:', `${image}`)}
+                    />
+                  </CarouselItem>
+                </>
               ) : (
                 <CarouselItem key={index}>
                   <Image

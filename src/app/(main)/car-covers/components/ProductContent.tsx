@@ -295,7 +295,11 @@ export function ProductContent({
       </div> */}
 
       <Separator className="my-8" />
-      {isMobile && <ProductVideo src={SquareVideo} imgSrc={SquareThumbnail} />}
+      {isMobile && (
+        <div className="pb-5">
+          <ProductVideo src={SquareVideo} imgSrc={SquareThumbnail} />
+        </div>
+      )}
       {/* Selling Attributes */}
       <div className="grid grid-cols-2 gap-4 pb-4">
         <div className="flex flex-row">
