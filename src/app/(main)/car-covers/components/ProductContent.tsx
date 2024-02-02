@@ -33,6 +33,9 @@ import Dialog from '@/components/ui/dialog-tailwind-ui';
 import { useRouter } from 'next/navigation';
 import { compareRawStrings } from '@/lib/utils';
 import ReviewSheet from '@/components/PDP/ReviewSheet';
+import ProductVideo from '@/components/PDP/ProductVideo';
+import SquareVideo from '@/videos/Coverland_Square.mp4';
+import SquareThumbnail from '@/video/Thumbnail_Square.webp';
 
 export function ProductContent({
   selectedProduct,
@@ -248,6 +251,11 @@ export function ProductContent({
       </div> */}
 
       <Separator className="my-8" />
+      {isMobile && (
+        <div className="pb-5">
+          <ProductVideo src={SquareVideo} imgSrc={SquareThumbnail} />
+        </div>
+      )}
       {/* Selling Attributes */}
       <div className="grid grid-cols-2 gap-4 pb-4">
         <div className="flex flex-row">
