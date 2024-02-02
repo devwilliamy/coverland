@@ -42,7 +42,7 @@ import Dialog from '@/components/ui/dialog-tailwind-ui';
 import { useRouter } from 'next/navigation';
 import { compareRawStrings } from '@/lib/utils';
 import ProductVideo from '@/components/PDP/ProductVideo';
-import SquareVideo from '@/videos/Square Ratio.mp4';
+import SquareVideo from '@/videos/Coverland_Square.mp4';
 import SquareThumbnail from '@/video/Thumbnail_Square.webp';
 
 export function ProductContent({

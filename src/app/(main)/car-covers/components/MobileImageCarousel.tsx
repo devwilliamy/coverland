@@ -8,7 +8,7 @@ import {
 } from '@/components/ui/carousel';
 import Image from 'next/image';
 import { TProductData } from '@/lib/db';
-import SquareVideo from '@/videos/Square Ratio.mp4';
+import SquareVideo from '@/videos/Coverland_Square.mp4';
 import SquareThumbnail from '@/video/Thumbnail_Square.webp';
 import SevenSecVideo from '@/videos/7sec Listing Video_2.mp4';
 

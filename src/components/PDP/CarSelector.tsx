@@ -42,7 +42,7 @@ import Dialog from '../ui/dialog-tailwind-ui';
 import { useRouter } from 'next/navigation';
 import { MobileImageCarousel } from '@/app/(main)/car-covers/components/MobileImageCarousel';
 import { TCarCoverData } from '@/app/(main)/car-covers/components/CarPDP';
-import SquareVideo from '@/videos/Square Ratio.mp4';
+import SquareVideo from '@/videos/Coverland_Square.mp4';
 import SquareThumbnail from '@/video/Thumbnail_Square.webp';
 
 const ProductVideo = dynamicImport(() => import('./ProductVideo'), {

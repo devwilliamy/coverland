@@ -44,7 +44,7 @@ import {
 } from '@/components/PDP/images';
 import { MoneyBackIcon } from '@/components/PDP/images/MoneyBack';
 import { DropdownPDP } from '@/components/PDP/DropdownPDP';
-import SquareVideo from '@/videos/Square Ratio.mp4';
+import SquareVideo from '@/videos/Coverland_Square.mp4';
 import SquareThumbnail from '@/video/Thumbnail_Square.webp';
 
 const EditVehiclePopover = dynamicImport(
