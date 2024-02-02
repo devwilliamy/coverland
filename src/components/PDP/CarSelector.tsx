@@ -38,10 +38,12 @@ import {
 } from '@/components/ui/drawer';
 import { IoClose } from 'react-icons/io5';
 import ReviewSection from './components/ReviewSection';
-import Dialog from '../ui/dialog-tailwind-ui';
-import { useRouter } from 'next/navigation';
 import { MobileImageCarousel } from '@/app/(main)/car-covers/components/MobileImageCarousel';
 import { TCarCoverData } from '@/app/(main)/car-covers/components/CarPDP';
+import AddToCartHeader from '../cart/AddToCartHeader';
+import AddToCartFooter from '../cart/AddToCartFooter';
+import AddToCartBody from '../cart/AddToCartBody';
+import BottomUpSheet from '../ui/bottom-up-drawer';
 
 const ProductVideo = dynamicImport(() => import('./ProductVideo'), {
   ssr: false,
@@ -244,7 +246,6 @@ function CarSelector({
   ${searchParams?.second_submodel ? selectedProduct?.submodel2 : ''}
   `;
   const [open, setOpen] = useState(false);
-  const router = useRouter();
   return (
     <section className="mx-auto h-auto w-full max-w-[1280px] px-4 lg:my-8">
       <div className="flex w-full flex-col items-start justify-between lg:flex-row lg:gap-14">
@@ -634,8 +635,7 @@ function CarSelector({
                     sku: selectedProduct?.sku,
                   });
                   handleAddToCart();
-                  // setAddToCartOpen(true);
-                  isMobile ? router.push('/checkout') : setAddToCartOpen(true);
+                  setAddToCartOpen(true);
                 }}
               >
                 Add To Cart
@@ -788,7 +788,14 @@ function CarSelector({
         </div>
       </div>
       {isMobile ? (
-        <Dialog open={addToCartOpen} setOpen={setAddToCartOpen} />
+        <BottomUpSheet
+          title={<AddToCartHeader />}
+          open={addToCartOpen}
+          setOpen={setAddToCartOpen}
+          footer={<AddToCartFooter />}
+        >
+          <AddToCartBody selectedProduct={selectedProduct} />
+        </BottomUpSheet>
       ) : (
         <CartSheet
           open={addToCartOpen}
