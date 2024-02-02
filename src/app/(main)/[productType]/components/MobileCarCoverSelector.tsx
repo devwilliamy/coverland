@@ -16,7 +16,7 @@ import { CarSelectionContext } from './CarPDP';
 import { useStore } from 'zustand';
 import { compareRawStrings } from '@/lib/utils';
 import { useParams, usePathname } from 'next/navigation';
-import { TProductData, TReviewData } from '@/lib/db';
+import { TInitialProductDataDB, TReviewData } from '@/lib/db';
 
 const EditVehiclePopover = dynamicImport(
   () => import('@/components/PDP/components/EditVehiclePopover'),
@@ -161,7 +161,7 @@ export function MobileCarCoverSelector({
             </span>
           </p>
           <ColorSelector
-            uniqueColors={uniqueColors as TProductData[]}
+            uniqueColors={uniqueColors as TInitialProductDataDB[]}
             productRefs={productRefs}
             setFeaturedImage={setFeaturedImage}
             setSelectedProduct={setSelectedProduct}
@@ -169,7 +169,7 @@ export function MobileCarCoverSelector({
           />
           <Separator className="my-4" />
           <TypeSelector
-            uniqueTypes={uniqueTypes as TProductData[]}
+            uniqueTypes={uniqueTypes as TInitialProductDataDB[]}
             setFeaturedImage={setFeaturedImage}
             setSelectedProduct={setSelectedProduct}
             selectedProduct={selectedProduct}

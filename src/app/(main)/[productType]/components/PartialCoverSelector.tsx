@@ -1,6 +1,6 @@
 'use client';
 
-import { TProductData, TReviewData } from '@/lib/db';
+import { TInitialProductDataDB, TReviewData } from '@/lib/db';
 import { Separator } from '@/components/ui/separator';
 import React, {
   Ref,
@@ -58,7 +58,7 @@ export function PartialCoverSelector({
   modelParam,
   makeParam,
 }: {
-  modelData: TProductData[];
+  modelData: TInitialProductDataDB[];
   reviewData: TReviewData[] | null | undefined;
   modelParam: string | undefined;
   makeParam: string | undefined;
@@ -256,7 +256,7 @@ export function PartialCoverSelector({
                   key={type.name}
                   // onClick={() => {
                   //   setFeaturedImageIndex();
-                  //   setSelectedProduct(sku as TProductData);
+                  //   setSelectedProduct(sku as TInitialProductDataDB);
                   //   const skuRef = sku?.sku
                   //     ? (productRefs?.current[
                   //         sku?.sku
@@ -584,7 +584,7 @@ export default PartialCoverSelector;
 //   selectedProduct,
 //   modalProductImages,
 // }: {
-//   selectedProduct: TProductData;
+//   selectedProduct: TInitialProductDataDB;
 //   modalProductImages: string[];
 // }) => {
 //   return (

@@ -933,7 +933,8 @@ export const colorOrder = [
   'Black Red 2-Tone',
   'Gray Black Tribe',
   'Solid Gray',
-];
+] as const;
+
 export const typeOrder = [
   'Premium Plus',
   'Premium',
@@ -967,106 +968,94 @@ export const DEFAULT_CAR_IMAGE_ARRAY = [
   SolidGray,
 ];
 
-export const PRODUCT_IMAGES = [
-  {
-    name: 'Black Red Stripe',
-    type: 'Premium Plus',
-    images: [
-      'http://www.coverland.com/pms/01-str-bkrd.webp',
-      'http://www.coverland.com/pms/02-bkrd-str-mr.webp',
-      'http://www.coverland.com/pms/03-str-bkrd.webp',
-      'http://www.coverland.com/pms/04-oxford-outer-black.webp',
-      'http://www.coverland.com/pms/05-oxford-inner.webp',
-      'http://www.coverland.com/pms/06-bkrd-str.webp',
-      'http://www.coverland.com/pms/07-uv-protection.webp',
-      'http://www.coverland.com/pms/08-simulation.webp',
-      'http://www.coverland.com/pms/09-value.webp',
-      'http://www.coverland.com/pms/10-str-bkrd.webp',
-    ],
-  },
-  {
-    name: 'Black Gray Stripe',
-    type: 'Premium Plus',
-    images: [
-      'http://www.coverland.com/pms/01-str-bkgr.webp',
-      'http://www.coverland.com/pms/02-bkgr-str-mr.webp',
-      'http://www.coverland.com/pms/03-str-bkgr.webp',
-      'http://www.coverland.com/pms/04-oxford-outer-black.webp',
-      'http://www.coverland.com/pms/05-oxford-inner.webp',
-      'http://www.coverland.com/pms/06-bkgr-str.webp',
-      'http://www.coverland.com/pms/07-uv-protection.webp',
-      'http://www.coverland.com/pms/08-simulation.webp',
-      'http://www.coverland.com/pms/09-value.webp',
-      'http://www.coverland.com/pms/10-str-bkgr.webp',
-    ],
-  },
-  {
-    name: 'Gray Black Stripe',
-    type: 'Premium Plus',
-    images: ['http://www.coverland.com/pms/01-str-grbk.webp'],
-  },
-  {
-    name: 'Black Gray 2-Tone',
-    type: 'Premium Plus',
-    images: [
-      'http://www.coverland.com/pms/01-2to-bkgr.webp',
-      'http://www.coverland.com/pms/02-bkgr-2to-mr.webp',
-      'http://www.coverland.com/pms/03-2to-bkgr.webp',
-      'http://www.coverland.com/pms/04-oxford-outer-black.webp',
-      'http://www.coverland.com/pms/05-oxford-inner.webp',
-      'http://www.coverland.com/pms/06-bkgr-2to.webp',
-      'http://www.coverland.com/pms/07-uv-protection.webp',
-      'http://www.coverland.com/pms/08-simulation.webp',
-      'http://www.coverland.com/pms/09-value.webp',
-      'http://www.coverland.com/pms/10-2to-bkgr.webp',
-    ],
-  },
-  {
-    name: 'Black Red 2-Tone',
-    type: 'Premium Plus',
-    images: [
-      'http://www.coverland.com/pms/01-2to-bkrd.webp',
-      'http://www.coverland.com/pms/02-bkrd-2to-mr.webp',
-      'http://www.coverland.com/pms/03-2to-bkrd.webp',
-      'http://www.coverland.com/pms/04-oxford-outer-black.webp',
-      'http://www.coverland.com/pms/05-oxford-inner.webp',
-      'http://www.coverland.com/pms/06-bkrd-2to.webp',
-      'http://www.coverland.com/pms/07-uv-protection.webp',
-      'http://www.coverland.com/pms/08-simulation.webp',
-      'http://www.coverland.com/pms/09-value.webp',
-      'http://www.coverland.com/pms/10-2to-bkrd.webp',
-    ],
-  },
-  {
-    name: 'Gray Black Tribe',
-    type: 'Premium Plus',
-    images: [
-      'http://www.coverland.com/pms/01-tri-grbk.webp',
-      'http://www.coverland.com/pms/02-grbk-tri-mr.webp',
-      'http://www.coverland.com/pms/03-tri-grbk.webp',
-      'http://www.coverland.com/pms/04-oxford-outer-black.webp',
-      'http://www.coverland.com/pms/05-oxford-inner.webp',
-      'http://www.coverland.com/pms/06-grbk-tri.webp',
-      'http://www.coverland.com/pms/07-uv-protection.webp',
-      'http://www.coverland.com/pms/08-simulation.webp',
-      'http://www.coverland.com/pms/09-value.webp',
-      'http://www.coverland.com/pms/10-tri-grbk.webp',
-    ],
-  },
-  {
-    name: 'Solid Gray',
-    type: 'Premium',
-    images: [
-      'http://www.coverland.com/pms/01-ps-gr-1to.webp',
-      'http://www.coverland.com/pms/02-sol-gr-mr.webp',
-      'http://www.coverland.com/pms/03-sol-gr.webp',
-      'http://www.coverland.com/pms/04-oxford-outer-black.webp',
-      'http://www.coverland.com/pms/05-oxford-inner.webp',
-      'http://www.coverland.com/pms/06-sol-gr.webp',
-      'http://www.coverland.com/pms/07-uv-protection.webp',
-      'http://www.coverland.com/pms/08-simulation.webp',
-      'http://www.coverland.com/pms/09-value.webp',
-      'http://www.coverland.com/pms/10-sol-gr.webp',
-    ],
-  },
-];
+//TODO: Finish creating an object for default images on SUV/Truck pages
+//Default = Pages that don't include year in the url path
+
+const suvImages: Partial<Record<(typeof colorOrder)[number], string[]>> = {
+  'Black Gray Stripe': ['https://coverland.com/pms/suv-01-bkgr-str-m.webp'],
+  'Solid Gray': ['https://coverland.com/pms/suv-01-bkgr-str-m.webp'],
+};
+
+const carImages: Partial<Record<(typeof colorOrder)[number], string[]>> = {
+  'Black Red Stripe': [
+    'http://www.coverland.com/pms/01-str-bkrd.webp',
+    'http://www.coverland.com/pms/02-bkrd-str-mr.webp',
+    'http://www.coverland.com/pms/03-str-bkrd.webp',
+    'http://www.coverland.com/pms/04-oxford-outer-black.webp',
+    'http://www.coverland.com/pms/05-oxford-inner.webp',
+    'http://www.coverland.com/pms/06-bkrd-str.webp',
+    'http://www.coverland.com/pms/07-uv-protection.webp',
+    'http://www.coverland.com/pms/08-simulation.webp',
+    'http://www.coverland.com/pms/09-value.webp',
+    'http://www.coverland.com/pms/10-str-bkrd.webp',
+  ],
+
+  'Black Gray Stripe': [
+    'http://www.coverland.com/pms/01-str-bkgr.webp',
+    'http://www.coverland.com/pms/02-bkgr-str-mr.webp',
+    'http://www.coverland.com/pms/03-str-bkgr.webp',
+    'http://www.coverland.com/pms/04-oxford-outer-black.webp',
+    'http://www.coverland.com/pms/05-oxford-inner.webp',
+    'http://www.coverland.com/pms/06-bkgr-str.webp',
+    'http://www.coverland.com/pms/07-uv-protection.webp',
+    'http://www.coverland.com/pms/08-simulation.webp',
+    'http://www.coverland.com/pms/09-value.webp',
+    'http://www.coverland.com/pms/10-str-bkgr.webp',
+  ],
+  'Gray Black Stripe': ['http://www.coverland.com/pms/01-str-grbk.webp'],
+  'Black Gray 2-Tone': [
+    'http://www.coverland.com/pms/01-2to-bkgr.webp',
+    'http://www.coverland.com/pms/02-bkgr-2to-mr.webp',
+    'http://www.coverland.com/pms/03-2to-bkgr.webp',
+    'http://www.coverland.com/pms/04-oxford-outer-black.webp',
+    'http://www.coverland.com/pms/05-oxford-inner.webp',
+    'http://www.coverland.com/pms/06-bkgr-2to.webp',
+    'http://www.coverland.com/pms/07-uv-protection.webp',
+    'http://www.coverland.com/pms/08-simulation.webp',
+    'http://www.coverland.com/pms/09-value.webp',
+    'http://www.coverland.com/pms/10-2to-bkgr.webp',
+  ],
+  'Black Red 2-Tone': [
+    'http://www.coverland.com/pms/01-2to-bkrd.webp',
+    'http://www.coverland.com/pms/02-bkrd-2to-mr.webp',
+    'http://www.coverland.com/pms/03-2to-bkrd.webp',
+    'http://www.coverland.com/pms/04-oxford-outer-black.webp',
+    'http://www.coverland.com/pms/05-oxford-inner.webp',
+    'http://www.coverland.com/pms/06-bkrd-2to.webp',
+    'http://www.coverland.com/pms/07-uv-protection.webp',
+    'http://www.coverland.com/pms/08-simulation.webp',
+    'http://www.coverland.com/pms/09-value.webp',
+    'http://www.coverland.com/pms/10-2to-bkrd.webp',
+  ],
+  'Gray Black Tribe': [
+    'http://www.coverland.com/pms/01-tri-grbk.webp',
+    'http://www.coverland.com/pms/02-grbk-tri-mr.webp',
+    'http://www.coverland.com/pms/03-tri-grbk.webp',
+    'http://www.coverland.com/pms/04-oxford-outer-black.webp',
+    'http://www.coverland.com/pms/05-oxford-inner.webp',
+    'http://www.coverland.com/pms/06-grbk-tri.webp',
+    'http://www.coverland.com/pms/07-uv-protection.webp',
+    'http://www.coverland.com/pms/08-simulation.webp',
+    'http://www.coverland.com/pms/09-value.webp',
+    'http://www.coverland.com/pms/10-tri-grbk.webp',
+  ],
+  'Solid Gray': [
+    'http://www.coverland.com/pms/01-ps-gr-1to.webp',
+    'http://www.coverland.com/pms/02-sol-gr-mr.webp',
+    'http://www.coverland.com/pms/03-sol-gr.webp',
+    'http://www.coverland.com/pms/04-oxford-outer-black.webp',
+    'http://www.coverland.com/pms/05-oxford-inner.webp',
+    'http://www.coverland.com/pms/06-sol-gr.webp',
+    'http://www.coverland.com/pms/07-uv-protection.webp',
+    'http://www.coverland.com/pms/08-simulation.webp',
+    'http://www.coverland.com/pms/09-value.webp',
+    'http://www.coverland.com/pms/10-sol-gr.webp',
+  ],
+};
+
+const truckImages: Partial<Record<(typeof colorOrder)[number], string[]>> = {
+  'Black Gray Stripe': ['http://www.coverland.com/pms/tc-01-bkgr-str-m.webp'],
+  'Solid Gray': ['http://www.coverland.com/pms/tc-01-bkgr-str-m.webp'],
+};
+
+export const DEFAULT_PRODUCT_IMAGES = { suvImages, carImages, truckImages };

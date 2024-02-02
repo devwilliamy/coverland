@@ -14,7 +14,7 @@ import {
   CarSelectionContext,
   TCarCoverData,
 } from '@/app/(main)/[productType]/components/CarPDP';
-import { TProductData } from '@/lib/db';
+import { TInitialProductDataDB } from '@/lib/db';
 import { useStore } from 'zustand';
 
 export type TQuery = {
@@ -29,7 +29,7 @@ export type TQuery = {
 export function ModelPDPDropdown({
   modelData: fetchedModelData,
 }: {
-  modelData: TCarCoverData[] | TProductData[];
+  modelData: TCarCoverData[] | TInitialProductDataDB[];
 }) {
   // const isAllSameSku = fetchedModelData.every(
   //   (item) =>

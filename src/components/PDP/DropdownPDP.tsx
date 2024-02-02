@@ -1,6 +1,6 @@
 import { Suspense } from 'react';
 import { TCarCoverData } from '@/app/(main)/[productType]/components/CarPDP';
-import { TProductData } from '@/lib/db';
+import { TInitialProductDataDB } from '@/lib/db';
 import DefaultDropdown from './components/DefaultDropdown';
 import DropdownRenderer from './components/DropdownRenderer';
 

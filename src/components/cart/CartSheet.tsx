@@ -11,13 +11,13 @@ import { IoClose } from 'react-icons/io5';
 import AddToCartHeader from '../cart/AddToCartHeader';
 import AddToCartBody from '../cart/AddToCartBody';
 import AddToCartFooter from '../cart/AddToCartFooter';
-import { TProductData } from '@/lib/db';
+import { TInitialProductDataDB } from '@/lib/db';
 import { TCarCoverData } from '@/app/(main)/[productType]/components/CarPDP';
 
 type CartSheetProps = {
   open: boolean;
   setOpen: (open: boolean) => void;
-  selectedProduct: TProductData | TCarCoverData | null | undefined;
+  selectedProduct: TInitialProductDataDB | TCarCoverData | null | undefined;
 };
 const CartSheet = ({
   open,

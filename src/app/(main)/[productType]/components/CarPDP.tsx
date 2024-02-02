@@ -1,15 +1,20 @@
 'use client';
-import { TProductData, TReviewData } from '@/lib/db';
+import { TInitialProductDataDB, TReviewData } from '@/lib/db';
 import CarCoverSelector from './CarCoverSelector';
-import { TCarCoverSlugParams } from '../[make]/[model]/[year]/page';
 import { createStore } from 'zustand';
 import { createContext, useRef } from 'react';
-import { useParams, usePathname, useSearchParams } from 'next/navigation';
+import { useParams, useSearchParams } from 'next/navigation';
 import { compareRawStrings } from '@/lib/utils';
+import {
+  IProductData,
+  TPathParams,
+  TQueryParams,
+  modelDataTransformer,
+} from '../../utils';
 
 export type TQuery = {
-  year: string;
   type: string;
+  year: string;
   make: string;
   model: string;
   submodel: string;
@@ -17,16 +22,16 @@ export type TQuery = {
 };
 
 interface ICarCoverProps {
-  modelData: TProductData[];
-  initialModelData: TProductData[];
-  selectedProduct: TProductData;
+  modelData: IProductData[];
+  initialModelData: IProductData[];
+  selectedProduct: IProductData;
 }
 
 interface ICarCoverSelectionState extends ICarCoverProps {
   setQuery: (newQuery: Partial<TQuery>) => void;
   setModelData: () => void;
   hasSubmodels: () => boolean;
-  setSelectedProduct: (newProduct: TProductData) => void;
+  setSelectedProduct: (newProduct: IProductData) => void;
   setFeaturedImage: (newImage: string) => void;
   setSelectedColor: (color: string) => void;
   featuredImage: string;
@@ -34,32 +39,30 @@ interface ICarCoverSelectionState extends ICarCoverProps {
   query: TQuery;
 }
 
-const createCarSelectionStore = (
-  initialModelData: TProductData[],
-  initialSelectedProduct: TProductData,
-  params: {
-    make: string;
-    model: string;
-    type: string;
-    submodel: string;
-    secondSubmodel: string;
-  } | null
-) => {
+const createCarSelectionStore = ({
+  initialModelData,
+  params,
+  queryParams,
+}: {
+  initialModelData: IProductData[];
+  params: TPathParams;
+  queryParams: TQueryParams;
+}) => {
   return createStore<ICarCoverSelectionState>()((set, get) => ({
     modelData: initialModelData,
     initialModelData,
     query: {
       year: '',
-      type: params?.type ?? '',
+      type: params?.productType ?? '',
       make: params?.make ?? '',
       model: params?.model ?? '',
-      submodel: params?.submodel ?? '',
-      secondSubmodel: params?.secondSubmodel ?? '',
+      submodel: queryParams?.submodel ?? '',
+      secondSubmodel: queryParams?.secondSubmodel ?? '',
     },
-    selectedProduct: initialSelectedProduct,
-    featuredImage: initialSelectedProduct.product?.split(',')[0] ?? '',
+    selectedProduct: initialModelData[0],
+    featuredImage: initialModelData[0].mainImage,
     selectedColor: initialModelData[0]?.display_color ?? '',
-    setSelectedProduct: (newProduct: TProductData) => {
+    setSelectedProduct: (newProduct: IProductData) => {
       set(() => ({
         selectedProduct: newProduct,
         featuredImage: newProduct.product?.split(',')[0] ?? '',
@@ -103,19 +106,19 @@ const createCarSelectionStore = (
       }
       if (newQuery.make) {
         filteredData = filteredData.filter((sku) =>
-          compareRawStrings(sku.make, newQuery.make)
+          compareRawStrings(sku.make, newQuery.make as string)
         );
         console.log(filteredData);
       }
       if (newQuery.model) {
         filteredData = filteredData.filter((sku) =>
-          compareRawStrings(sku.model, newQuery.model)
+          compareRawStrings(sku.model, newQuery.model as string)
         );
         console.log(filteredData);
       }
       if (newQuery.year) {
         filteredData = filteredData.filter((sku) =>
-          sku.year_options?.includes(newQuery.year)
+          sku.year_options?.includes(newQuery.year as string)
         );
         console.log(filteredData);
       }
@@ -123,7 +126,7 @@ const createCarSelectionStore = (
         console.log('check');
 
         filteredData = filteredData.filter((sku) =>
-          compareRawStrings(sku.submodel1, newQuery.submodel)
+          compareRawStrings(sku.submodel1, newQuery.submodel as string)
         );
         console.log(filteredData);
       }
@@ -131,7 +134,7 @@ const createCarSelectionStore = (
         console.log('check');
 
         filteredData = filteredData.filter((sku) =>
-          compareRawStrings(sku.submodel2, newQuery.secondSubmodel)
+          compareRawStrings(sku.submodel2, newQuery.secondSubmodel as string)
         );
         console.log(filteredData);
       }
@@ -152,49 +155,39 @@ export default function CarPDP({
   modelData: modelDataProps,
   reviewData,
 }: {
-  modelData: TProductData[];
+  modelData: TInitialProductDataDB[];
   reviewData: TReviewData[] | null;
-  params: TCarCoverSlugParams;
+  params: TPathParams;
 }) {
-  const pathParams = useParams<{ year: string; model: string; make: string }>();
-  const pathname = usePathname();
+  const pathParams = useParams<{
+    year?: string;
+    model?: string;
+    make?: string;
+    productType: string;
+  }>();
   const searchParams = useSearchParams();
   const submodelParams = searchParams?.get('submodel') ?? '';
   const secondSubmodelParams = searchParams?.get('second_submodel') ?? '';
 
-  let modelData = submodelParams
-    ? modelDataProps.filter((model) =>
-        compareRawStrings(submodelParams, model.submodel1)
-      )
-    : modelDataProps;
-  modelData = secondSubmodelParams
-    ? modelData.filter((model) =>
-        compareRawStrings(secondSubmodelParams, model.submodel2)
-      )
-    : modelData;
-
-  const initialSelectedProduct =
-    modelData.find(
-      (model) => model.year_generation == model?.parent_generation
-    ) ?? modelData[0];
-
-  const productType = pathname?.includes('car-covers')
-    ? 'Car Covers'
-    : pathname?.includes('suv-covers')
-      ? 'SUV Covers'
-      : 'Truck Covers';
-  const params = {
-    model: pathParams?.model ?? '',
-    make: pathParams?.make ?? '',
-    type: productType,
+  const queryParams = {
     submodel: submodelParams,
     secondSubmodel: secondSubmodelParams,
   };
 
-  console.log(params);
+  const modelData = modelDataTransformer({
+    data: modelDataProps,
+    params: pathParams ?? ({} as TPathParams),
+    queryParams,
+  });
+
+  console.log(modelDataProps);
 
   const store = useRef(
-    createCarSelectionStore(modelData, initialSelectedProduct, params)
+    createCarSelectionStore({
+      params: pathParams ?? ({} as TPathParams),
+      queryParams,
+      initialModelData: modelData,
+    })
   ).current;
 
   return (

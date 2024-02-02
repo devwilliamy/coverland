@@ -2,7 +2,7 @@ import Image from 'next/image';
 import { CarSelectionContext } from './CarPDP';
 import { Ref, RefObject, useContext } from 'react';
 import { useStore } from 'zustand';
-import { TProductData } from '@/lib/db';
+import { IProductData } from '../../utils';
 
 interface ProductRefs {
   [key: string]: RefObject<HTMLElement>;
@@ -15,11 +15,11 @@ export function ColorSelector({
   selectedProduct,
   setSelectedProduct,
 }: {
-  uniqueColors: TProductData[];
+  uniqueColors: IProductData[];
   productRefs: React.MutableRefObject<ProductRefs>;
   setFeaturedImage: (img: string) => void;
-  setSelectedProduct: (product: TProductData) => void;
-  selectedProduct: TProductData;
+  setSelectedProduct: (product: IProductData) => void;
+  selectedProduct: IProductData;
 }) {
   const store = useContext(CarSelectionContext);
   if (!store) throw new Error('Missing CarContext.Provider in the tree');
@@ -41,7 +41,7 @@ export function ColorSelector({
             key={sku?.sku}
           >
             <Image
-              src={sku?.feature as string}
+              src={sku?.mainImage as string}
               ref={productRefs?.current[sku?.sku] as Ref<HTMLImageElement>}
               width={98}
               height={98}
@@ -49,9 +49,9 @@ export function ColorSelector({
               alt="car cover details"
               className="h-20 w-20 cursor-pointer rounded bg-[#F2F2F2] lg:h-full lg:w-full"
               onClick={() => {
-                setFeaturedImage(sku?.feature as string);
+                setFeaturedImage(sku?.mainImage as string);
                 setSelectedColor(sku?.display_color as string);
-                setSelectedProduct(sku as TProductData);
+                setSelectedProduct(sku as IProductData);
                 const skuRef = sku?.sku
                   ? (productRefs?.current[
                       sku?.sku

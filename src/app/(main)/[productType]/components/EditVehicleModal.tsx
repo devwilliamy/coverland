@@ -11,12 +11,12 @@ import { CarSelectionContext } from './CarPDP';
 import { useContext, useState } from 'react';
 import { compareRawStrings } from '@/lib/utils';
 import { useStore } from 'zustand';
-import { TProductData } from '@/lib/db';
+import { IProductData } from '../../utils';
 
 export function EditVehicleModal({
   selectedProduct,
 }: {
-  selectedProduct: TProductData;
+  selectedProduct: IProductData;
 }) {
   const [open, setOpen] = useState(false);
 

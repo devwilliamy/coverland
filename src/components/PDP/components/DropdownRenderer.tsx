@@ -7,7 +7,7 @@ import {
   CarSelectionContext,
   TCarCoverData,
 } from '@/app/(main)/[productType]/components/CarPDP';
-import { TProductData } from '@/lib/db';
+import { TInitialProductDataDB } from '@/lib/db';
 import { ModelPDPDropdown } from './ModelPDPDropdown';
 import { useContext } from 'react';
 import { useStore } from 'zustand';

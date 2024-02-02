@@ -1,5 +1,5 @@
 'use client';
-import { TProductData, TReviewData } from '@/lib/db';
+import { TInitialProductDataDB, TReviewData } from '@/lib/db';
 import { Separator } from '@/components/ui/separator';
 import Image from 'next/image';
 import { GoDotFill } from 'react-icons/go';
@@ -124,7 +124,7 @@ function CarSelector({
   secondSubmodels,
   reviewData,
 }: {
-  modelData: TProductData[];
+  modelData: TInitialProductDataDB[];
   pathParams: TPDPPathParams;
   submodels: string[];
   secondSubmodels: string[];
@@ -175,7 +175,7 @@ function CarSelector({
     : displayedModelData;
 
   const [selectedProduct, setSelectedProduct] = useState<
-    TProductData | TCarCoverData
+    TInitialProductDataDB | TCarCoverData
   >(
     isFullySelected || searchParams?.submodel
       ? displayedModelData[0]
@@ -202,10 +202,13 @@ function CarSelector({
   const [reviewDrawerOpen, setReviewDrawerOpen] = useState<boolean>(false);
 
   const productRefs = useRef<ProductRefs>(
-    displayedModelData.reduce((acc: ProductRefs, item: TProductData) => {
-      acc[item?.sku as string] = React.createRef();
-      return acc;
-    }, {})
+    displayedModelData.reduce(
+      (acc: ProductRefs, item: TInitialProductDataDB) => {
+        acc[item?.sku as string] = React.createRef();
+        return acc;
+      },
+      {}
+    )
   );
 
   const [showMore, setShowMore] = useState(false);
@@ -351,7 +354,7 @@ function CarSelector({
                   key={sku?.sku}
                   onClick={() => {
                     setFeaturedImage(sku?.feature as string);
-                    setSelectedProduct(sku as TProductData);
+                    setSelectedProduct(sku as TInitialProductDataDB);
                     const skuRef = sku?.sku
                       ? (productRefs?.current[
                           sku?.sku
@@ -404,7 +407,7 @@ function CarSelector({
                   key={sku?.sku}
                   onClick={() => {
                     setFeaturedImage(sku?.feature as string);
-                    setSelectedProduct(sku as TProductData);
+                    setSelectedProduct(sku as TInitialProductDataDB);
                     const skuRef = sku?.sku
                       ? (productRefs?.current[
                           sku?.sku

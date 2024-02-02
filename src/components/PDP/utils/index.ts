@@ -1,8 +1,8 @@
 import { TQuery } from '@/app/(main)/[productType]/components/CarPDP';
-import { TCarDataMaster, TProductData } from '@/lib/db';
+import { TCarDataMaster, TInitialProductDataDB } from '@/lib/db';
 
 export function filterModelData(
-  modelData: TProductData[],
+  modelData: TInitialProductDataDB[],
   pathSegments: string[] | null
 ) {
   if (!pathSegments || pathSegments.length === 0) {

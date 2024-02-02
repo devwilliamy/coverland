@@ -1,15 +1,9 @@
 import { TReviewData, getProductData, getReviewData } from '@/lib/db';
 import { redirect } from 'next/navigation';
-import { colorOrder } from '@/lib/constants';
 import { Suspense } from 'react';
 import { ExtraProductDetails } from '@/components/PDP/OtherDetails';
 import CarPDP from '@/app/(main)/[productType]/components/CarPDP';
-
-export type TCarCoverSlugParams = {
-  make: string;
-  model: string;
-  year: string;
-};
+import { TPathParams } from '@/app/(main)/utils';
 
 export type TGenerationData = {
   generation: number;
@@ -24,7 +18,7 @@ export type TGenerationData = {
 export default async function CarPDPDataLayer({
   params,
 }: {
-  params: TCarCoverSlugParams;
+  params: TPathParams;
   searchParams: { submodel?: string; second_submodel?: string };
 }) {
   let modelData = [];
@@ -51,18 +45,6 @@ export default async function CarPDPDataLayer({
     redirect('/404');
   }
 
-  const validAndSortedData = modelData
-    ?.filter((product) => product.msrp && product.price)
-    .sort((a, b) => {
-      let colorIndexA = colorOrder.indexOf(a?.display_color as string);
-      let colorIndexB = colorOrder.indexOf(b?.display_color as string);
-
-      if (colorIndexA === -1) colorIndexA = Infinity;
-      if (colorIndexB === -1) colorIndexB = Infinity;
-
-      return colorIndexA - colorIndexB;
-    });
-
   if (modelData?.length === 0) {
     // redirect('/404');
   }
@@ -70,11 +52,7 @@ export default async function CarPDPDataLayer({
   return (
     <>
       <Suspense fallback={<div>Loading...</div>}>
-        <CarPDP
-          modelData={validAndSortedData}
-          reviewData={reviewData}
-          params={params}
-        />
+        <CarPDP modelData={modelData} reviewData={reviewData} params={params} />
       </Suspense>
 
       <div

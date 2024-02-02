@@ -15,7 +15,7 @@ import {
   PopoverTrigger,
 } from '@/components/ui/popover';
 import { Separator } from '@/components/ui/separator';
-import { TProductData, TReviewData } from '@/lib/db';
+import { TInitialProductDataDB, TReviewData } from '@/lib/db';
 import { Rating } from '@mui/material';
 import { track } from '@vercel/analytics';
 import Image from 'next/image';
@@ -43,6 +43,7 @@ import { useRouter } from 'next/navigation';
 import { compareRawStrings } from '@/lib/utils';
 import { useStore } from 'zustand';
 import { useCartContext } from '@/providers/CartProvider';
+import { getCompleteSelectionData, getUniqueValues } from '../../utils';
 
 export function ProductContent({
   selectedProduct,
@@ -50,12 +51,11 @@ export function ProductContent({
   avgReviewScore,
   reviewData,
 }: {
-  selectedProduct: TProductData | null | undefined;
-  modelData: TProductData[];
+  selectedProduct: TInitialProductDataDB | null | undefined;
+  modelData: TInitialProductDataDB[];
   reviewCount: number;
   avgReviewScore: string;
   reviewData: TReviewData[] | undefined | null;
-  isReadyForProductSelection: boolean;
   handleAddToCart: () => void;
 }) {
   const productType = compareRawStrings(selectedProduct?.type, 'car covers')
@@ -453,22 +453,54 @@ const AddToCartSelector = ({
   const selectedProduct = useStore(store, (s) => s.selectedProduct);
   const color = useStore(store, (s) => s.selectedColor);
 
+  const { completeSelectionState } = getCompleteSelectionData({
+    data: modelData,
+  });
+
+  const {
+    shouldDisplayType,
+    shouldDisplayMake,
+    shouldDisplayModel,
+    shouldDisplaySecondSubmodel,
+    shouldDisplaySubmodel,
+  } = completeSelectionState;
+
+  const {
+    uniqueMakes,
+    uniqueModels,
+    uniqueSecondSubmodels,
+    uniqueSubmodels,
+    uniqueYears,
+  } = getUniqueValues({ data: initModelData, queryState: queryState });
+
   console.log(modelData.length, modelData);
+
+  console.log(queryState);
+
+  console.log(completeSelectionState);
 
   const router = useRouter();
 
   const TypeDropdown = () => {
+    const typeOptions = ['Car Covers', 'SUV Covers', 'Truck Covers'];
+
     return (
       <div
         className={`flex max-h-[44px] min-h-[44px] w-full items-center rounded-[4px] bg-white px-2 text-lg outline outline-1 outline-offset-1 outline-[#767676] md:max-h-[58px] lg:w-auto`}
       >
         <div className=" ml-[10px] pr-[15px]">1</div>
         <select
-          value={modelData[0]?.type as string}
+          value={queryState.type}
           className={`bg w-full bg-transparent outline-none `}
-          disabled={true}
+          disabled={!shouldDisplayType}
         >
-          <option value="">{modelData[0]?.type as string}</option>
+          <option value="">Product Type</option>
+
+          {typeOptions.map((type) => (
+            <option key={type} value={type}>
+              {type}
+            </option>
+          ))}
         </select>
       </div>
     );
@@ -481,11 +513,16 @@ const AddToCartSelector = ({
       >
         <div className=" ml-[10px] pr-[15px]">2</div>
         <select
-          value={modelData[0]?.make as string}
+          value={queryState.make}
           className={`bg w-full bg-transparent outline-none `}
-          disabled={queryState.make ? true : false}
+          disabled={!shouldDisplayMake}
         >
-          <option value="">{modelData[0]?.make as string}</option>
+          <option value="">{queryState.make}</option>
+          {uniqueMakes.map((make) => (
+            <option key={make} value={make}>
+              {make}
+            </option>
+          ))}
         </select>
       </div>
     );
@@ -498,28 +535,22 @@ const AddToCartSelector = ({
       >
         <div className=" ml-[10px] pr-[15px]">3</div>
         <select
-          value={modelData[0]?.model as string}
+          value={queryState.model}
           className={`bg w-full bg-transparent outline-none `}
-          disabled={queryState.model ? true : false}
+          disabled={!shouldDisplayModel}
         >
-          <option value="">{modelData[0]?.model as string}</option>
+          <option value="">{queryState.model}</option>
+          {uniqueModels.map((model) => (
+            <option key={model} value={model}>
+              {model}
+            </option>
+          ))}
         </select>
       </div>
     );
   };
 
   const YearDropdown = () => {
-    const yearOptions = Array.from(
-      new Set(
-        modelData.flatMap((model) =>
-          model.year_options
-            ?.split(',')
-
-            .filter(Boolean)
-        )
-      )
-    ).sort((a, b) => Number(a) - Number(b));
-    console.log(queryState);
     return (
       <div
         className={`flex max-h-[44px] min-h-[44px] w-full items-center rounded-[4px] bg-white px-2 text-lg outline outline-1 outline-offset-1 outline-[#767676] md:max-h-[58px] lg:w-auto`}
@@ -536,7 +567,7 @@ const AddToCartSelector = ({
           }
         >
           <option value="">Year</option>
-          {yearOptions.map((year) => (
+          {uniqueYears.map((year) => (
             <option key={year} value={year}>
               {year}
             </option>
@@ -546,32 +577,8 @@ const AddToCartSelector = ({
     );
   };
 
-  const submodelOptions = queryState.year
-    ? Array.from(
-        new Set(
-          initModelData
-            .filter((model) => model.year_options?.includes(queryState.year))
-            .map((model) => model.submodel1)
-            .filter(Boolean)
-        )
-      ).sort()
-    : [];
-
-  const secondSubmodelOptions = queryState.submodel
-    ? Array.from(
-        new Set(
-          initModelData
-            .filter((model) => model.submodel1 === queryState.submodel)
-            .map((model) => model.submodel2)
-            .filter(Boolean)
-        )
-      ).sort()
-    : [];
-
-  console.log(submodelOptions);
-
   const SubmodelDropdown = () => {
-    if (submodelOptions.length === 0) return null;
+    if (uniqueSubmodels.length === 0) return null;
     return (
       <div
         className={`flex max-h-[44px] min-h-[44px] w-full items-center rounded-[4px] bg-white px-2 text-lg outline outline-1 outline-offset-1 outline-[#767676] md:max-h-[58px] lg:w-auto`}
@@ -583,7 +590,7 @@ const AddToCartSelector = ({
           onChange={(e) => setQuery({ submodel: e.target.value })}
         >
           <option value="">Submodel</option>
-          {submodelOptions.map((submodel) => (
+          {uniqueSubmodels.map((submodel) => (
             <option key={submodel} value={submodel as string}>
               {submodel}
             </option>
@@ -594,7 +601,7 @@ const AddToCartSelector = ({
   };
 
   const SecondSubmodelDropdown = () => {
-    if (secondSubmodelOptions.length === 0) return null;
+    if (uniqueSecondSubmodels.length === 0) return null;
     return (
       <div
         className={`flex max-h-[44px] min-h-[44px] w-full items-center rounded-[4px] bg-white px-2 text-lg outline outline-1 outline-offset-1 outline-[#767676] md:max-h-[58px] lg:w-auto`}
@@ -606,7 +613,7 @@ const AddToCartSelector = ({
           onChange={(e) => setQuery({ secondSubmodel: e.target.value })}
         >
           <option value="">Submodel</option>
-          {secondSubmodelOptions.map((submodel) => (
+          {uniqueSecondSubmodels.map((submodel) => (
             <option key={submodel} value={submodel as string}>
               {submodel}
             </option>
@@ -617,8 +624,6 @@ const AddToCartSelector = ({
   };
 
   const { addToCart } = useCartContext();
-
-  console.log(modelData, selectedProduct);
 
   const cartProduct = modelData.find((p) => p.display_color === color);
 
@@ -644,8 +649,8 @@ const AddToCartSelector = ({
           <MakeDropdown />
           <ModelDropdown />
           <YearDropdown />
-          <SubmodelDropdown />
-          <SecondSubmodelDropdown />
+          {shouldDisplaySubmodel && <SubmodelDropdown />}
+          {shouldDisplaySecondSubmodel && <SecondSubmodelDropdown />}
         </div>
         <DrawerFooter className="bg-white">
           <p className="text-right text-black">

@@ -1,7 +1,7 @@
 import { Suspense } from 'react';
 import { ExtraProductDetails } from '@/components/PDP/OtherDetails';
 import PartialCoverSelector from './components/PartialCoverSelector';
-import { TProductData } from '@/lib/db';
+import { IProductData } from '../utils';
 
 export default async function CarPDPModelDataLayer() {
   const modelData = [{}];
@@ -13,7 +13,7 @@ export default async function CarPDPModelDataLayer() {
     <>
       <Suspense fallback={<div>Loading...</div>}>
         <PartialCoverSelector
-          modelData={modelData as TProductData[]}
+          modelData={modelData as IProductData[]}
           reviewData={reviewData}
           modelParam={modelParam}
           makeParam={makeParam}

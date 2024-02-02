@@ -7,8 +7,8 @@ import Image from 'next/image';
 // import ProductVideo from '@/components/PDP/ProductVideo';
 import { SelectedProductImages } from './SelectedProductImages';
 import { Button } from '@/components/ui/button';
-import { TCarCoverData } from './CarPDP';
 import dynamic from 'next/dynamic';
+import { IProductData } from '../../utils';
 
 const ProductVideo = dynamic(() => import('@/components/PDP/ProductVideo'), {
   ssr: false,
@@ -21,7 +21,7 @@ export function PrimaryImageDisplay({
   setFeaturedImage,
 }: {
   productImages: string[];
-  selectedProduct: TCarCoverData;
+  selectedProduct: IProductData;
   featuredImage: string | undefined;
   setFeaturedImage: (image: string) => void;
 }) {

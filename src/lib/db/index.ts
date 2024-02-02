@@ -16,7 +16,7 @@ export type TableRow = keyof Database['public']['Tables'];
 export type TableColumn<T extends TableRow> =
   keyof Database['public']['Tables'][T]['Row'];
 
-export type TProductData = Tables<'Products-2024'>;
+export type TInitialProductDataDB = Tables<'Products-2024'>;
 
 export type TCarDataMaster = Tables<'Car-Data-Master'>;
 

@@ -1,5 +1,4 @@
 import { useCallback, useEffect, useState } from 'react';
-import { TCarCoverData } from './CarPDP';
 import {
   Carousel,
   CarouselApi,
@@ -7,7 +6,7 @@ import {
   CarouselItem,
 } from '@/components/ui/carousel';
 import Image from 'next/image';
-import { TProductData } from '@/lib/db';
+import { IProductData } from '../../utils';
 import dynamic from 'next/dynamic';
 import { StaticImport } from 'next/dist/shared/lib/get-img-props';
 import { Asset } from 'next-video/dist/assets.js';
@@ -20,9 +19,8 @@ const ProductVideo = dynamic(() => import('@/components/PDP/ProductVideo'), {
 export const MobileImageCarousel = ({
   selectedProduct,
   productImages,
-  setFeaturedImage,
 }: {
-  selectedProduct: TCarCoverData | TProductData;
+  selectedProduct: IProductData;
   productImages: string[];
   setFeaturedImage?: (img: string) => void;
 }) => {
@@ -76,7 +74,7 @@ export const MobileImageCarousel = ({
         <CarouselContent>
           <CarouselItem className="bg-[#F2F2F2]">
             <Image
-              src={selectedProduct.feature as string}
+              src={selectedProduct.mainImage as string}
               alt={`Additional images of the ${selectedProduct.display_id} cover`}
               width={500}
               height={500}
@@ -110,7 +108,7 @@ export const MobileImageCarousel = ({
           onClick={() => scrollTo(0)}
         >
           <Image
-            src={selectedProduct.feature as string}
+            src={selectedProduct.mainImage as string}
             alt={`Additional images of the ${selectedProduct.display_id} cover`}
             width={80}
             height={80}

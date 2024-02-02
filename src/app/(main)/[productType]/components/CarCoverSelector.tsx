@@ -14,9 +14,8 @@ import { ProductContent } from './ProductContent';
 import { EditVehicleModal } from './EditVehicleModal';
 import { CarSelectionContext } from './CarPDP';
 import { useStore } from 'zustand';
-import { compareRawStrings } from '@/lib/utils';
-import { useParams, usePathname } from 'next/navigation';
-import { TProductData, TReviewData } from '@/lib/db';
+import { TReviewData } from '@/lib/db';
+import { IProductData } from '../../utils';
 
 const EditVehiclePopover = dynamicImport(
   () => import('@/components/PDP/components/EditVehiclePopover'),
@@ -39,22 +38,13 @@ export function CarCoverSelector({
   const setFeaturedImage = useStore(store, (s) => s.setFeaturedImage);
   // const featuredImage = useStore(store, (s) => s.getFeaturedImage());
 
-  const params = useParams<{
-    productType: string;
-    make: string;
-    model: string;
-    year: string;
-  }>();
-
-  const featuredImage = selectedProduct?.product?.split(',')[0];
+  const featuredImage = selectedProduct?.mainImage;
 
   console.log(featuredImage);
 
   console.log(modelData);
 
-  const hasSubmodels = modelData.some(
-    (model) => !!model.submodel1 || !!model.submodel2
-  );
+  console.log(selectedProduct);
 
   const reviewScore =
     reviewData?.reduce(
@@ -64,27 +54,6 @@ export function CarCoverSelector({
   const reviewCount = reviewData?.length ?? 50;
 
   const avgReviewScore = (reviewScore / reviewCount).toFixed(1) || '4.9';
-
-  const isCompleteSelection = hasSubmodels
-    ? modelData?.every(
-        (item) =>
-          compareRawStrings(
-            String(item.submodel1),
-            String(modelData[0]?.submodel1)
-          ) &&
-          compareRawStrings(
-            String(item.submodel2),
-            String(modelData[0]?.submodel2)
-          )
-      )
-    : modelData?.every(
-        (item) =>
-          compareRawStrings(
-            String(item.year_generation),
-            String(modelData[0]?.year_generation)
-          ) &&
-          compareRawStrings(String(item.model), String(modelData[0]?.model))
-      );
 
   interface ProductRefs {
     [key: string]: RefObject<HTMLElement>;
@@ -102,20 +71,9 @@ export function CarCoverSelector({
 
   const { addToCart } = useCartContext();
 
-  const pathname = usePathname();
-
-  const uniqueColors = isCompleteSelection
-    ? Array.from(new Set(modelData.map((model) => model.display_color))).map(
-        (color) => modelData.find((model) => model.display_color === color)
-      )
-    : Array.from(new Set(modelData.map((model) => model.display_color))).map(
-        (color) =>
-          modelData.find(
-            (model) =>
-              model.display_color === color &&
-              model.year_generation === model.parent_generation
-          )
-      );
+  const uniqueColors = Array.from(
+    new Set(modelData.map((model) => model.display_color))
+  ).map((color) => modelData.find((model) => model.display_color === color));
 
   console.log(uniqueColors);
 
@@ -133,17 +91,13 @@ export function CarCoverSelector({
       ?.split(',')
       .filter((img) => img !== featuredImage) ?? [];
 
-  console.log('selectedProduct', selectedProduct);
-
-  const fullProductName = `${pathname?.includes(selectedProduct?.parent_generation as string) ? selectedProduct?.parent_generation : ''}
-  ${selectedProduct?.make} ${params?.model ? selectedProduct?.product_name : ''} 
-  `;
+  const productName = modelData[0].fullProductName;
 
   console.log(selectedProduct.product_name);
   return (
     <section className="mx-auto h-auto w-full max-w-[1280px] px-4 lg:my-8">
       <div className="flex w-full flex-col items-start justify-between lg:flex-row lg:gap-14">
-        {isMobile && <EditVehiclePopover fullProductName={fullProductName} />}
+        {isMobile && <EditVehiclePopover fullProductName={productName} />}
         {/* Left Panel */}
         <PrimaryImageDisplay
           productImages={productImages}
@@ -161,7 +115,7 @@ export function CarCoverSelector({
             </span>
           </p>
           <ColorSelector
-            uniqueColors={uniqueColors as TProductData[]}
+            uniqueColors={uniqueColors as IProductData[]}
             productRefs={productRefs}
             setFeaturedImage={setFeaturedImage}
             setSelectedProduct={setSelectedProduct}
@@ -169,7 +123,7 @@ export function CarCoverSelector({
           />
           <Separator className="my-4" />
           <TypeSelector
-            uniqueTypes={uniqueTypes as TProductData[]}
+            uniqueTypes={uniqueTypes as IProductData[]}
             setFeaturedImage={setFeaturedImage}
             setSelectedProduct={setSelectedProduct}
             selectedProduct={selectedProduct}
@@ -182,7 +136,6 @@ export function CarCoverSelector({
             reviewData={reviewData}
             selectedProduct={selectedProduct}
             handleAddToCart={handleAddToCart}
-            isReadyForProductSelection={isCompleteSelection}
             reviewCount={reviewCount}
             avgReviewScore={avgReviewScore}
           />
