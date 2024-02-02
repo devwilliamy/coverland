@@ -35,26 +35,26 @@ const TrendingCarsSection = () => {
                 <p className=" mb-[15px] text-[24px] font-black leading-[24px] tracking-wide text-white">
                   {title}
                 </p>
-                <p className=" mb-[18px] text-[14px] font-[500] leading-[24px] tracking-wide text-white">
-                  See All-{title} <br />
+                <div className="mb-[18px] text-[14px] font-[500] leading-[24px] tracking-wide text-white">
+                  See All-{title}
                   <div className="flex items-end gap-2">
                     <div>Custom Car Covers</div>
                     <ArrowRight className="max-h-[24px] max-w-[16px]" />
                   </div>
-                </p>
+                </div>
               </div>
 
               <div className="absolute bottom-[35px] left-[25px] hidden lg:block">
                 <p className="mb-[20px] text-[38px] font-black leading-[24px] tracking-wide text-white">
                   {title}
                 </p>
-                <p className="mb-[18px] text-[16px] font-[500] leading-[24px] tracking-wide text-white">
+                <div className="mb-[18px] text-[16px] font-[500] leading-[24px] tracking-wide text-white">
                   See All-{title} <br />
                   <div className="flex items-end gap-2">
                     <div>Custom Car Covers</div>
                     <ArrowRight className="max-h-[24px] max-w-[16px]" />
                   </div>
-                </p>
+                </div>
               </div>
             </a>
           </div>

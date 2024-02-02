@@ -18,7 +18,7 @@ export function PDPAccordion() {
             Q&A
           </div>
           <AccordionItem value="item-1">
-            <AccordionTrigger className="text-left text-base font-black capitalize  text-[#1A1A1A] md:text-xl lg:py-8 lg:text-[28px]">
+            <AccordionTrigger className="text-left text-base font-black  text-[#1A1A1A] md:text-xl lg:py-8 lg:text-[28px]">
               Why is this car cover a good choice?
             </AccordionTrigger>
             <AccordionContent className="text-sm font-normal text-[#1A1A1A] md:text-lg">
@@ -29,7 +29,7 @@ export function PDPAccordion() {
             </AccordionContent>
           </AccordionItem>
           <AccordionItem value="item-2">
-            <AccordionTrigger className="py-4 text-left text-base font-black capitalize text-[#1A1A1A] md:py-6 md:text-xl lg:py-8 lg:text-[28px]">
+            <AccordionTrigger className="py-4 text-left text-base font-black text-[#1A1A1A] md:py-6 md:text-xl lg:py-8 lg:text-[28px]">
               How many layers does your car cover have?
             </AccordionTrigger>
             <AccordionContent className="text-sm font-normal text-[#1A1A1A] md:text-lg">
@@ -40,7 +40,7 @@ export function PDPAccordion() {
             </AccordionContent>
           </AccordionItem>
           <AccordionItem value="item-3">
-            <AccordionTrigger className="py-4 text-left text-base font-black capitalize text-[#1A1A1A] md:py-6 md:text-xl lg:py-8 lg:text-[28px]">
+            <AccordionTrigger className="py-4 text-left text-base font-black text-[#1A1A1A] md:py-6 md:text-xl lg:py-8 lg:text-[28px]">
               What special features does this cover have?{' '}
             </AccordionTrigger>
             <AccordionContent className="text-sm font-normal text-[#1A1A1A] md:text-lg">
@@ -50,7 +50,7 @@ export function PDPAccordion() {
             </AccordionContent>
           </AccordionItem>
           <AccordionItem value="item-4">
-            <AccordionTrigger className="py-4 text-left text-base font-black capitalize text-[#1A1A1A] md:py-6 md:text-xl lg:py-8 lg:text-[28px]">
+            <AccordionTrigger className="py-4 text-left text-base font-black text-[#1A1A1A] md:py-6 md:text-xl lg:py-8 lg:text-[28px]">
               Will this fit my car?{' '}
             </AccordionTrigger>
             <AccordionContent className="text-sm font-normal text-[#1A1A1A] md:text-lg">
@@ -59,7 +59,7 @@ export function PDPAccordion() {
             </AccordionContent>
           </AccordionItem>
           <AccordionItem value="item-5">
-            <AccordionTrigger className="py-4 text-left text-base font-black capitalize text-[#1A1A1A] md:py-6 md:text-xl lg:py-8 lg:text-[28px]">
+            <AccordionTrigger className="py-4 text-left text-base font-black text-[#1A1A1A] md:py-6 md:text-xl lg:py-8 lg:text-[28px]">
               What if I&apos;m not happy with it?{' '}
             </AccordionTrigger>
             <AccordionContent className="text-sm font-normal text-[#1A1A1A] md:text-lg">
@@ -70,7 +70,7 @@ export function PDPAccordion() {
             </AccordionContent>
           </AccordionItem>
           <AccordionItem value="item-6">
-            <AccordionTrigger className="py-4 text-left text-base font-black capitalize text-[#1A1A1A] md:py-6 md:text-xl lg:py-8 lg:text-[28px]">
+            <AccordionTrigger className="py-4 text-left text-base font-black text-[#1A1A1A] md:py-6 md:text-xl lg:py-8 lg:text-[28px]">
               Is it safe to leave my car covered outside in heavy rain?{' '}
             </AccordionTrigger>
             <AccordionContent className="text-sm font-normal text-[#1A1A1A] md:text-lg">
@@ -84,8 +84,8 @@ export function PDPAccordion() {
             </AccordionContent>
           </AccordionItem>
           <AccordionItem value="item-7">
-            <AccordionTrigger className="py-4 text-left text-base font-black capitalize text-[#1A1A1A] md:py-6 md:text-xl lg:py-8 lg:text-[28px]">
-              Does this cover protect from the Sun?{' '}
+            <AccordionTrigger className="py-4 text-left text-base font-black text-[#1A1A1A] md:py-6 md:text-xl lg:py-8 lg:text-[28px]">
+              Does this cover protect from the sun?{' '}
             </AccordionTrigger>
             <AccordionContent className="text-sm font-normal text-[#1A1A1A] md:text-lg">
               Yes. This car cover guarantees to provide you with 100% protection
@@ -95,7 +95,7 @@ export function PDPAccordion() {
             </AccordionContent>
           </AccordionItem>
           <AccordionItem value="item-8">
-            <AccordionTrigger className="py-4 text-left text-base font-black capitalize text-[#1A1A1A] md:py-6 md:text-xl lg:py-8 lg:text-[28px]">
+            <AccordionTrigger className="py-4 text-left text-base font-black text-[#1A1A1A] md:py-6 md:text-xl lg:py-8 lg:text-[28px]">
               Can I use your car cover on a windy day?{' '}
             </AccordionTrigger>
             <AccordionContent className="text-sm font-normal text-[#1A1A1A] md:text-lg">
@@ -105,7 +105,7 @@ export function PDPAccordion() {
             </AccordionContent>
           </AccordionItem>
           <AccordionItem value="item-9">
-            <AccordionTrigger className="py-4 text-left text-base font-black capitalize text-[#1A1A1A] md:py-6 md:text-xl lg:py-8 lg:text-[28px]">
+            <AccordionTrigger className="py-4 text-left text-base font-black text-[#1A1A1A] md:py-6 md:text-xl lg:py-8 lg:text-[28px]">
               When will I receive my order?{' '}
             </AccordionTrigger>
             <AccordionContent className="text-sm font-normal text-[#1A1A1A] md:text-lg">
