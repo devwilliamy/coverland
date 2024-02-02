@@ -1,4 +1,6 @@
 import dynamic from 'next/dynamic';
+import SquareVideo from '@/videos/Square Ratio.mp4';
+import SquareThumbnail from '@/video/Thumbnail_Square.webp';
 
 const ProductVideo = dynamic(() => import('@/components/PDP/ProductVideo'), {
   ssr: false,
@@ -15,7 +17,7 @@ export default function HomepageVideoSection() {
         Perfect Solution for All Weather
       </p>
       <span className="flex w-full flex-col items-center bg-[#1A1A1A] pt-[40px] lg:px-[150px] lg:pt-[92px]">
-        <ProductVideo />
+        <ProductVideo src={SquareVideo} imgSrc={SquareThumbnail} />
         <button className="my-[30px] flex min-h-[48px] w-full max-w-[214px]  flex-col items-center justify-center rounded-[4px] bg-[#BE1B1B] px-[40px] py-[15px] text-[16px] font-black text-white ">
           <a href="/car-covers">Shop Now</a>
         </button>

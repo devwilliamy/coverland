@@ -8,6 +8,9 @@ import {
 } from '@/components/ui/carousel';
 import Image from 'next/image';
 import { TProductData } from '@/lib/db';
+import SquareVideo from '@/videos/Square Ratio.mp4';
+import SquareThumbnail from '@/video/Thumbnail_Square.webp';
+import SevenSecVideo from '@/videos/7sec Listing Video_2.mp4';
 
 const ActiveDot = () => (
   <div className="relative flex h-2.5 w-2.5">
@@ -69,21 +72,28 @@ export const MobileImageCarousel = ({
             />
           </CarouselItem>
           <CarouselItem>
-            <ProductVideo />
+            <ProductVideo src={SquareVideo} imgSrc={SquareThumbnail} />
           </CarouselItem>
           {productImages.map((image, index) => (
-            <CarouselItem key={index}>
-              <Image
-                src={image}
-                alt={`Additional images of the ${selectedProduct.display_id} cover`}
-                width={500}
-                height={500}
-                // placeholder="blur"
-                onError={() => console.log('Failed image:', `${image}`)}
-              />
-            </CarouselItem>
+            <>
+              {index === 1 ? (
+                <CarouselItem key={index}>
+                  <ProductVideo src={SevenSecVideo} autoplay loop />
+                </CarouselItem>
+              ) : (
+                <CarouselItem key={index}>
+                  <Image
+                    src={image}
+                    alt={`Additional images of the ${selectedProduct.display_id} cover`}
+                    width={500}
+                    height={500}
+                    // placeholder="blur"
+                    onError={() => console.log('Failed image:', `${image}`)}
+                  />
+                </CarouselItem>
+              )}
+            </>
           ))}
-          
         </CarouselContent>
       </Carousel>
       <div className="flex w-full items-center justify-center gap-2 bg-white py-2">

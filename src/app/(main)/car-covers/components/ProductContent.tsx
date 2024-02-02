@@ -41,6 +41,9 @@ import { generateProductsLeft } from '@/lib/utils';
 import Dialog from '@/components/ui/dialog-tailwind-ui';
 import { useRouter } from 'next/navigation';
 import { compareRawStrings } from '@/lib/utils';
+import ProductVideo from '@/components/PDP/ProductVideo';
+import SquareVideo from '@/videos/Square Ratio.mp4';
+import SquareThumbnail from '@/video/Thumbnail_Square.webp';
 
 export function ProductContent({
   selectedProduct,
@@ -292,6 +295,7 @@ export function ProductContent({
       </div> */}
 
       <Separator className="my-8" />
+      {isMobile && <ProductVideo src={SquareVideo} imgSrc={SquareThumbnail} />}
       {/* Selling Attributes */}
       <div className="grid grid-cols-2 gap-4 pb-4">
         <div className="flex flex-row">
