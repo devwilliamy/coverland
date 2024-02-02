@@ -44,6 +44,8 @@ import {
 } from '@/components/PDP/images';
 import { MoneyBackIcon } from '@/components/PDP/images/MoneyBack';
 import { DropdownPDP } from '@/components/PDP/DropdownPDP';
+import SquareVideo from '@/videos/Coverland_Square.mp4';
+import SquareThumbnail from '@/video/Thumbnail_Square.webp';
 
 const EditVehiclePopover = dynamicImport(
   () => import('@/components/PDP/components/EditVehiclePopover'),
@@ -140,7 +142,10 @@ export function PartialCoverSelector({
             </div>
 
             {/* Product Video */}
-            {<ProductVideo />}
+            {!isMobile && (
+              <ProductVideo src={SquareVideo} imgSrc={SquareThumbnail} />
+            )}
+
             {/* Gallery Images */}
             <div className="hidden w-auto grid-cols-2 gap-[16px] pt-4 lg:grid ">
               {selectedCover.images.map((img, idx) => (
@@ -465,6 +470,9 @@ export function PartialCoverSelector({
           </div> */}
 
           <Separator className="my-8" />
+          {!isMobile && (
+            <ProductVideo src={SquareVideo} imgSrc={SquareThumbnail} />
+          )}
           {/* Selling Attributes */}
           <div className="grid grid-cols-2 gap-4 pb-4">
             <div className="flex flex-row">
@@ -701,7 +709,7 @@ const MobileImageCarousel = ({
           </CarouselItem>
           <CarouselItem>
             <div className="flex h-full flex-col justify-center">
-              <ProductVideo />
+              <ProductVideo src={SquareVideo} imgSrc={SquareThumbnail} />
             </div>
           </CarouselItem>
           {selectedCover.images.map((image, index) => (
