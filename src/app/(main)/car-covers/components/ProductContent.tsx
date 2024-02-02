@@ -38,9 +38,11 @@ import {
 import { IoClose } from 'react-icons/io5';
 import ReviewSection from '@/components/PDP/components/ReviewSection';
 import { generateProductsLeft } from '@/lib/utils';
-import Dialog from '@/components/ui/dialog-tailwind-ui';
-import { useRouter } from 'next/navigation';
 import { compareRawStrings } from '@/lib/utils';
+import BottomUpSheet from '@/components/ui/bottom-up-drawer';
+import AddToCartHeader from '@/components/cart/AddToCartHeader';
+import AddToCartFooter from '@/components/cart/AddToCartFooter';
+import AddToCartBody from '@/components/cart/AddToCartBody';
 
 export function ProductContent({
   selectedProduct,
@@ -67,7 +69,7 @@ export function ProductContent({
   const isMobile = useMediaQuery('(max-width: 768px)');
   const [addToCartOpen, setAddToCartOpen] = useState<boolean>(false);
   const [reviewDrawerOpen, setReviewDrawerOpen] = useState<boolean>(false);
-  const router = useRouter();
+
   return (
     <>
       <div className="grid grid-cols-1">
@@ -268,9 +270,7 @@ export function ProductContent({
                   sku: selectedProduct?.sku,
                 });
               handleAddToCart();
-              isMobile ? router.push('/checkout') : setAddToCartOpen(true);
-
-              // setAddToCartOpen(true);
+              setAddToCartOpen(true);
             }}
           >
             Add To Cart
@@ -421,16 +421,15 @@ export function ProductContent({
         </div>
       </div>
       {isMobile ? (
-        <Dialog open={addToCartOpen} setOpen={setAddToCartOpen} />
+        <BottomUpSheet
+          title={<AddToCartHeader />}
+          open={addToCartOpen}
+          setOpen={setAddToCartOpen}
+          footer={<AddToCartFooter />}
+        >
+          <AddToCartBody selectedProduct={selectedProduct} />
+        </BottomUpSheet>
       ) : (
-        // <BottomUpDrawer
-        //   title={<AddToCartHeader />}
-        //   open={addToCartOpen}
-        //   setOpen={setAddToCartOpen}
-        //   footer={<AddToCartFooter />}
-        // >
-        //   <AddToCartBody selectedProduct={selectedProduct} />
-        // </BottomUpDrawer>
         <CartSheet
           open={addToCartOpen}
           setOpen={setAddToCartOpen}
