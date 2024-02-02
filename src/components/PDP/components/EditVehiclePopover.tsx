@@ -18,15 +18,17 @@ export default function EditVehiclePopover({
 }) {
   const [open, setOpen] = useState(false);
   return (
-    <div className="flex flex-col gap-2 lg:hidden">
-      <h2 className="font-roboto text-2xl font-extrabold text-[#1A1A1A]">
+    <div className="flex flex-col lg:hidden">
+      <h2 className=" max-h-[42px] text-[22px] font-[900] leading-[120%] text-[#1A1A1A]">
         {fullProductName}
       </h2>
-      <div className="flex items-center gap-2">
-        <EditIcon />
+      <div className="mt-3.5 flex items-center gap-1.5">
+        <div className="flex aspect-square max-h-[16px] min-h-[16px] items-center">
+          <EditIcon />
+        </div>
         <Drawer.Root open={open} onOpenChange={setOpen}>
           <Drawer.Trigger className="text-left text-base font-black text-[#1A1A1A] !no-underline">
-            <p className="font-normal underline">Edit Vehicle</p>
+            <p className="text-[14px] font-[400]  underline">Edit Vehicle</p>
           </Drawer.Trigger>
           <Drawer.Portal>
             <Drawer.Overlay className="fixed inset-0 bg-black/40"></Drawer.Overlay>

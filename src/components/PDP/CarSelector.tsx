@@ -252,7 +252,7 @@ function CarSelector({
       <div className="flex w-full flex-col items-start justify-between lg:flex-row lg:gap-14">
         {isMobile && <EditVehiclePopover fullProductName={fullProductName} />}
         {/* Left Panel */}
-        <div className=" -ml-4 mt-[29px] flex h-auto w-screen flex-col items-stretch justify-center pb-2 lg:w-3/5 lg:pb-0 ">
+        <div className=" -ml-4  flex h-auto w-screen flex-col items-stretch justify-center pb-2 lg:w-3/5 lg:pb-0 ">
           {/* Featured Image */}
           <div
             className={`${
