@@ -12,7 +12,7 @@ import { TReviewData } from '@/lib/db';
 import { useState } from 'react';
 
 type ReviewSheetProps = {
-  reviewData: TReviewData[];
+  reviewData: TReviewData[] | undefined | null;
 };
 
 export default function ReviewSheet({ reviewData }: ReviewSheetProps) {
