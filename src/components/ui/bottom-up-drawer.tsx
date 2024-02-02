@@ -1,7 +1,13 @@
 import { IoClose } from 'react-icons/io5';
-import { Drawer } from 'vaul';
+import {
+  Sheet,
+  SheetContent,
+  SheetOverlay,
+  SheetPortal,
+  SheetTrigger,
+} from '@/components/ui/sheet';
 
-type BottomUpDrawerProps = {
+type BottomUpSheetProps = {
   title: React.ReactNode;
   children: React.ReactNode;
   open?: boolean;
@@ -10,7 +16,7 @@ type BottomUpDrawerProps = {
   underTrigger?: React.ReactNode;
   footer?: React.ReactNode;
 };
-export default function BottomUpDrawer({
+export default function BottomUpSheet({
   title,
   children,
   open,
@@ -18,16 +24,19 @@ export default function BottomUpDrawer({
   trigger,
   underTrigger,
   footer,
-}: BottomUpDrawerProps): JSX.Element {
+}: BottomUpSheetProps): JSX.Element {
   return (
-    <Drawer.Root open={open} onOpenChange={setOpen}>
-      <Drawer.Trigger className="">{trigger}</Drawer.Trigger>
+    <Sheet open={open}>
+      <SheetTrigger asChild>{trigger}</SheetTrigger>
       {underTrigger}
-      <Drawer.Portal>
-        <Drawer.Overlay className="fixed inset-0 bg-black/40"></Drawer.Overlay>
-        <Drawer.Content className="fixed bottom-0 left-0 right-0 z-[100] flex max-h-[75vh] flex-col rounded-t-[20px] bg-white">
+      <SheetPortal>
+        <SheetOverlay className="fixed inset-0 bg-black/40"></SheetOverlay>
+        <SheetContent
+          className="fixed bottom-0 left-0 right-0 z-[100] flex max-h-[75vh] flex-col rounded-t-[20px] bg-white"
+          side="bottom"
+        >
           <div
-            id="DrawerHeader"
+            id="SheetHeader"
             className="absolute left-0 top-0 z-[100] mx-[-0.05px] max-h-[175px] w-full rounded-t-[20px] bg-white px-4 "
           >
             <div className="flex items-center justify-end border-b border-[#C8C7C7]">
@@ -43,18 +52,18 @@ export default function BottomUpDrawer({
             </div>
           </div>
           <div
-            id="DrawerContentContainer"
+            id="SheetContentContainer"
             className="mx-auto flex min-h-[50vh] w-full flex-col overflow-y-scroll px-4 pt-20"
           >
             <div>{children}</div>
           </div>
-          <div id="DrawerFooterContainer">
+          <div id="SheetFooterContainer">
             <div className="min-h-[5vh] w-full bg-white shadow-[0_-4px_4px_-0px_rgba(0,0,0,0.1)]">
               {footer}
             </div>
           </div>
-        </Drawer.Content>
-      </Drawer.Portal>
-    </Drawer.Root>
+        </SheetContent>
+      </SheetPortal>
+    </Sheet>
   );
 }
