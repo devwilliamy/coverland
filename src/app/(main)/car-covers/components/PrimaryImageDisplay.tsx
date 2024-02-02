@@ -9,6 +9,8 @@ import { SelectedProductImages } from './SelectedProductImages';
 import { Button } from '@/components/ui/button';
 import { TCarCoverData } from './CarPDP';
 import dynamic from 'next/dynamic';
+import SquareVideo from '@/videos/Coverland_Square.mp4';
+import SquareThumbnail from '@/video/Thumbnail_Square.webp';
 
 const ProductVideo = dynamic(() => import('@/components/PDP/ProductVideo'), {
   ssr: false,
@@ -57,7 +59,9 @@ export function PrimaryImageDisplay({
         </div>
 
         {/* Product Video */}
-        {!isMobile && <ProductVideo />}
+        {!isMobile && (
+          <ProductVideo src={SquareVideo} imgSrc={SquareThumbnail} />
+        )}
         {/* Gallery Images */}
         <SelectedProductImages
           productImages={productImages}

@@ -44,6 +44,8 @@ import AddToCartHeader from '../cart/AddToCartHeader';
 import AddToCartFooter from '../cart/AddToCartFooter';
 import AddToCartBody from '../cart/AddToCartBody';
 import BottomUpSheet from '../ui/bottom-up-drawer';
+import SquareVideo from '@/videos/Coverland_Square.mp4';
+import SquareThumbnail from '@/video/Thumbnail_Square.webp';
 
 const ProductVideo = dynamicImport(() => import('./ProductVideo'), {
   ssr: false,
@@ -278,7 +280,9 @@ function CarSelector({
             </div>
 
             {/* Product Video */}
-            {!isMobile && <ProductVideo />}
+            {!isMobile && (
+              <ProductVideo src={SquareVideo} imgSrc={SquareThumbnail} />
+            )}
             {/* Gallery Images */}
             <div className="hidden w-auto grid-cols-2 gap-[16px] pt-4 lg:grid ">
               {productImages.map((img, idx) => (
@@ -657,6 +661,11 @@ function CarSelector({
           </div> */}
 
           <Separator className="my-8" />
+          {isMobile && (
+            <div className="pb-5">
+              <ProductVideo src={SquareVideo} imgSrc={SquareThumbnail} />
+            </div>
+          )}
           {/* Selling Attributes */}
           <div className="grid grid-cols-2 gap-4 pb-4">
             <div className="flex flex-row">
