@@ -1,23 +1,32 @@
 import { Suspense } from 'react';
 import { ExtraProductDetails } from '@/components/PDP/OtherDetails';
-import PartialCoverSelector from './components/PartialCoverSelector';
-import { IProductData } from '../utils';
+import {
+  defaultCarModelData,
+  defaultSuvModelData,
+  defaultTruckModelData,
+} from '@/lib/constants';
+import { TInitialProductDataDB } from '@/lib/db';
+import CarPDP from './components/CarPDP';
 
-export default async function CarPDPModelDataLayer() {
-  const modelData = [{}];
+export default async function CarPDPModelDataLayer({
+  params,
+}: {
+  params: { productType: string };
+}) {
   const reviewData = [{}] as any;
-  const modelParam = '';
-  const makeParam = '';
+  const productType = params.productType;
+
+  const modelData: TInitialProductDataDB[] =
+    productType === 'car-covers'
+      ? defaultCarModelData
+      : productType === 'suv-covers'
+        ? defaultSuvModelData
+        : defaultTruckModelData;
 
   return (
     <>
       <Suspense fallback={<div>Loading...</div>}>
-        <PartialCoverSelector
-          modelData={modelData as IProductData[]}
-          reviewData={reviewData}
-          modelParam={modelParam}
-          makeParam={makeParam}
-        />
+        <CarPDP modelData={modelData} reviewData={reviewData} params={params} />
       </Suspense>
 
       <div

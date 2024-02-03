@@ -3,10 +3,8 @@
 // import { TReviewData } from '@/lib/db';
 import { Separator } from '@/components/ui/separator';
 import React, { RefObject, useContext, useRef } from 'react';
-import { useCartContext } from '@/providers/CartProvider';
 import { useMediaQuery } from '@mantine/hooks';
 import dynamicImport from 'next/dynamic';
-import { TCartItem } from '@/lib/cart/useCart';
 import { PrimaryImageDisplay } from './PrimaryImageDisplay';
 import { ColorSelector } from './ColorSelector';
 import { TypeSelector } from './TypeSelector';
@@ -69,8 +67,6 @@ export function CarCoverSelector({
 
   const isMobile = useMediaQuery('(max-width: 768px)');
 
-  const { addToCart } = useCartContext();
-
   const uniqueColors = Array.from(
     new Set(modelData.map((model) => model.display_color))
   ).map((color) => modelData.find((model) => model.display_color === color));
@@ -80,11 +76,6 @@ export function CarCoverSelector({
   const uniqueTypes = Array.from(
     new Set(modelData.map((model) => model.display_id))
   ).map((type) => modelData.find((model) => model.display_id === type));
-
-  const handleAddToCart = () => {
-    if (!selectedProduct) return;
-    return addToCart({ ...selectedProduct, quantity: 1 } as TCartItem);
-  };
 
   const productImages =
     selectedProduct?.product
@@ -135,7 +126,6 @@ export function CarCoverSelector({
             modelData={modelData}
             reviewData={reviewData}
             selectedProduct={selectedProduct}
-            handleAddToCart={handleAddToCart}
             reviewCount={reviewCount}
             avgReviewScore={avgReviewScore}
           />

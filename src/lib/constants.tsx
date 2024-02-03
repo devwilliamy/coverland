@@ -5,6 +5,9 @@ import BlackGray2Tone from '@/category-images-new/01-2to-bkgr.webp';
 import BlackRed2Tone from '@/category-images-new/01-2to-bkrd.webp';
 import GrayBlackTribe from '@/category-images-new/01-tri-grbk.webp';
 import SolidGray from '@/category-images-new/01-ps-gr-1to.webp';
+import carData from '@/data/default_car_data.json';
+import suvData from '@/data/default_suv_data.json';
+import truckData from '@/data/default_truck_data.json';
 
 export const modelStrings: Record<string, string> = {
   'car-covers': 'Car Covers',
@@ -1059,3 +1062,7 @@ const truckImages: Partial<Record<(typeof colorOrder)[number], string[]>> = {
 };
 
 export const DEFAULT_PRODUCT_IMAGES = { suvImages, carImages, truckImages };
+
+export const defaultCarModelData = carData;
+export const defaultSuvModelData = suvData;
+export const defaultTruckModelData = truckData;

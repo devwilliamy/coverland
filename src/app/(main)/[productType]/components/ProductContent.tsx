@@ -39,11 +39,16 @@ import { IoClose } from 'react-icons/io5';
 import ReviewSection from '@/components/PDP/components/ReviewSection';
 import { generateProductsLeft } from '@/lib/utils';
 import Dialog from '@/components/ui/dialog-tailwind-ui';
-import { useRouter } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
 import { compareRawStrings } from '@/lib/utils';
 import { useStore } from 'zustand';
 import { useCartContext } from '@/providers/CartProvider';
-import { getCompleteSelectionData, getUniqueValues } from '../../utils';
+import {
+  TPathParams,
+  getCompleteSelectionData,
+  getUniqueValues,
+} from '../../utils';
+import EditVehicleDropdown from '@/components/PDP/EditVehicleDropdown';
 
 export function ProductContent({
   selectedProduct,
@@ -56,7 +61,6 @@ export function ProductContent({
   reviewCount: number;
   avgReviewScore: string;
   reviewData: TReviewData[] | undefined | null;
-  handleAddToCart: () => void;
 }) {
   const productType = compareRawStrings(selectedProduct?.type, 'car covers')
     ? 'Car Cover'
@@ -64,6 +68,9 @@ export function ProductContent({
       ? 'SUV Cover'
       : 'Truck Cover';
   const isMobile = useMediaQuery('(max-width: 768px)');
+  const router = useRouter();
+  const params = useParams<TPathParams>();
+
   const [addToCartOpen, setAddToCartOpen] = useState<boolean>(false);
   const [reviewDrawerOpen, setReviewDrawerOpen] = useState<boolean>(false);
   const [submodelSelectionOpen, setSubmodelSelectionOpen] =
@@ -71,10 +78,26 @@ export function ProductContent({
 
   const store = useContext(CarSelectionContext);
   if (!store) throw new Error('Missing CarContext.Provider in the tree');
+  const modelData = useStore(store, (s) => s.modelData);
+  const color = useStore(store, (s) => s.selectedColor);
 
-  const modelData = useStore(store, (s) => s.hasSubmodels());
+  const { addToCart } = useCartContext();
 
-  console.log(modelData);
+  const cartProduct = modelData.find((p) => p.display_color === color);
+
+  const handleAddToCart = () => {
+    if (!cartProduct) return;
+    console.log(cartProduct);
+    return addToCart({ ...cartProduct, quantity: 1 });
+  };
+
+  const {
+    completeSelectionState: { isComplete },
+  } = getCompleteSelectionData({
+    data: modelData,
+  });
+
+  const isTypePage = params?.productType && !params?.make;
 
   return (
     <>
@@ -255,22 +278,27 @@ export function ProductContent({
         </div>
 
         {/* Add to Cart Button */}
-        <Button
-          className="mt-4 h-[48px] w-full rounded bg-[#BE1B1B] text-lg font-bold uppercase text-white disabled:bg-[#BE1B1B] md:h-[62px] md:text-xl"
-          onClick={() => {
-            // selectedProduct?.sku &&
-            //   track('PDP_add_to_cart', {
-            //     sku: selectedProduct?.sku,
-            //   });
-            // handleAddToCart();
-            // isMobile ? router.push('/checkout') : setAddToCartOpen(true);
-            setSubmodelSelectionOpen((p) => !p);
-
-            // setAddToCartOpen(true);
-          }}
-        >
-          Add To Cart
-        </Button>
+        {isTypePage ? (
+          <VehicleSelector />
+        ) : (
+          <Button
+            className="mt-4 h-[48px] w-full rounded bg-[#BE1B1B] text-lg font-bold uppercase text-white disabled:bg-[#BE1B1B] md:h-[62px] md:text-xl"
+            onClick={() => {
+              selectedProduct?.sku &&
+                track('PDP_add_to_cart', {
+                  sku: selectedProduct?.sku,
+                });
+              if (isComplete) {
+                handleAddToCart();
+                isMobile ? router.push('/checkout') : setAddToCartOpen(true);
+                return;
+              }
+              setSubmodelSelectionOpen((p) => !p);
+            }}
+          >
+            Add To Cart
+          </Button>
+        )}
       </div>
       {/* <div className="pt-5 ml-2">
         <p className="text-[#1A1A1A] text-base font-normal">
@@ -453,6 +481,10 @@ const AddToCartSelector = ({
   const selectedProduct = useStore(store, (s) => s.selectedProduct);
   const color = useStore(store, (s) => s.selectedColor);
 
+  const router = useRouter();
+
+  const { addToCart } = useCartContext();
+
   const { completeSelectionState } = getCompleteSelectionData({
     data: modelData,
   });
@@ -462,7 +494,7 @@ const AddToCartSelector = ({
     shouldDisplayMake,
     shouldDisplayModel,
     shouldDisplaySecondSubmodel,
-    shouldDisplaySubmodel,
+    isComplete,
   } = completeSelectionState;
 
   const {
@@ -473,13 +505,15 @@ const AddToCartSelector = ({
     uniqueYears,
   } = getUniqueValues({ data: initModelData, queryState: queryState });
 
-  console.log(modelData.length, modelData);
+  const cartProduct = modelData.find((p) => p.display_color === color);
 
-  console.log(queryState);
+  const handleAddToCart = () => {
+    if (!cartProduct) return;
+    console.log(cartProduct);
+    return addToCart({ ...cartProduct, quantity: 1 });
+  };
 
-  console.log(completeSelectionState);
-
-  const router = useRouter();
+  console.log(isComplete);
 
   const TypeDropdown = () => {
     const typeOptions = ['Car Covers', 'SUV Covers', 'Truck Covers'];
@@ -623,16 +657,6 @@ const AddToCartSelector = ({
     );
   };
 
-  const { addToCart } = useCartContext();
-
-  const cartProduct = modelData.find((p) => p.display_color === color);
-
-  const handleAddToCart = () => {
-    if (!cartProduct) return;
-    console.log(cartProduct);
-    return addToCart({ ...cartProduct, quantity: 1 });
-  };
-
   return (
     <Drawer
       open={submodelSelectionOpen}
@@ -649,8 +673,10 @@ const AddToCartSelector = ({
           <MakeDropdown />
           <ModelDropdown />
           <YearDropdown />
-          {shouldDisplaySubmodel && <SubmodelDropdown />}
-          {shouldDisplaySecondSubmodel && <SecondSubmodelDropdown />}
+          {queryState.year && !isComplete && <SubmodelDropdown />}
+          {shouldDisplaySecondSubmodel && queryState.submodel && (
+            <SecondSubmodelDropdown />
+          )}
         </div>
         <DrawerFooter className="bg-white">
           <p className="text-right text-black">
@@ -658,9 +684,11 @@ const AddToCartSelector = ({
           </p>
           <Button
             onClick={() => {
+              if (!isComplete) return;
               handleAddToCart();
               router.push('/checkout');
             }}
+            disabled={!isComplete}
           >
             Add To Cart
           </Button>
@@ -669,3 +697,7 @@ const AddToCartSelector = ({
     </Drawer>
   );
 };
+
+function VehicleSelector() {
+  return <EditVehicleDropdown />;
+}
