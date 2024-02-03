@@ -16,10 +16,10 @@ import {
   PopoverTrigger,
 } from '@/components/ui/popover';
 import { Separator } from '@/components/ui/separator';
-import { TReviewData } from '@/lib/db';
+import { TProductData, TReviewData } from '@/lib/db';
 import { Rating } from '@mui/material';
 import { track } from '@vercel/analytics';
-import Image from 'next/image';
+import Image, { StaticImageData } from 'next/image';
 import Link from 'next/link';
 import { BsBoxSeam, BsGift } from 'react-icons/bs';
 import { GoDotFill } from 'react-icons/go';
@@ -51,20 +51,22 @@ import {
 } from '@/components/ui/carousel';
 import ReviewCard from '@/components/PDP/components/ReviewCard';
 import { CheckIcon } from '@/components/PDP/components/icons';
-import color1 from '@/images/PDP/black-red-icon.svg';
-import color2 from '@/images/PDP/black-gray-icon.svg';
-import color3 from '@/images/PDP/gray-black-icon-2.svg';
-import color4 from '@/images/PDP/gray-red-black-icon.svg';
-import color5 from '@/images/PDP/gray-black-icon.svg';
-import color6 from '@/images/PDP/red-black-icon.svg';
+import GrayBlackTribe from '@/images/PDP/gray-black-tribe.svg';
+import BlackGrayStripe from '@/images/PDP/black-gray-stripe.svg';
+import BlackGray2Tone from '@/images/PDP/black-gray-2-tone.svg';
+import GrayBlackStripe from '@/images/PDP/gray-black-stripe.svg';
+import BlackRedStripe from '@/images/PDP/black-red-stripe.svg';
+import BlackRed2Tone from '@/images/PDP/black-red-2-tone.svg';
 import CustomerImagesDrawer from './CustomerImagesDrawer';
-
-const colors = [color1, color2, color3, color4, color5, color6];
+import FourIconGrid from './FitGuranteedGrid';
+import NeedHelp from './NeedHelp';
+import FreeDetails from './FreeDetails';
+import AddToCart from './AddToCart';
 
 export function ProductContent({
   selectedProduct,
-  // uniqueColors,
-  // uniqueTypes,
+  setSelectedProduct,
+  uniqueColors,
   reviewCount,
   avgReviewScore,
   reviewData,
@@ -73,8 +75,10 @@ export function ProductContent({
   modelData,
 }: {
   selectedProduct: TCarCoverData | null | undefined;
+  setSelectedProduct: React.Dispatch<
+    React.SetStateAction<TProductData | TCarCoverData>
+  >;
   uniqueColors?: [];
-  uniqueTypes?: [];
   modelData: TCarCoverData[];
   reviewCount: number;
   avgReviewScore: string;
@@ -95,36 +99,42 @@ export function ProductContent({
   const [customerImagesDrawerOpen, setCustomerImagesDrawerOpen] =
     useState<boolean>(false);
   const router = useRouter();
+  const coverColors = [
+    GrayBlackTribe,
+    BlackRed2Tone,
+    BlackGray2Tone,
+    BlackGrayStripe,
+    GrayBlackStripe,
+    BlackRedStripe,
+  ];
+  const colorMap = {
+    'Gray Black Tribe': GrayBlackTribe,
+    'Black Red 2-Tone': BlackRed2Tone,
+    'Black Gray 2-Tone': BlackGray2Tone,
+    'Black Gray Stripe': BlackGrayStripe,
+    'Gray Black Stripe': GrayBlackStripe,
+    'Black Red Stripe': BlackRedStripe,
+  };
 
-  // const [customerReviewsIndex, setCustomerReviewsIndex] = useState<number>(0);
-  // const [scrollSnaps, setCustomerImagesSnaps] = useState<number[]>([]);
+  const colors = [];
 
-  // useEffect(() => {
-  //   if (!customerCarouselApi) {
-  //     return;
-  //   }
+  for (const modelData of uniqueColors) {
+    if (colorMap[modelData.display_color]) {
+      colors.push(colorMap[modelData.display_color]);
+    }
+  }
 
-  //   setCustomerImagesSnaps(customerCarouselApi.scrollSnapList());
-  //   setCustomerReviewsIndex(customerCarouselApi.selectedScrollSnap());
-
-  //   customerCarouselApi.on('select', () => {
-  //     setCustomerReviewsIndex(customerCarouselApi.selectedScrollSnap());
-  //   });
-  // }, [customerCarouselApi]);
-
-  // const scrollToReview = useCallback(
-  //   (index: number) =>
-  //     customerCarouselApi && customerCarouselApi.scrollTo(index),
-  //   [customerCarouselApi]
-  // );
+  console.log(colors);
 
   return (
     <>
       <div className="grid grid-cols-1">
         <div className="flex flex-col gap-0.5">
-          <h2 className="text-[24px] font-[900] leading-[27px] text-[#1A1A1A] md:text-[28px]">
+          <h2 className="mt-[24px] text-[24px] font-[900] leading-[27px] text-[#1A1A1A] md:text-[28px]">
             {`${selectedProduct?.display_id}`}
-            &trade; {`${selectedProduct?.display_color} ${productType}`}
+            &trade;
+            <br />
+            {`Custom-Fit ${productType}`}
           </h2>
           {/* Reviews */}
           <div className="flex items-center gap-1">
@@ -187,7 +197,6 @@ export function ProductContent({
                 <DrawerTrigger
                   className="ml-2 text-[#0C87B8] underline"
                   disabled={!reviewCount}
-                  // className=" flex w-full flex-row items-center justify-between border-b-2 border-[#C8C7C7] py-4 text-left text-[22px] font-black uppercase text-[#1A1A1A] !no-underline"
                 >
                   {reviewCount || '2'} ratings
                 </DrawerTrigger>
@@ -220,31 +229,27 @@ export function ProductContent({
           </div>
           <p className="mb-2 text-gray-500">100+ Bought In Past Month</p>
         </div>
-        <div className="flex-start flex items-center">
-          <GoDotFill size={10} color="#008000 " />
-          <p className="pl-1 text-sm font-medium capitalize text-black">
-            Lifetime Warranty
-          </p>
+        <div className="flex-start flex items-center gap-2">
+          <div className="h-[7px] w-[7px] rounded-full bg-[#008000]" />
+          <p className="text-[12px] capitalize text-black">Lifetime Warranty</p>
         </div>
-        <div className="flex-start flex items-center leading-4">
-          <GoDotFill size={10} color="#008000 " />
-          <p className="pl-1 text-sm font-medium capitalize text-black">
-            In Stock
-          </p>
+        <div className="flex-start flex items-center gap-2 ">
+          <div className="h-[7px] w-[7px] rounded-full bg-[#008000]" />
+          <p className="text-[12px] capitalize text-black">In Stock</p>
         </div>
       </div>
       <section className="pt-6 md:pt-11">
         <div className="grid grid-cols-1">
-          <p className="mb-[16px] flex max-h-[20px] items-center gap-[15px] text-[28px] font-[900] leading-[32px] ">
+          <p className="mb-[16px] flex max-h-[20px] items-center gap-[15px] text-[28px] font-[900] leading-[32px] lg:text-[32px] lg:leading-[37.5px] ">
             ${selectedProduct?.msrp}
             {selectedProduct?.display_id !== 'Premium' && (
-              <span className=" text-lg font-[400] capitalize leading-[14px] text-[#FF0005]">
+              <span className=" text-[18px] text-lg font-[400] capitalize leading-[14px] text-[#FF0005] lg:text-[20px]">
                 only {generateProductsLeft(selectedProduct)} left
               </span>
             )}
           </p>
           {selectedProduct?.price && (
-            <p className="text-[20px] font-[400] leading-[14px] text-[#FF0005] lg:text-[22px] ">
+            <p className="text-[20px]  font-[400] leading-[14px] text-[#FF0005] lg:text-[22px] ">
               Save 50%!{' '}
               <span className=" text-[#BEBEBE] line-through">{`$${Number(selectedProduct?.price) - Number(selectedProduct?.msrp)}`}</span>
             </p>
@@ -258,112 +263,67 @@ export function ProductContent({
         <h3 className="mb-[6px] max-h-[13px] text-[16px] font-[400] leading-[14px] text-black ">
           Select Color
         </h3>
-        <div className="flex w-full min-w-[288px]  gap-[11px] overflow-x-scroll py-[1px]">
-          {colors &&
-            colors.map((color, index) => (
-              <div
-                key={`car-color-${index}`}
-                className={`flex ${index === colorCoverIndex && 'border-1 border border-[#6F6F6F] '} flex-col place-content-center rounded-full p-[2px] `}
-                onClick={() => setColorCoverIndex(index)}
-              >
-                <Image
-                  alt="cover-color"
-                  className="h-[34px] w-[34px]"
-                  src={color}
-                />
-              </div>
-            ))}
+        <div className="flex w-full min-w-[288px]  gap-[11px] overflow-x-auto py-[1px] md:overflow-x-hidden">
+          {uniqueColors &&
+            uniqueColors.map((modelData, index) => {
+              if (modelData.display_color === 'Solid Gray')
+                return (
+                  <div
+                    key={`car-color-${index}`}
+                    className={`flex ${index === colorCoverIndex && 'border-1 border border-[#6F6F6F] '} flex-col place-content-center rounded-full p-[2px] `}
+                    onClick={() => {
+                      setSelectedProduct(modelData);
+                      setColorCoverIndex(index);
+                    }}
+                  >
+                    <div className="h-[34px] w-[34px] rounded-full bg-[#D9D9D9]" />
+                  </div>
+                );
+
+              return (
+                <div
+                  key={`car-color-${index}`}
+                  className={`flex ${index === colorCoverIndex && 'border-1 border border-[#6F6F6F] '} flex-col place-content-center rounded-full p-[2px] `}
+                  onClick={() => {
+                    setSelectedProduct(modelData);
+                    setColorCoverIndex(index);
+                  }}
+                >
+                  <Image
+                    alt="cover-color"
+                    className="h-[34px] w-[34px]"
+                    src={colorMap[modelData.display_color]}
+                  />
+                </div>
+              );
+            })}
         </div>
       </section>
       <Separator className="mt-[36px]" />
-      <div className="flex flex-col items-start justify-start pt-8">
-        <div className="flex flex-row items-start justify-start">
-          <div className="flex flex-col items-start justify-start pr-4 pt-0">
-            <BsBoxSeam size={20} color="#000" />
-          </div>
-          <div className="flex w-full flex-col items-start justify-start md:w-auto">
-            <div className="mb-[9px] max-h-[10px] text-[14px] font-[400] leading-[100%]">
-              <span className="font-[700] uppercase">Free shipping</span>
-              <span className=""> - </span>
-              <DeliveryDate />
-            </div>
-            <div>
-              <TimeTo2PMPST />
-            </div>
-            <p className="mt-[7px] text-[14px] font-[400] leading-[16px] text-[#1B8500]">
-              Free Returns for 30 Days
-            </p>
-          </div>
+      <FreeDetails />
+      {!isReadyForProductSelection && (
+        <div className="mt-[34px] w-full">
+          <DropdownPDP modelData={modelData} />
         </div>
-        <div className="mt-[10px] flex items-center gap-[14px]">
-          <BsGift size={20} color="#000" />
-          <p className="text-[14px] font-[400] capitalize ">
-            <span className="font-bold uppercase">$30 free</span> value kit
-            included
-          </p>
-          {/* <BsInfoCircle size={20} color="#767676" /> */}
-        </div>
-
-        {/* Select Your Vehicle */}
-        {!isReadyForProductSelection && (
-          <div className="mt-8 w-full">
-            <DropdownPDP modelData={modelData} />
-          </div>
-        )}
-        {/* Add to Cart Button */}
-        {!isReadyForProductSelection || !selectedProduct ? (
-          <>
-            <Popover>
-              <PopoverTrigger asChild>
-                <Button className="mt-4 h-[48px] w-full rounded bg-[#BE1B1B] text-lg font-bold uppercase text-white disabled:bg-[#BE1B1B] md:h-[62px] md:text-xl">
-                  Add To Cart
-                </Button>
-              </PopoverTrigger>
-              <PopoverContent>
-                <div className="">
-                  <p>Please finish your selection</p>
-                </div>
-              </PopoverContent>
-            </Popover>
-          </>
-        ) : (
-          <Button
-            className="mt-4 h-[48px] w-full rounded bg-[#BE1B1B] text-lg font-bold uppercase text-white disabled:bg-[#BE1B1B] md:h-[62px] md:text-xl"
-            onClick={() => {
-              selectedProduct?.sku &&
-                track('PDP_add_to_cart', {
-                  sku: selectedProduct?.sku,
-                });
-              handleAddToCart();
-              isMobile ? router.push('/checkout') : setAddToCartOpen(true);
-
-              // setAddToCartOpen(true);
-            }}
-          >
-            Add To Cart
-          </Button>
-        )}
-      </div>
+      )}
+      {/* Add to Cart Button */}
+      <AddToCart
+        selectedProduct={selectedProduct}
+        isReadyForProductSelection={isReadyForProductSelection}
+        router={router}
+        handleAddToCart={handleAddToCart}
+      />
       <section className="mt-[22px]">
-        <p className="text-[12px] font-[400] leading-[20px]">
-          As low as <b>$32.50</b>/mo with <b>PayPal.</b> Check your purchasing
-          power <ins>Learn More</ins>
+        <p className="text-[12px] font-[700] leading-[20px] lg:hidden">
+          As low as $32.50/mo with PayPal. Check your purchasing power.
+          <ins>Learn More</ins>
+        </p>
+        <p className="hidden text-[16px] leading-[22px] lg:block">
+          As low as <b>$32.50</b>/mo with <b>PayPal</b>. Check your purchasing
+          power.
+          <br /> <ins>Learn More</ins>
         </p>
       </section>
-      {/* <div className="pt-5 ml-2">
-        <p className="text-[#1A1A1A] text-base font-normal">
-          As low as <span className="font-black">$32.50/mo</span> with{' '}
-          <span className="font-black">PayPal</span>. Check your purchasing
-          power.
-        </p>
-        <Link
-          href="#"
-          className="font-normal underline text-[#1A1A1A] text-base capitalize cursor-pointer"
-        >
-          learn more
-        </Link>
-      </div> */}
-
       <Separator className="my-8" />
       {/* Selling Attributes */}
       <CustomerImagesDrawer
@@ -384,132 +344,27 @@ export function ProductContent({
           </div>
         ))}
       </span>
-      <div className="grid grid-cols-2 gap-4 pb-4">
-        <div className="flex flex-row">
-          <div className="border-dark flex h-10 w-10 flex-col items-center justify-center rounded-full border">
-            <ThumbsUpIcon />
-          </div>
-          <div className="flex flex-col justify-center pl-2">
-            <p className="w-20 text-sm font-normal text-black">
-              Fit Guaranteed
-            </p>
-          </div>
-        </div>
-        <div className="flex flex-row">
-          <div className="border-dark flex h-10 w-10 flex-col items-center justify-center rounded-full border">
-            <SecureIcon />
-          </div>
-          <div className="flex flex-col justify-center pl-2">
-            <p className="w-24 text-sm font-normal text-black">
-              Secure Shopping
-            </p>
-          </div>
-        </div>
-      </div>
-      <div className="grid grid-cols-2 gap-4">
-        <div className="flex flex-row">
-          <div className="border-dark flex h-10 w-10 flex-col items-center justify-center rounded-full border">
-            <FolderUpIcon />
-          </div>
-          <div className="flex flex-col justify-center pl-2">
-            <p className="w-24 text-sm font-normal text-black">
-              30-Days Free Returns
-            </p>
-          </div>
-        </div>
-        <div className="flex flex-row">
-          <div className="border-dark flex h-10 w-10 flex-col items-center justify-center rounded-full border">
-            <MoneyBackIcon />
-          </div>
-          <div className="flex flex-col justify-center pl-2">
-            <p className="w-24 text-sm font-normal text-black">
-              60-Days Full Money Back
-            </p>
-          </div>
-        </div>
-      </div>
-      {/* CSR */}
-      <div className="flex flex-row items-center gap-2.5 pt-8">
-        <div className="flex h-[58px] w-[58px] flex-col items-center justify-center">
-          <Image
-            src={AgentProfile}
-            alt="agent-profile"
-            width={58}
-            height={58}
-            className="h-full w-full rounded-full"
-          />
-        </div>
-        <div className="flex flex-col items-start justify-center">
-          <p className="text-lg font-black text-[#1A1A1A]">Need Help?</p>
-          <div className="grid grid-cols-2 gap-2">
-            <Link
-              href="tel:1-800-799-5165"
-              className="hover-underline-animation-dark text-lg font-normal text-[#1A1A1A]"
-            >
-              1-800-799-5165
-            </Link>
-            {/* <Link
-              href="#"
-              className="text-base font-normal capitalize text-[#0C87B8] underline"
-            >
-              live chat
-            </Link> */}
-          </div>
-        </div>
-      </div>
+      <FourIconGrid />
+      <NeedHelp />
       <Separator className="my-10 hidden lg:block" />
-      <div className="pt-3 lg:px-0 lg:pt-0">
+      <div>
         <h3 className="mb-[28px] hidden text-xl font-black uppercase text-[#1A1A1A] lg:flex">
           car cover features
         </h3>
-        <div className="flex-start ml-2 hidden items-center pb-2 leading-4 lg:flex">
-          <GoDotFill size={10} color="#000000" />
-          <p className="pl-1 text-lg font-medium capitalize text-black">
-            Tailored to your car model
-          </p>
-        </div>
-        <div className=" flex-start ml-2 hidden items-center pb-2 leading-4 lg:flex">
-          <GoDotFill size={10} color="#000000" />
-          <p className="pl-1 text-lg font-medium capitalize text-black">
-            all-season waterproof protection
-          </p>
-        </div>
-        <div className="flex-start ml-2 hidden items-center pb-2 leading-4 lg:flex">
-          <GoDotFill size={10} color="#000000" />
-          <p className="pl-1 text-lg font-medium capitalize text-black">
-            Scratchproof, durable & lightweight
-          </p>
-        </div>
-        <div className="flex-start ml-2 hidden items-center pb-2 leading-4 lg:flex">
-          <GoDotFill size={10} color="#000000" />
-          <p className="pl-1 text-lg font-medium capitalize text-black">
-            Soft Inner-lining
-          </p>
-        </div>
-        <div className="flex-start ml-2 hidden items-center pb-2 leading-4 lg:flex">
-          <GoDotFill size={10} color="#000000" />
-          <p className="pl-1 text-lg font-medium capitalize text-black">
-            100% Waterproof - Zero Leaks Guaranteed
-          </p>
-        </div>
-        <div className="flex-start ml-2 hidden items-center pb-2 leading-4 lg:flex">
-          <GoDotFill size={10} color="#000000" />
-          <p className="pl-1 text-lg font-medium capitalize text-black">
-            100% UV Protection
-          </p>
-        </div>
-        <div className="flex-start ml-2 hidden items-center pb-2 leading-4 lg:flex">
-          <GoDotFill size={10} color="#000000" />
-          <p className="pl-1 text-lg font-medium capitalize text-black">
-            Easy On/Off with elastic hems
-          </p>
-        </div>
-        <div className="flex-start ml-2 hidden items-center pb-2 leading-4 lg:flex">
-          <GoDotFill size={10} color="#000000" />
-          <p className="pl-1 text-lg font-medium capitalize text-black">
-            effortless cleaning
-          </p>
-        </div>
+        {[
+          '100% waterproof protection.',
+          '100% UV protection.',
+          '100% Tailored to your car model.',
+          'The Best Quality Car Cover on the Market.',
+          'Outside Material: High-End Polyester Fabric.',
+          'Inside Material: Soft Fleece Fabric.',
+          'Heavy-Duty, but Easy On and Off.',
+          'Non-Scratch Fabric Protects Your Car Paint.',
+          'Backed by a Lifetime Warranty.',
+          'Guaranteed to Be the Best Quality Car Cover on the Market.',
+        ].map((text) => (
+          <CarCoverFeature>{text}</CarCoverFeature>
+        ))}
       </div>
       {isMobile ? (
         <Dialog open={addToCartOpen} setOpen={setAddToCartOpen} />
@@ -531,3 +386,10 @@ export function ProductContent({
     </>
   );
 }
+
+const CarCoverFeature = ({ children }: { children: string }) => (
+  <div className="flex-start ml-2 hidden items-center pb-2 leading-4 lg:flex">
+    <GoDotFill size={10} color="#000000" />
+    <p className="pl-1 text-lg font-medium capitalize text-black">{children}</p>
+  </div>
+);

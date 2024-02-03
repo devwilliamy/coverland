@@ -31,7 +31,7 @@ export function Layers() {
     {
       img: ZeroLeaks,
       title: 'Zero Leaks',
-      text: 'Extra waterproof coating provides the ultimate shield against rain and moisture as well as the elements.',
+      text: 'Stay Dry! Our specialized car cover sealing tape is engineered to keep your car completely dry.',
     },
     {
       img: Material,
@@ -45,9 +45,37 @@ export function Layers() {
     },
   ];
 
+  const LayersBlock = (props: layerProps) => {
+    return (
+      <div className="flex flex-col gap-4">
+        {props.img ? (
+          <div className="md:h-[400px] lg:h-[249px]">
+            <Image
+              src={props.img}
+              alt="seams of a cover"
+              width={500}
+              height={249}
+              className="h-full w-full"
+            />
+          </div>
+        ) : (
+          <></>
+        )}
+        <div className="flex flex-col gap-4">
+          <p className="text-lg font-bold capitalize text-[#1A1A1A] lg:text-2xl">
+            {props.title}
+          </p>
+          <p className="w-full text-sm font-normal normal-case text-[#767676] lg:w-[96%] lg:text-[18px] lg:text-lg">
+            {props.text}
+          </p>
+        </div>
+      </div>
+    );
+  };
+
   return (
     <div className="lg:pb-0 ">
-      <div className="flex-start flex h-auto w-full flex-col justify-start pb-[18px] pt-10 lg:pt-0">
+      <div className="flex-start flex h-auto w-full flex-col justify-start pt-10 lg:pt-0">
         <p className="mb-4 text-lg font-normal capitalize text-[#343434] md:text-2xl">
           High-Quality
         </p>
@@ -58,32 +86,19 @@ export function Layers() {
           Engineered to Perfection
         </p>
       </div>
-      <div className="mb-[38px] flex flex-col items-center bg-[#F9F9FB] lg:px-[35px] lg:py-[40px] ">
-        {/* <Image
-          src={Crystal}
-          alt="crystal"
-          className="mb-[40px] h-full w-full lg:w-6/12"
-        /> */}
-        <div className="flex h-full w-full flex-col lg:flex-row lg:gap-10 ">
-          {/* <div className="w-full pb-8 lg:w-2/4 lg:pb-0">
-            <Image
-              src={LayerImg}
-              alt="a car sitting inside of a building"
-              className="h-6/12 w-full"
+      <section className="mb-[38px] bg-[#F9F9FB] px-4 py-11 lg:px-[38px]">
+        <div className="flex flex-col justify-center gap-[46px] lg:flex-row lg:gap-[38px]">
+          {LayersStaticData.map((item, index) => (
+            <LayersBlock
+              key={`Layers-Block-${index}`}
+              title={item.title}
+              text={item.text}
             />
-          </div> */}
-          <div className="flex w-full flex-col items-stretch justify-between gap-[46px] px-4 pb-[40px] pt-[48px] lg:w-2/4 lg:items-center lg:justify-evenly lg:gap-0 lg:px-16">
-            {LayersStaticData.map((item, index) => (
-              <LayersBlock
-                key={`Layers-Block-${index}`}
-                title={item.title}
-                text={item.text}
-              />
-            ))}
-          </div>
+          ))}
         </div>
-      </div>
-      <div className="grid h-auto w-full grid-cols-1 gap-4 md:m-auto md:grid-cols-2 lg:grid-cols-3 ">
+      </section>
+
+      <section className="grid h-auto w-full grid-cols-1 gap-[38px] lg:grid-cols-3 ">
         {LayersStaticDataWithImg.map((item, index) => (
           <LayersBlock
             key={`Layers-Block-With-Image-${index}`}
@@ -92,35 +107,7 @@ export function Layers() {
             text={item.text}
           />
         ))}
-      </div>
+      </section>
     </div>
   );
 }
-
-const LayersBlock = (props: layerProps) => {
-  return (
-    <div className="flex flex-col gap-4">
-      {props.img ? (
-        <div className="md:h-[400px] lg:h-[249px]">
-          <Image
-            src={props.img}
-            alt="seams of a cover"
-            width={500}
-            height={249}
-            className="h-full w-full"
-          />
-        </div>
-      ) : (
-        <></>
-      )}
-      <div className="flex flex-col gap-4">
-        <p className="text-lg font-bold capitalize text-[#1A1A1A] lg:text-2xl">
-          {props.title}
-        </p>
-        <p className="w-full text-sm font-normal normal-case text-[#767676] lg:w-[96%] lg:text-lg">
-          {props.text}
-        </p>
-      </div>
-    </div>
-  );
-};

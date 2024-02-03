@@ -450,20 +450,6 @@ export function PartialCoverSelector({
               </Popover>
             </>
           </div>
-          {/* <div className="pt-5 ml-2">
-            <p className="text-[#1A1A1A] text-base font-normal">
-              As low as <span className="font-black">$32.50/mo</span> with{' '}
-              <span className="font-black">PayPal</span>. Check your purchasing
-              power.
-            </p>
-            <Link
-              href="#"
-              className="cursor-pointer text-base font-normal capitalize text-[#1A1A1A] underline"
-            >
-              learn more
-            </Link>
-          </div> */}
-
           <Separator className="my-8" />
           {/* Selling Attributes */}
           <div className="grid grid-cols-2 gap-4 pb-4">
@@ -545,13 +531,22 @@ export function PartialCoverSelector({
             <h3 className="mb-[28px] hidden text-xl font-black uppercase text-[#1A1A1A] lg:flex">
               car cover features
             </h3>
-            <div className="flex-start ml-2 hidden items-center pb-2 leading-4 lg:flex">
-              <GoDotFill size={10} color="#000000" />
-              <p className="pl-1 text-lg font-medium capitalize text-black">
-                Tailored to your car model
-              </p>
-            </div>
-            <div className=" flex-start ml-2 hidden items-center pb-2 leading-4 lg:flex">
+            {[
+              '100% waterproof protection.',
+              '100% UV protection.',
+              '100% Tailored to your car model.',
+              'The Best Quality Car Cover on the Market.',
+              'Outside Material: High-End Polyester Fabric.',
+              'Inside Material: Soft Fleece Fabric.',
+              'Heavy-Duty, but Easy On and Off.',
+              'Non-Scratch Fabric Protects Your Car Paint.',
+              'Backed by a Lifetime Warranty.',
+              'Guaranteed to Be the Best Quality Car Cover on the Market.',
+            ].map((text) => (
+              <CarCoverFeature>{text}</CarCoverFeature>
+            ))}
+
+            {/* <div className=" flex-start ml-2 hidden items-center pb-2 leading-4 lg:flex">
               <GoDotFill size={10} color="#000000" />
               <p className="pl-1 text-lg font-medium capitalize text-black">
                 all-season waterproof protection
@@ -592,7 +587,7 @@ export function PartialCoverSelector({
               <p className="pl-1 text-lg font-medium capitalize text-black">
                 Effortless cleaning
               </p>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>
@@ -601,6 +596,13 @@ export function PartialCoverSelector({
 }
 
 export default PartialCoverSelector;
+
+const CarCoverFeature = ({ children }: { children: string }) => (
+  <div className="flex-start ml-2 hidden items-center pb-2 leading-4 lg:flex">
+    <GoDotFill size={10} color="#000000" />
+    <p className="pl-1 text-lg font-medium capitalize text-black">{children}</p>
+  </div>
+);
 
 // const DesktopShowMoreCarousel = ({
 //   selectedProduct,

@@ -10,6 +10,7 @@ import {
 import { TCarCoverData } from './CarPDP';
 import { useState } from 'react';
 import { compareRawStrings } from '@/lib/utils';
+import { Separator } from '@/components/ui/separator';
 
 export function EditVehicleModal({
   selectedProduct,
@@ -32,8 +33,8 @@ export function EditVehicleModal({
             } ${productType}`;
 
   return (
-    <div className=" mt-[29px] hidden flex-col gap-2 rounded-lg border-2 border-solid px-3 py-7 lg:flex">
-      <h2 className="font-roboto text-lg font-extrabold text-[#1A1A1A] md:text-[28px]">
+    <div>
+      <h2 className="my-[15px] font-[900] leading-[30px] md:text-[28px]">
         {productName}
       </h2>
       <div className="flex items-center gap-2">
@@ -49,6 +50,7 @@ export function EditVehicleModal({
           </PopoverContent>
         </Popover>
       </div>
+      <Separator className="my-10" />
     </div>
   );
 }

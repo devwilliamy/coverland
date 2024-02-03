@@ -13,7 +13,7 @@ const ReviewSection = ({
   // console.log('reviewData', reviewData);
   // console.log(reviewData);
   return (
-    <div className="relative ">
+    <div className="relative mt-[38px] ">
       <div className="flex flex-col gap-[20px] lg:flex-row">
         <div className="flex w-full min-w-[188px] flex-col ">
           <div className="flex items-center gap-[14px] ">

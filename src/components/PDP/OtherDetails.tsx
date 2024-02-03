@@ -21,7 +21,6 @@ export function ExtraProductDetails({
 }) {
   // const [selectedSection, setSelectedSection] = useState<string>('');
 
-  const pdRef = useRef<HTMLDivElement>(null);
   const benefitsRef = useRef<HTMLDivElement>(null);
   // const layersRef = useRef<HTMLDivElement>(null);
   // const carCoverRef = useRef<HTMLDivElement>(null);
@@ -65,101 +64,39 @@ export function ExtraProductDetails({
 
   // !reviewData &&  return
 
+  const otherDetailsBar = [
+    'Product Details',
+    'Benefits',
+    'Shipping & Returns',
+    'Q&A',
+    'Warranty',
+    'Car Cover Reviews',
+  ];
+
+  const DetailBarItem = ({ name }: { name: string }) => {
+    return (
+      <div className="flex h-max w-full px-[10px] py-[22px] hover:cursor-pointer hover:bg-slate-100">
+        <h1
+          className="h-max w-full text-center hover:underline"
+          onClick={() => {
+            const pdVideo = document.getElementById(
+              String(name).toLowerCase().replaceAll(' ', '-')
+            );
+            pdVideo?.scrollIntoView({ behavior: 'instant' });
+          }}
+        >
+          {name}
+        </h1>
+      </div>
+    );
+  };
+
   return (
     <div className="flex w-full flex-col">
-      <div className="hidden w-full max-w-full items-center justify-between border-b border-t border-[#DADADA] py-[22px] text-[18px] capitalize lg:flex lg:px-[30px]">
-        <h1
-        // onClick={() => scrollToSection(pdRef, PD_ID)}
-        // className={`cursor-pointer  font-normal capitalize text-black ${
-        //   selectedSection === PD_ID ? 'underline' : ''
-        // }`}
-        >
-          product details
-        </h1>
-        {/* <h1
-          onClick={() => scrollToSection(layersRef, LAYERS_ID)}
-          className={`cursor-pointer  font-normal capitalize text-black ${
-            selectedSection === LAYERS_ID ? 'underline' : ''
-          }`}
-        >
-          <Link href="#benefits" >
-            benefits
-          </Link>
-        </h1> */}
-        <h1
-        // onClick={() => scrollToSection(benefitsRef, BENEFITS_ID)}
-        // className={`cursor-pointer  font-normal capitalize text-black ${
-        //   selectedSection === PD_ID ? 'underline' : ''
-        // }`}
-        >
-          benefits
-        </h1>
-        {/* <h1
-          onClick={() => scrollToSection(shippingRef, SHIPPING_ID)}
-          className={`cursor-pointer  font-normal capitalize text-black ${
-            selectedSection === LAYERS_ID ? 'underline' : ''
-          }`}
-        >
-          <Link href="#shipping" >
-            Shipping & Returns
-          </Link>
-        </h1> */}
-        <h1
-        // onClick={() => scrollToSection(shippingRef, SHIPPING_ID)}
-        // className={`cursor-pointer  font-normal capitalize text-black ${
-        //   selectedSection === FAQ_ID ? 'underline' : ''
-        // }`}
-        >
-          Shipping & Returns
-        </h1>
-        {/* <h1
-          onClick={() => scrollToSection(specsRef, SPECS_ID)}
-          className={`cursor-pointer  font-normal capitalize text-black ${
-            selectedSection === SPECS_ID ? 'underline' : ''
-          }`}
-          >
-          specification
-          </h1> */}
-        <h1
-        // onClick={() => scrollToSection(faqRef, FAQ_ID)}
-        // className={`cursor-pointer  font-normal capitalize text-black ${
-        //   selectedSection === FAQ_ID ? 'underline' : ''
-        // }`}
-        >
-          Q&A
-        </h1>
-        {/* <h1
-          onClick={() => scrollToSection(layersRef, LAYERS_ID)}
-          className={`cursor-pointer  font-normal capitalize text-black ${
-            selectedSection === LAYERS_ID ? 'underline' : ''
-          }`}
-          >
-          Shipping & Returns
-          </h1> */}
-        <h1
-        // onClick={() => scrollToSection(warrantyRef, WARRANTY_ID)}
-        // className={`cursor-pointer  font-normal capitalize text-black ${
-        //   selectedSection === FAQ_ID ? 'underline' : ''
-        // }`}
-        >
-          Warranty
-        </h1>
-        {/* <h1
-          onClick={() => scrollToSection(carCoverRef, CAR_COVER_INS_ID)}
-          className={`cursor-pointer  font-normal capitalize text-black ${
-            selectedSection === CAR_COVER_INS_ID ? 'underline' : ''
-          }`}
-          >
-          car cover instruction
-          </h1> */}
-        <h1
-        // onClick={() => scrollToSection(reviewsRef, REVIEWS_ID)}
-        // className={`cursor-pointer  font-normal capitalize text-black ${
-        //   selectedSection === FAQ_ID ? 'underline' : ''
-        // }`}
-        >
-          car cover reviews
-        </h1>
+      <div className="lg:grid-row-1 hidden w-full max-w-full  border-b border-t border-[#DADADA] text-[18px] capitalize lg:grid lg:grid-flow-col lg:px-[30px]">
+        {otherDetailsBar.map((name) => {
+          return <DetailBarItem name={name} />;
+        })}
       </div>
       <div className="flex w-full max-w-full flex-col lg:px-[30px]">
         <Suspense fallback={<div>Loading...</div>}>
@@ -167,19 +104,12 @@ export function ExtraProductDetails({
         </Suspense>
 
         <div className="hidden gap-[110px] lg:flex lg:flex-col">
-          <div ref={pdRef}>
-            <ProductHero />
-          </div>
-          <div>
+          <div id="product-details">
             <Video />
           </div>
-          <div ref={benefitsRef}>
+          <div id="benefits" ref={benefitsRef}>
             <Layers />
           </div>
-          <div>
-            <ClimateCrisis />
-          </div>
-
           <div>
             <NoGarage />
           </div>
@@ -189,14 +119,13 @@ export function ExtraProductDetails({
           <div>
             <ProductChecklist />
           </div>
-          {/* <div ref={specsRef}>
-            <ProductSpecGrid />
-            <ProductPackage />
-          </div> */}
-          <div ref={faqRef}>
+          <div>
+            <ClimateCrisis />
+          </div>
+          <div id="q-&-a" ref={faqRef}>
             <PDPAccordion />
           </div>
-          <div ref={shippingRef}>
+          <div id="shipping-&-returns" ref={shippingRef}>
             <div>
               <div className=" mb-[50px] flex gap-[144px] px-[59px] normal-case">
                 <div className="flex flex-col gap-[12px]">
@@ -232,11 +161,11 @@ export function ExtraProductDetails({
               <MoneyBack />
             </div>
           </div>
-          <div ref={warrantyRef}>
+          <div id="warranty" ref={warrantyRef}>
             <WarrantyDesktop />
           </div>
           {!!reviewData?.length && (
-            <div id="#reviews" ref={reviewsRef}>
+            <div id="car-cover-reviews" ref={reviewsRef}>
               <ReviewSection reviewData={reviewData} />
             </div>
           )}
@@ -448,7 +377,7 @@ function Video() {
   return (
     <div
       id="productvideo"
-      className="flex h-auto w-full max-w-full flex-col items-center justify-center py-8 md:py-8 "
+      className="flex h-auto w-full max-w-full flex-col items-center justify-center "
     >
       <div className="h-[550px] w-full">
         <iframe

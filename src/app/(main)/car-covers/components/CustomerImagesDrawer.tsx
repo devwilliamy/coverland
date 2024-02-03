@@ -28,6 +28,11 @@ export default function CustomerImagesDrawer({
   reviewData: TReviewData[] | undefined | null;
 }) {
   const [customerCarouselApi, setCustomerCarouselApi] = useState<CarouselApi>();
+  const tabItems = [
+    { title: 'Customer Images', value: 'customer-images' },
+    { title: 'Customer Reviews', value: 'customer-reviews' },
+  ];
+
   return (
     <span className="mb-[18px] flex gap-[13px]">
       <FaCamera color={'#3C3C3C'} className="flex min-h-[24px] min-w-[27px]" />
@@ -57,17 +62,9 @@ export default function CustomerImagesDrawer({
                 <IoClose className="h-[28px] w-[28px]" />
               </button>
             </div>
-            <TabsList
-              className="flex flex-col bg-white pt-[24px]"
-              onChange={(e) => {
-                console.log('Current Tab Index:' + e);
-              }}
-            >
+            <TabsList className="flex flex-col bg-white pt-[24px]">
               <div className="mb-[-1px] flex w-full items-center ">
-                {[
-                  { title: 'Customer Images', value: 'customer-images' },
-                  { title: 'Customer Reviews', value: 'customer-reviews' },
-                ].map(({ title, value }, index) => (
+                {tabItems.map(({ title, value }, index) => (
                   <TabsTrigger
                     key={`tab-trigger-${index}`}
                     value={value}
@@ -89,7 +86,7 @@ export default function CustomerImagesDrawer({
               className="border-t-2 border-[#C8C7C7]"
             >
               <div className="mx-auto flex max-h-[76vh] min-h-[76vh] w-full flex-col px-4 pt-[29px]">
-                <div className="mx- grid grid-cols-3 gap-2 overflow-y-auto">
+                <div className="grid grid-cols-3 gap-2 overflow-y-auto">
                   {[...Array(25)].map((_, index) => (
                     <div
                       key={`scrollable-item-${index}`}

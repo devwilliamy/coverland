@@ -18,8 +18,8 @@ export default function EditVehiclePopover({
 }) {
   const [open, setOpen] = useState(false);
   return (
-    <div className="flex flex-col lg:hidden">
-      <h2 className=" max-h-[42px] text-[22px] font-[900] leading-[120%] text-[#1A1A1A]">
+    <div className="mb-4 flex flex-col lg:hidden">
+      <h2 className=" max-h-[62px] text-[22px] font-[900] leading-[15px] text-[#1A1A1A]">
         {fullProductName}
       </h2>
       <div className="mt-3.5 flex items-center gap-1.5">

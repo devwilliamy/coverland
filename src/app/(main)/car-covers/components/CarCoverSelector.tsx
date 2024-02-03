@@ -21,7 +21,7 @@ const EditVehiclePopover = dynamicImport(
   }
 );
 
-export function MobileCarCoverSelector({
+export function CarCoverSelector({
   modelData,
   submodelParam,
   secondSubmodelParam,
@@ -105,11 +105,14 @@ export function MobileCarCoverSelector({
           setFeaturedImage={setFeaturedImage}
         />
         {/* Right Panel */}
+
         <div className=" h-auto w-full pl-0 lg:w-2/5">
-          {/* <EditVehicleModal
-            selectedProduct={selectedProduct}
-            submodelParam={submodelParam}
-          /> */}
+          {!isMobile && (
+            <EditVehicleModal
+              selectedProduct={selectedProduct}
+              submodelParam={submodelParam}
+            />
+          )}
           {/* <p className="ml-3 mt-2 text-lg font-black text-[#1A1A1A] ">
             Cover Colors
             <span className="ml-2 text-lg font-normal text-[#767676]">
@@ -134,8 +137,9 @@ export function MobileCarCoverSelector({
           <ProductContent
             modelData={modelData}
             selectedProduct={selectedProduct}
-            // uniqueColors={uniqueColors}
-            // uniqueTypes={uniqueTypes}
+            setSelectedProduct={setSelectedProduct}
+            uniqueColors={uniqueColors}
+            uniqueTypes={uniqueTypes}
             reviewCount={reviewCount}
             avgReviewScore={avgReviewScore}
             reviewData={reviewData}
@@ -148,4 +152,4 @@ export function MobileCarCoverSelector({
   );
 }
 
-export default MobileCarCoverSelector;
+export default CarCoverSelector;

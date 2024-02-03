@@ -42,6 +42,7 @@ import Dialog from '../ui/dialog-tailwind-ui';
 import { useRouter } from 'next/navigation';
 import { MobileImageCarousel } from '@/app/(main)/car-covers/components/MobileImageCarousel';
 import { TCarCoverData } from '@/app/(main)/car-covers/components/CarPDP';
+import { TimeTo2PMPST } from './components/TimeTo2PM';
 
 const ProductVideo = dynamicImport(() => import('./ProductVideo'), {
   ssr: false,
@@ -70,50 +71,6 @@ export const dynamic = 'force-dynamic';
 
 interface ProductRefs {
   [key: string]: RefObject<HTMLElement>;
-}
-
-function TimeTo2PMPST() {
-  const [timeRemaining, setTimeRemaining] = useState(calculateTimeTo2PM()); // Set initial value
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setTimeRemaining(calculateTimeTo2PM());
-    }, 60000); // Update every minute
-    return () => clearInterval(interval);
-  }, []);
-
-  function calculateTimeTo2PM() {
-    const now = new Date();
-    const target = new Date();
-
-    target.setHours(14); // Set to 2 PM local time
-    target.setMinutes(0);
-    target.setSeconds(0);
-    target.setMilliseconds(0);
-
-    if (now.getHours() >= 14) {
-      // Adjust for PST timezone offset
-      target.setDate(target.getDate() + 1); // Set to next day if past 2 PM
-    }
-
-    const diff: number = target.getTime() - now.getTime();
-
-    // Convert milliseconds to hours and minutes
-    const hours = Math.floor(diff / 1000 / 60 / 60);
-    const minutes = Math.floor((diff / 1000 / 60) % 60);
-
-    if (hours < 0 || minutes < 0) {
-      return ''; // In case of negative values
-    }
-
-    return `${hours} Hours ${minutes} Mins`;
-  }
-
-  return (
-    <p className="text-dark text-sm">
-      Order within <span className="text-[#767676]">{timeRemaining}</span>
-    </p>
-  );
 }
 
 function CarSelector({
@@ -642,20 +599,6 @@ function CarSelector({
               </Button>
             )}
           </div>
-          {/* <div className="pt-5 ml-2">
-            <p className="text-[#1A1A1A] text-base font-normal">
-              As low as <span className="font-black">$32.50/mo</span> with{' '}
-              <span className="font-black">PayPal</span>. Check your purchasing
-              power.
-            </p>
-            <Link
-              href="#"
-              className="cursor-pointer text-base font-normal capitalize text-[#1A1A1A] underline"
-            >
-              learn more
-            </Link>
-          </div> */}
-
           <Separator className="my-8" />
           {/* Selling Attributes */}
           <div className="grid grid-cols-2 gap-4 pb-4">
