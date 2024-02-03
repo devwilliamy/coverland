@@ -145,46 +145,32 @@ function generatePDPContent({
     let mainImage = '';
     let productImages: string | string[] = '';
 
-    if (submodel) {
-      fullProductName = `${item.year_generation} ${item.make} ${item.model} ${item.submodel1}`;
+    if (submodel || secondSubmodel) {
+      fullProductName =
+        `${item.year_generation ?? ''} ${item.make ?? ''} ${item.model ?? ''} ${submodel ?? ''} ${secondSubmodel ?? ''}`.trim();
       mainImage = item.feature as string;
       productImages = item.product as string;
-
-      if (secondSubmodel) {
-        fullProductName = `${item.year_generation} ${item.make} ${item.model} ${item.submodel1}`;
-      }
-    }
-    if (productType && make && model && year) {
+    } else if (productType && make && model && year) {
       fullProductName = `${item.year_generation} ${item.make} ${item.model}`;
       mainImage = item.feature as string;
       productImages = item.product as string;
-    }
-    if (!year) {
+    } else if (!year && make && model) {
       fullProductName = `${item.make} ${item.model}`;
       mainImage = defaultImages[coverColor]?.[0] as string;
-      console.log(mainImage);
       productImages = defaultImages[coverColor]?.slice(1) as string[];
-    }
-    if (!model && item.make) {
-      console.log(item.type);
-
+    } else if (!model && item.make && !year) {
       fullProductName = item.make;
       mainImage = defaultImages[coverColor]?.[0] as string;
       productImages = defaultImages[coverColor]?.slice(1) as string[];
-    }
-    if (!make && item.type) {
-      console.log(item.type);
+    } else if (!make && !model && !year && item.type) {
       fullProductName = item.type;
       mainImage = defaultImages[coverColor]?.[0] as string;
       productImages = defaultImages[coverColor]?.slice(1) as string[];
     } else {
-      console.log(item.type);
       fullProductName = item.type as string;
       mainImage = defaultImages[coverColor]?.[0] as string;
       productImages = defaultImages[coverColor]?.slice(1) as string[];
     }
-
-    console.log(fullProductName);
 
     return {
       ...item,
@@ -194,6 +180,7 @@ function generatePDPContent({
     } as IProductData;
   });
 }
+
 export function getCompleteSelectionData({ data }: { data: IProductData[] }) {
   const completeSelectionState = {
     shouldDisplayType: true,
