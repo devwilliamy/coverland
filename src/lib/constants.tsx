@@ -975,8 +975,8 @@ export const DEFAULT_CAR_IMAGE_ARRAY = [
 //Default = Pages that don't include year in the url path
 
 const suvImages: Partial<Record<(typeof colorOrder)[number], string[]>> = {
-  'Black Gray Stripe': ['https://coverland.com/pms/suv-01-bkgr-str-m.webp'],
-  'Solid Gray': ['https://coverland.com/pms/suv-01-bkgr-str-m.webp'],
+  'Black Gray Stripe': [''],
+  'Solid Gray': [''],
 };
 
 const carImages: Partial<Record<(typeof colorOrder)[number], string[]>> = {
