@@ -51,7 +51,7 @@ const NewsletterForm = () => {
           <BsChevronRight size={20} color={'#fff'} />
         </button>
       </form>
-      {message && <p className="pt-4">{message}</p>}
+      {message && <p className="pt-4 text-white">{message}</p>}
     </div>
   );
 };
