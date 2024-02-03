@@ -37,27 +37,22 @@ export function modelDataTransformer({
 }): IProductData[] {
   let filteredData: TInitialProductDataDB[] = data;
 
-  console.log(filteredData.length);
-
   if (!!params.productType) {
     filteredData = data.filter((item) =>
       compareRawStrings(item.type, params.productType as string)
     );
-    console.log(filteredData.length);
   }
 
   if (!!params.make) {
     filteredData = data.filter((item) =>
       compareRawStrings(item.make, params.make as string)
     );
-    console.log(filteredData.length);
   }
 
   if (params.model) {
     filteredData = data.filter((item) =>
       compareRawStrings(item.model, params.model as string)
     );
-    console.log(filteredData.length);
   }
 
   if (params.year) {
@@ -67,7 +62,6 @@ export function modelDataTransformer({
           item.year_generation === params.year &&
           compareRawStrings(item.submodel1, queryParams.submodel as string)
       );
-      console.log(filteredData.length);
     }
 
     if (queryParams.secondSubmodel) {
@@ -79,12 +73,10 @@ export function modelDataTransformer({
             queryParams.secondSubmodel as string
           )
       );
-      console.log(filteredData.length);
     }
     filteredData = data.filter((item) =>
       compareRawStrings(item.year_generation, params.year as string)
     );
-    console.log(filteredData.length);
   }
   const finalFilteredData = generatePDPContent({
     data: filteredData,
@@ -141,7 +133,6 @@ function generatePDPContent({
   return data.map((item) => {
     let fullProductName = '';
     const coverColor = item.display_color as (typeof colorOrder)[number];
-    console.log(coverColor);
     let mainImage = '';
     let productImages: string | string[] = '';
 
@@ -150,22 +141,18 @@ function generatePDPContent({
         `${item.year_generation ?? ''} ${item.make ?? ''} ${item.model ?? ''} ${submodel ?? ''} ${secondSubmodel ?? ''}`.trim();
       mainImage = item.feature as string;
       productImages = item.product as string;
-      console.log(mainImage);
     } else if (productType && make && model && year) {
       fullProductName = `${item.year_generation} ${item.make} ${item.model}`;
       mainImage = item.feature as string;
       productImages = item.product as string;
-      console.log(mainImage);
     } else if (!year && make && model) {
       fullProductName = `${item.make} ${item.model}`;
       mainImage = defaultImages[coverColor]?.[0] as string;
       productImages = defaultImages[coverColor]?.slice(1) as string[];
-      console.log(mainImage);
     } else if (!model && item.make && !year) {
       fullProductName = item.make;
       mainImage = defaultImages[coverColor]?.[0] as string;
       productImages = defaultImages[coverColor]?.slice(1) as string[];
-      console.log(mainImage, defaultImages[coverColor]);
     } else if (!make && !model && !year && item.type) {
       fullProductName = item.type;
       mainImage = defaultImages[coverColor]?.[0] as string;
@@ -175,10 +162,7 @@ function generatePDPContent({
       fullProductName = item.type as string;
       mainImage = defaultImages[coverColor]?.[0] as string;
       productImages = defaultImages[coverColor]?.slice(1) as string[];
-      console.log(mainImage);
     }
-
-    console.log(mainImage);
 
     return {
       ...item,
@@ -246,10 +230,14 @@ export const getUniqueValues = ({
     secondSubmodels: new Set<string>(),
   };
 
-  data.forEach((item) => {
+  const filteredData = data.filter((item) => {
+    return compareRawStrings(item.make, queryState.make);
+  });
+
+  filteredData.forEach((item) => {
     if (item.make) uniqueValues.makes.add(item.make);
     if (item.model) uniqueValues.models.add(item.model);
-    if (item.year_options) {
+    if (item.year_options && compareRawStrings(queryState.model, item.model)) {
       item.year_options
         .split(',')
         .forEach((year) => uniqueValues.years.add(year));

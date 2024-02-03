@@ -96,11 +96,9 @@ const createCarSelectionStore = ({
     },
     setModelData: () => {
       const { initialModelData, query: newQuery } = get();
-      console.log(newQuery);
       let filteredData = initialModelData;
       if (newQuery.type) {
         filteredData = filteredData.filter((sku) => {
-          console.log(filteredData.length, sku.type, newQuery.type);
           return compareRawStrings(sku.type, newQuery.type);
         });
       }
@@ -108,35 +106,26 @@ const createCarSelectionStore = ({
         filteredData = filteredData.filter((sku) =>
           compareRawStrings(sku.make, newQuery.make as string)
         );
-        console.log(filteredData);
       }
       if (newQuery.model) {
         filteredData = filteredData.filter((sku) =>
           compareRawStrings(sku.model, newQuery.model as string)
         );
-        console.log(filteredData);
       }
       if (newQuery.year) {
         filteredData = filteredData.filter((sku) =>
           sku.year_options?.includes(newQuery.year as string)
         );
-        console.log(filteredData);
       }
       if (newQuery.submodel) {
-        console.log('check');
-
         filteredData = filteredData.filter((sku) =>
           compareRawStrings(sku.submodel1, newQuery.submodel as string)
         );
-        console.log(filteredData);
       }
       if (newQuery.secondSubmodel) {
-        console.log('check');
-
         filteredData = filteredData.filter((sku) =>
           compareRawStrings(sku.submodel2, newQuery.secondSubmodel as string)
         );
-        console.log(filteredData);
       }
       console.log('check');
       console.log(filteredData.length);
@@ -179,8 +168,6 @@ export default function CarPDP({
     params: pathParams ?? ({} as TPathParams),
     queryParams,
   });
-
-  console.log(modelDataProps);
 
   const store = useRef(
     createCarSelectionStore({

@@ -28,8 +28,6 @@ export const MobileImageCarousel = ({
   const [current, setCurrent] = useState(0);
   // const [scrollSnaps, setScrollSnaps] = useState<number[]>([]);
 
-  console.log(selectedProduct);
-
   useEffect(() => {
     if (!api) {
       return;

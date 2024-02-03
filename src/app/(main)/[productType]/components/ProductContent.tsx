@@ -485,12 +485,13 @@ const AddToCartSelector = ({
 
   const { addToCart } = useCartContext();
 
+  const params = useParams<TPathParams>();
+
   const { completeSelectionState } = getCompleteSelectionData({
     data: modelData,
   });
 
   const {
-    shouldDisplayType,
     shouldDisplayMake,
     shouldDisplayModel,
     shouldDisplaySecondSubmodel,
@@ -515,6 +516,8 @@ const AddToCartSelector = ({
 
   console.log(isComplete);
 
+  console.log(queryState);
+
   const TypeDropdown = () => {
     const typeOptions = ['Car Covers', 'SUV Covers', 'Truck Covers'];
 
@@ -526,7 +529,7 @@ const AddToCartSelector = ({
         <select
           value={queryState.type}
           className={`bg w-full bg-transparent outline-none `}
-          disabled={!shouldDisplayType}
+          disabled={!!queryState.type && !!params?.productType}
         >
           <option value="">Product Type</option>
 
@@ -548,10 +551,16 @@ const AddToCartSelector = ({
         <div className=" ml-[10px] pr-[15px]">2</div>
         <select
           value={queryState.make}
-          className={`bg w-full bg-transparent outline-none `}
-          disabled={!shouldDisplayMake}
+          className={`bg w-full bg-transparent capitalize outline-none`}
+          disabled={!shouldDisplayMake && !!params?.make}
+          onChange={(e) =>
+            setQuery({
+              ...queryState,
+              make: e.target.value,
+            })
+          }
         >
-          <option value="">{queryState.make}</option>
+          <option value="">{queryState.make || 'Make'}</option>
           {uniqueMakes.map((make) => (
             <option key={make} value={make}>
               {make}
@@ -571,9 +580,15 @@ const AddToCartSelector = ({
         <select
           value={queryState.model}
           className={`bg w-full bg-transparent outline-none `}
-          disabled={!shouldDisplayModel}
+          disabled={!shouldDisplayModel && !!params?.model}
+          onChange={(e) =>
+            setQuery({
+              ...queryState,
+              model: e.target.value,
+            })
+          }
         >
-          <option value="">{queryState.model}</option>
+          <option value="">{queryState.model || 'Model'}</option>
           {uniqueModels.map((model) => (
             <option key={model} value={model}>
               {model}
@@ -673,7 +688,7 @@ const AddToCartSelector = ({
           <MakeDropdown />
           <ModelDropdown />
           <YearDropdown />
-          {queryState.year && !isComplete && <SubmodelDropdown />}
+          {queryState.year && <SubmodelDropdown />}
           {shouldDisplaySecondSubmodel && queryState.submodel && (
             <SecondSubmodelDropdown />
           )}
