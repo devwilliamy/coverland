@@ -137,28 +137,39 @@ function generatePDPContent({
     let productImages: string | string[] = '';
 
     if (submodel || secondSubmodel) {
+      console.log('here');
+
       fullProductName =
         `${item.year_generation ?? ''} ${item.make ?? ''} ${item.model ?? ''} ${submodel ?? ''} ${secondSubmodel ?? ''}`.trim();
       mainImage = item.feature as string;
       productImages = item.product as string;
     } else if (productType && make && model && year) {
+      console.log('here');
+
       fullProductName = `${item.year_generation} ${item.make} ${item.model}`;
       mainImage = item.feature as string;
       productImages = item.product as string;
     } else if (!year && make && model) {
+      console.log('here');
+
       fullProductName = `${item.make} ${item.model}`;
       mainImage = defaultImages[coverColor]?.[0] as string;
       productImages = defaultImages[coverColor]?.slice(1) as string[];
-    } else if (!model && item.make && !year) {
+    } else if (!model && make && !year && item.make) {
+      console.log('here');
       fullProductName = item.make;
       mainImage = defaultImages[coverColor]?.[0] as string;
       productImages = defaultImages[coverColor]?.slice(1) as string[];
     } else if (!make && !model && !year && item.type) {
+      console.log('here');
+
       fullProductName = item.type;
       mainImage = defaultImages[coverColor]?.[0] as string;
       productImages = defaultImages[coverColor]?.slice(1) as string[];
       console.log(mainImage);
     } else {
+      console.log('here');
+
       fullProductName = item.type as string;
       mainImage = defaultImages[coverColor]?.[0] as string;
       productImages = defaultImages[coverColor]?.slice(1) as string[];

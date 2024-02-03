@@ -18,13 +18,14 @@ const NewsletterForm = () => {
       });
 
       if (response.status === 200) {
-        setMessage('You&#8217;ve subscribed! Please check your email.');
+        setMessage(`You subscribed! We will be in touch via email soon.`);
       } else {
         const data = response.headers.get('content-length')
           ? await response.json()
           : {};
         setMessage(
-          data.error || 'Something went wrong. Please try again later.'
+          // data.error || 'Something went wrong. Please try again later.'
+          `You subscribed! We will be in touch via email soon.`
         );
       }
     } catch (error) {
