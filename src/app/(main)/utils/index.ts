@@ -150,27 +150,35 @@ function generatePDPContent({
         `${item.year_generation ?? ''} ${item.make ?? ''} ${item.model ?? ''} ${submodel ?? ''} ${secondSubmodel ?? ''}`.trim();
       mainImage = item.feature as string;
       productImages = item.product as string;
+      console.log(mainImage);
     } else if (productType && make && model && year) {
       fullProductName = `${item.year_generation} ${item.make} ${item.model}`;
       mainImage = item.feature as string;
       productImages = item.product as string;
+      console.log(mainImage);
     } else if (!year && make && model) {
       fullProductName = `${item.make} ${item.model}`;
       mainImage = defaultImages[coverColor]?.[0] as string;
       productImages = defaultImages[coverColor]?.slice(1) as string[];
+      console.log(mainImage);
     } else if (!model && item.make && !year) {
       fullProductName = item.make;
       mainImage = defaultImages[coverColor]?.[0] as string;
       productImages = defaultImages[coverColor]?.slice(1) as string[];
+      console.log(mainImage, defaultImages[coverColor]);
     } else if (!make && !model && !year && item.type) {
       fullProductName = item.type;
       mainImage = defaultImages[coverColor]?.[0] as string;
       productImages = defaultImages[coverColor]?.slice(1) as string[];
+      console.log(mainImage);
     } else {
       fullProductName = item.type as string;
       mainImage = defaultImages[coverColor]?.[0] as string;
       productImages = defaultImages[coverColor]?.slice(1) as string[];
+      console.log(mainImage);
     }
+
+    console.log(mainImage);
 
     return {
       ...item,

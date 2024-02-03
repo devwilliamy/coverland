@@ -975,13 +975,15 @@ export const DEFAULT_CAR_IMAGE_ARRAY = [
 //Default = Pages that don't include year in the url path
 
 const suvImages: Partial<Record<(typeof colorOrder)[number], string[]>> = {
-  'Black Gray Stripe': [''],
-  'Solid Gray': [''],
+  'Black Gray Stripe': [
+    'http://www.coverland.com/category-images-new/suv-premium-plus-bkgr-str.webp',
+  ],
+  'Solid Gray': ['http://www.coverland.com/pms/suv-premium-gr-1to.webp'],
 };
 
 const carImages: Partial<Record<(typeof colorOrder)[number], string[]>> = {
   'Black Red Stripe': [
-    'http://www.coverland.com/pms/01-str-bkrd.webp',
+    'http://www.coverland.com/category-images-new/01-str-bkrd-nmr.webp',
     'http://www.coverland.com/pms/02-bkrd-str-mr.webp',
     'http://www.coverland.com/pms/03-str-bkrd.webp',
     'http://www.coverland.com/pms/04-oxford-outer-black.webp',
@@ -994,7 +996,7 @@ const carImages: Partial<Record<(typeof colorOrder)[number], string[]>> = {
   ],
 
   'Black Gray Stripe': [
-    'http://www.coverland.com/pms/01-str-bkgr.webp',
+    'http://www.coverland.com/category-images-new/01-bkgr-str-m.webp',
     'http://www.coverland.com/pms/02-bkgr-str-mr.webp',
     'http://www.coverland.com/pms/03-str-bkgr.webp',
     'http://www.coverland.com/pms/04-oxford-outer-black.webp',
@@ -1005,7 +1007,9 @@ const carImages: Partial<Record<(typeof colorOrder)[number], string[]>> = {
     'http://www.coverland.com/pms/09-value.webp',
     'http://www.coverland.com/pms/10-str-bkgr.webp',
   ],
-  'Gray Black Stripe': ['http://www.coverland.com/pms/01-str-grbk.webp'],
+  'Gray Black Stripe': [
+    'http://www.coverland.com/category-images-new/premium-plus-grbk-str-nmr.webp',
+  ],
   'Black Gray 2-Tone': [
     'http://www.coverland.com/pms/01-2to-bkgr.webp',
     'http://www.coverland.com/pms/02-bkgr-2to-mr.webp',
