@@ -38,7 +38,7 @@ function Header() {
             /> */}
       </section>
       <section className="flex w-full items-center justify-between px-16 pb-3 pt-2 max-md:max-w-full max-md:px-5">
-        <AlgoliaSearchbar />
+        {/* <AlgoliaSearchbar /> */}
       </section>
     </header>
   );
