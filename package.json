@@ -7,8 +7,15 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "test": "jest",
-    "test:watch": "jest --watch",
+    "test:jest": "jest",
+    "test:jest:watch": "jest --watch",
+    "test:playwright": "npx playwright test",
+    "test:playwright:ui": "npx playwright test --ui",
+    "test:playwright:debug": "npx playwright test --debug",
+    "test:playwright:codegen": "npx playwright test codegen",
+    "test:playwright:codegen:local": "npx playwright codegen http://localhost:3000",
+    "test:playwright:codegen:prod": "npx playwright codegen https://coverland.com",
+    "test:playwright:showReport": "npx playwright show-report",
     "upload:video": "npx next-video sync",
     "upload:video:dev-watch": "next dev & npx next-video sync -w"
   },
@@ -64,6 +71,7 @@
     "zod": "^3.22.4"
   },
   "devDependencies": {
+    "@playwright/test": "^1.41.2",
     "@tanstack/eslint-plugin-query": "^5.14.6",
     "@testing-library/jest-dom": "^6.2.0",
     "@testing-library/react": "^14.1.2",
