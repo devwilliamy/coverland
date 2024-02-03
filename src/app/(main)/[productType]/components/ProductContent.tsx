@@ -627,7 +627,7 @@ const AddToCartSelector = ({
   };
 
   const SubmodelDropdown = () => {
-    if (uniqueSubmodels.length === 0) return null;
+    if (uniqueSubmodels.length === 0 && !queryState.submodel) return null;
     return (
       <div
         className={`flex max-h-[44px] min-h-[44px] w-full items-center rounded-[4px] bg-white px-2 text-lg outline outline-1 outline-offset-1 outline-[#767676] md:max-h-[58px] lg:w-auto`}
@@ -650,7 +650,8 @@ const AddToCartSelector = ({
   };
 
   const SecondSubmodelDropdown = () => {
-    if (uniqueSecondSubmodels.length === 0) return null;
+    if (uniqueSecondSubmodels.length === 0 && !queryState.secondSubmodel)
+      return null;
     return (
       <div
         className={`flex max-h-[44px] min-h-[44px] w-full items-center rounded-[4px] bg-white px-2 text-lg outline outline-1 outline-offset-1 outline-[#767676] md:max-h-[58px] lg:w-auto`}
