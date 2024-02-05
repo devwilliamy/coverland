@@ -29,21 +29,13 @@ import { track } from '@vercel/analytics';
 import dynamicImport from 'next/dynamic';
 import { generateProductsLeft, stringToSlug } from '@/lib/utils';
 import CartSheet from '../cart/CartSheet';
-import {
-  Drawer,
-  DrawerContent,
-  DrawerHeader,
-  DrawerTitle,
-  DrawerTrigger,
-} from '@/components/ui/drawer';
-import { IoClose } from 'react-icons/io5';
-import ReviewSection from './components/ReviewSection';
+
 import Dialog from '../ui/dialog-tailwind-ui';
 import { useRouter } from 'next/navigation';
+import ReviewSheet from './ReviewSheet';
 import SquareVideo from '@/videos/Coverland_Square.mp4';
 import SquareThumbnail from '@/video/Thumbnail_Square.webp';
 import { MobileImageCarousel } from '@/app/(main)/[productType]/components/MobileImageCarousel';
-import { TCarCoverData } from '@/app/(main)/[productType]/components/CarPDP';
 
 const ProductVideo = dynamicImport(() => import('./ProductVideo'), {
   ssr: false,
@@ -208,7 +200,6 @@ function CarSelector({
   const { addToCart } = useCartContext();
 
   const [addToCartOpen, setAddToCartOpen] = useState<boolean>(false);
-  const [reviewDrawerOpen, setReviewDrawerOpen] = useState<boolean>(false);
 
   const productRefs = useRef<ProductRefs>(
     displayedModelData.reduce(
@@ -223,8 +214,8 @@ function CarSelector({
   const [showMore, setShowMore] = useState(false);
   const isMobile = useMediaQuery('(max-width: 768px)');
 
-  const uniqueColors = Array.(
-    new Set(displayedModelData.frommap((model) => model.display_color))
+  const uniqueColors = Array.from(
+    new Set(displayedModelData.map((model) => model.display_color))
   ).map((color) =>
     displayedModelData.find((model) => model.display_color === color)
   );
@@ -543,42 +534,7 @@ function CarSelector({
                   </Popover>
                 </div>
                 <div className="lg:hidden">
-                  <Drawer
-                    open={reviewDrawerOpen}
-                    onOpenChange={setReviewDrawerOpen}
-                  >
-                    <DrawerTrigger
-                      className="ml-2 text-blue-400 underline"
-                      disabled={!reviewCount}
-                      // className=" flex w-full flex-row items-center justify-between border-b-2 border-[#C8C7C7] py-4 text-left text-[22px] font-black uppercase text-[#1A1A1A] !no-underline"
-                    >
-                      {reviewCount || '2'} ratings
-                    </DrawerTrigger>
-                    <DrawerContent className="">
-                      <DrawerHeader draggable={false}>
-                        <DrawerTitle className="flex w-full items-center border-b-2 border-[#C8C7C7] py-[22px] font-black uppercase">
-                          <div
-                            id="DrawerTitle"
-                            className=" flex w-full text-[22px] font-black uppercase"
-                          >
-                            Car Cover Reviews
-                          </div>
-                          <button
-                            id="CloseModalButton"
-                            className="flex items-center justify-center rounded-full bg-gray-200 p-[5px]"
-                            onClick={() => {
-                              setReviewDrawerOpen(false);
-                            }}
-                          >
-                            <IoClose className="h-[24px] w-[24px]" />
-                          </button>
-                        </DrawerTitle>
-                      </DrawerHeader>
-                      <div className="mx-auto flex max-h-[76vh] w-full flex-col overflow-y-scroll px-4 pt-[40px]">
-                        <ReviewSection reviewData={reviewData} />
-                      </div>
-                    </DrawerContent>
-                  </Drawer>
+                  <ReviewSheet reviewData={reviewData} />
                 </div>
               </div>
               <p className="mb-2 text-gray-500">100+ Bought In Past Month</p>

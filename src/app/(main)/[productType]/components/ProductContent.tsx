@@ -33,14 +33,12 @@ import {
   DrawerFooter,
   DrawerHeader,
   DrawerTitle,
-  DrawerTrigger,
 } from '@/components/ui/drawer';
-import { IoClose } from 'react-icons/io5';
-import ReviewSection from '@/components/PDP/components/ReviewSection';
 import { generateProductsLeft } from '@/lib/utils';
 import Dialog from '@/components/ui/dialog-tailwind-ui';
 import { useParams, useRouter } from 'next/navigation';
 import { compareRawStrings } from '@/lib/utils';
+import ReviewSheet from '@/components/PDP/ReviewSheet';
 import ProductVideo from '@/components/PDP/ProductVideo';
 import SquareVideo from '@/videos/Coverland_Square.mp4';
 import SquareThumbnail from '@/video/Thumbnail_Square.webp';
@@ -82,7 +80,6 @@ export function ProductContent({
   const params = useParams<TPathParams>();
 
   const [addToCartOpen, setAddToCartOpen] = useState<boolean>(false);
-  const [reviewDrawerOpen, setReviewDrawerOpen] = useState<boolean>(false);
   const [showStickyAddToCartButton, setShowStickyAddToCartButton] =
     useState<boolean>(false);
 
@@ -205,42 +202,7 @@ export function ProductContent({
               </Popover>
             </div>
             <div className="lg:hidden">
-              <Drawer
-                open={reviewDrawerOpen}
-                onOpenChange={setReviewDrawerOpen}
-              >
-                <DrawerTrigger
-                  className="ml-2 text-blue-400 underline"
-                  disabled={!reviewCount}
-                  // className=" flex w-full flex-row items-center justify-between border-b-2 border-[#C8C7C7] py-4 text-left text-[22px] font-black uppercase text-[#1A1A1A] !no-underline"
-                >
-                  {reviewCount || '2'} ratings
-                </DrawerTrigger>
-                <DrawerContent className="">
-                  <DrawerHeader draggable={false}>
-                    <DrawerTitle className="flex w-full items-center border-b-2 border-[#C8C7C7] py-[22px] font-black uppercase">
-                      <div
-                        id="DrawerTitle"
-                        className=" flex w-full text-[22px] font-black uppercase"
-                      >
-                        Car Cover Reviews
-                      </div>
-                      <button
-                        id="CloseModalButton"
-                        className="flex items-center justify-center rounded-full bg-gray-200 p-[5px]"
-                        onClick={() => {
-                          setReviewDrawerOpen(false);
-                        }}
-                      >
-                        <IoClose className="h-[24px] w-[24px]" />
-                      </button>
-                    </DrawerTitle>
-                  </DrawerHeader>
-                  <div className="mx-auto flex max-h-[76vh] w-full flex-col overflow-y-scroll px-4 pt-[40px]">
-                    <ReviewSection reviewData={reviewData} />
-                  </div>
-                </DrawerContent>
-              </Drawer>
+              <ReviewSheet reviewData={reviewData} />
             </div>
           </div>
           <p className="mb-2 text-gray-500">100+ Bought In Past Month</p>
