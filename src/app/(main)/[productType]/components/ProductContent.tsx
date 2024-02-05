@@ -85,7 +85,6 @@ export function ProductContent({
   const [reviewDrawerOpen, setReviewDrawerOpen] = useState<boolean>(false);
   const [showStickyAddToCartButton, setShowStickyAddToCartButton] =
     useState<boolean>(false);
-  const router = useRouter();
 
   // For sticky Add To Cart on mobile only (can maybe extract this out)
   // Will check if Add To Cart has been scroll past, if so, will show sticky button
