@@ -1,7 +1,7 @@
 'use client';
 
 import { ChangeEvent, useState } from 'react';
-import { TProductData } from '@/lib/db';
+import { TInitialProductDataDB } from '@/lib/db';
 import { TQuery } from './HeroDropdown';
 
 export function YearSearch({
@@ -11,7 +11,7 @@ export function YearSearch({
     query: TQuery;
     setQuery: React.Dispatch<React.SetStateAction<TQuery>>;
   };
-  currentSelection?: TProductData;
+  currentSelection?: TInitialProductDataDB;
 }) {
   const [value, setValue] = useState('');
   const years = Array.from({ length: 101 }, (_, i) => 1924 + i).reverse();

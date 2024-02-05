@@ -23,7 +23,8 @@
       "@/images/*": ["./public/images/*"],
       "@/video/*": ["./public/video/*"],
       "@/data/*": ["./public/data/*"],
-      "@/category-images-new/*": ["./public/category-images-new/*"]
+      "@/category-images-new/*": ["./public/category-images-new/*"],
+      "@/videos/*": ["./videos/*"]
     }
   },
   "include": [

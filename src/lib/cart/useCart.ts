@@ -1,8 +1,9 @@
 'use client';
 import { useState, useCallback, useEffect } from 'react';
-import { TProductData } from '../db';
-import { TCarCoverData } from '@/app/(main)/car-covers/components/CarPDP';
-export type TCartItem = (TProductData | TCarCoverData) & { quantity: number };
+import { IProductData } from '@/app/(main)/utils';
+export interface TCartItem extends IProductData {
+  quantity: number;
+}
 const useCart = () => {
   const [cartItems, setCartItems] = useState<TCartItem[]>(() => {
     if (typeof window !== 'undefined') {
