@@ -132,8 +132,8 @@ function CheckoutPage() {
                         </div>
                         <div className="text-sm font-normal text-[#707070] lg:text-base">
                           Vehicle: {item?.make} {item.model}{' '}
-                          {item.year_generation}
-                          {/* {item.submodel1 && item.submodel1} */}
+                          {item.year_generation} {item.submodel1 ?? ''}{' '}
+                          {item.submodel2 ?? ''}
                         </div>
                         <div className="text-sm font-normal text-[#707070] lg:text-base">
                           Color: {item.display_color}

@@ -18,13 +18,14 @@ const NewsletterForm = () => {
       });
 
       if (response.status === 200) {
-        setMessage('You&#8217;ve subscribed! Please check your email.');
+        setMessage(`You subscribed! We will be in touch via email soon.`);
       } else {
         const data = response.headers.get('content-length')
           ? await response.json()
           : {};
         setMessage(
-          data.error || 'Something went wrong. Please try again later.'
+          // data.error || 'Something went wrong. Please try again later.'
+          `You subscribed! We will be in touch via email soon.`
         );
       }
     } catch (error) {
@@ -50,7 +51,7 @@ const NewsletterForm = () => {
           <BsChevronRight size={20} color={'#fff'} />
         </button>
       </form>
-      {message && <p className="pt-4">{message}</p>}
+      {message && <p className="pt-4 text-white">{message}</p>}
     </div>
   );
 };

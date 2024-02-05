@@ -74,17 +74,17 @@ export function OurCarCovers() {
 const OurCoversBlock = (props: Props) => {
   return (
     <div className="flex w-full items-start">
-      <div className="flex max-h-[72px] w-3/12 max-w-[72px] items-center lg:max-h-[101px] lg:w-[30%] lg:max-w-[101px]">
+      <div className="flex max-h-[77px] w-3/12 max-w-[77px] items-center lg:max-h-[101px] lg:w-[30%] lg:max-w-[101px]">
         {props.icon}
       </div>
       <div
         id="description-container"
         className="ml-[24px] flex w-9/12 flex-col lg:ml-[26px] lg:w-[70%] "
       >
-        <p className="mb-4 w-full max-w-[270px] text-[18px] font-[700] normal-case text-[#1A1A1A] lg:text-[24px]">
+        <p className="mb-2 w-full max-w-[270px] text-[18px] font-[700] normal-case leading-[26px] text-[#1A1A1A] lg:text-[24px]">
           {props.title}
         </p>
-        <p className="text-[16px] font-[400] normal-case text-[#707070] lg:text-[18px]">
+        <p className="text-[14px] font-[400] normal-case leading-[24px] text-[#707070] lg:text-[18px]">
           {props.text}
         </p>
       </div>

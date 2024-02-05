@@ -1,12 +1,11 @@
 import { TCartItem } from '@/lib/cart/useCart';
-import { TProductData } from '@/lib/db';
 import { useCartContext } from '@/providers/CartProvider';
 import Image from 'next/image';
 import LineSeparator from '../ui/line-separator';
-import { TCarCoverData } from '@/app/(main)/car-covers/components/CarPDP';
+import { IProductData } from '@/app/(main)/utils';
 
 type AddToCartBodyProps = {
-  selectedProduct?: TProductData | TCarCoverData | null | undefined;
+  selectedProduct?: IProductData | null | undefined;
 };
 
 const AddToCartBody = ({ selectedProduct }: AddToCartBodyProps) => {

@@ -1,0 +1,20 @@
+{
+  "status": "ready",
+  "originalFilePath": "videos/360 degree_Website.mp4",
+  "provider": "vercel-blob",
+  "providerMetadata": {
+    "vercel-blob": {
+      "url": "https://x2kly621zrgfgwll.public.blob.vercel-storage.com/videos/360%20degree_Website-J2tQj1IiM7eHrefctEQoUQ83kHmqle.mp4",
+      "contentType": "video/mp4"
+    }
+  },
+  "createdAt": 1707157057861,
+  "updatedAt": 1707157113387,
+  "size": 55573431,
+  "sources": [
+    {
+      "src": "https://x2kly621zrgfgwll.public.blob.vercel-storage.com/videos/360%20degree_Website-J2tQj1IiM7eHrefctEQoUQ83kHmqle.mp4",
+      "type": "video/mp4"
+    }
+  ]
+}
