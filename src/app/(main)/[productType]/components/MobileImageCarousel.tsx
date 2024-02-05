@@ -10,7 +10,7 @@ import { IProductData } from '../../utils';
 import dynamic from 'next/dynamic';
 import { StaticImport } from 'next/dist/shared/lib/get-img-props';
 import { Asset } from 'next-video/dist/assets.js';
-import SquareVideoThumbnail from '@/video/Thumbnail_Square.webp';
+import SevenSecVideoThumbnail from '@/video/7second image.webp';
 import SevenSecVideo from '@/videos/7sec Listing Video_2.mp4';
 
 const ProductVideo = dynamic(() => import('@/components/PDP/ProductVideo'), {
@@ -141,7 +141,7 @@ export const MobileImageCarousel = ({
           <Image
             alt="Video Thumbnail"
             slot="poster"
-            src={SquareVideoThumbnail}
+            src={SevenSecVideoThumbnail}
             aria-hidden="true"
           />
         </button>
