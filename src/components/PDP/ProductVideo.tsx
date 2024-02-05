@@ -8,12 +8,14 @@ type ProductVideoProps = {
   imgSrc?: StaticImageData;
   autoplay?: boolean;
   loop?: boolean;
+  aspectRatio?: string;
 };
 export default function ProductVideo({
   src,
   imgSrc,
   autoplay = false,
   loop = false,
+  aspectRatio = '1 / 1',
 }: ProductVideoProps) {
   return (
     <Video
@@ -22,7 +24,7 @@ export default function ProductVideo({
       autoPlay={autoplay}
       loop={loop}
       style={{
-        aspectRatio: 1 / 1,
+        aspectRatio: aspectRatio,
         height: '100%',
         '--seek-backward-button': 'none',
         '--seek-forward-button': 'none',
