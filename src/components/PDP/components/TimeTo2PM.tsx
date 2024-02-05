@@ -41,8 +41,9 @@ export function TimeTo2PMPST() {
   }
 
   return (
-    <p className="text-dark text-sm">
-      Order within <span className="text-[#767676]">{timeRemaining}</span>
+    <p className="text-[12px] font-[400] leading-[12px] text-[#767676]">
+      <span className=" text-black">Order within </span>
+      <span>{timeRemaining}</span>
     </p>
   );
 }

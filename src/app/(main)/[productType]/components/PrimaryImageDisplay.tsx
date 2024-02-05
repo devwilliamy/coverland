@@ -7,10 +7,10 @@ import Image from 'next/image';
 // import ProductVideo from '@/components/PDP/ProductVideo';
 import { SelectedProductImages } from './SelectedProductImages';
 import { Button } from '@/components/ui/button';
-import { TCarCoverData } from './CarPDP';
 import dynamic from 'next/dynamic';
 import SquareVideo from '@/videos/Coverland_Square.mp4';
 import SquareThumbnail from '@/video/Thumbnail_Square.webp';
+import { IProductData } from '../../utils';
 
 const ProductVideo = dynamic(() => import('@/components/PDP/ProductVideo'), {
   ssr: false,
@@ -23,7 +23,7 @@ export function PrimaryImageDisplay({
   setFeaturedImage,
 }: {
   productImages: string[];
-  selectedProduct: TCarCoverData;
+  selectedProduct: IProductData;
   featuredImage: string | undefined;
   setFeaturedImage: (image: string) => void;
 }) {
@@ -31,7 +31,7 @@ export function PrimaryImageDisplay({
   const isMobile = useMediaQuery('(max-width: 768px)');
 
   return (
-    <div className=" -ml-4 mt-[29px] flex h-auto w-screen flex-col items-stretch justify-center pb-2 lg:w-3/5 lg:pb-0 ">
+    <div className=" -ml-4 mt-[17px]  flex  w-screen flex-col items-stretch justify-center pb-2 lg:w-3/5 lg:pb-0 ">
       {/* Featured Image */}
       <div
         className={`${
@@ -43,6 +43,7 @@ export function PrimaryImageDisplay({
             <MobileImageCarousel
               selectedProduct={selectedProduct}
               productImages={productImages}
+              setFeaturedImage={setFeaturedImage}
             />
           ) : (
             <Image

@@ -48,10 +48,13 @@ const Footer = () => {
             id="social-icons=footer"
             className="flex w-full flex-row items-center justify-start gap-3.5"
           >
-            <Link href="https:www.facebook.com/coverland" target="_blank">
+            {/* <Link href="https:www.facebook.com/coverland" target="_blank">
               <FbCustomIcon />
-            </Link>
-            <Link href="https:www.youtube.com/coverland" target="_blank">
+            </Link> */}
+            <Link
+              href="https://youtube.com/@CoverLandUSA?si=hcqFGwnMgWrRfIdP"
+              target="_blank"
+            >
               <YtCustomIcon />
             </Link>
           </div>

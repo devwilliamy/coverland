@@ -8,6 +8,10 @@ const nextConfig = {
         protocol: 'http',
         hostname: '**.coverland.com',
       },
+      {
+        protocol: 'https',
+        hostname: 'coverland.com/**',
+      },
     ],
   },
   typescript: {
