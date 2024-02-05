@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import carData from '@/data/transformed_car_data.json';
-import { TProductData } from '..';
+import { TInitialProductDataDB } from '..';
 
 export type TCarData = {
   make: string;
@@ -15,7 +15,9 @@ const useCarSelector = () => {
   const [selectedYear, setSelectedYear] = useState<string | null>(null);
   const [selectedMake, setSelectedMake] = useState<string | null>(null);
   const [selectedModel, setSelectedModel] = useState<string | null>(null);
-  const [subModelOptions, setSubModelOptions] = useState<TProductData[]>([]);
+  const [subModelOptions, setSubModelOptions] = useState<
+    TInitialProductDataDB[]
+  >([]);
   const [secondSubmodelOptions, setSecondSubmodelOptions] = useState<
     string | null
   >(null);

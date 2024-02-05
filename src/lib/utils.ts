@@ -1,4 +1,4 @@
-import { TProductData } from './db/index';
+import { TInitialProductDataDB } from './db/index';
 import { type ClassValue, clsx } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 import { modelStrings } from './constants';
@@ -53,9 +53,9 @@ export const deslugify = (slug: string) => {
     .replace(/\b\w/g, (char) => char.toUpperCase());
 };
 
-export function getNewestModel(array: TProductData[]) {
+export function getNewestModel(array: TInitialProductDataDB[]) {
   return array.sort((a, b) => {
-    const getLastYear = (item: TProductData) => {
+    const getLastYear = (item: TInitialProductDataDB) => {
       if (!item?.year_generation) return 0;
       const years = item?.year_generation.split('-');
       return parseInt(years[years.length - 1]);
@@ -68,7 +68,7 @@ export function getNewestModel(array: TProductData[]) {
   });
 }
 
-export function getUniqueYearGenerations(array: TProductData[]) {
+export function getUniqueYearGenerations(array: TInitialProductDataDB[]) {
   const unique = new Set();
 
   array.forEach((item) => {
@@ -98,8 +98,8 @@ export function compareRawStrings(
 }
 
 export function groupProductsBy(
-  attribute: keyof TProductData,
-  array: TProductData[]
+  attribute: keyof TInitialProductDataDB,
+  array: TInitialProductDataDB[]
 ) {
   const groups = array.reduce(
     (accumulator, currentValue) => {
@@ -110,14 +110,14 @@ export function groupProductsBy(
       accumulator[groupKey].push(currentValue);
       return accumulator;
     },
-    {} as Record<string, TProductData[]>
+    {} as Record<string, TInitialProductDataDB[]>
   );
 
   return Object.keys(groups);
 }
 
 export const generateProductsLeft = (
-  selectedProduct: TCarCoverData | TProductData | null | undefined
+  selectedProduct: TCarCoverData | TInitialProductDataDB | null | undefined
 ): number => {
   let productAmount = 0;
   if (selectedProduct && selectedProduct.sku) {

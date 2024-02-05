@@ -1,5 +1,5 @@
 'use client';
-import { TProductData, TReviewData } from '@/lib/db';
+import { TInitialProductDataDB, TReviewData } from '@/lib/db';
 import { Separator } from '@/components/ui/separator';
 import Image from 'next/image';
 import { GoDotFill } from 'react-icons/go';
@@ -40,8 +40,10 @@ import { IoClose } from 'react-icons/io5';
 import ReviewSection from './components/ReviewSection';
 import Dialog from '../ui/dialog-tailwind-ui';
 import { useRouter } from 'next/navigation';
-import { MobileImageCarousel } from '@/app/(main)/car-covers/components/MobileImageCarousel';
-import { TCarCoverData } from '@/app/(main)/car-covers/components/CarPDP';
+import SquareVideo from '@/videos/Coverland_Square.mp4';
+import SquareThumbnail from '@/video/Thumbnail_Square.webp';
+import { MobileImageCarousel } from '@/app/(main)/[productType]/components/MobileImageCarousel';
+import { TCarCoverData } from '@/app/(main)/[productType]/components/CarPDP';
 
 const ProductVideo = dynamicImport(() => import('./ProductVideo'), {
   ssr: false,
@@ -131,7 +133,7 @@ function CarSelector({
   secondSubmodels,
   reviewData,
 }: {
-  modelData: TProductData[];
+  modelData: TInitialProductDataDB[];
   pathParams: TPDPPathParams;
   submodels: string[];
   secondSubmodels: string[];
@@ -165,11 +167,13 @@ function CarSelector({
   const isFullySelected =
     pathParams?.product?.length === 3 &&
     (submodels.length === 0 ||
-      !!searchParams?.submodel ||
+      modelData.some((model) => model.submodel1) ||
       submodels.length === 1) &&
     (secondSubmodels.length === 0 ||
-      !!searchParams?.second_submodel ||
+      modelData.some((model) => model.submodel2) ||
       secondSubmodels.length === 1);
+
+  console.log(isFullySelected);
 
   let displayedModelData = searchParams?.submodel
     ? modelsBySubmodel
@@ -180,7 +184,7 @@ function CarSelector({
     : displayedModelData;
 
   const [selectedProduct, setSelectedProduct] = useState<
-    TProductData | TCarCoverData
+    TInitialProductDataDB | TCarCoverData
   >(
     isFullySelected || searchParams?.submodel
       ? displayedModelData[0]
@@ -207,17 +211,20 @@ function CarSelector({
   const [reviewDrawerOpen, setReviewDrawerOpen] = useState<boolean>(false);
 
   const productRefs = useRef<ProductRefs>(
-    displayedModelData.reduce((acc: ProductRefs, item: TProductData) => {
-      acc[item?.sku as string] = React.createRef();
-      return acc;
-    }, {})
+    displayedModelData.reduce(
+      (acc: ProductRefs, item: TInitialProductDataDB) => {
+        acc[item?.sku as string] = React.createRef();
+        return acc;
+      },
+      {}
+    )
   );
 
   const [showMore, setShowMore] = useState(false);
   const isMobile = useMediaQuery('(max-width: 768px)');
 
-  const uniqueColors = Array.from(
-    new Set(displayedModelData.map((model) => model.display_color))
+  const uniqueColors = Array.(
+    new Set(displayedModelData.frommap((model) => model.display_color))
   ).map((color) =>
     displayedModelData.find((model) => model.display_color === color)
   );
@@ -291,7 +298,7 @@ function CarSelector({
       <div className="flex w-full flex-col items-start justify-between lg:flex-row lg:gap-14">
         {isMobile && <EditVehiclePopover fullProductName={fullProductName} />}
         {/* Left Panel */}
-        <div className=" -ml-4 mt-[29px] flex h-auto w-screen flex-col items-stretch justify-center pb-2 lg:w-3/5 lg:pb-0 ">
+        <div className=" -ml-4  flex h-auto w-screen flex-col items-stretch justify-center pb-2 lg:w-3/5 lg:pb-0 ">
           {/* Featured Image */}
           <div
             className={`${
@@ -318,7 +325,9 @@ function CarSelector({
             </div>
 
             {/* Product Video */}
-            {!isMobile && <ProductVideo />}
+            {!isMobile && (
+              <ProductVideo src={SquareVideo} imgSrc={SquareThumbnail} />
+            )}
             {/* Gallery Images */}
             <div className="hidden w-auto grid-cols-2 gap-[16px] pt-4 lg:grid ">
               {productImages.map((img, idx) => (
@@ -390,7 +399,7 @@ function CarSelector({
                   key={sku?.sku}
                   onClick={() => {
                     setFeaturedImage(sku?.feature as string);
-                    setSelectedProduct(sku as TProductData);
+                    setSelectedProduct(sku as TInitialProductDataDB);
                     const skuRef = sku?.sku
                       ? (productRefs?.current[
                           sku?.sku
@@ -443,7 +452,7 @@ function CarSelector({
                   key={sku?.sku}
                   onClick={() => {
                     setFeaturedImage(sku?.feature as string);
-                    setSelectedProduct(sku as TProductData);
+                    setSelectedProduct(sku as TInitialProductDataDB);
                     const skuRef = sku?.sku
                       ? (productRefs?.current[
                           sku?.sku
@@ -722,6 +731,11 @@ function CarSelector({
           </div> */}
 
           <Separator className="my-8" />
+          {isMobile && (
+            <div className="pb-5">
+              <ProductVideo src={SquareVideo} imgSrc={SquareThumbnail} />
+            </div>
+          )}
           {/* Selling Attributes */}
           <div className="grid grid-cols-2 gap-4 pb-4">
             <div className="flex flex-row">

@@ -1,0 +1,20 @@
+{
+  "status": "ready",
+  "originalFilePath": "videos/Coverland_Square.mp4",
+  "provider": "vercel-blob",
+  "providerMetadata": {
+    "vercel-blob": {
+      "url": "https://x2kly621zrgfgwll.public.blob.vercel-storage.com/videos/Coverland_Square-CCLaFR0AVUozO5fNHGSuE4WbFN7pAf.mp4",
+      "contentType": "video/mp4"
+    }
+  },
+  "createdAt": 1706903077770,
+  "updatedAt": 1706905328538,
+  "size": 1024478407,
+  "sources": [
+    {
+      "src": "https://x2kly621zrgfgwll.public.blob.vercel-storage.com/videos/Coverland_Square-CCLaFR0AVUozO5fNHGSuE4WbFN7pAf.mp4",
+      "type": "video/mp4"
+    }
+  ]
+}

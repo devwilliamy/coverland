@@ -1,0 +1,20 @@
+{
+  "status": "ready",
+  "originalFilePath": "videos/7sec Listing Video_2.mp4",
+  "provider": "vercel-blob",
+  "providerMetadata": {
+    "vercel-blob": {
+      "url": "https://x2kly621zrgfgwll.public.blob.vercel-storage.com/videos/7sec%20Listing%20Video_2-5vp2qKuTkVXkGjtcaym4Ef0FyXYk6g.mp4",
+      "contentType": "video/mp4"
+    }
+  },
+  "createdAt": 1706828215106,
+  "updatedAt": 1706828298692,
+  "size": 49341237,
+  "sources": [
+    {
+      "src": "https://x2kly621zrgfgwll.public.blob.vercel-storage.com/videos/7sec%20Listing%20Video_2-5vp2qKuTkVXkGjtcaym4Ef0FyXYk6g.mp4",
+      "type": "video/mp4"
+    }
+  ]
+}

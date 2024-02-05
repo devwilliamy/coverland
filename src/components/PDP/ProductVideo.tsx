@@ -1,27 +1,43 @@
 'use client';
 import Video from 'next-video';
-import SquareVideo from '../../../videos/Square Ratio.mp4';
-import PerfectSolutionThumbnail from '@/video/Thumbnail_Square.webp';
-import Image from 'next/image';
+import Image, { StaticImageData } from 'next/image';
+import { Asset } from 'next-video/dist/assets.js';
 
-export default function ProductVideo() {
+type ProductVideoProps = {
+  src: Asset;
+  imgSrc?: StaticImageData;
+  autoplay?: boolean;
+  loop?: boolean;
+  aspectRatio?: string;
+};
+export default function ProductVideo({
+  src,
+  imgSrc,
+  autoplay = false,
+  loop = false,
+  aspectRatio = '1 / 1',
+}: ProductVideoProps) {
   return (
     <Video
-      src={SquareVideo}
+      src={src}
       muted
+      autoPlay={autoplay}
+      loop={loop}
       style={{
-        aspectRatio: 1 / 1,
+        aspectRatio: aspectRatio,
         height: '100%',
         '--seek-backward-button': 'none',
         '--seek-forward-button': 'none',
       }}
     >
-      <Image
-        alt="Video Thumbnail"
-        slot="poster"
-        src={PerfectSolutionThumbnail}
-        aria-hidden="true"
-      />
+      {imgSrc ? (
+        <Image
+          alt="Video Thumbnail"
+          slot="poster"
+          src={imgSrc}
+          aria-hidden="true"
+        />
+      ) : null}
     </Video>
   );
 }
