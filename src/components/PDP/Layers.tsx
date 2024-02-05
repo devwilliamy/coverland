@@ -14,15 +14,15 @@ export function Layers() {
 
   const LayersStaticData: layerProps[] = [
     {
-      title: 'Waterproof Car Cover',
+      title: 'Waterproof',
       text: ' Extra waterproof coating provides the ultimate shield against rain and moisture as well as the elements.',
     },
     {
-      title: 'Premium Car Cover',
+      title: 'Premium',
       text: 'Made with top-quality premium polyester, our cover ensures resilience. Enjoy year-round security in all climates',
     },
     {
-      title: 'Long-lasting Car Cover',
+      title: 'Long-lasting',
       text: 'Our exclusive coating preserves the original color, preventing fading over time.',
     },
   ];
@@ -46,33 +46,33 @@ export function Layers() {
   ];
 
   return (
-    <div className="lg:pb-0">
+    <div className="lg:pb-0 ">
       <div className="flex-start flex h-auto w-full flex-col justify-start pb-[18px] pt-10 lg:pt-0">
         <p className="mb-4 text-lg font-normal capitalize text-[#343434] md:text-2xl">
-          High-Quality Car Cover
+          High-Quality
         </p>
         <p
-          className="text-left text-2xl font-black uppercase text-[#1A1A1A] md:text-3xl lg:text-5xl"
+          className="mb-[38px] text-left text-2xl font-black uppercase text-[#1A1A1A] md:text-3xl lg:text-5xl"
           id="benefits"
         >
-          Engineered to {isMobile ? <br /> : ''} Perfection
+          Engineered to Perfection
         </p>
       </div>
-      <div className="flex flex-col items-center bg-[#F9F9FB] lg:px-[35px] lg:py-[40px] ">
-        <Image
+      <div className="mb-[38px] flex flex-col items-center bg-[#F9F9FB] lg:px-[35px] lg:py-[40px] ">
+        {/* <Image
           src={Crystal}
           alt="crystal"
           className="mb-[40px] h-full w-full lg:w-6/12"
-        />
+        /> */}
         <div className="flex h-full w-full flex-col lg:flex-row lg:gap-10 ">
-          <div className="w-full pb-8 lg:w-2/4 lg:pb-0">
+          {/* <div className="w-full pb-8 lg:w-2/4 lg:pb-0">
             <Image
               src={LayerImg}
               alt="a car sitting inside of a building"
               className="h-6/12 w-full"
             />
-          </div>
-          <div className="flex w-full flex-col items-stretch justify-between gap-[46px] px-4 pb-8 lg:w-2/4 lg:items-center lg:justify-evenly lg:gap-0 lg:px-16">
+          </div> */}
+          <div className="flex w-full flex-col items-stretch justify-between gap-[46px] px-4 pb-[40px] pt-[48px] lg:w-2/4 lg:items-center lg:justify-evenly lg:gap-0 lg:px-16">
             {LayersStaticData.map((item, index) => (
               <LayersBlock
                 key={`Layers-Block-${index}`}

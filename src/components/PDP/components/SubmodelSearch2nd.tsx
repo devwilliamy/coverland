@@ -1,30 +1,28 @@
 'use client';
 
-import { ChangeEvent, Dispatch, SetStateAction, useState } from 'react';
+import { ChangeEvent, useState } from 'react';
 import { TQuery } from './SubDropdowns';
 
 export function SubmodelSearch2nd({
-  setQuery,
+  dataQuery,
   secondSubmodelOpts,
   query,
-  handleSubmitDropdown,
+  handleSubmit,
 }: {
-  setQuery: Dispatch<SetStateAction<TQuery>>;
+  dataQuery: (newQuery: TQuery) => void;
   secondSubmodelOpts: string[];
   query?: TQuery;
-  handleSubmitDropdown?: () => void;
+  handleSubmit: () => void;
 }) {
   const [value, setValue] = useState<string>('');
 
   function handleChange(e: ChangeEvent<HTMLSelectElement>) {
-    setValue(e.target.value);
-    setQuery((p) => ({ ...p, secondSubmodel: e.target.value }));
-    handleSubmitDropdown;
-  }
+    const newValue = e.target.value;
+    setValue(newValue);
 
-  if (secondSubmodelOpts.length < 2 && !query?.secondSubmodel) {
-    setQuery((p) => ({ ...p, secondSubmodel: secondSubmodelOpts[0] }));
-    return null;
+    const updatedQuery = { ...query, secondSubmodel: newValue };
+    dataQuery(updatedQuery as TQuery);
+    handleSubmit();
   }
 
   return (

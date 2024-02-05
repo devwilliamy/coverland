@@ -6,7 +6,7 @@ import { FaCheckSquare } from 'react-icons/fa';
 export function ProductChecklist() {
   return (
     <div className="mt-[40px] flex flex-col lg:mt-0 lg:flex-row">
-      <div className="w-full lg:order-last lg:w-2/4">
+      {/* <div className="w-full lg:order-last lg:w-2/4">
         <Image
           src={Waterproof}
           alt="a car sitting inside of a building"
@@ -14,14 +14,14 @@ export function ProductChecklist() {
           height={500}
           className="h-full w-full"
         />
-      </div>
+      </div> */}
       <div className="bg-dark flex w-full flex-col items-start justify-stretch bg-[#1A1A1A] px-[10px] py-[56px] lg:w-2/4 lg:px-[56px] lg:py-[61px]">
-        <div className="pb-[56px]">
-          <p className=" text-[22px] font-black uppercase leading-[163.636%] text-white lg:text-3xl">
+        <div className="">
+          <p className=" max-h-[76px] text-[22px] font-black uppercase leading-[163.636%] tracking-wide text-white lg:text-3xl">
             Who Can Benefit From <br /> Our Premium Car covers:
           </p>
         </div>
-        <div className=" grid grid-cols-1 gap-[28px] normal-case ">
+        <div className=" grid grid-cols-1 gap-[28px] pt-[10px] normal-case ">
           <BenefitCheckPoint>
             <FaCheckSquare color="ffffff" size={24} />
             <div className="ml-2 md:ml-4">
@@ -51,7 +51,7 @@ export function ProductChecklist() {
             <FaCheckSquare color="ffffff" size={24} />
             <div className="ml-2 md:ml-4">
               <p className="text-base font-normal text-white md:text-lg lg:text-xl">
-                Cars frequently exposed to <b>rain</b> and <b>humidity.</b>
+                Cars frequently exposed to <b>rain and humidity.</b>
               </p>
             </div>
           </BenefitCheckPoint>
@@ -67,7 +67,7 @@ export function ProductChecklist() {
             <FaCheckSquare color="ffffff" size={24} />
             <div className="ml-2 md:ml-4">
               <p className="text-base font-normal text-white md:text-lg lg:text-xl">
-                Car owners in <b>snowy</b> climates.
+                Car owners in <b>snowy climates.</b>
               </p>
             </div>
           </BenefitCheckPoint>
@@ -75,7 +75,7 @@ export function ProductChecklist() {
             <FaCheckSquare color="ffffff" size={24} />
             <div className="ml-2 md:ml-4">
               <p className="text-base font-normal text-white md:text-lg lg:text-xl">
-                Car owners in <b>sunny</b> climates.
+                Car owners in <b>sunny climates.</b>
               </p>
             </div>
           </BenefitCheckPoint>

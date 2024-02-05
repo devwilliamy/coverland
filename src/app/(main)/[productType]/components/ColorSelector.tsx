@@ -1,6 +1,8 @@
 import Image from 'next/image';
-import { TCarCoverData } from './CarPDP';
-import { Ref, RefObject } from 'react';
+import { CarSelectionContext } from './CarPDP';
+import { Ref, RefObject, useContext } from 'react';
+import { useStore } from 'zustand';
+import { IProductData } from '../../utils';
 
 interface ProductRefs {
   [key: string]: RefObject<HTMLElement>;
@@ -13,12 +15,19 @@ export function ColorSelector({
   selectedProduct,
   setSelectedProduct,
 }: {
-  uniqueColors: TCarCoverData[];
+  uniqueColors: IProductData[];
   productRefs: React.MutableRefObject<ProductRefs>;
   setFeaturedImage: (img: string) => void;
-  setSelectedProduct: (product: TCarCoverData) => void;
-  selectedProduct: TCarCoverData;
+  setSelectedProduct: (product: IProductData) => void;
+  selectedProduct: IProductData;
 }) {
+  const store = useContext(CarSelectionContext);
+  if (!store) throw new Error('Missing CarContext.Provider in the tree');
+
+  const color = useStore(store, (s) => s.selectedColor);
+  const setSelectedColor = useStore(store, (s) => s.setSelectedColor);
+
+  console.log('color', color);
   return (
     <div className="flex flex-row space-x-1 overflow-x-auto whitespace-nowrap p-2 lg:grid lg:w-auto lg:grid-cols-5 lg:gap-[7px] lg:px-3">
       {uniqueColors?.map((sku) => {
@@ -32,7 +41,7 @@ export function ColorSelector({
             key={sku?.sku}
           >
             <Image
-              src={sku?.feature as string}
+              src={sku?.mainImage as string}
               ref={productRefs?.current[sku?.sku] as Ref<HTMLImageElement>}
               width={98}
               height={98}
@@ -40,8 +49,9 @@ export function ColorSelector({
               alt="car cover details"
               className="h-20 w-20 cursor-pointer rounded bg-[#F2F2F2] lg:h-full lg:w-full"
               onClick={() => {
-                setFeaturedImage(sku?.feature as string);
-                setSelectedProduct(sku as TCarCoverData);
+                setFeaturedImage(sku?.mainImage as string);
+                setSelectedColor(sku?.display_color as string);
+                setSelectedProduct(sku as IProductData);
                 const skuRef = sku?.sku
                   ? (productRefs?.current[
                       sku?.sku

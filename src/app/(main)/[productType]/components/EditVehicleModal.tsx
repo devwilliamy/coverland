@@ -7,34 +7,24 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from '@/components/ui/popover';
-import { TCarCoverData } from './CarPDP';
-import { useState } from 'react';
-import { compareRawStrings } from '@/lib/utils';
+import { CarSelectionContext } from './CarPDP';
+import { useContext, useState } from 'react';
+import { IProductData } from '../../utils';
 
 export function EditVehicleModal({
   selectedProduct,
-  submodelParam,
 }: {
-  selectedProduct: TCarCoverData;
-  submodelParam: string | undefined | null;
+  selectedProduct: IProductData;
 }) {
   const [open, setOpen] = useState(false);
 
-  const productType = compareRawStrings(selectedProduct?.type, 'car covers')
-    ? 'Car Cover'
-    : compareRawStrings(selectedProduct?.type, 'SUV Covers')
-      ? 'SUV Cover'
-      : 'Truck Cover';
-
-  const productName = `${selectedProduct?.year_generation}
-            ${selectedProduct?.make} ${selectedProduct?.product_name} ${
-              submodelParam ? selectedProduct?.submodel1 : ''
-            } ${productType}`;
+  const store = useContext(CarSelectionContext);
+  if (!store) throw new Error('Missing CarContext.Provider in the tree');
 
   return (
     <div className=" mt-[29px] hidden flex-col gap-2 rounded-lg border-2 border-solid px-3 py-7 lg:flex">
       <h2 className="font-roboto text-lg font-extrabold text-[#1A1A1A] md:text-[28px]">
-        {productName}
+        {selectedProduct.fullProductName}
       </h2>
       <div className="flex items-center gap-2">
         <EditIcon />
