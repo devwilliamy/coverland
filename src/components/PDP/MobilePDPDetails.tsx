@@ -3,7 +3,6 @@ import { Layers } from './Layers';
 import { OurCarCovers } from './OurCarCovers';
 import { PDPAccordion } from './PDPAccordian';
 import { ProductChecklist } from './ProductChecklist';
-import ProductHero from './ProductHero';
 import { ClimateCrisisMobile } from './components/ClimateCrisisMobile';
 import { NoGarageMobile } from './components/NoGarageMobile';
 import { MoneyBackMobile } from './MoneyBackMobile';
@@ -20,8 +19,8 @@ import { IoClose } from 'react-icons/io5';
 import { useRef } from 'react';
 import WarrantyPolicy from '@/app/(main)/policies/warranty-policy/page';
 import { Plus } from 'lucide-react';
-import Image from 'next/image';
-import pdHero2 from '@/images/PDP/product-details-hero2.svg';
+import ProductVideo from './ProductVideo';
+import ThreeSixtyVideo from '@/videos/360 degree_website.mp4';
 
 export const MobilePDPDetails = ({
   reviewData,
@@ -121,7 +120,12 @@ export const MobilePDPDetails = ({
               <div className="mt-[-10px]" ref={pdRef}>
                 {/* <ProductHero /> */}
                 <div className="flex w-full flex-col ">
-                  <Image alt="" src={pdHero2} className="w-full " />
+                  <ProductVideo
+                    src={ThreeSixtyVideo}
+                    autoplay
+                    loop
+                    aspectRatio="16 / 9"
+                  />
                   <div className="mt-[-5px] h-full min-h-[174px] w-full bg-[#1A1A1A] pl-[12px] ">
                     <h1 className="max-h-[68px] max-w-[178px] pt-[22px] text-[22px] font-[900] uppercase leading-[34px] text-[#F2F2F2] ">
                       Tailored for the perfect fit
