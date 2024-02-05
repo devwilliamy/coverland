@@ -1,5 +1,5 @@
 'use client';
-import { TProductData, TReviewData } from '@/lib/db';
+import { TInitialProductDataDB, TReviewData } from '@/lib/db';
 import { Separator } from '@/components/ui/separator';
 import Image from 'next/image';
 import { GoDotFill } from 'react-icons/go';
@@ -29,21 +29,13 @@ import { track } from '@vercel/analytics';
 import dynamicImport from 'next/dynamic';
 import { generateProductsLeft, stringToSlug } from '@/lib/utils';
 import CartSheet from '../cart/CartSheet';
-import {
-  Drawer,
-  DrawerContent,
-  DrawerHeader,
-  DrawerTitle,
-  DrawerTrigger,
-} from '@/components/ui/drawer';
-import { IoClose } from 'react-icons/io5';
-import ReviewSection from './components/ReviewSection';
+
 import Dialog from '../ui/dialog-tailwind-ui';
 import { useRouter } from 'next/navigation';
-import { MobileImageCarousel } from '@/app/(main)/car-covers/components/MobileImageCarousel';
-import { TCarCoverData } from '@/app/(main)/car-covers/components/CarPDP';
+import ReviewSheet from './ReviewSheet';
 import SquareVideo from '@/videos/Coverland_Square.mp4';
 import SquareThumbnail from '@/video/Thumbnail_Square.webp';
+import { MobileImageCarousel } from '@/app/(main)/[productType]/components/MobileImageCarousel';
 
 const ProductVideo = dynamicImport(() => import('./ProductVideo'), {
   ssr: false,
@@ -118,6 +110,13 @@ function TimeTo2PMPST() {
   );
 }
 
+const getOffset = (
+  element: HTMLElement | null | undefined
+): number | undefined => {
+  const elementRect = element?.getBoundingClientRect();
+  return elementRect?.top;
+};
+
 function CarSelector({
   modelData,
   pathParams,
@@ -126,7 +125,7 @@ function CarSelector({
   secondSubmodels,
   reviewData,
 }: {
-  modelData: TProductData[];
+  modelData: TInitialProductDataDB[];
   pathParams: TPDPPathParams;
   submodels: string[];
   secondSubmodels: string[];
@@ -160,11 +159,13 @@ function CarSelector({
   const isFullySelected =
     pathParams?.product?.length === 3 &&
     (submodels.length === 0 ||
-      !!searchParams?.submodel ||
+      modelData.some((model) => model.submodel1) ||
       submodels.length === 1) &&
     (secondSubmodels.length === 0 ||
-      !!searchParams?.second_submodel ||
+      modelData.some((model) => model.submodel2) ||
       secondSubmodels.length === 1);
+
+  console.log(isFullySelected);
 
   let displayedModelData = searchParams?.submodel
     ? modelsBySubmodel
@@ -175,7 +176,7 @@ function CarSelector({
     : displayedModelData;
 
   const [selectedProduct, setSelectedProduct] = useState<
-    TProductData | TCarCoverData
+    TInitialProductDataDB | TCarCoverData
   >(
     isFullySelected || searchParams?.submodel
       ? displayedModelData[0]
@@ -199,13 +200,15 @@ function CarSelector({
   const { addToCart } = useCartContext();
 
   const [addToCartOpen, setAddToCartOpen] = useState<boolean>(false);
-  const [reviewDrawerOpen, setReviewDrawerOpen] = useState<boolean>(false);
 
   const productRefs = useRef<ProductRefs>(
-    displayedModelData.reduce((acc: ProductRefs, item: TProductData) => {
-      acc[item?.sku as string] = React.createRef();
-      return acc;
-    }, {})
+    displayedModelData.reduce(
+      (acc: ProductRefs, item: TInitialProductDataDB) => {
+        acc[item?.sku as string] = React.createRef();
+        return acc;
+      },
+      {}
+    )
   );
 
   const [showMore, setShowMore] = useState(false);
@@ -247,12 +250,46 @@ function CarSelector({
   `;
   const [open, setOpen] = useState(false);
   const router = useRouter();
+  const [showStickyAddToCartButton, setShowStickyAddToCartButton] =
+    useState<boolean>(false);
+  // For sticky Add To Cart on mobile only (can maybe extract this out)
+  // Will check if Add To Cart has been scroll past, if so, will show sticky button
+  useEffect(() => {
+    const listenToScroll = () => {
+      if (!isMobile) return;
+      const heightToHide = getOffset(
+        document.getElementById('addToCartButton')
+      );
+      const windowScrollHeight =
+        document.body.scrollTop || document.documentElement.scrollTop;
+      if (
+        heightToHide !== undefined &&
+        heightToHide < -100 &&
+        windowScrollHeight > heightToHide
+      ) {
+        setShowStickyAddToCartButton(true);
+      } else {
+        setShowStickyAddToCartButton(false);
+      }
+    };
+
+    if (isMobile) {
+      window.addEventListener('scroll', listenToScroll);
+    }
+
+    return () => {
+      if (isMobile) {
+        window.removeEventListener('scroll', listenToScroll);
+      }
+    };
+  }, [isMobile]);
+
   return (
     <section className="mx-auto h-auto w-full max-w-[1280px] px-4 lg:my-8">
       <div className="flex w-full flex-col items-start justify-between lg:flex-row lg:gap-14">
         {isMobile && <EditVehiclePopover fullProductName={fullProductName} />}
         {/* Left Panel */}
-        <div className=" -ml-4 mt-[29px] flex h-auto w-screen flex-col items-stretch justify-center pb-2 lg:w-3/5 lg:pb-0 ">
+        <div className=" -ml-4  flex h-auto w-screen flex-col items-stretch justify-center pb-2 lg:w-3/5 lg:pb-0 ">
           {/* Featured Image */}
           <div
             className={`${
@@ -353,7 +390,7 @@ function CarSelector({
                   key={sku?.sku}
                   onClick={() => {
                     setFeaturedImage(sku?.feature as string);
-                    setSelectedProduct(sku as TProductData);
+                    setSelectedProduct(sku as TInitialProductDataDB);
                     const skuRef = sku?.sku
                       ? (productRefs?.current[
                           sku?.sku
@@ -406,7 +443,7 @@ function CarSelector({
                   key={sku?.sku}
                   onClick={() => {
                     setFeaturedImage(sku?.feature as string);
-                    setSelectedProduct(sku as TProductData);
+                    setSelectedProduct(sku as TInitialProductDataDB);
                     const skuRef = sku?.sku
                       ? (productRefs?.current[
                           sku?.sku
@@ -497,42 +534,7 @@ function CarSelector({
                   </Popover>
                 </div>
                 <div className="lg:hidden">
-                  <Drawer
-                    open={reviewDrawerOpen}
-                    onOpenChange={setReviewDrawerOpen}
-                  >
-                    <DrawerTrigger
-                      className="ml-2 text-blue-400 underline"
-                      disabled={!reviewCount}
-                      // className=" flex w-full flex-row items-center justify-between border-b-2 border-[#C8C7C7] py-4 text-left text-[22px] font-black uppercase text-[#1A1A1A] !no-underline"
-                    >
-                      {reviewCount || '2'} ratings
-                    </DrawerTrigger>
-                    <DrawerContent className="">
-                      <DrawerHeader draggable={false}>
-                        <DrawerTitle className="flex w-full items-center border-b-2 border-[#C8C7C7] py-[22px] font-black uppercase">
-                          <div
-                            id="DrawerTitle"
-                            className=" flex w-full text-[22px] font-black uppercase"
-                          >
-                            Car Cover Reviews
-                          </div>
-                          <button
-                            id="CloseModalButton"
-                            className="flex items-center justify-center rounded-full bg-gray-200 p-[5px]"
-                            onClick={() => {
-                              setReviewDrawerOpen(false);
-                            }}
-                          >
-                            <IoClose className="h-[24px] w-[24px]" />
-                          </button>
-                        </DrawerTitle>
-                      </DrawerHeader>
-                      <div className="mx-auto flex max-h-[76vh] w-full flex-col overflow-y-scroll px-4 pt-[40px]">
-                        <ReviewSection reviewData={reviewData} />
-                      </div>
-                    </DrawerContent>
-                  </Drawer>
+                  <ReviewSheet reviewData={reviewData} />
                 </div>
               </div>
               <p className="mb-2 text-gray-500">100+ Bought In Past Month</p>
@@ -633,6 +635,7 @@ function CarSelector({
             ) : (
               <Button
                 className="mt-4 h-[48px] w-full bg-[#BE1B1B] text-lg font-bold uppercase text-white disabled:bg-[#BE1B1B] md:h-[62px] md:text-xl"
+                id="addToCartButton"
                 onClick={() => {
                   track('PDP_add_to_cart', {
                     sku: selectedProduct?.sku,
@@ -645,7 +648,30 @@ function CarSelector({
                 Add To Cart
               </Button>
             )}
+            {showStickyAddToCartButton && (
+              <div className="fixed inset-x-0 bottom-0 z-50 bg-white p-4 shadow-[0_-4px_4px_-0px_rgba(0,0,0,0.1)] md:hidden">
+                {/* Your sticky "Add to Cart" button */}
+                <Button
+                  className="mt-4 h-[48px] w-full rounded bg-[#BE1B1B] text-lg font-bold uppercase text-white disabled:bg-[#BE1B1B] md:hidden"
+                  onClick={() => {
+                    selectedProduct?.sku &&
+                      track('PDP_add_to_cart', {
+                        sku: selectedProduct?.sku,
+                      });
+                    handleAddToCart();
+                    isMobile
+                      ? router.push('/checkout')
+                      : setAddToCartOpen(true);
+
+                    // setAddToCartOpen(true);
+                  }}
+                >
+                  Add To Cart
+                </Button>
+              </div>
+            )}
           </div>
+
           {/* <div className="pt-5 ml-2">
             <p className="text-[#1A1A1A] text-base font-normal">
               As low as <span className="font-black">$32.50/mo</span> with{' '}

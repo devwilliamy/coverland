@@ -3,7 +3,6 @@ import { Layers } from './Layers';
 import { OurCarCovers } from './OurCarCovers';
 import { PDPAccordion } from './PDPAccordian';
 import { ProductChecklist } from './ProductChecklist';
-import ProductHero from './ProductHero';
 import { ClimateCrisisMobile } from './components/ClimateCrisisMobile';
 import { NoGarageMobile } from './components/NoGarageMobile';
 import { MoneyBackMobile } from './MoneyBackMobile';
@@ -19,6 +18,9 @@ import {
 import { IoClose } from 'react-icons/io5';
 import { useRef } from 'react';
 import WarrantyPolicy from '@/app/(main)/policies/warranty-policy/page';
+import { Plus } from 'lucide-react';
+import ProductVideo from './ProductVideo';
+import ThreeSixtyVideo from '@/videos/360 degree_website.mp4';
 
 export const MobilePDPDetails = ({
   reviewData,
@@ -97,14 +99,14 @@ export const MobilePDPDetails = ({
         <ScrollSheetTrigger title="Q&A" toRef={qaRef} />
         <ScrollSheetTrigger title="Shipping & Returns" toRef={srRef} />
         <ScrollSheetTrigger title="Warranty" toRef={warRef} />
-        {!!reviewData?.length && (
+        {/* {!!reviewData?.length && (
           <ScrollSheetTrigger title="Car Cover Reviews" toRef={ccrRef} />
-        )}
+        )} */}
 
         <SheetContent className="rounded-t-[10px] px-[1px]" side="bottom">
           <div
             id="DrawerScrollable"
-            className="relative flex max-h-[85vh] flex-col gap-[60px] overflow-y-scroll px-[15px]  "
+            className="relative flex max-h-[85vh] flex-col overflow-y-auto overflow-x-hidden px-[15px]  "
           >
             <SheetClose className="fixed right-0 z-[400] mr-[16px] flex items-center py-[4px]">
               <div
@@ -115,18 +117,35 @@ export const MobilePDPDetails = ({
               </div>
             </SheetClose>
             <StickySheetItem title="Product Details">
-              <div ref={pdRef}>
-                <ProductHero />
+              <div className="mt-[-10px]" ref={pdRef}>
+                {/* <ProductHero /> */}
+                <div className="flex w-full flex-col ">
+                  <ProductVideo
+                    src={ThreeSixtyVideo}
+                    autoplay
+                    loop
+                    aspectRatio="16 / 9"
+                  />
+                  <div className="mt-[-5px] h-full min-h-[174px] w-full bg-[#1A1A1A] pl-[12px] ">
+                    <h1 className="max-h-[68px] max-w-[178px] pt-[22px] text-[22px] font-[900] uppercase leading-[34px] text-[#F2F2F2] ">
+                      Tailored for the perfect fit
+                    </h1>
+                    <p className="mt-[28px] max-h-[48px] max-w-[298px] text-[16px] font-[400] capitalize leading-[24px] text-[#DBDBDB] ">
+                      Your car, Your Shield. <br /> Experience The superior fit
+                      we offer
+                    </p>
+                  </div>
+                </div>
                 <Layers />
               </div>
             </StickySheetItem>
 
             <StickySheetItem title="Benefits">
               <div className=" md:mt-18 lg:mt-28" ref={benRef}>
-                <ClimateCrisisMobile />
                 <NoGarageMobile />
                 <OurCarCovers />
                 <ProductChecklist />
+                <ClimateCrisisMobile />
               </div>
             </StickySheetItem>
 
@@ -138,7 +157,7 @@ export const MobilePDPDetails = ({
 
             <StickySheetItem title="Shipping & Returns">
               <div className=" md:mt-18 lg:mt-28" ref={srRef}>
-                <div className="flex flex-col gap-5 px-2  normal-case">
+                <div className="flex flex-col gap-5 px-2 pt-10 normal-case">
                   <div className="mb-[-15px] text-lg font-black">
                     Shipping Details
                   </div>
@@ -177,21 +196,30 @@ export const MobilePDPDetails = ({
                 className="md:mt-18 mb-[-10px] min-h-[40vh] lg:mt-28"
                 ref={warRef}
               >
-                <div className="-mx-5 mt-[-20px]">
+                <div className="-mx-5">
                   <WarrantyPolicy hideHeader />
                 </div>
               </div>
             </StickySheetItem>
-            {!!reviewData?.length && (
-              <StickySheetItem title="Car Cover Reviews">
-                <div className="md:mt-18 lg:mt-28" ref={ccrRef}>
-                  <ReviewSection reviewData={reviewData} />
-                </div>
-              </StickySheetItem>
-            )}
+            <StickySheetItem title="Car Cover Reviews">
+              <div className="md:mt-18 lg:mt-28" ref={ccrRef}>
+                <ReviewSection reviewData={reviewData} />
+              </div>
+            </StickySheetItem>
           </div>
         </SheetContent>
       </Sheet>
+      {!!reviewData?.length && (
+        <div id="CarCoverFeatures">
+          <div className="-mx-4 h-[41px] w-screen border-b-2 border-t-2 border-[#DBDBDB] bg-[#F1F1F1] lg:hidden"></div>
+          <div className=" flex w-full flex-row items-center justify-between border-b-2 border-[#C8C7C7] py-4 text-left text-[22px] font-black uppercase text-[#1A1A1A] !no-underline">
+            Car Cover Reveiws
+          </div>
+          <div className="md:mt-18 lg:mt-28" ref={ccrRef}>
+            <ReviewSection reviewData={reviewData} />
+          </div>
+        </div>
+      )}
     </div>
   );
 };
@@ -203,13 +231,18 @@ const StickySheetItem = ({
   title: string;
   children: JSX.Element | JSX.Element[];
 }) => (
-  <span id="DrawerSection" className=" flex h-full flex-col">
-    <SheetTitle className="sticky top-0 z-[100]  flex justify-between border-b-2 border-[#C8C7C7] bg-white">
+  <span
+    id={`drawer-section-${title.toLowerCase().replace(' ', '-')}`}
+    className=" flex h-full flex-col"
+  >
+    <SheetTitle
+      className={`sticky top-0 z-[100] flex justify-between border-b-[1px] ${title !== 'Product Details' && 'border-t-[1px]'} border-[#BEBEBE] bg-white`}
+    >
       <div className=" flex w-full flex-row items-center justify-between py-[28px] text-left text-[22px] font-black uppercase text-[#1A1A1A] !no-underline">
         {title}
       </div>
     </SheetTitle>
-    <div className="pt-[40px]">{children}</div>
+    <div className="pb-[60px]">{children}</div>
   </span>
 );
 
@@ -221,13 +254,15 @@ const ScrollSheetTrigger = ({
   toRef: React.RefObject<HTMLDivElement>;
 }) => (
   <SheetTrigger
-    className=" flex w-full flex-row items-center justify-between border-b-2 border-[#C8C7C7] py-4 text-left text-[22px] font-black uppercase text-[#1A1A1A] !no-underline"
+    className={`flex w-full flex-row items-center justify-between
+     ${title !== 'Warranty' && 'border-b-2 border-[#C8C7C7]'}
+    py-4 text-left text-[22px] font-black uppercase text-[#1A1A1A] !no-underline`}
     onClick={() => {
       setTimeout(() => {
         const DrawerScrollable = document.getElementById('DrawerScrollable');
         DrawerScrollable?.scrollTo({
           top: toRef.current?.offsetTop
-            ? toRef.current?.offsetTop - 100
+            ? toRef.current?.offsetTop - 85
             : toRef.current?.offsetTop,
           behavior: 'instant',
         });
@@ -235,5 +270,6 @@ const ScrollSheetTrigger = ({
     }}
   >
     {title}
+    <Plus />
   </SheetTrigger>
 );

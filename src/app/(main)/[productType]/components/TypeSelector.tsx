@@ -1,8 +1,8 @@
 'use client';
 
 import { RefObject } from 'react';
-import { TCarCoverData } from './CarPDP';
 import Image from 'next/image';
+import { IProductData } from '../../utils';
 
 interface ProductRefs {
   [key: string]: RefObject<HTMLElement>;
@@ -15,10 +15,10 @@ export function TypeSelector({
   selectedProduct,
   productRefs,
 }: {
-  uniqueTypes: TCarCoverData[];
+  uniqueTypes: IProductData[];
   setFeaturedImage: (img: string) => void;
-  setSelectedProduct: (product: TCarCoverData) => void;
-  selectedProduct: TCarCoverData;
+  setSelectedProduct: (product: IProductData) => void;
+  selectedProduct: IProductData;
   productRefs: React.MutableRefObject<ProductRefs>;
 }) {
   return (
@@ -43,8 +43,8 @@ export function TypeSelector({
               }`}
               key={sku?.sku}
               onClick={() => {
-                setFeaturedImage(sku?.feature as string);
-                setSelectedProduct(sku as TCarCoverData);
+                setFeaturedImage(sku?.mainImage as string);
+                setSelectedProduct(sku as IProductData);
                 const skuRef = sku?.sku
                   ? (productRefs?.current[
                       sku?.sku
@@ -59,7 +59,7 @@ export function TypeSelector({
               // disabled={isOptionDisabled(productOption, 'cover')}
             >
               <Image
-                src={sku?.feature as string}
+                src={sku?.mainImage as string}
                 width={98}
                 height={98}
                 onError={() => console.log('Failed image:', `${sku?.feature}`)}
