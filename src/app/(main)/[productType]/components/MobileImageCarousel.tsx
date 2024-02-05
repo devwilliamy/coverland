@@ -11,6 +11,7 @@ import dynamic from 'next/dynamic';
 import { StaticImport } from 'next/dist/shared/lib/get-img-props';
 import { Asset } from 'next-video/dist/assets.js';
 import SquareVideoThumbnail from '@/video/Thumbnail_Square.webp';
+import SevenSecVideo from '@/videos/7sec Listing Video_2.mp4';
 
 const ProductVideo = dynamic(() => import('@/components/PDP/ProductVideo'), {
   ssr: false,
@@ -82,22 +83,39 @@ export const MobileImageCarousel = ({
               // placeholder="blur"
             />
           </CarouselItem>
-          <CarouselItem>
-            <ProductVideo />
-          </CarouselItem>
           {productImages.map((image, index) => {
             if (index <= 1) return;
             return (
-              <CarouselItem key={index}>
-                <Image
-                  src={image}
-                  alt={`Additional images of the ${selectedProduct.display_id} cover`}
-                  width={500}
-                  height={500}
-                  // placeholder="blur"
-                  onError={() => console.log('Failed image:', `${image}`)}
-                />
-              </CarouselItem>
+              <>
+                {index === 2 ? (
+                  <>
+                    <CarouselItem key={index}>
+                      <ProductVideo src={SevenSecVideo} autoplay loop />
+                    </CarouselItem>
+                    <CarouselItem key={index}>
+                      <Image
+                        src={image}
+                        alt={`Additional images of the ${selectedProduct.display_id} cover`}
+                        width={500}
+                        height={500}
+                        // placeholder="blur"
+                        onError={() => console.log('Failed image:', `${image}`)}
+                      />
+                    </CarouselItem>
+                  </>
+                ) : (
+                  <CarouselItem key={index}>
+                    <Image
+                      src={image}
+                      alt={`Additional images of the ${selectedProduct.display_id} cover`}
+                      width={500}
+                      height={500}
+                      // placeholder="blur"
+                      onError={() => console.log('Failed image:', `${image}`)}
+                    />
+                  </CarouselItem>
+                )}
+              </>
             );
           })}
         </CarouselContent>
