@@ -31,7 +31,7 @@ export function PrimaryImageDisplay({
   const isMobile = useMediaQuery('(max-width: 768px)');
 
   return (
-    <div className=" -ml-4 mt-[17px]  flex  w-screen flex-col items-stretch justify-center pb-2 lg:w-3/5 lg:pb-0 ">
+    <div className=" -ml-4 flex  w-screen flex-col items-stretch justify-center lg:w-3/5 lg:pb-0 ">
       {/* Featured Image */}
       <div
         className={`${
