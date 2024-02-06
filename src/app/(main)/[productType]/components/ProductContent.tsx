@@ -97,6 +97,8 @@ export function ProductContent({
     data: modelData,
   });
 
+  console.log(modelData);
+
   const isTypePage = params?.productType && !params?.make;
 
   return (
@@ -475,7 +477,6 @@ const AddToCartSelector = ({
   if (!store) throw new Error('Missing CarContext.Provider in the tree');
 
   const modelData = useStore(store, (s) => s.modelData);
-  const initModelData = useStore(store, (s) => s.initialModelData);
   const queryState = useStore(store, (s) => s.query);
   const setQuery = useStore(store, (s) => s.setQuery);
   const selectedProduct = useStore(store, (s) => s.selectedProduct);
@@ -491,8 +492,7 @@ const AddToCartSelector = ({
     data: modelData,
   });
 
-  const { shouldDisplayMake, shouldDisplaySecondSubmodel, isComplete } =
-    completeSelectionState;
+  const { shouldDisplayMake, isComplete } = completeSelectionState;
 
   const {
     uniqueMakes,
@@ -500,9 +500,10 @@ const AddToCartSelector = ({
     uniqueSecondSubmodels,
     uniqueSubmodels,
     uniqueYears,
-  } = getUniqueValues({ data: initModelData, queryState: queryState });
+  } = getUniqueValues({ data: modelData, queryState: queryState });
 
   const cartProduct = modelData.find((p) => p.display_color === color);
+  console.log(cartProduct);
 
   const handleAddToCart = () => {
     if (!cartProduct) return;
@@ -688,9 +689,7 @@ const AddToCartSelector = ({
           <YearDropdown />
           <ModelDropdown />
           {queryState.model && <SubmodelDropdown />}
-          {shouldDisplaySecondSubmodel && queryState.submodel && (
-            <SecondSubmodelDropdown />
-          )}
+          {queryState.submodel && <SecondSubmodelDropdown />}
         </div>
         <DrawerFooter className="bg-white">
           <p className="text-right text-black">
