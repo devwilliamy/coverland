@@ -8,6 +8,8 @@ import Image from 'next/image';
 import { SelectedProductImages } from './SelectedProductImages';
 import { Button } from '@/components/ui/button';
 import dynamic from 'next/dynamic';
+import SquareVideo from '@/videos/Coverland_Square.mp4';
+import SquareThumbnail from '@/video/Thumbnail_Square.webp';
 import { IProductData } from '../../utils';
 
 const ProductVideo = dynamic(() => import('@/components/PDP/ProductVideo'), {
@@ -29,7 +31,7 @@ export function PrimaryImageDisplay({
   const isMobile = useMediaQuery('(max-width: 768px)');
 
   return (
-    <div className=" -ml-4 mt-[17px]  flex  w-screen flex-col items-stretch justify-center pb-2 lg:w-3/5 lg:pb-0 ">
+    <div className=" -ml-4 flex  w-screen flex-col items-stretch justify-center lg:w-3/5 lg:pb-0 ">
       {/* Featured Image */}
       <div
         className={`${
@@ -58,7 +60,9 @@ export function PrimaryImageDisplay({
         </div>
 
         {/* Product Video */}
-        {!isMobile && <ProductVideo />}
+        {!isMobile && (
+          <ProductVideo src={SquareVideo} imgSrc={SquareThumbnail} />
+        )}
         {/* Gallery Images */}
         <SelectedProductImages
           productImages={productImages}

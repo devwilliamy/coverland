@@ -16,7 +16,7 @@ export function ClimateCrisisMobile() {
           className="w-full object-cover"
         />
       </div>
-      <div className="absolute left-2.5 top-[10%] flex  flex-col items-stretch gap-5">
+      <div className="absolute left-[25px] top-[10%] flex  flex-col items-stretch gap-5">
         <p className="text-left text-[18px] font-[400] capitalize text-white md:text-2xl">
           Protect your car with confidence
         </p>
@@ -40,7 +40,7 @@ export function ClimateCrisisMobile() {
       <Image
         alt="white-coverland-logo"
         src={logoWhite}
-        className="absolute bottom-[13%] right-[14px] max-h-[3%]  max-w-[34%]"
+        className="absolute bottom-[11%] right-[14px] max-h-[3%]  max-w-[34%]"
       />
     </div>
   );

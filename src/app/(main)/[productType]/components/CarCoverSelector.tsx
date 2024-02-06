@@ -14,6 +14,7 @@ import { CarSelectionContext } from './CarPDP';
 import { useStore } from 'zustand';
 import { TReviewData } from '@/lib/db';
 import { IProductData } from '../../utils';
+import CircleColorSelector from './CircleColorSelector';
 
 const EditVehiclePopover = dynamicImport(
   () => import('@/components/PDP/components/EditVehiclePopover'),
@@ -97,15 +98,10 @@ export function CarCoverSelector({
           setFeaturedImage={setFeaturedImage}
         />
         {/* Right Panel */}
+
         <div className=" h-auto w-full pl-0 lg:w-2/5">
           <EditVehicleModal selectedProduct={selectedProduct} />
-          <p className="ml-3 mt-2 text-lg font-black text-[#1A1A1A] ">
-            Cover Colors
-            <span className="ml-2 text-lg font-normal text-[#767676]">
-              {selectedProduct?.display_color}
-            </span>
-          </p>
-          <ColorSelector
+          {/* <ColorSelector
             uniqueColors={uniqueColors as IProductData[]}
             productRefs={productRefs}
             setFeaturedImage={setFeaturedImage}
@@ -120,12 +116,15 @@ export function CarCoverSelector({
             selectedProduct={selectedProduct}
             productRefs={productRefs}
           />
-
-          <Separator className="mb-8 mt-4" />
+          <Separator className="mb-8 mt-4 lg:mb-10" /> */}
           <ProductContent
             modelData={modelData}
             reviewData={reviewData}
+            productRefs={productRefs}
             selectedProduct={selectedProduct}
+            setSelectedProduct={setSelectedProduct}
+            setFeaturedImage={setFeaturedImage}
+            uniqueColors={uniqueColors as IProductData[]}
             reviewCount={reviewCount}
             avgReviewScore={avgReviewScore}
           />

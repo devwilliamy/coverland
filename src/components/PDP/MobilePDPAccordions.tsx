@@ -24,9 +24,6 @@ export function MobilePDPAccordions({
     <>
       <AccordionDrawerItem title="Product Details">
         <ProductHero />
-        {/* <div className=" md:mt-18 lg:mt-28">
-                <Video />
-              </div> */}
         <div className="">
           <Layers />
         </div>
@@ -95,14 +92,6 @@ export function MobilePDPAccordions({
           </div>
         </div>
       </AccordionDrawerItem>
-
-      {/* {!!reviewData?.length && (
-        <AccordionDrawerItem title="Car Cover Reviews">
-          <div className="md:mt-18 lg:mt-28">
-            <ReviewSection reviewData={reviewData} />
-          </div>
-        </AccordionDrawerItem>
-      )} */}
     </>
   );
 }

@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { Fragment, useCallback, useEffect, useState } from 'react';
 import {
   Carousel,
   CarouselApi,
@@ -10,7 +10,8 @@ import { IProductData } from '../../utils';
 import dynamic from 'next/dynamic';
 import { StaticImport } from 'next/dist/shared/lib/get-img-props';
 import { Asset } from 'next-video/dist/assets.js';
-import SquareVideoThumbnail from '@/video/Thumbnail_Square.webp';
+import SevenSecVideoThumbnail from '@/video/7second image.webp';
+import SevenSecVideo from '@/videos/7sec Listing Video_2.mp4';
 
 const ProductVideo = dynamic(() => import('@/components/PDP/ProductVideo'), {
   ssr: false,
@@ -71,8 +72,8 @@ export const MobileImageCarousel = ({
   return (
     <div className=" flex  max-w-full flex-col  bg-white pb-[16px]">
       <Carousel setApi={setApi}>
-        <CarouselContent>
-          <CarouselItem className="bg-[#F2F2F2]">
+        <CarouselContent id={'carousel-content'}>
+          <CarouselItem key={'carousel-first-image'} className="bg-[#F2F2F2]">
             <Image
               src={selectedProduct.mainImage as string}
               alt={`Additional images of the ${selectedProduct.display_id} cover`}
@@ -82,22 +83,39 @@ export const MobileImageCarousel = ({
               // placeholder="blur"
             />
           </CarouselItem>
-          <CarouselItem>
-            <ProductVideo />
-          </CarouselItem>
           {productImages.map((image, index) => {
             if (index <= 1) return;
             return (
-              <CarouselItem key={index}>
-                <Image
-                  src={image}
-                  alt={`Additional images of the ${selectedProduct.display_id} cover`}
-                  width={500}
-                  height={500}
-                  // placeholder="blur"
-                  onError={() => console.log('Failed image:', `${image}`)}
-                />
-              </CarouselItem>
+              <>
+                {index === 2 ? (
+                  <>
+                    <CarouselItem key={`carousel-video-${index}`}>
+                      <ProductVideo src={SevenSecVideo} autoplay loop />
+                    </CarouselItem>
+                    <CarouselItem key={`carousel-image-${index}`}>
+                      <Image
+                        src={image}
+                        alt={`Additional images of the ${selectedProduct.display_id} cover`}
+                        width={500}
+                        height={500}
+                        // placeholder="blur"
+                        onError={() => console.log('Failed image:', `${image}`)}
+                      />
+                    </CarouselItem>
+                  </>
+                ) : (
+                  <CarouselItem key={`carousel-image-${index}`}>
+                    <Image
+                      src={image}
+                      alt={`Additional images of the ${selectedProduct.display_id} cover`}
+                      width={500}
+                      height={500}
+                      // placeholder="blur"
+                      onError={() => console.log('Failed image:', `${image}`)}
+                    />
+                  </CarouselItem>
+                )}
+              </>
             );
           })}
         </CarouselContent>
@@ -121,9 +139,10 @@ export const MobileImageCarousel = ({
           onClick={() => scrollTo(1)}
         >
           <Image
+            id="video-thumbnail"
             alt="Video Thumbnail"
             slot="poster"
-            src={SquareVideoThumbnail}
+            src={SevenSecVideoThumbnail}
             aria-hidden="true"
           />
         </button>
