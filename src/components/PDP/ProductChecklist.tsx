@@ -75,13 +75,21 @@ export function ProductChecklist() {
       </div>
       <div className=" flex lg:w-1/2">
         <div className="hidden flex-col gap-[24px] lg:flex lg:gap-[12px]">
-          {checklistJSX.map((jsx) => {
-            return <BenefitCheckPoint>{jsx}</BenefitCheckPoint>;
+          {checklistJSX.map((jsx, index) => {
+            return (
+              <BenefitCheckPoint key={`benefit-${index}`}>
+                {jsx}
+              </BenefitCheckPoint>
+            );
           })}
         </div>
         <div className="flex flex-col gap-[24px] lg:hidden lg:gap-[12px]">
-          {mobileChecklistJSX.map((jsx) => {
-            return <BenefitCheckPoint>{jsx}</BenefitCheckPoint>;
+          {mobileChecklistJSX.map((jsx, index) => {
+            return (
+              <BenefitCheckPoint key={`mobile-benefit-${index}`}>
+                {jsx}
+              </BenefitCheckPoint>
+            );
           })}
         </div>
       </div>

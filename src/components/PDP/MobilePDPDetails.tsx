@@ -59,8 +59,10 @@ export const MobilePDPDetails = ({
             'Non-Scratch Fabric Protects Your Car Paint.',
             'Backed by a Lifetime Warranty.',
             'Guaranteed to Be the Best Quality Car Cover on the Market.',
-          ].map((text) => (
-            <CarCoverFeature>{text}</CarCoverFeature>
+          ].map((text, index) => (
+            <CarCoverFeature key={`car-cover-feature-${index}`}>
+              {text}
+            </CarCoverFeature>
           ))}
         </ul>
       </div>

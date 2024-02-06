@@ -66,8 +66,12 @@ const GuranteedItem = ({
 export default function FourIconGrid() {
   return (
     <section className="grid max-w-[375px] grid-cols-2 gap-4 pb-4">
-      {items.map(({ title, icon }) => (
-        <GuranteedItem title={title} icon={icon} />
+      {items.map(({ title, icon }, index) => (
+        <GuranteedItem
+          key={`guranteed-item-${index}`}
+          title={title}
+          icon={icon}
+        />
       ))}
     </section>
   );

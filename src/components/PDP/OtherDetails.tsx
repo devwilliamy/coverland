@@ -96,8 +96,8 @@ export function ExtraProductDetails({
   return (
     <div className="flex w-full flex-col">
       <div className="lg:grid-row-1 hidden w-full max-w-full  border-b border-t border-[#DADADA] text-[18px] capitalize lg:grid lg:grid-flow-col lg:px-[30px]">
-        {otherDetailsBar.map((name) => {
-          return <DetailBarItem name={name} />;
+        {otherDetailsBar.map((name, index) => {
+          return <DetailBarItem name={name} key={`detail-bar-item-${index}`} />;
         })}
       </div>
       <div className="flex w-full max-w-full flex-col lg:px-[30px]">
@@ -184,8 +184,6 @@ const ReviewSection = ({
 }) => {
   const [displayedReviews, setDisplayedReviews] = useState<number>(3);
   if (!reviewData) return null;
-  // console.log('reviewData', reviewData);
-  // console.log(reviewData);
   return (
     <div className="relative py-2">
       <p
@@ -256,7 +254,9 @@ const ReviewSection = ({
         <div className="flex flex-col items-center">
           {reviewData
             ?.slice(0, displayedReviews)
-            .map((review) => <ReviewCard key={review.id} review={review} />)}
+            .map((review) => (
+              <ReviewCard key={`review-${review.id}`} review={review} />
+            ))}
           <button
             className="my-4 max-w-[160px] items-stretch justify-center whitespace-nowrap rounded-full border border-solid border-black bg-white px-8 py-3.5 font-black leading-4 tracking-wide text-black transition-colors duration-150 hover:bg-black hover:text-white"
             aria-label="View more"

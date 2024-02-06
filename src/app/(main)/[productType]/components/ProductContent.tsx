@@ -14,7 +14,13 @@ import Link from 'next/link';
 import { GoDotFill } from 'react-icons/go';
 import { CarSelectionContext } from './CarPDP';
 import { useMediaQuery } from '@mantine/hooks';
-import { RefObject, useContext, useState, useEffect, SetStateAction} from 'react';
+import {
+  RefObject,
+  useContext,
+  useState,
+  useEffect,
+  SetStateAction,
+} from 'react';
 import CartSheet from '@/components/cart/CartSheet';
 import {
   Drawer,
@@ -42,8 +48,6 @@ import CircleColorSelector from './CircleColorSelector';
 interface ProductRefs {
   [key: string]: RefObject<HTMLElement>;
 }
-
-
 
 export function ProductContent({
   selectedProduct,
@@ -75,10 +79,6 @@ export function ProductContent({
 
   const [addToCartOpen, setAddToCartOpen] = useState<boolean>(false);
   const [reviewDrawerOpen, setReviewDrawerOpen] = useState<boolean>(false);
- 
-
-
-
 
   const store = useContext(CarSelectionContext);
   if (!store) throw new Error('Missing CarContext.Provider in the tree');
@@ -216,7 +216,7 @@ export function ProductContent({
       />
       {/* <LearnMore /> */}
       <Separator className="my-8 " />
-      
+
       {isMobile && (
         <div className="pb-5">
           <ProductVideo src={SquareVideo} imgSrc={SquareThumbnail} />
@@ -248,8 +248,10 @@ export function ProductContent({
             'Non-Scratch Fabric Protects Your Car Paint.',
             'Backed by a Lifetime Warranty.',
             'Guaranteed to Be the Best Quality Car Cover On the Market.',
-          ].map((text) => (
-            <CarCoverFeature>{text}</CarCoverFeature>
+          ].map((text, index) => (
+            <CarCoverFeature key={`car-cover-feature-${index}`}>
+              {text}
+            </CarCoverFeature>
           ))}
         </div>
       </section>
