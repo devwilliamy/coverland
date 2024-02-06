@@ -1,8 +1,9 @@
 import { TReviewData } from '@/lib/db';
 import { Rating } from '@mui/material';
 import { CheckIcon } from './icons';
-import PlaceholderImage from '@/images/categories/carCoverImage.webp';
 import Image from 'next/image';
+import HelpfulSection from './HelpfulSection';
+import ReviewCardImages from './ReviewCardImages';
 
 export default function ReviewCard({ review }: { review: TReviewData }) {
   return (
@@ -57,34 +58,8 @@ export default function ReviewCard({ review }: { review: TReviewData }) {
           Yes, I would recommend.
         </div>
       </span>
-      <span className="flex gap-2 overflow-x-auto">
-        {[...Array(10)].map((item) => (
-          <Image
-            className="flex aspect-square h-[160px] w-[160px] items-center"
-            alt="review-ard-image-alt"
-            src={PlaceholderImage}
-          />
-        ))}
-      </span>
-      {/* <div className="w-[512px] max-w-full mt-6 self-start">
-            <div className="gap-5 flex max-md:flex-col max-md:items-stretch max-md:gap-0">
-              <div className="flex flex-col items-stretch w-[33%] max-md:w-full max-md:ml-0">
-                <div className="flex-col overflow-hidden relative flex aspect-square justify-center items-center flex-1 max-md:mt-4">
-                  images go here
-                </div>
-              </div>
-              <div className="flex flex-col items-stretch w-[33%] ml-5 max-md:w-full max-md:ml-0">
-                <div className="flex-col overflow-hidden relative flex aspect-square justify-center items-center flex-1 max-md:mt-4">
-                  images go here
-                </div>
-              </div>
-              <div className="flex flex-col items-stretch w-[33%] ml-5 max-md:w-full max-md:ml-0">
-                <div className="flex-col overflow-hidden relative flex aspect-square justify-center items-center flex-1 max-md:mt-4">
-                  images go here
-                </div>
-              </div>
-            </div>
-          </div> */}
+      <ReviewCardImages />
+      {/* <HelpfulSection /> */}
     </section>
   );
 }
