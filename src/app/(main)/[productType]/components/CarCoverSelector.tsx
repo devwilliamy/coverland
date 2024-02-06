@@ -1,20 +1,14 @@
 'use client';
-
-// import { TReviewData } from '@/lib/db';
-import { Separator } from '@/components/ui/separator';
 import React, { RefObject, useContext, useRef } from 'react';
 import { useMediaQuery } from '@mantine/hooks';
 import dynamicImport from 'next/dynamic';
 import { PrimaryImageDisplay } from './PrimaryImageDisplay';
-import { ColorSelector } from './ColorSelector';
-import { TypeSelector } from './TypeSelector';
 import { ProductContent } from './ProductContent';
 import { EditVehicleModal } from './EditVehicleModal';
 import { CarSelectionContext } from './CarPDP';
 import { useStore } from 'zustand';
 import { TReviewData } from '@/lib/db';
 import { IProductData } from '../../utils';
-import CircleColorSelector from './CircleColorSelector';
 
 const EditVehiclePopover = dynamicImport(
   () => import('@/components/PDP/components/EditVehiclePopover'),
@@ -39,11 +33,11 @@ export function CarCoverSelector({
 
   const featuredImage = selectedProduct?.mainImage;
 
-  console.log(featuredImage);
+  // console.log(featuredImage);
 
-  console.log(modelData);
+  // console.log(modelData);
 
-  console.log(selectedProduct);
+  // console.log(selectedProduct);
 
   const reviewScore =
     reviewData?.reduce(
@@ -72,7 +66,7 @@ export function CarCoverSelector({
     new Set(modelData.map((model) => model.display_color))
   ).map((color) => modelData.find((model) => model.display_color === color));
 
-  console.log(uniqueColors);
+  // console.log(uniqueColors);
 
   const uniqueTypes = Array.from(
     new Set(modelData.map((model) => model.display_id))
@@ -85,7 +79,7 @@ export function CarCoverSelector({
 
   const productName = modelData[0].fullProductName;
 
-  console.log(selectedProduct.product_name);
+  // console.log(selectedProduct.product_name);
   return (
     <section className="mx-auto h-auto w-full max-w-[1280px] px-4 lg:my-8">
       <div className="flex w-full flex-col items-start justify-between lg:flex-row lg:gap-14">

@@ -40,7 +40,7 @@ export default function CircleColorSelector({
     if (modelData.display_color && colorMap[modelData.display_color]) {
       colors.push(colorMap[modelData.display_color]);
     }
-    console.log(modelData);
+    // console.log(modelData);
   }
   return (
     <section

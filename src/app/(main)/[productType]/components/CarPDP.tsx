@@ -127,8 +127,8 @@ const createCarSelectionStore = ({
           compareRawStrings(sku.submodel2, newQuery.secondSubmodel as string)
         );
       }
-      console.log('check');
-      console.log(filteredData.length);
+      // console.log('check');
+      // console.log(filteredData.length);
       set({ modelData: filteredData });
     },
   }));
