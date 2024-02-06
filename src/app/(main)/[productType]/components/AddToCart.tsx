@@ -1,21 +1,14 @@
 'use client';
 import { Button } from '@/components/ui/button';
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from '@/components/ui/popover';
 import { useMediaQuery } from '@mantine/hooks';
 import { track } from '@vercel/analytics/react';
-import { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime';
-import React, { SetStateAction, useContext, useEffect, useState } from 'react';
+import { SetStateAction, useContext, useEffect, useState } from 'react';
 import {
   Drawer,
   DrawerContent,
   DrawerFooter,
   DrawerHeader,
   DrawerTitle,
-  DrawerTrigger,
 } from '@/components/ui/drawer';
 import { useParams, useRouter } from 'next/navigation';
 import {
@@ -163,7 +156,6 @@ const AddToCartSelector = ({
   if (!store) throw new Error('Missing CarContext.Provider in the tree');
 
   const modelData = useStore(store, (s) => s.modelData);
-  const initModelData = useStore(store, (s) => s.initialModelData);
   const queryState = useStore(store, (s) => s.query);
   const setQuery = useStore(store, (s) => s.setQuery);
   const selectedProduct = useStore(store, (s) => s.selectedProduct);
@@ -179,12 +171,7 @@ const AddToCartSelector = ({
     data: modelData,
   });
 
-  const {
-    shouldDisplayMake,
-    shouldDisplayModel,
-    shouldDisplaySecondSubmodel,
-    isComplete,
-  } = completeSelectionState;
+  const { shouldDisplayMake, isComplete } = completeSelectionState;
 
   const {
     uniqueMakes,
@@ -192,19 +179,22 @@ const AddToCartSelector = ({
     uniqueSecondSubmodels,
     uniqueSubmodels,
     uniqueYears,
-  } = getUniqueValues({ data: initModelData, queryState: queryState });
+  } = getUniqueValues({ data: modelData, queryState: queryState });
 
   const cartProduct = modelData.find((p) => p.display_color === color);
+  // console.log(cartProduct);
 
   const handleAddToCart = () => {
     if (!cartProduct) return;
-    console.log(cartProduct);
+    // console.log(cartProduct);
     return addToCart({ ...cartProduct, quantity: 1 });
   };
 
-  console.log(isComplete);
+  // console.log(isComplete);
 
-  console.log(queryState);
+  // console.log(queryState);
+
+  // console.log(uniqueYears);
 
   const TypeDropdown = () => {
     const typeOptions = ['Car Covers', 'SUV Covers', 'Truck Covers'];
@@ -259,34 +249,6 @@ const AddToCartSelector = ({
     );
   };
 
-  const ModelDropdown = () => {
-    return (
-      <div
-        className={`flex max-h-[44px] min-h-[44px] w-full items-center rounded-[4px] bg-white px-2 text-lg outline outline-1 outline-offset-1 outline-[#767676] md:max-h-[58px] lg:w-auto`}
-      >
-        <div className=" ml-[10px] pr-[15px]">3</div>
-        <select
-          value={queryState.model}
-          className={`bg w-full bg-transparent outline-none `}
-          disabled={!shouldDisplayModel && !!params?.model}
-          onChange={(e) =>
-            setQuery({
-              ...queryState,
-              model: e.target.value,
-            })
-          }
-        >
-          <option value="">{queryState.model || 'Model'}</option>
-          {uniqueModels.map((model) => (
-            <option key={model} value={model}>
-              {model}
-            </option>
-          ))}
-        </select>
-      </div>
-    );
-  };
-
   const YearDropdown = () => {
     return (
       <div
@@ -307,6 +269,34 @@ const AddToCartSelector = ({
           {uniqueYears.map((year) => (
             <option key={year} value={year}>
               {year}
+            </option>
+          ))}
+        </select>
+      </div>
+    );
+  };
+
+  const ModelDropdown = () => {
+    return (
+      <div
+        className={`flex max-h-[44px] min-h-[44px] w-full items-center rounded-[4px] bg-white px-2 text-lg outline outline-1 outline-offset-1 outline-[#767676] md:max-h-[58px] lg:w-auto`}
+      >
+        <div className=" ml-[10px] pr-[15px]">3</div>
+        <select
+          value={queryState.model}
+          className={`bg w-full bg-transparent capitalize outline-none `}
+          disabled={!!params?.model || !queryState.year}
+          onChange={(e) =>
+            setQuery({
+              ...queryState,
+              model: e.target.value,
+            })
+          }
+        >
+          <option value="">{queryState.model || 'Model'}</option>
+          {uniqueModels.map((model) => (
+            <option key={model} value={model}>
+              {model}
             </option>
           ))}
         </select>
@@ -375,12 +365,10 @@ const AddToCartSelector = ({
         <div className="flex w-full flex-col gap-4 px-4">
           <TypeDropdown />
           <MakeDropdown />
-          <ModelDropdown />
           <YearDropdown />
-          {queryState.year && <SubmodelDropdown />}
-          {shouldDisplaySecondSubmodel && queryState.submodel && (
-            <SecondSubmodelDropdown />
-          )}
+          <ModelDropdown />
+          {queryState.model && <SubmodelDropdown />}
+          {queryState.submodel && <SecondSubmodelDropdown />}
         </div>
         <DrawerFooter className="bg-white">
           <p className="text-right text-black">
@@ -390,6 +378,7 @@ const AddToCartSelector = ({
             onClick={() => {
               if (!isComplete) return;
               handleAddToCart();
+              setSubmodelSelectionOpen(false);
               router.push('/checkout');
             }}
             disabled={!isComplete}

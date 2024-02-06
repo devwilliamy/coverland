@@ -1,5 +1,4 @@
 'use client';
-
 import {
   Popover,
   PopoverContent,
@@ -9,28 +8,14 @@ import { Separator } from '@/components/ui/separator';
 import { TInitialProductDataDB, TReviewData } from '@/lib/db';
 import { Rating } from '@mui/material';
 import { track } from '@vercel/analytics';
-import Image from 'next/image';
 import Link from 'next/link';
 import { GoDotFill } from 'react-icons/go';
 import { CarSelectionContext } from './CarPDP';
 import { useMediaQuery } from '@mantine/hooks';
-import {
-  RefObject,
-  useContext,
-  useState,
-  useEffect,
-  SetStateAction,
-} from 'react';
+import { RefObject, useContext, useState } from 'react';
 import CartSheet from '@/components/cart/CartSheet';
-import {
-  Drawer,
-  DrawerContent,
-  DrawerHeader,
-  DrawerTitle,
-} from '@/components/ui/drawer';
 import { generateProductsLeft } from '@/lib/utils';
 import Dialog from '@/components/ui/dialog-tailwind-ui';
-import { useRouter } from 'next/navigation';
 import { compareRawStrings } from '@/lib/utils';
 import ReviewSheet from '@/components/PDP/ReviewSheet';
 import ProductVideo from '@/components/PDP/ProductVideo';
@@ -38,7 +23,7 @@ import SquareVideo from '@/videos/Coverland_Square.mp4';
 import SquareThumbnail from '@/video/Thumbnail_Square.webp';
 import { useStore } from 'zustand';
 import { useCartContext } from '@/providers/CartProvider';
-import { IProductData, getCompleteSelectionData } from '../../utils';
+import { IProductData } from '../../utils';
 import FourIconGrid from './FitGuranteedGrid';
 import NeedHelp from './NeedHelp';
 import FreeDetails from './FreeDetails';
@@ -75,11 +60,7 @@ export function ProductContent({
       ? 'SUV Cover'
       : 'Truck Cover';
   const isMobile = useMediaQuery('(max-width: 768px)');
-  const router = useRouter();
-
   const [addToCartOpen, setAddToCartOpen] = useState<boolean>(false);
-  const [reviewDrawerOpen, setReviewDrawerOpen] = useState<boolean>(false);
-
   const store = useContext(CarSelectionContext);
   if (!store) throw new Error('Missing CarContext.Provider in the tree');
   const modelData = useStore(store, (s) => s.modelData);
@@ -91,15 +72,8 @@ export function ProductContent({
 
   const handleAddToCart = () => {
     if (!cartProduct) return;
-    console.log(cartProduct);
     return addToCart({ ...cartProduct, quantity: 1 });
   };
-
-  const {
-    completeSelectionState: { isComplete },
-  } = getCompleteSelectionData({
-    data: modelData,
-  });
 
   return (
     <>

@@ -1062,7 +1062,7 @@ const carImages: Partial<Record<(typeof colorOrder)[number], string[]>> = {
 
 const truckImages: Partial<Record<(typeof colorOrder)[number], string[]>> = {
   'Black Gray Stripe': ['http://www.coverland.com/pms/tc-01-bkgr-str-m.webp'],
-  'Solid Gray': ['http://www.coverland.com/pms/tc-01-bkgr-str-m.webp'],
+  'Solid Gray': ['http://www.coverland.com/pms/truck-premium-gr-1to.webp'],
 };
 
 export const DEFAULT_PRODUCT_IMAGES = { suvImages, carImages, truckImages };
