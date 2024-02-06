@@ -126,12 +126,18 @@ export async function getProductData({
   year,
   make,
   model,
+  type,
 }: {
   year?: string;
   make?: string;
   model?: string;
+  type?: string;
 }) {
   let fetch = supabase.from('Products-2024').select('*');
+
+  if (type) {
+    fetch = fetch.eq('type', type);
+  }
 
   if (year) {
     console.log(year);

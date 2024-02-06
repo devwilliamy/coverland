@@ -491,12 +491,8 @@ const AddToCartSelector = ({
     data: modelData,
   });
 
-  const {
-    shouldDisplayMake,
-    shouldDisplayModel,
-    shouldDisplaySecondSubmodel,
-    isComplete,
-  } = completeSelectionState;
+  const { shouldDisplayMake, shouldDisplaySecondSubmodel, isComplete } =
+    completeSelectionState;
 
   const {
     uniqueMakes,
@@ -517,6 +513,8 @@ const AddToCartSelector = ({
   console.log(isComplete);
 
   console.log(queryState);
+
+  console.log(uniqueYears);
 
   const TypeDropdown = () => {
     const typeOptions = ['Car Covers', 'SUV Covers', 'Truck Covers'];
@@ -571,34 +569,6 @@ const AddToCartSelector = ({
     );
   };
 
-  const ModelDropdown = () => {
-    return (
-      <div
-        className={`flex max-h-[44px] min-h-[44px] w-full items-center rounded-[4px] bg-white px-2 text-lg outline outline-1 outline-offset-1 outline-[#767676] md:max-h-[58px] lg:w-auto`}
-      >
-        <div className=" ml-[10px] pr-[15px]">3</div>
-        <select
-          value={queryState.model}
-          className={`bg w-full bg-transparent outline-none `}
-          disabled={!shouldDisplayModel && !!params?.model}
-          onChange={(e) =>
-            setQuery({
-              ...queryState,
-              model: e.target.value,
-            })
-          }
-        >
-          <option value="">{queryState.model || 'Model'}</option>
-          {uniqueModels.map((model) => (
-            <option key={model} value={model}>
-              {model}
-            </option>
-          ))}
-        </select>
-      </div>
-    );
-  };
-
   const YearDropdown = () => {
     return (
       <div
@@ -619,6 +589,34 @@ const AddToCartSelector = ({
           {uniqueYears.map((year) => (
             <option key={year} value={year}>
               {year}
+            </option>
+          ))}
+        </select>
+      </div>
+    );
+  };
+
+  const ModelDropdown = () => {
+    return (
+      <div
+        className={`flex max-h-[44px] min-h-[44px] w-full items-center rounded-[4px] bg-white px-2 text-lg outline outline-1 outline-offset-1 outline-[#767676] md:max-h-[58px] lg:w-auto`}
+      >
+        <div className=" ml-[10px] pr-[15px]">3</div>
+        <select
+          value={queryState.model}
+          className={`bg w-full bg-transparent capitalize outline-none `}
+          disabled={!!params?.model || !queryState.year}
+          onChange={(e) =>
+            setQuery({
+              ...queryState,
+              model: e.target.value,
+            })
+          }
+        >
+          <option value="">{queryState.model || 'Model'}</option>
+          {uniqueModels.map((model) => (
+            <option key={model} value={model}>
+              {model}
             </option>
           ))}
         </select>
@@ -687,9 +685,9 @@ const AddToCartSelector = ({
         <div className="flex w-full flex-col gap-4 px-4">
           <TypeDropdown />
           <MakeDropdown />
-          <ModelDropdown />
           <YearDropdown />
-          {queryState.year && <SubmodelDropdown />}
+          <ModelDropdown />
+          {queryState.model && <SubmodelDropdown />}
           {shouldDisplaySecondSubmodel && queryState.submodel && (
             <SecondSubmodelDropdown />
           )}
@@ -702,6 +700,7 @@ const AddToCartSelector = ({
             onClick={() => {
               if (!isComplete) return;
               handleAddToCart();
+              setSubmodelSelectionOpen(false);
               router.push('/checkout');
             }}
             disabled={!isComplete}
