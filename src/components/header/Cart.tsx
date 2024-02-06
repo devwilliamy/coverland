@@ -28,9 +28,8 @@ function Cart() {
         <div className="flex items-center">
           <ItemsInCartAnimation cartItems={cartItems} />
           <HiOutlineShoppingCart
-            size={24}
             color={cartColor}
-            className="mt-1 flex hover:cursor-pointer"
+            className="mt-0.5 flex h-[20px] w-[20px] hover:cursor-pointer"
             onClick={() => router.push('/checkout')}
           />
         </div>

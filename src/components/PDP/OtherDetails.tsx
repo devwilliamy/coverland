@@ -304,7 +304,10 @@ function ReviewCard({ review }: { review: TReviewData }) {
   return (
     <span className="my-5 flex w-full flex-col items-stretch self-stretch rounded border border-solid border-stone-300 py-9 pl-10 pr-16 max-md:max-w-full max-md:px-5">
       <div className="text-xl font-bold normal-case text-neutral-700 max-md:max-w-full lg:text-3xl">
-        {review.review_title}
+        {review.review_title
+          ? review.review_title.charAt(0).toUpperCase() +
+            review.review_title.slice(1)
+          : ''}
       </div>
       <div className="my-2 flex gap-1 text-yellow-300 lg:my-0">
         <Rating

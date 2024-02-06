@@ -65,7 +65,7 @@ export function Layers() {
           <p className="text-lg font-bold capitalize text-[#1A1A1A] lg:text-2xl">
             {props.title}
           </p>
-          <p className="w-full text-sm font-normal normal-case text-[#767676] lg:w-[96%] lg:text-[18px] lg:text-lg">
+          <p className="w-full text-sm font-normal normal-case text-[#767676] lg:w-[96%] lg:text-lg">
             {props.text}
           </p>
         </div>

@@ -1,14 +1,5 @@
 'use client';
 
-import DeliveryDate from '@/components/PDP/components/DeliveryDate';
-import { TimeTo2PMPST } from '@/components/PDP/components/TimeTo2PM';
-import {
-  FolderUpIcon,
-  SecureIcon,
-  ThumbsUpIcon,
-} from '@/components/PDP/images';
-import { MoneyBackIcon } from '@/components/PDP/images/MoneyBack';
-import { Button } from '@/components/ui/button';
 import {
   Popover,
   PopoverContent,
@@ -18,19 +9,16 @@ import { Separator } from '@/components/ui/separator';
 import { TInitialProductDataDB, TReviewData } from '@/lib/db';
 import { Rating } from '@mui/material';
 import { track } from '@vercel/analytics';
-import Image, { StaticImageData } from 'next/image';
+import Image from 'next/image';
 import Link from 'next/link';
-import { BsBoxSeam, BsGift } from 'react-icons/bs';
 import { GoDotFill } from 'react-icons/go';
-import AgentProfile from '@/images/PDP/agent_profile.png';
 import { CarSelectionContext } from './CarPDP';
 import { useMediaQuery } from '@mantine/hooks';
-import { SetStateAction, useContext, useState } from 'react';
+import { RefObject, useContext, useState } from 'react';
 import CartSheet from '@/components/cart/CartSheet';
 import {
   Drawer,
   DrawerContent,
-  DrawerFooter,
   DrawerHeader,
   DrawerTitle,
   DrawerTrigger,
@@ -46,37 +34,22 @@ import SquareVideo from '@/videos/Coverland_Square.mp4';
 import SquareThumbnail from '@/video/Thumbnail_Square.webp';
 import { useStore } from 'zustand';
 import { useCartContext } from '@/providers/CartProvider';
-import {
-  IProductData,
-  TPathParams,
-  getCompleteSelectionData,
-  getUniqueValues,
-} from '../../utils';
-import EditVehicleDropdown from '@/components/PDP/EditVehicleDropdown';
-import ExampleCustomerImage from '@/images/PDP/product_details_01.webp';
-
-import {
-  Carousel,
-  CarouselContent,
-  CarouselApi,
-} from '@/components/ui/carousel';
-import ReviewCard from '@/components/PDP/components/ReviewCard';
-import { CheckIcon } from '@/components/PDP/components/icons';
-import GrayBlackTribe from '@/images/PDP/gray-black-tribe.svg';
-import BlackGrayStripe from '@/images/PDP/black-gray-stripe.svg';
-import BlackGray2Tone from '@/images/PDP/black-gray-2-tone.svg';
-import GrayBlackStripe from '@/images/PDP/gray-black-stripe.svg';
-import BlackRedStripe from '@/images/PDP/black-red-stripe.svg';
-import BlackRed2Tone from '@/images/PDP/black-red-2-tone.svg';
-import CustomerImagesDrawer from './CustomerImagesDrawer';
+import { IProductData, getCompleteSelectionData } from '../../utils';
 import FourIconGrid from './FitGuranteedGrid';
 import NeedHelp from './NeedHelp';
 import FreeDetails from './FreeDetails';
 import AddToCart from './AddToCart';
+import CircleColorSelector from './CircleColorSelector';
+
+interface ProductRefs {
+  [key: string]: RefObject<HTMLElement>;
+}
 
 export function ProductContent({
   selectedProduct,
   setSelectedProduct,
+  setFeaturedImage,
+  productRefs,
   uniqueColors,
   reviewCount,
   avgReviewScore,
@@ -84,8 +57,10 @@ export function ProductContent({
 }: {
   selectedProduct: TInitialProductDataDB | null | undefined;
   setSelectedProduct: (newProduct: IProductData) => void;
+  productRefs: React.MutableRefObject<ProductRefs>;
   uniqueColors?: IProductData[];
   modelData: TInitialProductDataDB[];
+  setFeaturedImage: (img: string) => void;
   reviewCount: number;
   avgReviewScore: string;
   reviewData: TReviewData[] | undefined | null;
@@ -104,33 +79,6 @@ export function ProductContent({
   const [customerImagesIndex, setCustomerImagesIndex] = useState<number>(0);
   const [customerImagesDrawerOpen, setCustomerImagesDrawerOpen] =
     useState<boolean>(false);
-
-  const coverColors = [
-    GrayBlackTribe,
-    BlackRed2Tone,
-    BlackGray2Tone,
-    BlackGrayStripe,
-    GrayBlackStripe,
-    BlackRedStripe,
-  ];
-  const colorMap = {
-    'Gray Black Tribe': GrayBlackTribe,
-    'Black Red 2-Tone': BlackRed2Tone,
-    'Black Gray 2-Tone': BlackGray2Tone,
-    'Black Gray Stripe': BlackGrayStripe,
-    'Gray Black Stripe': GrayBlackStripe,
-    'Black Red Stripe': BlackRedStripe,
-  };
-
-  const colors = [];
-
-  for (const modelData of uniqueColors) {
-    if (colorMap[modelData.display_color]) {
-      colors.push(colorMap[modelData.display_color]);
-    }
-  }
-
-  console.log(colors);
 
   const store = useContext(CarSelectionContext);
   if (!store) throw new Error('Missing CarContext.Provider in the tree');
@@ -157,10 +105,9 @@ export function ProductContent({
     <>
       <div className="grid grid-cols-1">
         <div className="flex flex-col gap-0.5">
-          <h2 className="mt-[24px] text-[24px] font-[900] leading-[27px] text-[#1A1A1A] md:text-[28px]">
+          <h2 className="mt-[24px] text-[24px] font-[900] leading-[27px] text-[#1A1A1A] md:mt-0 md:text-[28px] md:leading-[30px] ">
             {`${selectedProduct?.display_id}`}
-            &trade;
-            <br />
+            &trade; {/* <br /> */}
             {`Custom-Fit ${productType}`}
           </h2>
           {/* Reviews */}
@@ -257,11 +204,11 @@ export function ProductContent({
           <p className="mb-2 text-gray-500">100+ Bought In Past Month</p>
         </div>
         <div className="flex-start flex items-center gap-2">
-          <div className="h-[7px] w-[7px] rounded-full bg-[#008000]" />
+          <div className="max-h-[7px] min-h-[7px] min-w-[7px] max-w-[7px] rounded-full bg-[#008000]" />
           <p className="text-[12px] capitalize text-black">Lifetime Warranty</p>
         </div>
         <div className="flex-start flex items-center gap-2 ">
-          <div className="h-[7px] w-[7px] rounded-full bg-[#008000]" />
+          <div className="max-h-[7px] min-h-[7px] min-w-[7px] max-w-[7px] rounded-full bg-[#008000]" />
           <p className="text-[12px] capitalize text-black">In Stock</p>
         </div>
       </div>
@@ -283,114 +230,58 @@ export function ProductContent({
           )}
         </div>
       </section>
-      <section
-        id="select-color"
-        className="mt-[24px] flex h-full w-full flex-col py-1"
-      >
-        <h3 className="mb-[6px] max-h-[13px] text-[16px] font-[400] leading-[14px] text-black ">
-          Select Color
-        </h3>
-        <div className="flex w-full min-w-[288px]  gap-[11px] overflow-x-auto py-[1px] md:overflow-x-hidden">
-          {uniqueColors &&
-            uniqueColors.map((modelData, index) => {
-              if (modelData.display_color === 'Solid Gray')
-                return (
-                  <div
-                    key={`car-color-${index}`}
-                    className={`flex ${index === colorCoverIndex && 'border-1 border border-[#6F6F6F] '} flex-col place-content-center rounded-full p-[2px] `}
-                    onClick={() => {
-                      setSelectedProduct(modelData);
-                      setColorCoverIndex(index);
-                    }}
-                  >
-                    <div className="h-[34px] w-[34px] rounded-full bg-[#D9D9D9]" />
-                  </div>
-                );
-
-              return (
-                <div
-                  key={`car-color-${index}`}
-                  className={`flex ${index === colorCoverIndex && 'border-1 border border-[#6F6F6F] '} flex-col place-content-center rounded-full p-[2px] `}
-                  onClick={() => {
-                    setSelectedProduct(modelData);
-                    setColorCoverIndex(index);
-                  }}
-                >
-                  <Image
-                    alt="cover-color"
-                    className="h-[34px] w-[34px]"
-                    src={colorMap[modelData.display_color]}
-                  />
-                </div>
-              );
-            })}
-        </div>
-      </section>
-      <Separator className="mt-[36px]" />
+      <CircleColorSelector
+        uniqueColors={uniqueColors as IProductData[]}
+        productRefs={productRefs}
+        setFeaturedImage={setFeaturedImage}
+        setSelectedProduct={setSelectedProduct}
+        selectedProduct={selectedProduct as IProductData}
+      />
+      <Separator className="mt-[36px] " />
       <FreeDetails />
       {/* Add to Cart Button */}
       <AddToCart
         selectedProduct={selectedProduct}
         handleAddToCart={handleAddToCart}
       />
-      <section className="mt-[22px]">
-        <p className="text-[12px] font-[700] leading-[20px] lg:hidden">
-          As low as $32.50/mo with PayPal. Check your purchasing power.
-          <ins>Learn More</ins>
-        </p>
-        <p className="hidden text-[16px] leading-[22px] lg:block">
-          As low as <b>$32.50</b>/mo with <b>PayPal</b>. Check your purchasing
-          power.
-          <br /> <ins>Learn More</ins>
-        </p>
-      </section>
-      <Separator className="my-8" />
+      {/* <LearnMore /> */}
+      <Separator className="my-8 " />
       {isMobile && (
         <div className="pb-5">
           <ProductVideo src={SquareVideo} imgSrc={SquareThumbnail} />
         </div>
       )}
-      {/* Selling Attributes */}
-      <CustomerImagesDrawer
+      {/* <CustomerReviewsSection
         reviewData={reviewData}
         customerImagesDrawerOpen={customerImagesDrawerOpen}
         setCustomerImagesDrawerOpen={setCustomerImagesDrawerOpen}
         customerImagesIndex={customerImagesIndex}
         setCustomerImagesIndex={setCustomerImagesIndex}
-      />
-      <span className="mb-[32px] flex w-full gap-[7px] overflow-x-auto">
-        {[...Array(12)].map((_, index) => (
-          <div key={`scrollable-item-${index}`} className="flex">
-            <Image
-              src={ExampleCustomerImage}
-              className="flex max-h-[128px] min-h-[128px] min-w-[128px] max-w-[128px] rounded-[4px] object-cover"
-              alt=""
-            />
-          </div>
-        ))}
-      </span>
+      /> */}
       <FourIconGrid />
       <NeedHelp />
-      <Separator className="my-10 hidden lg:block" />
-      <div>
+      <Separator className="my-10 hidden lg:mt-0 lg:block" />
+      <section>
         <h3 className="mb-[28px] hidden text-xl font-black uppercase text-[#1A1A1A] lg:flex">
           car cover features
         </h3>
-        {[
-          '100% waterproof protection.',
-          '100% UV protection.',
-          '100% Tailored to your car model.',
-          'The Best Quality Car Cover on the Market.',
-          'Outside Material: High-End Polyester Fabric.',
-          'Inside Material: Soft Fleece Fabric.',
-          'Heavy-Duty, but Easy On and Off.',
-          'Non-Scratch Fabric Protects Your Car Paint.',
-          'Backed by a Lifetime Warranty.',
-          'Guaranteed to Be the Best Quality Car Cover on the Market.',
-        ].map((text) => (
-          <CarCoverFeature>{text}</CarCoverFeature>
-        ))}
-      </div>
+        <div className="flex flex-col gap-2 lg:gap-0 ">
+          {[
+            '100% waterproof protection.',
+            '100% UV protection.',
+            '100% Tailored to your car model.',
+            'The Best Quality Car Cover on the Market.',
+            'Outside Material: High-End Polyester Fabric.',
+            'Inside Material: Soft Fleece Fabric.',
+            'Heavy-Duty, but Easy On and Off.',
+            'Non-Scratch Fabric Protects Your Car Paint.',
+            'Backed by a Lifetime Warranty.',
+            'Guaranteed to Be the Best Quality Car Cover On the Market.',
+          ].map((text) => (
+            <CarCoverFeature>{text}</CarCoverFeature>
+          ))}
+        </div>
+      </section>
       {isMobile ? (
         <Dialog open={addToCartOpen} setOpen={setAddToCartOpen} />
       ) : (
@@ -413,8 +304,10 @@ export function ProductContent({
 }
 
 const CarCoverFeature = ({ children }: { children: string }) => (
-  <div className="flex-start ml-2 hidden items-center pb-2 leading-4 lg:flex">
+  <div className="flex-start ml-2 hidden items-center  leading-4 lg:flex">
     <GoDotFill size={10} color="#000000" />
-    <p className="pl-1 text-lg font-medium capitalize text-black">{children}</p>
+    <p className="pl-1 text-lg font-medium capitalize leading-[32px] text-black">
+      {children}
+    </p>
   </div>
 );
