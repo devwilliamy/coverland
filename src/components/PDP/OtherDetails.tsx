@@ -77,18 +77,16 @@ export function ExtraProductDetails({
 
   const DetailBarItem = ({ name }: { name: string }) => {
     return (
-      <div className="flex h-max w-full px-[10px] py-[22px] hover:cursor-pointer hover:bg-slate-100">
-        <h1
-          className="h-max w-full text-center hover:underline"
-          onClick={() => {
-            const pdVideo = document.getElementById(
-              String(name).toLowerCase().replaceAll(' ', '-')
-            );
-            pdVideo?.scrollIntoView({ behavior: 'instant' });
-          }}
-        >
-          {name}
-        </h1>
+      <div
+        className="flex h-max w-full px-[10px] py-[22px] hover:cursor-pointer hover:bg-[#F9F9FB] hover:underline"
+        onClick={() => {
+          const pdVideo = document.getElementById(
+            String(name).toLowerCase().replaceAll(' ', '-')
+          );
+          pdVideo?.scrollIntoView({ behavior: 'instant' });
+        }}
+      >
+        <h1 className="h-max w-full text-center ">{name}</h1>
       </div>
     );
   };
