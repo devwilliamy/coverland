@@ -205,11 +205,15 @@ export function ProductContent({
         </div>
         <div className="flex-start flex items-center gap-2">
           <div className="max-h-[7px] min-h-[7px] min-w-[7px] max-w-[7px] rounded-full bg-[#008000]" />
-          <p className="text-[12px] capitalize text-black">Lifetime Warranty</p>
+          <p className="text-[12px] capitalize text-black lg:text-[14px]">
+            Lifetime Warranty
+          </p>
         </div>
         <div className="flex-start flex items-center gap-2 ">
           <div className="max-h-[7px] min-h-[7px] min-w-[7px] max-w-[7px] rounded-full bg-[#008000]" />
-          <p className="text-[12px] capitalize text-black">In Stock</p>
+          <p className="text-[12px] capitalize  text-black lg:text-[14px]">
+            In Stock
+          </p>
         </div>
       </div>
       <section className="pt-6 md:pt-11">
@@ -306,7 +310,7 @@ export function ProductContent({
 const CarCoverFeature = ({ children }: { children: string }) => (
   <div className="flex-start ml-2 hidden items-center  leading-4 lg:flex">
     <GoDotFill size={10} color="#000000" />
-    <p className="pl-1 text-lg font-medium capitalize leading-[32px] text-black">
+    <p className="pl-1 text-lg font-medium capitalize leading-[24px] text-black lg:leading-[32px]">
       {children}
     </p>
   </div>

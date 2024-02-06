@@ -73,7 +73,7 @@ export function ProductChecklist() {
           Who Can Benefit From <br /> Our Premium Car covers:
         </p>
       </div>
-      <div className=" flex justify-center lg:w-1/2">
+      <div className=" flex lg:w-1/2">
         <div className="hidden flex-col gap-[24px] lg:flex lg:gap-[12px]">
           {checklistJSX.map((jsx) => {
             return <BenefitCheckPoint>{jsx}</BenefitCheckPoint>;

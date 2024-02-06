@@ -136,7 +136,7 @@ export function ExtraProductDetails({
                     Enjoy free ground shipping! Please note that these shipping
                     times are estimates, and actual delivery times may vary.
                   </div>
-                  <ul className="flex flex-col gap-4 font-normal text-[#767676]">
+                  <ul className="flex flex-col gap-4 font-normal text-[#767676] lg:gap-0">
                     <li>
                       - Ground Shipping: Delivered within 1-5 business days.
                     </li>
