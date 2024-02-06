@@ -13,6 +13,8 @@ import { TReviewData } from '@/lib/db';
 import { MobilePDPDetails } from './MobilePDPDetails';
 import { WarrantyDesktop } from './components/WarrantyDesktop';
 import { Rating } from '@mui/material';
+import ProductVideo from './ProductVideo';
+import ThreeSixtyVideo from '@/videos/360 degree_website.mp4';
 
 export function ExtraProductDetails({
   reviewData,
@@ -382,16 +384,9 @@ function Video() {
       id="productvideo"
       className="flex h-auto w-full max-w-full flex-col items-center justify-center "
     >
-      <div className="h-[550px] w-full">
-        <iframe
-          width="100%"
-          height="100%"
-          src="https://www.youtube.com/embed/MzF7jIIkDAo?si=t-6lccUtdSOH0NZM"
-          title="YouTube video player"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-          allowFullScreen
-        ></iframe>
-      </div>
+      {/* <div className="h-[550px] w-full"> */}
+      <ProductVideo src={ThreeSixtyVideo} loop autoplay aspectRatio="16 / 9" />
+      {/* </div> */}
       <div className="flex h-auto w-full flex-col items-start justify-center bg-[#1A1A1A] p-4 md:p-8 lg:p-14">
         <div>
           <p className="text-left font-black uppercase tracking-[1.35px] text-white sm:text-xl md:text-3xl lg:text-5xl">

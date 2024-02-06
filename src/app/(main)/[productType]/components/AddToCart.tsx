@@ -8,7 +8,7 @@ import {
 import { useMediaQuery } from '@mantine/hooks';
 import { track } from '@vercel/analytics/react';
 import { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime';
-import React, { SetStateAction, useContext, useState } from 'react';
+import React, { SetStateAction, useContext, useEffect, useState } from 'react';
 import {
   Drawer,
   DrawerContent,
@@ -28,6 +28,13 @@ import { CarSelectionContext } from './CarPDP';
 import { useCartContext } from '@/providers/CartProvider';
 import EditVehicleDropdown from '@/components/PDP/EditVehicleDropdown';
 
+const getOffset = (
+  element: HTMLElement | null | undefined
+): number | undefined => {
+  const elementRect = element?.getBoundingClientRect();
+  return elementRect?.top;
+};
+
 export default function AddToCart({
   selectedProduct,
   handleAddToCart,
@@ -38,14 +45,50 @@ export default function AddToCart({
   const params = useParams<TPathParams>();
   const store = useContext(CarSelectionContext);
   const router = useRouter();
+  const [showStickyAddToCartButton, setShowStickyAddToCartButton] =
+    useState<boolean>(false);
+  const isMobile = useMediaQuery('(max-width: 768px)');
+
+  // For sticky Add To Cart on mobile only (can maybe extract this out)
+  // Will check if Add To Cart has been scroll past, if so, will show sticky button
+
+  useEffect(() => {
+    const listenToScroll = () => {
+      if (!isMobile) return;
+      const heightToHide = getOffset(
+        document.getElementById('addToCartButton')
+      );
+      const windowScrollHeight =
+        document.body.scrollTop || document.documentElement.scrollTop;
+      if (
+        heightToHide !== undefined &&
+        heightToHide < -100 &&
+        windowScrollHeight > heightToHide
+      ) {
+        setShowStickyAddToCartButton(true);
+      } else {
+        setShowStickyAddToCartButton(false);
+      }
+    };
+
+    if (isMobile) {
+      window.addEventListener('scroll', listenToScroll);
+    }
+
+    return () => {
+      if (isMobile) {
+        window.removeEventListener('scroll', listenToScroll);
+      }
+    };
+  }, [isMobile]);
+  const [submodelSelectionOpen, setSubmodelSelectionOpen] =
+    useState<boolean>(false);
 
   if (!store) throw new Error('Missing CarContext.Provider in the tree');
   const modelData = useStore(store, (s) => s.modelData);
 
   const [addToCartOpen, setAddToCartOpen] = useState<boolean>(false);
-  const isMobile = useMediaQuery('(max-width: 768px)');
-  const [submodelSelectionOpen, setSubmodelSelectionOpen] =
-    useState<boolean>(false);
+
   const isTypePage = params?.productType && !params?.make;
 
   const {
@@ -68,6 +111,7 @@ export default function AddToCart({
         <VehicleSelector />
       ) : (
         <Button
+          id="addToCartButton"
           className="mt-4 h-[48px] w-full rounded bg-[#BE1B1B] text-lg font-bold uppercase text-white disabled:bg-[#BE1B1B] md:h-[62px] md:text-xl"
           onClick={() => {
             selectedProduct?.sku &&
@@ -84,6 +128,25 @@ export default function AddToCart({
         >
           Add To Cart
         </Button>
+      )}
+      {showStickyAddToCartButton && (
+        <div className="fixed inset-x-0 bottom-0 z-50 bg-white p-4 shadow-[0_-4px_4px_-0px_rgba(0,0,0,0.1)] md:hidden">
+          <Button
+            className="mt-4 h-[48px] w-full rounded bg-[#BE1B1B] text-lg font-bold uppercase text-white disabled:bg-[#BE1B1B] md:hidden"
+            onClick={() => {
+              selectedProduct?.sku &&
+                track('PDP_add_to_cart', {
+                  sku: selectedProduct?.sku,
+                });
+              handleAddToCart();
+              isMobile ? router.push('/checkout') : setAddToCartOpen(true);
+
+              // setAddToCartOpen(true);
+            }}
+          >
+            Add To Cart
+          </Button>
+        </div>
       )}
     </div>
   );

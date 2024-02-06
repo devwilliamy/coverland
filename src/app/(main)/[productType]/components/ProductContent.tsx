@@ -14,21 +14,19 @@ import Link from 'next/link';
 import { GoDotFill } from 'react-icons/go';
 import { CarSelectionContext } from './CarPDP';
 import { useMediaQuery } from '@mantine/hooks';
-import { RefObject, useContext, useState } from 'react';
+import { RefObject, useContext, useState, useEffect, SetStateAction} from 'react';
 import CartSheet from '@/components/cart/CartSheet';
 import {
   Drawer,
   DrawerContent,
   DrawerHeader,
   DrawerTitle,
-  DrawerTrigger,
 } from '@/components/ui/drawer';
-import { IoClose } from 'react-icons/io5';
-import ReviewSection from '@/components/PDP/components/ReviewSection';
 import { generateProductsLeft } from '@/lib/utils';
 import Dialog from '@/components/ui/dialog-tailwind-ui';
 import { useRouter } from 'next/navigation';
 import { compareRawStrings } from '@/lib/utils';
+import ReviewSheet from '@/components/PDP/ReviewSheet';
 import ProductVideo from '@/components/PDP/ProductVideo';
 import SquareVideo from '@/videos/Coverland_Square.mp4';
 import SquareThumbnail from '@/video/Thumbnail_Square.webp';
@@ -44,6 +42,8 @@ import CircleColorSelector from './CircleColorSelector';
 interface ProductRefs {
   [key: string]: RefObject<HTMLElement>;
 }
+
+
 
 export function ProductContent({
   selectedProduct,
@@ -75,10 +75,10 @@ export function ProductContent({
 
   const [addToCartOpen, setAddToCartOpen] = useState<boolean>(false);
   const [reviewDrawerOpen, setReviewDrawerOpen] = useState<boolean>(false);
-  const [colorCoverIndex, setColorCoverIndex] = useState<number>(0);
-  const [customerImagesIndex, setCustomerImagesIndex] = useState<number>(0);
-  const [customerImagesDrawerOpen, setCustomerImagesDrawerOpen] =
-    useState<boolean>(false);
+ 
+
+
+
 
   const store = useContext(CarSelectionContext);
   if (!store) throw new Error('Missing CarContext.Provider in the tree');
@@ -164,41 +164,7 @@ export function ProductContent({
               </Popover>
             </div>
             <div className="lg:hidden">
-              <Drawer
-                open={reviewDrawerOpen}
-                onOpenChange={setReviewDrawerOpen}
-              >
-                <DrawerTrigger
-                  className="ml-2 text-blue-400 underline"
-                  disabled={!reviewCount}
-                >
-                  {reviewCount || '2'} ratings
-                </DrawerTrigger>
-                <DrawerContent className="">
-                  <DrawerHeader draggable={false}>
-                    <DrawerTitle className="flex w-full items-center border-b-2 border-[#C8C7C7] py-[22px] font-black uppercase">
-                      <div
-                        id="DrawerTitle"
-                        className=" flex w-full text-[22px] font-black uppercase"
-                      >
-                        Car Cover Reviews
-                      </div>
-                      <button
-                        id="CloseModalButton"
-                        className="flex items-center justify-center rounded-full bg-gray-200 p-[5px]"
-                        onClick={() => {
-                          setReviewDrawerOpen(false);
-                        }}
-                      >
-                        <IoClose className="h-[24px] w-[24px]" />
-                      </button>
-                    </DrawerTitle>
-                  </DrawerHeader>
-                  <div className="mx-auto flex max-h-[76vh] w-full flex-col overflow-y-scroll px-4 pt-[40px]">
-                    <ReviewSection reviewData={reviewData} />
-                  </div>
-                </DrawerContent>
-              </Drawer>
+              <ReviewSheet reviewData={reviewData} />
             </div>
           </div>
           <p className="mb-2 text-gray-500">100+ Bought In Past Month</p>
@@ -250,6 +216,7 @@ export function ProductContent({
       />
       {/* <LearnMore /> */}
       <Separator className="my-8 " />
+      
       {isMobile && (
         <div className="pb-5">
           <ProductVideo src={SquareVideo} imgSrc={SquareThumbnail} />
