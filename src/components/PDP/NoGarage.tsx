@@ -11,11 +11,11 @@ export function NoGarage() {
           src={Garage}
           placeholder="blur"
           quality={75}
-          className="object-cover w-full"
+          className="w-full object-cover"
         />
       </div>
-      <div className="absolute top-[35px] left-[-40px] w-full h-full flex flex-col items-stretch">
-        <p className="text-[#494949] font-black sm:text-xl md:text-3xl lg:text-5xl uppercase text-right tracking-[1.35px]">
+      <div className="absolute left-[-40px] top-[35px] flex w-full flex-col items-stretch">
+        <p className="text-right font-black uppercase tracking-[1.35px] text-[#494949] sm:text-xl md:text-3xl lg:text-5xl">
           No Garage? No problem!
         </p>
       </div>

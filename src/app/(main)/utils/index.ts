@@ -123,6 +123,7 @@ function generatePDPContent({
 }): IProductData[] {
   const { productType, make, model, year } = params;
   const { submodel, secondSubmodel } = queryParams;
+  console.log(data);
   const defaultImages =
     productType === 'car-covers'
       ? DEFAULT_PRODUCT_IMAGES.carImages
@@ -157,7 +158,7 @@ function generatePDPContent({
       productImages = defaultImages[coverColor]?.slice(1) as string[];
     } else if (!model && make && !year && item.make) {
       console.log('here');
-      fullProductName = item.make;
+      fullProductName = `${item.make} ${item.type}`;
       mainImage = defaultImages[coverColor]?.[0] as string;
       productImages = defaultImages[coverColor]?.slice(1) as string[];
     } else if (!make && !model && !year && item.type) {
@@ -174,6 +175,8 @@ function generatePDPContent({
       mainImage = defaultImages[coverColor]?.[0] as string;
       productImages = defaultImages[coverColor]?.slice(1) as string[];
     }
+
+    console.log(mainImage, productImages);
 
     return {
       ...item,
@@ -240,20 +243,27 @@ export const getUniqueValues = ({
     submodels: new Set<string>(),
     secondSubmodels: new Set<string>(),
   };
+  console.log(data.length);
 
   const filteredData = data.filter((item) => {
-    return compareRawStrings(item.make, queryState.make);
+    return (
+      compareRawStrings(item.make, queryState.make) &&
+      compareRawStrings(item.type, queryState.type)
+    );
   });
+
+  console.log(filteredData.length);
 
   filteredData.forEach((item) => {
     if (item.make) uniqueValues.makes.add(item.make);
-    if (item.model) uniqueValues.models.add(item.model);
-    if (item.year_options && compareRawStrings(queryState.model, item.model)) {
+    if (item.year_options) {
       item.year_options
         .split(',')
         .forEach((year) => uniqueValues.years.add(year));
     }
-    if (item.submodel1 && item.year_options?.includes(queryState.year))
+    if (item.model && item.year_options?.includes(queryState.year))
+      uniqueValues.models.add(item.model);
+    if (item.submodel1 && compareRawStrings(item.model, queryState.model))
       uniqueValues.submodels.add(item.submodel1);
     if (
       item.submodel2 &&
@@ -262,10 +272,14 @@ export const getUniqueValues = ({
       uniqueValues.secondSubmodels.add(item.submodel2);
   });
 
+  console.log(filteredData.length);
+
   return {
     uniqueMakes: Array.from(uniqueValues.makes).sort(),
     uniqueModels: Array.from(uniqueValues.models).sort(),
-    uniqueYears: Array.from(uniqueValues.years).sort(),
+    uniqueYears: Array.from(uniqueValues.years).sort(
+      (a, b) => parseInt(b) - parseInt(a)
+    ),
     uniqueSubmodels: Array.from(uniqueValues.submodels).sort(),
     uniqueSecondSubmodels: Array.from(uniqueValues.secondSubmodels).sort(),
   };

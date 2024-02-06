@@ -50,7 +50,7 @@ export default function ReviewSheet({ reviewData }: ReviewSheetProps) {
             </SheetClose>
           </SheetTitle>
         </SheetHeader>
-        <div className="mx-auto flex max-h-[76vh] w-full flex-col overflow-y-scroll px-4 pt-[40px]">
+        <div className="mx-auto flex max-h-[76vh] w-full flex-col overflow-y-scroll px-4">
           <ReviewSection reviewData={reviewData} />
         </div>
       </SheetContent>

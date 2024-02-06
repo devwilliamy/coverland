@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { Fragment, useCallback, useEffect, useState } from 'react';
 import {
   Carousel,
   CarouselApi,
@@ -72,8 +72,8 @@ export const MobileImageCarousel = ({
   return (
     <div className=" flex  max-w-full flex-col  bg-white pb-[16px]">
       <Carousel setApi={setApi}>
-        <CarouselContent>
-          <CarouselItem className="bg-[#F2F2F2]">
+        <CarouselContent id={'carousel-content'}>
+          <CarouselItem key={'carousel-first-image'} className="bg-[#F2F2F2]">
             <Image
               src={selectedProduct.mainImage as string}
               alt={`Additional images of the ${selectedProduct.display_id} cover`}
@@ -89,10 +89,10 @@ export const MobileImageCarousel = ({
               <>
                 {index === 2 ? (
                   <>
-                    <CarouselItem key={index}>
+                    <CarouselItem key={`carousel-video-${index}`}>
                       <ProductVideo src={SevenSecVideo} autoplay loop />
                     </CarouselItem>
-                    <CarouselItem key={index}>
+                    <CarouselItem key={`carousel-image-${index}`}>
                       <Image
                         src={image}
                         alt={`Additional images of the ${selectedProduct.display_id} cover`}
@@ -104,7 +104,7 @@ export const MobileImageCarousel = ({
                     </CarouselItem>
                   </>
                 ) : (
-                  <CarouselItem key={index}>
+                  <CarouselItem key={`carousel-image-${index}`}>
                     <Image
                       src={image}
                       alt={`Additional images of the ${selectedProduct.display_id} cover`}
@@ -139,6 +139,7 @@ export const MobileImageCarousel = ({
           onClick={() => scrollTo(1)}
         >
           <Image
+            id="video-thumbnail"
             alt="Video Thumbnail"
             slot="poster"
             src={SevenSecVideoThumbnail}

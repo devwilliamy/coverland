@@ -12,7 +12,7 @@ type Props = { icon: JSX.Element; title: string; text: string };
 export function OurCarCovers() {
   return (
     <div className="flex flex-col">
-      <div className=" py-8 lg:pb-[60px]">
+      <div className=" py-8 lg:py-0 lg:pb-[60px]">
         <p className="hidden text-center text-[45px] font-[900] uppercase tracking-[1.35px] text-[#1A1A1A] lg:flex lg:flex-col ">
           Our car covers have you covered
         </p>
