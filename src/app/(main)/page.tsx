@@ -12,9 +12,6 @@ import WhyChooseCoverland from '@/pages/home/WhyChooseCoverland';
 import HomepageReviews from '@/pages/home/HomepageReviews';
 
 export default function Home() {
-  // const reviewData: TReviewData[] | null =
-  //   (await fetchReviewData(searchParams, pathParams)) ?? [];
-
   return (
     <div className="flex flex-col gap-[60px] py-4 lg:gap-[110px]">
       <Suspense>

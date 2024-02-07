@@ -1,6 +1,6 @@
 'use client';
 import { Separator } from '@/components/ui/separator';
-import { TInitialProductDataDB, TReviewData } from '@/lib/db';
+import { TInitialProductDataDB } from '@/lib/db';
 import { Rating } from '@mui/material';
 import { GoDotFill } from 'react-icons/go';
 import { CarSelectionContext } from './CarPDP';
@@ -9,7 +9,6 @@ import { RefObject, useContext, useState } from 'react';
 import CartSheet from '@/components/cart/CartSheet';
 import { generateProductsLeft } from '@/lib/utils';
 import { compareRawStrings } from '@/lib/utils';
-import ReviewSheet from '@/components/PDP/ReviewSheet';
 import ProductVideo from '@/components/PDP/ProductVideo';
 import SquareVideo from '@/videos/Coverland_Square.mp4';
 import SquareThumbnail from '@/video/Thumbnail_Square.webp';
@@ -21,9 +20,7 @@ import NeedHelp from './NeedHelp';
 import FreeDetails from './FreeDetails';
 import AddToCart from './AddToCart';
 import CircleColorSelector from './CircleColorSelector';
-import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';
-import CustomerReviewTabs from '@/components/PDP/components/CustomerReviewTabs';
-import RatingsTrigger from './RatingsModal';
+import RatingsTrigger from './RatingsTrigger';
 
 interface ProductRefs {
   [key: string]: RefObject<HTMLElement>;
@@ -35,9 +32,6 @@ export function ProductContent({
   setFeaturedImage,
   productRefs,
   uniqueColors,
-  reviewCount,
-  avgReviewScore,
-  reviewData,
 }: {
   selectedProduct: TInitialProductDataDB | null | undefined;
   setSelectedProduct: (newProduct: IProductData) => void;
@@ -45,9 +39,6 @@ export function ProductContent({
   uniqueColors?: IProductData[];
   modelData: TInitialProductDataDB[];
   setFeaturedImage: (img: string) => void;
-  reviewCount: number;
-  avgReviewScore: string;
-  reviewData: TReviewData[] | undefined | null;
 }) {
   const productType = compareRawStrings(selectedProduct?.type, 'car covers')
     ? 'Car Cover'
@@ -60,7 +51,6 @@ export function ProductContent({
   if (!store) throw new Error('Missing CarContext.Provider in the tree');
   const modelData = useStore(store, (s) => s.modelData);
   const color = useStore(store, (s) => s.selectedColor);
-
   const { addToCart } = useCartContext();
 
   const cartProduct = modelData.find((p) => p.display_color === color);
@@ -92,7 +82,7 @@ export function ProductContent({
                 }}
               />
             </div>
-            <RatingsTrigger reviewData={reviewData} reviewCount={reviewCount} />
+            <RatingsTrigger />
           </div>
           <p className="mb-2 text-gray-500">100+ Bought In Past Month</p>
         </div>

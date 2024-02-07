@@ -2,13 +2,7 @@ import { TReviewData } from '@/lib/db';
 import { Rating } from '@mui/material';
 import { CheckIcon } from './icons';
 
-export default function ReviewCard({
-  review,
-  maxHeight,
-}: {
-  review: TReviewData;
-  maxHeight?: string;
-}) {
+export default function ReviewCard({ review }: { review: TReviewData }) {
   return (
     <div
       className={`relative flex h-full w-full min-w-[100%] flex-col rounded border border-solid border-stone-300 py-9 pl-10 pr-16 max-md:max-w-full max-md:px-5 `}
@@ -41,8 +35,8 @@ export default function ReviewCard({
         {/* images go here */}
       </div>
       <div className="flex justify-between">
-        <div className=" max-w-[75%] overflow-hidden text-base font-normal normal-case text-[#1A1A1A] max-md:max-w-full text">
-          {review.review_description}
+        <div className="max-w-[75%] overflow-hidden text-base font-normal normal-case text-[#1A1A1A] max-md:max-w-full">
+          {review.review}
         </div>
         <div className="hidden text-lg font-light normal-case text-neutral-500 lg:block">
           Purchased on{' '}

@@ -4,9 +4,8 @@ import { Separator } from '@/components/ui/separator';
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { TabsContent } from '@radix-ui/react-tabs';
 import Image from 'next/image';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import ExampleImage from '@/images/solutions/waterproof-cover.webp';
-import { TReviewData } from '@/lib/db';
 import ReviewCard from './ReviewCard';
 import {
   Carousel,
@@ -15,14 +14,17 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from '@/components/ui/carousel';
+import { useStore } from 'zustand';
+import { CarSelectionContext } from '@/app/(main)/[productType]/components/CarPDP';
 // import { ArrowRight } from 'lucide-react';
 
-const CustomerReviewTabs = ({
-  reviewData,
-}: {
-  reviewData: TReviewData[] | undefined | null;
-}) => {
+const CustomerReviewTabs = () => {
   const [selectedTab, setSelectedTab] = useState('customer-images');
+  const store = useContext(CarSelectionContext);
+  if (!store) throw new Error('Missing CarContext.Provider in the tree');
+  const reviewData = useStore(store, (s) => s.reviewData);
+
+
   return (
     <Tabs value={selectedTab} className="flex h-full w-full flex-col bg-white">
       <TabsList className="b-[-1px] mt-[65px] flex h-full w-full justify-start bg-transparent p-0 font-[400] shadow-none lg:mt-0 lg:gap-[56px]">
