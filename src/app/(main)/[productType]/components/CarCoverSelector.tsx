@@ -38,13 +38,6 @@ export function CarCoverSelector({
   // const featuredImage = useStore(store, (s) => s.getFeaturedImage());
 
   const featuredImage = selectedProduct?.mainImage;
-
-  console.log(featuredImage);
-
-  console.log(modelData);
-
-  console.log(selectedProduct);
-
   const reviewScore =
     reviewData?.reduce(
       (acc, review) => acc + Number(review.rating_stars ?? 0),
@@ -72,12 +65,6 @@ export function CarCoverSelector({
     new Set(modelData.map((model) => model.display_color))
   ).map((color) => modelData.find((model) => model.display_color === color));
 
-  console.log(uniqueColors);
-
-  const uniqueTypes = Array.from(
-    new Set(modelData.map((model) => model.display_id))
-  ).map((type) => modelData.find((model) => model.display_id === type));
-
   const productImages =
     selectedProduct?.product
       ?.split(',')
@@ -85,7 +72,6 @@ export function CarCoverSelector({
 
   const productName = modelData[0].fullProductName;
 
-  console.log(selectedProduct.product_name);
   return (
     <section className="mx-auto h-auto w-full max-w-[1280px] px-4 lg:my-8">
       <div className="flex w-full flex-col items-start justify-between lg:flex-row lg:gap-14">

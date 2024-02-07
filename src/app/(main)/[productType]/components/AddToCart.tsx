@@ -22,10 +22,12 @@ import { useCartContext } from '@/providers/CartProvider';
 import EditVehicleDropdown from '@/components/PDP/EditVehicleDropdown';
 import {
   Sheet,
+  SheetClose,
   SheetContent,
   SheetFooter,
   SheetHeader,
 } from '@/components/ui/sheet';
+import { X } from 'lucide-react';
 
 const getOffset = (
   element: HTMLElement | null | undefined
@@ -166,6 +168,7 @@ const AddToCartSelector = ({
   const queryState = useStore(store, (s) => s.query);
   const setQuery = useStore(store, (s) => s.setQuery);
   const selectedProduct = useStore(store, (s) => s.selectedProduct);
+
   const color = useStore(store, (s) => s.selectedColor);
 
   const router = useRouter();
@@ -173,9 +176,6 @@ const AddToCartSelector = ({
   const { addToCart } = useCartContext();
 
   const params = useParams<TPathParams>();
-  console.log(modelData.map((p) => p.product_name));
-
-  console.log(queryState);
 
   const { completeSelectionState } = getCompleteSelectionData({
     data: modelData,
@@ -191,22 +191,12 @@ const AddToCartSelector = ({
     uniqueYears,
   } = getUniqueValues({ data: initialModelData, queryState: queryState });
 
-  console.log(uniqueModels);
-
   const cartProduct = modelData.find((p) => p.display_color === color);
-  // console.log(cartProduct);
 
   const handleAddToCart = () => {
     if (!cartProduct) return;
-    // console.log(cartProduct);
     return addToCart({ ...cartProduct, quantity: 1 });
   };
-
-  // console.log(isComplete);
-
-  // console.log(queryState);
-
-  // console.log(uniqueYears);
 
   const TypeDropdown = () => {
     const typeOptions = ['Car Covers', 'SUV Covers', 'Truck Covers'];
@@ -385,16 +375,19 @@ const AddToCartSelector = ({
       onOpenChange={(o) => setSubmodelSelectionOpen(o)}
     >
       <SheetContent
-        className="flex h-[75vh] flex-col justify-center  rounded-t-2xl border border-neutral-800 bg-neutral-800 pt-16"
+        className="flex h-[75vh] flex-col justify-center rounded-t-2xl  border border-neutral-800 bg-neutral-800 px-4 pt-8"
         side="bottom"
         onClick={(e) => e.stopPropagation()}
       >
+        <SheetClose className="ml-auto flex h-8 w-8 items-center justify-center rounded-full bg-neutral-400">
+          <X className="h-6 w-6 fill-neutral-800" />
+        </SheetClose>
         <SheetHeader>
           <DrawerTitle className="my-4 text-center text-[22px] font-bold uppercase text-white">
             Complete Your Vehicle
           </DrawerTitle>
         </SheetHeader>
-        <div className="flex w-full flex-col gap-4 px-4">
+        <div className="flex w-full flex-col gap-4">
           <TypeDropdown />
           <MakeDropdown />
           <ModelDropdown />
