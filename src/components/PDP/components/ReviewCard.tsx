@@ -11,7 +11,7 @@ export default function ReviewCard({
 }) {
   return (
     <div
-      className={`my-5 flex h-full w-full min-w-[100%] flex-col rounded border border-solid border-stone-300 py-9 pl-10 pr-16 max-md:max-w-full max-md:px-5 `}
+      className={`relative flex h-full w-full min-w-[100%] flex-col rounded border border-solid border-stone-300 py-9 pl-10 pr-16 max-md:max-w-full max-md:px-5 `}
     >
       <div className="text-xl font-bold normal-case text-neutral-700 max-md:max-w-full lg:text-3xl">
         {review.review_title
@@ -41,7 +41,7 @@ export default function ReviewCard({
         {/* images go here */}
       </div>
       <div className="flex justify-between">
-        <div className="line-clamp-4 max-w-[75%] overflow-hidden text-base font-normal normal-case text-[#1A1A1A] max-md:max-w-full lg:line-clamp-3">
+        <div className=" max-w-[75%] overflow-hidden text-base font-normal normal-case text-[#1A1A1A] max-md:max-w-full text">
           {review.review_description}
         </div>
         <div className="hidden text-lg font-light normal-case text-neutral-500 lg:block">

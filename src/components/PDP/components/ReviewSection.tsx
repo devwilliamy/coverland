@@ -57,7 +57,6 @@ const ReviewSection = ({
       </div>
       <div className="pt-6">
         <ReviewImageGallery reviewData={reviewData} />
-        
       </div>
       {/* <div className="flex gap-4 *:rounded-lg my-4">
             <select className="w-full h-12 mx-auto mt-9 text-lg bg-transparent rounded border border-[#1A1A1A] font-normal text-[#767676] text-[#1A1A1A] capitalize">
@@ -78,7 +77,7 @@ const ReviewSection = ({
             </select>
           </div> */}
       {!!reviewData?.length && (
-        <div className="flex flex-col items-center">
+        <div className="flex flex-col items-center mt-7 gap-6">
           {reviewData
             ?.slice(0, displayedReviews)
             .map((review, index) => (
