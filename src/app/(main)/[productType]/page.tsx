@@ -7,13 +7,19 @@ import {
 } from '@/lib/constants';
 import { TInitialProductDataDB } from '@/lib/db';
 import CarPDP from './components/CarPDP';
+import {
+  TReviewData,
+  TProductReviewsQueryFilters,
+  TProductReviewsQueryOptions,
+  getProductReviewsByPage,
+} from '@/lib/db/review';
 
 export default async function CarPDPModelDataLayer({
   params,
 }: {
   params: { productType: string };
 }) {
-  const reviewData = [{}] as any;
+  let reviewData: TReviewData[] = [];
   const productType = params.productType;
 
   const modelData: TInitialProductDataDB[] =
@@ -22,6 +28,33 @@ export default async function CarPDPModelDataLayer({
       : productType === 'suv-covers'
         ? defaultSuvModelData
         : defaultTruckModelData;
+
+  const typeString =
+    params?.productType === 'car-covers'
+      ? 'Car Covers'
+      : params?.productType === 'suv-covers'
+        ? 'SUV Covers'
+        : 'Truck Covers';
+
+  try {
+    const filters: TProductReviewsQueryFilters = {
+      productType: typeString,
+    };
+    const options: TProductReviewsQueryOptions = {
+      pagination: {
+        page: 1,
+        limit: 4,
+      },
+    };
+    const productReviews: TReviewData[] = await getProductReviewsByPage(
+      filters,
+      options
+    );
+    reviewData = productReviews;
+    console.log('ProductReviews:', productReviews);
+  } catch (error) {
+    console.error('CarPDPModelDataLayer Error: ', error);
+  }
 
   return (
     <>

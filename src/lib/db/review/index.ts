@@ -1,10 +1,13 @@
 import { PRODUCT_REVIEWS_TABLE } from '../constants/databaseTableNames';
 import { supabaseDatabaseClient } from '../supabaseClients';
-import { z } from 'zod';
+import { ZodError, z } from 'zod';
 import { getPagination } from '../utils';
 import { Tables } from '../types';
 
+export type TReviewData = Tables<'Mock-Data-Reviews'>;
+
 export type TProductReviewsQueryFilters = {
+  productType?: 'Car Covers' | 'SUV Covers' | 'Truck Covers';
   year?: string;
   make?: string;
   model?: string;
@@ -17,9 +20,14 @@ export type TProductReviewsQueryOptions = {
   };
 };
 
-export type TProductReviewData = Tables<'Mock-Data-Reviews'>;
-
 const ProductReviewsQueryFiltersSchema = z.object({
+  productType: z.optional(
+    z.union([
+      z.literal('Car Covers'),
+      z.literal('SUV Covers'),
+      z.literal('Truck Covers'),
+    ])
+  ),
   year: z.string().optional(),
   make: z.string().optional(),
   model: z.string().optional(),
@@ -38,39 +46,53 @@ const ProductReviewsQueryOptionsSchema = z.object({
 export async function getProductReviewsByPage(
   filters: TProductReviewsQueryFilters,
   options: TProductReviewsQueryOptions
-): Promise<TProductReviewData[] | null> {
-  const validatedFilters = ProductReviewsQueryFiltersSchema.parse(filters);
-  const validatedOptions = ProductReviewsQueryOptionsSchema.parse(options);
+): Promise<TReviewData[]> {
+  try {
+    const validatedFilters = ProductReviewsQueryFiltersSchema.parse(filters);
+    const validatedOptions = ProductReviewsQueryOptionsSchema.parse(options);
 
-  const { year, make, model } = validatedFilters;
-  const {
-    pagination: { page, limit },
-  } = validatedOptions;
+    const { productType, year, make, model } = validatedFilters;
+    const {
+      pagination: { page, limit },
+    } = validatedOptions;
+    // console.log('ProducType:', productType);
+    const { from, to } = getPagination(page, limit);
 
-  const { from, to } = getPagination(page, limit);
+    let fetch = supabaseDatabaseClient
+      .from(PRODUCT_REVIEWS_TABLE)
+      .select('*')
+      .range(from, to);
 
-  let fetch = supabaseDatabaseClient
-    .from(PRODUCT_REVIEWS_TABLE)
-    .select('*')
-    .range(from, to);
+    if (productType) {
+      fetch = fetch.eq('type', productType);
+    }
 
-  if (make) {
-    fetch = fetch.textSearch('make', make);
+    if (make) {
+      fetch = fetch.textSearch('make', make);
+    }
+
+    if (model) {
+      fetch = fetch.textSearch('model', model);
+    }
+
+    const { data, error } = await fetch;
+    console.log('Data:', { data, validatedFilters });
+
+    if (year) {
+    }
+
+    if (error) {
+      console.error(error);
+      return []; // Return an empty array on error
+    }
+
+    return data;
+  } catch (error) {
+    if (error instanceof ZodError) {
+      // Handle validation errors
+      console.log('ZodError:', error);
+    }
+    console.error(error);
+    return []; // Return an empty array if an exception is caught
   }
-
-  if (model) {
-    fetch = fetch.textSearch('model', model);
-  }
-
-  const { data, error } = await fetch;
-  console.log('Data:', { data, validatedFilters });
-
-  if (year) {
-  }
-
-  if (error) {
-    console.log(error);
-  }
-
-  return data;
 }

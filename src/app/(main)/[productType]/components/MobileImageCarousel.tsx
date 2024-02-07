@@ -86,7 +86,6 @@ export const MobileImageCarousel = ({
           {productImages.map((image, index) => {
             if (index <= 1) return;
             if (index === 2) {
-              // When using a fragment to group multiple elements, provide a unique key
               return (
                 <Fragment key={`group-${index}`}>
                   <CarouselItem key={`carousel-video-${index}`}>

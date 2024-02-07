@@ -3,7 +3,6 @@
 import { Suspense, useRef, useState } from 'react';
 import { MoneyBack } from './MoneyBack';
 import { PDPAccordion } from './PDPAccordian';
-import ProductHero from './ProductHero';
 import { OurCarCovers } from './OurCarCovers';
 import { ProductChecklist } from './ProductChecklist';
 import { NoGarage } from './NoGarage';
