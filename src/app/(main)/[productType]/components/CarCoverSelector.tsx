@@ -69,9 +69,9 @@ export function CarCoverSelector({
 
   // console.log(uniqueColors);
 
-  const uniqueTypes = Array.from(
-    new Set(modelData.map((model) => model.display_id))
-  ).map((type) => modelData.find((model) => model.display_id === type));
+  // const uniqueTypes = Array.from(
+  //   new Set(modelData.map((model) => model.display_id))
+  // ).map((type) => modelData.find((model) => model.display_id === type));
 
   const productImages =
     selectedProduct?.product

@@ -606,7 +606,7 @@ export type Database = {
           review_image: string | null;
           review_title: string | null;
           Size: string | null;
-          sku: string;
+          sku: string | null;
           submodel1: string | null;
           submodel2: string | null;
           type: string | null;
@@ -625,7 +625,7 @@ export type Database = {
           review_image?: string | null;
           review_title?: string | null;
           Size?: string | null;
-          sku: string;
+          sku?: string | null;
           submodel1?: string | null;
           submodel2?: string | null;
           type?: string | null;
@@ -644,7 +644,7 @@ export type Database = {
           review_image?: string | null;
           review_title?: string | null;
           Size?: string | null;
-          sku?: string;
+          sku?: string | null;
           submodel1?: string | null;
           submodel2?: string | null;
           type?: string | null;
@@ -1499,6 +1499,19 @@ export type Database = {
           SKU_sp_gr_1to: string;
           SKU_ss_gr_1to: string;
           SKU_pp_bkgr_2to: string;
+        }[];
+      };
+      get_product_reviews_summary: {
+        Args: {
+          type?: string;
+          make?: string;
+          model?: string;
+          submodel?: string;
+          submodel2?: string;
+        };
+        Returns: {
+          total_reviews: number;
+          average_score: number;
         }[];
       };
       join_products: {
