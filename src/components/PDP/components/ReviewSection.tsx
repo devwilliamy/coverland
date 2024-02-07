@@ -48,6 +48,7 @@ const ReviewSection = ({
       </div>
       <div className="pt-6">
         <ReviewImageGallery reviewData={reviewData} />
+        
       </div>
       {/* <div className="flex gap-4 *:rounded-lg my-4">
             <select className="w-full h-12 mx-auto mt-9 text-lg bg-transparent rounded border border-[#1A1A1A] font-normal text-[#767676] text-[#1A1A1A] capitalize">
@@ -92,27 +93,25 @@ const exampleReviewArray = [1, 2, 3, 4, 5];
 
 const ReviewImageGallery = ({ reviewData }: any) => {
   return (
-    <>
-      <div className="flex items-center justify-center">
+    <div className="flex flex-col items-center px-[]">
+      <div className="#767676 flex items-center justify-center py-[10px] text-[14px] font-[400] normal-case leading-[24px] text-[#767676]">
         {reviewData.length} Review Images
       </div>
-      <div className="pt-2">
-        <div className="grid grid-cols-2 gap-2">
-          {exampleReviewArray.slice(0, 3).map((review, index) => (
-            <Image
-              key={index}
-              src={ExampleCustomerImage}
-              alt="Car Cover Review Image"
-              className="h-[156px] w-[156px] object-cover"
-            />
-          ))}
-          <div className="flex h-[156px] w-[156px] items-center justify-center border border-black">
-            <div className="text-center text-base font-normal normal-case underline ">
-              See more review images
-            </div>
+      <div className="grid aspect-square h-full w-full grid-cols-2 items-center gap-[7px]">
+        {exampleReviewArray.slice(0, 3).map((review, index) => (
+          <Image
+            key={index}
+            src={ExampleCustomerImage}
+            alt="Car Cover Review Image"
+            className="h-full w-full items-center justify-center object-cover"
+          />
+        ))}
+        <div className="flex h-full w-full items-center justify-center border border-black">
+          <div className="font-normalc text-center text-base normal-case underline ">
+            See more <br /> review images
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };
