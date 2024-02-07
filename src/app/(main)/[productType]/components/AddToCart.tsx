@@ -115,7 +115,7 @@ export default function AddToCart({
               });
             if (isComplete) {
               handleAddToCart();
-              isMobile ? router.prefetch('/checkout') : setAddToCartOpen(true);
+              isMobile ? router.push('/checkout') : setAddToCartOpen(true);
               return;
             }
             setSubmodelSelectionOpen((p) => !p);
@@ -135,9 +135,7 @@ export default function AddToCart({
                 });
               if (isComplete) {
                 handleAddToCart();
-                isMobile
-                  ? router.prefetch('/checkout')
-                  : setAddToCartOpen(true);
+                isMobile ? router.push('/checkout') : setAddToCartOpen(true);
                 return;
               }
               setSubmodelSelectionOpen((p) => !p);
