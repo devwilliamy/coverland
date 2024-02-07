@@ -133,10 +133,12 @@ export default function AddToCart({
                 track('PDP_add_to_cart', {
                   sku: selectedProduct?.sku,
                 });
-              handleAddToCart();
-              isMobile ? router.push('/checkout') : setAddToCartOpen(true);
-
-              // setAddToCartOpen(true);
+              if (isComplete) {
+                handleAddToCart();
+                isMobile ? router.push('/checkout') : setAddToCartOpen(true);
+                return;
+              }
+              setSubmodelSelectionOpen((p) => !p);
             }}
           >
             Add To Cart
@@ -387,10 +389,10 @@ const AddToCartSelector = ({
           <ModelDropdown />
           <YearDropdown />
           {queryState.year && <SubmodelDropdown />}
-          {queryState.submodel && <SecondSubmodelDropdown />}
+          {queryState.submodel && queryState && <SecondSubmodelDropdown />}
         </div>
-        <SheetFooter className="mt-auto flex flex-col gap-4 bg-white p-4">
-          <p className="text-right font-extrabold text-black">
+        <SheetFooter className="mt-auto flex flex-col gap-3 bg-white p-4">
+          <p className="text-right font-extrabold leading-4 text-black">
             Total: ${selectedProduct.msrp}
           </p>
           <Button
