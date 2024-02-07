@@ -3,13 +3,7 @@ import { Button } from '@/components/ui/button';
 import { useMediaQuery } from '@mantine/hooks';
 import { track } from '@vercel/analytics/react';
 import { SetStateAction, useContext, useEffect, useState } from 'react';
-import {
-  Drawer,
-  DrawerContent,
-  DrawerFooter,
-  DrawerHeader,
-  DrawerTitle,
-} from '@/components/ui/drawer';
+import { DrawerTitle } from '@/components/ui/drawer';
 import { useParams, useRouter } from 'next/navigation';
 import {
   TPathParams,
@@ -22,10 +16,12 @@ import { useCartContext } from '@/providers/CartProvider';
 import EditVehicleDropdown from '@/components/PDP/EditVehicleDropdown';
 import {
   Sheet,
+  SheetClose,
   SheetContent,
   SheetFooter,
   SheetHeader,
 } from '@/components/ui/sheet';
+import { X } from 'lucide-react';
 
 const getOffset = (
   element: HTMLElement | null | undefined
@@ -119,7 +115,7 @@ export default function AddToCart({
               });
             if (isComplete) {
               handleAddToCart();
-              isMobile ? router.push('/checkout') : setAddToCartOpen(true);
+              isMobile ? router.prefetch('/checkout') : setAddToCartOpen(true);
               return;
             }
             setSubmodelSelectionOpen((p) => !p);
@@ -137,10 +133,14 @@ export default function AddToCart({
                 track('PDP_add_to_cart', {
                   sku: selectedProduct?.sku,
                 });
-              handleAddToCart();
-              isMobile ? router.push('/checkout') : setAddToCartOpen(true);
-
-              // setAddToCartOpen(true);
+              if (isComplete) {
+                handleAddToCart();
+                isMobile
+                  ? router.prefetch('/checkout')
+                  : setAddToCartOpen(true);
+                return;
+              }
+              setSubmodelSelectionOpen((p) => !p);
             }}
           >
             Add To Cart
@@ -166,6 +166,7 @@ const AddToCartSelector = ({
   const queryState = useStore(store, (s) => s.query);
   const setQuery = useStore(store, (s) => s.setQuery);
   const selectedProduct = useStore(store, (s) => s.selectedProduct);
+
   const color = useStore(store, (s) => s.selectedColor);
 
   const router = useRouter();
@@ -173,9 +174,6 @@ const AddToCartSelector = ({
   const { addToCart } = useCartContext();
 
   const params = useParams<TPathParams>();
-  console.log(modelData.map((p) => p.product_name));
-
-  console.log(queryState);
 
   const { completeSelectionState } = getCompleteSelectionData({
     data: modelData,
@@ -191,22 +189,12 @@ const AddToCartSelector = ({
     uniqueYears,
   } = getUniqueValues({ data: initialModelData, queryState: queryState });
 
-  console.log(uniqueModels);
-
   const cartProduct = modelData.find((p) => p.display_color === color);
-  // console.log(cartProduct);
 
   const handleAddToCart = () => {
     if (!cartProduct) return;
-    // console.log(cartProduct);
     return addToCart({ ...cartProduct, quantity: 1 });
   };
-
-  // console.log(isComplete);
-
-  // console.log(queryState);
-
-  // console.log(uniqueYears);
 
   const TypeDropdown = () => {
     const typeOptions = ['Car Covers', 'SUV Covers', 'Truck Covers'];
@@ -361,7 +349,7 @@ const AddToCartSelector = ({
       <div
         className={`flex max-h-[44px] min-h-[44px] w-full items-center rounded-[4px] bg-white px-2 text-lg outline outline-1 outline-offset-1 outline-[#767676] md:max-h-[58px] lg:w-auto`}
       >
-        <div className=" ml-[10px] pr-[15px]">5</div>
+        <div className=" ml-[10px] pr-[15px]">6</div>
         <select
           value={queryState.secondSubmodel}
           className={`bg w-full bg-transparent outline-none `}
@@ -385,10 +373,13 @@ const AddToCartSelector = ({
       onOpenChange={(o) => setSubmodelSelectionOpen(o)}
     >
       <SheetContent
-        className="flex h-[75vh] flex-col justify-center  rounded-t-2xl border border-neutral-800 bg-neutral-800 pt-16"
+        className="flex flex-col justify-center rounded-t-2xl  border border-neutral-800 bg-neutral-800 pt-8"
         side="bottom"
         onClick={(e) => e.stopPropagation()}
       >
+        <SheetClose className="ml-auto mr-4 flex h-8 w-8 items-center justify-center rounded-full bg-neutral-400">
+          <X className="h-6 w-6 fill-neutral-800" />
+        </SheetClose>
         <SheetHeader>
           <DrawerTitle className="my-4 text-center text-[22px] font-bold uppercase text-white">
             Complete Your Vehicle
@@ -400,10 +391,10 @@ const AddToCartSelector = ({
           <ModelDropdown />
           <YearDropdown />
           {queryState.year && <SubmodelDropdown />}
-          {queryState.submodel && <SecondSubmodelDropdown />}
+          {queryState.submodel && queryState && <SecondSubmodelDropdown />}
         </div>
-        <SheetFooter className="mt-auto flex flex-col gap-4 bg-white p-4">
-          <p className="text-right font-extrabold text-black">
+        <SheetFooter className="mt-auto flex flex-col gap-3 bg-white px-4 py-3">
+          <p className="text-right font-extrabold leading-4 text-black">
             Total: ${selectedProduct.msrp}
           </p>
           <Button
