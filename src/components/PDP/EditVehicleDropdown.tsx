@@ -114,8 +114,7 @@ export default function EditVehicleDropdown({
     }
 
     // refreshRoute('/');
-    router.push(url);
-    router.refresh();
+    router.prefetch(url);
     closePopover();
   };
 
