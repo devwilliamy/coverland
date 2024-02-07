@@ -1,20 +1,16 @@
 'use client';
 
 // import { TReviewData } from '@/lib/db';
-import { Separator } from '@/components/ui/separator';
 import React, { RefObject, useContext, useRef } from 'react';
 import { useMediaQuery } from '@mantine/hooks';
 import dynamicImport from 'next/dynamic';
 import { PrimaryImageDisplay } from './PrimaryImageDisplay';
-import { ColorSelector } from './ColorSelector';
-import { TypeSelector } from './TypeSelector';
 import { ProductContent } from './ProductContent';
 import { EditVehicleModal } from './EditVehicleModal';
 import { CarSelectionContext } from './CarPDP';
 import { useStore } from 'zustand';
 import { TReviewData } from '@/lib/db';
 import { IProductData } from '../../utils';
-import CircleColorSelector from './CircleColorSelector';
 
 const EditVehiclePopover = dynamicImport(
   () => import('@/components/PDP/components/EditVehiclePopover'),
