@@ -387,6 +387,7 @@ const AddToCartSelector = ({
       <SheetContent
         className="flex h-[75vh] flex-col justify-center  rounded-t-2xl border border-neutral-800 bg-neutral-800 pt-16"
         side="bottom"
+        onClick={(e) => e.stopPropagation()}
       >
         <SheetHeader>
           <DrawerTitle className="my-4 text-center text-[22px] font-bold uppercase text-white">
