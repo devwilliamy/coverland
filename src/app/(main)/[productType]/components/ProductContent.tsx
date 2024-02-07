@@ -28,7 +28,12 @@ import NeedHelp from './NeedHelp';
 import FreeDetails from './FreeDetails';
 import AddToCart from './AddToCart';
 import CircleColorSelector from './CircleColorSelector';
-import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';
+import {
+  Dialog,
+  DialogContent,
+  DialogTrigger,
+  DialogClose,
+} from '@/components/ui/dialog';
 import CustomerReviewTabs from '@/components/PDP/components/CustomerReviewTabs';
 
 interface ProductRefs {
@@ -106,7 +111,7 @@ export function ProductContent({
                 >
                   {reviewCount || '2'} ratings
                 </DialogTrigger>
-                <DialogContent className="flex flex-col items-center lg:min-w-[77vw]">
+                <DialogContent className="flex flex-col items-center lg:min-w-[77vw] lg:max-w-[1120px]">
                   <CustomerReviewTabs reviewData={reviewData} />
                 </DialogContent>
               </Dialog>
