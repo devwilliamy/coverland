@@ -1,14 +1,7 @@
 'use client';
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from '@/components/ui/popover';
 import { Separator } from '@/components/ui/separator';
 import { TInitialProductDataDB, TReviewData } from '@/lib/db';
 import { Rating } from '@mui/material';
-import { track } from '@vercel/analytics';
-import Link from 'next/link';
 import { GoDotFill } from 'react-icons/go';
 import { CarSelectionContext } from './CarPDP';
 import { useMediaQuery } from '@mantine/hooks';
@@ -28,13 +21,9 @@ import NeedHelp from './NeedHelp';
 import FreeDetails from './FreeDetails';
 import AddToCart from './AddToCart';
 import CircleColorSelector from './CircleColorSelector';
-import {
-  Dialog,
-  DialogContent,
-  DialogTrigger,
-  DialogClose,
-} from '@/components/ui/dialog';
+import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';
 import CustomerReviewTabs from '@/components/PDP/components/CustomerReviewTabs';
+import RatingsTrigger from './RatingsTrigger';
 
 interface ProductRefs {
   [key: string]: RefObject<HTMLElement>;
@@ -103,22 +92,7 @@ export function ProductContent({
                 }}
               />
             </div>
-            <div className="hidden lg:flex">
-              <Dialog>
-                <DialogTrigger
-                  className="ml-2 text-blue-400 underline"
-                  disabled={!reviewCount}
-                >
-                  {reviewCount || '2'} ratings
-                </DialogTrigger>
-                <DialogContent className="flex flex-col items-center lg:min-w-[77vw] lg:max-w-[1120px]">
-                  <CustomerReviewTabs reviewData={reviewData} />
-                </DialogContent>
-              </Dialog>
-            </div>
-            <div className="lg:hidden">
-              <ReviewSheet reviewData={reviewData} />
-            </div>
+            <RatingsTrigger reviewData={reviewData} reviewCount={reviewCount} />
           </div>
           <p className="mb-2 text-gray-500">100+ Bought In Past Month</p>
         </div>

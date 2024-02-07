@@ -55,29 +55,29 @@ const ReviewSection = ({
           </p>
         </div>
       </div>
-      <div className="pt-6">
+      {/* <div className="pt-6">
         <ReviewImageGallery reviewData={reviewData} />
       </div>
-      {/* <div className="flex gap-4 *:rounded-lg my-4">
-            <select className="w-full h-12 mx-auto mt-9 text-lg bg-transparent rounded border border-[#1A1A1A] font-normal text-[#767676] text-[#1A1A1A] capitalize">
-              <option value="volvo">Newest</option>
-              <option value="saab">Oldest</option>
-              <option value="mercedes">Most Helpful</option>
-            </select>
-    
-            <select className=" w-full h-12 mx-auto mt-9 text-lg bg-transparent rounded border border-[#1A1A1A] font-normal text-[#767676] text-[#1A1A1A] capitalize">
-              <option value="volvo">Newest</option>
-              <option value="saab">Oldest</option>
-              <option value="mercedes">Most Helpful</option>
-            </select>
-            <select className="w-full h-12 mx-auto mt-9 text-lg bg-transparent rounded border border-[#1A1A1A] font-normal text-[#767676] text-[#1A1A1A] capitalize">
-              <option value="volvo">Newest</option>
-              <option value="saab">Oldest</option>
-              <option value="mercedes">Most Helpful</option>
-            </select>
-          </div> */}
+      <div className="my-4 flex gap-4 *:rounded-lg">
+        <select className="mx-auto mt-9 h-12 w-full rounded border border-[#1A1A1A] bg-transparent text-lg font-normal capitalize text-[#1A1A1A] text-[#767676]">
+          <option value="volvo">Newest</option>
+          <option value="saab">Oldest</option>
+          <option value="mercedes">Most Helpful</option>
+        </select>
+
+        <select className=" mx-auto mt-9 h-12 w-full rounded border border-[#1A1A1A] bg-transparent text-lg font-normal capitalize text-[#1A1A1A] text-[#767676]">
+          <option value="volvo">Newest</option>
+          <option value="saab">Oldest</option>
+          <option value="mercedes">Most Helpful</option>
+        </select>
+        <select className="mx-auto mt-9 h-12 w-full rounded border border-[#1A1A1A] bg-transparent text-lg font-normal capitalize text-[#1A1A1A] text-[#767676]">
+          <option value="volvo">Newest</option>
+          <option value="saab">Oldest</option>
+          <option value="mercedes">Most Helpful</option>
+        </select>
+      </div> */}
       {!!reviewData?.length && (
-        <div className="flex flex-col items-center mt-7 gap-6">
+        <div className="mt-7 flex flex-col items-center gap-6 lg:mt-[71px]">
           {reviewData
             ?.slice(0, displayedReviews)
             .map((review, index) => (

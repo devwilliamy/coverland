@@ -7,11 +7,8 @@ import {
   SheetTrigger,
 } from '@/components/ui/sheet';
 import { IoClose } from 'react-icons/io5';
-import ReviewSection from './components/ReviewSection';
 import { TReviewData } from '@/lib/db';
 import { useState } from 'react';
-import { Tabs } from '../ui/tabs';
-import { TabsList, TabsTrigger } from '@radix-ui/react-tabs';
 import CustomerReviewTabs from './components/CustomerReviewTabs';
 
 type ReviewSheetProps = {
