@@ -34,7 +34,7 @@ export default function ReviewCard({ review }: { review: TReviewData }) {
       </div>
       <div className="flex justify-between">
         <div className="max-w-[75%] overflow-hidden text-base font-normal normal-case text-[#1A1A1A] max-md:max-w-full">
-          {review.review_description}
+          {review.review}
         </div>
         <div className="hidden text-lg font-light normal-case text-neutral-500 lg:block">
           Purchased on{' '}

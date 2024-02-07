@@ -9,6 +9,7 @@ import { CarSelectionContext } from './CarPDP';
 import { useStore } from 'zustand';
 import { TReviewData } from '@/lib/db';
 import { IProductData } from '../../utils';
+import { ExtraProductDetails } from '@/components/PDP/OtherDetails';
 
 const EditVehiclePopover = dynamicImport(
   () => import('@/components/PDP/components/EditVehiclePopover'),
@@ -81,21 +82,22 @@ export function CarCoverSelector({
 
   // console.log(selectedProduct.product_name);
   return (
-    <section className="mx-auto h-auto w-full max-w-[1280px] px-4 lg:my-8">
-      <div className="flex w-full flex-col items-start justify-between lg:flex-row lg:gap-14">
-        {isMobile && <EditVehiclePopover fullProductName={productName} />}
-        {/* Left Panel */}
-        <PrimaryImageDisplay
-          productImages={productImages}
-          selectedProduct={selectedProduct}
-          featuredImage={featuredImage}
-          setFeaturedImage={setFeaturedImage}
-        />
-        {/* Right Panel */}
+    <>
+      <section className="mx-auto h-auto w-full max-w-[1280px] px-4 lg:my-8">
+        <div className="flex w-full flex-col items-start justify-between lg:flex-row lg:gap-14">
+          {isMobile && <EditVehiclePopover fullProductName={productName} />}
+          {/* Left Panel */}
+          <PrimaryImageDisplay
+            productImages={productImages}
+            selectedProduct={selectedProduct}
+            featuredImage={featuredImage}
+            setFeaturedImage={setFeaturedImage}
+          />
+          {/* Right Panel */}
 
-        <div className=" h-auto w-full pl-0 lg:w-2/5">
-          <EditVehicleModal selectedProduct={selectedProduct} />
-          {/* <ColorSelector
+          <div className=" h-auto w-full pl-0 lg:w-2/5">
+            <EditVehicleModal selectedProduct={selectedProduct} />
+            {/* <ColorSelector
             uniqueColors={uniqueColors as IProductData[]}
             productRefs={productRefs}
             setFeaturedImage={setFeaturedImage}
@@ -111,20 +113,28 @@ export function CarCoverSelector({
             productRefs={productRefs}
           />
           <Separator className="mb-8 mt-4 lg:mb-10" /> */}
-          <ProductContent
-            modelData={modelData}
-            reviewData={reviewData}
-            productRefs={productRefs}
-            selectedProduct={selectedProduct}
-            setSelectedProduct={setSelectedProduct}
-            setFeaturedImage={setFeaturedImage}
-            uniqueColors={uniqueColors as IProductData[]}
-            reviewCount={reviewCount}
-            avgReviewScore={avgReviewScore}
-          />
+            <ProductContent
+              modelData={modelData}
+              reviewData={reviewData}
+              productRefs={productRefs}
+              selectedProduct={selectedProduct}
+              setSelectedProduct={setSelectedProduct}
+              setFeaturedImage={setFeaturedImage}
+              uniqueColors={uniqueColors as IProductData[]}
+              reviewCount={reviewCount}
+              avgReviewScore={avgReviewScore}
+            />
+          </div>
         </div>
+      </section>
+      <div
+        id="product-details"
+        className="h-auto w-full"
+        // flex flex-col justify-center items-center max-w-[1280px] py-4 lg:py-20 px-4 md:px-20"
+      >
+        <ExtraProductDetails reviewData={reviewData} />
       </div>
-    </section>
+    </>
   );
 }
 

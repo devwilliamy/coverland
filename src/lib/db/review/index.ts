@@ -50,12 +50,10 @@ export async function getProductReviewsByPage(
   try {
     const validatedFilters = ProductReviewsQueryFiltersSchema.parse(filters);
     const validatedOptions = ProductReviewsQueryOptionsSchema.parse(options);
-
     const { productType, year, make, model } = validatedFilters;
     const {
       pagination: { page, limit },
     } = validatedOptions;
-    // console.log('ProducType:', productType);
     const { from, to } = getPagination(page, limit);
 
     let fetch = supabaseDatabaseClient
@@ -83,16 +81,15 @@ export async function getProductReviewsByPage(
 
     if (error) {
       console.error(error);
-      return []; // Return an empty array on error
+      return [];
     }
 
     return data;
   } catch (error) {
     if (error instanceof ZodError) {
-      // Handle validation errors
       console.log('ZodError:', error);
     }
     console.error(error);
-    return []; // Return an empty array if an exception is caught
+    return [];
   }
 }

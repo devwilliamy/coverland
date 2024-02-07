@@ -25,6 +25,7 @@ interface ICarCoverProps {
   modelData: IProductData[];
   initialModelData: IProductData[];
   selectedProduct: IProductData;
+  reviewData: TReviewData[];
 }
 
 interface ICarCoverSelectionState extends ICarCoverProps {
@@ -37,16 +38,19 @@ interface ICarCoverSelectionState extends ICarCoverProps {
   featuredImage: string;
   selectedColor: string;
   query: TQuery;
+  setReviewData: (newReviewData: TReviewData[]) => void;
 }
 
 const createCarSelectionStore = ({
   initialModelData,
   params,
   queryParams,
+  initialReviewData,
 }: {
   initialModelData: IProductData[];
   params: TPathParams;
   queryParams: TQueryParams;
+  initialReviewData: TReviewData[];
 }) => {
   return createStore<ICarCoverSelectionState>()((set, get) => ({
     modelData: initialModelData,
@@ -131,6 +135,10 @@ const createCarSelectionStore = ({
       // console.log(filteredData.length);
       set({ modelData: filteredData });
     },
+    reviewData: initialReviewData,
+    setReviewData: (newReviewData: TReviewData[]) => {
+      set(() => ({ reviewData: newReviewData }));
+    },
   }));
 };
 
@@ -174,6 +182,7 @@ export default function CarPDP({
       params: pathParams ?? ({} as TPathParams),
       queryParams,
       initialModelData: modelData,
+      initialReviewData: reviewData as TReviewData[],
     })
   ).current;
 

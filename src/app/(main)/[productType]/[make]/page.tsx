@@ -1,7 +1,6 @@
 import { TReviewData, getProductData } from '@/lib/db';
 import { redirect } from 'next/navigation';
 import { Suspense } from 'react';
-import { ExtraProductDetails } from '@/components/PDP/OtherDetails';
 import CarPDP from '@/app/(main)/[productType]/components/CarPDP';
 import { getProductReviewsByPage } from '@/lib/db/review';
 
@@ -49,7 +48,7 @@ export default async function CarPDPDataLayer({
         { productType: typeString, make: params?.make },
         {
           pagination: {
-            page: 1,
+            page: 0,
             limit: 4,
           },
         }
@@ -69,14 +68,6 @@ export default async function CarPDPDataLayer({
       <Suspense fallback={<div>Loading...</div>}>
         <CarPDP modelData={modelData} reviewData={reviewData} params={params} />
       </Suspense>
-
-      <div
-        id="product-details"
-        className="h-auto w-full"
-        // flex flex-col justify-center items-center max-w-[1280px] py-4 lg:py-20 px-4 md:px-20"
-      >
-        <ExtraProductDetails reviewData={reviewData} />
-      </div>
     </>
   );
 }
