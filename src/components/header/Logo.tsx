@@ -1,7 +1,7 @@
 import Link from 'next/link';
 
 const Logo = () => (
-  <Link href="/">
+  <Link href="/" prefetch={true}>
     <svg
       xmlns="http://www.w3.org/2000/svg"
       xmlSpace="preserve"

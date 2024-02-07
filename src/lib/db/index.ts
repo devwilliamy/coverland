@@ -140,23 +140,18 @@ export async function getProductData({
   }
 
   if (year) {
-    // console.log(year);
     fetch = fetch.eq('parent_generation', year);
   }
 
   if (make) {
-    // console.log('make', make);
     fetch = fetch.eq('make_slug', make);
   }
 
   if (model) {
-    // console.log('model', model);
     fetch = fetch.eq('model_slug', model);
   }
 
-  const { data, error } = await fetch;
-
-  // console.log(data);
+  const { data, error } = await fetch.limit(4000);
 
   if (error) {
     throw new Error(error.message);

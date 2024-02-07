@@ -57,20 +57,39 @@ const createCarSelectionStore = ({
   initialReviewData: TReviewData[];
   initialReviewDataSummary: TProductReviewSummary;
 }) => {
+  const hasNoSubmodels = initialModelData.every(
+    (model) => !model.submodel1 && !model.submodel2
+  );
+
+  const initialDataWithSubmodels = queryParams?.submodel
+    ? initialModelData.filter((model) =>
+        compareRawStrings(model.submodel1, queryParams.submodel as string)
+      )
+    : initialModelData;
+
+  const initialDataWithSecondSubmodels = queryParams?.secondSubmodel
+    ? initialDataWithSubmodels.filter((model) =>
+        compareRawStrings(model.submodel2, queryParams.secondSubmodel as string)
+      )
+    : initialDataWithSubmodels;
+
   return createStore<ICarCoverSelectionState>()((set, get) => ({
-    modelData: initialModelData,
-    initialModelData,
+    modelData: initialDataWithSecondSubmodels,
+    initialModelData: initialDataWithSecondSubmodels,
     query: {
-      year: '',
+      year:
+        (params?.year && hasNoSubmodels) || queryParams?.submodel
+          ? (params?.year as string)
+          : '',
       type: params?.productType ?? '',
       make: params?.make ?? '',
       model: params?.model ?? '',
       submodel: queryParams?.submodel ?? '',
       secondSubmodel: queryParams?.secondSubmodel ?? '',
     },
-    selectedProduct: initialModelData[0],
-    featuredImage: initialModelData[0].mainImage,
-    selectedColor: initialModelData[0]?.display_color ?? '',
+    selectedProduct: initialDataWithSecondSubmodels[0],
+    featuredImage: initialDataWithSecondSubmodels[0].mainImage,
+    selectedColor: initialDataWithSecondSubmodels[0]?.display_color ?? '',
     setSelectedProduct: (newProduct: IProductData) => {
       set(() => ({
         selectedProduct: newProduct,
@@ -96,12 +115,12 @@ const createCarSelectionStore = ({
 
       const { setModelData } = get();
       setModelData();
-      const newModelData = get().modelData;
-      if (newModelData.length > 0 && Object.values(newQuery).some((v) => !!v)) {
-        set({
-          selectedProduct: newModelData[0],
-        });
-      }
+      // const newModelData = get().modelData;
+      // if (newModelData.length > 0 && Object.values(newQuery).some((v) => !!v)) {
+      //   set({
+      //     selectedProduct: newModelData[0],
+      //   });
+      // }
     },
     setModelData: () => {
       const { initialModelData, query: newQuery } = get();
@@ -136,8 +155,6 @@ const createCarSelectionStore = ({
           compareRawStrings(sku.submodel2, newQuery.secondSubmodel as string)
         );
       }
-      // console.log('check');
-      // console.log(filteredData.length);
       set({ modelData: filteredData });
     },
     reviewData: initialReviewData,
