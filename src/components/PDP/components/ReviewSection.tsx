@@ -2,10 +2,9 @@ import ReviewCard from './ReviewCard';
 import { useState } from 'react';
 import { TReviewData } from '@/lib/db';
 import { Rating } from '@mui/material';
-import ExampleCustomerImage from '@/images/PDP/product_details_01.webp';
-import Image from 'next/image';
 import { useMediaQuery } from '@mantine/hooks';
 import ReviewPercentCircle from './ReviewPercentCircle';
+import ReviewHeaderGallery from './ReviewHeaderGallery';
 
 const ReviewSection = ({
   reviewData,
@@ -55,8 +54,9 @@ const ReviewSection = ({
           </p>
         </div>
       </div>
+      <ReviewHeaderGallery reviewData={reviewData} />
       {/* <div className="pt-6">
-        <ReviewImageGallery reviewData={reviewData} />
+       
       </div>
       <div className="my-4 flex gap-4 *:rounded-lg">
         <select className="mx-auto mt-9 h-12 w-full rounded border border-[#1A1A1A] bg-transparent text-lg font-normal capitalize text-[#1A1A1A] text-[#767676]">
@@ -99,31 +99,4 @@ const ReviewSection = ({
 
 export default ReviewSection;
 
-const exampleReviewArray = [1, 2, 3, 4, 5];
 
-const ReviewImageGallery = ({ reviewData }: any) => {
-  const isMobile = useMediaQuery('(max-width: 768px)');
-  const imagesToShow = isMobile ? 3 : 5;
-  return (
-    <div className="flex flex-col items-center px-[]">
-      <div className="#767676 flex items-center justify-center py-[10px] text-[14px] font-[400] normal-case leading-[24px] text-[#767676]">
-        {reviewData.length} Review Images
-      </div>
-      <div className="grid aspect-square h-full w-full grid-cols-2 items-center gap-[7px]">
-        {exampleReviewArray.slice(0, 3).map((review, index) => (
-          <Image
-            key={index}
-            src={ExampleCustomerImage}
-            alt="Car Cover Review Image"
-            className="h-full w-full items-center justify-center object-cover"
-          />
-        ))}
-        <div className="flex h-full w-full items-center justify-center border border-black">
-          <div className="font-normalc text-center text-base normal-case underline ">
-            See more <br /> review images
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-};

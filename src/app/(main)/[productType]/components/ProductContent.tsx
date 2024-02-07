@@ -23,7 +23,7 @@ import AddToCart from './AddToCart';
 import CircleColorSelector from './CircleColorSelector';
 import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';
 import CustomerReviewTabs from '@/components/PDP/components/CustomerReviewTabs';
-import RatingsTrigger from './RatingsTrigger';
+import RatingsTrigger from './RatingsModal';
 
 interface ProductRefs {
   [key: string]: RefObject<HTMLElement>;
