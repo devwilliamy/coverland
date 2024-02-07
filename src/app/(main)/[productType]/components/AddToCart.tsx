@@ -349,7 +349,7 @@ const AddToCartSelector = ({
       <div
         className={`flex max-h-[44px] min-h-[44px] w-full items-center rounded-[4px] bg-white px-2 text-lg outline outline-1 outline-offset-1 outline-[#767676] md:max-h-[58px] lg:w-auto`}
       >
-        <div className=" ml-[10px] pr-[15px]">5</div>
+        <div className=" ml-[10px] pr-[15px]">6</div>
         <select
           value={queryState.secondSubmodel}
           className={`bg w-full bg-transparent outline-none `}
