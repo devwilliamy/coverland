@@ -156,6 +156,7 @@ const AddToCartSelector = ({
   if (!store) throw new Error('Missing CarContext.Provider in the tree');
 
   const modelData = useStore(store, (s) => s.modelData);
+  const initialModelData = useStore(store, (s) => s.initialModelData);
   const queryState = useStore(store, (s) => s.query);
   const setQuery = useStore(store, (s) => s.setQuery);
   const selectedProduct = useStore(store, (s) => s.selectedProduct);
@@ -166,6 +167,9 @@ const AddToCartSelector = ({
   const { addToCart } = useCartContext();
 
   const params = useParams<TPathParams>();
+  console.log(modelData.map((p) => p.product_name));
+
+  console.log(queryState);
 
   const { completeSelectionState } = getCompleteSelectionData({
     data: modelData,
@@ -179,7 +183,9 @@ const AddToCartSelector = ({
     uniqueSecondSubmodels,
     uniqueSubmodels,
     uniqueYears,
-  } = getUniqueValues({ data: modelData, queryState: queryState });
+  } = getUniqueValues({ data: initialModelData, queryState: queryState });
+
+  console.log(uniqueModels);
 
   const cartProduct = modelData.find((p) => p.display_color === color);
   // console.log(cartProduct);
@@ -198,6 +204,12 @@ const AddToCartSelector = ({
 
   const TypeDropdown = () => {
     const typeOptions = ['Car Covers', 'SUV Covers', 'Truck Covers'];
+    const typeString =
+      queryState.type === 'car-covers'
+        ? typeOptions[0]
+        : queryState.type === 'suv-covers'
+          ? typeOptions[1]
+          : typeOptions[2];
 
     return (
       <div
@@ -209,7 +221,9 @@ const AddToCartSelector = ({
           className={`bg w-full bg-transparent outline-none `}
           disabled={!!queryState.type && !!params?.productType}
         >
-          <option value="">Product Type</option>
+          <option value="">
+            {!!queryState.type ? typeString : 'Product Type'}
+          </option>
 
           {typeOptions.map((type) => (
             <option key={type} value={type}>
@@ -262,6 +276,8 @@ const AddToCartSelector = ({
             setQuery({
               ...queryState,
               year: e.target.value,
+              submodel: '',
+              secondSubmodel: '',
             })
           }
         >
@@ -285,11 +301,14 @@ const AddToCartSelector = ({
         <select
           value={queryState.model}
           className={`bg w-full bg-transparent capitalize outline-none `}
-          disabled={!!params?.model || !queryState.year}
+          disabled={!!params?.model}
           onChange={(e) =>
             setQuery({
               ...queryState,
               model: e.target.value,
+              submodel: '',
+              secondSubmodel: '',
+              year: '',
             })
           }
         >
@@ -314,7 +333,9 @@ const AddToCartSelector = ({
         <select
           value={queryState.submodel}
           className={`bg w-full bg-transparent outline-none `}
-          onChange={(e) => setQuery({ submodel: e.target.value })}
+          onChange={(e) =>
+            setQuery({ submodel: e.target.value, secondSubmodel: '' })
+          }
         >
           <option value="">Submodel</option>
           {uniqueSubmodels.map((submodel) => (
@@ -365,8 +386,8 @@ const AddToCartSelector = ({
         <div className="flex w-full flex-col gap-4 px-4">
           <TypeDropdown />
           <MakeDropdown />
-          <YearDropdown />
           <ModelDropdown />
+          <YearDropdown />
           {queryState.model && <SubmodelDropdown />}
           {queryState.submodel && <SecondSubmodelDropdown />}
         </div>

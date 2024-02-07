@@ -16,3 +16,13 @@ Possible user journeys:
 
 - User lands on PDP page after making selections. They then click the edit vehicle button and use the PDP dropdowns to select their
   vehicle.
+
+Test Cases
+
+- Year, Make, Model, Type selected, no Submodel options
+- Year, Make, Model, Type selected, Submodel options available, no Second Submodel options
+- Year, Make, Model, Type selected, Submodel options available, Second Submodel options available
+
+- Type, Make, Model selected, Year unselected
+- Type, Make, Model unselected
+- Type selected, Make unselected
