@@ -87,12 +87,12 @@ const createCarSelectionStore = ({
 
       const { setModelData } = get();
       setModelData();
-      const newModelData = get().modelData;
-      if (newModelData.length > 0 && Object.values(newQuery).some((v) => !!v)) {
-        set({
-          selectedProduct: newModelData[0],
-        });
-      }
+      // const newModelData = get().modelData;
+      // if (newModelData.length > 0 && Object.values(newQuery).some((v) => !!v)) {
+      //   set({
+      //     selectedProduct: newModelData[0],
+      //   });
+      // }
     },
     setModelData: () => {
       const { initialModelData, query: newQuery } = get();
@@ -127,8 +127,6 @@ const createCarSelectionStore = ({
           compareRawStrings(sku.submodel2, newQuery.secondSubmodel as string)
         );
       }
-      console.log('check');
-      console.log(filteredData.length);
       set({ modelData: filteredData });
     },
   }));

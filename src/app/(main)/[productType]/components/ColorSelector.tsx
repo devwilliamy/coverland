@@ -24,10 +24,8 @@ export function ColorSelector({
   const store = useContext(CarSelectionContext);
   if (!store) throw new Error('Missing CarContext.Provider in the tree');
 
-  const color = useStore(store, (s) => s.selectedColor);
   const setSelectedColor = useStore(store, (s) => s.setSelectedColor);
 
-  console.log('color', color);
   return (
     <>
       <p className="ml-3 mt-2 text-lg font-black text-[#1A1A1A] ">
