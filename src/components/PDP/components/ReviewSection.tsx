@@ -77,9 +77,7 @@ const ReviewSection = ({
         <div className="flex flex-col items-center">
           {reviewData
             ?.slice(0, displayedReviews)
-            .map((review, index) => (
-              <ReviewCard key={review.id || index} review={review} />
-            ))}
+            .map((review, index) => <ReviewCard key={index} review={review} />)}
           <button
             className="my-4 max-w-[160px] items-stretch justify-center whitespace-nowrap rounded-full border border-solid border-black bg-white px-8 py-3.5 font-black leading-4 tracking-wide text-black transition-colors duration-150 hover:bg-black hover:text-white"
             aria-label="View more"

@@ -1,8 +1,9 @@
-import { TReviewData, getProductData, getReviewData } from '@/lib/db';
+import { TReviewData, getProductData } from '@/lib/db';
 import { redirect } from 'next/navigation';
 import { Suspense } from 'react';
 import { ExtraProductDetails } from '@/components/PDP/OtherDetails';
 import CarPDP from '@/app/(main)/[productType]/components/CarPDP';
+import { getProductReviewsByPage } from '@/lib/db/review';
 
 export type TCarCoverSlugParams = {
   make: string;
@@ -44,10 +45,15 @@ export default async function CarPDPDataLayer({
         year: params.year,
         type: typeString,
       }),
-      getReviewData({
-        make: params.make,
-        model: params.model,
-      }),
+      getProductReviewsByPage(
+        { productType: typeString, make: params?.make },
+        {
+          pagination: {
+            page: 1,
+            limit: 4,
+          },
+        }
+      ),
     ]);
 
     if (!modelData) {
