@@ -371,11 +371,11 @@ const AddToCartSelector = ({
       onOpenChange={(o) => setSubmodelSelectionOpen(o)}
     >
       <SheetContent
-        className="flex h-[75vh] flex-col justify-center rounded-t-2xl  border border-neutral-800 bg-neutral-800 px-4 pt-8"
+        className="flex flex-col justify-center rounded-t-2xl  border border-neutral-800 bg-neutral-800 pt-8"
         side="bottom"
         onClick={(e) => e.stopPropagation()}
       >
-        <SheetClose className="ml-auto flex h-8 w-8 items-center justify-center rounded-full bg-neutral-400">
+        <SheetClose className="ml-auto mr-4 flex h-8 w-8 items-center justify-center rounded-full bg-neutral-400">
           <X className="h-6 w-6 fill-neutral-800" />
         </SheetClose>
         <SheetHeader>
@@ -383,7 +383,7 @@ const AddToCartSelector = ({
             Complete Your Vehicle
           </DrawerTitle>
         </SheetHeader>
-        <div className="flex w-full flex-col gap-4">
+        <div className="flex w-full flex-col gap-4 px-4">
           <TypeDropdown />
           <MakeDropdown />
           <ModelDropdown />
@@ -391,7 +391,7 @@ const AddToCartSelector = ({
           {queryState.year && <SubmodelDropdown />}
           {queryState.submodel && queryState && <SecondSubmodelDropdown />}
         </div>
-        <SheetFooter className="mt-auto flex flex-col gap-3 bg-white p-4">
+        <SheetFooter className="mt-auto flex flex-col gap-3 bg-white px-4 py-3">
           <p className="text-right font-extrabold leading-4 text-black">
             Total: ${selectedProduct.msrp}
           </p>
