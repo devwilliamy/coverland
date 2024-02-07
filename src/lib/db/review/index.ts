@@ -2,6 +2,7 @@ import { PRODUCT_REVIEWS_TABLE } from '../constants/databaseTableNames';
 import { supabaseDatabaseClient } from '../supabaseClients';
 import { z } from 'zod';
 import { getPagination } from '../utils';
+import { Tables } from '../types';
 
 export type TProductReviewsQueryFilters = {
   year?: string;
@@ -15,6 +16,8 @@ export type TProductReviewsQueryOptions = {
     limit?: number;
   };
 };
+
+export type TProductReviewData = Tables<'Mock-Data-Reviews'>;
 
 const ProductReviewsQueryFiltersSchema = z.object({
   year: z.string().optional(),
@@ -35,7 +38,7 @@ const ProductReviewsQueryOptionsSchema = z.object({
 export async function getProductReviewsByPage(
   filters: TProductReviewsQueryFilters,
   options: TProductReviewsQueryOptions
-) {
+): Promise<TProductReviewData[] | null> {
   const validatedFilters = ProductReviewsQueryFiltersSchema.parse(filters);
   const validatedOptions = ProductReviewsQueryOptionsSchema.parse(options);
 

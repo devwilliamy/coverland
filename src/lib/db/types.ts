@@ -6,7 +6,7 @@ export type Json =
   | { [key: string]: Json | undefined }
   | Json[];
 
-export interface Database {
+export type Database = {
   public: {
     Tables: {
       _Orders: {
@@ -204,6 +204,66 @@ export interface Database {
         };
         Relationships: [];
       };
+      'Mock-Data-Reviews': {
+        Row: {
+          helpful: string | null;
+          make: string | null;
+          model: string | null;
+          product_name: string | null;
+          product_type: string | null;
+          rating_stars: number | null;
+          review: string | null;
+          review_author: string | null;
+          review_image: string | null;
+          review_title: string | null;
+          Size: string | null;
+          sku: string | null;
+          submodel1: string | null;
+          submodel2: string | null;
+          submodel3: string | null;
+          type: string | null;
+          year_generation: string | null;
+        };
+        Insert: {
+          helpful?: string | null;
+          make?: string | null;
+          model?: string | null;
+          product_name?: string | null;
+          product_type?: string | null;
+          rating_stars?: number | null;
+          review?: string | null;
+          review_author?: string | null;
+          review_image?: string | null;
+          review_title?: string | null;
+          Size?: string | null;
+          sku?: string | null;
+          submodel1?: string | null;
+          submodel2?: string | null;
+          submodel3?: string | null;
+          type?: string | null;
+          year_generation?: string | null;
+        };
+        Update: {
+          helpful?: string | null;
+          make?: string | null;
+          model?: string | null;
+          product_name?: string | null;
+          product_type?: string | null;
+          rating_stars?: number | null;
+          review?: string | null;
+          review_author?: string | null;
+          review_image?: string | null;
+          review_title?: string | null;
+          Size?: string | null;
+          sku?: string | null;
+          submodel1?: string | null;
+          submodel2?: string | null;
+          submodel3?: string | null;
+          type?: string | null;
+          year_generation?: string | null;
+        };
+        Relationships: [];
+      };
       Models: {
         Row: {
           id: number;
@@ -374,6 +434,72 @@ export interface Database {
         };
         Relationships: [];
       };
+      'Product-Data-02-2024': {
+        Row: {
+          base_sku: string | null;
+          display_color: string | null;
+          display_id: string | null;
+          feature: string | null;
+          make: string | null;
+          model: string | null;
+          msrp: string | null;
+          parent_generation: string | null;
+          price: string | null;
+          product: string | null;
+          product_name: string | null;
+          product_type: string | null;
+          sku: string;
+          sku_suffix: string | null;
+          submodel1: string | null;
+          submodel2: string | null;
+          submodel3: string | null;
+          type: string | null;
+          year_generation: string | null;
+        };
+        Insert: {
+          base_sku?: string | null;
+          display_color?: string | null;
+          display_id?: string | null;
+          feature?: string | null;
+          make?: string | null;
+          model?: string | null;
+          msrp?: string | null;
+          parent_generation?: string | null;
+          price?: string | null;
+          product?: string | null;
+          product_name?: string | null;
+          product_type?: string | null;
+          sku: string;
+          sku_suffix?: string | null;
+          submodel1?: string | null;
+          submodel2?: string | null;
+          submodel3?: string | null;
+          type?: string | null;
+          year_generation?: string | null;
+        };
+        Update: {
+          base_sku?: string | null;
+          display_color?: string | null;
+          display_id?: string | null;
+          feature?: string | null;
+          make?: string | null;
+          model?: string | null;
+          msrp?: string | null;
+          parent_generation?: string | null;
+          price?: string | null;
+          product?: string | null;
+          product_name?: string | null;
+          product_type?: string | null;
+          sku?: string;
+          sku_suffix?: string | null;
+          submodel1?: string | null;
+          submodel2?: string | null;
+          submodel3?: string | null;
+          type?: string | null;
+          year_generation?: string | null;
+        };
+        Relationships: [];
+      };
       'Product-Promo-Codes': {
         Row: {
           created_at: string;
@@ -465,6 +591,66 @@ export interface Database {
             referencedColumns: ['make'];
           },
         ];
+      };
+      'Product-Reviews-02-2024': {
+        Row: {
+          helpful: string | null;
+          make: string | null;
+          Mirror: string | null;
+          model: string | null;
+          product_name: string | null;
+          product_type: string | null;
+          rating_stars: number | null;
+          review_author: string | null;
+          review_description: string | null;
+          review_image: string | null;
+          review_title: string | null;
+          Size: string | null;
+          sku: string;
+          submodel1: string | null;
+          submodel2: string | null;
+          type: string | null;
+          year_generation: string | null;
+        };
+        Insert: {
+          helpful?: string | null;
+          make?: string | null;
+          Mirror?: string | null;
+          model?: string | null;
+          product_name?: string | null;
+          product_type?: string | null;
+          rating_stars?: number | null;
+          review_author?: string | null;
+          review_description?: string | null;
+          review_image?: string | null;
+          review_title?: string | null;
+          Size?: string | null;
+          sku: string;
+          submodel1?: string | null;
+          submodel2?: string | null;
+          type?: string | null;
+          year_generation?: string | null;
+        };
+        Update: {
+          helpful?: string | null;
+          make?: string | null;
+          Mirror?: string | null;
+          model?: string | null;
+          product_name?: string | null;
+          product_type?: string | null;
+          rating_stars?: number | null;
+          review_author?: string | null;
+          review_description?: string | null;
+          review_image?: string | null;
+          review_title?: string | null;
+          Size?: string | null;
+          sku?: string;
+          submodel1?: string | null;
+          submodel2?: string | null;
+          type?: string | null;
+          year_generation?: string | null;
+        };
+        Relationships: [];
       };
       Products: {
         Row: {
@@ -1330,7 +1516,7 @@ export interface Database {
       [_ in never]: never;
     };
   };
-}
+};
 
 export type Tables<
   PublicTableNameOrOptions extends
