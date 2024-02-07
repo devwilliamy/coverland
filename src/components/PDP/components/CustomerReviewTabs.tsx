@@ -24,8 +24,8 @@ const CustomerReviewTabs = ({
 }) => {
   const [selectedTab, setSelectedTab] = useState('customer-images');
   return (
-    <Tabs value={selectedTab}>
-      <TabsList className="b-[-1px] mt-[65px] flex h-full w-screen justify-start bg-white p-0 shadow-none">
+    <Tabs value={selectedTab} className="flex h-full w-full flex-col">
+      <TabsList className="b-[-1px] mt-[65px] flex h-full w-full justify-start bg-white p-0 shadow-none">
         <TabsTrigger
           value="customer-images"
           onClick={() => {
@@ -68,13 +68,18 @@ const CustomerReviewTabs = ({
         <Carousel className="flex items-center">
           <CarouselContent>
             {reviewData?.map((review) => (
-              <CarouselItem className="-my-5 flex h-full w-full flex-col">
+              <CarouselItem className="-my-5 flex h-full w-full flex-col lg:flex-row lg:gap-2">
+                <Image
+                  alt=""
+                  src={ExampleImage}
+                  className=" flex aspect-square h-full w-1/2 "
+                />
                 <ReviewCard review={review} />
               </CarouselItem>
             ))}
           </CarouselContent>
-          <CarouselPrevious className="-left-[16px] top-[40%] z-20 h-[32px] w-[32px] items-center rounded-full bg-black text-white" />
-          <CarouselNext className="-right-[16px] top-[40%] z-20 h-[32px] w-[32px] items-center rounded-full bg-black text-white" />
+          <CarouselPrevious className="-left-[16px] top-[40%] z-20 h-[32px] w-[32px] items-center rounded-full bg-black text-white lg:-left-[96px]" />
+          <CarouselNext className="-right-[16px] top-[40%] z-20 h-[32px] w-[32px] items-center rounded-full bg-black text-white lg:-right-[96px]" />
         </Carousel>
       </TabsContent>
     </Tabs>

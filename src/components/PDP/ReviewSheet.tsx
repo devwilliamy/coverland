@@ -32,7 +32,7 @@ export default function ReviewSheet({ reviewData }: ReviewSheetProps) {
         {reviewCount || '2'} ratings
       </SheetTrigger>
       <SheetContent className="rounded-t-[10px] px-[2px]" side="bottom">
-        <SheetHeader draggable={false}>
+        <SheetHeader draggable={false} >
           <SheetTitle className="sticky top-0 z-[100] mx-4 flex justify-between bg-white">
             <SheetClose className="fixed right-0 z-[400] mr-[16px] flex items-center py-[4px]">
               <div

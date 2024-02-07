@@ -4,7 +4,7 @@ import { CheckIcon } from './icons';
 
 export default function ReviewCard({ review }: { review: TReviewData }) {
   return (
-    <span className="my-5 flex w-full flex-col items-stretch self-stretch rounded border border-solid border-stone-300 py-9 pl-10 pr-16 max-md:max-w-full max-md:px-5">
+    <span className="my-5 flex w-full flex-col items-stretch self-stretch rounded border border-solid border-stone-300 py-9 pl-10 pr-16 max-md:max-w-full max-md:px-5 lg:w-1/2">
       <div className="text-xl font-bold normal-case text-neutral-700 max-md:max-w-full lg:text-3xl">
         {review.review_title
           ? review.review_title.charAt(0).toUpperCase() +

@@ -15,7 +15,6 @@ import { useMediaQuery } from '@mantine/hooks';
 import { RefObject, useContext, useState } from 'react';
 import CartSheet from '@/components/cart/CartSheet';
 import { generateProductsLeft } from '@/lib/utils';
-import Dialog from '@/components/ui/dialog-tailwind-ui';
 import { compareRawStrings } from '@/lib/utils';
 import ReviewSheet from '@/components/PDP/ReviewSheet';
 import ProductVideo from '@/components/PDP/ProductVideo';
@@ -29,6 +28,8 @@ import NeedHelp from './NeedHelp';
 import FreeDetails from './FreeDetails';
 import AddToCart from './AddToCart';
 import CircleColorSelector from './CircleColorSelector';
+import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';
+import CustomerReviewTabs from '@/components/PDP/components/CustomerReviewTabs';
 
 interface ProductRefs {
   [key: string]: RefObject<HTMLElement>;
@@ -79,12 +80,13 @@ export function ProductContent({
     <>
       <div className="grid grid-cols-1">
         <div className="flex flex-col gap-0.5">
+          {/* Product Title */}
           <h2 className="mt-[24px] text-[24px] font-[900] leading-[27px] text-[#1A1A1A] md:mt-0 md:text-[28px] md:leading-[30px] ">
             {`${selectedProduct?.display_id}`}
             &trade; {/* <br /> */}
             {`Custom-Fit ${productType}`}
           </h2>
-          {/* Reviews */}
+          {/* Rating(s) */}
           <div className="flex items-center gap-1">
             <div className="flex gap-1 text-yellow-300 ">
               <Rating
@@ -97,45 +99,17 @@ export function ProductContent({
               />
             </div>
             <div className="hidden lg:flex">
-              <Popover>
-                <PopoverTrigger
+              <Dialog>
+                <DialogTrigger
                   className="ml-2 text-blue-400 underline"
                   disabled={!reviewCount}
                 >
                   {reviewCount || '2'} ratings
-                </PopoverTrigger>
-                <PopoverContent>
-                  <div className=" flex flex-col items-center border border-gray-300 bg-white p-4 shadow-lg">
-                    <div className="flex items-center gap-4">
-                      <p className="text-2xl font-bold">
-                        {avgReviewScore ?? '4.9'} out of 5
-                      </p>
-                      <Rating
-                        name="read-only"
-                        value={5}
-                        readOnly
-                        style={{
-                          height: '25px',
-                        }}
-                      />
-                    </div>
-                    {!!reviewData?.length && (
-                      <Link
-                        className="underline"
-                        scroll
-                        href={'#reviews'}
-                        onClick={() =>
-                          track('viewing all reviews', {
-                            sku: selectedProduct?.sku || '',
-                          })
-                        }
-                      >
-                        Show all reviews ({reviewData?.length})
-                      </Link>
-                    )}
-                  </div>
-                </PopoverContent>
-              </Popover>
+                </DialogTrigger>
+                <DialogContent className="flex flex-col items-center lg:min-w-[77vw]">
+                  <CustomerReviewTabs reviewData={reviewData} />
+                </DialogContent>
+              </Dialog>
             </div>
             <div className="lg:hidden">
               <ReviewSheet reviewData={reviewData} />
@@ -230,7 +204,7 @@ export function ProductContent({
         </div>
       </section>
       {isMobile ? (
-        <Dialog open={addToCartOpen} setOpen={setAddToCartOpen} />
+        <></>
       ) : (
         // <BottomUpDrawer
         //   title={<AddToCartHeader />}
