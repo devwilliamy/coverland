@@ -20,6 +20,12 @@ import { useStore } from 'zustand';
 import { CarSelectionContext } from './CarPDP';
 import { useCartContext } from '@/providers/CartProvider';
 import EditVehicleDropdown from '@/components/PDP/EditVehicleDropdown';
+import {
+  Sheet,
+  SheetContent,
+  SheetFooter,
+  SheetHeader,
+} from '@/components/ui/sheet';
 
 const getOffset = (
   element: HTMLElement | null | undefined
@@ -374,16 +380,19 @@ const AddToCartSelector = ({
   const wait = () => new Promise((resolve) => setTimeout(resolve, 350));
 
   return (
-    <Drawer
+    <Sheet
       open={submodelSelectionOpen}
       onOpenChange={(o) => setSubmodelSelectionOpen(o)}
     >
-      <DrawerContent className="h-[75vh] bg-neutral-800 pt-8">
-        <DrawerHeader>
+      <SheetContent
+        className="flex h-[75vh] flex-col justify-center  rounded-t-2xl border border-neutral-800 bg-neutral-800 pt-16"
+        side="bottom"
+      >
+        <SheetHeader>
           <DrawerTitle className="my-4 text-center text-[22px] font-bold uppercase text-white">
             Complete Your Vehicle
           </DrawerTitle>
-        </DrawerHeader>
+        </SheetHeader>
         <div className="flex w-full flex-col gap-4 px-4">
           <TypeDropdown />
           <MakeDropdown />
@@ -392,8 +401,8 @@ const AddToCartSelector = ({
           {queryState.year && <SubmodelDropdown />}
           {queryState.submodel && <SecondSubmodelDropdown />}
         </div>
-        <DrawerFooter className="bg-white">
-          <p className="text-right text-black">
+        <SheetFooter className="mt-auto flex flex-col gap-4 bg-white p-4">
+          <p className="text-right font-extrabold text-black">
             Total: ${selectedProduct.msrp}
           </p>
           <Button
@@ -404,12 +413,13 @@ const AddToCartSelector = ({
               router.push('/checkout');
             }}
             disabled={!isComplete}
+            className="w-full py-6 text-lg uppercase"
           >
             Add To Cart
           </Button>
-        </DrawerFooter>
-      </DrawerContent>
-    </Drawer>
+        </SheetFooter>
+      </SheetContent>
+    </Sheet>
   );
 };
 
