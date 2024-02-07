@@ -3,13 +3,7 @@ import { Button } from '@/components/ui/button';
 import { useMediaQuery } from '@mantine/hooks';
 import { track } from '@vercel/analytics/react';
 import { SetStateAction, useContext, useEffect, useState } from 'react';
-import {
-  Drawer,
-  DrawerContent,
-  DrawerFooter,
-  DrawerHeader,
-  DrawerTitle,
-} from '@/components/ui/drawer';
+import { DrawerTitle } from '@/components/ui/drawer';
 import { useParams, useRouter } from 'next/navigation';
 import {
   TPathParams,

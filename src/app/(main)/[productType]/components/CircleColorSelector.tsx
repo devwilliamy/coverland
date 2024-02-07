@@ -16,8 +16,6 @@ interface ProductRefs {
 
 export default function CircleColorSelector({
   uniqueColors,
-  productRefs,
-  setFeaturedImage,
   selectedProduct,
   setSelectedProduct,
 }: {
