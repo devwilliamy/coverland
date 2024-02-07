@@ -371,6 +371,7 @@ const AddToCartSelector = ({
       </div>
     );
   };
+  const wait = () => new Promise((resolve) => setTimeout(resolve, 350));
 
   return (
     <Drawer
@@ -388,7 +389,7 @@ const AddToCartSelector = ({
           <MakeDropdown />
           <ModelDropdown />
           <YearDropdown />
-          {queryState.model && <SubmodelDropdown />}
+          {queryState.year && <SubmodelDropdown />}
           {queryState.submodel && <SecondSubmodelDropdown />}
         </div>
         <DrawerFooter className="bg-white">
@@ -399,7 +400,7 @@ const AddToCartSelector = ({
             onClick={() => {
               if (!isComplete) return;
               handleAddToCart();
-              setSubmodelSelectionOpen(false);
+              wait().then(() => setSubmodelSelectionOpen(false));
               router.push('/checkout');
             }}
             disabled={!isComplete}
