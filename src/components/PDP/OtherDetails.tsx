@@ -1,5 +1,5 @@
 'use client';
-import { Suspense, useRef } from 'react';
+import { Suspense, useContext, useRef } from 'react';
 import { MoneyBack } from './MoneyBack';
 import { PDPAccordion } from './PDPAccordian';
 import { OurCarCovers } from './OurCarCovers';
@@ -7,18 +7,18 @@ import { ProductChecklist } from './ProductChecklist';
 import { NoGarage } from './NoGarage';
 import { ClimateCrisis } from './ClimateCrisis';
 import { Layers } from './Layers';
-import { TReviewData } from '@/lib/db';
 import { MobilePDPDetails } from './MobilePDPDetails';
 import { WarrantyDesktop } from './components/WarrantyDesktop';
 import ProductVideo from './ProductVideo';
 import ThreeSixtyVideo from '@/videos/360 degree_website.mp4';
 import ReviewSection from './components/ReviewSection';
+import { CarSelectionContext } from '@/app/(main)/[productType]/components/CarPDP';
+import { useStore } from 'zustand';
 
-export function ExtraProductDetails({
-  reviewData,
-}: {
-  reviewData: TReviewData[] | null;
-}) {
+export function ExtraProductDetails() {
+  const store = useContext(CarSelectionContext);
+  if (!store) throw new Error('Missing CarContext.Provider in the tree');
+  const reviewData = useStore(store, (s) => s.reviewData);
   // const [selectedSection, setSelectedSection] = useState<string>('');
 
   const benefitsRef = useRef<HTMLDivElement>(null);
@@ -98,7 +98,7 @@ export function ExtraProductDetails({
       </div>
       <div className="flex w-full max-w-full flex-col lg:px-[30px]">
         <Suspense fallback={<div>Loading...</div>}>
-          <MobilePDPDetails reviewData={reviewData} />
+          <MobilePDPDetails />
         </Suspense>
 
         <div className="hidden gap-[110px] lg:flex lg:flex-col">
@@ -164,7 +164,7 @@ export function ExtraProductDetails({
           </div>
           {!!reviewData?.length && (
             <div id="car-cover-reviews" ref={reviewsRef}>
-              <ReviewSection reviewData={reviewData} />
+              <ReviewSection />
             </div>
           )}
         </div>

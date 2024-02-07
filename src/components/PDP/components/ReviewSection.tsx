@@ -1,22 +1,22 @@
 'use client';
 import ReviewCard from './ReviewCard';
 import { useContext, useState } from 'react';
-import { TReviewData } from '@/lib/db';
 import { Rating } from '@mui/material';
 import { CarSelectionContext } from '@/app/(main)/[productType]/components/CarPDP';
 import { useStore } from 'zustand';
 import { getProductReviewsByPage } from '@/lib/db/review';
 import { useMediaQuery } from '@mantine/hooks';
+import { AiOutlineLoading3Quarters } from 'react-icons/ai';
 
-const ReviewSection = ({
-  reviewData,
-}: {
-  reviewData: TReviewData[] | null | undefined;
-}) => {
+const ReviewSection = () => {
   const store = useContext(CarSelectionContext);
   if (!store) throw new Error('Missing CarContext.Provider in the tree');
-  const reviewDataStore = useStore(store, (s) => s.reviewData);
+  const reviewData = useStore(store, (s) => s.reviewData);
   const setReviewData = useStore(store, (s) => s.setReviewData);
+  const { total_reviews, average_score } = useStore(
+    store,
+    (s) => s.reviewDataSummary
+  );
   const { year, type, make, model, submodel, secondSubmodel } = useStore(
     store,
     (s) => s.query
@@ -33,9 +33,10 @@ const ReviewSection = ({
       : type === 'suv-covers'
         ? 'SUV Covers'
         : 'Truck Covers';
+
   const handleViewMore = async () => {
-    console.log('Trying to handle more');
     try {
+      setLoading(true);
       const newReviewData = await getProductReviewsByPage(
         {
           productType: typeString,
@@ -50,17 +51,16 @@ const ReviewSection = ({
           },
         }
       );
-      setReviewData([...reviewDataStore, ...newReviewData]);
+      setReviewData([...reviewData, ...newReviewData]);
       setPage((prevPage) => prevPage + 1);
     } catch (error) {
       console.error(error);
     }
-
     setLoading(false);
   };
+
   if (!reviewData) return null;
-  // console.log('reviewData', reviewData);
-  // console.log(reviewData);
+
   return (
     <div className="relative lg:py-2">
       {isMobile ? null : (
@@ -75,9 +75,9 @@ const ReviewSection = ({
         <div className="flex w-full min-w-[188px] flex-col lg:items-center">
           <div className="flex items-center gap-[14px] pt-8 lg:pt-0">
             <p className="pl-4 text-[40px] font-black lg:pl-0 lg:text-[80px]">
-              4.9
+              {average_score?.toFixed(1) || '4.9'}
             </p>
-            <p className="lg:mt-11">{reviewData?.length} reviews</p>
+            <p className="lg:mt-11">{total_reviews} reviews</p>
           </div>
           <div className="flex items-stretch gap-1 text-yellow-300">
             <Rating
@@ -132,9 +132,9 @@ const ReviewSection = ({
               <option value="mercedes">Most Helpful</option>
             </select>
           </div> */}
-      {!!reviewDataStore?.length && (
+      {!!reviewData?.length && (
         <div className="flex flex-col items-center">
-          {reviewDataStore?.map((review, index) => (
+          {reviewData?.map((review, index) => (
             <ReviewCard key={index} review={review} />
           ))}
           <button
@@ -143,7 +143,11 @@ const ReviewSection = ({
             role="button"
             onClick={() => handleViewMore()}
           >
-            View 4 More
+            {loading ? (
+              <AiOutlineLoading3Quarters className="animate-spin" />
+            ) : (
+              'View 4 More'
+            )}
           </button>
         </div>
       )}

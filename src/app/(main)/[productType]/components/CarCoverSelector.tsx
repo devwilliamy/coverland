@@ -7,7 +7,6 @@ import { ProductContent } from './ProductContent';
 import { EditVehicleModal } from './EditVehicleModal';
 import { CarSelectionContext } from './CarPDP';
 import { useStore } from 'zustand';
-import { TReviewData } from '@/lib/db';
 import { IProductData } from '../../utils';
 import { ExtraProductDetails } from '@/components/PDP/OtherDetails';
 
@@ -18,11 +17,7 @@ const EditVehiclePopover = dynamicImport(
   }
 );
 
-export function CarCoverSelector({
-  reviewData,
-}: {
-  reviewData: TReviewData[];
-}) {
+export function CarCoverSelector() {
   const store = useContext(CarSelectionContext);
   if (!store) throw new Error('Missing CarContext.Provider in the tree');
 
@@ -30,24 +25,7 @@ export function CarCoverSelector({
   const selectedProduct = useStore(store, (s) => s.selectedProduct);
   const setSelectedProduct = useStore(store, (s) => s.setSelectedProduct);
   const setFeaturedImage = useStore(store, (s) => s.setFeaturedImage);
-  // const featuredImage = useStore(store, (s) => s.getFeaturedImage());
-
   const featuredImage = selectedProduct?.mainImage;
-
-  // console.log(featuredImage);
-
-  // console.log(modelData);
-
-  // console.log(selectedProduct);
-
-  const reviewScore =
-    reviewData?.reduce(
-      (acc, review) => acc + Number(review.rating_stars ?? 0),
-      0
-    ) ?? 0;
-  const reviewCount = reviewData?.length ?? 50;
-
-  const avgReviewScore = (reviewScore / reviewCount).toFixed(1) || '4.9';
 
   interface ProductRefs {
     [key: string]: RefObject<HTMLElement>;
@@ -115,14 +93,11 @@ export function CarCoverSelector({
           <Separator className="mb-8 mt-4 lg:mb-10" /> */}
             <ProductContent
               modelData={modelData}
-              reviewData={reviewData}
               productRefs={productRefs}
               selectedProduct={selectedProduct}
               setSelectedProduct={setSelectedProduct}
               setFeaturedImage={setFeaturedImage}
               uniqueColors={uniqueColors as IProductData[]}
-              reviewCount={reviewCount}
-              avgReviewScore={avgReviewScore}
             />
           </div>
         </div>
@@ -132,7 +107,7 @@ export function CarCoverSelector({
         className="h-auto w-full"
         // flex flex-col justify-center items-center max-w-[1280px] py-4 lg:py-20 px-4 md:px-20"
       >
-        <ExtraProductDetails reviewData={reviewData} />
+        <ExtraProductDetails />
       </div>
     </>
   );

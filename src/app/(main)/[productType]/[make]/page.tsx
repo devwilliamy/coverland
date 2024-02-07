@@ -2,7 +2,11 @@ import { TReviewData, getProductData } from '@/lib/db';
 import { redirect } from 'next/navigation';
 import { Suspense } from 'react';
 import CarPDP from '@/app/(main)/[productType]/components/CarPDP';
-import { getProductReviewsByPage } from '@/lib/db/review';
+import {
+  TProductReviewSummary,
+  getProductReviewSummary,
+  getProductReviewsByPage,
+} from '@/lib/db/review';
 
 export type TCarCoverSlugParams = {
   make: string;
@@ -29,6 +33,10 @@ export default async function CarPDPDataLayer({
 }) {
   let modelData = [];
   let reviewData: TReviewData[] | null = [];
+  let reviewDataSummary: TProductReviewSummary = {
+    total_reviews: 0,
+    average_score: 0,
+  };
   const typeString =
     params?.productType === 'car-covers'
       ? 'Car Covers'
@@ -37,7 +45,7 @@ export default async function CarPDPDataLayer({
         : 'Truck Covers';
 
   try {
-    [modelData, reviewData] = await Promise.all([
+    [modelData, reviewData, reviewDataSummary] = await Promise.all([
       getProductData({
         model: params.model,
         make: params.make,
@@ -53,6 +61,10 @@ export default async function CarPDPDataLayer({
           },
         }
       ),
+      getProductReviewSummary({
+        productType: typeString,
+        make: params?.make,
+      }),
     ]);
 
     if (!modelData) {
@@ -66,7 +78,12 @@ export default async function CarPDPDataLayer({
   return (
     <>
       <Suspense fallback={<div>Loading...</div>}>
-        <CarPDP modelData={modelData} reviewData={reviewData} params={params} />
+        <CarPDP
+          modelData={modelData}
+          reviewData={reviewData}
+          params={params}
+          reviewDataSummary={reviewDataSummary}
+        />
       </Suspense>
     </>
   );

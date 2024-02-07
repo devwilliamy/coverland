@@ -6,7 +6,12 @@ import {
 } from '@/lib/constants';
 import { TInitialProductDataDB } from '@/lib/db';
 import CarPDP from './components/CarPDP';
-import { TReviewData, getProductReviewsByPage } from '@/lib/db/review';
+import {
+  TProductReviewSummary,
+  TReviewData,
+  getProductReviewSummary,
+  getProductReviewsByPage,
+} from '@/lib/db/review';
 
 export default async function CarPDPModelDataLayer({
   params,
@@ -14,6 +19,10 @@ export default async function CarPDPModelDataLayer({
   params: { productType: string };
 }) {
   let reviewData: TReviewData[] = [];
+  let reviewDataSummary: TProductReviewSummary = {
+    total_reviews: 0,
+    average_score: 0,
+  };
   const productType = params.productType;
 
   const modelData: TInitialProductDataDB[] =
@@ -31,16 +40,20 @@ export default async function CarPDPModelDataLayer({
         : 'Truck Covers';
 
   try {
-    const productReviews: TReviewData[] = await getProductReviewsByPage(
-      { productType: typeString },
-      {
-        pagination: {
-          page: 0,
-          limit: 4,
-        },
-      }
-    );
-    reviewData = productReviews;
+    [reviewData, reviewDataSummary] = await Promise.all([
+      getProductReviewsByPage(
+        { productType: typeString },
+        {
+          pagination: {
+            page: 0,
+            limit: 4,
+          },
+        }
+      ),
+      getProductReviewSummary({
+        productType: typeString,
+      }),
+    ]);
   } catch (error) {
     console.error('CarPDPModelDataLayer Error: ', error);
   }
@@ -48,7 +61,12 @@ export default async function CarPDPModelDataLayer({
   return (
     <>
       <Suspense fallback={<div>Loading...</div>}>
-        <CarPDP modelData={modelData} reviewData={reviewData} params={params} />
+        <CarPDP
+          modelData={modelData}
+          reviewData={reviewData}
+          params={params}
+          reviewDataSummary={reviewDataSummary}
+        />
       </Suspense>
     </>
   );

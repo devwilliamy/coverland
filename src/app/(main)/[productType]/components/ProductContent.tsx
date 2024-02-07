@@ -5,7 +5,7 @@ import {
   PopoverTrigger,
 } from '@/components/ui/popover';
 import { Separator } from '@/components/ui/separator';
-import { TInitialProductDataDB, TReviewData } from '@/lib/db';
+import { TInitialProductDataDB } from '@/lib/db';
 import { Rating } from '@mui/material';
 import { track } from '@vercel/analytics';
 import Link from 'next/link';
@@ -40,9 +40,6 @@ export function ProductContent({
   setFeaturedImage,
   productRefs,
   uniqueColors,
-  reviewCount,
-  avgReviewScore,
-  reviewData,
 }: {
   selectedProduct: TInitialProductDataDB | null | undefined;
   setSelectedProduct: (newProduct: IProductData) => void;
@@ -50,9 +47,6 @@ export function ProductContent({
   uniqueColors?: IProductData[];
   modelData: TInitialProductDataDB[];
   setFeaturedImage: (img: string) => void;
-  reviewCount: number;
-  avgReviewScore: string;
-  reviewData: TReviewData[] | undefined | null;
 }) {
   const productType = compareRawStrings(selectedProduct?.type, 'car covers')
     ? 'Car Cover'
@@ -65,7 +59,10 @@ export function ProductContent({
   if (!store) throw new Error('Missing CarContext.Provider in the tree');
   const modelData = useStore(store, (s) => s.modelData);
   const color = useStore(store, (s) => s.selectedColor);
-
+  const { total_reviews, average_score } = useStore(
+    store,
+    (s) => s.reviewDataSummary
+  );
   const { addToCart } = useCartContext();
 
   const cartProduct = modelData.find((p) => p.display_color === color);
@@ -100,15 +97,15 @@ export function ProductContent({
               <Popover>
                 <PopoverTrigger
                   className="ml-2 text-blue-400 underline"
-                  disabled={!reviewCount}
+                  disabled={!total_reviews}
                 >
-                  {reviewCount || '2'} ratings
+                  {total_reviews || '2'} ratings
                 </PopoverTrigger>
                 <PopoverContent>
                   <div className=" flex flex-col items-center border border-gray-300 bg-white p-4 shadow-lg">
                     <div className="flex items-center gap-4">
-                      <p className="text-2xl font-bold">
-                        {avgReviewScore ?? '4.9'} out of 5
+                      <p className="text-xl font-bold">
+                        {average_score?.toFixed(1) ?? '4.9'} / 5
                       </p>
                       <Rating
                         name="read-only"
@@ -119,7 +116,7 @@ export function ProductContent({
                         }}
                       />
                     </div>
-                    {!!reviewData?.length && (
+                    {total_reviews > 0 && (
                       <Link
                         className="underline"
                         scroll
@@ -130,7 +127,7 @@ export function ProductContent({
                           })
                         }
                       >
-                        Show all reviews ({reviewData?.length})
+                        Show all reviews ({total_reviews})
                       </Link>
                     )}
                   </div>
@@ -138,7 +135,7 @@ export function ProductContent({
               </Popover>
             </div>
             <div className="lg:hidden">
-              <ReviewSheet reviewData={reviewData} />
+              <ReviewSheet />
             </div>
           </div>
           <p className="mb-2 text-gray-500">100+ Bought In Past Month</p>

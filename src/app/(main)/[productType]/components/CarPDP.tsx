@@ -11,6 +11,7 @@ import {
   TQueryParams,
   modelDataTransformer,
 } from '../../utils';
+import { TProductReviewSummary } from '@/lib/db/review';
 
 export type TQuery = {
   type: string;
@@ -26,6 +27,7 @@ interface ICarCoverProps {
   initialModelData: IProductData[];
   selectedProduct: IProductData;
   reviewData: TReviewData[];
+  reviewDataSummary: TProductReviewSummary;
 }
 
 interface ICarCoverSelectionState extends ICarCoverProps {
@@ -39,6 +41,7 @@ interface ICarCoverSelectionState extends ICarCoverProps {
   selectedColor: string;
   query: TQuery;
   setReviewData: (newReviewData: TReviewData[]) => void;
+  setReviewDataSummary: (newReviewDataSummary: TProductReviewSummary) => void;
 }
 
 const createCarSelectionStore = ({
@@ -46,11 +49,13 @@ const createCarSelectionStore = ({
   params,
   queryParams,
   initialReviewData,
+  initialReviewDataSummary,
 }: {
   initialModelData: IProductData[];
   params: TPathParams;
   queryParams: TQueryParams;
   initialReviewData: TReviewData[];
+  initialReviewDataSummary: TProductReviewSummary;
 }) => {
   return createStore<ICarCoverSelectionState>()((set, get) => ({
     modelData: initialModelData,
@@ -139,6 +144,10 @@ const createCarSelectionStore = ({
     setReviewData: (newReviewData: TReviewData[]) => {
       set(() => ({ reviewData: newReviewData }));
     },
+    reviewDataSummary: initialReviewDataSummary,
+    setReviewDataSummary: (newReviewDataSummary: TProductReviewSummary) => {
+      set(() => ({ reviewDataSummary: newReviewDataSummary }));
+    },
   }));
 };
 
@@ -151,10 +160,12 @@ export const CarSelectionContext = createContext<CarSelectionStore | null>(
 export default function CarPDP({
   modelData: modelDataProps,
   reviewData,
+  reviewDataSummary,
 }: {
   modelData: TInitialProductDataDB[];
   reviewData: TReviewData[] | null;
   params: TPathParams;
+  reviewDataSummary: TProductReviewSummary;
 }) {
   const pathParams = useParams<{
     year?: string;
@@ -183,13 +194,14 @@ export default function CarPDP({
       queryParams,
       initialModelData: modelData,
       initialReviewData: reviewData as TReviewData[],
+      initialReviewDataSummary: reviewDataSummary,
     })
   ).current;
 
   return (
     <>
       <CarSelectionContext.Provider value={store}>
-        <CarCoverSelector reviewData={reviewData as TReviewData[]} />
+        <CarCoverSelector />
       </CarSelectionContext.Provider>
     </>
   );

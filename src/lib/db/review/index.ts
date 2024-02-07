@@ -11,6 +11,8 @@ export type TProductReviewsQueryFilters = {
   year?: string;
   make?: string;
   model?: string;
+  submodel?: string;
+  submodel2?: string;
 };
 
 export type TProductReviewsQueryOptions = {
@@ -18,6 +20,11 @@ export type TProductReviewsQueryOptions = {
     page?: number;
     limit?: number;
   };
+};
+
+export type TProductReviewSummary = {
+  total_reviews: number;
+  average_score: number;
 };
 
 const ProductReviewsQueryFiltersSchema = z.object({
@@ -31,6 +38,8 @@ const ProductReviewsQueryFiltersSchema = z.object({
   year: z.string().optional(),
   make: z.string().optional(),
   model: z.string().optional(),
+  submodel: z.string().optional(),
+  submodel2: z.string().optional(),
 });
 
 const ProductReviewsQueryOptionsSchema = z.object({
@@ -50,7 +59,8 @@ export async function getProductReviewsByPage(
   try {
     const validatedFilters = ProductReviewsQueryFiltersSchema.parse(filters);
     const validatedOptions = ProductReviewsQueryOptionsSchema.parse(options);
-    const { productType, year, make, model } = validatedFilters;
+    const { productType, year, make, model, submodel, submodel2 } =
+      validatedFilters;
     const {
       pagination: { page, limit },
     } = validatedOptions;
@@ -73,8 +83,15 @@ export async function getProductReviewsByPage(
       fetch = fetch.textSearch('model', model);
     }
 
+    if (submodel) {
+      fetch = fetch.textSearch('submodel', submodel);
+    }
+    if (submodel2) {
+      fetch = fetch.textSearch('submodel2', submodel2);
+    }
+
     const { data, error } = await fetch;
-    console.log('Data:', { data, validatedFilters });
+    // console.log('getProductReviewsByPage:', { data, validatedFilters });
 
     if (year) {
     }
@@ -91,5 +108,54 @@ export async function getProductReviewsByPage(
     }
     console.error(error);
     return [];
+  }
+}
+
+/*
+  Uses an RPC (Remote Procedure Call). Pretty much SQL Function.
+  Have to set it up on Supabase first.
+
+  Check out the script on Supabase in SQL Editor -> 'Review Statistics'
+
+*/
+export async function getProductReviewSummary(
+  filters: TProductReviewsQueryFilters
+): Promise<TProductReviewSummary> {
+  try {
+    const validatedFilters = ProductReviewsQueryFiltersSchema.parse(filters);
+    const {
+      productType,
+      //year,
+      make,
+      model,
+      submodel,
+      submodel2,
+    } = validatedFilters;
+
+    const fetch = supabaseDatabaseClient.rpc('get_product_reviews_summary', {
+      type: productType,
+      make,
+      model,
+      submodel,
+      submodel2,
+    });
+
+    const { data, error } = await fetch;
+    // console.log('GetProductReviewSummary:', { data, validatedFilters });
+    if (error) {
+      console.error(error);
+      return { total_reviews: 0, average_score: 0 };
+    }
+
+    return {
+      total_reviews: data[0].total_reviews,
+      average_score: data[0].average_score,
+    };
+  } catch (error) {
+    if (error instanceof ZodError) {
+      console.log('ZodError:', error);
+    }
+    console.error(error);
+    return { total_reviews: 0, average_score: 0 };
   }
 }

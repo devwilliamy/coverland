@@ -8,30 +8,33 @@ import { Drawer, DrawerContent, DrawerTrigger } from '@/components/ui/drawer';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Rating } from '@mui/material';
 import Image from 'next/image';
-import React, { SetStateAction, useState } from 'react';
+import { SetStateAction, useContext, useState } from 'react';
 import { FaCamera } from 'react-icons/fa';
 import { IoClose } from 'react-icons/io5';
 import ExampleCustomerImage from '@/images/PDP/product_details_01.webp';
-import { TReviewData } from '@/lib/db';
+import { CarSelectionContext } from './CarPDP';
+import { useStore } from 'zustand';
 
 export default function CustomerImagesDrawer({
   customerImagesDrawerOpen,
   customerImagesIndex,
   setCustomerImagesIndex,
   setCustomerImagesDrawerOpen,
-  reviewData,
 }: {
   customerImagesDrawerOpen: boolean;
   customerImagesIndex: number;
   setCustomerImagesIndex: (value: SetStateAction<number>) => void;
   setCustomerImagesDrawerOpen: (value: SetStateAction<boolean>) => void;
-  reviewData: TReviewData[] | undefined | null;
 }) {
   const [customerCarouselApi, setCustomerCarouselApi] = useState<CarouselApi>();
   const tabItems = [
     { title: 'Customer Images', value: 'customer-images' },
     { title: 'Customer Reviews', value: 'customer-reviews' },
   ];
+
+  const store = useContext(CarSelectionContext);
+  if (!store) throw new Error('Missing CarContext.Provider in the tree');
+  const reviewData = useStore(store, (s) => s.reviewData);
 
   return (
     <span className="mb-[18px] flex gap-[13px]">

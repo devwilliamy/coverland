@@ -8,25 +8,25 @@ import {
 } from '@/components/ui/sheet';
 import { IoClose } from 'react-icons/io5';
 import ReviewSection from './components/ReviewSection';
-import { TReviewData } from '@/lib/db';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
+import { useStore } from 'zustand';
+import { CarSelectionContext } from '@/app/(main)/[productType]/components/CarPDP';
 
-type ReviewSheetProps = {
-  reviewData: TReviewData[] | undefined | null;
-};
-
-export default function ReviewSheet({ reviewData }: ReviewSheetProps) {
-  const reviewCount = reviewData?.length ?? 50;
+export default function ReviewSheet() {
   const [reviewSheetOpen, setReviewSheetOpen] = useState<boolean>(false);
+
+  const store = useContext(CarSelectionContext);
+  if (!store) throw new Error('Missing CarContext.Provider in the tree');
+  const { total_reviews } = useStore(store, (s) => s.reviewDataSummary);
 
   return (
     <Sheet open={reviewSheetOpen} onOpenChange={setReviewSheetOpen}>
       <SheetTrigger
         className="ml-2 text-blue-400 underline"
-        disabled={!reviewCount}
+        disabled={!total_reviews}
         // className=" flex w-full flex-row items-center justify-between border-b-2 border-[#C8C7C7] py-4 text-left text-[22px] font-black uppercase text-[#1A1A1A] !no-underline"
       >
-        {reviewCount || '2'} ratings
+        {total_reviews || '2'} ratings
       </SheetTrigger>
       <SheetContent className="rounded-t-[10px] px-[2px]" side="bottom">
         <SheetHeader draggable={false}>
@@ -50,8 +50,8 @@ export default function ReviewSheet({ reviewData }: ReviewSheetProps) {
             </SheetClose>
           </SheetTitle>
         </SheetHeader>
-        <div className="mx-auto flex max-h-[76vh] w-full flex-col overflow-y-scroll px-4 pt-[40px]">
-          <ReviewSection reviewData={reviewData} />
+        <div className="mx-auto flex max-h-[76vh] w-full flex-col overflow-y-scroll px-4">
+          <ReviewSection />
         </div>
       </SheetContent>
     </Sheet>
