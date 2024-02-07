@@ -83,6 +83,12 @@ export async function getProductReviewsByPage(
       fetch = fetch.textSearch('model', model);
     }
 
+    // Note: This is using the year generation from the url.
+    // It's possible there might be some other years overlapping and might need extra logic to find those
+    if (year) {
+      fetch = fetch.eq('year_generation', year);
+    }
+
     if (submodel) {
       fetch = fetch.textSearch('submodel', submodel);
     }
@@ -91,10 +97,7 @@ export async function getProductReviewsByPage(
     }
 
     const { data, error } = await fetch;
-    // console.log('getProductReviewsByPage:', { data, validatedFilters });
-
-    if (year) {
-    }
+    console.log('getProductReviewsByPage:', { data, validatedFilters });
 
     if (error) {
       console.error(error);
@@ -123,25 +126,20 @@ export async function getProductReviewSummary(
 ): Promise<TProductReviewSummary> {
   try {
     const validatedFilters = ProductReviewsQueryFiltersSchema.parse(filters);
-    const {
-      productType,
-      //year,
-      make,
-      model,
-      submodel,
-      submodel2,
-    } = validatedFilters;
+    const { productType, year, make, model, submodel, submodel2 } =
+      validatedFilters;
 
     const fetch = supabaseDatabaseClient.rpc('get_product_reviews_summary', {
       type: productType,
       make,
       model,
+      year,
       submodel,
       submodel2,
     });
 
     const { data, error } = await fetch;
-    // console.log('GetProductReviewSummary:', { data, validatedFilters });
+    console.log('GetProductReviewSummary:', { data, validatedFilters });
     if (error) {
       console.error(error);
       return { total_reviews: 0, average_score: 0 };
