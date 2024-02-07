@@ -2,9 +2,10 @@ import ReviewCard from './ReviewCard';
 import { useState } from 'react';
 import { TReviewData } from '@/lib/db';
 import { Rating } from '@mui/material';
-import { ReviewPercentCircle } from './ReviewPercentCircle';
 import ExampleCustomerImage from '@/images/PDP/product_details_01.webp';
 import Image from 'next/image';
+import { useMediaQuery } from '@mantine/hooks';
+import ReviewPercentCircle from './ReviewPercentCircle';
 
 const ReviewSection = ({
   reviewData,
@@ -12,13 +13,21 @@ const ReviewSection = ({
   reviewData: TReviewData[] | null | undefined;
 }) => {
   const [displayedReviews, setDisplayedReviews] = useState<number>(3);
+  const isMobile = useMediaQuery('(max-width: 768px)');
+
   if (!reviewData) return null;
-  // console.log('reviewData', reviewData);
-  // console.log(reviewData);
   return (
-    <div className="relative ">
-      <div className="flex flex-col gap-[20px] lg:flex-row">
-        <div className="flex w-full min-w-[188px] flex-col ">
+    <div className="relative lg:py-2">
+      {isMobile ? null : (
+        <p
+          className="mb-5 hidden text-center text-xl font-black uppercase text-black md:text-3xl lg:mb-20 lg:block lg:text-[42px]"
+          id="reviews"
+        >
+          Car Cover Reviews
+        </p>
+      )}
+      <div className="flex flex-col gap-[20px] lg:flex-row  lg:gap-0">
+        <div className="flex w-full min-w-[188px] flex-col lg:items-center">
           <div className="flex items-center gap-[14px] pt-8 lg:pt-0">
             <p className="pl-4 text-[40px] font-black lg:pl-0 lg:text-[80px]">
               4.9
@@ -72,7 +81,9 @@ const ReviewSection = ({
         <div className="flex flex-col items-center">
           {reviewData
             ?.slice(0, displayedReviews)
-            .map((review) => <ReviewCard key={review.id} review={review} />)}
+            .map((review, index) => (
+              <ReviewCard key={review.id || index} review={review} />
+            ))}
           <button
             className="my-4 max-w-[160px] items-stretch justify-center whitespace-nowrap rounded-full border border-solid border-black bg-white px-8 py-3.5 font-black leading-4 tracking-wide text-black transition-colors duration-150 hover:bg-black hover:text-white"
             aria-label="View more"
@@ -92,6 +103,8 @@ export default ReviewSection;
 const exampleReviewArray = [1, 2, 3, 4, 5];
 
 const ReviewImageGallery = ({ reviewData }: any) => {
+  const isMobile = useMediaQuery('(max-width: 768px)');
+  const imagesToShow = isMobile ? 3 : 5;
   return (
     <div className="flex flex-col items-center px-[]">
       <div className="#767676 flex items-center justify-center py-[10px] text-[14px] font-[400] normal-case leading-[24px] text-[#767676]">

@@ -7,10 +7,10 @@ import BuyWithConfidenceIcon from './BuyWithConfidenceIcon';
 
 export default function BuyWithConfidenceSection() {
   return (
-    <div className=" flex h-auto  flex-col items-center bg-white ">
+    <div className=" flex h-auto  flex-col items-center bg-white px-[11.4vw]">
       <div className="flex flex-col items-start justify-center lg:flex-row ">
         <div className="flex h-full flex-col items-center justify-center">
-          <div className="w-full lg:pb-20">
+          <div className="w-full pb-[60px] lg:pb-20">
             <h1 className="text-center text-2xl font-extrabold uppercase md:text-5xl  xl:text-center">
               Buy with confidence
             </h1>

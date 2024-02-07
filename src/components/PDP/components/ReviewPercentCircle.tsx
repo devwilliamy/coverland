@@ -2,7 +2,9 @@ type ReviewPercentCircleProps = {
   percent: string;
 };
 
-export function ReviewPercentCircle({ percent }: ReviewPercentCircleProps) {
+export default function ReviewPercentCircle({
+  percent,
+}: ReviewPercentCircleProps) {
   return (
     <div className="relative z-10  h-[75px] w-[75px] lg:h-[135px] lg:w-[135px]">
       <svg

@@ -29,6 +29,12 @@ export default async function CarPDPDataLayer({
 }) {
   let modelData = [];
   let reviewData: TReviewData[] | null = [];
+  const typeString =
+    params?.productType === 'car-covers'
+      ? 'Car Covers'
+      : params?.productType === 'suv-covers'
+        ? 'SUV Covers'
+        : 'Truck Covers';
 
   try {
     [modelData, reviewData] = await Promise.all([
@@ -36,6 +42,7 @@ export default async function CarPDPDataLayer({
         model: params.model,
         make: params.make,
         year: params.year,
+        type: typeString,
       }),
       getReviewData({
         make: params.make,
