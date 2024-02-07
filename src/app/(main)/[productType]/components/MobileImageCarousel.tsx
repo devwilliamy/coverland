@@ -85,25 +85,13 @@ export const MobileImageCarousel = ({
           </CarouselItem>
           {productImages.map((image, index) => {
             if (index <= 1) return;
-            return (
-              <>
-                {index === 2 ? (
-                  <>
-                    <CarouselItem key={`carousel-video-${index}`}>
-                      <ProductVideo src={SevenSecVideo} autoplay loop />
-                    </CarouselItem>
-                    <CarouselItem key={`carousel-image-${index}`}>
-                      <Image
-                        src={image}
-                        alt={`Additional images of the ${selectedProduct.display_id} cover`}
-                        width={500}
-                        height={500}
-                        // placeholder="blur"
-                        onError={() => console.log('Failed image:', `${image}`)}
-                      />
-                    </CarouselItem>
-                  </>
-                ) : (
+            if (index === 2) {
+              // When using a fragment to group multiple elements, provide a unique key
+              return (
+                <Fragment key={`group-${index}`}>
+                  <CarouselItem key={`carousel-video-${index}`}>
+                    <ProductVideo src={SevenSecVideo} autoplay loop />
+                  </CarouselItem>
                   <CarouselItem key={`carousel-image-${index}`}>
                     <Image
                       src={image}
@@ -114,9 +102,22 @@ export const MobileImageCarousel = ({
                       onError={() => console.log('Failed image:', `${image}`)}
                     />
                   </CarouselItem>
-                )}
-              </>
-            );
+                </Fragment>
+              );
+            } else {
+              return (
+                <CarouselItem key={`carousel-image-${index}`}>
+                  <Image
+                    src={image}
+                    alt={`Additional images of the ${selectedProduct.display_id} cover`}
+                    width={500}
+                    height={500}
+                    // placeholder="blur"
+                    onError={() => console.log('Failed image:', `${image}`)}
+                  />
+                </CarouselItem>
+              );
+            }
           })}
         </CarouselContent>
       </Carousel>
