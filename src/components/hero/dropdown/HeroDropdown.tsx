@@ -120,7 +120,7 @@ export function HeroDropdown() {
     }
 
     // refreshRoute('/');
-    router.prefetch(url);
+    router.push(url);
     // refreshRoute(`${pathname}?${currentParams.toString()}`);
   };
 

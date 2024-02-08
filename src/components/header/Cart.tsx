@@ -30,7 +30,7 @@ function Cart() {
           <HiOutlineShoppingCart
             color={cartColor}
             className="mt-0.5 flex h-[20px] w-[20px] hover:cursor-pointer"
-            onClick={() => router.prefetch('/checkout')}
+            onClick={() => router.push('/checkout')}
           />
         </div>
       </SheetTrigger>
