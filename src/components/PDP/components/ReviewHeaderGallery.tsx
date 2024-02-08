@@ -2,10 +2,12 @@
 
 import { useContext, useEffect, useState } from 'react';
 import { CarSelectionContext } from '@/app/(main)/[productType]/components/CarPDP';
+import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';
 import ExampleCustomerImage from '@/images/PDP/product_details_01.webp';
 import Image, { StaticImageData } from 'next/image';
 import { getAllReviewsWithImages } from '@/lib/db/review';
 import { useStore } from 'zustand';
+import CustomerReviewTabs from './CustomerReviewTabs';
 
 const exampleReviewArray = [1, 2, 3, 4, 5];
 
@@ -34,7 +36,6 @@ export default function ReviewHeaderGallery() {
         : 'Truck Covers';
 
   useEffect(() => {
-    console.log('Inside useEffect');
     const getAllImages = async () => {
       try {
         console.log('Inside getAllImages', { year, type, make, model });
@@ -45,7 +46,6 @@ export default function ReviewHeaderGallery() {
           make,
           model,
         });
-        console.log('New Review Data:', newReviewData);
 
         setReviewImages(newReviewData);
       } catch (error) {
@@ -55,7 +55,6 @@ export default function ReviewHeaderGallery() {
     getAllImages();
   }, []);
 
-  console.log('Review Images', reviewImages);
 
   return (
     <div className="flex flex-col items-center px-[]">
@@ -63,7 +62,7 @@ export default function ReviewHeaderGallery() {
         {reviewImages && reviewImages.length} Review Images
       </div>
       {/* Desktop Header Images */}
-      <section className="hidden aspect-square h-full w-full items-center gap-[7px] lg:grid lg:max-h-[207px] lg:grid-cols-6">
+      <section className="hidden max-h-fit w-full items-center gap-[7px] lg:grid lg:max-h-[207px] lg:grid-cols-6">
         {reviewImages.map((image, index) => {
           if (index <= 4) {
             return (
@@ -73,14 +72,14 @@ export default function ReviewHeaderGallery() {
                 alt="Car Cover Review Image"
                 width={207}
                 height={207}
-                className="h-full w-full items-center justify-center object-cover lg:max-h-[207px] lg:max-w-[207px]"
+                className=" aspect-square  h-full w-full items-center justify-center object-cover lg:max-w-[207px]"
               />
             );
           }
         })}
         <div className="flex h-full w-full items-center justify-center border border-black">
           <div className="font-normalc text-center text-base normal-case underline ">
-            See more <br /> review images
+            <SeeMoreImages />
           </div>
         </div>
       </section>
@@ -102,10 +101,23 @@ export default function ReviewHeaderGallery() {
         })}
         <div className="flex h-full w-full items-center justify-center border border-black">
           <div className="font-normalc text-center text-base normal-case underline ">
-            See more <br /> review images
+            <SeeMoreImages />
           </div>
         </div>
       </section>
     </div>
   );
 }
+
+const SeeMoreImages = () => {
+  return (
+    <Dialog>
+      <DialogTrigger className="underline">
+        See more <br /> review images
+      </DialogTrigger>
+      <DialogContent className="flex flex-col items-center lg:min-w-[77vw] lg:max-w-[1120px]">
+        <CustomerReviewTabs />
+      </DialogContent>
+    </Dialog>
+  );
+};
