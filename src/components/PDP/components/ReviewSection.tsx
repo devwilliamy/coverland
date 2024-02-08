@@ -103,7 +103,7 @@ const ReviewSection = () => {
           </p>
         </div>
       </div>
-      <ReviewHeaderGallery reviewData={reviewData} />
+      <ReviewHeaderGallery />
       {/* <div className="pt-6">
        
       </div>

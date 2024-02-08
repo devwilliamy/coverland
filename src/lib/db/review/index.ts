@@ -97,7 +97,65 @@ export async function getProductReviewsByPage(
     }
 
     const { data, error } = await fetch;
-    console.log('getProductReviewsByPage:', { data, validatedFilters });
+    // console.log('getProductReviewsByPage:', { data, validatedFilters });
+
+    if (error) {
+      console.error(error);
+      return [];
+    }
+
+    return data;
+  } catch (error) {
+    if (error instanceof ZodError) {
+      console.log('ZodError:', error);
+    }
+    console.error(error);
+    return [];
+  }
+}
+
+export async function getAllReviewsWithImages(
+  filters: TProductReviewsQueryFilters
+): Promise<TReviewData[]> {
+  try {
+    const validatedFilters = ProductReviewsQueryFiltersSchema.parse(filters);
+    const { productType, year, make, model, submodel, submodel2 } =
+      validatedFilters;
+    let fetch = supabaseDatabaseClient
+      .from(PRODUCT_REVIEWS_TABLE)
+      .select('*')
+      .not('review_image', 'is', null);
+
+    if (productType) {
+      fetch = fetch.eq('type', productType);
+    }
+
+    if (make) {
+      fetch = fetch.textSearch('make', make);
+    }
+
+    if (model) {
+      fetch = fetch.textSearch('model', model);
+    }
+
+    // Note: This is using the year generation from the url.
+    // It's possible there might be some other years overlapping and might need extra logic to find those
+    if (year) {
+      fetch = fetch.eq('year_generation', year);
+    }
+
+    if (submodel) {
+      fetch = fetch.textSearch('submodel', submodel);
+    }
+    if (submodel2) {
+      fetch = fetch.textSearch('submodel2', submodel2);
+    }
+
+    const { data, error } = await fetch;
+    console.log('getAllReviewsWithImages:', {
+      data,
+      validatedFilters,
+    });
 
     if (error) {
       console.error(error);
@@ -139,7 +197,7 @@ export async function getProductReviewSummary(
     });
 
     const { data, error } = await fetch;
-    console.log('GetProductReviewSummary:', { data, validatedFilters });
+    // console.log('GetProductReviewSummary:', { data, validatedFilters });
     if (error) {
       console.error(error);
       return { total_reviews: 0, average_score: 0 };
