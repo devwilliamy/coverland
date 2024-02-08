@@ -1,8 +1,10 @@
-import { PRODUCT_REVIEWS_TABLE } from '../constants/databaseTableNames';
-import { supabaseDatabaseClient } from '../supabaseClients';
 import { ZodError, z } from 'zod';
-import { getPagination } from '../utils';
+
+import { PRODUCT_REVIEWS_TABLE } from '../constants/databaseTableNames';
 import { Tables } from '../types';
+import { getPagination } from '../utils';
+import { supabaseDatabaseClient } from '../supabaseClients';
+import { StaticImageData } from 'next/image';
 
 export type TReviewData = Tables<'Mock-Data-Reviews'>;
 
@@ -116,7 +118,7 @@ export async function getProductReviewsByPage(
 
 export async function getAllReviewsWithImages(
   filters: TProductReviewsQueryFilters
-): Promise<TReviewData[]> {
+): Promise<(string | StaticImageData | null)[]> {
   try {
     const validatedFilters = ProductReviewsQueryFiltersSchema.parse(filters);
     const { productType, year, make, model, submodel, submodel2 } =
@@ -162,7 +164,19 @@ export async function getAllReviewsWithImages(
       return [];
     }
 
-    return data;
+    const images = [];
+
+    for (const ob of data) {
+      const split = ob.review_image?.split(',');
+      if (split && split.length > 1) {
+        images.push(split[0]);
+        images.push(split[1]);
+      } else {
+        split && images.push(split[0]);
+      }
+    }
+
+    return images;
   } catch (error) {
     if (error instanceof ZodError) {
       console.log('ZodError:', error);
