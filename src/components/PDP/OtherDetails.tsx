@@ -13,6 +13,7 @@ import { TReviewData } from '@/lib/db';
 import { MobilePDPDetails } from './MobilePDPDetails';
 import { WarrantyDesktop } from './components/WarrantyDesktop';
 import { Rating } from '@mui/material';
+import ReviewCard from './components/ReviewCard';
 import ProductVideo from './ProductVideo';
 import ThreeSixtyVideo from '@/videos/360 degree_website.mp4';
 
@@ -268,113 +269,6 @@ const ReviewSection = ({
     </div>
   );
 };
-
-function ReviewCard({ review }: { review: TReviewData }) {
-  const CheckIcon = () => {
-    return (
-      <svg
-        width="24"
-        height="24"
-        viewBox="0 0 24 24"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <g id="check_circle">
-          <mask
-            id="mask0_330_1310"
-            maskUnits="userSpaceOnUse"
-            x="0"
-            y="0"
-            width="24"
-            height="24"
-          >
-            <rect id="Bounding box" width="24" height="24" fill="#D9D9D9" />
-          </mask>
-          <g mask="url(#mask0_330_1310)">
-            <path
-              id="check_circle_2"
-              d="M10.6 16.6L17.65 9.55L16.25 8.15L10.6 13.8L7.75 10.95L6.35 12.35L10.6 16.6ZM12 22C10.6167 22 9.31667 21.7375 8.1 21.2125C6.88333 20.6875 5.825 19.975 4.925 19.075C4.025 18.175 3.3125 17.1167 2.7875 15.9C2.2625 14.6833 2 13.3833 2 12C2 10.6167 2.2625 9.31667 2.7875 8.1C3.3125 6.88333 4.025 5.825 4.925 4.925C5.825 4.025 6.88333 3.3125 8.1 2.7875C9.31667 2.2625 10.6167 2 12 2C13.3833 2 14.6833 2.2625 15.9 2.7875C17.1167 3.3125 18.175 4.025 19.075 4.925C19.975 5.825 20.6875 6.88333 21.2125 8.1C21.7375 9.31667 22 10.6167 22 12C22 13.3833 21.7375 14.6833 21.2125 15.9C20.6875 17.1167 19.975 18.175 19.075 19.075C18.175 19.975 17.1167 20.6875 15.9 21.2125C14.6833 21.7375 13.3833 22 12 22Z"
-              fill="#1D8044"
-            />
-          </g>
-        </g>
-      </svg>
-    );
-  };
-  return (
-    <span className="my-5 flex w-full flex-col items-stretch self-stretch rounded border border-solid border-stone-300 py-9 pl-10 pr-16 max-md:max-w-full max-md:px-5">
-      <div className="text-xl font-bold normal-case text-neutral-700 max-md:max-w-full lg:text-3xl">
-        {review.review_title
-          ? review.review_title.charAt(0).toUpperCase() +
-            review.review_title.slice(1)
-          : ''}
-      </div>
-      <div className="my-2 flex gap-1 text-yellow-300 lg:my-0">
-        <Rating
-          name="read-only"
-          value={5}
-          readOnly
-          style={{
-            height: '25px',
-          }}
-        />
-      </div>
-      <div className="text-sm font-light normal-case text-neutral-500">
-        Purchased on{' '}
-        {new Date(review?.reviewed_at ?? '').toLocaleDateString('en-US', {
-          month: 'long',
-          day: 'numeric',
-          year: 'numeric',
-        })}
-      </div>
-      <div className="mt-5 flex w-[216px] max-w-full items-stretch gap-1 self-start">
-        {/* images go here */}
-      </div>
-      <div className="flex justify-between">
-        <div className="max-w-[75%] overflow-hidden text-base font-normal normal-case text-zinc-900 max-md:max-w-full">
-          {review.review_description}
-        </div>
-        <div className="hidden text-lg font-light normal-case text-neutral-500 lg:block">
-          Purchased on{' '}
-          {new Date(review?.reviewed_at ?? '').toLocaleDateString('en-US', {
-            month: 'long',
-            day: 'numeric',
-            year: 'numeric',
-          })}
-        </div>
-      </div>
-      <div className="overflow-hidden text-ellipsis whitespace-nowrap text-base font-normal normal-case leading-8 text-zinc-900 max-md:mt-10 max-md:max-w-full lg:mt-24">
-        {review.review_author}
-      </div>
-      <span className="flex items-center gap-3 self-start lg:mt-7">
-        {/* images go here */}
-        <CheckIcon />
-        <div className="text-md my-2 grow self-center whitespace-nowrap font-bold normal-case leading-3 text-zinc-900">
-          Yes, I would recommend.
-        </div>
-      </span>
-      {/* <div className="w-[512px] max-w-full mt-6 self-start">
-        <div className="gap-5 flex max-md:flex-col max-md:items-stretch max-md:gap-0">
-          <div className="flex flex-col items-stretch w-[33%] max-md:w-full max-md:ml-0">
-            <div className="flex-col overflow-hidden relative flex aspect-square justify-center items-center flex-1 max-md:mt-4">
-              images go here
-            </div>
-          </div>
-          <div className="flex flex-col items-stretch w-[33%] ml-5 max-md:w-full max-md:ml-0">
-            <div className="flex-col overflow-hidden relative flex aspect-square justify-center items-center flex-1 max-md:mt-4">
-              images go here
-            </div>
-          </div>
-          <div className="flex flex-col items-stretch w-[33%] ml-5 max-md:w-full max-md:ml-0">
-            <div className="flex-col overflow-hidden relative flex aspect-square justify-center items-center flex-1 max-md:mt-4">
-              images go here
-            </div>
-          </div>
-        </div>
-      </div> */}
-    </span>
-  );
-}
 
 function Video() {
   return (

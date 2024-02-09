@@ -1,10 +1,12 @@
 import { TReviewData } from '@/lib/db';
 import { Rating } from '@mui/material';
 import { CheckIcon } from './icons';
+// import HelpfulSection from './HelpfulSection';
+import ReviewCardImages from './ReviewCardImages';
 
 export default function ReviewCard({ review }: { review: TReviewData }) {
   return (
-    <span className="my-5 flex w-full flex-col items-stretch self-stretch rounded border border-solid border-stone-300 py-9 pl-10 pr-16 max-md:max-w-full max-md:px-5">
+    <section className="my-5 flex w-full flex-col items-stretch self-stretch rounded border border-solid border-stone-300 py-9 pl-10 pr-16 max-md:max-w-full max-md:px-5">
       <div className="text-xl font-bold normal-case text-neutral-700 max-md:max-w-full lg:text-3xl">
         {review.review_title
           ? review.review_title.charAt(0).toUpperCase() +
@@ -55,25 +57,8 @@ export default function ReviewCard({ review }: { review: TReviewData }) {
           Yes, I would recommend.
         </div>
       </span>
-      {/* <div className="w-[512px] max-w-full mt-6 self-start">
-            <div className="gap-5 flex max-md:flex-col max-md:items-stretch max-md:gap-0">
-              <div className="flex flex-col items-stretch w-[33%] max-md:w-full max-md:ml-0">
-                <div className="flex-col overflow-hidden relative flex aspect-square justify-center items-center flex-1 max-md:mt-4">
-                  images go here
-                </div>
-              </div>
-              <div className="flex flex-col items-stretch w-[33%] ml-5 max-md:w-full max-md:ml-0">
-                <div className="flex-col overflow-hidden relative flex aspect-square justify-center items-center flex-1 max-md:mt-4">
-                  images go here
-                </div>
-              </div>
-              <div className="flex flex-col items-stretch w-[33%] ml-5 max-md:w-full max-md:ml-0">
-                <div className="flex-col overflow-hidden relative flex aspect-square justify-center items-center flex-1 max-md:mt-4">
-                  images go here
-                </div>
-              </div>
-            </div>
-          </div> */}
-    </span>
+      <ReviewCardImages />
+      {/* <HelpfulSection /> */}
+    </section>
   );
 }
