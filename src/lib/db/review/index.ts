@@ -11,8 +11,6 @@ export type TProductReviewsQueryFilters = {
   year?: string;
   make?: string;
   model?: string;
-  submodel?: string;
-  submodel2?: string;
 };
 
 export type TProductReviewsQueryOptions = {
@@ -38,8 +36,6 @@ const ProductReviewsQueryFiltersSchema = z.object({
   year: z.string().optional(),
   make: z.string().optional(),
   model: z.string().optional(),
-  submodel: z.string().optional(),
-  submodel2: z.string().optional(),
 });
 
 const ProductReviewsQueryOptionsSchema = z.object({
@@ -59,8 +55,7 @@ export async function getProductReviewsByPage(
   try {
     const validatedFilters = ProductReviewsQueryFiltersSchema.parse(filters);
     const validatedOptions = ProductReviewsQueryOptionsSchema.parse(options);
-    const { productType, year, make, model, submodel, submodel2 } =
-      validatedFilters;
+    const { productType, year, make, model } = validatedFilters;
     const {
       pagination: { page, limit },
     } = validatedOptions;
@@ -83,17 +78,8 @@ export async function getProductReviewsByPage(
       fetch = fetch.textSearch('model', model);
     }
 
-    // Note: This is using the year generation from the url.
-    // It's possible there might be some other years overlapping and might need extra logic to find those
     if (year) {
-      fetch = fetch.eq('year_generation', year);
-    }
-
-    if (submodel) {
-      fetch = fetch.textSearch('submodel', submodel);
-    }
-    if (submodel2) {
-      fetch = fetch.textSearch('submodel2', submodel2);
+      fetch = fetch.eq('parent_generation', year);
     }
 
     const { data, error } = await fetch;
@@ -129,16 +115,13 @@ export async function getProductReviewSummary(
 ): Promise<TProductReviewSummary> {
   try {
     const validatedFilters = ProductReviewsQueryFiltersSchema.parse(filters);
-    const { productType, year, make, model, submodel, submodel2 } =
-      validatedFilters;
+    const { productType, year, make, model } = validatedFilters;
 
     const fetch = supabaseDatabaseClient.rpc('get_product_reviews_summary', {
       type: productType,
       make,
       model,
       year,
-      submodel,
-      submodel2,
     });
 
     const { data, error } = await fetch;

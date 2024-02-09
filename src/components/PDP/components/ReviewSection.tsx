@@ -20,10 +20,7 @@ const ReviewSection = () => {
     store,
     (s) => s.reviewDataSummary
   );
-  const { year, type, make, model, submodel, secondSubmodel } = useStore(
-    store,
-    (s) => s.query
-  );
+  const { year, type, make, model } = useStore(store, (s) => s.query);
   const isMobile = useMediaQuery('(max-width: 768px)');
 
   const [loading, setLoading] = useState(false);

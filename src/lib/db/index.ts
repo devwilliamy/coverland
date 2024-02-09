@@ -20,7 +20,7 @@ export type TInitialProductDataDB = Tables<'Products-2024'>;
 
 export type TCarDataMaster = Tables<'Car-Data-Master'>;
 
-export type TReviewData = Tables<'Mock-Data-Reviews'>;
+export type TReviewData = Tables<'reviews-2'>;
 
 export interface ProductJson {
   fk: number;
