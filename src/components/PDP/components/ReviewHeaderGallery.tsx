@@ -8,6 +8,7 @@ import Image, { StaticImageData } from 'next/image';
 import { getAllReviewsWithImages } from '@/lib/db/review';
 import { useStore } from 'zustand';
 import CustomerReviewTabs from './CustomerReviewTabs';
+import ReviewSheet from '../ReviewSheet';
 
 const exampleReviewArray = [1, 2, 3, 4, 5];
 
@@ -54,7 +55,6 @@ export default function ReviewHeaderGallery() {
     };
     getAllImages();
   }, []);
-
 
   return (
     <div className="flex flex-col items-center px-[]">
@@ -111,13 +111,20 @@ export default function ReviewHeaderGallery() {
 
 const SeeMoreImages = () => {
   return (
-    <Dialog>
-      <DialogTrigger className="underline">
-        See more <br /> review images
-      </DialogTrigger>
-      <DialogContent className="flex flex-col items-center lg:min-w-[77vw] lg:max-w-[1120px]">
-        <CustomerReviewTabs />
-      </DialogContent>
-    </Dialog>
+    <>
+      <div className="hidden lg:block">
+        <Dialog>
+          <DialogTrigger className="underline">
+            See more <br /> review images
+          </DialogTrigger>
+          <DialogContent className="flex flex-col items-center lg:min-w-[77vw] lg:max-w-[1120px]">
+            <CustomerReviewTabs />
+          </DialogContent>
+        </Dialog>
+      </div>
+      <div className="lg:hidden">
+        <ReviewSheet seeMore />
+      </div>
+    </>
   );
 };
