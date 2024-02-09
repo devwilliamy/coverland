@@ -5,8 +5,9 @@ import PlaceholderImage from '@/images/categories/carCoverImage.webp';
 function ReviewCardImages() {
   return (
     <span className="flex gap-2 overflow-x-auto">
-      {[...Array(10)].map((item) => (
+      {[...Array(10)].map((item,index) => (
         <Image
+          key={`review-card-image-${index}`}
           className="flex aspect-square h-[160px] w-[160px] items-center"
           alt="review-ard-image-alt"
           src={PlaceholderImage}
