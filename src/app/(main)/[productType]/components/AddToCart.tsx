@@ -3,13 +3,7 @@ import { Button } from '@/components/ui/button';
 import { useMediaQuery } from '@mantine/hooks';
 import { track } from '@vercel/analytics/react';
 import { SetStateAction, useContext, useEffect, useState } from 'react';
-import {
-  Drawer,
-  DrawerContent,
-  DrawerFooter,
-  DrawerHeader,
-  DrawerTitle,
-} from '@/components/ui/drawer';
+import { DrawerTitle } from '@/components/ui/drawer';
 import { useParams, useRouter } from 'next/navigation';
 import {
   TPathParams,
@@ -20,6 +14,14 @@ import { useStore } from 'zustand';
 import { CarSelectionContext } from './CarPDP';
 import { useCartContext } from '@/providers/CartProvider';
 import EditVehicleDropdown from '@/components/PDP/EditVehicleDropdown';
+import {
+  Sheet,
+  SheetClose,
+  SheetContent,
+  SheetFooter,
+  SheetHeader,
+} from '@/components/ui/sheet';
+import { X } from 'lucide-react';
 
 const getOffset = (
   element: HTMLElement | null | undefined
@@ -131,10 +133,12 @@ export default function AddToCart({
                 track('PDP_add_to_cart', {
                   sku: selectedProduct?.sku,
                 });
-              handleAddToCart();
-              isMobile ? router.push('/checkout') : setAddToCartOpen(true);
-
-              // setAddToCartOpen(true);
+              if (isComplete) {
+                handleAddToCart();
+                isMobile ? router.push('/checkout') : setAddToCartOpen(true);
+                return;
+              }
+              setSubmodelSelectionOpen((p) => !p);
             }}
           >
             Add To Cart
@@ -156,9 +160,11 @@ const AddToCartSelector = ({
   if (!store) throw new Error('Missing CarContext.Provider in the tree');
 
   const modelData = useStore(store, (s) => s.modelData);
+  const initialModelData = useStore(store, (s) => s.initialModelData);
   const queryState = useStore(store, (s) => s.query);
   const setQuery = useStore(store, (s) => s.setQuery);
   const selectedProduct = useStore(store, (s) => s.selectedProduct);
+
   const color = useStore(store, (s) => s.selectedColor);
 
   const router = useRouter();
@@ -179,25 +185,23 @@ const AddToCartSelector = ({
     uniqueSecondSubmodels,
     uniqueSubmodels,
     uniqueYears,
-  } = getUniqueValues({ data: modelData, queryState: queryState });
+  } = getUniqueValues({ data: initialModelData, queryState: queryState });
 
   const cartProduct = modelData.find((p) => p.display_color === color);
-  // console.log(cartProduct);
 
   const handleAddToCart = () => {
     if (!cartProduct) return;
-    // console.log(cartProduct);
     return addToCart({ ...cartProduct, quantity: 1 });
   };
 
-  // console.log(isComplete);
-
-  // console.log(queryState);
-
-  // console.log(uniqueYears);
-
   const TypeDropdown = () => {
     const typeOptions = ['Car Covers', 'SUV Covers', 'Truck Covers'];
+    const typeString =
+      queryState.type === 'car-covers'
+        ? typeOptions[0]
+        : queryState.type === 'suv-covers'
+          ? typeOptions[1]
+          : typeOptions[2];
 
     return (
       <div
@@ -209,7 +213,9 @@ const AddToCartSelector = ({
           className={`bg w-full bg-transparent outline-none `}
           disabled={!!queryState.type && !!params?.productType}
         >
-          <option value="">Product Type</option>
+          <option value="">
+            {!!queryState.type ? typeString : 'Product Type'}
+          </option>
 
           {typeOptions.map((type) => (
             <option key={type} value={type}>
@@ -262,6 +268,8 @@ const AddToCartSelector = ({
             setQuery({
               ...queryState,
               year: e.target.value,
+              submodel: '',
+              secondSubmodel: '',
             })
           }
         >
@@ -285,11 +293,14 @@ const AddToCartSelector = ({
         <select
           value={queryState.model}
           className={`bg w-full bg-transparent capitalize outline-none `}
-          disabled={!!params?.model || !queryState.year}
+          disabled={!!params?.model}
           onChange={(e) =>
             setQuery({
               ...queryState,
               model: e.target.value,
+              submodel: '',
+              secondSubmodel: '',
+              year: '',
             })
           }
         >
@@ -314,7 +325,9 @@ const AddToCartSelector = ({
         <select
           value={queryState.submodel}
           className={`bg w-full bg-transparent outline-none `}
-          onChange={(e) => setQuery({ submodel: e.target.value })}
+          onChange={(e) =>
+            setQuery({ submodel: e.target.value, secondSubmodel: '' })
+          }
         >
           <option value="">Submodel</option>
           {uniqueSubmodels.map((submodel) => (
@@ -334,7 +347,7 @@ const AddToCartSelector = ({
       <div
         className={`flex max-h-[44px] min-h-[44px] w-full items-center rounded-[4px] bg-white px-2 text-lg outline outline-1 outline-offset-1 outline-[#767676] md:max-h-[58px] lg:w-auto`}
       >
-        <div className=" ml-[10px] pr-[15px]">5</div>
+        <div className=" ml-[10px] pr-[15px]">6</div>
         <select
           value={queryState.secondSubmodel}
           className={`bg w-full bg-transparent outline-none `}
@@ -350,44 +363,53 @@ const AddToCartSelector = ({
       </div>
     );
   };
+  const wait = () => new Promise((resolve) => setTimeout(resolve, 350));
 
   return (
-    <Drawer
+    <Sheet
       open={submodelSelectionOpen}
       onOpenChange={(o) => setSubmodelSelectionOpen(o)}
     >
-      <DrawerContent className="h-[75vh] bg-neutral-800 pt-8">
-        <DrawerHeader>
+      <SheetContent
+        className="flex flex-col justify-center rounded-t-2xl  border border-neutral-800 bg-neutral-800 pt-8"
+        side="bottom"
+        onClick={(e) => e.stopPropagation()}
+      >
+        <SheetClose className="ml-auto mr-4 flex h-8 w-8 items-center justify-center rounded-full bg-neutral-400">
+          <X className="h-6 w-6 fill-neutral-800" />
+        </SheetClose>
+        <SheetHeader>
           <DrawerTitle className="my-4 text-center text-[22px] font-bold uppercase text-white">
             Complete Your Vehicle
           </DrawerTitle>
-        </DrawerHeader>
+        </SheetHeader>
         <div className="flex w-full flex-col gap-4 px-4">
           <TypeDropdown />
           <MakeDropdown />
-          <YearDropdown />
           <ModelDropdown />
-          {queryState.model && <SubmodelDropdown />}
-          {queryState.submodel && <SecondSubmodelDropdown />}
+          <YearDropdown />
+          {queryState.year && <SubmodelDropdown />}
+          {queryState.submodel && queryState && <SecondSubmodelDropdown />}
         </div>
-        <DrawerFooter className="bg-white">
-          <p className="text-right text-black">
+        <SheetFooter className="mt-auto flex flex-col gap-3 bg-white px-4 py-3">
+          <p className="text-right font-extrabold leading-4 text-black">
             Total: ${selectedProduct.msrp}
           </p>
           <Button
             onClick={() => {
               if (!isComplete) return;
               handleAddToCart();
-              setSubmodelSelectionOpen(false);
+              wait().then(() => setSubmodelSelectionOpen(false));
               router.push('/checkout');
             }}
             disabled={!isComplete}
+            className="w-full py-6 text-lg uppercase"
           >
             Add To Cart
           </Button>
-        </DrawerFooter>
-      </DrawerContent>
-    </Drawer>
+        </SheetFooter>
+      </SheetContent>
+    </Sheet>
   );
 };
 

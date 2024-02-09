@@ -115,7 +115,6 @@ export default function EditVehicleDropdown({
 
     // refreshRoute('/');
     router.push(url);
-    router.refresh();
     closePopover();
   };
 
