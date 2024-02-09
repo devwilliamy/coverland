@@ -3,12 +3,13 @@
 import { Separator } from '@/components/ui/separator';
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { TabsContent } from '@radix-ui/react-tabs';
-import Image, { StaticImageData } from 'next/image';
+import Image from 'next/image';
 import { useContext, useEffect, useState } from 'react';
 import ExampleImage from '@/images/solutions/waterproof-cover.webp';
 import ReviewCard from './ReviewCard';
 import {
   Carousel,
+  CarouselApi,
   CarouselContent,
   CarouselItem,
   CarouselNext,
@@ -16,8 +17,7 @@ import {
 } from '@/components/ui/carousel';
 import { useStore } from 'zustand';
 import { CarSelectionContext } from '@/app/(main)/[productType]/components/CarPDP';
-import { StaticImport } from 'next/dist/shared/lib/get-img-props';
-import { getAllReviewsWithImages } from '@/lib/db/review';
+import { getProductReviewsByPage } from '@/lib/db/review';
 // import { ArrowRight } from 'lucide-react';
 
 const CustomerReviewTabs = () => {
@@ -25,39 +25,62 @@ const CustomerReviewTabs = () => {
   const store = useContext(CarSelectionContext);
   if (!store) throw new Error('Missing CarContext.Provider in the tree');
   const reviewData = useStore(store, (s) => s.reviewData);
-  const [reviewImages, setReviewImages] = useState<
-    (string | StaticImageData | null)[]
-  >([]);
+  const setReviewData = useStore(store, (s) => s.setReviewData);
+  const reviewImages = useStore(store, (s) => s.reviewImages);
   const { year, type, make, model, submodel, secondSubmodel } = useStore(
     store,
     (s) => s.query
   );
-  const typeString =
-    type === 'car-covers'
-      ? 'Car Covers'
-      : type === 'suv-covers'
-        ? 'SUV Covers'
-        : 'Truck Covers';
+  const [loading, setLoading] = useState(false);
+  const [page, setPage] = useState(1); // Starting at 1 because we're already starting at 0
+  const limit = 4;
+  const isSuvTypeString = type === 'suv-covers' ? 'SUV Covers' : 'Truck Covers';
+  const typeString = type === 'car-covers' ? 'Car Covers' : isSuvTypeString;
+  const [api, setApi] = useState<CarouselApi>();
+  const [current, setCurrent] = useState(0);
+  const [count, setCount] = useState(0);
 
   useEffect(() => {
-    const getAllImages = async () => {
-      try {
-        console.log('Inside getAllImages', { year, type, make, model });
+    if (!api) {
+      return;
+    }
 
-        const newReviewData = await getAllReviewsWithImages({
+    setCount(api.scrollSnapList().length);
+    setCurrent(api.selectedScrollSnap() + 1);
+
+    api.on('select', () => {
+      setCurrent(api.selectedScrollSnap() + 1);
+    });
+  }, [reviewData]);
+
+  const handleViewMore = async () => {
+    try {
+      setLoading(true);
+      const newReviewData = await getProductReviewsByPage(
+        {
           productType: typeString,
           year,
           make,
           model,
-        });
+        },
+        {
+          pagination: {
+            page,
+            limit,
+          },
+        }
+      );
+      setReviewData([...reviewData, ...newReviewData]);
 
-        setReviewImages(newReviewData);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-    getAllImages();
-  }, []);
+      setPage((prevPage) => prevPage + 1);
+    } catch (error) {
+      console.error(error);
+    }
+    setLoading(false);
+  };
+
+  if (!reviewData) return null;
+
   return (
     <Tabs value={selectedTab} className="flex h-full w-full flex-col bg-white">
       <TabsList className="b-[-1px] mt-[65px] flex h-full w-full justify-start bg-transparent p-0 font-[400] shadow-none lg:mt-0 lg:gap-[56px]">
@@ -97,7 +120,7 @@ const CustomerReviewTabs = () => {
         </span>
       </TabsContent>
       <TabsContent value="customer-reviews" className="mt-[15px]">
-        <Carousel className="">
+        <Carousel setApi={setApi}>
           <CarouselContent>
             {reviewData?.map((review, index) => (
               <CarouselItem
@@ -122,8 +145,21 @@ const CustomerReviewTabs = () => {
               </CarouselItem>
             ))}
           </CarouselContent>
-          <CarouselPrevious className="-left-[16px] top-[40%] z-20 h-[32px] w-[32px] items-center justify-center rounded-full bg-black text-white lg:-left-[96px] lg:h-[48px] lg:w-[48px]" />
-          <CarouselNext className="-right-[16px] top-[40%] z-20 h-[32px] w-[32px] items-center justify-center rounded-full bg-black text-white lg:-right-[96px] lg:h-[48px] lg:w-[48px]" />
+          <CarouselPrevious
+            disabled={false}
+            className="-left-[16px] top-[40%] z-20 h-[32px] w-[32px] items-center justify-center rounded-full bg-black text-white lg:-left-[96px] lg:h-[48px] lg:w-[48px]"
+          />
+          <CarouselNext
+            onClick={() => {
+              if (api) {
+                api.scrollNext();
+                !api.canScrollNext() && handleViewMore();
+                !api.canScrollNext() && console.log(reviewData.length);
+              }
+            }}
+            disabled={false}
+            className="-right-[16px] top-[40%] z-20 h-[32px] w-[32px]  items-center justify-center rounded-full bg-black text-white lg:-right-[96px] lg:h-[48px] lg:w-[48px]"
+          />
         </Carousel>
       </TabsContent>
     </Tabs>

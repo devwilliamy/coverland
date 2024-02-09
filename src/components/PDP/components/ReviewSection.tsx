@@ -12,10 +12,12 @@ import { useMediaQuery } from '@mantine/hooks';
 import { AiOutlineLoading3Quarters } from 'react-icons/ai';
 
 const ReviewSection = () => {
+  const isMobile = useMediaQuery('(max-width: 768px)');
   const store = useContext(CarSelectionContext);
   if (!store) throw new Error('Missing CarContext.Provider in the tree');
   const reviewData = useStore(store, (s) => s.reviewData);
   const setReviewData = useStore(store, (s) => s.setReviewData);
+
   const { total_reviews, average_score } = useStore(
     store,
     (s) => s.reviewDataSummary
@@ -24,22 +26,17 @@ const ReviewSection = () => {
     store,
     (s) => s.query
   );
-  const isMobile = useMediaQuery('(max-width: 768px)');
 
   const [loading, setLoading] = useState(false);
   const [page, setPage] = useState(1); // Starting at 1 because we're already starting at 0
-  const limit = 4;
-
-  const typeString =
-    type === 'car-covers'
-      ? 'Car Covers'
-      : type === 'suv-covers'
-        ? 'SUV Covers'
-        : 'Truck Covers';
+  const limit = 8;
+  const isSuvTypeString = type === 'suv-covers' ? 'SUV Covers' : 'Truck Covers';
+  const typeString = type === 'car-covers' ? 'Car Covers' : isSuvTypeString;
 
   const handleViewMore = async () => {
     try {
       setLoading(true);
+      console.log('New Review Data');
       const newReviewData = await getProductReviewsByPage(
         {
           productType: typeString,
@@ -54,6 +51,8 @@ const ReviewSection = () => {
           },
         }
       );
+      console.log('Finished New Review Data');
+
       setReviewData([...reviewData, ...newReviewData]);
       setPage((prevPage) => prevPage + 1);
     } catch (error) {

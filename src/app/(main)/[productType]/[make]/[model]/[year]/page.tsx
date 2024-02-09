@@ -5,19 +5,10 @@ import CarPDP from '@/app/(main)/[productType]/components/CarPDP';
 import { TPathParams } from '@/app/(main)/utils';
 import {
   TProductReviewSummary,
+  getAllReviewsWithImages,
   getProductReviewSummary,
   getProductReviewsByPage,
 } from '@/lib/db/review';
-
-export type TGenerationData = {
-  generation: number;
-  year_generation: string;
-  make: string;
-  model: string;
-  submodel1: string | null;
-  submodel2: string | null;
-  year_options: string;
-};
 
 export default async function CarPDPDataLayer({
   params,
@@ -31,6 +22,7 @@ export default async function CarPDPDataLayer({
     total_reviews: 0,
     average_score: 0,
   };
+
 
   try {
     [modelData, reviewData, reviewDataSummary] = await Promise.all([

@@ -15,16 +15,6 @@ export type TCarCoverSlugParams = {
   productType: string;
 };
 
-export type TGenerationData = {
-  generation: number;
-  year_generation: string;
-  make: string;
-  model: string;
-  submodel1: string | null;
-  submodel2: string | null;
-  year_options: string;
-};
-
 export default async function CarPDPDataLayer({
   params,
 }: {

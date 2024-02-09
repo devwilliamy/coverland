@@ -2,7 +2,13 @@ import { TReviewData } from '@/lib/db';
 import { Rating } from '@mui/material';
 import { CheckIcon } from './icons';
 
-export default function ReviewCard({ review }: { review: TReviewData }) {
+export default function ReviewCard({
+  review,
+  
+}: {
+  review: TReviewData;
+
+}) {
   return (
     <div
       className={`relative flex h-full w-full min-w-[100%] flex-col rounded border border-solid border-stone-300 py-9 pl-10 pr-16 max-md:max-w-full max-md:px-5 `}

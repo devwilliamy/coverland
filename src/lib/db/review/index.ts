@@ -97,10 +97,9 @@ export async function getProductReviewsByPage(
     if (submodel2) {
       fetch = fetch.textSearch('submodel2', submodel2);
     }
-
+    console.log('Before the fetch');
     const { data, error } = await fetch;
-    // console.log('getProductReviewsByPage:', { data, validatedFilters });
-
+    console.log('After the fetch');
     if (error) {
       console.error(error);
       return [];
@@ -140,8 +139,6 @@ export async function getAllReviewsWithImages(
       fetch = fetch.textSearch('model', model);
     }
 
-    // Note: This is using the year generation from the url.
-    // It's possible there might be some other years overlapping and might need extra logic to find those
     if (year) {
       fetch = fetch.eq('year_generation', year);
     }

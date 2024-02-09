@@ -28,6 +28,7 @@ interface ICarCoverProps {
   selectedProduct: IProductData;
   reviewData: TReviewData[];
   reviewDataSummary: TProductReviewSummary;
+  reviewImages: any[];
 }
 
 interface ICarCoverSelectionState extends ICarCoverProps {
@@ -50,12 +51,14 @@ const createCarSelectionStore = ({
   queryParams,
   initialReviewData,
   initialReviewDataSummary,
+  initialReviewImages,
 }: {
   initialModelData: IProductData[];
   params: TPathParams;
   queryParams: TQueryParams;
   initialReviewData: TReviewData[];
   initialReviewDataSummary: TProductReviewSummary;
+  initialReviewImages: any[];
 }) => {
   const hasNoSubmodels = initialModelData.every(
     (model) => !model.submodel1 && !model.submodel2
@@ -90,6 +93,7 @@ const createCarSelectionStore = ({
     selectedProduct: initialDataWithSecondSubmodels[0],
     featuredImage: initialDataWithSecondSubmodels[0].mainImage,
     selectedColor: initialDataWithSecondSubmodels[0]?.display_color ?? '',
+    reviewImages: initialReviewImages,
     setSelectedProduct: (newProduct: IProductData) => {
       set(() => ({
         selectedProduct: newProduct,
@@ -165,6 +169,10 @@ const createCarSelectionStore = ({
     setReviewDataSummary: (newReviewDataSummary: TProductReviewSummary) => {
       set(() => ({ reviewDataSummary: newReviewDataSummary }));
     },
+    setReviewImages: (newReviewImages: []) => {
+      // SET EXPLICIT TYPE
+      set(() => ({ reviewImages: newReviewImages }));
+    },
   }));
 };
 
@@ -178,11 +186,13 @@ export default function CarPDP({
   modelData: modelDataProps,
   reviewData,
   reviewDataSummary,
+  reviewImages,
 }: {
   modelData: TInitialProductDataDB[];
   reviewData: TReviewData[] | null;
   params: TPathParams;
   reviewDataSummary: TProductReviewSummary;
+  reviewImages: any[];
 }) {
   const pathParams = useParams<{
     year?: string;
@@ -212,14 +222,13 @@ export default function CarPDP({
       initialModelData: modelData,
       initialReviewData: reviewData as TReviewData[],
       initialReviewDataSummary: reviewDataSummary,
+      initialReviewImages: reviewImages,
     })
   ).current;
 
   return (
-    <>
-      <CarSelectionContext.Provider value={store}>
-        <CarCoverSelector />
-      </CarSelectionContext.Provider>
-    </>
+    <CarSelectionContext.Provider value={store}>
+      <CarCoverSelector />
+    </CarSelectionContext.Provider>
   );
 }
