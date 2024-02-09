@@ -88,7 +88,7 @@ const createCarSelectionStore = ({
       secondSubmodel: queryParams?.secondSubmodel ?? '',
     },
     selectedProduct: initialDataWithSecondSubmodels[0],
-    featuredImage: initialDataWithSecondSubmodels[0].mainImage,
+    featuredImage: initialDataWithSecondSubmodels[0]?.mainImage,
     selectedColor: initialDataWithSecondSubmodels[0]?.display_color ?? '',
     setSelectedProduct: (newProduct: IProductData) => {
       set(() => ({

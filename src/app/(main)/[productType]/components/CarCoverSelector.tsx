@@ -51,7 +51,7 @@ export function CarCoverSelector() {
       ?.split(',')
       .filter((img) => img !== featuredImage) ?? [];
 
-  const productName = modelData[0].fullProductName;
+  const productName = modelData[0]?.fullProductName;
 
   return (
     <>

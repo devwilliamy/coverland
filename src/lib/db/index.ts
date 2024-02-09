@@ -93,35 +93,6 @@ export async function fetchGenerationReviewData(fk: string) {
   return data;
 }
 
-export async function getReviewData({
-  year,
-  make,
-  model,
-}: {
-  year?: string;
-  make?: string;
-  model?: string;
-}) {
-  let fetch = supabase.from('Product-Reviews').select('*');
-
-  if (make) {
-    fetch = fetch.textSearch('make', make);
-  }
-
-  if (model) {
-    fetch = fetch.textSearch('model', model);
-  }
-
-  const { data, error } = await fetch;
-
-  if (year) {
-  }
-  if (error) {
-    console.log(error);
-  }
-  return data;
-}
-
 export async function getProductData({
   year,
   make,

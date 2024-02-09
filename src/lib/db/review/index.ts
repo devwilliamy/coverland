@@ -4,7 +4,7 @@ import { ZodError, z } from 'zod';
 import { getPagination } from '../utils';
 import { Tables } from '../types';
 
-export type TReviewData = Tables<'Mock-Data-Reviews'>;
+export type TReviewData = Tables<'reviews-2'>;
 
 export type TProductReviewsQueryFilters = {
   productType?: 'Car Covers' | 'SUV Covers' | 'Truck Covers';
@@ -97,7 +97,10 @@ export async function getProductReviewsByPage(
     }
 
     const { data, error } = await fetch;
-    console.log('getProductReviewsByPage:', { data, validatedFilters });
+    console.log('getProductReviewsByPage:', {
+      data: data?.slice(0, 3),
+      validatedFilters,
+    });
 
     if (error) {
       console.error(error);
@@ -155,5 +158,39 @@ export async function getProductReviewSummary(
     }
     console.error(error);
     return { total_reviews: 0, average_score: 0 };
+  }
+}
+
+export async function getProductReviewData(
+  filters: TProductReviewsQueryFilters
+): Promise<TReviewData[]> {
+  try {
+    const validatedFilters = ProductReviewsQueryFiltersSchema.parse(filters);
+    const { year, make, model } = validatedFilters;
+
+    let fetch = supabaseDatabaseClient.from(PRODUCT_REVIEWS_TABLE).select('*');
+
+    if (make) {
+      fetch = fetch.textSearch('make', make);
+    }
+
+    if (model) {
+      fetch = fetch.textSearch('model', model);
+    }
+
+    const { data, error } = await fetch;
+
+    if (year) {
+    }
+    if (error) {
+      console.log(error);
+    }
+    return data || [];
+  } catch (error) {
+    if (error instanceof ZodError) {
+      console.log('ZodError:', error);
+    }
+    console.error(error);
+    return [];
   }
 }
