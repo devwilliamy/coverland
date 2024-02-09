@@ -1,4 +1,4 @@
-import { DEFAULT_PRODUCT_IMAGES, colorOrder } from '@/lib/constants';
+import { colorOrder } from '@/lib/constants';
 import { compareRawStrings } from '@/lib/utils';
 import { TInitialProductDataDB } from '@/lib/db';
 import { TQuery } from '../[productType]/components/CarPDP';
@@ -87,6 +87,9 @@ export function modelDataTransformer({
   const filteredAndSortedData = finalFilteredData
     ?.filter((product) => product.msrp && product.price)
     .sort((a, b) => {
+      const yearMatchA = a.year_generation === params.year ? 0 : 1;
+      const yearMatchB = b.year_generation === params.year ? 0 : 1;
+      if (yearMatchA !== yearMatchB) return yearMatchA - yearMatchB;
       let colorIndexA = colorOrder.indexOf(
         a?.display_color as (typeof colorOrder)[number]
       );
@@ -119,16 +122,9 @@ function generatePDPContent({
 }): IProductData[] {
   const { productType, make, model, year } = params;
   const { submodel, secondSubmodel } = queryParams;
-  const defaultImages =
-    productType === 'car-covers'
-      ? DEFAULT_PRODUCT_IMAGES.carImages
-      : productType === 'suv-covers'
-        ? DEFAULT_PRODUCT_IMAGES.suvImages
-        : DEFAULT_PRODUCT_IMAGES.truckImages;
 
   return data.map((item) => {
     let fullProductName = '';
-    const coverColor = item.display_color as (typeof colorOrder)[number];
     let mainImage = '';
     let productImages: string | string[] = '';
 
@@ -143,20 +139,20 @@ function generatePDPContent({
       productImages = item.product as string;
     } else if (!year && make && model) {
       fullProductName = `${item.make} ${item.model}`;
-      mainImage = defaultImages[coverColor]?.[0] as string;
-      productImages = defaultImages[coverColor]?.slice(1) as string[];
+      mainImage = item.feature as string;
+      productImages = item.product as string;
     } else if (!model && make && !year && item.make) {
       fullProductName = `${item.make} ${item.type}`;
-      mainImage = defaultImages[coverColor]?.[0] as string;
-      productImages = defaultImages[coverColor]?.slice(1) as string[];
+      mainImage = item.product?.split(',')[1] as string;
+      productImages = item.product as string;
     } else if (!make && !model && !year && item.type) {
       fullProductName = item.type;
-      mainImage = defaultImages[coverColor]?.[0] as string;
-      productImages = defaultImages[coverColor]?.slice(1) as string[];
+      mainImage = item.feature as string;
+      productImages = item.product as string;
     } else {
       fullProductName = item.type as string;
-      mainImage = defaultImages[coverColor]?.[0] as string;
-      productImages = defaultImages[coverColor]?.slice(1) as string[];
+      mainImage = item.feature as string;
+      productImages = item.product as string;
     }
 
     return {
