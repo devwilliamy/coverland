@@ -31,11 +31,11 @@ function Header() {
             <Cart />
           </div>
         </section>
-        <section className="flex w-full items-center gap-[35px] px-[70px] py-[18px] text-[17px] font-[700] leading-[100%]">
+        <section className="flex w-full items-center gap-[35px] px-16 py-[18px] text-[17px] font-[700] leading-[100%]">
           {coverTypes.map(({ title, link }) => (
-            <a href={link}>
-              <div className="">{title}</div>
-            </a>
+            <Link href={link} key={link}>
+              {title}
+            </Link>
           ))}
         </section>
         <section className="min-h-[7px] w-full bg-black" />

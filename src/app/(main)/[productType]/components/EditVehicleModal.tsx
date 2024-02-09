@@ -24,7 +24,7 @@ export function EditVehicleModal({
 
   return (
     <div className="hidden lg:block">
-      <h2 className="my-[15px]  font-[900] leading-[30px] md:text-[28px]">
+      <h2 className="my-[15px]  font-[900] capitalize leading-[30px] md:text-[28px]">
         {selectedProduct.fullProductName}
       </h2>
       <div className="flex items-center gap-2">

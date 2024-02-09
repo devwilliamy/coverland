@@ -10,7 +10,7 @@ const nextConfig = {
       },
       {
         protocol: 'https',
-        hostname: 'coverland.com/**',
+        hostname: '**.coverland.com/**',
       },
     ],
   },
