@@ -57,7 +57,7 @@ export default async function CarPDPDataLayer({
         {
           pagination: {
             page: 0,
-            limit: 4,
+            limit: 8,
           },
         }
       ),

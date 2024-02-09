@@ -24,12 +24,13 @@ export default function ReviewCard({ review }: { review: TReviewData }) {
         />
       </div>
       <div className="text-sm font-light normal-case text-neutral-500">
-        Purchased on{' '}
-        {new Date(review?.reviewed_at ?? '').toLocaleDateString('en-US', {
+        {review?.reviewed_at &&
+          `Purchased on
+        ${new Date(review?.reviewed_at ?? '').toLocaleDateString('en-US', {
           month: 'long',
           day: 'numeric',
           year: 'numeric',
-        })}
+        })}`}
       </div>
       <div className="mt-5 flex w-[216px] max-w-full items-stretch gap-1 self-start">
         {/* images go here */}
@@ -39,12 +40,13 @@ export default function ReviewCard({ review }: { review: TReviewData }) {
           {review.review_description}
         </div>
         <div className="hidden text-lg font-light normal-case text-neutral-500 lg:block">
-          Purchased on{' '}
-          {new Date(review?.reviewed_at ?? '').toLocaleDateString('en-US', {
-            month: 'long',
-            day: 'numeric',
-            year: 'numeric',
-          })}
+          {review?.reviewed_at &&
+            `Purchased on
+        ${new Date(review?.reviewed_at ?? '').toLocaleDateString('en-US', {
+          month: 'long',
+          day: 'numeric',
+          year: 'numeric',
+        })}`}
         </div>
       </div>
       <div className="overflow-hidden text-ellipsis whitespace-nowrap text-base font-normal normal-case leading-8 text-[#1A1A1A] max-md:mt-10 max-md:max-w-full lg:mt-24">
@@ -57,6 +59,9 @@ export default function ReviewCard({ review }: { review: TReviewData }) {
           Yes, I would recommend.
         </div>
       </span>
+      <div className="text-md my-2 grow self-center whitespace-nowrap font-bold normal-case leading-3 text-zinc-900">
+        {review.helpful} people found this helpful
+      </div>
       {/* <div className="w-[512px] max-w-full mt-6 self-start">
             <div className="gap-5 flex max-md:flex-col max-md:items-stretch max-md:gap-0">
               <div className="flex flex-col items-stretch w-[33%] max-md:w-full max-md:ml-0">

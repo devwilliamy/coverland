@@ -18,6 +18,10 @@ export type TProductReviewsQueryOptions = {
     page?: number;
     limit?: number;
   };
+  sort?: {
+    field: string;
+    order: 'asc' | 'desc';
+  };
 };
 
 export type TProductReviewSummary = {
@@ -42,10 +46,17 @@ const ProductReviewsQueryOptionsSchema = z.object({
   pagination: z
     .object({
       page: z.number().optional().default(1),
-      limit: z.number().optional().default(10),
+      limit: z.number().optional().default(8),
     })
     .optional()
-    .default({ page: 1, limit: 10 }),
+    .default({ page: 1, limit: 8 }),
+  sort: z
+    .object({
+      field: z.string().default('helpful'),
+      order: z.enum(['asc', 'desc']).default('desc'),
+    })
+    .optional()
+    .default({ field: 'helpful', order: 'desc' }), // Sets the default sort object
 });
 
 export async function getProductReviewsByPage(
@@ -58,6 +69,7 @@ export async function getProductReviewsByPage(
     const { productType, year, make, model } = validatedFilters;
     const {
       pagination: { page, limit },
+      sort,
     } = validatedOptions;
     const { from, to } = getPagination(page, limit);
 
@@ -80,6 +92,12 @@ export async function getProductReviewsByPage(
 
     if (year) {
       fetch = fetch.eq('parent_generation', year);
+      console.log('Checking Year:', year);
+    }
+
+    if (sort && sort.field) {
+      console.log('Sort:', sort);
+      fetch = fetch.order(sort.field, { ascending: sort.order === 'asc' });
     }
 
     const { data, error } = await fetch;
