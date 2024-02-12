@@ -1,6 +1,8 @@
 import { TReviewData } from '@/lib/db';
 import { Rating } from '@mui/material';
 import { CheckIcon } from './icons';
+// import HelpfulSection from './HelpfulSection';
+import ReviewCardImages from './ReviewCardImages';
 
 export default function ReviewCard({ review }: { review: TReviewData }) {
   return (
@@ -81,6 +83,8 @@ export default function ReviewCard({ review }: { review: TReviewData }) {
               </div>
             </div>
           </div> */}
+      <ReviewCardImages />
+      {/* <HelpfulSection /> */}
     </div>
   );
 }

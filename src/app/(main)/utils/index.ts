@@ -87,6 +87,9 @@ export function modelDataTransformer({
   const filteredAndSortedData = finalFilteredData
     ?.filter((product) => product.msrp && product.price)
     .sort((a, b) => {
+      const yearMatchA = a.year_generation === params.year ? 0 : 1;
+      const yearMatchB = b.year_generation === params.year ? 0 : 1;
+      if (yearMatchA !== yearMatchB) return yearMatchA - yearMatchB;
       let colorIndexA = colorOrder.indexOf(
         a?.display_color as (typeof colorOrder)[number]
       );
@@ -130,17 +133,17 @@ function generatePDPContent({
     let fullProductName = '';
     const coverColor = item.display_color as (typeof colorOrder)[number];
     let mainImage = '';
-    let productImages: string | string[] = '';
+    let productImages: string[];
 
     if (submodel || secondSubmodel) {
       fullProductName =
         `${item.year_generation ?? ''} ${item.make ?? ''} ${item.model ?? ''} ${submodel ?? ''} ${secondSubmodel ?? ''}`.trim();
       mainImage = item.feature as string;
-      productImages = item.product as string;
+      productImages = item?.product?.split(',') as string[];
     } else if (productType && make && model && year) {
       fullProductName = `${item.parent_generation} ${item.make} ${item.model}`;
       mainImage = item.feature as string;
-      productImages = item.product as string;
+      productImages = item?.product?.split(',') as string[];
     } else if (!year && make && model) {
       fullProductName = `${item.make} ${item.model}`;
       mainImage = defaultImages[coverColor]?.[0] as string;

@@ -104,7 +104,7 @@ export async function getProductData({
   model?: string;
   type?: string;
 }) {
-  let fetch = supabase.from('Products-2024').select('*');
+  let fetch = supabase.from('Products-2024-2').select('*');
 
   if (type) {
     fetch = fetch.eq('type', type);

@@ -92,19 +92,19 @@ export async function getProductReviewsByPage(
 
     if (year) {
       fetch = fetch.eq('parent_generation', year);
-      console.log('Checking Year:', year);
+      // console.log('Checking Year:', year);
     }
 
     if (sort && sort.field) {
-      console.log('Sort:', sort);
+      // console.log('Sort:', sort);
       fetch = fetch.order(sort.field, { ascending: sort.order === 'asc' });
     }
 
     const { data, error } = await fetch;
-    console.log('getProductReviewsByPage:', {
-      data: data?.slice(0, 3),
-      validatedFilters,
-    });
+    // console.log('getProductReviewsByPage:', {
+    //   data: data?.slice(0, 3),
+    //   validatedFilters,
+    // });
 
     if (error) {
       console.error(error);
@@ -143,7 +143,7 @@ export async function getProductReviewSummary(
     });
 
     const { data, error } = await fetch;
-    console.log('GetProductReviewSummary:', { data, validatedFilters });
+
     if (error) {
       console.error(error);
       return { total_reviews: 0, average_score: 0 };
