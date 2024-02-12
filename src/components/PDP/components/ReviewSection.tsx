@@ -14,16 +14,14 @@ import { AiOutlineLoading3Quarters } from 'react-icons/ai';
 const ReviewSection = () => {
   const store = useContext(CarSelectionContext);
   if (!store) throw new Error('Missing CarContext.Provider in the tree');
-  const selectedProduct = useStore(store, (s) => s.selectedProduct);
   const reviewData = useStore(store, (s) => s.reviewData);
   const setReviewData = useStore(store, (s) => s.setReviewData);
   const { total_reviews, average_score } = useStore(
     store,
     (s) => s.reviewDataSummary
   );
-  const { year, type, make, model } = useStore(store, (s) => s.query);
-  const parentGenerationYear =
-    type && make && model ? selectedProduct.parent_generation : year;
+  const { type, make, model } = useStore(store, (s) => s.query);
+  const year = useStore(store, (s) => s.paramsYear);
   const isMobile = useMediaQuery('(max-width: 768px)');
 
   const [loading, setLoading] = useState(false);
@@ -48,7 +46,7 @@ const ReviewSection = () => {
       const newReviewData = await getProductReviewsByPage(
         {
           productType: typeString,
-          year: parentGenerationYear as string,
+          year,
           make,
           model,
         },
@@ -97,7 +95,7 @@ const ReviewSection = () => {
       const newReviewData = await getProductReviewsByPage(
         {
           productType: typeString,
-          year: parentGenerationYear as string,
+          year,
           make,
           model,
         },
@@ -168,7 +166,7 @@ const ReviewSection = () => {
           ? await getProductReviewsByPage(
               {
                 productType: typeString,
-                year: parentGenerationYear as string,
+                year,
                 make,
                 model,
               },
@@ -186,7 +184,7 @@ const ReviewSection = () => {
           : await getProductReviewsByPage(
               {
                 productType: typeString,
-                year: parentGenerationYear as string,
+                year,
                 make,
                 model,
               },
