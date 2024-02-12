@@ -18,7 +18,8 @@ import {
 import { useStore } from 'zustand';
 import { CarSelectionContext } from '@/app/(main)/[productType]/components/CarPDP';
 import { getProductReviewsByPage } from '@/lib/db/review';
-// import { ArrowRight } from 'lucide-react';
+import { AiOutlineLoading3Quarters } from 'react-icons/ai';
+import { ChevronRight } from 'lucide-react';
 
 const CustomerReviewTabs = () => {
   const [selectedTab, setSelectedTab] = useState('customer-images');
@@ -50,8 +51,10 @@ const CustomerReviewTabs = () => {
 
     api.on('select', () => {
       setCurrent(api.selectedScrollSnap() + 1);
+      !api.canScrollNext() && handleViewMore();
     });
-  }, [reviewData]);
+
+  }, [api, reviewData]);
 
   const handleViewMore = async () => {
     try {
@@ -82,7 +85,7 @@ const CustomerReviewTabs = () => {
   if (!reviewData) return null;
 
   return (
-    <Tabs value={selectedTab} className="flex h-full w-full flex-col bg-white">
+    <Tabs value={selectedTab} className="flex h-full w-full flex-col bg-white ">
       <TabsList className="b-[-1px] mt-[65px] flex h-full w-full justify-start bg-transparent p-0 font-[400] shadow-none lg:mt-0 lg:gap-[56px]">
         <TabsTrigger
           value="customer-images"
@@ -125,21 +128,23 @@ const CustomerReviewTabs = () => {
             {reviewData?.map((review, index) => (
               <CarouselItem
                 key={`carousel-item-${index}`}
-                className="flex w-full flex-col items-start lg:flex-row lg:gap-2"
+                className="flex w-full flex-col items-start  lg:flex-row lg:gap-2"
               >
-                <Image
-                  id={`customer-review-image-${index}`}
-                  alt={`customer-review-image-${index}`}
-                  width={109}
-                  height={109}
-                  src={
-                    review.review_image
-                      ? review.review_image?.split(',')[0]
-                      : ExampleImage
-                  }
-                  className="hidden aspect-square lg:flex lg:w-1/2 "
-                />
-                <div className="flex h-full min-h-[65vh] w-full flex-col justify-center lg:min-h-0 lg:w-1/2">
+                {review?.review_image && (
+                  <Image
+                    id={`customer-review-image-${index}`}
+                    alt={`customer-review-image-${index}`}
+                    width={109}
+                    height={109}
+                    src={
+                      review.review_image
+                        ? review.review_image?.split(',')[0]
+                        : ExampleImage
+                    }
+                    className="hidden aspect-square lg:flex lg:w-1/2 "
+                  />
+                )}
+                <div className="flex h-full min-h-[60vh] w-full flex-col justify-center  lg:min-h-[100%] lg:w-1/2">
                   <ReviewCard review={review} />
                 </div>
               </CarouselItem>
@@ -150,16 +155,15 @@ const CustomerReviewTabs = () => {
             className="-left-[16px] top-[40%] z-20 h-[32px] w-[32px] items-center justify-center rounded-full bg-black text-white lg:-left-[96px] lg:h-[48px] lg:w-[48px]"
           />
           <CarouselNext
-            onClick={() => {
-              if (api) {
-                api.scrollNext();
-                !api.canScrollNext() && handleViewMore();
-                !api.canScrollNext() && console.log(reviewData.length);
-              }
-            }}
             disabled={false}
             className="-right-[16px] top-[40%] z-20 h-[32px] w-[32px]  items-center justify-center rounded-full bg-black text-white lg:-right-[96px] lg:h-[48px] lg:w-[48px]"
-          />
+          >
+            {loading ? (
+              <AiOutlineLoading3Quarters className="animate-spin" />
+            ) : (
+              <ChevronRight className="h-3/4 w-3/4" />
+            )}
+          </CarouselNext>
         </Carousel>
       </TabsContent>
     </Tabs>

@@ -58,6 +58,7 @@ export async function getProductReviewsByPage(
   filters: TProductReviewsQueryFilters,
   options: TProductReviewsQueryOptions
 ): Promise<TReviewData[]> {
+  console.log('running fetch');
   try {
     const validatedFilters = ProductReviewsQueryFiltersSchema.parse(filters);
     const validatedOptions = ProductReviewsQueryOptionsSchema.parse(options);
@@ -99,7 +100,7 @@ export async function getProductReviewsByPage(
     }
     console.log('Before the fetch');
     const { data, error } = await fetch;
-    console.log('After the fetch');
+    console.log('After the fetch', data?.length);
     if (error) {
       console.error(error);
       return [];
@@ -111,6 +112,7 @@ export async function getProductReviewsByPage(
       console.log('ZodError:', error);
     }
     console.error(error);
+    console.log('EROROROR')
     return [];
   }
 }

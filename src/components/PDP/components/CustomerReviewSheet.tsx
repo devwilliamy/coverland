@@ -7,12 +7,12 @@ import {
   SheetTrigger,
 } from '@/components/ui/sheet';
 import { IoClose } from 'react-icons/io5';
-import CustomerReviewTabs from './components/CustomerReviewTabs';
 import { useContext, useState } from 'react';
 import { useStore } from 'zustand';
 import { CarSelectionContext } from '@/app/(main)/[productType]/components/CarPDP';
+import CustomerReviewTabs from './CustomerReviewTabs';
 
-export default function ReviewSheet({ seeMore }: { seeMore?: boolean }) {
+export default function CustomerReviewSheet() {
   const [reviewSheetOpen, setReviewSheetOpen] = useState<boolean>(false);
 
   const store = useContext(CarSelectionContext);
@@ -21,17 +21,8 @@ export default function ReviewSheet({ seeMore }: { seeMore?: boolean }) {
 
   return (
     <Sheet open={reviewSheetOpen} onOpenChange={setReviewSheetOpen}>
-      <SheetTrigger
-        className={`ml-2 ${seeMore ?  '' : 'text-blue-400' } underline`}
-        disabled={!total_reviews}
-      >
-        {seeMore ? (
-          <p>
-            See more <br /> review images
-          </p>
-        ):(
-          (total_reviews || '2') + ' ratings'
-        ) }
+      <SheetTrigger className={`ml-2  underline`} disabled={!total_reviews}>
+        See more <br /> review images
       </SheetTrigger>
       <SheetContent className="rounded-t-[10px] px-[2px]" side="bottom">
         <SheetHeader draggable={false}>
@@ -49,7 +40,13 @@ export default function ReviewSheet({ seeMore }: { seeMore?: boolean }) {
             </SheetClose>
           </SheetTitle>
         </SheetHeader>
-        <div className="mx-auto flex max-h-[76vh] min-h-[76vh] w-full flex-col px-4 ">
+        <div className="mx-auto flex max-h-[76vh] min-h-[76vh] w-full flex-col overflow-y-auto px-4">
+          <p
+            className="mt-[58px] text-center text-xl font-black uppercase text-black"
+            id="reviews"
+          >
+            Car Cover Reviews
+          </p>
           <CustomerReviewTabs />
         </div>
       </SheetContent>

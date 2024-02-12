@@ -26,6 +26,7 @@ const ReviewSection = () => {
     store,
     (s) => s.query
   );
+  console.log('total reviews: ' + reviewData.length);
 
   const [loading, setLoading] = useState(false);
   const [page, setPage] = useState(1); // Starting at 1 because we're already starting at 0
@@ -64,7 +65,7 @@ const ReviewSection = () => {
   if (!reviewData) return null;
 
   return (
-    <div className="relative lg:py-2">
+    <div className="relative mb-[56px] lg:mb-0 lg:py-2">
       {isMobile ? null : (
         <p
           className="mb-5 hidden text-center text-xl font-black uppercase text-black md:text-3xl lg:mb-20 lg:block lg:text-[42px]"
@@ -132,7 +133,6 @@ const ReviewSection = () => {
           <button
             className="my-4 max-w-[160px] items-stretch justify-center whitespace-nowrap rounded-full border border-solid border-black bg-white px-8 py-3.5 font-black leading-4 tracking-wide text-black transition-colors duration-150 hover:bg-black hover:text-white"
             aria-label="View more"
-            role="button"
             onClick={() => handleViewMore()}
           >
             {loading ? (

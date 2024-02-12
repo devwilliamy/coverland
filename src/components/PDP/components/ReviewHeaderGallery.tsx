@@ -7,7 +7,7 @@ import ExampleCustomerImage from '@/images/PDP/product_details_01.webp';
 import Image from 'next/image';
 import { useStore } from 'zustand';
 import CustomerReviewTabs from './CustomerReviewTabs';
-import ReviewSheet from '../ReviewSheet';
+import CustomerReviewSheet from './CustomerReviewSheet';
 
 export default function ReviewHeaderGallery() {
   const store = useContext(CarSelectionContext);
@@ -17,25 +17,23 @@ export default function ReviewHeaderGallery() {
   return (
     <div className="flex flex-col items-center px-[]">
       {reviewImages && (
-        <div className=" flex items-center justify-center py-[10px] text-[14px] font-[400] normal-case leading-[24px] text-[#767676]">
+        <div className=" flex items-center justify-center py-[10px] text-[14px] font-[400] normal-case leading-[24px] text-[#767676] lg:pb-[14px]  lg:pt-[70px]">
           {reviewImages.length} Review Images
         </div>
       )}
       {/* Mobile Header Images */}
       <section className="grid aspect-square h-full w-full grid-cols-2 items-center gap-[7px] lg:hidden">
-        {reviewImages?.map((image, index) => {
-          if (index <= 2) {
-            return (
-              <Image
-                key={`review-header-image-${index}`}
-                src={image ? image : ExampleCustomerImage}
-                alt="Car Cover Review Image"
-                width={500}
-                height={500}
-                className="h-full w-full items-center justify-center object-cover"
-              />
-            );
-          }
+        {reviewImages?.slice(0, 3).map((image, index) => {
+          return (
+            <Image
+              key={`review-header-image-${index}`}
+              src={image ? image : ExampleCustomerImage}
+              alt="Car Cover Review Image"
+              width={207}
+              height={207}
+              className=" aspect-square  h-full w-full items-center justify-center object-cover lg:max-w-[207px]"
+            />
+          );
         })}
         {reviewImages?.length > 0 ? (
           <div className="flex h-full w-full items-center justify-center border border-black">
@@ -49,19 +47,17 @@ export default function ReviewHeaderGallery() {
       </section>
       {/* Desktop Header Images */}
       <section className="hidden max-h-fit w-full items-center gap-[7px] lg:grid lg:max-h-[207px] lg:grid-cols-6">
-        {reviewImages?.map((image, index) => {
-          if (index <= 4) {
-            return (
-              <Image
-                key={`review-header-image-${index}`}
-                src={image ? image : ExampleCustomerImage}
-                alt="Car Cover Review Image"
-                width={207}
-                height={207}
-                className=" aspect-square  h-full w-full items-center justify-center object-cover lg:max-w-[207px]"
-              />
-            );
-          }
+        {reviewImages?.slice(0, 5).map((image, index) => {
+          return (
+            <Image
+              key={`review-header-image-${index}`}
+              src={image ? image : ExampleCustomerImage}
+              alt="Car Cover Review Image"
+              width={207}
+              height={207}
+              className=" aspect-square  h-full w-full items-center justify-center object-cover lg:max-w-[207px]"
+            />
+          );
         })}
         {reviewImages?.length > 0 ? (
           <div className="flex h-full w-full items-center justify-center border border-black">
@@ -91,7 +87,7 @@ const SeeMoreImages = () => {
         </Dialog>
       </div>
       <div className="lg:hidden">
-        <ReviewSheet seeMore />
+        <CustomerReviewSheet />
       </div>
     </>
   );

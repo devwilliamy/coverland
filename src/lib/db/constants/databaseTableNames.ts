@@ -1,1 +1,1 @@
-export const PRODUCT_REVIEWS_TABLE = 'Mock-Data-Reviews';
+export const PRODUCT_REVIEWS_TABLE = 'reviews-2';

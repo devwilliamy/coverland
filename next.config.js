@@ -6,11 +6,13 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: 'http',
-        hostname: '**.coverland.com',
+        hostname: 'coverland.com',
+        pathname: '/**',
       },
       {
         protocol: 'https',
-        hostname: 'coverland.com/**',
+        hostname: 'coverland.com',
+        pathname: '/**',
       },
     ],
   },

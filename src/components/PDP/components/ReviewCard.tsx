@@ -2,34 +2,26 @@ import { TReviewData } from '@/lib/db';
 import { Rating } from '@mui/material';
 import { CheckIcon } from './icons';
 
-export default function ReviewCard({
-  review,
-  
-}: {
-  review: TReviewData;
-
-}) {
+export default function ReviewCard({ review }: { review: TReviewData }) {
   return (
     <div
-      className={`relative flex h-full w-full min-w-[100%] flex-col rounded border border-solid border-stone-300 py-9 pl-10 pr-16 max-md:max-w-full max-md:px-5 `}
+      className={`relative flex h-full w-full min-w-[100%] flex-col rounded border-2 px-6 pb-[24px] pt-[36px] lg:pl-6 lg:pr-[59px] `}
     >
-      <div className="text-xl font-bold normal-case text-neutral-700 max-md:max-w-full lg:text-3xl">
+      <div className="text-[18px] font-[900] leading-[21px] lg:text-[28px] lg:leading-[33px] ">
         {review.review_title
           ? review.review_title.charAt(0).toUpperCase() +
             review.review_title.slice(1)
           : ''}
       </div>
-      <div className="my-2 flex gap-1 text-yellow-300 lg:my-0">
+      <div className="mb-3 mt-[16px] flex max-h-[24px] gap-1 text-yellow-300 lg:my-0 lg:mb-[34px] lg:mt-2 lg:h-[40px] lg:max-h-[40px]">
         <Rating
-          name="read-only"
           value={5}
+          size={'large'}
           readOnly
-          style={{
-            height: '25px',
-          }}
+          className="flex max-h-[24px] lg:max-h-[40px] lg:min-h-[40px]"
         />
       </div>
-      <div className="text-sm font-light normal-case text-neutral-500">
+      <div className="text-[14px] leading-[12px] text-[#707070] lg:hidden">
         Purchased on{' '}
         {new Date(review?.reviewed_at ?? '').toLocaleDateString('en-US', {
           month: 'long',
@@ -37,14 +29,12 @@ export default function ReviewCard({
           year: 'numeric',
         })}
       </div>
-      <div className="mt-5 flex w-[216px] max-w-full items-stretch gap-1 self-start">
-        {/* images go here */}
-      </div>
-      <div className="flex justify-between">
-        <div className="max-w-[75%] overflow-hidden text-base font-normal normal-case text-[#1A1A1A] max-md:max-w-full">
-          {review.review}
+
+      <div className="mt-[40px] flex justify-between lg:mt-0">
+        <div className=" line-clamp-4 overflow-hidden text-[16px] leading-[28px] text-[#1A1A1A] lg:flex lg:max-h-[266px] lg:max-w-[70%] lg:text-[18px] ">
+          {review.review_description}
         </div>
-        <div className="hidden text-lg font-light normal-case text-neutral-500 lg:block">
+        <div className="hidden text-[18px] leading-[12px] text-[#707070] lg:flex lg:leading-[28px]">
           Purchased on{' '}
           {new Date(review?.reviewed_at ?? '').toLocaleDateString('en-US', {
             month: 'long',
@@ -53,35 +43,16 @@ export default function ReviewCard({
           })}
         </div>
       </div>
-      <div className="overflow-hidden text-ellipsis whitespace-nowrap text-base font-normal normal-case leading-8 text-[#1A1A1A] max-md:mt-10 max-md:max-w-full lg:mt-24">
+
+      <div className="mt-8 text-[16px] leading-[30px] lg:mb-[14px] lg:mt-[46px] lg:text-[18px] ">
         {review.review_author}
       </div>
-      <span className="flex items-center gap-3 self-start lg:mt-7">
-        {/* images go here */}
+      <span className="mt-[9px] flex items-center gap-1.5 lg:gap-3 ">
         <CheckIcon />
-        <div className="text-md my-2 grow self-center whitespace-nowrap font-bold normal-case leading-3 text-zinc-900">
+        <div className="text-[14px] font-[700] leading-[12px] lg:text-[16px] ">
           Yes, I would recommend.
         </div>
       </span>
-      {/* <div className="w-[512px] max-w-full mt-6 self-start">
-            <div className="gap-5 flex max-md:flex-col max-md:items-stretch max-md:gap-0">
-              <div className="flex flex-col items-stretch w-[33%] max-md:w-full max-md:ml-0">
-                <div className="flex-col overflow-hidden relative flex aspect-square justify-center items-center flex-1 max-md:mt-4">
-                  images go here
-                </div>
-              </div>
-              <div className="flex flex-col items-stretch w-[33%] ml-5 max-md:w-full max-md:ml-0">
-                <div className="flex-col overflow-hidden relative flex aspect-square justify-center items-center flex-1 max-md:mt-4">
-                  images go here
-                </div>
-              </div>
-              <div className="flex flex-col items-stretch w-[33%] ml-5 max-md:w-full max-md:ml-0">
-                <div className="flex-col overflow-hidden relative flex aspect-square justify-center items-center flex-1 max-md:mt-4">
-                  images go here
-                </div>
-              </div>
-            </div>
-          </div> */}
     </div>
   );
 }

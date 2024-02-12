@@ -164,7 +164,7 @@ export function ExtraProductDetails() {
           </div>
           {!!reviewData?.length && (
             <div id="car-cover-reviews" ref={reviewsRef}>
-              <ReviewSection />
+              {/* <ReviewSection /> */}
             </div>
           )}
         </div>
