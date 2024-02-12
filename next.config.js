@@ -11,7 +11,7 @@ const nextConfig = {
       },
       {
         protocol: 'http',
-        hostname: '**.coverland.com',
+        hostname: 'www.coverland.com',
         pathname: '/**',
       },
       {
