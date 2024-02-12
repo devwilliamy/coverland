@@ -13,21 +13,36 @@ export type TProductReviewsQueryFilters = {
   model?: string;
 };
 
+export type FilterParams = {
+  field: string;
+  operator: 'eq' | 'neq' | 'gt' | 'lt' | 'gte' | 'lte' | 'notnull';
+  value: string | number;
+};
+
+export type SortParams = {
+  field: string;
+  order: 'asc' | 'desc';
+};
+
 export type TProductReviewsQueryOptions = {
   pagination?: {
     page?: number;
     limit?: number;
   };
-  sort?: {
-    field: string;
-    order: 'asc' | 'desc';
-  };
+  sort?: SortParams;
+  filters?: FilterParams[];
 };
 
 export type TProductReviewSummary = {
   total_reviews: number;
   average_score: number;
 };
+
+const FilterSchema = z.object({
+  field: z.string(),
+  operator: z.enum(['eq', 'neq', 'gt', 'lt', 'gte', 'lte', 'notnull']),
+  value: z.union([z.string(), z.number()]), // Adjust as necessary
+});
 
 const ProductReviewsQueryFiltersSchema = z.object({
   productType: z.optional(
@@ -56,23 +71,25 @@ const ProductReviewsQueryOptionsSchema = z.object({
       order: z.enum(['asc', 'desc']).default('desc'),
     })
     .optional()
-    .default({ field: 'helpful', order: 'desc' }), // Sets the default sort object
+    .default({ field: 'helpful', order: 'desc' }),
+  filters: z.array(FilterSchema).optional(),
 });
 
 export async function getProductReviewsByPage(
-  filters: TProductReviewsQueryFilters,
+  productQueryFilters: TProductReviewsQueryFilters,
   options: TProductReviewsQueryOptions
 ): Promise<TReviewData[]> {
   try {
-    const validatedFilters = ProductReviewsQueryFiltersSchema.parse(filters);
+    const validatedFilters =
+      ProductReviewsQueryFiltersSchema.parse(productQueryFilters);
     const validatedOptions = ProductReviewsQueryOptionsSchema.parse(options);
     const { productType, year, make, model } = validatedFilters;
     const {
       pagination: { page, limit },
       sort,
+      filters,
     } = validatedOptions;
     const { from, to } = getPagination(page, limit);
-
     let fetch = supabaseDatabaseClient
       .from(PRODUCT_REVIEWS_TABLE)
       .select('*')
@@ -92,19 +109,43 @@ export async function getProductReviewsByPage(
 
     if (year) {
       fetch = fetch.eq('parent_generation', year);
-      // console.log('Checking Year:', year);
     }
 
+    // Dynamically apply filters
+    filters?.forEach(({ field, operator, value }) => {
+      switch (operator) {
+        case 'eq':
+          fetch = fetch.eq(field, value);
+          break;
+        case 'neq':
+          fetch = fetch.neq(field, value);
+          break;
+        case 'gt':
+          fetch = fetch.gt(field, value);
+          break;
+        case 'lt':
+          fetch = fetch.lt(field, value);
+          break;
+        case 'gte':
+          fetch = fetch.gte(field, value);
+          break;
+        case 'lte':
+          fetch = fetch.lte(field, value);
+          break;
+        case 'notnull':
+          fetch = fetch.not(field, 'is', null);
+          break;
+        // Add cases for other operators as needed
+        default:
+          break;
+      }
+    });
+
     if (sort && sort.field) {
-      // console.log('Sort:', sort);
       fetch = fetch.order(sort.field, { ascending: sort.order === 'asc' });
     }
 
     const { data, error } = await fetch;
-    // console.log('getProductReviewsByPage:', {
-    //   data: data?.slice(0, 3),
-    //   validatedFilters,
-    // });
 
     if (error) {
       console.error(error);

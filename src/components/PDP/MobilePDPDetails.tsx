@@ -183,17 +183,16 @@ export const MobilePDPDetails = () => {
           </div>
         </SheetContent>
       </Sheet>
-      {!!reviewData?.length && (
-        <div id="CarCoverFeatures">
-          <div className="-mx-4 h-[41px] w-screen border-b-2 border-t-2 border-[#DBDBDB] bg-[#F1F1F1] lg:hidden"></div>
-          <div className=" flex w-full flex-row items-center justify-between border-b-2 border-[#C8C7C7] py-4 text-left text-[22px] font-black uppercase text-[#1A1A1A] !no-underline">
-            Car Cover Reviews
-          </div>
-          <div className="md:mt-18 lg:mt-28" ref={ccrRef}>
-            <ReviewSection />
-          </div>
+
+      <div id="CarCoverFeatures">
+        <div className="-mx-4 h-[41px] w-screen border-b-2 border-t-2 border-[#DBDBDB] bg-[#F1F1F1] lg:hidden"></div>
+        <div className=" flex w-full flex-row items-center justify-between border-b-2 border-[#C8C7C7] py-4 text-left text-[22px] font-black uppercase text-[#1A1A1A] !no-underline">
+          Car Cover Reviews
         </div>
-      )}
+        <div className="md:mt-18 lg:mt-28" ref={ccrRef}>
+          <ReviewSection />
+        </div>
+      </div>
     </div>
   );
 };

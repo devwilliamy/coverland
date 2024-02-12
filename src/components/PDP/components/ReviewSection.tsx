@@ -7,7 +7,7 @@ import ReviewHeaderGallery from './ReviewHeaderGallery';
 
 import { CarSelectionContext } from '@/app/(main)/[productType]/components/CarPDP';
 import { useStore } from 'zustand';
-import { getProductReviewsByPage } from '@/lib/db/review';
+import { FilterParams, getProductReviewsByPage } from '@/lib/db/review';
 import { useMediaQuery } from '@mantine/hooks';
 import { AiOutlineLoading3Quarters } from 'react-icons/ai';
 
@@ -22,12 +22,19 @@ const ReviewSection = () => {
     (s) => s.reviewDataSummary
   );
   const { year, type, make, model } = useStore(store, (s) => s.query);
-  const parentGenerationYear = year ? year : selectedProduct.parent_generation;
+  const parentGenerationYear =
+    type && make && model ? selectedProduct.parent_generation : year;
   const isMobile = useMediaQuery('(max-width: 768px)');
 
   const [loading, setLoading] = useState(false);
   const [page, setPage] = useState(1); // Starting at 1 because we're already starting at 0
   const limit = 8;
+  const [sort, setSort] = useState<{ field: string; order: 'desc' | 'asc' }>({
+    field: 'helpful',
+    order: 'desc',
+  });
+  const [filters, setFilters] = useState<FilterParams[]>([]);
+
   const areThereMoreReviews = reviewData.length < total_reviews;
   const typeString =
     type === 'car-covers'
@@ -35,7 +42,6 @@ const ReviewSection = () => {
       : type === 'suv-covers'
         ? 'SUV Covers'
         : 'Truck Covers';
-
   const handleViewMore = async () => {
     try {
       setLoading(true);
@@ -51,6 +57,8 @@ const ReviewSection = () => {
             page,
             limit,
           },
+          sort,
+          filters,
         }
       );
       setReviewData([...reviewData, ...newReviewData]);
@@ -61,7 +69,7 @@ const ReviewSection = () => {
     setLoading(false);
   };
 
-  const handleSelectionChange = async (
+  const handleSortSelectionChange = async (
     e: React.ChangeEvent<HTMLSelectElement>
   ) => {
     let field;
@@ -104,6 +112,7 @@ const ReviewSection = () => {
           },
         }
       );
+      setSort({ field, order });
       setReviewData([...newReviewData]); // Only show the first 8 when a sort has been picked
       setPage(1);
     } catch (error) {
@@ -112,7 +121,102 @@ const ReviewSection = () => {
     setLoading(false);
   };
 
-  if (!reviewData) return null;
+  const handleFilterSelectionChange = async (
+    e: React.ChangeEvent<HTMLSelectElement>
+  ) => {
+    let field;
+    let operator: 'eq' | 'neq' | 'gt' | 'lt' | 'gte' | 'lte';
+    let value;
+
+    switch (e.target.value) {
+      // case 'none':
+
+      //   break;
+      case 'images':
+        field = 'review_image';
+        operator = 'neq';
+        value = '';
+        break;
+      // case 'verified':
+      //   field = '';
+      //   operator = 'neq';
+      //   value = ''
+      //   break;
+      case 'positive':
+        field = 'rating_stars';
+        operator = 'gt';
+        value = '3';
+        break;
+      case 'critical':
+        field = 'rating_stars';
+        operator = 'lt';
+        value = '3';
+        break;
+
+      default:
+        field = 'review_image';
+        operator = 'neq';
+        value = '';
+        break;
+    }
+
+    try {
+      setLoading(true);
+      // If set to none, do the default sort
+      const newReviewData =
+        e.target.value === 'none'
+          ? await getProductReviewsByPage(
+              {
+                productType: typeString,
+                year: parentGenerationYear as string,
+                make,
+                model,
+              },
+              {
+                pagination: {
+                  page: 0, // Reset to the beginning
+                  limit,
+                },
+                sort: {
+                  field: 'helpful',
+                  order: 'desc',
+                },
+              }
+            )
+          : await getProductReviewsByPage(
+              {
+                productType: typeString,
+                year: parentGenerationYear as string,
+                make,
+                model,
+              },
+              {
+                pagination: {
+                  page: 0, // Reset to the beginning
+                  limit,
+                },
+                filters: [
+                  {
+                    field,
+                    operator,
+                    value,
+                  },
+                ],
+                sort: {
+                  field: 'helpful',
+                  order: 'desc',
+                },
+              }
+            );
+      const newFilters = [{ field, operator, value }];
+      setFilters([...newFilters]);
+      setReviewData([...newReviewData]); // Only show the first 8 when a sort has been picked
+      setPage(1);
+    } catch (error) {
+      console.error(error);
+    }
+    setLoading(false);
+  };
 
   return (
     <div className="relative lg:py-2">
@@ -155,27 +259,37 @@ const ReviewSection = () => {
       </div>
       <ReviewHeaderGallery reviewData={reviewData} />
       <div className="pt-6"></div>
-      <div className="my-5 flex gap-4 *:rounded-lg">
+      <div className="my-5 flex flex-col gap-1 *:rounded-lg lg:flex-row lg:gap-4">
         <select
           className="mx-auto mt-9 h-12 w-full rounded border border-[#C8C7C7] bg-transparent px-4 text-lg font-normal capitalize text-[#1A1A1A]"
-          onChange={handleSelectionChange}
+          onChange={handleSortSelectionChange}
         >
           <option value="helpful">Sort By Most Helpful</option>
           <option value="newest">Sort By Most Recent</option>
-          <option value="oldest">Sort By Oldest</option>
+          {/* <option value="oldest">Sort By Oldest</option> */}
         </select>
 
-        {/* <select className=" mx-auto mt-9 h-12 w-full rounded border border-[#1A1A1A] bg-transparent text-lg font-normal capitalize text-[#1A1A1A] text-[#767676]">
-          <option value="volvo">Newest</option>
-          <option value="saab">Oldest</option>
-          <option value="mercedes">Most Helpful</option>
+        <select
+          className="mx-auto mt-3 h-12 w-full rounded border border-[#C8C7C7] bg-transparent px-4 text-lg font-normal capitalize text-[#1A1A1A] lg:mt-9"
+          onChange={handleFilterSelectionChange}
+        >
+          <option value="none">Filter By</option>
+          <option value="images">Filter By Images Only</option>
+          {/* <option value="verified">Filter By Verified Purchases Only</option> */}
+          <option value="positive">Filter By Positive Reviews</option>
+          <option value="critical">Filter By Critical Reviews</option>
         </select>
-        <select className="mx-auto mt-9 h-12 w-full rounded border border-[#1A1A1A] bg-transparent text-lg font-normal capitalize text-[#1A1A1A] text-[#767676]">
+        {/* <select className="mx-auto mt-9 h-12 w-full rounded border border-[#1A1A1A] bg-transparent text-lg font-normal capitalize text-[#1A1A1A] text-[#767676]">
           <option value="volvo">Newest</option>
           <option value="saab">Oldest</option>
           <option value="mercedes">Most Helpful</option>
         </select> */}
       </div>
+      {reviewData?.length === 0 ? (
+        <div className="flex items-center justify-center py-4">
+          No Reviews Found
+        </div>
+      ) : null}
       {!!reviewData?.length && (
         <div className="mt-7 flex flex-col items-center gap-6 lg:mt-[71px]">
           {reviewData?.map((review, index) => (
