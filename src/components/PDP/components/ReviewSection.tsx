@@ -2,6 +2,7 @@ import ReviewCard from './ReviewCard';
 import { useState } from 'react';
 import { TReviewData } from '@/lib/db';
 import { Rating } from '@mui/material';
+import { track } from '@vercel/analytics';
 
 const ReviewSection = ({
   reviewData,
@@ -84,7 +85,10 @@ const ReviewSection = ({
             className="my-4 max-w-[160px] items-stretch justify-center whitespace-nowrap rounded-full border border-solid border-black bg-white px-8 py-3.5 font-black leading-4 tracking-wide text-black transition-colors duration-150 hover:bg-black hover:text-white"
             aria-label="View more"
             role="button"
-            onClick={() => setDisplayedReviews(displayedReviews + 4)}
+            onClick={() => {
+              setDisplayedReviews(displayedReviews + 4);
+              track('Viewing 4 More Reviews');
+            }}
           >
             View 4 More
           </button>

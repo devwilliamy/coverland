@@ -21,6 +21,7 @@ import WarrantyPolicy from '@/app/(main)/policies/warranty-policy/page';
 import { Plus } from 'lucide-react';
 import ProductVideo from './ProductVideo';
 import ThreeSixtyVideo from '@/videos/360 degree_website.mp4';
+import { track } from '@vercel/analytics';
 
 const CarCoverFeature = ({ children }: { children: string }) => (
   <li className="text-[14px] font-[500] normal-case leading-[26px]">
@@ -241,6 +242,9 @@ const ScrollSheetTrigger = ({
           behavior: 'instant',
         });
       }, 200);
+      track('drawer_section_clicked', {
+        section: title,
+      });
     }}
   >
     {title}
