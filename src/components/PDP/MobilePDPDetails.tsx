@@ -20,7 +20,6 @@ import { Plus } from 'lucide-react';
 import ProductVideo from './ProductVideo';
 import ThreeSixtyVideo from '@/videos/360 degree_website.mp4';
 import { CarSelectionContext } from '@/app/(main)/[productType]/components/CarPDP';
-import { useStore } from 'zustand';
 
 const CarCoverFeature = ({ children }: { children: string }) => (
   <li className="text-[14px] font-[500] normal-case leading-[26px]">
@@ -31,8 +30,6 @@ const CarCoverFeature = ({ children }: { children: string }) => (
 export const MobilePDPDetails = () => {
   const store = useContext(CarSelectionContext);
   if (!store) throw new Error('Missing CarContext.Provider in the tree');
-  const reviewData = useStore(store, (s) => s.reviewData);
-
   const pdRef = useRef<HTMLDivElement>(null);
   const benRef = useRef<HTMLDivElement>(null);
   const qaRef = useRef<HTMLDivElement>(null);

@@ -13,12 +13,10 @@ import ProductVideo from './ProductVideo';
 import ThreeSixtyVideo from '@/videos/360 degree_website.mp4';
 import ReviewSection from './components/ReviewSection';
 import { CarSelectionContext } from '@/app/(main)/[productType]/components/CarPDP';
-import { useStore } from 'zustand';
 
 export function ExtraProductDetails() {
   const store = useContext(CarSelectionContext);
   if (!store) throw new Error('Missing CarContext.Provider in the tree');
-  const reviewData = useStore(store, (s) => s.reviewData);
   // const [selectedSection, setSelectedSection] = useState<string>('');
 
   const benefitsRef = useRef<HTMLDivElement>(null);
