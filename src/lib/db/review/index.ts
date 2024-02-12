@@ -31,6 +31,7 @@ export type TProductReviewsQueryOptions = {
   };
   sort?: SortParams;
   filters?: FilterParams[];
+  search?: string;
 };
 
 export type TProductReviewSummary = {
@@ -73,6 +74,7 @@ const ProductReviewsQueryOptionsSchema = z.object({
     .optional()
     .default({ field: 'helpful', order: 'desc' }),
   filters: z.array(FilterSchema).optional(),
+  search: z.string().optional(),
 });
 
 export async function getProductReviewsByPage(
@@ -88,6 +90,7 @@ export async function getProductReviewsByPage(
       pagination: { page, limit },
       sort,
       filters,
+      // search,
     } = validatedOptions;
     const { from, to } = getPagination(page, limit);
     let fetch = supabaseDatabaseClient
@@ -144,6 +147,10 @@ export async function getProductReviewsByPage(
     if (sort && sort.field) {
       fetch = fetch.order(sort.field, { ascending: sort.order === 'asc' });
     }
+
+    // if (search) {
+    //   fetch = fetch.textSearch('review_description', search);
+    // }
 
     const { data, error } = await fetch;
 
