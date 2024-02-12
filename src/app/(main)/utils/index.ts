@@ -162,6 +162,7 @@ function generatePDPContent({
     return {
       ...item,
       fullProductName: fullProductName,
+      display_id: make ? `${item.make} ${item.display_id}` : item.display_id,
       mainImage: mainImage,
       productImages: productImages,
     } as IProductData;
