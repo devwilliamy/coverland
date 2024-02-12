@@ -2,10 +2,8 @@ import Image from 'next/image';
 import CustomerImagesDrawer from './CustomerImagesDrawer';
 import ExampleCustomerImage from '@/images/PDP/product_details_01.webp';
 import { SetStateAction } from 'react';
-import { TReviewData } from '@/lib/db';
 
 const CustomerReviewsSection = ({
-  reviewData,
   customerImagesDrawerOpen,
   setCustomerImagesDrawerOpen,
   customerImagesIndex,
@@ -15,12 +13,10 @@ const CustomerReviewsSection = ({
   customerImagesIndex: number;
   setCustomerImagesIndex: (value: SetStateAction<number>) => void;
   setCustomerImagesDrawerOpen: (value: SetStateAction<boolean>) => void;
-  reviewData: TReviewData[] | undefined | null;
 }) => {
   return (
     <>
       <CustomerImagesDrawer
-        reviewData={reviewData}
         customerImagesDrawerOpen={customerImagesDrawerOpen}
         setCustomerImagesDrawerOpen={setCustomerImagesDrawerOpen}
         customerImagesIndex={customerImagesIndex}

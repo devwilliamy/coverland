@@ -8,30 +8,33 @@ import { Drawer, DrawerContent, DrawerTrigger } from '@/components/ui/drawer';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Rating } from '@mui/material';
 import Image from 'next/image';
-import React, { SetStateAction, useState } from 'react';
+import { SetStateAction, useContext, useState } from 'react';
 import { FaCamera } from 'react-icons/fa';
 import { IoClose } from 'react-icons/io5';
 import ExampleCustomerImage from '@/images/PDP/product_details_01.webp';
-import { TReviewData } from '@/lib/db';
+import { CarSelectionContext } from './CarPDP';
+import { useStore } from 'zustand';
 
 export default function CustomerImagesDrawer({
   customerImagesDrawerOpen,
   customerImagesIndex,
   setCustomerImagesIndex,
   setCustomerImagesDrawerOpen,
-  reviewData,
 }: {
   customerImagesDrawerOpen: boolean;
   customerImagesIndex: number;
   setCustomerImagesIndex: (value: SetStateAction<number>) => void;
   setCustomerImagesDrawerOpen: (value: SetStateAction<boolean>) => void;
-  reviewData: TReviewData[] | undefined | null;
 }) {
   const [customerCarouselApi, setCustomerCarouselApi] = useState<CarouselApi>();
   const tabItems = [
     { title: 'Customer Images', value: 'customer-images' },
     { title: 'Customer Reviews', value: 'customer-reviews' },
   ];
+
+  const store = useContext(CarSelectionContext);
+  if (!store) throw new Error('Missing CarContext.Provider in the tree');
+  const reviewData = useStore(store, (s) => s.reviewData);
 
   return (
     <span className="mb-[18px] flex gap-[13px]">
@@ -127,14 +130,15 @@ export default function CustomerImagesDrawer({
                               />
                             </div>
                             <div className="text-sm font-light normal-case text-neutral-500">
-                              Purchased on{' '}
-                              {new Date(
-                                review?.reviewed_at ?? ''
-                              ).toLocaleDateString('en-US', {
-                                month: 'long',
-                                day: 'numeric',
-                                year: 'numeric',
-                              })}
+                              {review?.reviewed_at &&
+                                `Purchased on
+                                ${new Date(
+                                  review?.reviewed_at ?? ''
+                                ).toLocaleDateString('en-US', {
+                                  month: 'long',
+                                  day: 'numeric',
+                                  year: 'numeric',
+                                })}`}
                             </div>
                             <div className="mt-5 flex w-[216px] max-w-full items-stretch gap-1 self-start">
                               {/* images go here */}
@@ -144,14 +148,15 @@ export default function CustomerImagesDrawer({
                                 {review.review_description}
                               </div>
                               <div className="hidden text-lg font-light normal-case text-neutral-500 lg:block">
-                                Purchased on{' '}
-                                {new Date(
+                                {review?.reviewed_at &&
+                                  `Purchased on
+                                ${new Date(
                                   review?.reviewed_at ?? ''
                                 ).toLocaleDateString('en-US', {
                                   month: 'long',
                                   day: 'numeric',
                                   year: 'numeric',
-                                })}
+                                })}`}
                               </div>
                             </div>
                             <div className="overflow-hidden text-ellipsis whitespace-nowrap text-base font-normal normal-case leading-8 text-[#1A1A1A] max-md:mt-10 max-md:max-w-full lg:mt-24">

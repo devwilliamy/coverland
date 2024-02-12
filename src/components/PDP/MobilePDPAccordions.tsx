@@ -1,25 +1,18 @@
-import { TReviewData } from '@/lib/db';
 import { Layers } from './Layers';
 import { MoneyBackMobile } from './MoneyBackMobile';
 import { OurCarCovers } from './OurCarCovers';
 import { PDPAccordion } from './PDPAccordian';
 import { ProductChecklist } from './ProductChecklist';
-// import { ProductHero } from './ProductHero';
 import AccordionDrawerItem from './components/AccordionDrawerItem';
 import { ClimateCrisisMobile } from './components/ClimateCrisisMobile';
 import { NoGarageMobile } from './components/NoGarageMobile';
-import ReviewSection from './components/ReviewSection';
 import dynamicImport from 'next/dynamic';
 
 const ProductHero = dynamicImport(() => import('./ProductHero'), {
   ssr: false,
 });
 
-export function MobilePDPAccordions({
-  reviewData,
-}: {
-  reviewData: TReviewData[] | null;
-}) {
+export function MobilePDPAccordions() {
   return (
     <>
       <AccordionDrawerItem title="Product Details">

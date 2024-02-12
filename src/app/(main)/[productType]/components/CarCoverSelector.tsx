@@ -1,6 +1,5 @@
 'use client';
 
-// import { TReviewData } from '@/lib/db';
 import React, { RefObject, useContext, useRef } from 'react';
 import { useMediaQuery } from '@mantine/hooks';
 import dynamicImport from 'next/dynamic';
@@ -9,8 +8,8 @@ import { ProductContent } from './ProductContent';
 import { EditVehicleModal } from './EditVehicleModal';
 import { CarSelectionContext } from './CarPDP';
 import { useStore } from 'zustand';
-import { TReviewData } from '@/lib/db';
 import { IProductData } from '../../utils';
+import { ExtraProductDetails } from '@/components/PDP/OtherDetails';
 
 const EditVehiclePopover = dynamicImport(
   () => import('@/components/PDP/components/EditVehiclePopover'),
@@ -19,11 +18,7 @@ const EditVehiclePopover = dynamicImport(
   }
 );
 
-export function CarCoverSelector({
-  reviewData,
-}: {
-  reviewData: TReviewData[];
-}) {
+export function CarCoverSelector() {
   const store = useContext(CarSelectionContext);
   if (!store) throw new Error('Missing CarContext.Provider in the tree');
 
@@ -31,17 +26,7 @@ export function CarCoverSelector({
   const selectedProduct = useStore(store, (s) => s.selectedProduct);
   const setSelectedProduct = useStore(store, (s) => s.setSelectedProduct);
   const setFeaturedImage = useStore(store, (s) => s.setFeaturedImage);
-  // const featuredImage = useStore(store, (s) => s.getFeaturedImage());
-
   const featuredImage = selectedProduct?.mainImage;
-  const reviewScore =
-    reviewData?.reduce(
-      (acc, review) => acc + Number(review.rating_stars ?? 0),
-      0
-    ) ?? 0;
-  const reviewCount = reviewData?.length ?? 50;
-
-  const avgReviewScore = (reviewScore / reviewCount).toFixed(1) || '4.9';
 
   interface ProductRefs {
     [key: string]: RefObject<HTMLElement>;
@@ -63,24 +48,25 @@ export function CarCoverSelector({
 
   const productImages = selectedProduct?.productImages as string[];
 
-  const productName = modelData[0].fullProductName;
+  const productName = modelData[0]?.fullProductName;
 
   return (
-    <section className="mx-auto h-auto w-full max-w-[1280px] px-4 lg:my-8">
-      <div className="flex w-full flex-col items-start justify-between lg:flex-row lg:gap-14">
-        {isMobile && <EditVehiclePopover fullProductName={productName} />}
-        {/* Left Panel */}
-        <PrimaryImageDisplay
-          productImages={productImages}
-          selectedProduct={selectedProduct}
-          featuredImage={featuredImage}
-          setFeaturedImage={setFeaturedImage}
-        />
-        {/* Right Panel */}
+    <>
+      <section className="mx-auto h-auto w-full max-w-[1280px] px-4 lg:my-8">
+        <div className="flex w-full flex-col items-start justify-between lg:flex-row lg:gap-14">
+          {isMobile && <EditVehiclePopover fullProductName={productName} />}
+          {/* Left Panel */}
+          <PrimaryImageDisplay
+            productImages={productImages}
+            selectedProduct={selectedProduct}
+            featuredImage={featuredImage}
+            setFeaturedImage={setFeaturedImage}
+          />
+          {/* Right Panel */}
 
-        <div className=" h-auto w-full pl-0 lg:w-2/5">
-          <EditVehicleModal selectedProduct={selectedProduct} />
-          {/* <ColorSelector
+          <div className=" h-auto w-full pl-0 lg:w-2/5">
+            <EditVehicleModal selectedProduct={selectedProduct} />
+            {/* <ColorSelector
             uniqueColors={uniqueColors as IProductData[]}
             productRefs={productRefs}
             setFeaturedImage={setFeaturedImage}
@@ -96,20 +82,25 @@ export function CarCoverSelector({
             productRefs={productRefs}
           />
           <Separator className="mb-8 mt-4 lg:mb-10" /> */}
-          <ProductContent
-            modelData={modelData}
-            reviewData={reviewData}
-            productRefs={productRefs}
-            selectedProduct={selectedProduct}
-            setSelectedProduct={setSelectedProduct}
-            setFeaturedImage={setFeaturedImage}
-            uniqueColors={uniqueColors as IProductData[]}
-            reviewCount={reviewCount}
-            avgReviewScore={avgReviewScore}
-          />
+            <ProductContent
+              modelData={modelData}
+              productRefs={productRefs}
+              selectedProduct={selectedProduct}
+              setSelectedProduct={setSelectedProduct}
+              setFeaturedImage={setFeaturedImage}
+              uniqueColors={uniqueColors as IProductData[]}
+            />
+          </div>
         </div>
+      </section>
+      <div
+        id="product-details"
+        className="h-auto w-full"
+        // flex flex-col justify-center items-center max-w-[1280px] py-4 lg:py-20 px-4 md:px-20"
+      >
+        <ExtraProductDetails />
       </div>
-    </section>
+    </>
   );
 }
 

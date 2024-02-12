@@ -20,7 +20,7 @@ export type TInitialProductDataDB = Tables<'Products-2024'>;
 
 export type TCarDataMaster = Tables<'Car-Data-Master'>;
 
-export type TReviewData = Tables<'Product-Reviews'>;
+export type TReviewData = Tables<'reviews-2'>;
 
 export interface ProductJson {
   fk: number;
@@ -93,35 +93,6 @@ export async function fetchGenerationReviewData(fk: string) {
   return data;
 }
 
-export async function getReviewData({
-  year,
-  make,
-  model,
-}: {
-  year?: string;
-  make?: string;
-  model?: string;
-}) {
-  let fetch = supabase.from('Product-Reviews').select('*');
-
-  if (make) {
-    fetch = fetch.textSearch('make', make);
-  }
-
-  if (model) {
-    fetch = fetch.textSearch('model', model);
-  }
-
-  const { data, error } = await fetch;
-
-  if (year) {
-  }
-  if (error) {
-    console.log(error);
-  }
-  return data;
-}
-
 export async function getProductData({
   year,
   make,
@@ -152,8 +123,6 @@ export async function getProductData({
   }
 
   const { data, error } = await fetch.limit(4000);
-
-  console.log(data?.length);
 
   if (error) {
     throw new Error(error.message);

@@ -1,23 +1,14 @@
 'use client';
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from '@/components/ui/popover';
 import { Separator } from '@/components/ui/separator';
-import { TInitialProductDataDB, TReviewData } from '@/lib/db';
+import { TInitialProductDataDB } from '@/lib/db';
 import { Rating } from '@mui/material';
-import { track } from '@vercel/analytics';
-import Link from 'next/link';
 import { GoDotFill } from 'react-icons/go';
 import { CarSelectionContext } from './CarPDP';
 import { useMediaQuery } from '@mantine/hooks';
 import { RefObject, useContext, useState } from 'react';
 import CartSheet from '@/components/cart/CartSheet';
 import { generateProductsLeft } from '@/lib/utils';
-import Dialog from '@/components/ui/dialog-tailwind-ui';
 import { compareRawStrings } from '@/lib/utils';
-import ReviewSheet from '@/components/PDP/ReviewSheet';
 import ProductVideo from '@/components/PDP/ProductVideo';
 import SquareVideo from '@/videos/Coverland_Square.mp4';
 import SquareThumbnail from '@/video/Thumbnail_Square.webp';
@@ -29,6 +20,7 @@ import NeedHelp from './NeedHelp';
 import FreeDetails from './FreeDetails';
 import AddToCart from './AddToCart';
 import CircleColorSelector from './CircleColorSelector';
+import RatingsTrigger from './RatingsTrigger';
 
 interface ProductRefs {
   [key: string]: RefObject<HTMLElement>;
@@ -40,9 +32,6 @@ export function ProductContent({
   setFeaturedImage,
   productRefs,
   uniqueColors,
-  reviewCount,
-  avgReviewScore,
-  reviewData,
 }: {
   selectedProduct: TInitialProductDataDB | null | undefined;
   setSelectedProduct: (newProduct: IProductData) => void;
@@ -50,9 +39,6 @@ export function ProductContent({
   uniqueColors?: IProductData[];
   modelData: TInitialProductDataDB[];
   setFeaturedImage: (img: string) => void;
-  reviewCount: number;
-  avgReviewScore: string;
-  reviewData: TReviewData[] | undefined | null;
 }) {
   const productType = compareRawStrings(selectedProduct?.type, 'car covers')
     ? 'Car Cover'
@@ -65,7 +51,6 @@ export function ProductContent({
   if (!store) throw new Error('Missing CarContext.Provider in the tree');
   const modelData = useStore(store, (s) => s.modelData);
   const color = useStore(store, (s) => s.selectedColor);
-
   const { addToCart } = useCartContext();
 
   const cartProduct = modelData.find((p) => p.display_color === color);
@@ -79,12 +64,13 @@ export function ProductContent({
     <>
       <div className="grid grid-cols-1">
         <div className="flex flex-col gap-0.5">
+          {/* Product Title */}
           <h2 className="mt-[24px] text-[24px] font-[900] leading-[27px] text-[#1A1A1A] md:mt-0 md:text-[28px] md:leading-[30px] ">
             {`${selectedProduct?.display_id}`}
             &trade; {/* <br /> */}
             {`Custom-Fit ${productType}`}
           </h2>
-          {/* Reviews */}
+          {/* Rating(s) */}
           <div className="flex items-center gap-1">
             <div className="flex gap-1 text-yellow-300 ">
               <Rating
@@ -96,50 +82,7 @@ export function ProductContent({
                 }}
               />
             </div>
-            <div className="hidden lg:flex">
-              <Popover>
-                <PopoverTrigger
-                  className="ml-2 text-blue-400 underline"
-                  disabled={!reviewCount}
-                >
-                  {reviewCount || '2'} ratings
-                </PopoverTrigger>
-                <PopoverContent>
-                  <div className=" flex flex-col items-center border border-gray-300 bg-white p-4 shadow-lg">
-                    <div className="flex items-center gap-4">
-                      <p className="text-2xl font-bold">
-                        {avgReviewScore ?? '4.9'} out of 5
-                      </p>
-                      <Rating
-                        name="read-only"
-                        value={5}
-                        readOnly
-                        style={{
-                          height: '25px',
-                        }}
-                      />
-                    </div>
-                    {!!reviewData?.length && (
-                      <Link
-                        className="underline"
-                        scroll
-                        href={'#reviews'}
-                        onClick={() =>
-                          track('viewing all reviews', {
-                            sku: selectedProduct?.sku || '',
-                          })
-                        }
-                      >
-                        Show all reviews ({reviewData?.length})
-                      </Link>
-                    )}
-                  </div>
-                </PopoverContent>
-              </Popover>
-            </div>
-            <div className="lg:hidden">
-              <ReviewSheet reviewData={reviewData} />
-            </div>
+            <RatingsTrigger />
           </div>
           <p className="mb-2 text-gray-500">100+ Bought In Past Month</p>
         </div>
@@ -230,7 +173,7 @@ export function ProductContent({
         </div>
       </section>
       {isMobile ? (
-        <Dialog open={addToCartOpen} setOpen={setAddToCartOpen} />
+        <></>
       ) : (
         // <BottomUpDrawer
         //   title={<AddToCartHeader />}
