@@ -3,11 +3,12 @@ import { Rating } from '@mui/material';
 import { CheckIcon } from './icons';
 // import HelpfulSection from './HelpfulSection';
 import ReviewCardImages from './ReviewCardImages';
+import HelpfulSection from './HelpfulSection';
 
 export default function ReviewCard({ review }: { review: TReviewData }) {
   return (
     <div
-      className={`relative flex h-full w-full min-w-[100%] flex-col rounded border border-solid border-stone-300 py-9 pl-10 pr-16 max-md:max-w-full max-md:px-5 `}
+      className={`relative flex h-full w-full min-w-[100%] flex-col rounded border border-solid border-stone-300 pb-6 pl-10 pr-16 pt-9 max-md:max-w-full max-md:px-5 `}
     >
       <div className="text-xl font-bold normal-case text-neutral-700 max-md:max-w-full lg:text-3xl">
         {review.review_title
@@ -25,7 +26,7 @@ export default function ReviewCard({ review }: { review: TReviewData }) {
           }}
         />
       </div>
-      <div className="text-sm font-light normal-case text-neutral-500">
+      <div className="text-sm font-light normal-case text-neutral-500 lg:hidden">
         {review?.reviewed_at &&
           `Purchased on
         ${new Date(review?.reviewed_at ?? '').toLocaleDateString('en-US', {
@@ -38,7 +39,7 @@ export default function ReviewCard({ review }: { review: TReviewData }) {
         {/* images go here */}
       </div>
       <div className="flex justify-between">
-        <div className="max-w-[75%] overflow-hidden text-base font-normal normal-case text-[#1A1A1A] max-md:max-w-full">
+        <div className="max-w-[75%] overflow-hidden text-base font-normal normal-case text-[#1A1A1A] max-md:max-w-full lg:max-w-[66%]">
           {review.review_description}
         </div>
         <div className="hidden text-lg font-light normal-case text-neutral-500 lg:block">
@@ -61,9 +62,7 @@ export default function ReviewCard({ review }: { review: TReviewData }) {
           Yes, I would recommend.
         </div>
       </span>
-      <div className="text-md my-2 grow self-center whitespace-nowrap font-bold normal-case leading-3 text-zinc-900">
-        {review.helpful} people found this helpful
-      </div>
+
       {/* <div className="w-[512px] max-w-full mt-6 self-start">
             <div className="gap-5 flex max-md:flex-col max-md:items-stretch max-md:gap-0">
               <div className="flex flex-col items-stretch w-[33%] max-md:w-full max-md:ml-0">
@@ -84,7 +83,7 @@ export default function ReviewCard({ review }: { review: TReviewData }) {
             </div>
           </div> */}
       <ReviewCardImages />
-      {/* <HelpfulSection /> */}
+      <HelpfulSection numberOfHelpful={review?.helpful as string} />
     </div>
   );
 }
