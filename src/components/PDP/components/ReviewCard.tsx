@@ -5,7 +5,13 @@ import { CheckIcon } from './icons';
 import ReviewCardImages from './ReviewCardImages';
 import HelpfulSection from './HelpfulSection';
 
-export default function ReviewCard({ review }: { review: TReviewData }) {
+export default function ReviewCard({
+  review,
+  tabsCard,
+}: {
+  review: TReviewData;
+  tabsCard?: boolean;
+}) {
   return (
     <div
       className={`relative flex h-full w-full min-w-[100%] flex-col rounded border-2 px-6 pb-[24px] pt-[36px] lg:pl-6 lg:pr-[59px]`}
@@ -38,11 +44,15 @@ export default function ReviewCard({ review }: { review: TReviewData }) {
       <div className="mt-5 flex w-[216px] max-w-full items-stretch gap-1 self-start">
         {/* images go here */}
       </div>
-      <div className="flex justify-between">
-        <div className="max-w-[75%] overflow-hidden text-base font-normal normal-case text-[#1A1A1A] max-md:max-w-full lg:max-w-[66%]">
+
+      <div className="mt-[40px] flex justify-between lg:mt-0 lg:gap-[104px]">
+        <div className="  text-[16px] leading-[28px] text-[#1A1A1A] lg:flex lg:max-h-[266px] lg:text-[18px] ">
           {review.review_description}
         </div>
-        <div className="hidden text-lg font-light normal-case text-neutral-500 lg:block">
+        {tabsCard ? (
+         <></>
+        ) : (
+          <div className="hidden whitespace-nowrap text-[18px] leading-[12px] text-[#707070]	lg:flex lg:leading-[28px]">
           {review?.reviewed_at &&
             `Purchased on
         ${new Date(review?.reviewed_at ?? '').toLocaleDateString('en-US', {
@@ -51,39 +61,29 @@ export default function ReviewCard({ review }: { review: TReviewData }) {
           year: 'numeric',
         })}`}
         </div>
+        )}
       </div>
       <div className="overflow-hidden text-ellipsis whitespace-nowrap text-base font-normal normal-case leading-8 text-[#1A1A1A] max-md:mt-10 max-md:max-w-full lg:mt-24">
         {review.review_author}
       </div>
-      <span className="flex items-center gap-3 self-start lg:mt-7">
-        {/* images go here */}
+     
+      <span className="mt-[9px] flex items-center gap-1.5 lg:gap-3 ">
         <CheckIcon />
         <div className="text-md my-2 grow self-center whitespace-nowrap font-bold normal-case leading-3 text-zinc-900">
           Yes, I would recommend.
         </div>
       </span>
-
-      {/* <div className="w-[512px] max-w-full mt-6 self-start">
-            <div className="gap-5 flex max-md:flex-col max-md:items-stretch max-md:gap-0">
-              <div className="flex flex-col items-stretch w-[33%] max-md:w-full max-md:ml-0">
-                <div className="flex-col overflow-hidden relative flex aspect-square justify-center items-center flex-1 max-md:mt-4">
-                  images go here
-                </div>
-              </div>
-              <div className="flex flex-col items-stretch w-[33%] ml-5 max-md:w-full max-md:ml-0">
-                <div className="flex-col overflow-hidden relative flex aspect-square justify-center items-center flex-1 max-md:mt-4">
-                  images go here
-                </div>
-              </div>
-              <div className="flex flex-col items-stretch w-[33%] ml-5 max-md:w-full max-md:ml-0">
-                <div className="flex-col overflow-hidden relative flex aspect-square justify-center items-center flex-1 max-md:mt-4">
-                  images go here
-                </div>
-              </div>
-            </div>
-          </div> */}
+      {tabsCard && <div className="hidden mt-[16px] whitespace-nowrap text-[18px] leading-[12px] text-[#707070]	lg:flex lg:leading-[28px]">
+            Purchased on{' '}
+            {new Date(review?.reviewed_at ?? '').toLocaleDateString('en-US', {
+              month: 'long',
+              day: 'numeric',
+              year: 'numeric',
+            })}
+          </div>}
       <ReviewCardImages />
       <HelpfulSection numberOfHelpful={review?.helpful as string} />
+   
     </div>
   );
 }
