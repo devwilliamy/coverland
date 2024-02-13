@@ -160,11 +160,9 @@ export function ExtraProductDetails() {
           <div id="warranty" ref={warrantyRef}>
             <WarrantyDesktop />
           </div>
-          {!!reviewData?.length && (
-            <div id="car-cover-reviews" ref={reviewsRef}>
-              <ReviewSection />
-            </div>
-          )}
+          <div id="car-cover-reviews" ref={reviewsRef}>
+            <ReviewSection />
+          </div>
         </div>
       </div>
     </div>
