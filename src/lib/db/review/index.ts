@@ -39,6 +39,29 @@ export type TProductReviewSummary = {
   average_score: number;
 };
 
+export const generateSlug = (text: string) => {
+  if (!text) return ''; // Return an empty string if text is falsy
+
+  // Step 1: Replace special characters with whitespace, except for periods and parentheses
+  let slug = text.replace(/[^a-zA-Z0-9 .()]/g, ' ');
+
+  // Step 2: Remove periods and parentheses but keep the numeric and alphabetic characters together
+  slug = slug.replace(/[.()]/g, '');
+
+  // Step 3: Replace consecutive whitespaces (including those introduced by removing special characters) with a single space
+  slug = slug.replace(/\s+/g, ' ');
+
+  // Convert to lowercase
+  slug = slug.toLowerCase();
+
+  // Step 4: Avoid separating alphabetic characters and numbers when they should stay together
+
+  // Final: Trim and replace whitespaces with hyphens
+  slug = slug.trim().replace(/ /g, '-');
+
+  return slug.trim();
+};
+
 const FilterSchema = z.object({
   field: z.string(),
   operator: z.enum(['eq', 'neq', 'gt', 'lt', 'gte', 'lte', 'notnull']),
@@ -103,11 +126,11 @@ export async function getProductReviewsByPage(
     }
 
     if (make) {
-      fetch = fetch.textSearch('make', make);
+      fetch = fetch.textSearch('make_slug', generateSlug(make));
     }
 
     if (model) {
-      fetch = fetch.textSearch('model', model);
+      fetch = fetch.textSearch('model_slug', generateSlug(model));
     }
 
     if (year) {
@@ -185,8 +208,8 @@ export async function getProductReviewSummary(
 
     const fetch = supabaseDatabaseClient.rpc('get_product_reviews_summary', {
       type: productType,
-      make,
-      model,
+      make: generateSlug(make || ''),
+      model: generateSlug(model || ''),
       year,
     });
 
