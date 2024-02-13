@@ -41,12 +41,6 @@ export default function CustomerReviewSheet() {
           </SheetTitle>
         </SheetHeader>
         <div className="mx-auto flex max-h-[76vh] min-h-[76vh] w-full flex-col overflow-y-auto px-4">
-          <p
-            className="mt-[58px] text-center text-xl font-black uppercase text-black"
-            id="reviews"
-          >
-            Car Cover Reviews
-          </p>
           <CustomerReviewTabs />
         </div>
       </SheetContent>

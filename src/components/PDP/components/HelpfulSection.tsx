@@ -7,7 +7,7 @@ export default function HelpfulSection({
 }: HelpfulSectionProps) {
   return (
     <span>
-      <div className="mt-[34px] flex min-h-[62px]  max-w-[80px] flex-col ">
+      <div className="flex min-h-[62px]  max-w-[80px] flex-col ">
         <p className="whitespace-nowrap text-sm font-normal text-[#767676]">
           {numberOfHelpful} people found this helpful
         </p>

@@ -128,15 +128,15 @@ const CustomerReviewTabs = () => {
             {reviewData?.map((review, index) => (
               <CarouselItem
                 key={`carousel-item-${index}`}
-                className={`flex w-full flex-col lg:flex-row  max-h-[520px] items-start  `}
+                className={`flex max-h-[520px] w-full flex-col  items-start lg:flex-row  `}
                 // lg:grid lg:min-w-[100%] lg:${review.review_image ? 'grid-cols-2' : 'grid-cols-1'} lg:items-center lg:gap-2`}
               >
                 {review?.review_image && (
                   <Image
                     id={`customer-review-image-${index}`}
                     alt={`customer-review-image-${index}`}
-                    width={500}
-                    height={500}
+                    width={520}
+                    height={520}
                     src={
                       review.review_image
                         ? review.review_image?.split(',')[0]
@@ -147,7 +147,7 @@ const CustomerReviewTabs = () => {
                 )}
                 <div
                   id={'review-card-container'}
-                  className={`flex ${review.review_image && 'w-1/4'} flex-col justify-center lg:min-h-[100%]  lg:flex-row `}
+                  className={`flex h-[520px] basis-full flex-col justify-center lg:flex-row`}
                 >
                   <ReviewCard review={review} tabsCard />
                 </div>

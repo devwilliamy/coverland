@@ -1,10 +1,17 @@
 import ReviewSheet from '@/components/PDP/components/ReviewSheet';
 import CustomerReviewTabs from '@/components/PDP/components/CustomerReviewTabs';
-import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';
+import {
+  Dialog,
+  DialogContent,
+  DialogTrigger,
+  DialogClose,
+} from '@/components/ui/dialog';
 import React, { useContext } from 'react';
 import { useStore } from 'zustand';
 import { CarSelectionContext } from './CarPDP';
 import ReviewSection from '@/components/PDP/components/ReviewSection';
+import { XIcon } from 'lucide-react';
+import { DialogOverlay } from '@radix-ui/react-dialog';
 
 function RatingsTrigger() {
   const store = useContext(CarSelectionContext);
@@ -16,7 +23,7 @@ function RatingsTrigger() {
     <>
       {reviewData.length > 0 ? (
         <>
-          <div className="hidden lg:flex">
+          <div className="relative hidden lg:flex">
             <Dialog>
               <DialogTrigger
                 className="ml-2 text-blue-400 underline"
@@ -24,7 +31,8 @@ function RatingsTrigger() {
               >
                 {total_reviews || '2'} ratings
               </DialogTrigger>
-              <DialogContent className="flex flex-col items-center min-h-[65vh] max-h-[65vh] overflow-y-auto lg:min-w-[77vw] lg:max-w-[80%] xl:max-w-[1024px]">
+
+              <DialogContent className="flex max-h-[65vh] min-h-[65vh] flex-col items-center overflow-y-auto lg:min-w-[77vw] lg:max-w-[80%] xl:max-w-[1024px]">
                 <div className={''}>
                   <ReviewSection />
                 </div>

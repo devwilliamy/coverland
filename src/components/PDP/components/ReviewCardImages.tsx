@@ -1,21 +1,7 @@
 import Image from 'next/image';
 import React from 'react';
-import PlaceholderImage from '@/images/categories/carCoverImage.webp';
 
-function ReviewCardImages({ reviewImages }: { reviewImages?: string }) {
-  // const images = [];
-
-  //   for (const image of reviewImages) {
-  //     const split = image?.split(',');
-  //     if (split) {
-  //       for (const i in split) {
-  //         images.push(split[i]);
-  //       }
-  //     }
-  //   }
-
-  //   return images;
-
+function ReviewCardImages({ reviewImages }: { reviewImages?: string | null }) {
   if (!reviewImages) return;
 
   return (
@@ -27,7 +13,7 @@ function ReviewCardImages({ reviewImages }: { reviewImages?: string }) {
             key={`review-card-image-${index}`}
             height={160}
             width={160}
-            className="flex aspect-square h-[160px] w-[160px] items-center"
+            className="flex aspect-square items-center"
             alt="review-ard-image-alt"
             src={image}
           />
