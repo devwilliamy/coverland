@@ -6,15 +6,24 @@ import { getPagination } from '../utils';
 import { supabaseDatabaseClient } from '../supabaseClients';
 import { StaticImageData } from 'next/image';
 
-export type TReviewData = Tables<'Mock-Data-Reviews'>;
+export type TReviewData = Tables<'reviews-2'>;
 
 export type TProductReviewsQueryFilters = {
   productType?: 'Car Covers' | 'SUV Covers' | 'Truck Covers';
   year?: string;
   make?: string;
   model?: string;
-  submodel?: string;
-  submodel2?: string;
+};
+
+export type FilterParams = {
+  field: string;
+  operator: 'eq' | 'neq' | 'gt' | 'lt' | 'gte' | 'lte' | 'notnull';
+  value: string | number;
+};
+
+export type SortParams = {
+  field: string;
+  order: 'asc' | 'desc';
 };
 
 export type TProductReviewsQueryOptions = {
@@ -22,12 +31,20 @@ export type TProductReviewsQueryOptions = {
     page?: number;
     limit?: number;
   };
+  sort?: SortParams;
+  filters?: FilterParams[];
 };
 
 export type TProductReviewSummary = {
   total_reviews: number;
   average_score: number;
 };
+
+const FilterSchema = z.object({
+  field: z.string(),
+  operator: z.enum(['eq', 'neq', 'gt', 'lt', 'gte', 'lte', 'notnull']),
+  value: z.union([z.string(), z.number()]), // Adjust as necessary
+});
 
 const ProductReviewsQueryFiltersSchema = z.object({
   productType: z.optional(
@@ -40,35 +57,42 @@ const ProductReviewsQueryFiltersSchema = z.object({
   year: z.string().optional(),
   make: z.string().optional(),
   model: z.string().optional(),
-  submodel: z.string().optional(),
-  submodel2: z.string().optional(),
 });
 
 const ProductReviewsQueryOptionsSchema = z.object({
   pagination: z
     .object({
       page: z.number().optional().default(1),
-      limit: z.number().optional().default(10),
+      limit: z.number().optional().default(8),
     })
     .optional()
-    .default({ page: 1, limit: 10 }),
+    .default({ page: 1, limit: 8 }),
+  sort: z
+    .object({
+      field: z.string().default('helpful'),
+      order: z.enum(['asc', 'desc']).default('desc'),
+    })
+    .optional()
+    .default({ field: 'helpful', order: 'desc' }),
+  filters: z.array(FilterSchema).optional(),
 });
 
 export async function getProductReviewsByPage(
-  filters: TProductReviewsQueryFilters,
+  productQueryFilters: TProductReviewsQueryFilters,
   options: TProductReviewsQueryOptions
 ): Promise<TReviewData[]> {
   console.log('running fetch');
   try {
-    const validatedFilters = ProductReviewsQueryFiltersSchema.parse(filters);
+    const validatedFilters =
+      ProductReviewsQueryFiltersSchema.parse(productQueryFilters);
     const validatedOptions = ProductReviewsQueryOptionsSchema.parse(options);
-    const { productType, year, make, model, submodel, submodel2 } =
-      validatedFilters;
+    const { productType, year, make, model } = validatedFilters;
     const {
       pagination: { page, limit },
+      sort,
+      filters,
     } = validatedOptions;
     const { from, to } = getPagination(page, limit);
-
     let fetch = supabaseDatabaseClient
       .from(PRODUCT_REVIEWS_TABLE)
       .select('*')
@@ -86,21 +110,45 @@ export async function getProductReviewsByPage(
       fetch = fetch.textSearch('model', model);
     }
 
-    // Note: This is using the year generation from the url.
-    // It's possible there might be some other years overlapping and might need extra logic to find those
     if (year) {
-      fetch = fetch.eq('year_generation', year);
+      fetch = fetch.eq('parent_generation', year);
     }
 
-    if (submodel) {
-      fetch = fetch.textSearch('submodel', submodel);
+    // Dynamically apply filters
+    filters?.forEach(({ field, operator, value }) => {
+      switch (operator) {
+        case 'eq':
+          fetch = fetch.eq(field, value);
+          break;
+        case 'neq':
+          fetch = fetch.neq(field, value);
+          break;
+        case 'gt':
+          fetch = fetch.gt(field, value);
+          break;
+        case 'lt':
+          fetch = fetch.lt(field, value);
+          break;
+        case 'gte':
+          fetch = fetch.gte(field, value);
+          break;
+        case 'lte':
+          fetch = fetch.lte(field, value);
+          break;
+        case 'notnull':
+          fetch = fetch.not(field, 'is', null);
+          break;
+        // Add cases for other operators as needed
+        default:
+          break;
+      }
+    });
+
+    if (sort && sort.field) {
+      fetch = fetch.order(sort.field, { ascending: sort.order === 'asc' });
     }
-    if (submodel2) {
-      fetch = fetch.textSearch('submodel2', submodel2);
-    }
-    console.log('Before the fetch');
     const { data, error } = await fetch;
-    console.log('After the fetch', data?.length);
+
     if (error) {
       console.error(error);
       return [];
@@ -112,7 +160,6 @@ export async function getProductReviewsByPage(
       console.log('ZodError:', error);
     }
     console.error(error);
-    console.log('EROROROR')
     return [];
   }
 }
@@ -142,7 +189,7 @@ export async function getAllReviewsWithImages(
     }
 
     if (year) {
-      fetch = fetch.eq('year_generation', year);
+      fetch = fetch.eq('parent_generation', year);
     }
 
     if (submodel) {
@@ -197,16 +244,13 @@ export async function getProductReviewSummary(
 ): Promise<TProductReviewSummary> {
   try {
     const validatedFilters = ProductReviewsQueryFiltersSchema.parse(filters);
-    const { productType, year, make, model, submodel, submodel2 } =
-      validatedFilters;
+    const { productType, year, make, model } = validatedFilters;
 
     const fetch = supabaseDatabaseClient.rpc('get_product_reviews_summary', {
       type: productType,
       make,
       model,
       year,
-      submodel,
-      submodel2,
     });
 
     const { data, error } = await fetch;
@@ -226,5 +270,39 @@ export async function getProductReviewSummary(
     }
     console.error(error);
     return { total_reviews: 0, average_score: 0 };
+  }
+}
+
+export async function getProductReviewData(
+  filters: TProductReviewsQueryFilters
+): Promise<TReviewData[]> {
+  try {
+    const validatedFilters = ProductReviewsQueryFiltersSchema.parse(filters);
+    const { year, make, model } = validatedFilters;
+
+    let fetch = supabaseDatabaseClient.from(PRODUCT_REVIEWS_TABLE).select('*');
+
+    if (make) {
+      fetch = fetch.textSearch('make', make);
+    }
+
+    if (model) {
+      fetch = fetch.textSearch('model', model);
+    }
+
+    const { data, error } = await fetch;
+
+    if (year) {
+    }
+    if (error) {
+      console.log(error);
+    }
+    return data || [];
+  } catch (error) {
+    if (error instanceof ZodError) {
+      console.log('ZodError:', error);
+    }
+    console.error(error);
+    return [];
   }
 }

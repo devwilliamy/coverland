@@ -24,7 +24,7 @@ function RatingsTrigger() {
               >
                 {total_reviews || '2'} ratings
               </DialogTrigger>
-              <DialogContent className="flex flex-col items-center lg:min-w-[77vw] lg:max-w-[80%] xl:max-w-[1024px]">
+              <DialogContent className="flex flex-col items-center min-h-[65vh] max-h-[65vh] overflow-y-auto lg:min-w-[77vw] lg:max-w-[80%] xl:max-w-[1024px]">
                 <div className={''}>
                   <ReviewSection />
                 </div>

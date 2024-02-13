@@ -13,12 +13,10 @@ import ProductVideo from './ProductVideo';
 import ThreeSixtyVideo from '@/videos/360 degree_website.mp4';
 import ReviewSection from './components/ReviewSection';
 import { CarSelectionContext } from '@/app/(main)/[productType]/components/CarPDP';
-import { useStore } from 'zustand';
 
 export function ExtraProductDetails() {
   const store = useContext(CarSelectionContext);
   if (!store) throw new Error('Missing CarContext.Provider in the tree');
-  const reviewData = useStore(store, (s) => s.reviewData);
   // const [selectedSection, setSelectedSection] = useState<string>('');
 
   const benefitsRef = useRef<HTMLDivElement>(null);
@@ -162,11 +160,9 @@ export function ExtraProductDetails() {
           <div id="warranty" ref={warrantyRef}>
             <WarrantyDesktop />
           </div>
-          {!!reviewData?.length && (
-            <div id="car-cover-reviews" ref={reviewsRef}>
-              {/* <ReviewSection /> */}
-            </div>
-          )}
+          <div id="car-cover-reviews" ref={reviewsRef}>
+            <ReviewSection />
+          </div>
         </div>
       </div>
     </div>

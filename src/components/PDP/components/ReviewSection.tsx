@@ -7,7 +7,7 @@ import ReviewHeaderGallery from './ReviewHeaderGallery';
 
 import { CarSelectionContext } from '@/app/(main)/[productType]/components/CarPDP';
 import { useStore } from 'zustand';
-import { getProductReviewsByPage } from '@/lib/db/review';
+import { FilterParams, getProductReviewsByPage } from '@/lib/db/review';
 import { useMediaQuery } from '@mantine/hooks';
 import { AiOutlineLoading3Quarters } from 'react-icons/ai';
 
@@ -22,15 +22,21 @@ const ReviewSection = () => {
     store,
     (s) => s.reviewDataSummary
   );
-  const { year, type, make, model, submodel, secondSubmodel } = useStore(
-    store,
-    (s) => s.query
-  );
+  const { type, make, model } = useStore(store, (s) => s.query);
+  const year = useStore(store, (s) => s.paramsYear);
   console.log('total reviews: ' + reviewData.length);
 
   const [loading, setLoading] = useState(false);
   const [page, setPage] = useState(1); // Starting at 1 because we're already starting at 0
   const limit = 8;
+  const [sort, setSort] = useState<{ field: string; order: 'desc' | 'asc' }>({
+    field: 'helpful',
+    order: 'desc',
+  });
+  const [filters, setFilters] = useState<FilterParams[]>([]);
+
+  const areThereMoreReviews = reviewData.length < total_reviews;
+
   const isSuvTypeString = type === 'suv-covers' ? 'SUV Covers' : 'Truck Covers';
   const typeString = type === 'car-covers' ? 'Car Covers' : isSuvTypeString;
 
@@ -50,6 +56,8 @@ const ReviewSection = () => {
             page,
             limit,
           },
+          sort,
+          filters,
         }
       );
       console.log('Finished New Review Data');
@@ -62,7 +70,154 @@ const ReviewSection = () => {
     setLoading(false);
   };
 
-  if (!reviewData) return null;
+  const handleSortSelectionChange = async (
+    e: React.ChangeEvent<HTMLSelectElement>
+  ) => {
+    let field;
+    let order = 'asc' as 'asc' | 'desc';
+    switch (e.target.value) {
+      case 'newest':
+        field = 'reviewed_at';
+        order = 'desc';
+        break;
+      case 'helpful':
+        field = 'helpful';
+        order = 'desc';
+        break;
+      case 'oldest':
+        field = 'reviewed_at'; // Assuming you'll sort in ascending order elsewhere
+        break;
+      // Add more cases as needed
+      default:
+        field = 'helpful'; // Default case if needed
+        order = 'desc';
+    }
+
+    try {
+      setLoading(true);
+      const newReviewData = await getProductReviewsByPage(
+        {
+          productType: typeString,
+          year,
+          make,
+          model,
+        },
+        {
+          pagination: {
+            page: 0, // Reset to the beginning
+            limit,
+          },
+          sort: {
+            field,
+            order,
+          },
+        }
+      );
+      setSort({ field, order });
+      setReviewData([...newReviewData]); // Only show the first 8 when a sort has been picked
+      setPage(1);
+    } catch (error) {
+      console.error(error);
+    }
+    setLoading(false);
+  };
+
+  const handleFilterSelectionChange = async (
+    e: React.ChangeEvent<HTMLSelectElement>
+  ) => {
+    let field;
+    let operator: 'eq' | 'neq' | 'gt' | 'lt' | 'gte' | 'lte';
+    let value;
+
+    switch (e.target.value) {
+      // case 'none':
+
+      //   break;
+      case 'images':
+        field = 'review_image';
+        operator = 'neq';
+        value = '';
+        break;
+      // case 'verified':
+      //   field = '';
+      //   operator = 'neq';
+      //   value = ''
+      //   break;
+      case 'positive':
+        field = 'rating_stars';
+        operator = 'gt';
+        value = '3';
+        break;
+      case 'critical':
+        field = 'rating_stars';
+        operator = 'lt';
+        value = '3';
+        break;
+
+      default:
+        field = 'review_image';
+        operator = 'neq';
+        value = '';
+        break;
+    }
+
+    try {
+      setLoading(true);
+      // If set to none, do the default sort
+      const newReviewData =
+        e.target.value === 'none'
+          ? await getProductReviewsByPage(
+              {
+                productType: typeString,
+                year,
+                make,
+                model,
+              },
+              {
+                pagination: {
+                  page: 0, // Reset to the beginning
+                  limit,
+                },
+                sort: {
+                  field: 'helpful',
+                  order: 'desc',
+                },
+              }
+            )
+          : await getProductReviewsByPage(
+              {
+                productType: typeString,
+                year,
+                make,
+                model,
+              },
+              {
+                pagination: {
+                  page: 0, // Reset to the beginning
+                  limit,
+                },
+                filters: [
+                  {
+                    field,
+                    operator,
+                    value,
+                  },
+                ],
+                sort: {
+                  field: 'helpful',
+                  order: 'desc',
+                },
+              }
+            );
+      const newFilters = [{ field, operator, value }];
+      setFilters([...newFilters]);
+      setReviewData([...newReviewData]); // Only show the first 8 when a sort has been picked
+      setPage(1);
+    } catch (error) {
+      console.error(error);
+    }
+    setLoading(false);
+  };
 
   return (
     <div className="relative mb-[56px] lg:mb-0 lg:py-2">
@@ -104,43 +259,54 @@ const ReviewSection = () => {
         </div>
       </div>
       <ReviewHeaderGallery />
-      {/* <div className="pt-6">
-       
-      </div>
-      <div className="my-4 flex gap-4 *:rounded-lg">
-        <select className="mx-auto mt-9 h-12 w-full rounded border border-[#1A1A1A] bg-transparent text-lg font-normal capitalize text-[#1A1A1A] text-[#767676]">
-          <option value="volvo">Newest</option>
-          <option value="saab">Oldest</option>
-          <option value="mercedes">Most Helpful</option>
+      <div className="pt-6"></div>
+      <div className="my-5 flex flex-col gap-1 *:rounded-lg lg:flex-row lg:gap-4">
+        <select
+          className="mx-auto mt-9 h-12 w-full rounded border border-[#C8C7C7] bg-transparent px-4 text-lg font-normal capitalize text-[#1A1A1A]"
+          onChange={handleSortSelectionChange}
+        >
+          <option value="helpful">Sort By Most Helpful</option>
+          <option value="newest">Sort By Most Recent</option>
+          {/* <option value="oldest">Sort By Oldest</option> */}
         </select>
 
-        <select className=" mx-auto mt-9 h-12 w-full rounded border border-[#1A1A1A] bg-transparent text-lg font-normal capitalize text-[#1A1A1A] text-[#767676]">
-          <option value="volvo">Newest</option>
-          <option value="saab">Oldest</option>
-          <option value="mercedes">Most Helpful</option>
+        <select
+          className="mx-auto mt-3 h-12 w-full rounded border border-[#C8C7C7] bg-transparent px-4 text-lg font-normal capitalize text-[#1A1A1A] lg:mt-9"
+          onChange={handleFilterSelectionChange}
+        >
+          <option value="none">Filter By</option>
+          <option value="images">Filter By Images Only</option>
+          {/* <option value="verified">Filter By Verified Purchases Only</option> */}
+          <option value="positive">Filter By Positive Reviews</option>
+          <option value="critical">Filter By Critical Reviews</option>
         </select>
-        <select className="mx-auto mt-9 h-12 w-full rounded border border-[#1A1A1A] bg-transparent text-lg font-normal capitalize text-[#1A1A1A] text-[#767676]">
-          <option value="volvo">Newest</option>
-          <option value="saab">Oldest</option>
-          <option value="mercedes">Most Helpful</option>
-        </select>
-      </div> */}
+      </div>
+      {reviewData?.length === 0 ? (
+        <div className="flex items-center justify-center py-4">
+          No Reviews Found
+        </div>
+      ) : null}
       {!!reviewData?.length && (
         <div className="mt-7 flex flex-col items-center gap-6 lg:mt-[71px]">
           {reviewData?.map((review, index) => (
             <ReviewCard key={index} review={review} />
           ))}
-          <button
-            className="my-4 max-w-[160px] items-stretch justify-center whitespace-nowrap rounded-full border border-solid border-black bg-white px-8 py-3.5 font-black leading-4 tracking-wide text-black transition-colors duration-150 hover:bg-black hover:text-white"
-            aria-label="View more"
-            onClick={() => handleViewMore()}
-          >
-            {loading ? (
-              <AiOutlineLoading3Quarters className="animate-spin" />
-            ) : (
-              'View 4 More'
-            )}
-          </button>
+          {areThereMoreReviews ? (
+            <button
+              className="my-4 max-w-[160px] items-stretch justify-center whitespace-nowrap rounded-full border border-solid border-black bg-white px-8 py-3.5 font-black leading-4 tracking-wide text-black transition-colors duration-150 hover:bg-black hover:text-white"
+              aria-label="View more"
+              role="button"
+              onClick={() => handleViewMore()}
+            >
+              {loading ? (
+                <AiOutlineLoading3Quarters className="animate-spin" />
+              ) : (
+                `View ${limit} More`
+              )}
+            </button>
+          ) : (
+            <div className="py-3"></div>
+          )}
         </div>
       )}
     </div>

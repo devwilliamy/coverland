@@ -20,6 +20,7 @@ import { CarSelectionContext } from '@/app/(main)/[productType]/components/CarPD
 import { getProductReviewsByPage } from '@/lib/db/review';
 import { AiOutlineLoading3Quarters } from 'react-icons/ai';
 import { ChevronRight } from 'lucide-react';
+import { useMediaQuery } from '@mantine/hooks';
 
 const CustomerReviewTabs = () => {
   const [selectedTab, setSelectedTab] = useState('customer-images');
@@ -40,7 +41,7 @@ const CustomerReviewTabs = () => {
   const [api, setApi] = useState<CarouselApi>();
   const [current, setCurrent] = useState(0);
   const [count, setCount] = useState(0);
-
+  const isMobile = useMediaQuery('(max-width: 768px)');
   useEffect(() => {
     if (!api) {
       return;
@@ -53,7 +54,6 @@ const CustomerReviewTabs = () => {
       setCurrent(api.selectedScrollSnap() + 1);
       !api.canScrollNext() && handleViewMore();
     });
-
   }, [api, reviewData]);
 
   const handleViewMore = async () => {
@@ -128,24 +128,28 @@ const CustomerReviewTabs = () => {
             {reviewData?.map((review, index) => (
               <CarouselItem
                 key={`carousel-item-${index}`}
-                className="flex w-full flex-col items-start  lg:flex-row lg:gap-2"
+                className={`flex w-full flex-col aspect-square max-h-[520px] items-start lg:grid lg:min-w-[100%] 
+                lg:${review.review_image ? 'grid-cols-2' : 'grid-cols-1'} lg:items-center lg:gap-2`}
               >
                 {review?.review_image && (
                   <Image
                     id={`customer-review-image-${index}`}
                     alt={`customer-review-image-${index}`}
-                    width={109}
-                    height={109}
+                    width={500}
+                    height={500}
                     src={
                       review.review_image
                         ? review.review_image?.split(',')[0]
                         : ExampleImage
                     }
-                    className="hidden aspect-square lg:flex lg:w-1/2 "
+                    className="hidden aspect-square lg:flex lg:h-full"
                   />
                 )}
-                <div className="flex h-full min-h-[60vh] w-full flex-col justify-center  lg:min-h-[100%] lg:w-1/2">
-                  <ReviewCard review={review} />
+                <div
+                  id={'review-card-container'}
+                  className={`flex h-full min-h-[60vh] ${review.review_image && 'w-full'} flex-col justify-center lg:min-h-[100%]  lg:flex-row `}
+                >
+                  <ReviewCard review={review} tabsCard />
                 </div>
               </CarouselItem>
             ))}

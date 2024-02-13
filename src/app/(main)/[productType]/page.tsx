@@ -42,7 +42,7 @@ export default async function CarPDPModelDataLayer({
         {
           pagination: {
             page: 0,
-            limit: 4,
+            limit: 8,
           },
         }
       ),

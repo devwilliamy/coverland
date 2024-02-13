@@ -46,12 +46,9 @@ export function CarCoverSelector() {
     new Set(modelData.map((model) => model.display_color))
   ).map((color) => modelData.find((model) => model.display_color === color));
 
-  const productImages =
-    selectedProduct?.product
-      ?.split(',')
-      .filter((img) => img !== featuredImage) ?? [];
+  const productImages = selectedProduct?.productImages as string[];
 
-  const productName = modelData[0].fullProductName;
+  const productName = modelData[0]?.fullProductName;
 
   return (
     <>

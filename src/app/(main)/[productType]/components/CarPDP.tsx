@@ -43,6 +43,7 @@ interface ICarCoverSelectionState extends ICarCoverProps {
   query: TQuery;
   setReviewData: (newReviewData: TReviewData[]) => void;
   setReviewDataSummary: (newReviewDataSummary: TProductReviewSummary) => void;
+  paramsYear: string;
 }
 
 const createCarSelectionStore = ({
@@ -91,7 +92,7 @@ const createCarSelectionStore = ({
       secondSubmodel: queryParams?.secondSubmodel ?? '',
     },
     selectedProduct: initialDataWithSecondSubmodels[0],
-    featuredImage: initialDataWithSecondSubmodels[0].mainImage,
+    featuredImage: initialDataWithSecondSubmodels[0]?.mainImage,
     selectedColor: initialDataWithSecondSubmodels[0]?.display_color ?? '',
     reviewImages: initialReviewImages,
     setSelectedProduct: (newProduct: IProductData) => {
@@ -173,6 +174,7 @@ const createCarSelectionStore = ({
       // SET EXPLICIT TYPE
       set(() => ({ reviewImages: newReviewImages }));
     },
+    paramsYear: params.year || '',
   }));
 };
 

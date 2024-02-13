@@ -45,13 +45,13 @@ export default function AppScripts() {
         'https://connect.facebook.net/en_US/fbevents.js');
         fbq('init', '2082985078567650');
         fbq('track', 'PageView');`}
-        <noscript
-          dangerouslySetInnerHTML={{
-            __html: `<img height="1" width="1" style="display:none"
-            src="https://www.facebook.com/tr?id=2082985078567650&ev=PageView&noscript=1"/>`,
-          }}
-        ></noscript>
       </Script>
+      <noscript
+        dangerouslySetInnerHTML={{
+          __html: `<img height="1" width="1" style="display:none"
+            src="https://www.facebook.com/tr?id=2082985078567650&ev=PageView&noscript=1"/>`,
+        }}
+      ></noscript>
     </>
   );
 }
