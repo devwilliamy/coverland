@@ -5,7 +5,6 @@ import CarPDP from '@/app/(main)/[productType]/components/CarPDP';
 import { TPathParams } from '@/app/(main)/utils';
 import {
   TProductReviewSummary,
-  getAllReviewsWithImages,
   getProductReviewSummary,
   getProductReviewsByPage,
 } from '@/lib/db/review';
@@ -22,7 +21,6 @@ export default async function CarPDPDataLayer({
     total_reviews: 0,
     average_score: 0,
   };
-
 
   try {
     [modelData, reviewData, reviewDataSummary] = await Promise.all([

@@ -51,9 +51,6 @@ export default async function CarPDPModelDataLayer({
       }),
       getAllReviewsWithImages({
         productType: typeString,
-        // make: params?.make,
-        // model: params.model,
-        // year: params.year,
       }),
     ]);
   } catch (error) {

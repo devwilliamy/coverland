@@ -166,7 +166,7 @@ export async function getProductReviewsByPage(
 
 export async function getAllReviewsWithImages(
   filters: TProductReviewsQueryFilters
-): Promise<(string | StaticImageData | null)[]> {
+): Promise<[string, boolean][]> {
   try {
     const validatedFilters = ProductReviewsQueryFiltersSchema.parse(filters);
     const { productType, year, make, model, submodel, submodel2 } =
@@ -210,18 +210,18 @@ export async function getAllReviewsWithImages(
       return [];
     }
 
-    const imageSet = new Set<string>();
+    const imageMap = new Map<string, boolean>();
 
     for (const ob of data) {
       const split = ob.review_image?.split(',');
       if (split) {
         for (const imageString of split) {
-          !imageSet.has(imageString) && imageSet.add(imageString);
+          !imageMap.has(imageString) && imageMap.set(imageString, false);
         }
       }
     }
 
-    return Array.from(imageSet);
+    return Array.from(imageMap);
   } catch (error) {
     if (error instanceof ZodError) {
       console.log('ZodError:', error);

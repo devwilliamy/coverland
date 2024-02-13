@@ -7,7 +7,6 @@ import {
   SheetTrigger,
 } from '@/components/ui/sheet';
 import { IoClose } from 'react-icons/io5';
-import CustomerReviewTabs from './CustomerReviewTabs';
 import { useContext, useState } from 'react';
 import { useStore } from 'zustand';
 import { CarSelectionContext } from '@/app/(main)/[productType]/components/CarPDP';
@@ -38,7 +37,7 @@ export default function ReviewSheet({ seeMore }: { seeMore?: boolean }) {
         <SheetHeader draggable={false}>
           <SheetTitle className="sticky top-0 z-[100] mx-4 flex justify-between bg-white">
             <SheetClose className="fixed right-0 z-[400] mr-[16px] flex items-center py-[4px]">
-              <div
+              <button
                 id="CloseModalButton"
                 className=" mt-[17px] justify-center rounded-full bg-gray-200 p-[5px] "
                 onClick={() => {
@@ -46,7 +45,7 @@ export default function ReviewSheet({ seeMore }: { seeMore?: boolean }) {
                 }}
               >
                 <IoClose className="h-[24px] w-[24px]" />
-              </div>
+              </button>
             </SheetClose>
           </SheetTitle>
         </SheetHeader>
