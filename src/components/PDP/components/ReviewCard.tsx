@@ -81,7 +81,7 @@ export default function ReviewCard({
               year: 'numeric',
             })}
           </div>}
-      <ReviewCardImages />
+      <ReviewCardImages  />
       <HelpfulSection numberOfHelpful={review?.helpful as string} />
    
     </div>

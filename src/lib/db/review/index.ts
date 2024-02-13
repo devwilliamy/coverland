@@ -210,19 +210,18 @@ export async function getAllReviewsWithImages(
       return [];
     }
 
-    const images = [];
+    const imageSet = new Set<string>();
 
     for (const ob of data) {
       const split = ob.review_image?.split(',');
-      if (split && split.length > 1) {
-        images.push(split[0]);
-        images.push(split[1]);
-      } else {
-        split && images.push(split[0]);
+      if (split) {
+        for (const imageString of split) {
+          !imageSet.has(imageString) && imageSet.add(imageString);
+        }
       }
     }
 
-    return images;
+    return Array.from(imageSet);
   } catch (error) {
     if (error instanceof ZodError) {
       console.log('ZodError:', error);
