@@ -52,7 +52,7 @@ export default function CustomerReviewSheet({
           </SheetTitle>
         </SheetHeader>
         <div className="mx-auto flex max-h-[76vh] min-h-[76vh] w-full flex-col overflow-y-auto px-4">
-          <CustomerRevlogiewTabs />
+          <CustomerReviewTabs />
         </div>
       </SheetContent>
     </Sheet>
