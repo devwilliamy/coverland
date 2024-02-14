@@ -1,9 +1,8 @@
 import { TReviewData } from '@/lib/db';
 import { Rating } from '@mui/material';
 import { CheckIcon } from './icons';
-// import HelpfulSection from './HelpfulSection';
 import ReviewCardImages from './ReviewCardImages';
-import HelpfulSection from './HelpfulSection';
+// import HelpfulSection from './HelpfulSection';
 
 export default function ReviewCard({
   review,

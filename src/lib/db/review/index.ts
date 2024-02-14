@@ -209,13 +209,12 @@ export async function getAllReviewsWithImages(
     if (productType) {
       fetch = fetch.eq('type', productType);
     }
-
     if (make) {
-      fetch = fetch.textSearch('make', make);
+      fetch = fetch.textSearch('make_slug', generateSlug(make));
     }
 
     if (model) {
-      fetch = fetch.textSearch('model', model);
+      fetch = fetch.textSearch('model_slug', generateSlug(model));
     }
 
     if (year) {

@@ -5,6 +5,7 @@ import CarPDP from '@/app/(main)/[productType]/components/CarPDP';
 import { TPathParams } from '@/app/(main)/utils';
 import {
   TProductReviewSummary,
+  getAllReviewsWithImages,
   getProductReviewSummary,
   getProductReviewsByPage,
 } from '@/lib/db/review';
@@ -21,29 +22,41 @@ export default async function CarPDPDataLayer({
     total_reviews: 0,
     average_score: 0,
   };
+  let reviewImages: Record<string, boolean>;
+  const SuvOrTruckType =
+    params?.productType === 'suv-covers' ? 'SUV Covers' : 'Truck Covers';
+  const typeString =
+    params?.productType === 'car-covers' ? 'Car Covers' : SuvOrTruckType;
 
   try {
-    [modelData, reviewData, reviewDataSummary] = await Promise.all([
-      getProductData({
-        model: params.model,
-        make: params.make,
-        year: params.year,
-      }),
-      getProductReviewsByPage(
-        { make: params.make, model: params.model, year: params.year },
-        {
-          pagination: {
-            page: 0,
-            limit: 8,
-          },
-        }
-      ),
-      getProductReviewSummary({
-        make: params?.make,
-        model: params.model,
-        year: params.year,
-      }),
-    ]);
+    [modelData, reviewData, reviewDataSummary, reviewImages] =
+      await Promise.all([
+        getProductData({
+          model: params.model,
+          make: params.make,
+          year: params.year,
+        }),
+        getProductReviewsByPage(
+          { make: params.make, model: params.model, year: params.year },
+          {
+            pagination: {
+              page: 0,
+              limit: 8,
+            },
+          }
+        ),
+        getProductReviewSummary({
+          make: params?.make,
+          model: params.model,
+          year: params.year,
+        }),
+        getAllReviewsWithImages({
+          productType: typeString,
+          make: params?.make,
+          model: params.model,
+          year: params.year,
+        }),
+      ]);
 
     if (!modelData) {
       redirect('/404');
@@ -65,6 +78,7 @@ export default async function CarPDPDataLayer({
           reviewData={reviewData}
           params={params}
           reviewDataSummary={reviewDataSummary}
+          reviewImages={reviewImages}
         />
       </Suspense>
     </>

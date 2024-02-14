@@ -130,7 +130,7 @@ const CustomerReviewTabs = () => {
             {reviewData?.map((review, index) => (
               <CarouselItem
                 key={`carousel-item-${index}`}
-                className={`flex max-h-[520px] w-full flex-col  items-start lg:flex-row  `}
+                className={`flex max-h-[520px] w-full flex-col  items-start lg:flex-row lg:gap-4  `}
                 // lg:grid lg:min-w-[100%] lg:${review.review_image ? 'grid-cols-2' : 'grid-cols-1'} lg:items-center lg:gap-2`}
               >
                 {review?.review_image && (
