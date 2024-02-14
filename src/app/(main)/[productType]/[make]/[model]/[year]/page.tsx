@@ -5,6 +5,7 @@ import CarPDP from '@/app/(main)/[productType]/components/CarPDP';
 import { TPathParams } from '@/app/(main)/utils';
 import {
   TProductReviewSummary,
+  filterReviewData,
   getAllReviewsWithImages,
   getProductReviewSummary,
   getProductReviewsByPage,
@@ -57,6 +58,7 @@ export default async function CarPDPDataLayer({
           year: params.year,
         }),
       ]);
+    filterReviewData({ reviewData, reviewImages });
 
     if (!modelData) {
       redirect('/404');

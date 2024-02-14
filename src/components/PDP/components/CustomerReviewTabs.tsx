@@ -120,6 +120,9 @@ const CustomerReviewTabs = () => {
               height={109}
               className="aspect-square h-full w-full rounded-[3px]"
               src={image ? image : ExampleImage}
+              onError={() => {
+                console.log('image error', image);
+              }}
             />
           ))}
         </span>
