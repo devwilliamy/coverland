@@ -38,6 +38,7 @@ const ReviewSection = () => {
     order: 'desc',
   });
   const [filters, setFilters] = useState<FilterParams[]>([]);
+  // const [searchReview, setSearchReview] = useState<string>('');
 
   const areThereMoreReviews = reviewData.length < total_reviews;
 
@@ -61,6 +62,7 @@ const ReviewSection = () => {
           },
           sort,
           filters,
+          // search: searchReview,
         }
       );
       filterReviewData({ reviewData: newReviewData, reviewImages });
@@ -221,6 +223,41 @@ const ReviewSection = () => {
     setLoading(false);
   };
 
+  /* Text search - was told to leave it out for now */
+  // const handleSearchEnter = async (e: React.ChangeEvent<HTMLButtonElement>) => {
+  //   e.preventDefault();
+
+  //   try {
+  //     setLoading(true);
+  //     // If set to none, do the default sort
+  //     const newReviewData = await getProductReviewsByPage(
+  //       {
+  //         productType: typeString,
+  //         year,
+  //         make,
+  //         model,
+  //       },
+  //       {
+  //         pagination: {
+  //           page: 0, // Reset to the beginning
+  //           limit,
+  //         },
+  //         search: searchReview,
+  //         sort: {
+  //           field: 'helpful',
+  //           order: 'desc',
+  //         },
+  //       }
+  //     );
+
+  //     setReviewData([...newReviewData]); // Only show the first 8 when a sort has been picked
+  //     setPage(1);
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  //   setLoading(false);
+  // };
+
   return (
     <div className="relative mb-[56px] lg:mb-0 lg:py-2">
       {isMobile ? null : (
@@ -282,6 +319,14 @@ const ReviewSection = () => {
           <option value="positive">Filter By Positive Reviews</option>
           <option value="critical">Filter By Critical Reviews</option>
         </select>
+        {/* Text search - was told to leave it out for now */}
+        {/* <input
+          className="mt-3 h-12 w-full rounded border border-[#C8C7C7] pl-4 text-lg font-normal text-[#1A1A1A] lg:h-[45px] lg:w-[427px]"
+          placeholder="Search Reviews"
+          value={searchReview}
+          onChange={(e) => setSearchReview(e.target.value)}
+        />
+        <button onClick={handleSearchEnter}>Search</button> */}
       </div>
       {reviewData?.length === 0 ? (
         <div className="flex items-center justify-center py-4">

@@ -33,11 +33,35 @@ export type TProductReviewsQueryOptions = {
   };
   sort?: SortParams;
   filters?: FilterParams[];
+  search?: string;
 };
 
 export type TProductReviewSummary = {
   total_reviews: number;
   average_score: number;
+};
+
+export const generateSlug = (text: string) => {
+  if (!text) return ''; // Return an empty string if text is falsy
+
+  // Step 1: Replace special characters with whitespace, except for periods and parentheses
+  let slug = text.replace(/[^a-zA-Z0-9 .()]/g, ' ');
+
+  // Step 2: Remove periods and parentheses but keep the numeric and alphabetic characters together
+  slug = slug.replace(/[.()]/g, '');
+
+  // Step 3: Replace consecutive whitespaces (including those introduced by removing special characters) with a single space
+  slug = slug.replace(/\s+/g, ' ');
+
+  // Convert to lowercase
+  slug = slug.toLowerCase();
+
+  // Step 4: Avoid separating alphabetic characters and numbers when they should stay together
+
+  // Final: Trim and replace whitespaces with hyphens
+  slug = slug.trim().replace(/ /g, '-');
+
+  return slug.trim();
 };
 
 const FilterSchema = z.object({
@@ -75,6 +99,7 @@ const ProductReviewsQueryOptionsSchema = z.object({
     .optional()
     .default({ field: 'helpful', order: 'desc' }),
   filters: z.array(FilterSchema).optional(),
+  search: z.string().optional(),
 });
 
 export async function getProductReviewsByPage(
@@ -90,6 +115,7 @@ export async function getProductReviewsByPage(
       pagination: { page, limit },
       sort,
       filters,
+      // search,
     } = validatedOptions;
     const { from, to } = getPagination(page, limit);
     let fetch = supabaseDatabaseClient
@@ -102,11 +128,11 @@ export async function getProductReviewsByPage(
     }
 
     if (make) {
-      fetch = fetch.textSearch('make', make);
+      fetch = fetch.textSearch('make_slug', generateSlug(make));
     }
 
     if (model) {
-      fetch = fetch.textSearch('model', model);
+      fetch = fetch.textSearch('model_slug', generateSlug(model));
     }
 
     if (year) {
@@ -146,6 +172,11 @@ export async function getProductReviewsByPage(
     if (sort && sort.field) {
       fetch = fetch.order(sort.field, { ascending: sort.order === 'asc' });
     }
+
+    // if (search) {
+    //   fetch = fetch.textSearch('review_description', search);
+    // }
+
     const { data, error } = await fetch;
 
     if (error) {
@@ -264,8 +295,8 @@ export async function getProductReviewSummary(
 
     const fetch = supabaseDatabaseClient.rpc('get_product_reviews_summary', {
       type: productType,
-      make,
-      model,
+      make: generateSlug(make || ''),
+      model: generateSlug(model || ''),
       year,
     });
 

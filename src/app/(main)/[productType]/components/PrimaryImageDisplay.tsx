@@ -8,9 +8,9 @@ import Image from 'next/image';
 import { SelectedProductImages } from './SelectedProductImages';
 import { Button } from '@/components/ui/button';
 import dynamic from 'next/dynamic';
-import SquareVideo from '@/videos/Coverland_Square.mp4';
-import SquareThumbnail from '@/video/Thumbnail_Square.webp';
+import Thumbnail from '@/video/Thumbnail.webp';
 import { IProductData } from '../../utils';
+import SixMinVideo from 'https://x2kly621zrgfgwll.public.blob.vercel-storage.com/videos/FINALIZE_WEBSTIE_16_9_OPTIMIZED.mp4';
 
 const ProductVideo = dynamic(() => import('@/components/PDP/ProductVideo'), {
   ssr: false,
@@ -54,7 +54,13 @@ export function PrimaryImageDisplay({
       </div>
 
       {/* Product Video */}
-      {!isMobile && <ProductVideo src={SquareVideo} imgSrc={SquareThumbnail} />}
+      {!isMobile && (
+        <ProductVideo
+          src={SixMinVideo}
+          imgSrc={Thumbnail}
+          aspectRatio="16 / 9"
+        />
+      )}
       {/* Gallery Images */}
       <SelectedProductImages
         showMore={showMore}

@@ -10,8 +10,8 @@ import CartSheet from '@/components/cart/CartSheet';
 import { generateProductsLeft } from '@/lib/utils';
 import { compareRawStrings } from '@/lib/utils';
 import ProductVideo from '@/components/PDP/ProductVideo';
-import SquareVideo from '@/videos/Coverland_Square.mp4';
-import SquareThumbnail from '@/video/Thumbnail_Square.webp';
+// import SquareThumbnail from '@/video/Thumbnail_Square.webp';
+import Thumbnail from '@/video/Thumbnail.webp';
 import { useStore } from 'zustand';
 import { useCartContext } from '@/providers/CartProvider';
 import { IProductData } from '../../utils';
@@ -21,6 +21,7 @@ import FreeDetails from './FreeDetails';
 import AddToCart from './AddToCart';
 import CircleColorSelector from './CircleColorSelector';
 import RatingsTrigger from './RatingsTrigger';
+import SixMinVideo from 'https://x2kly621zrgfgwll.public.blob.vercel-storage.com/videos/FINALIZE_WEBSTIE_16_9_OPTIMIZED.mp4';
 import CustomerReviewsSection from './CustomerReviewsSection';
 
 interface ProductRefs {
@@ -138,7 +139,11 @@ export function ProductContent({
       {isMobile && (
         <>
           <div className="pb-5">
-            <ProductVideo src={SquareVideo} imgSrc={SquareThumbnail} />
+            <ProductVideo
+              src={SixMinVideo}
+              imgSrc={Thumbnail}
+              aspectRatio="16 / 9"
+            />
           </div>
           <CustomerReviewsSection />
         </>
