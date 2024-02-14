@@ -74,9 +74,9 @@ export default function ReviewCard({
             })}
           </div>
         )}
-        {!tabsCard && (
+        {/* {!tabsCard && (
           <HelpfulSection numberOfHelpful={review?.helpful as string} />
-        )}
+        )} */}
         <ReviewCardImages reviewImages={review?.review_image} />
       </div>
     </div>
