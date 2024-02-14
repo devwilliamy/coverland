@@ -169,7 +169,9 @@ export function ProductContent({
           {selectedProduct?.price && (
             <p className="text-[20px]  font-[400] leading-[14px] text-[#FF0005] lg:text-[22px] ">
               Save 50%!{' '}
-              <span className=" text-[#BEBEBE] line-through">{`$${Number(selectedProduct?.price) - Number(selectedProduct?.msrp)}`}</span>
+              <span className=" text-[#BEBEBE] line-through">
+                ${Number(selectedProduct?.price).toFixed(0)}
+              </span>
             </p>
           )}
         </div>
