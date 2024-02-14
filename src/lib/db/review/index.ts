@@ -269,7 +269,7 @@ export const filterReviewData = ({
   for (const data of reviewData) {
     const imageStrings: (string | null)[] = [];
     data.review_image?.split(',').map((imgStr) => {
-      if (!reviewImageObj[imgStr]) {
+      if (!reviewImageObj[imgStr] && imgStr.endsWith('.webp')) {
         reviewImageObj[imgStr] = true;
         imageStrings.push(imgStr);
       }
@@ -343,6 +343,75 @@ export async function getProductReviewData(
       console.log(error);
     }
     return data || [];
+  } catch (error) {
+    if (error instanceof ZodError) {
+      console.log('ZodError:', error);
+    }
+    console.error(error);
+    return [];
+  }
+}
+
+/*
+  Special function for special case.
+  Need to run this when user selects filter by image
+  Because we are doing something special to filter out the images so duplicates don't appear later
+  We currently don't have many images so this isn't too bad, but if we get more and more and less duplicates, we can get rid of this
+*/
+export async function getProductReviewsByImage(
+  productQueryFilters: TProductReviewsQueryFilters,
+  options: TProductReviewsQueryOptions
+): Promise<TReviewData[]> {
+  try {
+    const validatedFilters =
+      ProductReviewsQueryFiltersSchema.parse(productQueryFilters);
+    const validatedOptions = ProductReviewsQueryOptionsSchema.parse(options);
+    const { productType, year, make, model } = validatedFilters;
+    const { sort, filters } = validatedOptions;
+    let fetch = supabaseDatabaseClient.from(PRODUCT_REVIEWS_TABLE).select('*');
+
+    if (productType) {
+      fetch = fetch.eq('type', productType);
+    }
+
+    if (make) {
+      fetch = fetch.textSearch('make_slug', generateSlug(make));
+    }
+
+    if (model) {
+      fetch = fetch.textSearch('model_slug', generateSlug(model));
+    }
+
+    if (year) {
+      fetch = fetch.eq('parent_generation', year);
+    }
+
+    // Dynamically apply filters
+    // Special case, this should only be using review image
+    // Field SHOULD only be "review_image", operator SHOULD only be "neq"
+    filters?.forEach(({ field, operator, value }) => {
+      switch (operator) {
+        case 'neq':
+          fetch = fetch.neq(field, value);
+          break;
+        // Add cases for other operators as needed
+        default:
+          break;
+      }
+    });
+
+    if (sort && sort.field) {
+      fetch = fetch.order(sort.field, { ascending: sort.order === 'asc' });
+    }
+
+    const { data, error } = await fetch;
+
+    if (error) {
+      console.error(error);
+      return [];
+    }
+
+    return data;
   } catch (error) {
     if (error instanceof ZodError) {
       console.log('ZodError:', error);

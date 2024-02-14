@@ -10,6 +10,7 @@ import { useStore } from 'zustand';
 import {
   FilterParams,
   filterReviewData,
+  getProductReviewsByImage,
   getProductReviewsByPage,
 } from '@/lib/db/review';
 import { useMediaQuery } from '@mantine/hooks';
@@ -22,7 +23,7 @@ const ReviewSection = () => {
   const reviewData = useStore(store, (s) => s.reviewData);
   const setReviewData = useStore(store, (s) => s.setReviewData);
   const reviewImages = useStore(store, (s) => s.reviewImages);
-
+  const setReviewImages = useStore(store, (s) => s.setReviewImages);
   const { total_reviews, average_score } = useStore(
     store,
     (s) => s.reviewDataSummary
@@ -45,6 +46,16 @@ const ReviewSection = () => {
   const SuvOrTruckType = type === 'suv-covers' ? 'SUV Covers' : 'Truck Covers';
   const typeString = type === 'car-covers' ? 'Car Covers' : SuvOrTruckType;
 
+  /**
+   * Sets reviewImage back to <string, false>
+   */
+  const resetReviewDataImages = () => {
+    const reviewImageKeys = Object.keys(reviewImages);
+    for (const reviewImage of reviewImageKeys) {
+      reviewImages[reviewImage] = false;
+    }
+  };
+
   const handleViewMore = async () => {
     try {
       setLoading(true);
@@ -65,8 +76,17 @@ const ReviewSection = () => {
           // search: searchReview,
         }
       );
-      filterReviewData({ reviewData: newReviewData, reviewImages });
-      setReviewData([...reviewData, ...newReviewData]);
+      if (filters[0].field === 'review_image') {
+        resetReviewDataImages();
+        filterReviewData({ reviewData: newReviewData, reviewImages });
+        const newReviewDataWithJustImages = newReviewData.filter(
+          (reviewData) => !!reviewData.review_image
+        );
+        setReviewData([...reviewData, ...newReviewDataWithJustImages]);
+      } else {
+        filterReviewData({ reviewData: newReviewData, reviewImages });
+        setReviewData([...reviewData, ...newReviewData]);
+      }
       setPage((prevPage) => prevPage + 1);
     } catch (error) {
       console.error(error);
@@ -118,6 +138,8 @@ const ReviewSection = () => {
         }
       );
       setSort({ field, order });
+      filterReviewData({ reviewData: newReviewData, reviewImages });
+
       setReviewData([...newReviewData]); // Only show the first 8 when a sort has been picked
       setPage(1);
     } catch (error) {
@@ -125,6 +147,8 @@ const ReviewSection = () => {
     }
     setLoading(false);
   };
+  // Special state. Will get rid of later once image duplicates aren't a problem
+  const [filterImageOn, setFilterImageOn] = useState(false);
 
   const handleFilterSelectionChange = async (
     e: React.ChangeEvent<HTMLSelectElement>
@@ -168,54 +192,103 @@ const ReviewSection = () => {
     try {
       setLoading(true);
       // If set to none, do the default sort
-      const newReviewData =
-        e.target.value === 'none'
-          ? await getProductReviewsByPage(
+      let newReviewData;
+      if (e.target.value === 'none') {
+        newReviewData = await getProductReviewsByPage(
+          {
+            productType: typeString,
+            year,
+            make,
+            model,
+          },
+          {
+            pagination: {
+              page: 0, // Reset to the beginning
+              limit,
+            },
+            sort: {
+              field: 'helpful',
+              order: 'desc',
+            },
+          }
+        );
+        setFilterImageOn(false);
+      } else if (e.target.value === 'images') {
+        newReviewData = await getProductReviewsByImage(
+          {
+            productType: typeString,
+            year,
+            make,
+            model,
+          },
+          {
+            filters: [
               {
-                productType: typeString,
-                year,
-                make,
-                model,
+                field,
+                operator,
+                value,
               },
+            ],
+            sort: {
+              field: 'helpful',
+              order: 'desc',
+            },
+          }
+        );
+        setFilterImageOn(true);
+      } else {
+        newReviewData = await getProductReviewsByPage(
+          {
+            productType: typeString,
+            year,
+            make,
+            model,
+          },
+          {
+            pagination: {
+              page: 0, // Reset to the beginning
+              limit,
+            },
+            filters: [
               {
-                pagination: {
-                  page: 0, // Reset to the beginning
-                  limit,
-                },
-                sort: {
-                  field: 'helpful',
-                  order: 'desc',
-                },
-              }
-            )
-          : await getProductReviewsByPage(
-              {
-                productType: typeString,
-                year,
-                make,
-                model,
+                field,
+                operator,
+                value,
               },
-              {
-                pagination: {
-                  page: 0, // Reset to the beginning
-                  limit,
-                },
-                filters: [
-                  {
-                    field,
-                    operator,
-                    value,
-                  },
-                ],
-                sort: {
-                  field: 'helpful',
-                  order: 'desc',
-                },
-              }
-            );
+            ],
+            sort: {
+              field: 'helpful',
+              order: 'desc',
+            },
+          }
+        );
+        setFilterImageOn(false);
+      }
+
       const newFilters = [{ field, operator, value }];
       setFilters([...newFilters]);
-      setReviewData([...newReviewData]); // Only show the first 8 when a sort has been picked
+
+      resetReviewDataImages();
+      filterReviewData({ reviewData: newReviewData, reviewImages });
+      if (e.target.value === 'images') {
+        // Here, review data should have ALL images
+        // So then it'll filter out to the ones that are unique
+        const newReviewDataWithJustImages = newReviewData.filter(
+          (reviewData) => !!reviewData.review_image
+        );
+
+        // newReviewDataWithJustImages.map((r, i) =>
+        //   console.log('Filtered By Image: ', {
+        //     index: i,
+        //     image: r.review_image,
+        //   })
+        // );
+
+        setReviewData([...newReviewDataWithJustImages]);
+      } else {
+        setReviewData([...newReviewData]); // Only show the first 8 when a sort has been picked
+      }
+
       setPage(1);
     } catch (error) {
       console.error(error);
@@ -338,7 +411,7 @@ const ReviewSection = () => {
           {reviewData?.map((review, index) => (
             <ReviewCard key={index} review={review} />
           ))}
-          {areThereMoreReviews ? (
+          {areThereMoreReviews && !filterImageOn ? (
             <button
               className="my-4 max-w-[160px] items-stretch justify-center whitespace-nowrap rounded-full border border-solid border-black bg-white px-8 py-3.5 font-black leading-4 tracking-wide text-black transition-colors duration-150 hover:bg-black hover:text-white"
               aria-label="View more"
