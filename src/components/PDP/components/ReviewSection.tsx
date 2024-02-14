@@ -23,7 +23,6 @@ const ReviewSection = () => {
   const reviewData = useStore(store, (s) => s.reviewData);
   const setReviewData = useStore(store, (s) => s.setReviewData);
   const reviewImages = useStore(store, (s) => s.reviewImages);
-  const setReviewImages = useStore(store, (s) => s.setReviewImages);
   const { total_reviews, average_score } = useStore(
     store,
     (s) => s.reviewDataSummary
@@ -48,6 +47,7 @@ const ReviewSection = () => {
 
   /**
    * Sets reviewImage back to <string, false>
+   * Used for filterByImage quick fix, can get rid later
    */
   const resetReviewDataImages = () => {
     const reviewImageKeys = Object.keys(reviewImages);
@@ -76,6 +76,7 @@ const ReviewSection = () => {
           // search: searchReview,
         }
       );
+      // This if is used for filterByImage quick fix, can get rid later, will probably just need the else
       if (filters[0].field === 'review_image') {
         resetReviewDataImages();
         filterReviewData({ reviewData: newReviewData, reviewImages });
@@ -148,6 +149,7 @@ const ReviewSection = () => {
     setLoading(false);
   };
   // Special state. Will get rid of later once image duplicates aren't a problem
+  // This was for the filterByImage quickfix. Can be removed later.
   const [filterImageOn, setFilterImageOn] = useState(false);
 
   const handleFilterSelectionChange = async (
@@ -212,8 +214,10 @@ const ReviewSection = () => {
             },
           }
         );
+        // This was for the filterByImage quickfix. Can be removed later.
         setFilterImageOn(false);
       } else if (e.target.value === 'images') {
+        // This else if is used for filterByImage quick fix, can get rid later
         newReviewData = await getProductReviewsByImage(
           {
             productType: typeString,
@@ -235,6 +239,7 @@ const ReviewSection = () => {
             },
           }
         );
+        // This was for the filterByImage quickfix. Can be removed later.
         setFilterImageOn(true);
       } else {
         newReviewData = await getProductReviewsByPage(
@@ -262,6 +267,7 @@ const ReviewSection = () => {
             },
           }
         );
+        // This was for the filterByImage quickfix. Can be removed later.
         setFilterImageOn(false);
       }
 
@@ -270,13 +276,15 @@ const ReviewSection = () => {
 
       resetReviewDataImages();
       filterReviewData({ reviewData: newReviewData, reviewImages });
+
+      // This if is used for filterByImage quick fix, can get rid later, will probably just need the else
       if (e.target.value === 'images') {
         // Here, review data should have ALL images
         // So then it'll filter out to the ones that are unique
         const newReviewDataWithJustImages = newReviewData.filter(
           (reviewData) => !!reviewData.review_image
         );
-
+        // Leaving this comment here if we need to check the images are properly coming in
         // newReviewDataWithJustImages.map((r, i) =>
         //   console.log('Filtered By Image: ', {
         //     index: i,
@@ -411,7 +419,9 @@ const ReviewSection = () => {
           {reviewData?.map((review, index) => (
             <ReviewCard key={index} review={review} />
           ))}
+
           {areThereMoreReviews && !filterImageOn ? (
+            // Can remove filterImageOn later, just used for filterImageBy quickfix
             <button
               className="my-4 max-w-[160px] items-stretch justify-center whitespace-nowrap rounded-full border border-solid border-black bg-white px-8 py-3.5 font-black leading-4 tracking-wide text-black transition-colors duration-150 hover:bg-black hover:text-white"
               aria-label="View more"

@@ -357,6 +357,7 @@ export async function getProductReviewData(
   Need to run this when user selects filter by image
   Because we are doing something special to filter out the images so duplicates don't appear later
   We currently don't have many images so this isn't too bad, but if we get more and more and less duplicates, we can get rid of this
+  This was for the filterByImage quickfix. Can be removed later.
 */
 export async function getProductReviewsByImage(
   productQueryFilters: TProductReviewsQueryFilters,
