@@ -9,6 +9,7 @@ const CustomerReviewsSection = () => {
   const store = useContext(CarSelectionContext);
   if (!store) throw new Error('Missing CarContext.Provider in the tree');
   const reviewImages = useStore(store, (s) => s.reviewImages);
+  const reviewImageKeys = Object.keys(reviewImages);
   return (
     <div>
       <CustomerReviewSheet>
@@ -19,7 +20,7 @@ const CustomerReviewsSection = () => {
         <div className="text-[#0C87B8]">Customer Images</div>
       </CustomerReviewSheet>
       <span className="mb-[32px] flex w-full gap-[7px] overflow-x-auto">
-        {reviewImages.map((images, index) => (
+        {reviewImageKeys.map((images, index) => (
           <div key={`scrollable-item-${index}`} className="flex">
             <Image
               src={images}

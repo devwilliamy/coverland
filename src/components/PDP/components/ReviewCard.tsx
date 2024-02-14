@@ -48,9 +48,7 @@ export default function ReviewCard({
         <div className="line-clamp-3  text-[16px] leading-[28px] text-[#1A1A1A] lg:flex lg:text-[18px] ">
           {review.review_description}
         </div>
-        {tabsCard ? (
-          <></>
-        ) : (
+        {tabsCard ? null : (
           <div className="hidden whitespace-nowrap text-[18px] leading-[12px] text-[#707070]	lg:flex lg:leading-[28px]">
             {review?.reviewed_at &&
               `Purchased on

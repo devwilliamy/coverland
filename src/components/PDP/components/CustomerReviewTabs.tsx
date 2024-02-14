@@ -17,7 +17,7 @@ import {
 } from '@/components/ui/carousel';
 import { useStore } from 'zustand';
 import { CarSelectionContext } from '@/app/(main)/[productType]/components/CarPDP';
-import { getProductReviewsByPage } from '@/lib/db/review';
+import { filterReviewData, getProductReviewsByPage } from '@/lib/db/review';
 import { AiOutlineLoading3Quarters } from 'react-icons/ai';
 import { ChevronRight } from 'lucide-react';
 import { useMediaQuery } from '@mantine/hooks';
@@ -29,6 +29,7 @@ const CustomerReviewTabs = () => {
   const reviewData = useStore(store, (s) => s.reviewData);
   const setReviewData = useStore(store, (s) => s.setReviewData);
   const reviewImages = useStore(store, (s) => s.reviewImages);
+  const reviewImageKeys = Object.keys(reviewImages);
   const { year, type, make, model, submodel, secondSubmodel } = useStore(
     store,
     (s) => s.query
@@ -36,8 +37,8 @@ const CustomerReviewTabs = () => {
   const [loading, setLoading] = useState(false);
   const [page, setPage] = useState(1); // Starting at 1 because we're already starting at 0
   const limit = 4;
-  const isSuvTypeString = type === 'suv-covers' ? 'SUV Covers' : 'Truck Covers';
-  const typeString = type === 'car-covers' ? 'Car Covers' : isSuvTypeString;
+  const SuvOrTruckType = type === 'suv-covers' ? 'SUV Covers' : 'Truck Covers';
+  const typeString = type === 'car-covers' ? 'Car Covers' : SuvOrTruckType;
   const [api, setApi] = useState<CarouselApi>();
   const [current, setCurrent] = useState(0);
   const [count, setCount] = useState(0);
@@ -73,8 +74,9 @@ const CustomerReviewTabs = () => {
           },
         }
       );
-      setReviewData([...reviewData, ...newReviewData]);
 
+      filterReviewData({ reviewData: newReviewData, reviewImages });
+      setReviewData([...reviewData, ...newReviewData]);
       setPage((prevPage) => prevPage + 1);
     } catch (error) {
       console.error(error);
@@ -109,7 +111,7 @@ const CustomerReviewTabs = () => {
       <Separator className=" mt-[-2px]  h-0.5 bg-[#DBDBDB] lg:mt-[-2px]" />
       <TabsContent value="customer-images" className="mt-[29px]">
         <span className="grid h-full max-h-[53vh] grid-cols-3 gap-2 overflow-y-scroll lg:grid-cols-6 lg:gap-[15px]">
-          {reviewImages?.map((image, index) => (
+          {reviewImageKeys.map((image, index) => (
             <Image
               id={`customer-tabs-image-${index}`}
               key={`placeholder-customer-image-${index}`}

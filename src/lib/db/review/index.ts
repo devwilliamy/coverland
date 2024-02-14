@@ -81,7 +81,6 @@ export async function getProductReviewsByPage(
   productQueryFilters: TProductReviewsQueryFilters,
   options: TProductReviewsQueryOptions
 ): Promise<TReviewData[]> {
-  console.log('running fetch');
   try {
     const validatedFilters =
       ProductReviewsQueryFiltersSchema.parse(productQueryFilters);
@@ -166,7 +165,7 @@ export async function getProductReviewsByPage(
 
 export async function getAllReviewsWithImages(
   filters: TProductReviewsQueryFilters
-): Promise<[string, boolean][]> {
+): Promise<Record<string, boolean>> {
   try {
     const validatedFilters = ProductReviewsQueryFiltersSchema.parse(filters);
     const { productType, year, make, model, submodel, submodel2 } =
@@ -200,36 +199,54 @@ export async function getAllReviewsWithImages(
     }
 
     const { data, error } = await fetch;
-    console.log('getAllReviewsWithImages:', {
-      data,
-      validatedFilters,
-    });
 
     if (error) {
       console.error(error);
-      return [];
+      return {};
     }
 
-    const imageMap = new Map<string, boolean>();
+    const imageObject: Record<string, boolean> = {};
 
     for (const ob of data) {
       const split = ob.review_image?.split(',');
       if (split) {
         for (const imageString of split) {
-          !imageMap.has(imageString) && imageMap.set(imageString, false);
+          // !imageMap.has(imageString) && imageMap.set(imageString, false);
+          if (!imageObject[imageString]) {
+            imageObject[imageString] = false;
+          }
         }
       }
     }
 
-    return Array.from(imageMap);
+    return imageObject;
   } catch (error) {
     if (error instanceof ZodError) {
       console.log('ZodError:', error);
     }
     console.error(error);
-    return [];
+    return {};
   }
 }
+
+export const filterReviewData = ({
+  reviewData,
+  reviewImages: reviewImageObj,
+}: {
+  reviewData: TReviewData[];
+  reviewImages: Record<string, boolean>;
+}) => {
+  for (const data of reviewData) {
+    const imageStrings: (string | null)[] = [];
+    data.review_image?.split(',').map((imgStr) => {
+      if (!reviewImageObj[imgStr]) {
+        reviewImageObj[imgStr] = true;
+        imageStrings.push(imgStr);
+      }
+    });
+    data.review_image = imageStrings.join(',');
+  }
+};
 
 /*
   Uses an RPC (Remote Procedure Call). Pretty much SQL Function.
@@ -253,7 +270,6 @@ export async function getProductReviewSummary(
     });
 
     const { data, error } = await fetch;
-    // console.log('GetProductReviewSummary:', { data, validatedFilters });
     if (error) {
       console.error(error);
       return { total_reviews: 0, average_score: 0 };

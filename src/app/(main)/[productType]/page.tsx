@@ -9,6 +9,7 @@ import CarPDP from './components/CarPDP';
 import {
   TProductReviewSummary,
   TReviewData,
+  filterReviewData,
   getAllReviewsWithImages,
   getProductReviewSummary,
   getProductReviewsByPage,
@@ -24,16 +25,17 @@ export default async function CarPDPModelDataLayer({
     total_reviews: 0,
     average_score: 0,
   };
-  let reviewImages: any[] = [];
+  let reviewImages: Record<string, boolean>;
   const productType = params.productType;
-  const isSuvData =
+  const SuvOrTruckData =
     productType === 'suv-covers' ? defaultSuvModelData : defaultTruckModelData;
   const modelData: TInitialProductDataDB[] =
-    productType === 'car-covers' ? defaultCarModelData : isSuvData;
-  const isSuvType =
+    productType === 'car-covers' ? defaultCarModelData : SuvOrTruckData;
+
+  const SuvOrTruckType =
     params?.productType === 'suv-covers' ? 'SUV Covers' : 'Truck Covers';
   const typeString =
-    params?.productType === 'car-covers' ? 'Car Covers' : isSuvType;
+    params?.productType === 'car-covers' ? 'Car Covers' : SuvOrTruckType;
 
   try {
     [reviewData, reviewDataSummary, reviewImages] = await Promise.all([
@@ -53,6 +55,7 @@ export default async function CarPDPModelDataLayer({
         productType: typeString,
       }),
     ]);
+    filterReviewData({ reviewData, reviewImages });
   } catch (error) {
     console.error('CarPDPModelDataLayer Error: ', error);
   }

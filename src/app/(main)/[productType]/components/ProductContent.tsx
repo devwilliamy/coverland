@@ -22,7 +22,6 @@ import AddToCart from './AddToCart';
 import CircleColorSelector from './CircleColorSelector';
 import RatingsTrigger from './RatingsTrigger';
 import CustomerReviewsSection from './CustomerReviewsSection';
-import CustomerImagesDrawer from './CustomerImagesDrawer';
 
 interface ProductRefs {
   [key: string]: RefObject<HTMLElement>;
