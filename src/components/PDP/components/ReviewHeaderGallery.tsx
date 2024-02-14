@@ -26,11 +26,11 @@ export default function ReviewHeaderGallery() {
         <>
           {/* Mobile Header Images */}
           <section className="grid aspect-square h-full w-full grid-cols-2 items-center gap-[7px] lg:hidden">
-            {reviewImageKeys.slice(0, 3).map((obj, index) => {
+            {reviewImageKeys.slice(0, 3).map((image, index) => {
               return (
                 <Image
                   key={`review-header-image-${index}`}
-                  src={ExampleCustomerImage}
+                  src={image ? image : ExampleCustomerImage}
                   alt="Car Cover Review Image"
                   width={207}
                   height={207}
