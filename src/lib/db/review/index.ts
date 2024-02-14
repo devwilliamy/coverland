@@ -208,8 +208,8 @@ export async function getProductReviewSummary(
 
     const fetch = supabaseDatabaseClient.rpc('get_product_reviews_summary', {
       type: productType,
-      make: generateSlug(make || ''),
-      model: generateSlug(model || ''),
+      make: generateSlug(make as string) || undefined,
+      model: generateSlug(model as string) || undefined,
       year,
     });
 
