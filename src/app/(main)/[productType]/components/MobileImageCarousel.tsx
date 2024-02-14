@@ -88,7 +88,9 @@ export const MobileImageCarousel = ({
             if (index === 2) {
               return (
                 <Fragment key={`group-${index}`}>
-                  <CarouselItem key={`carousel-video-${index}`}>
+                  <CarouselItem
+                    key={`carousel-video-${index}`}
+                  >
                     <ProductVideo src={SevenSecVideo} autoplay loop />
                   </CarouselItem>
                   <CarouselItem key={`carousel-image-${index}`}>
@@ -143,6 +145,8 @@ export const MobileImageCarousel = ({
             alt="Video Thumbnail"
             slot="poster"
             src={SevenSecVideoThumbnail}
+            width={80}
+            height={80}
             aria-hidden="true"
           />
         </button>

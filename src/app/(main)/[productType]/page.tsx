@@ -9,6 +9,8 @@ import CarPDP from './components/CarPDP';
 import {
   TProductReviewSummary,
   TReviewData,
+  filterReviewData,
+  getAllReviewsWithImages,
   getProductReviewSummary,
   getProductReviewsByPage,
 } from '@/lib/db/review';
@@ -23,24 +25,20 @@ export default async function CarPDPModelDataLayer({
     total_reviews: 0,
     average_score: 0,
   };
+  let reviewImages: Record<string, boolean>;
   const productType = params.productType;
-
+  const SuvOrTruckData =
+    productType === 'suv-covers' ? defaultSuvModelData : defaultTruckModelData;
   const modelData: TInitialProductDataDB[] =
-    productType === 'car-covers'
-      ? defaultCarModelData
-      : productType === 'suv-covers'
-        ? defaultSuvModelData
-        : defaultTruckModelData;
+    productType === 'car-covers' ? defaultCarModelData : SuvOrTruckData;
 
+  const SuvOrTruckType =
+    params?.productType === 'suv-covers' ? 'SUV Covers' : 'Truck Covers';
   const typeString =
-    params?.productType === 'car-covers'
-      ? 'Car Covers'
-      : params?.productType === 'suv-covers'
-        ? 'SUV Covers'
-        : 'Truck Covers';
+    params?.productType === 'car-covers' ? 'Car Covers' : SuvOrTruckType;
 
   try {
-    [reviewData, reviewDataSummary] = await Promise.all([
+    [reviewData, reviewDataSummary, reviewImages] = await Promise.all([
       getProductReviewsByPage(
         { productType: typeString },
         {
@@ -53,21 +51,24 @@ export default async function CarPDPModelDataLayer({
       getProductReviewSummary({
         productType: typeString,
       }),
+      getAllReviewsWithImages({
+        productType: typeString,
+      }),
     ]);
+    filterReviewData({ reviewData, reviewImages });
   } catch (error) {
     console.error('CarPDPModelDataLayer Error: ', error);
   }
 
   return (
-    <>
-      <Suspense fallback={<div>Loading...</div>}>
-        <CarPDP
-          modelData={modelData}
-          reviewData={reviewData}
-          params={params}
-          reviewDataSummary={reviewDataSummary}
-        />
-      </Suspense>
-    </>
+    <Suspense fallback={<div>Loading...</div>}>
+      <CarPDP
+        modelData={modelData}
+        reviewData={reviewData}
+        params={params}
+        reviewDataSummary={reviewDataSummary}
+        reviewImages={reviewImages}
+      />
+    </Suspense>
   );
 }

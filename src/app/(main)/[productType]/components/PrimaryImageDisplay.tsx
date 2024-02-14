@@ -32,47 +32,41 @@ export function PrimaryImageDisplay({
 
   return (
     <div className=" -ml-4 flex  w-screen flex-col items-stretch justify-center lg:w-3/5 lg:pb-0 ">
-      {/* Featured Image */}
-      <div
-        className={`${
-          showMore ? 'overflow-scroll' : 'max-h-[1775px] overflow-hidden'
-        }`}
-      >
-        <div className="flex h-full w-full items-center justify-center bg-[#F2F2F2] md:h-[500px] lg:h-[650px] lg:rounded-xl">
-          {isMobile ? (
-            <MobileImageCarousel
-              selectedProduct={selectedProduct}
-              productImages={productImages}
-              setFeaturedImage={setFeaturedImage}
-            />
-          ) : (
-            <Image
-              id="featured-image"
-              src={featuredImage ?? ''}
-              alt="a car with a car cover on it"
-              width={400}
-              height={400}
-              className="h-full w-full md:h-[250px] md:w-[250px] lg:h-[500px] lg:w-[500px]"
-              priority
-              // onClick={console.log(selectedImage)}
-            />
-          )}
-        </div>
-
-        {/* Product Video */}
-        {!isMobile && (
-          <ProductVideo
-            src={SixMinVideo}
-            imgSrc={Thumbnail}
-            aspectRatio="16 / 9"
+      <div className="flex h-full w-full items-center justify-center bg-[#F2F2F2] md:h-[500px] lg:h-[650px] lg:rounded-xl">
+        {isMobile ? (
+          <MobileImageCarousel
+            selectedProduct={selectedProduct}
+            productImages={productImages}
+            setFeaturedImage={setFeaturedImage}
+          />
+        ) : (
+          <Image
+            id="featured-image"
+            src={featuredImage ?? ''}
+            alt="a car with a car cover on it"
+            width={400}
+            height={400}
+            className="h-full w-full md:h-[250px] md:w-[250px] lg:h-[500px] lg:w-[500px]"
+            priority
+            // onClick={console.log(selectedImage)}
           />
         )}
-        {/* Gallery Images */}
-        <SelectedProductImages
-          productImages={productImages}
-          setFeaturedImage={setFeaturedImage}
-        />
       </div>
+
+      {/* Product Video */}
+      {!isMobile && (
+        <ProductVideo
+          src={SixMinVideo}
+          imgSrc={Thumbnail}
+          aspectRatio="16 / 9"
+        />
+      )}
+      {/* Gallery Images */}
+      <SelectedProductImages
+        showMore={showMore}
+        productImages={productImages}
+        setFeaturedImage={setFeaturedImage}
+      />
       <Button
         className="mx-auto mt-9 hidden h-12 w-[216px] rounded border border-[#1A1A1A] bg-transparent text-lg font-normal capitalize text-[#1A1A1A] hover:bg-[#1A1A1A] hover:text-white lg:block"
         onClick={() => setShowMore((p) => !p)}

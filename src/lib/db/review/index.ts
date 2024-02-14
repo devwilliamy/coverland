@@ -1,8 +1,10 @@
-import { PRODUCT_REVIEWS_TABLE } from '../constants/databaseTableNames';
-import { supabaseDatabaseClient } from '../supabaseClients';
 import { ZodError, z } from 'zod';
-import { getPagination } from '../utils';
+
+import { PRODUCT_REVIEWS_TABLE } from '../constants/databaseTableNames';
 import { Tables } from '../types';
+import { getPagination } from '../utils';
+import { supabaseDatabaseClient } from '../supabaseClients';
+import { StaticImageData } from 'next/image';
 
 export type TReviewData = Tables<'reviews-2'>;
 
@@ -192,6 +194,90 @@ export async function getProductReviewsByPage(
   }
 }
 
+export async function getAllReviewsWithImages(
+  filters: TProductReviewsQueryFilters
+): Promise<Record<string, boolean>> {
+  try {
+    const validatedFilters = ProductReviewsQueryFiltersSchema.parse(filters);
+    const { productType, year, make, model, submodel, submodel2 } =
+      validatedFilters;
+    let fetch = supabaseDatabaseClient
+      .from(PRODUCT_REVIEWS_TABLE)
+      .select('*')
+      .not('review_image', 'is', null);
+
+    if (productType) {
+      fetch = fetch.eq('type', productType);
+    }
+    if (make) {
+      fetch = fetch.textSearch('make_slug', generateSlug(make));
+    }
+
+    if (model) {
+      fetch = fetch.textSearch('model_slug', generateSlug(model));
+    }
+
+    if (year) {
+      fetch = fetch.eq('parent_generation', year);
+    }
+
+    if (submodel) {
+      fetch = fetch.textSearch('submodel', submodel);
+    }
+    if (submodel2) {
+      fetch = fetch.textSearch('submodel2', submodel2);
+    }
+
+    const { data, error } = await fetch;
+
+    if (error) {
+      console.error(error);
+      return {};
+    }
+
+    const imageObject: Record<string, boolean> = {};
+
+    for (const ob of data) {
+      const split = ob.review_image?.split(',');
+      if (split) {
+        for (const imageString of split) {
+          // !imageMap.has(imageString) && imageMap.set(imageString, false);
+          if (!imageObject[imageString]) {
+            imageObject[imageString] = false;
+          }
+        }
+      }
+    }
+
+    return imageObject;
+  } catch (error) {
+    if (error instanceof ZodError) {
+      console.log('ZodError:', error);
+    }
+    console.error(error);
+    return {};
+  }
+}
+
+export const filterReviewData = ({
+  reviewData,
+  reviewImages: reviewImageObj,
+}: {
+  reviewData: TReviewData[];
+  reviewImages: Record<string, boolean>;
+}) => {
+  for (const data of reviewData) {
+    const imageStrings: (string | null)[] = [];
+    data.review_image?.split(',').map((imgStr) => {
+      if (!reviewImageObj[imgStr]) {
+        reviewImageObj[imgStr] = true;
+        imageStrings.push(imgStr);
+      }
+    });
+    data.review_image = imageStrings.join(',');
+  }
+};
+
 /*
   Uses an RPC (Remote Procedure Call). Pretty much SQL Function.
   Have to set it up on Supabase first.
@@ -214,7 +300,6 @@ export async function getProductReviewSummary(
     });
 
     const { data, error } = await fetch;
-
     if (error) {
       console.error(error);
       return { total_reviews: 0, average_score: 0 };

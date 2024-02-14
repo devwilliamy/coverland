@@ -160,7 +160,6 @@ export function ExtraProductDetails() {
           <div id="warranty" ref={warrantyRef}>
             <WarrantyDesktop />
           </div>
-
           <div id="car-cover-reviews" ref={reviewsRef}>
             <ReviewSection />
           </div>

@@ -7,12 +7,12 @@ import {
   SheetTrigger,
 } from '@/components/ui/sheet';
 import { IoClose } from 'react-icons/io5';
-import CustomerReviewTabs from './components/CustomerReviewTabs';
 import { useContext, useState } from 'react';
 import { useStore } from 'zustand';
 import { CarSelectionContext } from '@/app/(main)/[productType]/components/CarPDP';
+import ReviewSection from './ReviewSection';
 
-export default function ReviewSheet() {
+export default function ReviewSheet({ seeMore }: { seeMore?: boolean }) {
   const [reviewSheetOpen, setReviewSheetOpen] = useState<boolean>(false);
 
   const store = useContext(CarSelectionContext);
@@ -22,17 +22,22 @@ export default function ReviewSheet() {
   return (
     <Sheet open={reviewSheetOpen} onOpenChange={setReviewSheetOpen}>
       <SheetTrigger
-        className="ml-2 text-blue-400 underline"
+        className={`ml-2 ${seeMore ? '' : 'text-blue-400'} underline`}
         disabled={!total_reviews}
-        // className=" flex w-full flex-row items-center justify-between border-b-2 border-[#C8C7C7] py-4 text-left text-[22px] font-black uppercase text-[#1A1A1A] !no-underline"
       >
-        {total_reviews || '2'} ratings
+        {seeMore ? (
+          <p>
+            See more <br /> review images
+          </p>
+        ) : (
+          (total_reviews || '2') + ' ratings'
+        )}
       </SheetTrigger>
       <SheetContent className="rounded-t-[10px] px-[2px]" side="bottom">
-        <SheetHeader draggable={false} >
+        <SheetHeader draggable={false}>
           <SheetTitle className="sticky top-0 z-[100] mx-4 flex justify-between bg-white">
             <SheetClose className="fixed right-0 z-[400] mr-[16px] flex items-center py-[4px]">
-              <div
+              <button
                 id="CloseModalButton"
                 className=" mt-[17px] justify-center rounded-full bg-gray-200 p-[5px] "
                 onClick={() => {
@@ -40,12 +45,18 @@ export default function ReviewSheet() {
                 }}
               >
                 <IoClose className="h-[24px] w-[24px]" />
-              </div>
+              </button>
             </SheetClose>
           </SheetTitle>
         </SheetHeader>
-        <div className="mx-auto flex max-h-[76vh] min-h-[76vh] w-full flex-col px-4 ">
-          <CustomerReviewTabs />
+        <div className="mx-auto flex max-h-[76vh] min-h-[76vh] w-full flex-col overflow-y-auto px-4">
+          <p
+            className="mt-[58px] text-center text-xl font-black uppercase text-black"
+            id="reviews"
+          >
+            Car Cover Reviews
+          </p>
+          <ReviewSection />
         </div>
       </SheetContent>
     </Sheet>

@@ -4,6 +4,8 @@ import { Suspense } from 'react';
 import CarPDP from '@/app/(main)/[productType]/components/CarPDP';
 import {
   TProductReviewSummary,
+  filterReviewData,
+  getAllReviewsWithImages,
   getProductReviewSummary,
   getProductReviewsByPage,
 } from '@/lib/db/review';
@@ -15,16 +17,6 @@ export type TCarCoverSlugParams = {
   productType: string;
 };
 
-export type TGenerationData = {
-  generation: number;
-  year_generation: string;
-  make: string;
-  model: string;
-  submodel1: string | null;
-  submodel2: string | null;
-  year_options: string;
-};
-
 export default async function CarPDPDataLayer({
   params,
 }: {
@@ -33,6 +25,7 @@ export default async function CarPDPDataLayer({
 }) {
   let modelData = [];
   let reviewData: TReviewData[] | null = [];
+  let reviewImages: Record<string, boolean>;
   let reviewDataSummary: TProductReviewSummary = {
     total_reviews: 0,
     average_score: 0,
@@ -45,27 +38,33 @@ export default async function CarPDPDataLayer({
         : 'Truck Covers';
 
   try {
-    [modelData, reviewData, reviewDataSummary] = await Promise.all([
-      getProductData({
-        model: params.model,
-        make: params.make,
-        year: params.year,
-        type: typeString,
-      }),
-      getProductReviewsByPage(
-        { productType: typeString, make: params?.make },
-        {
-          pagination: {
-            page: 0,
-            limit: 8,
-          },
-        }
-      ),
-      getProductReviewSummary({
-        productType: typeString,
-        make: params?.make,
-      }),
-    ]);
+    [modelData, reviewData, reviewDataSummary, reviewImages] =
+      await Promise.all([
+        getProductData({
+          model: params.model,
+          make: params.make,
+          year: params.year,
+          type: typeString,
+        }),
+        getProductReviewsByPage(
+          { productType: typeString, make: params?.make },
+          {
+            pagination: {
+              page: 0,
+              limit: 8,
+            },
+          }
+        ),
+        getProductReviewSummary({
+          productType: typeString,
+          make: params?.make,
+        }),
+        getAllReviewsWithImages({
+          productType: typeString,
+          make: params?.make,
+        }),
+      ]);
+    filterReviewData({ reviewData, reviewImages });
 
     if (!modelData) {
       redirect('/404');
@@ -83,6 +82,7 @@ export default async function CarPDPDataLayer({
           reviewData={reviewData}
           params={params}
           reviewDataSummary={reviewDataSummary}
+          reviewImages={reviewImages}
         />
       </Suspense>
     </>

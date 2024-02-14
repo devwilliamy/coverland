@@ -22,6 +22,7 @@ import AddToCart from './AddToCart';
 import CircleColorSelector from './CircleColorSelector';
 import RatingsTrigger from './RatingsTrigger';
 import SixMinVideo from 'https://x2kly621zrgfgwll.public.blob.vercel-storage.com/videos/FINALIZE_WEBSTIE_16_9_OPTIMIZED.mp4';
+import CustomerReviewsSection from './CustomerReviewsSection';
 
 interface ProductRefs {
   [key: string]: RefObject<HTMLElement>;
@@ -113,7 +114,7 @@ export function ProductContent({
           {selectedProduct?.price && (
             <p className="text-[20px]  font-[400] leading-[14px] text-[#FF0005] lg:text-[22px] ">
               Save 50%!{' '}
-              <span className=" text-[#BEBEBE] line-through">{`$${Number(selectedProduct?.price) - Number(selectedProduct?.msrp)}`}</span>
+              <span className=" text-[#BEBEBE] line-through">{`$${Number(selectedProduct?.price)}`}</span>
             </p>
           )}
         </div>
@@ -136,21 +137,17 @@ export function ProductContent({
       <Separator className="my-8 " />
 
       {isMobile && (
-        <div className="pb-5">
-          <ProductVideo
-            src={SixMinVideo}
-            imgSrc={Thumbnail}
-            aspectRatio="16 / 9"
-          />
-        </div>
+        <>
+          <div className="pb-5">
+            <ProductVideo
+              src={SixMinVideo}
+              imgSrc={Thumbnail}
+              aspectRatio="16 / 9"
+            />
+          </div>
+          <CustomerReviewsSection />
+        </>
       )}
-      {/* <CustomerReviewsSection
-        reviewData={reviewData}
-        customerImagesDrawerOpen={customerImagesDrawerOpen}
-        setCustomerImagesDrawerOpen={setCustomerImagesDrawerOpen}
-        customerImagesIndex={customerImagesIndex}
-        setCustomerImagesIndex={setCustomerImagesIndex}
-      /> */}
       <FourIconGrid />
       <NeedHelp />
       <Separator className="my-10 hidden lg:mt-0 lg:block" />

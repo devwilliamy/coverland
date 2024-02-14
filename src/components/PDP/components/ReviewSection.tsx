@@ -7,22 +7,28 @@ import ReviewHeaderGallery from './ReviewHeaderGallery';
 
 import { CarSelectionContext } from '@/app/(main)/[productType]/components/CarPDP';
 import { useStore } from 'zustand';
-import { FilterParams, getProductReviewsByPage } from '@/lib/db/review';
+import {
+  FilterParams,
+  filterReviewData,
+  getProductReviewsByPage,
+} from '@/lib/db/review';
 import { useMediaQuery } from '@mantine/hooks';
 import { AiOutlineLoading3Quarters } from 'react-icons/ai';
 
 const ReviewSection = () => {
+  const isMobile = useMediaQuery('(max-width: 768px)');
   const store = useContext(CarSelectionContext);
   if (!store) throw new Error('Missing CarContext.Provider in the tree');
   const reviewData = useStore(store, (s) => s.reviewData);
   const setReviewData = useStore(store, (s) => s.setReviewData);
+  const reviewImages = useStore(store, (s) => s.reviewImages);
+
   const { total_reviews, average_score } = useStore(
     store,
     (s) => s.reviewDataSummary
   );
   const { type, make, model } = useStore(store, (s) => s.query);
   const year = useStore(store, (s) => s.paramsYear);
-  const isMobile = useMediaQuery('(max-width: 768px)');
 
   const [loading, setLoading] = useState(false);
   const [page, setPage] = useState(1); // Starting at 1 because we're already starting at 0
@@ -35,12 +41,10 @@ const ReviewSection = () => {
   // const [searchReview, setSearchReview] = useState<string>('');
 
   const areThereMoreReviews = reviewData.length < total_reviews;
-  const typeString =
-    type === 'car-covers'
-      ? 'Car Covers'
-      : type === 'suv-covers'
-        ? 'SUV Covers'
-        : 'Truck Covers';
+
+  const SuvOrTruckType = type === 'suv-covers' ? 'SUV Covers' : 'Truck Covers';
+  const typeString = type === 'car-covers' ? 'Car Covers' : SuvOrTruckType;
+
   const handleViewMore = async () => {
     try {
       setLoading(true);
@@ -61,6 +65,7 @@ const ReviewSection = () => {
           // search: searchReview,
         }
       );
+      filterReviewData({ reviewData: newReviewData, reviewImages });
       setReviewData([...reviewData, ...newReviewData]);
       setPage((prevPage) => prevPage + 1);
     } catch (error) {
@@ -254,7 +259,7 @@ const ReviewSection = () => {
   // };
 
   return (
-    <div className="relative lg:py-2">
+    <div className="relative mb-[56px] lg:mb-0 lg:py-2">
       {isMobile ? null : (
         <p
           className="mb-5 hidden text-center text-xl font-black uppercase text-black md:text-3xl lg:mb-20 lg:block lg:text-[42px]"
@@ -292,7 +297,7 @@ const ReviewSection = () => {
           </p>
         </div>
       </div>
-      <ReviewHeaderGallery reviewData={reviewData} />
+      <ReviewHeaderGallery />
       <div className="pt-6"></div>
       <div className="my-5 flex flex-col gap-1 *:rounded-lg lg:flex-row lg:gap-4">
         <select

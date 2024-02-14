@@ -84,7 +84,7 @@ const HomepageReviews = () => {
           Thousands of happy customers
         </div>
         <div className="mb-[22px] text-[24px] font-[900] uppercase lg:text-[45px]">
-          car cover REVIEWS
+          Car Cover Reviews
         </div>
       </div>
       <div>
