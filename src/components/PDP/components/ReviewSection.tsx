@@ -77,7 +77,7 @@ const ReviewSection = () => {
         }
       );
       // This if is used for filterByImage quick fix, can get rid later, will probably just need the else
-      if (filters[0].field === 'review_image') {
+      if (filters[0]?.field === 'review_image') {
         resetReviewDataImages();
         filterReviewData({ reviewData: newReviewData, reviewImages });
         const newReviewDataWithJustImages = newReviewData.filter(
@@ -139,6 +139,8 @@ const ReviewSection = () => {
         }
       );
       setSort({ field, order });
+      resetReviewDataImages();
+
       filterReviewData({ reviewData: newReviewData, reviewImages });
 
       setReviewData([...newReviewData]); // Only show the first 8 when a sort has been picked
