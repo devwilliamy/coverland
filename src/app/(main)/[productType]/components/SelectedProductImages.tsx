@@ -12,7 +12,7 @@ export function SelectedProductImages({
   productImages: string[];
   setFeaturedImage: (img: string) => void;
 }) {
-  const fourImages = productImages.slice(0, 3);
+  const fourImages = productImages?.slice(0, 3);
 
   return (
     <div

@@ -19,7 +19,7 @@ export default function ReviewCard({
         <div className="text-xl font-bold normal-case text-neutral-700 max-md:max-w-full lg:text-3xl">
           {review.review_title
             ? review.review_title.charAt(0).toUpperCase() +
-              review.review_title.slice(1)
+              review.review_title?.slice(1)
             : ''}
         </div>
         <div className="flex gap-1 text-yellow-300 lg:my-0">

@@ -26,7 +26,7 @@ export default function ReviewHeaderGallery() {
         <>
           {/* Mobile Header Images */}
           <section className="grid aspect-square h-full w-full grid-cols-2 items-center gap-[7px] lg:hidden">
-            {reviewImageKeys.slice(0, 3).map((image, index) => {
+            {reviewImageKeys?.slice(0, 3).map((image, index) => {
               return (
                 <Image
                   key={`review-header-image-${index}`}
@@ -50,7 +50,7 @@ export default function ReviewHeaderGallery() {
           </section>
           {/* Desktop Header Images */}
           <section className="hidden max-h-fit w-full items-center gap-[7px] lg:grid lg:max-h-[207px] lg:grid-cols-6">
-            {reviewImageKeys.slice(0, 5).map((image, index) => {
+            {reviewImageKeys?.slice(0, 5).map((image, index) => {
               return (
                 <Image
                   key={`review-header-image-${index}`}
