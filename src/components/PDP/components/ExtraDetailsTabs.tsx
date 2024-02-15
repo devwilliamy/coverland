@@ -23,7 +23,7 @@ export default function ExtraDetailsTabs() {
     <>
       <div
         id="Extra-Details-Tabs"
-        className="no-scrollbar flex gap-[26px] overflow-x-auto px-2 pb-4"
+        className="no-scrollbar  flex gap-[26px] overflow-x-auto  px-2 pb-4 lg:w-full lg:justify-evenly"
       >
         {otherDetailsBar.map(({ title, jsx }, index) => (
           <div

@@ -6,7 +6,7 @@ import ThreeSixtyVideo from '@/videos/360 degree_website.mp4';
 export default function MobileProductDetails() {
   const [seeMore, setSeeMore] = useState(false);
   return (
-    <div className="mt-[-10px]">
+    <div className="pt-[100px]">
       {/* <ProductHero /> */}
       <div className="flex w-full flex-col ">
         <ProductVideo
@@ -24,7 +24,7 @@ export default function MobileProductDetails() {
           </p>
         </div>
       </div>
-      <div className="px-4">
+      <div className="px-4 pt-[110px]">
         <Layers seeMore={seeMore} setSeeMore={setSeeMore} />
       </div>
     </div>

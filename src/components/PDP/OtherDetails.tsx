@@ -7,16 +7,12 @@ import { ProductChecklist } from './ProductChecklist';
 import { NoGarage } from './NoGarage';
 import { ClimateCrisis } from './ClimateCrisis';
 import { Layers } from './Layers';
-import { MobilePDPDetails } from './MobilePDPDetails';
 import { WarrantyDesktop } from './components/WarrantyDesktop';
 import ProductVideo from './ProductVideo';
 import ThreeSixtyVideo from '@/videos/360 degree_website.mp4';
 import ReviewSection from './components/ReviewSection';
 import { CarSelectionContext } from '@/app/(main)/[productType]/components/CarPDP';
 import MobileProductDetails from './components/MobileProductDetails';
-import { Tabs, TabsList } from '../ui/tabs';
-import { TabsTrigger } from '@radix-ui/react-tabs';
-import { Separator } from '../ui/separator';
 import ExtraDetailsTabs from './components/ExtraDetailsTabs';
 
 export function ExtraProductDetails() {
@@ -67,39 +63,8 @@ export function ExtraProductDetails() {
 
   // !reviewData &&  return
 
-  const otherDetailsBar = [
-    'Reviews',
-    'Why Us?',
-    'Warranty',
-    'Q&A',
-    'Shipping & Returns',
-    'Warranty',
-    'Specifications',
-  ];
-
-  const DetailBarItem = ({ name }: { name: string }) => {
-    return (
-      <div
-        className="flex h-max w-full px-[10px] py-[22px] hover:cursor-pointer hover:bg-[#F9F9FB] hover:underline"
-        onClick={() => {
-          const pdVideo = document.getElementById(
-            String(name).toLowerCase().replaceAll(' ', '-')
-          );
-          pdVideo?.scrollIntoView({ behavior: 'instant' });
-        }}
-      >
-        <h1 className="h-max w-full text-center ">{name}</h1>
-      </div>
-    );
-  };
-
   return (
     <div className="flex w-full flex-col">
-      <div className="lg:grid-row-1 hidden w-full max-w-full  border-b border-t border-[#DADADA] text-[18px] capitalize lg:grid lg:grid-flow-col lg:px-[30px]">
-        {otherDetailsBar.map((name, index) => {
-          return <DetailBarItem name={name} key={`detail-bar-item-${index}`} />;
-        })}
-      </div>
       <div className="flex w-full max-w-full flex-col lg:px-[30px]">
         <Suspense fallback={<div>Loading...</div>}>
           <MobileProductDetails />
@@ -107,7 +72,7 @@ export function ExtraProductDetails() {
           {/* <MobilePDPDetails /> */}
         </Suspense>
 
-        <div className="hidden gap-[110px] lg:flex lg:flex-col">
+        {/* <div className="hidden gap-[110px] lg:flex lg:flex-col">
           <div id="product-details">
             <Video />
           </div>
@@ -171,7 +136,7 @@ export function ExtraProductDetails() {
           <div id="car-cover-reviews" ref={reviewsRef}>
             <ReviewSection />
           </div>
-        </div>
+        </div> */}
       </div>
     </div>
   );
