@@ -14,6 +14,10 @@ import ThreeSixtyVideo from '@/videos/360 degree_website.mp4';
 import ReviewSection from './components/ReviewSection';
 import { CarSelectionContext } from '@/app/(main)/[productType]/components/CarPDP';
 import MobileProductDetails from './components/MobileProductDetails';
+import { Tabs, TabsList } from '../ui/tabs';
+import { TabsTrigger } from '@radix-ui/react-tabs';
+import { Separator } from '../ui/separator';
+import ExtraDetailsTabs from './components/ExtraDetailsTabs';
 
 export function ExtraProductDetails() {
   const store = useContext(CarSelectionContext);
@@ -64,12 +68,13 @@ export function ExtraProductDetails() {
   // !reviewData &&  return
 
   const otherDetailsBar = [
-    'Product Details',
-    'Benefits',
-    'Shipping & Returns',
-    'Q&A',
+    'Reviews',
+    'Why Us?',
     'Warranty',
-    'Car Cover Reviews',
+    'Q&A',
+    'Shipping & Returns',
+    'Warranty',
+    'Specifications',
   ];
 
   const DetailBarItem = ({ name }: { name: string }) => {
@@ -98,6 +103,7 @@ export function ExtraProductDetails() {
       <div className="flex w-full max-w-full flex-col lg:px-[30px]">
         <Suspense fallback={<div>Loading...</div>}>
           <MobileProductDetails />
+          <ExtraDetailsTabs />
           {/* <MobilePDPDetails /> */}
         </Suspense>
 
