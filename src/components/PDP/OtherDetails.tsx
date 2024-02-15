@@ -13,6 +13,7 @@ import ProductVideo from './ProductVideo';
 import ThreeSixtyVideo from '@/videos/360 degree_website.mp4';
 import ReviewSection from './components/ReviewSection';
 import { CarSelectionContext } from '@/app/(main)/[productType]/components/CarPDP';
+import MobileProductDetails from './components/MobileProductDetails';
 
 export function ExtraProductDetails() {
   const store = useContext(CarSelectionContext);
@@ -96,7 +97,8 @@ export function ExtraProductDetails() {
       </div>
       <div className="flex w-full max-w-full flex-col lg:px-[30px]">
         <Suspense fallback={<div>Loading...</div>}>
-          <MobilePDPDetails />
+          <MobileProductDetails />
+          {/* <MobilePDPDetails /> */}
         </Suspense>
 
         <div className="hidden gap-[110px] lg:flex lg:flex-col">
