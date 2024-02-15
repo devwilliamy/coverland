@@ -97,7 +97,7 @@ export function Layers({
   };
 
   return (
-    <div className="lg:pb-0 ">
+    <div className=" lg:pb-0 ">
       <div className="flex-start flex h-auto w-full flex-col justify-start pt-10 lg:pt-0">
         <p className="mb-4 text-lg font-normal capitalize text-[#343434] md:text-2xl">
           High-Quality
@@ -122,7 +122,7 @@ export function Layers({
       </section>
 
       {seeMore ? (
-        <section className="grid h-auto w-full grid-cols-1 gap-[38px] lg:grid-cols-3 ">
+        <section className="grid h-auto w-full grid-cols-1 gap-[38px] pb-4 lg:grid-cols-3">
           {LayersStaticDataWithImg.map((item, index) => (
             <LayersBlock
               key={`Layers-Block-With-Image-${index}`}
