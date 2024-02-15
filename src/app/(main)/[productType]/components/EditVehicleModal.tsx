@@ -23,24 +23,25 @@ export function EditVehicleModal({
   if (!store) throw new Error('Missing CarContext.Provider in the tree');
 
   return (
-    <div className="hidden lg:block">
-      <h2 className="my-[15px]  font-[900] capitalize leading-[30px] md:text-[28px]">
-        {selectedProduct.fullProductName}
-      </h2>
-      <div className="flex items-center gap-2">
-        <EditIcon />
-        <Popover open={open} onOpenChange={(o) => setOpen(o)}>
-          <PopoverTrigger asChild>
-            <button className="underline" onClick={() => setOpen(!open)}>
-              Edit Vehicle
-            </button>
-          </PopoverTrigger>
-          <PopoverContent className="min-w-[100px] rounded-xl border border-gray-300 bg-white p-5 shadow-lg">
-            <EditVehicleDropdown setOpen={setOpen} />
-          </PopoverContent>
-        </Popover>
-      </div>
-      <Separator className="my-10" />
+    <div className="mb-4 hidden w-full border-l-2 border-l-[#C8C7C7] lg:flex lg:flex-col">
+      <Popover open={open} onOpenChange={() => setOpen(!open)}>
+        <PopoverTrigger asChild>
+          <div className="flex w-full flex-shrink cursor-pointer justify-between pl-[40px]">
+            <div className="">
+              <p className="">Your Vehicle</p>
+              <h2 className=" whitespace-nowrap text-[26px] font-[500] capitalize leading-[31px]">
+                {selectedProduct.fullProductName}
+              </h2>
+            </div>
+            <div className="p-[3px]">
+              <EditIcon />
+            </div>
+          </div>
+        </PopoverTrigger>
+        <PopoverContent className="min-w-[100px] rounded-xl border border-gray-300 bg-white p-5 shadow-lg">
+          <EditVehicleDropdown setOpen={setOpen} />
+        </PopoverContent>
+      </Popover>
     </div>
   );
 }

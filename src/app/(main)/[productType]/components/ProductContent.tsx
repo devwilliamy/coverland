@@ -23,6 +23,7 @@ import CircleColorSelector from './CircleColorSelector';
 import RatingsTrigger from './RatingsTrigger';
 import SixMinVideo from 'https://x2kly621zrgfgwll.public.blob.vercel-storage.com/videos/FINALIZE_WEBSTIE_16_9_OPTIMIZED.mp4';
 import CustomerReviewsSection from './CustomerReviewsSection';
+import KeyBenefitsSection from '@/components/PDP/components/KeyBenefitsSection';
 
 interface ProductRefs {
   [key: string]: RefObject<HTMLElement>;
@@ -64,60 +65,46 @@ export function ProductContent({
 
   return (
     <>
-      <div className="grid grid-cols-1">
+      <div className="grid grid-cols-1 lg:mt-[60px]">
         <div className="flex flex-col gap-0.5">
           {/* Product Title */}
           <h2 className="mt-[24px] text-[24px] font-[900] leading-[27px] text-[#1A1A1A] md:mt-0 md:text-[28px] md:leading-[30px] ">
             {`${selectedProduct?.display_id}`}
-            &trade; {/* <br /> */}
+            &trade; {isMobile && <br />}
             {`Custom-Fit ${productType}`}
           </h2>
           {/* Rating(s) */}
           <div className="flex items-center gap-1">
-            <div className="flex gap-1 text-yellow-300 ">
+            <div className="flex gap-1 ">
               <Rating
                 name="read-only"
                 value={5}
                 readOnly
                 style={{
                   height: '25px',
+                  color: '#BE1B1B',
                 }}
               />
             </div>
             <RatingsTrigger />
           </div>
-          <p className="mb-2 text-gray-500">100+ Bought In Past Month</p>
-        </div>
-        <div className="flex-start flex items-center gap-2">
-          <div className="max-h-[7px] min-h-[7px] min-w-[7px] max-w-[7px] rounded-full bg-[#008000]" />
-          <p className="text-[12px] capitalize text-black lg:text-[14px]">
-            Lifetime Warranty
-          </p>
-        </div>
-        <div className="flex-start flex items-center gap-2 ">
-          <div className="max-h-[7px] min-h-[7px] min-w-[7px] max-w-[7px] rounded-full bg-[#008000]" />
-          <p className="text-[12px] capitalize  text-black lg:text-[14px]">
-            In Stock
-          </p>
         </div>
       </div>
-      <section className="pt-6 md:pt-11">
-        <div className="grid grid-cols-1">
-          <p className="mb-[16px] flex max-h-[20px] items-center gap-[15px] text-[28px] font-[900] leading-[32px] lg:text-[32px] lg:leading-[37.5px] ">
-            ${selectedProduct?.msrp}
-            {selectedProduct?.display_id !== 'Premium' && (
-              <span className=" text-[18px] text-lg font-[400] capitalize leading-[14px] text-[#FF0005] lg:text-[20px]">
-                only {generateProductsLeft(selectedProduct)} left
-              </span>
-            )}
-          </p>
+      <section className="flex flex-col pt-[18px] ">
+        <p className="text-[16px] leading-4"> From</p>
+        <p className=" flex place-items-center gap-[15px] py-1  text-center text-[28px] font-[900] leading-[32px] lg:text-[32px] lg:leading-[37.5px] ">
+          ${selectedProduct?.msrp}
           {selectedProduct?.price && (
-            <p className="text-[20px]  font-[400] leading-[14px] text-[#FF0005] lg:text-[22px] ">
-              Save 50%!{' '}
+            <p className="flex gap-1.5 text-[20px] font-[400] leading-[14px] text-[#BE1B1B] lg:text-[22px] ">
               <span className=" text-[#BEBEBE] line-through">{`$${Number(selectedProduct?.price)}`}</span>
+              <p>(-50%)</p>
             </p>
           )}
-        </div>
+        </p>
+        <p className="text-[14px] leading-[16px] text-[#767676]">
+          4 interest-free installments of{' '}
+          <b className="font-[400] text-black">$39.99</b>
+        </p>
       </section>
       <CircleColorSelector
         uniqueColors={uniqueColors as IProductData[]}
@@ -128,14 +115,12 @@ export function ProductContent({
       />
       <Separator className="mt-[36px] " />
       <FreeDetails />
-      {/* Add to Cart Button */}
+      <KeyBenefitsSection />
       <AddToCart
         selectedProduct={selectedProduct}
         handleAddToCart={handleAddToCart}
       />
-      {/* <LearnMore /> */}
       <Separator className="my-8 " />
-
       {isMobile && (
         <>
           <div className="pb-5">
@@ -148,7 +133,7 @@ export function ProductContent({
           <CustomerReviewsSection />
         </>
       )}
-      <FourIconGrid />
+      {/* <FourIconGrid />
       <NeedHelp />
       <Separator className="my-10 hidden lg:mt-0 lg:block" />
       <section>
@@ -173,7 +158,7 @@ export function ProductContent({
             </CarCoverFeature>
           ))}
         </div>
-      </section>
+      </section> */}
       {isMobile ? (
         <></>
       ) : (

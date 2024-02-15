@@ -43,7 +43,7 @@ export function CarCoverSelector() {
     }, {})
   );
 
-  const isMobile = useMediaQuery('(max-width: 768px)');
+  const isMobile = useMediaQuery('(max-width: 1024px)');
 
   const uniqueColors = Array.from(
     new Set(modelData.map((model) => model.display_color))
@@ -65,30 +65,16 @@ export function CarCoverSelector() {
             setFeaturedImage={setFeaturedImage}
           />
           {/* Right Panel */}
-
-          <div className=" h-auto w-full pl-0 lg:w-2/5">
-            <div className="flex items-center justify-between">
-              <CarIcon />
+          <div className=" h-full w-full pl-0 lg:sticky lg:top-8 lg:w-2/5">
+            <Separator className="mb-4 w-full bg-[#C8C7C7] lg:block" />
+            <div className="grid grid-cols-[1fr_2fr]">
+              <div className="flex w-full items-center justify-center">
+                <CarIcon />
+              </div>
               <EditVehicleModal selectedProduct={selectedProduct} />
               {isMobile && <EditVehiclePopover fullProductName={productName} />}
             </div>
-            <Separator className="my-4 w-full bg-[#C8C7C7]" />
-            {/* <ColorSelector
-            uniqueColors={uniqueColors as IProductData[]}
-            productRefs={productRefs}
-            setFeaturedImage={setFeaturedImage}
-            setSelectedProduct={setSelectedProduct}
-            selectedProduct={selectedProduct}
-          />
-
-          <TypeSelector
-            uniqueTypes={uniqueTypes as IProductData[]}
-            setFeaturedImage={setFeaturedImage}
-            setSelectedProduct={setSelectedProduct}
-            selectedProduct={selectedProduct}
-            productRefs={productRefs}
-          />
-          <Separator className="mb-8 mt-4 lg:mb-10" /> */}
+            <Separator className="w-full bg-[#C8C7C7]" />
             <ProductContent
               modelData={modelData}
               productRefs={productRefs}
@@ -100,11 +86,7 @@ export function CarCoverSelector() {
           </div>
         </div>
       </section>
-      <div
-        id="product-details"
-        className="h-auto w-full"
-        // flex flex-col justify-center items-center max-w-[1280px] py-4 lg:py-20 px-4 md:px-20"
-      >
+      <div id="product-details" className="h-auto w-full">
         <ExtraProductDetails />
       </div>
     </>

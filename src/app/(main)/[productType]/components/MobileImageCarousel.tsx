@@ -70,9 +70,9 @@ export const MobileImageCarousel = ({
   );
 
   return (
-    <div className=" flex  max-w-full flex-col  bg-white pb-[16px]">
+    <div className="flex max-w-full flex-col bg-white ">
       <Carousel setApi={setApi}>
-        <CarouselContent id={'carousel-content'}>
+        <CarouselContent id={'carousel-content'} className="no-scrollbar">
           <CarouselItem key={'carousel-first-image'} className="bg-[#F2F2F2]">
             <Image
               src={selectedProduct.mainImage as string}
@@ -158,10 +158,6 @@ export const MobileImageCarousel = ({
           );
         })}
       </div>
-      <span
-        id="seperator"
-        className="flex h-[1px] w-full max-w-[92%] self-center bg-[#C8C7C7]"
-      />
     </div>
   );
 };

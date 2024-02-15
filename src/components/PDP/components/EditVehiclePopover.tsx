@@ -18,12 +18,12 @@ export default function EditVehiclePopover({
 }) {
   const [open, setOpen] = useState(false);
   return (
-    <div className="mb-4 flex flex-col lg:hidden">
+    <div className="mb-4 flex flex-col border-l-2 border-l-[#C8C7C7] lg:hidden">
       <Drawer.Root open={open} onOpenChange={setOpen}>
         <Drawer.Trigger className="flex items-center justify-between text-left text-base text-[#1A1A1A]">
-          <div>
+          <div className="pl-8 pr-8">
             <p>Your Vehicle</p>
-            <h2 className=" text-[22px] font-[900] capitalize leading-[26px] text-[#1A1A1A]">
+            <h2 className=" whitespace-nowrap text-[18px] font-[500] capitalize leading-[22px] text-[#1A1A1A]">
               {fullProductName}
             </h2>
           </div>
