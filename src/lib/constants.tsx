@@ -1,10 +1,3 @@
-import RedBlackStripe from '@/category-images-new/01-str-bkrd.webp';
-import BlackGrayStripe from '@/category-images-new/01-str-bkgr.webp';
-import GrayBlackStripe from '@/category-images-new/01-str-grbk.webp';
-import BlackGray2Tone from '@/category-images-new/01-2to-bkgr.webp';
-import BlackRed2Tone from '@/category-images-new/01-2to-bkrd.webp';
-import GrayBlackTribe from '@/category-images-new/01-tri-grbk.webp';
-import SolidGray from '@/category-images-new/01-ps-gr-1to.webp';
 import carData from '@/data/default_car_data.json';
 import suvData from '@/data/default_suv_data.json';
 import truckData from '@/data/default_truck_data.json';
@@ -960,16 +953,6 @@ export const skuTypes = [
 ];
 
 export const VIMEO_VIDEO_LINK = 'https://vimeo.com/904161479';
-
-export const DEFAULT_CAR_IMAGE_ARRAY = [
-  RedBlackStripe,
-  BlackGrayStripe,
-  GrayBlackStripe,
-  BlackGray2Tone,
-  BlackRed2Tone,
-  GrayBlackTribe,
-  SolidGray,
-];
 
 //TODO: Finish creating an object for default images on SUV/Truck pages
 //Default = Pages that don't include year in the url path
