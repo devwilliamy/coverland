@@ -32,7 +32,7 @@ export function PrimaryImageDisplay({
 
   return (
     <div className=" -ml-4 flex  w-screen flex-col items-stretch justify-center lg:w-3/5 lg:pb-0 ">
-      <div className="flex h-full w-full items-center justify-center bg-[#F2F2F2] md:h-[500px] lg:h-[650px] lg:rounded-xl">
+      <div className="relative mb-4 flex h-full w-full items-center justify-center bg-[#F2F2F2] md:h-[500px] lg:h-[650px] lg:rounded-xl">
         {isMobile ? (
           <MobileImageCarousel
             selectedProduct={selectedProduct}
@@ -44,9 +44,8 @@ export function PrimaryImageDisplay({
             id="featured-image"
             src={featuredImage ?? ''}
             alt="a car with a car cover on it"
-            width={400}
-            height={400}
-            className="h-full w-full md:h-[250px] md:w-[250px] lg:h-[500px] lg:w-[500px]"
+            fill={true}
+            className="object-cover"
             priority
             // onClick={console.log(selectedImage)}
           />

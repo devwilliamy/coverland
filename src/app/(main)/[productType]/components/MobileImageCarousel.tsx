@@ -88,9 +88,7 @@ export const MobileImageCarousel = ({
             if (index === 2) {
               return (
                 <Fragment key={`group-${index}`}>
-                  <CarouselItem
-                    key={`carousel-video-${index}`}
-                  >
+                  <CarouselItem key={`carousel-video-${index}`}>
                     <ProductVideo src={SevenSecVideo} autoplay loop />
                   </CarouselItem>
                   <CarouselItem key={`carousel-image-${index}`}>
@@ -162,7 +160,7 @@ export const MobileImageCarousel = ({
       </div>
       <span
         id="seperator"
-        className="flex h-[1px] w-full max-w-[89%] self-center bg-[#C8C7C7]"
+        className="flex h-[1px] w-full max-w-[92%] self-center bg-[#C8C7C7]"
       />
     </div>
   );

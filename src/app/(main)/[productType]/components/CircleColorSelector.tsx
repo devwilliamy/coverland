@@ -86,7 +86,6 @@ export default function CircleColorSelector({
                 {modelData.display_color && (
                   <Image
                     alt="cover-color"
-                    className="h-[34px] w-[34px]"
                     src={colorMap[modelData?.display_color]}
                   />
                 )}
