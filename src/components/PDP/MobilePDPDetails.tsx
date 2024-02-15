@@ -1,4 +1,3 @@
-import { GoDotFill } from 'react-icons/go';
 import { Layers } from './Layers';
 import { OurCarCovers } from './OurCarCovers';
 import { PDPAccordion } from './PDPAccordian';
@@ -6,7 +5,6 @@ import { ProductChecklist } from './ProductChecklist';
 import { ClimateCrisisMobile } from './components/ClimateCrisisMobile';
 import { NoGarageMobile } from './components/NoGarageMobile';
 import { MoneyBackMobile } from './MoneyBackMobile';
-import { TReviewData } from '@/lib/db';
 import ReviewSection from './components/ReviewSection';
 import {
   Sheet,
@@ -16,12 +14,13 @@ import {
   SheetTrigger,
 } from '@/components/ui/sheet';
 import { IoClose } from 'react-icons/io5';
-import { useRef } from 'react';
+import { useContext, useRef } from 'react';
 import WarrantyPolicy from '@/app/(main)/policies/warranty-policy/page';
 import { Plus } from 'lucide-react';
 import ProductVideo from './ProductVideo';
 import ThreeSixtyVideo from '@/videos/360 degree_website.mp4';
 import { track } from '@vercel/analytics';
+import { CarSelectionContext } from '@/app/(main)/[productType]/components/CarPDP';
 
 const CarCoverFeature = ({ children }: { children: string }) => (
   <li className="text-[14px] font-[500] normal-case leading-[26px]">
@@ -29,11 +28,9 @@ const CarCoverFeature = ({ children }: { children: string }) => (
   </li>
 );
 
-export const MobilePDPDetails = ({
-  reviewData,
-}: {
-  reviewData: TReviewData[] | null;
-}) => {
+export const MobilePDPDetails = () => {
+  const store = useContext(CarSelectionContext);
+  if (!store) throw new Error('Missing CarContext.Provider in the tree');
   const pdRef = useRef<HTMLDivElement>(null);
   const benRef = useRef<HTMLDivElement>(null);
   const qaRef = useRef<HTMLDivElement>(null);
@@ -42,8 +39,11 @@ export const MobilePDPDetails = ({
   const ccrRef = useRef<HTMLDivElement>(null);
 
   return (
-    <div className=" w-full px-4 font-black uppercase text-[#1A1A1A] lg:hidden">
-      <div id="CarCoverFeatures" className="">
+    <div className=" w-full px-4 lg:hidden">
+      <div
+        id="CarCoverFeatures"
+        className="font-black uppercase text-[#1A1A1A]"
+      >
         <div className="-mx-4 h-[41px] w-screen border-b-2 border-t-2 border-[#DBDBDB] bg-[#F1F1F1] lg:hidden"></div>
         <div className=" flex w-full flex-row items-center justify-between border-b-2 border-[#C8C7C7] py-4 text-left text-[22px] font-black uppercase text-[#1A1A1A] !no-underline">
           Car Cover Features
@@ -178,23 +178,21 @@ export const MobilePDPDetails = ({
             </StickySheetItem>
             <StickySheetItem title="Car Cover Reviews">
               <div className="md:mt-18 lg:mt-28" ref={ccrRef}>
-                <ReviewSection reviewData={reviewData} />
+                <ReviewSection />
               </div>
             </StickySheetItem>
           </div>
         </SheetContent>
       </Sheet>
-      {!!reviewData?.length && (
-        <div id="CarCoverFeatures">
-          <div className="-mx-4 h-[41px] w-screen border-b-2 border-t-2 border-[#DBDBDB] bg-[#F1F1F1] lg:hidden"></div>
-          <div className=" flex w-full flex-row items-center justify-between border-b-2 border-[#C8C7C7] py-4 text-left text-[22px] font-black uppercase text-[#1A1A1A] !no-underline">
-            Car Cover Reviews
-          </div>
-          <div className="md:mt-18 lg:mt-28" ref={ccrRef}>
-            <ReviewSection reviewData={reviewData} />
-          </div>
+      <div id="CarCoverReviews">
+        <div className="-mx-4 h-[41px] w-screen border-b-2 border-t-2 border-[#DBDBDB] bg-[#F1F1F1] lg:hidden"></div>
+        <div className=" flex w-full flex-row items-center justify-between border-b-2 border-[#C8C7C7] py-4 text-left text-[22px] font-black uppercase text-[#1A1A1A] !no-underline">
+          Car Cover Reviews
         </div>
-      )}
+        <div className="md:mt-18 normal-case lg:mt-28 " ref={ccrRef}>
+          <ReviewSection />
+        </div>
+      </div>
     </div>
   );
 };

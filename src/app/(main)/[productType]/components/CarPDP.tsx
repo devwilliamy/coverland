@@ -11,6 +11,7 @@ import {
   TQueryParams,
   modelDataTransformer,
 } from '../../utils';
+import { TProductReviewSummary } from '@/lib/db/review';
 
 export type TQuery = {
   type: string;
@@ -25,6 +26,9 @@ interface ICarCoverProps {
   modelData: IProductData[];
   initialModelData: IProductData[];
   selectedProduct: IProductData;
+  reviewData: TReviewData[];
+  reviewDataSummary: TProductReviewSummary;
+  reviewImages: Record<string, boolean>;
 }
 
 interface ICarCoverSelectionState extends ICarCoverProps {
@@ -37,16 +41,25 @@ interface ICarCoverSelectionState extends ICarCoverProps {
   featuredImage: string;
   selectedColor: string;
   query: TQuery;
+  setReviewData: (newReviewData: TReviewData[]) => void;
+  setReviewDataSummary: (newReviewDataSummary: TProductReviewSummary) => void;
+  paramsYear: string;
 }
 
 const createCarSelectionStore = ({
   initialModelData,
   params,
   queryParams,
+  initialReviewData,
+  initialReviewDataSummary,
+  initialReviewImages,
 }: {
   initialModelData: IProductData[];
   params: TPathParams;
   queryParams: TQueryParams;
+  initialReviewData: TReviewData[];
+  initialReviewDataSummary: TProductReviewSummary;
+  initialReviewImages: Record<string, boolean>;
 }) => {
   const hasNoSubmodels = initialModelData.every(
     (model) => !model.submodel1 && !model.submodel2
@@ -79,8 +92,9 @@ const createCarSelectionStore = ({
       secondSubmodel: queryParams?.secondSubmodel ?? '',
     },
     selectedProduct: initialDataWithSecondSubmodels[0],
-    featuredImage: initialDataWithSecondSubmodels[0].mainImage,
+    featuredImage: initialDataWithSecondSubmodels[0]?.mainImage,
     selectedColor: initialDataWithSecondSubmodels[0]?.display_color ?? '',
+    reviewImages: initialReviewImages,
     setSelectedProduct: (newProduct: IProductData) => {
       set(() => ({
         selectedProduct: newProduct,
@@ -148,6 +162,18 @@ const createCarSelectionStore = ({
       }
       set({ modelData: filteredData });
     },
+    reviewData: initialReviewData,
+    setReviewData: (newReviewData: TReviewData[]) => {
+      set(() => ({ reviewData: newReviewData }));
+    },
+    reviewDataSummary: initialReviewDataSummary,
+    setReviewDataSummary: (newReviewDataSummary: TProductReviewSummary) => {
+      set(() => ({ reviewDataSummary: newReviewDataSummary }));
+    },
+    setReviewImages: (newReviewImages: Record<string, boolean>) => {
+      set(() => ({ reviewImages: newReviewImages }));
+    },
+    paramsYear: params.year || '',
   }));
 };
 
@@ -160,10 +186,14 @@ export const CarSelectionContext = createContext<CarSelectionStore | null>(
 export default function CarPDP({
   modelData: modelDataProps,
   reviewData,
+  reviewDataSummary,
+  reviewImages,
 }: {
   modelData: TInitialProductDataDB[];
   reviewData: TReviewData[] | null;
   params: TPathParams;
+  reviewDataSummary: TProductReviewSummary;
+  reviewImages: Record<string, boolean>;
 }) {
   const pathParams = useParams<{
     year?: string;
@@ -191,14 +221,15 @@ export default function CarPDP({
       params: pathParams ?? ({} as TPathParams),
       queryParams,
       initialModelData: modelData,
+      initialReviewData: reviewData as TReviewData[],
+      initialReviewDataSummary: reviewDataSummary,
+      initialReviewImages: reviewImages,
     })
   ).current;
 
   return (
-    <>
-      <CarSelectionContext.Provider value={store}>
-        <CarCoverSelector reviewData={reviewData as TReviewData[]} />
-      </CarSelectionContext.Provider>
-    </>
+    <CarSelectionContext.Provider value={store}>
+      <CarCoverSelector />
+    </CarSelectionContext.Provider>
   );
 }

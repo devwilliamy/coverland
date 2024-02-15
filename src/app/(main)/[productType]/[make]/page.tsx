@@ -1,24 +1,20 @@
-import { TReviewData, getProductData, getReviewData } from '@/lib/db';
+import { TReviewData, getProductData } from '@/lib/db';
 import { redirect } from 'next/navigation';
 import { Suspense } from 'react';
-import { ExtraProductDetails } from '@/components/PDP/OtherDetails';
 import CarPDP from '@/app/(main)/[productType]/components/CarPDP';
+import {
+  TProductReviewSummary,
+  filterReviewData,
+  getAllReviewsWithImages,
+  getProductReviewSummary,
+  getProductReviewsByPage,
+} from '@/lib/db/review';
 
 export type TCarCoverSlugParams = {
   make: string;
   model: string;
   year: string;
   productType: string;
-};
-
-export type TGenerationData = {
-  generation: number;
-  year_generation: string;
-  make: string;
-  model: string;
-  submodel1: string | null;
-  submodel2: string | null;
-  year_options: string;
 };
 
 export default async function CarPDPDataLayer({
@@ -29,6 +25,11 @@ export default async function CarPDPDataLayer({
 }) {
   let modelData = [];
   let reviewData: TReviewData[] | null = [];
+  let reviewImages: Record<string, boolean>;
+  let reviewDataSummary: TProductReviewSummary = {
+    total_reviews: 0,
+    average_score: 0,
+  };
   const typeString =
     params?.productType === 'car-covers'
       ? 'Car Covers'
@@ -37,18 +38,33 @@ export default async function CarPDPDataLayer({
         : 'Truck Covers';
 
   try {
-    [modelData, reviewData] = await Promise.all([
-      getProductData({
-        model: params.model,
-        make: params.make,
-        year: params.year,
-        type: typeString,
-      }),
-      getReviewData({
-        make: params.make,
-        model: params.model,
-      }),
-    ]);
+    [modelData, reviewData, reviewDataSummary, reviewImages] =
+      await Promise.all([
+        getProductData({
+          model: params.model,
+          make: params.make,
+          year: params.year,
+          type: typeString,
+        }),
+        getProductReviewsByPage(
+          { productType: typeString, make: params?.make },
+          {
+            pagination: {
+              page: 0,
+              limit: 8,
+            },
+          }
+        ),
+        getProductReviewSummary({
+          productType: typeString,
+          make: params?.make,
+        }),
+        getAllReviewsWithImages({
+          productType: typeString,
+          make: params?.make,
+        }),
+      ]);
+    filterReviewData({ reviewData, reviewImages });
 
     if (!modelData) {
       redirect('/404');
@@ -61,16 +77,14 @@ export default async function CarPDPDataLayer({
   return (
     <>
       <Suspense fallback={<div>Loading...</div>}>
-        <CarPDP modelData={modelData} reviewData={reviewData} params={params} />
+        <CarPDP
+          modelData={modelData}
+          reviewData={reviewData}
+          params={params}
+          reviewDataSummary={reviewDataSummary}
+          reviewImages={reviewImages}
+        />
       </Suspense>
-
-      <div
-        id="product-details"
-        className="h-auto w-full"
-        // flex flex-col justify-center items-center max-w-[1280px] py-4 lg:py-20 px-4 md:px-20"
-      >
-        <ExtraProductDetails reviewData={reviewData} />
-      </div>
     </>
   );
 }

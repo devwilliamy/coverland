@@ -1,5 +1,4 @@
 import { Suspense } from 'react';
-import { ExtraProductDetails } from '@/components/PDP/OtherDetails';
 import {
   defaultCarModelData,
   defaultSuvModelData,
@@ -7,35 +6,69 @@ import {
 } from '@/lib/constants';
 import { TInitialProductDataDB } from '@/lib/db';
 import CarPDP from './components/CarPDP';
+import {
+  TProductReviewSummary,
+  TReviewData,
+  filterReviewData,
+  getAllReviewsWithImages,
+  getProductReviewSummary,
+  getProductReviewsByPage,
+} from '@/lib/db/review';
 
 export default async function CarPDPModelDataLayer({
   params,
 }: {
   params: { productType: string };
 }) {
-  const reviewData = [{}] as any;
+  let reviewData: TReviewData[] = [];
+  let reviewDataSummary: TProductReviewSummary = {
+    total_reviews: 0,
+    average_score: 0,
+  };
+  let reviewImages: Record<string, boolean>;
   const productType = params.productType;
-
+  const SuvOrTruckData =
+    productType === 'suv-covers' ? defaultSuvModelData : defaultTruckModelData;
   const modelData: TInitialProductDataDB[] =
-    productType === 'car-covers'
-      ? defaultCarModelData
-      : productType === 'suv-covers'
-        ? defaultSuvModelData
-        : defaultTruckModelData;
+    productType === 'car-covers' ? defaultCarModelData : SuvOrTruckData;
+
+  const SuvOrTruckType =
+    params?.productType === 'suv-covers' ? 'SUV Covers' : 'Truck Covers';
+  const typeString =
+    params?.productType === 'car-covers' ? 'Car Covers' : SuvOrTruckType;
+
+  try {
+    [reviewData, reviewDataSummary, reviewImages] = await Promise.all([
+      getProductReviewsByPage(
+        { productType: typeString },
+        {
+          pagination: {
+            page: 0,
+            limit: 8,
+          },
+        }
+      ),
+      getProductReviewSummary({
+        productType: typeString,
+      }),
+      getAllReviewsWithImages({
+        productType: typeString,
+      }),
+    ]);
+    filterReviewData({ reviewData, reviewImages });
+  } catch (error) {
+    console.error('CarPDPModelDataLayer Error: ', error);
+  }
 
   return (
-    <>
-      <Suspense fallback={<div>Loading...</div>}>
-        <CarPDP modelData={modelData} reviewData={reviewData} params={params} />
-      </Suspense>
-
-      <div
-        id="product-details"
-        className="h-auto w-full"
-        // flex flex-col justify-center items-center max-w-[1440px] py-4 lg:py-20 px-4 md:px-20"
-      >
-        <ExtraProductDetails reviewData={reviewData} />
-      </div>
-    </>
+    <Suspense fallback={<div>Loading...</div>}>
+      <CarPDP
+        modelData={modelData}
+        reviewData={reviewData}
+        params={params}
+        reviewDataSummary={reviewDataSummary}
+        reviewImages={reviewImages}
+      />
+    </Suspense>
   );
 }
