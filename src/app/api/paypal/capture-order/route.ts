@@ -1,23 +1,48 @@
 import paypal from '@paypal/checkout-server-sdk';
 
-import { NextApiRequest, NextApiResponse } from 'next';
-import { PaypalClient } from '../utils';
+import { PaypalClient, paypalClient } from '../utils';
 
-export default async function POST(req: NextApiRequest, res: NextApiResponse) {
-  if (!req.body.orderID)
-    return res
-      .status(400)
-      .json({ success: false, message: 'Please Provide Order ID' });
+export async function POST(req: Request) {
+  const client = paypalClient();
 
-  const { orderID } = req.body;
-  const request = new paypal.orders.OrdersCaptureRequest(orderID);
-  request.requestBody({ payment_source: { token: req.body.token } });
-  const response = await PaypalClient.execute(request);
-  if (!response) {
-    return res
-      .status(500)
-      .json({ success: false, message: 'Some Error Occured at backend' });
+  const body = await req.json();
+  console.log(body);
+
+  console.log('here');
+  if (!body.orderID) {
+    console.log('here');
+
+    return Response.json({
+      success: false,
+      message: 'Please Provide Order ID',
+    });
   }
 
-  res.status(200).json({ success: true });
+  const { orderID } = body;
+  console.log('here');
+
+  const request = new paypal.orders.OrdersCaptureRequest(orderID);
+
+  // const request = new paypal.orders.OrdersCaptureRequest(orderID);
+  console.log('here');
+  console.log(request);
+
+  // request.requestBody({ payment_source: { token: body.token } });
+  console.log('here');
+
+  const response = await client.execute(request);
+  console.log(response);
+  console.log('here');
+  console.log(response);
+
+  if (!response) {
+    console.log('here');
+
+    return Response.json({
+      success: false,
+      message: 'Some Error Occured at backend',
+    });
+  }
+
+  return Response.json({ success: true, data: response.result });
 }

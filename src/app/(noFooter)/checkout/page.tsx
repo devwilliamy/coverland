@@ -21,7 +21,9 @@ import { redirect, useRouter } from 'next/navigation';
 import { PayPalScriptProvider, PayPalButtons } from '@paypal/react-paypal-js';
 import { Order } from '@paypal/checkout-server-sdk/lib/orders/lib';
 
-async function paypalCreateOrder(): Promise<{ data: Order } | null> {
+async function paypalCreateOrder(
+  totalMsrpPrice: number
+): Promise<{ data: Order } | null> {
   console.log('here');
 
   try {
@@ -34,7 +36,7 @@ async function paypalCreateOrder(): Promise<{ data: Order } | null> {
       },
       body: JSON.stringify({
         user_id: '123',
-        order_price: 100,
+        order_price: totalMsrpPrice,
       }), // Convert the JavaScript object to a JSON string
     });
     if (!response.ok) {
@@ -66,6 +68,7 @@ async function paypalCaptureOrder(orderID: string) {
     });
     console.log('here');
 
+    console.log(response);
     if (!response.ok) {
       throw new Error('Network response was not ok');
     }
@@ -323,6 +326,11 @@ function CheckoutPage() {
                 <div>-${totalDiscountedPrice}</div>
               </div>
             </div>
+            <div className="pb-20">
+              <div className="self-end pb-1 pr-5 text-lg font-bold max-md:hidden lg:font-bold">
+                Order Total: ${totalMsrpPrice}
+              </div>
+            </div>
             <div className="my-8 hidden w-full justify-center md:flex md:flex-col">
               <Button
                 variant={'default'}
@@ -355,18 +363,20 @@ function CheckoutPage() {
                     height: 50,
                   }}
                   createOrder={async () => {
-                    const data = await paypalCreateOrder();
+                    const data = await paypalCreateOrder(totalMsrpPrice);
                     if (!data) return '';
                     return data.data.id;
                   }}
                   onApprove={async (data) => {
+                    console.log('running');
+                    console.log(data.orderID);
                     const response = await paypalCaptureOrder(data.orderID);
+                    console.log(response);
                     if (response) redirect('/thank-you?order_number=CL1234');
                   }}
                 />
               </PayPalScriptProvider>
             </div>
-            <div className="pb-20"></div>
             <div className="fixed inset-x-0 bottom-0 bg-white p-4 shadow-[0_-4px_4px_-0px_rgba(0,0,0,0.1)] md:hidden">
               <div className="flex flex-col items-center justify-between">
                 <div className="self-end pb-1 pr-5 text-lg font-bold lg:font-bold">
