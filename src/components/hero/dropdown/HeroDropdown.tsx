@@ -12,6 +12,7 @@ import parentGenerationJson from '@/data/parent_generation_data.json';
 import carDataJson from '@/data/car_data_master.json';
 import { slugify } from '@/lib/utils';
 import { track } from '@vercel/analytics';
+import { sendGTMEvent } from '@next/third-parties/google';
 
 export type TQuery = {
   year: string;
@@ -111,6 +112,10 @@ export function HeroDropdown() {
     track('hero_dropdown_submit', {
       year,
       model,
+    });
+    sendGTMEvent({
+      event: 'Homepage dropdown submit',
+      value: `${year} ${model}`,
     });
     setLoading(true);
     let url = `/${slugify(type)}/${slugify(make)}/${slugify(model)}/${yearInUrl}`;
