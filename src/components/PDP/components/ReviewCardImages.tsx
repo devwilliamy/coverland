@@ -10,7 +10,7 @@ function ReviewCardImages({ reviewImages }: { reviewImages?: string | null }) {
     <span className="flex gap-2 overflow-x-auto">
       {reviewImagesSplit.length > 1
         ? reviewImagesSplit
-            .slice(isMobile ? 0 : 1)
+            ?.slice(isMobile ? 0 : 1)
             .map((image, index) => (
               <Image
                 key={`review-card-image-${index}`}

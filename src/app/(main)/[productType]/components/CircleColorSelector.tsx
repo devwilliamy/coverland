@@ -9,6 +9,7 @@ import BlackRed2Tone from '@/images/PDP/black-red-2-tone.svg';
 import Image, { StaticImageData } from 'next/image';
 import { useStore } from 'zustand';
 import { CarSelectionContext } from './CarPDP';
+import { track } from '@vercel/analytics';
 
 interface ProductRefs {
   [key: string]: RefObject<HTMLElement>;
@@ -68,6 +69,9 @@ export default function CircleColorSelector({
                   onClick={() => {
                     setSelectedProduct(modelData);
                     setSelectedColor(modelData.display_color as string);
+                    track('color_selected', {
+                      color: modelData.display_color,
+                    });
                   }}
                 >
                   <div className="h-[34px] w-[34px] rounded-full bg-[#D9D9D9]" />

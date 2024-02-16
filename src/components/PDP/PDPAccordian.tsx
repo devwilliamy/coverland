@@ -5,6 +5,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from '@/components/ui/accordion';
+import { track } from '@vercel/analytics';
 
 export function PDPAccordion() {
   return (
@@ -18,7 +19,12 @@ export function PDPAccordion() {
             Q&A
           </div>
           <AccordionItem value="item-1">
-            <AccordionTrigger className="text-left text-base font-black  text-[#1A1A1A] md:text-xl lg:py-8 lg:text-[28px]">
+            <AccordionTrigger
+              className="text-left text-base font-black  text-[#1A1A1A] md:text-xl lg:py-8 lg:text-[28px]"
+              onClick={() =>
+                track('Opened Q&A:Why is this car cover a good choice?')
+              }
+            >
               Why is this car cover a good choice?
             </AccordionTrigger>
             <AccordionContent className="text-sm font-normal text-[#1A1A1A] md:text-lg">
@@ -29,7 +35,12 @@ export function PDPAccordion() {
             </AccordionContent>
           </AccordionItem>
           <AccordionItem value="item-2">
-            <AccordionTrigger className="py-4 text-left text-base font-black text-[#1A1A1A] md:py-6 md:text-xl lg:py-8 lg:text-[28px]">
+            <AccordionTrigger
+              className="py-4 text-left text-base font-black text-[#1A1A1A] md:py-6 md:text-xl lg:py-8 lg:text-[28px]"
+              onClick={() =>
+                track('Opened Q&A:How many laters does your car cover have?')
+              }
+            >
               How many layers does your car cover have?
             </AccordionTrigger>
             <AccordionContent className="text-sm font-normal text-[#1A1A1A] md:text-lg">
@@ -40,7 +51,12 @@ export function PDPAccordion() {
             </AccordionContent>
           </AccordionItem>
           <AccordionItem value="item-3">
-            <AccordionTrigger className="py-4 text-left text-base font-black text-[#1A1A1A] md:py-6 md:text-xl lg:py-8 lg:text-[28px]">
+            <AccordionTrigger
+              className="py-4 text-left text-base font-black text-[#1A1A1A] md:py-6 md:text-xl lg:py-8 lg:text-[28px]"
+              onClick={() =>
+                track('Opened Q&A:What special features does this cover have?')
+              }
+            >
               What special features does this cover have?{' '}
             </AccordionTrigger>
             <AccordionContent className="text-sm font-normal text-[#1A1A1A] md:text-lg">
@@ -50,7 +66,10 @@ export function PDPAccordion() {
             </AccordionContent>
           </AccordionItem>
           <AccordionItem value="item-4">
-            <AccordionTrigger className="py-4 text-left text-base font-black text-[#1A1A1A] md:py-6 md:text-xl lg:py-8 lg:text-[28px]">
+            <AccordionTrigger
+              className="py-4 text-left text-base font-black text-[#1A1A1A] md:py-6 md:text-xl lg:py-8 lg:text-[28px]"
+              onClick={() => track('Opened Q&A:Will this fit my car?')}
+            >
               Will this fit my car?{' '}
             </AccordionTrigger>
             <AccordionContent className="text-sm font-normal text-[#1A1A1A] md:text-lg">
@@ -59,7 +78,12 @@ export function PDPAccordion() {
             </AccordionContent>
           </AccordionItem>
           <AccordionItem value="item-5">
-            <AccordionTrigger className="py-4 text-left text-base font-black text-[#1A1A1A] md:py-6 md:text-xl lg:py-8 lg:text-[28px]">
+            <AccordionTrigger
+              className="py-4 text-left text-base font-black text-[#1A1A1A] md:py-6 md:text-xl lg:py-8 lg:text-[28px]"
+              onClick={() =>
+                track('Opened Q&A:What if I&apos;m not happy with it?')
+              }
+            >
               What if I&apos;m not happy with it?{' '}
             </AccordionTrigger>
             <AccordionContent className="text-sm font-normal text-[#1A1A1A] md:text-lg">
@@ -70,7 +94,14 @@ export function PDPAccordion() {
             </AccordionContent>
           </AccordionItem>
           <AccordionItem value="item-6">
-            <AccordionTrigger className="py-4 text-left text-base font-black text-[#1A1A1A] md:py-6 md:text-xl lg:py-8 lg:text-[28px]">
+            <AccordionTrigger
+              className="py-4 text-left text-base font-black text-[#1A1A1A] md:py-6 md:text-xl lg:py-8 lg:text-[28px]"
+              onClick={() =>
+                track(
+                  'Opened Q&A:Is it safe to leave my car covered outside in heavy rain?'
+                )
+              }
+            >
               Is it safe to leave my car covered outside in heavy rain?{' '}
             </AccordionTrigger>
             <AccordionContent className="text-sm font-normal text-[#1A1A1A] md:text-lg">
@@ -84,7 +115,12 @@ export function PDPAccordion() {
             </AccordionContent>
           </AccordionItem>
           <AccordionItem value="item-7">
-            <AccordionTrigger className="py-4 text-left text-base font-black text-[#1A1A1A] md:py-6 md:text-xl lg:py-8 lg:text-[28px]">
+            <AccordionTrigger
+              className="py-4 text-left text-base font-black text-[#1A1A1A] md:py-6 md:text-xl lg:py-8 lg:text-[28px]"
+              onClick={() =>
+                track('Opened Q&A:Does this cover protect from the sun?')
+              }
+            >
               Does this cover protect from the sun?{' '}
             </AccordionTrigger>
             <AccordionContent className="text-sm font-normal text-[#1A1A1A] md:text-lg">
@@ -95,7 +131,12 @@ export function PDPAccordion() {
             </AccordionContent>
           </AccordionItem>
           <AccordionItem value="item-8">
-            <AccordionTrigger className="py-4 text-left text-base font-black text-[#1A1A1A] md:py-6 md:text-xl lg:py-8 lg:text-[28px]">
+            <AccordionTrigger
+              className="py-4 text-left text-base font-black text-[#1A1A1A] md:py-6 md:text-xl lg:py-8 lg:text-[28px]"
+              onClick={() =>
+                track('Opened Q&A:Can I use your car cover on a windy day?')
+              }
+            >
               Can I use your car cover on a windy day?{' '}
             </AccordionTrigger>
             <AccordionContent className="text-sm font-normal text-[#1A1A1A] md:text-lg">
@@ -105,7 +146,10 @@ export function PDPAccordion() {
             </AccordionContent>
           </AccordionItem>
           <AccordionItem value="item-9">
-            <AccordionTrigger className="py-4 text-left text-base font-black text-[#1A1A1A] md:py-6 md:text-xl lg:py-8 lg:text-[28px]">
+            <AccordionTrigger
+              className="py-4 text-left text-base font-black text-[#1A1A1A] md:py-6 md:text-xl lg:py-8 lg:text-[28px]"
+              onClick={() => track('Opened Q&A:When will I receive my order?')}
+            >
               When will I receive my order?{' '}
             </AccordionTrigger>
             <AccordionContent className="text-sm font-normal text-[#1A1A1A] md:text-lg">

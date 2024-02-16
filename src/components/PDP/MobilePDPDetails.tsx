@@ -19,6 +19,7 @@ import WarrantyPolicy from '@/app/(main)/policies/warranty-policy/page';
 import { Plus } from 'lucide-react';
 import ProductVideo from './ProductVideo';
 import ThreeSixtyVideo from '@/videos/360 degree_website.mp4';
+import { track } from '@vercel/analytics';
 import { CarSelectionContext } from '@/app/(main)/[productType]/components/CarPDP';
 
 const CarCoverFeature = ({ children }: { children: string }) => (
@@ -239,6 +240,9 @@ const ScrollSheetTrigger = ({
           behavior: 'instant',
         });
       }, 200);
+      track('drawer_section_clicked', {
+        section: title,
+      });
     }}
   >
     {title}
