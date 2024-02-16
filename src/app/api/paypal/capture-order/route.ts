@@ -1,7 +1,7 @@
-import PaypalClient from '../utils';
 import paypal from '@paypal/checkout-server-sdk';
 
 import { NextApiRequest, NextApiResponse } from 'next';
+import { PaypalClient } from '../utils';
 
 export default async function POST(req: NextApiRequest, res: NextApiResponse) {
   if (!req.body.orderID)

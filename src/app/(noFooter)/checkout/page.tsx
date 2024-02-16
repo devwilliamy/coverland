@@ -19,7 +19,61 @@ import { AiOutlineLoading3Quarters } from 'react-icons/ai';
 import { IoArrowBack } from 'react-icons/io5';
 import { redirect, useRouter } from 'next/navigation';
 import { PayPalScriptProvider, PayPalButtons } from '@paypal/react-paypal-js';
-import { paypalCaptureOrder, paypalCreateOrder } from '@/app/api/paypal/utils';
+import { Order } from '@paypal/checkout-server-sdk/lib/orders/lib';
+
+async function paypalCreateOrder(): Promise<{ data: Order } | null> {
+  console.log('here');
+
+  try {
+    console.log('here');
+
+    const response = await fetch('/api/paypal', {
+      method: 'POST', // Specify the method
+      headers: {
+        'Content-Type': 'application/json', // Specify the content type in the headers
+      },
+      body: JSON.stringify({
+        user_id: '123',
+        order_price: 100,
+      }), // Convert the JavaScript object to a JSON string
+    });
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+    console.log('here');
+
+    return await response.json(); // Assuming the server responds with JSON
+  } catch (err) {
+    console.log(err);
+    return null;
+  }
+}
+
+async function paypalCaptureOrder(orderID: string) {
+  console.log('here');
+
+  try {
+    console.log('here');
+
+    const response = await fetch('/api/paypal/capture-order', {
+      method: 'POST', // Specify the method
+      headers: {
+        'Content-Type': 'application/json', // Specify the content type in the headers
+      },
+      body: JSON.stringify({
+        orderID,
+      }), // Convert the JavaScript object to a JSON string
+    });
+    console.log('here');
+
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+    return await response.json();
+  } catch (err) {
+    console.log(err);
+  }
+}
 
 function CheckoutPage() {
   const {
@@ -269,10 +323,10 @@ function CheckoutPage() {
                 <div>-${totalDiscountedPrice}</div>
               </div>
             </div>
-            <div className="my-8 hidden w-full justify-center md:flex">
+            <div className="my-8 hidden w-full justify-center md:flex md:flex-col">
               <Button
                 variant={'default'}
-                className="h-[63px] w-full rounded-lg  bg-black text-base font-bold uppercase text-white sm:h-[48px] lg:text-xl"
+                className="mb-3 h-[63px] w-full rounded-lg  bg-black text-base font-bold uppercase text-white sm:h-[48px] lg:text-xl"
                 onClick={() => {
                   redirectToCheckout();
                   setLoading(true);
@@ -300,8 +354,9 @@ function CheckoutPage() {
                     height: 50,
                   }}
                   createOrder={async () => {
-                    const order_id = await paypalCreateOrder();
-                    return order_id + '';
+                    const data = await paypalCreateOrder();
+                    if (!data) return '';
+                    return data.data.id;
                   }}
                   onApprove={async (data) => {
                     const response = await paypalCaptureOrder(data.orderID);
