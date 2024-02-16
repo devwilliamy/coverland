@@ -39,8 +39,8 @@ const OrderConfirmationContent = ({
   }
   const validOrderNumber =
     orderNumber.length === 9 &&
-    !isNaN(Number(orderNumber.slice(3))) &&
-    orderNumber.slice(0, 3) === 'CL-';
+    !isNaN(Number(orderNumber?.slice(3))) &&
+    orderNumber?.slice(0, 3) === 'CL-';
 
   if (validOrderNumber) {
     handleAddOrderId(orderNumber);

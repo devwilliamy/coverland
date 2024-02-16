@@ -2,6 +2,7 @@
 import ReviewCard from './ReviewCard';
 import { useContext, useState } from 'react';
 import { Rating } from '@mui/material';
+import { track } from '@vercel/analytics';
 import ReviewPercentCircle from './ReviewPercentCircle';
 import ReviewHeaderGallery from './ReviewHeaderGallery';
 
@@ -77,7 +78,7 @@ const ReviewSection = () => {
         }
       );
       // This if is used for filterByImage quick fix, can get rid later, will probably just need the else
-      if (filters[0].field === 'review_image') {
+      if (filters[0]?.field === 'review_image') {
         resetReviewDataImages();
         filterReviewData({ reviewData: newReviewData, reviewImages });
         const newReviewDataWithJustImages = newReviewData.filter(
@@ -139,6 +140,8 @@ const ReviewSection = () => {
         }
       );
       setSort({ field, order });
+      resetReviewDataImages();
+
       filterReviewData({ reviewData: newReviewData, reviewImages });
 
       setReviewData([...newReviewData]); // Only show the first 8 when a sort has been picked
@@ -426,7 +429,10 @@ const ReviewSection = () => {
               className="my-4 max-w-[160px] items-stretch justify-center whitespace-nowrap rounded-full border border-solid border-black bg-white px-8 py-3.5 font-black leading-4 tracking-wide text-black transition-colors duration-150 hover:bg-black hover:text-white"
               aria-label="View more"
               role="button"
-              onClick={() => handleViewMore()}
+              onClick={() => {
+                handleViewMore();
+                track('Viewing 4 More Reviews');
+              }}
             >
               {loading ? (
                 <AiOutlineLoading3Quarters className="animate-spin" />
