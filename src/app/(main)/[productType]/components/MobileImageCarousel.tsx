@@ -28,7 +28,6 @@ export const MobileImageCarousel = ({
   const [api, setApi] = useState<CarouselApi>();
   const [current, setCurrent] = useState(0);
   // const [scrollSnaps, setScrollSnaps] = useState<number[]>([]);
-  console.log(productImages);
 
   const carouselItems = productImages.toSpliced(
     3,
@@ -59,7 +58,7 @@ export const MobileImageCarousel = ({
     src,
   }: {
     index: number;
-    src?: string | StaticImport;
+    src: string | StaticImport;
     video?: string | Asset;
   }) => (
     <button
@@ -70,7 +69,7 @@ export const MobileImageCarousel = ({
         className="rounded-[4px]"
         width={80}
         height={80}
-        src={src ? src : productImages[index]}
+        src={src}
         alt=""
       />
     </button>
@@ -117,65 +116,16 @@ export const MobileImageCarousel = ({
               </CarouselItem>
             );
           })}
-          {/* {productImages.map((image, index) => {
-            if (index < 1) return;
-            if (index === 2) {
-              return (
-                <>
-                  <CarouselItem key={`carousel-image-${index}`}>
-                    <Image
-                      src={image}
-                      alt={`Additional images of the ${selectedProduct.display_id} cover`}
-                      width={500}
-                      height={500}
-                      // placeholder="blur"
-                      onError={() => console.log('Failed image:', `${image}`)}
-                    />
-                  </CarouselItem>
-                  <CarouselItem
-                    key={'carousel-first-image'}
-                    className="bg-[#F2F2F2]"
-                  >
-                    <Image
-                      src={image}
-                      alt={`Additional images of the ${selectedProduct.display_id} cover`}
-                      width={500}
-                      height={500}
-                      priority
-                      // placeholder="blur"
-                    />
-                  </CarouselItem>
-                  <CarouselItem key={`carousel-video-${index}`}>
-                    <ProductVideo src={SevenSecVideo} autoplay loop />
-                  </CarouselItem>
-                </>
-              );
-            }
-
-            return (
-              <CarouselItem key={`carousel-image-${index}`}>
-                <Image
-                  src={image}
-                  alt={`Additional images of the ${selectedProduct.display_id} cover`}
-                  width={500}
-                  height={500}
-                  // placeholder="blur"
-                  onError={() => console.log('Failed image:', `${image}`)}
-                />
-              </CarouselItem>
-            );
-            // }
-          })} */}
         </CarouselContent>
       </Carousel>
       <div className="mb-[16px] flex flex-row gap-[6px] overflow-x-auto whitespace-nowrap p-[6px]">
-        {carouselItems.map((_, index) => {
+        {carouselItems.map((item, index) => {
           if (index < 1)
             return (
               <button
                 key={selectedProduct.mainImage}
                 className={`relative  flex min-h-[80px] min-w-[80px] rounded-[4px] ${0 === current && 'outline outline-1  '} `}
-                onClick={() => scrollTo(0)}
+                onClick={() => scrollTo(index)}
               >
                 <Image
                   src={selectedProduct.mainImage as string}
@@ -209,7 +159,8 @@ export const MobileImageCarousel = ({
           }
           return (
             <CarouselPositionItem
-              key={String(productImages[index])}
+              key={String(carouselItems[index])}
+              src={item}
               index={index}
             />
           );
