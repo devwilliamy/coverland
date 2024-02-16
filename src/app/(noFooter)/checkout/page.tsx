@@ -17,7 +17,10 @@ import { FaRegTrashAlt } from 'react-icons/fa';
 import { IconContext } from 'react-icons';
 import { AiOutlineLoading3Quarters } from 'react-icons/ai';
 import { IoArrowBack } from 'react-icons/io5';
-import { useRouter } from 'next/navigation';
+import { redirect, useRouter } from 'next/navigation';
+import { PayPalScriptProvider, PayPalButtons } from '@paypal/react-paypal-js';
+import { paypalCaptureOrder, paypalCreateOrder } from '@/app/api/paypal/utils';
+
 function CheckoutPage() {
   const {
     cartItems,
@@ -281,6 +284,31 @@ function CheckoutPage() {
                   'Checkout'
                 )}
               </Button>
+              <PayPalScriptProvider
+                options={{
+                  clientId: process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID ?? '',
+                  currency: 'USD',
+                  intent: 'capture',
+                  components: 'buttons',
+                }}
+              >
+                <PayPalButtons
+                  style={{
+                    color: 'gold',
+                    shape: 'rect',
+                    label: 'pay',
+                    height: 50,
+                  }}
+                  createOrder={async () => {
+                    const order_id = await paypalCreateOrder();
+                    return order_id + '';
+                  }}
+                  onApprove={async (data) => {
+                    const response = await paypalCaptureOrder(data.orderID);
+                    if (response) redirect('/thank-you?order_number=CL1234');
+                  }}
+                />
+              </PayPalScriptProvider>
             </div>
             <div className="pb-20"></div>
             <div className="fixed inset-x-0 bottom-0 bg-white p-4 shadow-[0_-4px_4px_-0px_rgba(0,0,0,0.1)] md:hidden">
