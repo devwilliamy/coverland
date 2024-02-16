@@ -326,7 +326,7 @@ function CheckoutPage() {
             <div className="my-8 hidden w-full justify-center md:flex md:flex-col">
               <Button
                 variant={'default'}
-                className="mb-3 h-[63px] w-full rounded-lg  bg-black text-base font-bold uppercase text-white sm:h-[48px] lg:text-xl"
+                className="mb-3 h-[63px] w-full rounded-lg  bg-[#BE1B1B] text-base font-bold uppercase text-white sm:h-[48px] lg:text-xl"
                 onClick={() => {
                   redirectToCheckout();
                   setLoading(true);
@@ -344,6 +344,7 @@ function CheckoutPage() {
                   currency: 'USD',
                   intent: 'capture',
                   components: 'buttons',
+                  disableFunding: 'card',
                 }}
               >
                 <PayPalButtons
