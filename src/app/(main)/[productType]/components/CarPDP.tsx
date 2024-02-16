@@ -215,6 +215,7 @@ export default function CarPDP({
     params: pathParams ?? ({} as TPathParams),
     queryParams,
   });
+  console.log(modelData);
 
   const store = useRef(
     createCarSelectionStore({

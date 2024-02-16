@@ -382,8 +382,7 @@ const ReviewSection = () => {
         </div>
       </div>
       <ReviewHeaderGallery />
-      <div className="pt-6"></div>
-      <div className="my-5 flex flex-col gap-1 *:rounded-lg lg:flex-row lg:gap-4">
+      <div className="mb-6 flex flex-col gap-1 *:rounded-lg lg:flex-row lg:gap-4">
         <select
           className="mx-auto mt-9 h-12 w-full rounded border border-[#C8C7C7] bg-transparent px-4 text-lg font-normal capitalize text-[#1A1A1A]"
           onChange={handleSortSelectionChange}

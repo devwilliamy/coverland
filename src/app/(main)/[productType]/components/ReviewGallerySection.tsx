@@ -5,7 +5,7 @@ import { CarSelectionContext } from './CarPDP';
 import { useContext } from 'react';
 import { FaCamera } from 'react-icons/fa';
 
-const CustomerReviewsSection = () => {
+const ReviewGallerySection = () => {
   const store = useContext(CarSelectionContext);
   if (!store) throw new Error('Missing CarContext.Provider in the tree');
   const reviewImages = useStore(store, (s) => s.reviewImages);
@@ -13,13 +13,10 @@ const CustomerReviewsSection = () => {
   return (
     <div>
       <CustomerReviewSheet>
-        <FaCamera
-          color={'#3C3C3C'}
-          className="flex min-h-[24px] min-w-[27px]"
-        />
-        <div className="text-[#0C87B8]">Customer Images</div>
+        <FaCamera color={'white'} className="flex min-h-[24px] min-w-[27px]" />
+        <div className="text-white underline">Customer Images</div>
       </CustomerReviewSheet>
-      <span className="mb-[32px] flex w-full gap-[7px] overflow-x-auto">
+      <span className="no-scrollbar mb-[32px] flex w-full gap-[7px] overflow-x-auto">
         {reviewImageKeys.map((images, index) => (
           <div key={`scrollable-item-${index}`} className="flex">
             <Image
@@ -36,4 +33,4 @@ const CustomerReviewsSection = () => {
   );
 };
 
-export default CustomerReviewsSection;
+export default ReviewGallerySection;
