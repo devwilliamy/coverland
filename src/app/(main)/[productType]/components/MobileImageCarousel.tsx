@@ -28,6 +28,13 @@ export const MobileImageCarousel = ({
   const [api, setApi] = useState<CarouselApi>();
   const [current, setCurrent] = useState(0);
   // const [scrollSnaps, setScrollSnaps] = useState<number[]>([]);
+  console.log(productImages);
+
+  const carouselItems = productImages.toSpliced(
+    3,
+    0,
+    String(SevenSecVideoThumbnail)
+  );
 
   useEffect(() => {
     if (!api) {
@@ -73,24 +80,48 @@ export const MobileImageCarousel = ({
     <div className="flex max-w-full flex-col bg-white ">
       <Carousel setApi={setApi}>
         <CarouselContent id={'carousel-content'} className="no-scrollbar">
-          <CarouselItem key={'carousel-first-image'} className="bg-[#F2F2F2]">
-            <Image
-              src={selectedProduct.mainImage as string}
-              alt={`Additional images of the ${selectedProduct.display_id} cover`}
-              width={500}
-              height={500}
-              priority
-              // placeholder="blur"
-            />
-          </CarouselItem>
-          {productImages.map((image, index) => {
-            if (index <= 1) return;
+          {carouselItems.map((image, index) => {
+            if (index < 1)
+              return (
+                <CarouselItem
+                  key={selectedProduct.mainImage}
+                  className="bg-[#F2F2F2]"
+                >
+                  <Image
+                    src={selectedProduct.mainImage as string}
+                    alt={`Additional images of the ${selectedProduct.display_id} cover`}
+                    width={500}
+                    height={500}
+                    priority
+                    // placeholder="blur"
+                  />
+                </CarouselItem>
+              );
+            if (index === 3) {
+              return (
+                <CarouselItem key={String(SevenSecVideo)}>
+                  <ProductVideo src={SevenSecVideo} autoplay loop />
+                </CarouselItem>
+              );
+            }
+            return (
+              <CarouselItem key={image}>
+                <Image
+                  src={image}
+                  alt={`Additional images of the ${selectedProduct.display_id} cover`}
+                  width={500}
+                  height={500}
+                  // placeholder="blur"
+                  onError={() => console.log('Failed image:', `${image}`)}
+                />
+              </CarouselItem>
+            );
+          })}
+          {/* {productImages.map((image, index) => {
+            if (index < 1) return;
             if (index === 2) {
               return (
-                <Fragment key={`group-${index}`}>
-                  <CarouselItem key={`carousel-video-${index}`}>
-                    <ProductVideo src={SevenSecVideo} autoplay loop />
-                  </CarouselItem>
+                <>
                   <CarouselItem key={`carousel-image-${index}`}>
                     <Image
                       src={image}
@@ -101,59 +132,85 @@ export const MobileImageCarousel = ({
                       onError={() => console.log('Failed image:', `${image}`)}
                     />
                   </CarouselItem>
-                </Fragment>
-              );
-            } else {
-              return (
-                <CarouselItem key={`carousel-image-${index}`}>
-                  <Image
-                    src={image}
-                    alt={`Additional images of the ${selectedProduct.display_id} cover`}
-                    width={500}
-                    height={500}
-                    // placeholder="blur"
-                    onError={() => console.log('Failed image:', `${image}`)}
-                  />
-                </CarouselItem>
+                  <CarouselItem
+                    key={'carousel-first-image'}
+                    className="bg-[#F2F2F2]"
+                  >
+                    <Image
+                      src={image}
+                      alt={`Additional images of the ${selectedProduct.display_id} cover`}
+                      width={500}
+                      height={500}
+                      priority
+                      // placeholder="blur"
+                    />
+                  </CarouselItem>
+                  <CarouselItem key={`carousel-video-${index}`}>
+                    <ProductVideo src={SevenSecVideo} autoplay loop />
+                  </CarouselItem>
+                </>
               );
             }
-          })}
+
+            return (
+              <CarouselItem key={`carousel-image-${index}`}>
+                <Image
+                  src={image}
+                  alt={`Additional images of the ${selectedProduct.display_id} cover`}
+                  width={500}
+                  height={500}
+                  // placeholder="blur"
+                  onError={() => console.log('Failed image:', `${image}`)}
+                />
+              </CarouselItem>
+            );
+            // }
+          })} */}
         </CarouselContent>
       </Carousel>
       <div className="mb-[16px] flex flex-row gap-[6px] overflow-x-auto whitespace-nowrap p-[6px]">
-        <button
-          className={`relative  flex min-h-[80px] min-w-[80px] rounded-[4px] ${0 === current && 'outline outline-1  '} `}
-          onClick={() => scrollTo(0)}
-        >
-          <Image
-            src={selectedProduct.mainImage as string}
-            alt={`Additional images of the ${selectedProduct.display_id} cover`}
-            width={80}
-            height={80}
-            priority
-            // placeholder="blur"
-          />
-        </button>
-        <button
-          className={`relative flex aspect-square min-h-[80px] min-w-[80px] items-center justify-center rounded-[4px] ${1 === current && 'outline outline-1  '} `}
-          onClick={() => scrollTo(1)}
-        >
-          <Image
-            id="video-thumbnail"
-            alt="Video Thumbnail"
-            slot="poster"
-            src={SevenSecVideoThumbnail}
-            width={80}
-            height={80}
-            aria-hidden="true"
-          />
-        </button>
-        {productImages.map((_, index) => {
-          if (index + 2 >= productImages.length) return;
+        {carouselItems.map((_, index) => {
+          if (index < 1)
+            return (
+              <button
+                key={selectedProduct.mainImage}
+                className={`relative  flex min-h-[80px] min-w-[80px] rounded-[4px] ${0 === current && 'outline outline-1  '} `}
+                onClick={() => scrollTo(0)}
+              >
+                <Image
+                  src={selectedProduct.mainImage as string}
+                  alt={`Additional images of the ${selectedProduct.display_id} cover`}
+                  width={80}
+                  height={80}
+                  priority
+                  // placeholder="blur"
+                />
+              </button>
+            );
+          if (index === 3) {
+            return (
+              <button
+                key={String(SevenSecVideoThumbnail)}
+                id="video-thumbnail"
+                className={`relative flex aspect-square min-h-[80px] min-w-[80px] items-center justify-center rounded-[4px] ${index === current && 'outline outline-1  '} `}
+                onClick={() => scrollTo(index)}
+              >
+                <Image
+                  id="video-thumbnail"
+                  alt="Video Thumbnail"
+                  slot="poster"
+                  src={SevenSecVideoThumbnail}
+                  width={80}
+                  height={80}
+                  aria-hidden="true"
+                />
+              </button>
+            );
+          }
           return (
             <CarouselPositionItem
-              key={`Carousel-Caption-Item-${Number(index + 2)}`}
-              index={Number(index + 2)}
+              key={String(productImages[index])}
+              index={index}
             />
           );
         })}

@@ -50,7 +50,7 @@ const FreeDetailItem = ({
     <div className="flex w-full flex-col">
       <div className="my-6 flex w-full gap-[18px] ">
         <div>{icon}</div>
-        <div className="w-full pt-[1px]">
+        <div className={`w-full ${!description && 'pt-1'} `}>
           <p
             className={` ${description && 'mb-[7px]'} text-[16px] font-[500] leading-[16px]`}
           >

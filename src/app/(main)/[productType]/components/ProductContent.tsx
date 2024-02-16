@@ -113,14 +113,14 @@ export function ProductContent({
         setSelectedProduct={setSelectedProduct}
         selectedProduct={selectedProduct as IProductData}
       />
-      <Separator className="mt-[36px] " />
-      <FreeDetails />
-      <KeyBenefitsSection />
       <AddToCart
         selectedProduct={selectedProduct}
         handleAddToCart={handleAddToCart}
       />
-      <Separator className="my-8 " />
+      <Separator className="mt-[36px] " />
+      <FreeDetails />
+      <KeyBenefitsSection />
+
       {isMobile && (
         <>
           <div className="pb-5">

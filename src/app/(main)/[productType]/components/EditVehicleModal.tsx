@@ -23,7 +23,7 @@ export function EditVehicleModal({
   if (!store) throw new Error('Missing CarContext.Provider in the tree');
 
   return (
-    <div className="mb-4 hidden w-full border-l-2 border-l-[#C8C7C7] lg:flex lg:flex-col">
+    <div className="my-4 hidden w-full border-l-2 border-l-[#C8C7C7] lg:flex lg:flex-col">
       <Popover open={open} onOpenChange={() => setOpen(!open)}>
         <PopoverTrigger asChild>
           <div className="flex w-full flex-shrink cursor-pointer justify-between pl-[40px]">
