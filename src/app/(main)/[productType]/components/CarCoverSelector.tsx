@@ -12,6 +12,7 @@ import { IProductData } from '../../utils';
 import { ExtraProductDetails } from '@/components/PDP/OtherDetails';
 import { Separator } from '@/components/ui/separator';
 import { useParams } from 'next/navigation';
+import LinkBreadcrumbs from './LinkBreadcrumbs';
 
 const EditVehiclePopover = dynamicImport(
   () => import('@/components/PDP/components/EditVehiclePopover'),
@@ -56,6 +57,7 @@ export function CarCoverSelector() {
   return (
     <>
       <section className="mx-auto h-max  w-full max-w-[1280px] px-4 lg:my-8">
+        <LinkBreadcrumbs />
         <div className="flex w-full flex-col items-start justify-between lg:flex-row lg:gap-14">
           {/* Left Panel */}
           <PrimaryImageDisplay

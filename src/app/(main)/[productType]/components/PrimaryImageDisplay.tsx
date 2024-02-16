@@ -11,8 +11,6 @@ import dynamic from 'next/dynamic';
 import Thumbnail from '@/video/Thumbnail.webp';
 import { IProductData } from '../../utils';
 import SixMinVideo from 'https://x2kly621zrgfgwll.public.blob.vercel-storage.com/videos/FINALIZE_WEBSTIE_16_9_OPTIMIZED.mp4';
-import { useParams } from 'next/navigation';
-import Link from 'next/link';
 
 const ProductVideo = dynamic(() => import('@/components/PDP/ProductVideo'), {
   ssr: false,
@@ -31,39 +29,9 @@ export function PrimaryImageDisplay({
 }) {
   const [showMore, setShowMore] = useState(false);
   const isMobile = useMediaQuery('(max-width: 768px)');
-  const params = Object(useParams());
-  const paramKeys = Object.keys(params);
-  const paramValues = Object.values(params);
-  const getUrlFromBreadcrumbs = (index: number): string => {
-    let returnString = '';
-    for (let i = 0; i < index + 1; i++) {
-      returnString = returnString + '/' + paramValues[i];
-    }
-    return returnString;
-  };
 
   return (
     <div className=" -ml-4 flex  w-screen flex-col items-stretch justify-center lg:w-3/5 lg:pb-0 ">
-      <div className="mb-[14px] flex text-[12px] leading-[13px] lg:text-[14px] lg:leading-[15px]">
-        {params &&
-          paramKeys.map((key, index) => {
-            return (
-              <div key={String(params[key])} className="flex gap-1">
-                <p> </p>
-                <a
-                  href={getUrlFromBreadcrumbs(index)}
-                  className={`hover:underline ${params[key].length < 4 ? 'uppercase' : 'capitalize'} `}
-                >
-                  {/* Replacing all  */}
-                  {params[key] && key === 'year'
-                    ? params[key]
-                    : String(params[key]).replaceAll('-', ' ')}
-                </a>
-                {index != paramKeys.length - 1 && <p>/</p>}
-              </div>
-            );
-          })}
-      </div>
       <div className="relative mb-4 flex h-full w-full items-center justify-center bg-[#F2F2F2] md:h-[500px] lg:h-[650px] lg:rounded-xl">
         {isMobile ? (
           <MobileImageCarousel

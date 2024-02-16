@@ -26,7 +26,7 @@ export default function ExtraDetailsTabs() {
         className="no-scrollbar  flex gap-[26px] overflow-x-auto  px-2 pb-4 lg:w-full lg:justify-evenly"
       >
         {otherDetailsBar.map(({ title, jsx }, index) => (
-          <div
+          <button
             key={`Extra-Details-Tab-${index}`}
             onClick={() => {
               setCurrentTabIndex(index);
@@ -35,7 +35,7 @@ export default function ExtraDetailsTabs() {
             className={`flex shrink-0 px-2 py-2 text-[16px] ${currentTabIndex === index ? 'border-b-2 border-b-black font-[700]' : 'font-[400]'}`}
           >
             {title}
-          </div>
+          </button>
         ))}
       </div>
       <Separator className="-z-10 -mt-[18px] flex h-0.5 bg-[#BEBEBE]" />

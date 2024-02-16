@@ -2,12 +2,10 @@
 import { Separator } from '@/components/ui/separator';
 import { TInitialProductDataDB } from '@/lib/db';
 import { Rating } from '@mui/material';
-import { GoDotFill } from 'react-icons/go';
 import { CarSelectionContext } from './CarPDP';
 import { useMediaQuery } from '@mantine/hooks';
 import { RefObject, useContext, useState } from 'react';
 import CartSheet from '@/components/cart/CartSheet';
-import { generateProductsLeft } from '@/lib/utils';
 import { compareRawStrings } from '@/lib/utils';
 import ProductVideo from '@/components/PDP/ProductVideo';
 // import SquareThumbnail from '@/video/Thumbnail_Square.webp';
@@ -15,14 +13,12 @@ import Thumbnail from '@/video/Thumbnail.webp';
 import { useStore } from 'zustand';
 import { useCartContext } from '@/providers/CartProvider';
 import { IProductData } from '../../utils';
-import FourIconGrid from './FitGuranteedGrid';
-import NeedHelp from './NeedHelp';
 import FreeDetails from './FreeDetails';
 import AddToCart from './AddToCart';
 import CircleColorSelector from './CircleColorSelector';
 import RatingsTrigger from './RatingsTrigger';
 import SixMinVideo from 'https://x2kly621zrgfgwll.public.blob.vercel-storage.com/videos/FINALIZE_WEBSTIE_16_9_OPTIMIZED.mp4';
-import CustomerReviewsSection from './CustomerReviewsSection';
+import ReviewGallerySection from './ReviewGallerySection';
 import KeyBenefitsSection from '@/components/PDP/components/KeyBenefitsSection';
 
 interface ProductRefs {
@@ -120,45 +116,20 @@ export function ProductContent({
       <Separator className="mt-[36px] " />
       <FreeDetails />
       <KeyBenefitsSection />
+      <Separator className="h-5 w-full border-b-[1px] border-t-[1px] border-b-[#BEBEBE] border-t-[#BEBEBE] bg-[#F1F1F1] lg:hidden" />
 
       {isMobile && (
-        <>
-          <div className="pb-5">
+        <div className="bg-black p-4">
+          <div className="rounded-[8px] pb-5">
             <ProductVideo
               src={SixMinVideo}
               imgSrc={Thumbnail}
               aspectRatio="16 / 9"
             />
           </div>
-          <CustomerReviewsSection />
-        </>
-      )}
-      {/* <FourIconGrid />
-      <NeedHelp />
-      <Separator className="my-10 hidden lg:mt-0 lg:block" />
-      <section>
-        <h3 className="mb-[28px] hidden text-xl font-black uppercase text-[#1A1A1A] lg:flex">
-          car cover features
-        </h3>
-        <div className="flex flex-col gap-2 lg:gap-0 ">
-          {[
-            '100% waterproof protection.',
-            '100% UV protection.',
-            '100% Tailored to your car model.',
-            'The Best Quality Car Cover on the Market.',
-            'Outside Material: High-End Polyester Fabric.',
-            'Inside Material: Soft Fleece Fabric.',
-            'Heavy-Duty, but Easy On and Off.',
-            'Non-Scratch Fabric Protects Your Car Paint.',
-            'Backed by a Lifetime Warranty.',
-            'Guaranteed to Be the Best Quality Car Cover On the Market.',
-          ].map((text, index) => (
-            <CarCoverFeature key={`car-cover-feature-${index}`}>
-              {text}
-            </CarCoverFeature>
-          ))}
+          <ReviewGallerySection />
         </div>
-      </section> */}
+      )}
       {isMobile ? (
         <></>
       ) : (
@@ -179,12 +150,3 @@ export function ProductContent({
     </>
   );
 }
-
-const CarCoverFeature = ({ children }: { children: string }) => (
-  <div className="flex-start ml-2 hidden items-center  leading-4 lg:flex">
-    <GoDotFill size={10} color="#000000" />
-    <p className="pl-1 text-lg font-medium capitalize leading-[24px] text-black lg:leading-[32px]">
-      {children}
-    </p>
-  </div>
-);
