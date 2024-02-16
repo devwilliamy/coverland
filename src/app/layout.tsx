@@ -6,6 +6,7 @@ import { Toaster } from '@/components/ui/toaster';
 import { Analytics } from '@vercel/analytics/react';
 import AppScripts from './scripts/AppScripts';
 import Script from 'next/script';
+import { GoogleTagManager } from '@next/third-parties/google';
 
 const roboto = Roboto({
   weight: ['100', '300', '400', '500', '700', '900'],
@@ -58,6 +59,7 @@ export default function RootLayout({
         <Analytics />
         <AppScripts />
       </body>
+      <GoogleTagManager gtmId="GTM-PW897Z9Z" />
     </html>
   );
 }
