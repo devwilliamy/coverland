@@ -11,13 +11,13 @@ import {
 } from '@/components/ui/table';
 import { useCartContext } from '@/providers/CartProvider';
 import Image from 'next/image';
-import React, { ChangeEvent, useState } from 'react';
+import React, { ChangeEvent, Suspense, useState } from 'react';
 import { loadStripe } from '@stripe/stripe-js';
 import { FaRegTrashAlt } from 'react-icons/fa';
 import { IconContext } from 'react-icons';
 import { AiOutlineLoading3Quarters } from 'react-icons/ai';
 import { IoArrowBack } from 'react-icons/io5';
-import { redirect, useRouter } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import { PayPalScriptProvider, PayPalButtons } from '@paypal/react-paypal-js';
 import { Order } from '@paypal/checkout-server-sdk/lib/orders/lib';
 
@@ -91,17 +91,6 @@ function CheckoutPage() {
   const [promoError, setPromoError] = useState(false);
   const [loading, setLoading] = useState(false);
   const router = useRouter();
-  // const [quantity, setQuantity] = useState(Number);
-  // let totalMsrpPrice = Number(0);
-  // let totalDiscountedPrice = Number(0);
-  // let orderSubtotal = Number(0);
-  // useEffect(() => {
-  //   totalMsrpPrice = getTotalPrice().toFixed(2) as unknown as number;
-  //   totalDiscountedPrice = getTotalDiscountPrice().toFixed(
-  //     2
-  //   ) as unknown as number;
-  //   orderSubtotal = getOrderSubtotal().toFixed(2) as unknown as number;
-  // }, [cartItems]);
   const redirectToCheckout = async () => {
     try {
       const stripe = await loadStripe(
@@ -355,26 +344,32 @@ function CheckoutPage() {
                   disableFunding: 'card',
                 }}
               >
-                <PayPalButtons
-                  style={{
-                    color: 'gold',
-                    shape: 'rect',
-                    label: 'pay',
-                    height: 50,
-                  }}
-                  createOrder={async () => {
-                    const data = await paypalCreateOrder(totalMsrpPrice);
-                    if (!data) return '';
-                    return data.data.id;
-                  }}
-                  onApprove={async (data) => {
-                    console.log('running');
-                    console.log(data.orderID);
-                    const response = await paypalCaptureOrder(data.orderID);
-                    console.log(response);
-                    if (response) redirect('/thank-you?order_number=CL1234');
-                  }}
-                />
+                <Suspense fallback={<div>Loading...</div>}>
+                  <PayPalButtons
+                    style={{
+                      color: 'gold',
+                      shape: 'rect',
+                      label: 'pay',
+                      height: 50,
+                    }}
+                    createOrder={async () => {
+                      const data = await paypalCreateOrder(totalMsrpPrice);
+                      if (!data) return '';
+                      return data.data.id;
+                    }}
+                    onApprove={async (data) => {
+                      console.log('running');
+                      console.log(data.orderID);
+                      const response = await paypalCaptureOrder(data.orderID);
+                      console.log(response);
+                      if (response.success) {
+                        router.push(
+                          `/thank-you?order-number=CL-P-${data.orderID}`
+                        );
+                      }
+                    }}
+                  />
+                </Suspense>
               </PayPalScriptProvider>
             </div>
             <div className="fixed inset-x-0 bottom-0 bg-white p-4 shadow-[0_-4px_4px_-0px_rgba(0,0,0,0.1)] md:hidden">
@@ -385,9 +380,9 @@ function CheckoutPage() {
                 <Button
                   variant={'default'}
                   className="h-[48px] w-full max-w-xs rounded-lg bg-black text-base font-bold uppercase text-white lg:h-[63px] lg:text-xl"
-                  onClick={() => {
-                    redirectToCheckout();
+                  onClick={async () => {
                     setLoading(true);
+                    await redirectToCheckout();
                   }}
                 >
                   {loading ? (
