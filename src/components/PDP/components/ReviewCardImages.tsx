@@ -8,7 +8,7 @@ function ReviewCardImages({ reviewImages }: { reviewImages?: string | null }) {
   const reviewImagesSplit = reviewImages?.split(',');
   return (
     <span className="flex gap-2 overflow-x-auto">
-      {reviewImagesSplit.length > 1
+      {/* {reviewImagesSplit.length > 1
         ? reviewImagesSplit
             ?.slice(isMobile ? 0 : 1)
             .map((image, index) => (
@@ -29,7 +29,7 @@ function ReviewCardImages({ reviewImages }: { reviewImages?: string | null }) {
               alt="review-ard-image-alt"
               src={reviewImagesSplit[0]}
             />
-          )}
+          )} */}
     </span>
   );
 }

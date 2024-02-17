@@ -61,7 +61,7 @@ export default function SuggestedProducts() {
   console.log(products);
 
   return (
-    <section id="you-may-also-like-section" className="pb-[20px]">
+    <section id="you-may-also-like-section" className="px-4 pb-[20px]">
       <h1 className="font-[700] uppercase lg:text-[32px] lg:font-[900]">
         you may also like{' '}
       </h1>

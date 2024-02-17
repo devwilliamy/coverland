@@ -28,7 +28,7 @@ interface ICarCoverProps {
   selectedProduct: IProductData;
   reviewData: TReviewData[];
   reviewDataSummary: TProductReviewSummary;
-  reviewImages: Record<string, boolean>;
+  reviewImages: TReviewData[];
 }
 
 interface ICarCoverSelectionState extends ICarCoverProps {
@@ -59,7 +59,7 @@ const createCarSelectionStore = ({
   queryParams: TQueryParams;
   initialReviewData: TReviewData[];
   initialReviewDataSummary: TProductReviewSummary;
-  initialReviewImages: Record<string, boolean>;
+  initialReviewImages: TReviewData[];
 }) => {
   const hasNoSubmodels = initialModelData.every(
     (model) => !model.submodel1 && !model.submodel2
@@ -170,7 +170,7 @@ const createCarSelectionStore = ({
     setReviewDataSummary: (newReviewDataSummary: TProductReviewSummary) => {
       set(() => ({ reviewDataSummary: newReviewDataSummary }));
     },
-    setReviewImages: (newReviewImages: Record<string, boolean>) => {
+    setReviewsWithImages: (newReviewImages: TReviewData[]) => {
       set(() => ({ reviewImages: newReviewImages }));
     },
     paramsYear: params.year || '',
@@ -193,7 +193,7 @@ export default function CarPDP({
   reviewData: TReviewData[] | null;
   params: TPathParams;
   reviewDataSummary: TProductReviewSummary;
-  reviewImages: Record<string, boolean>;
+  reviewImages: TReviewData[];
 }) {
   const pathParams = useParams<{
     year?: string;
@@ -215,7 +215,6 @@ export default function CarPDP({
     params: pathParams ?? ({} as TPathParams),
     queryParams,
   });
-  console.log(modelData);
 
   const store = useRef(
     createCarSelectionStore({

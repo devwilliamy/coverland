@@ -1,4 +1,4 @@
-import CustomerReviewTabs from '@/components/PDP/components/CustomerReviewTabs';
+import ReviewImagesSheet from '@/components/PDP/components/ReviewImagesSheet';
 import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';
 import Image from 'next/image';
 import { FaCamera } from 'react-icons/fa';
@@ -88,7 +88,7 @@ const MoreImages = () => (
         </div>
       </DialogTrigger>
       <DialogContent className="flex min-h-[65vh] flex-col items-center lg:min-w-[77vw] lg:max-w-[80%]">
-        <CustomerReviewTabs />
+        <ReviewImagesSheet />
       </DialogContent>
     </Dialog>
   </div>

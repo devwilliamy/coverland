@@ -10,7 +10,7 @@ import { CarSelectionContext } from '@/app/(main)/[productType]/components/CarPD
 import { useStore } from 'zustand';
 import {
   FilterParams,
-  filterReviewData,
+  // filterReviewImages,
   getProductReviewsByImage,
   getProductReviewsByPage,
 } from '@/lib/db/review';
@@ -80,13 +80,13 @@ const ReviewSection = () => {
       // This if is used for filterByImage quick fix, can get rid later, will probably just need the else
       if (filters[0]?.field === 'review_image') {
         resetReviewDataImages();
-        filterReviewData({ reviewData: newReviewData, reviewImages });
+        // filterReviewImages({ reviewData: newReviewData, reviewImages });
         const newReviewDataWithJustImages = newReviewData.filter(
           (reviewData) => !!reviewData.review_image
         );
         setReviewData([...reviewData, ...newReviewDataWithJustImages]);
       } else {
-        filterReviewData({ reviewData: newReviewData, reviewImages });
+        // filterReviewImages({ reviewData: newReviewData, reviewImages });
         setReviewData([...reviewData, ...newReviewData]);
       }
       setPage((prevPage) => prevPage + 1);
@@ -142,7 +142,7 @@ const ReviewSection = () => {
       setSort({ field, order });
       resetReviewDataImages();
 
-      filterReviewData({ reviewData: newReviewData, reviewImages });
+      // filterReviewImages({ reviewData: newReviewData, reviewImages });
 
       setReviewData([...newReviewData]); // Only show the first 8 when a sort has been picked
       setPage(1);
@@ -278,7 +278,7 @@ const ReviewSection = () => {
       setFilters([...newFilters]);
 
       resetReviewDataImages();
-      filterReviewData({ reviewData: newReviewData, reviewImages });
+      // filterReviewImages({ reviewData: newReviewData, reviewImages });
 
       // This if is used for filterByImage quick fix, can get rid later, will probably just need the else
       if (e.target.value === 'images') {

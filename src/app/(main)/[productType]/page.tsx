@@ -9,7 +9,7 @@ import CarPDP from './components/CarPDP';
 import {
   TProductReviewSummary,
   TReviewData,
-  filterReviewData,
+  // filterReviewImages,
   getAllReviewsWithImages,
   getProductReviewSummary,
   getProductReviewsByPage,
@@ -25,7 +25,7 @@ export default async function CarPDPModelDataLayer({
     total_reviews: 0,
     average_score: 0,
   };
-  let reviewImages: Record<string, boolean>;
+  let reviewImages: TReviewData[];
   const productType = params.productType;
   const SuvOrTruckData =
     productType === 'suv-covers' ? defaultSuvModelData : defaultTruckModelData;
@@ -55,7 +55,7 @@ export default async function CarPDPModelDataLayer({
         productType: typeString,
       }),
     ]);
-    filterReviewData({ reviewData, reviewImages });
+    // filterReviewImages({ reviewData, reviewImages });
   } catch (error) {
     console.error('CarPDPModelDataLayer Error: ', error);
   }

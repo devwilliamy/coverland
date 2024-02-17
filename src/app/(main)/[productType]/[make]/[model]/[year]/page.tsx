@@ -5,7 +5,7 @@ import CarPDP from '@/app/(main)/[productType]/components/CarPDP';
 import { TPathParams } from '@/app/(main)/utils';
 import {
   TProductReviewSummary,
-  filterReviewData,
+  // filterReviewImages,
   getAllReviewsWithImages,
   getProductReviewSummary,
   getProductReviewsByPage,
@@ -23,7 +23,7 @@ export default async function CarPDPDataLayer({
     total_reviews: 0,
     average_score: 0,
   };
-  let reviewImages: Record<string, boolean>;
+  let reviewImages: TReviewData[];
   const SuvOrTruckType =
     params?.productType === 'suv-covers' ? 'SUV Covers' : 'Truck Covers';
   const typeString =
@@ -58,7 +58,7 @@ export default async function CarPDPDataLayer({
           year: params.year,
         }),
       ]);
-    filterReviewData({ reviewData, reviewImages });
+    // filterReviewImages({ reviewData, reviewImages });
 
     if (!modelData) {
       redirect('/404');

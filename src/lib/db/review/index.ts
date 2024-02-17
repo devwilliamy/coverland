@@ -1,3 +1,4 @@
+import { TReviewData } from '@/lib/db';
 import { ZodError, z } from 'zod';
 
 import { PRODUCT_REVIEWS_TABLE } from '../constants/databaseTableNames';
@@ -196,7 +197,8 @@ export async function getProductReviewsByPage(
 
 export async function getAllReviewsWithImages(
   filters: TProductReviewsQueryFilters
-): Promise<Record<string, boolean>> {
+): Promise<TReviewData[]> {
+  //  Promise<Record<string, boolean>>
   try {
     const validatedFilters = ProductReviewsQueryFiltersSchema.parse(filters);
     const { productType, year, make, model, submodel, submodel2 } =
@@ -232,51 +234,65 @@ export async function getAllReviewsWithImages(
 
     if (error) {
       console.error(error);
-      return {};
+      // return {};
+      return [];
     }
+    console.log(data);
 
-    const imageObject: Record<string, boolean> = {};
+    const imageSet = new Set<string>();
+    const newImageData: TReviewData[] = [];
 
     for (const ob of data) {
-      const split = ob.review_image?.split(',');
-      if (split) {
-        for (const imageString of split) {
-          // !imageMap.has(imageString) && imageMap.set(imageString, false);
-          if (!imageObject[imageString]) {
-            imageObject[imageString] = false;
-          }
+      const savedStrings: string[] = [];
+      const splitImages = ob.review_image?.split(',');
+
+      splitImages?.map((imgStr) => {
+        if (!imageSet.has(imgStr)) {
+          imageSet.add(imgStr);
+          savedStrings.push(imgStr);
         }
-      }
+      });
+      console.log('Image Strings: ', savedStrings);
+      const newString = savedStrings.join(',');
+      console.log('New String', newString);
+
+      newImageData.push({ ...ob, review_image: newString });
+
+      console.log({ ...ob, review_image: newString });
     }
 
-    return imageObject;
+    console.log('Reviews With Images', newImageData);
+
+    // return imageObject;
+    return newImageData;
   } catch (error) {
     if (error instanceof ZodError) {
       console.log('ZodError:', error);
     }
     console.error(error);
-    return {};
+    // return {};
+    return [];
   }
 }
 
-export const filterReviewData = ({
-  reviewData,
-  reviewImages: reviewImageObj,
-}: {
-  reviewData: TReviewData[];
-  reviewImages: Record<string, boolean>;
-}) => {
-  for (const data of reviewData) {
-    const imageStrings: (string | null)[] = [];
-    data.review_image?.split(',').map((imgStr) => {
-      if (!reviewImageObj[imgStr] && imgStr.endsWith('.webp')) {
-        reviewImageObj[imgStr] = true;
-        imageStrings.push(imgStr);
-      }
-    });
-    data.review_image = imageStrings.join(',');
-  }
-};
+// export const filterReviewImages = ({
+//   reviewData,
+//   reviewImages,
+// }: {
+//   reviewData: TReviewData[];
+//   reviewImages: TReviewData[];
+// }) => {
+//   for (const data of reviewData) {
+//     const imageStrings: (string | null)[] = [];
+//     data.review_image?.split(',').map((imgStr) => {
+//       if (!reviewImageObj[imgStr] && imgStr.endsWith('.webp')) {
+//         reviewImageObj[imgStr] = true;
+//         imageStrings.push(imgStr);
+//       }
+//     });
+//     data.review_image = imageStrings.join(',');
+//   }
+// };
 
 /*
   Uses an RPC (Remote Procedure Call). Pretty much SQL Function.

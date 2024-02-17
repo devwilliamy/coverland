@@ -8,7 +8,6 @@ import Image from 'next/image';
 
 const HeroSection = () => {
   const isMobile = useMediaQuery('(max-width: 500px)');
-  // console.log('isMobile', isMobile);
   return (
     <section className="flex h-full flex-col items-center justify-end px-4 lg:justify-start lg:px-0">
       <div className="relative flex h-full min-h-[550px] w-full flex-col justify-end ">

@@ -6,25 +6,24 @@ import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';
 import ExampleCustomerImage from '@/images/PDP/product_details_01.webp';
 import Image from 'next/image';
 import { useStore } from 'zustand';
-import CustomerReviewTabs from './CustomerReviewTabs';
+import ReviewImagesSheet from './ReviewImagesSheet';
 import CustomerReviewSheet from './CustomerReviewSheet';
 
 export default function ReviewHeaderGallery() {
   const store = useContext(CarSelectionContext);
   if (!store) throw new Error('Missing CarContext.Provider in the tree');
   const reviewImages = useStore(store, (s) => s.reviewImages);
-  const reviewImageKeys = Object.keys(reviewImages);
+  // const reviewImageKeys = Object.keys(reviewImages);
 
   return (
     <div className="flex flex-col items-center">
-      {reviewImages && (
+      {/* {reviewImages && (
         <div className=" flex items-center justify-center py-[10px] text-[14px] font-[400] normal-case leading-[24px] text-[#767676] lg:pb-[14px]  lg:pt-[70px]">
           {reviewImageKeys.length} Review Images
         </div>
-      )}
-      {reviewImageKeys.length > 0 && (
+      )} */}
+      {/* {reviewImageKeys.length > 0 && (
         <>
-          {/* Mobile Header Images */}
           <section className="grid aspect-square h-full w-full grid-cols-2 items-center gap-[7px] lg:hidden">
             {reviewImageKeys?.slice(0, 3).map((image, index) => {
               return (
@@ -48,7 +47,6 @@ export default function ReviewHeaderGallery() {
               <></>
             )}
           </section>
-          {/* Desktop Header Images */}
           <section className="hidden max-h-fit w-full items-center gap-[7px] lg:grid lg:max-h-[207px] lg:grid-cols-6">
             {reviewImageKeys?.slice(0, 5).map((image, index) => {
               return (
@@ -73,7 +71,8 @@ export default function ReviewHeaderGallery() {
             )}
           </section>
         </>
-      )}
+      )} */}
+      <SeeMoreImages />
     </div>
   );
 }
@@ -81,7 +80,7 @@ export default function ReviewHeaderGallery() {
 const SeeMoreImages = () => {
   return (
     <>
-      <div className="hidden lg:block">
+      {/* <div className="hidden lg:block">
         <Dialog>
           <DialogTrigger className="underline">
             See more <br /> review images
@@ -90,7 +89,7 @@ const SeeMoreImages = () => {
             <CustomerReviewTabs />
           </DialogContent>
         </Dialog>
-      </div>
+      </div> */}
       <div className="lg:hidden">
         <CustomerReviewSheet />
       </div>

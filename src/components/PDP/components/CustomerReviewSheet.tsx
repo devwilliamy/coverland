@@ -1,16 +1,12 @@
-import {
-  Sheet,
-  SheetClose,
-  SheetContent,
-  SheetHeader,
-  SheetTitle,
-  SheetTrigger,
-} from '@/components/ui/sheet';
-import { IoClose } from 'react-icons/io5';
+import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import { useContext, useState } from 'react';
 import { useStore } from 'zustand';
 import { CarSelectionContext } from '@/app/(main)/[productType]/components/CarPDP';
-import CustomerReviewTabs from './CustomerReviewTabs';
+import ReviewImagesSheet from './ReviewImagesSheet';
+import Logo from '@/components/header/Logo';
+import Link from 'next/link';
+import { UserRound } from 'lucide-react';
+import Cart from '@/components/header/Cart';
 
 export default function CustomerReviewSheet({
   children,
@@ -35,24 +31,33 @@ export default function CustomerReviewSheet({
           </>
         )}
       </SheetTrigger>
-      <SheetContent className="rounded-t-[10px] px-[2px]" side="bottom">
-        <SheetHeader draggable={false}>
-          <SheetTitle className="sticky top-0 z-[100] mx-4 flex justify-between bg-white">
-            <SheetClose className="fixed right-0 z-[400] mr-[16px] flex items-center py-[4px]">
-              <button
-                id="CloseModalButton"
-                className=" mt-[17px] justify-center rounded-full bg-gray-200 p-[5px] "
-                onClick={() => {
-                  setReviewSheetOpen(false);
-                }}
-              >
-                <IoClose className="h-[24px] w-[24px]" />
-              </button>
-            </SheetClose>
-          </SheetTitle>
-        </SheetHeader>
-        <div className="mx-auto flex max-h-[76vh] min-h-[76vh] w-full flex-col overflow-y-auto px-4">
-          <CustomerReviewTabs />
+      <SheetContent className="w-full" side="right">
+        <div className=" flex max-h-screen min-h-screen w-screen  flex-col overflow-y-auto">
+          <header className="flex  flex-col items-stretch ">
+            <section className="min-h-[7px] w-full bg-black" />
+            <section className="whitespace-nowrap bg-white  px-20 text-center text-[18px] font-[600] uppercase text-black lg:text-4xl">
+              <p>February Special Sale!</p>
+            </section>
+            <section className="whitespace-nowrap bg-black  px-20 text-center text-[18px] font-[500] uppercase text-white lg:text-4xl">
+              <p>SAVE UP TO 50%</p>
+            </section>
+            <section className="mb-[17px] flex w-full items-center justify-between px-2">
+              <Logo />
+              <div className="flex items-center gap-[28px] ">
+                <Cart />
+                {/* <IoIosMenu className="ml-[14px] min-h-[20px] min-w-[20px]" /> */}
+                <Link href="/login">
+                  <UserRound className="h-5 w-5" />
+                </Link>
+              </div>
+            </section>
+            {/* 
+            <section className="mb-[11px] mt-[3px] flex w-full place-self-center px-[14px]">
+              <AlgoliaSearchbar />
+            </section>
+            */}
+          </header>
+          <ReviewImagesSheet setReviewsOpen={setReviewSheetOpen} />
         </div>
       </SheetContent>
     </Sheet>

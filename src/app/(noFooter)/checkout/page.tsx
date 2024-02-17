@@ -22,11 +22,7 @@ import { PayPalScriptProvider, PayPalButtons } from '@paypal/react-paypal-js';
 import { Order } from '@paypal/checkout-server-sdk/lib/orders/lib';
 
 async function paypalCreateOrder(): Promise<{ data: Order } | null> {
-  console.log('here');
-
   try {
-    console.log('here');
-
     const response = await fetch('/api/paypal', {
       method: 'POST', // Specify the method
       headers: {
@@ -40,7 +36,6 @@ async function paypalCreateOrder(): Promise<{ data: Order } | null> {
     if (!response.ok) {
       throw new Error('Network response was not ok');
     }
-    console.log('here');
 
     return await response.json(); // Assuming the server responds with JSON
   } catch (err) {
