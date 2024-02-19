@@ -11,7 +11,6 @@ import { useStore } from 'zustand';
 import { IProductData } from '../../utils';
 import { ExtraProductDetails } from '@/components/PDP/OtherDetails';
 import { Separator } from '@/components/ui/separator';
-import { useParams } from 'next/navigation';
 import LinkBreadcrumbs from './LinkBreadcrumbs';
 
 const EditVehiclePopover = dynamicImport(
@@ -27,7 +26,6 @@ export function CarCoverSelector() {
 
   const modelData = useStore(store, (s) => s.modelData);
   const selectedProduct = useStore(store, (s) => s.selectedProduct);
-  const params = useParams();
   const setSelectedProduct = useStore(store, (s) => s.setSelectedProduct);
   const setFeaturedImage = useStore(store, (s) => s.setFeaturedImage);
   const featuredImage = selectedProduct?.mainImage;

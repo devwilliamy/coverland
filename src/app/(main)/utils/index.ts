@@ -8,6 +8,7 @@ export type TPathParams = {
   make?: string;
   model?: string;
   year?: string;
+  coverType?: string;
 };
 
 export type TQueryParams = {
@@ -29,6 +30,7 @@ export function modelDataTransformer({
   data: TInitialProductDataDB[];
   params: {
     productType: string;
+    coverType?: string;
     make?: string;
     model?: string;
     year?: string;
@@ -36,6 +38,7 @@ export function modelDataTransformer({
   queryParams: { submodel?: string; secondSubmodel?: string };
 }): IProductData[] {
   let filteredData: TInitialProductDataDB[] = data;
+  console.log(params);
 
   if (!!params.productType) {
     filteredData = data.filter((item) =>
@@ -43,21 +46,28 @@ export function modelDataTransformer({
     );
   }
 
-  if (!!params.make) {
+  if (!!params.coverType) {
     filteredData = data.filter((item) =>
+      compareRawStrings(item.display_id, params.coverType as string)
+    );
+  }
+  console.log(filteredData);
+
+  if (!!params.make) {
+    filteredData = filteredData.filter((item) =>
       compareRawStrings(item.make, params.make as string)
     );
   }
 
   if (params.model) {
-    filteredData = data.filter((item) =>
+    filteredData = filteredData.filter((item) =>
       compareRawStrings(item.model, params.model as string)
     );
   }
 
   if (params.year) {
     if (queryParams.submodel) {
-      filteredData = data.filter(
+      filteredData = filteredData.filter(
         (item) =>
           item.year_generation === params.year &&
           compareRawStrings(item.submodel1, queryParams.submodel as string)
@@ -65,7 +75,7 @@ export function modelDataTransformer({
     }
 
     if (queryParams.secondSubmodel) {
-      filteredData = data.filter(
+      filteredData = filteredData.filter(
         (item) =>
           item.year_generation === params.year &&
           compareRawStrings(
@@ -74,15 +84,17 @@ export function modelDataTransformer({
           )
       );
     }
-    filteredData = data.filter((item) =>
+    filteredData = filteredData.filter((item) =>
       compareRawStrings(item.parent_generation, params.year as string)
     );
   }
+  console.log(filteredData);
   const finalFilteredData = generatePDPContent({
     data: filteredData,
     params,
     queryParams,
   });
+  console.log(finalFilteredData);
 
   const filteredAndSortedData = finalFilteredData
     ?.filter((product) => product.msrp && product.price)
@@ -102,7 +114,7 @@ export function modelDataTransformer({
 
       return colorIndexA - colorIndexB;
     });
-
+  console.log(filteredAndSortedData);
   return filteredAndSortedData;
 }
 

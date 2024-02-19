@@ -475,6 +475,19 @@ export const SHIPPING_RATES = [
   },
 ] as const;
 
+export const slugToProductType = {
+  'car-covers': 'Car Covers',
+  'suv-covers': 'SUV Covers',
+  'truck-covers': 'Truck Covers',
+};
+
+export const slugToCoverType = {
+  'premium-plus': 'Premium Plus',
+  premium: 'Premium',
+  'standard-pro': 'Standard Pro',
+  standard: 'Standard',
+};
+
 export const generationDefaultKeys = [
   '100355',
   '101865',

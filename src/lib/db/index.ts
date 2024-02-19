@@ -1,6 +1,7 @@
 import { createClient } from '@supabase/supabase-js';
 import { Database, Tables } from './types';
 import { deslugify } from '../utils';
+import { slugToCoverType } from '../constants';
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL ?? '';
 const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_KEY ?? '';
@@ -16,7 +17,7 @@ export type TableRow = keyof Database['public']['Tables'];
 export type TableColumn<T extends TableRow> =
   keyof Database['public']['Tables'][T]['Row'];
 
-export type TInitialProductDataDB = Tables<'Products-2024'>;
+export type TInitialProductDataDB = Tables<'Products-Data-02-2024'>;
 
 export type TCarDataMaster = Tables<'Car-Data-Master'>;
 
@@ -98,16 +99,24 @@ export async function getProductData({
   make,
   model,
   type,
+  cover,
 }: {
   year?: string;
   make?: string;
   model?: string;
   type?: string;
+  cover?: string;
 }) {
   let fetch = supabase.from('Products-Data-02-2024').select('*');
 
   if (type) {
     fetch = fetch.eq('type', type);
+  }
+
+  if (cover) {
+    const coverValue = slugToCoverType[cover as keyof typeof slugToCoverType];
+    console.log(coverValue);
+    fetch = fetch.eq('display_id', coverValue);
   }
 
   if (year) {
@@ -123,6 +132,7 @@ export async function getProductData({
   }
 
   const { data, error } = await fetch.limit(4000);
+  console.log(data);
 
   if (error) {
     throw new Error(error.message);

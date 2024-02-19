@@ -3,7 +3,7 @@ import { TInitialProductDataDB, TReviewData } from '@/lib/db';
 import CarCoverSelector from './CarCoverSelector';
 import { createStore } from 'zustand';
 import { createContext, useRef } from 'react';
-import { useParams, useSearchParams } from 'next/navigation';
+import { useParams, useRouter, useSearchParams } from 'next/navigation';
 import { compareRawStrings } from '@/lib/utils';
 import {
   IProductData,
@@ -76,6 +76,9 @@ const createCarSelectionStore = ({
         compareRawStrings(model.submodel2, queryParams.secondSubmodel as string)
       )
     : initialDataWithSubmodels;
+
+  console.log(initialDataWithSecondSubmodels);
+  console.log(initialModelData);
 
   return createStore<ICarCoverSelectionState>()((set, get) => ({
     modelData: initialDataWithSecondSubmodels,
@@ -195,12 +198,11 @@ export default function CarPDP({
   reviewDataSummary: TProductReviewSummary;
   reviewImages: Record<string, boolean>;
 }) {
-  const pathParams = useParams<{
-    year?: string;
-    model?: string;
-    make?: string;
-    productType: string;
-  }>();
+  const router = useRouter();
+  if (modelDataProps.length === 0) {
+    router.push('/404');
+  }
+  const pathParams = useParams<TPathParams>();
   const searchParams = useSearchParams();
   const submodelParams = searchParams?.get('submodel') ?? '';
   const secondSubmodelParams = searchParams?.get('second_submodel') ?? '';
@@ -215,7 +217,6 @@ export default function CarPDP({
     params: pathParams ?? ({} as TPathParams),
     queryParams,
   });
-  console.log(modelData);
 
   const store = useRef(
     createCarSelectionStore({
