@@ -323,8 +323,7 @@ function CheckoutPage() {
                   'Checkout'
                 )}
               </Button>
-              {/* Hiding Paypal until we can get API keys */}
-              {/* <PayPalScriptProvider
+              <PayPalScriptProvider
                 options={{
                   clientId: process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID ?? '',
                   currency: 'USD',
@@ -358,7 +357,7 @@ function CheckoutPage() {
                     }}
                   />
                 </Suspense>
-              </PayPalScriptProvider> */}
+              </PayPalScriptProvider>
             </div>
             <div className="fixed inset-x-0 bottom-0 bg-white p-4 shadow-[0_-4px_4px_-0px_rgba(0,0,0,0.1)] md:hidden">
               <div className="flex flex-col items-center justify-between">

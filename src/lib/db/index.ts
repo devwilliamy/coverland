@@ -133,7 +133,6 @@ export async function getProductData({
   }
 
   const { data, error } = await fetch.limit(4000);
-  console.log(data);
 
   if (error) {
     throw new Error(error.message);

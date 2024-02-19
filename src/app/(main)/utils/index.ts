@@ -86,7 +86,7 @@ export function modelDataTransformer({
   });
 
   const filteredAndSortedData = finalFilteredData
-    ?.filter((product) => product.msrp && product.price)
+    ?.filter((product) => product.msrp)
     .sort((a, b) => {
       const yearMatchA = a.year_generation === params.year ? 0 : 1;
       const yearMatchB = b.year_generation === params.year ? 0 : 1;
