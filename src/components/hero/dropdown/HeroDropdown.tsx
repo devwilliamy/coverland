@@ -8,8 +8,7 @@ import { ModelSearch } from './ModelSearch';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useCallback, useState } from 'react';
 import { SubmodelDropdown } from './SubmodelDropdown';
-import parentGenerationJson from '@/data/parent_generation_data.json';
-import carDataJson from '@/data/car_data_master.json';
+import parentGenerationJson from '@/data/static_parent_generation_data.json';
 import { slugify } from '@/lib/utils';
 import { track } from '@vercel/analytics';
 
@@ -35,13 +34,8 @@ export function HeroDropdown() {
 
   const { year, type, make, model, submodel } = query;
 
-  let json = [];
+  const json = parentGenerationJson;
 
-  if (type === 'Car Covers') {
-    json = carDataJson;
-  } else {
-    json = parentGenerationJson;
-  }
   const isReadyForSubmit = year && type && make && model;
 
   const availableMakes = json.filter(

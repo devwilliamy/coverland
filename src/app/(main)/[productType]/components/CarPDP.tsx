@@ -77,9 +77,6 @@ const createCarSelectionStore = ({
       )
     : initialDataWithSubmodels;
 
-  console.log(initialDataWithSecondSubmodels);
-  console.log(initialModelData);
-
   return createStore<ICarCoverSelectionState>()((set, get) => ({
     modelData: initialDataWithSecondSubmodels,
     initialModelData: initialDataWithSecondSubmodels,

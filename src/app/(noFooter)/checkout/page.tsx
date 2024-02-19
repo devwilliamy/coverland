@@ -24,11 +24,7 @@ import { Order } from '@paypal/checkout-server-sdk/lib/orders/lib';
 async function paypalCreateOrder(
   totalMsrpPrice: number
 ): Promise<{ data: Order } | null> {
-  console.log('here');
-
   try {
-    console.log('here');
-
     const response = await fetch('/api/paypal', {
       method: 'POST', // Specify the method
       headers: {
@@ -42,21 +38,15 @@ async function paypalCreateOrder(
     if (!response.ok) {
       throw new Error('Network response was not ok');
     }
-    console.log('here');
 
     return await response.json(); // Assuming the server responds with JSON
   } catch (err) {
-    console.log(err);
     return null;
   }
 }
 
 async function paypalCaptureOrder(orderID: string) {
-  console.log('here');
-
   try {
-    console.log('here');
-
     const response = await fetch('/api/paypal/capture-order', {
       method: 'POST', // Specify the method
       headers: {
@@ -66,9 +56,7 @@ async function paypalCaptureOrder(orderID: string) {
         orderID,
       }), // Convert the JavaScript object to a JSON string
     });
-    console.log('here');
 
-    console.log(response);
     if (!response.ok) {
       throw new Error('Network response was not ok');
     }
@@ -358,7 +346,6 @@ function CheckoutPage() {
                       return data.data.id;
                     }}
                     onApprove={async (data) => {
-                      console.log('running');
                       console.log(data.orderID);
                       const response = await paypalCaptureOrder(data.orderID);
                       console.log(response);

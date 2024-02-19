@@ -60,7 +60,6 @@ export default async function CarPDPModelDataLayer({
         }),
       ]);
     filterReviewData({ reviewData, reviewImages });
-    console.log('modelData', modelData);
 
     if (!modelData) {
       redirect('/404');
