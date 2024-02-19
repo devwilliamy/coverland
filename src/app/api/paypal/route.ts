@@ -1,12 +1,13 @@
 import { Order } from '@paypal/checkout-server-sdk/lib/orders/lib';
 import { PaypalClient } from './utils';
 import paypal from '@paypal/checkout-server-sdk';
-
+//TODO: More robust error handling, we should add additional validation for orderID
+//TODO: And use more semantic error codes
 export async function POST(req: Request) {
-  const body = await req.json();
   if (req.method != 'POST') {
     return Response.json({ success: false, message: 'Not Found' });
   }
+  const body = await req.json();
 
   if (!body.order_price || !body.user_id) {
     return Response.json({
