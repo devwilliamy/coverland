@@ -100,7 +100,7 @@ export default function EditVehicleDropdown({
   const handleSubmitDropdown = async () => {
     if (!year || !type || !make || !model) return;
     setLoading(true);
-    let url = `/${slugify(type)}/${slugify(make)}/${slugify(model)}/${yearInUrl}`;
+    let url = `/${slugify(type)}/premium-plus/${slugify(make)}/${slugify(model)}/${yearInUrl}`;
     const currentUrl = `${pathname}${searchParams?.toString() ? `?${searchParams.toString()}` : ''}`;
 
     if (submodel) {

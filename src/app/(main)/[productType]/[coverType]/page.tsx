@@ -68,7 +68,6 @@ export default async function CarPDPModelDataLayer({
     console.error('Error fetching data:', error);
     redirect('/404');
   }
-  console.log('modelData', modelData);
 
   return (
     <Suspense fallback={<div>Loading...</div>}>

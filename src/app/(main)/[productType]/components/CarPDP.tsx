@@ -199,13 +199,13 @@ export default function CarPDP({
   reviewImages: Record<string, boolean>;
 }) {
   const router = useRouter();
-  if (modelDataProps.length === 0) {
-    router.push('/404');
-  }
   const pathParams = useParams<TPathParams>();
   const searchParams = useSearchParams();
   const submodelParams = searchParams?.get('submodel') ?? '';
   const secondSubmodelParams = searchParams?.get('second_submodel') ?? '';
+  if (modelDataProps.length === 0) {
+    router.push('/404');
+  }
 
   const queryParams = {
     submodel: submodelParams,

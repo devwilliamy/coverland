@@ -113,7 +113,7 @@ export function HeroDropdown() {
       model,
     });
     setLoading(true);
-    let url = `/${slugify(type)}/${slugify(make)}/${slugify(model)}/${yearInUrl}`;
+    let url = `/${slugify(type)}/premium-plus/${slugify(make)}/${slugify(model)}/${yearInUrl}`;
 
     if (submodel) {
       url += `?${createQueryString('submodel', submodel)}`;
