@@ -76,15 +76,21 @@ export const getStripe = () => {
 };
 
 export const handleAddOrderId = async (order_id: string) => {
-  const cookieStore: ReadonlyRequestCookies = cookies();
-  const supabase: SupabaseClient = createSupabaseServerClient(cookieStore);
-  await supabase
-    .from('_Orders')
-    .insert({ order_id: order_id })
-    .then((e) => {
-      e.error &&
-        Number(e.error.code) == 23505 &&
+  try {
+    const cookieStore: ReadonlyRequestCookies = cookies();
+    const supabase: SupabaseClient = createSupabaseServerClient(cookieStore);
+    const { error } = await supabase
+      .from('_Orders')
+      .insert({ order_id: order_id });
+
+    if (error) {
+      if (Number(error.code) === 23505) {
         console.log('Order Already Exists');
-      return;
-    });
+      } else {
+        console.error('An error occurred:', error.message);
+      }
+    }
+  } catch (err) {
+    console.error('An unexpected error occurred:', err);
+  }
 };

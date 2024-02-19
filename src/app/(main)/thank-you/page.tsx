@@ -37,10 +37,14 @@ const OrderConfirmationContent = ({
   if (!orderNumber) {
     redirect('/');
   }
+
+  console.log('orderNumber', orderNumber);
   const validOrderNumber =
-    orderNumber.length === 9 &&
-    !isNaN(Number(orderNumber?.slice(3))) &&
-    orderNumber?.slice(0, 3) === 'CL-';
+    (orderNumber.length === 9 &&
+      !isNaN(Number(orderNumber?.slice(3))) &&
+      orderNumber?.slice(0, 3) === 'CL-') ||
+    orderNumber?.slice(0, 5) === 'CL-P-';
+  console.log(validOrderNumber);
 
   if (validOrderNumber) {
     handleAddOrderId(orderNumber);

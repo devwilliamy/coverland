@@ -8,6 +8,7 @@ export type TPathParams = {
   make?: string;
   model?: string;
   year?: string;
+  coverType?: string;
 };
 
 export type TQueryParams = {
@@ -29,6 +30,7 @@ export function modelDataTransformer({
   data: TInitialProductDataDB[];
   params: {
     productType: string;
+    coverType?: string;
     make?: string;
     model?: string;
     year?: string;
@@ -43,38 +45,37 @@ export function modelDataTransformer({
     );
   }
 
-  if (!!params.make) {
+  if (!!params.coverType) {
     filteredData = data.filter((item) =>
+      compareRawStrings(item.display_id, params.coverType as string)
+    );
+  }
+
+  if (!!params.make) {
+    filteredData = filteredData.filter((item) =>
       compareRawStrings(item.make, params.make as string)
     );
   }
 
   if (params.model) {
-    filteredData = data.filter((item) =>
+    filteredData = filteredData.filter((item) =>
       compareRawStrings(item.model, params.model as string)
     );
   }
 
   if (params.year) {
     if (queryParams.submodel) {
-      filteredData = data.filter(
-        (item) =>
-          item.year_generation === params.year &&
-          compareRawStrings(item.submodel1, queryParams.submodel as string)
+      filteredData = filteredData.filter((item) =>
+        compareRawStrings(item.submodel1, queryParams.submodel as string)
       );
     }
 
     if (queryParams.secondSubmodel) {
-      filteredData = data.filter(
-        (item) =>
-          item.year_generation === params.year &&
-          compareRawStrings(
-            item.submodel2,
-            queryParams.secondSubmodel as string
-          )
+      filteredData = filteredData.filter((item) =>
+        compareRawStrings(item.submodel2, queryParams.secondSubmodel as string)
       );
     }
-    filteredData = data.filter((item) =>
+    filteredData = filteredData.filter((item) =>
       compareRawStrings(item.parent_generation, params.year as string)
     );
   }
@@ -102,7 +103,6 @@ export function modelDataTransformer({
 
       return colorIndexA - colorIndexB;
     });
-
   return filteredAndSortedData;
 }
 

@@ -7,10 +7,26 @@ import Corvette from '@/images/hero/best-selling-corvette.png';
 import Image from 'next/image';
 
 const bestSelling = [
-  { title: 'Dodge Challenger', img: Challenger },
-  { title: 'Chevy Corvette', img: Corvette },
-  { title: 'Mazda Miata', img: Miata },
-  { title: 'Chevy El-Camino', img: ElCamino },
+  {
+    title: 'Dodge Challenger',
+    img: Challenger,
+    href: 'car-covers/premium-plus/dodge/challenger',
+  },
+  {
+    title: 'Chevy Corvette',
+    img: Corvette,
+    href: 'car-covers/premium-plus/chevrolet/corvette',
+  },
+  {
+    title: 'Mazda Miata',
+    img: Miata,
+    href: 'car-covers/premium-plus/mazda/miata',
+  },
+  {
+    title: 'Chevy El-Camino',
+    img: ElCamino,
+    href: 'car-covers/premium-plus/chevrolet/el-camino',
+  },
 ];
 const BestSellingSection = () => {
   return (
@@ -19,10 +35,10 @@ const BestSellingSection = () => {
         BEST-SELLING CAR MODELS
       </p>
       <div className="max-w-screen flex gap-[20px] overflow-x-auto pb-3">
-        {bestSelling.map(({ title, img }, i) => (
+        {bestSelling.map(({ title, img, href }, i) => (
           <a
             key={`${title}-${i}`}
-            href="/car-covers"
+            href={href}
             className="flex min-h-[209px] min-w-[209px] flex-[25%] flex-col items-center justify-between"
           >
             <Image alt="Best-Selling-Car-Cover" className="" src={img} />

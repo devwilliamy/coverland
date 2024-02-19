@@ -2,16 +2,21 @@
 
 import Image, { StaticImageData } from 'next/image';
 import KeepDry from '@/images/PDP/keep_dry.webp';
-import LayerImg from '@/images/PDP/layer_breakdown.webp';
 import Material from '@/images/PDP/material-right.webp';
 import ZeroLeaks from '@/images/PDP/zero_leaks.webp';
-import Crystal from '@/images/PDP/crystal.png';
-import { useMediaQuery } from '@mantine/hooks';
+import SeeMoreChevronDown from '../icons/SeeMoreChevronDown';
+
+import SuggestedProducts from './components/SuggestedProducts';
+
 type layerProps = { img?: StaticImageData; title: string; text: string };
 
-export function Layers() {
-  const isMobile = useMediaQuery('(max-width: 1024px)'); //lg
-
+export function Layers({
+  seeMore,
+  setSeeMore,
+}: {
+  seeMore?: boolean;
+  setSeeMore?: (e: boolean) => void;
+}) {
   const LayersStaticData: layerProps[] = [
     {
       title: 'Waterproof',
@@ -74,7 +79,7 @@ export function Layers() {
   };
 
   return (
-    <div className="lg:pb-0 ">
+    <div className=" lg:pb-0 ">
       <div className="flex-start flex h-auto w-full flex-col justify-start pt-10 lg:pt-0">
         <p className="mb-4 text-lg font-normal capitalize text-[#343434] md:text-2xl">
           High-Quality
@@ -98,16 +103,31 @@ export function Layers() {
         </div>
       </section>
 
-      <section className="grid h-auto w-full grid-cols-1 gap-[38px] lg:grid-cols-3 ">
-        {LayersStaticDataWithImg.map((item, index) => (
-          <LayersBlock
-            key={`Layers-Block-With-Image-${index}`}
-            img={item.img}
-            title={item.title}
-            text={item.text}
-          />
-        ))}
-      </section>
+      {seeMore ? (
+        <section className="grid h-auto w-full grid-cols-1 gap-[38px] pb-4 lg:grid-cols-3">
+          {LayersStaticDataWithImg.map((item, index) => (
+            <LayersBlock
+              key={`Layers-Block-With-Image-${index}`}
+              img={item.img}
+              title={item.title}
+              text={item.text}
+            />
+          ))}
+        </section>
+      ) : (
+        <div
+          className="flex w-full cursor-pointer flex-col items-center justify-center pb-[40px]"
+          onClick={() => {
+            setSeeMore && setSeeMore(true);
+          }}
+        >
+          <p className="pb-1 text-center text-[16px] leading-[18.74px] text-[#484848] ">
+            See All
+          </p>
+          <SeeMoreChevronDown />
+          {/* <ChevronDown className="max-h-[10px] min-h-[10px] min-w-[25px] max-w-[25px]" /> */}
+        </div>
+      )}
     </div>
   );
 }
