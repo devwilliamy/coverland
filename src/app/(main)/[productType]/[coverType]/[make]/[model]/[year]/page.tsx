@@ -24,10 +24,8 @@ export default async function CarPDPDataLayer({
     average_score: 0,
   };
   const coverType = params.coverType;
-  console.log('here');
 
   if (!coverType?.includes('premium')) {
-    console.log('redirecting');
     redirect('/');
   }
 
@@ -78,10 +76,8 @@ export default async function CarPDPDataLayer({
   }
 
   if (modelData?.length === 0) {
-    console.log('redirecting');
     redirect('/');
   }
-  console.log(modelData);
 
   return (
     <>

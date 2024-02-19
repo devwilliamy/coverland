@@ -38,7 +38,6 @@ export function modelDataTransformer({
   queryParams: { submodel?: string; secondSubmodel?: string };
 }): IProductData[] {
   let filteredData: TInitialProductDataDB[] = data;
-  console.log(params);
 
   if (!!params.productType) {
     filteredData = data.filter((item) =>
@@ -51,7 +50,6 @@ export function modelDataTransformer({
       compareRawStrings(item.display_id, params.coverType as string)
     );
   }
-  console.log(filteredData);
 
   if (!!params.make) {
     filteredData = filteredData.filter((item) =>
@@ -81,13 +79,11 @@ export function modelDataTransformer({
       compareRawStrings(item.parent_generation, params.year as string)
     );
   }
-  console.log(filteredData);
   const finalFilteredData = generatePDPContent({
     data: filteredData,
     params,
     queryParams,
   });
-  console.log(finalFilteredData);
 
   const filteredAndSortedData = finalFilteredData
     ?.filter((product) => product.msrp && product.price)
@@ -107,7 +103,6 @@ export function modelDataTransformer({
 
       return colorIndexA - colorIndexB;
     });
-  console.log(filteredAndSortedData);
   return filteredAndSortedData;
 }
 
