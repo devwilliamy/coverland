@@ -120,6 +120,7 @@ export async function getProductData({
   }
 
   if (year) {
+    console.log(year);
     fetch = fetch.eq('parent_generation', year);
   }
 

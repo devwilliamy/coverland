@@ -9,18 +9,12 @@ import {
   getProductReviewSummary,
   getProductReviewsByPage,
 } from '@/lib/db/review';
-
-export type TCarCoverSlugParams = {
-  make: string;
-  model: string;
-  year: string;
-  productType: string;
-};
+import { TPathParams } from '@/app/(main)/utils';
 
 export default async function CarPDPDataLayer({
   params,
 }: {
-  params: TCarCoverSlugParams;
+  params: TPathParams;
   searchParams: { submodel?: string; second_submodel?: string };
 }) {
   let modelData = [];
@@ -30,6 +24,12 @@ export default async function CarPDPDataLayer({
     total_reviews: 0,
     average_score: 0,
   };
+  const coverType = params.coverType;
+
+  if (!coverType?.includes('premium')) {
+    redirect('/');
+  }
+
   const SuvOrTruckType =
     params?.productType === 'suv-covers' ? 'SUV Covers' : 'Truck Covers';
   const typeString =

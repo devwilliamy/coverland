@@ -9,6 +9,7 @@ import {
   getProductReviewSummary,
   getProductReviewsByPage,
 } from '@/lib/db/review';
+import { TPathParams } from '@/app/(main)/utils';
 
 export type TCarCoverSlugParams = {
   make: string;
@@ -20,7 +21,7 @@ export type TCarCoverSlugParams = {
 export default async function CarPDPDataLayer({
   params,
 }: {
-  params: TCarCoverSlugParams;
+  params: TPathParams;
   searchParams: { submodel?: string; second_submodel?: string };
 }) {
   let modelData = [];
@@ -36,6 +37,11 @@ export default async function CarPDPDataLayer({
       : params?.productType === 'suv-covers'
         ? 'SUV Covers'
         : 'Truck Covers';
+  const coverType = params.coverType;
+
+  if (!coverType?.includes('premium')) {
+    redirect('/');
+  }
 
   try {
     [modelData, reviewData, reviewDataSummary, reviewImages] =
@@ -66,6 +72,7 @@ export default async function CarPDPDataLayer({
       ]);
     filterReviewData({ reviewData, reviewImages });
 
+    console.log('modelData', modelData);
     if (!modelData) {
       redirect('/404');
     }
@@ -73,7 +80,6 @@ export default async function CarPDPDataLayer({
     console.error('Error fetching data:', error);
     redirect('/404');
   }
-
   return (
     <>
       <Suspense fallback={<div>Loading...</div>}>

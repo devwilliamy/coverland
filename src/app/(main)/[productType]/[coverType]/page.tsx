@@ -10,11 +10,12 @@ import {
 } from '@/lib/db/review';
 import CarPDP from '../components/CarPDP';
 import { redirect } from 'next/navigation';
+import { TPathParams } from '../../utils';
 
 export default async function CarPDPModelDataLayer({
   params,
 }: {
-  params: { productType: string; coverType: string };
+  params: TPathParams;
 }) {
   let reviewData: TReviewData[] = [];
   let reviewDataSummary: TProductReviewSummary = {
@@ -24,14 +25,14 @@ export default async function CarPDPModelDataLayer({
   let reviewImages: Record<string, boolean>;
   let modelData: TInitialProductDataDB[] = [];
   const productType = params.productType;
-  const coverType = params.coverType;
 
   const SuvOrTruckType =
     productType === 'suv-covers' ? 'SUV Covers' : 'Truck Covers';
   const typeString =
     productType === 'car-covers' ? 'Car Covers' : SuvOrTruckType;
+  const coverType = params.coverType;
 
-  if (!coverType.includes('Premium')) {
+  if (!coverType?.includes('premium')) {
     redirect('/');
   }
 
