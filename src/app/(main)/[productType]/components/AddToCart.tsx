@@ -113,6 +113,7 @@ export default function AddToCart({
               track('PDP_add_to_cart', {
                 sku: selectedProduct?.sku,
               });
+            console.log('isComplete', isComplete);
             if (isComplete) {
               handleAddToCart();
               isMobile ? router.push('/checkout') : setAddToCartOpen(true);

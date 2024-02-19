@@ -67,21 +67,14 @@ export function modelDataTransformer({
 
   if (params.year) {
     if (queryParams.submodel) {
-      filteredData = filteredData.filter(
-        (item) =>
-          item.year_generation === params.year &&
-          compareRawStrings(item.submodel1, queryParams.submodel as string)
+      filteredData = filteredData.filter((item) =>
+        compareRawStrings(item.submodel1, queryParams.submodel as string)
       );
     }
 
     if (queryParams.secondSubmodel) {
-      filteredData = filteredData.filter(
-        (item) =>
-          item.year_generation === params.year &&
-          compareRawStrings(
-            item.submodel2,
-            queryParams.secondSubmodel as string
-          )
+      filteredData = filteredData.filter((item) =>
+        compareRawStrings(item.submodel2, queryParams.secondSubmodel as string)
       );
     }
     filteredData = filteredData.filter((item) =>

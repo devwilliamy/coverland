@@ -23,6 +23,14 @@ export default async function CarPDPDataLayer({
     total_reviews: 0,
     average_score: 0,
   };
+  const coverType = params.coverType;
+  console.log('here');
+
+  if (!coverType?.includes('premium')) {
+    console.log('redirecting');
+    redirect('/');
+  }
+
   let reviewImages: Record<string, boolean>;
   const SuvOrTruckType =
     params?.productType === 'suv-covers' ? 'SUV Covers' : 'Truck Covers';
@@ -36,6 +44,7 @@ export default async function CarPDPDataLayer({
           model: params.model,
           make: params.make,
           year: params.year,
+          cover: params.coverType,
         }),
         getProductReviewsByPage(
           { make: params.make, model: params.model, year: params.year },
@@ -69,8 +78,10 @@ export default async function CarPDPDataLayer({
   }
 
   if (modelData?.length === 0) {
-    // redirect('/404');
+    console.log('redirecting');
+    redirect('/');
   }
+  console.log(modelData);
 
   return (
     <>

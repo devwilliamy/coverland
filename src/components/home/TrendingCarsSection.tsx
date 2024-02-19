@@ -8,10 +8,10 @@ import { ArrowRight } from 'lucide-react';
 // import "./"
 
 const trendingCars = [
-  { title: 'Chevy', img: Chevy, link: '/car-covers/chevrolet' },
-  { title: 'Dodge', img: Dodge, link: '/car-covers/dodge' },
-  { title: 'Ford', img: Ford, link: '/car-covers/ford' },
-  { title: 'Ram', img: Ram, link: '/truck-covers/ram' },
+  { title: 'Chevy', img: Chevy, link: '/car-covers/premium-plus/chevrolet' },
+  { title: 'Dodge', img: Dodge, link: '/car-covers/premium-plus/dodge' },
+  { title: 'Ford', img: Ford, link: '/car-covers/premium-plus/ford' },
+  { title: 'Ram', img: Ram, link: '/truck-covers/premium-plus/ram' },
 ];
 const TrendingCarsSection = () => {
   return (

@@ -56,6 +56,7 @@ export function ProductContent({
 
   const handleAddToCart = () => {
     if (!cartProduct) return;
+    setAddToCartOpen(true);
     return addToCart({ ...cartProduct, quantity: 1 });
   };
 
