@@ -23,11 +23,6 @@ export default async function CarPDPDataLayer({
     total_reviews: 0,
     average_score: 0,
   };
-  const coverType = params.coverType;
-
-  if (!coverType?.includes('premium')) {
-    redirect('/');
-  }
 
   let reviewImages: Record<string, boolean>;
   const SuvOrTruckType =

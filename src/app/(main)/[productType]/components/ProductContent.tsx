@@ -98,10 +98,10 @@ export function ProductContent({
             </div>
           )}
         </div>
-        <p className="text-[14px] leading-[16px] text-[#767676]">
+        {/* <p className="text-[14px] leading-[16px] text-[#767676]">
           4 interest-free installments of{' '}
           <b className="font-[400] text-black">$39.99</b>
-        </p>
+        </p> */}
       </section>
       <CircleColorSelector
         uniqueColors={uniqueColors as IProductData[]}

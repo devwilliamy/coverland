@@ -1,6 +1,12 @@
 import carData from '@/data/default_car_data.json';
 import suvData from '@/data/default_suv_data.json';
 import truckData from '@/data/default_truck_data.json';
+import CarPlaceholder from '@/images/suggested/CarPlaceholder.webp';
+import SUVPlaceholder from '@/public/custom-cover/sc-01-ps-gr-1to-m.webp';
+import TruckPlaceholder from '@/public/custom-cover/tc-01-ps-gr-1to-m.webp';
+import defaultCarPremiumPlus from '@/images/default-product-images/01-bkrd-str-m.jpg';
+import defaultSUVPremiumPlus from '@/public/pms/suv-01-bkgr-str-m.webp';
+import defaultTruckPremiumPlus from '@/public/pms/tc-01-bkgr-str-m.webp';
 
 export const modelStrings: Record<string, string> = {
   'car-covers': 'Car Covers',
@@ -487,6 +493,141 @@ export const slugToCoverType = {
   'standard-pro': 'Standard Pro',
   standard: 'Standard',
 };
+
+export const PRODUCT_PRICING_DATA = {
+  'car-covers': [
+    {
+      msrp: '159.95',
+      price: '320.00',
+      description: 'Fully Custom Car Cover',
+      image: defaultCarPremiumPlus,
+      type: {
+        slug: 'premium-plus',
+        display: 'Premium Plus',
+      },
+    },
+    {
+      msrp: '119.95',
+      price: '240.00',
+      description: 'Semi-Custom Car Cover',
+      image: CarPlaceholder,
+      type: {
+        slug: 'premium',
+        display: 'Premium',
+      },
+    },
+
+    {
+      msrp: '100.00',
+      price: '100.00',
+      description: 'Semi-Custom Car Cover',
+      image: CarPlaceholder,
+      type: {
+        slug: 'standard-pro',
+        display: 'Standard Pro',
+      },
+    },
+    {
+      msrp: '80.00',
+      price: '80.00',
+      description: 'Semi-Custom Car Cover',
+      image: CarPlaceholder,
+      type: {
+        slug: 'standard',
+        display: 'Standard',
+      },
+    },
+  ],
+  'suv-covers': [
+    {
+      msrp: '179.95',
+      price: '360.00',
+      description: 'Fully Custom SUV Cover',
+      image: defaultSUVPremiumPlus,
+      type: {
+        slug: 'premium-plus',
+        display: 'Premium Plus',
+      },
+    },
+    {
+      msrp: '139.95',
+      price: '280.00',
+      description: 'Semi-Custom SUV Cover',
+      image: SUVPlaceholder,
+      type: {
+        slug: 'premium',
+        display: 'Premium',
+      },
+    },
+
+    {
+      msrp: '120.00',
+      price: '120.00',
+      description: 'Semi-Custom SUV Cover',
+      image: SUVPlaceholder,
+      type: {
+        slug: 'standard-pro',
+        display: 'Standard Pro',
+      },
+    },
+
+    {
+      msrp: '100.00',
+      price: '100.00',
+      description: 'Semi-Custom SUV Cover',
+      image: SUVPlaceholder,
+      type: {
+        slug: 'standard',
+        display: 'Standard',
+      },
+    },
+  ],
+  'truck-covers': [
+    {
+      msrp: '199.95',
+      price: '400.00',
+      description: 'Fully Custom Truck Cover',
+      image: defaultTruckPremiumPlus,
+      type: {
+        slug: 'premium-plus',
+        display: 'Premium Plus',
+      },
+    },
+    {
+      msrp: '159.95',
+      price: '320.00',
+      description: 'Semi-Custom Truck Cover',
+      image: defaultTruckPremiumPlus,
+      type: {
+        slug: 'premium',
+        display: 'Premium',
+      },
+    },
+
+    {
+      msrp: '140.00',
+      price: '140.00',
+      description: 'Semi-Custom Truck Cover',
+      image: TruckPlaceholder,
+      type: {
+        slug: 'standard-pro',
+        display: 'Standard Pro',
+      },
+    },
+    {
+      msrp: '120.00',
+      price: '120.00',
+      description: 'Semi-Custom Truck Cover',
+      image: TruckPlaceholder,
+      type: {
+        slug: 'standard',
+        display: 'Standard',
+      },
+    },
+  ],
+};
+
+export type TProductPricingConstant = typeof PRODUCT_PRICING_DATA;
 
 export const generationDefaultKeys = [
   '100355',

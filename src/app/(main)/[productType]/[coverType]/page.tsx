@@ -32,10 +32,6 @@ export default async function CarPDPModelDataLayer({
     productType === 'car-covers' ? 'Car Covers' : SuvOrTruckType;
   const coverType = params.coverType;
 
-  if (!coverType?.includes('premium')) {
-    redirect('/');
-  }
-
   try {
     [modelData, reviewData, reviewDataSummary, reviewImages] =
       await Promise.all([

@@ -37,12 +37,6 @@ export default async function CarPDPDataLayer({
       : params?.productType === 'suv-covers'
         ? 'SUV Covers'
         : 'Truck Covers';
-  const coverType = params.coverType;
-
-  if (!coverType?.includes('premium')) {
-    redirect('/');
-  }
-
   try {
     [modelData, reviewData, reviewDataSummary, reviewImages] =
       await Promise.all([

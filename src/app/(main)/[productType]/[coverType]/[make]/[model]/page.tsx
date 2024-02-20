@@ -24,12 +24,6 @@ export default async function CarPDPDataLayer({
     total_reviews: 0,
     average_score: 0,
   };
-  const coverType = params.coverType;
-
-  if (!coverType?.includes('premium')) {
-    redirect('/');
-  }
-
   const SuvOrTruckType =
     params?.productType === 'suv-covers' ? 'SUV Covers' : 'Truck Covers';
   const typeString =
