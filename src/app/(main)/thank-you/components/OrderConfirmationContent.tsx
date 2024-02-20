@@ -30,6 +30,12 @@ export const OrderConfirmationContent = ({
       send_to: 'MlBiCOLG7JMZEJjesJIB',
       transaction_id: orderNumber,
     });
+    sendGTMEvent({
+      event: 'order_confirmation',
+      value: 150,
+      send_to: 'MlBiCOLG7JMZEJjesJIB',
+      transaction_id: orderNumber,
+    });
     console.log('GTM event sent');
   }
 
