@@ -5,13 +5,7 @@ import ReviewCardImages from './ReviewCardImages';
 import WouldReccomend from './WouldReccomend';
 // import HelpfulSection from './HelpfulSection';
 
-export default function ReviewCard({
-  review,
-  tabsCard,
-}: {
-  review: TReviewData;
-  tabsCard?: boolean;
-}) {
+export default function ReviewCard({ review }: { review: TReviewData }) {
   return (
     <div
       className={`relative flex h-full w-full min-w-full flex-col justify-between rounded border-2 p-4`}
@@ -67,7 +61,11 @@ export default function ReviewCard({
         {/* {!tabsCard && (
           <HelpfulSection numberOfHelpful={review?.helpful as string} />
         )} */}
-        <ReviewCardImages reviewImages={review?.review_image} />
+        {review.review_image ? (
+          <ReviewCardImages reviewImages={review?.review_image} />
+        ) : (
+          <ReviewCardImages />
+        )}
       </div>
     </div>
   );

@@ -179,6 +179,7 @@ export async function getProductReviewsByPage(
     // }
 
     const { data, error } = await fetch;
+    console.log('ReviewByPage: ', data);
 
     if (error) {
       console.error(error);
@@ -237,34 +238,7 @@ export async function getAllReviewsWithImages(
       // return {};
       return [];
     }
-    console.log(data);
-
-    const imageSet = new Set<string>();
-    const newImageData: TReviewData[] = [];
-
-    for (const ob of data) {
-      const savedStrings: string[] = [];
-      const splitImages = ob.review_image?.split(',');
-
-      splitImages?.map((imgStr) => {
-        if (!imageSet.has(imgStr)) {
-          imageSet.add(imgStr);
-          savedStrings.push(imgStr);
-        }
-      });
-      console.log('Image Strings: ', savedStrings);
-      const newString = savedStrings.join(',');
-      console.log('New String', newString);
-
-      newImageData.push({ ...ob, review_image: newString });
-
-      console.log({ ...ob, review_image: newString });
-    }
-
-    console.log('Reviews With Images', newImageData);
-
-    // return imageObject;
-    return newImageData;
+    // console.log(data);
   } catch (error) {
     if (error instanceof ZodError) {
       console.log('ZodError:', error);
@@ -275,24 +249,39 @@ export async function getAllReviewsWithImages(
   }
 }
 
-// export const filterReviewImages = ({
-//   reviewData,
-//   reviewImages,
-// }: {
-//   reviewData: TReviewData[];
-//   reviewImages: TReviewData[];
-// }) => {
-//   for (const data of reviewData) {
-//     const imageStrings: (string | null)[] = [];
-//     data.review_image?.split(',').map((imgStr) => {
-//       if (!reviewImageObj[imgStr] && imgStr.endsWith('.webp')) {
-//         reviewImageObj[imgStr] = true;
-//         imageStrings.push(imgStr);
-//       }
-//     });
-//     data.review_image = imageStrings.join(',');
-//   }
-// };
+export const filterReviewImages = ({
+  reviewData,
+  reviewImages,
+}: {
+  reviewData: TReviewData[];
+  reviewImages: TReviewData[];
+}) => {
+  const imageSet = new Set<string>();
+  const newImageData: TReviewData[] = [];
+
+  for (const ob of reviewData) {
+    const savedStrings: string[] = [];
+    const splitImages = ob.review_image?.split(',');
+
+    splitImages?.map((imgStr) => {
+      if (!imageSet.has(imgStr)) {
+        imageSet.add(imgStr);
+        savedStrings.push(imgStr);
+      }
+    });
+    // console.log('Image Strings: ', savedStrings);
+    const uniqueString = savedStrings.join(',');
+    // console.log('New String', newString);
+
+    newImageData.push({ ...ob, review_image: uniqueString });
+
+    // console.log({ ...ob, review_image: newString });
+  }
+
+  console.log('Reviews With Images', newImageData);
+
+  return newImageData;
+};
 
 /*
   Uses an RPC (Remote Procedure Call). Pretty much SQL Function.

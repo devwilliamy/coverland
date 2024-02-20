@@ -281,24 +281,24 @@ const ReviewSection = () => {
       // filterReviewImages({ reviewData: newReviewData, reviewImages });
 
       // This if is used for filterByImage quick fix, can get rid later, will probably just need the else
-      if (e.target.value === 'images') {
-        // Here, review data should have ALL images
-        // So then it'll filter out to the ones that are unique
-        const newReviewDataWithJustImages = newReviewData.filter(
-          (reviewData) => !!reviewData.review_image
-        );
-        // Leaving this comment here if we need to check the images are properly coming in
-        // newReviewDataWithJustImages.map((r, i) =>
-        //   console.log('Filtered By Image: ', {
-        //     index: i,
-        //     image: r.review_image,
-        //   })
-        // );
+      // if (e.target.value === 'images') {
+      //   // Here, review data should have ALL images
+      //   // So then it'll filter out to the ones that are unique
+      //   const newReviewDataWithJustImages = newReviewData.filter(
+      //     (reviewData) => !!reviewData.review_image
+      //   );
+      //   // Leaving this comment here if we need to check the images are properly coming in
+      //   // newReviewDataWithJustImages.map((r, i) =>
+      //   //   console.log('Filtered By Image: ', {
+      //   //     index: i,
+      //   //     image: r.review_image,
+      //   //   })
+      //   // );
 
-        setReviewData([...newReviewDataWithJustImages]);
-      } else {
-        setReviewData([...newReviewData]); // Only show the first 8 when a sort has been picked
-      }
+      //   setReviewData([...newReviewDataWithJustImages]);
+      // } else {
+      //   setReviewData([...newReviewData]); // Only show the first 8 when a sort has been picked
+      // }
 
       setPage(1);
     } catch (error) {

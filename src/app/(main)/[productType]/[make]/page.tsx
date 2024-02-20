@@ -4,7 +4,7 @@ import { Suspense } from 'react';
 import CarPDP from '@/app/(main)/[productType]/components/CarPDP';
 import {
   TProductReviewSummary,
-  // filterReviewImages,
+  filterReviewImages,
   getAllReviewsWithImages,
   getProductReviewSummary,
   getProductReviewsByPage,
@@ -64,7 +64,7 @@ export default async function CarPDPDataLayer({
           make: params?.make,
         }),
       ]);
-    // filterReviewImages({ reviewData, reviewImages });
+    filterReviewImages({ reviewData, reviewImages });
 
     if (!modelData) {
       redirect('/404');
