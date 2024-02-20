@@ -25,15 +25,9 @@ export const OrderConfirmationContent = ({
     isMounted(true);
   }, []);
   if (orderNumber === TEST_ORDER_NUMBER && mounted) {
-    sendGTMEvent('event', 'order_confirmation', {
-      value: 150,
-      send_to: 'MlBiCOLG7JMZEJjesJIB',
-      transaction_id: orderNumber,
-    });
     sendGTMEvent({
       event: 'order_confirmation',
       value: 150,
-      send_to: 'MlBiCOLG7JMZEJjesJIB',
       transaction_id: orderNumber,
     });
     console.log('GTM event sent');
