@@ -97,6 +97,8 @@ function CheckoutPage() {
       const stripeError = await stripe.redirectToCheckout({ sessionId });
       if (stripeError) {
         console.error(stripeError);
+        console.log('session', sessionId);
+        console.log('response', checkoutResponse);
       }
     } catch (error) {
       console.error(error);
