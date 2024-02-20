@@ -26,15 +26,13 @@ export const OrderConfirmationContent = ({
     isMounted(true);
   }, []);
 
-  if (orderNumber.includes('test') && mounted) {
+  mounted &&
     sendGTMEvent({
       event: 'order_confirmation',
       value: items[0].total,
       transaction_id: orderNumber,
       items: items[0].skus,
     });
-    console.log('GTM event sent');
-  }
 
   mounted && console.log('items', items);
 
