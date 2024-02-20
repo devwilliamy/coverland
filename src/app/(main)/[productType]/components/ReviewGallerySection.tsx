@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import CustomerReviewSheet from '@/components/PDP/components/CustomerReviewSheet';
+import ReviewImagesSheet from '@/components/PDP/components/ReviewImagesSheet';
 import { useStore } from 'zustand';
 import { CarSelectionContext } from './CarPDP';
 import { useContext } from 'react';
@@ -12,10 +12,10 @@ const ReviewGallerySection = () => {
   // const reviewImageKeys = Object.keys(reviewImages);
   return (
     <div>
-      <CustomerReviewSheet>
+      <ReviewImagesSheet>
         <FaCamera color={'white'} className="flex min-h-[24px] min-w-[27px]" />
         <div className="text-white underline">Customer Images</div>
-      </CustomerReviewSheet>
+      </ReviewImagesSheet>
       {/* <span className="no-scrollbar mb-[32px] flex w-full gap-[7px] overflow-x-auto">
         {reviewImageKeys.map((images, index) => (
           <div key={`scrollable-item-${index}`} className="flex">

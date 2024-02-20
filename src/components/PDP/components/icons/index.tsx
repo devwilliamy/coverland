@@ -25,7 +25,6 @@ export const ReviewChevronRight = () => (
     <path
       d="M5.5 45L28 22.5L5.5 0L0.135414 5.36458L17.2708 22.5L0.135414 39.6354L5.5 45Z"
       fill="white"
-      fill-opacity="0.7"
     />
   </svg>
 );
@@ -40,7 +39,7 @@ export const ReviewChevronLeft = () => (
     <path
       d="M22.5 45L0 22.5L22.5 0L27.8646 5.36458L10.7292 22.5L27.8646 39.6354L22.5 45Z"
       fill="white"
-      fill-opacity="0.7"
+      // fillOpacity="0.7"
     />
   </svg>
 );
