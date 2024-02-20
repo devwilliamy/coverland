@@ -48,6 +48,10 @@ const ReviewImages = ({
     if (!api) {
       return;
     }
+    api.on('slidesChanged', () =>
+      setCurrentReviewImage(api.selectedScrollSnap())
+    );
+
     api.on('init', () => {
       api && api.scrollTo(currentReviewImage, true);
       // api && api.slideNodes().at(currentReviewImage);

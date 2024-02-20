@@ -12,7 +12,7 @@ export function SelectedProductImages({
   productImages: string[];
   setFeaturedImage: (img: string) => void;
 }) {
-  const fourImages = productImages.slice(0, 4);
+  const fourImages = productImages?.slice(0, 4);
 
   return (
     <div
@@ -20,7 +20,7 @@ export function SelectedProductImages({
     >
       {showMore === false ? (
         <>
-          {fourImages.map((img, idx) => (
+          {fourImages?.map((img, idx) => (
             <ProductImage
               key={`product-image-${idx}`}
               img={img}
@@ -31,7 +31,7 @@ export function SelectedProductImages({
         </>
       ) : (
         <>
-          {productImages.map((img, idx) => (
+          {productImages?.map((img, idx) => (
             <ProductImage
               key={`product-image-${idx}`}
               img={img}
