@@ -8,30 +8,35 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
-import { TEST_ORDER_NUMBER } from '@/lib/constants';
 import { sendGTMEvent } from '@next/third-parties/google';
 import Link from 'next/link';
-import { use, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { BsFillEnvelopeFill } from 'react-icons/bs';
 
 export const OrderConfirmationContent = ({
   orderNumber,
+  items,
 }: {
   orderNumber: string;
+  items: any;
 }) => {
   const [mounted, isMounted] = useState(false);
 
   useEffect(() => {
     isMounted(true);
   }, []);
-  if (orderNumber === TEST_ORDER_NUMBER && mounted) {
+
+  if (orderNumber.includes('test') && mounted) {
     sendGTMEvent({
       event: 'order_confirmation',
-      value: 150,
+      value: items[0].total,
       transaction_id: orderNumber,
+      items: items[0].skus,
     });
     console.log('GTM event sent');
   }
+
+  mounted && console.log('items', items);
 
   return (
     <Card className="text-center">

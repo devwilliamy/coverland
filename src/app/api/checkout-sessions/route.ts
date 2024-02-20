@@ -3,14 +3,18 @@ import { headers } from 'next/headers';
 import { TCartItem } from '@/lib/cart/useCart';
 // import { getStripe } from '../utils/orders';
 import Stripe from 'stripe';
+import { handleAddOrderId } from '../utils/orders';
 
 export async function POST(req: NextRequest) {
   const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string);
   const headersList = headers();
   const { cartItems } = await req.json();
-
+  const isDev = process.env.NODE_ENV !== 'production';
   const generateOrderId = () => {
     const randomNumber = Math.floor(100000 + Math.random() * 900000);
+    if (isDev) {
+      return `CL-test-${randomNumber}`;
+    }
     return `CL-${randomNumber}`;
   };
 
@@ -52,6 +56,8 @@ export async function POST(req: NextRequest) {
 
   try {
     const session = await stripe?.checkout.sessions.create(params);
+    await handleAddOrderId({ order_id, cartItems });
+    console.log('Order ID added to DB');
 
     return NextResponse.json({ sessionId: session.id });
   } catch (err) {
