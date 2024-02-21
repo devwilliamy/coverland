@@ -7,6 +7,7 @@ import { Analytics } from '@vercel/analytics/react';
 import AppScripts from './scripts/AppScripts';
 import Script from 'next/script';
 import { GoogleTagManager } from '@next/third-parties/google';
+import Head from 'next/head';
 
 const roboto = Roboto({
   weight: ['100', '300', '400', '500', '700', '900'],
@@ -30,6 +31,9 @@ export default function RootLayout({
       lang="en"
       // className="scroll-smooth"
     >
+      <Head>
+        <meta name="viewport" content="width=device-width, user-scalable=no" />
+      </Head>
       <Script id="meta-pixel" strategy="afterInteractive">
         {`!function(f,b,e,v,n,t,s)
         {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
