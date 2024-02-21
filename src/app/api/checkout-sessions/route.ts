@@ -18,6 +18,11 @@ export async function POST(req: NextRequest) {
     return `CL-${randomNumber}`;
   };
 
+  const coupon = isDev ? 'UQpfBHt7' : 'pBnI1Ehv';
+
+  const discountCode =
+    cartItems[0].sku === 'CL-CC-CN-15-F-BKRD-STR-PP-101001' ? coupon : '';
+
   const order_id = generateOrderId();
   const lineItems = cartItems.map((item: TCartItem) => {
     const unitAmount = item.msrp
@@ -53,6 +58,9 @@ export async function POST(req: NextRequest) {
     cancel_url: `${headersList.get('origin')}/checkout`,
     billing_address_collection: 'required',
   };
+  if (discountCode) {
+    params.discounts = [{ coupon: discountCode }];
+  }
 
   try {
     const session = await stripe?.checkout.sessions.create(params);
