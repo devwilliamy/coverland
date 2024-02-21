@@ -27,14 +27,13 @@ export const OrderConfirmationContent = ({
   }, []);
 
   mounted &&
+    !!items &&
     sendGTMEvent({
       event: 'order_confirmation',
-      value: items[0].total,
+      value: items[0]?.total,
       transaction_id: orderNumber,
-      items: items[0].skus,
+      items: items[0]?.skus,
     });
-
-  mounted && console.log('items', items);
 
   return (
     <Card className="text-center">

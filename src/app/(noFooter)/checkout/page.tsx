@@ -90,7 +90,7 @@ function CheckoutPage() {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ cartItems }),
+        body: JSON.stringify({ cartItems, promoCode }),
       });
       const { sessionId } = await checkoutResponse.json();
       setLoading(false);
@@ -287,7 +287,7 @@ function CheckoutPage() {
                   if (promoCode.length <= 0) {
                     setPromoError(true);
                   }
-                  setPromoCode('');
+                  // setPromoCode('');
                 }}
               >
                 Apply
