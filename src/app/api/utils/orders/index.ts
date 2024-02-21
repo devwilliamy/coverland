@@ -102,7 +102,7 @@ export const handleAddOrderId = async ({
       error = await supabase.from('_Orders').insert({
         order_id: order_id,
         skus: cartItems.map((item) => item.sku),
-        total,
+        total: Number(total.toFixed(2)),
       });
     }
 
