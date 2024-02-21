@@ -4,11 +4,11 @@ import Image from 'next/image';
 import { Fragment, useContext, useEffect, useState } from 'react';
 import { useStore } from 'zustand';
 import { CarSelectionContext } from '@/app/(main)/[productType]/components/CarPDP';
-import { ChevronDown, ThumbsUpIcon, X } from 'lucide-react';
+import { ChevronDown, X } from 'lucide-react';
 import { Dialog } from '@/components/ui/dialog';
 import { DialogContent } from '@radix-ui/react-dialog';
 import { TReviewData } from '@/lib/db';
-import { ReviewChevronLeft, ReviewChevronRight } from './icons';
+import { ReviewChevronLeft, ReviewChevronRight, ThumbsUpIcon } from './icons';
 import WouldReccomend from './WouldReccomend';
 import { Rating } from '@mui/material';
 import { Separator } from '@/components/ui/separator';
@@ -204,16 +204,18 @@ const ReviewImages = ({
                 >
                   {currentReview.review_description}
                 </div>
-                <div className="flex items-center justify-between">
-                  <div className="my-2 leading-6 text-[#767676] ">
-                    {currentReview.review_author}
+                {moreDetailsOpen && (
+                  <div className="flex items-center justify-between">
+                    <div className="my-2 leading-6 text-[#767676] ">
+                      {currentReview.review_author}
+                    </div>
+                    <div className="flex items-center gap-1.5 text-white">
+                      <ThumbsUpIcon fill="white" />
+                      <p>Helpful</p>
+                      <p>({currentReview.helpful})</p>
+                    </div>
                   </div>
-                  <div className="flex items-center gap-1.5">
-                    <ThumbsUpIcon />
-                    <p>Helpful</p>
-                    <p>({currentReview.helpful})</p>
-                  </div>
-                </div>
+                )}
                 <ChevronDown
                   color="white"
                   className={`mb-[30px] ${moreDetailsOpen ? 'hidden' : 'flex'} mt-[10px] self-end justify-self-end`}
