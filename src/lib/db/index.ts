@@ -126,10 +126,12 @@ export async function getProductData({
 
   if (make) {
     fetch = fetch.eq('make_slug', make);
+    console.log(make);
   }
 
   if (model) {
     fetch = fetch.eq('model_slug', model);
+    console.log(model);
   }
 
   const { data, error } = await fetch.limit(4000);
