@@ -144,6 +144,78 @@ export type Database = {
         };
         Relationships: [];
       };
+      '_reviews-2_duplicate': {
+        Row: {
+          helpful: number | null;
+          make: string | null;
+          make_slug: string | null;
+          Mirror: string | null;
+          model: string | null;
+          model_slug: string | null;
+          parent_generation: string | null;
+          product_name: string | null;
+          product_type: string | null;
+          rating_stars: number | null;
+          review_author: string | null;
+          review_description: string | null;
+          review_image: string | null;
+          review_title: string | null;
+          reviewed_at: string;
+          Size: string | null;
+          sku: string | null;
+          submodel1: string | null;
+          submodel2: string | null;
+          type: string | null;
+          year_generation: string | null;
+        };
+        Insert: {
+          helpful?: number | null;
+          make?: string | null;
+          make_slug?: string | null;
+          Mirror?: string | null;
+          model?: string | null;
+          model_slug?: string | null;
+          parent_generation?: string | null;
+          product_name?: string | null;
+          product_type?: string | null;
+          rating_stars?: number | null;
+          review_author?: string | null;
+          review_description?: string | null;
+          review_image?: string | null;
+          review_title?: string | null;
+          reviewed_at?: string;
+          Size?: string | null;
+          sku?: string | null;
+          submodel1?: string | null;
+          submodel2?: string | null;
+          type?: string | null;
+          year_generation?: string | null;
+        };
+        Update: {
+          helpful?: number | null;
+          make?: string | null;
+          make_slug?: string | null;
+          Mirror?: string | null;
+          model?: string | null;
+          model_slug?: string | null;
+          parent_generation?: string | null;
+          product_name?: string | null;
+          product_type?: string | null;
+          rating_stars?: number | null;
+          review_author?: string | null;
+          review_description?: string | null;
+          review_image?: string | null;
+          review_title?: string | null;
+          reviewed_at?: string;
+          Size?: string | null;
+          sku?: string | null;
+          submodel1?: string | null;
+          submodel2?: string | null;
+          type?: string | null;
+          year_generation?: string | null;
+        };
+        Relationships: [];
+      };
       '_Subscriber-Emails': {
         Row: {
           email: string | null;
@@ -246,6 +318,51 @@ export type Database = {
           type?: string | null;
           year_generation?: string | null;
           year_options?: string | null;
+        };
+        Relationships: [];
+      };
+      'gpt-reviews': {
+        Row: {
+          helpful: number | null;
+          id: string;
+          make: string | null;
+          model: string | null;
+          parent_generation: string | null;
+          rating_stars: number | null;
+          review_author: string | null;
+          review_description: string | null;
+          review_image: string | null;
+          review_title: string | null;
+          reviewed_at: string;
+          type: string | null;
+        };
+        Insert: {
+          helpful?: number | null;
+          id?: string;
+          make?: string | null;
+          model?: string | null;
+          parent_generation?: string | null;
+          rating_stars?: number | null;
+          review_author?: string | null;
+          review_description?: string | null;
+          review_image?: string | null;
+          review_title?: string | null;
+          reviewed_at?: string;
+          type?: string | null;
+        };
+        Update: {
+          helpful?: number | null;
+          id?: string;
+          make?: string | null;
+          model?: string | null;
+          parent_generation?: string | null;
+          rating_stars?: number | null;
+          review_author?: string | null;
+          review_description?: string | null;
+          review_image?: string | null;
+          review_title?: string | null;
+          reviewed_at?: string;
+          type?: string | null;
         };
         Relationships: [];
       };
@@ -1334,7 +1451,9 @@ export type Database = {
           display_id: string | null;
           feature: string | null;
           make: string | null;
+          make_slug: string | null;
           model: string | null;
+          model_slug: string | null;
           msrp: string | null;
           parent_generation: string | null;
           price: string | null;
@@ -1356,7 +1475,9 @@ export type Database = {
           display_id?: string | null;
           feature?: string | null;
           make?: string | null;
+          make_slug?: string | null;
           model?: string | null;
+          model_slug?: string | null;
           msrp?: string | null;
           parent_generation?: string | null;
           price?: string | null;
@@ -1378,7 +1499,9 @@ export type Database = {
           display_id?: string | null;
           feature?: string | null;
           make?: string | null;
+          make_slug?: string | null;
           model?: string | null;
+          model_slug?: string | null;
           msrp?: string | null;
           parent_generation?: string | null;
           price?: string | null;
@@ -1398,10 +1521,13 @@ export type Database = {
       };
       'reviews-2': {
         Row: {
-          helpful: string | null;
+          gpt_review_id: string | null;
+          helpful: number | null;
           make: string | null;
+          make_slug: string | null;
           Mirror: string | null;
           model: string | null;
+          model_slug: string | null;
           parent_generation: string | null;
           product_name: string | null;
           product_type: string | null;
@@ -1419,10 +1545,13 @@ export type Database = {
           year_generation: string | null;
         };
         Insert: {
-          helpful?: string | null;
+          gpt_review_id?: string | null;
+          helpful?: number | null;
           make?: string | null;
+          make_slug?: string | null;
           Mirror?: string | null;
           model?: string | null;
+          model_slug?: string | null;
           parent_generation?: string | null;
           product_name?: string | null;
           product_type?: string | null;
@@ -1440,10 +1569,13 @@ export type Database = {
           year_generation?: string | null;
         };
         Update: {
-          helpful?: string | null;
+          gpt_review_id?: string | null;
+          helpful?: number | null;
           make?: string | null;
+          make_slug?: string | null;
           Mirror?: string | null;
           model?: string | null;
+          model_slug?: string | null;
           parent_generation?: string | null;
           product_name?: string | null;
           product_type?: string | null;
@@ -1459,6 +1591,27 @@ export type Database = {
           submodel2?: string | null;
           type?: string | null;
           year_generation?: string | null;
+        };
+        Relationships: [];
+      };
+      'Test-Orders': {
+        Row: {
+          created_at: string;
+          is_complete: boolean;
+          order_id: string;
+          skus: string[];
+        };
+        Insert: {
+          created_at?: string;
+          is_complete?: boolean;
+          order_id?: string;
+          skus: string[];
+        };
+        Update: {
+          created_at?: string;
+          is_complete?: boolean;
+          order_id?: string;
+          skus?: string[];
         };
         Relationships: [];
       };
