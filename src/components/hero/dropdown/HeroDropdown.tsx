@@ -8,10 +8,10 @@ import { ModelSearch } from './ModelSearch';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useCallback, useState } from 'react';
 import { SubmodelDropdown } from './SubmodelDropdown';
-import parentGenerationJson from '@/data/parent_generation_data.json';
-import carDataJson from '@/data/car_data_master.json';
+import parentGenerationJson from '@/data/products_data.json';
 import { slugify } from '@/lib/utils';
 import { track } from '@vercel/analytics';
+import { sendGTMEvent } from '@next/third-parties/google';
 
 export type TQuery = {
   year: string;
@@ -35,13 +35,8 @@ export function HeroDropdown() {
 
   const { year, type, make, model, submodel } = query;
 
-  let json = [];
+  const json = parentGenerationJson;
 
-  if (type === 'Car Covers') {
-    json = carDataJson;
-  } else {
-    json = parentGenerationJson;
-  }
   const isReadyForSubmit = year && type && make && model;
 
   const availableMakes = json.filter(
@@ -112,8 +107,12 @@ export function HeroDropdown() {
       year,
       model,
     });
+    sendGTMEvent({
+      event: 'Homepage dropdown submit',
+      value: `${year} ${model}`,
+    });
     setLoading(true);
-    let url = `/${slugify(type)}/${slugify(make)}/${slugify(model)}/${yearInUrl}`;
+    let url = `/${slugify(type)}/premium-plus/${slugify(make)}/${slugify(model)}/${yearInUrl}`;
 
     if (submodel) {
       url += `?${createQueryString('submodel', submodel)}`;

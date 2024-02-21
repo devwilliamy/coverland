@@ -20,6 +20,7 @@
     ],
     "paths": {
       "@/*": ["./src/*"],
+      "@/public/*": ["./public/*"],
       "@/images/*": ["./public/images/*"],
       "@/video/*": ["./public/video/*"],
       "@/data/*": ["./public/data/*"],

@@ -3,16 +3,32 @@ import { headers } from 'next/headers';
 import { TCartItem } from '@/lib/cart/useCart';
 // import { getStripe } from '../utils/orders';
 import Stripe from 'stripe';
+import { handleAddOrderId } from '../utils/orders';
 
+// NlSkeS0v is 99% off for Dev testing
+// fnUHD0s8 is 99% off for Prod (for Google Tag Testing)
+const checkPromoCode = (promoCode: string, isDev: boolean): boolean => {
+  return isDev ? promoCode === 'NlSkeS0v' : promoCode === 'fnUHD0s8';
+};
 export async function POST(req: NextRequest) {
   const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string);
   const headersList = headers();
-  const { cartItems } = await req.json();
-
+  const { cartItems, promoCode } = await req.json();
+  const isDev = process.env.NODE_ENV !== 'production';
   const generateOrderId = () => {
     const randomNumber = Math.floor(100000 + Math.random() * 900000);
+    if (isDev) {
+      return `CL-test-${randomNumber}`;
+    }
     return `CL-${randomNumber}`;
   };
+  const isValidPromoCode = checkPromoCode(promoCode, isDev);
+  const coupon = isValidPromoCode ? promoCode : '';
+
+  // Femi was having it for Ford Roadster, apply coupon code. If not, blank it out
+  // I changed it to just check if inputted promo code is a valid one ATM.
+  // const discountCode =
+  // cartItems[0].sku === 'CL-CC-CN-15-F-BKRD-STR-PP-101001' ? coupon : '';
 
   const order_id = generateOrderId();
   const lineItems = cartItems.map((item: TCartItem) => {
@@ -49,9 +65,14 @@ export async function POST(req: NextRequest) {
     cancel_url: `${headersList.get('origin')}/checkout`,
     billing_address_collection: 'required',
   };
+  if (coupon) {
+    params.discounts = [{ coupon }];
+  }
 
   try {
     const session = await stripe?.checkout.sessions.create(params);
+    await handleAddOrderId({ order_id, cartItems });
+    console.log('Order ID added to DB');
 
     return NextResponse.json({ sessionId: session.id });
   } catch (err) {

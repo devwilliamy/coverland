@@ -8,7 +8,7 @@ import { MakeSearch } from '../hero/dropdown/MakeSearch';
 import { ModelSearch } from '../hero/dropdown/ModelSearch';
 import { YearSearch } from '../hero/dropdown/YearSearch';
 import { SubmodelDropdown } from '../hero/dropdown/SubmodelDropdown';
-import parentGenerationJson from '@/data/parent_generation_data.json';
+import parentGenerationJson from '@/data/products_data.json';
 import { slugify } from '@/lib/utils';
 
 export type TQuery = {
@@ -100,7 +100,7 @@ export default function EditVehicleDropdown({
   const handleSubmitDropdown = async () => {
     if (!year || !type || !make || !model) return;
     setLoading(true);
-    let url = `/${slugify(type)}/${slugify(make)}/${slugify(model)}/${yearInUrl}`;
+    let url = `/${slugify(type)}/premium-plus/${slugify(make)}/${slugify(model)}/${yearInUrl}`;
     const currentUrl = `${pathname}${searchParams?.toString() ? `?${searchParams.toString()}` : ''}`;
 
     if (submodel) {

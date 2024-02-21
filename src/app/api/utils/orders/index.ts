@@ -1,5 +1,6 @@
 // const devURL = process.env.NEXT_PUBLIC_DEV_BASE_URL
 // const orderConfirmationEmailURL = `${devURL}/api/emails/send-order-confirmation`
+import { TCartItem } from '@/lib/cart/useCart';
 import { createSupabaseServerClient } from '@/lib/db/supabaseClients';
 import { Stripe, loadStripe } from '@stripe/stripe-js';
 import { SupabaseClient } from '@supabase/supabase-js';
@@ -75,16 +76,45 @@ export const getStripe = () => {
   return stripePromise;
 };
 
-export const handleAddOrderId = async (order_id: string) => {
-  const cookieStore: ReadonlyRequestCookies = cookies();
-  const supabase: SupabaseClient = createSupabaseServerClient(cookieStore);
-  await supabase
-    .from('_Orders')
-    .insert({ order_id: order_id })
-    .then((e) => {
-      e.error &&
-        Number(e.error.code) == 23505 &&
+export const handleAddOrderId = async ({
+  order_id,
+  cartItems,
+}: {
+  order_id: string;
+  cartItems: TCartItem[];
+}) => {
+  try {
+    const cookieStore: ReadonlyRequestCookies = cookies();
+    const supabase: SupabaseClient = createSupabaseServerClient(cookieStore);
+    let error;
+    const total = cartItems.reduce((total, product) => {
+      return total + parseFloat(product.msrp as string);
+    }, 0);
+    if (order_id.includes('test')) {
+      console.log('Test Order');
+      console.log('lineItems', cartItems);
+      error = await supabase.from('Test-Orders').insert({
+        order_id: order_id,
+        skus: cartItems.map((item) => item.sku),
+        total: Number(total.toFixed(2)),
+      });
+    } else {
+      error = await supabase.from('_Orders').insert({
+        order_id: order_id,
+        skus: cartItems.map((item) => item.sku),
+        total: Number(total.toFixed(2)),
+      });
+    }
+
+    const { error: orderError } = error;
+    if (orderError) {
+      if (Number(orderError.code) === 23505) {
         console.log('Order Already Exists');
-      return;
-    });
+      } else {
+        console.error('An error occurred:', orderError.message);
+      }
+    }
+  } catch (err) {
+    console.error('An unexpected error occurred:', err);
+  }
 };

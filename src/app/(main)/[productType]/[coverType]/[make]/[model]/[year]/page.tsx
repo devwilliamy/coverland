@@ -2,40 +2,32 @@ import { TReviewData, getProductData } from '@/lib/db';
 import { redirect } from 'next/navigation';
 import { Suspense } from 'react';
 import CarPDP from '@/app/(main)/[productType]/components/CarPDP';
+import { TPathParams } from '@/app/(main)/utils';
 import {
   TProductReviewSummary,
-  filterDuplicateReviewImages,
+  // filterReviewImages,
   getAllReviewsWithImages,
   getProductReviewSummary,
   getProductReviewsByPage,
 } from '@/lib/db/review';
 
-export type TCarCoverSlugParams = {
-  make: string;
-  model: string;
-  year: string;
-  productType: string;
-};
-
 export default async function CarPDPDataLayer({
   params,
 }: {
-  params: TCarCoverSlugParams;
+  params: TPathParams;
   searchParams: { submodel?: string; second_submodel?: string };
 }) {
   let modelData = [];
   let reviewData: TReviewData[] | null = [];
-  let reviewImages: TReviewData[];
   let reviewDataSummary: TProductReviewSummary = {
     total_reviews: 0,
     average_score: 0,
   };
+  let reviewImages: TReviewData[];
+  const SuvOrTruckType =
+    params?.productType === 'suv-covers' ? 'SUV Covers' : 'Truck Covers';
   const typeString =
-    params?.productType === 'car-covers'
-      ? 'Car Covers'
-      : params?.productType === 'suv-covers'
-        ? 'SUV Covers'
-        : 'Truck Covers';
+    params?.productType === 'car-covers' ? 'Car Covers' : SuvOrTruckType;
 
   try {
     [modelData, reviewData, reviewDataSummary, reviewImages] =
@@ -44,10 +36,10 @@ export default async function CarPDPDataLayer({
           model: params.model,
           make: params.make,
           year: params.year,
-          type: typeString,
+          cover: params.coverType,
         }),
         getProductReviewsByPage(
-          { productType: typeString, make: params?.make },
+          { make: params.make, model: params.model, year: params.year },
           {
             pagination: {
               page: 0,
@@ -56,18 +48,21 @@ export default async function CarPDPDataLayer({
           }
         ),
         getProductReviewSummary({
-          productType: typeString,
           make: params?.make,
+          model: params.model,
+          year: params.year,
         }),
         getAllReviewsWithImages(
           {
             productType: typeString,
             make: params?.make,
+            model: params.model,
+            year: params.year,
           },
           {}
         ),
       ]);
-    // filterDuplicateReviewImages({ reviewData, reviewImages });
+    // filterReviewImages({ reviewData, reviewImages });
 
     if (!modelData) {
       redirect('/404');
@@ -75,6 +70,10 @@ export default async function CarPDPDataLayer({
   } catch (error) {
     console.error('Error fetching data:', error);
     redirect('/404');
+  }
+
+  if (modelData?.length === 0) {
+    redirect('/');
   }
 
   return (
