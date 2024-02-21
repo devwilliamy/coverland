@@ -44,6 +44,8 @@ interface ICarCoverSelectionState extends ICarCoverProps {
   setReviewData: (newReviewData: TReviewData[]) => void;
   setReviewDataSummary: (newReviewDataSummary: TProductReviewSummary) => void;
   paramsYear: string;
+  reviewImageTracker: Record<string, boolean>;
+  setReviewImageTracker: (newImageTracker: Record<string, boolean>) => void;
 }
 
 const createCarSelectionStore = ({
@@ -77,6 +79,16 @@ const createCarSelectionStore = ({
       )
     : initialDataWithSubmodels;
 
+  const reviewImageTracker: Record<string, boolean> = {};
+  initialReviewData.forEach((reviewData) => {
+    !!reviewData.review_image &&
+      reviewData.review_image.split(',').map((imageUrl) => {
+        if (!reviewImageTracker[imageUrl]) {
+          reviewImageTracker[imageUrl] = true;
+        }
+      });
+  });
+
   return createStore<ICarCoverSelectionState>()((set, get) => ({
     modelData: initialDataWithSecondSubmodels,
     initialModelData: initialDataWithSecondSubmodels,
@@ -95,6 +107,12 @@ const createCarSelectionStore = ({
     featuredImage: initialDataWithSecondSubmodels[0]?.mainImage,
     selectedColor: initialDataWithSecondSubmodels[0]?.display_color ?? '',
     reviewImages: initialReviewImages,
+    reviewImageTracker,
+    setReviewImageTracker: (newImageTracker: Record<string, boolean>) => {
+      set(() => ({
+        reviewImageTracker: newImageTracker,
+      }));
+    },
     setSelectedProduct: (newProduct: IProductData) => {
       set(() => ({
         selectedProduct: newProduct,

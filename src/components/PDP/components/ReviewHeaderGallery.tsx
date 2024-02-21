@@ -10,6 +10,15 @@ export default function ReviewHeaderGallery() {
   const store = useContext(CarSelectionContext);
   if (!store) throw new Error('Missing CarContext.Provider in the tree');
   const reviewImages = useStore(store, (s) => s.reviewImages);
+  let imageCount = 0;
+
+  for (const obj of reviewImages) {
+    if (obj && obj.review_image) {
+      obj.review_image.split(',').map(() => {
+        imageCount++;
+      });
+    }
+  }
 
   // const reviewImageKeys = Object.keys(reviewImages);
 
@@ -17,7 +26,7 @@ export default function ReviewHeaderGallery() {
     <div className="flex flex-col items-center">
       {reviewImages && (
         <div className=" flex items-center justify-center py-[10px] text-[14px] font-[400] normal-case leading-[24px] text-[#767676] lg:pb-[14px]  lg:pt-[70px]">
-          {reviewImages.length} Review Images
+          {imageCount} Review Images
         </div>
       )}
       {/* {reviewImages.length > 0 && (
@@ -46,7 +55,7 @@ export default function ReviewHeaderGallery() {
           )}
         </section>
       )} */}
-      {reviewImages.length > 0 && (
+      {reviewImages?.length > 0 && (
         <>
           <section className="grid aspect-square h-full w-full grid-cols-2 items-center gap-[7px] lg:hidden">
             {reviewImages?.slice(0, 3).map((image, index) => {
@@ -62,7 +71,7 @@ export default function ReviewHeaderGallery() {
                 </div>
               );
             })}
-            {reviewImages.length > 0 ? (
+            {reviewImages?.length > 0 ? (
               <div className="flex h-full w-full items-center justify-center border border-black">
                 <div className="font-normalc text-center text-base normal-case underline ">
                   <SeeMoreImages />

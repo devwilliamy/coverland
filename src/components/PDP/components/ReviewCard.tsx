@@ -3,9 +3,14 @@ import { Rating } from '@mui/material';
 import { CheckIcon, ThumbsUpIcon } from './icons';
 import ReviewCardImages from './ReviewCardImages';
 import WouldReccomend from './WouldReccomend';
+import { CarSelectionContext } from '@/app/(main)/[productType]/components/CarPDP';
+import { useContext } from 'react';
+import { useStore } from 'zustand';
 // import HelpfulSection from './HelpfulSection';
 
 export default function ReviewCard({ review }: { review: TReviewData }) {
+  // const isMobile = useMediaQuery('(max-width: 768px)');
+
   return (
     <div
       className={`relative flex h-full w-full min-w-full flex-col justify-between rounded border-2 p-4`}
@@ -20,7 +25,7 @@ export default function ReviewCard({ review }: { review: TReviewData }) {
         <div className="flex gap-1 text-yellow-300 lg:my-0">
           <Rating
             name="read-only"
-            value={5}
+            value={review.rating_stars}
             readOnly
             style={{
               height: '25px',
@@ -61,10 +66,8 @@ export default function ReviewCard({ review }: { review: TReviewData }) {
         {/* {!tabsCard && (
           <HelpfulSection numberOfHelpful={review?.helpful as string} />
         )} */}
-        {review.review_image ? (
+        {review.review_image && (
           <ReviewCardImages reviewImages={review?.review_image} />
-        ) : (
-          <ReviewCardImages />
         )}
       </div>
     </div>

@@ -10,6 +10,8 @@ import { CarSelectionContext } from '@/app/(main)/[productType]/components/CarPD
 import { useStore } from 'zustand';
 import {
   FilterParams,
+  TReviewData,
+  filterDuplicateReviewImages,
   // filterReviewImages,
   getProductReviewsByImage,
   getProductReviewsByPage,
@@ -24,10 +26,14 @@ const ReviewSection = () => {
   const reviewData = useStore(store, (s) => s.reviewData);
   const setReviewData = useStore(store, (s) => s.setReviewData);
   const reviewImages = useStore(store, (s) => s.reviewImages);
+  const reviewImageTracker = useStore(store, (s) => s.reviewImageTracker);
+  const setReviewImageTracker = useStore(store, (s) => s.setReviewImageTracker);
+
   const { total_reviews, average_score } = useStore(
     store,
     (s) => s.reviewDataSummary
   );
+
   const { type, make, model } = useStore(store, (s) => s.query);
   const year = useStore(store, (s) => s.paramsYear);
 
@@ -50,6 +56,7 @@ const ReviewSection = () => {
    * Sets reviewImage back to <string, false>
    * Used for filterByImage quick fix, can get rid later
    */
+
   const resetReviewDataImages = () => {
     const reviewImageKeys = Object.keys(reviewImages);
     for (const reviewImage of reviewImageKeys) {
@@ -75,20 +82,11 @@ const ReviewSection = () => {
           sort,
           filters,
           // search: searchReview,
-        }
+        },
+        reviewImageTracker
       );
-      // This if is used for filterByImage quick fix, can get rid later, will probably just need the else
-      if (filters[0]?.field === 'review_image') {
-        resetReviewDataImages();
-        // filterReviewImages({ reviewData: newReviewData, reviewImages });
-        const newReviewDataWithJustImages = newReviewData.filter(
-          (reviewData) => !!reviewData.review_image
-        );
-        setReviewData([...reviewData, ...newReviewDataWithJustImages]);
-      } else {
-        // filterReviewImages({ reviewData: newReviewData, reviewImages });
-        setReviewData([...reviewData, ...newReviewData]);
-      }
+
+      setReviewData([...reviewData, ...newReviewData]);
       setPage((prevPage) => prevPage + 1);
     } catch (error) {
       console.error(error);
@@ -141,9 +139,6 @@ const ReviewSection = () => {
       );
       setSort({ field, order });
       resetReviewDataImages();
-
-      // filterReviewImages({ reviewData: newReviewData, reviewImages });
-
       setReviewData([...newReviewData]); // Only show the first 8 when a sort has been picked
       setPage(1);
     } catch (error) {
@@ -277,28 +272,7 @@ const ReviewSection = () => {
       const newFilters = [{ field, operator, value }];
       setFilters([...newFilters]);
 
-      resetReviewDataImages();
-      // filterReviewImages({ reviewData: newReviewData, reviewImages });
-
-      // This if is used for filterByImage quick fix, can get rid later, will probably just need the else
-      // if (e.target.value === 'images') {
-      //   // Here, review data should have ALL images
-      //   // So then it'll filter out to the ones that are unique
-      //   const newReviewDataWithJustImages = newReviewData.filter(
-      //     (reviewData) => !!reviewData.review_image
-      //   );
-      //   // Leaving this comment here if we need to check the images are properly coming in
-      //   // newReviewDataWithJustImages.map((r, i) =>
-      //   //   console.log('Filtered By Image: ', {
-      //   //     index: i,
-      //   //     image: r.review_image,
-      //   //   })
-      //   // );
-
-      //   setReviewData([...newReviewDataWithJustImages]);
-      // } else {
-      //   setReviewData([...newReviewData]); // Only show the first 8 when a sort has been picked
-      // }
+      setReviewData([...newReviewData]); // Only show the first 8 when a sort has been picked
 
       setPage(1);
     } catch (error) {

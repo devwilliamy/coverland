@@ -105,7 +105,8 @@ const ProductReviewsQueryOptionsSchema = z.object({
 
 export async function getProductReviewsByPage(
   productQueryFilters: TProductReviewsQueryFilters,
-  options: TProductReviewsQueryOptions
+  options: TProductReviewsQueryOptions,
+  reviewImageTracker: Record<string, boolean> = {}
 ): Promise<TReviewData[]> {
   try {
     const validatedFilters =
@@ -179,14 +180,18 @@ export async function getProductReviewsByPage(
     // }
 
     const { data, error } = await fetch;
-    console.log('ReviewByPage: ', data);
+
+    console.log('ReviewByPage: ', data?.length);
 
     if (error) {
       console.error(error);
       return [];
     }
 
-    return data;
+    return filterDuplicateReviewImages({
+      reviewData: data,
+      reviewImageTracker,
+    });
   } catch (error) {
     if (error instanceof ZodError) {
       console.log('ZodError:', error);
@@ -197,13 +202,23 @@ export async function getProductReviewsByPage(
 }
 
 export async function getAllReviewsWithImages(
-  filters: TProductReviewsQueryFilters
+  productQueryFilters: TProductReviewsQueryFilters,
+  options: TProductReviewsQueryOptions
 ): Promise<TReviewData[]> {
   //  Promise<Record<string, boolean>>
   try {
-    const validatedFilters = ProductReviewsQueryFiltersSchema.parse(filters);
+    console.log('Get all review options', options);
+
+    const validatedFilters =
+      ProductReviewsQueryFiltersSchema.parse(productQueryFilters);
+    const validatedOptions = ProductReviewsQueryOptionsSchema.parse(options);
     const { productType, year, make, model, submodel, submodel2 } =
       validatedFilters;
+    const {
+      sort,
+      // search,
+    } = validatedOptions;
+
     let fetch = supabaseDatabaseClient
       .from(PRODUCT_REVIEWS_TABLE)
       .select('*')
@@ -231,14 +246,26 @@ export async function getAllReviewsWithImages(
       fetch = fetch.textSearch('submodel2', submodel2);
     }
 
+    if (sort && sort.field) {
+      fetch = fetch.order(sort.field, { ascending: sort.order === 'asc' });
+    }
+
     const { data, error } = await fetch;
 
     if (error) {
       console.error(error);
-      // return {};
       return [];
     }
-    // console.log(data);
+
+    const filteredDuplicatedReviewImages: TReviewData[] =
+      filterDuplicateReviewImages({
+        reviewData: data,
+        reviewImageTracker: {},
+      });
+
+    return filteredDuplicatedReviewImages.filter(
+      (reviewImage: TReviewData) => reviewImage.review_image !== ''
+    );
   } catch (error) {
     if (error instanceof ZodError) {
       console.log('ZodError:', error);
@@ -249,14 +276,14 @@ export async function getAllReviewsWithImages(
   }
 }
 
-export const filterReviewImages = ({
+export const filterDuplicateReviewImages = ({
   reviewData,
-  reviewImages,
+  reviewImageTracker,
 }: {
   reviewData: TReviewData[];
-  reviewImages: TReviewData[];
-}) => {
-  const imageSet = new Set<string>();
+  reviewImageTracker: Record<string, boolean>;
+}): TReviewData[] => {
+  const imageObj = reviewImageTracker;
   const newImageData: TReviewData[] = [];
 
   for (const ob of reviewData) {
@@ -264,21 +291,14 @@ export const filterReviewImages = ({
     const splitImages = ob.review_image?.split(',');
 
     splitImages?.map((imgStr) => {
-      if (!imageSet.has(imgStr)) {
-        imageSet.add(imgStr);
+      if (!imageObj[imgStr]) {
+        imageObj[imgStr] = true;
         savedStrings.push(imgStr);
       }
     });
-    // console.log('Image Strings: ', savedStrings);
     const uniqueString = savedStrings.join(',');
-    // console.log('New String', newString);
-
     newImageData.push({ ...ob, review_image: uniqueString });
-
-    // console.log({ ...ob, review_image: newString });
   }
-
-  console.log('Reviews With Images', newImageData);
 
   return newImageData;
 };
@@ -347,6 +367,7 @@ export async function getProductReviewData(
     if (error) {
       console.log(error);
     }
+
     return data || [];
   } catch (error) {
     if (error instanceof ZodError) {
@@ -416,8 +437,15 @@ export async function getProductReviewsByImage(
       console.error(error);
       return [];
     }
+    const filteredDuplicatedReviewImages: TReviewData[] =
+      filterDuplicateReviewImages({
+        reviewData: data,
+        reviewImageTracker: {},
+      });
 
-    return data;
+    return filteredDuplicatedReviewImages.filter(
+      (reviewImage: TReviewData) => reviewImage.review_image !== ''
+    );
   } catch (error) {
     if (error instanceof ZodError) {
       console.log('ZodError:', error);

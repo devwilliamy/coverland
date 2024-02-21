@@ -4,7 +4,7 @@ import Image from 'next/image';
 import { Fragment, useContext, useEffect, useState } from 'react';
 import { useStore } from 'zustand';
 import { CarSelectionContext } from '@/app/(main)/[productType]/components/CarPDP';
-import { ChevronDown, X } from 'lucide-react';
+import { ChevronDown, ThumbsUpIcon, X } from 'lucide-react';
 import { Dialog } from '@/components/ui/dialog';
 import { DialogContent } from '@radix-ui/react-dialog';
 import { TReviewData } from '@/lib/db';
@@ -62,7 +62,8 @@ const ReviewImages = ({
 
   const store = useContext(CarSelectionContext);
   if (!store) throw new Error('Missing CarContext.Provider in the tree');
-  const reviewsWithImages = useStore(store, (s) => s.reviewImages);
+  const reviewImages = useStore(store, (s) => s.reviewImages);
+  console.log('Review Images:', reviewImages);
   const [reviewDialogOpen, setReviewDialogOpen] = useState(false);
   const [currentReview, setCurrentReview] = useState<TReviewData | null>(null);
   const [moreDetailsOpen, setMoreDetailsOpen] = useState(false);
@@ -90,7 +91,7 @@ const ReviewImages = ({
     setIsDragging(false);
   };
 
-  if (!reviewsWithImages) return null;
+  if (!reviewImages) return null;
 
   return (
     <>
@@ -102,7 +103,7 @@ const ReviewImages = ({
       </div>
 
       <span className="grid h-fit max-h-fit grid-cols-3 gap-2 overflow-y-scroll px-2 pb-2 lg:grid-cols-6 lg:gap-[15px]">
-        {reviewsWithImages.map((item, index) => {
+        {reviewImages.map((item, index) => {
           return (
             <Fragment key={item.review_image + 'x'}>
               {item.review_image?.split(',').map(
@@ -203,6 +204,16 @@ const ReviewImages = ({
                 >
                   {currentReview.review_description}
                 </div>
+                <div className="flex items-center justify-between">
+                  <div className="my-2 leading-6 text-[#767676] ">
+                    {currentReview.review_author}
+                  </div>
+                  <div className="flex items-center gap-1.5">
+                    <ThumbsUpIcon />
+                    <p>Helpful</p>
+                    <p>({currentReview.helpful})</p>
+                  </div>
+                </div>
                 <ChevronDown
                   color="white"
                   className={`mb-[30px] ${moreDetailsOpen ? 'hidden' : 'flex'} mt-[10px] self-end justify-self-end`}
@@ -272,46 +283,6 @@ const ReviewImages = ({
                   )}
                 </Carousel>
               </div>
-
-              {/* <div
-                // className={`absolute bottom-[${currentBottom}px] cursor-move `}
-                style={{
-                  position: 'absolute',
-                  top: position.y,
-                }}
-                onMouseDown={handleMouseDown}
-                onMouseLeave={handleMouseUp}
-                onMouseUp={handleMouseUp}
-                onMouseMove={handleMouseMove}
-                id="review-modal-gallery"
-              >
-                <p className="py-4 text-[14px] font-[500] leading-[16px] text-white">
-                  Customer Reviews
-                </p>
-                <span className="no-scrollbar flex w-full gap-2 overflow-x-auto ">
-                  {reviewsWithImages.map(
-                    (item, index) =>
-                      item && (
-                        <Image
-                          id={`customer-tabs-image-${index}`}
-                          key={String(item.review_image?.split(',')[0])}
-                          alt={`customer-tabs-image-${index}`}
-                          width={109}
-                          height={109}
-                          className={`aspect-square h-full w-full ${item === currentReview && 'border-w border-2'} cursor-pointer rounded-[3px]`}
-                          src={String(item.review_image?.split(',')[0])}
-                          onClick={() => {
-                            setReviewDialogOpen(true);
-                            setCurrentReview(item);
-                          }}
-                          onError={() => {
-                            console.log('image error', item);
-                          }}
-                        />
-                      )
-                  )}
-                </span>
-              </div> */}
             </div>
           )}
         </DialogContent>

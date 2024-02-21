@@ -56,11 +56,14 @@ export default async function CarPDPDataLayer({
           make: params?.make,
           model: params.model,
         }),
-        getAllReviewsWithImages({
-          productType: typeString,
-          make: params?.make,
-          model: params.model,
-        }),
+        getAllReviewsWithImages(
+          {
+            productType: typeString,
+            make: params?.make,
+            model: params.model,
+          },
+          {}
+        ),
       ]);
     // filterReviewImages({ reviewData, reviewImages });
 

@@ -9,7 +9,8 @@ import CarPDP from './components/CarPDP';
 import {
   TProductReviewSummary,
   TReviewData,
-  // filterReviewImages,
+  filterDuplicateReviewImages,
+  // filterDuplicateReviewImages,
   getAllReviewsWithImages,
   getProductReviewSummary,
   getProductReviewsByPage,
@@ -51,11 +52,13 @@ export default async function CarPDPModelDataLayer({
       getProductReviewSummary({
         productType: typeString,
       }),
-      getAllReviewsWithImages({
-        productType: typeString,
-      }),
+      getAllReviewsWithImages(
+        {
+          productType: typeString,
+        },
+        {}
+      ),
     ]);
-    // filterReviewImages({ reviewData, reviewImages });
   } catch (error) {
     console.error('CarPDPModelDataLayer Error: ', error);
   }
