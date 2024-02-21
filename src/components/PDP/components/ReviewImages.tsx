@@ -22,22 +22,6 @@ import {
   CarouselPrevious,
 } from '@/components/ui/carousel';
 
-// document.addEventListener('mousemove', (e) => {
-//   if (!isDragging) return;
-
-//   currentY = e.clientY - startY;
-//   console.log(currentY);
-
-//   // Apply constraints for minimum and maximum y positions
-//   const minY = -100; // Example minimum y position
-//   const maxY = 100; // Example maximum y position
-//   currentY = Math.min(Math.max(currentY, minY), maxY);
-
-//   if (container) {
-//     container.style.top = `${currentY}px`;
-//   }
-// });
-
 const ReviewImages = ({
   setReviewsOpen,
 }: {
@@ -58,38 +42,13 @@ const ReviewImages = ({
     });
   });
 
-  const [isDragging, setIsDragging] = useState(false);
-
   const store = useContext(CarSelectionContext);
   if (!store) throw new Error('Missing CarContext.Provider in the tree');
   const reviewImages = useStore(store, (s) => s.reviewImages);
-  console.log('Review Images:', reviewImages);
   const [reviewDialogOpen, setReviewDialogOpen] = useState(false);
   const [currentReview, setCurrentReview] = useState<TReviewData | null>(null);
   const [moreDetailsOpen, setMoreDetailsOpen] = useState(false);
-  const [currentBottom, setCurrentBottom] = useState<number>(-100);
   const [currentReviewImage, setCurrentReviewImage] = useState(0);
-  const [position, setPosition] = useState({ x: 0, y: -100 });
-
-  const handleMouseDown = (e) => {
-    setIsDragging(true);
-    setPosition({
-      x: e.clientX - position.x,
-      y: e.clientY - position.y,
-    });
-  };
-
-  const handleMouseMove = (e) => {
-    if (!isDragging) return;
-    setPosition({
-      x: e.clientX - position.x,
-      y: e.clientY - position.y,
-    });
-  };
-
-  const handleMouseUp = () => {
-    setIsDragging(false);
-  };
 
   if (!reviewImages) return null;
 
@@ -103,7 +62,7 @@ const ReviewImages = ({
       </div>
 
       <span className="grid h-fit max-h-fit grid-cols-3 gap-2 overflow-y-scroll px-2 pb-2 lg:grid-cols-6 lg:gap-[15px]">
-        {reviewImages.map((item, index) => {
+        {reviewImages.map((item) => {
           return (
             <Fragment key={item.review_image + 'x'}>
               {item.review_image?.split(',').map(
@@ -224,16 +183,7 @@ const ReviewImages = ({
                   }}
                 />
               </div>
-              {/* <div className="flex items-center justify-between">
-                <div className="my-2 leading-6 text-[#767676] ">
-                  {currentReview.review_author}
-                </div>
-                <div className="flex items-center gap-1.5 text-[#DBDBDB]">
-                  <ThumbsUpIcon />
-                  <p>Helpful</p>
-                  <p>({currentReview.helpful})</p>
-                </div>
-              </div> */}
+
               <div className={`${moreDetailsOpen ? 'hidden' : 'block'}`}>
                 <Carousel setApi={setApi}>
                   <CarouselContent className="relative ">
