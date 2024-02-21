@@ -2,7 +2,7 @@ import { Dialog, DialogContent } from '@/components/ui/dialog';
 import { DialogTrigger } from '@radix-ui/react-dialog';
 import React from 'react';
 import { FaCamera } from 'react-icons/fa';
-import ReviewImages from './ReviewImages';
+import ReviewImageGallery from './ReviewImageGallery';
 import ReviewImagesSheet from './ReviewImagesSheet';
 
 const CustomerImagesTrigger = () => {
@@ -23,7 +23,7 @@ const CustomerImagesTrigger = () => {
             </div>
           </DialogTrigger>
           <DialogContent className="flex min-h-[65vh] flex-col items-center lg:min-w-[77vw] lg:max-w-[80%]">
-            <ReviewImages />
+            <ReviewImageGallery />
           </DialogContent>
         </Dialog>
       </div>

@@ -22,7 +22,7 @@ import {
   CarouselPrevious,
 } from '@/components/ui/carousel';
 
-const ReviewImages = ({
+const ReviewImageGallery = ({
   setReviewsOpen,
 }: {
   setReviewsOpen: (e: boolean) => void;
@@ -32,9 +32,7 @@ const ReviewImages = ({
     if (!api) {
       return;
     }
-    api.on('slidesChanged', () =>
-      setCurrentReviewImage(api.selectedScrollSnap())
-    );
+    api.on('scroll', () => setCurrentReviewImage(api.selectedScrollSnap()));
 
     api.on('init', () => {
       api && api.scrollTo(currentReviewImage, true);
@@ -62,30 +60,30 @@ const ReviewImages = ({
       </div>
 
       <span className="grid h-fit max-h-fit grid-cols-3 gap-2 overflow-y-scroll px-2 pb-2 lg:grid-cols-6 lg:gap-[15px]">
-        {reviewImages.map((item) => {
+        {reviewImages.map((imageData) => {
           return (
-            <Fragment key={item.review_image + 'x'}>
-              {item.review_image?.split(',').map(
-                (image, index) =>
-                  image && (
+            <Fragment key={'image-group-' + imageData.review_image}>
+              {imageData.review_image?.split(',').map(
+                (imgStr, index) =>
+                  imgStr && (
                     <Image
                       id={`customer-tabs-image-${index}`}
-                      key={image}
+                      key={imgStr}
                       alt={`customer-tabs-image-${index}`}
                       width={109}
                       height={109}
                       className="aspect-square h-full w-full cursor-pointer rounded-[3px]"
-                      src={image}
+                      src={imgStr}
                       onClick={() => {
                         setReviewDialogOpen(true);
-                        setCurrentReview(item);
+                        setCurrentReview(imageData);
                         setCurrentReviewImage(() => {
                           api && api.scrollTo(index);
                           return index;
                         });
                       }}
                       onError={() => {
-                        console.log('image error', image);
+                        console.log('image error', imgStr);
                       }}
                     />
                   )
@@ -110,7 +108,7 @@ const ReviewImages = ({
                   .map((i, index) => (
                     <Separator
                       key={i + '-separator'}
-                      className={`h-0.5  ${index === currentReviewImage ? 'bg-blue-500' : 'bg-slate-200'} `}
+                      className={`h-0.5  ${index === currentReviewImage ? 'bg-white' : 'bg-[#4E4E4E]'} `}
                     />
                   ))}
               </div>
@@ -134,7 +132,7 @@ const ReviewImages = ({
                 <div className="flex gap-1 text-yellow-300 lg:my-0">
                   <Rating
                     name="read-only"
-                    value={5}
+                    value={currentReview.rating_stars}
                     readOnly
                     style={{
                       height: '25px',
@@ -243,4 +241,4 @@ const ReviewImages = ({
   );
 };
 
-export default ReviewImages;
+export default ReviewImageGallery;

@@ -1,5 +1,5 @@
 import ReviewSheet from '@/components/PDP/components/ReviewSheet';
-import ReviewImages from '@/components/PDP/components/ReviewImages';
+import ReviewImageGallery from '@/components/PDP/components/ReviewImageGallery';
 import {
   Dialog,
   DialogContent,

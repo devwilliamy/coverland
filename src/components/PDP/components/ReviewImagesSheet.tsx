@@ -2,7 +2,7 @@ import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import { useContext, useState } from 'react';
 import { useStore } from 'zustand';
 import { CarSelectionContext } from '@/app/(main)/[productType]/components/CarPDP';
-import ReviewImages from './ReviewImages';
+import ReviewImageGallery from './ReviewImageGallery';
 import Logo from '@/components/header/Logo';
 import Link from 'next/link';
 import { UserRound } from 'lucide-react';
@@ -57,7 +57,7 @@ export default function ReviewImagesSheet({
             </section>
             */}
           </header>
-          <ReviewImages setReviewsOpen={setReviewsOpen} />
+          <ReviewImageGallery setReviewsOpen={setReviewsOpen} />
         </div>
       </SheetContent>
     </Sheet>

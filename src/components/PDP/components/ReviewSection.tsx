@@ -57,13 +57,6 @@ const ReviewSection = () => {
    * Used for filterByImage quick fix, can get rid later
    */
 
-  const resetReviewDataImages = () => {
-    const reviewImageKeys = Object.keys(reviewImages);
-    for (const reviewImage of reviewImageKeys) {
-      reviewImages[reviewImage] = false;
-    }
-  };
-
   const handleViewMore = async () => {
     try {
       setLoading(true);
@@ -119,6 +112,8 @@ const ReviewSection = () => {
 
     try {
       setLoading(true);
+      console.log('Start Review: ');
+
       const newReviewData = await getProductReviewsByPage(
         {
           productType: typeString,
@@ -138,7 +133,7 @@ const ReviewSection = () => {
         }
       );
       setSort({ field, order });
-      resetReviewDataImages();
+      console.log('New Review Data Before return: ', newReviewData);
       setReviewData([...newReviewData]); // Only show the first 8 when a sort has been picked
       setPage(1);
     } catch (error) {
