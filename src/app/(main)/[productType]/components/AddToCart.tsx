@@ -102,7 +102,7 @@ export default function AddToCart({
       </div>
 
       {/* Add to Cart Button */}
-      {isTypePage ? (
+      {/* {isTypePage ? (
         <VehicleSelector />
       ) : (
         <Button
@@ -125,9 +125,32 @@ export default function AddToCart({
         </Button>
       )}
       {showStickyAddToCartButton && (
-        <div className="fixed inset-x-0 bottom-0 z-50 bg-white p-4 shadow-[0_-4px_4px_-0px_rgba(0,0,0,0.1)] md:hidden">
+        <div className="fixed inset-x-0 bottom-0 z-50 flex bg-white p-4 md:hidden">
           <Button
-            className="mt-4 h-[48px] w-full rounded bg-[#BE1B1B] text-lg font-bold uppercase text-white disabled:bg-[#BE1B1B] md:hidden"
+            className=" h-[48px] w-full rounded bg-[#BE1B1B] text-lg font-bold uppercase text-white disabled:bg-[#BE1B1B] md:hidden"
+            onClick={() => {
+              selectedProduct?.sku &&
+                track('PDP_add_to_cart', {
+                  sku: selectedProduct?.sku,
+                });
+              if (isComplete) {
+                handleAddToCart();
+                isMobile ? router.push('/checkout') : setAddToCartOpen(true);
+                return;
+              }
+              setSubmodelSelectionOpen((p) => !p);
+            }}
+          >
+            Add To Cart
+          </Button>
+        </div>
+      )} */}
+      {isTypePage ? (
+        <VehicleSelector />
+      ) : (
+        <div className="fixed inset-x-0 bottom-0 z-50 flex bg-white p-4 md:hidden">
+          <Button
+            className=" h-[48px] w-full rounded bg-[#BE1B1B] text-lg font-bold uppercase text-white disabled:bg-[#BE1B1B] md:hidden"
             onClick={() => {
               selectedProduct?.sku &&
                 track('PDP_add_to_cart', {

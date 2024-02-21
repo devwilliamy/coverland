@@ -17,12 +17,12 @@ export default function LinkBreadcrumbs() {
         paramKeys.map((key, index) => {
           return (
             <div key={String(params[key])} className="flex gap-1">
-              <p> </p>
+              &nbsp;
               <a
                 href={getUrlFromBreadcrumbs(index)}
                 className={`hover:underline ${params[key].length < 4 ? 'uppercase' : 'capitalize'} `}
               >
-                {/* Replacing all  */}
+                {/* Replacing hyphens with spaces (except for year) */}
                 {params[key] && key === 'year'
                   ? params[key]
                   : String(params[key]).replaceAll('-', ' ')}
