@@ -62,7 +62,9 @@ export default function ReviewCard({
 
       <div id="review-card-footer" className="mt-auto flex flex-col gap-2">
         <div className="leading-8 text-[#1A1A1A] ">{review.review_author}</div>
-        <WouldReccomend />
+        {review.rating_stars && review.rating_stars >= 3 ? (
+          <WouldReccomend />
+        ) : null}
         {tabsCard && (
           <div className=" hidden whitespace-nowrap text-[18px] leading-[12px] text-[#707070] lg:flex lg:leading-[28px]">
             Purchased on{' '}
