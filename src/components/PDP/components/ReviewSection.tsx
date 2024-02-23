@@ -10,7 +10,9 @@ import { CarSelectionContext } from '@/app/(main)/[productType]/components/CarPD
 import { useStore } from 'zustand';
 import {
   FilterParams,
-  filterReviewData,
+  TReviewData,
+  filterDuplicateReviewImages,
+  // filterReviewImages,
   getProductReviewsByImage,
   getProductReviewsByPage,
 } from '@/lib/db/review';
@@ -24,10 +26,14 @@ const ReviewSection = () => {
   const reviewData = useStore(store, (s) => s.reviewData);
   const setReviewData = useStore(store, (s) => s.setReviewData);
   const reviewImages = useStore(store, (s) => s.reviewImages);
+  const reviewImageTracker = useStore(store, (s) => s.reviewImageTracker);
+  const setReviewImageTracker = useStore(store, (s) => s.setReviewImageTracker);
+
   const { total_reviews, average_score } = useStore(
     store,
     (s) => s.reviewDataSummary
   );
+
   const { type, make, model } = useStore(store, (s) => s.query);
   const year = useStore(store, (s) => s.paramsYear);
 
@@ -50,12 +56,6 @@ const ReviewSection = () => {
    * Sets reviewImage back to <string, false>
    * Used for filterByImage quick fix, can get rid later
    */
-  const resetReviewDataImages = () => {
-    const reviewImageKeys = Object.keys(reviewImages);
-    for (const reviewImage of reviewImageKeys) {
-      reviewImages[reviewImage] = false;
-    }
-  };
 
   const handleViewMore = async () => {
     try {
@@ -75,20 +75,11 @@ const ReviewSection = () => {
           sort,
           filters,
           // search: searchReview,
-        }
+        },
+        reviewImageTracker
       );
-      // This if is used for filterByImage quick fix, can get rid later, will probably just need the else
-      if (filters[0]?.field === 'review_image') {
-        resetReviewDataImages();
-        filterReviewData({ reviewData: newReviewData, reviewImages });
-        const newReviewDataWithJustImages = newReviewData.filter(
-          (reviewData) => !!reviewData.review_image
-        );
-        setReviewData([...reviewData, ...newReviewDataWithJustImages]);
-      } else {
-        filterReviewData({ reviewData: newReviewData, reviewImages });
-        setReviewData([...reviewData, ...newReviewData]);
-      }
+
+      setReviewData([...reviewData, ...newReviewData]);
       setPage((prevPage) => prevPage + 1);
     } catch (error) {
       console.error(error);
@@ -121,6 +112,8 @@ const ReviewSection = () => {
 
     try {
       setLoading(true);
+      console.log('Start Review: ');
+
       const newReviewData = await getProductReviewsByPage(
         {
           productType: typeString,
@@ -140,10 +133,7 @@ const ReviewSection = () => {
         }
       );
       setSort({ field, order });
-      resetReviewDataImages();
-
-      filterReviewData({ reviewData: newReviewData, reviewImages });
-
+      console.log('New Review Data Before return: ', newReviewData);
       setReviewData([...newReviewData]); // Only show the first 8 when a sort has been picked
       setPage(1);
     } catch (error) {
@@ -277,28 +267,7 @@ const ReviewSection = () => {
       const newFilters = [{ field, operator, value }];
       setFilters([...newFilters]);
 
-      resetReviewDataImages();
-      filterReviewData({ reviewData: newReviewData, reviewImages });
-
-      // This if is used for filterByImage quick fix, can get rid later, will probably just need the else
-      if (e.target.value === 'images') {
-        // Here, review data should have ALL images
-        // So then it'll filter out to the ones that are unique
-        const newReviewDataWithJustImages = newReviewData.filter(
-          (reviewData) => !!reviewData.review_image
-        );
-        // Leaving this comment here if we need to check the images are properly coming in
-        // newReviewDataWithJustImages.map((r, i) =>
-        //   console.log('Filtered By Image: ', {
-        //     index: i,
-        //     image: r.review_image,
-        //   })
-        // );
-
-        setReviewData([...newReviewDataWithJustImages]);
-      } else {
-        setReviewData([...newReviewData]); // Only show the first 8 when a sort has been picked
-      }
+      setReviewData([...newReviewData]); // Only show the first 8 when a sort has been picked
 
       setPage(1);
     } catch (error) {

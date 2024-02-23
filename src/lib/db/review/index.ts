@@ -1,3 +1,4 @@
+import { TReviewData } from '@/lib/db';
 import { ZodError, z } from 'zod';
 
 import { PRODUCT_REVIEWS_TABLE } from '../constants/databaseTableNames';
@@ -104,7 +105,8 @@ const ProductReviewsQueryOptionsSchema = z.object({
 
 export async function getProductReviewsByPage(
   productQueryFilters: TProductReviewsQueryFilters,
-  options: TProductReviewsQueryOptions
+  options: TProductReviewsQueryOptions,
+  reviewImageTracker: Record<string, boolean> = {}
 ): Promise<TReviewData[]> {
   try {
     const validatedFilters =
@@ -179,12 +181,17 @@ export async function getProductReviewsByPage(
 
     const { data, error } = await fetch;
 
+    console.log('ReviewByPage: ', data?.length);
+
     if (error) {
       console.error(error);
       return [];
     }
 
-    return data;
+    return filterDuplicateReviewImages({
+      reviewData: data,
+      reviewImageTracker,
+    });
   } catch (error) {
     if (error instanceof ZodError) {
       console.log('ZodError:', error);
@@ -195,12 +202,23 @@ export async function getProductReviewsByPage(
 }
 
 export async function getAllReviewsWithImages(
-  filters: TProductReviewsQueryFilters
-): Promise<Record<string, boolean>> {
+  productQueryFilters: TProductReviewsQueryFilters,
+  options: TProductReviewsQueryOptions
+): Promise<TReviewData[]> {
+  //  Promise<Record<string, boolean>>
   try {
-    const validatedFilters = ProductReviewsQueryFiltersSchema.parse(filters);
+    console.log('Get all review options', options);
+
+    const validatedFilters =
+      ProductReviewsQueryFiltersSchema.parse(productQueryFilters);
+    const validatedOptions = ProductReviewsQueryOptionsSchema.parse(options);
     const { productType, year, make, model, submodel, submodel2 } =
       validatedFilters;
+    const {
+      sort,
+      // search,
+    } = validatedOptions;
+
     let fetch = supabaseDatabaseClient
       .from(PRODUCT_REVIEWS_TABLE)
       .select('*')
@@ -228,54 +246,61 @@ export async function getAllReviewsWithImages(
       fetch = fetch.textSearch('submodel2', submodel2);
     }
 
+    if (sort && sort.field) {
+      fetch = fetch.order(sort.field, { ascending: sort.order === 'asc' });
+    }
+
     const { data, error } = await fetch;
 
     if (error) {
       console.error(error);
-      return {};
+      return [];
     }
 
-    const imageObject: Record<string, boolean> = {};
+    const filteredDuplicatedReviewImages: TReviewData[] =
+      filterDuplicateReviewImages({
+        reviewData: data,
+        reviewImageTracker: {},
+      });
 
-    for (const ob of data) {
-      const split = ob.review_image?.split(',');
-      if (split) {
-        for (const imageString of split) {
-          // !imageMap.has(imageString) && imageMap.set(imageString, false);
-          if (!imageObject[imageString]) {
-            imageObject[imageString] = false;
-          }
-        }
-      }
-    }
-
-    return imageObject;
+    return filteredDuplicatedReviewImages.filter(
+      (reviewImage: TReviewData) => reviewImage.review_image !== ''
+    );
   } catch (error) {
     if (error instanceof ZodError) {
       console.log('ZodError:', error);
     }
     console.error(error);
-    return {};
+    // return {};
+    return [];
   }
 }
 
-export const filterReviewData = ({
+export const filterDuplicateReviewImages = ({
   reviewData,
-  reviewImages: reviewImageObj,
+  reviewImageTracker,
 }: {
   reviewData: TReviewData[];
-  reviewImages: Record<string, boolean>;
-}) => {
-  for (const data of reviewData) {
-    const imageStrings: (string | null)[] = [];
-    data.review_image?.split(',').map((imgStr) => {
-      if (!reviewImageObj[imgStr] && imgStr.endsWith('.webp')) {
-        reviewImageObj[imgStr] = true;
-        imageStrings.push(imgStr);
+  reviewImageTracker: Record<string, boolean>;
+}): TReviewData[] => {
+  const imageObj = reviewImageTracker;
+  const newImageData: TReviewData[] = [];
+
+  for (const ob of reviewData) {
+    const savedStrings: string[] = [];
+    const splitImages = ob.review_image?.split(',');
+
+    splitImages?.map((imgStr) => {
+      if (!imageObj[imgStr]) {
+        imageObj[imgStr] = true;
+        savedStrings.push(imgStr);
       }
     });
-    data.review_image = imageStrings.join(',');
+    const uniqueString = savedStrings.join(',');
+    newImageData.push({ ...ob, review_image: uniqueString });
   }
+
+  return newImageData;
 };
 
 /*
@@ -342,6 +367,7 @@ export async function getProductReviewData(
     if (error) {
       console.log(error);
     }
+
     return data || [];
   } catch (error) {
     if (error instanceof ZodError) {
@@ -411,8 +437,15 @@ export async function getProductReviewsByImage(
       console.error(error);
       return [];
     }
+    const filteredDuplicatedReviewImages: TReviewData[] =
+      filterDuplicateReviewImages({
+        reviewData: data,
+        reviewImageTracker: {},
+      });
 
-    return data;
+    return filteredDuplicatedReviewImages.filter(
+      (reviewImage: TReviewData) => reviewImage.review_image !== ''
+    );
   } catch (error) {
     if (error instanceof ZodError) {
       console.log('ZodError:', error);

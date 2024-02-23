@@ -4,7 +4,7 @@ import { Suspense } from 'react';
 import CarPDP from '@/app/(main)/[productType]/components/CarPDP';
 import {
   TProductReviewSummary,
-  filterReviewData,
+  // filterReviewImages,
   getAllReviewsWithImages,
   getProductReviewSummary,
   getProductReviewsByPage,
@@ -19,7 +19,7 @@ export default async function CarPDPDataLayer({
 }) {
   let modelData = [];
   let reviewData: TReviewData[] | null = [];
-  let reviewImages: Record<string, boolean>;
+  let reviewImages: TReviewData[];
   let reviewDataSummary: TProductReviewSummary = {
     total_reviews: 0,
     average_score: 0,
@@ -50,13 +50,16 @@ export default async function CarPDPDataLayer({
           make: params?.make,
           model: params.model,
         }),
-        getAllReviewsWithImages({
-          productType: typeString,
-          make: params?.make,
-          model: params.model,
-        }),
+        getAllReviewsWithImages(
+          {
+            productType: typeString,
+            make: params?.make,
+            model: params.model,
+          },
+          {}
+        ),
       ]);
-    filterReviewData({ reviewData, reviewImages });
+    // filterReviewImages({ reviewData, reviewImages });
 
     if (!modelData) {
       redirect('/404');
