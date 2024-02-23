@@ -10,7 +10,6 @@ export default function MobileProductDetails() {
   return (
     <div className="pt-8 lg:pt-[60px]">
       {/* <ProductHero /> */}
-
       <Separator className="hidden h-5 w-full border-b-[1px] border-t-[1px] border-b-[#DBDBDB] border-t-[#DBDBDB] bg-[#F1F1F1] lg:flex lg:h-10" />
       <ThreeSixtySection />
       <div className="px-4 pt-8 lg:pt-[100px]">
