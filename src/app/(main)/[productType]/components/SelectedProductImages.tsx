@@ -1,6 +1,8 @@
 import ReviewImageGallery from '@/components/PDP/components/ReviewImageGallery';
+import ReviewImageGalleryDesktop from '@/components/PDP/components/ReviewImageGalleryDesktop';
 import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';
 import Image from 'next/image';
+import { useState } from 'react';
 import { FaCamera } from 'react-icons/fa';
 
 export function SelectedProductImages({
@@ -72,24 +74,30 @@ const ProductImage = ({
   </div>
 );
 
-const MoreImages = () => (
-  <div className="flex h-auto w-full items-center justify-center rounded-xl border-transparent bg-[#F2F2F2] p-3.5 md:h-[350px]">
-    <Dialog>
-      <DialogTrigger>
-        <div className="whitespace-nowrap pb-[28px] text-[20px] font-black ">
-          More Customer Images
-        </div>
-        <div className=" flex w-full items-center justify-center gap-[10px] rounded-[4px] border-2 border-[#C8C7C7] bg-white px-[35px] py-[11px] text-[16px] font-[700] leading-[17px] underline ">
-          <FaCamera
-            color={'#3C3C3C'}
-            className="flex min-h-[24px] min-w-[27px]"
+const MoreImages = () => {
+  const [reviewDialogOpen, setReviewDialogOpen] = useState<boolean>(false);
+
+  return (
+    <div className="flex h-auto w-full items-center justify-center rounded-xl border-transparent bg-[#F2F2F2] p-3.5 md:h-[350px]">
+      <Dialog open={reviewDialogOpen} onOpenChange={setReviewDialogOpen}>
+        <DialogTrigger>
+          <div className="whitespace-nowrap pb-[28px] text-[20px] font-black ">
+            More Customer Images
+          </div>
+          <div className=" flex w-full items-center justify-center gap-[10px] rounded-[4px] border-2 border-[#C8C7C7] bg-white px-[35px] py-[11px] text-[16px] font-[700] leading-[17px] underline ">
+            <FaCamera
+              color={'#3C3C3C'}
+              className="flex min-h-[24px] min-w-[27px]"
+            />
+            <p>See all photos</p>
+          </div>
+        </DialogTrigger>
+        <DialogContent className="flex min-h-[65vh] flex-col items-center lg:max-h-[80vh] lg:min-w-[77vw] lg:max-w-[80%]">
+          <ReviewImageGalleryDesktop
+            setReviewDialogOpen={setReviewDialogOpen}
           />
-          <p>See all photos</p>
-        </div>
-      </DialogTrigger>
-      <DialogContent className="flex min-h-[65vh] flex-col items-center lg:min-w-[77vw] lg:max-w-[80%]">
-        <ReviewImageGallery />
-      </DialogContent>
-    </Dialog>
-  </div>
-);
+        </DialogContent>
+      </Dialog>
+    </div>
+  );
+};
