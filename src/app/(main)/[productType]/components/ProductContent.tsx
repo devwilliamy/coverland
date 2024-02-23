@@ -20,18 +20,20 @@ import RatingsTrigger from './RatingsTrigger';
 import SixMinVideo from 'https://x2kly621zrgfgwll.public.blob.vercel-storage.com/videos/FINALIZE_WEBSTIE_16_9_OPTIMIZED.mp4';
 // import ReviewGallerySection from './ReviewGallerySection';
 // import KeyBenefitsSection from '@/components/PDP/components/KeyBenefitsSection';
-import ProductHalfCover from '@/images/PDP/product-content-half-cover.webp';
+
 import ThreeSixtyVideo from '@/videos/360 degree_website.mp4';
 import Image from 'next/image';
-import {
-  GrayCarIcon,
-  GraySunIcon,
-  GrayWaterIcon,
-} from '@/components/PDP/components/icons';
 
 import FabricWithWater from '@/images/PDP/Product-Details-Redesign-2/white-layer.png';
 import DifferenceGrid from './DifferenceGrid';
 import EnhanceProtectionSection from '@/components/PDP/components/EnhanceProtectionSection';
+import SuggestedProducts from '@/components/PDP/components/SuggestedProducts';
+import ProvenSection from '@/components/PDP/components/ProvenSection';
+import RealTestSection from '@/components/PDP/components/RealTestSection';
+import WaterFab from '@/images/PDP/Product-Details-Redesign-2/fabric-with-water.webp';
+import LifetimeSections from '@/components/PDP/components/LifetimeSection';
+import ProductDetailsHeader from '@/components/PDP/components/ProductDetailsHeader';
+
 interface ProductRefs {
   [key: string]: RefObject<HTMLElement>;
 }
@@ -127,72 +129,34 @@ export function ProductContent({
       />
       <Separator className="mt-[36px] " />
       <FreeDetails />
-      {/* <KeyBenefitsSection /> */}
-      {/* <Separator className="h-5 w-full border-b-[1px] border-t-[1px] border-b-[#BEBEBE] border-t-[#BEBEBE] bg-[#F1F1F1] lg:hidden" /> */}
 
       {isMobile && (
-        <section className="-mx-4 mt-[60px] bg-black">
-          <div className="flex py-7 text-center">
-            <p className="w-full text-[26px] font-[500] leading-[26px] text-white">
-              Protect your Challenger now
-            </p>
-          </div>
-          <Image
-            alt="product-content-half-cover"
-            src={ProductHalfCover}
-            // fill
-            className="h-200 w-full"
-            // width={500}
-            // height={500}
-          />
-          <div className="my-[30px] grid grid-cols-3 items-center justify-center">
-            {[
-              { title: 'Waterproof', icon: <GrayWaterIcon /> },
-              { title: 'Paint Protection', icon: <GraySunIcon /> },
-              { title: 'Custom Fit', icon: <GrayCarIcon /> },
-            ].map(({ title, icon }) => (
-              <div key={title} className="flex flex-col place-items-center">
-                <div>{icon}</div>
-                <p className="text-[16px] text-white ">{title}</p>
-              </div>
-            ))}
-          </div>
-          <ProductVideo
-            src={SixMinVideo}
-            imgSrc={Thumbnail}
-            aspectRatio="16 / 9"
-          />
-          <div className="flex py-7 text-center">
-            <p className="w-full text-[30px] font-[500] leading-[26px] text-white">
-              Fabric Matters
-            </p>
-          </div>
-
-          <Image
-            alt="cover-with-water-droplets"
-            src={FabricWithWater}
-            className="h-200 mb-[14px] w-full"
-          />
-
-          <DifferenceGrid />
-          <div className="mt-[60px]">
-            <ProductVideo
-              src={ThreeSixtyVideo}
-              autoplay
-              loop
-              aspectRatio="16 / 9"
-            />
-            <div className="py-[20px]">
-              <p className="w-full text-center text-[30px] font-[500] leading-[35px] tracking-[0.027em] text-white">
-                Custom-Fit
-              </p>
-              <p className="w-full  text-center text-[22px]  leading-[26px] text-[#ABABAB]">
-                Experience the perfect fit we offer
-              </p>
+        <>
+          <section
+            className={`relative -mx-4 mt-[60px]`}
+            style={{
+              backgroundImage: `url(${WaterFab.src})`,
+              backgroundRepeat: 'round',
+            }}
+          >
+            <div className="relative z-[1] h-full w-full">
+              <ProductDetailsHeader />
+              <ProductVideo
+                src={SixMinVideo}
+                imgSrc={Thumbnail}
+                aspectRatio="16 / 9"
+              />
+              <FabricMattersSection />
+              <DifferenceGrid />
+              <CustomFitSection />
             </div>
-          </div>
+          </section>
           <EnhanceProtectionSection />
-        </section>
+          <RealTestSection />
+          <ProvenSection />
+          <LifetimeSections />
+          <SuggestedProducts />
+        </>
       )}
 
       {isMobile ? (
@@ -215,3 +179,35 @@ export function ProductContent({
     </>
   );
 }
+const FabricMattersSection = () => {
+  return (
+    <>
+      <div className="flex py-7 text-center">
+        <p className="w-full text-[30px] font-[500] leading-[26px] text-white">
+          Fabric Matters
+        </p>
+      </div>
+      <Image
+        alt="cover-with-water-droplets"
+        src={FabricWithWater}
+        className="h-200 mb-[14px] w-full"
+      />
+    </>
+  );
+};
+
+const CustomFitSection = () => {
+  return (
+    <div className="mt-[60px]">
+      <ProductVideo src={ThreeSixtyVideo} autoplay loop aspectRatio="16 / 9" />
+      <div className="py-[20px]">
+        <p className="w-full text-center text-[30px] font-[500] leading-[35px] tracking-[0.027em] text-white">
+          Custom-Fit
+        </p>
+        <p className="w-full  text-center text-[22px]  leading-[26px] text-[#ABABAB]">
+          Experience the perfect fit we offer
+        </p>
+      </div>
+    </div>
+  );
+};
