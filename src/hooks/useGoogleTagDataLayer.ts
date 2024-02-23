@@ -15,7 +15,7 @@ export const useItemViewedGoogleTag = (
   useEffect(() => {
     window?.dataLayer?.push({ ecommerce: null }); // Clear the previous ecommerce object.
     window?.dataLayer?.push({
-      event: 'view_item_list',
+      event: 'view_item',
       ecommerce: {
         // modelData,
         productName,
@@ -51,7 +51,7 @@ export const useCheckoutViewedGoogleTag = () => {
   useEffect(() => {
     window?.dataLayer?.push({ ecommerce: null }); // Clear the previous ecommerce object.
     window?.dataLayer?.push({
-      event: 'view_checkout_page',
+      event: 'begin_checkout',
       ecommerce: {
         items: cartItems,
         totalPrice: getTotalPrice(),
@@ -93,7 +93,7 @@ export const useThankYouViewedGoogleTag = (
       } else {
         window?.dataLayer?.push({ ecommerce: null }); // Clear the previous ecommerce object.
         window?.dataLayer?.push({
-          event: 'view_thank_you_page',
+          event: 'purchase',
           ecommerce: {
             items: cartItems,
             orderNumber: orderNumber,
@@ -118,7 +118,7 @@ export const useThankYouViewedGoogleTag = (
 export const handleAddToCartGoogleTag = (cartProduct: IProductData) => {
   window?.dataLayer?.push({ ecommerce: null }); // Clear the previous ecommerce object.
   window?.dataLayer?.push({
-    event: 'add_to_cart_clicked',
+    event: 'add_to_cart',
     ecommerce: {
       cartProduct: cartProduct,
     },
