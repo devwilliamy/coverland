@@ -52,58 +52,6 @@ export function CarCoverSelector() {
 
   const productName = modelData[0]?.fullProductName;
 
-  useEffect(() => {
-    console.log('CarCoverSelector DataLyaer:', window.dataLayer);
-    window?.dataLayer?.push({ ecommerce: null }); // Clear the previous ecommerce object.
-
-    window?.dataLayer?.push({
-      event: 'view_item_list',
-      ecommerce: {
-        items: [
-          {
-            item_id: 'dc646',
-            item_name: 'Lunchpod T-Shirt',
-            price: '90.00',
-            item_brand: 'Lunchpod',
-            item_category: 'T-Shirts',
-            item_list_name: 'shirts you may like',
-            index: 0,
-          },
-          {
-            item_id: '57b9d',
-            item_name: 'Kiosk T-Shirt',
-            price: '55.00',
-            item_brand: 'Kiosk',
-            item_category: 'T-Shirts',
-            item_list_name: 'shirts you may like',
-            index: 1,
-          },
-          {
-            item_id: '7w9e0',
-            item_name: 'Masons T-Shirt',
-            price: '31.00',
-            item_brand: 'Masons',
-            item_category: 'T-Shirts',
-            item_list_name: 'shirts you may like',
-            index: 2,
-          },
-          {
-            item_id: 'b55da',
-            item_name: 'Flexigen T-Shirt',
-            price: '16.00',
-            item_brand: 'Flexigen',
-            item_category: 'T-Shirts',
-            item_list_name: 'shirts you may like',
-            index: 3,
-          },
-        ],
-      },
-    });
-    console.log(
-      'CarCoverSelector DataLyaer After useEffect:',
-      window.dataLayer
-    );
-  }, []);
   return (
     <>
       <section className="mx-auto h-max  w-full max-w-[1280px] px-4 lg:my-8">

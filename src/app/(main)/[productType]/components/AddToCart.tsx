@@ -22,6 +22,7 @@ import {
   SheetHeader,
 } from '@/components/ui/sheet';
 import { X } from 'lucide-react';
+import { handleAddToCartGoogleTag } from '@/hooks/useGoogleTagDataLayer';
 
 const getOffset = (
   element: HTMLElement | null | undefined
@@ -115,6 +116,7 @@ export default function AddToCart({
               });
             if (isComplete) {
               handleAddToCart();
+              handleAddToCartGoogleTag(selectedProduct);
               isMobile ? router.push('/checkout') : setAddToCartOpen(true);
               return;
             }
@@ -135,6 +137,7 @@ export default function AddToCart({
                 });
               if (isComplete) {
                 handleAddToCart();
+                handleAddToCartGoogleTag(selectedProduct);
                 isMobile ? router.push('/checkout') : setAddToCartOpen(true);
                 return;
               }
@@ -191,6 +194,7 @@ const AddToCartSelector = ({
 
   const handleAddToCart = () => {
     if (!cartProduct) return;
+    handleAddToCartGoogleTag(cartProduct);
     return addToCart({ ...cartProduct, quantity: 1 });
   };
 

@@ -1,9 +1,10 @@
+import { IProductData } from '@/app/(main)/utils';
 import { useCartContext } from '@/providers/CartProvider';
 import { useEffect } from 'react';
 
 export const useItemViewedGoogleTag = () => {
   useEffect(() => {
-    console.log('CarCoverSelector DataLayer:', window.dataLayer);
+    // console.log('CarCoverSelector DataLayer:', window.dataLayer);
     window?.dataLayer?.push({ ecommerce: null }); // Clear the previous ecommerce object.
     window?.dataLayer?.push({
       event: 'view_item_list',
@@ -64,7 +65,6 @@ export const useCheckoutViewedGoogleTag = () => {
     getTotalCartQuantity,
   } = useCartContext();
   useEffect(() => {
-    console.log('useCheckoutViewedGoogleTag DataLayer:', window.dataLayer);
     window?.dataLayer?.push({ ecommerce: null }); // Clear the previous ecommerce object.
     window?.dataLayer?.push({
       event: 'view_checkout_page',
@@ -105,9 +105,8 @@ export const useThankYouViewedGoogleTag = (
     if (typeof window !== 'undefined' && window.performance) {
       const navigationType = window.performance.navigation.type;
       if (navigationType === PerformanceNavigation.TYPE_RELOAD) {
-        console.log('Page was reloaded, GTAG not tracked.');
+        // console.log('Page was reloaded, GTAG not tracked.');
       } else {
-        console.log('useCheckoutViewedGoogleTag DataLayer:', window.dataLayer);
         window?.dataLayer?.push({ ecommerce: null }); // Clear the previous ecommerce object.
         window?.dataLayer?.push({
           event: 'view_thank_you_page',
@@ -130,4 +129,14 @@ export const useThankYouViewedGoogleTag = (
     getTotalCartQuantity,
     orderNumber,
   ]);
+};
+
+export const handleAddToCartGoogleTag = (cartProduct: IProductData) => {
+  window?.dataLayer?.push({ ecommerce: null }); // Clear the previous ecommerce object.
+  window?.dataLayer?.push({
+    event: 'add_to_cart_clicked',
+    ecommerce: {
+      cartProduct: cartProduct,
+    },
+  });
 };
