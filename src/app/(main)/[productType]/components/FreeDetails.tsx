@@ -1,14 +1,28 @@
 'use client';
 
+import { calculateTimeTo2PM } from '@/components/PDP/components/TimeTo2PM';
 import { Separator } from '@/components/ui/separator';
+import { determineDeliveryByDate } from '@/lib/utils/deliveryDateUtils';
 import { BoxIcon, ShieldCheck, ShoppingBag } from 'lucide-react';
+import { useEffect, useState } from 'react';
 
 export default function FreeDetails() {
+  const deliveryDate = determineDeliveryByDate();
+  const [timeRemaining, setTimeRemaining] = useState(calculateTimeTo2PM()); // Set initial value
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setTimeRemaining(calculateTimeTo2PM());
+    }, 60000); // Update every minute
+
+    return () => clearInterval(interval);
+  }, []);
+
   const FreeDetailItems = [
     {
       icon: <BoxIcon />,
       title: 'Free, Same-Day Shipping',
-      description: 'Order within 9 hours 3 mins - Receive by Feb 20 ',
+      description: `Order within ${timeRemaining} - Receive by ${deliveryDate}`,
     },
     {
       icon: <BoxIcon />,
