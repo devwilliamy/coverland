@@ -28,7 +28,7 @@ interface ICarCoverProps {
   selectedProduct: IProductData;
   reviewData: TReviewData[];
   reviewDataSummary: TProductReviewSummary;
-  reviewImages: Record<string, boolean>;
+  reviewImages: TReviewData[];
 }
 
 interface ICarCoverSelectionState extends ICarCoverProps {
@@ -44,6 +44,8 @@ interface ICarCoverSelectionState extends ICarCoverProps {
   setReviewData: (newReviewData: TReviewData[]) => void;
   setReviewDataSummary: (newReviewDataSummary: TProductReviewSummary) => void;
   paramsYear: string;
+  reviewImageTracker: Record<string, boolean>;
+  setReviewImageTracker: (newImageTracker: Record<string, boolean>) => void;
 }
 
 const createCarSelectionStore = ({
@@ -59,7 +61,7 @@ const createCarSelectionStore = ({
   queryParams: TQueryParams;
   initialReviewData: TReviewData[];
   initialReviewDataSummary: TProductReviewSummary;
-  initialReviewImages: Record<string, boolean>;
+  initialReviewImages: TReviewData[];
 }) => {
   const hasNoSubmodels = initialModelData.every(
     (model) => !model.submodel1 && !model.submodel2
@@ -76,6 +78,16 @@ const createCarSelectionStore = ({
         compareRawStrings(model.submodel2, queryParams.secondSubmodel as string)
       )
     : initialDataWithSubmodels;
+
+  const reviewImageTracker: Record<string, boolean> = {};
+  initialReviewData.forEach((reviewData) => {
+    !!reviewData.review_image &&
+      reviewData.review_image.split(',').map((imageUrl) => {
+        if (!reviewImageTracker[imageUrl]) {
+          reviewImageTracker[imageUrl] = true;
+        }
+      });
+  });
 
   return createStore<ICarCoverSelectionState>()((set, get) => ({
     modelData: initialDataWithSecondSubmodels,
@@ -95,6 +107,12 @@ const createCarSelectionStore = ({
     featuredImage: initialDataWithSecondSubmodels[0]?.mainImage,
     selectedColor: initialDataWithSecondSubmodels[0]?.display_color ?? '',
     reviewImages: initialReviewImages,
+    reviewImageTracker,
+    setReviewImageTracker: (newImageTracker: Record<string, boolean>) => {
+      set(() => ({
+        reviewImageTracker: newImageTracker,
+      }));
+    },
     setSelectedProduct: (newProduct: IProductData) => {
       set(() => ({
         selectedProduct: newProduct,
@@ -170,7 +188,7 @@ const createCarSelectionStore = ({
     setReviewDataSummary: (newReviewDataSummary: TProductReviewSummary) => {
       set(() => ({ reviewDataSummary: newReviewDataSummary }));
     },
-    setReviewImages: (newReviewImages: Record<string, boolean>) => {
+    setReviewsWithImages: (newReviewImages: TReviewData[]) => {
       set(() => ({ reviewImages: newReviewImages }));
     },
     paramsYear: params.year || '',
@@ -193,7 +211,7 @@ export default function CarPDP({
   reviewData: TReviewData[] | null;
   params: TPathParams;
   reviewDataSummary: TProductReviewSummary;
-  reviewImages: Record<string, boolean>;
+  reviewImages: TReviewData[];
 }) {
   const router = useRouter();
   const pathParams = useParams<TPathParams>();

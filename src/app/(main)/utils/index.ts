@@ -147,19 +147,19 @@ function generatePDPContent({
     } else if (!year && make && model) {
       fullProductName = `${item.make} ${item.model}`;
       mainImage = defaultImages[coverColor]?.[0] as string;
-      productImages = defaultImages[coverColor]?.slice(1) as string[];
+      productImages = defaultImages[coverColor] as string[];
     } else if (!model && make && !year && item.make) {
       fullProductName = `${item.make} ${item.type}`;
       mainImage = defaultImages[coverColor]?.[0] as string;
-      productImages = defaultImages[coverColor]?.slice(1) as string[];
+      productImages = defaultImages[coverColor] as string[];
     } else if (!make && !model && !year && item.type) {
       fullProductName = item.type;
       mainImage = defaultImages[coverColor]?.[0] as string;
-      productImages = defaultImages[coverColor]?.slice(1) as string[];
+      productImages = defaultImages[coverColor] as string[];
     } else {
       fullProductName = item.type as string;
       mainImage = defaultImages[coverColor]?.[0] as string;
-      productImages = defaultImages[coverColor]?.slice(1) as string[];
+      productImages = defaultImages[coverColor] as string[];
     }
 
     return {

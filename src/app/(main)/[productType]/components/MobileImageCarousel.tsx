@@ -122,9 +122,9 @@ export const MobileImageCarousel = ({
         {carouselItems.map((item, index) => {
           if (index < 1)
             return (
-              <button
+              <div
                 key={selectedProduct.mainImage}
-                className={`relative  flex min-h-[80px] min-w-[80px] rounded-[4px] ${0 === current && 'outline outline-1  '} `}
+                className={`relative  flex min-h-[80px] min-w-[80px] cursor-pointer rounded-[4px] ${0 === current && 'outline outline-1  '} `}
                 onClick={() => scrollTo(index)}
               >
                 <Image
@@ -135,14 +135,14 @@ export const MobileImageCarousel = ({
                   priority
                   // placeholder="blur"
                 />
-              </button>
+              </div>
             );
           if (index === 3) {
             return (
-              <button
+              <div
                 key={String(SevenSecVideoThumbnail)}
                 id="video-thumbnail"
-                className={`relative flex aspect-square min-h-[80px] min-w-[80px] items-center justify-center rounded-[4px] ${index === current && 'outline outline-1  '} `}
+                className={`relative flex aspect-square min-h-[80px] min-w-[80px] cursor-pointer items-center justify-center rounded-[4px] ${index === current && 'outline outline-1  '} `}
                 onClick={() => scrollTo(index)}
               >
                 <Image
@@ -154,7 +154,7 @@ export const MobileImageCarousel = ({
                   height={80}
                   aria-hidden="true"
                 />
-              </button>
+              </div>
             );
           }
           return (
