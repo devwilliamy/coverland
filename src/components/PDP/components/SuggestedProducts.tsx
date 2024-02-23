@@ -19,8 +19,6 @@ export default function SuggestedProducts() {
     (models) => models.type.slug !== coverType
   );
 
-  console.log(products);
-
   return (
     <section
       id="you-may-also-like-section"

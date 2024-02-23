@@ -29,7 +29,7 @@ export function EditVehicleModal({
           <div className="flex w-full flex-shrink cursor-pointer justify-between pl-[40px]">
             <div className="">
               <p className="">Your Vehicle</p>
-              <h2 className=" whitespace-nowrap text-[26px] font-[500] capitalize leading-[31px]">
+              <h2 className="  text-[26px] font-[500] capitalize leading-[31px]">
                 {selectedProduct.fullProductName}
               </h2>
             </div>

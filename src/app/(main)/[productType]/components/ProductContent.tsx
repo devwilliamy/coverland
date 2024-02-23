@@ -12,7 +12,7 @@ import ProductVideo from '@/components/PDP/ProductVideo';
 import Thumbnail from '@/video/Thumbnail.webp';
 import { useStore } from 'zustand';
 import { useCartContext } from '@/providers/CartProvider';
-import { IProductData } from '../../utils';
+import { IProductData, getCompleteSelectionData } from '../../utils';
 import FreeDetails from './FreeDetails';
 import AddToCart from './AddToCart';
 import CircleColorSelector from './CircleColorSelector';
@@ -73,6 +73,12 @@ export function ProductContent({
     return addToCart({ ...cartProduct, quantity: 1 });
   };
 
+  const {
+    completeSelectionState: { isComplete },
+  } = getCompleteSelectionData({
+    data: modelData,
+  });
+
   return (
     <>
       <div className="grid grid-cols-1 lg:mt-[60px]">
@@ -101,7 +107,7 @@ export function ProductContent({
         </div>
       </div>
       <section className="flex flex-col pt-[18px] ">
-        <p className="text-[16px] leading-4"> From</p>
+        <p className="text-[16px] leading-4"> {isComplete ? '' : 'From'}</p>
         <div className=" flex place-items-center gap-[15px] py-1  text-center text-[28px] font-[900] leading-[32px] lg:text-[32px] lg:leading-[37.5px] ">
           ${selectedProduct?.msrp}
           {selectedProduct?.price && (
