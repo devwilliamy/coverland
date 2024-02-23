@@ -5,10 +5,12 @@ import { TCartItem } from '@/lib/cart/useCart';
 import Stripe from 'stripe';
 import { handleAddOrderId } from '../utils/orders';
 
-// NlSkeS0v is 99% off for Dev testing
+// NlSkeS0v is 99% off for Dev testing, UQpfBHt7 is 100% off
 // fnUHD0s8 is 99% off for Prod (for Google Tag Testing)
+const devPromoCodes = ['UQpfBHt7', 'NlSkeS0v'];
+
 const checkPromoCode = (promoCode: string, isDev: boolean): boolean => {
-  return isDev ? promoCode === 'NlSkeS0v' : promoCode === 'fnUHD0s8';
+  return isDev ? devPromoCodes.includes(promoCode) : promoCode === 'fnUHD0s8';
 };
 export async function POST(req: NextRequest) {
   const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string);
