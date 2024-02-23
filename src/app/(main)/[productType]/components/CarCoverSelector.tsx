@@ -12,6 +12,7 @@ import { IProductData } from '../../utils';
 import { ExtraProductDetails } from '@/components/PDP/OtherDetails';
 import { Separator } from '@/components/ui/separator';
 import LinkBreadcrumbs from './LinkBreadcrumbs';
+import { useItemViewedGoogleTag } from '@/hooks/useGoogleTagDataLayer';
 
 const EditVehiclePopover = dynamicImport(
   () => import('@/components/PDP/components/EditVehiclePopover'),
@@ -51,6 +52,14 @@ export function CarCoverSelector() {
   const productImages = selectedProduct?.productImages as string[];
 
   const productName = modelData[0]?.fullProductName;
+
+  useItemViewedGoogleTag(
+    modelData,
+    selectedProduct,
+    featuredImage,
+    productName,
+    uniqueColors
+  );
 
   return (
     <>
