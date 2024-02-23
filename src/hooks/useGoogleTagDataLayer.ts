@@ -1,59 +1,43 @@
-import { IProductData } from '@/app/(main)/utils';
+import { IProductData, TPathParams } from '@/app/(main)/utils';
 import { useCartContext } from '@/providers/CartProvider';
+import { useParams, usePathname } from 'next/navigation';
 import { useEffect } from 'react';
 
-export const useItemViewedGoogleTag = () => {
+export const useItemViewedGoogleTag = (
+  modelData: IProductData[],
+  selectedProduct: IProductData,
+  featuredImage: string,
+  productName: string,
+  uniqueColors: (IProductData | undefined)[]
+) => {
+  const params = useParams<TPathParams>();
+  const pathname = usePathname();
   useEffect(() => {
-    // console.log('CarCoverSelector DataLayer:', window.dataLayer);
     window?.dataLayer?.push({ ecommerce: null }); // Clear the previous ecommerce object.
     window?.dataLayer?.push({
       event: 'view_item_list',
       ecommerce: {
-        items: [
-          {
-            item_id: 'dc646',
-            item_name: 'Lunchpod T-Shirt',
-            price: '90.00',
-            item_brand: 'Lunchpod',
-            item_category: 'T-Shirts',
-            item_list_name: 'shirts you may like',
-            index: 0,
-          },
-          {
-            item_id: '57b9d',
-            item_name: 'Kiosk T-Shirt',
-            price: '55.00',
-            item_brand: 'Kiosk',
-            item_category: 'T-Shirts',
-            item_list_name: 'shirts you may like',
-            index: 1,
-          },
-          {
-            item_id: '7w9e0',
-            item_name: 'Masons T-Shirt',
-            price: '31.00',
-            item_brand: 'Masons',
-            item_category: 'T-Shirts',
-            item_list_name: 'shirts you may like',
-            index: 2,
-          },
-          {
-            item_id: 'b55da',
-            item_name: 'Flexigen T-Shirt',
-            price: '16.00',
-            item_brand: 'Flexigen',
-            item_category: 'T-Shirts',
-            item_list_name: 'shirts you may like',
-            index: 3,
-          },
-        ],
+        // modelData,
+        productName,
+        selectedProduct,
+        featuredImage,
+        url: pathname,
+        productType: params?.productType,
+        coverType: params?.coverType,
+        make: params?.make,
+        model: params?.model,
+        year: params?.year,
+        colorSelection: uniqueColors,
       },
     });
-    console.log(
-      'CarCoverSelector DataLayer After useEffect:',
-      window.dataLayer
-    );
-  }, []);
+  }, [
+    featuredImage,
+    params,
+    pathname,
+    productName,
+    selectedProduct,
+    uniqueColors,
+  ]);
 };
 
 export const useCheckoutViewedGoogleTag = () => {
