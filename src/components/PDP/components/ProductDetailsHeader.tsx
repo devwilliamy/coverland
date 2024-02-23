@@ -6,8 +6,18 @@ import {
   GraySunIcon,
   GrayWaterIcon,
 } from '@/components/PDP/components/icons';
+import { useParams } from 'next/navigation';
 
 export default function ProductDetailsHeader() {
+  const params = useParams();
+  const make = params?.make;
+  let productType = params?.productType;
+  if (productType === 'truck-covers') {
+    return (productType = 'Truck');
+  } else {
+    productType = productType?.slice(0, 3);
+  }
+
   return (
     <section>
       <div
@@ -16,7 +26,8 @@ export default function ProductDetailsHeader() {
       />
       <div className="flex py-7 text-center">
         <p className="w-full text-[26px] font-[500] leading-[26px] text-white">
-          Protect your Challenger now
+          Protect your{' '}
+          <span className={`capitalize`}>{make ? make : productType}</span> now
         </p>
       </div>
       <Image
