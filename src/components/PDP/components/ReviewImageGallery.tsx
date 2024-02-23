@@ -32,12 +32,7 @@ const ReviewImageGallery = ({
     if (!api) {
       return;
     }
-    api.on('scroll', () => setCurrentReviewImage(api.selectedScrollSnap()));
-
-    api.on('init', () => {
-      api && api.scrollTo(currentReviewImage, true);
-      // api && api.slideNodes().at(currentReviewImage);
-    });
+    api.on('scroll', (e) => setCurrentReviewImage(e.selectedScrollSnap()));
   });
 
   const store = useContext(CarSelectionContext);
@@ -206,31 +201,31 @@ const ReviewImageGallery = ({
                         </CarouselItem>
                       ))}
                   </CarouselContent>
-
-                  {api?.canScrollPrev() && (
-                    <CarouselPrevious
-                      variant={'link'}
-                      className={`absolute left-4  border-none bg-transparent  `}
-                      onClick={() => {
-                        api.scrollPrev();
-                        setCurrentReviewImage((i) => i - 1);
-                      }}
-                    >
-                      <ReviewChevronLeft />
-                    </CarouselPrevious>
-                  )}
-                  {api?.canScrollNext() && (
-                    <CarouselNext
-                      variant={'link'}
-                      className="absolute right-4  border-none bg-transparent "
-                      onClick={() => {
-                        api.scrollNext();
-                        setCurrentReviewImage((i) => i + 1);
-                      }}
-                    >
-                      <ReviewChevronRight />
-                    </CarouselNext>
-                  )}
+                  <CarouselPrevious
+                    variant={'link'}
+                    className={` absolute left-4 border-none`}
+                    onClick={() => {
+                      api?.scrollPrev();
+                      setCurrentReviewImage((i) => i - 1);
+                    }}
+                  >
+                    <ReviewChevronLeft />
+                  </CarouselPrevious>
+                  {/* {api?.canScrollPrev() && (
+                    
+                  )} */}
+                  <CarouselNext
+                    variant={'link'}
+                    className="absolute right-4 border-none bg-transparent "
+                    onClick={() => {
+                      api?.scrollNext();
+                      setCurrentReviewImage((i) => i + 1);
+                    }}
+                  >
+                    <ReviewChevronRight />
+                  </CarouselNext>
+                  {/* {api?.canScrollNext() && (
+                  )} */}
                 </Carousel>
               </div>
             </div>

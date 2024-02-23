@@ -58,7 +58,7 @@ export const CheckIcon = () => (
   </svg>
 );
 
-export const ThumbsUpIcon = ({ fill }: { fill: string }) => (
+export const ThumbsUpIcon = ({ fill }: { fill?: string }) => (
   <svg
     width="16"
     height="14"

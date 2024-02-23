@@ -1,11 +1,8 @@
 import { CarSelectionContext } from '@/app/(main)/[productType]/components/CarPDP';
-import { useMediaQuery } from '@mantine/hooks';
 import Image from 'next/image';
-import React, { useContext } from 'react';
-import { useStore } from 'zustand';
+import { useContext } from 'react';
 
-function ReviewCardImages({ reviewImages }: { reviewImages: string | null }) {
-  const isMobile = useMediaQuery('(max-width: 768px)');
+function ReviewCardCarousel({ reviewImages }: { reviewImages: string | null }) {
   const reviewImagesSplit = reviewImages?.split(',');
   const store = useContext(CarSelectionContext);
   if (!store) throw new Error('Missing CarContext.Provider in the tree');
@@ -30,4 +27,4 @@ function ReviewCardImages({ reviewImages }: { reviewImages: string | null }) {
   );
 }
 
-export default ReviewCardImages;
+export default ReviewCardCarousel;

@@ -1,19 +1,25 @@
 import { TReviewData } from '@/lib/db';
 import { Rating } from '@mui/material';
-import { CheckIcon, ThumbsUpIcon } from './icons';
-import ReviewCardImages from './ReviewCardImages';
+import { ThumbsUpIcon } from './icons';
+import ReviewCardCarousel from './ReviewCardCarousel';
 import WouldReccomend from './WouldReccomend';
-import { CarSelectionContext } from '@/app/(main)/[productType]/components/CarPDP';
-import { useContext } from 'react';
-import { useStore } from 'zustand';
+import ReviewCardGallery from './ReviewCardGallery';
+import { useState } from 'react';
 // import HelpfulSection from './HelpfulSection';
 
-export default function ReviewCard({ review }: { review: TReviewData }) {
+export default function ReviewCard({
+  review,
+  fullGallery,
+}: {
+  review: TReviewData;
+  fullGallery?: boolean;
+}) {
   // const isMobile = useMediaQuery('(max-width: 768px)');
+  const [moreOpen, setMoreOpen] = useState(false);
 
   return (
     <div
-      className={`relative flex h-full w-full min-w-full flex-col justify-between rounded border-2 p-4`}
+      className={`relative flex h-full w-full min-w-full flex-col justify-between ${moreOpen ? 'overflow-auto overflow-y-auto' : 'overflow-hidden'} rounded ${!fullGallery && 'border-2 '} ${!fullGallery ? 'p-4' : 'px-4 '} `}
     >
       <div className="text-xl font-bold normal-case text-neutral-700 max-md:max-w-full lg:text-3xl">
         {review.review_title
@@ -51,23 +57,32 @@ export default function ReviewCard({ review }: { review: TReviewData }) {
           {review.review_description}
         </div>
       </div>
-      <div className="flex items-center justify-between">
-        <div className="my-2 leading-6 text-[#767676] ">
-          {review.review_author}
+      {!fullGallery && (
+        <div className="flex items-center justify-between">
+          <div className="my-2 leading-6 text-[#767676] ">
+            {review.review_author}
+          </div>
+          <div className="flex items-center gap-1.5">
+            <ThumbsUpIcon />
+            <p>Helpful</p>
+            <p>({review.helpful})</p>
+          </div>
         </div>
-        <div className="flex items-center gap-1.5">
-          <ThumbsUpIcon />
-          <p>Helpful</p>
-          <p>({review.helpful})</p>
-        </div>
-      </div>
+      )}
 
       <div id="review-card-footer" className="mt-auto flex flex-col gap-2">
         {/* {!tabsCard && (
           <HelpfulSection numberOfHelpful={review?.helpful as string} />
         )} */}
-        {review.review_image && (
-          <ReviewCardImages reviewImages={review?.review_image} />
+        {review.review_image && fullGallery ? (
+          <ReviewCardGallery
+            reviewImages={review?.review_image}
+            review={review as TReviewData}
+            moreOpen={moreOpen}
+            setMoreOpen={setMoreOpen}
+          />
+        ) : (
+          <ReviewCardCarousel reviewImages={review?.review_image} />
         )}
       </div>
     </div>
