@@ -2,10 +2,9 @@ import { TReviewData } from '@/lib/db';
 import { Rating } from '@mui/material';
 import { ThumbsUpIcon } from './icons';
 import ReviewCardCarousel from './ReviewCardCarousel';
-import WouldReccomend from './WouldReccomend';
+import WouldRecomend from './WouldRecomend';
 import ReviewCardGallery from './ReviewCardGallery';
 import { useState } from 'react';
-// import HelpfulSection from './HelpfulSection';
 
 export default function ReviewCard({
   review,
@@ -14,7 +13,6 @@ export default function ReviewCard({
   review: TReviewData;
   fullGallery?: boolean;
 }) {
-  // const isMobile = useMediaQuery('(max-width: 768px)');
   const [moreOpen, setMoreOpen] = useState(false);
 
   return (
@@ -49,7 +47,9 @@ export default function ReviewCard({
       </div>
       <div className="flex gap-4 text-[12px] leading-[24px]">
         <p className="text-[#1D8044]">Verified Purchase</p>
-        <WouldReccomend />
+        {review.rating_stars && review.rating_stars >= 3 ? (
+          <WouldRecomend />
+        ) : null}
       </div>
 
       <div className="flex justify-between pt-1.5 lg:mt-0 lg:gap-[104px]">
@@ -71,9 +71,6 @@ export default function ReviewCard({
       )}
 
       <div id="review-card-footer" className="mt-auto flex flex-col gap-2">
-        {/* {!tabsCard && (
-          <HelpfulSection numberOfHelpful={review?.helpful as string} />
-        )} */}
         {review.review_image && fullGallery ? (
           <ReviewCardGallery
             reviewImages={review?.review_image}

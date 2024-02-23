@@ -9,7 +9,7 @@ import { Dialog } from '@/components/ui/dialog';
 import { DialogContent } from '@radix-ui/react-dialog';
 import { TReviewData } from '@/lib/db';
 import { ReviewChevronLeft, ReviewChevronRight, ThumbsUpIcon } from './icons';
-import WouldReccomend from './WouldReccomend';
+import WouldRecomend from './WouldRecomend';
 import { Rating } from '@mui/material';
 import { Separator } from '@/components/ui/separator';
 
@@ -147,7 +147,7 @@ const ReviewImageGallery = ({
               </div>
               <div className="flex gap-4 text-[12px] leading-[24px]">
                 <p className="text-[#1D8044]">Verified Purchase</p>
-                <WouldReccomend />
+                <WouldRecomend />
               </div>
 
               <div className="flex flex-col pt-1.5 lg:mt-0 lg:gap-[104px]">
