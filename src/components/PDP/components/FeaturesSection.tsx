@@ -6,17 +6,10 @@ import ProductDetailsHeader from './ProductDetailsHeader';
 import FabricMattersSection from './FabricMattersSections';
 import DifferenceGrid from '@/app/(main)/[productType]/components/DifferenceGrid';
 import CustomFitSection from './CustomFitSection';
-import WaterFab from '@/images/PDP/Product-Details-Redesign-2/fabric-with-water.webp';
 
 export default function FeaturesSection() {
   return (
-    <section
-      className={`relative -mx-4 mt-[60px]`}
-      style={{
-        backgroundImage: `url(${WaterFab.src})`,
-        backgroundRepeat: 'round',
-      }}
-    >
+    <section className={`relative -mx-4 mt-[60px]`}>
       <div className="relative z-[1] h-full w-full">
         <ProductDetailsHeader />
         <ProductVideo

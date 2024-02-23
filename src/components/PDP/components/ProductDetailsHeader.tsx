@@ -7,6 +7,7 @@ import {
   GrayWaterIcon,
 } from '@/components/PDP/components/icons';
 import { useParams } from 'next/navigation';
+import WetFabric from '@/images/PDP/Product-Details-Redesign-2/fabric-with-water.webp';
 
 export default function ProductDetailsHeader() {
   const params = useParams();
@@ -20,9 +21,11 @@ export default function ProductDetailsHeader() {
 
   return (
     <section className="mb-[60px]">
-      <div
+      <Image
+        alt=""
+        src={WetFabric}
         id="bg-div"
-        className="absolute top-0 z-[-1] h-full w-full bg-black/85"
+        className="absolute top-0 z-[-1] h-full w-full "
       />
       <div className="flex py-7 text-center">
         <p className="w-full text-[26px] font-[500] leading-[26px] text-white">
