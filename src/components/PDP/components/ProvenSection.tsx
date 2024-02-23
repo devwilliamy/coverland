@@ -7,19 +7,27 @@ import Image from 'next/image';
 
 export default function ProvenSection() {
   return (
-    <section id="proven-section" className="mt-9 bg-white">
+    <section id="proven-section" className="mt-9 ">
       <div id="waterproof-section" className="pb-9">
         <p className="w-full pb-3 text-center text-[22px] font-[700] leading-[25px]">
           Waterproofing is Proven
         </p>
-        <Image alt="" src={Waterproofing} className="w-full rounded-ss-sm" />
+        <Image
+          alt=""
+          src={Waterproofing}
+          className="mb-[-1px] w-full rounded-ss-sm"
+        />
         <Image alt="" src={WaterVS} className="w-full rounded-ss-sm" />
       </div>
       <div id="uv-section">
-        <p className="w-full pb-3 text-center text-[22px] font-[700] leading-[25px]">
+        <p className="w-full  pb-3 text-center text-[22px] font-[700] leading-[25px]">
           UV Resistance Proven
         </p>
-        <Image alt="" src={Ultraviolet} className="w-full rounded-ss-sm" />
+        <Image
+          alt=""
+          src={Ultraviolet}
+          className="mb-[-1px] w-full rounded-ss-sm"
+        />
         <Image alt="" src={UltravioletVS} className="w-full rounded-ss-sm" />
       </div>
     </section>
