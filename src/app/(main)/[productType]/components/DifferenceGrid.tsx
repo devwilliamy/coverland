@@ -106,18 +106,22 @@ export default function DifferenceGrid() {
         />
       </span>
       <div className="flex flex-col overflow-hidden rounded-md">
-        {differences.map(({ title, others, coverland }) => (
+        {differences.map(({ title, others, coverland }, index) => (
           <div
             key={title}
-            className="grid w-full grid-cols-[1fr_0.85fr_1fr] place-items-center text-center  text-[14px] text-white"
+            className={`grid w-full grid-cols-[1fr_0.85fr_1fr] place-items-center  text-center  text-[14px] text-white`}
           >
-            <div className=" flex h-full w-full items-center justify-center bg-[#333333] px-1 py-[14px] text-center">
+            <div
+              className={` flex h-full w-full items-center ${index + 1 !== differences.length && 'border-b-[1px] border-b-[#5D5D5D]'}   justify-center bg-[#333333] px-1 py-[14px] text-center`}
+            >
               {others}
             </div>
-            <div className="flex h-full grow-0 items-center justify-center px-2 py-[14px] text-[12px]">
+            <div className="flex h-full w-full grow-0 items-center justify-center bg-black/80 px-2 py-[14px] text-[12px]">
               {title}
             </div>
-            <div className="flex h-full w-full items-center justify-center bg-[#981D18] px-1 py-[14px]">
+            <div
+              className={`flex h-full w-full items-center justify-center ${index + 1 !== differences.length && 'border-b-[1px] border-b-[#C94F4F]'} bg-[#981D18] px-1 py-[14px]`}
+            >
               {coverland}
             </div>
           </div>

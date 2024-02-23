@@ -7,9 +7,8 @@ import { useMediaQuery } from '@mantine/hooks';
 import { RefObject, useContext, useState } from 'react';
 import CartSheet from '@/components/cart/CartSheet';
 import { compareRawStrings } from '@/lib/utils';
-import ProductVideo from '@/components/PDP/ProductVideo';
 // import SquareThumbnail from '@/video/Thumbnail_Square.webp';
-import Thumbnail from '@/video/Thumbnail.webp';
+
 import { useStore } from 'zustand';
 import { useCartContext } from '@/providers/CartProvider';
 import { IProductData, getCompleteSelectionData } from '../../utils';
@@ -17,22 +16,15 @@ import FreeDetails from './FreeDetails';
 import AddToCart from './AddToCart';
 import CircleColorSelector from './CircleColorSelector';
 import RatingsTrigger from './RatingsTrigger';
-import SixMinVideo from 'https://x2kly621zrgfgwll.public.blob.vercel-storage.com/videos/FINALIZE_WEBSTIE_16_9_OPTIMIZED.mp4';
 // import ReviewGallerySection from './ReviewGallerySection';
 // import KeyBenefitsSection from '@/components/PDP/components/KeyBenefitsSection';
 
-import ThreeSixtyVideo from '@/videos/360 degree_website.mp4';
-import Image from 'next/image';
-
-import FabricWithWater from '@/images/PDP/Product-Details-Redesign-2/white-layer.png';
-import DifferenceGrid from './DifferenceGrid';
 import EnhanceProtectionSection from '@/components/PDP/components/EnhanceProtectionSection';
 import SuggestedProducts from '@/components/PDP/components/SuggestedProducts';
 import ProvenSection from '@/components/PDP/components/ProvenSection';
 import RealTestSection from '@/components/PDP/components/RealTestSection';
-import WaterFab from '@/images/PDP/Product-Details-Redesign-2/fabric-with-water.webp';
 import LifetimeSections from '@/components/PDP/components/LifetimeSection';
-import ProductDetailsHeader from '@/components/PDP/components/ProductDetailsHeader';
+import FeaturesSection from '@/components/PDP/components/FeaturesSection';
 
 interface ProductRefs {
   [key: string]: RefObject<HTMLElement>;
@@ -138,25 +130,7 @@ export function ProductContent({
 
       {isMobile && (
         <>
-          <section
-            className={`relative -mx-4 mt-[60px]`}
-            style={{
-              backgroundImage: `url(${WaterFab.src})`,
-              backgroundRepeat: 'round',
-            }}
-          >
-            <div className="relative z-[1] h-full w-full">
-              <ProductDetailsHeader />
-              <ProductVideo
-                src={SixMinVideo}
-                imgSrc={Thumbnail}
-                aspectRatio="16 / 9"
-              />
-              <FabricMattersSection />
-              <DifferenceGrid />
-              <CustomFitSection />
-            </div>
-          </section>
+          <FeaturesSection />
           <EnhanceProtectionSection />
           <RealTestSection />
           <ProvenSection />
@@ -185,35 +159,3 @@ export function ProductContent({
     </>
   );
 }
-const FabricMattersSection = () => {
-  return (
-    <>
-      <div className="flex py-7 text-center">
-        <p className="w-full text-[30px] font-[500] leading-[26px] text-white">
-          Fabric Matters
-        </p>
-      </div>
-      <Image
-        alt="cover-with-water-droplets"
-        src={FabricWithWater}
-        className="h-200 mb-[14px] w-full"
-      />
-    </>
-  );
-};
-
-const CustomFitSection = () => {
-  return (
-    <div className="mt-[60px]">
-      <ProductVideo src={ThreeSixtyVideo} autoplay loop aspectRatio="16 / 9" />
-      <div className="py-[20px]">
-        <p className="w-full text-center text-[30px] font-[500] leading-[35px] tracking-[0.027em] text-white">
-          Custom-Fit
-        </p>
-        <p className="w-full  text-center text-[22px]  leading-[26px] text-[#ABABAB]">
-          Experience the perfect fit we offer
-        </p>
-      </div>
-    </div>
-  );
-};

@@ -19,7 +19,7 @@ export default function ProductDetailsHeader() {
   }
 
   return (
-    <section>
+    <section className="mb-[60px]">
       <div
         id="bg-div"
         className="absolute top-0 z-[-1] h-full w-full bg-black/85"
@@ -38,7 +38,7 @@ export default function ProductDetailsHeader() {
         // width={500}
         // height={500}
       />
-      <div className="my-[30px] grid grid-cols-3 items-center justify-center">
+      <div className="mt-[30px]  grid grid-cols-3 items-center justify-center">
         {[
           { title: 'Waterproof', icon: <GrayWaterIcon /> },
           { title: 'Paint Protection', icon: <GraySunIcon /> },
