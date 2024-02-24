@@ -138,14 +138,18 @@ export function ProductContent({
             <LifetimeSections />
           </div>
           <span
-            onClick={() => setSeeAll(true)}
-            onMouseUpCapture={() => setSeeAll(true)}
             className={`${!seeAll && 'absolute top-[30%]  bg-gradient-to-t from-white from-[98%] pt-[100px]'} z-[2] h-full w-full `}
           >
-            <div className="flex w-full flex-col items-center justify-center ">
-              <p>See All</p>
-              <ChevronDown className="-m-1 p-0" />
-            </div>
+            {!seeAll && (
+              <div
+                onClick={() => setSeeAll(true)}
+                onMouseUpCapture={() => setSeeAll(true)}
+                className="flex w-full flex-col items-center justify-center "
+              >
+                <p>See All</p>
+                <ChevronDown className="-m-1 p-0" />
+              </div>
+            )}
             <SuggestedProducts />
             <ExtraProductDetails />
           </span>
