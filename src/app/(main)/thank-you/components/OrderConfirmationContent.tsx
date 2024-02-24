@@ -8,6 +8,7 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
+import { useThankYouViewedGoogleTag } from '@/hooks/useGoogleTagDataLayer';
 import { sendGTMEvent } from '@next/third-parties/google';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
@@ -25,6 +26,7 @@ export const OrderConfirmationContent = ({
   useEffect(() => {
     isMounted(true);
   }, []);
+  useThankYouViewedGoogleTag(items, orderNumber);
 
   mounted &&
     !!items &&
