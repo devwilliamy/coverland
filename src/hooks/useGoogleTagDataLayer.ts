@@ -36,7 +36,7 @@ export const useItemViewedGoogleTag = (
     pathname,
     productName,
     selectedProduct,
-    uniqueColors,
+    // uniqueColors,
   ]);
 };
 
