@@ -6,8 +6,8 @@ import WindStraps from '@/images/PDP/Product-Details-Redesign-2/wind-straps.png'
 
 export default function EnhanceProtectionSection() {
   return (
-    <section className="flex flex-col bg-white  pt-[60px]">
-      <p className="w-full pb-[35px] text-center text-[30px] font-[500] leading-[35px]  ">
+    <section className="flex flex-col bg-white pt-[60px]">
+      <p className="w-full pb-[35px] text-center text-[30px] font-[600] leading-[35px]  ">
         Enhanced Protection
       </p>
       {[

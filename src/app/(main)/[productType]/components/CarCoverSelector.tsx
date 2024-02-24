@@ -9,7 +9,6 @@ import { EditVehicleModal } from './EditVehicleModal';
 import { CarSelectionContext } from './CarPDP';
 import { useStore } from 'zustand';
 import { IProductData } from '../../utils';
-import { ExtraProductDetails } from '@/components/PDP/OtherDetails';
 import { Separator } from '@/components/ui/separator';
 import LinkBreadcrumbs from './LinkBreadcrumbs';
 
@@ -73,20 +72,17 @@ export function CarCoverSelector() {
               {isMobile && <EditVehiclePopover fullProductName={productName} />}
             </div>
             <Separator className="w-full bg-[#C8C7C7]" />
-            <ProductContent
-              modelData={modelData}
-              productRefs={productRefs}
-              selectedProduct={selectedProduct}
-              setSelectedProduct={setSelectedProduct}
-              setFeaturedImage={setFeaturedImage}
-              uniqueColors={uniqueColors as IProductData[]}
-            />
           </div>
         </div>
       </section>
-      <div id="product-details" className="h-auto w-full">
-        <ExtraProductDetails />
-      </div>
+      <ProductContent
+        modelData={modelData}
+        productRefs={productRefs}
+        selectedProduct={selectedProduct}
+        setSelectedProduct={setSelectedProduct}
+        setFeaturedImage={setFeaturedImage}
+        uniqueColors={uniqueColors as IProductData[]}
+      />
     </>
   );
 }

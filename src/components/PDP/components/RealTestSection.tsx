@@ -10,9 +10,9 @@ export default function RealTestSection() {
       <Image
         alt=""
         src={BgBlur}
-        className="translate-y-15 absolute z-[-1] w-[200%] object-cover "
+        className="absolute z-[-1] w-[200%] max-w-full translate-y-24 object-cover "
       />
-      <span className="px-4">
+      <div className="w-full">
         <p className="w-full text-center text-[30px] font-[600] leading-[22px] ">
           Real Test, True Result
         </p>
@@ -22,11 +22,7 @@ export default function RealTestSection() {
         </div>
         <div className="flex w-full flex-col items-center">
           <Image alt="intertek" src={IntertekLogo} className="py-9" />
-          <Image
-            alt="intertek-results"
-            src={IntertekResults}
-            className="w-full"
-          />
+          <Image alt="intertek-results" src={IntertekResults} className="" />
         </div>
         <span className="flex w-full justify-center">
           <a
@@ -39,7 +35,7 @@ export default function RealTestSection() {
             Download test Results
           </a>
         </span>
-      </span>
+      </div>
     </section>
   );
 }
