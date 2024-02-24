@@ -129,15 +129,13 @@ export function ProductContent({
       <FreeDetails />
 
       {isMobile && (
-        <section className="relative">
+        <section>
           <FeaturesSection />
-          <div className="px-4">
-            <EnhanceProtectionSection />
-            <RealTestSection />
-            <ProvenSection />
-            <LifetimeSections />
-          </div>
-          <span
+          <EnhanceProtectionSection />
+          <RealTestSection />
+          <ProvenSection />
+          <LifetimeSections />
+          {/* <span
             className={`${!seeAll && 'absolute top-[30%]  bg-gradient-to-t from-white from-[98%] pt-[100px]'} z-[2] h-full w-full `}
           >
             {!seeAll && (
@@ -150,9 +148,7 @@ export function ProductContent({
                 <ChevronDown className="-m-1 p-0" />
               </div>
             )}
-            <SuggestedProducts />
-            <ExtraProductDetails />
-          </span>
+          </span> */}
         </section>
       )}
 

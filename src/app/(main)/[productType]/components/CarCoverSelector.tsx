@@ -11,6 +11,8 @@ import { useStore } from 'zustand';
 import { IProductData } from '../../utils';
 import { Separator } from '@/components/ui/separator';
 import LinkBreadcrumbs from './LinkBreadcrumbs';
+import { ExtraProductDetails } from '@/components/PDP/OtherDetails';
+import SuggestedProducts from '@/components/PDP/components/SuggestedProducts';
 
 const EditVehiclePopover = dynamicImport(
   () => import('@/components/PDP/components/EditVehiclePopover'),
@@ -72,17 +74,19 @@ export function CarCoverSelector() {
               {isMobile && <EditVehiclePopover fullProductName={productName} />}
             </div>
             <Separator className="w-full bg-[#C8C7C7]" />
+            <ProductContent
+              modelData={modelData}
+              productRefs={productRefs}
+              selectedProduct={selectedProduct}
+              setSelectedProduct={setSelectedProduct}
+              setFeaturedImage={setFeaturedImage}
+              uniqueColors={uniqueColors as IProductData[]}
+            />
           </div>
         </div>
       </section>
-      <ProductContent
-        modelData={modelData}
-        productRefs={productRefs}
-        selectedProduct={selectedProduct}
-        setSelectedProduct={setSelectedProduct}
-        setFeaturedImage={setFeaturedImage}
-        uniqueColors={uniqueColors as IProductData[]}
-      />
+      <SuggestedProducts />
+      <ExtraProductDetails />
     </>
   );
 }
