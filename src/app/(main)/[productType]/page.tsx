@@ -72,12 +72,14 @@ export default async function CarPDPModelDataLayer({
   }
 
   return (
-    <CarPDP
-      modelData={modelData}
-      reviewData={reviewData}
-      params={params}
-      reviewDataSummary={reviewDataSummary}
-      reviewImages={reviewImages}
-    />
+    <Suspense fallback={<div>Loading...</div>}>
+      <CarPDP
+        modelData={modelData}
+        reviewData={reviewData}
+        params={params}
+        reviewDataSummary={reviewDataSummary}
+        reviewImages={reviewImages}
+      />
+    </Suspense>
   );
 }
