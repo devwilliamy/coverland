@@ -7,7 +7,7 @@ import EditVehicleDropdown from '../EditVehicleDropdown';
 //   DropdownMenuContent,
 //   DropdownMenuTrigger,
 // } from '@/components/ui/dropdown-menu';
-import { useState } from 'react';
+import { Suspense, useState } from 'react';
 import { Drawer } from 'vaul';
 import { IoClose } from 'react-icons/io5';
 
@@ -63,7 +63,9 @@ export default function EditVehiclePopover({
                 id="EditVehicleContainer"
                 className="flex min-h-[50vh] pt-[75px] "
               >
-                <EditVehicleDropdown />
+                <Suspense fallback={<div>Loading...</div>}>
+                  <EditVehicleDropdown />
+                </Suspense>
               </div>
             </div>
           </Drawer.Content>

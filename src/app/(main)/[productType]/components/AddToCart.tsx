@@ -2,7 +2,13 @@
 import { Button } from '@/components/ui/button';
 import { useMediaQuery } from '@mantine/hooks';
 import { track } from '@vercel/analytics/react';
-import { SetStateAction, useContext, useEffect, useState } from 'react';
+import {
+  SetStateAction,
+  Suspense,
+  useContext,
+  useEffect,
+  useState,
+} from 'react';
 import { DrawerTitle } from '@/components/ui/drawer';
 import { useParams, useRouter } from 'next/navigation';
 import {
@@ -443,5 +449,9 @@ const AddToCartSelector = ({
 };
 
 function VehicleSelector() {
-  return <EditVehicleDropdown />;
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <EditVehicleDropdown />
+    </Suspense>
+  );
 }

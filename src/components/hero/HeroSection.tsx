@@ -5,6 +5,7 @@ import { HeroDropdown } from './dropdown/HeroDropdown';
 import hero from '@/images/hero/hero.webp';
 import heroMobile from '@/images/hero/hero_mobile.webp';
 import Image from 'next/image';
+import { Suspense } from 'react';
 
 const HeroSection = () => {
   const isMobile = useMediaQuery('(max-width: 500px)');
@@ -25,7 +26,9 @@ const HeroSection = () => {
             Select your Vehicle
           </p>
           <div id="desktop-filter" className="my-4">
-            <HeroDropdown />
+            <Suspense fallback={<div>Loading...</div>}>
+              <HeroDropdown />
+            </Suspense>
           </div>
         </div>
       </div>

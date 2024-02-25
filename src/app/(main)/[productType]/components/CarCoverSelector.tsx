@@ -76,7 +76,7 @@ export function CarCoverSelector() {
             <div className="grid grid-cols-[1fr_2fr] place-items-center ">
               {isMobile ? <CarIconMobile /> : <CarIcon />}
               <EditVehicleModal selectedProduct={selectedProduct} />
-              {isMobile && <EditVehiclePopover fullProductName={productName} />}
+              <EditVehiclePopover fullProductName={productName} />
             </div>
             <Separator className="w-full bg-[#C8C7C7]" />
             <ProductContent

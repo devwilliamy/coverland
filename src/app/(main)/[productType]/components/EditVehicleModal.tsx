@@ -9,7 +9,7 @@ import {
 } from '@/components/ui/popover';
 import { Separator } from '@/components/ui/separator';
 import { CarSelectionContext } from './CarPDP';
-import { useContext, useState } from 'react';
+import { Suspense, useContext, useState } from 'react';
 import { IProductData } from '../../utils';
 
 export function EditVehicleModal({
@@ -39,7 +39,9 @@ export function EditVehicleModal({
           </div>
         </PopoverTrigger>
         <PopoverContent className="min-w-[100px] rounded-xl border border-gray-300 bg-white p-5 shadow-lg">
-          <EditVehicleDropdown setOpen={setOpen} />
+          <Suspense fallback={<div>Loading...</div>}>
+            <EditVehicleDropdown setOpen={setOpen} />
+          </Suspense>
         </PopoverContent>
       </Popover>
     </div>
