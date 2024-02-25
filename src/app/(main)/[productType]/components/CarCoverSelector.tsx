@@ -1,6 +1,6 @@
 'use client';
 
-import React, { RefObject, useContext, useEffect, useRef } from 'react';
+import React, { RefObject, useContext, useRef } from 'react';
 import { useMediaQuery } from '@mantine/hooks';
 import dynamicImport from 'next/dynamic';
 import { PrimaryImageDisplay } from './PrimaryImageDisplay';
@@ -13,6 +13,7 @@ import { ExtraProductDetails } from '@/components/PDP/OtherDetails';
 import { Separator } from '@/components/ui/separator';
 import LinkBreadcrumbs from './LinkBreadcrumbs';
 import { useItemViewedGoogleTag } from '@/hooks/useGoogleTagDataLayer';
+import { useSendViewAnalytics } from '@/lib/hooks/useSendInternalAnalytics';
 
 const EditVehiclePopover = dynamicImport(
   () => import('@/components/PDP/components/EditVehiclePopover'),
@@ -60,6 +61,8 @@ export function CarCoverSelector() {
     productName,
     uniqueColors
   );
+
+  useSendViewAnalytics();
 
   return (
     <>

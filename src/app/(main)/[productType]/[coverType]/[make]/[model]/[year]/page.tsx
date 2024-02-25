@@ -1,4 +1,4 @@
-import { TReviewData, getProductData } from '@/lib/db';
+import { TReviewData, getAllYears, getProductData } from '@/lib/db';
 import { redirect } from 'next/navigation';
 import { Suspense } from 'react';
 import CarPDP from '@/app/(main)/[productType]/components/CarPDP';
@@ -10,6 +10,28 @@ import {
   getProductReviewSummary,
   getProductReviewsByPage,
 } from '@/lib/db/review';
+
+export async function generateStaticParams({
+  params: { productType, coverType, make, model },
+}: {
+  params: {
+    productType: string;
+    coverType: string;
+    make: string;
+    model: string;
+  };
+}) {
+  const yearData = await getAllYears({
+    type: productType,
+    cover: coverType,
+    make: make,
+    model: model,
+  });
+
+  return yearData.filter(Boolean).map((year) => ({
+    year: year,
+  }));
+}
 
 export default async function CarPDPDataLayer({
   params,

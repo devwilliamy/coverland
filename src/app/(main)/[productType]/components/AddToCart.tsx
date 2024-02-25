@@ -23,6 +23,7 @@ import {
 } from '@/components/ui/sheet';
 import { X } from 'lucide-react';
 import { handleAddToCartGoogleTag } from '@/hooks/useGoogleTagDataLayer';
+import { sendAnalyticsClient } from '@/lib/analytics/CoverlandAnalytics';
 
 const getOffset = (
   element: HTMLElement | null | undefined
@@ -117,6 +118,13 @@ export default function AddToCart({
             if (isComplete) {
               handleAddToCart();
               handleAddToCartGoogleTag(selectedProduct);
+              sendAnalyticsClient({
+                action: 'add_to_cart',
+                timestamp: new Date().toISOString(),
+                sku: selectedProduct?.sku,
+                url: window.location.href,
+                userAgent: window.navigator.userAgent,
+              });
               isMobile ? router.push('/checkout') : setAddToCartOpen(true);
               return;
             }
@@ -138,6 +146,13 @@ export default function AddToCart({
               if (isComplete) {
                 handleAddToCart();
                 handleAddToCartGoogleTag(selectedProduct);
+                sendAnalyticsClient({
+                  action: 'add_to_cart',
+                  timestamp: new Date().toISOString(),
+                  sku: selectedProduct?.sku,
+                  url: window.location.href,
+                  userAgent: window.navigator.userAgent,
+                });
                 isMobile ? router.push('/checkout') : setAddToCartOpen(true);
                 return;
               }
@@ -407,6 +422,13 @@ const AddToCartSelector = ({
               if (!isComplete) return;
               handleAddToCart();
               wait().then(() => setSubmodelSelectionOpen(false));
+              sendAnalyticsClient({
+                action: 'add_to_cart',
+                timestamp: new Date().toISOString(),
+                sku: selectedProduct?.sku,
+                url: window.location.href,
+                userAgent: window.navigator.userAgent,
+              });
               router.push('/checkout');
             }}
             disabled={!isComplete}

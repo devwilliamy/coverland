@@ -143,6 +143,75 @@ export async function getProductData({
   return data;
 }
 
+export async function getAllMakes({
+  type,
+  cover,
+}: {
+  type: string;
+  cover: string;
+}) {
+  const { data, error } = await supabase
+    .from('Products-Data-02-2024')
+    .select('make_slug')
+    .eq('type', type)
+    .eq('display_id', cover);
+
+  if (error) {
+    throw new Error(error.message);
+  }
+
+  return data;
+}
+
+export async function getAllModels({
+  type,
+  cover,
+  make,
+}: {
+  type: string;
+  cover: string;
+  make: string;
+}) {
+  const { data, error } = await supabase
+    .from('Products-Data-02-2024')
+    .select('model_slug')
+    .eq('type', type)
+    .eq('display_id', cover)
+    .eq('make', make);
+
+  if (error) {
+    throw new Error(error.message);
+  }
+
+  return data;
+}
+
+export async function getAllYears({
+  type,
+  cover,
+  make,
+  model,
+}: {
+  type: string;
+  cover: string;
+  make: string;
+  model: string;
+}) {
+  const { data, error } = await supabase
+    .from('Products-Data-02-2024')
+    .select('parent_generation')
+    .eq('type', type)
+    .eq('display_id', cover)
+    .eq('make', make)
+    .eq('model', model);
+
+  if (error) {
+    throw new Error(error.message);
+  }
+
+  return data;
+}
+
 export async function getAllProductData({
   year,
   make,

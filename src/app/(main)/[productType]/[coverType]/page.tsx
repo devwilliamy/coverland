@@ -12,6 +12,15 @@ import CarPDP from '../components/CarPDP';
 import { redirect } from 'next/navigation';
 import { TPathParams } from '../../utils';
 
+export async function generateStaticParams() {
+  return [
+    { coverType: 'premium-plus' },
+    { coverType: 'premium' },
+    { coverType: 'standard-pro' },
+    { coverType: 'standard' },
+  ];
+}
+
 export default async function CarPDPModelDataLayer({
   params,
 }: {

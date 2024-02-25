@@ -10,10 +10,12 @@ import HomepageVideoSection from '@/pages/home/HomepageVideoSection';
 import { Suspense } from 'react';
 import WhyChooseCoverland from '@/pages/home/WhyChooseCoverland';
 import HomepageReviews from '@/pages/home/HomepageReviews';
+import { ViewAnalytics } from '@/components/analytics/ViewAnalytics';
 
 export default function Home() {
   return (
     <div className="flex flex-col gap-[60px] py-4 lg:gap-[110px]">
+      <ViewAnalytics />
       <Suspense>
         <HeroSection />
       </Suspense>

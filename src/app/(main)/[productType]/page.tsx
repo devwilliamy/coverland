@@ -16,6 +16,14 @@ import {
   getProductReviewsByPage,
 } from '@/lib/db/review';
 
+export function generateStaticParams() {
+  return [
+    { productType: 'car-covers' },
+    { productType: 'suv-covers' },
+    { productType: 'truck-covers' },
+  ];
+}
+
 export default async function CarPDPModelDataLayer({
   params,
 }: {

@@ -1,8 +1,11 @@
+import { ViewAnalytics } from '@/components/analytics/ViewAnalytics';
+
 function About() {
   return (
     <div className="my-[5vh]">
+      <ViewAnalytics />
       <h2 className="mb-[5vh] text-5xl"> About Us </h2>
-      <p className="mb-[5vh]">
+      <div className="mb-[5vh]">
         <p className="mb-[5vh] text-3xl font-black">Coverland</p>
         <p className="font-semibold">Address</p>
         <br />
@@ -11,7 +14,7 @@ function About() {
         Email: info@coverland.com
         <br />
         Phone: (800) 799-5165
-      </p>
+      </div>
       <p>
         The view of the earth from the moon fascinated me - a small disk,
         240,000 miles away. It was hard to think that that little thing held so
