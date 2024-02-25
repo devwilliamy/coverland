@@ -3,7 +3,6 @@ import { TInitialProductDataDB, getProductData } from '@/lib/db';
 import {
   TProductReviewSummary,
   TReviewData,
-  filterReviewData,
   getAllReviewsWithImages,
   getProductReviewSummary,
   getProductReviewsByPage,
@@ -64,7 +63,6 @@ export default async function CarPDPModelDataLayer({
           productType: typeString,
         }),
       ]);
-    filterReviewData({ reviewData, reviewImages });
 
     if (!modelData) {
       redirect('/404');
