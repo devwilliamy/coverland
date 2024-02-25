@@ -3,14 +3,11 @@ import { MoneyBackMobile } from './MoneyBackMobile';
 import { OurCarCovers } from './OurCarCovers';
 import { PDPAccordion } from './PDPAccordian';
 import { ProductChecklist } from './ProductChecklist';
+import ProductHero from './ProductHero';
 import AccordionDrawerItem from './components/AccordionDrawerItem';
 import { ClimateCrisisMobile } from './components/ClimateCrisisMobile';
 import { NoGarageMobile } from './components/NoGarageMobile';
 import dynamicImport from 'next/dynamic';
-
-const ProductHero = dynamicImport(() => import('./ProductHero'), {
-  ssr: false,
-});
 
 export function MobilePDPAccordions() {
   return (

@@ -16,9 +16,7 @@ export default function Home() {
   return (
     <div className="flex flex-col gap-[60px] py-4 lg:gap-[110px]">
       <ViewAnalytics />
-      <Suspense>
-        <HeroSection />
-      </Suspense>
+      <HeroSection />
       <CoversGrid />
       <div className="flex flex-col gap-[60px] bg-[#F9F9FB] lg:gap-[110px] lg:py-[44px]">
         <BestSellingSection />

@@ -14,13 +14,7 @@ import { Separator } from '@/components/ui/separator';
 import LinkBreadcrumbs from './LinkBreadcrumbs';
 import { useItemViewedGoogleTag } from '@/hooks/useGoogleTagDataLayer';
 import { useSendViewAnalytics } from '@/lib/hooks/useSendInternalAnalytics';
-
-const EditVehiclePopover = dynamicImport(
-  () => import('@/components/PDP/components/EditVehiclePopover'),
-  {
-    ssr: false,
-  }
-);
+import EditVehiclePopover from '@/components/PDP/components/EditVehiclePopover';
 
 export function CarCoverSelector() {
   const store = useContext(CarSelectionContext);
