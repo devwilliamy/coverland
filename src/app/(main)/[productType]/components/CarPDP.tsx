@@ -3,7 +3,7 @@ import { TInitialProductDataDB, TReviewData } from '@/lib/db';
 import CarCoverSelector from './CarCoverSelector';
 import { createStore } from 'zustand';
 import { createContext, useRef } from 'react';
-import { useParams, useRouter, useSearchParams } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
 import { compareRawStrings } from '@/lib/utils';
 import {
   IProductData,
@@ -206,18 +206,19 @@ export default function CarPDP({
   reviewData,
   reviewDataSummary,
   reviewImages,
+  searchParams,
 }: {
   modelData: TInitialProductDataDB[];
   reviewData: TReviewData[] | null;
   params: TPathParams;
   reviewDataSummary: TProductReviewSummary;
   reviewImages: TReviewData[];
+  searchParams: { submodel?: string; second_submodel?: string } | undefined;
 }) {
   const router = useRouter();
   const pathParams = useParams<TPathParams>();
-  const searchParams = useSearchParams();
-  const submodelParams = searchParams?.get('submodel') ?? '';
-  const secondSubmodelParams = searchParams?.get('second_submodel') ?? '';
+  const submodelParams = searchParams?.submodel ?? '';
+  const secondSubmodelParams = searchParams?.second_submodel ?? '';
   if (modelDataProps.length === 0) {
     router.push('/404');
   }
