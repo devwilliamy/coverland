@@ -37,6 +37,7 @@ const nextConfig = {
   eslint: {
     ignoreDuringBuilds: true,
   },
+  productionBrowserSourceMaps: true,
 };
 
 module.exports = withNextVideo(
