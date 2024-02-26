@@ -1,4 +1,4 @@
-import { TReviewData, getAllYears, getProductData } from '@/lib/db';
+import { TReviewData, getProductData } from '@/lib/db';
 import { redirect } from 'next/navigation';
 import CarPDP from '@/app/(main)/[productType]/components/CarPDP';
 import { TPathParams } from '@/app/(main)/utils';
@@ -10,27 +10,29 @@ import {
   getProductReviewsByPage,
 } from '@/lib/db/review';
 
-export async function generateStaticParams({
-  params: { productType, coverType, make, model },
-}: {
-  params: {
-    productType: string;
-    coverType: string;
-    make: string;
-    model: string;
-  };
-}) {
-  const yearData = await getAllYears({
-    type: productType,
-    cover: coverType,
-    make: make,
-    model: model,
-  });
+//TODO: Refactor code so we can generate our dynamic paths as static HTML for performance
 
-  return yearData.filter(Boolean).map((year) => ({
-    year: year,
-  }));
-}
+// export async function generateStaticParams({
+//   params: { productType, coverType, make, model },
+// }: {
+//   params: {
+//     productType: string;
+//     coverType: string;
+//     make: string;
+//     model: string;
+//   };
+// }) {
+//   const yearData = await getAllYears({
+//     type: productType,
+//     cover: coverType,
+//     make: make,
+//     model: model,
+//   });
+
+//   return yearData.filter(Boolean).map((year) => ({
+//     year: year,
+//   }));
+// }
 
 export default async function CarPDPDataLayer({
   params,
