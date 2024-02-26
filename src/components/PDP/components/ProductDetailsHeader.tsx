@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import React from 'react';
-import ProductHalfCover from '@/images/PDP/product-content-half-cover.webp';
+import MobileHalfCover from '@/images/PDP/product-content-half-cover.webp';
+import DesktopHalfCover from '@/images/PDP/Product-Details-Redesign-2/dekstop-half-cover.jpg';
 import {
   GrayCarIcon,
   GraySunIcon,
@@ -20,28 +21,31 @@ export default function ProductDetailsHeader() {
   }
 
   return (
-    <section className="mb-[60px]">
-      <Image
-        alt=""
-        src={WetFabric}
-        id="bg-div"
-        className="absolute top-0 z-[-1] h-full w-full "
-      />
+    <section className="relative -mx-4 mb-[60px] flex flex-col items-center  ">
       <div className="flex py-7 text-center">
-        <p className="w-full text-[26px] font-[500] leading-[26px] text-white">
+        <p className="w-full text-[26px] font-[500] leading-[26px] text-white lg:p-[6px] lg:pt-[60px] lg:text-[45px]  lg:leading-[32px]">
           Protect your{' '}
           <span className={`capitalize`}>{make ? make : productType}</span> now
         </p>
       </div>
-      <Image
-        alt="product-content-half-cover"
-        src={ProductHalfCover}
-        // fill
-        className="h-200 w-full"
-        // width={500}
-        // height={500}
-      />
-      <div className="mt-[30px]  grid grid-cols-3 items-center justify-center">
+      <div className="w-full lg:px-[60px]">
+        <Image
+          alt="product-content-half-cover"
+          src={MobileHalfCover}
+          // fill
+          // height={700}
+          className="flex w-full lg:hidden lg:min-h-[500px]"
+        />
+        <Image
+          alt="product-content-half-cover"
+          src={DesktopHalfCover}
+          // fill
+          // height={700}
+          className="hidden w-full  lg:flex lg:min-h-[500px]"
+        />
+      </div>
+
+      <div className="mt-[30px] grid grid-cols-3 items-center justify-center lg:gap-[120px]">
         {[
           { title: 'Waterproof', icon: <GrayWaterIcon /> },
           { title: 'Paint Protection', icon: <GraySunIcon /> },

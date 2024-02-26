@@ -1,8 +1,9 @@
 import React from 'react';
 import IntertekLogo from '@/images/PDP/Product-Details-Redesign-2/intertek.png';
-import IntertekResults from '@/images/PDP/Product-Details-Redesign-2/intertek-results.png';
+import IntertekLogoDesktop from '@/images/PDP/Product-Details-Redesign-2/intertek-logo-desktop.png';
+import IntertekResults from '@/images/PDP/Product-Details-Redesign-2/intertek-results.jpg';
 import Image from 'next/image';
-import BgBlur from '@/images/PDP/Product-Details-Redesign-2/pdp-background-blur.png';
+import BgBlur from '@/images/PDP/Product-Details-Redesign-2/pdp-background-blur.jpg';
 
 export default function RealTestSection() {
   return (
@@ -10,19 +11,35 @@ export default function RealTestSection() {
       <Image
         alt=""
         src={BgBlur}
-        className="absolute z-[-1] w-[200%] max-w-full translate-y-24 object-cover "
+        className="absolute top-0 z-[-3]  w-full max-w-full translate-y-[-30vh] object-cover lg:w-[150%] lg:translate-y-[-90vh]"
       />
       <div className="w-full">
-        <p className="w-full text-center text-[30px] font-[600] leading-[22px] ">
+        <p className="w-full text-center text-[30px] font-[600] leading-[22px] lg:tracking-wider ">
           Real Test, True Result
         </p>
-        <div className="flex w-full flex-col items-center pt-[14px] text-center text-[22px] font-[500] leading-[28px] text-[#7D7D7D]">
+        <div className="flex w-full flex-col items-center pt-[14px] text-center text-[22px] font-[500] leading-[28px] text-[#7D7D7D] lg:hidden">
           <p>Thoroughly Tested</p>
           <p>For Your Peace of Mind</p>
         </div>
+        <div className="hidden w-full flex-col items-center pt-[14px] text-center text-[22px] font-[500] leading-[28px] text-[#7D7D7D] lg:flex">
+          <p>Thoroughly Tested For Your Peace of Mind</p>
+        </div>
         <div className="flex w-full flex-col items-center">
-          <Image alt="intertek" src={IntertekLogo} className="py-9" />
-          <Image alt="intertek-results" src={IntertekResults} className="" />
+          <Image
+            alt="intertek"
+            src={IntertekLogo}
+            className="py-9 lg:hidden lg:w-[330px] "
+          />
+          <Image
+            alt="intertek"
+            src={IntertekLogoDesktop}
+            className="hidden py-9 lg:block lg:w-[330px]"
+          />
+          <Image
+            alt="intertek-results"
+            src={IntertekResults}
+            className="lg:h-[404px] lg:w-[655px]"
+          />
         </div>
         <span className="flex w-full justify-center">
           <a

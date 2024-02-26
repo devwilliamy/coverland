@@ -1,9 +1,10 @@
 import Image from 'next/image';
-import FabricWithWater from '@/images/PDP/Product-Details-Redesign-2/white-layer.png';
+import WhiteLayerMobile from '@/images/PDP/Product-Details-Redesign-2/white-layer-mobile.png';
+import WhiteLayerDesktop from '@/images/PDP/Product-Details-Redesign-2/white-layer-desktop.png';
 
 const FabricMattersSection = () => {
   return (
-    <div className="mt-[60px]">
+    <div className="mt-[60px] lg:mt-0">
       <div className="flex pb-7 text-center">
         <p className="w-full text-[30px] font-[500] leading-[26px] text-white">
           Fabric Matters
@@ -11,8 +12,13 @@ const FabricMattersSection = () => {
       </div>
       <Image
         alt="cover-with-water-droplets"
-        src={FabricWithWater}
-        className="h-200 mb-[14px] w-full"
+        src={WhiteLayerMobile}
+        className="mb-[14px] h-[200px] w-full lg:hidden lg:h-[550px] lg:w-[850px] "
+      />
+      <Image
+        alt="cover-with-water-droplets"
+        src={WhiteLayerDesktop}
+        className="mb-[14px] hidden h-[200px] w-full lg:block lg:h-[550px] lg:w-[850px] "
       />
     </div>
   );

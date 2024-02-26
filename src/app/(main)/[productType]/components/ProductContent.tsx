@@ -16,15 +16,6 @@ import AddToCart from './AddToCart';
 import CircleColorSelector from './CircleColorSelector';
 import RatingsTrigger from './RatingsTrigger';
 
-import EnhanceProtectionSection from '@/components/PDP/components/EnhanceProtectionSection';
-import SuggestedProducts from '@/components/PDP/components/SuggestedProducts';
-import ProvenSection from '@/components/PDP/components/ProvenSection';
-import RealTestSection from '@/components/PDP/components/RealTestSection';
-import LifetimeSections from '@/components/PDP/components/LifetimeSection';
-import FeaturesSection from '@/components/PDP/components/FeaturesSection';
-import { ExtraProductDetails } from '@/components/PDP/OtherDetails';
-import { ChevronDown } from 'lucide-react';
-
 interface ProductRefs {
   [key: string]: RefObject<HTMLElement>;
 }
@@ -57,7 +48,6 @@ export function ProductContent({
   const { addToCart } = useCartContext();
 
   const cartProduct = modelData.find((p) => p.display_color === color);
-  const [seeAll, setSeeAll] = useState(false);
 
   const handleAddToCart = () => {
     if (!cartProduct) return;
@@ -127,30 +117,6 @@ export function ProductContent({
       />
       <Separator className="mt-[36px] " />
       <FreeDetails />
-
-      {isMobile && (
-        <section>
-          <FeaturesSection />
-          <EnhanceProtectionSection />
-          <RealTestSection />
-          <ProvenSection />
-          <LifetimeSections />
-          {/* <span
-            className={`${!seeAll && 'absolute top-[30%]  bg-gradient-to-t from-white from-[98%] pt-[100px]'} z-[2] h-full w-full `}
-          >
-            {!seeAll && (
-              <div
-                onClick={() => setSeeAll(true)}
-                onMouseUpCapture={() => setSeeAll(true)}
-                className="flex w-full flex-col items-center justify-center "
-              >
-                <p>See All</p>
-                <ChevronDown className="-m-1 p-0" />
-              </div>
-            )}
-          </span> */}
-        </section>
-      )}
 
       {isMobile ? (
         <></>
