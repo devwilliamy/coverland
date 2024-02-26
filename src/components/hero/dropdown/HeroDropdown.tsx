@@ -106,7 +106,8 @@ export function HeroDropdown() {
     router.push(url);
   };
 
-  const showSubmodelDropdown = subModelData.length > 1 && year;
+  const showSubmodelDropdown = subModelData.length > 0 && year;
+  console.log(showSubmodelDropdown, subModelData);
 
   return (
     <div className="relative flex w-full flex-col items-center justify-center gap-2 px-4 font-medium *:flex-1 *:py-3 md:flex-row lg:max-h-[58px] lg:px-16 lg:*:py-4">
