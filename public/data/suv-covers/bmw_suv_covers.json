@@ -1,0 +1,758 @@
+[
+  {
+    "type": "SUV Covers",
+    "make": "BMW",
+    "model": "iX",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2022-2025",
+    "year_options": "2022,2023,2024"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "BMW",
+    "model": "iX",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2022-2025",
+    "year_options": "2022,2023,2024"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "BMW",
+    "model": "X7 Alpina XB7",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2021-2024",
+    "year_options": "2021,2022,2023"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "BMW",
+    "model": "X5 M",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2010-2018",
+    "year_options": "2010,2011,2012,2013,2014,2015,2016,2017,2018"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "BMW",
+    "model": "X4",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2014-2025",
+    "year_options": "2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "BMW",
+    "model": "X4",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2014-2025",
+    "year_options": "2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "BMW",
+    "model": "X6",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2020-2024",
+    "year_options": "2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "BMW",
+    "model": "X5 M",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2020-2024",
+    "year_options": "2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "BMW",
+    "model": "X6 M",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2010-2019",
+    "year_options": "2010,2011,2012,2013,2014,2015,2016,2017,2018,2019"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "BMW",
+    "model": "X5 M",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2020-2024",
+    "year_options": "2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "BMW",
+    "model": "X6",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2008-2019",
+    "year_options": "2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "BMW",
+    "model": "XM",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2023-2025",
+    "year_options": "2023,2024"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "BMW",
+    "model": "iX",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2022-2025",
+    "year_options": "2022,2023,2024"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "BMW",
+    "model": "Alpina XB7",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2021-2025",
+    "year_options": "2021,2022,2023"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "BMW",
+    "model": "X4 M",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2020-2025",
+    "year_options": "2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "BMW",
+    "model": "X5",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1999-2007",
+    "year_options": "1999,2000,2001,2002,2003,2004,2005,2006,2007"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "BMW",
+    "model": "X6",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2020-2024",
+    "year_options": "2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "BMW",
+    "model": "X5",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2008-2018",
+    "year_options": "2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "BMW",
+    "model": "X5",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2008-2018",
+    "year_options": "2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "BMW",
+    "model": "X5",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2019-2025",
+    "year_options": "2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "BMW",
+    "model": "X4 M",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2020-2025",
+    "year_options": "2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "BMW",
+    "model": "X6",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2008-2019",
+    "year_options": "2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "BMW",
+    "model": "X5 M",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2020-2024",
+    "year_options": "2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "BMW",
+    "model": "X5",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1999-2007",
+    "year_options": "1999,2000,2001,2002,2003,2004,2005,2006,2007"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "BMW",
+    "model": "X6 M",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2010-2019",
+    "year_options": "2010,2011,2012,2013,2014,2015,2016,2017,2018,2019"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "BMW",
+    "model": "X6 M",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2020-2024",
+    "year_options": "2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "BMW",
+    "model": "X4",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2014-2025",
+    "year_options": "2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "BMW",
+    "model": "X6",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2020-2024",
+    "year_options": "2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "BMW",
+    "model": "X7",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2019-2024",
+    "year_options": "2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "BMW",
+    "model": "X5 M",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2010-2018",
+    "year_options": "2010,2011,2012,2013,2014,2015,2016,2017,2018"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "BMW",
+    "model": "X5",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1999-2007",
+    "year_options": "1999,2000,2001,2002,2003,2004,2005,2006,2007"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "BMW",
+    "model": "X7",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2019-2024",
+    "year_options": "2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "BMW",
+    "model": "X5",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2008-2018",
+    "year_options": "2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "BMW",
+    "model": "X6 M",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2020-2024",
+    "year_options": "2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "BMW",
+    "model": "X2",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2018-2024",
+    "year_options": "2018,2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "BMW",
+    "model": "X2",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2018-2024",
+    "year_options": "2018,2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "BMW",
+    "model": "XM",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2023-2025",
+    "year_options": "2023,2024"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "BMW",
+    "model": "X1",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2013-2025",
+    "year_options": "2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "BMW",
+    "model": "X2",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2018-2024",
+    "year_options": "2018,2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "BMW",
+    "model": "X3",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2004-2010",
+    "year_options": "2004,2005,2006,2007,2008,2009,2010"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "BMW",
+    "model": "X6",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2008-2019",
+    "year_options": "2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "BMW",
+    "model": "X6",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2020-2024",
+    "year_options": "2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "BMW",
+    "model": "X6 M",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2010-2019",
+    "year_options": "2010,2011,2012,2013,2014,2015,2016,2017,2018,2019"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "BMW",
+    "model": "X4",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2014-2025",
+    "year_options": "2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "BMW",
+    "model": "X4 M",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2020-2025",
+    "year_options": "2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "BMW",
+    "model": "XM",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2023-2025",
+    "year_options": "2023,2024"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "BMW",
+    "model": "X7 Alpina XB7",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2021-2024",
+    "year_options": "2021,2022,2023"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "BMW",
+    "model": "X3 M",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2020-2025",
+    "year_options": "2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "BMW",
+    "model": "X6",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2008-2019",
+    "year_options": "2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "BMW",
+    "model": "X5",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2019-2025",
+    "year_options": "2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "BMW",
+    "model": "X6 M",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2010-2019",
+    "year_options": "2010,2011,2012,2013,2014,2015,2016,2017,2018,2019"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "BMW",
+    "model": "X5 M",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2010-2018",
+    "year_options": "2010,2011,2012,2013,2014,2015,2016,2017,2018"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "BMW",
+    "model": "X7 Alpina XB7",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2021-2024",
+    "year_options": "2021,2022,2023"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "BMW",
+    "model": "XM",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2023-2025",
+    "year_options": "2023,2024"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "BMW",
+    "model": "Alpina XB7",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2021-2025",
+    "year_options": "2021,2022,2023"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "BMW",
+    "model": "X6 M",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2020-2024",
+    "year_options": "2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "BMW",
+    "model": "X3",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2004-2010",
+    "year_options": "2004,2005,2006,2007,2008,2009,2010"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "BMW",
+    "model": "X1",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2013-2025",
+    "year_options": "2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "BMW",
+    "model": "X2",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2018-2024",
+    "year_options": "2018,2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "BMW",
+    "model": "Alpina XB7",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2021-2025",
+    "year_options": "2021,2022,2023"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "BMW",
+    "model": "X3",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2004-2010",
+    "year_options": "2004,2005,2006,2007,2008,2009,2010"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "BMW",
+    "model": "iX",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2022-2025",
+    "year_options": "2022,2023,2024"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "BMW",
+    "model": "X1",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2013-2025",
+    "year_options": "2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "BMW",
+    "model": "X3",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2004-2010",
+    "year_options": "2004,2005,2006,2007,2008,2009,2010"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "BMW",
+    "model": "X3",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2011-2024",
+    "year_options": "2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "BMW",
+    "model": "X3",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2011-2024",
+    "year_options": "2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "BMW",
+    "model": "X5",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1999-2007",
+    "year_options": "1999,2000,2001,2002,2003,2004,2005,2006,2007"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "BMW",
+    "model": "X5",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2008-2018",
+    "year_options": "2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "BMW",
+    "model": "X5",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2019-2025",
+    "year_options": "2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "BMW",
+    "model": "X5",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2019-2025",
+    "year_options": "2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "BMW",
+    "model": "X7",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2019-2024",
+    "year_options": "2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "BMW",
+    "model": "X4 M",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2020-2025",
+    "year_options": "2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "BMW",
+    "model": "Alpina XB7",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2021-2025",
+    "year_options": "2021,2022,2023"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "BMW",
+    "model": "X3 M",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2020-2025",
+    "year_options": "2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "BMW",
+    "model": "X5 M",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2010-2018",
+    "year_options": "2010,2011,2012,2013,2014,2015,2016,2017,2018"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "BMW",
+    "model": "X5 M",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2020-2024",
+    "year_options": "2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "BMW",
+    "model": "X7 Alpina XB7",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2021-2024",
+    "year_options": "2021,2022,2023"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "BMW",
+    "model": "X7",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2019-2024",
+    "year_options": "2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "BMW",
+    "model": "X3 M",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2020-2025",
+    "year_options": "2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "BMW",
+    "model": "X3",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2011-2024",
+    "year_options": "2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "BMW",
+    "model": "X3 M",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2020-2025",
+    "year_options": "2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "BMW",
+    "model": "X3",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2011-2024",
+    "year_options": "2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "BMW",
+    "model": "X6 M",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2020-2024",
+    "year_options": "2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "BMW",
+    "model": "X1",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2013-2025",
+    "year_options": "2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024"
+  }
+]

@@ -1,0 +1,110 @@
+[
+  {
+    "type": "SUV Covers",
+    "make": "Geo",
+    "model": "Tracker",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1989-1998",
+    "year_options": "1989,1990,1991,1992,1993,1994,1995,1996,1997,1998"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Geo",
+    "model": "Tracker",
+    "submodel1": "2-Door",
+    "submodel2": null,
+    "parent_generation": "1999-2004",
+    "year_options": "1999,2000,2001,2002,2003,2004"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Geo",
+    "model": "Tracker",
+    "submodel1": "2-Door",
+    "submodel2": null,
+    "parent_generation": "1999-2004",
+    "year_options": "1999,2000,2001,2002,2003,2004"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Geo",
+    "model": "Tracker",
+    "submodel1": "2-Door",
+    "submodel2": null,
+    "parent_generation": "1999-2004",
+    "year_options": "1999,2000,2001,2002,2003,2004"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Geo",
+    "model": "Tracker",
+    "submodel1": "4-Door",
+    "submodel2": null,
+    "parent_generation": "1999-2004",
+    "year_options": "1999,2000,2001,2002,2003,2004"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Geo",
+    "model": "Tracker",
+    "submodel1": "4-Door",
+    "submodel2": null,
+    "parent_generation": "1999-2004",
+    "year_options": "1999,2000,2001,2002,2003,2004"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Geo",
+    "model": "Tracker",
+    "submodel1": "4-Door",
+    "submodel2": null,
+    "parent_generation": "1999-2004",
+    "year_options": "1999,2000,2001,2002,2003,2004"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Geo",
+    "model": "Tracker",
+    "submodel1": "2-Door",
+    "submodel2": null,
+    "parent_generation": "1999-2004",
+    "year_options": "1999,2000,2001,2002,2003,2004"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Geo",
+    "model": "Tracker",
+    "submodel1": "4-Door",
+    "submodel2": null,
+    "parent_generation": "1999-2004",
+    "year_options": "1999,2000,2001,2002,2003,2004"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Geo",
+    "model": "Tracker",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1989-1998",
+    "year_options": "1989,1990,1991,1992,1993,1994,1995,1996,1997,1998"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Geo",
+    "model": "Tracker",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1989-1998",
+    "year_options": "1989,1990,1991,1992,1993,1994,1995,1996,1997,1998"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Geo",
+    "model": "Tracker",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1989-1998",
+    "year_options": "1989,1990,1991,1992,1993,1994,1995,1996,1997,1998"
+  }
+]

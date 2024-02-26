@@ -1,0 +1,974 @@
+[
+  {
+    "type": "SUV Covers",
+    "make": "Lexus",
+    "model": "LX 450",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1996-1997",
+    "year_options": "1996,1997"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Lexus",
+    "model": "RX 330",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2004-2009",
+    "year_options": "2004,2005,2006,2007,2008,2009"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Lexus",
+    "model": "RX 330",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2004-2009",
+    "year_options": "2004,2005,2006,2007,2008,2009"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Lexus",
+    "model": "RX 330",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2004-2009",
+    "year_options": "2004,2005,2006,2007,2008,2009"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Lexus",
+    "model": "LX 600",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2022-2024",
+    "year_options": "2022,2023"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Lexus",
+    "model": "RX 350L",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2018-2022",
+    "year_options": "2018,2019,2020,2021,2022"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Lexus",
+    "model": "RX 350",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2010-2025",
+    "year_options": "2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Lexus",
+    "model": "RX 350h",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2023-2025",
+    "year_options": "2023"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Lexus",
+    "model": "NX 300h",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2015-2021",
+    "year_options": "2015,2016,2017,2018,2019,2020,2021"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Lexus",
+    "model": "NX 250",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2022-2024",
+    "year_options": "2022,2023"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Lexus",
+    "model": "NX 350",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2022-2024",
+    "year_options": "2022,2023"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Lexus",
+    "model": "NX 350h",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2022-2024",
+    "year_options": "2022,2023"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Lexus",
+    "model": "NX 450h+",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2022-2024",
+    "year_options": "2022,2023"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Lexus",
+    "model": "GX 470",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2003-2009",
+    "year_options": "2003,2004,2005,2006,2007,2008,2009"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Lexus",
+    "model": "RX 350",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2004-2009",
+    "year_options": "2004,2005,2006,2007,2008,2009"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Lexus",
+    "model": "TX 350",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2024-2025",
+    "year_options": "2024"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Lexus",
+    "model": "GX 470",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2003-2009",
+    "year_options": "2003,2004,2005,2006,2007,2008,2009"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Lexus",
+    "model": "GX 470",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2003-2009",
+    "year_options": "2003,2004,2005,2006,2007,2008,2009"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Lexus",
+    "model": "NX 450h+",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2022-2024",
+    "year_options": "2022,2023"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Lexus",
+    "model": "NX 200t",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2015-2021",
+    "year_options": "2015,2016,2017,2018,2019,2020,2021"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Lexus",
+    "model": "LX 470",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1998-2007",
+    "year_options": "1998,1999,2000,2001,2002,2003,2004,2005,2006,2007"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Lexus",
+    "model": "LX 570",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2008-2021",
+    "year_options": "2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Lexus",
+    "model": "LX 600",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2022-2024",
+    "year_options": "2022,2023"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Lexus",
+    "model": "NX 300",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2015-2021",
+    "year_options": "2015,2016,2017,2018,2019,2020,2021"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Lexus",
+    "model": "RX 350",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2010-2025",
+    "year_options": "2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Lexus",
+    "model": "RX 350L",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2018-2022",
+    "year_options": "2018,2019,2020,2021,2022"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Lexus",
+    "model": "RX 450h",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2010-2022",
+    "year_options": "2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Lexus",
+    "model": "RX 400h",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2004-2009",
+    "year_options": "2004,2005,2006,2007,2008,2009"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Lexus",
+    "model": "RX 500h",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2023-2025",
+    "year_options": "2023"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Lexus",
+    "model": "RX 450hL",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2018-2022",
+    "year_options": "2018,2019,2020,2021,2022"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Lexus",
+    "model": "RZ 450e",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2023-2025",
+    "year_options": "2023"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Lexus",
+    "model": "TX 350",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2024-2025",
+    "year_options": "2024"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Lexus",
+    "model": "UX 200",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2019-2024",
+    "year_options": "2019,2020,2021,2022,2023"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Lexus",
+    "model": "UX 200",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2019-2024",
+    "year_options": "2019,2020,2021,2022,2023"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Lexus",
+    "model": "UX 200h",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2019-2024",
+    "year_options": "2019,2020,2021,2022,2023"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Lexus",
+    "model": "LX 570",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2008-2021",
+    "year_options": "2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Lexus",
+    "model": "NX 250",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2022-2024",
+    "year_options": "2022,2023"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Lexus",
+    "model": "NX 350",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2022-2024",
+    "year_options": "2022,2023"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Lexus",
+    "model": "NX 350",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2022-2024",
+    "year_options": "2022,2023"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Lexus",
+    "model": "NX 200t",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2015-2021",
+    "year_options": "2015,2016,2017,2018,2019,2020,2021"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Lexus",
+    "model": "LX 570",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2008-2021",
+    "year_options": "2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Lexus",
+    "model": "LX 600",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2022-2024",
+    "year_options": "2022,2023"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Lexus",
+    "model": "RX 350h",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2023-2025",
+    "year_options": "2023"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Lexus",
+    "model": "NX 200t",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2015-2021",
+    "year_options": "2015,2016,2017,2018,2019,2020,2021"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Lexus",
+    "model": "RX 350",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2004-2009",
+    "year_options": "2004,2005,2006,2007,2008,2009"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Lexus",
+    "model": "NX 300",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2015-2021",
+    "year_options": "2015,2016,2017,2018,2019,2020,2021"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Lexus",
+    "model": "GX 460",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2010-2024",
+    "year_options": "2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Lexus",
+    "model": "NX 350h",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2022-2024",
+    "year_options": "2022,2023"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Lexus",
+    "model": "NX 450h+",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2022-2024",
+    "year_options": "2022,2023"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Lexus",
+    "model": "RX 300",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1999-2003",
+    "year_options": "1999,2000,2001,2002,2003"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Lexus",
+    "model": "RX 330",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2004-2009",
+    "year_options": "2004,2005,2006,2007,2008,2009"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Lexus",
+    "model": "LX 600",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2022-2024",
+    "year_options": "2022,2023"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Lexus",
+    "model": "RX 500h",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2023-2025",
+    "year_options": "2023"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Lexus",
+    "model": "RX 350L",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2018-2022",
+    "year_options": "2018,2019,2020,2021,2022"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Lexus",
+    "model": "LX 470",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1998-2007",
+    "year_options": "1998,1999,2000,2001,2002,2003,2004,2005,2006,2007"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Lexus",
+    "model": "RX 400h",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2004-2009",
+    "year_options": "2004,2005,2006,2007,2008,2009"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Lexus",
+    "model": "UX 200h",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2019-2024",
+    "year_options": "2019,2020,2021,2022,2023"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Lexus",
+    "model": "RX 450hL",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2018-2022",
+    "year_options": "2018,2019,2020,2021,2022"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Lexus",
+    "model": "RZ 450e",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2023-2025",
+    "year_options": "2023"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Lexus",
+    "model": "TX 350",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2024-2025",
+    "year_options": "2024"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Lexus",
+    "model": "UX 200",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2019-2024",
+    "year_options": "2019,2020,2021,2022,2023"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Lexus",
+    "model": "RX 350L",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2018-2022",
+    "year_options": "2018,2019,2020,2021,2022"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Lexus",
+    "model": "RX 400h",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2004-2009",
+    "year_options": "2004,2005,2006,2007,2008,2009"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Lexus",
+    "model": "RX 400h",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2004-2009",
+    "year_options": "2004,2005,2006,2007,2008,2009"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Lexus",
+    "model": "LX 450",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1996-1997",
+    "year_options": "1996,1997"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Lexus",
+    "model": "GX 460",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2010-2024",
+    "year_options": "2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Lexus",
+    "model": "LX 470",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1998-2007",
+    "year_options": "1998,1999,2000,2001,2002,2003,2004,2005,2006,2007"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Lexus",
+    "model": "NX 200t",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2015-2021",
+    "year_options": "2015,2016,2017,2018,2019,2020,2021"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Lexus",
+    "model": "NX 300",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2015-2021",
+    "year_options": "2015,2016,2017,2018,2019,2020,2021"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Lexus",
+    "model": "LX 450",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1996-1997",
+    "year_options": "1996,1997"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Lexus",
+    "model": "LX 450",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1996-1997",
+    "year_options": "1996,1997"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Lexus",
+    "model": "NX 300h",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2015-2021",
+    "year_options": "2015,2016,2017,2018,2019,2020,2021"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Lexus",
+    "model": "NX 350",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2022-2024",
+    "year_options": "2022,2023"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Lexus",
+    "model": "RX 350",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2010-2025",
+    "year_options": "2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Lexus",
+    "model": "RX 350h",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2023-2025",
+    "year_options": "2023"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Lexus",
+    "model": "GX 460",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2010-2024",
+    "year_options": "2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Lexus",
+    "model": "LX 470",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1998-2007",
+    "year_options": "1998,1999,2000,2001,2002,2003,2004,2005,2006,2007"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Lexus",
+    "model": "NX 300h",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2015-2021",
+    "year_options": "2015,2016,2017,2018,2019,2020,2021"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Lexus",
+    "model": "NX 250",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2022-2024",
+    "year_options": "2022,2023"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Lexus",
+    "model": "NX 350h",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2022-2024",
+    "year_options": "2022,2023"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Lexus",
+    "model": "NX 350h",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2022-2024",
+    "year_options": "2022,2023"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Lexus",
+    "model": "NX 450h+",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2022-2024",
+    "year_options": "2022,2023"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Lexus",
+    "model": "RX 300",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1999-2003",
+    "year_options": "1999,2000,2001,2002,2003"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Lexus",
+    "model": "NX 300",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2015-2021",
+    "year_options": "2015,2016,2017,2018,2019,2020,2021"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Lexus",
+    "model": "RX 350",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2004-2009",
+    "year_options": "2004,2005,2006,2007,2008,2009"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Lexus",
+    "model": "RX 350",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2010-2025",
+    "year_options": "2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Lexus",
+    "model": "RX 450hL",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2018-2022",
+    "year_options": "2018,2019,2020,2021,2022"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Lexus",
+    "model": "RX 450hL",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2018-2022",
+    "year_options": "2018,2019,2020,2021,2022"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Lexus",
+    "model": "RZ 450e",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2023-2025",
+    "year_options": "2023"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Lexus",
+    "model": "TX 350",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2024-2025",
+    "year_options": "2024"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Lexus",
+    "model": "UX 200",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2019-2024",
+    "year_options": "2019,2020,2021,2022,2023"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Lexus",
+    "model": "UX 200h",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2019-2024",
+    "year_options": "2019,2020,2021,2022,2023"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Lexus",
+    "model": "RX 500h",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2023-2025",
+    "year_options": "2023"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Lexus",
+    "model": "RX 450h",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2010-2022",
+    "year_options": "2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Lexus",
+    "model": "RX 450h",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2010-2022",
+    "year_options": "2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Lexus",
+    "model": "RX 300",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1999-2003",
+    "year_options": "1999,2000,2001,2002,2003"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Lexus",
+    "model": "UX 200h",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2019-2024",
+    "year_options": "2019,2020,2021,2022,2023"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Lexus",
+    "model": "RX 500h",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2023-2025",
+    "year_options": "2023"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Lexus",
+    "model": "RX 350h",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2023-2025",
+    "year_options": "2023"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Lexus",
+    "model": "GX 470",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2003-2009",
+    "year_options": "2003,2004,2005,2006,2007,2008,2009"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Lexus",
+    "model": "GX 460",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2010-2024",
+    "year_options": "2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Lexus",
+    "model": "RX 300",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1999-2003",
+    "year_options": "1999,2000,2001,2002,2003"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Lexus",
+    "model": "RZ 450e",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2023-2025",
+    "year_options": "2023"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Lexus",
+    "model": "RX 350",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2004-2009",
+    "year_options": "2004,2005,2006,2007,2008,2009"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Lexus",
+    "model": "LX 570",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2008-2021",
+    "year_options": "2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Lexus",
+    "model": "NX 300h",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2015-2021",
+    "year_options": "2015,2016,2017,2018,2019,2020,2021"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Lexus",
+    "model": "NX 250",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2022-2024",
+    "year_options": "2022,2023"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Lexus",
+    "model": "RX 450h",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2010-2022",
+    "year_options": "2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022"
+  }
+]

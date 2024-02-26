@@ -31,13 +31,15 @@ export function ProductContent({
   setFeaturedImage,
   productRefs,
   uniqueColors,
+  searchParams,
 }: {
-  selectedProduct: TInitialProductDataDB | null | undefined;
+  selectedProduct: IProductData;
   setSelectedProduct: (newProduct: IProductData) => void;
   productRefs: React.MutableRefObject<ProductRefs>;
   uniqueColors?: IProductData[];
   modelData: TInitialProductDataDB[];
   setFeaturedImage: (img: string) => void;
+  searchParams: { submodel?: string; second_submodel?: string } | undefined;
 }) {
   const productType = compareRawStrings(selectedProduct?.type, 'car covers')
     ? 'Car Cover'
@@ -119,6 +121,7 @@ export function ProductContent({
       <AddToCart
         selectedProduct={selectedProduct}
         handleAddToCart={handleAddToCart}
+        searchParams={searchParams}
       />
       <Separator className="mt-[36px] " />
       <FreeDetails />

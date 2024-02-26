@@ -1,0 +1,488 @@
+[
+  {
+    "type": "Car Covers",
+    "make": "Edsel",
+    "model": "Pacer",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1958",
+    "year_options": "1958"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Edsel",
+    "model": "Citation",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1958",
+    "year_options": "1958"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Edsel",
+    "model": "Ranger",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1958-1960",
+    "year_options": "1958,1959,1960"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Edsel",
+    "model": "Corsair",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1958-1959",
+    "year_options": "1958,1959"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Edsel",
+    "model": "Corsair",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1958-1959",
+    "year_options": "1958,1959"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Edsel",
+    "model": "Citation",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1958",
+    "year_options": "1958"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Edsel",
+    "model": "Citation",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1958",
+    "year_options": "1958"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Edsel",
+    "model": "Roundup",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1958",
+    "year_options": "1958"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Edsel",
+    "model": "Pacer",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1958",
+    "year_options": "1958"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Edsel",
+    "model": "Pacer",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1958",
+    "year_options": "1958"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Edsel",
+    "model": "Roundup",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1958",
+    "year_options": "1958"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Edsel",
+    "model": "Roundup",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1958",
+    "year_options": "1958"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Edsel",
+    "model": "Ranger",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1958-1960",
+    "year_options": "1958,1959,1960"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Edsel",
+    "model": "Citation",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1958",
+    "year_options": "1958"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Edsel",
+    "model": "Citation",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1958",
+    "year_options": "1958"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Edsel",
+    "model": "Pacer",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1958",
+    "year_options": "1958"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Edsel",
+    "model": "Corsair",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1958-1959",
+    "year_options": "1958,1959"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Edsel",
+    "model": "Corsair",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1958-1959",
+    "year_options": "1958,1959"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Edsel",
+    "model": "Corsair",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1958-1959",
+    "year_options": "1958,1959"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Edsel",
+    "model": "Roundup",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1958",
+    "year_options": "1958"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Edsel",
+    "model": "Ranger",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1958-1960",
+    "year_options": "1958,1959,1960"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Edsel",
+    "model": "Ranger",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1958-1960",
+    "year_options": "1958,1959,1960"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Edsel",
+    "model": "Ranger",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1958-1960",
+    "year_options": "1958,1959,1960"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Edsel",
+    "model": "Ranger",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1958-1960",
+    "year_options": "1958,1959,1960"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Edsel",
+    "model": "Villager",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1958-1960",
+    "year_options": "1958,1959,1960"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Edsel",
+    "model": "Villager",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1958-1960",
+    "year_options": "1958,1959,1960"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Edsel",
+    "model": "Villager",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1958-1960",
+    "year_options": "1958,1959,1960"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Edsel",
+    "model": "Villager",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1958-1960",
+    "year_options": "1958,1959,1960"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Edsel",
+    "model": "Roundup",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1958",
+    "year_options": "1958"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Edsel",
+    "model": "Pacer",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1958",
+    "year_options": "1958"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Edsel",
+    "model": "Ranger",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1958-1960",
+    "year_options": "1958,1959,1960"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Edsel",
+    "model": "Corsair",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1958-1959",
+    "year_options": "1958,1959"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Edsel",
+    "model": "Citation",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1958",
+    "year_options": "1958"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Edsel",
+    "model": "Roundup",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1958",
+    "year_options": "1958"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Edsel",
+    "model": "Villager",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1958-1960",
+    "year_options": "1958,1959,1960"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Edsel",
+    "model": "Pacer",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1958",
+    "year_options": "1958"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Edsel",
+    "model": "Corsair",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1958-1959",
+    "year_options": "1958,1959"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Edsel",
+    "model": "Corsair",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1958-1959",
+    "year_options": "1958,1959"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Edsel",
+    "model": "Pacer",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1958",
+    "year_options": "1958"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Edsel",
+    "model": "Citation",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1958",
+    "year_options": "1958"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Edsel",
+    "model": "Roundup",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1958",
+    "year_options": "1958"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Edsel",
+    "model": "Villager",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1958-1960",
+    "year_options": "1958,1959,1960"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Edsel",
+    "model": "Villager",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1958-1960",
+    "year_options": "1958,1959,1960"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Edsel",
+    "model": "Roundup",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1958",
+    "year_options": "1958"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Edsel",
+    "model": "Ranger",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1958-1960",
+    "year_options": "1958,1959,1960"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Edsel",
+    "model": "Ranger",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1958-1960",
+    "year_options": "1958,1959,1960"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Edsel",
+    "model": "Villager",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1958-1960",
+    "year_options": "1958,1959,1960"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Edsel",
+    "model": "Pacer",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1958",
+    "year_options": "1958"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Edsel",
+    "model": "Pacer",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1958",
+    "year_options": "1958"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Edsel",
+    "model": "Roundup",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1958",
+    "year_options": "1958"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Edsel",
+    "model": "Citation",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1958",
+    "year_options": "1958"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Edsel",
+    "model": "Citation",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1958",
+    "year_options": "1958"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Edsel",
+    "model": "Villager",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1958-1960",
+    "year_options": "1958,1959,1960"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Edsel",
+    "model": "Corsair",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1958-1959",
+    "year_options": "1958,1959"
+  }
+]

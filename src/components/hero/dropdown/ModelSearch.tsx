@@ -2,16 +2,17 @@
 
 import { ChangeEvent, Dispatch, SetStateAction, useState } from 'react';
 import { TQuery } from './HeroDropdown';
+import { TProductJsonData } from '@/components/PDP/EditVehicleDropdown';
 
 export function ModelSearch({
   queryObj,
-  modelData,
+  dropdownData,
 }: {
   queryObj: {
     query: TQuery;
     setQuery: Dispatch<SetStateAction<TQuery>>;
   };
-  modelData: string[];
+  dropdownData: TProductJsonData[];
 }) {
   const [value, setValue] = useState('');
   const { query, setQuery } = queryObj;
@@ -22,7 +23,8 @@ export function ModelSearch({
     setQuery((p) => ({ ...p, model: newValue }));
   };
 
-  const isDisabled = !query.type || !query.year || !query.make;
+  const isDisabled = !query.type || !query.make;
+  const models = Array.from(new Set(...dropdownData.map((d) => d.model)));
 
   return (
     <button
@@ -38,7 +40,7 @@ export function ModelSearch({
         className=" w-full bg-transparent outline-none"
       >
         <option value="">Model</option>
-        {modelData?.sort()?.map((model) => (
+        {models?.sort()?.map((model) => (
           <option key={`model-${model}`} value={model}>
             {model}
           </option>

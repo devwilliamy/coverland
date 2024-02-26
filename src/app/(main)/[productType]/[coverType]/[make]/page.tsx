@@ -4,7 +4,6 @@ import { Suspense } from 'react';
 import CarPDP from '@/app/(main)/[productType]/components/CarPDP';
 import {
   TProductReviewSummary,
-  filterDuplicateReviewImages,
   getAllReviewsWithImages,
   getProductReviewSummary,
   getProductReviewsByPage,
@@ -20,6 +19,7 @@ export type TCarCoverSlugParams = {
 
 export default async function CarPDPDataLayer({
   params,
+  searchParams,
 }: {
   params: TPathParams;
   searchParams: { submodel?: string; second_submodel?: string };
@@ -85,6 +85,7 @@ export default async function CarPDPDataLayer({
           params={params}
           reviewDataSummary={reviewDataSummary}
           reviewImages={reviewImages}
+          searchParams={searchParams}
         />
       </Suspense>
     </>

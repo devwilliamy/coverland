@@ -1,0 +1,74 @@
+[
+  {
+    "type": "SUV Covers",
+    "make": "Tesla",
+    "model": "Model X",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2016-2024",
+    "year_options": "2016,2017,2018,2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Tesla",
+    "model": "Model X",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2016-2024",
+    "year_options": "2016,2017,2018,2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Tesla",
+    "model": "Model Y",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2020-2024",
+    "year_options": "2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Tesla",
+    "model": "Model X",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2016-2024",
+    "year_options": "2016,2017,2018,2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Tesla",
+    "model": "Model Y",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2020-2024",
+    "year_options": "2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Tesla",
+    "model": "Model X",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2016-2024",
+    "year_options": "2016,2017,2018,2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Tesla",
+    "model": "Model Y",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2020-2024",
+    "year_options": "2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Tesla",
+    "model": "Model Y",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2020-2024",
+    "year_options": "2020,2021,2022,2023,2024"
+  }
+]

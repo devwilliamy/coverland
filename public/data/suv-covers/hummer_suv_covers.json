@@ -1,0 +1,146 @@
+[
+  {
+    "type": "SUV Covers",
+    "make": "Hummer",
+    "model": "H1",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1992-2006",
+    "year_options": "1992,1993,1994,1995,1996,1997,1998,1999,2000,2001,2002,2003,2004,2005,2006"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Hummer",
+    "model": "H2 SUT",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2005-2009",
+    "year_options": "2005,2006,2007,2008,2009"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Hummer",
+    "model": "H1",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1992-2006",
+    "year_options": "1992,1993,1994,1995,1996,1997,1998,1999,2000,2001,2002,2003,2004,2005,2006"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Hummer",
+    "model": "H2",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2003-2009",
+    "year_options": "2003,2004,2005,2006,2007,2008,2009"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Hummer",
+    "model": "H2",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2003-2009",
+    "year_options": "2003,2004,2005,2006,2007,2008,2009"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Hummer",
+    "model": "H2 SUT",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2005-2009",
+    "year_options": "2005,2006,2007,2008,2009"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Hummer",
+    "model": "H3",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2006-2010",
+    "year_options": "2006,2007,2008,2009,2010"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Hummer",
+    "model": "H3",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2006-2010",
+    "year_options": "2006,2007,2008,2009,2010"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Hummer",
+    "model": "H1",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1992-2006",
+    "year_options": "1992,1993,1994,1995,1996,1997,1998,1999,2000,2001,2002,2003,2004,2005,2006"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Hummer",
+    "model": "H3",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2006-2010",
+    "year_options": "2006,2007,2008,2009,2010"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Hummer",
+    "model": "H2 SUT",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2005-2009",
+    "year_options": "2005,2006,2007,2008,2009"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Hummer",
+    "model": "H3",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2006-2010",
+    "year_options": "2006,2007,2008,2009,2010"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Hummer",
+    "model": "H2 SUT",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2005-2009",
+    "year_options": "2005,2006,2007,2008,2009"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Hummer",
+    "model": "H1",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1992-2006",
+    "year_options": "1992,1993,1994,1995,1996,1997,1998,1999,2000,2001,2002,2003,2004,2005,2006"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Hummer",
+    "model": "H2",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2003-2009",
+    "year_options": "2003,2004,2005,2006,2007,2008,2009"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Hummer",
+    "model": "H2",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2003-2009",
+    "year_options": "2003,2004,2005,2006,2007,2008,2009"
+  }
+]

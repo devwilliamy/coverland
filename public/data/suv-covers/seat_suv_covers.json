@@ -1,0 +1,110 @@
+[
+  {
+    "type": "SUV Covers",
+    "make": "Seat",
+    "model": "Tarraco",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2019-2024",
+    "year_options": "2019,2020,2021,2022,2023"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Seat",
+    "model": "Tarraco",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2019-2024",
+    "year_options": "2019,2020,2021,2022,2023"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Seat",
+    "model": "Arona",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2018-2020",
+    "year_options": "2018,2019,2020"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Seat",
+    "model": "Arona",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2018-2020",
+    "year_options": "2018,2019,2020"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Seat",
+    "model": "Tarraco",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2019-2024",
+    "year_options": "2019,2020,2021,2022,2023"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Seat",
+    "model": "Arona",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2018-2020",
+    "year_options": "2018,2019,2020"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Seat",
+    "model": "Ateca",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2017-2022",
+    "year_options": "2017,2018,2019,2020,2021,2022"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Seat",
+    "model": "Ateca",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2017-2022",
+    "year_options": "2017,2018,2019,2020,2021,2022"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Seat",
+    "model": "Arona",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2018-2020",
+    "year_options": "2018,2019,2020"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Seat",
+    "model": "Ateca",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2017-2022",
+    "year_options": "2017,2018,2019,2020,2021,2022"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Seat",
+    "model": "Ateca",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2017-2022",
+    "year_options": "2017,2018,2019,2020,2021,2022"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Seat",
+    "model": "Tarraco",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2019-2024",
+    "year_options": "2019,2020,2021,2022,2023"
+  }
+]

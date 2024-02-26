@@ -2,7 +2,6 @@ import type { Metadata } from 'next';
 import { Roboto } from 'next/font/google';
 import './globals.css';
 import Providers from '@/providers';
-import { Toaster } from '@/components/ui/toaster';
 import { Analytics } from '@vercel/analytics/react';
 import AppScripts from './scripts/AppScripts';
 import Script from 'next/script';
@@ -57,7 +56,6 @@ export default function RootLayout({
           <main className="mx-auto max-w-[1280px] lg:px-0">
             {children}
             {/* <ReactQueryDevtools initialIsOpen={false} /> */}
-            <Toaster />
           </main>
         </Providers>
         <Analytics />

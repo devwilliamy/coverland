@@ -51,11 +51,8 @@ export default function ReviewImagesSheet({
                 </Link>
               </div>
             </section>
-            {/* 
-            <section className="mb-[11px] mt-[3px] flex w-full place-self-center px-[14px]">
-              <AlgoliaSearchbar />
-            </section>
-            */}
+            {/*
+             */}
           </header>
           <ReviewImageGallery setReviewsOpen={setReviewsOpen} />
         </div>

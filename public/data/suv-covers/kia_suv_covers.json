@@ -1,0 +1,686 @@
+[
+  {
+    "type": "SUV Covers",
+    "make": "Kia",
+    "model": "Borrego",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2008-2011",
+    "year_options": "2008,2009,2010,2011"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Kia",
+    "model": "Sorento",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2003-2015",
+    "year_options": "2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Kia",
+    "model": "EV6",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2022-2024",
+    "year_options": "2022,2023,2024"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Kia",
+    "model": "Soul EV",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2015-2020",
+    "year_options": "2015,2016,2017,2018,2019,2020"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Kia",
+    "model": "Sportage",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1995-2010",
+    "year_options": "1995,1996,1997,1998,1999,2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Kia",
+    "model": "Sportage Hybrid",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2023-2024",
+    "year_options": "2023,2024"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Kia",
+    "model": "Soul",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2009-2013",
+    "year_options": "2009,2010,2011,2012"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Kia",
+    "model": "Niro",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2023-2024",
+    "year_options": "2023,2024"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Kia",
+    "model": "Niro Hybrid",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2018-2024",
+    "year_options": "2018,2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Kia",
+    "model": "Soul",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2009-2013",
+    "year_options": "2009,2010,2011,2012"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Kia",
+    "model": "Soul",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2014-2024",
+    "year_options": "2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Kia",
+    "model": "Borrego",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2008-2011",
+    "year_options": "2008,2009,2010,2011"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Kia",
+    "model": "Niro",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2017-2022",
+    "year_options": "2017,2018,2019,2020,2021,2022"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Kia",
+    "model": "Niro",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2017-2022",
+    "year_options": "2017,2018,2019,2020,2021,2022"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Kia",
+    "model": "EV6",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2022-2024",
+    "year_options": "2022,2023,2024"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Kia",
+    "model": "Niro",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2023-2024",
+    "year_options": "2023,2024"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Kia",
+    "model": "Niro EV",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2019-2024",
+    "year_options": "2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Kia",
+    "model": "Sorento",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2016-2024",
+    "year_options": "2016,2017,2018,2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Kia",
+    "model": "Niro Hybrid",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2018-2024",
+    "year_options": "2018,2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Kia",
+    "model": "Seltos",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2020-2024",
+    "year_options": "2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Kia",
+    "model": "Sorento",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2003-2015",
+    "year_options": "2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Kia",
+    "model": "Sorento",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2016-2024",
+    "year_options": "2016,2017,2018,2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Kia",
+    "model": "Sorento Hybrid",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2021-2024",
+    "year_options": "2021,2022,2023,2024"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Kia",
+    "model": "Niro",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2023-2024",
+    "year_options": "2023,2024"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Kia",
+    "model": "Niro",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2017-2022",
+    "year_options": "2017,2018,2019,2020,2021,2022"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Kia",
+    "model": "Sportage",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1995-2010",
+    "year_options": "1995,1996,1997,1998,1999,2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Kia",
+    "model": "Niro",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2017-2022",
+    "year_options": "2017,2018,2019,2020,2021,2022"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Kia",
+    "model": "Niro",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2023-2024",
+    "year_options": "2023,2024"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Kia",
+    "model": "Soul EV",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2015-2020",
+    "year_options": "2015,2016,2017,2018,2019,2020"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Kia",
+    "model": "Niro EV",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2019-2024",
+    "year_options": "2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Kia",
+    "model": "Soul",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2014-2024",
+    "year_options": "2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Kia",
+    "model": "Sportage",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2011-2020",
+    "year_options": "2011,2012,2013,2014,2015,2016,2017,2018,2019,2020"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Kia",
+    "model": "Soul EV",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2015-2020",
+    "year_options": "2015,2016,2017,2018,2019,2020"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Kia",
+    "model": "Sportage",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2011-2020",
+    "year_options": "2011,2012,2013,2014,2015,2016,2017,2018,2019,2020"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Kia",
+    "model": "Sportage",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2021-2024",
+    "year_options": "2021,2022,2023,2024"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Kia",
+    "model": "Sportage",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2021-2024",
+    "year_options": "2021,2022,2023,2024"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Kia",
+    "model": "Sportage",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2011-2020",
+    "year_options": "2011,2012,2013,2014,2015,2016,2017,2018,2019,2020"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Kia",
+    "model": "Sportage",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2021-2024",
+    "year_options": "2021,2022,2023,2024"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Kia",
+    "model": "Sportage Hybrid",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2023-2024",
+    "year_options": "2023,2024"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Kia",
+    "model": "Telluride",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2020-2024",
+    "year_options": "2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Kia",
+    "model": "Sportage",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2021-2024",
+    "year_options": "2021,2022,2023,2024"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Kia",
+    "model": "Sportage",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1995-2010",
+    "year_options": "1995,1996,1997,1998,1999,2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Kia",
+    "model": "Sportage",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2011-2020",
+    "year_options": "2011,2012,2013,2014,2015,2016,2017,2018,2019,2020"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Kia",
+    "model": "Sportage Hybrid",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2023-2024",
+    "year_options": "2023,2024"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Kia",
+    "model": "Telluride",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2020-2024",
+    "year_options": "2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Kia",
+    "model": "Sorento Hybrid",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2021-2024",
+    "year_options": "2021,2022,2023,2024"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Kia",
+    "model": "Borrego",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2008-2011",
+    "year_options": "2008,2009,2010,2011"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Kia",
+    "model": "Borrego",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2008-2011",
+    "year_options": "2008,2009,2010,2011"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Kia",
+    "model": "Carnival",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2022-2024",
+    "year_options": "2022,2023,2024"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Kia",
+    "model": "Carnival",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2022-2024",
+    "year_options": "2022,2023,2024"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Kia",
+    "model": "Niro Hybrid",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2018-2024",
+    "year_options": "2018,2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Kia",
+    "model": "Seltos",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2020-2024",
+    "year_options": "2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Kia",
+    "model": "Seltos",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2020-2024",
+    "year_options": "2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Kia",
+    "model": "Sorento",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2003-2015",
+    "year_options": "2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Kia",
+    "model": "Sorento",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2003-2015",
+    "year_options": "2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Kia",
+    "model": "Sorento",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2016-2024",
+    "year_options": "2016,2017,2018,2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Kia",
+    "model": "Sorento",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2016-2024",
+    "year_options": "2016,2017,2018,2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Kia",
+    "model": "Sorento Hybrid",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2021-2024",
+    "year_options": "2021,2022,2023,2024"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Kia",
+    "model": "Sorento Hybrid",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2021-2024",
+    "year_options": "2021,2022,2023,2024"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Kia",
+    "model": "Telluride",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2020-2024",
+    "year_options": "2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Kia",
+    "model": "Carnival",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2022-2024",
+    "year_options": "2022,2023,2024"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Kia",
+    "model": "Carnival",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2022-2024",
+    "year_options": "2022,2023,2024"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Kia",
+    "model": "Sportage Hybrid",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2023-2024",
+    "year_options": "2023,2024"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Kia",
+    "model": "Soul",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2014-2024",
+    "year_options": "2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Kia",
+    "model": "Soul",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2014-2024",
+    "year_options": "2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Kia",
+    "model": "Telluride",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2020-2024",
+    "year_options": "2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Kia",
+    "model": "Soul EV",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2015-2020",
+    "year_options": "2015,2016,2017,2018,2019,2020"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Kia",
+    "model": "Soul",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2009-2013",
+    "year_options": "2009,2010,2011,2012"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Kia",
+    "model": "EV6",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2022-2024",
+    "year_options": "2022,2023,2024"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Kia",
+    "model": "Soul",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2009-2013",
+    "year_options": "2009,2010,2011,2012"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Kia",
+    "model": "EV6",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2022-2024",
+    "year_options": "2022,2023,2024"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Kia",
+    "model": "Niro EV",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2019-2024",
+    "year_options": "2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Kia",
+    "model": "Seltos",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2020-2024",
+    "year_options": "2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Kia",
+    "model": "Niro EV",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2019-2024",
+    "year_options": "2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Kia",
+    "model": "Niro Hybrid",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2018-2024",
+    "year_options": "2018,2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Kia",
+    "model": "Sportage",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1995-2010",
+    "year_options": "1995,1996,1997,1998,1999,2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010"
+  }
+]

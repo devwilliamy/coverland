@@ -247,7 +247,7 @@ export default function CarPDP({
 
   return (
     <CarSelectionContext.Provider value={store}>
-      <CarCoverSelector />
+      <CarCoverSelector searchParams={searchParams} />
     </CarSelectionContext.Provider>
   );
 }

@@ -9,7 +9,6 @@ import CarPDP from './components/CarPDP';
 import {
   TProductReviewSummary,
   TReviewData,
-  filterDuplicateReviewImages,
   // filterDuplicateReviewImages,
   getAllReviewsWithImages,
   getProductReviewSummary,
@@ -18,8 +17,10 @@ import {
 
 export default async function CarPDPModelDataLayer({
   params,
+  searchParams,
 }: {
   params: { productType: string };
+  searchParams: { submodel?: string; second_submodel?: string } | undefined;
 }) {
   let reviewData: TReviewData[] = [];
   let reviewDataSummary: TProductReviewSummary = {
@@ -71,6 +72,7 @@ export default async function CarPDPModelDataLayer({
         params={params}
         reviewDataSummary={reviewDataSummary}
         reviewImages={reviewImages}
+        searchParams={searchParams}
       />
     </Suspense>
   );

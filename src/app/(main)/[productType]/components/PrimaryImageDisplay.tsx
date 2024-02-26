@@ -11,9 +11,14 @@ import dynamic from 'next/dynamic';
 import Thumbnail from '@/video/Thumbnail.webp';
 import { IProductData } from '../../utils';
 import SixMinVideo from 'https://x2kly621zrgfgwll.public.blob.vercel-storage.com/videos/FINALIZE_WEBSTIE_16_9_OPTIMIZED.mp4';
+import { Skeleton } from '@/components/ui/skeleton';
 
 const ProductVideo = dynamic(() => import('@/components/PDP/ProductVideo'), {
-  ssr: false,
+  loading: () => (
+    <div className="flex h-full">
+      <Skeleton />
+    </div>
+  ),
 });
 
 export function PrimaryImageDisplay({

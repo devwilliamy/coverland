@@ -34,9 +34,11 @@ const getOffset = (
 export default function AddToCart({
   selectedProduct,
   handleAddToCart,
+  searchParams,
 }: {
   selectedProduct: any;
   handleAddToCart: () => void;
+  searchParams: { submodel?: string; second_submodel?: string } | undefined;
 }) {
   const params = useParams<TPathParams>();
   const store = useContext(CarSelectionContext);
@@ -104,7 +106,7 @@ export default function AddToCart({
 
       {/* Add to Cart Button */}
       {isTypePage ? (
-        <VehicleSelector />
+        <VehicleSelector searchParams={searchParams} />
       ) : (
         <Button
           id="addToCartButton"
@@ -420,6 +422,10 @@ const AddToCartSelector = ({
   );
 };
 
-function VehicleSelector() {
-  return <EditVehicleDropdown />;
+function VehicleSelector({
+  searchParams,
+}: {
+  searchParams: { submodel?: string; second_submodel?: string } | undefined;
+}) {
+  return <EditVehicleDropdown searchParams={searchParams} />;
 }

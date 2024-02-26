@@ -1,0 +1,326 @@
+[
+  {
+    "type": "SUV Covers",
+    "make": "Isuzu",
+    "model": "Amigo",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1990-1994",
+    "year_options": "1990,1991,1992,1993,1994"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Isuzu",
+    "model": "Rodeo",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1995-2004",
+    "year_options": "1995,1996,1997,1998,1999,2000,2001,2002,2003,2004"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Isuzu",
+    "model": "Ascender",
+    "submodel1": "7-passenger",
+    "submodel2": null,
+    "parent_generation": "2003-2008",
+    "year_options": "2003,2004,2005,2006,2007,2008"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Isuzu",
+    "model": "Vehicross",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1999-2001",
+    "year_options": "1999,2000,2001"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Isuzu",
+    "model": "Axiom",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2002-2004",
+    "year_options": "2002,2003,2004"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Isuzu",
+    "model": "Amigo",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1990-1994",
+    "year_options": "1990,1991,1992,1993,1994"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Isuzu",
+    "model": "Trooper",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1983-1991",
+    "year_options": "1983,1984,1985,1986,1987,1988,1989,1990,1991"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Isuzu",
+    "model": "Rodeo",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1995-2004",
+    "year_options": "1995,1996,1997,1998,1999,2000,2001,2002,2003,2004"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Isuzu",
+    "model": "Ascender",
+    "submodel1": "5-passenger",
+    "submodel2": null,
+    "parent_generation": "2003-2008",
+    "year_options": "2004,2005,2006,2007,2008"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Isuzu",
+    "model": "Axiom",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2002-2004",
+    "year_options": "2002,2003,2004"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Isuzu",
+    "model": "Rodeo",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1995-2004",
+    "year_options": "1995,1996,1997,1998,1999,2000,2001,2002,2003,2004"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Isuzu",
+    "model": "Trooper",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1983-1991",
+    "year_options": "1983,1984,1985,1986,1987,1988,1989,1990,1991"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Isuzu",
+    "model": "Vehicross",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1999-2001",
+    "year_options": "1999,2000,2001"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Isuzu",
+    "model": "Ascender",
+    "submodel1": "7-passenger",
+    "submodel2": null,
+    "parent_generation": "2003-2008",
+    "year_options": "2003,2004,2005,2006,2007,2008"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Isuzu",
+    "model": "Amigo",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1990-1994",
+    "year_options": "1990,1991,1992,1993,1994"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Isuzu",
+    "model": "Vehicross",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1999-2001",
+    "year_options": "1999,2000,2001"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Isuzu",
+    "model": "Ascender",
+    "submodel1": "5-passenger",
+    "submodel2": null,
+    "parent_generation": "2003-2008",
+    "year_options": "2004,2005,2006,2007,2008"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Isuzu",
+    "model": "Trooper II",
+    "submodel1": "2-Door",
+    "submodel2": null,
+    "parent_generation": "1991-2002",
+    "year_options": "1991,1992,1993,1994,1995,1996,1997,1998,1999,2000,2001,2002"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Isuzu",
+    "model": "Trooper",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1983-1991",
+    "year_options": "1983,1984,1985,1986,1987,1988,1989,1990,1991"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Isuzu",
+    "model": "Trooper II",
+    "submodel1": "2-Door",
+    "submodel2": null,
+    "parent_generation": "1991-2002",
+    "year_options": "1991,1992,1993,1994,1995,1996,1997,1998,1999,2000,2001,2002"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Isuzu",
+    "model": "Trooper II",
+    "submodel1": "4-Door",
+    "submodel2": null,
+    "parent_generation": "1991-2002",
+    "year_options": "1991,1992,1993,1994,1995,1996,1997,1998,1999,2000,2001,2002"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Isuzu",
+    "model": "Trooper II",
+    "submodel1": "4-Door",
+    "submodel2": null,
+    "parent_generation": "1991-2002",
+    "year_options": "1991,1992,1993,1994,1995,1996,1997,1998,1999,2000,2001,2002"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Isuzu",
+    "model": "Ascender",
+    "submodel1": "7-passenger",
+    "submodel2": null,
+    "parent_generation": "2003-2008",
+    "year_options": "2003,2004,2005,2006,2007,2008"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Isuzu",
+    "model": "Ascender",
+    "submodel1": "5-passenger",
+    "submodel2": null,
+    "parent_generation": "2003-2008",
+    "year_options": "2004,2005,2006,2007,2008"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Isuzu",
+    "model": "Ascender",
+    "submodel1": "5-passenger",
+    "submodel2": null,
+    "parent_generation": "2003-2008",
+    "year_options": "2004,2005,2006,2007,2008"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Isuzu",
+    "model": "Trooper II",
+    "submodel1": "2-Door",
+    "submodel2": null,
+    "parent_generation": "1991-2002",
+    "year_options": "1991,1992,1993,1994,1995,1996,1997,1998,1999,2000,2001,2002"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Isuzu",
+    "model": "Trooper II",
+    "submodel1": "4-Door",
+    "submodel2": null,
+    "parent_generation": "1991-2002",
+    "year_options": "1991,1992,1993,1994,1995,1996,1997,1998,1999,2000,2001,2002"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Isuzu",
+    "model": "Trooper II",
+    "submodel1": "4-Door",
+    "submodel2": null,
+    "parent_generation": "1991-2002",
+    "year_options": "1991,1992,1993,1994,1995,1996,1997,1998,1999,2000,2001,2002"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Isuzu",
+    "model": "Ascender",
+    "submodel1": "7-passenger",
+    "submodel2": null,
+    "parent_generation": "2003-2008",
+    "year_options": "2003,2004,2005,2006,2007,2008"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Isuzu",
+    "model": "Trooper II",
+    "submodel1": "2-Door",
+    "submodel2": null,
+    "parent_generation": "1991-2002",
+    "year_options": "1991,1992,1993,1994,1995,1996,1997,1998,1999,2000,2001,2002"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Isuzu",
+    "model": "Amigo",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1990-1994",
+    "year_options": "1990,1991,1992,1993,1994"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Isuzu",
+    "model": "Axiom",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2002-2004",
+    "year_options": "2002,2003,2004"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Isuzu",
+    "model": "Rodeo",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1995-2004",
+    "year_options": "1995,1996,1997,1998,1999,2000,2001,2002,2003,2004"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Isuzu",
+    "model": "Vehicross",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1999-2001",
+    "year_options": "1999,2000,2001"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Isuzu",
+    "model": "Axiom",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2002-2004",
+    "year_options": "2002,2003,2004"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Isuzu",
+    "model": "Trooper",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1983-1991",
+    "year_options": "1983,1984,1985,1986,1987,1988,1989,1990,1991"
+  }
+]

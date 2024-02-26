@@ -13,6 +13,7 @@ import { TPathParams } from '@/app/(main)/utils';
 
 export default async function CarPDPDataLayer({
   params,
+  searchParams,
 }: {
   params: TPathParams;
   searchParams: { submodel?: string; second_submodel?: string };
@@ -78,6 +79,7 @@ export default async function CarPDPDataLayer({
           params={params}
           reviewDataSummary={reviewDataSummary}
           reviewImages={reviewImages}
+          searchParams={searchParams}
         />
       </Suspense>
     </>

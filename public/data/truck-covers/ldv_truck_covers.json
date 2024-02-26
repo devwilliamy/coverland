@@ -1,0 +1,38 @@
+[
+  {
+    "type": "Truck Covers",
+    "make": "LDV",
+    "model": "T60",
+    "submodel1": "Crew Cab",
+    "submodel2": "6.0 ft. Regular Bed",
+    "parent_generation": "2020-2024",
+    "year_options": "2020,2021,2022,2023"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "LDV",
+    "model": "T60",
+    "submodel1": "Crew Cab",
+    "submodel2": "6.0 ft. Regular Bed",
+    "parent_generation": "2020-2024",
+    "year_options": "2020,2021,2022,2023"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "LDV",
+    "model": "T60",
+    "submodel1": "Crew Cab",
+    "submodel2": "6.0 ft. Regular Bed",
+    "parent_generation": "2020-2024",
+    "year_options": "2020,2021,2022,2023"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "LDV",
+    "model": "T60",
+    "submodel1": "Crew Cab",
+    "submodel2": "6.0 ft. Regular Bed",
+    "parent_generation": "2020-2024",
+    "year_options": "2020,2021,2022,2023"
+  }
+]

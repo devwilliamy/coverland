@@ -1,12 +1,9 @@
 import dynamic from 'next/dynamic';
 import Logo from '@/components/header/Logo';
-import { Phone, UserRound } from 'lucide-react';
-import { IoIosMenu } from 'react-icons/io';
+import { UserRound } from 'lucide-react';
 import Link from 'next/link';
-import AlgoliaSearchbar from '@/components/header/AlgoliaSearchbar';
-import { MyGarage } from '@/components/PDP/components/icons';
 
-const Cart = dynamic(() => import('@/components/header/Cart'), { ssr: false });
+const Cart = dynamic(() => import('@/components/header/Cart'));
 const coverTypes = [
   { title: 'Car Covers', link: '/car-covers' },
   { title: 'SUV Covers', link: '/suv-covers' },
@@ -19,9 +16,6 @@ function Header() {
       <header className="hidden w-screen max-w-[1280px] flex-col items-stretch sm:mb-0  lg:ml-auto lg:flex lg:w-auto lg:pt-2.5">
         <section className="flex w-full items-center justify-between px-16 max-md:max-w-full max-md:px-5">
           <Logo />
-          {/* <div className="ml-[27px] mr-[50px] flex w-full">
-            <AlgoliaSearchbar />
-          </div> */}
           <div className="flex max-h-[24px] min-h-[24px] items-center gap-[30px]">
             {/* <MyGarage /> */}
             {/* <Phone /> */}
@@ -59,15 +53,11 @@ function Header() {
           <Logo />
           <div className="flex items-center gap-[28px] ">
             <Cart />
-            {/* <IoIosMenu className="ml-[14px] min-h-[20px] min-w-[20px]" /> */}
             <Link href="/login">
               <UserRound className="h-5 w-5" />
             </Link>
           </div>
         </section>
-        {/* <section className="mb-[11px] mt-[3px] flex w-full place-self-center px-[14px]">
-          <AlgoliaSearchbar />
-        </section> */}
       </header>
     </>
   );

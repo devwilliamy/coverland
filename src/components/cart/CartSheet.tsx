@@ -12,12 +12,12 @@ import AddToCartHeader from '../cart/AddToCartHeader';
 import AddToCartBody from '../cart/AddToCartBody';
 import AddToCartFooter from '../cart/AddToCartFooter';
 import { TInitialProductDataDB } from '@/lib/db';
-import { TCarCoverData } from '@/app/(main)/[productType]/components/CarPDP';
+import { IProductData } from '@/app/(main)/utils';
 
 type CartSheetProps = {
   open: boolean;
   setOpen: (open: boolean) => void;
-  selectedProduct: TInitialProductDataDB | TCarCoverData | null | undefined;
+  selectedProduct: TInitialProductDataDB | IProductData | null | undefined;
 };
 const CartSheet = ({
   open,

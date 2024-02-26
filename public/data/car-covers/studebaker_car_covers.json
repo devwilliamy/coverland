@@ -1,0 +1,1217 @@
+[
+  {
+    "type": "Car Covers",
+    "make": "Studebaker",
+    "model": "Gran Turismo Hawk",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1962-1964",
+    "year_options": "1962,1963,1964"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Studebaker",
+    "model": "Avanti",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1962-1964",
+    "year_options": "1962,1963,1964"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Studebaker",
+    "model": "Scotsman",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1956-1958",
+    "year_options": "1956,1957,1958"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Studebaker",
+    "model": "Champion Starlight",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1950-1958",
+    "year_options": "1950,1951,1952,1953,1954,1955,1956,1957,1958"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Studebaker",
+    "model": "Commander",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1964-1966",
+    "year_options": "1964,1965,1966"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Studebaker",
+    "model": "Avanti",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1962-1964",
+    "year_options": "1962,1963,1964"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Studebaker",
+    "model": "Avanti",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1962-1964",
+    "year_options": "1962,1963,1964"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Studebaker",
+    "model": "Avanti",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1962-1964",
+    "year_options": "1962,1963,1964"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Studebaker",
+    "model": "Avanti",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1962-1964",
+    "year_options": "1962,1963,1964"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Studebaker",
+    "model": "Champion",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1950-1958",
+    "year_options": "1950,1951,1952,1953,1954,1955,1956,1957,1958"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Studebaker",
+    "model": "Champion",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1950-1958",
+    "year_options": "1950,1951,1952,1953,1954,1955,1956,1957,1958"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Studebaker",
+    "model": "Champion",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1950-1958",
+    "year_options": "1950,1951,1952,1953,1954,1955,1956,1957,1958"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Studebaker",
+    "model": "Champion",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1950-1958",
+    "year_options": "1950,1951,1952,1953,1954,1955,1956,1957,1958"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Studebaker",
+    "model": "Champion Starlight",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1950-1958",
+    "year_options": "1950,1951,1952,1953,1954,1955,1956,1957,1958"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Studebaker",
+    "model": "Champion Starlight",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1950-1958",
+    "year_options": "1950,1951,1952,1953,1954,1955,1956,1957,1958"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Studebaker",
+    "model": "Champion Starlight",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1950-1958",
+    "year_options": "1950,1951,1952,1953,1954,1955,1956,1957,1958"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Studebaker",
+    "model": "Champion Starlight",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1950-1958",
+    "year_options": "1950,1951,1952,1953,1954,1955,1956,1957,1958"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Studebaker",
+    "model": "Champion Starlight",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1950-1958",
+    "year_options": "1950,1951,1952,1953,1954,1955,1956,1957,1958"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Studebaker",
+    "model": "Commander",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1941-1958",
+    "year_options": "1941,1942,1943,1944,1945,1946,1947,1948,1949,1950,1951,1952,1953,1954,1955,1956,1957,1958"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Studebaker",
+    "model": "Commander",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1941-1958",
+    "year_options": "1941,1942,1943,1944,1945,1946,1947,1948,1949,1950,1951,1952,1953,1954,1955,1956,1957,1958"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Studebaker",
+    "model": "Commander",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1964-1966",
+    "year_options": "1964,1965,1966"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Studebaker",
+    "model": "Commander",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1964-1966",
+    "year_options": "1964,1965,1966"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Studebaker",
+    "model": "Commander",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1964-1966",
+    "year_options": "1964,1965,1966"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Studebaker",
+    "model": "Commander",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1964-1966",
+    "year_options": "1964,1965,1966"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Studebaker",
+    "model": "Commander",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1964-1966",
+    "year_options": "1964,1965,1966"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Studebaker",
+    "model": "Convertible",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1950-1952",
+    "year_options": "1950,1951,1952"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Studebaker",
+    "model": "Convertible",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1950-1952",
+    "year_options": "1950,1951,1952"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Studebaker",
+    "model": "Convertible",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1950-1952",
+    "year_options": "1950,1951,1952"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Studebaker",
+    "model": "Convertible",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1950-1952",
+    "year_options": "1950,1951,1952"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Studebaker",
+    "model": "Convertible",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1950-1952",
+    "year_options": "1950,1951,1952"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Studebaker",
+    "model": "Gran Turismo Hawk",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1962-1964",
+    "year_options": "1962,1963,1964"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Studebaker",
+    "model": "Gran Turismo Hawk",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1962-1964",
+    "year_options": "1962,1963,1964"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Studebaker",
+    "model": "Hawk",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1953-1964",
+    "year_options": "1953,1954,1955,1956,1957,1958,1959,1960,1961,1962,1963,1964"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Studebaker",
+    "model": "Hawk",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1953-1964",
+    "year_options": "1953,1954,1955,1956,1957,1958,1959,1960,1961,1962,1963,1964"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Studebaker",
+    "model": "Scotsman",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1956-1958",
+    "year_options": "1956,1957,1958"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Studebaker",
+    "model": "Hawk",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1953-1964",
+    "year_options": "1953,1954,1955,1956,1957,1958,1959,1960,1961,1962,1963,1964"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Studebaker",
+    "model": "Hawk",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1953-1964",
+    "year_options": "1953,1954,1955,1956,1957,1958,1959,1960,1961,1962,1963,1964"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Studebaker",
+    "model": "Hawk",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1953-1964",
+    "year_options": "1953,1954,1955,1956,1957,1958,1959,1960,1961,1962,1963,1964"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Studebaker",
+    "model": "Hawk",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1953-1964",
+    "year_options": "1953,1954,1955,1956,1957,1958,1959,1960,1961,1962,1963,1964"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Studebaker",
+    "model": "Gran Turismo Hawk",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1962-1964",
+    "year_options": "1962,1963,1964"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Studebaker",
+    "model": "Scotsman",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1956-1958",
+    "year_options": "1956,1957,1958"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Studebaker",
+    "model": "Silver Hawk",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1957-1959",
+    "year_options": "1957,1958,1959"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Studebaker",
+    "model": "Silver Hawk",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1957-1959",
+    "year_options": "1957,1958,1959"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Studebaker",
+    "model": "Silver Hawk",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1957-1959",
+    "year_options": "1957,1958,1959"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Studebaker",
+    "model": "Silver Hawk",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1957-1959",
+    "year_options": "1957,1958,1959"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Studebaker",
+    "model": "Silver Hawk",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1957-1959",
+    "year_options": "1957,1958,1959"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Studebaker",
+    "model": "Scotsman",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1956-1958",
+    "year_options": "1956,1957,1958"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Studebaker",
+    "model": "Avanti",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1962-1964",
+    "year_options": "1962,1963,1964"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Studebaker",
+    "model": "Champion Starlight",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1950-1958",
+    "year_options": "1950,1951,1952,1953,1954,1955,1956,1957,1958"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Studebaker",
+    "model": "Gran Turismo Hawk",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1962-1964",
+    "year_options": "1962,1963,1964"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Studebaker",
+    "model": "Hawk",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1953-1964",
+    "year_options": "1953,1954,1955,1956,1957,1958,1959,1960,1961,1962,1963,1964"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Studebaker",
+    "model": "Silver Hawk",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1957-1959",
+    "year_options": "1957,1958,1959"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Studebaker",
+    "model": "Commander",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1941-1958",
+    "year_options": "1941,1942,1943,1944,1945,1946,1947,1948,1949,1950,1951,1952,1953,1954,1955,1956,1957,1958"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Studebaker",
+    "model": "Commander",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1964-1966",
+    "year_options": "1964,1965,1966"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Studebaker",
+    "model": "Gran Turismo Hawk",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1962-1964",
+    "year_options": "1962,1963,1964"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Studebaker",
+    "model": "Champion",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1950-1958",
+    "year_options": "1950,1951,1952,1953,1954,1955,1956,1957,1958"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Studebaker",
+    "model": "Silver Hawk",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1957-1959",
+    "year_options": "1957,1958,1959"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Studebaker",
+    "model": "Scotsman",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1956-1958",
+    "year_options": "1956,1957,1958"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Studebaker",
+    "model": "Commander",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1941-1958",
+    "year_options": "1941,1942,1943,1944,1945,1946,1947,1948,1949,1950,1951,1952,1953,1954,1955,1956,1957,1958"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Studebaker",
+    "model": "Lark",
+    "submodel1": "2-Door Coupe",
+    "submodel2": null,
+    "parent_generation": "1959-1964",
+    "year_options": "1959,1960,1961,1962,1963,1964"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Studebaker",
+    "model": "Lark",
+    "submodel1": "2-Door Sedan",
+    "submodel2": null,
+    "parent_generation": "1959-1964",
+    "year_options": "1959,1960,1961,1962,1963,1964"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Studebaker",
+    "model": "Lark",
+    "submodel1": "2-Door Wagon",
+    "submodel2": null,
+    "parent_generation": "1959-1964",
+    "year_options": "1959,1960,1961,1962,1963,1964"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Studebaker",
+    "model": "Lark",
+    "submodel1": "4-Door Wagon",
+    "submodel2": null,
+    "parent_generation": "1959-1964",
+    "year_options": "1959,1960,1961,1962,1963,1964"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Studebaker",
+    "model": "Lark",
+    "submodel1": "2-Door Coupe",
+    "submodel2": null,
+    "parent_generation": "1959-1964",
+    "year_options": "1959,1960,1961,1962,1963,1964"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Studebaker",
+    "model": "Lark",
+    "submodel1": "2-Door Coupe",
+    "submodel2": null,
+    "parent_generation": "1959-1964",
+    "year_options": "1959,1960,1961,1962,1963,1964"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Studebaker",
+    "model": "Lark",
+    "submodel1": "2-Door Coupe",
+    "submodel2": null,
+    "parent_generation": "1959-1964",
+    "year_options": "1959,1960,1961,1962,1963,1964"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Studebaker",
+    "model": "Lark",
+    "submodel1": "2-Door Sedan",
+    "submodel2": null,
+    "parent_generation": "1959-1964",
+    "year_options": "1959,1960,1961,1962,1963,1964"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Studebaker",
+    "model": "Lark",
+    "submodel1": "2-Door Sedan",
+    "submodel2": null,
+    "parent_generation": "1959-1964",
+    "year_options": "1959,1960,1961,1962,1963,1964"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Studebaker",
+    "model": "Lark",
+    "submodel1": "2-Door Sedan",
+    "submodel2": null,
+    "parent_generation": "1959-1964",
+    "year_options": "1959,1960,1961,1962,1963,1964"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Studebaker",
+    "model": "Lark",
+    "submodel1": "2-Door Sedan",
+    "submodel2": null,
+    "parent_generation": "1959-1964",
+    "year_options": "1959,1960,1961,1962,1963,1964"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Studebaker",
+    "model": "Lark",
+    "submodel1": "2-Door Sedan",
+    "submodel2": null,
+    "parent_generation": "1959-1964",
+    "year_options": "1959,1960,1961,1962,1963,1964"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Studebaker",
+    "model": "Lark",
+    "submodel1": "2-Door Coupe",
+    "submodel2": null,
+    "parent_generation": "1959-1964",
+    "year_options": "1959,1960,1961,1962,1963,1964"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Studebaker",
+    "model": "Lark",
+    "submodel1": "4-Door Sedan",
+    "submodel2": null,
+    "parent_generation": "1959-1964",
+    "year_options": "1959,1960,1961,1962,1963,1964"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Studebaker",
+    "model": "Lark",
+    "submodel1": "4-Door Sedan",
+    "submodel2": null,
+    "parent_generation": "1959-1964",
+    "year_options": "1959,1960,1961,1962,1963,1964"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Studebaker",
+    "model": "Lark",
+    "submodel1": "4-Door Sedan",
+    "submodel2": null,
+    "parent_generation": "1959-1964",
+    "year_options": "1959,1960,1961,1962,1963,1964"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Studebaker",
+    "model": "Lark",
+    "submodel1": "4-Door Sedan",
+    "submodel2": null,
+    "parent_generation": "1959-1964",
+    "year_options": "1959,1960,1961,1962,1963,1964"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Studebaker",
+    "model": "Lark",
+    "submodel1": "4-Door Sedan",
+    "submodel2": null,
+    "parent_generation": "1959-1964",
+    "year_options": "1959,1960,1961,1962,1963,1964"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Studebaker",
+    "model": "Lark",
+    "submodel1": "2-Door Wagon",
+    "submodel2": null,
+    "parent_generation": "1959-1964",
+    "year_options": "1959,1960,1961,1962,1963,1964"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Studebaker",
+    "model": "Lark",
+    "submodel1": "2-Door Wagon",
+    "submodel2": null,
+    "parent_generation": "1959-1964",
+    "year_options": "1959,1960,1961,1962,1963,1964"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Studebaker",
+    "model": "Lark",
+    "submodel1": "2-Door Wagon",
+    "submodel2": null,
+    "parent_generation": "1959-1964",
+    "year_options": "1959,1960,1961,1962,1963,1964"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Studebaker",
+    "model": "Lark",
+    "submodel1": "4-Door Wagon",
+    "submodel2": null,
+    "parent_generation": "1959-1964",
+    "year_options": "1959,1960,1961,1962,1963,1964"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Studebaker",
+    "model": "Lark",
+    "submodel1": "4-Door Wagon",
+    "submodel2": null,
+    "parent_generation": "1959-1964",
+    "year_options": "1959,1960,1961,1962,1963,1964"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Studebaker",
+    "model": "Lark",
+    "submodel1": "4-Door Wagon",
+    "submodel2": null,
+    "parent_generation": "1959-1964",
+    "year_options": "1959,1960,1961,1962,1963,1964"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Studebaker",
+    "model": "Lark",
+    "submodel1": "4-Door Wagon",
+    "submodel2": null,
+    "parent_generation": "1959-1964",
+    "year_options": "1959,1960,1961,1962,1963,1964"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Studebaker",
+    "model": "Lark",
+    "submodel1": "4-Door Wagon",
+    "submodel2": null,
+    "parent_generation": "1959-1964",
+    "year_options": "1959,1960,1961,1962,1963,1964"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Studebaker",
+    "model": "Lark",
+    "submodel1": "2-Door Coupe",
+    "submodel2": null,
+    "parent_generation": "1959-1964",
+    "year_options": "1959,1960,1961,1962,1963,1964"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Studebaker",
+    "model": "Lark",
+    "submodel1": "2-Door Wagon",
+    "submodel2": null,
+    "parent_generation": "1959-1964",
+    "year_options": "1959,1960,1961,1962,1963,1964"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Studebaker",
+    "model": "Lark",
+    "submodel1": "2-Door Wagon",
+    "submodel2": null,
+    "parent_generation": "1959-1964",
+    "year_options": "1959,1960,1961,1962,1963,1964"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Studebaker",
+    "model": "Lark",
+    "submodel1": "4-Door Wagon",
+    "submodel2": null,
+    "parent_generation": "1959-1964",
+    "year_options": "1959,1960,1961,1962,1963,1964"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Studebaker",
+    "model": "Lark",
+    "submodel1": "2-Door Sedan",
+    "submodel2": null,
+    "parent_generation": "1959-1964",
+    "year_options": "1959,1960,1961,1962,1963,1964"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Studebaker",
+    "model": "Lark",
+    "submodel1": "2-Door Coupe",
+    "submodel2": null,
+    "parent_generation": "1959-1964",
+    "year_options": "1959,1960,1961,1962,1963,1964"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Studebaker",
+    "model": "Lark",
+    "submodel1": "2-Door Sedan",
+    "submodel2": null,
+    "parent_generation": "1959-1964",
+    "year_options": "1959,1960,1961,1962,1963,1964"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Studebaker",
+    "model": "Lark",
+    "submodel1": "2-Door Sedan",
+    "submodel2": null,
+    "parent_generation": "1959-1964",
+    "year_options": "1959,1960,1961,1962,1963,1964"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Studebaker",
+    "model": "Lark",
+    "submodel1": "4-Door Sedan",
+    "submodel2": null,
+    "parent_generation": "1959-1964",
+    "year_options": "1959,1960,1961,1962,1963,1964"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Studebaker",
+    "model": "Lark",
+    "submodel1": "4-Door Sedan",
+    "submodel2": null,
+    "parent_generation": "1959-1964",
+    "year_options": "1959,1960,1961,1962,1963,1964"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Studebaker",
+    "model": "Lark",
+    "submodel1": "2-Door Wagon",
+    "submodel2": null,
+    "parent_generation": "1959-1964",
+    "year_options": "1959,1960,1961,1962,1963,1964"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Studebaker",
+    "model": "Lark",
+    "submodel1": "4-Door Wagon",
+    "submodel2": null,
+    "parent_generation": "1959-1964",
+    "year_options": "1959,1960,1961,1962,1963,1964"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Studebaker",
+    "model": "Lark",
+    "submodel1": "2-Door Coupe",
+    "submodel2": null,
+    "parent_generation": "1959-1964",
+    "year_options": "1959,1960,1961,1962,1963,1964"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Studebaker",
+    "model": "Lark",
+    "submodel1": "2-Door Wagon",
+    "submodel2": null,
+    "parent_generation": "1959-1964",
+    "year_options": "1959,1960,1961,1962,1963,1964"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Studebaker",
+    "model": "Lark",
+    "submodel1": "4-Door Sedan",
+    "submodel2": null,
+    "parent_generation": "1959-1964",
+    "year_options": "1959,1960,1961,1962,1963,1964"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Studebaker",
+    "model": "Lark",
+    "submodel1": "2-Door Coupe",
+    "submodel2": null,
+    "parent_generation": "1959-1964",
+    "year_options": "1959,1960,1961,1962,1963,1964"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Studebaker",
+    "model": "Lark",
+    "submodel1": "4-Door Sedan",
+    "submodel2": null,
+    "parent_generation": "1959-1964",
+    "year_options": "1959,1960,1961,1962,1963,1964"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Studebaker",
+    "model": "Lark",
+    "submodel1": "2-Door Wagon",
+    "submodel2": null,
+    "parent_generation": "1959-1964",
+    "year_options": "1959,1960,1961,1962,1963,1964"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Studebaker",
+    "model": "Lark",
+    "submodel1": "4-Door Wagon",
+    "submodel2": null,
+    "parent_generation": "1959-1964",
+    "year_options": "1959,1960,1961,1962,1963,1964"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Studebaker",
+    "model": "Avanti",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1962-1964",
+    "year_options": "1962,1963,1964"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Studebaker",
+    "model": "Champion",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1950-1958",
+    "year_options": "1950,1951,1952,1953,1954,1955,1956,1957,1958"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Studebaker",
+    "model": "Commander",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1941-1958",
+    "year_options": "1941,1942,1943,1944,1945,1946,1947,1948,1949,1950,1951,1952,1953,1954,1955,1956,1957,1958"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Studebaker",
+    "model": "Commander",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1964-1966",
+    "year_options": "1964,1965,1966"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Studebaker",
+    "model": "Commander",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1964-1966",
+    "year_options": "1964,1965,1966"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Studebaker",
+    "model": "Convertible",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1950-1952",
+    "year_options": "1950,1951,1952"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Studebaker",
+    "model": "Convertible",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1950-1952",
+    "year_options": "1950,1951,1952"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Studebaker",
+    "model": "Gran Turismo Hawk",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1962-1964",
+    "year_options": "1962,1963,1964"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Studebaker",
+    "model": "Scotsman",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1956-1958",
+    "year_options": "1956,1957,1958"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Studebaker",
+    "model": "Scotsman",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1956-1958",
+    "year_options": "1956,1957,1958"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Studebaker",
+    "model": "Silver Hawk",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1957-1959",
+    "year_options": "1957,1958,1959"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Studebaker",
+    "model": "Commander",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1941-1958",
+    "year_options": "1941,1942,1943,1944,1945,1946,1947,1948,1949,1950,1951,1952,1953,1954,1955,1956,1957,1958"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Studebaker",
+    "model": "Gran Turismo Hawk",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1962-1964",
+    "year_options": "1962,1963,1964"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Studebaker",
+    "model": "Gran Turismo Hawk",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1962-1964",
+    "year_options": "1962,1963,1964"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Studebaker",
+    "model": "Champion",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1950-1958",
+    "year_options": "1950,1951,1952,1953,1954,1955,1956,1957,1958"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Studebaker",
+    "model": "Silver Hawk",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1957-1959",
+    "year_options": "1957,1958,1959"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Studebaker",
+    "model": "Scotsman",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1956-1958",
+    "year_options": "1956,1957,1958"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Studebaker",
+    "model": "Avanti",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1962-1964",
+    "year_options": "1962,1963,1964"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Studebaker",
+    "model": "Champion Starlight",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1950-1958",
+    "year_options": "1950,1951,1952,1953,1954,1955,1956,1957,1958"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Studebaker",
+    "model": "Convertible",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1950-1952",
+    "year_options": "1950,1951,1952"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Studebaker",
+    "model": "Hawk",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1953-1964",
+    "year_options": "1953,1954,1955,1956,1957,1958,1959,1960,1961,1962,1963,1964"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Studebaker",
+    "model": "Scotsman",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1956-1958",
+    "year_options": "1956,1957,1958"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Studebaker",
+    "model": "Avanti",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1962-1964",
+    "year_options": "1962,1963,1964"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Studebaker",
+    "model": "Champion",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1950-1958",
+    "year_options": "1950,1951,1952,1953,1954,1955,1956,1957,1958"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Studebaker",
+    "model": "Commander",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1941-1958",
+    "year_options": "1941,1942,1943,1944,1945,1946,1947,1948,1949,1950,1951,1952,1953,1954,1955,1956,1957,1958"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Studebaker",
+    "model": "Commander",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1941-1958",
+    "year_options": "1941,1942,1943,1944,1945,1946,1947,1948,1949,1950,1951,1952,1953,1954,1955,1956,1957,1958"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Studebaker",
+    "model": "Convertible",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1950-1952",
+    "year_options": "1950,1951,1952"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Studebaker",
+    "model": "Champion",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1950-1958",
+    "year_options": "1950,1951,1952,1953,1954,1955,1956,1957,1958"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Studebaker",
+    "model": "Champion Starlight",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1950-1958",
+    "year_options": "1950,1951,1952,1953,1954,1955,1956,1957,1958"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Studebaker",
+    "model": "Commander",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1941-1958",
+    "year_options": "1941,1942,1943,1944,1945,1946,1947,1948,1949,1950,1951,1952,1953,1954,1955,1956,1957,1958"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Studebaker",
+    "model": "Hawk",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1953-1964",
+    "year_options": "1953,1954,1955,1956,1957,1958,1959,1960,1961,1962,1963,1964"
+  }
+]

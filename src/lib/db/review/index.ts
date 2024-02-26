@@ -1,4 +1,3 @@
-import { TReviewData } from '@/lib/db';
 import { ZodError, z } from 'zod';
 
 import { PRODUCT_REVIEWS_TABLE } from '../constants/databaseTableNames';

@@ -1,0 +1,938 @@
+[
+  {
+    "type": "Truck Covers",
+    "make": "RAM",
+    "model": "3500",
+    "submodel1": "Crew Cab",
+    "submodel2": "8.0 ft. Long Bed",
+    "parent_generation": "2011-2024",
+    "year_options": "2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "RAM",
+    "model": "2500",
+    "submodel1": "Crew Cab",
+    "submodel2": "8.0 ft. Long Bed",
+    "parent_generation": "2011-2018",
+    "year_options": "2011,2012,2013,2014,2015,2016,2017,2018"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "RAM",
+    "model": "3500",
+    "submodel1": "Crew Cab",
+    "submodel2": "8.0 ft. Long Bed",
+    "parent_generation": "2011-2024",
+    "year_options": "2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "RAM",
+    "model": "3500",
+    "submodel1": "Regular Cab",
+    "submodel2": "8.0 ft. Long Bed",
+    "parent_generation": "2011-2024",
+    "year_options": "2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "RAM",
+    "model": "3500",
+    "submodel1": "Regular Cab",
+    "submodel2": "8.0 ft. Long Bed",
+    "parent_generation": "2011-2024",
+    "year_options": "2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "RAM",
+    "model": "3500",
+    "submodel1": "Regular Cab",
+    "submodel2": "8.0 ft. Long Bed",
+    "parent_generation": "2011-2024",
+    "year_options": "2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "RAM",
+    "model": "2500",
+    "submodel1": "Crew Cab",
+    "submodel2": "8.0 ft. Long Bed",
+    "parent_generation": "2011-2018",
+    "year_options": "2011,2012,2013,2014,2015,2016,2017,2018"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "RAM",
+    "model": "3500",
+    "submodel1": "Regular Cab",
+    "submodel2": "8.0 ft. Long Bed",
+    "parent_generation": "2011-2024",
+    "year_options": "2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "RAM",
+    "model": "3500",
+    "submodel1": "Crew Cab",
+    "submodel2": "8.0 ft. Long Bed",
+    "parent_generation": "2011-2024",
+    "year_options": "2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "RAM",
+    "model": "2500",
+    "submodel1": "Regular Cab",
+    "submodel2": "8.0 ft. Long Bed",
+    "parent_generation": "2019-2024",
+    "year_options": "2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "RAM",
+    "model": "2500",
+    "submodel1": "Regular Cab",
+    "submodel2": "8.0 ft. Long Bed",
+    "parent_generation": "2019-2024",
+    "year_options": "2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "RAM",
+    "model": "1500",
+    "submodel1": "Crew Cab",
+    "submodel2": "6.5 ft. Regular Bed",
+    "parent_generation": "2011-2018",
+    "year_options": "2011,2012,2013,2014,2015,2016,2017,2018"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "RAM",
+    "model": "1500",
+    "submodel1": "Crew Cab",
+    "submodel2": "5.5 ft. Short Bed",
+    "parent_generation": "2019-2024",
+    "year_options": "2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "RAM",
+    "model": "1500",
+    "submodel1": "Crew Cab",
+    "submodel2": "6.5 ft. Regular Bed",
+    "parent_generation": "2019-2024",
+    "year_options": "2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "RAM",
+    "model": "2500",
+    "submodel1": "Regular Cab",
+    "submodel2": "8.0 ft. Long Bed",
+    "parent_generation": "2011-2018",
+    "year_options": "2011,2012,2013,2014,2015,2016,2017,2018"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "RAM",
+    "model": "2500",
+    "submodel1": "Crew Cab",
+    "submodel2": "6.5 ft. Regular Bed",
+    "parent_generation": "2011-2018",
+    "year_options": "2011,2012,2013,2014,2015,2016,2017,2018"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "RAM",
+    "model": "2500",
+    "submodel1": "Mega Cab",
+    "submodel2": "6.5 ft. Regular Bed",
+    "parent_generation": "2011-2018",
+    "year_options": "2011,2012,2013,2014,2015,2016,2017,2018"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "RAM",
+    "model": "2500",
+    "submodel1": "Crew Cab",
+    "submodel2": "6.5 ft. Regular Bed",
+    "parent_generation": "2019-2024",
+    "year_options": "2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "RAM",
+    "model": "2500",
+    "submodel1": "Crew Cab",
+    "submodel2": "8.0 ft. Long Bed",
+    "parent_generation": "2019-2024",
+    "year_options": "2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "RAM",
+    "model": "1500",
+    "submodel1": "Quad Cab",
+    "submodel2": "6.5 ft. Regular Bed",
+    "parent_generation": "2019-2024",
+    "year_options": "2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "RAM",
+    "model": "1500",
+    "submodel1": "Crew Cab",
+    "submodel2": "5.5 ft. Short Bed",
+    "parent_generation": "2011-2018",
+    "year_options": "2011,2012,2013,2014,2015,2016,2017,2018"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "RAM",
+    "model": "3500",
+    "submodel1": "Mega Cab",
+    "submodel2": "6.5 ft. Regular Bed",
+    "parent_generation": "2011-2024",
+    "year_options": "2011,2012,2013,2014,2015,2016,2017,2018"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "RAM",
+    "model": "2500",
+    "submodel1": "Mega Cab",
+    "submodel2": "6.5 ft. Regular Bed",
+    "parent_generation": "2019-2024",
+    "year_options": "2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "RAM",
+    "model": "1500 Classic",
+    "submodel1": "Regular Cab",
+    "submodel2": "6.5 ft. Regular Bed",
+    "parent_generation": "2019-2024",
+    "year_options": "2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "RAM",
+    "model": "1500",
+    "submodel1": "Crew Cab",
+    "submodel2": "6.5 ft. Regular Bed",
+    "parent_generation": "2019-2024",
+    "year_options": "2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "RAM",
+    "model": "1500",
+    "submodel1": "Quad Cab",
+    "submodel2": "6.5 ft. Regular Bed",
+    "parent_generation": "2011-2018",
+    "year_options": "2011,2012,2013,2014,2015,2016,2017,2018"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "RAM",
+    "model": "1500",
+    "submodel1": "Regular Cab",
+    "submodel2": "6.5 ft. Regular Bed",
+    "parent_generation": "2011-2018",
+    "year_options": "2011,2012,2013,2014,2015,2016,2017,2018"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "RAM",
+    "model": "1500",
+    "submodel1": "Regular Cab",
+    "submodel2": "8.0 ft. Long Bed",
+    "parent_generation": "2011-2018",
+    "year_options": "2011,2012,2013,2014,2015,2016,2017,2018"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "RAM",
+    "model": "1500",
+    "submodel1": "Crew Cab",
+    "submodel2": "5.5 ft. Short Bed",
+    "parent_generation": "2011-2018",
+    "year_options": "2011,2012,2013,2014,2015,2016,2017,2018"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "RAM",
+    "model": "1500",
+    "submodel1": "Crew Cab",
+    "submodel2": "6.5 ft. Regular Bed",
+    "parent_generation": "2011-2018",
+    "year_options": "2011,2012,2013,2014,2015,2016,2017,2018"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "RAM",
+    "model": "1500",
+    "submodel1": "Quad Cab",
+    "submodel2": "6.5 ft. Regular Bed",
+    "parent_generation": "2019-2024",
+    "year_options": "2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "RAM",
+    "model": "2500",
+    "submodel1": "Regular Cab",
+    "submodel2": "8.0 ft. Long Bed",
+    "parent_generation": "2011-2018",
+    "year_options": "2011,2012,2013,2014,2015,2016,2017,2018"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "RAM",
+    "model": "2500",
+    "submodel1": "Mega Cab",
+    "submodel2": "6.5 ft. Regular Bed",
+    "parent_generation": "2011-2018",
+    "year_options": "2011,2012,2013,2014,2015,2016,2017,2018"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "RAM",
+    "model": "2500",
+    "submodel1": "Regular Cab",
+    "submodel2": "8.0 ft. Long Bed",
+    "parent_generation": "2019-2024",
+    "year_options": "2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "RAM",
+    "model": "2500",
+    "submodel1": "Crew Cab",
+    "submodel2": "6.5 ft. Regular Bed",
+    "parent_generation": "2019-2024",
+    "year_options": "2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "RAM",
+    "model": "2500",
+    "submodel1": "Crew Cab",
+    "submodel2": "8.0 ft. Long Bed",
+    "parent_generation": "2019-2024",
+    "year_options": "2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "RAM",
+    "model": "3500",
+    "submodel1": "Crew Cab",
+    "submodel2": "6.5 ft. Regular Bed",
+    "parent_generation": "2011-2024",
+    "year_options": "2011,2012,2013,2014,2015,2016,2017,2018"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "RAM",
+    "model": "1500 Classic",
+    "submodel1": "Regular Cab",
+    "submodel2": "6.5 ft. Regular Bed",
+    "parent_generation": "2019-2024",
+    "year_options": "2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "RAM",
+    "model": "1500 Classic",
+    "submodel1": "Regular Cab",
+    "submodel2": "8.0 ft. Long Bed",
+    "parent_generation": "2019-2024",
+    "year_options": "2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "RAM",
+    "model": "1500 Classic",
+    "submodel1": "Quad Cab",
+    "submodel2": "6.5 ft. Regular Bed",
+    "parent_generation": "2019-2024",
+    "year_options": "2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "RAM",
+    "model": "1500 Classic",
+    "submodel1": "Crew Cab",
+    "submodel2": "5.5 ft. Short Bed",
+    "parent_generation": "2019-2024",
+    "year_options": "2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "RAM",
+    "model": "1500 Classic",
+    "submodel1": "Crew Cab",
+    "submodel2": "6.5 ft. Regular Bed",
+    "parent_generation": "2019-2024",
+    "year_options": "2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "RAM",
+    "model": "1500",
+    "submodel1": "Regular Cab",
+    "submodel2": "6.5 ft. Regular Bed",
+    "parent_generation": "2011-2018",
+    "year_options": "2011,2012,2013,2014,2015,2016,2017,2018"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "RAM",
+    "model": "1500",
+    "submodel1": "Regular Cab",
+    "submodel2": "8.0 ft. Long Bed",
+    "parent_generation": "2011-2018",
+    "year_options": "2011,2012,2013,2014,2015,2016,2017,2018"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "RAM",
+    "model": "1500 Classic",
+    "submodel1": "Regular Cab",
+    "submodel2": "6.5 ft. Regular Bed",
+    "parent_generation": "2019-2024",
+    "year_options": "2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "RAM",
+    "model": "1500 Classic",
+    "submodel1": "Regular Cab",
+    "submodel2": "8.0 ft. Long Bed",
+    "parent_generation": "2019-2024",
+    "year_options": "2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "RAM",
+    "model": "1500 Classic",
+    "submodel1": "Quad Cab",
+    "submodel2": "6.5 ft. Regular Bed",
+    "parent_generation": "2019-2024",
+    "year_options": "2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "RAM",
+    "model": "1500 Classic",
+    "submodel1": "Crew Cab",
+    "submodel2": "5.5 ft. Short Bed",
+    "parent_generation": "2019-2024",
+    "year_options": "2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "RAM",
+    "model": "3500",
+    "submodel1": "Crew Cab",
+    "submodel2": "6.5 ft. Regular Bed",
+    "parent_generation": "2011-2024",
+    "year_options": "2011,2012,2013,2014,2015,2016,2017,2018"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "RAM",
+    "model": "1500",
+    "submodel1": "Regular Cab",
+    "submodel2": "6.5 ft. Regular Bed",
+    "parent_generation": "2011-2018",
+    "year_options": "2011,2012,2013,2014,2015,2016,2017,2018"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "RAM",
+    "model": "1500",
+    "submodel1": "Regular Cab",
+    "submodel2": "6.5 ft. Regular Bed",
+    "parent_generation": "2011-2018",
+    "year_options": "2011,2012,2013,2014,2015,2016,2017,2018"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "RAM",
+    "model": "1500",
+    "submodel1": "Quad Cab",
+    "submodel2": "6.5 ft. Regular Bed",
+    "parent_generation": "2011-2018",
+    "year_options": "2011,2012,2013,2014,2015,2016,2017,2018"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "RAM",
+    "model": "1500",
+    "submodel1": "Quad Cab",
+    "submodel2": "6.5 ft. Regular Bed",
+    "parent_generation": "2011-2018",
+    "year_options": "2011,2012,2013,2014,2015,2016,2017,2018"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "RAM",
+    "model": "1500",
+    "submodel1": "Crew Cab",
+    "submodel2": "5.5 ft. Short Bed",
+    "parent_generation": "2011-2018",
+    "year_options": "2011,2012,2013,2014,2015,2016,2017,2018"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "RAM",
+    "model": "1500",
+    "submodel1": "Crew Cab",
+    "submodel2": "5.5 ft. Short Bed",
+    "parent_generation": "2011-2018",
+    "year_options": "2011,2012,2013,2014,2015,2016,2017,2018"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "RAM",
+    "model": "1500",
+    "submodel1": "Crew Cab",
+    "submodel2": "6.5 ft. Regular Bed",
+    "parent_generation": "2011-2018",
+    "year_options": "2011,2012,2013,2014,2015,2016,2017,2018"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "RAM",
+    "model": "1500",
+    "submodel1": "Quad Cab",
+    "submodel2": "6.5 ft. Regular Bed",
+    "parent_generation": "2019-2024",
+    "year_options": "2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "RAM",
+    "model": "1500",
+    "submodel1": "Crew Cab",
+    "submodel2": "5.5 ft. Short Bed",
+    "parent_generation": "2019-2024",
+    "year_options": "2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "RAM",
+    "model": "1500",
+    "submodel1": "Crew Cab",
+    "submodel2": "6.5 ft. Regular Bed",
+    "parent_generation": "2019-2024",
+    "year_options": "2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "RAM",
+    "model": "2500",
+    "submodel1": "Regular Cab",
+    "submodel2": "8.0 ft. Long Bed",
+    "parent_generation": "2011-2018",
+    "year_options": "2011,2012,2013,2014,2015,2016,2017,2018"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "RAM",
+    "model": "2500",
+    "submodel1": "Regular Cab",
+    "submodel2": "8.0 ft. Long Bed",
+    "parent_generation": "2011-2018",
+    "year_options": "2011,2012,2013,2014,2015,2016,2017,2018"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "RAM",
+    "model": "2500",
+    "submodel1": "Crew Cab",
+    "submodel2": "6.5 ft. Regular Bed",
+    "parent_generation": "2011-2018",
+    "year_options": "2011,2012,2013,2014,2015,2016,2017,2018"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "RAM",
+    "model": "2500",
+    "submodel1": "Mega Cab",
+    "submodel2": "6.5 ft. Regular Bed",
+    "parent_generation": "2011-2018",
+    "year_options": "2011,2012,2013,2014,2015,2016,2017,2018"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "RAM",
+    "model": "2500",
+    "submodel1": "Mega Cab",
+    "submodel2": "6.5 ft. Regular Bed",
+    "parent_generation": "2011-2018",
+    "year_options": "2011,2012,2013,2014,2015,2016,2017,2018"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "RAM",
+    "model": "2500",
+    "submodel1": "Crew Cab",
+    "submodel2": "6.5 ft. Regular Bed",
+    "parent_generation": "2019-2024",
+    "year_options": "2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "RAM",
+    "model": "2500",
+    "submodel1": "Crew Cab",
+    "submodel2": "6.5 ft. Regular Bed",
+    "parent_generation": "2019-2024",
+    "year_options": "2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "RAM",
+    "model": "2500",
+    "submodel1": "Crew Cab",
+    "submodel2": "8.0 ft. Long Bed",
+    "parent_generation": "2019-2024",
+    "year_options": "2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "RAM",
+    "model": "2500",
+    "submodel1": "Crew Cab",
+    "submodel2": "8.0 ft. Long Bed",
+    "parent_generation": "2019-2024",
+    "year_options": "2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "RAM",
+    "model": "2500",
+    "submodel1": "Mega Cab",
+    "submodel2": "6.5 ft. Regular Bed",
+    "parent_generation": "2019-2024",
+    "year_options": "2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "RAM",
+    "model": "3500",
+    "submodel1": "Crew Cab",
+    "submodel2": "6.5 ft. Regular Bed",
+    "parent_generation": "2011-2024",
+    "year_options": "2011,2012,2013,2014,2015,2016,2017,2018"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "RAM",
+    "model": "3500",
+    "submodel1": "Mega Cab",
+    "submodel2": "6.5 ft. Regular Bed",
+    "parent_generation": "2011-2024",
+    "year_options": "2011,2012,2013,2014,2015,2016,2017,2018"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "RAM",
+    "model": "3500",
+    "submodel1": "Mega Cab",
+    "submodel2": "6.5 ft. Regular Bed",
+    "parent_generation": "2011-2024",
+    "year_options": "2011,2012,2013,2014,2015,2016,2017,2018"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "RAM",
+    "model": "1500 Classic",
+    "submodel1": "Regular Cab",
+    "submodel2": "8.0 ft. Long Bed",
+    "parent_generation": "2019-2024",
+    "year_options": "2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "RAM",
+    "model": "1500 Classic",
+    "submodel1": "Regular Cab",
+    "submodel2": "8.0 ft. Long Bed",
+    "parent_generation": "2019-2024",
+    "year_options": "2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "RAM",
+    "model": "1500 Classic",
+    "submodel1": "Quad Cab",
+    "submodel2": "6.5 ft. Regular Bed",
+    "parent_generation": "2019-2024",
+    "year_options": "2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "RAM",
+    "model": "1500 Classic",
+    "submodel1": "Quad Cab",
+    "submodel2": "6.5 ft. Regular Bed",
+    "parent_generation": "2019-2024",
+    "year_options": "2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "RAM",
+    "model": "1500 Classic",
+    "submodel1": "Crew Cab",
+    "submodel2": "5.5 ft. Short Bed",
+    "parent_generation": "2019-2024",
+    "year_options": "2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "RAM",
+    "model": "1500 Classic",
+    "submodel1": "Crew Cab",
+    "submodel2": "5.5 ft. Short Bed",
+    "parent_generation": "2019-2024",
+    "year_options": "2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "RAM",
+    "model": "1500 Classic",
+    "submodel1": "Crew Cab",
+    "submodel2": "6.5 ft. Regular Bed",
+    "parent_generation": "2019-2024",
+    "year_options": "2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "RAM",
+    "model": "1500 Classic",
+    "submodel1": "Crew Cab",
+    "submodel2": "6.5 ft. Regular Bed",
+    "parent_generation": "2019-2024",
+    "year_options": "2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "RAM",
+    "model": "1500",
+    "submodel1": "Crew Cab",
+    "submodel2": "5.5 ft. Short Bed",
+    "parent_generation": "2019-2024",
+    "year_options": "2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "RAM",
+    "model": "2500",
+    "submodel1": "Crew Cab",
+    "submodel2": "6.5 ft. Regular Bed",
+    "parent_generation": "2011-2018",
+    "year_options": "2011,2012,2013,2014,2015,2016,2017,2018"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "RAM",
+    "model": "3500",
+    "submodel1": "Mega Cab",
+    "submodel2": "6.5 ft. Regular Bed",
+    "parent_generation": "2011-2024",
+    "year_options": "2011,2012,2013,2014,2015,2016,2017,2018"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "RAM",
+    "model": "1500",
+    "submodel1": "Quad Cab",
+    "submodel2": "6.5 ft. Regular Bed",
+    "parent_generation": "2011-2018",
+    "year_options": "2011,2012,2013,2014,2015,2016,2017,2018"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "RAM",
+    "model": "2500",
+    "submodel1": "Mega Cab",
+    "submodel2": "6.5 ft. Regular Bed",
+    "parent_generation": "2019-2024",
+    "year_options": "2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "RAM",
+    "model": "1500",
+    "submodel1": "Crew Cab",
+    "submodel2": "6.5 ft. Regular Bed",
+    "parent_generation": "2011-2018",
+    "year_options": "2011,2012,2013,2014,2015,2016,2017,2018"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "RAM",
+    "model": "1500",
+    "submodel1": "Crew Cab",
+    "submodel2": "5.5 ft. Short Bed",
+    "parent_generation": "2019-2024",
+    "year_options": "2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "RAM",
+    "model": "2500",
+    "submodel1": "Crew Cab",
+    "submodel2": "6.5 ft. Regular Bed",
+    "parent_generation": "2011-2018",
+    "year_options": "2011,2012,2013,2014,2015,2016,2017,2018"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "RAM",
+    "model": "2500",
+    "submodel1": "Regular Cab",
+    "submodel2": "8.0 ft. Long Bed",
+    "parent_generation": "2019-2024",
+    "year_options": "2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "RAM",
+    "model": "2500",
+    "submodel1": "Mega Cab",
+    "submodel2": "6.5 ft. Regular Bed",
+    "parent_generation": "2019-2024",
+    "year_options": "2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "RAM",
+    "model": "3500",
+    "submodel1": "Crew Cab",
+    "submodel2": "6.5 ft. Regular Bed",
+    "parent_generation": "2011-2024",
+    "year_options": "2011,2012,2013,2014,2015,2016,2017,2018"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "RAM",
+    "model": "1500",
+    "submodel1": "Regular Cab",
+    "submodel2": "8.0 ft. Long Bed",
+    "parent_generation": "2011-2018",
+    "year_options": "2011,2012,2013,2014,2015,2016,2017,2018"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "RAM",
+    "model": "1500 Classic",
+    "submodel1": "Crew Cab",
+    "submodel2": "6.5 ft. Regular Bed",
+    "parent_generation": "2019-2024",
+    "year_options": "2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "RAM",
+    "model": "1500",
+    "submodel1": "Regular Cab",
+    "submodel2": "8.0 ft. Long Bed",
+    "parent_generation": "2011-2018",
+    "year_options": "2011,2012,2013,2014,2015,2016,2017,2018"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "RAM",
+    "model": "1500",
+    "submodel1": "Quad Cab",
+    "submodel2": "6.5 ft. Regular Bed",
+    "parent_generation": "2019-2024",
+    "year_options": "2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "RAM",
+    "model": "1500",
+    "submodel1": "Crew Cab",
+    "submodel2": "6.5 ft. Regular Bed",
+    "parent_generation": "2019-2024",
+    "year_options": "2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "RAM",
+    "model": "1500 Classic",
+    "submodel1": "Regular Cab",
+    "submodel2": "6.5 ft. Regular Bed",
+    "parent_generation": "2019-2024",
+    "year_options": "2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "RAM",
+    "model": "1500 TRX",
+    "submodel1": "Crew Cab",
+    "submodel2": "5.5 ft. Short Bed",
+    "parent_generation": "2020-2024",
+    "year_options": "2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "RAM",
+    "model": "1500 TRX",
+    "submodel1": "Crew Cab",
+    "submodel2": "5.5 ft. Short Bed",
+    "parent_generation": "2020-2024",
+    "year_options": "2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "RAM",
+    "model": "1500 TRX",
+    "submodel1": "Crew Cab",
+    "submodel2": "5.5 ft. Short Bed",
+    "parent_generation": "2020-2024",
+    "year_options": "2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "RAM",
+    "model": "2500",
+    "submodel1": "Crew Cab",
+    "submodel2": "8.0 ft. Long Bed",
+    "parent_generation": "2011-2018",
+    "year_options": "2011,2012,2013,2014,2015,2016,2017,2018"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "RAM",
+    "model": "2500",
+    "submodel1": "Crew Cab",
+    "submodel2": "8.0 ft. Long Bed",
+    "parent_generation": "2011-2018",
+    "year_options": "2011,2012,2013,2014,2015,2016,2017,2018"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "RAM",
+    "model": "3500",
+    "submodel1": "Crew Cab",
+    "submodel2": "8.0 ft. Long Bed",
+    "parent_generation": "2011-2024",
+    "year_options": "2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "RAM",
+    "model": "1500 TRX",
+    "submodel1": "Crew Cab",
+    "submodel2": "5.5 ft. Short Bed",
+    "parent_generation": "2020-2024",
+    "year_options": "2020,2021,2022,2023,2024"
+  }
+]

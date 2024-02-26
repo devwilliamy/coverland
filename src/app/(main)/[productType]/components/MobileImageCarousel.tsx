@@ -1,4 +1,4 @@
-import { Fragment, useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import {
   Carousel,
   CarouselApi,
@@ -12,9 +12,14 @@ import { StaticImport } from 'next/dist/shared/lib/get-img-props';
 import { Asset } from 'next-video/dist/assets.js';
 import SevenSecVideoThumbnail from '@/video/7second image.webp';
 import SevenSecVideo from '@/videos/7sec Listing Video_2.mp4';
+import { Skeleton } from '@/components/ui/skeleton';
 
 const ProductVideo = dynamic(() => import('@/components/PDP/ProductVideo'), {
-  ssr: false,
+  loading: () => (
+    <div className="flex h-full">
+      <Skeleton />
+    </div>
+  ),
 });
 
 export const MobileImageCarousel = ({
@@ -132,7 +137,6 @@ export const MobileImageCarousel = ({
                   alt={`Additional images of the ${selectedProduct.display_id} cover`}
                   width={80}
                   height={80}
-                  priority
                   // placeholder="blur"
                 />
               </div>

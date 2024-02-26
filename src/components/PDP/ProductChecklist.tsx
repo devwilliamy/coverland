@@ -1,6 +1,4 @@
 'use client';
-import Waterproof from '@/images/difference/waterproof-car-cover.png';
-import Image from 'next/image';
 import { FaCheckSquare } from 'react-icons/fa';
 
 const checklistJSX = [

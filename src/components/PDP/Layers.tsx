@@ -1,12 +1,8 @@
-'use client';
-
 import Image, { StaticImageData } from 'next/image';
 import KeepDry from '@/images/PDP/keep_dry.webp';
 import Material from '@/images/PDP/material-right.webp';
 import ZeroLeaks from '@/images/PDP/zero_leaks.webp';
 import SeeMoreChevronDown from '../icons/SeeMoreChevronDown';
-
-import SuggestedProducts from './components/SuggestedProducts';
 
 type layerProps = { img?: StaticImageData; title: string; text: string };
 

@@ -14,8 +14,10 @@ import { IProductData } from '../../utils';
 
 export function EditVehicleModal({
   selectedProduct,
+  searchParams,
 }: {
   selectedProduct: IProductData;
+  searchParams: { submodel?: string; second_submodel?: string } | undefined;
 }) {
   const [open, setOpen] = useState(false);
 
@@ -39,7 +41,7 @@ export function EditVehicleModal({
           </div>
         </PopoverTrigger>
         <PopoverContent className="min-w-[100px] rounded-xl border border-gray-300 bg-white p-5 shadow-lg">
-          <EditVehicleDropdown setOpen={setOpen} />
+          <EditVehicleDropdown setOpen={setOpen} searchParams={searchParams} />
         </PopoverContent>
       </Popover>
     </div>

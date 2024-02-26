@@ -3,7 +3,6 @@ import { TInitialProductDataDB, getProductData } from '@/lib/db';
 import {
   TProductReviewSummary,
   TReviewData,
-  filterReviewData,
   getAllReviewsWithImages,
   getProductReviewSummary,
   getProductReviewsByPage,
@@ -14,8 +13,10 @@ import { TPathParams } from '../../utils';
 
 export default async function CarPDPModelDataLayer({
   params,
+  searchParams,
 }: {
   params: TPathParams;
+  searchParams: { submodel?: string; second_submodel?: string } | undefined;
 }) {
   let reviewData: TReviewData[] = [];
   let reviewDataSummary: TProductReviewSummary = {
@@ -55,7 +56,6 @@ export default async function CarPDPModelDataLayer({
           productType: typeString,
         }),
       ]);
-    filterReviewData({ reviewData, reviewImages });
 
     if (!modelData) {
       redirect('/404');
@@ -73,6 +73,7 @@ export default async function CarPDPModelDataLayer({
         params={params}
         reviewDataSummary={reviewDataSummary}
         reviewImages={reviewImages}
+        searchParams={searchParams}
       />
     </Suspense>
   );

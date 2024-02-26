@@ -1,0 +1,5024 @@
+[
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Catera",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1997-2001",
+    "year_options": "1997,1998,1999,2000,2001"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "DTS",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2006-2011",
+    "year_options": "2006,2007,2008,2009,2010,2011"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Series 75",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1941-1944",
+    "year_options": "1941,1942,1943,1944"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "DTS",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2006-2011",
+    "year_options": "2006,2007,2008,2009,2010,2011"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Allante",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1987-1993",
+    "year_options": "1987,1988,1989,1990,1991,1992,1993"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "CT5-V Blackwing",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2024",
+    "year_options": "2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "XTS-L",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2013-2019",
+    "year_options": "2013,2014,2015,2016,2017,2018,2019"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Sedan DeVille",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1959-1964",
+    "year_options": "1959,1960,1961,1962,1963,1964"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "CT5",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2020-2024",
+    "year_options": "2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Coupe DeVille",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1989-1993",
+    "year_options": "1989,1990,1991,1992,1993"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Fleetwood",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1989-1992",
+    "year_options": "1989,1990,1991,1992"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Series 61",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1948-1953",
+    "year_options": "1948,1949,1950,1951,1952,1953"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Series 62",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1948-1953",
+    "year_options": "1948,1949,1950,1951,1952,1953"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Series 62",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1954-1964",
+    "year_options": "1954,1955,1956,1957,1958,1959,1960,1961,1962,1963,1964"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "CT4-V",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2020-2024",
+    "year_options": "2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Seville",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1998-2004",
+    "year_options": "1998,1999,2000,2001,2002,2003,2004"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "CT6",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2016-2020",
+    "year_options": "2016,2017,2018,2019,2020"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "CTS",
+    "submodel1": "Sedan",
+    "submodel2": null,
+    "parent_generation": "2014-2019",
+    "year_options": "2014,2015,2016,2017,2018,2019"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Eldorado",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1986-1991",
+    "year_options": "1986,1987,1988,1989,1990,1991"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "ELR",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2014-2017",
+    "year_options": "2014,2015,2016,2017"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "60 Special",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1938-1941",
+    "year_options": "1938,1939,1940,1941"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "60 Special",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1938-1941",
+    "year_options": "1938,1939,1940,1941"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "60 Special",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1938-1941",
+    "year_options": "1938,1939,1940,1941"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "60 Special",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1938-1941",
+    "year_options": "1938,1939,1940,1941"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "60 Special",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1938-1941",
+    "year_options": "1938,1939,1940,1941"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "60 Special",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1946-1949",
+    "year_options": "1946,1947,1948,1949"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "60 Special",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1946-1949",
+    "year_options": "1946,1947,1948,1949"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "60 Special",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1946-1949",
+    "year_options": "1946,1947,1948,1949"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "60 Special",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1950-1953",
+    "year_options": "1950,1951,1952,1953"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "60 Special",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1950-1953",
+    "year_options": "1950,1951,1952,1953"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "60 Special",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1950-1953",
+    "year_options": "1950,1951,1952,1953"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "60 Special",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1950-1953",
+    "year_options": "1950,1951,1952,1953"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "60 Special",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1950-1953",
+    "year_options": "1950,1951,1952,1953"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "ATS",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2013-2017",
+    "year_options": "2013,2014,2015,2016,2017"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "60 Special",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1946-1949",
+    "year_options": "1946,1947,1948,1949"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Calais",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1965-1976",
+    "year_options": "1965,1966,1967,1968,1969,1970,1971,1972,1973,1974,1975,1976"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Allante",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1987-1993",
+    "year_options": "1987,1988,1989,1990,1991,1992,1993"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Allante",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1987-1993",
+    "year_options": "1987,1988,1989,1990,1991,1992,1993"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Allante",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1987-1993",
+    "year_options": "1987,1988,1989,1990,1991,1992,1993"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Allante",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1987-1993",
+    "year_options": "1987,1988,1989,1990,1991,1992,1993"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "ATS",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2013-2017",
+    "year_options": "2013,2014,2015,2016,2017"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "ATS",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2013-2017",
+    "year_options": "2013,2014,2015,2016,2017"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "ATS",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2013-2017",
+    "year_options": "2013,2014,2015,2016,2017"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Allante",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1987-1993",
+    "year_options": "1987,1988,1989,1990,1991,1992,1993"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "ATS",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2013-2017",
+    "year_options": "2013,2014,2015,2016,2017"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Brougham",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1985-1992",
+    "year_options": "1985,1986,1987,1988,1989,1990,1991,1992"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Brougham",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1985-1992",
+    "year_options": "1985,1986,1987,1988,1989,1990,1991,1992"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Brougham",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1985-1992",
+    "year_options": "1985,1986,1987,1988,1989,1990,1991,1992"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Brougham",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1985-1992",
+    "year_options": "1985,1986,1987,1988,1989,1990,1991,1992"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Brougham",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1985-1992",
+    "year_options": "1985,1986,1987,1988,1989,1990,1991,1992"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Calais",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1965-1976",
+    "year_options": "1965,1966,1967,1968,1969,1970,1971,1972,1973,1974,1975,1976"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Calais",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1965-1976",
+    "year_options": "1965,1966,1967,1968,1969,1970,1971,1972,1973,1974,1975,1976"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Calais",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1965-1976",
+    "year_options": "1965,1966,1967,1968,1969,1970,1971,1972,1973,1974,1975,1976"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Catera",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1997-2001",
+    "year_options": "1997,1998,1999,2000,2001"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Catera",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1997-2001",
+    "year_options": "1997,1998,1999,2000,2001"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Catera",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1997-2001",
+    "year_options": "1997,1998,1999,2000,2001"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Calais",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1965-1976",
+    "year_options": "1965,1966,1967,1968,1969,1970,1971,1972,1973,1974,1975,1976"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Cimarron",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1982-1988",
+    "year_options": "1982,1983,1984,1985,1986,1987,1988"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Cimarron",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1982-1988",
+    "year_options": "1982,1983,1984,1985,1986,1987,1988"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Cimarron",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1982-1988",
+    "year_options": "1982,1983,1984,1985,1986,1987,1988"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Cimarron",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1982-1988",
+    "year_options": "1982,1983,1984,1985,1986,1987,1988"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Coupe DeVille",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1949-1964",
+    "year_options": "1949,1950,1951,1952,1953,1954,1955,1956,1957,1958,1959,1960,1961,1962,1963,1964"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Coupe DeVille",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1949-1964",
+    "year_options": "1949,1950,1951,1952,1953,1954,1955,1956,1957,1958,1959,1960,1961,1962,1963,1964"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Coupe DeVille",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1949-1964",
+    "year_options": "1949,1950,1951,1952,1953,1954,1955,1956,1957,1958,1959,1960,1961,1962,1963,1964"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Cimarron",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1982-1988",
+    "year_options": "1982,1983,1984,1985,1986,1987,1988"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Coupe DeVille",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1949-1964",
+    "year_options": "1949,1950,1951,1952,1953,1954,1955,1956,1957,1958,1959,1960,1961,1962,1963,1964"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Coupe DeVille",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1965-1976",
+    "year_options": "1965,1966,1967,1968,1969,1970,1971,1972,1973,1974,1975,1976"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Coupe DeVille",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1965-1976",
+    "year_options": "1965,1966,1967,1968,1969,1970,1971,1972,1973,1974,1975,1976"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Coupe DeVille",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1965-1976",
+    "year_options": "1965,1966,1967,1968,1969,1970,1971,1972,1973,1974,1975,1976"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Coupe DeVille",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1965-1976",
+    "year_options": "1965,1966,1967,1968,1969,1970,1971,1972,1973,1974,1975,1976"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Coupe DeVille",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1965-1976",
+    "year_options": "1965,1966,1967,1968,1969,1970,1971,1972,1973,1974,1975,1976"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Coupe DeVille",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1949-1964",
+    "year_options": "1949,1950,1951,1952,1953,1954,1955,1956,1957,1958,1959,1960,1961,1962,1963,1964"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Coupe DeVille",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1977-1984",
+    "year_options": "1977,1978,1979,1980,1981,1982,1983,1984"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Coupe DeVille",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1977-1984",
+    "year_options": "1977,1978,1979,1980,1981,1982,1983,1984"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Coupe DeVille",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1977-1984",
+    "year_options": "1977,1978,1979,1980,1981,1982,1983,1984"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Coupe DeVille",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1985-1988",
+    "year_options": "1985,1986,1987,1988"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Coupe DeVille",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1985-1988",
+    "year_options": "1985,1986,1987,1988"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Coupe DeVille",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1985-1988",
+    "year_options": "1985,1986,1987,1988"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Coupe DeVille",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1985-1988",
+    "year_options": "1985,1986,1987,1988"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Coupe DeVille",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1985-1988",
+    "year_options": "1985,1986,1987,1988"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Coupe DeVille",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1989-1993",
+    "year_options": "1989,1990,1991,1992,1993"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Coupe DeVille",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1989-1993",
+    "year_options": "1989,1990,1991,1992,1993"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Coupe DeVille",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1989-1993",
+    "year_options": "1989,1990,1991,1992,1993"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Coupe DeVille",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1989-1993",
+    "year_options": "1989,1990,1991,1992,1993"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Coupe DeVille",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1989-1993",
+    "year_options": "1989,1990,1991,1992,1993"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Sedan DeVille",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1955-1958",
+    "year_options": "1955,1956,1957,1958"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Sedan DeVille",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1955-1958",
+    "year_options": "1955,1956,1957,1958"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Coupe DeVille",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1989-1993",
+    "year_options": "1989,1990,1991,1992,1993"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Sedan DeVille",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1955-1958",
+    "year_options": "1955,1956,1957,1958"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Sedan DeVille",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1959-1964",
+    "year_options": "1959,1960,1961,1962,1963,1964"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Sedan DeVille",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1959-1964",
+    "year_options": "1959,1960,1961,1962,1963,1964"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Sedan DeVille",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1959-1964",
+    "year_options": "1959,1960,1961,1962,1963,1964"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Sedan DeVille",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1959-1964",
+    "year_options": "1959,1960,1961,1962,1963,1964"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Sedan DeVille",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1959-1964",
+    "year_options": "1959,1960,1961,1962,1963,1964"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Sedan DeVille",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1985-1988",
+    "year_options": "1985,1986,1987,1988"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Sedan DeVille",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1965-1976",
+    "year_options": "1965,1966,1967,1968,1969,1970,1971,1972,1973,1974,1975,1976"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Sedan DeVille",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1955-1958",
+    "year_options": "1955,1956,1957,1958"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Sedan DeVille",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1965-1976",
+    "year_options": "1965,1966,1967,1968,1969,1970,1971,1972,1973,1974,1975,1976"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Sedan DeVille",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1965-1976",
+    "year_options": "1965,1966,1967,1968,1969,1970,1971,1972,1973,1974,1975,1976"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Sedan DeVille",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1965-1976",
+    "year_options": "1965,1966,1967,1968,1969,1970,1971,1972,1973,1974,1975,1976"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Sedan DeVille",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1977-1984",
+    "year_options": "1977,1978,1979,1980,1981,1982,1983,1984"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Sedan DeVille",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1977-1984",
+    "year_options": "1977,1978,1979,1980,1981,1982,1983,1984"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Sedan DeVille",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1977-1984",
+    "year_options": "1977,1978,1979,1980,1981,1982,1983,1984"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Sedan DeVille",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1977-1984",
+    "year_options": "1977,1978,1979,1980,1981,1982,1983,1984"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Sedan DeVille",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1977-1984",
+    "year_options": "1977,1978,1979,1980,1981,1982,1983,1984"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Sedan DeVille",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1985-1988",
+    "year_options": "1985,1986,1987,1988"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Sedan DeVille",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1985-1988",
+    "year_options": "1985,1986,1987,1988"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Sedan DeVille",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1985-1988",
+    "year_options": "1985,1986,1987,1988"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Sedan DeVille",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1985-1988",
+    "year_options": "1985,1986,1987,1988"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Sedan DeVille",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1989-1993",
+    "year_options": "1989,1990,1991,1992,1993"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Sedan DeVille",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1989-1993",
+    "year_options": "1989,1990,1991,1992,1993"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Sedan DeVille",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1985-1988",
+    "year_options": "1985,1986,1987,1988"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Sedan DeVille",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1989-1993",
+    "year_options": "1989,1990,1991,1992,1993"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "DeVille",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1994-2005",
+    "year_options": "1994,1995,1996,1997,1998,1999,2000,2001,2002,2003,2004,2005"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "DeVille",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1994-2005",
+    "year_options": "1994,1995,1996,1997,1998,1999,2000,2001,2002,2003,2004,2005"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "CT5-V",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2020-2024",
+    "year_options": "2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "DeVille",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1994-2005",
+    "year_options": "1994,1995,1996,1997,1998,1999,2000,2001,2002,2003,2004,2005"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "DeVille",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1994-2005",
+    "year_options": "1994,1995,1996,1997,1998,1999,2000,2001,2002,2003,2004,2005"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "DeVille",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1994-2005",
+    "year_options": "1994,1995,1996,1997,1998,1999,2000,2001,2002,2003,2004,2005"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "CT4",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2020-2024",
+    "year_options": "2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Sedan DeVille",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1989-1993",
+    "year_options": "1989,1990,1991,1992,1993"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "CT4",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2020-2024",
+    "year_options": "2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "CT4",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2020-2024",
+    "year_options": "2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "CT4",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2020-2024",
+    "year_options": "2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "CT4-V",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2020-2024",
+    "year_options": "2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "CT4-V",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2020-2024",
+    "year_options": "2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "CT4-V",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2020-2024",
+    "year_options": "2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "CT4-V",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2020-2024",
+    "year_options": "2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "CT4",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2020-2024",
+    "year_options": "2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "CT4-V Blackwing",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2024",
+    "year_options": "2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "CT4-V Blackwing",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2024",
+    "year_options": "2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "CT4-V Blackwing",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2024",
+    "year_options": "2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Eldorado",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1953-1970",
+    "year_options": "1953,1954,1955,1956,1957,1958,1959,1960,1961,1962,1963,1964,1965,1966,1967,1968,1969,1970"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "CT5",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2020-2024",
+    "year_options": "2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "CT5",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2020-2024",
+    "year_options": "2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "CT5",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2020-2024",
+    "year_options": "2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "CT4-V Blackwing",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2024",
+    "year_options": "2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "CT5",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2020-2024",
+    "year_options": "2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "CT5-V",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2020-2024",
+    "year_options": "2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "CT5-V",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2020-2024",
+    "year_options": "2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "CT5-V",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2020-2024",
+    "year_options": "2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "CT5-V",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2020-2024",
+    "year_options": "2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "CT5",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2020-2024",
+    "year_options": "2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "CT5-V Blackwing",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2024",
+    "year_options": "2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "CT5-V Blackwing",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2024",
+    "year_options": "2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "CT6",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2016-2020",
+    "year_options": "2016,2017,2018,2019,2020"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "CT6",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2016-2020",
+    "year_options": "2016,2017,2018,2019,2020"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "CT6",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2016-2020",
+    "year_options": "2016,2017,2018,2019,2020"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "CT6",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2016-2020",
+    "year_options": "2016,2017,2018,2019,2020"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "CT5-V Blackwing",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2024",
+    "year_options": "2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "CT5-V Blackwing",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2024",
+    "year_options": "2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "CTS",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2002-2007",
+    "year_options": "2002,2003,2004,2005,2006,2007"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "CTS",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2002-2007",
+    "year_options": "2002,2003,2004,2005,2006,2007"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "CTS",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2002-2007",
+    "year_options": "2002,2003,2004,2005,2006,2007"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "CTS",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2002-2007",
+    "year_options": "2002,2003,2004,2005,2006,2007"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "CTS",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2002-2007",
+    "year_options": "2002,2003,2004,2005,2006,2007"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "CTS",
+    "submodel1": "Sedan",
+    "submodel2": null,
+    "parent_generation": "2014-2019",
+    "year_options": "2014,2015,2016,2017,2018,2019"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "CTS",
+    "submodel1": "Sedan",
+    "submodel2": null,
+    "parent_generation": "2014-2019",
+    "year_options": "2014,2015,2016,2017,2018,2019"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "CTS",
+    "submodel1": "Sedan",
+    "submodel2": null,
+    "parent_generation": "2014-2019",
+    "year_options": "2014,2015,2016,2017,2018,2019"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "CTS",
+    "submodel1": "Sedan",
+    "submodel2": null,
+    "parent_generation": "2014-2019",
+    "year_options": "2014,2015,2016,2017,2018,2019"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "DTS",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2006-2011",
+    "year_options": "2006,2007,2008,2009,2010,2011"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "DTS",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2006-2011",
+    "year_options": "2006,2007,2008,2009,2010,2011"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "DTS",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2006-2011",
+    "year_options": "2006,2007,2008,2009,2010,2011"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "DTS",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2006-2011",
+    "year_options": "2006,2007,2008,2009,2010,2011"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Eldorado",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1953-1970",
+    "year_options": "1953,1954,1955,1956,1957,1958,1959,1960,1961,1962,1963,1964,1965,1966,1967,1968,1969,1970"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Eldorado",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1953-1970",
+    "year_options": "1953,1954,1955,1956,1957,1958,1959,1960,1961,1962,1963,1964,1965,1966,1967,1968,1969,1970"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Eldorado",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1953-1970",
+    "year_options": "1953,1954,1955,1956,1957,1958,1959,1960,1961,1962,1963,1964,1965,1966,1967,1968,1969,1970"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "DTS",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2006-2011",
+    "year_options": "2006,2007,2008,2009,2010,2011"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Eldorado",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1971-1978",
+    "year_options": "1971,1972,1973,1974,1975,1976,1977,1978"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Eldorado",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1971-1978",
+    "year_options": "1971,1972,1973,1974,1975,1976,1977,1978"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Eldorado",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1971-1978",
+    "year_options": "1971,1972,1973,1974,1975,1976,1977,1978"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Eldorado",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1971-1978",
+    "year_options": "1971,1972,1973,1974,1975,1976,1977,1978"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Eldorado",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1971-1978",
+    "year_options": "1971,1972,1973,1974,1975,1976,1977,1978"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Eldorado",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1979-1985",
+    "year_options": "1979,1980,1981,1982,1983,1984,1985"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Eldorado",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1953-1970",
+    "year_options": "1953,1954,1955,1956,1957,1958,1959,1960,1961,1962,1963,1964,1965,1966,1967,1968,1969,1970"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Eldorado",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1979-1985",
+    "year_options": "1979,1980,1981,1982,1983,1984,1985"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Eldorado",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1979-1985",
+    "year_options": "1979,1980,1981,1982,1983,1984,1985"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Eldorado",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1979-1985",
+    "year_options": "1979,1980,1981,1982,1983,1984,1985"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Eldorado",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1986-1991",
+    "year_options": "1986,1987,1988,1989,1990,1991"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Eldorado",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1986-1991",
+    "year_options": "1986,1987,1988,1989,1990,1991"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Eldorado",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1986-1991",
+    "year_options": "1986,1987,1988,1989,1990,1991"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Eldorado",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1986-1991",
+    "year_options": "1986,1987,1988,1989,1990,1991"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Eldorado",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1979-1985",
+    "year_options": "1979,1980,1981,1982,1983,1984,1985"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Eldorado",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1992-2002",
+    "year_options": "1992,1993,1994,1995,1996,1997,1998,1999,2000,2001,2002"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Eldorado",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1992-2002",
+    "year_options": "1992,1993,1994,1995,1996,1997,1998,1999,2000,2001,2002"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Eldorado",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1992-2002",
+    "year_options": "1992,1993,1994,1995,1996,1997,1998,1999,2000,2001,2002"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Eldorado",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1992-2002",
+    "year_options": "1992,1993,1994,1995,1996,1997,1998,1999,2000,2001,2002"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "ELR",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2014-2017",
+    "year_options": "2014,2015,2016,2017"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "ELR",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2014-2017",
+    "year_options": "2014,2015,2016,2017"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "ELR",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2014-2017",
+    "year_options": "2014,2015,2016,2017"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Eldorado",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1992-2002",
+    "year_options": "1992,1993,1994,1995,1996,1997,1998,1999,2000,2001,2002"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Fleetwood",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1954-1988",
+    "year_options": "1954,1955,1956,1957,1958,1959,1960,1961,1962,1963,1964,1965,1966,1967,1968,1969,1970,1971,1972,1973,1974,1975,1976,1977,1978,1979,1980,1981,1982,1983,1984,1985,1986,1987,1988"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Fleetwood",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1954-1988",
+    "year_options": "1954,1955,1956,1957,1958,1959,1960,1961,1962,1963,1964,1965,1966,1967,1968,1969,1970,1971,1972,1973,1974,1975,1976,1977,1978,1979,1980,1981,1982,1983,1984,1985,1986,1987,1988"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Fleetwood",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1954-1988",
+    "year_options": "1954,1955,1956,1957,1958,1959,1960,1961,1962,1963,1964,1965,1966,1967,1968,1969,1970,1971,1972,1973,1974,1975,1976,1977,1978,1979,1980,1981,1982,1983,1984,1985,1986,1987,1988"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Fleetwood",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1989-1992",
+    "year_options": "1989,1990,1991,1992"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "ELR",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2014-2017",
+    "year_options": "2014,2015,2016,2017"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "ELR",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2014-2017",
+    "year_options": "2014,2015,2016,2017"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Fleetwood",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1989-1992",
+    "year_options": "1989,1990,1991,1992"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Fleetwood",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1989-1992",
+    "year_options": "1989,1990,1991,1992"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Fleetwood",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1993-1996",
+    "year_options": "1993,1994,1995,1996"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Fleetwood",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1993-1996",
+    "year_options": "1993,1994,1995,1996"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Fleetwood",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1993-1996",
+    "year_options": "1993,1994,1995,1996"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Fleetwood",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1993-1996",
+    "year_options": "1993,1994,1995,1996"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Fleetwood",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1993-1996",
+    "year_options": "1993,1994,1995,1996"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Fleetwood",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1989-1992",
+    "year_options": "1989,1990,1991,1992"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Series 61",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1948-1953",
+    "year_options": "1948,1949,1950,1951,1952,1953"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Series 61",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1948-1953",
+    "year_options": "1948,1949,1950,1951,1952,1953"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Series 61",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1948-1953",
+    "year_options": "1948,1949,1950,1951,1952,1953"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Series 61",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1948-1953",
+    "year_options": "1948,1949,1950,1951,1952,1953"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Series 61",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1948-1953",
+    "year_options": "1948,1949,1950,1951,1952,1953"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Series 61",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1948-1953",
+    "year_options": "1948,1949,1950,1951,1952,1953"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Series 62",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1948-1953",
+    "year_options": "1948,1949,1950,1951,1952,1953"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Series 62",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1948-1953",
+    "year_options": "1948,1949,1950,1951,1952,1953"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Series 62",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1948-1953",
+    "year_options": "1948,1949,1950,1951,1952,1953"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Series 62",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1948-1953",
+    "year_options": "1948,1949,1950,1951,1952,1953"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Series 62",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1954-1964",
+    "year_options": "1954,1955,1956,1957,1958,1959,1960,1961,1962,1963,1964"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Series 62",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1954-1964",
+    "year_options": "1954,1955,1956,1957,1958,1959,1960,1961,1962,1963,1964"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Series 62",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1954-1964",
+    "year_options": "1954,1955,1956,1957,1958,1959,1960,1961,1962,1963,1964"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Series 62",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1948-1953",
+    "year_options": "1948,1949,1950,1951,1952,1953"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Series 75",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1938-1940",
+    "year_options": "1938,1939,1940"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Series 72",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1938-1940",
+    "year_options": "1938,1939,1940"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Series 72",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1938-1940",
+    "year_options": "1938,1939,1940"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Series 72",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1938-1940",
+    "year_options": "1938,1939,1940"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Series 72",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1938-1940",
+    "year_options": "1938,1939,1940"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Series 72",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1938-1940",
+    "year_options": "1938,1939,1940"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Series 72",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1938-1940",
+    "year_options": "1938,1939,1940"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Series 75",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1938-1940",
+    "year_options": "1938,1939,1940"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Series 62",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1954-1964",
+    "year_options": "1954,1955,1956,1957,1958,1959,1960,1961,1962,1963,1964"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Series 75",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1938-1940",
+    "year_options": "1938,1939,1940"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Series 75",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1941-1944",
+    "year_options": "1941,1942,1943,1944"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Series 75",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1941-1944",
+    "year_options": "1941,1942,1943,1944"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Series 75",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1941-1944",
+    "year_options": "1941,1942,1943,1944"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Series 75",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1941-1944",
+    "year_options": "1941,1942,1943,1944"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Series 75",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1941-1944",
+    "year_options": "1941,1942,1943,1944"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Series 75",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1938-1940",
+    "year_options": "1938,1939,1940"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Series 75",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1945-1958",
+    "year_options": "1945,1946,1947,1948,1949,1950,1951,1952,1953,1954,1955,1956,1957,1958"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Series 75",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1945-1958",
+    "year_options": "1945,1946,1947,1948,1949,1950,1951,1952,1953,1954,1955,1956,1957,1958"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Series 75",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1945-1958",
+    "year_options": "1945,1946,1947,1948,1949,1950,1951,1952,1953,1954,1955,1956,1957,1958"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Series 75",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1945-1958",
+    "year_options": "1945,1946,1947,1948,1949,1950,1951,1952,1953,1954,1955,1956,1957,1958"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Seville",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1975-1985",
+    "year_options": "1975,1976,1977,1978,1979,1980,1981,1982,1983,1984,1985"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Seville",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1975-1985",
+    "year_options": "1975,1976,1977,1978,1979,1980,1981,1982,1983,1984,1985"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Seville",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1975-1985",
+    "year_options": "1975,1976,1977,1978,1979,1980,1981,1982,1983,1984,1985"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Series 75",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1945-1958",
+    "year_options": "1945,1946,1947,1948,1949,1950,1951,1952,1953,1954,1955,1956,1957,1958"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Seville",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1975-1985",
+    "year_options": "1975,1976,1977,1978,1979,1980,1981,1982,1983,1984,1985"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Seville",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1986-1991",
+    "year_options": "1986,1987,1988,1989,1990,1991"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Seville",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1986-1991",
+    "year_options": "1986,1987,1988,1989,1990,1991"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Seville",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1986-1991",
+    "year_options": "1986,1987,1988,1989,1990,1991"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Seville",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1986-1991",
+    "year_options": "1986,1987,1988,1989,1990,1991"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Seville",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1986-1991",
+    "year_options": "1986,1987,1988,1989,1990,1991"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Seville",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1992-1997",
+    "year_options": "1992,1993,1994,1995,1996,1997"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Seville",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1975-1985",
+    "year_options": "1975,1976,1977,1978,1979,1980,1981,1982,1983,1984,1985"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Seville",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1992-1997",
+    "year_options": "1992,1993,1994,1995,1996,1997"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Seville",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1992-1997",
+    "year_options": "1992,1993,1994,1995,1996,1997"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Seville",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1992-1997",
+    "year_options": "1992,1993,1994,1995,1996,1997"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Seville",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1998-2004",
+    "year_options": "1998,1999,2000,2001,2002,2003,2004"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Seville",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1998-2004",
+    "year_options": "1998,1999,2000,2001,2002,2003,2004"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Seville",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1998-2004",
+    "year_options": "1998,1999,2000,2001,2002,2003,2004"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Seville",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1998-2004",
+    "year_options": "1998,1999,2000,2001,2002,2003,2004"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Seville",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1992-1997",
+    "year_options": "1992,1993,1994,1995,1996,1997"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "STS",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2005-2011",
+    "year_options": "2005,2006,2007,2008,2009,2010,2011"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "STS",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2005-2011",
+    "year_options": "2005,2006,2007,2008,2009,2010,2011"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "STS",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2005-2011",
+    "year_options": "2005,2006,2007,2008,2009,2010,2011"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "STS",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2005-2011",
+    "year_options": "2005,2006,2007,2008,2009,2010,2011"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "STS",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2005-2011",
+    "year_options": "2005,2006,2007,2008,2009,2010,2011"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "XTS",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2013-2019",
+    "year_options": "2013,2014,2015,2016,2017,2018,2019"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "XLR Roadster",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2004-2009",
+    "year_options": "2004,2005,2006,2007,2008,2009"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "XLR Roadster",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2004-2009",
+    "year_options": "2004,2005,2006,2007,2008,2009"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "STS",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2005-2011",
+    "year_options": "2005,2006,2007,2008,2009,2010,2011"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "XLR Roadster",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2004-2009",
+    "year_options": "2004,2005,2006,2007,2008,2009"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "XTS",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2013-2019",
+    "year_options": "2013,2014,2015,2016,2017,2018,2019"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "XTS",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2013-2019",
+    "year_options": "2013,2014,2015,2016,2017,2018,2019"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "XTS",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2013-2019",
+    "year_options": "2013,2014,2015,2016,2017,2018,2019"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "XTS",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2013-2019",
+    "year_options": "2013,2014,2015,2016,2017,2018,2019"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "XTS-L",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2013-2019",
+    "year_options": "2013,2014,2015,2016,2017,2018,2019"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "XLR Roadster",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2004-2009",
+    "year_options": "2004,2005,2006,2007,2008,2009"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "XTS-L",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2013-2019",
+    "year_options": "2013,2014,2015,2016,2017,2018,2019"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "XTS-L",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2013-2019",
+    "year_options": "2013,2014,2015,2016,2017,2018,2019"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "XTS-L",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2013-2019",
+    "year_options": "2013,2014,2015,2016,2017,2018,2019"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "XTS-L",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2013-2019",
+    "year_options": "2013,2014,2015,2016,2017,2018,2019"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "XTS-L",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2013-2019",
+    "year_options": "2013,2014,2015,2016,2017,2018,2019"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "60 Special",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1950-1953",
+    "year_options": "1950,1951,1952,1953"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Fleetwood",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1989-1992",
+    "year_options": "1989,1990,1991,1992"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "CTS",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2002-2007",
+    "year_options": "2002,2003,2004,2005,2006,2007"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "CTS",
+    "submodel1": "Sedan",
+    "submodel2": null,
+    "parent_generation": "2014-2019",
+    "year_options": "2014,2015,2016,2017,2018,2019"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Fleetwood",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1993-1996",
+    "year_options": "1993,1994,1995,1996"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Coupe DeVille",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1985-1988",
+    "year_options": "1985,1986,1987,1988"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Coupe DeVille",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1985-1988",
+    "year_options": "1985,1986,1987,1988"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Cimarron",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1982-1988",
+    "year_options": "1982,1983,1984,1985,1986,1987,1988"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Coupe DeVille",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1977-1984",
+    "year_options": "1977,1978,1979,1980,1981,1982,1983,1984"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Sedan DeVille",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1965-1976",
+    "year_options": "1965,1966,1967,1968,1969,1970,1971,1972,1973,1974,1975,1976"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "XLR Roadster",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2004-2009",
+    "year_options": "2004,2005,2006,2007,2008,2009"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Eldorado",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1953-1970",
+    "year_options": "1953,1954,1955,1956,1957,1958,1959,1960,1961,1962,1963,1964,1965,1966,1967,1968,1969,1970"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Series 75",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1938-1940",
+    "year_options": "1938,1939,1940"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Series 75",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1941-1944",
+    "year_options": "1941,1942,1943,1944"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Seville",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1998-2004",
+    "year_options": "1998,1999,2000,2001,2002,2003,2004"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Coupe DeVille",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1949-1964",
+    "year_options": "1949,1950,1951,1952,1953,1954,1955,1956,1957,1958,1959,1960,1961,1962,1963,1964"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Allante",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1987-1993",
+    "year_options": "1987,1988,1989,1990,1991,1992,1993"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Catera",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1997-2001",
+    "year_options": "1997,1998,1999,2000,2001"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "ATS",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2013-2017",
+    "year_options": "2013,2014,2015,2016,2017"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Brougham",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1985-1992",
+    "year_options": "1985,1986,1987,1988,1989,1990,1991,1992"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Sedan DeVille",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1989-1993",
+    "year_options": "1989,1990,1991,1992,1993"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Coupe DeVille",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1965-1976",
+    "year_options": "1965,1966,1967,1968,1969,1970,1971,1972,1973,1974,1975,1976"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Coupe DeVille",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1985-1988",
+    "year_options": "1985,1986,1987,1988"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Coupe DeVille",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1989-1993",
+    "year_options": "1989,1990,1991,1992,1993"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Sedan DeVille",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1955-1958",
+    "year_options": "1955,1956,1957,1958"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Coupe DeVille",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1949-1964",
+    "year_options": "1949,1950,1951,1952,1953,1954,1955,1956,1957,1958,1959,1960,1961,1962,1963,1964"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Sedan DeVille",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1985-1988",
+    "year_options": "1985,1986,1987,1988"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "DeVille",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1994-2005",
+    "year_options": "1994,1995,1996,1997,1998,1999,2000,2001,2002,2003,2004,2005"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "CT4",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2020-2024",
+    "year_options": "2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "CT4-V Blackwing",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2024",
+    "year_options": "2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Sedan DeVille",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1977-1984",
+    "year_options": "1977,1978,1979,1980,1981,1982,1983,1984"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "CT6",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2016-2020",
+    "year_options": "2016,2017,2018,2019,2020"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "CTS",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2002-2007",
+    "year_options": "2002,2003,2004,2005,2006,2007"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "CT5-V",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2020-2024",
+    "year_options": "2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Eldorado",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1979-1985",
+    "year_options": "1979,1980,1981,1982,1983,1984,1985"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Eldorado",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1986-1991",
+    "year_options": "1986,1987,1988,1989,1990,1991"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Eldorado",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1992-2002",
+    "year_options": "1992,1993,1994,1995,1996,1997,1998,1999,2000,2001,2002"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Fleetwood",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1954-1988",
+    "year_options": "1954,1955,1956,1957,1958,1959,1960,1961,1962,1963,1964,1965,1966,1967,1968,1969,1970,1971,1972,1973,1974,1975,1976,1977,1978,1979,1980,1981,1982,1983,1984,1985,1986,1987,1988"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Eldorado",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1953-1970",
+    "year_options": "1953,1954,1955,1956,1957,1958,1959,1960,1961,1962,1963,1964,1965,1966,1967,1968,1969,1970"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Fleetwood",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1993-1996",
+    "year_options": "1993,1994,1995,1996"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Seville",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1975-1985",
+    "year_options": "1975,1976,1977,1978,1979,1980,1981,1982,1983,1984,1985"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Seville",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1992-1997",
+    "year_options": "1992,1993,1994,1995,1996,1997"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Series 75",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1938-1940",
+    "year_options": "1938,1939,1940"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "XTS",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2013-2019",
+    "year_options": "2013,2014,2015,2016,2017,2018,2019"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "STS",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2005-2011",
+    "year_options": "2005,2006,2007,2008,2009,2010,2011"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "60 Special",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1938-1941",
+    "year_options": "1938,1939,1940,1941"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "60 Special",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1938-1941",
+    "year_options": "1938,1939,1940,1941"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "60 Special",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1946-1949",
+    "year_options": "1946,1947,1948,1949"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "60 Special",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1950-1953",
+    "year_options": "1950,1951,1952,1953"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "ATS",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2013-2017",
+    "year_options": "2013,2014,2015,2016,2017"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "ATS",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2013-2017",
+    "year_options": "2013,2014,2015,2016,2017"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Brougham",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1985-1992",
+    "year_options": "1985,1986,1987,1988,1989,1990,1991,1992"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Brougham",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1985-1992",
+    "year_options": "1985,1986,1987,1988,1989,1990,1991,1992"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Calais",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1965-1976",
+    "year_options": "1965,1966,1967,1968,1969,1970,1971,1972,1973,1974,1975,1976"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Calais",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1965-1976",
+    "year_options": "1965,1966,1967,1968,1969,1970,1971,1972,1973,1974,1975,1976"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Catera",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1997-2001",
+    "year_options": "1997,1998,1999,2000,2001"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Allante",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1987-1993",
+    "year_options": "1987,1988,1989,1990,1991,1992,1993"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Cimarron",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1982-1988",
+    "year_options": "1982,1983,1984,1985,1986,1987,1988"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Coupe DeVille",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1949-1964",
+    "year_options": "1949,1950,1951,1952,1953,1954,1955,1956,1957,1958,1959,1960,1961,1962,1963,1964"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Coupe DeVille",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1965-1976",
+    "year_options": "1965,1966,1967,1968,1969,1970,1971,1972,1973,1974,1975,1976"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Coupe DeVille",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1965-1976",
+    "year_options": "1965,1966,1967,1968,1969,1970,1971,1972,1973,1974,1975,1976"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Coupe DeVille",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1977-1984",
+    "year_options": "1977,1978,1979,1980,1981,1982,1983,1984"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Sedan DeVille",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1955-1958",
+    "year_options": "1955,1956,1957,1958"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Sedan DeVille",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1955-1958",
+    "year_options": "1955,1956,1957,1958"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Sedan DeVille",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1959-1964",
+    "year_options": "1959,1960,1961,1962,1963,1964"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Sedan DeVille",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1959-1964",
+    "year_options": "1959,1960,1961,1962,1963,1964"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Sedan DeVille",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1965-1976",
+    "year_options": "1965,1966,1967,1968,1969,1970,1971,1972,1973,1974,1975,1976"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Sedan DeVille",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1965-1976",
+    "year_options": "1965,1966,1967,1968,1969,1970,1971,1972,1973,1974,1975,1976"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Sedan DeVille",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1985-1988",
+    "year_options": "1985,1986,1987,1988"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Sedan DeVille",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1989-1993",
+    "year_options": "1989,1990,1991,1992,1993"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Sedan DeVille",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1989-1993",
+    "year_options": "1989,1990,1991,1992,1993"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "DeVille",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1994-2005",
+    "year_options": "1994,1995,1996,1997,1998,1999,2000,2001,2002,2003,2004,2005"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "CT4",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2020-2024",
+    "year_options": "2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "CT4",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2020-2024",
+    "year_options": "2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "CT4-V",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2020-2024",
+    "year_options": "2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "CT5-V Blackwing",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2024",
+    "year_options": "2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "CT5",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2020-2024",
+    "year_options": "2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "CT5",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2020-2024",
+    "year_options": "2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "CT5-V",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2020-2024",
+    "year_options": "2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "CT5-V",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2020-2024",
+    "year_options": "2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "CT6",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2016-2020",
+    "year_options": "2016,2017,2018,2019,2020"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "CT4-V Blackwing",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2024",
+    "year_options": "2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "CTS",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2002-2007",
+    "year_options": "2002,2003,2004,2005,2006,2007"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "CTS",
+    "submodel1": "Sedan",
+    "submodel2": null,
+    "parent_generation": "2014-2019",
+    "year_options": "2014,2015,2016,2017,2018,2019"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Eldorado",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1953-1970",
+    "year_options": "1953,1954,1955,1956,1957,1958,1959,1960,1961,1962,1963,1964,1965,1966,1967,1968,1969,1970"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Eldorado",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1953-1970",
+    "year_options": "1953,1954,1955,1956,1957,1958,1959,1960,1961,1962,1963,1964,1965,1966,1967,1968,1969,1970"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Eldorado",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1971-1978",
+    "year_options": "1971,1972,1973,1974,1975,1976,1977,1978"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Eldorado",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1971-1978",
+    "year_options": "1971,1972,1973,1974,1975,1976,1977,1978"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Eldorado",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1979-1985",
+    "year_options": "1979,1980,1981,1982,1983,1984,1985"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Eldorado",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1979-1985",
+    "year_options": "1979,1980,1981,1982,1983,1984,1985"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Eldorado",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1986-1991",
+    "year_options": "1986,1987,1988,1989,1990,1991"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "DTS",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2006-2011",
+    "year_options": "2006,2007,2008,2009,2010,2011"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Eldorado",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1992-2002",
+    "year_options": "1992,1993,1994,1995,1996,1997,1998,1999,2000,2001,2002"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "ELR",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2014-2017",
+    "year_options": "2014,2015,2016,2017"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "ELR",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2014-2017",
+    "year_options": "2014,2015,2016,2017"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Fleetwood",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1954-1988",
+    "year_options": "1954,1955,1956,1957,1958,1959,1960,1961,1962,1963,1964,1965,1966,1967,1968,1969,1970,1971,1972,1973,1974,1975,1976,1977,1978,1979,1980,1981,1982,1983,1984,1985,1986,1987,1988"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Fleetwood",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1989-1992",
+    "year_options": "1989,1990,1991,1992"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Fleetwood",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1993-1996",
+    "year_options": "1993,1994,1995,1996"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Seville",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1986-1991",
+    "year_options": "1986,1987,1988,1989,1990,1991"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Series 61",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1948-1953",
+    "year_options": "1948,1949,1950,1951,1952,1953"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Series 61",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1948-1953",
+    "year_options": "1948,1949,1950,1951,1952,1953"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Seville",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1998-2004",
+    "year_options": "1998,1999,2000,2001,2002,2003,2004"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Series 62",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1948-1953",
+    "year_options": "1948,1949,1950,1951,1952,1953"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Series 62",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1954-1964",
+    "year_options": "1954,1955,1956,1957,1958,1959,1960,1961,1962,1963,1964"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Series 62",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1954-1964",
+    "year_options": "1954,1955,1956,1957,1958,1959,1960,1961,1962,1963,1964"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Series 72",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1938-1940",
+    "year_options": "1938,1939,1940"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Series 72",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1938-1940",
+    "year_options": "1938,1939,1940"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Series 75",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1938-1940",
+    "year_options": "1938,1939,1940"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Series 75",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1938-1940",
+    "year_options": "1938,1939,1940"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Series 75",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1945-1958",
+    "year_options": "1945,1946,1947,1948,1949,1950,1951,1952,1953,1954,1955,1956,1957,1958"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Seville",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1975-1985",
+    "year_options": "1975,1976,1977,1978,1979,1980,1981,1982,1983,1984,1985"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Seville",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1975-1985",
+    "year_options": "1975,1976,1977,1978,1979,1980,1981,1982,1983,1984,1985"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Seville",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1986-1991",
+    "year_options": "1986,1987,1988,1989,1990,1991"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Seville",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1992-1997",
+    "year_options": "1992,1993,1994,1995,1996,1997"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Seville",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1992-1997",
+    "year_options": "1992,1993,1994,1995,1996,1997"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Series 75",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1945-1958",
+    "year_options": "1945,1946,1947,1948,1949,1950,1951,1952,1953,1954,1955,1956,1957,1958"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "STS",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2005-2011",
+    "year_options": "2005,2006,2007,2008,2009,2010,2011"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "XLR Roadster",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2004-2009",
+    "year_options": "2004,2005,2006,2007,2008,2009"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "XLR Roadster",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2004-2009",
+    "year_options": "2004,2005,2006,2007,2008,2009"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "XTS",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2013-2019",
+    "year_options": "2013,2014,2015,2016,2017,2018,2019"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "XTS",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2013-2019",
+    "year_options": "2013,2014,2015,2016,2017,2018,2019"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "XTS-L",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2013-2019",
+    "year_options": "2013,2014,2015,2016,2017,2018,2019"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "CTS",
+    "submodel1": "Coupe",
+    "submodel2": null,
+    "parent_generation": "2008-2013",
+    "year_options": "2011,2012,2013,2014,2015"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "CTS",
+    "submodel1": "Coupe",
+    "submodel2": null,
+    "parent_generation": "2008-2013",
+    "year_options": "2011,2012,2013,2014,2015"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "CTS",
+    "submodel1": "Coupe",
+    "submodel2": null,
+    "parent_generation": "2008-2013",
+    "year_options": "2011,2012,2013,2014,2015"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "CTS",
+    "submodel1": "Wagon",
+    "submodel2": null,
+    "parent_generation": "2008-2013",
+    "year_options": "2010,2011,2012,2013,2014"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "CTS",
+    "submodel1": "Coupe",
+    "submodel2": null,
+    "parent_generation": "2008-2013",
+    "year_options": "2011,2012,2013,2014,2015"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "CTS",
+    "submodel1": "Coupe",
+    "submodel2": null,
+    "parent_generation": "2008-2013",
+    "year_options": "2011,2012,2013,2014,2015"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "CTS",
+    "submodel1": "Sedan",
+    "submodel2": null,
+    "parent_generation": "2008-2013",
+    "year_options": "2008,2009,2010,2011,2012,2013"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "CTS",
+    "submodel1": "Sedan",
+    "submodel2": null,
+    "parent_generation": "2008-2013",
+    "year_options": "2008,2009,2010,2011,2012,2013"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "CTS",
+    "submodel1": "Sedan",
+    "submodel2": null,
+    "parent_generation": "2008-2013",
+    "year_options": "2008,2009,2010,2011,2012,2013"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "CTS",
+    "submodel1": "Sedan",
+    "submodel2": null,
+    "parent_generation": "2008-2013",
+    "year_options": "2008,2009,2010,2011,2012,2013"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "CTS",
+    "submodel1": "Sedan",
+    "submodel2": null,
+    "parent_generation": "2008-2013",
+    "year_options": "2008,2009,2010,2011,2012,2013"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "CTS",
+    "submodel1": "Wagon",
+    "submodel2": null,
+    "parent_generation": "2008-2013",
+    "year_options": "2010,2011,2012,2013,2014"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "CTS",
+    "submodel1": "Wagon",
+    "submodel2": null,
+    "parent_generation": "2008-2013",
+    "year_options": "2010,2011,2012,2013,2014"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "CTS",
+    "submodel1": "Wagon",
+    "submodel2": null,
+    "parent_generation": "2008-2013",
+    "year_options": "2010,2011,2012,2013,2014"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "CTS",
+    "submodel1": "Wagon",
+    "submodel2": null,
+    "parent_generation": "2008-2013",
+    "year_options": "2010,2011,2012,2013,2014"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Series 61",
+    "submodel1": "2-Door",
+    "submodel2": null,
+    "parent_generation": "1940-1947",
+    "year_options": "1940,1941,1942,1943,1944,1945,1946,1947"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Series 61",
+    "submodel1": "2-Door",
+    "submodel2": null,
+    "parent_generation": "1940-1947",
+    "year_options": "1940,1941,1942,1943,1944,1945,1946,1947"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Series 61",
+    "submodel1": "2-Door",
+    "submodel2": null,
+    "parent_generation": "1940-1947",
+    "year_options": "1940,1941,1942,1943,1944,1945,1946,1947"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Series 61",
+    "submodel1": "4-Door",
+    "submodel2": null,
+    "parent_generation": "1940-1947",
+    "year_options": "1940,1941,1942,1943,1944,1945,1946,1947"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Series 61",
+    "submodel1": "4-Door",
+    "submodel2": null,
+    "parent_generation": "1940-1947",
+    "year_options": "1940,1941,1942,1943,1944,1945,1946,1947"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Series 61",
+    "submodel1": "2-Door",
+    "submodel2": null,
+    "parent_generation": "1940-1947",
+    "year_options": "1940,1941,1942,1943,1944,1945,1946,1947"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Series 61",
+    "submodel1": "2-Door",
+    "submodel2": null,
+    "parent_generation": "1940-1947",
+    "year_options": "1940,1941,1942,1943,1944,1945,1946,1947"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Series 61",
+    "submodel1": "4-Door",
+    "submodel2": null,
+    "parent_generation": "1940-1947",
+    "year_options": "1940,1941,1942,1943,1944,1945,1946,1947"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Series 61",
+    "submodel1": "4-Door",
+    "submodel2": null,
+    "parent_generation": "1940-1947",
+    "year_options": "1940,1941,1942,1943,1944,1945,1946,1947"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Series 62",
+    "submodel1": "2-Door",
+    "submodel2": null,
+    "parent_generation": "1940-1947",
+    "year_options": "1940,1941,1942,1943,1944,1945,1946,1947"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Series 62",
+    "submodel1": "2-Door",
+    "submodel2": null,
+    "parent_generation": "1940-1947",
+    "year_options": "1940,1941,1942,1943,1944,1945,1946,1947"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Series 62",
+    "submodel1": "2-Door",
+    "submodel2": null,
+    "parent_generation": "1940-1947",
+    "year_options": "1940,1941,1942,1943,1944,1945,1946,1947"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Series 62",
+    "submodel1": "4-Door",
+    "submodel2": null,
+    "parent_generation": "1940-1947",
+    "year_options": "1940,1941,1942,1943,1944,1945,1946,1947"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Series 62",
+    "submodel1": "4-Door",
+    "submodel2": null,
+    "parent_generation": "1940-1947",
+    "year_options": "1940,1941,1942,1943,1944,1945,1946,1947"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Series 62",
+    "submodel1": "4-Door",
+    "submodel2": null,
+    "parent_generation": "1940-1947",
+    "year_options": "1940,1941,1942,1943,1944,1945,1946,1947"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Series 62",
+    "submodel1": "4-Door",
+    "submodel2": null,
+    "parent_generation": "1940-1947",
+    "year_options": "1940,1941,1942,1943,1944,1945,1946,1947"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Series 62",
+    "submodel1": "4-Door",
+    "submodel2": null,
+    "parent_generation": "1940-1947",
+    "year_options": "1940,1941,1942,1943,1944,1945,1946,1947"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Series 75",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1945-1958",
+    "year_options": "1945,1946,1947,1948,1949,1950,1951,1952,1953,1954,1955,1956,1957,1958"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Series 62",
+    "submodel1": "2-Door",
+    "submodel2": null,
+    "parent_generation": "1940-1947",
+    "year_options": "1940,1941,1942,1943,1944,1945,1946,1947"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Series 61",
+    "submodel1": "2-Door",
+    "submodel2": null,
+    "parent_generation": "1940-1947",
+    "year_options": "1940,1941,1942,1943,1944,1945,1946,1947"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "CTS",
+    "submodel1": "Coupe",
+    "submodel2": null,
+    "parent_generation": "2008-2013",
+    "year_options": "2011,2012,2013,2014,2015"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "CTS",
+    "submodel1": "Sedan",
+    "submodel2": null,
+    "parent_generation": "2008-2013",
+    "year_options": "2008,2009,2010,2011,2012,2013"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "CTS",
+    "submodel1": "Wagon",
+    "submodel2": null,
+    "parent_generation": "2008-2013",
+    "year_options": "2010,2011,2012,2013,2014"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Series 61",
+    "submodel1": "4-Door",
+    "submodel2": null,
+    "parent_generation": "1940-1947",
+    "year_options": "1940,1941,1942,1943,1944,1945,1946,1947"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Series 62",
+    "submodel1": "4-Door",
+    "submodel2": null,
+    "parent_generation": "1940-1947",
+    "year_options": "1940,1941,1942,1943,1944,1945,1946,1947"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Series 62",
+    "submodel1": "2-Door",
+    "submodel2": null,
+    "parent_generation": "1940-1947",
+    "year_options": "1940,1941,1942,1943,1944,1945,1946,1947"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "CTS",
+    "submodel1": "Coupe",
+    "submodel2": null,
+    "parent_generation": "2008-2013",
+    "year_options": "2011,2012,2013,2014,2015"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "CTS",
+    "submodel1": "Coupe",
+    "submodel2": null,
+    "parent_generation": "2008-2013",
+    "year_options": "2011,2012,2013,2014,2015"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "CTS",
+    "submodel1": "Sedan",
+    "submodel2": null,
+    "parent_generation": "2008-2013",
+    "year_options": "2008,2009,2010,2011,2012,2013"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "CTS",
+    "submodel1": "Sedan",
+    "submodel2": null,
+    "parent_generation": "2008-2013",
+    "year_options": "2008,2009,2010,2011,2012,2013"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "CTS",
+    "submodel1": "Wagon",
+    "submodel2": null,
+    "parent_generation": "2008-2013",
+    "year_options": "2010,2011,2012,2013,2014"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "CTS",
+    "submodel1": "Wagon",
+    "submodel2": null,
+    "parent_generation": "2008-2013",
+    "year_options": "2010,2011,2012,2013,2014"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Series 61",
+    "submodel1": "4-Door",
+    "submodel2": null,
+    "parent_generation": "1940-1947",
+    "year_options": "1940,1941,1942,1943,1944,1945,1946,1947"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Series 61",
+    "submodel1": "4-Door",
+    "submodel2": null,
+    "parent_generation": "1940-1947",
+    "year_options": "1940,1941,1942,1943,1944,1945,1946,1947"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Series 62",
+    "submodel1": "2-Door",
+    "submodel2": null,
+    "parent_generation": "1940-1947",
+    "year_options": "1940,1941,1942,1943,1944,1945,1946,1947"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Series 62",
+    "submodel1": "2-Door",
+    "submodel2": null,
+    "parent_generation": "1940-1947",
+    "year_options": "1940,1941,1942,1943,1944,1945,1946,1947"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "CTS",
+    "submodel1": "Coupe",
+    "submodel2": null,
+    "parent_generation": "2008-2013",
+    "year_options": "2011,2012,2013,2014,2015"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "CTS",
+    "submodel1": "Sedan",
+    "submodel2": null,
+    "parent_generation": "2008-2013",
+    "year_options": "2008,2009,2010,2011,2012,2013"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "CTS",
+    "submodel1": "Wagon",
+    "submodel2": null,
+    "parent_generation": "2008-2013",
+    "year_options": "2010,2011,2012,2013,2014"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Series 61",
+    "submodel1": "4-Door",
+    "submodel2": null,
+    "parent_generation": "1940-1947",
+    "year_options": "1940,1941,1942,1943,1944,1945,1946,1947"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Series 61",
+    "submodel1": "4-Door",
+    "submodel2": null,
+    "parent_generation": "1940-1947",
+    "year_options": "1940,1941,1942,1943,1944,1945,1946,1947"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Series 62",
+    "submodel1": "2-Door",
+    "submodel2": null,
+    "parent_generation": "1940-1947",
+    "year_options": "1940,1941,1942,1943,1944,1945,1946,1947"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Series 62",
+    "submodel1": "4-Door",
+    "submodel2": null,
+    "parent_generation": "1940-1947",
+    "year_options": "1940,1941,1942,1943,1944,1945,1946,1947"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Series 61",
+    "submodel1": "2-Door",
+    "submodel2": null,
+    "parent_generation": "1940-1947",
+    "year_options": "1940,1941,1942,1943,1944,1945,1946,1947"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Series 62",
+    "submodel1": "4-Door",
+    "submodel2": null,
+    "parent_generation": "1940-1947",
+    "year_options": "1940,1941,1942,1943,1944,1945,1946,1947"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Series 62",
+    "submodel1": "4-Door",
+    "submodel2": null,
+    "parent_generation": "1940-1947",
+    "year_options": "1940,1941,1942,1943,1944,1945,1946,1947"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Series 61",
+    "submodel1": "2-Door",
+    "submodel2": null,
+    "parent_generation": "1940-1947",
+    "year_options": "1940,1941,1942,1943,1944,1945,1946,1947"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Series 62",
+    "submodel1": "2-Door",
+    "submodel2": null,
+    "parent_generation": "1940-1947",
+    "year_options": "1940,1941,1942,1943,1944,1945,1946,1947"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Series 61",
+    "submodel1": "2-Door",
+    "submodel2": null,
+    "parent_generation": "1940-1947",
+    "year_options": "1940,1941,1942,1943,1944,1945,1946,1947"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Series 72",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1938-1940",
+    "year_options": "1938,1939,1940"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Seville",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1986-1991",
+    "year_options": "1986,1987,1988,1989,1990,1991"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Coupe DeVille",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1977-1984",
+    "year_options": "1977,1978,1979,1980,1981,1982,1983,1984"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "DeVille",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1994-2005",
+    "year_options": "1994,1995,1996,1997,1998,1999,2000,2001,2002,2003,2004,2005"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Series 75",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1941-1944",
+    "year_options": "1941,1942,1943,1944"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Calais",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1965-1976",
+    "year_options": "1965,1966,1967,1968,1969,1970,1971,1972,1973,1974,1975,1976"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "60 Special",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1946-1949",
+    "year_options": "1946,1947,1948,1949"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "CT6",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2016-2020",
+    "year_options": "2016,2017,2018,2019,2020"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "60 Special",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1950-1953",
+    "year_options": "1950,1951,1952,1953"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Catera",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1997-2001",
+    "year_options": "1997,1998,1999,2000,2001"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "ATS",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2013-2017",
+    "year_options": "2013,2014,2015,2016,2017"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "CT6",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2016-2020",
+    "year_options": "2016,2017,2018,2019,2020"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "60 Special",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1946-1949",
+    "year_options": "1946,1947,1948,1949"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Eldorado",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1986-1991",
+    "year_options": "1986,1987,1988,1989,1990,1991"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "ELR",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2014-2017",
+    "year_options": "2014,2015,2016,2017"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Fleetwood",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1989-1992",
+    "year_options": "1989,1990,1991,1992"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Fleetwood",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1993-1996",
+    "year_options": "1993,1994,1995,1996"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Eldorado",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1979-1985",
+    "year_options": "1979,1980,1981,1982,1983,1984,1985"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Series 62",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1954-1964",
+    "year_options": "1954,1955,1956,1957,1958,1959,1960,1961,1962,1963,1964"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Series 75",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1941-1944",
+    "year_options": "1941,1942,1943,1944"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Seville",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1975-1985",
+    "year_options": "1975,1976,1977,1978,1979,1980,1981,1982,1983,1984,1985"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Seville",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1992-1997",
+    "year_options": "1992,1993,1994,1995,1996,1997"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Seville",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1998-2004",
+    "year_options": "1998,1999,2000,2001,2002,2003,2004"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "XLR Roadster",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2004-2009",
+    "year_options": "2004,2005,2006,2007,2008,2009"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "XTS-L",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2013-2019",
+    "year_options": "2013,2014,2015,2016,2017,2018,2019"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "CT5",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2020-2024",
+    "year_options": "2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Sedan DeVille",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1977-1984",
+    "year_options": "1977,1978,1979,1980,1981,1982,1983,1984"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Coupe DeVille",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1949-1964",
+    "year_options": "1949,1950,1951,1952,1953,1954,1955,1956,1957,1958,1959,1960,1961,1962,1963,1964"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Coupe DeVille",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1965-1976",
+    "year_options": "1965,1966,1967,1968,1969,1970,1971,1972,1973,1974,1975,1976"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Coupe DeVille",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1977-1984",
+    "year_options": "1977,1978,1979,1980,1981,1982,1983,1984"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Sedan DeVille",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1989-1993",
+    "year_options": "1989,1990,1991,1992,1993"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Sedan DeVille",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1989-1993",
+    "year_options": "1989,1990,1991,1992,1993"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "DeVille",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1994-2005",
+    "year_options": "1994,1995,1996,1997,1998,1999,2000,2001,2002,2003,2004,2005"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Sedan DeVille",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1955-1958",
+    "year_options": "1955,1956,1957,1958"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Sedan DeVille",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1965-1976",
+    "year_options": "1965,1966,1967,1968,1969,1970,1971,1972,1973,1974,1975,1976"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "60 Special",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1938-1941",
+    "year_options": "1938,1939,1940,1941"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "60 Special",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1950-1953",
+    "year_options": "1950,1951,1952,1953"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Calais",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1965-1976",
+    "year_options": "1965,1966,1967,1968,1969,1970,1971,1972,1973,1974,1975,1976"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "CT4-V",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2020-2024",
+    "year_options": "2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "CTS",
+    "submodel1": "Sedan",
+    "submodel2": null,
+    "parent_generation": "2014-2019",
+    "year_options": "2014,2015,2016,2017,2018,2019"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "60 Special",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1938-1941",
+    "year_options": "1938,1939,1940,1941"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "60 Special",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1946-1949",
+    "year_options": "1946,1947,1948,1949"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Allante",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1987-1993",
+    "year_options": "1987,1988,1989,1990,1991,1992,1993"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Brougham",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1985-1992",
+    "year_options": "1985,1986,1987,1988,1989,1990,1991,1992"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Catera",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1997-2001",
+    "year_options": "1997,1998,1999,2000,2001"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Cimarron",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1982-1988",
+    "year_options": "1982,1983,1984,1985,1986,1987,1988"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Coupe DeVille",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1977-1984",
+    "year_options": "1977,1978,1979,1980,1981,1982,1983,1984"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Sedan DeVille",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1965-1976",
+    "year_options": "1965,1966,1967,1968,1969,1970,1971,1972,1973,1974,1975,1976"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "CT4-V Blackwing",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2024",
+    "year_options": "2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "CT5-V Blackwing",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2024",
+    "year_options": "2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "CT5-V",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2020-2024",
+    "year_options": "2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "CT5-V Blackwing",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2024",
+    "year_options": "2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "CTS",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2002-2007",
+    "year_options": "2002,2003,2004,2005,2006,2007"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "CTS",
+    "submodel1": "Sedan",
+    "submodel2": null,
+    "parent_generation": "2014-2019",
+    "year_options": "2014,2015,2016,2017,2018,2019"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "DTS",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2006-2011",
+    "year_options": "2006,2007,2008,2009,2010,2011"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "CT4-V Blackwing",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2024",
+    "year_options": "2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Eldorado",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1986-1991",
+    "year_options": "1986,1987,1988,1989,1990,1991"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Eldorado",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1992-2002",
+    "year_options": "1992,1993,1994,1995,1996,1997,1998,1999,2000,2001,2002"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Fleetwood",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1954-1988",
+    "year_options": "1954,1955,1956,1957,1958,1959,1960,1961,1962,1963,1964,1965,1966,1967,1968,1969,1970,1971,1972,1973,1974,1975,1976,1977,1978,1979,1980,1981,1982,1983,1984,1985,1986,1987,1988"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Fleetwood",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1989-1992",
+    "year_options": "1989,1990,1991,1992"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Series 62",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1948-1953",
+    "year_options": "1948,1949,1950,1951,1952,1953"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Series 75",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1938-1940",
+    "year_options": "1938,1939,1940"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Series 75",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1945-1958",
+    "year_options": "1945,1946,1947,1948,1949,1950,1951,1952,1953,1954,1955,1956,1957,1958"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Seville",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1986-1991",
+    "year_options": "1986,1987,1988,1989,1990,1991"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Seville",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1998-2004",
+    "year_options": "1998,1999,2000,2001,2002,2003,2004"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "XLR Roadster",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2004-2009",
+    "year_options": "2004,2005,2006,2007,2008,2009"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "XTS",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2013-2019",
+    "year_options": "2013,2014,2015,2016,2017,2018,2019"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Fleetwood",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1954-1988",
+    "year_options": "1954,1955,1956,1957,1958,1959,1960,1961,1962,1963,1964,1965,1966,1967,1968,1969,1970,1971,1972,1973,1974,1975,1976,1977,1978,1979,1980,1981,1982,1983,1984,1985,1986,1987,1988"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Sedan DeVille",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1955-1958",
+    "year_options": "1955,1956,1957,1958"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Sedan DeVille",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1959-1964",
+    "year_options": "1959,1960,1961,1962,1963,1964"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "CT4",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2020-2024",
+    "year_options": "2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Eldorado",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1971-1978",
+    "year_options": "1971,1972,1973,1974,1975,1976,1977,1978"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Sedan DeVille",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1977-1984",
+    "year_options": "1977,1978,1979,1980,1981,1982,1983,1984"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "60 Special",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1946-1949",
+    "year_options": "1946,1947,1948,1949"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Cimarron",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1982-1988",
+    "year_options": "1982,1983,1984,1985,1986,1987,1988"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Coupe DeVille",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1977-1984",
+    "year_options": "1977,1978,1979,1980,1981,1982,1983,1984"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Coupe DeVille",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1985-1988",
+    "year_options": "1985,1986,1987,1988"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Coupe DeVille",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1989-1993",
+    "year_options": "1989,1990,1991,1992,1993"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Sedan DeVille",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1977-1984",
+    "year_options": "1977,1978,1979,1980,1981,1982,1983,1984"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Sedan DeVille",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1985-1988",
+    "year_options": "1985,1986,1987,1988"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Eldorado",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1992-2002",
+    "year_options": "1992,1993,1994,1995,1996,1997,1998,1999,2000,2001,2002"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Fleetwood",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1954-1988",
+    "year_options": "1954,1955,1956,1957,1958,1959,1960,1961,1962,1963,1964,1965,1966,1967,1968,1969,1970,1971,1972,1973,1974,1975,1976,1977,1978,1979,1980,1981,1982,1983,1984,1985,1986,1987,1988"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Series 62",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1948-1953",
+    "year_options": "1948,1949,1950,1951,1952,1953"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "STS",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2005-2011",
+    "year_options": "2005,2006,2007,2008,2009,2010,2011"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Catera",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1997-2001",
+    "year_options": "1997,1998,1999,2000,2001"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "CT4-V",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2020-2024",
+    "year_options": "2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "CT4-V",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2020-2024",
+    "year_options": "2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Eldorado",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1971-1978",
+    "year_options": "1971,1972,1973,1974,1975,1976,1977,1978"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Fleetwood",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1954-1988",
+    "year_options": "1954,1955,1956,1957,1958,1959,1960,1961,1962,1963,1964,1965,1966,1967,1968,1969,1970,1971,1972,1973,1974,1975,1976,1977,1978,1979,1980,1981,1982,1983,1984,1985,1986,1987,1988"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "Series 62",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1954-1964",
+    "year_options": "1954,1955,1956,1957,1958,1959,1960,1961,1962,1963,1964"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "CT5-V Blackwing",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2024",
+    "year_options": "2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Cadillac",
+    "model": "CT4-V Blackwing",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2024",
+    "year_options": "2024"
+  }
+]

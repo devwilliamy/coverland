@@ -1,0 +1,650 @@
+[
+  {
+    "type": "Car Covers",
+    "make": "DeSoto",
+    "model": "Adventurer",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1956-1961",
+    "year_options": "1956,1957,1958,1959,1960,1961"
+  },
+  {
+    "type": "Car Covers",
+    "make": "DeSoto",
+    "model": "Adventurer",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1956-1961",
+    "year_options": "1956,1957,1958,1959,1960,1961"
+  },
+  {
+    "type": "Car Covers",
+    "make": "DeSoto",
+    "model": "Adventurer",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1956-1961",
+    "year_options": "1956,1957,1958,1959,1960,1961"
+  },
+  {
+    "type": "Car Covers",
+    "make": "DeSoto",
+    "model": "Adventurer",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1956-1961",
+    "year_options": "1956,1957,1958,1959,1960,1961"
+  },
+  {
+    "type": "Car Covers",
+    "make": "DeSoto",
+    "model": "Custom",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1946-1952",
+    "year_options": "1946,1947,1948,1949,1950,1951,1952"
+  },
+  {
+    "type": "Car Covers",
+    "make": "DeSoto",
+    "model": "Custom",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1946-1952",
+    "year_options": "1946,1947,1948,1949,1950,1951,1952"
+  },
+  {
+    "type": "Car Covers",
+    "make": "DeSoto",
+    "model": "Custom",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1946-1952",
+    "year_options": "1946,1947,1948,1949,1950,1951,1952"
+  },
+  {
+    "type": "Car Covers",
+    "make": "DeSoto",
+    "model": "Custom",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1946-1952",
+    "year_options": "1946,1947,1948,1949,1950,1951,1952"
+  },
+  {
+    "type": "Car Covers",
+    "make": "DeSoto",
+    "model": "Custom",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1946-1952",
+    "year_options": "1946,1947,1948,1949,1950,1951,1952"
+  },
+  {
+    "type": "Car Covers",
+    "make": "DeSoto",
+    "model": "Adventurer",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1956-1961",
+    "year_options": "1956,1957,1958,1959,1960,1961"
+  },
+  {
+    "type": "Car Covers",
+    "make": "DeSoto",
+    "model": "Deluxe",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1946-1952",
+    "year_options": "1946,1947,1948,1949,1950,1951,1952"
+  },
+  {
+    "type": "Car Covers",
+    "make": "DeSoto",
+    "model": "Deluxe",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1946-1952",
+    "year_options": "1946,1947,1948,1949,1950,1951,1952"
+  },
+  {
+    "type": "Car Covers",
+    "make": "DeSoto",
+    "model": "Deluxe",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1946-1952",
+    "year_options": "1946,1947,1948,1949,1950,1951,1952"
+  },
+  {
+    "type": "Car Covers",
+    "make": "DeSoto",
+    "model": "Deluxe",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1946-1952",
+    "year_options": "1946,1947,1948,1949,1950,1951,1952"
+  },
+  {
+    "type": "Car Covers",
+    "make": "DeSoto",
+    "model": "Fireflite",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1955-1961",
+    "year_options": "1955,1956,1957,1958,1959,1960,1961"
+  },
+  {
+    "type": "Car Covers",
+    "make": "DeSoto",
+    "model": "Fireflite",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1955-1961",
+    "year_options": "1955,1956,1957,1958,1959,1960,1961"
+  },
+  {
+    "type": "Car Covers",
+    "make": "DeSoto",
+    "model": "Fireflite",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1955-1961",
+    "year_options": "1955,1956,1957,1958,1959,1960,1961"
+  },
+  {
+    "type": "Car Covers",
+    "make": "DeSoto",
+    "model": "Firesweep",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1957-1959",
+    "year_options": "1957,1958,1959"
+  },
+  {
+    "type": "Car Covers",
+    "make": "DeSoto",
+    "model": "Firesweep",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1957-1959",
+    "year_options": "1957,1958,1959"
+  },
+  {
+    "type": "Car Covers",
+    "make": "DeSoto",
+    "model": "Firesweep",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1957-1959",
+    "year_options": "1957,1958,1959"
+  },
+  {
+    "type": "Car Covers",
+    "make": "DeSoto",
+    "model": "Firesweep",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1957-1959",
+    "year_options": "1957,1958,1959"
+  },
+  {
+    "type": "Car Covers",
+    "make": "DeSoto",
+    "model": "Firesweep",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1957-1959",
+    "year_options": "1957,1958,1959"
+  },
+  {
+    "type": "Car Covers",
+    "make": "DeSoto",
+    "model": "Fireflite",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1955-1961",
+    "year_options": "1955,1956,1957,1958,1959,1960,1961"
+  },
+  {
+    "type": "Car Covers",
+    "make": "DeSoto",
+    "model": "Powermaster",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1953-1954",
+    "year_options": "1953,1954"
+  },
+  {
+    "type": "Car Covers",
+    "make": "DeSoto",
+    "model": "Powermaster",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1953-1954",
+    "year_options": "1953,1954"
+  },
+  {
+    "type": "Car Covers",
+    "make": "DeSoto",
+    "model": "Powermaster",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1953-1954",
+    "year_options": "1953,1954"
+  },
+  {
+    "type": "Car Covers",
+    "make": "DeSoto",
+    "model": "Powermaster",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1953-1954",
+    "year_options": "1953,1954"
+  },
+  {
+    "type": "Car Covers",
+    "make": "DeSoto",
+    "model": "Fireflite",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1955-1961",
+    "year_options": "1955,1956,1957,1958,1959,1960,1961"
+  },
+  {
+    "type": "Car Covers",
+    "make": "DeSoto",
+    "model": "Powermaster",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1953-1954",
+    "year_options": "1953,1954"
+  },
+  {
+    "type": "Car Covers",
+    "make": "DeSoto",
+    "model": "Custom",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1946-1952",
+    "year_options": "1946,1947,1948,1949,1950,1951,1952"
+  },
+  {
+    "type": "Car Covers",
+    "make": "DeSoto",
+    "model": "Deluxe",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1946-1952",
+    "year_options": "1946,1947,1948,1949,1950,1951,1952"
+  },
+  {
+    "type": "Car Covers",
+    "make": "DeSoto",
+    "model": "Firesweep",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1957-1959",
+    "year_options": "1957,1958,1959"
+  },
+  {
+    "type": "Car Covers",
+    "make": "DeSoto",
+    "model": "Adventurer",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1956-1961",
+    "year_options": "1956,1957,1958,1959,1960,1961"
+  },
+  {
+    "type": "Car Covers",
+    "make": "DeSoto",
+    "model": "Adventurer",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1956-1961",
+    "year_options": "1956,1957,1958,1959,1960,1961"
+  },
+  {
+    "type": "Car Covers",
+    "make": "DeSoto",
+    "model": "Adventurer",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1956-1961",
+    "year_options": "1956,1957,1958,1959,1960,1961"
+  },
+  {
+    "type": "Car Covers",
+    "make": "DeSoto",
+    "model": "Deluxe",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1946-1952",
+    "year_options": "1946,1947,1948,1949,1950,1951,1952"
+  },
+  {
+    "type": "Car Covers",
+    "make": "DeSoto",
+    "model": "Deluxe",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1946-1952",
+    "year_options": "1946,1947,1948,1949,1950,1951,1952"
+  },
+  {
+    "type": "Car Covers",
+    "make": "DeSoto",
+    "model": "Fireflite",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1955-1961",
+    "year_options": "1955,1956,1957,1958,1959,1960,1961"
+  },
+  {
+    "type": "Car Covers",
+    "make": "DeSoto",
+    "model": "Fireflite",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1955-1961",
+    "year_options": "1955,1956,1957,1958,1959,1960,1961"
+  },
+  {
+    "type": "Car Covers",
+    "make": "DeSoto",
+    "model": "Powermaster",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1953-1954",
+    "year_options": "1953,1954"
+  },
+  {
+    "type": "Car Covers",
+    "make": "DeSoto",
+    "model": "Powermaster",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1953-1954",
+    "year_options": "1953,1954"
+  },
+  {
+    "type": "Car Covers",
+    "make": "DeSoto",
+    "model": "Firedome",
+    "submodel1": "2-Door",
+    "submodel2": null,
+    "parent_generation": "1952-1959",
+    "year_options": "1952,1953,1954,1955,1956,1957,1958,1959"
+  },
+  {
+    "type": "Car Covers",
+    "make": "DeSoto",
+    "model": "Firedome",
+    "submodel1": "2-Door",
+    "submodel2": null,
+    "parent_generation": "1952-1959",
+    "year_options": "1952,1953,1954,1955,1956,1957,1958,1959"
+  },
+  {
+    "type": "Car Covers",
+    "make": "DeSoto",
+    "model": "Firedome",
+    "submodel1": "2-Door",
+    "submodel2": null,
+    "parent_generation": "1952-1959",
+    "year_options": "1952,1953,1954,1955,1956,1957,1958,1959"
+  },
+  {
+    "type": "Car Covers",
+    "make": "DeSoto",
+    "model": "Firedome",
+    "submodel1": "2-Door",
+    "submodel2": null,
+    "parent_generation": "1952-1959",
+    "year_options": "1952,1953,1954,1955,1956,1957,1958,1959"
+  },
+  {
+    "type": "Car Covers",
+    "make": "DeSoto",
+    "model": "Firedome",
+    "submodel1": "4-Door",
+    "submodel2": null,
+    "parent_generation": "1952-1959",
+    "year_options": "1952,1953,1954,1955,1956,1957,1958,1959"
+  },
+  {
+    "type": "Car Covers",
+    "make": "DeSoto",
+    "model": "Firedome",
+    "submodel1": "4-Door",
+    "submodel2": null,
+    "parent_generation": "1952-1959",
+    "year_options": "1952,1953,1954,1955,1956,1957,1958,1959"
+  },
+  {
+    "type": "Car Covers",
+    "make": "DeSoto",
+    "model": "Firedome",
+    "submodel1": "4-Door",
+    "submodel2": null,
+    "parent_generation": "1952-1959",
+    "year_options": "1952,1953,1954,1955,1956,1957,1958,1959"
+  },
+  {
+    "type": "Car Covers",
+    "make": "DeSoto",
+    "model": "Firedome",
+    "submodel1": "4-Door",
+    "submodel2": null,
+    "parent_generation": "1952-1959",
+    "year_options": "1952,1953,1954,1955,1956,1957,1958,1959"
+  },
+  {
+    "type": "Car Covers",
+    "make": "DeSoto",
+    "model": "Firedome",
+    "submodel1": "4-Door",
+    "submodel2": null,
+    "parent_generation": "1952-1959",
+    "year_options": "1952,1953,1954,1955,1956,1957,1958,1959"
+  },
+  {
+    "type": "Car Covers",
+    "make": "DeSoto",
+    "model": "Firedome",
+    "submodel1": "4-Door",
+    "submodel2": null,
+    "parent_generation": "1952-1959",
+    "year_options": "1952,1953,1954,1955,1956,1957,1958,1959"
+  },
+  {
+    "type": "Car Covers",
+    "make": "DeSoto",
+    "model": "Firedome",
+    "submodel1": "4-Door",
+    "submodel2": null,
+    "parent_generation": "1952-1959",
+    "year_options": "1952,1953,1954,1955,1956,1957,1958,1959"
+  },
+  {
+    "type": "Car Covers",
+    "make": "DeSoto",
+    "model": "Firedome",
+    "submodel1": "2-Door",
+    "submodel2": null,
+    "parent_generation": "1952-1959",
+    "year_options": "1952,1953,1954,1955,1956,1957,1958,1959"
+  },
+  {
+    "type": "Car Covers",
+    "make": "DeSoto",
+    "model": "Firedome",
+    "submodel1": "4-Door",
+    "submodel2": null,
+    "parent_generation": "1952-1959",
+    "year_options": "1952,1953,1954,1955,1956,1957,1958,1959"
+  },
+  {
+    "type": "Car Covers",
+    "make": "DeSoto",
+    "model": "Firedome",
+    "submodel1": "4-Door",
+    "submodel2": null,
+    "parent_generation": "1952-1959",
+    "year_options": "1952,1953,1954,1955,1956,1957,1958,1959"
+  },
+  {
+    "type": "Car Covers",
+    "make": "DeSoto",
+    "model": "Firedome",
+    "submodel1": "2-Door",
+    "submodel2": null,
+    "parent_generation": "1952-1959",
+    "year_options": "1952,1953,1954,1955,1956,1957,1958,1959"
+  },
+  {
+    "type": "Car Covers",
+    "make": "DeSoto",
+    "model": "Firedome",
+    "submodel1": "2-Door",
+    "submodel2": null,
+    "parent_generation": "1952-1959",
+    "year_options": "1952,1953,1954,1955,1956,1957,1958,1959"
+  },
+  {
+    "type": "Car Covers",
+    "make": "DeSoto",
+    "model": "Firedome",
+    "submodel1": "2-Door",
+    "submodel2": null,
+    "parent_generation": "1952-1959",
+    "year_options": "1952,1953,1954,1955,1956,1957,1958,1959"
+  },
+  {
+    "type": "Car Covers",
+    "make": "DeSoto",
+    "model": "Firedome",
+    "submodel1": "2-Door",
+    "submodel2": null,
+    "parent_generation": "1952-1959",
+    "year_options": "1952,1953,1954,1955,1956,1957,1958,1959"
+  },
+  {
+    "type": "Car Covers",
+    "make": "DeSoto",
+    "model": "Adventurer",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1956-1961",
+    "year_options": "1956,1957,1958,1959,1960,1961"
+  },
+  {
+    "type": "Car Covers",
+    "make": "DeSoto",
+    "model": "Deluxe",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1946-1952",
+    "year_options": "1946,1947,1948,1949,1950,1951,1952"
+  },
+  {
+    "type": "Car Covers",
+    "make": "DeSoto",
+    "model": "Fireflite",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1955-1961",
+    "year_options": "1955,1956,1957,1958,1959,1960,1961"
+  },
+  {
+    "type": "Car Covers",
+    "make": "DeSoto",
+    "model": "Powermaster",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1953-1954",
+    "year_options": "1953,1954"
+  },
+  {
+    "type": "Car Covers",
+    "make": "DeSoto",
+    "model": "Fireflite",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1955-1961",
+    "year_options": "1955,1956,1957,1958,1959,1960,1961"
+  },
+  {
+    "type": "Car Covers",
+    "make": "DeSoto",
+    "model": "Custom",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1946-1952",
+    "year_options": "1946,1947,1948,1949,1950,1951,1952"
+  },
+  {
+    "type": "Car Covers",
+    "make": "DeSoto",
+    "model": "Firesweep",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1957-1959",
+    "year_options": "1957,1958,1959"
+  },
+  {
+    "type": "Car Covers",
+    "make": "DeSoto",
+    "model": "Deluxe",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1946-1952",
+    "year_options": "1946,1947,1948,1949,1950,1951,1952"
+  },
+  {
+    "type": "Car Covers",
+    "make": "DeSoto",
+    "model": "Custom",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1946-1952",
+    "year_options": "1946,1947,1948,1949,1950,1951,1952"
+  },
+  {
+    "type": "Car Covers",
+    "make": "DeSoto",
+    "model": "Firesweep",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1957-1959",
+    "year_options": "1957,1958,1959"
+  },
+  {
+    "type": "Car Covers",
+    "make": "DeSoto",
+    "model": "Powermaster",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1953-1954",
+    "year_options": "1953,1954"
+  },
+  {
+    "type": "Car Covers",
+    "make": "DeSoto",
+    "model": "Custom",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1946-1952",
+    "year_options": "1946,1947,1948,1949,1950,1951,1952"
+  },
+  {
+    "type": "Car Covers",
+    "make": "DeSoto",
+    "model": "Firesweep",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1957-1959",
+    "year_options": "1957,1958,1959"
+  }
+]
