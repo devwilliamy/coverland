@@ -49,26 +49,91 @@ export async function getProductData({
 
   if (cover) {
     const coverValue = slugToCoverType[cover as keyof typeof slugToCoverType];
-    console.log(coverValue);
     fetch = fetch.eq('display_id', coverValue);
   }
 
   if (year) {
-    console.log(year);
     fetch = fetch.eq('parent_generation', year);
   }
 
   if (make) {
     fetch = fetch.eq('make_slug', make);
-    console.log(make);
   }
 
   if (model) {
     fetch = fetch.eq('model_slug', model);
-    console.log(model);
   }
 
   const { data, error } = await fetch.limit(4000);
+
+  if (error) {
+    throw new Error(error.message);
+  }
+
+  return data;
+}
+
+export async function getAllMakes({
+  type,
+  cover,
+}: {
+  type: string;
+  cover: string;
+}) {
+  const { data, error } = await supabase
+    .from('Products-Data-02-2024')
+    .select('make_slug')
+    .eq('type', type)
+    .eq('display_id', cover);
+
+  if (error) {
+    throw new Error(error.message);
+  }
+
+  return data;
+}
+
+export async function getAllModels({
+  type,
+  cover,
+  make,
+}: {
+  type: string;
+  cover: string;
+  make: string;
+}) {
+  const { data, error } = await supabase
+    .from('Products-Data-02-2024')
+    .select('model_slug')
+    .eq('type', type)
+    .eq('display_id', cover)
+    .eq('make', make);
+
+  if (error) {
+    throw new Error(error.message);
+  }
+
+  return data;
+}
+
+export async function getAllYears({
+  type,
+  cover,
+  make,
+  model,
+}: {
+  type: string;
+  cover: string;
+  make: string;
+  model: string;
+}) {
+  const { data, error } = await supabase
+    .from('Products-Data-02-2024')
+    .select('parent_generation')
+    .eq('type', type)
+    .eq('display_id', cover)
+    .eq('make', make)
+    .eq('model', model);
 
   if (error) {
     throw new Error(error.message);

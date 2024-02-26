@@ -14,6 +14,15 @@ import {
   getProductReviewSummary,
   getProductReviewsByPage,
 } from '@/lib/db/review';
+//TODO: Refactor code so we can generate our dynamic paths as static HTML for performance
+
+// export function generateStaticParams() {
+//   return [
+//     { productType: 'car-covers' },
+//     { productType: 'suv-covers' },
+//     { productType: 'truck-covers' },
+//   ];
+// }
 
 export default async function CarPDPModelDataLayer({
   params,

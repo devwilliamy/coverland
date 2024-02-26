@@ -11,6 +11,24 @@ import {
 } from '@/lib/db/review';
 import { TPathParams } from '@/app/(main)/utils';
 
+//TODO: Refactor code so we can generate our dynamic paths as static HTML for performance
+
+// export async function generateStaticParams({
+//   params: { productType, coverType, make },
+// }: {
+//   params: { productType: string; coverType: string; make: string };
+// }) {
+//   const modelData = await getAllModels({
+//     type: productType,
+//     cover: coverType,
+//     make: make,
+//   });
+
+//   return modelData.filter(Boolean).map((model) => ({
+//     model: model,
+//   }));
+// }
+
 export default async function CarPDPDataLayer({
   params,
   searchParams,

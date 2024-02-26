@@ -11,6 +11,17 @@ import CarPDP from '../components/CarPDP';
 import { redirect } from 'next/navigation';
 import { TPathParams } from '../../utils';
 
+//TODO: Refactor code so we can generate our dynamic paths as static HTML for performance
+
+// export async function generateStaticParams() {
+//   return [
+//     { coverType: 'premium-plus' },
+//     { coverType: 'premium' },
+//     { coverType: 'standard-pro' },
+//     { coverType: 'standard' },
+//   ];
+// }
+
 export default async function CarPDPModelDataLayer({
   params,
   searchParams,
