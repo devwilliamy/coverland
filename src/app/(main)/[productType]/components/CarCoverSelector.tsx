@@ -8,10 +8,17 @@ import { EditVehicleModal } from './EditVehicleModal';
 import { CarSelectionContext } from './CarPDP';
 import { useStore } from 'zustand';
 import { IProductData } from '../../utils';
-import { ExtraProductDetails } from '@/components/PDP/OtherDetails';
 import { Separator } from '@/components/ui/separator';
 import LinkBreadcrumbs from './LinkBreadcrumbs';
 import { useItemViewedGoogleTag } from '@/hooks/useGoogleTagDataLayer';
+
+import EnhanceProtectionSection from '@/components/PDP/components/EnhanceProtectionSection';
+import SuggestedProducts from '@/components/PDP/components/SuggestedProducts';
+import ProvenSection from '@/components/PDP/components/ProvenSection';
+import RealTestSection from '@/components/PDP/components/RealTestSection';
+import LifetimeSection from '@/components/PDP/components/LifetimeSection';
+import FeaturesSection from '@/components/PDP/components/FeaturesSection';
+import { ExtraProductDetails } from '@/components/PDP/OtherDetails';
 
 const EditVehiclePopover = dynamicImport(
   () => import('@/components/PDP/components/EditVehiclePopover')
@@ -72,7 +79,7 @@ export function CarCoverSelector({
             setFeaturedImage={setFeaturedImage}
           />
           {/* Right Panel */}
-          <div className=" h-full w-full pl-0 lg:sticky lg:top-8 lg:w-2/5">
+          <section className=" h-full w-full pl-0 lg:sticky lg:top-8 lg:w-2/5">
             <Separator className="w-full bg-[#C8C7C7] lg:block" />
             <div className="grid grid-cols-[1fr_2fr] place-items-center ">
               <CarIconMobile />
@@ -96,12 +103,21 @@ export function CarCoverSelector({
               uniqueColors={uniqueColors as IProductData[]}
               searchParams={searchParams}
             />
-          </div>
+          </section>
+          {/* {isMobile && ( */}
         </div>
       </section>
-      <div id="product-details" className="h-auto w-full">
-        <ExtraProductDetails />
-      </div>
+      <section className="relative">
+        <FeaturesSection />
+        <div className="flex w-full flex-col justify-center px-4">
+          <EnhanceProtectionSection />
+          <RealTestSection />
+          <ProvenSection />
+          <LifetimeSection />
+        </div>
+      </section>
+      <SuggestedProducts />
+      <ExtraProductDetails />
     </>
   );
 }

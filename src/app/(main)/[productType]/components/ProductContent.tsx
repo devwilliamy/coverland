@@ -7,9 +7,7 @@ import { useMediaQuery } from '@mantine/hooks';
 import { RefObject, useContext, useState } from 'react';
 import CartSheet from '@/components/cart/CartSheet';
 import { compareRawStrings } from '@/lib/utils';
-import ProductVideo from '@/components/PDP/ProductVideo';
-// import SquareThumbnail from '@/video/Thumbnail_Square.webp';
-import Thumbnail from '@/video/Thumbnail.webp';
+
 import { useStore } from 'zustand';
 import { useCartContext } from '@/providers/CartProvider';
 import { IProductData, getCompleteSelectionData } from '../../utils';
@@ -17,9 +15,6 @@ import FreeDetails from './FreeDetails';
 import AddToCart from './AddToCart';
 import CircleColorSelector from './CircleColorSelector';
 import RatingsTrigger from './RatingsTrigger';
-import SixMinVideo from 'https://x2kly621zrgfgwll.public.blob.vercel-storage.com/videos/FINALIZE_WEBSTIE_16_9_OPTIMIZED.mp4';
-import ReviewGallerySection from './ReviewGallerySection';
-import KeyBenefitsSection from '@/components/PDP/components/KeyBenefitsSection';
 
 interface ProductRefs {
   [key: string]: RefObject<HTMLElement>;
@@ -125,21 +120,7 @@ export function ProductContent({
       />
       <Separator className="mt-[36px] " />
       <FreeDetails />
-      <KeyBenefitsSection />
-      <Separator className="h-5 w-full border-b-[1px] border-t-[1px] border-b-[#BEBEBE] border-t-[#BEBEBE] bg-[#F1F1F1] lg:hidden" />
 
-      {isMobile && (
-        <div className="bg-black p-4">
-          <div className="rounded-[8px] pb-5">
-            <ProductVideo
-              src={SixMinVideo}
-              imgSrc={Thumbnail}
-              aspectRatio="16 / 9"
-            />
-          </div>
-          <ReviewGallerySection />
-        </div>
-      )}
       {isMobile ? (
         <></>
       ) : (
