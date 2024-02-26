@@ -2,7 +2,7 @@
 import { Button } from '@/components/ui/button';
 import { useMediaQuery } from '@mantine/hooks';
 import { track } from '@vercel/analytics/react';
-import { SetStateAction, useContext, useEffect, useState } from 'react';
+import { SetStateAction, useContext, useState } from 'react';
 import { DrawerTitle } from '@/components/ui/drawer';
 import { useParams, useRouter } from 'next/navigation';
 import {
@@ -24,13 +24,6 @@ import {
 import { X } from 'lucide-react';
 import { handleAddToCartGoogleTag } from '@/hooks/useGoogleTagDataLayer';
 
-const getOffset = (
-  element: HTMLElement | null | undefined
-): number | undefined => {
-  const elementRect = element?.getBoundingClientRect();
-  return elementRect?.top;
-};
-
 export default function AddToCart({
   selectedProduct,
   handleAddToCart,
@@ -43,42 +36,11 @@ export default function AddToCart({
   const params = useParams<TPathParams>();
   const store = useContext(CarSelectionContext);
   const router = useRouter();
-  const [showStickyAddToCartButton, setShowStickyAddToCartButton] =
-    useState<boolean>(false);
   const isMobile = useMediaQuery('(max-width: 768px)');
 
   // For sticky Add To Cart on mobile only (can maybe extract this out)
   // Will check if Add To Cart has been scroll past, if so, will show sticky button
 
-  useEffect(() => {
-    const listenToScroll = () => {
-      if (!isMobile) return;
-      const heightToHide = getOffset(
-        document.getElementById('addToCartButton')
-      );
-      const windowScrollHeight =
-        document.body.scrollTop || document.documentElement.scrollTop;
-      if (
-        heightToHide !== undefined &&
-        heightToHide < -100 &&
-        windowScrollHeight > heightToHide
-      ) {
-        setShowStickyAddToCartButton(true);
-      } else {
-        setShowStickyAddToCartButton(false);
-      }
-    };
-
-    if (isMobile) {
-      window.addEventListener('scroll', listenToScroll);
-    }
-
-    return () => {
-      if (isMobile) {
-        window.removeEventListener('scroll', listenToScroll);
-      }
-    };
-  }, [isMobile]);
   const [submodelSelectionOpen, setSubmodelSelectionOpen] =
     useState<boolean>(false);
 
@@ -105,52 +67,6 @@ export default function AddToCart({
       </div>
 
       {/* Add to Cart Button */}
-      {/* {isTypePage ? (
-        <VehicleSelector />
-      {isTypePage ? (
-        <VehicleSelector searchParams={searchParams} />
-      ) : (
-        <Button
-          id="addToCartButton"
-          className="mt-4 h-[48px] w-full rounded bg-[#BE1B1B] text-lg font-bold uppercase text-white disabled:bg-[#BE1B1B] md:h-[62px] md:text-xl"
-          onClick={() => {
-            selectedProduct?.sku &&
-              track('PDP_add_to_cart', {
-                sku: selectedProduct?.sku,
-              });
-            if (isComplete) {
-              handleAddToCart();
-              handleAddToCartGoogleTag(selectedProduct);
-              isMobile ? router.push('/checkout') : setAddToCartOpen(true);
-              return;
-            }
-            setSubmodelSelectionOpen((p) => !p);
-          }}
-        >
-          Add To Cart
-        </Button>
-      )}
-      {showStickyAddToCartButton && (
-        <div className="fixed inset-x-0 bottom-0 z-50 flex bg-white p-4 md:hidden">
-          <Button
-            className=" h-[48px] w-full rounded bg-[#BE1B1B] text-lg font-bold uppercase text-white disabled:bg-[#BE1B1B] md:hidden"
-            onClick={() => {
-              selectedProduct?.sku &&
-                track('PDP_add_to_cart', {
-                  sku: selectedProduct?.sku,
-                });
-              if (isComplete) {
-                handleAddToCart();
-                isMobile ? router.push('/checkout') : setAddToCartOpen(true);
-                return;
-              }
-              setSubmodelSelectionOpen((p) => !p);
-            }}
-          >
-            Add To Cart
-          </Button>
-        </div>
-      )} */}
       {isTypePage ? (
         <VehicleSelector searchParams={searchParams} />
       ) : (
