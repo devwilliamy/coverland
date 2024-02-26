@@ -1,6 +1,12 @@
 'use client';
 
-import React, { RefObject, useContext, useRef, useState } from 'react';
+import React, {
+  RefObject,
+  useContext,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
 import { useMediaQuery } from '@mantine/hooks';
 import dynamicImport from 'next/dynamic';
 import { PrimaryImageDisplay } from './PrimaryImageDisplay';
@@ -11,6 +17,7 @@ import { useStore } from 'zustand';
 import { IProductData } from '../../utils';
 import { Separator } from '@/components/ui/separator';
 import LinkBreadcrumbs from './LinkBreadcrumbs';
+import { useItemViewedGoogleTag } from '@/hooks/useGoogleTagDataLayer';
 
 import EnhanceProtectionSection from '@/components/PDP/components/EnhanceProtectionSection';
 import SuggestedProducts from '@/components/PDP/components/SuggestedProducts';
@@ -61,6 +68,14 @@ export function CarCoverSelector() {
   const productImages = selectedProduct?.productImages as string[];
 
   const productName = modelData[0]?.fullProductName;
+
+  useItemViewedGoogleTag(
+    modelData,
+    selectedProduct,
+    featuredImage,
+    productName,
+    uniqueColors
+  );
 
   return (
     <>

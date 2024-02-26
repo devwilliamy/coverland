@@ -20,6 +20,7 @@ import { IoArrowBack } from 'react-icons/io5';
 import { useRouter } from 'next/navigation';
 import { PayPalScriptProvider, PayPalButtons } from '@paypal/react-paypal-js';
 import { Order } from '@paypal/checkout-server-sdk/lib/orders/lib';
+import { useCheckoutViewedGoogleTag } from '@/hooks/useGoogleTagDataLayer';
 
 async function paypalCreateOrder(
   totalMsrpPrice: number
@@ -110,6 +111,8 @@ function CheckoutPage() {
   ) as unknown as number;
   const orderSubtotal = getOrderSubtotal().toFixed(2) as unknown as number;
   const cartQuantity = getTotalCartQuantity();
+  useCheckoutViewedGoogleTag();
+
   return (
     <div className="">
       {cartItems.length === 0 && (

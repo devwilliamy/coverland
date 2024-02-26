@@ -33,7 +33,7 @@ export const MobileImageCarousel = ({
   const [current, setCurrent] = useState(0);
   // const [scrollSnaps, setScrollSnaps] = useState<number[]>([]);
 
-  const carouselItems = productImages.toSpliced(
+  const carouselItems = productImages?.toSpliced(
     3,
     0,
     String(SevenSecVideoThumbnail)
@@ -80,7 +80,7 @@ export const MobileImageCarousel = ({
   );
 
   return (
-    <div className="flex max-w-full flex-col bg-white ">
+    <div className="flex max-w-full flex-col bg-white lg:hidden ">
       <Carousel setApi={setApi}>
         <CarouselContent id={'carousel-content'} className="no-scrollbar">
           {carouselItems.map((image, index) => {
