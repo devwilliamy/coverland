@@ -34,7 +34,7 @@ export default function AppScripts() {
         y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
     })(window, document, "clarity", "script", "kub7vnxyze");`}
       </Script>
-      <Script id="UR_initiator">
+      {/* <Script id="UR_initiator">
         {`(function () {
         var iid = "uriid_da39a3ee5e6b4b0d3255bfef95601890afd80709";
         if (!document._fpu_)
@@ -52,7 +52,7 @@ export default function AppScripts() {
         ).appendChild(bsa);
       })();
       `}
-      </Script>
+      </Script> */}
     </>
   );
 }
