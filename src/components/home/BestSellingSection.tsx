@@ -15,12 +15,12 @@ const bestSelling = [
   {
     title: 'Chevy Corvette',
     img: Corvette,
-    href: 'car-covers/premium-plus/chevrolet/corvette',
+    href: 'car-covers/premium-plus/chevrolet/',
   },
   {
     title: 'Mazda Miata',
     img: Miata,
-    href: 'car-covers/premium-plus/mazda/miata',
+    href: 'car-covers/premium-plus/mazda/',
   },
   {
     title: 'Chevy El-Camino',
