@@ -136,13 +136,15 @@ export default function EditVehicleDropdown({
     closePopover();
   };
 
+  const showSubmodelDropdown = subModelData.length > 1 && year;
+
   return (
     <div className="z-100 relative flex w-full flex-col items-stretch  gap-[16px] *:flex-1">
       <TypeSearch queryObj={queryObj} />
       <MakeSearch queryObj={queryObj} />
       <ModelSearch queryObj={queryObj} dropdownData={dropdownData} />
       <YearSearch queryObj={queryObj} dropdownData={dropdownData} />
-      {subModelData.length > 1 && (
+      {showSubmodelDropdown && (
         <SubmodelDropdown queryObj={queryObj} submodelData={subModelData} />
       )}
       <Button

@@ -50,6 +50,7 @@ export function PrimaryImageDisplay({
           fill={true}
           className="hidden object-cover lg:block"
           priority
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           // onClick={console.log(selectedImage)}
         />
       </div>

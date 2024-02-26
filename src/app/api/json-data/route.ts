@@ -10,5 +10,6 @@ export async function GET(request: Request) {
       `/public/data/${type}/${make}_${type?.replace(/-/g, '_')}.json`,
     'utf-8'
   );
-  return Response.json(data);
+  const jsonData = JSON.parse(data);
+  return Response.json(jsonData);
 }

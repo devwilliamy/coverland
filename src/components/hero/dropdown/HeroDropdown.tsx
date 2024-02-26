@@ -5,13 +5,14 @@ import { YearSearch } from './YearSearch';
 import { TypeSearch } from './TypeSearch';
 import { MakeSearch } from './MakeSearch';
 import { ModelSearch } from './ModelSearch';
-import { useRouter, useSearchParams } from 'next/navigation';
-import { useCallback, useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { useCallback, useEffect, useState } from 'react';
 import { SubmodelDropdown } from './SubmodelDropdown';
-import parentGenerationJson from '@/data/products_data.json';
 import { slugify } from '@/lib/utils';
 import { track } from '@vercel/analytics';
 import { sendGTMEvent } from '@next/third-parties/google';
+import { TProductJsonData } from '@/components/PDP/EditVehicleDropdown';
+import { BASE_URL } from '@/lib/constants';
 
 export type TQuery = {
   year: string;
@@ -30,87 +31,65 @@ export function HeroDropdown() {
     submodel: '',
   });
   const [loading, setLoading] = useState(false);
+  const [jsonData, setJsonData] = useState<TProductJsonData[]>([]);
   const router = useRouter();
-  const searchParams = useSearchParams();
-
   const { year, type, make, model, submodel } = query;
+  console.log(jsonData);
+  console.log(year);
+  useEffect(() => {
+    const getSearchData = async () => {
+      console.log('fetching data');
+      if (!make) return;
+      const url = new URL(`${BASE_URL}/api/json-data`);
+      url.searchParams.append('type', slugify(type));
+      url.searchParams.append('make', slugify(make));
 
-  const json = parentGenerationJson;
+      const response = await fetch(url.toString());
+      const jsonData = await response.json();
+      console.log('jsonData', response);
+      setJsonData(jsonData);
+    };
+    getSearchData();
+  }, [make, type]);
 
-  const isReadyForSubmit = year && type && make && model;
-
-  const availableMakes = json.filter(
-    (sku) => String(sku.year_options).includes(year) && sku.type === type
-  );
-
-  const availableModels = availableMakes.filter((sku) => sku.make === make);
-
-  const finalAvailableModels = availableModels.filter((sku) =>
-    submodel
-      ? sku.submodel1 === submodel && sku.model === model
-      : sku.model === model
+  const dropdownData = jsonData.filter(
+    (obj) =>
+      (!year ? true : obj.year_options.includes(year)) &&
+      (!model ? true : obj.model === model) &&
+      (!submodel ? true : obj.submodel1 === submodel)
   );
 
   const queryObj = {
     query,
     setQuery,
   };
-  const makeData = [
-    ...new Set(
-      availableMakes?.map((d) => d.make).filter((val): val is string => !!val)
-    ),
-  ];
 
   const subModelData = [
     ...new Set(
-      availableModels
-        ?.filter((car) => make === car.make && car?.model === model)
+      dropdownData
         ?.map((d) => d.submodel1)
         .filter((val): val is string => !!val)
     ),
   ];
-  const modelData = [
-    ...new Set(
-      availableModels
-        ?.filter((car) => query.make === car.make && !!car?.model)
-        ?.map((d) => d.model)
-        .filter((val): val is string => !!val)
-    ),
-  ];
 
-  //If there's no submodel selected, either there's some available but they haven't been
-  //selected, or there's none available. If the former, use the parent generation.
-  //If the latter, finalAvailableModels will only have one item, so use it's year_generation.
+  const yearInUrl = dropdownData?.[0]?.parent_generation;
 
-  // const yearInUrl = !submodel
-  //   ? finalAvailableModels.filter((sku) => sku.generation_default === sku.fk)[0]
-  //       ?.year_generation ?? finalAvailableModels?.[0]?.year_generation
-  //   : skuDisplayData.find((sku) => sku.fk === finalAvailableModels?.[0]?.fk)
-  //       ?.year_generation ?? finalAvailableModels?.[0]?.year_generation;
+  const createQueryString = useCallback((name: string, value: string) => {
+    const params = new URLSearchParams();
+    params.set(name, value);
 
-  //       console.log()
-
-  const yearInUrl = finalAvailableModels?.[0]?.parent_generation;
-
-  const createQueryString = useCallback(
-    (name: string, value: string) => {
-      const params = new URLSearchParams(searchParams?.toString());
-      params.set(name, value);
-
-      return params.toString().toLowerCase();
-    },
-    [searchParams]
-  );
+    return params.toString().toLowerCase();
+  }, []);
 
   const handleSubmitDropdown = async () => {
-    track('hero_dropdown_submit', {
-      year,
-      model,
-    });
-    sendGTMEvent({
-      event: 'Homepage dropdown submit',
-      value: `${year} ${model}`,
-    });
+    if (
+      !year ||
+      !type ||
+      !make ||
+      !model ||
+      (subModelData.length > 1 && !submodel)
+    )
+      return;
     setLoading(true);
     let url = `/${slugify(type)}/premium-plus/${slugify(make)}/${slugify(model)}/${yearInUrl}`;
 
@@ -118,24 +97,36 @@ export function HeroDropdown() {
       url += `?${createQueryString('submodel', submodel)}`;
     }
 
+    if (url === BASE_URL) {
+      setLoading(false);
+      return;
+    }
+
     // refreshRoute('/');
     router.push(url);
-    // refreshRoute(`${pathname}?${currentParams.toString()}`);
   };
+
+  const showSubmodelDropdown = subModelData.length > 1 && year;
 
   return (
     <div className="relative flex w-full flex-col items-center justify-center gap-2 px-4 font-medium *:flex-1 *:py-3 md:flex-row lg:max-h-[58px] lg:px-16 lg:*:py-4">
       <TypeSearch queryObj={queryObj} />
-      <YearSearch queryObj={queryObj} />
-      <MakeSearch queryObj={queryObj} makeData={makeData} />
-      <ModelSearch queryObj={queryObj} modelData={modelData} />
-      {subModelData.length > 0 && (
+      <MakeSearch queryObj={queryObj} />
+      <ModelSearch queryObj={queryObj} dropdownData={dropdownData} />
+      <YearSearch queryObj={queryObj} dropdownData={dropdownData} />
+      {showSubmodelDropdown && (
         <SubmodelDropdown queryObj={queryObj} submodelData={subModelData} />
       )}
       <Button
         className="flex h-full w-full items-center justify-center border border-red-300 text-lg lg:h-[58px] lg:max-w-[58px] lg:border-0"
         onClick={handleSubmitDropdown}
-        disabled={!isReadyForSubmit}
+        disabled={
+          !year ||
+          !type ||
+          !make ||
+          !model ||
+          (subModelData.length > 1 && !submodel)
+        }
       >
         {loading ? (
           <AiOutlineLoading3Quarters className="animate-spin" />

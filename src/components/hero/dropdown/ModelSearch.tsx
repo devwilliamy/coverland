@@ -24,7 +24,7 @@ export function ModelSearch({
   };
 
   const isDisabled = !query.type || !query.make;
-  const models = Array.from(new Set(...dropdownData.map((d) => d.model)));
+  const models = Array.from(new Set(dropdownData.map((d) => d.model)));
 
   return (
     <button
