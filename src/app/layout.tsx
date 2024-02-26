@@ -52,6 +52,12 @@ export default function RootLayout({
             src="https://www.facebook.com/tr?id=2082985078567650&ev=PageView&noscript=1"/>`,
           }}
         ></noscript>
+        <noscript
+          dangerouslySetInnerHTML={{
+            __html: `<iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PW897Z9Z"
+            height="0" width="0" style="display:none;visibility:hidden"></iframe>`,
+          }}
+        ></noscript>
         <Providers>
           <main className="mx-auto max-w-[1280px] lg:px-0">
             {children}
@@ -61,7 +67,7 @@ export default function RootLayout({
         <Analytics />
         <AppScripts />
       </body>
-      <GoogleTagManager gtmId="GTM-PW897Z9Z" />
+      {/* <GoogleTagManager gtmId="GTM-PW897Z9Z" /> */}
     </html>
   );
 }
