@@ -13,6 +13,7 @@ import {
 
 export default async function CarPDPDataLayer({
   params,
+  searchParams,
 }: {
   params: TPathParams;
   searchParams: { submodel?: string; second_submodel?: string };
@@ -78,15 +79,14 @@ export default async function CarPDPDataLayer({
 
   return (
     <>
-      <Suspense fallback={<div>Loading...</div>}>
-        <CarPDP
-          modelData={modelData}
-          reviewData={reviewData}
-          params={params}
-          reviewDataSummary={reviewDataSummary}
-          reviewImages={reviewImages}
-        />
-      </Suspense>
+      <CarPDP
+        modelData={modelData}
+        reviewData={reviewData}
+        params={params}
+        reviewDataSummary={reviewDataSummary}
+        reviewImages={reviewImages}
+        searchParams={searchParams}
+      />
     </>
   );
 }

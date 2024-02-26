@@ -34,6 +34,25 @@ export default function AppScripts() {
         y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
     })(window, document, "clarity", "script", "kub7vnxyze");`}
       </Script>
+      <Script id="UR_initiator" strategy="lazyOnload">
+        {`(function () {
+        var iid = "uriid_da39a3ee5e6b4b0d3255bfef95601890afd80709";
+        if (!document._fpu_)
+          document.getElementById("UR_initiator").setAttribute("id", iid);
+        var bsa = document.createElement("script");
+        bsa.type = "text/javascript";
+        bsa.async = true;
+        bsa.src =
+          "https://static.onsitesupport.io/public/icarcover/sdk/chat-" +
+          iid +
+          "-13.js";
+        (
+          document.getElementsByTagName("head")[0] ||
+          document.getElementsByTagName("body")[0]
+        ).appendChild(bsa);
+      })();
+      `}
+      </Script>
     </>
   );
 }
