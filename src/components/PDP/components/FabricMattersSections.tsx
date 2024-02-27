@@ -1,6 +1,6 @@
 import Image from 'next/image';
-import WhiteLayerMobile from '@/images/PDP/Product-Details-Redesign-2/white-layer-mobile.png';
-import WhiteLayerDesktop from '@/images/PDP/Product-Details-Redesign-2/white-layer-desktop.png';
+import WhiteLayerMobile from '@/images/PDP/Product-Details-Redesign-2/white-layer-mobile.webp';
+import WhiteLayerDesktop from '@/images/PDP/Product-Details-Redesign-2/white-layer-desktop.webp';
 
 const FabricMattersSection = () => {
   return (

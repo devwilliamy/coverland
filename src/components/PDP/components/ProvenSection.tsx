@@ -1,7 +1,7 @@
-import WaterVS from '@/images/PDP/Product-Details-Redesign-2/WaterproofVSMobile.png';
-import WaterVSDesktop from '@/images/PDP/Product-Details-Redesign-2/desktop-water-vs.png';
-import UltravioletVS from '@/images/PDP/Product-Details-Redesign-2/UltravioletVSMobile.png';
-import UltravioletVSDesktop from '@/images/PDP/Product-Details-Redesign-2/desktop-uv-vs.png';
+import WaterVS from '@/images/PDP/Product-Details-Redesign-2/WaterproofVSMobile.webp';
+import WaterVSDesktop from '@/images/PDP/Product-Details-Redesign-2/desktop-water-vs.webp';
+import UltravioletVS from '@/images/PDP/Product-Details-Redesign-2/UltravioletVSMobile.webp';
+import UltravioletVSDesktop from '@/images/PDP/Product-Details-Redesign-2/desktop-uv-vs.webp';
 import Image from 'next/image';
 import dynamic from 'next/dynamic';
 

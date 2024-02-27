@@ -15,7 +15,7 @@ import FreeDetails from './FreeDetails';
 import AddToCart from './AddToCart';
 import CircleColorSelector from './CircleColorSelector';
 import RatingsTrigger from './RatingsTrigger';
-import installments from '@/images/PDP/Product-Details-Redesign-2/paypal-installments.png';
+import installments from '@/images/PDP/Product-Details-Redesign-2/paypal-installments.webp';
 import Image from 'next/image';
 import { Info } from 'lucide-react';
 

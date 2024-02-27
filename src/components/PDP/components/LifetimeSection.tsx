@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import React from 'react';
-import LifetimeCheck from '@/images/PDP/Product-Details-Redesign-2/lifetime-sheild-check.png';
-import LifetimeCheckDesktop from '@/images/PDP/Product-Details-Redesign-2/sheild-check-desktop.png';
+import LifetimeCheck from '@/images/PDP/Product-Details-Redesign-2/lifetime-sheild-check.webp';
+import LifetimeCheckDesktop from '@/images/PDP/Product-Details-Redesign-2/sheild-check-desktop.webp';
 
 export default function LifetimeSection() {
   const lifetimeData = [

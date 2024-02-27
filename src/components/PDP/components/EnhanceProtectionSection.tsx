@@ -2,7 +2,7 @@ import Image from 'next/image';
 import React from 'react';
 import AirVents from '@/images/PDP/Product-Details-Redesign-2/keep_dry.webp';
 import TapeSeams from '@/images/PDP/Product-Details-Redesign-2/zero_leaks.webp';
-import WindStraps from '@/images/PDP/Product-Details-Redesign-2/wind-straps.png';
+import WindStraps from '@/images/PDP/Product-Details-Redesign-2/wind-straps.webp';
 
 export default function EnhanceProtectionSection() {
   const protectionData = [

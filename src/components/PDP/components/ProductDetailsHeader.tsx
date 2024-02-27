@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import MobileHalfCover from '@/images/PDP/product-content-half-cover.webp';
-import DesktopHalfCover from '@/images/PDP/Product-Details-Redesign-2/dekstop-half-cover.jpg';
+import DesktopHalfCover from '@/images/PDP/Product-Details-Redesign-2/dekstop-half-cover.webp';
 import {
   GrayCarIcon,
   GraySunIcon,

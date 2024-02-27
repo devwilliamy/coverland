@@ -6,7 +6,7 @@ import ProductDetailsHeader from './ProductDetailsHeader';
 import FabricMattersSection from './FabricMattersSections';
 import DifferenceGrid from '@/app/(main)/[productType]/components/DifferenceGrid';
 import CustomFitSection from './CustomFitSection';
-import WetFabric from '@/images/PDP/Product-Details-Redesign-2/fabric-with-water.jpg';
+import WetFabric from '@/images/PDP/Product-Details-Redesign-2/fabric-with-water.webp';
 import Image from 'next/image';
 
 export default function FeaturesSection() {

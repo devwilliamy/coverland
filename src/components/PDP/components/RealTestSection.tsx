@@ -1,9 +1,9 @@
 import React from 'react';
-import IntertekLogo from '@/images/PDP/Product-Details-Redesign-2/intertek.png';
-import IntertekLogoDesktop from '@/images/PDP/Product-Details-Redesign-2/intertek-logo-desktop.png';
-import IntertekResults from '@/images/PDP/Product-Details-Redesign-2/intertek-results.jpg';
+import IntertekLogo from '@/images/PDP/Product-Details-Redesign-2/intertek.webp';
+import IntertekLogoDesktop from '@/images/PDP/Product-Details-Redesign-2/intertek-logo-desktop.webp';
+import IntertekResults from '@/images/PDP/Product-Details-Redesign-2/intertek-results.webp';
 import Image from 'next/image';
-import BgBlur from '@/images/PDP/Product-Details-Redesign-2/pdp-background-blur.jpg';
+import BgBlur from '@/images/PDP/Product-Details-Redesign-2/pdp-background-blur.webp';
 
 export default function RealTestSection() {
   return (

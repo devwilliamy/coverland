@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import React from 'react';
-import OthersVSCoverlandMobile from '@/images/PDP/Product-Details-Redesign-2/OthersVSCoverland.png';
-import OthersVSCoverlandDesktop from '@/images/PDP/Product-Details-Redesign-2/desktop-vs.jpg';
+import OthersVSCoverlandMobile from '@/images/PDP/Product-Details-Redesign-2/OthersVSCoverland.webp';
+import OthersVSCoverlandDesktop from '@/images/PDP/Product-Details-Redesign-2/desktop-vs.webp';
 const differences: {
   title: string;
   others: JSX.Element | string;
