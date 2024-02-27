@@ -61,13 +61,7 @@ export function CarCoverSelector({
 
   const productName = modelData[0]?.fullProductName;
 
-  useItemViewedGoogleTag(
-    modelData,
-    selectedProduct,
-    featuredImage,
-    productName,
-    uniqueColors
-  );
+  useItemViewedGoogleTag(selectedProduct, productName);
 
   return (
     <>

@@ -1,46 +1,69 @@
-import { IProductData, TPathParams } from '@/app/(main)/utils';
+import { CarSelectionContext } from '@/app/(main)/[productType]/components/CarPDP';
+import {
+  IProductData,
+  TPathParams,
+  getCompleteSelectionData,
+} from '@/app/(main)/utils';
 import { useCartContext } from '@/providers/CartProvider';
 import { useParams, usePathname } from 'next/navigation';
-import { useEffect } from 'react';
+import { useContext, useEffect } from 'react';
+import { useStore } from 'zustand';
 
 export const useItemViewedGoogleTag = (
-  modelData: IProductData[],
   selectedProduct: IProductData,
-  featuredImage: string,
-  productName: string,
-  uniqueColors: (IProductData | undefined)[]
+  productName: string
 ) => {
+  const store = useContext(CarSelectionContext);
+  if (!store) throw new Error('Missing CarContext.Provider in the tree');
   const params = useParams<TPathParams>();
-  const pathname = usePathname();
+  const modelData = useStore(store, (s) => s.modelData);
+
+  const {
+    completeSelectionState: { isComplete },
+  } = getCompleteSelectionData({
+    data: modelData,
+  });
   useEffect(() => {
+    const price = selectedProduct?.price || '0';
+    const msrp = selectedProduct?.msrp || '0';
+    const discount: number = parseFloat(price) - parseFloat(msrp);
     window?.dataLayer?.push({ ecommerce: null }); // Clear the previous ecommerce object.
     window?.dataLayer?.push({
       event: 'view_item',
       ecommerce: {
-        // modelData,
-        productName,
-        selectedProduct,
-        featuredImage,
-        url: pathname,
-        productType: params?.productType,
-        coverType: params?.coverType,
-        make: params?.make,
-        model: params?.model,
-        year: params?.year,
-        colorSelection: uniqueColors,
+        currency: 'USD',
+        value: msrp,
+        items: [
+          {
+            item_id: selectedProduct?.sku,
+            item_name: productName,
+            affiliation: undefined,
+            coupon: undefined,
+            discount: discount,
+            index: 0,
+            item_brand: 'Coverland',
+            item_category: params?.productType,
+            item_category2: params?.coverType,
+            item_category3: params?.make,
+            item_category4: params?.model,
+            item_category5: params?.year,
+            item_category6: selectedProduct?.submodel1,
+            item_category7: selectedProduct?.submodel2,
+            item_category8: selectedProduct?.submodel3,
+            item_list_id: undefined,
+            item_list_name: undefined,
+            item_variant: selectedProduct?.display_color,
+            location_id: undefined,
+            price: msrp,
+            quantity: 1,
+          },
+        ],
       },
     });
-  }, [
-    featuredImage,
-    params,
-    pathname,
-    productName,
-    selectedProduct,
-    // uniqueColors,
-  ]);
+  }, [params, productName, selectedProduct]);
 };
 
-export const useCheckoutViewedGoogleTag = () => {
+export const useCheckoutViewedGoogleTag = (selectedProduct, productName) => {
   const {
     cartItems,
     getTotalPrice,
@@ -49,24 +72,50 @@ export const useCheckoutViewedGoogleTag = () => {
     getTotalCartQuantity,
   } = useCartContext();
   useEffect(() => {
+    const price = selectedProduct?.price || '0';
+    const msrp = selectedProduct?.msrp || '0';
+    const discount: number = parseFloat(price) - parseFloat(msrp);
     window?.dataLayer?.push({ ecommerce: null }); // Clear the previous ecommerce object.
-    window?.dataLayer?.push({
-      event: 'begin_checkout',
-      ecommerce: {
-        items: cartItems,
-        totalPrice: getTotalPrice(),
-        subtotal: getOrderSubtotal(),
-        discountPrice: getTotalDiscountPrice(),
-        cartQuantity: getTotalCartQuantity(),
+    window?.dataLayer?.push(
+      {
+        event: 'begin_checkout',
+        ecommerce: {
+          currency: 'USD',
+          value: msrp,
+          coupon: undefined,
+          items: [
+            {
+              item_id: selectedProduct?.sku,
+              item_name: productName,
+              affiliation: undefined,
+              coupon: undefined,
+              discount: discount,
+              index: 0,
+              item_brand: 'Coverland',
+              item_category: 'Apparel',
+              item_category2: 'Adult',
+              item_category3: 'Shirts',
+              item_category4: 'Crew',
+              item_category5: 'Short sleeve',
+              item_list_id: 'related_products',
+              item_list_name: 'Related Products',
+              item_variant: 'green',
+              location_id: 'ChIJIQBpAG2ahYAR_6128GcTUEo',
+              price: 10.01,
+              quantity: 3,
+            },
+          ],
+        },
       },
-    });
-  }, [
-    cartItems,
-    getTotalPrice,
-    getOrderSubtotal,
-    getTotalDiscountPrice,
-    getTotalCartQuantity,
-  ]);
+      [
+        cartItems,
+        getTotalPrice,
+        getOrderSubtotal,
+        getTotalDiscountPrice,
+        getTotalCartQuantity,
+      ]
+    );
+  });
 };
 
 type Item = {
@@ -115,12 +164,46 @@ export const useThankYouViewedGoogleTag = (
   ]);
 };
 
-export const handleAddToCartGoogleTag = (cartProduct: IProductData) => {
+export const handleAddToCartGoogleTag = (
+  cartProduct: IProductData,
+  params: TPathParams
+) => {
+  const price = cartProduct?.price || '0';
+  const msrp = cartProduct?.msrp || '0';
+  const discount: number = parseFloat(price) - parseFloat(msrp);
+  const productName = `${params?.year} ${params?.make} ${params?.model} ${params?.coverType} ${params?.productType}`;
+
   window?.dataLayer?.push({ ecommerce: null }); // Clear the previous ecommerce object.
   window?.dataLayer?.push({
     event: 'add_to_cart',
     ecommerce: {
-      cartProduct: cartProduct,
+      currency: 'USD',
+      value: msrp,
+      items: [
+        {
+          item_id: cartProduct.sku,
+          item_name: productName,
+          affiliation: undefined,
+          coupon: undefined,
+          discount: discount,
+          index: 0,
+          item_brand: 'Coverland',
+          item_category: params?.productType,
+          item_category2: params?.coverType,
+          item_category3: params?.make,
+          item_category4: params?.model,
+          item_category5: params?.year,
+          item_category6: cartProduct?.submodel1,
+          item_category7: cartProduct?.submodel2,
+          item_category8: cartProduct?.submodel3,
+          item_list_id: undefined,
+          item_list_name: undefined,
+          item_variant: cartProduct?.display_color,
+          location_id: undefined,
+          price: msrp,
+          quantity: 1,
+        },
+      ],
     },
   });
 };
