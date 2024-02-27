@@ -1,6 +1,12 @@
 'use client';
 
-import { ChangeEvent, Dispatch, SetStateAction, useState } from 'react';
+import {
+  ChangeEvent,
+  Dispatch,
+  SetStateAction,
+  useEffect,
+  useState,
+} from 'react';
 import { TQuery } from './HeroDropdown';
 import { TProductJsonData } from '@/components/PDP/EditVehicleDropdown';
 
@@ -17,11 +23,17 @@ export function ModelSearch({
   const [value, setValue] = useState('');
   const { query, setQuery } = queryObj;
 
+  const { make } = query;
+
   const handleChange = (event: ChangeEvent<HTMLSelectElement>) => {
     const newValue = event.target.value;
     setValue(newValue);
     setQuery((p) => ({ ...p, model: newValue }));
   };
+
+  useEffect(() => {
+    !make && setValue('');
+  }, [make]);
 
   const isDisabled = !query.type || !query.make;
   const models = Array.from(new Set(dropdownData.map((d) => d.model)));

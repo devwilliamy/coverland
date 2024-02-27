@@ -13,9 +13,6 @@ export default function FeaturesSection() {
   return (
     <section
       className={`relative mt-[60px] flex h-full  flex-col items-center justify-center `}
-      // style={{
-      //   backgroundImage: `url(${WetFabric.src})`,
-      // }}
     >
       <Image
         alt=""
