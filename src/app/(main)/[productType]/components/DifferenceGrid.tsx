@@ -91,7 +91,7 @@ export default function DifferenceGrid() {
     },
   ];
   return (
-    <div className="mb-[52px] px-2 pb-2 lg:w-full lg:px-0">
+    <div className="px-2 pb-2 lg:w-full lg:px-0">
       <span className="flex w-full flex-col text-center">
         <p className="w-full py-[20px] text-[22px] font-[500] leading-[24px] text-[#EBE9E9] lg:pb-[36px] lg:text-[40px] lg:font-[500]">
           See the Difference:
@@ -122,7 +122,7 @@ export default function DifferenceGrid() {
             >
               {others}
             </div>
-            <div className="flex h-full w-full grow-0 items-center justify-center bg-black/80 px-2 py-[14px] text-[12px]">
+            <div className="grow-1 flex h-full w-full items-center justify-center bg-black/80 px-2 py-[14px] text-[12px]">
               {title}
             </div>
             <div

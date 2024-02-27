@@ -4,7 +4,7 @@ import WhiteLayerDesktop from '@/images/PDP/Product-Details-Redesign-2/white-lay
 
 const FabricMattersSection = () => {
   return (
-    <div className="mt-[60px] lg:mt-0">
+    <div className="mt-[60px] w-full lg:mt-0">
       <div className="flex pb-7 text-center">
         <p className="w-full text-[30px] font-[500] leading-[26px] text-white">
           Fabric Matters
@@ -13,7 +13,7 @@ const FabricMattersSection = () => {
       <Image
         alt="cover-with-water-droplets"
         src={WhiteLayerMobile}
-        className="mb-[14px] h-[200px] w-full lg:hidden lg:h-[550px] lg:w-[850px] "
+        className="mb-[14px]  w-full lg:hidden "
       />
       <Image
         alt="cover-with-water-droplets"

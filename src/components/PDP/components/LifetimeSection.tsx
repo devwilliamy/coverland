@@ -4,6 +4,24 @@ import LifetimeCheck from '@/images/PDP/Product-Details-Redesign-2/lifetime-shei
 import LifetimeCheckDesktop from '@/images/PDP/Product-Details-Redesign-2/sheild-check-desktop.png';
 
 export default function LifetimeSection() {
+  const lifetimeData = [
+    {
+      title: 'All Tears Covered:',
+      body: 'Beyond factory defects.',
+    },
+    {
+      title: 'Normal Wear:',
+      body: 'Includes weather damage.',
+    },
+    {
+      title: 'Lifetime Assurance:',
+      body: 'Always protected.',
+    },
+    {
+      title: 'Effortless Claims:',
+      body: ' Easy, no questions asked.',
+    },
+  ];
   return (
     <section className="flex flex-col items-center pt-[60px] lg:mb-[40px] lg:pt-[110px]">
       <p className="w-full text-center text-[30px] font-[600] leading-[22px]">
@@ -23,24 +41,7 @@ export default function LifetimeSection() {
         className="hidden pb-7 pt-3 lg:block lg:w-[132px] lg:pt-[38px]"
       />
       <ul className=" list-disc flex-col">
-        {[
-          {
-            title: 'All Tears Covered:',
-            body: 'Beyond factory defects.',
-          },
-          {
-            title: 'Normal Wear:',
-            body: 'Includes weather damage.',
-          },
-          {
-            title: 'Lifetime Assurance:',
-            body: 'Always protected.',
-          },
-          {
-            title: 'Effortless Claims:',
-            body: ' Easy, no questions asked.',
-          },
-        ].map(({ title, body }) => (
+        {lifetimeData.map(({ title, body }) => (
           <li
             key={title}
             className="list-item text-[14px] font-[500] leading-[30px] lg:text-[22px] lg:leading-[42px]"

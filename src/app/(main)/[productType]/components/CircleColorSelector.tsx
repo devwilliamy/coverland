@@ -53,10 +53,11 @@ export default function CircleColorSelector({
       className="mt-[24px] flex h-full w-full flex-col py-1"
     >
       <h3 className="mb-[6px] max-h-[13px] text-[16px] font-[400] leading-[14px] text-black ">
-        Select Color:{' '}
+        Select Color
+        {/* {' '}
         <span className="ml-1  text-[#BEBEBE]">
           {selectedProduct?.display_color}
-        </span>
+        </span> */}
       </h3>
       <div className="flex w-full min-w-[288px]  gap-[11px] overflow-x-auto py-[1px] md:overflow-x-hidden">
         {uniqueColors &&
