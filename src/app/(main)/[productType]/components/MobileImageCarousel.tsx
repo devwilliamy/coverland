@@ -97,6 +97,7 @@ export const MobileImageCarousel = ({
                     height={500}
                     priority
                     // placeholder="blur"
+                    className="h-auto w-full"
                   />
                 </CarouselItem>
               );
@@ -116,6 +117,7 @@ export const MobileImageCarousel = ({
                   height={500}
                   // placeholder="blur"
                   onError={() => console.log('Failed image:', `${image}`)}
+                  className="h-auto w-full"
                 />
               </CarouselItem>
             );
