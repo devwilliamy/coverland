@@ -34,20 +34,24 @@ export function HeroDropdown() {
   const [jsonData, setJsonData] = useState<TProductJsonData[]>([]);
   const router = useRouter();
   const { year, type, make, model, submodel } = query;
-  console.log(jsonData);
-  console.log(year);
   useEffect(() => {
     const getSearchData = async () => {
-      console.log('fetching data');
       if (!make) return;
-      const url = new URL(`${BASE_URL}/api/json-data`);
-      url.searchParams.append('type', slugify(type));
-      url.searchParams.append('make', slugify(make));
 
-      const response = await fetch(url.toString());
+      const response = await fetch(
+        `/api/json-data?type=${slugify(type)}&make=${slugify(make)}`,
+        {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            Accept: 'application/json',
+          },
+        }
+      );
+      console.log(response);
       const jsonData = await response.json();
-      console.log('jsonData', response);
-      setJsonData(jsonData);
+      console.log(jsonData);
+      setJsonData(jsonData.data);
     };
     getSearchData();
   }, [make, type]);
