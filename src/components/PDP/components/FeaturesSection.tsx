@@ -17,7 +17,7 @@ export default function FeaturesSection() {
       <Image
         alt=""
         src={WetFabric}
-        className="absolute top-0 z-[-1] -mx-4 h-full object-cover"
+        className="absolute top-0 -z-10 -mx-4 h-full object-cover"
       />
       <ProductDetailsHeader />
       <div className="lg:hidden">
