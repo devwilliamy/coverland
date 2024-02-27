@@ -4,7 +4,6 @@ export async function GET(request: Request) {
   const url = new URL(request.url);
   const type = url.searchParams.get('type');
   const make = url.searchParams.get('make');
-  console.log(type, make);
 
   const corsHeaders = {
     'Access-Control-Allow-Origin': '*',
@@ -14,20 +13,32 @@ export async function GET(request: Request) {
     'Access-Control-Allow-Credentials': 'true',
   };
 
-  const data = await readFile(
-    process.cwd() +
-      `/public/data/${type}/${make}_${type?.replace(/-/g, '_').toLowerCase()}.json`,
-    'utf-8'
-  );
-  console.log(data);
-  const jsonData = JSON.parse(data);
-  console.log(jsonData);
-  return Response.json({
-    data: jsonData,
-    headers: {
-      ...corsHeaders,
-      'Access-Control-Allow-Credentials': true,
-      'Content-Type': 'application/json',
-    },
-  });
+  try {
+    const data = await readFile(
+      process.cwd() +
+        `/public/data/${type}/${make}_${type?.replace(/-/g, '_').toLowerCase()}.json`,
+      'utf-8'
+    );
+    console.log(data);
+    const jsonData = JSON.parse(data);
+    console.log(jsonData);
+    return Response.json({
+      data: jsonData,
+      headers: {
+        ...corsHeaders,
+        'Access-Control-Allow-Credentials': true,
+        'Content-Type': 'application/json',
+      },
+    });
+  } catch (error) {
+    console.error(error);
+    return Response.json({
+      error: error.message,
+      headers: {
+        ...corsHeaders,
+        'Access-Control-Allow-Credentials': true,
+        'Content-Type': 'application/json',
+      },
+    });
+  }
 }

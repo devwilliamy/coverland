@@ -50,6 +50,7 @@ export function HeroDropdown() {
       );
       console.log(response);
       const jsonData = await response.json();
+      console.log(jsonData);
       setJsonData(jsonData.data);
     };
     getSearchData();
