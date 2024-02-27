@@ -876,6 +876,8 @@ export const TRUCK_COVER_MAKES = [
 export const BASE_URL =
   process.env.NODE_ENV === 'production'
     ? 'https://www.coverland.com'
-    : 'http://localhost:3000';
+    : process.env.NODE_ENV === 'test'
+      ? 'https://coverland-2-0.vercel.app'
+      : 'http://localhost:3000';
 
 console.log(process.env.NODE_ENV, 'process.env.NODE_ENV');
