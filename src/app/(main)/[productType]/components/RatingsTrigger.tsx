@@ -13,7 +13,7 @@ function RatingsTrigger() {
 
   return (
     <>
-      {reviewData.length > 0 ? (
+      {/* {reviewData.length > 0 ? (
         <>
           <div className="relative hidden lg:flex">
             <Dialog>
@@ -35,11 +35,11 @@ function RatingsTrigger() {
             <ReviewSheet />
           </div>
         </>
-      ) : (
-        <div className="ml-2 text-blue-400 underline">
-          {total_reviews || '2'} ratings
-        </div>
-      )}
+      ) : ( */}
+      <div className=" text-[#4C8EA8] underline">
+        {total_reviews || '2'} ratings
+      </div>
+      {/* )} */}
     </>
   );
 }

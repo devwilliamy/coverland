@@ -15,6 +15,9 @@ import FreeDetails from './FreeDetails';
 import AddToCart from './AddToCart';
 import CircleColorSelector from './CircleColorSelector';
 import RatingsTrigger from './RatingsTrigger';
+import installments from '@/images/PDP/Product-Details-Redesign-2/paypal-installments.png';
+import Image from 'next/image';
+import { Info } from 'lucide-react';
 
 interface ProductRefs {
   [key: string]: RefObject<HTMLElement>;
@@ -74,7 +77,7 @@ export function ProductContent({
             {`Custom-Fit ${productType}`}
           </h2>
           {/* Rating(s) */}
-          <div className="flex items-center gap-1">
+          <div className="mt-1 flex items-end gap-1 lg:mt-2">
             <div className="flex gap-1 ">
               <Rating
                 name="read-only"
@@ -92,19 +95,26 @@ export function ProductContent({
       </div>
       <section className="flex flex-col pt-[18px] ">
         <p className="text-[16px] leading-4"> {isComplete ? '' : 'From'}</p>
-        <div className=" flex place-items-center gap-[15px] py-1  text-center text-[28px] font-[900] leading-[32px] lg:text-[32px] lg:leading-[37.5px] ">
-          ${selectedProduct?.msrp}
+        <div className=" flex place-items-end gap-[9px]   text-center text-[28px] font-[900] leading-[32px] lg:text-[32px] lg:leading-[37.5px] ">
+          <div className="flex flex-col items-end  leading-[22px]">
+            {' '}
+            ${selectedProduct?.msrp}
+          </div>
           {selectedProduct?.price && (
-            <div className="flex gap-1.5 text-[20px] font-[400] leading-[14px] text-[#BE1B1B] lg:text-[22px] ">
+            <div className="flex gap-1.5 text-[22px] font-[400] leading-[14px] text-[#BE1B1B] lg:text-[22px] ">
               <span className=" text-[#BEBEBE] line-through">{`$${Number(selectedProduct?.price)}`}</span>
               <p>(-50%)</p>
             </div>
           )}
         </div>
-        {/* <p className="text-[14px] leading-[16px] text-[#767676]">
-          4 interest-free installments of{' '}
-          <b className="font-[400] text-black">$39.99</b>
-        </p> */}
+        <div className="mt-4 flex items-center gap-2 ">
+          <p className=" text-[14px] leading-[16px] text-[#767676] lg:text-[16px]">
+            4 interest-free installments of{' '}
+            <b className="font-[400] text-black">$39.99</b>
+          </p>
+          <Image alt="paypal-installents" src={installments} />
+          <Info className="h-[17px] w-[17px] text-[#767676]" />
+        </div>
       </section>
       <CircleColorSelector
         uniqueColors={uniqueColors as IProductData[]}

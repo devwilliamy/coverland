@@ -4,7 +4,7 @@ import ThreeSixtyVideo from '@/videos/360 degree_website.mp4';
 
 const CustomFitSection = () => {
   return (
-    <div className="mt-[60px]">
+    <div className="mt-[60px] lg:mt-[110px]">
       <ProductVideo src={ThreeSixtyVideo} autoplay loop aspectRatio="16 / 9" />
       <div className="py-[20px]">
         <p className="w-full text-center text-[30px] font-[500] leading-[35px] tracking-[0.027em] text-white">

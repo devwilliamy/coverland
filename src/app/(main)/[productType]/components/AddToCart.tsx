@@ -58,7 +58,7 @@ export default function AddToCart({
   });
 
   return (
-    <div className="pt-[30px]">
+    <div>
       <div className="mt-8 w-full">
         <AddToCartSelector
           submodelSelectionOpen={submodelSelectionOpen}
