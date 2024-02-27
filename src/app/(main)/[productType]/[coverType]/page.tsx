@@ -3,7 +3,6 @@ import { TInitialProductDataDB, getProductData } from '@/lib/db';
 import {
   TProductReviewSummary,
   TReviewData,
-  filterReviewData,
   getAllReviewsWithImages,
   getProductReviewSummary,
   getProductReviewsByPage,
@@ -12,10 +11,23 @@ import CarPDP from '../components/CarPDP';
 import { redirect } from 'next/navigation';
 import { TPathParams } from '../../utils';
 
+//TODO: Refactor code so we can generate our dynamic paths as static HTML for performance
+
+// export async function generateStaticParams() {
+//   return [
+//     { coverType: 'premium-plus' },
+//     { coverType: 'premium' },
+//     { coverType: 'standard-pro' },
+//     { coverType: 'standard' },
+//   ];
+// }
+
 export default async function CarPDPModelDataLayer({
   params,
+  searchParams,
 }: {
   params: TPathParams;
+  searchParams: { submodel?: string; second_submodel?: string } | undefined;
 }) {
   let reviewData: TReviewData[] = [];
   let reviewDataSummary: TProductReviewSummary = {
@@ -55,7 +67,6 @@ export default async function CarPDPModelDataLayer({
           productType: typeString,
         }),
       ]);
-    filterReviewData({ reviewData, reviewImages });
 
     if (!modelData) {
       redirect('/404');
@@ -66,14 +77,13 @@ export default async function CarPDPModelDataLayer({
   }
 
   return (
-    <Suspense fallback={<div>Loading...</div>}>
-      <CarPDP
-        modelData={modelData}
-        reviewData={reviewData}
-        params={params}
-        reviewDataSummary={reviewDataSummary}
-        reviewImages={reviewImages}
-      />
-    </Suspense>
+    <CarPDP
+      modelData={modelData}
+      reviewData={reviewData}
+      params={params}
+      reviewDataSummary={reviewDataSummary}
+      reviewImages={reviewImages}
+      searchParams={searchParams}
+    />
   );
 }

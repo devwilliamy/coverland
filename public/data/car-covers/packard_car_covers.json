@@ -1,0 +1,650 @@
+[
+  {
+    "type": "Car Covers",
+    "make": "Packard",
+    "model": "Caribbean",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1953-1956",
+    "year_options": "1953,1954,1955,1956"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Packard",
+    "model": "Patrician",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1951-1956",
+    "year_options": "1951,1952,1953,1954,1955,1956"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Packard",
+    "model": "250",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1951-1952",
+    "year_options": "1951,1952"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Packard",
+    "model": "Caribbean",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1953-1956",
+    "year_options": "1953,1954,1955,1956"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Packard",
+    "model": "250",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1951-1952",
+    "year_options": "1951,1952"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Packard",
+    "model": "Caribbean",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1953-1956",
+    "year_options": "1953,1954,1955,1956"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Packard",
+    "model": "200",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1951-1952",
+    "year_options": "1951,1952"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Packard",
+    "model": "200",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1951-1952",
+    "year_options": "1951,1952"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Packard",
+    "model": "200",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1951-1952",
+    "year_options": "1951,1952"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Packard",
+    "model": "200",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1951-1952",
+    "year_options": "1951,1952"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Packard",
+    "model": "250",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1951-1952",
+    "year_options": "1951,1952"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Packard",
+    "model": "250",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1951-1952",
+    "year_options": "1951,1952"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Packard",
+    "model": "250",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1951-1952",
+    "year_options": "1951,1952"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Packard",
+    "model": "200",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1951-1952",
+    "year_options": "1951,1952"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Packard",
+    "model": "300",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1951-1952",
+    "year_options": "1951,1952"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Packard",
+    "model": "300",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1951-1952",
+    "year_options": "1951,1952"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Packard",
+    "model": "300",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1951-1952",
+    "year_options": "1951,1952"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Packard",
+    "model": "300",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1951-1952",
+    "year_options": "1951,1952"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Packard",
+    "model": "300",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1951-1952",
+    "year_options": "1951,1952"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Packard",
+    "model": "300",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1951-1952",
+    "year_options": "1951,1952"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Packard",
+    "model": "Caribbean",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1953-1956",
+    "year_options": "1953,1954,1955,1956"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Packard",
+    "model": "Caribbean",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1953-1956",
+    "year_options": "1953,1954,1955,1956"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Packard",
+    "model": "Cavalier",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1952-1954",
+    "year_options": "1952,1953,1954"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Packard",
+    "model": "Cavalier",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1952-1954",
+    "year_options": "1952,1953,1954"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Packard",
+    "model": "Cavalier",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1952-1954",
+    "year_options": "1952,1953,1954"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Packard",
+    "model": "Cavalier",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1952-1954",
+    "year_options": "1952,1953,1954"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Packard",
+    "model": "Clipper",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1941-1947",
+    "year_options": "1941,1942,1943,1944,1945,1946,1947"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Packard",
+    "model": "Clipper",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1941-1947",
+    "year_options": "1941,1942,1943,1944,1945,1946,1947"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Packard",
+    "model": "Clipper",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1941-1947",
+    "year_options": "1941,1942,1943,1944,1945,1946,1947"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Packard",
+    "model": "Clipper",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1941-1947",
+    "year_options": "1941,1942,1943,1944,1945,1946,1947"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Packard",
+    "model": "Clipper",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1948-1957",
+    "year_options": "1948,1949,1950,1951,1952,1953,1954,1955,1956,1957"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Packard",
+    "model": "Clipper",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1948-1957",
+    "year_options": "1948,1949,1950,1951,1952,1953,1954,1955,1956,1957"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Packard",
+    "model": "Clipper",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1948-1957",
+    "year_options": "1948,1949,1950,1951,1952,1953,1954,1955,1956,1957"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Packard",
+    "model": "Clipper",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1948-1957",
+    "year_options": "1948,1949,1950,1951,1952,1953,1954,1955,1956,1957"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Packard",
+    "model": "Patrician",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1951-1956",
+    "year_options": "1951,1952,1953,1954,1955,1956"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Packard",
+    "model": "Patrician",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1951-1956",
+    "year_options": "1951,1952,1953,1954,1955,1956"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Packard",
+    "model": "Patrician",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1951-1956",
+    "year_options": "1951,1952,1953,1954,1955,1956"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Packard",
+    "model": "Patrician",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1951-1956",
+    "year_options": "1951,1952,1953,1954,1955,1956"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Packard",
+    "model": "Patrician",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1951-1956",
+    "year_options": "1951,1952,1953,1954,1955,1956"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Packard",
+    "model": "Clipper",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1948-1957",
+    "year_options": "1948,1949,1950,1951,1952,1953,1954,1955,1956,1957"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Packard",
+    "model": "Caribbean",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1953-1956",
+    "year_options": "1953,1954,1955,1956"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Packard",
+    "model": "200",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1951-1952",
+    "year_options": "1951,1952"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Packard",
+    "model": "250",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1951-1952",
+    "year_options": "1951,1952"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Packard",
+    "model": "Clipper",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1941-1947",
+    "year_options": "1941,1942,1943,1944,1945,1946,1947"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Packard",
+    "model": "Patrician",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1951-1956",
+    "year_options": "1951,1952,1953,1954,1955,1956"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Packard",
+    "model": "Caribbean",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1953-1956",
+    "year_options": "1953,1954,1955,1956"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Packard",
+    "model": "Cavalier",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1952-1954",
+    "year_options": "1952,1953,1954"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Packard",
+    "model": "Clipper",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1941-1947",
+    "year_options": "1941,1942,1943,1944,1945,1946,1947"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Packard",
+    "model": "Cavalier",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1952-1954",
+    "year_options": "1952,1953,1954"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Packard",
+    "model": "300",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1951-1952",
+    "year_options": "1951,1952"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Packard",
+    "model": "300",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1951-1952",
+    "year_options": "1951,1952"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Packard",
+    "model": "200",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1951-1952",
+    "year_options": "1951,1952"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Packard",
+    "model": "250",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1951-1952",
+    "year_options": "1951,1952"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Packard",
+    "model": "250",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1951-1952",
+    "year_options": "1951,1952"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Packard",
+    "model": "Caribbean",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1953-1956",
+    "year_options": "1953,1954,1955,1956"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Packard",
+    "model": "Clipper",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1941-1947",
+    "year_options": "1941,1942,1943,1944,1945,1946,1947"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Packard",
+    "model": "Clipper",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1948-1957",
+    "year_options": "1948,1949,1950,1951,1952,1953,1954,1955,1956,1957"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Packard",
+    "model": "Patrician",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1951-1956",
+    "year_options": "1951,1952,1953,1954,1955,1956"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Packard",
+    "model": "Patrician",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1951-1956",
+    "year_options": "1951,1952,1953,1954,1955,1956"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Packard",
+    "model": "250",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1951-1952",
+    "year_options": "1951,1952"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Packard",
+    "model": "Clipper",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1948-1957",
+    "year_options": "1948,1949,1950,1951,1952,1953,1954,1955,1956,1957"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Packard",
+    "model": "Cavalier",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1952-1954",
+    "year_options": "1952,1953,1954"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Packard",
+    "model": "300",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1951-1952",
+    "year_options": "1951,1952"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Packard",
+    "model": "Cavalier",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1952-1954",
+    "year_options": "1952,1953,1954"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Packard",
+    "model": "Clipper",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1948-1957",
+    "year_options": "1948,1949,1950,1951,1952,1953,1954,1955,1956,1957"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Packard",
+    "model": "Cavalier",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1952-1954",
+    "year_options": "1952,1953,1954"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Packard",
+    "model": "Clipper",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1948-1957",
+    "year_options": "1948,1949,1950,1951,1952,1953,1954,1955,1956,1957"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Packard",
+    "model": "200",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1951-1952",
+    "year_options": "1951,1952"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Packard",
+    "model": "Caribbean",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1953-1956",
+    "year_options": "1953,1954,1955,1956"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Packard",
+    "model": "Clipper",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1941-1947",
+    "year_options": "1941,1942,1943,1944,1945,1946,1947"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Packard",
+    "model": "200",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1951-1952",
+    "year_options": "1951,1952"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Packard",
+    "model": "Clipper",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1941-1947",
+    "year_options": "1941,1942,1943,1944,1945,1946,1947"
+  }
+]

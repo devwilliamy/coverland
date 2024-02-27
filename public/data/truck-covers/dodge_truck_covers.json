@@ -1,0 +1,1442 @@
+[
+  {
+    "type": "Truck Covers",
+    "make": "Dodge",
+    "model": "Dakota",
+    "submodel1": "Regular Cab",
+    "submodel2": "6.5 ft. Regular Bed",
+    "parent_generation": "1997-2004",
+    "year_options": "1997,1998,1999,2000,2001,2002,2003,2004"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "Dodge",
+    "model": "Dakota",
+    "submodel1": "Quad Cab",
+    "submodel2": "5.5 ft. Short Bed",
+    "parent_generation": "2005-2010",
+    "year_options": "2005,2006,2007,2008,2009,2010"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "Dodge",
+    "model": "Dakota",
+    "submodel1": "Crew Cab",
+    "submodel2": "5.5 ft. Short Bed",
+    "parent_generation": "2005-2010",
+    "year_options": "2008,2009,2010"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "Dodge",
+    "model": "Ram 1500",
+    "submodel1": "Quad Cab",
+    "submodel2": "8.0 ft. Long Bed",
+    "parent_generation": "1994-2001",
+    "year_options": "1994,1995,1996,1997,1998,1999,2000,2001"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "Dodge",
+    "model": "Dakota",
+    "submodel1": "Quad Cab",
+    "submodel2": "5.5 ft. Short Bed",
+    "parent_generation": "2005-2010",
+    "year_options": "2005,2006,2007,2008,2009,2010"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "Dodge",
+    "model": "Ram 2500",
+    "submodel1": "Mega Cab",
+    "submodel2": "6.5 ft. Regular Bed",
+    "parent_generation": "2003-2009",
+    "year_options": "2003,2004,2005,2006,2007,2008,2009"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "Dodge",
+    "model": "Ram 1500",
+    "submodel1": "Crew Cab",
+    "submodel2": "6.5 ft. Regular Bed",
+    "parent_generation": "2002-2010",
+    "year_options": "2009,2010"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "Dodge",
+    "model": "Ram 2500",
+    "submodel1": "Mega Cab",
+    "submodel2": "6.5 ft. Regular Bed",
+    "parent_generation": "2010",
+    "year_options": "2010"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "Dodge",
+    "model": "Ram 2500",
+    "submodel1": "Mega Cab",
+    "submodel2": "6.5 ft. Regular Bed",
+    "parent_generation": "2010",
+    "year_options": "2010"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "Dodge",
+    "model": "Ram 2500",
+    "submodel1": "Quad Cab",
+    "submodel2": "6.5 ft. Regular Bed",
+    "parent_generation": "2003-2009",
+    "year_options": "2003,2004,2005,2006,2007,2008,2009"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "Dodge",
+    "model": "Ram 2500",
+    "submodel1": "Regular Cab",
+    "submodel2": "8.0 ft. Long Bed",
+    "parent_generation": "2010",
+    "year_options": "2010"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "Dodge",
+    "model": "Dakota",
+    "submodel1": "Club Cab",
+    "submodel2": "6.5 ft. Regular Bed",
+    "parent_generation": "1997-2004",
+    "year_options": "1987,1988,1989,1990,1991,1992,1993,1994,1995,1996,1997,1998,1999,2000,2001,2002,2003,2004"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "Dodge",
+    "model": "Ram 2500",
+    "submodel1": "Quad Cab",
+    "submodel2": "8.0 ft. Long Bed",
+    "parent_generation": "2003-2009",
+    "year_options": "2003,2004,2005,2006,2007,2008,2009"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "Dodge",
+    "model": "Dakota",
+    "submodel1": "Regular Cab",
+    "submodel2": "8.0 ft. Long Bed",
+    "parent_generation": "1987-1996",
+    "year_options": "1987,1988,1989,1990,1991,1992,1993,1994,1995,1996"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "Dodge",
+    "model": "Dakota",
+    "submodel1": "Regular Cab",
+    "submodel2": "8.0 ft. Long Bed",
+    "parent_generation": "1987-1996",
+    "year_options": "1987,1988,1989,1990,1991,1992,1993,1994,1995,1996"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "Dodge",
+    "model": "Ram 2500",
+    "submodel1": "Quad Cab",
+    "submodel2": "Regular Bed",
+    "parent_generation": "1994-2002",
+    "year_options": "1994,1995,1996,1997,1998,1999,2000,2001,2002"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "Dodge",
+    "model": "Ram 1500",
+    "submodel1": "Quad Cab",
+    "submodel2": "8.0 ft. Long Bed",
+    "parent_generation": "1994-2001",
+    "year_options": "1994,1995,1996,1997,1998,1999,2000,2001"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "Dodge",
+    "model": "Ram 2500",
+    "submodel1": "Crew Cab",
+    "submodel2": "8.0 ft. Long Bed",
+    "parent_generation": "2010",
+    "year_options": "2010"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "Dodge",
+    "model": "Ram 2500",
+    "submodel1": "Quad Cab",
+    "submodel2": "6.5 ft. Regular Bed",
+    "parent_generation": "2003-2009",
+    "year_options": "2003,2004,2005,2006,2007,2008,2009"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "Dodge",
+    "model": "Ram 1500",
+    "submodel1": "Crew Cab",
+    "submodel2": "6.5 ft. Regular Bed",
+    "parent_generation": "2002-2010",
+    "year_options": "2009,2010"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "Dodge",
+    "model": "Ram 3500",
+    "submodel1": "Regular Cab",
+    "submodel2": "8.0 ft. Long Bed",
+    "parent_generation": "1994-2002",
+    "year_options": "1994,1995,1996,1997,1998,1999,2000,2001,2002"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "Dodge",
+    "model": "Ram 2500",
+    "submodel1": "Quad Cab",
+    "submodel2": "Regular Bed",
+    "parent_generation": "1994-2002",
+    "year_options": "1994,1995,1996,1997,1998,1999,2000,2001,2002"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "Dodge",
+    "model": "Ram 2500",
+    "submodel1": "Quad Cab",
+    "submodel2": "6.5 ft. Regular Bed",
+    "parent_generation": "2003-2009",
+    "year_options": "2003,2004,2005,2006,2007,2008,2009"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "Dodge",
+    "model": "Ram 3500",
+    "submodel1": "Quad Cab",
+    "submodel2": "8.0 ft. Long Bed",
+    "parent_generation": "2003-2009",
+    "year_options": "2003,2004,2005,2006,2007,2008,2009"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "Dodge",
+    "model": "Ram 2500",
+    "submodel1": "Quad Cab",
+    "submodel2": "Regular Bed",
+    "parent_generation": "1994-2002",
+    "year_options": "1994,1995,1996,1997,1998,1999,2000,2001,2002"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "Dodge",
+    "model": "Ram 2500",
+    "submodel1": "Quad Cab",
+    "submodel2": "6.5 ft. Regular Bed",
+    "parent_generation": "2003-2009",
+    "year_options": "2003,2004,2005,2006,2007,2008,2009"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "Dodge",
+    "model": "Ram 2500",
+    "submodel1": "Quad Cab",
+    "submodel2": "Long Bed",
+    "parent_generation": "1994-2002",
+    "year_options": "1994,1995,1996,1997,1998,1999,2000,2001,2002"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "Dodge",
+    "model": "Ram 2500",
+    "submodel1": "Quad Cab",
+    "submodel2": "Long Bed",
+    "parent_generation": "1994-2002",
+    "year_options": "1994,1995,1996,1997,1998,1999,2000,2001,2002"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "Dodge",
+    "model": "Dakota",
+    "submodel1": "Regular Cab",
+    "submodel2": "8.0 ft. Long Bed",
+    "parent_generation": "1987-1996",
+    "year_options": "1987,1988,1989,1990,1991,1992,1993,1994,1995,1996"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "Dodge",
+    "model": "Dakota",
+    "submodel1": "Club Cab",
+    "submodel2": "6.5 ft. Regular Bed",
+    "parent_generation": "2005-2010",
+    "year_options": "2005,2006,2007"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "Dodge",
+    "model": "Dakota",
+    "submodel1": "Crew Cab",
+    "submodel2": "5.5 ft. Short Bed",
+    "parent_generation": "2005-2010",
+    "year_options": "2008,2009,2010"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "Dodge",
+    "model": "Ram",
+    "submodel1": "Regular Cab",
+    "submodel2": "6.5 ft. Regular Bed",
+    "parent_generation": "1981-1993",
+    "year_options": "1981,1982,1983,1984,1985,1986,1987,1988,1989,1990,1991,1992,1993"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "Dodge",
+    "model": "Ram",
+    "submodel1": "Regular Cab",
+    "submodel2": "8.0 ft. Long Bed",
+    "parent_generation": "1981-1993",
+    "year_options": "1981,1982,1983,1984,1985,1986,1987,1988,1989,1990,1991,1992,1993"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "Dodge",
+    "model": "Ram",
+    "submodel1": "Club Cab",
+    "submodel2": "6.5 ft. Regular Bed",
+    "parent_generation": "1981-1993",
+    "year_options": "1981,1982,1983,1984,1985,1986,1987,1988,1989,1990,1991,1992,1993"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "Dodge",
+    "model": "Ram",
+    "submodel1": "Club Cab",
+    "submodel2": "8.0 ft. Long Bed",
+    "parent_generation": "1981-1993",
+    "year_options": "1981,1982,1983,1984,1985,1986,1987,1988,1989,1990,1991,1992,1993"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "Dodge",
+    "model": "Ram 1500",
+    "submodel1": "Regular Cab",
+    "submodel2": "6.5 ft. Regular Bed",
+    "parent_generation": "1994-2001",
+    "year_options": "1994,1995,1996,1997,1998,1999,2000,2001"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "Dodge",
+    "model": "Dakota",
+    "submodel1": "Quad Cab",
+    "submodel2": "5.5 ft. Short Bed",
+    "parent_generation": "1997-2004",
+    "year_options": "1997,1998,1999,2000,2001,2002,2003,2004"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "Dodge",
+    "model": "Ram 1500",
+    "submodel1": "Regular Cab",
+    "submodel2": "6.5 ft. Regular Bed",
+    "parent_generation": "2002-2010",
+    "year_options": "2002,2003,2004,2005,2006,2007,2008,2009,2010"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "Dodge",
+    "model": "Ram 1500",
+    "submodel1": "Regular Cab",
+    "submodel2": "8.0 ft. Long Bed",
+    "parent_generation": "2002-2010",
+    "year_options": "2002,2003,2004,2005,2006,2007,2008,2009,2010"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "Dodge",
+    "model": "Ram 1500",
+    "submodel1": "Quad Cab",
+    "submodel2": "6.5 ft. Regular Bed",
+    "parent_generation": "2002-2010",
+    "year_options": "2002,2003,2004,2005,2006,2007,2008,2009,2010"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "Dodge",
+    "model": "Ram 1500",
+    "submodel1": "Quad Cab",
+    "submodel2": "8.0 ft. Long Bed",
+    "parent_generation": "2002-2010",
+    "year_options": "2002,2003,2004,2005,2006,2007,2008"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "Dodge",
+    "model": "Ram 1500",
+    "submodel1": "Mega Cab",
+    "submodel2": "6.5 ft. Regular Bed",
+    "parent_generation": "2002-2010",
+    "year_options": "2002,2003,2004,2005,2006,2007,2008"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "Dodge",
+    "model": "Ram 1500",
+    "submodel1": "Crew Cab",
+    "submodel2": "5.5 ft. Short Bed",
+    "parent_generation": "2002-2010",
+    "year_options": "2009,2010"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "Dodge",
+    "model": "Ram 1500",
+    "submodel1": "Crew Cab",
+    "submodel2": "6.5 ft. Regular Bed",
+    "parent_generation": "2002-2010",
+    "year_options": "2009,2010"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "Dodge",
+    "model": "Ram 2500",
+    "submodel1": "Regular Cab",
+    "submodel2": "Long Bed",
+    "parent_generation": "1994-2002",
+    "year_options": "1994,1995,1996,1997,1998,1999,2000,2001,2002"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "Dodge",
+    "model": "Ram 1500",
+    "submodel1": "Quad Cab",
+    "submodel2": "6.5 ft. Regular Bed",
+    "parent_generation": "1994-2001",
+    "year_options": "1994,1995,1996,1997,1998,1999,2000,2001"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "Dodge",
+    "model": "Ram 2500",
+    "submodel1": "Quad Cab",
+    "submodel2": "8.0 ft. Long Bed",
+    "parent_generation": "2003-2009",
+    "year_options": "2003,2004,2005,2006,2007,2008,2009"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "Dodge",
+    "model": "Ram 2500",
+    "submodel1": "Mega Cab",
+    "submodel2": "6.5 ft. Regular Bed",
+    "parent_generation": "2003-2009",
+    "year_options": "2003,2004,2005,2006,2007,2008,2009"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "Dodge",
+    "model": "Ram 2500",
+    "submodel1": "Mega Cab",
+    "submodel2": "6.5 ft. Regular Bed",
+    "parent_generation": "2010",
+    "year_options": "2010"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "Dodge",
+    "model": "Ram 2500",
+    "submodel1": "Crew Cab",
+    "submodel2": "6.5 ft. Regular Bed",
+    "parent_generation": "2010",
+    "year_options": "2010"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "Dodge",
+    "model": "Ram 2500",
+    "submodel1": "Crew Cab",
+    "submodel2": "8.0 ft. Long Bed",
+    "parent_generation": "2010",
+    "year_options": "2010"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "Dodge",
+    "model": "Ram 3500",
+    "submodel1": "Regular Cab",
+    "submodel2": "8.0 ft. Long Bed",
+    "parent_generation": "1994-2002",
+    "year_options": "1994,1995,1996,1997,1998,1999,2000,2001,2002"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "Dodge",
+    "model": "Ram 3500",
+    "submodel1": "Quad Cab",
+    "submodel2": "8.0 ft. Long Bed",
+    "parent_generation": "1994-2002",
+    "year_options": "1994,1995,1996,1997,1998,1999,2000,2001,2002"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "Dodge",
+    "model": "Ram 3500",
+    "submodel1": "Regular Cab",
+    "submodel2": "8.0 ft. Long Bed",
+    "parent_generation": "2003-2009",
+    "year_options": "2003,2004,2005,2006,2007,2008,2009"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "Dodge",
+    "model": "Ram 2500",
+    "submodel1": "Regular Cab",
+    "submodel2": "8.0 ft. Long Bed",
+    "parent_generation": "2010",
+    "year_options": "2010"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "Dodge",
+    "model": "Ram 2500",
+    "submodel1": "Regular Cab",
+    "submodel2": "8.0 ft. Long Bed",
+    "parent_generation": "2003-2009",
+    "year_options": "2003,2004,2005,2006,2007,2008,2009"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "Dodge",
+    "model": "Ram 3500",
+    "submodel1": "Mega Cab",
+    "submodel2": "6.5 ft. Regular Bed",
+    "parent_generation": "2003-2009",
+    "year_options": "2003,2004,2005,2006,2007,2008,2009"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "Dodge",
+    "model": "Ram 3500",
+    "submodel1": "Quad Cab",
+    "submodel2": "8.0 ft. Long Bed",
+    "parent_generation": "2003-2009",
+    "year_options": "2003,2004,2005,2006,2007,2008,2009"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "Dodge",
+    "model": "Dakota",
+    "submodel1": "Quad Cab",
+    "submodel2": "5.5 ft. Short Bed",
+    "parent_generation": "1997-2004",
+    "year_options": "1997,1998,1999,2000,2001,2002,2003,2004"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "Dodge",
+    "model": "Dakota",
+    "submodel1": "Club Cab",
+    "submodel2": "6.5 ft. Regular Bed",
+    "parent_generation": "1997-2004",
+    "year_options": "1987,1988,1989,1990,1991,1992,1993,1994,1995,1996,1997,1998,1999,2000,2001,2002,2003,2004"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "Dodge",
+    "model": "Dakota",
+    "submodel1": "Club Cab",
+    "submodel2": "6.5 ft. Regular Bed",
+    "parent_generation": "2005-2010",
+    "year_options": "2005,2006,2007"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "Dodge",
+    "model": "Ram",
+    "submodel1": "Regular Cab",
+    "submodel2": "6.5 ft. Regular Bed",
+    "parent_generation": "1981-1993",
+    "year_options": "1981,1982,1983,1984,1985,1986,1987,1988,1989,1990,1991,1992,1993"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "Dodge",
+    "model": "Ram",
+    "submodel1": "Regular Cab",
+    "submodel2": "8.0 ft. Long Bed",
+    "parent_generation": "1981-1993",
+    "year_options": "1981,1982,1983,1984,1985,1986,1987,1988,1989,1990,1991,1992,1993"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "Dodge",
+    "model": "Ram",
+    "submodel1": "Club Cab",
+    "submodel2": "6.5 ft. Regular Bed",
+    "parent_generation": "1981-1993",
+    "year_options": "1981,1982,1983,1984,1985,1986,1987,1988,1989,1990,1991,1992,1993"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "Dodge",
+    "model": "Ram",
+    "submodel1": "Club Cab",
+    "submodel2": "8.0 ft. Long Bed",
+    "parent_generation": "1981-1993",
+    "year_options": "1981,1982,1983,1984,1985,1986,1987,1988,1989,1990,1991,1992,1993"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "Dodge",
+    "model": "Dakota",
+    "submodel1": "Club Cab",
+    "submodel2": "6.5 ft. Regular Bed",
+    "parent_generation": "1987-1996",
+    "year_options": "1987,1988,1989,1990,1991,1992,1993,1994,1995,1996"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "Dodge",
+    "model": "Ram 1500",
+    "submodel1": "Quad Cab",
+    "submodel2": "6.5 ft. Regular Bed",
+    "parent_generation": "1994-2001",
+    "year_options": "1994,1995,1996,1997,1998,1999,2000,2001"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "Dodge",
+    "model": "Ram 1500",
+    "submodel1": "Regular Cab",
+    "submodel2": "6.5 ft. Regular Bed",
+    "parent_generation": "2002-2010",
+    "year_options": "2002,2003,2004,2005,2006,2007,2008,2009,2010"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "Dodge",
+    "model": "Ram 1500",
+    "submodel1": "Regular Cab",
+    "submodel2": "8.0 ft. Long Bed",
+    "parent_generation": "2002-2010",
+    "year_options": "2002,2003,2004,2005,2006,2007,2008,2009,2010"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "Dodge",
+    "model": "Ram 1500",
+    "submodel1": "Quad Cab",
+    "submodel2": "6.5 ft. Regular Bed",
+    "parent_generation": "2002-2010",
+    "year_options": "2002,2003,2004,2005,2006,2007,2008,2009,2010"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "Dodge",
+    "model": "Ram 1500",
+    "submodel1": "Quad Cab",
+    "submodel2": "8.0 ft. Long Bed",
+    "parent_generation": "2002-2010",
+    "year_options": "2002,2003,2004,2005,2006,2007,2008"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "Dodge",
+    "model": "Ram 1500",
+    "submodel1": "Mega Cab",
+    "submodel2": "6.5 ft. Regular Bed",
+    "parent_generation": "2002-2010",
+    "year_options": "2002,2003,2004,2005,2006,2007,2008"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "Dodge",
+    "model": "Ram 1500",
+    "submodel1": "Crew Cab",
+    "submodel2": "5.5 ft. Short Bed",
+    "parent_generation": "2002-2010",
+    "year_options": "2009,2010"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "Dodge",
+    "model": "Ram 1500",
+    "submodel1": "Regular Cab",
+    "submodel2": "8.0 ft. Long Bed",
+    "parent_generation": "1994-2001",
+    "year_options": "1994,1995,1996,1997,1998,1999,2000,2001"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "Dodge",
+    "model": "Ram 2500",
+    "submodel1": "Quad Cab",
+    "submodel2": "8.0 ft. Long Bed",
+    "parent_generation": "2003-2009",
+    "year_options": "2003,2004,2005,2006,2007,2008,2009"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "Dodge",
+    "model": "Ram 2500",
+    "submodel1": "Mega Cab",
+    "submodel2": "6.5 ft. Regular Bed",
+    "parent_generation": "2010",
+    "year_options": "2010"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "Dodge",
+    "model": "Ram 2500",
+    "submodel1": "Crew Cab",
+    "submodel2": "6.5 ft. Regular Bed",
+    "parent_generation": "2010",
+    "year_options": "2010"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "Dodge",
+    "model": "Ram 2500",
+    "submodel1": "Crew Cab",
+    "submodel2": "8.0 ft. Long Bed",
+    "parent_generation": "2010",
+    "year_options": "2010"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "Dodge",
+    "model": "Ram 3500",
+    "submodel1": "Regular Cab",
+    "submodel2": "8.0 ft. Long Bed",
+    "parent_generation": "1994-2002",
+    "year_options": "1994,1995,1996,1997,1998,1999,2000,2001,2002"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "Dodge",
+    "model": "Ram 3500",
+    "submodel1": "Quad Cab",
+    "submodel2": "8.0 ft. Long Bed",
+    "parent_generation": "1994-2002",
+    "year_options": "1994,1995,1996,1997,1998,1999,2000,2001,2002"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "Dodge",
+    "model": "Ram 3500",
+    "submodel1": "Regular Cab",
+    "submodel2": "8.0 ft. Long Bed",
+    "parent_generation": "2003-2009",
+    "year_options": "2003,2004,2005,2006,2007,2008,2009"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "Dodge",
+    "model": "Ram 3500",
+    "submodel1": "Quad Cab",
+    "submodel2": "6.5 ft. Regular Bed",
+    "parent_generation": "2003-2009",
+    "year_options": "2003,2004,2005,2006,2007,2008,2009"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "Dodge",
+    "model": "Ram 2500",
+    "submodel1": "Regular Cab",
+    "submodel2": "8.0 ft. Long Bed",
+    "parent_generation": "2010",
+    "year_options": "2010"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "Dodge",
+    "model": "Dakota",
+    "submodel1": "Quad Cab",
+    "submodel2": "5.5 ft. Short Bed",
+    "parent_generation": "2005-2010",
+    "year_options": "2005,2006,2007,2008,2009,2010"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "Dodge",
+    "model": "Dakota",
+    "submodel1": "Regular Cab",
+    "submodel2": "8.0 ft. Long Bed",
+    "parent_generation": "1987-1996",
+    "year_options": "1987,1988,1989,1990,1991,1992,1993,1994,1995,1996"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "Dodge",
+    "model": "Dakota",
+    "submodel1": "Club Cab",
+    "submodel2": "6.5 ft. Regular Bed",
+    "parent_generation": "1987-1996",
+    "year_options": "1987,1988,1989,1990,1991,1992,1993,1994,1995,1996"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "Dodge",
+    "model": "Dakota",
+    "submodel1": "Club Cab",
+    "submodel2": "6.5 ft. Regular Bed",
+    "parent_generation": "1997-2004",
+    "year_options": "1987,1988,1989,1990,1991,1992,1993,1994,1995,1996,1997,1998,1999,2000,2001,2002,2003,2004"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "Dodge",
+    "model": "Dakota",
+    "submodel1": "Club Cab",
+    "submodel2": "6.5 ft. Regular Bed",
+    "parent_generation": "1997-2004",
+    "year_options": "1987,1988,1989,1990,1991,1992,1993,1994,1995,1996,1997,1998,1999,2000,2001,2002,2003,2004"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "Dodge",
+    "model": "Dakota",
+    "submodel1": "Quad Cab",
+    "submodel2": "5.5 ft. Short Bed",
+    "parent_generation": "1997-2004",
+    "year_options": "1997,1998,1999,2000,2001,2002,2003,2004"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "Dodge",
+    "model": "Dakota",
+    "submodel1": "Quad Cab",
+    "submodel2": "5.5 ft. Short Bed",
+    "parent_generation": "1997-2004",
+    "year_options": "1997,1998,1999,2000,2001,2002,2003,2004"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "Dodge",
+    "model": "Dakota",
+    "submodel1": "Club Cab",
+    "submodel2": "6.5 ft. Regular Bed",
+    "parent_generation": "2005-2010",
+    "year_options": "2005,2006,2007"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "Dodge",
+    "model": "Dakota",
+    "submodel1": "Quad Cab",
+    "submodel2": "5.5 ft. Short Bed",
+    "parent_generation": "2005-2010",
+    "year_options": "2005,2006,2007,2008,2009,2010"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "Dodge",
+    "model": "Dakota",
+    "submodel1": "Crew Cab",
+    "submodel2": "5.5 ft. Short Bed",
+    "parent_generation": "2005-2010",
+    "year_options": "2008,2009,2010"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "Dodge",
+    "model": "Ram",
+    "submodel1": "Regular Cab",
+    "submodel2": "6.5 ft. Regular Bed",
+    "parent_generation": "1981-1993",
+    "year_options": "1981,1982,1983,1984,1985,1986,1987,1988,1989,1990,1991,1992,1993"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "Dodge",
+    "model": "Ram",
+    "submodel1": "Regular Cab",
+    "submodel2": "8.0 ft. Long Bed",
+    "parent_generation": "1981-1993",
+    "year_options": "1981,1982,1983,1984,1985,1986,1987,1988,1989,1990,1991,1992,1993"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "Dodge",
+    "model": "Ram",
+    "submodel1": "Regular Cab",
+    "submodel2": "8.0 ft. Long Bed",
+    "parent_generation": "1981-1993",
+    "year_options": "1981,1982,1983,1984,1985,1986,1987,1988,1989,1990,1991,1992,1993"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "Dodge",
+    "model": "Ram",
+    "submodel1": "Club Cab",
+    "submodel2": "8.0 ft. Long Bed",
+    "parent_generation": "1981-1993",
+    "year_options": "1981,1982,1983,1984,1985,1986,1987,1988,1989,1990,1991,1992,1993"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "Dodge",
+    "model": "Ram 1500",
+    "submodel1": "Regular Cab",
+    "submodel2": "6.5 ft. Regular Bed",
+    "parent_generation": "1994-2001",
+    "year_options": "1994,1995,1996,1997,1998,1999,2000,2001"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "Dodge",
+    "model": "Ram 1500",
+    "submodel1": "Regular Cab",
+    "submodel2": "8.0 ft. Long Bed",
+    "parent_generation": "1994-2001",
+    "year_options": "1994,1995,1996,1997,1998,1999,2000,2001"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "Dodge",
+    "model": "Ram 1500",
+    "submodel1": "Regular Cab",
+    "submodel2": "8.0 ft. Long Bed",
+    "parent_generation": "1994-2001",
+    "year_options": "1994,1995,1996,1997,1998,1999,2000,2001"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "Dodge",
+    "model": "Ram 1500",
+    "submodel1": "Quad Cab",
+    "submodel2": "6.5 ft. Regular Bed",
+    "parent_generation": "1994-2001",
+    "year_options": "1994,1995,1996,1997,1998,1999,2000,2001"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "Dodge",
+    "model": "Ram 1500",
+    "submodel1": "Quad Cab",
+    "submodel2": "6.5 ft. Regular Bed",
+    "parent_generation": "1994-2001",
+    "year_options": "1994,1995,1996,1997,1998,1999,2000,2001"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "Dodge",
+    "model": "Ram 1500",
+    "submodel1": "Quad Cab",
+    "submodel2": "8.0 ft. Long Bed",
+    "parent_generation": "1994-2001",
+    "year_options": "1994,1995,1996,1997,1998,1999,2000,2001"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "Dodge",
+    "model": "Ram 1500",
+    "submodel1": "Regular Cab",
+    "submodel2": "8.0 ft. Long Bed",
+    "parent_generation": "2002-2010",
+    "year_options": "2002,2003,2004,2005,2006,2007,2008,2009,2010"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "Dodge",
+    "model": "Ram 1500",
+    "submodel1": "Quad Cab",
+    "submodel2": "6.5 ft. Regular Bed",
+    "parent_generation": "2002-2010",
+    "year_options": "2002,2003,2004,2005,2006,2007,2008,2009,2010"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "Dodge",
+    "model": "Ram 1500",
+    "submodel1": "Quad Cab",
+    "submodel2": "6.5 ft. Regular Bed",
+    "parent_generation": "2002-2010",
+    "year_options": "2002,2003,2004,2005,2006,2007,2008,2009,2010"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "Dodge",
+    "model": "Ram 1500",
+    "submodel1": "Quad Cab",
+    "submodel2": "8.0 ft. Long Bed",
+    "parent_generation": "2002-2010",
+    "year_options": "2002,2003,2004,2005,2006,2007,2008"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "Dodge",
+    "model": "Ram 1500",
+    "submodel1": "Quad Cab",
+    "submodel2": "8.0 ft. Long Bed",
+    "parent_generation": "2002-2010",
+    "year_options": "2002,2003,2004,2005,2006,2007,2008"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "Dodge",
+    "model": "Ram 1500",
+    "submodel1": "Mega Cab",
+    "submodel2": "6.5 ft. Regular Bed",
+    "parent_generation": "2002-2010",
+    "year_options": "2002,2003,2004,2005,2006,2007,2008"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "Dodge",
+    "model": "Ram 1500",
+    "submodel1": "Mega Cab",
+    "submodel2": "6.5 ft. Regular Bed",
+    "parent_generation": "2002-2010",
+    "year_options": "2002,2003,2004,2005,2006,2007,2008"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "Dodge",
+    "model": "Ram 1500",
+    "submodel1": "Crew Cab",
+    "submodel2": "6.5 ft. Regular Bed",
+    "parent_generation": "2002-2010",
+    "year_options": "2009,2010"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "Dodge",
+    "model": "Ram 2500",
+    "submodel1": "Regular Cab",
+    "submodel2": "Long Bed",
+    "parent_generation": "1994-2002",
+    "year_options": "1994,1995,1996,1997,1998,1999,2000,2001,2002"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "Dodge",
+    "model": "Ram 2500",
+    "submodel1": "Quad Cab",
+    "submodel2": "Regular Bed",
+    "parent_generation": "1994-2002",
+    "year_options": "1994,1995,1996,1997,1998,1999,2000,2001,2002"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "Dodge",
+    "model": "Ram 2500",
+    "submodel1": "Quad Cab",
+    "submodel2": "Long Bed",
+    "parent_generation": "1994-2002",
+    "year_options": "1994,1995,1996,1997,1998,1999,2000,2001,2002"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "Dodge",
+    "model": "Ram 2500",
+    "submodel1": "Quad Cab",
+    "submodel2": "Long Bed",
+    "parent_generation": "1994-2002",
+    "year_options": "1994,1995,1996,1997,1998,1999,2000,2001,2002"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "Dodge",
+    "model": "Ram 2500",
+    "submodel1": "Regular Cab",
+    "submodel2": "8.0 ft. Long Bed",
+    "parent_generation": "2003-2009",
+    "year_options": "2003,2004,2005,2006,2007,2008,2009"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "Dodge",
+    "model": "Ram 2500",
+    "submodel1": "Quad Cab",
+    "submodel2": "8.0 ft. Long Bed",
+    "parent_generation": "2003-2009",
+    "year_options": "2003,2004,2005,2006,2007,2008,2009"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "Dodge",
+    "model": "Ram 2500",
+    "submodel1": "Mega Cab",
+    "submodel2": "6.5 ft. Regular Bed",
+    "parent_generation": "2003-2009",
+    "year_options": "2003,2004,2005,2006,2007,2008,2009"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "Dodge",
+    "model": "Ram 2500",
+    "submodel1": "Mega Cab",
+    "submodel2": "6.5 ft. Regular Bed",
+    "parent_generation": "2003-2009",
+    "year_options": "2003,2004,2005,2006,2007,2008,2009"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "Dodge",
+    "model": "Ram 2500",
+    "submodel1": "Regular Cab",
+    "submodel2": "8.0 ft. Long Bed",
+    "parent_generation": "2010",
+    "year_options": "2010"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "Dodge",
+    "model": "Ram 3500",
+    "submodel1": "Quad Cab",
+    "submodel2": "8.0 ft. Long Bed",
+    "parent_generation": "1994-2002",
+    "year_options": "1994,1995,1996,1997,1998,1999,2000,2001,2002"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "Dodge",
+    "model": "Ram 3500",
+    "submodel1": "Quad Cab",
+    "submodel2": "8.0 ft. Long Bed",
+    "parent_generation": "1994-2002",
+    "year_options": "1994,1995,1996,1997,1998,1999,2000,2001,2002"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "Dodge",
+    "model": "Ram 3500",
+    "submodel1": "Regular Cab",
+    "submodel2": "8.0 ft. Long Bed",
+    "parent_generation": "2003-2009",
+    "year_options": "2003,2004,2005,2006,2007,2008,2009"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "Dodge",
+    "model": "Ram 3500",
+    "submodel1": "Regular Cab",
+    "submodel2": "8.0 ft. Long Bed",
+    "parent_generation": "2003-2009",
+    "year_options": "2003,2004,2005,2006,2007,2008,2009"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "Dodge",
+    "model": "Ram 3500",
+    "submodel1": "Quad Cab",
+    "submodel2": "6.5 ft. Regular Bed",
+    "parent_generation": "2003-2009",
+    "year_options": "2003,2004,2005,2006,2007,2008,2009"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "Dodge",
+    "model": "Ram 2500",
+    "submodel1": "Crew Cab",
+    "submodel2": "8.0 ft. Long Bed",
+    "parent_generation": "2010",
+    "year_options": "2010"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "Dodge",
+    "model": "Ram 3500",
+    "submodel1": "Quad Cab",
+    "submodel2": "8.0 ft. Long Bed",
+    "parent_generation": "2003-2009",
+    "year_options": "2003,2004,2005,2006,2007,2008,2009"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "Dodge",
+    "model": "Ram 3500",
+    "submodel1": "Mega Cab",
+    "submodel2": "6.5 ft. Regular Bed",
+    "parent_generation": "2003-2009",
+    "year_options": "2003,2004,2005,2006,2007,2008,2009"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "Dodge",
+    "model": "Ram 3500",
+    "submodel1": "Mega Cab",
+    "submodel2": "6.5 ft. Regular Bed",
+    "parent_generation": "2003-2009",
+    "year_options": "2003,2004,2005,2006,2007,2008,2009"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "Dodge",
+    "model": "Ram 2500",
+    "submodel1": "Regular Cab",
+    "submodel2": "8.0 ft. Long Bed",
+    "parent_generation": "2003-2009",
+    "year_options": "2003,2004,2005,2006,2007,2008,2009"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "Dodge",
+    "model": "Ram 3500",
+    "submodel1": "Quad Cab",
+    "submodel2": "8.0 ft. Long Bed",
+    "parent_generation": "2003-2009",
+    "year_options": "2003,2004,2005,2006,2007,2008,2009"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "Dodge",
+    "model": "Ram 2500",
+    "submodel1": "Crew Cab",
+    "submodel2": "6.5 ft. Regular Bed",
+    "parent_generation": "2010",
+    "year_options": "2010"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "Dodge",
+    "model": "Ram 2500",
+    "submodel1": "Regular Cab",
+    "submodel2": "Long Bed",
+    "parent_generation": "1994-2002",
+    "year_options": "1994,1995,1996,1997,1998,1999,2000,2001,2002"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "Dodge",
+    "model": "Dakota",
+    "submodel1": "Club Cab",
+    "submodel2": "6.5 ft. Regular Bed",
+    "parent_generation": "1987-1996",
+    "year_options": "1987,1988,1989,1990,1991,1992,1993,1994,1995,1996"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "Dodge",
+    "model": "Ram 1500",
+    "submodel1": "Regular Cab",
+    "submodel2": "6.5 ft. Regular Bed",
+    "parent_generation": "1994-2001",
+    "year_options": "1994,1995,1996,1997,1998,1999,2000,2001"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "Dodge",
+    "model": "Dakota",
+    "submodel1": "Crew Cab",
+    "submodel2": "5.5 ft. Short Bed",
+    "parent_generation": "2005-2010",
+    "year_options": "2008,2009,2010"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "Dodge",
+    "model": "Ram",
+    "submodel1": "Club Cab",
+    "submodel2": "6.5 ft. Regular Bed",
+    "parent_generation": "1981-1993",
+    "year_options": "1981,1982,1983,1984,1985,1986,1987,1988,1989,1990,1991,1992,1993"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "Dodge",
+    "model": "Ram 1500",
+    "submodel1": "Quad Cab",
+    "submodel2": "8.0 ft. Long Bed",
+    "parent_generation": "1994-2001",
+    "year_options": "1994,1995,1996,1997,1998,1999,2000,2001"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "Dodge",
+    "model": "Ram 1500",
+    "submodel1": "Regular Cab",
+    "submodel2": "8.0 ft. Long Bed",
+    "parent_generation": "2002-2010",
+    "year_options": "2002,2003,2004,2005,2006,2007,2008,2009,2010"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "Dodge",
+    "model": "Ram 1500",
+    "submodel1": "Crew Cab",
+    "submodel2": "5.5 ft. Short Bed",
+    "parent_generation": "2002-2010",
+    "year_options": "2009,2010"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "Dodge",
+    "model": "Ram 2500",
+    "submodel1": "Regular Cab",
+    "submodel2": "Long Bed",
+    "parent_generation": "1994-2002",
+    "year_options": "1994,1995,1996,1997,1998,1999,2000,2001,2002"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "Dodge",
+    "model": "Ram 2500",
+    "submodel1": "Regular Cab",
+    "submodel2": "8.0 ft. Long Bed",
+    "parent_generation": "2003-2009",
+    "year_options": "2003,2004,2005,2006,2007,2008,2009"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "Dodge",
+    "model": "Ram 3500",
+    "submodel1": "Regular Cab",
+    "submodel2": "8.0 ft. Long Bed",
+    "parent_generation": "1994-2002",
+    "year_options": "1994,1995,1996,1997,1998,1999,2000,2001,2002"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "Dodge",
+    "model": "Ram 3500",
+    "submodel1": "Quad Cab",
+    "submodel2": "6.5 ft. Regular Bed",
+    "parent_generation": "2003-2009",
+    "year_options": "2003,2004,2005,2006,2007,2008,2009"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "Dodge",
+    "model": "Ram 3500",
+    "submodel1": "Mega Cab",
+    "submodel2": "6.5 ft. Regular Bed",
+    "parent_generation": "2003-2009",
+    "year_options": "2003,2004,2005,2006,2007,2008,2009"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "Dodge",
+    "model": "Ram 1500",
+    "submodel1": "Crew Cab",
+    "submodel2": "5.5 ft. Short Bed",
+    "parent_generation": "2002-2010",
+    "year_options": "2009,2010"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "Dodge",
+    "model": "Dakota",
+    "submodel1": "Club Cab",
+    "submodel2": "6.5 ft. Regular Bed",
+    "parent_generation": "1987-1996",
+    "year_options": "1987,1988,1989,1990,1991,1992,1993,1994,1995,1996"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "Dodge",
+    "model": "Dakota",
+    "submodel1": "Club Cab",
+    "submodel2": "6.5 ft. Regular Bed",
+    "parent_generation": "2005-2010",
+    "year_options": "2005,2006,2007"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "Dodge",
+    "model": "Ram",
+    "submodel1": "Regular Cab",
+    "submodel2": "6.5 ft. Regular Bed",
+    "parent_generation": "1981-1993",
+    "year_options": "1981,1982,1983,1984,1985,1986,1987,1988,1989,1990,1991,1992,1993"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "Dodge",
+    "model": "Ram",
+    "submodel1": "Club Cab",
+    "submodel2": "6.5 ft. Regular Bed",
+    "parent_generation": "1981-1993",
+    "year_options": "1981,1982,1983,1984,1985,1986,1987,1988,1989,1990,1991,1992,1993"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "Dodge",
+    "model": "Ram",
+    "submodel1": "Club Cab",
+    "submodel2": "8.0 ft. Long Bed",
+    "parent_generation": "1981-1993",
+    "year_options": "1981,1982,1983,1984,1985,1986,1987,1988,1989,1990,1991,1992,1993"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "Dodge",
+    "model": "Ram 1500",
+    "submodel1": "Regular Cab",
+    "submodel2": "6.5 ft. Regular Bed",
+    "parent_generation": "2002-2010",
+    "year_options": "2002,2003,2004,2005,2006,2007,2008,2009,2010"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "Dodge",
+    "model": "Ram 1500",
+    "submodel1": "Regular Cab",
+    "submodel2": "6.5 ft. Regular Bed",
+    "parent_generation": "2002-2010",
+    "year_options": "2002,2003,2004,2005,2006,2007,2008,2009,2010"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "Dodge",
+    "model": "Ram 1500",
+    "submodel1": "Regular Cab",
+    "submodel2": "6.5 ft. Regular Bed",
+    "parent_generation": "1994-2001",
+    "year_options": "1994,1995,1996,1997,1998,1999,2000,2001"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "Dodge",
+    "model": "Ram 2500",
+    "submodel1": "Crew Cab",
+    "submodel2": "6.5 ft. Regular Bed",
+    "parent_generation": "2010",
+    "year_options": "2010"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "Dodge",
+    "model": "Ram 1500",
+    "submodel1": "Regular Cab",
+    "submodel2": "8.0 ft. Long Bed",
+    "parent_generation": "1994-2001",
+    "year_options": "1994,1995,1996,1997,1998,1999,2000,2001"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "Dodge",
+    "model": "Ram 3500",
+    "submodel1": "Quad Cab",
+    "submodel2": "6.5 ft. Regular Bed",
+    "parent_generation": "2003-2009",
+    "year_options": "2003,2004,2005,2006,2007,2008,2009"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "Dodge",
+    "model": "Dakota",
+    "submodel1": "Regular Cab",
+    "submodel2": "6.5 ft. Regular Bed",
+    "parent_generation": "1997-2004",
+    "year_options": "1997,1998,1999,2000,2001,2002,2003,2004"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "Dodge",
+    "model": "Dakota",
+    "submodel1": "Regular Cab",
+    "submodel2": "6.5 ft. Regular Bed",
+    "parent_generation": "1997-2004",
+    "year_options": "1997,1998,1999,2000,2001,2002,2003,2004"
+  },
+  {
+    "type": "Truck Covers",
+    "make": "Dodge",
+    "model": "Dakota",
+    "submodel1": "Regular Cab",
+    "submodel2": "6.5 ft. Regular Bed",
+    "parent_generation": "1997-2004",
+    "year_options": "1997,1998,1999,2000,2001,2002,2003,2004"
+  }
+]

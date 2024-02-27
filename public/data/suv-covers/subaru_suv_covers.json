@@ -1,0 +1,290 @@
+[
+  {
+    "type": "SUV Covers",
+    "make": "Subaru",
+    "model": "Ascent",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2019-2024",
+    "year_options": "2019,2020,2021,2022,2023"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Subaru",
+    "model": "XV",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2013-2020",
+    "year_options": "2013,2014,2015,2016,2017,2018,2019,2020"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Subaru",
+    "model": "B9 Tribeca",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2006-2010",
+    "year_options": "2006,2007,2008,2009,2010"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Subaru",
+    "model": "B9 Tribeca",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2006-2010",
+    "year_options": "2006,2007,2008,2009,2010"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Subaru",
+    "model": "B9 Tribeca",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2006-2010",
+    "year_options": "2006,2007,2008,2009,2010"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Subaru",
+    "model": "Crosstrek",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2016-2025",
+    "year_options": "2016,2017,2018,2019,2020,2021,2022,2023"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Subaru",
+    "model": "Tribeca",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2006-2014",
+    "year_options": "2006,2007,2008,2009,2010,2011,2012,2013,2014"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Subaru",
+    "model": "Ascent",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2019-2024",
+    "year_options": "2019,2020,2021,2022,2023"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Subaru",
+    "model": "Forester",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2009-2024",
+    "year_options": "2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Subaru",
+    "model": "Crosstrek",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2016-2025",
+    "year_options": "2016,2017,2018,2019,2020,2021,2022,2023"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Subaru",
+    "model": "Forester",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1998-2008",
+    "year_options": "1998,1999,2000,2001,2002,2003,2004,2005,2006,2007,2008"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Subaru",
+    "model": "Forester",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2009-2024",
+    "year_options": "2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Subaru",
+    "model": "Outback",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2010-2024",
+    "year_options": "2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Subaru",
+    "model": "Outback",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2010-2024",
+    "year_options": "2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Subaru",
+    "model": "Tribeca",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2006-2014",
+    "year_options": "2006,2007,2008,2009,2010,2011,2012,2013,2014"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Subaru",
+    "model": "Tribeca",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2006-2014",
+    "year_options": "2006,2007,2008,2009,2010,2011,2012,2013,2014"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Subaru",
+    "model": "XV",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2013-2020",
+    "year_options": "2013,2014,2015,2016,2017,2018,2019,2020"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Subaru",
+    "model": "Forester",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2009-2024",
+    "year_options": "2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Subaru",
+    "model": "Outback",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2010-2024",
+    "year_options": "2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Subaru",
+    "model": "Tribeca",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2006-2014",
+    "year_options": "2006,2007,2008,2009,2010,2011,2012,2013,2014"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Subaru",
+    "model": "XV",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2013-2020",
+    "year_options": "2013,2014,2015,2016,2017,2018,2019,2020"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Subaru",
+    "model": "Ascent",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2019-2024",
+    "year_options": "2019,2020,2021,2022,2023"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Subaru",
+    "model": "B9 Tribeca",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2006-2010",
+    "year_options": "2006,2007,2008,2009,2010"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Subaru",
+    "model": "Crosstrek",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2016-2025",
+    "year_options": "2016,2017,2018,2019,2020,2021,2022,2023"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Subaru",
+    "model": "Forester",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1998-2008",
+    "year_options": "1998,1999,2000,2001,2002,2003,2004,2005,2006,2007,2008"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Subaru",
+    "model": "Forester",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2009-2024",
+    "year_options": "2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Subaru",
+    "model": "XV",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2013-2020",
+    "year_options": "2013,2014,2015,2016,2017,2018,2019,2020"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Subaru",
+    "model": "Forester",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1998-2008",
+    "year_options": "1998,1999,2000,2001,2002,2003,2004,2005,2006,2007,2008"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Subaru",
+    "model": "Forester",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1998-2008",
+    "year_options": "1998,1999,2000,2001,2002,2003,2004,2005,2006,2007,2008"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Subaru",
+    "model": "Ascent",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2019-2024",
+    "year_options": "2019,2020,2021,2022,2023"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Subaru",
+    "model": "Crosstrek",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2016-2025",
+    "year_options": "2016,2017,2018,2019,2020,2021,2022,2023"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Subaru",
+    "model": "Outback",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2010-2024",
+    "year_options": "2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024"
+  }
+]

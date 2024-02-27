@@ -1,15 +1,21 @@
 'use client';
 import { AiOutlineLoading3Quarters } from 'react-icons/ai';
 import { Button } from '@/components/ui/button';
-import { usePathname, useRouter, useSearchParams } from 'next/navigation';
-import { Dispatch, SetStateAction, useCallback, useState } from 'react';
+import { usePathname, useRouter } from 'next/navigation';
+import {
+  Dispatch,
+  SetStateAction,
+  useCallback,
+  useEffect,
+  useState,
+} from 'react';
 import { TypeSearch } from '../hero/dropdown/TypeSearch';
 import { MakeSearch } from '../hero/dropdown/MakeSearch';
 import { ModelSearch } from '../hero/dropdown/ModelSearch';
 import { YearSearch } from '../hero/dropdown/YearSearch';
 import { SubmodelDropdown } from '../hero/dropdown/SubmodelDropdown';
-import parentGenerationJson from '@/data/products_data.json';
 import { slugify } from '@/lib/utils';
+import { BASE_URL } from '@/lib/constants';
 
 export type TQuery = {
   year: string;
@@ -19,13 +25,26 @@ export type TQuery = {
   submodel: string;
 };
 
+export type TProductJsonData = {
+  type: string;
+  make: string;
+  model: string;
+  submodel1: string | null;
+  submodel2: string | null;
+  parent_generation: string;
+  year_options: string;
+};
+
 export default function EditVehicleDropdown({
   setOpen,
+  searchParams,
 }: {
   setOpen?: Dispatch<SetStateAction<boolean>>;
+  searchParams: { submodel?: string; second_submodel?: string } | undefined;
 }) {
-  const searchParams = useSearchParams();
   const pathname = usePathname();
+  console.log('path', pathname);
+  console.log(BASE_URL);
 
   const [query, setQuery] = useState<TQuery>({
     year: '',
@@ -35,70 +54,69 @@ export default function EditVehicleDropdown({
     submodel: '',
   });
   const [loading, setLoading] = useState(false);
+  const [jsonData, setJsonData] = useState<TProductJsonData[]>([]);
   const router = useRouter();
   const { year, type, make, model, submodel } = query;
-  // const isReadyForSubmit = year && type && make && model;
+  console.log(jsonData);
+  console.log(year);
+  useEffect(() => {
+    const getSearchData = async () => {
+      console.log('fetching data');
+      if (!make) return;
+      const url = new URL(`${BASE_URL}/api/json-data`);
+      url.searchParams.append('type', slugify(type));
+      url.searchParams.append('make', slugify(make));
+
+      const response = await fetch(url.toString());
+      const jsonData = await response.json();
+      console.log('jsonData', response);
+      setJsonData(jsonData);
+    };
+    getSearchData();
+  }, [make, type]);
+
+  const dropdownData = jsonData.filter(
+    (obj) =>
+      (!year ? true : obj.year_options.includes(year)) &&
+      (!model ? true : obj.model === model) &&
+      (!submodel ? true : obj.submodel1 === submodel)
+  );
 
   const closePopover = useCallback(() => {
     setOpen && setOpen(false);
   }, [setOpen]);
 
-  const availableMakes = parentGenerationJson.filter(
-    (sku) => String(sku.year_options).includes(year) && sku.type === type
-  );
-
-  const availableModels = availableMakes.filter((sku) => sku.make === make);
-
-  const finalAvailableModels = availableModels.filter((sku) =>
-    submodel
-      ? sku.submodel1 === submodel && sku.model === model
-      : sku.model === model
-  );
-
   const queryObj = {
     query,
     setQuery,
   };
-  const makeData = [
-    ...new Set(
-      availableMakes?.map((d) => d.make).filter((val): val is string => !!val)
-    ),
-  ];
 
   const subModelData = [
     ...new Set(
-      availableModels
-        ?.filter((car) => make === car.make && car?.model === model)
+      dropdownData
         ?.map((d) => d.submodel1)
         .filter((val): val is string => !!val)
     ),
   ];
-  const modelData = [
-    ...new Set(
-      availableModels
-        ?.filter((car) => query.make === car.make && !!car?.model)
-        ?.map((d) => d.model)
-        .filter((val): val is string => !!val)
-    ),
-  ];
 
-  const yearInUrl = finalAvailableModels?.[0]?.parent_generation;
+  const yearInUrl = dropdownData?.[0]?.parent_generation;
 
-  const createQueryString = useCallback(
-    (name: string, value: string) => {
-      const params = new URLSearchParams(searchParams?.toString());
-      if (params.has('second_submodel')) {
-        params.delete('second_submodel');
-      }
-      params.set(name, value);
+  const createQueryString = useCallback((name: string, value: string) => {
+    const params = new URLSearchParams();
+    params.set(name, value);
 
-      return params.toString().toLowerCase();
-    },
-    [searchParams]
-  );
+    return params.toString().toLowerCase();
+  }, []);
 
   const handleSubmitDropdown = async () => {
-    if (!year || !type || !make || !model) return;
+    if (
+      !year ||
+      !type ||
+      !make ||
+      !model ||
+      (subModelData.length > 1 && !submodel)
+    )
+      return;
     setLoading(true);
     let url = `/${slugify(type)}/premium-plus/${slugify(make)}/${slugify(model)}/${yearInUrl}`;
     const currentUrl = `${pathname}${searchParams?.toString() ? `?${searchParams.toString()}` : ''}`;
@@ -118,19 +136,27 @@ export default function EditVehicleDropdown({
     closePopover();
   };
 
+  const showSubmodelDropdown = subModelData.length > 0 && year;
+
   return (
     <div className="z-100 relative flex w-full flex-col items-stretch  gap-[16px] *:flex-1">
       <TypeSearch queryObj={queryObj} />
-      <YearSearch queryObj={queryObj} />
-      <MakeSearch queryObj={queryObj} makeData={makeData} />
-      <ModelSearch queryObj={queryObj} modelData={modelData} />
-      {subModelData.length > 1 && (
+      <MakeSearch queryObj={queryObj} />
+      <ModelSearch queryObj={queryObj} dropdownData={dropdownData} />
+      <YearSearch queryObj={queryObj} dropdownData={dropdownData} />
+      {showSubmodelDropdown && (
         <SubmodelDropdown queryObj={queryObj} submodelData={subModelData} />
       )}
       <Button
         className="mx-auto h-[40px] max-h-[44px] w-full max-w-[px] rounded-[4px] bg-black text-lg "
         onClick={handleSubmitDropdown}
-        disabled={!year || !type || !make || !model}
+        disabled={
+          !year ||
+          !type ||
+          !make ||
+          !model ||
+          (subModelData.length > 1 && !submodel)
+        }
       >
         {loading ? (
           <AiOutlineLoading3Quarters className="animate-spin" />

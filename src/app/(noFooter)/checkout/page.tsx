@@ -27,20 +27,20 @@ async function paypalCreateOrder(
 ): Promise<{ data: Order } | null> {
   try {
     const response = await fetch('/api/paypal', {
-      method: 'POST', // Specify the method
+      method: 'POST',
       headers: {
-        'Content-Type': 'application/json', // Specify the content type in the headers
+        'Content-Type': 'application/json',
       },
       body: JSON.stringify({
         user_id: '123',
         order_price: totalMsrpPrice,
-      }), // Convert the JavaScript object to a JSON string
+      }),
     });
     if (!response.ok) {
       throw new Error('Network response was not ok');
     }
 
-    return await response.json(); // Assuming the server responds with JSON
+    return await response.json();
   } catch (err) {
     return null;
   }
@@ -49,13 +49,13 @@ async function paypalCreateOrder(
 async function paypalCaptureOrder(orderID: string) {
   try {
     const response = await fetch('/api/paypal/capture-order', {
-      method: 'POST', // Specify the method
+      method: 'POST',
       headers: {
-        'Content-Type': 'application/json', // Specify the content type in the headers
+        'Content-Type': 'application/json',
       },
       body: JSON.stringify({
         orderID,
-      }), // Convert the JavaScript object to a JSON string
+      }),
     });
 
     if (!response.ok) {

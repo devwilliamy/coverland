@@ -1,0 +1,2027 @@
+[
+  {
+    "type": "Car Covers",
+    "make": "Acura",
+    "model": "TLX",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2021-2024",
+    "year_options": "2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Acura",
+    "model": "EL",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1997-2005",
+    "year_options": "1997,1998,1999,2000,2001,2002,2003,2004,2005"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Acura",
+    "model": "ILX",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2013-2022",
+    "year_options": "2013,2014,2015,2016,2017,2018,2019,2020,2021,2022"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Acura",
+    "model": "TL",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1996-2008",
+    "year_options": "1996,1997,1998,1999,2000,2001,2002,2003,2004,2005,2006,2007,2008"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Acura",
+    "model": "Vigor",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1992-1994",
+    "year_options": "1992,1993,1994"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Acura",
+    "model": "TLX",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2015-2020",
+    "year_options": "2015,2016,2017,2018,2019,2020"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Acura",
+    "model": "CL",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1997-2003",
+    "year_options": "1997,1998,1999,2000,2001,2002,2003"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Acura",
+    "model": "CL",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1997-2003",
+    "year_options": "1997,1998,1999,2000,2001,2002,2003"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Acura",
+    "model": "Integra",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1985-1989",
+    "year_options": "1985,1986,1987,1988,1989"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Acura",
+    "model": "CL",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1997-2003",
+    "year_options": "1997,1998,1999,2000,2001,2002,2003"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Acura",
+    "model": "CL",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1997-2003",
+    "year_options": "1997,1998,1999,2000,2001,2002,2003"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Acura",
+    "model": "CSX",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2006-2011",
+    "year_options": "2006,2007,2008,2009,2010,2011"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Acura",
+    "model": "CSX",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2006-2011",
+    "year_options": "2006,2007,2008,2009,2010,2011"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Acura",
+    "model": "CSX",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2006-2011",
+    "year_options": "2006,2007,2008,2009,2010,2011"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Acura",
+    "model": "CSX",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2006-2011",
+    "year_options": "2006,2007,2008,2009,2010,2011"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Acura",
+    "model": "CSX",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2006-2011",
+    "year_options": "2006,2007,2008,2009,2010,2011"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Acura",
+    "model": "EL",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1997-2005",
+    "year_options": "1997,1998,1999,2000,2001,2002,2003,2004,2005"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Acura",
+    "model": "EL",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1997-2005",
+    "year_options": "1997,1998,1999,2000,2001,2002,2003,2004,2005"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Acura",
+    "model": "CL",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1997-2003",
+    "year_options": "1997,1998,1999,2000,2001,2002,2003"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Acura",
+    "model": "EL",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1997-2005",
+    "year_options": "1997,1998,1999,2000,2001,2002,2003,2004,2005"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Acura",
+    "model": "ILX",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2013-2022",
+    "year_options": "2013,2014,2015,2016,2017,2018,2019,2020,2021,2022"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Acura",
+    "model": "ILX",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2013-2022",
+    "year_options": "2013,2014,2015,2016,2017,2018,2019,2020,2021,2022"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Acura",
+    "model": "ILX",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2013-2022",
+    "year_options": "2013,2014,2015,2016,2017,2018,2019,2020,2021,2022"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Acura",
+    "model": "EL",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1997-2005",
+    "year_options": "1997,1998,1999,2000,2001,2002,2003,2004,2005"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Acura",
+    "model": "Integra",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1985-1989",
+    "year_options": "1985,1986,1987,1988,1989"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Acura",
+    "model": "Integra",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1985-1989",
+    "year_options": "1985,1986,1987,1988,1989"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Acura",
+    "model": "Integra",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1985-1989",
+    "year_options": "1985,1986,1987,1988,1989"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Acura",
+    "model": "Integra",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2023-2024",
+    "year_options": "2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Acura",
+    "model": "Integra",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2023-2024",
+    "year_options": "2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Acura",
+    "model": "Integra",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2023-2024",
+    "year_options": "2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Acura",
+    "model": "Integra",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2023-2024",
+    "year_options": "2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Acura",
+    "model": "Integra",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2023-2024",
+    "year_options": "2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Acura",
+    "model": "Integra",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2023-2024",
+    "year_options": "2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Acura",
+    "model": "Legend",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1986-1990",
+    "year_options": "1986,1987,1988,1989,1990"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Acura",
+    "model": "Legend",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1986-1990",
+    "year_options": "1986,1987,1988,1989,1990"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Acura",
+    "model": "Legend",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1986-1990",
+    "year_options": "1986,1987,1988,1989,1990"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Acura",
+    "model": "Legend",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1986-1990",
+    "year_options": "1986,1987,1988,1989,1990"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Acura",
+    "model": "Legend",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1986-1990",
+    "year_options": "1986,1987,1988,1989,1990"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Acura",
+    "model": "NSX",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1990-2022",
+    "year_options": "1990,1991,1992,1993,1994,1995,1996,1997,1998,1999,2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Acura",
+    "model": "NSX",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1990-2022",
+    "year_options": "1990,1991,1992,1993,1994,1995,1996,1997,1998,1999,2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Acura",
+    "model": "TLX",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2015-2020",
+    "year_options": "2015,2016,2017,2018,2019,2020"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Acura",
+    "model": "NSX",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1990-2022",
+    "year_options": "1990,1991,1992,1993,1994,1995,1996,1997,1998,1999,2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Acura",
+    "model": "RL",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1995-2012",
+    "year_options": "1995,1996,1997,1998,1999,2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Acura",
+    "model": "RL",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1995-2012",
+    "year_options": "1995,1996,1997,1998,1999,2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Acura",
+    "model": "RL",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1995-2012",
+    "year_options": "1995,1996,1997,1998,1999,2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Acura",
+    "model": "RL",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1995-2012",
+    "year_options": "1995,1996,1997,1998,1999,2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Acura",
+    "model": "RL",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1995-2012",
+    "year_options": "1995,1996,1997,1998,1999,2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Acura",
+    "model": "RL",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1995-2012",
+    "year_options": "1995,1996,1997,1998,1999,2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Acura",
+    "model": "RLX",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2014-2022",
+    "year_options": "2014,2015,2016,2017,2018,2019,2020,2021,2022"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Acura",
+    "model": "NSX",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1990-2022",
+    "year_options": "1990,1991,1992,1993,1994,1995,1996,1997,1998,1999,2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Acura",
+    "model": "RLX",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2014-2022",
+    "year_options": "2014,2015,2016,2017,2018,2019,2020,2021,2022"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Acura",
+    "model": "RLX",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2014-2022",
+    "year_options": "2014,2015,2016,2017,2018,2019,2020,2021,2022"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Acura",
+    "model": "RLX",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2014-2022",
+    "year_options": "2014,2015,2016,2017,2018,2019,2020,2021,2022"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Acura",
+    "model": "TL",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1996-2008",
+    "year_options": "1996,1997,1998,1999,2000,2001,2002,2003,2004,2005,2006,2007,2008"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Acura",
+    "model": "ZDX",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2010-2013",
+    "year_options": "2010,2011,2012,2013"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Acura",
+    "model": "TL",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1996-2008",
+    "year_options": "1996,1997,1998,1999,2000,2001,2002,2003,2004,2005,2006,2007,2008"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Acura",
+    "model": "TL",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2009-2014",
+    "year_options": "2009,2010,2011,2012,2013,2014"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Acura",
+    "model": "TL",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2009-2014",
+    "year_options": "2009,2010,2011,2012,2013,2014"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Acura",
+    "model": "TL",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2009-2014",
+    "year_options": "2009,2010,2011,2012,2013,2014"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Acura",
+    "model": "TL",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2009-2014",
+    "year_options": "2009,2010,2011,2012,2013,2014"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Acura",
+    "model": "TL",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2009-2014",
+    "year_options": "2009,2010,2011,2012,2013,2014"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Acura",
+    "model": "TL",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2009-2014",
+    "year_options": "2009,2010,2011,2012,2013,2014"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Acura",
+    "model": "TLX",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2015-2020",
+    "year_options": "2015,2016,2017,2018,2019,2020"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Acura",
+    "model": "TL",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1996-2008",
+    "year_options": "1996,1997,1998,1999,2000,2001,2002,2003,2004,2005,2006,2007,2008"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Acura",
+    "model": "TLX",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2021-2024",
+    "year_options": "2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Acura",
+    "model": "TLX",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2021-2024",
+    "year_options": "2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Acura",
+    "model": "TLX",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2021-2024",
+    "year_options": "2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Acura",
+    "model": "TLX",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2015-2020",
+    "year_options": "2015,2016,2017,2018,2019,2020"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Acura",
+    "model": "TLX",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2015-2020",
+    "year_options": "2015,2016,2017,2018,2019,2020"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Acura",
+    "model": "TLX",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2021-2024",
+    "year_options": "2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Acura",
+    "model": "TLX",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2021-2024",
+    "year_options": "2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Acura",
+    "model": "Vigor",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1992-1994",
+    "year_options": "1992,1993,1994"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Acura",
+    "model": "Vigor",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1992-1994",
+    "year_options": "1992,1993,1994"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Acura",
+    "model": "Vigor",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1992-1994",
+    "year_options": "1992,1993,1994"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Acura",
+    "model": "Vigor",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1992-1994",
+    "year_options": "1992,1993,1994"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Acura",
+    "model": "ZDX",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2010-2013",
+    "year_options": "2010,2011,2012,2013"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Acura",
+    "model": "ZDX",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2010-2013",
+    "year_options": "2010,2011,2012,2013"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Acura",
+    "model": "ZDX",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2010-2013",
+    "year_options": "2010,2011,2012,2013"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Acura",
+    "model": "ZDX",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2010-2013",
+    "year_options": "2010,2011,2012,2013"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Acura",
+    "model": "CSX",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2006-2011",
+    "year_options": "2006,2007,2008,2009,2010,2011"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Acura",
+    "model": "Integra",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1985-1989",
+    "year_options": "1985,1986,1987,1988,1989"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Acura",
+    "model": "RLX",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2014-2022",
+    "year_options": "2014,2015,2016,2017,2018,2019,2020,2021,2022"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Acura",
+    "model": "EL",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1997-2005",
+    "year_options": "1997,1998,1999,2000,2001,2002,2003,2004,2005"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Acura",
+    "model": "ILX",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2013-2022",
+    "year_options": "2013,2014,2015,2016,2017,2018,2019,2020,2021,2022"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Acura",
+    "model": "Legend",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1986-1990",
+    "year_options": "1986,1987,1988,1989,1990"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Acura",
+    "model": "RL",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1995-2012",
+    "year_options": "1995,1996,1997,1998,1999,2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Acura",
+    "model": "Integra",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2023-2024",
+    "year_options": "2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Acura",
+    "model": "TL",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1996-2008",
+    "year_options": "1996,1997,1998,1999,2000,2001,2002,2003,2004,2005,2006,2007,2008"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Acura",
+    "model": "Vigor",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1992-1994",
+    "year_options": "1992,1993,1994"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Acura",
+    "model": "TL",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2009-2014",
+    "year_options": "2009,2010,2011,2012,2013,2014"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Acura",
+    "model": "TLX",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2021-2024",
+    "year_options": "2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Acura",
+    "model": "NSX",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1990-2022",
+    "year_options": "1990,1991,1992,1993,1994,1995,1996,1997,1998,1999,2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Acura",
+    "model": "NSX",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1990-2022",
+    "year_options": "1990,1991,1992,1993,1994,1995,1996,1997,1998,1999,2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Acura",
+    "model": "RL",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1995-2012",
+    "year_options": "1995,1996,1997,1998,1999,2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Acura",
+    "model": "RL",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1995-2012",
+    "year_options": "1995,1996,1997,1998,1999,2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Acura",
+    "model": "RLX",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2014-2022",
+    "year_options": "2014,2015,2016,2017,2018,2019,2020,2021,2022"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Acura",
+    "model": "RLX",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2014-2022",
+    "year_options": "2014,2015,2016,2017,2018,2019,2020,2021,2022"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Acura",
+    "model": "TL",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1996-2008",
+    "year_options": "1996,1997,1998,1999,2000,2001,2002,2003,2004,2005,2006,2007,2008"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Acura",
+    "model": "TL",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2009-2014",
+    "year_options": "2009,2010,2011,2012,2013,2014"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Acura",
+    "model": "TL",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1996-2008",
+    "year_options": "1996,1997,1998,1999,2000,2001,2002,2003,2004,2005,2006,2007,2008"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Acura",
+    "model": "TLX",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2015-2020",
+    "year_options": "2015,2016,2017,2018,2019,2020"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Acura",
+    "model": "TL",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2009-2014",
+    "year_options": "2009,2010,2011,2012,2013,2014"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Acura",
+    "model": "TLX",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2015-2020",
+    "year_options": "2015,2016,2017,2018,2019,2020"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Acura",
+    "model": "TLX",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2021-2024",
+    "year_options": "2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Acura",
+    "model": "Vigor",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1992-1994",
+    "year_options": "1992,1993,1994"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Acura",
+    "model": "CL",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1997-2003",
+    "year_options": "1997,1998,1999,2000,2001,2002,2003"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Acura",
+    "model": "CL",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1997-2003",
+    "year_options": "1997,1998,1999,2000,2001,2002,2003"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Acura",
+    "model": "CSX",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2006-2011",
+    "year_options": "2006,2007,2008,2009,2010,2011"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Acura",
+    "model": "CSX",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2006-2011",
+    "year_options": "2006,2007,2008,2009,2010,2011"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Acura",
+    "model": "EL",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1997-2005",
+    "year_options": "1997,1998,1999,2000,2001,2002,2003,2004,2005"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Acura",
+    "model": "EL",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1997-2005",
+    "year_options": "1997,1998,1999,2000,2001,2002,2003,2004,2005"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Acura",
+    "model": "ILX",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2013-2022",
+    "year_options": "2013,2014,2015,2016,2017,2018,2019,2020,2021,2022"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Acura",
+    "model": "ILX",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2013-2022",
+    "year_options": "2013,2014,2015,2016,2017,2018,2019,2020,2021,2022"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Acura",
+    "model": "Integra",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1985-1989",
+    "year_options": "1985,1986,1987,1988,1989"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Acura",
+    "model": "Integra",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1985-1989",
+    "year_options": "1985,1986,1987,1988,1989"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Acura",
+    "model": "ZDX",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2010-2013",
+    "year_options": "2010,2011,2012,2013"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Acura",
+    "model": "Vigor",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1992-1994",
+    "year_options": "1992,1993,1994"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Acura",
+    "model": "Integra",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2023-2024",
+    "year_options": "2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Acura",
+    "model": "Integra",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2023-2024",
+    "year_options": "2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Acura",
+    "model": "Legend",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1986-1990",
+    "year_options": "1986,1987,1988,1989,1990"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Acura",
+    "model": "Legend",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1986-1990",
+    "year_options": "1986,1987,1988,1989,1990"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Acura",
+    "model": "ZDX",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2010-2013",
+    "year_options": "2010,2011,2012,2013"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Acura",
+    "model": "TSX",
+    "submodel1": "Wagon",
+    "submodel2": null,
+    "parent_generation": "2004-2014",
+    "year_options": "2011,2012,2013,2014"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Acura",
+    "model": "CL",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1997-2003",
+    "year_options": "1997,1998,1999,2000,2001,2002,2003"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Acura",
+    "model": "Legend",
+    "submodel1": "Sedan",
+    "submodel2": null,
+    "parent_generation": "1991-1996",
+    "year_options": "1991,1992,1993,1994,1995,1996"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Acura",
+    "model": "Integra",
+    "submodel1": "Sedan",
+    "submodel2": null,
+    "parent_generation": "1990-2001",
+    "year_options": "1990,1991,1992,1993,1994,1995,1996,1997,1998,1999,2000,2001"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Acura",
+    "model": "Integra",
+    "submodel1": "Coupe",
+    "submodel2": null,
+    "parent_generation": "1990-2001",
+    "year_options": "1990,1991,1992,1993,1994,1995,1996,1997,1998,1999,2000,2001"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Acura",
+    "model": "Integra",
+    "submodel1": "Coupe",
+    "submodel2": null,
+    "parent_generation": "1990-2001",
+    "year_options": "1990,1991,1992,1993,1994,1995,1996,1997,1998,1999,2000,2001"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Acura",
+    "model": "Integra",
+    "submodel1": "Coupe",
+    "submodel2": null,
+    "parent_generation": "1990-2001",
+    "year_options": "1990,1991,1992,1993,1994,1995,1996,1997,1998,1999,2000,2001"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Acura",
+    "model": "Integra",
+    "submodel1": "Coupe",
+    "submodel2": null,
+    "parent_generation": "1990-2001",
+    "year_options": "1990,1991,1992,1993,1994,1995,1996,1997,1998,1999,2000,2001"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Acura",
+    "model": "Integra",
+    "submodel1": "Sedan",
+    "submodel2": null,
+    "parent_generation": "1990-2001",
+    "year_options": "1990,1991,1992,1993,1994,1995,1996,1997,1998,1999,2000,2001"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Acura",
+    "model": "RSX",
+    "submodel1": "w/o Wing",
+    "submodel2": null,
+    "parent_generation": "2002-2006",
+    "year_options": "2002,2003,2004,2005,2006"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Acura",
+    "model": "Integra",
+    "submodel1": "Sedan",
+    "submodel2": null,
+    "parent_generation": "1990-2001",
+    "year_options": "1990,1991,1992,1993,1994,1995,1996,1997,1998,1999,2000,2001"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Acura",
+    "model": "Integra",
+    "submodel1": "Sedan",
+    "submodel2": null,
+    "parent_generation": "1990-2001",
+    "year_options": "1990,1991,1992,1993,1994,1995,1996,1997,1998,1999,2000,2001"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Acura",
+    "model": "Integra",
+    "submodel1": "Type-R",
+    "submodel2": null,
+    "parent_generation": "1990-2001",
+    "year_options": "1997,1998,1999,2000,2001"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Acura",
+    "model": "Integra",
+    "submodel1": "Type-R",
+    "submodel2": null,
+    "parent_generation": "1990-2001",
+    "year_options": "1997,1998,1999,2000,2001"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Acura",
+    "model": "Integra",
+    "submodel1": "Sedan",
+    "submodel2": null,
+    "parent_generation": "1990-2001",
+    "year_options": "1990,1991,1992,1993,1994,1995,1996,1997,1998,1999,2000,2001"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Acura",
+    "model": "Integra",
+    "submodel1": "Sedan",
+    "submodel2": null,
+    "parent_generation": "1990-2001",
+    "year_options": "1990,1991,1992,1993,1994,1995,1996,1997,1998,1999,2000,2001"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Acura",
+    "model": "Integra",
+    "submodel1": "Type-R",
+    "submodel2": null,
+    "parent_generation": "1990-2001",
+    "year_options": "1997,1998,1999,2000,2001"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Acura",
+    "model": "Legend",
+    "submodel1": "Coupe",
+    "submodel2": null,
+    "parent_generation": "1991-1996",
+    "year_options": "1991,1992,1993,1994,1995,1996"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Acura",
+    "model": "Legend",
+    "submodel1": "Coupe",
+    "submodel2": null,
+    "parent_generation": "1991-1996",
+    "year_options": "1991,1992,1993,1994,1995,1996"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Acura",
+    "model": "Legend",
+    "submodel1": "Coupe",
+    "submodel2": null,
+    "parent_generation": "1991-1996",
+    "year_options": "1991,1992,1993,1994,1995,1996"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Acura",
+    "model": "Legend",
+    "submodel1": "Coupe",
+    "submodel2": null,
+    "parent_generation": "1991-1996",
+    "year_options": "1991,1992,1993,1994,1995,1996"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Acura",
+    "model": "Legend",
+    "submodel1": "Sedan",
+    "submodel2": null,
+    "parent_generation": "1991-1996",
+    "year_options": "1991,1992,1993,1994,1995,1996"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Acura",
+    "model": "Legend",
+    "submodel1": "Sedan",
+    "submodel2": null,
+    "parent_generation": "1991-1996",
+    "year_options": "1991,1992,1993,1994,1995,1996"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Acura",
+    "model": "RSX",
+    "submodel1": "w/ Wing",
+    "submodel2": null,
+    "parent_generation": "2002-2006",
+    "year_options": "2002,2003,2004,2005,2006"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Acura",
+    "model": "Legend",
+    "submodel1": "Sedan",
+    "submodel2": null,
+    "parent_generation": "1991-1996",
+    "year_options": "1991,1992,1993,1994,1995,1996"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Acura",
+    "model": "Legend",
+    "submodel1": "Sedan",
+    "submodel2": null,
+    "parent_generation": "1991-1996",
+    "year_options": "1991,1992,1993,1994,1995,1996"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Acura",
+    "model": "RSX",
+    "submodel1": "w/o Wing",
+    "submodel2": null,
+    "parent_generation": "2002-2006",
+    "year_options": "2002,2003,2004,2005,2006"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Acura",
+    "model": "RSX",
+    "submodel1": "w/o Wing",
+    "submodel2": null,
+    "parent_generation": "2002-2006",
+    "year_options": "2002,2003,2004,2005,2006"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Acura",
+    "model": "RSX",
+    "submodel1": "w/o Wing",
+    "submodel2": null,
+    "parent_generation": "2002-2006",
+    "year_options": "2002,2003,2004,2005,2006"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Acura",
+    "model": "RSX",
+    "submodel1": "w/o Wing",
+    "submodel2": null,
+    "parent_generation": "2002-2006",
+    "year_options": "2002,2003,2004,2005,2006"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Acura",
+    "model": "RSX",
+    "submodel1": "w/ Wing",
+    "submodel2": null,
+    "parent_generation": "2002-2006",
+    "year_options": "2002,2003,2004,2005,2006"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Acura",
+    "model": "RSX",
+    "submodel1": "w/ Wing",
+    "submodel2": null,
+    "parent_generation": "2002-2006",
+    "year_options": "2002,2003,2004,2005,2006"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Acura",
+    "model": "RSX",
+    "submodel1": "w/ Wing",
+    "submodel2": null,
+    "parent_generation": "2002-2006",
+    "year_options": "2002,2003,2004,2005,2006"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Acura",
+    "model": "TSX",
+    "submodel1": "Sedan",
+    "submodel2": null,
+    "parent_generation": "2004-2014",
+    "year_options": "2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Acura",
+    "model": "TSX",
+    "submodel1": "Sedan",
+    "submodel2": null,
+    "parent_generation": "2004-2014",
+    "year_options": "2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Acura",
+    "model": "TSX",
+    "submodel1": "Sedan",
+    "submodel2": null,
+    "parent_generation": "2004-2014",
+    "year_options": "2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Acura",
+    "model": "TSX",
+    "submodel1": "Sedan",
+    "submodel2": null,
+    "parent_generation": "2004-2014",
+    "year_options": "2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Acura",
+    "model": "TSX",
+    "submodel1": "Sedan",
+    "submodel2": null,
+    "parent_generation": "2004-2014",
+    "year_options": "2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Acura",
+    "model": "TSX",
+    "submodel1": "Wagon",
+    "submodel2": null,
+    "parent_generation": "2004-2014",
+    "year_options": "2011,2012,2013,2014"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Acura",
+    "model": "TSX",
+    "submodel1": "Sedan",
+    "submodel2": null,
+    "parent_generation": "2004-2014",
+    "year_options": "2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Acura",
+    "model": "TSX",
+    "submodel1": "Wagon",
+    "submodel2": null,
+    "parent_generation": "2004-2014",
+    "year_options": "2011,2012,2013,2014"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Acura",
+    "model": "TSX",
+    "submodel1": "Wagon",
+    "submodel2": null,
+    "parent_generation": "2004-2014",
+    "year_options": "2011,2012,2013,2014"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Acura",
+    "model": "Legend",
+    "submodel1": "Coupe",
+    "submodel2": null,
+    "parent_generation": "1991-1996",
+    "year_options": "1991,1992,1993,1994,1995,1996"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Acura",
+    "model": "Legend",
+    "submodel1": "Sedan",
+    "submodel2": null,
+    "parent_generation": "1991-1996",
+    "year_options": "1991,1992,1993,1994,1995,1996"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Acura",
+    "model": "Integra",
+    "submodel1": "Sedan",
+    "submodel2": null,
+    "parent_generation": "1990-2001",
+    "year_options": "1990,1991,1992,1993,1994,1995,1996,1997,1998,1999,2000,2001"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Acura",
+    "model": "TSX",
+    "submodel1": "Wagon",
+    "submodel2": null,
+    "parent_generation": "2004-2014",
+    "year_options": "2011,2012,2013,2014"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Acura",
+    "model": "Legend",
+    "submodel1": "Sedan",
+    "submodel2": null,
+    "parent_generation": "1991-1996",
+    "year_options": "1991,1992,1993,1994,1995,1996"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Acura",
+    "model": "Legend",
+    "submodel1": "Sedan",
+    "submodel2": null,
+    "parent_generation": "1991-1996",
+    "year_options": "1991,1992,1993,1994,1995,1996"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Acura",
+    "model": "RSX",
+    "submodel1": "w/ Wing",
+    "submodel2": null,
+    "parent_generation": "2002-2006",
+    "year_options": "2002,2003,2004,2005,2006"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Acura",
+    "model": "RSX",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2002-2006",
+    "year_options": "2002,2003,2004,2005,2006"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Acura",
+    "model": "RSX",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2002-2006",
+    "year_options": "2002,2003,2004,2005,2006"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Acura",
+    "model": "RSX",
+    "submodel1": "w/ Wing",
+    "submodel2": null,
+    "parent_generation": "2002-2006",
+    "year_options": "2002,2003,2004,2005,2006"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Acura",
+    "model": "TSX",
+    "submodel1": "Sedan",
+    "submodel2": null,
+    "parent_generation": "2004-2014",
+    "year_options": "2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Acura",
+    "model": "TSX",
+    "submodel1": "Sedan",
+    "submodel2": null,
+    "parent_generation": "2004-2014",
+    "year_options": "2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Acura",
+    "model": "TSX",
+    "submodel1": "Wagon",
+    "submodel2": null,
+    "parent_generation": "2004-2014",
+    "year_options": "2011,2012,2013,2014"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Acura",
+    "model": "TSX",
+    "submodel1": "Wagon",
+    "submodel2": null,
+    "parent_generation": "2004-2014",
+    "year_options": "2011,2012,2013,2014"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Acura",
+    "model": "Integra",
+    "submodel1": "Coupe",
+    "submodel2": null,
+    "parent_generation": "1990-2001",
+    "year_options": "1990,1991,1992,1993,1994,1995,1996,1997,1998,1999,2000,2001"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Acura",
+    "model": "Integra",
+    "submodel1": "Sedan",
+    "submodel2": null,
+    "parent_generation": "1990-2001",
+    "year_options": "1990,1991,1992,1993,1994,1995,1996,1997,1998,1999,2000,2001"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Acura",
+    "model": "Integra",
+    "submodel1": "Coupe",
+    "submodel2": null,
+    "parent_generation": "1990-2001",
+    "year_options": "1990,1991,1992,1993,1994,1995,1996,1997,1998,1999,2000,2001"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Acura",
+    "model": "Integra",
+    "submodel1": "Sedan",
+    "submodel2": null,
+    "parent_generation": "1990-2001",
+    "year_options": "1990,1991,1992,1993,1994,1995,1996,1997,1998,1999,2000,2001"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Acura",
+    "model": "Integra",
+    "submodel1": "Type-R",
+    "submodel2": null,
+    "parent_generation": "1990-2001",
+    "year_options": "1997,1998,1999,2000,2001"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Acura",
+    "model": "Integra",
+    "submodel1": "Type-R",
+    "submodel2": null,
+    "parent_generation": "1990-2001",
+    "year_options": "1997,1998,1999,2000,2001"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Acura",
+    "model": "Legend",
+    "submodel1": "Coupe",
+    "submodel2": null,
+    "parent_generation": "1991-1996",
+    "year_options": "1991,1992,1993,1994,1995,1996"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Acura",
+    "model": "Legend",
+    "submodel1": "Coupe",
+    "submodel2": null,
+    "parent_generation": "1991-1996",
+    "year_options": "1991,1992,1993,1994,1995,1996"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Acura",
+    "model": "Integra",
+    "submodel1": "Type-R",
+    "submodel2": null,
+    "parent_generation": "1990-2001",
+    "year_options": "1997,1998,1999,2000,2001"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Acura",
+    "model": "Legend",
+    "submodel1": "Coupe",
+    "submodel2": null,
+    "parent_generation": "1991-1996",
+    "year_options": "1991,1992,1993,1994,1995,1996"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Acura",
+    "model": "TSX",
+    "submodel1": "Sedan",
+    "submodel2": null,
+    "parent_generation": "2004-2014",
+    "year_options": "2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Acura",
+    "model": "RSX",
+    "submodel1": "w/ Wing",
+    "submodel2": null,
+    "parent_generation": "2002-2006",
+    "year_options": "2002,2003,2004,2005,2006"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Acura",
+    "model": "RSX",
+    "submodel1": "w/ Wing",
+    "submodel2": null,
+    "parent_generation": "2002-2006",
+    "year_options": "2002,2003,2004,2005,2006"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Acura",
+    "model": "TSX",
+    "submodel1": "Wagon",
+    "submodel2": null,
+    "parent_generation": "2004-2014",
+    "year_options": "2011,2012,2013,2014"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Acura",
+    "model": "Integra",
+    "submodel1": "Coupe",
+    "submodel2": null,
+    "parent_generation": "1990-2001",
+    "year_options": "1990,1991,1992,1993,1994,1995,1996,1997,1998,1999,2000,2001"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Acura",
+    "model": "Integra",
+    "submodel1": "Type-R",
+    "submodel2": null,
+    "parent_generation": "1990-2001",
+    "year_options": "1997,1998,1999,2000,2001"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Acura",
+    "model": "Integra",
+    "submodel1": "Type-R",
+    "submodel2": null,
+    "parent_generation": "1990-2001",
+    "year_options": "1997,1998,1999,2000,2001"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Acura",
+    "model": "RSX",
+    "submodel1": "w/o Wing",
+    "submodel2": null,
+    "parent_generation": "2002-2006",
+    "year_options": "2002,2003,2004,2005,2006"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Acura",
+    "model": "Integra",
+    "submodel1": "Coupe",
+    "submodel2": null,
+    "parent_generation": "1990-2001",
+    "year_options": "1990,1991,1992,1993,1994,1995,1996,1997,1998,1999,2000,2001"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Acura",
+    "model": "RSX",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2002-2006",
+    "year_options": "2002,2003,2004,2005,2006"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Acura",
+    "model": "Integra",
+    "submodel1": "Coupe",
+    "submodel2": null,
+    "parent_generation": "1990-2001",
+    "year_options": "1990,1991,1992,1993,1994,1995,1996,1997,1998,1999,2000,2001"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Acura",
+    "model": "Integra",
+    "submodel1": "Type-R",
+    "submodel2": null,
+    "parent_generation": "1990-2001",
+    "year_options": "1997,1998,1999,2000,2001"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Acura",
+    "model": "Legend",
+    "submodel1": "Coupe",
+    "submodel2": null,
+    "parent_generation": "1991-1996",
+    "year_options": "1991,1992,1993,1994,1995,1996"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Acura",
+    "model": "TSX",
+    "submodel1": "Wagon",
+    "submodel2": null,
+    "parent_generation": "2004-2014",
+    "year_options": "2011,2012,2013,2014"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Acura",
+    "model": "RSX",
+    "submodel1": "w/ Wing",
+    "submodel2": null,
+    "parent_generation": "2002-2006",
+    "year_options": "2002,2003,2004,2005,2006"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Acura",
+    "model": "Legend",
+    "submodel1": "Sedan",
+    "submodel2": null,
+    "parent_generation": "1991-1996",
+    "year_options": "1991,1992,1993,1994,1995,1996"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Acura",
+    "model": "CSX",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2006-2011",
+    "year_options": "2006,2007,2008,2009,2010,2011"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Acura",
+    "model": "ILX",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2013-2022",
+    "year_options": "2013,2014,2015,2016,2017,2018,2019,2020,2021,2022"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Acura",
+    "model": "ILX",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2013-2022",
+    "year_options": "2013,2014,2015,2016,2017,2018,2019,2020,2021,2022"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Acura",
+    "model": "NSX",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1990-2022",
+    "year_options": "1990,1991,1992,1993,1994,1995,1996,1997,1998,1999,2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Acura",
+    "model": "RLX",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2014-2022",
+    "year_options": "2014,2015,2016,2017,2018,2019,2020,2021,2022"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Acura",
+    "model": "TL",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1996-2008",
+    "year_options": "1996,1997,1998,1999,2000,2001,2002,2003,2004,2005,2006,2007,2008"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Acura",
+    "model": "TLX",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2015-2020",
+    "year_options": "2015,2016,2017,2018,2019,2020"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Acura",
+    "model": "ZDX",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2010-2013",
+    "year_options": "2010,2011,2012,2013"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Acura",
+    "model": "TLX",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2015-2020",
+    "year_options": "2015,2016,2017,2018,2019,2020"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Acura",
+    "model": "TLX",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2021-2024",
+    "year_options": "2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Acura",
+    "model": "ZDX",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2010-2013",
+    "year_options": "2010,2011,2012,2013"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Acura",
+    "model": "Legend",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1986-1990",
+    "year_options": "1986,1987,1988,1989,1990"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Acura",
+    "model": "Integra",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1985-1989",
+    "year_options": "1985,1986,1987,1988,1989"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Acura",
+    "model": "EL",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1997-2005",
+    "year_options": "1997,1998,1999,2000,2001,2002,2003,2004,2005"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Acura",
+    "model": "CL",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1997-2003",
+    "year_options": "1997,1998,1999,2000,2001,2002,2003"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Acura",
+    "model": "RLX",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2014-2022",
+    "year_options": "2014,2015,2016,2017,2018,2019,2020,2021,2022"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Acura",
+    "model": "TL",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1996-2008",
+    "year_options": "1996,1997,1998,1999,2000,2001,2002,2003,2004,2005,2006,2007,2008"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Acura",
+    "model": "NSX",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1990-2022",
+    "year_options": "1990,1991,1992,1993,1994,1995,1996,1997,1998,1999,2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Acura",
+    "model": "NSX",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1990-2022",
+    "year_options": "1990,1991,1992,1993,1994,1995,1996,1997,1998,1999,2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Acura",
+    "model": "Integra",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1985-1989",
+    "year_options": "1985,1986,1987,1988,1989"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Acura",
+    "model": "Vigor",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1992-1994",
+    "year_options": "1992,1993,1994"
+  }
+]

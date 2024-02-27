@@ -15,7 +15,7 @@ export default function AppScripts() {
         new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
         j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-        })(window,document,'script','dataLayer','G-G2C0X9FH2Z');`}
+        })(window,document,'script','dataLayer','GTM-PW897Z9Z');`}
       </Script>
       <Script id="hotjar-tracking">
         {`    (function(h,o,t,j,a,r){
@@ -34,6 +34,7 @@ export default function AppScripts() {
         y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
     })(window, document, "clarity", "script", "kub7vnxyze");`}
       </Script>
+      {/*
       <Script id="UR_initiator" strategy="lazyOnload">
         {`(function () {
         var iid = "uriid_da39a3ee5e6b4b0d3255bfef95601890afd80709";
@@ -52,7 +53,7 @@ export default function AppScripts() {
         ).appendChild(bsa);
       })();
       `}
-      </Script>
+      </Script> */}
     </>
   );
 }

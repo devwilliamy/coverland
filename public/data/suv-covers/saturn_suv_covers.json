@@ -1,0 +1,74 @@
+[
+  {
+    "type": "SUV Covers",
+    "make": "Saturn",
+    "model": "Outlook",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2007-2010",
+    "year_options": "2007,2008,2009,2010"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Saturn",
+    "model": "Vue",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2002-2010",
+    "year_options": "2002,2003,2004,2005,2006,2007,2008,2009,2010"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Saturn",
+    "model": "Outlook",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2007-2010",
+    "year_options": "2007,2008,2009,2010"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Saturn",
+    "model": "Vue",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2002-2010",
+    "year_options": "2002,2003,2004,2005,2006,2007,2008,2009,2010"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Saturn",
+    "model": "Outlook",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2007-2010",
+    "year_options": "2007,2008,2009,2010"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Saturn",
+    "model": "Outlook",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2007-2010",
+    "year_options": "2007,2008,2009,2010"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Saturn",
+    "model": "Vue",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2002-2010",
+    "year_options": "2002,2003,2004,2005,2006,2007,2008,2009,2010"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Saturn",
+    "model": "Vue",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2002-2010",
+    "year_options": "2002,2003,2004,2005,2006,2007,2008,2009,2010"
+  }
+]

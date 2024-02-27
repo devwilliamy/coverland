@@ -1,0 +1,74 @@
+[
+  {
+    "type": "SUV Covers",
+    "make": "MG",
+    "model": "HS",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2020-2024",
+    "year_options": "2020,2021,2022,2023"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "MG",
+    "model": "ZS",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2020-2024",
+    "year_options": "2020,2021,2022,2023"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "MG",
+    "model": "ZS",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2020-2024",
+    "year_options": "2020,2021,2022,2023"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "MG",
+    "model": "HS",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2020-2024",
+    "year_options": "2020,2021,2022,2023"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "MG",
+    "model": "ZS",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2020-2024",
+    "year_options": "2020,2021,2022,2023"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "MG",
+    "model": "ZS",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2020-2024",
+    "year_options": "2020,2021,2022,2023"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "MG",
+    "model": "HS",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2020-2024",
+    "year_options": "2020,2021,2022,2023"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "MG",
+    "model": "HS",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2020-2024",
+    "year_options": "2020,2021,2022,2023"
+  }
+]

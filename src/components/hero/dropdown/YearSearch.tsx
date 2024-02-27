@@ -1,20 +1,22 @@
 'use client';
 
 import { ChangeEvent, useState } from 'react';
-import { TInitialProductDataDB } from '@/lib/db';
 import { TQuery } from './HeroDropdown';
+import { TProductJsonData } from '@/components/PDP/EditVehicleDropdown';
 
 export function YearSearch({
   queryObj,
+  dropdownData,
 }: {
   queryObj: {
     query: TQuery;
     setQuery: React.Dispatch<React.SetStateAction<TQuery>>;
   };
-  currentSelection?: TInitialProductDataDB;
+  dropdownData: TProductJsonData[];
 }) {
   const [value, setValue] = useState('');
-  const years = Array.from({ length: 101 }, (_, i) => 1924 + i).reverse();
+  const { type, make, model } = queryObj.query;
+  const isDisabled = !type || !make || !model;
   const { setQuery } = queryObj;
 
   const handleChange = (event: ChangeEvent<HTMLSelectElement>) => {
@@ -23,20 +25,23 @@ export function YearSearch({
     setQuery((p) => ({ ...p, year: newValue }));
   };
 
+  const years = Array.from(
+    new Set(dropdownData.flatMap((d) => d.year_options.split(',')))
+  ).sort((a, b) => parseInt(b) - parseInt(a));
+
   return (
     <button
-      className={`flex max-h-[44px] min-h-[44px] w-full items-center rounded-[4px] outline-[#767676] md:max-h-[58px]  ${!queryObj.query.type ? 'bg-gray-100/75' : 'bg-white'} px-2 text-lg outline outline-1 outline-offset-1 lg:w-auto`}
-      disabled={!queryObj.query.type}
+      className={`flex max-h-[44px] min-h-[44px] w-full items-center rounded-[4px] outline-[#767676] md:max-h-[58px]  ${isDisabled ? 'bg-gray-100/75' : 'bg-white'} px-2 text-lg outline outline-1 outline-offset-1 lg:w-auto`}
       tabIndex={1}
     >
-      <div className="ml-[10px] pr-[15px]">2</div>
+      <div className="ml-[10px] pr-[15px]">4</div>
       <select
         value={value}
         onChange={(event) => handleChange(event)}
-        disabled={!queryObj.query.type}
+        disabled={isDisabled}
         className="w-full bg-transparent outline-none"
       >
-        <option value="capitalize">Year</option>
+        <option value="">{`${value ? 'Clear' : 'Year'}`}</option>
         {years.map((year) => (
           <option key={`year-${year}`} value={year.toString()}>
             {year}

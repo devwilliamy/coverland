@@ -1,0 +1,470 @@
+[
+  {
+    "type": "SUV Covers",
+    "make": "Infiniti",
+    "model": "EX35",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2008-2012",
+    "year_options": "2008,2009,2010,2011,2012"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Infiniti",
+    "model": "FX35",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2003-2012",
+    "year_options": "2003,2004,2005,2006,2007,2008,2009,2010,2011,2012"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Infiniti",
+    "model": "QX60",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2014-2025",
+    "year_options": "2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Infiniti",
+    "model": "FX45",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2003-2007",
+    "year_options": "2003,2004,2005,2006,2007"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Infiniti",
+    "model": "FX50",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2009-2013",
+    "year_options": "2009,2010,2011,2012,2013"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Infiniti",
+    "model": "QX50",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2014-2024",
+    "year_options": "2014,2015,2016,2017,2018,2019,2020,2021,2022,2023"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Infiniti",
+    "model": "QX55",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2022-2024",
+    "year_options": "2022,2023"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Infiniti",
+    "model": "QX60",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2014-2025",
+    "year_options": "2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Infiniti",
+    "model": "QX56",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2004-2013",
+    "year_options": "2004,2005,2006,2007,2008,2009,2010,2011,2012,2013"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Infiniti",
+    "model": "QX70",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2014-2017",
+    "year_options": "2014,2015,2016,2017"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Infiniti",
+    "model": "QX80",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2014-2024",
+    "year_options": "2014,2015,2016,2017,2018,2019,2020,2021,2022,2023"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Infiniti",
+    "model": "FX50",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2009-2013",
+    "year_options": "2009,2010,2011,2012,2013"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Infiniti",
+    "model": "QX30",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2017-2019",
+    "year_options": "2017,2018,2019"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Infiniti",
+    "model": "QX4",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1997-2004",
+    "year_options": "1997,1998,1999,2000,2001,2002,2003,2004"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Infiniti",
+    "model": "QX56",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2004-2013",
+    "year_options": "2004,2005,2006,2007,2008,2009,2010,2011,2012,2013"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Infiniti",
+    "model": "QX4",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1997-2004",
+    "year_options": "1997,1998,1999,2000,2001,2002,2003,2004"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Infiniti",
+    "model": "EX35",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2008-2012",
+    "year_options": "2008,2009,2010,2011,2012"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Infiniti",
+    "model": "EX35",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2008-2012",
+    "year_options": "2008,2009,2010,2011,2012"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Infiniti",
+    "model": "FX35",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2003-2012",
+    "year_options": "2003,2004,2005,2006,2007,2008,2009,2010,2011,2012"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Infiniti",
+    "model": "FX35",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2003-2012",
+    "year_options": "2003,2004,2005,2006,2007,2008,2009,2010,2011,2012"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Infiniti",
+    "model": "QX70",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2014-2017",
+    "year_options": "2014,2015,2016,2017"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Infiniti",
+    "model": "FX50",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2009-2013",
+    "year_options": "2009,2010,2011,2012,2013"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Infiniti",
+    "model": "QX30",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2017-2019",
+    "year_options": "2017,2018,2019"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Infiniti",
+    "model": "Q30",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2016-2018",
+    "year_options": "2016,2017,2018"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Infiniti",
+    "model": "QX50",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2014-2024",
+    "year_options": "2014,2015,2016,2017,2018,2019,2020,2021,2022,2023"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Infiniti",
+    "model": "QX50",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2014-2024",
+    "year_options": "2014,2015,2016,2017,2018,2019,2020,2021,2022,2023"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Infiniti",
+    "model": "QX55",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2022-2024",
+    "year_options": "2022,2023"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Infiniti",
+    "model": "FX45",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2003-2007",
+    "year_options": "2003,2004,2005,2006,2007"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Infiniti",
+    "model": "QX60",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2014-2025",
+    "year_options": "2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Infiniti",
+    "model": "QX70",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2014-2017",
+    "year_options": "2014,2015,2016,2017"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Infiniti",
+    "model": "QX80",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2014-2024",
+    "year_options": "2014,2015,2016,2017,2018,2019,2020,2021,2022,2023"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Infiniti",
+    "model": "QX80",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2014-2024",
+    "year_options": "2014,2015,2016,2017,2018,2019,2020,2021,2022,2023"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Infiniti",
+    "model": "EX35",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2008-2012",
+    "year_options": "2008,2009,2010,2011,2012"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Infiniti",
+    "model": "FX45",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2003-2007",
+    "year_options": "2003,2004,2005,2006,2007"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Infiniti",
+    "model": "FX50",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2009-2013",
+    "year_options": "2009,2010,2011,2012,2013"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Infiniti",
+    "model": "Q30",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2016-2018",
+    "year_options": "2016,2017,2018"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Infiniti",
+    "model": "QX30",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2017-2019",
+    "year_options": "2017,2018,2019"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Infiniti",
+    "model": "QX4",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1997-2004",
+    "year_options": "1997,1998,1999,2000,2001,2002,2003,2004"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Infiniti",
+    "model": "QX50",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2014-2024",
+    "year_options": "2014,2015,2016,2017,2018,2019,2020,2021,2022,2023"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Infiniti",
+    "model": "QX55",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2022-2024",
+    "year_options": "2022,2023"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Infiniti",
+    "model": "QX70",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2014-2017",
+    "year_options": "2014,2015,2016,2017"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Infiniti",
+    "model": "QX80",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2014-2024",
+    "year_options": "2014,2015,2016,2017,2018,2019,2020,2021,2022,2023"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Infiniti",
+    "model": "FX45",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2003-2007",
+    "year_options": "2003,2004,2005,2006,2007"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Infiniti",
+    "model": "Q30",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2016-2018",
+    "year_options": "2016,2017,2018"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Infiniti",
+    "model": "QX55",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2022-2024",
+    "year_options": "2022,2023"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Infiniti",
+    "model": "QX56",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2004-2013",
+    "year_options": "2004,2005,2006,2007,2008,2009,2010,2011,2012,2013"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Infiniti",
+    "model": "QX56",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2004-2013",
+    "year_options": "2004,2005,2006,2007,2008,2009,2010,2011,2012,2013"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Infiniti",
+    "model": "Q30",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2016-2018",
+    "year_options": "2016,2017,2018"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Infiniti",
+    "model": "QX30",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2017-2019",
+    "year_options": "2017,2018,2019"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Infiniti",
+    "model": "QX4",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1997-2004",
+    "year_options": "1997,1998,1999,2000,2001,2002,2003,2004"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Infiniti",
+    "model": "FX35",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2003-2012",
+    "year_options": "2003,2004,2005,2006,2007,2008,2009,2010,2011,2012"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Infiniti",
+    "model": "QX60",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2014-2025",
+    "year_options": "2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024"
+  }
+]

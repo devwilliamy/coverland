@@ -22,7 +22,7 @@ export default function ReviewImagesSheet({
   return (
     <Sheet open={reviewOpen} onOpenChange={setReviewsOpen}>
       <SheetTrigger
-        className={` ml-2 flex gap-3 pb-4 underline`}
+        className={` ml-2 flex gap-3 ${!children && 'pb-4'} underline`}
         disabled={!total_reviews}
       >
         {children || (
@@ -51,11 +51,8 @@ export default function ReviewImagesSheet({
                 </Link>
               </div>
             </section>
-            {/* 
-            <section className="mb-[11px] mt-[3px] flex w-full place-self-center px-[14px]">
-              <AlgoliaSearchbar />
-            </section>
-            */}
+            {/*
+             */}
           </header>
           <ReviewImageGallery setReviewsOpen={setReviewsOpen} />
         </div>

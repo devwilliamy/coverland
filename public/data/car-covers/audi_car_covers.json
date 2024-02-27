@@ -1,0 +1,4457 @@
+[
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "Allroad",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2001-2005",
+    "year_options": "2001,2002,2003,2004,2005"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "A3",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2014-2024",
+    "year_options": "2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "S4",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2004-2009",
+    "year_options": "2004,2005,2006,2007,2008,2009"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "V8 Quattro",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1988-1994",
+    "year_options": "1988,1989,1990,1991,1992,1993,1994"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "100",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1989-1994",
+    "year_options": "1989,1990,1991,1992,1993,1994"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "100",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1989-1994",
+    "year_options": "1989,1990,1991,1992,1993,1994"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "100",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1989-1994",
+    "year_options": "1989,1990,1991,1992,1993,1994"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "200",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1989-1994",
+    "year_options": "1989,1990,1991,1992,1993,1994"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "200",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1989-1994",
+    "year_options": "1989,1990,1991,1992,1993,1994"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "200",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1989-1994",
+    "year_options": "1989,1990,1991,1992,1993,1994"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "200",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1989-1994",
+    "year_options": "1989,1990,1991,1992,1993,1994"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "200",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1989-1994",
+    "year_options": "1989,1990,1991,1992,1993,1994"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "A3",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1996-2003",
+    "year_options": "1996,1997,1998,1999,2000,2001,2002,2003"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "100",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1989-1994",
+    "year_options": "1989,1990,1991,1992,1993,1994"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "100",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1989-1994",
+    "year_options": "1989,1990,1991,1992,1993,1994"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "A3",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1996-2003",
+    "year_options": "1996,1997,1998,1999,2000,2001,2002,2003"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "A3",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1996-2003",
+    "year_options": "1996,1997,1998,1999,2000,2001,2002,2003"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "A3",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2014-2024",
+    "year_options": "2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "A3",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2004-2013",
+    "year_options": "2004,2005,2006,2007,2008,2009,2010,2011,2012,2013"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "A3",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2004-2013",
+    "year_options": "2004,2005,2006,2007,2008,2009,2010,2011,2012,2013"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "A3",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2004-2013",
+    "year_options": "2004,2005,2006,2007,2008,2009,2010,2011,2012,2013"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "A3",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2004-2013",
+    "year_options": "2004,2005,2006,2007,2008,2009,2010,2011,2012,2013"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "A3",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1996-2003",
+    "year_options": "1996,1997,1998,1999,2000,2001,2002,2003"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "A3",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1996-2003",
+    "year_options": "1996,1997,1998,1999,2000,2001,2002,2003"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "A3",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2014-2024",
+    "year_options": "2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "A3",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2014-2024",
+    "year_options": "2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "A3",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2014-2024",
+    "year_options": "2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "A5",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2008-2017",
+    "year_options": "2008,2009,2010,2011,2012,2013,2014,2015,2016,2017"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "A5",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2008-2017",
+    "year_options": "2008,2009,2010,2011,2012,2013,2014,2015,2016,2017"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "A5",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2008-2017",
+    "year_options": "2008,2009,2010,2011,2012,2013,2014,2015,2016,2017"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "A5",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2008-2017",
+    "year_options": "2008,2009,2010,2011,2012,2013,2014,2015,2016,2017"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "A6",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2012-2018",
+    "year_options": "2012,2013,2014,2015,2016,2017,2018"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "A6",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2012-2018",
+    "year_options": "2012,2013,2014,2015,2016,2017,2018"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "A6",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2012-2018",
+    "year_options": "2012,2013,2014,2015,2016,2017,2018"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "A6",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2012-2018",
+    "year_options": "2012,2013,2014,2015,2016,2017,2018"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "A6",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2012-2018",
+    "year_options": "2012,2013,2014,2015,2016,2017,2018"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "A7",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2012-2024",
+    "year_options": "2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "A7",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2012-2024",
+    "year_options": "2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "A7",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2012-2024",
+    "year_options": "2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "A8",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1997-2015",
+    "year_options": "1997,1998,1999,2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "A8",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1997-2015",
+    "year_options": "1997,1998,1999,2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "A8",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1997-2015",
+    "year_options": "1997,1998,1999,2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "A7",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2012-2024",
+    "year_options": "2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "A7",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2012-2024",
+    "year_options": "2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "A8",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2019-2024",
+    "year_options": "2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "A8",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2019-2024",
+    "year_options": "2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "A8",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2019-2024",
+    "year_options": "2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "A8",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2019-2024",
+    "year_options": "2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "A8",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2019-2024",
+    "year_options": "2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "A8 L",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2004-2018",
+    "year_options": "2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "A8",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1997-2015",
+    "year_options": "1997,1998,1999,2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "A8",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2019-2024",
+    "year_options": "2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "A8 L",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2004-2018",
+    "year_options": "2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "A8 L",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2004-2018",
+    "year_options": "2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "Allroad",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2001-2005",
+    "year_options": "2001,2002,2003,2004,2005"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "Allroad",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2001-2005",
+    "year_options": "2001,2002,2003,2004,2005"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "Cabriolet",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1994-1998",
+    "year_options": "1994,1995,1996,1997,1998"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "Allroad",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2001-2005",
+    "year_options": "2001,2002,2003,2004,2005"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "Allroad",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2001-2005",
+    "year_options": "2001,2002,2003,2004,2005"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "Allroad",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2001-2005",
+    "year_options": "2001,2002,2003,2004,2005"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "A8 L",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2004-2018",
+    "year_options": "2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "Cabriolet",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1994-1998",
+    "year_options": "1994,1995,1996,1997,1998"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "Cabriolet",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1994-1998",
+    "year_options": "1994,1995,1996,1997,1998"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "Cabriolet",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1994-1998",
+    "year_options": "1994,1995,1996,1997,1998"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "Cabriolet",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1994-1998",
+    "year_options": "1994,1995,1996,1997,1998"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "Coupe Hatchback",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1990-1991",
+    "year_options": "1990,1991"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "Coupe",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1981-1987",
+    "year_options": "1981,1982,1983,1984,1985,1986,1987"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "Coupe",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1981-1987",
+    "year_options": "1981,1982,1983,1984,1985,1986,1987"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "Cabriolet",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1994-1998",
+    "year_options": "1994,1995,1996,1997,1998"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "Coupe Hatchback",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1990-1991",
+    "year_options": "1990,1991"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "Coupe Hatchback",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1990-1991",
+    "year_options": "1990,1991"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "RS3",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2017-2024",
+    "year_options": "2017,2018,2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "Coupe Hatchback",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1990-1991",
+    "year_options": "1990,1991"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "Coupe Hatchback",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1990-1991",
+    "year_options": "1990,1991"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "Coupe Hatchback",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1990-1991",
+    "year_options": "1990,1991"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "Coupe",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1981-1987",
+    "year_options": "1981,1982,1983,1984,1985,1986,1987"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "Coupe",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1981-1987",
+    "year_options": "1981,1982,1983,1984,1985,1986,1987"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "e-tron GT",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2022-2024",
+    "year_options": "2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "e-tron GT",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2022-2024",
+    "year_options": "2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "S5",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2008-2017",
+    "year_options": "2008,2009,2010,2011,2012,2013,2014,2015,2016,2017"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "R8",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2008-2024",
+    "year_options": "2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "R8",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2008-2024",
+    "year_options": "2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "R8",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2008-2024",
+    "year_options": "2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "R8",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2008-2024",
+    "year_options": "2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "S3",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2015-2024",
+    "year_options": "2015,2016,2017,2018,2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "e-tron GT",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2022-2024",
+    "year_options": "2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "e-tron GT",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2022-2024",
+    "year_options": "2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "RS e-tron GT",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2022-2024",
+    "year_options": "2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "RS e-tron GT",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2022-2024",
+    "year_options": "2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "RS e-tron GT",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2022-2024",
+    "year_options": "2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "RS e-tron GT",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2022-2024",
+    "year_options": "2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "RS3",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2017-2024",
+    "year_options": "2017,2018,2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "RS3",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2017-2024",
+    "year_options": "2017,2018,2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "RS3",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2017-2024",
+    "year_options": "2017,2018,2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "RS e-tron GT",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2022-2024",
+    "year_options": "2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "RS4",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2007-2008",
+    "year_options": "2007,2008"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "RS4",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2007-2008",
+    "year_options": "2007,2008"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "RS4",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2007-2008",
+    "year_options": "2007,2008"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "RS4",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2007-2008",
+    "year_options": "2007,2008"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "RS4",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2007-2008",
+    "year_options": "2007,2008"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "RS3",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2017-2024",
+    "year_options": "2017,2018,2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "RS6 Avant",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2021-2024",
+    "year_options": "2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "RS6 Avant",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2021-2024",
+    "year_options": "2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "RS6 Avant",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2021-2024",
+    "year_options": "2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "RS6 Avant",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2021-2024",
+    "year_options": "2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "RS6 Avant",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2021-2024",
+    "year_options": "2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "RS7",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2014-2024",
+    "year_options": "2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "RS7",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2014-2024",
+    "year_options": "2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "RS6 Avant",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2021-2024",
+    "year_options": "2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "S3",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2015-2024",
+    "year_options": "2015,2016,2017,2018,2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "S3",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2015-2024",
+    "year_options": "2015,2016,2017,2018,2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "S3",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2015-2024",
+    "year_options": "2015,2016,2017,2018,2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "S3",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2015-2024",
+    "year_options": "2015,2016,2017,2018,2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "S3",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2015-2024",
+    "year_options": "2015,2016,2017,2018,2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "S4",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2000-2002",
+    "year_options": "2000,2001,2002"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "RS7",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2014-2024",
+    "year_options": "2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "RS7",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2014-2024",
+    "year_options": "2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "S4",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2000-2002",
+    "year_options": "2000,2001,2002"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "S4",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2000-2002",
+    "year_options": "2000,2001,2002"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "S4",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2010-2024",
+    "year_options": "2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "S4",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2004-2009",
+    "year_options": "2004,2005,2006,2007,2008,2009"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "S4",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2004-2009",
+    "year_options": "2004,2005,2006,2007,2008,2009"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "S4",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2004-2009",
+    "year_options": "2004,2005,2006,2007,2008,2009"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "S4",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2004-2009",
+    "year_options": "2004,2005,2006,2007,2008,2009"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "S4",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2000-2002",
+    "year_options": "2000,2001,2002"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "S4",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2000-2002",
+    "year_options": "2000,2001,2002"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "S4",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2010-2024",
+    "year_options": "2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "S4",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2010-2024",
+    "year_options": "2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "S5",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2008-2017",
+    "year_options": "2008,2009,2010,2011,2012,2013,2014,2015,2016,2017"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "S5",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2008-2017",
+    "year_options": "2008,2009,2010,2011,2012,2013,2014,2015,2016,2017"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "S5",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2008-2017",
+    "year_options": "2008,2009,2010,2011,2012,2013,2014,2015,2016,2017"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "S4",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2010-2024",
+    "year_options": "2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "S4",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2010-2024",
+    "year_options": "2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "S5",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2008-2017",
+    "year_options": "2008,2009,2010,2011,2012,2013,2014,2015,2016,2017"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "S6",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2007-2018",
+    "year_options": "2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "S6",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2007-2018",
+    "year_options": "2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "TT RS Quattro",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2012-2013",
+    "year_options": "2012,2013"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "S6",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2007-2018",
+    "year_options": "2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "S7",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2013-2024",
+    "year_options": "2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "S7",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2013-2024",
+    "year_options": "2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "S8",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2013-2018",
+    "year_options": "2013,2014,2015,2016,2017,2018"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "S6",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2020-2024",
+    "year_options": "2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "TT RS Quattro",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2012-2013",
+    "year_options": "2012,2013"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "S7",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2013-2024",
+    "year_options": "2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "S8",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2013-2018",
+    "year_options": "2013,2014,2015,2016,2017,2018"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "S8",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2013-2018",
+    "year_options": "2013,2014,2015,2016,2017,2018"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "S8",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2020-2024",
+    "year_options": "2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "S8",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2020-2024",
+    "year_options": "2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "S8",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2020-2024",
+    "year_options": "2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "S8",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2020-2024",
+    "year_options": "2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "S8",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2013-2018",
+    "year_options": "2013,2014,2015,2016,2017,2018"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "S8",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2013-2018",
+    "year_options": "2013,2014,2015,2016,2017,2018"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "TT",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2000-2006",
+    "year_options": "2000,2001,2002,2003,2004,2005,2006"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "TT",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2000-2006",
+    "year_options": "2000,2001,2002,2003,2004,2005,2006"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "TT",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2000-2006",
+    "year_options": "2000,2001,2002,2003,2004,2005,2006"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "TT",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2008-2024",
+    "year_options": "2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "TT",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2008-2024",
+    "year_options": "2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "TT RS",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2018-2022",
+    "year_options": "2018,2019,2020,2021,2022"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "TT",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2008-2024",
+    "year_options": "2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "TT",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2000-2006",
+    "year_options": "2000,2001,2002,2003,2004,2005,2006"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "TT",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2000-2006",
+    "year_options": "2000,2001,2002,2003,2004,2005,2006"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "TT",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2008-2024",
+    "year_options": "2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "TT RS Quattro",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2012-2013",
+    "year_options": "2012,2013"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "TT RS Quattro",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2012-2013",
+    "year_options": "2012,2013"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "TT RS Quattro",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2012-2013",
+    "year_options": "2012,2013"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "TT",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2008-2024",
+    "year_options": "2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "TT RS",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2018-2022",
+    "year_options": "2018,2019,2020,2021,2022"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "TT RS",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2018-2022",
+    "year_options": "2018,2019,2020,2021,2022"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "TTS",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2009-2024",
+    "year_options": "2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "TTS",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2009-2024",
+    "year_options": "2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "TTS",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2009-2024",
+    "year_options": "2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "TTS",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2009-2024",
+    "year_options": "2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "TTS",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2009-2024",
+    "year_options": "2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "TT RS",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2018-2022",
+    "year_options": "2018,2019,2020,2021,2022"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "V8 Quattro",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1988-1994",
+    "year_options": "1988,1989,1990,1991,1992,1993,1994"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "V8 Quattro",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1988-1994",
+    "year_options": "1988,1989,1990,1991,1992,1993,1994"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "V8 Quattro",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1988-1994",
+    "year_options": "1988,1989,1990,1991,1992,1993,1994"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "V8 Quattro",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1988-1994",
+    "year_options": "1988,1989,1990,1991,1992,1993,1994"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "V8 Quattro",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1988-1994",
+    "year_options": "1988,1989,1990,1991,1992,1993,1994"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "TT",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2000-2006",
+    "year_options": "2000,2001,2002,2003,2004,2005,2006"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "A3",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2014-2024",
+    "year_options": "2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "A5",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2008-2017",
+    "year_options": "2008,2009,2010,2011,2012,2013,2014,2015,2016,2017"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "A8",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1997-2015",
+    "year_options": "1997,1998,1999,2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "RS6 Avant",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2021-2024",
+    "year_options": "2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "S6",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2007-2018",
+    "year_options": "2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "TT",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2000-2006",
+    "year_options": "2000,2001,2002,2003,2004,2005,2006"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "V8 Quattro",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1988-1994",
+    "year_options": "1988,1989,1990,1991,1992,1993,1994"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "TTS",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2009-2024",
+    "year_options": "2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "V8 Quattro",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1988-1994",
+    "year_options": "1988,1989,1990,1991,1992,1993,1994"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "Coupe Hatchback",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1990-1991",
+    "year_options": "1990,1991"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "TT RS Quattro",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2012-2013",
+    "year_options": "2012,2013"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "Cabriolet",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1994-1998",
+    "year_options": "1994,1995,1996,1997,1998"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "200",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1989-1994",
+    "year_options": "1989,1990,1991,1992,1993,1994"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "A3",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2014-2024",
+    "year_options": "2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "A5",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2008-2017",
+    "year_options": "2008,2009,2010,2011,2012,2013,2014,2015,2016,2017"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "A7",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2012-2024",
+    "year_options": "2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "A8",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2019-2024",
+    "year_options": "2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "A8 L",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2004-2018",
+    "year_options": "2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "Allroad",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2001-2005",
+    "year_options": "2001,2002,2003,2004,2005"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "Coupe",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1981-1987",
+    "year_options": "1981,1982,1983,1984,1985,1986,1987"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "R8",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2008-2024",
+    "year_options": "2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "RS e-tron GT",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2022-2024",
+    "year_options": "2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "RS3",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2017-2024",
+    "year_options": "2017,2018,2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "RS4",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2007-2008",
+    "year_options": "2007,2008"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "S4",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2000-2002",
+    "year_options": "2000,2001,2002"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "S4",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2004-2009",
+    "year_options": "2004,2005,2006,2007,2008,2009"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "S5",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2008-2017",
+    "year_options": "2008,2009,2010,2011,2012,2013,2014,2015,2016,2017"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "S8",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2013-2018",
+    "year_options": "2013,2014,2015,2016,2017,2018"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "S8",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2020-2024",
+    "year_options": "2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "S6",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2020-2024",
+    "year_options": "2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "S8",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2013-2018",
+    "year_options": "2013,2014,2015,2016,2017,2018"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "A8",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2019-2024",
+    "year_options": "2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "A6",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2012-2018",
+    "year_options": "2012,2013,2014,2015,2016,2017,2018"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "200",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1989-1994",
+    "year_options": "1989,1990,1991,1992,1993,1994"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "100",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1989-1994",
+    "year_options": "1989,1990,1991,1992,1993,1994"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "200",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1989-1994",
+    "year_options": "1989,1990,1991,1992,1993,1994"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "A3",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1996-2003",
+    "year_options": "1996,1997,1998,1999,2000,2001,2002,2003"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "A3",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1996-2003",
+    "year_options": "1996,1997,1998,1999,2000,2001,2002,2003"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "A3",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2004-2013",
+    "year_options": "2004,2005,2006,2007,2008,2009,2010,2011,2012,2013"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "A3",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2004-2013",
+    "year_options": "2004,2005,2006,2007,2008,2009,2010,2011,2012,2013"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "A5",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2008-2017",
+    "year_options": "2008,2009,2010,2011,2012,2013,2014,2015,2016,2017"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "A6",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2012-2018",
+    "year_options": "2012,2013,2014,2015,2016,2017,2018"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "A8",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1997-2015",
+    "year_options": "1997,1998,1999,2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "A8",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2019-2024",
+    "year_options": "2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "A8 L",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2004-2018",
+    "year_options": "2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "A8 L",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2004-2018",
+    "year_options": "2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "Allroad",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2001-2005",
+    "year_options": "2001,2002,2003,2004,2005"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "Coupe",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1981-1987",
+    "year_options": "1981,1982,1983,1984,1985,1986,1987"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "Coupe",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1981-1987",
+    "year_options": "1981,1982,1983,1984,1985,1986,1987"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "Coupe Hatchback",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1990-1991",
+    "year_options": "1990,1991"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "Coupe Hatchback",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1990-1991",
+    "year_options": "1990,1991"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "e-tron GT",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2022-2024",
+    "year_options": "2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "e-tron GT",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2022-2024",
+    "year_options": "2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "R8",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2008-2024",
+    "year_options": "2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "R8",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2008-2024",
+    "year_options": "2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "RS3",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2017-2024",
+    "year_options": "2017,2018,2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "RS3",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2017-2024",
+    "year_options": "2017,2018,2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "RS4",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2007-2008",
+    "year_options": "2007,2008"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "RS7",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2014-2024",
+    "year_options": "2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "RS7",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2014-2024",
+    "year_options": "2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "S3",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2015-2024",
+    "year_options": "2015,2016,2017,2018,2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "S4",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2000-2002",
+    "year_options": "2000,2001,2002"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "S4",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2000-2002",
+    "year_options": "2000,2001,2002"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "S4",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2004-2009",
+    "year_options": "2004,2005,2006,2007,2008,2009"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "S4",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2004-2009",
+    "year_options": "2004,2005,2006,2007,2008,2009"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "S5",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2008-2017",
+    "year_options": "2008,2009,2010,2011,2012,2013,2014,2015,2016,2017"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "S6",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2020-2024",
+    "year_options": "2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "S6",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2020-2024",
+    "year_options": "2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "S7",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2013-2024",
+    "year_options": "2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "S7",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2013-2024",
+    "year_options": "2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "S8",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2013-2018",
+    "year_options": "2013,2014,2015,2016,2017,2018"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "S8",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2020-2024",
+    "year_options": "2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "S8",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2020-2024",
+    "year_options": "2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "TT",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2008-2024",
+    "year_options": "2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "TT",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2008-2024",
+    "year_options": "2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "TT RS Quattro",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2012-2013",
+    "year_options": "2012,2013"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "TT RS Quattro",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2012-2013",
+    "year_options": "2012,2013"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "TT RS",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2018-2022",
+    "year_options": "2018,2019,2020,2021,2022"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "TT RS",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2018-2022",
+    "year_options": "2018,2019,2020,2021,2022"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "TTS",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2009-2024",
+    "year_options": "2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "A3",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1996-2003",
+    "year_options": "1996,1997,1998,1999,2000,2001,2002,2003"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "Cabriolet",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1994-1998",
+    "year_options": "1994,1995,1996,1997,1998"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "RS6 Avant",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2021-2024",
+    "year_options": "2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "TT RS",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2018-2022",
+    "year_options": "2018,2019,2020,2021,2022"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "RS5",
+    "submodel1": "Coupe",
+    "submodel2": null,
+    "parent_generation": "2018-2024",
+    "year_options": "2018,2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "A4",
+    "submodel1": "Avant",
+    "submodel2": null,
+    "parent_generation": "1996-2008",
+    "year_options": "1998,1999,2000,2001,2002,2003,2004,2005,2006,2007,2008"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "A4",
+    "submodel1": "Avant",
+    "submodel2": null,
+    "parent_generation": "1996-2008",
+    "year_options": "1998,1999,2000,2001,2002,2003,2004,2005,2006,2007,2008"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "S5",
+    "submodel1": "Cabriolet",
+    "submodel2": null,
+    "parent_generation": "2018-2024",
+    "year_options": "2018,2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "A4",
+    "submodel1": "Sedan",
+    "submodel2": null,
+    "parent_generation": "1996-2008",
+    "year_options": "1996,1997,1998,1999,2000,2001,2002,2003,2004,2005,2006,2007,2008"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "A4",
+    "submodel1": "Sedan",
+    "submodel2": null,
+    "parent_generation": "1996-2008",
+    "year_options": "1996,1997,1998,1999,2000,2001,2002,2003,2004,2005,2006,2007,2008"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "A4",
+    "submodel1": "Sedan",
+    "submodel2": null,
+    "parent_generation": "1996-2008",
+    "year_options": "1996,1997,1998,1999,2000,2001,2002,2003,2004,2005,2006,2007,2008"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "A4",
+    "submodel1": "Sedan",
+    "submodel2": null,
+    "parent_generation": "1996-2008",
+    "year_options": "1996,1997,1998,1999,2000,2001,2002,2003,2004,2005,2006,2007,2008"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "A4",
+    "submodel1": "Avant",
+    "submodel2": null,
+    "parent_generation": "1996-2008",
+    "year_options": "1998,1999,2000,2001,2002,2003,2004,2005,2006,2007,2008"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "A4",
+    "submodel1": "Avant",
+    "submodel2": null,
+    "parent_generation": "1996-2008",
+    "year_options": "1998,1999,2000,2001,2002,2003,2004,2005,2006,2007,2008"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "A4",
+    "submodel1": "Avant",
+    "submodel2": null,
+    "parent_generation": "1996-2008",
+    "year_options": "1998,1999,2000,2001,2002,2003,2004,2005,2006,2007,2008"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "A4",
+    "submodel1": "Avant",
+    "submodel2": null,
+    "parent_generation": "1996-2008",
+    "year_options": "1998,1999,2000,2001,2002,2003,2004,2005,2006,2007,2008"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "A4",
+    "submodel1": "Cabriolet",
+    "submodel2": null,
+    "parent_generation": "1996-2008",
+    "year_options": "2003,2004,2005,2006,2007,2008,2009"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "A4",
+    "submodel1": "Sedan",
+    "submodel2": null,
+    "parent_generation": "1996-2008",
+    "year_options": "1996,1997,1998,1999,2000,2001,2002,2003,2004,2005,2006,2007,2008"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "A4",
+    "submodel1": "Cabriolet",
+    "submodel2": null,
+    "parent_generation": "1996-2008",
+    "year_options": "2003,2004,2005,2006,2007,2008,2009"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "A4",
+    "submodel1": "Cabriolet",
+    "submodel2": null,
+    "parent_generation": "1996-2008",
+    "year_options": "2003,2004,2005,2006,2007,2008,2009"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "A4",
+    "submodel1": "Allroad",
+    "submodel2": null,
+    "parent_generation": "2009-2024",
+    "year_options": "2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "A4",
+    "submodel1": "Allroad",
+    "submodel2": null,
+    "parent_generation": "2009-2024",
+    "year_options": "2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "A4",
+    "submodel1": "Allroad",
+    "submodel2": null,
+    "parent_generation": "2009-2024",
+    "year_options": "2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "A4",
+    "submodel1": "Allroad",
+    "submodel2": null,
+    "parent_generation": "2009-2024",
+    "year_options": "2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "A4",
+    "submodel1": "Allroad",
+    "submodel2": null,
+    "parent_generation": "2009-2024",
+    "year_options": "2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "A4",
+    "submodel1": "Cabriolet",
+    "submodel2": null,
+    "parent_generation": "1996-2008",
+    "year_options": "2003,2004,2005,2006,2007,2008,2009"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "A6",
+    "submodel1": "Avant",
+    "submodel2": null,
+    "parent_generation": "1994-2011",
+    "year_options": "1995,1996,1997,1998,1999,2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "A4",
+    "submodel1": "Sedan",
+    "submodel2": null,
+    "parent_generation": "2009-2024",
+    "year_options": "2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "A4",
+    "submodel1": "Sedan",
+    "submodel2": null,
+    "parent_generation": "2009-2024",
+    "year_options": "2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "A4",
+    "submodel1": "Sedan",
+    "submodel2": null,
+    "parent_generation": "2009-2024",
+    "year_options": "2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "A4",
+    "submodel1": "Sedan",
+    "submodel2": null,
+    "parent_generation": "2009-2024",
+    "year_options": "2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "A4",
+    "submodel1": "Sedan",
+    "submodel2": null,
+    "parent_generation": "2009-2024",
+    "year_options": "2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "A4",
+    "submodel1": "Sedan",
+    "submodel2": null,
+    "parent_generation": "2009-2024",
+    "year_options": "2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "A5",
+    "submodel1": "Coupe",
+    "submodel2": null,
+    "parent_generation": "2018-2024",
+    "year_options": "2018,2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "A5",
+    "submodel1": "Coupe",
+    "submodel2": null,
+    "parent_generation": "2018-2024",
+    "year_options": "2018,2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "A5",
+    "submodel1": "Coupe",
+    "submodel2": null,
+    "parent_generation": "2018-2024",
+    "year_options": "2018,2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "A5",
+    "submodel1": "Coupe",
+    "submodel2": null,
+    "parent_generation": "2018-2024",
+    "year_options": "2018,2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "A5",
+    "submodel1": "Coupe",
+    "submodel2": null,
+    "parent_generation": "2018-2024",
+    "year_options": "2018,2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "A5",
+    "submodel1": "Cabriolet",
+    "submodel2": null,
+    "parent_generation": "2018-2024",
+    "year_options": "2018,2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "A5",
+    "submodel1": "Cabriolet",
+    "submodel2": null,
+    "parent_generation": "2018-2024",
+    "year_options": "2018,2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "A5",
+    "submodel1": "Sportback",
+    "submodel2": null,
+    "parent_generation": "2018-2024",
+    "year_options": "2018,2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "A6",
+    "submodel1": "Avant",
+    "submodel2": null,
+    "parent_generation": "1994-2011",
+    "year_options": "1995,1996,1997,1998,1999,2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "A5",
+    "submodel1": "Sportback",
+    "submodel2": null,
+    "parent_generation": "2018-2024",
+    "year_options": "2018,2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "A5",
+    "submodel1": "Sportback",
+    "submodel2": null,
+    "parent_generation": "2018-2024",
+    "year_options": "2018,2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "A5",
+    "submodel1": "Sportback",
+    "submodel2": null,
+    "parent_generation": "2018-2024",
+    "year_options": "2018,2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "A5",
+    "submodel1": "Cabriolet",
+    "submodel2": null,
+    "parent_generation": "2018-2024",
+    "year_options": "2018,2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "A5",
+    "submodel1": "Cabriolet",
+    "submodel2": null,
+    "parent_generation": "2018-2024",
+    "year_options": "2018,2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "A6",
+    "submodel1": "Avant",
+    "submodel2": null,
+    "parent_generation": "1994-2011",
+    "year_options": "1995,1996,1997,1998,1999,2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "A6",
+    "submodel1": "Avant",
+    "submodel2": null,
+    "parent_generation": "1994-2011",
+    "year_options": "1995,1996,1997,1998,1999,2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "A6",
+    "submodel1": "Avant",
+    "submodel2": null,
+    "parent_generation": "1994-2011",
+    "year_options": "1995,1996,1997,1998,1999,2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "A6",
+    "submodel1": "Sedan",
+    "submodel2": null,
+    "parent_generation": "1994-2011",
+    "year_options": "1994,1995,1996,1997,1998,1999,2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "A6",
+    "submodel1": "Sedan",
+    "submodel2": null,
+    "parent_generation": "1994-2011",
+    "year_options": "1994,1995,1996,1997,1998,1999,2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "A6",
+    "submodel1": "Avant",
+    "submodel2": null,
+    "parent_generation": "1994-2011",
+    "year_options": "1995,1996,1997,1998,1999,2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "A6",
+    "submodel1": "Sedan",
+    "submodel2": null,
+    "parent_generation": "1994-2011",
+    "year_options": "1994,1995,1996,1997,1998,1999,2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "A6",
+    "submodel1": "Allroad",
+    "submodel2": null,
+    "parent_generation": "2019-2024",
+    "year_options": "2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "A6",
+    "submodel1": "Sedan",
+    "submodel2": null,
+    "parent_generation": "1994-2011",
+    "year_options": "1994,1995,1996,1997,1998,1999,2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "A6",
+    "submodel1": "Allroad",
+    "submodel2": null,
+    "parent_generation": "2019-2024",
+    "year_options": "2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "A6",
+    "submodel1": "Allroad",
+    "submodel2": null,
+    "parent_generation": "2019-2024",
+    "year_options": "2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "A6",
+    "submodel1": "Sedan",
+    "submodel2": null,
+    "parent_generation": "2019-2024",
+    "year_options": "2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "A6",
+    "submodel1": "Sedan",
+    "submodel2": null,
+    "parent_generation": "2019-2024",
+    "year_options": "2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "A6",
+    "submodel1": "Sedan",
+    "submodel2": null,
+    "parent_generation": "2019-2024",
+    "year_options": "2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "A6",
+    "submodel1": "Sedan",
+    "submodel2": null,
+    "parent_generation": "2019-2024",
+    "year_options": "2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "A6",
+    "submodel1": "Sedan",
+    "submodel2": null,
+    "parent_generation": "2019-2024",
+    "year_options": "2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "A6",
+    "submodel1": "Allroad",
+    "submodel2": null,
+    "parent_generation": "2019-2024",
+    "year_options": "2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "RS5",
+    "submodel1": "Coupe",
+    "submodel2": null,
+    "parent_generation": "2018-2024",
+    "year_options": "2018,2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "RS5",
+    "submodel1": "Coupe",
+    "submodel2": null,
+    "parent_generation": "2018-2024",
+    "year_options": "2018,2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "RS5",
+    "submodel1": "Coupe",
+    "submodel2": null,
+    "parent_generation": "2018-2024",
+    "year_options": "2018,2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "RS5",
+    "submodel1": "Sportback",
+    "submodel2": null,
+    "parent_generation": "2018-2024",
+    "year_options": "2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "RS5",
+    "submodel1": "Sportback",
+    "submodel2": null,
+    "parent_generation": "2018-2024",
+    "year_options": "2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "RS5",
+    "submodel1": "Sportback",
+    "submodel2": null,
+    "parent_generation": "2018-2024",
+    "year_options": "2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "RS5",
+    "submodel1": "Sportback",
+    "submodel2": null,
+    "parent_generation": "2018-2024",
+    "year_options": "2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "RS5",
+    "submodel1": "Sportback",
+    "submodel2": null,
+    "parent_generation": "2018-2024",
+    "year_options": "2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "RS5",
+    "submodel1": "Coupe",
+    "submodel2": null,
+    "parent_generation": "2018-2024",
+    "year_options": "2018,2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "S5",
+    "submodel1": "Cabriolet",
+    "submodel2": null,
+    "parent_generation": "2018-2024",
+    "year_options": "2018,2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "S5",
+    "submodel1": "Cabriolet",
+    "submodel2": null,
+    "parent_generation": "2018-2024",
+    "year_options": "2018,2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "S5",
+    "submodel1": "Cabriolet",
+    "submodel2": null,
+    "parent_generation": "2018-2024",
+    "year_options": "2018,2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "S5",
+    "submodel1": "Cabriolet",
+    "submodel2": null,
+    "parent_generation": "2018-2024",
+    "year_options": "2018,2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "S5",
+    "submodel1": "Coupe",
+    "submodel2": null,
+    "parent_generation": "2018-2024",
+    "year_options": "2018,2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "S5",
+    "submodel1": "Coupe",
+    "submodel2": null,
+    "parent_generation": "2018-2024",
+    "year_options": "2018,2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "S5",
+    "submodel1": "Sportback",
+    "submodel2": null,
+    "parent_generation": "2018-2024",
+    "year_options": "2018,2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "S5",
+    "submodel1": "Sportback",
+    "submodel2": null,
+    "parent_generation": "2018-2024",
+    "year_options": "2018,2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "S5",
+    "submodel1": "Sportback",
+    "submodel2": null,
+    "parent_generation": "2018-2024",
+    "year_options": "2018,2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "S5",
+    "submodel1": "Sportback",
+    "submodel2": null,
+    "parent_generation": "2018-2024",
+    "year_options": "2018,2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "S5",
+    "submodel1": "Sportback",
+    "submodel2": null,
+    "parent_generation": "2018-2024",
+    "year_options": "2018,2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "S5",
+    "submodel1": "Coupe",
+    "submodel2": null,
+    "parent_generation": "2018-2024",
+    "year_options": "2018,2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "S5",
+    "submodel1": "Coupe",
+    "submodel2": null,
+    "parent_generation": "2018-2024",
+    "year_options": "2018,2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "A4",
+    "submodel1": "Allroad",
+    "submodel2": null,
+    "parent_generation": "2009-2024",
+    "year_options": "2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "A6",
+    "submodel1": "Allroad",
+    "submodel2": null,
+    "parent_generation": "2019-2024",
+    "year_options": "2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "A7",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2012-2024",
+    "year_options": "2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "A6",
+    "submodel1": "Avant",
+    "submodel2": null,
+    "parent_generation": "1994-2011",
+    "year_options": "1995,1996,1997,1998,1999,2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "A4",
+    "submodel1": "Cabriolet",
+    "submodel2": null,
+    "parent_generation": "1996-2008",
+    "year_options": "2003,2004,2005,2006,2007,2008,2009"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "A5",
+    "submodel1": "Coupe",
+    "submodel2": null,
+    "parent_generation": "2018-2024",
+    "year_options": "2018,2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "A5",
+    "submodel1": "Sportback",
+    "submodel2": null,
+    "parent_generation": "2018-2024",
+    "year_options": "2018,2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "A6",
+    "submodel1": "Avant",
+    "submodel2": null,
+    "parent_generation": "1994-2011",
+    "year_options": "1995,1996,1997,1998,1999,2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "A6",
+    "submodel1": "Sedan",
+    "submodel2": null,
+    "parent_generation": "1994-2011",
+    "year_options": "1994,1995,1996,1997,1998,1999,2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "A4",
+    "submodel1": "Sedan",
+    "submodel2": null,
+    "parent_generation": "2009-2024",
+    "year_options": "2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "RS5",
+    "submodel1": "Sportback",
+    "submodel2": null,
+    "parent_generation": "2018-2024",
+    "year_options": "2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "S5",
+    "submodel1": "Coupe",
+    "submodel2": null,
+    "parent_generation": "2018-2024",
+    "year_options": "2018,2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "S5",
+    "submodel1": "Sportback",
+    "submodel2": null,
+    "parent_generation": "2018-2024",
+    "year_options": "2018,2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "RS e-tron GT",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2022-2024",
+    "year_options": "2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "RS5",
+    "submodel1": "Sportback",
+    "submodel2": null,
+    "parent_generation": "2018-2024",
+    "year_options": "2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "A6",
+    "submodel1": "Allroad",
+    "submodel2": null,
+    "parent_generation": "2019-2024",
+    "year_options": "2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "RS5",
+    "submodel1": "Sportback",
+    "submodel2": null,
+    "parent_generation": "2018-2024",
+    "year_options": "2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "A6",
+    "submodel1": "Allroad",
+    "submodel2": null,
+    "parent_generation": "2019-2024",
+    "year_options": "2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "A4",
+    "submodel1": "Sedan",
+    "submodel2": null,
+    "parent_generation": "1996-2008",
+    "year_options": "1996,1997,1998,1999,2000,2001,2002,2003,2004,2005,2006,2007,2008"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "A4",
+    "submodel1": "Avant",
+    "submodel2": null,
+    "parent_generation": "1996-2008",
+    "year_options": "1998,1999,2000,2001,2002,2003,2004,2005,2006,2007,2008"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "A4",
+    "submodel1": "Avant",
+    "submodel2": null,
+    "parent_generation": "1996-2008",
+    "year_options": "1998,1999,2000,2001,2002,2003,2004,2005,2006,2007,2008"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "A4",
+    "submodel1": "Cabriolet",
+    "submodel2": null,
+    "parent_generation": "1996-2008",
+    "year_options": "2003,2004,2005,2006,2007,2008,2009"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "A4",
+    "submodel1": "Cabriolet",
+    "submodel2": null,
+    "parent_generation": "1996-2008",
+    "year_options": "2003,2004,2005,2006,2007,2008,2009"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "A4",
+    "submodel1": "Allroad",
+    "submodel2": null,
+    "parent_generation": "2009-2024",
+    "year_options": "2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "A4",
+    "submodel1": "Allroad",
+    "submodel2": null,
+    "parent_generation": "2009-2024",
+    "year_options": "2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "A6",
+    "submodel1": "Sedan",
+    "submodel2": null,
+    "parent_generation": "1994-2011",
+    "year_options": "1994,1995,1996,1997,1998,1999,2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "A5",
+    "submodel1": "Coupe",
+    "submodel2": null,
+    "parent_generation": "2018-2024",
+    "year_options": "2018,2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "A5",
+    "submodel1": "Coupe",
+    "submodel2": null,
+    "parent_generation": "2018-2024",
+    "year_options": "2018,2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "A5",
+    "submodel1": "Cabriolet",
+    "submodel2": null,
+    "parent_generation": "2018-2024",
+    "year_options": "2018,2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "A5",
+    "submodel1": "Cabriolet",
+    "submodel2": null,
+    "parent_generation": "2018-2024",
+    "year_options": "2018,2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "A5",
+    "submodel1": "Sportback",
+    "submodel2": null,
+    "parent_generation": "2018-2024",
+    "year_options": "2018,2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "A5",
+    "submodel1": "Sportback",
+    "submodel2": null,
+    "parent_generation": "2018-2024",
+    "year_options": "2018,2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "A6",
+    "submodel1": "Sedan",
+    "submodel2": null,
+    "parent_generation": "2019-2024",
+    "year_options": "2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "A6",
+    "submodel1": "Sedan",
+    "submodel2": null,
+    "parent_generation": "2019-2024",
+    "year_options": "2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "RS5",
+    "submodel1": "Coupe",
+    "submodel2": null,
+    "parent_generation": "2018-2024",
+    "year_options": "2018,2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "RS5",
+    "submodel1": "Coupe",
+    "submodel2": null,
+    "parent_generation": "2018-2024",
+    "year_options": "2018,2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "S5",
+    "submodel1": "Cabriolet",
+    "submodel2": null,
+    "parent_generation": "2018-2024",
+    "year_options": "2018,2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "S5",
+    "submodel1": "Cabriolet",
+    "submodel2": null,
+    "parent_generation": "2018-2024",
+    "year_options": "2018,2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "S5",
+    "submodel1": "Coupe",
+    "submodel2": null,
+    "parent_generation": "2018-2024",
+    "year_options": "2018,2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "S5",
+    "submodel1": "Coupe",
+    "submodel2": null,
+    "parent_generation": "2018-2024",
+    "year_options": "2018,2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "S5",
+    "submodel1": "Sportback",
+    "submodel2": null,
+    "parent_generation": "2018-2024",
+    "year_options": "2018,2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "S5",
+    "submodel1": "Sportback",
+    "submodel2": null,
+    "parent_generation": "2018-2024",
+    "year_options": "2018,2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "A4",
+    "submodel1": "Cabriolet",
+    "submodel2": null,
+    "parent_generation": "1996-2008",
+    "year_options": "2003,2004,2005,2006,2007,2008,2009"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "A6",
+    "submodel1": "Allroad",
+    "submodel2": null,
+    "parent_generation": "2019-2024",
+    "year_options": "2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "RS5",
+    "submodel1": "Coupe",
+    "submodel2": null,
+    "parent_generation": "2018-2024",
+    "year_options": "2018,2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "S5",
+    "submodel1": "Coupe",
+    "submodel2": null,
+    "parent_generation": "2018-2024",
+    "year_options": "2018,2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "A6",
+    "submodel1": "Allroad",
+    "submodel2": null,
+    "parent_generation": "2019-2024",
+    "year_options": "2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "A6",
+    "submodel1": "Sedan",
+    "submodel2": null,
+    "parent_generation": "2019-2024",
+    "year_options": "2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "A4",
+    "submodel1": "Sedan",
+    "submodel2": null,
+    "parent_generation": "1996-2008",
+    "year_options": "1996,1997,1998,1999,2000,2001,2002,2003,2004,2005,2006,2007,2008"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "A4",
+    "submodel1": "Cabriolet",
+    "submodel2": null,
+    "parent_generation": "1996-2008",
+    "year_options": "2003,2004,2005,2006,2007,2008,2009"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "A5",
+    "submodel1": "Cabriolet",
+    "submodel2": null,
+    "parent_generation": "2018-2024",
+    "year_options": "2018,2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "A6",
+    "submodel1": "Sedan",
+    "submodel2": null,
+    "parent_generation": "1994-2011",
+    "year_options": "1994,1995,1996,1997,1998,1999,2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "A5",
+    "submodel1": "Sportback",
+    "submodel2": null,
+    "parent_generation": "2018-2024",
+    "year_options": "2018,2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "RS5",
+    "submodel1": "Sportback",
+    "submodel2": null,
+    "parent_generation": "2018-2024",
+    "year_options": "2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "S5",
+    "submodel1": "Coupe",
+    "submodel2": null,
+    "parent_generation": "2018-2024",
+    "year_options": "2018,2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "S5",
+    "submodel1": "Sportback",
+    "submodel2": null,
+    "parent_generation": "2018-2024",
+    "year_options": "2018,2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "A4",
+    "submodel1": "Allroad",
+    "submodel2": null,
+    "parent_generation": "2009-2024",
+    "year_options": "2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "A4",
+    "submodel1": "Sedan",
+    "submodel2": null,
+    "parent_generation": "2009-2024",
+    "year_options": "2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "A3",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2004-2013",
+    "year_options": "2004,2005,2006,2007,2008,2009,2010,2011,2012,2013"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "A4",
+    "submodel1": "Avant",
+    "submodel2": null,
+    "parent_generation": "1996-2008",
+    "year_options": "1998,1999,2000,2001,2002,2003,2004,2005,2006,2007,2008"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "A8",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1997-2015",
+    "year_options": "1997,1998,1999,2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "A5",
+    "submodel1": "Coupe",
+    "submodel2": null,
+    "parent_generation": "2018-2024",
+    "year_options": "2018,2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "A5",
+    "submodel1": "Cabriolet",
+    "submodel2": null,
+    "parent_generation": "2018-2024",
+    "year_options": "2018,2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "A6",
+    "submodel1": "Sedan",
+    "submodel2": null,
+    "parent_generation": "1994-2011",
+    "year_options": "1994,1995,1996,1997,1998,1999,2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "S5",
+    "submodel1": "Cabriolet",
+    "submodel2": null,
+    "parent_generation": "2018-2024",
+    "year_options": "2018,2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "A5",
+    "submodel1": "Sportback",
+    "submodel2": null,
+    "parent_generation": "2018-2024",
+    "year_options": "2018,2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "RS5",
+    "submodel1": "Coupe",
+    "submodel2": null,
+    "parent_generation": "2018-2024",
+    "year_options": "2018,2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "e-tron GT",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2022-2024",
+    "year_options": "2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "A5",
+    "submodel1": "Cabriolet",
+    "submodel2": null,
+    "parent_generation": "2018-2024",
+    "year_options": "2018,2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "A4",
+    "submodel1": "Sedan",
+    "submodel2": null,
+    "parent_generation": "1996-2008",
+    "year_options": "1996,1997,1998,1999,2000,2001,2002,2003,2004,2005,2006,2007,2008"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "S3",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2015-2024",
+    "year_options": "2015,2016,2017,2018,2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "A4",
+    "submodel1": "Sedan",
+    "submodel2": null,
+    "parent_generation": "1996-2008",
+    "year_options": "1996,1997,1998,1999,2000,2001,2002,2003,2004,2005,2006,2007,2008"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "A6",
+    "submodel1": "Sedan",
+    "submodel2": null,
+    "parent_generation": "2019-2024",
+    "year_options": "2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "S5",
+    "submodel1": "Cabriolet",
+    "submodel2": null,
+    "parent_generation": "2018-2024",
+    "year_options": "2018,2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "A4",
+    "submodel1": "Sedan",
+    "submodel2": null,
+    "parent_generation": "2009-2024",
+    "year_options": "2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "S4",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2010-2024",
+    "year_options": "2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "A6",
+    "submodel1": "Sedan",
+    "submodel2": null,
+    "parent_generation": "1994-2011",
+    "year_options": "1994,1995,1996,1997,1998,1999,2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "A6",
+    "submodel1": "Avant",
+    "submodel2": null,
+    "parent_generation": "1994-2011",
+    "year_options": "1995,1996,1997,1998,1999,2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "S7",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2013-2024",
+    "year_options": "2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "e-tron GT",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2022-2024",
+    "year_options": "2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "200",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1989-1994",
+    "year_options": "1989,1990,1991,1992,1993,1994"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "A3",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2004-2013",
+    "year_options": "2004,2005,2006,2007,2008,2009,2010,2011,2012,2013"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "A3",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2014-2024",
+    "year_options": "2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "A7",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2012-2024",
+    "year_options": "2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "A8",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1997-2015",
+    "year_options": "1997,1998,1999,2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "A8 L",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2004-2018",
+    "year_options": "2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "R8",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2008-2024",
+    "year_options": "2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "RS4",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2007-2008",
+    "year_options": "2007,2008"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "S3",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2015-2024",
+    "year_options": "2015,2016,2017,2018,2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "S4",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2010-2024",
+    "year_options": "2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "S8",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2020-2024",
+    "year_options": "2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "TT",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2000-2006",
+    "year_options": "2000,2001,2002,2003,2004,2005,2006"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "100",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1989-1994",
+    "year_options": "1989,1990,1991,1992,1993,1994"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "A3",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1996-2003",
+    "year_options": "1996,1997,1998,1999,2000,2001,2002,2003"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "A3",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2004-2013",
+    "year_options": "2004,2005,2006,2007,2008,2009,2010,2011,2012,2013"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "A5",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2008-2017",
+    "year_options": "2008,2009,2010,2011,2012,2013,2014,2015,2016,2017"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "A8 L",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2004-2018",
+    "year_options": "2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "Allroad",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2001-2005",
+    "year_options": "2001,2002,2003,2004,2005"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "Coupe",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1981-1987",
+    "year_options": "1981,1982,1983,1984,1985,1986,1987"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "e-tron GT",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2022-2024",
+    "year_options": "2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "RS7",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2014-2024",
+    "year_options": "2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "S4",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2000-2002",
+    "year_options": "2000,2001,2002"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "S4",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2004-2009",
+    "year_options": "2004,2005,2006,2007,2008,2009"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "S5",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2008-2017",
+    "year_options": "2008,2009,2010,2011,2012,2013,2014,2015,2016,2017"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "RS3",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2017-2024",
+    "year_options": "2017,2018,2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "S8",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2020-2024",
+    "year_options": "2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "TT",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2008-2024",
+    "year_options": "2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "TT RS Quattro",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2012-2013",
+    "year_options": "2012,2013"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "TT RS",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2018-2022",
+    "year_options": "2018,2019,2020,2021,2022"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "TTS",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2009-2024",
+    "year_options": "2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "S8",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2013-2018",
+    "year_options": "2013,2014,2015,2016,2017,2018"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "TT RS",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2018-2022",
+    "year_options": "2018,2019,2020,2021,2022"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "TT",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2008-2024",
+    "year_options": "2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "S5",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2008-2017",
+    "year_options": "2008,2009,2010,2011,2012,2013,2014,2015,2016,2017"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "A6",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2012-2018",
+    "year_options": "2012,2013,2014,2015,2016,2017,2018"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "TT",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2000-2006",
+    "year_options": "2000,2001,2002,2003,2004,2005,2006"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "TTS",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2009-2024",
+    "year_options": "2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "A3",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2014-2024",
+    "year_options": "2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "RS7",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2014-2024",
+    "year_options": "2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "Cabriolet",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1994-1998",
+    "year_options": "1994,1995,1996,1997,1998"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "RS6 Avant",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2021-2024",
+    "year_options": "2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "S4",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2010-2024",
+    "year_options": "2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "S6",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2007-2018",
+    "year_options": "2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "S6",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2020-2024",
+    "year_options": "2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "A5",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2008-2017",
+    "year_options": "2008,2009,2010,2011,2012,2013,2014,2015,2016,2017"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "A6",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2012-2018",
+    "year_options": "2012,2013,2014,2015,2016,2017,2018"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "RS e-tron GT",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2022-2024",
+    "year_options": "2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "S6",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2007-2018",
+    "year_options": "2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "S6",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2007-2018",
+    "year_options": "2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "S6",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2020-2024",
+    "year_options": "2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "S6",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2020-2024",
+    "year_options": "2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "S6",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2020-2024",
+    "year_options": "2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "S7",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2013-2024",
+    "year_options": "2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "S7",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2013-2024",
+    "year_options": "2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "V8 Quattro",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1988-1994",
+    "year_options": "1988,1989,1990,1991,1992,1993,1994"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "S6",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2020-2024",
+    "year_options": "2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "A8",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1997-2015",
+    "year_options": "1997,1998,1999,2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "R8",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2008-2024",
+    "year_options": "2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "100",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1989-1994",
+    "year_options": "1989,1990,1991,1992,1993,1994"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "RS4",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2007-2008",
+    "year_options": "2007,2008"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "RS e-tron GT",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2022-2024",
+    "year_options": "2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "100",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1989-1994",
+    "year_options": "1989,1990,1991,1992,1993,1994"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "S4",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2010-2024",
+    "year_options": "2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "S6",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2007-2018",
+    "year_options": "2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "A7",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2012-2024",
+    "year_options": "2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "Coupe",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1981-1987",
+    "year_options": "1981,1982,1983,1984,1985,1986,1987"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "RS7",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2014-2024",
+    "year_options": "2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "S6",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2007-2018",
+    "year_options": "2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Audi",
+    "model": "S7",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2013-2024",
+    "year_options": "2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024"
+  }
+]

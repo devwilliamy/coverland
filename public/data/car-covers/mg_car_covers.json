@@ -1,0 +1,731 @@
+[
+  {
+    "type": "Car Covers",
+    "make": "MG",
+    "model": "1300",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1967-1970",
+    "year_options": "1967,1968,1969,1970"
+  },
+  {
+    "type": "Car Covers",
+    "make": "MG",
+    "model": "MGC",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1967-1970",
+    "year_options": "1967,1968,1969,1970"
+  },
+  {
+    "type": "Car Covers",
+    "make": "MG",
+    "model": "T-Type",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1936-1955",
+    "year_options": "1936,1937,1938,1939,1940,1941,1942,1943,1944,1945,1946,1947,1948,1949,1950,1951,1952,1953,1954,1955"
+  },
+  {
+    "type": "Car Covers",
+    "make": "MG",
+    "model": "MGC",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1967-1970",
+    "year_options": "1967,1968,1969,1970"
+  },
+  {
+    "type": "Car Covers",
+    "make": "MG",
+    "model": "MGC",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1967-1970",
+    "year_options": "1967,1968,1969,1970"
+  },
+  {
+    "type": "Car Covers",
+    "make": "MG",
+    "model": "1100",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1962-1968",
+    "year_options": "1962,1963,1964,1965,1966,1967,1968"
+  },
+  {
+    "type": "Car Covers",
+    "make": "MG",
+    "model": "1100",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1962-1968",
+    "year_options": "1962,1963,1964,1965,1966,1967,1968"
+  },
+  {
+    "type": "Car Covers",
+    "make": "MG",
+    "model": "1100",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1962-1968",
+    "year_options": "1962,1963,1964,1965,1966,1967,1968"
+  },
+  {
+    "type": "Car Covers",
+    "make": "MG",
+    "model": "1100",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1962-1968",
+    "year_options": "1962,1963,1964,1965,1966,1967,1968"
+  },
+  {
+    "type": "Car Covers",
+    "make": "MG",
+    "model": "1300",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1967-1970",
+    "year_options": "1967,1968,1969,1970"
+  },
+  {
+    "type": "Car Covers",
+    "make": "MG",
+    "model": "1300",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1967-1970",
+    "year_options": "1967,1968,1969,1970"
+  },
+  {
+    "type": "Car Covers",
+    "make": "MG",
+    "model": "1300",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1967-1970",
+    "year_options": "1967,1968,1969,1970"
+  },
+  {
+    "type": "Car Covers",
+    "make": "MG",
+    "model": "1300",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1967-1970",
+    "year_options": "1967,1968,1969,1970"
+  },
+  {
+    "type": "Car Covers",
+    "make": "MG",
+    "model": "Magnette",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1953-1958",
+    "year_options": "1953,1954,1955,1956,1957,1958"
+  },
+  {
+    "type": "Car Covers",
+    "make": "MG",
+    "model": "Magnette",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1953-1958",
+    "year_options": "1953,1954,1955,1956,1957,1958"
+  },
+  {
+    "type": "Car Covers",
+    "make": "MG",
+    "model": "Magnette",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1953-1958",
+    "year_options": "1953,1954,1955,1956,1957,1958"
+  },
+  {
+    "type": "Car Covers",
+    "make": "MG",
+    "model": "Magnette",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1953-1958",
+    "year_options": "1953,1954,1955,1956,1957,1958"
+  },
+  {
+    "type": "Car Covers",
+    "make": "MG",
+    "model": "Magnette",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1953-1958",
+    "year_options": "1953,1954,1955,1956,1957,1958"
+  },
+  {
+    "type": "Car Covers",
+    "make": "MG",
+    "model": "Magnette",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1953-1958",
+    "year_options": "1953,1954,1955,1956,1957,1958"
+  },
+  {
+    "type": "Car Covers",
+    "make": "MG",
+    "model": "Magnette",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1959-1965",
+    "year_options": "1959,1960,1961,1962,1963,1964,1965"
+  },
+  {
+    "type": "Car Covers",
+    "make": "MG",
+    "model": "Magnette",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1959-1965",
+    "year_options": "1959,1960,1961,1962,1963,1964,1965"
+  },
+  {
+    "type": "Car Covers",
+    "make": "MG",
+    "model": "MGA",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1955-1963",
+    "year_options": "1955,1956,1957,1958,1959,1960,1961,1962,1963"
+  },
+  {
+    "type": "Car Covers",
+    "make": "MG",
+    "model": "MGA",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1955-1963",
+    "year_options": "1955,1956,1957,1958,1959,1960,1961,1962,1963"
+  },
+  {
+    "type": "Car Covers",
+    "make": "MG",
+    "model": "MGA",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1955-1963",
+    "year_options": "1955,1956,1957,1958,1959,1960,1961,1962,1963"
+  },
+  {
+    "type": "Car Covers",
+    "make": "MG",
+    "model": "MGA",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1955-1963",
+    "year_options": "1955,1956,1957,1958,1959,1960,1961,1962,1963"
+  },
+  {
+    "type": "Car Covers",
+    "make": "MG",
+    "model": "MGA",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1955-1963",
+    "year_options": "1955,1956,1957,1958,1959,1960,1961,1962,1963"
+  },
+  {
+    "type": "Car Covers",
+    "make": "MG",
+    "model": "MGC",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1967-1970",
+    "year_options": "1967,1968,1969,1970"
+  },
+  {
+    "type": "Car Covers",
+    "make": "MG",
+    "model": "MGB",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1962-1981",
+    "year_options": "1962,1963,1964,1965,1966,1967,1968,1969,1970,1971,1972,1973,1974,1975,1976,1977,1978,1979,1980,1981"
+  },
+  {
+    "type": "Car Covers",
+    "make": "MG",
+    "model": "MGB",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1962-1981",
+    "year_options": "1962,1963,1964,1965,1966,1967,1968,1969,1970,1971,1972,1973,1974,1975,1976,1977,1978,1979,1980,1981"
+  },
+  {
+    "type": "Car Covers",
+    "make": "MG",
+    "model": "MGB",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1962-1981",
+    "year_options": "1962,1963,1964,1965,1966,1967,1968,1969,1970,1971,1972,1973,1974,1975,1976,1977,1978,1979,1980,1981"
+  },
+  {
+    "type": "Car Covers",
+    "make": "MG",
+    "model": "MGB",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1962-1981",
+    "year_options": "1962,1963,1964,1965,1966,1967,1968,1969,1970,1971,1972,1973,1974,1975,1976,1977,1978,1979,1980,1981"
+  },
+  {
+    "type": "Car Covers",
+    "make": "MG",
+    "model": "Midget",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1960-1979",
+    "year_options": "1960,1961,1962,1963,1964,1965,1966,1967,1968,1969,1970,1971,1972,1973,1974,1975,1976,1977,1978,1979"
+  },
+  {
+    "type": "Car Covers",
+    "make": "MG",
+    "model": "Midget",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1960-1979",
+    "year_options": "1960,1961,1962,1963,1964,1965,1966,1967,1968,1969,1970,1971,1972,1973,1974,1975,1976,1977,1978,1979"
+  },
+  {
+    "type": "Car Covers",
+    "make": "MG",
+    "model": "Midget",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1960-1979",
+    "year_options": "1960,1961,1962,1963,1964,1965,1966,1967,1968,1969,1970,1971,1972,1973,1974,1975,1976,1977,1978,1979"
+  },
+  {
+    "type": "Car Covers",
+    "make": "MG",
+    "model": "Midget",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1960-1979",
+    "year_options": "1960,1961,1962,1963,1964,1965,1966,1967,1968,1969,1970,1971,1972,1973,1974,1975,1976,1977,1978,1979"
+  },
+  {
+    "type": "Car Covers",
+    "make": "MG",
+    "model": "Midget",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1960-1979",
+    "year_options": "1960,1961,1962,1963,1964,1965,1966,1967,1968,1969,1970,1971,1972,1973,1974,1975,1976,1977,1978,1979"
+  },
+  {
+    "type": "Car Covers",
+    "make": "MG",
+    "model": "T-Type",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1936-1955",
+    "year_options": "1936,1937,1938,1939,1940,1941,1942,1943,1944,1945,1946,1947,1948,1949,1950,1951,1952,1953,1954,1955"
+  },
+  {
+    "type": "Car Covers",
+    "make": "MG",
+    "model": "T-Type",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1936-1955",
+    "year_options": "1936,1937,1938,1939,1940,1941,1942,1943,1944,1945,1946,1947,1948,1949,1950,1951,1952,1953,1954,1955"
+  },
+  {
+    "type": "Car Covers",
+    "make": "MG",
+    "model": "T-Type",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1936-1955",
+    "year_options": "1936,1937,1938,1939,1940,1941,1942,1943,1944,1945,1946,1947,1948,1949,1950,1951,1952,1953,1954,1955"
+  },
+  {
+    "type": "Car Covers",
+    "make": "MG",
+    "model": "1100",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1962-1968",
+    "year_options": "1962,1963,1964,1965,1966,1967,1968"
+  },
+  {
+    "type": "Car Covers",
+    "make": "MG",
+    "model": "1100",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1962-1968",
+    "year_options": "1962,1963,1964,1965,1966,1967,1968"
+  },
+  {
+    "type": "Car Covers",
+    "make": "MG",
+    "model": "1300",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1967-1970",
+    "year_options": "1967,1968,1969,1970"
+  },
+  {
+    "type": "Car Covers",
+    "make": "MG",
+    "model": "Magnette",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1959-1965",
+    "year_options": "1959,1960,1961,1962,1963,1964,1965"
+  },
+  {
+    "type": "Car Covers",
+    "make": "MG",
+    "model": "Magnette",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1959-1965",
+    "year_options": "1959,1960,1961,1962,1963,1964,1965"
+  },
+  {
+    "type": "Car Covers",
+    "make": "MG",
+    "model": "MGA",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1955-1963",
+    "year_options": "1955,1956,1957,1958,1959,1960,1961,1962,1963"
+  },
+  {
+    "type": "Car Covers",
+    "make": "MG",
+    "model": "MGA",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1955-1963",
+    "year_options": "1955,1956,1957,1958,1959,1960,1961,1962,1963"
+  },
+  {
+    "type": "Car Covers",
+    "make": "MG",
+    "model": "MGC",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1967-1970",
+    "year_options": "1967,1968,1969,1970"
+  },
+  {
+    "type": "Car Covers",
+    "make": "MG",
+    "model": "MGC",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1967-1970",
+    "year_options": "1967,1968,1969,1970"
+  },
+  {
+    "type": "Car Covers",
+    "make": "MG",
+    "model": "MGB",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1962-1981",
+    "year_options": "1962,1963,1964,1965,1966,1967,1968,1969,1970,1971,1972,1973,1974,1975,1976,1977,1978,1979,1980,1981"
+  },
+  {
+    "type": "Car Covers",
+    "make": "MG",
+    "model": "T-Type",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1936-1955",
+    "year_options": "1936,1937,1938,1939,1940,1941,1942,1943,1944,1945,1946,1947,1948,1949,1950,1951,1952,1953,1954,1955"
+  },
+  {
+    "type": "Car Covers",
+    "make": "MG",
+    "model": "T-Type",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1936-1955",
+    "year_options": "1936,1937,1938,1939,1940,1941,1942,1943,1944,1945,1946,1947,1948,1949,1950,1951,1952,1953,1954,1955"
+  },
+  {
+    "type": "Car Covers",
+    "make": "MG",
+    "model": "MGC",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1967-1970",
+    "year_options": "1967,1968,1969,1970"
+  },
+  {
+    "type": "Car Covers",
+    "make": "MG",
+    "model": "1100",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1962-1968",
+    "year_options": "1962,1963,1964,1965,1966,1967,1968"
+  },
+  {
+    "type": "Car Covers",
+    "make": "MG",
+    "model": "Magnette",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1953-1958",
+    "year_options": "1953,1954,1955,1956,1957,1958"
+  },
+  {
+    "type": "Car Covers",
+    "make": "MG",
+    "model": "T-Type",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1936-1955",
+    "year_options": "1936,1937,1938,1939,1940,1941,1942,1943,1944,1945,1946,1947,1948,1949,1950,1951,1952,1953,1954,1955"
+  },
+  {
+    "type": "Car Covers",
+    "make": "MG",
+    "model": "Magnette",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1959-1965",
+    "year_options": "1959,1960,1961,1962,1963,1964,1965"
+  },
+  {
+    "type": "Car Covers",
+    "make": "MG",
+    "model": "T-Type",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1936-1955",
+    "year_options": "1936,1937,1938,1939,1940,1941,1942,1943,1944,1945,1946,1947,1948,1949,1950,1951,1952,1953,1954,1955"
+  },
+  {
+    "type": "Car Covers",
+    "make": "MG",
+    "model": "1100",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1962-1968",
+    "year_options": "1962,1963,1964,1965,1966,1967,1968"
+  },
+  {
+    "type": "Car Covers",
+    "make": "MG",
+    "model": "MGB",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1962-1981",
+    "year_options": "1962,1963,1964,1965,1966,1967,1968,1969,1970,1971,1972,1973,1974,1975,1976,1977,1978,1979,1980,1981"
+  },
+  {
+    "type": "Car Covers",
+    "make": "MG",
+    "model": "Midget",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1960-1979",
+    "year_options": "1960,1961,1962,1963,1964,1965,1966,1967,1968,1969,1970,1971,1972,1973,1974,1975,1976,1977,1978,1979"
+  },
+  {
+    "type": "Car Covers",
+    "make": "MG",
+    "model": "MGB",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1962-1981",
+    "year_options": "1962,1963,1964,1965,1966,1967,1968,1969,1970,1971,1972,1973,1974,1975,1976,1977,1978,1979,1980,1981"
+  },
+  {
+    "type": "Car Covers",
+    "make": "MG",
+    "model": "1300",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1967-1970",
+    "year_options": "1967,1968,1969,1970"
+  },
+  {
+    "type": "Car Covers",
+    "make": "MG",
+    "model": "Magnette",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1959-1965",
+    "year_options": "1959,1960,1961,1962,1963,1964,1965"
+  },
+  {
+    "type": "Car Covers",
+    "make": "MG",
+    "model": "Magnette",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1959-1965",
+    "year_options": "1959,1960,1961,1962,1963,1964,1965"
+  },
+  {
+    "type": "Car Covers",
+    "make": "MG",
+    "model": "MGC",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1967-1970",
+    "year_options": "1967,1968,1969,1970"
+  },
+  {
+    "type": "Car Covers",
+    "make": "MG",
+    "model": "MGC",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1967-1970",
+    "year_options": "1967,1968,1969,1970"
+  },
+  {
+    "type": "Car Covers",
+    "make": "MG",
+    "model": "Magnette",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1953-1958",
+    "year_options": "1953,1954,1955,1956,1957,1958"
+  },
+  {
+    "type": "Car Covers",
+    "make": "MG",
+    "model": "Midget",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1960-1979",
+    "year_options": "1960,1961,1962,1963,1964,1965,1966,1967,1968,1969,1970,1971,1972,1973,1974,1975,1976,1977,1978,1979"
+  },
+  {
+    "type": "Car Covers",
+    "make": "MG",
+    "model": "MGA",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1955-1963",
+    "year_options": "1955,1956,1957,1958,1959,1960,1961,1962,1963"
+  },
+  {
+    "type": "Car Covers",
+    "make": "MG",
+    "model": "1300",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1967-1970",
+    "year_options": "1967,1968,1969,1970"
+  },
+  {
+    "type": "Car Covers",
+    "make": "MG",
+    "model": "Magnette",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1959-1965",
+    "year_options": "1959,1960,1961,1962,1963,1964,1965"
+  },
+  {
+    "type": "Car Covers",
+    "make": "MG",
+    "model": "MGB",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1962-1981",
+    "year_options": "1962,1963,1964,1965,1966,1967,1968,1969,1970,1971,1972,1973,1974,1975,1976,1977,1978,1979,1980,1981"
+  },
+  {
+    "type": "Car Covers",
+    "make": "MG",
+    "model": "MGA",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1955-1963",
+    "year_options": "1955,1956,1957,1958,1959,1960,1961,1962,1963"
+  },
+  {
+    "type": "Car Covers",
+    "make": "MG",
+    "model": "Magnette",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1959-1965",
+    "year_options": "1959,1960,1961,1962,1963,1964,1965"
+  },
+  {
+    "type": "Car Covers",
+    "make": "MG",
+    "model": "1300",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1967-1970",
+    "year_options": "1967,1968,1969,1970"
+  },
+  {
+    "type": "Car Covers",
+    "make": "MG",
+    "model": "MGB",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1962-1981",
+    "year_options": "1962,1963,1964,1965,1966,1967,1968,1969,1970,1971,1972,1973,1974,1975,1976,1977,1978,1979,1980,1981"
+  },
+  {
+    "type": "Car Covers",
+    "make": "MG",
+    "model": "T-Type",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1936-1955",
+    "year_options": "1936,1937,1938,1939,1940,1941,1942,1943,1944,1945,1946,1947,1948,1949,1950,1951,1952,1953,1954,1955"
+  },
+  {
+    "type": "Car Covers",
+    "make": "MG",
+    "model": "1100",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1962-1968",
+    "year_options": "1962,1963,1964,1965,1966,1967,1968"
+  },
+  {
+    "type": "Car Covers",
+    "make": "MG",
+    "model": "Midget",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1960-1979",
+    "year_options": "1960,1961,1962,1963,1964,1965,1966,1967,1968,1969,1970,1971,1972,1973,1974,1975,1976,1977,1978,1979"
+  },
+  {
+    "type": "Car Covers",
+    "make": "MG",
+    "model": "Magnette",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1953-1958",
+    "year_options": "1953,1954,1955,1956,1957,1958"
+  },
+  {
+    "type": "Car Covers",
+    "make": "MG",
+    "model": "Midget",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1960-1979",
+    "year_options": "1960,1961,1962,1963,1964,1965,1966,1967,1968,1969,1970,1971,1972,1973,1974,1975,1976,1977,1978,1979"
+  }
+]

@@ -20,9 +20,12 @@ export default function SuggestedProducts() {
   );
 
   return (
-    <section id="you-may-also-like-section" className="px-4 pb-[20px]">
-      <h1 className="font-[700] uppercase lg:text-[32px] lg:font-[900]">
-        you may also like{' '}
+    <section
+      id="you-may-also-like-section"
+      className="mt-[60px] px-4 pb-[20px]"
+    >
+      <h1 className="font-[900] uppercase lg:text-[32px] lg:font-[900]">
+        you may also like
       </h1>
       <span className=" no-scrollbar flex gap-2 overflow-x-auto pb-[30px]">
         {products.map((model) => (

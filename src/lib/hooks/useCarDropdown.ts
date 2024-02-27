@@ -3,7 +3,7 @@
 import { useCallback, useMemo, useReducer } from 'react';
 import { compareRawStrings, slugify } from '@/lib/utils';
 import { ReadonlyURLSearchParams } from 'next/navigation';
-import { TCarCoverData } from '@/app/(main)/[productType]/components/CarPDP';
+import { IProductData } from '@/app/(main)/utils';
 
 export type CarSelectorAction =
   | { type: 'SET_YEAR'; payload: string | null }
@@ -28,7 +28,7 @@ export type TCarDataJson = {
 };
 
 const useCarDropdown = (
-  modelData: TCarCoverData[],
+  modelData: IProductData[],
   pathname: string | null,
   searchParams: ReadonlyURLSearchParams | null
 ) => {

@@ -22,7 +22,7 @@ export default function LinkBreadcrumbs() {
                 href={getUrlFromBreadcrumbs(index)}
                 className={`hover:underline ${params[key].length < 4 ? 'uppercase' : 'capitalize'} `}
               >
-                {/* Replacing all  */}
+                {/* Replacing hyphens with spaces (except for year) */}
                 {params[key] && key === 'year'
                   ? params[key]
                   : String(params[key]).replaceAll('-', ' ')}

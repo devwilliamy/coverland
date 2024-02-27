@@ -1,6 +1,5 @@
 import { TReviewData, getProductData } from '@/lib/db';
 import { redirect } from 'next/navigation';
-import { Suspense } from 'react';
 import CarPDP from '@/app/(main)/[productType]/components/CarPDP';
 import {
   TProductReviewSummary,
@@ -11,8 +10,27 @@ import {
 } from '@/lib/db/review';
 import { TPathParams } from '@/app/(main)/utils';
 
+//TODO: Refactor code so we can generate our dynamic paths as static HTML for performance
+
+// export async function generateStaticParams({
+//   params: { productType, coverType, make },
+// }: {
+//   params: { productType: string; coverType: string; make: string };
+// }) {
+//   const modelData = await getAllModels({
+//     type: productType,
+//     cover: coverType,
+//     make: make,
+//   });
+
+//   return modelData.filter(Boolean).map((model) => ({
+//     model: model,
+//   }));
+// }
+
 export default async function CarPDPDataLayer({
   params,
+  searchParams,
 }: {
   params: TPathParams;
   searchParams: { submodel?: string; second_submodel?: string };
@@ -71,15 +89,14 @@ export default async function CarPDPDataLayer({
 
   return (
     <>
-      <Suspense fallback={<div>Loading...</div>}>
-        <CarPDP
-          modelData={modelData}
-          reviewData={reviewData}
-          params={params}
-          reviewDataSummary={reviewDataSummary}
-          reviewImages={reviewImages}
-        />
-      </Suspense>
+      <CarPDP
+        modelData={modelData}
+        reviewData={reviewData}
+        params={params}
+        reviewDataSummary={reviewDataSummary}
+        reviewImages={reviewImages}
+        searchParams={searchParams}
+      />
     </>
   );
 }

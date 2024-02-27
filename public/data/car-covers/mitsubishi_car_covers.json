@@ -1,0 +1,1136 @@
+[
+  {
+    "type": "Car Covers",
+    "make": "Mitsubishi",
+    "model": "Mirage",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2014-2024",
+    "year_options": "2014,2015,2016,2017,2018,2019,2020,2021,2022"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Mitsubishi",
+    "model": "Eclipse",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2006-2012",
+    "year_options": "2006,2007,2008,2009,2010,2011,2012"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Mitsubishi",
+    "model": "Galant",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1989-2003",
+    "year_options": "1989,1990,1991,1992,1993,1994,1995,1996,1997,1998,1999,2000,2001,2002,2003"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Mitsubishi",
+    "model": "Galant",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1989-2003",
+    "year_options": "1989,1990,1991,1992,1993,1994,1995,1996,1997,1998,1999,2000,2001,2002,2003"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Mitsubishi",
+    "model": "3000GT",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1991-1999",
+    "year_options": "1991,1992,1993,1994,1995,1996,1997,1998,1999"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Mitsubishi",
+    "model": "3000GT",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1991-1999",
+    "year_options": "1991,1992,1993,1994,1995,1996,1997,1998,1999"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Mitsubishi",
+    "model": "Eclipse",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1995-2005",
+    "year_options": "1995,1996,1997,1998,1999,2000,2001,2002,2003,2004,2005"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Mitsubishi",
+    "model": "3000GT",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1991-1999",
+    "year_options": "1991,1992,1993,1994,1995,1996,1997,1998,1999"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Mitsubishi",
+    "model": "Diamante",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1991-2002",
+    "year_options": "1991,1992,1993,1994,1995,1996,1997,1998,1999,2000,2001,2002"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Mitsubishi",
+    "model": "Diamante",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1991-2002",
+    "year_options": "1991,1992,1993,1994,1995,1996,1997,1998,1999,2000,2001,2002"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Mitsubishi",
+    "model": "Diamante",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1991-2002",
+    "year_options": "1991,1992,1993,1994,1995,1996,1997,1998,1999,2000,2001,2002"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Mitsubishi",
+    "model": "Diamante",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1991-2002",
+    "year_options": "1991,1992,1993,1994,1995,1996,1997,1998,1999,2000,2001,2002"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Mitsubishi",
+    "model": "Diamante",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1991-2002",
+    "year_options": "1991,1992,1993,1994,1995,1996,1997,1998,1999,2000,2001,2002"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Mitsubishi",
+    "model": "Diamante",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1991-2002",
+    "year_options": "1991,1992,1993,1994,1995,1996,1997,1998,1999,2000,2001,2002"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Mitsubishi",
+    "model": "Eclipse",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1990-1994",
+    "year_options": "1990,1991,1992,1993,1994"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Mitsubishi",
+    "model": "3000GT",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1991-1999",
+    "year_options": "1991,1992,1993,1994,1995,1996,1997,1998,1999"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Mitsubishi",
+    "model": "Eclipse",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1990-1994",
+    "year_options": "1990,1991,1992,1993,1994"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Mitsubishi",
+    "model": "Eclipse",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1990-1994",
+    "year_options": "1990,1991,1992,1993,1994"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Mitsubishi",
+    "model": "Eclipse",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1990-1994",
+    "year_options": "1990,1991,1992,1993,1994"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Mitsubishi",
+    "model": "Eclipse",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1995-2005",
+    "year_options": "1995,1996,1997,1998,1999,2000,2001,2002,2003,2004,2005"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Mitsubishi",
+    "model": "Eclipse",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1995-2005",
+    "year_options": "1995,1996,1997,1998,1999,2000,2001,2002,2003,2004,2005"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Mitsubishi",
+    "model": "Eclipse",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1995-2005",
+    "year_options": "1995,1996,1997,1998,1999,2000,2001,2002,2003,2004,2005"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Mitsubishi",
+    "model": "Eclipse",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2006-2012",
+    "year_options": "2006,2007,2008,2009,2010,2011,2012"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Mitsubishi",
+    "model": "Eclipse",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2006-2012",
+    "year_options": "2006,2007,2008,2009,2010,2011,2012"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Mitsubishi",
+    "model": "Eclipse",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2006-2012",
+    "year_options": "2006,2007,2008,2009,2010,2011,2012"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Mitsubishi",
+    "model": "Eclipse",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2006-2012",
+    "year_options": "2006,2007,2008,2009,2010,2011,2012"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Mitsubishi",
+    "model": "Galant",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2004-2012",
+    "year_options": "2004,2005,2006,2007,2008,2009,2010,2011,2012"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Mitsubishi",
+    "model": "Galant",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1989-2003",
+    "year_options": "1989,1990,1991,1992,1993,1994,1995,1996,1997,1998,1999,2000,2001,2002,2003"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Mitsubishi",
+    "model": "Galant",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1989-2003",
+    "year_options": "1989,1990,1991,1992,1993,1994,1995,1996,1997,1998,1999,2000,2001,2002,2003"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Mitsubishi",
+    "model": "Galant",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1989-2003",
+    "year_options": "1989,1990,1991,1992,1993,1994,1995,1996,1997,1998,1999,2000,2001,2002,2003"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Mitsubishi",
+    "model": "Galant",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1989-2003",
+    "year_options": "1989,1990,1991,1992,1993,1994,1995,1996,1997,1998,1999,2000,2001,2002,2003"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Mitsubishi",
+    "model": "Galant",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2004-2012",
+    "year_options": "2004,2005,2006,2007,2008,2009,2010,2011,2012"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Mitsubishi",
+    "model": "Galant",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2004-2012",
+    "year_options": "2004,2005,2006,2007,2008,2009,2010,2011,2012"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Mitsubishi",
+    "model": "Galant",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2004-2012",
+    "year_options": "2004,2005,2006,2007,2008,2009,2010,2011,2012"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Mitsubishi",
+    "model": "Galant",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2004-2012",
+    "year_options": "2004,2005,2006,2007,2008,2009,2010,2011,2012"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Mitsubishi",
+    "model": "i-MiEV",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2012-2017",
+    "year_options": "2012,2013,2014,2015,2016,2017"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Mitsubishi",
+    "model": "i-MiEV",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2012-2017",
+    "year_options": "2012,2013,2014,2015,2016,2017"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Mitsubishi",
+    "model": "i-MiEV",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2012-2017",
+    "year_options": "2012,2013,2014,2015,2016,2017"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Mitsubishi",
+    "model": "i-MiEV",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2012-2017",
+    "year_options": "2012,2013,2014,2015,2016,2017"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Mitsubishi",
+    "model": "Lancer",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2001-2017",
+    "year_options": "2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Mitsubishi",
+    "model": "Lancer",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2001-2017",
+    "year_options": "2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Mitsubishi",
+    "model": "Lancer",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2001-2017",
+    "year_options": "2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Mitsubishi",
+    "model": "Lancer",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2001-2017",
+    "year_options": "2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Mitsubishi",
+    "model": "Lancer Ralliart & Evolution",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2008-2017",
+    "year_options": "2008,2009,2010,2011,2012,2013,2014,2015,2016,2017"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Mitsubishi",
+    "model": "Lancer Ralliart & Evolution",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2008-2017",
+    "year_options": "2008,2009,2010,2011,2012,2013,2014,2015,2016,2017"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Mitsubishi",
+    "model": "Lancer Ralliart & Evolution",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2008-2017",
+    "year_options": "2008,2009,2010,2011,2012,2013,2014,2015,2016,2017"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Mitsubishi",
+    "model": "Mirage",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1991-2002",
+    "year_options": "1991,1992,1993,1994,1995,1996,1997,1998,1999,2000,2001,2002"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Mitsubishi",
+    "model": "Starion",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1982-1989",
+    "year_options": "1982,1983,1984,1985,1986,1987,1988,1989"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Mitsubishi",
+    "model": "Mirage",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1991-2002",
+    "year_options": "1991,1992,1993,1994,1995,1996,1997,1998,1999,2000,2001,2002"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Mitsubishi",
+    "model": "Mirage",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1991-2002",
+    "year_options": "1991,1992,1993,1994,1995,1996,1997,1998,1999,2000,2001,2002"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Mitsubishi",
+    "model": "Mirage",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1991-2002",
+    "year_options": "1991,1992,1993,1994,1995,1996,1997,1998,1999,2000,2001,2002"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Mitsubishi",
+    "model": "Mirage",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2014-2024",
+    "year_options": "2014,2015,2016,2017,2018,2019,2020,2021,2022"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Mitsubishi",
+    "model": "Mirage",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2014-2024",
+    "year_options": "2014,2015,2016,2017,2018,2019,2020,2021,2022"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Mitsubishi",
+    "model": "Mirage",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2014-2024",
+    "year_options": "2014,2015,2016,2017,2018,2019,2020,2021,2022"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Mitsubishi",
+    "model": "Mirage",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2014-2024",
+    "year_options": "2014,2015,2016,2017,2018,2019,2020,2021,2022"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Mitsubishi",
+    "model": "Mirage",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2014-2024",
+    "year_options": "2014,2015,2016,2017,2018,2019,2020,2021,2022"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Mitsubishi",
+    "model": "Mirage G4",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2017-2024",
+    "year_options": "2017,2018,2019,2020,2021,2022"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Mitsubishi",
+    "model": "Mirage G4",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2017-2024",
+    "year_options": "2017,2018,2019,2020,2021,2022"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Mitsubishi",
+    "model": "Mirage G4",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2017-2024",
+    "year_options": "2017,2018,2019,2020,2021,2022"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Mitsubishi",
+    "model": "Starion",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1982-1989",
+    "year_options": "1982,1983,1984,1985,1986,1987,1988,1989"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Mitsubishi",
+    "model": "Starion",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1982-1989",
+    "year_options": "1982,1983,1984,1985,1986,1987,1988,1989"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Mitsubishi",
+    "model": "Starion",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1982-1989",
+    "year_options": "1982,1983,1984,1985,1986,1987,1988,1989"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Mitsubishi",
+    "model": "Starion",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1982-1989",
+    "year_options": "1982,1983,1984,1985,1986,1987,1988,1989"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Mitsubishi",
+    "model": "Lancer Ralliart & Evolution",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2008-2017",
+    "year_options": "2008,2009,2010,2011,2012,2013,2014,2015,2016,2017"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Mitsubishi",
+    "model": "Galant",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1989-2003",
+    "year_options": "1989,1990,1991,1992,1993,1994,1995,1996,1997,1998,1999,2000,2001,2002,2003"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Mitsubishi",
+    "model": "3000GT",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1991-1999",
+    "year_options": "1991,1992,1993,1994,1995,1996,1997,1998,1999"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Mitsubishi",
+    "model": "Diamante",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1991-2002",
+    "year_options": "1991,1992,1993,1994,1995,1996,1997,1998,1999,2000,2001,2002"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Mitsubishi",
+    "model": "Eclipse",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1990-1994",
+    "year_options": "1990,1991,1992,1993,1994"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Mitsubishi",
+    "model": "Eclipse",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1995-2005",
+    "year_options": "1995,1996,1997,1998,1999,2000,2001,2002,2003,2004,2005"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Mitsubishi",
+    "model": "Eclipse",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1995-2005",
+    "year_options": "1995,1996,1997,1998,1999,2000,2001,2002,2003,2004,2005"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Mitsubishi",
+    "model": "Eclipse",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2006-2012",
+    "year_options": "2006,2007,2008,2009,2010,2011,2012"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Mitsubishi",
+    "model": "3000GT",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1991-1999",
+    "year_options": "1991,1992,1993,1994,1995,1996,1997,1998,1999"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Mitsubishi",
+    "model": "Diamante",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1991-2002",
+    "year_options": "1991,1992,1993,1994,1995,1996,1997,1998,1999,2000,2001,2002"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Mitsubishi",
+    "model": "Eclipse",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1990-1994",
+    "year_options": "1990,1991,1992,1993,1994"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Mitsubishi",
+    "model": "Starion",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1982-1989",
+    "year_options": "1982,1983,1984,1985,1986,1987,1988,1989"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Mitsubishi",
+    "model": "Lancer",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2001-2017",
+    "year_options": "2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Mitsubishi",
+    "model": "Mirage",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1991-2002",
+    "year_options": "1991,1992,1993,1994,1995,1996,1997,1998,1999,2000,2001,2002"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Mitsubishi",
+    "model": "Mirage",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2014-2024",
+    "year_options": "2014,2015,2016,2017,2018,2019,2020,2021,2022"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Mitsubishi",
+    "model": "Galant",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1989-2003",
+    "year_options": "1989,1990,1991,1992,1993,1994,1995,1996,1997,1998,1999,2000,2001,2002,2003"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Mitsubishi",
+    "model": "Galant",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2004-2012",
+    "year_options": "2004,2005,2006,2007,2008,2009,2010,2011,2012"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Mitsubishi",
+    "model": "Eclipse",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2006-2012",
+    "year_options": "2006,2007,2008,2009,2010,2011,2012"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Mitsubishi",
+    "model": "Galant",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1989-2003",
+    "year_options": "1989,1990,1991,1992,1993,1994,1995,1996,1997,1998,1999,2000,2001,2002,2003"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Mitsubishi",
+    "model": "i-MiEV",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2012-2017",
+    "year_options": "2012,2013,2014,2015,2016,2017"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Mitsubishi",
+    "model": "i-MiEV",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2012-2017",
+    "year_options": "2012,2013,2014,2015,2016,2017"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Mitsubishi",
+    "model": "Lancer",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2001-2017",
+    "year_options": "2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Mitsubishi",
+    "model": "Lancer",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2001-2017",
+    "year_options": "2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Mitsubishi",
+    "model": "3000GT",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1991-1999",
+    "year_options": "1991,1992,1993,1994,1995,1996,1997,1998,1999"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Mitsubishi",
+    "model": "Starion",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1982-1989",
+    "year_options": "1982,1983,1984,1985,1986,1987,1988,1989"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Mitsubishi",
+    "model": "Eclipse",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1995-2005",
+    "year_options": "1995,1996,1997,1998,1999,2000,2001,2002,2003,2004,2005"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Mitsubishi",
+    "model": "Eclipse",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2006-2012",
+    "year_options": "2006,2007,2008,2009,2010,2011,2012"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Mitsubishi",
+    "model": "Starion",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1982-1989",
+    "year_options": "1982,1983,1984,1985,1986,1987,1988,1989"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Mitsubishi",
+    "model": "Galant",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2004-2012",
+    "year_options": "2004,2005,2006,2007,2008,2009,2010,2011,2012"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Mitsubishi",
+    "model": "Lancer",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2001-2017",
+    "year_options": "2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Mitsubishi",
+    "model": "Mirage G4",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2017-2024",
+    "year_options": "2017,2018,2019,2020,2021,2022"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Mitsubishi",
+    "model": "Eclipse",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1990-1994",
+    "year_options": "1990,1991,1992,1993,1994"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Mitsubishi",
+    "model": "Lancer Ralliart & Evolution",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2008-2017",
+    "year_options": "2008,2009,2010,2011,2012,2013,2014,2015,2016,2017"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Mitsubishi",
+    "model": "Lancer Ralliart & Evolution",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2008-2017",
+    "year_options": "2008,2009,2010,2011,2012,2013,2014,2015,2016,2017"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Mitsubishi",
+    "model": "Mirage",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1991-2002",
+    "year_options": "1991,1992,1993,1994,1995,1996,1997,1998,1999,2000,2001,2002"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Mitsubishi",
+    "model": "Galant",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2004-2012",
+    "year_options": "2004,2005,2006,2007,2008,2009,2010,2011,2012"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Mitsubishi",
+    "model": "Mirage",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2014-2024",
+    "year_options": "2014,2015,2016,2017,2018,2019,2020,2021,2022"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Mitsubishi",
+    "model": "Mirage G4",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2017-2024",
+    "year_options": "2017,2018,2019,2020,2021,2022"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Mitsubishi",
+    "model": "Mirage G4",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2017-2024",
+    "year_options": "2017,2018,2019,2020,2021,2022"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Mitsubishi",
+    "model": "i-MiEV",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2012-2017",
+    "year_options": "2012,2013,2014,2015,2016,2017"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Mitsubishi",
+    "model": "Eclipse",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1990-1994",
+    "year_options": "1990,1991,1992,1993,1994"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Mitsubishi",
+    "model": "Galant",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2004-2012",
+    "year_options": "2004,2005,2006,2007,2008,2009,2010,2011,2012"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Mitsubishi",
+    "model": "3000GT",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1991-1999",
+    "year_options": "1991,1992,1993,1994,1995,1996,1997,1998,1999"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Mitsubishi",
+    "model": "Eclipse",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1990-1994",
+    "year_options": "1990,1991,1992,1993,1994"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Mitsubishi",
+    "model": "Eclipse",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1995-2005",
+    "year_options": "1995,1996,1997,1998,1999,2000,2001,2002,2003,2004,2005"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Mitsubishi",
+    "model": "Lancer",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2001-2017",
+    "year_options": "2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Mitsubishi",
+    "model": "Mirage",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1991-2002",
+    "year_options": "1991,1992,1993,1994,1995,1996,1997,1998,1999,2000,2001,2002"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Mitsubishi",
+    "model": "Mirage G4",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2017-2024",
+    "year_options": "2017,2018,2019,2020,2021,2022"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Mitsubishi",
+    "model": "Starion",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1982-1989",
+    "year_options": "1982,1983,1984,1985,1986,1987,1988,1989"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Mitsubishi",
+    "model": "i-MiEV",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2012-2017",
+    "year_options": "2012,2013,2014,2015,2016,2017"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Mitsubishi",
+    "model": "Eclipse",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1995-2005",
+    "year_options": "1995,1996,1997,1998,1999,2000,2001,2002,2003,2004,2005"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Mitsubishi",
+    "model": "i-MiEV",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2012-2017",
+    "year_options": "2012,2013,2014,2015,2016,2017"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Mitsubishi",
+    "model": "Mirage G4",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2017-2024",
+    "year_options": "2017,2018,2019,2020,2021,2022"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Mitsubishi",
+    "model": "3000GT",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1991-1999",
+    "year_options": "1991,1992,1993,1994,1995,1996,1997,1998,1999"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Mitsubishi",
+    "model": "Mirage",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1991-2002",
+    "year_options": "1991,1992,1993,1994,1995,1996,1997,1998,1999,2000,2001,2002"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Mitsubishi",
+    "model": "Lancer Ralliart & Evolution",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2008-2017",
+    "year_options": "2008,2009,2010,2011,2012,2013,2014,2015,2016,2017"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Mitsubishi",
+    "model": "Mirage",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1991-2002",
+    "year_options": "1991,1992,1993,1994,1995,1996,1997,1998,1999,2000,2001,2002"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Mitsubishi",
+    "model": "Lancer Ralliart & Evolution",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2008-2017",
+    "year_options": "2008,2009,2010,2011,2012,2013,2014,2015,2016,2017"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Mitsubishi",
+    "model": "Lancer Ralliart & Evolution",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2008-2017",
+    "year_options": "2008,2009,2010,2011,2012,2013,2014,2015,2016,2017"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Mitsubishi",
+    "model": "Mirage G4",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2017-2024",
+    "year_options": "2017,2018,2019,2020,2021,2022"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Mitsubishi",
+    "model": "Diamante",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1991-2002",
+    "year_options": "1991,1992,1993,1994,1995,1996,1997,1998,1999,2000,2001,2002"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Mitsubishi",
+    "model": "Mirage",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2014-2024",
+    "year_options": "2014,2015,2016,2017,2018,2019,2020,2021,2022"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Mitsubishi",
+    "model": "Eclipse",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2006-2012",
+    "year_options": "2006,2007,2008,2009,2010,2011,2012"
+  }
+]

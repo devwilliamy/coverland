@@ -1,0 +1,1541 @@
+[
+  {
+    "type": "Car Covers",
+    "make": "Fiat",
+    "model": "124",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2017-2020",
+    "year_options": "2017,2018,2019,2020"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Fiat",
+    "model": "1200",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1955-1967",
+    "year_options": "1955,1956,1957,1958,1959,1960,1961,1962,1963,1964,1965,1966,1967"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Fiat",
+    "model": "124",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2017-2020",
+    "year_options": "2017,2018,2019,2020"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Fiat",
+    "model": "500",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2012-2019",
+    "year_options": "2012,2013,2014,2015,2016,2017,2018,2019"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Fiat",
+    "model": "1100",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1953-1967",
+    "year_options": "1953,1954,1955,1956,1957,1958,1959,1960,1961,1962,1963,1964,1965,1966,1967"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Fiat",
+    "model": "1100",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1953-1967",
+    "year_options": "1953,1954,1955,1956,1957,1958,1959,1960,1961,1962,1963,1964,1965,1966,1967"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Fiat",
+    "model": "1100",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1953-1967",
+    "year_options": "1953,1954,1955,1956,1957,1958,1959,1960,1961,1962,1963,1964,1965,1966,1967"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Fiat",
+    "model": "1100",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1953-1967",
+    "year_options": "1953,1954,1955,1956,1957,1958,1959,1960,1961,1962,1963,1964,1965,1966,1967"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Fiat",
+    "model": "1100",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1953-1967",
+    "year_options": "1953,1954,1955,1956,1957,1958,1959,1960,1961,1962,1963,1964,1965,1966,1967"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Fiat",
+    "model": "1100",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1953-1967",
+    "year_options": "1953,1954,1955,1956,1957,1958,1959,1960,1961,1962,1963,1964,1965,1966,1967"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Fiat",
+    "model": "1200",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1955-1967",
+    "year_options": "1955,1956,1957,1958,1959,1960,1961,1962,1963,1964,1965,1966,1967"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Fiat",
+    "model": "1200",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1955-1967",
+    "year_options": "1955,1956,1957,1958,1959,1960,1961,1962,1963,1964,1965,1966,1967"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Fiat",
+    "model": "1200",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1955-1967",
+    "year_options": "1955,1956,1957,1958,1959,1960,1961,1962,1963,1964,1965,1966,1967"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Fiat",
+    "model": "1200",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1955-1967",
+    "year_options": "1955,1956,1957,1958,1959,1960,1961,1962,1963,1964,1965,1966,1967"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Fiat",
+    "model": "124",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2017-2020",
+    "year_options": "2017,2018,2019,2020"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Fiat",
+    "model": "124",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2017-2020",
+    "year_options": "2017,2018,2019,2020"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Fiat",
+    "model": "124",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2017-2020",
+    "year_options": "2017,2018,2019,2020"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Fiat",
+    "model": "124",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2017-2020",
+    "year_options": "2017,2018,2019,2020"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Fiat",
+    "model": "1400",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1950-1958",
+    "year_options": "1950,1951,1952,1953,1954,1955,1956,1957,1958"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Fiat",
+    "model": "1400",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1950-1958",
+    "year_options": "1950,1951,1952,1953,1954,1955,1956,1957,1958"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Fiat",
+    "model": "1400",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1950-1958",
+    "year_options": "1950,1951,1952,1953,1954,1955,1956,1957,1958"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Fiat",
+    "model": "1900",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1952-1958",
+    "year_options": "1952,1953,1954,1955,1956,1957,1958"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Fiat",
+    "model": "1900",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1952-1958",
+    "year_options": "1952,1953,1954,1955,1956,1957,1958"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Fiat",
+    "model": "1900",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1952-1958",
+    "year_options": "1952,1953,1954,1955,1956,1957,1958"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Fiat",
+    "model": "1900",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1952-1958",
+    "year_options": "1952,1953,1954,1955,1956,1957,1958"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Fiat",
+    "model": "1900",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1952-1958",
+    "year_options": "1952,1953,1954,1955,1956,1957,1958"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Fiat",
+    "model": "1600",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1955-1967",
+    "year_options": "1955,1956,1957,1958,1959,1960,1961,1962,1963,1964,1965,1966,1967"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Fiat",
+    "model": "1400",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1950-1958",
+    "year_options": "1950,1951,1952,1953,1954,1955,1956,1957,1958"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Fiat",
+    "model": "1400",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1950-1958",
+    "year_options": "1950,1951,1952,1953,1954,1955,1956,1957,1958"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Fiat",
+    "model": "1600",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1955-1967",
+    "year_options": "1955,1956,1957,1958,1959,1960,1961,1962,1963,1964,1965,1966,1967"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Fiat",
+    "model": "1500",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1959-1968",
+    "year_options": "1959,1960,1961,1962,1963,1964,1965,1966,1967,1968"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Fiat",
+    "model": "1500",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1959-1968",
+    "year_options": "1959,1960,1961,1962,1963,1964,1965,1966,1967,1968"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Fiat",
+    "model": "1500",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1959-1968",
+    "year_options": "1959,1960,1961,1962,1963,1964,1965,1966,1967,1968"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Fiat",
+    "model": "1500",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1959-1968",
+    "year_options": "1959,1960,1961,1962,1963,1964,1965,1966,1967,1968"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Fiat",
+    "model": "1500",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1959-1968",
+    "year_options": "1959,1960,1961,1962,1963,1964,1965,1966,1967,1968"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Fiat",
+    "model": "1600",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1955-1967",
+    "year_options": "1955,1956,1957,1958,1959,1960,1961,1962,1963,1964,1965,1966,1967"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Fiat",
+    "model": "1600",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1955-1967",
+    "year_options": "1955,1956,1957,1958,1959,1960,1961,1962,1963,1964,1965,1966,1967"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Fiat",
+    "model": "500",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2012-2019",
+    "year_options": "2012,2013,2014,2015,2016,2017,2018,2019"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Fiat",
+    "model": "500",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2012-2019",
+    "year_options": "2012,2013,2014,2015,2016,2017,2018,2019"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Fiat",
+    "model": "850",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1964-1974",
+    "year_options": "1964,1965,1966,1967,1968,1969,1970,1971,1972,1973,1974"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Fiat",
+    "model": "850",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1964-1974",
+    "year_options": "1964,1965,1966,1967,1968,1969,1970,1971,1972,1973,1974"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Fiat",
+    "model": "850",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1964-1974",
+    "year_options": "1964,1965,1966,1967,1968,1969,1970,1971,1972,1973,1974"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Fiat",
+    "model": "500",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2012-2019",
+    "year_options": "2012,2013,2014,2015,2016,2017,2018,2019"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Fiat",
+    "model": "500",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2012-2019",
+    "year_options": "2012,2013,2014,2015,2016,2017,2018,2019"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Fiat",
+    "model": "850",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1964-1974",
+    "year_options": "1964,1965,1966,1967,1968,1969,1970,1971,1972,1973,1974"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Fiat",
+    "model": "Barchetta",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1995-2002",
+    "year_options": "1995,1996,1997,1998,1999,2000,2001,2002"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Fiat",
+    "model": "Barchetta",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1995-2002",
+    "year_options": "1995,1996,1997,1998,1999,2000,2001,2002"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Fiat",
+    "model": "Barchetta",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1995-2002",
+    "year_options": "1995,1996,1997,1998,1999,2000,2001,2002"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Fiat",
+    "model": "Barchetta",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1995-2002",
+    "year_options": "1995,1996,1997,1998,1999,2000,2001,2002"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Fiat",
+    "model": "Barchetta",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1995-2002",
+    "year_options": "1995,1996,1997,1998,1999,2000,2001,2002"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Fiat",
+    "model": "Pininfarina Spider Azzurra",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1982-1985",
+    "year_options": "1982,1983,1984,1985"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Fiat",
+    "model": "850",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1964-1974",
+    "year_options": "1964,1965,1966,1967,1968,1969,1970,1971,1972,1973,1974"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Fiat",
+    "model": "Pininfarina Spider Azzurra",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1982-1985",
+    "year_options": "1982,1983,1984,1985"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Fiat",
+    "model": "Pininfarina Spider Azzurra",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1982-1985",
+    "year_options": "1982,1983,1984,1985"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Fiat",
+    "model": "Pininfarina Spider Azzurra",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1982-1985",
+    "year_options": "1982,1983,1984,1985"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Fiat",
+    "model": "Spider 2000",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1979-1984",
+    "year_options": "1979,1980,1981,1982,1983,1984"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Fiat",
+    "model": "Spider 2000",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1979-1984",
+    "year_options": "1979,1980,1981,1982,1983,1984"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Fiat",
+    "model": "Spider 2000",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1979-1984",
+    "year_options": "1979,1980,1981,1982,1983,1984"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Fiat",
+    "model": "Spider 2000",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1979-1984",
+    "year_options": "1979,1980,1981,1982,1983,1984"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Fiat",
+    "model": "Pininfarina Spider Azzurra",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1982-1985",
+    "year_options": "1982,1983,1984,1985"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Fiat",
+    "model": "X 1 9",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1972-1989",
+    "year_options": "1972,1973,1974,1975,1976,1977,1978,1979,1980,1981,1982,1983,1984,1985,1986,1987,1988,1989"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Fiat",
+    "model": "X 1 9",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1972-1989",
+    "year_options": "1972,1973,1974,1975,1976,1977,1978,1979,1980,1981,1982,1983,1984,1985,1986,1987,1988,1989"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Fiat",
+    "model": "X 1 9",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1972-1989",
+    "year_options": "1972,1973,1974,1975,1976,1977,1978,1979,1980,1981,1982,1983,1984,1985,1986,1987,1988,1989"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Fiat",
+    "model": "X 1 9",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1972-1989",
+    "year_options": "1972,1973,1974,1975,1976,1977,1978,1979,1980,1981,1982,1983,1984,1985,1986,1987,1988,1989"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Fiat",
+    "model": "X 1 9",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1972-1989",
+    "year_options": "1972,1973,1974,1975,1976,1977,1978,1979,1980,1981,1982,1983,1984,1985,1986,1987,1988,1989"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Fiat",
+    "model": "1600",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1955-1967",
+    "year_options": "1955,1956,1957,1958,1959,1960,1961,1962,1963,1964,1965,1966,1967"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Fiat",
+    "model": "500",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2012-2019",
+    "year_options": "2012,2013,2014,2015,2016,2017,2018,2019"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Fiat",
+    "model": "500",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2012-2019",
+    "year_options": "2012,2013,2014,2015,2016,2017,2018,2019"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Fiat",
+    "model": "1500",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1959-1968",
+    "year_options": "1959,1960,1961,1962,1963,1964,1965,1966,1967,1968"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Fiat",
+    "model": "124",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2017-2020",
+    "year_options": "2017,2018,2019,2020"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Fiat",
+    "model": "1900",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1952-1958",
+    "year_options": "1952,1953,1954,1955,1956,1957,1958"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Fiat",
+    "model": "1100",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1953-1967",
+    "year_options": "1953,1954,1955,1956,1957,1958,1959,1960,1961,1962,1963,1964,1965,1966,1967"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Fiat",
+    "model": "1200",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1955-1967",
+    "year_options": "1955,1956,1957,1958,1959,1960,1961,1962,1963,1964,1965,1966,1967"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Fiat",
+    "model": "124",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2017-2020",
+    "year_options": "2017,2018,2019,2020"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Fiat",
+    "model": "1600",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1955-1967",
+    "year_options": "1955,1956,1957,1958,1959,1960,1961,1962,1963,1964,1965,1966,1967"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Fiat",
+    "model": "850",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1964-1974",
+    "year_options": "1964,1965,1966,1967,1968,1969,1970,1971,1972,1973,1974"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Fiat",
+    "model": "Spider 2000",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1979-1984",
+    "year_options": "1979,1980,1981,1982,1983,1984"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Fiat",
+    "model": "X 1 9",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1972-1989",
+    "year_options": "1972,1973,1974,1975,1976,1977,1978,1979,1980,1981,1982,1983,1984,1985,1986,1987,1988,1989"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Fiat",
+    "model": "Pininfarina Spider Azzurra",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1982-1985",
+    "year_options": "1982,1983,1984,1985"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Fiat",
+    "model": "Barchetta",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1995-2002",
+    "year_options": "1995,1996,1997,1998,1999,2000,2001,2002"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Fiat",
+    "model": "1400",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1950-1958",
+    "year_options": "1950,1951,1952,1953,1954,1955,1956,1957,1958"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Fiat",
+    "model": "1400",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1950-1958",
+    "year_options": "1950,1951,1952,1953,1954,1955,1956,1957,1958"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Fiat",
+    "model": "1600",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1955-1967",
+    "year_options": "1955,1956,1957,1958,1959,1960,1961,1962,1963,1964,1965,1966,1967"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Fiat",
+    "model": "1500",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1959-1968",
+    "year_options": "1959,1960,1961,1962,1963,1964,1965,1966,1967,1968"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Fiat",
+    "model": "1500",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1959-1968",
+    "year_options": "1959,1960,1961,1962,1963,1964,1965,1966,1967,1968"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Fiat",
+    "model": "500",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2012-2019",
+    "year_options": "2012,2013,2014,2015,2016,2017,2018,2019"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Fiat",
+    "model": "500",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2012-2019",
+    "year_options": "2012,2013,2014,2015,2016,2017,2018,2019"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Fiat",
+    "model": "850",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1964-1974",
+    "year_options": "1964,1965,1966,1967,1968,1969,1970,1971,1972,1973,1974"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Fiat",
+    "model": "850",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1964-1974",
+    "year_options": "1964,1965,1966,1967,1968,1969,1970,1971,1972,1973,1974"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Fiat",
+    "model": "Pininfarina Spider Azzurra",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1982-1985",
+    "year_options": "1982,1983,1984,1985"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Fiat",
+    "model": "Spider 2000",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1979-1984",
+    "year_options": "1979,1980,1981,1982,1983,1984"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Fiat",
+    "model": "Spider 2000",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1979-1984",
+    "year_options": "1979,1980,1981,1982,1983,1984"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Fiat",
+    "model": "X 1 9",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1972-1989",
+    "year_options": "1972,1973,1974,1975,1976,1977,1978,1979,1980,1981,1982,1983,1984,1985,1986,1987,1988,1989"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Fiat",
+    "model": "X 1 9",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1972-1989",
+    "year_options": "1972,1973,1974,1975,1976,1977,1978,1979,1980,1981,1982,1983,1984,1985,1986,1987,1988,1989"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Fiat",
+    "model": "124",
+    "submodel1": "Coupe",
+    "submodel2": null,
+    "parent_generation": "1966-1983",
+    "year_options": "1968,1969,1970,1971,1972,1973,1974,1975"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Fiat",
+    "model": "128",
+    "submodel1": "2-Door",
+    "submodel2": null,
+    "parent_generation": "1969-1985",
+    "year_options": "1970,1971,1972,1973,1974,1975,1976,1977,1978,1979,1980"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Fiat",
+    "model": "124",
+    "submodel1": "Sedan",
+    "submodel2": null,
+    "parent_generation": "1966-1983",
+    "year_options": "1966,1967,1968,1969,1970,1971,1972,1973,1974"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Fiat",
+    "model": "124",
+    "submodel1": "Sedan",
+    "submodel2": null,
+    "parent_generation": "1966-1983",
+    "year_options": "1966,1967,1968,1969,1970,1971,1972,1973,1974"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Fiat",
+    "model": "124",
+    "submodel1": "Sedan",
+    "submodel2": null,
+    "parent_generation": "1966-1983",
+    "year_options": "1966,1967,1968,1969,1970,1971,1972,1973,1974"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Fiat",
+    "model": "124",
+    "submodel1": "Sedan",
+    "submodel2": null,
+    "parent_generation": "1966-1983",
+    "year_options": "1966,1967,1968,1969,1970,1971,1972,1973,1974"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Fiat",
+    "model": "124",
+    "submodel1": "Coupe",
+    "submodel2": null,
+    "parent_generation": "1966-1983",
+    "year_options": "1968,1969,1970,1971,1972,1973,1974,1975"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Fiat",
+    "model": "124",
+    "submodel1": "Coupe",
+    "submodel2": null,
+    "parent_generation": "1966-1983",
+    "year_options": "1968,1969,1970,1971,1972,1973,1974,1975"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Fiat",
+    "model": "124",
+    "submodel1": "Coupe",
+    "submodel2": null,
+    "parent_generation": "1966-1983",
+    "year_options": "1968,1969,1970,1971,1972,1973,1974,1975"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Fiat",
+    "model": "124",
+    "submodel1": "Coupe",
+    "submodel2": null,
+    "parent_generation": "1966-1983",
+    "year_options": "1968,1969,1970,1971,1972,1973,1974,1975"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Fiat",
+    "model": "124",
+    "submodel1": "Coupe",
+    "submodel2": null,
+    "parent_generation": "1966-1983",
+    "year_options": "1968,1969,1970,1971,1972,1973,1974,1975"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Fiat",
+    "model": "124",
+    "submodel1": "Spider",
+    "submodel2": null,
+    "parent_generation": "1966-1983",
+    "year_options": "1966,1967,1968,1969,1970,1971,1972,1973,1974,1975,1976,1977,1978,1979,1980,1981,1982,1983"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Fiat",
+    "model": "124",
+    "submodel1": "Spider",
+    "submodel2": null,
+    "parent_generation": "1966-1983",
+    "year_options": "1966,1967,1968,1969,1970,1971,1972,1973,1974,1975,1976,1977,1978,1979,1980,1981,1982,1983"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Fiat",
+    "model": "124",
+    "submodel1": "Coupe",
+    "submodel2": null,
+    "parent_generation": "1966-1983",
+    "year_options": "1968,1969,1970,1971,1972,1973,1974,1975"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Fiat",
+    "model": "128",
+    "submodel1": "2-Door",
+    "submodel2": null,
+    "parent_generation": "1969-1985",
+    "year_options": "1970,1971,1972,1973,1974,1975,1976,1977,1978,1979,1980"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Fiat",
+    "model": "124",
+    "submodel1": "Spider",
+    "submodel2": null,
+    "parent_generation": "1966-1983",
+    "year_options": "1966,1967,1968,1969,1970,1971,1972,1973,1974,1975,1976,1977,1978,1979,1980,1981,1982,1983"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Fiat",
+    "model": "128",
+    "submodel1": "2-Door",
+    "submodel2": null,
+    "parent_generation": "1969-1985",
+    "year_options": "1970,1971,1972,1973,1974,1975,1976,1977,1978,1979,1980"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Fiat",
+    "model": "128",
+    "submodel1": "2-Door",
+    "submodel2": null,
+    "parent_generation": "1969-1985",
+    "year_options": "1970,1971,1972,1973,1974,1975,1976,1977,1978,1979,1980"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Fiat",
+    "model": "128",
+    "submodel1": "4-Door",
+    "submodel2": null,
+    "parent_generation": "1969-1985",
+    "year_options": "1969,1970,1971,1972,1973,1974,1975,1976,1977,1978,1979,1980,1981,1982,1983,1984,1985"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Fiat",
+    "model": "128",
+    "submodel1": "4-Door",
+    "submodel2": null,
+    "parent_generation": "1969-1985",
+    "year_options": "1969,1970,1971,1972,1973,1974,1975,1976,1977,1978,1979,1980,1981,1982,1983,1984,1985"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Fiat",
+    "model": "128",
+    "submodel1": "4-Door",
+    "submodel2": null,
+    "parent_generation": "1969-1985",
+    "year_options": "1969,1970,1971,1972,1973,1974,1975,1976,1977,1978,1979,1980,1981,1982,1983,1984,1985"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Fiat",
+    "model": "128",
+    "submodel1": "4-Door",
+    "submodel2": null,
+    "parent_generation": "1969-1985",
+    "year_options": "1969,1970,1971,1972,1973,1974,1975,1976,1977,1978,1979,1980,1981,1982,1983,1984,1985"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Fiat",
+    "model": "128",
+    "submodel1": "4-Door",
+    "submodel2": null,
+    "parent_generation": "1969-1985",
+    "year_options": "1969,1970,1971,1972,1973,1974,1975,1976,1977,1978,1979,1980,1981,1982,1983,1984,1985"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Fiat",
+    "model": "128",
+    "submodel1": "2-Door",
+    "submodel2": null,
+    "parent_generation": "1969-1985",
+    "year_options": "1970,1971,1972,1973,1974,1975,1976,1977,1978,1979,1980"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Fiat",
+    "model": "128",
+    "submodel1": "Wagon",
+    "submodel2": null,
+    "parent_generation": "1969-1985",
+    "year_options": "1972,1973"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Fiat",
+    "model": "128",
+    "submodel1": "Wagon",
+    "submodel2": null,
+    "parent_generation": "1969-1985",
+    "year_options": "1972,1973"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Fiat",
+    "model": "128",
+    "submodel1": "Wagon",
+    "submodel2": null,
+    "parent_generation": "1969-1985",
+    "year_options": "1972,1973"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Fiat",
+    "model": "128",
+    "submodel1": "Wagon",
+    "submodel2": null,
+    "parent_generation": "1969-1985",
+    "year_options": "1972,1973"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Fiat",
+    "model": "1400",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1950-1958",
+    "year_options": "1950,1951,1952,1953,1954,1955,1956,1957,1958"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Fiat",
+    "model": "128",
+    "submodel1": "2-Door",
+    "submodel2": null,
+    "parent_generation": "1969-1985",
+    "year_options": "1970,1971,1972,1973,1974,1975,1976,1977,1978,1979,1980"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Fiat",
+    "model": "128",
+    "submodel1": "Wagon",
+    "submodel2": null,
+    "parent_generation": "1969-1985",
+    "year_options": "1972,1973"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Fiat",
+    "model": "128",
+    "submodel1": "4-Door",
+    "submodel2": null,
+    "parent_generation": "1969-1985",
+    "year_options": "1969,1970,1971,1972,1973,1974,1975,1976,1977,1978,1979,1980,1981,1982,1983,1984,1985"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Fiat",
+    "model": "128",
+    "submodel1": "4-Door",
+    "submodel2": null,
+    "parent_generation": "1969-1985",
+    "year_options": "1969,1970,1971,1972,1973,1974,1975,1976,1977,1978,1979,1980,1981,1982,1983,1984,1985"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Fiat",
+    "model": "128",
+    "submodel1": "Wagon",
+    "submodel2": null,
+    "parent_generation": "1969-1985",
+    "year_options": "1972,1973"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Fiat",
+    "model": "124",
+    "submodel1": "Coupe",
+    "submodel2": null,
+    "parent_generation": "1966-1983",
+    "year_options": "1968,1969,1970,1971,1972,1973,1974,1975"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Fiat",
+    "model": "124",
+    "submodel1": "Sedan",
+    "submodel2": null,
+    "parent_generation": "1966-1983",
+    "year_options": "1966,1967,1968,1969,1970,1971,1972,1973,1974"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Fiat",
+    "model": "124",
+    "submodel1": "Sedan",
+    "submodel2": null,
+    "parent_generation": "1966-1983",
+    "year_options": "1966,1967,1968,1969,1970,1971,1972,1973,1974"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Fiat",
+    "model": "124",
+    "submodel1": "Coupe",
+    "submodel2": null,
+    "parent_generation": "1966-1983",
+    "year_options": "1968,1969,1970,1971,1972,1973,1974,1975"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Fiat",
+    "model": "124",
+    "submodel1": "Spider",
+    "submodel2": null,
+    "parent_generation": "1966-1983",
+    "year_options": "1966,1967,1968,1969,1970,1971,1972,1973,1974,1975,1976,1977,1978,1979,1980,1981,1982,1983"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Fiat",
+    "model": "124",
+    "submodel1": "Spider",
+    "submodel2": null,
+    "parent_generation": "1966-1983",
+    "year_options": "1966,1967,1968,1969,1970,1971,1972,1973,1974,1975,1976,1977,1978,1979,1980,1981,1982,1983"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Fiat",
+    "model": "128",
+    "submodel1": "2-Door",
+    "submodel2": null,
+    "parent_generation": "1969-1985",
+    "year_options": "1970,1971,1972,1973,1974,1975,1976,1977,1978,1979,1980"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Fiat",
+    "model": "124",
+    "submodel1": "Sedan",
+    "submodel2": null,
+    "parent_generation": "1966-1983",
+    "year_options": "1966,1967,1968,1969,1970,1971,1972,1973,1974"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Fiat",
+    "model": "124",
+    "submodel1": "Spider",
+    "submodel2": null,
+    "parent_generation": "1966-1983",
+    "year_options": "1966,1967,1968,1969,1970,1971,1972,1973,1974,1975,1976,1977,1978,1979,1980,1981,1982,1983"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Fiat",
+    "model": "124",
+    "submodel1": "Spider",
+    "submodel2": null,
+    "parent_generation": "1966-1983",
+    "year_options": "1966,1967,1968,1969,1970,1971,1972,1973,1974,1975,1976,1977,1978,1979,1980,1981,1982,1983"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Fiat",
+    "model": "128",
+    "submodel1": "4-Door",
+    "submodel2": null,
+    "parent_generation": "1969-1985",
+    "year_options": "1969,1970,1971,1972,1973,1974,1975,1976,1977,1978,1979,1980,1981,1982,1983,1984,1985"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Fiat",
+    "model": "124",
+    "submodel1": "Sedan",
+    "submodel2": null,
+    "parent_generation": "1966-1983",
+    "year_options": "1966,1967,1968,1969,1970,1971,1972,1973,1974"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Fiat",
+    "model": "124",
+    "submodel1": "Spider",
+    "submodel2": null,
+    "parent_generation": "1966-1983",
+    "year_options": "1966,1967,1968,1969,1970,1971,1972,1973,1974,1975,1976,1977,1978,1979,1980,1981,1982,1983"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Fiat",
+    "model": "128",
+    "submodel1": "4-Door",
+    "submodel2": null,
+    "parent_generation": "1969-1985",
+    "year_options": "1969,1970,1971,1972,1973,1974,1975,1976,1977,1978,1979,1980,1981,1982,1983,1984,1985"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Fiat",
+    "model": "128",
+    "submodel1": "Wagon",
+    "submodel2": null,
+    "parent_generation": "1969-1985",
+    "year_options": "1972,1973"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Fiat",
+    "model": "124",
+    "submodel1": "Sedan",
+    "submodel2": null,
+    "parent_generation": "1966-1983",
+    "year_options": "1966,1967,1968,1969,1970,1971,1972,1973,1974"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Fiat",
+    "model": "128",
+    "submodel1": "2-Door",
+    "submodel2": null,
+    "parent_generation": "1969-1985",
+    "year_options": "1970,1971,1972,1973,1974,1975,1976,1977,1978,1979,1980"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Fiat",
+    "model": "128",
+    "submodel1": "2-Door",
+    "submodel2": null,
+    "parent_generation": "1969-1985",
+    "year_options": "1970,1971,1972,1973,1974,1975,1976,1977,1978,1979,1980"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Fiat",
+    "model": "128",
+    "submodel1": "Wagon",
+    "submodel2": null,
+    "parent_generation": "1969-1985",
+    "year_options": "1972,1973"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Fiat",
+    "model": "128",
+    "submodel1": "Wagon",
+    "submodel2": null,
+    "parent_generation": "1969-1985",
+    "year_options": "1972,1973"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Fiat",
+    "model": "124",
+    "submodel1": "Spider",
+    "submodel2": null,
+    "parent_generation": "1966-1983",
+    "year_options": "1966,1967,1968,1969,1970,1971,1972,1973,1974,1975,1976,1977,1978,1979,1980,1981,1982,1983"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Fiat",
+    "model": "1100",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1953-1967",
+    "year_options": "1953,1954,1955,1956,1957,1958,1959,1960,1961,1962,1963,1964,1965,1966,1967"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Fiat",
+    "model": "1200",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1955-1967",
+    "year_options": "1955,1956,1957,1958,1959,1960,1961,1962,1963,1964,1965,1966,1967"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Fiat",
+    "model": "1600",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1955-1967",
+    "year_options": "1955,1956,1957,1958,1959,1960,1961,1962,1963,1964,1965,1966,1967"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Fiat",
+    "model": "1200",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1955-1967",
+    "year_options": "1955,1956,1957,1958,1959,1960,1961,1962,1963,1964,1965,1966,1967"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Fiat",
+    "model": "1400",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1950-1958",
+    "year_options": "1950,1951,1952,1953,1954,1955,1956,1957,1958"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Fiat",
+    "model": "1600",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1955-1967",
+    "year_options": "1955,1956,1957,1958,1959,1960,1961,1962,1963,1964,1965,1966,1967"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Fiat",
+    "model": "1500",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1959-1968",
+    "year_options": "1959,1960,1961,1962,1963,1964,1965,1966,1967,1968"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Fiat",
+    "model": "850",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1964-1974",
+    "year_options": "1964,1965,1966,1967,1968,1969,1970,1971,1972,1973,1974"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Fiat",
+    "model": "Spider 2000",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1979-1984",
+    "year_options": "1979,1980,1981,1982,1983,1984"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Fiat",
+    "model": "Spider 2000",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1979-1984",
+    "year_options": "1979,1980,1981,1982,1983,1984"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Fiat",
+    "model": "1100",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1953-1967",
+    "year_options": "1953,1954,1955,1956,1957,1958,1959,1960,1961,1962,1963,1964,1965,1966,1967"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Fiat",
+    "model": "1900",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1952-1958",
+    "year_options": "1952,1953,1954,1955,1956,1957,1958"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Fiat",
+    "model": "Barchetta",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1995-2002",
+    "year_options": "1995,1996,1997,1998,1999,2000,2001,2002"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Fiat",
+    "model": "Pininfarina Spider Azzurra",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1982-1985",
+    "year_options": "1982,1983,1984,1985"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Fiat",
+    "model": "1200",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1955-1967",
+    "year_options": "1955,1956,1957,1958,1959,1960,1961,1962,1963,1964,1965,1966,1967"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Fiat",
+    "model": "124",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2017-2020",
+    "year_options": "2017,2018,2019,2020"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Fiat",
+    "model": "Barchetta",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1995-2002",
+    "year_options": "1995,1996,1997,1998,1999,2000,2001,2002"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Fiat",
+    "model": "Pininfarina Spider Azzurra",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1982-1985",
+    "year_options": "1982,1983,1984,1985"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Fiat",
+    "model": "1900",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1952-1958",
+    "year_options": "1952,1953,1954,1955,1956,1957,1958"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Fiat",
+    "model": "X 1 9",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1972-1989",
+    "year_options": "1972,1973,1974,1975,1976,1977,1978,1979,1980,1981,1982,1983,1984,1985,1986,1987,1988,1989"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Fiat",
+    "model": "1900",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1952-1958",
+    "year_options": "1952,1953,1954,1955,1956,1957,1958"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Fiat",
+    "model": "Barchetta",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1995-2002",
+    "year_options": "1995,1996,1997,1998,1999,2000,2001,2002"
+  }
+]

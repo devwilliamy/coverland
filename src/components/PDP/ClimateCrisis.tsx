@@ -1,5 +1,3 @@
-'use client';
-
 import Image from 'next/image';
 import Climate from '@/images/PDP/climate_crisis.webp';
 import logoWhite from '@/images/logos/logo-white.png';

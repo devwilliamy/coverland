@@ -1,0 +1,974 @@
+[
+  {
+    "type": "Car Covers",
+    "make": "Nash",
+    "model": "Ambassador",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1933-1948",
+    "year_options": "1933,1934,1935,1936,1937,1938,1939,1940,1941,1942,1943,1944,1945,1946,1947,1948"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Nash",
+    "model": "Ambassador",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1933-1948",
+    "year_options": "1933,1934,1935,1936,1937,1938,1939,1940,1941,1942,1943,1944,1945,1946,1947,1948"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Nash",
+    "model": "Ambassador",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1933-1948",
+    "year_options": "1933,1934,1935,1936,1937,1938,1939,1940,1941,1942,1943,1944,1945,1946,1947,1948"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Nash",
+    "model": "Ambassador",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1933-1948",
+    "year_options": "1933,1934,1935,1936,1937,1938,1939,1940,1941,1942,1943,1944,1945,1946,1947,1948"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Nash",
+    "model": "Ambassador",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1949-1954",
+    "year_options": "1949,1950,1951,1952,1953,1954"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Nash",
+    "model": "Ambassador",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1949-1954",
+    "year_options": "1949,1950,1951,1952,1953,1954"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Nash",
+    "model": "Ambassador",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1949-1954",
+    "year_options": "1949,1950,1951,1952,1953,1954"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Nash",
+    "model": "Ambassador",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1949-1954",
+    "year_options": "1949,1950,1951,1952,1953,1954"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Nash",
+    "model": "Ambassador",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1955-1957",
+    "year_options": "1955,1956,1957"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Nash",
+    "model": "Ambassador",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1955-1957",
+    "year_options": "1955,1956,1957"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Nash",
+    "model": "Ambassador",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1955-1957",
+    "year_options": "1955,1956,1957"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Nash",
+    "model": "Ambassador",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1955-1957",
+    "year_options": "1955,1956,1957"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Nash",
+    "model": "Ambassador",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1955-1957",
+    "year_options": "1955,1956,1957"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Nash",
+    "model": "Statesman",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1949-1956",
+    "year_options": "1949,1950,1951,1952,1953,1954,1955,1956"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Nash",
+    "model": "Statesman",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1949-1956",
+    "year_options": "1949,1950,1951,1952,1953,1954,1955,1956"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Nash",
+    "model": "Statesman",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1949-1956",
+    "year_options": "1949,1950,1951,1952,1953,1954,1955,1956"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Nash",
+    "model": "Statesman",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1949-1956",
+    "year_options": "1949,1950,1951,1952,1953,1954,1955,1956"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Nash",
+    "model": "Ambassador",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1949-1954",
+    "year_options": "1949,1950,1951,1952,1953,1954"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Nash",
+    "model": "Ambassador",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1955-1957",
+    "year_options": "1955,1956,1957"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Nash",
+    "model": "Ambassador",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1949-1954",
+    "year_options": "1949,1950,1951,1952,1953,1954"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Nash",
+    "model": "Statesman",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1949-1956",
+    "year_options": "1949,1950,1951,1952,1953,1954,1955,1956"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Nash",
+    "model": "Ambassador",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1933-1948",
+    "year_options": "1933,1934,1935,1936,1937,1938,1939,1940,1941,1942,1943,1944,1945,1946,1947,1948"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Nash",
+    "model": "Ambassador",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1955-1957",
+    "year_options": "1955,1956,1957"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Nash",
+    "model": "Rambler",
+    "submodel1": "Convertible",
+    "submodel2": null,
+    "parent_generation": "1953-1955",
+    "year_options": "1953,1954,1955"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Nash",
+    "model": "Rambler",
+    "submodel1": "4-Door Sedan",
+    "submodel2": null,
+    "parent_generation": "1953-1955",
+    "year_options": "1953,1954,1955"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Nash",
+    "model": "Rambler",
+    "submodel1": "2-Door Sedan",
+    "submodel2": null,
+    "parent_generation": "1950-1952",
+    "year_options": "1950,1951,1952"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Nash",
+    "model": "Rambler",
+    "submodel1": "4-Door Sedan",
+    "submodel2": null,
+    "parent_generation": "1953-1955",
+    "year_options": "1953,1954,1955"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Nash",
+    "model": "Rambler",
+    "submodel1": "Convertible",
+    "submodel2": null,
+    "parent_generation": "1950-1952",
+    "year_options": "1950,1951,1952"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Nash",
+    "model": "Rambler",
+    "submodel1": "Convertible",
+    "submodel2": null,
+    "parent_generation": "1950-1952",
+    "year_options": "1950,1951,1952"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Nash",
+    "model": "Rambler",
+    "submodel1": "Convertible",
+    "submodel2": null,
+    "parent_generation": "1950-1952",
+    "year_options": "1950,1951,1952"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Nash",
+    "model": "Rambler",
+    "submodel1": "2-Door Sedan",
+    "submodel2": null,
+    "parent_generation": "1950-1952",
+    "year_options": "1950,1951,1952"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Nash",
+    "model": "Rambler",
+    "submodel1": "2-Door Sedan",
+    "submodel2": null,
+    "parent_generation": "1950-1952",
+    "year_options": "1950,1951,1952"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Nash",
+    "model": "Rambler",
+    "submodel1": "2-Door Sedan",
+    "submodel2": null,
+    "parent_generation": "1950-1952",
+    "year_options": "1950,1951,1952"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Nash",
+    "model": "Rambler",
+    "submodel1": "2-Door Sedan",
+    "submodel2": null,
+    "parent_generation": "1950-1952",
+    "year_options": "1950,1951,1952"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Nash",
+    "model": "Rambler",
+    "submodel1": "2-Door Sedan",
+    "submodel2": null,
+    "parent_generation": "1950-1952",
+    "year_options": "1950,1951,1952"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Nash",
+    "model": "Rambler",
+    "submodel1": "Convertible",
+    "submodel2": null,
+    "parent_generation": "1950-1952",
+    "year_options": "1950,1951,1952"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Nash",
+    "model": "Rambler",
+    "submodel1": "2-Door Station Wagon",
+    "submodel2": null,
+    "parent_generation": "1950-1952",
+    "year_options": "1950,1951,1952"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Nash",
+    "model": "Rambler",
+    "submodel1": "2-Door Station Wagon",
+    "submodel2": null,
+    "parent_generation": "1950-1952",
+    "year_options": "1950,1951,1952"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Nash",
+    "model": "Rambler",
+    "submodel1": "2-Door Station Wagon",
+    "submodel2": null,
+    "parent_generation": "1950-1952",
+    "year_options": "1950,1951,1952"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Nash",
+    "model": "Rambler",
+    "submodel1": "2-Door Station Wagon",
+    "submodel2": null,
+    "parent_generation": "1950-1952",
+    "year_options": "1950,1951,1952"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Nash",
+    "model": "Rambler",
+    "submodel1": "Convertible",
+    "submodel2": null,
+    "parent_generation": "1953-1955",
+    "year_options": "1953,1954,1955"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Nash",
+    "model": "Rambler",
+    "submodel1": "Convertible",
+    "submodel2": null,
+    "parent_generation": "1953-1955",
+    "year_options": "1953,1954,1955"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Nash",
+    "model": "Rambler",
+    "submodel1": "Convertible",
+    "submodel2": null,
+    "parent_generation": "1953-1955",
+    "year_options": "1953,1954,1955"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Nash",
+    "model": "Rambler",
+    "submodel1": "Convertible",
+    "submodel2": null,
+    "parent_generation": "1953-1955",
+    "year_options": "1953,1954,1955"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Nash",
+    "model": "Rambler",
+    "submodel1": "2-Door Sedan",
+    "submodel2": null,
+    "parent_generation": "1953-1955",
+    "year_options": "1953,1954,1955"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Nash",
+    "model": "Rambler",
+    "submodel1": "2-Door Sedan",
+    "submodel2": null,
+    "parent_generation": "1953-1955",
+    "year_options": "1953,1954,1955"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Nash",
+    "model": "Rambler",
+    "submodel1": "2-Door Sedan",
+    "submodel2": null,
+    "parent_generation": "1953-1955",
+    "year_options": "1953,1954,1955"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Nash",
+    "model": "Rambler",
+    "submodel1": "2-Door Sedan",
+    "submodel2": null,
+    "parent_generation": "1953-1955",
+    "year_options": "1953,1954,1955"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Nash",
+    "model": "Rambler",
+    "submodel1": "2-Door Sedan",
+    "submodel2": null,
+    "parent_generation": "1953-1955",
+    "year_options": "1953,1954,1955"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Nash",
+    "model": "Rambler",
+    "submodel1": "4-Door Sedan",
+    "submodel2": null,
+    "parent_generation": "1953-1955",
+    "year_options": "1953,1954,1955"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Nash",
+    "model": "Rambler",
+    "submodel1": "4-Door Sedan",
+    "submodel2": null,
+    "parent_generation": "1953-1955",
+    "year_options": "1953,1954,1955"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Nash",
+    "model": "Rambler",
+    "submodel1": "4-Door Sedan",
+    "submodel2": null,
+    "parent_generation": "1953-1955",
+    "year_options": "1953,1954,1955"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Nash",
+    "model": "Rambler",
+    "submodel1": "4-Door Sedan",
+    "submodel2": null,
+    "parent_generation": "1953-1955",
+    "year_options": "1953,1954,1955"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Nash",
+    "model": "Rambler",
+    "submodel1": "2-Door Station Wagon",
+    "submodel2": null,
+    "parent_generation": "1953-1955",
+    "year_options": "1953,1954,1955"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Nash",
+    "model": "Rambler",
+    "submodel1": "2-Door Station Wagon",
+    "submodel2": null,
+    "parent_generation": "1953-1955",
+    "year_options": "1953,1954,1955"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Nash",
+    "model": "Rambler",
+    "submodel1": "2-Door Station Wagon",
+    "submodel2": null,
+    "parent_generation": "1953-1955",
+    "year_options": "1953,1954,1955"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Nash",
+    "model": "Rambler",
+    "submodel1": "2-Door Station Wagon",
+    "submodel2": null,
+    "parent_generation": "1953-1955",
+    "year_options": "1953,1954,1955"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Nash",
+    "model": "Rambler",
+    "submodel1": "4-Door Station Wagon",
+    "submodel2": null,
+    "parent_generation": "1953-1955",
+    "year_options": "1953,1954,1955"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Nash",
+    "model": "Rambler",
+    "submodel1": "4-Door Station Wagon",
+    "submodel2": null,
+    "parent_generation": "1953-1955",
+    "year_options": "1953,1954,1955"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Nash",
+    "model": "Rambler",
+    "submodel1": "4-Door Station Wagon",
+    "submodel2": null,
+    "parent_generation": "1953-1955",
+    "year_options": "1953,1954,1955"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Nash",
+    "model": "Rambler",
+    "submodel1": "4-Door Station Wagon",
+    "submodel2": null,
+    "parent_generation": "1953-1955",
+    "year_options": "1953,1954,1955"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Nash",
+    "model": "Rambler",
+    "submodel1": "2-Door Sedan",
+    "submodel2": null,
+    "parent_generation": "1950-1952",
+    "year_options": "1950,1951,1952"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Nash",
+    "model": "Rambler",
+    "submodel1": "Convertible",
+    "submodel2": null,
+    "parent_generation": "1953-1955",
+    "year_options": "1953,1954,1955"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Nash",
+    "model": "Rambler",
+    "submodel1": "2-Door Sedan",
+    "submodel2": null,
+    "parent_generation": "1953-1955",
+    "year_options": "1953,1954,1955"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Nash",
+    "model": "Rambler",
+    "submodel1": "2-Door Station Wagon",
+    "submodel2": null,
+    "parent_generation": "1953-1955",
+    "year_options": "1953,1954,1955"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Nash",
+    "model": "Rambler",
+    "submodel1": "Convertible",
+    "submodel2": null,
+    "parent_generation": "1950-1952",
+    "year_options": "1950,1951,1952"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Nash",
+    "model": "Rambler",
+    "submodel1": "Convertible",
+    "submodel2": null,
+    "parent_generation": "1950-1952",
+    "year_options": "1950,1951,1952"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Nash",
+    "model": "Rambler",
+    "submodel1": "Convertible",
+    "submodel2": null,
+    "parent_generation": "1950-1952",
+    "year_options": "1950,1951,1952"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Nash",
+    "model": "Rambler",
+    "submodel1": "2-Door Sedan",
+    "submodel2": null,
+    "parent_generation": "1950-1952",
+    "year_options": "1950,1951,1952"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Nash",
+    "model": "Rambler",
+    "submodel1": "2-Door Sedan",
+    "submodel2": null,
+    "parent_generation": "1950-1952",
+    "year_options": "1950,1951,1952"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Nash",
+    "model": "Rambler",
+    "submodel1": "2-Door Station Wagon",
+    "submodel2": null,
+    "parent_generation": "1950-1952",
+    "year_options": "1950,1951,1952"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Nash",
+    "model": "Rambler",
+    "submodel1": "2-Door Station Wagon",
+    "submodel2": null,
+    "parent_generation": "1950-1952",
+    "year_options": "1950,1951,1952"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Nash",
+    "model": "Rambler",
+    "submodel1": "2-Door Sedan",
+    "submodel2": null,
+    "parent_generation": "1953-1955",
+    "year_options": "1953,1954,1955"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Nash",
+    "model": "Rambler",
+    "submodel1": "2-Door Sedan",
+    "submodel2": null,
+    "parent_generation": "1953-1955",
+    "year_options": "1953,1954,1955"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Nash",
+    "model": "Rambler",
+    "submodel1": "4-Door Sedan",
+    "submodel2": null,
+    "parent_generation": "1953-1955",
+    "year_options": "1953,1954,1955"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Nash",
+    "model": "Rambler",
+    "submodel1": "4-Door Sedan",
+    "submodel2": null,
+    "parent_generation": "1953-1955",
+    "year_options": "1953,1954,1955"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Nash",
+    "model": "Rambler",
+    "submodel1": "2-Door Station Wagon",
+    "submodel2": null,
+    "parent_generation": "1953-1955",
+    "year_options": "1953,1954,1955"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Nash",
+    "model": "Rambler",
+    "submodel1": "4-Door Station Wagon",
+    "submodel2": null,
+    "parent_generation": "1953-1955",
+    "year_options": "1953,1954,1955"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Nash",
+    "model": "Rambler",
+    "submodel1": "Convertible",
+    "submodel2": null,
+    "parent_generation": "1950-1952",
+    "year_options": "1950,1951,1952"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Nash",
+    "model": "Rambler",
+    "submodel1": "Convertible",
+    "submodel2": null,
+    "parent_generation": "1953-1955",
+    "year_options": "1953,1954,1955"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Nash",
+    "model": "Rambler",
+    "submodel1": "2-Door Sedan",
+    "submodel2": null,
+    "parent_generation": "1953-1955",
+    "year_options": "1953,1954,1955"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Nash",
+    "model": "Rambler",
+    "submodel1": "2-Door Station Wagon",
+    "submodel2": null,
+    "parent_generation": "1953-1955",
+    "year_options": "1953,1954,1955"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Nash",
+    "model": "Rambler",
+    "submodel1": "2-Door Station Wagon",
+    "submodel2": null,
+    "parent_generation": "1953-1955",
+    "year_options": "1953,1954,1955"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Nash",
+    "model": "Rambler",
+    "submodel1": "4-Door Station Wagon",
+    "submodel2": null,
+    "parent_generation": "1953-1955",
+    "year_options": "1953,1954,1955"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Nash",
+    "model": "Rambler",
+    "submodel1": "2-Door Station Wagon",
+    "submodel2": null,
+    "parent_generation": "1950-1952",
+    "year_options": "1950,1951,1952"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Nash",
+    "model": "Rambler",
+    "submodel1": "Convertible",
+    "submodel2": null,
+    "parent_generation": "1950-1952",
+    "year_options": "1950,1951,1952"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Nash",
+    "model": "Rambler",
+    "submodel1": "2-Door Station Wagon",
+    "submodel2": null,
+    "parent_generation": "1950-1952",
+    "year_options": "1950,1951,1952"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Nash",
+    "model": "Rambler",
+    "submodel1": "4-Door Sedan",
+    "submodel2": null,
+    "parent_generation": "1953-1955",
+    "year_options": "1953,1954,1955"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Nash",
+    "model": "Rambler",
+    "submodel1": "4-Door Station Wagon",
+    "submodel2": null,
+    "parent_generation": "1953-1955",
+    "year_options": "1953,1954,1955"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Nash",
+    "model": "Rambler",
+    "submodel1": "Convertible",
+    "submodel2": null,
+    "parent_generation": "1953-1955",
+    "year_options": "1953,1954,1955"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Nash",
+    "model": "Rambler",
+    "submodel1": "2-Door Station Wagon",
+    "submodel2": null,
+    "parent_generation": "1953-1955",
+    "year_options": "1953,1954,1955"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Nash",
+    "model": "Rambler",
+    "submodel1": "4-Door Station Wagon",
+    "submodel2": null,
+    "parent_generation": "1953-1955",
+    "year_options": "1953,1954,1955"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Nash",
+    "model": "Rambler",
+    "submodel1": "2-Door Station Wagon",
+    "submodel2": null,
+    "parent_generation": "1950-1952",
+    "year_options": "1950,1951,1952"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Nash",
+    "model": "Rambler",
+    "submodel1": "4-Door Station Wagon",
+    "submodel2": null,
+    "parent_generation": "1953-1955",
+    "year_options": "1953,1954,1955"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Nash",
+    "model": "Rambler",
+    "submodel1": "Convertible",
+    "submodel2": null,
+    "parent_generation": "1953-1955",
+    "year_options": "1953,1954,1955"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Nash",
+    "model": "Ambassador",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1933-1948",
+    "year_options": "1933,1934,1935,1936,1937,1938,1939,1940,1941,1942,1943,1944,1945,1946,1947,1948"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Nash",
+    "model": "Ambassador",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1933-1948",
+    "year_options": "1933,1934,1935,1936,1937,1938,1939,1940,1941,1942,1943,1944,1945,1946,1947,1948"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Nash",
+    "model": "Statesman",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1949-1956",
+    "year_options": "1949,1950,1951,1952,1953,1954,1955,1956"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Nash",
+    "model": "Ambassador",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1949-1954",
+    "year_options": "1949,1950,1951,1952,1953,1954"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Nash",
+    "model": "Statesman",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1949-1956",
+    "year_options": "1949,1950,1951,1952,1953,1954,1955,1956"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Nash",
+    "model": "Ambassador",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1933-1948",
+    "year_options": "1933,1934,1935,1936,1937,1938,1939,1940,1941,1942,1943,1944,1945,1946,1947,1948"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Nash",
+    "model": "Ambassador",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1949-1954",
+    "year_options": "1949,1950,1951,1952,1953,1954"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Nash",
+    "model": "Ambassador",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1955-1957",
+    "year_options": "1955,1956,1957"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Nash",
+    "model": "Ambassador",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1949-1954",
+    "year_options": "1949,1950,1951,1952,1953,1954"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Nash",
+    "model": "Statesman",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1949-1956",
+    "year_options": "1949,1950,1951,1952,1953,1954,1955,1956"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Nash",
+    "model": "Ambassador",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1933-1948",
+    "year_options": "1933,1934,1935,1936,1937,1938,1939,1940,1941,1942,1943,1944,1945,1946,1947,1948"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Nash",
+    "model": "Ambassador",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1955-1957",
+    "year_options": "1955,1956,1957"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Nash",
+    "model": "Statesman",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1949-1956",
+    "year_options": "1949,1950,1951,1952,1953,1954,1955,1956"
+  }
+]

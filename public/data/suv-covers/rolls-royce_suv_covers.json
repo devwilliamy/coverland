@@ -1,0 +1,74 @@
+[
+  {
+    "type": "SUV Covers",
+    "make": "Rolls-Royce",
+    "model": "Cullinan",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2019-2024",
+    "year_options": "2019,2020,2021,2022,2023"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Rolls-Royce",
+    "model": "Black Badge",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2020-2024",
+    "year_options": "2020,2021,2022,2023"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Rolls-Royce",
+    "model": "Black Badge",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2020-2024",
+    "year_options": "2020,2021,2022,2023"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Rolls-Royce",
+    "model": "Cullinan",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2019-2024",
+    "year_options": "2019,2020,2021,2022,2023"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Rolls-Royce",
+    "model": "Black Badge",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2020-2024",
+    "year_options": "2020,2021,2022,2023"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Rolls-Royce",
+    "model": "Cullinan",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2019-2024",
+    "year_options": "2019,2020,2021,2022,2023"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Rolls-Royce",
+    "model": "Black Badge",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2020-2024",
+    "year_options": "2020,2021,2022,2023"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Rolls-Royce",
+    "model": "Cullinan",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2019-2024",
+    "year_options": "2019,2020,2021,2022,2023"
+  }
+]

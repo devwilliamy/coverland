@@ -2,19 +2,16 @@
 
 import { EditIcon } from '@/components/PDP/components/icons';
 import EditVehicleDropdown from '../EditVehicleDropdown';
-// import {
-//   DropdownMenu,
-//   DropdownMenuContent,
-//   DropdownMenuTrigger,
-// } from '@/components/ui/dropdown-menu';
 import { useState } from 'react';
 import { Drawer } from 'vaul';
 import { IoClose } from 'react-icons/io5';
 
 export default function EditVehiclePopover({
   fullProductName,
+  searchParams,
 }: {
   fullProductName: string;
+  searchParams: { submodel?: string; second_submodel?: string } | undefined;
 }) {
   const [open, setOpen] = useState(false);
   return (
@@ -63,7 +60,7 @@ export default function EditVehiclePopover({
                 id="EditVehicleContainer"
                 className="flex min-h-[50vh] pt-[75px] "
               >
-                <EditVehicleDropdown />
+                <EditVehicleDropdown searchParams={searchParams} />
               </div>
             </div>
           </Drawer.Content>

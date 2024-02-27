@@ -1,0 +1,7373 @@
+[
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Savoy",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1951-1953",
+    "year_options": "1951,1952,1953"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Valiant",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1974-1976",
+    "year_options": "1974,1975,1976"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Scamp",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1973-1976",
+    "year_options": "1973,1974,1975,1976"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Sport Fury",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1956-1964",
+    "year_options": "1956,1957,1958,1959,1960,1961,1962,1963,1964"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "VIP",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1966-1969",
+    "year_options": "1966,1967,1968,1969"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Sport Fury",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1956-1964",
+    "year_options": "1956,1957,1958,1959,1960,1961,1962,1963,1964"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Barracuda",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1964-1966",
+    "year_options": "1964,1965,1966"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Business Coupe",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1936-1952",
+    "year_options": "1936,1937,1938,1939,1940,1941,1942,1943,1944,1945,1946,1947,1948,1949,1950,1951,1952"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Cranbrook",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1951-1953",
+    "year_options": "1951,1952,1953"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Roadrunner",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1976-1980",
+    "year_options": "1976,1977,1978,1979,1980"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Scamp",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1971-1972",
+    "year_options": "1971,1972"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Scamp",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1973-1976",
+    "year_options": "1973,1974,1975,1976"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Barracuda",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1964-1966",
+    "year_options": "1964,1965,1966"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Barracuda",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1964-1966",
+    "year_options": "1964,1965,1966"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Barracuda",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1964-1966",
+    "year_options": "1964,1965,1966"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Barracuda",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1967-1969",
+    "year_options": "1967,1968,1969"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Belvedere",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1960-1961",
+    "year_options": "1960,1961"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Barracuda",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1967-1969",
+    "year_options": "1967,1968,1969"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Barracuda",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1967-1969",
+    "year_options": "1967,1968,1969"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Barracuda",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1967-1969",
+    "year_options": "1967,1968,1969"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Barracuda",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1970-1974",
+    "year_options": "1970,1971,1972,1973,1974"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Barracuda",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1970-1974",
+    "year_options": "1970,1971,1972,1973,1974"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Barracuda",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1970-1974",
+    "year_options": "1970,1971,1972,1973,1974"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Barracuda",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1970-1974",
+    "year_options": "1970,1971,1972,1973,1974"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Belvedere",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1951-1953",
+    "year_options": "1951,1952,1953"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Belvedere",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1951-1953",
+    "year_options": "1951,1952,1953"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Belvedere",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1951-1953",
+    "year_options": "1951,1952,1953"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Barracuda",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1970-1974",
+    "year_options": "1970,1971,1972,1973,1974"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Belvedere",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1951-1953",
+    "year_options": "1951,1952,1953"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Belvedere",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1960-1961",
+    "year_options": "1960,1961"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Belvedere",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1960-1961",
+    "year_options": "1960,1961"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Belvedere",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1960-1961",
+    "year_options": "1960,1961"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Business Coupe",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1936-1952",
+    "year_options": "1936,1937,1938,1939,1940,1941,1942,1943,1944,1945,1946,1947,1948,1949,1950,1951,1952"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Business Coupe",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1936-1952",
+    "year_options": "1936,1937,1938,1939,1940,1941,1942,1943,1944,1945,1946,1947,1948,1949,1950,1951,1952"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Business Coupe",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1936-1952",
+    "year_options": "1936,1937,1938,1939,1940,1941,1942,1943,1944,1945,1946,1947,1948,1949,1950,1951,1952"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Business Coupe",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1936-1952",
+    "year_options": "1936,1937,1938,1939,1940,1941,1942,1943,1944,1945,1946,1947,1948,1949,1950,1951,1952"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Concord",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1951-1952",
+    "year_options": "1951,1952"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Concord",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1951-1952",
+    "year_options": "1951,1952"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Concord",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1951-1952",
+    "year_options": "1951,1952"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Concord",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1951-1952",
+    "year_options": "1951,1952"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Duster",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1973-1976",
+    "year_options": "1973,1974,1975,1976"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Cranbrook",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1951-1953",
+    "year_options": "1951,1952,1953"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Cranbrook",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1951-1953",
+    "year_options": "1951,1952,1953"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Cranbrook",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1951-1953",
+    "year_options": "1951,1952,1953"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Cranbrook",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1951-1953",
+    "year_options": "1951,1952,1953"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Cuda",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1970-1972",
+    "year_options": "1970,1971,1972"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Cuda",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1970-1972",
+    "year_options": "1970,1971,1972"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Cuda",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1970-1972",
+    "year_options": "1970,1971,1972"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Cuda",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1970-1972",
+    "year_options": "1970,1971,1972"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Cuda",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1970-1972",
+    "year_options": "1970,1971,1972"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Cuda",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1974-1975",
+    "year_options": "1974,1975"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Cuda",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1974-1975",
+    "year_options": "1974,1975"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Cuda",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1974-1975",
+    "year_options": "1974,1975"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Cuda",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1974-1975",
+    "year_options": "1974,1975"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Duster",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1970-1972",
+    "year_options": "1970,1971,1972"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Duster",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1970-1972",
+    "year_options": "1970,1971,1972"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Duster",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1970-1972",
+    "year_options": "1970,1971,1972"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Duster",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1970-1972",
+    "year_options": "1970,1971,1972"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Duster",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1970-1972",
+    "year_options": "1970,1971,1972"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Duster",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1970-1972",
+    "year_options": "1970,1971,1972"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Duster",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1973-1976",
+    "year_options": "1973,1974,1975,1976"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Duster",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1973-1976",
+    "year_options": "1973,1974,1975,1976"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Duster",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1973-1976",
+    "year_options": "1973,1974,1975,1976"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Duster",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1985-1987",
+    "year_options": "1985,1986,1987"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Duster",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1985-1987",
+    "year_options": "1985,1986,1987"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Duster",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1985-1987",
+    "year_options": "1985,1986,1987"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Duster",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1985-1987",
+    "year_options": "1985,1986,1987"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Barracuda",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1970-1974",
+    "year_options": "1970,1971,1972,1973,1974"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Fury",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1956-1959",
+    "year_options": "1956,1957,1958,1959"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Fury",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1956-1959",
+    "year_options": "1956,1957,1958,1959"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Fury",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1956-1959",
+    "year_options": "1956,1957,1958,1959"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Fury",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1956-1959",
+    "year_options": "1956,1957,1958,1959"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Fury",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1956-1959",
+    "year_options": "1956,1957,1958,1959"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Cranbrook",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1951-1953",
+    "year_options": "1951,1952,1953"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "P7 Road King",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1938-1941",
+    "year_options": "1938,1939,1940,1941"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Gran Fury",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1980-1981",
+    "year_options": "1980,1981"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "P8 Road King",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1938-1941",
+    "year_options": "1938,1939,1940,1941"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Gran Fury",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1980-1981",
+    "year_options": "1980,1981"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Gran Fury",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1980-1981",
+    "year_options": "1980,1981"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Gran Fury",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1980-1981",
+    "year_options": "1980,1981"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Gran Fury",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1980-1981",
+    "year_options": "1980,1981"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Gran Fury",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1980-1981",
+    "year_options": "1980,1981"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "GTX",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1967-1971",
+    "year_options": "1967,1968,1969,1970,1971"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "GTX",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1967-1971",
+    "year_options": "1967,1968,1969,1970,1971"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "GTX",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1967-1971",
+    "year_options": "1967,1968,1969,1970,1971"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Laser",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1990-1994",
+    "year_options": "1990,1991,1992,1993,1994"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Laser",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1990-1994",
+    "year_options": "1990,1991,1992,1993,1994"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Laser",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1990-1994",
+    "year_options": "1990,1991,1992,1993,1994"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Laser",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1990-1994",
+    "year_options": "1990,1991,1992,1993,1994"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Laser",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1990-1994",
+    "year_options": "1990,1991,1992,1993,1994"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "P2",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1936",
+    "year_options": "1936"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "P2",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1936",
+    "year_options": "1936"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "P2",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1936",
+    "year_options": "1936"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "P7 Road King",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1938-1941",
+    "year_options": "1938,1939,1940,1941"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "P7 Road King",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1938-1941",
+    "year_options": "1938,1939,1940,1941"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "P7 Road King",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1938-1941",
+    "year_options": "1938,1939,1940,1941"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "P7 Road King",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1938-1941",
+    "year_options": "1938,1939,1940,1941"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "P2",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1936",
+    "year_options": "1936"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "P8 Road King",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1938-1941",
+    "year_options": "1938,1939,1940,1941"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "P8 Road King",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1938-1941",
+    "year_options": "1938,1939,1940,1941"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "P8 Road King",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1938-1941",
+    "year_options": "1938,1939,1940,1941"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "P8 Road King",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1938-1941",
+    "year_options": "1938,1939,1940,1941"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Roadrunner",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1968-1972",
+    "year_options": "1968,1969,1970,1971,1972"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Roadrunner",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1968-1972",
+    "year_options": "1968,1969,1970,1971,1972"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Roadrunner",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1968-1972",
+    "year_options": "1968,1969,1970,1971,1972"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Roadrunner",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1968-1972",
+    "year_options": "1968,1969,1970,1971,1972"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Roadrunner",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1968-1972",
+    "year_options": "1968,1969,1970,1971,1972"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Roadrunner",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1968-1972",
+    "year_options": "1968,1969,1970,1971,1972"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Roadrunner",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1973-1975",
+    "year_options": "1973,1974,1975"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Roadrunner",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1973-1975",
+    "year_options": "1973,1974,1975"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Roadrunner",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1976-1980",
+    "year_options": "1976,1977,1978,1979,1980"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Scamp",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1971-1972",
+    "year_options": "1971,1972"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Roadrunner",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1976-1980",
+    "year_options": "1976,1977,1978,1979,1980"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Roadrunner",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1976-1980",
+    "year_options": "1976,1977,1978,1979,1980"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Roadrunner",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1976-1980",
+    "year_options": "1976,1977,1978,1979,1980"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Roadrunner",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1976-1980",
+    "year_options": "1976,1977,1978,1979,1980"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Savoy",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1951-1953",
+    "year_options": "1951,1952,1953"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Scamp",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1973-1976",
+    "year_options": "1973,1974,1975,1976"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Savoy",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1951-1953",
+    "year_options": "1951,1952,1953"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Savoy",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1951-1953",
+    "year_options": "1951,1952,1953"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Scamp",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1971-1972",
+    "year_options": "1971,1972"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Scamp",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1971-1972",
+    "year_options": "1971,1972"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Scamp",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1971-1972",
+    "year_options": "1971,1972"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Scamp",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1971-1972",
+    "year_options": "1971,1972"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Scamp",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1973-1976",
+    "year_options": "1973,1974,1975,1976"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Scamp",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1973-1976",
+    "year_options": "1973,1974,1975,1976"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Scamp",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1983",
+    "year_options": "1983"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Scamp",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1983",
+    "year_options": "1983"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Scamp",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1983",
+    "year_options": "1983"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Scamp",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1983",
+    "year_options": "1983"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Scamp",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1983",
+    "year_options": "1983"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Sport Fury",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1956-1964",
+    "year_options": "1956,1957,1958,1959,1960,1961,1962,1963,1964"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Sport Fury",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1956-1964",
+    "year_options": "1956,1957,1958,1959,1960,1961,1962,1963,1964"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Sport Fury",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1956-1964",
+    "year_options": "1956,1957,1958,1959,1960,1961,1962,1963,1964"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Sport Fury",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1965-1972",
+    "year_options": "1965,1966,1967,1968,1969,1970,1971,1972"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Sport Fury",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1965-1972",
+    "year_options": "1965,1966,1967,1968,1969,1970,1971,1972"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Sport Fury",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1965-1972",
+    "year_options": "1965,1966,1967,1968,1969,1970,1971,1972"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Sport Fury",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1965-1972",
+    "year_options": "1965,1966,1967,1968,1969,1970,1971,1972"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Valiant",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1967-1973",
+    "year_options": "1967,1968,1969,1970,1971,1972,1973"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Valiant",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1967-1973",
+    "year_options": "1967,1968,1969,1970,1971,1972,1973"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Valiant",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1967-1973",
+    "year_options": "1967,1968,1969,1970,1971,1972,1973"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Valiant",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1967-1973",
+    "year_options": "1967,1968,1969,1970,1971,1972,1973"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Valiant",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1967-1973",
+    "year_options": "1967,1968,1969,1970,1971,1972,1973"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Valiant",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1974-1976",
+    "year_options": "1974,1975,1976"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Valiant",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1974-1976",
+    "year_options": "1974,1975,1976"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Valiant",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1974-1976",
+    "year_options": "1974,1975,1976"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Valiant",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1974-1976",
+    "year_options": "1974,1975,1976"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "VIP",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1966-1969",
+    "year_options": "1966,1967,1968,1969"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "VIP",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1966-1969",
+    "year_options": "1966,1967,1968,1969"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "VIP",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1966-1969",
+    "year_options": "1966,1967,1968,1969"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Barracuda",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1970-1974",
+    "year_options": "1970,1971,1972,1973,1974"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Duster",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1973-1976",
+    "year_options": "1973,1974,1975,1976"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "P7 Road King",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1938-1941",
+    "year_options": "1938,1939,1940,1941"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Barracuda",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1964-1966",
+    "year_options": "1964,1965,1966"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Belvedere",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1951-1953",
+    "year_options": "1951,1952,1953"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Business Coupe",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1936-1952",
+    "year_options": "1936,1937,1938,1939,1940,1941,1942,1943,1944,1945,1946,1947,1948,1949,1950,1951,1952"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Concord",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1951-1952",
+    "year_options": "1951,1952"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Cuda",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1974-1975",
+    "year_options": "1974,1975"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Duster",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1970-1972",
+    "year_options": "1970,1971,1972"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Duster",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1973-1976",
+    "year_options": "1973,1974,1975,1976"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Cuda",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1970-1972",
+    "year_options": "1970,1971,1972"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Fury",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1956-1959",
+    "year_options": "1956,1957,1958,1959"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Gran Fury",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1980-1981",
+    "year_options": "1980,1981"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Laser",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1990-1994",
+    "year_options": "1990,1991,1992,1993,1994"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "P8 Road King",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1938-1941",
+    "year_options": "1938,1939,1940,1941"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "P2",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1936",
+    "year_options": "1936"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Roadrunner",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1976-1980",
+    "year_options": "1976,1977,1978,1979,1980"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Roadrunner",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1968-1972",
+    "year_options": "1968,1969,1970,1971,1972"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Savoy",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1951-1953",
+    "year_options": "1951,1952,1953"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Scamp",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1971-1972",
+    "year_options": "1971,1972"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Scamp",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1973-1976",
+    "year_options": "1973,1974,1975,1976"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Sport Fury",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1965-1972",
+    "year_options": "1965,1966,1967,1968,1969,1970,1971,1972"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Valiant",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1974-1976",
+    "year_options": "1974,1975,1976"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "VIP",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1966-1969",
+    "year_options": "1966,1967,1968,1969"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Barracuda",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1964-1966",
+    "year_options": "1964,1965,1966"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Barracuda",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1970-1974",
+    "year_options": "1970,1971,1972,1973,1974"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Belvedere",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1960-1961",
+    "year_options": "1960,1961"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Concord",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1951-1952",
+    "year_options": "1951,1952"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Cuda",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1970-1972",
+    "year_options": "1970,1971,1972"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Duster",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1985-1987",
+    "year_options": "1985,1986,1987"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Laser",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1990-1994",
+    "year_options": "1990,1991,1992,1993,1994"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "P7 Road King",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1938-1941",
+    "year_options": "1938,1939,1940,1941"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "P8 Road King",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1938-1941",
+    "year_options": "1938,1939,1940,1941"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Roadrunner",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1973-1975",
+    "year_options": "1973,1974,1975"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Scamp",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1983",
+    "year_options": "1983"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Deluxe",
+    "submodel1": "2-Door",
+    "submodel2": null,
+    "parent_generation": "1946-1951",
+    "year_options": "1946,1947,1948,1949,1950,1951"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Deluxe",
+    "submodel1": "4-Door",
+    "submodel2": null,
+    "parent_generation": "1946-1951",
+    "year_options": "1946,1947,1948,1949,1950,1951"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Fury",
+    "submodel1": "2-Door",
+    "submodel2": null,
+    "parent_generation": "1960-1964",
+    "year_options": "1960,1961,1962,1963,1964"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Fury",
+    "submodel1": "4-Door",
+    "submodel2": null,
+    "parent_generation": "1965-1974",
+    "year_options": "1965,1966,1967,1968,1969,1970,1971,1972,1973,1974"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Valiant",
+    "submodel1": "Wagon",
+    "submodel2": null,
+    "parent_generation": "1963-1966",
+    "year_options": "1963,1964,1965,1966"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Belvedere",
+    "submodel1": "Station Wagon",
+    "submodel2": null,
+    "parent_generation": "1954-1955",
+    "year_options": "1954,1955"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Cambridge",
+    "submodel1": "2-Door",
+    "submodel2": null,
+    "parent_generation": "1951-1953",
+    "year_options": "1951,1952,1953"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Plaza",
+    "submodel1": "4-Door Sedan",
+    "submodel2": null,
+    "parent_generation": "1954-1955",
+    "year_options": "1954,1955"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Sport Fury",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1965-1972",
+    "year_options": "1965,1966,1967,1968,1969,1970,1971,1972"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Fury",
+    "submodel1": "Station Wagon",
+    "submodel2": null,
+    "parent_generation": "1960-1964",
+    "year_options": "1960,1961,1962,1963,1964"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Fury",
+    "submodel1": "Gran Sedan",
+    "submodel2": null,
+    "parent_generation": "1965-1974",
+    "year_options": "1971,1972,1973,1974"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Gran Fury",
+    "submodel1": "2-Door Coupe",
+    "submodel2": null,
+    "parent_generation": "1974-1977",
+    "year_options": "1974,1975,1976,1977"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Gran Fury",
+    "submodel1": "2-Door Coupe",
+    "submodel2": null,
+    "parent_generation": "1982-1989",
+    "year_options": "1982,1983,1984,1985,1986,1987,1988,1989"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Gran Fury",
+    "submodel1": "4-Door Sedan",
+    "submodel2": null,
+    "parent_generation": "1982-1989",
+    "year_options": "1982,1983,1984,1985,1986,1987,1988,1989"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Plaza",
+    "submodel1": "2-Door Station Wagon",
+    "submodel2": null,
+    "parent_generation": "1954-1955",
+    "year_options": "1954,1955"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Reliant",
+    "submodel1": "2-Door",
+    "submodel2": null,
+    "parent_generation": "1981-1989",
+    "year_options": "1981,1982,1983,1984,1985,1986,1987,1988,1989"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Satellite",
+    "submodel1": "4-Door",
+    "submodel2": null,
+    "parent_generation": "1971-1974",
+    "year_options": "1971,1972,1973,1974"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Special Deluxe",
+    "submodel1": "2-Door",
+    "submodel2": null,
+    "parent_generation": "1946-1950",
+    "year_options": "1946,1947,1948,1949,1950"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Valiant",
+    "submodel1": "4-Door",
+    "submodel2": null,
+    "parent_generation": "1960-1962",
+    "year_options": "1960,1961,1962"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Valiant",
+    "submodel1": "Wagon",
+    "submodel2": null,
+    "parent_generation": "1960-1962",
+    "year_options": "1960,1961,1962"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Plaza",
+    "submodel1": "4-Door Station Wagon",
+    "submodel2": null,
+    "parent_generation": "1956-1958",
+    "year_options": "1956,1957,1958"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Special Deluxe",
+    "submodel1": "2-Door",
+    "submodel2": null,
+    "parent_generation": "1946-1950",
+    "year_options": "1946,1947,1948,1949,1950"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Volare",
+    "submodel1": "4-Door",
+    "submodel2": null,
+    "parent_generation": "1976-1980",
+    "year_options": "1976,1977,1978,1979,1980"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Belvedere",
+    "submodel1": "4-Door",
+    "submodel2": null,
+    "parent_generation": "1954-1955",
+    "year_options": "1954,1955"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Belvedere",
+    "submodel1": "2-Door",
+    "submodel2": null,
+    "parent_generation": "1956-1959",
+    "year_options": "1956,1957,1958,1959"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Belvedere",
+    "submodel1": "2-Door",
+    "submodel2": null,
+    "parent_generation": "1954-1955",
+    "year_options": "1954,1955"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Belvedere",
+    "submodel1": "2-Door",
+    "submodel2": null,
+    "parent_generation": "1954-1955",
+    "year_options": "1954,1955"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Belvedere",
+    "submodel1": "2-Door",
+    "submodel2": null,
+    "parent_generation": "1954-1955",
+    "year_options": "1954,1955"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Belvedere",
+    "submodel1": "2-Door",
+    "submodel2": null,
+    "parent_generation": "1954-1955",
+    "year_options": "1954,1955"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Belvedere",
+    "submodel1": "2-Door",
+    "submodel2": null,
+    "parent_generation": "1954-1955",
+    "year_options": "1954,1955"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Belvedere",
+    "submodel1": "4-Door",
+    "submodel2": null,
+    "parent_generation": "1954-1955",
+    "year_options": "1954,1955"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Belvedere",
+    "submodel1": "4-Door",
+    "submodel2": null,
+    "parent_generation": "1954-1955",
+    "year_options": "1954,1955"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Belvedere",
+    "submodel1": "4-Door",
+    "submodel2": null,
+    "parent_generation": "1954-1955",
+    "year_options": "1954,1955"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Belvedere",
+    "submodel1": "2-Door",
+    "submodel2": null,
+    "parent_generation": "1956-1959",
+    "year_options": "1956,1957,1958,1959"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Belvedere",
+    "submodel1": "Station Wagon",
+    "submodel2": null,
+    "parent_generation": "1954-1955",
+    "year_options": "1954,1955"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Belvedere",
+    "submodel1": "Station Wagon",
+    "submodel2": null,
+    "parent_generation": "1954-1955",
+    "year_options": "1954,1955"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Belvedere",
+    "submodel1": "Station Wagon",
+    "submodel2": null,
+    "parent_generation": "1954-1955",
+    "year_options": "1954,1955"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Belvedere",
+    "submodel1": "Station Wagon",
+    "submodel2": null,
+    "parent_generation": "1954-1955",
+    "year_options": "1954,1955"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Belvedere",
+    "submodel1": "2-Door",
+    "submodel2": null,
+    "parent_generation": "1956-1959",
+    "year_options": "1956,1957,1958,1959"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Belvedere",
+    "submodel1": "2-Door",
+    "submodel2": null,
+    "parent_generation": "1956-1959",
+    "year_options": "1956,1957,1958,1959"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Belvedere",
+    "submodel1": "2-Door",
+    "submodel2": null,
+    "parent_generation": "1956-1959",
+    "year_options": "1956,1957,1958,1959"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Belvedere",
+    "submodel1": "4-Door",
+    "submodel2": null,
+    "parent_generation": "1956-1959",
+    "year_options": "1956,1957,1958,1959"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Belvedere",
+    "submodel1": "4-Door",
+    "submodel2": null,
+    "parent_generation": "1956-1959",
+    "year_options": "1956,1957,1958,1959"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Belvedere",
+    "submodel1": "4-Door",
+    "submodel2": null,
+    "parent_generation": "1956-1959",
+    "year_options": "1956,1957,1958,1959"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Belvedere",
+    "submodel1": "Station Wagon",
+    "submodel2": null,
+    "parent_generation": "1956-1959",
+    "year_options": "1956,1957,1958,1959"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Belvedere",
+    "submodel1": "Station Wagon",
+    "submodel2": null,
+    "parent_generation": "1956-1959",
+    "year_options": "1956,1957,1958,1959"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Belvedere",
+    "submodel1": "Station Wagon",
+    "submodel2": null,
+    "parent_generation": "1956-1959",
+    "year_options": "1956,1957,1958,1959"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Belvedere",
+    "submodel1": "Station Wagon",
+    "submodel2": null,
+    "parent_generation": "1956-1959",
+    "year_options": "1956,1957,1958,1959"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Belvedere",
+    "submodel1": "Station Wagon",
+    "submodel2": null,
+    "parent_generation": "1956-1959",
+    "year_options": "1956,1957,1958,1959"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Belvedere",
+    "submodel1": "2-Door",
+    "submodel2": null,
+    "parent_generation": "1962-1971",
+    "year_options": "1962,1963,1964,1965,1966,1967,1968,1969,1970,1971"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Belvedere",
+    "submodel1": "2-Door",
+    "submodel2": null,
+    "parent_generation": "1962-1971",
+    "year_options": "1962,1963,1964,1965,1966,1967,1968,1969,1970,1971"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Belvedere",
+    "submodel1": "2-Door",
+    "submodel2": null,
+    "parent_generation": "1962-1971",
+    "year_options": "1962,1963,1964,1965,1966,1967,1968,1969,1970,1971"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Belvedere",
+    "submodel1": "2-Door",
+    "submodel2": null,
+    "parent_generation": "1962-1971",
+    "year_options": "1962,1963,1964,1965,1966,1967,1968,1969,1970,1971"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Belvedere",
+    "submodel1": "2-Door",
+    "submodel2": null,
+    "parent_generation": "1962-1971",
+    "year_options": "1962,1963,1964,1965,1966,1967,1968,1969,1970,1971"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Belvedere",
+    "submodel1": "4-Door",
+    "submodel2": null,
+    "parent_generation": "1962-1971",
+    "year_options": "1962,1963,1964,1965,1966,1967,1968,1969,1970,1971"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Belvedere",
+    "submodel1": "4-Door",
+    "submodel2": null,
+    "parent_generation": "1962-1971",
+    "year_options": "1962,1963,1964,1965,1966,1967,1968,1969,1970,1971"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Belvedere",
+    "submodel1": "4-Door",
+    "submodel2": null,
+    "parent_generation": "1962-1971",
+    "year_options": "1962,1963,1964,1965,1966,1967,1968,1969,1970,1971"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Belvedere",
+    "submodel1": "4-Door",
+    "submodel2": null,
+    "parent_generation": "1962-1971",
+    "year_options": "1962,1963,1964,1965,1966,1967,1968,1969,1970,1971"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Belvedere",
+    "submodel1": "4-Door",
+    "submodel2": null,
+    "parent_generation": "1962-1971",
+    "year_options": "1962,1963,1964,1965,1966,1967,1968,1969,1970,1971"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Belvedere",
+    "submodel1": "Station Wagon",
+    "submodel2": null,
+    "parent_generation": "1962-1971",
+    "year_options": "1962,1963,1964,1965,1966,1967,1968,1969,1970"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Belvedere",
+    "submodel1": "Station Wagon",
+    "submodel2": null,
+    "parent_generation": "1962-1971",
+    "year_options": "1962,1963,1964,1965,1966,1967,1968,1969,1970"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Belvedere",
+    "submodel1": "Station Wagon",
+    "submodel2": null,
+    "parent_generation": "1962-1971",
+    "year_options": "1962,1963,1964,1965,1966,1967,1968,1969,1970"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Cambridge",
+    "submodel1": "2-Door",
+    "submodel2": null,
+    "parent_generation": "1951-1953",
+    "year_options": "1951,1952,1953"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Cambridge",
+    "submodel1": "2-Door",
+    "submodel2": null,
+    "parent_generation": "1951-1953",
+    "year_options": "1951,1952,1953"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Cambridge",
+    "submodel1": "2-Door",
+    "submodel2": null,
+    "parent_generation": "1951-1953",
+    "year_options": "1951,1952,1953"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Cambridge",
+    "submodel1": "4-Door",
+    "submodel2": null,
+    "parent_generation": "1951-1953",
+    "year_options": "1951,1952,1953"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Cambridge",
+    "submodel1": "4-Door",
+    "submodel2": null,
+    "parent_generation": "1951-1953",
+    "year_options": "1951,1952,1953"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Cambridge",
+    "submodel1": "4-Door",
+    "submodel2": null,
+    "parent_generation": "1951-1953",
+    "year_options": "1951,1952,1953"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Cambridge",
+    "submodel1": "4-Door",
+    "submodel2": null,
+    "parent_generation": "1951-1953",
+    "year_options": "1951,1952,1953"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Cambridge",
+    "submodel1": "4-Door",
+    "submodel2": null,
+    "parent_generation": "1951-1953",
+    "year_options": "1951,1952,1953"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Cambridge",
+    "submodel1": "2-Door",
+    "submodel2": null,
+    "parent_generation": "1951-1953",
+    "year_options": "1951,1952,1953"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Deluxe",
+    "submodel1": "2-Door",
+    "submodel2": null,
+    "parent_generation": "1946-1951",
+    "year_options": "1946,1947,1948,1949,1950,1951"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Deluxe",
+    "submodel1": "2-Door",
+    "submodel2": null,
+    "parent_generation": "1946-1951",
+    "year_options": "1946,1947,1948,1949,1950,1951"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Deluxe",
+    "submodel1": "2-Door",
+    "submodel2": null,
+    "parent_generation": "1946-1951",
+    "year_options": "1946,1947,1948,1949,1950,1951"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Deluxe",
+    "submodel1": "2-Door",
+    "submodel2": null,
+    "parent_generation": "1946-1951",
+    "year_options": "1946,1947,1948,1949,1950,1951"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Deluxe",
+    "submodel1": "4-Door",
+    "submodel2": null,
+    "parent_generation": "1946-1951",
+    "year_options": "1946,1947,1948,1949,1950,1951"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Deluxe",
+    "submodel1": "4-Door",
+    "submodel2": null,
+    "parent_generation": "1946-1951",
+    "year_options": "1946,1947,1948,1949,1950,1951"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Deluxe",
+    "submodel1": "4-Door",
+    "submodel2": null,
+    "parent_generation": "1946-1951",
+    "year_options": "1946,1947,1948,1949,1950,1951"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Deluxe",
+    "submodel1": "4-Door",
+    "submodel2": null,
+    "parent_generation": "1946-1951",
+    "year_options": "1946,1947,1948,1949,1950,1951"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Deluxe",
+    "submodel1": "Station Wagon",
+    "submodel2": null,
+    "parent_generation": "1946-1951",
+    "year_options": "1946,1947,1948,1949,1950,1951"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Deluxe",
+    "submodel1": "Station Wagon",
+    "submodel2": null,
+    "parent_generation": "1946-1951",
+    "year_options": "1946,1947,1948,1949,1950,1951"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Gran Fury",
+    "submodel1": "4-Door Sedan",
+    "submodel2": null,
+    "parent_generation": "1974-1977",
+    "year_options": "1974,1975,1976,1977"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Deluxe",
+    "submodel1": "Station Wagon",
+    "submodel2": null,
+    "parent_generation": "1946-1951",
+    "year_options": "1946,1947,1948,1949,1950,1951"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Fury",
+    "submodel1": "2-Door",
+    "submodel2": null,
+    "parent_generation": "1960-1964",
+    "year_options": "1960,1961,1962,1963,1964"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Fury",
+    "submodel1": "2-Door",
+    "submodel2": null,
+    "parent_generation": "1960-1964",
+    "year_options": "1960,1961,1962,1963,1964"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Fury",
+    "submodel1": "4-Door",
+    "submodel2": null,
+    "parent_generation": "1960-1964",
+    "year_options": "1960,1961,1962,1963,1964"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Fury",
+    "submodel1": "4-Door",
+    "submodel2": null,
+    "parent_generation": "1960-1964",
+    "year_options": "1960,1961,1962,1963,1964"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Fury",
+    "submodel1": "4-Door",
+    "submodel2": null,
+    "parent_generation": "1960-1964",
+    "year_options": "1960,1961,1962,1963,1964"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Fury",
+    "submodel1": "4-Door",
+    "submodel2": null,
+    "parent_generation": "1960-1964",
+    "year_options": "1960,1961,1962,1963,1964"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Fury",
+    "submodel1": "4-Door",
+    "submodel2": null,
+    "parent_generation": "1960-1964",
+    "year_options": "1960,1961,1962,1963,1964"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Fury",
+    "submodel1": "4-Door",
+    "submodel2": null,
+    "parent_generation": "1960-1964",
+    "year_options": "1960,1961,1962,1963,1964"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Fury",
+    "submodel1": "Station Wagon",
+    "submodel2": null,
+    "parent_generation": "1960-1964",
+    "year_options": "1960,1961,1962,1963,1964"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Fury",
+    "submodel1": "Station Wagon",
+    "submodel2": null,
+    "parent_generation": "1960-1964",
+    "year_options": "1960,1961,1962,1963,1964"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Fury",
+    "submodel1": "Station Wagon",
+    "submodel2": null,
+    "parent_generation": "1960-1964",
+    "year_options": "1960,1961,1962,1963,1964"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Fury",
+    "submodel1": "2-Door",
+    "submodel2": null,
+    "parent_generation": "1965-1974",
+    "year_options": "1965,1966,1967,1968,1969,1970,1971,1972,1973,1974"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Fury",
+    "submodel1": "2-Door",
+    "submodel2": null,
+    "parent_generation": "1965-1974",
+    "year_options": "1965,1966,1967,1968,1969,1970,1971,1972,1973,1974"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Fury",
+    "submodel1": "2-Door",
+    "submodel2": null,
+    "parent_generation": "1965-1974",
+    "year_options": "1965,1966,1967,1968,1969,1970,1971,1972,1973,1974"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Fury",
+    "submodel1": "2-Door",
+    "submodel2": null,
+    "parent_generation": "1965-1974",
+    "year_options": "1965,1966,1967,1968,1969,1970,1971,1972,1973,1974"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Fury",
+    "submodel1": "2-Door",
+    "submodel2": null,
+    "parent_generation": "1965-1974",
+    "year_options": "1965,1966,1967,1968,1969,1970,1971,1972,1973,1974"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Fury",
+    "submodel1": "4-Door",
+    "submodel2": null,
+    "parent_generation": "1965-1974",
+    "year_options": "1965,1966,1967,1968,1969,1970,1971,1972,1973,1974"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Fury",
+    "submodel1": "4-Door",
+    "submodel2": null,
+    "parent_generation": "1965-1974",
+    "year_options": "1965,1966,1967,1968,1969,1970,1971,1972,1973,1974"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Fury",
+    "submodel1": "4-Door",
+    "submodel2": null,
+    "parent_generation": "1965-1974",
+    "year_options": "1965,1966,1967,1968,1969,1970,1971,1972,1973,1974"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Fury",
+    "submodel1": "4-Door",
+    "submodel2": null,
+    "parent_generation": "1965-1974",
+    "year_options": "1965,1966,1967,1968,1969,1970,1971,1972,1973,1974"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Fury",
+    "submodel1": "Station Wagon",
+    "submodel2": null,
+    "parent_generation": "1965-1974",
+    "year_options": "1965,1966,1967,1968,1969,1970,1971,1972,1973,1974"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Fury",
+    "submodel1": "Station Wagon",
+    "submodel2": null,
+    "parent_generation": "1965-1974",
+    "year_options": "1965,1966,1967,1968,1969,1970,1971,1972,1973,1974"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Fury",
+    "submodel1": "Station Wagon",
+    "submodel2": null,
+    "parent_generation": "1965-1974",
+    "year_options": "1965,1966,1967,1968,1969,1970,1971,1972,1973,1974"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Fury",
+    "submodel1": "4-Door",
+    "submodel2": null,
+    "parent_generation": "1965-1974",
+    "year_options": "1965,1966,1967,1968,1969,1970,1971,1972,1973,1974"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Fury",
+    "submodel1": "Station Wagon",
+    "submodel2": null,
+    "parent_generation": "1965-1974",
+    "year_options": "1965,1966,1967,1968,1969,1970,1971,1972,1973,1974"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Fury",
+    "submodel1": "Gran Coupe",
+    "submodel2": null,
+    "parent_generation": "1965-1974",
+    "year_options": "1970,1971,1972,1973,1974"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Fury",
+    "submodel1": "Gran Coupe",
+    "submodel2": null,
+    "parent_generation": "1965-1974",
+    "year_options": "1970,1971,1972,1973,1974"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Fury",
+    "submodel1": "Gran Coupe",
+    "submodel2": null,
+    "parent_generation": "1965-1974",
+    "year_options": "1970,1971,1972,1973,1974"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Fury",
+    "submodel1": "Gran Coupe",
+    "submodel2": null,
+    "parent_generation": "1965-1974",
+    "year_options": "1970,1971,1972,1973,1974"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Fury",
+    "submodel1": "Gran Coupe",
+    "submodel2": null,
+    "parent_generation": "1965-1974",
+    "year_options": "1970,1971,1972,1973,1974"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Fury",
+    "submodel1": "Gran Coupe",
+    "submodel2": null,
+    "parent_generation": "1965-1974",
+    "year_options": "1970,1971,1972,1973,1974"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Fury",
+    "submodel1": "Gran Sedan",
+    "submodel2": null,
+    "parent_generation": "1965-1974",
+    "year_options": "1971,1972,1973,1974"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Fury",
+    "submodel1": "Gran Sedan",
+    "submodel2": null,
+    "parent_generation": "1965-1974",
+    "year_options": "1971,1972,1973,1974"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Fury",
+    "submodel1": "Gran Sedan",
+    "submodel2": null,
+    "parent_generation": "1965-1974",
+    "year_options": "1971,1972,1973,1974"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Gran Fury",
+    "submodel1": "2-Door Coupe",
+    "submodel2": null,
+    "parent_generation": "1974-1977",
+    "year_options": "1974,1975,1976,1977"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Gran Fury",
+    "submodel1": "2-Door Coupe",
+    "submodel2": null,
+    "parent_generation": "1974-1977",
+    "year_options": "1974,1975,1976,1977"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Gran Fury",
+    "submodel1": "2-Door Coupe",
+    "submodel2": null,
+    "parent_generation": "1974-1977",
+    "year_options": "1974,1975,1976,1977"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Gran Fury",
+    "submodel1": "2-Door Coupe",
+    "submodel2": null,
+    "parent_generation": "1974-1977",
+    "year_options": "1974,1975,1976,1977"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Plaza",
+    "submodel1": "4-Door Sedan",
+    "submodel2": null,
+    "parent_generation": "1956-1958",
+    "year_options": "1956,1957,1958"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Gran Fury",
+    "submodel1": "4-Door Sedan",
+    "submodel2": null,
+    "parent_generation": "1974-1977",
+    "year_options": "1974,1975,1976,1977"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Gran Fury",
+    "submodel1": "4-Door Sedan",
+    "submodel2": null,
+    "parent_generation": "1974-1977",
+    "year_options": "1974,1975,1976,1977"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Gran Fury",
+    "submodel1": "4-Door Sedan",
+    "submodel2": null,
+    "parent_generation": "1974-1977",
+    "year_options": "1974,1975,1976,1977"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Gran Fury",
+    "submodel1": "Station Wagon",
+    "submodel2": null,
+    "parent_generation": "1974-1977",
+    "year_options": "1974,1975,1976,1977"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Gran Fury",
+    "submodel1": "Station Wagon",
+    "submodel2": null,
+    "parent_generation": "1974-1977",
+    "year_options": "1974,1975,1976,1977"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Gran Fury",
+    "submodel1": "Station Wagon",
+    "submodel2": null,
+    "parent_generation": "1974-1977",
+    "year_options": "1974,1975,1976,1977"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Gran Fury",
+    "submodel1": "Station Wagon",
+    "submodel2": null,
+    "parent_generation": "1974-1977",
+    "year_options": "1974,1975,1976,1977"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Valiant",
+    "submodel1": "4-Door",
+    "submodel2": null,
+    "parent_generation": "1960-1962",
+    "year_options": "1960,1961,1962"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Gran Fury",
+    "submodel1": "2-Door Coupe",
+    "submodel2": null,
+    "parent_generation": "1982-1989",
+    "year_options": "1982,1983,1984,1985,1986,1987,1988,1989"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Gran Fury",
+    "submodel1": "2-Door Coupe",
+    "submodel2": null,
+    "parent_generation": "1982-1989",
+    "year_options": "1982,1983,1984,1985,1986,1987,1988,1989"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Gran Fury",
+    "submodel1": "2-Door Coupe",
+    "submodel2": null,
+    "parent_generation": "1982-1989",
+    "year_options": "1982,1983,1984,1985,1986,1987,1988,1989"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Gran Fury",
+    "submodel1": "4-Door Sedan",
+    "submodel2": null,
+    "parent_generation": "1982-1989",
+    "year_options": "1982,1983,1984,1985,1986,1987,1988,1989"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Gran Fury",
+    "submodel1": "4-Door Sedan",
+    "submodel2": null,
+    "parent_generation": "1982-1989",
+    "year_options": "1982,1983,1984,1985,1986,1987,1988,1989"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Gran Fury",
+    "submodel1": "4-Door Sedan",
+    "submodel2": null,
+    "parent_generation": "1982-1989",
+    "year_options": "1982,1983,1984,1985,1986,1987,1988,1989"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Gran Fury",
+    "submodel1": "4-Door Sedan",
+    "submodel2": null,
+    "parent_generation": "1982-1989",
+    "year_options": "1982,1983,1984,1985,1986,1987,1988,1989"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Reliant",
+    "submodel1": "4-Door",
+    "submodel2": null,
+    "parent_generation": "1981-1989",
+    "year_options": "1981,1982,1983,1984,1985,1986,1987,1988,1989"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Gran Fury",
+    "submodel1": "Station Wagon",
+    "submodel2": null,
+    "parent_generation": "1982-1989",
+    "year_options": "1982,1983,1984,1985,1986,1987,1988,1989"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Gran Fury",
+    "submodel1": "Station Wagon",
+    "submodel2": null,
+    "parent_generation": "1982-1989",
+    "year_options": "1982,1983,1984,1985,1986,1987,1988,1989"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Gran Fury",
+    "submodel1": "Station Wagon",
+    "submodel2": null,
+    "parent_generation": "1982-1989",
+    "year_options": "1982,1983,1984,1985,1986,1987,1988,1989"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Gran Fury",
+    "submodel1": "Station Wagon",
+    "submodel2": null,
+    "parent_generation": "1982-1989",
+    "year_options": "1982,1983,1984,1985,1986,1987,1988,1989"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Gran Fury",
+    "submodel1": "Station Wagon",
+    "submodel2": null,
+    "parent_generation": "1982-1989",
+    "year_options": "1982,1983,1984,1985,1986,1987,1988,1989"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Plaza",
+    "submodel1": "2-Door Sedan",
+    "submodel2": null,
+    "parent_generation": "1954-1955",
+    "year_options": "1954,1955"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Plaza",
+    "submodel1": "2-Door Sedan",
+    "submodel2": null,
+    "parent_generation": "1954-1955",
+    "year_options": "1954,1955"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Plaza",
+    "submodel1": "2-Door Sedan",
+    "submodel2": null,
+    "parent_generation": "1954-1955",
+    "year_options": "1954,1955"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Plaza",
+    "submodel1": "2-Door Sedan",
+    "submodel2": null,
+    "parent_generation": "1954-1955",
+    "year_options": "1954,1955"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Plaza",
+    "submodel1": "4-Door Sedan",
+    "submodel2": null,
+    "parent_generation": "1954-1955",
+    "year_options": "1954,1955"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Plaza",
+    "submodel1": "4-Door Sedan",
+    "submodel2": null,
+    "parent_generation": "1954-1955",
+    "year_options": "1954,1955"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Plaza",
+    "submodel1": "4-Door Sedan",
+    "submodel2": null,
+    "parent_generation": "1954-1955",
+    "year_options": "1954,1955"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Plaza",
+    "submodel1": "4-Door Sedan",
+    "submodel2": null,
+    "parent_generation": "1954-1955",
+    "year_options": "1954,1955"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Plaza",
+    "submodel1": "4-Door Sedan",
+    "submodel2": null,
+    "parent_generation": "1954-1955",
+    "year_options": "1954,1955"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Plaza",
+    "submodel1": "2-Door Station Wagon",
+    "submodel2": null,
+    "parent_generation": "1954-1955",
+    "year_options": "1954,1955"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Plaza",
+    "submodel1": "2-Door Station Wagon",
+    "submodel2": null,
+    "parent_generation": "1954-1955",
+    "year_options": "1954,1955"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Plaza",
+    "submodel1": "2-Door Station Wagon",
+    "submodel2": null,
+    "parent_generation": "1954-1955",
+    "year_options": "1954,1955"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Plaza",
+    "submodel1": "2-Door Station Wagon",
+    "submodel2": null,
+    "parent_generation": "1954-1955",
+    "year_options": "1954,1955"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Plaza",
+    "submodel1": "4-Door Station Wagon",
+    "submodel2": null,
+    "parent_generation": "1954-1955",
+    "year_options": "1954,1955"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Plaza",
+    "submodel1": "4-Door Station Wagon",
+    "submodel2": null,
+    "parent_generation": "1954-1955",
+    "year_options": "1954,1955"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Plaza",
+    "submodel1": "4-Door Station Wagon",
+    "submodel2": null,
+    "parent_generation": "1954-1955",
+    "year_options": "1954,1955"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Plaza",
+    "submodel1": "4-Door Station Wagon",
+    "submodel2": null,
+    "parent_generation": "1954-1955",
+    "year_options": "1954,1955"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Reliant",
+    "submodel1": "4-Door",
+    "submodel2": null,
+    "parent_generation": "1981-1989",
+    "year_options": "1981,1982,1983,1984,1985,1986,1987,1988,1989"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Plaza",
+    "submodel1": "2-Door Sedan",
+    "submodel2": null,
+    "parent_generation": "1956-1958",
+    "year_options": "1956,1957,1958"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Plaza",
+    "submodel1": "2-Door Sedan",
+    "submodel2": null,
+    "parent_generation": "1956-1958",
+    "year_options": "1956,1957,1958"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Plaza",
+    "submodel1": "2-Door Sedan",
+    "submodel2": null,
+    "parent_generation": "1956-1958",
+    "year_options": "1956,1957,1958"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Plaza",
+    "submodel1": "2-Door Sedan",
+    "submodel2": null,
+    "parent_generation": "1956-1958",
+    "year_options": "1956,1957,1958"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Plaza",
+    "submodel1": "2-Door Sedan",
+    "submodel2": null,
+    "parent_generation": "1956-1958",
+    "year_options": "1956,1957,1958"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Plaza",
+    "submodel1": "4-Door Sedan",
+    "submodel2": null,
+    "parent_generation": "1956-1958",
+    "year_options": "1956,1957,1958"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Plaza",
+    "submodel1": "4-Door Sedan",
+    "submodel2": null,
+    "parent_generation": "1956-1958",
+    "year_options": "1956,1957,1958"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Plaza",
+    "submodel1": "2-Door Station Wagon",
+    "submodel2": null,
+    "parent_generation": "1956-1958",
+    "year_options": "1956,1957,1958"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Plaza",
+    "submodel1": "2-Door Station Wagon",
+    "submodel2": null,
+    "parent_generation": "1956-1958",
+    "year_options": "1956,1957,1958"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Plaza",
+    "submodel1": "2-Door Station Wagon",
+    "submodel2": null,
+    "parent_generation": "1956-1958",
+    "year_options": "1956,1957,1958"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Plaza",
+    "submodel1": "2-Door Station Wagon",
+    "submodel2": null,
+    "parent_generation": "1956-1958",
+    "year_options": "1956,1957,1958"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Plaza",
+    "submodel1": "2-Door Station Wagon",
+    "submodel2": null,
+    "parent_generation": "1956-1958",
+    "year_options": "1956,1957,1958"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Plaza",
+    "submodel1": "4-Door Station Wagon",
+    "submodel2": null,
+    "parent_generation": "1956-1958",
+    "year_options": "1956,1957,1958"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Plaza",
+    "submodel1": "4-Door Station Wagon",
+    "submodel2": null,
+    "parent_generation": "1956-1958",
+    "year_options": "1956,1957,1958"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Plaza",
+    "submodel1": "4-Door Station Wagon",
+    "submodel2": null,
+    "parent_generation": "1956-1958",
+    "year_options": "1956,1957,1958"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Satellite",
+    "submodel1": "Wagon",
+    "submodel2": null,
+    "parent_generation": "1971-1974",
+    "year_options": "1971,1972,1973,1974"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Plaza",
+    "submodel1": "4-Door Station Wagon",
+    "submodel2": null,
+    "parent_generation": "1956-1958",
+    "year_options": "1956,1957,1958"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Reliant",
+    "submodel1": "2-Door",
+    "submodel2": null,
+    "parent_generation": "1981-1989",
+    "year_options": "1981,1982,1983,1984,1985,1986,1987,1988,1989"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Reliant",
+    "submodel1": "2-Door",
+    "submodel2": null,
+    "parent_generation": "1981-1989",
+    "year_options": "1981,1982,1983,1984,1985,1986,1987,1988,1989"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Reliant",
+    "submodel1": "2-Door",
+    "submodel2": null,
+    "parent_generation": "1981-1989",
+    "year_options": "1981,1982,1983,1984,1985,1986,1987,1988,1989"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Reliant",
+    "submodel1": "2-Door",
+    "submodel2": null,
+    "parent_generation": "1981-1989",
+    "year_options": "1981,1982,1983,1984,1985,1986,1987,1988,1989"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Reliant",
+    "submodel1": "4-Door",
+    "submodel2": null,
+    "parent_generation": "1981-1989",
+    "year_options": "1981,1982,1983,1984,1985,1986,1987,1988,1989"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Reliant",
+    "submodel1": "4-Door",
+    "submodel2": null,
+    "parent_generation": "1981-1989",
+    "year_options": "1981,1982,1983,1984,1985,1986,1987,1988,1989"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Reliant",
+    "submodel1": "Wagon",
+    "submodel2": null,
+    "parent_generation": "1981-1989",
+    "year_options": "1981,1982,1983,1984,1985,1986,1987,1988,1989"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Reliant",
+    "submodel1": "Wagon",
+    "submodel2": null,
+    "parent_generation": "1981-1989",
+    "year_options": "1981,1982,1983,1984,1985,1986,1987,1988,1989"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Reliant",
+    "submodel1": "Wagon",
+    "submodel2": null,
+    "parent_generation": "1981-1989",
+    "year_options": "1981,1982,1983,1984,1985,1986,1987,1988,1989"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Reliant",
+    "submodel1": "4-Door",
+    "submodel2": null,
+    "parent_generation": "1981-1989",
+    "year_options": "1981,1982,1983,1984,1985,1986,1987,1988,1989"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Reliant",
+    "submodel1": "Wagon",
+    "submodel2": null,
+    "parent_generation": "1981-1989",
+    "year_options": "1981,1982,1983,1984,1985,1986,1987,1988,1989"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Satellite",
+    "submodel1": "2-Door",
+    "submodel2": null,
+    "parent_generation": "1965-1970",
+    "year_options": "1965,1966,1967,1968,1969,1970"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Satellite",
+    "submodel1": "2-Door",
+    "submodel2": null,
+    "parent_generation": "1965-1970",
+    "year_options": "1965,1966,1967,1968,1969,1970"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Satellite",
+    "submodel1": "2-Door",
+    "submodel2": null,
+    "parent_generation": "1965-1970",
+    "year_options": "1965,1966,1967,1968,1969,1970"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Satellite",
+    "submodel1": "2-Door",
+    "submodel2": null,
+    "parent_generation": "1965-1970",
+    "year_options": "1965,1966,1967,1968,1969,1970"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Satellite",
+    "submodel1": "2-Door",
+    "submodel2": null,
+    "parent_generation": "1965-1970",
+    "year_options": "1965,1966,1967,1968,1969,1970"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Satellite",
+    "submodel1": "4-Door",
+    "submodel2": null,
+    "parent_generation": "1965-1970",
+    "year_options": "1965,1966,1967,1968,1969,1970"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Satellite",
+    "submodel1": "4-Door",
+    "submodel2": null,
+    "parent_generation": "1965-1970",
+    "year_options": "1965,1966,1967,1968,1969,1970"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Satellite",
+    "submodel1": "4-Door",
+    "submodel2": null,
+    "parent_generation": "1965-1970",
+    "year_options": "1965,1966,1967,1968,1969,1970"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Satellite",
+    "submodel1": "Wagon",
+    "submodel2": null,
+    "parent_generation": "1965-1970",
+    "year_options": "1965,1966,1967,1968,1969,1970"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Satellite",
+    "submodel1": "Wagon",
+    "submodel2": null,
+    "parent_generation": "1965-1970",
+    "year_options": "1965,1966,1967,1968,1969,1970"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Satellite",
+    "submodel1": "Wagon",
+    "submodel2": null,
+    "parent_generation": "1965-1970",
+    "year_options": "1965,1966,1967,1968,1969,1970"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Satellite",
+    "submodel1": "Wagon",
+    "submodel2": null,
+    "parent_generation": "1965-1970",
+    "year_options": "1965,1966,1967,1968,1969,1970"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Satellite",
+    "submodel1": "Wagon",
+    "submodel2": null,
+    "parent_generation": "1965-1970",
+    "year_options": "1965,1966,1967,1968,1969,1970"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Satellite",
+    "submodel1": "2-Door",
+    "submodel2": null,
+    "parent_generation": "1971-1974",
+    "year_options": "1971,1972,1973,1974"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Satellite",
+    "submodel1": "2-Door",
+    "submodel2": null,
+    "parent_generation": "1971-1974",
+    "year_options": "1971,1972,1973,1974"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Satellite",
+    "submodel1": "2-Door",
+    "submodel2": null,
+    "parent_generation": "1971-1974",
+    "year_options": "1971,1972,1973,1974"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Satellite",
+    "submodel1": "4-Door",
+    "submodel2": null,
+    "parent_generation": "1971-1974",
+    "year_options": "1971,1972,1973,1974"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Satellite",
+    "submodel1": "4-Door",
+    "submodel2": null,
+    "parent_generation": "1971-1974",
+    "year_options": "1971,1972,1973,1974"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Satellite",
+    "submodel1": "4-Door",
+    "submodel2": null,
+    "parent_generation": "1971-1974",
+    "year_options": "1971,1972,1973,1974"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Satellite",
+    "submodel1": "4-Door",
+    "submodel2": null,
+    "parent_generation": "1971-1974",
+    "year_options": "1971,1972,1973,1974"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Satellite",
+    "submodel1": "4-Door",
+    "submodel2": null,
+    "parent_generation": "1971-1974",
+    "year_options": "1971,1972,1973,1974"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Satellite",
+    "submodel1": "2-Door",
+    "submodel2": null,
+    "parent_generation": "1971-1974",
+    "year_options": "1971,1972,1973,1974"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Satellite",
+    "submodel1": "Wagon",
+    "submodel2": null,
+    "parent_generation": "1971-1974",
+    "year_options": "1971,1972,1973,1974"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Satellite",
+    "submodel1": "Wagon",
+    "submodel2": null,
+    "parent_generation": "1971-1974",
+    "year_options": "1971,1972,1973,1974"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Satellite",
+    "submodel1": "Wagon",
+    "submodel2": null,
+    "parent_generation": "1971-1974",
+    "year_options": "1971,1972,1973,1974"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Satellite",
+    "submodel1": "Wagon",
+    "submodel2": null,
+    "parent_generation": "1971-1974",
+    "year_options": "1971,1972,1973,1974"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Savoy",
+    "submodel1": "2-Door",
+    "submodel2": null,
+    "parent_generation": "1954-1965",
+    "year_options": "1954,1955,1956,1957,1958,1959,1960,1961,1962,1963,1964,1965"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Savoy",
+    "submodel1": "4-Door",
+    "submodel2": null,
+    "parent_generation": "1954-1965",
+    "year_options": "1954,1955,1956,1957,1958,1959,1960,1961,1962,1963,1964,1965"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Savoy",
+    "submodel1": "2-Door",
+    "submodel2": null,
+    "parent_generation": "1954-1965",
+    "year_options": "1954,1955,1956,1957,1958,1959,1960,1961,1962,1963,1964,1965"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Savoy",
+    "submodel1": "2-Door",
+    "submodel2": null,
+    "parent_generation": "1954-1965",
+    "year_options": "1954,1955,1956,1957,1958,1959,1960,1961,1962,1963,1964,1965"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Savoy",
+    "submodel1": "2-Door",
+    "submodel2": null,
+    "parent_generation": "1954-1965",
+    "year_options": "1954,1955,1956,1957,1958,1959,1960,1961,1962,1963,1964,1965"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Savoy",
+    "submodel1": "2-Door",
+    "submodel2": null,
+    "parent_generation": "1954-1965",
+    "year_options": "1954,1955,1956,1957,1958,1959,1960,1961,1962,1963,1964,1965"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Savoy",
+    "submodel1": "2-Door",
+    "submodel2": null,
+    "parent_generation": "1954-1965",
+    "year_options": "1954,1955,1956,1957,1958,1959,1960,1961,1962,1963,1964,1965"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Savoy",
+    "submodel1": "4-Door",
+    "submodel2": null,
+    "parent_generation": "1954-1965",
+    "year_options": "1954,1955,1956,1957,1958,1959,1960,1961,1962,1963,1964,1965"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Savoy",
+    "submodel1": "4-Door",
+    "submodel2": null,
+    "parent_generation": "1954-1965",
+    "year_options": "1954,1955,1956,1957,1958,1959,1960,1961,1962,1963,1964,1965"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Savoy",
+    "submodel1": "4-Door",
+    "submodel2": null,
+    "parent_generation": "1954-1965",
+    "year_options": "1954,1955,1956,1957,1958,1959,1960,1961,1962,1963,1964,1965"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Savoy",
+    "submodel1": "Wagon",
+    "submodel2": null,
+    "parent_generation": "1954-1965",
+    "year_options": "1954,1955,1956,1957,1958,1959,1960,1961"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Savoy",
+    "submodel1": "Wagon",
+    "submodel2": null,
+    "parent_generation": "1954-1965",
+    "year_options": "1954,1955,1956,1957,1958,1959,1960,1961"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Savoy",
+    "submodel1": "Wagon",
+    "submodel2": null,
+    "parent_generation": "1954-1965",
+    "year_options": "1954,1955,1956,1957,1958,1959,1960,1961"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Savoy",
+    "submodel1": "4-Door",
+    "submodel2": null,
+    "parent_generation": "1954-1965",
+    "year_options": "1954,1955,1956,1957,1958,1959,1960,1961,1962,1963,1964,1965"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Special Deluxe",
+    "submodel1": "2-Door",
+    "submodel2": null,
+    "parent_generation": "1946-1950",
+    "year_options": "1946,1947,1948,1949,1950"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Special Deluxe",
+    "submodel1": "2-Door",
+    "submodel2": null,
+    "parent_generation": "1946-1950",
+    "year_options": "1946,1947,1948,1949,1950"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Special Deluxe",
+    "submodel1": "2-Door",
+    "submodel2": null,
+    "parent_generation": "1946-1950",
+    "year_options": "1946,1947,1948,1949,1950"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Special Deluxe",
+    "submodel1": "2-Door",
+    "submodel2": null,
+    "parent_generation": "1946-1950",
+    "year_options": "1946,1947,1948,1949,1950"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Valiant",
+    "submodel1": "2-Door",
+    "submodel2": null,
+    "parent_generation": "1963-1966",
+    "year_options": "1963,1964,1965,1966"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Special Deluxe",
+    "submodel1": "4-Door",
+    "submodel2": null,
+    "parent_generation": "1946-1950",
+    "year_options": "1946,1947,1948,1949,1950"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Special Deluxe",
+    "submodel1": "4-Door",
+    "submodel2": null,
+    "parent_generation": "1946-1950",
+    "year_options": "1946,1947,1948,1949,1950"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Special Deluxe",
+    "submodel1": "4-Door",
+    "submodel2": null,
+    "parent_generation": "1946-1950",
+    "year_options": "1946,1947,1948,1949,1950"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Special Deluxe",
+    "submodel1": "4-Door",
+    "submodel2": null,
+    "parent_generation": "1946-1950",
+    "year_options": "1946,1947,1948,1949,1950"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Valiant",
+    "submodel1": "2-Door",
+    "submodel2": null,
+    "parent_generation": "1963-1966",
+    "year_options": "1963,1964,1965,1966"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Valiant",
+    "submodel1": "2-Door",
+    "submodel2": null,
+    "parent_generation": "1960-1962",
+    "year_options": "1960,1961,1962"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Valiant",
+    "submodel1": "2-Door",
+    "submodel2": null,
+    "parent_generation": "1960-1962",
+    "year_options": "1960,1961,1962"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Valiant",
+    "submodel1": "2-Door",
+    "submodel2": null,
+    "parent_generation": "1960-1962",
+    "year_options": "1960,1961,1962"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Valiant",
+    "submodel1": "2-Door",
+    "submodel2": null,
+    "parent_generation": "1960-1962",
+    "year_options": "1960,1961,1962"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Valiant",
+    "submodel1": "2-Door",
+    "submodel2": null,
+    "parent_generation": "1960-1962",
+    "year_options": "1960,1961,1962"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Valiant",
+    "submodel1": "2-Door",
+    "submodel2": null,
+    "parent_generation": "1960-1962",
+    "year_options": "1960,1961,1962"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Valiant",
+    "submodel1": "4-Door",
+    "submodel2": null,
+    "parent_generation": "1960-1962",
+    "year_options": "1960,1961,1962"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Valiant",
+    "submodel1": "4-Door",
+    "submodel2": null,
+    "parent_generation": "1960-1962",
+    "year_options": "1960,1961,1962"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Valiant",
+    "submodel1": "Wagon",
+    "submodel2": null,
+    "parent_generation": "1960-1962",
+    "year_options": "1960,1961,1962"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Valiant",
+    "submodel1": "Wagon",
+    "submodel2": null,
+    "parent_generation": "1960-1962",
+    "year_options": "1960,1961,1962"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Valiant",
+    "submodel1": "Wagon",
+    "submodel2": null,
+    "parent_generation": "1960-1962",
+    "year_options": "1960,1961,1962"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Valiant",
+    "submodel1": "Wagon",
+    "submodel2": null,
+    "parent_generation": "1960-1962",
+    "year_options": "1960,1961,1962"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Valiant",
+    "submodel1": "Wagon",
+    "submodel2": null,
+    "parent_generation": "1960-1962",
+    "year_options": "1960,1961,1962"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Valiant",
+    "submodel1": "2-Door",
+    "submodel2": null,
+    "parent_generation": "1963-1966",
+    "year_options": "1963,1964,1965,1966"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Valiant",
+    "submodel1": "2-Door",
+    "submodel2": null,
+    "parent_generation": "1963-1966",
+    "year_options": "1963,1964,1965,1966"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Valiant",
+    "submodel1": "4-Door",
+    "submodel2": null,
+    "parent_generation": "1963-1966",
+    "year_options": "1963,1964,1965,1966"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Valiant",
+    "submodel1": "4-Door",
+    "submodel2": null,
+    "parent_generation": "1963-1966",
+    "year_options": "1963,1964,1965,1966"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Valiant",
+    "submodel1": "4-Door",
+    "submodel2": null,
+    "parent_generation": "1963-1966",
+    "year_options": "1963,1964,1965,1966"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Valiant",
+    "submodel1": "2-Door",
+    "submodel2": null,
+    "parent_generation": "1963-1966",
+    "year_options": "1963,1964,1965,1966"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Valiant",
+    "submodel1": "4-Door",
+    "submodel2": null,
+    "parent_generation": "1963-1966",
+    "year_options": "1963,1964,1965,1966"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Valiant",
+    "submodel1": "Convertible",
+    "submodel2": null,
+    "parent_generation": "1963-1966",
+    "year_options": "1963,1964,1965,1966"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Valiant",
+    "submodel1": "Convertible",
+    "submodel2": null,
+    "parent_generation": "1963-1966",
+    "year_options": "1963,1964,1965,1966"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Valiant",
+    "submodel1": "Convertible",
+    "submodel2": null,
+    "parent_generation": "1963-1966",
+    "year_options": "1963,1964,1965,1966"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Valiant",
+    "submodel1": "Convertible",
+    "submodel2": null,
+    "parent_generation": "1963-1966",
+    "year_options": "1963,1964,1965,1966"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Valiant",
+    "submodel1": "Convertible",
+    "submodel2": null,
+    "parent_generation": "1963-1966",
+    "year_options": "1963,1964,1965,1966"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Valiant",
+    "submodel1": "Wagon",
+    "submodel2": null,
+    "parent_generation": "1963-1966",
+    "year_options": "1963,1964,1965,1966"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Valiant",
+    "submodel1": "Wagon",
+    "submodel2": null,
+    "parent_generation": "1963-1966",
+    "year_options": "1963,1964,1965,1966"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Valiant",
+    "submodel1": "Wagon",
+    "submodel2": null,
+    "parent_generation": "1963-1966",
+    "year_options": "1963,1964,1965,1966"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Volare",
+    "submodel1": "2-Door",
+    "submodel2": null,
+    "parent_generation": "1976-1980",
+    "year_options": "1976,1977,1978,1979,1980"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Volare",
+    "submodel1": "2-Door",
+    "submodel2": null,
+    "parent_generation": "1976-1980",
+    "year_options": "1976,1977,1978,1979,1980"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Volare",
+    "submodel1": "2-Door",
+    "submodel2": null,
+    "parent_generation": "1976-1980",
+    "year_options": "1976,1977,1978,1979,1980"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Volare",
+    "submodel1": "2-Door",
+    "submodel2": null,
+    "parent_generation": "1976-1980",
+    "year_options": "1976,1977,1978,1979,1980"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Volare",
+    "submodel1": "2-Door",
+    "submodel2": null,
+    "parent_generation": "1976-1980",
+    "year_options": "1976,1977,1978,1979,1980"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Volare",
+    "submodel1": "4-Door",
+    "submodel2": null,
+    "parent_generation": "1976-1980",
+    "year_options": "1976,1977,1978,1979,1980"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Volare",
+    "submodel1": "4-Door",
+    "submodel2": null,
+    "parent_generation": "1976-1980",
+    "year_options": "1976,1977,1978,1979,1980"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Volare",
+    "submodel1": "4-Door",
+    "submodel2": null,
+    "parent_generation": "1976-1980",
+    "year_options": "1976,1977,1978,1979,1980"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Savoy",
+    "submodel1": "2-Door",
+    "submodel2": null,
+    "parent_generation": "1954-1965",
+    "year_options": "1954,1955,1956,1957,1958,1959,1960,1961,1962,1963,1964,1965"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Belvedere",
+    "submodel1": "4-Door",
+    "submodel2": null,
+    "parent_generation": "1954-1955",
+    "year_options": "1954,1955"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Belvedere",
+    "submodel1": "2-Door",
+    "submodel2": null,
+    "parent_generation": "1956-1959",
+    "year_options": "1956,1957,1958,1959"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Belvedere",
+    "submodel1": "4-Door",
+    "submodel2": null,
+    "parent_generation": "1956-1959",
+    "year_options": "1956,1957,1958,1959"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Cambridge",
+    "submodel1": "2-Door",
+    "submodel2": null,
+    "parent_generation": "1951-1953",
+    "year_options": "1951,1952,1953"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Belvedere",
+    "submodel1": "4-Door",
+    "submodel2": null,
+    "parent_generation": "1962-1971",
+    "year_options": "1962,1963,1964,1965,1966,1967,1968,1969,1970,1971"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Deluxe",
+    "submodel1": "4-Door",
+    "submodel2": null,
+    "parent_generation": "1946-1951",
+    "year_options": "1946,1947,1948,1949,1950,1951"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Fury",
+    "submodel1": "2-Door",
+    "submodel2": null,
+    "parent_generation": "1960-1964",
+    "year_options": "1960,1961,1962,1963,1964"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Fury",
+    "submodel1": "4-Door",
+    "submodel2": null,
+    "parent_generation": "1960-1964",
+    "year_options": "1960,1961,1962,1963,1964"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Fury",
+    "submodel1": "2-Door",
+    "submodel2": null,
+    "parent_generation": "1965-1974",
+    "year_options": "1965,1966,1967,1968,1969,1970,1971,1972,1973,1974"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Fury",
+    "submodel1": "Station Wagon",
+    "submodel2": null,
+    "parent_generation": "1965-1974",
+    "year_options": "1965,1966,1967,1968,1969,1970,1971,1972,1973,1974"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Gran Fury",
+    "submodel1": "2-Door Coupe",
+    "submodel2": null,
+    "parent_generation": "1974-1977",
+    "year_options": "1974,1975,1976,1977"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Gran Fury",
+    "submodel1": "4-Door Sedan",
+    "submodel2": null,
+    "parent_generation": "1974-1977",
+    "year_options": "1974,1975,1976,1977"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Gran Fury",
+    "submodel1": "Station Wagon",
+    "submodel2": null,
+    "parent_generation": "1974-1977",
+    "year_options": "1974,1975,1976,1977"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Gran Fury",
+    "submodel1": "2-Door Coupe",
+    "submodel2": null,
+    "parent_generation": "1982-1989",
+    "year_options": "1982,1983,1984,1985,1986,1987,1988,1989"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Gran Fury",
+    "submodel1": "4-Door Sedan",
+    "submodel2": null,
+    "parent_generation": "1982-1989",
+    "year_options": "1982,1983,1984,1985,1986,1987,1988,1989"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Plaza",
+    "submodel1": "4-Door Sedan",
+    "submodel2": null,
+    "parent_generation": "1954-1955",
+    "year_options": "1954,1955"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Plaza",
+    "submodel1": "2-Door Station Wagon",
+    "submodel2": null,
+    "parent_generation": "1956-1958",
+    "year_options": "1956,1957,1958"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Plaza",
+    "submodel1": "4-Door Station Wagon",
+    "submodel2": null,
+    "parent_generation": "1956-1958",
+    "year_options": "1956,1957,1958"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Reliant",
+    "submodel1": "4-Door",
+    "submodel2": null,
+    "parent_generation": "1981-1989",
+    "year_options": "1981,1982,1983,1984,1985,1986,1987,1988,1989"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Plaza",
+    "submodel1": "2-Door Sedan",
+    "submodel2": null,
+    "parent_generation": "1956-1958",
+    "year_options": "1956,1957,1958"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Satellite",
+    "submodel1": "4-Door",
+    "submodel2": null,
+    "parent_generation": "1965-1970",
+    "year_options": "1965,1966,1967,1968,1969,1970"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Satellite",
+    "submodel1": "Wagon",
+    "submodel2": null,
+    "parent_generation": "1965-1970",
+    "year_options": "1965,1966,1967,1968,1969,1970"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Savoy",
+    "submodel1": "4-Door",
+    "submodel2": null,
+    "parent_generation": "1954-1965",
+    "year_options": "1954,1955,1956,1957,1958,1959,1960,1961,1962,1963,1964,1965"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Satellite",
+    "submodel1": "Wagon",
+    "submodel2": null,
+    "parent_generation": "1971-1974",
+    "year_options": "1971,1972,1973,1974"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Valiant",
+    "submodel1": "2-Door",
+    "submodel2": null,
+    "parent_generation": "1960-1962",
+    "year_options": "1960,1961,1962"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Valiant",
+    "submodel1": "Wagon",
+    "submodel2": null,
+    "parent_generation": "1960-1962",
+    "year_options": "1960,1961,1962"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Special Deluxe",
+    "submodel1": "4-Door",
+    "submodel2": null,
+    "parent_generation": "1946-1950",
+    "year_options": "1946,1947,1948,1949,1950"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Valiant",
+    "submodel1": "4-Door",
+    "submodel2": null,
+    "parent_generation": "1963-1966",
+    "year_options": "1963,1964,1965,1966"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Cambridge",
+    "submodel1": "2-Door",
+    "submodel2": null,
+    "parent_generation": "1951-1953",
+    "year_options": "1951,1952,1953"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Deluxe",
+    "submodel1": "Station Wagon",
+    "submodel2": null,
+    "parent_generation": "1946-1951",
+    "year_options": "1946,1947,1948,1949,1950,1951"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Fury",
+    "submodel1": "2-Door",
+    "submodel2": null,
+    "parent_generation": "1960-1964",
+    "year_options": "1960,1961,1962,1963,1964"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Fury",
+    "submodel1": "Station Wagon",
+    "submodel2": null,
+    "parent_generation": "1960-1964",
+    "year_options": "1960,1961,1962,1963,1964"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Reliant",
+    "submodel1": "4-Door",
+    "submodel2": null,
+    "parent_generation": "1981-1989",
+    "year_options": "1981,1982,1983,1984,1985,1986,1987,1988,1989"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Satellite",
+    "submodel1": "2-Door",
+    "submodel2": null,
+    "parent_generation": "1971-1974",
+    "year_options": "1971,1972,1973,1974"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Satellite",
+    "submodel1": "Wagon",
+    "submodel2": null,
+    "parent_generation": "1971-1974",
+    "year_options": "1971,1972,1973,1974"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Savoy",
+    "submodel1": "Wagon",
+    "submodel2": null,
+    "parent_generation": "1954-1965",
+    "year_options": "1954,1955,1956,1957,1958,1959,1960,1961"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Savoy",
+    "submodel1": "Wagon",
+    "submodel2": null,
+    "parent_generation": "1954-1965",
+    "year_options": "1954,1955,1956,1957,1958,1959,1960,1961"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Valiant",
+    "submodel1": "4-Door",
+    "submodel2": null,
+    "parent_generation": "1960-1962",
+    "year_options": "1960,1961,1962"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Valiant",
+    "submodel1": "2-Door",
+    "submodel2": null,
+    "parent_generation": "1963-1966",
+    "year_options": "1963,1964,1965,1966"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Volare",
+    "submodel1": "2-Door",
+    "submodel2": null,
+    "parent_generation": "1976-1980",
+    "year_options": "1976,1977,1978,1979,1980"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Volare",
+    "submodel1": "4-Door",
+    "submodel2": null,
+    "parent_generation": "1976-1980",
+    "year_options": "1976,1977,1978,1979,1980"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Belvedere",
+    "submodel1": "2-Door",
+    "submodel2": null,
+    "parent_generation": "1954-1955",
+    "year_options": "1954,1955"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Belvedere",
+    "submodel1": "2-Door",
+    "submodel2": null,
+    "parent_generation": "1954-1955",
+    "year_options": "1954,1955"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Belvedere",
+    "submodel1": "4-Door",
+    "submodel2": null,
+    "parent_generation": "1954-1955",
+    "year_options": "1954,1955"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Belvedere",
+    "submodel1": "4-Door",
+    "submodel2": null,
+    "parent_generation": "1954-1955",
+    "year_options": "1954,1955"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Belvedere",
+    "submodel1": "2-Door",
+    "submodel2": null,
+    "parent_generation": "1956-1959",
+    "year_options": "1956,1957,1958,1959"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Belvedere",
+    "submodel1": "2-Door",
+    "submodel2": null,
+    "parent_generation": "1956-1959",
+    "year_options": "1956,1957,1958,1959"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Belvedere",
+    "submodel1": "4-Door",
+    "submodel2": null,
+    "parent_generation": "1956-1959",
+    "year_options": "1956,1957,1958,1959"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Belvedere",
+    "submodel1": "4-Door",
+    "submodel2": null,
+    "parent_generation": "1956-1959",
+    "year_options": "1956,1957,1958,1959"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Belvedere",
+    "submodel1": "Station Wagon",
+    "submodel2": null,
+    "parent_generation": "1956-1959",
+    "year_options": "1956,1957,1958,1959"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Belvedere",
+    "submodel1": "4-Door",
+    "submodel2": null,
+    "parent_generation": "1962-1971",
+    "year_options": "1962,1963,1964,1965,1966,1967,1968,1969,1970,1971"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Belvedere",
+    "submodel1": "4-Door",
+    "submodel2": null,
+    "parent_generation": "1962-1971",
+    "year_options": "1962,1963,1964,1965,1966,1967,1968,1969,1970,1971"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Belvedere",
+    "submodel1": "Station Wagon",
+    "submodel2": null,
+    "parent_generation": "1962-1971",
+    "year_options": "1962,1963,1964,1965,1966,1967,1968,1969,1970"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Cambridge",
+    "submodel1": "4-Door",
+    "submodel2": null,
+    "parent_generation": "1951-1953",
+    "year_options": "1951,1952,1953"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Deluxe",
+    "submodel1": "4-Door",
+    "submodel2": null,
+    "parent_generation": "1946-1951",
+    "year_options": "1946,1947,1948,1949,1950,1951"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Deluxe",
+    "submodel1": "4-Door",
+    "submodel2": null,
+    "parent_generation": "1946-1951",
+    "year_options": "1946,1947,1948,1949,1950,1951"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Deluxe",
+    "submodel1": "Station Wagon",
+    "submodel2": null,
+    "parent_generation": "1946-1951",
+    "year_options": "1946,1947,1948,1949,1950,1951"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Deluxe",
+    "submodel1": "Station Wagon",
+    "submodel2": null,
+    "parent_generation": "1946-1951",
+    "year_options": "1946,1947,1948,1949,1950,1951"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Fury",
+    "submodel1": "2-Door",
+    "submodel2": null,
+    "parent_generation": "1960-1964",
+    "year_options": "1960,1961,1962,1963,1964"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Fury",
+    "submodel1": "2-Door",
+    "submodel2": null,
+    "parent_generation": "1960-1964",
+    "year_options": "1960,1961,1962,1963,1964"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Fury",
+    "submodel1": "4-Door",
+    "submodel2": null,
+    "parent_generation": "1960-1964",
+    "year_options": "1960,1961,1962,1963,1964"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Fury",
+    "submodel1": "Station Wagon",
+    "submodel2": null,
+    "parent_generation": "1960-1964",
+    "year_options": "1960,1961,1962,1963,1964"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Fury",
+    "submodel1": "4-Door",
+    "submodel2": null,
+    "parent_generation": "1965-1974",
+    "year_options": "1965,1966,1967,1968,1969,1970,1971,1972,1973,1974"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Fury",
+    "submodel1": "4-Door",
+    "submodel2": null,
+    "parent_generation": "1965-1974",
+    "year_options": "1965,1966,1967,1968,1969,1970,1971,1972,1973,1974"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Fury",
+    "submodel1": "Station Wagon",
+    "submodel2": null,
+    "parent_generation": "1965-1974",
+    "year_options": "1965,1966,1967,1968,1969,1970,1971,1972,1973,1974"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Fury",
+    "submodel1": "Gran Coupe",
+    "submodel2": null,
+    "parent_generation": "1965-1974",
+    "year_options": "1970,1971,1972,1973,1974"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Fury",
+    "submodel1": "Gran Sedan",
+    "submodel2": null,
+    "parent_generation": "1965-1974",
+    "year_options": "1971,1972,1973,1974"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Gran Fury",
+    "submodel1": "2-Door Coupe",
+    "submodel2": null,
+    "parent_generation": "1974-1977",
+    "year_options": "1974,1975,1976,1977"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Gran Fury",
+    "submodel1": "4-Door Sedan",
+    "submodel2": null,
+    "parent_generation": "1974-1977",
+    "year_options": "1974,1975,1976,1977"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Gran Fury",
+    "submodel1": "Station Wagon",
+    "submodel2": null,
+    "parent_generation": "1974-1977",
+    "year_options": "1974,1975,1976,1977"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Gran Fury",
+    "submodel1": "Station Wagon",
+    "submodel2": null,
+    "parent_generation": "1974-1977",
+    "year_options": "1974,1975,1976,1977"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Gran Fury",
+    "submodel1": "4-Door Sedan",
+    "submodel2": null,
+    "parent_generation": "1982-1989",
+    "year_options": "1982,1983,1984,1985,1986,1987,1988,1989"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Gran Fury",
+    "submodel1": "Station Wagon",
+    "submodel2": null,
+    "parent_generation": "1982-1989",
+    "year_options": "1982,1983,1984,1985,1986,1987,1988,1989"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Gran Fury",
+    "submodel1": "Station Wagon",
+    "submodel2": null,
+    "parent_generation": "1982-1989",
+    "year_options": "1982,1983,1984,1985,1986,1987,1988,1989"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Plaza",
+    "submodel1": "4-Door Station Wagon",
+    "submodel2": null,
+    "parent_generation": "1954-1955",
+    "year_options": "1954,1955"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Plaza",
+    "submodel1": "2-Door Sedan",
+    "submodel2": null,
+    "parent_generation": "1954-1955",
+    "year_options": "1954,1955"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Plaza",
+    "submodel1": "2-Door Sedan",
+    "submodel2": null,
+    "parent_generation": "1954-1955",
+    "year_options": "1954,1955"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Plaza",
+    "submodel1": "4-Door Sedan",
+    "submodel2": null,
+    "parent_generation": "1954-1955",
+    "year_options": "1954,1955"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Plaza",
+    "submodel1": "4-Door Sedan",
+    "submodel2": null,
+    "parent_generation": "1954-1955",
+    "year_options": "1954,1955"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Plaza",
+    "submodel1": "2-Door Station Wagon",
+    "submodel2": null,
+    "parent_generation": "1954-1955",
+    "year_options": "1954,1955"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Plaza",
+    "submodel1": "2-Door Sedan",
+    "submodel2": null,
+    "parent_generation": "1956-1958",
+    "year_options": "1956,1957,1958"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Plaza",
+    "submodel1": "4-Door Sedan",
+    "submodel2": null,
+    "parent_generation": "1956-1958",
+    "year_options": "1956,1957,1958"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Plaza",
+    "submodel1": "4-Door Sedan",
+    "submodel2": null,
+    "parent_generation": "1956-1958",
+    "year_options": "1956,1957,1958"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Plaza",
+    "submodel1": "2-Door Station Wagon",
+    "submodel2": null,
+    "parent_generation": "1956-1958",
+    "year_options": "1956,1957,1958"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Plaza",
+    "submodel1": "2-Door Station Wagon",
+    "submodel2": null,
+    "parent_generation": "1956-1958",
+    "year_options": "1956,1957,1958"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Reliant",
+    "submodel1": "2-Door",
+    "submodel2": null,
+    "parent_generation": "1981-1989",
+    "year_options": "1981,1982,1983,1984,1985,1986,1987,1988,1989"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Reliant",
+    "submodel1": "4-Door",
+    "submodel2": null,
+    "parent_generation": "1981-1989",
+    "year_options": "1981,1982,1983,1984,1985,1986,1987,1988,1989"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Reliant",
+    "submodel1": "4-Door",
+    "submodel2": null,
+    "parent_generation": "1981-1989",
+    "year_options": "1981,1982,1983,1984,1985,1986,1987,1988,1989"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Reliant",
+    "submodel1": "Wagon",
+    "submodel2": null,
+    "parent_generation": "1981-1989",
+    "year_options": "1981,1982,1983,1984,1985,1986,1987,1988,1989"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Reliant",
+    "submodel1": "Wagon",
+    "submodel2": null,
+    "parent_generation": "1981-1989",
+    "year_options": "1981,1982,1983,1984,1985,1986,1987,1988,1989"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Satellite",
+    "submodel1": "2-Door",
+    "submodel2": null,
+    "parent_generation": "1965-1970",
+    "year_options": "1965,1966,1967,1968,1969,1970"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Satellite",
+    "submodel1": "2-Door",
+    "submodel2": null,
+    "parent_generation": "1965-1970",
+    "year_options": "1965,1966,1967,1968,1969,1970"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Satellite",
+    "submodel1": "4-Door",
+    "submodel2": null,
+    "parent_generation": "1965-1970",
+    "year_options": "1965,1966,1967,1968,1969,1970"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Satellite",
+    "submodel1": "4-Door",
+    "submodel2": null,
+    "parent_generation": "1965-1970",
+    "year_options": "1965,1966,1967,1968,1969,1970"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Satellite",
+    "submodel1": "Wagon",
+    "submodel2": null,
+    "parent_generation": "1965-1970",
+    "year_options": "1965,1966,1967,1968,1969,1970"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Satellite",
+    "submodel1": "4-Door",
+    "submodel2": null,
+    "parent_generation": "1971-1974",
+    "year_options": "1971,1972,1973,1974"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Satellite",
+    "submodel1": "4-Door",
+    "submodel2": null,
+    "parent_generation": "1971-1974",
+    "year_options": "1971,1972,1973,1974"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Satellite",
+    "submodel1": "Wagon",
+    "submodel2": null,
+    "parent_generation": "1971-1974",
+    "year_options": "1971,1972,1973,1974"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Satellite",
+    "submodel1": "Wagon",
+    "submodel2": null,
+    "parent_generation": "1971-1974",
+    "year_options": "1971,1972,1973,1974"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Savoy",
+    "submodel1": "2-Door",
+    "submodel2": null,
+    "parent_generation": "1954-1965",
+    "year_options": "1954,1955,1956,1957,1958,1959,1960,1961,1962,1963,1964,1965"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Savoy",
+    "submodel1": "4-Door",
+    "submodel2": null,
+    "parent_generation": "1954-1965",
+    "year_options": "1954,1955,1956,1957,1958,1959,1960,1961,1962,1963,1964,1965"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Savoy",
+    "submodel1": "Wagon",
+    "submodel2": null,
+    "parent_generation": "1954-1965",
+    "year_options": "1954,1955,1956,1957,1958,1959,1960,1961"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Special Deluxe",
+    "submodel1": "4-Door",
+    "submodel2": null,
+    "parent_generation": "1946-1950",
+    "year_options": "1946,1947,1948,1949,1950"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Special Deluxe",
+    "submodel1": "4-Door",
+    "submodel2": null,
+    "parent_generation": "1946-1950",
+    "year_options": "1946,1947,1948,1949,1950"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Valiant",
+    "submodel1": "2-Door",
+    "submodel2": null,
+    "parent_generation": "1960-1962",
+    "year_options": "1960,1961,1962"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Valiant",
+    "submodel1": "Wagon",
+    "submodel2": null,
+    "parent_generation": "1960-1962",
+    "year_options": "1960,1961,1962"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Valiant",
+    "submodel1": "Wagon",
+    "submodel2": null,
+    "parent_generation": "1960-1962",
+    "year_options": "1960,1961,1962"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Valiant",
+    "submodel1": "2-Door",
+    "submodel2": null,
+    "parent_generation": "1963-1966",
+    "year_options": "1963,1964,1965,1966"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Valiant",
+    "submodel1": "2-Door",
+    "submodel2": null,
+    "parent_generation": "1963-1966",
+    "year_options": "1963,1964,1965,1966"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Valiant",
+    "submodel1": "4-Door",
+    "submodel2": null,
+    "parent_generation": "1963-1966",
+    "year_options": "1963,1964,1965,1966"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Valiant",
+    "submodel1": "4-Door",
+    "submodel2": null,
+    "parent_generation": "1963-1966",
+    "year_options": "1963,1964,1965,1966"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Valiant",
+    "submodel1": "Convertible",
+    "submodel2": null,
+    "parent_generation": "1963-1966",
+    "year_options": "1963,1964,1965,1966"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Volare",
+    "submodel1": "2-Door",
+    "submodel2": null,
+    "parent_generation": "1976-1980",
+    "year_options": "1976,1977,1978,1979,1980"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Volare",
+    "submodel1": "4-Door",
+    "submodel2": null,
+    "parent_generation": "1976-1980",
+    "year_options": "1976,1977,1978,1979,1980"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Volare",
+    "submodel1": "4-Door",
+    "submodel2": null,
+    "parent_generation": "1976-1980",
+    "year_options": "1976,1977,1978,1979,1980"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Gran Fury",
+    "submodel1": "4-Door Sedan",
+    "submodel2": null,
+    "parent_generation": "1974-1977",
+    "year_options": "1974,1975,1976,1977"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Belvedere",
+    "submodel1": "2-Door",
+    "submodel2": null,
+    "parent_generation": "1962-1971",
+    "year_options": "1962,1963,1964,1965,1966,1967,1968,1969,1970,1971"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Belvedere",
+    "submodel1": "2-Door",
+    "submodel2": null,
+    "parent_generation": "1954-1955",
+    "year_options": "1954,1955"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Belvedere",
+    "submodel1": "4-Door",
+    "submodel2": null,
+    "parent_generation": "1954-1955",
+    "year_options": "1954,1955"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Belvedere",
+    "submodel1": "4-Door",
+    "submodel2": null,
+    "parent_generation": "1956-1959",
+    "year_options": "1956,1957,1958,1959"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Belvedere",
+    "submodel1": "4-Door",
+    "submodel2": null,
+    "parent_generation": "1956-1959",
+    "year_options": "1956,1957,1958,1959"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Belvedere",
+    "submodel1": "Station Wagon",
+    "submodel2": null,
+    "parent_generation": "1956-1959",
+    "year_options": "1956,1957,1958,1959"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Belvedere",
+    "submodel1": "Station Wagon",
+    "submodel2": null,
+    "parent_generation": "1962-1971",
+    "year_options": "1962,1963,1964,1965,1966,1967,1968,1969,1970"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Belvedere",
+    "submodel1": "Station Wagon",
+    "submodel2": null,
+    "parent_generation": "1962-1971",
+    "year_options": "1962,1963,1964,1965,1966,1967,1968,1969,1970"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Belvedere",
+    "submodel1": "Station Wagon",
+    "submodel2": null,
+    "parent_generation": "1954-1955",
+    "year_options": "1954,1955"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Deluxe",
+    "submodel1": "2-Door",
+    "submodel2": null,
+    "parent_generation": "1946-1951",
+    "year_options": "1946,1947,1948,1949,1950,1951"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Deluxe",
+    "submodel1": "Station Wagon",
+    "submodel2": null,
+    "parent_generation": "1946-1951",
+    "year_options": "1946,1947,1948,1949,1950,1951"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Fury",
+    "submodel1": "2-Door",
+    "submodel2": null,
+    "parent_generation": "1960-1964",
+    "year_options": "1960,1961,1962,1963,1964"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Cambridge",
+    "submodel1": "4-Door",
+    "submodel2": null,
+    "parent_generation": "1951-1953",
+    "year_options": "1951,1952,1953"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Fury",
+    "submodel1": "Station Wagon",
+    "submodel2": null,
+    "parent_generation": "1965-1974",
+    "year_options": "1965,1966,1967,1968,1969,1970,1971,1972,1973,1974"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Gran Fury",
+    "submodel1": "Station Wagon",
+    "submodel2": null,
+    "parent_generation": "1974-1977",
+    "year_options": "1974,1975,1976,1977"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Fury",
+    "submodel1": "Gran Sedan",
+    "submodel2": null,
+    "parent_generation": "1965-1974",
+    "year_options": "1971,1972,1973,1974"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Gran Fury",
+    "submodel1": "2-Door Coupe",
+    "submodel2": null,
+    "parent_generation": "1974-1977",
+    "year_options": "1974,1975,1976,1977"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Gran Fury",
+    "submodel1": "4-Door Sedan",
+    "submodel2": null,
+    "parent_generation": "1982-1989",
+    "year_options": "1982,1983,1984,1985,1986,1987,1988,1989"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Plaza",
+    "submodel1": "2-Door Sedan",
+    "submodel2": null,
+    "parent_generation": "1954-1955",
+    "year_options": "1954,1955"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Plaza",
+    "submodel1": "4-Door Station Wagon",
+    "submodel2": null,
+    "parent_generation": "1954-1955",
+    "year_options": "1954,1955"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Plaza",
+    "submodel1": "4-Door Sedan",
+    "submodel2": null,
+    "parent_generation": "1956-1958",
+    "year_options": "1956,1957,1958"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Plaza",
+    "submodel1": "4-Door Sedan",
+    "submodel2": null,
+    "parent_generation": "1956-1958",
+    "year_options": "1956,1957,1958"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Reliant",
+    "submodel1": "Wagon",
+    "submodel2": null,
+    "parent_generation": "1981-1989",
+    "year_options": "1981,1982,1983,1984,1985,1986,1987,1988,1989"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Plaza",
+    "submodel1": "2-Door Station Wagon",
+    "submodel2": null,
+    "parent_generation": "1956-1958",
+    "year_options": "1956,1957,1958"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Plaza",
+    "submodel1": "4-Door Station Wagon",
+    "submodel2": null,
+    "parent_generation": "1956-1958",
+    "year_options": "1956,1957,1958"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Reliant",
+    "submodel1": "2-Door",
+    "submodel2": null,
+    "parent_generation": "1981-1989",
+    "year_options": "1981,1982,1983,1984,1985,1986,1987,1988,1989"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Plaza",
+    "submodel1": "4-Door Station Wagon",
+    "submodel2": null,
+    "parent_generation": "1954-1955",
+    "year_options": "1954,1955"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Satellite",
+    "submodel1": "4-Door",
+    "submodel2": null,
+    "parent_generation": "1965-1970",
+    "year_options": "1965,1966,1967,1968,1969,1970"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Satellite",
+    "submodel1": "4-Door",
+    "submodel2": null,
+    "parent_generation": "1965-1970",
+    "year_options": "1965,1966,1967,1968,1969,1970"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Satellite",
+    "submodel1": "Wagon",
+    "submodel2": null,
+    "parent_generation": "1965-1970",
+    "year_options": "1965,1966,1967,1968,1969,1970"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Satellite",
+    "submodel1": "2-Door",
+    "submodel2": null,
+    "parent_generation": "1971-1974",
+    "year_options": "1971,1972,1973,1974"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Savoy",
+    "submodel1": "4-Door",
+    "submodel2": null,
+    "parent_generation": "1954-1965",
+    "year_options": "1954,1955,1956,1957,1958,1959,1960,1961,1962,1963,1964,1965"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Savoy",
+    "submodel1": "Wagon",
+    "submodel2": null,
+    "parent_generation": "1954-1965",
+    "year_options": "1954,1955,1956,1957,1958,1959,1960,1961"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Special Deluxe",
+    "submodel1": "4-Door",
+    "submodel2": null,
+    "parent_generation": "1946-1950",
+    "year_options": "1946,1947,1948,1949,1950"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Special Deluxe",
+    "submodel1": "4-Door",
+    "submodel2": null,
+    "parent_generation": "1946-1950",
+    "year_options": "1946,1947,1948,1949,1950"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Valiant",
+    "submodel1": "4-Door",
+    "submodel2": null,
+    "parent_generation": "1963-1966",
+    "year_options": "1963,1964,1965,1966"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Valiant",
+    "submodel1": "Convertible",
+    "submodel2": null,
+    "parent_generation": "1963-1966",
+    "year_options": "1963,1964,1965,1966"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Valiant",
+    "submodel1": "Wagon",
+    "submodel2": null,
+    "parent_generation": "1963-1966",
+    "year_options": "1963,1964,1965,1966"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Volare",
+    "submodel1": "4-Door",
+    "submodel2": null,
+    "parent_generation": "1976-1980",
+    "year_options": "1976,1977,1978,1979,1980"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Valiant",
+    "submodel1": "4-Door",
+    "submodel2": null,
+    "parent_generation": "1960-1962",
+    "year_options": "1960,1961,1962"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Belvedere",
+    "submodel1": "Station Wagon",
+    "submodel2": null,
+    "parent_generation": "1954-1955",
+    "year_options": "1954,1955"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Belvedere",
+    "submodel1": "Station Wagon",
+    "submodel2": null,
+    "parent_generation": "1956-1959",
+    "year_options": "1956,1957,1958,1959"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Belvedere",
+    "submodel1": "Station Wagon",
+    "submodel2": null,
+    "parent_generation": "1962-1971",
+    "year_options": "1962,1963,1964,1965,1966,1967,1968,1969,1970"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Belvedere",
+    "submodel1": "2-Door",
+    "submodel2": null,
+    "parent_generation": "1954-1955",
+    "year_options": "1954,1955"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Deluxe",
+    "submodel1": "Station Wagon",
+    "submodel2": null,
+    "parent_generation": "1946-1951",
+    "year_options": "1946,1947,1948,1949,1950,1951"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Fury",
+    "submodel1": "Station Wagon",
+    "submodel2": null,
+    "parent_generation": "1960-1964",
+    "year_options": "1960,1961,1962,1963,1964"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Fury",
+    "submodel1": "4-Door",
+    "submodel2": null,
+    "parent_generation": "1965-1974",
+    "year_options": "1965,1966,1967,1968,1969,1970,1971,1972,1973,1974"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Fury",
+    "submodel1": "Gran Coupe",
+    "submodel2": null,
+    "parent_generation": "1965-1974",
+    "year_options": "1970,1971,1972,1973,1974"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Gran Fury",
+    "submodel1": "Station Wagon",
+    "submodel2": null,
+    "parent_generation": "1982-1989",
+    "year_options": "1982,1983,1984,1985,1986,1987,1988,1989"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Deluxe",
+    "submodel1": "2-Door",
+    "submodel2": null,
+    "parent_generation": "1946-1951",
+    "year_options": "1946,1947,1948,1949,1950,1951"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Plaza",
+    "submodel1": "2-Door Station Wagon",
+    "submodel2": null,
+    "parent_generation": "1954-1955",
+    "year_options": "1954,1955"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Plaza",
+    "submodel1": "4-Door Station Wagon",
+    "submodel2": null,
+    "parent_generation": "1954-1955",
+    "year_options": "1954,1955"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Plaza",
+    "submodel1": "4-Door Sedan",
+    "submodel2": null,
+    "parent_generation": "1956-1958",
+    "year_options": "1956,1957,1958"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Reliant",
+    "submodel1": "2-Door",
+    "submodel2": null,
+    "parent_generation": "1981-1989",
+    "year_options": "1981,1982,1983,1984,1985,1986,1987,1988,1989"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Reliant",
+    "submodel1": "Wagon",
+    "submodel2": null,
+    "parent_generation": "1981-1989",
+    "year_options": "1981,1982,1983,1984,1985,1986,1987,1988,1989"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Plaza",
+    "submodel1": "2-Door Sedan",
+    "submodel2": null,
+    "parent_generation": "1954-1955",
+    "year_options": "1954,1955"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Satellite",
+    "submodel1": "4-Door",
+    "submodel2": null,
+    "parent_generation": "1971-1974",
+    "year_options": "1971,1972,1973,1974"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Savoy",
+    "submodel1": "2-Door",
+    "submodel2": null,
+    "parent_generation": "1954-1965",
+    "year_options": "1954,1955,1956,1957,1958,1959,1960,1961,1962,1963,1964,1965"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Savoy",
+    "submodel1": "Wagon",
+    "submodel2": null,
+    "parent_generation": "1954-1965",
+    "year_options": "1954,1955,1956,1957,1958,1959,1960,1961"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Special Deluxe",
+    "submodel1": "2-Door",
+    "submodel2": null,
+    "parent_generation": "1946-1950",
+    "year_options": "1946,1947,1948,1949,1950"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Satellite",
+    "submodel1": "2-Door",
+    "submodel2": null,
+    "parent_generation": "1971-1974",
+    "year_options": "1971,1972,1973,1974"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Valiant",
+    "submodel1": "Convertible",
+    "submodel2": null,
+    "parent_generation": "1963-1966",
+    "year_options": "1963,1964,1965,1966"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Volare",
+    "submodel1": "2-Door",
+    "submodel2": null,
+    "parent_generation": "1976-1980",
+    "year_options": "1976,1977,1978,1979,1980"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Volare",
+    "submodel1": "4-Door",
+    "submodel2": null,
+    "parent_generation": "1976-1980",
+    "year_options": "1976,1977,1978,1979,1980"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Valiant",
+    "submodel1": "2-Door",
+    "submodel2": null,
+    "parent_generation": "1963-1966",
+    "year_options": "1963,1964,1965,1966"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Belvedere",
+    "submodel1": "Station Wagon",
+    "submodel2": null,
+    "parent_generation": "1956-1959",
+    "year_options": "1956,1957,1958,1959"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Belvedere",
+    "submodel1": "2-Door",
+    "submodel2": null,
+    "parent_generation": "1962-1971",
+    "year_options": "1962,1963,1964,1965,1966,1967,1968,1969,1970,1971"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Cambridge",
+    "submodel1": "2-Door",
+    "submodel2": null,
+    "parent_generation": "1951-1953",
+    "year_options": "1951,1952,1953"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Cambridge",
+    "submodel1": "2-Door",
+    "submodel2": null,
+    "parent_generation": "1951-1953",
+    "year_options": "1951,1952,1953"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Deluxe",
+    "submodel1": "2-Door",
+    "submodel2": null,
+    "parent_generation": "1946-1951",
+    "year_options": "1946,1947,1948,1949,1950,1951"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Belvedere",
+    "submodel1": "Station Wagon",
+    "submodel2": null,
+    "parent_generation": "1954-1955",
+    "year_options": "1954,1955"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Fury",
+    "submodel1": "Station Wagon",
+    "submodel2": null,
+    "parent_generation": "1960-1964",
+    "year_options": "1960,1961,1962,1963,1964"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Fury",
+    "submodel1": "2-Door",
+    "submodel2": null,
+    "parent_generation": "1965-1974",
+    "year_options": "1965,1966,1967,1968,1969,1970,1971,1972,1973,1974"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Fury",
+    "submodel1": "Gran Sedan",
+    "submodel2": null,
+    "parent_generation": "1965-1974",
+    "year_options": "1971,1972,1973,1974"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Gran Fury",
+    "submodel1": "4-Door Sedan",
+    "submodel2": null,
+    "parent_generation": "1974-1977",
+    "year_options": "1974,1975,1976,1977"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Gran Fury",
+    "submodel1": "2-Door Coupe",
+    "submodel2": null,
+    "parent_generation": "1982-1989",
+    "year_options": "1982,1983,1984,1985,1986,1987,1988,1989"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Gran Fury",
+    "submodel1": "4-Door Sedan",
+    "submodel2": null,
+    "parent_generation": "1982-1989",
+    "year_options": "1982,1983,1984,1985,1986,1987,1988,1989"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Fury",
+    "submodel1": "4-Door",
+    "submodel2": null,
+    "parent_generation": "1960-1964",
+    "year_options": "1960,1961,1962,1963,1964"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Plaza",
+    "submodel1": "2-Door Sedan",
+    "submodel2": null,
+    "parent_generation": "1956-1958",
+    "year_options": "1956,1957,1958"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Plaza",
+    "submodel1": "4-Door Station Wagon",
+    "submodel2": null,
+    "parent_generation": "1956-1958",
+    "year_options": "1956,1957,1958"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Reliant",
+    "submodel1": "2-Door",
+    "submodel2": null,
+    "parent_generation": "1981-1989",
+    "year_options": "1981,1982,1983,1984,1985,1986,1987,1988,1989"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Satellite",
+    "submodel1": "Wagon",
+    "submodel2": null,
+    "parent_generation": "1965-1970",
+    "year_options": "1965,1966,1967,1968,1969,1970"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Satellite",
+    "submodel1": "2-Door",
+    "submodel2": null,
+    "parent_generation": "1971-1974",
+    "year_options": "1971,1972,1973,1974"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Plaza",
+    "submodel1": "2-Door Station Wagon",
+    "submodel2": null,
+    "parent_generation": "1954-1955",
+    "year_options": "1954,1955"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Special Deluxe",
+    "submodel1": "2-Door",
+    "submodel2": null,
+    "parent_generation": "1946-1950",
+    "year_options": "1946,1947,1948,1949,1950"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Valiant",
+    "submodel1": "2-Door",
+    "submodel2": null,
+    "parent_generation": "1960-1962",
+    "year_options": "1960,1961,1962"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Valiant",
+    "submodel1": "4-Door",
+    "submodel2": null,
+    "parent_generation": "1960-1962",
+    "year_options": "1960,1961,1962"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Valiant",
+    "submodel1": "Convertible",
+    "submodel2": null,
+    "parent_generation": "1963-1966",
+    "year_options": "1963,1964,1965,1966"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Valiant",
+    "submodel1": "Wagon",
+    "submodel2": null,
+    "parent_generation": "1963-1966",
+    "year_options": "1963,1964,1965,1966"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Volare",
+    "submodel1": "2-Door",
+    "submodel2": null,
+    "parent_generation": "1976-1980",
+    "year_options": "1976,1977,1978,1979,1980"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Savoy",
+    "submodel1": "Wagon",
+    "submodel2": null,
+    "parent_generation": "1954-1965",
+    "year_options": "1954,1955,1956,1957,1958,1959,1960,1961"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Belvedere",
+    "submodel1": "4-Door",
+    "submodel2": null,
+    "parent_generation": "1954-1955",
+    "year_options": "1954,1955"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Belvedere",
+    "submodel1": "2-Door",
+    "submodel2": null,
+    "parent_generation": "1956-1959",
+    "year_options": "1956,1957,1958,1959"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Belvedere",
+    "submodel1": "4-Door",
+    "submodel2": null,
+    "parent_generation": "1956-1959",
+    "year_options": "1956,1957,1958,1959"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Belvedere",
+    "submodel1": "4-Door",
+    "submodel2": null,
+    "parent_generation": "1962-1971",
+    "year_options": "1962,1963,1964,1965,1966,1967,1968,1969,1970,1971"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Belvedere",
+    "submodel1": "Station Wagon",
+    "submodel2": null,
+    "parent_generation": "1962-1971",
+    "year_options": "1962,1963,1964,1965,1966,1967,1968,1969,1970"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Deluxe",
+    "submodel1": "4-Door",
+    "submodel2": null,
+    "parent_generation": "1946-1951",
+    "year_options": "1946,1947,1948,1949,1950,1951"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Deluxe",
+    "submodel1": "Station Wagon",
+    "submodel2": null,
+    "parent_generation": "1946-1951",
+    "year_options": "1946,1947,1948,1949,1950,1951"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Fury",
+    "submodel1": "2-Door",
+    "submodel2": null,
+    "parent_generation": "1960-1964",
+    "year_options": "1960,1961,1962,1963,1964"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Fury",
+    "submodel1": "Station Wagon",
+    "submodel2": null,
+    "parent_generation": "1960-1964",
+    "year_options": "1960,1961,1962,1963,1964"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Fury",
+    "submodel1": "Station Wagon",
+    "submodel2": null,
+    "parent_generation": "1965-1974",
+    "year_options": "1965,1966,1967,1968,1969,1970,1971,1972,1973,1974"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Fury",
+    "submodel1": "Gran Sedan",
+    "submodel2": null,
+    "parent_generation": "1965-1974",
+    "year_options": "1971,1972,1973,1974"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Gran Fury",
+    "submodel1": "4-Door Sedan",
+    "submodel2": null,
+    "parent_generation": "1974-1977",
+    "year_options": "1974,1975,1976,1977"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Satellite",
+    "submodel1": "2-Door",
+    "submodel2": null,
+    "parent_generation": "1965-1970",
+    "year_options": "1965,1966,1967,1968,1969,1970"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Gran Fury",
+    "submodel1": "Station Wagon",
+    "submodel2": null,
+    "parent_generation": "1974-1977",
+    "year_options": "1974,1975,1976,1977"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Gran Fury",
+    "submodel1": "2-Door Coupe",
+    "submodel2": null,
+    "parent_generation": "1982-1989",
+    "year_options": "1982,1983,1984,1985,1986,1987,1988,1989"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Gran Fury",
+    "submodel1": "Station Wagon",
+    "submodel2": null,
+    "parent_generation": "1982-1989",
+    "year_options": "1982,1983,1984,1985,1986,1987,1988,1989"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Plaza",
+    "submodel1": "2-Door Sedan",
+    "submodel2": null,
+    "parent_generation": "1954-1955",
+    "year_options": "1954,1955"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Plaza",
+    "submodel1": "2-Door Station Wagon",
+    "submodel2": null,
+    "parent_generation": "1954-1955",
+    "year_options": "1954,1955"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Plaza",
+    "submodel1": "2-Door Sedan",
+    "submodel2": null,
+    "parent_generation": "1956-1958",
+    "year_options": "1956,1957,1958"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Plaza",
+    "submodel1": "4-Door Sedan",
+    "submodel2": null,
+    "parent_generation": "1956-1958",
+    "year_options": "1956,1957,1958"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Reliant",
+    "submodel1": "Wagon",
+    "submodel2": null,
+    "parent_generation": "1981-1989",
+    "year_options": "1981,1982,1983,1984,1985,1986,1987,1988,1989"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Satellite",
+    "submodel1": "2-Door",
+    "submodel2": null,
+    "parent_generation": "1965-1970",
+    "year_options": "1965,1966,1967,1968,1969,1970"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Satellite",
+    "submodel1": "4-Door",
+    "submodel2": null,
+    "parent_generation": "1965-1970",
+    "year_options": "1965,1966,1967,1968,1969,1970"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Valiant",
+    "submodel1": "4-Door",
+    "submodel2": null,
+    "parent_generation": "1960-1962",
+    "year_options": "1960,1961,1962"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Valiant",
+    "submodel1": "4-Door",
+    "submodel2": null,
+    "parent_generation": "1963-1966",
+    "year_options": "1963,1964,1965,1966"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Valiant",
+    "submodel1": "Wagon",
+    "submodel2": null,
+    "parent_generation": "1963-1966",
+    "year_options": "1963,1964,1965,1966"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Fury",
+    "submodel1": "Gran Sedan",
+    "submodel2": null,
+    "parent_generation": "1965-1974",
+    "year_options": "1971,1972,1973,1974"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Valiant",
+    "submodel1": "Wagon",
+    "submodel2": null,
+    "parent_generation": "1963-1966",
+    "year_options": "1963,1964,1965,1966"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Belvedere",
+    "submodel1": "Station Wagon",
+    "submodel2": null,
+    "parent_generation": "1954-1955",
+    "year_options": "1954,1955"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Belvedere",
+    "submodel1": "2-Door",
+    "submodel2": null,
+    "parent_generation": "1962-1971",
+    "year_options": "1962,1963,1964,1965,1966,1967,1968,1969,1970,1971"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Belvedere",
+    "submodel1": "Station Wagon",
+    "submodel2": null,
+    "parent_generation": "1962-1971",
+    "year_options": "1962,1963,1964,1965,1966,1967,1968,1969,1970"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Cambridge",
+    "submodel1": "4-Door",
+    "submodel2": null,
+    "parent_generation": "1951-1953",
+    "year_options": "1951,1952,1953"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Deluxe",
+    "submodel1": "2-Door",
+    "submodel2": null,
+    "parent_generation": "1946-1951",
+    "year_options": "1946,1947,1948,1949,1950,1951"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Fury",
+    "submodel1": "2-Door",
+    "submodel2": null,
+    "parent_generation": "1965-1974",
+    "year_options": "1965,1966,1967,1968,1969,1970,1971,1972,1973,1974"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Fury",
+    "submodel1": "Station Wagon",
+    "submodel2": null,
+    "parent_generation": "1965-1974",
+    "year_options": "1965,1966,1967,1968,1969,1970,1971,1972,1973,1974"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Fury",
+    "submodel1": "Gran Coupe",
+    "submodel2": null,
+    "parent_generation": "1965-1974",
+    "year_options": "1970,1971,1972,1973,1974"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Gran Fury",
+    "submodel1": "2-Door Coupe",
+    "submodel2": null,
+    "parent_generation": "1974-1977",
+    "year_options": "1974,1975,1976,1977"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Gran Fury",
+    "submodel1": "2-Door Coupe",
+    "submodel2": null,
+    "parent_generation": "1982-1989",
+    "year_options": "1982,1983,1984,1985,1986,1987,1988,1989"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Plaza",
+    "submodel1": "4-Door Station Wagon",
+    "submodel2": null,
+    "parent_generation": "1954-1955",
+    "year_options": "1954,1955"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Plaza",
+    "submodel1": "4-Door Station Wagon",
+    "submodel2": null,
+    "parent_generation": "1956-1958",
+    "year_options": "1956,1957,1958"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Satellite",
+    "submodel1": "2-Door",
+    "submodel2": null,
+    "parent_generation": "1971-1974",
+    "year_options": "1971,1972,1973,1974"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Savoy",
+    "submodel1": "4-Door",
+    "submodel2": null,
+    "parent_generation": "1954-1965",
+    "year_options": "1954,1955,1956,1957,1958,1959,1960,1961,1962,1963,1964,1965"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Special Deluxe",
+    "submodel1": "2-Door",
+    "submodel2": null,
+    "parent_generation": "1946-1950",
+    "year_options": "1946,1947,1948,1949,1950"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Valiant",
+    "submodel1": "4-Door",
+    "submodel2": null,
+    "parent_generation": "1960-1962",
+    "year_options": "1960,1961,1962"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Valiant",
+    "submodel1": "Wagon",
+    "submodel2": null,
+    "parent_generation": "1963-1966",
+    "year_options": "1963,1964,1965,1966"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Fury",
+    "submodel1": "2-Door",
+    "submodel2": null,
+    "parent_generation": "1965-1974",
+    "year_options": "1965,1966,1967,1968,1969,1970,1971,1972,1973,1974"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Gran Fury",
+    "submodel1": "2-Door Coupe",
+    "submodel2": null,
+    "parent_generation": "1982-1989",
+    "year_options": "1982,1983,1984,1985,1986,1987,1988,1989"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Belvedere",
+    "submodel1": "2-Door",
+    "submodel2": null,
+    "parent_generation": "1962-1971",
+    "year_options": "1962,1963,1964,1965,1966,1967,1968,1969,1970,1971"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Cambridge",
+    "submodel1": "4-Door",
+    "submodel2": null,
+    "parent_generation": "1951-1953",
+    "year_options": "1951,1952,1953"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "P2",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1936",
+    "year_options": "1936"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "P2",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1936",
+    "year_options": "1936"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Barracuda",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1964-1966",
+    "year_options": "1964,1965,1966"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Barracuda",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1964-1966",
+    "year_options": "1964,1965,1966"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Barracuda",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1967-1969",
+    "year_options": "1967,1968,1969"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Belvedere",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1951-1953",
+    "year_options": "1951,1952,1953"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Belvedere",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1951-1953",
+    "year_options": "1951,1952,1953"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Cuda",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1974-1975",
+    "year_options": "1974,1975"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Belvedere",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1960-1961",
+    "year_options": "1960,1961"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Business Coupe",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1936-1952",
+    "year_options": "1936,1937,1938,1939,1940,1941,1942,1943,1944,1945,1946,1947,1948,1949,1950,1951,1952"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Concord",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1951-1952",
+    "year_options": "1951,1952"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Concord",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1951-1952",
+    "year_options": "1951,1952"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Cranbrook",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1951-1953",
+    "year_options": "1951,1952,1953"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Cranbrook",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1951-1953",
+    "year_options": "1951,1952,1953"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Cuda",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1970-1972",
+    "year_options": "1970,1971,1972"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Cuda",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1970-1972",
+    "year_options": "1970,1971,1972"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Duster",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1970-1972",
+    "year_options": "1970,1971,1972"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Duster",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1970-1972",
+    "year_options": "1970,1971,1972"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Duster",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1973-1976",
+    "year_options": "1973,1974,1975,1976"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Duster",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1985-1987",
+    "year_options": "1985,1986,1987"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Fury",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1956-1959",
+    "year_options": "1956,1957,1958,1959"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Fury",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1956-1959",
+    "year_options": "1956,1957,1958,1959"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Gran Fury",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1980-1981",
+    "year_options": "1980,1981"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Gran Fury",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1980-1981",
+    "year_options": "1980,1981"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "GTX",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1967-1971",
+    "year_options": "1967,1968,1969,1970,1971"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "GTX",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1967-1971",
+    "year_options": "1967,1968,1969,1970,1971"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Laser",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1990-1994",
+    "year_options": "1990,1991,1992,1993,1994"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Laser",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1990-1994",
+    "year_options": "1990,1991,1992,1993,1994"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Scamp",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1971-1972",
+    "year_options": "1971,1972"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "P8 Road King",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1938-1941",
+    "year_options": "1938,1939,1940,1941"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Roadrunner",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1968-1972",
+    "year_options": "1968,1969,1970,1971,1972"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Roadrunner",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1968-1972",
+    "year_options": "1968,1969,1970,1971,1972"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Roadrunner",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1976-1980",
+    "year_options": "1976,1977,1978,1979,1980"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "VIP",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1966-1969",
+    "year_options": "1966,1967,1968,1969"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Scamp",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1983",
+    "year_options": "1983"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Savoy",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1951-1953",
+    "year_options": "1951,1952,1953"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Savoy",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1951-1953",
+    "year_options": "1951,1952,1953"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Scamp",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1971-1972",
+    "year_options": "1971,1972"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Scamp",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1973-1976",
+    "year_options": "1973,1974,1975,1976"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Scamp",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1973-1976",
+    "year_options": "1973,1974,1975,1976"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Scamp",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1983",
+    "year_options": "1983"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Sport Fury",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1956-1964",
+    "year_options": "1956,1957,1958,1959,1960,1961,1962,1963,1964"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Sport Fury",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1956-1964",
+    "year_options": "1956,1957,1958,1959,1960,1961,1962,1963,1964"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Sport Fury",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1965-1972",
+    "year_options": "1965,1966,1967,1968,1969,1970,1971,1972"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Valiant",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1967-1973",
+    "year_options": "1967,1968,1969,1970,1971,1972,1973"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Valiant",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1967-1973",
+    "year_options": "1967,1968,1969,1970,1971,1972,1973"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Valiant",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1974-1976",
+    "year_options": "1974,1975,1976"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Valiant",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1974-1976",
+    "year_options": "1974,1975,1976"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "VIP",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1966-1969",
+    "year_options": "1966,1967,1968,1969"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Barracuda",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1967-1969",
+    "year_options": "1967,1968,1969"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Barracuda",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1967-1969",
+    "year_options": "1967,1968,1969"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Belvedere",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1951-1953",
+    "year_options": "1951,1952,1953"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Belvedere",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1960-1961",
+    "year_options": "1960,1961"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Duster",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1973-1976",
+    "year_options": "1973,1974,1975,1976"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Duster",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1985-1987",
+    "year_options": "1985,1986,1987"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Cuda",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1974-1975",
+    "year_options": "1974,1975"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "GTX",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1967-1971",
+    "year_options": "1967,1968,1969,1970,1971"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "P7 Road King",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1938-1941",
+    "year_options": "1938,1939,1940,1941"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "P2",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1936",
+    "year_options": "1936"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "GTX",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1967-1971",
+    "year_options": "1967,1968,1969,1970,1971"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "VIP",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1966-1969",
+    "year_options": "1966,1967,1968,1969"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Roadrunner",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1973-1975",
+    "year_options": "1973,1974,1975"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Roadrunner",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1973-1975",
+    "year_options": "1973,1974,1975"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Scamp",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1973-1976",
+    "year_options": "1973,1974,1975,1976"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Sport Fury",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1965-1972",
+    "year_options": "1965,1966,1967,1968,1969,1970,1971,1972"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Savoy",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1951-1953",
+    "year_options": "1951,1952,1953"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Valiant",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1967-1973",
+    "year_options": "1967,1968,1969,1970,1971,1972,1973"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Barracuda",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1967-1969",
+    "year_options": "1967,1968,1969"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Belvedere",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1960-1961",
+    "year_options": "1960,1961"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Duster",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1985-1987",
+    "year_options": "1985,1986,1987"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Roadrunner",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1973-1975",
+    "year_options": "1973,1974,1975"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Scamp",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1983",
+    "year_options": "1983"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Valiant",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1967-1973",
+    "year_options": "1967,1968,1969,1970,1971,1972,1973"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Barracuda",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1967-1969",
+    "year_options": "1967,1968,1969"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Belvedere",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1960-1961",
+    "year_options": "1960,1961"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Cuda",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1974-1975",
+    "year_options": "1974,1975"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "P7 Road King",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1938-1941",
+    "year_options": "1938,1939,1940,1941"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Roadrunner",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1973-1975",
+    "year_options": "1973,1974,1975"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Roadrunner",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1973-1975",
+    "year_options": "1973,1974,1975"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Sport Fury",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1965-1972",
+    "year_options": "1965,1966,1967,1968,1969,1970,1971,1972"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "P2",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1936",
+    "year_options": "1936"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Cuda",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1974-1975",
+    "year_options": "1974,1975"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Barracuda",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1964-1966",
+    "year_options": "1964,1965,1966"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Belvedere",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1951-1953",
+    "year_options": "1951,1952,1953"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Business Coupe",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1936-1952",
+    "year_options": "1936,1937,1938,1939,1940,1941,1942,1943,1944,1945,1946,1947,1948,1949,1950,1951,1952"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Concord",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1951-1952",
+    "year_options": "1951,1952"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Cranbrook",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1951-1953",
+    "year_options": "1951,1952,1953"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Duster",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1973-1976",
+    "year_options": "1973,1974,1975,1976"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Fury",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1956-1959",
+    "year_options": "1956,1957,1958,1959"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "GTX",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1967-1971",
+    "year_options": "1967,1968,1969,1970,1971"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Roadrunner",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1973-1975",
+    "year_options": "1973,1974,1975"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Savoy",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1951-1953",
+    "year_options": "1951,1952,1953"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Sport Fury",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1956-1964",
+    "year_options": "1956,1957,1958,1959,1960,1961,1962,1963,1964"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Valiant",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1974-1976",
+    "year_options": "1974,1975,1976"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "VIP",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1966-1969",
+    "year_options": "1966,1967,1968,1969"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "GTX",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1967-1971",
+    "year_options": "1967,1968,1969,1970,1971"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Barracuda",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1970-1974",
+    "year_options": "1970,1971,1972,1973,1974"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Business Coupe",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1936-1952",
+    "year_options": "1936,1937,1938,1939,1940,1941,1942,1943,1944,1945,1946,1947,1948,1949,1950,1951,1952"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Duster",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1985-1987",
+    "year_options": "1985,1986,1987"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "P8 Road King",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1938-1941",
+    "year_options": "1938,1939,1940,1941"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Roadrunner",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1976-1980",
+    "year_options": "1976,1977,1978,1979,1980"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Plymouth",
+    "model": "Sport Fury",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1956-1964",
+    "year_options": "1956,1957,1958,1959,1960,1961,1962,1963,1964"
+  }
+]

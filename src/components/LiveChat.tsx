@@ -2,7 +2,6 @@
 import { LiveChatWidget } from '@livechat/widget-react';
 
 export default function LiveChat() {
-  console.log('LiveChat');
   return (
     <div className="!fixed !bottom-0 !right-0">
       <LiveChatWidget license="14897064" />

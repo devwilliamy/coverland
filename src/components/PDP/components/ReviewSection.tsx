@@ -10,8 +10,6 @@ import { CarSelectionContext } from '@/app/(main)/[productType]/components/CarPD
 import { useStore } from 'zustand';
 import {
   FilterParams,
-  TReviewData,
-  filterDuplicateReviewImages,
   // filterReviewImages,
   getProductReviewsByImage,
   getProductReviewsByPage,
@@ -25,9 +23,7 @@ const ReviewSection = () => {
   if (!store) throw new Error('Missing CarContext.Provider in the tree');
   const reviewData = useStore(store, (s) => s.reviewData);
   const setReviewData = useStore(store, (s) => s.setReviewData);
-  const reviewImages = useStore(store, (s) => s.reviewImages);
   const reviewImageTracker = useStore(store, (s) => s.reviewImageTracker);
-  const setReviewImageTracker = useStore(store, (s) => s.setReviewImageTracker);
 
   const { total_reviews, average_score } = useStore(
     store,

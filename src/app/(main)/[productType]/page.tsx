@@ -1,4 +1,3 @@
-import { Suspense } from 'react';
 import {
   defaultCarModelData,
   defaultSuvModelData,
@@ -9,17 +8,27 @@ import CarPDP from './components/CarPDP';
 import {
   TProductReviewSummary,
   TReviewData,
-  filterDuplicateReviewImages,
   // filterDuplicateReviewImages,
   getAllReviewsWithImages,
   getProductReviewSummary,
   getProductReviewsByPage,
 } from '@/lib/db/review';
+//TODO: Refactor code so we can generate our dynamic paths as static HTML for performance
+
+// export function generateStaticParams() {
+//   return [
+//     { productType: 'car-covers' },
+//     { productType: 'suv-covers' },
+//     { productType: 'truck-covers' },
+//   ];
+// }
 
 export default async function CarPDPModelDataLayer({
   params,
+  searchParams,
 }: {
   params: { productType: string };
+  searchParams: { submodel?: string; second_submodel?: string } | undefined;
 }) {
   let reviewData: TReviewData[] = [];
   let reviewDataSummary: TProductReviewSummary = {
@@ -64,14 +73,13 @@ export default async function CarPDPModelDataLayer({
   }
 
   return (
-    <Suspense fallback={<div>Loading...</div>}>
-      <CarPDP
-        modelData={modelData}
-        reviewData={reviewData}
-        params={params}
-        reviewDataSummary={reviewDataSummary}
-        reviewImages={reviewImages}
-      />
-    </Suspense>
+    <CarPDP
+      modelData={modelData}
+      reviewData={reviewData}
+      params={params}
+      reviewDataSummary={reviewDataSummary}
+      reviewImages={reviewImages}
+      searchParams={searchParams}
+    />
   );
 }

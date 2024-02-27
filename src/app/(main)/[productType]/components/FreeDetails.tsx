@@ -38,7 +38,7 @@ export default function FreeDetails() {
     },
   ];
   return (
-    <div className="-mx-4 flex flex-col items-start justify-start bg-[#FBFBFB] px-4  ">
+    <div className="flex flex-col items-start justify-start bg-[#FBFBFB] ">
       {FreeDetailItems.map(({ icon, title, description }, index) => (
         <FreeDetailItem
           key={`Free-Detail-Item-${index}`}

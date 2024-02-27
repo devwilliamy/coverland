@@ -1,0 +1,326 @@
+[
+  {
+    "type": "Car Covers",
+    "make": "Willys",
+    "model": "Deluxe",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1940-1942",
+    "year_options": "1940,1941,1942"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Willys",
+    "model": "2-Door Sedan",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1937-1941",
+    "year_options": "1937,1938,1939,1940,1941"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Willys",
+    "model": "2-Door Sedan",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1937-1941",
+    "year_options": "1937,1938,1939,1940,1941"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Willys",
+    "model": "2-Door Sedan",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1937-1941",
+    "year_options": "1937,1938,1939,1940,1941"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Willys",
+    "model": "Speedway",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1939-1942",
+    "year_options": "1939,1940,1941,1942"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Willys",
+    "model": "Coupe",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1937-1941",
+    "year_options": "1937,1938,1939,1940,1941"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Willys",
+    "model": "2-Door Sedan",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1937-1941",
+    "year_options": "1937,1938,1939,1940,1941"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Willys",
+    "model": "2-Door Sedan",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1937-1941",
+    "year_options": "1937,1938,1939,1940,1941"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Willys",
+    "model": "2-Door Sedan",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1937-1941",
+    "year_options": "1937,1938,1939,1940,1941"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Willys",
+    "model": "2-Door Sedan",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1937-1941",
+    "year_options": "1937,1938,1939,1940,1941"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Willys",
+    "model": "Coupe",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1937-1941",
+    "year_options": "1937,1938,1939,1940,1941"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Willys",
+    "model": "Coupe",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1937-1941",
+    "year_options": "1937,1938,1939,1940,1941"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Willys",
+    "model": "Coupe",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1937-1941",
+    "year_options": "1937,1938,1939,1940,1941"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Willys",
+    "model": "Coupe",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1937-1941",
+    "year_options": "1937,1938,1939,1940,1941"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Willys",
+    "model": "Deluxe",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1940-1942",
+    "year_options": "1940,1941,1942"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Willys",
+    "model": "Deluxe",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1940-1942",
+    "year_options": "1940,1941,1942"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Willys",
+    "model": "Deluxe",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1940-1942",
+    "year_options": "1940,1941,1942"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Willys",
+    "model": "Deluxe",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1940-1942",
+    "year_options": "1940,1941,1942"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Willys",
+    "model": "Speedway",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1939-1942",
+    "year_options": "1939,1940,1941,1942"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Willys",
+    "model": "Speedway",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1939-1942",
+    "year_options": "1939,1940,1941,1942"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Willys",
+    "model": "Speedway",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1939-1942",
+    "year_options": "1939,1940,1941,1942"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Willys",
+    "model": "Speedway",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1939-1942",
+    "year_options": "1939,1940,1941,1942"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Willys",
+    "model": "Speedway",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1939-1942",
+    "year_options": "1939,1940,1941,1942"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Willys",
+    "model": "Speedway",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1939-1942",
+    "year_options": "1939,1940,1941,1942"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Willys",
+    "model": "Deluxe",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1940-1942",
+    "year_options": "1940,1941,1942"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Willys",
+    "model": "Speedway",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1939-1942",
+    "year_options": "1939,1940,1941,1942"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Willys",
+    "model": "2-Door Sedan",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1937-1941",
+    "year_options": "1937,1938,1939,1940,1941"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Willys",
+    "model": "Coupe",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1937-1941",
+    "year_options": "1937,1938,1939,1940,1941"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Willys",
+    "model": "Coupe",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1937-1941",
+    "year_options": "1937,1938,1939,1940,1941"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Willys",
+    "model": "Speedway",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1939-1942",
+    "year_options": "1939,1940,1941,1942"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Willys",
+    "model": "Deluxe",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1940-1942",
+    "year_options": "1940,1941,1942"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Willys",
+    "model": "Coupe",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1937-1941",
+    "year_options": "1937,1938,1939,1940,1941"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Willys",
+    "model": "Deluxe",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1940-1942",
+    "year_options": "1940,1941,1942"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Willys",
+    "model": "Coupe",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1937-1941",
+    "year_options": "1937,1938,1939,1940,1941"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Willys",
+    "model": "Deluxe",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1940-1942",
+    "year_options": "1940,1941,1942"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Willys",
+    "model": "2-Door Sedan",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1937-1941",
+    "year_options": "1937,1938,1939,1940,1941"
+  }
+]

@@ -1,0 +1,110 @@
+[
+  {
+    "type": "SUV Covers",
+    "make": "Peugeot",
+    "model": "3008",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2019-2024",
+    "year_options": "2019,2020,2021,2022,2023"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Peugeot",
+    "model": "2008",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2014-2022",
+    "year_options": "2014,2015,2016,2017,2018,2019,2020,2021,2022"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Peugeot",
+    "model": "3008",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2019-2024",
+    "year_options": "2019,2020,2021,2022,2023"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Peugeot",
+    "model": "5008",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2019-2024",
+    "year_options": "2019,2020,2021,2022,2023"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Peugeot",
+    "model": "5008",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2019-2024",
+    "year_options": "2019,2020,2021,2022,2023"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Peugeot",
+    "model": "3008",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2019-2024",
+    "year_options": "2019,2020,2021,2022,2023"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Peugeot",
+    "model": "2008",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2014-2022",
+    "year_options": "2014,2015,2016,2017,2018,2019,2020,2021,2022"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Peugeot",
+    "model": "2008",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2014-2022",
+    "year_options": "2014,2015,2016,2017,2018,2019,2020,2021,2022"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Peugeot",
+    "model": "5008",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2019-2024",
+    "year_options": "2019,2020,2021,2022,2023"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Peugeot",
+    "model": "2008",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2014-2022",
+    "year_options": "2014,2015,2016,2017,2018,2019,2020,2021,2022"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Peugeot",
+    "model": "3008",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2019-2024",
+    "year_options": "2019,2020,2021,2022,2023"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Peugeot",
+    "model": "5008",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2019-2024",
+    "year_options": "2019,2020,2021,2022,2023"
+  }
+]

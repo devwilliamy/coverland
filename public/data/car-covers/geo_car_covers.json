@@ -1,0 +1,407 @@
+[
+  {
+    "type": "Car Covers",
+    "make": "Geo",
+    "model": "Storm",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1990-1993",
+    "year_options": "1990,1991,1992,1993"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Geo",
+    "model": "Metro",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1989-1994",
+    "year_options": "1989,1990,1991,1992,1993,1994"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Geo",
+    "model": "Metro",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1989-1994",
+    "year_options": "1989,1990,1991,1992,1993,1994"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Geo",
+    "model": "Metro",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1989-1994",
+    "year_options": "1989,1990,1991,1992,1993,1994"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Geo",
+    "model": "Metro",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1989-1994",
+    "year_options": "1989,1990,1991,1992,1993,1994"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Geo",
+    "model": "Metro",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1989-1994",
+    "year_options": "1989,1990,1991,1992,1993,1994"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Geo",
+    "model": "Prizm",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1989-1997",
+    "year_options": "1989,1990,1991,1992,1993,1994,1995,1996,1997"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Geo",
+    "model": "Prizm",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1989-1997",
+    "year_options": "1989,1990,1991,1992,1993,1994,1995,1996,1997"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Geo",
+    "model": "Prizm",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1989-1997",
+    "year_options": "1989,1990,1991,1992,1993,1994,1995,1996,1997"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Geo",
+    "model": "Storm",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1990-1993",
+    "year_options": "1990,1991,1992,1993"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Geo",
+    "model": "Storm",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1990-1993",
+    "year_options": "1990,1991,1992,1993"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Geo",
+    "model": "Storm",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1990-1993",
+    "year_options": "1990,1991,1992,1993"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Geo",
+    "model": "Storm",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1990-1993",
+    "year_options": "1990,1991,1992,1993"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Geo",
+    "model": "Storm",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1990-1993",
+    "year_options": "1990,1991,1992,1993"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Geo",
+    "model": "Storm",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1990-1993",
+    "year_options": "1990,1991,1992,1993"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Geo",
+    "model": "Prizm",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1989-1997",
+    "year_options": "1989,1990,1991,1992,1993,1994,1995,1996,1997"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Geo",
+    "model": "Prizm",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1989-1997",
+    "year_options": "1989,1990,1991,1992,1993,1994,1995,1996,1997"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Geo",
+    "model": "Prizm",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1989-1997",
+    "year_options": "1989,1990,1991,1992,1993,1994,1995,1996,1997"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Geo",
+    "model": "Metro",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1989-1994",
+    "year_options": "1989,1990,1991,1992,1993,1994"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Geo",
+    "model": "Metro",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1989-1994",
+    "year_options": "1989,1990,1991,1992,1993,1994"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Geo",
+    "model": "Storm",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1990-1993",
+    "year_options": "1990,1991,1992,1993"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Geo",
+    "model": "Metro",
+    "submodel1": "Hatchback",
+    "submodel2": null,
+    "parent_generation": "1995-1997",
+    "year_options": "1995,1996,1997"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Geo",
+    "model": "Metro",
+    "submodel1": "Sedan",
+    "submodel2": null,
+    "parent_generation": "1995-1997",
+    "year_options": "1995,1996,1997"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Geo",
+    "model": "Metro",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1989-1994",
+    "year_options": "1989,1990,1991,1992,1993,1994"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Geo",
+    "model": "Metro",
+    "submodel1": "Hatchback",
+    "submodel2": null,
+    "parent_generation": "1995-1997",
+    "year_options": "1995,1996,1997"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Geo",
+    "model": "Metro",
+    "submodel1": "Hatchback",
+    "submodel2": null,
+    "parent_generation": "1995-1997",
+    "year_options": "1995,1996,1997"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Geo",
+    "model": "Metro",
+    "submodel1": "Hatchback",
+    "submodel2": null,
+    "parent_generation": "1995-1997",
+    "year_options": "1995,1996,1997"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Geo",
+    "model": "Metro",
+    "submodel1": "Sedan",
+    "submodel2": null,
+    "parent_generation": "1995-1997",
+    "year_options": "1995,1996,1997"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Geo",
+    "model": "Metro",
+    "submodel1": "Sedan",
+    "submodel2": null,
+    "parent_generation": "1995-1997",
+    "year_options": "1995,1996,1997"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Geo",
+    "model": "Metro",
+    "submodel1": "Sedan",
+    "submodel2": null,
+    "parent_generation": "1995-1997",
+    "year_options": "1995,1996,1997"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Geo",
+    "model": "Metro",
+    "submodel1": "Sedan",
+    "submodel2": null,
+    "parent_generation": "1995-1997",
+    "year_options": "1995,1996,1997"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Geo",
+    "model": "Metro",
+    "submodel1": "Sedan",
+    "submodel2": null,
+    "parent_generation": "1995-1997",
+    "year_options": "1995,1996,1997"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Geo",
+    "model": "Metro",
+    "submodel1": "Hatchback",
+    "submodel2": null,
+    "parent_generation": "1995-1997",
+    "year_options": "1995,1996,1997"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Geo",
+    "model": "Metro",
+    "submodel1": "Hatchback",
+    "submodel2": null,
+    "parent_generation": "1995-1997",
+    "year_options": "1995,1996,1997"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Geo",
+    "model": "Metro",
+    "submodel1": "Hatchback",
+    "submodel2": null,
+    "parent_generation": "1995-1997",
+    "year_options": "1995,1996,1997"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Geo",
+    "model": "Metro",
+    "submodel1": "Hatchback",
+    "submodel2": null,
+    "parent_generation": "1995-1997",
+    "year_options": "1995,1996,1997"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Geo",
+    "model": "Metro",
+    "submodel1": "Sedan",
+    "submodel2": null,
+    "parent_generation": "1995-1997",
+    "year_options": "1995,1996,1997"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Geo",
+    "model": "Metro",
+    "submodel1": "Sedan",
+    "submodel2": null,
+    "parent_generation": "1995-1997",
+    "year_options": "1995,1996,1997"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Geo",
+    "model": "Metro",
+    "submodel1": "Hatchback",
+    "submodel2": null,
+    "parent_generation": "1995-1997",
+    "year_options": "1995,1996,1997"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Geo",
+    "model": "Metro",
+    "submodel1": "Sedan",
+    "submodel2": null,
+    "parent_generation": "1995-1997",
+    "year_options": "1995,1996,1997"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Geo",
+    "model": "Storm",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1990-1993",
+    "year_options": "1990,1991,1992,1993"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Geo",
+    "model": "Prizm",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1989-1997",
+    "year_options": "1989,1990,1991,1992,1993,1994,1995,1996,1997"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Geo",
+    "model": "Prizm",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1989-1997",
+    "year_options": "1989,1990,1991,1992,1993,1994,1995,1996,1997"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Geo",
+    "model": "Metro",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1989-1994",
+    "year_options": "1989,1990,1991,1992,1993,1994"
+  },
+  {
+    "type": "Car Covers",
+    "make": "Geo",
+    "model": "Prizm",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1989-1997",
+    "year_options": "1989,1990,1991,1992,1993,1994,1995,1996,1997"
+  }
+]

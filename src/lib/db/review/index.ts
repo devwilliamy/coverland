@@ -1,11 +1,9 @@
-import { TReviewData } from '@/lib/db';
 import { ZodError, z } from 'zod';
 
 import { PRODUCT_REVIEWS_TABLE } from '../constants/databaseTableNames';
 import { Tables } from '../types';
 import { getPagination } from '../utils';
 import { supabaseDatabaseClient } from '../supabaseClients';
-import { StaticImageData } from 'next/image';
 
 export type TReviewData = Tables<'reviews-2'>;
 

@@ -1,0 +1,3485 @@
+[
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Hornet",
+    "submodel1": "Sportabout",
+    "submodel2": null,
+    "parent_generation": "1970-1972",
+    "year_options": "1971,1972"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Classic",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1961-1966",
+    "year_options": "1961,1962,1963,1964,1965,1966"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Rebel",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1966-1970",
+    "year_options": "1966,1967,1968,1969,1970"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Ambassador",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1965-1973",
+    "year_options": "1965,1966,1967,1968,1969,1970,1971,1972,1973"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Ambassador",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1965-1973",
+    "year_options": "1965,1966,1967,1968,1969,1970,1971,1972,1973"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Ambassador",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1965-1973",
+    "year_options": "1965,1966,1967,1968,1969,1970,1971,1972,1973"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Ambassador",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1965-1973",
+    "year_options": "1965,1966,1967,1968,1969,1970,1971,1972,1973"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Ambassador",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1965-1973",
+    "year_options": "1965,1966,1967,1968,1969,1970,1971,1972,1973"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "AMX",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1968-1970",
+    "year_options": "1968,1969,1970"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "AMX",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1968-1970",
+    "year_options": "1968,1969,1970"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Ambassador",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1965-1973",
+    "year_options": "1965,1966,1967,1968,1969,1970,1971,1972,1973"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Marlin",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1965-1967",
+    "year_options": "1965,1966,1967"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "AMX",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1978-1980",
+    "year_options": "1978,1979,1980"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "AMX",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1978-1980",
+    "year_options": "1978,1979,1980"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "AMX",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1978-1980",
+    "year_options": "1978,1979,1980"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "AMX",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1978-1980",
+    "year_options": "1978,1979,1980"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "AMX",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1978-1980",
+    "year_options": "1978,1979,1980"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Classic",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1961-1966",
+    "year_options": "1961,1962,1963,1964,1965,1966"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "AMX",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1968-1970",
+    "year_options": "1968,1969,1970"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "AMX",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1968-1970",
+    "year_options": "1968,1969,1970"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Classic",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1961-1966",
+    "year_options": "1961,1962,1963,1964,1965,1966"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Concord",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1978-1983",
+    "year_options": "1978,1979,1980,1981,1982,1983"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Concord",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1978-1983",
+    "year_options": "1978,1979,1980,1981,1982,1983"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Concord",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1978-1983",
+    "year_options": "1978,1979,1980,1981,1982,1983"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Concord",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1978-1983",
+    "year_options": "1978,1979,1980,1981,1982,1983"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Concord",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1978-1983",
+    "year_options": "1978,1979,1980,1981,1982,1983"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Classic",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1961-1966",
+    "year_options": "1961,1962,1963,1964,1965,1966"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Gremlin",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1970-1978",
+    "year_options": "1970,1971,1972,1973,1974,1975,1976,1977,1978"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Gremlin",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1970-1978",
+    "year_options": "1970,1971,1972,1973,1974,1975,1976,1977,1978"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Gremlin",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1970-1978",
+    "year_options": "1970,1971,1972,1973,1974,1975,1976,1977,1978"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Gremlin",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1970-1978",
+    "year_options": "1970,1971,1972,1973,1974,1975,1976,1977,1978"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Gremlin",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1970-1978",
+    "year_options": "1970,1971,1972,1973,1974,1975,1976,1977,1978"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Spirit",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1979-1983",
+    "year_options": "1979,1980,1981,1982,1983"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Javelin",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1968-1974",
+    "year_options": "1965,1966,1967,1968,1969,1970,1971,1972,1973,1974"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Javelin",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1968-1974",
+    "year_options": "1965,1966,1967,1968,1969,1970,1971,1972,1973,1974"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Javelin",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1968-1974",
+    "year_options": "1965,1966,1967,1968,1969,1970,1971,1972,1973,1974"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Javelin",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1968-1974",
+    "year_options": "1965,1966,1967,1968,1969,1970,1971,1972,1973,1974"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Marlin",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1965-1967",
+    "year_options": "1965,1966,1967"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Marlin",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1965-1967",
+    "year_options": "1965,1966,1967"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Marlin",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1965-1967",
+    "year_options": "1965,1966,1967"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Marlin",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1965-1967",
+    "year_options": "1965,1966,1967"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Marlin",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1965-1967",
+    "year_options": "1965,1966,1967"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Javelin",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1968-1974",
+    "year_options": "1965,1966,1967,1968,1969,1970,1971,1972,1973,1974"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Rambler American",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1961-1963",
+    "year_options": "1961,1962,1963"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Rambler American",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1961-1963",
+    "year_options": "1961,1962,1963"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Rambler American",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1961-1963",
+    "year_options": "1961,1962,1963"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Rambler American",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1961-1963",
+    "year_options": "1961,1962,1963"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Rambler Cross Country",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1958-1962",
+    "year_options": "1958,1959,1960,1961,1962"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Rambler American",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1964-1969",
+    "year_options": "1964,1965,1966,1967,1968,1969"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Rambler Ambassador",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1965-1966",
+    "year_options": "1965,1966"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Rambler American",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1964-1969",
+    "year_options": "1964,1965,1966,1967,1968,1969"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Rambler American",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1964-1969",
+    "year_options": "1964,1965,1966,1967,1968,1969"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Rambler American",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1964-1969",
+    "year_options": "1964,1965,1966,1967,1968,1969"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Rambler American",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1964-1969",
+    "year_options": "1964,1965,1966,1967,1968,1969"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Rambler Cross Country",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1958-1962",
+    "year_options": "1958,1959,1960,1961,1962"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Rambler American",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1961-1963",
+    "year_options": "1961,1962,1963"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Rambler Cross Country",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1958-1962",
+    "year_options": "1958,1959,1960,1961,1962"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Rambler Cross Country",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1958-1962",
+    "year_options": "1958,1959,1960,1961,1962"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Rambler Ambassador",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1958-1962",
+    "year_options": "1958,1959,1960,1961,1962"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Rambler Ambassador",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1958-1962",
+    "year_options": "1958,1959,1960,1961,1962"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Rambler Ambassador",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1958-1962",
+    "year_options": "1958,1959,1960,1961,1962"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Rambler Ambassador",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1958-1962",
+    "year_options": "1958,1959,1960,1961,1962"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Rambler Cross Country",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1958-1962",
+    "year_options": "1958,1959,1960,1961,1962"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Rambler Ambassador",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1965-1966",
+    "year_options": "1965,1966"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Rambler Ambassador",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1965-1966",
+    "year_options": "1965,1966"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Rambler Ambassador",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1965-1966",
+    "year_options": "1965,1966"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Rambler Ambassador",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1965-1966",
+    "year_options": "1965,1966"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Rebel",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1966-1970",
+    "year_options": "1966,1967,1968,1969,1970"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Rebel",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1966-1970",
+    "year_options": "1966,1967,1968,1969,1970"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Rebel",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1966-1970",
+    "year_options": "1966,1967,1968,1969,1970"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Rebel",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1966-1970",
+    "year_options": "1966,1967,1968,1969,1970"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Renault Alliance",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1983-1987",
+    "year_options": "1983,1984,1985,1986,1987"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Renault Alliance",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1983-1987",
+    "year_options": "1983,1984,1985,1986,1987"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Rebel",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1966-1970",
+    "year_options": "1966,1967,1968,1969,1970"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Renault Alliance",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1983-1987",
+    "year_options": "1983,1984,1985,1986,1987"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Spirit",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1979-1983",
+    "year_options": "1979,1980,1981,1982,1983"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Spirit",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1979-1983",
+    "year_options": "1979,1980,1981,1982,1983"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Spirit",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1979-1983",
+    "year_options": "1979,1980,1981,1982,1983"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Spirit",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1979-1983",
+    "year_options": "1979,1980,1981,1982,1983"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Renault Alliance",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1983-1987",
+    "year_options": "1983,1984,1985,1986,1987"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Renault Alliance",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1983-1987",
+    "year_options": "1983,1984,1985,1986,1987"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Rambler Cross Country",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1958-1962",
+    "year_options": "1958,1959,1960,1961,1962"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Ambassador",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1965-1973",
+    "year_options": "1965,1966,1967,1968,1969,1970,1971,1972,1973"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "AMX",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1968-1970",
+    "year_options": "1968,1969,1970"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "AMX",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1978-1980",
+    "year_options": "1978,1979,1980"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Classic",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1961-1966",
+    "year_options": "1961,1962,1963,1964,1965,1966"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Concord",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1978-1983",
+    "year_options": "1978,1979,1980,1981,1982,1983"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Gremlin",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1970-1978",
+    "year_options": "1970,1971,1972,1973,1974,1975,1976,1977,1978"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Javelin",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1968-1974",
+    "year_options": "1968,1969,1970,1971,1972,1973,1974"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Marlin",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1965-1967",
+    "year_options": "1965,1966,1967"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Rambler American",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1961-1963",
+    "year_options": "1961,1962,1963"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Rambler Cross Country",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1958-1962",
+    "year_options": "1958,1959,1960,1961,1962"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Rambler Ambassador",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1958-1962",
+    "year_options": "1958,1959,1960,1961,1962"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Renault Alliance",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1983-1987",
+    "year_options": "1983,1984,1985,1986,1987"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Spirit",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1979-1983",
+    "year_options": "1979,1980,1981,1982,1983"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Ambassador",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1965-1973",
+    "year_options": "1965,1966,1967,1968,1969,1970,1971,1972,1973"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Ambassador",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1965-1973",
+    "year_options": "1965,1966,1967,1968,1969,1970,1971,1972,1973"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "AMX",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1968-1970",
+    "year_options": "1968,1969,1970"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "AMX",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1968-1970",
+    "year_options": "1968,1969,1970"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Classic",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1961-1966",
+    "year_options": "1961,1962,1963,1964,1965,1966"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Classic",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1961-1966",
+    "year_options": "1961,1962,1963,1964,1965,1966"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Concord",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1978-1983",
+    "year_options": "1978,1979,1980,1981,1982,1983"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Concord",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1978-1983",
+    "year_options": "1978,1979,1980,1981,1982,1983"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Gremlin",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1970-1978",
+    "year_options": "1970,1971,1972,1973,1974,1975,1976,1977,1978"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Gremlin",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1970-1978",
+    "year_options": "1970,1971,1972,1973,1974,1975,1976,1977,1978"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Javelin",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1968-1974",
+    "year_options": "1968,1969,1970,1971,1972,1973,1974"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Javelin",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1968-1974",
+    "year_options": "1968,1969,1970,1971,1972,1973,1974"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Rambler American",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1961-1963",
+    "year_options": "1961,1962,1963"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Rambler American",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1964-1969",
+    "year_options": "1964,1965,1966,1967,1968,1969"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Rambler Cross Country",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1958-1962",
+    "year_options": "1958,1959,1960,1961,1962"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Rambler Ambassador",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1958-1962",
+    "year_options": "1958,1959,1960,1961,1962"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Rambler American",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1964-1969",
+    "year_options": "1964,1965,1966,1967,1968,1969"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Spirit",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1979-1983",
+    "year_options": "1979,1980,1981,1982,1983"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Rambler Ambassador",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1965-1966",
+    "year_options": "1965,1966"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Rambler Ambassador",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1965-1966",
+    "year_options": "1965,1966"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Renault Alliance",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1983-1987",
+    "year_options": "1983,1984,1985,1986,1987"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Spirit",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1979-1983",
+    "year_options": "1979,1980,1981,1982,1983"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Renault Alliance",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1983-1987",
+    "year_options": "1983,1984,1985,1986,1987"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Eagle",
+    "submodel1": "Kammback",
+    "submodel2": null,
+    "parent_generation": "1980-1987",
+    "year_options": "1981,1982,1983"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Hornet",
+    "submodel1": "2-Door Sedan",
+    "submodel2": null,
+    "parent_generation": "1970-1972",
+    "year_options": "1970,1971,1972"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Eagle",
+    "submodel1": "Kammback",
+    "submodel2": null,
+    "parent_generation": "1980-1987",
+    "year_options": "1981,1982,1983"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Eagle",
+    "submodel1": "Kammback",
+    "submodel2": null,
+    "parent_generation": "1980-1987",
+    "year_options": "1981,1982,1983"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Eagle",
+    "submodel1": "Kammback",
+    "submodel2": null,
+    "parent_generation": "1980-1987",
+    "year_options": "1981,1982,1983"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Eagle",
+    "submodel1": "Sedan",
+    "submodel2": null,
+    "parent_generation": "1980-1987",
+    "year_options": "1980,1981,1982,1983,1984,1985,1986,1987"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Eagle",
+    "submodel1": "Sedan",
+    "submodel2": null,
+    "parent_generation": "1980-1987",
+    "year_options": "1980,1981,1982,1983,1984,1985,1986,1987"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Eagle",
+    "submodel1": "Wagon",
+    "submodel2": null,
+    "parent_generation": "1980-1987",
+    "year_options": "1980,1981,1982,1983,1984,1985,1986,1987"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Eagle",
+    "submodel1": "Sedan",
+    "submodel2": null,
+    "parent_generation": "1980-1987",
+    "year_options": "1980,1981,1982,1983,1984,1985,1986,1987"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Eagle",
+    "submodel1": "Kammback",
+    "submodel2": null,
+    "parent_generation": "1980-1987",
+    "year_options": "1981,1982,1983"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Eagle",
+    "submodel1": "Sedan",
+    "submodel2": null,
+    "parent_generation": "1980-1987",
+    "year_options": "1980,1981,1982,1983,1984,1985,1986,1987"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Eagle",
+    "submodel1": "Wagon",
+    "submodel2": null,
+    "parent_generation": "1980-1987",
+    "year_options": "1980,1981,1982,1983,1984,1985,1986,1987"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Eagle",
+    "submodel1": "Wagon",
+    "submodel2": null,
+    "parent_generation": "1980-1987",
+    "year_options": "1980,1981,1982,1983,1984,1985,1986,1987"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Eagle",
+    "submodel1": "Wagon",
+    "submodel2": null,
+    "parent_generation": "1980-1987",
+    "year_options": "1980,1981,1982,1983,1984,1985,1986,1987"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Eagle",
+    "submodel1": "Wagon",
+    "submodel2": null,
+    "parent_generation": "1980-1987",
+    "year_options": "1980,1981,1982,1983,1984,1985,1986,1987"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Eagle",
+    "submodel1": "Sedan",
+    "submodel2": null,
+    "parent_generation": "1980-1987",
+    "year_options": "1980,1981,1982,1983,1984,1985,1986,1987"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Hornet",
+    "submodel1": "2-Door Sedan",
+    "submodel2": null,
+    "parent_generation": "1970-1972",
+    "year_options": "1970,1971,1972"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Hornet",
+    "submodel1": "2-Door Sedan",
+    "submodel2": null,
+    "parent_generation": "1970-1972",
+    "year_options": "1970,1971,1972"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Hornet",
+    "submodel1": "2-Door Sedan",
+    "submodel2": null,
+    "parent_generation": "1970-1972",
+    "year_options": "1970,1971,1972"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Hornet",
+    "submodel1": "4-Door Sedan",
+    "submodel2": null,
+    "parent_generation": "1970-1972",
+    "year_options": "1970,1971,1972"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Hornet",
+    "submodel1": "4-Door Sedan",
+    "submodel2": null,
+    "parent_generation": "1970-1972",
+    "year_options": "1970,1971,1972"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Hornet",
+    "submodel1": "4-Door Sedan",
+    "submodel2": null,
+    "parent_generation": "1970-1972",
+    "year_options": "1970,1971,1972"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Hornet",
+    "submodel1": "4-Door Sedan",
+    "submodel2": null,
+    "parent_generation": "1970-1972",
+    "year_options": "1970,1971,1972"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Hornet",
+    "submodel1": "Sportabout",
+    "submodel2": null,
+    "parent_generation": "1970-1972",
+    "year_options": "1971,1972"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Hornet",
+    "submodel1": "Sportabout",
+    "submodel2": null,
+    "parent_generation": "1970-1972",
+    "year_options": "1971,1972"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Hornet",
+    "submodel1": "Sportabout",
+    "submodel2": null,
+    "parent_generation": "1970-1972",
+    "year_options": "1971,1972"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Hornet",
+    "submodel1": "4-Door Sedan",
+    "submodel2": null,
+    "parent_generation": "1970-1972",
+    "year_options": "1970,1971,1972"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Hornet",
+    "submodel1": "2-Door Sedan",
+    "submodel2": null,
+    "parent_generation": "1973-1977",
+    "year_options": "1973,1974,1975,1976,1977"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Matador",
+    "submodel1": "Wagon",
+    "submodel2": null,
+    "parent_generation": "1971-1978",
+    "year_options": "1971,1972,1973,1974,1975,1976,1977,1978"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Hornet",
+    "submodel1": "2-Door Sedan",
+    "submodel2": null,
+    "parent_generation": "1973-1977",
+    "year_options": "1973,1974,1975,1976,1977"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Hornet",
+    "submodel1": "2-Door Sedan",
+    "submodel2": null,
+    "parent_generation": "1973-1977",
+    "year_options": "1973,1974,1975,1976,1977"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Hornet",
+    "submodel1": "2-Door Sedan",
+    "submodel2": null,
+    "parent_generation": "1973-1977",
+    "year_options": "1973,1974,1975,1976,1977"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Hornet",
+    "submodel1": "2-Door Sedan",
+    "submodel2": null,
+    "parent_generation": "1973-1977",
+    "year_options": "1973,1974,1975,1976,1977"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Hornet",
+    "submodel1": "2-Door Sedan",
+    "submodel2": null,
+    "parent_generation": "1973-1977",
+    "year_options": "1973,1974,1975,1976,1977"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Hornet",
+    "submodel1": "4-Door Sedan",
+    "submodel2": null,
+    "parent_generation": "1973-1977",
+    "year_options": "1973,1974,1975,1976,1977"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Hornet",
+    "submodel1": "4-Door Sedan",
+    "submodel2": null,
+    "parent_generation": "1973-1977",
+    "year_options": "1973,1974,1975,1976,1977"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Hornet",
+    "submodel1": "Sportabout",
+    "submodel2": null,
+    "parent_generation": "1973-1977",
+    "year_options": "1973,1974,1975,1976,1977"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Hornet",
+    "submodel1": "Sportabout",
+    "submodel2": null,
+    "parent_generation": "1973-1977",
+    "year_options": "1973,1974,1975,1976,1977"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Hornet",
+    "submodel1": "Sportabout",
+    "submodel2": null,
+    "parent_generation": "1973-1977",
+    "year_options": "1973,1974,1975,1976,1977"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Hornet",
+    "submodel1": "Sportabout",
+    "submodel2": null,
+    "parent_generation": "1973-1977",
+    "year_options": "1973,1974,1975,1976,1977"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Hornet",
+    "submodel1": "Sportabout",
+    "submodel2": null,
+    "parent_generation": "1973-1977",
+    "year_options": "1973,1974,1975,1976,1977"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Hornet",
+    "submodel1": "4-Door Sedan",
+    "submodel2": null,
+    "parent_generation": "1973-1977",
+    "year_options": "1973,1974,1975,1976,1977"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Hornet",
+    "submodel1": "Hatchback",
+    "submodel2": null,
+    "parent_generation": "1973-1977",
+    "year_options": "1973,1974,1975,1976,1977"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Hornet",
+    "submodel1": "Hatchback",
+    "submodel2": null,
+    "parent_generation": "1973-1977",
+    "year_options": "1973,1974,1975,1976,1977"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Hornet",
+    "submodel1": "Hatchback",
+    "submodel2": null,
+    "parent_generation": "1973-1977",
+    "year_options": "1973,1974,1975,1976,1977"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Hornet",
+    "submodel1": "Hatchback",
+    "submodel2": null,
+    "parent_generation": "1973-1977",
+    "year_options": "1973,1974,1975,1976,1977"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Hornet",
+    "submodel1": "Hatchback",
+    "submodel2": null,
+    "parent_generation": "1973-1977",
+    "year_options": "1973,1974,1975,1976,1977"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Matador",
+    "submodel1": "2-Door",
+    "submodel2": null,
+    "parent_generation": "1971-1978",
+    "year_options": "1971,1972,1973,1974,1975,1976,1977,1978"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Matador",
+    "submodel1": "2-Door",
+    "submodel2": null,
+    "parent_generation": "1971-1978",
+    "year_options": "1971,1972,1973,1974,1975,1976,1977,1978"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Matador",
+    "submodel1": "2-Door",
+    "submodel2": null,
+    "parent_generation": "1971-1978",
+    "year_options": "1971,1972,1973,1974,1975,1976,1977,1978"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Matador",
+    "submodel1": "Wagon",
+    "submodel2": null,
+    "parent_generation": "1971-1978",
+    "year_options": "1971,1972,1973,1974,1975,1976,1977,1978"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Matador",
+    "submodel1": "4-Door",
+    "submodel2": null,
+    "parent_generation": "1971-1978",
+    "year_options": "1971,1972,1973,1974,1975,1976,1977,1978"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Matador",
+    "submodel1": "4-Door",
+    "submodel2": null,
+    "parent_generation": "1971-1978",
+    "year_options": "1971,1972,1973,1974,1975,1976,1977,1978"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Matador",
+    "submodel1": "4-Door",
+    "submodel2": null,
+    "parent_generation": "1971-1978",
+    "year_options": "1971,1972,1973,1974,1975,1976,1977,1978"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Matador",
+    "submodel1": "4-Door",
+    "submodel2": null,
+    "parent_generation": "1971-1978",
+    "year_options": "1971,1972,1973,1974,1975,1976,1977,1978"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Matador",
+    "submodel1": "2-Door",
+    "submodel2": null,
+    "parent_generation": "1971-1978",
+    "year_options": "1971,1972,1973,1974,1975,1976,1977,1978"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Matador",
+    "submodel1": "Wagon",
+    "submodel2": null,
+    "parent_generation": "1971-1978",
+    "year_options": "1971,1972,1973,1974,1975,1976,1977,1978"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Matador",
+    "submodel1": "Wagon",
+    "submodel2": null,
+    "parent_generation": "1971-1978",
+    "year_options": "1971,1972,1973,1974,1975,1976,1977,1978"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Pacer",
+    "submodel1": "Hatchback",
+    "submodel2": null,
+    "parent_generation": "1975-1980",
+    "year_options": "1975,1976,1977,1978,1979,1980"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Pacer",
+    "submodel1": "Hatchback",
+    "submodel2": null,
+    "parent_generation": "1975-1980",
+    "year_options": "1975,1976,1977,1978,1979,1980"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Pacer",
+    "submodel1": "Hatchback",
+    "submodel2": null,
+    "parent_generation": "1975-1980",
+    "year_options": "1975,1976,1977,1978,1979,1980"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Matador",
+    "submodel1": "Wagon",
+    "submodel2": null,
+    "parent_generation": "1971-1978",
+    "year_options": "1971,1972,1973,1974,1975,1976,1977,1978"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Pacer",
+    "submodel1": "Hatchback",
+    "submodel2": null,
+    "parent_generation": "1975-1980",
+    "year_options": "1975,1976,1977,1978,1979,1980"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Pacer",
+    "submodel1": "Wagon",
+    "submodel2": null,
+    "parent_generation": "1975-1980",
+    "year_options": "1977,1978,1979,1980"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Pacer",
+    "submodel1": "Wagon",
+    "submodel2": null,
+    "parent_generation": "1975-1980",
+    "year_options": "1977,1978,1979,1980"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Pacer",
+    "submodel1": "Wagon",
+    "submodel2": null,
+    "parent_generation": "1975-1980",
+    "year_options": "1977,1978,1979,1980"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Pacer",
+    "submodel1": "Wagon",
+    "submodel2": null,
+    "parent_generation": "1975-1980",
+    "year_options": "1977,1978,1979,1980"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Pacer",
+    "submodel1": "Wagon",
+    "submodel2": null,
+    "parent_generation": "1975-1980",
+    "year_options": "1977,1978,1979,1980"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Rambler American",
+    "submodel1": "2-Door",
+    "submodel2": null,
+    "parent_generation": "1958-1960",
+    "year_options": "1958,1959,1960"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Pacer",
+    "submodel1": "Hatchback",
+    "submodel2": null,
+    "parent_generation": "1975-1980",
+    "year_options": "1975,1976,1977,1978,1979,1980"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Rambler American",
+    "submodel1": "2-Door",
+    "submodel2": null,
+    "parent_generation": "1958-1960",
+    "year_options": "1958,1959,1960"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Rambler American",
+    "submodel1": "2-Door",
+    "submodel2": null,
+    "parent_generation": "1958-1960",
+    "year_options": "1958,1959,1960"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Rambler American",
+    "submodel1": "2-Door",
+    "submodel2": null,
+    "parent_generation": "1958-1960",
+    "year_options": "1958,1959,1960"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Rambler American",
+    "submodel1": "4-Door",
+    "submodel2": null,
+    "parent_generation": "1958-1960",
+    "year_options": "1958,1959,1960"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Rambler American",
+    "submodel1": "4-Door",
+    "submodel2": null,
+    "parent_generation": "1958-1960",
+    "year_options": "1958,1959,1960"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Rambler American",
+    "submodel1": "4-Door",
+    "submodel2": null,
+    "parent_generation": "1958-1960",
+    "year_options": "1958,1959,1960"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Rambler American",
+    "submodel1": "4-Door",
+    "submodel2": null,
+    "parent_generation": "1958-1960",
+    "year_options": "1958,1959,1960"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Rambler American",
+    "submodel1": "2-Door",
+    "submodel2": null,
+    "parent_generation": "1958-1960",
+    "year_options": "1958,1959,1960"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Rambler American",
+    "submodel1": "Wagon",
+    "submodel2": null,
+    "parent_generation": "1958-1960",
+    "year_options": "1958,1959,1960"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Rambler American",
+    "submodel1": "Wagon",
+    "submodel2": null,
+    "parent_generation": "1958-1960",
+    "year_options": "1958,1959,1960"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Rambler American",
+    "submodel1": "Wagon",
+    "submodel2": null,
+    "parent_generation": "1958-1960",
+    "year_options": "1958,1959,1960"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Rambler American",
+    "submodel1": "Wagon",
+    "submodel2": null,
+    "parent_generation": "1958-1960",
+    "year_options": "1958,1959,1960"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Rambler American",
+    "submodel1": "Wagon",
+    "submodel2": null,
+    "parent_generation": "1958-1960",
+    "year_options": "1958,1959,1960"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Rambler Ambassador",
+    "submodel1": "2-Door",
+    "submodel2": null,
+    "parent_generation": "1963-1964",
+    "year_options": "1963,1964"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Rambler Ambassador",
+    "submodel1": "2-Door",
+    "submodel2": null,
+    "parent_generation": "1963-1964",
+    "year_options": "1963,1964"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Rambler Ambassador",
+    "submodel1": "2-Door",
+    "submodel2": null,
+    "parent_generation": "1963-1964",
+    "year_options": "1963,1964"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Rambler Ambassador",
+    "submodel1": "2-Door",
+    "submodel2": null,
+    "parent_generation": "1963-1964",
+    "year_options": "1963,1964"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Rambler Ambassador",
+    "submodel1": "Wagon",
+    "submodel2": null,
+    "parent_generation": "1963-1964",
+    "year_options": "1963,1964"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Rambler Ambassador",
+    "submodel1": "4-Door",
+    "submodel2": null,
+    "parent_generation": "1963-1964",
+    "year_options": "1963,1964"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Rambler Ambassador",
+    "submodel1": "4-Door",
+    "submodel2": null,
+    "parent_generation": "1963-1964",
+    "year_options": "1963,1964"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Rambler Ambassador",
+    "submodel1": "4-Door",
+    "submodel2": null,
+    "parent_generation": "1963-1964",
+    "year_options": "1963,1964"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Rambler Ambassador",
+    "submodel1": "2-Door",
+    "submodel2": null,
+    "parent_generation": "1963-1964",
+    "year_options": "1963,1964"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Rambler Ambassador",
+    "submodel1": "4-Door",
+    "submodel2": null,
+    "parent_generation": "1963-1964",
+    "year_options": "1963,1964"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Rambler Ambassador",
+    "submodel1": "Wagon",
+    "submodel2": null,
+    "parent_generation": "1963-1964",
+    "year_options": "1963,1964"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Rambler Ambassador",
+    "submodel1": "Wagon",
+    "submodel2": null,
+    "parent_generation": "1963-1964",
+    "year_options": "1963,1964"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Rambler Ambassador",
+    "submodel1": "Wagon",
+    "submodel2": null,
+    "parent_generation": "1963-1964",
+    "year_options": "1963,1964"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Rambler Ambassador",
+    "submodel1": "Wagon",
+    "submodel2": null,
+    "parent_generation": "1963-1964",
+    "year_options": "1963,1964"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Rambler Ambassador",
+    "submodel1": "4-Door",
+    "submodel2": null,
+    "parent_generation": "1963-1964",
+    "year_options": "1963,1964"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Rambler Classic",
+    "submodel1": "2-Door",
+    "submodel2": null,
+    "parent_generation": "1961-1964",
+    "year_options": "1961,1962,1963,1964"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Rambler Classic",
+    "submodel1": "2-Door",
+    "submodel2": null,
+    "parent_generation": "1961-1964",
+    "year_options": "1961,1962,1963,1964"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Rambler Classic",
+    "submodel1": "2-Door",
+    "submodel2": null,
+    "parent_generation": "1961-1964",
+    "year_options": "1961,1962,1963,1964"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Rambler Classic",
+    "submodel1": "2-Door",
+    "submodel2": null,
+    "parent_generation": "1961-1964",
+    "year_options": "1961,1962,1963,1964"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Rambler Classic",
+    "submodel1": "4-Door",
+    "submodel2": null,
+    "parent_generation": "1961-1964",
+    "year_options": "1961,1962,1963,1964"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Rambler Classic",
+    "submodel1": "4-Door",
+    "submodel2": null,
+    "parent_generation": "1961-1964",
+    "year_options": "1961,1962,1963,1964"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Rambler Classic",
+    "submodel1": "4-Door",
+    "submodel2": null,
+    "parent_generation": "1961-1964",
+    "year_options": "1961,1962,1963,1964"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Rambler Classic",
+    "submodel1": "4-Door",
+    "submodel2": null,
+    "parent_generation": "1961-1964",
+    "year_options": "1961,1962,1963,1964"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Rambler Classic",
+    "submodel1": "Station Wagon",
+    "submodel2": null,
+    "parent_generation": "1961-1964",
+    "year_options": "1961,1962"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Rambler Classic",
+    "submodel1": "Station Wagon",
+    "submodel2": null,
+    "parent_generation": "1961-1964",
+    "year_options": "1961,1962"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Rambler Classic",
+    "submodel1": "Station Wagon",
+    "submodel2": null,
+    "parent_generation": "1961-1964",
+    "year_options": "1961,1962"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Rambler Classic",
+    "submodel1": "4-Door",
+    "submodel2": null,
+    "parent_generation": "1961-1964",
+    "year_options": "1961,1962,1963,1964"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Rambler Classic",
+    "submodel1": "Station Wagon",
+    "submodel2": null,
+    "parent_generation": "1961-1964",
+    "year_options": "1961,1962"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Rambler Classic",
+    "submodel1": "2-Door",
+    "submodel2": null,
+    "parent_generation": "1965-1966",
+    "year_options": "1965,1966"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Rambler Classic",
+    "submodel1": "2-Door",
+    "submodel2": null,
+    "parent_generation": "1965-1966",
+    "year_options": "1965,1966"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Rambler Classic",
+    "submodel1": "2-Door",
+    "submodel2": null,
+    "parent_generation": "1965-1966",
+    "year_options": "1965,1966"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Rambler Classic",
+    "submodel1": "2-Door",
+    "submodel2": null,
+    "parent_generation": "1965-1966",
+    "year_options": "1965,1966"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Rambler Classic",
+    "submodel1": "2-Door",
+    "submodel2": null,
+    "parent_generation": "1965-1966",
+    "year_options": "1965,1966"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Rambler Classic",
+    "submodel1": "4-Door",
+    "submodel2": null,
+    "parent_generation": "1965-1966",
+    "year_options": "1965,1966"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Rambler Classic",
+    "submodel1": "Station Wagon",
+    "submodel2": null,
+    "parent_generation": "1961-1964",
+    "year_options": "1961,1962"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Rambler Classic",
+    "submodel1": "4-Door",
+    "submodel2": null,
+    "parent_generation": "1965-1966",
+    "year_options": "1965,1966"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Rambler Classic",
+    "submodel1": "4-Door",
+    "submodel2": null,
+    "parent_generation": "1965-1966",
+    "year_options": "1965,1966"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Rambler Classic",
+    "submodel1": "4-Door",
+    "submodel2": null,
+    "parent_generation": "1965-1966",
+    "year_options": "1965,1966"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Rambler Classic",
+    "submodel1": "Station Wagon",
+    "submodel2": null,
+    "parent_generation": "1965-1966",
+    "year_options": "1963,1964,1965,1966"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Rambler Classic",
+    "submodel1": "Station Wagon",
+    "submodel2": null,
+    "parent_generation": "1965-1966",
+    "year_options": "1963,1964,1965,1966"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Rambler Classic",
+    "submodel1": "Station Wagon",
+    "submodel2": null,
+    "parent_generation": "1965-1966",
+    "year_options": "1963,1964,1965,1966"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Rambler Classic",
+    "submodel1": "Station Wagon",
+    "submodel2": null,
+    "parent_generation": "1965-1966",
+    "year_options": "1963,1964,1965,1966"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Rambler Classic",
+    "submodel1": "4-Door",
+    "submodel2": null,
+    "parent_generation": "1965-1966",
+    "year_options": "1965,1966"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Hornet",
+    "submodel1": "Sportabout",
+    "submodel2": null,
+    "parent_generation": "1970-1972",
+    "year_options": "1971,1972"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Rambler Classic",
+    "submodel1": "Station Wagon",
+    "submodel2": null,
+    "parent_generation": "1965-1966",
+    "year_options": "1963,1964,1965,1966"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Hornet",
+    "submodel1": "2-Door Sedan",
+    "submodel2": null,
+    "parent_generation": "1973-1977",
+    "year_options": "1973,1974,1975,1976,1977"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Rambler Ambassador",
+    "submodel1": "4-Door",
+    "submodel2": null,
+    "parent_generation": "1963-1964",
+    "year_options": "1963,1964"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Marlin",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1965-1967",
+    "year_options": "1965,1966,1967"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Hornet",
+    "submodel1": "2-Door Sedan",
+    "submodel2": null,
+    "parent_generation": "1970-1972",
+    "year_options": "1970,1971,1972"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Hornet",
+    "submodel1": "Sportabout",
+    "submodel2": null,
+    "parent_generation": "1970-1972",
+    "year_options": "1971,1972"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Hornet",
+    "submodel1": "4-Door Sedan",
+    "submodel2": null,
+    "parent_generation": "1973-1977",
+    "year_options": "1973,1974,1975,1976,1977"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Eagle",
+    "submodel1": "Wagon",
+    "submodel2": null,
+    "parent_generation": "1980-1987",
+    "year_options": "1980,1981,1982,1983,1984,1985,1986,1987"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Matador",
+    "submodel1": "2-Door",
+    "submodel2": null,
+    "parent_generation": "1971-1978",
+    "year_options": "1971,1972,1973,1974,1975,1976,1977,1978"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Matador",
+    "submodel1": "4-Door",
+    "submodel2": null,
+    "parent_generation": "1971-1978",
+    "year_options": "1971,1972,1973,1974,1975,1976,1977,1978"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Pacer",
+    "submodel1": "Hatchback",
+    "submodel2": null,
+    "parent_generation": "1975-1980",
+    "year_options": "1975,1976,1977,1978,1979,1980"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Hornet",
+    "submodel1": "Hatchback",
+    "submodel2": null,
+    "parent_generation": "1973-1977",
+    "year_options": "1973,1974,1975,1976,1977"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Rambler American",
+    "submodel1": "4-Door",
+    "submodel2": null,
+    "parent_generation": "1958-1960",
+    "year_options": "1958,1959,1960"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Rambler American",
+    "submodel1": "2-Door",
+    "submodel2": null,
+    "parent_generation": "1958-1960",
+    "year_options": "1958,1959,1960"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Rambler Ambassador",
+    "submodel1": "Wagon",
+    "submodel2": null,
+    "parent_generation": "1963-1964",
+    "year_options": "1963,1964"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Rambler Classic",
+    "submodel1": "2-Door",
+    "submodel2": null,
+    "parent_generation": "1961-1964",
+    "year_options": "1961,1962,1963,1964"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Rambler Classic",
+    "submodel1": "4-Door",
+    "submodel2": null,
+    "parent_generation": "1961-1964",
+    "year_options": "1961,1962,1963,1964"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Rambler Classic",
+    "submodel1": "2-Door",
+    "submodel2": null,
+    "parent_generation": "1965-1966",
+    "year_options": "1965,1966"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Eagle",
+    "submodel1": "Kammback",
+    "submodel2": null,
+    "parent_generation": "1980-1987",
+    "year_options": "1981,1982,1983"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Eagle",
+    "submodel1": "Sedan",
+    "submodel2": null,
+    "parent_generation": "1980-1987",
+    "year_options": "1980,1981,1982,1983,1984,1985,1986,1987"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Eagle",
+    "submodel1": "Sedan",
+    "submodel2": null,
+    "parent_generation": "1980-1987",
+    "year_options": "1980,1981,1982,1983,1984,1985,1986,1987"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Hornet",
+    "submodel1": "2-Door Sedan",
+    "submodel2": null,
+    "parent_generation": "1970-1972",
+    "year_options": "1970,1971,1972"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Hornet",
+    "submodel1": "4-Door Sedan",
+    "submodel2": null,
+    "parent_generation": "1970-1972",
+    "year_options": "1970,1971,1972"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Hornet",
+    "submodel1": "4-Door Sedan",
+    "submodel2": null,
+    "parent_generation": "1970-1972",
+    "year_options": "1970,1971,1972"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Hornet",
+    "submodel1": "Sportabout",
+    "submodel2": null,
+    "parent_generation": "1970-1972",
+    "year_options": "1971,1972"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Hornet",
+    "submodel1": "Sportabout",
+    "submodel2": null,
+    "parent_generation": "1970-1972",
+    "year_options": "1971,1972"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Hornet",
+    "submodel1": "4-Door Sedan",
+    "submodel2": null,
+    "parent_generation": "1973-1977",
+    "year_options": "1973,1974,1975,1976,1977"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Hornet",
+    "submodel1": "Sportabout",
+    "submodel2": null,
+    "parent_generation": "1973-1977",
+    "year_options": "1973,1974,1975,1976,1977"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Hornet",
+    "submodel1": "Sportabout",
+    "submodel2": null,
+    "parent_generation": "1973-1977",
+    "year_options": "1973,1974,1975,1976,1977"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Hornet",
+    "submodel1": "Hatchback",
+    "submodel2": null,
+    "parent_generation": "1973-1977",
+    "year_options": "1973,1974,1975,1976,1977"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Hornet",
+    "submodel1": "Hatchback",
+    "submodel2": null,
+    "parent_generation": "1973-1977",
+    "year_options": "1973,1974,1975,1976,1977"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Matador",
+    "submodel1": "2-Door",
+    "submodel2": null,
+    "parent_generation": "1971-1978",
+    "year_options": "1971,1972,1973,1974,1975,1976,1977,1978"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Matador",
+    "submodel1": "4-Door",
+    "submodel2": null,
+    "parent_generation": "1971-1978",
+    "year_options": "1971,1972,1973,1974,1975,1976,1977,1978"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Matador",
+    "submodel1": "4-Door",
+    "submodel2": null,
+    "parent_generation": "1971-1978",
+    "year_options": "1971,1972,1973,1974,1975,1976,1977,1978"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Matador",
+    "submodel1": "Wagon",
+    "submodel2": null,
+    "parent_generation": "1971-1978",
+    "year_options": "1971,1972,1973,1974,1975,1976,1977,1978"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Matador",
+    "submodel1": "Wagon",
+    "submodel2": null,
+    "parent_generation": "1971-1978",
+    "year_options": "1971,1972,1973,1974,1975,1976,1977,1978"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Pacer",
+    "submodel1": "Hatchback",
+    "submodel2": null,
+    "parent_generation": "1975-1980",
+    "year_options": "1975,1976,1977,1978,1979,1980"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Pacer",
+    "submodel1": "Hatchback",
+    "submodel2": null,
+    "parent_generation": "1975-1980",
+    "year_options": "1975,1976,1977,1978,1979,1980"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Rambler American",
+    "submodel1": "2-Door",
+    "submodel2": null,
+    "parent_generation": "1958-1960",
+    "year_options": "1958,1959,1960"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Rambler American",
+    "submodel1": "2-Door",
+    "submodel2": null,
+    "parent_generation": "1958-1960",
+    "year_options": "1958,1959,1960"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Rambler American",
+    "submodel1": "4-Door",
+    "submodel2": null,
+    "parent_generation": "1958-1960",
+    "year_options": "1958,1959,1960"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Rambler American",
+    "submodel1": "Wagon",
+    "submodel2": null,
+    "parent_generation": "1958-1960",
+    "year_options": "1958,1959,1960"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Rambler American",
+    "submodel1": "Wagon",
+    "submodel2": null,
+    "parent_generation": "1958-1960",
+    "year_options": "1958,1959,1960"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Rambler Ambassador",
+    "submodel1": "2-Door",
+    "submodel2": null,
+    "parent_generation": "1963-1964",
+    "year_options": "1963,1964"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Rambler Ambassador",
+    "submodel1": "2-Door",
+    "submodel2": null,
+    "parent_generation": "1963-1964",
+    "year_options": "1963,1964"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Rambler Ambassador",
+    "submodel1": "Wagon",
+    "submodel2": null,
+    "parent_generation": "1963-1964",
+    "year_options": "1963,1964"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Rambler Classic",
+    "submodel1": "2-Door",
+    "submodel2": null,
+    "parent_generation": "1961-1964",
+    "year_options": "1961,1962,1963,1964"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Rambler Classic",
+    "submodel1": "2-Door",
+    "submodel2": null,
+    "parent_generation": "1961-1964",
+    "year_options": "1961,1962,1963,1964"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Rambler Classic",
+    "submodel1": "4-Door",
+    "submodel2": null,
+    "parent_generation": "1961-1964",
+    "year_options": "1961,1962,1963,1964"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Rambler Classic",
+    "submodel1": "2-Door",
+    "submodel2": null,
+    "parent_generation": "1965-1966",
+    "year_options": "1965,1966"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Rambler Classic",
+    "submodel1": "4-Door",
+    "submodel2": null,
+    "parent_generation": "1965-1966",
+    "year_options": "1965,1966"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Rambler Classic",
+    "submodel1": "4-Door",
+    "submodel2": null,
+    "parent_generation": "1965-1966",
+    "year_options": "1965,1966"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Rambler Classic",
+    "submodel1": "Station Wagon",
+    "submodel2": null,
+    "parent_generation": "1965-1966",
+    "year_options": "1963,1964,1965,1966"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Rambler Classic",
+    "submodel1": "Station Wagon",
+    "submodel2": null,
+    "parent_generation": "1965-1966",
+    "year_options": "1963,1964,1965,1966"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Rambler Classic",
+    "submodel1": "Station Wagon",
+    "submodel2": null,
+    "parent_generation": "1961-1964",
+    "year_options": "1961,1962"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Rambler American",
+    "submodel1": "4-Door",
+    "submodel2": null,
+    "parent_generation": "1958-1960",
+    "year_options": "1958,1959,1960"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Rambler American",
+    "submodel1": "Wagon",
+    "submodel2": null,
+    "parent_generation": "1958-1960",
+    "year_options": "1958,1959,1960"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Rambler Ambassador",
+    "submodel1": "4-Door",
+    "submodel2": null,
+    "parent_generation": "1963-1964",
+    "year_options": "1963,1964"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Eagle",
+    "submodel1": "Sedan",
+    "submodel2": null,
+    "parent_generation": "1980-1987",
+    "year_options": "1980,1981,1982,1983,1984,1985,1986,1987"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Matador",
+    "submodel1": "4-Door",
+    "submodel2": null,
+    "parent_generation": "1971-1978",
+    "year_options": "1971,1972,1973,1974,1975,1976,1977,1978"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Hornet",
+    "submodel1": "4-Door Sedan",
+    "submodel2": null,
+    "parent_generation": "1973-1977",
+    "year_options": "1973,1974,1975,1976,1977"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Hornet",
+    "submodel1": "Sportabout",
+    "submodel2": null,
+    "parent_generation": "1973-1977",
+    "year_options": "1973,1974,1975,1976,1977"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Rambler Classic",
+    "submodel1": "4-Door",
+    "submodel2": null,
+    "parent_generation": "1961-1964",
+    "year_options": "1961,1962,1963,1964"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Matador",
+    "submodel1": "2-Door",
+    "submodel2": null,
+    "parent_generation": "1971-1978",
+    "year_options": "1971,1972,1973,1974,1975,1976,1977,1978"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Pacer",
+    "submodel1": "Hatchback",
+    "submodel2": null,
+    "parent_generation": "1975-1980",
+    "year_options": "1975,1976,1977,1978,1979,1980"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Rambler American",
+    "submodel1": "2-Door",
+    "submodel2": null,
+    "parent_generation": "1958-1960",
+    "year_options": "1958,1959,1960"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Hornet",
+    "submodel1": "4-Door Sedan",
+    "submodel2": null,
+    "parent_generation": "1973-1977",
+    "year_options": "1973,1974,1975,1976,1977"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Rambler Ambassador",
+    "submodel1": "2-Door",
+    "submodel2": null,
+    "parent_generation": "1963-1964",
+    "year_options": "1963,1964"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Rambler American",
+    "submodel1": "4-Door",
+    "submodel2": null,
+    "parent_generation": "1958-1960",
+    "year_options": "1958,1959,1960"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Rambler Classic",
+    "submodel1": "2-Door",
+    "submodel2": null,
+    "parent_generation": "1961-1964",
+    "year_options": "1961,1962,1963,1964"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Rambler Classic",
+    "submodel1": "2-Door",
+    "submodel2": null,
+    "parent_generation": "1961-1964",
+    "year_options": "1961,1962,1963,1964"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Rambler Classic",
+    "submodel1": "Station Wagon",
+    "submodel2": null,
+    "parent_generation": "1961-1964",
+    "year_options": "1961,1962"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Rambler Classic",
+    "submodel1": "2-Door",
+    "submodel2": null,
+    "parent_generation": "1965-1966",
+    "year_options": "1965,1966"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Rambler Classic",
+    "submodel1": "4-Door",
+    "submodel2": null,
+    "parent_generation": "1965-1966",
+    "year_options": "1965,1966"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Rambler Ambassador",
+    "submodel1": "Wagon",
+    "submodel2": null,
+    "parent_generation": "1963-1964",
+    "year_options": "1963,1964"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Rambler Classic",
+    "submodel1": "Station Wagon",
+    "submodel2": null,
+    "parent_generation": "1965-1966",
+    "year_options": "1963,1964,1965,1966"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Eagle",
+    "submodel1": "Kammback",
+    "submodel2": null,
+    "parent_generation": "1980-1987",
+    "year_options": "1981,1982,1983"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Eagle",
+    "submodel1": "Kammback",
+    "submodel2": null,
+    "parent_generation": "1980-1987",
+    "year_options": "1981,1982,1983"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Eagle",
+    "submodel1": "Sedan",
+    "submodel2": null,
+    "parent_generation": "1980-1987",
+    "year_options": "1980,1981,1982,1983,1984,1985,1986,1987"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Hornet",
+    "submodel1": "Sportabout",
+    "submodel2": null,
+    "parent_generation": "1973-1977",
+    "year_options": "1973,1974,1975,1976,1977"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Matador",
+    "submodel1": "Wagon",
+    "submodel2": null,
+    "parent_generation": "1971-1978",
+    "year_options": "1971,1972,1973,1974,1975,1976,1977,1978"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Pacer",
+    "submodel1": "Wagon",
+    "submodel2": null,
+    "parent_generation": "1975-1980",
+    "year_options": "1977,1978,1979,1980"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Rambler Classic",
+    "submodel1": "4-Door",
+    "submodel2": null,
+    "parent_generation": "1965-1966",
+    "year_options": "1965,1966"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Hornet",
+    "submodel1": "2-Door Sedan",
+    "submodel2": null,
+    "parent_generation": "1973-1977",
+    "year_options": "1973,1974,1975,1976,1977"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Eagle",
+    "submodel1": "Wagon",
+    "submodel2": null,
+    "parent_generation": "1980-1987",
+    "year_options": "1980,1981,1982,1983,1984,1985,1986,1987"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Hornet",
+    "submodel1": "2-Door Sedan",
+    "submodel2": null,
+    "parent_generation": "1970-1972",
+    "year_options": "1970,1971,1972"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Rambler Classic",
+    "submodel1": "Station Wagon",
+    "submodel2": null,
+    "parent_generation": "1961-1964",
+    "year_options": "1961,1962"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Hornet",
+    "submodel1": "4-Door Sedan",
+    "submodel2": null,
+    "parent_generation": "1973-1977",
+    "year_options": "1973,1974,1975,1976,1977"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Rambler Classic",
+    "submodel1": "2-Door",
+    "submodel2": null,
+    "parent_generation": "1965-1966",
+    "year_options": "1965,1966"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Rambler Classic",
+    "submodel1": "4-Door",
+    "submodel2": null,
+    "parent_generation": "1961-1964",
+    "year_options": "1961,1962,1963,1964"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Rambler Ambassador",
+    "submodel1": "Wagon",
+    "submodel2": null,
+    "parent_generation": "1963-1964",
+    "year_options": "1963,1964"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Matador",
+    "submodel1": "2-Door",
+    "submodel2": null,
+    "parent_generation": "1971-1978",
+    "year_options": "1971,1972,1973,1974,1975,1976,1977,1978"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Pacer",
+    "submodel1": "Wagon",
+    "submodel2": null,
+    "parent_generation": "1975-1980",
+    "year_options": "1977,1978,1979,1980"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Rambler American",
+    "submodel1": "4-Door",
+    "submodel2": null,
+    "parent_generation": "1958-1960",
+    "year_options": "1958,1959,1960"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Eagle",
+    "submodel1": "Wagon",
+    "submodel2": null,
+    "parent_generation": "1980-1987",
+    "year_options": "1980,1981,1982,1983,1984,1985,1986,1987"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Hornet",
+    "submodel1": "2-Door Sedan",
+    "submodel2": null,
+    "parent_generation": "1970-1972",
+    "year_options": "1970,1971,1972"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Hornet",
+    "submodel1": "4-Door Sedan",
+    "submodel2": null,
+    "parent_generation": "1970-1972",
+    "year_options": "1970,1971,1972"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Hornet",
+    "submodel1": "Sportabout",
+    "submodel2": null,
+    "parent_generation": "1970-1972",
+    "year_options": "1971,1972"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Hornet",
+    "submodel1": "4-Door Sedan",
+    "submodel2": null,
+    "parent_generation": "1973-1977",
+    "year_options": "1973,1974,1975,1976,1977"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Hornet",
+    "submodel1": "Hatchback",
+    "submodel2": null,
+    "parent_generation": "1973-1977",
+    "year_options": "1973,1974,1975,1976,1977"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Matador",
+    "submodel1": "2-Door",
+    "submodel2": null,
+    "parent_generation": "1971-1978",
+    "year_options": "1971,1972,1973,1974,1975,1976,1977,1978"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Matador",
+    "submodel1": "4-Door",
+    "submodel2": null,
+    "parent_generation": "1971-1978",
+    "year_options": "1971,1972,1973,1974,1975,1976,1977,1978"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Pacer",
+    "submodel1": "Wagon",
+    "submodel2": null,
+    "parent_generation": "1975-1980",
+    "year_options": "1977,1978,1979,1980"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Hornet",
+    "submodel1": "2-Door Sedan",
+    "submodel2": null,
+    "parent_generation": "1970-1972",
+    "year_options": "1970,1971,1972"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Hornet",
+    "submodel1": "4-Door Sedan",
+    "submodel2": null,
+    "parent_generation": "1970-1972",
+    "year_options": "1970,1971,1972"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Rambler American",
+    "submodel1": "Wagon",
+    "submodel2": null,
+    "parent_generation": "1958-1960",
+    "year_options": "1958,1959,1960"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Rambler Ambassador",
+    "submodel1": "4-Door",
+    "submodel2": null,
+    "parent_generation": "1963-1964",
+    "year_options": "1963,1964"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Rambler Classic",
+    "submodel1": "Station Wagon",
+    "submodel2": null,
+    "parent_generation": "1961-1964",
+    "year_options": "1961,1962"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Eagle",
+    "submodel1": "Wagon",
+    "submodel2": null,
+    "parent_generation": "1980-1987",
+    "year_options": "1980,1981,1982,1983,1984,1985,1986,1987"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Hornet",
+    "submodel1": "2-Door Sedan",
+    "submodel2": null,
+    "parent_generation": "1973-1977",
+    "year_options": "1973,1974,1975,1976,1977"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Pacer",
+    "submodel1": "Wagon",
+    "submodel2": null,
+    "parent_generation": "1975-1980",
+    "year_options": "1977,1978,1979,1980"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Rambler Ambassador",
+    "submodel1": "4-Door",
+    "submodel2": null,
+    "parent_generation": "1963-1964",
+    "year_options": "1963,1964"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Rambler Ambassador",
+    "submodel1": "2-Door",
+    "submodel2": null,
+    "parent_generation": "1963-1964",
+    "year_options": "1963,1964"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Rambler Classic",
+    "submodel1": "Station Wagon",
+    "submodel2": null,
+    "parent_generation": "1965-1966",
+    "year_options": "1963,1964,1965,1966"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Eagle",
+    "submodel1": "Kammback",
+    "submodel2": null,
+    "parent_generation": "1980-1987",
+    "year_options": "1981,1982,1983"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Matador",
+    "submodel1": "Wagon",
+    "submodel2": null,
+    "parent_generation": "1971-1978",
+    "year_options": "1971,1972,1973,1974,1975,1976,1977,1978"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Rebel",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1966-1970",
+    "year_options": "1966,1967,1968,1969,1970"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "AMX",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1978-1980",
+    "year_options": "1978,1979,1980"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Classic",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1961-1966",
+    "year_options": "1961,1962,1963,1964,1965,1966"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Concord",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1978-1983",
+    "year_options": "1978,1979,1980,1981,1982,1983"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Gremlin",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1970-1978",
+    "year_options": "1970,1971,1972,1973,1974,1975,1976,1977,1978"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Rambler American",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1964-1969",
+    "year_options": "1964,1965,1966,1967,1968,1969"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "AMX",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1968-1970",
+    "year_options": "1968,1969,1970"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Classic",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1961-1966",
+    "year_options": "1961,1962,1963,1964,1965,1966"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Javelin",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1968-1974",
+    "year_options": "1965,1966,1967,1968,1969,1970,1971,1972,1973,1974"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Rambler American",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1961-1963",
+    "year_options": "1961,1962,1963"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Rambler Cross Country",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1958-1962",
+    "year_options": "1958,1959,1960,1961,1962"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Rambler Ambassador",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1958-1962",
+    "year_options": "1958,1959,1960,1961,1962"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Rambler Ambassador",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1958-1962",
+    "year_options": "1958,1959,1960,1961,1962"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Rambler Ambassador",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1965-1966",
+    "year_options": "1965,1966"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Rambler Ambassador",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1958-1962",
+    "year_options": "1958,1959,1960,1961,1962"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Marlin",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1965-1967",
+    "year_options": "1965,1966,1967"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Rambler American",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1961-1963",
+    "year_options": "1961,1962,1963"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "AMX",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1978-1980",
+    "year_options": "1978,1979,1980"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Rebel",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1966-1970",
+    "year_options": "1966,1967,1968,1969,1970"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Spirit",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1979-1983",
+    "year_options": "1979,1980,1981,1982,1983"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "AMX",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1968-1970",
+    "year_options": "1968,1969,1970"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Renault Alliance",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1983-1987",
+    "year_options": "1983,1984,1985,1986,1987"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "AMX",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1978-1980",
+    "year_options": "1978,1979,1980"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Rambler American",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1964-1969",
+    "year_options": "1964,1965,1966,1967,1968,1969"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Rambler Ambassador",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1965-1966",
+    "year_options": "1965,1966"
+  },
+  {
+    "type": "Car Covers",
+    "make": "AMC",
+    "model": "Rebel",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "1966-1970",
+    "year_options": "1966,1967,1968,1969,1970"
+  }
+]

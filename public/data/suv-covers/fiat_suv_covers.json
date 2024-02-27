@@ -1,0 +1,74 @@
+[
+  {
+    "type": "SUV Covers",
+    "make": "Fiat",
+    "model": "500X",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2016-2023",
+    "year_options": "2016,2017,2018,2019,2020,2021,2022,2023"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Fiat",
+    "model": "500L",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2014-2020",
+    "year_options": "2014,2015,2016,2017,2018,2019,2020"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Fiat",
+    "model": "500L",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2014-2020",
+    "year_options": "2014,2015,2016,2017,2018,2019,2020"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Fiat",
+    "model": "500X",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2016-2023",
+    "year_options": "2016,2017,2018,2019,2020,2021,2022,2023"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Fiat",
+    "model": "500X",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2016-2023",
+    "year_options": "2016,2017,2018,2019,2020,2021,2022,2023"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Fiat",
+    "model": "500X",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2016-2023",
+    "year_options": "2016,2017,2018,2019,2020,2021,2022,2023"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Fiat",
+    "model": "500L",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2014-2020",
+    "year_options": "2014,2015,2016,2017,2018,2019,2020"
+  },
+  {
+    "type": "SUV Covers",
+    "make": "Fiat",
+    "model": "500L",
+    "submodel1": null,
+    "submodel2": null,
+    "parent_generation": "2014-2020",
+    "year_options": "2014,2015,2016,2017,2018,2019,2020"
+  }
+]

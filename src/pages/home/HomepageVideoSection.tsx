@@ -1,9 +1,14 @@
 import dynamic from 'next/dynamic';
 import SquareVideo from '@/videos/Coverland_Square.mp4';
 import SquareThumbnail from '@/video/Thumbnail_Square.webp';
+import { Skeleton } from '@/components/ui/skeleton';
 
 const ProductVideo = dynamic(() => import('@/components/PDP/ProductVideo'), {
-  ssr: false,
+  loading: () => (
+    <div className="flex h-full">
+      <Skeleton />
+    </div>
+  ),
 });
 
 export default function HomepageVideoSection() {
