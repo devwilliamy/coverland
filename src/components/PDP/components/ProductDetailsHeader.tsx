@@ -14,10 +14,8 @@ export default function ProductDetailsHeader() {
   let productType = params?.productType;
   if (productType === 'truck-covers') {
     productType = 'Truck';
-  } else {
-    if (productType === 'suv-covers') {
-      productType = productType.toUpperCase();
-    }
+  } else if (productType === 'suv-covers') {
+    productType = productType.toUpperCase();
     productType = productType?.slice(0, 3);
   } else {
     productType = productType?.slice(0, 3);
