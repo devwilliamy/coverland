@@ -19,6 +19,9 @@ import RealTestSection from '@/components/PDP/components/RealTestSection';
 import LifetimeSection from '@/components/PDP/components/LifetimeSection';
 import FeaturesSection from '@/components/PDP/components/FeaturesSection';
 import { ExtraProductDetails } from '@/components/PDP/OtherDetails';
+import ProductVideo from '@/components/PDP/ProductVideo';
+import Thumbnail from '@/video/Thumbnail.webp';
+import SixMinVideo from 'https://x2kly621zrgfgwll.public.blob.vercel-storage.com/videos/FINALIZE_WEBSTIE_16_9_OPTIMIZED.mp4';
 
 const EditVehiclePopover = dynamicImport(
   () => import('@/components/PDP/components/EditVehiclePopover')
@@ -107,6 +110,13 @@ export function CarCoverSelector({
           {/* {isMobile && ( */}
         </div>
       </section>
+      <div className="lg:hidden">
+        <ProductVideo
+          src={SixMinVideo}
+          imgSrc={Thumbnail}
+          aspectRatio="16 / 9"
+        />
+      </div>
       <section className="relative">
         <FeaturesSection />
         <div className="flex w-full flex-col justify-center px-4">
