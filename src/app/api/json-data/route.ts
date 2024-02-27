@@ -8,7 +8,7 @@ export async function GET(request: Request) {
   try {
     const data = await readFile(
       process.cwd() +
-        `/public/data/${type}/${make}_${type?.replace(/-/g, '_').toLowerCase()}.json`,
+        `/${type}/${make}_${type?.replace(/-/g, '_').toLowerCase()}.json`,
       'utf-8'
     );
     console.log(data);
