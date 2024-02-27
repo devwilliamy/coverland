@@ -136,7 +136,7 @@ export default function EditVehicleDropdown({
     closePopover();
   };
 
-  const showSubmodelDropdown = subModelData.length > 1 && year;
+  const showSubmodelDropdown = subModelData.length > 0 && year;
 
   return (
     <div className="z-100 relative flex w-full flex-col items-stretch  gap-[16px] *:flex-1">
