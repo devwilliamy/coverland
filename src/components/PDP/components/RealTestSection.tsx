@@ -9,7 +9,7 @@ export default function RealTestSection() {
   return (
     <section className="relative -mx-4 mt-[60px] flex flex-col  justify-center">
       <Image
-        alt=""
+        alt="real-test-background"
         src={BgBlur}
         className="absolute top-0 z-[-3]  w-full max-w-full translate-y-[-30vh] object-cover lg:w-[150%] lg:translate-y-[-90vh]"
       />

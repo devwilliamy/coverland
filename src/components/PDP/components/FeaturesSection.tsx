@@ -18,7 +18,7 @@ export default function FeaturesSection() {
       // }}
     >
       <Image
-        alt=""
+        alt="Wet Fabric"
         src={WetFabric}
         className="absolute top-0 z-[-1] -mx-4 h-full object-cover"
       />

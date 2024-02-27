@@ -74,7 +74,7 @@ export const MobileImageCarousel = ({
         height={74}
         src={src}
         sizes="(max-width: 768px) 100vw"
-        alt=""
+        alt={`carousel-position-item-${index}`}
       />
     </button>
   );

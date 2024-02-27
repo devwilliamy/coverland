@@ -31,12 +31,12 @@ export default function LifetimeSection() {
         Available for a Limited Time
       </p>
       <Image
-        alt=""
+        alt="Lifetime-Check-Mobile"
         src={LifetimeCheck}
         className="pb-7 pt-3 lg:hidden lg:w-[132px] lg:pt-[38px]"
       />
       <Image
-        alt=""
+        alt="Lifetime-Check-Desktop"
         src={LifetimeCheckDesktop}
         className="hidden pb-7 pt-3 lg:block lg:w-[132px] lg:pt-[38px]"
       />
