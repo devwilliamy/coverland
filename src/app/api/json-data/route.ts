@@ -5,14 +5,6 @@ export async function GET(request: Request) {
   const type = url.searchParams.get('type');
   const make = url.searchParams.get('make');
 
-  const corsHeaders = {
-    'Access-Control-Allow-Origin': '*',
-    'Access-Control-Allow-Headers':
-      'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,X-Amz-User-Agent',
-    'Access-Control-Allow-Methods': 'OPTIONS,GET',
-    'Access-Control-Allow-Credentials': 'true',
-  };
-
   try {
     const data = await readFile(
       process.cwd() +
@@ -22,23 +14,11 @@ export async function GET(request: Request) {
     console.log(data);
     const jsonData = JSON.parse(data);
     console.log(jsonData);
-    return Response.json({
-      data: jsonData,
-      headers: {
-        ...corsHeaders,
-        'Access-Control-Allow-Credentials': true,
-        'Content-Type': 'application/json',
-      },
-    });
+    return new Response(JSON.stringify(jsonData, null, 2));
   } catch (error) {
     console.error(error);
-    return Response.json({
-      error: error.message,
-      headers: {
-        ...corsHeaders,
-        'Access-Control-Allow-Credentials': true,
-        'Content-Type': 'application/json',
-      },
+    return new Response('Error fetching data', {
+      status: 500,
     });
   }
 }
