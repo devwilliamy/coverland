@@ -1,6 +1,6 @@
 'use client';
 
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent, useEffect, useState } from 'react';
 import { TQuery } from './HeroDropdown';
 import {
   CAR_COVER_MAKES,
@@ -28,6 +28,10 @@ export function MakeSearch({
         ? SUV_COVER_MAKES
         : TRUCK_COVER_MAKES;
   const sortedData = makeData.sort((a, b) => a.localeCompare(b));
+
+  useEffect(() => {
+    !type && setValue('');
+  }, [type]);
 
   const handleChange = (event: ChangeEvent<HTMLSelectElement>) => {
     const newValue = event.target.value;

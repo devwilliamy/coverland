@@ -19,6 +19,8 @@ export default function ProductDetailsHeader() {
       productType = productType.toUpperCase();
     }
     productType = productType?.slice(0, 3);
+  } else {
+    productType = productType?.slice(0, 3);
   }
 
   const threeIcons = [
