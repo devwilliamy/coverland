@@ -56,10 +56,10 @@ export default function AddToCart({
   } = getCompleteSelectionData({
     data: modelData,
   });
-
+  console.log('');
   return (
     <div>
-      <div className="mt-8 w-full">
+      <div className="mt-8 w-full" id="selector">
         <AddToCartSelector
           submodelSelectionOpen={submodelSelectionOpen}
           setSubmodelSelectionOpen={setSubmodelSelectionOpen}
@@ -70,9 +70,9 @@ export default function AddToCart({
       {isTypePage ? (
         <VehicleSelector searchParams={searchParams} />
       ) : (
-        <div className="fixed inset-x-0 bottom-0 z-50 flex bg-white p-4 md:hidden">
+        <div className="fixed inset-x-0 bottom-0 z-50 flex bg-white p-4 lg:relative lg:p-1">
           <Button
-            className=" h-[48px] w-full rounded bg-[#BE1B1B] text-lg font-bold uppercase text-white disabled:bg-[#BE1B1B] md:hidden"
+            className=" h-[48px] w-full rounded bg-[#BE1B1B] text-lg font-bold uppercase text-white disabled:bg-[#BE1B1B] lg:h-[62px]"
             onClick={() => {
               selectedProduct?.sku &&
                 track('PDP_add_to_cart', {
