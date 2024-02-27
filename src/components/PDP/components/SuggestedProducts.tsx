@@ -45,10 +45,10 @@ export default function SuggestedProducts() {
               </p>
               <div className="flex gap-[5px]">
                 <p className="pt-[14px] text-[16px] font-[600] leading-[16px]">
-                  ${model.price}
+                  ${model.msrp}
                 </p>
                 <p className="pt-[14px] text-[14px] leading-[16px] text-[#767676] line-through">
-                  ${model.msrp}
+                  ${model.price}
                 </p>
               </div>
             </Link>

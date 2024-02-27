@@ -19,6 +19,7 @@ import RealTestSection from '@/components/PDP/components/RealTestSection';
 import LifetimeSection from '@/components/PDP/components/LifetimeSection';
 import FeaturesSection from '@/components/PDP/components/FeaturesSection';
 import { ExtraProductDetails } from '@/components/PDP/OtherDetails';
+import { useParams } from 'next/navigation';
 
 const EditVehiclePopover = dynamicImport(
   () => import('@/components/PDP/components/EditVehiclePopover')
@@ -66,6 +67,9 @@ export function CarCoverSelector({
     uniqueColors
   );
 
+  const params = useParams();
+  const isPremium = params?.coverType === 'premium';
+
   return (
     <>
       <section className="mx-auto h-max  w-full max-w-[1280px] px-4 lg:my-8">
@@ -112,7 +116,7 @@ export function CarCoverSelector({
         <div className="flex w-full flex-col justify-center px-4">
           <EnhanceProtectionSection />
           <RealTestSection />
-          <ProvenSection />
+          {!isPremium && <ProvenSection />}
           <LifetimeSection />
         </div>
       </section>

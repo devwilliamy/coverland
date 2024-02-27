@@ -1,8 +1,11 @@
 import Image from 'next/image';
-import React from 'react';
+import React, { useState } from 'react';
 import OthersVSCoverlandMobile from '@/images/PDP/Product-Details-Redesign-2/OthersVSCoverland.webp';
 import OthersVSCoverlandDesktop from '@/images/PDP/Product-Details-Redesign-2/desktop-vs.webp';
-const differences: {
+import PremiumVSMobile from '@/images/PDP/Product-Details-Redesign-2/premium/premium-vs.webp';
+import PremiumVSDesktop from '@/images/PDP/Product-Details-Redesign-2/premium/premium-vs-desktop.webp';
+import { useParams } from 'next/navigation';
+const premiumPlusDifferences: {
   title: string;
   others: JSX.Element | string;
   coverland: JSX.Element | string;
@@ -89,7 +92,96 @@ const differences: {
   },
 ];
 
+const premiumDifferences: {
+  title: string;
+  others: JSX.Element | string;
+  coverland: JSX.Element | string;
+}[] = [
+  {
+    title: 'Material',
+    others: (
+      <>
+        <p>Thin, Weak</p>
+      </>
+    ),
+    coverland: (
+      <>
+        <p>Durable</p>
+      </>
+    ),
+  },
+  {
+    title: 'Durability',
+    others: (
+      <>
+        <p>6-12 Months</p>
+      </>
+    ),
+    coverland: (
+      <>
+        <p>2+ Years</p>
+      </>
+    ),
+  },
+  {
+    title: 'Waterproof',
+    others: (
+      <>
+        <p>
+          Limited <br /> (Trap Moisture)
+        </p>
+      </>
+    ),
+    coverland: (
+      <>
+        <p>
+          Yes <br /> (Breathable)
+        </p>
+      </>
+    ),
+  },
+  {
+    title: 'Sun',
+    others: 'Limited Protection',
+    coverland: 'UV Resistance',
+  },
+  {
+    title: 'Flexibility',
+    others: 'Hard to Fit',
+    coverland: 'Easy Fit',
+  },
+  {
+    title: 'Soft Inner',
+    others: (
+      <>
+        <p>
+          No <br /> (Risks Scratches)
+        </p>
+      </>
+    ),
+    coverland: (
+      <>
+        <p>
+          Yes <br /> (Light-Duty)
+        </p>
+      </>
+    ),
+  },
+];
 export default function DifferenceGrid() {
+  const params = useParams();
+  console.log(params);
+  let differences: {
+    title: string;
+    others: JSX.Element | string;
+    coverland: JSX.Element | string;
+  }[] = [];
+  if (params?.coverType === 'premium') {
+    differences = premiumDifferences;
+  } else {
+    differences = premiumPlusDifferences;
+  }
+
   return (
     <div className="px-2 pb-2 lg:w-full lg:px-0">
       <span className="flex w-full flex-col text-center">
@@ -100,16 +192,33 @@ export default function DifferenceGrid() {
           <p className=" w-1/2 text-[#B5B5B5]">Others</p>
           <p className=" w-1/2  text-white">Coverland</p>
         </div>
-        <Image
-          alt="Others-VS-Coverland"
-          src={OthersVSCoverlandMobile}
-          className="mb-[14px] w-full lg:hidden"
-        />
-        <Image
-          alt="Others-VS-Coverland"
-          src={OthersVSCoverlandDesktop}
-          className="mb-[14px] hidden w-full lg:block"
-        />
+        {params?.coverType === 'premium' ? (
+          <>
+            <Image
+              alt="Others-VS-Coverland"
+              src={PremiumVSMobile}
+              className="mb-[14px] w-full lg:hidden"
+            />
+            <Image
+              alt="Others-VS-Coverland"
+              src={PremiumVSDesktop}
+              className="mb-[14px] hidden w-full lg:block"
+            />
+          </>
+        ) : (
+          <>
+            <Image
+              alt="Others-VS-Coverland"
+              src={OthersVSCoverlandMobile}
+              className="mb-[14px] w-full lg:hidden"
+            />
+            <Image
+              alt="Others-VS-Coverland"
+              src={OthersVSCoverlandDesktop}
+              className="mb-[14px] hidden w-full lg:block"
+            />
+          </>
+        )}
       </span>
       <div className="mt-[24px] flex flex-col overflow-hidden rounded-md">
         {differences.map(({ title, others, coverland }, index) => (

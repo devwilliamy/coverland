@@ -2,26 +2,37 @@ import Image from 'next/image';
 import React from 'react';
 import LifetimeCheck from '@/images/PDP/Product-Details-Redesign-2/lifetime-sheild-check.webp';
 import LifetimeCheckDesktop from '@/images/PDP/Product-Details-Redesign-2/sheild-check-desktop.webp';
+import { useParams } from 'next/navigation';
 
+const lifetimeObj = {
+  'premium-plus': 'Lifetime',
+  premium: '2-Years',
+};
+const lifetimeData = [
+  {
+    title: 'All Tears Covered:',
+    body: 'Beyond factory defects.',
+  },
+  {
+    title: 'Normal Wear:',
+    body: 'Includes weather damage.',
+  },
+  {
+    title: 'Lifetime Assurance:',
+    body: 'Always protected.',
+  },
+  {
+    title: 'Effortless Claims:',
+    body: ' Easy, no questions asked.',
+  },
+];
 export default function LifetimeSection() {
-  const lifetimeData = [
-    {
-      title: 'All Tears Covered:',
-      body: 'Beyond factory defects.',
-    },
-    {
-      title: 'Normal Wear:',
-      body: 'Includes weather damage.',
-    },
-    {
-      title: 'Lifetime Assurance:',
-      body: 'Always protected.',
-    },
-    {
-      title: 'Effortless Claims:',
-      body: ' Easy, no questions asked.',
-    },
-  ];
+  const params = useParams();
+  const isPremium = params?.coverType === 'premium';
+  let warrantyLength = 'Lifetime';
+  if (params?.coverType) {
+  }
+
   return (
     <section className="flex flex-col items-center pt-[60px] lg:mb-[40px] lg:pt-[110px]">
       <p className="w-full text-center text-[30px] font-[600] leading-[22px]">

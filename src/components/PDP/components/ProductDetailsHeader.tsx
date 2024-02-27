@@ -56,7 +56,9 @@ export default function ProductDetailsHeader() {
         {threeIcons.map(({ title, icon }) => (
           <div key={title} className="flex flex-col place-items-center">
             <div>{icon}</div>
-            <p className="text-[16px] text-white ">{title}</p>
+            <p className="pt-0.5 text-[14px] text-white lg:text-[16px] ">
+              {title}
+            </p>
           </div>
         ))}
       </div>
