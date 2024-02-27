@@ -4,6 +4,7 @@ export async function GET(request: Request) {
   const url = new URL(request.url);
   const type = url.searchParams.get('type');
   const make = url.searchParams.get('make');
+  console.log(url);
 
   const data = await readFile(
     process.cwd() +
