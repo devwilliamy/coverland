@@ -874,5 +874,5 @@ export const TRUCK_COVER_MAKES = [
 
 export const BASE_URL =
   process.env.NODE_ENV === 'production'
-    ? 'http://localhost:3000'
+    ? 'https://www.coverland.com'
     : 'http://localhost:3000';

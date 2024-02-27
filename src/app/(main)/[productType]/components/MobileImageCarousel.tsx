@@ -15,7 +15,6 @@ import SevenSecVideo from '@/videos/7sec Listing Video_2.mp4';
 import { Skeleton } from '@/components/ui/skeleton';
 import { FaCamera } from 'react-icons/fa';
 import ReviewImagesSheet from '@/components/PDP/components/ReviewImagesSheet';
-// import { IoCamera } from 'react-icons/io5';
 
 const ProductVideo = dynamic(() => import('@/components/PDP/ProductVideo'), {
   loading: () => (
@@ -35,13 +34,9 @@ export const MobileImageCarousel = ({
 }) => {
   const [api, setApi] = useState<CarouselApi>();
   const [current, setCurrent] = useState(0);
-  // const [scrollSnaps, setScrollSnaps] = useState<number[]>([]);
 
-  const carouselItems = productImages?.toSpliced(
-    3,
-    0,
-    String(SevenSecVideoThumbnail)
-  );
+  const carouselItems = [...productImages];
+  carouselItems.splice(3, 0, String(SevenSecVideoThumbnail));
 
   useEffect(() => {
     if (!api) {
@@ -102,6 +97,7 @@ export const MobileImageCarousel = ({
                     height={500}
                     priority
                     // placeholder="blur"
+                    className="h-auto w-full"
                   />
                 </CarouselItem>
               );
@@ -121,6 +117,7 @@ export const MobileImageCarousel = ({
                   height={500}
                   // placeholder="blur"
                   onError={() => console.log('Failed image:', `${image}`)}
+                  className="h-auto w-full"
                 />
               </CarouselItem>
             );
@@ -128,7 +125,7 @@ export const MobileImageCarousel = ({
         </CarouselContent>
       </Carousel>
       <div className="flex h-full w-full items-center">
-        <div className=" flex w-3/4 flex-row gap-[6px] overflow-x-auto whitespace-nowrap p-[6px]">
+        <div className=" flex w-3/4 flex-row gap-[4px] overflow-x-auto whitespace-nowrap p-[6px]">
           {carouselItems.map((item, index) => {
             if (index < 1)
               return (

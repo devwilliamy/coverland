@@ -33,11 +33,11 @@ export function PrimaryImageDisplay({
   setFeaturedImage: (image: string) => void;
 }) {
   const [showMore, setShowMore] = useState(false);
-  const isMobile = useMediaQuery('(max-width: 768px)');
+  const isMobile = useMediaQuery('(max-width: 1023px)');
 
   return (
     <div className=" -ml-4 flex  w-screen flex-col items-stretch justify-center lg:w-3/5 lg:pb-0 ">
-      <div className="relative mb-4 flex h-full w-full items-center justify-center bg-[#F2F2F2] md:h-[500px] lg:h-[650px] lg:rounded-xl">
+      <div className="relative mb-4 flex h-full w-full items-center justify-center bg-[#F2F2F2] lg:h-[650px] lg:rounded-xl">
         <MobileImageCarousel
           selectedProduct={selectedProduct}
           productImages={productImages}

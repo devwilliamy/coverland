@@ -44,7 +44,7 @@ export function ProductContent({
     : compareRawStrings(selectedProduct?.type, 'SUV Covers')
       ? 'SUV Cover'
       : 'Truck Cover';
-  const isMobile = useMediaQuery('(max-width: 768px)');
+  const isMobile = useMediaQuery('(max-width: 1023px)');
   const [addToCartOpen, setAddToCartOpen] = useState<boolean>(false);
   const store = useContext(CarSelectionContext);
   if (!store) throw new Error('Missing CarContext.Provider in the tree');
@@ -71,7 +71,7 @@ export function ProductContent({
       <div className="grid grid-cols-1 lg:mt-[60px]">
         <div className="flex flex-col gap-0.5">
           {/* Product Title */}
-          <h2 className="mt-[24px] text-[24px] font-[900] leading-[27px] text-[#1A1A1A] md:mt-0 md:text-[28px] md:leading-[30px] ">
+          <h2 className="mt-[24px] text-[24px] font-[900] leading-[27px] text-[#1A1A1A] lg:mt-0 lg:text-[28px] lg:leading-[30px] ">
             {`${selectedProduct?.display_id}`}
             &trade; {isMobile && <br />}
             {`Custom-Fit ${productType}`}
