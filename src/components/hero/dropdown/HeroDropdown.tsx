@@ -39,10 +39,18 @@ export function HeroDropdown() {
       if (!make) return;
 
       const response = await fetch(
-        `/api/json-data?type=${slugify(type)}&make=${slugify(make)}`
+        `/api/json-data?type=${slugify(type)}&make=${slugify(make)}`,
+        {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            Accept: 'application/json',
+          },
+        }
       );
+      console.log(response);
       const jsonData = await response.json();
-      setJsonData(jsonData);
+      setJsonData(jsonData.data);
     };
     getSearchData();
   }, [make, type]);
