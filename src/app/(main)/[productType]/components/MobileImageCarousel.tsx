@@ -123,7 +123,7 @@ export const MobileImageCarousel = ({
         </CarouselContent>
       </Carousel>
       <div className="flex h-full w-full items-center">
-        <div className=" flex w-3/4 flex-row gap-[6px] overflow-x-auto whitespace-nowrap p-[6px]">
+        <div className=" flex w-3/4 flex-row gap-[4px] overflow-x-auto whitespace-nowrap p-[6px]">
           {carouselItems.map((item, index) => {
             if (index < 1)
               return (
