@@ -6,10 +6,8 @@ export async function GET(request: Request) {
   const url = new URL(request.url);
   const type = url.searchParams.get('type');
   const make = url.searchParams.get('make');
-  const jsonPath = path.join(
-    process.cwd(),
-    'public',
-    `${type}/${make}_${type?.replace(/-/g, '_').toLowerCase()}.json`
+  const jsonPath = path.resolve(
+    `public/data/${type}/${make}_${type?.replace(/-/g, '_').toLowerCase()}.json`
   );
   console.log('get path');
   console.log('jsonpath', jsonPath);
