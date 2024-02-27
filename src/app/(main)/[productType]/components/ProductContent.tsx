@@ -123,31 +123,25 @@ export function ProductContent({
         setSelectedProduct={setSelectedProduct}
         selectedProduct={selectedProduct as IProductData}
       />
+      <div className="lg:hidden">
+        <AddToCart
+          selectedProduct={selectedProduct}
+          handleAddToCart={handleAddToCart}
+          searchParams={searchParams}
+        />
+      </div>
+      <Separator className="mt-[36px] " />
+      <FreeDetails />
       <AddToCart
         selectedProduct={selectedProduct}
         handleAddToCart={handleAddToCart}
         searchParams={searchParams}
       />
-      <Separator className="mt-[36px] " />
-      <FreeDetails />
-
-      {isMobile ? (
-        <></>
-      ) : (
-        // <BottomUpDrawer
-        //   title={<AddToCartHeader />}
-        //   open={addToCartOpen}
-        //   setOpen={setAddToCartOpen}
-        //   footer={<AddToCartFooter />}
-        // >
-        //   <AddToCartBody selectedProduct={selectedProduct} />
-        // </BottomUpDrawer>
-        <CartSheet
-          open={addToCartOpen}
-          setOpen={setAddToCartOpen}
-          selectedProduct={selectedProduct}
-        />
-      )}
+      <CartSheet
+        open={addToCartOpen}
+        setOpen={setAddToCartOpen}
+        selectedProduct={selectedProduct}
+      />
     </>
   );
 }

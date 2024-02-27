@@ -1,44 +1,28 @@
 import { readFile } from 'fs/promises';
+import path from 'path';
 
 export async function GET(request: Request) {
+  console.log('get url');
   const url = new URL(request.url);
   const type = url.searchParams.get('type');
   const make = url.searchParams.get('make');
-
-  const corsHeaders = {
-    'Access-Control-Allow-Origin': '*',
-    'Access-Control-Allow-Headers':
-      'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,X-Amz-User-Agent',
-    'Access-Control-Allow-Methods': 'OPTIONS,GET',
-    'Access-Control-Allow-Credentials': 'true',
-  };
-
+  const jsonPath = path.resolve(
+    `public/data/${type}/${make}_${type?.replace(/-/g, '_').toLowerCase()}.json`
+  );
+  console.log('get path');
+  console.log('jsonpath', jsonPath);
   try {
-    const data = await readFile(
-      process.cwd() +
-        `/public/data/${type}/${make}_${type?.replace(/-/g, '_').toLowerCase()}.json`,
-      'utf-8'
-    );
+    const data = await readFile(jsonPath, 'utf-8');
+    console.log('get json');
     console.log(data);
     const jsonData = JSON.parse(data);
     console.log(jsonData);
-    return Response.json({
-      data: jsonData,
-      headers: {
-        ...corsHeaders,
-        'Access-Control-Allow-Credentials': true,
-        'Content-Type': 'application/json',
-      },
-    });
+    console.log('return respone');
+    return new Response(JSON.stringify(jsonData, null, 2));
   } catch (error) {
     console.error(error);
-    return Response.json({
-      error: error.message,
-      headers: {
-        ...corsHeaders,
-        'Access-Control-Allow-Credentials': true,
-        'Content-Type': 'application/json',
-      },
+    return new Response('Error fetching data', {
+      status: 500,
     });
   }
 }
