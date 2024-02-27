@@ -39,16 +39,12 @@ export default function DifferenceGrid() {
       title: 'Waterproof',
       others: (
         <>
-          <p>
-            Limited <br /> (Trap Moisture)
-          </p>
+          <p>Limited (Trap Moisture)</p>
         </>
       ),
       coverland: (
         <>
-          <p>
-            Yes <br /> (Breathable)
-          </p>
+          <p>Yes (Breathable)</p>
         </>
       ),
     },
@@ -66,16 +62,12 @@ export default function DifferenceGrid() {
       title: 'Soft Inner',
       others: (
         <>
-          <p>
-            No <br /> (Risks Scratches)
-          </p>
+          <p>No (Risks Scratches)</p>
         </>
       ),
       coverland: (
         <>
-          <p>
-            Yes <br /> (Paint Protection)
-          </p>
+          <p>Yes (Paint Protection)</p>
         </>
       ),
     },
@@ -118,15 +110,15 @@ export default function DifferenceGrid() {
             className={`grid w-full grid-cols-[1fr_0.85fr_1fr] place-items-center  text-center  text-[14px] text-white`}
           >
             <div
-              className={` flex h-full w-full items-center ${index + 1 !== differences.length && 'border-b-[1px] border-b-[#5D5D5D]'} justify-center  bg-[#333333] px-1 py-[14px] text-center text-[#B5B5B5]`}
+              className={` flex w-full items-center ${index + 1 !== differences.length && 'border-b-[1px] border-b-[#5D5D5D]'} justify-center  bg-[#333333] px-1 py-[14px] text-center text-[#B5B5B5]`}
             >
               {others}
             </div>
-            <div className="flex h-full w-full grow-0 items-center justify-center bg-black/80 px-2 py-[14px] text-[12px]">
+            <div className="flex w-full grow-0 items-center justify-center bg-black/80 px-2 py-[14px] text-[12px]">
               {title}
             </div>
             <div
-              className={`flex h-full w-full items-center justify-center ${index + 1 !== differences.length && 'border-b-[1px] border-b-[#C94F4F]'} bg-[#981D18] px-1 py-[14px]`}
+              className={`flex w-full items-center justify-center ${index + 1 !== differences.length && 'border-b-[1px] border-b-[#C94F4F]'} bg-[#981D18] px-1 py-[14px]`}
             >
               {coverland}
             </div>
