@@ -17,6 +17,8 @@ export default function ProductDetailsHeader() {
   } else if (productType === 'suv-covers') {
     productType = productType.toUpperCase();
     productType = productType?.slice(0, 3);
+  } else {
+    productType = productType?.slice(0, 3);
   }
 
   const threeIcons = [
