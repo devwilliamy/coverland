@@ -1,17 +1,9 @@
 import ReviewSheet from '@/components/PDP/components/ReviewSheet';
-import ReviewImageGallery from '@/components/PDP/components/ReviewImageGallery';
-import {
-  Dialog,
-  DialogContent,
-  DialogTrigger,
-  DialogClose,
-} from '@/components/ui/dialog';
+import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';
 import React, { useContext } from 'react';
 import { useStore } from 'zustand';
 import { CarSelectionContext } from './CarPDP';
 import ReviewSection from '@/components/PDP/components/ReviewSection';
-import { XIcon } from 'lucide-react';
-import { DialogOverlay } from '@radix-ui/react-dialog';
 
 function RatingsTrigger() {
   const store = useContext(CarSelectionContext);

@@ -1,11 +1,31 @@
-import React, { Suspense } from 'react';
-import Waterproofing from '@/images/PDP/Product-Details-Redesign-2/Proven Waterproofing.png';
 import WaterVS from '@/images/PDP/Product-Details-Redesign-2/WaterproofVSMobile.png';
 import WaterVSDesktop from '@/images/PDP/Product-Details-Redesign-2/desktop-water-vs.png';
-import Ultraviolet from '@/images/PDP/Product-Details-Redesign-2/Proven UV.png';
 import UltravioletVS from '@/images/PDP/Product-Details-Redesign-2/UltravioletVSMobile.png';
 import UltravioletVSDesktop from '@/images/PDP/Product-Details-Redesign-2/desktop-uv-vs.png';
 import Image from 'next/image';
+import dynamic from 'next/dynamic';
+
+const WaterproofVideo = dynamic(
+  () => import('@/components/PDP/components/WaterproofVideo'),
+  {
+    loading: () => (
+      <div className="flex h-full">
+        <div className="h-full w-full animate-pulse bg-gray-200" />
+      </div>
+    ),
+  }
+);
+
+const UVResistanceVideo = dynamic(
+  () => import('@/components/PDP/components/UVResistanceVideo'),
+  {
+    loading: () => (
+      <div className="flex h-full">
+        <div className="h-full w-full animate-pulse bg-gray-200" />
+      </div>
+    ),
+  }
+);
 
 export default function ProvenSection() {
   return (
@@ -20,26 +40,7 @@ export default function ProvenSection() {
         <p className="w-full pb-3 text-center text-[22px] font-[700] leading-[25px] lg:pb-[38px] lg:text-[38px] lg:leading-[44px]">
           Waterproofing is Proven
         </p>
-        {/* <Image
-          alt=""
-          src={Waterproofing}
-          className="mb-[-1px] w-full rounded-ss-sm"
-        /> */}
-        <div className="mb-[-1px] w-full overflow-hidden rounded-t-xl">
-          <video
-            // controls
-            autoPlay
-            loop
-            muted
-            preload="none"
-            className=""
-            src={'/images/PDP/Product-Details-Redesign-2/WaterGIF.mp4'}
-            playsInline
-          >
-            {/* <source src={UVGIF.originalFilePath} type="video/mp4" /> */}
-          </video>
-        </div>
-
+        <WaterproofVideo />
         <Image
           alt=""
           src={WaterVS}
@@ -55,20 +56,7 @@ export default function ProvenSection() {
         <p className="w-full  pb-3 text-center text-[22px] font-[700] leading-[25px] lg:pb-[38px] lg:text-[38px] lg:leading-[44px]">
           UV Resistance Proven
         </p>
-        <div className="mb-[-1px] w-full overflow-hidden rounded-t-xl">
-          <video
-            // controls
-            autoPlay
-            loop
-            muted
-            preload="none"
-            className=""
-            src={'/images/PDP/Product-Details-Redesign-2/UVGIF.mp4'}
-            playsInline
-          >
-            {/* <source src={UVGIF.originalFilePath} type="video/mp4" /> */}
-          </video>
-        </div>
+        <UVResistanceVideo />
         <Image
           alt=""
           src={UltravioletVS}

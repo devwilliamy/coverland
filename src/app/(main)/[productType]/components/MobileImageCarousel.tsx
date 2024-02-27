@@ -15,7 +15,6 @@ import SevenSecVideo from '@/videos/7sec Listing Video_2.mp4';
 import { Skeleton } from '@/components/ui/skeleton';
 import { FaCamera } from 'react-icons/fa';
 import ReviewImagesSheet from '@/components/PDP/components/ReviewImagesSheet';
-// import { IoCamera } from 'react-icons/io5';
 
 const ProductVideo = dynamic(() => import('@/components/PDP/ProductVideo'), {
   loading: () => (
@@ -35,13 +34,9 @@ export const MobileImageCarousel = ({
 }) => {
   const [api, setApi] = useState<CarouselApi>();
   const [current, setCurrent] = useState(0);
-  // const [scrollSnaps, setScrollSnaps] = useState<number[]>([]);
 
-  const carouselItems = productImages?.toSpliced(
-    3,
-    0,
-    String(SevenSecVideoThumbnail)
-  );
+  const carouselItems = [...productImages];
+  carouselItems.splice(3, 0, String(SevenSecVideoThumbnail));
 
   useEffect(() => {
     if (!api) {

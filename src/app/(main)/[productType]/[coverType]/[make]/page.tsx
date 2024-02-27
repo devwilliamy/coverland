@@ -1,6 +1,5 @@
 import { TReviewData, getProductData } from '@/lib/db';
 import { redirect } from 'next/navigation';
-import { Suspense } from 'react';
 import CarPDP from '@/app/(main)/[productType]/components/CarPDP';
 import {
   TProductReviewSummary,
@@ -95,16 +94,14 @@ export default async function CarPDPDataLayer({
   }
   return (
     <>
-      <Suspense fallback={<div>Loading...</div>}>
-        <CarPDP
-          modelData={modelData}
-          reviewData={reviewData}
-          params={params}
-          reviewDataSummary={reviewDataSummary}
-          reviewImages={reviewImages}
-          searchParams={searchParams}
-        />
-      </Suspense>
+      <CarPDP
+        modelData={modelData}
+        reviewData={reviewData}
+        params={params}
+        reviewDataSummary={reviewDataSummary}
+        reviewImages={reviewImages}
+        searchParams={searchParams}
+      />
     </>
   );
 }
