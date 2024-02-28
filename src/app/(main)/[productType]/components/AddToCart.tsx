@@ -28,10 +28,12 @@ export default function AddToCart({
   selectedProduct,
   handleAddToCart,
   searchParams,
+  isSticky,
 }: {
   selectedProduct: any;
   handleAddToCart: () => void;
   searchParams: { submodel?: string; second_submodel?: string } | undefined;
+  isSticky?: boolean;
 }) {
   const params = useParams<TPathParams>();
   const store = useContext(CarSelectionContext);
@@ -46,7 +48,6 @@ export default function AddToCart({
 
   if (!store) throw new Error('Missing CarContext.Provider in the tree');
   const modelData = useStore(store, (s) => s.modelData);
-
   const [addToCartOpen, setAddToCartOpen] = useState<boolean>(false);
 
   const isTypePage = params?.productType && !params?.make;
@@ -56,10 +57,9 @@ export default function AddToCart({
   } = getCompleteSelectionData({
     data: modelData,
   });
-
   return (
     <div>
-      <div className="mt-8 w-full">
+      <div className="mt-8 w-full" id="selector">
         <AddToCartSelector
           submodelSelectionOpen={submodelSelectionOpen}
           setSubmodelSelectionOpen={setSubmodelSelectionOpen}
@@ -67,12 +67,12 @@ export default function AddToCart({
       </div>
 
       {/* Add to Cart Button */}
-      {isTypePage ? (
+      {isTypePage && !isSticky ? (
         <VehicleSelector searchParams={searchParams} />
       ) : (
-        <div className="fixed inset-x-0 bottom-0 z-50 flex bg-white p-4 md:hidden">
+        <div className="fixed inset-x-0 bottom-0 z-50 flex bg-white p-4 lg:relative lg:p-1">
           <Button
-            className=" h-[48px] w-full rounded bg-[#BE1B1B] text-lg font-bold uppercase text-white disabled:bg-[#BE1B1B] md:hidden"
+            className=" h-[48px] w-full rounded bg-[#BE1B1B] text-lg font-bold uppercase text-white disabled:bg-[#BE1B1B] lg:h-[62px]"
             onClick={() => {
               selectedProduct?.sku &&
                 track('PDP_add_to_cart', {
@@ -80,7 +80,10 @@ export default function AddToCart({
                 });
               if (isComplete) {
                 handleAddToCart();
-                handleAddToCartGoogleTag(selectedProduct);
+                handleAddToCartGoogleTag(
+                  selectedProduct,
+                  params as TPathParams
+                );
                 isMobile ? router.push('/checkout') : setAddToCartOpen(true);
                 return;
               }
@@ -137,7 +140,7 @@ const AddToCartSelector = ({
 
   const handleAddToCart = () => {
     if (!cartProduct) return;
-    handleAddToCartGoogleTag(cartProduct);
+    handleAddToCartGoogleTag(cartProduct, params as TPathParams);
     return addToCart({ ...cartProduct, quantity: 1 });
   };
 
@@ -343,7 +346,7 @@ const AddToCartSelector = ({
           className="mt-auto flex flex-col gap-3 bg-white px-4 py-3 align-bottom"
         >
           <p className="text-right font-extrabold leading-4 text-black">
-            Total: ${selectedProduct.msrp}
+            Starting from ${selectedProduct.msrp}
           </p>
           <Button
             onClick={() => {

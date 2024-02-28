@@ -1,37 +1,40 @@
+'use client';
 import WaterVS from '@/images/PDP/Product-Details-Redesign-2/WaterproofVSMobile.webp';
 import WaterVSDesktop from '@/images/PDP/Product-Details-Redesign-2/desktop-water-vs.webp';
 import UltravioletVS from '@/images/PDP/Product-Details-Redesign-2/UltravioletVSMobile.webp';
 import UltravioletVSDesktop from '@/images/PDP/Product-Details-Redesign-2/desktop-uv-vs.webp';
+import WaterproofThumbnail from '@/images/PDP/Product-Details-Redesign-2/WaterproofingThumbnail.webp';
+import UVThumbnail from '@/images/PDP/Product-Details-Redesign-2/UVProtectionThumbnail.webp';
+
 import Image from 'next/image';
 import dynamic from 'next/dynamic';
+import useIsVisible from '@/lib/hooks/useIsVisible';
+import { LegacyRef } from 'react';
 
 const WaterproofVideo = dynamic(
   () => import('@/components/PDP/components/WaterproofVideo'),
   {
-    loading: () => (
-      <div className="flex h-full">
-        <div className="h-full w-full animate-pulse bg-gray-200" />
-      </div>
-    ),
+    loading: () => <Image alt="" src={WaterproofThumbnail} />,
+    ssr: false,
   }
 );
 
 const UVResistanceVideo = dynamic(
   () => import('@/components/PDP/components/UVResistanceVideo'),
   {
-    loading: () => (
-      <div className="flex h-full">
-        <div className="h-full w-full animate-pulse bg-gray-200" />
-      </div>
-    ),
+    loading: () => <Image alt="" src={UVThumbnail} />,
+    ssr: false,
   }
 );
 
 export default function ProvenSection() {
+  const [isVisible, ref] = useIsVisible();
+
   return (
     <section
       id="proven-section"
       className="mt-9 flex flex-col items-center justify-center lg:mt-[60px] "
+      ref={ref as LegacyRef<HTMLElement> | undefined}
     >
       <div
         id="waterproof-section"
@@ -40,7 +43,11 @@ export default function ProvenSection() {
         <p className="w-full pb-3 text-center text-[22px] font-[700] leading-[25px] lg:pb-[38px] lg:text-[38px] lg:leading-[44px]">
           Waterproofing is Proven
         </p>
-        <WaterproofVideo />
+        {isVisible ? (
+          <WaterproofVideo />
+        ) : (
+          <Image alt="" src={WaterproofThumbnail} />
+        )}
         <Image
           alt="Water Vs"
           src={WaterVS}
@@ -56,7 +63,7 @@ export default function ProvenSection() {
         <p className="w-full  pb-3 text-center text-[22px] font-[700] leading-[25px] lg:pb-[38px] lg:text-[38px] lg:leading-[44px]">
           UV Resistance Proven
         </p>
-        <UVResistanceVideo />
+        {isVisible ? <UVResistanceVideo /> : <Image alt="" src={UVThumbnail} />}
         <Image
           alt="UV Vs"
           src={UltravioletVS}

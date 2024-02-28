@@ -1,6 +1,7 @@
 import React from 'react';
 import ProductVideo from '@/components/PDP/ProductVideo';
-import ThreeSixtyVideo from '@/videos/360 degree_website.mp4';
+// import ThreeSixtyVideo from '@/videos/360 degree_website.mp4';
+import ThreeSixtyVideo from 'https://x2kly621zrgfgwll.public.blob.vercel-storage.com/videos/360%20degree_mobile-4asLajZOfJp9h3V3q1XkSHFETp6T8h.mp4';
 import CarPremiumImage from '@/images/PDP/Product-Details-Redesign-2/premium/premium-car-cover-desktop.webp';
 import CarStandardImage from '@/images/PDP/Product-Details-Redesign-2/standard/standard-pro-car-cover-desktop.webp';
 import TruckPremiumImage from '@/images/PDP/Product-Details-Redesign-2/premium/premium-truck-desktop.webp';
@@ -56,7 +57,7 @@ const CustomFitSection = () => {
         <p className="mb-1.5 w-full text-center text-[30px] font-[500] leading-[35px] tracking-[0.027em] text-white">
           Custom-Fit
         </p>
-        <p className="w-full  text-center text-[22px]  leading-[26px] text-[#ABABAB]">
+        <p className="w-full  text-center text-[22px] leading-[26px] text-[#ABABAB] lg:text-[34px]">
           Experience the perfect fit we offer
         </p>
       </div>

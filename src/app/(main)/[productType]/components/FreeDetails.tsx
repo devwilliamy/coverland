@@ -60,7 +60,7 @@ export default function FreeDetails() {
     },
   ];
   return (
-    <div className="flex flex-col items-start justify-start bg-[#FBFBFB] ">
+    <div className="flex flex-col items-center justify-start bg-[#FBFBFB] ">
       {FreeDetailItems.map(({ icon, title, description }, index) => (
         <FreeDetailItem
           key={`Free-Detail-Item-${index}`}
@@ -83,21 +83,26 @@ const FreeDetailItem = ({
   description?: string;
 }) => {
   return (
-    <div className="flex w-full flex-col">
-      <div className="my-6 flex w-full gap-[18px] ">
-        <div>{icon}</div>
-        <div className={`w-full ${!description && 'pt-1'} `}>
-          <p
-            className={` ${description && 'mb-[7px]'} text-[16px] font-[500] leading-[16px]`}
-          >
-            {title}
-          </p>
-          <p className="text-[13px] font-[400] leading-[12px] text-[#767676] ">
-            {description}
-          </p>
+    <span className="w-full items-center">
+      <div className="flex w-full items-center">
+        <div className="my-6 flex w-full gap-[18px] lg:grid lg:grid-cols-[0.2fr_1fr_auto] lg:items-center lg:justify-evenly  lg:justify-items-center ">
+          <div>{icon}</div>
+          <div className={` ${!description && 'pt-1'}  justify-self-start`}>
+            <p
+              className={` ${description && 'mb-[7px]'} text-[16px] font-[500] leading-[16px]`}
+            >
+              {title}
+            </p>
+            {description && (
+              <p className="text-[13px] font-[400] leading-[12px] text-[#767676] ">
+                {description}
+              </p>
+            )}
+          </div>
+          <div>&nbsp;</div>
         </div>
       </div>
       <Separator />
-    </div>
+    </span>
   );
 };

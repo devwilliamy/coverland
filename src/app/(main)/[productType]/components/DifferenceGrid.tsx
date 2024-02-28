@@ -217,7 +217,7 @@ export default function DifferenceGrid() {
   }
 
   return (
-    <div className="px-2 pb-2 lg:w-full lg:px-0">
+    <div className="mt-[30px] px-2 pb-2 lg:w-full lg:px-0">
       <span className="flex w-full flex-col text-center">
         <p className="w-full py-[20px] text-[22px] font-[500] leading-[24px] text-[#EBE9E9] lg:pb-[36px] lg:text-[40px] lg:font-[500]">
           See the Difference:
@@ -231,11 +231,15 @@ export default function DifferenceGrid() {
             <Image
               alt="Others-VS-Coverland"
               src={PremiumVSMobile}
+              width={840}
+              height={472}
               className="mb-[14px] w-full lg:hidden"
             />
             <Image
               alt="Others-VS-Coverland"
               src={PremiumVSDesktop}
+              width={840}
+              height={472}
               className="mb-[14px] hidden w-full lg:block"
             />
           </>
@@ -244,12 +248,16 @@ export default function DifferenceGrid() {
             <Image
               alt="Others-VS-Coverland"
               src={OthersVSCoverlandMobile}
+              width={840}
+              height={472}
               className="mb-[14px] w-full lg:hidden"
             />
             <Image
               alt="Others-VS-Coverland"
               src={OthersVSCoverlandDesktop}
-              className="mb-[14px] hidden w-full lg:block"
+              width={840}
+              height={472}
+              className=" hidden lg:block"
             />
           </>
         )}

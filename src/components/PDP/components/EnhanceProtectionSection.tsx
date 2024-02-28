@@ -76,21 +76,21 @@ export default function EnhanceProtectionSection() {
         Enhanced Protection
       </p>
       <div
-        className={`flex flex-col ${isPremium ? 'lg:grid lg:grid-cols-2 lg:gap-0' : ' lg:flex-row'} lg:justify-center lg:gap-[21px] lg:px-[60px]`}
+        className={`flex flex-col ${isPremium ? 'lg:grid lg:grid-cols-2 lg:gap-0' : ' lg:flex-row'} lg:justify-center lg:gap-[21px] lg:px-[39px]`}
       >
         {protectionData.map(({ image, title, description }) => (
           <div key={title} className="flex flex-col items-center ">
             <Image
               alt="enhanced-item"
               src={image}
-              className="h-full max-h-[180px] min-h-[180px] w-full rounded-lg lg:max-h-[216px] lg:max-w-[410px]"
+              className="w-full rounded-lg lg:h-[221px] lg:w-[420px]"
             />
-            <div className="flex  flex-col items-center py-4 ">
-              <p className="pb-1 text-[18px] font-[600] leading-[21px]">
-                {title}
-              </p>
-              <p className="text-[#7D7D7D] lg:text-center">{description}</p>
-            </div>
+            <p className="space-x-2 text-[18px] font-[600] leading-[21px]">
+              {title}
+            </p>
+            <p className="mx-auto text-[#7D7D7D] lg:max-w-[208px] lg:text-center">
+              {description}
+            </p>
           </div>
         ))}
       </div>

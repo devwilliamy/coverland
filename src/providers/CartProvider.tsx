@@ -13,6 +13,7 @@ const defaultCartValue = {
   getTotalDiscountPrice: (): number => 0,
   getTotalCartQuantity: (): number => 0,
   setCartOpen: (open: boolean) => {},
+  clearLocalStorageCart: () => {},
   cartOpen: false,
 };
 const CartContext = createContext(defaultCartValue);

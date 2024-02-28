@@ -213,7 +213,7 @@ export default function CarPDP({
   params: TPathParams;
   reviewDataSummary: TProductReviewSummary;
   reviewImages: TReviewData[];
-  searchParams: { submodel?: string; second_submodel?: string } | undefined;
+  searchParams?: { submodel?: string; second_submodel?: string } | undefined;
 }) {
   const router = useRouter();
   const pathParams = useParams<TPathParams>();

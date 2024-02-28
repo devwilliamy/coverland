@@ -13,19 +13,17 @@ import {
   getProductReviewSummary,
   getProductReviewsByPage,
 } from '@/lib/db/review';
-//TODO: Refactor code so we can generate our dynamic paths as static HTML for performance
 
-// export function generateStaticParams() {
-//   return [
-//     { productType: 'car-covers' },
-//     { productType: 'suv-covers' },
-//     { productType: 'truck-covers' },
-//   ];
-// }
+export function generateStaticParams() {
+  return [
+    { productType: 'car-covers' },
+    { productType: 'suv-covers' },
+    { productType: 'truck-covers' },
+  ];
+}
 
 export default async function CarPDPModelDataLayer({
   params,
-  searchParams,
 }: {
   params: { productType: string };
   searchParams: { submodel?: string; second_submodel?: string } | undefined;
@@ -79,7 +77,6 @@ export default async function CarPDPModelDataLayer({
       params={params}
       reviewDataSummary={reviewDataSummary}
       reviewImages={reviewImages}
-      searchParams={searchParams}
     />
   );
 }

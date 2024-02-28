@@ -9,6 +9,7 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 import { useThankYouViewedGoogleTag } from '@/hooks/useGoogleTagDataLayer';
+import { useCartContext } from '@/providers/CartProvider';
 import { sendGTMEvent } from '@next/third-parties/google';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
@@ -23,8 +24,11 @@ export const OrderConfirmationContent = ({
 }) => {
   const [mounted, isMounted] = useState(false);
 
+  const { clearLocalStorageCart } = useCartContext();
+
   useEffect(() => {
     isMounted(true);
+    clearLocalStorageCart();
   }, []);
   useThankYouViewedGoogleTag(items, orderNumber);
 

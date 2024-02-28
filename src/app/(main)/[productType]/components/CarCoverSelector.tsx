@@ -1,7 +1,6 @@
 'use client';
 
 import React, { RefObject, useContext, useRef } from 'react';
-import dynamicImport from 'next/dynamic';
 import { PrimaryImageDisplay } from './PrimaryImageDisplay';
 import { ProductContent } from './ProductContent';
 import { EditVehicleModal } from './EditVehicleModal';
@@ -93,7 +92,7 @@ export function CarCoverSelector({
                 searchParams={searchParams}
               />
               <EditVehiclePopover
-                fullProductName={productName}
+                selectedProduct={selectedProduct}
                 searchParams={searchParams}
               />
             </div>

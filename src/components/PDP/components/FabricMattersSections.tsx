@@ -6,7 +6,7 @@ const FabricMattersSection = () => {
   return (
     <div className="mt-[60px] w-full lg:mt-0">
       <div className="flex pb-7 text-center">
-        <p className="w-full text-[30px] font-[500] leading-[26px] text-white">
+        <p className="w-full text-[30px] font-[500] leading-[26px] text-white lg:text-[45px] lg:leading-[52px]">
           Fabric Matters
         </p>
       </div>
@@ -18,7 +18,9 @@ const FabricMattersSection = () => {
       <Image
         alt="cover-with-water-droplets"
         src={WhiteLayerDesktop}
-        className="mb-[14px] hidden h-[200px] w-full lg:block lg:h-[550px] lg:w-[850px] "
+        width={840}
+        height={472}
+        className=" hidden w-full lg:block"
       />
     </div>
   );

@@ -43,8 +43,6 @@ export default function EditVehicleDropdown({
   searchParams: { submodel?: string; second_submodel?: string } | undefined;
 }) {
   const pathname = usePathname();
-  console.log('path', pathname);
-  console.log(BASE_URL);
 
   const [query, setQuery] = useState<TQuery>({
     year: '',
@@ -57,19 +55,15 @@ export default function EditVehicleDropdown({
   const [jsonData, setJsonData] = useState<TProductJsonData[]>([]);
   const router = useRouter();
   const { year, type, make, model, submodel } = query;
-  console.log(jsonData);
-  console.log(year);
   useEffect(() => {
     const getSearchData = async () => {
-      console.log('fetching data');
       if (!make) return;
-      const url = new URL(`${BASE_URL}/api/json-data`);
-      url.searchParams.append('type', slugify(type));
-      url.searchParams.append('make', slugify(make));
 
-      const response = await fetch(url.toString());
+      const response = await fetch(
+        `/api/json-data?type=${slugify(type)}&make=${slugify(make)}`
+      );
       const jsonData = await response.json();
-      console.log('jsonData', response);
+
       setJsonData(jsonData);
     };
     getSearchData();
@@ -136,7 +130,7 @@ export default function EditVehicleDropdown({
     closePopover();
   };
 
-  const showSubmodelDropdown = subModelData.length > 1 && year;
+  const showSubmodelDropdown = subModelData.length > 0 && year;
 
   return (
     <div className="z-100 relative flex w-full flex-col items-stretch  gap-[16px] *:flex-1">

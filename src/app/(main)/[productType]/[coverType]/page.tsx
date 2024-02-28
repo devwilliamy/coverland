@@ -1,4 +1,3 @@
-import { Suspense } from 'react';
 import { TInitialProductDataDB, getProductData } from '@/lib/db';
 import {
   TProductReviewSummary,
@@ -13,21 +12,19 @@ import { TPathParams } from '../../utils';
 
 //TODO: Refactor code so we can generate our dynamic paths as static HTML for performance
 
-// export async function generateStaticParams() {
-//   return [
-//     { coverType: 'premium-plus' },
-//     { coverType: 'premium' },
-//     { coverType: 'standard-pro' },
-//     { coverType: 'standard' },
-//   ];
-// }
+export async function generateStaticParams() {
+  return [
+    { coverType: 'premium-plus' },
+    { coverType: 'premium' },
+    { coverType: 'standard-pro' },
+    { coverType: 'standard' },
+  ];
+}
 
 export default async function CarPDPModelDataLayer({
   params,
-  searchParams,
 }: {
   params: TPathParams;
-  searchParams: { submodel?: string; second_submodel?: string } | undefined;
 }) {
   let reviewData: TReviewData[] = [];
   let reviewDataSummary: TProductReviewSummary = {
@@ -83,7 +80,6 @@ export default async function CarPDPModelDataLayer({
       params={params}
       reviewDataSummary={reviewDataSummary}
       reviewImages={reviewImages}
-      searchParams={searchParams}
     />
   );
 }

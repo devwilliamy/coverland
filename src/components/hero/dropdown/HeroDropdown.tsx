@@ -9,8 +9,6 @@ import { useRouter } from 'next/navigation';
 import { useCallback, useEffect, useState } from 'react';
 import { SubmodelDropdown } from './SubmodelDropdown';
 import { slugify } from '@/lib/utils';
-import { track } from '@vercel/analytics';
-import { sendGTMEvent } from '@next/third-parties/google';
 import { TProductJsonData } from '@/components/PDP/EditVehicleDropdown';
 import { BASE_URL } from '@/lib/constants';
 
@@ -34,19 +32,16 @@ export function HeroDropdown() {
   const [jsonData, setJsonData] = useState<TProductJsonData[]>([]);
   const router = useRouter();
   const { year, type, make, model, submodel } = query;
-  console.log(jsonData);
-  console.log(year);
   useEffect(() => {
     const getSearchData = async () => {
-      console.log('fetching data');
       if (!make) return;
-      const url = new URL(`${BASE_URL}/api/json-data`);
-      url.searchParams.append('type', slugify(type));
-      url.searchParams.append('make', slugify(make));
 
-      const response = await fetch(url.toString());
+      const response = await fetch(
+        `/api/json-data?type=${slugify(type)}&make=${slugify(make)}`
+      );
+      console.log(response);
       const jsonData = await response.json();
-      console.log('jsonData', response);
+      console.log(jsonData);
       setJsonData(jsonData);
     };
     getSearchData();
@@ -92,6 +87,10 @@ export function HeroDropdown() {
       return;
     setLoading(true);
     let url = `/${slugify(type)}/premium-plus/${slugify(make)}/${slugify(model)}/${yearInUrl}`;
+
+    if (model === 'Corvette') {
+      url = `/${slugify(type)}/premium/${slugify(make)}/${slugify(model)}/${yearInUrl}`;
+    }
 
     if (submodel) {
       url += `?${createQueryString('submodel', submodel)}`;
