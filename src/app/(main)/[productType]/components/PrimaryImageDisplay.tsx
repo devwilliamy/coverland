@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { LegacyRef, useState } from 'react';
 import { MobileImageCarousel } from './MobileImageCarousel';
 import { useMediaQuery } from '@mantine/hooks';
 import Image from 'next/image';
@@ -10,8 +10,10 @@ import { Button } from '@/components/ui/button';
 import dynamic from 'next/dynamic';
 import Thumbnail from '@/video/Thumbnail.webp';
 import { IProductData } from '../../utils';
-import SixMinVideo from 'https://x2kly621zrgfgwll.public.blob.vercel-storage.com/videos/FINALIZE_WEBSTIE_16_9_OPTIMIZED.mp4';
+// import SixMinVideo from 'https://x2kly621zrgfgwll.public.blob.vercel-storage.com/videos/FINALIZE_WEBSTIE_16_9_OPTIMIZED.mp4';
 import { Skeleton } from '@/components/ui/skeleton';
+import SixMinVideo from '@/videos/https_x2kly621zrgfgwll.public.blob.vercel-storage.com_videos_FINALIZE_WEBSTIE_16_9_OPTIMIZED.mp4.json';
+import useIsVisible from '@/lib/hooks/useIsVisible';
 
 const ProductVideo = dynamic(() => import('@/components/PDP/ProductVideo'), {
   loading: () => (
@@ -34,9 +36,13 @@ export function PrimaryImageDisplay({
 }) {
   const [showMore, setShowMore] = useState(false);
   const isMobile = useMediaQuery('(max-width: 1023px)');
+  const [isVisible, ref] = useIsVisible();
 
   return (
-    <div className=" -ml-4 flex  w-screen flex-col items-stretch justify-center lg:w-3/5 lg:pb-0 ">
+    <div
+      className=" -ml-4 flex  w-screen flex-col items-stretch justify-center lg:w-3/5 lg:pb-0 "
+      ref={ref as LegacyRef<HTMLDivElement> | undefined}
+    >
       <div className="relative mb-4 flex h-full w-full items-center justify-center bg-[#F2F2F2] lg:h-[650px] lg:rounded-xl">
         <MobileImageCarousel
           selectedProduct={selectedProduct}
@@ -56,7 +62,7 @@ export function PrimaryImageDisplay({
       </div>
 
       {/* Product Video */}
-      {!isMobile && (
+      {!isMobile && isVisible && (
         <ProductVideo
           src={SixMinVideo}
           imgSrc={Thumbnail}
