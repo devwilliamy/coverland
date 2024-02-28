@@ -96,13 +96,10 @@ export function ProductContent({
         <p className="mb-3 text-[16px] leading-[14px]">
           {isComplete ? '' : 'From'}
         </p>
-        <div className=" flex place-items-end gap-[9px]   text-center text-[28px] font-[900] leading-[32px] lg:text-[32px] lg:leading-[37.5px] ">
-          <div className="flex flex-col items-end  leading-[22px]">
-            {' '}
-            ${selectedProduct?.msrp}
-          </div>
+        <div className=" flex  items-end gap-[9px]   text-center text-[28px] font-[900]  lg:text-[32px] lg:leading-[37.5px] ">
+          <div className="leading-[20px]"> ${selectedProduct?.msrp}</div>
           {selectedProduct?.price && (
-            <div className="flex gap-1.5 text-[22px] font-[400] leading-[14px] text-[#BE1B1B] lg:text-[22px] ">
+            <div className="flex gap-1.5 pb-[1px] text-[22px] font-[400] leading-[14px] text-[#BE1B1B] lg:text-[22px] ">
               <span className=" text-[#BEBEBE] line-through">{`$${Number(selectedProduct?.price)}`}</span>
               <p>(-50%)</p>
             </div>
