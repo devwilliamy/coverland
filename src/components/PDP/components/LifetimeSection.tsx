@@ -4,10 +4,6 @@ import LifetimeCheck from '@/images/PDP/Product-Details-Redesign-2/lifetime-shei
 import LifetimeCheckDesktop from '@/images/PDP/Product-Details-Redesign-2/sheild-check-desktop.webp';
 import { useParams } from 'next/navigation';
 
-const lifetimeObj = {
-  'premium-plus': 'Lifetime',
-  premium: '2-Years',
-};
 const lifetimeData = [
   {
     title: 'All Tears Covered:',
@@ -28,15 +24,30 @@ const lifetimeData = [
 ];
 export default function LifetimeSection() {
   const params = useParams();
-  const isPremium = params?.coverType === 'premium';
-  let warrantyLength = 'Lifetime';
-  if (params?.coverType) {
+  const coverType = params?.coverType;
+  let warrantyLength: string | number = 'Lifetime';
+
+  switch (coverType) {
+    case 'premium-plus':
+      warrantyLength = 'Lifetime';
+      break;
+
+    case 'premium':
+      warrantyLength = '5-years';
+      break;
+
+    case 'standard-pro':
+      warrantyLength = '2-years';
+      break;
+
+    case 'standard':
+      warrantyLength = '1-year';
   }
 
   return (
     <section className="flex flex-col items-center pt-[60px] lg:mb-[40px] lg:pt-[110px]">
       <p className="w-full text-center text-[30px] font-[600] leading-[22px]">
-        Lifetime Warranty
+        {warrantyLength} Warranty
       </p>
       <p className="pt-[13px] text-[22px] font-[500] leading-[28px] text-[#7D7D7D] ">
         Available for a Limited Time

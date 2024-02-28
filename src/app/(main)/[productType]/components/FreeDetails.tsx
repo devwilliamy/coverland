@@ -4,11 +4,33 @@ import { calculateTimeTo2PM } from '@/components/PDP/components/TimeTo2PM';
 import { Separator } from '@/components/ui/separator';
 import { determineDeliveryByDate } from '@/lib/utils/deliveryDateUtils';
 import { BoxIcon, ShieldCheck, ShoppingBag } from 'lucide-react';
+import { useParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
 export default function FreeDetails() {
   const deliveryDate = determineDeliveryByDate();
-  const [timeRemaining, setTimeRemaining] = useState(calculateTimeTo2PM()); // Set initial value
+  const [timeRemaining, setTimeRemaining] = useState(calculateTimeTo2PM());
+  const params = useParams();
+  const coverType = params?.coverType;
+  let warrantyLength: string | number = 'Lifetime';
+
+  switch (coverType) {
+    case 'standard':
+      warrantyLength = '1-year';
+      break;
+
+    case 'standard-pro':
+      warrantyLength = '2-years';
+      break;
+
+    case 'premium':
+      warrantyLength = '5-years';
+      break;
+    case 'premium-plus':
+      warrantyLength = 'Lifetime';
+      break;
+  }
+  console.log(warrantyLength);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -30,7 +52,7 @@ export default function FreeDetails() {
     },
     {
       icon: <ShieldCheck />,
-      title: 'Lifetime Warranty',
+      title: `${warrantyLength} Warranty`,
     },
     {
       icon: <ShoppingBag />,

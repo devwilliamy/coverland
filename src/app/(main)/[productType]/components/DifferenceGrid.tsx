@@ -12,45 +12,25 @@ const premiumPlusDifferences: {
 }[] = [
   {
     title: 'Material',
-    others: (
-      <>
-        <p>Thin, Weak</p>
-      </>
-    ),
-    coverland: (
-      <>
-        <p>Thick, High-Density</p>
-      </>
-    ),
+    others: <p>Thin, Weak</p>,
+    coverland: <p>Thick, High-Density</p>,
   },
   {
     title: 'Durability',
-    others: (
-      <>
-        <p>1-2 Years</p>
-      </>
-    ),
-    coverland: (
-      <>
-        <p>10+ Years</p>
-      </>
-    ),
+    others: <p>1-2 Years</p>,
+    coverland: <p>10+ Years</p>,
   },
   {
     title: 'Waterproof',
     others: (
-      <>
-        <p>
-          Limited <br /> (Trap Moisture)
-        </p>
-      </>
+      <p>
+        Limited <br /> (Trap Moisture)
+      </p>
     ),
     coverland: (
-      <>
-        <p>
-          Yes <br /> (Breathable)
-        </p>
-      </>
+      <p>
+        Yes <br /> (Breathable)
+      </p>
     ),
   },
   {
@@ -66,18 +46,14 @@ const premiumPlusDifferences: {
   {
     title: 'Soft Inner',
     others: (
-      <>
-        <p>
-          No <br /> (Risks Scratches)
-        </p>
-      </>
+      <p>
+        No <br /> (Risks Scratches)
+      </p>
     ),
     coverland: (
-      <>
-        <p>
-          Yes <br /> (Paint Protection)
-        </p>
-      </>
+      <p>
+        Yes <br /> (Paint Protection)
+      </p>
     ),
   },
   {
@@ -99,87 +75,145 @@ const premiumDifferences: {
 }[] = [
   {
     title: 'Material',
-    others: (
-      <>
-        <p>Thin, Weak</p>
-      </>
-    ),
-    coverland: (
-      <>
-        <p>Durable</p>
-      </>
-    ),
+    others: <p>Thin, Weak</p>,
+    coverland: <p>High-Density</p>,
   },
   {
     title: 'Durability',
-    others: (
-      <>
-        <p>6-12 Months</p>
-      </>
-    ),
-    coverland: (
-      <>
-        <p>2+ Years</p>
-      </>
-    ),
+    others: <p>1-2 Years</p>,
+    coverland: <p>5+ Years</p>,
   },
   {
     title: 'Waterproof',
     others: (
-      <>
-        <p>
-          Limited <br /> (Trap Moisture)
-        </p>
-      </>
+      <p>
+        Limited <br /> (Trap Moisture)
+      </p>
     ),
     coverland: (
-      <>
-        <p>
-          Yes <br /> (Breathable)
-        </p>
-      </>
+      <p>
+        Yes <br /> (Breathable)
+      </p>
     ),
   },
   {
     title: 'Sun',
     others: 'Limited Protection',
-    coverland: 'UV Resistance',
+    coverland: 'Full UV Block',
   },
   {
     title: 'Flexibility',
     others: 'Hard to Fit',
-    coverland: 'Easy Fit',
+    coverland: 'Easy Fit + Stretch',
   },
   {
     title: 'Soft Inner',
     others: (
-      <>
-        <p>
-          No <br /> (Risks Scratches)
-        </p>
-      </>
+      <p>
+        No <br /> (Risks Scratches)
+      </p>
     ),
     coverland: (
-      <>
-        <p>
-          Yes <br /> (Light-Duty)
-        </p>
-      </>
+      <p>
+        Yes <br /> (Paint Protection)
+      </p>
     ),
   },
 ];
+
 export default function DifferenceGrid() {
   const params = useParams();
+  const coverType = params?.coverType;
+  const standardDifferences: {
+    title: string;
+    others: JSX.Element | string;
+    coverland: JSX.Element | string;
+  }[] = [
+    {
+      title: 'Material',
+      others: <p>Thin, Weak</p>,
+      coverland: (
+        <p>
+          {coverType === 'standard-pro' && 'Durable'}
+          {coverType === 'standard' && 'Solid'}
+        </p>
+      ),
+    },
+    {
+      title: 'Durability',
+      others: (
+        <p>
+          {coverType === 'standard-pro' && '6-12 Months'}
+          {coverType === 'standard' && '3-6 Months'}
+        </p>
+      ),
+      coverland: (
+        <p>
+          {coverType === 'standard-pro' && '2+'}
+          {coverType === 'standard' && '1+'}
+          Years
+        </p>
+      ),
+    },
+    {
+      title: 'Waterproof',
+      others: (
+        <p>
+          Limited <br /> (Trap Moisture)
+        </p>
+      ),
+      coverland: (
+        <p>
+          Yes <br /> (Breathable)
+        </p>
+      ),
+    },
+    {
+      title: 'Sun',
+      others: 'Limited Protection',
+      coverland: 'UV Resistance',
+    },
+    {
+      title: 'Flexibility',
+      others: 'Hard to Fit',
+      coverland: 'Easy Fit',
+    },
+    {
+      title: 'Soft Inner',
+      others: (
+        <p>
+          No <br /> (Risks Scratches)
+        </p>
+      ),
+      coverland: (
+        <p>
+          Yes <br /> (Light-Duty)
+        </p>
+      ),
+    },
+  ];
   console.log(params);
   let differences: {
     title: string;
     others: JSX.Element | string;
     coverland: JSX.Element | string;
   }[] = [];
-  if (params?.coverType === 'premium') {
-    differences = premiumDifferences;
-  } else {
-    differences = premiumPlusDifferences;
+  // if (params?.coverType === 'premium') {
+  // } else {
+  //   differences = premiumPlusDifferences;
+  // }
+  switch (coverType) {
+    case 'premium':
+      differences = premiumDifferences;
+      break;
+    case 'standard-pro':
+      differences = standardDifferences;
+      break;
+    case 'standard':
+      differences = standardDifferences;
+      break;
+    default:
+      differences = premiumPlusDifferences;
   }
 
   return (
