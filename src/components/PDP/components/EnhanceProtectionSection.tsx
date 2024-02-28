@@ -29,11 +29,11 @@ export default function EnhanceProtectionSection() {
       </p>
       <div className="flex flex-col lg:flex-row lg:justify-center lg:gap-[21px] lg:px-[39px]">
         {protectionData.map(({ image, title, description }) => (
-          <div key={title} className="space-y-2 text-center">
+          <div key={title} className="space-y-2 text-center max-lg:px-4">
             <Image
               alt="enhanced-item"
               src={image}
-              className="rounded-lg lg:h-[221px] lg:w-[420px]"
+              className="w-full rounded-lg lg:h-[221px] lg:w-[420px]"
             />
             <p className="space-x-2 text-[18px] font-[600] leading-[21px]">
               {title}

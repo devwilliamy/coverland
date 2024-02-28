@@ -20,7 +20,7 @@ export default function FeaturesSection() {
         className="absolute top-0 -mx-4 h-full object-cover"
       />
       <ProductDetailsHeader />
-      <div className="lg:hidden">
+      <div className="w-full lg:hidden">
         <ProductVideo
           src={SixMinVideo}
           imgSrc={Thumbnail}
