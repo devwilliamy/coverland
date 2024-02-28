@@ -130,6 +130,7 @@ export function ProductContent({
           selectedProduct={selectedProduct}
           handleAddToCart={handleAddToCart}
           searchParams={searchParams}
+          isSticky
         />
       </div>
       <Separator className="mt-[36px] " />
