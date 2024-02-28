@@ -13,11 +13,11 @@ export default function ProductDetailsHeader() {
   const make = params?.make;
   let productType = params?.productType;
   if (productType === 'truck-covers') {
-    return (productType = 'Truck');
+    productType = 'Truck';
+  } else if (productType === 'suv-covers') {
+    productType = productType.toUpperCase();
+    productType = productType?.slice(0, 3);
   } else {
-    if (productType === 'suv-covers') {
-      productType = productType.toUpperCase();
-    }
     productType = productType?.slice(0, 3);
   }
 

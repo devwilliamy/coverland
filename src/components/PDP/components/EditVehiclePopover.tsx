@@ -2,11 +2,6 @@
 
 import { EditIcon } from '@/components/PDP/components/icons';
 import EditVehicleDropdown from '../EditVehicleDropdown';
-// import {
-//   DropdownMenu,
-//   DropdownMenuContent,
-//   DropdownMenuTrigger,
-// } from '@/components/ui/dropdown-menu';
 import { useState } from 'react';
 import { Drawer } from 'vaul';
 import { IoClose } from 'react-icons/io5';

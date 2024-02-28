@@ -13,14 +13,11 @@ export default function FeaturesSection() {
   return (
     <section
       className={`relative mt-[60px] flex h-full  flex-col items-center justify-center `}
-      // style={{
-      //   backgroundImage: `url(${WetFabric.src})`,
-      // }}
     >
       <Image
         alt="Wet Fabric"
         src={WetFabric}
-        className="absolute top-0 z-[-1] -mx-4 h-full object-cover"
+        className="absolute top-0 -z-10 -mx-4 h-full object-cover"
       />
       <ProductDetailsHeader />
       <div className="lg:hidden">

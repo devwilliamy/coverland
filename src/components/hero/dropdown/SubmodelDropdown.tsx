@@ -1,6 +1,12 @@
 'use client';
 
-import { ChangeEvent, Dispatch, SetStateAction, useState } from 'react';
+import {
+  ChangeEvent,
+  Dispatch,
+  SetStateAction,
+  useEffect,
+  useState,
+} from 'react';
 import { TQuery } from './HeroDropdown';
 
 export function SubmodelDropdown({
@@ -15,6 +21,11 @@ export function SubmodelDropdown({
 }) {
   const [value, setValue] = useState('');
   const { query, setQuery } = queryObj;
+  const { year } = query;
+
+  useEffect(() => {
+    !year && setValue('');
+  }, [year]);
 
   const handleChange = (event: ChangeEvent<HTMLSelectElement>) => {
     const newValue = event.target.value;
