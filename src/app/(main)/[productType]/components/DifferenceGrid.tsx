@@ -1,97 +1,97 @@
 import Image from 'next/image';
 import React from 'react';
-import OthersVSCoverlandMobile from '@/images/PDP/Product-Details-Redesign-2/OthersVSCoverland.png';
-import OthersVSCoverlandDesktop from '@/images/PDP/Product-Details-Redesign-2/desktop-vs.jpg';
+import OthersVSCoverlandMobile from '@/images/PDP/Product-Details-Redesign-2/OthersVSCoverland.webp';
+import OthersVSCoverlandDesktop from '@/images/PDP/Product-Details-Redesign-2/desktop-vs.webp';
+const differences: {
+  title: string;
+  others: JSX.Element | string;
+  coverland: JSX.Element | string;
+}[] = [
+  {
+    title: 'Material',
+    others: (
+      <>
+        <p>Thin, Weak</p>
+      </>
+    ),
+    coverland: (
+      <>
+        <p>Thick, High-Density</p>
+      </>
+    ),
+  },
+  {
+    title: 'Durability',
+    others: (
+      <>
+        <p>1-2 Years</p>
+      </>
+    ),
+    coverland: (
+      <>
+        <p>10+ Years</p>
+      </>
+    ),
+  },
+  {
+    title: 'Waterproof',
+    others: (
+      <>
+        <p>
+          Limited <br /> (Trap Moisture)
+        </p>
+      </>
+    ),
+    coverland: (
+      <>
+        <p>
+          Yes <br /> (Breathable)
+        </p>
+      </>
+    ),
+  },
+  {
+    title: 'Sun',
+    others: 'Limited Protection',
+    coverland: 'Full UV Block',
+  },
+  {
+    title: 'Flexibility',
+    others: 'Hard to Fit',
+    coverland: 'Easy Fit + Stretch',
+  },
+  {
+    title: 'Soft Inner',
+    others: (
+      <>
+        <p>
+          No <br /> (Risks Scratches)
+        </p>
+      </>
+    ),
+    coverland: (
+      <>
+        <p>
+          Yes <br /> (Paint Protection)
+        </p>
+      </>
+    ),
+  },
+  {
+    title: 'Warranty',
+    others: 'Limited Warranty',
+    coverland: 'Lifetime Warranty',
+  },
+  {
+    title: 'Value',
+    others: 'Short-term Savings',
+    coverland: 'Lifetime Value',
+  },
+];
 
 export default function DifferenceGrid() {
-  const differences: {
-    title: string;
-    others: JSX.Element | string;
-    coverland: JSX.Element | string;
-  }[] = [
-    {
-      title: 'Material',
-      others: (
-        <>
-          <p>Thin, Weak</p>
-        </>
-      ),
-      coverland: (
-        <>
-          <p>Thick, High-Density</p>
-        </>
-      ),
-    },
-    {
-      title: 'Durability',
-      others: (
-        <>
-          <p>1-2 Years</p>
-        </>
-      ),
-      coverland: (
-        <>
-          <p>10+ Years</p>
-        </>
-      ),
-    },
-    {
-      title: 'Waterproof',
-      others: (
-        <>
-          <p>
-            Limited <br /> (Trap Moisture)
-          </p>
-        </>
-      ),
-      coverland: (
-        <>
-          <p>
-            Yes <br /> (Breathable)
-          </p>
-        </>
-      ),
-    },
-    {
-      title: 'Sun',
-      others: 'Limited Protection',
-      coverland: 'Full UV Block',
-    },
-    {
-      title: 'Flexibility',
-      others: 'Hard to Fit',
-      coverland: 'Easy Fit + Stretch',
-    },
-    {
-      title: 'Soft Inner',
-      others: (
-        <>
-          <p>
-            No <br /> (Risks Scratches)
-          </p>
-        </>
-      ),
-      coverland: (
-        <>
-          <p>
-            Yes <br /> (Paint Protection)
-          </p>
-        </>
-      ),
-    },
-    {
-      title: 'Warranty',
-      others: 'Limited Warranty',
-      coverland: 'Lifetime Warranty',
-    },
-    {
-      title: 'Value',
-      others: 'Short-term Savings',
-      coverland: 'Lifetime Value',
-    },
-  ];
   return (
-    <div className="px-2 pb-2 lg:w-full lg:px-0">
+    <div className="mt-[30px] px-2 pb-2 lg:w-full lg:px-0">
       <span className="flex w-full flex-col text-center">
         <p className="w-full py-[20px] text-[22px] font-[500] leading-[24px] text-[#EBE9E9] lg:pb-[36px] lg:text-[40px] lg:font-[500]">
           See the Difference:
@@ -108,7 +108,9 @@ export default function DifferenceGrid() {
         <Image
           alt="Others-VS-Coverland"
           src={OthersVSCoverlandDesktop}
-          className="mb-[14px] hidden w-full lg:block"
+          width={840}
+          height={472}
+          className=" hidden lg:block"
         />
       </span>
       <div className="mt-[24px] flex flex-col overflow-hidden rounded-md">

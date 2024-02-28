@@ -4,7 +4,7 @@ import Image from 'next/image';
 import { Fragment, useContext, useEffect, useState } from 'react';
 import { useStore } from 'zustand';
 import { CarSelectionContext } from '@/app/(main)/[productType]/components/CarPDP';
-import { ChevronDown, X } from 'lucide-react';
+import { ChevronDown, ChevronUp, X } from 'lucide-react';
 import { Dialog } from '@/components/ui/dialog';
 import { DialogContent } from '@radix-ui/react-dialog';
 import { TReviewData } from '@/lib/db';
@@ -168,13 +168,20 @@ const ReviewImageGallery = ({
                     </div>
                   </div>
                 )}
-                <ChevronDown
-                  color="white"
-                  className={`mb-[30px] ${moreDetailsOpen ? 'hidden' : 'flex'} mt-[10px] self-end justify-self-end`}
-                  onClick={() => {
-                    setMoreDetailsOpen(true);
-                  }}
-                />
+                {moreDetailsOpen ? (
+                  <ChevronUp
+                    color="white"
+                    className={`mb-[30px]  mt-[10px] self-end justify-self-end`}
+                  />
+                ) : (
+                  <ChevronDown
+                    color="white"
+                    className={`mb-[30px]  mt-[10px] self-end justify-self-end`}
+                    onClick={() => {
+                      setMoreDetailsOpen(true);
+                    }}
+                  />
+                )}
               </div>
 
               <div className={`${moreDetailsOpen ? 'hidden' : 'block'}`}>

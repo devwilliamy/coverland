@@ -1,7 +1,9 @@
 'use client';
-import Video from 'next-video';
 import Image, { StaticImageData } from 'next/image';
 import { Asset } from 'next-video/dist/assets.js';
+import dynamic from 'next/dynamic';
+
+const Video = dynamic(() => import('next-video'), { ssr: false });
 
 type ProductVideoProps = {
   src: Asset;
@@ -10,6 +12,7 @@ type ProductVideoProps = {
   loop?: boolean;
   aspectRatio?: string;
 };
+
 export default function ProductVideo({
   src,
   imgSrc,

@@ -6,7 +6,7 @@ import ProductDetailsHeader from './ProductDetailsHeader';
 import FabricMattersSection from './FabricMattersSections';
 import DifferenceGrid from '@/app/(main)/[productType]/components/DifferenceGrid';
 import CustomFitSection from './CustomFitSection';
-import WetFabric from '@/images/PDP/Product-Details-Redesign-2/fabric-with-water.jpg';
+import WetFabric from '@/images/PDP/Product-Details-Redesign-2/fabric-with-water.webp';
 import Image from 'next/image';
 
 export default function FeaturesSection() {
@@ -15,9 +15,9 @@ export default function FeaturesSection() {
       className={`relative mt-[60px] flex h-full  flex-col items-center justify-center `}
     >
       <Image
-        alt=""
+        alt="Wet Fabric"
         src={WetFabric}
-        className="absolute top-0 -z-10 -mx-4 h-full object-cover"
+        className="absolute top-0 -mx-4 h-full object-cover"
       />
       <ProductDetailsHeader />
       <div className="lg:hidden">
@@ -27,7 +27,7 @@ export default function FeaturesSection() {
           aspectRatio="16 / 9"
         />
       </div>
-      <div className="flex flex-col   items-center justify-center lg:w-[850px]">
+      <div className="z-[2] flex flex-col items-center justify-center lg:w-[850px]">
         <FabricMattersSection />
         <DifferenceGrid />
         <CustomFitSection />

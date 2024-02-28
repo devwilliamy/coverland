@@ -146,8 +146,8 @@ export default function ReviewImageGalleryDesktop({
                         id={`customer-tabs-image-${index}`}
                         key={imgStr}
                         alt={`customer-tabs-image-${index}`}
-                        width={109}
-                        height={109}
+                        width={300}
+                        height={300}
                         className="aspect-square h-full w-full cursor-pointer rounded-[3px]"
                         src={imgStr}
                         onClick={() => {

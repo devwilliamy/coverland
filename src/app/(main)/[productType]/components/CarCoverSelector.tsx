@@ -22,10 +22,7 @@ import { ExtraProductDetails } from '@/components/PDP/OtherDetails';
 import ProductVideo from '@/components/PDP/ProductVideo';
 import Thumbnail from '@/video/Thumbnail.webp';
 import SixMinVideo from 'https://x2kly621zrgfgwll.public.blob.vercel-storage.com/videos/FINALIZE_WEBSTIE_16_9_OPTIMIZED.mp4';
-
-const EditVehiclePopover = dynamicImport(
-  () => import('@/components/PDP/components/EditVehiclePopover')
-);
+import EditVehiclePopover from '@/components/PDP/components/EditVehiclePopover';
 
 export function CarCoverSelector({
   searchParams,
@@ -86,7 +83,7 @@ export function CarCoverSelector({
                 searchParams={searchParams}
               />
               <EditVehiclePopover
-                fullProductName={productName}
+                selectedProduct={selectedProduct}
                 searchParams={searchParams}
               />
             </div>
@@ -104,22 +101,13 @@ export function CarCoverSelector({
           {/* {isMobile && ( */}
         </div>
       </section>
-      <div className="lg:hidden">
-        <ProductVideo
-          src={SixMinVideo}
-          imgSrc={Thumbnail}
-          aspectRatio="16 / 9"
-        />
+      <FeaturesSection />
+      <div className=" flex w-full flex-col justify-center">
+        <EnhanceProtectionSection />
+        <RealTestSection />
+        <ProvenSection />
+        <LifetimeSection />
       </div>
-      <section className="relative">
-        <FeaturesSection />
-        <div className="flex w-full flex-col justify-center px-4">
-          <EnhanceProtectionSection />
-          <RealTestSection />
-          <ProvenSection />
-          <LifetimeSection />
-        </div>
-      </section>
       <SuggestedProducts />
       <ExtraProductDetails />
     </>

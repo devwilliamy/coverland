@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import React from 'react';
-import LifetimeCheck from '@/images/PDP/Product-Details-Redesign-2/lifetime-sheild-check.png';
-import LifetimeCheckDesktop from '@/images/PDP/Product-Details-Redesign-2/sheild-check-desktop.png';
+import LifetimeCheck from '@/images/PDP/Product-Details-Redesign-2/lifetime-sheild-check.webp';
+import LifetimeCheckDesktop from '@/images/PDP/Product-Details-Redesign-2/sheild-check-desktop.webp';
 
 export default function LifetimeSection() {
   const lifetimeData = [
@@ -31,12 +31,12 @@ export default function LifetimeSection() {
         Available for a Limited Time
       </p>
       <Image
-        alt=""
+        alt="Lifetime-Check-Mobile"
         src={LifetimeCheck}
         className="pb-7 pt-3 lg:hidden lg:w-[132px] lg:pt-[38px]"
       />
       <Image
-        alt=""
+        alt="Lifetime-Check-Desktop"
         src={LifetimeCheckDesktop}
         className="hidden pb-7 pt-3 lg:block lg:w-[132px] lg:pt-[38px]"
       />

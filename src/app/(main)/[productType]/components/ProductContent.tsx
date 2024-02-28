@@ -15,7 +15,7 @@ import FreeDetails from './FreeDetails';
 import AddToCart from './AddToCart';
 import CircleColorSelector from './CircleColorSelector';
 import RatingsTrigger from './RatingsTrigger';
-import installments from '@/images/PDP/Product-Details-Redesign-2/paypal-installments.png';
+import installments from '@/images/PDP/Product-Details-Redesign-2/paypal-installments.webp';
 import Image from 'next/image';
 import { Info } from 'lucide-react';
 
@@ -56,7 +56,7 @@ export function ProductContent({
 
   const handleAddToCart = () => {
     if (!cartProduct) return;
-    setAddToCartOpen(true);
+    !isMobile && setAddToCartOpen(true);
     return addToCart({ ...cartProduct, quantity: 1 });
   };
 
@@ -93,8 +93,10 @@ export function ProductContent({
           </div>
         </div>
       </div>
-      <section className="flex flex-col pt-[18px] ">
-        <p className="text-[16px] leading-4"> {isComplete ? '' : 'From'}</p>
+      <section className="flex flex-col pt-[34px] ">
+        <p className="mb-3 text-[16px] leading-[14px]">
+          {isComplete ? '' : 'From'}
+        </p>
         <div className=" flex place-items-end gap-[9px]   text-center text-[28px] font-[900] leading-[32px] lg:text-[32px] lg:leading-[37.5px] ">
           <div className="flex flex-col items-end  leading-[22px]">
             {' '}
@@ -113,7 +115,7 @@ export function ProductContent({
             <b className="font-[400] text-black">$39.99</b>
           </p>
           <Image alt="paypal-installents" src={installments} />
-          <Info className="h-[17px] w-[17px] text-[#767676]" />
+          {/* <Info className="h-[17px] w-[17px] text-[#767676]" /> */}
         </div>
       </section>
       <CircleColorSelector

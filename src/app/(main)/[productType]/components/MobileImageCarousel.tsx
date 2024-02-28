@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { Ref, useCallback, useEffect, useState } from 'react';
 import {
   Carousel,
   CarouselApi,
@@ -11,10 +11,11 @@ import dynamic from 'next/dynamic';
 import { StaticImport } from 'next/dist/shared/lib/get-img-props';
 import { Asset } from 'next-video/dist/assets.js';
 import SevenSecVideoThumbnail from '@/video/7second image.webp';
-import SevenSecVideo from '@/videos/7sec Listing Video_2.mp4';
+import SevenSecVideo from 'https://x2kly621zrgfgwll.public.blob.vercel-storage.com/videos/7sec%20Listing%20Video_Compressed-5HxXKYp1dbtgG8gEs5DR6quoWoOpFS.mp4';
 import { Skeleton } from '@/components/ui/skeleton';
 import { FaCamera } from 'react-icons/fa';
 import ReviewImagesSheet from '@/components/PDP/components/ReviewImagesSheet';
+import useIsVisible from '@/lib/hooks/useIsVisible';
 
 const ProductVideo = dynamic(() => import('@/components/PDP/ProductVideo'), {
   loading: () => (
@@ -22,6 +23,7 @@ const ProductVideo = dynamic(() => import('@/components/PDP/ProductVideo'), {
       <Skeleton />
     </div>
   ),
+  ssr: false,
 });
 
 export const MobileImageCarousel = ({
@@ -37,6 +39,9 @@ export const MobileImageCarousel = ({
 
   const carouselItems = [...productImages];
   carouselItems.splice(3, 0, String(SevenSecVideoThumbnail));
+
+  const [isVisible, ref] = useIsVisible();
+  console.log('isVisible', isVisible);
 
   useEffect(() => {
     if (!api) {
@@ -74,7 +79,7 @@ export const MobileImageCarousel = ({
         height={74}
         src={src}
         sizes="(max-width: 768px) 100vw"
-        alt=""
+        alt={`carousel-position-item-${index}`}
       />
     </button>
   );
@@ -103,8 +108,17 @@ export const MobileImageCarousel = ({
               );
             if (index === 3) {
               return (
-                <CarouselItem key={String(SevenSecVideo)}>
-                  <ProductVideo src={SevenSecVideo} autoplay loop />
+                <CarouselItem
+                  key={String(SevenSecVideo)}
+                  ref={ref as Ref<HTMLDivElement> | undefined}
+                >
+                  {isVisible ? (
+                    <ProductVideo src={SevenSecVideo} autoplay loop />
+                  ) : (
+                    <div className="flex h-full">
+                      <Skeleton />
+                    </div>
+                  )}
                 </CarouselItem>
               );
             }
