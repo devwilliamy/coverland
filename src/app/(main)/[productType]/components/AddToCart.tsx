@@ -28,10 +28,12 @@ export default function AddToCart({
   selectedProduct,
   handleAddToCart,
   searchParams,
+  isSticky,
 }: {
   selectedProduct: any;
   handleAddToCart: () => void;
   searchParams: { submodel?: string; second_submodel?: string } | undefined;
+  isSticky?: boolean;
 }) {
   const params = useParams<TPathParams>();
   const store = useContext(CarSelectionContext);
@@ -65,7 +67,7 @@ export default function AddToCart({
       </div>
 
       {/* Add to Cart Button */}
-      {isTypePage ? (
+      {isTypePage && !isSticky ? (
         <VehicleSelector searchParams={searchParams} />
       ) : (
         <div className="fixed inset-x-0 bottom-0 z-50 flex bg-white p-4 lg:relative lg:p-1">

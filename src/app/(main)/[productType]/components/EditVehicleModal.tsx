@@ -11,6 +11,7 @@ import { Separator } from '@/components/ui/separator';
 import { CarSelectionContext } from './CarPDP';
 import { useContext, useState } from 'react';
 import { IProductData } from '../../utils';
+import { useParams } from 'next/navigation';
 
 export function EditVehicleModal({
   selectedProduct,
@@ -20,6 +21,23 @@ export function EditVehicleModal({
   searchParams: { submodel?: string; second_submodel?: string } | undefined;
 }) {
   const [open, setOpen] = useState(false);
+  const params = useParams<{
+    make?: string;
+    model?: string;
+    year?: string;
+    productType?: string;
+  }>();
+  const { make, model, year, productType } = params;
+  const {
+    make: selectedMake,
+    model: selectedModel,
+    year_generation: selectedYear,
+    type,
+    submodel1,
+  } = selectedProduct;
+
+  const productName = make ? `${selectedMake} ${selectedModel}` : `${type}`;
+  const productNameSubtitle = year ? `${submodel1} ${selectedYear}` : '';
 
   const store = useContext(CarSelectionContext);
   if (!store) throw new Error('Missing CarContext.Provider in the tree');
@@ -32,17 +50,15 @@ export function EditVehicleModal({
             <div className="">
               <p className="">Your Vehicle</p>
               <h2 className="  break-normal text-[26px] font-[500] capitalize leading-[31px]">
-                {selectedProduct.make} {selectedProduct.model}
+                {productName}
               </h2>
-              <p className="text-[#8F8F8F]">
-                {selectedProduct.submodel1} {selectedProduct.year_generation}
-              </p>
+              <p className="text-[#8F8F8F]">{productNameSubtitle}</p>
             </div>
             <EditIcon />
           </div>
         </PopoverTrigger>
         <PopoverContent className="min-w-[100px] rounded-xl border border-gray-300 bg-white p-5 shadow-lg">
-          <EditVehicleDropdown setOpen={setOpen} searchParams={searchParams} />
+          {/* <EditVehicleDropdown setOpen={setOpen} searchParams={searchParams} /> */}
         </PopoverContent>
       </Popover>
     </div>

@@ -6,6 +6,7 @@ import { useState } from 'react';
 import { Drawer } from 'vaul';
 import { IoClose } from 'react-icons/io5';
 import { IProductData } from '@/app/(main)/utils';
+import { useParams } from 'next/dist/client/components/navigation';
 
 export default function EditVehiclePopover({
   selectedProduct,
@@ -15,6 +16,23 @@ export default function EditVehiclePopover({
   searchParams: { submodel?: string; second_submodel?: string } | undefined;
 }) {
   const [open, setOpen] = useState(false);
+  const params = useParams<{
+    make?: string;
+    model?: string;
+    year?: string;
+    productType?: string;
+  }>();
+  const { make, model, year, productType } = params;
+  const {
+    make: selectedMake,
+    model: selectedModel,
+    year_generation: selectedYear,
+    type,
+    submodel1,
+  } = selectedProduct;
+
+  const productName = make ? `${selectedMake} ${selectedModel}` : `${type}`;
+  const productNameSubtitle = year ? `${submodel1} ${selectedYear}` : '';
   return (
     <div className=" flex h-full flex-col  justify-center lg:hidden">
       <Drawer.Root open={open} onOpenChange={setOpen}>
@@ -22,11 +40,9 @@ export default function EditVehiclePopover({
           <div className="my-2 border-l-2 border-l-[#C8C7C7] pl-8 pr-8">
             <p>Your Vehicle</p>
             <h2 className=" text-[18px] font-[500] capitalize leading-[22px] text-[#1A1A1A]">
-              {selectedProduct.make} {selectedProduct.model}
+              {productName}
             </h2>
-            <p className="text-[#8F8F8F]">
-              {selectedProduct.submodel1} {selectedProduct.year_generation}
-            </p>
+            <p className="text-[#8F8F8F]">{productNameSubtitle}</p>
           </div>
           <EditIcon />
         </Drawer.Trigger>
@@ -64,7 +80,7 @@ export default function EditVehiclePopover({
                 id="EditVehicleContainer"
                 className="flex min-h-[50vh] pt-[75px] "
               >
-                <EditVehicleDropdown searchParams={searchParams} />
+                {/* <EditVehicleDropdown searchParams={searchParams} /> */}
               </div>
             </div>
           </Drawer.Content>
