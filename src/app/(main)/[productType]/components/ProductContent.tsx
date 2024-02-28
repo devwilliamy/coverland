@@ -10,13 +10,19 @@ import { compareRawStrings } from '@/lib/utils';
 
 import { useStore } from 'zustand';
 import { useCartContext } from '@/providers/CartProvider';
-import { IProductData, getCompleteSelectionData } from '../../utils';
+import {
+  IProductData,
+  TPathParams,
+  getCompleteSelectionData,
+} from '../../utils';
 import FreeDetails from './FreeDetails';
 import AddToCart from './AddToCart';
 import CircleColorSelector from './CircleColorSelector';
 import RatingsTrigger from './RatingsTrigger';
 import installments from '@/images/PDP/Product-Details-Redesign-2/paypal-installments.webp';
 import Image from 'next/image';
+import { handleViewItemColorChangeGoogleTag } from '@/hooks/useGoogleTagDataLayer';
+import { useParams } from 'next/navigation';
 
 interface ProductRefs {
   [key: string]: RefObject<HTMLElement>;
@@ -50,6 +56,7 @@ export function ProductContent({
   const modelData = useStore(store, (s) => s.modelData);
   const color = useStore(store, (s) => s.selectedColor);
   const { addToCart } = useCartContext();
+  const params = useParams<TPathParams>();
 
   const cartProduct = modelData.find((p) => p.display_color === color);
 
@@ -64,6 +71,10 @@ export function ProductContent({
   } = getCompleteSelectionData({
     data: modelData,
   });
+
+  const handleColorChange = (newSelectedProduct: IProductData) => {
+    handleViewItemColorChangeGoogleTag(newSelectedProduct, params, isComplete);
+  };
 
   return (
     <>
@@ -120,6 +131,7 @@ export function ProductContent({
         setFeaturedImage={setFeaturedImage}
         setSelectedProduct={setSelectedProduct}
         selectedProduct={selectedProduct as IProductData}
+        handleColorChange={handleColorChange}
       />
       <div className="lg:hidden">
         <AddToCart
