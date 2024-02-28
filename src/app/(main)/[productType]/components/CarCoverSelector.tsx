@@ -102,7 +102,7 @@ export function CarCoverSelector({
         </div>
       </section>
       <FeaturesSection />
-      <div className="flex w-full flex-col justify-center">
+      <div className=" flex w-full flex-col justify-center">
         <EnhanceProtectionSection />
         <RealTestSection />
         <ProvenSection />

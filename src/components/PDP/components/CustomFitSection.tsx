@@ -11,7 +11,7 @@ const CustomFitSection = () => {
         <p className="w-full pb-2.5 text-center text-[30px] font-[500] leading-[35px] tracking-[0.027em] text-white lg:pb-6 lg:text-[45px] lg:leading-[50px]">
           Custom-Fit
         </p>
-        <p className="w-full  text-center text-[22px]  leading-[26px] text-[#ABABAB]">
+        <p className="w-full  text-center text-[22px] leading-[26px] text-[#ABABAB] lg:text-[34px]">
           Experience the perfect fit we offer
         </p>
       </div>

@@ -17,7 +17,7 @@ export default function FeaturesSection() {
       <Image
         alt="Wet Fabric"
         src={WetFabric}
-        className="absolute top-0 -z-10 -mx-4 h-full object-cover"
+        className="absolute top-0 -mx-4 h-full object-cover"
       />
       <ProductDetailsHeader />
       <div className="lg:hidden">
@@ -27,7 +27,7 @@ export default function FeaturesSection() {
           aspectRatio="16 / 9"
         />
       </div>
-      <div className="flex flex-col   items-center justify-center lg:w-[850px]">
+      <div className="z-[2] flex flex-col items-center justify-center lg:w-[850px]">
         <FabricMattersSection />
         <DifferenceGrid />
         <CustomFitSection />
