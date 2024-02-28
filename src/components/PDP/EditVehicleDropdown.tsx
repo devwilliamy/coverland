@@ -43,8 +43,6 @@ export default function EditVehicleDropdown({
   searchParams: { submodel?: string; second_submodel?: string } | undefined;
 }) {
   const pathname = usePathname();
-  console.log('path', pathname);
-  console.log(BASE_URL);
 
   const [query, setQuery] = useState<TQuery>({
     year: '',
@@ -57,8 +55,6 @@ export default function EditVehicleDropdown({
   const [jsonData, setJsonData] = useState<TProductJsonData[]>([]);
   const router = useRouter();
   const { year, type, make, model, submodel } = query;
-  console.log(jsonData);
-  console.log(year);
   useEffect(() => {
     const getSearchData = async () => {
       if (!make) return;
@@ -67,7 +63,7 @@ export default function EditVehicleDropdown({
         `/api/json-data?type=${slugify(type)}&make=${slugify(make)}`
       );
       const jsonData = await response.json();
-      console.log('jsonData', response);
+
       setJsonData(jsonData);
     };
     getSearchData();

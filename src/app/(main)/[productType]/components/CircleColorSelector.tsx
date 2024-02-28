@@ -19,12 +19,14 @@ export default function CircleColorSelector({
   uniqueColors,
   selectedProduct,
   setSelectedProduct,
+  handleColorChange,
 }: {
   uniqueColors: IProductData[];
   productRefs: React.MutableRefObject<ProductRefs>;
   setFeaturedImage: (img: string) => void;
   setSelectedProduct: (product: IProductData) => void;
   selectedProduct: IProductData;
+  handleColorChange: (newSelectedProduct: IProductData) => void;
 }) {
   const colorMap: Record<string, StaticImageData> = {
     'Gray Black Tribe': GrayBlackTribe,
@@ -86,6 +88,7 @@ export default function CircleColorSelector({
                 onClick={() => {
                   setSelectedProduct(modelData);
                   setSelectedColor(modelData.display_color as string);
+                  handleColorChange(modelData);
                 }}
               >
                 {modelData.display_color && (

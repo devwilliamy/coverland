@@ -41,7 +41,6 @@ export const MobileImageCarousel = ({
   carouselItems.splice(3, 0, String(SevenSecVideoThumbnail));
 
   const [isVisible, ref] = useIsVisible();
-  console.log('isVisible', isVisible);
 
   useEffect(() => {
     if (!api) {
