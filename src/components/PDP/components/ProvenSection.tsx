@@ -49,12 +49,12 @@ export default function ProvenSection() {
           <Image alt="" src={WaterproofThumbnail} />
         )}
         <Image
-          alt=""
+          alt="Water Vs"
           src={WaterVS}
           className="w-full rounded-ss-sm lg:hidden"
         />
         <Image
-          alt=""
+          alt="Water Vs Desktop"
           src={WaterVSDesktop}
           className="hidden w-full rounded-ss-sm lg:block"
         />
@@ -65,12 +65,12 @@ export default function ProvenSection() {
         </p>
         {isVisible ? <UVResistanceVideo /> : <Image alt="" src={UVThumbnail} />}
         <Image
-          alt=""
+          alt="UV Vs"
           src={UltravioletVS}
           className=" w-full rounded-ss-sm lg:hidden"
         />
         <Image
-          alt=""
+          alt="UV Vs Desktop"
           src={UltravioletVSDesktop}
           className="hidden w-full rounded-ss-sm lg:block"
         />

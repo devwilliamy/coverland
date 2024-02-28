@@ -27,7 +27,11 @@ const CoversGrid = () => {
                 {title}
               </p>
               <div className="flex flex-[0.9] lg:h-full lg:w-full ">
-                <Image alt="" src={img} className="object-cover" />
+                <Image
+                  alt={`cover-image-${title}`}
+                  src={img}
+                  className="object-cover"
+                />
               </div>
             </a>
           </div>

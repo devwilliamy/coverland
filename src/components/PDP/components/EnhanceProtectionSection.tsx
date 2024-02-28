@@ -2,7 +2,7 @@ import Image from 'next/image';
 import React from 'react';
 import AirVents from '@/images/PDP/Product-Details-Redesign-2/keep_dry.webp';
 import TapeSeams from '@/images/PDP/Product-Details-Redesign-2/zero_leaks.webp';
-import WindStraps from '@/images/PDP/Product-Details-Redesign-2/wind-straps.png';
+import WindStraps from '@/images/PDP/Product-Details-Redesign-2/wind-straps.webp';
 
 export default function EnhanceProtectionSection() {
   const protectionData = [
@@ -27,7 +27,7 @@ export default function EnhanceProtectionSection() {
       <p className="w-full pb-[35px] text-center text-[30px] font-[600] leading-[35px]  ">
         Enhanced Protection
       </p>
-      <div className="flex w-full flex-grow flex-col lg:flex-row lg:justify-stretch lg:gap-[21px]">
+      <div className="flex flex-col lg:flex-row lg:justify-center lg:gap-[21px] lg:px-[39px]">
         {protectionData.map(({ image, title, description }) => (
           <div key={title} className="space-y-2 text-center">
             <Image
