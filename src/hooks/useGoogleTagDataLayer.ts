@@ -63,57 +63,51 @@ export const useItemViewedGoogleTag = (
   }, [params, productName, selectedProduct]);
 };
 
-export const useCheckoutViewedGoogleTag = (selectedProduct, productName) => {
-  const {
-    cartItems,
-    getTotalPrice,
-    getOrderSubtotal,
-    getTotalDiscountPrice,
-    getTotalCartQuantity,
-  } = useCartContext();
+export const useCheckoutViewedGoogleTag = () => {
+  const { cartItems, getTotalPrice } = useCartContext();
   useEffect(() => {
-    const price = selectedProduct?.price || '0';
-    const msrp = selectedProduct?.msrp || '0';
-    const discount: number = parseFloat(price) - parseFloat(msrp);
+    const cartItemsToGTagItems = cartItems.map((cartItem, index) => {
+      const productName = `${cartItem.fullProductName} Premium Plus ${cartItem.type}`;
+      const price = cartItem?.price || '0';
+      const msrp = cartItem?.msrp || '0';
+      const discount: number = parseFloat(price) - parseFloat(msrp);
+      return {
+        item_id: cartItem?.sku,
+        item_name: productName,
+        affiliation: undefined,
+        coupon: undefined,
+        discount: discount,
+        index: index,
+        item_brand: 'Coverland',
+        item_category: cartItem.type,
+        item_category2: 'Premium Plus',
+        item_category3: cartItem.make,
+        item_category4: cartItem.model,
+        item_category5: cartItem.parent_generation,
+        item_category6: cartItem.submodel1,
+        item_category7: cartItem.submodel2,
+        item_category8: cartItem.submodel3,
+        item_list_id: undefined,
+        item_list_name: undefined,
+        item_variant: cartItem.display_color,
+        location_id: undefined,
+        price: msrp,
+        quantity: cartItem.quantity,
+      };
+    });
+
     window?.dataLayer?.push({ ecommerce: null }); // Clear the previous ecommerce object.
     window?.dataLayer?.push(
       {
         event: 'begin_checkout',
         ecommerce: {
           currency: 'USD',
-          value: msrp,
+          value: getTotalPrice().toFixed(2),
           coupon: undefined,
-          items: [
-            {
-              item_id: selectedProduct?.sku,
-              item_name: productName,
-              affiliation: undefined,
-              coupon: undefined,
-              discount: discount,
-              index: 0,
-              item_brand: 'Coverland',
-              item_category: 'Apparel',
-              item_category2: 'Adult',
-              item_category3: 'Shirts',
-              item_category4: 'Crew',
-              item_category5: 'Short sleeve',
-              item_list_id: 'related_products',
-              item_list_name: 'Related Products',
-              item_variant: 'green',
-              location_id: 'ChIJIQBpAG2ahYAR_6128GcTUEo',
-              price: 10.01,
-              quantity: 3,
-            },
-          ],
+          items: cartItemsToGTagItems,
         },
       },
-      [
-        cartItems,
-        getTotalPrice,
-        getOrderSubtotal,
-        getTotalDiscountPrice,
-        getTotalCartQuantity,
-      ]
+      [cartItems, getTotalPrice]
     );
   });
 };
@@ -135,6 +129,7 @@ export const useThankYouViewedGoogleTag = (
     getTotalCartQuantity,
   } = useCartContext();
   useEffect(() => {
+    // console.log('CartItems:', cartItems);
     if (typeof window !== 'undefined' && window.performance) {
       const navigationType = window.performance.navigation.type;
       if (navigationType === PerformanceNavigation.TYPE_RELOAD) {
@@ -144,12 +139,35 @@ export const useThankYouViewedGoogleTag = (
         window?.dataLayer?.push({
           event: 'purchase',
           ecommerce: {
-            items: cartItems,
-            orderNumber: orderNumber,
-            totalPrice: getTotalPrice(),
-            subtotal: getOrderSubtotal(),
-            discountPrice: getTotalDiscountPrice(),
-            cartQuantity: getTotalCartQuantity(),
+            transaction_id: 'T_12345',
+            // Sum of (price * quantity) for all items.
+            value: 72.05,
+            tax: 3.6,
+            shipping: 5.99,
+            currency: 'USD',
+            coupon: 'SUMMER_SALE',
+            items: [
+              {
+                item_id: 'SKU_12345',
+                item_name: 'Stan and Friends Tee',
+                affiliation: 'Google Merchandise Store',
+                coupon: 'SUMMER_FUN',
+                discount: 2.22,
+                index: 0,
+                item_brand: 'Google',
+                item_category: 'Apparel',
+                item_category2: 'Adult',
+                item_category3: 'Shirts',
+                item_category4: 'Crew',
+                item_category5: 'Short sleeve',
+                item_list_id: 'related_products',
+                item_list_name: 'Related Products',
+                item_variant: 'green',
+                location_id: 'ChIJIQBpAG2ahYAR_6128GcTUEo',
+                price: 10.01,
+                quantity: 3,
+              },
+            ],
           },
         });
       }
