@@ -19,8 +19,9 @@ import LifetimeSection from '@/components/PDP/components/LifetimeSection';
 import FeaturesSection from '@/components/PDP/components/FeaturesSection';
 import { ExtraProductDetails } from '@/components/PDP/OtherDetails';
 import { useParams } from 'next/navigation';
+import dynamic from 'next/dynamic';
 
-const EditVehiclePopover = dynamicImport(
+const EditVehiclePopover = dynamic(
   () => import('@/components/PDP/components/EditVehiclePopover')
 );
 

@@ -1,8 +1,8 @@
 import Image, { StaticImageData } from 'next/image';
 import React from 'react';
-import AirVents from '@/images/PDP/Product-Details-Redesign-2/keep_dry.webp';
-import TapeSeams from '@/images/PDP/Product-Details-Redesign-2/zero_leaks.webp';
-import WindStraps from '@/images/PDP/Product-Details-Redesign-2/wind-straps.webp';
+import AirVents from '@/images/PDP/Product-Details-Redesign-2/premium-plus/keep_dry.webp';
+import TapeSeams from '@/images/PDP/Product-Details-Redesign-2/premium-plus/zero_leaks.webp';
+import WindStraps from '@/images/PDP/Product-Details-Redesign-2/premium-plus/wind-straps.webp';
 import PremiumZippers from '@/images/PDP/Product-Details-Redesign-2/premium/premium-side-zipper.webp';
 import PremiumAirVents from '@/images/PDP/Product-Details-Redesign-2/premium/premium-air-vents.webp';
 import PremiumTapeSeams from '@/images/PDP/Product-Details-Redesign-2/premium/premium-tape-seams.webp';
@@ -56,36 +56,39 @@ export default function EnhanceProtectionSection() {
     title: string;
     description: string;
   }[] = [];
-
-  // : {
-  //   image: StaticImageData;
-  //   title: string;
-  //   desription: string;
-  // };
   const params = useParams();
-  const isPremium = params?.coverType === 'premium';
-  if (isPremium) {
-    protectionData = premiumData;
-  } else {
-    protectionData = premiumPlusData;
+  const coverType = params?.coverType;
+  const isPremiumPlus = params?.coverType === 'premium-plus';
+  switch (coverType) {
+    case 'premium-plus':
+      protectionData = premiumPlusData;
+      break;
+    default:
+      protectionData = premiumData;
+      break;
   }
 
   return (
     <section className=" pt-[60px] ">
-      <p className="w-full pb-[35px] text-center text-[30px] font-[600] leading-[35px]  ">
+      <p className="w-full pb-[35px] text-center text-[30px] font-[600] leading-[35px] lg:text-[45px] lg:leading-[52px]  ">
         Enhanced Protection
       </p>
       <div
-        className={`flex flex-col ${isPremium ? 'lg:grid lg:grid-cols-2 lg:gap-0' : ' lg:flex-row'} lg:justify-center lg:gap-[21px] lg:px-[39px]`}
+        className={`flex flex-col ${!isPremiumPlus ? 'lg:grid lg:grid-cols-[max(420px)_max(420px)] lg:gap-0' : ' lg:flex-row'} lg:justify-center lg:gap-[21px] lg:px-[39px]`}
       >
         {protectionData.map(({ image, title, description }) => (
-          <div key={title} className="flex flex-col items-center ">
+          <div
+            key={title}
+            className="flex flex-col items-center max-lg:pt-4 lg:flex-[420px] "
+          >
             <Image
               alt="enhanced-item"
               src={image}
-              className="w-full rounded-lg lg:h-[221px] lg:w-[420px]"
+              height={221}
+              width={420}
+              className="aspect-video w-full min-w-full rounded-[12px] "
             />
-            <p className="space-x-2 text-[18px] font-[600] leading-[21px]">
+            <p className="space-x-2 pt-[22px] text-[18px] font-[600] leading-[21px]">
               {title}
             </p>
             <p className="mx-auto text-[#7D7D7D] lg:max-w-[208px] lg:text-center">

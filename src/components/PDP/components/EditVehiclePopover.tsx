@@ -37,7 +37,7 @@ export default function EditVehiclePopover({
     ? `${submodel1 ?? ''} ${selectedYear ?? ''}`
     : '';
   return (
-    <div className=" flex h-full flex-col  justify-center lg:hidden">
+    <div className=" flex h-full w-full flex-col  justify-center lg:hidden">
       <Drawer.Root open={open} onOpenChange={setOpen}>
         <Drawer.Trigger className="flex h-full items-center justify-between text-left text-base text-[#1A1A1A]">
           <div className="my-2 border-l-2 border-l-[#C8C7C7] pl-8 pr-8">

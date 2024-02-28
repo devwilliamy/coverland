@@ -87,7 +87,7 @@ export function ProductContent({
             {`Custom-Fit ${productType}`}
           </h2>
           {/* Rating(s) */}
-          <div className="mt-1 flex items-end gap-1 lg:mt-2">
+          <div className="-ml-0.5 mt-1 flex items-end gap-1 lg:mt-2">
             <div className="flex gap-1 ">
               <Rating
                 name="read-only"
@@ -103,7 +103,7 @@ export function ProductContent({
           </div>
         </div>
       </div>
-      <section className="flex flex-col pt-[34px] ">
+      <section className="flex flex-col pt-[28px] ">
         <p className="mb-3 text-[16px] leading-[14px]">
           {isComplete ? '' : 'From'}
         </p>
@@ -116,7 +116,7 @@ export function ProductContent({
             </div>
           )}
         </div>
-        <div className="mt-4 flex items-center gap-2 ">
+        <div className="mt-1 flex items-center gap-2 ">
           <p className=" text-[14px] leading-[16px] text-[#767676] lg:text-[16px]">
             4 interest-free installments of{' '}
             <b className="font-[400] text-black">$39.99</b>
