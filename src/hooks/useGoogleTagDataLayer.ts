@@ -50,7 +50,7 @@ export const useItemViewedGoogleTag = (selectedProduct: IProductData) => {
             item_name: productName,
             affiliation: undefined,
             coupon: undefined,
-            discount: isComplete ? discount : undefined,
+            discount: undefined, // Removed temporarily because we transfer the promotional price or something
             index: 0,
             item_brand: 'Coverland',
             item_category: params?.productType,
@@ -88,7 +88,7 @@ export const useCheckoutViewedGoogleTag = () => {
         item_name: productName,
         affiliation: undefined,
         coupon: undefined,
-        discount: discount,
+        discount: undefined, // Removed temporarily because we transfer the promotional price or something
         index: index,
         item_brand: 'Coverland',
         item_category: cartItem.type,
@@ -149,7 +149,7 @@ export const useThankYouViewedGoogleTag = (
             item_name: productName,
             affiliation: undefined,
             coupon: undefined,
-            discount: discount,
+            discount: undefined, // Removed temporarily because we transfer the promotional price or something
             index: index,
             item_brand: 'Coverland',
             item_category: cartItem.type,
@@ -207,7 +207,7 @@ export const handleAddToCartGoogleTag = (
           item_name: productName,
           affiliation: undefined,
           coupon: undefined,
-          discount: discount,
+          discount: undefined, // Removed temporarily because we transfer the promotional price or something
           index: 0,
           item_brand: 'Coverland',
           item_category: params?.productType,
