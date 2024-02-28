@@ -36,13 +36,9 @@ export function PrimaryImageDisplay({
 }) {
   const [showMore, setShowMore] = useState(false);
   const isMobile = useMediaQuery('(max-width: 1023px)');
-  const [isVisible, ref] = useIsVisible();
 
   return (
-    <div
-      className=" -ml-4 flex  w-screen flex-col items-stretch justify-center lg:w-3/5 lg:pb-0 "
-      ref={ref as LegacyRef<HTMLDivElement> | undefined}
-    >
+    <div className=" -ml-4 flex  w-screen flex-col items-stretch justify-center lg:w-3/5 lg:pb-0 ">
       <div className="relative mb-4 flex h-full w-full items-center justify-center bg-[#F2F2F2] lg:h-[650px] lg:rounded-xl">
         <MobileImageCarousel
           selectedProduct={selectedProduct}
@@ -62,7 +58,7 @@ export function PrimaryImageDisplay({
       </div>
 
       {/* Product Video */}
-      {!isMobile && isVisible && (
+      {!isMobile && (
         <ProductVideo
           src={SixMinVideo}
           imgSrc={Thumbnail}

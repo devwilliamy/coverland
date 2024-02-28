@@ -6,7 +6,6 @@ import ProductVideo from '../ProductVideo';
 import ThreeSixtyVideo from '@/videos/https_x2kly621zrgfgwll.public.blob.vercel-storage.com_videos_360_20degree_mobile-4asLajZOfJp9h3V3q1XkSHFETp6T8h.mp4.json';
 import { Separator } from '@/components/ui/separator';
 import SuggestedProducts from './SuggestedProducts';
-import useIsVisible from '@/lib/hooks/useIsVisible';
 
 export default function MobileProductDetails() {
   const [seeMore, setSeeMore] = useState(false);
@@ -24,20 +23,9 @@ export default function MobileProductDetails() {
 }
 
 const ThreeSixtySection = () => {
-  const [isVisible, ref] = useIsVisible();
   return (
-    <div
-      className="flex w-full flex-col "
-      ref={ref as React.LegacyRef<HTMLDivElement> | undefined}
-    >
-      {isVisible && (
-        <ProductVideo
-          src={ThreeSixtyVideo}
-          autoplay
-          loop
-          aspectRatio="16 / 9"
-        />
-      )}
+    <div className="flex w-full flex-col ">
+      <ProductVideo src={ThreeSixtyVideo} autoplay loop aspectRatio="16 / 9" />
       <div className="mt-[-5px] h-full min-h-[174px] w-full bg-[#1A1A1A] pl-[12px] ">
         <h1 className="max-h-[68px] max-w-[178px] pt-[22px] text-[22px] font-[900] uppercase leading-[34px] text-[#F2F2F2] ">
           Tailored for the perfect fit

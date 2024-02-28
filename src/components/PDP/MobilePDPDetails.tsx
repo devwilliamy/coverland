@@ -21,7 +21,6 @@ import ProductVideo from './ProductVideo';
 import ThreeSixtyVideo from '@/videos/https_x2kly621zrgfgwll.public.blob.vercel-storage.com_videos_360_20degree_mobile-4asLajZOfJp9h3V3q1XkSHFETp6T8h.mp4.json';
 import { track } from '@vercel/analytics';
 import { CarSelectionContext } from '@/app/(main)/[productType]/components/CarPDP';
-import useIsVisible from '@/lib/hooks/useIsVisible';
 
 const CarCoverFeature = ({ children }: { children: string }) => (
   <li className="text-[14px] font-[500] normal-case leading-[26px]">
@@ -38,7 +37,6 @@ export const MobilePDPDetails = () => {
   const srRef = useRef<HTMLDivElement>(null);
   const warRef = useRef<HTMLDivElement>(null);
   const ccrRef = useRef<HTMLDivElement>(null);
-  const [isVisible, ref] = useIsVisible();
 
   return (
     <div className=" w-full px-4 lg:hidden">
@@ -96,18 +94,13 @@ export const MobilePDPDetails = () => {
             <StickySheetItem title="Product Details">
               <div className="mt-[-10px]" ref={pdRef}>
                 {/* <ProductHero /> */}
-                <div
-                  className="flex w-full flex-col "
-                  ref={ref as LegacyRef<HTMLDivElement> | undefined}
-                >
-                  {isVisible && (
-                    <ProductVideo
-                      src={ThreeSixtyVideo}
-                      autoplay
-                      loop
-                      aspectRatio="16 / 9"
-                    />
-                  )}
+                <div className="flex w-full flex-col ">
+                  <ProductVideo
+                    src={ThreeSixtyVideo}
+                    autoplay
+                    loop
+                    aspectRatio="16 / 9"
+                  />
                   <div className="mt-[-5px] h-full min-h-[174px] w-full bg-[#1A1A1A] pl-[12px] ">
                     <h1 className="max-h-[68px] max-w-[178px] pt-[22px] text-[22px] font-[900] uppercase leading-[34px] text-[#F2F2F2] ">
                       Tailored for the perfect fit
