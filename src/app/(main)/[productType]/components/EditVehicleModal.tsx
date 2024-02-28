@@ -60,7 +60,7 @@ export function EditVehicleModal({
           </div>
         </PopoverTrigger>
         <PopoverContent className="min-w-[100px] rounded-xl border border-gray-300 bg-white p-5 shadow-lg">
-          {/* <EditVehicleDropdown setOpen={setOpen} searchParams={searchParams} /> */}
+          <EditVehicleDropdown setOpen={setOpen} searchParams={searchParams} />
         </PopoverContent>
       </Popover>
     </div>
