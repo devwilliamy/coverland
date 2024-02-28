@@ -4,7 +4,7 @@ import { TInitialProductDataDB } from '@/lib/db';
 import { Rating } from '@mui/material';
 import { CarSelectionContext } from './CarPDP';
 import { useMediaQuery } from '@mantine/hooks';
-import { RefObject, useContext, useState } from 'react';
+import { RefObject, Suspense, useContext, useState } from 'react';
 import CartSheet from '@/components/cart/CartSheet';
 import { compareRawStrings } from '@/lib/utils';
 
@@ -131,7 +131,9 @@ export function ProductContent({
         />
       </div>
       <Separator className="mt-[36px] " />
-      <FreeDetails />
+      <Suspense>
+        <FreeDetails />
+      </Suspense>
       <AddToCart
         selectedProduct={selectedProduct}
         handleAddToCart={handleAddToCart}
