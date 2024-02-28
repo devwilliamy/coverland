@@ -5,14 +5,11 @@ import {
   getCompleteSelectionData,
 } from '@/app/(main)/utils';
 import { useCartContext } from '@/providers/CartProvider';
-import { useParams, usePathname } from 'next/navigation';
+import { useParams } from 'next/navigation';
 import { useContext, useEffect } from 'react';
 import { useStore } from 'zustand';
 
-export const useItemViewedGoogleTag = (
-  selectedProduct: IProductData,
-  productName: string
-) => {
+export const useItemViewedGoogleTag = (selectedProduct: IProductData) => {
   const store = useContext(CarSelectionContext);
   if (!store) throw new Error('Missing CarContext.Provider in the tree');
   const params = useParams<TPathParams>();
@@ -23,23 +20,37 @@ export const useItemViewedGoogleTag = (
   } = getCompleteSelectionData({
     data: modelData,
   });
+
   useEffect(() => {
     const price = selectedProduct?.price || '0';
     const msrp = selectedProduct?.msrp || '0';
     const discount: number = parseFloat(price) - parseFloat(msrp);
+    const {
+      year = '',
+      make = '',
+      model = '',
+      coverType = '',
+      productType = '',
+    } = params || {};
+
+    const productName = isComplete
+      ? `${selectedProduct.fullProductName} Premium Plus ${selectedProduct.type}`
+      : `${year} ${make} ${model} ${coverType} ${productType}`
+          .replace(/  +/g, ' ')
+          .trim();
     window?.dataLayer?.push({ ecommerce: null }); // Clear the previous ecommerce object.
     window?.dataLayer?.push({
       event: 'view_item',
       ecommerce: {
         currency: 'USD',
-        value: msrp,
+        value: isComplete ? msrp : undefined,
         items: [
           {
-            item_id: selectedProduct?.sku,
+            item_id: isComplete ? selectedProduct?.sku : undefined,
             item_name: productName,
             affiliation: undefined,
             coupon: undefined,
-            discount: discount,
+            discount: isComplete ? discount : undefined,
             index: 0,
             item_brand: 'Coverland',
             item_category: params?.productType,
@@ -47,20 +58,20 @@ export const useItemViewedGoogleTag = (
             item_category3: params?.make,
             item_category4: params?.model,
             item_category5: params?.year,
-            item_category6: selectedProduct?.submodel1,
-            item_category7: selectedProduct?.submodel2,
-            item_category8: selectedProduct?.submodel3,
+            item_category6: isComplete ? selectedProduct?.submodel1 : undefined,
+            item_category7: isComplete ? selectedProduct?.submodel2 : undefined,
+            item_category8: isComplete ? selectedProduct?.submodel3 : undefined,
             item_list_id: undefined,
             item_list_name: undefined,
             item_variant: selectedProduct?.display_color,
             location_id: undefined,
-            price: msrp,
+            price: isComplete ? msrp : undefined,
             quantity: 1,
           },
         ],
       },
     });
-  }, [params, productName, selectedProduct]);
+  }, [params, selectedProduct, isComplete]);
 };
 
 export const useCheckoutViewedGoogleTag = () => {
@@ -186,8 +197,7 @@ export const handleAddToCartGoogleTag = (
   const price = cartProduct?.price || '0';
   const msrp = cartProduct?.msrp || '0';
   const discount: number = parseFloat(price) - parseFloat(msrp);
-  const productName = `${params?.year} ${params?.make} ${params?.model} ${params?.coverType} ${params?.productType}`;
-
+  const productName = `${cartProduct.fullProductName} Premium Plus ${cartProduct.type}`;
   window?.dataLayer?.push({ ecommerce: null }); // Clear the previous ecommerce object.
   window?.dataLayer?.push({
     event: 'add_to_cart',

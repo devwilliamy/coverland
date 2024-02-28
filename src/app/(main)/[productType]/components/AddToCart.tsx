@@ -46,7 +46,6 @@ export default function AddToCart({
 
   if (!store) throw new Error('Missing CarContext.Provider in the tree');
   const modelData = useStore(store, (s) => s.modelData);
-  console.log('AddToCart modelData:', modelData);
   const [addToCartOpen, setAddToCartOpen] = useState<boolean>(false);
 
   const isTypePage = params?.productType && !params?.make;
