@@ -18,7 +18,9 @@ const FabricMattersSection = () => {
       <Image
         alt="cover-with-water-droplets"
         src={WhiteLayerDesktop}
-        className="mb-[14px] hidden h-[200px] w-full lg:block lg:h-[550px] lg:w-[850px] "
+        width={840}
+        height={472}
+        className=" hidden w-full lg:block"
       />
     </div>
   );

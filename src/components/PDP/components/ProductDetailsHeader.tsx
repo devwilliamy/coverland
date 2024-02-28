@@ -9,8 +9,14 @@ import {
 import { useParams } from 'next/navigation';
 
 export default function ProductDetailsHeader() {
-  const params = useParams();
-  const make = params?.make;
+  const params = useParams<{
+    make?: string;
+    model?: string;
+    year?: string;
+    productType?: string;
+  }>();
+  if (!params) return null;
+  const { make, model, year } = params;
   let productType = params?.productType;
   if (productType === 'truck-covers') {
     productType = 'Truck';
@@ -26,12 +32,13 @@ export default function ProductDetailsHeader() {
     { title: 'Paint Protection', icon: <GraySunIcon /> },
     { title: 'Custom Fit', icon: <GrayCarIcon /> },
   ];
+
+  const protectText = model ?? make ?? productType;
   return (
     <section className="relative -mx-4 mb-[60px] flex flex-col items-center  ">
       <div className="flex py-7 text-center">
         <p className="w-full text-[26px] font-[500] leading-[26px] text-white lg:p-[6px] lg:pt-[60px] lg:text-[45px]  lg:leading-[32px]">
-          Protect your{' '}
-          <span className={`capitalize`}>{make ? make : productType}</span> now
+          Protect your <span className={`capitalize`}>{protectText}</span> now
         </p>
       </div>
       <div className="flex w-screen items-center justify-center lg:w-full ">
@@ -46,9 +53,9 @@ export default function ProductDetailsHeader() {
           alt="product-content-half-cover-desktop"
           src={DesktopHalfCover}
           // fill
-          // height={700}
-          width={1320}
-          className="hidden  w-[1320px] lg:flex lg:max-w-[90%]"
+          height={472}
+          width={840}
+          className="hidden lg:block"
         />
       </div>
 

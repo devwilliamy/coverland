@@ -344,7 +344,7 @@ const AddToCartSelector = ({
           className="mt-auto flex flex-col gap-3 bg-white px-4 py-3 align-bottom"
         >
           <p className="text-right font-extrabold leading-4 text-black">
-            Total: ${selectedProduct.msrp}
+            Starting from ${selectedProduct.msrp}
           </p>
           <Button
             onClick={() => {

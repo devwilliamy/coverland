@@ -1,6 +1,7 @@
 import React from 'react';
 import ProductVideo from '@/components/PDP/ProductVideo';
-import ThreeSixtyVideo from '@/videos/360 degree_website.mp4';
+// import ThreeSixtyVideo from '@/videos/360 degree_website.mp4';
+import ThreeSixtyVideo from 'https://x2kly621zrgfgwll.public.blob.vercel-storage.com/videos/360%20degree_mobile-4asLajZOfJp9h3V3q1XkSHFETp6T8h.mp4';
 
 const CustomFitSection = () => {
   return (

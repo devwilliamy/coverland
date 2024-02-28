@@ -75,6 +75,7 @@ function CheckoutPage() {
     getOrderSubtotal,
     getTotalDiscountPrice,
     getTotalCartQuantity,
+    clearLocalStorageCart,
   } = useCartContext();
   const [promoCode, setPromoCode] = useState('');
   const [promoError, setPromoError] = useState(false);
@@ -353,6 +354,7 @@ function CheckoutPage() {
                       const response = await paypalCaptureOrder(data.orderID);
                       console.log(response);
                       if (response.success) {
+                        clearLocalStorageCart();
                         router.push(
                           `/thank-you?order-number=CL-P-${data.orderID}`
                         );

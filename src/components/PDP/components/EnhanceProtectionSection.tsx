@@ -14,7 +14,7 @@ export default function EnhanceProtectionSection() {
     {
       image: TapeSeams,
       title: 'Tape Seams',
-      description: 'Prevents any leakage through the seams',
+      description: `Prevents any leakage through the seams`,
     },
     {
       image: WindStraps,
@@ -27,18 +27,20 @@ export default function EnhanceProtectionSection() {
       <p className="w-full pb-[35px] text-center text-[30px] font-[600] leading-[35px]  ">
         Enhanced Protection
       </p>
-      <div className="flex flex-col lg:flex-row lg:justify-center lg:gap-[21px] lg:px-[60px]">
+      <div className="flex w-full flex-grow flex-col lg:flex-row lg:justify-stretch lg:gap-[21px]">
         {protectionData.map(({ image, title, description }) => (
-          <div key={title} className="flex flex-col items-center ">
+          <div key={title} className="space-y-2 text-center">
             <Image
               alt="enhanced-item"
               src={image}
-              className="h-full max-h-[180px] min-h-[180px] w-full rounded-lg"
+              className="rounded-lg lg:h-[221px] lg:w-[420px]"
             />
-            <div className="flex w-full flex-col items-center py-4 ">
-              <p className="text-[18px] font-[600] leading-[21px]">{title}</p>
-              <p className="text-[#7D7D7D] lg:text-center">{description}</p>
-            </div>
+            <p className="space-x-2 text-[18px] font-[600] leading-[21px]">
+              {title}
+            </p>
+            <p className="mx-auto text-[#7D7D7D] lg:max-w-[208px] lg:text-center">
+              {description}
+            </p>
           </div>
         ))}
       </div>

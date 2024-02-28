@@ -45,6 +45,11 @@ const useCart = () => {
       return updatedItems;
     });
   }, []);
+  const clearLocalStorageCart = useCallback(() => {
+    if (typeof window !== 'undefined') {
+      localStorage.removeItem('cartItems');
+    }
+  }, []);
   const getOrderSubtotal = useCallback(() => {
     return cartItems.reduce(
       (total, item) => total + Number(item.price as string) * item.quantity,
@@ -79,6 +84,7 @@ const useCart = () => {
     getTotalCartQuantity,
     cartOpen,
     setCartOpen,
+    clearLocalStorageCart,
   };
 };
 export default useCart;

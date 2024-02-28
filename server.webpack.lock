@@ -1,4 +1,6 @@
 {
+  "https://x2kly621zrgfgwll.public.blob.vercel-storage.com/videos/360%20degree_mobile-4asLajZOfJp9h3V3q1XkSHFETp6T8h.mp4": { "integrity": "sha512-BQU0EOSOXgZOgKqAGMRH19F1OBZT8sWzgIsN65GmY0nqk3cvXrG192bAa4E7YKO0mJR9P3KDk+ubPGO6Z/TKew==", "contentType": "video/mp4" },
+  "https://x2kly621zrgfgwll.public.blob.vercel-storage.com/videos/7sec%20Listing%20Video_Compressed-5HxXKYp1dbtgG8gEs5DR6quoWoOpFS.mp4": { "integrity": "sha512-ZgzmpPsXfGB4QZCSmk3cLIT/UTGk5cuYn6Wewu2Pr2n+6p5Hyxu7pRmlo2PoWmFQdye7Wh1gp04nZzCJoKQ9Hw==", "contentType": "video/mp4" },
   "https://x2kly621zrgfgwll.public.blob.vercel-storage.com/videos/FINALIZE_WEBSTIE_16_9_OPTIMIZED.mp4": { "integrity": "sha512-3YZtC6/GCE4Bd9B9AJzhs6O5do7G6jvxOdmk7lnHRkiYRdl3KABAId3VfEnfN0GXhH7kKUnPfCg/qXpcX/1QZg==", "contentType": "video/mp4" },
   "version": 1
 }

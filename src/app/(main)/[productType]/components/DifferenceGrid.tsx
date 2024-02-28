@@ -108,7 +108,9 @@ export default function DifferenceGrid() {
         <Image
           alt="Others-VS-Coverland"
           src={OthersVSCoverlandDesktop}
-          className="mb-[14px] hidden w-full lg:block"
+          width={840}
+          height={472}
+          className=" hidden lg:block"
         />
       </span>
       <div className="mt-[24px] flex flex-col overflow-hidden rounded-md">

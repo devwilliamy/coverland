@@ -30,7 +30,7 @@ export default function SuggestedProducts() {
       <span className=" no-scrollbar flex gap-2 overflow-x-auto pb-[30px]">
         {products.map((model) => (
           <div key={model.type.slug} className="flex shrink-0 flex-col">
-            <Link href={`/${productType}/${model.type.slug}`}>
+            <Link href={`/${productType}/${model.type.slug}`} passHref>
               <Image
                 alt="suggested-product"
                 width={200}
