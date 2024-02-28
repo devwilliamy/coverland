@@ -46,7 +46,6 @@ export default function AddToCart({
 
   if (!store) throw new Error('Missing CarContext.Provider in the tree');
   const modelData = useStore(store, (s) => s.modelData);
-
   const [addToCartOpen, setAddToCartOpen] = useState<boolean>(false);
 
   const isTypePage = params?.productType && !params?.make;
@@ -56,7 +55,6 @@ export default function AddToCart({
   } = getCompleteSelectionData({
     data: modelData,
   });
-  console.log('');
   return (
     <div>
       <div className="mt-8 w-full" id="selector">
@@ -80,7 +78,10 @@ export default function AddToCart({
                 });
               if (isComplete) {
                 handleAddToCart();
-                handleAddToCartGoogleTag(selectedProduct);
+                handleAddToCartGoogleTag(
+                  selectedProduct,
+                  params as TPathParams
+                );
                 isMobile ? router.push('/checkout') : setAddToCartOpen(true);
                 return;
               }
@@ -137,7 +138,7 @@ const AddToCartSelector = ({
 
   const handleAddToCart = () => {
     if (!cartProduct) return;
-    handleAddToCartGoogleTag(cartProduct);
+    handleAddToCartGoogleTag(cartProduct, params as TPathParams);
     return addToCart({ ...cartProduct, quantity: 1 });
   };
 
