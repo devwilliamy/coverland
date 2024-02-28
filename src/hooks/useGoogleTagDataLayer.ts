@@ -22,9 +22,9 @@ export const useItemViewedGoogleTag = (selectedProduct: IProductData) => {
   });
 
   useEffect(() => {
-    const price = selectedProduct?.price || '0';
-    const msrp = selectedProduct?.msrp || '0';
-    const discount: number = parseFloat(price) - parseFloat(msrp);
+    const price = parseFloat(selectedProduct?.price || '0') || 0;
+    const msrp = parseFloat(selectedProduct?.msrp || '0') || 0;
+    const discount: number = price - msrp;
     const {
       year = '',
       make = '',
@@ -80,9 +80,9 @@ export const useCheckoutViewedGoogleTag = () => {
     // TODO: - Extract this into a map function
     const cartItemsToGTagItems = cartItems.map((cartItem, index) => {
       const productName = `${cartItem.fullProductName} Premium Plus ${cartItem.type}`;
-      const price = cartItem?.price || '0';
-      const msrp = cartItem?.msrp || '0';
-      const discount: number = parseFloat(price) - parseFloat(msrp);
+      const price = parseFloat(cartItem?.price || '0') || 0;
+      const msrp = parseFloat(cartItem?.msrp || '0') || 0;
+      const discount: number = price - msrp;
       return {
         item_id: cartItem?.sku,
         item_name: productName,
@@ -109,19 +109,16 @@ export const useCheckoutViewedGoogleTag = () => {
     });
 
     window?.dataLayer?.push({ ecommerce: null }); // Clear the previous ecommerce object.
-    window?.dataLayer?.push(
-      {
-        event: 'begin_checkout',
-        ecommerce: {
-          currency: 'USD',
-          value: getTotalPrice().toFixed(2),
-          coupon: undefined,
-          items: cartItemsToGTagItems,
-        },
+    window?.dataLayer?.push({
+      event: 'begin_checkout',
+      ecommerce: {
+        currency: 'USD',
+        value: parseFloat(getTotalPrice().toFixed(2)),
+        coupon: undefined,
+        items: cartItemsToGTagItems,
       },
-      [cartItems, getTotalPrice]
-    );
-  });
+    });
+  }, [cartItems, getTotalPrice]);
 };
 
 type Item = {
@@ -144,9 +141,9 @@ export const useThankYouViewedGoogleTag = (
         // TODO: - Extract this into a map function
         const cartItemsToGTagItems = cartItems.map((cartItem, index) => {
           const productName = `${cartItem.fullProductName} Premium Plus ${cartItem.type}`;
-          const price = cartItem?.price || '0';
-          const msrp = cartItem?.msrp || '0';
-          const discount: number = parseFloat(price) - parseFloat(msrp);
+          const price = parseFloat(cartItem?.price || '0') || 0;
+          const msrp = parseFloat(cartItem?.msrp || '0') || 0;
+          const discount: number = price - msrp;
           return {
             item_id: cartItem?.sku,
             item_name: productName,
@@ -177,7 +174,7 @@ export const useThankYouViewedGoogleTag = (
           ecommerce: {
             transaction_id: orderNumber,
             // Sum of (price * quantity) for all items.
-            value: getTotalPrice().toFixed(2),
+            value: parseFloat(getTotalPrice().toFixed(2)),
             tax: 0.0, // Femi working on this
             shipping: 0.0, // Free shipping for now
             currency: 'USD',
@@ -194,9 +191,9 @@ export const handleAddToCartGoogleTag = (
   cartProduct: IProductData,
   params: TPathParams
 ) => {
-  const price = cartProduct?.price || '0';
-  const msrp = cartProduct?.msrp || '0';
-  const discount: number = parseFloat(price) - parseFloat(msrp);
+  const price = parseFloat(cartProduct?.price || '0') || 0;
+  const msrp = parseFloat(cartProduct?.msrp || '0') || 0;
+  const discount: number = price - msrp;
   const productName = `${cartProduct.fullProductName} Premium Plus ${cartProduct.type}`;
   window?.dataLayer?.push({ ecommerce: null }); // Clear the previous ecommerce object.
   window?.dataLayer?.push({
