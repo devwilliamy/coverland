@@ -32,7 +32,9 @@ export default function EditVehiclePopover({
   } = selectedProduct;
 
   const productName = make ? `${selectedMake} ${selectedModel}` : `${type}`;
-  const productNameSubtitle = year ? `${submodel1} ${selectedYear}` : '';
+  const productNameSubtitle = year
+    ? `${submodel1 ?? ''} ${selectedYear ?? ''}`
+    : '';
   return (
     <div className=" flex h-full flex-col  justify-center lg:hidden">
       <Drawer.Root open={open} onOpenChange={setOpen}>
