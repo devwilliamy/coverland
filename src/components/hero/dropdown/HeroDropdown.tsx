@@ -88,6 +88,10 @@ export function HeroDropdown() {
     setLoading(true);
     let url = `/${slugify(type)}/premium-plus/${slugify(make)}/${slugify(model)}/${yearInUrl}`;
 
+    if (model === 'Corvette') {
+      url = `/${slugify(type)}/premium/${slugify(make)}/${slugify(model)}/${yearInUrl}`;
+    }
+
     if (submodel) {
       url += `?${createQueryString('submodel', submodel)}`;
     }
