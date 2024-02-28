@@ -14,14 +14,14 @@ export default function RealTestSection() {
         className="absolute top-0 z-[-3]  w-full max-w-full translate-y-[-30vh] object-cover lg:w-[150%] lg:translate-y-[-90vh]"
       />
       <div className="w-full">
-        <p className="w-full text-center text-[30px] font-[600] leading-[22px] lg:tracking-wider ">
+        <p className="w-full text-center text-[30px] font-[600] leading-[22px] lg:text-[45px] lg:tracking-wider ">
           Real Test, True Result
         </p>
-        <div className="flex w-full flex-col items-center pt-[14px] text-center text-[22px] font-[500] leading-[28px] text-[#7D7D7D] lg:hidden">
+        <div className="flex w-full flex-col items-center pt-[14px] text-center text-[22px] font-[500]  leading-[28px] text-[#7D7D7D]  lg:hidden ">
           <p>Thoroughly Tested</p>
           <p>For Your Peace of Mind</p>
         </div>
-        <div className="hidden w-full flex-col items-center pt-[14px] text-center text-[22px] font-[500] leading-[28px] text-[#7D7D7D] lg:flex">
+        <div className="hidden w-full flex-col items-center pt-5 text-center text-[22px] font-[500] leading-[28px] text-[#7D7D7D] lg:flex lg:text-[34px]">
           <p>Thoroughly Tested For Your Peace of Mind</p>
         </div>
         <div className="flex w-full flex-col items-center">

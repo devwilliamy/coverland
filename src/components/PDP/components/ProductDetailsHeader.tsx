@@ -48,7 +48,7 @@ export default function ProductDetailsHeader() {
           // fill
           // height={700}
           width={1320}
-          className="hidden  w-[1320px] lg:flex lg:max-w-[90%]"
+          className="hidden  w-[1320px] lg:flex lg:max-w-[850px]"
         />
       </div>
 
