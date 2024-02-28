@@ -7,7 +7,6 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from '@/components/ui/popover';
-import { Separator } from '@/components/ui/separator';
 import { CarSelectionContext } from './CarPDP';
 import { useContext, useState } from 'react';
 import { IProductData } from '../../utils';
@@ -27,7 +26,11 @@ export function EditVehicleModal({
     year?: string;
     productType?: string;
   }>();
-  const { make, model, year, productType } = params;
+  const store = useContext(CarSelectionContext);
+  if (!store) throw new Error('Missing CarContext.Provider in the tree');
+
+  if (!params) return null;
+  const { make, year } = params;
   const {
     make: selectedMake,
     model: selectedModel,
@@ -40,9 +43,6 @@ export function EditVehicleModal({
   const productNameSubtitle = year
     ? `${submodel1 ?? ''} ${selectedYear ?? ''}`
     : '';
-
-  const store = useContext(CarSelectionContext);
-  if (!store) throw new Error('Missing CarContext.Provider in the tree');
 
   return (
     <div className="my-4 hidden w-full border-l-2 border-l-[#C8C7C7] lg:flex lg:flex-col">

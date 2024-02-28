@@ -16,7 +16,7 @@ export default function ProductDetailsHeader() {
     productType?: string;
   }>();
   if (!params) return null;
-  const { make, model, year } = params;
+  const { make, model } = params;
   let productType = params?.productType;
   if (productType === 'truck-covers') {
     productType = 'Truck';

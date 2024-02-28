@@ -22,7 +22,8 @@ export default function EditVehiclePopover({
     year?: string;
     productType?: string;
   }>();
-  const { make, model, year, productType } = params;
+  if (!params) return null;
+  const { make, year } = params;
   const {
     make: selectedMake,
     model: selectedModel,

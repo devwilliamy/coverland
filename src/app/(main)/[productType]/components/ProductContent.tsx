@@ -17,7 +17,6 @@ import CircleColorSelector from './CircleColorSelector';
 import RatingsTrigger from './RatingsTrigger';
 import installments from '@/images/PDP/Product-Details-Redesign-2/paypal-installments.webp';
 import Image from 'next/image';
-import { Info } from 'lucide-react';
 
 interface ProductRefs {
   [key: string]: RefObject<HTMLElement>;

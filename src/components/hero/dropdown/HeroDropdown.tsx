@@ -9,8 +9,6 @@ import { useRouter } from 'next/navigation';
 import { useCallback, useEffect, useState } from 'react';
 import { SubmodelDropdown } from './SubmodelDropdown';
 import { slugify } from '@/lib/utils';
-import { track } from '@vercel/analytics';
-import { sendGTMEvent } from '@next/third-parties/google';
 import { TProductJsonData } from '@/components/PDP/EditVehicleDropdown';
 import { BASE_URL } from '@/lib/constants';
 

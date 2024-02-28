@@ -1,4 +1,4 @@
-import { TReviewData, getProductData } from '@/lib/db';
+import { TReviewData, getAllModels, getProductData } from '@/lib/db';
 import { redirect } from 'next/navigation';
 import CarPDP from '@/app/(main)/[productType]/components/CarPDP';
 import {
@@ -12,28 +12,26 @@ import { TPathParams } from '@/app/(main)/utils';
 
 //TODO: Refactor code so we can generate our dynamic paths as static HTML for performance
 
-// export async function generateStaticParams({
-//   params: { productType, coverType, make },
-// }: {
-//   params: { productType: string; coverType: string; make: string };
-// }) {
-//   const modelData = await getAllModels({
-//     type: productType,
-//     cover: coverType,
-//     make: make,
-//   });
+export async function generateStaticParams({
+  params: { productType, coverType, make },
+}: {
+  params: { productType: string; coverType: string; make: string };
+}) {
+  const modelData = await getAllModels({
+    type: productType,
+    cover: coverType,
+    make: make,
+  });
 
-//   return modelData.filter(Boolean).map((model) => ({
-//     model: model,
-//   }));
-// }
+  return modelData.filter(Boolean).map((model) => ({
+    model: model,
+  }));
+}
 
 export default async function CarPDPDataLayer({
   params,
-  searchParams,
 }: {
   params: TPathParams;
-  searchParams: { submodel?: string; second_submodel?: string };
 }) {
   let modelData = [];
   let reviewData: TReviewData[] | null = [];
@@ -95,7 +93,6 @@ export default async function CarPDPDataLayer({
         params={params}
         reviewDataSummary={reviewDataSummary}
         reviewImages={reviewImages}
-        searchParams={searchParams}
       />
     </>
   );
