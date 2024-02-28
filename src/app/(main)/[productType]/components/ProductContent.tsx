@@ -10,13 +10,19 @@ import { compareRawStrings } from '@/lib/utils';
 
 import { useStore } from 'zustand';
 import { useCartContext } from '@/providers/CartProvider';
-import { IProductData, getCompleteSelectionData } from '../../utils';
+import {
+  IProductData,
+  TPathParams,
+  getCompleteSelectionData,
+} from '../../utils';
 import FreeDetails from './FreeDetails';
 import AddToCart from './AddToCart';
 import CircleColorSelector from './CircleColorSelector';
 import RatingsTrigger from './RatingsTrigger';
 import installments from '@/images/PDP/Product-Details-Redesign-2/paypal-installments.webp';
 import Image from 'next/image';
+import { handleViewItemColorChangeGoogleTag } from '@/hooks/useGoogleTagDataLayer';
+import { useParams } from 'next/navigation';
 
 interface ProductRefs {
   [key: string]: RefObject<HTMLElement>;
@@ -50,6 +56,7 @@ export function ProductContent({
   const modelData = useStore(store, (s) => s.modelData);
   const color = useStore(store, (s) => s.selectedColor);
   const { addToCart } = useCartContext();
+  const params = useParams<TPathParams>();
 
   const cartProduct = modelData.find((p) => p.display_color === color);
 
@@ -64,6 +71,10 @@ export function ProductContent({
   } = getCompleteSelectionData({
     data: modelData,
   });
+
+  const handleColorChange = (newSelectedProduct: IProductData) => {
+    handleViewItemColorChangeGoogleTag(newSelectedProduct, params, isComplete);
+  };
 
   return (
     <>
@@ -96,13 +107,10 @@ export function ProductContent({
         <p className="mb-3 text-[16px] leading-[14px]">
           {isComplete ? '' : 'From'}
         </p>
-        <div className=" flex place-items-end gap-[9px]   text-center text-[28px] font-[900] leading-[32px] lg:text-[32px] lg:leading-[37.5px] ">
-          <div className="flex flex-col items-end  leading-[22px]">
-            {' '}
-            ${selectedProduct?.msrp}
-          </div>
+        <div className=" flex  items-end gap-[9px]   text-center text-[28px] font-[900]  lg:text-[32px] lg:leading-[37.5px] ">
+          <div className="leading-[20px]"> ${selectedProduct?.msrp}</div>
           {selectedProduct?.price && (
-            <div className="flex gap-1.5 text-[22px] font-[400] leading-[14px] text-[#BE1B1B] lg:text-[22px] ">
+            <div className="flex gap-1.5 pb-[1px] text-[22px] font-[400] leading-[14px] text-[#BE1B1B] lg:text-[22px] ">
               <span className=" text-[#BEBEBE] line-through">{`$${Number(selectedProduct?.price)}`}</span>
               <p>(-50%)</p>
             </div>
@@ -123,6 +131,7 @@ export function ProductContent({
         setFeaturedImage={setFeaturedImage}
         setSelectedProduct={setSelectedProduct}
         selectedProduct={selectedProduct as IProductData}
+        handleColorChange={handleColorChange}
       />
       <div className="lg:hidden">
         <AddToCart

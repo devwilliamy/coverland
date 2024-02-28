@@ -229,3 +229,59 @@ export const handleAddToCartGoogleTag = (
     },
   });
 };
+
+export const handleViewItemColorChangeGoogleTag = (
+  selectedProduct: IProductData,
+  params: TPathParams | null,
+  isComplete: boolean
+) => {
+  const price = parseFloat(selectedProduct?.price || '0') || 0;
+  const msrp = parseFloat(selectedProduct?.msrp || '0') || 0;
+  const discount: number = price - msrp;
+  const {
+    year = '',
+    make = '',
+    model = '',
+    coverType = '',
+    productType = '',
+  } = params || {};
+
+  const productName = isComplete
+    ? `${selectedProduct.fullProductName} Premium Plus ${selectedProduct.type}`
+    : `${year} ${make} ${model} ${coverType} ${productType}`
+        .replace(/  +/g, ' ')
+        .trim();
+  window?.dataLayer?.push({ ecommerce: null }); // Clear the previous ecommerce object.
+  window?.dataLayer?.push({
+    event: 'view_item',
+    ecommerce: {
+      currency: 'USD',
+      value: isComplete ? msrp : undefined,
+      items: [
+        {
+          item_id: isComplete ? selectedProduct?.sku : undefined,
+          item_name: productName,
+          affiliation: undefined,
+          coupon: undefined,
+          discount: undefined, // Removed temporarily because we transfer the promotional price or something
+          index: 0,
+          item_brand: 'Coverland',
+          item_category: params?.productType,
+          item_category2: params?.coverType,
+          item_category3: params?.make,
+          item_category4: params?.model,
+          item_category5: params?.year,
+          item_category6: isComplete ? selectedProduct?.submodel1 : undefined,
+          item_category7: isComplete ? selectedProduct?.submodel2 : undefined,
+          item_category8: isComplete ? selectedProduct?.submodel3 : undefined,
+          item_list_id: undefined,
+          item_list_name: undefined,
+          item_variant: selectedProduct?.display_color,
+          location_id: undefined,
+          price: isComplete ? msrp : undefined,
+          quantity: 1,
+        },
+      ],
+    },
+  });
+};
