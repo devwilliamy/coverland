@@ -66,6 +66,7 @@ export const useItemViewedGoogleTag = (
 export const useCheckoutViewedGoogleTag = () => {
   const { cartItems, getTotalPrice } = useCartContext();
   useEffect(() => {
+    // TODO: - Extract this into a map function
     const cartItemsToGTagItems = cartItems.map((cartItem, index) => {
       const productName = `${cartItem.fullProductName} Premium Plus ${cartItem.type}`;
       const price = cartItem?.price || '0';
@@ -121,13 +122,7 @@ export const useThankYouViewedGoogleTag = (
   items: Item[],
   orderNumber: string
 ) => {
-  const {
-    cartItems,
-    getTotalPrice,
-    getOrderSubtotal,
-    getTotalDiscountPrice,
-    getTotalCartQuantity,
-  } = useCartContext();
+  const { cartItems, getTotalPrice } = useCartContext();
   useEffect(() => {
     // console.log('CartItems:', cartItems);
     if (typeof window !== 'undefined' && window.performance) {
@@ -135,51 +130,53 @@ export const useThankYouViewedGoogleTag = (
       if (navigationType === PerformanceNavigation.TYPE_RELOAD) {
         // console.log('Page was reloaded, GTAG not tracked.');
       } else {
+        // TODO: - Extract this into a map function
+        const cartItemsToGTagItems = cartItems.map((cartItem, index) => {
+          const productName = `${cartItem.fullProductName} Premium Plus ${cartItem.type}`;
+          const price = cartItem?.price || '0';
+          const msrp = cartItem?.msrp || '0';
+          const discount: number = parseFloat(price) - parseFloat(msrp);
+          return {
+            item_id: cartItem?.sku,
+            item_name: productName,
+            affiliation: undefined,
+            coupon: undefined,
+            discount: discount,
+            index: index,
+            item_brand: 'Coverland',
+            item_category: cartItem.type,
+            item_category2: 'Premium Plus',
+            item_category3: cartItem.make,
+            item_category4: cartItem.model,
+            item_category5: cartItem.parent_generation,
+            item_category6: cartItem.submodel1,
+            item_category7: cartItem.submodel2,
+            item_category8: cartItem.submodel3,
+            item_list_id: undefined,
+            item_list_name: undefined,
+            item_variant: cartItem.display_color,
+            location_id: undefined,
+            price: msrp,
+            quantity: cartItem.quantity,
+          };
+        });
         window?.dataLayer?.push({ ecommerce: null }); // Clear the previous ecommerce object.
         window?.dataLayer?.push({
           event: 'purchase',
           ecommerce: {
-            transaction_id: 'T_12345',
+            transaction_id: orderNumber,
             // Sum of (price * quantity) for all items.
-            value: 72.05,
-            tax: 3.6,
-            shipping: 5.99,
+            value: getTotalPrice().toFixed(2),
+            tax: 0.0, // Femi working on this
+            shipping: 0.0, // Free shipping for now
             currency: 'USD',
-            coupon: 'SUMMER_SALE',
-            items: [
-              {
-                item_id: 'SKU_12345',
-                item_name: 'Stan and Friends Tee',
-                affiliation: 'Google Merchandise Store',
-                coupon: 'SUMMER_FUN',
-                discount: 2.22,
-                index: 0,
-                item_brand: 'Google',
-                item_category: 'Apparel',
-                item_category2: 'Adult',
-                item_category3: 'Shirts',
-                item_category4: 'Crew',
-                item_category5: 'Short sleeve',
-                item_list_id: 'related_products',
-                item_list_name: 'Related Products',
-                item_variant: 'green',
-                location_id: 'ChIJIQBpAG2ahYAR_6128GcTUEo',
-                price: 10.01,
-                quantity: 3,
-              },
-            ],
+            coupon: undefined, // will need to put in coupon for later but we don't track this ATM
+            items: cartItemsToGTagItems,
           },
         });
       }
     }
-  }, [
-    cartItems,
-    getTotalPrice,
-    getOrderSubtotal,
-    getTotalDiscountPrice,
-    getTotalCartQuantity,
-    orderNumber,
-  ]);
+  }, [cartItems, getTotalPrice, orderNumber]);
 };
 
 export const handleAddToCartGoogleTag = (
