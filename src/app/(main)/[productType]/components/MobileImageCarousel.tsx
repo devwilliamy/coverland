@@ -108,17 +108,8 @@ export const MobileImageCarousel = ({
               );
             if (index === 3) {
               return (
-                <CarouselItem
-                  key={String(SevenSecVideo)}
-                  ref={ref as Ref<HTMLDivElement> | undefined}
-                >
-                  {isVisible ? (
-                    <ProductVideo src={SevenSecVideo} autoplay loop />
-                  ) : (
-                    <div className="flex h-full">
-                      <Skeleton />
-                    </div>
-                  )}
+                <CarouselItem key={String(SevenSecVideo)}>
+                  <ProductVideo src={SevenSecVideo} autoplay loop />
                 </CarouselItem>
               );
             }
