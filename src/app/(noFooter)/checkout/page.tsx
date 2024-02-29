@@ -24,7 +24,7 @@ import { useCheckoutViewedGoogleTag } from '@/hooks/useGoogleTagDataLayer';
 
 async function paypalCreateOrder(
   totalMsrpPrice: number
-): Promise<{ data: Order } | null> {
+): Promise<string | null> {
   try {
     const response = await fetch('/api/paypal', {
       method: 'POST',
@@ -33,13 +33,17 @@ async function paypalCreateOrder(
       },
       body: JSON.stringify({
         order_price: totalMsrpPrice,
+        //current time and date
+        user_id: new Date().toISOString(),
       }),
     });
     if (!response.ok) {
       throw new Error('Network response was not ok');
     }
 
-    return await response.json();
+    const data = await response.json();
+    console.log(data);
+    return data.data.id;
   } catch (err) {
     return null;
   }
@@ -349,7 +353,7 @@ function CheckoutPage() {
                         console.log('Error creating order');
                         return '';
                       }
-                      return data.data.id;
+                      return data;
                     }}
                     onApprove={async (data) => {
                       console.log(data.orderID);
