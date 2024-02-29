@@ -11,11 +11,12 @@ import dynamic from 'next/dynamic';
 import { StaticImport } from 'next/dist/shared/lib/get-img-props';
 import { Asset } from 'next-video/dist/assets.js';
 import SevenSecVideoThumbnail from '@/video/7second image.webp';
-import SevenSecVideo from 'https://x2kly621zrgfgwll.public.blob.vercel-storage.com/videos/7sec%20Listing%20Video_Compressed-5HxXKYp1dbtgG8gEs5DR6quoWoOpFS.mp4';
+// import SevenSecVideo from 'https://x2kly621zrgfgwll.public.blob.vercel-storage.com/videos/7sec%20Listing%20Video_Compressed-5HxXKYp1dbtgG8gEs5DR6quoWoOpFS.mp4';
 import { Skeleton } from '@/components/ui/skeleton';
 import { FaCamera } from 'react-icons/fa';
 import ReviewImagesSheet from '@/components/PDP/components/ReviewImagesSheet';
 import useIsVisible from '@/lib/hooks/useIsVisible';
+import SevenSecVideo from '@/videos/7sec Listing Video_Compressed.mp4';
 
 const ProductVideo = dynamic(() => import('@/components/PDP/ProductVideo'), {
   loading: () => (
@@ -107,17 +108,8 @@ export const MobileImageCarousel = ({
               );
             if (index === 3) {
               return (
-                <CarouselItem
-                  key={String(SevenSecVideo)}
-                  ref={ref as Ref<HTMLDivElement> | undefined}
-                >
-                  {isVisible ? (
-                    <ProductVideo src={SevenSecVideo} autoplay loop />
-                  ) : (
-                    <div className="flex h-full">
-                      <Skeleton />
-                    </div>
-                  )}
+                <CarouselItem key={String(SevenSecVideo)}>
+                  <ProductVideo src={SevenSecVideo} autoplay loop />
                 </CarouselItem>
               );
             }

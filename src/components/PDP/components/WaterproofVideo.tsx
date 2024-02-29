@@ -1,15 +1,10 @@
+import WaterproofGif from 'https://x2kly621zrgfgwll.public.blob.vercel-storage.com/videos/WaterGIF-I3oRFkQJIk8PSQddqC2fDKx08cNJNG.mp4';
+import ProductVideo from '../ProductVideo';
+
 export default function WaterproofVideo() {
   return (
     <div className="mb-[-1px] w-full overflow-hidden rounded-t-xl">
-      <video
-        autoPlay
-        loop
-        muted
-        preload="none"
-        className=""
-        src={'/images/PDP/Product-Details-Redesign-2/WaterGIF.mp4'}
-        playsInline
-      ></video>
+      <ProductVideo src={WaterproofGif} autoplay loop aspectRatio="16 / 9" />
     </div>
   );
 }

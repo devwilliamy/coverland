@@ -1,8 +1,1 @@
-{
-  "status": "sourced",
-  "originalFilePath": "https://x2kly621zrgfgwll.public.blob.vercel-storage.com/videos/360%20degree_mobile-4asLajZOfJp9h3V3q1XkSHFETp6T8h.mp4",
-  "provider": "vercel-blob",
-  "providerMetadata": {},
-  "createdAt": 1709075374942,
-  "updatedAt": 1709075374942
-}
+{"status":"ready","originalFilePath":"https://x2kly621zrgfgwll.public.blob.vercel-storage.com/videos/360%20degree_mobile-4asLajZOfJp9h3V3q1XkSHFETp6T8h.mp4","provider":"vercel-blob","providerMetadata":{"vercel-blob":{"url":"https://x2kly621zrgfgwll.public.blob.vercel-storage.com/https://x2kly621zrgfgwll.public.blob.vercel-storage.com/videos/360%20degree_mobile-4asLajZOfJp9h3V3q1XkSHFETp6T8h-UQ2hNZSviUxZOpbEExKyPeu2sTjVAE.mp4","contentType":"video/mp4"}},"createdAt":1709075374942,"updatedAt":1709158405453,"sources":[{"src":"https://x2kly621zrgfgwll.public.blob.vercel-storage.com/https://x2kly621zrgfgwll.public.blob.vercel-storage.com/videos/360%20degree_mobile-4asLajZOfJp9h3V3q1XkSHFETp6T8h-UQ2hNZSviUxZOpbEExKyPeu2sTjVAE.mp4","type":"video/mp4"}]}

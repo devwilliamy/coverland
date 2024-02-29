@@ -15,9 +15,9 @@ export default function SecuritySectionIcon({
         {icon}
       </div>
       <div className="flex w-3/4 flex-col items-start justify-start">
-        <h2 className="text-base font-bold capitalize leading-7 text-[#1A1A1A] lg:text-lg lg:uppercase">
+        <h3 className="text-base font-bold capitalize leading-7 text-[#1A1A1A] lg:text-lg lg:uppercase">
           {title}
-        </h2>
+        </h3>
         <p className="text-sm font-normal leading-7 text-[#767676]">
           {children}
         </p>

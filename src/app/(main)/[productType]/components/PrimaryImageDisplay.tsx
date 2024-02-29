@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { LegacyRef, useState } from 'react';
 import { MobileImageCarousel } from './MobileImageCarousel';
 import { useMediaQuery } from '@mantine/hooks';
 import Image from 'next/image';
@@ -10,8 +10,10 @@ import { Button } from '@/components/ui/button';
 import dynamic from 'next/dynamic';
 import Thumbnail from '@/video/Thumbnail.webp';
 import { IProductData } from '../../utils';
-import SixMinVideo from 'https://x2kly621zrgfgwll.public.blob.vercel-storage.com/videos/FINALIZE_WEBSTIE_16_9_OPTIMIZED.mp4';
+// import SixMinVideo from 'https://x2kly621zrgfgwll.public.blob.vercel-storage.com/videos/FINALIZE_WEBSTIE_16_9_OPTIMIZED.mp4';
 import { Skeleton } from '@/components/ui/skeleton';
+import SixMinVideo from '@/videos/https_x2kly621zrgfgwll.public.blob.vercel-storage.com_videos_FINALIZE_WEBSTIE_16_9_OPTIMIZED.mp4.json';
+import useIsVisible from '@/lib/hooks/useIsVisible';
 
 const ProductVideo = dynamic(() => import('@/components/PDP/ProductVideo'), {
   loading: () => (

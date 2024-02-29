@@ -10,9 +10,9 @@ export function PDPAccordion() {
   return (
     <>
       <div className="min-h-[60vh] bg-[#F9F9FB] px-2 md:p-8 lg:max-h-none lg:p-14">
-        <h2 className="hidden text-center text-2xl font-black uppercase text-[#1A1A1A] md:text-3xl lg:text-5xl">
+        <h3 className="hidden text-center text-2xl font-black uppercase text-[#1A1A1A] md:text-3xl lg:text-5xl">
           q&a
-        </h2>
+        </h3>
         <Accordion type="single" collapsible className="w-full ">
           <div className=" hidden h-[137px] w-full flex-col text-center text-[45px] font-black lg:flex  ">
             Q&A
