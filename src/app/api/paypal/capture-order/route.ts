@@ -18,6 +18,7 @@ export async function POST(req: Request) {
   const { orderID } = body;
   console.log(orderID);
   try {
+    console.log('creating paypal order:', orderID);
     const request = new paypal.orders.OrdersCaptureRequest(orderID);
     const response = await PaypalClient.execute(request);
 
