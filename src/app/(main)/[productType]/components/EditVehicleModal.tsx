@@ -51,10 +51,10 @@ export function EditVehicleModal({
           <div className="flex w-full flex-shrink cursor-pointer items-center justify-between pl-[40px]">
             <div className="">
               <p className="">Your Vehicle</p>
-              <h2 className="  break-normal text-[26px] font-[500] capitalize leading-[31px]">
+              <h1 className="  break-normal text-[26px] font-[500] capitalize leading-[31px]">
                 {productName}
-              </h2>
-              <p className="text-[#8F8F8F]">{productNameSubtitle}</p>
+              </h1>
+              <h2 className="text-[#8F8F8F]">{productNameSubtitle}</h2>
             </div>
             <EditIcon />
           </div>

@@ -9,12 +9,12 @@ export default function PolicyFurtherAssistance() {
   return (
     <div className="bg-opacity-2 rounded-xl border-2 border-gray-300 py-8 lg:flex lg:flex-row lg:justify-evenly">
       <div className="px-5 text-center lg:flex lg:flex-col lg:justify-center lg:px-12 lg:text-left">
-        <h1 className="text-2xl font-bold text-black lg:whitespace-nowrap lg:text-3xl">
+        <h3 className="text-2xl font-bold text-black lg:whitespace-nowrap lg:text-3xl">
           Need Further Assistance?
-        </h1>
-        <h2 className="pt-2 text-sm font-normal text-black lg:whitespace-nowrap lg:text-lg">
+        </h3>
+        <h4 className="pt-2 text-sm font-normal text-black lg:whitespace-nowrap lg:text-lg">
           Contact one of our Product Specialists Today!
-        </h2>
+        </h4>
         <p className="space pt-2 text-[10px] font-bold italic tracking-[1.4px] text-black lg:whitespace-nowrap lg:tracking-[0.2px]">
           Our customer support services are available 7 days a week 9:00 AM to
           5:30 PM PST.
