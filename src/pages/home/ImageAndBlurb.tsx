@@ -15,9 +15,9 @@ export default function ImageAndBlurb() {
           />
         </div>
         <div className="mb-5 mt-5 flex w-full flex-col items-start justify-center md:w-3/4 lg:w-2/4 lg:pr-16">
-          <h1 className="text-dark w-full pb-10 pt-10 text-center text-2xl font-extrabold uppercase md:w-auto md:text-5xl lg:text-left">
+          <h3 className="text-dark w-full pb-10 pt-10 text-center text-2xl font-extrabold uppercase md:w-auto md:text-5xl lg:text-left">
             The <span className="text-[#BE1B1B]">Coverland</span> Difference
-          </h1>
+          </h3>
           <p className="text-dark">
             For every car enthusiast, owning a car is a considerable investment.
             Therefore, investing some money and effort for its protection is
@@ -44,9 +44,9 @@ export default function ImageAndBlurb() {
           />
         </div>
         <div className="flex w-full flex-col items-start justify-center md:w-3/4 lg:w-2/4 lg:pl-16">
-          <h1 className="text-dark w-full pb-10 pt-10 text-center text-2xl font-extrabold uppercase md:w-auto md:text-5xl lg:text-left">
+          <h3 className="text-dark w-full pb-10 pt-10 text-center text-2xl font-extrabold uppercase md:w-auto md:text-5xl lg:text-left">
             Innovation Meets Protection
-          </h1>
+          </h3>
           <div className="pb-8 lg:pb-0">
             <p className="text-dark text-base">
               {`Driven by a dedication to shield your vehicle with the best, we've

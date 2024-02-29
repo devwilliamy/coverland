@@ -81,11 +81,11 @@ export function ProductContent({
       <div className="grid grid-cols-1 lg:mt-[60px]">
         <div className="flex flex-col gap-0.5">
           {/* Product Title */}
-          <h2 className="mt-[24px] text-[24px] font-[900] leading-[27px] text-[#1A1A1A] lg:mt-0 lg:text-[28px] lg:leading-[30px] ">
+          <h1 className="mt-[24px] text-[24px] font-[900] leading-[27px] text-[#1A1A1A] lg:mt-0 lg:text-[28px] lg:leading-[30px] ">
             {`${selectedProduct?.display_id}`}
             &trade; {isMobile && <br />}
             {`Custom-Fit ${productType}`}
-          </h2>
+          </h1>
           {/* Rating(s) */}
           <div className="mt-1 flex items-end gap-1 lg:mt-2">
             <div className="flex gap-1 ">

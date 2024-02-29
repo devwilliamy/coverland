@@ -8,6 +8,7 @@ import {
   getProductReviewsByPage,
 } from '@/lib/db/review';
 import { TPathParams } from '@/app/(main)/utils';
+import { deslugify } from '@/lib/utils';
 
 export type TCarCoverSlugParams = {
   make: string;
@@ -31,6 +32,15 @@ export async function generateStaticParams({
   return makeData.filter(Boolean).map((make) => ({
     make: make,
   }));
+}
+
+export async function generateMetadata({ params }: { params: TPathParams }) {
+  const productType = deslugify(params.productType);
+  const make = deslugify(params.make || '');
+  return {
+    title: `${make} ${productType}, Custom Fit - Coverland`,
+    description: `${make} ${productType} ᐉ Coverland ⭐ Free, Same-Day Shipping ✔️ Free Returns & Purchase Protection ✔️ Made from premium quality, heavy-duty materials with a soft inner fabric.`,
+  };
 }
 
 export default async function CarPDPDataLayer({
