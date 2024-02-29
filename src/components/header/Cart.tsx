@@ -20,7 +20,7 @@ import { useEffect, useState } from 'react';
 function Cart() {
   const { cartItems, cartOpen, setCartOpen } = useCartContext();
   const [isClient, setIsClient] = useState(false);
-  const cartColor = cartItems.length > 0 ? '#BE1B1B' : '#000000';
+  // const cartColor = cartItems.length > 0 ? '#BE1B1B' : '#000000';
   const router = useRouter();
 
   useEffect(() => {
@@ -33,7 +33,7 @@ function Cart() {
         <div className="flex items-center">
           {isClient && <ItemsInCartAnimation cartItems={cartItems} />}
           <HiOutlineShoppingCart
-            color={cartColor}
+            color={'#BE1B1B'}
             className="mt-0.5 flex h-[20px] w-[20px] hover:cursor-pointer"
             onClick={() => router.push('/checkout')}
           />

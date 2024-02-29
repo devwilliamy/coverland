@@ -32,8 +32,9 @@ async function paypalCreateOrder(
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        user_id: '123',
         order_price: totalMsrpPrice,
+        //current time and date
+        user_id: new Date().toISOString(),
       }),
     });
     if (!response.ok) {
@@ -41,6 +42,7 @@ async function paypalCreateOrder(
     }
 
     const data = await response.json();
+    console.log(data);
     return data.data.id;
   } catch (err) {
     return null;
@@ -347,8 +349,10 @@ function CheckoutPage() {
                     }}
                     createOrder={async () => {
                       const data = await paypalCreateOrder(totalMsrpPrice);
-                      if (!data) return '';
-                      console.log(data);
+                      if (!data) {
+                        console.log('Error creating order');
+                        return '';
+                      }
                       return data;
                     }}
                     onApprove={async (data) => {

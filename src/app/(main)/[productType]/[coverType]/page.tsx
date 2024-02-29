@@ -11,16 +11,16 @@ import { redirect } from 'next/navigation';
 import { TPathParams } from '../../utils';
 import { deslugify } from '@/lib/utils';
 
-//TODO: Refactor code so we can generate our dynamic paths as static HTML for performance
+//TODO: This page can't be generated statically until we fix all hydration issues
 
-export async function generateStaticParams() {
-  return [
-    { coverType: 'premium-plus' },
-    { coverType: 'premium' },
-    { coverType: 'standard-pro' },
-    { coverType: 'standard' },
-  ];
-}
+// export async function generateStaticParams() {
+//   return [
+//     { coverType: 'premium-plus' },
+//     { coverType: 'premium' },
+//     { coverType: 'standard-pro' },
+//     { coverType: 'standard' },
+//   ];
+// }
 
 export async function generateMetadata({ params }: { params: TPathParams }) {
   const productType = deslugify(params.productType);
