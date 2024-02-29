@@ -1,11 +1,16 @@
 import paypal from '@paypal/checkout-server-sdk';
 
-const clientId =
-  'Acm9D_gDLDC9WEkSqZKt8EAGahSnq3v_8BprtOo8I-DMmwcn9jFBZ3tD5jSwVU8k2vXQ2sr5XgjeKEjq';
-const clientSecret =
-  'EPX2M1TUwpHph0jQuSRl1hbDo4HRoc-dqZU3751fvhhBMA-s2Bac7Pok83zmhXTTzDLSy4l0j7ZGhWbm';
+const clientId = process.env.PAYPAL_CLIENT_ID ?? '';
+const clientSecret = process.env.PAYPAL_CLIENT_SECRET ?? '';
+const isProduction = process.env.NODE_ENV === 'production';
+const productionEnvironment = new paypal.core.LiveEnvironment(
+  clientId,
+  clientSecret
+);
 
-const environment = new paypal.core.SandboxEnvironment(clientId, clientSecret);
+const environment = isProduction
+  ? productionEnvironment
+  : new paypal.core.SandboxEnvironment(clientId, clientSecret);
 export const PaypalClient = new paypal.core.PayPalHttpClient(environment);
 
 export const paypalCreateOrder = async () => {

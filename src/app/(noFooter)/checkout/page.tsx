@@ -332,8 +332,7 @@ function CheckoutPage() {
               </Button>
               <PayPalScriptProvider
                 options={{
-                  clientId:
-                    'Acm9D_gDLDC9WEkSqZKt8EAGahSnq3v_8BprtOo8I-DMmwcn9jFBZ3tD5jSwVU8k2vXQ2sr5XgjeKEjq',
+                  clientId: process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID ?? '',
                   currency: 'USD',
                   intent: 'capture',
                   components: 'buttons',
