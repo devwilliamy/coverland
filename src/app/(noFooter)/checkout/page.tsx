@@ -32,7 +32,6 @@ async function paypalCreateOrder(
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        user_id: '123',
         order_price: totalMsrpPrice,
       }),
     });
@@ -346,7 +345,10 @@ function CheckoutPage() {
                     }}
                     createOrder={async () => {
                       const data = await paypalCreateOrder(totalMsrpPrice);
-                      if (!data) return '';
+                      if (!data) {
+                        console.log('Error creating order');
+                        return '';
+                      }
                       return data.data.id;
                     }}
                     onApprove={async (data) => {
