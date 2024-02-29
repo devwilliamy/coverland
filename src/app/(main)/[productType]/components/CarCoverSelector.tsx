@@ -68,7 +68,7 @@ export function CarCoverSelector({
   );
 
   const params = useParams();
-  const isPremium = params?.coverType === 'premium';
+  const isPremiumPlus = params?.coverType === 'premium-plus';
 
   return (
     <>
@@ -116,7 +116,7 @@ export function CarCoverSelector({
         <div className="flex w-full flex-col justify-center px-4">
           <EnhanceProtectionSection />
           <RealTestSection />
-          {!isPremium && <ProvenSection />}
+          {isPremiumPlus && <ProvenSection />}
           <LifetimeSection />
         </div>
       </section>
