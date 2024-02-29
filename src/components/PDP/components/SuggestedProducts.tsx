@@ -22,7 +22,7 @@ export default function SuggestedProducts() {
   return (
     <section
       id="you-may-also-like-section"
-      className="mt-[60px] px-4 pb-[20px]"
+      className="mt-[60px] px-4 pb-[20px] lg:mt-[110px] lg:px-[40px]"
     >
       <h3 className="font-[900] uppercase lg:text-[32px] lg:font-[900]">
         you may also like

@@ -35,9 +35,9 @@ export default function ProductDetailsHeader() {
 
   const protectText = model ?? make ?? productType;
   return (
-    <section className="relative -mx-4 mb-[60px] flex flex-col items-center  ">
-      <div className="flex py-7 text-center">
-        <p className="w-full text-[26px] font-[500] leading-[26px] text-white lg:p-[6px] lg:pt-[60px] lg:text-[45px]  lg:leading-[32px]">
+    <section className="relative -mx-4 mb-[60px] flex flex-col items-center lg:mb-[110px]  ">
+      <div className="flex py-7 text-center lg:py-[38px]">
+        <p className="w-full text-[26px] font-[500] leading-[26px] text-white lg:p-[6px] lg:pt-[28px] lg:text-[45px]  lg:leading-[32px]">
           Protect your <span className={`capitalize`}>{protectText}</span> now
         </p>
       </div>

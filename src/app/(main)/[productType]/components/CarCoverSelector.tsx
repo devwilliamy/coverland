@@ -11,7 +11,7 @@ import { Separator } from '@/components/ui/separator';
 import LinkBreadcrumbs from './LinkBreadcrumbs';
 import { useItemViewedGoogleTag } from '@/hooks/useGoogleTagDataLayer';
 
-import EnhanceProtectionSection from '@/components/PDP/components/EnhanceProtectionSection';
+import EnhancedProtectionSection from '@/components/PDP/components/EnhancedProtectionSection';
 import SuggestedProducts from '@/components/PDP/components/SuggestedProducts';
 import ProvenSection from '@/components/PDP/components/ProvenSection';
 import RealTestSection from '@/components/PDP/components/RealTestSection';
@@ -114,7 +114,7 @@ export function CarCoverSelector({
       <section className="relative">
         <FeaturesSection />
         <div className="flex w-full flex-col justify-center px-4">
-          <EnhanceProtectionSection />
+          <EnhancedProtectionSection />
           {isPremiumPlus && <RealTestSection />}
           {isPremiumPlus && <ProvenSection />}
           <WarrantySection />

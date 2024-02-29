@@ -48,7 +48,7 @@ export default function WarrantySection() {
   }
 
   return (
-    <section className="flex flex-col items-center pt-[60px] lg:mb-[40px] lg:pt-[110px]">
+    <section className="flex flex-col items-center pt-[60px]  lg:pt-[110px]">
       <p className="w-full text-center text-[30px] font-[600] leading-[22px]">
         {warrantyLength} Warranty
       </p>
