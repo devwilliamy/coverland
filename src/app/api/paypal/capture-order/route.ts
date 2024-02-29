@@ -6,6 +6,8 @@ export async function POST(req: Request) {
   if (req.method != 'POST') {
     return Response.json({ success: false, message: 'Not Found' });
   }
+
+  console.log('client_id:', process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID);
   const body = await req.json();
 
   if (!body.orderID) {
@@ -25,6 +27,10 @@ export async function POST(req: Request) {
     console.log(response);
   } catch (error) {
     console.log(error);
+    console.log(
+      'error with client_id:',
+      process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID
+    );
   }
 
   return Response.json({ success: true, data: '' });

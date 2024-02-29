@@ -348,10 +348,6 @@ function CheckoutPage() {
                       height: 50,
                     }}
                     createOrder={async () => {
-                      console.log(
-                        'client_id:',
-                        process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID
-                      );
                       const data = await paypalCreateOrder(totalMsrpPrice);
                       if (!data) {
                         console.log('Error creating order');
