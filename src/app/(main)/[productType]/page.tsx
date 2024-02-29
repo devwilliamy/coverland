@@ -16,15 +16,13 @@ import {
 import { deslugify } from '@/lib/utils';
 import { TPathParams } from '../utils';
 
-//TODO: This page can't be generated statically until we fix all hydration issues
-
-// export function generateStaticParams() {
-//   return [
-//     { productType: 'car-covers' },
-//     { productType: 'suv-covers' },
-//     { productType: 'truck-covers' },
-//   ];
-// }
+export function generateStaticParams() {
+  return [
+    { productType: 'car-covers' },
+    { productType: 'suv-covers' },
+    { productType: 'truck-covers' },
+  ];
+}
 
 export async function generateMetadata({ params }: { params: TPathParams }) {
   const productType = deslugify(params.productType);
