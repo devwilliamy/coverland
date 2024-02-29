@@ -33,12 +33,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
   //   console.log('Car Urls Length: ', carCoverUrls.length); // As of 2/28/2024: 2872
   //   console.log('SUV  Urls Length: ', suvCoverUrls.length); // As of 2/28/2024: 967
   //   console.log('Truck Urls Length: ', truckCoverUrls.length); // As of 2/28/2024: 185
-  return allUrls
-    .map((url) => ({
-      url,
-      lastModified: new Date(),
-      changeFrequncy: 'daily',
-      priority: 0.7,
-    }))
-    .slice(0, 300);
+  return allUrls.map((url) => ({
+    url,
+    lastModified: new Date(),
+    changeFrequncy: 'daily',
+    priority: 0.7,
+  }));
 }
