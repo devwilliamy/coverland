@@ -24,7 +24,7 @@ import { useCheckoutViewedGoogleTag } from '@/hooks/useGoogleTagDataLayer';
 
 async function paypalCreateOrder(
   totalMsrpPrice: number
-): Promise<{ data: Order } | null> {
+): Promise<string | null> {
   try {
     const response = await fetch('/api/paypal', {
       method: 'POST',
@@ -40,7 +40,8 @@ async function paypalCreateOrder(
       throw new Error('Network response was not ok');
     }
 
-    return await response.json();
+    const data = await response.json();
+    return data.data.id;
   } catch (err) {
     return null;
   }
@@ -347,7 +348,8 @@ function CheckoutPage() {
                     createOrder={async () => {
                       const data = await paypalCreateOrder(totalMsrpPrice);
                       if (!data) return '';
-                      return data.data.id;
+                      console.log(data);
+                      return data;
                     }}
                     onApprove={async (data) => {
                       console.log(data.orderID);
