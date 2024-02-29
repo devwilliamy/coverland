@@ -64,7 +64,7 @@ export async function getProductData({
     fetch = fetch.eq('model_slug', model);
   }
 
-  const { data, error } = await fetch.limit(4000);
+  const { data, error } = await fetch.limit(100);
 
   if (error) {
     throw new Error(error.message);
