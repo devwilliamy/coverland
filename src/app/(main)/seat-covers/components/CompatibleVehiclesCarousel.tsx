@@ -1,0 +1,82 @@
+import React, { useCallback, useEffect, useState } from 'react';
+import list1 from '@/images/PDP/Product-Details-Redesign-2/seat-covers/seat-list-1.webp';
+import list2 from '@/images/PDP/Product-Details-Redesign-2/seat-covers/seat-list-2.webp';
+import list3 from '@/images/PDP/Product-Details-Redesign-2/seat-covers/seat-list-3.webp';
+import list4 from '@/images/PDP/Product-Details-Redesign-2/seat-covers/seat-list-4.webp';
+import list5 from '@/images/PDP/Product-Details-Redesign-2/seat-covers/seat-list-5.webp';
+import Image, { StaticImageData } from 'next/image';
+import {
+  Carousel,
+  CarouselApi,
+  CarouselContent,
+  CarouselItem,
+} from '@/components/ui/carousel';
+
+const seatLists: { image: StaticImageData }[] = [
+  {
+    image: list1,
+  },
+  {
+    image: list2,
+  },
+  {
+    image: list3,
+  },
+  {
+    image: list4,
+  },
+  {
+    image: list5,
+  },
+];
+
+export default function CompatibleVehiclesCarousel() {
+  const [api, setApi] = useState<CarouselApi>();
+  const [current, setCurrent] = useState(0);
+  useEffect(() => {
+    if (!api) {
+      return;
+    }
+
+    // setScrollSnaps(api.scrollSnapList());
+    setCurrent(api.selectedScrollSnap());
+
+    api.on('select', () => {
+      setCurrent(api.selectedScrollSnap());
+    });
+  }, [api]);
+
+  const scrollTo = useCallback(
+    (index: number) => api && api.scrollTo(index),
+    [api]
+  );
+
+  return (
+    <div>
+      <Carousel setApi={setApi}>
+        <CarouselContent className="w-full">
+          {seatLists.map((i, index) => (
+            <CarouselItem
+              key={'SheetItem: ' + index}
+              className="flex h-full min-h-[340px] min-w-full snap-center items-center justify-center"
+            >
+              <Image alt={`list-image-${index}`} src={i.image} quality={100} />
+            </CarouselItem>
+          ))}
+        </CarouselContent>
+      </Carousel>
+
+      <section className="w-full items-center justify-center">
+        <div className="flex w-full items-center justify-center gap-[10px] pt-7">
+          {seatLists.map((i, index) => (
+            <div
+              key={`carousel-position-item-${index}`}
+              onClick={() => scrollTo(index)}
+              className={`rounded-full ${index === current && 'bg-black'} h-3.5 w-3.5 cursor-pointer outline outline-[0.5px] `}
+            ></div>
+          ))}
+        </div>
+      </section>
+    </div>
+  );
+}
