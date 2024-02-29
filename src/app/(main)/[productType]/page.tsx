@@ -43,7 +43,7 @@ export default async function CarPDPModelDataLayer({
     total_reviews: 0,
     average_score: 0,
   };
-  let reviewImages: TReviewData[];
+  let reviewImages: TReviewData[] = [];
   const productType = params.productType;
   const SuvOrTruckData =
     productType === 'suv-covers' ? defaultSuvModelData : defaultTruckModelData;

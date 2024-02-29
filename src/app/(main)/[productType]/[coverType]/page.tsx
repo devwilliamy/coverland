@@ -40,7 +40,7 @@ export default async function CarPDPModelDataLayer({
     total_reviews: 0,
     average_score: 0,
   };
-  let reviewImages: Record<string, boolean>;
+  let reviewImages: TReviewData[] = [];
   let modelData: TInitialProductDataDB[] = [];
   const productType = params.productType;
 
@@ -69,9 +69,12 @@ export default async function CarPDPModelDataLayer({
         getProductReviewSummary({
           productType: typeString,
         }),
-        getAllReviewsWithImages({
-          productType: typeString,
-        }),
+        getAllReviewsWithImages(
+          {
+            productType: typeString,
+          },
+          {}
+        ),
       ]);
 
     if (!modelData) {
