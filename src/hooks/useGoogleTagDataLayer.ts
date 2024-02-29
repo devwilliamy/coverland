@@ -4,10 +4,25 @@ import {
   TPathParams,
   getCompleteSelectionData,
 } from '@/app/(main)/utils';
+import { deslugify } from '@/lib/utils';
 import { useCartContext } from '@/providers/CartProvider';
 import { useParams } from 'next/navigation';
 import { useContext, useEffect } from 'react';
 import { useStore } from 'zustand';
+
+export const removeMakeFromDisplayId = (
+  displayId: string,
+  make: string
+): string => {
+  if (displayId === null || make === null) {
+    return displayId ?? ''; // Return displayId if it's not null, otherwise return an empty string
+  }
+
+  if (displayId.includes(make)) {
+    return displayId.replace(make, '').trim();
+  }
+  return displayId;
+};
 
 export const useItemViewedGoogleTag = (selectedProduct: IProductData) => {
   const store = useContext(CarSelectionContext);
@@ -32,10 +47,9 @@ export const useItemViewedGoogleTag = (selectedProduct: IProductData) => {
       coverType = '',
       productType = '',
     } = params || {};
-
     const productName = isComplete
-      ? `${selectedProduct.fullProductName} Premium Plus ${selectedProduct.type}`
-      : `${year} ${make} ${model} ${coverType} ${productType}`
+      ? `${selectedProduct.fullProductName} ${deslugify(coverType)} ${selectedProduct.type}`
+      : `${year} ${deslugify(make)} ${deslugify(model)} ${deslugify(coverType)} ${deslugify(productType)}`
           .replace(/  +/g, ' ')
           .trim();
     window?.dataLayer?.push({ ecommerce: null }); // Clear the previous ecommerce object.
@@ -53,14 +67,20 @@ export const useItemViewedGoogleTag = (selectedProduct: IProductData) => {
             discount: undefined, // Removed temporarily because we transfer the promotional price or something
             index: 0,
             item_brand: 'Coverland',
-            item_category: params?.productType,
-            item_category2: params?.coverType,
-            item_category3: params?.make,
-            item_category4: params?.model,
-            item_category5: params?.year,
-            item_category6: isComplete ? selectedProduct?.submodel1 : undefined,
-            item_category7: isComplete ? selectedProduct?.submodel2 : undefined,
-            item_category8: isComplete ? selectedProduct?.submodel3 : undefined,
+            item_category: deslugify(params?.productType || ''),
+            item_category2: deslugify(params?.coverType || ''),
+            item_category3: deslugify(params?.make || ''),
+            item_category4: deslugify(params?.model || ''),
+            item_category5: params?.year || '',
+            item_category6: isComplete
+              ? deslugify(selectedProduct?.submodel1 || '')
+              : undefined,
+            item_category7: isComplete
+              ? deslugify(selectedProduct?.submodel2 || '')
+              : undefined,
+            item_category8: isComplete
+              ? deslugify(selectedProduct?.submodel3 || '')
+              : undefined,
             item_list_id: undefined,
             item_list_name: undefined,
             item_variant: selectedProduct?.display_color,
@@ -77,12 +97,16 @@ export const useItemViewedGoogleTag = (selectedProduct: IProductData) => {
 export const useCheckoutViewedGoogleTag = () => {
   const { cartItems, getTotalPrice } = useCartContext();
   useEffect(() => {
-    // TODO: - Extract this into a map function
     const cartItemsToGTagItems = cartItems.map((cartItem, index) => {
-      const productName = `${cartItem.fullProductName} Premium Plus ${cartItem.type}`;
+      const cleanedDisplayId = removeMakeFromDisplayId(
+        cartItem.display_id as string,
+        cartItem.make as string
+      );
+      const productName = `${cartItem.fullProductName} ${cleanedDisplayId} ${cartItem.type}`;
       const price = parseFloat(cartItem?.price || '0') || 0;
       const msrp = parseFloat(cartItem?.msrp || '0') || 0;
       const discount: number = price - msrp;
+
       return {
         item_id: cartItem?.sku,
         item_name: productName,
@@ -92,7 +116,7 @@ export const useCheckoutViewedGoogleTag = () => {
         index: index,
         item_brand: 'Coverland',
         item_category: cartItem.type,
-        item_category2: 'Premium Plus',
+        item_category2: cleanedDisplayId,
         item_category3: cartItem.make,
         item_category4: cartItem.model,
         item_category5: cartItem.parent_generation,
@@ -132,7 +156,6 @@ export const useThankYouViewedGoogleTag = (
 ) => {
   const { cartItems, getTotalPrice } = useCartContext();
   useEffect(() => {
-    // console.log('CartItems:', cartItems);
     if (typeof window !== 'undefined' && window.performance) {
       const navigationType = window.performance.navigation.type;
       if (navigationType === PerformanceNavigation.TYPE_RELOAD) {
@@ -140,7 +163,11 @@ export const useThankYouViewedGoogleTag = (
       } else {
         // TODO: - Extract this into a map function
         const cartItemsToGTagItems = cartItems.map((cartItem, index) => {
-          const productName = `${cartItem.fullProductName} Premium Plus ${cartItem.type}`;
+          const cleanedDisplayId = removeMakeFromDisplayId(
+            cartItem.display_id as string,
+            cartItem.make as string
+          );
+          const productName = `${cartItem.fullProductName} ${cleanedDisplayId} ${cartItem.type}`;
           const price = parseFloat(cartItem?.price || '0') || 0;
           const msrp = parseFloat(cartItem?.msrp || '0') || 0;
           const discount: number = price - msrp;
@@ -153,7 +180,7 @@ export const useThankYouViewedGoogleTag = (
             index: index,
             item_brand: 'Coverland',
             item_category: cartItem.type,
-            item_category2: 'Premium Plus',
+            item_category2: cleanedDisplayId,
             item_category3: cartItem.make,
             item_category4: cartItem.model,
             item_category5: cartItem.parent_generation,
@@ -194,7 +221,11 @@ export const handleAddToCartGoogleTag = (
   const price = parseFloat(cartProduct?.price || '0') || 0;
   const msrp = parseFloat(cartProduct?.msrp || '0') || 0;
   const discount: number = price - msrp;
-  const productName = `${cartProduct.fullProductName} Premium Plus ${cartProduct.type}`;
+  const cleanedDisplayId = removeMakeFromDisplayId(
+    cartProduct.display_id as string,
+    cartProduct.make as string
+  );
+  const productName = `${cartProduct.fullProductName} ${cleanedDisplayId} ${cartProduct.type}`;
   window?.dataLayer?.push({ ecommerce: null }); // Clear the previous ecommerce object.
   window?.dataLayer?.push({
     event: 'add_to_cart',
@@ -210,14 +241,14 @@ export const handleAddToCartGoogleTag = (
           discount: undefined, // Removed temporarily because we transfer the promotional price or something
           index: 0,
           item_brand: 'Coverland',
-          item_category: params?.productType,
-          item_category2: params?.coverType,
-          item_category3: params?.make,
-          item_category4: params?.model,
+          item_category: deslugify(params?.productType || ''),
+          item_category2: deslugify(params?.coverType || ''),
+          item_category3: deslugify(params?.make || ''),
+          item_category4: deslugify(params?.model || ''),
           item_category5: params?.year,
-          item_category6: cartProduct?.submodel1,
-          item_category7: cartProduct?.submodel2,
-          item_category8: cartProduct?.submodel3,
+          item_category6: deslugify(cartProduct?.submodel1 || ''),
+          item_category7: deslugify(cartProduct?.submodel2 || ''),
+          item_category8: deslugify(cartProduct?.submodel3 || ''),
           item_list_id: undefined,
           item_list_name: undefined,
           item_variant: cartProduct?.display_color,
@@ -247,8 +278,8 @@ export const handleViewItemColorChangeGoogleTag = (
   } = params || {};
 
   const productName = isComplete
-    ? `${selectedProduct.fullProductName} Premium Plus ${selectedProduct.type}`
-    : `${year} ${make} ${model} ${coverType} ${productType}`
+    ? `${selectedProduct.fullProductName} ${deslugify(coverType)} ${selectedProduct.type}`
+    : `${year} ${deslugify(make)} ${deslugify(model)} ${deslugify(coverType)} ${deslugify(productType)}`
         .replace(/  +/g, ' ')
         .trim();
   window?.dataLayer?.push({ ecommerce: null }); // Clear the previous ecommerce object.
@@ -266,14 +297,20 @@ export const handleViewItemColorChangeGoogleTag = (
           discount: undefined, // Removed temporarily because we transfer the promotional price or something
           index: 0,
           item_brand: 'Coverland',
-          item_category: params?.productType,
-          item_category2: params?.coverType,
-          item_category3: params?.make,
-          item_category4: params?.model,
-          item_category5: params?.year,
-          item_category6: isComplete ? selectedProduct?.submodel1 : undefined,
-          item_category7: isComplete ? selectedProduct?.submodel2 : undefined,
-          item_category8: isComplete ? selectedProduct?.submodel3 : undefined,
+          item_category: deslugify(params?.productType || ''),
+          item_category2: deslugify(params?.coverType || ''),
+          item_category3: deslugify(params?.make || ''),
+          item_category4: deslugify(params?.model || ''),
+          item_category5: params?.year || '',
+          item_category6: isComplete
+            ? deslugify(selectedProduct?.submodel1 || '')
+            : undefined,
+          item_category7: isComplete
+            ? deslugify(selectedProduct?.submodel2 || '')
+            : undefined,
+          item_category8: isComplete
+            ? deslugify(selectedProduct?.submodel3 || '')
+            : undefined,
           item_list_id: undefined,
           item_list_name: undefined,
           item_variant: selectedProduct?.display_color,
