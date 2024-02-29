@@ -7,7 +7,7 @@ import BgBlur from '@/images/PDP/Product-Details-Redesign-2/pdp-background-blur.
 
 export default function RealTestSection() {
   return (
-    <section className="relative -mx-4 mt-[60px] flex flex-col  justify-center">
+    <section className="relative mt-[60px] flex flex-col  justify-center">
       <Image
         alt="real-test-background"
         src={BgBlur}

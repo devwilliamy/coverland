@@ -1,6 +1,8 @@
 import React from 'react';
 import Thumbnail from '@/video/Thumbnail.webp';
-import SixMinVideo from 'https://x2kly621zrgfgwll.public.blob.vercel-storage.com/videos/FINALIZE_WEBSTIE_16_9_OPTIMIZED.mp4';
+// import SixMinVideo from 'https://x2kly621zrgfgwll.public.blob.vercel-storage.com/videos/FINALIZE_WEBSTIE_16_9_OPTIMIZED.mp4';
+import SixMinVideo from '@/videos/https_x2kly621zrgfgwll.public.blob.vercel-storage.com_videos_FINALIZE_WEBSTIE_16_9_OPTIMIZED.mp4.json';
+
 import ProductVideo from '../ProductVideo';
 import ProductDetailsHeader from './ProductDetailsHeader';
 import FabricMattersSection from './FabricMattersSections';
