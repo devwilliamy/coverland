@@ -14,7 +14,7 @@ import Image from 'next/image';
 export default function FeaturesSection() {
   return (
     <section
-      className={`relative mt-[60px] flex h-full  flex-col items-center justify-center `}
+      className={`relative mt-[48px] flex h-full  flex-col items-center justify-center`}
     >
       <Image
         alt="Wet Fabric"

@@ -5,11 +5,12 @@ import OthersVSCoverlandDesktop from '@/images/PDP/Product-Details-Redesign-2/de
 import PremiumVSMobile from '@/images/PDP/Product-Details-Redesign-2/premium/premium-vs.webp';
 import PremiumVSDesktop from '@/images/PDP/Product-Details-Redesign-2/premium/premium-vs-desktop.webp';
 import { useParams } from 'next/navigation';
-const premiumPlusDifferences: {
+type difference = {
   title: string;
   others: JSX.Element | string;
   coverland: JSX.Element | string;
-}[] = [
+};
+const premiumPlusDifferences: difference[] = [
   {
     title: 'Material',
     others: <p>Thin, Weak</p>,
@@ -68,11 +69,7 @@ const premiumPlusDifferences: {
   },
 ];
 
-const premiumDifferences: {
-  title: string;
-  others: JSX.Element | string;
-  coverland: JSX.Element | string;
-}[] = [
+const premiumDifferences: difference[] = [
   {
     title: 'Material',
     others: <p>Thin, Weak</p>,
@@ -104,7 +101,7 @@ const premiumDifferences: {
   {
     title: 'Flexibility',
     others: 'Hard to Fit',
-    coverland: 'Easy Fit + Stretch',
+    coverland: 'Easy Fit ',
   },
   {
     title: 'Soft Inner',
@@ -124,11 +121,7 @@ const premiumDifferences: {
 export default function DifferenceGrid() {
   const params = useParams();
   const coverType = params?.coverType;
-  const standardDifferences: {
-    title: string;
-    others: JSX.Element | string;
-    coverland: JSX.Element | string;
-  }[] = [
+  const standardDifferences: difference[] = [
     {
       title: 'Material',
       others: <p>Thin, Weak</p>,
@@ -192,16 +185,15 @@ export default function DifferenceGrid() {
       ),
     },
   ];
+
   console.log(params);
+
   let differences: {
     title: string;
     others: JSX.Element | string;
     coverland: JSX.Element | string;
   }[] = [];
-  // if (params?.coverType === 'premium') {
-  // } else {
-  //   differences = premiumPlusDifferences;
-  // }
+
   switch (coverType) {
     case 'premium':
       differences = premiumDifferences;
@@ -217,12 +209,12 @@ export default function DifferenceGrid() {
   }
 
   return (
-    <div className="mt-[30px] px-2 pb-2 lg:w-full lg:px-0">
+    <div className="mt-[20px] px-2 pb-2 lg:w-full lg:px-0">
       <span className="flex w-full flex-col text-center">
-        <p className="w-full py-[20px] text-[22px] font-[500] leading-[24px] text-[#EBE9E9] lg:pb-[36px] lg:text-[40px] lg:font-[500]">
+        <p className="w-full text-[22px] font-[500] leading-[24px] text-[#EBE9E9] lg:pb-[36px] lg:text-[40px] lg:font-[500]">
           See the Difference:
         </p>
-        <div className="flex py-1 italic lg:pb-5 lg:text-[28px] lg:font-[500] lg:leading-[24px] ">
+        <div className="flex pb-2 pt-4 italic lg:pb-5 lg:text-[28px] lg:font-[500] lg:leading-[24px] ">
           <p className=" w-1/2 text-[#B5B5B5]">Others</p>
           <p className=" w-1/2  text-white">Coverland</p>
         </div>
@@ -233,14 +225,14 @@ export default function DifferenceGrid() {
               src={PremiumVSMobile}
               width={840}
               height={472}
-              className="mb-[14px] w-full lg:hidden"
+              className=" w-full lg:hidden"
             />
             <Image
               alt="Others-VS-Coverland"
               src={PremiumVSDesktop}
               width={840}
               height={472}
-              className="mb-[14px] hidden w-full lg:block"
+              className=" hidden w-full lg:block"
             />
           </>
         ) : (
@@ -262,7 +254,7 @@ export default function DifferenceGrid() {
           </>
         )}
       </span>
-      <div className="mt-[24px] flex flex-col overflow-hidden rounded-md">
+      <div className="mt-[34px] flex flex-col overflow-hidden rounded-md">
         {differences.map(({ title, others, coverland }, index) => (
           <div
             key={title}

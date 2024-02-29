@@ -4,28 +4,31 @@ import LifetimeCheck from '@/images/PDP/Product-Details-Redesign-2/lifetime-shei
 import LifetimeCheckDesktop from '@/images/PDP/Product-Details-Redesign-2/sheild-check-desktop.webp';
 import { useParams } from 'next/navigation';
 
-const lifetimeData = [
-  {
-    title: 'All Tears Covered:',
-    body: 'Beyond factory defects.',
-  },
-  {
-    title: 'Normal Wear:',
-    body: 'Includes weather damage.',
-  },
-  {
-    title: 'Lifetime Assurance:',
-    body: 'Always protected.',
-  },
-  {
-    title: 'Effortless Claims:',
-    body: ' Easy, no questions asked.',
-  },
-];
-export default function LifetimeSection() {
+export default function WarrantySection() {
   const params = useParams();
   const coverType = params?.coverType;
+  const isPremiumPlus = params?.coverType === 'premium-plus';
+  const warrantyData = [
+    {
+      title: 'All Tears Covered:',
+      body: 'Beyond factory defects.',
+    },
+    {
+      title: 'Normal Wear:',
+      body: 'Includes weather damage.',
+    },
+    {
+      title: 'Effortless Claims:',
+      body: ' Easy, no questions asked.',
+    },
+  ];
   let warrantyLength: string | number = 'Lifetime';
+
+  isPremiumPlus &&
+    warrantyData.splice(2, 0, {
+      title: 'Lifetime Assurance:',
+      body: 'Always protected.',
+    });
 
   switch (coverType) {
     case 'premium-plus':
@@ -63,7 +66,7 @@ export default function LifetimeSection() {
         className="hidden pb-7 pt-3 lg:block lg:w-[132px] lg:pt-[38px]"
       />
       <ul className=" list-disc flex-col">
-        {lifetimeData.map(({ title, body }) => (
+        {warrantyData.map(({ title, body }) => (
           <li
             key={title}
             className="list-item text-[14px] font-[500] leading-[30px] lg:text-[22px] lg:leading-[42px]"

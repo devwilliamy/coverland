@@ -15,10 +15,10 @@ const CustomFitSection = () => {
   const params = useParams();
   const productType = params?.productType;
   const coverType = params?.coverType;
+  const isPremimPlus = params?.coverType === 'premium-plus';
   let PremiumImage = CarPremiumImage;
   let StandardImage = CarStandardImage;
 
-  // const typeChoice = () => {
   switch (productType) {
     case 'truck-covers':
       PremiumImage = TruckPremiumImage;
@@ -27,9 +27,9 @@ const CustomFitSection = () => {
     case 'suv-covers':
       PremiumImage = SUVPremiumImage;
       StandardImage = SUVStandardImage;
+      break;
   }
-  // };
-  // typeChoice();
+
   const imageChoice = () => {
     switch (coverType) {
       case 'premium':
@@ -58,7 +58,9 @@ const CustomFitSection = () => {
           Custom-Fit
         </p>
         <p className="w-full  text-center text-[22px] leading-[26px] text-[#ABABAB] lg:text-[34px]">
-          Experience the perfect fit we offer
+          {isPremimPlus
+            ? 'Experience the perfect fit we offer'
+            : 'Experience the semi-custom fit'}
         </p>
       </div>
     </div>

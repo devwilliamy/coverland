@@ -30,7 +30,6 @@ export default function FreeDetails() {
       warrantyLength = 'Lifetime';
       break;
   }
-  console.log(warrantyLength);
 
   useEffect(() => {
     const interval = setInterval(() => {

@@ -59,7 +59,7 @@ export default function AddToCart({
   });
   return (
     <div>
-      <div className="mt-8 w-full" id="selector">
+      <div className="w-full" id="selector">
         <AddToCartSelector
           submodelSelectionOpen={submodelSelectionOpen}
           setSubmodelSelectionOpen={setSubmodelSelectionOpen}

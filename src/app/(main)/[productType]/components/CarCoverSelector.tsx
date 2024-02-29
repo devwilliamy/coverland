@@ -15,7 +15,7 @@ import EnhanceProtectionSection from '@/components/PDP/components/EnhanceProtect
 import SuggestedProducts from '@/components/PDP/components/SuggestedProducts';
 import ProvenSection from '@/components/PDP/components/ProvenSection';
 import RealTestSection from '@/components/PDP/components/RealTestSection';
-import LifetimeSection from '@/components/PDP/components/LifetimeSection';
+import WarrantySection from '@/components/PDP/components/WarrantySection';
 import FeaturesSection from '@/components/PDP/components/FeaturesSection';
 import { ExtraProductDetails } from '@/components/PDP/OtherDetails';
 import { useParams } from 'next/navigation';
@@ -115,9 +115,9 @@ export function CarCoverSelector({
         <FeaturesSection />
         <div className="flex w-full flex-col justify-center px-4">
           <EnhanceProtectionSection />
-          <RealTestSection />
+          {isPremiumPlus && <RealTestSection />}
           {isPremiumPlus && <ProvenSection />}
-          <LifetimeSection />
+          <WarrantySection />
         </div>
       </section>
       <SuggestedProducts />

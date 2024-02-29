@@ -51,30 +51,24 @@ const premiumData = [
 ];
 
 export default function EnhanceProtectionSection() {
-  let protectionData: {
-    image: StaticImageData;
-    title: string;
-    description: string;
-  }[] = [];
   const params = useParams();
   const coverType = params?.coverType;
   const isPremiumPlus = params?.coverType === 'premium-plus';
-  switch (coverType) {
-    case 'premium-plus':
-      protectionData = premiumPlusData;
-      break;
-    default:
-      protectionData = premiumData;
-      break;
-  }
+
+  const protectionData: {
+    image: StaticImageData;
+    title: string;
+    description: string;
+  }[] =
+    coverType === undefined || isPremiumPlus ? premiumPlusData : premiumData;
 
   return (
     <section className=" pt-[60px] ">
-      <p className="w-full pb-[35px] text-center text-[30px] font-[600] leading-[35px] lg:text-[45px] lg:leading-[52px]  ">
+      <p className="w-full pb-[18px] text-center text-[30px] font-[600] leading-[35px] lg:text-[45px] lg:leading-[52px]  ">
         Enhanced Protection
       </p>
       <div
-        className={`flex flex-col ${!isPremiumPlus ? 'lg:grid lg:grid-cols-[max(420px)_max(420px)] lg:gap-0' : ' lg:flex-row'} lg:justify-center lg:gap-[21px] lg:px-[39px]`}
+        className={`flex flex-col ${!isPremiumPlus && coverType ? 'lg:grid lg:grid-cols-[max(420px)_max(420px)] lg:gap-0' : ' lg:flex-row'} lg:justify-center lg:gap-[21px] lg:px-[39px]`}
       >
         {protectionData.map(({ image, title, description }) => (
           <div
