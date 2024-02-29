@@ -13,6 +13,8 @@ import {
   getProductReviewSummary,
   getProductReviewsByPage,
 } from '@/lib/db/review';
+import { deslugify } from '@/lib/utils';
+import { TPathParams } from '../utils';
 
 export function generateStaticParams() {
   return [
@@ -20,6 +22,14 @@ export function generateStaticParams() {
     { productType: 'suv-covers' },
     { productType: 'truck-covers' },
   ];
+}
+
+export async function generateMetadata({ params }: { params: TPathParams }) {
+  const productType = deslugify(params.productType);
+  return {
+    title: `${productType}, Custom Fit - Coverland`,
+    description: `${productType} ᐉ Coverland ⭐ Free, Same-Day Shipping ✔️ Free Returns & Purchase Protection ✔️ Made from premium quality, heavy-duty materials with a soft inner fabric.`,
+  };
 }
 
 export default async function CarPDPModelDataLayer({

@@ -9,6 +9,7 @@ import {
 import CarPDP from '../components/CarPDP';
 import { redirect } from 'next/navigation';
 import { TPathParams } from '../../utils';
+import { deslugify } from '@/lib/utils';
 
 //TODO: Refactor code so we can generate our dynamic paths as static HTML for performance
 
@@ -19,6 +20,14 @@ export async function generateStaticParams() {
     { coverType: 'standard-pro' },
     { coverType: 'standard' },
   ];
+}
+
+export async function generateMetadata({ params }: { params: TPathParams }) {
+  const productType = deslugify(params.productType);
+  return {
+    title: `${productType}, Custom Fit - Coverland`,
+    description: `${productType} ᐉ Coverland ⭐ Free, Same-Day Shipping ✔️ Free Returns & Purchase Protection ✔️ Made from premium quality, heavy-duty materials with a soft inner fabric.`,
+  };
 }
 
 export default async function CarPDPModelDataLayer({

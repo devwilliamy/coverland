@@ -11,9 +11,9 @@ export default function BuyWithConfidenceSection() {
       <div className="flex flex-col items-start justify-center lg:flex-row ">
         <div className="flex h-full flex-col items-center justify-center">
           <div className="w-full pb-[60px] lg:pb-20">
-            <h1 className="text-center text-2xl font-extrabold uppercase md:text-5xl  xl:text-center">
+            <h3 className="text-center text-2xl font-extrabold uppercase md:text-5xl  xl:text-center">
               Buy with confidence
-            </h1>
+            </h3>
           </div>
           <div className="grid grid-cols-1 gap-10 md:grid-cols-2 lg:grid-cols-4 lg:gap-x-32">
             <BuyWithConfidenceIcon
