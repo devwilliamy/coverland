@@ -50,7 +50,7 @@ export default function AddToCart({
   const modelData = useStore(store, (s) => s.modelData);
   const [addToCartOpen, setAddToCartOpen] = useState<boolean>(false);
 
-  const isTypePage = params?.productType && !params?.make;
+  const isTypeOrCoverPage = !params?.make;
 
   const {
     completeSelectionState: { isComplete },
@@ -67,7 +67,7 @@ export default function AddToCart({
       </div>
 
       {/* Add to Cart Button */}
-      {isTypePage && !isSticky ? (
+      {isTypeOrCoverPage && !isSticky ? (
         <VehicleSelector searchParams={searchParams} />
       ) : (
         <div className="fixed inset-x-0 bottom-0 z-50 flex bg-white p-4 lg:relative lg:p-1">

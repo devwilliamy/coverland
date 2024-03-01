@@ -190,7 +190,7 @@ export async function getProductReviewsByPage(
     });
   } catch (error) {
     if (error instanceof ZodError) {
-      console.log('ZodError:', error);
+      console.error('ZodError:', error);
     }
     console.error(error);
     return [];
@@ -359,13 +359,13 @@ export async function getProductReviewData(
     if (year) {
     }
     if (error) {
-      console.log(error);
+      console.error(error);
     }
 
     return data || [];
   } catch (error) {
     if (error instanceof ZodError) {
-      console.log('ZodError:', error);
+      console.error('ZodError:', error);
     }
     console.error(error);
     return [];
