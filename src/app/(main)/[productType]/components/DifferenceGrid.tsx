@@ -142,8 +142,8 @@ export default function DifferenceGrid() {
       ),
       coverland: (
         <p>
-          {coverType === 'standard-pro' && '2+'}
-          {coverType === 'standard' && '1+'}
+          {coverType === 'standard-pro' && '2+ '}
+          {coverType === 'standard' && '1+ '}
           Years
         </p>
       ),

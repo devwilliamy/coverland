@@ -16,15 +16,15 @@ export default function FreeDetails() {
 
   switch (coverType) {
     case 'standard':
-      warrantyLength = '1-year';
+      warrantyLength = '1-Year';
       break;
 
     case 'standard-pro':
-      warrantyLength = '2-year';
+      warrantyLength = '2-Year';
       break;
 
     case 'premium':
-      warrantyLength = '5-year';
+      warrantyLength = '5-Year';
       break;
     case 'premium-plus':
       warrantyLength = 'Lifetime';
