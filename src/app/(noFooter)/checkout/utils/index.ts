@@ -22,7 +22,6 @@ export async function paypalCreateOrder(
     }
 
     const data = await response.json();
-    console.log(data);
     return data.data.id;
   } catch (err) {
     return null;

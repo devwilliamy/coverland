@@ -91,8 +91,6 @@ export const handleAddOrderId = async ({
       return total + parseFloat(product.msrp as string);
     }, 0);
     if (order_id.includes('test')) {
-      console.log('Test Order');
-      console.log('lineItems', cartItems);
       error = await supabase.from('Test-Orders').insert({
         order_id: order_id,
         skus: cartItems.map((item) => item.sku),

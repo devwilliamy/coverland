@@ -39,9 +39,7 @@ export function HeroDropdown() {
       const response = await fetch(
         `/api/json-data?type=${slugify(type)}&make=${slugify(make)}`
       );
-      console.log(response);
       const jsonData = await response.json();
-      console.log(jsonData);
       setJsonData(jsonData);
     };
     getSearchData();
