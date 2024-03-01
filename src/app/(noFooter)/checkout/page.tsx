@@ -136,7 +136,8 @@ function CartItemCard({ item }: { item: TCartItem }) {
                 : ''}
             </div>
             <div className="text-sm font-normal text-[#707070] line-through decoration-[#707070] lg:text-base">
-              ${(parseFloat(item?.price as string) * item.quantity).toFixed(2)}
+              {item?.price &&
+                `$${(parseFloat(item.price as string) * item.quantity).toFixed(2)}`}
             </div>
           </div>
         </TableCell>
@@ -188,7 +189,7 @@ function CheckoutSummarySecton({
   const router = useRouter();
 
   return (
-    <div className="mt-6 px-4 pb-[4vh] md:w-4/12">
+    <div className="mb-3 mt-6 px-4 pb-[4vh] md:w-4/12">
       <div className="text-xl font-bold lg:text-[22px]">Summary</div>
       <div className="lg:hidden">
         <div className="py-[3vh] text-base font-normal text-[#343434]">
@@ -331,7 +332,7 @@ function CheckoutSummarySecton({
           </Suspense>
         </PayPalScriptProvider>
       </div>
-      <div className="fixed inset-x-0 bottom-0 bg-white p-4 shadow-[0_-4px_4px_-0px_rgba(0,0,0,0.1)] md:hidden">
+      <div className="fixed inset-x-0 bottom-0 z-[200] bg-white p-4 shadow-[0_-4px_4px_-0px_rgba(0,0,0,0.1)] md:hidden">
         <div className="flex flex-col items-center justify-between">
           <div className="self-end pb-1 pr-5 text-lg font-bold lg:font-bold">
             Order Total: ${totalMsrpPrice}
