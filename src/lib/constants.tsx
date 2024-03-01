@@ -694,7 +694,7 @@ const truckImages: Partial<Record<(typeof colorOrder)[number], string[]>> = {
     'http://www.coverland.com/category-images-new/truck-premium-gr-1to.webp',
     'http://www.coverland.com/category-images-new/02-tc-ft-sp-gr-1to.webp',
     'http://www.coverland.com/category-images-new/06-ps-gr-1to.webp',
-    'http://www.coverland.com/category-images-new/07-ps-gr-1to.webp.webp',
+    'http://www.coverland.com/category-images-new/07-ps-gr-1to.webp',
     'http://www.coverland.com/category-images-new/12.webp',
     'https://www.coverland.com/images/default-product-images/15.jpg',
   ],

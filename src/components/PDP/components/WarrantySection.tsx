@@ -2,9 +2,14 @@ import Image from 'next/image';
 import React from 'react';
 import LifetimeCheck from '@/images/PDP/Product-Details-Redesign-2/lifetime-sheild-check.webp';
 import LifetimeCheckDesktop from '@/images/PDP/Product-Details-Redesign-2/sheild-check-desktop.webp';
+import { useParams } from 'next/navigation';
 
-export default function LifetimeSection() {
-  const lifetimeData = [
+export default function WarrantySection() {
+  const params = useParams();
+  const coverType = params?.coverType;
+  const isPremiumPlus = params?.coverType === 'premium-plus';
+  const isDefaultCoverType = isPremiumPlus || coverType === undefined;
+  const warrantyData = [
     {
       title: 'All Tears Covered:',
       body: 'Beyond factory defects.',
@@ -22,18 +27,39 @@ export default function LifetimeSection() {
       body: ' Easy, no questions asked.',
     },
   ];
+  let warrantyLength: string | number = 'Lifetime';
+
+  !isDefaultCoverType && warrantyData.splice(2, 1);
+
+  switch (coverType) {
+    case 'premium-plus':
+      warrantyLength = 'Lifetime';
+      break;
+
+    case 'premium':
+      warrantyLength = '5-Year';
+      break;
+
+    case 'standard-pro':
+      warrantyLength = '2-Year';
+      break;
+
+    case 'standard':
+      warrantyLength = '1-Year';
+  }
+
   return (
-    <section className="flex flex-col items-center pt-[60px] lg:mb-[40px] lg:pt-[110px]">
+    <section className="flex flex-col items-center pt-[60px]  lg:pt-[110px]">
       <p className="w-full text-center text-[30px] font-[600] leading-[22px]">
-        Lifetime Warranty
+        {warrantyLength} Warranty
       </p>
-      <p className="pt-[13px] text-[22px] font-[500] leading-[28px] text-[#7D7D7D] ">
+      <p className="pt-[13px] text-[22px] font-[500] leading-[28px]">
         Available for a Limited Time
       </p>
       <Image
         alt="Lifetime-Check-Mobile"
         src={LifetimeCheck}
-        className="pb-7 pt-3 lg:hidden lg:w-[132px] lg:pt-[38px]"
+        className="py-7 lg:hidden lg:w-[132px] lg:pt-[38px]"
       />
       <Image
         alt="Lifetime-Check-Desktop"
@@ -41,7 +67,7 @@ export default function LifetimeSection() {
         className="hidden pb-7 pt-3 lg:block lg:w-[132px] lg:pt-[38px]"
       />
       <ul className=" list-disc flex-col">
-        {lifetimeData.map(({ title, body }) => (
+        {warrantyData.map(({ title, body }) => (
           <li
             key={title}
             className="list-item text-[14px] font-[500] leading-[30px] lg:text-[22px] lg:leading-[42px]"
