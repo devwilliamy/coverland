@@ -189,7 +189,7 @@ function CheckoutSummarySecton({
   const router = useRouter();
 
   return (
-    <div className="mt-6 px-4 pb-[4vh] md:w-4/12">
+    <div className="mb-3 mt-6 px-4 pb-[4vh] md:w-4/12">
       <div className="text-xl font-bold lg:text-[22px]">Summary</div>
       <div className="lg:hidden">
         <div className="py-[3vh] text-base font-normal text-[#343434]">
