@@ -54,7 +54,7 @@ function CheckoutPage() {
         </p>
       ) : (
         <div className="flex flex-col md:flex md:flex-row md:gap-12 md:px-12 lg:px-24">
-          <Table className="mt-4 w-full">
+          <Table className="w-full">
             <TableHeader>
               <TableRow>
                 <TableHead
@@ -101,7 +101,7 @@ function CartItemCard({ item }: { item: TCartItem }) {
   const { removeItemFromCart } = useCartContext();
   return (
     <TableBody key={item.sku}>
-      <TableRow className="flex flex-col py-3">
+      <TableRow className="flex flex-col">
         <TableCell className="flex w-full justify-items-center gap-2 text-2xl font-medium">
           <div className="h-9/12 w-3/12 justify-items-center ">
             <Image
@@ -141,7 +141,7 @@ function CartItemCard({ item }: { item: TCartItem }) {
             </div>
           </div>
         </TableCell>
-        <TableCell className="flex items-end justify-between">
+        <TableCell className="flex items-end justify-between py-2">
           <div className="flex flex-col">
             <div className="text-sm font-normal text-[#343434] lg:text-base">
               Same-Day Shipping
@@ -189,10 +189,10 @@ function CheckoutSummarySecton({
   const router = useRouter();
 
   return (
-    <div className="mb-3 mt-6 px-4 pb-[4vh] md:w-4/12">
+    <div className="mt-2 px-4 pb-[4vh] md:w-4/12">
       <div className="text-xl font-bold lg:text-[22px]">Summary</div>
       <div className="lg:hidden">
-        <div className="py-[3vh] text-base font-normal text-[#343434]">
+        <div className="py-[2vh] text-base font-normal text-[#343434]">
           <div className="flex justify-between ">
             <div>Order Subtotal</div>
             <div>${orderSubtotal}</div>
@@ -228,9 +228,7 @@ function CheckoutSummarySecton({
                 return data;
               }}
               onApprove={async (data) => {
-                console.log(data.orderID);
                 const response = await paypalCaptureOrder(data.orderID);
-                console.log(response);
                 if (response.success) {
                   clearLocalStorageCart();
                   router.push(`/thank-you?order-number=CL-P-${data.orderID}`);
@@ -320,9 +318,7 @@ function CheckoutSummarySecton({
                 return data;
               }}
               onApprove={async (data) => {
-                console.log(data.orderID);
                 const response = await paypalCaptureOrder(data.orderID);
-                console.log(response);
                 if (response.success) {
                   clearLocalStorageCart();
                   router.push(`/thank-you?order-number=CL-P-${data.orderID}`);
