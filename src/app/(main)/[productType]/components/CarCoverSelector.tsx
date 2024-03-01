@@ -19,11 +19,7 @@ import WarrantySection from '@/components/PDP/components/WarrantySection';
 import FeaturesSection from '@/components/PDP/components/FeaturesSection';
 import { ExtraProductDetails } from '@/components/PDP/OtherDetails';
 import { useParams } from 'next/navigation';
-import dynamic from 'next/dynamic';
-
-const EditVehiclePopover = dynamic(
-  () => import('@/components/PDP/components/EditVehiclePopover')
-);
+import EditVehiclePopover from '@/components/PDP/components/EditVehiclePopover';
 
 export function CarCoverSelector({
   searchParams,
@@ -59,13 +55,7 @@ export function CarCoverSelector({
 
   const productName = modelData[0]?.fullProductName;
 
-  useItemViewedGoogleTag(
-    modelData,
-    selectedProduct,
-    featuredImage,
-    productName,
-    uniqueColors
-  );
+  useItemViewedGoogleTag(selectedProduct);
 
   const params = useParams();
   const coverType = params?.coverType;
@@ -113,15 +103,13 @@ export function CarCoverSelector({
           {/* {isMobile && ( */}
         </div>
       </section>
-      <section className="relative">
-        <FeaturesSection />
-        <div className="flex w-full flex-col justify-center px-4">
-          <EnhancedProtectionSection />
-          {isDefaultCoverType && <RealTestSection />}
-          {isDefaultCoverType && <ProvenSection />}
-          <WarrantySection />
-        </div>
-      </section>
+      <FeaturesSection />
+      <div className="flex w-full flex-col justify-center px-4">
+        <EnhancedProtectionSection />
+        {isDefaultCoverType && <RealTestSection />}
+        {isDefaultCoverType && <ProvenSection />}
+        <WarrantySection />
+      </div>
       <SuggestedProducts />
       <ExtraProductDetails />
     </>
