@@ -22,7 +22,8 @@ export default function ReviewImagesSheet({
   return (
     <Sheet open={reviewOpen} onOpenChange={setReviewsOpen}>
       <SheetTrigger
-        className={` ml-2 flex gap-3 ${!children && 'pb-4'} underline`}
+        // className={` ml-2 flex gap-3 ${!children && 'pb-4'} underline`}
+        className={`${children ? 'my-[4px] mr-1 flex w-1/5 gap-3' : 'pb-4'} underline`}
         disabled={!total_reviews}
       >
         {children || (

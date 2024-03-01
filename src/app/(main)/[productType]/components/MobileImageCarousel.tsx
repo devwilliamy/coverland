@@ -70,13 +70,13 @@ export const MobileImageCarousel = ({
     video?: string | Asset;
   }) => (
     <button
-      className={`relative flex min-h-[80px] min-w-[80px] items-center justify-center rounded-[4px] ${index === current && 'outline outline-1  '} `}
+      className={`relative flex h-full min-h-[25%] w-1/4 min-w-[25%] items-center justify-center rounded-[4px] ${index === current && 'outline outline-1  '} `}
       onClick={() => scrollTo(index)}
     >
       <Image
         className="rounded-[4px]"
-        width={74}
-        height={74}
+        width={148}
+        height={148}
         src={src}
         sizes="(max-width: 768px) 100vw"
         alt={`carousel-position-item-${index}`}
@@ -85,7 +85,7 @@ export const MobileImageCarousel = ({
   );
 
   return (
-    <div className="flex max-w-full flex-col bg-white lg:hidden ">
+    <section className="flex max-w-full flex-col bg-white lg:hidden ">
       <Carousel setApi={setApi}>
         <CarouselContent id={'carousel-content'} className="no-scrollbar">
           {carouselItems.map((image, index) => {
@@ -130,21 +130,21 @@ export const MobileImageCarousel = ({
           })}
         </CarouselContent>
       </Carousel>
-      <div className="flex h-full w-full items-center">
-        <div className=" flex w-3/4 flex-row gap-[4px] overflow-x-auto whitespace-nowrap p-[6px]">
+      <section className="flex h-full w-full gap-1 ">
+        <div className=" no-scrollbar flex w-4/5 flex-row gap-1 overflow-x-auto py-1.5 pl-1 ">
           {carouselItems.map((item, index) => {
             if (index < 1)
               return (
                 <div
                   key={selectedProduct.mainImage}
-                  className={`relative flex min-h-[80px]  min-w-[80px] cursor-pointer items-center justify-center rounded-[4px] ${0 === current && 'outline outline-1  '} `}
+                  className={`relative flex h-full min-h-[25%] w-1/4 min-w-[25%] cursor-pointer items-center justify-center rounded-[4px] ${0 === current && 'outline outline-1  '} `}
                   onClick={() => scrollTo(index)}
                 >
                   <Image
                     src={selectedProduct.mainImage as string}
                     alt={`Additional images of the ${selectedProduct.display_id} cover`}
-                    width={74}
-                    height={74}
+                    width={148}
+                    height={148}
                     priority
                     // placeholder="blur"
                   />
@@ -155,7 +155,7 @@ export const MobileImageCarousel = ({
                 <div
                   key={String(SevenSecVideoThumbnail)}
                   id="video-thumbnail"
-                  className={`relative flex aspect-square min-h-[80px] min-w-[80px] cursor-pointer items-center justify-center rounded-[4px] ${index === current && 'outline outline-1  '} `}
+                  className={`relative flex aspect-square h-full min-h-[25%] w-1/4 min-w-[25%] cursor-pointer items-center justify-center rounded-[4px] ${index === current && 'outline outline-1  '} `}
                   onClick={() => scrollTo(index)}
                 >
                   <Image
@@ -163,8 +163,8 @@ export const MobileImageCarousel = ({
                     alt="Video Thumbnail"
                     slot="poster"
                     src={SevenSecVideoThumbnail}
-                    width={74}
-                    height={74}
+                    width={148}
+                    height={148}
                     aria-hidden="true"
                   />
                 </div>
@@ -180,11 +180,11 @@ export const MobileImageCarousel = ({
           })}
         </div>
         <ReviewImagesSheet>
-          <div
-            className={`mx-1 flex h-full min-h-[80px] w-1/4 min-w-[80px] max-w-[25%] items-center justify-center rounded-[4px] bg-[#F2F2F2] `}
+          <span
+            className={` flex h-full w-full items-center justify-center rounded-[4px] bg-[#F2F2F2] `}
             // onClick={() => scrollTo(index)}
           >
-            <div className="m-auto flex h-full flex-col items-center justify-center gap-2 ">
+            <div className=" flex h-full flex-col items-center justify-center gap-2 ">
               <p className="text-[10px] font-[600] leading-[12px] underline">
                 Customer <br /> Images
               </p>
@@ -193,9 +193,9 @@ export const MobileImageCarousel = ({
                 className="flex min-h-[24px] min-w-[27px]"
               />
             </div>
-          </div>
+          </span>
         </ReviewImagesSheet>
-      </div>
-    </div>
+      </section>
+    </section>
   );
 };
