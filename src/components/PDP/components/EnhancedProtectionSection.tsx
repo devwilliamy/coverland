@@ -31,7 +31,7 @@ const premiumData = [
   {
     image: PremiumZippers,
     title: 'Side Zipper',
-    description: 'Easy access under the cover.',
+    description: 'Easy access under the cover',
   },
   {
     image: PremiumAirVents,
@@ -85,7 +85,7 @@ export default function EnhancedProtectionSection() {
             <p className="space-x-2 pt-[22px] text-[18px] font-[600] leading-[21px]">
               {title}
             </p>
-            <p className="mx-auto text-[#7D7D7D] lg:max-w-[208px] lg:text-center">
+            <p className="mx-auto font-[500] text-[#7D7D7D] lg:max-w-[208px] lg:text-center">
               {description}
             </p>
           </div>

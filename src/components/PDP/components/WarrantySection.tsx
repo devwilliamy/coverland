@@ -8,6 +8,7 @@ export default function WarrantySection() {
   const params = useParams();
   const coverType = params?.coverType;
   const isPremiumPlus = params?.coverType === 'premium-plus';
+  const isDefaultCoverType = isPremiumPlus || coverType === undefined;
   const warrantyData = [
     {
       title: 'All Tears Covered:',
@@ -18,17 +19,17 @@ export default function WarrantySection() {
       body: 'Includes weather damage.',
     },
     {
+      title: 'Lifetime Assurance:',
+      body: 'Always protected.',
+    },
+    {
       title: 'Effortless Claims:',
       body: ' Easy, no questions asked.',
     },
   ];
   let warrantyLength: string | number = 'Lifetime';
 
-  isPremiumPlus &&
-    warrantyData.splice(2, 0, {
-      title: 'Lifetime Assurance:',
-      body: 'Always protected.',
-    });
+  !isDefaultCoverType && warrantyData.splice(2, 1);
 
   switch (coverType) {
     case 'premium-plus':
@@ -36,11 +37,11 @@ export default function WarrantySection() {
       break;
 
     case 'premium':
-      warrantyLength = '5-years';
+      warrantyLength = '5-year';
       break;
 
     case 'standard-pro':
-      warrantyLength = '2-years';
+      warrantyLength = '2-year';
       break;
 
     case 'standard':
@@ -52,13 +53,13 @@ export default function WarrantySection() {
       <p className="w-full text-center text-[30px] font-[600] leading-[22px]">
         {warrantyLength} Warranty
       </p>
-      <p className="pt-[13px] text-[22px] font-[500] leading-[28px] text-[#7D7D7D] ">
+      <p className="pt-[13px] text-[22px] font-[500] leading-[28px]">
         Available for a Limited Time
       </p>
       <Image
         alt="Lifetime-Check-Mobile"
         src={LifetimeCheck}
-        className="pb-7 pt-3 lg:hidden lg:w-[132px] lg:pt-[38px]"
+        className="py-7 lg:hidden lg:w-[132px] lg:pt-[38px]"
       />
       <Image
         alt="Lifetime-Check-Desktop"

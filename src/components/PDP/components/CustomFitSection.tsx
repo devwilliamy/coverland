@@ -58,7 +58,7 @@ const CustomFitSection = () => {
           Custom-Fit
         </p>
         <p className="w-full  text-center text-[22px] leading-[26px] text-[#ABABAB] lg:text-[34px]">
-          {isPremimPlus
+          {isPremimPlus || coverType === undefined
             ? 'Experience the perfect fit we offer'
             : 'Experience the semi-custom fit'}
         </p>

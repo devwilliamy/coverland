@@ -186,8 +186,6 @@ export default function DifferenceGrid() {
     },
   ];
 
-  console.log(params);
-
   let differences: {
     title: string;
     others: JSX.Element | string;

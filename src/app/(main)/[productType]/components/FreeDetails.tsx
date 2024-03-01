@@ -20,11 +20,11 @@ export default function FreeDetails() {
       break;
 
     case 'standard-pro':
-      warrantyLength = '2-years';
+      warrantyLength = '2-year';
       break;
 
     case 'premium':
-      warrantyLength = '5-years';
+      warrantyLength = '5-year';
       break;
     case 'premium-plus':
       warrantyLength = 'Lifetime';
@@ -59,7 +59,7 @@ export default function FreeDetails() {
     },
   ];
   return (
-    <div className="flex flex-col items-center justify-start bg-[#FBFBFB] ">
+    <div className="flex flex-col items-center justify-start bg-[#FBFBFB] pb-[48px] ">
       {FreeDetailItems.map(({ icon, title, description }, index) => (
         <FreeDetailItem
           key={`Free-Detail-Item-${index}`}

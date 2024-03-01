@@ -57,6 +57,9 @@ export function ProductContent({
   const color = useStore(store, (s) => s.selectedColor);
   const { addToCart } = useCartContext();
   const params = useParams<TPathParams>();
+  const isDefaultCoverType =
+    params?.coverType === 'premium-plus' || params?.coverType === undefined;
+  const isPremiumType = isDefaultCoverType || params?.coverType === 'premium';
 
   const cartProduct = modelData.find((p) => p.display_color === color);
 
@@ -82,9 +85,16 @@ export function ProductContent({
         <div className="flex flex-col gap-0.5">
           {/* Product Title */}
           <h1 className="mt-[24px] text-[24px] font-[900] leading-[27px] text-[#1A1A1A] lg:mt-0 lg:text-[28px] lg:leading-[30px] ">
-            {`${selectedProduct?.display_id}`}
-            &trade; {isMobile && <br />}
-            {`Custom-Fit ${productType}`}
+            {`${selectedProduct?.display_id} `}
+            {isDefaultCoverType && (
+              <>
+                &trade;
+                <br />
+              </>
+            )}
+            {isPremiumType
+              ? `Custom-Fit ${productType}`
+              : `Semi-Custom ${productType}`}
           </h1>
           {/* Rating(s) */}
           <div className="-ml-0.5 mt-1 flex items-end gap-1 lg:mt-2">
