@@ -13,7 +13,7 @@ const coverTypes = [
 function Header() {
   return (
     <>
-      <header className="hidden w-screen max-w-[1280px] flex-col items-stretch sm:mb-0  lg:ml-auto lg:flex lg:w-auto lg:pt-2.5">
+      <header className="hidden w-screen max-w-[1280px] flex-col items-stretch sm:mb-0 lg:mb-4  lg:ml-auto lg:flex lg:w-auto lg:pt-2.5">
         <section className="flex w-full items-center justify-between px-16 max-md:max-w-full max-md:px-5">
           <Logo />
           <div className="flex max-h-[24px] min-h-[24px] items-center gap-[30px]">
@@ -49,7 +49,7 @@ function Header() {
         <section className="whitespace-nowrap bg-black  px-20 text-center text-[18px] font-[500] uppercase text-white lg:text-4xl">
           <p>SAVE UP TO 50%</p>
         </section>
-        <section className="mb-[17px] flex w-full items-center justify-between px-16 max-md:max-w-full max-md:px-5">
+        <section className="mb-[17px] flex w-full items-center justify-between px-16 max-md:mb-2 max-md:max-w-full max-md:px-5">
           <Logo />
           <div className="flex items-center gap-[28px] ">
             <Cart />

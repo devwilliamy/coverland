@@ -68,10 +68,10 @@ function CheckoutPage() {
                   <div
                     className="flex h-full flex-1
                 flex-col items-center 
-                md:flex md:flex-row md:gap-2"
+                leading-4 md:flex md:flex-row md:gap-2"
                   >
                     <div className="text-[22px] font-bold text-black">Cart</div>
-                    <div className="pb-2 text-base font-normal md:pb-0">
+                    <div className="text-base font-normal md:pb-0">
                       {cartQuantity} Items
                     </div>
                   </div>
@@ -112,7 +112,7 @@ function CartItemCard({ item }: { item: TCartItem }) {
               alt={`The image for a ${item.product_name} car cover`}
             />
           </div>
-          <div className="flex w-7/12 flex-col gap-2">
+          <div className="flex w-7/12 flex-col gap-1">
             <div className="w-10/12 text-base font-bold lg:text-lg">
               {item?.display_id}&trade; {item.type}
             </div>
@@ -141,7 +141,7 @@ function CartItemCard({ item }: { item: TCartItem }) {
             </div>
           </div>
         </TableCell>
-        <TableCell className="flex items-end justify-between py-2">
+        <TableCell className="flex items-end justify-between pb-2 pt-0">
           <div className="flex flex-col">
             <div className="text-sm font-normal text-[#343434] lg:text-base">
               Same-Day Shipping
@@ -192,7 +192,7 @@ function CheckoutSummarySecton({
     <div className="mt-2 px-4 pb-[4vh] md:w-4/12">
       <div className="text-xl font-bold lg:text-[22px]">Summary</div>
       <div className="lg:hidden">
-        <div className="py-[2vh] text-base font-normal text-[#343434]">
+        <div className="py-[1vh] text-base font-normal text-[#343434]">
           <div className="flex justify-between ">
             <div>Order Subtotal</div>
             <div>${orderSubtotal}</div>
