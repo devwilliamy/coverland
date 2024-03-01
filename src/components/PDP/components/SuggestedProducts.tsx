@@ -31,36 +31,36 @@ export default function SuggestedProducts() {
         {products.map((model) => (
           <div key={model.type.slug} className="flex shrink-0 flex-col">
             <Link href={`/${productType}/${model.type.slug}`} passHref>
-              <>
-                <Image
-                  alt="suggested-product"
-                  width={200}
-                  height={200}
-                  src={model.image}
-                />
-                <p className="pt-3 text-[16px] font-[600] leading-[16px]">
-                  {model.type.display}
-                </p>
-                <p className="pt-0.5 text-[14px] leading-[16px]">
-                  {model.type.slug !== 'standard-pro' &&
-                  model.type.slug !== 'standard'
-                    ? 'Custom Car Cover'
-                    : 'Semi-Custom Car Cover'}
-                </p>
-                <div className="flex gap-[5px]">
-                  <p className="pt-[14px] text-[16px] font-[600] leading-[16px]">
-                    ${model.msrp}
-                  </p>
-
-                  {model.type.slug !== 'standard-pro' &&
-                    model.type.slug !== 'standard' && (
-                      <p className="pt-[14px] text-[14px] leading-[16px] text-[#767676] line-through">
-                        ${model.price}
-                      </p>
-                    )}
-                </div>
-              </>
+              <Image
+                alt="suggested-product"
+                width={200}
+                height={200}
+                src={model.image}
+              />
             </Link>
+            <Link href={`/${productType}/${model.type.slug}`} passHref>
+              <p className="pt-3 text-[16px] font-[600] leading-[16px]">
+                {model.type.display}
+              </p>
+            </Link>
+            <p className="pt-0.5 text-[14px] leading-[16px]">
+              {model.type.slug !== 'standard-pro' &&
+              model.type.slug !== 'standard'
+                ? 'Custom Car Cover'
+                : 'Semi-Custom Car Cover'}
+            </p>
+            <div className="flex gap-[5px]">
+              <p className="pt-[14px] text-[16px] font-[600] leading-[16px]">
+                ${model.msrp}
+              </p>
+
+              {model.type.slug !== 'standard-pro' &&
+                model.type.slug !== 'standard' && (
+                  <p className="pt-[14px] text-[14px] leading-[16px] text-[#767676] line-through">
+                    ${model.price}
+                  </p>
+                )}
+            </div>
           </div>
         ))}
       </span>
