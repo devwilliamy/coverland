@@ -4,6 +4,7 @@ import {
   TPathParams,
   getCompleteSelectionData,
 } from '@/app/(main)/utils';
+import { TCartItem } from '@/lib/cart/useCart';
 import { deslugify } from '@/lib/utils';
 import { useCartContext } from '@/providers/CartProvider';
 import { useParams } from 'next/navigation';
@@ -24,6 +25,98 @@ export const removeMakeFromDisplayId = (
   return displayId;
 };
 
+const generateViewItemEvent = (
+  selectedProduct: IProductData,
+  params: TPathParams | null,
+  isComplete: boolean
+) => {
+  // const price = parseFloat(selectedProduct?.price || '0') || 0;
+  const msrp = parseFloat(selectedProduct?.msrp || '0') || 0;
+  // const discount: number = price - msrp;
+  const {
+    year = '',
+    make = '',
+    model = '',
+    coverType = '',
+    productType = '',
+  } = params || {};
+
+  const productName = isComplete
+    ? `${selectedProduct.fullProductName} ${deslugify(coverType)} ${selectedProduct.type}`
+    : `${year} ${deslugify(make)} ${deslugify(model)} ${deslugify(coverType)} ${deslugify(productType)}`
+        .replace(/  +/g, ' ')
+        .trim();
+
+  const item = {
+    item_id: isComplete ? selectedProduct?.sku : undefined,
+    item_name: productName,
+    affiliation: undefined,
+    coupon: undefined,
+    discount: undefined,
+    index: 0,
+    item_brand: 'Coverland',
+    item_category: deslugify(params?.productType || ''),
+    item_category2: deslugify(params?.coverType || ''),
+    item_category3: deslugify(params?.make || ''),
+    item_category4: deslugify(params?.model || ''),
+    item_category5: params?.year || '',
+    item_category6: isComplete
+      ? deslugify(selectedProduct?.submodel1 || '')
+      : undefined,
+    item_category7: isComplete
+      ? deslugify(selectedProduct?.submodel2 || '')
+      : undefined,
+    item_category8: isComplete
+      ? deslugify(selectedProduct?.submodel3 || '')
+      : undefined,
+    item_list_id: undefined,
+    item_list_name: undefined,
+    item_variant: selectedProduct?.display_color,
+    location_id: undefined,
+    price: isComplete ? msrp : undefined,
+    quantity: 1,
+  };
+
+  return item;
+};
+
+const mapCartItemsToGTagItems = (cartItems: TCartItem[]) => {
+  return cartItems.map((cartItem, index) => {
+    const cleanedDisplayId = removeMakeFromDisplayId(
+      cartItem.display_id as string,
+      cartItem.make as string
+    );
+    const productName = `${cartItem.fullProductName} ${cleanedDisplayId} ${cartItem.type}`;
+    // const price = parseFloat(cartItem?.price || '0') || 0;
+    const msrp = parseFloat(cartItem?.msrp || '0') || 0;
+    // const discount: number = price - msrp;
+
+    return {
+      item_id: cartItem?.sku,
+      item_name: productName,
+      affiliation: undefined,
+      coupon: undefined,
+      discount: undefined, // Removed temporarily because we transfer the promotional price or something
+      index: index,
+      item_brand: 'Coverland',
+      item_category: cartItem.type,
+      item_category2: cleanedDisplayId,
+      item_category3: cartItem.make,
+      item_category4: cartItem.model,
+      item_category5: cartItem.parent_generation,
+      item_category6: cartItem.submodel1,
+      item_category7: cartItem.submodel2,
+      item_category8: cartItem.submodel3,
+      item_list_id: undefined,
+      item_list_name: undefined,
+      item_variant: cartItem.display_color,
+      location_id: undefined,
+      price: msrp,
+      quantity: cartItem.quantity,
+    };
+  });
+};
+
 export const useItemViewedGoogleTag = (selectedProduct: IProductData) => {
   const store = useContext(CarSelectionContext);
   if (!store) throw new Error('Missing CarContext.Provider in the tree');
@@ -37,58 +130,15 @@ export const useItemViewedGoogleTag = (selectedProduct: IProductData) => {
   });
 
   useEffect(() => {
-    const price = parseFloat(selectedProduct?.price || '0') || 0;
     const msrp = parseFloat(selectedProduct?.msrp || '0') || 0;
-    const discount: number = price - msrp;
-    const {
-      year = '',
-      make = '',
-      model = '',
-      coverType = '',
-      productType = '',
-    } = params || {};
-    const productName = isComplete
-      ? `${selectedProduct.fullProductName} ${deslugify(coverType)} ${selectedProduct.type}`
-      : `${year} ${deslugify(make)} ${deslugify(model)} ${deslugify(coverType)} ${deslugify(productType)}`
-          .replace(/  +/g, ' ')
-          .trim();
+    const item = generateViewItemEvent(selectedProduct, params, isComplete);
     window?.dataLayer?.push({ ecommerce: null }); // Clear the previous ecommerce object.
     window?.dataLayer?.push({
       event: 'view_item',
       ecommerce: {
         currency: 'USD',
         value: isComplete ? msrp : undefined,
-        items: [
-          {
-            item_id: isComplete ? selectedProduct?.sku : undefined,
-            item_name: productName,
-            affiliation: undefined,
-            coupon: undefined,
-            discount: undefined, // Removed temporarily because we transfer the promotional price or something
-            index: 0,
-            item_brand: 'Coverland',
-            item_category: deslugify(params?.productType || ''),
-            item_category2: deslugify(params?.coverType || ''),
-            item_category3: deslugify(params?.make || ''),
-            item_category4: deslugify(params?.model || ''),
-            item_category5: params?.year || '',
-            item_category6: isComplete
-              ? deslugify(selectedProduct?.submodel1 || '')
-              : undefined,
-            item_category7: isComplete
-              ? deslugify(selectedProduct?.submodel2 || '')
-              : undefined,
-            item_category8: isComplete
-              ? deslugify(selectedProduct?.submodel3 || '')
-              : undefined,
-            item_list_id: undefined,
-            item_list_name: undefined,
-            item_variant: selectedProduct?.display_color,
-            location_id: undefined,
-            price: isComplete ? msrp : undefined,
-            quantity: 1,
-          },
-        ],
+        items: [item],
       },
     });
   }, [params, selectedProduct, isComplete]);
@@ -97,41 +147,7 @@ export const useItemViewedGoogleTag = (selectedProduct: IProductData) => {
 export const useCheckoutViewedGoogleTag = () => {
   const { cartItems, getTotalPrice } = useCartContext();
   useEffect(() => {
-    const cartItemsToGTagItems = cartItems.map((cartItem, index) => {
-      const cleanedDisplayId = removeMakeFromDisplayId(
-        cartItem.display_id as string,
-        cartItem.make as string
-      );
-      const productName = `${cartItem.fullProductName} ${cleanedDisplayId} ${cartItem.type}`;
-      const price = parseFloat(cartItem?.price || '0') || 0;
-      const msrp = parseFloat(cartItem?.msrp || '0') || 0;
-      const discount: number = price - msrp;
-
-      return {
-        item_id: cartItem?.sku,
-        item_name: productName,
-        affiliation: undefined,
-        coupon: undefined,
-        discount: undefined, // Removed temporarily because we transfer the promotional price or something
-        index: index,
-        item_brand: 'Coverland',
-        item_category: cartItem.type,
-        item_category2: cleanedDisplayId,
-        item_category3: cartItem.make,
-        item_category4: cartItem.model,
-        item_category5: cartItem.parent_generation,
-        item_category6: cartItem.submodel1,
-        item_category7: cartItem.submodel2,
-        item_category8: cartItem.submodel3,
-        item_list_id: undefined,
-        item_list_name: undefined,
-        item_variant: cartItem.display_color,
-        location_id: undefined,
-        price: msrp,
-        quantity: cartItem.quantity,
-      };
-    });
-
+    const cartItemsToGTagItems = mapCartItemsToGTagItems(cartItems);
     window?.dataLayer?.push({ ecommerce: null }); // Clear the previous ecommerce object.
     window?.dataLayer?.push({
       event: 'begin_checkout',
@@ -161,40 +177,7 @@ export const useThankYouViewedGoogleTag = (
       if (navigationType === PerformanceNavigation.TYPE_RELOAD) {
         // console.log('Page was reloaded, GTAG not tracked.');
       } else {
-        // TODO: - Extract this into a map function
-        const cartItemsToGTagItems = cartItems.map((cartItem, index) => {
-          const cleanedDisplayId = removeMakeFromDisplayId(
-            cartItem.display_id as string,
-            cartItem.make as string
-          );
-          const productName = `${cartItem.fullProductName} ${cleanedDisplayId} ${cartItem.type}`;
-          const price = parseFloat(cartItem?.price || '0') || 0;
-          const msrp = parseFloat(cartItem?.msrp || '0') || 0;
-          const discount: number = price - msrp;
-          return {
-            item_id: cartItem?.sku,
-            item_name: productName,
-            affiliation: undefined,
-            coupon: undefined,
-            discount: undefined, // Removed temporarily because we transfer the promotional price or something
-            index: index,
-            item_brand: 'Coverland',
-            item_category: cartItem.type,
-            item_category2: cleanedDisplayId,
-            item_category3: cartItem.make,
-            item_category4: cartItem.model,
-            item_category5: cartItem.parent_generation,
-            item_category6: cartItem.submodel1,
-            item_category7: cartItem.submodel2,
-            item_category8: cartItem.submodel3,
-            item_list_id: undefined,
-            item_list_name: undefined,
-            item_variant: cartItem.display_color,
-            location_id: undefined,
-            price: msrp,
-            quantity: cartItem.quantity,
-          };
-        });
+        const cartItemsToGTagItems = mapCartItemsToGTagItems(cartItems);
         window?.dataLayer?.push({ ecommerce: null }); // Clear the previous ecommerce object.
         window?.dataLayer?.push({
           event: 'purchase',
@@ -218,9 +201,9 @@ export const handleAddToCartGoogleTag = (
   cartProduct: IProductData,
   params: TPathParams
 ) => {
-  const price = parseFloat(cartProduct?.price || '0') || 0;
+  // const price = parseFloat(cartProduct?.price || '0') || 0;
   const msrp = parseFloat(cartProduct?.msrp || '0') || 0;
-  const discount: number = price - msrp;
+  // const discount: number = price - msrp;
   const cleanedDisplayId = removeMakeFromDisplayId(
     cartProduct.display_id as string,
     cartProduct.make as string
@@ -266,59 +249,15 @@ export const handleViewItemColorChangeGoogleTag = (
   params: TPathParams | null,
   isComplete: boolean
 ) => {
-  const price = parseFloat(selectedProduct?.price || '0') || 0;
   const msrp = parseFloat(selectedProduct?.msrp || '0') || 0;
-  const discount: number = price - msrp;
-  const {
-    year = '',
-    make = '',
-    model = '',
-    coverType = '',
-    productType = '',
-  } = params || {};
-
-  const productName = isComplete
-    ? `${selectedProduct.fullProductName} ${deslugify(coverType)} ${selectedProduct.type}`
-    : `${year} ${deslugify(make)} ${deslugify(model)} ${deslugify(coverType)} ${deslugify(productType)}`
-        .replace(/  +/g, ' ')
-        .trim();
+  const item = generateViewItemEvent(selectedProduct, params, isComplete);
   window?.dataLayer?.push({ ecommerce: null }); // Clear the previous ecommerce object.
   window?.dataLayer?.push({
     event: 'view_item',
     ecommerce: {
       currency: 'USD',
       value: isComplete ? msrp : undefined,
-      items: [
-        {
-          item_id: isComplete ? selectedProduct?.sku : undefined,
-          item_name: productName,
-          affiliation: undefined,
-          coupon: undefined,
-          discount: undefined, // Removed temporarily because we transfer the promotional price or something
-          index: 0,
-          item_brand: 'Coverland',
-          item_category: deslugify(params?.productType || ''),
-          item_category2: deslugify(params?.coverType || ''),
-          item_category3: deslugify(params?.make || ''),
-          item_category4: deslugify(params?.model || ''),
-          item_category5: params?.year || '',
-          item_category6: isComplete
-            ? deslugify(selectedProduct?.submodel1 || '')
-            : undefined,
-          item_category7: isComplete
-            ? deslugify(selectedProduct?.submodel2 || '')
-            : undefined,
-          item_category8: isComplete
-            ? deslugify(selectedProduct?.submodel3 || '')
-            : undefined,
-          item_list_id: undefined,
-          item_list_name: undefined,
-          item_variant: selectedProduct?.display_color,
-          location_id: undefined,
-          price: isComplete ? msrp : undefined,
-          quantity: 1,
-        },
-      ],
+      items: [item],
     },
   });
 };
