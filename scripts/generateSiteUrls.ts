@@ -2,6 +2,9 @@ import fs from 'fs';
 import path from 'path';
 import { slugify } from '@/lib/utils';
 
+const productTypes = ['car-covers', 'suv-covers', 'truck-covers'];
+const coverTypes = ['premium-plus', 'premium', 'standard-pro', 'standard'];
+
 export const readJsonFilesAndGenerateUrls = (
   productType: string,
   filePath: string
@@ -23,18 +26,18 @@ export const readJsonFilesAndGenerateUrls = (
       const carData = JSON.parse(fileContents);
 
       const generatedUrlsFromCarData = carData.map((car: any) => {
-        const baseUrl = `https://coverland.com/${productType}/premium-plus`;
         const make = slugify(car.make);
         const model = slugify(car.model);
         const parentGeneration = car.parent_generation;
 
-        const urls = [
-          `${baseUrl}/${make}`,
-          `${baseUrl}/${make}/${model}`,
-          `${baseUrl}/${make}/${model}/${parentGeneration}`,
-        ];
-
-        return urls;
+        return coverTypes.flatMap((coverType) => {
+          const baseUrl = `https://coverland.com/${productType}/${coverType}`;
+          return [
+            `${baseUrl}/${make}`,
+            `${baseUrl}/${make}/${model}`,
+            `${baseUrl}/${make}/${model}/${parentGeneration}`,
+          ];
+        });
       });
       coverlandUrls = [...coverlandUrls, ...generatedUrlsFromCarData];
     }
@@ -74,15 +77,19 @@ export const getOtherCoverlandUrls = () => {
 
 export const getBaseCoverlandUrls = () => {
   const baseUrl = 'https://coverland.com';
-  return [
-    `${baseUrl}`,
-    `${baseUrl}/car-covers`,
-    `${baseUrl}/car-covers/premium-plus`,
-    `${baseUrl}/suv-covers`,
-    `${baseUrl}/suv-covers/premium-plus`,
-    `${baseUrl}/truck-covers`,
-    `${baseUrl}/truck-covers/premium-plus`,
-  ];
+  const urls = [baseUrl];
+
+  productTypes.forEach((productType) => {
+    const productUrl = `${baseUrl}/${productType}`;
+    urls.push(productUrl);
+
+    coverTypes.forEach((coverType) => {
+      const coverUrl = `${productUrl}/${coverType}`;
+      urls.push(coverUrl);
+    });
+  });
+
+  return urls;
 };
 
 export const generateAndWriteSiteUrlsToFile = (
