@@ -30,7 +30,7 @@ export function EditVehicleModal({
   if (!store) throw new Error('Missing CarContext.Provider in the tree');
 
   if (!params) return null;
-  const { make, year } = params;
+  const { make, year, model } = params;
   const {
     make: selectedMake,
     model: selectedModel,
@@ -39,7 +39,9 @@ export function EditVehicleModal({
     submodel1,
   } = selectedProduct;
 
-  const productName = make ? `${selectedMake} ${selectedModel}` : `${type}`;
+  const productName = make
+    ? `${selectedMake} ${model ? selectedModel : ''}`
+    : `${type}`;
   const productNameSubtitle = year
     ? `${submodel1 ?? ''} ${selectedYear ?? ''}`
     : '';

@@ -23,7 +23,7 @@ export default function EditVehiclePopover({
     productType?: string;
   }>();
   if (!params) return null;
-  const { make, year } = params;
+  const { make, year, model } = params;
   const {
     make: selectedMake,
     model: selectedModel,
@@ -32,7 +32,9 @@ export default function EditVehiclePopover({
     submodel1,
   } = selectedProduct;
 
-  const productName = make ? `${selectedMake} ${selectedModel}` : `${type}`;
+  const productName = make
+    ? `${selectedMake} ${model ? selectedModel : ''}`
+    : `${type}`;
   const productNameSubtitle = year
     ? `${submodel1 ?? ''} ${selectedYear ?? ''}`
     : '';
