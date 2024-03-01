@@ -32,10 +32,6 @@ export default function WarrantySection() {
   !isDefaultCoverType && warrantyData.splice(2, 1);
 
   switch (coverType) {
-    case 'premium-plus':
-      warrantyLength = 'Lifetime';
-      break;
-
     case 'premium':
       warrantyLength = '5-Year';
       break;
@@ -46,6 +42,11 @@ export default function WarrantySection() {
 
     case 'standard':
       warrantyLength = '1-Year';
+      break;
+
+    default:
+      warrantyLength = 'Lifetime';
+      break;
   }
 
   return (

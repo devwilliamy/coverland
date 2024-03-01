@@ -45,32 +45,36 @@ export default function ProvenSection() {
         </p>
         <WaterproofVideo />
 
-        <Image
-          alt="Water Vs"
-          src={WaterVS}
-          className="w-full rounded-ss-sm lg:hidden"
-        />
-        <Image
-          alt="Water Vs Desktop"
-          src={WaterVSDesktop}
-          className="hidden w-full rounded-ss-sm lg:block"
-        />
+        <div className="-mx-[1px] pl-[1px]">
+          <Image
+            alt="Water Vs"
+            src={WaterVS}
+            className="w-full rounded-ss-sm lg:hidden "
+          />
+          <Image
+            alt="Water Vs Desktop"
+            src={WaterVSDesktop}
+            className="hidden w-full rounded-ss-sm lg:block"
+          />
+        </div>
       </div>
       <div id="uv-section" className=" w-full max-w-[850px]">
         <p className="w-full  pb-3 text-center text-[22px] font-[700] leading-[25px] lg:pb-[38px] lg:text-[38px] lg:leading-[44px]">
           UV Resistance Proven
         </p>
         <UVResistanceVideo />
-        <Image
-          alt="UV Vs"
-          src={UltravioletVS}
-          className=" w-full rounded-ss-sm lg:hidden"
-        />
-        <Image
-          alt="UV Vs Desktop"
-          src={UltravioletVSDesktop}
-          className="hidden w-full rounded-ss-sm lg:block"
-        />
+        <div className="-mx-[1px] pl-[1px]">
+          <Image
+            alt="UV Vs"
+            src={UltravioletVS}
+            className=" w-full rounded-ss-sm lg:hidden"
+          />
+          <Image
+            alt="UV Vs Desktop"
+            src={UltravioletVSDesktop}
+            className="hidden w-full rounded-ss-sm lg:block"
+          />
+        </div>
       </div>
     </section>
   );

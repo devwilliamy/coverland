@@ -59,11 +59,11 @@ export default function ProductDetailsHeader() {
         />
       </div>
 
-      <div className="mt-[30px] grid grid-cols-3 items-center justify-center lg:gap-[120px]">
+      <div className="mt-[30px] grid grid-cols-3 items-center justify-center gap-[18px] lg:gap-[120px]">
         {threeIcons.map(({ title, icon }) => (
           <div key={title} className="flex flex-col place-items-center">
             <div>{icon}</div>
-            <p className="pt-0.5 text-[14px] text-white lg:text-[16px] ">
+            <p className="pt-1 text-[14px] leading-[16px]  text-white lg:text-[16px] lg:leading-[20px]  ">
               {title}
             </p>
           </div>

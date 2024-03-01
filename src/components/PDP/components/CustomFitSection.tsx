@@ -15,29 +15,29 @@ const CustomFitSection = () => {
   const params = useParams();
   const productType = params?.productType;
   const coverType = params?.coverType;
-  const isPremimPlus = params?.coverType === 'premium-plus';
-  let PremiumImage = CarPremiumImage;
-  let StandardImage = CarStandardImage;
+  const isPremiumPlus = params?.coverType === 'premium-plus';
+  let premiumImage = CarPremiumImage;
+  let standardImage = CarStandardImage;
 
   switch (productType) {
     case 'truck-covers':
-      PremiumImage = TruckPremiumImage;
-      StandardImage = TruckStandardImage;
+      premiumImage = TruckPremiumImage;
+      standardImage = TruckStandardImage;
       break;
     case 'suv-covers':
-      PremiumImage = SUVPremiumImage;
-      StandardImage = SUVStandardImage;
+      premiumImage = SUVPremiumImage;
+      standardImage = SUVStandardImage;
       break;
   }
 
   const imageChoice = () => {
     switch (coverType) {
       case 'premium':
-        return <Image alt="premium image" src={PremiumImage} />;
+        return <Image alt="premium image" src={premiumImage} />;
       case 'standard-pro':
-        return <Image alt="stadard pro image" src={StandardImage} />;
+        return <Image alt="stadard pro image" src={standardImage} />;
       case 'standard':
-        return <Image alt="standard image" src={StandardImage} />;
+        return <Image alt="standard image" src={standardImage} />;
       default:
         return (
           <ProductVideo
@@ -58,7 +58,7 @@ const CustomFitSection = () => {
           Custom-Fit
         </p>
         <p className="w-full  text-center text-[22px] leading-[26px] text-[#ABABAB] lg:text-[34px]">
-          {isPremimPlus || coverType === undefined
+          {isPremiumPlus || coverType === undefined
             ? 'Experience the perfect fit we offer'
             : 'Experience the semi-custom fit'}
         </p>

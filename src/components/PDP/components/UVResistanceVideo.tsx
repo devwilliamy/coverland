@@ -3,7 +3,7 @@ import ProductVideo from '../ProductVideo';
 
 export default function UVResistanceVideo() {
   return (
-    <div className="mb-[-1px] w-full overflow-hidden rounded-t-xl">
+    <div className="mb-[-8px] w-full overflow-hidden rounded-t-xl">
       <ProductVideo src={UVVideo} autoplay loop aspectRatio="16 / 9" />
     </div>
   );

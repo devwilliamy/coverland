@@ -26,7 +26,7 @@ export default function FreeDetails() {
     case 'premium':
       warrantyLength = '5-Year';
       break;
-    case 'premium-plus':
+    default:
       warrantyLength = 'Lifetime';
       break;
   }
