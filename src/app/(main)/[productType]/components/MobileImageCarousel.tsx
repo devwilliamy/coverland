@@ -120,8 +120,9 @@ export const MobileImageCarousel = ({
                   alt={`Additional images of the ${selectedProduct.display_id} cover`}
                   width={500}
                   height={500}
-                  // placeholder="blur"
-                  onError={() => console.log('Failed image:', `${image}`)}
+                  onError={() => {
+                    console.log('Failed image:', `${image}`);
+                  }}
                   className="h-auto w-full"
                 />
               </CarouselItem>

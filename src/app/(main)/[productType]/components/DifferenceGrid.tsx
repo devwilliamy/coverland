@@ -1,53 +1,37 @@
 import Image from 'next/image';
-import React from 'react';
+import React, { useState } from 'react';
 import OthersVSCoverlandMobile from '@/images/PDP/Product-Details-Redesign-2/OthersVSCoverland.webp';
 import OthersVSCoverlandDesktop from '@/images/PDP/Product-Details-Redesign-2/desktop-vs.webp';
-const differences: {
+import PremiumVSMobile from '@/images/PDP/Product-Details-Redesign-2/premium/premium-vs.webp';
+import PremiumVSDesktop from '@/images/PDP/Product-Details-Redesign-2/premium/premium-vs-desktop.webp';
+import { useParams } from 'next/navigation';
+type difference = {
   title: string;
   others: JSX.Element | string;
   coverland: JSX.Element | string;
-}[] = [
+};
+const premiumPlusDifferences: difference[] = [
   {
     title: 'Material',
-    others: (
-      <>
-        <p>Thin, Weak</p>
-      </>
-    ),
-    coverland: (
-      <>
-        <p>Thick, High-Density</p>
-      </>
-    ),
+    others: <p>Thin, Weak</p>,
+    coverland: <p>Thick, High-Density</p>,
   },
   {
     title: 'Durability',
-    others: (
-      <>
-        <p>1-2 Years</p>
-      </>
-    ),
-    coverland: (
-      <>
-        <p>10+ Years</p>
-      </>
-    ),
+    others: <p>1-2 Years</p>,
+    coverland: <p>10+ Years</p>,
   },
   {
     title: 'Waterproof',
     others: (
-      <>
-        <p>
-          Limited <br /> (Trap Moisture)
-        </p>
-      </>
+      <p>
+        Limited <br /> (Trap Moisture)
+      </p>
     ),
     coverland: (
-      <>
-        <p>
-          Yes <br /> (Breathable)
-        </p>
-      </>
+      <p>
+        Yes <br /> (Breathable)
+      </p>
     ),
   },
   {
@@ -63,18 +47,14 @@ const differences: {
   {
     title: 'Soft Inner',
     others: (
-      <>
-        <p>
-          No <br /> (Risks Scratches)
-        </p>
-      </>
+      <p>
+        No <br /> (Risks Scratches)
+      </p>
     ),
     coverland: (
-      <>
-        <p>
-          Yes <br /> (Paint Protection)
-        </p>
-      </>
+      <p>
+        Yes <br /> (Paint Protection)
+      </p>
     ),
   },
   {
@@ -89,31 +69,190 @@ const differences: {
   },
 ];
 
+const premiumDifferences: difference[] = [
+  {
+    title: 'Material',
+    others: <p>Thin, Weak</p>,
+    coverland: <p>High-Density</p>,
+  },
+  {
+    title: 'Durability',
+    others: <p>1-2 Years</p>,
+    coverland: <p>5+ Years</p>,
+  },
+  {
+    title: 'Waterproof',
+    others: (
+      <p>
+        Limited <br /> (Trap Moisture)
+      </p>
+    ),
+    coverland: (
+      <p>
+        Yes <br /> (Breathable)
+      </p>
+    ),
+  },
+  {
+    title: 'Sun',
+    others: 'Limited Protection',
+    coverland: 'Full UV Block',
+  },
+  {
+    title: 'Flexibility',
+    others: 'Hard to Fit',
+    coverland: 'Easy Fit ',
+  },
+  {
+    title: 'Soft Inner',
+    others: (
+      <p>
+        No <br /> (Risks Scratches)
+      </p>
+    ),
+    coverland: (
+      <p>
+        Yes <br /> (Paint Protection)
+      </p>
+    ),
+  },
+];
+
 export default function DifferenceGrid() {
+  const params = useParams();
+  const coverType = params?.coverType;
+  const standardDifferences: difference[] = [
+    {
+      title: 'Material',
+      others: <p>Thin, Weak</p>,
+      coverland: (
+        <p>
+          {coverType === 'standard-pro' && 'Durable'}
+          {coverType === 'standard' && 'Solid'}
+        </p>
+      ),
+    },
+    {
+      title: 'Durability',
+      others: (
+        <p>
+          {coverType === 'standard-pro' && '6-12 Months'}
+          {coverType === 'standard' && '3-6 Months'}
+        </p>
+      ),
+      coverland: (
+        <p>
+          {coverType === 'standard-pro' && '2+ '}
+          {coverType === 'standard' && '1+ '}
+          Years
+        </p>
+      ),
+    },
+    {
+      title: 'Waterproof',
+      others: (
+        <p>
+          Limited <br /> (Trap Moisture)
+        </p>
+      ),
+      coverland: (
+        <p>
+          Yes <br /> (Breathable)
+        </p>
+      ),
+    },
+    {
+      title: 'Sun',
+      others: 'Limited Protection',
+      coverland: 'UV Resistance',
+    },
+    {
+      title: 'Flexibility',
+      others: 'Hard to Fit',
+      coverland: 'Easy Fit',
+    },
+    {
+      title: 'Soft Inner',
+      others: (
+        <p>
+          No <br /> (Risks Scratches)
+        </p>
+      ),
+      coverland: (
+        <p>
+          Yes <br /> (Light-Duty)
+        </p>
+      ),
+    },
+  ];
+
+  let differences: {
+    title: string;
+    others: JSX.Element | string;
+    coverland: JSX.Element | string;
+  }[] = [];
+
+  switch (coverType) {
+    case 'premium':
+      differences = premiumDifferences;
+      break;
+    case 'standard-pro':
+      differences = standardDifferences;
+      break;
+    case 'standard':
+      differences = standardDifferences;
+      break;
+    default:
+      differences = premiumPlusDifferences;
+  }
+
   return (
-    <div className="mt-[30px] px-2 pb-2 lg:w-full lg:px-0">
+    <div className="mt-[20px] px-2 pb-2 lg:w-full lg:px-0">
       <span className="flex w-full flex-col text-center">
-        <p className="w-full py-[20px] text-[22px] font-[500] leading-[24px] text-[#EBE9E9] lg:pb-[36px] lg:text-[40px] lg:font-[500]">
+        <p className="w-full text-[22px] font-[500] leading-[24px] text-[#EBE9E9] lg:pb-[36px] lg:text-[40px] lg:font-[500]">
           See the Difference:
         </p>
-        <div className="flex py-1 italic lg:pb-5 lg:text-[28px] lg:font-[500] lg:leading-[24px] ">
+        <div className="flex pb-2 pt-4 italic lg:pb-5 lg:text-[28px] lg:font-[500] lg:leading-[24px] ">
           <p className=" w-1/2 text-[#B5B5B5]">Others</p>
           <p className=" w-1/2  text-white">Coverland</p>
         </div>
-        <Image
-          alt="Others-VS-Coverland"
-          src={OthersVSCoverlandMobile}
-          className="mb-[14px] w-full lg:hidden"
-        />
-        <Image
-          alt="Others-VS-Coverland"
-          src={OthersVSCoverlandDesktop}
-          width={840}
-          height={472}
-          className=" hidden lg:block"
-        />
+        {params?.coverType === 'premium' ? (
+          <>
+            <Image
+              alt="Others-VS-Coverland"
+              src={PremiumVSMobile}
+              width={840}
+              height={472}
+              className=" w-full lg:hidden"
+            />
+            <Image
+              alt="Others-VS-Coverland"
+              src={PremiumVSDesktop}
+              width={840}
+              height={472}
+              className=" hidden w-full lg:block"
+            />
+          </>
+        ) : (
+          <>
+            <Image
+              alt="Others-VS-Coverland"
+              src={OthersVSCoverlandMobile}
+              width={840}
+              height={472}
+              className="mb-[14px] w-full lg:hidden"
+            />
+            <Image
+              alt="Others-VS-Coverland"
+              src={OthersVSCoverlandDesktop}
+              width={840}
+              height={472}
+              className=" hidden lg:block"
+            />
+          </>
+        )}
       </span>
-      <div className="mt-[24px] flex flex-col overflow-hidden rounded-md">
+      <div className="mt-[34px] flex flex-col overflow-hidden rounded-md">
         {differences.map(({ title, others, coverland }, index) => (
           <div
             key={title}

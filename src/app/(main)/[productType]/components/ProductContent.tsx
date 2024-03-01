@@ -57,6 +57,9 @@ export function ProductContent({
   const color = useStore(store, (s) => s.selectedColor);
   const { addToCart } = useCartContext();
   const params = useParams<TPathParams>();
+  const isDefaultCoverType =
+    params?.coverType === 'premium-plus' || params?.coverType === undefined;
+  const isPremiumType = isDefaultCoverType || params?.coverType === 'premium';
 
   const cartProduct = modelData.find((p) => p.display_color === color);
 
@@ -82,12 +85,19 @@ export function ProductContent({
         <div className="flex flex-col gap-0.5">
           {/* Product Title */}
           <h1 className="mt-[24px] text-[24px] font-[900] leading-[27px] text-[#1A1A1A] lg:mt-0 lg:text-[28px] lg:leading-[30px] ">
-            {`${selectedProduct?.display_id}`}
-            &trade; {isMobile && <br />}
-            {`Custom-Fit ${productType}`}
+            {`${selectedProduct?.display_id} `}
+            {isDefaultCoverType && (
+              <>
+                &trade;
+                <br />
+              </>
+            )}
+            {isPremiumType
+              ? `Custom-Fit ${productType}`
+              : `Semi-Custom ${productType}`}
           </h1>
           {/* Rating(s) */}
-          <div className="mt-1 flex items-end gap-1 lg:mt-2">
+          <div className="-ml-0.5 mt-1 flex items-end gap-1 lg:mt-2">
             <div className="flex gap-1 ">
               <Rating
                 name="read-only"
@@ -103,7 +113,7 @@ export function ProductContent({
           </div>
         </div>
       </div>
-      <section className="flex flex-col pt-[34px] ">
+      <section className="flex flex-col pt-[28px] ">
         <p className="mb-3 text-[16px] leading-[14px]">
           {isComplete ? '' : 'From'}
         </p>
@@ -116,7 +126,7 @@ export function ProductContent({
             </div>
           )}
         </div>
-        <div className="mt-4 flex items-center gap-2 ">
+        <div className="mt-1 flex items-center gap-2 ">
           <p className=" text-[14px] leading-[16px] text-[#767676] lg:text-[16px]">
             4 interest-free installments of{' '}
             <b className="font-[400] text-black">$39.99</b>

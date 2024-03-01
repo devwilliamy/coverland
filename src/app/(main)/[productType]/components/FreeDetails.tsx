@@ -4,11 +4,32 @@ import { calculateTimeTo2PM } from '@/components/PDP/components/TimeTo2PM';
 import { Separator } from '@/components/ui/separator';
 import { determineDeliveryByDate } from '@/lib/utils/deliveryDateUtils';
 import { BoxIcon, ShieldCheck, ShoppingBag } from 'lucide-react';
+import { useParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
 export default function FreeDetails() {
   const deliveryDate = determineDeliveryByDate();
-  const [timeRemaining, setTimeRemaining] = useState(calculateTimeTo2PM()); // Set initial value
+  const [timeRemaining, setTimeRemaining] = useState(calculateTimeTo2PM());
+  const params = useParams();
+  const coverType = params?.coverType;
+  let warrantyLength: string | number = 'Lifetime';
+
+  switch (coverType) {
+    case 'standard':
+      warrantyLength = '1-Year';
+      break;
+
+    case 'standard-pro':
+      warrantyLength = '2-Year';
+      break;
+
+    case 'premium':
+      warrantyLength = '5-Year';
+      break;
+    case 'premium-plus':
+      warrantyLength = 'Lifetime';
+      break;
+  }
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -30,7 +51,7 @@ export default function FreeDetails() {
     },
     {
       icon: <ShieldCheck />,
-      title: 'Lifetime Warranty',
+      title: `${warrantyLength} Warranty`,
     },
     {
       icon: <ShoppingBag />,
@@ -38,7 +59,7 @@ export default function FreeDetails() {
     },
   ];
   return (
-    <div className="flex flex-col items-center justify-start bg-[#FBFBFB] ">
+    <div className="flex flex-col items-center justify-start bg-[#FBFBFB] pb-[48px] ">
       {FreeDetailItems.map(({ icon, title, description }, index) => (
         <FreeDetailItem
           key={`Free-Detail-Item-${index}`}
