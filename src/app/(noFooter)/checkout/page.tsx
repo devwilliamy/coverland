@@ -332,7 +332,7 @@ function CheckoutSummarySecton({
           </Suspense>
         </PayPalScriptProvider>
       </div>
-      <div className="fixed inset-x-0 bottom-0 bg-white p-4 shadow-[0_-4px_4px_-0px_rgba(0,0,0,0.1)] md:hidden">
+      <div className="fixed inset-x-0 bottom-0 z-[200] bg-white p-4 shadow-[0_-4px_4px_-0px_rgba(0,0,0,0.1)] md:hidden">
         <div className="flex flex-col items-center justify-between">
           <div className="self-end pb-1 pr-5 text-lg font-bold lg:font-bold">
             Order Total: ${totalMsrpPrice}
