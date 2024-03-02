@@ -22,6 +22,12 @@ export type TQuery = {
   secondSubmodel: string;
 };
 
+type ReviewIsLoadingState = {
+  reviewDataIsLoading: boolean;
+  reviewDataSummaryIsLoading: boolean;
+  reviewImagesIsLoading: boolean;
+};
+
 interface ICarCoverProps {
   modelData: IProductData[];
   initialModelData: IProductData[];
@@ -46,6 +52,11 @@ interface ICarCoverSelectionState extends ICarCoverProps {
   paramsYear: string;
   reviewImageTracker: Record<string, boolean>;
   setReviewImageTracker: (newImageTracker: Record<string, boolean>) => void;
+  reviewIsLoading: ReviewIsLoadingState;
+  setReviewIsLoading: (
+    key: keyof ReviewIsLoadingState,
+    isLoading: boolean
+  ) => void;
 }
 
 const createCarSelectionStore = ({
@@ -106,13 +117,6 @@ const createCarSelectionStore = ({
     selectedProduct: initialDataWithSecondSubmodels[0],
     featuredImage: initialDataWithSecondSubmodels[0]?.mainImage,
     selectedColor: initialDataWithSecondSubmodels[0]?.display_color ?? '',
-    reviewImages: initialReviewImages,
-    reviewImageTracker,
-    setReviewImageTracker: (newImageTracker: Record<string, boolean>) => {
-      set(() => ({
-        reviewImageTracker: newImageTracker,
-      }));
-    },
     setSelectedProduct: (newProduct: IProductData) => {
       set(() => ({
         selectedProduct: newProduct,
@@ -191,6 +195,26 @@ const createCarSelectionStore = ({
     setReviewsWithImages: (newReviewImages: TReviewData[]) => {
       set(() => ({ reviewImages: newReviewImages }));
     },
+    reviewImages: initialReviewImages,
+    reviewImageTracker,
+    setReviewImageTracker: (newImageTracker: Record<string, boolean>) => {
+      set(() => ({
+        reviewImageTracker: newImageTracker,
+      }));
+    },
+    reviewIsLoading: {
+      reviewDataIsLoading: true,
+      reviewDataSummaryIsLoading: true,
+      reviewImagesIsLoading: true,
+    },
+    setReviewIsLoading: (key: string, isLoading: boolean) => {
+      set((prevState) => ({
+        reviewIsLoading: {
+          ...prevState.reviewIsLoading,
+          [key]: isLoading,
+        },
+      }));
+    },
     paramsYear: params.year || '',
   }));
 };
@@ -204,14 +228,12 @@ export const CarSelectionContext = createContext<CarSelectionStore | null>(
 export default function CarPDP({
   modelData: modelDataProps,
   reviewData,
-  reviewDataSummary,
   reviewImages,
   searchParams,
 }: {
   modelData: TInitialProductDataDB[];
   reviewData: TReviewData[] | null;
   params: TPathParams;
-  reviewDataSummary: TProductReviewSummary;
   reviewImages: TReviewData[];
   searchParams?: { submodel?: string; second_submodel?: string } | undefined;
 }) {
@@ -219,6 +241,7 @@ export default function CarPDP({
   const pathParams = useParams<TPathParams>();
   const submodelParams = searchParams?.submodel ?? '';
   const secondSubmodelParams = searchParams?.second_submodel ?? '';
+
   if (modelDataProps.length === 0) {
     router.push('/404');
   }
@@ -234,13 +257,18 @@ export default function CarPDP({
     queryParams,
   });
 
+  const reviewSummary = {
+    total_reviews: 0,
+    average_score: 0,
+  };
+
   const store = useRef(
     createCarSelectionStore({
       params: pathParams ?? ({} as TPathParams),
       queryParams,
       initialModelData: modelData,
       initialReviewData: reviewData as TReviewData[],
-      initialReviewDataSummary: reviewDataSummary,
+      initialReviewDataSummary: reviewSummary,
       initialReviewImages: reviewImages,
     })
   ).current;

@@ -38,6 +38,11 @@ const nextConfig = {
     ignoreDuringBuilds: true,
   },
   productionBrowserSourceMaps: true,
+  // logging: {
+  //   fetches: {
+  //     fullUrl: true,
+  //   },
+  // },
 };
 
 module.exports = withNextVideo(nextConfig, { provider: 'vercel-blob' });

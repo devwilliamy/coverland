@@ -1,15 +1,29 @@
 import ReviewSheet from '@/components/PDP/components/ReviewSheet';
 import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';
-import React, { useContext } from 'react';
+import { useContext } from 'react';
 import { useStore } from 'zustand';
 import { CarSelectionContext } from './CarPDP';
 import ReviewSection from '@/components/PDP/components/ReviewSection';
+import { AiOutlineLoading3Quarters } from 'react-icons/ai';
 
 function RatingsTrigger() {
   const store = useContext(CarSelectionContext);
   if (!store) throw new Error('Missing CarContext.Provider in the tree');
   const { total_reviews } = useStore(store, (s) => s.reviewDataSummary);
+  const { reviewDataSummaryIsLoading } = useStore(
+    store,
+    (s) => s.reviewIsLoading
+  );
   const reviewData = useStore(store, (s) => s.reviewData);
+
+  if (reviewDataSummaryIsLoading) {
+    return (
+      <div className="flex items-center justify-center lg:pl-2">
+        <AiOutlineLoading3Quarters className="animate-spin" />
+        <div className="pl-2">Loading...</div>
+      </div>
+    );
+  }
 
   return (
     <>
@@ -21,9 +35,8 @@ function RatingsTrigger() {
                 className="ml-2 text-blue-400 underline"
                 disabled={!total_reviews}
               >
-                {total_reviews || '2'} ratings
+                {total_reviews} ratings
               </DialogTrigger>
-
               <DialogContent className="flex max-h-[65vh] min-h-[65vh] flex-col items-center overflow-y-auto lg:min-w-[77vw] lg:max-w-[80%] xl:max-w-[1024px]">
                 <div className={''}>
                   <ReviewSection />
@@ -36,9 +49,7 @@ function RatingsTrigger() {
           </div>
         </>
       ) : (
-        <div className=" text-[#4C8EA8] underline">
-          {total_reviews || '2'} ratings
-        </div>
+        <div className=" text-[#4C8EA8] underline">0 ratings</div>
       )}
     </>
   );

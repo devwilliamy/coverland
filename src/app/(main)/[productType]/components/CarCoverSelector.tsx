@@ -6,7 +6,7 @@ import { ProductContent } from './ProductContent';
 import { EditVehicleModal } from './EditVehicleModal';
 import { CarSelectionContext } from './CarPDP';
 import { useStore } from 'zustand';
-import { IProductData } from '../../utils';
+import { IProductData, TPathParams } from '../../utils';
 import { Separator } from '@/components/ui/separator';
 import LinkBreadcrumbs from './LinkBreadcrumbs';
 import { useItemViewedGoogleTag } from '@/hooks/useGoogleTagDataLayer';
@@ -20,6 +20,11 @@ import FeaturesSection from '@/components/PDP/components/FeaturesSection';
 import { ExtraProductDetails } from '@/components/PDP/OtherDetails';
 import { useParams } from 'next/navigation';
 import EditVehiclePopover from '@/components/PDP/components/EditVehiclePopover';
+import { useFetchReviewSummary } from '@/hooks/useFetchReview';
+
+interface ProductRefs {
+  [key: string]: RefObject<HTMLElement>;
+}
 
 export function CarCoverSelector({
   searchParams,
@@ -28,16 +33,13 @@ export function CarCoverSelector({
 }) {
   const store = useContext(CarSelectionContext);
   if (!store) throw new Error('Missing CarContext.Provider in the tree');
-
   const modelData = useStore(store, (s) => s.modelData);
   const selectedProduct = useStore(store, (s) => s.selectedProduct);
   const setSelectedProduct = useStore(store, (s) => s.setSelectedProduct);
   const setFeaturedImage = useStore(store, (s) => s.setFeaturedImage);
-  const featuredImage = selectedProduct?.mainImage;
+  const params = useParams<TPathParams>();
 
-  interface ProductRefs {
-    [key: string]: RefObject<HTMLElement>;
-  }
+  const featuredImage = selectedProduct?.mainImage;
 
   const productRefs = useRef<ProductRefs>(
     modelData.reduce((acc: ProductRefs, item) => {
@@ -52,15 +54,12 @@ export function CarCoverSelector({
   ).map((color) => modelData.find((model) => model.display_color === color));
 
   const productImages = selectedProduct?.productImages as string[];
-
-  const productName = modelData[0]?.fullProductName;
-
-  useItemViewedGoogleTag(selectedProduct);
-
-  const params = useParams();
   const coverType = params?.coverType;
   const isPremiumPlus = params?.coverType === 'premium-plus';
   const isDefaultCoverType = isPremiumPlus || coverType === undefined;
+
+  useFetchReviewSummary(params);
+  useItemViewedGoogleTag(selectedProduct);
 
   return (
     <>
