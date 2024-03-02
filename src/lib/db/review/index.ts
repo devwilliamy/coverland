@@ -179,8 +179,6 @@ export async function getProductReviewsByPage(
 
     const { data, error } = await fetch;
 
-    console.log('ReviewByPage: ', data?.length);
-
     if (error) {
       console.error(error);
       return [];
@@ -192,7 +190,7 @@ export async function getProductReviewsByPage(
     });
   } catch (error) {
     if (error instanceof ZodError) {
-      console.log('ZodError:', error);
+      console.error('ZodError:', error);
     }
     console.error(error);
     return [];
@@ -205,8 +203,6 @@ export async function getAllReviewsWithImages(
 ): Promise<TReviewData[]> {
   //  Promise<Record<string, boolean>>
   try {
-    console.log('Get all review options', options);
-
     const validatedFilters =
       ProductReviewsQueryFiltersSchema.parse(productQueryFilters);
     const validatedOptions = ProductReviewsQueryOptionsSchema.parse(options);
@@ -363,13 +359,13 @@ export async function getProductReviewData(
     if (year) {
     }
     if (error) {
-      console.log(error);
+      console.error(error);
     }
 
     return data || [];
   } catch (error) {
     if (error instanceof ZodError) {
-      console.log('ZodError:', error);
+      console.error('ZodError:', error);
     }
     console.error(error);
     return [];

@@ -108,7 +108,6 @@ const ReviewSection = () => {
 
     try {
       setLoading(true);
-      console.log('Start Review: ');
 
       const newReviewData = await getProductReviewsByPage(
         {
@@ -129,7 +128,6 @@ const ReviewSection = () => {
         }
       );
       setSort({ field, order });
-      console.log('New Review Data Before return: ', newReviewData);
       setReviewData([...newReviewData]); // Only show the first 8 when a sort has been picked
       setPage(1);
     } catch (error) {

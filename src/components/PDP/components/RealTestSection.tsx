@@ -7,7 +7,7 @@ import BgBlur from '@/images/PDP/Product-Details-Redesign-2/pdp-background-blur.
 
 export default function RealTestSection() {
   return (
-    <section className="relative -mx-4 mt-[60px] flex flex-col  justify-center">
+    <section className="relative mt-[60px] flex flex-col justify-center lg:mt-[110px]">
       <Image
         alt="real-test-background"
         src={BgBlur}
@@ -46,7 +46,7 @@ export default function RealTestSection() {
             href={'/images/PDP/Product-Details-Redesign-2/intertek-results.pdf'}
             target="_blank"
             rel="noopener noreferrer"
-            className="mt-[36px] flex w-[75%] max-w-[255px] justify-center  rounded-lg bg-black px-6 py-[15px] text-center font-[600] uppercase text-white"
+            className="mt-[36px] flex w-[75%] max-w-[255px] justify-center rounded-lg  bg-black px-6 py-[15px] text-center font-[600] uppercase text-white lg:max-w-[320px]"
             title="Download test Results"
           >
             Download test Results

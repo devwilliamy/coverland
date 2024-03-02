@@ -50,8 +50,6 @@ async function OrderConfirmationPage({
   await handleOrderCompletion();
   const items = await getOrderInfo();
 
-  console.log(items);
-
   return (
     <Suspense fallback={<div>Loading...</div>}>
       <OrderConfirmationContent orderNumber={orderNumber} items={items} />

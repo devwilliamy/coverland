@@ -26,6 +26,7 @@ export default function ProductVideo({
       muted
       autoPlay={autoplay}
       loop={loop}
+      playsInline
       style={{
         aspectRatio: aspectRatio,
         height: '100%',

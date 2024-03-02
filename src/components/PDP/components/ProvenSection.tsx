@@ -43,11 +43,8 @@ export default function ProvenSection() {
         <p className="w-full pb-3 text-center text-[22px] font-[700] leading-[25px] lg:pb-[38px] lg:text-[38px] lg:leading-[44px]">
           Waterproofing is Proven
         </p>
-        {isVisible ? (
-          <WaterproofVideo />
-        ) : (
-          <Image alt="" src={WaterproofThumbnail} />
-        )}
+        <WaterproofVideo />
+
         <Image
           alt="Water Vs"
           src={WaterVS}
@@ -63,7 +60,7 @@ export default function ProvenSection() {
         <p className="w-full  pb-3 text-center text-[22px] font-[700] leading-[25px] lg:pb-[38px] lg:text-[38px] lg:leading-[44px]">
           UV Resistance Proven
         </p>
-        {isVisible ? <UVResistanceVideo /> : <Image alt="" src={UVThumbnail} />}
+        <UVResistanceVideo />
         <Image
           alt="UV Vs"
           src={UltravioletVS}

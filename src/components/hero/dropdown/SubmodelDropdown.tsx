@@ -29,7 +29,6 @@ export function SubmodelDropdown({
 
   const handleChange = (event: ChangeEvent<HTMLSelectElement>) => {
     const newValue = event.target.value;
-    console.log(newValue);
     setValue(newValue);
     setQuery((p) => ({ ...p, submodel: newValue }));
   };

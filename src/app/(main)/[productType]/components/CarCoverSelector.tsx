@@ -11,13 +11,14 @@ import { Separator } from '@/components/ui/separator';
 import LinkBreadcrumbs from './LinkBreadcrumbs';
 import { useItemViewedGoogleTag } from '@/hooks/useGoogleTagDataLayer';
 
-import EnhanceProtectionSection from '@/components/PDP/components/EnhanceProtectionSection';
+import EnhancedProtectionSection from '@/components/PDP/components/EnhancedProtectionSection';
 import SuggestedProducts from '@/components/PDP/components/SuggestedProducts';
 import ProvenSection from '@/components/PDP/components/ProvenSection';
 import RealTestSection from '@/components/PDP/components/RealTestSection';
-import LifetimeSection from '@/components/PDP/components/LifetimeSection';
+import WarrantySection from '@/components/PDP/components/WarrantySection';
 import FeaturesSection from '@/components/PDP/components/FeaturesSection';
 import { ExtraProductDetails } from '@/components/PDP/OtherDetails';
+import { useParams } from 'next/navigation';
 import EditVehiclePopover from '@/components/PDP/components/EditVehiclePopover';
 
 export function CarCoverSelector({
@@ -55,6 +56,11 @@ export function CarCoverSelector({
   const productName = modelData[0]?.fullProductName;
 
   useItemViewedGoogleTag(selectedProduct);
+
+  const params = useParams();
+  const coverType = params?.coverType;
+  const isPremiumPlus = params?.coverType === 'premium-plus';
+  const isDefaultCoverType = isPremiumPlus || coverType === undefined;
 
   return (
     <>
@@ -98,11 +104,11 @@ export function CarCoverSelector({
         </div>
       </section>
       <FeaturesSection />
-      <div className=" flex w-full flex-col justify-center">
-        <EnhanceProtectionSection />
-        <RealTestSection />
-        <ProvenSection />
-        <LifetimeSection />
+      <div className="flex w-full flex-col justify-center px-4">
+        <EnhancedProtectionSection />
+        {isDefaultCoverType && <RealTestSection />}
+        {isDefaultCoverType && <ProvenSection />}
+        <WarrantySection />
       </div>
       <SuggestedProducts />
       <ExtraProductDetails />

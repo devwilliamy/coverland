@@ -22,15 +22,15 @@ export default function SuggestedProducts() {
   return (
     <section
       id="you-may-also-like-section"
-      className="mt-[60px] px-4 pb-[20px]"
+      className="mt-[60px] px-4 pb-[20px] lg:mt-[110px] lg:px-[40px]"
     >
-      <h1 className="font-[900] uppercase lg:text-[32px] lg:font-[900]">
+      <h3 className="font-[900] uppercase lg:text-[32px] lg:font-[900]">
         you may also like
-      </h1>
+      </h3>
       <span className=" no-scrollbar flex gap-2 overflow-x-auto pb-[30px]">
         {products.map((model) => (
           <div key={model.type.slug} className="flex shrink-0 flex-col">
-            <Link href={`/${productType}/${model.type.slug}`} passHref>
+            <a href={`/${productType}/${model.type.slug}`}>
               <Image
                 alt="suggested-product"
                 width={200}
@@ -58,7 +58,7 @@ export default function SuggestedProducts() {
                     </p>
                   )}
               </div>
-            </Link>
+            </a>
           </div>
         ))}
       </span>

@@ -11,7 +11,7 @@ export default function ForgotPasswordForm() {
   return (
     <div className="flex justify-center">
       <div className="w-11/12 rounded-lg p-12 px-6 py-10 sm:w-8/12 sm:px-10 sm:py-6 md:w-6/12 lg:w-5/12 2xl:w-3/12">
-        <h2 className="mb-4 text-4xl font-semibold">Forgot Password</h2>
+        <h3 className="mb-4 text-4xl font-semibold">Forgot Password</h3>
         <ForgottenPassword
           supabaseClient={supabase}
           // redirectTo={`${origin}/api/auth/forgot-password/callback`}

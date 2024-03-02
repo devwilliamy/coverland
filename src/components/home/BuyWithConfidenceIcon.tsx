@@ -14,9 +14,9 @@ export default function BuyWithConfidenceIcon({
     <div className="flex w-full flex-col items-center justify-start lg:pb-0">
       {icon}
       <div className="flex w-full flex-col items-center justify-start md:ml-0">
-        <h2 className="whitespace-nowrap pt-4 text-center text-lg font-bold capitalize xl:py-4">
+        <h3 className="whitespace-nowrap pt-4 text-center text-lg font-bold capitalize xl:py-4">
           {title}
-        </h2>
+        </h3>
         <p className="whitespace-nowrap pt-1 text-center text-sm font-normal text-[#727272]">
           {content}
         </p>

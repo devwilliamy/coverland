@@ -9,6 +9,7 @@ import {
   getProductReviewSummary,
   getProductReviewsByPage,
 } from '@/lib/db/review';
+import { deslugify } from '@/lib/utils';
 
 //TODO: Refactor code so we can generate our dynamic paths as static HTML for performance
 
@@ -33,6 +34,17 @@ import {
 //     year: year,
 //   }));
 // }
+
+export async function generateMetadata({ params }: { params: TPathParams }) {
+  const productType = deslugify(params.productType);
+  const make = deslugify(params.make || '');
+  const model = deslugify(params.model || '');
+  const year = deslugify(params.year || '');
+  return {
+    title: `${year} ${make} ${model} ${productType}, Custom Fit - Coverland`,
+    description: `${year} ${make} ${model} ${productType} ᐉ Coverland ⭐ Free, Same-Day Shipping ✔️ Free Returns & Purchase Protection ✔️ Made from premium quality, heavy-duty materials with a soft inner fabric.`,
+  };
+}
 
 export default async function CarPDPDataLayer({
   params,

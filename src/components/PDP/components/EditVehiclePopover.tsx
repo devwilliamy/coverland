@@ -23,7 +23,7 @@ export default function EditVehiclePopover({
     productType?: string;
   }>();
   if (!params) return null;
-  const { make, year } = params;
+  const { make, year, model } = params;
   const {
     make: selectedMake,
     model: selectedModel,
@@ -32,20 +32,22 @@ export default function EditVehiclePopover({
     submodel1,
   } = selectedProduct;
 
-  const productName = make ? `${selectedMake} ${selectedModel}` : `${type}`;
+  const productName = make
+    ? `${selectedMake} ${model ? selectedModel : ''}`
+    : `${type}`;
   const productNameSubtitle = year
     ? `${submodel1 ?? ''} ${selectedYear ?? ''}`
     : '';
   return (
-    <div className=" flex h-full flex-col  justify-center lg:hidden">
+    <div className=" flex h-full w-full flex-col  justify-center lg:hidden">
       <Drawer.Root open={open} onOpenChange={setOpen}>
         <Drawer.Trigger className="flex h-full items-center justify-between text-left text-base text-[#1A1A1A]">
           <div className="my-2 border-l-2 border-l-[#C8C7C7] pl-8 pr-8">
             <p>Your Vehicle</p>
-            <h2 className=" text-[18px] font-[500] capitalize leading-[22px] text-[#1A1A1A]">
+            <h1 className=" text-[18px] font-[500] capitalize leading-[22px] text-[#1A1A1A]">
               {productName}
-            </h2>
-            <p className="text-[#8F8F8F]">{productNameSubtitle}</p>
+            </h1>
+            <h2 className="text-[#8F8F8F]">{productNameSubtitle}</h2>
           </div>
           <EditIcon />
         </Drawer.Trigger>
