@@ -9,7 +9,7 @@ import {
 } from '@/components/ui/carousel';
 import { StaticImport } from 'next/dist/shared/lib/get-img-props';
 import { Asset } from 'next-video/dist/assets.js';
-import SeatCover from '@/images/PDP/Product-Details-Redesign-2/seat-covers/seat-cover.webp';
+import SeatCover from '@/images/PDP/Product-Details-Redesign-2/seat-covers/featured-cover.webp';
 import { FaCamera } from 'react-icons/fa';
 import { useState, useEffect, useCallback } from 'react';
 
@@ -48,11 +48,8 @@ export default function SeatCoverCarousel() {
       onClick={() => scrollTo(index)}
     >
       <Image
-        className="rounded-[4px]"
-        width={74}
-        height={74}
+        className="h-full w-full rounded-[4px]"
         src={src}
-        sizes="(max-width: 768px) 100vw"
         alt={`carousel-position-item-${index}`}
       />
     </button>

@@ -7,7 +7,6 @@ import ElevateComfortSection from './components/ElevateComfortSection';
 import NonCompatibleMobile from '@/images/PDP/Product-Details-Redesign-2/seat-covers/compatability/non-compatible-features.webp';
 import NonCompatibleDesktop from '@/images/PDP/Product-Details-Redesign-2/seat-covers/compatability/non-compatible-desktop.webp';
 import CompatibleVehiclesCarousel from './components/CompatibleVehiclesCarousel';
-import LifetimeSection from '@/components/PDP/components/LifetimeSection';
 import { SeatData, SeatImageDataObject } from './util';
 import FeaturedCover from '@/images/PDP/Product-Details-Redesign-2/seat-covers/featured-cover.webp';
 import FeaturedThumbnail from '@/images/PDP/Product-Details-Redesign-2/seat-covers/featured-thumbnail.webp';
@@ -17,6 +16,7 @@ import img1 from '@/images/PDP/Product-Details-Redesign-2/seat-covers/gallery-im
 import img2 from '@/images/PDP/Product-Details-Redesign-2/seat-covers/gallery-img-2.webp';
 import img3 from '@/images/PDP/Product-Details-Redesign-2/seat-covers/gallery-img-3.webp';
 import { Button } from '@/components/ui/button';
+import WarrantySection from '@/components/PDP/components/WarrantySection';
 
 // ___________ Leaving these in because we need them later ______________________
 // import SuggestedProducts from '@/components/PDP/components/SuggestedProducts';
@@ -93,7 +93,7 @@ export default function SeatCovers() {
           className="pt-[60px] max-lg:px-[27px] "
         />
       </section>
-      <LifetimeSection />
+      <WarrantySection />
       {/* <SuggestedProducts /> */}
       {/* <ExtraDetailsTabs /> */}
     </section>

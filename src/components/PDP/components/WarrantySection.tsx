@@ -2,10 +2,12 @@ import Image from 'next/image';
 import React from 'react';
 import LifetimeCheck from '@/images/PDP/Product-Details-Redesign-2/lifetime-sheild-check.webp';
 import LifetimeCheckDesktop from '@/images/PDP/Product-Details-Redesign-2/sheild-check-desktop.webp';
-import { useParams } from 'next/navigation';
+import { useParams, usePathname } from 'next/navigation';
 
 export default function WarrantySection() {
   const params = useParams();
+  const pathname = usePathname();
+  const productType = params?.productType;
   const coverType = params?.coverType;
   const isPremiumPlus = params?.coverType === 'premium-plus';
   const isDefaultCoverType = isPremiumPlus || coverType === undefined;
@@ -30,6 +32,7 @@ export default function WarrantySection() {
   let warrantyLength: string | number = 'Lifetime';
 
   !isDefaultCoverType && warrantyData.splice(2, 1);
+  console.log(productType);
 
   switch (coverType) {
     case 'premium-plus':
@@ -46,6 +49,10 @@ export default function WarrantySection() {
 
     case 'standard':
       warrantyLength = '1-Year';
+      break;
+  }
+  if (pathname === '/seat-covers') {
+    warrantyLength = '10-Year';
   }
 
   return (
