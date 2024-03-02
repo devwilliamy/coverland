@@ -8,6 +8,7 @@ export const GrayDualArrow = () => {
       viewBox="0 0 100 100"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      className="h-[100px] w-[100px] max-lg:h-[58px] max-lg:w-[58px] "
     >
       <circle
         cx="50"

@@ -12,7 +12,7 @@ import {
 } from '@/components/ui/sheet';
 import CompatibleVehiclesCarousel from './CompatibleVehiclesCarousel';
 
-export default function CompatibleVehicles() {
+export default function CompatibleVehiclesTrigger() {
   const [sheetOpen, setSheetOpen] = useState(false);
 
   return (

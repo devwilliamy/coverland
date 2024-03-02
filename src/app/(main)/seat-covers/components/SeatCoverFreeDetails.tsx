@@ -34,7 +34,7 @@ export default function SeatCoverFreeDetails() {
     },
   ];
   return (
-    <div className="flex flex-col items-center justify-start bg-[#FBFBFB] px-4">
+    <div className="flex flex-col items-center justify-start bg-[#FBFBFB] ">
       {SeatFreeDetailItems.map(({ icon, title, description }, index) => (
         <>
           {index === 0 && <Separator />}

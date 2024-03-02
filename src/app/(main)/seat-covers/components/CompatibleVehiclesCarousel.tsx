@@ -1,9 +1,9 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import list1 from '@/images/PDP/Product-Details-Redesign-2/seat-covers/seat-list-1.webp';
-import list2 from '@/images/PDP/Product-Details-Redesign-2/seat-covers/seat-list-2.webp';
-import list3 from '@/images/PDP/Product-Details-Redesign-2/seat-covers/seat-list-3.webp';
-import list4 from '@/images/PDP/Product-Details-Redesign-2/seat-covers/seat-list-4.webp';
-import list5 from '@/images/PDP/Product-Details-Redesign-2/seat-covers/seat-list-5.webp';
+import list1 from '@/images/PDP/Product-Details-Redesign-2/seat-covers/compatability/seat-list-1.webp';
+import list2 from '@/images/PDP/Product-Details-Redesign-2/seat-covers/compatability/seat-list-2.webp';
+import list3 from '@/images/PDP/Product-Details-Redesign-2/seat-covers/compatability/seat-list-3.webp';
+import list4 from '@/images/PDP/Product-Details-Redesign-2/seat-covers/compatability/seat-list-4.webp';
+import list5 from '@/images/PDP/Product-Details-Redesign-2/seat-covers/compatability/seat-list-5.webp';
 import Image, { StaticImageData } from 'next/image';
 import {
   Carousel,
@@ -11,6 +11,7 @@ import {
   CarouselContent,
   CarouselItem,
 } from '@/components/ui/carousel';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 const seatLists: { image: StaticImageData }[] = [
   {
@@ -52,21 +53,31 @@ export default function CompatibleVehiclesCarousel() {
   );
 
   return (
-    <div>
-      <Carousel setApi={setApi}>
-        <CarouselContent className="w-full">
+    <section>
+      <Carousel setApi={setApi} className="px-4">
+        <CarouselContent className="ml-0 gap-4  pl-0">
           {seatLists.map((i, index) => (
-            <CarouselItem
-              key={'SheetItem: ' + index}
-              className="flex h-full min-h-[340px] min-w-full snap-center items-center justify-center"
-            >
-              <Image alt={`list-image-${index}`} src={i.image} quality={100} />
+            <CarouselItem key={'SheetItem: ' + index} className="pl-0">
+              <Image
+                alt={`list-image-${index}`}
+                src={i.image}
+                quality={100}
+                className="flex h-[585px] w-[580px] object-contain max-lg:max-h-[350px] max-lg:min-h-[340px]"
+              />
             </CarouselItem>
           ))}
         </CarouselContent>
+        <ChevronLeft
+          onClick={() => api?.scrollPrev()}
+          className={`absolute cursor-pointer ${api?.canScrollPrev() ? 'text-black' : 'hidden'} left-[10vw] top-1/2 h-9 w-9 -translate-y-1/2 max-lg:hidden`}
+        />
+        <ChevronRight
+          onClick={() => api?.scrollNext()}
+          className={`absolute cursor-pointer ${api?.canScrollNext() ? 'text-black' : 'hidden'} right-[10vw] top-1/2 h-9 w-9 -translate-y-1/2 max-lg:hidden`}
+        />
       </Carousel>
 
-      <section className="w-full items-center justify-center">
+      <section className="w-full items-center justify-center lg:hidden">
         <div className="flex w-full items-center justify-center gap-[10px] pt-7">
           {seatLists.map((i, index) => (
             <div
@@ -77,6 +88,6 @@ export default function CompatibleVehiclesCarousel() {
           ))}
         </div>
       </section>
-    </div>
+    </section>
   );
 }

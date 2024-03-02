@@ -44,7 +44,7 @@ export default function SeatCoverCarousel() {
     video?: string | Asset;
   }) => (
     <button
-      className={`relative flex min-h-[80px] min-w-[80px] items-center justify-center rounded-[4px] ${index === current && 'outline outline-1  '} `}
+      className={`w-25% relative flex h-full min-h-[25%] min-w-[25%] items-center justify-center rounded-[4px] ${index === current && 'outline outline-1  '} `}
       onClick={() => scrollTo(index)}
     >
       <Image
@@ -58,8 +58,8 @@ export default function SeatCoverCarousel() {
     </button>
   );
   return (
-    <section className="flex h-full ">
-      <div className="flex max-w-full flex-col bg-white lg:hidden ">
+    <section className="flex h-full lg:hidden ">
+      <div className="flex max-w-full flex-col bg-white  ">
         <Carousel setApi={setApi}>
           <CarouselContent id={'carousel-content'} className="no-scrollbar">
             {seatCoverArray.map((image, index) => (
@@ -69,7 +69,6 @@ export default function SeatCoverCarousel() {
                   alt={`seat-cover-image`}
                   width={500}
                   height={500}
-                  // placeholder="blur"
                   onError={() => console.log('Failed image:', `${SeatCover}`)}
                   className=" h-full w-full"
                 />
@@ -77,17 +76,17 @@ export default function SeatCoverCarousel() {
             ))}
           </CarouselContent>
         </Carousel>
-        <div className="flex h-full w-full items-center">
-          <div className=" flex flex-[80%] flex-row gap-[4px] overflow-x-auto whitespace-nowrap p-[6px]">
+        <section className="flex h-full w-full items-center">
+          <span className="no-scrollbar flex flex-[80%] flex-row gap-1 overflow-x-auto whitespace-nowrap p-[6px]">
             {seatCoverArray.map((_, index) => (
               <CarouselPositionItem key={''} src={SeatCover} index={index} />
             ))}
-          </div>
+          </span>
           <div
-            className={`mx-1 flex h-full min-h-[80px] min-w-[80px] max-w-[25%] flex-[20%] items-center justify-center rounded-[4px] bg-[#F2F2F2] `}
+            className={`my-2 flex h-full min-h-[20%] min-w-[20%] max-w-[20%] flex-[20%] items-center justify-center rounded-[4px] bg-[#F2F2F2] `}
             // onClick={() => scrollTo(index)}
           >
-            <div className="m-auto flex h-full w-full flex-col items-center justify-center gap-2 ">
+            <div className=" flex h-full w-full flex-col items-center justify-center gap-2 ">
               <p className="text-center text-[10px] font-[600] leading-[12px] underline">
                 Customer <br /> Images
               </p>
@@ -97,6 +96,7 @@ export default function SeatCoverCarousel() {
               />
             </div>
           </div>
+          {/* ------------ SEAT COVER REVIEWS START ------------- */}
           {/* <ReviewImagesSheet>
               <div
                 className={`mx-1 flex h-full min-h-[80px] w-1/4 min-w-[80px] max-w-[25%] items-center justify-center rounded-[4px] bg-[#F2F2F2] `}
@@ -113,7 +113,8 @@ export default function SeatCoverCarousel() {
                 </div>
               </div>
             </ReviewImagesSheet> */}
-        </div>
+          {/* ------------ SEAT COVER REVIEWS END ------------- */}
+        </section>
       </div>
     </section>
   );
