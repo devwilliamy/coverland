@@ -51,8 +51,8 @@ export default function EditVehiclePopover({
               {productName}
             </h1>
             <h2 className="text-[#8F8F8F]">{productNameSubtitle}</h2>
+            <EditIcon />
           </button>
-          <EditIcon />
         </Drawer.Trigger>
         <Drawer.Portal>
           <Drawer.Overlay className="fixed inset-0 bg-black/40"></Drawer.Overlay>
