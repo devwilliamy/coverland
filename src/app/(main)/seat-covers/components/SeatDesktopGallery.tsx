@@ -15,7 +15,7 @@ const SeatDesktopGallery = ({
 
   return (
     <div
-      className={`hidden w-auto ${showMore ? 'grid-rows-[1fr_1fr]' : ''} grid-cols-[1fr_1fr] gap-[16px] lg:grid `}
+      className={`hidden  ${showMore ? '' : ''} w-full grid-cols-[50%_50%]  justify-center gap-[16px] lg:grid `}
     >
       {showMore === false ? (
         <>
@@ -56,14 +56,14 @@ const ProductImage = ({
   idx: number;
   //   setFeaturedImage: (img: string) => void;
 }) => (
-  <div className=" aspect-square w-full  rounded-xl bg-[#F2F2F2] ">
+  <div className=" aspect-square rounded-xl bg-[#F2F2F2] ">
     <Image
       key={idx}
       src={img}
-      width={400}
-      height={400}
+      // width={400}
+      // height={400}
       alt="car cover details"
-      className={`h-full w-full rounded-lg `}
+      className={`flex h-full w-full rounded-lg `}
       //   onClick={() => setFeaturedImage(img)}
       onError={() => console.log('Failed image:', `${img}`)}
     />
@@ -89,11 +89,11 @@ const MoreImages = () => {
           </div>
         </div>
       </DialogTrigger>
-      <DialogContent className="flex min-h-[65vh] flex-col items-center lg:max-h-[80vh] lg:min-w-[77vw] lg:max-w-[80%]">
-        {/* <ReviewImageGalleryDesktop
+      {/* <DialogContent className="flex min-h-[65vh] flex-col items-center lg:max-h-[80vh] lg:min-w-[77vw] lg:max-w-[80%]">
+        <ReviewImageGalleryDesktop
               setReviewDialogOpen={setReviewDialogOpen}
-            /> */}
-      </DialogContent>
+            />
+      </DialogContent> */}
     </Dialog>
   );
 };

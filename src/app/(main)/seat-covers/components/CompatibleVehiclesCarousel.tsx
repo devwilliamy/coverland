@@ -54,7 +54,7 @@ export default function CompatibleVehiclesCarousel() {
 
   return (
     <section>
-      <Carousel setApi={setApi} className="px-4">
+      <Carousel setApi={setApi} className="">
         <CarouselContent className="ml-0 gap-4  pl-0">
           {seatLists.map((i, index) => (
             <CarouselItem key={'SheetItem: ' + index} className="pl-0">
@@ -62,18 +62,18 @@ export default function CompatibleVehiclesCarousel() {
                 alt={`list-image-${index}`}
                 src={i.image}
                 quality={100}
-                className="flex h-[585px] w-[580px] object-contain max-lg:max-h-[350px] max-lg:min-h-[340px]"
+                className="flex  w-full object-contain "
               />
             </CarouselItem>
           ))}
         </CarouselContent>
         <ChevronLeft
           onClick={() => api?.scrollPrev()}
-          className={`absolute cursor-pointer ${api?.canScrollPrev() ? 'text-black' : 'hidden'} left-[10vw] top-1/2 h-9 w-9 -translate-y-1/2 max-lg:hidden`}
+          className={`absolute cursor-pointer ${api?.canScrollPrev() ? 'text-black' : 'hidden'} left-[-10vw] top-1/2 h-9 w-9 -translate-y-1/2 max-lg:hidden`}
         />
         <ChevronRight
           onClick={() => api?.scrollNext()}
-          className={`absolute cursor-pointer ${api?.canScrollNext() ? 'text-black' : 'hidden'} right-[10vw] top-1/2 h-9 w-9 -translate-y-1/2 max-lg:hidden`}
+          className={`absolute cursor-pointer ${api?.canScrollNext() ? 'text-black' : 'hidden'} right-[-10vw] top-1/2 h-9 w-9 -translate-y-1/2 max-lg:hidden`}
         />
       </Carousel>
 

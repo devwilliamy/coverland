@@ -51,7 +51,7 @@ export default function ElevateComfortSection({
   const HeaderSeat = selectedColor[1];
 
   return (
-    <section className="relative flex max-w-[100dvw] flex-col items-center bg-[#1A1A1A] pb-[34px] lg:mt-[42px] ">
+    <section className="relative flex w-full flex-col items-center bg-[#1A1A1A] pb-[34px] lg:mt-[42px] ">
       <p className="flex w-full items-center justify-center py-7 text-center text-[26px] font-[500] leading-[26px] text-white lg:p-[6px] lg:pb-[38px] lg:pt-[60px] lg:text-[45px]  lg:leading-[32px]">
         Elevate Comfort And Style
       </p>
