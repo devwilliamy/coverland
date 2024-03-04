@@ -30,7 +30,7 @@ export default function SeatCoverFreeDetails() {
     },
     {
       icon: <ShieldCheck />,
-      title: 'Lifetime Warranty',
+      title: '10-Year Full Warranty',
     },
   ];
   return (

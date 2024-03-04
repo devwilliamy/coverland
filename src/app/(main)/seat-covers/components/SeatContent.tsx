@@ -28,7 +28,7 @@ export default function SeatContent({
         <div className="flex flex-col gap-0.5">
           {/* Product Title */}
           <h2 className="text-[24px] font-[900] leading-[27px] text-[#1A1A1A] lg:text-[28px] lg:leading-[30px] ">
-            Leatherette <br /> Front Seat Covers
+            Leatherette <br className="lg:hidden" /> Front Seat Covers
           </h2>
           {/* Rating(s) */}
           <div className="flex pb-[36px] ">

@@ -51,8 +51,10 @@ export default function WarrantySection() {
       warrantyLength = '1-Year';
       break;
   }
+
   if (pathname === '/seat-covers') {
     warrantyLength = '10-Year';
+    warrantyData.splice(2, 1);
   }
 
   return (

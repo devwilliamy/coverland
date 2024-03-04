@@ -11,31 +11,30 @@ import {
   SheetTrigger,
 } from '@/components/ui/sheet';
 import CompatibleVehiclesCarousel from './CompatibleVehiclesCarousel';
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from '@/components/ui/dialog';
 
 export default function CompatibleVehiclesTrigger() {
-  const [sheetOpen, setSheetOpen] = useState(false);
+  const [open, setOpen] = useState(false);
+  const [dialogOpen, setDialogOpen] = useState(false);
 
   return (
-    <section className="w-full items-center px-4 pb-12 ">
+    <section className="w-full items-center pb-12  ">
       <Separator className="mt-[30px] " />
-      <Sheet open={sheetOpen} onOpenChange={setSheetOpen}>
-        <SheetTrigger className="flex w-full items-center">
-          <span className="my-6 flex w-full  items-center gap-[18px] lg:grid lg:grid-cols-[0.2fr_1fr_0.1fr] lg:items-center lg:justify-evenly  lg:justify-items-center ">
-            <FaArrowsAltH className="h-4.5 w-4.5" />
-            <div
-              className={`flex w-full items-center justify-between justify-self-start pt-1`}
-            >
-              <p className={` text-[16px] font-[500] leading-[16px]`}>
-                Compatible Vehicles
-              </p>
-              <ChevronRight />
-            </div>
-          </span>
+      {/* <span className="lg:hidden"> */}
+      <Sheet open={open} onOpenChange={setOpen}>
+        <SheetTrigger className="flex w-full items-center lg:hidden">
+          <OpenTrigger />
         </SheetTrigger>
-
         <SheetContent
           side={'bottom'}
-          className="max-h-[75vh] min-h-[75vh] rounded-t-2xl"
+          className="max-h-[85vh] min-h-[80vh] rounded-t-2xl px-4 "
         >
           <SheetHeader>
             <SheetClose className="fixed right-0 z-[400] mr-[16px] flex items-center py-[4px]">
@@ -43,7 +42,7 @@ export default function CompatibleVehiclesTrigger() {
                 id="CloseModalButton"
                 className=" mt-[17px] justify-center rounded-full bg-gray-200 p-[5px] "
                 onClick={() => {
-                  setSheetOpen(false);
+                  setOpen(false);
                 }}
               >
                 <X className="h-[24px] w-[24px]" />
@@ -56,7 +55,52 @@ export default function CompatibleVehiclesTrigger() {
           <CompatibleVehiclesCarousel />
         </SheetContent>
       </Sheet>
+      {/* </span> */}
+
+      {/* <span className="hidden lg:block"> */}
+      <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
+        <DialogTrigger className="flex w-full items-center">
+          <OpenTrigger />
+        </DialogTrigger>
+        <DialogContent className="flex max-h-[85vh] min-h-[80vh] min-w-[70vw] flex-col items-center rounded-t-2xl px-[100px] ">
+          <DialogHeader>
+            <DialogClose className="fixed right-0 z-[400] mr-[16px] flex items-center py-[4px]">
+              <div
+                id="CloseModalButton"
+                className=" mt-[17px] justify-center rounded-full bg-gray-200 p-[5px] "
+                onClick={() => {
+                  setOpen(false);
+                }}
+              >
+                <X className="h-[24px] w-[24px]" />
+              </div>
+            </DialogClose>
+            <DialogTitle className="pb-9 pt-[92px] text-[26px] font-[700] leading-[26px]">
+              Compatible Vehicles
+            </DialogTitle>
+          </DialogHeader>
+          <div className="flex max-h-[40%]">
+            <CompatibleVehiclesCarousel />
+          </div>
+        </DialogContent>
+      </Dialog>
+      {/* </span> */}
+
       <Separator />
     </section>
   );
 }
+
+const OpenTrigger = () => (
+  <span className="my-6 flex w-full  items-center gap-[18px] lg:grid lg:grid-cols-[0.2fr_1fr_0.1fr] lg:items-center lg:justify-evenly  lg:justify-items-center ">
+    <FaArrowsAltH className="h-4.5 w-4.5" />
+    <div
+      className={`flex w-full items-center justify-between justify-self-start pt-1`}
+    >
+      <p className={` text-[16px] font-[500] leading-[16px]`}>
+        Compatible Vehicles
+      </p>
+      <ChevronRight />
+    </div>
+  </span>
+);

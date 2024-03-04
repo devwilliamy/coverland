@@ -73,17 +73,17 @@ export default function SeatCoverCarousel() {
             ))}
           </CarouselContent>
         </Carousel>
-        <section className="flex h-full w-full items-center">
-          <span className="no-scrollbar flex flex-[80%] flex-row gap-1 overflow-x-auto whitespace-nowrap p-[6px]">
+        <section className="flex h-full w-full items-center pt-1">
+          <span className="no-scrollbar flex flex-[80%] flex-row gap-1 overflow-x-auto whitespace-nowrap px-[6px]">
             {seatCoverArray.map((_, index) => (
               <CarouselPositionItem key={''} src={SeatCover} index={index} />
             ))}
           </span>
           <div
-            className={`my-2 flex h-full min-h-[20%] min-w-[20%] max-w-[20%] flex-[20%] items-center justify-center rounded-[4px] bg-[#F2F2F2] `}
+            className={`flex h-full min-h-[20%] min-w-[20%] max-w-[20%] flex-[20%] items-center justify-center rounded-[4px] bg-[#F2F2F2]  `}
             // onClick={() => scrollTo(index)}
           >
-            <div className=" flex h-full w-full flex-col items-center justify-center gap-2 ">
+            <div className=" flex w-full flex-col items-center justify-center gap-2 ">
               <p className="text-center text-[10px] font-[600] leading-[12px] underline">
                 Customer <br /> Images
               </p>

@@ -38,7 +38,7 @@ export default function SeatCovers() {
 
   return (
     <section className="flex w-full flex-col items-center pt-[22px]">
-      <p className="w-full px-[2dvw] pb-[43px] text-[14px] leading-[15px]">
+      <p className="w-full px-[2dvw] pb-3.5 text-[14px] leading-[15px] lg:pb-[43px]">
         <a href="/">Home</a> / Seat Cover
       </p>
       <SeatCoverCarousel />
@@ -81,7 +81,7 @@ export default function SeatCovers() {
         <Image
           alt="seat-dimensions"
           src={selectedColor?.[6]}
-          // className="mb-[70px]"
+          className="pl-[45px] lg:pl-[30px]"
           // className="mb-[70px] h-[545px] w-[365px] max-md:h-[432px] max-md:w-[266px] "
         />
         <p className="w-full pb-[28px] pt-[60px] text-center text-[26px] font-[700] leading-[26px] lg:pb-[49px] lg:pt-[110px] lg:text-[45px] lg:leading-[26px]">

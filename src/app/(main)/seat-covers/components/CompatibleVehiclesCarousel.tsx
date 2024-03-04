@@ -53,16 +53,16 @@ export default function CompatibleVehiclesCarousel() {
   );
 
   return (
-    <section>
-      <Carousel setApi={setApi} className="">
-        <CarouselContent className="ml-0 gap-4  pl-0">
+    <section className="flex flex-col pb-[68px]">
+      <Carousel setApi={setApi} className="h-full">
+        <CarouselContent className="ml-0  gap-4 pl-0">
           {seatLists.map((i, index) => (
             <CarouselItem key={'SheetItem: ' + index} className="pl-0">
               <Image
                 alt={`list-image-${index}`}
                 src={i.image}
                 quality={100}
-                className="flex  w-full object-contain "
+                className="flex  object-contain "
               />
             </CarouselItem>
           ))}
