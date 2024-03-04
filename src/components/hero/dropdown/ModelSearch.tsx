@@ -43,7 +43,7 @@ export function ModelSearch({
       className={`flex max-h-[44px] min-h-[44px] w-full items-center rounded-[4px] outline outline-1 outline-offset-1 outline-[#767676] md:max-h-[58px] ${isDisabled ? 'bg-gray-100/75' : 'bg-white'} px-2 text-lg lg:w-auto`}
       tabIndex={1}
     >
-      <div className="ml-[10px] pr-[15px]">3</div>
+      <div className="ml-[10px] pr-[15px]">4</div>
       <select
         value={value}
         onChange={handleChange}

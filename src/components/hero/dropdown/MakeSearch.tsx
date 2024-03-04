@@ -19,7 +19,7 @@ export function MakeSearch({
   const [value, setValue] = useState('');
   const {
     setQuery,
-    query: { type },
+    query: { type, year },
   } = queryObj;
   const makeData =
     type === 'Car Covers'
@@ -28,6 +28,8 @@ export function MakeSearch({
         ? SUV_COVER_MAKES
         : TRUCK_COVER_MAKES;
   const sortedData = makeData.sort((a, b) => a.localeCompare(b));
+
+  const isDisabled = !type || !year;
 
   useEffect(() => {
     !type && setValue('');
@@ -41,14 +43,14 @@ export function MakeSearch({
 
   return (
     <div
-      className={`flex max-h-[44px] min-h-[44px] w-full items-center rounded-[4px] outline-[#767676] md:max-h-[58px] ${!type ? 'bg-gray-100/75' : 'bg-white'} px-2 text-lg outline outline-1 outline-offset-1 lg:w-auto`}
+      className={`flex max-h-[44px] min-h-[44px] w-full items-center rounded-[4px] outline-[#767676] md:max-h-[58px] ${isDisabled ? 'bg-gray-100/75' : 'bg-white'} px-2 text-lg outline outline-1 outline-offset-1 lg:w-auto`}
       tabIndex={1}
     >
-      <div className="ml-[10px] pr-[15px]">2</div>
+      <div className="ml-[10px] pr-[15px]">3</div>
       <select
         value={value}
         onChange={handleChange}
-        disabled={!type}
+        disabled={isDisabled}
         className="w-full bg-transparent outline-none "
       >
         <option value="">{`${value ? 'Clear' : 'Make'}`}</option>
