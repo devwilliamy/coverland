@@ -7,6 +7,9 @@ import {
   SUV_COVER_MAKES,
   TRUCK_COVER_MAKES,
 } from '@/lib/constants';
+import { getAllUniqueMakesByYear } from '@/lib/db';
+
+type MakeDropdown = { make: string | null; make_slug: string | null };
 
 export function MakeSearch({
   queryObj,
@@ -21,19 +24,30 @@ export function MakeSearch({
     setQuery,
     query: { type, year },
   } = queryObj;
-  const makeData =
-    type === 'Car Covers'
-      ? CAR_COVER_MAKES
-      : type === 'SUV Covers'
-        ? SUV_COVER_MAKES
-        : TRUCK_COVER_MAKES;
-  const sortedData = makeData.sort((a, b) => a.localeCompare(b));
-
+  const [makeData, setMakeData] = useState<MakeDropdown[]>([]);
   const isDisabled = !type || !year;
 
   useEffect(() => {
     !type && setValue('');
   }, [type]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await getAllUniqueMakesByYear({
+          type,
+          cover: 'Premium Plus', // TOOD: - Update this to make it work for premium as well.
+          year,
+        });
+        setMakeData(response);
+      } catch (error) {
+        console.error('[Make Search]: ', error);
+      }
+    };
+    if (type && year) {
+      fetchData();
+    }
+  }, [type, year]);
 
   const handleChange = (event: ChangeEvent<HTMLSelectElement>) => {
     const newValue = event.target.value;
@@ -54,8 +68,8 @@ export function MakeSearch({
         className="w-full bg-transparent outline-none "
       >
         <option value="">{`${value ? 'Clear' : 'Make'}`}</option>
-        {sortedData.map((make) => (
-          <option key={make} value={make}>
+        {makeData.map(({ make }, index) => (
+          <option key={`${make}+${index}`} value={make || ''}>
             {make}
           </option>
         ))}
