@@ -120,6 +120,46 @@ export async function getAllUniqueMakesByYear({
   return uniqueCars;
 }
 
+export async function getAllUniqueModelsByYearMake({
+  type,
+  cover,
+  year,
+  make,
+}: {
+  type: string;
+  cover: string;
+  year: string;
+  make: string;
+}) {
+  const { data, error } = await supabase
+    .from('Products-Data-02-2024')
+    .select(
+      'model, model_slug, parent_generation, submodel1, submodel2, submodel3'
+    )
+    .eq('type', type)
+    .eq('display_id', cover)
+    .like('year_options', `%${year}%`)
+    .eq('make', make)
+    .order('model_slug', { ascending: true });
+
+  if (error) {
+    throw new Error(error.message);
+  }
+  const uniqueCars = data.filter(
+    (car, index, self) =>
+      index ===
+      self.findIndex(
+        (t) =>
+          t.model_slug === car.model_slug &&
+          t.submodel1 === car.submodel1 &&
+          t.submodel2 === car.submodel2 &&
+          t.submodel3 === car.submodel3
+      )
+  );
+  console.log('Modle Unque Car:', uniqueCars);
+  return uniqueCars;
+}
+
 export async function getAllModels({
   type,
   cover,

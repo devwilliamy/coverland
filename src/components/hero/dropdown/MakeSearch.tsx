@@ -69,7 +69,7 @@ export function MakeSearch({
       >
         <option value="">{`${value ? 'Clear' : 'Make'}`}</option>
         {makeData.map(({ make }, index) => (
-          <option key={`${make}+${index}`} value={make || ''}>
+          <option key={`${make}-${index}`} value={make || ''}>
             {make}
           </option>
         ))}
