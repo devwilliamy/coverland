@@ -20,22 +20,22 @@ export default function ElevateComfortSection({
   useEffect(() => {
     setProtectionData([
       {
-        image: selectedColor?.[2],
+        image: selectedColor?.[2] as StaticImageData,
         title: 'Drive in Comfort',
         description: 'High-quality, Durable, and Easy-to-Clean Material',
       },
       {
-        image: selectedColor?.[3],
+        image: selectedColor?.[3] as StaticImageData,
         title: 'Breathable Design',
         description: `Perforated Leather to stay cool in any ride`,
       },
       {
-        image: selectedColor?.[4],
+        image: selectedColor?.[4] as StaticImageData,
         title: 'Perfect Fit in Minutes',
         description: 'Semi-Custom Look, Effortless to Install and Maintain',
       },
       {
-        image: selectedColor?.[5],
+        image: selectedColor?.[5] as StaticImageData,
         title: 'Airbag Compatible ',
         description: 'Safety, seamlessly integrated',
       },
@@ -58,7 +58,7 @@ export default function ElevateComfortSection({
       <div className="flex w-screen max-w-[850px] items-center justify-center lg:w-full ">
         <Image
           alt="product-content-seat-header"
-          src={HeaderSeat}
+          src={HeaderSeat as StaticImageData}
           className="flex "
         />
       </div>

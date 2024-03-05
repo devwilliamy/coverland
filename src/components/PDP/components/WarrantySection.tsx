@@ -7,7 +7,6 @@ import { useParams, usePathname } from 'next/navigation';
 export default function WarrantySection() {
   const params = useParams();
   const pathname = usePathname();
-  const productType = params?.productType;
   const coverType = params?.coverType;
   const isPremiumPlus = params?.coverType === 'premium-plus';
   const isDefaultCoverType = isPremiumPlus || coverType === undefined;

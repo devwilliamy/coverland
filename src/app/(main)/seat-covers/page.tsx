@@ -15,17 +15,15 @@ import {
   SeatData,
   SeatImageDataObject,
 } from './util';
-import BlackRedFeature from '@/images/PDP/Product-Details-Redesign-2/seat-covers/featured-cover.webp';
 import FeaturedThumbnail from '@/images/PDP/Product-Details-Redesign-2/seat-covers/featured-thumbnail.webp';
+import SeatVideo from '@/videos/ov-front-seat-cover.mp4';
 import SeatContent from './components/SeatContent';
 import SeatDesktopGallery from './components/SeatDesktopGallery';
-import img1 from '@/images/PDP/Product-Details-Redesign-2/seat-covers/gallery-img-1.webp';
-import img2 from '@/images/PDP/Product-Details-Redesign-2/seat-covers/gallery-img-2.webp';
-import img3 from '@/images/PDP/Product-Details-Redesign-2/seat-covers/gallery-img-3.webp';
 import { Button } from '@/components/ui/button';
 import WarrantySection from '@/components/PDP/components/WarrantySection';
 import ExtraDetailsTabs from '@/components/PDP/components/ExtraDetailsTabs';
 import { Separator } from '@radix-ui/react-separator';
+import ProductVideo from '@/components/PDP/ProductVideo';
 
 export default function SeatCovers() {
   const isMobile = useMediaQuery('max-width: 1024px');
@@ -80,13 +78,13 @@ export default function SeatCovers() {
             className="hidden h-full w-full object-cover lg:flex"
             priority
           />
-          <Image
-            id="featured-video"
-            src={FeaturedThumbnail}
-            alt="a car with a car cover on it"
-            className="hidden h-full w-full object-cover lg:flex"
-            priority
-          />
+          <div className="hidden h-full w-full object-cover lg:flex">
+            <ProductVideo
+              src={SeatVideo}
+              aspectRatio="16/9"
+              imgSrc={FeaturedThumbnail}
+            />
+          </div>
           <SeatDesktopGallery
             galleryImages={galleryImages}
             showMore={showMore}
@@ -111,7 +109,7 @@ export default function SeatCovers() {
         </p>
         <Image
           alt="seat-dimensions"
-          src={selectedColor?.[6]}
+          src={selectedColor?.[6] as StaticImageData}
           className="pl-[45px] lg:pl-[30px]"
           // className="mb-[70px] h-[545px] w-[365px] max-md:h-[432px] max-md:w-[266px] "
         />

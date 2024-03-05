@@ -1,4 +1,4 @@
-import Image from 'next/image';
+import Image, { StaticImageData } from 'next/image';
 import React, { SetStateAction } from 'react';
 import SeatCoverFreeDetails from './SeatCoverFreeDetails';
 import CompatibleVehiclesTrigger from './CompatibleVehiclesTrigger';
@@ -80,7 +80,7 @@ export default function SeatContent({
                 >
                   <Image
                     alt="cover-color"
-                    src={i.data[0]}
+                    src={i.data[0] as StaticImageData}
                     className="rounded-full"
                   />
                 </div>

@@ -14,6 +14,10 @@ import {
 import { Asset } from 'next-video/dist/assets.js';
 import SeatCover from '@/images/PDP/Product-Details-Redesign-2/seat-covers/featured-cover.webp';
 import { useState, useEffect, useCallback } from 'react';
+import ProductVideo from '@/components/PDP/ProductVideo';
+import SeatVideo from '@/videos/ov-front-seat-cover.mp4';
+import FeaturedVideoThumbnail from '@/images/PDP/Product-Details-Redesign-2/seat-covers/featured-thumbnail.webp';
+
 // import { FaCamera } from 'react-icons/fa';
 
 export default function SeatCoverCarousel({
@@ -66,18 +70,31 @@ export default function SeatCoverCarousel({
       <div className="flex max-w-full flex-col bg-white  ">
         <Carousel setApi={setApi}>
           <CarouselContent id={'carousel-content'} className="no-scrollbar">
-            {galleryImages.map((image, index) => (
-              <CarouselItem key={`carousel-item-${index}`}>
-                <Image
-                  src={image}
-                  alt={`seat-cover-image`}
-                  width={500}
-                  height={500}
-                  onError={() => console.log('Failed image:', `${SeatCover}`)}
-                  className=" h-full w-full"
-                />
-              </CarouselItem>
-            ))}
+            {galleryImages.map((image, index) => {
+              if (index == 3) {
+                return (
+                  <CarouselItem key={'seat-video'} className="h-full w-full">
+                    <ProductVideo
+                      src={SeatVideo}
+                      imgSrc={FeaturedVideoThumbnail}
+                    />
+                  </CarouselItem>
+                );
+              }
+
+              return (
+                <CarouselItem key={`carousel-item-${index}`}>
+                  <Image
+                    src={image}
+                    alt={`seat-cover-image`}
+                    width={500}
+                    height={500}
+                    onError={() => console.log('Failed image:', `${SeatCover}`)}
+                    className=" h-full w-full"
+                  />
+                </CarouselItem>
+              );
+            })}
           </CarouselContent>
         </Carousel>
         <section className="flex h-full w-full items-center pt-1">
