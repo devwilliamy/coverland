@@ -1,10 +1,15 @@
+'use client';
+
 import React from 'react';
 import PolicyHeader from '@/components/policy/PolicyHeader';
 import PolicyTitle from '@/components/policy/PolicyTitle';
 import PolicyDetail from '@/components/policy/PolicyDetail';
 import PolicyFurtherAssistance from '@/components/policy/PolicyFurtherAssistance';
+import { usePathname } from 'next/navigation';
 
 function ShippingPolicy() {
+  const path = usePathname();
+  const isSeatCovers = path === '/seat-covers';
   return (
     <>
       <PolicyHeader headerText="Shipping Policy" />
@@ -32,10 +37,14 @@ function ShippingPolicy() {
             location. To determine your shipping cost, you may do so at Checkout
             by selecting your zip code and city.
           </PolicyDetail>
-          <PolicyTitle title="EXPEDITE SHIPPING" uppercase />
-          <PolicyDetail>
-            We currently offer FedEx 2-Day Air only for $19.99.
-          </PolicyDetail>
+          {!isSeatCovers && (
+            <>
+              <PolicyTitle title="EXPEDITE SHIPPING" uppercase />
+              <PolicyDetail>
+                We currently offer FedEx 2-Day Air only for $19.99.
+              </PolicyDetail>
+            </>
+          )}
           <PolicyTitle title="INTERNATIONAL SHIPPING" uppercase />
           <PolicyDetail>
             We are currently offering international orders for Canada only.
