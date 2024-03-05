@@ -15,6 +15,7 @@ import {
 } from '@/lib/db/review';
 import { deslugify } from '@/lib/utils';
 import { TPathParams } from '../utils';
+import { notFound, redirect } from 'next/navigation';
 
 export function generateStaticParams() {
   return [
@@ -31,6 +32,7 @@ export async function generateMetadata({ params }: { params: TPathParams }) {
     description: `${productType} ᐉ Coverland ⭐ Free, Same-Day Shipping ✔️ Free Returns & Purchase Protection ✔️ Made from premium quality, heavy-duty materials with a soft inner fabric.`,
   };
 }
+const validProductTypes = ['car-covers', 'suv-covers', 'truck-covers'];
 
 export default async function CarPDPModelDataLayer({
   params,
@@ -38,6 +40,10 @@ export default async function CarPDPModelDataLayer({
   params: { productType: string };
   searchParams: { submodel?: string; second_submodel?: string } | undefined;
 }) {
+  const validPath = validProductTypes.includes(params.productType);
+  if (!validPath) {
+    notFound();
+  }
   let reviewData: TReviewData[] = [];
   let reviewDataSummary: TProductReviewSummary = {
     total_reviews: 0,
