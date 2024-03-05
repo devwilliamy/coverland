@@ -62,7 +62,7 @@ export default function CompatibleVehiclesTrigger() {
         <DialogTrigger className="hidden w-full items-center md:flex">
           <OpenTrigger />
         </DialogTrigger>
-        <DialogContent className="flex max-h-[86vh] min-h-[83vh] min-w-[75vw] flex-col items-center gap-0 rounded-t-2xl py-0 ">
+        <DialogContent className="flex max-h-[86vh] min-h-[85vh]  min-w-[75vw] flex-col items-center gap-0 rounded-t-2xl py-0 ">
           <DialogHeader>
             <DialogClose className="fixed right-0 z-[400] mr-[16px] flex items-center py-[4px]">
               <div
@@ -76,7 +76,7 @@ export default function CompatibleVehiclesTrigger() {
               </div>
             </DialogClose>
           </DialogHeader>
-          <div className="flex h-full min-w-[520px] max-w-[60%] flex-col items-center justify-center">
+          <div className="flex h-full min-w-[520px] max-w-[520px] flex-col items-center justify-center">
             <div className="pb-9 pt-[69px] text-[38px] font-[700] leading-[26px]">
               Compatible Vehicles
             </div>
