@@ -32,7 +32,6 @@ export default function WarrantySection() {
   let warrantyLength: string | number = 'Lifetime';
 
   !isDefaultCoverType && warrantyData.splice(2, 1);
-  console.log(productType);
 
   switch (coverType) {
     case 'premium-plus':

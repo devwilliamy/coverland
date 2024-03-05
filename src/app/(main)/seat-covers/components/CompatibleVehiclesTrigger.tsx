@@ -29,7 +29,7 @@ export default function CompatibleVehiclesTrigger() {
       <Separator className="mt-[30px] " />
       {/* <span className="lg:hidden"> */}
       <Sheet open={open} onOpenChange={setOpen}>
-        <SheetTrigger className="flex w-full items-center lg:hidden">
+        <SheetTrigger className="flex w-full items-center md:hidden">
           <OpenTrigger />
         </SheetTrigger>
         <SheetContent
@@ -59,10 +59,10 @@ export default function CompatibleVehiclesTrigger() {
 
       {/* <span className="hidden lg:block"> */}
       <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
-        <DialogTrigger className="hidden w-full items-center lg:flex">
+        <DialogTrigger className="hidden w-full items-center md:flex">
           <OpenTrigger />
         </DialogTrigger>
-        <DialogContent className="flex max-h-[85vh] min-h-[80vh] min-w-[70vw] flex-col items-center rounded-t-2xl px-[100px] ">
+        <DialogContent className="flex max-h-[86vh] min-h-[83vh] min-w-[75vw] flex-col items-center gap-0 rounded-t-2xl py-0 ">
           <DialogHeader>
             <DialogClose className="fixed right-0 z-[400] mr-[16px] flex items-center py-[4px]">
               <div
@@ -75,11 +75,11 @@ export default function CompatibleVehiclesTrigger() {
                 <X className="h-[24px] w-[24px]" />
               </div>
             </DialogClose>
-            <DialogTitle className="pb-9 pt-[92px] text-[26px] font-[700] leading-[26px]">
-              Compatible Vehicles
-            </DialogTitle>
           </DialogHeader>
-          <div className="flex max-h-[40%]">
+          <div className="flex h-full min-w-[520px] max-w-[60%] flex-col items-center justify-center">
+            <div className="pb-9 pt-[69px] text-[38px] font-[700] leading-[26px]">
+              Compatible Vehicles
+            </div>
             <CompatibleVehiclesCarousel />
           </div>
         </DialogContent>

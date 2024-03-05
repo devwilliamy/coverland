@@ -5,13 +5,13 @@ import React, { useState } from 'react';
 import { FaCamera } from 'react-icons/fa';
 
 const SeatDesktopGallery = ({
-  seatImages,
+  galleryImages,
   showMore,
 }: {
-  seatImages: StaticImageData[];
+  galleryImages: StaticImageData[];
   showMore: boolean;
 }) => {
-  const fourImages = seatImages?.slice(0, 4);
+  const fourImages = galleryImages?.slice(0, 4);
 
   return (
     <div
@@ -31,7 +31,7 @@ const SeatDesktopGallery = ({
         </>
       ) : (
         <>
-          {seatImages?.map((img, idx) => (
+          {galleryImages?.map((img, idx) => (
             <ProductImage
               key={`product-image-${idx}`}
               img={img}

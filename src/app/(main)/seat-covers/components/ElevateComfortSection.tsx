@@ -22,12 +22,12 @@ export default function ElevateComfortSection({
       {
         image: selectedColor?.[2],
         title: 'Drive in Comfort',
-        description: 'High-quality, Durable, and Easy-to-Clean Material.',
+        description: 'High-quality, Durable, and Easy-to-Clean Material',
       },
       {
         image: selectedColor?.[3],
         title: 'Breathable Design',
-        description: `Perforated Leather to stay cool in any ride.`,
+        description: `Perforated Leather to stay cool in any ride`,
       },
       {
         image: selectedColor?.[4],

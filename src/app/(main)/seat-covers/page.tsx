@@ -70,7 +70,7 @@ export default function SeatCovers() {
       <p className="w-full px-[2dvw] pb-3.5 text-[14px] leading-[15px] lg:pb-[43px]">
         <a href="/">Home</a> / Seat Cover
       </p>
-      <SeatCoverCarousel />
+      <SeatCoverCarousel galleryImages={galleryImages} />
       <section className="flex h-max w-full px-[2dvw] lg:gap-[60px]">
         <span className="mb-[18px] flex  w-1/2 flex-col gap-[18px] max-lg:hidden">
           <Image
@@ -87,7 +87,10 @@ export default function SeatCovers() {
             className="hidden h-full w-full object-cover lg:flex"
             priority
           />
-          <SeatDesktopGallery seatImages={galleryImages} showMore={showMore} />
+          <SeatDesktopGallery
+            galleryImages={galleryImages}
+            showMore={showMore}
+          />
           <Button
             className="mx-auto mt-9 hidden h-12 w-[216px] rounded border border-[#1A1A1A] bg-transparent text-lg font-normal capitalize text-[#1A1A1A] hover:bg-[#1A1A1A] hover:text-white lg:block"
             onClick={() => setShowMore((p) => !p)}
@@ -124,7 +127,7 @@ export default function SeatCovers() {
       </section>
       <WarrantySection />
       {/* <SuggestedProducts /> */}
-      <Separator className="mt-[60px] h-5 w-full border-b-[1px] border-t-[1px] border-b-[#DBDBDB] border-t-[#DBDBDB] bg-[#F1F1F1] lg:mt-[106px] lg:h-10 " />
+      <Separator className="mt-[60px] h-5 w-full border-y-[1px] border-b-[#DBDBDB] border-t-[#DBDBDB] bg-[#F1F1F1] lg:mt-[106px] lg:h-10 " />
       <section className="flex w-full flex-col">
         <ExtraDetailsTabs />
       </section>

@@ -7,16 +7,23 @@ import {
   CarouselContent,
   CarouselItem,
 } from '@/components/ui/carousel';
-import { StaticImport } from 'next/dist/shared/lib/get-img-props';
+import {
+  StaticImageData,
+  StaticImport,
+} from 'next/dist/shared/lib/get-img-props';
 import { Asset } from 'next-video/dist/assets.js';
 import SeatCover from '@/images/PDP/Product-Details-Redesign-2/seat-covers/featured-cover.webp';
-import { FaCamera } from 'react-icons/fa';
 import { useState, useEffect, useCallback } from 'react';
+// import { FaCamera } from 'react-icons/fa';
 
-export default function SeatCoverCarousel() {
+export default function SeatCoverCarousel({
+  galleryImages,
+}: {
+  galleryImages: StaticImageData[];
+}) {
   const [api, setApi] = useState<CarouselApi>();
   const [current, setCurrent] = useState(0);
-  const seatCoverArray = [...Array(9)];
+  // const seatCoverArray = [...Array(9)];
   useEffect(() => {
     if (!api) {
       return;
@@ -44,7 +51,7 @@ export default function SeatCoverCarousel() {
     video?: string | Asset;
   }) => (
     <button
-      className={`w-25% relative flex h-full min-h-[25%] min-w-[25%] items-center justify-center rounded-[4px] ${index === current && 'outline outline-1  '} `}
+      className={`w-25% relative flex h-full min-h-[25%] min-w-[25%] items-center justify-center rounded-[4px] ${index === current && 'outline outline-1'} p-[2px]`}
       onClick={() => scrollTo(index)}
     >
       <Image
@@ -59,10 +66,10 @@ export default function SeatCoverCarousel() {
       <div className="flex max-w-full flex-col bg-white  ">
         <Carousel setApi={setApi}>
           <CarouselContent id={'carousel-content'} className="no-scrollbar">
-            {seatCoverArray.map((image, index) => (
+            {galleryImages.map((image, index) => (
               <CarouselItem key={`carousel-item-${index}`}>
                 <Image
-                  src={SeatCover}
+                  src={image}
                   alt={`seat-cover-image`}
                   width={500}
                   height={500}
@@ -74,12 +81,12 @@ export default function SeatCoverCarousel() {
           </CarouselContent>
         </Carousel>
         <section className="flex h-full w-full items-center pt-1">
-          <span className="no-scrollbar flex flex-[80%] flex-row gap-1 overflow-x-auto whitespace-nowrap px-[6px]">
-            {seatCoverArray.map((_, index) => (
-              <CarouselPositionItem key={''} src={SeatCover} index={index} />
+          <span className="no-scrollbar flex flex-[80%] flex-row gap-1 overflow-x-auto whitespace-nowrap px-[6px] py-1">
+            {galleryImages.map((image, index) => (
+              <CarouselPositionItem key={''} src={image} index={index} />
             ))}
           </span>
-          <div
+          {/* <div
             className={`flex h-full min-h-[20%] min-w-[20%] max-w-[20%] flex-[20%] items-center justify-center rounded-[4px] bg-[#F2F2F2]  `}
             // onClick={() => scrollTo(index)}
           >
@@ -92,7 +99,7 @@ export default function SeatCoverCarousel() {
                 className="flex min-h-[24px] min-w-[27px]"
               />
             </div>
-          </div>
+          </div> */}
           {/* ------------ SEAT COVER REVIEWS START ------------- */}
           {/* <ReviewImagesSheet>
               <div

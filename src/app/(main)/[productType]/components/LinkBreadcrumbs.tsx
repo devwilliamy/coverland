@@ -11,7 +11,6 @@ export default function LinkBreadcrumbs() {
     }
     return returnString;
   };
-  console.log(params);
 
   return (
     <div className="mb-[14px] flex text-[12px] leading-[13px] lg:text-[14px] lg:leading-[15px]">
