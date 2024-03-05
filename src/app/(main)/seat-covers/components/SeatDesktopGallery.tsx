@@ -27,7 +27,7 @@ const SeatDesktopGallery = ({
               //   setFeaturedImage={setFeaturedImage}
             />
           ))}
-          <MoreImages key={`show-more`} />
+          {/* <MoreImages key={`show-more`} /> */}
         </>
       ) : (
         <>
@@ -39,7 +39,7 @@ const SeatDesktopGallery = ({
               //   setFeaturedImage={setFeaturedImage}
             />
           ))}
-          <MoreImages key={`show-more`} />
+          {/* <MoreImages key={`show-more`} /> */}
         </>
       )}
     </div>

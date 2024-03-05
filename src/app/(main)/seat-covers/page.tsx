@@ -2,13 +2,20 @@
 import { useState } from 'react';
 import SeatCoverCarousel from './components/SeatCoverCarousel';
 import { useMediaQuery } from '@mui/material';
-import Image from 'next/image';
+import Image, { StaticImageData } from 'next/image';
 import ElevateComfortSection from './components/ElevateComfortSection';
 import NonCompatibleMobile from '@/images/PDP/Product-Details-Redesign-2/seat-covers/compatability/non-compatible-features.webp';
 import NonCompatibleDesktop from '@/images/PDP/Product-Details-Redesign-2/seat-covers/compatability/non-compatible-desktop.webp';
 import CompatibleVehiclesCarousel from './components/CompatibleVehiclesCarousel';
-import { SeatData, SeatImageDataObject } from './util';
-import FeaturedCover from '@/images/PDP/Product-Details-Redesign-2/seat-covers/featured-cover.webp';
+import {
+  BeigeGalleryData,
+  BlackGalleryData,
+  BlackRedGalleryData,
+  GrayGalleryData,
+  SeatData,
+  SeatImageDataObject,
+} from './util';
+import BlackRedFeature from '@/images/PDP/Product-Details-Redesign-2/seat-covers/featured-cover.webp';
 import FeaturedThumbnail from '@/images/PDP/Product-Details-Redesign-2/seat-covers/featured-thumbnail.webp';
 import SeatContent from './components/SeatContent';
 import SeatDesktopGallery from './components/SeatDesktopGallery';
@@ -20,11 +27,6 @@ import WarrantySection from '@/components/PDP/components/WarrantySection';
 import ExtraDetailsTabs from '@/components/PDP/components/ExtraDetailsTabs';
 import { Separator } from '@radix-ui/react-separator';
 
-// ___________ Leaving these in because we need them later ______________________
-// import SuggestedProducts from '@/components/PDP/components/SuggestedProducts';
-// import ExtraDetailsTabs from '@/components/PDP/components/ExtraDetailsTabs';
-// ______________________________________________________________________________
-
 export default function SeatCovers() {
   const isMobile = useMediaQuery('max-width: 1024px');
   const [colorIndex, setColorIndex] = useState(0);
@@ -32,7 +34,30 @@ export default function SeatCovers() {
     SeatImageDataObject.BlackRedData
   );
 
-  const galleryImages = Array(selectedColor[7])?.map((img) => img);
+  let galleryImages;
+  let featuredImage;
+
+  switch (colorIndex) {
+    case 1:
+      galleryImages = BlackGalleryData;
+      featuredImage = BlackGalleryData[0];
+      break;
+    case 2:
+      galleryImages = GrayGalleryData;
+      featuredImage = GrayGalleryData[0];
+
+      break;
+    case 3:
+      galleryImages = BeigeGalleryData;
+      featuredImage = BeigeGalleryData[0];
+
+      break;
+    default:
+      galleryImages = BlackRedGalleryData;
+      featuredImage = BlackRedGalleryData[0];
+      break;
+  }
+  console.log(galleryImages);
 
   const [showMore, setShowMore] = useState(false);
 
@@ -50,7 +75,7 @@ export default function SeatCovers() {
         <span className="mb-[18px] flex  w-1/2 flex-col gap-[18px] max-lg:hidden">
           <Image
             id="featured-image"
-            src={FeaturedCover}
+            src={featuredImage}
             alt="a car with a car cover on it"
             className="hidden h-full w-full object-cover lg:flex"
             priority
