@@ -17,12 +17,13 @@ import img2 from '@/images/PDP/Product-Details-Redesign-2/seat-covers/gallery-im
 import img3 from '@/images/PDP/Product-Details-Redesign-2/seat-covers/gallery-img-3.webp';
 import { Button } from '@/components/ui/button';
 import WarrantySection from '@/components/PDP/components/WarrantySection';
+import ExtraDetailsTabs from '@/components/PDP/components/ExtraDetailsTabs';
+import { Separator } from '@radix-ui/react-separator';
 
 // ___________ Leaving these in because we need them later ______________________
 // import SuggestedProducts from '@/components/PDP/components/SuggestedProducts';
 // import ExtraDetailsTabs from '@/components/PDP/components/ExtraDetailsTabs';
 // ______________________________________________________________________________
-const galleryImages = [img1, img2, img3];
 
 export default function SeatCovers() {
   const isMobile = useMediaQuery('max-width: 1024px');
@@ -30,6 +31,9 @@ export default function SeatCovers() {
   const [selectedColor, setSelectedColor] = useState<SeatData>(
     SeatImageDataObject.BlackRedData
   );
+
+  const galleryImages = Array(selectedColor[7])?.map((img) => img);
+
   const [showMore, setShowMore] = useState(false);
 
   const NonCompatibleImage = isMobile
@@ -72,7 +76,6 @@ export default function SeatCovers() {
           setColorIndex={setColorIndex}
         />
       </section>
-
       <ElevateComfortSection selectedColor={selectedColor} />
       <section className="flex w-full  flex-col  items-center justify-center bg-white pt-[60px] max-md:px-[4%] lg:max-w-[580px]">
         <p className="flex w-full items-center justify-center pb-7 text-center text-[26px] font-[700] leading-[26px]  md:pb-[32px] md:pt-[60px] md:text-[45px]  md:leading-[26px]">
@@ -96,7 +99,10 @@ export default function SeatCovers() {
       </section>
       <WarrantySection />
       {/* <SuggestedProducts /> */}
-      {/* <ExtraDetailsTabs /> */}
+      <Separator className="mt-[60px] h-5 w-full border-b-[1px] border-t-[1px] border-b-[#DBDBDB] border-t-[#DBDBDB] bg-[#F1F1F1] lg:mt-[106px] lg:h-10 " />
+      <section className="flex w-full flex-col">
+        <ExtraDetailsTabs />
+      </section>
     </section>
   );
 }

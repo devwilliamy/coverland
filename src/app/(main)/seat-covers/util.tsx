@@ -33,6 +33,34 @@ import DimensionsBlack from '@/images/PDP/Product-Details-Redesign-2/seat-covers
 import DimensionsGray from '@/images/PDP/Product-Details-Redesign-2/seat-covers/cover-colors/gray/seat-dimensions-gray.webp';
 import DimensionsBeige from '@/images/PDP/Product-Details-Redesign-2/seat-covers/cover-colors/beige/seat-dimensions-beige.webp';
 
+// Black Red Product Images
+import Product1BKRD from '@/images/PDP/Product-Details-Redesign-2/seat-covers/cover-colors/black-red/product-images/product-1-bkrd.webp';
+import Product2BKRD from '@/images/PDP/Product-Details-Redesign-2/seat-covers/cover-colors/black-red/product-images/product-2-bkrd.webp';
+import Product3BKRD from '@/images/PDP/Product-Details-Redesign-2/seat-covers/cover-colors/black-red/product-images/product-3-bkrd.webp';
+import Product4BKRD from '@/images/PDP/Product-Details-Redesign-2/seat-covers/cover-colors/black-red/product-images/product-4-bkrd.webp';
+import Product5BKRD from '@/images/PDP/Product-Details-Redesign-2/seat-covers/cover-colors/black-red/product-images/product-5-bkrd.webp';
+
+// Black Product Images
+import Product1BK from '@/images/PDP/Product-Details-Redesign-2/seat-covers/cover-colors/black/product-images/product-1-bk.webp';
+import Product2BK from '@/images/PDP/Product-Details-Redesign-2/seat-covers/cover-colors/black/product-images/product-2-bk.webp';
+import Product3BK from '@/images/PDP/Product-Details-Redesign-2/seat-covers/cover-colors/black/product-images/product-3-bk.webp';
+import Product4BK from '@/images/PDP/Product-Details-Redesign-2/seat-covers/cover-colors/black/product-images/product-4-bk.webp';
+import Product5BK from '@/images/PDP/Product-Details-Redesign-2/seat-covers/cover-colors/black/product-images/product-5-bk.webp';
+
+// Gray Product Images
+import Product1GR from '@/images/PDP/Product-Details-Redesign-2/seat-covers/cover-colors/gray/product-images/product-1-gr.webp';
+import Product2GR from '@/images/PDP/Product-Details-Redesign-2/seat-covers/cover-colors/gray/product-images/product-2-gr.webp';
+import Product3GR from '@/images/PDP/Product-Details-Redesign-2/seat-covers/cover-colors/gray/product-images/product-3-gr.webp';
+import Product4GR from '@/images/PDP/Product-Details-Redesign-2/seat-covers/cover-colors/gray/product-images/product-4-gr.webp';
+import Product5GR from '@/images/PDP/Product-Details-Redesign-2/seat-covers/cover-colors/gray/product-images/product-5-gr.webp';
+
+// Beige Product Images
+import Product1BE from '@/images/PDP/Product-Details-Redesign-2/seat-covers/cover-colors/beige/product-images/product-1-be.webp';
+import Product2BE from '@/images/PDP/Product-Details-Redesign-2/seat-covers/cover-colors/beige/product-images/product-2-be.webp';
+import Product3BE from '@/images/PDP/Product-Details-Redesign-2/seat-covers/cover-colors/beige/product-images/product-3-be.webp';
+import Product4BE from '@/images/PDP/Product-Details-Redesign-2/seat-covers/cover-colors/beige/product-images/product-4-be.webp';
+import Product5BE from '@/images/PDP/Product-Details-Redesign-2/seat-covers/cover-colors/beige/product-images/product-5-be.webp';
+
 import { StaticImageData } from 'next/image';
 
 export type SeatString =
@@ -41,7 +69,16 @@ export type SeatString =
   | 'GrayData'
   | 'BeigeData';
 
-export type SeatData = StaticImageData[];
+export type SeatData = Array<StaticImageData | SeatGalleryData>;
+export type SeatGalleryData = StaticImageData[];
+
+export const BlackRedGalleryData: SeatGalleryData = [
+  Product1BKRD,
+  Product2BKRD,
+  Product3BKRD,
+  Product4BKRD,
+  Product5BKRD,
+];
 
 const BlackRedData: SeatData = [
   CircleBlackRed,
@@ -51,7 +88,17 @@ const BlackRedData: SeatData = [
   SideSeatBlackRed,
   AirbagBlackRed,
   DimensionsBlackRed,
+  BlackRedGalleryData,
 ];
+
+export const BlackGalleryData: SeatGalleryData = [
+  Product1BK,
+  Product2BK,
+  Product3BK,
+  Product4BK,
+  Product5BK,
+];
+
 const BlackData: SeatData = [
   CircleBlack,
   HeaderBlack,
@@ -60,6 +107,15 @@ const BlackData: SeatData = [
   SideSeatBlack,
   AirbagBlack,
   DimensionsBlack,
+  BlackGalleryData,
+];
+
+export const GrayGalleryData: SeatGalleryData = [
+  Product1GR,
+  Product2GR,
+  Product3GR,
+  Product4GR,
+  Product5GR,
 ];
 const GrayData: SeatData = [
   CircleGray,
@@ -69,6 +125,14 @@ const GrayData: SeatData = [
   SideSeatGray,
   AirbagGray,
   DimensionsGray,
+  GrayGalleryData,
+];
+export const BeigeGalleryData: SeatGalleryData = [
+  Product1BE,
+  Product2BE,
+  Product3BE,
+  Product4BE,
+  Product5BE,
 ];
 const BeigeData: SeatData = [
   CircleBeige,
@@ -78,11 +142,12 @@ const BeigeData: SeatData = [
   SideSeatBeige,
   AirbagBeige,
   DimensionsBeige,
+  BeigeGalleryData,
 ];
 
 export const SeatImageDataObject = {
-  BlackRedData: BlackRedData,
-  BlackData: BlackData,
-  GrayData: GrayData,
-  BeigeData: BeigeData,
+  BlackRedData,
+  BlackData,
+  GrayData,
+  BeigeData,
 };

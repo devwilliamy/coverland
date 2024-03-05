@@ -59,7 +59,7 @@ export default function CompatibleVehiclesTrigger() {
 
       {/* <span className="hidden lg:block"> */}
       <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
-        <DialogTrigger className="flex w-full items-center">
+        <DialogTrigger className="hidden w-full items-center lg:flex">
           <OpenTrigger />
         </DialogTrigger>
         <DialogContent className="flex max-h-[85vh] min-h-[80vh] min-w-[70vw] flex-col items-center rounded-t-2xl px-[100px] ">

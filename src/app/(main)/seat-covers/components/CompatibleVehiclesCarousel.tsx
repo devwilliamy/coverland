@@ -53,7 +53,7 @@ export default function CompatibleVehiclesCarousel() {
   );
 
   return (
-    <section className="flex flex-col pb-[68px]">
+    <section className="flex flex-col ">
       <Carousel setApi={setApi} className="h-full">
         <CarouselContent className="ml-0  gap-4 pl-0">
           {seatLists.map((i, index) => (
