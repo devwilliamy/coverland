@@ -326,6 +326,7 @@ const isComplete_v2 = (queryState, newModelData) => {
     isBasicInfoFilled,
     isSubmodel1Complete,
     isSubmodel2Complete,
+    queryState,
   });
   return isBasicInfoFilled && isSubmodel1Complete && isSubmodel2Complete;
 };

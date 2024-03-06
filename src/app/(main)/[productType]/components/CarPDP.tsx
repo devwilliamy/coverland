@@ -76,9 +76,9 @@ const createCarSelectionStore = ({
       )
     : initialModelData;
 
-  const initialDataWithSecondSubmodels = queryParams?.secondSubmodel
+  const initialDataWithSecondSubmodels = queryParams?.submodel2
     ? initialDataWithSubmodels.filter((model) =>
-        compareRawStrings(model.submodel2, queryParams.secondSubmodel as string)
+        compareRawStrings(model.submodel2, queryParams.submodel2 as string)
       )
     : initialDataWithSubmodels;
 
@@ -104,9 +104,9 @@ const createCarSelectionStore = ({
       make: params?.make ?? '',
       model: params?.model ?? '',
       submodel: queryParams?.submodel ?? '',
-      secondSubmodel: queryParams?.secondSubmodel ?? '',
-      submodel1: '',
-      submodel2: '',
+      secondSubmodel: queryParams?.submodel2 ?? '',
+      submodel1: queryParams?.submodel ?? '',
+      submodel2: queryParams?.submodel2 ?? '',
       parent_generation: '',
     },
     selectedProduct: initialDataWithSecondSubmodels[0],
@@ -219,12 +219,14 @@ export default function CarPDP({
   params: TPathParams;
   reviewDataSummary: TProductReviewSummary;
   reviewImages: TReviewData[];
-  searchParams?: { submodel?: string; second_submodel?: string } | undefined;
+  searchParams?:
+    | { submodel?: string; second_submodel?: string; submodel2?: string }
+    | undefined;
 }) {
   const router = useRouter();
   const pathParams = useParams<TPathParams>();
   const submodelParams = searchParams?.submodel ?? '';
-  const secondSubmodelParams = searchParams?.second_submodel ?? '';
+  const secondSubmodelParams = searchParams?.submodel2 ?? '';
   if (modelDataProps.length === 0) {
     router.push('/404');
   }
@@ -232,6 +234,7 @@ export default function CarPDP({
   const queryParams = {
     submodel: submodelParams,
     secondSubmodel: secondSubmodelParams,
+    submodel2: secondSubmodelParams,
   };
 
   const modelData = modelDataTransformer({
