@@ -49,6 +49,8 @@ interface ICarCoverSelectionState extends ICarCoverProps {
   paramsYear: string;
   reviewImageTracker: Record<string, boolean>;
   setReviewImageTracker: (newImageTracker: Record<string, boolean>) => void;
+  customerSelectedYear: string;
+  setCustomerSelectedYear: (year: string) => void;
 }
 
 const createCarSelectionStore = ({
@@ -91,15 +93,17 @@ const createCarSelectionStore = ({
         }
       });
   });
+  console.log('Store Year params year:', params?.year);
+  const customerSelectedYear =
+    typeof window !== 'undefined'
+      ? localStorage?.getItem('heroDropdownYear')
+      : '';
 
   return createStore<ICarCoverSelectionState>()((set, get) => ({
     modelData: initialDataWithSecondSubmodels,
     initialModelData: initialDataWithSecondSubmodels,
     query: {
-      year:
-        (params?.year && hasNoSubmodels) || queryParams?.submodel
-          ? (params?.year as string)
-          : '',
+      year: customerSelectedYear || '',
       type: params?.productType ?? '',
       make: params?.make ?? '',
       model: params?.model ?? '',
@@ -107,7 +111,10 @@ const createCarSelectionStore = ({
       secondSubmodel: queryParams?.submodel2 ?? '',
       submodel1: queryParams?.submodel ?? '',
       submodel2: queryParams?.submodel2 ?? '',
-      parent_generation: '',
+      parent_generation:
+        (params?.year && hasNoSubmodels) || queryParams?.submodel
+          ? (params?.year as string)
+          : '',
     },
     selectedProduct: initialDataWithSecondSubmodels[0],
     featuredImage: initialDataWithSecondSubmodels[0]?.mainImage,
@@ -198,6 +205,11 @@ const createCarSelectionStore = ({
       set(() => ({ reviewImages: newReviewImages }));
     },
     paramsYear: params.year || '',
+    customerSelectedYear: customerSelectedYear || '',
+    setCustomerSelectedYear: (year: string) => {
+      localStorage.setItem('heroDropdownYear', year);
+      set(() => ({ customerSelectedYear: year }));
+    },
   }));
 };
 

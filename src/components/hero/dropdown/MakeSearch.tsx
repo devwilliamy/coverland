@@ -28,8 +28,8 @@ export function MakeSearch({
   const isDisabled = !type || !year;
 
   useEffect(() => {
-    !type && setValue('');
-  }, [type]);
+    !type && !year && setValue('');
+  }, [type, year]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -67,7 +67,7 @@ export function MakeSearch({
         disabled={isDisabled}
         className="w-full bg-transparent outline-none "
       >
-        <option value="">{`${value ? 'Clear' : 'Make'}`}</option>
+        <option value="">{`Make`}</option>
         {makeData.map(({ make }, index) => (
           <option key={`${make}-${index}`} value={make || ''}>
             {make}

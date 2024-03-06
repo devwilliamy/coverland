@@ -127,7 +127,10 @@ const AddToCartSelector = ({
   const queryState = useStore(store, (s) => s.query);
   const setQuery = useStore(store, (s) => s.setQuery);
   const selectedProduct = useStore(store, (s) => s.selectedProduct);
-
+  const setCustomerSelectedYear = useStore(
+    store,
+    (s) => s.setCustomerSelectedYear
+  );
   const color = useStore(store, (s) => s.selectedColor);
 
   const router = useRouter();
@@ -289,6 +292,7 @@ const AddToCartSelector = ({
             onClick={() => {
               if (!isComplete) return;
               handleAddToCart();
+              setCustomerSelectedYear(queryState.year);
               wait().then(() => setSubmodelSelectionOpen(false));
               router.push('/checkout');
             }}
@@ -500,6 +504,9 @@ const ModelDropdown = ({ queryState, setQuery }) => {
     []
   );
   const [submodelData, setSubmodelData] = useState<TModelDropdown[]>([]);
+  const [filteredSubmodelData, setFilteredSubmodelData] = useState<
+    TModelDropdown[]
+  >([]);
   const { type, year, make, model } = queryState;
 
   const handleChange = (event: ChangeEvent<HTMLSelectElement>) => {
@@ -535,35 +542,44 @@ const ModelDropdown = ({ queryState, setQuery }) => {
           year,
           make,
         });
+        console.log('MOdelDropdownUseEffect Response:', response);
         const uniqueModel = response.filter(
           (car, index, self) =>
             index === self.findIndex((t) => t.model_slug === car.model_slug)
         );
+        console.log('ModelDropdownUseEffect uniqueModel:', uniqueModel);
+
+        const submodel = response.filter(
+          (vehicle) =>
+            slugify(vehicle.model) === slugify(model) &&
+            vehicle.submodel1 !== null
+        );
+        const filteredSubmodelData = Array.from(
+          new Set(
+            submodelData
+              ?.filter(
+                (vehicle) =>
+                  vehicle.model === (model as string) &&
+                  vehicle.submodel1 !== null
+              )
+              ?.map((vehicle) => vehicle.submodel1)
+          )
+        );
+        console.log('ModelDropdownUseEffect submodel:', submodel);
+        setSubmodelData(submodel);
+
         setModelData(response);
         setFilteredModelData(uniqueModel);
+        setFilteredSubmodelData(filteredSubmodelData);
       } catch (error) {
         console.error('[Model Search]: ', error);
       }
     };
     if (type && year && make) {
+      console.log('ModelDropdown:', { type, year, make, model });
       fetchData();
     }
   }, [type, year, make]);
-
-  useEffect(() => {
-    // Check for submodel
-    const submodel = modelData.filter(
-      (vehicle) => vehicle.model === model && vehicle.submodel1 !== null
-    );
-    // if (type && year && make && model && submodel.length === 0) {
-    //   console.log('ModelDropDown, setIsComplete true', submodel);
-    //   setIsComplete(true);
-    // } else {
-    //   setIsComplete(false);
-    // }
-
-    setSubmodelData(submodel);
-  }, [modelData, model, make, type, year]);
 
   const isDisabled = !type || !year || !make;
   const showSubmodelDropdown = submodelData.length > 0;
@@ -591,6 +607,7 @@ const ModelDropdown = ({ queryState, setQuery }) => {
       {showSubmodelDropdown && (
         <SubmodelDropdown
           submodelData={submodelData}
+          filteredSubmodelData={filteredSubmodelData}
           queryState={queryState}
           setQuery={setQuery}
         />
@@ -603,6 +620,7 @@ const SubmodelDropdown = ({
   queryState,
   setQuery,
   submodelData,
+  filteredSubmodelData,
 }: {
   submodelData: TModelDropdown[];
 }) => {
@@ -610,21 +628,8 @@ const SubmodelDropdown = ({
     TModelDropdown[]
   >([]);
   const { model, submodel } = queryState;
-
-  const filteredSubmodelData = useMemo(() => {
-    if (submodelData)
-      return Array.from(
-        new Set(
-          submodelData
-            ?.filter(
-              (vehicle) =>
-                vehicle.model === (model as string) &&
-                vehicle.submodel1 !== null
-            )
-            ?.map((vehicle) => vehicle.submodel1)
-        )
-      );
-  }, [submodelData, model]);
+  console.log('SubmodelDropdown Submode:', submodel);
+  console.log('SubmodelDropdown FilteredSubmode:', filteredSubmodelData);
   useEffect(() => {
     // Check for second submodel
     if (submodel) {

@@ -1,6 +1,7 @@
 import { createClient } from '@supabase/supabase-js';
 import { Database, Tables } from './types';
 import { slugToCoverType } from '../constants';
+import { slugify } from '../utils';
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL ?? '';
 const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_KEY ?? '';
@@ -139,12 +140,13 @@ export async function getAllUniqueModelsByYearMake({
     .eq('type', type)
     .eq('display_id', cover)
     .like('year_options', `%${year}%`)
-    .eq('make', make)
+    .eq('make_slug', slugify(make))
     .order('model_slug', { ascending: true });
 
   if (error) {
     throw new Error(error.message);
   }
+  console.log('getAllUniqueModelsByYearMake Response:', data);
   const uniqueCars = data.filter(
     (car, index, self) =>
       index ===
@@ -156,7 +158,13 @@ export async function getAllUniqueModelsByYearMake({
           t.submodel3 === car.submodel3
       )
   );
-  console.log('Modle Unque Car:', uniqueCars);
+  console.log('getAllUniqueModelsByYearMake:', {
+    uniqueCars,
+    type,
+    cover,
+    year,
+    make,
+  });
   return uniqueCars;
 }
 
