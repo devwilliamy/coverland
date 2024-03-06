@@ -21,7 +21,7 @@ export default function CompatibleVehiclesCarousel({
 }) {
   const [api, setApi] = useState<CarouselApi>();
   const [current, setCurrent] = useState(0);
-  let carouselImages: { image: StaticImageData }[] = [
+  const carouselImages: { image: StaticImageData }[] = [
     {
       image: seatCompatabilityList1,
     },
@@ -39,19 +39,7 @@ export default function CompatibleVehiclesCarousel({
     },
   ];
 
-  console.log(seat);
-
   if (seat) {
-    // setCarouselImages((e) => {
-    //   return e.splice(0, 0, {
-    //     image: seat,
-    //   });
-    // });
-    // setCarouselImages((e) => {
-    //   return e.splice(-1, 0, {
-    //     image: NonCompatibleDesktop,
-    //   });
-    // });
     carouselImages.splice(0, 0, {
       image: seat,
     });
@@ -64,34 +52,7 @@ export default function CompatibleVehiclesCarousel({
     if (!api) {
       return;
     }
-    // carouselImages = [
-    //   {
-    //     image: seatCompatabilityList1,
-    //   },
-    //   {
-    //     image: seatCompatabilityList2,
-    //   },
-    //   {
-    //     image: seatCompatabilityList3,
-    //   },
-    //   {
-    //     image: seatCompatabilityList4,
-    //   },
-    //   {
-    //     image: seatCompatabilityList5,
-    //   },
-    // ];
 
-    // if (seat) {
-    //   carouselImages = carouselImages.splice(0, 0, {
-    //     image: seat,
-    //   });
-    //   carouselImages = carouselImages.splice(-1, 0, {
-    //     image: NonCompatibleDesktop,
-    //   });
-    // }
-
-    // setScrollSnaps(api.scrollSnapList());
     setCurrent(api.selectedScrollSnap());
 
     api.on('select', () => {
