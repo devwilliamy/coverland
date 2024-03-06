@@ -20,6 +20,9 @@ export type TQuery = {
   model: string;
   submodel: string;
   secondSubmodel: string;
+  submodel1: string;
+  submodel2: string;
+  parent_generation: string;
 };
 
 interface ICarCoverProps {
@@ -102,6 +105,9 @@ const createCarSelectionStore = ({
       model: params?.model ?? '',
       submodel: queryParams?.submodel ?? '',
       secondSubmodel: queryParams?.secondSubmodel ?? '',
+      submodel1: '',
+      submodel2: '',
+      parent_generation: '',
     },
     selectedProduct: initialDataWithSecondSubmodels[0],
     featuredImage: initialDataWithSecondSubmodels[0]?.mainImage,

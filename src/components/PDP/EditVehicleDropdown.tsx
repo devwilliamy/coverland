@@ -16,14 +16,7 @@ import { YearSearch } from '../hero/dropdown/YearSearch';
 import { SubmodelDropdown } from '../hero/dropdown/SubmodelDropdown';
 import { slugify } from '@/lib/utils';
 import { BASE_URL } from '@/lib/constants';
-
-export type TQuery = {
-  year: string;
-  type: string;
-  make: string;
-  model: string;
-  submodel: string;
-};
+import { TQuery } from '../hero/dropdown/HeroDropdown';
 
 export type TProductJsonData = {
   type: string;
@@ -46,15 +39,17 @@ export default function EditVehicleDropdown({
 
   const [query, setQuery] = useState<TQuery>({
     year: '',
+    parent_generation: '',
     type: '',
     make: '',
     model: '',
-    submodel: '',
+    submodel1: '',
+    submodel2: '',
   });
   const [loading, setLoading] = useState(false);
   const [jsonData, setJsonData] = useState<TProductJsonData[]>([]);
   const router = useRouter();
-  const { year, type, make, model, submodel } = query;
+  const { year, type, make, model, submodel1 } = query;
   useEffect(() => {
     const getSearchData = async () => {
       if (!make) return;
@@ -73,7 +68,7 @@ export default function EditVehicleDropdown({
     (obj) =>
       (!year ? true : obj.year_options.includes(year)) &&
       (!model ? true : obj.model === model) &&
-      (!submodel ? true : obj.submodel1 === submodel)
+      (!submodel1 ? true : obj.submodel1 === submodel1)
   );
 
   const closePopover = useCallback(() => {
@@ -108,15 +103,15 @@ export default function EditVehicleDropdown({
       !type ||
       !make ||
       !model ||
-      (subModelData.length > 1 && !submodel)
+      (subModelData.length > 1 && !submodel1)
     )
       return;
     setLoading(true);
     let url = `/${slugify(type)}/premium-plus/${slugify(make)}/${slugify(model)}/${yearInUrl}`;
     const currentUrl = `${pathname}${searchParams?.toString() ? `?${searchParams.toString()}` : ''}`;
 
-    if (submodel) {
-      url += `?${createQueryString('submodel', submodel)}`;
+    if (submodel1) {
+      url += `?${createQueryString('submodel', submodel1)}`;
     }
 
     if (url === currentUrl) {
@@ -135,9 +130,9 @@ export default function EditVehicleDropdown({
   return (
     <div className="z-100 relative flex w-full flex-col items-stretch  gap-[16px] *:flex-1">
       <TypeSearch queryObj={queryObj} />
+      <YearSearch queryObj={queryObj} dropdownData={dropdownData} />
       <MakeSearch queryObj={queryObj} />
       <ModelSearch queryObj={queryObj} dropdownData={dropdownData} />
-      <YearSearch queryObj={queryObj} dropdownData={dropdownData} />
       {showSubmodelDropdown && (
         <SubmodelDropdown queryObj={queryObj} submodelData={subModelData} />
       )}

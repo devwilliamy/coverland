@@ -2,7 +2,14 @@
 import { Button } from '@/components/ui/button';
 import { useMediaQuery } from '@mantine/hooks';
 import { track } from '@vercel/analytics/react';
-import { SetStateAction, useContext, useState } from 'react';
+import {
+  ChangeEvent,
+  SetStateAction,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+} from 'react';
 import { DrawerTitle } from '@/components/ui/drawer';
 import { useParams, useRouter } from 'next/navigation';
 import {
@@ -23,6 +30,12 @@ import {
 } from '@/components/ui/sheet';
 import { X } from 'lucide-react';
 import { handleAddToCartGoogleTag } from '@/hooks/useGoogleTagDataLayer';
+import {
+  getAllUniqueMakesByYear,
+  getAllUniqueModelsByYearMake,
+  getProductData,
+} from '@/lib/db';
+import { slugify } from '@/lib/utils';
 
 export default function AddToCart({
   selectedProduct,
@@ -57,6 +70,7 @@ export default function AddToCart({
   } = getCompleteSelectionData({
     data: modelData,
   });
+
   return (
     <div>
       <div className="w-full" id="selector">
@@ -121,30 +135,33 @@ const AddToCartSelector = ({
   const { addToCart } = useCartContext();
 
   const params = useParams<TPathParams>();
-
+  const [newModelData, setNewModelData] = useState([]);
   const { completeSelectionState } = getCompleteSelectionData({
-    data: modelData,
+    data: newModelData,
   });
 
-  const { shouldDisplayMake, isComplete } = completeSelectionState;
-
-  const {
-    uniqueMakes,
-    uniqueModels,
-    uniqueSecondSubmodels,
-    uniqueSubmodels,
-    uniqueYears,
-  } = getUniqueValues({ data: initialModelData, queryState: queryState });
-
+  // const { shouldDisplayMake, isComplete } = completeSelectionState;
+  const [isComplete, setIsComplete] = useState(false);
+  const [selectedItem, setSelectedItem] = useState({});
   const cartProduct = modelData.find((p) => p.display_color === color);
 
   const handleAddToCart = () => {
-    if (!cartProduct) return;
-    handleAddToCartGoogleTag(cartProduct, params as TPathParams);
-    return addToCart({ ...cartProduct, quantity: 1 });
+    if (!selectedItem) return;
+    handleAddToCartGoogleTag(selectedItem, params as TPathParams);
+    return addToCart({ ...selectedItem, quantity: 1 });
   };
 
-  const TypeDropdown = () => {
+  const {
+    year,
+    type,
+    make,
+    model,
+    submodel,
+    secondSubmodel,
+    parent_generation,
+  } = queryState;
+
+  useEffect(() => {
     const typeOptions = ['Car Covers', 'SUV Covers', 'Truck Covers'];
     const typeString =
       queryState.type === 'car-covers'
@@ -152,167 +169,69 @@ const AddToCartSelector = ({
         : queryState.type === 'suv-covers'
           ? typeOptions[1]
           : typeOptions[2];
+    console.log('Params?:', params?.coverType || 'Premium Plus');
+    const coverType = params?.coverType || 'Premium Plus';
+    const fetchData = async () => {
+      try {
+        const response = await getProductData({
+          type: typeString,
+          // cover: coverType,
+          year: parent_generation,
+          make: slugify(make),
+          model: slugify(model),
+        });
+        console.log('AddToCartSElectorUseeffect Response:', response);
+        setNewModelData(response);
+        const checkIsComplete = isComplete_v2(queryState, response);
+        console.log('CheckIsComplete queryState:', queryState);
+        console.log('checkIsComplete:', checkIsComplete);
+        if (checkIsComplete !== isComplete) {
+          setIsComplete(checkIsComplete);
+          const filterDownResponse = response.filter((item) => {
+            if (!!coverType && item.display_id !== coverType) {
+              return false;
+            }
+            if (!!submodel && item.submodel1 !== submodel) {
+              return false;
+            }
+            if (!!secondSubmodel && item.submodel2 !== secondSubmodel) {
+              return false;
+            }
+            return true;
+          });
+          console.log('filterDownResponse', filterDownResponse);
+          const selectedItem =
+            filterDownResponse.length > 1
+              ? response.find((p) => p.display_color === color)
+              : filterDownResponse[0];
+          console.log('SelectedItem:', selectedItem);
+          setSelectedItem(selectedItem);
+        }
+      } catch (error) {
+        console.error('[AddToCartSelector]: ', error);
+      }
+    };
+    if (!!year && !!type && !!make && !!model) {
+      console.log('AddToCartSelector UseEffect:', {
+        year,
+        parent_generation,
+        type,
+        make,
+        model,
+      });
+      fetchData();
+    }
+  }, [
+    year,
+    type,
+    make,
+    model,
+    submodel,
+    secondSubmodel,
+    parent_generation,
+    queryState.type,
+  ]);
 
-    return (
-      <div
-        className={`flex max-h-[44px] min-h-[44px] w-full items-center rounded-[4px] bg-white px-2 text-lg outline outline-1 outline-offset-1 outline-[#767676] md:max-h-[58px] lg:w-auto`}
-      >
-        <div className=" ml-[10px] pr-[15px]">1</div>
-        <select
-          value={queryState.type}
-          className={`bg w-full bg-transparent outline-none `}
-          disabled={!!queryState.type && !!params?.productType}
-        >
-          <option value="">
-            {!!queryState.type ? typeString : 'Product Type'}
-          </option>
-
-          {typeOptions.map((type) => (
-            <option key={type} value={type}>
-              {type}
-            </option>
-          ))}
-        </select>
-      </div>
-    );
-  };
-
-  const MakeDropdown = () => {
-    return (
-      <div
-        className={`flex max-h-[44px] min-h-[44px] w-full items-center rounded-[4px] bg-white px-2 text-lg outline outline-1 outline-offset-1 outline-[#767676] md:max-h-[58px] lg:w-auto`}
-      >
-        <div className=" ml-[10px] pr-[15px]">2</div>
-        <select
-          value={queryState.make}
-          className={`bg w-full bg-transparent capitalize outline-none`}
-          disabled={!shouldDisplayMake && !!params?.make}
-          onChange={(e) =>
-            setQuery({
-              ...queryState,
-              make: e.target.value,
-            })
-          }
-        >
-          <option value="">{queryState.make || 'Make'}</option>
-          {uniqueMakes.map((make) => (
-            <option key={make} value={make}>
-              {make}
-            </option>
-          ))}
-        </select>
-      </div>
-    );
-  };
-
-  const YearDropdown = () => {
-    return (
-      <div
-        className={`flex max-h-[44px] min-h-[44px] w-full items-center rounded-[4px] bg-white px-2 text-lg outline outline-1 outline-offset-1 outline-[#767676] md:max-h-[58px] lg:w-auto`}
-      >
-        <div className=" ml-[10px] pr-[15px]">4</div>
-        <select
-          value={queryState.year}
-          className={`bg w-full bg-transparent outline-none `}
-          onChange={(e) =>
-            setQuery({
-              ...queryState,
-              year: e.target.value,
-              submodel: '',
-              secondSubmodel: '',
-            })
-          }
-        >
-          <option value="">Year</option>
-          {uniqueYears.map((year) => (
-            <option key={year} value={year}>
-              {year}
-            </option>
-          ))}
-        </select>
-      </div>
-    );
-  };
-
-  const ModelDropdown = () => {
-    return (
-      <div
-        className={`flex max-h-[44px] min-h-[44px] w-full items-center rounded-[4px] bg-white px-2 text-lg outline outline-1 outline-offset-1 outline-[#767676] md:max-h-[58px] lg:w-auto`}
-      >
-        <div className=" ml-[10px] pr-[15px]">3</div>
-        <select
-          value={queryState.model}
-          className={`bg w-full bg-transparent capitalize outline-none `}
-          disabled={!!params?.model}
-          onChange={(e) =>
-            setQuery({
-              ...queryState,
-              model: e.target.value,
-              submodel: '',
-              secondSubmodel: '',
-              year: '',
-            })
-          }
-        >
-          <option value="">{queryState.model || 'Model'}</option>
-          {uniqueModels.map((model) => (
-            <option key={model} value={model}>
-              {model}
-            </option>
-          ))}
-        </select>
-      </div>
-    );
-  };
-
-  const SubmodelDropdown = () => {
-    if (uniqueSubmodels.length === 0 && !queryState.submodel) return null;
-    return (
-      <div
-        className={`flex max-h-[44px] min-h-[44px] w-full items-center rounded-[4px] bg-white px-2 text-lg outline outline-1 outline-offset-1 outline-[#767676] md:max-h-[58px] lg:w-auto`}
-      >
-        <div className=" ml-[10px] pr-[15px]">5</div>
-        <select
-          value={queryState.submodel}
-          className={`bg w-full bg-transparent outline-none `}
-          onChange={(e) =>
-            setQuery({ submodel: e.target.value, secondSubmodel: '' })
-          }
-        >
-          <option value="">Submodel</option>
-          {uniqueSubmodels.map((submodel) => (
-            <option key={submodel} value={submodel as string}>
-              {submodel}
-            </option>
-          ))}
-        </select>
-      </div>
-    );
-  };
-
-  const SecondSubmodelDropdown = () => {
-    if (uniqueSecondSubmodels.length === 0 && !queryState.secondSubmodel)
-      return null;
-    return (
-      <div
-        className={`flex max-h-[44px] min-h-[44px] w-full items-center rounded-[4px] bg-white px-2 text-lg outline outline-1 outline-offset-1 outline-[#767676] md:max-h-[58px] lg:w-auto`}
-      >
-        <div className=" ml-[10px] pr-[15px]">6</div>
-        <select
-          value={queryState.secondSubmodel}
-          className={`bg w-full bg-transparent outline-none `}
-          onChange={(e) => setQuery({ secondSubmodel: e.target.value })}
-        >
-          <option value="">Submodel</option>
-          {uniqueSecondSubmodels.map((submodel) => (
-            <option key={submodel} value={submodel as string}>
-              {submodel}
-            </option>
-          ))}
-        </select>
-      </div>
-    );
-  };
   const wait = () => new Promise((resolve) => setTimeout(resolve, 350));
 
   return (
@@ -334,12 +253,12 @@ const AddToCartSelector = ({
           </DrawerTitle>
         </SheetHeader>
         <div className="flex w-full flex-col gap-4 px-4 ">
-          <TypeDropdown />
-          <MakeDropdown />
-          <ModelDropdown />
-          <YearDropdown />
-          {queryState.year && <SubmodelDropdown />}
-          {queryState.submodel && queryState && <SecondSubmodelDropdown />}
+          <TypeDropdown queryState={queryState} setQuery={setQuery} />
+          <YearDropdown queryState={queryState} setQuery={setQuery} />
+          <MakeDropdown queryState={queryState} setQuery={setQuery} />
+          <ModelDropdown queryState={queryState} setQuery={setQuery} />
+          {/* {queryState.year && <SubmodelDropdown />}
+          {queryState.submodel && queryState && <SecondSubmodelDropdown />} */}
         </div>
         <SheetFooter
           id="Add-To-Cart-Button"
@@ -366,6 +285,32 @@ const AddToCartSelector = ({
   );
 };
 
+const isComplete_v2 = (queryState, newModelData) => {
+  const {
+    year,
+    type,
+    make,
+    model,
+    submodel,
+    secondSubmodel,
+    parent_generation,
+  } = queryState;
+
+  const hasSubmodel1 = newModelData.some((item) => item.submodel1 !== null);
+  const hasSubmodel2 = newModelData.some((item) => item.submodel2 !== null);
+  const isBasicInfoFilled = !!year && !!type && !!make && !!model;
+  const isSubmodel1Complete = !hasSubmodel1 || (hasSubmodel1 && !!submodel);
+  const isSubmodel2Complete =
+    !hasSubmodel2 || (hasSubmodel2 && !!secondSubmodel);
+  console.log('IsCOmplete_v2 Checks:', {
+    hasSubmodel1,
+    hasSubmodel2,
+    isBasicInfoFilled,
+    isSubmodel1Complete,
+    isSubmodel2Complete,
+  });
+  return isBasicInfoFilled && isSubmodel1Complete && isSubmodel2Complete;
+};
 function VehicleSelector({
   searchParams,
 }: {
@@ -373,3 +318,409 @@ function VehicleSelector({
 }) {
   return <EditVehicleDropdown searchParams={searchParams} />;
 }
+
+const TypeDropdown = ({ queryState, setQuery }) => {
+  const typeOptions = ['Car Covers', 'SUV Covers', 'Truck Covers'];
+  const typeString =
+    queryState.type === 'car-covers'
+      ? typeOptions[0]
+      : queryState.type === 'suv-covers'
+        ? typeOptions[1]
+        : typeOptions[2];
+  const handleChange = (event: ChangeEvent<HTMLSelectElement>) => {
+    const newValue = event.target.value;
+    setQuery({
+      type: newValue,
+      make: '',
+      model: '',
+      year: '',
+      submodel: '',
+      secondSubmodel: '',
+    });
+  };
+  return (
+    <div
+      className={`flex max-h-[44px] min-h-[44px] w-full items-center rounded-[4px] bg-white px-2 text-lg outline outline-1 outline-offset-1 outline-[#767676] md:max-h-[58px] lg:w-auto`}
+    >
+      <div className=" ml-[10px] pr-[15px]">1</div>
+      <select
+        value={queryState.type}
+        onChange={handleChange}
+        className={`bg w-full bg-transparent outline-none `}
+      >
+        <option value="">
+          {!!queryState.type ? typeString : 'Product Type'}
+        </option>
+
+        {typeOptions.map((type) => (
+          <option key={type} value={type}>
+            {type}
+          </option>
+        ))}
+      </select>
+    </div>
+  );
+};
+
+const YearDropdown = ({ queryState, setQuery }) => {
+  const { type } = queryState;
+  const isDisabled = !type;
+  const startYear = 1921;
+  const endYear = 2025;
+  const years = Array.from(
+    { length: endYear - startYear + 1 },
+    (_, i) => endYear - i
+  );
+
+  return (
+    <div
+      className={`flex max-h-[44px] min-h-[44px] w-full items-center rounded-[4px] bg-white px-2 text-lg outline outline-1 outline-offset-1 outline-[#767676] md:max-h-[58px] lg:w-auto`}
+    >
+      <div className=" ml-[10px] pr-[15px]">2</div>
+      <select
+        value={queryState.year}
+        className={`bg w-full bg-transparent outline-none `}
+        onChange={(e) =>
+          setQuery({
+            ...queryState,
+            year: e.target.value,
+            make: '',
+            model: '',
+            submodel: '',
+            secondSubmodel: '',
+          })
+        }
+        disabled={isDisabled}
+      >
+        <option value="">Year</option>
+        {years.map((year) => (
+          <option key={year} value={year}>
+            {year}
+          </option>
+        ))}
+      </select>
+    </div>
+  );
+};
+
+type TMakeDropdown = { make: string | null; make_slug: string | null };
+
+const MakeDropdown = ({ queryState, setQuery }) => {
+  const { type, year } = queryState;
+
+  console.log('QueryState MakeDropdown:', queryState);
+  const [makeData, setMakeData] = useState<TMakeDropdown[]>([]);
+
+  useEffect(() => {
+    !queryState?.type && setQuery({ ...queryState, make: '' });
+  }, []);
+
+  useEffect(() => {
+    const typeOptions = ['Car Covers', 'SUV Covers', 'Truck Covers'];
+    const typeString =
+      type === 'car-covers'
+        ? typeOptions[0]
+        : type === 'suv-covers'
+          ? typeOptions[1]
+          : typeOptions[2];
+    const fetchData = async () => {
+      try {
+        const response = await getAllUniqueMakesByYear({
+          type: typeString,
+          cover: 'Premium Plus', // TOOD: - Update this to make it work for premium as well.
+          year,
+        });
+        setMakeData(response);
+      } catch (error) {
+        console.error('[Make Search]: ', error);
+      }
+    };
+    if (type && year) {
+      fetchData();
+    }
+  }, [type, year]);
+
+  return (
+    <div
+      className={`flex max-h-[44px] min-h-[44px] w-full items-center rounded-[4px] bg-white px-2 text-lg outline outline-1 outline-offset-1 outline-[#767676] md:max-h-[58px] lg:w-auto`}
+    >
+      <div className=" ml-[10px] pr-[15px]">3</div>
+      <select
+        value={queryState.make}
+        className={`bg w-full bg-transparent capitalize outline-none`}
+        // disabled={!!params?.make}
+        onChange={(e) =>
+          setQuery({
+            ...queryState,
+            make: e.target.value,
+          })
+        }
+      >
+        <option value="">{queryState.make || 'Make'}</option>
+        {makeData.map(({ make }, index) => (
+          <option key={`${make}-${index}`} value={make || ''}>
+            {make}
+          </option>
+        ))}
+      </select>
+    </div>
+  );
+};
+
+type TModelDropdown = {
+  model: string | null;
+  model_slug: string | null;
+  parent_generation: string | null;
+  submodel1: string | null;
+  submodel2: string | null;
+  submodel3: string | null;
+};
+const ModelDropdown = ({ queryState, setQuery }) => {
+  const [modelData, setModelData] = useState<TModelDropdown[]>([]);
+  const [filteredModelData, setFilteredModelData] = useState<TModelDropdown[]>(
+    []
+  );
+  const [submodelData, setSubmodelData] = useState<TModelDropdown[]>([]);
+  const { type, year, make, model } = queryState;
+
+  const handleChange = (event: ChangeEvent<HTMLSelectElement>) => {
+    const newValue = event.target.value;
+    const parent_generation =
+      modelData.find((car) => car.model === newValue)?.parent_generation || '';
+    setQuery({
+      ...queryState,
+      model: newValue,
+      parent_generation,
+      submodel: '',
+      secondSubmodel: '',
+    });
+  };
+
+  // useEffect(() => {
+  //   !make && setQuery({ ...queryState, model: '' });
+  // }, [make]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const typeOptions = ['Car Covers', 'SUV Covers', 'Truck Covers'];
+      const typeString =
+        type === 'car-covers'
+          ? typeOptions[0]
+          : type === 'suv-covers'
+            ? typeOptions[1]
+            : typeOptions[2];
+      try {
+        const response = await getAllUniqueModelsByYearMake({
+          type: typeString,
+          cover: 'Premium Plus', // TOOD: - Update this to make it work for premium as well.
+          year,
+          make,
+        });
+        const uniqueModel = response.filter(
+          (car, index, self) =>
+            index === self.findIndex((t) => t.model_slug === car.model_slug)
+        );
+        setModelData(response);
+        setFilteredModelData(uniqueModel);
+      } catch (error) {
+        console.error('[Model Search]: ', error);
+      }
+    };
+    if (type && year && make) {
+      fetchData();
+    }
+  }, [type, year, make]);
+
+  useEffect(() => {
+    // Check for submodel
+    const submodel = modelData.filter(
+      (vehicle) => vehicle.model === model && vehicle.submodel1 !== null
+    );
+    // if (type && year && make && model && submodel.length === 0) {
+    //   console.log('ModelDropDown, setIsComplete true', submodel);
+    //   setIsComplete(true);
+    // } else {
+    //   setIsComplete(false);
+    // }
+
+    setSubmodelData(submodel);
+  }, [modelData, model, make, type, year]);
+
+  const isDisabled = !type || !year || !make;
+  const showSubmodelDropdown = submodelData.length > 0;
+
+  return (
+    <>
+      <div
+        className={`flex max-h-[44px] min-h-[44px] w-full items-center rounded-[4px] bg-white px-2 text-lg outline outline-1 outline-offset-1 outline-[#767676] md:max-h-[58px] lg:w-auto`}
+      >
+        <div className=" ml-[10px] pr-[15px]">4</div>
+        <select
+          value={queryState.model}
+          className={`bg w-full bg-transparent capitalize outline-none `}
+          disabled={isDisabled}
+          onChange={handleChange}
+        >
+          <option value="">{queryState.model || 'Model'}</option>
+          {filteredModelData?.map(({ model }, index) => (
+            <option key={`${model}-${index}`} value={model || ''}>
+              {model}
+            </option>
+          ))}
+        </select>
+      </div>
+      {showSubmodelDropdown && (
+        <SubmodelDropdown
+          submodelData={submodelData}
+          queryState={queryState}
+          setQuery={setQuery}
+        />
+      )}
+    </>
+  );
+};
+
+const SubmodelDropdown = ({
+  queryState,
+  setQuery,
+  submodelData,
+}: {
+  submodelData: TModelDropdown[];
+}) => {
+  const [secondSubmodelData, setSecondSubmodelData] = useState<
+    TModelDropdown[]
+  >([]);
+  const { model, submodel } = queryState;
+
+  const filteredSubmodelData = useMemo(() => {
+    if (submodelData)
+      return Array.from(
+        new Set(
+          submodelData
+            ?.filter(
+              (vehicle) =>
+                vehicle.model === (model as string) &&
+                vehicle.submodel1 !== null
+            )
+            ?.map((vehicle) => vehicle.submodel1)
+        )
+      );
+  }, [submodelData, model]);
+  useEffect(() => {
+    // Check for second submodel
+    if (submodel) {
+      console.log('Checking second sub:', submodel);
+      const secondSubmodelData = submodelData?.filter(
+        (vehicle) =>
+          vehicle.submodel1 === submodel && vehicle.submodel2 !== null
+      );
+      // secondSubmodelData.length === 0 && submodel !== ''
+      //   ? setIsComplete(true)
+      //   : setIsComplete(false);
+      console.log('SubModelDropDown, setIsComplete truiggered');
+
+      setSecondSubmodelData(secondSubmodelData);
+    }
+  }, [submodel, submodelData]);
+
+  const handleChange = (event: ChangeEvent<HTMLSelectElement>) => {
+    const newValue = event.target.value;
+    setQuery({ ...queryState, submodel: newValue, secondSubmodel: '' });
+  };
+
+  const isDisabled =
+    !queryState.make ||
+    !queryState.year ||
+    !queryState.type ||
+    !queryState.model;
+  const showSecondSubmodelDropdown = secondSubmodelData.length > 0;
+  return (
+    <>
+      <div
+        className={`flex max-h-[44px] min-h-[44px] w-full items-center rounded-[4px] bg-white px-2 text-lg outline outline-1 outline-offset-1 outline-[#767676] md:max-h-[58px] lg:w-auto`}
+      >
+        <div className=" ml-[10px] pr-[15px]">5</div>
+        <select
+          value={queryState.submodel}
+          className={`bg w-full bg-transparent outline-none `}
+          disabled={isDisabled}
+          onChange={handleChange}
+        >
+          <option value="">Submodel</option>
+          {filteredSubmodelData?.sort()?.map((submodel) => (
+            <option key={submodel} value={submodel as string}>
+              {submodel}
+            </option>
+          ))}
+        </select>
+      </div>
+      {showSecondSubmodelDropdown && (
+        <SecondSubmodelDropdown
+          secondSubmodelData={secondSubmodelData}
+          queryState={queryState}
+          setQuery={setQuery}
+        />
+      )}
+    </>
+  );
+};
+
+const SecondSubmodelDropdown = ({
+  secondSubmodelData,
+  queryState,
+  setQuery,
+}) => {
+  const { submodel } = queryState;
+
+  const filteredSecondSubmodelData: (string | null)[] = Array.from(
+    new Set(
+      secondSubmodelData
+        .filter(
+          (vehicle) =>
+            vehicle.submodel1 === (submodel as string) &&
+            vehicle.submodel2 !== null
+        )
+        .map((vehicle) => vehicle.submodel2)
+    )
+  );
+
+  // useEffect(() => {
+  //   !submodel1 && setValue('');
+  // }, [submodel1]);
+
+  const handleChange = (event: ChangeEvent<HTMLSelectElement>) => {
+    const newValue = event.target.value;
+    // newValue === '' ? setIsComplete(false) : setIsComplete(true);
+
+    setQuery({ ...queryState, secondSubmodel: newValue });
+  };
+
+  const isDisabled =
+    !queryState.make ||
+    !queryState.year ||
+    !queryState.type ||
+    !queryState.model ||
+    !queryState.submodel;
+  // const showThirdSubmodelDropdown = thirdSubmodelData.length > 0;
+
+  return (
+    <div
+      className={`flex max-h-[44px] min-h-[44px] w-full items-center rounded-[4px] bg-white px-2 text-lg outline outline-1 outline-offset-1 outline-[#767676] md:max-h-[58px] lg:w-auto`}
+    >
+      <div className=" ml-[10px] pr-[15px]">6</div>
+      <select
+        value={queryState.secondSubmodel}
+        className={`bg w-full bg-transparent outline-none `}
+        disabled={isDisabled}
+        onChange={handleChange}
+      >
+        <option value="">Second Submodel</option>
+        {filteredSecondSubmodelData?.sort()?.map((submodel2) => (
+          <option key={submodel2} value={submodel2 as string}>
+            {submodel2}
+          </option>
+        ))}
+      </select>
+    </div>
+  );
+};

@@ -102,7 +102,7 @@ export function ModelSearch({
           className=" w-full bg-transparent outline-none"
         >
           <option value="">{`${value ? 'Clear' : 'Model'}`}</option>
-          {filteredModelData?.sort()?.map(({ model }, index) => (
+          {filteredModelData?.map(({ model }, index) => (
             <option key={`${model}-${index}`} value={model || ''}>
               {model}
             </option>
