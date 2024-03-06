@@ -57,6 +57,7 @@ export function ProductContent({
   const color = useStore(store, (s) => s.selectedColor);
   const { addToCart } = useCartContext();
   const params = useParams<TPathParams>();
+  const paramsProductType = params?.productType;
   const coverType = params?.coverType;
   const isDefaultCoverType =
     params?.coverType === 'premium-plus' || params?.coverType === undefined;
@@ -66,7 +67,7 @@ export function ProductContent({
   console.log('Model Data: ', modelData);
   console.log('Selected Product: ', selectedProduct);
 
-  let installmentPrice: number = 39.99;
+  let installmentPrice: number;
   switch (coverType) {
     case 'premium':
       installmentPrice = 29.99;
@@ -76,6 +77,27 @@ export function ProductContent({
       break;
     case 'standard':
       installmentPrice = 20;
+      break;
+    default:
+      installmentPrice = 39.99;
+      break;
+  }
+
+  let defaultMSRP: number;
+  let defaultPrice: number;
+
+  switch (true) {
+    case paramsProductType === 'suv-covers' && !coverType:
+      defaultMSRP = 179.95;
+      defaultPrice = 360;
+      break;
+    case paramsProductType === 'truck-covers' && !coverType:
+      defaultMSRP = 199.95;
+      defaultPrice = 400;
+      break;
+    default:
+      defaultMSRP = 159.95;
+      defaultPrice = 320;
       break;
   }
 
@@ -134,10 +156,17 @@ export function ProductContent({
           {isComplete ? '' : 'From'}
         </p>
         <div className=" flex  items-end gap-[9px]   text-center text-[28px] font-[900]  lg:text-[32px] lg:leading-[37.5px] ">
-          <div className="leading-[20px]"> ${selectedProduct?.msrp}</div>
+          <div className="leading-[20px]">
+            ${isComplete ? `${Number(selectedProduct?.msrp)}` : defaultMSRP}
+          </div>
           {selectedProduct?.price && (
             <div className="flex gap-1.5 pb-[1px] text-[22px] font-[400] leading-[14px] text-[#BE1B1B] lg:text-[22px] ">
-              <span className=" text-[#BEBEBE] line-through">{`$${Number(selectedProduct?.price)}`}</span>
+              <span className=" text-[#BEBEBE] line-through">
+                $
+                {isComplete
+                  ? `${Number(selectedProduct?.price)}`
+                  : defaultPrice}
+              </span>
               <p>(-50%)</p>
             </div>
           )}
