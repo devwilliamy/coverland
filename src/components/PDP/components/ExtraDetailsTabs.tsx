@@ -1,19 +1,33 @@
 import { Separator } from '@/components/ui/separator';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import ReviewSection from './ReviewSection';
 import WarrantyPolicy from '@/app/(main)/policies/warranty-policy/page';
 import { PDPAccordion } from '../PDPAccordian';
 import ShippingPolicy from '@/app/(main)/policies/shipping-policy/page';
+import { usePathname } from 'next/navigation';
 
 export default function ExtraDetailsTabs() {
+  // const pathParams = useParams();
+  const pathname = usePathname();
+  const isSeatCovers = pathname === '/seat-covers';
+
   const otherDetailsBar = [
-    { title: 'Reviews', jsx: <ReviewSection /> },
     // { title: 'Why Us?', jsx: <ReviewSection /> },
-    { title: 'Q&A', jsx: <PDPAccordion /> },
+
     { title: 'Shipping & Returns', jsx: <ShippingPolicy /> },
     { title: 'Warranty', jsx: <WarrantyPolicy /> },
     // { title: 'Specifications', jsx: <ReviewSection /> },
   ];
+
+  if (!isSeatCovers) {
+    otherDetailsBar.splice(
+      0,
+      2,
+      { title: 'Reviews', jsx: <ReviewSection /> },
+      { title: 'Q&A', jsx: <PDPAccordion /> }
+    );
+  }
+
   const [currentTabIndex, setCurrentTabIndex] = useState(0);
   const [currentTabContent, setCurrentTabContent] = useState<
     JSX.Element | JSX.Element[]

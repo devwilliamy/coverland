@@ -57,11 +57,27 @@ export function ProductContent({
   const color = useStore(store, (s) => s.selectedColor);
   const { addToCart } = useCartContext();
   const params = useParams<TPathParams>();
+  const coverType = params?.coverType;
   const isDefaultCoverType =
     params?.coverType === 'premium-plus' || params?.coverType === undefined;
   const isPremiumType = isDefaultCoverType || params?.coverType === 'premium';
 
   const cartProduct = modelData.find((p) => p.display_color === color);
+  console.log('Model Data: ', modelData);
+  console.log('Selected Product: ', selectedProduct);
+
+  let installmentPrice: number = 39.99;
+  switch (coverType) {
+    case 'premium':
+      installmentPrice = 29.99;
+      break;
+    case 'standard-pro':
+      installmentPrice = 25;
+      break;
+    case 'standard':
+      installmentPrice = 20;
+      break;
+  }
 
   const handleAddToCart = () => {
     if (!cartProduct) return;
@@ -129,7 +145,7 @@ export function ProductContent({
         <div className="mt-1 flex items-center gap-2 ">
           <p className=" text-[14px] leading-[16px] text-[#767676] lg:text-[16px]">
             4 interest-free installments of{' '}
-            <b className="font-[400] text-black">$39.99</b>
+            <b className="font-[400] text-black">${installmentPrice}</b>
           </p>
           <Image alt="paypal-installents" src={installments} />
           {/* <Info className="h-[17px] w-[17px] text-[#767676]" /> */}
