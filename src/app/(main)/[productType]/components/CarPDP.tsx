@@ -93,7 +93,6 @@ const createCarSelectionStore = ({
         }
       });
   });
-  console.log('Store Year params year:', params?.year);
   const customerSelectedYear =
     typeof window !== 'undefined'
       ? localStorage?.getItem('heroDropdownYear')

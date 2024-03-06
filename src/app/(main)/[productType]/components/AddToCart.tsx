@@ -172,7 +172,6 @@ const AddToCartSelector = ({
         : queryState.type === 'suv-covers'
           ? typeOptions[1]
           : typeOptions[2];
-    console.log('Params?:', params?.coverType || 'Premium Plus');
     let coverType;
     switch (params?.coverType) {
       case 'premium-plus':
@@ -201,11 +200,9 @@ const AddToCartSelector = ({
           make: slugify(make),
           model: slugify(model),
         });
-        console.log('AddToCartSElectorUseeffect Response:', response);
         setNewModelData(response);
         const checkIsComplete = isComplete_v2(queryState, response);
-        console.log('CheckIsComplete queryState:', queryState);
-        console.log('checkIsComplete:', checkIsComplete);
+        // console.log('checkIsComplete:', {checkIsComplete, queryState});
         if (checkIsComplete !== isComplete) {
           setIsComplete(checkIsComplete);
           const filterDownResponse = response.filter((item) => {
@@ -220,7 +217,10 @@ const AddToCartSelector = ({
             }
             return true;
           });
-          console.log('filterDownResponse', filterDownResponse);
+          console.log('[AddToCart.AddToCartSelector.useEffect]:', {
+            response,
+            filterDownResponse,
+          });
           const selectedItem =
             filterDownResponse.length > 1
               ? response.find((p) => p.display_color === color)
@@ -324,14 +324,14 @@ const isComplete_v2 = (queryState, newModelData) => {
   const isSubmodel1Complete = !hasSubmodel1 || (hasSubmodel1 && !!submodel);
   const isSubmodel2Complete =
     !hasSubmodel2 || (hasSubmodel2 && !!secondSubmodel);
-  console.log('IsCOmplete_v2 Checks:', {
-    hasSubmodel1,
-    hasSubmodel2,
-    isBasicInfoFilled,
-    isSubmodel1Complete,
-    isSubmodel2Complete,
-    queryState,
-  });
+  // console.log('IsCOmplete_v2 Checks:', {
+  //   hasSubmodel1,
+  //   hasSubmodel2,
+  //   isBasicInfoFilled,
+  //   isSubmodel1Complete,
+  //   isSubmodel2Complete,
+  //   queryState,
+  // });
   return isBasicInfoFilled && isSubmodel1Complete && isSubmodel2Complete;
 };
 function VehicleSelector({
@@ -542,7 +542,6 @@ const ModelDropdown = ({ queryState, setQuery }) => {
           year,
           make,
         });
-        console.log('MOdelDropdownUseEffect Response:', response);
         const uniqueModel = response.filter(
           (car, index, self) =>
             index === self.findIndex((t) => t.model_slug === car.model_slug)
@@ -556,16 +555,28 @@ const ModelDropdown = ({ queryState, setQuery }) => {
         );
         const filteredSubmodelData = Array.from(
           new Set(
-            submodelData
+            submodel
               ?.filter(
                 (vehicle) =>
-                  vehicle.model === (model as string) &&
-                  vehicle.submodel1 !== null
+                  slugify(vehicle.model as string) ===
+                    slugify(model as string) && vehicle.submodel1 !== null
               )
               ?.map((vehicle) => vehicle.submodel1)
           )
         );
-        console.log('ModelDropdownUseEffect submodel:', submodel);
+        console.log('Testing...:', {
+          model,
+          slugmodel: slugify(model),
+          filter1: submodel?.filter(
+            (vehicle) =>
+              slugify(vehicle.model as string) === slugify(model as string) &&
+              vehicle.submodel1 !== null
+          ),
+        });
+        console.log('[ModelDropdown.UseEffect]:', {
+          submodel,
+          filteredSubmodelData,
+        });
         setSubmodelData(submodel);
 
         setModelData(response);
@@ -576,7 +587,6 @@ const ModelDropdown = ({ queryState, setQuery }) => {
       }
     };
     if (type && year && make) {
-      console.log('ModelDropdown:', { type, year, make, model });
       fetchData();
     }
   }, [type, year, make]);
@@ -628,21 +638,14 @@ const SubmodelDropdown = ({
     TModelDropdown[]
   >([]);
   const { model, submodel } = queryState;
-  console.log('SubmodelDropdown Submode:', submodel);
-  console.log('SubmodelDropdown FilteredSubmode:', filteredSubmodelData);
+  console.log('[SubmodelDropdown]:', { submodel, filteredSubmodelData });
   useEffect(() => {
     // Check for second submodel
     if (submodel) {
-      console.log('Checking second sub:', submodel);
       const secondSubmodelData = submodelData?.filter(
         (vehicle) =>
           vehicle.submodel1 === submodel && vehicle.submodel2 !== null
       );
-      // secondSubmodelData.length === 0 && submodel !== ''
-      //   ? setIsComplete(true)
-      //   : setIsComplete(false);
-      console.log('SubModelDropDown, setIsComplete truiggered');
-
       setSecondSubmodelData(secondSubmodelData);
     }
   }, [submodel, submodelData]);

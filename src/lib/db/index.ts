@@ -65,7 +65,7 @@ export async function getProductData({
     fetch = fetch.eq('model_slug', model);
   }
 
-  const { data, error } = await fetch.limit(4000);
+  const { data, error } = await fetch.limit(1000);
 
   if (error) {
     throw new Error(error.message);
@@ -146,7 +146,6 @@ export async function getAllUniqueModelsByYearMake({
   if (error) {
     throw new Error(error.message);
   }
-  console.log('getAllUniqueModelsByYearMake Response:', data);
   const uniqueCars = data.filter(
     (car, index, self) =>
       index ===
@@ -158,7 +157,8 @@ export async function getAllUniqueModelsByYearMake({
           t.submodel3 === car.submodel3
       )
   );
-  console.log('getAllUniqueModelsByYearMake:', {
+  console.log('[Server]: getAllUniqueModelsByYearMake Params & Response:', {
+    data,
     uniqueCars,
     type,
     cover,
