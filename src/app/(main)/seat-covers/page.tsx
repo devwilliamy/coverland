@@ -55,7 +55,6 @@ export default function SeatCovers() {
       featuredImage = BlackRedGalleryData[0];
       break;
   }
-  console.log(galleryImages);
 
   const [showMore, setShowMore] = useState(false);
 
