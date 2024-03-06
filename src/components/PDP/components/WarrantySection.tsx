@@ -7,7 +7,6 @@ import { useParams, usePathname } from 'next/navigation';
 export default function WarrantySection() {
   const params = useParams();
   const pathname = usePathname();
-  const productType = params?.productType;
   const coverType = params?.coverType;
   const isPremiumPlus = params?.coverType === 'premium-plus';
   const isDefaultCoverType = isPremiumPlus || coverType === undefined;
@@ -32,7 +31,6 @@ export default function WarrantySection() {
   let warrantyLength: string | number = 'Lifetime';
 
   !isDefaultCoverType && warrantyData.splice(2, 1);
-  console.log(productType);
 
   switch (coverType) {
     case 'premium-plus':
