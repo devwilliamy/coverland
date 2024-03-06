@@ -12,6 +12,10 @@ import {
   CarouselItem,
 } from '@/components/ui/carousel';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
+import CompatibleArrow, {
+  CompatArrowLeft,
+  CompatArrowRight,
+} from '../icons/CompatibleArrow';
 
 const seatCompatabilityLists: { image: StaticImageData }[] = [
   {
@@ -67,13 +71,13 @@ export default function CompatibleVehiclesCarousel() {
             </CarouselItem>
           ))}
         </CarouselContent>
-        <ChevronLeft
+        <CompatArrowLeft
+          className={`absolute cursor-pointer ${api?.canScrollPrev() ? 'text-black' : 'hidden'} left-[-10vw] top-1/2 h-9 w-9 -translate-y-1/2 scale-x-[-1] max-lg:hidden`}
           onClick={() => api?.scrollPrev()}
-          className={`absolute cursor-pointer ${api?.canScrollPrev() ? 'text-black' : 'hidden'} left-[-10vw] top-1/2 h-9 w-9 -translate-y-1/2 max-lg:hidden`}
         />
-        <ChevronRight
+        <CompatArrowRight
+          className={`absolute w-max cursor-pointer ${api?.canScrollNext() ? 'text-black' : 'hidden'} right-[-10vw] top-1/2 h-9 w-9 -translate-y-1/2 max-lg:hidden`}
           onClick={() => api?.scrollNext()}
-          className={`absolute cursor-pointer ${api?.canScrollNext() ? 'text-black' : 'hidden'} right-[-10vw] top-1/2 h-9 w-9 -translate-y-1/2 max-lg:hidden`}
         />
       </Carousel>
 
@@ -83,7 +87,7 @@ export default function CompatibleVehiclesCarousel() {
             <div
               key={`carousel-position-button-${index}`}
               onClick={() => scrollTo(index)}
-              className={`rounded-full ${index === current && 'bg-black'} h-3.5 w-3.5 cursor-pointer outline outline-[0.5px] `}
+              className={`rounded-full ${index === current && 'bg-black'} h-3.5 w-3.5 cursor-pointer outline outline-[1px] `}
             ></div>
           ))}
         </div>

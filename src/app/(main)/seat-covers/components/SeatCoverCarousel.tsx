@@ -16,7 +16,9 @@ import SeatCover from '@/images/PDP/Product-Details-Redesign-2/seat-covers/featu
 import { useState, useEffect, useCallback } from 'react';
 import ProductVideo from '@/components/PDP/ProductVideo';
 import SeatVideo from '@/videos/ov-front-seat-cover.mp4';
+import SeatVideoSQ from '@/videos/ov-front-seat-cover_SQUARE.mp4';
 import FeaturedVideoThumbnail from '@/images/PDP/Product-Details-Redesign-2/seat-covers/featured-thumbnail.webp';
+import { useMediaQuery } from '@mui/material';
 
 // import { FaCamera } from 'react-icons/fa';
 
@@ -27,7 +29,7 @@ export default function SeatCoverCarousel({
 }) {
   const [api, setApi] = useState<CarouselApi>();
   const [current, setCurrent] = useState(0);
-  // const seatCoverArray = [...Array(9)];
+  const isMobile = useMediaQuery('max-width: 1024px');
   useEffect(() => {
     if (!api) {
       return;
@@ -75,7 +77,7 @@ export default function SeatCoverCarousel({
                 return (
                   <CarouselItem key={'seat-video'} className="h-full w-full">
                     <ProductVideo
-                      src={SeatVideo}
+                      src={isMobile ? SeatVideoSQ : SeatVideo}
                       imgSrc={FeaturedVideoThumbnail}
                     />
                   </CarouselItem>
