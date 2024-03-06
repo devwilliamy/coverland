@@ -170,7 +170,25 @@ const AddToCartSelector = ({
           ? typeOptions[1]
           : typeOptions[2];
     console.log('Params?:', params?.coverType || 'Premium Plus');
-    const coverType = params?.coverType || 'Premium Plus';
+    let coverType;
+    switch (params?.coverType) {
+      case 'premium-plus':
+        coverType = 'Premium Plus';
+        break;
+      case 'premium':
+        coverType = 'Premium';
+        break;
+      case 'standard':
+        coverType = 'Standard';
+        break;
+      case 'standard-pro':
+        coverType = 'Standard Pro';
+        break;
+      default:
+        coverType = 'Premium Plus';
+        break;
+    }
+
     const fetchData = async () => {
       try {
         const response = await getProductData({
