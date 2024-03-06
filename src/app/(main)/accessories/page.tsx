@@ -31,9 +31,10 @@ export default function AccessoriesPage() {
 
   return (
     <section
-      className={`flex h-full w-full flex-col items-center pb-[60px] lg:pb-[120px] text-[${theme.text}] bg-[${theme.bg}]`}
+      className={`flex h-full w-full flex-col items-center pb-[60px] lg:pb-[120px]`}
       style={{
         background: theme.bg,
+        color: theme.text,
       }}
     >
       <Image src={Header} alt="accessories-header" />
@@ -113,7 +114,10 @@ export default function AccessoriesPage() {
               {title}
             </p>
             <p
-              className={`w-full text-[16px] leading-[22px] text-[${theme.desc}]`}
+              className={`w-full text-[16px] leading-[22px]`}
+              style={{
+                color: theme.desc,
+              }}
             >
               {desc}
             </p>
@@ -121,7 +125,7 @@ export default function AccessoriesPage() {
         ))}
       </span>
       <button
-        className="p-4"
+        className={`my-4 rounded-full p-1 outline-[${theme.text}] outline outline-[1px]`}
         onClick={() => {
           if (theme === themes.light) {
             setTheme(themes.dark);
