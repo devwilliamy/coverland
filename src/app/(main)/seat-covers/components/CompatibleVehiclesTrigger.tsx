@@ -18,8 +18,14 @@ import {
   DialogHeader,
   DialogTrigger,
 } from '@/components/ui/dialog';
+import { SeatData } from '../util';
+import { StaticImageData } from 'next/image';
 
-export default function CompatibleVehiclesTrigger() {
+export default function CompatibleVehiclesTrigger({
+  selectedColor,
+}: {
+  selectedColor: SeatData;
+}) {
   const [open, setOpen] = useState(false);
   const [dialogOpen, setDialogOpen] = useState(false);
 
@@ -51,7 +57,9 @@ export default function CompatibleVehiclesTrigger() {
               Compatible Vehicles
             </SheetTitle>
           </SheetHeader>
-          <CompatibleVehiclesCarousel />
+          <CompatibleVehiclesCarousel
+            seat={selectedColor?.[6] as StaticImageData}
+          />
         </SheetContent>
       </Sheet>
       {/* </span> */}
@@ -79,7 +87,9 @@ export default function CompatibleVehiclesTrigger() {
             <div className="pb-9 pt-[69px] text-[38px] font-[700] leading-[26px]">
               Compatible Vehicles
             </div>
-            <CompatibleVehiclesCarousel />
+            <CompatibleVehiclesCarousel
+              seat={selectedColor?.[6] as StaticImageData}
+            />
           </div>
         </DialogContent>
       </Dialog>

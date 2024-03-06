@@ -96,6 +96,7 @@ export default function SeatCovers() {
           </Button>
         </span>
         <SeatContent
+          selectedColor={selectedColor}
           setSelectedColor={setSelectedColor}
           colorIndex={colorIndex}
           setColorIndex={setColorIndex}

@@ -14,10 +14,12 @@ const seatColors: { color: SeatString; data: SeatData }[] = [
 ];
 
 export default function SeatContent({
+  selectedColor,
   setSelectedColor,
   colorIndex,
   setColorIndex,
 }: {
+  selectedColor: SeatData;
   setSelectedColor: React.Dispatch<SetStateAction<SeatData>>;
   colorIndex: number;
   setColorIndex: React.Dispatch<SetStateAction<number>>;
@@ -89,7 +91,7 @@ export default function SeatContent({
         </div>
       </section>
       <SeatCoverFreeDetails />
-      <CompatibleVehiclesTrigger />
+      <CompatibleVehiclesTrigger selectedColor={selectedColor} />
     </section>
   );
 }

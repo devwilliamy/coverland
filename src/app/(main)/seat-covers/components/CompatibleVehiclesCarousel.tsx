@@ -12,32 +12,84 @@ import {
   CarouselItem,
 } from '@/components/ui/carousel';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
+import NonCompatibleDesktop from '@/images/PDP/Product-Details-Redesign-2/seat-covers/compatability/non-compatible-desktop.webp';
 
-const seatCompatabilityLists: { image: StaticImageData }[] = [
-  {
-    image: seatCompatabilityList1,
-  },
-  {
-    image: seatCompatabilityList2,
-  },
-  {
-    image: seatCompatabilityList3,
-  },
-  {
-    image: seatCompatabilityList4,
-  },
-  {
-    image: seatCompatabilityList5,
-  },
-];
-
-export default function CompatibleVehiclesCarousel() {
+export default function CompatibleVehiclesCarousel({
+  seat,
+}: {
+  seat?: StaticImageData;
+}) {
   const [api, setApi] = useState<CarouselApi>();
   const [current, setCurrent] = useState(0);
+  let carouselImages: { image: StaticImageData }[] = [
+    {
+      image: seatCompatabilityList1,
+    },
+    {
+      image: seatCompatabilityList2,
+    },
+    {
+      image: seatCompatabilityList3,
+    },
+    {
+      image: seatCompatabilityList4,
+    },
+    {
+      image: seatCompatabilityList5,
+    },
+  ];
+
+  console.log(seat);
+
+  if (seat) {
+    // setCarouselImages((e) => {
+    //   return e.splice(0, 0, {
+    //     image: seat,
+    //   });
+    // });
+    // setCarouselImages((e) => {
+    //   return e.splice(-1, 0, {
+    //     image: NonCompatibleDesktop,
+    //   });
+    // });
+    carouselImages.splice(0, 0, {
+      image: seat,
+    });
+    carouselImages.splice(carouselImages.length, 0, {
+      image: NonCompatibleDesktop,
+    });
+  }
+
   useEffect(() => {
     if (!api) {
       return;
     }
+    // carouselImages = [
+    //   {
+    //     image: seatCompatabilityList1,
+    //   },
+    //   {
+    //     image: seatCompatabilityList2,
+    //   },
+    //   {
+    //     image: seatCompatabilityList3,
+    //   },
+    //   {
+    //     image: seatCompatabilityList4,
+    //   },
+    //   {
+    //     image: seatCompatabilityList5,
+    //   },
+    // ];
+
+    // if (seat) {
+    //   carouselImages = carouselImages.splice(0, 0, {
+    //     image: seat,
+    //   });
+    //   carouselImages = carouselImages.splice(-1, 0, {
+    //     image: NonCompatibleDesktop,
+    //   });
+    // }
 
     // setScrollSnaps(api.scrollSnapList());
     setCurrent(api.selectedScrollSnap());
@@ -56,16 +108,30 @@ export default function CompatibleVehiclesCarousel() {
     <section className="flex flex-col">
       <Carousel setApi={setApi} className="h-full">
         <CarouselContent className="ml-0  gap-4 pl-0">
-          {seatCompatabilityLists.map((i, index) => (
-            <CarouselItem key={'SheetItem: ' + index} className="pl-0">
-              <Image
-                alt={`list-image-${index}`}
-                src={i.image}
-                quality={100}
-                className="flex  object-contain "
-              />
-            </CarouselItem>
-          ))}
+          {carouselImages.map((i, index) => {
+            if (seat && index === 0) {
+              return (
+                <CarouselItem key={'SheetItem: ' + index} className="pl-0">
+                  <Image
+                    alt={`list-image-${index}`}
+                    src={i.image}
+                    quality={100}
+                    className="flex w-[70%] object-contain lg:w-[65%] "
+                  />
+                </CarouselItem>
+              );
+            }
+            return (
+              <CarouselItem key={'SheetItem: ' + index} className="pl-0">
+                <Image
+                  alt={`list-image-${index}`}
+                  src={i.image}
+                  quality={100}
+                  className="flex object-contain "
+                />
+              </CarouselItem>
+            );
+          })}
         </CarouselContent>
         <ChevronLeft
           onClick={() => api?.scrollPrev()}
@@ -79,7 +145,7 @@ export default function CompatibleVehiclesCarousel() {
 
       <section className="w-full items-center justify-center lg:hidden">
         <div className="flex w-full items-center justify-center gap-[10px] pt-7">
-          {seatCompatabilityLists.map((i, index) => (
+          {carouselImages.map((i, index) => (
             <div
               key={`carousel-position-button-${index}`}
               onClick={() => scrollTo(index)}
