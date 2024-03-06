@@ -28,11 +28,13 @@ const themes: Record<string, AccessoriesTheme> = {
 
 export default function AccessoriesPage() {
   const [theme, setTheme] = useState<AccessoriesTheme>(themes.light);
-  console.log(themes.light);
 
   return (
     <section
       className={`flex h-full w-full flex-col items-center pb-[60px] lg:pb-[120px] text-[${theme.text}] bg-[${theme.bg}]`}
+      style={{
+        background: theme.bg,
+      }}
     >
       <Image src={Header} alt="accessories-header" />
       <button
