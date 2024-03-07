@@ -15,6 +15,7 @@ import {
 } from '@/lib/db/review';
 import { deslugify } from '@/lib/utils';
 import { TPathParams } from '../utils';
+import { notFound } from 'next/navigation';
 
 export function generateStaticParams() {
   return [
@@ -38,6 +39,13 @@ export default async function CarPDPModelDataLayer({
   params: { productType: string };
   searchParams: { submodel?: string; second_submodel?: string } | undefined;
 }) {
+  const productTypes = ['car-covers', 'truck-covers', 'suv-covers'];
+
+  console.log('Params From page: ', params);
+  if (!productTypes.includes(params.productType)) {
+    return notFound();
+  }
+
   let reviewData: TReviewData[] = [];
   let reviewDataSummary: TProductReviewSummary = {
     total_reviews: 0,

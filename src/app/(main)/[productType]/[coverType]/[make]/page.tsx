@@ -1,5 +1,5 @@
 import { TReviewData, getAllMakes, getProductData } from '@/lib/db';
-import { redirect } from 'next/navigation';
+import { notFound, redirect } from 'next/navigation';
 import CarPDP from '@/app/(main)/[productType]/components/CarPDP';
 import {
   TProductReviewSummary,
@@ -9,6 +9,7 @@ import {
 } from '@/lib/db/review';
 import { TPathParams } from '@/app/(main)/utils';
 import { deslugify } from '@/lib/utils';
+import { Suspense } from 'react';
 
 export type TCarCoverSlugParams = {
   make: string;
@@ -93,12 +94,12 @@ export default async function CarPDPDataLayer({
       ]);
     // filterDuplicateReviewImages({ reviewData, reviewImages });
 
-    if (!modelData) {
-      redirect('/404');
+    if (!modelData || modelData.length === 0) {
+      notFound();
     }
   } catch (error) {
     console.error('Error fetching data:', error);
-    redirect('/404');
+    notFound();
   }
   return (
     <>
