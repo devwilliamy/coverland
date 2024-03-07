@@ -36,6 +36,7 @@ import {
   getProductData,
 } from '@/lib/db';
 import { slugify } from '@/lib/utils';
+import { AiOutlineLoading3Quarters } from 'react-icons/ai';
 
 export default function AddToCart({
   selectedProduct,
@@ -112,6 +113,39 @@ export default function AddToCart({
   );
 }
 
+const determineTypeString = (type: string) => {
+  const typeOptions = ['Car Covers', 'SUV Covers', 'Truck Covers'];
+  return type === 'car-covers'
+    ? typeOptions[0]
+    : type === 'suv-covers'
+      ? typeOptions[1]
+      : type === 'truck-covers'
+        ? typeOptions[2]
+        : type;
+};
+
+const determineCoverType = (type: string) => {
+  let coverType;
+  switch (type) {
+    case 'premium-plus':
+      coverType = 'Premium Plus';
+      break;
+    case 'premium':
+      coverType = 'Premium';
+      break;
+    case 'standard':
+      coverType = 'Standard';
+      break;
+    case 'standard-pro':
+      coverType = 'Standard Pro';
+      break;
+    default:
+      coverType = 'Premium Plus';
+      break;
+  }
+  return coverType;
+};
+
 const AddToCartSelector = ({
   submodelSelectionOpen,
   setSubmodelSelectionOpen,
@@ -126,6 +160,7 @@ const AddToCartSelector = ({
   const initialModelData = useStore(store, (s) => s.initialModelData);
   const queryState = useStore(store, (s) => s.query);
   const setQuery = useStore(store, (s) => s.setQuery);
+  console.log('[AddToCart queryState]:', queryState);
   const selectedProduct = useStore(store, (s) => s.selectedProduct);
   const setCustomerSelectedYear = useStore(
     store,
@@ -165,32 +200,8 @@ const AddToCartSelector = ({
   } = queryState;
 
   useEffect(() => {
-    const typeOptions = ['Car Covers', 'SUV Covers', 'Truck Covers'];
-    const typeString =
-      queryState.type === 'car-covers'
-        ? typeOptions[0]
-        : queryState.type === 'suv-covers'
-          ? typeOptions[1]
-          : typeOptions[2];
-    let coverType;
-    switch (params?.coverType) {
-      case 'premium-plus':
-        coverType = 'Premium Plus';
-        break;
-      case 'premium':
-        coverType = 'Premium';
-        break;
-      case 'standard':
-        coverType = 'Standard';
-        break;
-      case 'standard-pro':
-        coverType = 'Standard Pro';
-        break;
-      default:
-        coverType = 'Premium Plus';
-        break;
-    }
-
+    const typeString = determineTypeString(queryState.type);
+    const coverType = determineCoverType(params?.coverType as string);
     const fetchData = async () => {
       try {
         const response = await getProductData({
@@ -202,9 +213,13 @@ const AddToCartSelector = ({
         });
         setNewModelData(response);
         const checkIsComplete = isComplete_v2(queryState, response);
-        // console.log('checkIsComplete:', {checkIsComplete, queryState});
-        if (checkIsComplete !== isComplete) {
-          setIsComplete(checkIsComplete);
+        console.log('checkIsComplete:', {
+          checkIsComplete,
+          isComplete,
+          queryState,
+        });
+        setIsComplete(checkIsComplete);
+        if (checkIsComplete) {
           const filterDownResponse = response.filter((item) => {
             if (!!coverType && item.display_id !== coverType) {
               return false;
@@ -217,21 +232,23 @@ const AddToCartSelector = ({
             }
             return true;
           });
-          // console.log('[AddToCart.AddToCartSelector.useEffect]:', {
-          //   response,
-          //   filterDownResponse,
-          // });
+          console.log('[AddToCart.AddToCartSelector.useEffect.fetchData]:', {
+            response,
+            filterDownResponse,
+            color,
+          });
           const selectedItem =
             filterDownResponse.length > 1
               ? response.find((p) => p.display_color === color)
               : filterDownResponse[0];
-          // console.log('SelectedItem:', selectedItem);
+          console.log('[AddToCart.AddToCartSelector.useEffect]:', selectedItem);
           setSelectedItem(selectedItem);
         }
       } catch (error) {
         console.error('[AddToCartSelector]: ', error);
       }
     };
+
     if (!!year && !!type && !!make && !!model) {
       // console.log('AddToCartSelector UseEffect:', {
       //   year,
@@ -241,16 +258,22 @@ const AddToCartSelector = ({
       //   model,
       // });
       fetchData();
+    } else {
+      setIsComplete(false);
+      setSelectedItem({});
     }
   }, [
-    year,
     type,
+    year,
     make,
     model,
     submodel,
     secondSubmodel,
     parent_generation,
-    queryState.type,
+    isComplete,
+    color,
+    params,
+    queryState,
   ]);
 
   const wait = () => new Promise((resolve) => setTimeout(resolve, 350));
@@ -367,13 +390,11 @@ const TypeDropdown = ({ queryState, setQuery }) => {
     >
       <div className=" ml-[10px] pr-[15px]">1</div>
       <select
-        value={queryState.type}
+        value={determineTypeString(queryState.type)}
         onChange={handleChange}
         className={`bg w-full bg-transparent outline-none `}
       >
-        <option value="">
-          {!!queryState.type ? typeString : 'Product Type'}
-        </option>
+        <option value="">{'Product Type'}</option>
 
         {typeOptions.map((type) => (
           <option key={type} value={type}>
@@ -430,6 +451,7 @@ type TMakeDropdown = { make: string | null; make_slug: string | null };
 
 const MakeDropdown = ({ queryState, setQuery }) => {
   const { type, year } = queryState;
+  const [isLoading, setIsLoading] = useState(false);
 
   // console.log('QueryState MakeDropdown:', queryState);
   const [makeData, setMakeData] = useState<TMakeDropdown[]>([]);
@@ -439,15 +461,11 @@ const MakeDropdown = ({ queryState, setQuery }) => {
   }, []);
 
   useEffect(() => {
-    const typeOptions = ['Car Covers', 'SUV Covers', 'Truck Covers'];
-    const typeString =
-      type === 'car-covers'
-        ? typeOptions[0]
-        : type === 'suv-covers'
-          ? typeOptions[1]
-          : typeOptions[2];
+    const typeString = determineTypeString(type);
     const fetchData = async () => {
       try {
+        setIsLoading(true);
+
         const response = await getAllUniqueMakesByYear({
           type: typeString,
           cover: 'Premium Plus', // TOOD: - Update this to make it work for premium as well.
@@ -456,36 +474,45 @@ const MakeDropdown = ({ queryState, setQuery }) => {
         setMakeData(response);
       } catch (error) {
         console.error('[Make Search]: ', error);
+      } finally {
+        setIsLoading(false);
       }
     };
-    if (type && year) {
+    if (!!type && !!year) {
+      console.log('[MakeDropdown useEffect] triggered?', { type, year });
       fetchData();
     }
   }, [type, year]);
-
+  const isDisabled = !type || !year;
   return (
     <div
       className={`flex max-h-[44px] min-h-[44px] w-full items-center rounded-[4px] bg-white px-2 text-lg outline outline-1 outline-offset-1 outline-[#767676] md:max-h-[58px] lg:w-auto`}
     >
       <div className=" ml-[10px] pr-[15px]">3</div>
-      <select
-        value={queryState.make}
-        className={`bg w-full bg-transparent capitalize outline-none`}
-        // disabled={!!params?.make}
-        onChange={(e) =>
-          setQuery({
-            ...queryState,
-            make: e.target.value,
-          })
-        }
-      >
-        <option value="">{queryState.make || 'Make'}</option>
-        {makeData.map(({ make }, index) => (
-          <option key={`${make}-${index}`} value={make || ''}>
-            {make}
-          </option>
-        ))}
-      </select>
+      {isLoading ? (
+        <div className="pl-2">
+          <AiOutlineLoading3Quarters className="animate-spin " />
+        </div>
+      ) : (
+        <select
+          value={queryState.make}
+          className={`bg w-full bg-transparent capitalize outline-none`}
+          disabled={isDisabled || isLoading}
+          onChange={(e) =>
+            setQuery({
+              ...queryState,
+              make: e.target.value,
+            })
+          }
+        >
+          <option value="">{'Make'}</option>
+          {makeData.map(({ make }, index) => (
+            <option key={`${make}-${index}`} value={make || ''}>
+              {make}
+            </option>
+          ))}
+        </select>
+      )}
     </div>
   );
 };
@@ -525,16 +552,14 @@ const ModelDropdown = ({ queryState, setQuery }) => {
   // useEffect(() => {
   //   !make && setQuery({ ...queryState, model: '' });
   // }, [make]);
+  useEffect(() => {
+    setSubmodelData([]);
+  }, [type, year, make, model]);
 
   useEffect(() => {
     const fetchData = async () => {
-      const typeOptions = ['Car Covers', 'SUV Covers', 'Truck Covers'];
-      const typeString =
-        type === 'car-covers'
-          ? typeOptions[0]
-          : type === 'suv-covers'
-            ? typeOptions[1]
-            : typeOptions[2];
+      const typeString = determineTypeString(type);
+
       try {
         const response = await getAllUniqueModelsByYearMake({
           type: typeString,
@@ -606,7 +631,7 @@ const ModelDropdown = ({ queryState, setQuery }) => {
           disabled={isDisabled}
           onChange={handleChange}
         >
-          <option value="">{queryState.model || 'Model'}</option>
+          <option value="">{'Model'}</option>
           {filteredModelData?.map(({ model }, index) => (
             <option key={`${model}-${index}`} value={model || ''}>
               {model}
@@ -639,6 +664,9 @@ const SubmodelDropdown = ({
   >([]);
   const { model, submodel } = queryState;
   // console.log('[SubmodelDropdown]:', { submodel, filteredSubmodelData });
+  useEffect(() => {
+    setSecondSubmodelData([]);
+  }, [model, submodel]);
   useEffect(() => {
     // Check for second submodel
     if (submodel) {

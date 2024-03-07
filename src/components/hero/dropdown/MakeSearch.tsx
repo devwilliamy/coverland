@@ -2,11 +2,6 @@
 
 import { ChangeEvent, useEffect, useState } from 'react';
 import { TQuery } from './HeroDropdown';
-import {
-  CAR_COVER_MAKES,
-  SUV_COVER_MAKES,
-  TRUCK_COVER_MAKES,
-} from '@/lib/constants';
 import { getAllUniqueMakesByYear } from '@/lib/db';
 import { AiOutlineLoading3Quarters } from 'react-icons/ai';
 
