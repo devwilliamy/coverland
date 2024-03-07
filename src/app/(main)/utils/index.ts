@@ -14,6 +14,7 @@ export type TPathParams = {
 export type TQueryParams = {
   submodel?: string;
   secondSubmodel?: string;
+  submodel2?: string;
 };
 
 export interface IProductData extends TInitialProductDataDB {

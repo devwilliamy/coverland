@@ -15,11 +15,15 @@ import { TProductReviewSummary } from '@/lib/db/review';
 
 export type TQuery = {
   type: string;
+  coverType: string;
   year: string;
   make: string;
   model: string;
   submodel: string;
   secondSubmodel: string;
+  submodel1: string;
+  submodel2: string;
+  parent_generation: string;
 };
 
 interface ICarCoverProps {
@@ -46,6 +50,8 @@ interface ICarCoverSelectionState extends ICarCoverProps {
   paramsYear: string;
   reviewImageTracker: Record<string, boolean>;
   setReviewImageTracker: (newImageTracker: Record<string, boolean>) => void;
+  customerSelectedYear: string;
+  setCustomerSelectedYear: (year: string) => void;
 }
 
 const createCarSelectionStore = ({
@@ -73,9 +79,9 @@ const createCarSelectionStore = ({
       )
     : initialModelData;
 
-  const initialDataWithSecondSubmodels = queryParams?.secondSubmodel
+  const initialDataWithSecondSubmodels = queryParams?.submodel2
     ? initialDataWithSubmodels.filter((model) =>
-        compareRawStrings(model.submodel2, queryParams.secondSubmodel as string)
+        compareRawStrings(model.submodel2, queryParams.submodel2 as string)
       )
     : initialDataWithSubmodels;
 
@@ -88,20 +94,28 @@ const createCarSelectionStore = ({
         }
       });
   });
+  const customerSelectedYear =
+    typeof window !== 'undefined'
+      ? localStorage?.getItem('heroDropdownYear')
+      : '';
 
   return createStore<ICarCoverSelectionState>()((set, get) => ({
     modelData: initialDataWithSecondSubmodels,
     initialModelData: initialDataWithSecondSubmodels,
     query: {
-      year:
-        (params?.year && hasNoSubmodels) || queryParams?.submodel
-          ? (params?.year as string)
-          : '',
+      year: (params?.year && customerSelectedYear) || '',
       type: params?.productType ?? '',
+      coverType: params?.coverType ?? 'premium-plus',
       make: params?.make ?? '',
       model: params?.model ?? '',
       submodel: queryParams?.submodel ?? '',
-      secondSubmodel: queryParams?.secondSubmodel ?? '',
+      secondSubmodel: queryParams?.submodel2 ?? '',
+      submodel1: queryParams?.submodel ?? '',
+      submodel2: queryParams?.submodel2 ?? '',
+      parent_generation:
+        (params?.year && hasNoSubmodels) || queryParams?.submodel
+          ? (params?.year as string)
+          : '',
     },
     selectedProduct: initialDataWithSecondSubmodels[0],
     featuredImage: initialDataWithSecondSubmodels[0]?.mainImage,
@@ -192,6 +206,11 @@ const createCarSelectionStore = ({
       set(() => ({ reviewImages: newReviewImages }));
     },
     paramsYear: params.year || '',
+    customerSelectedYear: customerSelectedYear || '',
+    setCustomerSelectedYear: (year: string) => {
+      localStorage.setItem('heroDropdownYear', year);
+      set(() => ({ customerSelectedYear: year }));
+    },
   }));
 };
 
@@ -213,12 +232,14 @@ export default function CarPDP({
   params: TPathParams;
   reviewDataSummary: TProductReviewSummary;
   reviewImages: TReviewData[];
-  searchParams?: { submodel?: string; second_submodel?: string } | undefined;
+  searchParams?:
+    | { submodel?: string; second_submodel?: string; submodel2?: string }
+    | undefined;
 }) {
   const router = useRouter();
   const pathParams = useParams<TPathParams>();
   const submodelParams = searchParams?.submodel ?? '';
-  const secondSubmodelParams = searchParams?.second_submodel ?? '';
+  const secondSubmodelParams = searchParams?.submodel2 ?? '';
   if (modelDataProps.length === 0) {
     router.push('/404');
   }
@@ -226,6 +247,7 @@ export default function CarPDP({
   const queryParams = {
     submodel: submodelParams,
     secondSubmodel: secondSubmodelParams,
+    submodel2: secondSubmodelParams,
   };
 
   const modelData = modelDataTransformer({

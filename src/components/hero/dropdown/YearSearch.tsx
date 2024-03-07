@@ -1,22 +1,18 @@
 'use client';
-
 import { ChangeEvent, useState } from 'react';
 import { TQuery } from './HeroDropdown';
-import { TProductJsonData } from '@/components/PDP/EditVehicleDropdown';
 
 export function YearSearch({
   queryObj,
-  dropdownData,
 }: {
   queryObj: {
     query: TQuery;
     setQuery: React.Dispatch<React.SetStateAction<TQuery>>;
   };
-  dropdownData: TProductJsonData[];
 }) {
   const [value, setValue] = useState('');
-  const { type, make, model } = queryObj.query;
-  const isDisabled = !type || !make || !model;
+  const { type } = queryObj.query;
+  const isDisabled = !type;
   const { setQuery } = queryObj;
 
   const handleChange = (event: ChangeEvent<HTMLSelectElement>) => {
@@ -25,16 +21,19 @@ export function YearSearch({
     setQuery((p) => ({ ...p, year: newValue }));
   };
 
+  const startYear = 1921;
+  const endYear = 2025;
   const years = Array.from(
-    new Set(dropdownData.flatMap((d) => d.year_options.split(',')))
-  ).sort((a, b) => parseInt(b) - parseInt(a));
+    { length: endYear - startYear + 1 },
+    (_, i) => endYear - i
+  );
 
   return (
     <button
-      className={`flex max-h-[44px] min-h-[44px] w-full items-center rounded-[4px] outline-[#767676] md:max-h-[58px]  ${isDisabled ? 'bg-gray-100/75' : 'bg-white'} px-2 text-lg outline outline-1 outline-offset-1 lg:w-auto`}
+      className={`flex max-h-[44px] min-h-[44px] w-full items-center rounded-[4px] ${isDisabled ? 'bg-gray-100/75' : 'bg-white'} px-2 text-lg outline outline-1 outline-offset-1 outline-[#767676] md:max-h-[58px] lg:w-auto`}
       tabIndex={1}
     >
-      <div className="ml-[10px] pr-[15px]">4</div>
+      <div className="ml-[10px] pr-[15px]">2</div>
       <select
         value={value}
         onChange={(event) => handleChange(event)}
