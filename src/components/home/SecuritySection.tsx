@@ -55,7 +55,7 @@ export default function SecuritySection() {
             alt="a fully-covered vehicle with a coverland car cover on it"
           />
           <div className="absolute  bottom-[27px] left-[14px] z-10 flex flex-col gap-[12px] lg:bottom-[42px] lg:left-[42px]">
-            <p className="text-[18px] font-[700] capitalize text-white lg:text-[24px]">
+            <p className="text-[18px] font-[500] capitalize tracking-wider text-white lg:text-[24px]">
               Outdoor car covers
             </p>
             <button className="flex h-[44px] max-w-[160px] items-center rounded-[100px] bg-white px-[40px] py-[17px] text-[16px] font-[900] leading-[110%] tracking-[0.32px]">

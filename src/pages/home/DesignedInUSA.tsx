@@ -29,7 +29,7 @@ export default function DesignedInUSA() {
           <p className=" mb-[-10px] mt-[32px] max-w-[382px] text-left text-[24px] font-black uppercase leading-[32px] lg:mb-0 lg:mt-0 lg:whitespace-nowrap lg:text-[34px] lg:leading-[40px] ">
             Custom-Fit Car Covers <br /> Designed In The USA
           </p>
-          <div className="text-[14px] font-[400]">
+          <div className="text-[14px] font-[400] leading-[24px]">
             For every car enthusiast, owning a car is a considerable investment.
             Therefore, investing some money and effort for its protection is
             also an important step that involves buying premium quality car
