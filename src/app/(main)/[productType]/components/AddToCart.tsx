@@ -156,8 +156,6 @@ const AddToCartSelector = ({
   const store = useContext(CarSelectionContext);
   if (!store) throw new Error('Missing CarContext.Provider in the tree');
 
-  const modelData = useStore(store, (s) => s.modelData);
-  const initialModelData = useStore(store, (s) => s.initialModelData);
   const queryState = useStore(store, (s) => s.query);
   const setQuery = useStore(store, (s) => s.setQuery);
   console.log('[AddToCart queryState]:', queryState);
@@ -181,7 +179,6 @@ const AddToCartSelector = ({
   // const { shouldDisplayMake, isComplete } = completeSelectionState;
   const [isComplete, setIsComplete] = useState(false);
   const [selectedItem, setSelectedItem] = useState({});
-  const cartProduct = modelData.find((p) => p.display_color === color);
 
   const handleAddToCart = () => {
     if (!selectedItem) return;
@@ -213,11 +210,11 @@ const AddToCartSelector = ({
         });
         setNewModelData(response);
         const checkIsComplete = isComplete_v2(queryState, response);
-        console.log('checkIsComplete:', {
-          checkIsComplete,
-          isComplete,
-          queryState,
-        });
+        // console.log('checkIsComplete:', {
+        //   checkIsComplete,
+        //   isComplete,
+        //   queryState,
+        // });
         setIsComplete(checkIsComplete);
         if (checkIsComplete) {
           const filterDownResponse = response.filter((item) => {
@@ -232,16 +229,16 @@ const AddToCartSelector = ({
             }
             return true;
           });
-          console.log('[AddToCart.AddToCartSelector.useEffect.fetchData]:', {
-            response,
-            filterDownResponse,
-            color,
-          });
+          // console.log('[AddToCart.AddToCartSelector.useEffect.fetchData]:', {
+          //   response,
+          //   filterDownResponse,
+          //   color,
+          // });
           const selectedItem =
             filterDownResponse.length > 1
               ? response.find((p) => p.display_color === color)
               : filterDownResponse[0];
-          console.log('[AddToCart.AddToCartSelector.useEffect]:', selectedItem);
+          // console.log('[AddToCart.AddToCartSelector.useEffect]:', selectedItem);
           setSelectedItem(selectedItem);
         }
       } catch (error) {
@@ -479,7 +476,7 @@ const MakeDropdown = ({ queryState, setQuery }) => {
       }
     };
     if (!!type && !!year) {
-      console.log('[MakeDropdown useEffect] triggered?', { type, year });
+      // console.log('[MakeDropdown useEffect] triggered?', { type, year });
       fetchData();
     }
   }, [type, year]);
