@@ -41,7 +41,7 @@ export function SubmodelDropdown({
   );
 
   useEffect(() => {
-    !model && setValue('');
+    setValue('');
   }, [model]);
 
   useEffect(() => {
@@ -75,7 +75,7 @@ export function SubmodelDropdown({
           disabled={isDisabled}
           className="w-full bg-transparent outline-none "
         >
-          <option value="">{`${value ? 'Clear' : 'Submodel'}`}</option>
+          <option value="">{`Submodel`}</option>
           {filteredSubmodelData?.sort()?.map((submodel) => (
             <option key={`model-${submodel}`} value={submodel || ''}>
               {submodel}

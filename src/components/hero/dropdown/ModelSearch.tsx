@@ -49,8 +49,8 @@ export function ModelSearch({
   };
 
   useEffect(() => {
-    !make && setValue('');
-  }, [make]);
+    setValue('');
+  }, [type, year, make]);
 
   useEffect(() => {
     const fetchData = async () => {
