@@ -88,7 +88,7 @@ export function HeroDropdown() {
       <MakeSearch queryObj={queryObj} />
       <ModelSearch queryObj={queryObj} />
       <Button
-        className="flex h-full w-full items-center justify-center border border-red-300 text-lg lg:h-[58px] lg:max-w-[58px] lg:border-0"
+        className="flex h-full min-h-[54px] w-full items-center justify-center border border-red-300 text-lg lg:h-[58px] lg:max-w-[58px] lg:border-0"
         onClick={handleSubmitDropdown}
         disabled={!year || !type || !make || !model}
       >
