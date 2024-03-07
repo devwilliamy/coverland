@@ -63,8 +63,6 @@ export function ProductContent({
   const isPremiumType = isDefaultCoverType || params?.coverType === 'premium';
 
   const cartProduct = modelData.find((p) => p.display_color === color);
-  console.log('Model Data: ', modelData);
-  console.log('Selected Product: ', selectedProduct);
 
   let installmentPrice: number = 39.99;
   switch (coverType) {
