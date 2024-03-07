@@ -6,6 +6,7 @@ import {
   Dispatch,
   SetStateAction,
   useCallback,
+  useContext,
   useEffect,
   useState,
 } from 'react';
@@ -17,6 +18,8 @@ import { SubmodelDropdown } from '../hero/dropdown/SubmodelDropdown';
 import { slugify } from '@/lib/utils';
 import { BASE_URL } from '@/lib/constants';
 import { TQuery } from '../hero/dropdown/HeroDropdown';
+import { CarSelectionContext } from '@/app/(main)/[productType]/components/CarPDP';
+import { useStore } from 'zustand';
 
 export type TProductJsonData = {
   type: string;
@@ -36,6 +39,10 @@ export default function EditVehicleDropdown({
   searchParams: { submodel?: string; second_submodel?: string } | undefined;
 }) {
   const pathname = usePathname();
+  const store = useContext(CarSelectionContext);
+  if (!store) throw new Error('Missing CarContext.Provider in the tree');
+
+  const { coverType } = useStore(store, (s) => s.query);
 
   const [query, setQuery] = useState<TQuery>({
     year: '',
@@ -107,12 +114,16 @@ export default function EditVehicleDropdown({
     )
       return;
     setLoading(true);
-    let url = `/${slugify(type)}/premium-plus/${slugify(make)}/${slugify(model)}/${yearInUrl}`;
-    const currentUrl = `${pathname}${searchParams?.toString() ? `?${searchParams.toString()}` : ''}`;
-
+    let url = `/${slugify(type)}/${coverType || 'premium-plus'}/${slugify(make)}/${slugify(model)}/${yearInUrl}`;
+    const currentUrl = `${pathname}${searchParams?.toString() ? `?${searchParams?.submodel?.toString()}` : ''}`;
+    // console.log('Wat is this:', {
+    //   pathname,
+    //   searchParamToSTring: searchParams,
+    // });
     if (submodel1) {
       url += `?${createQueryString('submodel', submodel1)}`;
     }
+    // console.log('[EditVehicleDropdown]', { url, currentUrl });
 
     if (url === currentUrl) {
       setLoading(false);

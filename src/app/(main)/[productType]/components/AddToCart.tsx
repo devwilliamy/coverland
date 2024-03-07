@@ -217,15 +217,15 @@ const AddToCartSelector = ({
             }
             return true;
           });
-          console.log('[AddToCart.AddToCartSelector.useEffect]:', {
-            response,
-            filterDownResponse,
-          });
+          // console.log('[AddToCart.AddToCartSelector.useEffect]:', {
+          //   response,
+          //   filterDownResponse,
+          // });
           const selectedItem =
             filterDownResponse.length > 1
               ? response.find((p) => p.display_color === color)
               : filterDownResponse[0];
-          console.log('SelectedItem:', selectedItem);
+          // console.log('SelectedItem:', selectedItem);
           setSelectedItem(selectedItem);
         }
       } catch (error) {
@@ -233,13 +233,13 @@ const AddToCartSelector = ({
       }
     };
     if (!!year && !!type && !!make && !!model) {
-      console.log('AddToCartSelector UseEffect:', {
-        year,
-        parent_generation,
-        type,
-        make,
-        model,
-      });
+      // console.log('AddToCartSelector UseEffect:', {
+      //   year,
+      //   parent_generation,
+      //   type,
+      //   make,
+      //   model,
+      // });
       fetchData();
     }
   }, [
@@ -431,7 +431,7 @@ type TMakeDropdown = { make: string | null; make_slug: string | null };
 const MakeDropdown = ({ queryState, setQuery }) => {
   const { type, year } = queryState;
 
-  console.log('QueryState MakeDropdown:', queryState);
+  // console.log('QueryState MakeDropdown:', queryState);
   const [makeData, setMakeData] = useState<TMakeDropdown[]>([]);
 
   useEffect(() => {
@@ -546,7 +546,7 @@ const ModelDropdown = ({ queryState, setQuery }) => {
           (car, index, self) =>
             index === self.findIndex((t) => t.model_slug === car.model_slug)
         );
-        console.log('[ModelDropdown.UseEffect]:', uniqueModel);
+        // console.log('[ModelDropdown.UseEffect]:', uniqueModel);
 
         const submodel = response.filter(
           (vehicle) =>
@@ -564,19 +564,19 @@ const ModelDropdown = ({ queryState, setQuery }) => {
               ?.map((vehicle) => vehicle.submodel1)
           )
         );
-        console.log('Testing...:', {
-          model,
-          slugmodel: slugify(model),
-          filter1: submodel?.filter(
-            (vehicle) =>
-              slugify(vehicle.model as string) === slugify(model as string) &&
-              vehicle.submodel1 !== null
-          ),
-        });
-        console.log('[ModelDropdown.UseEffect]:', {
-          submodel,
-          filteredSubmodelData,
-        });
+        // console.log('Testing...:', {
+        //   model,
+        //   slugmodel: slugify(model),
+        //   filter1: submodel?.filter(
+        //     (vehicle) =>
+        //       slugify(vehicle.model as string) === slugify(model as string) &&
+        //       vehicle.submodel1 !== null
+        //   ),
+        // });
+        // console.log('[ModelDropdown.UseEffect]:', {
+        //   submodel,
+        //   filteredSubmodelData,
+        // });
         setSubmodelData(submodel);
 
         setModelData(response);
@@ -638,7 +638,7 @@ const SubmodelDropdown = ({
     TModelDropdown[]
   >([]);
   const { model, submodel } = queryState;
-  console.log('[SubmodelDropdown]:', { submodel, filteredSubmodelData });
+  // console.log('[SubmodelDropdown]:', { submodel, filteredSubmodelData });
   useEffect(() => {
     // Check for second submodel
     if (submodel) {

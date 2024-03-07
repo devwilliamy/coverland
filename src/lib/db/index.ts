@@ -24,7 +24,7 @@ export async function addOrderToDb(order: string) {
     .insert({ order: order });
 
   if (error) {
-    console.log(error);
+    console.error(error);
   }
   return data;
 }
@@ -157,14 +157,14 @@ export async function getAllUniqueModelsByYearMake({
           t.submodel3 === car.submodel3
       )
   );
-  console.log('[Server]: getAllUniqueModelsByYearMake Params & Response:', {
-    data,
-    uniqueCars,
-    type,
-    cover,
-    year,
-    make,
-  });
+  // console.log('[Server]: getAllUniqueModelsByYearMake Params & Response:', {
+  //   data,
+  //   uniqueCars,
+  //   type,
+  //   cover,
+  //   year,
+  //   make,
+  // });
   return uniqueCars;
 }
 
