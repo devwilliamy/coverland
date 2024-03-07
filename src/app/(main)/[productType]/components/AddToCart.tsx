@@ -546,7 +546,7 @@ const ModelDropdown = ({ queryState, setQuery }) => {
           (car, index, self) =>
             index === self.findIndex((t) => t.model_slug === car.model_slug)
         );
-        console.log('ModelDropdownUseEffect uniqueModel:', uniqueModel);
+        console.log('[ModelDropdown.UseEffect]:', uniqueModel);
 
         const submodel = response.filter(
           (vehicle) =>
@@ -589,7 +589,7 @@ const ModelDropdown = ({ queryState, setQuery }) => {
     if (type && year && make) {
       fetchData();
     }
-  }, [type, year, make]);
+  }, [type, year, make, model]);
 
   const isDisabled = !type || !year || !make;
   const showSubmodelDropdown = submodelData.length > 0;

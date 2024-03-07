@@ -15,6 +15,7 @@ import { TProductReviewSummary } from '@/lib/db/review';
 
 export type TQuery = {
   type: string;
+  cover: string;
   year: string;
   make: string;
   model: string;
@@ -102,8 +103,9 @@ const createCarSelectionStore = ({
     modelData: initialDataWithSecondSubmodels,
     initialModelData: initialDataWithSecondSubmodels,
     query: {
-      year: customerSelectedYear || '',
+      year: (params?.year && customerSelectedYear) || '',
       type: params?.productType ?? '',
+      cover: params?.coverType ?? 'premium-plus',
       make: params?.make ?? '',
       model: params?.model ?? '',
       submodel: queryParams?.submodel ?? '',
