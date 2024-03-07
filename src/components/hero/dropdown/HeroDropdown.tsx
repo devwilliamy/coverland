@@ -43,7 +43,6 @@ export function HeroDropdown() {
     query,
     setQuery,
   };
-  console.log('QueryOBj:', queryObj.query);
 
   const yearInUrl = parent_generation;
 
