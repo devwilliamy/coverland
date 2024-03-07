@@ -1,11 +1,6 @@
-import { createClient } from '@supabase/supabase-js';
-import { Database, Tables } from './types';
+import { Tables } from '../types';
 import { SEAT_COVERS_TABLE } from '../constants/databaseTableNames';
-
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL ?? '';
-const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_KEY ?? '';
-
-const supabase = createClient<Database>(supabaseUrl, supabaseKey);
+import { supabaseDatabaseClient } from '../supabaseClients';
 
 export type TSeatCoverDataDB = Tables<'Seat-Cover'>;
 
@@ -15,7 +10,9 @@ export type TSeatCoverDataDB = Tables<'Seat-Cover'>;
 //them and replace the types.ts file in this folder
 
 export async function getAllSeatCovers() {
-  const { data, error } = await supabase.from(SEAT_COVERS_TABLE).select('*');
+  const { data, error } = await supabaseDatabaseClient
+    .from(SEAT_COVERS_TABLE)
+    .select('*');
 
   if (error) {
     throw new Error(error.message);
