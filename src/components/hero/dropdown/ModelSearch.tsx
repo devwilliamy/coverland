@@ -39,7 +39,6 @@ export function ModelSearch({
     query: { type, year, make },
     setQuery,
   } = queryObj;
-  console.log('[ModelSearch]', queryObj);
 
   const handleChange = (event: ChangeEvent<HTMLSelectElement>) => {
     const newValue = event.target.value;

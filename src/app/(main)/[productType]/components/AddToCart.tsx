@@ -158,7 +158,7 @@ const AddToCartSelector = ({
 
   const queryState = useStore(store, (s) => s.query);
   const setQuery = useStore(store, (s) => s.setQuery);
-  console.log('[AddToCart queryState]:', queryState);
+  // console.log('[AddToCart queryState]:', queryState);
   const selectedProduct = useStore(store, (s) => s.selectedProduct);
   const setCustomerSelectedYear = useStore(
     store,
@@ -306,7 +306,7 @@ const AddToCartSelector = ({
           className="mt-auto flex flex-col gap-3 bg-white px-4 py-3 align-bottom"
         >
           <p className="text-right font-extrabold leading-4 text-black">
-            Starting from ${selectedProduct.msrp}
+            {isComplete ? `$${selectedProduct.msrp}` : ''}
           </p>
           <Button
             onClick={() => {
