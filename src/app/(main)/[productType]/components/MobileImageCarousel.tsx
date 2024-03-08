@@ -15,9 +15,9 @@ import { Skeleton } from '@/components/ui/skeleton';
 import { FaCamera } from 'react-icons/fa';
 import ReviewImagesSheet from '@/components/PDP/components/ReviewImagesSheet';
 import Car360 from '@/videos/Mustang 360 degree 16;9_Black Background.mp4';
-import Truck360 from '@/videos/Truck 360 Degree.mp4';
+import TruckListingVideo from '@/videos/Truck Listing Video.mp4';
 import Car360Thumb from '@/images/PDP/Product-Details-Redesign-2/car-360-thumb.webp';
-import Truck360Thumb from '@/images/PDP/Product-Details-Redesign-2/truck-360-thumb.webp';
+import TruckListingThumb from '@/images/PDP/Product-Details-Redesign-2/truck-7-thumb.webp';
 import { useParams } from 'next/navigation';
 import { Play } from 'lucide-react';
 
@@ -45,8 +45,8 @@ export const MobileImageCarousel = ({
   let carouselVideo = Car360;
   let carouselVideoThumb = Car360Thumb;
   if (productType === 'truck-covers') {
-    carouselVideo = Truck360;
-    carouselVideoThumb = Truck360Thumb;
+    carouselVideo = TruckListingVideo;
+    carouselVideoThumb = TruckListingThumb;
   }
 
   const carouselItems = [...productImages];
@@ -153,7 +153,7 @@ export const MobileImageCarousel = ({
               return (
                 <div
                   key={selectedProduct.mainImage}
-                  className={`relative flex min-h-[80px]  min-w-[80px] cursor-pointer items-center justify-center rounded-[4px] ${0 === current && 'outline outline-1  '} `}
+                  className={`relative flex min-h-[80px]  min-w-[80px] cursor-pointer items-center justify-center overflow-hidden rounded-[4px] ${0 === current && 'outline outline-1  '} `}
                   onClick={() => scrollTo(index)}
                 >
                   <Image
@@ -171,7 +171,7 @@ export const MobileImageCarousel = ({
                 <div
                   key={String(SevenSecVideoThumbnail)}
                   id="video-thumbnail"
-                  className={`relative flex aspect-square min-h-[80px] min-w-[80px] cursor-pointer items-center justify-center rounded-[4px] bg-black ${index === current && 'outline outline-1  '} `}
+                  className={`relative flex aspect-square min-h-[80px] min-w-[80px] cursor-pointer items-center justify-center overflow-hidden rounded-[4px] p-0.5  ${productType === 'car-covers' && ''} ${index === current && 'outline outline-1  '} `}
                   onClick={() => scrollTo(index)}
                 >
                   <Image
@@ -181,10 +181,10 @@ export const MobileImageCarousel = ({
                     src={carouselVideoThumb}
                     width={1600}
                     height={1600}
-                    className="overflow-hidden object-cover"
+                    className="flex h-full w-full overflow-hidden rounded-[4px] object-cover"
                     aria-hidden="true"
                   />
-                  <Play className="absolute text-white" fill="white" />
+                  <Play className="absolute rounded-full fill-white text-white" />
                 </div>
               );
             }
