@@ -45,12 +45,18 @@ export function ModelSearch({
     const parent_generation =
       modelData.find((car) => car.model === newValue)?.parent_generation || '';
     setValue(newValue);
-    setQuery((p) => ({ ...p, model: newValue, parent_generation }));
+    setQuery((p) => ({
+      ...p,
+      model: newValue,
+      parent_generation,
+      submodel1: '',
+      submodel2: '',
+    }));
   };
 
   useEffect(() => {
-    !make && setValue('');
-  }, [make]);
+    setValue('');
+  }, [type, year, make]);
 
   useEffect(() => {
     const fetchData = async () => {
