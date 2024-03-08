@@ -1,4 +1,4 @@
-import { Ref, useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import {
   Carousel,
   CarouselApi,
@@ -11,12 +11,15 @@ import dynamic from 'next/dynamic';
 import { StaticImport } from 'next/dist/shared/lib/get-img-props';
 import { Asset } from 'next-video/dist/assets.js';
 import SevenSecVideoThumbnail from '@/video/7second image.webp';
-// import SevenSecVideo from 'https://x2kly621zrgfgwll.public.blob.vercel-storage.com/videos/7sec%20Listing%20Video_Compressed-5HxXKYp1dbtgG8gEs5DR6quoWoOpFS.mp4';
 import { Skeleton } from '@/components/ui/skeleton';
 import { FaCamera } from 'react-icons/fa';
 import ReviewImagesSheet from '@/components/PDP/components/ReviewImagesSheet';
-import useIsVisible from '@/lib/hooks/useIsVisible';
-import SevenSecVideo from '@/videos/7sec Listing Video_Compressed.mp4';
+import Car360 from '@/videos/Mustang 360 degree 16;9_Black Background.mp4';
+import Truck360 from '@/videos/Truck 360 Degree.mp4';
+import Car360Thumb from '@/images/PDP/Product-Details-Redesign-2/car-360-thumb.webp';
+import Truck360Thumb from '@/images/PDP/Product-Details-Redesign-2/truck-360-thumb.webp';
+import { useParams } from 'next/navigation';
+import { Play } from 'lucide-react';
 
 const ProductVideo = dynamic(() => import('@/components/PDP/ProductVideo'), {
   loading: () => (
@@ -37,11 +40,19 @@ export const MobileImageCarousel = ({
 }) => {
   const [api, setApi] = useState<CarouselApi>();
   const [current, setCurrent] = useState(0);
+  const params = useParams();
+  const productType = params?.productType;
+  let carouselVideo = Car360;
+  let carouselVideoThumb = Car360Thumb;
+  if (productType === 'truck-covers') {
+    carouselVideo = Truck360;
+    carouselVideoThumb = Truck360Thumb;
+  }
 
   const carouselItems = [...productImages];
   carouselItems.splice(3, 0, String(SevenSecVideoThumbnail));
 
-  const [isVisible, ref] = useIsVisible();
+  // const [isVisible, ref] = useIsVisible();
 
   useEffect(() => {
     if (!api) {
@@ -108,8 +119,13 @@ export const MobileImageCarousel = ({
               );
             if (index === 3) {
               return (
-                <CarouselItem key={String(SevenSecVideo)}>
-                  <ProductVideo src={SevenSecVideo} autoplay loop />
+                <CarouselItem key={String(carouselVideo)}>
+                  <ProductVideo
+                    src={carouselVideo}
+                    imgSrc={carouselVideoThumb}
+                    autoplay
+                    loop
+                  />
                 </CarouselItem>
               );
             }
@@ -155,18 +171,20 @@ export const MobileImageCarousel = ({
                 <div
                   key={String(SevenSecVideoThumbnail)}
                   id="video-thumbnail"
-                  className={`relative flex aspect-square min-h-[80px] min-w-[80px] cursor-pointer items-center justify-center rounded-[4px] ${index === current && 'outline outline-1  '} `}
+                  className={`relative flex aspect-square min-h-[80px] min-w-[80px] cursor-pointer items-center justify-center rounded-[4px] bg-black ${index === current && 'outline outline-1  '} `}
                   onClick={() => scrollTo(index)}
                 >
                   <Image
                     id="video-thumbnail"
                     alt="Video Thumbnail"
                     slot="poster"
-                    src={SevenSecVideoThumbnail}
-                    width={74}
-                    height={74}
+                    src={carouselVideoThumb}
+                    width={1600}
+                    height={1600}
+                    className="overflow-hidden object-cover"
                     aria-hidden="true"
                   />
+                  <Play className="absolute text-white" fill="white" />
                 </div>
               );
             }
