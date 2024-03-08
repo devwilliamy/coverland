@@ -71,8 +71,6 @@ export function ProductContent({
   const isStandardType = isStandard || isStandardPro;
 
   const cartProduct = modelData.find((p) => p.display_color === color);
-  console.log('Model Data: ', modelData);
-  console.log('Selected Product: ', selectedProduct);
 
   let defaultMSRP: number;
 

@@ -7,65 +7,44 @@ import { MakeSearch } from './MakeSearch';
 import { ModelSearch } from './ModelSearch';
 import { useRouter } from 'next/navigation';
 import { useCallback, useEffect, useState } from 'react';
-import { SubmodelDropdown } from './SubmodelDropdown';
+// import { SubmodelDropdown } from './SubmodelDropdown';
 import { slugify } from '@/lib/utils';
 import { TProductJsonData } from '@/components/PDP/EditVehicleDropdown';
 import { BASE_URL } from '@/lib/constants';
 
 export type TQuery = {
   year: string;
+  parent_generation: string;
   type: string;
   make: string;
   model: string;
-  submodel: string;
+  submodel1: string;
+  submodel2: string;
+  // submodel3: string;
 };
 
 export function HeroDropdown() {
   const [query, setQuery] = useState<TQuery>({
     year: '',
+    parent_generation: '',
     type: '',
     make: '',
     model: '',
-    submodel: '',
+    submodel1: '',
+    submodel2: '',
+    // submodel3: '',
   });
   const [loading, setLoading] = useState(false);
-  const [jsonData, setJsonData] = useState<TProductJsonData[]>([]);
   const router = useRouter();
-  const { year, type, make, model, submodel } = query;
-  useEffect(() => {
-    const getSearchData = async () => {
-      if (!make) return;
-
-      const response = await fetch(
-        `/api/json-data?type=${slugify(type)}&make=${slugify(make)}`
-      );
-      const jsonData = await response.json();
-      setJsonData(jsonData);
-    };
-    getSearchData();
-  }, [make, type]);
-
-  const dropdownData = jsonData.filter(
-    (obj) =>
-      (!year ? true : obj.year_options.includes(year)) &&
-      (!model ? true : obj.model === model) &&
-      (!submodel ? true : obj.submodel1 === submodel)
-  );
+  const { year, type, make, model, submodel1, submodel2, parent_generation } =
+    query;
 
   const queryObj = {
     query,
     setQuery,
   };
 
-  const subModelData = [
-    ...new Set(
-      dropdownData
-        ?.map((d) => d.submodel1)
-        .filter((val): val is string => !!val)
-    ),
-  ];
-
-  const yearInUrl = dropdownData?.[0]?.parent_generation;
+  const yearInUrl = parent_generation;
 
   const createQueryString = useCallback((name: string, value: string) => {
     const params = new URLSearchParams();
@@ -75,23 +54,23 @@ export function HeroDropdown() {
   }, []);
 
   const handleSubmitDropdown = async () => {
-    if (
-      !year ||
-      !type ||
-      !make ||
-      !model ||
-      (subModelData.length > 1 && !submodel)
-    )
-      return;
+    if (!year || !type || !make || !model) return;
     setLoading(true);
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('heroDropdownYear', year);
+    }
+
     let url = `/${slugify(type)}/premium-plus/${slugify(make)}/${slugify(model)}/${yearInUrl}`;
 
     if (model === 'Corvette') {
       url = `/${slugify(type)}/premium/${slugify(make)}/${slugify(model)}/${yearInUrl}`;
     }
 
-    if (submodel) {
-      url += `?${createQueryString('submodel', submodel)}`;
+    if (submodel1) {
+      url += `?${createQueryString('submodel', submodel1)}`;
+    }
+    if (submodel2) {
+      url += `&${createQueryString('submodel2', submodel2)}`;
     }
 
     if (url === BASE_URL) {
@@ -99,32 +78,19 @@ export function HeroDropdown() {
       return;
     }
 
-    // refreshRoute('/');
     router.push(url);
   };
-
-  const showSubmodelDropdown = subModelData.length > 0 && year;
-  console.log(showSubmodelDropdown, subModelData);
 
   return (
     <div className="relative flex w-full flex-col items-center justify-center gap-2 px-4 font-medium *:flex-1 *:py-3 md:flex-row lg:max-h-[58px] lg:px-16 lg:*:py-4">
       <TypeSearch queryObj={queryObj} />
+      <YearSearch queryObj={queryObj} />
       <MakeSearch queryObj={queryObj} />
-      <ModelSearch queryObj={queryObj} dropdownData={dropdownData} />
-      <YearSearch queryObj={queryObj} dropdownData={dropdownData} />
-      {showSubmodelDropdown && (
-        <SubmodelDropdown queryObj={queryObj} submodelData={subModelData} />
-      )}
+      <ModelSearch queryObj={queryObj} />
       <Button
         className="flex h-full w-full items-center justify-center border border-red-300 text-lg lg:h-[58px] lg:max-w-[58px] lg:border-0"
         onClick={handleSubmitDropdown}
-        disabled={
-          !year ||
-          !type ||
-          !make ||
-          !model ||
-          (subModelData.length > 1 && !submodel)
-        }
+        disabled={!year || !type || !make || !model}
       >
         {loading ? (
           <AiOutlineLoading3Quarters className="animate-spin" />

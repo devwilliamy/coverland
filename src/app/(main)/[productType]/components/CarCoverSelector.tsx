@@ -34,7 +34,7 @@ export function CarCoverSelector({
   const setSelectedProduct = useStore(store, (s) => s.setSelectedProduct);
   const setFeaturedImage = useStore(store, (s) => s.setFeaturedImage);
   const featuredImage = selectedProduct?.mainImage;
-
+  // console.log('ModelData:', { modelData, selectedProduct });
   interface ProductRefs {
     [key: string]: RefObject<HTMLElement>;
   }

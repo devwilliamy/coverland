@@ -1,6 +1,7 @@
 import { createClient } from '@supabase/supabase-js';
 import { Database, Tables } from './types';
 import { slugToCoverType } from '../constants';
+import { slugify } from '../utils';
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL ?? '';
 const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_KEY ?? '';
@@ -23,7 +24,7 @@ export async function addOrderToDb(order: string) {
     .insert({ order: order });
 
   if (error) {
-    console.log(error);
+    console.error(error);
   }
   return data;
 }
@@ -64,7 +65,7 @@ export async function getProductData({
     fetch = fetch.eq('model_slug', model);
   }
 
-  const { data, error } = await fetch.limit(4000);
+  const { data, error } = await fetch.limit(1000);
 
   if (error) {
     throw new Error(error.message);
@@ -91,6 +92,80 @@ export async function getAllMakes({
   }
 
   return data;
+}
+
+export async function getAllUniqueMakesByYear({
+  type,
+  cover,
+  year,
+}: {
+  type: string;
+  cover: string;
+  year: string;
+}) {
+  const { data, error } = await supabase
+    .from('Products-Data-02-2024')
+    .select('make, make_slug')
+    .eq('type', type)
+    .eq('display_id', cover)
+    .like('year_options', `%${year}%`)
+    .order('make_slug', { ascending: true });
+
+  if (error) {
+    throw new Error(error.message);
+  }
+  const uniqueCars = data.filter(
+    (car, index, self) =>
+      index === self.findIndex((t) => t.make_slug === car.make_slug)
+  );
+  return uniqueCars;
+}
+
+export async function getAllUniqueModelsByYearMake({
+  type,
+  cover,
+  year,
+  make,
+}: {
+  type: string;
+  cover: string;
+  year: string;
+  make: string;
+}) {
+  const { data, error } = await supabase
+    .from('Products-Data-02-2024')
+    .select(
+      'model, model_slug, parent_generation, submodel1, submodel2, submodel3'
+    )
+    .eq('type', type)
+    .eq('display_id', cover)
+    .like('year_options', `%${year}%`)
+    .eq('make_slug', slugify(make))
+    .order('model_slug', { ascending: true });
+
+  if (error) {
+    throw new Error(error.message);
+  }
+  const uniqueCars = data.filter(
+    (car, index, self) =>
+      index ===
+      self.findIndex(
+        (t) =>
+          t.model_slug === car.model_slug &&
+          t.submodel1 === car.submodel1 &&
+          t.submodel2 === car.submodel2 &&
+          t.submodel3 === car.submodel3
+      )
+  );
+  // console.log('[Server]: getAllUniqueModelsByYearMake Params & Response:', {
+  //   data,
+  //   uniqueCars,
+  //   type,
+  //   cover,
+  //   year,
+  //   make,
+  // });
+  return uniqueCars;
 }
 
 export async function getAllModels({
