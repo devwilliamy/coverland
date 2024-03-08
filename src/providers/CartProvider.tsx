@@ -3,10 +3,22 @@
 import React, { createContext, useContext } from 'react';
 import useCart, { TCartItem } from '@/lib/cart/useCart';
 
+export type SeatItem = {
+  sku: string;
+  type: string;
+  feature: string;
+  product: string;
+  display_color: string;
+  msrp: number;
+  price: number;
+  display_id: string;
+  quantity: number;
+};
+
 const defaultCartValue = {
-  cartItems: [] as TCartItem[],
-  addToCart: (item: TCartItem) => {},
-  removeItemFromCart: (sku: TCartItem['sku']) => {},
+  cartItems: [] as (TCartItem | SeatItem)[],
+  addToCart: (item: TCartItem | SeatItem) => {},
+  removeItemFromCart: (sku: TCartItem['sku'] | SeatItem['sku']) => {},
   adjustItemQuantity: (sku: string, quantity: number) => {},
   getTotalPrice: (): number => 0,
   getOrderSubtotal: (): number => 0,

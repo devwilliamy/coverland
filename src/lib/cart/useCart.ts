@@ -1,11 +1,13 @@
 'use client';
 import { useState, useCallback, useEffect } from 'react';
 import { IProductData } from '@/app/(main)/utils';
+import { SeatItem } from '@/providers/CartProvider';
 export interface TCartItem extends IProductData {
   quantity: number;
 }
+
 const useCart = () => {
-  const [cartItems, setCartItems] = useState<TCartItem[]>(() => {
+  const [cartItems, setCartItems] = useState<(TCartItem | SeatItem)[]>(() => {
     if (typeof window !== 'undefined') {
       const localCartItems = localStorage.getItem('cartItems');
       return localCartItems ? JSON.parse(localCartItems) : [];
@@ -19,7 +21,7 @@ const useCart = () => {
     }
     localStorage.setItem('cartItems', JSON.stringify(cartItems));
   }, [cartItems]);
-  const addToCart = useCallback((item: TCartItem) => {
+  const addToCart = useCallback((item: TCartItem | SeatItem) => {
     if (!item?.msrp) {
       return;
     }
@@ -34,9 +36,12 @@ const useCart = () => {
       }
     });
   }, []);
-  const removeItemFromCart = useCallback((sku: TCartItem['sku']) => {
-    setCartItems((prevItems) => prevItems.filter((item) => item.sku !== sku));
-  }, []);
+  const removeItemFromCart = useCallback(
+    (sku: TCartItem['sku'] | SeatItem['sku']) => {
+      setCartItems((prevItems) => prevItems.filter((item) => item.sku !== sku));
+    },
+    []
+  );
   const adjustItemQuantity = useCallback((sku: string, quantity: number) => {
     setCartItems((prevItems) => {
       const updatedItems = prevItems

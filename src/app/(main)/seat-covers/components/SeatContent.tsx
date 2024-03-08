@@ -17,6 +17,9 @@ import {
 import { Check, X } from 'lucide-react';
 import FrontCovers from '@/images/PDP/Product-Details-Redesign-2/seat-covers/front-covers.webp';
 import BackCovers from '@/images/PDP/Product-Details-Redesign-2/seat-covers/back-covers.webp';
+import { SeatItem, useCartContext } from '@/providers/CartProvider';
+import { TCartItem } from '@/lib/cart/useCart';
+import { redirect } from 'next/navigation';
 
 const seatColors: { color: SeatString; data: SeatData }[] = [
   { color: 'BlackRedData', data: SeatImageDataObject.BlackRedData },
@@ -41,6 +44,7 @@ export default function SeatContent({
   const seatSelectedStyle =
     'bg-white text-black hover:bg-black hover:text-white';
   const seatDeselectedStyle = 'bg-black hover:bg-white hover:text-black';
+  const { addToCart } = useCartContext();
 
   const SeatOption = ({
     src,
@@ -102,7 +106,28 @@ export default function SeatContent({
       </span>
     );
   };
-  useEffect(() => {}, [total, selectedCovers]);
+  // useEffect(() => {}, [total, selectedCovers]);
+  const handleAddToCart = () => {
+    // if () return;
+    // !isMobile && setAddToCartOpen(true);
+
+    const cartProduct: SeatItem = {
+      sku: 'CA-CL-SC-LCB-BH',
+      type: 'Seat Covers',
+      feature: '',
+      product: '',
+      display_color: 'Solid Beige',
+      msrp: 99.95,
+      price: 200,
+      display_id: 'Leatherette',
+      quantity: 0,
+    };
+    for (const coverType of selectedCovers) {
+      // products.push();
+      addToCart({ ...cartProduct, quantity: 1 });
+    }
+    redirect('/cart');
+  };
 
   return (
     <section className="flex h-full w-full flex-col max-lg:px-4 max-lg:pt-[34px] lg:sticky lg:top-8 lg:w-1/2">
@@ -203,6 +228,11 @@ export default function SeatContent({
             <Button
               disabled={total <= 0}
               className={`max-h-[48px] min-h-[48px] w-full ${total <= 0 ? 'disabled:bg-[#BE1B1B80]' : 'bg-[#BE1B1B]'} uppercase lg:max-h-[62px] lg:min-h-[62px] `}
+              onClick={() => {
+                if (selectedCovers.length > 0) {
+                  handleAddToCart();
+                }
+              }}
             >
               Add to Cart
             </Button>
