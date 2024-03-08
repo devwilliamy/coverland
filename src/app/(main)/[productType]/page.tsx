@@ -15,6 +15,7 @@ import {
 } from '@/lib/db/review';
 import { deslugify } from '@/lib/utils';
 import { TPathParams } from '../utils';
+import { getAllSeatCovers } from '@/lib/db/seat-covers';
 
 export function generateStaticParams() {
   return [
@@ -79,6 +80,8 @@ export default async function CarPDPModelDataLayer({
           {}
         ),
       ]);
+    const seatCovers = await getAllSeatCovers();
+    console.log('Seat Covers:', seatCovers);
   } catch (error) {
     console.error('CarPDPModelDataLayer Error: ', error);
   }
