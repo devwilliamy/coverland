@@ -531,6 +531,33 @@ export type Database = {
         };
         Relationships: [];
       };
+      Make_Year_Options: {
+        Row: {
+          created_at: string;
+          id: string;
+          make: string | null;
+          make_slug: string | null;
+          parent_generation: string | null;
+          year_options: string | null;
+        };
+        Insert: {
+          created_at?: string;
+          id?: string;
+          make?: string | null;
+          make_slug?: string | null;
+          parent_generation?: string | null;
+          year_options?: string | null;
+        };
+        Update: {
+          created_at?: string;
+          id?: string;
+          make?: string | null;
+          make_slug?: string | null;
+          parent_generation?: string | null;
+          year_options?: string | null;
+        };
+        Relationships: [];
+      };
       Makes: {
         Row: {
           id: number;
@@ -1643,7 +1670,7 @@ export type Database = {
         };
         Relationships: [];
       };
-      seat_covers_20240308: {
+      seat_covers_20240308_duplicate: {
         Row: {
           display_color: string | null;
           display_id: string | null;

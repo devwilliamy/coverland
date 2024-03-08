@@ -1,8 +1,4 @@
-import {
-  defaultCarModelData,
-  defaultSuvModelData,
-  defaultTruckModelData,
-} from '@/lib/constants';
+import { defaultSuvModelData, defaultTruckModelData } from '@/lib/constants';
 import { TInitialProductDataDB, getProductData } from '@/lib/db';
 import CarPDP from './components/CarPDP';
 import {
@@ -15,7 +11,6 @@ import {
 } from '@/lib/db/review';
 import { deslugify } from '@/lib/utils';
 import { TPathParams } from '../utils';
-import { getAllSeatCovers } from '@/lib/db/seat-covers';
 
 export function generateStaticParams() {
   return [
@@ -80,8 +75,6 @@ export default async function CarPDPModelDataLayer({
           {}
         ),
       ]);
-    const seatCovers = await getAllSeatCovers();
-    console.log('Seat Covers:', seatCovers);
   } catch (error) {
     console.error('CarPDPModelDataLayer Error: ', error);
   }

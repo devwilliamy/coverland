@@ -2,7 +2,7 @@ import { Tables } from '../types';
 import { SEAT_COVERS_TABLE } from '../constants/databaseTableNames';
 import { supabaseDatabaseClient } from '../supabaseClients';
 
-export type TSeatCoverDataDB = Tables<'seat_covers_20240308'>;
+export type TSeatCoverDataDB = Tables<'seat_covers_20240308_duplicate'>;
 
 // URL: supabase.com/dashboard/project/<project_id>/api?pages=tables-intro
 //If the table you want to access isn't listed in TableRow,
