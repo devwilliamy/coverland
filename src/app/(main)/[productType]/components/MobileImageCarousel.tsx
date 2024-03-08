@@ -1,25 +1,29 @@
-import { useCallback, useEffect, useState } from 'react';
+import ReviewImagesSheet from '@/components/PDP/components/ReviewImagesSheet';
 import {
   Carousel,
   CarouselApi,
   CarouselContent,
   CarouselItem,
 } from '@/components/ui/carousel';
-import Image from 'next/image';
-import { IProductData } from '../../utils';
-import dynamic from 'next/dynamic';
-import { StaticImport } from 'next/dist/shared/lib/get-img-props';
-import { Asset } from 'next-video/dist/assets.js';
-import SevenSecVideoThumbnail from '@/video/7second image.webp';
 import { Skeleton } from '@/components/ui/skeleton';
-import { FaCamera } from 'react-icons/fa';
-import ReviewImagesSheet from '@/components/PDP/components/ReviewImagesSheet';
-import Car360 from '@/videos/Mustang 360 degree 16;9_Black Background.mp4';
-import TruckListingVideo from '@/videos/Truck Listing Video.mp4';
 import Car360Thumb from '@/images/PDP/Product-Details-Redesign-2/car-360-thumb.webp';
 import TruckListingThumb from '@/images/PDP/Product-Details-Redesign-2/truck-7-thumb.webp';
-import { useParams } from 'next/navigation';
+import SUVListingThumb from '@/video/7second image.webp';
+import Car360 from '@/videos/Mustang 360 degree 16;9_Black Background.mp4';
+import TruckListingVideo from '@/videos/Truck Listing Video.mp4';
+import SUVListing from '@/videos/7sec Listing Video_Compressed.mp4';
 import { Play } from 'lucide-react';
+import { FaCamera } from 'react-icons/fa';
+import { Asset } from 'next-video/dist/assets.js';
+import {
+  StaticImageData,
+  StaticImport,
+} from 'next/dist/shared/lib/get-img-props';
+import dynamic from 'next/dynamic';
+import Image from 'next/image';
+import { useParams } from 'next/navigation';
+import { useCallback, useEffect, useState } from 'react';
+import { IProductData } from '../../utils';
 
 const ProductVideo = dynamic(() => import('@/components/PDP/ProductVideo'), {
   loading: () => (
@@ -42,24 +46,35 @@ export const MobileImageCarousel = ({
   const [current, setCurrent] = useState(0);
   const params = useParams();
   const productType = params?.productType;
-  let carouselVideo = Car360;
-  let carouselVideoThumb = Car360Thumb;
-  if (productType === 'truck-covers') {
-    carouselVideo = TruckListingVideo;
-    carouselVideoThumb = TruckListingThumb;
+  let carouselVideo: Asset;
+  let carouselVideoThumb: StaticImageData;
+
+  switch (productType) {
+    case 'truck-covers': {
+      carouselVideo = TruckListingVideo;
+      carouselVideoThumb = TruckListingThumb;
+      break;
+    }
+    case 'suv-covers': {
+      carouselVideo = SUVListing;
+      carouselVideoThumb = SUVListingThumb;
+      break;
+    }
+    default: {
+      carouselVideo = Car360;
+      carouselVideoThumb = Car360Thumb;
+      break;
+    }
   }
 
   const carouselItems = [...productImages];
-  carouselItems.splice(3, 0, String(SevenSecVideoThumbnail));
-
-  // const [isVisible, ref] = useIsVisible();
+  carouselItems.splice(3, 0, String(carouselVideoThumb));
 
   useEffect(() => {
     if (!api) {
       return;
     }
 
-    // setScrollSnaps(api.scrollSnapList());
     setCurrent(api.selectedScrollSnap());
 
     api.on('select', () => {
@@ -169,7 +184,7 @@ export const MobileImageCarousel = ({
             if (index === 3) {
               return (
                 <div
-                  key={String(SevenSecVideoThumbnail)}
+                  key={String(SUVListingThumb)}
                   id="video-thumbnail"
                   className={`relative flex aspect-square min-h-[80px] min-w-[80px] cursor-pointer items-center justify-center overflow-hidden rounded-[4px] p-0.5  ${productType === 'car-covers' && ''} ${index === current && 'outline outline-1  '} `}
                   onClick={() => scrollTo(index)}

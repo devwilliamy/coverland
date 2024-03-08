@@ -1,7 +1,6 @@
 import React, { LegacyRef } from 'react';
 import ProductVideo from '@/components/PDP/ProductVideo';
-// import ThreeSixtyVideo from '@/videos/360 degree_website.mp4';
-import ThreeSixtyVideo from 'https://x2kly621zrgfgwll.public.blob.vercel-storage.com/videos/360%20degree_mobile-4asLajZOfJp9h3V3q1XkSHFETp6T8h.mp4';
+import SUV360 from '@/videos/360 degree_website.mp4';
 import Car360 from '@/videos/Mustang 360 degree 16;9_Black Background.mp4';
 import Truck360 from '@/videos/Truck 360 Degree.mp4';
 import CarPremiumImage from '@/images/PDP/Product-Details-Redesign-2/premium/premium-car-cover-desktop.webp';
@@ -12,6 +11,7 @@ import SUVPremiumImage from '@/images/PDP/Product-Details-Redesign-2/premium/pre
 import SUVStandardImage from '@/images/PDP/Product-Details-Redesign-2/standard/standard-suv-desktop.webp';
 import { useParams } from 'next/navigation';
 import Image from 'next/image';
+import { Asset } from 'next-video/dist/assets.js';
 
 const CustomFitSection = () => {
   const params = useParams();
@@ -20,9 +20,17 @@ const CustomFitSection = () => {
   const isPremimPlus = params?.coverType === 'premium-plus';
   let PremiumImage = CarPremiumImage;
   let StandardImage = CarStandardImage;
-  let featuredVideo = Car360;
-  if (productType === 'truck-covers') {
-    featuredVideo = Truck360;
+  let featuredVideo: Asset;
+  switch (productType) {
+    case 'suv-covers':
+      featuredVideo = SUV360;
+      break;
+    case 'truck-covers':
+      featuredVideo = Truck360;
+      break;
+    default:
+      featuredVideo = Car360;
+      break;
   }
 
   switch (productType) {
