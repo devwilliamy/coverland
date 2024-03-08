@@ -34,7 +34,7 @@ export function CarCoverSelector({
   const setSelectedProduct = useStore(store, (s) => s.setSelectedProduct);
   const setFeaturedImage = useStore(store, (s) => s.setFeaturedImage);
   const featuredImage = selectedProduct?.mainImage;
-
+  // console.log('ModelData:', { modelData, selectedProduct });
   interface ProductRefs {
     [key: string]: RefObject<HTMLElement>;
   }
@@ -52,8 +52,6 @@ export function CarCoverSelector({
   ).map((color) => modelData.find((model) => model.display_color === color));
 
   const productImages = selectedProduct?.productImages as string[];
-
-  const productName = modelData[0]?.fullProductName;
 
   useItemViewedGoogleTag(selectedProduct);
 
