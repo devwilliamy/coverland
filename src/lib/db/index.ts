@@ -115,22 +115,34 @@ export async function getAllUniqueMakesByYear({
   cover: string;
   year: string;
 }) {
-  const { data, error } = await supabase
-    .from('Products-Data-02-2024')
-    .select('make, make_slug')
-    .eq('type', type)
-    .eq('display_id', cover)
-    .like('year_options', `%${year}%`)
-    .order('make_slug', { ascending: true });
+  // Leaving this here if we want to go back to the original table
+  // const { data, error } = await supabase
+  //   .from(TYPE_MAKE_YEAR_DISTINCT) // OR PRODUCT_DATA_TABLE
+  //   .select('make, make_slug')
+  //   .eq('type', type)
+  //   .eq('display_id', cover)
+  //   .like('year_options', `%${year}%`)
+  //   .order('make_slug', { ascending: true });
+  // get_distinct_makes_by_year
+
+  // This RPC is making it so the distinct calculation and ordering is happening on the DB side instead of on the server.
+  const { data, error } = await supabase.rpc('get_make_and_slug', {
+    type_param: type,
+    display_id_param: cover,
+    year_param: year,
+  });
 
   if (error) {
     throw new Error(error.message);
   }
-  const uniqueCars = data.filter(
-    (car, index, self) =>
-      index === self.findIndex((t) => t.make_slug === car.make_slug)
-  );
-  return uniqueCars;
+  // If we want to use the original table, have to do this to make it distinct
+  // const uniqueCars = data.filter(
+  //   (car, index, self) =>
+  //     index === self.findIndex((t) => t.make_slug === car.make_slug)
+  // );
+  // return uniqueCars;
+
+  return data;
 }
 
 export async function getAllUniqueModelsByYearMake({
