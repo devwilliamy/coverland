@@ -73,6 +73,18 @@ export async function getProductData({
 
   return data;
 }
+// Using this to warm up the database
+export async function getProductDataByPage() {
+  const fetch = supabase.from('Products-Data-02-2024').select('*').range(0, 1);
+
+  const { data, error } = await fetch.limit(1);
+
+  if (error) {
+    throw new Error(error.message);
+  }
+
+  return data;
+}
 
 export async function getAllMakes({
   type,

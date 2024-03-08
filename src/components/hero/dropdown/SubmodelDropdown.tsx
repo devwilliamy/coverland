@@ -56,7 +56,7 @@ export function SubmodelDropdown({
   const handleChange = (event: ChangeEvent<HTMLSelectElement>) => {
     const newValue = event.target.value;
     setValue(newValue);
-    setQuery((p) => ({ ...p, submodel1: newValue }));
+    setQuery((p) => ({ ...p, submodel1: newValue, submodel2: '' }));
   };
 
   const isDisabled = !query.make || !query.year || !query.type || !query.model;

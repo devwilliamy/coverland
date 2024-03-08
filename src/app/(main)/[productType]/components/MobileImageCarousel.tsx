@@ -60,9 +60,6 @@ export const MobileImageCarousel = ({
     (index: number) => api && api.scrollTo(index),
     [api]
   );
-  function convertToHttps(url) {
-    return url.replace(/^http:/, 'https:');
-  }
 
   const CarouselPositionItem = ({
     index,
@@ -80,7 +77,7 @@ export const MobileImageCarousel = ({
         className="rounded-[4px]"
         width={74}
         height={74}
-        src={convertToHttps(src)}
+        src={src}
         sizes="(max-width: 768px) 100vw"
         alt={`carousel-position-item-${index}`}
       />
@@ -119,12 +116,12 @@ export const MobileImageCarousel = ({
             return (
               <CarouselItem key={image}>
                 <Image
-                  src={convertToHttps(image)}
+                  src={image}
                   alt={`Additional images of the ${selectedProduct.display_id} cover`}
                   width={500}
                   height={500}
                   onError={() => {
-                    console.log('Failed image:', `${convertToHttps(image)}`);
+                    console.log('Failed image:', `${image}`);
                   }}
                   className="h-auto w-full"
                 />

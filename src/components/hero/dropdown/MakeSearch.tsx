@@ -52,7 +52,13 @@ export function MakeSearch({
   const handleChange = (event: ChangeEvent<HTMLSelectElement>) => {
     const newValue = event.target.value;
     setValue(newValue);
-    setQuery((p) => ({ ...p, make: newValue }));
+    setQuery((p) => ({
+      ...p,
+      make: newValue,
+      model: '',
+      submodel1: '',
+      submodel2: '',
+    }));
   };
 
   return (

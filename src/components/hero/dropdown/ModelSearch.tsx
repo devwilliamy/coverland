@@ -39,13 +39,20 @@ export function ModelSearch({
     query: { type, year, make },
     setQuery,
   } = queryObj;
+  console.log('[ModelSearch]', queryObj);
 
   const handleChange = (event: ChangeEvent<HTMLSelectElement>) => {
     const newValue = event.target.value;
     const parent_generation =
       modelData.find((car) => car.model === newValue)?.parent_generation || '';
     setValue(newValue);
-    setQuery((p) => ({ ...p, model: newValue, parent_generation }));
+    setQuery((p) => ({
+      ...p,
+      model: newValue,
+      parent_generation,
+      submodel1: '',
+      submodel2: '',
+    }));
   };
 
   useEffect(() => {
