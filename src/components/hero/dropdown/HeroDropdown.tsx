@@ -6,12 +6,10 @@ import { TypeSearch } from './TypeSearch';
 import { MakeSearch } from './MakeSearch';
 import { ModelSearch } from './ModelSearch';
 import { useRouter } from 'next/navigation';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useState } from 'react';
 // import { SubmodelDropdown } from './SubmodelDropdown';
 import { slugify } from '@/lib/utils';
-import { TProductJsonData } from '@/components/PDP/EditVehicleDropdown';
 import { BASE_URL } from '@/lib/constants';
-import { getProductDataByPage } from '@/lib/db';
 
 export type TQuery = {
   year: string;
@@ -44,18 +42,6 @@ export function HeroDropdown() {
     query,
     setQuery,
   };
-
-  useEffect(() => {
-    // Doing this to warm up the DB
-    const fetchData = async () => {
-      try {
-        await getProductDataByPage();
-      } catch (error) {
-        console.error('Error:', error);
-      }
-    };
-    fetchData();
-  }, []);
 
   const yearInUrl = parent_generation;
 

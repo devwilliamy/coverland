@@ -2,7 +2,7 @@
 
 import { ChangeEvent, useEffect, useState } from 'react';
 import { TQuery } from './HeroDropdown';
-import { getAllUniqueMakesByYear } from '@/lib/db';
+import { getAllUniqueMakesByYear, getProductDataByPage } from '@/lib/db';
 import { AiOutlineLoading3Quarters } from 'react-icons/ai';
 
 type MakeDropdown = { make: string | null; make_slug: string | null };
@@ -23,6 +23,18 @@ export function MakeSearch({
   } = queryObj;
   const [makeData, setMakeData] = useState<MakeDropdown[]>([]);
   const isDisabled = !type || !year;
+
+  useEffect(() => {
+    // Doing this to warm up the DB
+    const fetchData = async () => {
+      try {
+        await getProductDataByPage();
+      } catch (error) {
+        console.error('Error:', error);
+      }
+    };
+    fetchData();
+  }, []);
 
   useEffect(() => {
     setValue('');
