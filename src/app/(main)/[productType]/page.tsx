@@ -1,8 +1,4 @@
-import {
-  defaultCarModelData,
-  defaultSuvModelData,
-  defaultTruckModelData,
-} from '@/lib/constants';
+import { defaultSuvModelData, defaultTruckModelData } from '@/lib/constants';
 import { TInitialProductDataDB, getProductData } from '@/lib/db';
 import CarPDP from './components/CarPDP';
 import {
