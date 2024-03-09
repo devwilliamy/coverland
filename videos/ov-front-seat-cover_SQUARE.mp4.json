@@ -1,1 +1,20 @@
-{"status":"ready","originalFilePath":"videos\\ov-front-seat-cover_SQUARE.mp4","provider":"vercel-blob","providerMetadata":{"vercel-blob":{"url":"https://x2kly621zrgfgwll.public.blob.vercel-storage.com/videos/ov-front-seat-cover_SQUARE-Fw9nXb9VT8B73SoZV6KaQPjlbBbhqa.mp4","contentType":"video/mp4"}},"createdAt":1709923176013,"updatedAt":1709923590511,"size":463721805,"sources":[{"src":"https://x2kly621zrgfgwll.public.blob.vercel-storage.com/videos/ov-front-seat-cover_SQUARE-Fw9nXb9VT8B73SoZV6KaQPjlbBbhqa.mp4","type":"video/mp4"}]}
+{
+  "status": "ready",
+  "originalFilePath": "videos\\ov-front-seat-cover_SQUARE.mp4",
+  "provider": "vercel-blob",
+  "providerMetadata": {
+    "vercel-blob": {
+      "url": "https://x2kly621zrgfgwll.public.blob.vercel-storage.com/videos/ov-front-seat-cover_SQUARE-Fw9nXb9VT8B73SoZV6KaQPjlbBbhqa.mp4",
+      "contentType": "video/mp4"
+    }
+  },
+  "createdAt": 1709923176013,
+  "updatedAt": 1709923590511,
+  "size": 463721805,
+  "sources": [
+    {
+      "src": "https://x2kly621zrgfgwll.public.blob.vercel-storage.com/videos/ov-front-seat-cover_SQUARE-Fw9nXb9VT8B73SoZV6KaQPjlbBbhqa.mp4",
+      "type": "video/mp4"
+    }
+  ]
+}
