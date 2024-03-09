@@ -2,12 +2,8 @@
 
 import { ChangeEvent, useEffect, useState } from 'react';
 import { TQuery } from './HeroDropdown';
-import {
-  CAR_COVER_MAKES,
-  SUV_COVER_MAKES,
-  TRUCK_COVER_MAKES,
-} from '@/lib/constants';
-import { getAllUniqueMakesByYear } from '@/lib/db';
+import { getAllUniqueMakesByYear, getProductDataByPage } from '@/lib/db';
+import { AiOutlineLoading3Quarters } from 'react-icons/ai';
 
 type MakeDropdown = { make: string | null; make_slug: string | null };
 
@@ -20,6 +16,7 @@ export function MakeSearch({
   };
 }) {
   const [value, setValue] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
   const {
     setQuery,
     query: { type, year },
@@ -28,12 +25,25 @@ export function MakeSearch({
   const isDisabled = !type || !year;
 
   useEffect(() => {
-    !type && !year && setValue('');
+    // Doing this to warm up the DB
+    const fetchData = async () => {
+      try {
+        await getProductDataByPage();
+      } catch (error) {
+        console.error('Error:', error);
+      }
+    };
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    setValue('');
   }, [type, year]);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
+        setIsLoading(true);
         const response = await getAllUniqueMakesByYear({
           type,
           cover: 'Premium Plus', // TOOD: - Update this to make it work for premium as well.
@@ -42,6 +52,8 @@ export function MakeSearch({
         setMakeData(response);
       } catch (error) {
         console.error('[Make Search]: ', error);
+      } finally {
+        setIsLoading(false);
       }
     };
     if (type && year) {
@@ -52,7 +64,13 @@ export function MakeSearch({
   const handleChange = (event: ChangeEvent<HTMLSelectElement>) => {
     const newValue = event.target.value;
     setValue(newValue);
-    setQuery((p) => ({ ...p, make: newValue }));
+    setQuery((p) => ({
+      ...p,
+      make: newValue,
+      model: '',
+      submodel1: '',
+      submodel2: '',
+    }));
   };
 
   return (
@@ -61,19 +79,25 @@ export function MakeSearch({
       tabIndex={1}
     >
       <div className="ml-[10px] pr-[15px]">3</div>
-      <select
-        value={value}
-        onChange={handleChange}
-        disabled={isDisabled}
-        className="w-full bg-transparent outline-none "
-      >
-        <option value="">{`Make`}</option>
-        {makeData.map(({ make }, index) => (
-          <option key={`${make}-${index}`} value={make || ''}>
-            {make}
-          </option>
-        ))}
-      </select>
+      {isLoading ? (
+        <div className="pl-2">
+          <AiOutlineLoading3Quarters className="animate-spin " />
+        </div>
+      ) : (
+        <select
+          value={value}
+          onChange={handleChange}
+          disabled={isLoading || isDisabled}
+          className="w-full bg-transparent outline-none "
+        >
+          <option value="">{`Make`}</option>
+          {makeData.map(({ make }, index) => (
+            <option key={`${make}-${index}`} value={make || ''}>
+              {make}
+            </option>
+          ))}
+        </select>
+      )}
     </div>
   );
 }

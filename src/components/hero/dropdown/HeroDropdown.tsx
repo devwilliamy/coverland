@@ -6,10 +6,9 @@ import { TypeSearch } from './TypeSearch';
 import { MakeSearch } from './MakeSearch';
 import { ModelSearch } from './ModelSearch';
 import { useRouter } from 'next/navigation';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useState } from 'react';
 // import { SubmodelDropdown } from './SubmodelDropdown';
 import { slugify } from '@/lib/utils';
-import { TProductJsonData } from '@/components/PDP/EditVehicleDropdown';
 import { BASE_URL } from '@/lib/constants';
 
 export type TQuery = {

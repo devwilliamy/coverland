@@ -19,7 +19,15 @@ export function TypeSearch({
   const handleChange = (event: ChangeEvent<HTMLSelectElement>) => {
     const newValue = event.target.value;
     setValue(newValue);
-    setQuery((prev) => ({ ...prev, type: newValue }));
+    setQuery({
+      type: newValue,
+      year: '',
+      make: '',
+      model: '',
+      submodel1: '',
+      submodel2: '',
+      parent_generation: '',
+    });
   };
 
   return (

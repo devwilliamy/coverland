@@ -42,7 +42,7 @@ export function SecondSubmodelDropdown({
   );
 
   useEffect(() => {
-    !submodel1 && setValue('');
+    setValue('');
   }, [submodel1]);
 
   // Leaving this for when third submodel becomes a thing
@@ -83,7 +83,7 @@ export function SecondSubmodelDropdown({
           disabled={isDisabled}
           className="w-full bg-transparent outline-none "
         >
-          <option value="">{`${value ? 'Clear' : 'Submodel 2'}`}</option>
+          <option value="">{`Submodel 2`}</option>
           {filteredSecondSubmodelData?.sort()?.map((secondSubmodel) => (
             <option
               key={`model-${secondSubmodel}`}
