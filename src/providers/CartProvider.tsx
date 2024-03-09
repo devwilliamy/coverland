@@ -5,20 +5,20 @@ import useCart, { TCartItem } from '@/lib/cart/useCart';
 
 export type SeatItem = {
   sku: string;
-  type: string;
-  feature: string;
-  product: string;
-  display_color: string;
-  msrp: number;
-  price: number;
-  display_id: string;
+  type: string | null;
+  feature: string | null;
+  product: string | null;
+  display_color: string | null;
+  msrp: number | string | null;
+  price: number | string | null;
+  display_id: string | null;
   quantity: number;
 };
 
 const defaultCartValue = {
-  cartItems: [] as (TCartItem | SeatItem)[],
-  addToCart: (item: TCartItem | SeatItem) => {},
-  removeItemFromCart: (sku: TCartItem['sku'] | SeatItem['sku']) => {},
+  cartItems: [] as TCartItem[],
+  addToCart: (item: TCartItem) => {},
+  removeItemFromCart: (sku: TCartItem['sku']) => {},
   adjustItemQuantity: (sku: string, quantity: number) => {},
   getTotalPrice: (): number => 0,
   getOrderSubtotal: (): number => 0,

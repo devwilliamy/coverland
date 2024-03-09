@@ -2,12 +2,10 @@
 import { useState, useCallback, useEffect } from 'react';
 import { IProductData } from '@/app/(main)/utils';
 import { SeatItem } from '@/providers/CartProvider';
-export interface TCartItem extends IProductData {
-  quantity: number;
-}
+export type TCartItem = (IProductData & { quantity: 1 }) | SeatItem;
 
 const useCart = () => {
-  const [cartItems, setCartItems] = useState<(TCartItem | SeatItem)[]>(() => {
+  const [cartItems, setCartItems] = useState<TCartItem[]>(() => {
     if (typeof window !== 'undefined') {
       const localCartItems = localStorage.getItem('cartItems');
       return localCartItems ? JSON.parse(localCartItems) : [];
@@ -21,7 +19,7 @@ const useCart = () => {
     }
     localStorage.setItem('cartItems', JSON.stringify(cartItems));
   }, [cartItems]);
-  const addToCart = useCallback((item: TCartItem | SeatItem) => {
+  const addToCart = useCallback((item: TCartItem) => {
     if (!item?.msrp) {
       return;
     }

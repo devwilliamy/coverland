@@ -116,9 +116,16 @@ function CartItemCard({ item }: { item: TCartItem }) {
             <div className="w-10/12 text-base font-bold lg:text-lg">
               {item?.display_id}&trade; {item.type}
             </div>
-            <div className="text-sm font-normal text-[#707070] lg:text-base">
+            <div
+              className={`text-sm font-normal ${!item?.make && 'hidden'} text-[#707070] lg:text-base`}
+            >
               Vehicle: {item?.make} {item.model} {item.year_generation}{' '}
               {item.submodel1 ?? ''} {item.submodel2 ?? ''}
+            </div>
+            <div
+              className={`text-sm font-normal ${item?.type === 'Seat Covers' ? 'flex' : 'hidden'}  text-[#707070] lg:text-base`}
+            >
+              Seat Cover
             </div>
             <div className="text-sm font-normal text-[#707070] lg:text-base">
               Color: {item.display_color}

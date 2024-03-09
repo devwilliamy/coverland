@@ -29,10 +29,12 @@ const seatColors: { color: SeatString; data: SeatData }[] = [
 ];
 
 export default function SeatContent({
+  selectedColor,
   setSelectedColor,
   colorIndex,
   setColorIndex,
 }: {
+  selectedColor: SeatData;
   setSelectedColor: React.Dispatch<SetStateAction<SeatData>>;
   colorIndex: number;
   setColorIndex: React.Dispatch<SetStateAction<number>>;
@@ -111,21 +113,24 @@ export default function SeatContent({
     // if () return;
     // !isMobile && setAddToCartOpen(true);
 
-    const cartProduct: SeatItem = {
-      sku: 'CA-CL-SC-LCB-BH',
-      type: 'Seat Covers',
-      feature: '',
-      product: '',
-      display_color: 'Solid Beige',
-      msrp: 99.95,
-      price: 200,
-      display_id: 'Leatherette',
-      quantity: 0,
-    };
+    // const cartProduct: SeatItem = {
+    //   sku: 'CA-CL-SC-LCB-BH',
+    //   type: 'Seat Covers',
+    //   feature: '',
+    //   product: '',
+    //   display_color: 'Solid Beige',
+    //   msrp: 99.95,
+    //   price: 200,
+    //   display_id: 'Leatherette',
+    //   quantity: 0,
+    // };
+
     for (const coverType of selectedCovers) {
       // products.push();
       addToCart({ ...cartProduct, quantity: 1 });
     }
+    console.log(selectedColor);
+
     redirect('/cart');
   };
 
@@ -198,10 +203,10 @@ export default function SeatContent({
       <SeatCoverFreeDetails />
       <CompatibleVehiclesTrigger />
       <Sheet>
-        <SheetTrigger className="mb-[37px]   lg:mb-0">
-          <Button className=" h-full min-h-[48px] w-full bg-[#BE1B1B] uppercase ">
+        <SheetTrigger className="mb-[37px] lg:mb-0">
+          <div className=" flex h-full max-h-[48px] min-h-[48px] w-full items-center justify-center rounded-[4px] bg-[#BE1B1B] text-center text-[18px] font-[700] uppercase leading-[22px] tracking-[2%] text-white ">
             Add to Cart
-          </Button>
+          </div>
         </SheetTrigger>
         <SheetContent
           side={isMobile ? 'bottom' : 'right'}

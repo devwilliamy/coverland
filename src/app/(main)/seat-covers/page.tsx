@@ -1,5 +1,5 @@
 'use client';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import SeatCoverCarousel from './components/SeatCoverCarousel';
 import { useMediaQuery } from '@mui/material';
 import Image, { StaticImageData } from 'next/image';
@@ -24,6 +24,9 @@ import WarrantySection from '@/components/PDP/components/WarrantySection';
 import ExtraDetailsTabs from '@/components/PDP/components/ExtraDetailsTabs';
 import { Separator } from '@radix-ui/react-separator';
 import ProductVideo from '@/components/PDP/ProductVideo';
+import { TSeatCoverDataDB, getAllSeatCovers } from '@/lib/db/seat-covers';
+import { TCartItem } from '@/lib/cart/useCart';
+import { SeatItem } from '@/providers/CartProvider';
 
 export default function SeatCovers() {
   const isMobile = useMediaQuery('max-width: 1024px');
@@ -31,6 +34,23 @@ export default function SeatCovers() {
   const [selectedColor, setSelectedColor] = useState<SeatData>(
     SeatImageDataObject.BlackRedData
   );
+
+  const [seatCoverData, setSeatCoverData] = useState<TSeatCoverDataDB[]>();
+
+  useEffect(() => {
+    const fetchCovers = async () => {
+      try {
+        let seatData: TSeatCoverDataDB[] = [];
+
+        seatData = await getAllSeatCovers();
+        setSeatCoverData(seatData);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchCovers();
+  }, []);
 
   let galleryImages;
   let featuredImage;
@@ -96,6 +116,7 @@ export default function SeatCovers() {
           </Button>
         </span>
         <SeatContent
+          selectedColor={selectedColor}
           setSelectedColor={setSelectedColor}
           colorIndex={colorIndex}
           setColorIndex={setColorIndex}
