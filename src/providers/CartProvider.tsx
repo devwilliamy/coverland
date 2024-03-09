@@ -3,6 +3,18 @@
 import React, { createContext, useContext } from 'react';
 import useCart, { TCartItem } from '@/lib/cart/useCart';
 
+export type SeatItem = {
+  sku: string;
+  type: string | null;
+  feature: string | null;
+  product: string | null;
+  display_color: string | null;
+  msrp: number | string | null;
+  price: number | string | null;
+  display_id: string | null;
+  quantity: number;
+};
+
 const defaultCartValue = {
   cartItems: [] as TCartItem[],
   addToCart: (item: TCartItem) => {},
