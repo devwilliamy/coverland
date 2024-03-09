@@ -9,7 +9,7 @@ const coverTypes = [
   { title: 'Car Covers', img: CAR, link: '/car-covers' },
   { title: 'Truck Covers', img: TRUCK, link: '/truck-covers' },
   { title: 'SUV Covers', img: SUV, link: '/suv-covers' },
-  // { title: 'Seat Covers', img: SEAT, link: '/seat-covers' },
+  { title: 'Seat Covers', img: SEAT, link: '/seat-covers' },
 ];
 
 const CoversGrid = () => {
@@ -31,8 +31,7 @@ const CoversGrid = () => {
                   {title}
                 </p>
                 <div
-                  className={`flex flex-[0.9] lg:w-full `}
-                  // className={`flex flex-[0.9] ${i + 1 === coverTypes.length && 'pb-2.5'} lg:w-full `}
+                  className={`flex flex-[0.9] ${i + 1 === coverTypes.length && 'pb-2.5'} lg:w-full `}
                 >
                   <Image
                     alt={`cover-image-${title}`}
