@@ -20,6 +20,8 @@ import FeaturesSection from '@/components/PDP/components/FeaturesSection';
 import { ExtraProductDetails } from '@/components/PDP/OtherDetails';
 import { useParams } from 'next/navigation';
 import EditVehiclePopover from '@/components/PDP/components/EditVehiclePopover';
+import { TruckIcon } from 'lucide-react';
+import SuvIcon from '@/components/PDP/components/icons/SUVIcon';
 
 export function CarCoverSelector({
   searchParams,
@@ -56,10 +58,13 @@ export function CarCoverSelector({
   useItemViewedGoogleTag(selectedProduct);
 
   const params = useParams();
+  const productType = params?.productType;
   const coverType = params?.coverType;
   const isPremiumPlus = params?.coverType === 'premium-plus';
   const isDefaultCoverType = isPremiumPlus || coverType === undefined;
-  const 
+  const isTruckCover = productType === 'truck-covers';
+  const isSUVCover = productType === 'suv-covers';
+  console.log(isTruckCover);
 
   return (
     <>
@@ -78,7 +83,17 @@ export function CarCoverSelector({
             <Separator className="w-full bg-[#C8C7C7] lg:block" />
             <div className="grid grid-cols-[1fr_2fr] place-items-center ">
               <div className="flex max-h-[24px] max-w-[64px] lg:max-h-[42px] lg:max-w-[116px]">
-                <CarIcon />
+                <div
+                  className={`hidden ${!isTruckCover && !isSUVCover && 'block'}`}
+                >
+                  <CarIcon />
+                </div>
+                <div className={`hidden ${isTruckCover && 'block'}`}>
+                  <TruckIcon />
+                </div>
+                <div className={`hidden ${isSUVCover && 'block'}`}>
+                  <SuvIcon />
+                </div>
               </div>
               <EditVehicleModal
                 selectedProduct={selectedProduct}
