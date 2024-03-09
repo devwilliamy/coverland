@@ -1,8 +1,8 @@
 import React from 'react';
-import Ford from '@/images/hero/trending-ford.png';
-import Ram from '@/images/hero/trending-ram.png';
-import Dodge from '@/images/hero/trending-dodge.png';
-import Chevy from '@/images/hero/trending-chevy.png';
+import Ford from '@/images/hero/trending-ford.webp';
+import Ram from '@/images/hero/trending-ram.webp';
+import Dodge from '@/images/hero/trending-dodge.webp';
+import Chevy from '@/images/hero/trending-chevy.webp';
 import Image from 'next/image';
 import { ArrowRight } from 'lucide-react';
 // import "./"

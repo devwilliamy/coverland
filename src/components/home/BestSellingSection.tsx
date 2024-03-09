@@ -1,9 +1,9 @@
 'use client';
 import React from 'react';
-import Challenger from '@/images/hero/best-selling-challenger.png';
-import ElCamino from '@/images/hero/best-selling-el-camino.png';
-import Miata from '@/images/hero/best-selling-miata.png';
-import Corvette from '@/images/hero/best-selling-corvette.png';
+import Challenger from '@/images/hero/best-selling-challenger.webp';
+import ElCamino from '@/images/hero/best-selling-el-camino.webp';
+import Miata from '@/images/hero/best-selling-miata.webp';
+import Corvette from '@/images/hero/best-selling-corvette.webp';
 import Image from 'next/image';
 
 const bestSelling = [

@@ -531,33 +531,6 @@ export type Database = {
         };
         Relationships: [];
       };
-      Make_Year_Options: {
-        Row: {
-          created_at: string;
-          id: string;
-          make: string | null;
-          make_slug: string | null;
-          parent_generation: string | null;
-          year_options: string | null;
-        };
-        Insert: {
-          created_at?: string;
-          id?: string;
-          make?: string | null;
-          make_slug?: string | null;
-          parent_generation?: string | null;
-          year_options?: string | null;
-        };
-        Update: {
-          created_at?: string;
-          id?: string;
-          make?: string | null;
-          make_slug?: string | null;
-          parent_generation?: string | null;
-          year_options?: string | null;
-        };
-        Relationships: [];
-      };
       Makes: {
         Row: {
           id: number;
@@ -1820,6 +1793,36 @@ export type Database = {
         };
         Relationships: [];
       };
+      type_make_year_distinct: {
+        Row: {
+          display_id: string | null;
+          id: string;
+          make: string | null;
+          make_slug: string | null;
+          parent_generation: string | null;
+          type: string | null;
+          year_options: string | null;
+        };
+        Insert: {
+          display_id?: string | null;
+          id?: string;
+          make?: string | null;
+          make_slug?: string | null;
+          parent_generation?: string | null;
+          type?: string | null;
+          year_options?: string | null;
+        };
+        Update: {
+          display_id?: string | null;
+          id?: string;
+          make?: string | null;
+          make_slug?: string | null;
+          parent_generation?: string | null;
+          type?: string | null;
+          year_options?: string | null;
+        };
+        Relationships: [];
+      };
       'Vehicle-Makes': {
         Row: {
           created_at: string;
@@ -2061,6 +2064,17 @@ export type Database = {
           make_slug: string;
         }[];
       };
+      get_distinct_makes_by_year: {
+        Args: {
+          type: string;
+          cover: string;
+          year: string;
+        };
+        Returns: {
+          make: string;
+          make_slug: string;
+        }[];
+      };
       get_joined_products: {
         Args: Record<PropertyKey, never>;
         Returns: {
@@ -2082,6 +2096,28 @@ export type Database = {
           SKU_sp_gr_1to: string;
           SKU_ss_gr_1to: string;
           SKU_pp_bkgr_2to: string;
+        }[];
+      };
+      get_make_and_slug: {
+        Args: {
+          type_param: string;
+          display_id_param: string;
+          year_param: string;
+        };
+        Returns: {
+          make: string;
+          make_slug: string;
+        }[];
+      };
+      get_make_and_slug_trial: {
+        Args: {
+          type_param: string;
+          display_id_param: string;
+          year_param: string;
+        };
+        Returns: {
+          make: string;
+          make_slug: string;
         }[];
       };
       get_product_reviews_summary: {
