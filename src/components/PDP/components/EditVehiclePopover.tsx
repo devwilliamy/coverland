@@ -88,7 +88,10 @@ export default function EditVehiclePopover({
                 id="EditVehicleContainer"
                 className="flex min-h-[50vh] pt-[75px] "
               >
-                <EditVehicleDropdown searchParams={searchParams} />
+                <EditVehicleDropdown
+                  setOpen={setOpen}
+                  searchParams={searchParams}
+                />
               </div>
             </div>
           </Drawer.Content>

@@ -9,78 +9,81 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
-      _Orders: {
+      '_new-products-03-2024': {
         Row: {
-          created_at: string;
-          order_id: string;
-        };
-        Insert: {
-          created_at?: string;
-          order_id?: string;
-        };
-        Update: {
-          created_at?: string;
-          order_id?: string;
-        };
-        Relationships: [];
-      };
-      '_Product-Reviews-02-2024': {
-        Row: {
-          helpful: string | null;
+          display_color: string | null;
+          display_id: string | null;
+          feature: string | null;
           make: string | null;
-          Mirror: string | null;
           model: string | null;
-          product_name: string | null;
-          product_type: string | null;
-          rating_stars: number | null;
-          review_author: string | null;
-          review_description: string | null;
-          review_image: string | null;
-          review_title: string | null;
-          Size: string | null;
+          msrp: string | null;
+          parent_generation: string | null;
+          price: string | null;
+          product: string | null;
           sku: string | null;
           submodel1: string | null;
           submodel2: string | null;
+          submodel3: string | null;
           type: string | null;
           year_generation: string | null;
         };
         Insert: {
-          helpful?: string | null;
+          display_color?: string | null;
+          display_id?: string | null;
+          feature?: string | null;
           make?: string | null;
-          Mirror?: string | null;
           model?: string | null;
-          product_name?: string | null;
-          product_type?: string | null;
-          rating_stars?: number | null;
-          review_author?: string | null;
-          review_description?: string | null;
-          review_image?: string | null;
-          review_title?: string | null;
-          Size?: string | null;
+          msrp?: string | null;
+          parent_generation?: string | null;
+          price?: string | null;
+          product?: string | null;
           sku?: string | null;
           submodel1?: string | null;
           submodel2?: string | null;
+          submodel3?: string | null;
           type?: string | null;
           year_generation?: string | null;
         };
         Update: {
-          helpful?: string | null;
+          display_color?: string | null;
+          display_id?: string | null;
+          feature?: string | null;
           make?: string | null;
-          Mirror?: string | null;
           model?: string | null;
-          product_name?: string | null;
-          product_type?: string | null;
-          rating_stars?: number | null;
-          review_author?: string | null;
-          review_description?: string | null;
-          review_image?: string | null;
-          review_title?: string | null;
-          Size?: string | null;
+          msrp?: string | null;
+          parent_generation?: string | null;
+          price?: string | null;
+          product?: string | null;
           sku?: string | null;
           submodel1?: string | null;
           submodel2?: string | null;
+          submodel3?: string | null;
           type?: string | null;
           year_generation?: string | null;
+        };
+        Relationships: [];
+      };
+      _Orders: {
+        Row: {
+          created_at: string;
+          is_complete: boolean;
+          order_id: string;
+          skus: string[];
+          total: number;
+        };
+        Insert: {
+          created_at?: string;
+          is_complete?: boolean;
+          order_id?: string;
+          skus?: string[];
+          total?: number;
+        };
+        Update: {
+          created_at?: string;
+          is_complete?: boolean;
+          order_id?: string;
+          skus?: string[];
+          total?: number;
         };
         Relationships: [];
       };
@@ -249,6 +252,36 @@ export type Database = {
         };
         Relationships: [];
       };
+      Analytics: {
+        Row: {
+          action: string;
+          details: string | null;
+          id: number;
+          sku: string | null;
+          timestamp: string;
+          url: string | null;
+          user_agent: string | null;
+        };
+        Insert: {
+          action: string;
+          details?: string | null;
+          id?: number;
+          sku?: string | null;
+          timestamp?: string;
+          url?: string | null;
+          user_agent?: string | null;
+        };
+        Update: {
+          action?: string;
+          details?: string | null;
+          id?: number;
+          sku?: string | null;
+          timestamp?: string;
+          url?: string | null;
+          user_agent?: string | null;
+        };
+        Relationships: [];
+      };
       'Car-Data-Master': {
         Row: {
           base_sku: string | null;
@@ -321,6 +354,27 @@ export type Database = {
         };
         Relationships: [];
       };
+      gpt_fix_helpful_count: {
+        Row: {
+          helpful: number | null;
+          id: string | null;
+          review_image: string | null;
+          type: string | null;
+        };
+        Insert: {
+          helpful?: number | null;
+          id?: string | null;
+          review_image?: string | null;
+          type?: string | null;
+        };
+        Update: {
+          helpful?: number | null;
+          id?: string | null;
+          review_image?: string | null;
+          type?: string | null;
+        };
+        Relationships: [];
+      };
       'gpt-reviews': {
         Row: {
           helpful: number | null;
@@ -366,6 +420,117 @@ export type Database = {
         };
         Relationships: [];
       };
+      'gpt-reviews-critical': {
+        Row: {
+          helpful: number | null;
+          id: string;
+          make: string | null;
+          model: string | null;
+          parent_generation: string | null;
+          rating_stars: number | null;
+          review_author: string | null;
+          review_description: string | null;
+          review_image: string | null;
+          review_title: string | null;
+          reviewed_at: string;
+          type: string | null;
+        };
+        Insert: {
+          helpful?: number | null;
+          id?: string;
+          make?: string | null;
+          model?: string | null;
+          parent_generation?: string | null;
+          rating_stars?: number | null;
+          review_author?: string | null;
+          review_description?: string | null;
+          review_image?: string | null;
+          review_title?: string | null;
+          reviewed_at?: string;
+          type?: string | null;
+        };
+        Update: {
+          helpful?: number | null;
+          id?: string;
+          make?: string | null;
+          model?: string | null;
+          parent_generation?: string | null;
+          rating_stars?: number | null;
+          review_author?: string | null;
+          review_description?: string | null;
+          review_image?: string | null;
+          review_title?: string | null;
+          reviewed_at?: string;
+          type?: string | null;
+        };
+        Relationships: [];
+      };
+      'gpt-reviews-remaining': {
+        Row: {
+          helpful: number | null;
+          id: string;
+          make: string | null;
+          model: string | null;
+          parent_generation: string | null;
+          rating_stars: number | null;
+          review_author: string | null;
+          review_description: string | null;
+          review_image: string | null;
+          review_title: string | null;
+          reviewed_at: string;
+          type: string | null;
+        };
+        Insert: {
+          helpful?: number | null;
+          id?: string;
+          make?: string | null;
+          model?: string | null;
+          parent_generation?: string | null;
+          rating_stars?: number | null;
+          review_author?: string | null;
+          review_description?: string | null;
+          review_image?: string | null;
+          review_title?: string | null;
+          reviewed_at?: string;
+          type?: string | null;
+        };
+        Update: {
+          helpful?: number | null;
+          id?: string;
+          make?: string | null;
+          model?: string | null;
+          parent_generation?: string | null;
+          rating_stars?: number | null;
+          review_author?: string | null;
+          review_description?: string | null;
+          review_image?: string | null;
+          review_title?: string | null;
+          reviewed_at?: string;
+          type?: string | null;
+        };
+        Relationships: [];
+      };
+      'gpt-reviews-remaining-fix-helpful-count': {
+        Row: {
+          helpful: number | null;
+          id: string | null;
+          review_image: string | null;
+          type: string | null;
+        };
+        Insert: {
+          helpful?: number | null;
+          id?: string | null;
+          review_image?: string | null;
+          type?: string | null;
+        };
+        Update: {
+          helpful?: number | null;
+          id?: string | null;
+          review_image?: string | null;
+          type?: string | null;
+        };
+        Relationships: [];
+      };
       Makes: {
         Row: {
           id: number;
@@ -378,66 +543,6 @@ export type Database = {
         Update: {
           id?: number;
           make?: string;
-        };
-        Relationships: [];
-      };
-      'Mock-Data-Reviews': {
-        Row: {
-          helpful: string | null;
-          make: string | null;
-          model: string | null;
-          product_name: string | null;
-          product_type: string | null;
-          rating_stars: number | null;
-          review: string | null;
-          review_author: string | null;
-          review_image: string | null;
-          review_title: string | null;
-          Size: string | null;
-          sku: string | null;
-          submodel1: string | null;
-          submodel2: string | null;
-          submodel3: string | null;
-          type: string | null;
-          year_generation: string | null;
-        };
-        Insert: {
-          helpful?: string | null;
-          make?: string | null;
-          model?: string | null;
-          product_name?: string | null;
-          product_type?: string | null;
-          rating_stars?: number | null;
-          review?: string | null;
-          review_author?: string | null;
-          review_image?: string | null;
-          review_title?: string | null;
-          Size?: string | null;
-          sku?: string | null;
-          submodel1?: string | null;
-          submodel2?: string | null;
-          submodel3?: string | null;
-          type?: string | null;
-          year_generation?: string | null;
-        };
-        Update: {
-          helpful?: string | null;
-          make?: string | null;
-          model?: string | null;
-          product_name?: string | null;
-          product_type?: string | null;
-          rating_stars?: number | null;
-          review?: string | null;
-          review_author?: string | null;
-          review_image?: string | null;
-          review_title?: string | null;
-          Size?: string | null;
-          sku?: string | null;
-          submodel1?: string | null;
-          submodel2?: string | null;
-          submodel3?: string | null;
-          type?: string | null;
-          year_generation?: string | null;
         };
         Relationships: [];
       };
@@ -646,62 +751,6 @@ export type Database = {
           product_skus?: string | null;
         };
         Relationships: [];
-      };
-      'Product-Reviews': {
-        Row: {
-          id: number;
-          make: string | null;
-          model: string | null;
-          rating_stars: string | null;
-          review_author: string | null;
-          review_description: string | null;
-          review_image: string | null;
-          review_title: string | null;
-          reviewed_at: string | null;
-          sku: string | null;
-          submodel1: string | null;
-          submodel2: string | null;
-          year_generation: string | null;
-        };
-        Insert: {
-          id?: number;
-          make?: string | null;
-          model?: string | null;
-          rating_stars?: string | null;
-          review_author?: string | null;
-          review_description?: string | null;
-          review_image?: string | null;
-          review_title?: string | null;
-          reviewed_at?: string | null;
-          sku?: string | null;
-          submodel1?: string | null;
-          submodel2?: string | null;
-          year_generation?: string | null;
-        };
-        Update: {
-          id?: number;
-          make?: string | null;
-          model?: string | null;
-          rating_stars?: string | null;
-          review_author?: string | null;
-          review_description?: string | null;
-          review_image?: string | null;
-          review_title?: string | null;
-          reviewed_at?: string | null;
-          sku?: string | null;
-          submodel1?: string | null;
-          submodel2?: string | null;
-          year_generation?: string | null;
-        };
-        Relationships: [
-          {
-            foreignKeyName: 'Product-Reviews_make_fkey';
-            columns: ['make'];
-            isOneToOne: false;
-            referencedRelation: 'Makes';
-            referencedColumns: ['make'];
-          },
-        ];
       };
       'Product-Reviews-02-2024': {
         Row: {
@@ -1594,24 +1643,183 @@ export type Database = {
         };
         Relationships: [];
       };
+      seat_covers_20240308_duplicate: {
+        Row: {
+          display_color: string | null;
+          display_id: string | null;
+          feature: string | null;
+          id: string | null;
+          msrp: number | null;
+          price: number | null;
+          product: string | null;
+          quantity: number | null;
+          sku: string;
+          type: string | null;
+        };
+        Insert: {
+          display_color?: string | null;
+          display_id?: string | null;
+          feature?: string | null;
+          id?: string | null;
+          msrp?: number | null;
+          price?: number | null;
+          product?: string | null;
+          quantity?: number | null;
+          sku: string;
+          type?: string | null;
+        };
+        Update: {
+          display_color?: string | null;
+          display_id?: string | null;
+          feature?: string | null;
+          id?: string | null;
+          msrp?: number | null;
+          price?: number | null;
+          product?: string | null;
+          quantity?: number | null;
+          sku?: string;
+          type?: string | null;
+        };
+        Relationships: [];
+      };
+      'Stripe-Full-Data': {
+        Row: {
+          Amount: number | null;
+          'Amount Refunded': string | null;
+          Captured: Json | null;
+          'Card ID': string | null;
+          'Converted Amount': number | null;
+          'Converted Amount Refunded': string | null;
+          'Converted Currency': string | null;
+          'Created date (UTC)': string | null;
+          Currency: string | null;
+          'Customer Description': string | null;
+          'Customer Email': string | null;
+          'Customer ID': string | null;
+          Description: string | null;
+          Fee: number | null;
+          'Guest (metadata)': string | null;
+          id: string | null;
+          'Invoice ID': string | null;
+          'Module (metadata)': string | null;
+          'Order # (metadata)': string | null;
+          'Payment Location (metadata)': string | null;
+          'Payment Method (metadata)': string | null;
+          'Seller Message': string | null;
+          'Statement Descriptor': string | null;
+          Status: string | null;
+          'Taxes On Fee': string | null;
+          Transfer: string | null;
+        };
+        Insert: {
+          Amount?: number | null;
+          'Amount Refunded'?: string | null;
+          Captured?: Json | null;
+          'Card ID'?: string | null;
+          'Converted Amount'?: number | null;
+          'Converted Amount Refunded'?: string | null;
+          'Converted Currency'?: string | null;
+          'Created date (UTC)'?: string | null;
+          Currency?: string | null;
+          'Customer Description'?: string | null;
+          'Customer Email'?: string | null;
+          'Customer ID'?: string | null;
+          Description?: string | null;
+          Fee?: number | null;
+          'Guest (metadata)'?: string | null;
+          id?: string | null;
+          'Invoice ID'?: string | null;
+          'Module (metadata)'?: string | null;
+          'Order # (metadata)'?: string | null;
+          'Payment Location (metadata)'?: string | null;
+          'Payment Method (metadata)'?: string | null;
+          'Seller Message'?: string | null;
+          'Statement Descriptor'?: string | null;
+          Status?: string | null;
+          'Taxes On Fee'?: string | null;
+          Transfer?: string | null;
+        };
+        Update: {
+          Amount?: number | null;
+          'Amount Refunded'?: string | null;
+          Captured?: Json | null;
+          'Card ID'?: string | null;
+          'Converted Amount'?: number | null;
+          'Converted Amount Refunded'?: string | null;
+          'Converted Currency'?: string | null;
+          'Created date (UTC)'?: string | null;
+          Currency?: string | null;
+          'Customer Description'?: string | null;
+          'Customer Email'?: string | null;
+          'Customer ID'?: string | null;
+          Description?: string | null;
+          Fee?: number | null;
+          'Guest (metadata)'?: string | null;
+          id?: string | null;
+          'Invoice ID'?: string | null;
+          'Module (metadata)'?: string | null;
+          'Order # (metadata)'?: string | null;
+          'Payment Location (metadata)'?: string | null;
+          'Payment Method (metadata)'?: string | null;
+          'Seller Message'?: string | null;
+          'Statement Descriptor'?: string | null;
+          Status?: string | null;
+          'Taxes On Fee'?: string | null;
+          Transfer?: string | null;
+        };
+        Relationships: [];
+      };
       'Test-Orders': {
         Row: {
           created_at: string;
           is_complete: boolean;
           order_id: string;
           skus: string[];
+          total: number;
         };
         Insert: {
           created_at?: string;
           is_complete?: boolean;
           order_id?: string;
           skus: string[];
+          total: number;
         };
         Update: {
           created_at?: string;
           is_complete?: boolean;
           order_id?: string;
           skus?: string[];
+          total?: number;
+        };
+        Relationships: [];
+      };
+      type_make_year_distinct: {
+        Row: {
+          display_id: string | null;
+          id: string;
+          make: string | null;
+          make_slug: string | null;
+          parent_generation: string | null;
+          type: string | null;
+          year_options: string | null;
+        };
+        Insert: {
+          display_id?: string | null;
+          id?: string;
+          make?: string | null;
+          make_slug?: string | null;
+          parent_generation?: string | null;
+          type?: string | null;
+          year_options?: string | null;
+        };
+        Update: {
+          display_id?: string | null;
+          id?: string;
+          make?: string | null;
+          make_slug?: string | null;
+          parent_generation?: string | null;
+          type?: string | null;
+          year_options?: string | null;
         };
         Relationships: [];
       };
@@ -1850,6 +2058,23 @@ export type Database = {
           models: string[];
         }[];
       };
+      get_distinct_make_slugs: {
+        Args: Record<PropertyKey, never>;
+        Returns: {
+          make_slug: string;
+        }[];
+      };
+      get_distinct_makes_by_year: {
+        Args: {
+          type: string;
+          cover: string;
+          year: string;
+        };
+        Returns: {
+          make: string;
+          make_slug: string;
+        }[];
+      };
       get_joined_products: {
         Args: Record<PropertyKey, never>;
         Returns: {
@@ -1871,6 +2096,28 @@ export type Database = {
           SKU_sp_gr_1to: string;
           SKU_ss_gr_1to: string;
           SKU_pp_bkgr_2to: string;
+        }[];
+      };
+      get_make_and_slug: {
+        Args: {
+          type_param: string;
+          display_id_param: string;
+          year_param: string;
+        };
+        Returns: {
+          make: string;
+          make_slug: string;
+        }[];
+      };
+      get_make_and_slug_trial: {
+        Args: {
+          type_param: string;
+          display_id_param: string;
+          year_param: string;
+        };
+        Returns: {
+          make: string;
+          make_slug: string;
         }[];
       };
       get_product_reviews_summary: {
