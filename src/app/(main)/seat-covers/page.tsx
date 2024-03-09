@@ -31,26 +31,9 @@ import { SeatItem } from '@/providers/CartProvider';
 export default function SeatCovers() {
   const isMobile = useMediaQuery('max-width: 1024px');
   const [colorIndex, setColorIndex] = useState(0);
-  const [selectedColor, setSelectedColor] = useState<SeatData>(
+  const [seatData, setSeatData] = useState<SeatData>(
     SeatImageDataObject.BlackRedData
   );
-
-  const [seatCoverData, setSeatCoverData] = useState<TSeatCoverDataDB[]>();
-
-  useEffect(() => {
-    const fetchCovers = async () => {
-      try {
-        let seatData: TSeatCoverDataDB[] = [];
-
-        seatData = await getAllSeatCovers();
-        setSeatCoverData(seatData);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-
-    fetchCovers();
-  }, []);
 
   let galleryImages;
   let featuredImage;
@@ -116,20 +99,20 @@ export default function SeatCovers() {
           </Button>
         </span>
         <SeatContent
-          selectedColor={selectedColor}
-          setSelectedColor={setSelectedColor}
+          seatData={seatData}
+          setSeatData={setSeatData}
           colorIndex={colorIndex}
           setColorIndex={setColorIndex}
         />
       </section>
-      <ElevateComfortSection selectedColor={selectedColor} />
+      <ElevateComfortSection seatData={seatData} />
       <section className="flex w-full  flex-col  items-center justify-center bg-white pt-[60px] max-md:px-[4%] lg:max-w-[580px]">
         <p className="flex w-full items-center justify-center pb-7 text-center text-[26px] font-[700] leading-[26px]  md:pb-[32px] md:pt-[60px] md:text-[45px]  md:leading-[26px]">
           Product Size
         </p>
         <Image
           alt="seat-dimensions"
-          src={selectedColor?.[6] as StaticImageData}
+          src={seatData?.[6] as StaticImageData}
           className="pl-[45px] lg:pl-[30px]"
           // className="mb-[70px] h-[545px] w-[365px] max-md:h-[432px] max-md:w-[266px] "
         />

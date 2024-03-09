@@ -20,6 +20,8 @@ import BackCovers from '@/images/PDP/Product-Details-Redesign-2/seat-covers/back
 import { SeatItem, useCartContext } from '@/providers/CartProvider';
 import { TCartItem } from '@/lib/cart/useCart';
 import { redirect } from 'next/navigation';
+import { TSeatCoverDataDB, getAllSeatCovers } from '@/lib/db/seat-covers';
+import { useRouter } from 'next/navigation';
 
 const seatColors: { color: SeatString; data: SeatData }[] = [
   { color: 'BlackRedData', data: SeatImageDataObject.BlackRedData },
@@ -28,25 +30,63 @@ const seatColors: { color: SeatString; data: SeatData }[] = [
   { color: 'BeigeData', data: SeatImageDataObject.BeigeData },
 ];
 
+const colorMap = {
+  BlackRedData: 'Solid Black with Red Stitching',
+  BlackData: 'Solid Black',
+  GrayData: 'Solid Gray',
+  BeigeData: 'Solid Beige',
+};
+
+function findObjectByPart(
+  seatCoverData: TSeatCoverDataDB[],
+  position: 'front' | 'back'
+): TSeatCoverDataDB | null {
+  const targetPart = position === 'front' ? 'LCF' : 'LCB';
+  return (
+    seatCoverData.find((seatCover) => seatCover.sku.includes(targetPart)) ||
+    null
+  );
+}
+
 export default function SeatContent({
-  selectedColor,
-  setSelectedColor,
+  seatData,
+  setSeatData,
   colorIndex,
   setColorIndex,
 }: {
-  selectedColor: SeatData;
-  setSelectedColor: React.Dispatch<SetStateAction<SeatData>>;
+  seatData: SeatData;
+  setSeatData: React.Dispatch<SetStateAction<SeatData>>;
   colorIndex: number;
   setColorIndex: React.Dispatch<SetStateAction<number>>;
 }) {
   const isMobile = useMediaQuery('(max-width:1024px)');
   const coverPrice = 99.95;
-  const [selectedCovers, setSelectedCovers] = useState<string[]>([]);
+  const [selectedSeatCoverType, setSelectedSeatCoverType] = useState<string[]>(
+    []
+  );
   const [total, setTotal] = useState(0);
+  const [selectedColor, setSelectedColor] = useState<string>('BlackRedData');
   const seatSelectedStyle =
     'bg-white text-black hover:bg-black hover:text-white';
   const seatDeselectedStyle = 'bg-black hover:bg-white hover:text-black';
   const { addToCart } = useCartContext();
+  const [seatCoverData, setSeatCoverData] = useState<TSeatCoverDataDB[]>();
+  const router = useRouter();
+
+  useEffect(() => {
+    const fetchCovers = async () => {
+      try {
+        let seatData: TSeatCoverDataDB[] = [];
+
+        seatData = await getAllSeatCovers();
+        setSeatCoverData(seatData);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchCovers();
+  }, []);
 
   const SeatOption = ({
     src,
@@ -73,7 +113,7 @@ export default function SeatContent({
           </div>
           <Button
             onClick={() => {
-              if (selectedCovers.includes(option)) {
+              if (selectedSeatCoverType.includes(option)) {
                 setTotal((e) => {
                   if (e > coverPrice) {
                     return e - coverPrice;
@@ -85,7 +125,7 @@ export default function SeatContent({
                   return e + coverPrice;
                 });
               }
-              setSelectedCovers((e) => {
+              setSelectedSeatCoverType((e) => {
                 if (e.includes(option)) {
                   return e.filter((e) => e !== option);
                 }
@@ -93,9 +133,9 @@ export default function SeatContent({
                 return [...e, option];
               });
             }}
-            className={`mt-4  flex gap-1 ${selectedCovers.includes(option) ? seatSelectedStyle : seatDeselectedStyle} uppercase  outline outline-[1px] `}
+            className={`mt-4  flex gap-1 ${selectedSeatCoverType.includes(option) ? seatSelectedStyle : seatDeselectedStyle} uppercase  outline outline-[1px] `}
           >
-            {selectedCovers.includes(option) ? (
+            {selectedSeatCoverType.includes(option) ? (
               <>
                 <Check className="text-[#43A047]" />
                 <p>Selected</p>
@@ -108,30 +148,15 @@ export default function SeatContent({
       </span>
     );
   };
-  // useEffect(() => {}, [total, selectedCovers]);
   const handleAddToCart = () => {
-    // if () return;
-    // !isMobile && setAddToCartOpen(true);
-
-    // const cartProduct: SeatItem = {
-    //   sku: 'CA-CL-SC-LCB-BH',
-    //   type: 'Seat Covers',
-    //   feature: '',
-    //   product: '',
-    //   display_color: 'Solid Beige',
-    //   msrp: 99.95,
-    //   price: 200,
-    //   display_id: 'Leatherette',
-    //   quantity: 0,
-    // };
-
-    for (const coverType of selectedCovers) {
-      // products.push();
+    const selectedSeatCovers = seatCoverData?.filter(
+      (seatCover) => seatCover.display_color === colorMap[selectedColor]
+    );
+    for (const coverType of selectedSeatCoverType) {
+      const cartProduct = findObjectByPart(selectedSeatCovers, coverType);
       addToCart({ ...cartProduct, quantity: 1 });
     }
-    console.log(selectedColor);
-
-    redirect('/cart');
+    router.push('/checkout');
   };
 
   return (
@@ -187,7 +212,8 @@ export default function SeatContent({
                   className={`flex ${index === colorIndex && 'border-1 border border-[#6F6F6F] '} cursor-pointer flex-col place-content-center rounded-full p-[2px] `}
                   onClick={() => {
                     setColorIndex(index);
-                    setSelectedColor(i.data);
+                    setSeatData(i.data);
+                    setSelectedColor(i.color);
                   }}
                 >
                   <Image
@@ -234,7 +260,7 @@ export default function SeatContent({
               disabled={total <= 0}
               className={`max-h-[48px] min-h-[48px] w-full ${total <= 0 ? 'disabled:bg-[#BE1B1B80]' : 'bg-[#BE1B1B]'} uppercase lg:max-h-[62px] lg:min-h-[62px] `}
               onClick={() => {
-                if (selectedCovers.length > 0) {
+                if (selectedSeatCoverType.length > 0) {
                   handleAddToCart();
                 }
               }}
