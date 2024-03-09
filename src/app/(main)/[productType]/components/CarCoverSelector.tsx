@@ -20,8 +20,8 @@ import FeaturesSection from '@/components/PDP/components/FeaturesSection';
 import { ExtraProductDetails } from '@/components/PDP/OtherDetails';
 import { useParams } from 'next/navigation';
 import EditVehiclePopover from '@/components/PDP/components/EditVehiclePopover';
-import { TruckIcon } from 'lucide-react';
 import SuvIcon from '@/components/PDP/components/icons/SUVIcon';
+import TruckIcon from '@/components/PDP/components/icons/TruckIcon';
 
 export function CarCoverSelector({
   searchParams,
@@ -84,14 +84,14 @@ export function CarCoverSelector({
             <div className="grid grid-cols-[1fr_2fr] place-items-center ">
               <div className="flex max-h-[24px] max-w-[64px] lg:max-h-[42px] lg:max-w-[116px]">
                 <div
-                  className={`hidden ${!isTruckCover && !isSUVCover && 'block'}`}
+                  className={` ${!isTruckCover && !isSUVCover ? 'block' : 'hidden'}`}
                 >
                   <CarIcon />
                 </div>
-                <div className={`hidden ${isTruckCover && 'block'}`}>
+                <div className={` ${isTruckCover ? 'block' : 'hidden'}`}>
                   <TruckIcon />
                 </div>
-                <div className={`hidden ${isSUVCover && 'block'}`}>
+                <div className={` ${isSUVCover ? 'block' : 'hidden'}`}>
                   <SuvIcon />
                 </div>
               </div>
