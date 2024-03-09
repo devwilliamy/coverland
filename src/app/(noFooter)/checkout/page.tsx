@@ -245,7 +245,7 @@ function CheckoutSummarySecton({
           </Suspense>
         </PayPalScriptProvider>
       </div>
-      <div className="flex justify-between ">
+      <div className="hidden justify-between lg:flex">
         <div>Order Subtotal</div>
         <div>${orderSubtotal}</div>
       </div>
