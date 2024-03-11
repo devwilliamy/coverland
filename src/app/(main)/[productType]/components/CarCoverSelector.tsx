@@ -1,6 +1,6 @@
 'use client';
 
-import React, { RefObject, useContext, useRef } from 'react';
+import React, { RefObject, useContext, useRef, useState } from 'react';
 import { PrimaryImageDisplay } from './PrimaryImageDisplay';
 import { ProductContent } from './ProductContent';
 import { EditVehicleModal } from './EditVehicleModal';
@@ -20,6 +20,7 @@ import FeaturesSection from '@/components/PDP/components/FeaturesSection';
 import { ExtraProductDetails } from '@/components/PDP/OtherDetails';
 import { useParams } from 'next/navigation';
 import EditVehiclePopover from '@/components/PDP/components/EditVehiclePopover';
+import SeeAllChevronDown from '@/components/PDP/components/icons/SeeAllChevronDown';
 import SuvIcon from '@/components/PDP/components/icons/SuvIcon';
 import TruckIcon from '@/components/PDP/components/icons/TruckIcon';
 import CarIcon from '@/components/PDP/components/icons/CarIcon';
@@ -65,11 +66,13 @@ export function CarCoverSelector({
   const isTruckCover = productType === 'truck-covers';
   const isSUVCover = productType === 'suv-covers';
 
+  const [seeAllVisible, setSeeAllVisible] = useState(true);
+
   return (
     <>
-      <section className="mx-auto h-max  w-full max-w-[1280px] px-4 lg:my-8">
+      <section className="relative mx-auto h-max w-full max-w-[1280px]  lg:my-8">
         <LinkBreadcrumbs />
-        <div className="flex w-full flex-col items-start justify-between lg:flex-row lg:gap-14">
+        <div className="flex w-full flex-col items-start justify-between px-4 lg:flex-row lg:gap-14">
           {/* Left Panel */}
           <PrimaryImageDisplay
             productImages={productImages}
@@ -114,18 +117,41 @@ export function CarCoverSelector({
               searchParams={searchParams}
             />
           </section>
-          {/* {isMobile && ( */}
         </div>
+        <section
+          className={`relative ${seeAllVisible ? 'max-h-[2050px] lg:max-h-[2900px]' : ''} w-full overflow-hidden`}
+        >
+          <FeaturesSection />
+          <div
+            className={`absolute ${seeAllVisible ? '' : 'hidden'} -bottom-[1px] z-[5] w-full bg-gradient-to-t from-white from-85%`}
+          >
+            <div className="flex  flex-col items-center justify-center pt-[10vh]">
+              <p
+                onClick={() => setSeeAllVisible(false)}
+                className=" cursor-pointer py-[10px] text-[16px] leading-[19px] lg:text-[20px] lg:leading-[24px]"
+              >
+                See All
+              </p>
+              <div className="flex max-h-[15px] max-w-[40px]">
+                <SeeAllChevronDown />
+              </div>
+            </div>
+            <SuggestedProducts />
+          </div>
+        </section>
+        <section className={`${seeAllVisible ? 'hidden' : 'block'}`}>
+          <span className="max-w-[100vw] bg-white">
+            <div className="flex w-full flex-col justify-center px-4">
+              <EnhancedProtectionSection />
+              {isDefaultCoverType && <RealTestSection />}
+              {isDefaultCoverType && <ProvenSection />}
+              <WarrantySection />
+            </div>
+            <SuggestedProducts />
+          </span>
+        </section>
+        <ExtraProductDetails />
       </section>
-      <FeaturesSection />
-      <div className="flex w-full flex-col justify-center px-4">
-        <EnhancedProtectionSection />
-        {isDefaultCoverType && <RealTestSection />}
-        {isDefaultCoverType && <ProvenSection />}
-        <WarrantySection />
-      </div>
-      <SuggestedProducts />
-      <ExtraProductDetails />
     </>
   );
 }

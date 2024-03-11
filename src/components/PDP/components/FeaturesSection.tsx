@@ -9,11 +9,14 @@ import DifferenceGrid from '@/app/(main)/[productType]/components/DifferenceGrid
 import CustomFitSection from './CustomFitSection';
 import WetFabric from '@/images/PDP/Product-Details-Redesign-2/fabric-with-water.webp';
 import Image from 'next/image';
+import SuggestedProducts from './SuggestedProducts';
+import { ChevronDown } from 'lucide-react';
+import SeeAllChevronDown from './icons/SeeAllChevronDown';
 
 export default function FeaturesSection() {
   return (
     <section
-      className={`relative mt-[48px] flex h-full  flex-col items-center justify-center`}
+      className={`relative mt-[48px] flex h-max  flex-col items-center justify-center`}
     >
       <Image
         alt="Wet Fabric"
@@ -28,9 +31,10 @@ export default function FeaturesSection() {
           aspectRatio="16 / 9"
         />
       </div>
-      <div className="z-[2] flex flex-col items-center justify-center lg:w-[850px]">
+      <div className="relative z-[2] flex flex-col items-center justify-center lg:w-[850px]">
         <FabricMattersSection />
         <DifferenceGrid />
+
         <CustomFitSection />
       </div>
     </section>
