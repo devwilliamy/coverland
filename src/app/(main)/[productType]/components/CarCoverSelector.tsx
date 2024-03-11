@@ -117,11 +117,9 @@ export function CarCoverSelector({
               searchParams={searchParams}
             />
           </section>
-          {/* {isMobile && ( */}
         </div>
         <section
           className={`relative ${seeAllVisible ? 'max-h-[2050px] lg:max-h-[2900px]' : ''} w-full overflow-hidden`}
-          // className="relative max-h-[550vw] w-full overflow-hidden lg:max-h-[240vh]"
         >
           <FeaturesSection />
           <div
