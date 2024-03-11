@@ -82,16 +82,16 @@ export function CarCoverSelector({
           <section className=" h-full w-full pl-0 lg:sticky lg:top-8 lg:w-2/5">
             <Separator className="w-full bg-[#C8C7C7] lg:block" />
             <div className="grid grid-cols-[1fr_2fr] place-items-center ">
-              <div className="flex max-h-[24px] max-w-[64px] lg:max-h-[42px] lg:max-w-[116px]">
+              <div className="flex max-h-[24px] max-w-[64px]  items-center justify-center lg:max-h-[42px] lg:max-w-[116px]">
                 <div
-                  className={` ${!isTruckCover && !isSUVCover ? 'block' : 'hidden'}`}
+                  className={` ${!isTruckCover && !isSUVCover ? 'flex' : 'hidden'}`}
                 >
                   <CarIcon />
                 </div>
-                <div className={` ${isTruckCover ? 'block' : 'hidden'}`}>
+                <div className={` ${isTruckCover ? 'flex' : 'hidden'}`}>
                   <TruckIcon />
                 </div>
-                <div className={` ${isSUVCover ? 'block' : 'hidden'}`}>
+                <div className={` ${isSUVCover ? 'flex' : 'hidden'}`}>
                   <SuvIcon />
                 </div>
               </div>
@@ -141,7 +141,7 @@ function CarIcon() {
       viewBox="0 0 88 30"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      className=""
+      className=" pr-[20px] lg:max-h-[42px] lg:max-w-[116px]"
     >
       <g clipPath="url(#clip0_1317_45872)">
         <path
