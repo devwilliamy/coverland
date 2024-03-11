@@ -20,7 +20,7 @@ import FeaturesSection from '@/components/PDP/components/FeaturesSection';
 import { ExtraProductDetails } from '@/components/PDP/OtherDetails';
 import { useParams } from 'next/navigation';
 import EditVehiclePopover from '@/components/PDP/components/EditVehiclePopover';
-import SuvIcon from '@/components/PDP/components/icons/SUVIcon';
+import SuvIcon from '@/components/PDP/components/icons/SuvIcon';
 import TruckIcon from '@/components/PDP/components/icons/TruckIcon';
 
 export function CarCoverSelector({
