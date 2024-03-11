@@ -126,14 +126,16 @@ export function CarCoverSelector({
             className={`absolute ${seeAllVisible ? '' : 'hidden'} -bottom-[1px] z-[5] w-full bg-gradient-to-t from-white from-85%`}
           >
             <div className="flex  flex-col items-center justify-center pt-[10vh]">
-              <p
+              <div
                 onClick={() => setSeeAllVisible(false)}
-                className=" cursor-pointer py-[10px] text-[16px] leading-[19px] lg:text-[20px] lg:leading-[24px]"
+                className="flex cursor-pointer flex-col items-center"
               >
-                See All
-              </p>
-              <div className="flex max-h-[15px] max-w-[40px]">
-                <SeeAllChevronDown />
+                <p className="  py-[10px] text-[16px] leading-[19px] lg:text-[20px] lg:leading-[24px]">
+                  See All
+                </p>
+                <div className="flex max-h-[15px] max-w-[40px]">
+                  <SeeAllChevronDown />
+                </div>
               </div>
             </div>
             <SuggestedProducts />
