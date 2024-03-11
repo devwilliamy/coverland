@@ -100,16 +100,18 @@ export function CarCoverSelector({
           </section>
           {/* {isMobile && ( */}
         </div>
+        <div>
+          <FeaturesSection />
+        </div>
+        {/* <div className="flex w-full flex-col justify-center px-4">
+          <EnhancedProtectionSection />
+          {isDefaultCoverType && <RealTestSection />}
+          {isDefaultCoverType && <ProvenSection />}
+          <WarrantySection />
+        </div>
+        <SuggestedProducts />
+        <ExtraProductDetails /> */}
       </section>
-      <FeaturesSection />
-      <div className="flex w-full flex-col justify-center px-4">
-        <EnhancedProtectionSection />
-        {isDefaultCoverType && <RealTestSection />}
-        {isDefaultCoverType && <ProvenSection />}
-        <WarrantySection />
-      </div>
-      <SuggestedProducts />
-      <ExtraProductDetails />
     </>
   );
 }
