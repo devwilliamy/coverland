@@ -1,6 +1,6 @@
 import { TReviewData } from '@/lib/db';
 import { Rating } from '@mui/material';
-import { ThumbsUpIcon } from './icons';
+import { ThumbsUpIcon } from '../icons';
 import ReviewCardCarousel from './ReviewCardCarousel';
 import WouldRecomend from './WouldRecomend';
 import ReviewCardGallery from './ReviewCardGallery';
