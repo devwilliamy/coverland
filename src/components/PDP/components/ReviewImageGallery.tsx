@@ -8,7 +8,7 @@ import { ChevronDown, ChevronUp, X } from 'lucide-react';
 import { Dialog } from '@/components/ui/dialog';
 import { DialogContent } from '@radix-ui/react-dialog';
 import { TReviewData } from '@/lib/db';
-import { ReviewChevronLeft, ReviewChevronRight, ThumbsUpIcon } from './icons';
+import { ReviewChevronLeft, ReviewChevronRight, ThumbsUpIcon } from '../icons';
 import WouldRecomend from './WouldRecomend';
 import { Rating } from '@mui/material';
 import { Separator } from '@/components/ui/separator';

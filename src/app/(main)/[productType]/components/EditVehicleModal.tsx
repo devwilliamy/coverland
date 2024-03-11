@@ -1,7 +1,7 @@
 'use client';
 
 import EditVehicleDropdown from '@/components/PDP/EditVehicleDropdown';
-import { EditIcon } from '@/components/PDP/components/icons';
+import { EditIcon } from '@/components/PDP/icons';
 import {
   Popover,
   PopoverContent,
