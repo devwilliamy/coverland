@@ -1,9 +1,9 @@
 'use client';
 import { useState, useCallback, useEffect } from 'react';
 import { IProductData } from '@/app/(main)/utils';
-export interface TCartItem extends IProductData {
-  quantity: number;
-}
+import { SeatItem } from '@/providers/CartProvider';
+export type TCartItem = (IProductData & { quantity: 1 }) | SeatItem;
+
 const useCart = () => {
   const [cartItems, setCartItems] = useState<TCartItem[]>(() => {
     if (typeof window !== 'undefined') {
@@ -34,9 +34,12 @@ const useCart = () => {
       }
     });
   }, []);
-  const removeItemFromCart = useCallback((sku: TCartItem['sku']) => {
-    setCartItems((prevItems) => prevItems.filter((item) => item.sku !== sku));
-  }, []);
+  const removeItemFromCart = useCallback(
+    (sku: TCartItem['sku'] | SeatItem['sku']) => {
+      setCartItems((prevItems) => prevItems.filter((item) => item.sku !== sku));
+    },
+    []
+  );
   const adjustItemQuantity = useCallback((sku: string, quantity: number) => {
     setCartItems((prevItems) => {
       const updatedItems = prevItems

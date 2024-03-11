@@ -6,9 +6,9 @@ import { useEffect, useState } from 'react';
 import { SeatData } from '../util';
 
 export default function ElevateComfortSection({
-  selectedColor,
+  seatData,
 }: {
-  selectedColor: SeatData;
+  seatData: SeatData;
 }) {
   const [protectionData, setProtectionData] = useState<
     {
@@ -20,27 +20,27 @@ export default function ElevateComfortSection({
   useEffect(() => {
     setProtectionData([
       {
-        image: selectedColor?.[2] as StaticImageData,
+        image: seatData?.[2] as StaticImageData,
         title: 'Drive in Comfort',
         description: 'High-quality, Durable, and Easy-to-Clean Material',
       },
       {
-        image: selectedColor?.[3] as StaticImageData,
+        image: seatData?.[3] as StaticImageData,
         title: 'Breathable Design',
         description: `Perforated Leather to stay cool in any ride`,
       },
       {
-        image: selectedColor?.[4] as StaticImageData,
+        image: seatData?.[4] as StaticImageData,
         title: 'Perfect Fit in Minutes',
         description: 'Semi-Custom Look, Effortless to Install and Maintain',
       },
       {
-        image: selectedColor?.[5] as StaticImageData,
+        image: seatData?.[5] as StaticImageData,
         title: 'Airbag Compatible ',
         description: 'Safety, seamlessly integrated',
       },
     ]);
-  }, [selectedColor]);
+  }, [seatData]);
 
   const threeIcons = [
     { title: 'Easy Install', icon: <GrayWrench /> },
@@ -48,7 +48,7 @@ export default function ElevateComfortSection({
     { title: 'Airbag Safe', icon: <GrayShieldCheck /> },
   ];
 
-  const HeaderSeat = selectedColor[1];
+  const HeaderSeat = seatData[1];
 
   return (
     <section className="relative flex w-full flex-col items-center bg-[#1A1A1A] pb-[34px] capitalize lg:mt-[42px] ">
