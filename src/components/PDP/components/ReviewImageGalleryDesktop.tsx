@@ -22,7 +22,7 @@ import {
 } from 'react';
 import { useStore } from 'zustand';
 import ReviewCard from './ReviewCard';
-import { ReviewChevronLeft, ReviewChevronRight } from './icons';
+import { ReviewChevronLeft, ReviewChevronRight } from '../icons';
 import Image from 'next/image';
 
 export default function ReviewImageGalleryDesktop({

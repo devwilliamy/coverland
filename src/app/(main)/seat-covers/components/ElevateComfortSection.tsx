@@ -1,6 +1,6 @@
-import { GrayDualArrow } from '@/components/PDP/components/icons/GrayDualArrow';
-import { GrayShieldCheck } from '@/components/PDP/components/icons/GrayShieldCheck';
-import { GrayWrench } from '@/components/PDP/components/icons/GrayWrench';
+import { GrayDualArrow } from '@/components/PDP/icons/GrayDualArrow';
+import { GrayShieldCheck } from '@/components/PDP/icons/GrayShieldCheck';
+import { GrayWrench } from '@/components/PDP/icons/GrayWrench';
 import Image, { StaticImageData } from 'next/image';
 import { useEffect, useState } from 'react';
 import { SeatData } from '../util';
