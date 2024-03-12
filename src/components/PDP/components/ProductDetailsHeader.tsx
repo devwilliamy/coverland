@@ -5,7 +5,7 @@ import {
   GrayCarIcon,
   GraySunIcon,
   GrayWaterIcon,
-} from '@/components/PDP/components/icons';
+} from '@/components/PDP/icons';
 import { useParams } from 'next/navigation';
 
 export default function ProductDetailsHeader() {
