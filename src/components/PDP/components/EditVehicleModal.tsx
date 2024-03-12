@@ -8,7 +8,7 @@ import { IoClose } from 'react-icons/io5';
 import { IProductData } from '@/app/(main)/utils';
 import { useParams } from 'next/dist/client/components/navigation';
 
-export default function EditVehiclePopover({
+export default function EditVehicleModal({
   selectedProduct,
   searchParams,
 }: {
