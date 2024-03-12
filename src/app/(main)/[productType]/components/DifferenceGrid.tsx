@@ -1,13 +1,12 @@
 import Image from 'next/image';
 import OthersVSCoverlandMobile from '@/images/PDP/Product-Details-Redesign-2/OthersVSCoverland.webp';
 import OthersVSCoverlandDesktop from '@/images/PDP/Product-Details-Redesign-2/desktop-vs.webp';
-import BadFabric from '@/images/PDP/bad-fabric.jpg';
-import PremiumFabric from '@/images/PDP/premium-fabric.jpg';
-import PremiumPlusFabric from '@/images/PDP/premium-plus-fabric.jpg';
+import BadFabric from '@/images/PDP/Product-Details-Redesign-2/bad-fabric.webp';
+import PremiumFabric from '@/images/PDP/Product-Details-Redesign-2/premium-fabric.webp';
+import PremiumPlusFabric from '@/images/PDP/Product-Details-Redesign-2/premium-plus-fabric.webp';
 import PremiumVSMobile from '@/images/PDP/Product-Details-Redesign-2/premium/premium-vs.webp';
 import PremiumVSDesktop from '@/images/PDP/Product-Details-Redesign-2/premium/premium-vs-desktop.webp';
 import { useParams } from 'next/navigation';
-import VS from '@/components/PDP/icons/VS';
 type difference = {
   title: string;
   others: JSX.Element | string;
@@ -223,53 +222,17 @@ export default function DifferenceGrid() {
           <p className=" w-1/2 text-[#B5B5B5]">Others</p>
           <p className=" w-1/2  text-white">Coverland</p>
         </div>
-        {/* {params?.coverType === 'premium' ? (
-          <>
-            <Image
-              alt="Others-VS-Coverland"
-              src={PremiumVSMobile}
-              width={840}
-              height={472}
-              className=" w-full lg:hidden"
-            />
-            <Image
-              alt="Others-VS-Coverland"
-              src={PremiumVSDesktop}
-              width={840}
-              height={472}
-              className=" hidden w-full lg:block"
-            />
-          </>
-        ) : (
-          <>
-            <Image
-              alt="Others-VS-Coverland"
-              src={OthersVSCoverlandMobile}
-              width={840}
-              height={472}
-              className="mb-[14px] w-full lg:hidden"
-            />
-            <Image
-              alt="Others-VS-Coverland"
-              src={OthersVSCoverlandDesktop}
-              width={840}
-              height={472}
-              className=" hidden lg:block"
-            />
-         
-          </>
-        )} */}
         <div className="relative flex w-full">
           <Image src={BadFabric} alt="Competitor Fabric" className="w-1/2" />
           <Image
             src={isDefaultCoverType ? PremiumPlusFabric : PremiumFabric}
             alt="Coverland Fabric"
-            className={`w-1/2 border-[14px] border-[#C6C6C6] ${isDefaultCoverType ? 'scale-x-[-1]' : ''} `}
+            className={`w-1/2 border-[5px] border-[#C6C6C6] lg:border-[14px] ${isDefaultCoverType ? 'scale-x-[-1]' : ''} `}
           />
           <p
-            className="absolute left-[49%] top-1/2 -translate-x-1/2 -translate-y-1/2 border-[#A0A0A0] text-[108px] font-[800] italic leading-[24px] text-border text-white "
+            className="absolute left-[49%] top-1/2 -translate-x-1/2 -translate-y-1/2 border-[#A0A0A0] text-[60px] font-[800] italic leading-[24px] text-border text-white lg:text-[108px] "
             style={{
-              WebkitTextStroke: '2px #A0A0A0',
+              WebkitTextStroke: '1px #A0A0A0',
             }}
           >
             VS
