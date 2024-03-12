@@ -34,12 +34,9 @@ export default function SuggestedProducts() {
             <a href={`/${productType}/${model.type.slug}`}>
               <Image
                 alt="suggested-product"
-                // width={isMobile ? 200 : 316}
-                // height={isMobile ? 200 : 316}
-                width={800}
-                height={800}
+                width={isMobile ? 200 : 316}
+                height={isMobile ? 200 : 316}
                 src={model.image}
-                className="flex w-[200px] lg:w-[316px]"
               />
               <p className="pt-3 text-[16px] font-[600] leading-[16px]">
                 {model.type.display}
