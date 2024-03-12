@@ -1,7 +1,7 @@
-import React from 'react';
 import Banner from '@/images/hero/hero.webp';
 import Image from 'next/image';
 import { Raleway } from 'next/font/google';
+import { Lato } from 'next/font/google';
 import Phone from '@/images/contact/call 2.webp';
 import Chat from '@/images/contact/chat 2.webp';
 import Pin from '@/images/contact/location 1.webp';
@@ -15,6 +15,13 @@ const raleway = Raleway({
   fallback: ['Helvetica', 'sans-serif'],
   variable: '--font-raleway',
 });
+const lato = Lato({
+  weight: ['100', '400', '700', '900'],
+  subsets: ['latin'],
+  display: 'swap',
+  fallback: ['Helvetica', 'sans-serif'],
+  variable: '--font-lato',
+});
 
 const contactGrid = [
   { img: Pin, text: 'Coverland 15529 Blackburn Ave Norwalk, CA 90650' },
@@ -26,7 +33,7 @@ const contactGrid = [
 const Contact = () => {
   return (
     <section className="flex w-full flex-col">
-      <span className="relative h-28 overflow-hidden lg:h-44">
+      <header className="relative h-28 overflow-hidden lg:h-44">
         {/* <div className="absolute inset-0 bg-gradient-to-r from-[rgba(0,0,0,0.50)] from-0% via-[rgba(0,0,0,0.50)] via-100%"></div> */}
         <Image
           className="w-full bg-gray-300 bg-no-repeat object-contain"
@@ -35,12 +42,12 @@ const Contact = () => {
         />
         <div className="absolute inset-0 flex items-center justify-center">
           <p
-            className={`text-[32px] font-bold leading-[32px] text-white lg:text-[40px] lg:leading-[44px] ${raleway.className}`}
+            className={`${raleway.className} text-[32px] font-bold leading-[32px] text-white lg:text-[40px] lg:leading-[44px]`}
           >
             Contact Us
           </p>
         </div>
-      </span>
+      </header>
       <span className="flex h-full w-full flex-col items-center justify-center gap-[48px] py-[30px]">
         {contactGrid.map(({ img, text }) => (
           <div
@@ -91,13 +98,15 @@ const Contact = () => {
         <label htmlFor="help" className="pb-2 font-black">
           How Can We Help? *
         </label>
-        <input
+        <textarea
           id="help"
-          type="text"
           required
-          className="mb-[13px] min-h-[190px] w-full border-[2px] border-[#DBDBDB]"
+          className="mb-[13px] min-h-[190px] w-full border-[2px] border-[#DBDBDB] p-1"
         />
-        <div className="mb-[70px] flex min-h-[40px] min-w-[135px] max-w-[135px] items-center justify-center rounded-full bg-gradient-to-br from-[#072c58] from-20% to-[#034998] to-80% text-[16px]  font-[700] leading-[21px] text-white ">
+
+        <div
+          className={`${lato.className} mb-[70px] flex min-h-[40px] min-w-[135px] max-w-[135px] items-center justify-center rounded-full bg-gradient-to-r from-[#072c58] from-5% to-[#034998] to-80%  text-[16px] font-[700] leading-[21px] text-white `}
+        >
           SUBMIT
         </div>
       </span>

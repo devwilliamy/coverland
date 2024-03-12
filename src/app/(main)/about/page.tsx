@@ -1,6 +1,33 @@
+import Image from 'next/image';
+import Banner from '@/images/hero/hero.webp';
+import { Raleway } from 'next/font/google';
+
+const raleway = Raleway({
+  weight: ['100', '400', '700', '900'],
+  subsets: ['latin'],
+  display: 'swap',
+  fallback: ['Helvetica', 'sans-serif'],
+  variable: '--font-raleway',
+});
+
 function About() {
   return (
     <div className="my-[5vh]">
+      <header className="relative h-28 overflow-hidden lg:h-44">
+        {/* <div className="absolute inset-0 bg-gradient-to-r from-[rgba(0,0,0,0.50)] from-0% via-[rgba(0,0,0,0.50)] via-100%"></div> */}
+        <Image
+          className="w-full bg-gray-300 bg-no-repeat object-contain"
+          alt="coverland-banner"
+          src={Banner}
+        />
+        <div className="absolute inset-0 flex items-center justify-center">
+          <p
+            className={`${raleway.className} text-[32px] font-bold leading-[32px] text-white lg:text-[40px] lg:leading-[44px]`}
+          >
+            About Coverland
+          </p>
+        </div>
+      </header>
       <h2 className="mb-[5vh] text-5xl"> About Us </h2>
       <p className="mb-[5vh]">
         <p className="mb-[5vh] text-3xl font-black">Coverland</p>
