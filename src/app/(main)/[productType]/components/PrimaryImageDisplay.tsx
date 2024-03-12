@@ -46,7 +46,7 @@ export function PrimaryImageDisplay({
         />
         <Image
           id="featured-image"
-          src={featuredImage + '?v=2' ?? ''}
+          src={featuredImage + '?v=3' ?? ''}
           alt="a car with a car cover on it"
           fill={true}
           className="hidden object-cover lg:block"
