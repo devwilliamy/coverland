@@ -1,6 +1,6 @@
 'use client';
 
-import { EditIcon } from '@/components/PDP/components/icons';
+import { EditIcon } from '@/components/PDP/icons';
 import EditVehicleDropdown from '../EditVehicleDropdown';
 import { useState } from 'react';
 import { Drawer } from 'vaul';

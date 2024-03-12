@@ -11,10 +11,10 @@ const HeroSection = () => {
   const isMobile = useMediaQuery('(max-width: 1024px)');
   return (
     <section className="flex h-full  min-w-[343px] flex-col items-center px-4   lg:justify-center lg:px-0">
-      <div className="relative h-full  w-full flex-col max-lg:overflow-hidden ">
+      <div className="relative h-full w-full  flex-col max-lg:max-h-[750px] max-lg:overflow-hidden ">
         <Image
-          height={800}
-          width={800}
+          height={isMobile ? 800 : 1600}
+          width={isMobile ? 800 : 1600}
           className="w-full max-lg:min-h-[515px] max-lg:scale-[1]"
           src={isMobile ? heroMobile.src : hero.src}
           alt="hero"
