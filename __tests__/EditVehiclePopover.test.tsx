@@ -1,5 +1,5 @@
 import '@testing-library/jest-dom';
-import EditVehiclePopover from '@/components/PDP/components/EditVehiclePopover';
+import EditVehicleModal from '@/components/PDP/components/EditVehicleModal';
 import { render, screen } from '@testing-library/react';
 
 // jest.mock(
@@ -12,7 +12,7 @@ import { render, screen } from '@testing-library/react';
 // );
 jest.mock('../src/components/PDP/EditVehicleDropdown.tsx', () => ({
   // __esModule: true, // This property is needed when using ES modules
-  // default: () => 'MockEditVehiclePopover', // Mock functional component
+  // default: () => 'MockEditVehicleModal', // Mock functional component
 }));
 describe.only('PartialCoverSelector should render correctly', () => {
   it('should render', () => {
@@ -21,7 +21,7 @@ describe.only('PartialCoverSelector should render correctly', () => {
     const modelData = [{ make: 'BMW', model: '3-series' }];
     const fullProductName = `${makeParam ? modelData[0]?.make : 'Car Covers'} ${modelParam ? modelData[0]?.model : ''}`;
 
-    render(<EditVehiclePopover fullProductName={fullProductName} />);
+    render(<EditVehicleModal fullProductName={fullProductName} />);
     expect(screen.getByText('BMW 3-series'));
   });
   it('should render car covers in its title', () => {
@@ -30,7 +30,7 @@ describe.only('PartialCoverSelector should render correctly', () => {
     const modelData = [{ make: '', model: '' }];
     const fullProductName = `${makeParam ? modelData[0]?.make : 'Car Covers'} ${modelParam ? modelData[0]?.model : ''}`;
 
-    render(<EditVehiclePopover fullProductName={fullProductName} />);
+    render(<EditVehicleModal fullProductName={fullProductName} />);
     expect(screen.getByText('Car Covers'));
   });
 });
