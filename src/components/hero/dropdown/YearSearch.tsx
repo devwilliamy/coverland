@@ -50,7 +50,7 @@ export function YearSearch({
         value={value}
         onChange={(event) => handleChange(event)}
         disabled={isDisabled}
-        className={`w-full py-1 outline-none lg:py-4 ${isDisabled ? 'bg-transparent' : 'bg-white'}`}
+        className={`w-full py-1 outline-none lg:py-3 ${isDisabled ? 'bg-transparent' : 'bg-white'}`}
       >
         <option value="">Year</option>
         {years.map((year) => (
