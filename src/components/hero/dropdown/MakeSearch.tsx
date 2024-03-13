@@ -88,7 +88,7 @@ export function MakeSearch({
           value={value}
           onChange={handleChange}
           disabled={isLoading || isDisabled}
-          className="w-full bg-transparent outline-none "
+          className={`w-full py-1 outline-none lg:py-4 ${isDisabled ? 'bg-transparent' : 'bg-white'}`}
         >
           <option value="">{`Make`}</option>
           {makeData.map(({ make }, index) => (
