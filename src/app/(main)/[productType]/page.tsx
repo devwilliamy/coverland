@@ -36,6 +36,7 @@ export default async function CarPDPModelDataLayer({
   searchParams: { submodel?: string; second_submodel?: string } | undefined;
 }) {
   let reviewData: TReviewData[] = [];
+  const productTypes = ['car-covers', 'truck-covers', 'suv-covers'];
   if (!productTypes.includes(params.productType)) {
     return notFound();
   }
