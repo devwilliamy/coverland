@@ -9,7 +9,6 @@ import {
 } from '@/lib/db/review';
 import { TPathParams } from '@/app/(main)/utils';
 import { deslugify } from '@/lib/utils';
-import { Suspense } from 'react';
 
 export type TCarCoverSlugParams = {
   make: string;

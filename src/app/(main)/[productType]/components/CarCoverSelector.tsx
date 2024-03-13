@@ -68,12 +68,12 @@ export function CarCoverSelector({
         <LinkBreadcrumbs />
         <div className="flex w-full flex-col items-start justify-between lg:flex-row lg:gap-14">
           {/* Left Panel */}
-          {/* <PrimaryImageDisplay
+          <PrimaryImageDisplay
             productImages={productImages}
             selectedProduct={selectedProduct}
             featuredImage={featuredImage}
             setFeaturedImage={setFeaturedImage}
-          /> */}
+          />
           {/* Right Panel */}
           <section className=" h-full w-full pl-0 lg:sticky lg:top-8 lg:w-2/5">
             <Separator className="w-full bg-[#C8C7C7] lg:block" />
