@@ -227,7 +227,7 @@ export default function DifferenceGrid() {
           <Image
             src={isDefaultCoverType ? PremiumPlusFabric : PremiumFabric}
             alt="Coverland Fabric"
-            className={`w-1/2 border-[5px] border-[#C6C6C6] lg:border-[14px] ${isDefaultCoverType ? 'scale-x-[-1]' : ''} `}
+            className={`w-1/2 border-[5px] border-[#B9130C] lg:border-[14px] ${isDefaultCoverType ? 'scale-x-[-1]' : ''} `}
           />
           <p
             className="absolute left-[49%] top-1/2 -translate-x-1/2 -translate-y-1/2 border-[#A0A0A0] text-[60px] font-[800] italic leading-[24px] text-border text-white lg:text-[108px] "

@@ -119,7 +119,7 @@ export function CarCoverSelector({
           </section>
         </div>
         <section
-          className={`relative ${seeAllVisible ? 'max-h-[2050px] lg:max-h-[2900px]' : ''} w-full overflow-hidden`}
+          className={`relative ${seeAllVisible ? 'max-h-[2170px] lg:max-h-[3100px]' : ''} w-full overflow-hidden`}
         >
           <FeaturesSection />
           <div

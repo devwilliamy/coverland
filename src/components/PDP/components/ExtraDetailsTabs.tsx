@@ -12,17 +12,14 @@ export default function ExtraDetailsTabs() {
   const isSeatCovers = pathname === '/seat-covers';
 
   const otherDetailsBar = [
-    // { title: 'Why Us?', jsx: <ReviewSection /> },
-
     { title: 'Shipping & Returns', jsx: <ShippingPolicy /> },
     { title: 'Warranty', jsx: <WarrantyPolicy /> },
-    // { title: 'Specifications', jsx: <ReviewSection /> },
   ];
 
   if (!isSeatCovers) {
     otherDetailsBar.splice(
       0,
-      2,
+      0,
       { title: 'Reviews', jsx: <ReviewSection /> },
       { title: 'Q&A', jsx: <PDPAccordion /> }
     );
