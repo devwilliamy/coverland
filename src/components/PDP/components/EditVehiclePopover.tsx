@@ -1,6 +1,6 @@
 'use client';
 
-import { EditIcon } from '@/components/PDP/components/icons';
+import { EditIcon } from '@/components/PDP/icons';
 import EditVehicleDropdown from '../EditVehicleDropdown';
 import { useState } from 'react';
 import { Drawer } from 'vaul';
@@ -41,18 +41,15 @@ export default function EditVehiclePopover({
   return (
     <div className=" flex h-full w-full flex-col  justify-center lg:hidden">
       <Drawer.Root open={open} onOpenChange={setOpen}>
-        <Drawer.Trigger
-          className="flex h-full items-center justify-between text-left text-base text-[#1A1A1A]"
-          asChild
-        >
-          <button className="my-2 border-l-2 border-l-[#C8C7C7] pl-8 pr-8">
+        <Drawer.Trigger className="flex h-full items-center justify-between text-left text-base text-[#1A1A1A]">
+          <div className="my-2 border-l-2 border-l-[#C8C7C7] pl-8 pr-8">
             <p>Your Vehicle</p>
             <h1 className=" text-[18px] font-[500] capitalize leading-[22px] text-[#1A1A1A]">
               {productName}
             </h1>
             <h2 className="text-[#8F8F8F]">{productNameSubtitle}</h2>
-            <EditIcon />
-          </button>
+          </div>
+          <EditIcon />
         </Drawer.Trigger>
         <Drawer.Portal>
           <Drawer.Overlay className="fixed inset-0 bg-black/40"></Drawer.Overlay>
@@ -88,7 +85,10 @@ export default function EditVehiclePopover({
                 id="EditVehicleContainer"
                 className="flex min-h-[50vh] pt-[75px] "
               >
-                <EditVehicleDropdown searchParams={searchParams} />
+                <EditVehicleDropdown
+                  setOpen={setOpen}
+                  searchParams={searchParams}
+                />
               </div>
             </div>
           </Drawer.Content>

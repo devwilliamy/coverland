@@ -41,7 +41,7 @@ export function SubmodelDropdown({
   );
 
   useEffect(() => {
-    !model && setValue('');
+    setValue('');
   }, [model]);
 
   useEffect(() => {
@@ -56,7 +56,7 @@ export function SubmodelDropdown({
   const handleChange = (event: ChangeEvent<HTMLSelectElement>) => {
     const newValue = event.target.value;
     setValue(newValue);
-    setQuery((p) => ({ ...p, submodel1: newValue }));
+    setQuery((p) => ({ ...p, submodel1: newValue, submodel2: '' }));
   };
 
   const isDisabled = !query.make || !query.year || !query.type || !query.model;
@@ -75,7 +75,7 @@ export function SubmodelDropdown({
           disabled={isDisabled}
           className="w-full bg-transparent outline-none "
         >
-          <option value="">{`${value ? 'Clear' : 'Submodel'}`}</option>
+          <option value="">{`Submodel`}</option>
           {filteredSubmodelData?.sort()?.map((submodel) => (
             <option key={`model-${submodel}`} value={submodel || ''}>
               {submodel}

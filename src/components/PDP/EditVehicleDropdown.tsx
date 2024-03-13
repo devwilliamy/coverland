@@ -56,7 +56,7 @@ export default function EditVehicleDropdown({
   const [loading, setLoading] = useState(false);
   const [jsonData, setJsonData] = useState<TProductJsonData[]>([]);
   const router = useRouter();
-  const { year, type, make, model, submodel1 } = query;
+  const { year, type, make, model, submodel1, submodel2 } = query;
   useEffect(() => {
     const getSearchData = async () => {
       if (!make) return;
@@ -115,15 +115,23 @@ export default function EditVehicleDropdown({
       return;
     setLoading(true);
     let url = `/${slugify(type)}/${coverType || 'premium-plus'}/${slugify(make)}/${slugify(model)}/${yearInUrl}`;
-    const currentUrl = `${pathname}${searchParams?.toString() ? `?${searchParams?.submodel?.toString()}` : ''}`;
-    // console.log('Wat is this:', {
-    //   pathname,
-    //   searchParamToSTring: searchParams,
-    // });
+
+    const submodelParam = searchParams?.submodel
+      ? `?${createQueryString('submodel', searchParams.submodel)}`
+      : '';
+    const submodel2Param = searchParams?.second_submodel
+      ? `&${createQueryString('submodel2', searchParams.second_submodel)}`
+      : '';
+    const queryParams = [submodelParam, submodel2Param]
+      .filter((param) => param)
+      .join('&');
+    const currentUrl = `${pathname}${queryParams ? `${queryParams}` : ''}`;
     if (submodel1) {
       url += `?${createQueryString('submodel', submodel1)}`;
     }
-    // console.log('[EditVehicleDropdown]', { url, currentUrl });
+    if (submodel2) {
+      url += `&${createQueryString('submodel2', submodel2)}`;
+    }
 
     if (url === currentUrl) {
       setLoading(false);
@@ -147,7 +155,7 @@ export default function EditVehicleDropdown({
         <SubmodelDropdown queryObj={queryObj} submodelData={subModelData} />
       )} */}
       <Button
-        className="mx-auto h-[40px] max-h-[44px] w-full max-w-[px] rounded-[4px] bg-black text-lg "
+        className="mx-auto h-[40px] max-h-[44px] min-h-[44px] w-full max-w-[px] rounded-[4px] bg-black text-lg "
         onClick={handleSubmitDropdown}
         disabled={
           !year ||

@@ -68,15 +68,16 @@ const HomepageReviews = () => {
 
   const Dot = ({ index }: { index: number }) => (
     <button className="relative flex h-2 w-2" onClick={() => scrollTo(index)}>
-      <span className="relative inline-flex h-2 w-2 rounded-full bg-gray-300"></span>
+      <span className="relative inline-flex h-2 w-2 rounded-full bg-[#767676] outline outline-[1px]"></span>
     </button>
   );
 
   const ActiveDot = () => (
     <div className="relative flex h-2.5 w-2.5">
-      <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-gray-600"></span>
+      <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-[#1A1A1A] outline outline-[1px]"></span>
     </div>
   );
+
   return (
     <div>
       <div className="flex w-full flex-col items-center px-[39px]  uppercase">

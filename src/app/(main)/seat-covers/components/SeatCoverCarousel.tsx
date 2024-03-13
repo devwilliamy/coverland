@@ -73,7 +73,10 @@ export default function SeatCoverCarousel({
             {galleryImages.map((image, index) => {
               if (index == 3) {
                 return (
-                  <CarouselItem key={'seat-video'} className="h-full w-full">
+                  <CarouselItem
+                    key={`seat-video-${index}`}
+                    className="h-full w-full"
+                  >
                     <ProductVideo
                       src={SeatVideo}
                       imgSrc={FeaturedVideoThumbnail}
@@ -100,7 +103,11 @@ export default function SeatCoverCarousel({
         <section className="flex h-full w-full items-center pt-1">
           <span className="no-scrollbar flex flex-[80%] flex-row gap-1 overflow-x-auto whitespace-nowrap px-[6px] py-1">
             {galleryImages.map((image, index) => (
-              <CarouselPositionItem key={''} src={image} index={index} />
+              <CarouselPositionItem
+                key={`position-item-${index}`}
+                src={image}
+                index={index}
+              />
             ))}
           </span>
           {/* <div

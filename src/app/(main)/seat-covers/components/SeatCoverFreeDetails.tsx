@@ -4,7 +4,7 @@ import { calculateTimeTo2PM } from '@/components/PDP/components/TimeTo2PM';
 import { Separator } from '@/components/ui/separator';
 import { determineDeliveryByDate } from '@/lib/utils/deliveryDateUtils';
 import { BoxIcon, ShieldCheck } from 'lucide-react';
-import { useEffect, useState } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 
 export default function SeatCoverFreeDetails() {
   const deliveryDate = determineDeliveryByDate();
@@ -36,15 +36,14 @@ export default function SeatCoverFreeDetails() {
   return (
     <div className="flex flex-col items-center justify-start bg-[#FBFBFB] ">
       {SeatFreeDetailItems.map(({ icon, title, description }, index) => (
-        <>
+        <Fragment key={`Free-Detail-Item-${title}`}>
           {index === 0 && <Separator />}
           <SeatFreeDetailItem
-            key={`Free-Detail-Item-${index}`}
             icon={icon}
             title={title}
             description={description}
           />
-        </>
+        </Fragment>
       ))}
     </div>
   );

@@ -1,5 +1,5 @@
 'use client';
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent, useEffect, useState } from 'react';
 import { TQuery } from './HeroDropdown';
 
 export function YearSearch({
@@ -15,10 +15,22 @@ export function YearSearch({
   const isDisabled = !type;
   const { setQuery } = queryObj;
 
+  useEffect(() => {
+    setValue('');
+  }, [type]);
+
   const handleChange = (event: ChangeEvent<HTMLSelectElement>) => {
     const newValue = event.target.value;
     setValue(newValue);
-    setQuery((p) => ({ ...p, year: newValue }));
+    setQuery((p) => ({
+      ...p,
+      year: newValue,
+      parent_generation: '',
+      make: '',
+      model: '',
+      submodel1: '',
+      submodel2: '',
+    }));
   };
 
   const startYear = 1921;

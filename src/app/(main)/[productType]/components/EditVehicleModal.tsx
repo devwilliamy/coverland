@@ -1,7 +1,7 @@
 'use client';
 
 import EditVehicleDropdown from '@/components/PDP/EditVehicleDropdown';
-import { EditIcon } from '@/components/PDP/components/icons';
+import { EditIcon } from '@/components/PDP/icons';
 import {
   Popover,
   PopoverContent,
@@ -51,7 +51,7 @@ export function EditVehicleModal({
       <Popover open={open} onOpenChange={() => setOpen(!open)}>
         <PopoverTrigger asChild>
           <button className="flex w-full flex-shrink cursor-pointer items-center justify-between pl-[40px]">
-            <div className="">
+            <div className="flex w-full flex-col items-start justify-start">
               <p className="">Your Vehicle</p>
               <h1 className="  break-normal text-[26px] font-[500] capitalize leading-[31px]">
                 {productName}
