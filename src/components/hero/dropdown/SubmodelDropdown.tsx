@@ -73,7 +73,7 @@ export function SubmodelDropdown({
           value={value}
           onChange={handleChange}
           disabled={isDisabled}
-          className={`w-full cursor-pointer py-1 outline-none lg:py-3 ${isDisabled ? 'bg-transparent' : 'bg-white'}`}
+          className={`w-full cursor-pointer bg-transparent py-1 outline-none lg:py-3`}
         >
           <option value="">{`Submodel`}</option>
           {filteredSubmodelData?.sort()?.map((submodel) => (
