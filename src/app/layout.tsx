@@ -32,6 +32,7 @@ export default function RootLayout({
     >
       <Head>
         <meta name="viewport" content="width=device-width, user-scalable=no" />
+        <link rel="icon" href="/favicon.ico" sizes="any" />
       </Head>
       <Script id="meta-pixel" strategy="afterInteractive">
         {`!function(f,b,e,v,n,t,s)
