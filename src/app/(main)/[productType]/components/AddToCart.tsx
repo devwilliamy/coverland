@@ -391,7 +391,7 @@ const TypeDropdown = ({ queryState, setQuery }) => {
       <select
         value={determineTypeString(queryState.type)}
         onChange={handleChange}
-        className={`bg w-full bg-transparent outline-none `}
+        className="w-full cursor-pointer bg-transparent py-1 outline-none lg:py-3"
       >
         <option value="">{'Product Type'}</option>
 
@@ -422,7 +422,7 @@ const YearDropdown = ({ queryState, setQuery }) => {
       <div className=" ml-[10px] pr-[15px]">2</div>
       <select
         value={queryState.year}
-        className={`bg w-full bg-transparent outline-none `}
+        className={`w-full cursor-pointer bg-transparent py-1 outline-none lg:py-3`}
         onChange={(e) =>
           setQuery({
             ...queryState,
@@ -495,7 +495,7 @@ const MakeDropdown = ({ queryState, setQuery }) => {
       ) : (
         <select
           value={queryState.make}
-          className={`bg w-full bg-transparent capitalize outline-none`}
+          className={`w-full cursor-pointer bg-transparent py-1 capitalize outline-none lg:py-3`}
           disabled={isDisabled || isLoading}
           onChange={(e) =>
             setQuery({
@@ -626,7 +626,7 @@ const ModelDropdown = ({ queryState, setQuery }) => {
         <div className=" ml-[10px] pr-[15px]">4</div>
         <select
           value={queryState.model}
-          className={`bg w-full bg-transparent capitalize outline-none `}
+          className={`w-full cursor-pointer bg-transparent py-1 capitalize outline-none lg:py-3`}
           disabled={isDisabled}
           onChange={handleChange}
         >
@@ -696,7 +696,7 @@ const SubmodelDropdown = ({
         <div className=" ml-[10px] pr-[15px]">5</div>
         <select
           value={queryState.submodel}
-          className={`bg w-full bg-transparent outline-none `}
+          className={`w-full cursor-pointer bg-transparent py-1 capitalize outline-none lg:py-3`}
           disabled={isDisabled}
           onChange={handleChange}
         >
@@ -764,7 +764,7 @@ const SecondSubmodelDropdown = ({
       <div className=" ml-[10px] pr-[15px]">6</div>
       <select
         value={queryState.secondSubmodel}
-        className={`bg w-full bg-transparent outline-none `}
+        className={`w-full cursor-pointer bg-transparent py-1 capitalize outline-none lg:py-3`}
         disabled={isDisabled}
         onChange={handleChange}
       >
