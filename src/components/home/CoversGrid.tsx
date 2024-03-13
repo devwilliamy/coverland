@@ -9,7 +9,7 @@ const coverTypes = [
   { title: 'Car Covers', img: CAR, link: '/car-covers/premium-plus' },
   { title: 'Truck Covers', img: TRUCK, link: '/truck-covers/premium-plus' },
   { title: 'SUV Covers', img: SUV, link: '/suv-covers/premium-plus' },
-  { title: 'Seat Covers', img: SEAT, link: '/seat-covers/Leatherette' },
+  { title: 'Seat Covers', img: SEAT, link: '/seat-covers/leatherette' },
 ];
 
 const CoversGrid = () => {
@@ -18,11 +18,7 @@ const CoversGrid = () => {
       <div className="grid h-full max-w-[1280px]  grid-cols-2 grid-rows-2 place-items-center gap-[7px] lg:gap-[20px]  ">
         {coverTypes.map(({ title, img, link }, i) => {
           return (
-            <div
-              key={`${title}-${i}-block`}
-              // className={`${title !== 'Car Covers' ? 'pointer-events-none' : ''}`}
-              className="h-full"
-            >
+            <div key={`${title}-${i}-block`} className="h-full">
               <a
                 href={link}
                 className="flex h-full min-w-[167px]  flex-col items-center justify-center rounded-[8px] p-[10px] shadow-md lg:flex-row lg:gap-[36px] lg:px-[50px]"

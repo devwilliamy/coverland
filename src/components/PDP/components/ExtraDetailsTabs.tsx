@@ -9,10 +9,9 @@ import { usePathname } from 'next/navigation';
 export default function ExtraDetailsTabs() {
   const pathname = usePathname();
   const isSeatCovers = pathname?.startsWith('/seat-covers');
-  const isLeatherette =
-    pathname?.startsWith('/seat-covers/leatherette') ||
-    pathname?.startsWith('/seat-covers/Leatherette');
-
+  const isLeatherette = pathname
+    ?.toLowerCase()
+    .startsWith('/seat-covers/leatherette');
   const otherDetailsBar = [
     { title: 'Shipping & Returns', jsx: <ShippingPolicy /> },
     { title: 'Warranty', jsx: <WarrantyPolicy /> },
