@@ -11,6 +11,7 @@ import {
 } from '@/lib/db/review';
 import { deslugify } from '@/lib/utils';
 import { TPathParams } from '../utils';
+import { notFound } from 'next/navigation';
 
 export function generateStaticParams() {
   return [
@@ -35,6 +36,9 @@ export default async function CarPDPModelDataLayer({
   searchParams: { submodel?: string; second_submodel?: string } | undefined;
 }) {
   let reviewData: TReviewData[] = [];
+  if (!productTypes.includes(params.productType)) {
+    return notFound();
+  }
   let reviewDataSummary: TProductReviewSummary = {
     total_reviews: 0,
     average_score: 0,
