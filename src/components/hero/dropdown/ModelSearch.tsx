@@ -105,7 +105,7 @@ export function ModelSearch({
           value={value}
           onChange={handleChange}
           disabled={isDisabled}
-          className={`w-full py-1 outline-none lg:py-3 ${isDisabled ? 'bg-transparent' : 'bg-white'}`}
+          className={`w-full cursor-pointer py-1 outline-none lg:py-3 ${isDisabled ? 'bg-transparent' : 'bg-white'}`}
         >
           <option value="">{`Model`}</option>
           {filteredModelData?.map(({ model }, index) => (

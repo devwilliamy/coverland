@@ -81,7 +81,7 @@ export function SecondSubmodelDropdown({
           value={value}
           onChange={handleChange}
           disabled={isDisabled}
-          className={`w-full py-1 outline-none lg:py-3 ${isDisabled ? 'bg-transparent' : 'bg-white'}`}
+          className={`w-full cursor-pointer py-1 outline-none lg:py-3 ${isDisabled ? 'bg-transparent' : 'bg-white'}`}
         >
           <option value="">{`Submodel 2`}</option>
           {filteredSecondSubmodelData?.sort()?.map((secondSubmodel) => (
