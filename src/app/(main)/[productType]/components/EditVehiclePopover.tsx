@@ -12,7 +12,7 @@ import { useContext, useState } from 'react';
 import { IProductData } from '../../utils';
 import { useParams } from 'next/navigation';
 
-export function EditVehicleModal({
+export default function EditVehiclePopover({
   selectedProduct,
   searchParams,
 }: {

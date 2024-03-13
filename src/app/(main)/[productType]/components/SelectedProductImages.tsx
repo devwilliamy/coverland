@@ -64,8 +64,8 @@ const ProductImage = ({
     <Image
       key={idx}
       src={img + '?v=4'}
-      width={200}
-      height={200}
+      width={350}
+      height={350}
       alt="car cover details"
       className={`rounded-lg' h-full w-full object-contain `}
       onClick={() => setFeaturedImage(img)}
