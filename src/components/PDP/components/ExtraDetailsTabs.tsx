@@ -7,16 +7,17 @@ import ShippingPolicy from '@/app/(main)/policies/shipping-policy/page';
 import { usePathname } from 'next/navigation';
 
 export default function ExtraDetailsTabs() {
-  // const pathParams = useParams();
   const pathname = usePathname();
-  const isSeatCovers = pathname === '/seat-covers';
-
+  const isSeatCovers = pathname?.startsWith('/seat-covers');
+  const isLeatherette = pathname
+    ?.toLowerCase()
+    .startsWith('/seat-covers/leatherette');
   const otherDetailsBar = [
     { title: 'Shipping & Returns', jsx: <ShippingPolicy /> },
     { title: 'Warranty', jsx: <WarrantyPolicy /> },
   ];
 
-  if (!isSeatCovers) {
+  if (!isSeatCovers && !isLeatherette) {
     otherDetailsBar.splice(
       0,
       0,
