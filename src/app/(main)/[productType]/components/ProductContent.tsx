@@ -82,32 +82,22 @@ export function ProductContent({
     case (isTruckCovers && !coverType) || (isTruckCovers && isPremiumPlus):
       defaultMSRP = 200;
       break;
-    case isCarCovers && isPremium:
+    case (isCarCovers && isPremium) ||
+      (isSuvCovers && isStandardPro) ||
+      (isTruckCovers && isStandard):
       defaultMSRP = 120;
       break;
-    case isSuvCovers && isPremium:
+    case (isSuvCovers && isPremium) || (isTruckCovers && isStandardPro):
       defaultMSRP = 140;
       break;
     case isTruckCovers && isPremium:
       defaultMSRP = 160;
       break;
-    case isCarCovers && isStandardPro:
+    case (isCarCovers && isStandardPro) || (isSuvCovers && isStandard):
       defaultMSRP = 100;
-      break;
-    case isSuvCovers && isStandardPro:
-      defaultMSRP = 120;
-      break;
-    case isTruckCovers && isStandardPro:
-      defaultMSRP = 140;
       break;
     case isCarCovers && isStandard:
       defaultMSRP = 80;
-      break;
-    case isSuvCovers && isStandard:
-      defaultMSRP = 100;
-      break;
-    case isTruckCovers && isStandard:
-      defaultMSRP = 120;
       break;
     default:
       defaultMSRP = 160;
