@@ -59,6 +59,7 @@ const CustomFitSection = () => {
             autoplay
             loop
             aspectRatio="16 / 9"
+            controls={false}
           />
         );
     }
