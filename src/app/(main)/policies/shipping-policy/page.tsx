@@ -7,12 +7,12 @@ import PolicyDetail from '@/components/policy/PolicyDetail';
 import PolicyFurtherAssistance from '@/components/policy/PolicyFurtherAssistance';
 import { usePathname } from 'next/navigation';
 
-function ShippingPolicy() {
+function ShippingPolicy({ hideHeader }: { hideHeader?: boolean }) {
   const path = usePathname();
   const isSeatCovers = path === '/seat-covers';
   return (
     <>
-      <PolicyHeader headerText="Shipping Policy" />
+      <PolicyHeader hideHeader={hideHeader} headerText="Shipping Policy" />
       <div className="lg:mx-auto lg:flex lg:w-[842px] lg:flex-col lg:justify-center">
         <div className="relative px-5 py-5 lg:py-14">
           <PolicyTitle title="Free Delivery" uppercase />

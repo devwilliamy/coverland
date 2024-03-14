@@ -5,6 +5,7 @@ import PolicyTabs from './PolicyTabs';
 
 type PolicyHeaderProps = {
   headerText: string;
+  hideHeader?: boolean | undefined;
 };
 
 const raleway = Raleway({
@@ -15,7 +16,10 @@ const raleway = Raleway({
   variable: '--font-raleway',
 });
 
-export default function PolicyHeader({ headerText }: PolicyHeaderProps) {
+export default function PolicyHeader({
+  headerText,
+  hideHeader,
+}: PolicyHeaderProps) {
   return (
     <>
       <div className="relative">
@@ -35,7 +39,7 @@ export default function PolicyHeader({ headerText }: PolicyHeaderProps) {
           </p>
         </div>
       </div>
-      <PolicyTabs />
+      {!hideHeader && <PolicyTabs />}
     </>
   );
 }

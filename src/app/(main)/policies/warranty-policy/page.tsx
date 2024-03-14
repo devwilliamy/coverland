@@ -17,7 +17,7 @@ function WarrantyPolicy({ hideHeader }: { hideHeader?: boolean }) {
 
   return (
     <>
-      {!hideHeader && <PolicyHeader headerText="Warranty" />}
+       <PolicyHeader hideHeader={hideHeader} headerText="Warranty" />
       <div className="lg:mx-auto lg:flex lg:w-[842px] lg:flex-col lg:justify-center">
         <div className="relative px-5 pb-4 lg:py-14">
           <PolicyTitle
