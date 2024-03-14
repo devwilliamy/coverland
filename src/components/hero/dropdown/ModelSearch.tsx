@@ -101,19 +101,22 @@ export function ModelSearch({
         tabIndex={1}
       >
         <div className="ml-[10px] pr-[15px]">4</div>
-        <select
-          value={value}
-          onChange={handleChange}
-          disabled={isDisabled}
-          className={`w-full cursor-pointer bg-transparent py-1 outline-none lg:py-3`}
-        >
-          <option value="">{`Model`}</option>
-          {filteredModelData?.map(({ model }, index) => (
-            <option key={`${model}-${index}`} value={model || ''}>
-              {model}
-            </option>
-          ))}
-        </select>
+        <label htmlFor="model">
+          <select
+            value={value}
+            onChange={handleChange}
+            disabled={isDisabled}
+            className={`w-full cursor-pointer bg-transparent py-1 outline-none lg:py-3`}
+            aria-label="model"
+          >
+            <option value="">{`Model`}</option>
+            {filteredModelData?.map(({ model }, index) => (
+              <option key={`${model}-${index}`} value={model || ''}>
+                {model}
+              </option>
+            ))}
+          </select>
+        </label>
       </div>
       {showSubmodelDropdown && (
         <SubmodelDropdown queryObj={queryObj} submodelData={submodelData} />

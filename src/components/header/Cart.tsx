@@ -49,6 +49,7 @@ function Cart() {
             >
               <button
                 className="rounded-full"
+                aria-label="Close"
                 onClick={() => setCartOpen(false)}
               >
                 <IoClose />

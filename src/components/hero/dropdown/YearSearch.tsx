@@ -46,19 +46,22 @@ export function YearSearch({
       tabIndex={1}
     >
       <div className="ml-[10px] pr-[15px]">2</div>
-      <select
-        value={value}
-        onChange={(event) => handleChange(event)}
-        disabled={isDisabled}
-        className={`w-full cursor-pointer bg-transparent py-1 outline-none lg:py-3`}
-      >
-        <option value="">Year</option>
-        {years.map((year) => (
-          <option key={`year-${year}`} value={year.toString()}>
-            {year}
-          </option>
-        ))}
-      </select>
+      <label htmlFor="year">
+        <select
+          value={value}
+          onChange={(event) => handleChange(event)}
+          disabled={isDisabled}
+          className={`w-full cursor-pointer bg-transparent py-1 outline-none lg:py-3`}
+          aria-label="year"
+        >
+          <option value="">Year</option>
+          {years.map((year) => (
+            <option key={`year-${year}`} value={year.toString()}>
+              {year}
+            </option>
+          ))}
+        </select>
+      </label>
     </button>
   );
 }

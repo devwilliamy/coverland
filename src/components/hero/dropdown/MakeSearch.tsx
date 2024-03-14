@@ -84,19 +84,22 @@ export function MakeSearch({
           <AiOutlineLoading3Quarters className="animate-spin " />
         </div>
       ) : (
-        <select
-          value={value}
-          onChange={handleChange}
-          disabled={isLoading || isDisabled}
-          className={`w-full cursor-pointer bg-transparent py-1 outline-none lg:py-3`}
-        >
-          <option value="">{`Make`}</option>
-          {makeData.map(({ make }, index) => (
-            <option key={`${make}-${index}`} value={make || ''}>
-              {make}
-            </option>
-          ))}
-        </select>
+        <label htmlFor="make">
+          <select
+            value={value}
+            onChange={handleChange}
+            disabled={isLoading || isDisabled}
+            className={`w-full cursor-pointer bg-transparent py-1 outline-none lg:py-3`}
+            aria-label="make"
+          >
+            <option value="">{`Make`}</option>
+            {makeData.map(({ make }, index) => (
+              <option key={`${make}-${index}`} value={make || ''}>
+                {make}
+              </option>
+            ))}
+          </select>
+        </label>
       )}
     </div>
   );

@@ -36,18 +36,21 @@ export function TypeSearch({
       tabIndex={1}
     >
       <div className=" ml-[10px] pr-[15px]">1</div>
-      <select
-        value={value}
-        onChange={handleChange}
-        className="w-full cursor-pointer bg-transparent py-1 outline-none lg:py-3"
-      >
-        <option value="">Type</option>
-        {types.map((type, i) => (
-          <option key={`type-${type}-${i}`} value={type}>
-            {type}
-          </option>
-        ))}
-      </select>
+      <label htmlFor="type">
+        <select
+          value={value}
+          onChange={handleChange}
+          className="w-full cursor-pointer bg-transparent py-1 outline-none lg:py-3"
+          aria-label="type"
+        >
+          <option value="">Type</option>
+          {types.map((type, i) => (
+            <option key={`type-${type}-${i}`} value={type}>
+              {type}
+            </option>
+          ))}
+        </select>
+      </label>
     </div>
   );
 }

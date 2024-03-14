@@ -69,19 +69,22 @@ export function SubmodelDropdown({
         tabIndex={1}
       >
         <div className="ml-[10px] pr-[15px]">5</div>
-        <select
-          value={value}
-          onChange={handleChange}
-          disabled={isDisabled}
-          className={`w-full cursor-pointer bg-transparent py-1 outline-none lg:py-3`}
-        >
-          <option value="">{`Submodel`}</option>
-          {filteredSubmodelData?.sort()?.map((submodel) => (
-            <option key={`model-${submodel}`} value={submodel || ''}>
-              {submodel}
-            </option>
-          ))}
-        </select>
+        <label htmlFor="submodel">
+          <select
+            value={value}
+            onChange={handleChange}
+            disabled={isDisabled}
+            className={`w-full cursor-pointer bg-transparent py-1 outline-none lg:py-3`}
+            aria-label="submodel"
+          >
+            <option value="">{`Submodel`}</option>
+            {filteredSubmodelData?.sort()?.map((submodel) => (
+              <option key={`model-${submodel}`} value={submodel || ''}>
+                {submodel}
+              </option>
+            ))}
+          </select>
+        </label>
       </div>
       {showSecondSubmodelDropdown && (
         <SecondSubmodelDropdown

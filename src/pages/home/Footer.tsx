@@ -54,6 +54,7 @@ const Footer = () => {
             <Link
               href="https://youtube.com/@CoverLandUSA?si=hcqFGwnMgWrRfIdP"
               target="_blank"
+              aria-label="Go to Coverland Youtube page"
             >
               <YtCustomIcon />
             </Link>
