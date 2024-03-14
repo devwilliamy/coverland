@@ -18,7 +18,7 @@ export default function ProductVideo({
   src,
   imgSrc,
   autoplay = false,
-  controls,
+  controls = true,
   loop = false,
   aspectRatio = '1 / 1',
 }: ProductVideoProps) {
