@@ -9,6 +9,7 @@ type ProductVideoProps = {
   src: Asset;
   imgSrc?: StaticImageData;
   autoplay?: boolean;
+  controls?: boolean;
   loop?: boolean;
   aspectRatio?: string;
 };
@@ -17,6 +18,7 @@ export default function ProductVideo({
   src,
   imgSrc,
   autoplay = false,
+  controls = true,
   loop = false,
   aspectRatio = '1 / 1',
 }: ProductVideoProps) {
@@ -30,8 +32,12 @@ export default function ProductVideo({
       style={{
         aspectRatio: aspectRatio,
         height: '100%',
+        '--controls': controls ? '' : 'none',
         '--seek-backward-button': 'none',
         '--seek-forward-button': 'none',
+        '--time-range': 'none',
+        '--time-display': 'none',
+        '--duration-display': 'none',
       }}
     >
       {imgSrc ? (
@@ -45,3 +51,15 @@ export default function ProductVideo({
     </Video>
   );
 }
+
+// '--seek-forward-button': 'none',
+// '--time-range': controls ? '' : 'none',
+// '--time-display': controls ? '' : 'none',
+// '--duration-display': controls ? '' : 'none',
+// '--rendition-selectmenu': controls ? '' : 'none',
+// '--play-button': controls ? '' : 'none',
+// '--mute-button': controls ? '' : 'none',
+// '--pip-button': controls ? '' : 'none',
+// '--playback-rate-button': controls ? '' : 'none',
+// '--fullscreen-button': controls ? '' : 'none',
+// '--volume-range': controls ? '' : 'none',

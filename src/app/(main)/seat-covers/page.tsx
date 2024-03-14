@@ -1,5 +1,5 @@
 'use client';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import SeatCoverCarousel from './components/SeatCoverCarousel';
 import { useMediaQuery } from '@mui/material';
 import Image, { StaticImageData } from 'next/image';
@@ -24,9 +24,7 @@ import WarrantySection from '@/components/PDP/components/WarrantySection';
 import ExtraDetailsTabs from '@/components/PDP/components/ExtraDetailsTabs';
 import { Separator } from '@radix-ui/react-separator';
 import ProductVideo from '@/components/PDP/ProductVideo';
-import { TSeatCoverDataDB, getAllSeatCovers } from '@/lib/db/seat-covers';
-import { TCartItem } from '@/lib/cart/useCart';
-import { SeatItem } from '@/providers/CartProvider';
+// import { usePathname } from 'next/navigation';
 
 export default function SeatCovers() {
   const isMobile = useMediaQuery('max-width: 1024px');
@@ -65,6 +63,7 @@ export default function SeatCovers() {
     ? NonCompatibleMobile
     : NonCompatibleDesktop;
 
+  // console.log('Path from Seat Covers: ', pathName);
   return (
     <section className="flex w-full flex-col items-center pt-[22px]">
       <p className="w-full px-[2dvw] pb-3.5 text-[14px] leading-[15px] lg:pb-[43px]">
