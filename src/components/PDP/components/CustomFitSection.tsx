@@ -54,13 +54,15 @@ const CustomFitSection = () => {
         return <Image alt="standard image" src={StandardImage} />;
       default:
         return (
-          <ProductVideo
-            src={featuredVideo}
-            autoplay
-            loop
-            aspectRatio="16 / 9"
-            controls={false}
-          />
+          <div className="w-full">
+            <ProductVideo
+              src={featuredVideo}
+              autoplay
+              loop
+              aspectRatio="16 / 9"
+              controls={false}
+            />
+          </div>
         );
     }
   };

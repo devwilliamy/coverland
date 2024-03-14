@@ -47,7 +47,7 @@ export default function ProductDetailsHeader() {
         </p>
       </div>
       <div className="flex w-screen items-center justify-center lg:w-full ">
-        <div className="flex w-full max-w-[840px]">
+        <div className="w-full max-w-[840px]">
           {isDefault ? (
             <ProductVideo
               src={CorvetteGif}
