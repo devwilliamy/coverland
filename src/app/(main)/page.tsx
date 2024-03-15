@@ -10,6 +10,13 @@ import HomepageVideoSection from '@/pages/home/HomepageVideoSection';
 import WhyChooseCoverland from '@/pages/home/WhyChooseCoverland';
 import HomepageReviews from '@/pages/home/HomepageReviews';
 
+export async function generateMetadata() {
+  return {
+    title: `Car covers for automobiles: Custom Fit - Coverland`,
+    description: `Car covers, Custom Fit ᐉ Coverland ⭐ Free, Same-Day Shipping ✔️ Free Returns & Purchase Protection ✔️ Made from premium quality, heavy-duty materials with a soft inner fabric.`,
+  };
+}
+
 export default function Home() {
   return (
     <div className="flex flex-col gap-[60px] pb-4 lg:gap-[110px]">
