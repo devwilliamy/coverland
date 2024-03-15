@@ -154,7 +154,7 @@ const Contact = () => {
   };
 
   return (
-    <section className="flex w-full flex-col">
+    <section className="flex w-full flex-col items-center">
       <header className="relative h-28 overflow-hidden lg:h-44">
         <Image
           className="w-full bg-gray-300 bg-no-repeat object-contain"
@@ -169,130 +169,141 @@ const Contact = () => {
           </p>
         </div>
       </header>
-      <span className="flex h-full w-full flex-col items-center justify-center gap-[48px] py-[30px]">
-        {contactGrid.map(({ img, text }, i) => (
-          <div
-            key={`contact-item-${i}`}
-            className="flex max-w-[153px] flex-col items-center justify-center"
-          >
-            <Image src={img} alt="contact-grid-image" />
-            <p
-              className={`pt-[14px] text-center text-[16px] font-[700] leading-[21px]`}
+      <section className="flex w-full max-w-[880px] flex-col">
+        <span className="flex h-full w-full items-center justify-center gap-[48px] lg:gap-[100px] py-[30px] max-lg:flex-col  lg:items-start">
+          {contactGrid.map(({ img, text }, i) => (
+            <div
+              key={`contact-item-${i}`}
+              className="flex max-w-[153px] flex-col items-center justify-center"
             >
-              {text}
-            </p>
-          </div>
-        ))}
-      </span>
-      <Separator />
-      <form
-        id="form"
-        method="post"
-        encType="text/plain"
-        className={`px-5 pt-[48px]`}
-        onSubmit={(e) => {
-          e.preventDefault();
-          const formData = new FormData(e.currentTarget);
-          handleSubmit(formData);
-        }}
-      >
-        <p className="pb-[48px] text-[16px] leading-[21px] lg:text-[16px] lg:leading-[21px]">
-          We love to hear from you! Please let us know if you have any questions
-          or concerns and we will get back to you shortly. Thanks!
-        </p>
-        <p className="pb-2">* Required</p>
-        <label htmlFor="subject" className="pb-2 font-black">
-          Name *
-        </label>
-        <input
-          id="subject"
-          name="subject"
-          placeholder="John Doe"
-          type="text"
-          required
-          className="mb-[13px] min-h-[50px] w-full border-[2px] border-[#DBDBDB]"
-        />
-        <label htmlFor="email" className="pb-2 font-black">
-          Email *
-        </label>
-        <input
-          id="email"
-          name="email"
-          placeholder="JohnDoe@email.com"
-          type="text"
-          required
-          onChange={(e) => {
-            console.log(validationObject.email.firstVisit);
-            !validationObject.email.firstVisit && validateEmail(e);
+              <Image src={img} alt="contact-grid-image" />
+              <p
+                className={`pt-[14px] text-center text-[16px] font-[700] leading-[21px]`}
+              >
+                {text}
+              </p>
+            </div>
+          ))}
+        </span>
+        <Separator />
+        <form
+          id="form"
+          method="post"
+          encType="text/plain"
+          className={`px-5 pt-[48px] `}
+          onSubmit={(e) => {
+            e.preventDefault();
+            const formData = new FormData(e.currentTarget);
+            handleSubmit(formData);
           }}
-          onBlur={(e) => {
-            setValidationObject((state) => {
-              return {
-                ...state,
-                email: {
-                  ...state.email,
-                  firstVisit: false,
-                },
-              };
-            });
-            validateEmail(e);
-          }}
-          className="mb-[13px] min-h-[50px] w-full border-[2px] border-[#DBDBDB]"
-        />
-        <p
-          className={`${validationObject.email.errors ? 'font-bold text-[#BE1B1B]' : 'hidden'}`}
         >
-          {validationObject.email.errorMessage}
-        </p>
-        <label htmlFor="phoneNumber" className="pb-2 font-black">
-          Phone Number
-        </label>
-        <input
-          id="phoneNumber"
-          name="phoneNumber"
-          type="tel"
-          required
-          placeholder="123-45-678"
-          value={validationObject.phone.value}
-          onChange={handlePhoneChange}
-          maxLength={13}
-          onBlur={(e) => {
-            setValidationObject((state) => {
-              return {
-                ...state,
-                phone: {
-                  ...state.phone,
-                  firstVisit: false,
-                },
-              };
-            });
-            handlePhoneChange(e);
-          }}
-          className="mb-[13px] min-h-[50px] w-full border-[2px] border-[#DBDBDB]"
-        />
-        <p
-          className={`${validationObject.phone.errors ? 'font-bold text-[#BE1B1B]' : 'hidden'}`}
-        >
-          {validationObject.phone.errorMessage}
-        </p>
-        <label htmlFor="body" className="pb-2 font-black">
-          How Can We Help? *
-        </label>
-        <textarea
-          id="body"
-          name="body"
-          placeholder="I'd like to talk about..."
-          required
-          className="mb-[13px] min-h-[190px] w-full resize-none border-[2px] border-[#DBDBDB] p-1"
-        />
+          <p className="pb-[48px] text-[16px] leading-[21px] lg:text-center lg:text-[16px] lg:leading-[21px]">
+            We love to hear from you! Please let us know if you have any
+            questions or concerns and we will get back to you shortly. Thanks!
+          </p>
+          <p className="pb-2">* Required</p>
+          <span className="items center grid w-full grid-cols-1 justify-items-center gap-[30px]  lg:grid-cols-3">
+            <div className=" flex w-full flex-col">
+              <label htmlFor="subject" className="pb-2 font-black">
+                Name *
+              </label>
+              <input
+                id="subject"
+                name="subject"
+                placeholder="John Doe"
+                type="text"
+                required
+                className="mb-[13px] min-h-[50px] w-full border-[2px] border-[#DBDBDB]"
+              />
+            </div>
+            <div className="flex w-full flex-col ">
+              <label htmlFor="email" className="pb-2 font-black">
+                Email *
+              </label>
+              <input
+                id="email"
+                name="email"
+                placeholder="JohnDoe@email.com"
+                type="text"
+                required
+                onChange={(e) => {
+                  console.log(validationObject.email.firstVisit);
+                  !validationObject.email.firstVisit && validateEmail(e);
+                }}
+                onBlur={(e) => {
+                  setValidationObject((state) => {
+                    return {
+                      ...state,
+                      email: {
+                        ...state.email,
+                        firstVisit: false,
+                      },
+                    };
+                  });
+                  validateEmail(e);
+                }}
+                className="mb-[13px] min-h-[50px] w-full border-[2px] border-[#DBDBDB]"
+              />
+              <p
+                className={`${validationObject.email.errors ? 'font-bold text-[#BE1B1B]' : 'hidden'}`}
+              >
+                {validationObject.email.errorMessage}
+              </p>
+            </div>
 
-        <input
-          type="submit"
-          value={'SUBMIT'}
-          disabled={validationObject.email.errors}
-          className={`${lato.className} mb-[70px] flex min-h-[40px] min-w-[135px] max-w-[135px]  items-center ${validationObject.email.errors ? 'bg-blue-500/30' : 'cursor-pointer bg-gradient-to-r from-[#072c58] from-5% to-[#034998] to-80%'} justify-center rounded-full   text-[16px] font-[700] leading-[21px] text-white `}
-        />
-      </form>
+            <div className="flex w-full flex-col ">
+              <label htmlFor="phoneNumber" className="mb-2 font-black">
+                Phone Number
+              </label>
+              <input
+                id="phoneNumber"
+                name="phoneNumber"
+                type="tel"
+                required
+                placeholder="123-45-678"
+                value={validationObject.phone.value}
+                onChange={handlePhoneChange}
+                maxLength={13}
+                onBlur={(e) => {
+                  setValidationObject((state) => {
+                    return {
+                      ...state,
+                      phone: {
+                        ...state.phone,
+                        firstVisit: false,
+                      },
+                    };
+                  });
+                  handlePhoneChange(e);
+                }}
+                className="mb-[13px] min-h-[50px] w-full border-[2px] border-[#DBDBDB]"
+              />
+              <p
+                className={`${validationObject.phone.errors ? 'font-bold text-[#BE1B1B]' : 'hidden'}`}
+              >
+                {validationObject.phone.errorMessage}
+              </p>
+            </div>
+          </span>
+          <label htmlFor="body" className="pb-2 font-black">
+            How Can We Help? *
+          </label>
+          <textarea
+            id="body"
+            name="body"
+            placeholder="I'd like to talk about..."
+            required
+            className="mb-[13px] min-h-[190px] w-full resize-none border-[2px] border-[#DBDBDB] p-1"
+          />
+
+          <input
+            type="submit"
+            value={'SUBMIT'}
+            disabled={validationObject.email.errors}
+            className={`${lato.className} mb-[70px] flex min-h-[40px] min-w-[135px] max-w-[135px]  items-center ${validationObject.email.errors ? 'bg-blue-500/30' : 'cursor-pointer bg-gradient-to-r from-[#072c58] from-5% to-[#034998] to-80%'} justify-center rounded-full   text-[16px] font-[700] leading-[21px] text-white `}
+          />
+        </form>
+      </section>
     </section>
   );
 };
