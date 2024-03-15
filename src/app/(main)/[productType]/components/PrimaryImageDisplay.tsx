@@ -8,6 +8,7 @@ import { IProductData } from '../../utils';
 // import SixMinVideo from 'https://x2kly621zrgfgwll.public.blob.vercel-storage.com/videos/FINALIZE_WEBSTIE_16_9_OPTIMIZED.mp4';
 import { Skeleton } from '@/components/ui/skeleton';
 import SixMinVideo from '@/videos/https_x2kly621zrgfgwll.public.blob.vercel-storage.com_videos_FINALIZE_WEBSTIE_16_9_OPTIMIZED.mp4.json';
+import FeatureImage from './FeatureImage';
 
 const ProductVideo = dynamic(() => import('@/components/PDP/ProductVideo'), {
   loading: () => (
@@ -17,17 +18,7 @@ const ProductVideo = dynamic(() => import('@/components/PDP/ProductVideo'), {
   ),
 });
 
-export function PrimaryImageDisplay({
-  productImages,
-  selectedProduct,
-  featuredImage,
-  setFeaturedImage,
-}: {
-  productImages: string[];
-  selectedProduct: IProductData;
-  featuredImage: string | undefined;
-  setFeaturedImage: (image: string) => void;
-}) {
+export function PrimaryImageDisplay() {
   // const store = useContext(CarSelectionContext);
   // if (!store) throw new Error('Missing CarContext.Provider in the tree');
   // const productImages = selectedProduct?.productImages as string[];
@@ -42,20 +33,8 @@ export function PrimaryImageDisplay({
   return (
     <div className=" -ml-4 flex  w-screen flex-col items-stretch justify-center lg:w-3/5 lg:pb-0 ">
       <div className="relative mb-4 flex h-full w-full items-center justify-center bg-[#F2F2F2] lg:h-[650px] lg:rounded-xl">
-        {/* <MobileImageCarousel
-          selectedProduct={selectedProduct}
-          productImages={productImages}
-          setFeaturedImage={setFeaturedImage}
-        />
-        <Image
-          id="featured-image"
-          src={featuredImage + '?v=4' ?? ''}
-          alt="a car with a car cover on it"
-          fill={true}
-          className="hidden object-cover lg:block"
-          priority
-          sizes="(max-width: 768px) 100vw"
-        /> */}
+        <MobileImageCarousel />
+        <FeatureImage />
       </div>
 
       {/* Product Video */}

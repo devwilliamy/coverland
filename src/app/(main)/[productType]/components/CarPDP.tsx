@@ -70,7 +70,7 @@ export default async function CarPDP({
     },
   ];
   const initialState = {
-    modelData: modelDataProps2,
+    modelData: modelDataProps,
     reviewData,
     reviewDataSummary,
     reviewImages,
