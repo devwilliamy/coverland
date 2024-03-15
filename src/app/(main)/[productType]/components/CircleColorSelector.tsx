@@ -8,7 +8,7 @@ import BlackRedStripe from '@/images/PDP/black-red-stripe.svg';
 import BlackRed2Tone from '@/images/PDP/black-red-2-tone.svg';
 import Image, { StaticImageData } from 'next/image';
 import { useStore } from 'zustand';
-import { CarSelectionContext } from './CarPDP';
+import { CarSelectionContext } from '@/contexts/CarSelectionContext';
 import { track } from '@vercel/analytics';
 
 interface ProductRefs {

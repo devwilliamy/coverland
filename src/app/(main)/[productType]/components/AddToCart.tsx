@@ -18,7 +18,7 @@ import {
   getUniqueValues,
 } from '../../utils';
 import { useStore } from 'zustand';
-import { CarSelectionContext } from './CarPDP';
+import { CarSelectionContext } from '@/contexts/CarSelectionContext';
 import { useCartContext } from '@/providers/CartProvider';
 import EditVehicleDropdown from '@/components/PDP/EditVehicleDropdown';
 import {

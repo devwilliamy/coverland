@@ -2,7 +2,7 @@
 import { Separator } from '@/components/ui/separator';
 import { TInitialProductDataDB } from '@/lib/db';
 import { Rating } from '@mui/material';
-import { CarSelectionContext } from './CarPDP';
+import { CarSelectionContext } from '@/contexts/CarSelectionContext';
 import { useMediaQuery } from '@mantine/hooks';
 import { RefObject, Suspense, useContext, useState } from 'react';
 import CartSheet from '@/components/cart/CartSheet';

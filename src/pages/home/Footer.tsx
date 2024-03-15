@@ -15,7 +15,7 @@ import {
   VimeoCard,
   VisaCard,
 } from '@/components/PDP/images/cards';
-import { FbCustomIcon, YtCustomIcon } from '@/components/PDP/images';
+import { YtCustomIcon } from '@/components/PDP/images';
 import LiveChat from '@/components/LiveChat';
 
 const Footer = () => {
@@ -23,7 +23,6 @@ const Footer = () => {
   return (
     <footer className="flex flex-col items-center justify-center bg-[#1A1A1A] px-2 py-2 md:px-8 md:py-8 lg:px-14 lg:py-10 ">
       {/* <Membership /> */}
-      {/* <div className="h-auto px-4 flex flex-col justify-between items-center"> */}
       <div className="flex w-full flex-col justify-between lg:flex-row ">
         <div
           id="footer-left"

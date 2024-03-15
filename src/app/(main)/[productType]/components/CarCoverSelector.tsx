@@ -4,7 +4,8 @@ import React, { RefObject, useContext, useRef, useState } from 'react';
 import { PrimaryImageDisplay } from './PrimaryImageDisplay';
 import { ProductContent } from './ProductContent';
 import EditVehiclePopover from './EditVehiclePopover';
-import { CarSelectionContext } from './CarPDP';
+// import { CarSelectionContext } from '@/contexts/CarSelectionContext';
+import { CarSelectionContext } from '@/contexts/CarSelectionContext';
 import { useStore } from 'zustand';
 import { IProductData } from '../../utils';
 import { Separator } from '@/components/ui/separator';
@@ -74,14 +75,14 @@ export function CarCoverSelector({
         <LinkBreadcrumbs />
         <div className="flex w-full flex-col items-start justify-between px-4 lg:flex-row lg:gap-14">
           {/* Left Panel */}
-          <PrimaryImageDisplay
+          {/* <PrimaryImageDisplay
             productImages={productImages}
             selectedProduct={selectedProduct}
             featuredImage={featuredImage}
             setFeaturedImage={setFeaturedImage}
-          />
+          /> */}
           {/* Right Panel */}
-          <section className=" h-full w-full pl-0 lg:sticky lg:top-8 lg:w-2/5">
+          {/* <section className=" h-full w-full pl-0 lg:sticky lg:top-8 lg:w-2/5">
             <Separator className="w-full bg-[#C8C7C7] lg:block" />
             <div className="grid grid-cols-[1fr_2fr] place-items-center ">
               <div className="flex max-h-[24px] max-w-[64px]  items-center justify-center lg:max-h-[42px] lg:max-w-[116px]">
@@ -116,9 +117,9 @@ export function CarCoverSelector({
               uniqueColors={uniqueColors as IProductData[]}
               searchParams={searchParams}
             />
-          </section>
+          </section> */}
         </div>
-        <section
+        {/* <section
           className={`relative ${seeAllVisible ? 'max-h-[2170px] lg:max-h-[3100px]' : ''} w-full overflow-hidden`}
         >
           <FeaturesSection />
@@ -152,7 +153,7 @@ export function CarCoverSelector({
             <SuggestedProducts />
           </span>
         </section>
-        <ExtraProductDetails />
+        <ExtraProductDetails /> */}
       </section>
     </>
   );
