@@ -32,7 +32,7 @@ const contactGrid = [
     img: Pin,
     text: (
       <>
-        Coverland <br /> 15529 Blackburn Ave Norwalk, CA 90650
+        Coverland <br /> 15529 Blackburn Ave <br /> Norwalk, CA 90650
       </>
     ),
   },
@@ -81,7 +81,6 @@ const Contact = () => {
     const value = e.target.value;
     const isValid = emailRegex.test(value);
     if (!isValid) {
-      console.log(value);
       setValidationObject((e) => {
         return {
           ...e,
@@ -109,7 +108,6 @@ const Contact = () => {
     const value = e.target.value;
     const isValid = phoneRegex.test(value);
     if (!isValid) {
-      console.log(value);
       setValidationObject((e) => {
         return {
           ...e,
@@ -170,7 +168,7 @@ const Contact = () => {
           {contactGrid.map(({ img, text }, i) => (
             <div
               key={`contact-item-${i}`}
-              className={`${img === Mail && 'cursor-pointer'} flex max-w-[153px] flex-col items-center justify-center`}
+              className={`${img === Mail && 'cursor-pointer'} flex  flex-col items-center justify-center`}
               onClick={
                 img === Mail
                   ? () => {
@@ -230,7 +228,6 @@ const Contact = () => {
                 type="text"
                 required
                 onChange={(e) => {
-                  console.log(validationObject.email.firstVisit);
                   !validationObject.email.firstVisit && validateEmail(e);
                 }}
                 onBlur={(e) => {
@@ -262,8 +259,7 @@ const Contact = () => {
                 id="phoneNumber"
                 name="phoneNumber"
                 type="tel"
-                required
-                placeholder="123-45-678"
+                placeholder="(+)123-456-7890"
                 value={validationObject.phone.value}
                 onChange={handlePhoneChange}
                 maxLength={13}
