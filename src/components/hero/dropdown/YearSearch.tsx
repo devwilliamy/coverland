@@ -42,7 +42,7 @@ export function YearSearch({
 
   return (
     <button
-      className={`flex max-h-[44px] min-h-[44px] w-full items-center rounded-[4px] ${isDisabled ? 'bg-gray-100/75' : 'bg-white'} px-2 text-lg outline outline-1 outline-offset-1 outline-[#767676] md:max-h-[58px] lg:w-auto`}
+      className={`flex ${!queryObj || (queryObj.query.year === '' && 'border-[4px] border-red-500')} max-h-[44px] min-h-[44px] w-full items-center rounded-[4px] ${isDisabled ? 'bg-gray-100/75' : 'bg-white'} px-2 text-lg outline outline-1 outline-offset-1 outline-[#767676] md:max-h-[58px] lg:w-auto`}
       tabIndex={1}
     >
       <div className="ml-[10px] pr-[15px]">2</div>
@@ -50,7 +50,7 @@ export function YearSearch({
         value={value}
         onChange={(event) => handleChange(event)}
         disabled={isDisabled}
-        className={`w-full cursor-pointer bg-transparent py-1 outline-none lg:py-3`}
+        className={`w-full cursor-pointer  bg-transparent py-1 outline-none lg:py-3`}
       >
         <option value="">Year</option>
         {years.map((year) => (

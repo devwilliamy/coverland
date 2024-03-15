@@ -12,6 +12,7 @@ export function TypeSearch({
   };
 }) {
   const [value, setValue] = useState('');
+  const [isSelected, setIsSelected] = useState(true);
   const { setQuery } = queryObj;
 
   const types = ['Car Covers', 'SUV Covers', 'Truck Covers'];
@@ -29,10 +30,10 @@ export function TypeSearch({
       parent_generation: '',
     });
   };
-
+  console.log('Logging QueryObj:', queryObj.query.type);
   return (
     <div
-      className={`flex max-h-[44px] min-h-[44px] w-full items-center rounded-[4px] bg-white px-2 text-lg outline outline-1 outline-offset-1 outline-[#767676] md:max-h-[58px] lg:w-auto`}
+      className={`flex max-h-[44px] min-h-[44px] w-full ${!queryObj || (queryObj.query.type === '' && 'border-[4px] border-red-500')} items-center rounded-[4px] bg-white px-2 text-lg outline outline-1 outline-offset-1 outline-[#767676] md:max-h-[58px] lg:w-auto`}
       tabIndex={1}
     >
       <div className=" ml-[10px] pr-[15px]">1</div>
