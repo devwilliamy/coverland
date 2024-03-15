@@ -8,6 +8,8 @@ import Heart from '@/images/about/heart.webp';
 import Star from '@/images/about/star.webp';
 import Workers from '@/images/about/office-people.webp';
 import PolicyFurtherAssistance from '@/components/policy/PolicyFurtherAssistance';
+import PolicyTabs from '@/components/policy/PolicyTabs';
+import PolicyHeader from '@/components/policy/PolicyHeader';
 
 const raleway = Raleway({
   weight: ['100', '400', '700', '900'],
@@ -44,21 +46,8 @@ const extraPerksGrid = [
 function About() {
   return (
     <div className="-mt-[1px] mb-[65px] flex w-full flex-col items-center lg:mb-[100px]">
-      <header className="relative h-28 overflow-hidden lg:h-44">
-        {/* <div className="absolute inset-0 bg-gradient-to-r from-[rgba(0,0,0,0.50)] from-0% via-[rgba(0,0,0,0.50)] via-100%"></div> */}
-        <Image
-          className=" w-full bg-gray-300 bg-no-repeat object-contain"
-          alt="coverland-banner"
-          src={Banner}
-        />
-        <div className="absolute inset-0 flex items-center justify-center">
-          <p
-            className={`${raleway.className} text-[32px] font-bold leading-[32px] text-white lg:text-[40px] lg:leading-[44px]`}
-          >
-            About Coverland
-          </p>
-        </div>
-      </header>
+      <PolicyHeader headerText="About Us" />
+
       <section className="flex w-full max-w-[850px] flex-col items-center gap-[50px] px-5">
         <p className="flex w-full items-center justify-center pt-[30px] text-sm lg:text-center">
           For over 20 years, Coverland has offered car covers, seat covers, and
@@ -82,10 +71,14 @@ function About() {
             </p>
           </div>
         </span>
-
-        <span className="flex w-full items-center justify-center gap-[30px] max-lg:flex-col ">
+        <p
+          className={`-mb-[20px] hidden w-full text-center text-[28px] font-[800] leading-[21px] text-[#0A083B] lg:flex ${lato.className} justify-center`}
+        >
+          EXTRA PERKS
+        </p>
+        <span className="flex w-full items-center justify-center gap-[30px] max-lg:flex-col lg:items-start ">
           <p
-            className={`mb-[10px] flex w-full text-center text-[28px] font-[800] leading-[21px] text-[#0A083B] ${lato.className} justify-center`}
+            className={`mb-[10px] flex w-full text-center text-[28px] font-[800] leading-[21px] text-[#0A083B] lg:hidden ${lato.className} justify-center`}
           >
             EXTRA PERKS
           </p>

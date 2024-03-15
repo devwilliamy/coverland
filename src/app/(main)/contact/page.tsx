@@ -9,6 +9,8 @@ import Pin from '@/images/contact/location 1.webp';
 import Mail from '@/images/contact/mail 1.webp';
 import { Separator } from '@/components/ui/separator';
 import { ChangeEvent, useState } from 'react';
+import PolicyTabs from '@/components/policy/PolicyTabs';
+import PolicyHeader from '@/components/policy/PolicyHeader';
 
 const raleway = Raleway({
   weight: ['100', '400', '700', '900'],
@@ -26,7 +28,14 @@ const lato = Lato({
 });
 
 const contactGrid = [
-  { img: Pin, text: 'Coverland 15529 Blackburn Ave Norwalk, CA 90650' },
+  {
+    img: Pin,
+    text: (
+      <>
+        Coverland <br /> 15529 Blackburn Ave Norwalk, CA 90650
+      </>
+    ),
+  },
   { img: Chat, text: 'Live Chat' },
   { img: Phone, text: '(800)-799-5165' },
   { img: Mail, text: 'info@coverland.com' },
@@ -155,26 +164,20 @@ const Contact = () => {
 
   return (
     <section className="flex w-full flex-col items-center">
-      <header className="relative h-28 overflow-hidden lg:h-44">
-        <Image
-          className="w-full bg-gray-300 bg-no-repeat object-contain"
-          alt="coverland-banner"
-          src={Banner}
-        />
-        <div className="absolute inset-0 flex items-center justify-center">
-          <p
-            className={`${raleway.className} text-[32px] font-bold leading-[32px] text-white lg:text-[40px] lg:leading-[44px]`}
-          >
-            Contact Us
-          </p>
-        </div>
-      </header>
+      <PolicyHeader headerText="Contact Us" />
       <section className="flex w-full max-w-[880px] flex-col">
-        <span className="flex h-full w-full items-center justify-center gap-[48px] lg:gap-[100px] py-[30px] max-lg:flex-col  lg:items-start">
+        <span className="flex h-full w-full items-center justify-center gap-[48px] py-[30px] max-lg:flex-col lg:items-start  lg:gap-[100px]">
           {contactGrid.map(({ img, text }, i) => (
             <div
               key={`contact-item-${i}`}
-              className="flex max-w-[153px] flex-col items-center justify-center"
+              className={`${img === Mail && 'cursor-pointer'} flex max-w-[153px] flex-col items-center justify-center`}
+              onClick={
+                img === Mail
+                  ? () => {
+                      window.location.href = `mailto:info@coverland.com`;
+                    }
+                  : () => {}
+              }
             >
               <Image src={img} alt="contact-grid-image" />
               <p
@@ -213,7 +216,7 @@ const Contact = () => {
                 placeholder="John Doe"
                 type="text"
                 required
-                className="mb-[13px] min-h-[50px] w-full border-[2px] border-[#DBDBDB]"
+                className="mb-[13px] min-h-[50px] w-full border-[2px] border-[#DBDBDB] pl-1"
               />
             </div>
             <div className="flex w-full flex-col ">
@@ -242,7 +245,7 @@ const Contact = () => {
                   });
                   validateEmail(e);
                 }}
-                className="mb-[13px] min-h-[50px] w-full border-[2px] border-[#DBDBDB]"
+                className="mb-[13px] min-h-[50px] w-full border-[2px] border-[#DBDBDB] pl-1"
               />
               <p
                 className={`${validationObject.email.errors ? 'font-bold text-[#BE1B1B]' : 'hidden'}`}
@@ -276,7 +279,7 @@ const Contact = () => {
                   });
                   handlePhoneChange(e);
                 }}
-                className="mb-[13px] min-h-[50px] w-full border-[2px] border-[#DBDBDB]"
+                className="mb-[13px] min-h-[50px] w-full border-[2px] border-[#DBDBDB] pl-1"
               />
               <p
                 className={`${validationObject.phone.errors ? 'font-bold text-[#BE1B1B]' : 'hidden'}`}
