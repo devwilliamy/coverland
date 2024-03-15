@@ -1,7 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { BsFillEnvelopeFill } from 'react-icons/bs';
-import NewsletterForm from './NewsletterForm';
+import NewsletterForm from '../../pages/home/NewsletterForm';
 import {
   AmexCard,
   ApplePayCard,
