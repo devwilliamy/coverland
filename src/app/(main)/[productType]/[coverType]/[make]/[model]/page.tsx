@@ -1,5 +1,5 @@
 import { TReviewData, getAllModels, getProductData } from '@/lib/db';
-import { redirect } from 'next/navigation';
+import { notFound, redirect } from 'next/navigation';
 import CarPDP from '@/app/(main)/[productType]/components/CarPDP';
 import {
   TProductReviewSummary,
@@ -88,12 +88,13 @@ export default async function CarPDPDataLayer({
       ]);
     // filterReviewImages({ reviewData, reviewImages });
 
-    if (!modelData) {
-      redirect('/404');
+    if (!modelData || modelData.length === 0) {
+      notFound();
     }
   } catch (error) {
     console.error('Error fetching data:', error);
-    redirect('/404');
+    // redirect('/404');
+    notFound();
   }
 
   return (

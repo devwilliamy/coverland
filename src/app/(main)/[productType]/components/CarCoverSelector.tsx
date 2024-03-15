@@ -3,7 +3,7 @@
 import React, { RefObject, useContext, useRef, useState } from 'react';
 import { PrimaryImageDisplay } from './PrimaryImageDisplay';
 import { ProductContent } from './ProductContent';
-import { EditVehicleModal } from './EditVehicleModal';
+import EditVehiclePopover from './EditVehiclePopover';
 import { CarSelectionContext } from './CarPDP';
 import { useStore } from 'zustand';
 import { IProductData } from '../../utils';
@@ -19,7 +19,7 @@ import WarrantySection from '@/components/PDP/components/WarrantySection';
 import FeaturesSection from '@/components/PDP/components/FeaturesSection';
 import { ExtraProductDetails } from '@/components/PDP/OtherDetails';
 import { useParams } from 'next/navigation';
-import EditVehiclePopover from '@/components/PDP/components/EditVehiclePopover';
+import EditVehicleModal from '@/components/PDP/components/EditVehicleModal';
 import SeeAllChevronDown from '@/components/PDP/components/icons/SeeAllChevronDown';
 import SuvIcon from '@/components/PDP/components/icons/SuvIcon';
 import TruckIcon from '@/components/PDP/components/icons/TruckIcon';
@@ -119,7 +119,7 @@ export function CarCoverSelector({
           </section>
         </div>
         <section
-          className={`relative ${seeAllVisible ? 'max-h-[2050px] lg:max-h-[2900px]' : ''} w-full overflow-hidden`}
+          className={`relative ${seeAllVisible ? 'max-h-[2170px] lg:max-h-[3100px]' : ''} w-full overflow-hidden`}
         >
           <FeaturesSection />
           <div

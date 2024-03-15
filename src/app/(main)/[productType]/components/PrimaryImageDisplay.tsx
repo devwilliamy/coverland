@@ -46,12 +46,12 @@ export function PrimaryImageDisplay({
         />
         <Image
           id="featured-image"
-          src={featuredImage + '?v=2' ?? ''}
+          src={featuredImage + '?v=4' ?? ''}
           alt="a car with a car cover on it"
           fill={true}
           className="hidden object-cover lg:block"
           priority
-          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+          sizes="(max-width: 768px) 100vw"
         />
       </div>
 

@@ -39,7 +39,7 @@ export function TypeSearch({
       <select
         value={value}
         onChange={handleChange}
-        className={`bg w-full bg-transparent outline-none `}
+        className="w-full cursor-pointer bg-transparent py-1 outline-none lg:py-3"
       >
         <option value="">Type</option>
         {types.map((type, i) => (

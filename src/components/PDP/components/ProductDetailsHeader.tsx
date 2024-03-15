@@ -1,12 +1,14 @@
 import Image from 'next/image';
 import MobileHalfCover from '@/images/PDP/product-content-half-cover.webp';
 import DesktopHalfCover from '@/images/PDP/Product-Details-Redesign-2/dekstop-half-cover.webp';
+import CorvetteGif from '@/videos/Corvette Zoom.mp4';
 import {
   GrayCarIcon,
   GraySunIcon,
   GrayWaterIcon,
-} from '@/components/PDP/components/icons';
+} from '@/components/PDP/icons';
 import { useParams } from 'next/navigation';
+import ProductVideo from '../ProductVideo';
 
 export default function ProductDetailsHeader() {
   const params = useParams<{
@@ -14,10 +16,13 @@ export default function ProductDetailsHeader() {
     model?: string;
     year?: string;
     productType?: string;
+    coverType?: string;
   }>();
   if (!params) return null;
   const { make, model } = params;
   let productType = params?.productType;
+  const coverType = params?.coverType;
+  const isDefault = coverType === 'premium-plus' || coverType === undefined;
   if (productType === 'truck-covers') {
     productType = 'Truck';
   } else if (productType === 'suv-covers') {
@@ -42,21 +47,26 @@ export default function ProductDetailsHeader() {
         </p>
       </div>
       <div className="flex w-screen items-center justify-center lg:w-full ">
-        <Image
-          alt="product-content-half-cover"
-          src={MobileHalfCover}
-          // fill
-          // height={700}
-          className="flex w-[1320px] lg:hidden "
-        />
-        <Image
-          alt="product-content-half-cover-desktop"
-          src={DesktopHalfCover}
-          // fill
-          height={472}
-          width={840}
-          className="hidden lg:block"
-        />
+        <div className="flex w-full max-w-[840px]">
+          {isDefault ? (
+            <ProductVideo
+              src={CorvetteGif}
+              autoplay
+              loop
+              aspectRatio="16/9"
+              controls={false}
+            />
+          ) : (
+            <Image
+              alt="product-content-half-cover-desktop"
+              src={DesktopHalfCover}
+              // fill
+              height={1000}
+              width={1000}
+              className="w-full"
+            />
+          )}
+        </div>
       </div>
 
       <div className="mt-[30px] grid grid-cols-3 items-center justify-center lg:gap-[120px]">

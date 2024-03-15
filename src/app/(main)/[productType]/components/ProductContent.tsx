@@ -62,6 +62,7 @@ export function ProductContent({
   const isSuvCovers = paramsProductType === 'suv-covers';
   const isTruckCovers = paramsProductType === 'truck-covers';
   const coverType = params?.coverType;
+  const isPremiumPlus = coverType === 'premium-plus';
   const isPremium = coverType === 'premium';
   const isStandardPro = coverType === 'standard-pro';
   const isStandard = coverType === 'standard';
@@ -75,38 +76,28 @@ export function ProductContent({
   let defaultMSRP: number;
 
   switch (true) {
-    case isSuvCovers && !coverType:
+    case (isSuvCovers && !coverType) || (isSuvCovers && isPremiumPlus):
       defaultMSRP = 180;
       break;
-    case isTruckCovers && !coverType:
+    case (isTruckCovers && !coverType) || (isTruckCovers && isPremiumPlus):
       defaultMSRP = 200;
       break;
-    case isCarCovers && isPremium:
+    case (isCarCovers && isPremium) ||
+      (isSuvCovers && isStandardPro) ||
+      (isTruckCovers && isStandard):
       defaultMSRP = 120;
       break;
-    case isSuvCovers && isPremium:
+    case (isSuvCovers && isPremium) || (isTruckCovers && isStandardPro):
       defaultMSRP = 140;
       break;
     case isTruckCovers && isPremium:
       defaultMSRP = 160;
       break;
-    case isCarCovers && isStandardPro:
+    case (isCarCovers && isStandardPro) || (isSuvCovers && isStandard):
       defaultMSRP = 100;
-      break;
-    case isSuvCovers && isStandardPro:
-      defaultMSRP = 120;
-      break;
-    case isTruckCovers && isStandardPro:
-      defaultMSRP = 140;
       break;
     case isCarCovers && isStandard:
       defaultMSRP = 80;
-      break;
-    case isSuvCovers && isStandard:
-      defaultMSRP = 100;
-      break;
-    case isTruckCovers && isStandard:
-      defaultMSRP = 120;
       break;
     default:
       defaultMSRP = 160;
