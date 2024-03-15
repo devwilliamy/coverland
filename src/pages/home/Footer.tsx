@@ -167,6 +167,12 @@ const Footer = () => {
               <li className="hover-underline-animation mb-4 text-base font-normal capitalize text-[#DBDBDB]">
                 <Link href="/policies/shipping-policy">Shipping Policy</Link>
               </li>
+              <li className="hover-underline-animation mb-4 text-base font-normal capitalize text-[#DBDBDB]">
+                <Link href="/contact">Contact Us</Link>
+              </li>
+              <li className="hover-underline-animation mb-4 text-base font-normal capitalize text-[#DBDBDB]">
+                <Link href="/about">About Us</Link>
+              </li>
             </ul>
           </div>
         </div>

@@ -8,8 +8,7 @@ import Chat from '@/images/contact/chat 2.webp';
 import Pin from '@/images/contact/location 1.webp';
 import Mail from '@/images/contact/mail 1.webp';
 import { Separator } from '@/components/ui/separator';
-import { ChangeEvent, FormEvent, FormEventHandler, useState } from 'react';
-import { sendEmail } from './util';
+import { ChangeEvent, useState } from 'react';
 
 const raleway = Raleway({
   weight: ['100', '400', '700', '900'],
@@ -38,10 +37,21 @@ type validObj = {
   errorMessage: string;
   firstVisit: boolean;
 };
+const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+const phoneRegex = /^\+?[0-9()-]+\s?[0-9()-]*[0-9]$/;
+const isNumberExp = /^[0-9]*$/;
+
+export const phoneNumberAutoFormat = (phoneNumber: string): string => {
+  const number = phoneNumber.trim().replace(/[^0-9]/g, '');
+
+  if (number.length < 4) return number;
+  if (number.length < 7) return number.replace(/(\d{3})(\d{1})/, '$1-$2');
+  if (number.length < 11)
+    return number.replace(/(\d{3})(\d{3})(\d{1})/, '$1-$2-$3');
+  return number.replace(/(\d{3})(\d{4})(\d{4})/, '$1-$2-$3');
+};
 
 const Contact = () => {
-  const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
-  const phoneRegex = /^\+(?:[0-9] ?){6,14}[0-9]$/;
   const [validationObject, setValidationObject] = useState<
     Record<string, validObj>
   >({
@@ -124,25 +134,23 @@ const Contact = () => {
       phoneNumber = formData.get('phoneNumber')?.valueOf();
       subject = formData.get('subject')?.valueOf();
       body = formData.get('body')?.valueOf();
-      window.location.href = `mailto:?subject=${subject}&body=${email}%0A${phoneNumber}%0A${body}`;
+      window.location.href = `mailto:info@coverland.com?subject=${subject}&body=${email}%0A${phoneNumber}%0A${body}`;
       return;
     }
   };
 
   const handlePhoneChange = (e: ChangeEvent<HTMLInputElement>) => {
-    if (isNaN(parseFloat(e.target.value))) {
-      return;
-    }
+    let value = e.target.value;
+
     setValidationObject((state) => {
       return {
         ...state,
         phone: {
           ...state.phone,
-          value: e.target.value,
+          value: phoneNumberAutoFormat(value),
         },
       };
     });
-    validatePhone(e);
   };
 
   return (
@@ -162,9 +170,9 @@ const Contact = () => {
         </div>
       </header>
       <span className="flex h-full w-full flex-col items-center justify-center gap-[48px] py-[30px]">
-        {contactGrid.map(({ img, text }) => (
+        {contactGrid.map(({ img, text }, i) => (
           <div
-            key={`contact-item-${img}`}
+            key={`contact-item-${i}`}
             className="flex max-w-[153px] flex-col items-center justify-center"
           >
             <Image src={img} alt="contact-grid-image" />
@@ -218,11 +226,11 @@ const Contact = () => {
             !validationObject.email.firstVisit && validateEmail(e);
           }}
           onBlur={(e) => {
-            setValidationObject((e) => {
+            setValidationObject((state) => {
               return {
-                ...e,
+                ...state,
                 email: {
-                  ...e.email,
+                  ...state.email,
                   firstVisit: false,
                 },
               };
@@ -242,12 +250,24 @@ const Contact = () => {
         <input
           id="phoneNumber"
           name="phoneNumber"
-          type="text"
+          type="tel"
           required
           placeholder="123-45-678"
           value={validationObject.phone.value}
           onChange={handlePhoneChange}
-          onBlur={validatePhone}
+          maxLength={13}
+          onBlur={(e) => {
+            setValidationObject((state) => {
+              return {
+                ...state,
+                phone: {
+                  ...state.phone,
+                  firstVisit: false,
+                },
+              };
+            });
+            handlePhoneChange(e);
+          }}
           className="mb-[13px] min-h-[50px] w-full border-[2px] border-[#DBDBDB]"
         />
         <p
