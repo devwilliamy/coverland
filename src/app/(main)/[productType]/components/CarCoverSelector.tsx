@@ -68,6 +68,10 @@ export function CarCoverSelector({
   const isSUVCover = productType === 'suv-covers';
 
   const [seeAllVisible, setSeeAllVisible] = useState(true);
+  console.log(
+    'CarCoverSelector Am I a server component:',
+    typeof window === 'undefined'
+  );
 
   return (
     <>
@@ -75,14 +79,14 @@ export function CarCoverSelector({
         <LinkBreadcrumbs />
         <div className="flex w-full flex-col items-start justify-between px-4 lg:flex-row lg:gap-14">
           {/* Left Panel */}
-          {/* <PrimaryImageDisplay
+          <PrimaryImageDisplay
             productImages={productImages}
             selectedProduct={selectedProduct}
             featuredImage={featuredImage}
             setFeaturedImage={setFeaturedImage}
-          /> */}
+          />
           {/* Right Panel */}
-          {/* <section className=" h-full w-full pl-0 lg:sticky lg:top-8 lg:w-2/5">
+          <section className=" h-full w-full pl-0 lg:sticky lg:top-8 lg:w-2/5">
             <Separator className="w-full bg-[#C8C7C7] lg:block" />
             <div className="grid grid-cols-[1fr_2fr] place-items-center ">
               <div className="flex max-h-[24px] max-w-[64px]  items-center justify-center lg:max-h-[42px] lg:max-w-[116px]">
@@ -117,7 +121,7 @@ export function CarCoverSelector({
               uniqueColors={uniqueColors as IProductData[]}
               searchParams={searchParams}
             />
-          </section> */}
+          </section>
         </div>
         {/* <section
           className={`relative ${seeAllVisible ? 'max-h-[2170px] lg:max-h-[3100px]' : ''} w-full overflow-hidden`}

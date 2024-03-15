@@ -20,7 +20,7 @@ import { Plus } from 'lucide-react';
 import ProductVideo from './ProductVideo';
 import ThreeSixtyVideo from '@/videos/https_x2kly621zrgfgwll.public.blob.vercel-storage.com_videos_360_20degree_mobile-4asLajZOfJp9h3V3q1XkSHFETp6T8h.mp4.json';
 import { track } from '@vercel/analytics';
-import { CarSelectionContext } from '@/app/(main)/[productType]/components/CarPDP';
+import { CarSelectionContext } from '@/contexts/CarSelectionContext';
 
 const CarCoverFeature = ({ children }: { children: string }) => (
   <li className="text-[14px] font-[500] normal-case leading-[26px]">

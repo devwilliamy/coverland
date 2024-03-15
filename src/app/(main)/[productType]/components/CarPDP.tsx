@@ -76,7 +76,6 @@ export default function CarPDP({
     reviewImages,
     searchParams,
   };
-  console.log('Am I a server component:', typeof window === 'undefined');
   return (
     <CarSelectionProvider initialState={initialState}>
       <CarCoverSelector searchParams={searchParams} />

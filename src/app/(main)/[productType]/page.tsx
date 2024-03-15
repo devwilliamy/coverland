@@ -128,7 +128,6 @@ export default async function CarPDPModelDataLayer({
   } catch (error) {
     console.error('CarPDPModelDataLayer Error: ', error);
   }
-  console.log('ProductTypePage Server?:', typeof window === 'undefined');
 
   return (
     <CarPDP
