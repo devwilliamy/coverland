@@ -1,15 +1,6 @@
 import { TInitialProductDataDB, TReviewData } from '@/lib/db';
 import CarCoverSelector from './CarCoverSelector';
-import { createStore } from 'zustand';
-import { createContext, useRef } from 'react';
-import { useParams, useRouter } from 'next/navigation';
-import { compareRawStrings } from '@/lib/utils';
-import {
-  IProductData,
-  TPathParams,
-  TQueryParams,
-  modelDataTransformer,
-} from '../../utils';
+import { TPathParams } from '../../utils';
 import { TProductReviewSummary } from '@/lib/db/review';
 import CarSelectionProvider from '@/contexts/CarSelectionContext';
 
