@@ -317,7 +317,7 @@ const ReviewSection = () => {
       )}
       <div className="flex flex-col gap-[20px] lg:flex-row  lg:gap-0">
         <div className="flex w-full min-w-[188px] flex-col lg:items-center">
-          <div className="flex items-center gap-[14px] pt-8 lg:pt-0">
+          <div className="flex items-center gap-[14px] lg:pt-0">
             <p className="pl-4 text-[40px] font-black lg:pl-0 lg:text-[80px]">
               {average_score?.toFixed(1) || '4.9'}
             </p>

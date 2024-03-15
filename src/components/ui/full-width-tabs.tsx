@@ -17,10 +17,10 @@ type FullWidthTabsProps = {
 export default function FullWidthTabs({ tabs }: FullWidthTabsProps) {
   return (
     <>
-      <div className="block">
+      <div className="w-full">
         <div className="border-b border-gray-200 bg-[#F9F9FB]">
           <nav
-            className="-mb-px flex overflow-x-auto whitespace-nowrap px-1"
+            className="max-lg:no-scrollbar -mb-px flex w-full overflow-x-auto whitespace-nowrap px-1"
             aria-label="Tabs"
           >
             {tabs.map((tab) => (

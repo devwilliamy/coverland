@@ -13,8 +13,8 @@ export default function ExtraDetailsTabs() {
     ?.toLowerCase()
     .startsWith('/seat-covers/leatherette');
   const otherDetailsBar = [
-    { title: 'Shipping & Returns', jsx: <ShippingPolicy /> },
-    { title: 'Warranty', jsx: <WarrantyPolicy /> },
+    { title: 'Shipping & Returns', jsx: <ShippingPolicy showHeader={false} /> },
+    { title: 'Warranty', jsx: <WarrantyPolicy showHeader={false} /> },
   ];
 
   if (!isSeatCovers && !isLeatherette) {
