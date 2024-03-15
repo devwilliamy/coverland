@@ -4,7 +4,6 @@ import React, { useState } from 'react';
 export default function InsightsTab() {
   const params = useParams();
   const productType = params?.productType;
-  console.log(productType);
 
   return (
     <div className="flex w-full flex-col gap-5 p-4">
@@ -14,12 +13,6 @@ export default function InsightsTab() {
     </div>
   );
 }
-
-const headerSizeMobile = 18;
-const headerSize = 22;
-
-const contentSizeMobile = 16;
-const contentSize = 18;
 
 const carInsightAdvantages = [
   'Superior Protection: Our covers offer unparalleled protection against a range of elements, including rain, snow, sun, dust, and more. With durable materials and expert craftsmanship, your vehicle stays shielded from damage year-round.',
@@ -47,7 +40,8 @@ const suvInsightQualities = [
 const CarInsights = () => {
   return (
     <>
-      <p className="pb-10 text-[18px] font-[600] lg:text-[22px]">
+      <p className="text-[20px] font-[700] lg:text-[24px]">Car Covers</p>
+      <p className="pb-10 text-[18px]  lg:text-[22px]">
         Looking for reliable protection for your car? You've come to the right
         place. Here, you'll find a range of options to protect your vehicle from
         the elements and keep it looking its best. Our custom fit car covers are
@@ -74,13 +68,14 @@ const CarInsights = () => {
 const SuvInsights = () => {
   return (
     <>
-      <p className="pb-10 text-[18px] font-[600] lg:text-[22px]">
+      <p className="text-[20px] font-[700] lg:text-[24px]">SUV Covers </p>
+      <p className="pb-10 text-[18px]  lg:text-[22px]">
         Welcome to our SUV Covers section! If you're in need of protective
         solutions for your SUV, you're in the right place. Here, we offer a
         diverse array of options to safeguard your vehicle in various conditions
       </p>
       <p className="text-[16px] font-[700] lg:text-[20px]">
-        Advantages of our covers:
+        Why are our covers the best?
       </p>
       <ul className="flex w-full list-inside list-disc flex-col gap-3 text-[14px] lg:text-[18px]">
         {suvInsightQualities.map((item) => (
@@ -97,7 +92,9 @@ const SuvInsights = () => {
 const TruckInsights = () => {
   return (
     <>
-      <p className="pb-10 text-[18px] font-[600] lg:text-[22px]">
+      <p className="text-[20px] font-[700] lg:text-[24px]">Truck Covers </p>
+
+      <p className="pb-10 text-[18px]  lg:text-[22px]">
         Your pickup truck is a reliable workhorse, always ready to tackle tough
         tasks. It deserves top-notch care to maintain its performance and
         appearance. Opting for a tailored truck cover ensures that your vehicle
