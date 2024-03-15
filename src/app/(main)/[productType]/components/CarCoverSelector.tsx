@@ -1,4 +1,4 @@
-'use client';
+// 'use client';
 
 import React, { RefObject, useContext, useRef, useState } from 'react';
 import { PrimaryImageDisplay } from './PrimaryImageDisplay';
@@ -19,7 +19,7 @@ import RealTestSection from '@/components/PDP/components/RealTestSection';
 import WarrantySection from '@/components/PDP/components/WarrantySection';
 import FeaturesSection from '@/components/PDP/components/FeaturesSection';
 import { ExtraProductDetails } from '@/components/PDP/OtherDetails';
-import { useParams } from 'next/navigation';
+// import { useParams } from 'next/navigation';
 import EditVehicleModal from '@/components/PDP/components/EditVehicleModal';
 import SeeAllChevronDown from '@/components/PDP/components/icons/SeeAllChevronDown';
 import SuvIcon from '@/components/PDP/components/icons/SuvIcon';
@@ -31,43 +31,43 @@ export function CarCoverSelector({
 }: {
   searchParams: { submodel?: string; second_submodel?: string } | undefined;
 }) {
-  const store = useContext(CarSelectionContext);
-  if (!store) throw new Error('Missing CarContext.Provider in the tree');
+  // const store = useContext(CarSelectionContext);
+  // if (!store) throw new Error('Missing CarContext.Provider in the tree');
 
-  const modelData = useStore(store, (s) => s.modelData);
-  const selectedProduct = useStore(store, (s) => s.selectedProduct);
-  const setSelectedProduct = useStore(store, (s) => s.setSelectedProduct);
-  const setFeaturedImage = useStore(store, (s) => s.setFeaturedImage);
-  const featuredImage = selectedProduct?.mainImage;
-  interface ProductRefs {
-    [key: string]: RefObject<HTMLElement>;
-  }
+  // const modelData = useStore(store, (s) => s.modelData);
+  // const selectedProduct = useStore(store, (s) => s.selectedProduct);
+  // const setSelectedProduct = useStore(store, (s) => s.setSelectedProduct);
+  // const setFeaturedImage = useStore(store, (s) => s.setFeaturedImage);
+  // const featuredImage = selectedProduct?.mainImage;
+  // interface ProductRefs {
+  //   [key: string]: RefObject<HTMLElement>;
+  // }
 
-  const productRefs = useRef<ProductRefs>(
-    modelData.reduce((acc: ProductRefs, item) => {
-      if (!item?.sku) return acc;
-      acc[item?.sku] = React.createRef();
-      return acc;
-    }, {})
-  );
+  // const productRefs = useRef<ProductRefs>(
+  //   modelData.reduce((acc: ProductRefs, item) => {
+  //     if (!item?.sku) return acc;
+  //     acc[item?.sku] = React.createRef();
+  //     return acc;
+  //   }, {})
+  // );
 
-  const uniqueColors = Array.from(
-    new Set(modelData.map((model) => model.display_color))
-  ).map((color) => modelData.find((model) => model.display_color === color));
+  // const uniqueColors = Array.from(
+  //   new Set(modelData.map((model) => model.display_color))
+  // ).map((color) => modelData.find((model) => model.display_color === color));
 
-  const productImages = selectedProduct?.productImages as string[];
+  // const productImages = selectedProduct?.productImages as string[];
 
-  useItemViewedGoogleTag(selectedProduct);
+  // useItemViewedGoogleTag(selectedProduct);
 
-  const params = useParams();
-  const productType = params?.productType;
-  const coverType = params?.coverType;
-  const isPremiumPlus = params?.coverType === 'premium-plus';
-  const isDefaultCoverType = isPremiumPlus || coverType === undefined;
-  const isTruckCover = productType === 'truck-covers';
-  const isSUVCover = productType === 'suv-covers';
+  // const params = useParams();
+  // const productType = params?.productType;
+  // const coverType = params?.coverType;
+  // const isPremiumPlus = params?.coverType === 'premium-plus';
+  // const isDefaultCoverType = isPremiumPlus || coverType === undefined;
+  // const isTruckCover = productType === 'truck-covers';
+  // const isSUVCover = productType === 'suv-covers';
 
-  const [seeAllVisible, setSeeAllVisible] = useState(true);
+  // const [seeAllVisible, setSeeAllVisible] = useState(true);
   console.log(
     'CarCoverSelector Am I a server component:',
     typeof window === 'undefined'
@@ -79,18 +79,13 @@ export function CarCoverSelector({
         <LinkBreadcrumbs />
         <div className="flex w-full flex-col items-start justify-between px-4 lg:flex-row lg:gap-14">
           {/* Left Panel */}
-          <PrimaryImageDisplay
-            productImages={productImages}
-            selectedProduct={selectedProduct}
-            featuredImage={featuredImage}
-            setFeaturedImage={setFeaturedImage}
-          />
+          <PrimaryImageDisplay />
           {/* Right Panel */}
           <section className=" h-full w-full pl-0 lg:sticky lg:top-8 lg:w-2/5">
             <Separator className="w-full bg-[#C8C7C7] lg:block" />
             <div className="grid grid-cols-[1fr_2fr] place-items-center ">
               <div className="flex max-h-[24px] max-w-[64px]  items-center justify-center lg:max-h-[42px] lg:max-w-[116px]">
-                <div
+                {/* <div
                   className={` ${!isTruckCover && !isSUVCover ? 'flex' : 'hidden'}`}
                 >
                   <CarIcon />
@@ -100,19 +95,19 @@ export function CarCoverSelector({
                 </div>
                 <div className={` ${isSUVCover ? 'flex' : 'hidden'}`}>
                   <SuvIcon />
-                </div>
+                </div> */}
               </div>
-              <EditVehicleModal
+              {/* <EditVehicleModal
                 selectedProduct={selectedProduct}
                 searchParams={searchParams}
               />
               <EditVehiclePopover
                 selectedProduct={selectedProduct}
                 searchParams={searchParams}
-              />
+              /> */}
             </div>
             <Separator className="w-full bg-[#C8C7C7]" />
-            <ProductContent
+            {/* <ProductContent
               modelData={modelData}
               productRefs={productRefs}
               selectedProduct={selectedProduct}
@@ -120,7 +115,7 @@ export function CarCoverSelector({
               setFeaturedImage={setFeaturedImage}
               uniqueColors={uniqueColors as IProductData[]}
               searchParams={searchParams}
-            />
+            /> */}
           </section>
         </div>
         {/* <section

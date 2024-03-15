@@ -1,19 +1,20 @@
-import ReviewImageGallery from '@/components/PDP/components/ReviewImageGallery';
+'use client';
 import ReviewImageGalleryDesktop from '@/components/PDP/components/ReviewImageGalleryDesktop';
 import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';
+import { CarSelectionContext } from '@/contexts/CarSelectionContext';
 import Image from 'next/image';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { FaCamera } from 'react-icons/fa';
+import { useStore } from 'zustand';
+import { Button } from '@/components/ui/button';
 
-export function SelectedProductImages({
-  productImages,
-  setFeaturedImage,
-  showMore,
-}: {
-  showMore: boolean;
-  productImages: string[];
-  setFeaturedImage: (img: string) => void;
-}) {
+export function SelectedProductImages() {
+  const store = useContext(CarSelectionContext);
+  if (!store) throw new Error('Missing CarContext.Provider in the tree');
+  const selectedProduct = useStore(store, (s) => s.selectedProduct);
+  const productImages = selectedProduct?.productImages as string[];
+  const [showMore, setShowMore] = useState(false);
+  const setFeaturedImage = useStore(store, (s) => s.setFeaturedImage);
   const fourImages = productImages?.slice(0, 4);
 
   return (
@@ -44,6 +45,12 @@ export function SelectedProductImages({
           <MoreImages key={`show-more`} />
         </>
       )}
+      <Button
+        className="mx-auto mt-9 hidden h-12 w-[216px] rounded border border-[#1A1A1A] bg-transparent text-lg font-normal capitalize text-[#1A1A1A] hover:bg-[#1A1A1A] hover:text-white lg:block"
+        onClick={() => setShowMore((p) => !p)}
+      >
+        {showMore ? 'show less images' : 'show more images'}
+      </Button>
     </div>
   );
 }

@@ -4,7 +4,7 @@ import { TPathParams } from '../../utils';
 import { TProductReviewSummary } from '@/lib/db/review';
 import CarSelectionProvider from '@/contexts/CarSelectionContext';
 
-export default function CarPDP({
+export default async function CarPDP({
   modelData: modelDataProps,
   reviewData,
   reviewDataSummary,
@@ -76,6 +76,7 @@ export default function CarPDP({
     reviewImages,
     searchParams,
   };
+  console.log('CarPDP Am I a server component:', typeof window === 'undefined');
   return (
     <CarSelectionProvider initialState={initialState}>
       <CarCoverSelector searchParams={searchParams} />

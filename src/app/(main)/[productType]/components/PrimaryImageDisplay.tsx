@@ -1,12 +1,7 @@
-'use client';
-
-import { useState } from 'react';
 import { MobileImageCarousel } from './MobileImageCarousel';
-import { useMediaQuery } from '@mantine/hooks';
 import Image from 'next/image';
 // import ProductVideo from '@/components/PDP/ProductVideo';
 import { SelectedProductImages } from './SelectedProductImages';
-import { Button } from '@/components/ui/button';
 import dynamic from 'next/dynamic';
 import Thumbnail from '@/video/Thumbnail.webp';
 import { IProductData } from '../../utils';
@@ -33,13 +28,21 @@ export function PrimaryImageDisplay({
   featuredImage: string | undefined;
   setFeaturedImage: (image: string) => void;
 }) {
-  const [showMore, setShowMore] = useState(false);
-  const isMobile = useMediaQuery('(max-width: 1023px)');
+  // const store = useContext(CarSelectionContext);
+  // if (!store) throw new Error('Missing CarContext.Provider in the tree');
+  // const productImages = selectedProduct?.productImages as string[];
+  // const selectedProduct = useStore(store, (s) => s.selectedProduct);
+  // const setFeaturedImage = useStore(store, (s) => s.setFeaturedImage);
+
+  console.log(
+    'PrimaryImageDisplay is a server component: ',
+    typeof window === 'undefined'
+  );
 
   return (
     <div className=" -ml-4 flex  w-screen flex-col items-stretch justify-center lg:w-3/5 lg:pb-0 ">
       <div className="relative mb-4 flex h-full w-full items-center justify-center bg-[#F2F2F2] lg:h-[650px] lg:rounded-xl">
-        <MobileImageCarousel
+        {/* <MobileImageCarousel
           selectedProduct={selectedProduct}
           productImages={productImages}
           setFeaturedImage={setFeaturedImage}
@@ -52,29 +55,19 @@ export function PrimaryImageDisplay({
           className="hidden object-cover lg:block"
           priority
           sizes="(max-width: 768px) 100vw"
-        />
+        /> */}
       </div>
 
       {/* Product Video */}
-      {!isMobile && (
+      {/* {!isMobile && (
         <ProductVideo
           src={SixMinVideo}
           imgSrc={Thumbnail}
           aspectRatio="16 / 9"
         />
-      )}
+      )} */}
       {/* Gallery Images */}
-      <SelectedProductImages
-        showMore={showMore}
-        productImages={productImages}
-        setFeaturedImage={setFeaturedImage}
-      />
-      <Button
-        className="mx-auto mt-9 hidden h-12 w-[216px] rounded border border-[#1A1A1A] bg-transparent text-lg font-normal capitalize text-[#1A1A1A] hover:bg-[#1A1A1A] hover:text-white lg:block"
-        onClick={() => setShowMore((p) => !p)}
-      >
-        {showMore ? 'show less images' : 'show more images'}
-      </Button>
+      <SelectedProductImages />
     </div>
   );
 }

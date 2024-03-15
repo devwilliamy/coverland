@@ -48,6 +48,10 @@ export const MobileImageCarousel = ({
   const productType = params?.productType;
   let carouselVideo: Asset;
   let carouselVideoThumb: StaticImageData;
+  console.log(
+    'PrimaryImageDisplay is a server component: ',
+    typeof window === 'undefined'
+  );
 
   switch (productType) {
     case 'truck-covers': {
