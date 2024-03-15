@@ -6,6 +6,8 @@ const tabs = [
   { name: 'Warranty', href: '/policies/warranty-policy', current: false },
   { name: 'Return Policy', href: '/policies/return-policy', current: false },
   { name: 'Privacy Policy', href: '/policies/privacy-policy', current: false },
+  { name: 'Contact Us', href: '/contact', current: false },
+  { name: 'About Us', href: '/about', current: false },
   {
     name: 'Shipping Policy',
     href: '/policies/shipping-policy',
