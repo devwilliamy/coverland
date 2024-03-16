@@ -5,6 +5,7 @@ import WarrantyPolicy from '@/app/(main)/policies/warranty-policy/page';
 import { PDPAccordion } from '../PDPAccordian';
 import ShippingPolicy from '@/app/(main)/policies/shipping-policy/page';
 import { usePathname } from 'next/navigation';
+import InsightsTab from './InsightsTab';
 
 export default function ExtraDetailsTabs() {
   const pathname = usePathname();
@@ -15,6 +16,7 @@ export default function ExtraDetailsTabs() {
   const otherDetailsBar = [
     { title: 'Shipping & Returns', jsx: <ShippingPolicy showHeader={false} /> },
     { title: 'Warranty', jsx: <WarrantyPolicy showHeader={false} /> },
+    { title: 'Insights', jsx: <InsightsTab /> },
   ];
 
   if (!isSeatCovers && !isLeatherette) {
