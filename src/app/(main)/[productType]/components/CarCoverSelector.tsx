@@ -1,30 +1,8 @@
-// 'use client';
-
-import React, { RefObject, useContext, useRef, useState } from 'react';
 import { PrimaryImageDisplay } from './PrimaryImageDisplay';
 import { ProductContent } from './ProductContent';
-import EditVehiclePopover from './EditVehiclePopover';
-// import { CarSelectionContext } from '@/contexts/CarSelectionContext';
-import { CarSelectionContext } from '@/contexts/CarSelectionContext';
-import { useStore } from 'zustand';
-import { IProductData } from '../../utils';
 import { Separator } from '@/components/ui/separator';
 import LinkBreadcrumbs from './LinkBreadcrumbs';
-import { useItemViewedGoogleTag } from '@/hooks/useGoogleTagDataLayer';
-
-import EnhancedProtectionSection from '@/components/PDP/components/EnhancedProtectionSection';
-import SuggestedProducts from '@/components/PDP/components/SuggestedProducts';
-import ProvenSection from '@/components/PDP/components/ProvenSection';
-import RealTestSection from '@/components/PDP/components/RealTestSection';
-import WarrantySection from '@/components/PDP/components/WarrantySection';
-import FeaturesSection from '@/components/PDP/components/FeaturesSection';
 import { ExtraProductDetails } from '@/components/PDP/ExtraProductDetails';
-// import { useParams } from 'next/navigation';
-import EditVehicleModal from '@/components/PDP/components/EditVehicleModal';
-import SeeAllChevronDown from '@/components/PDP/components/icons/SeeAllChevronDown';
-import SuvIcon from '@/components/PDP/components/icons/SuvIcon';
-import TruckIcon from '@/components/PDP/components/icons/TruckIcon';
-import CarIcon from '@/components/PDP/components/icons/CarIcon';
 import EditVehicle from './EditVehicle';
 import FeaturesAndProductsSection from './FeaturesAndProductsSection';
 
@@ -33,7 +11,6 @@ export function CarCoverSelector({
 }: {
   searchParams: { submodel?: string; second_submodel?: string } | undefined;
 }) {
-  console.log('SearchParams:', searchParams);
   // const store = useContext(CarSelectionContext);
   // if (!store) throw new Error('Missing CarContext.Provider in the tree');
 
@@ -71,10 +48,6 @@ export function CarCoverSelector({
   // const isSUVCover = productType === 'suv-covers';
 
   // const [seeAllVisible, setSeeAllVisible] = useState(true);
-  console.log(
-    'CarCoverSelector Am I a server component:',
-    typeof window === 'undefined'
-  );
 
   return (
     <>
