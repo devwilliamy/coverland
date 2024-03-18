@@ -4,6 +4,7 @@ import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';
 import Image from 'next/image';
 import { useState } from 'react';
 import { FaCamera } from 'react-icons/fa';
+import { removeWwwFromUrl } from '../../utils';
 
 export function SelectedProductImages({
   productImages,
@@ -63,7 +64,7 @@ const ProductImage = ({
   >
     <Image
       key={idx}
-      src={img + '?v=5'}
+      src={removeWwwFromUrl(img as string) + '?v=5'}
       width={350}
       height={350}
       alt="car cover details"

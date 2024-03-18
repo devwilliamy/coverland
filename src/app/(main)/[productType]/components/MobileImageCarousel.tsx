@@ -23,7 +23,7 @@ import dynamic from 'next/dynamic';
 import Image from 'next/image';
 import { useParams } from 'next/navigation';
 import { useCallback, useEffect, useState } from 'react';
-import { IProductData } from '../../utils';
+import { IProductData, removeWwwFromUrl } from '../../utils';
 
 const ProductVideo = dynamic(() => import('@/components/PDP/ProductVideo'), {
   loading: () => (
@@ -103,7 +103,7 @@ export const MobileImageCarousel = ({
         className="rounded-[4px]"
         width={74}
         height={74}
-        src={src + '?v=5'}
+        src={removeWwwFromUrl(src as string) + '?v=5'}
         sizes="(max-width: 768px) 100vw"
         alt={`carousel-position-item-${index}`}
       />
@@ -122,7 +122,10 @@ export const MobileImageCarousel = ({
                   className="bg-[#F2F2F2]"
                 >
                   <Image
-                    src={(selectedProduct.mainImage + '?v=5') as string}
+                    src={
+                      (removeWwwFromUrl(selectedProduct.mainImage as string) +
+                        '?v=5') as string
+                    }
                     alt={`Additional images of the ${selectedProduct.display_id} cover`}
                     width={500}
                     height={500}
@@ -147,7 +150,7 @@ export const MobileImageCarousel = ({
             return (
               <CarouselItem key={image}>
                 <Image
-                  src={image + '?v=5'}
+                  src={removeWwwFromUrl(image) + '?v=5'}
                   alt={`Additional images of the ${selectedProduct.display_id} cover`}
                   width={500}
                   height={500}
@@ -172,7 +175,10 @@ export const MobileImageCarousel = ({
                   onClick={() => scrollTo(index)}
                 >
                   <Image
-                    src={(selectedProduct.mainImage + '?v=5') as string}
+                    src={
+                      (removeWwwFromUrl(selectedProduct.mainImage as string) +
+                        '?v=5') as string
+                    }
                     alt={`Additional images of the ${selectedProduct.display_id} cover`}
                     width={74}
                     height={74}
