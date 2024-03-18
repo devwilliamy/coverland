@@ -1,4 +1,3 @@
-import { MobileImageCarousel } from './MobileImageCarousel';
 import { SelectedProductImages } from './SelectedProductImages';
 import dynamic from 'next/dynamic';
 import Thumbnail from '@/video/Thumbnail.webp';
@@ -11,6 +10,10 @@ const ProductVideo = dynamic(() => import('@/components/PDP/ProductVideo'), {
       <Skeleton />
     </div>
   ),
+});
+
+const MobileImageCarousel = dynamic(() => import('./MobileImageCarousel'), {
+  loading: () => <div className="h-[500px]"></div>,
 });
 
 export function PrimaryImageDisplay() {

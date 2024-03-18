@@ -37,7 +37,7 @@ const ProductVideo = dynamic(() => import('@/components/PDP/ProductVideo'), {
   ssr: false,
 });
 
-export const MobileImageCarousel = () => {
+const MobileImageCarousel = () => {
   const store = useContext(CarSelectionContext);
   if (!store) throw new Error('Missing CarContext.Provider in the tree');
   const selectedProduct = useStore(store, (s) => s.selectedProduct);
@@ -233,3 +233,4 @@ export const MobileImageCarousel = () => {
     </div>
   );
 };
+export default MobileImageCarousel;
