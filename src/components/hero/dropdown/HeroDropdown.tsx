@@ -86,8 +86,8 @@ export function HeroDropdown() {
       <YearSearch queryObj={queryObj} />
       <MakeSearch queryObj={queryObj} />
       <ModelSearch queryObj={queryObj} />
-      <Button
-        className="flex h-full max-h-[44px] min-h-[44px] w-full items-center justify-center border border-red-300 text-lg lg:h-[58px] lg:min-h-[58px] lg:max-w-[58px] lg:border-0"
+      <button
+        className={`flex h-full max-h-[44px] min-h-[44px] w-full  items-center justify-center rounded-lg text-lg  text-white disabled:bg-[#BE1B1B] bg-[#BE1B1B] lg:h-[58px] lg:min-h-[58px] lg:max-w-[58px] lg:border-0`}
         onClick={handleSubmitDropdown}
         disabled={!year || !type || !make || !model}
       >
@@ -96,7 +96,7 @@ export function HeroDropdown() {
         ) : (
           'Go'
         )}
-      </Button>
+      </button>
     </div>
   );
 }
