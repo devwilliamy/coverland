@@ -1,3 +1,4 @@
+'use client';
 import { Separator } from '@/components/ui/separator';
 import { useState } from 'react';
 import ReviewSection from './ReviewSection';

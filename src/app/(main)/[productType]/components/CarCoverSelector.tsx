@@ -18,19 +18,21 @@ import ProvenSection from '@/components/PDP/components/ProvenSection';
 import RealTestSection from '@/components/PDP/components/RealTestSection';
 import WarrantySection from '@/components/PDP/components/WarrantySection';
 import FeaturesSection from '@/components/PDP/components/FeaturesSection';
-import { ExtraProductDetails } from '@/components/PDP/OtherDetails';
+import { ExtraProductDetails } from '@/components/PDP/ExtraProductDetails';
 // import { useParams } from 'next/navigation';
 import EditVehicleModal from '@/components/PDP/components/EditVehicleModal';
 import SeeAllChevronDown from '@/components/PDP/components/icons/SeeAllChevronDown';
 import SuvIcon from '@/components/PDP/components/icons/SuvIcon';
 import TruckIcon from '@/components/PDP/components/icons/TruckIcon';
 import CarIcon from '@/components/PDP/components/icons/CarIcon';
+import EditVehicle from './EditVehicle';
 
 export function CarCoverSelector({
   searchParams,
 }: {
   searchParams: { submodel?: string; second_submodel?: string } | undefined;
 }) {
+  console.log('SearchParams:', searchParams);
   // const store = useContext(CarSelectionContext);
   // if (!store) throw new Error('Missing CarContext.Provider in the tree');
 
@@ -83,39 +85,9 @@ export function CarCoverSelector({
           {/* Right Panel */}
           <section className=" h-full w-full pl-0 lg:sticky lg:top-8 lg:w-2/5">
             <Separator className="w-full bg-[#C8C7C7] lg:block" />
-            <div className="grid grid-cols-[1fr_2fr] place-items-center ">
-              <div className="flex max-h-[24px] max-w-[64px]  items-center justify-center lg:max-h-[42px] lg:max-w-[116px]">
-                {/* <div
-                  className={` ${!isTruckCover && !isSUVCover ? 'flex' : 'hidden'}`}
-                >
-                  <CarIcon />
-                </div>
-                <div className={` ${isTruckCover ? 'flex' : 'hidden'}`}>
-                  <TruckIcon />
-                </div>
-                <div className={` ${isSUVCover ? 'flex' : 'hidden'}`}>
-                  <SuvIcon />
-                </div> */}
-              </div>
-              {/* <EditVehicleModal
-                selectedProduct={selectedProduct}
-                searchParams={searchParams}
-              />
-              <EditVehiclePopover
-                selectedProduct={selectedProduct}
-                searchParams={searchParams}
-              /> */}
-            </div>
+            <EditVehicle searchParams={searchParams} />
             <Separator className="w-full bg-[#C8C7C7]" />
-            {/* <ProductContent
-              modelData={modelData}
-              productRefs={productRefs}
-              selectedProduct={selectedProduct}
-              setSelectedProduct={setSelectedProduct}
-              setFeaturedImage={setFeaturedImage}
-              uniqueColors={uniqueColors as IProductData[]}
-              searchParams={searchParams}
-            /> */}
+            <ProductContent searchParams={searchParams} />
           </section>
         </div>
         {/* <section
@@ -151,8 +123,8 @@ export function CarCoverSelector({
             </div>
             <SuggestedProducts />
           </span>
-        </section>
-        <ExtraProductDetails /> */}
+        </section>*/}
+        <ExtraProductDetails />
       </section>
     </>
   );
