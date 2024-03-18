@@ -273,3 +273,7 @@ export const getUniqueValues = ({
     uniqueSecondSubmodels: Array.from(uniqueValues.secondSubmodels).sort(),
   };
 };
+
+export function removeWwwFromUrl(url: string): string {
+  return url.replace(/www\./, '');
+}
