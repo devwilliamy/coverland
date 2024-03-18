@@ -9,7 +9,7 @@ import { SelectedProductImages } from './SelectedProductImages';
 import { Button } from '@/components/ui/button';
 import dynamic from 'next/dynamic';
 import Thumbnail from '@/video/Thumbnail.webp';
-import { IProductData } from '../../utils';
+import { IProductData, removeWwwFromUrl } from '../../utils';
 // import SixMinVideo from 'https://x2kly621zrgfgwll.public.blob.vercel-storage.com/videos/FINALIZE_WEBSTIE_16_9_OPTIMIZED.mp4';
 import { Skeleton } from '@/components/ui/skeleton';
 import SixMinVideo from '@/videos/https_x2kly621zrgfgwll.public.blob.vercel-storage.com_videos_FINALIZE_WEBSTIE_16_9_OPTIMIZED.mp4.json';
@@ -35,7 +35,6 @@ export function PrimaryImageDisplay({
 }) {
   const [showMore, setShowMore] = useState(false);
   const isMobile = useMediaQuery('(max-width: 1023px)');
-
   return (
     <div className=" -ml-4 flex  w-screen flex-col items-stretch justify-center lg:w-3/5 lg:pb-0 ">
       <div className="relative mb-4 flex h-full w-full items-center justify-center bg-[#F2F2F2] lg:h-[650px] lg:rounded-xl">
@@ -46,7 +45,7 @@ export function PrimaryImageDisplay({
         />
         <Image
           id="featured-image"
-          src={featuredImage + '?v=5' ?? ''}
+          src={(featuredImage as string) + '?v=5' ?? ''}
           alt="a car with a car cover on it"
           fill={true}
           className="hidden object-cover lg:block"
