@@ -84,7 +84,8 @@ export function MakeSearch({
           <AiOutlineLoading3Quarters className="animate-spin " />
         </div>
       ) : (
-        <label htmlFor="make">
+        <>
+          <label htmlFor="make"></label>
           <select
             value={value}
             onChange={handleChange}
@@ -99,7 +100,7 @@ export function MakeSearch({
               </option>
             ))}
           </select>
-        </label>
+        </>
       )}
     </div>
   );
