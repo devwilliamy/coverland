@@ -4,8 +4,11 @@ import { Separator } from '@/components/ui/separator';
 import LinkBreadcrumbs from './LinkBreadcrumbs';
 import { ExtraProductDetails } from '@/components/PDP/ExtraProductDetails';
 import EditVehicle from './EditVehicle';
-import FeaturesAndProductsSection from './FeaturesAndProductsSection';
-
+// import FeaturesAndProductsSection from './FeaturesAndProductsSection';
+import dynamic from 'next/dynamic';
+const FeaturesAndProductsSection = dynamic(
+  () => import('./FeaturesAndProductsSection')
+);
 export function CarCoverSelector({
   searchParams,
 }: {

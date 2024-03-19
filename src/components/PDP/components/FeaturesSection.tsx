@@ -14,6 +14,7 @@ import { ChevronDown } from 'lucide-react';
 import SeeAllChevronDown from './icons/SeeAllChevronDown';
 
 export default function FeaturesSection() {
+  console.log('Feature section server?', typeof window === 'undefined');
   return (
     <section
       className={`relative mt-[48px] flex h-max  flex-col items-center justify-center`}
@@ -25,17 +26,17 @@ export default function FeaturesSection() {
       />
       <ProductDetailsHeader />
       <div className="w-full lg:hidden">
-        <ProductVideo
+        {/* <ProductVideo
           src={SixMinVideo}
           imgSrc={Thumbnail}
           aspectRatio="16 / 9"
-        />
+        /> */}
       </div>
       <div className="relative z-[2] flex flex-col items-center justify-center lg:w-[850px]">
-        <FabricMattersSection />
+        {/* <FabricMattersSection />
         <DifferenceGrid />
 
-        <CustomFitSection />
+        <CustomFitSection /> */}
       </div>
     </section>
   );
