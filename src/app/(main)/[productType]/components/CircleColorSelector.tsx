@@ -1,5 +1,9 @@
-import React, { RefObject, useContext } from 'react';
-import { IProductData } from '../../utils';
+import { useContext } from 'react';
+import {
+  IProductData,
+  TPathParams,
+  getCompleteSelectionData,
+} from '../../utils';
 import GrayBlackTribe from '@/images/PDP/gray-black-tribe.svg';
 import BlackGrayStripe from '@/images/PDP/black-gray-stripe.svg';
 import BlackGray2Tone from '@/images/PDP/black-gray-2-tone.svg';
@@ -10,37 +14,40 @@ import Image, { StaticImageData } from 'next/image';
 import { useStore } from 'zustand';
 import { CarSelectionContext } from '@/contexts/CarSelectionContext';
 import { track } from '@vercel/analytics';
+import { handleViewItemColorChangeGoogleTag } from '@/hooks/useGoogleTagDataLayer';
+import { useParams } from 'next/navigation';
 
-interface ProductRefs {
-  [key: string]: RefObject<HTMLElement>;
-}
+const colorMap: Record<string, StaticImageData> = {
+  'Gray Black Tribe': GrayBlackTribe,
+  'Black Red 2-Tone': BlackRed2Tone,
+  'Black Gray 2-Tone': BlackGray2Tone,
+  'Black Gray Stripe': BlackGrayStripe,
+  'Gray Black Stripe': GrayBlackStripe,
+  'Black Red Stripe': BlackRedStripe,
+};
 
-export default function CircleColorSelector({
-  uniqueColors,
-  selectedProduct,
-  setSelectedProduct,
-  handleColorChange,
-}: {
-  uniqueColors: IProductData[];
-  productRefs: React.MutableRefObject<ProductRefs>;
-  setFeaturedImage: (img: string) => void;
-  setSelectedProduct: (product: IProductData) => void;
-  selectedProduct: IProductData;
-  handleColorChange: (newSelectedProduct: IProductData) => void;
-}) {
-  const colorMap: Record<string, StaticImageData> = {
-    'Gray Black Tribe': GrayBlackTribe,
-    'Black Red 2-Tone': BlackRed2Tone,
-    'Black Gray 2-Tone': BlackGray2Tone,
-    'Black Gray Stripe': BlackGrayStripe,
-    'Gray Black Stripe': GrayBlackStripe,
-    'Black Red Stripe': BlackRedStripe,
-  };
-
-  const colors = [];
-
+export default function CircleColorSelector() {
   const store = useContext(CarSelectionContext);
   if (!store) throw new Error('Missing CarContext.Provider in the tree');
+
+  const modelData = useStore(store, (s) => s.modelData);
+  const selectedProduct = useStore(store, (s) => s.selectedProduct);
+  const setSelectedProduct = useStore(store, (s) => s.setSelectedProduct);
+  const params = useParams<TPathParams>();
+
+  const uniqueColors = Array.from(
+    new Set(modelData.map((model) => model.display_color))
+  ).map((color) => modelData.find((model) => model.display_color === color));
+
+  const colors = [];
+  const {
+    completeSelectionState: { isComplete },
+  } = getCompleteSelectionData({
+    data: modelData,
+  });
+  const handleColorChange = (newSelectedProduct: IProductData) => {
+    handleViewItemColorChangeGoogleTag(newSelectedProduct, params, isComplete);
+  };
 
   const setSelectedColor = useStore(store, (s) => s.setSelectedColor);
 

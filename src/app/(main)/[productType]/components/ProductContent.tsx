@@ -1,33 +1,22 @@
 'use client';
 import { Separator } from '@/components/ui/separator';
-import { TInitialProductDataDB } from '@/lib/db';
 import { Rating } from '@mui/material';
 import { CarSelectionContext } from '@/contexts/CarSelectionContext';
 import { useMediaQuery } from '@mantine/hooks';
-import { RefObject, Suspense, useContext, useState } from 'react';
+import { Suspense, useContext, useState } from 'react';
 import CartSheet from '@/components/cart/CartSheet';
 import { compareRawStrings } from '@/lib/utils';
 
 import { useStore } from 'zustand';
 import { useCartContext } from '@/providers/CartProvider';
-import {
-  IProductData,
-  TPathParams,
-  getCompleteSelectionData,
-} from '../../utils';
+import { getCompleteSelectionData } from '../../utils';
 import FreeDetails from './FreeDetails';
 import AddToCart from './AddToCart';
 import CircleColorSelector from './CircleColorSelector';
 import RatingsTrigger from './RatingsTrigger';
 import installments from '@/images/PDP/Product-Details-Redesign-2/paypal-installments.webp';
 import Image from 'next/image';
-import { handleViewItemColorChangeGoogleTag } from '@/hooks/useGoogleTagDataLayer';
-import { useParams } from 'next/navigation';
 import useDetermineType from '@/hooks/useDetermineType';
-
-interface ProductRefs {
-  [key: string]: RefObject<HTMLElement>;
-}
 
 export function ProductContent({
   searchParams,
@@ -43,7 +32,6 @@ export function ProductContent({
   const modelData = useStore(store, (s) => s.modelData);
   const color = useStore(store, (s) => s.selectedColor);
   const { addToCart } = useCartContext();
-  const params = useParams<TPathParams>();
   const productType = compareRawStrings(selectedProduct?.type, 'car covers')
     ? 'Car Cover'
     : compareRawStrings(selectedProduct?.type, 'SUV Covers')
@@ -112,10 +100,6 @@ export function ProductContent({
     data: modelData,
   });
 
-  const handleColorChange = (newSelectedProduct: IProductData) => {
-    handleViewItemColorChangeGoogleTag(newSelectedProduct, params, isComplete);
-  };
-
   return (
     <>
       <div className="grid grid-cols-1 lg:mt-[60px]">
@@ -179,14 +163,7 @@ export function ProductContent({
           {/* <Info className="h-[17px] w-[17px] text-[#767676]" /> */}
         </div>
       </section>
-      {/* <CircleColorSelector
-        uniqueColors={uniqueColors as IProductData[]}
-        productRefs={productRefs}
-        setFeaturedImage={setFeaturedImage}
-        setSelectedProduct={setSelectedProduct}
-        selectedProduct={selectedProduct as IProductData}
-        handleColorChange={handleColorChange}
-      /> */}
+      <CircleColorSelector />
       <div className="lg:hidden">
         <AddToCart
           selectedProduct={selectedProduct}

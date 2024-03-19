@@ -1,6 +1,5 @@
 'use client';
-
-import { TInitialProductDataDB, TReviewData } from '@/lib/db';
+import { TReviewData } from '@/lib/db';
 // import CarCoverSelector from './CarCoverSelector';
 import { createStore } from 'zustand';
 import { createContext, useRef } from 'react';
@@ -13,6 +12,7 @@ import {
   modelDataTransformer,
 } from '../app/(main)/utils';
 import { TProductReviewSummary } from '@/lib/db/review';
+
 type CarSelectionStore = ReturnType<typeof createCarSelectionStore>;
 
 export type TQuery = {
@@ -71,82 +71,33 @@ const createCarSelectionStore = ({
   initialReviewDataSummary: TProductReviewSummary;
   initialReviewImages: TReviewData[];
 }) => {
-  // const hasNoSubmodels = initialModelData.every(
-  //   (model) => !model.submodel1 && !model.submodel2
-  // );
+  const hasNoSubmodels = initialModelData.every(
+    (model) => !model.submodel1 && !model.submodel2
+  );
 
-  // const initialDataWithSubmodels = queryParams?.submodel
-  //   ? initialModelData.filter((model) =>
-  //       compareRawStrings(model.submodel1, queryParams.submodel as string)
-  //     )
-  //   : initialModelData;
+  const initialDataWithSubmodels = queryParams?.submodel
+    ? initialModelData.filter((model) =>
+        compareRawStrings(model.submodel1, queryParams.submodel as string)
+      )
+    : initialModelData;
 
-  // const initialDataWithSecondSubmodels = queryParams?.submodel2
-  //   ? initialDataWithSubmodels.filter((model) =>
-  //       compareRawStrings(model.submodel2, queryParams.submodel2 as string)
-  //     )
-  //   : initialDataWithSubmodels;
+  const initialDataWithSecondSubmodels = queryParams?.submodel2
+    ? initialDataWithSubmodels.filter((model) =>
+        compareRawStrings(model.submodel2, queryParams.submodel2 as string)
+      )
+    : initialDataWithSubmodels;
 
   const reviewImageTracker: Record<string, boolean> = {};
 
-  // initialReviewData.forEach((reviewData) => {
-  //   !!reviewData.review_image &&
-  //     reviewData.review_image.split(',').map((imageUrl) => {
-  //       if (!reviewImageTracker[imageUrl]) {
-  //         reviewImageTracker[imageUrl] = true;
-  //       }
-  //     });
-  // });
+  initialReviewData.forEach((reviewData) => {
+    !!reviewData.review_image &&
+      reviewData.review_image.split(',').map((imageUrl) => {
+        if (!reviewImageTracker[imageUrl]) {
+          reviewImageTracker[imageUrl] = true;
+        }
+      });
+  });
 
-  const initialDataWithSecondSubmodels = [
-    {
-      sku: 'CL-CC-CN-15-F-BKRD-STR-PP-101001',
-      product_type: 'BKRD-STR-PP',
-      product_name: 'Roadster',
-      type: 'Car Covers',
-      make: 'Ford',
-      model: 'Roadster',
-      year_generation: '1921-1934',
-      parent_generation: '1921-1934',
-      submodel1: null,
-      submodel2: null,
-      submodel3: null,
-      sku_suffix: 'STR-PP-101001',
-      base_sku: 'CL-CC-CN-15-F-BKRD',
-      feature:
-        'http://www.coverland.com/category-images-new/01-bkrd-str-nm.webp',
-      product:
-        'http://www.coverland.com/category-images-new/01-bkrd-str-nm.webp,http://www.coverland.com/pms/02-bkrd-str-nm.webp,http://www.coverland.com/pms/03-bkrd-str-nm.webp,http://www.coverland.com/pms/04-bkrd-str-nm.webp,http://www.coverland.com/pms/05-bkrd-str-nm.webp,http://www.coverland.com/pms/06-bkrd-str-nm.webp,http://www.coverland.com/pms/07-bkrd-str-nm.webp,http://www.coverland.com/pms/08-bkrd-str-nm.webp,http://www.coverland.com/pms/09-bkrd-str-nm.webp,http://www.coverland.com/pms/10-bkrd-str-nm.webp,http://www.coverland.com/pms/11-bkrd-str-nm.webp,http://www.coverland.com/pms/12-bkrd-str-nm.webp,http://www.coverland.com/pms/13-bkrd-str-nm.webp,http://www.coverland.com/pms/14-bkrd-str-nm.webp,http://www.coverland.com/pms/15.webp',
-      display_color: 'Black Red Stripe',
-      msrp: '159.95',
-      price: '320',
-      display_id: 'Premium Plus',
-      make_slug: 'ford',
-      model_slug: 'roadster',
-      year_options:
-        '1921,1922,1923,1924,1925,1926,1927,1928,1929,1930,1931,1932,1933,1934',
-      fullProductName: 'Car Covers',
-      mainImage:
-        'https://www.coverland.com/images/default-product-images/01-bkrd-str-m.jpg',
-      productImages: [
-        'https://www.coverland.com/images/default-product-images/01-bkrd-str-m.jpg',
-        'https://www.coverland.com/images/default-product-images/02-bkrd-str-m.jpg',
-        'https://www.coverland.com/images/default-product-images/03-bkrd-str-m.jpg',
-        'https://www.coverland.com/images/default-product-images/04-bkrd-str-m.jpg',
-        'https://www.coverland.com/images/default-product-images/05-bkrd-str-m.jpg',
-        'https://www.coverland.com/images/default-product-images/06-bkrd-str-m.jpg',
-        'https://www.coverland.com/images/default-product-images/07-bkrd-str-m.jpg',
-        'https://www.coverland.com/images/default-product-images/08-bkrd-str-m.jpg',
-        'https://www.coverland.com/images/default-product-images/09-bkrd-str-m.jpg',
-        'https://www.coverland.com/images/default-product-images/10-bkrd-str-m.jpg',
-        'https://www.coverland.com/images/default-product-images/11-bkrd-str-m.jpg',
-        'https://www.coverland.com/images/default-product-images/12-bkrd-str-m.jpg',
-        'https://www.coverland.com/images/default-product-images/13-bkrd-str-m.jpg',
-        'https://www.coverland.com/images/default-product-images/14-bkrd-str-m.jpg',
-        'https://www.coverland.com/images/default-product-images/15.jpg',
-      ],
-    },
-  ];
   const customerSelectedYear =
     typeof window !== 'undefined'
       ? localStorage?.getItem('heroDropdownYear')
@@ -205,47 +156,47 @@ const createCarSelectionStore = ({
 
       const { setModelData } = get();
       setModelData();
-      // const newModelData = get().modelData;
-      // if (newModelData.length > 0 && Object.values(newQuery).some((v) => !!v)) {
-      //   set({
-      //     selectedProduct: newModelData[0],
-      //   });
-      // }
+      const newModelData = get().modelData;
+      if (newModelData.length > 0 && Object.values(newQuery).some((v) => !!v)) {
+        set({
+          selectedProduct: newModelData[0],
+        });
+      }
     },
     setModelData: () => {
-      // const { initialModelData, query: newQuery } = get();
-      // let filteredData = initialModelData;
-      // if (newQuery.type) {
-      //   filteredData = filteredData.filter((sku) => {
-      //     return compareRawStrings(sku.type, newQuery.type);
-      //   });
-      // }
-      // if (newQuery.make) {
-      //   filteredData = filteredData.filter((sku) =>
-      //     compareRawStrings(sku.make, newQuery.make as string)
-      //   );
-      // }
-      // if (newQuery.model) {
-      //   filteredData = filteredData.filter((sku) =>
-      //     compareRawStrings(sku.model, newQuery.model as string)
-      //   );
-      // }
-      // if (newQuery.year) {
-      //   filteredData = filteredData.filter((sku) =>
-      //     sku.year_options?.includes(newQuery.year as string)
-      //   );
-      // }
-      // if (newQuery.submodel) {
-      //   filteredData = filteredData.filter((sku) =>
-      //     compareRawStrings(sku.submodel1, newQuery.submodel as string)
-      //   );
-      // }
-      // if (newQuery.secondSubmodel) {
-      //   filteredData = filteredData.filter((sku) =>
-      //     compareRawStrings(sku.submodel2, newQuery.secondSubmodel as string)
-      //   );
-      // }
-      // set({ modelData: filteredData });
+      const { initialModelData, query: newQuery } = get();
+      let filteredData = initialModelData;
+      if (newQuery.type) {
+        filteredData = filteredData.filter((sku) => {
+          return compareRawStrings(sku.type, newQuery.type);
+        });
+      }
+      if (newQuery.make) {
+        filteredData = filteredData.filter((sku) =>
+          compareRawStrings(sku.make, newQuery.make as string)
+        );
+      }
+      if (newQuery.model) {
+        filteredData = filteredData.filter((sku) =>
+          compareRawStrings(sku.model, newQuery.model as string)
+        );
+      }
+      if (newQuery.year) {
+        filteredData = filteredData.filter((sku) =>
+          sku.year_options?.includes(newQuery.year as string)
+        );
+      }
+      if (newQuery.submodel) {
+        filteredData = filteredData.filter((sku) =>
+          compareRawStrings(sku.submodel1, newQuery.submodel as string)
+        );
+      }
+      if (newQuery.secondSubmodel) {
+        filteredData = filteredData.filter((sku) =>
+          compareRawStrings(sku.submodel2, newQuery.secondSubmodel as string)
+        );
+      }
+      set({ modelData: filteredData });
     },
     reviewData: initialReviewData,
     setReviewData: (newReviewData: TReviewData[]) => {
@@ -298,18 +249,18 @@ const CarSelectionProvider = ({
     submodel2: secondSubmodelParams,
   };
 
-  // const modelData = modelDataTransformer({
-  //   data: modelDataProps,
-  //   params: pathParams ?? ({} as TPathParams),
-  //   queryParams,
-  // });
+  const modelData = modelDataTransformer({
+    data: modelDataProps,
+    params: pathParams ?? ({} as TPathParams),
+    queryParams,
+  });
   // console.log('ModelData:', modelData);
 
   const store = useRef(
     createCarSelectionStore({
       params: pathParams ?? ({} as TPathParams),
       queryParams,
-      initialModelData: modelDataProps,
+      initialModelData: modelData,
       initialReviewData: reviewData as TReviewData[],
       initialReviewDataSummary: reviewDataSummary,
       initialReviewImages: reviewImages,
