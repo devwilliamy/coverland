@@ -1,6 +1,6 @@
 import { TReviewData, getProductData } from '@/lib/db';
 import { notFound, redirect } from 'next/navigation';
-import CarPDP from '@/contexts/CarSelectionContext';
+import CarPDP from '@/app/(main)/[productType]/components/CarPDP';
 import { TPathParams } from '@/app/(main)/utils';
 import {
   TProductReviewSummary,
@@ -111,6 +111,8 @@ export default async function CarPDPDataLayer({
   if (modelData?.length === 0) {
     notFound();
   }
+
+  console.log('[make/model/year] ModelData:', modelData);
 
   return (
     <>

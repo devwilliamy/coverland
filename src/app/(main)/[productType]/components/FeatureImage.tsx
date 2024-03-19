@@ -7,7 +7,8 @@ import { useStore } from 'zustand';
 export default function FeatureImage() {
   const store = useContext(CarSelectionContext);
   if (!store) throw new Error('Missing CarContext.Provider in the tree');
-  const featuredImage = useStore(store, (s) => s.featuredImage);
+  const selectedProduct = useStore(store, (s) => s.selectedProduct);
+  const featuredImage = selectedProduct?.mainImage;
   return (
     <Image
       id="featured-image"

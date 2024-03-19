@@ -1,6 +1,6 @@
 import { TReviewData, getAllMakes, getProductData } from '@/lib/db';
 import { notFound, redirect } from 'next/navigation';
-import CarPDP from '@/contexts/CarSelectionContext';
+import CarPDP from '@/app/(main)/[productType]/components/CarPDP';
 import {
   TProductReviewSummary,
   getAllReviewsWithImages,

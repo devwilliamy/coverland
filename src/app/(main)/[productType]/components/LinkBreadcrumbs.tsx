@@ -19,6 +19,7 @@ export default function LinkBreadcrumbs() {
         paramKeys.map((key, index) => {
           return (
             <div key={String(params[key])} className="flex gap-1">
+              <p> </p>
               <a
                 href={getUrlFromBreadcrumbs(index)}
                 className={`hover:underline ${params[key].length < 4 ? 'uppercase' : 'capitalize'} `}
