@@ -4,9 +4,7 @@ import {
   SheetContent,
   SheetFooter,
   SheetHeader,
-  SheetOverlay,
   SheetTitle,
-  SheetTrigger,
 } from '@/components/ui/sheet';
 import { IoClose } from 'react-icons/io5';
 import AddToCartHeader from '../cart/AddToCartHeader';
@@ -14,7 +12,8 @@ import AddToCartBody from '../cart/AddToCartBody';
 import AddToCartFooter from '../cart/AddToCartFooter';
 import { TInitialProductDataDB } from '@/lib/db';
 import { IProductData } from '@/app/(main)/utils';
-import { useMediaQuery } from '@mui/material';
+import { useMediaQuery } from '@mantine/hooks';
+import { Separator } from '../ui/separator';
 
 type CartSheetProps = {
   open: boolean;
@@ -28,14 +27,9 @@ const CartSheet = ({
 }: CartSheetProps): JSX.Element => {
   const isMobile = useMediaQuery('(max-width: 1023px)');
   return (
-    <Sheet open={open}>
-      <SheetTrigger asChild></SheetTrigger>
-      <SheetOverlay
-        className="z-[1] flex h-screen w-screen bg-black/80 "
-        onClick={() => setOpen(false)}
-      />
+    <Sheet open={open} onOpenChange={setOpen}>
       <SheetContent
-        className="flex flex-col max-lg:max-h-[85vh] max-lg:rounded-t-lg"
+        className="flex flex-col gap-0 max-lg:max-h-[85vh] max-lg:rounded-t-2xl"
         side={isMobile ? 'bottom' : 'right'}
       >
         <SheetHeader>
@@ -53,9 +47,9 @@ const CartSheet = ({
               </button>
             </SheetClose>
           </SheetTitle>
-          <div className="border-b bg-white shadow-[0_4px_4px_0px_rgba(0,0,0,0.1)]"></div>
+          <Separator />
         </SheetHeader>
-        <div className="mx-auto flex h-screen w-full flex-col overflow-y-scroll px-4 pt-20">
+        <div className=" flex h-screen w-full flex-col overflow-y-scroll px-4 ">
           <AddToCartBody selectedProduct={selectedProduct} />
         </div>
         <div className="w-full bg-white shadow-[0_-4px_4px_-0px_rgba(0,0,0,0.1)]">

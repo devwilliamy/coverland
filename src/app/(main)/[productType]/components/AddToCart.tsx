@@ -281,12 +281,8 @@ const AddToCartSelector = ({
       open={submodelSelectionOpen}
       onOpenChange={(o) => setSubmodelSelectionOpen(o)}
     >
-      <SheetOverlay
-        onClick={() => setSubmodelSelectionOpen(false)}
-        className="z-[1] flex h-screen w-screen bg-black/80 "
-      />
       <SheetContent
-        className="flex max-h-[30vh] flex-col justify-center rounded-t-2xl border   border-neutral-800 bg-neutral-800 pt-8 max-lg:max-h-[70vh]"
+        className="flex  flex-col justify-center rounded-t-2xl border   border-neutral-800 bg-neutral-800 pt-8 max-lg:max-h-[80vh]"
         side={isMobile ? 'bottom' : 'right'}
         onClick={(e) => e.stopPropagation()}
       >

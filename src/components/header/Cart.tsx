@@ -18,7 +18,7 @@ import AddToCartFooter from '../cart/AddToCartFooter';
 import YourCartHeader from '../cart/YourCartHeader';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import { useMediaQuery } from '@mui/material';
+import { useMediaQuery } from '@mantine/hooks';
 function Cart() {
   const { cartItems, cartOpen, setCartOpen } = useCartContext();
   const [isClient, setIsClient] = useState(false);
@@ -45,10 +45,7 @@ function Cart() {
           className="mt-0.5 flex h-[20px] w-[20px] hover:cursor-pointer"
         />
       </SheetTrigger>
-      <SheetOverlay
-        className="z-50 max-lg:bg-black/80 lg:hidden"
-        onClick={() => setCartOpen(false)}
-      />
+
       <SheetContent className="flex flex-col lg:hidden">
         <SheetHeader>
           <SheetTitle className="flex w-full items-center justify-between py-7 pl-4 pr-7">
