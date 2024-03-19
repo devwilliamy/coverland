@@ -24,9 +24,9 @@ import dynamic from 'next/dynamic';
 import Image from 'next/image';
 import { useParams } from 'next/navigation';
 import { useCallback, useContext, useEffect, useState } from 'react';
-import { IProductData } from '../../utils';
 import { CarSelectionContext } from '@/contexts/CarSelectionContext';
 import { useStore } from 'zustand';
+import { removeWwwFromUrl } from '../../utils';
 
 const ProductVideo = dynamic(() => import('@/components/PDP/ProductVideo'), {
   loading: () => (
@@ -104,7 +104,7 @@ const MobileImageCarousel = () => {
         className="rounded-[4px]"
         width={74}
         height={74}
-        src={src + '?v=4'}
+        src={removeWwwFromUrl(src as string) + '?v=9'}
         sizes="(max-width: 768px) 100vw"
         alt={`carousel-position-item-${index}`}
       />
@@ -123,7 +123,10 @@ const MobileImageCarousel = () => {
                   className="bg-[#F2F2F2]"
                 >
                   <Image
-                    src={(selectedProduct.mainImage + '?v=4') as string}
+                    src={
+                      (removeWwwFromUrl(selectedProduct.mainImage as string) +
+                        '?v=9') as string
+                    }
                     alt={`Additional images of the ${selectedProduct.display_id} cover`}
                     width={500}
                     height={500}
@@ -148,7 +151,7 @@ const MobileImageCarousel = () => {
             return (
               <CarouselItem key={image}>
                 <Image
-                  src={image + '?v=4'}
+                  src={removeWwwFromUrl(image) + '?v=9'}
                   alt={`Additional images of the ${selectedProduct.display_id} cover`}
                   width={500}
                   height={500}
@@ -173,7 +176,10 @@ const MobileImageCarousel = () => {
                   onClick={() => scrollTo(index)}
                 >
                   <Image
-                    src={(selectedProduct.mainImage + '?v=4') as string}
+                    src={
+                      (removeWwwFromUrl(selectedProduct.mainImage as string) +
+                        '?v=9') as string
+                    }
                     alt={`Additional images of the ${selectedProduct.display_id} cover`}
                     width={74}
                     height={74}

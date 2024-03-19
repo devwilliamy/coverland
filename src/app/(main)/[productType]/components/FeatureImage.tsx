@@ -3,6 +3,7 @@ import { CarSelectionContext } from '@/contexts/CarSelectionContext';
 import Image from 'next/image';
 import { useContext } from 'react';
 import { useStore } from 'zustand';
+import { removeWwwFromUrl } from '../../utils';
 
 export default function FeatureImage() {
   const store = useContext(CarSelectionContext);
@@ -12,7 +13,7 @@ export default function FeatureImage() {
   return (
     <Image
       id="featured-image"
-      src={featuredImage + '?v=4' ?? ''}
+      src={removeWwwFromUrl(featuredImage as string) + '?v=4' ?? ''}
       alt="a car with a car cover on it"
       fill={true}
       className="hidden object-cover lg:block"

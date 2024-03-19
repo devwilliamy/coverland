@@ -7,6 +7,7 @@ import { useContext, useState } from 'react';
 import { FaCamera } from 'react-icons/fa';
 import { useStore } from 'zustand';
 import { Button } from '@/components/ui/button';
+import { removeWwwFromUrl } from '../../utils';
 
 export function SelectedProductImages() {
   const store = useContext(CarSelectionContext);
@@ -70,7 +71,7 @@ const ProductImage = ({
   >
     <Image
       key={idx}
-      src={img + '?v=4'}
+      src={removeWwwFromUrl(img as string) + '?v=9'}
       width={350}
       height={350}
       alt="car cover details"

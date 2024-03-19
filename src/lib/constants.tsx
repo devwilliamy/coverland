@@ -7,6 +7,7 @@ import TruckPlaceholder from '@/public/custom-cover/tc-01-ps-gr-1to-m.webp';
 import defaultCarPremiumPlus from '@/images/default-product-images/01-bkrd-str-m.jpg';
 import defaultSUVPremiumPlus from '@/public/pms/suv-01-bkgr-str-m.webp';
 import defaultTruckPremiumPlus from '@/public/pms/tc-01-bkgr-str-m.webp';
+import defaultTruckPremium from '@/public/pms/tc-01-ps-gr-1to-m.webp';
 
 export const modelStrings: Record<string, string> = {
   'car-covers': 'Car Covers',
@@ -490,7 +491,7 @@ export const PRODUCT_PRICING_DATA = {
       msrp: '159.95',
       price: '320.00',
       description: 'Semi-Custom Truck Cover',
-      image: defaultTruckPremiumPlus,
+      image: defaultTruckPremium,
       type: {
         slug: 'premium',
         display: 'Premium',
