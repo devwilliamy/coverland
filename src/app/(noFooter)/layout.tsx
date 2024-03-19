@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 
 import '../globals.css';
-import Header from '@/pages/home/Header';
+import Header from '@/components/header/Header';
 
 export const metadata: Metadata = {
   title: 'Coverland Car Covers',

@@ -6,7 +6,7 @@ import { track } from '@vercel/analytics';
 import ReviewPercentCircle from './ReviewPercentCircle';
 import ReviewHeaderGallery from './ReviewHeaderGallery';
 
-import { CarSelectionContext } from '@/app/(main)/[productType]/components/CarPDP';
+import { CarSelectionContext } from '@/contexts/CarSelectionContext';
 import { useStore } from 'zustand';
 import {
   FilterParams,

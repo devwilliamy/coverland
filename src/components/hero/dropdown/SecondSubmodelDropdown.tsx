@@ -77,11 +77,13 @@ export function SecondSubmodelDropdown({
         tabIndex={1}
       >
         <div className="ml-[10px] pr-[15px]">6</div>
+        <label htmlFor="secondsubmode"></label>
         <select
           value={value}
           onChange={handleChange}
           disabled={isDisabled}
           className={`w-full cursor-pointer bg-transparent py-1 outline-none lg:py-3`}
+          aria-label="secondsubmodel"
         >
           <option value="">{`Submodel 2`}</option>
           {filteredSecondSubmodelData?.sort()?.map((secondSubmodel) => (

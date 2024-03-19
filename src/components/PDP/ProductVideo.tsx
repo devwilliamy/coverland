@@ -1,9 +1,8 @@
-'use client';
 import Image, { StaticImageData } from 'next/image';
 import { Asset } from 'next-video/dist/assets.js';
 import dynamic from 'next/dynamic';
 
-const Video = dynamic(() => import('next-video'), { ssr: false });
+const Video = dynamic(() => import('next-video'));
 
 type ProductVideoProps = {
   src: Asset;

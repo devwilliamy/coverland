@@ -19,7 +19,7 @@ function Header() {
           <div className="flex max-h-[24px] min-h-[24px] items-center gap-[30px]">
             {/* <MyGarage /> */}
             {/* <Phone /> */}
-            <Link href="/login">
+            <Link href="/login" aria-label="Go to login page">
               <UserRound />
             </Link>
             <Cart />
@@ -53,7 +53,7 @@ function Header() {
           <Logo />
           <div className="flex items-center gap-[28px] ">
             <Cart />
-            <Link href="/login">
+            <Link href="/login" aria-label="Mobile go to login page">
               <UserRound className="h-5 w-5" />
             </Link>
           </div>

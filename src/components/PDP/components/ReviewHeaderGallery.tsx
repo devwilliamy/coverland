@@ -1,7 +1,7 @@
 'use client';
 
 import { useContext, useState } from 'react';
-import { CarSelectionContext } from '@/app/(main)/[productType]/components/CarPDP';
+import { CarSelectionContext } from '@/contexts/CarSelectionContext';
 import { useStore } from 'zustand';
 import ReviewImagesSheet from './ReviewImagesSheet';
 import Image from 'next/image';

@@ -1,7 +1,5 @@
-import React from 'react';
 import Thumbnail from '@/video/Thumbnail.webp';
-// import SixMinVideo from 'https://x2kly621zrgfgwll.public.blob.vercel-storage.com/videos/FINALIZE_WEBSTIE_16_9_OPTIMIZED.mp4';
-import SixMinVideo from '@/videos/https_x2kly621zrgfgwll.public.blob.vercel-storage.com_videos_FINALIZE_WEBSTIE_16_9_OPTIMIZED.mp4.json';
+import SixMinVideo from '@/videos/https_x2kly621zrgfgwll.public.blob.vercel-storage.com_videos_FINALIZE_WEBSTIE_16_9_OPTIMIZED.mp4';
 import ProductVideo from '../ProductVideo';
 import ProductDetailsHeader from './ProductDetailsHeader';
 import FabricMattersSection from './FabricMattersSection';
@@ -9,14 +7,11 @@ import DifferenceGrid from '@/app/(main)/[productType]/components/DifferenceGrid
 import CustomFitSection from './CustomFitSection';
 import WetFabric from '@/images/PDP/Product-Details-Redesign-2/fabric-with-water.webp';
 import Image from 'next/image';
-import SuggestedProducts from './SuggestedProducts';
-import { ChevronDown } from 'lucide-react';
-import SeeAllChevronDown from './icons/SeeAllChevronDown';
 
 export default function FeaturesSection() {
   return (
     <section
-      className={`relative mt-[48px] flex h-max  flex-col items-center justify-center`}
+      className={`relative z-[-1] mt-[48px] flex  h-max flex-col items-center justify-center`}
     >
       <Image
         alt="Wet Fabric"

@@ -1,7 +1,7 @@
 'use client';
 import { useState } from 'react';
 import SeatCoverCarousel from './components/SeatCoverCarousel';
-import { useMediaQuery } from '@mui/material';
+import { useMediaQuery } from '@mantine/hooks';
 import Image, { StaticImageData } from 'next/image';
 import ElevateComfortSection from './components/ElevateComfortSection';
 import NonCompatibleMobile from '@/images/PDP/Product-Details-Redesign-2/seat-covers/compatability/non-compatible-features.webp';

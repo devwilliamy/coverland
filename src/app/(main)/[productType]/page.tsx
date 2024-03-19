@@ -1,10 +1,7 @@
-import { defaultSuvModelData, defaultTruckModelData } from '@/lib/constants';
-import { TInitialProductDataDB, getProductData } from '@/lib/db';
 import CarPDP from './components/CarPDP';
 import {
   TProductReviewSummary,
   TReviewData,
-  // filterDuplicateReviewImages,
   getAllReviewsWithImages,
   getProductReviewSummary,
   getProductReviewsByPage,
@@ -12,6 +9,7 @@ import {
 import { deslugify } from '@/lib/utils';
 import { TPathParams } from '../utils';
 import { notFound } from 'next/navigation';
+import { getProductData } from '@/lib/db';
 
 export function generateStaticParams() {
   return [
@@ -51,7 +49,6 @@ export default async function CarPDPModelDataLayer({
     params?.productType === 'suv-covers' ? 'SUV Covers' : 'Truck Covers';
   const typeString =
     params?.productType === 'car-covers' ? 'Car Covers' : SuvOrTruckType;
-
   try {
     [reviewData, modelData, reviewDataSummary, reviewImages] =
       await Promise.all([
@@ -77,6 +74,7 @@ export default async function CarPDPModelDataLayer({
           {}
         ),
       ]);
+    modelData = await getProductData({ type: typeString });
   } catch (error) {
     console.error('CarPDPModelDataLayer Error: ', error);
   }

@@ -18,7 +18,7 @@ import { SubmodelDropdown } from '../hero/dropdown/SubmodelDropdown';
 import { slugify } from '@/lib/utils';
 import { BASE_URL } from '@/lib/constants';
 import { TQuery } from '../hero/dropdown/HeroDropdown';
-import { CarSelectionContext } from '@/app/(main)/[productType]/components/CarPDP';
+import { CarSelectionContext } from '@/contexts/CarSelectionContext';
 import { useStore } from 'zustand';
 
 export type TProductJsonData = {

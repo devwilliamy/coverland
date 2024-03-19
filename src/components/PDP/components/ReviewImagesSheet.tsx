@@ -1,7 +1,7 @@
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import { useContext, useState } from 'react';
 import { useStore } from 'zustand';
-import { CarSelectionContext } from '@/app/(main)/[productType]/components/CarPDP';
+import { CarSelectionContext } from '@/contexts/CarSelectionContext';
 import ReviewImageGallery from './ReviewImageGallery';
 import Logo from '@/components/header/Logo';
 import Link from 'next/link';
