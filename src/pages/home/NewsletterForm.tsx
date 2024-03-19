@@ -1,12 +1,34 @@
 'use client';
-import { FormEvent, useState } from 'react';
+import { ChangeEvent, FormEvent, useState } from 'react';
 import { BsChevronRight } from 'react-icons/bs';
 const NewsletterForm = () => {
   const [email_address, setEmail] = useState('');
   const [message, setMessage] = useState('');
+  const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+  const [isFirstTimeFocus, setIsFirstTimeFocus] = useState(true);
+
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    const isValid = emailRegex.test(value);
+    if (!isValid) {
+      setEmail(e.target.value);
+      if (!isFirstTimeFocus) {
+        setMessage('Invalid Email.');
+      }
+      return;
+    }
+    setEmail(e.target.value);
+    setMessage('');
+  };
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    const value = email_address;
+    const isValid = emailRegex.test(value);
+    if (!isValid) {
+      setMessage('Invalid Email.');
+      return;
+    }
 
     try {
       const response = await fetch('/api/subscribe', {
@@ -41,11 +63,19 @@ const NewsletterForm = () => {
           type="email"
           placeholder="Your Email"
           value={email_address}
-          onChange={(e) => setEmail(e.target.value)}
+          onChange={(e) => {
+            handleChange(e);
+          }}
+          onBlur={() => {
+            if (isFirstTimeFocus) {
+              setIsFirstTimeFocus(false);
+            }
+          }}
           className="w-full rounded-l bg-white p-4 text-[#767676]"
         />
         <button
           type="submit"
+          disabled={message ? true : false}
           className=" hover:bg-red flex h-12 w-12 flex-col items-center justify-center bg-[#BE1B1B] duration-300"
         >
           <BsChevronRight size={20} color={'#fff'} />
