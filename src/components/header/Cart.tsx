@@ -8,6 +8,7 @@ import {
   SheetHeader,
   SheetTitle,
   SheetTrigger,
+  SheetOverlay,
 } from '@/components/ui/sheet';
 import { TCartItem } from '@/lib/cart/useCart';
 import { HiOutlineShoppingCart } from 'react-icons/hi';
@@ -28,12 +29,9 @@ function Cart() {
   }, []);
 
   return (
-    <Sheet open={cartOpen}>
-      <SheetTrigger className="w-full">
-        <div
-          className="flex items-center"
-          onClick={() => router.push('/checkout')}
-        >
+    <Sheet open={cartOpen} onOpenChange={setCartOpen}>
+      <SheetTrigger className="w-full" onClick={() => router.push('/checkout')}>
+        <div className="flex items-center">
           {isClient && <ItemsInCartAnimation cartItems={cartItems} />}
           <HiOutlineShoppingCart
             color={'#BE1B1B'}
