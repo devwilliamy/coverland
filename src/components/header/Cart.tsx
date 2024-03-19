@@ -39,7 +39,8 @@ function Cart() {
           />
         </div>
       </SheetTrigger>
-      <SheetContent className="flex flex-col lg:hidden">
+      <SheetOverlay onClick={() => setCartOpen(false)} />
+      <SheetContent className="z- flex flex-col lg:hidden">
         <SheetHeader>
           <SheetTitle className="flex w-full items-center justify-between py-7 pl-4 pr-7">
             <YourCartHeader />
