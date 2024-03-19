@@ -29,13 +29,15 @@ function Cart() {
 
   return (
     <Sheet open={cartOpen}>
-      <SheetTrigger asChild>
-        <div className="flex items-center">
+      <SheetTrigger className="w-full">
+        <div
+          className="flex items-center"
+          onClick={() => router.push('/checkout')}
+        >
           {isClient && <ItemsInCartAnimation cartItems={cartItems} />}
           <HiOutlineShoppingCart
             color={'#BE1B1B'}
             className="mt-0.5 flex h-[20px] w-[20px] hover:cursor-pointer"
-            onClick={() => router.push('/checkout')}
           />
         </div>
       </SheetTrigger>
