@@ -27,6 +27,7 @@ import {
   SheetContent,
   SheetFooter,
   SheetHeader,
+  SheetOverlay,
 } from '@/components/ui/sheet';
 import { X } from 'lucide-react';
 import { handleAddToCartGoogleTag } from '@/hooks/useGoogleTagDataLayer';
@@ -76,8 +77,8 @@ export default function AddToCart({
     <div>
       <div className="w-full" id="selector">
         <AddToCartSelector
-          submodelSelectionOpen={submodelSelectionOpen}
-          setSubmodelSelectionOpen={setSubmodelSelectionOpen}
+          submodelSelectionOpen={addToCartOpen}
+          setSubmodelSelectionOpen={setAddToCartOpen}
         />
       </div>
 
@@ -85,7 +86,7 @@ export default function AddToCart({
       {isTypeOrCoverPage && !isSticky ? (
         <VehicleSelector searchParams={searchParams} />
       ) : (
-        <div className="fixed inset-x-0 bottom-0 z-50 flex bg-white p-4 lg:relative lg:p-1">
+        <div className="fixed inset-x-0 bottom-0 z-[1] flex bg-white p-4 lg:relative lg:p-1">
           <Button
             className=" h-[48px] w-full rounded bg-[#BE1B1B] text-lg font-bold uppercase text-white disabled:bg-[#BE1B1B] lg:h-[62px]"
             onClick={() => {
@@ -99,10 +100,9 @@ export default function AddToCart({
                   selectedProduct,
                   params as TPathParams
                 );
-                isMobile ? router.push('/checkout') : setAddToCartOpen(true);
                 return;
               }
-              setSubmodelSelectionOpen((p) => !p);
+              setAddToCartOpen((p) => !p);
             }}
           >
             Add To Cart
@@ -274,15 +274,20 @@ const AddToCartSelector = ({
   ]);
 
   const wait = () => new Promise((resolve) => setTimeout(resolve, 350));
+  const isMobile = useMediaQuery('(max-width: 1023px)');
 
   return (
     <Sheet
       open={submodelSelectionOpen}
       onOpenChange={(o) => setSubmodelSelectionOpen(o)}
     >
+      <SheetOverlay
+        onClick={() => setSubmodelSelectionOpen(false)}
+        className="z-[1] flex h-screen w-screen bg-black/80 "
+      />
       <SheetContent
-        className="flex flex-col justify-center rounded-t-2xl   border border-neutral-800 bg-neutral-800 pt-8"
-        side="right"
+        className="flex max-h-[30vh] flex-col justify-center rounded-t-2xl border   border-neutral-800 bg-neutral-800 pt-8 max-lg:max-h-[70vh]"
+        side={isMobile ? 'bottom' : 'right'}
         onClick={(e) => e.stopPropagation()}
       >
         <SheetClose className="mb-auto ml-auto mr-4 flex h-8 w-8 items-center justify-center rounded-full bg-neutral-400">
@@ -319,7 +324,7 @@ const AddToCartSelector = ({
               router.push('/checkout');
             }}
             disabled={!isComplete}
-            className="w-full py-6 text-lg uppercase"
+            className=" w-full py-6 text-lg uppercase"
           >
             Add To Cart
           </Button>

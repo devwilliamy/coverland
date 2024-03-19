@@ -35,11 +35,7 @@ function Cart() {
       <SheetTrigger
         className="flex w-full items-center"
         onClick={(e) => {
-          if (isMobile) {
-            e.preventDefault();
-            setCartOpen(true);
-            return;
-          }
+          e.preventDefault();
           router.push('/checkout');
         }}
       >

@@ -4,6 +4,7 @@ import {
   SheetContent,
   SheetFooter,
   SheetHeader,
+  SheetOverlay,
   SheetTitle,
   SheetTrigger,
 } from '@/components/ui/sheet';
@@ -13,6 +14,7 @@ import AddToCartBody from '../cart/AddToCartBody';
 import AddToCartFooter from '../cart/AddToCartFooter';
 import { TInitialProductDataDB } from '@/lib/db';
 import { IProductData } from '@/app/(main)/utils';
+import { useMediaQuery } from '@mui/material';
 
 type CartSheetProps = {
   open: boolean;
@@ -24,10 +26,18 @@ const CartSheet = ({
   setOpen,
   selectedProduct,
 }: CartSheetProps): JSX.Element => {
+  const isMobile = useMediaQuery('(max-width: 1023px)');
   return (
     <Sheet open={open}>
       <SheetTrigger asChild></SheetTrigger>
-      <SheetContent className="flex flex-col">
+      <SheetOverlay
+        className="z-[1] flex h-screen w-screen bg-black/80 "
+        onClick={() => setOpen(false)}
+      />
+      <SheetContent
+        className="flex flex-col max-lg:max-h-[85vh] max-lg:rounded-t-lg"
+        side={isMobile ? 'bottom' : 'right'}
+      >
         <SheetHeader>
           <SheetTitle className="flex w-full items-center justify-between py-7 pl-4 pr-7">
             <AddToCartHeader />
