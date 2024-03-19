@@ -1,102 +1,83 @@
 'use client';
 import { Separator } from '@/components/ui/separator';
-import { TInitialProductDataDB } from '@/lib/db';
 import { Rating } from '@mui/material';
-import { CarSelectionContext } from './CarPDP';
+import { CarSelectionContext } from '@/contexts/CarSelectionContext';
 import { useMediaQuery } from '@mantine/hooks';
-import { RefObject, Suspense, useContext, useState } from 'react';
+import { Suspense, useContext, useState } from 'react';
 import CartSheet from '@/components/cart/CartSheet';
 import { compareRawStrings } from '@/lib/utils';
 
 import { useStore } from 'zustand';
 import { useCartContext } from '@/providers/CartProvider';
-import {
-  IProductData,
-  TPathParams,
-  getCompleteSelectionData,
-} from '../../utils';
+import { getCompleteSelectionData } from '../../utils';
 import FreeDetails from './FreeDetails';
 import AddToCart from './AddToCart';
 import CircleColorSelector from './CircleColorSelector';
 import RatingsTrigger from './RatingsTrigger';
 import installments from '@/images/PDP/Product-Details-Redesign-2/paypal-installments.webp';
 import Image from 'next/image';
-import { handleViewItemColorChangeGoogleTag } from '@/hooks/useGoogleTagDataLayer';
-import { useParams } from 'next/navigation';
-
-interface ProductRefs {
-  [key: string]: RefObject<HTMLElement>;
-}
+import useDetermineType from '@/hooks/useDetermineType';
 
 export function ProductContent({
-  selectedProduct,
-  setSelectedProduct,
-  setFeaturedImage,
-  productRefs,
-  uniqueColors,
   searchParams,
 }: {
-  selectedProduct: IProductData;
-  setSelectedProduct: (newProduct: IProductData) => void;
-  productRefs: React.MutableRefObject<ProductRefs>;
-  uniqueColors?: IProductData[];
-  modelData: TInitialProductDataDB[];
-  setFeaturedImage: (img: string) => void;
   searchParams: { submodel?: string; second_submodel?: string } | undefined;
 }) {
+  const isMobile = useMediaQuery('(max-width: 1023px)');
+  const [addToCartOpen, setAddToCartOpen] = useState<boolean>(false);
+  const store = useContext(CarSelectionContext);
+  if (!store) throw new Error('Missing CarContext.Provider in the tree');
+  const selectedProduct = useStore(store, (s) => s.selectedProduct);
+
+  const modelData = useStore(store, (s) => s.modelData);
+  const color = useStore(store, (s) => s.selectedColor);
+  const { addToCart } = useCartContext();
   const productType = compareRawStrings(selectedProduct?.type, 'car covers')
     ? 'Car Cover'
     : compareRawStrings(selectedProduct?.type, 'SUV Covers')
       ? 'SUV Cover'
       : 'Truck Cover';
-  const isMobile = useMediaQuery('(max-width: 1023px)');
-  const [addToCartOpen, setAddToCartOpen] = useState<boolean>(false);
-  const store = useContext(CarSelectionContext);
-  if (!store) throw new Error('Missing CarContext.Provider in the tree');
-  const modelData = useStore(store, (s) => s.modelData);
-  const color = useStore(store, (s) => s.selectedColor);
-  const { addToCart } = useCartContext();
-  const params = useParams<TPathParams>();
-  const paramsProductType = params?.productType;
-  const isCarCovers = paramsProductType === 'car-covers';
-  const isSuvCovers = paramsProductType === 'suv-covers';
-  const isTruckCovers = paramsProductType === 'truck-covers';
-  const coverType = params?.coverType;
-  const isPremiumPlus = coverType === 'premium-plus';
-  const isPremium = coverType === 'premium';
-  const isStandardPro = coverType === 'standard-pro';
-  const isStandard = coverType === 'standard';
-  const isDefaultCoverType =
-    params?.coverType === 'premium-plus' || params?.coverType === undefined;
-  const isPremiumType = isDefaultCoverType || isPremium;
-  const isStandardType = isStandard || isStandardPro;
+
+  const {
+    coverType,
+    isCarCover,
+    isSUVCover,
+    isTruckCover,
+    isPremiumPlus,
+    isPremium,
+    isStandardPro,
+    isStandard,
+    isStandardType,
+    isPremiumType,
+    isDefaultCoverType,
+  } = useDetermineType();
 
   const cartProduct = modelData.find((p) => p.display_color === color);
 
   let defaultMSRP: number;
 
   switch (true) {
-    case (isSuvCovers && !coverType) || (isSuvCovers && isPremiumPlus):
+    case (isSUVCover && !coverType) || (isSUVCover && isPremiumPlus):
       defaultMSRP = 180;
       break;
-    case (isTruckCovers && !coverType) || (isTruckCovers && isPremiumPlus):
+    case (isTruckCover && !coverType) || (isTruckCover && isPremiumPlus):
       defaultMSRP = 200;
       break;
-    case (isCarCovers && isPremium) ||
-      (isSuvCovers && isStandardPro) ||
-      (isTruckCovers && isStandard):
+    case (isCarCover && isPremium) ||
+      (isSUVCover && isStandardPro) ||
+      (isTruckCover && isStandard):
       defaultMSRP = 120;
       break;
-    case (isSuvCovers && isPremium) || (isTruckCovers && isStandardPro):
+    case (isSUVCover && isPremium) || (isTruckCover && isStandardPro):
       defaultMSRP = 140;
       break;
-    case isTruckCovers && isPremium:
+    case isTruckCover && isPremium:
       defaultMSRP = 160;
       break;
-    case (isCarCovers && isStandardPro) || (isSuvCovers && isStandard):
+    case (isCarCover && isStandardPro) || (isSUVCover && isStandard):
       defaultMSRP = 100;
       break;
-    case isCarCovers && isStandard:
+    case isCarCover && isStandard:
       defaultMSRP = 80;
       break;
     default:
@@ -118,10 +99,6 @@ export function ProductContent({
   } = getCompleteSelectionData({
     data: modelData,
   });
-
-  const handleColorChange = (newSelectedProduct: IProductData) => {
-    handleViewItemColorChangeGoogleTag(newSelectedProduct, params, isComplete);
-  };
 
   return (
     <>
@@ -186,14 +163,7 @@ export function ProductContent({
           {/* <Info className="h-[17px] w-[17px] text-[#767676]" /> */}
         </div>
       </section>
-      <CircleColorSelector
-        uniqueColors={uniqueColors as IProductData[]}
-        productRefs={productRefs}
-        setFeaturedImage={setFeaturedImage}
-        setSelectedProduct={setSelectedProduct}
-        selectedProduct={selectedProduct as IProductData}
-        handleColorChange={handleColorChange}
-      />
+      <CircleColorSelector />
       <div className="lg:hidden">
         <AddToCart
           selectedProduct={selectedProduct}

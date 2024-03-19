@@ -9,7 +9,7 @@ import {
 import { IoClose } from 'react-icons/io5';
 import { useContext, useState } from 'react';
 import { useStore } from 'zustand';
-import { CarSelectionContext } from '@/app/(main)/[productType]/components/CarPDP';
+import { CarSelectionContext } from '@/contexts/CarSelectionContext';
 import ReviewSection from './ReviewSection';
 
 export default function ReviewSheet({ seeMore }: { seeMore?: boolean }) {

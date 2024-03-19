@@ -1,4 +1,4 @@
-import { CarSelectionContext } from '@/app/(main)/[productType]/components/CarPDP';
+import { CarSelectionContext } from '@/contexts/CarSelectionContext';
 import { ReviewImageIndexContext } from '@/lib/contexts/ReviewImageIndexContext';
 import { TReviewData } from '@/lib/db/review';
 import { ChevronDown, ThumbsUpIcon } from 'lucide-react';

@@ -36,10 +36,12 @@ export function TypeSearch({
       tabIndex={1}
     >
       <div className=" ml-[10px] pr-[15px]">1</div>
+      <label htmlFor="type"></label>
       <select
         value={value}
         onChange={handleChange}
         className="w-full cursor-pointer bg-transparent py-1 outline-none lg:py-3"
+        aria-label="type"
       >
         <option value="">Type</option>
         {types.map((type, i) => (

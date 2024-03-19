@@ -2,7 +2,7 @@ import ReviewSheet from '@/components/PDP/components/ReviewSheet';
 import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';
 import React, { useContext } from 'react';
 import { useStore } from 'zustand';
-import { CarSelectionContext } from './CarPDP';
+import { CarSelectionContext } from '@/contexts/CarSelectionContext';
 import ReviewSection from '@/components/PDP/components/ReviewSection';
 
 function RatingsTrigger() {

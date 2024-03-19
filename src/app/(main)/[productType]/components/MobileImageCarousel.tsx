@@ -1,3 +1,4 @@
+'use client';
 import ReviewImagesSheet from '@/components/PDP/components/ReviewImagesSheet';
 import {
   Carousel,
@@ -22,8 +23,10 @@ import {
 import dynamic from 'next/dynamic';
 import Image from 'next/image';
 import { useParams } from 'next/navigation';
-import { useCallback, useEffect, useState } from 'react';
-import { IProductData, removeWwwFromUrl } from '../../utils';
+import { useCallback, useContext, useEffect, useState } from 'react';
+import { CarSelectionContext } from '@/contexts/CarSelectionContext';
+import { useStore } from 'zustand';
+import { removeWwwFromUrl } from '../../utils';
 
 const ProductVideo = dynamic(() => import('@/components/PDP/ProductVideo'), {
   loading: () => (
@@ -34,14 +37,12 @@ const ProductVideo = dynamic(() => import('@/components/PDP/ProductVideo'), {
   ssr: false,
 });
 
-export const MobileImageCarousel = ({
-  selectedProduct,
-  productImages,
-}: {
-  selectedProduct: IProductData;
-  productImages: string[];
-  setFeaturedImage?: (img: string) => void;
-}) => {
+const MobileImageCarousel = () => {
+  const store = useContext(CarSelectionContext);
+  if (!store) throw new Error('Missing CarContext.Provider in the tree');
+  const selectedProduct = useStore(store, (s) => s.selectedProduct);
+  const productImages = selectedProduct?.productImages as string[];
+  const setFeaturedImage = useStore(store, (s) => s.setFeaturedImage);
   const [api, setApi] = useState<CarouselApi>();
   const [current, setCurrent] = useState(0);
   const params = useParams();
@@ -238,3 +239,4 @@ export const MobileImageCarousel = ({
     </div>
   );
 };
+export default MobileImageCarousel;

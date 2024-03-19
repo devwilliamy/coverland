@@ -1,8 +1,8 @@
 import type { Metadata } from 'next';
 
 import '../globals.css';
-import Header from '@/pages/home/Header';
-import Footer from '@/pages/home/Footer';
+import Header from '@/components/header/Header';
+import Footer from '@/components/footer/Footer';
 
 export const metadata: Metadata = {
   title: 'Coverland Car Covers',
