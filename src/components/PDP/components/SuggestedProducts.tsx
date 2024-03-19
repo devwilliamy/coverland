@@ -1,7 +1,8 @@
+'use client';
 import Image from 'next/image';
 import { useParams } from 'next/navigation';
 import { PRODUCT_PRICING_DATA } from '@/lib/constants';
-import { useMediaQuery } from '@mui/material';
+import { useMediaQuery } from '@mantine/hooks';
 
 export default function SuggestedProducts() {
   const isMobile = useMediaQuery('(max-width: 1024px)');

@@ -1,24 +1,25 @@
 'use client';
 
+import EnhancedProtectionSection from '@/components/PDP/components/EnhancedProtectionSection';
+import ProvenSection from '@/components/PDP/components/ProvenSection';
+import RealTestSection from '@/components/PDP/components/RealTestSection';
+import SuggestedProducts from '@/components/PDP/components/SuggestedProducts';
+import WarrantySection from '@/components/PDP/components/WarrantySection';
+import SeeAllChevronDown from '@/components/PDP/components/icons/SeeAllChevronDown';
 import useDetermineType from '@/hooks/useDetermineType';
 import React, { useState } from 'react';
 
-export default function SeeAllSectionClientWrapper({ children }) {
+// TODO: - Still need to refactor some other components to be server
+export default function SeeAllSectionClientWrapper({ child1, child2 }) {
   const [seeAllVisible, setSeeAllVisible] = useState(true);
   const { isDefaultCoverType } = useDetermineType();
-  console.log('children:', children);
 
-  //   const childArray = React.Children.toArray(children);
-  //   console.log('ChildArray:', childArray);
-  //   const child1 = childArray[0];
-  //   const child2 = childArray[1];
-  //   const child3 = childArray[2];
   return (
     <>
       <section
         className={`relative ${seeAllVisible ? 'max-h-[2170px] lg:max-h-[3100px]' : ''} w-full overflow-hidden`}
       >
-        {children}
+        {child1}
         <div
           className={`absolute ${seeAllVisible ? '' : 'hidden'} -bottom-[1px] z-[5] w-full bg-gradient-to-t from-white from-85%`}
         >
@@ -30,13 +31,15 @@ export default function SeeAllSectionClientWrapper({ children }) {
               <p className="  py-[10px] text-[16px] leading-[19px] lg:text-[20px] lg:leading-[24px]">
                 See All
               </p>
-              {/* <div className="flex max-h-[15px] max-w-[40px]">{child2}</div> */}
+              <div className="flex max-h-[15px] max-w-[40px]">
+                <SeeAllChevronDown />
+              </div>
             </div>
           </div>
-          {/* {child3} */}
+          {child2}
         </div>
       </section>
-      {/* <section className={`${seeAllVisible ? 'hidden' : 'block'}`}>
+      <section className={`${seeAllVisible ? 'hidden' : 'block'}`}>
         <span className="max-w-[100vw] bg-white">
           <div className="flex w-full flex-col justify-center px-4">
             <EnhancedProtectionSection />
@@ -46,7 +49,7 @@ export default function SeeAllSectionClientWrapper({ children }) {
           </div>
           <SuggestedProducts />
         </span>
-      </section> */}
+      </section>
     </>
   );
 }

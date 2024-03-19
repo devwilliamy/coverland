@@ -126,7 +126,6 @@ export default function DifferenceGrid() {
   const coverType = params?.coverType;
   const isDefaultCoverType =
     params?.coverType === 'premium-plus' || params?.coverType === undefined;
-  console.log(isDefaultCoverType);
 
   const standardDifferences: difference[] = [
     {
