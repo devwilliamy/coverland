@@ -112,8 +112,6 @@ export default async function CarPDPDataLayer({
     notFound();
   }
 
-  console.log('[make/model/year] ModelData:', modelData);
-
   return (
     <>
       <CarPDP
