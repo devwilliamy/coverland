@@ -6,6 +6,7 @@ import { ExtraProductDetails } from '@/components/PDP/ExtraProductDetails';
 import EditVehicle from './EditVehicle';
 // import FeaturesAndProductsSection from './FeaturesAndProductsSection';
 import dynamic from 'next/dynamic';
+import ViewItemGoogleTag from './ViewItemGoogleTag';
 const FeaturesAndProductsSection = dynamic(
   () => import('./FeaturesAndProductsSection')
 );
@@ -56,6 +57,7 @@ export function CarCoverSelector({
     <>
       <section className="relative mx-auto h-max w-full max-w-[1280px]  lg:my-8">
         <LinkBreadcrumbs />
+        <ViewItemGoogleTag />
         <div className="flex w-full flex-col items-start justify-between px-4 lg:flex-row lg:gap-14">
           {/* Left Panel */}
           <PrimaryImageDisplay />
