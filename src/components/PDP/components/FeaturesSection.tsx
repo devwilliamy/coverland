@@ -11,7 +11,7 @@ import Image from 'next/image';
 export default function FeaturesSection() {
   return (
     <section
-      className={`relative z-[-1] mt-[48px] flex  h-max flex-col items-center justify-center`}
+      className={`relative mt-[48px] flex  h-max flex-col items-center justify-center`}
     >
       <Image
         alt="Wet Fabric"
@@ -26,7 +26,7 @@ export default function FeaturesSection() {
           aspectRatio="16 / 9"
         />
       </div>
-      <div className="relative z-[2] flex flex-col items-center justify-center lg:w-[850px]">
+      <div className="relative flex flex-col items-center justify-center lg:w-[850px]">
         <FabricMattersSection />
         <DifferenceGrid />
 
