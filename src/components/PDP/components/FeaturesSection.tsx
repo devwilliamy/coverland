@@ -16,7 +16,7 @@ import SeeAllChevronDown from './icons/SeeAllChevronDown';
 export default function FeaturesSection() {
   return (
     <section
-      className={`relative mt-[48px] flex h-max  flex-col items-center justify-center`}
+      className={`relative z-[-1] mt-[48px] flex  h-max flex-col items-center justify-center`}
     >
       <Image
         alt="Wet Fabric"
