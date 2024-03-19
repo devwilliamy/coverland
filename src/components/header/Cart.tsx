@@ -18,6 +18,7 @@ import AddToCartFooter from '../cart/AddToCartFooter';
 import YourCartHeader from '../cart/YourCartHeader';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
+import { useMediaQuery } from '@mui/material';
 function Cart() {
   const { cartItems, cartOpen, setCartOpen } = useCartContext();
   const [isClient, setIsClient] = useState(false);
@@ -27,20 +28,32 @@ function Cart() {
   useEffect(() => {
     setIsClient(true);
   }, []);
+  const isMobile = useMediaQuery('(max-width: 1023px)');
 
   return (
     <Sheet open={cartOpen} onOpenChange={setCartOpen}>
-      <SheetTrigger className="w-full" onClick={() => router.push('/checkout')}>
-        <div className="flex items-center">
-          {isClient && <ItemsInCartAnimation cartItems={cartItems} />}
-          <HiOutlineShoppingCart
-            color={'#BE1B1B'}
-            className="mt-0.5 flex h-[20px] w-[20px] hover:cursor-pointer"
-          />
-        </div>
+      <SheetTrigger
+        className="flex w-full items-center"
+        onClick={(e) => {
+          if (isMobile) {
+            e.preventDefault();
+            setCartOpen(true);
+            return;
+          }
+          router.push('/checkout');
+        }}
+      >
+        {isClient && <ItemsInCartAnimation cartItems={cartItems} />}
+        <HiOutlineShoppingCart
+          color={'#BE1B1B'}
+          className="mt-0.5 flex h-[20px] w-[20px] hover:cursor-pointer"
+        />
       </SheetTrigger>
-      <SheetOverlay onClick={() => setCartOpen(false)} />
-      <SheetContent className="z- flex flex-col lg:hidden">
+      <SheetOverlay
+        className="z-50 max-lg:bg-black/80 lg:hidden"
+        onClick={() => setCartOpen(false)}
+      />
+      <SheetContent className="flex flex-col lg:hidden">
         <SheetHeader>
           <SheetTitle className="flex w-full items-center justify-between py-7 pl-4 pr-7">
             <YourCartHeader />
