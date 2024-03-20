@@ -16,10 +16,7 @@ import SUVListing from '@/videos/7sec Listing Video_Compressed.mp4';
 import { Play } from 'lucide-react';
 import { FaCamera } from 'react-icons/fa';
 import { Asset } from 'next-video/dist/assets.js';
-import {
-  StaticImageData,
-  StaticImport,
-} from 'next/dist/shared/lib/get-img-props';
+import { StaticImageData } from 'next/dist/shared/lib/get-img-props';
 import dynamic from 'next/dynamic';
 import Image from 'next/image';
 import { useParams } from 'next/navigation';
