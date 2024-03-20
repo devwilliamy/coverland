@@ -9,18 +9,16 @@ import {
 import CarPDP from '../components/CarPDP';
 import { notFound, redirect } from 'next/navigation';
 import { TPathParams } from '../../utils';
-import { deslugify } from '@/lib/utils';
+import {
+  combineOptions,
+  coverOptions,
+  deslugify,
+  productOptions,
+} from '@/lib/utils';
 
-//TODO: This page can't be generated statically until we fix all hydration issues
-
-// export async function generateStaticParams() {
-//   return [
-//     { coverType: 'premium-plus' },
-//     { coverType: 'premium' },
-//     { coverType: 'standard-pro' },
-//     { coverType: 'standard' },
-//   ];
-// }
+export async function generateStaticParams() {
+  return combineOptions(coverOptions, productOptions);
+}
 
 export async function generateMetadata({ params }: { params: TPathParams }) {
   const productType = deslugify(params.productType);
@@ -47,6 +45,7 @@ export default async function CarPDPModelDataLayer({
   };
   let reviewImages: TReviewData[] = [];
   let modelData: TInitialProductDataDB[] = [];
+
   const productType = params.productType;
 
   const SuvOrTruckType =
