@@ -10,6 +10,7 @@ import {
 import { TQuery } from './HeroDropdown';
 import { getAllUniqueModelsByYearMake } from '@/lib/db';
 import { SubmodelDropdown } from './SubmodelDropdown';
+import HomeDropdown from './HomeDropdown';
 
 export type ModelDropdown = {
   model: string | null;
@@ -30,10 +31,13 @@ export function ModelSearch({
 }) {
   const [value, setValue] = useState('');
   const [modelData, setModelData] = useState<ModelDropdown[]>([]);
+  const [modelDataStrings, setModelDataStrings] = useState<string[]>([]);
   const [filteredModelData, setFilteredModelData] = useState<ModelDropdown[]>(
     []
   );
   const [submodelData, setSubmodelData] = useState<ModelDropdown[]>([]);
+  const [submodelDataStrings, setSubmodelDataStrings] = useState<string[]>([]);
+
 
   const {
     query: { type, year, make },
@@ -72,6 +76,13 @@ export function ModelSearch({
             index === self.findIndex((t) => t.model_slug === car.model_slug)
         );
         setModelData(response);
+        setModelDataStrings(() => {
+          const dataStrings = response.map((e) => {
+            return e.model as string;
+         });
+         console.log(dataStrings);
+         return dataStrings;
+       });
         setFilteredModelData(uniqueModel);
       } catch (error) {
         console.error('[Model Search]: ', error);
@@ -94,15 +105,15 @@ export function ModelSearch({
   const isDisabled = !type || !year || !make;
   const showSubmodelDropdown = submodelData.length > 0;
   const prevSelected =
-    !queryObj ||
-    (queryObj.query.type !== '' &&
-      queryObj.query.year !== '' &&
-      queryObj.query.make !== '' &&
+    queryObj &&
+    Boolean(queryObj.query.type  &&
+      queryObj.query.year  &&
+      queryObj.query.make  &&
       queryObj.query.model === '');
 
   return (
     <>
-      <div
+      {/* <div
         className={`flex max-h-[53px] min-h-[53px] px-2 ${prevSelected ? ' w-full border-[5px] border-[#BE1B1B] px-[4px]' : 'w-[98%] border-[1px] border-[#767676] outline-[4px] outline-transparent'} items-center overflow-hidden rounded-[8px] bg-white  text-lg  md:max-h-[58px] lg:w-auto`}
       >
         <div
@@ -124,7 +135,14 @@ export function ModelSearch({
             ))}
           </select>
         </div>
-      </div>
+      </div> */}
+       <HomeDropdown
+      place={4}
+      title={'model'}
+      queryObj={queryObj}
+      prevSelected={prevSelected}
+      items={modelDataStrings}
+    />
       {showSubmodelDropdown && (
         <SubmodelDropdown queryObj={queryObj} submodelData={submodelData} />
       )}

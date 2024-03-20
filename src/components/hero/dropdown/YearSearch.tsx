@@ -41,13 +41,21 @@ export function YearSearch({
     (_, i) => endYear - i
   );
   const prevSelected =
-    !queryObj || (queryObj.query.year === '' && queryObj.query.type !== '');
-    console.log(prevSelected);
-    
+    queryObj && queryObj.query.year === '' && queryObj.query.type !== '';
+  console.log(queryObj.query.year);
 
-  return <HomeDropdown place={2} title={'year'} queryObj={queryObj} prevSelected={prevSelected} items={years} />;
+  return (
+    <HomeDropdown
+      place={2}
+      title={'year'}
+      queryObj={queryObj}
+      prevSelected={prevSelected}
+      items={years}
+    />
+  );
 }
-{/* <div
+{
+  /* <div
   className={`flex max-h-[53px] min-h-[53px] px-2 ${prevSelected ? ' w-full border-[5px] border-[#BE1B1B]' : 'w-[98%] border-[1px] border-[#767676] outline-[4px] outline-transparent'} items-center overflow-hidden rounded-[8px] bg-white  text-lg  md:max-h-[58px] lg:w-auto`}
 >
   <div
@@ -69,4 +77,5 @@ export function YearSearch({
       ))}
     </select>
   </div>
-</div>; */}
+</div>; */
+}

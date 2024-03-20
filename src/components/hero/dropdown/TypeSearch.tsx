@@ -34,7 +34,7 @@ export function TypeSearch({
     'Car Covers' | 'SUV Covers' | 'Truck Covers' | 'Type'
   >('Type');
   const [dropdownOpen, setDropdownOpen] = useState(false);
-  const prevSelected = !queryObj || queryObj.query.type === '';
+  const prevSelected = queryObj?.query.type === '';
 
   // return (
   //   <div

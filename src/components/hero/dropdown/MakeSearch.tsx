@@ -23,12 +23,14 @@ export function MakeSearch({
     query: { type, year },
   } = queryObj;
   const [makeData, setMakeData] = useState<MakeDropdown[]>([]);
-  const isDisabled = !type || !year;
+  const [makeDataStrings, setMakeDataStrings] = useState<string[]>([]);
+  // const isDisabled = !type || !year;
   const prevSelected =
-    !queryObj ||
-    (queryObj.query.type !== '' &&
-      queryObj.query.year !== '' &&
-      queryObj.query.make === '');
+    Boolean(queryObj &&
+    queryObj.query.type &&
+    queryObj.query.year &&
+    queryObj.query.make === '')
+  // console.log(prevSelected);
 
   useEffect(() => {
     // Doing this to warm up the DB
@@ -56,6 +58,13 @@ export function MakeSearch({
           year,
         });
         setMakeData(response);
+        setMakeDataStrings(() => {
+          const dataStrings = response.map((e) => {
+            return e.make;
+          });
+          console.log(dataStrings);
+          return dataStrings;
+        });
       } catch (error) {
         console.error('[Make Search]: ', error);
       } finally {
@@ -109,6 +118,12 @@ export function MakeSearch({
     //     )}
     //   </div>
     // </div>
-    <HomeDropdown  place={3} title={"make"} queryObj={queryObj} prevSelected={prevSelected} items={makeData}/>
+    <HomeDropdown
+      place={3}
+      title={'make'}
+      queryObj={queryObj}
+      prevSelected={prevSelected}
+      items={makeDataStrings}
+    />
   );
 }

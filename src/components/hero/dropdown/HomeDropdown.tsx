@@ -14,7 +14,7 @@ export default function HomeDropdown({
   place: number;
   title: string;
   prevSelected: boolean;
-  items?: string[] | number[] | MakeDropdown[]
+  items?: string[] | number[] 
   queryObj: {
     query: TQuery;
     setQuery: Dispatch<SetStateAction<TQuery>>;
@@ -41,11 +41,11 @@ useEffect(() => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   return (
     <div
-      className={`relative flex min-h-[44px]  w-full ${prevSelected ? ' w-full border-[5px] border-[#BE1B1B]' : 'border-[1px] border-[#767676] outline-[4px] outline-transparent'} ${dropdownOpen ? "rounded-t-[8px] " : "rounded-[8px]"}  bg-white`}
+      className={`relative flex min-h-[44px]  w-full ${prevSelected ? ' ' : 'border-[1px] border-[#767676] outline-[4px] outline-transparent'} ${dropdownOpen ? "rounded-t-[8px] " : "rounded-[8px]"}  bg-white`}
     >
       <div
         tabIndex={0}
-        className={`absolute top-0  flex h-full w-full cursor-pointer items-center ${dropdownOpen ? "rounded-t-[4px] " : "rounded-[4px]"}`}
+        className={`absolute top-0 px-[5px] flex h-full w-full cursor-pointer items-center ${prevSelected && "border-[5px] border-[#BE1B1B] "} ${dropdownOpen ? "rounded-t-[4px] " : "rounded-[4px]"}`}
         onKeyUp={(e) => {
           if (e.key === 'Enter') {
             setDropdownOpen(true);
@@ -57,7 +57,7 @@ useEffect(() => {
         }}
         onClick={() => {
           setDropdownOpen(true);
-          console.log(queryObj);
+          console.log(prevSelected);
           
         }}
       >
@@ -71,7 +71,7 @@ useEffect(() => {
         </div>
       </div>
       <div
-        className={`absolute top-[100%] z-[40] ${dropdownOpen === true ? 'flex' : 'hidden'} top-0 h-[100px]  w-full flex-col justify-start overflow-y-auto rounded-[4px] border-b-[5px] border-l-[5px] border-r-[5px]  border-[#BE1B1B] bg-white  text-left  `}
+        className={`absolute top-[90%]  z-[40] ${dropdownOpen === true ? 'flex' : 'hidden'} top-0 max-h-[100px] w-full flex-col justify-start overflow-y-auto rounded-[4px]  bg-white  text-left  `}
       >
         {items ? (
           <>
@@ -84,12 +84,12 @@ useEffect(() => {
                     setDropdownOpen(false);
                   }
                 }}
-                className="z-[100] w-full cursor-pointer px-[14px] py-[12.5px] hover:bg-[#BE1B1B]/80"
+                className={`z-[100] w-full ${prevSelected && "border-x-[5px] border-[#BE1B1B] "} cursor-pointer px-[14px] py-[12.5px] hover:bg-[#BE1B1B]/80`}
                 onClick={() => {
-                  handleSelect(type as coverTypes);
+                  handleSelect(type as string);
                 }}
               >
-                {}
+                {type}
               </div>
             ))}
           </>
@@ -104,7 +104,7 @@ useEffect(() => {
                     setDropdownOpen(false);
                   }
                 }}
-                className="z-[100] w-full cursor-pointer px-[14px] py-[12.5px] hover:bg-[#BE1B1B]/80"
+                className={`z-[100] w-full ${prevSelected && "border-x-[5px] border-[#BE1B1B] "} cursor-pointer px-[14px] py-[12.5px] hover:bg-[#BE1B1B]/80`}
                 onClick={() => {
                   handleSelect(type as coverTypes);
                 }}
