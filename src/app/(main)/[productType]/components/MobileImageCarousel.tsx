@@ -23,10 +23,11 @@ import {
 import dynamic from 'next/dynamic';
 import Image from 'next/image';
 import { useParams } from 'next/navigation';
-import { useCallback, useContext, useEffect, useState } from 'react';
+import { useCallback, useContext, useEffect, useMemo, useState } from 'react';
 import { CarSelectionContext } from '@/contexts/CarSelectionContext';
 import { useStore } from 'zustand';
 import { removeWwwFromUrl } from '../../utils';
+import { CarouselPositionItem } from './MobileCarouselPositionItem';
 
 const ProductVideo = dynamic(() => import('@/components/PDP/ProductVideo'), {
   loading: () => (
@@ -68,15 +69,20 @@ const MobileImageCarousel = () => {
     }
   }
 
-  const [carouselItems, setCarouselItems] = useState(() => {
+  // const [carouselItems, setCarouselItems] = useState(() => {
+  //   const items = [...productImages];
+  //   items.splice(3, 0, String(carouselVideoThumb));
+  //   return items;
+  // });
+  // const carouselItems = [...productImages]
+  // carouselItems.splice(3, 0, String(carouselVideoThumb));
+  const carouselItems = useMemo(() => {
     const items = [...productImages];
     items.splice(3, 0, String(carouselVideoThumb));
     return items;
-  });
-  // const carouselItems = [...productImages]
-  // carouselItems.splice(3, 0, String(carouselVideoThumb));
-
+  }, [productImages, carouselVideoThumb]);
   useEffect(() => {
+    console.log('UseEffect Getting called');
     if (!api) {
       return;
     }
@@ -88,35 +94,84 @@ const MobileImageCarousel = () => {
     });
   }, [api]);
 
-  useEffect(() => {}, []);
-
   const scrollTo = useCallback(
     (index: number) => api && api.scrollTo(index),
     [api]
   );
 
-  const CarouselPositionItem = ({
-    index,
-    src,
-  }: {
-    index: number;
-    src: string | StaticImport;
-    video?: string | Asset;
-  }) => (
-    <button
-      className={`relative flex min-h-[80px] min-w-[80px] items-center justify-center rounded-[4px] ${index === current && 'outline outline-1  '} `}
-      onClick={() => scrollTo(index)}
+  const handleCarouselItemClick = (index: number) => {
+    scrollTo(index);
+  };
+
+  const renderItem = (item, index) => {
+    // console.log('Does this get re-rendered');
+    if (index === 0) {
+      return renderFirstItem(item);
+    } else if (index === 3) {
+      return renderThirdItem(item);
+    } else {
+      return renderOtherItem(item, index);
+    }
+  };
+
+  const renderFirstItem = (item) => {
+    console.log('[RenderFirstItem: ', { item, selectedProduct });
+    return (
+      <div
+        key={selectedProduct.mainImage}
+        className={`relative flex min-h-[80px] min-w-[80px] cursor-pointer items-center justify-center overflow-hidden rounded-[4px] ${
+          0 === current && 'outline outline-1  '
+        } `}
+        onClick={() => scrollTo(0)}
+      >
+        <Image
+          src={
+            (removeWwwFromUrl(selectedProduct.mainImage as string) +
+              '?v=9') as string
+          }
+          alt={`Additional images of the ${selectedProduct.display_id} cover`}
+          width={74}
+          height={74}
+          priority
+        />
+      </div>
+    );
+  };
+
+  const renderThirdItem = (item) => (
+    <div
+      key={String(SUVListingThumb)}
+      id="video-thumbnail"
+      className={`relative flex aspect-square min-h-[80px] min-w-[80px] cursor-pointer items-center justify-center overflow-hidden rounded-[4px] p-0.5 ${
+        productType === 'car-covers' && ''
+      } ${3 === current && 'outline outline-1  '} `}
+      onClick={() => scrollTo(3)}
     >
       <Image
-        className="rounded-[4px]"
-        width={74}
-        height={74}
-        src={removeWwwFromUrl(src as string) + '?v=9'}
-        sizes="(max-width: 768px) 100vw"
-        alt={`carousel-position-item-${index}`}
+        id="video-thumbnail"
+        alt="Video Thumbnail"
+        slot="poster"
+        src={carouselVideoThumb}
+        width={1600}
+        height={1600}
+        className="flex h-full w-full overflow-hidden rounded-[4px] object-cover"
+        aria-hidden="true"
       />
-    </button>
+      <Play className="absolute rounded-full fill-white text-white" />
+    </div>
   );
+
+  const renderOtherItem = (item, index) => {
+    return (
+      <CarouselPositionItem
+        key={String(carouselItems[index])}
+        src={item}
+        index={index}
+        current={current}
+        handleClick={handleCarouselItemClick}
+      />
+    );
+  };
 
   return (
     <div className="flex max-w-full flex-col bg-white lg:hidden ">
@@ -174,57 +229,7 @@ const MobileImageCarousel = () => {
       </Carousel>
       <div className="flex h-full w-full items-center">
         <div className=" flex w-3/4 flex-row gap-[4px] overflow-x-auto whitespace-nowrap p-[6px]">
-          {carouselItems.map((item, index) => {
-            if (index < 1)
-              return (
-                <div
-                  key={selectedProduct.mainImage}
-                  className={`relative flex min-h-[80px]  min-w-[80px] cursor-pointer items-center justify-center overflow-hidden rounded-[4px] ${0 === current && 'outline outline-1  '} `}
-                  onClick={() => scrollTo(index)}
-                >
-                  <Image
-                    src={
-                      (removeWwwFromUrl(selectedProduct.mainImage as string) +
-                        '?v=9') as string
-                    }
-                    alt={`Additional images of the ${selectedProduct.display_id} cover`}
-                    width={74}
-                    height={74}
-                    priority
-                    // placeholder="blur"
-                  />
-                </div>
-              );
-            if (index === 3) {
-              return (
-                <div
-                  key={String(SUVListingThumb)}
-                  id="video-thumbnail"
-                  className={`relative flex aspect-square min-h-[80px] min-w-[80px] cursor-pointer items-center justify-center overflow-hidden rounded-[4px] p-0.5  ${productType === 'car-covers' && ''} ${index === current && 'outline outline-1  '} `}
-                  onClick={() => scrollTo(index)}
-                >
-                  <Image
-                    id="video-thumbnail"
-                    alt="Video Thumbnail"
-                    slot="poster"
-                    src={carouselVideoThumb}
-                    width={1600}
-                    height={1600}
-                    className="flex h-full w-full overflow-hidden rounded-[4px] object-cover"
-                    aria-hidden="true"
-                  />
-                  <Play className="absolute rounded-full fill-white text-white" />
-                </div>
-              );
-            }
-            return (
-              <CarouselPositionItem
-                key={String(carouselItems[index])}
-                src={item}
-                index={index}
-              />
-            );
-          })}
+          {carouselItems.map((item, index) => renderItem(item, index))}
         </div>
         <ReviewImagesSheet>
           <div
