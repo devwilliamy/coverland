@@ -16,7 +16,6 @@ export function TypeSearch({
 }) {
   const { setQuery } = queryObj;
 
-
   const handleSelect = (newType: string) => {
     setDropdownOpen((b) => !b);
     setSelectedValue(newType);
@@ -30,9 +29,8 @@ export function TypeSearch({
       parent_generation: '',
     });
   };
-  const [selectedValue, setSelectedValue] = useState<
-    'Car Covers' | 'SUV Covers' | 'Truck Covers' | 'Type'
-  >('Type');
+  const [selectedValue, setSelectedValue] = useState<string>('Type');
+  const coverTypes = ['Car Covers', 'Truck Covers', 'SUV Covers'];
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const prevSelected = queryObj?.query.type === '';
 
@@ -62,6 +60,12 @@ export function TypeSearch({
   //   </div>
   // );
   return (
-    <HomeDropdown  place={1} title={"type"} queryObj={queryObj} prevSelected={prevSelected}/>
+    <HomeDropdown
+      place={1}
+      title={'type'}
+      queryObj={queryObj}
+      prevSelected={prevSelected}
+      items={coverTypes}
+    />
   );
 }
