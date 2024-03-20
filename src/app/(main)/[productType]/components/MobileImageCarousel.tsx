@@ -68,8 +68,13 @@ const MobileImageCarousel = () => {
     }
   }
 
-  const carouselItems = [...productImages];
-  carouselItems.splice(3, 0, String(carouselVideoThumb));
+  const [carouselItems, setCarouselItems] = useState(() => {
+    const items = [...productImages];
+    items.splice(3, 0, String(carouselVideoThumb));
+    return items;
+  });
+  // const carouselItems = [...productImages]
+  // carouselItems.splice(3, 0, String(carouselVideoThumb));
 
   useEffect(() => {
     if (!api) {
@@ -82,6 +87,8 @@ const MobileImageCarousel = () => {
       setCurrent(api.selectedScrollSnap());
     });
   }, [api]);
+
+  useEffect(() => {}, []);
 
   const scrollTo = useCallback(
     (index: number) => api && api.scrollTo(index),
