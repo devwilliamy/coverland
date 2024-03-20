@@ -71,7 +71,7 @@ const MobileImageCarousel = () => {
 
   const carouselItems = useMemo(() => {
     const items = [...productImages];
-    items.splice(3, 0, String(carouselVideoThumb));
+    // items.splice(3, 0, String(carouselVideoThumb));
     return items;
   }, [productImages, carouselVideoThumb]);
 
@@ -121,18 +121,18 @@ const MobileImageCarousel = () => {
                   />
                 </CarouselItem>
               );
-            if (index === 3) {
-              return (
-                <CarouselItem key={String(carouselVideo)}>
-                  <ProductVideo
-                    src={carouselVideo}
-                    imgSrc={carouselVideoThumb}
-                    autoplay
-                    loop
-                  />
-                </CarouselItem>
-              );
-            }
+            // if (index === 3) {
+            //   return (
+            //     <CarouselItem key={String(carouselVideo)}>
+            //       <ProductVideo
+            //         src={carouselVideo}
+            //         imgSrc={carouselVideoThumb}
+            //         autoplay
+            //         loop
+            //       />
+            //     </CarouselItem>
+            //   );
+            // }
             return (
               <CarouselItem key={image}>
                 <Image
@@ -173,28 +173,28 @@ const MobileImageCarousel = () => {
                   />
                 </div>
               );
-            if (index === 3) {
-              return (
-                <div
-                  key={String(SUVListingThumb)}
-                  id="video-thumbnail"
-                  className={`relative flex aspect-square min-h-[80px] min-w-[80px] cursor-pointer items-center justify-center overflow-hidden rounded-[4px] p-0.5  ${productType === 'car-covers' && ''} ${index === current && 'outline outline-1  '} `}
-                  onClick={() => scrollTo(index)}
-                >
-                  <Image
-                    id="video-thumbnail"
-                    alt="Video Thumbnail"
-                    slot="poster"
-                    src={carouselVideoThumb}
-                    width={1600}
-                    height={1600}
-                    className="flex h-full w-full overflow-hidden rounded-[4px] object-cover"
-                    aria-hidden="true"
-                  />
-                  <Play className="absolute rounded-full fill-white text-white" />
-                </div>
-              );
-            }
+            // if (index === 3) {
+            //   return (
+            //     <div
+            //       key={String(SUVListingThumb)}
+            //       id="video-thumbnail"
+            //       className={`relative flex aspect-square min-h-[80px] min-w-[80px] cursor-pointer items-center justify-center overflow-hidden rounded-[4px] p-0.5  ${productType === 'car-covers' && ''} ${index === current && 'outline outline-1  '} `}
+            //       onClick={() => scrollTo(index)}
+            //     >
+            //       <Image
+            //         id="video-thumbnail"
+            //         alt="Video Thumbnail"
+            //         slot="poster"
+            //         src={carouselVideoThumb}
+            //         width={1600}
+            //         height={1600}
+            //         className="flex h-full w-full overflow-hidden rounded-[4px] object-cover"
+            //         aria-hidden="true"
+            //       />
+            //       <Play className="absolute rounded-full fill-white text-white" />
+            //     </div>
+            //   );
+            // }
             return (
               <CarouselPositionItem
                 key={String(carouselItems[index])}
