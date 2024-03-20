@@ -152,3 +152,42 @@ export const generateProductsLeft = (
 //     .flatMap((model) => model.feature)
 //     .filter(Boolean) as string[];
 // }
+
+export type CoverType =
+  | 'premium-plus'
+  | 'premium'
+  | 'standard-pro'
+  | 'standard';
+export type ProductType = 'car-covers' | 'suv-covers' | 'truck-covers';
+
+export type CoverOption = { coverType: CoverType };
+export type ProductOption = { productType: ProductType };
+
+export const coverOptions: CoverOption[] = [
+  { coverType: 'premium-plus' },
+  { coverType: 'premium' },
+  { coverType: 'standard-pro' },
+  { coverType: 'standard' },
+];
+
+export const productOptions: ProductOption[] = [
+  { productType: 'car-covers' },
+  { productType: 'suv-covers' },
+  { productType: 'truck-covers' },
+];
+
+export function combineOptions(
+  coverOptions: CoverOption[],
+  productOptions: ProductOption[]
+): { coverType: CoverType; productType: ProductType }[] {
+  const combinedOptions: { coverType: CoverType; productType: ProductType }[] =
+    [];
+
+  coverOptions.forEach((coverOption) => {
+    productOptions.forEach((productOption) => {
+      combinedOptions.push({ ...productOption, ...coverOption });
+    });
+  });
+
+  return combinedOptions;
+}
