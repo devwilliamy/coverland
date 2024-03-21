@@ -72,27 +72,26 @@ export function SubmodelDropdown({
   return (
     <>
       <div
-        className={`flex max-h-[53px] min-h-[53px] px-[3px] ${prevSelected ? ' w-full border-[5px] border-[#BE1B1B]' : 'w-[98%] border-[1px] border-[#767676] outline-[4px] outline-transparent'} items-center overflow-hidden rounded-[8px] bg-white  text-lg  md:max-h-[58px] lg:w-auto`}
+        className={`flex max-h-[44px] min-h-[44px] w-full items-center rounded-lg outline-[#767676] md:max-h-[58px] ${isDisabled ? 'bg-gray-100/75' : 'bg-white'} px-2 text-lg outline outline-1 outline-offset-1 lg:w-auto`}
+        tabIndex={1}
       >
-        <div
-          className={`flex h-full w-full ${prevSelected && 'border-[2.5px]  border-white'} items-center overflow-hidden rounded-[4px] bg-white  text-lg  md:max-h-[58px] lg:w-auto`}
-          // tabIndex={1}
+        <div className="ml-[10px] pr-[15px]">5</div>
+        <label htmlFor="submodel"></label>
+
+        <select
+          value={value}
+          onChange={handleChange}
+          disabled={isDisabled}
+          className={`w-full cursor-pointer bg-transparent py-1 outline-none lg:py-3`}
+          aria-label="submodel"
         >
-          <div className="ml-[10px] pr-[15px]">5</div>
-          <select
-            value={value}
-            onChange={handleChange}
-            disabled={isDisabled}
-            className={`w-full cursor-pointer bg-transparent py-1 outline-none lg:py-3`}
-          >
-            <option value="">{`Submodel`}</option>
-            {filteredSubmodelData?.sort()?.map((submodel) => (
-              <option key={`model-${submodel}`} value={submodel || ''}>
-                {submodel}
-              </option>
-            ))}
-          </select>
-        </div>
+          <option value="">{`Submodel`}</option>
+          {filteredSubmodelData?.sort()?.map((submodel) => (
+            <option key={`model-${submodel}`} value={submodel || ''}>
+              {submodel}
+            </option>
+          ))}
+        </select>
       </div>
       {showSecondSubmodelDropdown && (
         <SecondSubmodelDropdown

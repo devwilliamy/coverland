@@ -4,7 +4,8 @@ import React, { SetStateAction, useEffect, useState } from 'react';
 import SeatCoverFreeDetails from './SeatCoverFreeDetails';
 import CompatibleVehiclesTrigger from './CompatibleVehiclesTrigger';
 import installments from '@/images/PDP/Product-Details-Redesign-2/paypal-installments.webp';
-import { Rating, useMediaQuery } from '@mui/material';
+import { Rating } from '@mui/material';
+import { useMediaQuery } from '@mantine/hooks';
 import { SeatData, SeatImageDataObject, SeatString } from '../util';
 import { Button } from '@/components/ui/button';
 import {

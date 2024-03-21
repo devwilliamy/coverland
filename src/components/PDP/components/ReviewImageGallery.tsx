@@ -3,7 +3,7 @@
 import Image from 'next/image';
 import { Fragment, useContext, useEffect, useState } from 'react';
 import { useStore } from 'zustand';
-import { CarSelectionContext } from '@/app/(main)/[productType]/components/CarPDP';
+import { CarSelectionContext } from '@/contexts/CarSelectionContext';
 import { ChevronDown, ChevronUp, X } from 'lucide-react';
 import { Dialog } from '@/components/ui/dialog';
 import { DialogContent } from '@radix-ui/react-dialog';

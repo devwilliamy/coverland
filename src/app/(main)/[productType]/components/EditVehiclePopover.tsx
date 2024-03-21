@@ -7,7 +7,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from '@/components/ui/popover';
-import { CarSelectionContext } from './CarPDP';
+import { CarSelectionContext } from '@/contexts/CarSelectionContext';
 import { useContext, useState } from 'react';
 import { IProductData } from '../../utils';
 import { useParams } from 'next/navigation';
@@ -50,10 +50,10 @@ export default function EditVehiclePopover({
     <div className="my-4 hidden w-full border-l-2 border-l-[#C8C7C7] lg:flex lg:flex-col">
       <Popover open={open} onOpenChange={() => setOpen(!open)}>
         <PopoverTrigger asChild>
-          <button className="flex w-full flex-shrink cursor-pointer items-center justify-between pl-[40px]">
+          <button className="flex w-full flex-shrink cursor-pointer items-center justify-between pl-[30px]">
             <div className="flex w-full flex-col items-start justify-start">
               <p className="">Your Vehicle</p>
-              <h1 className="  break-normal text-[26px] font-[500] capitalize leading-[31px]">
+              <h1 className="break-normal text-left text-[26px] font-[500] capitalize leading-[31px]">
                 {productName}
               </h1>
               <h2 className="text-[#8F8F8F]">{productNameSubtitle}</h2>

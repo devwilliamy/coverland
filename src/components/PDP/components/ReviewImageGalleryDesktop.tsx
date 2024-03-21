@@ -1,4 +1,4 @@
-import { CarSelectionContext } from '@/app/(main)/[productType]/components/CarPDP';
+import { CarSelectionContext } from '@/contexts/CarSelectionContext';
 import {
   CarouselApi,
   Carousel,

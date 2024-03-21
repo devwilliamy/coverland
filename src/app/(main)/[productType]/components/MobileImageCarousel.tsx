@@ -1,3 +1,4 @@
+'use client';
 import ReviewImagesSheet from '@/components/PDP/components/ReviewImagesSheet';
 import {
   Carousel,
@@ -15,15 +16,15 @@ import SUVListing from '@/videos/7sec Listing Video_Compressed.mp4';
 import { Play } from 'lucide-react';
 import { FaCamera } from 'react-icons/fa';
 import { Asset } from 'next-video/dist/assets.js';
-import {
-  StaticImageData,
-  StaticImport,
-} from 'next/dist/shared/lib/get-img-props';
+import { StaticImageData } from 'next/dist/shared/lib/get-img-props';
 import dynamic from 'next/dynamic';
 import Image from 'next/image';
 import { useParams } from 'next/navigation';
-import { useCallback, useEffect, useState } from 'react';
-import { IProductData } from '../../utils';
+import { useCallback, useContext, useEffect, useMemo, useState } from 'react';
+import { CarSelectionContext } from '@/contexts/CarSelectionContext';
+import { useStore } from 'zustand';
+import { removeWwwFromUrl } from '../../utils';
+import { CarouselPositionItem } from './MobileCarouselPositionItem';
 
 const ProductVideo = dynamic(() => import('@/components/PDP/ProductVideo'), {
   loading: () => (
@@ -34,14 +35,12 @@ const ProductVideo = dynamic(() => import('@/components/PDP/ProductVideo'), {
   ssr: false,
 });
 
-export const MobileImageCarousel = ({
-  selectedProduct,
-  productImages,
-}: {
-  selectedProduct: IProductData;
-  productImages: string[];
-  setFeaturedImage?: (img: string) => void;
-}) => {
+const MobileImageCarousel = () => {
+  const store = useContext(CarSelectionContext);
+  if (!store) throw new Error('Missing CarContext.Provider in the tree');
+  const selectedProduct = useStore(store, (s) => s.selectedProduct);
+  const productImages = selectedProduct?.productImages as string[];
+  const setFeaturedImage = useStore(store, (s) => s.setFeaturedImage);
   const [api, setApi] = useState<CarouselApi>();
   const [current, setCurrent] = useState(0);
   const params = useParams();
@@ -67,8 +66,11 @@ export const MobileImageCarousel = ({
     }
   }
 
-  const carouselItems = [...productImages];
-  carouselItems.splice(3, 0, String(carouselVideoThumb));
+  const carouselItems = useMemo(() => {
+    const items = [...productImages];
+    items.splice(3, 0, String(carouselVideoThumb));
+    return items;
+  }, [productImages, carouselVideoThumb]);
 
   useEffect(() => {
     if (!api) {
@@ -87,28 +89,9 @@ export const MobileImageCarousel = ({
     [api]
   );
 
-  const CarouselPositionItem = ({
-    index,
-    src,
-  }: {
-    index: number;
-    src: string | StaticImport;
-    video?: string | Asset;
-  }) => (
-    <button
-      className={`relative flex min-h-[80px] min-w-[80px] items-center justify-center rounded-[4px] ${index === current && 'outline outline-1  '} `}
-      onClick={() => scrollTo(index)}
-    >
-      <Image
-        className="rounded-[4px]"
-        width={74}
-        height={74}
-        src={src + '?v=4'}
-        sizes="(max-width: 768px) 100vw"
-        alt={`carousel-position-item-${index}`}
-      />
-    </button>
-  );
+  const handleCarouselItemClick = (index: number) => {
+    scrollTo(index);
+  };
 
   return (
     <div className="flex max-w-full flex-col bg-white lg:hidden ">
@@ -122,7 +105,10 @@ export const MobileImageCarousel = ({
                   className="bg-[#F2F2F2]"
                 >
                   <Image
-                    src={(selectedProduct.mainImage + '?v=4') as string}
+                    src={
+                      (removeWwwFromUrl(selectedProduct.mainImage as string) +
+                        '?v=9') as string
+                    }
                     alt={`Additional images of the ${selectedProduct.display_id} cover`}
                     width={500}
                     height={500}
@@ -147,7 +133,7 @@ export const MobileImageCarousel = ({
             return (
               <CarouselItem key={image}>
                 <Image
-                  src={image + '?v=4'}
+                  src={removeWwwFromUrl(image) + '?v=9'}
                   alt={`Additional images of the ${selectedProduct.display_id} cover`}
                   width={500}
                   height={500}
@@ -172,7 +158,10 @@ export const MobileImageCarousel = ({
                   onClick={() => scrollTo(index)}
                 >
                   <Image
-                    src={(selectedProduct.mainImage + '?v=4') as string}
+                    src={
+                      (removeWwwFromUrl(selectedProduct.mainImage as string) +
+                        '?v=9') as string
+                    }
                     alt={`Additional images of the ${selectedProduct.display_id} cover`}
                     width={74}
                     height={74}
@@ -208,6 +197,8 @@ export const MobileImageCarousel = ({
                 key={String(carouselItems[index])}
                 src={item}
                 index={index}
+                current={current}
+                handleClick={handleCarouselItemClick}
               />
             );
           })}
@@ -215,7 +206,6 @@ export const MobileImageCarousel = ({
         <ReviewImagesSheet>
           <div
             className={`mx-1 flex h-full min-h-[80px] w-1/4 min-w-[80px] max-w-[25%] items-center justify-center rounded-[4px] bg-[#F2F2F2] `}
-            // onClick={() => scrollTo(index)}
           >
             <div className="m-auto flex h-full flex-col items-center justify-center gap-2 ">
               <p className="text-[10px] font-[600] leading-[12px] underline">
@@ -232,3 +222,4 @@ export const MobileImageCarousel = ({
     </div>
   );
 };
+export default MobileImageCarousel;

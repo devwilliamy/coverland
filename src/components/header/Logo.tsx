@@ -1,7 +1,7 @@
 // import Link from 'next/link';
 
 const Logo = () => (
-  <a href="/">
+  <a href="/" aria-label="Go to home page">
     <svg
       xmlns="http://www.w3.org/2000/svg"
       xmlSpace="preserve"

@@ -58,7 +58,6 @@ export default function EditVehicleModal({
           <EditIcon />
         </SheetTrigger>
         <SheetPortal>
-          <SheetOverlay className="fixed inset-0 bg-black/40"></SheetOverlay>
           <SheetContent
             className="fixed bottom-0 left-0 right-0 z-[100] flex flex-col rounded-t-[20px] bg-white "
             side="bottom"

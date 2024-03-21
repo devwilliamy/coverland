@@ -1,3 +1,4 @@
+'use client';
 import React, { LegacyRef } from 'react';
 import ProductVideo from '@/components/PDP/ProductVideo';
 import SUV360 from '@/videos/360 degree_website.mp4';

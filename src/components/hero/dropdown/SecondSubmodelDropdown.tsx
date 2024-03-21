@@ -83,27 +83,25 @@ export function SecondSubmodelDropdown({
       <div
         className={`flex max-h-[53px] min-h-[53px] px-2 ${prevSelected ? ' w-full border-[5px] border-[#BE1B1B]' : 'w-[98%] border-[1px] border-[#767676] outline-[4px] outline-transparent'} items-center overflow-hidden rounded-[8px] bg-white  text-lg  md:max-h-[58px] lg:w-auto`}
       >
-        <div
-          className={`flex h-full w-full ${prevSelected && 'border-[2.5px]  border-white'} items-center overflow-hidden rounded-[4px] bg-white  text-lg  md:max-h-[58px] lg:w-auto`}
-          // tabIndex={1}
+        <div className="ml-[10px] pr-[15px]">6</div>
+        <label htmlFor="secondsubmode"></label>
+        <select
+          value={value}
+          onChange={handleChange}
+          disabled={isDisabled}
+          className={`w-full cursor-pointer bg-transparent py-1 outline-none lg:py-3`}
+          aria-label="secondsubmodel"
         >
-          <select
-            value={value}
-            onChange={handleChange}
-            disabled={isDisabled}
-            className={`w-full cursor-pointer bg-transparent py-1 outline-none lg:py-3`}
-          >
-            <option value="">{`Submodel 2`}</option>
-            {filteredSecondSubmodelData?.sort()?.map((secondSubmodel) => (
-              <option
-                key={`model-${secondSubmodel}`}
-                value={secondSubmodel || ''}
-              >
-                {secondSubmodel}
-              </option>
-            ))}
-          </select>
-        </div>
+          <option value="">{`Submodel 2`}</option>
+          {filteredSecondSubmodelData?.sort()?.map((secondSubmodel) => (
+            <option
+              key={`model-${secondSubmodel}`}
+              value={secondSubmodel || ''}
+            >
+              {secondSubmodel}
+            </option>
+          ))}
+        </select>
       </div>
       {/* {showThirdSubmodelDropdown && (
         <ThirdSubmodelDropdown
