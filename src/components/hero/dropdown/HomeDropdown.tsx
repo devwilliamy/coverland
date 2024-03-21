@@ -10,6 +10,7 @@ import { TQuery } from './HeroDropdown';
 import { set, string } from 'zod';
 import { MakeDropdown } from './MakeSearch';
 import { Search } from 'lucide-react';
+import { AiOutlineLoading3Quarters } from 'react-icons/ai';
 
 export default function HomeDropdown({
   queryObj,
@@ -110,7 +111,7 @@ export default function HomeDropdown({
             }
           }, 40);
         }}
-        className={`absolute top-0 flex h-full w-full cursor-pointer items-center rounded-[8px] px-[5px] ${prevSelected && !dropdownOpen ? 'outline outline-[2px] outline-offset-0 outline-[#BE1B1B] ' : 'outline outline-[2px] outline-offset-0 outline-transparent'} ${dropdownOpen && 'rounded-b-none border-b-[0px] border-l-[2px] border-r-[2px] border-t-[2px] border-[#BE1B1B] outline-none'} `}
+        className={`absolute top-0 flex h-full w-full cursor-pointer items-center rounded-[8px] px-[5px] ${prevSelected && !dropdownOpen && 'outline outline-[5px] outline-offset-0 outline-[#BE1B1B] '}  `}
         onKeyUp={(e) => {
           if (isFocused) {
             if (e.key === 'Enter') {
@@ -149,62 +150,73 @@ export default function HomeDropdown({
       {dropdownOpen && (
         <section
           id="dropdown-container"
-          className={`absolute top-[100%] z-[2]  max-h-[120px] w-full cursor-pointer ${dropdownOpen && 'border-[2px] border-[#BE1B1B]'} ${dropdownOpen && 'rounded-b-[10px] rounded-t-none border-b-[2px] border-l-[2px] border-r-[2px] border-t-[0px] border-[#BE1B1B] outline-none'} flex-col justify-start overflow-y-auto bg-white text-left `}
+          className={`absolute top-0 z-[2] w-full cursor-pointer  ${dropdownOpen && 'rounded-[8px] outline outline-[5px] outline-offset-0 outline-[#BE1B1B] '} max-h-[500px] flex-col justify-start bg-white text-left`}
         >
-          {items && (
-            <>
-              <div
-                className={`flex w-full ${searchIsFocused && 'border-[1px] border-[#BE1B1B]'} items-center gap-[6px] px-[5px] py-2`}
-              >
-                <Search className="text-[#9C9C9C]" />
-                <input
-                  id="search"
-                  className="flex w-full outline-none"
-                  type="text"
-                  placeholder="Search..."
-                  value={searchValue}
-                  onChange={handleInputChange}
-                  onFocus={() => {
-                    setIsFocused(true);
-                    setSearchIsFocused(true);
-                    setDropdownOpen(true);
-                  }}
-                  onBlur={() => {
-                    setIsFocused(false);
-                    setSearchIsFocused(false);
+          <div
+            className={`flex w-full items-center px-[5px] ${prevSelected ? 'min-h-[48px] lg:h-[64px] lg:min-h-[64px] ' : 'min-h-[44px] lg:h-[58px] lg:min-h-[58px]'}  ${dropdownOpen ? 'rounded-t-[8px] ' : 'rounded-[8px] '} ${isActive ? ' bg-white' : 'bg-gray-300/90'}`}
+          >
+            <div className={`flex w-full items-center`}>
+              <p className={`px-[14px]`}>{place}</p>
+              <p className="capitalize">{selectedValue}</p>
+            </div>
+            <div className="mr-[14px] flex h-[20px] w-[20px] items-center">
+              <HomeChevronDown />
+            </div>
+          </div>
+          <div
+            className={`flex w-full ${searchIsFocused && 'border-y-[1px] border-[#BE1B1B]'} items-center gap-[6px] px-[5px] py-2`}
+          >
+            <Search className="text-[#9C9C9C]" />
+            <input
+              id="search"
+              className="flex w-full outline-none"
+              type="text"
+              placeholder="Search..."
+              value={searchValue}
+              onChange={handleInputChange}
+              onFocus={() => {
+                setIsFocused(true);
+                setSearchIsFocused(true);
+                setDropdownOpen(true);
+              }}
+              onBlur={() => {
+                setIsFocused(false);
+                setSearchIsFocused(false);
+                setDropdownOpen(false);
+                setSearch('');
+              }}
+              onClick={() => {
+                setDropdownOpen(true);
+                setIsFocused(true);
+              }}
+              onKeyUp={(e) => {
+                if (isFocused) {
+                  if (e.key === 'Enter') {
+                    handleSelect(items?.[selectedIndex] as string);
+                    setSearch('');
+                  }
+                  if (e.key === 'Escape') {
                     setDropdownOpen(false);
                     setSearch('');
-                  }}
-                  onClick={() => {
-                    setDropdownOpen(true);
-                    setIsFocused(true);
-                  }}
-                  onKeyUp={(e) => {
-                    if (isFocused) {
-                      if (e.key === 'Enter') {
-                        handleSelect(items?.[selectedIndex] as string);
-                        setSearch('');
-                      }
-                      if (e.key === 'Escape') {
-                        setDropdownOpen(false);
-                        setSearch('');
-                      }
-                    }
-                  }}
-                  onKeyDown={(e) => {
-                    if (isFocused) {
-                      if (e.key === 'ArrowUp') {
-                        e.preventDefault();
-                        handleDecrease();
-                      }
-                      if (e.key === 'ArrowDown') {
-                        e.preventDefault();
-                        handleIncrease();
-                      }
-                    }
-                  }}
-                />
-              </div>
+                  }
+                }
+              }}
+              onKeyDown={(e) => {
+                if (isFocused) {
+                  if (e.key === 'ArrowUp') {
+                    e.preventDefault();
+                    handleDecrease();
+                  }
+                  if (e.key === 'ArrowDown') {
+                    e.preventDefault();
+                    handleIncrease();
+                  }
+                }
+              }}
+            />
+          </div>
+          {items && items.length > 0 ? (
+            <div className="flex max-h-[275px] w-full flex-col overflow-y-auto">
               {filteredItems && filteredItems?.length > 0 ? (
                 <>
                   {filteredItems?.map((type, i) => (
@@ -280,7 +292,11 @@ export default function HomeDropdown({
                   ))}
                 </>
               )}
-            </>
+            </div>
+          ) : (
+            <div className="px-[5px] py-2">
+              <AiOutlineLoading3Quarters className="animate-spin" />
+            </div>
           )}
         </section>
       )}
