@@ -28,6 +28,7 @@ export async function generateMetadata({ params }: { params: TPathParams }) {
   };
 }
 const coverTypes = ['premium-plus', 'premium', 'standard-pro', 'standard'];
+const productTypes = ['car-covers', 'truck-covers', 'suv-covers'];
 
 export default async function CarPDPModelDataLayer({
   params,
@@ -35,7 +36,10 @@ export default async function CarPDPModelDataLayer({
   params: TPathParams;
 }) {
   const coverType = params.coverType;
-  if (!coverTypes.includes(coverType as string)) {
+  if (
+    !productTypes.includes(params.productType) ||
+    !coverTypes.includes(coverType as string)
+  ) {
     notFound();
   }
   let reviewData: TReviewData[] = [];
