@@ -1,4 +1,3 @@
-import dynamic from 'next/dynamic';
 import { HeroDropdown } from './dropdown/HeroDropdown';
 import HeroImage from './HeroImage';
 const HeroSection = () => {
