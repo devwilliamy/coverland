@@ -38,7 +38,6 @@ export function ModelSearch({
   const [submodelData, setSubmodelData] = useState<ModelDropdown[]>([]);
   const [submodelDataStrings, setSubmodelDataStrings] = useState<string[]>([]);
 
-
   const {
     query: { type, year, make },
     setQuery,
@@ -77,12 +76,12 @@ export function ModelSearch({
         );
         setModelData(response);
         setModelDataStrings(() => {
-          const dataStrings = response.map((e) => {
+          const dataStrings = uniqueModel.map((e) => {
             return e.model as string;
-         });
-         console.log(dataStrings);
-         return dataStrings;
-       });
+          });
+          console.log(dataStrings);
+          return dataStrings;
+        });
         setFilteredModelData(uniqueModel);
       } catch (error) {
         console.error('[Model Search]: ', error);
@@ -106,10 +105,12 @@ export function ModelSearch({
   const showSubmodelDropdown = submodelData.length > 0;
   const prevSelected =
     queryObj &&
-    Boolean(queryObj.query.type  &&
-      queryObj.query.year  &&
-      queryObj.query.make  &&
-      queryObj.query.model === '');
+    Boolean(
+      queryObj.query.type &&
+        queryObj.query.year &&
+        queryObj.query.make &&
+        queryObj.query.model === ''
+    );
 
   return (
     <>
@@ -136,13 +137,13 @@ export function ModelSearch({
           </select>
         </div>
       </div> */}
-       <HomeDropdown
-      place={4}
-      title={'model'}
-      queryObj={queryObj}
-      prevSelected={prevSelected}
-      items={modelDataStrings}
-    />
+      <HomeDropdown
+        place={4}
+        title={'model'}
+        queryObj={queryObj}
+        prevSelected={prevSelected}
+        items={modelDataStrings}
+      />
       {showSubmodelDropdown && (
         <SubmodelDropdown queryObj={queryObj} submodelData={submodelData} />
       )}
