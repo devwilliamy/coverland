@@ -26,6 +26,15 @@ const themes: Record<string, AccessoriesTheme> = {
   },
 };
 
+const accessoryFeatures = [
+  'Size 210g',
+  '0.2 lb head',
+  'Available in Black or Orange',
+  '3-in-1 multifunction tool',
+  'Cuts through seat belts',
+  'Break auto glass',
+];
+
 export default function AccessoriesPage() {
   const [theme, setTheme] = useState<AccessoriesTheme>(themes.light);
 
@@ -67,14 +76,7 @@ export default function AccessoriesPage() {
         hammer within easy reach of the driver.
       </p>
       <ul className=" w-[80%] max-w-[650px] list-inside list-disc pt-8">
-        {[
-          'Size 210g',
-          '0.2 lb head',
-          'Available in Black or Orange',
-          '3-in-1 multifunction tool',
-          'Cuts through seat belts',
-          'Break auto glass',
-        ].map((item) => (
+        {accessoryFeatures.map((item) => (
           <li key={item} className="list-item">
             {item}
           </li>
