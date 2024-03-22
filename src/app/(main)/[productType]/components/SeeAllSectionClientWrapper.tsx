@@ -21,9 +21,9 @@ export default function SeeAllSectionClientWrapper({ child1, child2 }) {
       >
         {child1}
         <div
-          className={`absolute ${seeAllVisible ? '' : 'hidden'} -bottom-[1px] z-[5] w-full bg-gradient-to-t from-white from-85%`}
+          className={`absolute ${seeAllVisible ? '' : 'hidden'} -bottom-[1px] z-[5] w-full bg-gradient-to-t from-white from-80%`}
         >
-          <div className="flex  flex-col items-center justify-center pt-[10vh]">
+          <div className="flex  flex-col items-center justify-center pb-[2vh] pt-[5vh]">
             <div
               onClick={() => setSeeAllVisible(false)}
               className="flex cursor-pointer flex-col items-center"
@@ -36,18 +36,18 @@ export default function SeeAllSectionClientWrapper({ child1, child2 }) {
               </div>
             </div>
           </div>
-          {child2}
+          {/* {child2} */}
         </div>
       </section>
       <section className={`${seeAllVisible ? 'hidden' : 'block'}`}>
         <span className="max-w-[100vw] bg-white">
-          <div className="flex w-full flex-col justify-center px-4">
+          <div className="flex w-full flex-col justify-center px-4 pb-3">
             <EnhancedProtectionSection />
             {isDefaultCoverType && <RealTestSection />}
             {isDefaultCoverType && <ProvenSection />}
             <WarrantySection />
           </div>
-          <SuggestedProducts />
+          {/* <SuggestedProducts /> */}
         </span>
       </section>
     </>
