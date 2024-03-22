@@ -59,11 +59,8 @@ export function MakeSearch({
         });
         setMakeData(response);
         setMakeDataStrings(() => {
-          const dataStrings = response.map((e) => {
-            return e.make;
-          });
-          console.log(dataStrings);
-          return dataStrings;
+          const makeStrings = response.map(({ make }) => make);
+          return makeStrings;
         });
       } catch (error) {
         console.error('[Make Search]: ', error);

@@ -5,7 +5,7 @@ import hero from '@/images/hero/hero.webp';
 
 export default function HeroImage() {
   return (
-    <>
+    <div className="max-lg:max-h-[750px] max-lg:overflow-hidden">
       <Image
         height={800}
         width={800}
@@ -20,6 +20,6 @@ export default function HeroImage() {
         src={hero.src}
         alt="hero"
       />
-    </>
+    </div>
   );
 }

@@ -39,7 +39,7 @@ export function ModelSearch({
   const [submodelDataStrings, setSubmodelDataStrings] = useState<string[]>([]);
 
   const {
-    query: { type, year, make },
+    query: { type, year, make, model },
     setQuery,
   } = queryObj;
 
@@ -76,11 +76,8 @@ export function ModelSearch({
         );
         setModelData(response);
         setModelDataStrings(() => {
-          const dataStrings = uniqueModel.map((e) => {
-            return e.model as string;
-          });
-          console.log(dataStrings);
-          return dataStrings;
+          const modelStrings = uniqueModel.map(({ model }) => model);
+          return modelStrings as string[];
         });
         setFilteredModelData(uniqueModel);
       } catch (error) {
@@ -141,7 +138,7 @@ export function ModelSearch({
         place={4}
         title={'model'}
         queryObj={queryObj}
-        prevSelected={prevSelected}
+        prevSelected={!isDisabled}
         items={modelDataStrings}
       />
       {showSubmodelDropdown && (

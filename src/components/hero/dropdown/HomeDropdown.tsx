@@ -42,13 +42,12 @@ export default function HomeDropdown({
 
   const isActive = prevSelected || selectedValue !== title;
 
-  useEffect(() => {}, [queryObj, prevSelected, items, searchValue]);
 
-  const handleSelect = (newType: string) => {
-    setDropdownOpen((e) => !e);
-    setSelectedValue(newType);
-    setQuery((e) => {
-      return { ...e, [title]: newType };
+  const handleSelect = (newValue: string) => {
+    setDropdownOpen((prevState) => !prevState);
+    setSelectedValue(newValue);
+    setQuery((prevState) => {
+      return { ...prevState, [title]: newValue };
     });
   };
 
@@ -63,8 +62,8 @@ export default function HomeDropdown({
       setSelectedIndex(() => items.length - 1);
       return;
     }
-    setSelectedIndex((e) => {
-      const newIndex = e + 1;
+    setSelectedIndex((prevState) => {
+      const newIndex = prevState + 1;
       const selectedElement = document?.getElementById(`${title}-${newIndex}`);
       drpCont?.scrollTo({
         top: selectedElement?.offsetTop,
@@ -79,7 +78,7 @@ export default function HomeDropdown({
       setSelectedIndex(0);
       return;
     }
-    setSelectedIndex((e) => e - 1);
+    setSelectedIndex((prevState) => prevState - 1);
   };
 
   const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -135,11 +134,15 @@ export default function HomeDropdown({
           }
         }}
         onClick={() => {
-          isActive && setDropdownOpen((e) => !e);
+          isActive &&
+            setDropdownOpen((e) => {
+              document.getElementById('search-container');
+              return !e;
+            });
         }}
       >
         <div className={`flex w-full items-center`}>
-          <p className={`px-[14px]`}>{place}</p>
+          <p className={`pl-[5px] pr-[14px]`}>{place}</p>
           <p className="capitalize">{selectedValue}</p>
         </div>
 
@@ -149,14 +152,13 @@ export default function HomeDropdown({
       </div>
       {dropdownOpen && (
         <section
-          id="dropdown-container"
-          className={`absolute top-0 z-[2] w-full cursor-pointer  ${dropdownOpen && 'rounded-[8px] outline outline-[5px] outline-offset-0 outline-[#BE1B1B] '} max-h-[500px] flex-col justify-start bg-white text-left`}
+          className={`absolute top-0 z-[2] w-full cursor-pointer ${dropdownOpen && 'rounded-[8px] outline outline-[5px] outline-offset-0 outline-[#BE1B1B] '}  flex-col justify-start bg-white text-left`}
         >
           <div
             className={`flex w-full items-center px-[5px] ${prevSelected ? 'min-h-[48px] lg:h-[64px] lg:min-h-[64px] ' : 'min-h-[44px] lg:h-[58px] lg:min-h-[58px]'}  ${dropdownOpen ? 'rounded-t-[8px] ' : 'rounded-[8px] '} ${isActive ? ' bg-white' : 'bg-gray-300/90'}`}
           >
             <div className={`flex w-full items-center`}>
-              <p className={`px-[14px]`}>{place}</p>
+              <p className={`pl-[5px] pr-[14px]`}>{place}</p>
               <p className="capitalize">{selectedValue}</p>
             </div>
             <div className="mr-[14px] flex h-[20px] w-[20px] items-center">
@@ -164,12 +166,13 @@ export default function HomeDropdown({
             </div>
           </div>
           <div
-            className={`flex w-full ${searchIsFocused && 'border-y-[1px] border-[#BE1B1B]'} items-center gap-[6px] px-[5px] py-2`}
+            id="search-container"
+            className={`flex w-full items-center gap-[6px] bg-[#D9D9D9] px-[5px] py-2`}
           >
             <Search className="text-[#9C9C9C]" />
             <input
               id="search"
-              className="flex w-full outline-none"
+              className="flex w-full bg-transparent outline-none"
               type="text"
               placeholder="Search..."
               value={searchValue}
@@ -216,7 +219,13 @@ export default function HomeDropdown({
             />
           </div>
           {items && items.length > 0 ? (
-            <div className="flex max-h-[275px] w-full flex-col overflow-y-auto">
+            <div
+              id="dropdown-container"
+              className="z-[1000] flex max-h-[700px] w-full flex-col overflow-y-auto"
+              style={{
+
+              }}
+            >
               {filteredItems && filteredItems?.length > 0 ? (
                 <>
                   {filteredItems?.map((type, i) => (
@@ -239,7 +248,6 @@ export default function HomeDropdown({
                         }
                       }}
                       onKeyDown={(e) => {
-                        // e.preventDefault();
                         if (isFocused) {
                           if (e.key === 'ArrowUp') {
                             handleDecrease();
@@ -261,7 +269,7 @@ export default function HomeDropdown({
                       key={`type-${type}`}
                       id={`${title}-${i}`}
                       tabIndex={-1}
-                      className={`flex px-[5px] py-2 hover:bg-[#BE1B1B] hover:text-white ${i === selectedIndex && 'bg-[#BE1B1B] text-white'}`}
+                      className={`flex px-[10px] py-2 hover:bg-[#BE1B1B] hover:text-white ${i === selectedIndex && 'bg-[#BE1B1B] text-white'}`}
                       onMouseDown={() => {
                         handleSelect(items?.[i] as string);
                       }}
@@ -294,7 +302,7 @@ export default function HomeDropdown({
               )}
             </div>
           ) : (
-            <div className="px-[5px] py-2">
+            <div className="px-[10px] py-2">
               <AiOutlineLoading3Quarters className="animate-spin" />
             </div>
           )}
