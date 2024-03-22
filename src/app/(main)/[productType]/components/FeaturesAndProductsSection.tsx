@@ -6,7 +6,7 @@ export default function FeaturesAndProductsSection() {
   return (
     <SeeAllSectionClientWrapper
       child1={<FeaturesSection />}
-      child2={<SuggestedProducts />}
+      // child2={<SuggestedProducts />}
     ></SeeAllSectionClientWrapper>
   );
 }
