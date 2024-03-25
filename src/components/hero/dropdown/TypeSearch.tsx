@@ -31,7 +31,7 @@ export function TypeSearch({
   const coverTypes = ['Car Covers', 'SUV Covers', 'Truck Covers'];
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const {
-    query: { type, year, make, model },
+    query: { type },
     setQuery,
   } = queryObj;
   const prevSelected = queryObj?.query.type === '';
@@ -65,6 +65,7 @@ export function TypeSearch({
     <HomeDropdown
       place={1}
       title={'type'}
+      value={type}
       queryObj={queryObj}
       prevSelected={prevSelected}
       items={coverTypes}

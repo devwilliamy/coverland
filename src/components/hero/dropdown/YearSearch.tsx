@@ -12,13 +12,13 @@ export function YearSearch({
   };
 }) {
   const [value, setValue] = useState('');
-  const { type } = queryObj.query;
+  const { type, year } = queryObj.query;
   const isDisabled = !type;
   const { setQuery } = queryObj;
 
   useEffect(() => {
     setValue('');
-  }, [queryObj]);
+  }, [type]);
 
   const handleChange = (event: ChangeEvent<HTMLSelectElement>) => {
     const newValue = event.target.value;
@@ -48,6 +48,7 @@ export function YearSearch({
       place={2}
       title={'year'}
       queryObj={queryObj}
+      value={year}
       isDisabled={isDisabled}
       prevSelected={prevSelected}
       items={years}

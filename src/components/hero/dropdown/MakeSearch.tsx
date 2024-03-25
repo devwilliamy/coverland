@@ -20,7 +20,7 @@ export function MakeSearch({
   const [isLoading, setIsLoading] = useState(false);
   const {
     setQuery,
-    query: { type, year },
+    query: { type, year, make },
   } = queryObj;
   const [makeData, setMakeData] = useState<MakeDropdown[]>([]);
   const [makeDataStrings, setMakeDataStrings] = useState<string[]>([]);
@@ -121,6 +121,7 @@ export function MakeSearch({
       title={'make'}
       queryObj={queryObj}
       isDisabled={isDisabled}
+      value={make}
       prevSelected={prevSelected}
       items={makeDataStrings}
     />
