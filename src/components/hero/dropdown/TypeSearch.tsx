@@ -14,8 +14,6 @@ export function TypeSearch({
     setQuery: Dispatch<SetStateAction<TQuery>>;
   };
 }) {
-  const { setQuery } = queryObj;
-
   const handleSelect = (newType: string) => {
     setDropdownOpen((b) => !b);
     setSelectedValue(newType);
@@ -32,6 +30,10 @@ export function TypeSearch({
   const [selectedValue, setSelectedValue] = useState<string>('Type');
   const coverTypes = ['Car Covers', 'SUV Covers', 'Truck Covers'];
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const {
+    query: { type, year, make, model },
+    setQuery,
+  } = queryObj;
   const prevSelected = queryObj?.query.type === '';
 
   // return (

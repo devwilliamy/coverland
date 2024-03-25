@@ -138,6 +138,7 @@ export function ModelSearch({
         place={4}
         title={'model'}
         queryObj={queryObj}
+        isDisabled={isDisabled}
         prevSelected={!isDisabled}
         items={modelDataStrings}
       />

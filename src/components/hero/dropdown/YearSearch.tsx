@@ -18,7 +18,7 @@ export function YearSearch({
 
   useEffect(() => {
     setValue('');
-  }, [type]);
+  }, [queryObj]);
 
   const handleChange = (event: ChangeEvent<HTMLSelectElement>) => {
     const newValue = event.target.value;
@@ -42,13 +42,13 @@ export function YearSearch({
   );
   const prevSelected =
     queryObj && queryObj.query.year === '' && queryObj.query.type !== '';
-  console.log(queryObj.query.year);
 
   return (
     <HomeDropdown
       place={2}
       title={'year'}
       queryObj={queryObj}
+      isDisabled={isDisabled}
       prevSelected={prevSelected}
       items={years}
     />
