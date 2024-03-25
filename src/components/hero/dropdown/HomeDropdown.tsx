@@ -149,7 +149,7 @@ export default function HomeDropdown({
 
   return (
     <div
-      className={`relative flex min-h-[48px] w-full lg:z-[2] lg:h-[64px] lg:min-h-[64px]  ${dropdownOpen && !isMobile ? 'rounded-t-[8px] ' : 'rounded-[8px] '} ${isActive && !isDisabled ? ' bg-white outline outline-[1px] outline-black' : 'bg-gray-300/90'}`}
+      className={`relative flex min-h-[48px] w-full lg:z-[2] lg:h-[64px] lg:min-h-[64px]  ${dropdownOpen && !isMobile ? 'rounded-t-[8px] ' : 'rounded-[8px] '} ${!isDisabled ? ' bg-white outline outline-[1px] outline-black' : 'bg-gray-300/90'}`}
     >
       {/*  ---------- Desktop Dropdown Start  ----------*/}
       <>
@@ -232,7 +232,7 @@ export default function HomeDropdown({
                 className={`absolute top-0 z-[10] w-full cursor-pointer overflow-clip ${dropdownOpen && 'rounded-[8px] outline outline-[2px] outline-offset-0 outline-[#BE1B1B] '}  flex-col justify-start bg-white text-left`}
               >
                 <div
-                  className={`flex w-full items-center pl-[20px] ${prevSelected ? 'min-h-[48px] lg:h-[64px] lg:min-h-[64px] ' : 'min-h-[44px] lg:h-[58px] lg:min-h-[58px]'}  ${dropdownOpen ? 'rounded-t-[8px] ' : 'rounded-[8px] '} ${isActive ? ' bg-white' : 'bg-gray-300/90'}`}
+                  className={`flex w-full items-center pl-[20px] ${prevSelected ? 'min-h-[48px] lg:h-[64px] lg:min-h-[64px] ' : 'min-h-[44px] lg:h-[58px] lg:min-h-[58px]'} bg-white  ${dropdownOpen ? 'rounded-t-[8px] ' : 'rounded-[8px] '} ${isDisabled ? ' bg-white' : 'bg-gray-300/90'}`}
                 >
                   <div className={`flex w-full items-center`}>
                     <p className={``}>{value === '' && place} &nbsp;</p>
