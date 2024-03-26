@@ -66,12 +66,28 @@ export default function AddToCart({
   const [addToCartOpen, setAddToCartOpen] = useState<boolean>(false);
 
   const isTypeOrCoverPage = !params?.make;
+  const [nonFinalText, setNonFinalText] = useState('Start Here');
 
   const {
     completeSelectionState: { isComplete },
   } = getCompleteSelectionData({
     data: modelData,
   });
+
+  useEffect(() => {
+    const blinkTimer = setInterval(() => {
+      setNonFinalText((e) => {
+        if (e === 'Start Here') {
+          return 'Find your Custom-Cover';
+        }
+        return 'Start Here';
+      });
+    }, 3500);
+
+    return () => {
+      clearInterval(blinkTimer);
+    };
+  }, []);
 
   return (
     <div>
@@ -86,7 +102,14 @@ export default function AddToCart({
       {isTypeOrCoverPage && !isSticky ? (
         <VehicleSelector searchParams={searchParams} />
       ) : (
-        <div className="fixed inset-x-0 bottom-0 z-20 flex bg-white p-4 lg:relative lg:p-1">
+        <div
+          style={
+            isTypeOrCoverPage
+              ? { animation: 'blink 3.5s ease-in-out infinite' }
+              : {}
+          }
+          className="fixed inset-x-0 bottom-0 z-20 flex bg-white p-4 lg:relative lg:p-1"
+        >
           <Button
             className=" h-[48px] w-full rounded bg-[#BE1B1B] text-lg font-bold uppercase text-white disabled:bg-[#BE1B1B] lg:h-[62px]"
             onClick={() => {
@@ -105,7 +128,7 @@ export default function AddToCart({
               setAddToCartOpen((p) => !p);
             }}
           >
-            Add To Cart
+            {isTypeOrCoverPage ? nonFinalText : 'Add To Cart'}
           </Button>
         </div>
       )}
