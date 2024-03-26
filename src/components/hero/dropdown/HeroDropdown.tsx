@@ -82,7 +82,7 @@ export function HeroDropdown() {
 
   return (
     <div
-      className={`relative z-[400]  grid w-full grid-cols-1 lg:grid-cols-[1fr_1fr_1fr_1fr_0.25fr] ${submodel1 && 'lg:grid-cols-[1fr_1fr_1fr_1fr_1fr_0.25fr]'} ${submodel2 && 'lg:grid-cols-[1fr_1fr_1fr_1fr_1fr_1fr_0.25fr]'} items-center justify-center gap-4 px-4 font-[500] `}
+      className={`relative z-[400]  grid w-full grid-cols-1 lg:flex items-center justify-center gap-4 px-4 font-[500] `}
     >
       <TypeSearch queryObj={queryObj} />
       <YearSearch queryObj={queryObj} />

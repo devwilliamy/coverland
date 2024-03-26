@@ -40,7 +40,6 @@ export default function HomeDropdown({
   const isMobile = useMediaQuery('(max-width: 768px)');
 
   const handleSelect = (newValue: string) => {
-    console.log('Which Dropdown: ', title);
     switch (title) {
       case 'type':
         setQuery({
@@ -159,11 +158,21 @@ export default function HomeDropdown({
     setFilteredItems(newFilteredItems);
   };
 
+  const isSubmodel1 = title === 'submodel1';
+  const isSubmodel2 = title === 'submodel2';
+
+  const submodel1Text = isSubmodel1
+    ? 'Submodel'
+    : title.replace(title.charAt(0), title.charAt(0).toUpperCase());
+  const submodel2Text = isSubmodel2
+    ? 'Submodel 2'
+    : title.replace(title.charAt(0), title.charAt(0).toUpperCase());
+
   return (
     <div
       className={`relative flex min-h-[48px] w-full lg:z-[2] lg:h-[64px] lg:min-h-[64px]  ${dropdownOpen && !isMobile ? 'rounded-t-[8px] ' : 'rounded-[8px] '} ${!isDisabled ? ' bg-white outline outline-[1px] outline-black' : 'bg-gray-300/90'}`}
     >
-      {/*  ---------- Desktop Dropdown Start  ----------*/}
+      {/*  ---------- Desktop Dropdown START  ----------*/}
       <>
         {!isMobile && (
           <div
@@ -175,7 +184,6 @@ export default function HomeDropdown({
                   !document?.activeElement?.closest('#search') &&
                   !document?.activeElement?.closest('#scrollbar-thumb')
                 ) {
-                  console.log(document?.activeElement);
                   setIsFocused(false);
                   setDropdownOpen(false);
                   // set to true to keep dropdown open
@@ -222,12 +230,14 @@ export default function HomeDropdown({
             <div className={`flex w-full items-center`}>
               <p className={``}>{value === '' && place} &nbsp;</p>
               <p className="capitalize">
-                {value === ''
+                {value === '' && !isSubmodel1 && !isSubmodel2
                   ? title.replace(
                       title.charAt(0),
                       title.charAt(0).toUpperCase()
                     )
                   : value}
+                {value === '' && isSubmodel1 && submodel1Text}
+                {value === '' && isSubmodel2 && submodel2Text}
               </p>
             </div>
 
@@ -249,12 +259,14 @@ export default function HomeDropdown({
                   <div className={`flex w-full items-center`}>
                     <p className={``}>{value === '' && place} &nbsp;</p>
                     <p className="capitalize">
-                      {value === ''
+                      {value === '' && !isSubmodel1 && !isSubmodel2
                         ? title.replace(
                             title.charAt(0),
                             title.charAt(0).toUpperCase()
                           )
                         : value}
+                      {value === '' && isSubmodel1 && submodel1Text}
+                      {value === '' && isSubmodel2 && submodel2Text}
                     </p>
                   </div>
                   <div className="mr-[14px] flex items-center">
@@ -408,7 +420,9 @@ export default function HomeDropdown({
           )}
         </>
       </>
-      {/*  ---------- Mobile Dropdown Start ---------- */}
+      {/*  ---------- Desktop Dropdown END  ----------*/}
+
+      {/*  ---------- Mobile Dropdown START ---------- */}
       {isMobile && (
         <>
           <select
@@ -469,6 +483,7 @@ export default function HomeDropdown({
           </div>
         </>
       )}
+      {/*  ---------- Mobile Dropdown END  ----------*/}
     </div>
   );
 }

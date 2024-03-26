@@ -50,7 +50,6 @@ export function SubmodelDropdown({
     const secondSubmodelData = submodelData.filter(
       (vehicle) => vehicle.submodel1 === submodel1 && vehicle.submodel2 !== null
     );
-    console.log(secondSubmodelData);
 
     setSecondSubmodelData(secondSubmodelData);
   }, [submodel1]);
