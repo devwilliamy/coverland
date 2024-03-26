@@ -67,33 +67,15 @@ export default function AddToCart({
   const [addToCartOpen, setAddToCartOpen] = useState<boolean>(false);
 
   const isTypeOrCoverPage = !params?.make;
-  const [nonFinalText, setNonFinalText] = useState('Start Here');
+  const [nonFinalButtonText, setNonFinalButtonText] = useState('Start Here');
   const blinkTime = 2;
+  const blinkVel = 10;
 
   const {
     completeSelectionState: { isComplete },
   } = getCompleteSelectionData({
     data: modelData,
   });
-  const [initializing, setInitializing] = useState(true);
-  useEffect(() => {
-    const blinkTimer = setInterval(() => {
-      setNonFinalText((e) => {
-        if (e === 'Start Here') {
-          return 'Find your Custom-Cover';
-        }
-        return 'Start Here';
-      });
-    }, blinkTime * 1000);
-    setInitializing(false);
-    return () => {
-      clearInterval(blinkTimer);
-    };
-  }, []);
-
-  if (initializing) {
-    return;
-  }
 
   return (
     <Suspense fallback={<></>}>
@@ -130,11 +112,21 @@ export default function AddToCart({
             <p
               style={
                 isTypeOrCoverPage
-                  ? { animation: `blink ${blinkTime}s ease-in-out infinite` }
+                  ? {
+                      animation: `blink ${blinkTime}s cubic-bezier(0,-${blinkVel},1,${blinkVel}) infinite`,
+                    }
                   : {}
               }
+              onAnimationIteration={() => {
+                setNonFinalButtonText((e) => {
+                  if (e === 'Start Here') {
+                    return 'Find your Custom-Cover';
+                  }
+                  return 'Start Here';
+                });
+              }}
             >
-              {isTypeOrCoverPage ? nonFinalText : 'Add To Cart'}
+              {isTypeOrCoverPage ? nonFinalButtonText : 'Add To Cart'}
             </p>
           </Button>
         </div>
