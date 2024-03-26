@@ -33,6 +33,9 @@ const CoversGrid = () => {
                     alt={`cover-image-${title}`}
                     src={img}
                     className=" object-cover"
+                    loading="eager"
+                    width={175}
+                    height={175}
                   />
                 </div>
               </a>

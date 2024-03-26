@@ -27,13 +27,13 @@ export default function Home() {
         <TrendingCarsSection />
       </div>
       <HomepageVideoSection />
-      <HomepageReviews />
-      <TrustBanner />
-      <BuyWithConfidenceSection />
+      {/* <HomepageReviews /> */}
+      {/* <TrustBanner /> */}
+      {/* <BuyWithConfidenceSection /> */}
       <div className="flex flex-col gap-[60px] bg-[#F9F9FB] lg:gap-[110px] lg:py-[110px]">
-        <SecuritySection />
-        <DesignedInUSA />
-        <WhyChooseCoverland />
+        {/* <SecuritySection /> */}
+        {/* <DesignedInUSA /> */}
+        {/* <WhyChooseCoverland /> */}
       </div>
     </div>
   );

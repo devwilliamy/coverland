@@ -12,6 +12,7 @@ export default function HeroImage() {
         className="w-full max-lg:min-h-[515px] max-lg:scale-[1] lg:hidden"
         src={heroMobile.src}
         alt="hero"
+        loading="eager"
       />
       <Image
         height={1600}
@@ -19,6 +20,7 @@ export default function HeroImage() {
         className="hidden lg:flex"
         src={hero.src}
         alt="hero"
+        loading="eager"
       />
     </>
   );
