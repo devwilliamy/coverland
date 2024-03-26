@@ -1,12 +1,8 @@
 'use client';
 import Image from 'next/image';
-import OthersVSCoverlandMobile from '@/images/PDP/Product-Details-Redesign-2/OthersVSCoverland.webp';
-import OthersVSCoverlandDesktop from '@/images/PDP/Product-Details-Redesign-2/desktop-vs.webp';
 import BadFabric from '@/images/PDP/Product-Details-Redesign-2/bad-fabric.webp';
 import PremiumFabric from '@/images/PDP/Product-Details-Redesign-2/premium-fabric.webp';
 import PremiumPlusFabric from '@/images/PDP/Product-Details-Redesign-2/premium-plus-fabric.webp';
-import PremiumVSMobile from '@/images/PDP/Product-Details-Redesign-2/premium/premium-vs.webp';
-import PremiumVSDesktop from '@/images/PDP/Product-Details-Redesign-2/premium/premium-vs-desktop.webp';
 import { useParams } from 'next/navigation';
 type difference = {
   title: string;

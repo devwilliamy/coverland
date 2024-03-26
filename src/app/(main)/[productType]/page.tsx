@@ -50,30 +50,30 @@ export default async function CarPDPModelDataLayer({
   const typeString =
     params?.productType === 'car-covers' ? 'Car Covers' : SuvOrTruckType;
   try {
-    [reviewData, modelData, reviewDataSummary, reviewImages] =
-      await Promise.all([
-        getProductReviewsByPage(
-          { productType: typeString },
-          {
-            pagination: {
-              page: 0,
-              limit: 8,
-            },
-          }
-        ),
-        getProductData({
-          type: typeString,
-        }),
-        getProductReviewSummary({
-          productType: typeString,
-        }),
-        getAllReviewsWithImages(
-          {
-            productType: typeString,
-          },
-          {}
-        ),
-      ]);
+    // [reviewData, modelData, reviewDataSummary, reviewImages] =
+    //   await Promise.all([
+    //     getProductReviewsByPage(
+    //       { productType: typeString },
+    //       {
+    //         pagination: {
+    //           page: 0,
+    //           limit: 8,
+    //         },
+    //       }
+    //     ),
+    //     getProductData({
+    //       type: typeString,
+    //     }),
+    //     getProductReviewSummary({
+    //       productType: typeString,
+    //     }),
+    //     getAllReviewsWithImages(
+    //       {
+    //         productType: typeString,
+    //       },
+    //       {}
+    //     ),
+    //   ]);
     modelData = await getProductData({ type: typeString });
   } catch (error) {
     console.error('CarPDPModelDataLayer Error: ', error);

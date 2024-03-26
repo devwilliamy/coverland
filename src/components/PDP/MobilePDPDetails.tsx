@@ -95,12 +95,12 @@ export const MobilePDPDetails = () => {
               <div className="mt-[-10px]" ref={pdRef}>
                 {/* <ProductHero /> */}
                 <div className="flex w-full flex-col ">
-                  <ProductVideo
+                  {/* <ProductVideo
                     src={ThreeSixtyVideo}
                     autoplay
                     loop
                     aspectRatio="16 / 9"
-                  />
+                  /> */}
                   <div className="mt-[-5px] h-full min-h-[174px] w-full bg-[#1A1A1A] pl-[12px] ">
                     <h3 className="max-h-[68px] max-w-[178px] pt-[22px] text-[22px] font-[900] uppercase leading-[34px] text-[#F2F2F2] ">
                       Tailored for the perfect fit

@@ -20,11 +20,11 @@ export default function FeaturesSection() {
       />
       <ProductDetailsHeader />
       <div className="w-full lg:hidden">
-        <ProductVideo
+        {/* <ProductVideo
           src={SixMinVideo}
           imgSrc={Thumbnail}
           aspectRatio="16 / 9"
-        />
+        /> */}
       </div>
       <div className="relative flex flex-col items-center justify-center lg:w-[850px]">
         <FabricMattersSection />

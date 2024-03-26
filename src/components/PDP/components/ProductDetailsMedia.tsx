@@ -10,13 +10,14 @@ export default function ProductDetailsMedia() {
   return (
     <>
       {isDefaultCoverType ? (
-        <ProductVideo
-          src={CorvetteGif}
-          autoplay
-          loop
-          aspectRatio="16/9"
-          controls={false}
-        />
+        // <ProductVideo
+        //   src={CorvetteGif}
+        //   autoplay
+        //   loop
+        //   aspectRatio="16/9"
+        //   controls={false}
+        // />
+        <></>
       ) : (
         <Image
           alt="product-content-half-cover-desktop"

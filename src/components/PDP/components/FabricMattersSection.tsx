@@ -18,13 +18,14 @@ const FabricMattersSection = () => {
       </div>
 
       {isDefault ? (
-        <ProductVideo
-          src={FabricVid}
-          autoplay
-          loop
-          aspectRatio="16/9"
-          controls={false}
-        />
+        // <ProductVideo
+        //   src={FabricVid}
+        //   autoplay
+        //   loop
+        //   aspectRatio="16/9"
+        //   controls={false}
+        // />
+        <></>
       ) : (
         <Image
           alt="cover-with-water-droplets"

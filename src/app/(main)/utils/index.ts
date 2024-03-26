@@ -40,71 +40,71 @@ export function modelDataTransformer({
 }): IProductData[] {
   let filteredData: TInitialProductDataDB[] = data;
 
-  if (!!params.productType) {
-    filteredData = data.filter((item) =>
-      compareRawStrings(item.type, params.productType as string)
-    );
-  }
+  // if (!!params.productType) {
+  //   filteredData = data.filter((item) =>
+  //     compareRawStrings(item.type, params.productType as string)
+  //   );
+  // }
 
-  if (!!params.coverType) {
-    filteredData = data.filter((item) =>
-      compareRawStrings(item.display_id, params.coverType as string)
-    );
-  }
+  // if (!!params.coverType) {
+  //   filteredData = data.filter((item) =>
+  //     compareRawStrings(item.display_id, params.coverType as string)
+  //   );
+  // }
 
-  if (!!params.make) {
-    filteredData = filteredData.filter((item) =>
-      compareRawStrings(item.make, params.make as string)
-    );
-  }
+  // if (!!params.make) {
+  //   filteredData = filteredData.filter((item) =>
+  //     compareRawStrings(item.make, params.make as string)
+  //   );
+  // }
 
-  if (params.model) {
-    filteredData = filteredData.filter((item) =>
-      compareRawStrings(item.model, params.model as string)
-    );
-  }
+  // if (params.model) {
+  //   filteredData = filteredData.filter((item) =>
+  //     compareRawStrings(item.model, params.model as string)
+  //   );
+  // }
 
-  if (params.year) {
-    if (queryParams.submodel) {
-      filteredData = filteredData.filter((item) =>
-        compareRawStrings(item.submodel1, queryParams.submodel as string)
-      );
-    }
+  // if (params.year) {
+  //   if (queryParams.submodel) {
+  //     filteredData = filteredData.filter((item) =>
+  //       compareRawStrings(item.submodel1, queryParams.submodel as string)
+  //     );
+  //   }
 
-    if (queryParams.secondSubmodel) {
-      filteredData = filteredData.filter((item) =>
-        compareRawStrings(item.submodel2, queryParams.secondSubmodel as string)
-      );
-    }
-    filteredData = filteredData.filter((item) =>
-      compareRawStrings(item.parent_generation, params.year as string)
-    );
-  }
+  //   if (queryParams.secondSubmodel) {
+  //     filteredData = filteredData.filter((item) =>
+  //       compareRawStrings(item.submodel2, queryParams.secondSubmodel as string)
+  //     );
+  //   }
+  //   filteredData = filteredData.filter((item) =>
+  //     compareRawStrings(item.parent_generation, params.year as string)
+  //   );
+  // }
   const finalFilteredData = generatePDPContent({
     data: filteredData,
     params,
     queryParams,
   });
 
-  const filteredAndSortedData = finalFilteredData
-    ?.filter((product) => product.msrp)
-    .sort((a, b) => {
-      const yearMatchA = a.year_generation === params.year ? 0 : 1;
-      const yearMatchB = b.year_generation === params.year ? 0 : 1;
-      if (yearMatchA !== yearMatchB) return yearMatchA - yearMatchB;
-      let colorIndexA = colorOrder.indexOf(
-        a?.display_color as (typeof colorOrder)[number]
-      );
-      let colorIndexB = colorOrder.indexOf(
-        b?.display_color as (typeof colorOrder)[number]
-      );
+  // const filteredAndSortedData = finalFilteredData
+  //   ?.filter((product) => product.msrp)
+  //   .sort((a, b) => {
+  //     const yearMatchA = a.year_generation === params.year ? 0 : 1;
+  //     const yearMatchB = b.year_generation === params.year ? 0 : 1;
+  //     if (yearMatchA !== yearMatchB) return yearMatchA - yearMatchB;
+  //     let colorIndexA = colorOrder.indexOf(
+  //       a?.display_color as (typeof colorOrder)[number]
+  //     );
+  //     let colorIndexB = colorOrder.indexOf(
+  //       b?.display_color as (typeof colorOrder)[number]
+  //     );
 
-      if (colorIndexA === -1) colorIndexA = Infinity;
-      if (colorIndexB === -1) colorIndexB = Infinity;
+  //     if (colorIndexA === -1) colorIndexA = Infinity;
+  //     if (colorIndexB === -1) colorIndexB = Infinity;
 
-      return colorIndexA - colorIndexB;
-    });
-  return filteredAndSortedData;
+  //     return colorIndexA - colorIndexB;
+  //   });
+  return finalFilteredData;
 }
 
 function generatePDPContent({
@@ -275,5 +275,5 @@ export const getUniqueValues = ({
 };
 
 export function removeWwwFromUrl(url: string): string {
-  return url.replace(/www\./, '');
+  return url?.replace(/www\./, '');
 }
