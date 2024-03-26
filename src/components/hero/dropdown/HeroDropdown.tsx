@@ -81,13 +81,15 @@ export function HeroDropdown() {
   };
 
   return (
-    <div className="relative z-[400]  w-full grid grid-cols-1 lg:grid-cols-[1fr_1fr_1fr_1fr_0.25fr] items-center justify-center gap-4 px-4 font-[500] ">
+    <div
+      className={`relative z-[400]  grid w-full grid-cols-1 lg:grid-cols-[1fr_1fr_1fr_1fr_0.25fr] ${submodel1 && 'lg:grid-cols-[1fr_1fr_1fr_1fr_1fr_0.25fr]'} ${submodel2 && 'lg:grid-cols-[1fr_1fr_1fr_1fr_1fr_1fr_0.25fr]'} items-center justify-center gap-4 px-4 font-[500] `}
+    >
       <TypeSearch queryObj={queryObj} />
       <YearSearch queryObj={queryObj} />
       <MakeSearch queryObj={queryObj} />
       <ModelSearch queryObj={queryObj} />
       <button
-        className={`flex h-full max-h-[44px] min-h-[44px] w-full  items-center justify-center rounded-lg text-lg  text-white disabled:bg-[#BE1B1B] bg-[#BE1B1B] lg:h-[58px] lg:min-h-[58px] lg:max-w-[58px] lg:border-0`}
+        className={`flex h-full max-h-[44px] min-h-[44px] w-full  items-center justify-center rounded-lg bg-[#BE1B1B]  text-lg text-white disabled:bg-[#BE1B1B] lg:h-[58px] lg:min-h-[58px] lg:max-w-[58px] lg:border-0`}
         onClick={handleSubmitDropdown}
         disabled={!year || !type || !make || !model}
       >

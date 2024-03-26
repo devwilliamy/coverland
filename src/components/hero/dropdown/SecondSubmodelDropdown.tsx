@@ -9,6 +9,7 @@ import {
 } from 'react';
 import { TQuery } from './HeroDropdown';
 import { ModelDropdown } from './ModelSearch';
+import HomeDropdown from './HomeDropdown';
 
 export function SecondSubmodelDropdown({
   queryObj,
@@ -20,14 +21,14 @@ export function SecondSubmodelDropdown({
   };
   secondSubmodelData: ModelDropdown[];
 }) {
-  const [value, setValue] = useState('');
+
   // Leaving this for when third submodel becomes a thing
   // const [thirdSubmodelData, setThirdSubmodelData] = useState<ModelDropdown[]>(
   //   []
   // );
 
   const { query, setQuery } = queryObj;
-  const { submodel1 } = query;
+  const { submodel1, submodel2 } = query;
 
   const filteredSecondSubmodelData: (string | null)[] = Array.from(
     new Set(
@@ -41,9 +42,8 @@ export function SecondSubmodelDropdown({
     )
   );
 
-  useEffect(() => {
-    setValue('');
-  }, [submodel1]);
+  // useEffect(() => {
+  // }, [submodel1]);
 
   // Leaving this for when third submodel becomes a thing
   // useEffect(() => {
@@ -56,11 +56,7 @@ export function SecondSubmodelDropdown({
   //   console.log('ThirdSubmodel:', thirdSubmodelData);
   // }, [value]);
 
-  const handleChange = (event: ChangeEvent<HTMLSelectElement>) => {
-    const newValue = event.target.value;
-    setValue(newValue);
-    setQuery((p) => ({ ...p, submodel2: newValue }));
-  };
+
   const isDisabled =
     !query.make ||
     !query.year ||
@@ -80,7 +76,7 @@ export function SecondSubmodelDropdown({
 
   return (
     <>
-      <div
+      {/* <div
         className={`flex max-h-[53px] min-h-[53px] px-2 ${prevSelected ? ' w-full border-[5px] border-[#BE1B1B]' : 'w-[98%] border-[1px] border-[#767676] outline-[4px] outline-transparent'} items-center overflow-hidden rounded-[8px] bg-white  text-lg  md:max-h-[58px] lg:w-auto`}
       >
         <div className="ml-[10px] pr-[15px]">6</div>
@@ -102,7 +98,16 @@ export function SecondSubmodelDropdown({
             </option>
           ))}
         </select>
-      </div>
+      </div> */}
+      <HomeDropdown
+        place={6}
+        title="submodel2"
+        queryObj={queryObj}
+        isDisabled={isDisabled}
+        prevSelected={prevSelected}
+        items={filteredSecondSubmodelData as string[]}
+        value={submodel2}
+      />
       {/* {showThirdSubmodelDropdown && (
         <ThirdSubmodelDropdown
           queryObj={queryObj}

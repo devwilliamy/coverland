@@ -92,11 +92,17 @@ export function ModelSearch({
   useEffect(() => {
     // Check for submodel
     const submodel = modelData.filter(
-      (vehicle) => vehicle.model === value && vehicle.submodel1 !== null
+      (vehicle) => vehicle.model === model && vehicle.submodel1 !== null
     );
 
+
+    // setSubmodelDataStrings(() => {
+    //   const modelStrings = uniqueModel.map(({ model }) => model);
+    //   return modelStrings as string[];
+    // });
+
     setSubmodelData(submodel);
-  }, [value]);
+  }, [model]);
 
   const isDisabled = !type || !year || !make;
   const showSubmodelDropdown = submodelData.length > 0;

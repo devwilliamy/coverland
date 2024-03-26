@@ -1,11 +1,4 @@
-import React, {
-  ChangeEvent,
-  Dispatch,
-  SetStateAction,
-  useEffect,
-  useRef,
-  useState,
-} from 'react';
+import React, { ChangeEvent, Dispatch, SetStateAction, useState } from 'react';
 import HomeChevronDown from './icons/HomeChevronDown';
 import { TQuery } from './HeroDropdown';
 import { Search } from 'lucide-react';
@@ -92,6 +85,25 @@ export default function HomeDropdown({
             model: newValue,
             submodel1: '',
             submodel2: '',
+            parent_generation: '',
+          };
+        });
+        break;
+      case 'submodel1':
+        setQuery((e) => {
+          return {
+            ...e,
+            submodel1: newValue,
+            submodel2: '',
+            parent_generation: '',
+          };
+        });
+        break;
+      case 'submodel2':
+        setQuery((e) => {
+          return {
+            ...e,
+            submodel2: newValue,
             parent_generation: '',
           };
         });
