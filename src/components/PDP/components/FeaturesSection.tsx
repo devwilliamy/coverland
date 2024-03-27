@@ -11,12 +11,12 @@ import Image from 'next/image';
 export default function FeaturesSection() {
   return (
     <section
-      className={`relative mt-[48px] flex  h-max flex-col items-center justify-center`}
+      className={`relative z-[-1] mt-[48px] flex  h-max flex-col items-center justify-center`}
     >
       <Image
         alt="Wet Fabric"
         src={WetFabric}
-        className="absolute top-0 -mx-4 h-full object-cover"
+        className="absolute top-0  -mx-4 h-full object-cover"
       />
       <ProductDetailsHeader />
       <div className="w-full lg:hidden">
