@@ -1,18 +1,18 @@
-'use client';
-import {
-  Carousel,
-  CarouselApi,
-  CarouselContent,
-  CarouselItem,
-} from '@/components/ui/carousel';
+import { CarouselItem } from '@/components/ui/carousel';
 import Image, { StaticImageData } from 'next/image';
-import React, { useCallback, useEffect, useState } from 'react';
+
+import ReviewRatingStar from '@/components/icons/ReviewRatingStar';
+// import HomepageReviewCarousel from './HomepageReviewCarousel';
 import Reviews1 from '@/images/reviews/review2_1.jpg';
 import Reviews2 from '@/images/reviews/review1_1.jpg';
 import Reviews3 from '@/images/reviews/review1_2.jpg';
 import Reviews4 from '@/images/reviews/review1_5.jpg';
-import ReviewRatingStar from '@/components/icons/ReviewRatingStar';
+import dynamic from 'next/dynamic';
 
+const HomepageReviewCarousel = dynamic(
+  () => import('./HomepageReviewCarousel'),
+  { ssr: false }
+);
 const HomepageReviews = () => {
   const reviews = [
     {
@@ -44,40 +44,6 @@ const HomepageReviews = () => {
       owner: 'Stephen Sanchez',
     },
   ];
-
-  const [api, setApi] = useState<CarouselApi>();
-  const [current, setCurrent] = useState(0);
-  const [scrollSnaps, setScrollSnaps] = useState<number[]>([]);
-
-  useEffect(() => {
-    if (!api) {
-      return;
-    }
-
-    setScrollSnaps(api.scrollSnapList());
-    setCurrent(api.selectedScrollSnap());
-
-    api.on('select', () => {
-      setCurrent(api.selectedScrollSnap());
-    });
-  }, [api]);
-  const scrollTo = useCallback(
-    (index: number) => api && api.scrollTo(index),
-    [api]
-  );
-
-  const Dot = ({ index }: { index: number }) => (
-    <button className="relative flex h-2 w-2" onClick={() => scrollTo(index)}>
-      <span className="relative inline-flex h-2 w-2 rounded-full bg-[#767676] outline outline-[1px]"></span>
-    </button>
-  );
-
-  const ActiveDot = () => (
-    <div className="relative flex h-2.5 w-2.5">
-      <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-[#1A1A1A] outline outline-[1px]"></span>
-    </div>
-  );
-
   return (
     <div>
       <div className="flex w-full flex-col items-center px-[39px]  uppercase">
@@ -89,22 +55,11 @@ const HomepageReviews = () => {
         </div>
       </div>
       <div>
-        <Carousel setApi={setApi}>
-          <CarouselContent>
-            {reviews.map((item, index) => (
-              <ReviewsItem key={`carousel-item-${index}`} item={item} />
-            ))}
-          </CarouselContent>
-        </Carousel>
-        <div className="flex w-full items-center justify-center gap-2 bg-[#ECECEC] py-2 pb-[62px]">
-          {scrollSnaps.map((_, index) =>
-            index === current ? (
-              <ActiveDot key={index} />
-            ) : (
-              <Dot key={index} index={index} />
-            )
-          )}
-        </div>
+        <HomepageReviewCarousel>
+          {reviews.map((item, index) => (
+            <ReviewsItem key={`carousel-item-${index}`} item={item} />
+          ))}
+        </HomepageReviewCarousel>
       </div>
     </div>
   );

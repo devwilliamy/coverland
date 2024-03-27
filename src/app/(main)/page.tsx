@@ -7,8 +7,8 @@ import TrendingCarsSection from '@/components/home/TrendingCarsSection';
 import DesignedInUSA from '@/components/home/DesignedInUSA';
 import TrustBanner from '@/components/home/TrustBanner';
 import HomepageVideoSection from '@/components/home/HomepageVideoSection';
-import WhyChooseCoverland from '@/components/home/WhyChooseCoverland';
 import HomepageReviews from '@/components/home/HomepageReviews';
+import WhyChooseCoverland from '@/components/home/WhyChooseCoverland';
 
 export async function generateMetadata() {
   return {
@@ -27,13 +27,13 @@ export default function Home() {
         <TrendingCarsSection />
       </div>
       <HomepageVideoSection />
-      {/* <HomepageReviews /> */}
-      {/* <TrustBanner /> */}
-      {/* <BuyWithConfidenceSection /> */}
+      <HomepageReviews />
+      <TrustBanner />
+      <BuyWithConfidenceSection />
       <div className="flex flex-col gap-[60px] bg-[#F9F9FB] lg:gap-[110px] lg:py-[110px]">
-        {/* <SecuritySection /> */}
-        {/* <DesignedInUSA /> */}
-        {/* <WhyChooseCoverland /> */}
+        <SecuritySection />
+        <DesignedInUSA />
+        <WhyChooseCoverland />
       </div>
     </div>
   );

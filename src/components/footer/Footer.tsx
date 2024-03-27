@@ -1,4 +1,3 @@
-import React from 'react';
 import Link from 'next/link';
 import { BsFillEnvelopeFill } from 'react-icons/bs';
 import NewsletterForm from '../home/NewsletterForm';
@@ -22,7 +21,6 @@ const Footer = () => {
   const currentYear = new Date().getFullYear();
   return (
     <footer className="flex flex-col items-center justify-center bg-[#1A1A1A] px-2 py-2 md:px-8 md:py-8 lg:px-14 lg:py-10 ">
-      {/* <Membership /> */}
       <div className="flex w-full flex-col justify-between lg:flex-row ">
         <div
           id="footer-left"
@@ -47,9 +45,6 @@ const Footer = () => {
             id="social-icons=footer"
             className="flex w-full flex-row items-center justify-start gap-3.5"
           >
-            {/* <Link href="https:www.facebook.com/coverland" target="_blank">
-              <FbCustomIcon />
-            </Link> */}
             <Link
               href="https://youtube.com/@CoverLandUSA?si=hcqFGwnMgWrRfIdP"
               target="_blank"
@@ -101,46 +96,8 @@ const Footer = () => {
                   </p>
                 </Link>
               </li>
-              {/* <li className="text-white mb-4">
-                <Link
-                  href=""
-                  target="_blank"
-                  className="flex flex-row justify-center items-center"
-                >
-                  <BsFillChatDotsFill color="#fff" size={15} />
-                  <p className="text-[#DBDBDB] font-normal text-base ml-2 xl:ml-4 hover-underline-animation">
-                    Start a live chat
-                  </p>
-                </Link>
-              </li> */}
             </ul>
           </div>
-          {/* <div
-            id="csr-nav"
-            className="flex flex-col items-start justify-start pb-8 lg:pb-0"
-          >
-            <p className="pb-4 text-lg font-black text-white lg:uppercase">
-              Customer Service
-            </p>
-            <ul className="list-none">
-              <li className="text-[#DBDBDB] font-normal text-base capitalize mb-4 hover-underline-animation">
-                <Link href="/profile">My Orders</Link>
-              </li>
-
-              <li className="hover-underline-animation mb-4 text-base font-normal capitalize text-[#DBDBDB]">
-                <Link href="faqs">FAQs</Link>
-              </li>
-              <li className="hover-underline-animation mb-4 text-base font-normal capitalize text-[#DBDBDB]">
-                <Link href="contact">Contact Us</Link>
-              </li>
-              <li className="hover-underline-animation mb-4 text-base font-normal capitalize text-[#DBDBDB]">
-                <Link href="coupon-codes">Coupon Codes</Link>
-              </li>
-              <li className="hover-underline-animation mb-4 text-base font-normal capitalize text-[#DBDBDB]">
-                <Link href="customer-reviews">Customer Reviews</Link>
-              </li>
-            </ul>
-          </div> */}
           <div
             id="info-nav"
             className="flex flex-col items-start justify-start pb-8 lg:pb-0"
@@ -149,12 +106,6 @@ const Footer = () => {
               Information
             </p>
             <ul className="list-none">
-              {/* <li className="hover-underline-animation mb-4 text-base font-normal capitalize text-[#DBDBDB]">
-                <Link href="about">About Us</Link>
-              </li> */}
-              {/* <li className="hover-underline-animation mb-4 text-base font-normal capitalize text-[#DBDBDB]">
-                <Link href="buying-guides">Buying Guides</Link>
-              </li> */}
               <li className="hover-underline-animation mb-4 text-base font-normal capitalize text-[#DBDBDB]">
                 <Link href="/policies/warranty-policy">Warranty</Link>
               </li>
@@ -185,18 +136,6 @@ const Footer = () => {
           <p className="text-center text-xs text-[#DBDBDB] lg:text-left">
             {' '}
             Copyright &#169; {currentYear} Coverland.com. All Rights Reserved.
-            {/* <br className="lg:hidden" /> Site built by{' '}
-            <Link
-              href="https://www.mcbportfolio.com?ref=coverland"
-              target="_blank"
-            >
-              MCB
-            </Link>{' '}
-            and{' '}
-            <Link href="https://simpledigital.io?ref=coverland" target="_blank">
-              Simple Digital
-            </Link>
-            . */}
           </p>
         </div>
         <div
@@ -218,7 +157,6 @@ const Footer = () => {
           </div>
         </div>
       </div>
-      {/* </div */}
       <LiveChat />
     </footer>
   );

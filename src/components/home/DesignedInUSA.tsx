@@ -1,4 +1,3 @@
-'use client';
 import Image from 'next/image';
 import Indoor from '@/images/solutions/indoor-car-cover-picture.png';
 
@@ -10,6 +9,8 @@ export default function DesignedInUSA() {
           <Image
             className="rounded-[8px] lg:rounded-[15px]"
             fill
+            width={617}
+            height={562}
             src={Indoor}
             alt="a fully-covered vehicle with a coverland car cover on it"
           />
