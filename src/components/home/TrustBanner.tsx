@@ -11,12 +11,16 @@ const TrustBanner = () => {
         src={TrustBannerBackgroundMobile}
         className="max-h-[492px] object-cover md:hidden"
         fill
+        width={400}
+        height={500}
         alt="Trust Banner Background"
       />
       <Image
         src={TrustBannerBackground}
         className="hidden max-h-[260px] object-cover md:flex"
         fill
+        width={1280}
+        height={260}
         alt="Trust Banner Background"
       />
       {/* Mobile */}
@@ -26,12 +30,16 @@ const TrustBanner = () => {
         </p>
         <Image
           src={BBB}
+          width={159}
+          height={110}
           alt="Accredited Buisness Rating "
           className="mb-[28px] max-h-[111px] max-w-[159px] lg:mb-0 lg:h-auto lg:w-auto"
         />
         <div className="flex flex-col items-center">
           <Image
             src={GoogleFiveStar}
+            width={159}
+            height={101}
             className="flex max-h-[111px] max-w-[159px] "
             alt="Google Five Star Rating"
           />
@@ -49,6 +57,8 @@ const TrustBanner = () => {
       <div className="absolute top-0 hidden h-full max-h-[260px] w-full items-center justify-center bg-[#404040]/90 md:flex md:flex-row md:gap-[63px] lg:px-[210px] ">
         <Image
           src={BBB}
+          width={220}
+          height={153}
           alt="Accredited Buisness Rating "
           className=" h-[153px] max-h-[153px] w-[220px] max-w-[220px] "
         />
@@ -58,6 +68,8 @@ const TrustBanner = () => {
         <div className="flex flex-col items-center">
           <Image
             src={GoogleFiveStar}
+            width={188}
+            height={120}
             className="flex max-h-[95px] max-w-[149px] lg:max-h-[120px] lg:max-w-[188px]"
             alt="Google Five Star Rating"
           />

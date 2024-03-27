@@ -1,4 +1,3 @@
-'use client';
 import React from 'react';
 import Beach from '../../../public/images/security/security-beach.webp';
 import Storm from '@/images/security/storm-icon.png';
@@ -6,11 +5,6 @@ import Umbrella from '@/images/security/umbrella-icon.png';
 import Scratch from '@/images/security/scratch-icon.png';
 import Sun from '@/images/security/sun-icon.png';
 
-// import ScratchIcon from '../icons/ScratchIcon';
-// import SunIcon from '../icons/SunIcon';
-// import ThunderCloudIcon from '../icons/ThunderCloudIcon';
-// import UmbrellaIcon from '../icons/UmbrellaIcon';
-// import SecuritySectionIcon from './SecuritySectionIcon';
 import Image, { StaticImageData } from 'next/image';
 
 const IconSection = ({
@@ -28,6 +22,8 @@ const IconSection = ({
         <Image
           src={img}
           alt={`${title}-icon`}
+          width={88}
+          height={88}
           className="bg-offWhite icon-shadow max-h-[88px] min-h-[88px] min-w-[88px] max-w-[88px]  rounded-lg"
         />
       </div>
@@ -52,6 +48,8 @@ export default function SecuritySection() {
             className="rounded-[8px] lg:rounded-[15px]"
             fill
             src={Beach}
+            width={617}
+            height={562}
             alt="a fully-covered vehicle with a coverland car cover on it"
           />
           <div className="absolute  bottom-[27px] left-[14px] z-10 flex flex-col gap-[12px] lg:bottom-[42px] lg:left-[42px]">
@@ -59,7 +57,7 @@ export default function SecuritySection() {
               Outdoor car covers
             </p>
             <button className="flex h-[44px] max-w-[160px] items-center rounded-[100px] bg-white px-[40px] py-[17px] text-[16px] font-[900] leading-[110%] tracking-[0.32px]">
-              <a href="/car-covers">Shop Now</a>
+              <a href="/car-covers/premium-plus">Shop Now</a>
             </button>
           </div>
         </div>

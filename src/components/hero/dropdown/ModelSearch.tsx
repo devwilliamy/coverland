@@ -10,6 +10,7 @@ import {
 import { TQuery } from './HeroDropdown';
 import { getAllUniqueModelsByYearMake } from '@/lib/db';
 import { SubmodelDropdown } from './SubmodelDropdown';
+import HomeDropdown from './HomeDropdown';
 
 export type ModelDropdown = {
   model: string | null;
@@ -30,13 +31,15 @@ export function ModelSearch({
 }) {
   const [value, setValue] = useState('');
   const [modelData, setModelData] = useState<ModelDropdown[]>([]);
+  const [modelDataStrings, setModelDataStrings] = useState<string[]>([]);
   const [filteredModelData, setFilteredModelData] = useState<ModelDropdown[]>(
     []
   );
   const [submodelData, setSubmodelData] = useState<ModelDropdown[]>([]);
+  const [submodelDataStrings, setSubmodelDataStrings] = useState<string[]>([]);
 
   const {
-    query: { type, year, make },
+    query: { type, year, make, model },
     setQuery,
   } = queryObj;
 
@@ -72,6 +75,10 @@ export function ModelSearch({
             index === self.findIndex((t) => t.model_slug === car.model_slug)
         );
         setModelData(response);
+        setModelDataStrings(() => {
+          const modelStrings = uniqueModel.map(({ model }) => model);
+          return modelStrings as string[];
+        });
         setFilteredModelData(uniqueModel);
       } catch (error) {
         console.error('[Model Search]: ', error);
@@ -85,38 +92,40 @@ export function ModelSearch({
   useEffect(() => {
     // Check for submodel
     const submodel = modelData.filter(
-      (vehicle) => vehicle.model === value && vehicle.submodel1 !== null
+      (vehicle) => vehicle.model === model && vehicle.submodel1 !== null
     );
 
+
+    // setSubmodelDataStrings(() => {
+    //   const modelStrings = uniqueModel.map(({ model }) => model);
+    //   return modelStrings as string[];
+    // });
+
     setSubmodelData(submodel);
-  }, [value]);
+  }, [model]);
 
   const isDisabled = !type || !year || !make;
   const showSubmodelDropdown = submodelData.length > 0;
+  const prevSelected =
+    queryObj &&
+    Boolean(
+      queryObj.query.type &&
+        queryObj.query.year &&
+        queryObj.query.make &&
+        queryObj.query.model === ''
+    );
 
   return (
     <>
-      <div
-        className={`flex max-h-[44px] min-h-[44px] w-full items-center rounded-[4px] outline outline-1 outline-offset-1 outline-[#767676] md:max-h-[58px] ${isDisabled ? 'bg-gray-100/75' : 'bg-white'} px-2 text-lg lg:w-auto`}
-        tabIndex={1}
-      >
-        <div className="ml-[10px] pr-[15px]">4</div>
-        <label htmlFor="model"></label>
-        <select
-          value={value}
-          onChange={handleChange}
-          disabled={isDisabled}
-          className={`w-full cursor-pointer bg-transparent py-1 outline-none lg:py-3`}
-          aria-label="model"
-        >
-          <option value="">{`Model`}</option>
-          {filteredModelData?.map(({ model }, index) => (
-            <option key={`${model}-${index}`} value={model || ''}>
-              {model}
-            </option>
-          ))}
-        </select>
-      </div>
+      <HomeDropdown
+        place={4}
+        title={'model'}
+        queryObj={queryObj}
+        isDisabled={isDisabled}
+        value={model}
+        prevSelected={!isDisabled}
+        items={modelDataStrings}
+      />
       {showSubmodelDropdown && (
         <SubmodelDropdown queryObj={queryObj} submodelData={submodelData} />
       )}

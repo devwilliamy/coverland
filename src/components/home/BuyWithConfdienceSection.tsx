@@ -1,4 +1,3 @@
-'use client';
 import FreeReturnPackageIcon from '../icons/FreeReturnPackageIcon';
 import FreeShippingTruckIcon from '../icons/FreeShippingTruckIcon';
 import MoneyBackIcon from '../icons/MoneyBackIcon';

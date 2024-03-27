@@ -33,20 +33,20 @@ function Header() {
           ))}
         </section>
         <section className="min-h-[7px] w-full bg-black" />
-        <section className="whitespace-nowrap bg-white px-20  py-1.5 text-center text-[18px] font-[700] uppercase lg:text-[24px] lg:leading-[28px]">
+        <section className="min-h-[40px] whitespace-nowrap bg-white px-20  py-1.5 text-center text-[18px] font-[700] uppercase lg:text-[24px] lg:leading-[28px]">
           <p>March Special Sale!</p>
         </section>
-        <section className="whitespace-nowrap bg-black px-20 py-2 text-center text-[18px] font-[500] uppercase text-white lg:text-[24px] lg:leading-[26px]">
+        <section className="min-h-[40px] whitespace-nowrap bg-black px-20 py-2 text-center text-[18px] font-[500] uppercase text-white lg:text-[24px] lg:leading-[26px]">
           <p>SAVE UP TO 50%</p>
         </section>
       </header>
       {/* Mobile Header */}
       <header className="flex w-screen max-w-[1280px] flex-col items-stretch lg:hidden">
         <section className="min-h-[7px] w-full bg-black" />
-        <section className="whitespace-nowrap bg-white  px-20 text-center text-[18px] font-[600] uppercase text-black ">
+        <section className="min-h-[27px] whitespace-nowrap bg-white  px-20 text-center text-[18px] font-[600] uppercase text-black ">
           <p>March Special Sale!</p>
         </section>
-        <section className="whitespace-nowrap bg-black  px-20 text-center text-[18px] font-[500] uppercase text-white ">
+        <section className="min-h-[27px] whitespace-nowrap bg-black  px-20 text-center text-[18px] font-[500] uppercase text-white ">
           <p>SAVE UP TO 50%</p>
         </section>
         <section className="mb-[17px] flex w-full items-center justify-between px-16 max-md:mb-2 max-md:max-w-full max-md:px-5">
