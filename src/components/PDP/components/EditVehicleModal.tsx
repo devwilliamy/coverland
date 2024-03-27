@@ -1,26 +1,26 @@
 'use client';
-
 import { EditIcon } from '@/components/PDP/icons';
 import EditVehicleDropdown from '../EditVehicleDropdown';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { IoClose } from 'react-icons/io5';
-import { IProductData } from '@/app/(main)/utils';
 import { useParams } from 'next/dist/client/components/navigation';
 import {
   Sheet,
   SheetContent,
   SheetPortal,
-  SheetOverlay,
   SheetTrigger,
 } from '@/components/ui/sheet';
+import { useStore } from 'zustand';
+import { CarSelectionContext } from '@/contexts/CarSelectionContext';
 
 export default function EditVehicleModal({
-  selectedProduct,
   searchParams,
 }: {
-  selectedProduct: IProductData;
   searchParams: { submodel?: string; second_submodel?: string } | undefined;
 }) {
+  const store = useContext(CarSelectionContext);
+  if (!store) throw new Error('Missing CarContext.Provider in the tree');
+  const selectedProduct = useStore(store, (s) => s.selectedProduct);
   const [open, setOpen] = useState(false);
   const params = useParams<{
     make?: string;
@@ -44,6 +44,7 @@ export default function EditVehicleModal({
   const productNameSubtitle = year
     ? `${submodel1 ?? ''} ${selectedYear ?? ''}`
     : '';
+
   return (
     <div className=" flex h-full w-full flex-col  justify-center lg:hidden">
       <Sheet open={open} onOpenChange={setOpen}>

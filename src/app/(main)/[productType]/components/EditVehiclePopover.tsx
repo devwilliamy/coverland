@@ -1,5 +1,4 @@
 'use client';
-
 import EditVehicleDropdown from '@/components/PDP/EditVehicleDropdown';
 import { EditIcon } from '@/components/PDP/icons';
 import {
@@ -9,16 +8,17 @@ import {
 } from '@/components/ui/popover';
 import { CarSelectionContext } from '@/contexts/CarSelectionContext';
 import { useContext, useState } from 'react';
-import { IProductData } from '../../utils';
 import { useParams } from 'next/navigation';
+import { useStore } from 'zustand';
 
 export default function EditVehiclePopover({
-  selectedProduct,
   searchParams,
 }: {
-  selectedProduct: IProductData;
   searchParams: { submodel?: string; second_submodel?: string } | undefined;
 }) {
+  const store = useContext(CarSelectionContext);
+  if (!store) throw new Error('Missing CarContext.Provider in the tree');
+  const selectedProduct = useStore(store, (s) => s.selectedProduct);
   const [open, setOpen] = useState(false);
   const params = useParams<{
     make?: string;
@@ -26,8 +26,6 @@ export default function EditVehiclePopover({
     year?: string;
     productType?: string;
   }>();
-  const store = useContext(CarSelectionContext);
-  if (!store) throw new Error('Missing CarContext.Provider in the tree');
 
   if (!params) return null;
   const { make, year, model } = params;
