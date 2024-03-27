@@ -5,6 +5,7 @@ import { Skeleton } from '@/components/ui/skeleton';
 import SixMinVideo from '@/videos/https_x2kly621zrgfgwll.public.blob.vercel-storage.com_videos_FINALIZE_WEBSTIE_16_9_OPTIMIZED.mp4';
 import FeatureImage from './FeatureImage';
 import MediaQueryContext from '@/contexts/MediaQueryContext';
+// import MobileImageCarousel from './MobileImageCarousel';
 const ProductVideo = dynamic(() => import('@/components/PDP/ProductVideo'), {
   loading: () => (
     <div className="flex h-full">
@@ -12,9 +13,13 @@ const ProductVideo = dynamic(() => import('@/components/PDP/ProductVideo'), {
     </div>
   ),
 });
-
+// const MobileImageCarousel = dynamic(() => import('./MobileImageCarousel'));
 const MobileImageCarousel = dynamic(() => import('./MobileImageCarousel'), {
-  loading: () => <div className="h-[500px]"></div>,
+  loading: () => (
+    <div className="h-[430px]">
+      <Skeleton className="h-full" />
+    </div>
+  ),
 });
 
 export function PrimaryImageDisplay() {
@@ -30,16 +35,16 @@ export function PrimaryImageDisplay() {
       </div>
 
       {/* Product Video */}
-      {/* <div className=" min-h hidden lg:block lg:max-h-[420px] lg:min-h-80">
+      <div className="hidden lg:block lg:max-h-[420px] lg:min-h-80">
         <ProductVideo
           src={SixMinVideo}
           imgSrc={Thumbnail}
           aspectRatio="16 / 9"
         />
-      </div> */}
+      </div>
 
       {/* Gallery Images */}
-      {/* <SelectedProductImages /> */}
+      <SelectedProductImages />
     </div>
   );
 }
