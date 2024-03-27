@@ -9,6 +9,7 @@ export default async function CarPDP({
   reviewData,
   reviewDataSummary,
   reviewImages,
+  params,
   searchParams,
 }: {
   modelData: TInitialProductDataDB[];
@@ -29,7 +30,7 @@ export default async function CarPDP({
   };
   return (
     <CarSelectionProvider initialState={initialState}>
-      <CarCoverSelector searchParams={searchParams} />
+      <CarCoverSelector params={params} searchParams={searchParams} />
     </CarSelectionProvider>
   );
 }
