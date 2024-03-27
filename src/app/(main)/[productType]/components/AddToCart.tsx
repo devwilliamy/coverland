@@ -5,6 +5,7 @@ import { track } from '@vercel/analytics/react';
 import {
   ChangeEvent,
   SetStateAction,
+  Suspense,
   useContext,
   useEffect,
   useMemo,
@@ -66,6 +67,9 @@ export default function AddToCart({
   const [addToCartOpen, setAddToCartOpen] = useState<boolean>(false);
 
   const isTypeOrCoverPage = !params?.make;
+  const [nonFinalButtonText, setNonFinalButtonText] = useState('Start Here');
+  const blinkTime = 2;
+  const blinkVel = 10;
 
   const {
     completeSelectionState: { isComplete },
@@ -74,7 +78,7 @@ export default function AddToCart({
   });
 
   return (
-    <div>
+    <Suspense fallback={<></>}>
       <div className="w-full" id="selector">
         <AddToCartSelector
           submodelSelectionOpen={addToCartOpen}
@@ -105,11 +109,29 @@ export default function AddToCart({
               setAddToCartOpen((p) => !p);
             }}
           >
-            Add To Cart
+            <p
+              style={
+                isTypeOrCoverPage
+                  ? {
+                      animation: `blink ${blinkTime}s cubic-bezier(0,-${blinkVel},1,${blinkVel}) infinite`,
+                    }
+                  : {}
+              }
+              onAnimationIteration={() => {
+                setNonFinalButtonText((e) => {
+                  if (e === 'Start Here') {
+                    return 'Find your Custom-Cover';
+                  }
+                  return 'Start Here';
+                });
+              }}
+            >
+              {isTypeOrCoverPage ? nonFinalButtonText : 'Add To Cart'}
+            </p>
           </Button>
         </div>
       )}
-    </div>
+    </Suspense>
   );
 }
 
