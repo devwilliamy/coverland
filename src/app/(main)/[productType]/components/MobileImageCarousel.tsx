@@ -147,6 +147,7 @@ const MobileImageCarousel = () => {
           })}
         </CarouselContent>
       </Carousel>
+      {/* Stuff Under The Carousel */}
       <div className="flex h-full w-full items-center">
         <div className=" flex w-3/4 flex-row gap-[4px] overflow-x-auto whitespace-nowrap p-[6px]">
           {carouselItems.map((item, index) => {
@@ -166,6 +167,7 @@ const MobileImageCarousel = () => {
                     width={74}
                     height={74}
                     priority
+
                     // placeholder="blur"
                   />
                 </div>
@@ -183,8 +185,8 @@ const MobileImageCarousel = () => {
                     alt="Video Thumbnail"
                     slot="poster"
                     src={carouselVideoThumb}
-                    width={1600}
-                    height={1600}
+                    width={74}
+                    height={74}
                     className="flex h-full w-full overflow-hidden rounded-[4px] object-cover"
                     aria-hidden="true"
                   />
@@ -203,6 +205,7 @@ const MobileImageCarousel = () => {
             );
           })}
         </div>
+        {/* Customer Images Button */}
         <ReviewImagesSheet>
           <div
             className={`mx-1 flex h-full min-h-[80px] w-1/4 min-w-[80px] max-w-[25%] items-center justify-center rounded-[4px] bg-[#F2F2F2] `}
