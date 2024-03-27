@@ -60,8 +60,10 @@ export default function RootLayout({
           }}
         ></noscript>
         <Providers>
-          <main className="mx-auto max-w-[1280px] lg:px-0">
-            {children}
+          <main className="relative flex w-full flex-col items-center justify-center lg:px-0">
+            <div className="flex w-full max-w-[1280px] flex-col">
+              {children}
+            </div>
             {/* <ReactQueryDevtools initialIsOpen={false} /> */}
           </main>
         </Providers>

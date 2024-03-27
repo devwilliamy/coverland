@@ -19,7 +19,7 @@ export async function generateMetadata() {
 
 export default function Home() {
   return (
-    <div className="flex flex-col gap-[60px] pb-4 lg:gap-[110px]">
+    <div className="flex w-full flex-col justify-center gap-[60px] pb-4 lg:gap-[110px]">
       <HeroSection />
       <CoversGrid />
       <div className="flex flex-col gap-[60px] bg-[#F9F9FB] lg:gap-[110px] lg:py-[44px]">

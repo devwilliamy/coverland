@@ -2,7 +2,7 @@ import { HeroDropdown } from './dropdown/HeroDropdown';
 import HeroImage from './HeroImage';
 const HeroSection = () => {
   return (
-    <section className="flex h-full  min-w-[343px] flex-col items-center px-4   lg:justify-center lg:px-0">
+    <section className="flex h-full min-w-[343px] flex-col items-center px-4 lg:justify-center lg:px-0">
       <div className="relative w-full  flex-col max-lg:max-h-[750px] max-lg:overflow-hidden ">
         <HeroImage />
         <div className="absolute bottom-0 w-full flex-col justify-center pb-2 text-center">

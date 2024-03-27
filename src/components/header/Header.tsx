@@ -3,8 +3,9 @@ import dynamic from 'next/dynamic';
 import Logo from '@/components/header/Logo';
 import { SearchIcon, UserRound } from 'lucide-react';
 import Link from 'next/link';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Dialog, DialogContent, DialogTrigger } from '../ui/dialog';
+import { Popover, PopoverContent, PopoverTrigger } from '../ui/popover';
 
 const Cart = dynamic(() => import('@/components/header/Cart'));
 const coverTypes = [
@@ -18,44 +19,70 @@ function Header() {
     'What vehicle are you looking for?'
   );
   const [searchModalOpen, setSearchModalOpen] = useState(false);
+  const [searchWidth, setSearchWidth] = useState<string | undefined>();
+
+  useEffect(() => {
+    const searchElWidth = document.getElementById('searchbar')?.style.width;
+    setSearchWidth(searchElWidth);
+  }, []);
 
   return (
     <>
       {searchModalOpen && (
         <div
           onClick={(e) => {
-            setSearchModalOpen(false);
+            setTimeout(() => {
+              if (
+                !document.activeElement?.closest('#header-search') &&
+                !document.activeElement?.closest('#search-header-content')
+              ) {
+                setSearchModalOpen(false);
+                document.body.style.overflow = '';
+              }
+            }, 40);
           }}
-          className="absolute z-[1000] flex  h-screen w-screen bg-black/40 pl-[162px] pr-[204px] pt-[19px]"
+          className="fixed left-0 top-0 z-[2] flex h-screen w-screen bg-black/40 "
         >
-          <span className="flex max-h-[40px] w-full pl-[27px] pr-[50px]">
-            <div
-              onClick={(e) => {
-                setSearchModalOpen(true);
-              }}
-              className="flex min-h-10 w-full cursor-pointer items-center gap-[10px] rounded-full bg-[#E7E7E7] px-5"
+          <div className="relative flex w-full px-[64px]  ">
+            <Logo className={'invisible'} />
+            <span
+              id="search-header-content"
+              className="relative flex w-full flex-col "
+              tabIndex={0}
             >
-              <SearchIcon size={20} />
-              <input
-                id="header-search"
-                className="hidden"
-                onChange={(e) => {
-                  setSearchText(e.target.value);
-                }}
-              />
-              <p className="text-[17px] leading-[17px] text-[#767676]">
-                {searchText}
-              </p>
+              <div className="absolute flex h-[95vh] w-full flex-col rounded-lg bg-white px-[20px] pl-[27px] pr-[50px]  pt-[20px]">
+                <div className="z-[10] flex max-h-[40px]  min-h-10 w-full cursor-pointer items-center gap-[10px] rounded-full bg-[#E7E7E7] px-5">
+                  <SearchIcon size={20} />
+                  <input
+                    id="header-search"
+                    className="h-full w-full cursor-auto bg-transparent text-[17px] leading-[17px] text-[#767676] outline-none"
+                    placeholder={searchText}
+                    onChange={(e) => {
+                      setSearchText(e.target.value);
+                    }}
+                  />
+                  {/* <p className="text-[17px] leading-[17px] text-[#767676]">
+                    {searchText}
+                  </p> */}
+                </div>
+              </div>
+            </span>
+            <div className="invisible flex max-h-[24px] min-h-[24px] items-center gap-[30px]">
+              {/* <MyGarage /> */}
+              {/* <Phone /> */}
+              <UserRound />
+              <Cart />
             </div>
-          </span>
+            {/* <div className="absolute h-screen w-full bg-white"></div> */}
+          </div>
         </div>
       )}
       <header className="hidden w-screen max-w-[1280px] flex-col items-stretch sm:mb-0   lg:ml-auto lg:flex lg:w-full lg:pt-2.5">
         <section className="flex w-full items-center justify-between px-16 max-md:max-w-full max-md:px-5">
           <Logo />
           <span className="flex w-full  pl-[27px] pr-[50px]">
-            {/* <Dialog open={searchModalOpen} onOpenChange={setSearchModalOpen}>
-              <DialogTrigger
+            {/* <Popover open={searchModalOpen} onOpenChange={setSearchModalOpen}>
+              <PopoverTrigger
                 onClick={(e) => {
                   e.preventDefault();
                   setSearchModalOpen(true);
@@ -64,16 +91,24 @@ function Header() {
                 }}
                 className="flex min-h-10 w-full cursor-pointer items-center gap-[10px] rounded-full bg-[#E7E7E7] px-5"
               >
-                
-                <input className="hidden" />
-              </DialogTrigger>
-              <DialogContent className="w-full "></DialogContent>
-            </Dialog> */}
+                <div className="flex w-full items-center gap-[10px]">
+                  <SearchIcon size={20} />
+                  <p className="text-[17px] leading-[17px] text-[#767676]">
+                    {searchText}
+                  </p>
+                  <input className="hidden" />
+                </div>
+              </PopoverTrigger>
+              <PopoverContent className="flex w-full ">
+                <div className="h-[200px] min-w-[400px] bg-yellow-400"></div>
+              </PopoverContent>
+            </Popover> */}
             <div
               onClick={(e) => {
                 setSearchModalOpen(true);
+                document.body.style.overflow = 'hidden';
               }}
-              className="flex min-h-10 w-full cursor-pointer items-center gap-[10px] rounded-full bg-[#E7E7E7] px-5"
+              className=" flex min-h-10 w-full cursor-pointer items-center gap-[10px] rounded-full bg-[#E7E7E7] px-5"
             >
               <SearchIcon size={20} />
               <input
