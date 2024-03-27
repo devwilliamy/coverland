@@ -20,6 +20,8 @@ const WhyChooseCoverland = () => {
             className="rounded-[8px] object-cover lg:rounded-[15px] "
             fill
             src={Waterproof}
+            width={617}
+            height={562}
             // className=" rounded-[8px] object-cover md:max-h-[462px] md:min-h-[462px] md:min-w-[517px] md:max-w-[517px]  lg:max-h-[562px] lg:min-h-[562px] lg:min-w-[617px] lg:max-w-[617px]"
             alt="a fully-covered vehicle with a coverland car cover on it"
           />
@@ -28,7 +30,7 @@ const WhyChooseCoverland = () => {
               Waterproof car covers
             </p>
             <button className="flex h-[44px] max-w-[160px] items-center rounded-[100px] bg-white px-[40px] py-[17px] text-[16px] font-[900] leading-[110%] tracking-[0.32px]">
-              <a href="/car-covers">Shop Now</a>
+              <a href="/car-covers/premium-plus">Shop Now</a>
             </button>
           </div>
         </div>
