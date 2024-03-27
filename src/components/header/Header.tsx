@@ -55,7 +55,7 @@ function Header() {
               className="relative flex w-full flex-col "
               tabIndex={0}
             >
-              <div className="absolute flex h-[95vh] w-full flex-col overflow-y-auto rounded-lg bg-white px-[20px] pt-[20px]">
+              <div className="absolute flex h-[98vh] w-full flex-col rounded-lg bg-white px-[20px] pt-[20px]">
                 <div className="flex w-full">
                   <div className="z-[10] flex max-h-[40px]  min-h-10 w-full cursor-pointer items-center gap-[10px] rounded-full bg-[#E7E7E7] px-5">
                     <SearchIcon size={20} />
@@ -94,7 +94,7 @@ function Header() {
                         Results for <b className="text-[500]">{searchText}</b>
                       </p>
                     </div>
-                    <div className="grid w-full grid-cols-3 gap-7 px-5 pb-5">
+                    <div className="grid w-full grid-cols-3 gap-7 overflow-y-auto px-5 pb-5">
                       {[...Array(10)].map((_, i) => (
                         <div className="flex flex-col gap-4">
                           <Image
@@ -160,7 +160,7 @@ function Header() {
             <div
               onClick={(e) => {
                 setSearchModalOpen(true);
-                document.body.style.overflow = 'hidden';
+                // document.body.style.overflow = 'hidden';
               }}
               className=" flex min-h-10 w-full cursor-pointer items-center gap-[10px] rounded-full bg-[#E7E7E7] px-5"
             >
