@@ -1,4 +1,3 @@
-'use client';
 import Image from 'next/image';
 import Indoor from '@/images/solutions/indoor-car-cover-picture.png';
 
@@ -10,6 +9,8 @@ export default function DesignedInUSA() {
           <Image
             className="rounded-[8px] lg:rounded-[15px]"
             fill
+            width={617}
+            height={562}
             src={Indoor}
             alt="a fully-covered vehicle with a coverland car cover on it"
           />
@@ -18,7 +19,7 @@ export default function DesignedInUSA() {
               Indoor car covers
             </p>
             <button className="flex h-[44px] max-w-[160px] items-center rounded-[100px] bg-white px-[40px] py-[17px] text-[16px] font-[900] leading-[110%] tracking-[0.32px]">
-              <a href="/car-covers">Shop Now</a>
+              <a href="/car-covers/premium-plus">Shop Now</a>
             </button>
           </div>
         </div>

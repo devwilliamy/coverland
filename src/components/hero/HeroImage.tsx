@@ -12,13 +12,15 @@ export default function HeroImage() {
         className="w-full max-lg:min-h-[515px] max-lg:scale-[1] lg:hidden"
         src={heroMobile.src}
         alt="hero"
+        loading="eager"
       />
       <Image
-        height={1600}
-        width={1600}
-        className="hidden lg:flex"
+        height={410}
+        width={1280}
+        className="hidden lg:flex lg:min-h-[410px]"
         src={hero.src}
         alt="hero"
+        loading="eager"
       />
     </>
   );
