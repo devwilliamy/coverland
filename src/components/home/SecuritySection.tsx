@@ -57,7 +57,7 @@ export default function SecuritySection() {
               Outdoor car covers
             </p>
             <button className="flex h-[44px] max-w-[160px] items-center rounded-[100px] bg-white px-[40px] py-[17px] text-[16px] font-[900] leading-[110%] tracking-[0.32px]">
-              <a href="/car-covers">Shop Now</a>
+              <a href="/car-covers/premium-plus">Shop Now</a>
             </button>
           </div>
         </div>

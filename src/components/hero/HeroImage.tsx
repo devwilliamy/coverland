@@ -15,9 +15,9 @@ export default function HeroImage() {
         loading="eager"
       />
       <Image
-        height={1600}
-        width={1600}
-        className="hidden lg:flex"
+        height={410}
+        width={1280}
+        className="hidden lg:flex lg:min-h-[410px]"
         src={hero.src}
         alt="hero"
         loading="eager"

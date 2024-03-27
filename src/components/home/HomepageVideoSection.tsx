@@ -54,7 +54,7 @@ export default function HomepageVideoSection() {
           <VideoComponent fileName="videos/" />
         </Suspense>
         <button className="my-[30px] flex min-h-[48px] w-full max-w-[214px]  flex-col items-center justify-center rounded-[4px] bg-[#BE1B1B] px-[40px] py-[15px] text-[16px] font-black text-white ">
-          <a href="/car-covers">Shop Now</a>
+          <a href="/car-covers/premium-plus">Shop Now</a>
         </button>
       </span>
     </span>

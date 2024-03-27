@@ -35,7 +35,7 @@ const CoversGrid = () => {
                     className=" object-cover"
                     loading="eager"
                     width={175}
-                    height={175}
+                    height={152}
                   />
                 </div>
               </a>
