@@ -80,7 +80,7 @@ export default function EditVehicleModal({
                   </div>
                   <button
                     id="CloseModalButton"
-                    className=" flex items-center justify-center rounded-full bg-gray-200 p-1"
+                    className=" flex items-center justify-center rounded-full bg-gray-200 px-[7px]"
                     onClick={() => {
                       setOpen(false);
                     }}

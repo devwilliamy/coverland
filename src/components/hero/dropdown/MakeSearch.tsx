@@ -4,9 +4,8 @@ import { ChangeEvent, useEffect, useState } from 'react';
 import { TQuery } from './HeroDropdown';
 import { getAllUniqueMakesByYear, getProductDataByPage } from '@/lib/db';
 import { AiOutlineLoading3Quarters } from 'react-icons/ai';
-import HomeDropdown from './HomeDropdown';
 
-export type MakeDropdown = { make: string | null; make_slug: string | null };
+type MakeDropdown = { make: string | null; make_slug: string | null };
 
 export function MakeSearch({
   queryObj,
@@ -20,18 +19,10 @@ export function MakeSearch({
   const [isLoading, setIsLoading] = useState(false);
   const {
     setQuery,
-    query: { type, year, make },
+    query: { type, year },
   } = queryObj;
   const [makeData, setMakeData] = useState<MakeDropdown[]>([]);
-  const [makeDataStrings, setMakeDataStrings] = useState<string[]>([]);
   const isDisabled = !type || !year;
-  const prevSelected = Boolean(
-    queryObj &&
-      queryObj.query.type &&
-      queryObj.query.year &&
-      queryObj.query.make === ''
-  );
-  // console.log(prevSelected);
 
   useEffect(() => {
     // Doing this to warm up the DB
@@ -59,10 +50,6 @@ export function MakeSearch({
           year,
         });
         setMakeData(response);
-        setMakeDataStrings(() => {
-          const makeStrings = response.map(({ make }) => make);
-          return makeStrings;
-        });
       } catch (error) {
         console.error('[Make Search]: ', error);
       } finally {
@@ -72,7 +59,7 @@ export function MakeSearch({
     if (type && year) {
       fetchData();
     }
-  }, [queryObj]);
+  }, [type, year]);
 
   const handleChange = (event: ChangeEvent<HTMLSelectElement>) => {
     const newValue = event.target.value;
@@ -87,43 +74,34 @@ export function MakeSearch({
   };
 
   return (
-    // <div
-    //   className={`flex max-h-[53px] min-h-[53px] px-2 ${prevSelected ? ' w-full border-[5px] border-[#BE1B1B]' : 'w-[98%] border-[1px] border-[#767676] outline-[4px] outline-transparent'} items-center overflow-hidden rounded-[8px] bg-white  text-lg  md:max-h-[58px] lg:w-auto`}
-    // >
-    //   <div
-    //     className={`flex h-full w-full ${prevSelected && 'border-[2.5px]  border-white'} items-center overflow-hidden rounded-[4px] bg-white  text-lg  md:max-h-[58px] lg:w-auto`}
-    //     // tabIndex={1}
-    //   >
-    //     <div className="ml-[10px] pr-[15px]">3</div>
-    //     {isLoading ? (
-    //       <div className="pl-2">
-    //         <AiOutlineLoading3Quarters className="animate-spin " />
-    //       </div>
-    //     ) : (
-    //       <select
-    //         value={value}
-    //         onChange={handleChange}
-    //         disabled={isLoading || isDisabled}
-    //         className={`w-full cursor-pointer bg-transparent  py-1 outline-none lg:py-3`}
-    //       >
-    //         <option value="">{`Make`}</option>
-    //         {makeData.map(({ make }, index) => (
-    //           <option key={`${make}-${index}`} value={make || ''}>
-    //             {make}
-    //           </option>
-    //         ))}
-    //       </select>
-    //     )}
-    //   </div>
-    // </div>
-    <HomeDropdown
-      place={3}
-      title={'make'}
-      queryObj={queryObj}
-      isDisabled={isDisabled}
-      value={make}
-      prevSelected={prevSelected}
-      items={makeDataStrings}
-    />
+    <div
+      className={`flex max-h-[44px] min-h-[44px] w-full items-center rounded-[4px] outline-[#767676] md:max-h-[58px] ${isDisabled ? 'bg-gray-100/75' : 'bg-white'} px-2 text-lg outline outline-1 outline-offset-1 lg:w-auto`}
+      tabIndex={1}
+    >
+      <div className="ml-[10px] pr-[15px]">3</div>
+      {isLoading ? (
+        <div className="pl-2">
+          <AiOutlineLoading3Quarters className="animate-spin " />
+        </div>
+      ) : (
+        <>
+          <label htmlFor="make"></label>
+          <select
+            value={value}
+            onChange={handleChange}
+            disabled={isLoading || isDisabled}
+            className={`w-full cursor-pointer bg-transparent py-1 outline-none lg:py-3`}
+            aria-label="make"
+          >
+            <option value="">{`Make`}</option>
+            {makeData.map(({ make }, index) => (
+              <option key={`${make}-${index}`} value={make || ''}>
+                {make}
+              </option>
+            ))}
+          </select>
+        </>
+      )}
+    </div>
   );
 }
