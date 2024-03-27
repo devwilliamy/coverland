@@ -16,7 +16,7 @@ export default function FeatureImage() {
       src={removeWwwFromUrl(featuredImage as string) + '?v=4' ?? ''}
       alt="a car with a car cover on it"
       fill={true}
-      className="hidden object-cover lg:block"
+      className="object-cover"
       priority
       sizes="(max-width: 768px) 100vw"
     />
