@@ -6,6 +6,9 @@ import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { Dialog, DialogContent, DialogTrigger } from '../ui/dialog';
 import { Popover, PopoverContent, PopoverTrigger } from '../ui/popover';
+import { Separator } from '../ui/separator';
+import Image from 'next/image';
+import DefaultResult from '@/images/header/dummy-car-result.webp';
 
 const Cart = dynamic(() => import('@/components/header/Cart'));
 const coverTypes = [
@@ -18,6 +21,8 @@ function Header() {
   const [searchText, setSearchText] = useState(
     'What vehicle are you looking for?'
   );
+  const isDefaultSearchText =
+    searchText === 'What vehicle are you looking for?' || searchText === '';
   const [searchModalOpen, setSearchModalOpen] = useState(false);
   const [searchWidth, setSearchWidth] = useState<string | undefined>();
 
@@ -50,21 +55,70 @@ function Header() {
               className="relative flex w-full flex-col "
               tabIndex={0}
             >
-              <div className="absolute flex h-[95vh] w-full flex-col rounded-lg bg-white px-[20px] pl-[27px] pr-[50px]  pt-[20px]">
-                <div className="z-[10] flex max-h-[40px]  min-h-10 w-full cursor-pointer items-center gap-[10px] rounded-full bg-[#E7E7E7] px-5">
-                  <SearchIcon size={20} />
-                  <input
-                    id="header-search"
-                    className="h-full w-full cursor-auto bg-transparent text-[17px] leading-[17px] text-[#767676] outline-none"
-                    placeholder={searchText}
-                    onChange={(e) => {
-                      setSearchText(e.target.value);
-                    }}
-                  />
-                  {/* <p className="text-[17px] leading-[17px] text-[#767676]">
+              <div className="absolute flex h-[95vh] w-full flex-col overflow-y-auto rounded-lg bg-white px-[20px] pt-[20px]">
+                <div className="flex w-full">
+                  <div className="z-[10] flex max-h-[40px]  min-h-10 w-full cursor-pointer items-center gap-[10px] rounded-full bg-[#E7E7E7] px-5">
+                    <SearchIcon size={20} />
+                    <input
+                      id="header-search"
+                      className="h-full w-full cursor-auto bg-transparent text-[17px] leading-[17px] text-[#767676] outline-none"
+                      placeholder={searchText}
+                      onChange={(e) => {
+                        setSearchText(e.target.value);
+                      }}
+                    />
+                    {/* <p className="text-[17px] leading-[17px] text-[#767676]">
                     {searchText}
                   </p> */}
+                  </div>
                 </div>
+                {!isDefaultSearchText && (
+                  <>
+                    <div className="z-[20] flex w-full  flex-col py-5 pl-[57px] ">
+                      {['Car Cover', 'Seat Cover', 'Camaro', 'Corvette'].map(
+                        (text, i) => {
+                          if (i < 4) {
+                            return (
+                              <p className="py-1 text-[18px] text-black">
+                                {searchText}{' '}
+                                <b className="font-[900]">{text}</b>
+                              </p>
+                            );
+                          }
+                        }
+                      )}
+                    </div>
+                    <Separator className="h-[1px] bg-[#C8C7C7]" />
+                    <div className="flex w-full flex-col px-5 py-7">
+                      <p className="text-[22px] uppercase leading-[25px]">
+                        Results for <b className="text-[500]">{searchText}</b>
+                      </p>
+                    </div>
+                    <div className="grid w-full grid-cols-3 gap-7 px-5 pb-5">
+                      {[...Array(10)].map((_, i) => (
+                        <div className="flex flex-col gap-4">
+                          <Image
+                            alt={`result-item-${i}`}
+                            src={DefaultResult}
+                            className="w-full bg-[#F3F3F3] px-6 py-3.5"
+                          />
+                          <div className="flex flex-col ">
+                            <p className="text-[16px] font-[900]  leading-[18px]">
+                              Default Result
+                            </p>
+                            <p className="text-[14px] leading-[15px] text-[#767676]">
+                              for {searchText}
+                            </p>
+                          </div>
+                          <div className="flex h-full max-h-[44px] min-h-[44px] w-full cursor-pointer items-center justify-center rounded-[4px] bg-black font-[700] uppercase text-white ">
+                            Shop Now
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                    <Separator />
+                  </>
+                )}
               </div>
             </span>
             <div className="invisible flex max-h-[24px] min-h-[24px] items-center gap-[30px]">
