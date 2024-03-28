@@ -2,7 +2,6 @@
 import { Separator } from '@/components/ui/separator';
 import { Rating } from '@mui/material';
 import { CarSelectionContext } from '@/contexts/CarSelectionContext';
-import { useMediaQuery } from '@mantine/hooks';
 import { Suspense, useContext, useState } from 'react';
 import CartSheet from '@/components/cart/CartSheet';
 import { compareRawStrings } from '@/lib/utils';
@@ -23,7 +22,6 @@ export function ProductContent({
 }: {
   searchParams: { submodel?: string; second_submodel?: string } | undefined;
 }) {
-  const isMobile = useMediaQuery('(max-width: 1023px)');
   const [addToCartOpen, setAddToCartOpen] = useState<boolean>(false);
   const store = useContext(CarSelectionContext);
   if (!store) throw new Error('Missing CarContext.Provider in the tree');
