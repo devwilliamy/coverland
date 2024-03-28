@@ -7,6 +7,8 @@ import EditVehicle from './EditVehicle';
 // import FeaturesAndProductsSection from './FeaturesAndProductsSection';
 import dynamic from 'next/dynamic';
 import ViewItemGoogleTag from './ViewItemGoogleTag';
+import DetailsTabHeader from './DetailsTabHeader';
+
 const FeaturesAndProductsSection = dynamic(
   () => import('./FeaturesAndProductsSection')
 );
@@ -20,7 +22,7 @@ export function CarCoverSelector({
       <section className="relative mx-auto h-max w-full max-w-[1280px]  lg:my-8">
         <LinkBreadcrumbs />
         <ViewItemGoogleTag />
-        <div className="flex w-full flex-col items-start justify-between px-4 lg:flex-row lg:gap-14">
+        <div className="mb-[30px] flex w-full flex-col items-start justify-between px-4 lg:mb-[130px] lg:flex-row lg:gap-14">
           {/* Left Panel */}
           <PrimaryImageDisplay />
           {/* Right Panel */}
@@ -30,6 +32,9 @@ export function CarCoverSelector({
             <Separator className="w-full bg-[#C8C7C7]" />
             <ProductContent searchParams={searchParams} />
           </section>
+        </div>
+        <div className="flex w-full items-center lg:hidden">
+          <DetailsTabHeader />
         </div>
         <FeaturesAndProductsSection />
         <ExtraProductDetails />

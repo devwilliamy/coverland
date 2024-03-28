@@ -3,9 +3,10 @@ import {
   GraySunIcon,
   GrayWaterIcon,
 } from '@/components/PDP/icons';
-import ProtectText from './ProtectText';
+import ProtectHeaderText from './ProtectHeaderText';
 // import ProductDetailsMedia from './ProductDetailsMedia';
 import dynamic from 'next/dynamic';
+import DetailsTabHeader from '@/app/(main)/[productType]/components/DetailsTabHeader';
 const ProductDetailsMedia = dynamic(() => import('./ProductDetailsMedia'));
 export default function ProductDetailsHeader() {
   const threeIcons = [
@@ -16,8 +17,14 @@ export default function ProductDetailsHeader() {
 
   return (
     <section className="relative -mx-4 mb-[60px] flex flex-col items-center lg:mb-[110px]  ">
-      <div className="flex py-7 text-center lg:py-[38px]">
-        <ProtectText />
+      <div className="hidden w-full pt-[60px] lg:flex">
+        <DetailsTabHeader />
+      </div>
+      <div className="flex flex-col py-7 text-center lg:py-[38px]">
+        <p className="text-[16px] capitalize leading-[26px] text-[#B23B4E] lg:text-[26px]">
+          Elevate Style, Keep it new
+        </p>
+        <ProtectHeaderText />
       </div>
       <div className="flex w-screen items-center justify-center lg:w-full ">
         <div className="flex w-full max-w-[840px]">
