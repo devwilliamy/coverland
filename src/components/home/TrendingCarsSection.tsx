@@ -31,6 +31,7 @@ const TrendingCarsSection = () => {
                 src={img}
                 width={246}
                 height={285}
+                loading="lazy"
               />
               <div className="absolute bottom-[10px] left-[20px] lg:hidden">
                 <p className=" mb-[15px] text-[24px] font-black leading-[24px] tracking-wide text-white">

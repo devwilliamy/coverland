@@ -46,7 +46,7 @@ const BestSellingSection = () => {
               src={img}
               width={250}
               height={250}
-              loading="eager"
+              loading="lazy"
             />
             <p className="mb-[18px] whitespace-nowrap text-[16px] font-[500] leading-[24px] lg:text-[22px]">
               {title}

@@ -1,13 +1,13 @@
 import HeroSection from '@/components/hero/HeroSection';
-import BestSellingSection from '@/components/home/BestSellingSection';
-import BuyWithConfidenceSection from '@/components/home/BuyWithConfdienceSection';
 import CoversGrid from '@/components/home/CoversGrid';
-import SecuritySection from '@/components/home/SecuritySection';
+import BestSellingSection from '@/components/home/BestSellingSection';
 import TrendingCarsSection from '@/components/home/TrendingCarsSection';
-import DesignedInUSA from '@/components/home/DesignedInUSA';
-import TrustBanner from '@/components/home/TrustBanner';
 import HomepageVideoSection from '@/components/home/HomepageVideoSection';
 import HomepageReviews from '@/components/home/HomepageReviews';
+import TrustBanner from '@/components/home/TrustBanner';
+import BuyWithConfidenceSection from '@/components/home/BuyWithConfdienceSection';
+import SecuritySection from '@/components/home/SecuritySection';
+import DesignedInUSA from '@/components/home/DesignedInUSA';
 import WhyChooseCoverland from '@/components/home/WhyChooseCoverland';
 
 export async function generateMetadata() {

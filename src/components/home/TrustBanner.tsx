@@ -8,19 +8,17 @@ const TrustBanner = () => {
   return (
     <span className="relative mx-[16px] flex max-h-[492px] min-h-[492px] flex-col items-center justify-end overflow-hidden pt-[110px] md:mx-0 md:max-h-[260px] md:min-h-[260px]">
       <Image
+        loading="lazy"
         src={TrustBannerBackgroundMobile}
         className="max-h-[492px] object-cover md:hidden"
         fill
-        width={400}
-        height={500}
         alt="Trust Banner Background"
       />
       <Image
+        loading="lazy"
         src={TrustBannerBackground}
         className="hidden max-h-[260px] object-cover md:flex"
         fill
-        width={1280}
-        height={260}
         alt="Trust Banner Background"
       />
       {/* Mobile */}
@@ -29,6 +27,7 @@ const TrustBanner = () => {
           20-years of trust
         </p>
         <Image
+          loading="lazy"
           src={BBB}
           width={159}
           height={110}
@@ -37,6 +36,7 @@ const TrustBanner = () => {
         />
         <div className="flex flex-col items-center">
           <Image
+            loading="lazy"
             src={GoogleFiveStar}
             width={159}
             height={101}
@@ -56,6 +56,7 @@ const TrustBanner = () => {
       {/* Desktop */}
       <div className="absolute top-0 hidden h-full max-h-[260px] w-full items-center justify-center bg-[#404040]/90 md:flex md:flex-row md:gap-[63px] lg:px-[210px] ">
         <Image
+          loading="lazy"
           src={BBB}
           width={220}
           height={153}
@@ -67,6 +68,7 @@ const TrustBanner = () => {
         </p>
         <div className="flex flex-col items-center">
           <Image
+            loading="lazy"
             src={GoogleFiveStar}
             width={188}
             height={120}

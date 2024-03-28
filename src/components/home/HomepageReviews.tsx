@@ -81,6 +81,7 @@ const ReviewsItem = ({ item }: { item: ReviewData }) => (
     >
       {item.img && (
         <Image
+          loading="lazy"
           src={item?.img}
           className=" h-[204px] w-[296px] max-w-[617px] rounded-[15px] bg-black object-cover lg:h-[397px] lg:w-[619px] "
           alt="a fully-covered vehicle with a coverland car cover on it"

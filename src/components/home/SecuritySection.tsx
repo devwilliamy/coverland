@@ -46,10 +46,9 @@ export default function SecuritySection() {
         <div className="relative aspect-square max-h-[562px] w-full max-w-[617px]  ">
           <Image
             className="rounded-[8px] lg:rounded-[15px]"
+            loading="lazy"
             fill
             src={Beach}
-            width={617}
-            height={562}
             alt="a fully-covered vehicle with a coverland car cover on it"
           />
           <div className="absolute  bottom-[27px] left-[14px] z-10 flex flex-col gap-[12px] lg:bottom-[42px] lg:left-[42px]">
