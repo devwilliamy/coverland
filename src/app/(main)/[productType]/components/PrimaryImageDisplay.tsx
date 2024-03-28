@@ -1,4 +1,4 @@
-import { SelectedProductImages } from './SelectedProductImages';
+import SelectedProductImages from './SelectedProductImages';
 import dynamic from 'next/dynamic';
 import Thumbnail from '@/video/Thumbnail.webp';
 import { Skeleton } from '@/components/ui/skeleton';

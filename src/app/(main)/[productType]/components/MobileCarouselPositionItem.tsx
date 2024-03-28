@@ -24,7 +24,7 @@ export const CarouselPositionItem = ({
       src={removeWwwFromUrl(src as string) + '?v=9'}
       sizes="(max-width: 768px) 100vw"
       alt={`carousel-position-item-${index}`}
-      loading='eager'
+      // loading='eager'
     />
   </button>
 );

@@ -1,6 +1,7 @@
 'use client';
 
 import EnhancedProtectionSection from '@/components/PDP/components/EnhancedProtectionSection';
+import FeaturesSection from '@/components/PDP/components/FeaturesSection';
 import ProvenSection from '@/components/PDP/components/ProvenSection';
 import RealTestSection from '@/components/PDP/components/RealTestSection';
 import SuggestedProducts from '@/components/PDP/components/SuggestedProducts';
@@ -19,7 +20,8 @@ export default function SeeAllSectionClientWrapper({ child1, child2 }) {
       <section
         className={`relative ${seeAllVisible ? 'max-h-[2170px] lg:max-h-[3100px]' : ''} w-full overflow-hidden`}
       >
-        {child1}
+        {/* {child1} */}
+        <FeaturesSection seeAllVisible={seeAllVisible} />
         <div
           className={`absolute ${seeAllVisible ? '' : 'hidden'} -bottom-[1px] z-[5] w-full bg-gradient-to-t from-white from-80%`}
         >
@@ -39,17 +41,19 @@ export default function SeeAllSectionClientWrapper({ child1, child2 }) {
           {/* {child2} */}
         </div>
       </section>
-      <section className={`${seeAllVisible ? 'hidden' : 'block'}`}>
-        <span className="max-w-[100vw] bg-white">
-          <div className="flex w-full flex-col justify-center px-4 pb-3">
-            <EnhancedProtectionSection />
-            {isDefaultCoverType && <RealTestSection />}
-            {isDefaultCoverType && <ProvenSection />}
-            <WarrantySection />
-          </div>
-          {/* <SuggestedProducts /> */}
-        </span>
-      </section>
+      {seeAllVisible ? null : (
+        <section className={`${seeAllVisible ? 'hidden' : 'block'}`}>
+          <span className="max-w-[100vw] bg-white">
+            <div className="flex w-full flex-col justify-center px-4 pb-3">
+              <EnhancedProtectionSection />
+              {isDefaultCoverType && <RealTestSection />}
+              {isDefaultCoverType && <ProvenSection />}
+              <WarrantySection />
+            </div>
+            {/* <SuggestedProducts /> */}
+          </span>
+        </section>
+      )}
     </>
   );
 }

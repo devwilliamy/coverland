@@ -1,5 +1,5 @@
 'use client';
-import React, { LegacyRef } from 'react';
+import React from 'react';
 import ProductVideo from '@/components/PDP/ProductVideo';
 import SUV360 from '@/videos/360 degree_website.mp4';
 import Car360 from '@/videos/Mustang 360 degree 16;9_Black Background.mp4';
@@ -10,49 +10,41 @@ import TruckPremiumImage from '@/images/PDP/Product-Details-Redesign-2/premium/p
 import TruckStandardImage from '@/images/PDP/Product-Details-Redesign-2/standard/standard-truck-desktop.webp';
 import SUVPremiumImage from '@/images/PDP/Product-Details-Redesign-2/premium/premium-suv-desktop.webp';
 import SUVStandardImage from '@/images/PDP/Product-Details-Redesign-2/standard/standard-suv-desktop.webp';
-import { useParams } from 'next/navigation';
-import Image from 'next/image';
+import Image, { StaticImageData } from 'next/image';
 import { Asset } from 'next-video/dist/assets.js';
+import useDetermineType from '@/hooks/useDetermineType';
 
 const CustomFitSection = () => {
-  const params = useParams();
-  const productType = params?.productType;
-  const coverType = params?.coverType;
-  const isPremimPlus = params?.coverType === 'premium-plus';
-  let PremiumImage = CarPremiumImage;
-  let StandardImage = CarStandardImage;
+  const { productType, coverType, isDefaultCoverType } = useDetermineType()
+  let PremiumImage: StaticImageData;
+  let StandardImage: StaticImageData;
   let featuredVideo: Asset;
   switch (productType) {
     case 'suv-covers':
       featuredVideo = SUV360;
+      PremiumImage = SUVPremiumImage;
+      StandardImage = SUVStandardImage;
       break;
     case 'truck-covers':
       featuredVideo = Truck360;
-      break;
-    default:
-      featuredVideo = Car360;
-      break;
-  }
-
-  switch (productType) {
-    case 'truck-covers':
       PremiumImage = TruckPremiumImage;
       StandardImage = TruckStandardImage;
       break;
-    case 'suv-covers':
-      PremiumImage = SUVPremiumImage;
-      StandardImage = SUVStandardImage;
+    default:
+      featuredVideo = Car360;
+      PremiumImage = CarPremiumImage;
+      StandardImage = CarStandardImage;
       break;
   }
 
   const imageChoice = () => {
     switch (coverType) {
       case 'premium':
-        return <Image alt="premium image" src={PremiumImage} />;
+        return <Image alt="premium image" src={PremiumImage} loading="lazy"/>
       case 'standard-pro':
-        return <Image alt="stadard pro image" src={StandardImage} />;
+        return <Image alt="stadard pro image" src={StandardImage} loading="lazy"/>;
       case 'standard':
-        return <Image alt="standard image" src={StandardImage} />;
+        return <Image alt="standard image" src={StandardImage} loading="lazy"/>;
       default:
         return (
           <ProductVideo
@@ -74,7 +66,7 @@ const CustomFitSection = () => {
           Custom-Fit
         </p>
         <p className="w-full  text-center text-[22px] leading-[26px] text-[#ABABAB] lg:text-[34px]">
-          {isPremimPlus || coverType === undefined
+          {isDefaultCoverType
             ? 'Experience the perfect fit we offer'
             : 'Experience the semi-custom fit'}
         </p>

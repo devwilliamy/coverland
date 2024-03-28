@@ -4,21 +4,25 @@ import { Separator } from '@/components/ui/separator';
 import LinkBreadcrumbs from './LinkBreadcrumbs';
 import { ExtraProductDetails } from '@/components/PDP/ExtraProductDetails';
 import EditVehicle from './EditVehicle';
-// import FeaturesAndProductsSection from './FeaturesAndProductsSection';
 import dynamic from 'next/dynamic';
-import ViewItemGoogleTag from './ViewItemGoogleTag';
+import { TPathParams } from '../../utils';
 const FeaturesAndProductsSection = dynamic(
   () => import('./FeaturesAndProductsSection')
 );
+
+const ViewItemGoogleTag = dynamic(() => import('./ViewItemGoogleTag'));
+
 export function CarCoverSelector({
+  params,
   searchParams,
 }: {
+  params: TPathParams;
   searchParams: { submodel?: string; second_submodel?: string } | undefined;
 }) {
   return (
     <>
       <section className="relative mx-auto h-max w-full max-w-[1280px]  lg:my-8">
-        <LinkBreadcrumbs />
+        <LinkBreadcrumbs params={params} />
         <ViewItemGoogleTag />
         <div className="flex w-full flex-col items-start justify-between px-4 lg:flex-row lg:gap-14">
           {/* Left Panel */}

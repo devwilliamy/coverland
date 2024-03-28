@@ -22,8 +22,8 @@ export default function ProductDetailsMedia() {
           alt="product-content-half-cover-desktop"
           src={DesktopHalfCover}
           // fill
-          height={1000}
-          width={1000}
+          height={472}
+          width={840}
           className="w-full"
         />
       )}

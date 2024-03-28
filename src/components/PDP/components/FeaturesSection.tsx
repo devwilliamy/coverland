@@ -8,7 +8,7 @@ import CustomFitSection from './CustomFitSection';
 import WetFabric from '@/images/PDP/Product-Details-Redesign-2/fabric-with-water.webp';
 import Image from 'next/image';
 
-export default function FeaturesSection() {
+export default function FeaturesSection({ seeAllVisible }) {
   return (
     <section
       className={`relative z-[-1] mt-[48px] flex  h-max flex-col items-center justify-center`}
@@ -16,7 +16,9 @@ export default function FeaturesSection() {
       <Image
         alt="Wet Fabric"
         src={WetFabric}
-        className="absolute top-0  -mx-4 h-full object-cover"
+        className="absolute top-0 -mx-4 h-full object-cover"
+        // fill
+        loading="lazy"
       />
       <ProductDetailsHeader />
       <div className="w-full lg:hidden">
@@ -29,8 +31,7 @@ export default function FeaturesSection() {
       <div className="relative flex flex-col items-center justify-center lg:w-[850px]">
         <FabricMattersSection />
         <DifferenceGrid />
-
-        <CustomFitSection />
+        {!seeAllVisible && <CustomFitSection />}
       </div>
     </section>
   );

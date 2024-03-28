@@ -14,7 +14,7 @@ import { LegacyRef } from 'react';
 const WaterproofVideo = dynamic(
   () => import('@/components/PDP/components/WaterproofVideo'),
   {
-    loading: () => <Image alt="" src={WaterproofThumbnail} />,
+    loading: () => <Image alt="" src={WaterproofThumbnail} loading='lazy' />,
     ssr: false,
   }
 );
@@ -22,7 +22,7 @@ const WaterproofVideo = dynamic(
 const UVResistanceVideo = dynamic(
   () => import('@/components/PDP/components/UVResistanceVideo'),
   {
-    loading: () => <Image alt="" src={UVThumbnail} />,
+    loading: () => <Image alt="" src={UVThumbnail} loading='lazy' />,
     ssr: false,
   }
 );
@@ -49,11 +49,17 @@ export default function ProvenSection() {
           alt="Water Vs"
           src={WaterVS}
           className="w-full rounded-ss-sm lg:hidden"
+          loading='lazy'
+          width={358}
+          height={127}
         />
         <Image
           alt="Water Vs Desktop"
           src={WaterVSDesktop}
           className="hidden w-full rounded-ss-sm lg:block"
+          loading='lazy'
+          width={850}
+          height={142}
         />
       </div>
       <div id="uv-section" className=" w-full max-w-[850px]">
@@ -65,11 +71,17 @@ export default function ProvenSection() {
           alt="UV Vs"
           src={UltravioletVS}
           className=" w-full rounded-ss-sm lg:hidden"
+          loading='lazy'
+          width={358}
+          height={127}
         />
         <Image
           alt="UV Vs Desktop"
           src={UltravioletVSDesktop}
           className="hidden w-full rounded-ss-sm lg:block"
+          loading='lazy'
+          width={850}
+          height={142}
         />
       </div>
     </section>
