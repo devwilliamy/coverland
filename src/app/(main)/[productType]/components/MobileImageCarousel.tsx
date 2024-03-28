@@ -7,21 +7,28 @@ import {
   CarouselItem,
 } from '@/components/ui/carousel';
 import { Skeleton } from '@/components/ui/skeleton';
+
+// --------- Listing Videos
+import CarListing from '@/videos/Mustang 360 degree 16;9_Black Background.mp4';
+import SUVListing from '@/videos/7sec Listing Video_Compressed.mp4';
+import TruckListingVideo from '@/videos/Truck Listing Video.mp4';
+import Challenger360 from '@/videos/Challenger 360 Square.mp4';
+import Corvette360 from '@/videos/Corvette 360 Video Square.mp4';
+
+// --------- Listing Thumbnails
 import Car360Thumb from '@/images/PDP/Product-Details-Redesign-2/car-360-thumb.webp';
 import TruckListingThumb from '@/images/PDP/Product-Details-Redesign-2/truck-7-thumb.webp';
 import SUVListingThumb from '@/video/7second image.webp';
-import Car360 from '@/videos/Mustang 360 degree 16;9_Black Background.mp4';
-import TruckListingVideo from '@/videos/Truck Listing Video.mp4';
-import SUVListing from '@/videos/7sec Listing Video_Compressed.mp4';
+
+import { CarSelectionContext } from '@/contexts/CarSelectionContext';
+import useDetermineType from '@/hooks/useDetermineType';
 import { Play } from 'lucide-react';
-import { FaCamera } from 'react-icons/fa';
 import { Asset } from 'next-video/dist/assets.js';
 import { StaticImageData } from 'next/dist/shared/lib/get-img-props';
 import dynamic from 'next/dynamic';
 import Image from 'next/image';
-import { useParams } from 'next/navigation';
 import { useCallback, useContext, useEffect, useMemo, useState } from 'react';
-import { CarSelectionContext } from '@/contexts/CarSelectionContext';
+import { FaCamera } from 'react-icons/fa';
 import { useStore } from 'zustand';
 import { removeWwwFromUrl } from '../../utils';
 import { CarouselPositionItem } from './MobileCarouselPositionItem';
@@ -43,34 +50,40 @@ const MobileImageCarousel = () => {
   const setFeaturedImage = useStore(store, (s) => s.setFeaturedImage);
   const [api, setApi] = useState<CarouselApi>();
   const [current, setCurrent] = useState(0);
-  const params = useParams();
-  const productType = params?.productType;
-  let carouselVideo: Asset;
-  let carouselVideoThumb: StaticImageData;
+  const { productType, model } = useDetermineType();
+  let baseListingVideo: Asset;
+  let baseListingVideoThumbnail: StaticImageData;
 
   switch (productType) {
     case 'truck-covers': {
-      carouselVideo = TruckListingVideo;
-      carouselVideoThumb = TruckListingThumb;
+      baseListingVideo = TruckListingVideo;
+      baseListingVideoThumbnail = TruckListingThumb;
       break;
     }
     case 'suv-covers': {
-      carouselVideo = SUVListing;
-      carouselVideoThumb = SUVListingThumb;
+      baseListingVideo = SUVListing;
+      baseListingVideoThumbnail = SUVListingThumb;
       break;
     }
     default: {
-      carouselVideo = Car360;
-      carouselVideoThumb = Car360Thumb;
+      baseListingVideo = CarListing;
+      baseListingVideoThumbnail = Car360Thumb;
       break;
     }
   }
 
+  const isCorvette = model === 'corvette';
+  const isChallenger = model === 'challenger';
+  const ChallengerOrDefault = isChallenger ? Challenger360 : baseListingVideo;
+  const featured360 = isCorvette ? Corvette360 : ChallengerOrDefault;
+  // const mainListing =
+  //   !isChallenger && !isCorvette ? baseListingVideo : featured360;
+
   const carouselItems = useMemo(() => {
     const items = [...productImages];
-    items.splice(3, 0, String(carouselVideoThumb));
+    items.splice(3, 0, String(baseListingVideoThumbnail));
     return items;
-  }, [productImages, carouselVideoThumb]);
+  }, [productImages, baseListingVideoThumbnail]);
 
   useEffect(() => {
     if (!api) {
@@ -120,10 +133,10 @@ const MobileImageCarousel = () => {
               );
             if (index === 3) {
               return (
-                <CarouselItem key={String(carouselVideo)}>
+                <CarouselItem key={String(baseListingVideo)}>
                   <ProductVideo
-                    src={carouselVideo}
-                    imgSrc={carouselVideoThumb}
+                    src={featured360}
+                    imgSrc={baseListingVideoThumbnail}
                     autoplay
                     loop
                   />
@@ -182,7 +195,7 @@ const MobileImageCarousel = () => {
                     id="video-thumbnail"
                     alt="Video Thumbnail"
                     slot="poster"
-                    src={carouselVideoThumb}
+                    src={baseListingVideoThumbnail}
                     width={1600}
                     height={1600}
                     className="flex h-full w-full overflow-hidden rounded-[4px] object-cover"
