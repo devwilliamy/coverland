@@ -1,0 +1,190 @@
+ .footer_bot {
+    background: #1A1A1A;
+    padding: 70px 0 0;
+} 
+.footerRight h5 {
+    font-size: 24px;
+    color: #FFFFFF;
+    font-weight: 600;
+    margin-bottom: 20px;
+}
+.MobdeskCard {
+	display: none;
+}
+.footerRight p {
+    color: #fff;
+    padding-right: 60px;
+}
+.newLetter input {
+    height: 46px;
+    width: 100%;
+    border-radius: 0;
+    text-align: left;
+    padding: 0 12px;
+    border: 0;
+    background: #fff;
+}
+.newLetter {
+    position: relative;
+}
+.newLetter button {
+    position: absolute;
+    right: 0;
+    top: 0;
+    height: 46px;
+    border: 0;
+    background: #BE1B1B;
+    padding: 0 19px;
+}
+ul.socialMedia {
+    display: flex;
+    align-items: center;
+    margin: 24px 0 0;
+}
+ul.socialMedia li {
+    margin-right: 17px;
+    list-style: none;
+}
+
+.footerLight {
+    padding-left: 190px;
+}
+.footerLinks h6 {
+    font-size: 18px;
+    color: #fff;
+    text-transform: uppercase;
+    font-weight: 600;
+    margin-bottom: 20px;
+}
+.footerLinks label {
+    color: #DBDBDB;
+    font-size: 16px;
+    margin: 0 0 14px;
+    font-weight: 500;
+}
+.footerLinks h5 {
+    color: #fff;
+    font-weight: 600;
+    font-size: 22px;
+    margin: 0 0 14px;
+}
+.footerLinks ul li {
+    font-size: 16px;
+    color: #DBDBDB;
+    position: relative;
+    padding-left: 28px;
+    list-style: none;
+    padding-bottom: 4px;
+}
+.footerLinks ul li img {
+    position: absolute;
+    left: 0;
+    top: 3px;
+}
+.footerLinks ul.menuLink li {
+    padding: 0;
+    margin-bottom: 15px;
+}
+.footerLinks ul.menuLink li a {
+    color: #DBDBDB;
+    font-size: 16px;
+    margin: 0 0 14px;
+    font-weight: 500;
+    text-decoration: none;
+}
+.copyRightRift {
+    text-align: right;
+    justify-content: flex-end;
+  display: flex;
+}
+.copyRightLEft p {
+    margin: 0;
+    color: #fff;
+}
+.copyRight {
+    padding: 60px 0 23px;
+}
+.footerRight {
+    padding-top: 60px;
+}
+
+@media (max-width:1199px)
+{
+.footerLight {
+    padding-left: 40px;
+}
+.footerLinks h6 {
+	font-size: 17px;
+}
+
+}
+@media (max-width:991px)
+{
+.footer {
+	padding: 50px 0 0;
+}
+.footerRightZ h5 {
+	font-size: 21px;
+	margin-bottom: 12px;
+}
+.footerRight {
+	padding-top: 0;
+}
+.footerLight {
+	padding-left: 0;
+	padding-top: 40px;
+}
+.copyRightLEft p {
+	margin: 0 0 16px;
+	text-align: center;
+}
+}
+
+@media (max-width:991px)
+{
+.copyRightLEft p {
+	font-size: 12px;
+}
+.copyRightRift img {
+	width: 100%;
+}
+.footerLinks {
+	padding-top: 23px;
+}
+.footerLight {
+	padding-top: 12px;
+}
+}
+@media (max-width:767px)
+{
+    .footer_bot {
+        padding: 55px 0 0;
+    }
+    .deskCard {
+        display: none;
+    }
+    .MobdeskCard {
+        display: block;
+    }
+        .footerRight p {
+        padding-right: 30px;
+        font-size: 14px;
+    }
+    .newLetter input {
+        height: 41px;
+        font-size: 13px;
+    }
+    .newLetter button {
+        height: 41px;
+        padding: 0 15px;
+    }
+    .footerLinks h6 {
+        font-size: 22px;
+    }
+    .footerLinks h5 {
+        font-size: 20px;
+    }
+    .copyRight {
+        padding: 20px 0 23px;
+    }
+}

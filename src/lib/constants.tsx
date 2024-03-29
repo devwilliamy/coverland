@@ -386,6 +386,7 @@ export const slugToCoverType = {
   premium: 'Premium',
   'standard-pro': 'Standard Pro',
   standard: 'Standard',
+  'seat-covers': 'Seat Covers'
 };
 
 export const PRODUCT_PRICING_DATA = {

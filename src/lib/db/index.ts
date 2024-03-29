@@ -2,6 +2,7 @@ import { createClient } from '@supabase/supabase-js';
 import { Database, Tables } from './types';
 import { slugToCoverType } from '../constants';
 import { slugify } from '../utils';
+import { PRODUCT_DATA_TABLE, SEAT_COVERS_TABLE_NEW } from './constants/databaseTableNames';
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL ?? '';
 const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_KEY ?? '';
@@ -9,7 +10,6 @@ const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_KEY ?? '';
 const supabase = createClient<Database>(supabaseUrl, supabaseKey);
 
 export type TInitialProductDataDB = Tables<'Products-Data-02-2024'>;
-
 export type TReviewData = Tables<'reviews-2'>;
 
 //If the table you want to access isn't listed in TableRow,
@@ -42,7 +42,8 @@ export async function getProductData({
   type?: string;
   cover?: string;
 }) {
-  let fetch = supabase.from('Products-Data-02-2024').select('*');
+  const tableName = type === "Seat Covers" ? SEAT_COVERS_TABLE_NEW : PRODUCT_DATA_TABLE;
+  let fetch = supabase.from(tableName).select('*');
 
   if (type) {
     fetch = fetch.eq('type', type);
@@ -73,6 +74,7 @@ export async function getProductData({
 
   return data;
 }
+
 // Using this to warm up the database
 export async function getProductDataByPage() {
   const fetch = supabase.from('Products-Data-02-2024').select('*').range(0, 1);
