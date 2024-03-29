@@ -12,13 +12,15 @@ import { Skeleton } from '@/components/ui/skeleton';
 import CarListing from '@/videos/Mustang 360 degree 16;9_Black Background.mp4';
 import SUVListing from '@/videos/7sec Listing Video_Compressed.mp4';
 import TruckListingVideo from '@/videos/Truck Listing Video.mp4';
-import Challenger360 from '@/videos/Challenger 360 Square.mp4';
-import Corvette360 from '@/videos/Corvette 360 Video Square.mp4';
+import ChallengerListingVideo from '@/videos/Challenger 360 Square.mp4';
+import CorvetteListingVideo from '@/videos/Corvette 360 Video Square.mp4';
 
 // --------- Listing Thumbnails
 import Car360Thumb from '@/images/PDP/Product-Details-Redesign-2/car-360-thumb.webp';
 import TruckListingThumb from '@/images/PDP/Product-Details-Redesign-2/truck-7-thumb.webp';
 import SUVListingThumb from '@/video/7second image.webp';
+import ChallengerListingThumb from '@/images/PDP/PDP-Redesign-v3/challenger-thumbnail.webp';
+import CorvetteListingThumb from '@/images/PDP/PDP-Redesign-v3/corvette-thumbnail.webp';
 
 import { CarSelectionContext } from '@/contexts/CarSelectionContext';
 import useDetermineType from '@/hooks/useDetermineType';
@@ -74,8 +76,18 @@ const MobileImageCarousel = () => {
 
   const isCorvette = model === 'corvette';
   const isChallenger = model === 'challenger';
-  const ChallengerOrDefault = isChallenger ? Challenger360 : baseListingVideo;
-  const featured360 = isCorvette ? Corvette360 : ChallengerOrDefault;
+  const ChallengerOrDefaultVideo = isChallenger
+    ? ChallengerListingVideo
+    : baseListingVideo;
+  const ChallengerOrDefaultThumbnail = isChallenger
+    ? ChallengerListingThumb
+    : baseListingVideoThumbnail;
+  const featured360 = isCorvette
+    ? CorvetteListingVideo
+    : ChallengerOrDefaultVideo;
+  const listingVideoThumbnail = isCorvette
+    ? CorvetteListingThumb
+    : ChallengerOrDefaultThumbnail;
   // const mainListing =
   //   !isChallenger && !isCorvette ? baseListingVideo : featured360;
 
@@ -136,7 +148,7 @@ const MobileImageCarousel = () => {
                 <CarouselItem key={String(baseListingVideo)}>
                   <ProductVideo
                     src={featured360}
-                    imgSrc={baseListingVideoThumbnail}
+                    imgSrc={listingVideoThumbnail}
                     autoplay
                     loop
                   />
@@ -195,7 +207,7 @@ const MobileImageCarousel = () => {
                     id="video-thumbnail"
                     alt="Video Thumbnail"
                     slot="poster"
-                    src={baseListingVideoThumbnail}
+                    src={listingVideoThumbnail}
                     width={1600}
                     height={1600}
                     className="flex h-full w-full overflow-hidden rounded-[4px] object-cover"
