@@ -95,7 +95,7 @@ const SeatCoverSelectionProvider = ({
 }) => {
   const { modelData, params, searchParams } = initialState;
   const router = useRouter();
-  console.log("ModelData:", modelData)
+
   if (modelData.length === 0) {
     router.push('/404');
   }
