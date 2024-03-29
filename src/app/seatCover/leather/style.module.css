@@ -1,0 +1,839 @@
+.shipping ul li:nth-last-child(2) {
+    margin-bottom: 44px;
+    border-bottom: 1px solid #c8c7c7;
+}
+.ProductPrice h6 {
+    display: none;
+}
+.pagination ul {
+	display: flex;
+	align-content: center;
+	padding: 20px 0 40px;
+}
+.pagination {
+	padding: 18px 0 30px;
+}
+
+.waranty ul li {
+	list-style: disc;
+}
+.pagination ul li {
+	list-style: none;
+	margin-right: 26px;
+	position: relative;
+}
+.sngleSeatImag img {
+	margin-bottom: 25px;
+}
+.pagination ul li a {
+	font-size: 15px;
+	color: #664e4e;
+	text-decoration: none;
+}
+.pagination ul li::before {
+	content: "";
+	position: absolute;
+	top: 4px;
+	width: 1px;
+	height: 17px;
+	background: #664e4e;
+	transform: rotate(10deg);
+	left: -13px;
+}
+.pagination ul li:first-child::before {
+	opacity: 0;
+}
+.topImage img {
+	width: 100%;
+}
+.detailProductRight h4 {
+	font-size: 28px;
+	color: #1A1A1A;
+	font-weight: 900;
+}
+.detailProductRight span {
+	color: #0C87B8;
+    display: flex;
+}
+.ProductPrice {
+	padding: 24px 0;
+}
+.ProductPrice h6 {
+	font-size: 18px;
+	color: #1A1A1A;
+	font-weight: 400;
+}
+.ProductPrice h5 {
+	font-size: 32px;
+	font-weight: 800;
+	color: #000000;
+	margin-bottom: 3px;
+    display: flex;
+    align-items: center;
+}
+.ProductPrice h5 span {
+	font-weight: 400;
+	font-size: 22px;
+	color: #8F8F8F;
+	text-decoration: line-through;
+	position: relative;
+	top: 0px;
+	padding: 0 10px 0 3px;
+}
+.sngleSeatImag {
+	max-width: 620px;
+	margin: 0 auto;
+}
+.ProductPrice h5 label {
+	font-size: 22px;
+	font-weight: 400;
+	color: #BE1B1B;
+}
+.ProductPrice p {
+	color: #767676;
+	font-size: 16px;
+	margin: 0;
+    display: flex;
+    align-items: center;
+}
+.SelectColor ul {
+	display: flex;
+	align-content: center;
+}
+.SelectColor h6 {
+	font-size: 16px;
+	color: #1A1A1A;
+	font-weight: 400;
+}
+.ProductPrice p span {
+	color: #000;
+	font-size: 16px;
+	position: static;
+	text-decoration: none;
+}
+.SelectColor ul li {
+	margin-right: 12px;
+    transition: 0.5s;
+	list-style: none;
+}
+.SelectColor ul li.active {
+	border: 1px solid #000;
+	border-radius: 40px;
+	padding: 2px;
+	transition: 0.5s;
+}
+.shipping {
+	padding-top: 25px;
+}
+.shipping ul li {
+	display: flex;
+	background: #FBFBFB;
+	border-top: 1px solid #C8C7C7;
+	padding: 22px 50px;
+	align-items: center;
+	position: relative;
+}
+.shipping ul li span {
+	margin-right: 46px;
+}
+.shipping ul li h5 {
+	font-size: 18px;
+	font-weight: 500;
+	margin-bottom: 3px;
+}
+.shipping ul li p {
+	font-size: 14px;
+	color: #767676;
+	margin: 0;
+}
+.shipping ul li .ic {
+	position: absolute;
+	right: 50px;
+}
+.detailProductRight {
+	padding-left: 25px;
+}
+.cartBrtn button {
+	background: #BE1B1B;
+	width: 100%;
+	padding: 16px 0;
+	font-size: 20px;
+	text-transform: uppercase;
+	color: #fff;
+	font-weight: 600;
+	letter-spacing: 2px;
+	border: 0;
+}
+.shipping ul li:last-child {
+	border-bottom: 1px solid #C8C7C7;
+}
+.recoImagesVideo img {
+	width: 100%;
+	height: 305px;
+}
+.recoImagesVideo {
+	margin-top: 17px;
+}
+.recoImagesVideo {
+	background: #F2F2F2;
+	width: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+	min-height: 305px;
+}
+.recoImagesVideo button img {
+	width: auto;
+	height: auto;
+	margin-right: 13px;
+}
+.recoImagesVideo h5 {
+	font-size: 24px;
+	color: #1A1A1A;
+	margin-bottom: 20px;
+}
+.recoImagesVideo button {
+	
+        background: #fff;
+        border: 1px solid #C8C7C7;
+        padding: 11px 29px;
+        display: flex;
+        align-content: center;
+    
+}
+.detailProduct {
+	padding-bottom: 70px;
+}
+.cartBrtn {
+	margin-top: 40px;
+}
+.modlaConfig {
+    background: #1A1A1A;
+    padding: 50px 0 20px;
+}
+.modlaConfigInnerlay {
+    max-width: 850px;
+    margin: 0 auto;
+}
+.ford img {
+    width: 100%;
+}
+.confortSteps {
+    padding-top: 110px;
+    text-align: center;
+}
+.confortSteps img {
+    width: 100%;
+}
+.confortSteps h6 {
+    font-size: 26px;
+    color: #B23B4E;
+    margin-bottom: 15px;
+}
+.confortSteps h3 {
+    font-size: 45px;
+    color: #FFFFFF;
+    margin-bottom: 33px;
+}
+.confortSteps .modlaConfigInner img {
+    width: auto;
+    margin: 0 auto;
+    display: table;
+}
+.modlaConfigInner span {
+    color: #CCCCCC;
+    font-size: 18px;
+    font-weight: 600;
+    display: table;
+    text-align: center;
+    margin: 9px auto 0;
+}
+.confortMianimg {
+    padding-bottom: 51px;
+}
+.modlaConfig h3 {
+    color: #fff;
+    text-align: center;
+    font-size: 45px;
+    font-weight: 600;
+    margin-bottom: 34px;
+}
+.angleSeat {
+    margin: 100px 0;
+}
+.angleSeat img {
+    width: 100%;
+}
+.boneInner {
+    text-align: center;
+    margin-bottom: 35px;
+}
+.boneInner p {
+    margin: 0;
+    color: #D3D3D3;
+    font-size: 16px;
+}
+.boneInner h5 {
+    font-size: 22px;
+    color: #fff;
+    font-weight: 600;
+    margin: 14px 0 7px;
+}
+.boneInner img {
+    width: 100%;
+}
+.staySafe {
+    background: #E7E7E7;
+    padding: 80px 0 50px;
+    text-align: center;
+}
+.staySafecontainer {
+    max-width: 620px;
+    margin: 0 auto;
+}
+.staySafecontainer h6 {
+    line-height: 24px;
+    font-size: 14px;
+    color: #4D4D4D;
+    max-width: 250px;
+    margin: 17px auto 32px;
+}
+.staySafecontainer span {
+    position: relative;
+    color: #B23B4E;
+}
+.staySafecontainer span::before {
+    position: absolute;
+    top: -9px;
+    width: 5px;
+    height: 5px;
+    content: "";
+    background: #B23B4E;
+    border-radius: 10px;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+}
+.staySafebloack img {
+    width: 100%;
+}
+.staySafebloack h5 {
+    color: #7D7D7D;
+    font-size: 16px;
+    font-weight: 600;
+    margin: 14px 0 0;
+}
+.staySafebloack {
+    margin-bottom: 39px;
+}
+.safestSteps {
+    padding: 60px 0;
+    /* background-image: url(../../assets/images/seatbk.png); */
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+}
+.safestSteps h3 {
+    text-align: center;
+    margin-bottom: 80px;
+}
+.safestStepsContainer {
+    max-width: 850px;
+    margin: 0 auto;
+}
+.safestStepsInnerright h5 {
+    font-size: 22px;
+    color: #1A1A1A;
+    margin: 0;
+    font-weight: 600;
+}
+.safestStepsInnerright p {
+    font-size: 16px;
+    margin: 0;
+    color: #4D4D4D;
+}
+.safestStepsInnerright {
+    padding-left: 20px;
+}
+.safeComeFirst {
+    padding: 130px 0 60px;
+    text-align: center;
+}
+.safeComeFirst h3 {
+    margin-bottom: 60px;
+}
+.safeComeFirstInner img {
+    width: 100%;
+}
+.safeComeFirstInner h5 {
+    font-size: 16px;
+    color: #fff;
+    font-weight: 500;
+    background: #717171;
+    padding: 14px 0;
+}
+.waranty {
+    text-align: center;
+    padding: 30px 0 70px;
+}
+
+.waranty h5 {
+    font-size: 34px;
+    color: #7D7D7D;
+    margin: 12px 0 28px;
+}
+.waranty ul {
+    display: flex;
+    flex-direction: column-reverse;
+    justify-content: flex-start;
+    max-width: 460px;
+    text-align: left;
+    margin: 30px auto 0;
+    font-size: 22px;
+    color: #000000;
+}
+.coverslides h3 {
+    font-size: 32px;
+    text-transform: uppercase;
+    font-weight: 900;
+    margin-bottom: 30px;
+}
+.imgCover {
+    background: #F2F2F2;
+    height: 100%;
+    min-height: 300px;
+    padding: 0 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 8px;
+}
+.imgCover img {
+    width: 100%;
+}
+.coverslidesinner h4 {
+    font-size: 22px;
+    color: #151515;
+    font-weight: 700;
+    margin: 20px 0 0;
+}
+.coverslidesinner p {
+    color: #767676;
+    font-size: 18px;
+}
+.coverslidesinner h5 {
+    font-size: 22px;
+    color: #1A1A1A;
+    font-weight: 600;
+}
+.coverslidesinner h5 span {
+    font-size: 18px;
+    color: #767676;
+    position: relative;
+    top: -2px;
+    left: 5px;
+    font-weight: 500;
+    text-decoration: line-through;
+}
+.coverslides {
+    padding:50px 0 80px;
+}
+@media (max-width:1199px)
+{
+    .recoImagesVideo {
+        min-height: 225px;
+    }
+    .recoImagesVideo img {
+        height: 225px;
+    }
+    .recoImagesVideo h5 {
+        font-size: 18px;
+    }
+    .recoImagesVideo button {
+        padding: 7px 20px;
+    }
+    .recoImagesVideo ul li {
+        padding: 22px 25px;
+    }
+    .shipping ul li {
+        padding: 22px 23px;
+    }
+    .shipping ul li span {
+        margin-right: 18px;
+    }
+    .modlaConfig h3 {
+        font-size: 38px;
+        margin-bottom: 28px;
+    }
+    /* h3 {
+        font-size: 40px;
+    } */
+    .safeComeFirst {
+        padding: 70px 0 60px;
+    }
+    .waranty h5 {
+        font-size: 28px;
+    }
+   
+}
+
+@media (max-width:991px)
+{
+    .freeOfer h5 {
+        font-size: 19px;
+    }
+    .pagination ul {
+        padding: 20px 0 21px;
+    }
+    .freeOfer h6 {
+        font-size: 20px;
+        padding: 10px 0 3px;
+    }
+    .detailProductRight {
+        padding-left: 0;
+    }
+    .detailProductRight h4 {
+        font-size: 24px;
+    }
+    .ProductPrice h5 {
+        font-size: 29px;
+    }
+    .recoImagesVideo img {
+        height: 165px;
+    }
+    .recoImagesVideo {
+        min-height: 165px;
+    }
+    .recoImagesVideoS h5 {
+        font-size: 13px;
+    }
+    .recoImagesVideo button {
+        padding: 7px 12px;
+        font-size: 12px;
+    }
+    .recoImagesVideo button img {
+        margin-right: 5px;
+        max-width: 17px;
+    }
+    .shipping ul li h5 {
+        font-size: 15px;
+        margin-bottom: 2px;
+    }
+    .recoImagesVideo h5 {
+        font-size: 13px;
+    }
+    .shipping ul li {
+        padding: 16px 17px;
+    }
+    .shipping ul li p {
+        font-size: 13px;
+        padding-right: 40px;
+    }
+    .detailProduct {
+        padding-bottom: 40px;
+    }
+    .modlaConfigInnerlay img {
+        width: 100%;
+    }
+    .confortSteps .modlaConfigInner img {
+        max-width: 90px;
+    }
+    .boneInner h5 {
+        font-size: 20px;
+        margin: 14px 0 5px;
+    }
+    .safestSteps img {
+        width: 100%;
+    }
+    .safestStepsInnerright {
+        padding-left: 0;
+    }
+    .safestSteps h3 {
+        margin-bottom: 50px;
+    }
+    /* h3 {
+        font-size: 34px;
+    } */
+    .modlaConfig h3 {
+        font-size: 34px;
+    }
+    .waranty ul {
+        font-size: 19px;
+    }
+    .waranty ul {
+        max-width: 400px;
+    }
+    .coverslides h3 {
+        font-size: 28px;
+        margin-bottom: 21px;
+    }
+    .coverslidesinner {
+        margin-bottom: 26px;
+    }
+    .coverslides {
+        padding: 50px 0 40px;
+    }
+}
+@media (max-width:767px)
+{
+    .recoImagesVideo img {
+        height:auto;
+        border-radius: 10px;
+        object-fit: cover;
+    }
+    .pagination ul li a {
+        font-size: 12px;
+    }
+    .pagination ul li {
+        margin-right: 20px;
+    }
+    .pagination ul li::before {
+        top: 7px;
+        width: 1px;
+        height: 13px;
+        left: -10px;
+    }
+    .pagination {
+        padding: 0px 0 3px;
+    }
+    .topImage img {
+        height: 375px;
+        object-fit: cover;
+    }
+    .recoImagesVideo {
+        min-height: auto;
+        padding: 0;
+        height: 100%;
+        background: #f2f2f2;
+        margin-top: 7px;
+        border-radius: 5px;    
+    }
+    .recoImagesVideo h5 {
+        font-size: 10px;
+        text-align: center;
+        margin-bottom: 6px;
+        font-weight: 500;
+        padding: 0 3px;
+    }
+    .recoImagesVideo h5 span {
+        display: none;
+    }
+    .recoImagesVideo button {
+        padding: 0;
+        font-size: 0;
+        border: 0;
+        background: transparent;
+    }
+    .recoImagesVideo button img {
+        border-radius: 0;
+    }
+    .detailProductRight {
+        padding-top: 30px;
+    }
+    .shipping ul li .ic {
+        right: 16px;
+    }
+    .cartBrtn button {
+        padding: 12px 0;
+        font-size: 17px;
+    }
+    .confortSteps {
+        padding-top: 50px;
+    }
+    .confortSteps h6 {
+        font-size: 16px;
+        margin-bottom: 10px;
+    }
+    .modlaConfigInner span {
+        font-size: 14px;
+    }
+    .modlaConfig h3 {
+        font-size: 26px;
+    }
+    .modlaConfigInner {
+        margin-bottom: 29px;
+    }
+    .angleSeat {
+        margin: 40px 0;
+    }
+    .staySafe {
+        padding: 40px 0 10px;
+    }
+    .safestSteps {
+        padding: 40px 0;
+    }
+    /* h3 {
+        font-size: 26px;
+    } */
+    .safestSteps h3 {
+        margin-bottom: 27px;
+    }
+    .safestStepsInnerright h5 {
+        text-align: left !important;
+        margin-top: 16px;
+        font-size: 18px;
+    }
+
+    .safeComeFirst {
+        padding: 20px 0 10px;
+    }
+    .safeComeFirst h3 {
+        margin-bottom: 25px;
+    }
+    .warantyz h5 {
+        font-size: 21px;
+    }
+   
+    .waranty ul {
+        font-size: 14px;
+        max-width: 89%;
+    }
+    .waranty {
+        text-align: center;
+        padding: 30px 0 0px;
+    }
+    .coverslidesinner h4 {
+        font-size: 16px;
+        margin: 8px 0 0;
+    }
+    .waranty h5 {
+        font-size: 22px;
+    }
+    .waranty img {
+        max-width: 72px;
+    }
+    .coverslidesinner p {
+        font-size: 14px;
+        margin-bottom: 9px;
+    }
+    .coverslidesinner h5 {
+        font-size: 16px;
+    }
+    .coverslidesinner h5 span {
+        font-size: 14px;
+        top: 0px;
+    }
+    .coverslides {
+        padding: 50px 0 23px;
+        overflow: hidden;
+    }
+    .detailProductRight span {
+        font-size: 14px;
+    }
+    .ProductPrice h6 {
+        display: none;
+    }
+    .detailProductRight h4 {
+        font-size: 22px;
+    max-width: 60%;
+    }
+    .ProductPrice {
+        padding: 16px 0;
+    }
+    .ProductPrice p {
+        font-size: 14px;
+    }
+    .safestStepsInnerright p {
+        text-align: left !important;
+    }
+    .ProductPrice h5 {
+        font-size: 24px;
+    }
+    .ProductPrice h5 label {
+        font-size: 18px;;
+        position: relative;
+        top: 0px;
+    }
+    .ProductPrice h5 span {
+        font-size: 18px;
+    }
+
+    .confortSteps .modlaConfigInner img {
+        max-width: 58px;
+    }
+    .modlaConfigInnerP span {
+        font-size: 10px;
+    }
+    .confortMianimg {
+        padding-bottom: 32px;
+    }
+    .safestStepsInnerright h5 {
+        text-align: center !important
+    }
+    .safestStepsInnerright p {
+        text-align: center!important;
+        font-size: 14px;
+    }
+    .safeComeFirstInner h5 {
+        font-size: 13px;
+        padding: 11px 0;
+    }
+
+    .imgCover {
+        margin: 0 5px;
+    }
+
+    .imgCover {
+        min-height: 180px;
+    }
+    .SelectColor h6 {
+        font-size: 12px;
+    }
+    .shipping {
+        padding-top: 14px;
+    }
+    .shipping ul li h5 {
+        font-size: 16px;
+    }
+    .cartBrtn {
+        margin-top: 11px;
+    }
+    .detailProduct {
+        padding-bottom: 26px;
+    }
+    .sngleSeatImag img {
+        margin-bottom: 0;
+    }
+    .boneInner h5 {
+        font-size: 18px;
+        margin: 17px 0 5px;
+    }
+    .boneInner p {
+        font-size: 14px;
+    }
+    .boneInner {
+        margin-bottom: 17px;
+    }
+    .staySafebloack h5 {
+        font-size: 14px;
+        margin: 17px 0 0;
+    }
+    .staySafebloack {
+        margin-bottom: 19px;
+    }
+    .coverslides h3 {
+        font-size: 16px;
+        margin-bottom: 15px;
+    }
+}
+
+.waranty img {
+    display: inline-block;
+}
+
+
+
+
+.SelectColor ul li span img {
+    margin: 0;
+}
+.detailProductRight span img {
+    margin-right: 7px;
+}
+.detailProductRight span {
+    text-decoration: underline;
+}
+.ProductPrice p span {
+    padding: 0 8px;
+}
+

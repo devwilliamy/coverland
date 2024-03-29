@@ -1,0 +1,196 @@
+.topHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.leftLogo {
+    display: flex;
+    align-items: center;
+    width: 75%;
+}
+.rightLinks {
+    width: 25%;
+}
+.rightLinks ul {
+    padding: 0;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+.rightLinks ul li {
+    list-style: none;
+    margin-left: 21px;
+}
+.rightLinks ul li a {
+    color: #767676;
+    text-decoration: none;
+    font-size: 17px;
+    display: flex;
+    align-items: center;
+}
+.rightLinks ul li img
+{
+    margin-right: 4px;
+}
+.topnavBar {
+    padding: 7px 0 6px;
+}
+.leftLogo .fromGroup input {
+    width: 100%;
+    background: #E7E7E7;
+    height: 40px;
+    border: 0;
+    border-radius: 100px;
+    padding: 0 20px;
+    padding-left: 50px;
+    outline: none;
+}
+.leftLogo .fromGroup {
+    position: relative;
+    width: 100%;
+    margin-left: 30px;
+}
+.leftLogo .fromGroup span {
+    position: absolute;
+    left: 19px;
+    top: 9px;
+}
+.topnavBar ul li a {
+    color: #1A1A1A;
+    font-size: 17px;
+    font-weight: 500;
+}
+.topnavBar ul li {
+    margin-right: 12px;
+}
+.freeOfer {
+    border-top: 7px solid #1A1A1A;
+    border-bottom: 7px solid #1A1A1A;
+}
+.freeOfer h5 {
+    text-align: center;
+    font-size: 24px;
+    font-weight: 700;
+    padding: 9px 0;
+    text-transform: uppercase;
+    margin: 0;
+}
+.freeOfer h6 {
+    background: #1A1A1A;
+    margin: 0;
+    text-align: center;
+    color: #fff;
+    font-size: 24px;
+    font-weight: 600;
+    padding: 12px 0 5px;
+}
+
+
+@media (max-width:1199px)
+{
+    .rightLinks ul li {
+        margin-left: 14px;
+    }
+   
+}
+@media (max-width:991px)
+{
+    .leftLogo {
+        width: 62%;
+    }
+    .rightLinks {
+        width: 35%;
+    }
+    .rightLinks ul li a {
+        font-size: 15px;
+    }
+    .topnavBar button {
+        float: right;
+        margin-left: auto;
+        background: #fff;
+        padding: 0;
+        box-shadow: none !important;
+        border: 0;
+    }
+    .topnavBar button span {
+        background-size: 24px;
+    }
+}
+@media (max-width:767px)
+{
+    .leftLogo .fromGroup {
+        margin-left: 13px;
+    }
+    .leftLogo {
+        width: 100%;
+        padding-top: 6px;
+    }
+    .rightLinks {
+        width: 100%;
+        padding: 6px 0 7px;
+    }
+    .topHeader {
+        flex-wrap: wrap;
+    }
+    .rightLinks ul {
+        justify-content: flex-start;
+    }
+    .rightLinks ul li {
+        margin-left: 0;
+        margin-right: 10px;
+    }
+    .topnavBar button {
+        position: absolute;
+        top: -43px;
+        right: 0;
+    }
+    .leftLogo .fromGroup input {
+        padding-left: 44px;
+        font-size: 13px;
+    }
+    .freeOfer h5 {
+        font-size: 18px;
+        padding: 7px 0;
+    }
+
+    .freeOfer h6 {
+        font-size: 18px;
+        padding: 10px 0 1px;
+    }
+
+
+    .freeOfer {
+
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+    }
+    .topHeader {
+        padding-top: 90px;
+    }
+    .rightLinks ul li:first-child, .rightLinks ul li:nth-child(2), .rightLinks ul li:nth-child(3) {
+        display: none;
+    }
+    .leftLogo {
+        width: 76%;
+    
+    }
+    .rightLinks {
+        padding-left: 14px;
+        width: 21%;
+    
+    }
+    .style_topnavBar__3XqdY button {
+        border: 0;
+        padding: 0;
+    }
+    .rightLinks ul li {
+        margin-right: 0;
+   top:4px;
+        position: relative;
+
+    }
+
+}
