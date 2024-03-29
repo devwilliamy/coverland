@@ -49,6 +49,7 @@ export default function EditVehicleDropdown({
     year: paramsYear,
     make: paramsMake,
     model: paramsModel,
+    isSUVCover,
   } = useDetermineType();
   function capitalizeHyphenatedString(str: string | undefined) {
     // Split the string into words using the hyphen as a delimiter
@@ -60,7 +61,8 @@ export default function EditVehicleDropdown({
     );
 
     // Join the capitalized words back together
-    return capitalizedWords?.join(' ');
+    const capitalizedType = capitalizedWords?.join(' ');
+    return isSUVCover ? 'SUV Covers' : capitalizedType;
   }
   const [query, setQuery] = useState<TQuery>({
     type: capitalizeHyphenatedString(productType) as string,

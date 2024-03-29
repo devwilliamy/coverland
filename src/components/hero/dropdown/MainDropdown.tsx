@@ -228,9 +228,9 @@ export default function MainDropdown({
             }}
           >
             <div className={`flex w-full items-center`}>
-              <p className={``}>{value === '' && place} &nbsp;</p>
+              <p className={``}>{!value && place} &nbsp;</p>
               <p className="capitalize">
-                {value === '' && !isSubmodel1 && !isSubmodel2
+                {!value && !isSubmodel1 && !isSubmodel2
                   ? title.replace(
                       title.charAt(0),
                       title.charAt(0).toUpperCase()
@@ -257,16 +257,16 @@ export default function MainDropdown({
                   className={`flex w-full items-center pl-[20px] ${prevSelected ? 'min-h-[48px] lg:h-[64px] lg:min-h-[64px] ' : 'min-h-[44px] lg:h-[58px] lg:min-h-[58px]'} bg-white  ${dropdownOpen ? 'rounded-t-[8px] ' : 'rounded-[8px] '} ${isDisabled ? ' bg-white' : 'bg-gray-300/90'}`}
                 >
                   <div className={`flex w-full items-center`}>
-                    <p className={``}>{value === '' && place} &nbsp;</p>
+                    <p className={``}>{!value && place} &nbsp;</p>
                     <p className="capitalize">
-                      {value === '' && !isSubmodel1 && !isSubmodel2
+                      {!value && !isSubmodel1 && !isSubmodel2
                         ? title.replace(
                             title.charAt(0),
                             title.charAt(0).toUpperCase()
                           )
                         : value}
-                      {value === '' && isSubmodel1 && submodel1Text}
-                      {value === '' && isSubmodel2 && submodel2Text}
+                      {!value && isSubmodel1 && submodel1Text}
+                      {!value && isSubmodel2 && submodel2Text}
                     </p>
                   </div>
                   <div className="mr-[14px] flex items-center">
