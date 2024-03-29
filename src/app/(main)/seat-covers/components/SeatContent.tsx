@@ -1,6 +1,6 @@
 'use client';
 import Image, { StaticImageData } from 'next/image';
-import React, { SetStateAction, useEffect, useState } from 'react';
+import React, { SetStateAction, useEffect, useState, useContext } from 'react';
 import SeatCoverFreeDetails from './SeatCoverFreeDetails';
 import CompatibleVehiclesTrigger from './CompatibleVehiclesTrigger';
 import installments from '@/images/PDP/Product-Details-Redesign-2/paypal-installments.webp';
@@ -23,6 +23,9 @@ import { TCartItem } from '@/lib/cart/useCart';
 import { redirect } from 'next/navigation';
 import { TSeatCoverDataDB, getAllSeatCovers } from '@/lib/db/seat-covers';
 import { useRouter } from 'next/navigation';
+import { SeatCoverSelectionContext } from '@/contexts/SeatCoverContext';
+import { useStore } from 'zustand';
+import SeatCoverColorSelector from './SeatCoverColorSelector';
 
 const seatColors: { color: SeatString; data: SeatData }[] = [
   { color: 'BlackRedData', data: SeatImageDataObject.BlackRedData },
@@ -60,6 +63,10 @@ export default function SeatContent({
   colorIndex: number;
   setColorIndex: React.Dispatch<SetStateAction<number>>;
 }) {
+  const store = useContext(SeatCoverSelectionContext);
+  if (!store)
+    throw new Error('Missing SeatCoverSelectionContext.Provider in the tree');
+  const selectedProduct = useStore(store, (s) => s.selectedProduct);
   const isMobile = useMediaQuery('(max-width:1024px)');
   const coverPrice = 99.95;
   const [selectedSeatCoverType, setSelectedSeatCoverType] = useState<string[]>(
@@ -197,36 +204,7 @@ export default function SeatContent({
         <Image alt="paypal-installents" src={installments} />
         {/* <Info className="h-[17px] w-[17px] text-[#767676]" /> */}
       </div>
-      <section
-        id="select-color"
-        className="mb-[30px] mt-[24px] flex  w-full flex-col py-1"
-      >
-        <h3 className="mb-[6px] max-h-[13px] text-[16px] font-[400] leading-[14px] text-black ">
-          Select Color
-        </h3>
-        <div className="flex w-full min-w-[288px]  gap-[11px] overflow-x-auto py-[1px] md:overflow-x-hidden">
-          {seatColors &&
-            seatColors.map((i, index) => {
-              return (
-                <div
-                  key={`car-color-${index}`}
-                  className={`flex ${index === colorIndex && 'border-1 border border-[#6F6F6F] '} cursor-pointer flex-col place-content-center rounded-full p-[2px] `}
-                  onClick={() => {
-                    setColorIndex(index);
-                    setSeatData(i.data);
-                    setSelectedColor(i.color);
-                  }}
-                >
-                  <Image
-                    alt="cover-color"
-                    src={i.data[0] as StaticImageData}
-                    className="rounded-full"
-                  />
-                </div>
-              );
-            })}
-        </div>
-      </section>
+      <SeatCoverColorSelector/>
       <SeatCoverFreeDetails />
       <CompatibleVehiclesTrigger />
       <Sheet>

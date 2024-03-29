@@ -2,7 +2,6 @@ import { GrayDualArrow } from '@/components/PDP/icons/GrayDualArrow';
 import { GrayShieldCheck } from '@/components/PDP/icons/GrayShieldCheck';
 import { GrayWrench } from '@/components/PDP/icons/GrayWrench';
 import Image, { StaticImageData } from 'next/image';
-import { useEffect, useState } from 'react';
 import { SeatData } from '../util';
 import Couch from '@/components/PDP/icons/Couch';
 import ElevateHeader from '@/images/PDP/seat-covers-v2/custom-for.webp';
@@ -95,8 +94,8 @@ export default function ElevateComfortSection() {
       </div>
 
       <span className="mt-[30px] grid grid-cols-3 items-center justify-center gap-[30px] lg:gap-[120px]">
-        {threeIcons.map(({ title, icon }) => (
-          <div key={title} className="flex flex-col items-center ">
+        {threeIcons.map(({ title, icon }, index) => (
+          <div key={title+index} className="flex flex-col items-center ">
             <div className="flex max-h-[58px] min-h-[58px] max-w-[58px] lg:max-h-[100px] lg:min-h-[100px] lg:max-w-[100px] ">
               {icon}
             </div>
@@ -111,8 +110,8 @@ export default function ElevateComfortSection() {
         Style In Every Angle
       </p>
       <span className="flex w-full flex-col pt-[38px] lg:grid lg:grid-cols-2 lg:justify-center lg:gap-0 ">
-        {everyAngle.map((img) => (
-          <div key={img.src} className=" text-center text-white max-lg:px-4">
+        {everyAngle.map((img, index) => (
+          <div key={img.src+index} className=" text-center text-white max-lg:px-4">
             {img && (
               <Image
                 alt="enhanced-item"

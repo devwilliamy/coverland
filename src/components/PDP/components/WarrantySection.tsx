@@ -1,3 +1,4 @@
+'use client'
 import Image from 'next/image';
 import React from 'react';
 import LifetimeCheck from '@/images/PDP/Product-Details-Redesign-2/lifetime-sheild-check.webp';
