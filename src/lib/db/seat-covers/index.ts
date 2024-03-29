@@ -1,6 +1,10 @@
 import { Tables } from '../types';
-import { SEAT_COVERS_TABLE, SEAT_COVERS_TABLE_NEW } from '../constants/databaseTableNames';
+import {
+  SEAT_COVERS_TABLE,
+  SEAT_COVERS_TABLE_NEW,
+} from '../constants/databaseTableNames';
 import { supabaseDatabaseClient } from '../supabaseClients';
+import { slugToCoverType } from '@/lib/constants';
 
 export type TSeatCoverDataDB = Tables<'seat_covers_20240308_duplicate'>;
 export type TSeatCoverDataNewDB = Tables<'seat_cover_20240322'>;
@@ -22,7 +26,11 @@ export async function getAllSeatCovers() {
   return data;
 }
 
-export async function getUniqueSeatProduct({ product_id }: { product_id: any }) {
+export async function getUniqueSeatProduct({
+  product_id,
+}: {
+  product_id: any;
+}) {
   const { data, error } = await supabaseDatabaseClient
     .from('seat_cover_20240322')
     .select('*')
@@ -112,7 +120,6 @@ export async function getSeatCoverColors({
 
   const { data, error } = await fetch.limit(1000);
 
-  console.log("GetSearCoverColors", data)
   if (error) {
     throw new Error(error.message);
   }
@@ -139,7 +146,6 @@ export async function getSeatCoverProductData({
   cover?: string;
 }) {
   // const seatCoverTypes = ['Seat Covers', 'seat-cover']
-  
   let fetch = supabaseDatabaseClient.from(SEAT_COVERS_TABLE_NEW).select('*');
 
   if (type) {
@@ -147,7 +153,8 @@ export async function getSeatCoverProductData({
   }
 
   if (cover) {
-    fetch = fetch.eq('display_id', cover);
+    const coverValue = slugToCoverType[cover as keyof typeof slugToCoverType];
+    fetch = fetch.eq('display_id', coverValue);
   }
 
   if (year) {
