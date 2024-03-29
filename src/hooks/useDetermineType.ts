@@ -1,12 +1,14 @@
 import { useParams } from 'next/navigation';
 
 type ParamsType = {
+  type?: string;
+  year?: string;
   make?: string;
   model?: string;
-  year?: string;
   productType?: string;
   coverType?: string;
 };
+
 function useDetermineType() {
   const params = useParams<ParamsType>();
 
@@ -26,9 +28,11 @@ function useDetermineType() {
   const isPremiumType = isDefaultCoverType || isPremium;
   const isStandardType = isStandard || isStandardPro;
 
-  const { make, model } = params as ParamsType;
+  const { type, year, make, model } = params as ParamsType;
 
   return {
+    type,
+    year,
     make,
     model,
     productType,

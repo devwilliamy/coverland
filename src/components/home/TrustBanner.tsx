@@ -10,7 +10,7 @@ const TrustBanner = () => {
       <Image
         src={TrustBannerBackgroundMobile}
         className="max-h-[492px] object-cover md:hidden"
-        fill
+        // fill
         width={400}
         height={500}
         alt="Trust Banner Background"
@@ -18,7 +18,7 @@ const TrustBanner = () => {
       <Image
         src={TrustBannerBackground}
         className="hidden max-h-[260px] object-cover md:flex"
-        fill
+        // fill
         width={1280}
         height={260}
         alt="Trust Banner Background"

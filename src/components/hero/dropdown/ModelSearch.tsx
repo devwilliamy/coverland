@@ -10,7 +10,7 @@ import {
 import { TQuery } from './HeroDropdown';
 import { getAllUniqueModelsByYearMake } from '@/lib/db';
 import { SubmodelDropdown } from './SubmodelDropdown';
-import HomeDropdown from './HomeDropdown';
+import MainDropdown from './MainDropdown';
 
 export type ModelDropdown = {
   model: string | null;
@@ -43,19 +43,19 @@ export function ModelSearch({
     setQuery,
   } = queryObj;
 
-  const handleChange = (event: ChangeEvent<HTMLSelectElement>) => {
-    const newValue = event.target.value;
-    const parent_generation =
-      modelData.find((car) => car.model === newValue)?.parent_generation || '';
-    setValue(newValue);
-    setQuery((p) => ({
-      ...p,
-      model: newValue,
-      parent_generation,
-      submodel1: '',
-      submodel2: '',
-    }));
-  };
+  // const handleChange = (event: ChangeEvent<HTMLSelectElement>) => {
+  //   const newValue = event.target.value;
+  //   const parent_generation =
+  //     modelData.find((car) => car.model === newValue)?.parent_generation || '';
+  //   setValue(newValue);
+  //   setQuery((p) => ({
+  //     ...p,
+  //     model: newValue,
+  //     parent_generation,
+  //     submodel1: '',
+  //     submodel2: '',
+  //   }));
+  // };
 
   useEffect(() => {
     setValue('');
@@ -117,7 +117,7 @@ export function ModelSearch({
 
   return (
     <>
-      <HomeDropdown
+      <MainDropdown
         place={4}
         title={'model'}
         queryObj={queryObj}

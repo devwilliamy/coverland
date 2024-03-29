@@ -4,7 +4,7 @@ import { ChangeEvent, useEffect, useState } from 'react';
 import { TQuery } from './HeroDropdown';
 import { getAllUniqueMakesByYear, getProductDataByPage } from '@/lib/db';
 import { AiOutlineLoading3Quarters } from 'react-icons/ai';
-import HomeDropdown from './HomeDropdown';
+import MainDropdown from './MainDropdown';
 
 export type MakeDropdown = { make: string | null; make_slug: string | null };
 
@@ -116,7 +116,7 @@ export function MakeSearch({
     //     )}
     //   </div>
     // </div>
-    <HomeDropdown
+    <MainDropdown
       place={3}
       title={'make'}
       queryObj={queryObj}

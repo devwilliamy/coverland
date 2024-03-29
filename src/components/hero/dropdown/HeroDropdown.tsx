@@ -82,11 +82,18 @@ export function HeroDropdown() {
 
   return (
     <div
-      className={`relative z-[400]  grid w-full grid-cols-1 lg:flex items-center justify-center gap-4 px-4 font-[500] `}
+      className={`relative z-[400]  grid w-full grid-cols-1 items-center justify-center gap-4 px-4 font-[500] lg:flex `}
     >
       <TypeSearch queryObj={queryObj} />
       <YearSearch queryObj={queryObj} />
-      <MakeSearch queryObj={queryObj} />
+      <div
+        className="flex w-full"
+        onClick={() => {
+          console.log(queryObj);
+        }}
+      >
+        <MakeSearch queryObj={queryObj} />
+      </div>
       <ModelSearch queryObj={queryObj} />
       <button
         className={`flex h-full max-h-[44px] min-h-[44px] w-full  items-center justify-center rounded-lg bg-[#BE1B1B]  text-lg text-white disabled:bg-[#BE1B1B] lg:h-[58px] lg:min-h-[58px] lg:max-w-[58px] lg:border-0`}

@@ -5,7 +5,7 @@ import { Search } from 'lucide-react';
 import { AiOutlineLoading3Quarters } from 'react-icons/ai';
 import { useMediaQuery } from '@mantine/hooks';
 
-export default function HomeDropdown({
+export default function MainDropdown({
   queryObj,
   place,
   title,
