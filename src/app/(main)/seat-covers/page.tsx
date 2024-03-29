@@ -1,5 +1,5 @@
 'use client';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import SeatCoverCarousel from './components/SeatCoverCarousel';
 import { useMediaQuery } from '@mantine/hooks';
 import Image, { StaticImageData } from 'next/image';
@@ -24,9 +24,14 @@ import WarrantySection from '@/components/PDP/components/WarrantySection';
 import ExtraDetailsTabs from '@/components/PDP/components/ExtraDetailsTabs';
 import { Separator } from '@radix-ui/react-separator';
 import ProductVideo from '@/components/PDP/ProductVideo';
+
 import StayNewSection from './components/StayNewSection';
 import SafetyFirstSection from './components/SafetyFirstSection';
 import EnhancedPerformanceSection from './components/EnhancedPerformanceSection';
+
+import { getSeatCoverColors } from '@/lib/db/seat-covers';
+
+
 // import { usePathname } from 'next/navigation';
 
 export default function SeatCovers() {
@@ -65,7 +70,22 @@ export default function SeatCovers() {
   const NonCompatibleImage = isMobile
     ? NonCompatibleMobile
     : NonCompatibleDesktop;
-
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await getSeatCoverColors({
+          type: 'Seat Covers',
+          cover:"",
+          make: 'Chevy',
+          model: 'Silverado 1500',
+          parent_generation:"",
+          submodel1: '',
+        });
+        console.log('REsponse:', response);
+      } catch (e) {}
+    };
+    // fetchData();
+  }, []);
   // console.log('Path from Seat Covers: ', pathName);
   return (
     <section className="flex w-full flex-col items-center pt-[22px]">
