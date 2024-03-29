@@ -1,7 +1,8 @@
 import { TPathParams, TQueryParams } from '../../utils';
 import { TSeatCoverDataNewDB } from '@/lib/db/seat-covers';
 import SeatCoverSelectionProvider from '@/contexts/SeatCoverContext';
-import SeatCovers from '../page';
+import SeatCovers from './SeatCover';
+
 
 export default async function SeatCoverDataWrapper({
   modelData,
