@@ -24,7 +24,13 @@ import WarrantySection from '@/components/PDP/components/WarrantySection';
 import ExtraDetailsTabs from '@/components/PDP/components/ExtraDetailsTabs';
 import { Separator } from '@radix-ui/react-separator';
 import ProductVideo from '@/components/PDP/ProductVideo';
+
+import StayNewSection from './components/StayNewSection';
+import SafetyFirstSection from './components/SafetyFirstSection';
+import EnhancedPerformanceSection from './components/EnhancedPerformanceSection';
+
 import { getSeatCoverColors } from '@/lib/db/seat-covers';
+
 
 // import { usePathname } from 'next/navigation';
 
@@ -121,8 +127,11 @@ export default function SeatCovers() {
           setColorIndex={setColorIndex}
         />
       </section>
-      <ElevateComfortSection seatData={seatData} />
-      <section className="flex w-full  flex-col  items-center justify-center bg-white pt-[60px] max-md:px-[4%] lg:max-w-[580px]">
+      <ElevateComfortSection />
+      <StayNewSection />
+      <SafetyFirstSection />
+      <EnhancedPerformanceSection />
+      {/* <section className="flex w-full  flex-col  items-center justify-center bg-white pt-[60px] max-md:px-[4%] lg:max-w-[580px]">
         <p className="flex w-full items-center justify-center pb-7 text-center text-[26px] font-[700] leading-[26px]  md:pb-[32px] md:pt-[60px] md:text-[45px]  md:leading-[26px]">
           Product Size
         </p>
@@ -141,7 +150,7 @@ export default function SeatCovers() {
           src={NonCompatibleImage}
           className="flex w-full pt-[48px] max-md:px-7 max-md:pt-[60px] "
         />
-      </section>
+      </section> */}
       <WarrantySection />
       {/* <SuggestedProducts /> */}
       <Separator className="mt-[60px] h-5 w-full border-y-[1px] border-b-[#DBDBDB] border-t-[#DBDBDB] bg-[#F1F1F1] lg:mt-[106px] lg:h-10 " />

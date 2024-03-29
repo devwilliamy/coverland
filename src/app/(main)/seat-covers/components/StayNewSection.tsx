@@ -1,0 +1,60 @@
+import StayNew1 from '@/images/PDP/seat-covers-v2/stay-new-1.webp';
+import StayNew2 from '@/images/PDP/seat-covers-v2/stay-new-2.webp';
+import StayNew3 from '@/images/PDP/seat-covers-v2/stay-new-3.webp';
+import Image from 'next/image';
+
+const stayNewData = [
+  { img: StayNew1, title: 'Effortlessly clean, from kids to pets' },
+  { img: StayNew2, title: 'Worry no more for spilled or coffee stains' },
+  { img: StayNew3, title: 'Scratch-resistant, No more pet scratches' },
+];
+
+export default function StayNewSection() {
+  return (
+    <>
+      <p className="flex w-full items-center justify-center pb-[34px] pt-[43px] text-center text-[26px] font-[500] leading-[26px] lg:pb-[20px] lg:pt-[66px] lg:text-[45px]  lg:leading-[32px]">
+        Stay New, Stay Fresh
+      </p>
+      <div className="flex w-full flex-col items-center justify-center pb-[28px] text-[14px] font-[500] leading-[24px] text-[#4D4D4D] ">
+        <div className="flex items-end gap-1">
+          <p>From </p>
+          <TextWithDot text="Kids" />
+          <p>And </p>
+          <TextWithDot text="Pets" />
+          <p>to </p>
+          <TextWithDot text="Spilled" />
+          <p>Drinks, </p>
+        </div>
+        <p>Your Seats Remain Spotless.</p>
+      </div>
+      <section className="flex w-full flex-col items-center ">
+        {stayNewData.map(({ img, title }, index) => (
+          <div
+            key={img.src}
+            className="pb-10 text-center text-[#7D7D7D] max-lg:px-4"
+          >
+            {img && (
+              <Image
+                alt={`stay-fresh-item-${index}`}
+                src={img}
+                width={800}
+                height={800}
+                className="w-full lg:h-[328px] lg:w-[621px] "
+              />
+            )}
+            <p className="pt-[18px] text-[22px]  font-[500] leading-[25px] ">
+              {title}
+            </p>
+          </div>
+        ))}
+      </section>
+    </>
+  );
+}
+
+const TextWithDot = ({ text }: { text: string }) => (
+  <div className="flex flex-col items-center justify-center">
+    <div className="flex h-[3px] w-[3px] rounded-full bg-[#B23B4E]" />
+    <p className="text-[#B23B4E]">{text}</p>
+  </div>
+);
