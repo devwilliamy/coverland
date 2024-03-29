@@ -173,7 +173,10 @@ const MobileImageCarousel = () => {
         </CarouselContent>
       </Carousel>
       <div className="flex h-full w-full items-center">
-        <div className=" flex w-3/4 flex-row gap-[4px] overflow-x-auto whitespace-nowrap p-[6px]">
+        <span
+          id="carousel-position-item-selector"
+          className=" flex w-3/4 flex-row gap-[4px] overflow-x-auto whitespace-nowrap py-[6px] pl-[6px]"
+        >
           {carouselItems.map((item, index) => {
             if (index < 1)
               return (
@@ -227,10 +230,10 @@ const MobileImageCarousel = () => {
               />
             );
           })}
-        </div>
+        </span>
         <ReviewImagesSheet>
           <div
-            className={`mx-1 flex h-full min-h-[80px] w-1/4 min-w-[80px] max-w-[25%] items-center justify-center rounded-[4px] bg-[#F2F2F2] `}
+            className={` flex h-full min-h-[80px] w-1/4 min-w-[80px] max-w-[25%] items-center justify-center rounded-[4px] bg-[#F2F2F2] `}
           >
             <div className="m-auto flex h-full flex-col items-center justify-center gap-2 ">
               <p className="text-[10px] font-[600] leading-[12px] underline">
