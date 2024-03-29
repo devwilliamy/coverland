@@ -9,7 +9,7 @@ const coverTypes = [
   { title: 'Car Covers', img: CAR, link: '/car-covers/premium-plus' },
   { title: 'Truck Covers', img: TRUCK, link: '/truck-covers/premium-plus' },
   { title: 'SUV Covers', img: SUV, link: '/suv-covers/premium-plus' },
-  { title: 'Seat Covers', img: SEAT, link: '/seat-covers/leatherette' },
+  { title: 'Seat Covers', img: SEAT, link: '/seat-covers/leather' },
 ];
 
 const CoversGrid = () => {

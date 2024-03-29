@@ -124,3 +124,49 @@ export async function getSeatCoverColors({
 
   return uniqueProductDataColor;
 }
+
+export async function getSeatCoverProductData({
+  year,
+  make,
+  model,
+  type,
+  cover,
+}: {
+  year?: string;
+  make?: string;
+  model?: string;
+  type?: string;
+  cover?: string;
+}) {
+  // const seatCoverTypes = ['Seat Covers', 'seat-cover']
+  
+  let fetch = supabaseDatabaseClient.from(SEAT_COVERS_TABLE_NEW).select('*');
+
+  if (type) {
+    fetch = fetch.eq('type', type);
+  }
+
+  if (cover) {
+    fetch = fetch.eq('display_id', cover);
+  }
+
+  if (year) {
+    fetch = fetch.eq('parent_generation', year);
+  }
+
+  if (make) {
+    fetch = fetch.eq('make_slug', make);
+  }
+
+  if (model) {
+    fetch = fetch.eq('model_slug', model);
+  }
+
+  const { data, error } = await fetch.limit(1000);
+
+  if (error) {
+    throw new Error(error.message);
+  }
+
+  return data;
+}
