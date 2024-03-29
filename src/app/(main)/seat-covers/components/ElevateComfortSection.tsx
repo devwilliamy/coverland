@@ -2,7 +2,6 @@ import { GrayDualArrow } from '@/components/PDP/icons/GrayDualArrow';
 import { GrayShieldCheck } from '@/components/PDP/icons/GrayShieldCheck';
 import { GrayWrench } from '@/components/PDP/icons/GrayWrench';
 import Image, { StaticImageData } from 'next/image';
-import { useEffect, useState } from 'react';
 import { SeatData } from '../util';
 import Couch from '@/components/PDP/icons/Couch';
 import ElevateHeader from '@/images/PDP/seat-covers-v2/custom-for.webp';

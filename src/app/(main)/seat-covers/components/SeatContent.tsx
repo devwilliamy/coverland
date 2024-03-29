@@ -1,6 +1,6 @@
 'use client';
 import Image, { StaticImageData } from 'next/image';
-import React, { SetStateAction, useEffect, useState } from 'react';
+import React, { SetStateAction, useEffect, useState, useContext } from 'react';
 import SeatCoverFreeDetails from './SeatCoverFreeDetails';
 import CompatibleVehiclesTrigger from './CompatibleVehiclesTrigger';
 import installments from '@/images/PDP/Product-Details-Redesign-2/paypal-installments.webp';
@@ -23,6 +23,8 @@ import { TCartItem } from '@/lib/cart/useCart';
 import { redirect } from 'next/navigation';
 import { TSeatCoverDataDB, getAllSeatCovers } from '@/lib/db/seat-covers';
 import { useRouter } from 'next/navigation';
+import { SeatCoverSelectionContext } from '@/contexts/SeatCoverContext';
+import { useStore } from 'zustand';
 
 const seatColors: { color: SeatString; data: SeatData }[] = [
   { color: 'BlackRedData', data: SeatImageDataObject.BlackRedData },
@@ -60,6 +62,10 @@ export default function SeatContent({
   colorIndex: number;
   setColorIndex: React.Dispatch<SetStateAction<number>>;
 }) {
+  const store = useContext(SeatCoverSelectionContext);
+  if (!store)
+    throw new Error('Missing SeatCoverSelectionContext.Provider in the tree');
+  const selectedProduct = useStore(store, (s) => s.selectedProduct);
   const isMobile = useMediaQuery('(max-width:1024px)');
   const coverPrice = 99.95;
   const [selectedSeatCoverType, setSelectedSeatCoverType] = useState<string[]>(

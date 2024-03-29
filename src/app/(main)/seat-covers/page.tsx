@@ -5,7 +5,6 @@ import {
   getSeatCoverProductData,
 } from '@/lib/db/seat-covers';
 
-// import { usePathname } from 'next/navigation';
 export async function generateStaticParams() {
   return [{ seatType: 'leather' }];
 }

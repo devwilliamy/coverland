@@ -1,28 +1,16 @@
-'use client';
-import { useState } from 'react';
 import SeatCoverCarousel from '../components/SeatCoverCarousel';
 import ElevateComfortSection from '../components/ElevateComfortSection';
-import { SeatData, SeatImageDataObject } from '../util';
 import SeatContent from '../components/SeatContent';
 import WarrantySection from '@/components/PDP/components/WarrantySection';
 import ExtraDetailsTabs from '@/components/PDP/components/ExtraDetailsTabs';
-import { Separator } from '@radix-ui/react-separator';
-
+// import { Separator } from '@radix-ui/react-separator';
 import StayNewSection from '../components/StayNewSection';
 import SafetyFirstSection from '../components/SafetyFirstSection';
 import EnhancedPerformanceSection from '../components/EnhancedPerformanceSection';
-
 import DesktopImageDisplay from '../components/DesktopImageDisplay';
-
-
-// import { usePathname } from 'next/navigation';
+import { Separator } from '@/components/ui/separator';
 
 export default function SeatCovers() {
-  const [colorIndex, setColorIndex] = useState(0);
-  const [seatData, setSeatData] = useState<SeatData>(
-    SeatImageDataObject.BlackRedData
-  );
-
   return (
     <section className="flex w-full flex-col items-center pt-[22px]">
       <p className="w-full px-[2dvw] pb-3.5 text-[14px] leading-[15px] lg:pb-[43px]">
@@ -33,12 +21,7 @@ export default function SeatCovers() {
       <section className="flex h-max w-full px-[2dvw] lg:gap-[60px]">
         <DesktopImageDisplay/>
         
-        <SeatContent
-          seatData={seatData}
-          setSeatData={setSeatData}
-          colorIndex={colorIndex}
-          setColorIndex={setColorIndex}
-        />
+        <SeatContent/>
       </section>
       <ElevateComfortSection />
       <StayNewSection />

@@ -1,3 +1,4 @@
+'use client'
 // import { Dialog } from '@/components/ui/dialog';
 // import { DialogTrigger } from '@radix-ui/react-dialog';
 // import { useState } from 'react';
