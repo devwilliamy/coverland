@@ -52,21 +52,10 @@ function findObjectByPart(
   );
 }
 
-export default function SeatContent({
-  seatData,
-  setSeatData,
-  colorIndex,
-  setColorIndex,
-}: {
-  seatData: SeatData;
-  setSeatData: React.Dispatch<SetStateAction<SeatData>>;
-  colorIndex: number;
-  setColorIndex: React.Dispatch<SetStateAction<number>>;
-}) {
+export default function SeatContent() {
   const store = useContext(SeatCoverSelectionContext);
   if (!store)
     throw new Error('Missing SeatCoverSelectionContext.Provider in the tree');
-  const selectedProduct = useStore(store, (s) => s.selectedProduct);
   const isMobile = useMediaQuery('(max-width:1024px)');
   const coverPrice = 99.95;
   const [selectedSeatCoverType, setSelectedSeatCoverType] = useState<string[]>(
@@ -204,7 +193,7 @@ export default function SeatContent({
         <Image alt="paypal-installents" src={installments} />
         {/* <Info className="h-[17px] w-[17px] text-[#767676]" /> */}
       </div>
-      <SeatCoverColorSelector/>
+      <SeatCoverColorSelector />
       <SeatCoverFreeDetails />
       <CompatibleVehiclesTrigger />
       <Sheet>
