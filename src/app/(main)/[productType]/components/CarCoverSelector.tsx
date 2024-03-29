@@ -1,3 +1,4 @@
+"use client"
 import { PrimaryImageDisplay } from './PrimaryImageDisplay';
 import { ProductContent } from './ProductContent';
 import { Separator } from '@/components/ui/separator';
@@ -8,6 +9,7 @@ import EditVehicle from './EditVehicle';
 import dynamic from 'next/dynamic';
 import ViewItemGoogleTag from './ViewItemGoogleTag';
 import DetailsTabHeader from './DetailsTabHeader';
+import useDetermineType from '@/hooks/useDetermineType';
 
 const FeaturesAndProductsSection = dynamic(
   () => import('./FeaturesAndProductsSection')
@@ -17,6 +19,9 @@ export function CarCoverSelector({
 }: {
   searchParams: { submodel?: string; second_submodel?: string } | undefined;
 }) {
+  const { make, model } = useDetermineType();
+  console.log('Make Model', make, model);
+
   return (
     <>
       <section className="relative mx-auto h-max w-full max-w-[1280px]  lg:my-8">
@@ -33,9 +38,12 @@ export function CarCoverSelector({
             <ProductContent searchParams={searchParams} />
           </section>
         </div>
-        <div className="flex w-full items-center lg:hidden">
-          <DetailsTabHeader />
-        </div>
+
+        {make === 'ford' && model === 'f-150' && (
+          <div className="flex w-full items-center lg:hidden">
+            <DetailsTabHeader />
+          </div>
+        )}
         <FeaturesAndProductsSection />
         <ExtraProductDetails />
       </section>

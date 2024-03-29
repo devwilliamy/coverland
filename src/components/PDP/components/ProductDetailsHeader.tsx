@@ -7,6 +7,7 @@ import ProtectHeaderText from './ProtectHeaderText';
 // import ProductDetailsMedia from './ProductDetailsMedia';
 import dynamic from 'next/dynamic';
 import DetailsTabHeader from '@/app/(main)/[productType]/components/DetailsTabHeader';
+import useDetermineType from '@/hooks/useDetermineType';
 const ProductDetailsMedia = dynamic(() => import('./ProductDetailsMedia'));
 export default function ProductDetailsHeader() {
   const threeIcons = [
@@ -14,12 +15,15 @@ export default function ProductDetailsHeader() {
     { title: 'Paint Protection', icon: <GraySunIcon /> },
     { title: 'Custom Fit', icon: <GrayCarIcon /> },
   ];
+  const { make, model } = useDetermineType();
 
   return (
     <section className="relative -mx-4 mb-[60px] flex flex-col items-center lg:mb-[110px]  ">
-      <div className="hidden w-full pt-[60px] lg:flex">
-        <DetailsTabHeader />
-      </div>
+      {make === 'ford' && model === 'f-150' && (
+        <div className="hidden w-full pt-[60px] lg:flex">
+          <DetailsTabHeader />
+        </div>
+      )}
       <div className="flex flex-col py-7 text-center lg:py-[38px]">
         <p className="text-[16px] capitalize leading-[26px] text-[#B23B4E] lg:text-[26px]">
           Elevate Style, Keep it new
