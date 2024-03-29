@@ -9,7 +9,7 @@ import {
 import { deslugify } from '@/lib/utils';
 import { TPathParams } from '../utils';
 import { notFound } from 'next/navigation';
-import { getProductData } from '@/lib/db';
+import { TInitialProductDataDB, getProductData } from '@/lib/db';
 
 export function generateStaticParams() {
   return [

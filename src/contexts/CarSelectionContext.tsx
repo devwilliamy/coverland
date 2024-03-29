@@ -227,6 +227,7 @@ const CarSelectionProvider = ({
   initialState,
 }: {
   children: React.ReactNode;
+  initialState: any
 }) => {
   const {
     modelData: modelDataProps,

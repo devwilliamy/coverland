@@ -11,16 +11,16 @@ import InsightsTab from './InsightsTab';
 export default function ExtraDetailsTabs() {
   const pathname = usePathname();
   const isSeatCovers = pathname?.startsWith('/seat-covers');
-  const isLeatherette = pathname
+  const isLeather = pathname
     ?.toLowerCase()
-    .startsWith('/seat-covers/leatherette');
+    .startsWith('/seat-covers/leather');
   const otherDetailsBar = [
     { title: 'Shipping & Returns', jsx: <ShippingPolicy showHeader={false} /> },
     { title: 'Warranty', jsx: <WarrantyPolicy showHeader={false} /> },
     { title: 'Insights', jsx: <InsightsTab /> },
   ];
 
-  if (!isSeatCovers && !isLeatherette) {
+  if (!isSeatCovers && !isLeather) {
     otherDetailsBar.splice(
       0,
       0,

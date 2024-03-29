@@ -42,8 +42,7 @@ export async function getProductData({
   type?: string;
   cover?: string;
 }) {
-  const tableName = type === "Seat Covers" ? SEAT_COVERS_TABLE_NEW : PRODUCT_DATA_TABLE;
-  let fetch = supabase.from(tableName).select('*');
+  let fetch = supabase.from(PRODUCT_DATA_TABLE).select('*');
 
   if (type) {
     fetch = fetch.eq('type', type);
