@@ -15,7 +15,7 @@ const SeatDesktopGallery = () => {
   const selectedProduct = useStore(store, (s) => s.selectedProduct);
 
   const [showMore, setShowMore] = useState(false);
-
+  const galleryImages = selectedProduct?.product?.split(',');
   const fourImages = selectedProduct?.product?.split(',')?.slice(0, 4);
 
   return (
