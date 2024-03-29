@@ -20,7 +20,6 @@ export function CarCoverSelector({
   searchParams: { submodel?: string; second_submodel?: string } | undefined;
 }) {
   const { make, model } = useDetermineType();
-  console.log('Make Model', make, model);
 
   return (
     <>
