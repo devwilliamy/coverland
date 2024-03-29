@@ -9,6 +9,7 @@ export type TPathParams = {
   model?: string;
   year?: string;
   coverType?: string;
+  seatType?: string;
 };
 
 export type TQueryParams = {
