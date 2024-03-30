@@ -17,11 +17,14 @@ export default function EnhancedPerformanceSection() {
       <p className="flex w-full items-center justify-center pb-[34px] pt-[43px] text-center text-[26px] font-[500] leading-[26px]  lg:pb-[38px] lg:pt-[66px] lg:text-[45px]  lg:leading-[32px]">
         Enhanced Performance
       </p>
-      <section className="grid grid-cols-2 gap-[7px] lg:grid-cols-4 lg:gap-[14px]">
+      <section className="mx-auto grid grid-cols-2 gap-[7px] lg:grid-cols-4 lg:gap-[14px] justify-content align-middle">
         {enhancedPerformanceData.map(({ img, title }, index) => (
-          <div className="flex w-full flex-col items-center justify-center">
-            <Image alt={`enhanced-performance-item-${index}`} src={img} />
-            <p className="flex w-full items-center justify-center bg-[#717171] py-[10px] text-white">
+          <div
+            key={index}
+            className=""
+          >
+            <Image alt={`enhanced-performance-item-${index}`} src={img} width={200} height={200} />
+            <p className="flex items-center justify-center bg-[#717171] py-[10px] text-white">
               {title}
             </p>
           </div>

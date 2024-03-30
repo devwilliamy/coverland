@@ -5,6 +5,7 @@ import {
 } from '../constants/databaseTableNames';
 import { supabaseDatabaseClient } from '../supabaseClients';
 import { slugToCoverType } from '@/lib/constants';
+import { slugify } from '@/lib/utils';
 
 export type TSeatCoverDataDB = Tables<'seat_covers_20240308_duplicate'>;
 export type TSeatCoverDataNewDB = Tables<'seat_cover_20240322'>;
@@ -176,4 +177,90 @@ export async function getSeatCoverProductData({
   }
 
   return data;
+}
+
+
+export async function getAllUniqueMakesByYear({
+  type,
+  cover,
+  year,
+}: {
+  type: string;
+  cover: string;
+  year: string;
+}) {
+  // Leaving this here if we want to go back to the original table
+  const { data, error } = await supabaseDatabaseClient
+    .from(SEAT_COVERS_TABLE_NEW) // OR PRODUCT_DATA_TABLE
+    .select('make, make_slug')
+    .eq('type', type)
+    .eq('display_id', cover)
+    .like('year_options', `%${year}%`)
+    .order('make_slug', { ascending: true });
+  // get_distinct_makes_by_year
+
+  // This RPC is making it so the distinct calculation and ordering is happening on the DB side instead of on the server.
+  // const { data, error } = await supabase.rpc('get_make_and_slug', {
+  //   type_param: type,
+  //   display_id_param: cover,
+  //   year_param: year,
+  // });
+
+  if (error) {
+    throw new Error(error.message);
+  }
+  // If we want to use the original table, have to do this to make it distinct
+  const uniqueCars = data.filter(
+    (car, index, self) =>
+      index === self.findIndex((t) => t.make_slug === car.make_slug)
+  );
+  return uniqueCars;
+
+  return data;
+}
+
+export async function getAllUniqueModelsByYearMake({
+  type,
+  cover,
+  year,
+  make,
+}: {
+  type: string;
+  cover: string;
+  year: string;
+  make: string;
+}) {
+  const { data, error } = await supabaseDatabaseClient
+    .from(SEAT_COVERS_TABLE_NEW)
+    .select(
+      'model, model_slug, parent_generation, submodel1, submodel2'
+    )
+    .eq('type', type)
+    .eq('display_id', cover)
+    .like('year_options', `%${year}%`)
+    .eq('make_slug', slugify(make))
+    .order('model_slug', { ascending: true });
+
+  if (error) {
+    throw new Error(error.message);
+  }
+  const uniqueCars = data.filter(
+    (car, index, self) =>
+      index ===
+      self.findIndex(
+        (t) =>
+          t.model_slug === car.model_slug &&
+          t.submodel1 === car.submodel1 &&
+          t.submodel2 === car.submodel2 
+      )
+  );
+  // console.log('[Server]: getAllUniqueModelsByYearMake Params & Response:', {
+  //   data,
+  //   uniqueCars,
+  //   type,
+  //   cover,
+  //   year,
+  //   make,
+  // });
+  return uniqueCars;
 }

@@ -1,6 +1,6 @@
 import SeatCoverCarousel from '../components/SeatCoverCarousel';
 import ElevateComfortSection from '../components/ElevateComfortSection';
-import SeatContent from '../components/SeatContent';
+import SeatContent from './SeatContent';
 import WarrantySection from '@/components/PDP/components/WarrantySection';
 import ExtraDetailsTabs from '@/components/PDP/components/ExtraDetailsTabs';
 // import { Separator } from '@radix-ui/react-separator';
@@ -9,19 +9,28 @@ import SafetyFirstSection from '../components/SafetyFirstSection';
 import EnhancedPerformanceSection from '../components/EnhancedPerformanceSection';
 import DesktopImageDisplay from '../components/DesktopImageDisplay';
 import { Separator } from '@/components/ui/separator';
+import LinkBreadcrumbs from '../../[productType]/components/LinkBreadcrumbs';
 
-export default function SeatCovers() {
+export default function SeatCovers({
+  searchParams,
+}: {
+  searchParams: { submodel?: string; second_submodel?: string } | undefined;
+}) {
   return (
-    <section className="flex w-full flex-col items-center pt-[22px]">
-      <p className="w-full px-[2dvw] pb-3.5 text-[14px] leading-[15px] lg:pb-[43px]">
+    <section className="flex w-full flex-col pt-[22px]">
+      {/* <p className="w-full px-[2dvw] pb-3.5 text-[14px] leading-[15px] lg:pb-[43px]">
         <a href="/">Home</a> / Seat Cover
-      </p>
+      </p> */}
+      <div className="pl-2 lg:pl-6">
+        <LinkBreadcrumbs />
+      </div>
+
       {/* This is for mobile */}
       <SeatCoverCarousel />
       <section className="flex h-max w-full px-[2dvw] lg:gap-[60px]">
-        <DesktopImageDisplay/>
-        
-        <SeatContent/>
+        <DesktopImageDisplay />
+
+        <SeatContent searchParams={searchParams} />
       </section>
       <ElevateComfortSection />
       <StayNewSection />

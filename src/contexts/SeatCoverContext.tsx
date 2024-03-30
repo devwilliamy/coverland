@@ -13,6 +13,8 @@ export type TQuery = {
   year: string;
   make: string;
   model: string;
+  submodel: string; // Get rid of this in the future
+  secondSubmodel: string; // Get rid of this in the future
   submodel1: string;
   submodel2: string;
   parent_generation: string;
@@ -22,7 +24,7 @@ interface ISeatCoverCoverProps {
   modelData: TSeatCoverDataNewDB[];
 }
 
-interface ISeatCoverCoverSelectionState extends ISeatCoverCoverProps {
+export interface ISeatCoverCoverSelectionState extends ISeatCoverCoverProps {
   selectedProduct: TSeatCoverDataNewDB;
   setSelectedProduct: (newProduct: TSeatCoverDataNewDB) => void;
   selectedColor: string;
@@ -53,6 +55,8 @@ const createSeatCoverSelectionStore = ({
     coverType: params?.coverType ?? 'leather',
     make: params?.make ?? '',
     model: params?.model ?? '',
+    submodel: searchParams?.submodel ?? '',
+    secondSubmodel: searchParams?.submodel2 ?? '',
     submodel1: searchParams?.submodel ?? '',
     submodel2: searchParams?.submodel2 ?? '',
     parent_generation: '',

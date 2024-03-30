@@ -1652,7 +1652,9 @@ export type Database = {
           display_id: string | null
           fk: number | null
           make: string | null
+          make_slug: string | null
           model: string | null
+          model_slug: string | null
           msrp: number | null
           parent_generation: string | null
           price: number | null
@@ -1663,13 +1665,16 @@ export type Database = {
           submodel2: string | null
           type: string | null
           year_generation: string | null
+          year_options: string | null
         }
         Insert: {
           display_color?: string | null
           display_id?: string | null
           fk?: number | null
           make?: string | null
+          make_slug?: string | null
           model?: string | null
+          model_slug?: string | null
           msrp?: number | null
           parent_generation?: string | null
           price?: number | null
@@ -1680,13 +1685,16 @@ export type Database = {
           submodel2?: string | null
           type?: string | null
           year_generation?: string | null
+          year_options?: string | null
         }
         Update: {
           display_color?: string | null
           display_id?: string | null
           fk?: number | null
           make?: string | null
+          make_slug?: string | null
           model?: string | null
+          model_slug?: string | null
           msrp?: number | null
           parent_generation?: string | null
           price?: number | null
@@ -1697,6 +1705,7 @@ export type Database = {
           submodel2?: string | null
           type?: string | null
           year_generation?: string | null
+          year_options?: string | null
         }
         Relationships: []
       }
