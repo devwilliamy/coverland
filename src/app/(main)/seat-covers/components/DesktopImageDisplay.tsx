@@ -1,3 +1,4 @@
+'use client';
 import FeaturedThumbnail from '@/images/PDP/Product-Details-Redesign-2/seat-covers/featured-thumbnail.webp';
 import SeatVideo from '@/videos/ov-front-seat-cover.mp4';
 import ProductVideo from '@/components/PDP/ProductVideo';
@@ -6,7 +7,7 @@ import FeatureImage from './FeatureImage';
 
 export default function DesktopImageDisplay() {
   return (
-    <span className="mb-[18px] flex  w-1/2 flex-col gap-[18px] max-lg:hidden">
+    <span className="flex w-1/2 flex-col gap-[18px] max-lg:hidden">
       <FeatureImage />
       <div className="hidden h-full w-full object-cover lg:flex">
         <ProductVideo

@@ -11,50 +11,16 @@ import EveryMile1 from '@/images/PDP/seat-covers-v2/every-mile-1.webp';
 import EveryMile2 from '@/images/PDP/seat-covers-v2/every-mile-2.webp';
 import EveryMile3 from '@/images/PDP/seat-covers-v2/every-mile-3.webp';
 import EveryMile4 from '@/images/PDP/seat-covers-v2/every-mile-4.webp';
+import DetailsTabHeader from '../../[productType]/components/DetailsTabHeader';
 
 export default function ElevateComfortSection() {
-  // Add as props
-  // {  seatData, }: {seatData: SeatData;}
-
-  // const [protectionData, setProtectionData] = useState<
-  //   {
-  //     image: StaticImageData;
-  //     title: string;
-  //     description: string;
-  //   }[]
-  // >([]);
-  // useEffect(() => {
-  //   setProtectionData([
-  //     {
-  //       image: seatData?.[2] as StaticImageData,
-  //       title: 'Drive in Comfort',
-  //       description: 'High-quality, Durable, and Easy-to-Clean Material',
-  //     },
-  //     {
-  //       image: seatData?.[3] as StaticImageData,
-  //       title: 'Breathable Design',
-  //       description: `Perforated Leather to stay cool in any ride`,
-  //     },
-  //     {
-  //       image: seatData?.[4] as StaticImageData,
-  //       title: 'Perfect Fit in Minutes',
-  //       description: 'Semi-Custom Look, Effortless to Install and Maintain',
-  //     },
-  //     {
-  //       image: seatData?.[5] as StaticImageData,
-  //       title: 'Airbag Compatible ',
-  //       description: 'Safety, seamlessly integrated',
-  //     },
-  //   ]);
-  // }, [seatData]);
-
   const threeIcons = [
     { title: 'Custom Fit', icon: <GrayDualArrow /> },
     { title: 'Unlimited Comfort', icon: <Couch /> },
     { title: 'Easy Install', icon: <GrayWrench /> },
   ];
 
-  const everyAngle = [EveryAngle1, EveryAngle1];
+  const everyAngle = [EveryAngle1, EveryAngle2];
   const everyMile = [
     {
       img: EveryMile1,
@@ -78,12 +44,16 @@ export default function ElevateComfortSection() {
     },
   ];
 
-  // const HeaderSeat = seatData[1];
-
   return (
-    <section className="relative flex w-full flex-col items-center bg-[#1A1A1A] pb-[34px] capitalize lg:mt-[42px] ">
-      <p className="flex w-full items-center justify-center pb-[34px] pt-[43px] text-center text-[26px] font-[500] leading-[26px] text-white lg:pb-[38px] lg:pt-[66px] lg:text-[45px]  lg:leading-[32px]">
+    <section className="relative flex w-full flex-col items-center justify-center bg-[#1A1A1A] pb-[34px] capitalize lg:pt-[42px] ">
+      <div className="hidden w-full max-w-[840px] lg:flex">
+        <DetailsTabHeader submodel="Super Crew Cap" />
+      </div>
+      <p className="flex w-full items-center justify-center  pt-[43px] text-center text-[16px] leading-[26px] text-[#B23B4E] lg:pb-[20px] lg:pt-[66px] lg:text-[26px] ">
         Elevate Comfort And Style
+      </p>
+      <p className="flex w-full items-center justify-center text-center text-[26px] font-[500] leading-[26px] text-white max-lg:pb-[34px] lg:pb-[38px] lg:text-[45px]  lg:leading-[32px]">
+        Custom For 'Vehicle Model'
       </p>
       <div className="flex w-screen max-w-[850px] items-center justify-center lg:w-full ">
         <Image
@@ -95,7 +65,7 @@ export default function ElevateComfortSection() {
 
       <span className="mt-[30px] grid grid-cols-3 items-center justify-center gap-[30px] lg:gap-[120px]">
         {threeIcons.map(({ title, icon }, index) => (
-          <div key={title+index} className="flex flex-col items-center ">
+          <div key={title + index} className="flex flex-col items-center ">
             <div className="flex max-h-[58px] min-h-[58px] max-w-[58px] lg:max-h-[100px] lg:min-h-[100px] lg:max-w-[100px] ">
               {icon}
             </div>
@@ -105,46 +75,71 @@ export default function ElevateComfortSection() {
           </div>
         ))}
       </span>
+      <div className="px-4">
+        <p className="flex w-full items-center justify-center pt-[60px] text-center text-[26px] font-[500] leading-[30px] text-white  lg:p-[6px] lg:pt-[60px] lg:text-[45px] lg:leading-[52px] ">
+          Style In Every Angle
+        </p>
+        <span className="flex w-full flex-col pt-[38px] lg:grid lg:grid-cols-2 lg:justify-center lg:gap-0 ">
+          {everyAngle.map((img, index) => {
+            if (index === 0) {
+              return (
+                <div
+                  key={img.src}
+                  className={`flex justify-end  text-center text-white`}
+                >
+                  {img && (
+                    <Image
+                      alt="enhanced-item"
+                      src={img}
+                      className="w-full lg:h-[313px] lg:w-[420px]"
+                    />
+                  )}
+                </div>
+              );
+            }
+            return (
+              <div
+                key={img.src}
+                className={`flex justify-start text-center text-white`}
+              >
+                {img && (
+                  <Image
+                    alt="enhanced-item"
+                    src={img}
+                    className="w-full bg-[#373737] object-contain py-[21px] max-lg:max-h-[280px] lg:h-[313px] lg:w-[420px]"
+                  />
+                )}
+              </div>
+            );
+          })}
+        </span>
 
-      <p className="flex w-full items-center justify-center pt-[60px] text-center text-[26px] font-[500] leading-[30px] text-white  lg:p-[6px] lg:pt-[60px] lg:text-[45px] lg:leading-[52px] ">
-        Style In Every Angle
-      </p>
-      <span className="flex w-full flex-col pt-[38px] lg:grid lg:grid-cols-2 lg:justify-center lg:gap-0 ">
-        {everyAngle.map((img, index) => (
-          <div key={img.src+index} className=" text-center text-white max-lg:px-4">
-            {img && (
-              <Image
-                alt="enhanced-item"
-                src={img}
-                className="w-full  lg:h-[221px] lg:w-[420px]"
-              />
-            )}
-          </div>
-        ))}
-      </span>
-
-      <p className="flex w-full items-center justify-center pt-[60px] text-center text-[26px] font-[500] leading-[30px] text-white  lg:p-[6px] lg:pt-[60px] lg:text-[45px] lg:leading-[52px] ">
-        Comfort in Every Mile
-      </p>
-      <span className="flex w-full flex-col pt-[38px] lg:grid lg:grid-cols-2 lg:justify-center lg:gap-0 ">
-        {everyMile.map(({ img, title, description }) => (
-          <div key={img.src} className=" text-center text-white max-lg:px-4">
-            {img && (
-              <Image
-                alt="enhanced-item"
-                src={img}
-                className="w-full lg:h-[221px] lg:w-[420px]"
-              />
-            )}
-            <p className="pt-[18px] text-[22px]  font-[500] leading-[25px] ">
-              {title}
-            </p>
-            <p className=" pt-1.5 text-[14px] leading-[26px] text-[#D3D3D3] lg:text-[16px] lg:leading-[18px] ">
-              {description}
-            </p>
-          </div>
-        ))}
-      </span>
+        <p className="flex w-full items-center justify-center pt-[60px] text-center text-[26px] font-[500] leading-[30px] text-white  lg:p-[6px] lg:pt-[60px] lg:text-[45px] lg:leading-[52px] ">
+          Comfort in Every Mile
+        </p>
+        <span className="grid grid-cols-2 grid-rows-2 justify-center gap-[22px] pt-[38px] max-md:grid-cols-1 ">
+          {everyMile.map(({ img, title, description }, index) => (
+            <div
+              key={img.src}
+              className="flex flex-col items-center text-center text-white "
+            >
+              {img && (
+                <Image
+                  alt={`every-mile-item-${index}`}
+                  src={img}
+                  className="w-full lg:h-[221px] lg:w-[420px]"
+                />
+              )}
+              <p className="pt-[18px] text-[22px]  font-[500] leading-[25px] ">
+                {title}
+              </p>
+              <p className=" pt-1.5 text-[14px] leading-[26px] text-[#D3D3D3] lg:text-[16px] lg:leading-[18px] ">
+                {description}
+              </p>
+            </div>
+          ))}
+        </span>
+      </div>
     </section>
   );
 }
