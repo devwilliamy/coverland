@@ -24,20 +24,26 @@ const safteyFirstData = [
 export default function SafetyFirstSection() {
   return (
     <>
-      <p className="flex w-full items-center justify-center pb-[34px] pt-[43px] text-center text-[26px] font-[500] leading-[26px] lg:pb-[20px] lg:pt-[66px] lg:text-[45px]  lg:leading-[32px]">
-        Stay New, Stay Fresh
+      <p className="flex w-full items-center justify-center pb-[34px] pt-[43px] text-center text-[26px] font-[500] leading-[26px] lg:pb-[98px] lg:pt-[110px] lg:text-[45px]  lg:leading-[32px]">
+        Your Safety Comes First
       </p>
-      <div className="flex w-full flex-col items-center justify-center pb-[28px] text-[14px] font-[500] leading-[24px] text-[#4D4D4D] ">
-        <p>Your Seats Remain Spotless.</p>
-      </div>
       <section className="flex w-full flex-col items-center ">
         {safteyFirstData.map(({ img, title, description }, index) => (
           <div
             key={img.src}
-            className="flex items-center gap-10 pb-10 text-center text-[#7D7D7D] max-lg:px-4"
+            className="flex w-full max-w-[840px] items-center justify-center pb-10 text-center text-[#7D7D7D]  max-lg:flex-col max-lg:px-4 lg:gap-10"
           >
+            {img && (
+              <Image
+                alt={`stay-fresh-item-${index}`}
+                src={img}
+                width={800}
+                height={800}
+                className={`lg:h-[328px] lg:w-[621px] ${index % 2 === 1 && 'lg:order-last'} `}
+              />
+            )}
             <div
-              className={`flex flex-col ${index % 2 === 0 ? 'items-start' : 'items-end'}`}
+              className={`flex flex-col  ${index % 2 === 1 ? 'lg:items-end' : 'lg:items-start'}`}
             >
               <p
                 className={`pt-[18px] text-[22px] font-[600]  leading-[25px] text-[#1A1A1A]`}
@@ -50,15 +56,6 @@ export default function SafetyFirstSection() {
                 {description}
               </p>
             </div>
-            {img && (
-              <Image
-                alt={`stay-fresh-item-${index}`}
-                src={img}
-                width={800}
-                height={800}
-                className={`w-full lg:h-[328px] lg:w-[621px] ${index % 2 === 0 && 'order-first'} `}
-              />
-            )}
           </div>
         ))}
       </section>

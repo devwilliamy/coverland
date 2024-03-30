@@ -7,54 +7,60 @@ import { PDPAccordion } from '../PDPAccordian';
 import ShippingPolicy from '@/app/(main)/policies/shipping-policy/page';
 import { usePathname } from 'next/navigation';
 import InsightsTab from './InsightsTab';
+import SeatCoverDetails from '@/app/(main)/seat-covers/components/SeatCoverDetails';
 
 export default function ExtraDetailsTabs() {
   const pathname = usePathname();
   const isSeatCovers = pathname?.startsWith('/seat-covers');
-  const isLeather = pathname
-    ?.toLowerCase()
-    .startsWith('/seat-covers/leather');
-  const otherDetailsBar = [
+  const isLeather = pathname?.toLowerCase().startsWith('/seat-covers/leather');
+
+  const defaultTabs = [
     { title: 'Shipping & Returns', jsx: <ShippingPolicy showHeader={false} /> },
     { title: 'Warranty', jsx: <WarrantyPolicy showHeader={false} /> },
     { title: 'Insights', jsx: <InsightsTab /> },
   ];
 
-  if (!isSeatCovers && !isLeather) {
-    otherDetailsBar.splice(
-      0,
-      0,
-      { title: 'Reviews', jsx: <ReviewSection /> },
-      { title: 'Q&A', jsx: <PDPAccordion /> }
-    );
-  }
+  // if (!isSeatCovers && !isLeather) {
+  //   defaultTabs.splice(
+  //     0,
+  //     0,
+  //     { title: 'Reviews', jsx: <ReviewSection /> },
+  //     { title: 'Q&A', jsx: <PDPAccordion /> }
+  //   );
+  // }
 
+  if (isSeatCovers || isLeather) {
+    defaultTabs.splice(0, 0, { title: 'Details', jsx: <SeatCoverDetails /> });
+    defaultTabs.splice(defaultTabs.length - 1, 1);
+  }
   const [currentTabIndex, setCurrentTabIndex] = useState(0);
   const [currentTabContent, setCurrentTabContent] = useState<
     JSX.Element | JSX.Element[]
-  >(otherDetailsBar[0].jsx);
+  >(defaultTabs[0].jsx);
 
   return (
     <>
       <div
         id="Extra-Details-Tabs"
-        className="no-scrollbar  flex gap-[26px] overflow-x-auto  px-2 pb-4 lg:w-full lg:justify-evenly"
+        className="no-scrollbar flex overflow-x-auto pb-4 lg:w-full "
       >
-        {otherDetailsBar.map(({ title, jsx }, index) => (
+        {defaultTabs.map(({ title, jsx }, index) => (
           <button
             key={`Extra-Details-Tab-${index}`}
             onClick={() => {
               setCurrentTabIndex(index);
               setCurrentTabContent(jsx);
             }}
-            className={`flex shrink-0 px-2 py-2 text-[16px] ${currentTabIndex === index ? 'border-b-2 border-b-black font-[700]' : 'font-[400]'}`}
+            className={`flex flex-1 shrink-0 justify-center px-2 py-2 text-[16px] text-[#767676] ${currentTabIndex === index ? 'border-b-2 border-b-[#BE1B1B] font-[700] text-[#BE1B1B]' : 'font-[400]'}`}
           >
-            {title}
+            <div className="flex place-items-center px-2 py-1 ">{title}</div>
           </button>
         ))}
       </div>
       <Separator className="-z-10 -mt-[18px] flex h-0.5 bg-[#BEBEBE]" />
-      <div className="p-4">{currentTabContent}</div>
+      <div className={`${!isLeather && !isSeatCovers && 'p-4'}`}>
+        {currentTabContent}
+      </div>
     </>
   );
 }
