@@ -19,7 +19,7 @@ export default function EnhancedPerformanceSection() {
       </p>
       <section className="grid w-full max-w-[840px] grid-cols-2 gap-[7px] max-lg:px-4 lg:grid-cols-4 lg:gap-[14px]">
         {enhancedPerformanceData.map(({ img, title }, index) => (
-          <div className="flex w-full flex-col items-center justify-center">
+          <div key={index} className="flex w-full flex-col items-center justify-center">
             <Image
               alt={`enhanced-performance-item-${index}`}
               src={img}
