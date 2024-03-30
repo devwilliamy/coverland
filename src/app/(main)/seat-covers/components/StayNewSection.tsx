@@ -11,7 +11,7 @@ const stayNewData = [
 
 export default function StayNewSection() {
   return (
-    <>
+    <div className="flex w-full flex-col bg-[#E7E7E7]">
       <p className="flex w-full items-center justify-center pb-[34px] pt-[43px] text-center text-[26px] font-[500] leading-[26px] lg:pb-[20px] lg:pt-[66px] lg:text-[45px]  lg:leading-[32px]">
         Stay New, Stay Fresh
       </p>
@@ -48,7 +48,7 @@ export default function StayNewSection() {
           </div>
         ))}
       </section>
-    </>
+    </div>
   );
 }
 

@@ -57,7 +57,7 @@ export default function SeatContent() {
   if (!store)
     throw new Error('Missing SeatCoverSelectionContext.Provider in the tree');
   const isMobile = useMediaQuery('(max-width:1024px)');
-  const coverPrice = 99.95;
+  const [coverPrice, setCoverPrice] = useState(280);
   const [selectedSeatCoverType, setSelectedSeatCoverType] = useState<string[]>(
     []
   );
@@ -104,7 +104,7 @@ export default function SeatContent() {
             {option} seat covers
           </p>
           <div className="flex items-center gap-1 text-[14px] leading-[26px]">
-            <p className="font-[700]">${coverPrice}</p>
+            <p className="font-[700]">${coverPrice / 2 - 0.05}</p>
             <p className="text-[#9C9C9C]">$200</p>
             <p className="text-[#BE1B1B]">(-50%)</p>
           </div>
@@ -162,7 +162,7 @@ export default function SeatContent() {
         <div className="flex flex-col gap-0.5">
           {/* Product Title */}
           <h2 className="text-[24px] font-[900] leading-[27px] text-[#1A1A1A] lg:text-[28px] lg:leading-[30px] ">
-            Leatherette <br className="lg:hidden" /> Front Seat Covers
+            Premium Comfort <br className="lg:hidden" /> Leather Seat Covers
           </h2>
           {/* Rating(s) */}
           <div className="flex pb-[36px] ">
@@ -179,25 +179,25 @@ export default function SeatContent() {
         </div>
       </div>
       <div className=" flex  items-end gap-[9px]   text-center text-[28px] font-[900]  lg:text-[32px] lg:leading-[37.5px] ">
-        <div className="leading-[20px]"> ${99.95}</div>
+        <div className="leading-[20px]">${coverPrice / 2 - 0.05}</div>
         <div className="flex gap-1.5 pb-[1px] text-[22px] font-[400] leading-[14px] text-[#BE1B1B] lg:text-[22px] ">
-          <span className=" text-[#BEBEBE] line-through">${200}</span>
+          <span className=" text-[#BEBEBE] line-through">${coverPrice}</span>
           <p>(-50%)</p>
         </div>
       </div>
       <div className="pb-4.5 mt-1.5 flex items-center gap-2 ">
         <p className=" text-[14px] leading-[16px] text-[#767676] lg:text-[16px]">
           4 interest-free installments of{' '}
-          <b className="font-[400] text-black">$24.99</b>
+          <b className="font-[400] text-black">${coverPrice / 4 - 0.01}</b>
         </p>
         <Image alt="paypal-installents" src={installments} />
         {/* <Info className="h-[17px] w-[17px] text-[#767676]" /> */}
       </div>
       <SeatCoverColorSelector />
       <SeatCoverFreeDetails />
-      <CompatibleVehiclesTrigger />
+      {/* <CompatibleVehiclesTrigger /> */}
       <Sheet>
-        <SheetTrigger className="mb-[37px] lg:mb-0">
+        <SheetTrigger className="max-lg:mb-10 pt-10">
           <div className=" flex h-full max-h-[48px] min-h-[48px] w-full items-center justify-center rounded-[4px] bg-[#BE1B1B] text-center text-[18px] font-[700] uppercase leading-[22px] tracking-[2%] text-white ">
             Add to Cart
           </div>

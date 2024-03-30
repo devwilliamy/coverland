@@ -13,20 +13,24 @@ const enhancedPerformanceData = [
 
 export default function EnhancedPerformanceSection() {
   return (
-    <>
-      <p className="flex w-full items-center justify-center pb-[34px] pt-[43px] text-center text-[26px] font-[500] leading-[26px]  lg:pb-[38px] lg:pt-[66px] lg:text-[45px]  lg:leading-[32px]">
+    <div className="flex w-full flex-col items-center justify-center">
+      <p className="flex w-full items-center justify-center pb-[34px] pt-[43px] text-center text-[26px] font-[600] leading-[26px] lg:pb-[45px] lg:pt-[66px] lg:text-[45px]  lg:leading-[32px]">
         Enhanced Performance
       </p>
-      <section className="grid grid-cols-2 gap-[7px] lg:grid-cols-4 lg:gap-[14px]">
+      <section className="grid w-full max-w-[840px] grid-cols-2 gap-[7px] max-lg:px-4 lg:grid-cols-4 lg:gap-[14px]">
         {enhancedPerformanceData.map(({ img, title }, index) => (
           <div className="flex w-full flex-col items-center justify-center">
-            <Image alt={`enhanced-performance-item-${index}`} src={img} />
+            <Image
+              alt={`enhanced-performance-item-${index}`}
+              src={img}
+              className="w-full"
+            />
             <p className="flex w-full items-center justify-center bg-[#717171] py-[10px] text-white">
               {title}
             </p>
           </div>
         ))}
       </section>
-    </>
+    </div>
   );
 }
