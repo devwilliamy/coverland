@@ -26,13 +26,8 @@ import { useRouter } from 'next/navigation';
 import { SeatCoverSelectionContext } from '@/contexts/SeatCoverContext';
 import { useStore } from 'zustand';
 import SeatCoverColorSelector from './SeatCoverColorSelector';
-
-const seatColors: { color: SeatString; data: SeatData }[] = [
-  { color: 'BlackRedData', data: SeatImageDataObject.BlackRedData },
-  { color: 'BlackData', data: SeatImageDataObject.BlackData },
-  { color: 'GrayData', data: SeatImageDataObject.GrayData },
-  { color: 'BeigeData', data: SeatImageDataObject.BeigeData },
-];
+import CartSheet from '@/components/cart/CartSheet';
+import AddToCart from './AddToCartSeatCover';
 
 const colorMap = {
   BlackRedData: 'Solid Black with Red Stitching',
@@ -52,11 +47,17 @@ function findObjectByPart(
   );
 }
 
-export default function SeatContent() {
+export default function SeatContent({
+  searchParams,
+}: {
+  searchParams: { submodel?: string; second_submodel?: string } | undefined;
+}) {
   const store = useContext(SeatCoverSelectionContext);
   if (!store)
     throw new Error('Missing SeatCoverSelectionContext.Provider in the tree');
   const isMobile = useMediaQuery('(max-width:1024px)');
+  const selectedProduct = useStore(store, (s) => s.selectedProduct);
+  // const coverPrice = 99.95;
   const [coverPrice, setCoverPrice] = useState(280);
   const [selectedSeatCoverType, setSelectedSeatCoverType] = useState<string[]>(
     []
@@ -69,6 +70,7 @@ export default function SeatContent() {
   const { addToCart } = useCartContext();
   const [seatCoverData, setSeatCoverData] = useState<TSeatCoverDataDB[]>();
   const router = useRouter();
+  const [addToCartOpen, setAddToCartOpen] = useState<boolean>(false);
 
   useEffect(() => {
     const fetchCovers = async () => {
@@ -145,6 +147,7 @@ export default function SeatContent() {
       </span>
     );
   };
+
   const handleAddToCart = () => {
     const selectedSeatCovers = seatCoverData?.filter(
       (seatCover) => seatCover.display_color === colorMap[selectedColor]
@@ -196,6 +199,28 @@ export default function SeatContent() {
       <SeatCoverColorSelector />
       <SeatCoverFreeDetails />
       {/* <CompatibleVehiclesTrigger /> */}
+      <div className="lg:hidden">
+        <AddToCart
+          selectedProduct={selectedProduct}
+          handleAddToCart={handleAddToCart}
+          searchParams={searchParams}
+          isSticky
+        />
+      </div>
+      <AddToCart
+        selectedProduct={selectedProduct}
+        handleAddToCart={handleAddToCart}
+        searchParams={searchParams}
+      />
+      <CartSheet
+        open={addToCartOpen}
+        setOpen={setAddToCartOpen}
+        selectedProduct={selectedProduct}
+      />
+      {/* Old Cart */}
+      {/* <Sheet>
+        <SheetTrigger className="mb-[37px] lg:mb-0">
+          <div className="lg:mt-12 flex h-full max-h-[48px] min-h-[48px] w-full items-center justify-center rounded-[4px] bg-[#BE1B1B] text-center text-[18px] font-[700] uppercase leading-[22px] tracking-[2%] text-white ">
       <Sheet>
         <SheetTrigger className="max-lg:mb-10 pt-10">
           <div className=" flex h-full max-h-[48px] min-h-[48px] w-full items-center justify-center rounded-[4px] bg-[#BE1B1B] text-center text-[18px] font-[700] uppercase leading-[22px] tracking-[2%] text-white ">
@@ -237,7 +262,7 @@ export default function SeatContent() {
             </Button>
           </span>
         </SheetContent>
-      </Sheet>
+      </Sheet> */}
     </section>
   );
 }

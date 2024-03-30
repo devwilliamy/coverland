@@ -37,7 +37,7 @@ interface ICarCoverProps {
   reviewImages: TReviewData[];
 }
 
-interface ICarCoverSelectionState extends ICarCoverProps {
+export interface ICarCoverSelectionState extends ICarCoverProps {
   setQuery: (newQuery: Partial<TQuery>) => void;
   setModelData: () => void;
   hasSubmodels: () => boolean;

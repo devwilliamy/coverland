@@ -14,11 +14,12 @@ import { TInitialProductDataDB } from '@/lib/db';
 import { IProductData } from '@/app/(main)/utils';
 import { useMediaQuery } from '@mantine/hooks';
 import { Separator } from '../ui/separator';
+import { TSeatCoverDataNewDB } from '@/lib/db/seat-covers';
 
 type CartSheetProps = {
   open: boolean;
   setOpen: (open: boolean) => void;
-  selectedProduct: TInitialProductDataDB | IProductData | null | undefined;
+  selectedProduct: TInitialProductDataDB | IProductData | null | undefined | TSeatCoverDataNewDB;
 };
 const CartSheet = ({
   open,

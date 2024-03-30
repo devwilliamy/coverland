@@ -21,7 +21,7 @@ export default function SeatCovers({
       {/* <p className="w-full px-[2dvw] pb-3.5 text-[14px] leading-[15px] lg:pb-[43px]">
         <a href="/">Home</a> / Seat Cover
       </p> */}
-      <div className="pl-2 lg:pl-9">
+      <div className="pl-2 lg:pl-6">
         <LinkBreadcrumbs />
       </div>
 
@@ -32,11 +32,11 @@ export default function SeatCovers({
 
         <SeatContent searchParams={searchParams} />
       </section>
-      {/* <ElevateComfortSection />
+      <ElevateComfortSection />
       <StayNewSection />
       <SafetyFirstSection />
       <EnhancedPerformanceSection />
-      <WarrantySection /> */}
+      <WarrantySection />
       {/* <SuggestedProducts /> */}
       <Separator className="mt-[60px] h-5 w-full border-y-[1px] border-b-[#DBDBDB] border-t-[#DBDBDB] bg-[#F1F1F1] lg:mt-[106px] lg:h-10 " />
       <section className="flex w-full flex-col">
