@@ -39,6 +39,8 @@ import {
 } from '@/lib/db';
 import { slugify } from '@/lib/utils';
 import { AiOutlineLoading3Quarters } from 'react-icons/ai';
+import CarMag from '@/images/PDP/PDP-Redesign-v3/car-magnify.png';
+import Image from 'next/image';
 
 export default function AddToCart({
   selectedProduct,
@@ -109,7 +111,8 @@ export default function AddToCart({
               setAddToCartOpen((p) => !p);
             }}
           >
-            <p
+            <div
+              className="flex items-center justify-center"
               style={
                 isTypeOrCoverPage
                   ? {
@@ -126,8 +129,13 @@ export default function AddToCart({
                 });
               }}
             >
-              {isTypeOrCoverPage ? nonFinalButtonText : 'Add To Cart'}
-            </p>
+              {nonFinalButtonText === 'Start Here' && (
+                <Image alt="car-magnifying-glass" src={CarMag} />
+              )}
+              <p className="flex h-full">
+                {isTypeOrCoverPage ? nonFinalButtonText : 'Add To Cart'}
+              </p>
+            </div>
           </Button>
         </div>
       )}
