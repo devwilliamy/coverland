@@ -34,12 +34,14 @@ type CartItemProps = {
 };
 
 const CartItem = ({ item }: CartItemProps) => {
+  const imageUrl = item.type === 'Seat Covers' ? item?.product?.split(',')[0] : item?.feature 
+
   return (
     <>
       <div className="flex justify-center">
         <Image
           id="featured-image"
-          src={item.feature ?? ''}
+          src={imageUrl ?? ''}
           alt="a car with a car cover on it"
           width={180}
           height={180}
