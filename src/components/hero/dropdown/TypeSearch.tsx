@@ -28,7 +28,7 @@ export function TypeSearch({
     });
   };
   const [selectedValue, setSelectedValue] = useState<string>('Type');
-  const coverTypes = ['Car Covers', 'SUV Covers', 'Truck Covers'];
+  const coverTypes = ['Car Covers', 'SUV Covers', 'Truck Covers', 'Seat Covers'];
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const {
     query: { type },

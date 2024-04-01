@@ -21,7 +21,6 @@ import {
 import { useStore } from 'zustand';
 import { CarSelectionContext } from '@/contexts/CarSelectionContext';
 import { useCartContext } from '@/providers/CartProvider';
-import EditVehicleDropdown from '@/components/PDP/EditVehicleDropdown';
 import {
   Sheet,
   SheetClose,
@@ -41,6 +40,8 @@ import {
   getAllUniqueModelsByYearMake,
   getSeatCoverProductData,
 } from '@/lib/db/seat-covers';
+import VehicleSelector from './VehicleSelectorSeatCover';
+import EditVehicleDropdown from './EditVehicleDropdownSeatCover';
 
 export default function AddToCart({
   selectedProduct,
@@ -76,7 +77,9 @@ export default function AddToCart({
         <AddToCartSelector
           submodelSelectionOpen={addToCartOpen}
           setSubmodelSelectionOpen={setAddToCartOpen}
+          searchParams={searchParams}
         />
+        {/* <VehicleSelector searchParams={searchParams} /> */}
       </div>
 
       {/* Add to Cart Button */}
@@ -84,46 +87,43 @@ export default function AddToCart({
         // <VehicleSelector searchParams={searchParams} />
         <></>
       ) : ( */}
-        <div className="fixed inset-x-0 bottom-0 z-20 flex bg-white p-4 lg:relative lg:my-3 lg:p-0">
-          <Button
-            className=" h-[48px] w-full rounded bg-[#BE1B1B] text-lg font-bold uppercase text-white disabled:bg-[#BE1B1B] lg:h-[62px]"
-            onClick={() => {
-              selectedProduct?.sku &&
-                track('PDP_add_to_cart', {
-                  sku: selectedProduct?.sku,
-                });
-              if (isComplete) {
-                handleAddToCart();
-                handleAddToCartGoogleTag(
-                  selectedProduct,
-                  params as TPathParams
-                );
-                return;
-              }
-              setAddToCartOpen((p) => !p);
+      <div className="fixed inset-x-0 bottom-0 z-20 flex bg-white p-4 lg:relative lg:my-3 lg:p-0">
+        <Button
+          className=" h-[48px] w-full rounded bg-[#BE1B1B] text-lg font-bold uppercase text-white disabled:bg-[#BE1B1B] lg:h-[62px]"
+          onClick={() => {
+            selectedProduct?.sku &&
+              track('PDP_add_to_cart', {
+                sku: selectedProduct?.sku,
+              });
+            if (isComplete) {
+              handleAddToCart();
+              handleAddToCartGoogleTag(selectedProduct, params as TPathParams);
+              return;
+            }
+            setAddToCartOpen((p) => !p);
+          }}
+        >
+          <p
+            style={
+              isTypeOrCoverPage
+                ? {
+                    animation: `blink ${blinkTime}s cubic-bezier(0,-${blinkVel},1,${blinkVel}) infinite`,
+                  }
+                : {}
+            }
+            onAnimationIteration={() => {
+              setNonFinalButtonText((e) => {
+                if (e === 'Start Here') {
+                  return 'Find your Custom-Cover';
+                }
+                return 'Start Here';
+              });
             }}
           >
-            <p
-              style={
-                isTypeOrCoverPage
-                  ? {
-                      animation: `blink ${blinkTime}s cubic-bezier(0,-${blinkVel},1,${blinkVel}) infinite`,
-                    }
-                  : {}
-              }
-              onAnimationIteration={() => {
-                setNonFinalButtonText((e) => {
-                  if (e === 'Start Here') {
-                    return 'Find your Custom-Cover';
-                  }
-                  return 'Start Here';
-                });
-              }}
-            >
-              {isTypeOrCoverPage ? nonFinalButtonText : 'Add To Cart'}
-            </p>
-          </Button>
-        </div>
+            {isTypeOrCoverPage ? nonFinalButtonText : 'Add To Cart'}
+          </p>
+        </Button>
+      </div>
       {/* )} */}
     </Suspense>
   );
@@ -143,9 +143,11 @@ const determineTypeString = (type: string) => {
 const AddToCartSelector = ({
   submodelSelectionOpen,
   setSubmodelSelectionOpen,
+  searchParams,
 }: {
   submodelSelectionOpen: boolean;
   setSubmodelSelectionOpen: (value: SetStateAction<boolean>) => void;
+  searchParams: { submodel?: string; second_submodel?: string } | undefined;
 }) => {
   const store = useContext(SeatCoverSelectionContext);
   if (!store) throw new Error('Missing CarContext.Provider in the tree');
@@ -154,10 +156,10 @@ const AddToCartSelector = ({
   const setQuery = useStore(store, (s) => s.setQuery);
   // console.log('[AddToCart queryState]:', queryState);
   const selectedProduct = useStore(store, (s) => s.selectedProduct);
-//   const setCustomerSelectedYear = useStore(
-//     store,
-//     (s) => s.setCustomerSelectedYear
-//   );
+  //   const setCustomerSelectedYear = useStore(
+  //     store,
+  //     (s) => s.setCustomerSelectedYear
+  //   );
   const color = useStore(store, (s) => s.selectedColor);
   const router = useRouter();
   const { addToCart } = useCartContext();
@@ -268,12 +270,13 @@ const AddToCartSelector = ({
           </DrawerTitle>
         </SheetHeader>
         <div className="flex w-full flex-col gap-4 px-4 ">
-          <TypeDropdown queryState={queryState} setQuery={setQuery} />
+          {/* <TypeDropdown queryState={queryState} setQuery={setQuery} />
           <YearDropdown queryState={queryState} setQuery={setQuery} />
           <MakeDropdown queryState={queryState} setQuery={setQuery} />
-          <ModelDropdown queryState={queryState} setQuery={setQuery} />
+          <ModelDropdown queryState={queryState} setQuery={setQuery} /> */}
           {/* {queryState.year && <SubmodelDropdown />}
           {queryState.submodel && queryState && <SecondSubmodelDropdown />} */}
+          <EditVehicleDropdown searchParams={searchParams} />
         </div>
         <SheetFooter
           id="Add-To-Cart-Button"
@@ -288,7 +291,7 @@ const AddToCartSelector = ({
             onClick={() => {
               if (!isComplete) return;
               handleAddToCart();
-            //   setCustomerSelectedYear(queryState.year);
+              //   setCustomerSelectedYear(queryState.year);
               wait().then(() => setSubmodelSelectionOpen(false));
               router.push('/checkout');
             }}
@@ -313,23 +316,18 @@ const isComplete_v2 = (queryState, newModelData) => {
     secondSubmodel,
     parent_generation,
   } = queryState;
-  console.log("IsComplete:", newModelData)
+  console.log('IsComplete:', newModelData);
   const hasSubmodel1 = newModelData.some((item) => item.submodel1 !== null);
-  const hasSubmodel2 = newModelData.some((item) => item.submodel2 !== null && item.submodel2 !== "");
-  console.log("HasSUbmodel2:", hasSubmodel2)
+  const hasSubmodel2 = newModelData.some(
+    (item) => item.submodel2 !== null && item.submodel2 !== ''
+  );
+  console.log('HasSUbmodel2:', hasSubmodel2);
   const isBasicInfoFilled = !!year && !!type && !!make && !!model;
   const isSubmodel1Complete = !hasSubmodel1 || (hasSubmodel1 && !!submodel);
   const isSubmodel2Complete =
     !hasSubmodel2 || (hasSubmodel2 && !!secondSubmodel);
   return isBasicInfoFilled && isSubmodel1Complete && isSubmodel2Complete;
 };
-function VehicleSelector({
-  searchParams,
-}: {
-  searchParams: { submodel?: string; second_submodel?: string } | undefined;
-}) {
-  return <EditVehicleDropdown searchParams={searchParams} />;
-}
 
 const TypeDropdown = ({ queryState, setQuery }) => {
   const typeOptions = ['Seat Covers'];
@@ -632,7 +630,9 @@ const SubmodelDropdown = ({
     if (submodel) {
       const secondSubmodelData = submodelData?.filter(
         (vehicle) =>
-          vehicle.submodel1 === submodel && (vehicle.submodel2 !== null && vehicle.submodel2 !== "")
+          vehicle.submodel1 === submodel &&
+          vehicle.submodel2 !== null &&
+          vehicle.submodel2 !== ''
       );
       setSecondSubmodelData(secondSubmodelData);
     }
