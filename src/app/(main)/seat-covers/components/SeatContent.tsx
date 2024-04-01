@@ -58,7 +58,7 @@ export default function SeatContent({
   const isMobile = useMediaQuery('(max-width:1024px)');
   const selectedProduct = useStore(store, (s) => s.selectedProduct);
   // const coverPrice = 99.95;
-  const [coverPrice, setCoverPrice] = useState(280);
+  const [coverPrice, setCoverPrice] = useState(400);
   const [selectedSeatCoverType, setSelectedSeatCoverType] = useState<string[]>(
     []
   );
@@ -191,7 +191,7 @@ export default function SeatContent({
       <div className="pb-4.5 mt-1.5 flex items-center gap-2 ">
         <p className=" text-[14px] leading-[16px] text-[#767676] lg:text-[16px]">
           4 interest-free installments of{' '}
-          <b className="font-[400] text-black">${coverPrice / 4 - 0.01}</b>
+          <b className="font-[400] text-black">${coverPrice / 8 - 0.01}</b>
         </p>
         <Image alt="paypal-installents" src={installments} />
         {/* <Info className="h-[17px] w-[17px] text-[#767676]" /> */}

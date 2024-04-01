@@ -12,6 +12,7 @@ import EveryMile2 from '@/images/PDP/seat-covers-v2/every-mile-2.webp';
 import EveryMile3 from '@/images/PDP/seat-covers-v2/every-mile-3.webp';
 import EveryMile4 from '@/images/PDP/seat-covers-v2/every-mile-4.webp';
 import DetailsTabHeader from '../../[productType]/components/DetailsTabHeader';
+import CustomForText from './CustomForText';
 
 export default function ElevateComfortSection() {
   const threeIcons = [
@@ -49,12 +50,7 @@ export default function ElevateComfortSection() {
       <div className="hidden w-full max-w-[840px] lg:flex">
         <DetailsTabHeader submodel="Super Crew Cap" />
       </div>
-      <p className="flex w-full items-center justify-center  pt-[43px] text-center text-[16px] leading-[26px] text-[#B23B4E] lg:pb-[20px] lg:pt-[66px] lg:text-[26px] ">
-        Elevate Comfort And Style
-      </p>
-      <p className="flex w-full items-center justify-center text-center text-[26px] font-[500] leading-[26px] text-white max-lg:pb-[34px] lg:pb-[38px] lg:text-[45px]  lg:leading-[32px]">
-        Custom For 'Vehicle Model'
-      </p>
+      <CustomForText/>
       <div className="flex w-screen max-w-[850px] items-center justify-center lg:w-full ">
         <Image
           alt="product-content-seat-header"
