@@ -36,7 +36,7 @@ export default function ReviewImagesSheet({
           <header className="flex  flex-col items-stretch ">
             <section className="min-h-[7px] w-full bg-black" />
             <section className="whitespace-nowrap bg-white  px-20 text-center text-[18px] font-[600] uppercase text-black lg:text-4xl">
-              <p>March Special Sale!</p>
+              <p>April Special Sale!</p>
             </section>
             <section className="whitespace-nowrap bg-black  px-20 text-center text-[18px] font-[500] uppercase text-white lg:text-4xl">
               <p>SAVE UP TO 50%</p>
