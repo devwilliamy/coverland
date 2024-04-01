@@ -130,9 +130,9 @@ export default function AddToCart({
                 });
               }}
             >
-              {nonFinalButtonText === 'Start Here' && (
+              {nonFinalButtonText == 'Start Here' && (
                 // <Image alt="car-magnifying-glass" src={CarMag} />
-                <div className="flex h-[30px] w-[67px]">
+                <div className="flex min-h-[30px] min-w-[67px]">
                   <CarMagnify />
                 </div>
               )}
