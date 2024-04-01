@@ -9,13 +9,13 @@ export default function DesktopImageDisplay() {
   return (
     <span className="flex w-1/2 flex-col gap-[18px] max-lg:hidden">
       <FeatureImage />
-      <div className="hidden h-full w-full object-cover lg:flex">
+      {/* <div className="hidden h-full w-full object-cover lg:flex">
         <ProductVideo
           src={SeatVideo}
           aspectRatio="16/9"
           imgSrc={FeaturedThumbnail}
         />
-      </div>
+      </div> */}
       <SeatDesktopGallery />
     </span>
   );

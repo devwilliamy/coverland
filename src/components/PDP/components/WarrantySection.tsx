@@ -1,4 +1,4 @@
-'use client'
+'use client';
 import Image from 'next/image';
 import React from 'react';
 import LifetimeCheck from '@/images/PDP/Product-Details-Redesign-2/lifetime-sheild-check.webp';
@@ -51,7 +51,7 @@ export default function WarrantySection() {
       break;
   }
 
-  if (pathname === '/seat-covers' || pathname === '/seat-covers/leather' ) {
+  if (pathname.startsWith('/seat-covers') || params.seatType === 'leather') {
     warrantyLength = '10-Year';
     warrantyData.splice(2, 1);
   }
