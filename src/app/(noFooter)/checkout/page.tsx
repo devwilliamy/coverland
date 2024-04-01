@@ -99,6 +99,8 @@ export default CheckoutPage;
 
 function CartItemCard({ item }: { item: TCartItem }) {
   const { removeItemFromCart } = useCartContext();
+  const { type } = item;
+  const imageUrl = type === 'Seat Covers' ? item?.product?.split(',')[0] : item?.feature 
   return (
     <TableBody key={item?.sku}>
       <TableRow className="flex flex-col">
@@ -106,7 +108,7 @@ function CartItemCard({ item }: { item: TCartItem }) {
           <div className="h-9/12 w-3/12 justify-items-center ">
             <Image
               className="bg-gray-100 p-[6.5px] "
-              src={(item?.feature as string) || ''}
+              src={(imageUrl as string) || ''}
               width={137.5}
               height={137.5}
               alt={`The image for a ${item?.product_name || ''} car cover`}

@@ -37,7 +37,7 @@ interface ICarCoverProps {
   reviewImages: TReviewData[];
 }
 
-interface ICarCoverSelectionState extends ICarCoverProps {
+export interface ICarCoverSelectionState extends ICarCoverProps {
   setQuery: (newQuery: Partial<TQuery>) => void;
   setModelData: () => void;
   hasSubmodels: () => boolean;
@@ -227,6 +227,7 @@ const CarSelectionProvider = ({
   initialState,
 }: {
   children: React.ReactNode;
+  initialState: any
 }) => {
   const {
     modelData: modelDataProps,

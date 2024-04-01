@@ -1,6 +1,6 @@
 'use client';
 import Image, { StaticImageData } from 'next/image';
-import React, { SetStateAction, useEffect, useState } from 'react';
+import React, { SetStateAction, useEffect, useState, useContext } from 'react';
 import SeatCoverFreeDetails from './SeatCoverFreeDetails';
 import CompatibleVehiclesTrigger from './CompatibleVehiclesTrigger';
 import installments from '@/images/PDP/Product-Details-Redesign-2/paypal-installments.webp';
@@ -23,13 +23,11 @@ import { TCartItem } from '@/lib/cart/useCart';
 import { redirect } from 'next/navigation';
 import { TSeatCoverDataDB, getAllSeatCovers } from '@/lib/db/seat-covers';
 import { useRouter } from 'next/navigation';
-
-const seatColors: { color: SeatString; data: SeatData }[] = [
-  { color: 'BlackRedData', data: SeatImageDataObject.BlackRedData },
-  { color: 'BlackData', data: SeatImageDataObject.BlackData },
-  { color: 'GrayData', data: SeatImageDataObject.GrayData },
-  { color: 'BeigeData', data: SeatImageDataObject.BeigeData },
-];
+import { SeatCoverSelectionContext } from '@/contexts/SeatCoverContext';
+import { useStore } from 'zustand';
+import SeatCoverColorSelector from './SeatCoverColorSelector';
+import CartSheet from '@/components/cart/CartSheet';
+import AddToCart from './AddToCartSeatCover';
 
 const colorMap = {
   BlackRedData: 'Solid Black with Red Stitching',
@@ -50,18 +48,17 @@ function findObjectByPart(
 }
 
 export default function SeatContent({
-  seatData,
-  setSeatData,
-  colorIndex,
-  setColorIndex,
+  searchParams,
 }: {
-  seatData: SeatData;
-  setSeatData: React.Dispatch<SetStateAction<SeatData>>;
-  colorIndex: number;
-  setColorIndex: React.Dispatch<SetStateAction<number>>;
+  searchParams: { submodel?: string; second_submodel?: string } | undefined;
 }) {
+  const store = useContext(SeatCoverSelectionContext);
+  if (!store)
+    throw new Error('Missing SeatCoverSelectionContext.Provider in the tree');
   const isMobile = useMediaQuery('(max-width:1024px)');
-  const coverPrice = 99.95;
+  const selectedProduct = useStore(store, (s) => s.selectedProduct);
+  // const coverPrice = 99.95;
+  const [coverPrice, setCoverPrice] = useState(400);
   const [selectedSeatCoverType, setSelectedSeatCoverType] = useState<string[]>(
     []
   );
@@ -73,6 +70,7 @@ export default function SeatContent({
   const { addToCart } = useCartContext();
   const [seatCoverData, setSeatCoverData] = useState<TSeatCoverDataDB[]>();
   const router = useRouter();
+  const [addToCartOpen, setAddToCartOpen] = useState<boolean>(false);
 
   useEffect(() => {
     const fetchCovers = async () => {
@@ -108,7 +106,7 @@ export default function SeatContent({
             {option} seat covers
           </p>
           <div className="flex items-center gap-1 text-[14px] leading-[26px]">
-            <p className="font-[700]">${coverPrice}</p>
+            <p className="font-[700]">${coverPrice / 2 - 0.05}</p>
             <p className="text-[#9C9C9C]">$200</p>
             <p className="text-[#BE1B1B]">(-50%)</p>
           </div>
@@ -149,6 +147,7 @@ export default function SeatContent({
       </span>
     );
   };
+
   const handleAddToCart = () => {
     const selectedSeatCovers = seatCoverData?.filter(
       (seatCover) => seatCover.display_color === colorMap[selectedColor]
@@ -166,7 +165,7 @@ export default function SeatContent({
         <div className="flex flex-col gap-0.5">
           {/* Product Title */}
           <h2 className="text-[24px] font-[900] leading-[27px] text-[#1A1A1A] lg:text-[28px] lg:leading-[30px] ">
-            Leatherette <br className="lg:hidden" /> Front Seat Covers
+            Premium Comfort <br className="lg:hidden" /> Leather Seat Covers
           </h2>
           {/* Rating(s) */}
           <div className="flex pb-[36px] ">
@@ -183,54 +182,47 @@ export default function SeatContent({
         </div>
       </div>
       <div className=" flex  items-end gap-[9px]   text-center text-[28px] font-[900]  lg:text-[32px] lg:leading-[37.5px] ">
-        <div className="leading-[20px]"> ${99.95}</div>
+        <div className="leading-[20px]">${coverPrice / 2 - 0.05}</div>
         <div className="flex gap-1.5 pb-[1px] text-[22px] font-[400] leading-[14px] text-[#BE1B1B] lg:text-[22px] ">
-          <span className=" text-[#BEBEBE] line-through">${200}</span>
+          <span className=" text-[#BEBEBE] line-through">${coverPrice}</span>
           <p>(-50%)</p>
         </div>
       </div>
       <div className="pb-4.5 mt-1.5 flex items-center gap-2 ">
         <p className=" text-[14px] leading-[16px] text-[#767676] lg:text-[16px]">
           4 interest-free installments of{' '}
-          <b className="font-[400] text-black">$24.99</b>
+          <b className="font-[400] text-black">${coverPrice / 8 - 0.01}</b>
         </p>
         <Image alt="paypal-installents" src={installments} />
         {/* <Info className="h-[17px] w-[17px] text-[#767676]" /> */}
       </div>
-      <section
-        id="select-color"
-        className="mb-[30px] mt-[24px] flex  w-full flex-col py-1"
-      >
-        <h3 className="mb-[6px] max-h-[13px] text-[16px] font-[400] leading-[14px] text-black ">
-          Select Color
-        </h3>
-        <div className="flex w-full min-w-[288px]  gap-[11px] overflow-x-auto py-[1px] md:overflow-x-hidden">
-          {seatColors &&
-            seatColors.map((i, index) => {
-              return (
-                <div
-                  key={`car-color-${index}`}
-                  className={`flex ${index === colorIndex && 'border-1 border border-[#6F6F6F] '} cursor-pointer flex-col place-content-center rounded-full p-[2px] `}
-                  onClick={() => {
-                    setColorIndex(index);
-                    setSeatData(i.data);
-                    setSelectedColor(i.color);
-                  }}
-                >
-                  <Image
-                    alt="cover-color"
-                    src={i.data[0] as StaticImageData}
-                    className="rounded-full"
-                  />
-                </div>
-              );
-            })}
-        </div>
-      </section>
+      <SeatCoverColorSelector />
       <SeatCoverFreeDetails />
-      <CompatibleVehiclesTrigger />
-      <Sheet>
+      {/* <CompatibleVehiclesTrigger /> */}
+      <div className="lg:hidden">
+        <AddToCart
+          selectedProduct={selectedProduct}
+          handleAddToCart={handleAddToCart}
+          searchParams={searchParams}
+          isSticky
+        />
+      </div>
+      <AddToCart
+        selectedProduct={selectedProduct}
+        handleAddToCart={handleAddToCart}
+        searchParams={searchParams}
+      />
+      <CartSheet
+        open={addToCartOpen}
+        setOpen={setAddToCartOpen}
+        selectedProduct={selectedProduct}
+      />
+      {/* Old Cart */}
+      {/* <Sheet>
         <SheetTrigger className="mb-[37px] lg:mb-0">
+          <div className="lg:mt-12 flex h-full max-h-[48px] min-h-[48px] w-full items-center justify-center rounded-[4px] bg-[#BE1B1B] text-center text-[18px] font-[700] uppercase leading-[22px] tracking-[2%] text-white ">
+      <Sheet>
+        <SheetTrigger className="max-lg:mb-10 pt-10">
           <div className=" flex h-full max-h-[48px] min-h-[48px] w-full items-center justify-center rounded-[4px] bg-[#BE1B1B] text-center text-[18px] font-[700] uppercase leading-[22px] tracking-[2%] text-white ">
             Add to Cart
           </div>
@@ -270,7 +262,7 @@ export default function SeatContent({
             </Button>
           </span>
         </SheetContent>
-      </Sheet>
+      </Sheet> */}
     </section>
   );
 }

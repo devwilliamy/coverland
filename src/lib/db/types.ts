@@ -1646,6 +1646,69 @@ export type Database = {
         }
         Relationships: []
       }
+      seat_cover_20240322: {
+        Row: {
+          display_color: string | null
+          display_id: string | null
+          fk: number | null
+          make: string | null
+          make_slug: string | null
+          model: string | null
+          model_slug: string | null
+          msrp: number | null
+          parent_generation: string | null
+          price: number | null
+          product: string | null
+          quantity: number | null
+          sku: string
+          submodel1: string | null
+          submodel2: string | null
+          type: string | null
+          year_generation: string | null
+          year_options: string | null
+        }
+        Insert: {
+          display_color?: string | null
+          display_id?: string | null
+          fk?: number | null
+          make?: string | null
+          make_slug?: string | null
+          model?: string | null
+          model_slug?: string | null
+          msrp?: number | null
+          parent_generation?: string | null
+          price?: number | null
+          product?: string | null
+          quantity?: number | null
+          sku: string
+          submodel1?: string | null
+          submodel2?: string | null
+          type?: string | null
+          year_generation?: string | null
+          year_options?: string | null
+        }
+        Update: {
+          display_color?: string | null
+          display_id?: string | null
+          fk?: number | null
+          make?: string | null
+          make_slug?: string | null
+          model?: string | null
+          model_slug?: string | null
+          msrp?: number | null
+          parent_generation?: string | null
+          price?: number | null
+          product?: string | null
+          quantity?: number | null
+          sku?: string
+          submodel1?: string | null
+          submodel2?: string | null
+          type?: string | null
+          year_generation?: string | null
+          year_options?: string | null
+        }
+        Relationships: []
+      }
       seat_covers_20240308_duplicate: {
         Row: {
           display_color: string | null

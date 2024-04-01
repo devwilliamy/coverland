@@ -8,6 +8,9 @@ export default function LinkBreadcrumbs() {
   const getUrlFromBreadcrumbs = (index: number): string => {
     let returnString = '';
     for (let i = 0; i < index + 1; i++) {
+      if (paramValues[i] === "leather") {
+        returnString = returnString + '/' + "seat-covers"
+      }
       returnString = returnString + '/' + paramValues[i];
     }
     return returnString;
