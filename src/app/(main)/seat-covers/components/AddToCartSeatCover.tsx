@@ -84,7 +84,7 @@ export default function AddToCart({
         // <VehicleSelector searchParams={searchParams} />
         <></>
       ) : ( */}
-        <div className="fixed inset-x-0 bottom-0 z-20 flex bg-white p-4 lg:relative lg:p-1">
+        <div className="fixed inset-x-0 bottom-0 z-20 flex bg-white p-4 lg:relative lg:my-3 lg:p-0">
           <Button
             className=" h-[48px] w-full rounded bg-[#BE1B1B] text-lg font-bold uppercase text-white disabled:bg-[#BE1B1B] lg:h-[62px]"
             onClick={() => {
