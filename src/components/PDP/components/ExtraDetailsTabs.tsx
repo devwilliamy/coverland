@@ -42,7 +42,7 @@ export default function ExtraDetailsTabs() {
     <>
       <div
         id="Extra-Details-Tabs"
-        className="no-scrollbar flex overflow-x-auto pb-4 lg:w-full "
+        className="no-scrollbar justify-items-center  sticky top-0 z-[100] bg-white flex overflow-x-auto items-center lg:w-full "
       >
         {defaultTabs.map(({ title, jsx }, index) => (
           <button
@@ -51,9 +51,9 @@ export default function ExtraDetailsTabs() {
               setCurrentTabIndex(index);
               setCurrentTabContent(jsx);
             }}
-            className={`flex flex-1 shrink-0 justify-center px-2 py-2 text-[16px] text-[#767676] ${currentTabIndex === index ? 'border-b-2 border-b-[#BE1B1B] font-[700] text-[#BE1B1B]' : 'font-[400]'}`}
+            className={`flex self-stretch flex-1 items-center justify-center px-2 py-2 text-[16px] text-[#767676] ${currentTabIndex === index ? 'border-b-2 border-b-[#BE1B1B] font-[700] text-[#BE1B1B]' : 'font-[400]'}`}
           >
-            <div className="flex place-items-center px-2 py-1 ">{title}</div>
+            <div className="flex items-center justify-center px-2 py-1 ">{title}</div>
           </button>
         ))}
       </div>
