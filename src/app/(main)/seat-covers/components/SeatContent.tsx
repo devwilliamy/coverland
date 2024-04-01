@@ -57,6 +57,7 @@ export default function SeatContent({
     throw new Error('Missing SeatCoverSelectionContext.Provider in the tree');
   const isMobile = useMediaQuery('(max-width:1024px)');
   const selectedProduct = useStore(store, (s) => s.selectedProduct);
+  const modelData = useStore(store, (s) => s.modelData);
   // const coverPrice = 99.95;
   const [coverPrice, setCoverPrice] = useState(400);
   const [selectedSeatCoverType, setSelectedSeatCoverType] = useState<string[]>(
@@ -68,24 +69,8 @@ export default function SeatContent({
     'bg-white text-black hover:bg-black hover:text-white';
   const seatDeselectedStyle = 'bg-black hover:bg-white hover:text-black';
   const { addToCart } = useCartContext();
-  const [seatCoverData, setSeatCoverData] = useState<TSeatCoverDataDB[]>();
   const router = useRouter();
   const [addToCartOpen, setAddToCartOpen] = useState<boolean>(false);
-
-  useEffect(() => {
-    const fetchCovers = async () => {
-      try {
-        let seatData: TSeatCoverDataDB[] = [];
-
-        seatData = await getAllSeatCovers();
-        setSeatCoverData(seatData);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-
-    fetchCovers();
-  }, []);
 
   const SeatOption = ({
     src,
@@ -148,14 +133,8 @@ export default function SeatContent({
     );
   };
 
-  const handleAddToCart = () => {
-    const selectedSeatCovers = seatCoverData?.filter(
-      (seatCover) => seatCover.display_color === colorMap[selectedColor]
-    );
-    for (const coverType of selectedSeatCoverType) {
-      const cartProduct = findObjectByPart(selectedSeatCovers, coverType);
-      addToCart({ ...cartProduct, quantity: 1 });
-    }
+  const handleAddToCart = () => {    
+    addToCart({ ...selectedProduct, quantity: 1 });
     router.push('/checkout');
   };
 

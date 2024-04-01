@@ -64,13 +64,11 @@ export default function AddToCart({
   const [nonFinalButtonText, setNonFinalButtonText] = useState('Start Here');
   const blinkTime = 2;
   const blinkVel = 10;
-
   const {
     completeSelectionState: { isComplete },
   } = getCompleteSelectionData({
     data: modelData,
   });
-
   return (
     <Suspense fallback={<></>}>
       <div className="w-full" id="selector">
@@ -87,6 +85,7 @@ export default function AddToCart({
         // <VehicleSelector searchParams={searchParams} />
         <></>
       ) : ( */}
+
       <div className="fixed inset-x-0 bottom-0 z-20 flex bg-white p-4 lg:relative lg:my-3 lg:p-0">
         <Button
           className=" h-[48px] w-full rounded bg-[#BE1B1B] text-lg font-bold uppercase text-white disabled:bg-[#BE1B1B] lg:h-[62px]"
@@ -124,6 +123,7 @@ export default function AddToCart({
           </p>
         </Button>
       </div>
+
       {/* )} */}
     </Suspense>
   );
@@ -154,7 +154,6 @@ const AddToCartSelector = ({
 
   const queryState = useStore(store, (s) => s.query);
   const setQuery = useStore(store, (s) => s.setQuery);
-  // console.log('[AddToCart queryState]:', queryState);
   const selectedProduct = useStore(store, (s) => s.selectedProduct);
   //   const setCustomerSelectedYear = useStore(
   //     store,
@@ -280,9 +279,9 @@ const AddToCartSelector = ({
         </div>
         <SheetFooter
           id="Add-To-Cart-Button"
-          className="mt-auto flex flex-col gap-3 bg-white px-4 py-3 align-bottom"
+          className="mt-auto flex flex-col gap-3 px-4 py-3 align-bottom"
         >
-          <p className="text-right font-extrabold leading-4 text-black">
+          {/* <p className="text-right font-extrabold leading-4 text-black">
             {isComplete
               ? `$${selectedItem?.msrp || selectedProduct?.msrp || ''}`
               : ''}
@@ -299,7 +298,7 @@ const AddToCartSelector = ({
             className=" w-full py-6 text-lg uppercase"
           >
             Add To Cart
-          </Button>
+          </Button> */}
         </SheetFooter>
       </SheetContent>
     </Sheet>
@@ -316,12 +315,10 @@ const isComplete_v2 = (queryState, newModelData) => {
     secondSubmodel,
     parent_generation,
   } = queryState;
-  console.log('IsComplete:', newModelData);
   const hasSubmodel1 = newModelData.some((item) => item.submodel1 !== null);
   const hasSubmodel2 = newModelData.some(
     (item) => item.submodel2 !== null && item.submodel2 !== ''
   );
-  console.log('HasSUbmodel2:', hasSubmodel2);
   const isBasicInfoFilled = !!year && !!type && !!make && !!model;
   const isSubmodel1Complete = !hasSubmodel1 || (hasSubmodel1 && !!submodel);
   const isSubmodel2Complete =
