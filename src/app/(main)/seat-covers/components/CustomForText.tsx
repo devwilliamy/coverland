@@ -3,7 +3,7 @@ import useDetermineType from '@/hooks/useDetermineType';
 
 export default function CustomForText() {
   const { make, model } = useDetermineType();
-  const customText = model ? model : make;
+  const customText = model ? model : make ? make : 'Your Vehicle';
   return (
     <>
       <p className="flex w-full items-center justify-center  pt-[43px] text-center text-[16px] leading-[26px] text-[#B23B4E] lg:pb-[20px] lg:pt-[66px] lg:text-[26px] ">
