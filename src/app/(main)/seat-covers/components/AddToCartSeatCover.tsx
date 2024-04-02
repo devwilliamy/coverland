@@ -41,6 +41,7 @@ import {
   getAllUniqueModelsByYearMake,
   getSeatCoverProductData,
 } from '@/lib/db/seat-covers';
+import CarMagnify from '@/components/icons/CarMagnify';
 
 export default function AddToCart({
   selectedProduct,
@@ -84,46 +85,52 @@ export default function AddToCart({
         // <VehicleSelector searchParams={searchParams} />
         <></>
       ) : ( */}
-        <div className="fixed inset-x-0 bottom-0 z-20 flex bg-white p-4 lg:relative lg:my-3 lg:p-0">
-          <Button
-            className=" h-[48px] w-full rounded bg-[#BE1B1B] text-lg font-bold uppercase text-white disabled:bg-[#BE1B1B] lg:h-[62px]"
-            onClick={() => {
-              selectedProduct?.sku &&
-                track('PDP_add_to_cart', {
-                  sku: selectedProduct?.sku,
-                });
-              if (isComplete) {
-                handleAddToCart();
-                handleAddToCartGoogleTag(
-                  selectedProduct,
-                  params as TPathParams
-                );
-                return;
-              }
-              setAddToCartOpen((p) => !p);
+      <div className="fixed inset-x-0 bottom-0 z-20 flex bg-white p-4 lg:relative lg:my-3 lg:p-0">
+        <Button
+          className=" h-[48px] w-full rounded bg-[#BE1B1B] text-lg font-bold uppercase text-white disabled:bg-[#BE1B1B] lg:h-[62px]"
+          onClick={() => {
+            selectedProduct?.sku &&
+              track('PDP_add_to_cart', {
+                sku: selectedProduct?.sku,
+              });
+            if (isComplete) {
+              handleAddToCart();
+              handleAddToCartGoogleTag(selectedProduct, params as TPathParams);
+              return;
+            }
+            setAddToCartOpen((p) => !p);
+          }}
+        >
+          <div
+            className="flex gap-[10px]"
+            style={
+              isTypeOrCoverPage
+                ? {
+                    animation: `blink ${blinkTime}s cubic-bezier(0,-${blinkVel},1,${blinkVel}) infinite`,
+                  }
+                : {}
+            }
+            onAnimationIteration={() => {
+              setNonFinalButtonText((e) => {
+                if (e === 'Start Here') {
+                  return 'Find your Custom-Cover';
+                }
+                return 'Start Here';
+              });
             }}
           >
-            <p
-              style={
-                isTypeOrCoverPage
-                  ? {
-                      animation: `blink ${blinkTime}s cubic-bezier(0,-${blinkVel},1,${blinkVel}) infinite`,
-                    }
-                  : {}
-              }
-              onAnimationIteration={() => {
-                setNonFinalButtonText((e) => {
-                  if (e === 'Start Here') {
-                    return 'Find your Custom-Cover';
-                  }
-                  return 'Start Here';
-                });
-              }}
-            >
+            {nonFinalButtonText == 'Start Here' && (
+              // <Image alt="car-magnifying-glass" src={CarMag} />
+              <div className="flex min-h-[30px] min-w-[67px]">
+                <CarMagnify />
+              </div>
+            )}
+            <p className="">
               {isTypeOrCoverPage ? nonFinalButtonText : 'Add To Cart'}
             </p>
-          </Button>
-        </div>
+          </div>
+        </Button>
+      </div>
       {/* )} */}
     </Suspense>
   );
@@ -154,10 +161,10 @@ const AddToCartSelector = ({
   const setQuery = useStore(store, (s) => s.setQuery);
   // console.log('[AddToCart queryState]:', queryState);
   const selectedProduct = useStore(store, (s) => s.selectedProduct);
-//   const setCustomerSelectedYear = useStore(
-//     store,
-//     (s) => s.setCustomerSelectedYear
-//   );
+  //   const setCustomerSelectedYear = useStore(
+  //     store,
+  //     (s) => s.setCustomerSelectedYear
+  //   );
   const color = useStore(store, (s) => s.selectedColor);
   const router = useRouter();
   const { addToCart } = useCartContext();
@@ -288,7 +295,7 @@ const AddToCartSelector = ({
             onClick={() => {
               if (!isComplete) return;
               handleAddToCart();
-            //   setCustomerSelectedYear(queryState.year);
+              //   setCustomerSelectedYear(queryState.year);
               wait().then(() => setSubmodelSelectionOpen(false));
               router.push('/checkout');
             }}
@@ -313,10 +320,12 @@ const isComplete_v2 = (queryState, newModelData) => {
     secondSubmodel,
     parent_generation,
   } = queryState;
-  console.log("IsComplete:", newModelData)
+  console.log('IsComplete:', newModelData);
   const hasSubmodel1 = newModelData.some((item) => item.submodel1 !== null);
-  const hasSubmodel2 = newModelData.some((item) => item.submodel2 !== null && item.submodel2 !== "");
-  console.log("HasSUbmodel2:", hasSubmodel2)
+  const hasSubmodel2 = newModelData.some(
+    (item) => item.submodel2 !== null && item.submodel2 !== ''
+  );
+  console.log('HasSUbmodel2:', hasSubmodel2);
   const isBasicInfoFilled = !!year && !!type && !!make && !!model;
   const isSubmodel1Complete = !hasSubmodel1 || (hasSubmodel1 && !!submodel);
   const isSubmodel2Complete =
@@ -632,7 +641,9 @@ const SubmodelDropdown = ({
     if (submodel) {
       const secondSubmodelData = submodelData?.filter(
         (vehicle) =>
-          vehicle.submodel1 === submodel && (vehicle.submodel2 !== null && vehicle.submodel2 !== "")
+          vehicle.submodel1 === submodel &&
+          vehicle.submodel2 !== null &&
+          vehicle.submodel2 !== ''
       );
       setSecondSubmodelData(secondSubmodelData);
     }

@@ -39,6 +39,9 @@ import {
 } from '@/lib/db';
 import { slugify } from '@/lib/utils';
 import { AiOutlineLoading3Quarters } from 'react-icons/ai';
+import CarMag from '@/images/PDP/PDP-Redesign-v3/car-magnify.png';
+import Image from 'next/image';
+import CarMagnify from '@/components/icons/CarMagnify';
 
 export default function AddToCart({
   selectedProduct,
@@ -66,8 +69,8 @@ export default function AddToCart({
   const modelData = useStore(store, (s) => s.modelData);
   const [addToCartOpen, setAddToCartOpen] = useState<boolean>(false);
 
-  const isTypeOrCoverPage = !params?.make;
-  const [nonFinalButtonText, setNonFinalButtonText] = useState('Start Here');
+  const isFinalSelection = params?.year;
+  const [nonFinalButtonText, setNonFinalButtonText] = useState('');
   const blinkTime = 2;
   const blinkVel = 10;
 
@@ -87,7 +90,7 @@ export default function AddToCart({
       </div>
 
       {/* Add to Cart Button */}
-      {isTypeOrCoverPage && !isSticky ? (
+      {!isFinalSelection && !isSticky ? (
         <VehicleSelector searchParams={searchParams} />
       ) : (
         <div className="fixed inset-x-0 bottom-0 z-20 flex bg-white p-4 lg:relative lg:p-1">
@@ -109,9 +112,10 @@ export default function AddToCart({
               setAddToCartOpen((p) => !p);
             }}
           >
-            <p
+            <div
+              className="flex items-center justify-center gap-[10px]"
               style={
-                isTypeOrCoverPage
+                !isFinalSelection
                   ? {
                       animation: `blink ${blinkTime}s cubic-bezier(0,-${blinkVel},1,${blinkVel}) infinite`,
                     }
@@ -126,8 +130,16 @@ export default function AddToCart({
                 });
               }}
             >
-              {isTypeOrCoverPage ? nonFinalButtonText : 'Add To Cart'}
-            </p>
+              {nonFinalButtonText === 'Start Here' && (
+                // <Image alt="car-magnifying-glass" src={CarMag} />
+                <div className="flex min-h-[30px] min-w-[67px]">
+                  <CarMagnify />
+                </div>
+              )}
+              <p className="flex h-full">
+                {!isFinalSelection ? nonFinalButtonText : 'Add To Cart'}
+              </p>
+            </div>
           </Button>
         </div>
       )}
