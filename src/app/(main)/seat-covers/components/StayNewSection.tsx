@@ -12,7 +12,7 @@ const stayNewData = [
 export default function StayNewSection() {
   return (
     <div className="flex w-full flex-col bg-[#E7E7E7]">
-      <p className="flex w-full items-center justify-center pb-[34px] pt-[43px] text-center text-[26px] font-[500] leading-[26px] lg:pb-[20px] lg:pt-[66px] lg:text-[45px]  lg:leading-[32px]">
+      <p className="flex w-full items-center justify-center pb-[16px]  pt-[43px] text-center text-[26px] font-[500] leading-[26px] lg:pb-[20px] lg:pt-[66px] lg:text-[45px]  lg:leading-[32px]">
         Stay New, Stay Fresh
       </p>
       <div className="flex w-full flex-col items-center justify-center pb-[28px] text-[14px] font-[500] leading-[24px] text-[#4D4D4D] ">
@@ -39,10 +39,10 @@ export default function StayNewSection() {
                 src={img}
                 width={800}
                 height={800}
-                className="w-full lg:h-[328px] lg:w-[621px] "
+                className="min-w-full lg:max-h-[328px] lg:max-w-[621px] "
               />
             )}
-            <p className="pt-[18px] text-[22px]  font-[500] leading-[25px] ">
+            <p className="pt-[18px] text-[16px] font-[500] capitalize  leading-[25px] lg:text-[22px] ">
               {title}
             </p>
           </div>

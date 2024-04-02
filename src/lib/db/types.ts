@@ -2310,6 +2310,36 @@ export type Database = {
           average_score: number
         }[]
       }
+      get_seat_cover_products_sorted_by_color: {
+        Args: {
+          p_type?: string
+          p_make?: string
+          p_model?: string
+          p_year?: string
+          p_submodel?: string
+          p_submodel2?: string
+        }
+        Returns: {
+          sku: string
+          fk: number
+          type: string
+          make: string
+          model: string
+          year_generation: string
+          parent_generation: string
+          submodel1: string
+          submodel2: string
+          product: string
+          display_color: string
+          msrp: number
+          price: number
+          quantity: number
+          display_id: string
+          make_slug: string
+          model_slug: string
+          year_options: string
+        }[]
+      }
       join_products: {
         Args: Record<PropertyKey, never>
         Returns: {
