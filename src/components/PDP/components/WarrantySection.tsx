@@ -19,9 +19,9 @@ export default function WarrantySection() {
     },
     {
       title: 'Normal Wear:',
-      body: isDefaultCoverType
-        ? ' Includes weather damage.'
-        : 'Covers daily use impacts.',
+      body: pathname.startsWith('/seat-covers')
+        ? 'Covers daily use impacts.'
+        : ' Includes weather damage.',
     },
     {
       title: 'Lifetime Assurance:',

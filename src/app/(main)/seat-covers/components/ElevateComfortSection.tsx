@@ -53,7 +53,7 @@ export default function ElevateComfortSection({
     <section className="relative flex w-full flex-col items-center justify-center bg-[#1A1A1A] pb-[34px] capitalize lg:pt-[42px] ">
       {showBanner && (
         <div className="hidden w-full max-w-[840px] lg:flex">
-          <DetailsTabHeader  />
+          <DetailsTabHeader />
         </div>
       )}
       <CustomForText />
@@ -65,7 +65,7 @@ export default function ElevateComfortSection({
         />
       </div>
 
-      <span className="mt-[30px] grid grid-cols-3  items-center justify-center gap-[30px] lg:gap-[120px]">
+      <span className="mt-[30px] grid grid-cols-3 items-center  justify-center gap-[30px] max-lg:max-w-[317px] lg:gap-[120px]">
         {threeIcons.map(({ title, icon }, index) => (
           <div key={title + index} className="flex flex-col items-center ">
             <div className="flex max-h-[58px] min-h-[58px] max-w-[58px] lg:max-h-[100px] lg:min-h-[100px] lg:max-w-[100px] ">

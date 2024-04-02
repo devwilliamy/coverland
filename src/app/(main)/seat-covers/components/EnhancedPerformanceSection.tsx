@@ -8,7 +8,7 @@ const enhancedPerformanceData = [
   { img: EP1, title: 'Belt Buckle Access' },
   { img: EP2, title: 'Armrest Compatible' },
   { img: EP3, title: 'Back Storage Pocket' },
-  { img: EP4, title: 'Front storage Pocket' },
+  { img: EP4, title: 'Front Storage Pocket' },
 ];
 
 export default function EnhancedPerformanceSection() {
