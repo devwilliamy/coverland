@@ -45,6 +45,7 @@ export default function AddtoCartSeatSelect({
   const availableSeatCovers = modelData.filter(
     (seatCover) => seatCover.display_color === selectedColor
   );
+  
   const [total, setTotal] = useState(0);
   const [selectedSeatCoverType, setSelectedSeatCoverType] =
     useState<string>('');
