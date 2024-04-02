@@ -42,6 +42,7 @@ import {
 } from '@/lib/db/seat-covers';
 import VehicleSelector from './VehicleSelectorSeatCover';
 import EditVehicleDropdown from './EditVehicleDropdownSeatCover';
+import AddToCartButton from './AddToCartButtonSeatCover';
 
 export default function AddToCart({
   selectedProduct,
@@ -69,6 +70,7 @@ export default function AddToCart({
   } = getCompleteSelectionData({
     data: modelData,
   });
+  console.log('[AddToSeatCover]: ', { isComplete, modelData });
   return (
     <Suspense fallback={<></>}>
       <div className="w-full" id="selector">
@@ -87,41 +89,7 @@ export default function AddToCart({
       ) : ( */}
 
       <div className="fixed inset-x-0 bottom-0 z-20 flex bg-white p-4 lg:relative lg:my-3 lg:p-0">
-        <Button
-          className=" h-[48px] w-full rounded bg-[#BE1B1B] text-lg font-bold uppercase text-white disabled:bg-[#BE1B1B] lg:h-[62px]"
-          onClick={() => {
-            selectedProduct?.sku &&
-              track('PDP_add_to_cart', {
-                sku: selectedProduct?.sku,
-              });
-            if (isComplete) {
-              handleAddToCart();
-              handleAddToCartGoogleTag(selectedProduct, params as TPathParams);
-              return;
-            }
-            setAddToCartOpen((p) => !p);
-          }}
-        >
-          <p
-            style={
-              isTypeOrCoverPage
-                ? {
-                    animation: `blink ${blinkTime}s cubic-bezier(0,-${blinkVel},1,${blinkVel}) infinite`,
-                  }
-                : {}
-            }
-            onAnimationIteration={() => {
-              setNonFinalButtonText((e) => {
-                if (e === 'Start Here') {
-                  return 'Find your Custom-Cover';
-                }
-                return 'Start Here';
-              });
-            }}
-          >
-            {isTypeOrCoverPage ? nonFinalButtonText : 'Add To Cart'}
-          </p>
-        </Button>
+        <AddToCartButton handleAddToCart={handleAddToCart} setAddToCartOpen={setAddToCartOpen}/>
       </div>
 
       {/* )} */}
