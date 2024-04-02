@@ -72,5 +72,5 @@ export default async function SeatCoverDataLayer({
     console.error('Error fetching data:', error);
     notFound();
   }
-  return <SeatCoverDataWrapper modelData={modelData} params={params} />;
+  return <SeatCoverDataWrapper modelData={modelData} params={params} searchParams={searchParams} />;
 }

@@ -61,15 +61,12 @@ export default function AddToCart({
   const modelData = useStore(store, (s) => s.modelData);
   const [addToCartOpen, setAddToCartOpen] = useState<boolean>(false);
 
-  const isTypeOrCoverPage = !params?.make;
-  const [nonFinalButtonText, setNonFinalButtonText] = useState('Start Here');
-  const blinkTime = 2;
-  const blinkVel = 10;
   const {
     completeSelectionState: { isComplete },
   } = getCompleteSelectionData({
     data: modelData,
   });
+  
   console.log('[AddToSeatCover]: ', { isComplete, modelData });
   return (
     <Suspense fallback={<></>}>
@@ -283,7 +280,7 @@ const isComplete_v2 = (queryState, newModelData) => {
     secondSubmodel,
     parent_generation,
   } = queryState;
-  const hasSubmodel1 = newModelData.some((item) => item.submodel1 !== null);
+  const hasSubmodel1 = newModelData.some((item) => item.submodel1 !== null && item.submodel1 !== '');
   const hasSubmodel2 = newModelData.some(
     (item) => item.submodel2 !== null && item.submodel2 !== ''
   );

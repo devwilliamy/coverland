@@ -29,7 +29,8 @@ export default function SeatCovers({
       <SeatCoverCarousel />
       <section className="flex h-max w-full px-[2dvw] lg:gap-[60px]">
         <DesktopImageDisplay />
-
+        {/* <EditVehicle searchParams={searchParams} /> */}
+        <Separator className="w-full bg-[#C8C7C7]" />
         <SeatContent searchParams={searchParams} />
       </section>
       {/* <ElevateComfortSection />
