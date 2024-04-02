@@ -1,4 +1,4 @@
-'use client';;
+'use client';
 import Image from 'next/image';
 import { useState, useContext } from 'react';
 import SeatCoverFreeDetails from './SeatCoverFreeDetails';
@@ -25,13 +25,11 @@ export default function SeatContent({
   if (!store)
     throw new Error('Missing SeatCoverSelectionContext.Provider in the tree');
   const selectedProduct = useStore(store, (s) => s.selectedProduct);
-  const [coverPrice, setCoverPrice] = useState(400);
+  const [coverPrice, setCoverPrice] = useState(280);
 
   const { addToCart } = useCartContext();
   const router = useRouter();
   const [addToCartOpen, setAddToCartOpen] = useState<boolean>(false);
-
-
 
   const handleAddToCart = () => {
     addToCart({ ...selectedProduct, quantity: 1 });
@@ -39,7 +37,7 @@ export default function SeatContent({
   };
 
   return (
-    <section className="flex h-full w-full flex-col max-lg:px-4 max-lg:pt-[34px] lg:sticky lg:top-8 lg:w-1/2">
+    <section className="flex h-full w-full flex-col max-lg:px-4 max-lg:pt-4 lg:sticky lg:top-8 lg:w-1/2">
       <div className="flex flex-col ">
         <Separator className="w-full bg-[#C8C7C7] lg:block" />
 
@@ -52,7 +50,7 @@ export default function SeatContent({
             Premium Comfort <br className="lg:hidden" /> Leather Seat Covers
           </h2>
           {/* Rating(s) */}
-          <div className="flex pb-[36px] ">
+          <div className="flex pb-[18px] lg:pb-[18px] ">
             <Rating
               name="read-only"
               value={5}
@@ -65,6 +63,7 @@ export default function SeatContent({
           </div>
         </div>
       </div>
+      <p className="pb-2 text-[12px] font-[500] leading-[16px]">From</p>
       <div className=" flex  items-end gap-[9px]   text-center text-[28px] font-[900]  lg:text-[32px] lg:leading-[37.5px] ">
         <div className="leading-[20px]">${coverPrice / 2 - 0.05}</div>
         <div className="flex gap-1.5 pb-[1px] text-[22px] font-[400] leading-[14px] text-[#BE1B1B] lg:text-[22px] ">

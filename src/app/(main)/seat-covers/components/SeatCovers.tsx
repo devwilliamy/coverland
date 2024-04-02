@@ -43,6 +43,7 @@ export default function SeatCovers({
       <section className="flex w-full flex-col">
         <ExtraDetailsTabs />
       </section>
+      <Separator className="bg-transparent pt-[60px] lg:pt-[110px]" />
     </section>
   );
 }

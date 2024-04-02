@@ -18,6 +18,7 @@ export default async function SeatCoverDataWrapper({
     params,
     searchParams,
   };
+  
   return (
     <SeatCoverSelectionProvider initialState={initialState}>
       <SeatCovers params={params} searchParams={searchParams} />

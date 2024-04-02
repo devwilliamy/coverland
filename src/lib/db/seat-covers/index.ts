@@ -70,8 +70,6 @@ export async function getUniqueSeatCoverProductSingle({
     .limit(1)
     .single();
 
-  // console.log(year,model,type,make,'search resutl for leather',data);
-
   if (error) {
     throw new Error(error.message);
   }
@@ -179,7 +177,6 @@ export async function getSeatCoverProductData({
   return data;
 }
 
-
 export async function getAllUniqueMakesByYear({
   type,
   cover,
@@ -232,9 +229,7 @@ export async function getAllUniqueModelsByYearMake({
 }) {
   const { data, error } = await supabaseDatabaseClient
     .from(SEAT_COVERS_TABLE_NEW)
-    .select(
-      'model, model_slug, parent_generation, submodel1, submodel2'
-    )
+    .select('model, model_slug, parent_generation, submodel1, submodel2')
     .eq('type', type)
     .eq('display_id', cover)
     .like('year_options', `%${year}%`)
@@ -251,7 +246,7 @@ export async function getAllUniqueModelsByYearMake({
         (t) =>
           t.model_slug === car.model_slug &&
           t.submodel1 === car.submodel1 &&
-          t.submodel2 === car.submodel2 
+          t.submodel2 === car.submodel2
       )
   );
   // console.log('[Server]: getAllUniqueModelsByYearMake Params & Response:', {
@@ -263,4 +258,38 @@ export async function getAllUniqueModelsByYearMake({
   //   make,
   // });
   return uniqueCars;
+}
+
+export async function getSeatCoverProductsByDisplayColor({
+  type,
+  year,
+  make,
+  model,
+  submodel,
+  submodel2,
+}: {
+  type: string;
+  year?: string;
+  make?: string;
+  model?: string;
+  submodel?: string;
+  submodel2?: string;
+}) {
+  const { data, error } = await supabaseDatabaseClient.rpc(
+    'get_seat_cover_products_sorted_by_color',
+    {
+      p_type: type,
+      p_make: make,
+      p_model: model,
+      p_year: year,
+      p_submodel: submodel,
+      p_submodel2: submodel2,
+    }
+  );
+
+  if (error) {
+    throw new Error(error.message);
+  }
+
+  return data;
 }

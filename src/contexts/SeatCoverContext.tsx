@@ -59,7 +59,7 @@ const createSeatCoverSelectionStore = ({
   const initialQueryState = {
     year: (params?.year && customerSelectedYear) || '',
     type: params?.productType ?? '',
-    coverType: params?.coverType ?? '',
+    coverType: params?.coverType ?? 'leather',
     make: params?.make ?? '',
     model: params?.model ?? '',
     submodel: searchParams?.submodel ?? '',

@@ -1,13 +1,6 @@
-'use client';
+'use client';;
 import { useMediaQuery } from '@mantine/hooks';
-import {
-  ChangeEvent,
-  SetStateAction,
-  Suspense,
-  useContext,
-  useEffect,
-  useState,
-} from 'react';
+import { SetStateAction, Suspense, useContext, useEffect, useState } from 'react';
 import { DrawerTitle } from '@/components/ui/drawer';
 import { useParams, useRouter } from 'next/navigation';
 import { TPathParams, getCompleteSelectionData } from '../../utils';
@@ -24,13 +17,8 @@ import { X } from 'lucide-react';
 import { handleAddToCartGoogleTag } from '@/hooks/useGoogleTagDataLayer';
 
 import { slugify } from '@/lib/utils';
-import { AiOutlineLoading3Quarters } from 'react-icons/ai';
 import { SeatCoverSelectionContext } from '@/contexts/SeatCoverContext';
-import {
-  getAllUniqueMakesByYear,
-  getAllUniqueModelsByYearMake,
-  getSeatCoverProductData,
-} from '@/lib/db/seat-covers';
+import { getSeatCoverProductData } from '@/lib/db/seat-covers';
 import EditVehicleDropdown from './EditVehicleDropdownSeatCover';
 import AddToCartButton from './AddToCartButtonSeatCover';
 import AddtoCartSeatSelect from './AddToCartSeatSelect';
@@ -58,7 +46,7 @@ export default function AddToCart({
 
   return (
     <Suspense fallback={<></>}>
-      <div className="w-full" id="selector">
+      <div className="w-full z-20" id="selector">
         {isComplete ? (
           <AddtoCartSeatSelect
             handleAddToCart={handleAddToCart}
@@ -231,8 +219,7 @@ const AddToCartSelector = ({
         <SheetFooter
           id="Add-To-Cart-Button"
           className="mt-auto flex flex-col gap-3 px-4 py-3 align-bottom"
-        >
-        </SheetFooter>
+        ></SheetFooter>
       </SheetContent>
     </Sheet>
   );
@@ -260,4 +247,3 @@ const isComplete_v2 = (queryState, newModelData) => {
     !hasSubmodel2 || (hasSubmodel2 && !!secondSubmodel);
   return isBasicInfoFilled && isSubmodel1Complete && isSubmodel2Complete;
 };
-

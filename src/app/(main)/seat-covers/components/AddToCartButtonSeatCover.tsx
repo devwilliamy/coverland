@@ -5,6 +5,7 @@ import { TPathParams, getCompleteSelectionData } from '../../utils';
 import { useParams } from 'next/navigation';
 import { SeatCoverSelectionContext } from '@/contexts/SeatCoverContext';
 import { useStore } from 'zustand';
+import CarMagnify from '@/components/icons/CarMagnify';
 
 type AddToCartButtonProps = {
   setSelectSeatOpen: (open: boolean) => void;
@@ -45,7 +46,8 @@ export default function AddToCartButton({
         setAddToCartOpen((p) => !p);
       }}
     >
-      <p
+      <div
+        className="flex gap-[10px]"
         style={
           isTypeOrCoverPage
             ? {
@@ -62,8 +64,16 @@ export default function AddToCartButton({
           });
         }}
       >
-        {isTypeOrCoverPage ? nonFinalButtonText : 'Add To Cart'}
-      </p>
+        {nonFinalButtonText == 'Start Here' && (
+          // <Image alt="car-magnifying-glass" src={CarMag} />
+          <div className="flex min-h-[30px] min-w-[67px]">
+            <CarMagnify />
+          </div>
+        )}
+        <p className="">
+          {isTypeOrCoverPage ? nonFinalButtonText : 'Add To Cart'}
+        </p>
+      </div>
     </Button>
   );
 }
