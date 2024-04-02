@@ -67,7 +67,6 @@ export default function AddToCart({
     data: modelData,
   });
   
-  console.log('[AddToSeatCover]: ', { isComplete, modelData });
   return (
     <Suspense fallback={<></>}>
       <div className="w-full" id="selector">
