@@ -42,7 +42,7 @@ export default function StayNewSection() {
                 className="min-w-full lg:max-h-[328px] lg:max-w-[621px] "
               />
             )}
-            <p className="pt-[18px] text-[16px] font-[500]  leading-[25px] lg:text-[22px] ">
+            <p className="pt-[18px] text-[16px] font-[500] capitalize  leading-[25px] lg:text-[22px] ">
               {title}
             </p>
           </div>
