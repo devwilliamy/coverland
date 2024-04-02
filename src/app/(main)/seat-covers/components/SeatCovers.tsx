@@ -10,6 +10,7 @@ import EnhancedPerformanceSection from '../components/EnhancedPerformanceSection
 import DesktopImageDisplay from '../components/DesktopImageDisplay';
 import { Separator } from '@/components/ui/separator';
 import LinkBreadcrumbs from '../../[productType]/components/LinkBreadcrumbs';
+import EditVehicle from './EditVehicleSeatCover';
 
 export default function SeatCovers({
   searchParams,
@@ -29,7 +30,7 @@ export default function SeatCovers({
       <SeatCoverCarousel />
       <section className="flex h-max w-full px-[2dvw] lg:gap-[60px]">
         <DesktopImageDisplay />
-
+        {/* <Separator className="w-full bg-[#C8C7C7]" /> */}
         <SeatContent searchParams={searchParams} />
       </section>
       {/* <ElevateComfortSection />

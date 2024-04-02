@@ -6,7 +6,7 @@ import {
 } from '@/lib/db/seat-covers';
 
 export async function generateStaticParams() {
-  return [{ seatType: 'leather' }];
+  return [{ coverType: 'leather' }];
 }
 
 export default async function SeatCoversPage({

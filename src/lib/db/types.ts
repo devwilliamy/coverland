@@ -1663,6 +1663,7 @@ export type Database = {
           sku: string
           submodel1: string | null
           submodel2: string | null
+          submodel3: string | null
           type: string | null
           year_generation: string | null
           year_options: string | null
@@ -1683,6 +1684,7 @@ export type Database = {
           sku: string
           submodel1?: string | null
           submodel2?: string | null
+          submodel3?: string | null
           type?: string | null
           year_generation?: string | null
           year_options?: string | null
@@ -1703,6 +1705,7 @@ export type Database = {
           sku?: string
           submodel1?: string | null
           submodel2?: string | null
+          submodel3?: string | null
           type?: string | null
           year_generation?: string | null
           year_options?: string | null

@@ -9,12 +9,12 @@ import {
 export const dynamicParams = false;
 
 export async function generateStaticParams() {
-  return [{ seatType: 'leather' }];
+  return [{ coverType: 'leather' }];
 }
 
-const seatTypes = ['leather'];
+const coverTypes = ['leather'];
 export default async function Leatherette({ params }: { params: TPathParams }) {
-  if (!seatTypes.includes(params.seatType as string)) {
+  if (!coverTypes.includes(params.coverType as string)) {
     return notFound();
   }
   let modelData: TSeatCoverDataNewDB[] = [];
