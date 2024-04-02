@@ -13,7 +13,6 @@ export default function SeatCoverDetails() {
     params?.make === 'ford' &&
     params?.model === 'f-150' &&
     params?.year === '2015-2024';
-  console.log(params);
 
   return (
     <div className="flex w-full flex-col">
@@ -23,7 +22,7 @@ export default function SeatCoverDetails() {
         </div>
       )}
 
-      <ElevateComfortSection />
+      <ElevateComfortSection showBanner={isFordF1502015} />
       <StayNewSection />
       <SafetyFirstSection />
       <EnhancedPerformanceSection />

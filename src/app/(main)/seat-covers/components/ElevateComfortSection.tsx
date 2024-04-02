@@ -14,7 +14,11 @@ import EveryMile4 from '@/images/PDP/seat-covers-v2/every-mile-4.webp';
 import DetailsTabHeader from '../../[productType]/components/DetailsTabHeader';
 import CustomForText from './CustomForText';
 
-export default function ElevateComfortSection() {
+export default function ElevateComfortSection({
+  showBanner,
+}: {
+  showBanner: boolean;
+}) {
   const threeIcons = [
     { title: 'Custom Fit', icon: <GrayDualArrow /> },
     { title: 'Unlimited Comfort', icon: <Couch /> },
@@ -47,9 +51,11 @@ export default function ElevateComfortSection() {
 
   return (
     <section className="relative flex w-full flex-col items-center justify-center bg-[#1A1A1A] pb-[34px] capitalize lg:pt-[42px] ">
-      <div className="hidden w-full max-w-[840px] lg:flex">
-        <DetailsTabHeader submodel="Super Crew Cap" />
-      </div>
+      {showBanner && (
+        <div className="hidden w-full max-w-[840px] lg:flex">
+          <DetailsTabHeader  />
+        </div>
+      )}
       <CustomForText />
       <div className="flex w-screen max-w-[850px] items-center justify-center lg:w-full ">
         <Image
@@ -71,7 +77,7 @@ export default function ElevateComfortSection() {
           </div>
         ))}
       </span>
-      <div className=" w-full px-4 flex flex-col items-center ">
+      <div className=" flex w-full flex-col items-center px-4 ">
         <p className="flex w-full items-center justify-center pt-[60px] text-center text-[26px] font-[500] leading-[30px] text-white  lg:p-[6px] lg:pt-[60px] lg:text-[45px] lg:leading-[52px] ">
           Style In Every Angle
         </p>
@@ -81,7 +87,7 @@ export default function ElevateComfortSection() {
               return (
                 <div
                   key={img.src}
-                  className={`flex max-lg:max-h-[257px] justify-end text-center text-white`}
+                  className={`flex justify-end text-center text-white max-lg:max-h-[257px]`}
                 >
                   {img && (
                     <Image
@@ -102,7 +108,7 @@ export default function ElevateComfortSection() {
                   <Image
                     alt="enhanced-item"
                     src={img}
-                    className="max-w-[420px] max-h-[257px] w-full bg-[#373737] object-contain py-[21px] lg:max-h-[313px] lg:max-w-[420px]"
+                    className="max-h-[257px] w-full max-w-[420px] bg-[#373737] object-contain py-[21px] lg:max-h-[313px] lg:max-w-[420px]"
                   />
                 )}
               </div>
@@ -113,7 +119,7 @@ export default function ElevateComfortSection() {
         <p className="flex w-full items-center justify-center pt-[60px] text-center text-[26px] font-[500] leading-[30px] text-white  lg:p-[6px] lg:pt-[60px] lg:text-[45px] lg:leading-[52px] ">
           Comfort in Every Mile
         </p>
-        <span className="grid grid-cols-2 max-w-[840px] grid-rows-2 justify-center gap-[22px] pt-[38px] max-lg:grid-cols-1  justify-items-stretch ">
+        <span className="grid max-w-[840px] grid-cols-2 grid-rows-2 justify-center justify-items-stretch gap-[22px] pt-[38px]  max-lg:grid-cols-1 ">
           {everyMile.map(({ img, title, description }, index) => (
             <div
               key={img.src}
@@ -126,7 +132,7 @@ export default function ElevateComfortSection() {
                   className="min-w-full lg:max-h-[221px] lg:max-w-[420px]"
                 />
               )}
-              <p className="pt-[18px] text-[18px] lg:text-[22px]  font-[500] leading-[25px] ">
+              <p className="pt-[18px] text-[18px] font-[500]  leading-[25px] lg:text-[22px] ">
                 {title}
               </p>
               <p className=" pt-1.5 text-[14px] leading-[16px] text-[#D3D3D3] lg:text-[16px] lg:leading-[18px] ">
