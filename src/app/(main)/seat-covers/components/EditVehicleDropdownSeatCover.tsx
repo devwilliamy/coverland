@@ -20,7 +20,10 @@ import { YearSearch } from '@/components/hero/dropdown/YearSearch';
 import { MakeSearch } from '@/components/hero/dropdown/MakeSearch';
 import { ModelSearch } from '@/components/hero/dropdown/ModelSearch';
 import { getAllUniqueMakesByYear } from '@/lib/db';
-import { getAllSeatCovers, getSeatCoverProductData } from '@/lib/db/seat-covers';
+import {
+  getAllSeatCovers,
+  getSeatCoverProductData,
+} from '@/lib/db/seat-covers';
 
 export type TProductJsonData = {
   type: string;
@@ -41,7 +44,8 @@ export default function EditVehicleDropdown({
 }) {
   const pathname = usePathname();
   const store = useContext(SeatCoverSelectionContext);
-  if (!store) throw new Error('Missing SeatCoverSelectionContext.Provider in the tree');
+  if (!store)
+    throw new Error('Missing SeatCoverSelectionContext.Provider in the tree');
 
   const { coverType } = useStore(store, (s) => s.query);
 
@@ -62,18 +66,12 @@ export default function EditVehicleDropdown({
     const getSearchData = async () => {
       if (!make) return;
 
-    //   const response = await fetch(
-    //     `/api/json-data?type=${slugify(type)}&make=${slugify(make)}`
-    //   );
-    //   const jsonData = await response.json();
-    //   console.log("JSonData:", jsonData)
-        console.log("Type:", type)
-      
-      const response2= await getSeatCoverProductData({
-          type, cover:'Leather', make
-        })
-        console.log("Response 2:", response2)
-        setJsonData(response2);
+      const response = await getSeatCoverProductData({
+        type,
+        cover: 'Leather',
+        make: slugify(make),
+      });
+      setJsonData(response);
     };
     getSearchData();
   }, [make, type]);

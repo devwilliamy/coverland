@@ -29,6 +29,7 @@ import SeatCoverColorSelector from './SeatCoverColorSelector';
 import CartSheet from '@/components/cart/CartSheet';
 import AddToCart from './AddToCartSeatCover';
 import EditVehicle from './EditVehicleSeatCover';
+import { Separator } from '@/components/ui/separator';
 
 const colorMap = {
   BlackRedData: 'Solid Black with Red Stitching',
@@ -142,9 +143,12 @@ export default function SeatContent({
   return (
     <section className="flex h-full w-full flex-col max-lg:px-4 max-lg:pt-[34px] lg:sticky lg:top-8 lg:w-1/2">
       <div className="flex flex-col ">
-        <EditVehicle searchParams={searchParams} />
+        <Separator className="w-full bg-[#C8C7C7] lg:block" />
 
-        <div className="flex flex-col gap-0.5">
+        <EditVehicle searchParams={searchParams} />
+        <Separator className="w-full bg-[#C8C7C7]" />
+
+        <div className="mt-4 flex flex-col gap-0.5 lg:mt-10">
           {/* Product Title */}
           <h2 className="text-[24px] font-[900] leading-[27px] text-[#1A1A1A] lg:text-[28px] lg:leading-[30px] ">
             Premium Comfort <br className="lg:hidden" /> Leather Seat Covers
