@@ -16,18 +16,24 @@ export type TCarCoverSlugParams = {
 //TODO: Refactor code so we can generate our dynamic paths as static HTML for performance
 
 // export async function generateStaticParams({
-//   params: { productType, coverType, make },
+//   params: { productType, coverType, make, model },
 // }: {
-//   params: { productType: string; coverType: string; make: string };
+//   params: {
+//     productType: string;
+//     coverType: string;
+//     make: string;
+//     model: string;
+//   };
 // }) {
-//   const modelData = await getAllModels({
+//   const yearData = await getAllYears({
 //     type: productType,
 //     cover: coverType,
 //     make: make,
+//     model: model,
 //   });
 
-//   return modelData.filter(Boolean).map((model) => ({
-//     model: model,
+//   return yearData.filter(Boolean).map((year) => ({
+//     year: year,
 //   }));
 // }
 
@@ -35,24 +41,28 @@ export async function generateMetadata({ params }: { params: TPathParams }) {
   const productType = deslugify(params.productType);
   const make = deslugify(params.make || '');
   const model = deslugify(params.model || '');
+  const year = deslugify(params.year || '');
   return {
-    title: `${make} ${model} ${productType}, Custom Fit - Coverland`,
-    description: `${make} ${model} ${productType} ᐉ Coverland ⭐ Free, Same-Day Shipping ✔️ Free Returns & Purchase Protection ✔️ Made from premium quality, heavy-duty materials with a soft inner fabric.`,
+    title: `${year} ${make} ${model} ${productType}, Custom Fit - Coverland`,
+    description: `${year} ${make} ${model} ${productType} ᐉ Coverland ⭐ Free, Same-Day Shipping ✔️ Free Returns & Purchase Protection ✔️ Made from premium quality, heavy-duty materials with a soft inner fabric.`,
   };
 }
 
 export default async function SeatCoverDataLayer({
   params,
+  searchParams,
 }: {
   params: TPathParams;
+  searchParams: { submodel?: string; second_submodel?: string };
 }) {
   let modelData = [];
   try {
     modelData = await getSeatCoverProductData({
       type: 'Seat Covers',
-      cover: params.seatType,
+      cover: params.coverType,
       make: params.make,
       model: params.model,
+      year: params.year,
     });
 
     if (!modelData || modelData.length === 0) {
@@ -62,5 +72,5 @@ export default async function SeatCoverDataLayer({
     console.error('Error fetching data:', error);
     notFound();
   }
-  return <SeatCoverDataWrapper modelData={modelData} params={params} />;
+  return <SeatCoverDataWrapper modelData={modelData} params={params} searchParams={searchParams} />;
 }

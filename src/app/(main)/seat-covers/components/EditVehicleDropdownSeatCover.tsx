@@ -66,6 +66,16 @@ export default function EditVehicleDropdown({
     const getSearchData = async () => {
       if (!make) return;
 
+      if (type !== 'Seat Covers') {
+        const response = await fetch(
+          `/api/json-data?type=${slugify(type)}&make=${slugify(make)}`
+        );
+        const jsonData = await response.json();
+
+        setJsonData(jsonData);
+        return;
+      }
+
       const response = await getSeatCoverProductData({
         type,
         cover: 'Leather',
@@ -119,7 +129,9 @@ export default function EditVehicleDropdown({
     )
       return;
     setLoading(true);
-    let url = `/${slugify(type)}/${coverType || 'premium-plus'}/${slugify(make)}/${slugify(model)}/${yearInUrl}`;
+    const coverTypeForUrl = type === 'Seat Covers' ? coverType : 'premium-plus';
+
+    let url = `/${slugify(type)}/${coverTypeForUrl}/${slugify(make)}/${slugify(model)}/${yearInUrl}`;
 
     const submodelParam = searchParams?.submodel
       ? `?${createQueryString('submodel', searchParams.submodel)}`

@@ -5,12 +5,12 @@ import { TSeatCoverDataNewDB, getSeatCoverProductData } from '@/lib/db/seat-cove
 export const dynamicParams = false;
 
 export async function generateStaticParams() {
-  return [{ seatType: 'leather' }];
+  return [{ coverType: 'leather' }];
 }
 
-const seatTypes = ['leather'];
+const coverTypes = ['leather'];
 export default async function Leatherette({ params }: { params: TPathParams }) {
-  if (!seatTypes.includes(params.seatType)) {
+  if (!coverTypes.includes(params.coverType)) {
     return notFound();
   }
   let modelData: TSeatCoverDataNewDB[] = [];
