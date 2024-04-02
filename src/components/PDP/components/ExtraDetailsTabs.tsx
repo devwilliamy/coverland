@@ -53,7 +53,7 @@ export default function ExtraDetailsTabs() {
         id: 'reviews-tab',
         jsx: (
           <div id="reviews-tab">
-            <ReviewSection />
+            <ReviewSection header={false} />
           </div>
         ),
       },
