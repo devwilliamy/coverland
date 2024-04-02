@@ -70,7 +70,7 @@ export default function AddToCart({
   const [addToCartOpen, setAddToCartOpen] = useState<boolean>(false);
 
   const isTypeOrCoverPage = !params?.make;
-  const [nonFinalButtonText, setNonFinalButtonText] = useState('Start Here');
+  const [nonFinalButtonText, setNonFinalButtonText] = useState('');
   const blinkTime = 2;
   const blinkVel = 10;
 
@@ -130,7 +130,7 @@ export default function AddToCart({
                 });
               }}
             >
-              {nonFinalButtonText == 'Start Here' && (
+              {nonFinalButtonText === 'Start Here' && (
                 // <Image alt="car-magnifying-glass" src={CarMag} />
                 <div className="flex min-h-[30px] min-w-[67px]">
                   <CarMagnify />
