@@ -25,6 +25,18 @@ import {
   redirectToCheckout,
 } from './utils';
 
+function detectFOrFB(sku: string) {
+  const parts = sku.split('-');
+  if (parts[1] === 'SC') {
+    if (parts[3] === 'F') {
+      return 'Front';
+    } else if (parts[3] === 'FB') {
+      return 'Full';
+    }
+  }
+  return 'Unknown';
+}
+
 function CheckoutPage() {
   const {
     cartItems,
@@ -127,7 +139,7 @@ function CartItemCard({ item }: { item: TCartItem }) {
             <div
               className={`text-sm font-normal ${item?.type === 'Seat Covers' ? 'flex' : 'hidden'}  text-[#707070] lg:text-base`}
             >
-              Seat Cover
+              {detectFOrFB(item.sku)} Seat Cover
             </div>
             <div className="text-sm font-normal text-[#707070] lg:text-base">
               Color: {item?.display_color}
