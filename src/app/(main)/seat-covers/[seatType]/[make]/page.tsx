@@ -33,10 +33,9 @@ export type TCarCoverSlugParams = {
 export async function generateMetadata({ params }: { params: TPathParams }) {
     const productType = deslugify(params.productType);
     const make = deslugify(params.make || '');
-    const model = deslugify(params.model || '');
     return {
-      title: `${make} ${model} ${productType}, Custom Fit - Coverland`,
-      description: `${make} ${model} ${productType} ᐉ Coverland ⭐ Free, Same-Day Shipping ✔️ Free Returns & Purchase Protection ✔️ Made from premium quality, heavy-duty materials with a soft inner fabric.`,
+      title: `${make} ${productType}, Custom Fit - Coverland`,
+      description: `${make} ${productType} ᐉ Coverland ⭐ Free, Same-Day Shipping ✔️ Free Returns & Purchase Protection ✔️ Made from premium quality, heavy-duty materials with a soft inner fabric.`,
     };
   }
 
@@ -51,7 +50,6 @@ export default async function SeatCoverDataLayer({
       type: 'Seat Covers',
       cover: params.seatType,
       make: params.make,
-      model: params.model,
     });
     if (!modelData || modelData.length === 0) {
       notFound();
