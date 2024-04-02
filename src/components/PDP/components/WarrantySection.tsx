@@ -54,7 +54,7 @@ export default function WarrantySection() {
       break;
   }
 
-  if (pathname.startsWith('/seat-covers') || params.seatType === 'leather') {
+  if (pathname.startsWith('/seat-covers')) {
     warrantyLength = '10-Year';
     warrantyData.splice(2, 1);
   }
