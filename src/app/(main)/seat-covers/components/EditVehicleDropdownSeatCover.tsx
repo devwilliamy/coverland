@@ -41,7 +41,7 @@ export default function EditVehicleDropdown({
 }) {
   const pathname = usePathname();
   const store = useContext(SeatCoverSelectionContext);
-  if (!store) throw new Error('Missing CarContext.Provider in the tree');
+  if (!store) throw new Error('Missing SeatCoverSelectionContext.Provider in the tree');
 
   const { coverType } = useStore(store, (s) => s.query);
 

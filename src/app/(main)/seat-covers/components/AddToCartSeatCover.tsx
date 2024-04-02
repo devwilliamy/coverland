@@ -57,7 +57,7 @@ export default function AddToCart({
 }) {
   const params = useParams<TPathParams>();
   const store = useContext(SeatCoverSelectionContext);
-  if (!store) throw new Error('Missing CarContext.Provider in the tree');
+  if (!store) throw new Error('Missing SeatCoverSelectionContext.Provider in the tree');
   const modelData = useStore(store, (s) => s.modelData);
   const [addToCartOpen, setAddToCartOpen] = useState<boolean>(false);
 
@@ -114,7 +114,7 @@ const AddToCartSelector = ({
   searchParams: { submodel?: string; second_submodel?: string } | undefined;
 }) => {
   const store = useContext(SeatCoverSelectionContext);
-  if (!store) throw new Error('Missing CarContext.Provider in the tree');
+  if (!store) throw new Error('Missing SeatCoverSelectionContext.Provider in the tree');
 
   const queryState = useStore(store, (s) => s.query);
   const setQuery = useStore(store, (s) => s.setQuery);

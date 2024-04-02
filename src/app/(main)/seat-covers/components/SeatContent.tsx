@@ -28,6 +28,7 @@ import { useStore } from 'zustand';
 import SeatCoverColorSelector from './SeatCoverColorSelector';
 import CartSheet from '@/components/cart/CartSheet';
 import AddToCart from './AddToCartSeatCover';
+import EditVehicle from './EditVehicleSeatCover';
 
 const colorMap = {
   BlackRedData: 'Solid Black with Red Stitching',
@@ -133,7 +134,7 @@ export default function SeatContent({
     );
   };
 
-  const handleAddToCart = () => {    
+  const handleAddToCart = () => {
     addToCart({ ...selectedProduct, quantity: 1 });
     router.push('/checkout');
   };
@@ -141,6 +142,8 @@ export default function SeatContent({
   return (
     <section className="flex h-full w-full flex-col max-lg:px-4 max-lg:pt-[34px] lg:sticky lg:top-8 lg:w-1/2">
       <div className="flex flex-col ">
+        <EditVehicle searchParams={searchParams} />
+
         <div className="flex flex-col gap-0.5">
           {/* Product Title */}
           <h2 className="text-[24px] font-[900] leading-[27px] text-[#1A1A1A] lg:text-[28px] lg:leading-[30px] ">

@@ -10,7 +10,7 @@ import { useStore } from 'zustand';
 export default function AddToCartButton({handleAddToCart, setAddToCartOpen}) {
     const params = useParams<TPathParams>();
   const store = useContext(SeatCoverSelectionContext);
-  if (!store) throw new Error('Missing CarContext.Provider in the tree');
+  if (!store) throw new Error('Missing SeatCoverSelectionContext.Provider in the tree');
   const modelData = useStore(store, (s) => s.modelData);
   const selectedProduct = useStore(store, (s) => s.selectedProduct);
     const isTypeOrCoverPage = !params?.make;
