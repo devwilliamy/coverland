@@ -20,14 +20,14 @@ export default function ExtraDetailsTabs() {
     { title: 'Insights', jsx: <InsightsTab /> },
   ];
 
-  // if (!isSeatCovers && !isLeather) {
-  //   defaultTabs.splice(
-  //     0,
-  //     0,
-  //     { title: 'Reviews', jsx: <ReviewSection /> },
-  //     { title: 'Q&A', jsx: <PDPAccordion /> }
-  //   );
-  // }
+  if (!isSeatCovers && !isLeather) {
+    defaultTabs.splice(
+      0,
+      0,
+      { title: 'Reviews', jsx: <ReviewSection /> },
+      { title: 'Q&A', jsx: <PDPAccordion /> }
+    );
+  }
 
   if (isSeatCovers || isLeather) {
     defaultTabs.splice(0, 0, { title: 'Details', jsx: <SeatCoverDetails /> });
