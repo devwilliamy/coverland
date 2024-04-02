@@ -69,7 +69,7 @@ export default function AddToCart({
   const modelData = useStore(store, (s) => s.modelData);
   const [addToCartOpen, setAddToCartOpen] = useState<boolean>(false);
 
-  const isTypeOrCoverPage = !params?.make;
+  const isFinalSelection = params?.year;
   const [nonFinalButtonText, setNonFinalButtonText] = useState('');
   const blinkTime = 2;
   const blinkVel = 10;
@@ -90,7 +90,7 @@ export default function AddToCart({
       </div>
 
       {/* Add to Cart Button */}
-      {isTypeOrCoverPage && !isSticky ? (
+      {!isFinalSelection && !isSticky ? (
         <VehicleSelector searchParams={searchParams} />
       ) : (
         <div className="fixed inset-x-0 bottom-0 z-20 flex bg-white p-4 lg:relative lg:p-1">
@@ -115,7 +115,7 @@ export default function AddToCart({
             <div
               className="flex items-center justify-center gap-[10px]"
               style={
-                isTypeOrCoverPage
+                !isFinalSelection
                   ? {
                       animation: `blink ${blinkTime}s cubic-bezier(0,-${blinkVel},1,${blinkVel}) infinite`,
                     }
@@ -137,7 +137,7 @@ export default function AddToCart({
                 </div>
               )}
               <p className="flex h-full">
-                {isTypeOrCoverPage ? nonFinalButtonText : 'Add To Cart'}
+                {!isFinalSelection ? nonFinalButtonText : 'Add To Cart'}
               </p>
             </div>
           </Button>
