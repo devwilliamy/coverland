@@ -2,7 +2,7 @@ import { notFound } from 'next/navigation';
 import { TPathParams } from '../../utils';
 import SeatCoverDataWrapper from '../components/SeatCoverDataWrapper';
 import {
-  TSeatCoverDataNewDB,
+  TSeatCoverDataDB,
   getSeatCoverProductData,
   getSeatCoverProductsByDisplayColor,
 } from '@/lib/db/seat-covers';
@@ -17,7 +17,7 @@ export default async function Leatherette({ params }: { params: TPathParams }) {
   if (!coverTypes.includes(params.coverType as string)) {
     return notFound();
   }
-  let modelData: TSeatCoverDataNewDB[] = [];
+  let modelData: TSeatCoverDataDB[] = [];
 
   try {
     modelData = await getSeatCoverProductsByDisplayColor({

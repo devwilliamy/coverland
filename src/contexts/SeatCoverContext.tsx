@@ -2,7 +2,7 @@
 import { createStore } from 'zustand';
 import { createContext, useRef } from 'react';
 import { useRouter } from 'next/navigation';
-import { TSeatCoverDataNewDB } from '@/lib/db/seat-covers';
+import { TSeatCoverDataDB } from '@/lib/db/seat-covers';
 import { TPathParams, TQueryParams } from '@/app/(main)/utils';
 import { compareRawStrings } from '@/lib/utils';
 
@@ -22,12 +22,12 @@ export type TQuery = {
 };
 
 interface ISeatCoverCoverProps {
-  modelData: TSeatCoverDataNewDB[];
+  modelData: TSeatCoverDataDB[];
 }
 
 export interface ISeatCoverCoverSelectionState extends ISeatCoverCoverProps {
-  selectedProduct: TSeatCoverDataNewDB;
-  setSelectedProduct: (newProduct: TSeatCoverDataNewDB) => void;
+  selectedProduct: TSeatCoverDataDB;
+  setSelectedProduct: (newProduct: TSeatCoverDataDB) => void;
   selectedColor: string;
   setSelectedColor: (color: string) => void;
   query: TQuery;
@@ -35,7 +35,7 @@ export interface ISeatCoverCoverSelectionState extends ISeatCoverCoverProps {
 }
 
 type SeatCoverSelectionStoreParams = {
-  modelData: TSeatCoverDataNewDB[];
+  modelData: TSeatCoverDataDB[];
   params: TPathParams;
   searchParams: TQueryParams | undefined;
 };
@@ -82,7 +82,7 @@ const createSeatCoverSelectionStore = ({
       }));
     },
     selectedProduct: modelDataWithFilteredSubmodelSelection[0],
-    setSelectedProduct: (newProduct: TSeatCoverDataNewDB) => {
+    setSelectedProduct: (newProduct: TSeatCoverDataDB) => {
       set(() => ({
         selectedProduct: newProduct,
         featuredImage: newProduct.product?.split(',')[0] ?? '',

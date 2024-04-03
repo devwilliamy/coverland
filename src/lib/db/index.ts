@@ -4,7 +4,7 @@ import { slugToCoverType } from '../constants';
 import { slugify } from '../utils';
 import {
   PRODUCT_DATA_TABLE,
-  SEAT_COVERS_TABLE_NEW,
+  SEAT_COVERS_TABLE,
 } from './constants/databaseTableNames';
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL ?? '';
@@ -133,7 +133,7 @@ export async function getAllUniqueMakesByYear({
   const { data, error } =
     type === 'Seat Covers'
       ? await supabase
-          .from(SEAT_COVERS_TABLE_NEW) // OR PRODUCT_DATA_TABLE
+          .from(SEAT_COVERS_TABLE) // OR PRODUCT_DATA_TABLE
           .select('make, make_slug')
           .eq('type', type)
           .eq('display_id', cover)
@@ -170,7 +170,7 @@ export async function getAllUniqueModelsByYearMake({
   make: string;
 }) {
 
-  const tableName = type === 'Seat Covers' ? SEAT_COVERS_TABLE_NEW : PRODUCT_DATA_TABLE
+  const tableName = type === 'Seat Covers' ? SEAT_COVERS_TABLE : PRODUCT_DATA_TABLE
   const { data, error } = await supabase
     .from(tableName)
     .select(

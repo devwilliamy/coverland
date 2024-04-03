@@ -1,14 +1,12 @@
 import { Tables } from '../types';
 import {
   SEAT_COVERS_TABLE,
-  SEAT_COVERS_TABLE_NEW,
 } from '../constants/databaseTableNames';
 import { supabaseDatabaseClient } from '../supabaseClients';
 import { slugToCoverType } from '@/lib/constants';
 import { slugify } from '@/lib/utils';
 
-export type TSeatCoverDataDB = Tables<'seat_covers_20240308_duplicate'>;
-export type TSeatCoverDataNewDB = Tables<'seat_cover_20240322'>;
+export type TSeatCoverDataDB = Tables<'seat_cover_20240401'>;
 
 // URL: supabase.com/dashboard/project/<project_id>/api?pages=tables-intro
 //If the table you want to access isn't listed in TableRow,
@@ -33,7 +31,7 @@ export async function getUniqueSeatProduct({
   product_id: any;
 }) {
   const { data, error } = await supabaseDatabaseClient
-    .from('seat_cover_20240322')
+    .from('seat_cover_20240401')
     .select('*')
     .eq('sku', product_id)
     .single();
@@ -60,7 +58,7 @@ export async function getUniqueSeatCoverProductSingle({
   submodel1: string;
 }) {
   const { data, error } = await supabaseDatabaseClient
-    .from('seat_cover_20240322')
+    .from('seat_cover_20240401')
     .select('sku')
     .eq('type', type)
     .eq('display_id', cover)
@@ -92,7 +90,7 @@ export async function getSeatCoverColors({
   parent_generation?: string;
   submodel1?: string;
 }) {
-  let fetch = supabaseDatabaseClient.from(SEAT_COVERS_TABLE_NEW).select('*');
+  let fetch = supabaseDatabaseClient.from(SEAT_COVERS_TABLE).select('*');
   if (type) {
     fetch = fetch.eq('type', type);
   }
@@ -145,7 +143,7 @@ export async function getSeatCoverProductData({
   cover?: string;
 }) {
   // const seatCoverTypes = ['Seat Covers', 'seat-cover']
-  let fetch = supabaseDatabaseClient.from(SEAT_COVERS_TABLE_NEW).select('*');
+  let fetch = supabaseDatabaseClient.from(SEAT_COVERS_TABLE).select('*');
 
   if (type) {
     fetch = fetch.eq('type', type);
@@ -188,7 +186,7 @@ export async function getAllUniqueMakesByYear({
 }) {
   // Leaving this here if we want to go back to the original table
   const { data, error } = await supabaseDatabaseClient
-    .from(SEAT_COVERS_TABLE_NEW) // OR PRODUCT_DATA_TABLE
+    .from(SEAT_COVERS_TABLE) // OR PRODUCT_DATA_TABLE
     .select('make, make_slug')
     .eq('type', type)
     .eq('display_id', cover)
@@ -228,7 +226,7 @@ export async function getAllUniqueModelsByYearMake({
   make: string;
 }) {
   const { data, error } = await supabaseDatabaseClient
-    .from(SEAT_COVERS_TABLE_NEW)
+    .from(SEAT_COVERS_TABLE)
     .select('model, model_slug, parent_generation, submodel1, submodel2')
     .eq('type', type)
     .eq('display_id', cover)

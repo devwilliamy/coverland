@@ -7,7 +7,7 @@ import CircleBlackRed from '@/images/PDP/Product-Details-Redesign-2/seat-covers/
 import CircleBlack from '@/images/PDP/Product-Details-Redesign-2/seat-covers/cover-colors/black/seat-circle-black.webp';
 import CircleGray from '@/images/PDP/Product-Details-Redesign-2/seat-covers/cover-colors/gray/seat-circle-gray.webp';
 import CircleBeige from '@/images/PDP/Product-Details-Redesign-2/seat-covers/cover-colors/beige/seat-circle-beige.webp';
-import { TSeatCoverDataNewDB } from '@/lib/db/seat-covers';
+import { TSeatCoverDataDB } from '@/lib/db/seat-covers';
 
 const iconMap: Record<string, StaticImageData> = {
   'Solid Black with Red Stitching': CircleBlackRed,
@@ -51,7 +51,7 @@ export default function SeatCoverColorSelector() {
                 className={`flex ${index === colorIndex && 'border-1 border border-[#6F6F6F] '} cursor-pointer flex-col place-content-center rounded-full p-[2px] `}
                 onClick={() => {
                   setColorIndex(index);
-                  setSelectedProduct(product as TSeatCoverDataNewDB);
+                  setSelectedProduct(product as TSeatCoverDataDB);
                   //   setSeatData(i.data);
                   setSelectedColor(product?.display_color as string);
                 }}

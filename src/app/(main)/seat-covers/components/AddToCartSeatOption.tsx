@@ -6,7 +6,7 @@ import FrontCovers from '@/images/PDP/Product-Details-Redesign-2/seat-covers/fro
 import FullCovers from '@/images/PDP/Product-Details-Redesign-2/seat-covers/full-covers.webp';
 import { SeatCoverSelectionContext } from '@/contexts/SeatCoverContext';
 import { useStore } from 'zustand';
-import { TSeatCoverDataNewDB } from '@/lib/db/seat-covers';
+import { TSeatCoverDataDB } from '@/lib/db/seat-covers';
 
 const seatSelectedStyle = 'bg-white text-black hover:bg-black hover:text-white';
 const seatDeselectedStyle = 'bg-black hover:bg-white hover:text-black';
@@ -16,7 +16,7 @@ type SeatOptionProps = {
   setTotal: (total: number) => void;
   selectedSeatCoverType: string;
   setSelectedSeatCoverType: (seatCoverType: string) => void;
-  seatCover: TSeatCoverDataNewDB;
+  seatCover: TSeatCoverDataDB;
 };
 export default function SeatOption({
   option,
