@@ -5,19 +5,21 @@ import ReviewSection from './ReviewSection';
 import WarrantyPolicy from '@/app/(main)/policies/warranty-policy/page';
 import { PDPAccordion } from '../PDPAccordian';
 import ShippingPolicy from '@/app/(main)/policies/shipping-policy/page';
-import { usePathname } from 'next/navigation';
+import { useParams, usePathname } from 'next/navigation';
 import InsightsTab from './InsightsTab';
 import SeatCoverDetails from '@/app/(main)/seat-covers/components/SeatCoverDetails';
+import useDetermineType from '@/hooks/useDetermineType';
+import FeaturesAndProductsSection from '@/app/(main)/[productType]/components/FeaturesAndProductsSection';
 
 export default function ExtraDetailsTabs() {
   const pathname = usePathname();
+  const { coverType } = useDetermineType();
   const isSeatCovers = pathname?.startsWith('/seat-covers');
   const isLeather = pathname?.toLowerCase().startsWith('/seat-covers/leather');
 
   const defaultTabs = [
     {
       title: 'Shipping & Returns',
-      id: 'shipping-tab',
       jsx: (
         <div id="shipping-tab">
           <ShippingPolicy showHeader={false} />
@@ -26,7 +28,6 @@ export default function ExtraDetailsTabs() {
     },
     {
       title: 'Warranty',
-      id: 'waranty-tab',
       jsx: (
         <div id="warranty-tab">
           <WarrantyPolicy showHeader={false} />
@@ -35,7 +36,6 @@ export default function ExtraDetailsTabs() {
     },
     {
       title: 'Insights',
-      id: 'insights-tab',
       jsx: (
         <div id="insights-tab">
           <InsightsTab />
@@ -49,17 +49,23 @@ export default function ExtraDetailsTabs() {
       0,
       0,
       {
-        title: 'Reviews',
-        id: 'reviews-tab',
+        title: 'Details',
         jsx: (
-          <div id="reviews-tab">
-            <ReviewSection header={false} />
+          <div id={`${coverType}-details-tab`}>
+            <FeaturesAndProductsSection />
           </div>
         ),
       },
+      // {
+      //   title: 'Reviews',
+      //   jsx: (
+      //     <div id="reviews-tab">
+            // <ReviewSection header={false} />
+      //     </div>
+      //   ),
+      // },
       {
         title: 'Q&A',
-        id: 'q&a-tab',
         jsx: (
           <div id="q&a-tab">
             <PDPAccordion />,
@@ -70,15 +76,16 @@ export default function ExtraDetailsTabs() {
   }
 
   if (isSeatCovers || isLeather) {
-    defaultTabs.splice(0, 0, {
+    // Adding Seat Cover Details to beginning of array
+    defaultTabs.splice(0, 1, {
       title: 'Details',
-      id: 'seat-cover-details-tab',
       jsx: (
         <div id="seat-cover-details-tab">
           <SeatCoverDetails />
         </div>
       ),
     });
+    // Removing Insights
     defaultTabs.splice(defaultTabs.length - 1, 1);
   }
   const [currentTabIndex, setCurrentTabIndex] = useState(0);
@@ -93,7 +100,7 @@ export default function ExtraDetailsTabs() {
         id="Extra-Details-Tabs"
         className="no-scrollbar sticky  top-[-1px] z-[10] flex items-center justify-items-center overflow-x-auto bg-white lg:w-full "
       >
-        {defaultTabs.map(({ title, jsx, id }, index) => (
+        {defaultTabs.map(({ title, jsx }, index) => (
           <button
             key={`Extra-Details-Tab-${index}`}
             onClick={() => {
@@ -110,8 +117,7 @@ export default function ExtraDetailsTabs() {
           </button>
         ))}
       </div>
-      <Separator className="-z-10 -mt-[18px] flex h-0.5 bg-[#BEBEBE]" />
-      <div className={`${!isLeather && !isSeatCovers && 'p-4'}`}>
+      <div>
         {currentTabContent}
       </div>
     </>

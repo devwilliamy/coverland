@@ -15,6 +15,7 @@ function useDetermineType() {
   const isTruckCover = productType === 'truck-covers';
   const isSUVCover = productType === 'suv-covers';
   const isCarCover = productType === 'car-covers';
+  const isVehicleCover = isCarCover || isSUVCover || isTruckCover;
 
   // Cover Types
   const coverType = params?.coverType;
@@ -35,6 +36,7 @@ function useDetermineType() {
     isCarCover,
     isSUVCover,
     isTruckCover,
+    isVehicleCover,
     coverType,
     isPremiumPlus,
     isPremium,
