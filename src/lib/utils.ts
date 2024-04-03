@@ -191,3 +191,16 @@ export function combineOptions(
 
   return combinedOptions;
 }
+
+// Example SKU: CL-SC-F-12-GR-1TO-2159
+export function detectFOrFB(sku: string) {
+  const parts = sku.split('-');
+  if (parts[1] === 'SC') {
+    if (parts[2] === 'F') {
+      return 'Front';
+    } else if (parts[2] === 'FB') {
+      return 'Full';
+    }
+  }
+  return 'Unknown';
+}

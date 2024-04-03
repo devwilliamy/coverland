@@ -12,18 +12,9 @@ import SeatOption from './AddToCartSeatOption';
 import { useContext, useState } from 'react';
 import { SeatCoverSelectionContext } from '@/contexts/SeatCoverContext';
 import { useStore } from 'zustand';
+import { detectFOrFB } from '@/lib/utils';
 
-function detectFOrFB(sku: string) {
-  const parts = sku.split('-');
-  if (parts[1] === 'SC') {
-    if (parts[3] === 'F') {
-      return 'Front';
-    } else if (parts[3] === 'FB') {
-      return 'Full';
-    }
-  }
-  return 'Unknown';
-}
+
 
 type AddToCartSeatSelectProps = {
   handleAddToCart: () => void;
