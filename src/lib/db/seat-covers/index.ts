@@ -260,7 +260,7 @@ export async function getAllUniqueModelsByYearMake({
 
 export async function getSeatCoverProductsByDisplayColor({
   type,
-  cover
+  cover,
   year,
   make,
   model,
