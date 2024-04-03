@@ -56,6 +56,11 @@ export function ProductContent({
 
   let defaultMSRP: number;
 
+  const { total_reviews, average_score } = useStore(
+    store,
+    (s) => s.reviewDataSummary
+  );
+
   switch (true) {
     case (isSUVCover && !coverType) || (isSUVCover && isPremiumPlus):
       defaultMSRP = 180;
@@ -122,11 +127,26 @@ export function ProductContent({
             <div className="flex gap-1 ">
               <Rating
                 name="read-only"
-                value={5}
+                value={Number(average_score?.toFixed(1)) || 4.9}
+                precision={0.1}
                 readOnly
-                style={{
-                  height: '25px',
-                  color: '#BE1B1B',
+                // style={{
+                //   height: '25px',
+                //   color: '#BE1B1B',
+                // }}
+                sx={{
+                  gap: '2px',
+                  '& .MuiRating-iconFilled': {
+                    fill: '#BE1B1B',
+                    color: '#BE1B1B',
+                    stroke: '#BE1B1B',
+                    strokeWidth: 1.5,
+                  },
+                  '& .MuiRating-iconEmpty': {
+                    stroke: '#BE1B1B',
+                    color: '#BE1B1B',
+                    strokeWidth: 0,
+                  },
                 }}
               />
             </div>

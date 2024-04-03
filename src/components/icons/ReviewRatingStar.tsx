@@ -16,24 +16,14 @@ export default function ReviewRatingStar({
       precision={0.1}
       size={size}
       sx={{
-        // outline: 'red',
-        // color: '#FF9F47',
-        // stroke: '#FF9F47',
-        // fill: '#FFD80E',
+        gap: '2px',
         '& .MuiRating-iconFilled': {
-          // color: '#FFD80E',
-          // stroke: '#FF9F47',
-          fill: '#FFD80E',
+          color: '#FFD80E',
           stroke: '#FF9F47',
           strokeWidth: 1,
         },
         '& .MuiRating-iconEmpty': {
-          // color: 'white',
-          // color: '#FF9F47',
-          // stroke: '#FF9F47',
-          // bgcolor: 'white',
-          // fill: 'transparent',
-          stroke: '#FF9F47',
+          color: '#FF9F47',
           strokeWidth: 0,
         },
       }}

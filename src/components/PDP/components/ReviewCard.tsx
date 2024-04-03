@@ -5,6 +5,7 @@ import ReviewCardCarousel from './ReviewCardCarousel';
 import WouldRecomend from './WouldRecomend';
 import ReviewCardGallery from './ReviewCardGallery';
 import { useState } from 'react';
+import ReviewRatingStar from '@/components/icons/ReviewRatingStar';
 
 export default function ReviewCard({
   review,
@@ -26,14 +27,10 @@ export default function ReviewCard({
           : ''}
       </div>
       <div className="mt-2 flex items-center gap-2">
-        <div className="flex gap-1 text-yellow-300 lg:my-0">
-          <Rating
-            name="read-only"
-            value={review.rating_stars}
-            readOnly
-            style={{
-              height: '25px',
-            }}
+        <div className="flex gap-1 text-yellow-300 lg:my-0 lg:min-w-[286px]">
+          <ReviewRatingStar
+            rating={Number(review.rating_stars)}
+            size="medium"
           />
         </div>
         <div className="text-sm font-light normal-case text-neutral-500 lg:hidden">

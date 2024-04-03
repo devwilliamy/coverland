@@ -312,7 +312,7 @@ const ReviewSection = ({ header }: { header?: boolean }) => {
   );
 
   return (
-    <div className="relative mb-[56px] lg:mb-0 lg:py-2">
+    <div className="relative mb-[56px] flex w-full flex-col items-center lg:mb-0 lg:py-2">
       {isMobile ? null : (
         <>
           {header && (
@@ -325,34 +325,30 @@ const ReviewSection = ({ header }: { header?: boolean }) => {
           )}
         </>
       )}
-      <div className="flex flex-col gap-[20px] pt-[30px] lg:flex-row lg:gap-0  lg:pt-[80px]">
-        <div className="flex w-full min-w-[188px] flex-col lg:items-center">
-          <div className="flex items-center gap-[14px] lg:pt-0">
-            <p className="pl-4 text-[40px] font-black lg:pl-0 lg:text-[80px]">
-              {average_score?.toFixed(1) || '4.9'}
-            </p>
-            <p className="text-sm font-normal lg:mt-11 lg:text-lg">
-              {total_reviews} Reviews
-            </p>
-          </div>
-          <div className="flex items-stretch gap-1 pl-4 text-yellow-300">
+      <header className="flex w-full flex-col items-center gap-[] pt-[30px] lg:max-w-[1080px] lg:flex-row lg:pt-[80px]">
+        <div className="flex w-full min-w-[188px] ">
+          <p className="pl-0.5 text-[40px] font-black lg:pl-0 lg:text-[80px]">
+            {average_score?.toFixed(1) || '4.9'}
+          </p>
+          <div className="flex h-[25px] flex-col items-stretch gap-1 pl-4 text-yellow-300 lg:h-[54px]">
             <ReviewRatingStar
-              // name="read-only"
-              rating={Number(average_score?.toFixed(1)) || 4.9}
-              // rating={4.3}
-              // precision={0.1}
-              // readOnly
+              rating={Number(average_score?.toFixed(1))}
               size="large"
             />
+            <p className="text-sm font-normal text-[#767676] lg:text-lg">
+              {total_reviews} reviews
+            </p>
           </div>
         </div>
-        <div className="flex w-full items-center  gap-2 pl-4">
+        <div className="flex w-full items-center gap-2  ">
           <ReviewPercentCircle percent="95" />
-          <p className="text-[18px] font-bold lg:text-[28px]">
-            95% would recommend
-          </p>
+          <div className="flex flex-col">
+            <p className="whitespace-nowrap text-[18px] font-bold lg:text-[28px]">
+              95% would recommend
+            </p>
+          </div>
         </div>
-      </div>
+      </header>
       <ReviewHeaderGallery />
       <div className="mb-6 flex flex-col gap-1 *:rounded-lg lg:flex-row lg:gap-4">
         <select
