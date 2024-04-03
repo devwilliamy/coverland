@@ -105,23 +105,11 @@ const AddToCartSelector = ({
   //     (s) => s.setCustomerSelectedYear
   //   );
   const color = useStore(store, (s) => s.selectedColor);
-  const router = useRouter();
   const { addToCart } = useCartContext();
   const params = useParams<TPathParams>();
   const [newModelData, setNewModelData] = useState([]);
-  const { completeSelectionState } = getCompleteSelectionData({
-    data: newModelData,
-  });
-
-  // const { shouldDisplayMake, isComplete } = completeSelectionState;
   const [isComplete, setIsComplete] = useState(false);
   const [selectedItem, setSelectedItem] = useState({});
-
-  const handleAddToCart = () => {
-    if (!selectedItem) return;
-    handleAddToCartGoogleTag(selectedItem, params as TPathParams);
-    return addToCart({ ...selectedItem, quantity: 1 });
-  };
 
   const {
     year,

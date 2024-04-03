@@ -94,7 +94,7 @@ export default function HomeDropdown({
             ...e,
             submodel1: newValue,
             submodel2: '',
-            parent_generation: '',
+            // parent_generation: '',
           };
         });
         break;
@@ -103,7 +103,7 @@ export default function HomeDropdown({
           return {
             ...e,
             submodel2: newValue,
-            parent_generation: '',
+            // parent_generation: '',
           };
         });
         break;
@@ -279,6 +279,7 @@ export default function HomeDropdown({
                 >
                   <Search className="pl-[5px] text-[#9C9C9C]" />
                   <input
+                    autoComplete="off"
                     id="search"
                     className="flex h-full w-full bg-transparent py-2 pr-[5px] outline-none"
                     type="text"
@@ -433,6 +434,7 @@ export default function HomeDropdown({
             disabled={isDisabled}
             // defaultValue={''}
             value={value}
+            autoComplete='off'
             className={`absolute top-0 flex h-full w-full  cursor-pointer appearance-none items-center rounded-[8px] pl-[20px] outline outline-[2px] outline-offset-0 outline-transparent focus:outline-[#BE1B1B] `}
           >
             <option
