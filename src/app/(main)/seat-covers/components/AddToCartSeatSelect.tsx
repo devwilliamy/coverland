@@ -43,9 +43,6 @@ export default function AddtoCartSeatSelect({
 
   return (
     <Sheet open={selectSeatOpen} onOpenChange={setSelectSeatOpen}>
-      <SheetTrigger className="pt-10 max-lg:mb-10">
-        {/* <AddToCartButton setSelectSeatOpen={setSelectSeatOpen} /> */}
-      </SheetTrigger>
       <SheetContent
         side={isMobile ? 'bottom' : 'right'}
         className={`${isMobile ? 'min-h-[75vh] rounded-t-lg ' : 'w-[30vw]'} flex flex-col justify-between  bg-[#323232]`}
