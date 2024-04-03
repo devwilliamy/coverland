@@ -57,19 +57,17 @@ export function ModelSearch({
     }));
   };
 
-  // useEffect(() => {
-  //   if (model) {
-  //     console.log('Running the new useEffect yeet');
-  //     const parent_generation =
-  //       modelData.find((car) => car.model === model)?.parent_generation || '';
-  //     setQuery((p) => ({
-  //       ...p,
-  //       parent_generation,
-  //     }));
-  //     console.log('Parentt_Generation: ', parent_generation);
-  //     // fetchData();
-  //   }
-  // }, [model, modelData, setQuery]);
+  useEffect(() => {
+    if (model) {
+      const parent_generation =
+        modelData.find((car) => car.model === model)?.parent_generation || '';
+      setQuery((p) => ({
+        ...p,
+        parent_generation,
+      }));
+      // fetchData();
+    }
+  }, [model, modelData, setQuery]);
 
   useEffect(() => {
     setValue('');
