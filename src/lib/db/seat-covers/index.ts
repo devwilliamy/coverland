@@ -260,28 +260,34 @@ export async function getAllUniqueModelsByYearMake({
 
 export async function getSeatCoverProductsByDisplayColor({
   type,
+  cover
   year,
   make,
   model,
   submodel,
   submodel2,
+  submodel3
 }: {
   type: string;
+  cover?: string;
   year?: string;
   make?: string;
   model?: string;
   submodel?: string;
   submodel2?: string;
+  submodel3?: string;
 }) {
   const { data, error } = await supabaseDatabaseClient.rpc(
-    'get_seat_cover_products_sorted_by_color',
+    'get_seat_cover_products_sorted_by_color_20240401',
     {
       p_type: type,
+      p_cover: cover,
       p_make: make,
       p_model: model,
       p_year: year,
       p_submodel: submodel,
       p_submodel2: submodel2,
+      p_submodel3: submodel3,
     }
   );
 
