@@ -58,12 +58,25 @@ export function ModelSearch({
   };
 
   useEffect(() => {
+    if (model) {
+      const parent_generation =
+        modelData.find((car) => car.model === model)?.parent_generation || '';
+      setQuery((p) => ({
+        ...p,
+        parent_generation,
+      }));
+      // fetchData();
+    }
+  }, [model, modelData, setQuery]);
+
+  useEffect(() => {
     setValue('');
   }, [type, year, make]);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
+        const cover = type === 'Seat Covers' ? 'Leather' : 'Premium Plus'; // TODO: - Extract cover from query obj or something
         const response = await getAllUniqueModelsByYearMake({
           type,
           cover: 'Premium Plus', // TOOD: - Update this to make it work for premium as well.
@@ -94,7 +107,6 @@ export function ModelSearch({
     const submodel = modelData.filter(
       (vehicle) => vehicle.model === model && vehicle.submodel1 !== null
     );
-
 
     // setSubmodelDataStrings(() => {
     //   const modelStrings = uniqueModel.map(({ model }) => model);

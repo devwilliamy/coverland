@@ -94,7 +94,7 @@ export default function HomeDropdown({
             ...e,
             submodel1: newValue,
             submodel2: '',
-            parent_generation: '',
+            // parent_generation: '',
           };
         });
         break;
@@ -103,7 +103,7 @@ export default function HomeDropdown({
           return {
             ...e,
             submodel2: newValue,
-            parent_generation: '',
+            // parent_generation: '',
           };
         });
         break;
