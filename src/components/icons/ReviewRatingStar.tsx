@@ -13,17 +13,28 @@ export default function ReviewRatingStar({
       name="read-only"
       value={rating}
       readOnly
-      precision={0.5}
+      precision={0.1}
       size={size}
       sx={{
+        // outline: 'red',
+        // color: '#FF9F47',
+        // stroke: '#FF9F47',
+        // fill: '#FFD80E',
         '& .MuiRating-iconFilled': {
-          color: '#FFD80E',
+          // color: '#FFD80E',
+          // stroke: '#FF9F47',
+          fill: '#FFD80E',
           stroke: '#FF9F47',
           strokeWidth: 1,
         },
         '& .MuiRating-iconEmpty': {
-          color: '#FF9F47',
-          fill: 'transparent',
+          // color: 'white',
+          // color: '#FF9F47',
+          // stroke: '#FF9F47',
+          // bgcolor: 'white',
+          // fill: 'transparent',
+          stroke: '#FF9F47',
+          strokeWidth: 0,
         },
       }}
     />

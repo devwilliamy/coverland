@@ -13,7 +13,7 @@ import { getCompleteSelectionData } from '../../utils';
 import FreeDetails from './FreeDetails';
 import AddToCart from './AddToCart';
 import CircleColorSelector from './CircleColorSelector';
-import RatingsTrigger from './RatingsTrigger';
+import ReviewsTextTrigger from './ReviewsTextTrigger';
 import installments from '@/images/PDP/Product-Details-Redesign-2/paypal-installments.webp';
 import Image from 'next/image';
 import useDetermineType from '@/hooks/useDetermineType';
@@ -130,7 +130,7 @@ export function ProductContent({
                 }}
               />
             </div>
-            <RatingsTrigger />
+            <ReviewsTextTrigger />
           </div>
         </div>
       </div>

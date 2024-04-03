@@ -16,6 +16,7 @@ import {
 } from '@/lib/db/review';
 import { useMediaQuery } from '@mantine/hooks';
 import { AiOutlineLoading3Quarters } from 'react-icons/ai';
+import ReviewRatingStar from '@/components/icons/ReviewRatingStar';
 
 const ReviewSection = ({ header }: { header?: boolean }) => {
   const isMobile = useMediaQuery('(max-width: 768px)');
@@ -305,6 +306,11 @@ const ReviewSection = ({ header }: { header?: boolean }) => {
   //   setLoading(false);
   // };
 
+  console.log(
+    'Average Score Number: ',
+    Number(average_score?.toFixed(1)) || 4.9
+  );
+
   return (
     <div className="relative mb-[56px] lg:mb-0 lg:py-2">
       {isMobile ? null : (
@@ -326,18 +332,17 @@ const ReviewSection = ({ header }: { header?: boolean }) => {
               {average_score?.toFixed(1) || '4.9'}
             </p>
             <p className="text-sm font-normal lg:mt-11 lg:text-lg">
-              {total_reviews} reviews
+              {total_reviews} Reviews
             </p>
           </div>
           <div className="flex items-stretch gap-1 pl-4 text-yellow-300">
-            <Rating
-              name="read-only"
-              value={5}
-              readOnly
+            <ReviewRatingStar
+              // name="read-only"
+              rating={Number(average_score?.toFixed(1)) || 4.9}
+              // rating={4.3}
+              // precision={0.1}
+              // readOnly
               size="large"
-              style={{
-                height: '25px',
-              }}
             />
           </div>
         </div>
