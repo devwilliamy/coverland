@@ -6,7 +6,7 @@ import { TypeSearch } from './TypeSearch';
 import { MakeSearch } from './MakeSearch';
 import { ModelSearch } from './ModelSearch';
 import { useRouter } from 'next/navigation';
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 // import { SubmodelDropdown } from './SubmodelDropdown';
 import { slugify } from '@/lib/utils';
 import { BASE_URL } from '@/lib/constants';
@@ -43,8 +43,6 @@ export function HeroDropdown() {
     setQuery,
   };
 
-  const yearInUrl = parent_generation;
-
   const createQueryString = useCallback((name: string, value: string) => {
     const params = new URLSearchParams();
     params.set(name, value);
@@ -58,7 +56,8 @@ export function HeroDropdown() {
     if (typeof window !== 'undefined') {
       localStorage.setItem('heroDropdownYear', year);
     }
-
+    const yearInUrl = query.parent_generation;
+    console.log(("yearinurl:", yearInUrl))
     let url = `/${slugify(type)}/premium-plus/${slugify(make)}/${slugify(model)}/${yearInUrl}`;
 
     if (model === 'Corvette') {
@@ -82,7 +81,7 @@ export function HeroDropdown() {
 
   return (
     <div
-      className={`relative z-[400]  grid w-full grid-cols-1 lg:flex items-center justify-center gap-4 px-4 font-[500] `}
+      className={`relative z-[400]  grid w-full grid-cols-1 items-center justify-center gap-4 px-4 font-[500] lg:flex `}
     >
       <TypeSearch queryObj={queryObj} />
       <YearSearch queryObj={queryObj} />
