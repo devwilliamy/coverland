@@ -37,7 +37,7 @@ export default function SeatContent({
   };
 
   return (
-    <section className="flex h-full w-full flex-col max-lg:px-4 max-lg:pt-4 lg:sticky lg:top-8 lg:w-1/2">
+    <section className="flex w-full flex-col max-lg:px-4 max-lg:pt-4 lg:sticky lg:top-8 lg:w-1/2">
       <div className="flex flex-col ">
         <Separator className="w-full bg-[#C8C7C7] lg:block" />
 
