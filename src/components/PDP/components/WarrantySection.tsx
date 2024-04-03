@@ -34,8 +34,6 @@ export default function WarrantySection() {
   ];
   let warrantyLength: string | number = 'Lifetime';
 
-  !isDefaultCoverType && warrantyData.splice(2, 1);
-
   switch (coverType) {
     case 'premium-plus':
       warrantyLength = 'Lifetime';
@@ -54,7 +52,7 @@ export default function WarrantySection() {
       break;
   }
 
-  if (pathname.startsWith('/seat-covers')) {
+  if (pathname.startsWith('/seat-covers') || !isDefaultCoverType) {
     warrantyLength = '10-Year';
     warrantyData.splice(2, 1);
   }
