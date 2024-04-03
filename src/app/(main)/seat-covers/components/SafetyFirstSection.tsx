@@ -31,7 +31,7 @@ export default function SafetyFirstSection() {
         {safteyFirstData.map(({ img, title, description }, index) => (
           <div
             key={img.src}
-            className="flex w-full max-w-[840px] items-center justify-center pb-10 text-center text-[#7D7D7D]  max-lg:flex-col max-lg:px-4 lg:gap-10"
+            className="flex w-full max-w-[840px] items-center justify-center pb-5 text-center text-[#7D7D7D] max-lg:flex-col  max-lg:px-4 lg:gap-10 lg:pb-10"
           >
             {img && (
               <Image
@@ -46,12 +46,12 @@ export default function SafetyFirstSection() {
               className={`flex flex-col  ${index % 2 === 1 ? 'lg:items-end' : 'lg:items-start'}`}
             >
               <p
-                className={`pt-[18px] text-[22px] font-[600]  leading-[25px] text-[#1A1A1A]`}
+                className={`pt-[18px] text-[18px] font-[600] leading-[25px]  text-[#1A1A1A] lg:text-[22px]`}
               >
                 {title}
               </p>
               <p
-                className={`pt-[18px] text-[16px] font-[500] leading-[18.75px] text-[#4D4D4D]`}
+                className={`pt-1 text-[14px] font-[500] capitalize leading-[18.75px] text-[#4D4D4D] lg:pt-[18px] lg:text-[16px]`}
               >
                 {description}
               </p>

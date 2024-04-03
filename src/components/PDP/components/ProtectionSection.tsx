@@ -50,7 +50,7 @@ const premiumData = [
   },
 ];
 
-export default function EnhancedProtectionSection() {
+export default function ProtectionSection() {
   const params = useParams();
   const coverType = params?.coverType;
   const isPremiumPlus = params?.coverType === 'premium-plus';
@@ -63,7 +63,7 @@ export default function EnhancedProtectionSection() {
     coverType === undefined || isPremiumPlus ? premiumPlusData : premiumData;
 
   return (
-    <section className=" pt-[60px] ">
+    <section className=" pt-[60px]">
       <p className="w-full pb-[18px] text-center text-[30px] font-[600] leading-[35px] lg:pb-[38px] lg:text-[45px] lg:leading-[52px]  ">
         Enhanced Protection
       </p>

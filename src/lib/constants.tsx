@@ -388,6 +388,7 @@ export const slugToCoverType = {
   standard: 'Standard',
   'leatherette': 'Leatherette',
   'leather': 'Leather',
+  'Leather': 'Leather',
 };
 
 export const PRODUCT_PRICING_DATA = {

@@ -5,7 +5,10 @@ import { TQuery } from './HeroDropdown';
 import SeeAllChevronDown from '@/components/PDP/components/icons/SeeAllChevronDown';
 import HomeChevronDown from './icons/HomeChevronDown';
 import HomeDropdown from './HomeDropdown';
+import { useParams, usePathname } from 'next/navigation';
 
+const vehicleTypes = ['Car Covers', 'SUV Covers', 'Truck Covers'];
+const seatCoverTypes = ['Seat Covers'];
 export function TypeSearch({
   queryObj,
 }: {
@@ -27,8 +30,12 @@ export function TypeSearch({
       parent_generation: '',
     });
   };
+  const pathname = usePathname();
   const [selectedValue, setSelectedValue] = useState<string>('Type');
-  const coverTypes = ['Car Covers', 'SUV Covers', 'Truck Covers'];
+  const coverTypes = pathname.startsWith('/seat-covers')
+    ? seatCoverTypes
+    : vehicleTypes;
+
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const {
     query: { type },

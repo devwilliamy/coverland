@@ -52,17 +52,16 @@ export function MakeSearch({
   useEffect(() => {
     const fetchData = async () => {
       try {
+        const cover = type === 'Seat Covers' ? 'Leather' : 'Premium Plus' // TODO: - Extract cover from query obj or something
         setIsLoading(true);
         const response = await getAllUniqueMakesByYear({
           type,
-          cover: 'Premium Plus', // TOOD: - Update this to make it work for premium as well.
+          cover, // TOOD: - Update this to make it work for premium as well.
           year,
         });
         setMakeData(response);
-        setMakeDataStrings(() => {
-          const makeStrings = response.map(({ make }) => make);
-          return makeStrings;
-        });
+        const uniqueStrings = Array.from(new Set(response.map(({ make }) => make)))
+        setMakeDataStrings(uniqueStrings as string[]);
       } catch (error) {
         console.error('[Make Search]: ', error);
       } finally {
