@@ -431,8 +431,8 @@ export default function HomeDropdown({
             }}
             id={`mobile-select-${title}`}
             disabled={isDisabled}
-            defaultValue={''}
-            // value={value}
+            // defaultValue={''}
+            value={value}
             className={`absolute top-0 flex h-full w-full  cursor-pointer appearance-none items-center rounded-[8px] pl-[20px] outline outline-[2px] outline-offset-0 outline-transparent focus:outline-[#BE1B1B] `}
           >
             <option
