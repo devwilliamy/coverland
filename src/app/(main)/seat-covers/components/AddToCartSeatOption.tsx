@@ -9,7 +9,7 @@ import { useStore } from 'zustand';
 import { TSeatCoverDataDB } from '@/lib/db/seat-covers';
 
 const seatSelectedStyle = 'bg-white text-black hover:bg-black hover:text-white';
-const seatDeselectedStyle = 'bg-black hover:bg-white hover:text-black';
+const seatDeselectedStyle = 'bg-black text-white hover:bg-white hover:text-black';
 
 type SeatOptionProps = {
   option: 'Full' | 'Front' | 'Unknown';
@@ -53,7 +53,7 @@ export default function SeatOption({
         </div>
         <Button
           onClick={handleSeatSelected}
-          className={`mt-4 flex gap-1 ${selectedSeatCoverType === option ? seatSelectedStyle : seatDeselectedStyle} uppercase text-white  outline outline-[1px] `}
+          className={`mt-4 flex gap-1 ${selectedSeatCoverType === option ? seatSelectedStyle : seatDeselectedStyle} uppercase outline outline-[1px] `}
         >
           {selectedSeatCoverType === option ? (
             <>
