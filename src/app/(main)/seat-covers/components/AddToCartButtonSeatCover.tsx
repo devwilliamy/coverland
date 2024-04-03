@@ -21,9 +21,9 @@ export default function AddToCartButton({
     throw new Error('Missing SeatCoverSelectionContext.Provider in the tree');
   const modelData = useStore(store, (s) => s.modelData);
   const selectedProduct = useStore(store, (s) => s.selectedProduct);
-  const isTypeOrCoverPage = !params?.make;
+  const isFinalSelection = params?.year;
 
-  const [nonFinalButtonText, setNonFinalButtonText] = useState('Start Here');
+  const [nonFinalButtonText, setNonFinalButtonText] = useState('');
   const blinkTime = 2;
   const blinkVel = 10;
   const {
@@ -31,6 +31,7 @@ export default function AddToCartButton({
   } = getCompleteSelectionData({
     data: modelData,
   });
+  
   return (
     <Button
       className=" h-[48px] w-full rounded bg-[#BE1B1B] text-lg font-bold uppercase text-white disabled:bg-[#BE1B1B] lg:h-[62px]"
@@ -49,7 +50,7 @@ export default function AddToCartButton({
       <div
         className="flex gap-[10px]"
         style={
-          isTypeOrCoverPage
+          !isFinalSelection
             ? {
                 animation: `blink ${blinkTime}s cubic-bezier(0,-${blinkVel},1,${blinkVel}) infinite`,
               }
@@ -64,14 +65,14 @@ export default function AddToCartButton({
           });
         }}
       >
-        {nonFinalButtonText == 'Start Here' && (
+        {nonFinalButtonText === 'Start Here' && (
           // <Image alt="car-magnifying-glass" src={CarMag} />
           <div className="flex min-h-[30px] min-w-[67px]">
             <CarMagnify />
           </div>
         )}
         <p className="">
-          {isTypeOrCoverPage ? nonFinalButtonText : 'Add To Cart'}
+          {!isFinalSelection ? nonFinalButtonText : 'Add To Cart'}
         </p>
       </div>
     </Button>
