@@ -4,6 +4,7 @@ import { createContext, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import { TSeatCoverDataNewDB } from '@/lib/db/seat-covers';
 import { TPathParams, TQueryParams } from '@/app/(main)/utils';
+import { compareRawStrings } from '@/lib/utils';
 
 type SeatCoverSelectionStore = ReturnType<typeof createSeatCoverSelectionStore>;
 
@@ -48,6 +49,12 @@ const createSeatCoverSelectionStore = ({
     typeof window !== 'undefined'
       ? localStorage?.getItem('heroDropdownYear')
       : '';
+      // TODO: - This should just be a DB call but need to add submodel1_slug column
+  const modelDataWithFilteredSubmodelSelection = searchParams?.submodel
+  ? modelData.filter((model) =>
+      compareRawStrings(model.submodel1, searchParams.submodel as string)
+    )
+  : modelData;
 
   const initialQueryState = {
     year: (params?.year && customerSelectedYear) || '',
@@ -63,7 +70,7 @@ const createSeatCoverSelectionStore = ({
   };
 
   return createStore<ISeatCoverCoverSelectionState>()((set, get) => ({
-    modelData,
+    modelData: modelDataWithFilteredSubmodelSelection,
     query: initialQueryState,
     setQuery: (newQuery: Partial<TQuery>) => {
       set((state) => ({
@@ -74,14 +81,14 @@ const createSeatCoverSelectionStore = ({
         },
       }));
     },
-    selectedProduct: modelData[0],
+    selectedProduct: modelDataWithFilteredSubmodelSelection[0],
     setSelectedProduct: (newProduct: TSeatCoverDataNewDB) => {
       set(() => ({
         selectedProduct: newProduct,
         featuredImage: newProduct.product?.split(',')[0] ?? '',
       }));
     },
-    selectedColor: modelData[0]?.display_color ?? '',
+    selectedColor: modelDataWithFilteredSubmodelSelection[0]?.display_color ?? '',
     setSelectedColor: (newColor: string) =>
       set(() => ({ selectedColor: newColor })),
   }));

@@ -56,7 +56,7 @@ export function SubmodelDropdown({
 
   const isDisabled = !query.make || !query.year || !query.type || !query.model;
   const showSecondSubmodelDropdown = secondSubmodelData.length > 0;
-
+  const isSeatCover = query.type === 'Seat Covers'
   const prevSelected =
     !queryObj ||
     (queryObj.query.type !== '' &&
@@ -98,7 +98,7 @@ export function SubmodelDropdown({
         items={filteredSubmodelData as string[]}
         value={submodel1}
       />
-      {showSecondSubmodelDropdown && (
+      {!isSeatCover && showSecondSubmodelDropdown && (
         <SecondSubmodelDropdown
           queryObj={queryObj}
           secondSubmodelData={secondSubmodelData}
