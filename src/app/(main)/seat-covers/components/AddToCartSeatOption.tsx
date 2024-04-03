@@ -53,7 +53,7 @@ export default function SeatOption({
         </div>
         <Button
           onClick={handleSeatSelected}
-          className={`mt-4  flex gap-1 ${selectedSeatCoverType === option ? seatSelectedStyle : seatDeselectedStyle} uppercase  outline outline-[1px] `}
+          className={`mt-4 flex gap-1 ${selectedSeatCoverType === option ? seatSelectedStyle : seatDeselectedStyle} uppercase text-white  outline outline-[1px] `}
         >
           {selectedSeatCoverType === option ? (
             <>
