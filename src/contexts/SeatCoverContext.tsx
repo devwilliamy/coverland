@@ -3,7 +3,7 @@ import { createStore } from 'zustand';
 import { createContext, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import { TSeatCoverDataDB } from '@/lib/db/seat-covers';
-import { TPathParams, TQueryParams, getCompleteSelectionData } from '@/app/(main)/utils';
+import { TPathParams, TQueryParams, getCompleteSelectionData } from '@/utils';
 import { compareRawStrings } from '@/lib/utils';
 
 type SeatCoverSelectionStore = ReturnType<typeof createSeatCoverSelectionStore>;

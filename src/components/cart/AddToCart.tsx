@@ -10,11 +10,12 @@ import {
 import { useStore } from 'zustand';
 import { CarSelectionContext } from '@/contexts/CarSelectionContext';
 import { handleAddToCartGoogleTag } from '@/hooks/useGoogleTagDataLayer';
-import AddToCartSelector from '../../seat-covers/components/AddToCartSelector';
-import AddToCartButton from '../../seat-covers/components/AddToCartButtonSeatCover';
+import AddToCartSelector from './AddToCartSelector';
+import AddToCartButton from './AddToCartButton';
 import VehicleSelector from './VehicleSelector';
 import useDetermineType from '@/hooks/useDetermineType';
-import AddtoCartSeatSelect from '../../seat-covers/components/AddToCartSeatSelect';
+import AddtoCartSeatSelect from '../../app/(main)/seat-covers/components/AddToCartSeatSelect';
+import useStoreContext from '@/hooks/useStoreContext';
 
 export default function AddToCart({
   selectedProduct,
@@ -28,8 +29,8 @@ export default function AddToCart({
   isSticky?: boolean;
 }) {
   const params = useParams<TPathParams>();
-  const store = useContext(CarSelectionContext);
-  if (!store) throw new Error('Missing CarContext.Provider in the tree');
+  const store = useStoreContext();
+  if (!store) throw new Error('Missing Provider in the tree');
   const modelData = useStore(store, (s) => s.modelData);
   const [addToCartSelectorOpen, setAddToCartSelectorOpen] =
     useState<boolean>(false);

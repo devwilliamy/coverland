@@ -3,7 +3,7 @@ import {
   IProductData,
   TPathParams,
   getCompleteSelectionData,
-} from '@/app/(main)/utils';
+} from '@/utils';
 import { TCartItem } from '@/lib/cart/useCart';
 import { deslugify } from '@/lib/utils';
 import { useCartContext } from '@/providers/CartProvider';

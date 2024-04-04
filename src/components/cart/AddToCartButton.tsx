@@ -1,10 +1,7 @@
 import { Button } from '@/components/ui/button';
-import { track } from '@vercel/analytics/react';
-import { useContext, useState } from 'react';
-import { TPathParams, getCompleteSelectionData } from '../../utils';
+import { useState } from 'react';
+import { TPathParams } from '../../utils';
 import { useParams } from 'next/navigation';
-import { SeatCoverSelectionContext } from '@/contexts/SeatCoverContext';
-import { useStore } from 'zustand';
 import CarMagnify from '@/components/icons/CarMagnify';
 
 type AddToCartButtonProps = {

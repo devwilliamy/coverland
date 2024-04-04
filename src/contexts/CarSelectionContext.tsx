@@ -10,7 +10,7 @@ import {
   TPathParams,
   TQueryParams,
   modelDataTransformer,
-} from '../app/(main)/utils';
+} from '@/utils';
 import { TProductReviewSummary } from '@/lib/db/review';
 
 type CarSelectionStore = ReturnType<typeof createCarSelectionStore>;

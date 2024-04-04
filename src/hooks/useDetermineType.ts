@@ -2,7 +2,7 @@ import {
   CAR_COVERS_URL_PARAM,
   PREMIUM_PLUS_URL_PARAM,
   PREMIUM_URL_PARAM,
-  SEAT_COVERS_URL_PARAM,
+  SEAT_COVERS_URL_PARAM_WITH_SLASH,
   STANDARD_PRO_URL_PARAM,
   STANDARD_URL_PARAM,
   SUV_COVERS_URL_PARAM,
@@ -25,7 +25,7 @@ function useDetermineType() {
   const isTruckCover = productType === TRUCK_COVERS_URL_PARAM;
   const isSUVCover = productType === SUV_COVERS_URL_PARAM;
   const isCarCover = productType === CAR_COVERS_URL_PARAM;
-  const isSeatCover = pathname.startsWith(SEAT_COVERS_URL_PARAM);
+  const isSeatCover = pathname.startsWith(SEAT_COVERS_URL_PARAM_WITH_SLASH);
   // Cover Types
   const coverType = params?.coverType;
   const isPremiumPlus = coverType === PREMIUM_PLUS_URL_PARAM;

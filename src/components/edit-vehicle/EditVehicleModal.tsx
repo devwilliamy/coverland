@@ -1,10 +1,10 @@
 'use client';
 
 import { EditIcon } from '@/components/PDP/icons';
-import EditVehicleDropdown from '../EditVehicleDropdown';
+import EditVehicleDropdown from '../PDP/EditVehicleDropdown';
 import { useState } from 'react';
 import { IoClose } from 'react-icons/io5';
-import { IProductData } from '@/app/(main)/utils';
+import { IProductData } from '@/utils';
 import { useParams } from 'next/dist/client/components/navigation';
 import {
   Sheet,

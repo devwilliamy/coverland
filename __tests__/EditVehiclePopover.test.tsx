@@ -1,5 +1,5 @@
 import '@testing-library/jest-dom';
-import EditVehicleModal from '@/components/PDP/components/EditVehicleModal';
+import EditVehicleModal from '@/components/edit-vehicle/EditVehicleModal';
 import { render, screen } from '@testing-library/react';
 
 // jest.mock(

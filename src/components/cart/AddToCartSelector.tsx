@@ -9,8 +9,6 @@ import {
   SheetHeader,
 } from '@/components/ui/sheet';
 import { X } from 'lucide-react';
-
-import EditVehicleDropdownSeatCover from './EditVehicleDropdownSeatCover';
 import EditVehicleDropdown from '@/components/PDP/EditVehicleDropdown';
 import { usePathname } from 'next/navigation';
 
@@ -24,8 +22,6 @@ const AddToCartSelector = ({
   searchParams: { submodel?: string; second_submodel?: string } | undefined;
 }) => {
   const isMobile = useMediaQuery('(max-width: 1023px)');
-  const pathname = usePathname();
-  const isSeatCover = pathname.startsWith('/seat-covers');
   return (
     <Sheet
       open={addToCartSelectorOpen}
@@ -45,11 +41,7 @@ const AddToCartSelector = ({
           </DrawerTitle>
         </SheetHeader>
         <div className="flex w-full flex-col gap-4 px-4 ">
-          {isSeatCover ? (
-            <EditVehicleDropdownSeatCover searchParams={searchParams} />
-          ) : (
-            <EditVehicleDropdown searchParams={searchParams} />
-          )}
+          <EditVehicleDropdown searchParams={searchParams} />
         </div>
         <SheetFooter
           id="Add-To-Cart-Button"

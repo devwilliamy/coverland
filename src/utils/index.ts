@@ -17,6 +17,7 @@ export type TQueryParams = {
   submodel?: string;
   secondSubmodel?: string;
   submodel2?: string;
+  second_submodel?: string;
 };
 
 export interface IProductData extends TInitialProductDataDB {
