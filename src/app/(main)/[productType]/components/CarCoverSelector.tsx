@@ -28,7 +28,7 @@ export function CarCoverSelector({
       <section className="relative mx-auto h-max w-full max-w-[1280px]  lg:my-8">
         <LinkBreadcrumbs />
         <ViewItemGoogleTag />
-        <div className=" flex w-full flex-col items-start justify-between px-4  lg:flex-row lg:gap-14">
+        <div className="mb-[40px] flex  w-full flex-col items-start justify-between px-4 lg:mb-[45px]  lg:flex-row lg:gap-14">
           {/* Left Panel */}
           <PrimaryImageDisplay />
           {/* Right Panel */}

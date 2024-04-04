@@ -1,50 +1,61 @@
 'use client';
-import { Separator } from '@/components/ui/separator';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import ReviewSection from './ReviewSection';
 import WarrantyPolicy from '@/app/(main)/policies/warranty-policy/page';
 import { PDPAccordion } from '../PDPAccordian';
 import ShippingPolicy from '@/app/(main)/policies/shipping-policy/page';
-import { useParams, usePathname } from 'next/navigation';
+import { usePathname } from 'next/navigation';
 import InsightsTab from './InsightsTab';
 import SeatCoverDetails from '@/app/(main)/seat-covers/components/SeatCoverDetails';
 import useDetermineType from '@/hooks/useDetermineType';
 import FeaturesAndProductsSection from '@/app/(main)/[productType]/components/FeaturesAndProductsSection';
 import { useMediaQuery } from '@mantine/hooks';
 
+type TabsObj = {
+  title: string;
+  jsx: React.JSX.Element;
+  top?: number | null;
+};
+
 export default function ExtraDetailsTabs() {
   const pathname = usePathname();
-  const { coverType } = useDetermineType();
   const isSeatCovers = pathname?.startsWith('/seat-covers');
   const isLeather = pathname?.toLowerCase().startsWith('/seat-covers/leather');
   const isSmall = useMediaQuery('(max-width: 768px)');
   const isMedium = useMediaQuery('(max-width: 1024px)');
-  const isLarge = useMediaQuery('(max-width: 1440px)');
   const calcOffset = () => {
     switch (true) {
       case isSmall:
         return 70;
       case isMedium:
         return 200;
-      case isLarge:
-        return 195;
+
       default:
-        return 35;
+        return 195;
     }
   };
   const queryOffset = calcOffset();
 
-  const defaultTabs = [
+  const defaultTabs: TabsObj[] = [
     {
       title: 'Shipping & Returns',
+      top:
+        (document.getElementById('Shipping & Returns')?.offsetTop as number) +
+        queryOffset,
       jsx: <ShippingPolicy showHeader={false} />,
     },
     {
       title: 'Warranty',
+      top:
+        (document.getElementById('Warranty')?.offsetTop as number) +
+        queryOffset,
       jsx: <WarrantyPolicy showHeader={false} />,
     },
     {
       title: 'Insights',
+      top:
+        (document.getElementById('Insights')?.offsetTop as number) +
+        queryOffset,
       jsx: <InsightsTab />,
     },
   ];
@@ -55,14 +66,22 @@ export default function ExtraDetailsTabs() {
       0,
       {
         title: 'Details',
+        top:
+          (document.getElementById('Details')?.offsetTop as number) +
+          queryOffset,
         jsx: <FeaturesAndProductsSection />,
       },
       {
         title: 'Reviews',
+        top:
+          (document.getElementById('Reviews')?.offsetTop as number) +
+          queryOffset,
         jsx: <ReviewSection header={false} />,
       },
       {
         title: 'Q&A',
+        top:
+          (document.getElementById('Q&A')?.offsetTop as number) + queryOffset,
         jsx: <PDPAccordion />,
       }
     );
@@ -72,19 +91,58 @@ export default function ExtraDetailsTabs() {
     // Adding Seat Cover Details to beginning of array
     defaultTabs.splice(0, 1, {
       title: 'Details',
+      top:
+        (document.getElementById('Details')?.offsetTop as number) + queryOffset,
       jsx: <SeatCoverDetails />,
     });
     // Removing Insights on seat cover pages
     defaultTabs.splice(defaultTabs.length - 1, 1);
   }
+
   const [currentTabIndex, setCurrentTabIndex] = useState(0);
-  const [currentTabContent, setCurrentTabContent] = useState<
-    JSX.Element | JSX.Element[]
-  >(defaultTabs[0].jsx);
+  let scrollDirection: 'up' | 'down' = 'down';
+  let lastScrollY = window.scrollY;
+
+  const determineTabIndex = () => {
+    if (window.scrollY < lastScrollY) {
+      scrollDirection = 'up';
+    } else {
+      scrollDirection = 'down';
+    }
+    lastScrollY = window.scrollY;
+    const currentTop = defaultTabs[currentTabIndex]?.top;
+    const nextTop = defaultTabs[currentTabIndex + 1]?.top;
+    if (
+      scrollDirection === 'down' &&
+      defaultTabs[currentTabIndex + 1] &&
+      window.scrollY > Number(nextTop)
+    ) {
+      setCurrentTabIndex(currentTabIndex + 1);
+    } else if (
+      scrollDirection === 'up' &&
+      currentTabIndex >= 0 &&
+      window.scrollY < Number(currentTop)
+    ) {
+      setCurrentTabIndex(currentTabIndex - 1);
+    }
+  };
+
+  useEffect(() => {
+    const logScroll = () => {
+      determineTabIndex();
+    };
+    if (document) {
+      document.addEventListener('scroll', logScroll);
+    }
+    return () => {
+      document.removeEventListener('scroll', logScroll);
+    };
+  }, [document, defaultTabs]);
 
   return (
     <>
       <div
+        onScroll={() => {}}
         id="Extra-Details-Tabs"
         className="no-scrollbar sticky  top-[-1px] z-[10] flex items-center justify-items-center overflow-x-auto bg-white lg:w-full "
       >
@@ -93,7 +151,7 @@ export default function ExtraDetailsTabs() {
             key={`Extra-Details-Tab-${index}`}
             onClick={() => {
               setCurrentTabIndex(index);
-              setCurrentTabContent(jsx);
+              // setCurrentTabContent(jsx);
 
               const el = document.getElementById(title);
               const elTop = el?.offsetTop;
@@ -117,7 +175,9 @@ export default function ExtraDetailsTabs() {
       <div>
         {/* {currentTabContent} */}
         {defaultTabs.map((tabsObj) => (
-          <div id={tabsObj.title}>{tabsObj.jsx}</div>
+          <div id={tabsObj.title} key={tabsObj.title}>
+            {tabsObj.jsx}
+          </div>
         ))}
       </div>
     </>
