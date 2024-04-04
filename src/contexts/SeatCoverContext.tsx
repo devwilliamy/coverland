@@ -2,7 +2,7 @@
 import { createStore } from 'zustand';
 import { createContext, useRef } from 'react';
 import { useRouter } from 'next/navigation';
-import { TSeatCoverDataNewDB } from '@/lib/db/seat-covers';
+import { TSeatCoverDataDB } from '@/lib/db/seat-covers';
 import { TPathParams, TQueryParams } from '@/app/(main)/utils';
 import { compareRawStrings } from '@/lib/utils';
 
@@ -22,12 +22,12 @@ export type TQuery = {
 };
 
 interface ISeatCoverCoverProps {
-  modelData: TSeatCoverDataNewDB[];
+  modelData: TSeatCoverDataDB[];
 }
 
 export interface ISeatCoverCoverSelectionState extends ISeatCoverCoverProps {
-  selectedProduct: TSeatCoverDataNewDB;
-  setSelectedProduct: (newProduct: TSeatCoverDataNewDB) => void;
+  selectedProduct: TSeatCoverDataDB;
+  setSelectedProduct: (newProduct: TSeatCoverDataDB) => void;
   selectedColor: string;
   setSelectedColor: (color: string) => void;
   query: TQuery;
@@ -35,7 +35,7 @@ export interface ISeatCoverCoverSelectionState extends ISeatCoverCoverProps {
 }
 
 type SeatCoverSelectionStoreParams = {
-  modelData: TSeatCoverDataNewDB[];
+  modelData: TSeatCoverDataDB[];
   params: TPathParams;
   searchParams: TQueryParams | undefined;
 };
@@ -56,6 +56,12 @@ const createSeatCoverSelectionStore = ({
     )
   : modelData;
 
+  const modelDataWithFilteredSubmodel2Selection = searchParams?.submodel2
+  ? modelDataWithFilteredSubmodelSelection.filter((model) =>
+      compareRawStrings(model.submodel2, searchParams.submodel2 as string)
+    )
+  : modelDataWithFilteredSubmodelSelection;
+
   const initialQueryState = {
     year: (params?.year && customerSelectedYear) || '',
     type: params?.productType ?? '',
@@ -70,7 +76,7 @@ const createSeatCoverSelectionStore = ({
   };
 
   return createStore<ISeatCoverCoverSelectionState>()((set, get) => ({
-    modelData: modelDataWithFilteredSubmodelSelection,
+    modelData: modelDataWithFilteredSubmodel2Selection,
     query: initialQueryState,
     setQuery: (newQuery: Partial<TQuery>) => {
       set((state) => ({
@@ -81,14 +87,14 @@ const createSeatCoverSelectionStore = ({
         },
       }));
     },
-    selectedProduct: modelDataWithFilteredSubmodelSelection[0],
-    setSelectedProduct: (newProduct: TSeatCoverDataNewDB) => {
+    selectedProduct: modelDataWithFilteredSubmodel2Selection[0],
+    setSelectedProduct: (newProduct: TSeatCoverDataDB) => {
       set(() => ({
         selectedProduct: newProduct,
         featuredImage: newProduct.product?.split(',')[0] ?? '',
       }));
     },
-    selectedColor: modelDataWithFilteredSubmodelSelection[0]?.display_color ?? '',
+    selectedColor: modelDataWithFilteredSubmodel2Selection[0]?.display_color ?? '',
     setSelectedColor: (newColor: string) =>
       set(() => ({ selectedColor: newColor })),
   }));

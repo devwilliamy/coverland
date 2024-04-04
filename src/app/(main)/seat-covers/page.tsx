@@ -1,7 +1,7 @@
 import { TPathParams } from '../utils';
 import SeatCoverDataWrapper from './components/SeatCoverDataWrapper';
 import {
-  TSeatCoverDataNewDB,
+  TSeatCoverDataDB,
   getSeatCoverProductsByDisplayColor,
 } from '@/lib/db/seat-covers';
 
@@ -14,7 +14,7 @@ export default async function SeatCoversPage({
 }: {
   params: TPathParams;
 }) {
-  let modelData: TSeatCoverDataNewDB[] = [];
+  let modelData: TSeatCoverDataDB[] = [];
 
   try {
     modelData = await getSeatCoverProductsByDisplayColor({
