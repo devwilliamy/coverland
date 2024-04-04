@@ -8,44 +8,21 @@ import { useStore } from 'zustand';
 import CarMagnify from '@/components/icons/CarMagnify';
 
 type AddToCartButtonProps = {
-  setSelectSeatOpen: (open: boolean) => void;
-  setAddToCartOpen: (open: boolean) => void;
+  handleAddToCartClicked: () => void;
 };
 export default function AddToCartButton({
-  setSelectSeatOpen,
-  setAddToCartOpen,
+  handleAddToCartClicked
 }: AddToCartButtonProps) {
   const params = useParams<TPathParams>();
-  const store = useContext(SeatCoverSelectionContext);
-  if (!store)
-    throw new Error('Missing SeatCoverSelectionContext.Provider in the tree');
-  const modelData = useStore(store, (s) => s.modelData);
-  const selectedProduct = useStore(store, (s) => s.selectedProduct);
   const isFinalSelection = params?.year;
-
-  const [nonFinalButtonText, setNonFinalButtonText] = useState('');
+  const [nonFinalButtonText, setNonFinalButtonText] = useState('Find your Custom-Cover');
   const blinkTime = 2;
   const blinkVel = 10;
-  const {
-    completeSelectionState: { isComplete },
-  } = getCompleteSelectionData({
-    data: modelData,
-  });
   
   return (
     <Button
       className=" h-[48px] w-full rounded bg-[#BE1B1B] text-lg font-bold uppercase text-white disabled:bg-[#BE1B1B] lg:h-[62px]"
-      onClick={() => {
-        selectedProduct?.sku &&
-          track('PDP_add_to_cart', {
-            sku: selectedProduct?.sku,
-          });
-        if (isComplete) {
-          setSelectSeatOpen(true);
-          return;
-        }
-        setAddToCartOpen((p) => !p);
-      }}
+      onClick={handleAddToCartClicked}
     >
       <div
         className="flex gap-[10px]"

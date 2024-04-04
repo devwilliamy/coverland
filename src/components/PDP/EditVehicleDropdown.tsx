@@ -65,7 +65,7 @@ export default function EditVehicleDropdown({
         `/api/json-data?type=${slugify(type)}&make=${slugify(make)}`
       );
       const jsonData = await response.json();
-
+      console.log("JsonData:", jsonData)
       setJsonData(jsonData);
     };
     getSearchData();
@@ -96,7 +96,7 @@ export default function EditVehicleDropdown({
   ];
 
   const yearInUrl = dropdownData?.[0]?.parent_generation;
-
+  console.log("YearInurl:", yearInUrl)
   const createQueryString = useCallback((name: string, value: string) => {
     const params = new URLSearchParams();
     params.set(name, value);
@@ -143,17 +143,12 @@ export default function EditVehicleDropdown({
     closePopover();
   };
 
-  const showSubmodelDropdown = subModelData.length > 0 && year;
-
   return (
     <div className="z-100 relative flex w-full flex-col items-stretch  gap-[16px] *:flex-1">
       <TypeSearch queryObj={queryObj} />
-      <YearSearch queryObj={queryObj} dropdownData={dropdownData} />
+      <YearSearch queryObj={queryObj} />
       <MakeSearch queryObj={queryObj} />
-      <ModelSearch queryObj={queryObj} dropdownData={dropdownData} />
-      {/* {showSubmodelDropdown && (
-        <SubmodelDropdown queryObj={queryObj} submodelData={subModelData} />
-      )} */}
+      <ModelSearch queryObj={queryObj}/>
       <Button
         className="mx-auto h-[40px] max-h-[44px] min-h-[44px] w-full max-w-[px] rounded-[4px] bg-black text-lg "
         onClick={handleSubmitDropdown}

@@ -3,7 +3,7 @@ import { createStore } from 'zustand';
 import { createContext, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import { TSeatCoverDataDB } from '@/lib/db/seat-covers';
-import { TPathParams, TQueryParams } from '@/app/(main)/utils';
+import { TPathParams, TQueryParams, getCompleteSelectionData } from '@/app/(main)/utils';
 import { compareRawStrings } from '@/lib/utils';
 
 type SeatCoverSelectionStore = ReturnType<typeof createSeatCoverSelectionStore>;
@@ -32,6 +32,7 @@ export interface ISeatCoverCoverSelectionState extends ISeatCoverCoverProps {
   setSelectedColor: (color: string) => void;
   query: TQuery;
   setQuery: (newQuery: Partial<TQuery>) => void;
+  isComplete: boolean;
 }
 
 type SeatCoverSelectionStoreParams = {
@@ -75,6 +76,12 @@ const createSeatCoverSelectionStore = ({
     parent_generation: '',
   };
 
+  const {
+    completeSelectionState: { isComplete },
+  } = getCompleteSelectionData({
+    data: modelDataWithFilteredSubmodel2Selection,
+  });
+
   return createStore<ISeatCoverCoverSelectionState>()((set, get) => ({
     modelData: modelDataWithFilteredSubmodel2Selection,
     query: initialQueryState,
@@ -97,6 +104,7 @@ const createSeatCoverSelectionStore = ({
     selectedColor: modelDataWithFilteredSubmodel2Selection[0]?.display_color ?? '',
     setSelectedColor: (newColor: string) =>
       set(() => ({ selectedColor: newColor })),
+      isComplete
   }));
 };
 

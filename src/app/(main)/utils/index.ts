@@ -1,7 +1,9 @@
 import { DEFAULT_PRODUCT_IMAGES, colorOrder } from '@/lib/constants';
 import { compareRawStrings } from '@/lib/utils';
 import { TInitialProductDataDB } from '@/lib/db';
-import { TQuery } from '../[productType]/components/CarPDP';
+
+import { TSeatCoverDataDB } from '@/lib/db/seat-covers';
+import { TQuery } from '@/contexts/CarSelectionContext';
 
 export type TPathParams = {
   productType: string;
@@ -173,7 +175,7 @@ function generatePDPContent({
   });
 }
 
-export function getCompleteSelectionData({ data }: { data: IProductData[] }) {
+export function getCompleteSelectionData({ data }: { data: IProductData[] | TSeatCoverDataDB[] }) {
   const completeSelectionState = {
     shouldDisplayType: true,
     shouldDisplayMake: true,
@@ -184,7 +186,7 @@ export function getCompleteSelectionData({ data }: { data: IProductData[] }) {
     isComplete: true,
   };
 
-  const checkUniformity = (property: keyof IProductData) =>
+  const checkUniformity = (property: keyof IProductData | keyof TSeatCoverDataDB) =>
     data.every((item, _, arr) => item[property] === arr[0][property]);
 
   if (data.length > 0) {
