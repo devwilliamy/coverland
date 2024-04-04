@@ -10,12 +10,29 @@ import InsightsTab from './InsightsTab';
 import SeatCoverDetails from '@/app/(main)/seat-covers/components/SeatCoverDetails';
 import useDetermineType from '@/hooks/useDetermineType';
 import FeaturesAndProductsSection from '@/app/(main)/[productType]/components/FeaturesAndProductsSection';
+import { useMediaQuery } from '@mantine/hooks';
 
 export default function ExtraDetailsTabs() {
   const pathname = usePathname();
   const { coverType } = useDetermineType();
   const isSeatCovers = pathname?.startsWith('/seat-covers');
   const isLeather = pathname?.toLowerCase().startsWith('/seat-covers/leather');
+  const isSmall = useMediaQuery('(max-width: 768px)');
+  const isMedium = useMediaQuery('(max-width: 1024px)');
+  const isLarge = useMediaQuery('(max-width: 1440px)');
+  const calcOffset = () => {
+    switch (true) {
+      case isSmall:
+        return 70;
+      case isMedium:
+        return 200;
+      case isLarge:
+        return 195;
+      default:
+        return 35;
+    }
+  };
+  const queryOffset = calcOffset();
 
   const defaultTabs = [
     {
@@ -57,7 +74,7 @@ export default function ExtraDetailsTabs() {
       title: 'Details',
       jsx: <SeatCoverDetails />,
     });
-    // Removing Insights
+    // Removing Insights on seat cover pages
     defaultTabs.splice(defaultTabs.length - 1, 1);
   }
   const [currentTabIndex, setCurrentTabIndex] = useState(0);
@@ -80,15 +97,18 @@ export default function ExtraDetailsTabs() {
 
               const el = document.getElementById(title);
               const elTop = el?.offsetTop;
-              console.log('Element Top', elTop);
+              const tabs = document.getElementById('Extra-Details-Tabs');
+              // const tabsHeight = tabs.
               window.scrollTo({
-                top: (elTop as number) + 40,
+                top: (elTop as number) + queryOffset,
                 behavior: 'instant',
               });
+
+              // window.scrollTo(0, elTop as number);
             }}
-            className={`flex flex-1 items-center justify-center self-stretch px-2 py-2 text-[16px] text-[#767676] max-lg:min-w-[30vw] ${currentTabIndex === index ? 'border-b-2 border-b-[#BE1B1B] font-[700] text-[#BE1B1B]' : 'font-[400]'}`}
+            className={` flex w-full items-center whitespace-nowrap px-2 py-2 text-[16px] text-[#767676] max-lg:min-w-max ${currentTabIndex === index ? 'border-b-2 border-b-[#BE1B1B] font-[700] text-[#BE1B1B]' : 'font-[400]'}`}
           >
-            <div className="flex items-center justify-center px-2 py-1 ">
+            <div className="flex w-full grow justify-center  px-2 py-1  ">
               {title}
             </div>
           </button>
