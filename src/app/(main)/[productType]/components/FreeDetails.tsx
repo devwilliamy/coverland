@@ -56,6 +56,7 @@ export default function FreeDetails() {
     {
       icon: <ShoppingBag />,
       title: 'Free $30 Accessory Kit Included',
+      description: `Includes storage bag, wind-strap, and antenna patch.`,
     },
   ];
   return (
