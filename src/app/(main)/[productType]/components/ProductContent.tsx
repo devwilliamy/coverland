@@ -176,6 +176,7 @@ export function ProductContent({
       <Suspense>
         <FreeDetails />
       </Suspense>
+      <div className="lg:py-4"></div>
       <AddToCart
         selectedProduct={selectedProduct}
         handleAddToCart={handleAddToCart}

@@ -80,13 +80,13 @@ export default function AddToCart({
       </div>
 
       {/* Add to Cart Button */}
-      {!isFinalSelection && !isSticky ? (
+      {/* {!isFinalSelection && !isSticky ? (
         <VehicleSelector searchParams={searchParams} />
-      ) : (
+      ) : ( */}
         <div className="fixed inset-x-0 bottom-0 z-20 flex bg-white p-4 lg:relative lg:p-1">
           <AddToCartButton handleAddToCartClicked={handleAddToCartClicked} />
         </div>
-      )}
+      {/* )} */}
     </Suspense>
   );
 }

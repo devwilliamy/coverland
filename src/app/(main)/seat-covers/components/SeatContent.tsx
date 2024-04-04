@@ -81,6 +81,7 @@ export default function SeatContent({
       <SeatCoverColorSelector />
       <SeatCoverFreeDetails />
       {/* <CompatibleVehiclesTrigger /> */}
+      <div className="lg:py-4"></div>
       <div className="lg:hidden">
         <AddToCart
           selectedProduct={selectedProduct}
