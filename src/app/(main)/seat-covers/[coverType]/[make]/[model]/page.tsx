@@ -3,7 +3,10 @@ import { notFound } from 'next/navigation';
 import { TPathParams } from '@/app/(main)/utils';
 import { deslugify } from '@/lib/utils';
 
-import { getSeatCoverProductData } from '@/lib/db/seat-covers';
+import {
+  getSeatCoverProductData,
+  getSeatCoverProductsByDisplayColor,
+} from '@/lib/db/seat-covers';
 import SeatCoverDataWrapper from '@/app/(main)/seat-covers/components/SeatCoverDataWrapper';
 
 export type TCarCoverSlugParams = {
@@ -32,12 +35,11 @@ export type TCarCoverSlugParams = {
 // }
 
 export async function generateMetadata({ params }: { params: TPathParams }) {
-  const productType = deslugify(params.productType);
   const make = deslugify(params.make || '');
   const model = deslugify(params.model || '');
   return {
-    title: `${make} ${model} ${productType}, Custom Fit - Coverland`,
-    description: `${make} ${model} ${productType} ᐉ Coverland ⭐ Free, Same-Day Shipping ✔️ Free Returns & Purchase Protection ✔️ Made from premium quality, heavy-duty materials with a soft inner fabric.`,
+    title: `${make} ${model} Seat Covers, Custom Fit - Coverland`,
+    description: `${make} ${model} Seat Covers ᐉ Coverland ⭐ Free, Same-Day Shipping ✔️ Free Returns & Purchase Protection ✔️ Made from premium quality, heavy-duty materials with a soft inner fabric.`,
   };
 }
 
@@ -48,9 +50,8 @@ export default async function SeatCoverDataLayer({
 }) {
   let modelData = [];
   try {
-    modelData = await getSeatCoverProductData({
+    modelData = await getSeatCoverProductsByDisplayColor({
       type: 'Seat Covers',
-      cover: params.seatType,
       make: params.make,
       model: params.model,
     });

@@ -1,6 +1,6 @@
 'use client';
 
-import EnhancedProtectionSection from '@/components/PDP/components/EnhancedProtectionSection';
+import ProtectionSection from '@/components/PDP/components/ProtectionSection';
 import ProvenSection from '@/components/PDP/components/ProvenSection';
 import RealTestSection from '@/components/PDP/components/RealTestSection';
 import SuggestedProducts from '@/components/PDP/components/SuggestedProducts';
@@ -17,7 +17,7 @@ export default function SeeAllSectionClientWrapper({ child1, child2 }) {
   return (
     <>
       <section
-        className={`relative ${seeAllVisible ? 'max-h-[2170px] lg:max-h-[3100px]' : ''} w-full overflow-hidden`}
+        className={`relative z-[0] ${seeAllVisible ? 'max-h-[2170px] lg:max-h-[3100px]' : ''} w-full overflow-hidden`}
       >
         {child1}
         <div
@@ -42,7 +42,7 @@ export default function SeeAllSectionClientWrapper({ child1, child2 }) {
       <section className={`${seeAllVisible ? 'hidden' : 'block'}`}>
         <span className="max-w-[100vw] bg-white">
           <div className="flex w-full flex-col justify-center px-4 pb-3">
-            <EnhancedProtectionSection />
+            <ProtectionSection />
             {isDefaultCoverType && <RealTestSection />}
             {isDefaultCoverType && <ProvenSection />}
             <WarrantySection />

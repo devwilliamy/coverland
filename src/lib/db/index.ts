@@ -2,7 +2,10 @@ import { createClient } from '@supabase/supabase-js';
 import { Database, Tables } from './types';
 import { slugToCoverType } from '../constants';
 import { slugify } from '../utils';
-import { PRODUCT_DATA_TABLE, SEAT_COVERS_TABLE_NEW } from './constants/databaseTableNames';
+import {
+  PRODUCT_DATA_TABLE,
+  SEAT_COVERS_TABLE,
+} from './constants/databaseTableNames';
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL ?? '';
 const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_KEY ?? '';
@@ -127,11 +130,20 @@ export async function getAllUniqueMakesByYear({
   // get_distinct_makes_by_year
 
   // This RPC is making it so the distinct calculation and ordering is happening on the DB side instead of on the server.
-  const { data, error } = await supabase.rpc('get_make_and_slug', {
-    type_param: type,
-    display_id_param: cover,
-    year_param: year,
-  });
+  const { data, error } =
+    type === 'Seat Covers'
+      ? await supabase
+          .from(SEAT_COVERS_TABLE) // OR PRODUCT_DATA_TABLE
+          .select('make, make_slug')
+          .eq('type', type)
+          .eq('display_id', cover)
+          .like('year_options', `%${year}%`)
+          .order('make_slug', { ascending: true })
+      : await supabase.rpc('get_make_and_slug', {
+          type_param: type,
+          display_id_param: cover,
+          year_param: year,
+        });
 
   if (error) {
     throw new Error(error.message);
@@ -157,8 +169,10 @@ export async function getAllUniqueModelsByYearMake({
   year: string;
   make: string;
 }) {
+
+  const tableName = type === 'Seat Covers' ? SEAT_COVERS_TABLE : PRODUCT_DATA_TABLE
   const { data, error } = await supabase
-    .from('Products-Data-02-2024')
+    .from(tableName)
     .select(
       'model, model_slug, parent_generation, submodel1, submodel2, submodel3'
     )
@@ -179,7 +193,7 @@ export async function getAllUniqueModelsByYearMake({
           t.model_slug === car.model_slug &&
           t.submodel1 === car.submodel1 &&
           t.submodel2 === car.submodel2 &&
-          t.submodel3 === car.submodel3
+          t?.submodel3 === car?.submodel3
       )
   );
   // console.log('[Server]: getAllUniqueModelsByYearMake Params & Response:', {

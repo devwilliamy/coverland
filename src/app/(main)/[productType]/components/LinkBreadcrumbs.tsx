@@ -8,8 +8,8 @@ export default function LinkBreadcrumbs() {
   const getUrlFromBreadcrumbs = (index: number): string => {
     let returnString = '';
     for (let i = 0; i < index + 1; i++) {
-      if (paramValues[i] === "leather") {
-        returnString = returnString + '/' + "seat-covers"
+      if (paramValues[i] === 'leather') {
+        returnString = returnString + '/' + 'seat-covers';
       }
       returnString = returnString + '/' + paramValues[i];
     }
@@ -27,7 +27,7 @@ export default function LinkBreadcrumbs() {
                 href={getUrlFromBreadcrumbs(index)}
                 className={`hover:underline ${params[key].length < 4 ? 'uppercase' : 'capitalize'} `}
               >
-                {/* Replacing hyphens with spaces (except for year) */}
+                {/* Replacing hyphens with spaces (except for year_generation) */}
                 {params[key] && key === 'year'
                   ? params[key]
                   : String(params[key]).replaceAll('-', ' ')}

@@ -1663,6 +1663,7 @@ export type Database = {
           sku: string
           submodel1: string | null
           submodel2: string | null
+          submodel3: string | null
           type: string | null
           year_generation: string | null
           year_options: string | null
@@ -1683,6 +1684,7 @@ export type Database = {
           sku: string
           submodel1?: string | null
           submodel2?: string | null
+          submodel3?: string | null
           type?: string | null
           year_generation?: string | null
           year_options?: string | null
@@ -1703,6 +1705,73 @@ export type Database = {
           sku?: string
           submodel1?: string | null
           submodel2?: string | null
+          submodel3?: string | null
+          type?: string | null
+          year_generation?: string | null
+          year_options?: string | null
+        }
+        Relationships: []
+      }
+      seat_cover_20240401: {
+        Row: {
+          availability: string | null
+          display_color: string | null
+          display_id: string | null
+          make: string | null
+          make_slug: string | null
+          model: string | null
+          model_slug: string | null
+          msrp: number | null
+          parent_generation: string | null
+          price: number | null
+          product: string | null
+          quantity: number | null
+          sku: string
+          submodel1: string | null
+          submodel2: string | null
+          submodel3: string | null
+          type: string | null
+          year_generation: string | null
+          year_options: string | null
+        }
+        Insert: {
+          availability?: string | null
+          display_color?: string | null
+          display_id?: string | null
+          make?: string | null
+          make_slug?: string | null
+          model?: string | null
+          model_slug?: string | null
+          msrp?: number | null
+          parent_generation?: string | null
+          price?: number | null
+          product?: string | null
+          quantity?: number | null
+          sku: string
+          submodel1?: string | null
+          submodel2?: string | null
+          submodel3?: string | null
+          type?: string | null
+          year_generation?: string | null
+          year_options?: string | null
+        }
+        Update: {
+          availability?: string | null
+          display_color?: string | null
+          display_id?: string | null
+          make?: string | null
+          make_slug?: string | null
+          model?: string | null
+          model_slug?: string | null
+          msrp?: number | null
+          parent_generation?: string | null
+          price?: number | null
+          product?: string | null
+          quantity?: number | null
+          sku?: string
+          submodel1?: string | null
+          submodel2?: string | null
+          submodel3?: string | null
           type?: string | null
           year_generation?: string | null
           year_options?: string | null
@@ -2308,6 +2377,68 @@ export type Database = {
         Returns: {
           total_reviews: number
           average_score: number
+        }[]
+      }
+      get_seat_cover_products_sorted_by_color: {
+        Args: {
+          p_type?: string
+          p_make?: string
+          p_model?: string
+          p_year?: string
+          p_submodel?: string
+          p_submodel2?: string
+        }
+        Returns: {
+          sku: string
+          fk: number
+          type: string
+          make: string
+          model: string
+          year_generation: string
+          parent_generation: string
+          submodel1: string
+          submodel2: string
+          product: string
+          display_color: string
+          msrp: number
+          price: number
+          quantity: number
+          display_id: string
+          make_slug: string
+          model_slug: string
+          year_options: string
+        }[]
+      }
+      get_seat_cover_products_sorted_by_color_20240401: {
+        Args: {
+          p_type?: string
+          p_cover?: string
+          p_make?: string
+          p_model?: string
+          p_year?: string
+          p_submodel?: string
+          p_submodel2?: string
+          p_submodel3?: string
+        }
+        Returns: {
+          sku: string
+          type: string
+          make: string
+          model: string
+          year_generation: string
+          parent_generation: string
+          submodel1: string
+          submodel2: string
+          submodel3: string
+          product: string
+          display_color: string
+          msrp: number
+          price: number
+          quantity: number
+          display_id: string
+          make_slug: string
+          model_slug: string
+          year_options: string
         }[]
       }
       join_products: {

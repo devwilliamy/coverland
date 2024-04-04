@@ -56,7 +56,6 @@ export function SubmodelDropdown({
 
   const isDisabled = !query.make || !query.year || !query.type || !query.model;
   const showSecondSubmodelDropdown = secondSubmodelData.length > 0;
-
   const prevSelected =
     !queryObj ||
     (queryObj.query.type !== '' &&

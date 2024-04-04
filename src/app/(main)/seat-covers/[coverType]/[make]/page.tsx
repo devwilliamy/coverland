@@ -3,7 +3,10 @@ import { notFound } from 'next/navigation';
 import { TPathParams } from '@/app/(main)/utils';
 import { deslugify } from '@/lib/utils';
 import SeatCoverDataWrapper from '../../components/SeatCoverDataWrapper';
-import { getSeatCoverProductData } from '@/lib/db/seat-covers';
+import {
+  getSeatCoverProductData,
+  getSeatCoverProductsByDisplayColor,
+} from '@/lib/db/seat-covers';
 
 export type TCarCoverSlugParams = {
   make: string;
@@ -24,20 +27,19 @@ export type TCarCoverSlugParams = {
 //       cover: coverType,
 //       make: make,
 //     });
-  
+
 //     return modelData.filter(Boolean).map((model) => ({
 //       model: model,
 //     }));
 //   }
 
 export async function generateMetadata({ params }: { params: TPathParams }) {
-    const productType = deslugify(params.productType);
-    const make = deslugify(params.make || '');
-    return {
-      title: `${make} ${productType}, Custom Fit - Coverland`,
-      description: `${make} ${productType} ᐉ Coverland ⭐ Free, Same-Day Shipping ✔️ Free Returns & Purchase Protection ✔️ Made from premium quality, heavy-duty materials with a soft inner fabric.`,
-    };
-  }
+  const make = deslugify(params.make || '');
+  return {
+    title: `${make} Seat Covers, Custom Fit - Coverland`,
+    description: `${make} Seat Covers ᐉ Coverland ⭐ Free, Same-Day Shipping ✔️ Free Returns & Purchase Protection ✔️ Made from premium quality, heavy-duty materials with a soft inner fabric.`,
+  };
+}
 
 export default async function SeatCoverDataLayer({
   params,
@@ -46,11 +48,18 @@ export default async function SeatCoverDataLayer({
 }) {
   let modelData = [];
   try {
-    modelData = await getSeatCoverProductData({
+    // modelData = await getSeatCoverProductData({
+    //   type: 'Seat Covers',
+    //   cover: params.seatType,
+    //   make: params.make,
+    //   model: params.model,
+    // });
+
+    modelData = await getSeatCoverProductsByDisplayColor({
       type: 'Seat Covers',
-      cover: params.seatType,
       make: params.make,
     });
+
     if (!modelData || modelData.length === 0) {
       notFound();
     }

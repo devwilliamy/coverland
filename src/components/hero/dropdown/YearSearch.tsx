@@ -34,7 +34,7 @@ export function YearSearch({
     }));
   };
 
-  const startYear = 1921;
+  const startYear = type === 'Seat Covers' ? 1949 : 1921;
   const endYear = 2025;
   const years = Array.from(
     { length: endYear - startYear + 1 },

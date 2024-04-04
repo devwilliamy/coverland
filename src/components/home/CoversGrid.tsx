@@ -3,7 +3,7 @@ import React from 'react';
 import CAR from '@/images/hero/covers-grid/car-cover-home-icon.webp';
 import TRUCK from '@/images/hero/covers-grid/truck-cover-home-icon.webp';
 import SUV from '@/images/hero/covers-grid/suv-cover-home-icon.webp';
-import SEAT from '@/images/hero/covers-grid/seat-cover-home-icon.webp';
+import SEAT from '@/images/hero/covers-grid/main-seatcover.webp';
 
 const coverTypes = [
   { title: 'Car Covers', img: CAR, link: '/car-covers/premium-plus' },
@@ -26,9 +26,7 @@ const CoversGrid = () => {
                 <p className="order-last flex min-w-[45%] flex-[0.1] justify-center whitespace-nowrap text-center align-middle text-[14px] font-[900] uppercase lg:order-first lg:w-1/2 lg:max-w-[45%] lg:text-[24px]">
                   {title}
                 </p>
-                <div
-                  className={`flex flex-[0.9] ${i + 1 === coverTypes.length && 'pb-2.5'} lg:w-full `}
-                >
+                <div className={`flex flex-[0.9] lg:w-full `}>
                   <Image
                     alt={`cover-image-${title}`}
                     src={img}

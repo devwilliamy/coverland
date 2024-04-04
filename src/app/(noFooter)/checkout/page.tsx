@@ -24,6 +24,7 @@ import {
   paypalCreateOrder,
   redirectToCheckout,
 } from './utils';
+import { detectFOrFB } from '@/lib/utils';
 
 function CheckoutPage() {
   const {
@@ -127,7 +128,7 @@ function CartItemCard({ item }: { item: TCartItem }) {
             <div
               className={`text-sm font-normal ${item?.type === 'Seat Covers' ? 'flex' : 'hidden'}  text-[#707070] lg:text-base`}
             >
-              Seat Cover
+              {detectFOrFB(item.sku)} Seat Cover
             </div>
             <div className="text-sm font-normal text-[#707070] lg:text-base">
               Color: {item?.display_color}

@@ -1,5 +1,5 @@
 import { TPathParams, TQueryParams } from '../../utils';
-import { TSeatCoverDataNewDB } from '@/lib/db/seat-covers';
+import { TSeatCoverDataDB } from '@/lib/db/seat-covers';
 import SeatCoverSelectionProvider from '@/contexts/SeatCoverContext';
 import SeatCovers from './SeatCovers';
 
@@ -9,7 +9,7 @@ export default async function SeatCoverDataWrapper({
   params,
   searchParams,
 }: {
-  modelData: TSeatCoverDataNewDB[];
+  modelData: TSeatCoverDataDB[];
   params: TPathParams;
   searchParams?: TQueryParams | undefined;
 }) {
@@ -18,6 +18,7 @@ export default async function SeatCoverDataWrapper({
     params,
     searchParams,
   };
+  
   return (
     <SeatCoverSelectionProvider initialState={initialState}>
       <SeatCovers params={params} searchParams={searchParams} />

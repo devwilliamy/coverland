@@ -79,7 +79,7 @@ export function ModelSearch({
         const cover = type === 'Seat Covers' ? 'Leather' : 'Premium Plus'; // TODO: - Extract cover from query obj or something
         const response = await getAllUniqueModelsByYearMake({
           type,
-          cover: 'Premium Plus', // TOOD: - Update this to make it work for premium as well.
+          cover,
           year,
           make,
         });
@@ -88,10 +88,7 @@ export function ModelSearch({
             index === self.findIndex((t) => t.model_slug === car.model_slug)
         );
         setModelData(response);
-        setModelDataStrings(() => {
-          const modelStrings = uniqueModel.map(({ model }) => model);
-          return modelStrings as string[];
-        });
+        setModelDataStrings(uniqueModel.map(({ model }) => model) as string[]);
         setFilteredModelData(uniqueModel);
       } catch (error) {
         console.error('[Model Search]: ', error);
