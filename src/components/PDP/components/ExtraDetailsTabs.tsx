@@ -20,27 +20,15 @@ export default function ExtraDetailsTabs() {
   const defaultTabs = [
     {
       title: 'Shipping & Returns',
-      jsx: (
-        <div id="shipping-tab">
-          <ShippingPolicy showHeader={false} />
-        </div>
-      ),
+      jsx: <ShippingPolicy showHeader={false} />,
     },
     {
       title: 'Warranty',
-      jsx: (
-        <div id="warranty-tab">
-          <WarrantyPolicy showHeader={false} />
-        </div>
-      ),
+      jsx: <WarrantyPolicy showHeader={false} />,
     },
     {
       title: 'Insights',
-      jsx: (
-        <div id="insights-tab">
-          <InsightsTab />
-        </div>
-      ),
+      jsx: <InsightsTab />,
     },
   ];
 
@@ -50,27 +38,15 @@ export default function ExtraDetailsTabs() {
       0,
       {
         title: 'Details',
-        jsx: (
-          <div id={`${coverType}-details-tab`}>
-            <FeaturesAndProductsSection />
-          </div>
-        ),
+        jsx: <FeaturesAndProductsSection />,
       },
-      // {
-      //   title: 'Reviews',
-      //   jsx: (
-      //     <div id="reviews-tab">
-            // <ReviewSection header={false} />
-      //     </div>
-      //   ),
-      // },
+      {
+        title: 'Reviews',
+        jsx: <ReviewSection header={false} />,
+      },
       {
         title: 'Q&A',
-        jsx: (
-          <div id="q&a-tab">
-            <PDPAccordion />,
-          </div>
-        ),
+        jsx: <PDPAccordion />,
       }
     );
   }
@@ -79,11 +55,7 @@ export default function ExtraDetailsTabs() {
     // Adding Seat Cover Details to beginning of array
     defaultTabs.splice(0, 1, {
       title: 'Details',
-      jsx: (
-        <div id="seat-cover-details-tab">
-          <SeatCoverDetails />
-        </div>
-      ),
+      jsx: <SeatCoverDetails />,
     });
     // Removing Insights
     defaultTabs.splice(defaultTabs.length - 1, 1);
@@ -95,7 +67,6 @@ export default function ExtraDetailsTabs() {
 
   return (
     <>
-      <div id="top-bar"></div>
       <div
         id="Extra-Details-Tabs"
         className="no-scrollbar sticky  top-[-1px] z-[10] flex items-center justify-items-center overflow-x-auto bg-white lg:w-full "
@@ -106,8 +77,14 @@ export default function ExtraDetailsTabs() {
             onClick={() => {
               setCurrentTabIndex(index);
               setCurrentTabContent(jsx);
-              const el = document.getElementById('top-bar');
-              el?.scrollIntoView({ behavior: 'instant', block: 'start' });
+
+              const el = document.getElementById(title);
+              const elTop = el?.offsetTop;
+              console.log('Element Top', elTop);
+              window.scrollTo({
+                top: (elTop as number) + 40,
+                behavior: 'instant',
+              });
             }}
             className={`flex flex-1 items-center justify-center self-stretch px-2 py-2 text-[16px] text-[#767676] max-lg:min-w-[30vw] ${currentTabIndex === index ? 'border-b-2 border-b-[#BE1B1B] font-[700] text-[#BE1B1B]' : 'font-[400]'}`}
           >
@@ -118,7 +95,10 @@ export default function ExtraDetailsTabs() {
         ))}
       </div>
       <div>
-        {currentTabContent}
+        {/* {currentTabContent} */}
+        {defaultTabs.map((tabsObj) => (
+          <div id={tabsObj.title}>{tabsObj.jsx}</div>
+        ))}
       </div>
     </>
   );
