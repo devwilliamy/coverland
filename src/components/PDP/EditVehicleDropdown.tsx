@@ -59,16 +59,23 @@ export default function EditVehicleDropdown({
   const { year, type, make, model, submodel1, submodel2 } = query;
   useEffect(() => {
     const getSearchData = async () => {
-      if (!make) return;
-
-      const response = await fetch(
-        `/api/json-data?type=${slugify(type)}&make=${slugify(make)}`
-      );
-      const jsonData = await response.json();
-      console.log("JsonData:", jsonData)
-      setJsonData(jsonData);
+      try {
+        setLoading(true);
+        if (!make) return;
+        const response = await fetch(
+          `/api/json-data?type=${slugify(type)}&make=${slugify(make)}`
+        );
+        const jsonData = await response.json();
+        setJsonData(jsonData);
+      } catch (error) {
+        console.error('[EditVehicleDropdown.getSearchData]: ', error);
+      } finally {
+        setLoading(false);
+      }
     };
-    getSearchData();
+    if (type && make) {
+      getSearchData();
+    }
   }, [make, type]);
 
   const dropdownData = jsonData.filter(
@@ -96,7 +103,6 @@ export default function EditVehicleDropdown({
   ];
 
   const yearInUrl = dropdownData?.[0]?.parent_generation;
-  console.log("YearInurl:", yearInUrl)
   const createQueryString = useCallback((name: string, value: string) => {
     const params = new URLSearchParams();
     params.set(name, value);
@@ -148,7 +154,7 @@ export default function EditVehicleDropdown({
       <TypeSearch queryObj={queryObj} />
       <YearSearch queryObj={queryObj} />
       <MakeSearch queryObj={queryObj} />
-      <ModelSearch queryObj={queryObj}/>
+      <ModelSearch queryObj={queryObj} />
       <Button
         className="mx-auto h-[40px] max-h-[44px] min-h-[44px] w-full max-w-[px] rounded-[4px] bg-black text-lg "
         onClick={handleSubmitDropdown}
