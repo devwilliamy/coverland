@@ -1,6 +1,6 @@
 import { Layers } from './Layers';
 import { OurCarCovers } from './OurCarCovers';
-import { PDPAccordion } from './PDPAccordian';
+import { QuestionsAccordion } from './QuestionsAccordion';
 import { ProductChecklist } from './ProductChecklist';
 import { ClimateCrisisMobile } from './components/ClimateCrisisMobile';
 import { NoGarageMobile } from './components/NoGarageMobile';
@@ -126,7 +126,7 @@ export const MobilePDPDetails = () => {
 
             <StickySheetItem title="Q&A">
               <div className="lg:mt-28" ref={qaRef}>
-                <PDPAccordion />
+                <QuestionsAccordion />
               </div>
             </StickySheetItem>
 
