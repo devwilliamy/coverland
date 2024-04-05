@@ -16,6 +16,7 @@ import {
 } from '@/lib/db/review';
 import { useMediaQuery } from '@mantine/hooks';
 import { AiOutlineLoading3Quarters } from 'react-icons/ai';
+import ReviewRatingStar from '@/components/icons/ReviewRatingStar';
 
 const ReviewSection = ({ showHeader }: { showHeader?: boolean }) => {
   const isMobile = useMediaQuery('(max-width: 768px)');
@@ -305,8 +306,13 @@ const ReviewSection = ({ showHeader }: { showHeader?: boolean }) => {
   //   setLoading(false);
   // };
 
+  console.log(
+    'Average Score Number: ',
+    Number(average_score?.toFixed(1)) || 4.9
+  );
+
   return (
-    <div className="relative mb-[56px] flex w-full flex-col items-center lg:mb-0 lg:py-2">
+    <div className="relative mb-[56px] px-[22px] lg:px-[59px] flex w-full flex-col items-center lg:mb-0 lg:py-2">
       {isMobile ? null : (
         <>
           {showHeader && (
@@ -319,19 +325,25 @@ const ReviewSection = ({ showHeader }: { showHeader?: boolean }) => {
           )}
         </>
       )}
-      <header className="flex w-full flex-col items-center gap-[] pt-[30px] lg:max-w-[1080px] lg:flex-row lg:pt-[80px]">
-        <div className="flex w-full min-w-[188px] ">
-          <p className="pl-4 text-[40px] font-black lg:pl-0 lg:text-[80px]">
+      <header className="flex w-full flex-col items-center pb-[30px] lg:max-w-[1080px]  lg:flex-row lg:pb-[80px] lg:pt-[80px]">
+        <div className="flex w-full min-w-[188px] items-center lg:justify-center ">
+          <p className="pl-0.5 text-[40px] font-black lg:pl-0 lg:text-[60px]">
             {average_score?.toFixed(1) || '4.9'}
           </p>
-          <div className="flex h-[25px] flex-col items-stretch gap-1 pl-4 text-yellow-300 lg:h-[54px]">
-            <Rating name="read-only" value={5} readOnly size="large" />
-            <p className="text-sm font-normal text-[#767676] lg:text-lg">
+          <div className="flex flex-col items-stretch  gap-1 pl-4 text-yellow-300 ">
+            <div className="pt-[30px] lg:pt-[35px]">
+              <ReviewRatingStar
+                // rating={Number(average_score?.toFixed(1))}
+                rating={4.5}
+                size={isMobile ? 26 : 54}
+              />
+            </div>
+            <p className="pl-4 text-sm font-normal text-[#767676] lg:text-lg">
               {total_reviews} reviews
             </p>
           </div>
         </div>
-        <div className="flex w-full items-center gap-2 max-lg:pl-4 ">
+        <div className="flex w-full items-center gap-2 lg:justify-center lg:gap-5">
           <ReviewPercentCircle percent="95" />
           <div className="flex flex-col">
             <p className="whitespace-nowrap text-[18px] font-bold lg:text-[28px]">
@@ -341,21 +353,28 @@ const ReviewSection = ({ showHeader }: { showHeader?: boolean }) => {
         </div>
       </header>
       <ReviewHeaderGallery />
-      <div className="mb-6 flex flex-col gap-1 *:rounded-lg lg:flex-row lg:gap-4">
+      <div className="flex w-full items-center justify-end gap-1 pt-7 *:rounded-lg  lg:gap-4">
         <select
-          className="mx-auto mt-9 h-12 w-full rounded border border-[#C8C7C7] bg-transparent px-4 text-lg font-normal capitalize text-[#1A1A1A]"
+          className=" h-12 rounded border border-[#C8C7C7] bg-transparent px-4 text-lg font-normal capitalize text-[#1A1A1A] max-lg:max-w-[100px]"
           onChange={handleSortSelectionChange}
+          defaultValue={'sort'}
         >
+          <option disabled className="hidden" value="sort">
+            Sort
+          </option>
           <option value="helpful">Sort By Most Helpful</option>
           <option value="newest">Sort By Most Recent</option>
           {/* <option value="oldest">Sort By Oldest</option> */}
         </select>
 
         <select
-          className="mx-auto mt-3 h-12 w-full rounded border border-[#C8C7C7] bg-transparent px-4 text-lg font-normal capitalize text-[#1A1A1A] lg:mt-9"
+          className=" h-12 rounded border border-[#C8C7C7] bg-transparent px-4 text-lg font-normal capitalize text-[#1A1A1A] max-lg:max-w-[100px] "
           onChange={handleFilterSelectionChange}
+          defaultValue={'filter'}
         >
-          <option value="none">Filter By</option>
+          <option disabled className="hidden" value="filter">
+            Filter
+          </option>
           <option value="images">Filter By Images Only</option>
           {/* <option value="verified">Filter By Verified Purchases Only</option> */}
           <option value="positive">Filter By Positive Reviews</option>
@@ -376,7 +395,7 @@ const ReviewSection = ({ showHeader }: { showHeader?: boolean }) => {
         </div>
       ) : null}
       {!!reviewData?.length && (
-        <div className="mt-7 flex flex-col items-center gap-6 lg:mt-[71px]">
+        <div className="mt-4 flex flex-col items-center gap-6 lg:mt-[10px]">
           {reviewData?.map((review, index) => (
             <ReviewCard key={index} review={review} />
           ))}

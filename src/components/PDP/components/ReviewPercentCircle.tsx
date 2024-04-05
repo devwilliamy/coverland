@@ -20,7 +20,7 @@ export default function ReviewPercentCircle({
           fill="#1D8044"
         />
       </svg>
-      <p className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 transform text-[28px] font-black leading-[32px] text-green-700 lg:text-4xl  lg:text-[45px] lg:leading-[52px]">
+      <p className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 transform text-[28px] font-black leading-[32px] text-green-700 lg:text-[45px] lg:leading-[52px]">
         {percent}
       </p>
     </div>
