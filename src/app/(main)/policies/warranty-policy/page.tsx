@@ -7,7 +7,7 @@ import PolicyDetail from '@/components/policy/PolicyDetail';
 import PolicyFurtherAssistance from '@/components/policy/PolicyFurtherAssistance';
 import { usePathname } from 'next/navigation';
 
-function WarrantyPolicy({ header }: { header?: boolean }) {
+function WarrantyPolicy({ showHeader }: { showHeader?: boolean }) {
   const path = usePathname();
   const isSeatCovers = path.startsWith('/seat-covers');
   let warrantyLength = 'a LIFETIME';
@@ -17,7 +17,7 @@ function WarrantyPolicy({ header }: { header?: boolean }) {
 
   return (
     <>
-      <PolicyHeader showHeader={header} headerText="Warranty" />
+      <PolicyHeader showHeader={showHeader} headerText="Warranty" />
       <div className="lg:mx-auto lg:flex lg:w-[842px] lg:flex-col lg:justify-center">
         <div className="relative px-5 pb-4 lg:py-14">
           <PolicyTitle

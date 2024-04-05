@@ -17,7 +17,7 @@ import {
 import { useMediaQuery } from '@mantine/hooks';
 import { AiOutlineLoading3Quarters } from 'react-icons/ai';
 
-const ReviewSection = ({ header }: { header?: boolean }) => {
+const ReviewSection = ({ showHeader }: { showHeader?: boolean }) => {
   const isMobile = useMediaQuery('(max-width: 768px)');
   const store = useContext(CarSelectionContext);
   if (!store) throw new Error('Missing CarContext.Provider in the tree');
@@ -309,7 +309,7 @@ const ReviewSection = ({ header }: { header?: boolean }) => {
     <div className="relative mb-[56px] flex w-full flex-col items-center lg:mb-0 lg:py-2">
       {isMobile ? null : (
         <>
-          {header && (
+          {showHeader && (
             <p
               className="mb-5 hidden text-center text-xl font-black uppercase text-black md:text-3xl lg:mb-20 lg:block lg:text-[42px]"
               id="reviews"

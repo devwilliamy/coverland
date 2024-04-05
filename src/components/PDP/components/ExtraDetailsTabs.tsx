@@ -4,7 +4,6 @@ import ReviewSection from './ReviewSection';
 import WarrantyPolicy from '@/app/(main)/policies/warranty-policy/page';
 import { PDPAccordion } from '../PDPAccordian';
 import ShippingPolicy from '@/app/(main)/policies/shipping-policy/page';
-import { usePathname } from 'next/navigation';
 import InsightsTab from './InsightsTab';
 import SeatCoverDetails from '@/app/(main)/seat-covers/components/SeatCoverDetails';
 import useDetermineType from '@/hooks/useDetermineType';
@@ -18,16 +17,14 @@ type TabsObj = {
 };
 
 export default function ExtraDetailsTabs() {
-  const pathname = usePathname();
-  const isSeatCovers = pathname?.startsWith('/seat-covers');
-  const isLeather = pathname?.toLowerCase().startsWith('/seat-covers/leather');
+  const { isSeatCover } = useDetermineType();
+
   const isSmall = useMediaQuery('(max-width: 768px)');
   const isMedium = useMediaQuery('(max-width: 1024px)');
-  const isLarge = useMediaQuery('(max-width: 1440px)');
 
   const calcOffset = () => {
     switch (true) {
-      case isSeatCovers:
+      case isSeatCover:
         return -45;
       case isSmall:
         return 70;
@@ -37,6 +34,7 @@ export default function ExtraDetailsTabs() {
         return 195;
     }
   };
+  
   const queryOffset = calcOffset();
   const [currentTabIndex, setCurrentTabIndex] = useState(0);
   let scrollDirection: 'up' | 'down' = 'down';
@@ -54,7 +52,7 @@ export default function ExtraDetailsTabs() {
     },
   ];
 
-  if (!isSeatCovers && !isLeather) {
+  if (!isSeatCover) {
     mainTabs.splice(
       0,
       0,
@@ -70,7 +68,7 @@ export default function ExtraDetailsTabs() {
     );
   }
 
-  if (isSeatCovers || isLeather) {
+  if (isSeatCover) {
     mainTabs.splice(0, 0, {
       title: 'Details',
     });
@@ -177,29 +175,25 @@ export default function ExtraDetailsTabs() {
       </div>
       <div>
         <div id="Details">
-          {!isSeatCovers && !isLeather ? (
-            <FeaturesAndProductsSection />
-          ) : (
-            <SeatCoverDetails />
-          )}
+          {!isSeatCover ? <FeaturesAndProductsSection /> : <SeatCoverDetails />}
         </div>
-        {!isSeatCovers && !isLeather && (
+        {!isSeatCover && (
           <div id="Reviews">
-            <ReviewSection header={false} />
+            <ReviewSection showHeader={false} />
           </div>
         )}
         <div id="Q&A">
           <PDPAccordion />
         </div>
         <div id="Shipping & Returns">
-          <ShippingPolicy header={false} />
+          <ShippingPolicy showHeader={false} />
         </div>
 
         <div id="Warranty">
-          <WarrantyPolicy header={false} />
+          <WarrantyPolicy showHeader={false} />
         </div>
 
-        {!isSeatCovers && !isLeather && (
+        {!isSeatCover && (
           <div id="Insights">
             <InsightsTab />
           </div>
