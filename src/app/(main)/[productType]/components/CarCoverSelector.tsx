@@ -1,4 +1,3 @@
-'use client';
 import { PrimaryImageDisplay } from './PrimaryImageDisplay';
 import { ProductContent } from './ProductContent';
 import { Separator } from '@/components/ui/separator';
@@ -9,20 +8,21 @@ import EditVehicle from './EditVehicle';
 import dynamic from 'next/dynamic';
 import ViewItemGoogleTag from './ViewItemGoogleTag';
 import DetailsTabHeader from './DetailsTabHeader';
-import useDetermineType from '@/hooks/useDetermineType';
 import ReviewSection from '@/components/PDP/components/ReviewSection';
-import ExtraDetailsTabs from '@/components/PDP/components/ExtraDetailsTabs';
+// import ExtraDetailsTabs from '@/components/PDP/components/ExtraDetailsTabs';
 
 const FeaturesAndProductsSection = dynamic(
   () => import('./FeaturesAndProductsSection')
+);
+const ExtraDetailsTabs = dynamic(
+  () => import('@/components/PDP/components/ExtraDetailsTabs'),
+  { ssr: false }
 );
 export function CarCoverSelector({
   searchParams,
 }: {
   searchParams: { submodel?: string; second_submodel?: string } | undefined;
 }) {
-  const { make, model } = useDetermineType();
-
   return (
     <>
       <section className="relative mx-auto h-max w-full max-w-[1280px]  lg:my-8">
@@ -40,17 +40,13 @@ export function CarCoverSelector({
           </section>
         </div>
 
-        {make === 'ford' && model === 'f-150' && (
-          <div className="flex w-full items-center lg:hidden">
-            <DetailsTabHeader />
-          </div>
-        )}
+        <DetailsTabHeader />
         <ExtraDetailsTabs />
-        <Separator className="h-5 w-full border-b-[1px] border-t-[1px] border-b-[#DBDBDB] border-t-[#DBDBDB] bg-[#F1F1F1] pt-[10px] lg:h-10 " />
+        {/* <Separator className="h-5 w-full border-b-[1px] border-t-[1px] border-b-[#DBDBDB] border-t-[#DBDBDB] bg-[#F1F1F1] pt-[10px] lg:h-10 " />
         <p className="flex w-full justify-center pt-[60px] text-[20px] font-[900] uppercase leading-[23px] lg:pt-[110px] lg:text-[45px] lg:leading-[36px]">
           Reviews
         </p>
-        <ReviewSection header={false} />
+        <ReviewSection header={false} /> */}
         {/* <FeaturesAndProductsSection /> */}
         {/* <ExtraProductDetails /> */}
       </section>
