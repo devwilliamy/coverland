@@ -32,7 +32,7 @@ import Image from 'next/image';
 import { useCallback, useContext, useEffect, useMemo, useState } from 'react';
 import { FaCamera } from 'react-icons/fa';
 import { useStore } from 'zustand';
-import { removeWwwFromUrl } from '../../utils';
+import { removeWwwFromUrl } from '@/utils';
 import { CarouselPositionItem } from './MobileCarouselPositionItem';
 
 const ProductVideo = dynamic(() => import('@/components/PDP/ProductVideo'), {

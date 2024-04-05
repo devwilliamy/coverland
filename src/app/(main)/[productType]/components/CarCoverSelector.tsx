@@ -3,13 +3,12 @@ import { ProductContent } from './ProductContent';
 import { Separator } from '@/components/ui/separator';
 import LinkBreadcrumbs from './LinkBreadcrumbs';
 import { ExtraProductDetails } from '@/components/PDP/ExtraProductDetails';
-import EditVehicle from './EditVehicle';
+import EditVehicle from '@/components/edit-vehicle/EditVehicle';
 // import FeaturesAndProductsSection from './FeaturesAndProductsSection';
 import dynamic from 'next/dynamic';
 import ViewItemGoogleTag from './ViewItemGoogleTag';
 import DetailsTabHeader from './DetailsTabHeader';
-import ReviewSection from '@/components/PDP/components/ReviewSection';
-// import ExtraDetailsTabs from '@/components/PDP/components/ExtraDetailsTabs';
+import { TQueryParams } from '@/utils';
 
 const FeaturesAndProductsSection = dynamic(
   () => import('./FeaturesAndProductsSection')
@@ -21,7 +20,7 @@ const ExtraDetailsTabs = dynamic(
 export function CarCoverSelector({
   searchParams,
 }: {
-  searchParams: { submodel?: string; second_submodel?: string } | undefined;
+  searchParams: TQueryParams;
 }) {
   return (
     <>

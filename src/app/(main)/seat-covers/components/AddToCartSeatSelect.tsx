@@ -12,18 +12,9 @@ import SeatOption from './AddToCartSeatOption';
 import { useContext, useState } from 'react';
 import { SeatCoverSelectionContext } from '@/contexts/SeatCoverContext';
 import { useStore } from 'zustand';
+import { detectFOrFB } from '@/lib/utils';
 
-function detectFOrFB(sku: string) {
-  const parts = sku.split('-');
-  if (parts[1] === 'SC') {
-    if (parts[3] === 'F') {
-      return 'Front';
-    } else if (parts[3] === 'FB') {
-      return 'Full';
-    }
-  }
-  return 'Unknown';
-}
+
 
 type AddToCartSeatSelectProps = {
   handleAddToCart: () => void;
@@ -52,14 +43,11 @@ export default function AddtoCartSeatSelect({
 
   return (
     <Sheet open={selectSeatOpen} onOpenChange={setSelectSeatOpen}>
-      <SheetTrigger className="pt-10 max-lg:mb-10">
-        {/* <AddToCartButton setSelectSeatOpen={setSelectSeatOpen} /> */}
-      </SheetTrigger>
       <SheetContent
         side={isMobile ? 'bottom' : 'right'}
-        className={`${isMobile ? 'min-h-[75vh] rounded-t-lg ' : 'w-[30vw]'} flex flex-col justify-between  bg-[#323232]`}
+        className={`${isMobile ? 'min-h-[75vh] rounded-t-2xl border border-neutral-800 ' : 'w-[30vw]'} flex flex-col justify-between  bg-[#323232]`}
       >
-        <SheetHeader className="flex w-full flex-col items-end">
+        <SheetHeader className="flex w-full flex-col items-end ">
           <SheetClose className="mr-4 mt-[20px] rounded-full bg-[#F0F0F099] p-1.5">
             <X size={28} />
           </SheetClose>
@@ -87,7 +75,7 @@ export default function AddtoCartSeatSelect({
           </p>
           <Button
             disabled={total <= 0}
-            className={`max-h-[48px] min-h-[48px] w-full ${total <= 0 ? 'disabled:bg-[#BE1B1B80]' : 'bg-[#BE1B1B]'} uppercase lg:max-h-[62px] lg:min-h-[62px] `}
+            className={`max-h-[48px] min-h-[48px] w-full ${total <= 0 ? 'disabled:bg-[#BE1B1B80]' : 'bg-[#BE1B1B]'} uppercase text-lg lg:max-h-[62px] lg:min-h-[62px] `}
             onClick={() => {
               if (selectedSeatCoverType) {
                 handleAddToCart();

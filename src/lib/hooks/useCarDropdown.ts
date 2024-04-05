@@ -3,7 +3,7 @@
 import { useCallback, useMemo, useReducer } from 'react';
 import { compareRawStrings, slugify } from '@/lib/utils';
 import { ReadonlyURLSearchParams } from 'next/navigation';
-import { IProductData } from '@/app/(main)/utils';
+import { IProductData } from '@/utils';
 
 export type CarSelectorAction =
   | { type: 'SET_YEAR'; payload: string | null }

@@ -4,22 +4,21 @@ import { useState, useContext } from 'react';
 import SeatCoverFreeDetails from './SeatCoverFreeDetails';
 import installments from '@/images/PDP/Product-Details-Redesign-2/paypal-installments.webp';
 import { Rating } from '@mui/material';
-import { useMediaQuery } from '@mantine/hooks';
 import { useCartContext } from '@/providers/CartProvider';
-import { TSeatCoverDataDB } from '@/lib/db/seat-covers';
 import { useRouter } from 'next/navigation';
 import { SeatCoverSelectionContext } from '@/contexts/SeatCoverContext';
 import { useStore } from 'zustand';
 import SeatCoverColorSelector from './SeatCoverColorSelector';
 import CartSheet from '@/components/cart/CartSheet';
-import AddToCart from './AddToCartSeatCover';
-import EditVehicle from './EditVehicleSeatCover';
 import { Separator } from '@/components/ui/separator';
+import { TQueryParams } from '@/utils';
+import AddToCart from '@/components/cart/AddToCart';
+import EditVehicle from '@/components/edit-vehicle/EditVehicle';
 
 export default function SeatContent({
   searchParams,
 }: {
-  searchParams: { submodel?: string; second_submodel?: string } | undefined;
+  searchParams: TQueryParams;
 }) {
   const store = useContext(SeatCoverSelectionContext);
   if (!store)
@@ -37,7 +36,7 @@ export default function SeatContent({
   };
 
   return (
-    <section className="flex h-full w-full flex-col max-lg:px-4 max-lg:pt-4 lg:sticky lg:top-8 lg:w-1/2">
+    <section className="flex w-full flex-col max-lg:px-4 max-lg:pt-4 lg:sticky lg:top-8 lg:w-1/2">
       <div className="flex flex-col ">
         <Separator className="w-full bg-[#C8C7C7] lg:block" />
 
@@ -82,6 +81,7 @@ export default function SeatContent({
       <SeatCoverColorSelector />
       <SeatCoverFreeDetails />
       {/* <CompatibleVehiclesTrigger /> */}
+      <div className="lg:py-4"></div>
       <div className="lg:hidden">
         <AddToCart
           selectedProduct={selectedProduct}

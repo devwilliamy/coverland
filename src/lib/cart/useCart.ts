@@ -1,6 +1,6 @@
 'use client';
 import { useState, useCallback, useEffect } from 'react';
-import { IProductData } from '@/app/(main)/utils';
+import { IProductData } from '@/utils';
 import { SeatItem } from '@/providers/CartProvider';
 export type TCartItem = (IProductData & { quantity: 1 }) | SeatItem;
 
