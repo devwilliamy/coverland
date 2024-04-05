@@ -1,7 +1,9 @@
+import { useCartContext } from '@/providers/CartProvider';
 import { useEffect, useState } from 'react';
 
 export default function useGetStripeClientSecret() {
   const [clientSecret, setClientSecret] = useState<any>();
+  const { cartItems } = useCartContext();
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -10,7 +12,7 @@ export default function useGetStripeClientSecret() {
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify({ items: [{ id: 'xl-tshirt' }] }),
+          body: JSON.stringify({ items: cartItems }),
         });
 
         const data = await response.json();

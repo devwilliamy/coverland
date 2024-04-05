@@ -19,7 +19,7 @@ export default function StripeFormWrapper() {
     appearance,
   };
   return (
-    <div className="px-6 pb-[20vh] md:w-4/12">
+    <div className="px-6 pb-[20vh]">
       {clientSecret && (
         <Elements stripe={stripePromise} options={options}>
           <StripeForm />
