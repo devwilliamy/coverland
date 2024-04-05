@@ -1,4 +1,14 @@
-import { useParams } from 'next/navigation';
+import {
+  CAR_COVERS_URL_PARAM,
+  PREMIUM_PLUS_URL_PARAM,
+  PREMIUM_URL_PARAM,
+  SEAT_COVERS_URL_PARAM_WITH_SLASH,
+  STANDARD_PRO_URL_PARAM,
+  STANDARD_URL_PARAM,
+  SUV_COVERS_URL_PARAM,
+  TRUCK_COVERS_URL_PARAM,
+} from '@/lib/constants';
+import { useParams, usePathname } from 'next/navigation';
 
 type ParamsType = {
   make?: string;
@@ -9,19 +19,19 @@ type ParamsType = {
 };
 function useDetermineType() {
   const params = useParams<ParamsType>();
-
+  const pathname = usePathname();
   // Product Types
   const productType = params?.productType;
-  const isTruckCover = productType === 'truck-covers';
-  const isSUVCover = productType === 'suv-covers';
-  const isCarCover = productType === 'car-covers';
-
+  const isTruckCover = productType === TRUCK_COVERS_URL_PARAM;
+  const isSUVCover = productType === SUV_COVERS_URL_PARAM;
+  const isCarCover = productType === CAR_COVERS_URL_PARAM;
+  const isSeatCover = pathname.startsWith(SEAT_COVERS_URL_PARAM_WITH_SLASH);
   // Cover Types
   const coverType = params?.coverType;
-  const isPremiumPlus = coverType === 'premium-plus';
-  const isPremium = coverType === 'premium';
-  const isStandardPro = coverType === 'standard-pro';
-  const isStandard = coverType === 'standard';
+  const isPremiumPlus = coverType === PREMIUM_PLUS_URL_PARAM;
+  const isPremium = coverType === PREMIUM_URL_PARAM;
+  const isStandardPro = coverType === STANDARD_PRO_URL_PARAM;
+  const isStandard = coverType === STANDARD_URL_PARAM;
   const isDefaultCoverType = isPremiumPlus || coverType === undefined;
   const isPremiumType = isDefaultCoverType || isPremium;
   const isStandardType = isStandard || isStandardPro;
@@ -35,6 +45,7 @@ function useDetermineType() {
     isCarCover,
     isSUVCover,
     isTruckCover,
+    isSeatCover,
     coverType,
     isPremiumPlus,
     isPremium,

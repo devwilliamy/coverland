@@ -56,8 +56,8 @@ export function HeroDropdown() {
     if (typeof window !== 'undefined') {
       localStorage.setItem('heroDropdownYear', year);
     }
-    const yearInUrl = query.parent_generation;
-    console.log(("yearinurl:", yearInUrl))
+    const yearInUrl = parent_generation;
+    
     let url = `/${slugify(type)}/premium-plus/${slugify(make)}/${slugify(model)}/${yearInUrl}`;
 
     if (model === 'Corvette') {

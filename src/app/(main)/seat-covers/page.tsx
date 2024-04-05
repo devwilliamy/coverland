@@ -1,4 +1,4 @@
-import { TPathParams } from '../utils';
+import { TPathParams } from '@/utils';
 import SeatCoverDataWrapper from './components/SeatCoverDataWrapper';
 import {
   TSeatCoverDataDB,

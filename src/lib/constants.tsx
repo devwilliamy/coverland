@@ -578,6 +578,7 @@ const suvImages: Partial<Record<(typeof colorOrder)[number], string[]>> = {
     'https://www.coverland.com/images/default-product-images/15.jpg',
   ],
 };
+
 const carImages: Partial<Record<(typeof colorOrder)[number], string[]>> = {
   'Black Red Stripe': [
     'https://www.coverland.com/images/default-product-images/01-bkrd-str-m.jpg',
@@ -885,3 +886,22 @@ export const BASE_URL =
     : process.env.NODE_ENV === 'test'
       ? 'https://coverland-2-0.vercel.app'
       : 'http://localhost:3000';
+
+export const CAR_COVERS = 'Car Covers'
+export const SUV_COVERS = 'SUV Covers'
+export const TRUCK_COVERS = 'Truck Covers'
+export const SEAT_COVERS = 'Seat Covers'
+export const CAR_COVERS_URL_PARAM = 'car-covers'
+export const SUV_COVERS_URL_PARAM = 'suv-covers'
+export const TRUCK_COVERS_URL_PARAM = 'truck-covers'
+export const SEAT_COVERS_URL_PARAM = 'seat-covers'
+export const SEAT_COVERS_URL_PARAM_WITH_SLASH = '/seat-covers'
+
+export const PREMIUM_PLUS = 'Premium Plus';
+export const PREMIUM = 'Premium';
+export const STANDARD_PRO = 'Standard Pro';
+export const STANDARD = 'Standard';
+export const PREMIUM_PLUS_URL_PARAM = 'premium-plus';
+export const PREMIUM_URL_PARAM = 'premium';
+export const STANDARD_PRO_URL_PARAM = 'standard-pro';
+export const STANDARD_URL_PARAM = 'standard';
