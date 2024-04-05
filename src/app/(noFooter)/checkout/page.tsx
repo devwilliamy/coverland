@@ -10,7 +10,7 @@ import {
 } from '@/components/ui/table';
 import { useCartContext } from '@/providers/CartProvider';
 import Image from 'next/image';
-import React, { ChangeEvent, Suspense, useState } from 'react';
+import { ChangeEvent, Suspense, useState } from 'react';
 import { FaRegTrashAlt } from 'react-icons/fa';
 import { IconContext } from 'react-icons';
 import { AiOutlineLoading3Quarters } from 'react-icons/ai';
@@ -25,6 +25,7 @@ import {
   redirectToCheckout,
 } from './utils';
 import { detectFOrFB } from '@/lib/utils';
+import StripeFormWrapper from '@/components/checkout/StripeFormWrapper';
 
 function CheckoutPage() {
   const {
@@ -47,8 +48,10 @@ function CheckoutPage() {
   const cartQuantity = getTotalCartQuantity();
   useCheckoutViewedGoogleTag();
 
+  // const clientSecret = useGetStripeClientSecret();
+
   return (
-    <div className="">
+    <>
       {cartItems.length === 0 ? (
         <p className="mt-10 h-20 w-full text-center text-xl">
           Your cart is empty.
@@ -91,9 +94,10 @@ function CheckoutPage() {
             cartItems={cartItems}
             clearLocalStorageCart={clearLocalStorageCart}
           />
+          <StripeFormWrapper />
         </div>
       )}
-    </div>
+    </>
   );
 }
 export default CheckoutPage;
@@ -101,7 +105,8 @@ export default CheckoutPage;
 function CartItemCard({ item }: { item: TCartItem }) {
   const { removeItemFromCart } = useCartContext();
   const { type } = item;
-  const imageUrl = type === 'Seat Covers' ? item?.product?.split(',')[0] : item?.feature 
+  const imageUrl =
+    type === 'Seat Covers' ? item?.product?.split(',')[0] : item?.feature;
   return (
     <TableBody key={item?.sku}>
       <TableRow className="flex flex-col">
