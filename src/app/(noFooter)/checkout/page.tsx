@@ -24,18 +24,7 @@ import {
   paypalCreateOrder,
   redirectToCheckout,
 } from './utils';
-
-function detectFOrFB(sku: string) {
-  const parts = sku.split('-');
-  if (parts[1] === 'SC') {
-    if (parts[3] === 'F') {
-      return 'Front';
-    } else if (parts[3] === 'FB') {
-      return 'Full';
-    }
-  }
-  return 'Unknown';
-}
+import { detectFOrFB } from '@/lib/utils';
 
 function CheckoutPage() {
   const {

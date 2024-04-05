@@ -7,7 +7,7 @@ import { useContext, useState } from 'react';
 import { FaCamera } from 'react-icons/fa';
 import { useStore } from 'zustand';
 import { Button } from '@/components/ui/button';
-import { removeWwwFromUrl } from '../../utils';
+import { removeWwwFromUrl } from '@/utils';
 
 export function SelectedProductImages() {
   const store = useContext(CarSelectionContext);

@@ -18,7 +18,7 @@ import { useMediaQuery } from '@mantine/hooks';
 import { AiOutlineLoading3Quarters } from 'react-icons/ai';
 import ReviewRatingStar from '@/components/icons/ReviewRatingStar';
 
-const ReviewSection = ({ header }: { header?: boolean }) => {
+const ReviewSection = ({ showHeader }: { showHeader?: boolean }) => {
   const isMobile = useMediaQuery('(max-width: 768px)');
   const store = useContext(CarSelectionContext);
   if (!store) throw new Error('Missing CarContext.Provider in the tree');
@@ -315,7 +315,7 @@ const ReviewSection = ({ header }: { header?: boolean }) => {
     <div className="relative mb-[56px] flex w-full flex-col items-center lg:mb-0 lg:py-2">
       {isMobile ? null : (
         <>
-          {header && (
+          {showHeader && (
             <p
               className="mb-5 hidden text-center text-xl font-black uppercase text-black md:text-3xl lg:mb-20 lg:block lg:text-[42px]"
               id="reviews"
@@ -325,7 +325,7 @@ const ReviewSection = ({ header }: { header?: boolean }) => {
           )}
         </>
       )}
-      <header className="flex w-full flex-col items-center pb-[30px] lg:max-w-[1080px]  lg:flex-row lg:pb-[80px] lg:pt-[80px]">
+       <header className="flex w-full flex-col items-center pb-[30px] lg:max-w-[1080px]  lg:flex-row lg:pb-[80px] lg:pt-[80px]">
         <div className="flex w-full min-w-[188px] items-center lg:justify-center ">
           <p className="pl-0.5 text-[40px] font-black lg:pl-0 lg:text-[60px]">
             {average_score?.toFixed(1) || '4.9'}

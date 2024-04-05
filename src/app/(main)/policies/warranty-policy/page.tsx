@@ -9,10 +9,10 @@ import { usePathname } from 'next/navigation';
 
 function WarrantyPolicy({ showHeader }: { showHeader?: boolean }) {
   const path = usePathname();
-  const isSeatCovers = path === '/seat-covers';
-  let warrantyLength = 'A LIFETIME';
+  const isSeatCovers = path.startsWith('/seat-covers');
+  let warrantyLength = 'a LIFETIME';
   if (isSeatCovers) {
-    warrantyLength = '10-Years';
+    warrantyLength = 'up to 10-Years';
   }
 
   return (
@@ -21,7 +21,7 @@ function WarrantyPolicy({ showHeader }: { showHeader?: boolean }) {
       <div className="lg:mx-auto lg:flex lg:w-[842px] lg:flex-col lg:justify-center">
         <div className="relative px-5 pb-4 lg:py-14">
           <PolicyTitle
-            title={`FULL WARRANTY FOR UP TO ${warrantyLength}! `}
+            title={`FULL WARRANTY FOR ${warrantyLength}! `}
             uppercase
           />
           <PolicyTitle title="Welcome to Coverland's Warranty Page" uppercase />
@@ -29,13 +29,13 @@ function WarrantyPolicy({ showHeader }: { showHeader?: boolean }) {
             At Coverland, we are committed to providing our customers with
             exceptional quality products and peace of mind. We stand behind the
             craftsmanship and durability of our items, offering a comprehensive
-            warranty for up to {warrantyLength}.
+            warranty for {warrantyLength}.
           </PolicyDetail>
           <PolicyTitle title="Warranty Coverage" uppercase />
           <PolicyDetail>
-            Our warranty covers your product for up to {warrantyLength},
-            depending on its specific warranty period, starting from the date of
-            purchase. It includes protection against various issues:
+            Our warranty covers your product for {warrantyLength}, depending on
+            its specific warranty period, starting from the date of purchase. It
+            includes protection against various issues:
           </PolicyDetail>
           <ol className="list-disc pl-6 pt-4">
             <li>

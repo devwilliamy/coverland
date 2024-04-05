@@ -1,32 +1,28 @@
-"use client"
 import { PrimaryImageDisplay } from './PrimaryImageDisplay';
 import { ProductContent } from './ProductContent';
 import { Separator } from '@/components/ui/separator';
 import LinkBreadcrumbs from './LinkBreadcrumbs';
-import { ExtraProductDetails } from '@/components/PDP/ExtraProductDetails';
-import EditVehicle from './EditVehicle';
-// import FeaturesAndProductsSection from './FeaturesAndProductsSection';
+import EditVehicle from '@/components/edit-vehicle/EditVehicle';
 import dynamic from 'next/dynamic';
 import ViewItemGoogleTag from './ViewItemGoogleTag';
 import DetailsTabHeader from './DetailsTabHeader';
-import useDetermineType from '@/hooks/useDetermineType';
+import { TQueryParams } from '@/utils';
 
-const FeaturesAndProductsSection = dynamic(
-  () => import('./FeaturesAndProductsSection')
+const ExtraDetailsTabs = dynamic(
+  () => import('@/components/PDP/components/ExtraDetailsTabs'),
+  { ssr: false }
 );
 export function CarCoverSelector({
   searchParams,
 }: {
-  searchParams: { submodel?: string; second_submodel?: string } | undefined;
+  searchParams: TQueryParams;
 }) {
-  const { make, model } = useDetermineType();
-
   return (
     <>
       <section className="relative mx-auto h-max w-full max-w-[1280px]  lg:my-8">
         <LinkBreadcrumbs />
         <ViewItemGoogleTag />
-        <div className="mb-[30px] flex w-full flex-col items-start justify-between px-4 lg:mb-[130px] lg:flex-row lg:gap-14">
+        <div className="mb-[40px] flex  w-full flex-col items-start justify-between px-4 lg:mb-[45px]  lg:flex-row lg:gap-14">
           {/* Left Panel */}
           <PrimaryImageDisplay />
           {/* Right Panel */}
@@ -38,13 +34,15 @@ export function CarCoverSelector({
           </section>
         </div>
 
-        {make === 'ford' && model === 'f-150' && (
-          <div className="flex w-full items-center lg:hidden">
-            <DetailsTabHeader />
-          </div>
-        )}
-        <FeaturesAndProductsSection />
-        <ExtraProductDetails />
+        <DetailsTabHeader />
+        <ExtraDetailsTabs />
+        {/* <Separator className="h-5 w-full border-b-[1px] border-t-[1px] border-b-[#DBDBDB] border-t-[#DBDBDB] bg-[#F1F1F1] pt-[10px] lg:h-10 " />
+        <p className="flex w-full justify-center pt-[60px] text-[20px] font-[900] uppercase leading-[23px] lg:pt-[110px] lg:text-[45px] lg:leading-[36px]">
+          Reviews
+        </p>
+        <ReviewSection header={false} /> */}
+        {/* <FeaturesAndProductsSection /> */}
+        {/* <ExtraProductDetails /> */}
       </section>
     </>
   );

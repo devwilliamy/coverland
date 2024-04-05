@@ -56,10 +56,11 @@ export default function FreeDetails() {
     {
       icon: <ShoppingBag />,
       title: 'Free $30 Accessory Kit Included',
+      description: `Includes storage bag, wind-strap, and antenna patch.`,
     },
   ];
   return (
-    <div className="flex flex-col items-center justify-start bg-[#FBFBFB] lg:pb-[48px] ">
+    <div className="flex flex-col items-center justify-start bg-[#FBFBFB]">
       {FreeDetailItems.map(({ icon, title, description }, index) => (
         <FreeDetailItem
           key={`Free-Detail-Item-${index}`}

@@ -9,9 +9,9 @@ import { compareRawStrings } from '@/lib/utils';
 
 import { useStore } from 'zustand';
 import { useCartContext } from '@/providers/CartProvider';
-import { getCompleteSelectionData } from '../../utils';
+import { TQueryParams, getCompleteSelectionData } from '@/utils';
 import FreeDetails from './FreeDetails';
-import AddToCart from './AddToCart';
+import AddToCart from '@/components/cart/AddToCart';
 import CircleColorSelector from './CircleColorSelector';
 import ReviewsTextTrigger from './ReviewsTextTrigger';
 import installments from '@/images/PDP/Product-Details-Redesign-2/paypal-installments.webp';
@@ -21,7 +21,7 @@ import useDetermineType from '@/hooks/useDetermineType';
 export function ProductContent({
   searchParams,
 }: {
-  searchParams: { submodel?: string; second_submodel?: string } | undefined;
+  searchParams: TQueryParams;
 }) {
   const isMobile = useMediaQuery('(max-width: 1023px)');
   const [addToCartOpen, setAddToCartOpen] = useState<boolean>(false);
@@ -187,6 +187,7 @@ export function ProductContent({
       <Suspense>
         <FreeDetails />
       </Suspense>
+      <div className="lg:py-4"></div>
       <AddToCart
         selectedProduct={selectedProduct}
         handleAddToCart={handleAddToCart}

@@ -1,6 +1,6 @@
 import { StaticImport } from 'next/dist/shared/lib/get-img-props';
 import Image from 'next/image';
-import { removeWwwFromUrl } from '../../utils';
+import { removeWwwFromUrl } from '@/utils';
 
 export const CarouselPositionItem = ({
   index,

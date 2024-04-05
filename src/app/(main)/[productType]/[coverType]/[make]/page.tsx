@@ -7,7 +7,7 @@ import {
   getProductReviewSummary,
   getProductReviewsByPage,
 } from '@/lib/db/review';
-import { TPathParams } from '@/app/(main)/utils';
+import { TPathParams } from '@/utils';
 import { deslugify } from '@/lib/utils';
 
 export type TCarCoverSlugParams = {

@@ -11,15 +11,15 @@ import AddToCartHeader from '../cart/AddToCartHeader';
 import AddToCartBody from '../cart/AddToCartBody';
 import AddToCartFooter from '../cart/AddToCartFooter';
 import { TInitialProductDataDB } from '@/lib/db';
-import { IProductData } from '@/app/(main)/utils';
+import { IProductData } from '@/utils';
 import { useMediaQuery } from '@mantine/hooks';
 import { Separator } from '../ui/separator';
-import { TSeatCoverDataNewDB } from '@/lib/db/seat-covers';
+import { TSeatCoverDataDB } from '@/lib/db/seat-covers';
 
 type CartSheetProps = {
   open: boolean;
   setOpen: (open: boolean) => void;
-  selectedProduct: TInitialProductDataDB | IProductData | null | undefined | TSeatCoverDataNewDB;
+  selectedProduct: TInitialProductDataDB | IProductData | null | undefined | TSeatCoverDataDB;
 };
 const CartSheet = ({
   open,

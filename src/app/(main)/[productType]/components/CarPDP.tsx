@@ -1,6 +1,6 @@
 import { TInitialProductDataDB, TReviewData } from '@/lib/db';
 import CarCoverSelector from './CarCoverSelector';
-import { TPathParams } from '../../utils';
+import { TPathParams } from '@/utils';
 import { TProductReviewSummary } from '@/lib/db/review';
 import CarSelectionProvider from '@/contexts/CarSelectionContext';
 
