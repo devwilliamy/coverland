@@ -13,7 +13,7 @@ export default function VehicleCoverDetails() {
       <FeaturesSection />
       <section>
         <span className="max-w-[100vw] bg-white">
-          <div className="flex w-full flex-col justify-center px-4 pb-3">
+          <div className="flex w-full flex-col justify-center px-4 ">
             <ProtectionSection />
             {isDefaultCoverType && <RealTestSection />}
             {isDefaultCoverType && <ProvenSection />}
