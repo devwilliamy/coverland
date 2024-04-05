@@ -2,7 +2,6 @@ import { PrimaryImageDisplay } from './PrimaryImageDisplay';
 import { ProductContent } from './ProductContent';
 import { Separator } from '@/components/ui/separator';
 import LinkBreadcrumbs from './LinkBreadcrumbs';
-import { ExtraProductDetails } from '@/components/PDP/ExtraProductDetails';
 import EditVehicle from '@/components/edit-vehicle/EditVehicle';
 // import FeaturesAndProductsSection from './FeaturesAndProductsSection';
 import dynamic from 'next/dynamic';
