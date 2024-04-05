@@ -312,7 +312,7 @@ const ReviewSection = ({ showHeader }: { showHeader?: boolean }) => {
   );
 
   return (
-    <div className="relative mb-[56px] flex w-full flex-col items-center lg:mb-0 lg:py-2">
+    <div className="relative mb-[56px] px-[22px] lg:px-[59px] flex w-full flex-col items-center lg:mb-0 lg:py-2">
       {isMobile ? null : (
         <>
           {showHeader && (
@@ -325,7 +325,7 @@ const ReviewSection = ({ showHeader }: { showHeader?: boolean }) => {
           )}
         </>
       )}
-       <header className="flex w-full flex-col items-center pb-[30px] lg:max-w-[1080px]  lg:flex-row lg:pb-[80px] lg:pt-[80px]">
+      <header className="flex w-full flex-col items-center pb-[30px] lg:max-w-[1080px]  lg:flex-row lg:pb-[80px] lg:pt-[80px]">
         <div className="flex w-full min-w-[188px] items-center lg:justify-center ">
           <p className="pl-0.5 text-[40px] font-black lg:pl-0 lg:text-[60px]">
             {average_score?.toFixed(1) || '4.9'}
