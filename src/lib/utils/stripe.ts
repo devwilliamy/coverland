@@ -22,17 +22,12 @@ export const checkPromoCode = (promoCode: string, isDev: boolean): boolean => {
     AC for Accessories
     NX for Mixed
     CL-240405-MX-AA01
-
- * 
- * 
- * 
- * 
  */
 export const generateOrderId = (
   items: TCartItem[],
   uniqueNumber: string
 ): string => {
-  const brand = 'CL'; // Constant brand prefix
+  const brand = uniqueNumber === 'TEST' ? 'CL-TEST' : 'CL';
   const date = formatDate(new Date()); // Current date in YYMMDD format
   const productInitials = getProductInitials(items); // Initials based on item type
 
@@ -73,4 +68,22 @@ export const getProductInitialsForType = (type: string): string => {
     default:
       return 'MX';
   }
+};
+
+/**
+ * Have to convert price to cents
+ */
+export const convertPriceToStripeFormat = (price: string | number): number => {
+  // Convert to number if the input is a string
+  const numericPrice = typeof price === 'string' ? parseFloat(price) : price;
+
+  // Convert to Stripe's format (e.g., $10.00 becomes 1000)
+  return Math.round(numericPrice * 100);
+};
+
+/**
+ * Convert price from cents
+ */
+export const convertPriceFromStripeFormat = (price: number): number => {
+  return price / 100;
 };

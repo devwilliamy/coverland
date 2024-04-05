@@ -109,4 +109,12 @@ describe('generateOrderId', () => {
     const orderId = generateOrderId(items, uniqueNumber);
     expect(orderId).toMatch(/^CL-\d{6}-MX-AA03$/);
   });
+  it('should generate an order ID with CL-TEST as the brand and -TEST as the suffix', () => {
+    const items: TCartItem[] = [
+      // Add your item details here
+    ];
+    const uniqueNumber = 'TEST';
+    const orderId = generateOrderId(items, uniqueNumber);
+    expect(orderId).toMatch(/^CL-TEST-\d{6}-[A-Z]{2}-TEST$/);
+  });
 });
