@@ -3,15 +3,11 @@ import { ProductContent } from './ProductContent';
 import { Separator } from '@/components/ui/separator';
 import LinkBreadcrumbs from './LinkBreadcrumbs';
 import EditVehicle from '@/components/edit-vehicle/EditVehicle';
-// import FeaturesAndProductsSection from './FeaturesAndProductsSection';
 import dynamic from 'next/dynamic';
 import ViewItemGoogleTag from './ViewItemGoogleTag';
 import DetailsTabHeader from './DetailsTabHeader';
 import { TQueryParams } from '@/utils';
 
-const FeaturesAndProductsSection = dynamic(
-  () => import('./FeaturesAndProductsSection')
-);
 const ExtraDetailsTabs = dynamic(
   () => import('@/components/PDP/components/ExtraDetailsTabs'),
   { ssr: false }
