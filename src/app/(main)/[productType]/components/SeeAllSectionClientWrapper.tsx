@@ -21,7 +21,7 @@ export default function SeeAllSectionClientWrapper({ child1, child2 }) {
       >
         {child1}
         <div
-          className={`absolute ${seeAllVisible ? '' : 'hidden'} -bottom-[1px] z-[5] w-full bg-gradient-to-t from-white from-80%`}
+          className={`absolute ${seeAllVisible ? '' : 'hidden'} -bottom-[4px] z-[5] w-full bg-gradient-to-t from-white from-80%`}
         >
           <div className="flex  flex-col items-center justify-center pb-[2vh] pt-[5vh]">
             <div

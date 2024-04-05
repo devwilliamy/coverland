@@ -232,7 +232,7 @@ const ScrollSheetTrigger = ({
     py-4 text-left text-[22px] font-black uppercase text-[#1A1A1A] !no-underline`}
     onClick={() => {
       setTimeout(() => {
-        const DrawerScrollable = document.getElementById('DrawerScrollable');
+        const DrawerScrollable = document?.getElementById('DrawerScrollable');
         DrawerScrollable?.scrollTo({
           top: toRef.current?.offsetTop
             ? toRef.current?.offsetTop - 85

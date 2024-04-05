@@ -26,6 +26,8 @@ function useDetermineType() {
   const isSUVCover = productType === SUV_COVERS_URL_PARAM;
   const isCarCover = productType === CAR_COVERS_URL_PARAM;
   const isSeatCover = pathname.startsWith(SEAT_COVERS_URL_PARAM_WITH_SLASH);
+  const isVehicleCover = isCarCover || isSUVCover || isTruckCover;
+
   // Cover Types
   const coverType = params?.coverType;
   const isPremiumPlus = coverType === PREMIUM_PLUS_URL_PARAM;
@@ -45,6 +47,7 @@ function useDetermineType() {
     isCarCover,
     isSUVCover,
     isTruckCover,
+    isVehicleCover,
     isSeatCover,
     coverType,
     isPremiumPlus,

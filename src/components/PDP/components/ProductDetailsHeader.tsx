@@ -18,13 +18,13 @@ export default function ProductDetailsHeader() {
   const { make, model } = useDetermineType();
 
   return (
-    <section className="relative -mx-4 mb-[60px] flex flex-col items-center lg:mb-[110px]  ">
+    <section className="relative -mx-4 mb-[60px] flex flex-col items-center lg:mb-[110px] lg:pt-[60px]  ">
       {make === 'ford' && model === 'f-150' && (
-        <div className="hidden w-full pt-[60px] lg:flex">
+        <div className="hidden w-full  lg:flex">
           <DetailsTabHeader />
         </div>
       )}
-      <div className="flex flex-col py-7 text-center lg:py-[38px]">
+      <div className="flex flex-col pb-7 text-center max-lg:pt-10 lg:pb-[38px]">
         <p className="text-[16px] capitalize leading-[26px] text-[#B23B4E] lg:text-[26px]">
           Elevate Style, Keep it new
         </p>

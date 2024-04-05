@@ -17,7 +17,7 @@ import {
 import { useMediaQuery } from '@mantine/hooks';
 import { AiOutlineLoading3Quarters } from 'react-icons/ai';
 
-const ReviewSection = ({ header }: { header?: boolean }) => {
+const ReviewSection = ({ showHeader }: { showHeader?: boolean }) => {
   const isMobile = useMediaQuery('(max-width: 768px)');
   const store = useContext(CarSelectionContext);
   if (!store) throw new Error('Missing CarContext.Provider in the tree');
@@ -306,10 +306,10 @@ const ReviewSection = ({ header }: { header?: boolean }) => {
   // };
 
   return (
-    <div className="relative mb-[56px] lg:mb-0 lg:py-2">
+    <div className="relative mb-[56px] flex w-full flex-col items-center lg:mb-0 lg:py-2">
       {isMobile ? null : (
         <>
-          {header && (
+          {showHeader && (
             <p
               className="mb-5 hidden text-center text-xl font-black uppercase text-black md:text-3xl lg:mb-20 lg:block lg:text-[42px]"
               id="reviews"
@@ -319,35 +319,27 @@ const ReviewSection = ({ header }: { header?: boolean }) => {
           )}
         </>
       )}
-      <div className="flex flex-col gap-[20px] pt-[30px] lg:flex-row lg:gap-0  lg:pt-[80px]">
-        <div className="flex w-full min-w-[188px] flex-col lg:items-center">
-          <div className="flex items-center gap-[14px] lg:pt-0">
-            <p className="pl-4 text-[40px] font-black lg:pl-0 lg:text-[80px]">
-              {average_score?.toFixed(1) || '4.9'}
-            </p>
-            <p className="text-sm font-normal lg:mt-11 lg:text-lg">
+      <header className="flex w-full flex-col items-center gap-[] pt-[30px] lg:max-w-[1080px] lg:flex-row lg:pt-[80px]">
+        <div className="flex w-full min-w-[188px] ">
+          <p className="pl-4 text-[40px] font-black lg:pl-0 lg:text-[80px]">
+            {average_score?.toFixed(1) || '4.9'}
+          </p>
+          <div className="flex h-[25px] flex-col items-stretch gap-1 pl-4 text-yellow-300 lg:h-[54px]">
+            <Rating name="read-only" value={5} readOnly size="large" />
+            <p className="text-sm font-normal text-[#767676] lg:text-lg">
               {total_reviews} reviews
             </p>
           </div>
-          <div className="flex items-stretch gap-1 pl-4 text-yellow-300">
-            <Rating
-              name="read-only"
-              value={5}
-              readOnly
-              size="large"
-              style={{
-                height: '25px',
-              }}
-            />
+        </div>
+        <div className="flex w-full items-center gap-2 max-lg:pl-4 ">
+          <ReviewPercentCircle percent="95" />
+          <div className="flex flex-col">
+            <p className="whitespace-nowrap text-[18px] font-bold lg:text-[28px]">
+              95% would recommend
+            </p>
           </div>
         </div>
-        <div className="flex w-full items-center  gap-2 pl-4">
-          <ReviewPercentCircle percent="95" />
-          <p className="text-[18px] font-bold lg:text-[28px]">
-            95% would recommend
-          </p>
-        </div>
-      </div>
+      </header>
       <ReviewHeaderGallery />
       <div className="mb-6 flex flex-col gap-1 *:rounded-lg lg:flex-row lg:gap-4">
         <select
