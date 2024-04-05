@@ -178,15 +178,17 @@ export default function ExtraDetailsTabs() {
         <div id="Details">
           {!isSeatCover ? <VehicleCoverDetails /> : <SeatCoverDetails />}
         </div>
-        <Separator className="h-5 border-y-[1px] border-y-[#DADADA] bg-[#F1F1F1] lg:h-10" />
         {!isSeatCover && (
-          <div id="Reviews">
-            <ReviewSection showHeader={false} />
-          </div>
+          <>
+            <Separator className="h-5 border-y-[1px] border-y-[#DADADA] bg-[#F1F1F1] lg:h-10" />
+            <div id="Reviews">
+              <ReviewSection showHeader={false} />
+            </div>
+            <div id="Q&A">
+              <QuestionsAccordion />
+            </div>
+          </>
         )}
-        <div id="Q&A">
-          <QuestionsAccordion />
-        </div>
         <div id="Shipping & Returns">
           <ShippingPolicy showHeader={false} />
         </div>
