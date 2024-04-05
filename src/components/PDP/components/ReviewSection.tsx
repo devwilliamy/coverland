@@ -325,22 +325,25 @@ const ReviewSection = ({ header }: { header?: boolean }) => {
           )}
         </>
       )}
-      <header className="flex w-full flex-col items-center gap-[] pt-[30px] lg:max-w-[1080px] lg:flex-row lg:pt-[80px]">
-        <div className="flex w-full min-w-[188px] ">
-          <p className="pl-0.5 text-[40px] font-black lg:pl-0 lg:text-[80px]">
+      <header className="flex w-full flex-col items-center gap-[]  lg:max-w-[1080px] lg:flex-row lg:pt-[80px]">
+        <div className="flex w-full min-w-[188px] items-center lg:justify-center ">
+          <p className="pl-0.5 text-[40px] font-black lg:pl-0 lg:text-[60px]">
             {average_score?.toFixed(1) || '4.9'}
           </p>
-          <div className="flex h-[25px] flex-col items-stretch gap-1 pl-4 text-yellow-300 lg:h-[54px]">
-            <ReviewRatingStar
-              rating={Number(average_score?.toFixed(1))}
-              size="large"
-            />
-            <p className="text-sm font-normal text-[#767676] lg:text-lg">
+          <div className="flex flex-col items-stretch  gap-1 pl-4 text-yellow-300 ">
+            <div className="max-lg:pt-[30px]">
+              <ReviewRatingStar
+                // rating={Number(average_score?.toFixed(1))}
+                rating={4.5}
+                size={isMobile ? 26 : 54}
+              />
+            </div>
+            <p className="pl-4 text-sm font-normal text-[#767676] lg:text-lg">
               {total_reviews} reviews
             </p>
           </div>
         </div>
-        <div className="flex w-full items-center gap-2  ">
+        <div className="flex w-full items-center gap-2 lg:justify-center lg:gap-5">
           <ReviewPercentCircle percent="95" />
           <div className="flex flex-col">
             <p className="whitespace-nowrap text-[18px] font-bold lg:text-[28px]">

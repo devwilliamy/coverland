@@ -2,11 +2,12 @@ import { Rating } from '@mui/material';
 
 type ReviewRatingStarProps = {
   rating?: number;
-  size?: 'small' | 'medium' | 'large';
+  // size?: 'small' | 'medium' | 'large';
+  size?: number;
 };
 export default function ReviewRatingStar({
   rating = 5,
-  size = 'large',
+  size = 20,
 }: ReviewRatingStarProps) {
   return (
     <Rating
@@ -14,17 +15,18 @@ export default function ReviewRatingStar({
       value={rating}
       readOnly
       precision={0.1}
-      size={size}
+      size={'large'}
       sx={{
         gap: '2px',
+        fontSize: `${size}px`,
+        // strokeLinejoin: 'bevel',
         '& .MuiRating-iconFilled': {
           color: '#FFD80E',
-          stroke: '#FF9F47',
-          strokeWidth: 1,
+          // stroke: '#FF9F47',
         },
         '& .MuiRating-iconEmpty': {
-          color: '#FF9F47',
-          strokeWidth: 0,
+          // color: 'transparent',
+          color: '#FFD80E',
         },
       }}
     />

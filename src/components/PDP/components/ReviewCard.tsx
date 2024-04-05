@@ -28,10 +28,7 @@ export default function ReviewCard({
       </div>
       <div className="mt-2 flex items-center gap-2">
         <div className="flex gap-1 text-yellow-300 lg:my-0 lg:min-w-[286px]">
-          <ReviewRatingStar
-            rating={Number(review.rating_stars)}
-            size="medium"
-          />
+          <ReviewRatingStar rating={Number(review.rating_stars)} />
         </div>
         <div className="text-sm font-light normal-case text-neutral-500 lg:hidden">
           {review?.reviewed_at &&

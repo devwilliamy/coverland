@@ -127,25 +127,16 @@ export function ProductContent({
             <div className="flex gap-1 ">
               <Rating
                 name="read-only"
-                value={Number(average_score?.toFixed(1)) || 4.9}
+                value={4.5}
                 precision={0.1}
                 readOnly
-                // style={{
-                //   height: '25px',
-                //   color: '#BE1B1B',
-                // }}
                 sx={{
                   gap: '2px',
                   '& .MuiRating-iconFilled': {
-                    fill: '#BE1B1B',
                     color: '#BE1B1B',
-                    stroke: '#BE1B1B',
-                    strokeWidth: 1.5,
                   },
                   '& .MuiRating-iconEmpty': {
-                    stroke: '#BE1B1B',
                     color: '#BE1B1B',
-                    strokeWidth: 0,
                   },
                 }}
               />
