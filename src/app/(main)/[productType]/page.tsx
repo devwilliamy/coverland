@@ -7,7 +7,7 @@ import {
   getProductReviewsByPage,
 } from '@/lib/db/review';
 import { deslugify } from '@/lib/utils';
-import { TPathParams } from '../utils';
+import { TPathParams } from '@/utils';
 import { notFound } from 'next/navigation';
 import { TInitialProductDataDB, getProductData } from '@/lib/db';
 

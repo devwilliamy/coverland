@@ -1,22 +1,20 @@
 'use client';
 import EditVehiclePopover from './EditVehiclePopover';
-import EditVehicleModal from '@/components/PDP/components/EditVehicleModal';
+import EditVehicleModal from '@/components/edit-vehicle/EditVehicleModal';
 import SuvIcon from '@/components/PDP/components/icons/SuvIcon';
 import TruckIcon from '@/components/PDP/components/icons/TruckIcon';
 import CarIcon from '@/components/PDP/components/icons/CarIcon';
 import useDetermineType from '@/hooks/useDetermineType';
-import { useContext } from 'react';
-import { CarSelectionContext } from '@/contexts/CarSelectionContext';
 import { useStore } from 'zustand';
+import { TQueryParams } from '@/utils';
+import useStoreContext from '@/hooks/useStoreContext';
 
 type EditVehicleProps = {
-  searchParams: { submodel?: string; second_submodel?: string } | undefined;
+  searchParams: TQueryParams;
 };
 export default function EditVehicle({ searchParams }: EditVehicleProps) {
-  const store = useContext(CarSelectionContext);
-  if (!store) throw new Error('Missing CarContext.Provider in the tree');
-
-  const modelData = useStore(store, (s) => s.modelData);
+  const store = useStoreContext()
+  if (!store) throw new Error('Missing Provider in the tree');
   const selectedProduct = useStore(store, (s) => s.selectedProduct);
   const { isTruckCover, isSUVCover } = useDetermineType();
 

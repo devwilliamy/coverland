@@ -2,7 +2,7 @@
 
 import { RefObject } from 'react';
 import Image from 'next/image';
-import { IProductData } from '../../utils';
+import { IProductData } from '@/utils';
 
 interface ProductRefs {
   [key: string]: RefObject<HTMLElement>;

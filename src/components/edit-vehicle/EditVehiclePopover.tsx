@@ -1,5 +1,4 @@
-'use client';
-
+'use client';;
 import EditVehicleDropdown from '@/components/PDP/EditVehicleDropdown';
 import { EditIcon } from '@/components/PDP/icons';
 import {
@@ -7,9 +6,8 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from '@/components/ui/popover';
-import { CarSelectionContext } from '@/contexts/CarSelectionContext';
-import { useContext, useState } from 'react';
-import { IProductData } from '../../utils';
+import { useState } from 'react';
+import { IProductData } from '@/utils';
 import { useParams } from 'next/navigation';
 
 export default function EditVehiclePopover({

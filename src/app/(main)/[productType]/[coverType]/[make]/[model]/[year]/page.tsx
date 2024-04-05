@@ -1,7 +1,7 @@
 import { TReviewData, getProductData } from '@/lib/db';
 import { notFound, redirect } from 'next/navigation';
 import CarPDP from '@/app/(main)/[productType]/components/CarPDP';
-import { TPathParams } from '@/app/(main)/utils';
+import { TPathParams } from '@/utils';
 import {
   TProductReviewSummary,
   // filterReviewImages,

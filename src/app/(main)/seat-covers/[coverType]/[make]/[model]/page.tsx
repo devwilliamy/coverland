@@ -1,6 +1,6 @@
 import { getAllMakes } from '@/lib/db';
 import { notFound } from 'next/navigation';
-import { TPathParams } from '@/app/(main)/utils';
+import { TPathParams } from '@/utils';
 import { deslugify } from '@/lib/utils';
 
 import {
