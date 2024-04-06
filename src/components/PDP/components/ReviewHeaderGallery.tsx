@@ -26,11 +26,6 @@ export default function ReviewHeaderGallery() {
 
   return (
     <div className="flex flex-col items-center">
-      {reviewImages && (
-        <div className=" flex items-center justify-center py-[10px] text-[14px] font-[400] normal-case leading-[24px] text-[#767676] lg:pb-[14px]  lg:pt-[70px]">
-          {imageCount} Review Images
-        </div>
-      )}
       {reviewImages?.length > 0 && (
         <>
           <section className="grid aspect-square h-full w-full grid-cols-2 items-center gap-[7px] lg:hidden">
@@ -78,6 +73,11 @@ export default function ReviewHeaderGallery() {
             </div>
           </section>
         </>
+      )}
+      {reviewImages && (
+        <div className=" flex items-center justify-center py-[10px] text-[14px] font-[400] normal-case leading-[24px] text-[#767676] lg:pb-[14px]">
+          {imageCount} Review Images
+        </div>
       )}
     </div>
   );

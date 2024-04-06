@@ -6,7 +6,7 @@ import {
 } from '@/components/ui/accordion';
 import { track } from '@vercel/analytics';
 
-export function PDPAccordion() {
+export function QuestionsAccordion() {
   return (
     <>
       <div className="min-h-[60vh] bg-[#F9F9FB] px-2 md:p-8 lg:max-h-none lg:p-14">

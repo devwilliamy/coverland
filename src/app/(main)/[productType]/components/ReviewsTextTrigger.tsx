@@ -5,7 +5,7 @@ import { useStore } from 'zustand';
 import { CarSelectionContext } from '@/contexts/CarSelectionContext';
 import ReviewSection from '@/components/PDP/components/ReviewSection';
 
-function RatingsTrigger() {
+function ReviewsTextTrigger() {
   const store = useContext(CarSelectionContext);
   if (!store) throw new Error('Missing CarContext.Provider in the tree');
   const { total_reviews } = useStore(store, (s) => s.reviewDataSummary);
@@ -21,7 +21,7 @@ function RatingsTrigger() {
                 className="ml-2 text-blue-400 underline"
                 disabled={!total_reviews}
               >
-                {total_reviews || '2'} ratings
+                {total_reviews || '2'} Reviews
               </DialogTrigger>
 
               <DialogContent className="flex max-h-[65vh] min-h-[65vh] flex-col items-center overflow-y-auto lg:min-w-[77vw] lg:max-w-[80%] xl:max-w-[1024px]">
@@ -37,11 +37,11 @@ function RatingsTrigger() {
         </>
       ) : (
         <div className=" text-[#4C8EA8] underline">
-          {total_reviews || '2'} ratings
+          {total_reviews || '2'} Reviews
         </div>
       )}
     </>
   );
 }
 
-export default RatingsTrigger;
+export default ReviewsTextTrigger;

@@ -29,7 +29,6 @@ export default function FeaturesSection() {
       <div className="relative flex flex-col items-center justify-center lg:w-[850px]">
         <FabricMattersSection />
         <DifferenceGrid />
-
         <CustomFitSection />
       </div>
     </section>

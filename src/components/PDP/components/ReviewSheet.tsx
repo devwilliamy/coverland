@@ -30,7 +30,7 @@ export default function ReviewSheet({ seeMore }: { seeMore?: boolean }) {
             See more <br /> review images
           </p>
         ) : (
-          (total_reviews || '2') + ' ratings'
+          (total_reviews || '2') + ' Reviews'
         )}
       </SheetTrigger>
       <SheetContent className="rounded-t-[10px] px-[2px]" side="bottom">

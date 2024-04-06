@@ -13,7 +13,7 @@ import { TQueryParams, getCompleteSelectionData } from '@/utils';
 import FreeDetails from './FreeDetails';
 import AddToCart from '@/components/cart/AddToCart';
 import CircleColorSelector from './CircleColorSelector';
-import RatingsTrigger from './RatingsTrigger';
+import ReviewsTextTrigger from './ReviewsTextTrigger';
 import installments from '@/images/PDP/Product-Details-Redesign-2/paypal-installments.webp';
 import Image from 'next/image';
 import useDetermineType from '@/hooks/useDetermineType';
@@ -55,6 +55,11 @@ export function ProductContent({
   const cartProduct = modelData.find((p) => p.display_color === color);
 
   let defaultMSRP: number;
+
+  const { total_reviews, average_score } = useStore(
+    store,
+    (s) => s.reviewDataSummary
+  );
 
   switch (true) {
     case (isSUVCover && !coverType) || (isSUVCover && isPremiumPlus):
@@ -122,15 +127,21 @@ export function ProductContent({
             <div className="flex gap-1 ">
               <Rating
                 name="read-only"
-                value={5}
+                value={4.5}
+                precision={0.1}
                 readOnly
-                style={{
-                  height: '25px',
-                  color: '#BE1B1B',
+                sx={{
+                  gap: '2px',
+                  '& .MuiRating-iconFilled': {
+                    color: '#BE1B1B',
+                  },
+                  '& .MuiRating-iconEmpty': {
+                    color: '#BE1B1B',
+                  },
                 }}
               />
             </div>
-            <RatingsTrigger />
+            <ReviewsTextTrigger />
           </div>
         </div>
       </div>
