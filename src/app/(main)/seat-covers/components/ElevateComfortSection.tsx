@@ -4,7 +4,8 @@ import { GrayWrench } from '@/components/PDP/icons/GrayWrench';
 import Image, { StaticImageData } from 'next/image';
 import { SeatData } from '../util';
 import Couch from '@/components/PDP/icons/Couch';
-import ElevateHeader from '@/images/PDP/seat-covers-v2/custom-for.webp';
+import ElevateHeaderImage from '@/images/PDP/seat-covers-v2/custom-for.webp';
+import ElevateHeaderVideo from '@/videos/seat-covers-header-video.mp4';
 import EveryAngle1 from '@/images/PDP/seat-covers-v2/every-angle-1.webp';
 import EveryAngle2 from '@/images/PDP/seat-covers-v2/every-angle-2.webp';
 import EveryMile1 from '@/images/PDP/seat-covers-v2/every-mile-1.webp';
@@ -13,6 +14,7 @@ import EveryMile3 from '@/images/PDP/seat-covers-v2/every-mile-3.webp';
 import EveryMile4 from '@/images/PDP/seat-covers-v2/every-mile-4.webp';
 import DetailsTabHeader from '../../[productType]/components/DetailsTabHeader';
 import CustomForText from './CustomForText';
+import ProductVideo from '@/components/PDP/ProductVideo';
 
 export default function ElevateComfortSection({
   showBanner,
@@ -58,10 +60,17 @@ export default function ElevateComfortSection({
       )}
       <CustomForText />
       <div className="flex w-screen max-w-[850px] items-center justify-center lg:w-full ">
-        <Image
+        {/* <Image
           alt="product-content-seat-header"
-          src={ElevateHeader}
+          src={ElevateHeaderImage}
           className="flex min-w-full"
+        /> */}
+        <ProductVideo
+          src={ElevateHeaderVideo}
+          autoplay
+          loop
+          aspectRatio="16/9"
+          controls={false}
         />
       </div>
 

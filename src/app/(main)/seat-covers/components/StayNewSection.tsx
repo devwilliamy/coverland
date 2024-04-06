@@ -1,12 +1,16 @@
-import StayNew1 from '@/images/PDP/seat-covers-v2/stay-new-1.webp';
-import StayNew2 from '@/images/PDP/seat-covers-v2/stay-new-2.webp';
-import StayNew3 from '@/images/PDP/seat-covers-v2/stay-new-3.webp';
-import Image from 'next/image';
+import ProductVideo from '@/components/PDP/ProductVideo';
+// import StayNew1 from '@/images/PDP/seat-covers-v2/stay-new-1.webp';
+// import StayNew2 from '@/images/PDP/seat-covers-v2/stay-new-2.webp';
+// import StayNew3 from '@/images/PDP/seat-covers-v2/stay-new-3.webp';
+import Footprint from '@/videos/seat-covers-footprint.mp4';
+import Coke from '@/videos/seat-covers-coke.mp4';
+import Fork from '@/videos/seat-covers-fork.mp4';
+// import Image from 'next/image';
 
 const stayNewData = [
-  { img: StayNew1, title: 'Effortlessly clean, from kids to pets' },
-  { img: StayNew2, title: 'Worry no more for spilled or coffee stains' },
-  { img: StayNew3, title: 'Scratch-resistant, No more pet scratches' },
+  { src: Footprint, title: 'Effortlessly clean, from kids to pets' },
+  { src: Coke, title: 'Worry no more for spilled or coffee stains' },
+  { src: Fork, title: 'Scratch-resistant, No more pet scratches' },
 ];
 
 export default function StayNewSection() {
@@ -28,21 +32,30 @@ export default function StayNewSection() {
         <p>Your Seats Remain Spotless.</p>
       </div>
       <section className="flex w-full flex-col items-center ">
-        {stayNewData.map(({ img, title }, index) => (
+        {stayNewData.map(({ src, title }, index) => (
           <div
-            key={img.src}
-            className="pb-10 text-center text-[#7D7D7D] max-lg:px-4"
+            key={title}
+            className="pb-10 text-center text-[#7D7D7D] max-lg:px-4 "
           >
-            {img && (
-              <Image
-                alt={`stay-fresh-item-${index}`}
-                src={img}
-                width={800}
-                height={800}
-                className="min-w-full lg:max-h-[328px] lg:max-w-[621px] "
-              />
+            {src && (
+              // <Image
+              //   alt={`stay-fresh-item-${index}`}
+              //   src={img}
+              //   width={800}
+              //   height={800}
+              // className="min-w-full lg:max-h-[328px] lg:max-w-[621px] "
+              // />
+              <div className="min-w-full lg:max-h-[328px] lg:max-w-[621px] ">
+                <ProductVideo
+                  src={src}
+                  autoplay
+                  loop
+                  aspectRatio="16/9"
+                  controls={false}
+                />
+              </div>
             )}
-            <p className="pt-[18px] text-[16px] font-[500] capitalize  leading-[25px] lg:text-[22px] ">
+            <p className="pt-[18px] text-[16px] font-[500] capitalize leading-[25px]  lg:mt-[20px] lg:text-[22px] ">
               {title}
             </p>
           </div>
