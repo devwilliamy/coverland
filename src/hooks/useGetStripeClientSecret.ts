@@ -16,7 +16,8 @@ export default function useGetStripeClientSecret() {
         });
 
         const data = await response.json();
-        setClientSecret(data.clientSecret);
+        console.log("Data:", data)
+        setClientSecret(data.paymentIntent.clientSecret);
       } catch (error) {
         console.error('[GetStripeClientSecret]: ', error);
       }

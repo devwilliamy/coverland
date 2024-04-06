@@ -87,3 +87,30 @@ export const convertPriceToStripeFormat = (price: string | number): number => {
 export const convertPriceFromStripeFormat = (price: number): number => {
   return price / 100;
 };
+
+export const generateLineItemsForStripe = (items, order_id) => {
+    return items.map((item: TCartItem) => {
+        const unitAmount = item.msrp
+          ? parseInt((parseFloat(item.msrp) * 100).toFixed(0))
+          : 0;
+        console.log('StripeCheckoutItem:', item);
+        const type = item.type === 'Seat Covers' ? 'Seat Cover' : 'Car Cover';
+        const itemName =
+          `${item?.year_generation || ''} ${item?.make || ''} ${item?.model || ''} ${
+            item?.submodel1 ? item?.submodel1 : ''
+          } ${item?.submodel2 ? item?.submodel2 : ''} ${type} ${item?.display_id} ${
+            item?.display_color
+          } ${item?.sku} ${order_id}`.trim();
+        console.log('StripeCheckout Item Name:', itemName);
+        return {
+          price_data: {
+            currency: 'usd',
+            product_data: {
+              name: itemName,
+            },
+            unit_amount: unitAmount,
+          },
+          quantity: item.quantity,
+        };
+      });
+}
