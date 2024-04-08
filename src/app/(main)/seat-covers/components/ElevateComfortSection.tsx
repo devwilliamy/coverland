@@ -72,7 +72,7 @@ export default function ElevateComfortSection({
           src={ElevateHeaderVideo}
           autoplay
           loop
-          aspectRatio="16/9"
+          aspectRatio="4/3"
           controls={false}
         />
       </div>
@@ -94,38 +94,6 @@ export default function ElevateComfortSection({
           Style In Every Angle
         </p>
         <span className="flex w-full max-w-[840px] flex-col pt-[38px] min-[450px]:grid min-[450px]:grid-cols-2 lg:justify-center lg:gap-0 ">
-          {/* {everyAngle.map((img, index) => {
-            if (index === 0) {
-              return (
-                <div
-                  key={img.src}
-                  className={`flex justify-end text-center text-white max-lg:max-h-[257px]`}
-                >
-                  {img && (
-                    <Image
-                      alt="enhanced-item"
-                      src={img}
-                      className="lg:max-h-[313px] lg:max-w-[420px]"
-                    />
-                  )}
-                </div>
-              );
-            }
-            return (
-              <div
-                key={img.src}
-                className={`flex justify-start text-center text-white`}
-              >
-                {img && (
-                  <Image
-                    alt="enhanced-item"
-                    src={img}
-                    className="max-h-[257px] w-full max-w-[420px] bg-[#373737] object-contain py-[21px] lg:max-h-[313px] lg:max-w-[420px]"
-                  />
-                )}
-              </div>
-            );
-          })} */}
           <div
             key={EveryAngle1.src}
             className={`relative flex aspect-[4/3]  justify-start text-center text-white`}
@@ -136,7 +104,7 @@ export default function ElevateComfortSection({
               className=" flex w-full lg:max-w-[420px]"
             />
             <p className="absolute bottom-[22.5%] right-[22.5%] text-[10px] leading-[11px] text-white">
-              360° Full <br /> Coverage
+              360° Full <br /> Coverages
             </p>
           </div>
           <ProductVideo
@@ -145,7 +113,7 @@ export default function ElevateComfortSection({
             aspectRatio="4/3"
             controls={false}
             src={seat360_4_3}
-            className="max-lg:max-h-[257px] lg:max-h-[314px]"
+            className="flex"
           />
         </span>
 
