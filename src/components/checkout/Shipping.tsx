@@ -3,6 +3,8 @@ import { AddressElement } from '@stripe/react-stripe-js';
 import { AddressMode } from '@stripe/stripe-js';
 import { useState } from 'react';
 import SavedAddressBox from './SavedAddressBox';
+import ShippingOptions from './ShippingOptions';
+import { Button } from '../ui/button';
 
 const options = {
   mode: 'shipping' as AddressMode, // 'billing',
@@ -29,6 +31,8 @@ export default function Shipping() {
     setIsEditing(false);
   };
 
+  const buttonText = isEditing ? 'Save & Continue' : 'Continue to Payment';
+
   return (
     <div className="px-4">
       <div className="pb-7 pt-9 text-2xl font-medium">Shipping</div>
@@ -44,17 +48,22 @@ export default function Shipping() {
       {isEditing ? (
         <AddressElement options={options} onChange={handleAddressFormChange} />
       ) : (
-        address && <SavedAddressBox address={address} setIsEditing={setIsEditing}/>
+        address && (
+          <>
+            <SavedAddressBox address={address} setIsEditing={setIsEditing} />
+            <ShippingOptions />
+          </>
+        )
       )}
 
       <div className="flex flex-col items-center justify-between">
-        <button
+        <Button
           disabled={isDisabled}
           onClick={() => setIsEditing(false)}
           className={`h-[48px] w-full max-w-[390px] rounded-lg ${isDisabled ? 'bg-gray-300/90' : 'bg-black'} text-base font-bold uppercase text-white lg:h-[63px] lg:text-xl`}
         >
-          Save & Continue
-        </button>
+          {buttonText}
+        </Button>
       </div>
     </div>
   );
