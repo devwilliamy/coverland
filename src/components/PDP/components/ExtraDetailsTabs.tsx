@@ -34,7 +34,7 @@ export default function ExtraDetailsTabs() {
         return 195;
     }
   };
-  
+
   const queryOffset = calcOffset();
   const [currentTabIndex, setCurrentTabIndex] = useState(0);
   let scrollDirection: 'up' | 'down' = 'down';
@@ -178,13 +178,16 @@ export default function ExtraDetailsTabs() {
           {!isSeatCover ? <FeaturesAndProductsSection /> : <SeatCoverDetails />}
         </div>
         {!isSeatCover && (
-          <div id="Reviews">
-            <ReviewSection showHeader={false} />
-          </div>
+          <>
+            <div id="Reviews">
+              <ReviewSection showHeader={false} />
+            </div>
+            <div id="Q&A">
+              <PDPAccordion />
+            </div>
+          </>
         )}
-        <div id="Q&A">
-          <PDPAccordion />
-        </div>
+
         <div id="Shipping & Returns">
           <ShippingPolicy showHeader={false} />
         </div>
