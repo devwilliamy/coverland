@@ -7,6 +7,7 @@ import {
 import PromoCode from './PromoCode';
 import { useEffect, useState } from 'react';
 import useGetStripeClientSecret from '@/hooks/useGetStripeClientSecret';
+import OrderReview from './OrderReview';
 
 export default function Payment() {
   const stripe = useStripe();
@@ -90,8 +91,16 @@ export default function Payment() {
       <div>Select Payment Method</div>
       <form id="payment-form" onSubmit={handleSubmit}>
         <LinkAuthenticationElement id="link-authentication-element" />
-        <PaymentElement id="payment-element" />
+        <PaymentElement
+          id="payment-element"
+          onChange={(event) => {
+            if (event.complete) {
+              console.log('Event. comete:', event);
+            }
+          }}
+        />
       </form>
+      <OrderReview/>
     </div>
   );
 }
