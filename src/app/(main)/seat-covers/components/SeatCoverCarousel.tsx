@@ -10,9 +10,11 @@ import {
 import { StaticImport } from 'next/dist/shared/lib/get-img-props';
 import { Asset } from 'next-video/dist/assets.js';
 import SeatCover from '@/images/PDP/Product-Details-Redesign-2/seat-covers/featured-cover.webp';
+import SeatVideo from '@/videos/seat-covers-360.mp4';
 import { useState, useEffect, useCallback, useContext } from 'react';
 import { SeatCoverSelectionContext } from '@/contexts/SeatCoverContext';
 import { useStore } from 'zustand';
+import ProductVideo from '@/components/PDP/ProductVideo';
 
 export default function SeatCoverCarousel() {
   const store = useContext(SeatCoverSelectionContext);
@@ -69,19 +71,19 @@ export default function SeatCoverCarousel() {
         <Carousel setApi={setApi}>
           <CarouselContent id={'carousel-content'} className="no-scrollbar">
             {galleryImages?.map((image, index) => {
-              // if (index == 3) {
-              //   return (
-              //     <CarouselItem
-              //       key={`seat-video-${index}`}
-              //       className="h-full w-full"
-              //     >
-              //       <ProductVideo
-              //         src={SeatVideo}
-              //         imgSrc={FeaturedVideoThumbnail}
-              //       />
-              //     </CarouselItem>
-              //   );
-              // }
+              if (index == 3) {
+                return (
+                  <CarouselItem
+                    key={`seat-video-${index}`}
+                    className="h-full w-full"
+                  >
+                    <ProductVideo
+                      src={SeatVideo}
+                      // imgSrc={FeaturedVideoThumbnail}
+                    />
+                  </CarouselItem>
+                );
+              }
 
               return (
                 <CarouselItem key={`carousel-item-${index}`}>
