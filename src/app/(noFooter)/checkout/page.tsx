@@ -1,84 +1,78 @@
-'use client';;
-import { Table, TableHead, TableHeader, TableRow } from '@/components/ui/table';
-import { useCartContext } from '@/providers/CartProvider';
-import { IoArrowBack } from 'react-icons/io5';
-import { useRouter } from 'next/navigation';
+'use client';
+import { useState } from 'react';
 import { useCheckoutViewedGoogleTag } from '@/hooks/useGoogleTagDataLayer';
-import StripeFormWrapper from '@/components/checkout/StripeFormWrapper';
-import CheckoutSummarySection from '@/components/checkout/CheckoutSummarySection';
-import CartItemCard from '@/components/checkout/CartItemCard';
+import YourCartSection from '@/components/checkout/YourCart';
+import Shipping from '@/components/checkout/Shipping';
+import { Elements } from '@stripe/react-stripe-js';
+import useGetStripeClientSecret from '@/hooks/useGetStripeClientSecret';
+import { loadStripe } from '@stripe/stripe-js';
+
+enum CheckoutStep {
+  CART = 0,
+  SHIPPING = 1,
+  PAYMENT = 2,
+  THANK_YOU = 3,
+}
+
+const appearance = {
+  theme: 'stripe',
+  variables: {
+    colorPrimary: '#ed5f74',
+    borderRadius: '5px',
+    fontFamily:
+      '--body-font-family: -apple-system, BlinkMacSystemFont, sans-serif',
+    colorBackground: '#fafafa',
+    borderColor: '#707070',
+  },
+};
+
+const stripePromise = loadStripe(
+  process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!
+);
 
 function CheckoutPage() {
-  const {
-    cartItems,
-    getTotalPrice,
-    getOrderSubtotal,
-    getTotalDiscountPrice,
-    getTotalCartQuantity,
-    clearLocalStorageCart,
-  } = useCartContext();
+  const [currentStep, setCurrentStep] = useState(CheckoutStep.CART);
+  const clientSecret = useGetStripeClientSecret();
 
-  const router = useRouter();
+  const renderStep = () => {
+    switch (currentStep) {
+      case CheckoutStep.CART:
+        return <YourCartSection />;
+      case CheckoutStep.SHIPPING:
+        return <Shipping />;
+      case CheckoutStep.PAYMENT:
+        return <Payment />;
+      case CheckoutStep.THANK_YOU:
+        return <ThankYou />;
+      default:
+        return null;
+    }
+  };
 
-  const totalMsrpPrice = getTotalPrice().toFixed(2) as unknown as number;
-  const totalDiscountedPrice = getTotalDiscountPrice().toFixed(
-    2
-  ) as unknown as number;
-  const orderSubtotal = getOrderSubtotal().toFixed(2) as unknown as number;
-  const cartQuantity = getTotalCartQuantity();
+  const options = {
+    clientSecret,
+    appearance,
+  };
+
   useCheckoutViewedGoogleTag();
 
   // const clientSecret = useGetStripeClientSecret();
 
   return (
-    <>
-      {cartItems.length === 0 ? (
-        <p className="mt-10 h-20 w-full text-center text-xl">
-          Your cart is empty.
-        </p>
-      ) : (
-        <div className="flex flex-col md:flex md:flex-row md:gap-12 md:px-12 lg:px-24">
-          <Table className="w-full">
-            <TableHeader>
-              <TableRow>
-                <TableHead
-                  className="flex h-full
-                flex-row items-center justify-between text-3xl
-                md:flex md:flex-row md:gap-2"
-                >
-                  <div onClick={() => router.back()}>
-                    <IoArrowBack />
-                  </div>
-                  <div
-                    className="flex h-full flex-1
-                flex-col items-center 
-                leading-4 md:flex md:flex-row md:gap-2"
-                  >
-                    <div className="text-[22px] font-bold text-black">Cart</div>
-                    <div className="text-base font-normal md:pb-0">
-                      {cartQuantity} Items
-                    </div>
-                  </div>
-                </TableHead>
-              </TableRow>
-            </TableHeader>
-            {cartItems.map((item) => {
-              return <CartItemCard item={item} key={item?.sku} />;
-            })}
-          </Table>
-
-          <CheckoutSummarySection
-            totalMsrpPrice={totalMsrpPrice}
-            orderSubtotal={orderSubtotal}
-            totalDiscountedPrice={totalDiscountedPrice}
-            cartItems={cartItems}
-            clearLocalStorageCart={clearLocalStorageCart}
-          />
-          
-        </div>
+    <div>
+      {currentStep !== CheckoutStep.CART && (
+        <button onClick={() => setCurrentStep(currentStep - 1)}>
+          Previous
+        </button>
       )}
-    </>
+      {currentStep !== CheckoutStep.THANK_YOU && (
+        <button onClick={() => setCurrentStep(currentStep + 1)}>Next</button>
+      )}
+      <Elements stripe={stripePromise} options={options}>
+        {renderStep()}
+      </Elements>
+     
+    </div>
   );
 }
 export default CheckoutPage;
-
