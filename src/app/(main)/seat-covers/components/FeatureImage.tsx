@@ -3,7 +3,7 @@ import { SeatCoverSelectionContext } from '@/contexts/SeatCoverContext';
 import Image from 'next/image';
 import { useContext } from 'react';
 import { useStore } from 'zustand';
-import { removeWwwFromUrl } from '../../utils';
+import { removeWwwFromUrl } from '@/utils';
 
 export default function FeatureImage() {
   const store = useContext(SeatCoverSelectionContext);

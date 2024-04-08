@@ -1,11 +1,18 @@
 import SeatCoverCarousel from '../components/SeatCoverCarousel';
 import SeatContent from './SeatContent';
-import ExtraDetailsTabs from '@/components/PDP/components/ExtraDetailsTabs';
+import WarrantySection from '@/components/PDP/components/WarrantySection';
+// import { Separator } from '@radix-ui/react-separator';
+import StayNewSection from '../components/StayNewSection';
+import SafetyFirstSection from '../components/SafetyFirstSection';
+import EnhancedPerformanceSection from '../components/EnhancedPerformanceSection';
 import DesktopImageDisplay from '../components/DesktopImageDisplay';
 import { Separator } from '@/components/ui/separator';
 import LinkBreadcrumbs from '../../[productType]/components/LinkBreadcrumbs';
-import EditVehicle from './EditVehicleSeatCover';
-
+import dynamic from 'next/dynamic';
+const ExtraDetailsTabs = dynamic(
+  () => import('@/components/PDP/components/ExtraDetailsTabs'),
+  { ssr: false }
+);
 export default function SeatCovers({
   searchParams,
 }: {

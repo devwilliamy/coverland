@@ -2,7 +2,7 @@ import { TCartItem } from '@/lib/cart/useCart';
 import { useCartContext } from '@/providers/CartProvider';
 import Image from 'next/image';
 import LineSeparator from '../ui/line-separator';
-import { IProductData } from '@/app/(main)/utils';
+import { IProductData } from '@/utils';
 
 type AddToCartBodyProps = {
   selectedProduct?: IProductData | null | undefined;

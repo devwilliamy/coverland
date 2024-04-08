@@ -6,7 +6,6 @@ import {
   Dispatch,
   SetStateAction,
   useCallback,
-  useContext,
   useEffect,
   useState,
 } from 'react';
@@ -14,12 +13,12 @@ import { TypeSearch } from '../hero/dropdown/TypeSearch';
 import { MakeSearch } from '../hero/dropdown/MakeSearch';
 import { ModelSearch } from '../hero/dropdown/ModelSearch';
 import { YearSearch } from '../hero/dropdown/YearSearch';
-import { SubmodelDropdown } from '../hero/dropdown/SubmodelDropdown';
 import { slugify } from '@/lib/utils';
-import { BASE_URL } from '@/lib/constants';
 import { TQuery } from '../hero/dropdown/HeroDropdown';
-import { CarSelectionContext } from '@/contexts/CarSelectionContext';
 import { useStore } from 'zustand';
+import useStoreContext from '@/hooks/useStoreContext';
+import { getSeatCoverProductData } from '@/lib/db/seat-covers';
+import { TQueryParams } from '@/utils';
 
 export type TProductJsonData = {
   type: string;
@@ -36,11 +35,12 @@ export default function EditVehicleDropdown({
   searchParams,
 }: {
   setOpen?: Dispatch<SetStateAction<boolean>>;
-  searchParams: { submodel?: string; second_submodel?: string } | undefined;
+  searchParams: TQueryParams;
 }) {
   const pathname = usePathname();
-  const store = useContext(CarSelectionContext);
-  if (!store) throw new Error('Missing CarContext.Provider in the tree');
+  const store = useStoreContext();
+  // const store = useContext(CarSelectionContext);
+  if (!store) throw new Error('Missing Provider in the tree');
 
   const { coverType } = useStore(store, (s) => s.query);
 
@@ -59,16 +59,35 @@ export default function EditVehicleDropdown({
   const { year, type, make, model, submodel1, submodel2 } = query;
   useEffect(() => {
     const getSearchData = async () => {
-      if (!make) return;
+      try {
+        setLoading(true);
+        if (!make) return;
 
-      const response = await fetch(
-        `/api/json-data?type=${slugify(type)}&make=${slugify(make)}`
-      );
-      const jsonData = await response.json();
+        if (type !== 'Seat Covers') {
+          const response = await fetch(
+            `/api/json-data?type=${slugify(type)}&make=${slugify(make)}`
+          );
+          const jsonData = await response.json();
 
-      setJsonData(jsonData);
+          setJsonData(jsonData);
+          return;
+        }
+
+        const response = await getSeatCoverProductData({
+          type,
+          cover: 'Leather',
+          make: slugify(make),
+        });
+        setJsonData(response);
+      } catch (error) {
+        console.error('[EditVehicleDropdown.getSearchData]: ', error);
+      } finally {
+        setLoading(false);
+      }
     };
-    getSearchData();
+    if (type && make) {
+      getSearchData();
+    }
   }, [make, type]);
 
   const dropdownData = jsonData.filter(
@@ -96,7 +115,6 @@ export default function EditVehicleDropdown({
   ];
 
   const yearInUrl = dropdownData?.[0]?.parent_generation;
-
   const createQueryString = useCallback((name: string, value: string) => {
     const params = new URLSearchParams();
     params.set(name, value);
@@ -143,17 +161,12 @@ export default function EditVehicleDropdown({
     closePopover();
   };
 
-  const showSubmodelDropdown = subModelData.length > 0 && year;
-
   return (
     <div className="z-100 relative flex w-full flex-col items-stretch  gap-[16px] *:flex-1">
       <TypeSearch queryObj={queryObj} />
-      <YearSearch queryObj={queryObj} dropdownData={dropdownData} />
+      <YearSearch queryObj={queryObj} />
       <MakeSearch queryObj={queryObj} />
-      <ModelSearch queryObj={queryObj} dropdownData={dropdownData} />
-      {/* {showSubmodelDropdown && (
-        <SubmodelDropdown queryObj={queryObj} submodelData={subModelData} />
-      )} */}
+      <ModelSearch queryObj={queryObj} />
       <Button
         className="mx-auto h-[40px] max-h-[44px] min-h-[44px] w-full max-w-[px] rounded-[4px] bg-black text-lg "
         onClick={handleSubmitDropdown}

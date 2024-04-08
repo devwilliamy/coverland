@@ -3,7 +3,7 @@ import {
   IProductData,
   TPathParams,
   getCompleteSelectionData,
-} from '../../utils';
+} from '@/utils';
 import GrayBlackTribe from '@/images/PDP/gray-black-tribe.svg';
 import BlackGrayStripe from '@/images/PDP/black-gray-stripe.svg';
 import BlackGray2Tone from '@/images/PDP/black-gray-2-tone.svg';
@@ -35,9 +35,9 @@ export default function CircleColorSelector() {
   const setSelectedProduct = useStore(store, (s) => s.setSelectedProduct);
   const params = useParams<TPathParams>();
 
-  const uniqueColors = Array.from(
+  const uniqueColors: IProductData[] = Array.from(
     new Set(modelData.map((model) => model.display_color))
-  ).map((color) => modelData.find((model) => model.display_color === color));
+  ).map((color) => modelData.find((model) => model.display_color === color)) as IProductData[];
 
   const colors = [];
   const {

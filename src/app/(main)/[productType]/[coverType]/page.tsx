@@ -8,7 +8,7 @@ import {
 } from '@/lib/db/review';
 import CarPDP from '../components/CarPDP';
 import { notFound, redirect } from 'next/navigation';
-import { TPathParams } from '../../utils';
+import { TPathParams } from '@/utils';
 import {
   combineOptions,
   coverOptions,

@@ -1,4 +1,4 @@
-import { TPathParams, TQueryParams } from '../../utils';
+import { TPathParams, TQueryParams } from '@/utils';
 import { TSeatCoverDataDB } from '@/lib/db/seat-covers';
 import SeatCoverSelectionProvider from '@/contexts/SeatCoverContext';
 import SeatCovers from './SeatCovers';
