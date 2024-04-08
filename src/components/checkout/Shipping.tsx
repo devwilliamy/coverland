@@ -27,10 +27,6 @@ export default function Shipping() {
     }
   };
 
-  const handleSaveClicked = () => {
-    setIsEditing(false);
-  };
-
   const buttonText = isEditing ? 'Save & Continue' : 'Continue to Payment';
 
   return (
@@ -50,8 +46,13 @@ export default function Shipping() {
       ) : (
         address && (
           <>
+          <div className="mb-12">
             <SavedAddressBox address={address} setIsEditing={setIsEditing} />
+          </div>
+          <div className="pb-[52px]"> 
+
             <ShippingOptions />
+          </div>
           </>
         )
       )}

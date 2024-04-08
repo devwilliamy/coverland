@@ -3,7 +3,7 @@ import { useState } from 'react';
 export default function ShippingOptions() {
   const [selectedIndex, setSelectedIndex] = useState(0);
   return (
-    <div className="pb-[52px]">
+    <>
       <div className="pb-4 text-base font-medium">
         Select Your Shipping Option
       </div>
@@ -21,6 +21,6 @@ export default function ShippingOptions() {
         <div>$29.99</div>
         <div>FedEx 2 Day</div>
       </div>
-    </div>
+    </>
   );
 }

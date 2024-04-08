@@ -6,6 +6,7 @@ import Shipping from '@/components/checkout/Shipping';
 import { Elements } from '@stripe/react-stripe-js';
 import useGetStripeClientSecret from '@/hooks/useGetStripeClientSecret';
 import { loadStripe } from '@stripe/stripe-js';
+import Payment from '@/components/checkout/Payment';
 
 enum CheckoutStep {
   CART = 0,
@@ -23,6 +24,8 @@ const appearance = {
       '--body-font-family: -apple-system, BlinkMacSystemFont, sans-serif',
     colorBackground: '#fafafa',
     borderColor: '#707070',
+    borderWidth: '1px', // Use borderWidth instead of borderColor
+    borderStyle: 'solid',
   },
 };
 
@@ -31,9 +34,8 @@ const stripePromise = loadStripe(
 );
 
 function CheckoutPage() {
-  const [currentStep, setCurrentStep] = useState(CheckoutStep.CART);
+  const [currentStep, setCurrentStep] = useState(CheckoutStep.PAYMENT);
   const clientSecret = useGetStripeClientSecret();
-
   const renderStep = () => {
     switch (currentStep) {
       case CheckoutStep.CART:
@@ -56,8 +58,6 @@ function CheckoutPage() {
 
   useCheckoutViewedGoogleTag();
 
-  // const clientSecret = useGetStripeClientSecret();
-
   return (
     <div>
       {currentStep !== CheckoutStep.CART && (
@@ -68,10 +68,11 @@ function CheckoutPage() {
       {currentStep !== CheckoutStep.THANK_YOU && (
         <button onClick={() => setCurrentStep(currentStep + 1)}>Next</button>
       )}
-      <Elements stripe={stripePromise} options={options}>
-        {renderStep()}
-      </Elements>
-     
+      {clientSecret && (
+        <Elements stripe={stripePromise} options={options}>
+          {renderStep()}
+        </Elements>
+      )}
     </div>
   );
 }

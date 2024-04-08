@@ -10,7 +10,7 @@ export default function SavedAddressBox({
 }: SavedAddressBoxProps) {
   const { line1, line2, city, country, postal_code } = address.address;
   return (
-    <div className="mb-12 min-w-[343px] rounded-xl border border-[#707070]">
+    <div className="min-w-[343px] rounded-xl border border-[#707070]">
       <div className="flex flex-row py-5 pl-6 pr-5">
         <div className="flex flex-1 flex-col text-base font-normal text-[#707070]">
           <div>{address.name}</div>
