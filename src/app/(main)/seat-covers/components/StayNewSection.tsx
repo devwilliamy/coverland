@@ -35,24 +35,15 @@ export default function StayNewSection() {
         {stayNewData.map(({ src, title }, index) => (
           <div
             key={title}
-            className="flex w-full max-w-[621px] flex-col pb-10 text-center text-[#7D7D7D] max-md:px-4 "
+            className="w-full max-w-[621px] pb-10 text-center text-[#7D7D7D] max-md:px-4 "
           >
             {src && (
-              // <Image
-              //   alt={`stay-fresh-item-${index}`}
-              //   src={img}
-              //   width={800}
-              //   height={800}
-              // className="min-w-full lg:max-h-[328px] lg:max-w-[621px] "
-              // />
-              // <div className="min-w-full lg:max-h-[328px] lg:max-w-[621px] select-none">
-
-              // </div>
-              <div className="flex w-full items-center">
+              <div className="mb-[-1px] w-full overflow-hidden">
                 <ProductVideo
                   src={src}
                   autoplay
                   loop
+                  aspectRatio="4/3"
                   controls={false}
                   className="max-h-[224px] md:max-h-[349px] "
                 />

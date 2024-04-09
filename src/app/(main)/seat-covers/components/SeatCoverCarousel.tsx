@@ -11,7 +11,7 @@ import { StaticImport } from 'next/dist/shared/lib/get-img-props';
 import { Asset } from 'next-video/dist/assets.js';
 import SeatCover from '@/images/PDP/Product-Details-Redesign-2/seat-covers/featured-cover.webp';
 import SeatVideo from '@/videos/7_sec_seat_cover.mp4';
-import SeatThumbnail from '@/images/PDP/seat-covers-v2/seat-covers-listing-thumbnail.jpg';
+import SeatThumbnail from '@/images/PDP/seat-covers-v2/seat-covers-listing-thumbnail.webp';
 import { useState, useEffect, useCallback, useContext } from 'react';
 import { SeatCoverSelectionContext } from '@/contexts/SeatCoverContext';
 import { useStore } from 'zustand';

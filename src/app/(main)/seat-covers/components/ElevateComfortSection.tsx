@@ -95,7 +95,6 @@ export default function ElevateComfortSection({
         </p>
         <span className="flex w-full max-w-[840px] flex-col pt-[38px] min-[450px]:grid min-[450px]:grid-cols-2 lg:justify-center lg:gap-0 ">
           <div
-            key={EveryAngle1.src}
             className={`relative flex aspect-[4/3]  justify-start text-center text-white`}
           >
             <Image
@@ -113,7 +112,6 @@ export default function ElevateComfortSection({
             aspectRatio="4/3"
             controls={false}
             src={seat360_4_3}
-            className="flex"
           />
         </span>
 
