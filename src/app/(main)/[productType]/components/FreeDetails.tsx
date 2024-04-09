@@ -215,16 +215,6 @@ export default function FreeDetails() {
         </div>
       </div>
 
-      <div className="pt-10">
-        <IncludedDetailTitle
-          icon={<BsGlobeAmericas className=" h-[28px] w-[28px]" />}
-          title={'Purchase Protection'}
-        />
-        <div className={indentStyling}>
-          <BulletItem text="Enjoy a 90-day full money-back guarantee. Outside the 30-day return window, you can still return the product for a full refund, but you cover the return shipping." />
-        </div>
-      </div>
-
       <Separator className="my-10" />
       <NotIncludedTitle title="This warranty does not cover" />
       <div className={indentStyling}>
@@ -240,7 +230,7 @@ export default function FreeDetails() {
       <p className="text-[18px] font-[600] leading-[18px] text-[#2BA45B]">
         How to Claim Your Warranty in 3 Steps:
       </p>
-      <div className="flex flex-col gap-7 pb-[100px] pt-10">
+      <div className="flex flex-col gap-7 pb-[200px] pt-10">
         {[
           {
             text: 'Step 1: Submit a claim',
