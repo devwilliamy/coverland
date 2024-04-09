@@ -1,1 +1,20 @@
-{"status":"ready","originalFilePath":"videos\\7_sec_seat_cover.mp4","provider":"vercel-blob","providerMetadata":{"vercel-blob":{"url":"https://x2kly621zrgfgwll.public.blob.vercel-storage.com/videos/7_sec_seat_cover-FIqdNLQsjfr25Oi4k8R1QLgjChCJTL.mp4","contentType":"video/mp4"}},"createdAt":1712362934206,"updatedAt":1712362956467,"size":19318502,"sources":[{"src":"https://x2kly621zrgfgwll.public.blob.vercel-storage.com/videos/7_sec_seat_cover-FIqdNLQsjfr25Oi4k8R1QLgjChCJTL.mp4","type":"video/mp4"}]}
+{
+  "status": "ready",
+  "originalFilePath": "videos\\7_sec_seat_cover.mp4",
+  "provider": "vercel-blob",
+  "providerMetadata": {
+    "vercel-blob": {
+      "url": "https://x2kly621zrgfgwll.public.blob.vercel-storage.com/videos/7_sec_seat_cover-FIqdNLQsjfr25Oi4k8R1QLgjChCJTL.mp4",
+      "contentType": "video/mp4"
+    }
+  },
+  "createdAt": 1712362934206,
+  "updatedAt": 1712362956467,
+  "size": 19318502,
+  "sources": [
+    {
+      "src": "https://x2kly621zrgfgwll.public.blob.vercel-storage.com/videos/7_sec_seat_cover-FIqdNLQsjfr25Oi4k8R1QLgjChCJTL.mp4",
+      "type": "video/mp4"
+    }
+  ]
+}

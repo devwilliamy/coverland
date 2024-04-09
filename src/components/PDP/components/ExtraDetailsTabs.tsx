@@ -161,7 +161,7 @@ export default function ExtraDetailsTabs() {
     <>
       <div
         id="Extra-Details-Tabs"
-        className="no-scrollbar sticky top-[-1px] z-[10] flex items-center justify-items-center overflow-x-auto bg-white lg:w-full "
+        className="no-scrollbar sticky top-[-1px] z-[2] flex items-center justify-items-center overflow-x-auto bg-white lg:w-full "
       >
         {defaultTabs.map(({ title, jsx }, index) => (
           <button
