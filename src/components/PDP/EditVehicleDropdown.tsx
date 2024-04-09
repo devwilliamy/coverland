@@ -161,6 +161,13 @@ export default function EditVehicleDropdown({
     closePopover();
   };
 
+  let isDisabled =
+    !year ||
+    !type ||
+    !make ||
+    !model ||
+    (subModelData.length > 1 && !submodel1);
+
   return (
     <div className="z-100 relative flex w-full flex-col items-stretch  gap-[16px] *:flex-1">
       <TypeSearch queryObj={queryObj} />
@@ -168,15 +175,9 @@ export default function EditVehicleDropdown({
       <MakeSearch queryObj={queryObj} />
       <ModelSearch queryObj={queryObj} />
       <Button
-        className="mx-auto h-[40px] max-h-[44px] min-h-[44px] w-full max-w-[px] rounded-[4px] bg-black text-lg "
+        className={`mx-auto h-[40px] max-h-[44px] min-h-[44px] w-full max-w-[px] rounded-[4px] ${isDisabled ? 'bg-[black]' : 'bg-[#BE1B1B]'} text-lg `}
         onClick={handleSubmitDropdown}
-        disabled={
-          !year ||
-          !type ||
-          !make ||
-          !model ||
-          (subModelData.length > 1 && !submodel1)
-        }
+        disabled={isDisabled}
       >
         {loading ? (
           <AiOutlineLoading3Quarters className="animate-spin" />
