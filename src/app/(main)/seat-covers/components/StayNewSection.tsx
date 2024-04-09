@@ -35,10 +35,10 @@ export default function StayNewSection() {
         {stayNewData.map(({ src, title }, index) => (
           <div
             key={title}
-            className="w-full max-w-[621px] pb-10 text-center text-[#7D7D7D] max-md:px-4 "
+            className="flex w-full max-w-[621px] flex-col pb-10 text-center text-[#7D7D7D] max-md:px-4 "
           >
             {src && (
-              <div className="mb-[-1px] w-full overflow-hidden">
+              <div className="flex w-full items-center">
                 <ProductVideo
                   src={src}
                   autoplay
