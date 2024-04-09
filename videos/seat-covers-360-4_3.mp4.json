@@ -1,1 +1,20 @@
-{"status":"ready","originalFilePath":"videos\\seat-covers-360-4_3.mp4","provider":"vercel-blob","providerMetadata":{"vercel-blob":{"url":"https://x2kly621zrgfgwll.public.blob.vercel-storage.com/videos/seat-covers-360-4_3-56YroIEgpUmLaiz5lU25Vy2rDq8Gg6.mp4","contentType":"video/mp4"}},"createdAt":1712597678986,"updatedAt":1712597686366,"size":18582128,"sources":[{"src":"https://x2kly621zrgfgwll.public.blob.vercel-storage.com/videos/seat-covers-360-4_3-56YroIEgpUmLaiz5lU25Vy2rDq8Gg6.mp4","type":"video/mp4"}]}
+{
+  "status": "ready",
+  "originalFilePath": "videos\\seat-covers-360-4_3.mp4",
+  "provider": "vercel-blob",
+  "providerMetadata": {
+    "vercel-blob": {
+      "url": "https://x2kly621zrgfgwll.public.blob.vercel-storage.com/videos/seat-covers-360-4_3-56YroIEgpUmLaiz5lU25Vy2rDq8Gg6.mp4",
+      "contentType": "video/mp4"
+    }
+  },
+  "createdAt": 1712597678986,
+  "updatedAt": 1712597686366,
+  "size": 18582128,
+  "sources": [
+    {
+      "src": "https://x2kly621zrgfgwll.public.blob.vercel-storage.com/videos/seat-covers-360-4_3-56YroIEgpUmLaiz5lU25Vy2rDq8Gg6.mp4",
+      "type": "video/mp4"
+    }
+  ]
+}
