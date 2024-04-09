@@ -66,7 +66,7 @@ export default function SeatCoverCarousel() {
       />
     </button>
   );
-  
+
   return (
     <section className="flex h-full lg:hidden ">
       <div className="flex max-w-full flex-col bg-white  ">
@@ -79,7 +79,11 @@ export default function SeatCoverCarousel() {
                     key={`seat-video-${index}`}
                     className="h-full w-full"
                   >
-                    <ProductVideo src={SeatVideo} imgSrc={SeatThumbnail} />
+                    <ProductVideo
+                      src={SeatVideo}
+                      imgSrc={SeatThumbnail}
+                      autoplay
+                    />
                   </CarouselItem>
                 );
               }
