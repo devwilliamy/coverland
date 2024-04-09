@@ -1,51 +1,19 @@
-import {
-  LinkAuthenticationElement,
-  PaymentElement,
-  useElements,
-  useStripe,
-} from '@stripe/react-stripe-js';
+import { PaymentElement, useElements, useStripe } from '@stripe/react-stripe-js';
 import PromoCode from './PromoCode';
 import { FormEvent, useEffect, useState } from 'react';
-import useGetStripeClientSecret from '@/hooks/useGetStripeClientSecret';
+import useGetStripePaymentIntent from '@/hooks/useGetStripePaymentIntent';
 import OrderReview from './OrderReview';
+import PriceBreakdown from './PriceBreakdown';
+import { Button } from '../ui/button';
+import { AiOutlineLoading3Quarters } from 'react-icons/ai';
+import PaypalButtons from './PaypalButtons';
 
 export default function Payment() {
   const stripe = useStripe();
   const elements = useElements();
   const [isLoading, setIsLoading] = useState(false);
   const [message, setMessage] = useState(null);
-  const clientSecret = useGetStripeClientSecret();
-
-  useEffect(() => {
-    if (!stripe) {
-      return;
-    }
-
-    const clientSecret = new URLSearchParams(window.location.search).get(
-      'payment_intent_client_secret'
-    );
-
-    if (!clientSecret) {
-      return;
-    }
-
-    stripe.retrievePaymentIntent(clientSecret).then(({ paymentIntent }) => {
-      switch (paymentIntent.status) {
-        case 'succeeded':
-          setMessage('Payment succeeded!');
-          break;
-        case 'processing':
-          setMessage('Your payment is processing.');
-          break;
-        case 'requires_payment_method':
-          setMessage('Your payment was not successful, please try again.');
-          break;
-        default:
-          setMessage('Something went wrong.');
-          break;
-      }
-    });
-  }, [stripe]);
+  const { clientSecret } = useGetStripePaymentIntent();
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -62,7 +30,7 @@ export default function Payment() {
       elements,
       confirmParams: {
         // Make sure to change this to your payment completion page
-        return_url: 'http://localhost:3000',
+        return_url: 'http://localhost:3000/thank-you',
       },
     });
 
@@ -72,6 +40,7 @@ export default function Payment() {
     // be redirected to an intermediate site first to authorize the payment, then
     // redirected to the `return_url`.
     if (error.type === 'card_error' || error.type === 'validation_error') {
+      console.error('Error:', error.message);
       setMessage(error.message);
     } else {
       setMessage('An unexpected error occurred.');
@@ -85,12 +54,14 @@ export default function Payment() {
   };
   return (
     <div className="px-4">
-      <div className="pb-7 pt-9 text-2xl font-medium">Payment</div>
       <div className="lg:hidden">
+        <OrderReview />
+      </div>
+      <div className="pb-7 pt-9 text-2xl font-medium">Payment</div>
+      <div className="mb-10 lg:hidden">
         <PromoCode />
       </div>
-
-      <div>Select Payment Method</div>
+      <div className="pb-7">Select Payment Method</div>
       <form id="payment-form" onSubmit={handleSubmit}>
         {/* <LinkAuthenticationElement id="link-authentication-element" /> */}
         <PaymentElement
@@ -102,9 +73,27 @@ export default function Payment() {
           }}
         />
       </form>
-      <div className="lg:hidden">
-        <OrderReview />
+      <div className="-mt-5">
+        <PriceBreakdown />
       </div>
+      <div className="my-8 w-full justify-center md:flex md:flex-col lg:w-[350px]">
+        <Button
+          variant={'default'}
+          className="mb-3 w-full rounded-lg bg-[#BE1B1B]  text-base font-bold uppercase text-white sm:h-[48px] lg:h-[55px] lg:text-xl"
+          onClick={(e) => {
+            //   redirectToCheckout({ cartItems, promoCode, setLoading });
+            setIsLoading(true);
+            handleSubmit(e);
+          }}
+        >
+          {isLoading ? (
+            <AiOutlineLoading3Quarters className="animate-spin" />
+          ) : (
+            'Checkout'
+          )}
+        </Button>
+      </div>
+      <PaypalButtons />
     </div>
   );
 }

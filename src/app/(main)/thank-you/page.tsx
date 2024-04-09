@@ -1,18 +1,33 @@
 import { Suspense } from 'react';
 import { OrderConfirmationContent } from './components/OrderConfirmationContent';
-import { redirect } from 'next/navigation';
 import { supabaseDatabaseClient } from '@/lib/db/supabaseClients';
+import StripeElementWrapper from '@/app/wrappers/StripeElementWrapper';
 
+type PaymentIntentSuccessParams = {
+  searchParams: {
+    payment_intent: string;
+    payment_intent_client_secret: string;
+    redirect_status: string;
+  };
+};
+
+// Old one
+type OrderConfirmationParams = {
+  searchParams: { 'order-number': string };
+};
 async function OrderConfirmationPage({
   searchParams,
-}: {
-  searchParams: { 'order-number': string };
-}) {
-  const orderNumber = searchParams?.['order-number'];
-
-  if (!orderNumber) {
-    return redirect('/');
+}: PaymentIntentSuccessParams) {
+  const clientSecret = searchParams.payment_intent_client_secret;
+  if (!clientSecret) {
+    return;
   }
+
+  // const orderNumber = searchParams?.['order-number'];
+
+  // if (!orderNumber) {
+  //   return redirect('/');
+  // }
 
   async function handleOrderCompletion() {
     const orderTable = orderNumber?.includes('test')
@@ -52,7 +67,9 @@ async function OrderConfirmationPage({
 
   return (
     <Suspense fallback={<div>Loading...</div>}>
-      <OrderConfirmationContent orderNumber={orderNumber} items={items} />
+      <StripeElementWrapper>
+        <OrderConfirmationContent items={items} clientSecret={clientSecret} />
+      </StripeElementWrapper>
     </Suspense>
   );
 }

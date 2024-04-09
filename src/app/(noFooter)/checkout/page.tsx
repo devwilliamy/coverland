@@ -4,31 +4,22 @@ import { useCheckoutViewedGoogleTag } from '@/hooks/useGoogleTagDataLayer';
 import YourCartSection from '@/components/checkout/YourCart';
 import Shipping from '@/components/checkout/Shipping';
 import { Elements } from '@stripe/react-stripe-js';
-import useGetStripeClientSecret from '@/hooks/useGetStripeClientSecret';
+import useGetStripePaymentIntent from '@/hooks/useGetStripePaymentIntent';
 import { loadStripe } from '@stripe/stripe-js';
 import Payment from '@/components/checkout/Payment';
 import CheckoutSummarySection from '@/components/checkout/CheckoutSummarySection';
 import { useCartContext } from '@/providers/CartProvider';
 import OrderReview from '@/components/checkout/OrderReview';
-
-enum CheckoutStep {
-  CART = 0,
-  SHIPPING = 1,
-  PAYMENT = 2,
-  THANK_YOU = 3,
-}
+import { useMediaQuery } from '@mantine/hooks';
+import MobileCheckout from '@/app/(main)/[productType]/components/MobileCheckout';
+import { CheckoutStep } from '@/lib/types/checkout';
 
 const appearance = {
   theme: 'stripe',
   variables: {
     colorPrimary: '#ed5f74',
     borderRadius: '5px',
-    fontFamily:
-      '--body-font-family: -apple-system, BlinkMacSystemFont, sans-serif',
     colorBackground: '#fafafa',
-    borderColor: '#707070',
-    borderWidth: '1px', // Use borderWidth instead of borderColor
-    borderStyle: 'solid',
   },
 };
 
@@ -38,7 +29,7 @@ const stripePromise = loadStripe(
 
 function CheckoutPage() {
   const [currentStep, setCurrentStep] = useState(CheckoutStep.PAYMENT);
-  const clientSecret = useGetStripeClientSecret();
+  const { clientSecret } = useGetStripePaymentIntent();
   const {
     cartItems,
     getTotalPrice,
@@ -47,6 +38,7 @@ function CheckoutPage() {
     getTotalCartQuantity,
     clearLocalStorageCart,
   } = useCartContext();
+  const isMobile = useMediaQuery('(max-width: 1024px)');
 
   const totalMsrpPrice = getTotalPrice().toFixed(2) as unknown as number;
   const totalDiscountedPrice = getTotalDiscountPrice().toFixed(
@@ -78,35 +70,41 @@ function CheckoutPage() {
 
   return (
     <div>
-      {currentStep !== CheckoutStep.CART && (
-        <button onClick={() => setCurrentStep(currentStep - 1)}>
-          Previous
-        </button>
+      {clientSecret && (
+        <Elements stripe={stripePromise} options={options}>
+          <>
+            {isMobile ? (
+              <MobileCheckout />
+            ) : (
+              <>
+                {currentStep !== CheckoutStep.CART && (
+                  <button onClick={() => setCurrentStep(currentStep - 1)}>
+                    Previous
+                  </button>
+                )}
+                {currentStep !== CheckoutStep.THANK_YOU && (
+                  <button onClick={() => setCurrentStep(currentStep + 1)}>
+                    Next
+                  </button>
+                )}
+                <div className="flex flex-col md:flex md:flex-row md:gap-12 md:px-12 lg:px-24">
+                  <div className="w-full">{renderStep()}</div>
+                  <div className="hidden lg:flex lg:flex-col">
+                    <CheckoutSummarySection
+                      totalMsrpPrice={totalMsrpPrice}
+                      orderSubtotal={orderSubtotal}
+                      totalDiscountedPrice={totalDiscountedPrice}
+                      cartItems={cartItems}
+                      clearLocalStorageCart={clearLocalStorageCart}
+                    />
+                    <OrderReview />
+                  </div>
+                </div>
+              </>
+            )}
+          </>
+        </Elements>
       )}
-      {currentStep !== CheckoutStep.THANK_YOU && (
-        <button onClick={() => setCurrentStep(currentStep + 1)}>Next</button>
-      )}
-      <div className="flex flex-col md:flex md:flex-row md:gap-12 md:px-12 lg:px-24">
-        <div className="w-full">
-
-        {clientSecret && (
-          <Elements stripe={stripePromise} options={options}>
-            {renderStep()}
-          </Elements>
-        )}
-        </div>
-        <div className="hidden lg:flex lg:flex-col">
-        <CheckoutSummarySection
-          totalMsrpPrice={totalMsrpPrice}
-          orderSubtotal={orderSubtotal}
-          totalDiscountedPrice={totalDiscountedPrice}
-          cartItems={cartItems}
-          clearLocalStorageCart={clearLocalStorageCart}
-        />
-        <OrderReview/>
-      </div>
-      </div>
-      
     </div>
   );
 }

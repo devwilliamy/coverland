@@ -1,8 +1,9 @@
 import { useCartContext } from '@/providers/CartProvider';
 import { useEffect, useState } from 'react';
 
-export default function useGetStripeClientSecret() {
+export default function useGetStripePaymentIntent() {
   const [clientSecret, setClientSecret] = useState<any>();
+  const [orderNumber, setOrderNumber] = useState('');
   const { cartItems } = useCartContext();
   useEffect(() => {
     const fetchData = async () => {
@@ -16,13 +17,14 @@ export default function useGetStripeClientSecret() {
         });
 
         const data = await response.json();
-        console.log("Data:", data)
+        console.log('Data:', data);
         setClientSecret(data.paymentIntent.client_secret);
+        setOrderNumber(data.paymentIntent?.metadata?.orderId);
       } catch (error) {
         console.error('[GetStripeClientSecret]: ', error);
       }
     };
     fetchData();
   }, []);
-  return clientSecret;
+  return { clientSecret, orderNumber };
 }

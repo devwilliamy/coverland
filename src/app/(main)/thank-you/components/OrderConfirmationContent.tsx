@@ -1,5 +1,4 @@
 'use client';
-
 import {
   Card,
   CardContent,
@@ -8,28 +7,66 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
+import useGetStripePaymentIntent from '@/hooks/useGetStripePaymentIntent';
 import { useThankYouViewedGoogleTag } from '@/hooks/useGoogleTagDataLayer';
 import { useCartContext } from '@/providers/CartProvider';
 import { sendGTMEvent } from '@next/third-parties/google';
+import { useStripe } from '@stripe/react-stripe-js';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { BsFillEnvelopeFill } from 'react-icons/bs';
+// const stripe = new Stripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!);
+
+type OrderConfirmationContentProps = {
+  // orderNumber: string;
+  items: any;
+  clientSecret: string;
+};
 
 export const OrderConfirmationContent = ({
-  orderNumber,
+  // orderNumber,
   items,
-}: {
-  orderNumber: string;
-  items: any;
-}) => {
+  clientSecret,
+}: OrderConfirmationContentProps) => {
   const [mounted, isMounted] = useState(false);
+  const [message, setMessage] = useState('');
+  // const [orderNumber, setOrderNumber] = useState('');
+  const stripe = useStripe();
 
   const { clearLocalStorageCart } = useCartContext();
+  const { orderNumber } = useGetStripePaymentIntent();
 
   useEffect(() => {
     isMounted(true);
-    clearLocalStorageCart();
+    // clearLocalStorageCart();
   }, []);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await stripe?.retrievePaymentIntent(clientSecret);
+      const paymentIntent = response?.paymentIntent;
+      switch (paymentIntent?.status) {
+        case 'succeeded':
+          setMessage('Payment succeeded!');
+          break;
+        case 'processing':
+          setMessage('Your payment is processing.');
+          break;
+        case 'requires_payment_method':
+          setMessage('Your payment was not successful, please try again.');
+          break;
+        default:
+          setMessage('Something went wrong.');
+          break;
+      }
+    };
+    if (stripe) {
+      fetchData();
+    } else {
+      console.log('No stripe found');
+    }
+  }, [stripe, clientSecret]);
+
   useThankYouViewedGoogleTag(items, orderNumber);
 
   mounted &&
@@ -44,6 +81,7 @@ export const OrderConfirmationContent = ({
   return (
     <Card className="text-center">
       <CardHeader>
+        Message: {message}
         <CardTitle>Thank you for your order!</CardTitle>
         <CardDescription>
           Your order number is: <span>{orderNumber}</span>

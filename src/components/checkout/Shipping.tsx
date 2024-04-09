@@ -1,4 +1,4 @@
-import { StripeAddress } from '@/lib/types/checkout';
+import { CheckoutStep, StripeAddress } from '@/lib/types/checkout';
 import { AddressElement } from '@stripe/react-stripe-js';
 import { AddressMode } from '@stripe/stripe-js';
 import { useState } from 'react';
@@ -15,26 +15,15 @@ const options = {
   display: {
     name: 'split',
   },
-  custom_fields: [
-    {
-      key: 'engraving',
-      label: {
-        type: 'custom',
-        custom: 'Personalized engraving',
-      },
-      type: 'text',
-    },
-  ],
 };
-export default function Shipping() {
+
+export default function Shipping({ setCurrentStep }) {
   const [isDisabled, setIsDisabled] = useState(true);
   const [isEditing, setIsEditing] = useState(true);
   const [address, setAddress] = useState<StripeAddress>();
 
   const handleAddressFormChange = (event) => {
     if (event.complete) {
-      const address = event.value.address;
-      console.log('Address:', event.value);
       setIsDisabled(false);
       setAddress({
         name: event.value.name,
@@ -44,7 +33,14 @@ export default function Shipping() {
   };
 
   const buttonText = isEditing ? 'Save & Continue' : 'Continue to Payment';
-
+  const handleButtonClick = () => {
+    if (isEditing) {
+      setIsEditing(false);
+    }
+    if (!isEditing && !isDisabled) {
+      setCurrentStep(CheckoutStep.PAYMENT);
+    }
+  };
   return (
     <div className="px-4">
       <div className="pb-7 pt-9 text-2xl font-medium">Shipping</div>
@@ -57,41 +53,30 @@ export default function Shipping() {
             // Prefill the email field like so:
             // options={{defaultValues: {email: 'foo@bar.com'}}}
           /> */}
-      {/* {isEditing ? ( */}
-      <div className="relative min-h-[600px]">
-        <div
-          className={`duration-20000 absolute inset-0 transition-opacity ${isEditing ? 'opacity-100' : 'opacity-0'}`}
-          style={{ zIndex: isEditing ? 10 : 1 }}
-        >
-          <AddressElement
-            options={options}
-            onChange={handleAddressFormChange}
-          />
-        </div>
-        {address && (
-          <div
-            className={`duration-20000 absolute inset-0 transition-opacity ${!isEditing ? 'opacity-100' : 'opacity-0'}`}
-            style={{ zIndex: !isEditing ? 10 : 1 }}
-          >
+      {isEditing ? (
+        <AddressElement options={options} onChange={handleAddressFormChange} />
+      ) : (
+        address && (
+          <>
             <div className="mb-12">
               <SavedAddressBox address={address} setIsEditing={setIsEditing} />
             </div>
             <div className="pb-[52px]">
               <ShippingOptions />
             </div>
-          </div>
-        )}
-      </div>
+          </>
+        )
+      )}
+
       <div className="flex flex-col items-center justify-between lg:mt-11">
         <Button
           disabled={isDisabled}
-          onClick={() => setIsEditing(false)}
-          className={`h-[48px] w-full max-w-[390px] cursor-pointer rounded-lg ${isDisabled ? 'bg-gray-300/90' : 'bg-black'} text-base font-bold uppercase text-white lg:h-[63px] lg:text-xl`}
+          onClick={handleButtonClick}
+          className={`h-[48px] w-full max-w-[390px] cursor-pointer rounded-lg bg-black text-base font-bold uppercase text-white lg:h-[63px] lg:text-xl`}
         >
           {buttonText}
         </Button>
       </div>
-      {/* )} */}
     </div>
   );
 }

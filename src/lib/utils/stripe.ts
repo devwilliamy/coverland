@@ -93,7 +93,6 @@ export const generateLineItemsForStripe = (items, order_id) => {
         const unitAmount = item.msrp
           ? parseInt((parseFloat(item.msrp) * 100).toFixed(0))
           : 0;
-        console.log('StripeCheckoutItem:', item);
         const type = item.type === 'Seat Covers' ? 'Seat Cover' : 'Car Cover';
         const itemName =
           `${item?.year_generation || ''} ${item?.make || ''} ${item?.model || ''} ${

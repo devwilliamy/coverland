@@ -8,7 +8,7 @@ export default function SavedAddressBox({
   address,
   setIsEditing,
 }: SavedAddressBoxProps) {
-  const { line1, line2, city, country, postal_code } = address.address;
+  const { line1, line2, city, state, postal_code } = address.address;
   return (
     <div className="min-w-[343px] rounded-xl border border-[#707070]">
       <div className="flex flex-row py-5 pl-6 pr-5">
@@ -17,7 +17,7 @@ export default function SavedAddressBox({
           <div>{line1}</div>
           <div>{line2}</div>
           <div>
-            {city} {country} {postal_code}
+            {city} {state} {postal_code}
           </div>
         </div>
         <div

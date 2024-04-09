@@ -1,4 +1,4 @@
-import { TableBody, TableCell, TableRow } from '@/components/ui/table';
+import { TableCell, TableRow } from '@/components/ui/table';
 import { useCartContext } from '@/providers/CartProvider';
 import Image from 'next/image';
 import { FaRegTrashAlt } from 'react-icons/fa';
@@ -12,7 +12,6 @@ export default function CartItemCard({ item }: { item: TCartItem }) {
     const imageUrl =
       type === 'Seat Covers' ? item?.product?.split(',')[0] : item?.feature;
     return (
-      <TableBody key={item?.sku}>
         <TableRow className="flex flex-col">
           <TableCell className="flex w-full justify-items-center gap-2 text-2xl font-medium">
             <div className="h-9/12 w-3/12 justify-items-center ">
@@ -44,7 +43,7 @@ export default function CartItemCard({ item }: { item: TCartItem }) {
               </div>
               <div className="flex gap-3 text-sm font-normal text-[#707070] lg:text-base">
                 <div className="font-medium lg:text-base">Quantity</div>
-                {/* <div className="font-medium lg:text-base">{item?.quantity}</div> */}
+                <div className="font-medium lg:text-base">{item?.quantity}</div>
               </div>
             </div>
             <div className="flex w-2/12 flex-col text-right ">
@@ -85,7 +84,6 @@ export default function CartItemCard({ item }: { item: TCartItem }) {
             </IconContext.Provider>
           </TableCell>
         </TableRow>
-      </TableBody>
     );
   }
   
