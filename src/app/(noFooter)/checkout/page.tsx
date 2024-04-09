@@ -13,6 +13,11 @@ import OrderReview from '@/components/checkout/OrderReview';
 import { useMediaQuery } from '@mantine/hooks';
 import MobileCheckout from '@/app/(main)/[productType]/components/MobileCheckout';
 import { CheckoutStep } from '@/lib/types/checkout';
+import {
+  CheckoutProvider,
+  useCheckoutContext,
+} from '@/contexts/CheckoutContext';
+import DesktopCheckout from '@/components/checkout/DesktopCheckout';
 
 const appearance = {
   theme: 'stripe',
@@ -28,7 +33,10 @@ const stripePromise = loadStripe(
 );
 
 function CheckoutPage() {
-  const [currentStep, setCurrentStep] = useState(CheckoutStep.PAYMENT);
+  // const [currentStep, setCurrentStep] = useState(CheckoutStep.CART);
+  const { currentStep, nextStep, prevStep } = useCheckoutContext();
+  console.log('CurrentStep:', { currentStep, nextStep, prevStep });
+
   const { clientSecret } = useGetStripePaymentIntent();
   const {
     cartItems,
@@ -46,20 +54,6 @@ function CheckoutPage() {
   ) as unknown as number;
   const orderSubtotal = getOrderSubtotal().toFixed(2) as unknown as number;
   const cartQuantity = getTotalCartQuantity();
-  const renderStep = () => {
-    switch (currentStep) {
-      case CheckoutStep.CART:
-        return <YourCartSection />;
-      case CheckoutStep.SHIPPING:
-        return <Shipping />;
-      case CheckoutStep.PAYMENT:
-        return <Payment />;
-      case CheckoutStep.THANK_YOU:
-        return <ThankYou />;
-      default:
-        return null;
-    }
-  };
 
   const options = {
     clientSecret,
@@ -71,39 +65,19 @@ function CheckoutPage() {
   return (
     <div>
       {clientSecret && (
-        <Elements stripe={stripePromise} options={options}>
-          <>
-            {isMobile ? (
-              <MobileCheckout />
-            ) : (
-              <>
-                {currentStep !== CheckoutStep.CART && (
-                  <button onClick={() => setCurrentStep(currentStep - 1)}>
-                    Previous
-                  </button>
-                )}
-                {currentStep !== CheckoutStep.THANK_YOU && (
-                  <button onClick={() => setCurrentStep(currentStep + 1)}>
-                    Next
-                  </button>
-                )}
-                <div className="flex flex-col md:flex md:flex-row md:gap-12 md:px-12 lg:px-24">
-                  <div className="w-full">{renderStep()}</div>
-                  <div className="hidden lg:flex lg:flex-col">
-                    <CheckoutSummarySection
-                      totalMsrpPrice={totalMsrpPrice}
-                      orderSubtotal={orderSubtotal}
-                      totalDiscountedPrice={totalDiscountedPrice}
-                      cartItems={cartItems}
-                      clearLocalStorageCart={clearLocalStorageCart}
-                    />
-                    <OrderReview />
-                  </div>
-                </div>
-              </>
-            )}
-          </>
-        </Elements>
+        <CheckoutProvider>
+          <Elements stripe={stripePromise} options={options}>
+            <>
+              {isMobile ? (
+                <MobileCheckout />
+              ) : (
+                <>
+                  <DesktopCheckout />
+                </>
+              )}
+            </>
+          </Elements>
+        </CheckoutProvider>
       )}
     </div>
   );
