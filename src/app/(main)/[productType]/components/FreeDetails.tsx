@@ -25,6 +25,7 @@ import Image from 'next/image';
 import { useParams } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
 import { BsGlobeAmericas } from 'react-icons/bs';
+import { useMediaQuery } from '@mantine/hooks';
 
 type DetailItem = {
   icon: React.JSX.Element;
@@ -164,16 +165,26 @@ export default function FreeDetails() {
         title={'Free Returns'}
       />
       <div className={indentStyling}>
-        <BulletItem
+        {/* <BulletItem
           text="Return products within 30 days for a full refund or exchange. We
           provide the return shipping label. Contact us to start the process."
-        />
-        <a
-          href="/contact"
-          className="pt-7 text-[14px] leading-[14px] text-[#4C8EA8]"
-        >
-          Contact Us
-        </a>
+        /> */}
+        <div className="grid w-full grid-cols-[4px_auto] gap-2 ">
+          <TitleDot />
+          <div className="flex flex-col gap-7 ">
+            <p className="flex font-[500]">
+              Return products within 30 days for a full refund or exchange. We
+              provide the return shipping label. Contact us to start the
+              process.
+            </p>
+            <a
+              href="/contact"
+              className="text-[14px] leading-[14px] text-[#4C8EA8] underline"
+            >
+              Contact Us
+            </a>
+          </div>
+        </div>
       </div>
 
       <IncludedDetailTitle
@@ -181,7 +192,7 @@ export default function FreeDetails() {
         title={'Purchase Protection'}
       />
       <div className={indentStyling}>
-        <BulletItem text="We ship worldwide. You can view your shipping options during checkout." />
+        <BulletItem text="Enjoy a 90-day full money-back guarantee. Outside the 30-day return window, you can still return the product for a full refund, but you cover the return shipping." />
       </div>
       <Separator className="my-10" />
       <NotIncludedTitle title="International Orders" />
@@ -373,8 +384,11 @@ export default function FreeDetails() {
       jsx: <FreePackage />,
     },
   ];
+
+  const isMobile = useMediaQuery('(max-width: 1024px)');
+
   return (
-    <div className=" flex flex-col  items-center justify-start bg-[#FBFBFB]">
+    <div className=" flex flex-col items-center justify-start bg-[#FBFBFB]">
       <Sheet>
         {FreeDetailItems.map((data, index) => (
           <FreeDetailItem
@@ -384,8 +398,8 @@ export default function FreeDetails() {
           />
         ))}
         <SheetContent
-          side={'bottom'}
-          className="h-full max-h-[85dvh] min-h-[85dvh] overflow-y-auto rounded-2xl p-0"
+          side={isMobile ? 'bottom' : 'right'}
+          className={`h-full ${isMobile ? 'max-h-[85dvh] min-h-[85dvh] rounded-2xl' : 'max-h-[100dvh] min-h-[100dvh]'} overflow-y-auto  p-0`}
         >
           <SheetHeader className="sticky top-0 flex w-full flex-col bg-white px-4  text-[20px] leading-[20px]">
             <SheetClose className="absolute right-3 top-[0] mr-[10px] mt-[10px] flex rounded-full bg-[#F0F0F099] p-1.5">
