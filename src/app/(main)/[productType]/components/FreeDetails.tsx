@@ -11,6 +11,7 @@ import {
   SheetTrigger,
 } from '@/components/ui/sheet';
 import { determineDeliveryByDate } from '@/lib/utils/deliveryDateUtils';
+import FreePackageItem from '@/images/PDP/PDP-Redesign-v3/free-package.webp';
 import {
   BoxIcon,
   Check,
@@ -20,6 +21,7 @@ import {
   ShoppingBag,
   X,
 } from 'lucide-react';
+import Image from 'next/image';
 import { useParams } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
 import { BsGlobeAmericas } from 'react-icons/bs';
@@ -166,14 +168,13 @@ export default function FreeDetails() {
           text="Return products within 30 days for a full refund or exchange. We
           provide the return shipping label. Contact us to start the process."
         />
+        <a
+          href="/contact"
+          className="pt-7 text-[14px] leading-[14px] text-[#4C8EA8]"
+        >
+          Contact Us
+        </a>
       </div>
-
-      <a
-        href="/contact"
-        className="pl-[60px] pt-7 text-[14px] leading-[14px] text-[#4C8EA8]"
-      >
-        Contact Us
-      </a>
 
       <IncludedDetailTitle
         icon={<ShieldCheck className=" h-[28px] w-[28px]" />}
@@ -220,16 +221,13 @@ export default function FreeDetails() {
           title={'Purchase Protection'}
         />
         <div className={indentStyling}>
-          <BulletItem
-            text="We ship worldwide. You can view your shipping options during
-        checkout."
-          />
+          <BulletItem text="Enjoy a 90-day full money-back guarantee. Outside the 30-day return window, you can still return the product for a full refund, but you cover the return shipping." />
         </div>
       </div>
 
       <Separator className="my-10" />
       <NotIncludedTitle title="This warranty does not cover" />
-      <div className={indentStyling + ' pb-10'}>
+      <div className={indentStyling}>
         {[
           'Damage due to improper use or installation.',
           'Alterations or modifications made to the car cover.',
@@ -242,7 +240,7 @@ export default function FreeDetails() {
       <p className="text-[18px] font-[600] leading-[18px] text-[#2BA45B]">
         How to Claim Your Warranty in 3 Steps:
       </p>
-      <div className="flex flex-col gap-7 pb-[200px] pt-10">
+      <div className="flex flex-col gap-7 pb-[100px] pt-10">
         {[
           {
             text: 'Step 1: Submit a claim',
@@ -265,6 +263,54 @@ export default function FreeDetails() {
           </div>
         ))}
       </div>
+    </div>
+  );
+
+  const FreePackage = () => (
+    <div className="flex flex-col px-5 ">
+      <IncludedDetailTitle
+        icon={<ShoppingBag />}
+        title="Free $30 Accessory Kit"
+      />
+      <section>
+        <Image
+          alt="Free Package"
+          src={FreePackageItem}
+          className="w-full pb-[60px]"
+        />
+        <div className="flex flex-col gap-7 pb-[100px]">
+          {[
+            {
+              title: 'Storage Bag',
+              description:
+                'Provides storage, portability, and protection for the cover when not in use.',
+            },
+            {
+              title: 'Antenna Patch with Grommets',
+              description: 'For older vehicles with a full-size antenna.',
+            },
+            {
+              title: 'Anti-Gust 3-Strap System ',
+              description:
+                'Holds the cover in place from the front, middle, and back, even in gusts of up to 50 mph.',
+            },
+          ].map(({ title, description }, index) => (
+            <div className="flex gap-3.5">
+              <div className="flex aspect-square h-[26px] w-[26px] items-center justify-center rounded-full bg-[#E0E0E0] p-2 text-[16px] font-[900] leading-[16px] text-[#767676]">
+                {index + 1}
+              </div>
+              <div>
+                <p className="pb-2 text-[18px] font-[500] leading-[26px]">
+                  {title}
+                </p>
+                <p className="text-[14px] leading-[24px] text-[#767676]">
+                  {description}
+                </p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
     </div>
   );
 
@@ -334,7 +380,7 @@ export default function FreeDetails() {
       title: 'Free $30 Accessory Kit Included',
       description: `Includes storage bag, wind-strap, and antenna patch.`,
       headerText: 'Free Package',
-      jsx: <></>,
+      jsx: <FreePackage />,
     },
   ];
   return (
@@ -349,16 +395,16 @@ export default function FreeDetails() {
         ))}
         <SheetContent
           side={'bottom'}
-          className="max-h-[85dvh] min-h-[85dvh] overflow-y-auto rounded-2xl"
+          className="h-full max-h-[85dvh] min-h-[85dvh] overflow-y-auto rounded-2xl p-0"
         >
-          <SheetHeader className="sticky top-0 flex w-full flex-col bg-white px-4  pt-4 text-[20px] leading-[20px]">
-            <SheetClose className="absolute right-3 top-[0] mr-4 mt-[20px] flex rounded-full bg-[#F0F0F099] p-1.5">
+          <SheetHeader className="sticky top-0 flex w-full flex-col bg-white px-4  text-[20px] leading-[20px]">
+            <SheetClose className="absolute right-3 top-[0] mr-[10px] mt-[10px] flex rounded-full bg-[#F0F0F099] p-1.5">
               <X size={iconSize} />
             </SheetClose>
             <div className="pb-[24px] pt-[48px] text-[20px] font-[500] leading-[20px] ">
               {currentPage.headerText}
             </div>
-            <Separator className="pt" />
+            <Separator />
           </SheetHeader>
           {currentPage.jsx}
         </SheetContent>
