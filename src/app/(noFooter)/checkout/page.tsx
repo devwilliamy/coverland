@@ -7,6 +7,9 @@ import { Elements } from '@stripe/react-stripe-js';
 import useGetStripeClientSecret from '@/hooks/useGetStripeClientSecret';
 import { loadStripe } from '@stripe/stripe-js';
 import Payment from '@/components/checkout/Payment';
+import CheckoutSummarySection from '@/components/checkout/CheckoutSummarySection';
+import { useCartContext } from '@/providers/CartProvider';
+import OrderReview from '@/components/checkout/OrderReview';
 
 enum CheckoutStep {
   CART = 0,
@@ -36,6 +39,21 @@ const stripePromise = loadStripe(
 function CheckoutPage() {
   const [currentStep, setCurrentStep] = useState(CheckoutStep.PAYMENT);
   const clientSecret = useGetStripeClientSecret();
+  const {
+    cartItems,
+    getTotalPrice,
+    getOrderSubtotal,
+    getTotalDiscountPrice,
+    getTotalCartQuantity,
+    clearLocalStorageCart,
+  } = useCartContext();
+
+  const totalMsrpPrice = getTotalPrice().toFixed(2) as unknown as number;
+  const totalDiscountedPrice = getTotalDiscountPrice().toFixed(
+    2
+  ) as unknown as number;
+  const orderSubtotal = getOrderSubtotal().toFixed(2) as unknown as number;
+  const cartQuantity = getTotalCartQuantity();
   const renderStep = () => {
     switch (currentStep) {
       case CheckoutStep.CART:
@@ -68,11 +86,27 @@ function CheckoutPage() {
       {currentStep !== CheckoutStep.THANK_YOU && (
         <button onClick={() => setCurrentStep(currentStep + 1)}>Next</button>
       )}
-      {clientSecret && (
-        <Elements stripe={stripePromise} options={options}>
-          {renderStep()}
-        </Elements>
-      )}
+      <div className="flex flex-col md:flex md:flex-row md:gap-12 md:px-12 lg:px-24">
+        <div className="w-full">
+
+        {clientSecret && (
+          <Elements stripe={stripePromise} options={options}>
+            {renderStep()}
+          </Elements>
+        )}
+        </div>
+        <div className="hidden lg:flex lg:flex-col">
+        <CheckoutSummarySection
+          totalMsrpPrice={totalMsrpPrice}
+          orderSubtotal={orderSubtotal}
+          totalDiscountedPrice={totalDiscountedPrice}
+          cartItems={cartItems}
+          clearLocalStorageCart={clearLocalStorageCart}
+        />
+        <OrderReview/>
+      </div>
+      </div>
+      
     </div>
   );
 }

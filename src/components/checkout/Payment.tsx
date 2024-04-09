@@ -5,7 +5,7 @@ import {
   useStripe,
 } from '@stripe/react-stripe-js';
 import PromoCode from './PromoCode';
-import { useEffect, useState } from 'react';
+import { FormEvent, useEffect, useState } from 'react';
 import useGetStripeClientSecret from '@/hooks/useGetStripeClientSecret';
 import OrderReview from './OrderReview';
 
@@ -86,11 +86,13 @@ export default function Payment() {
   return (
     <div className="px-4">
       <div className="pb-7 pt-9 text-2xl font-medium">Payment</div>
-      <PromoCode />
+      <div className="lg:hidden">
+        <PromoCode />
+      </div>
 
       <div>Select Payment Method</div>
       <form id="payment-form" onSubmit={handleSubmit}>
-        <LinkAuthenticationElement id="link-authentication-element" />
+        {/* <LinkAuthenticationElement id="link-authentication-element" /> */}
         <PaymentElement
           id="payment-element"
           onChange={(event) => {
@@ -100,7 +102,9 @@ export default function Payment() {
           }}
         />
       </form>
-      <OrderReview/>
+      <div className="lg:hidden">
+        <OrderReview />
+      </div>
     </div>
   );
 }

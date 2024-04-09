@@ -22,7 +22,7 @@ export default function SavedAddressBox({
         </div>
         <div
           onClick={() => setIsEditing(true)}
-          className="flex-row text-sm font-normal text-[#0C87B8] underline "
+          className="flex-row cursor-pointer text-sm font-normal text-[#0C87B8] underline "
         >
           Edit
         </div>

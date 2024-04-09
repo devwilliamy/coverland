@@ -29,7 +29,7 @@ export default function YourCart() {
           Your cart is empty.
         </p>
       ) : (
-        <div className="flex flex-col md:flex md:flex-row md:gap-12 md:px-12 lg:px-24">
+        // <div className="flex flex-col md:flex md:flex-row md:gap-12 md:px-12 lg:px-24">
           <Table className="w-full">
             <TableHeader>
               <TableRow>
@@ -59,14 +59,8 @@ export default function YourCart() {
             })}
           </Table>
 
-          <CheckoutSummarySection
-            totalMsrpPrice={totalMsrpPrice}
-            orderSubtotal={orderSubtotal}
-            totalDiscountedPrice={totalDiscountedPrice}
-            cartItems={cartItems}
-            clearLocalStorageCart={clearLocalStorageCart}
-          />
-        </div>
+          
+        // </div>
       )}
     </>
   );

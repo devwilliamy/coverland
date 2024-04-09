@@ -10,7 +10,6 @@ import {
   paypalCreateOrder,
   redirectToCheckout,
 } from '@/app/(noFooter)/checkout/utils';
-import StripeFormWrapper from './StripeFormWrapper';
 
 export default function CheckoutSummarySection({
     totalMsrpPrice,
@@ -31,7 +30,7 @@ export default function CheckoutSummarySection({
     const router = useRouter();
   
     return (
-      <div className="mt-2 px-4 pb-[4vh] md:w-4/12">
+      <div className="mt-2 px-4 pb-[4vh]">
         <div className="text-xl font-bold lg:text-[22px]">Summary</div>
         <div className="lg:hidden">
           <div className="py-[1vh] text-base font-normal text-[#343434]">
@@ -119,7 +118,6 @@ export default function CheckoutSummarySection({
             Order Total: ${totalMsrpPrice}
           </div>
         </div>
-        <StripeFormWrapper />
         <div className="my-8 hidden w-full justify-center md:flex md:flex-col lg:w-[350px]">
           <Button
             variant={'default'}

@@ -9,6 +9,22 @@ import { Button } from '../ui/button';
 const options = {
   mode: 'shipping' as AddressMode, // 'billing',
   allowedCountries: ['US'],
+  fields: {
+    phone: 'always',
+  },
+  display: {
+    name: 'split',
+  },
+  custom_fields: [
+    {
+      key: 'engraving',
+      label: {
+        type: 'custom',
+        custom: 'Personalized engraving',
+      },
+      type: 'text',
+    },
+  ],
 };
 export default function Shipping() {
   const [isDisabled, setIsDisabled] = useState(true);
@@ -41,31 +57,41 @@ export default function Shipping() {
             // Prefill the email field like so:
             // options={{defaultValues: {email: 'foo@bar.com'}}}
           /> */}
-      {isEditing ? (
-        <AddressElement options={options} onChange={handleAddressFormChange} />
-      ) : (
-        address && (
-          <>
-          <div className="mb-12">
-            <SavedAddressBox address={address} setIsEditing={setIsEditing} />
+      {/* {isEditing ? ( */}
+      <div className="relative min-h-[600px]">
+        <div
+          className={`duration-20000 absolute inset-0 transition-opacity ${isEditing ? 'opacity-100' : 'opacity-0'}`}
+          style={{ zIndex: isEditing ? 10 : 1 }}
+        >
+          <AddressElement
+            options={options}
+            onChange={handleAddressFormChange}
+          />
+        </div>
+        {address && (
+          <div
+            className={`duration-20000 absolute inset-0 transition-opacity ${!isEditing ? 'opacity-100' : 'opacity-0'}`}
+            style={{ zIndex: !isEditing ? 10 : 1 }}
+          >
+            <div className="mb-12">
+              <SavedAddressBox address={address} setIsEditing={setIsEditing} />
+            </div>
+            <div className="pb-[52px]">
+              <ShippingOptions />
+            </div>
           </div>
-          <div className="pb-[52px]"> 
-
-            <ShippingOptions />
-          </div>
-          </>
-        )
-      )}
-
-      <div className="flex flex-col items-center justify-between">
+        )}
+      </div>
+      <div className="flex flex-col items-center justify-between lg:mt-11">
         <Button
           disabled={isDisabled}
           onClick={() => setIsEditing(false)}
-          className={`h-[48px] w-full max-w-[390px] rounded-lg ${isDisabled ? 'bg-gray-300/90' : 'bg-black'} text-base font-bold uppercase text-white lg:h-[63px] lg:text-xl`}
+          className={`h-[48px] w-full max-w-[390px] cursor-pointer rounded-lg ${isDisabled ? 'bg-gray-300/90' : 'bg-black'} text-base font-bold uppercase text-white lg:h-[63px] lg:text-xl`}
         >
           {buttonText}
         </Button>
       </div>
+      {/* )} */}
     </div>
   );
 }

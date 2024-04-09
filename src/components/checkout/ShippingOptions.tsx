@@ -9,14 +9,14 @@ export default function ShippingOptions() {
       </div>
       <div
         onClick={() => setSelectedIndex(0)}
-        className={`mb-2 rounded-xl px-6 py-4 ${selectedIndex === 0 ? 'border-4 border-[#343434]' : 'border border-[#707070]'}`}
+        className={`mb-2 rounded-xl px-6 py-4 cursor-pointer ${selectedIndex === 0 ? 'border-4 border-[#343434]' : 'border border-[#707070]'}`}
       >
         <div>$ 0.00 Free Shipping</div>
         <div>FedEx Ground 1-5 Business Days</div>
       </div>
       <div
         onClick={() => setSelectedIndex(1)}
-        className={`rounded-xl  px-6 py-4 ${selectedIndex === 1 ? 'border-4 border-[#343434]' : 'border border-[#707070]'}`}
+        className={`rounded-xl  px-6 py-4 cursor-pointer ${selectedIndex === 1 ? 'border-4 border-[#343434]' : 'border border-[#707070]'}`}
       >
         <div>$29.99</div>
         <div>FedEx 2 Day</div>
