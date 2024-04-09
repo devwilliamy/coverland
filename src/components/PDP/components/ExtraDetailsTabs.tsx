@@ -2,13 +2,14 @@
 import { useEffect, useState } from 'react';
 import ReviewSection from './ReviewSection';
 import WarrantyPolicy from '@/app/(main)/policies/warranty-policy/page';
-import { PDPAccordion } from '../PDPAccordian';
+import { QuestionsAccordion } from '../QuestionsAccordion';
 import ShippingPolicy from '@/app/(main)/policies/shipping-policy/page';
 import InsightsTab from './InsightsTab';
 import SeatCoverDetails from '@/app/(main)/seat-covers/components/SeatCoverDetails';
 import useDetermineType from '@/hooks/useDetermineType';
-import FeaturesAndProductsSection from '@/app/(main)/[productType]/components/FeaturesAndProductsSection';
+import VehicleCoverDetails from '@/app/(main)/[productType]/components/VehicleCoverDetails';
 import { useMediaQuery } from '@mantine/hooks';
+import { Separator } from '@/components/ui/separator';
 
 type TabsObj = {
   title: string;
@@ -34,6 +35,7 @@ export default function ExtraDetailsTabs() {
         return 195;
     }
   };
+
 
   const queryOffset = calcOffset();
   const [currentTabIndex, setCurrentTabIndex] = useState(0);
@@ -175,19 +177,19 @@ export default function ExtraDetailsTabs() {
       </div>
       <div>
         <div id="Details">
-          {!isSeatCover ? <FeaturesAndProductsSection /> : <SeatCoverDetails />}
+          {!isSeatCover ? <VehicleCoverDetails /> : <SeatCoverDetails />}
         </div>
         {!isSeatCover && (
           <>
+            <Separator className="h-5 border-y-[1px] border-y-[#DADADA] bg-[#F1F1F1] lg:h-10" />
             <div id="Reviews">
               <ReviewSection showHeader={false} />
             </div>
             <div id="Q&A">
-              <PDPAccordion />
+              <QuestionsAccordion />
             </div>
           </>
         )}
-
         <div id="Shipping & Returns">
           <ShippingPolicy showHeader={false} />
         </div>
