@@ -119,8 +119,10 @@ export default function FreeDetails() {
         strokeLinecap="square"
         strokeLinejoin="miter"
       />
-      <div></div>
-      <p className="font-[500]">{text}</p>
+      <div className="flex w-full flex-col gap-3 font-[500]">
+        <p>{text}</p>
+        {description && <div>{description}</div>}
+      </div>
     </div>
   );
 
@@ -226,7 +228,7 @@ export default function FreeDetails() {
       </div>
 
       <Separator className="my-10" />
-      <NotIncludedTitle title="International Orders" />
+      <NotIncludedTitle title="This warranty does not cover" />
       <div className={indentStyling + ' pb-10'}>
         {[
           'Damage due to improper use or installation.',
@@ -237,17 +239,29 @@ export default function FreeDetails() {
         ))}
       </div>
       <Separator className="my-10" />
-      <p className="text-[18px] leading-[18px] text-[#2BA45B]">
+      <p className="text-[18px] font-[600] leading-[18px] text-[#2BA45B]">
         How to Claim Your Warranty in 3 Steps:
       </p>
-      <div className="pt-10">
+      <div className="flex flex-col gap-7 pb-[200px] pt-10">
         {[
-          'Step 1: Submit a claim',
-          'Step 2: Processing',
-          'Step 3: Replacement',
-        ].map((text) => (
-          <div className="">
-            <CheckItem text={text} gap={5} />
+          {
+            text: 'Step 1: Submit a claim',
+            description:
+              'Send photos/videos showing the damage, along with a brief description of the issue, your name, phone number, and shipping address to info@coverland.com.',
+          },
+          {
+            text: 'Step 2: Processing',
+            description:
+              'Within 3 working days, we will review your claim and inform you of the final decision. Additional questions may be asked during this time.',
+          },
+          {
+            text: 'Step 3: Replacement',
+            description:
+              'Upon approval, we will ship a new car cover the same day at no additional cost, except for shipping.',
+          },
+        ].map(({ text, description }) => (
+          <div key={text}>
+            <CheckItem text={text} gap={5} description={description} />
           </div>
         ))}
       </div>
