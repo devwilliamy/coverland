@@ -50,18 +50,18 @@ const createSeatCoverSelectionStore = ({
     typeof window !== 'undefined'
       ? localStorage?.getItem('heroDropdownYear')
       : '';
-      // TODO: - This should just be a DB call but need to add submodel1_slug column
+  // TODO: - This should just be a DB call but need to add submodel1_slug column
   const modelDataWithFilteredSubmodelSelection = searchParams?.submodel
-  ? modelData.filter((model) =>
-      compareRawStrings(model.submodel1, searchParams.submodel as string)
-    )
-  : modelData;
+    ? modelData.filter((model) =>
+        compareRawStrings(model.submodel1, searchParams.submodel as string)
+      )
+    : modelData;
 
   const modelDataWithFilteredSubmodel2Selection = searchParams?.submodel2
-  ? modelDataWithFilteredSubmodelSelection.filter((model) =>
-      compareRawStrings(model.submodel2, searchParams.submodel2 as string)
-    )
-  : modelDataWithFilteredSubmodelSelection;
+    ? modelDataWithFilteredSubmodelSelection.filter((model) =>
+        compareRawStrings(model.submodel2, searchParams.submodel2 as string)
+      )
+    : modelDataWithFilteredSubmodelSelection;
 
   const initialQueryState = {
     year: (params?.year && customerSelectedYear) || '',
@@ -101,10 +101,11 @@ const createSeatCoverSelectionStore = ({
         featuredImage: newProduct.product?.split(',')[0] ?? '',
       }));
     },
-    selectedColor: modelDataWithFilteredSubmodel2Selection[0]?.display_color ?? '',
+    selectedColor:
+      modelDataWithFilteredSubmodel2Selection[0]?.display_color ?? '',
     setSelectedColor: (newColor: string) =>
       set(() => ({ selectedColor: newColor })),
-      isComplete
+    isComplete,
   }));
 };
 
