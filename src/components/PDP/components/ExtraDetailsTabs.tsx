@@ -36,6 +36,7 @@ export default function ExtraDetailsTabs() {
     }
   };
 
+
   const queryOffset = calcOffset();
   const [currentTabIndex, setCurrentTabIndex] = useState(0);
   let scrollDirection: 'up' | 'down' = 'down';
