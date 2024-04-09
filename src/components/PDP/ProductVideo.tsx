@@ -11,6 +11,7 @@ type ProductVideoProps = {
   controls?: boolean;
   loop?: boolean;
   aspectRatio?: string;
+  className?: string;
 };
 
 export default function ProductVideo({
@@ -20,6 +21,7 @@ export default function ProductVideo({
   controls = true,
   loop = false,
   aspectRatio = '1 / 1',
+  className = '',
 }: ProductVideoProps) {
   return (
     <Video
@@ -28,6 +30,7 @@ export default function ProductVideo({
       autoPlay={autoplay}
       loop={loop}
       playsInline
+      className={className}
       style={{
         aspectRatio: aspectRatio,
         height: '100%',
