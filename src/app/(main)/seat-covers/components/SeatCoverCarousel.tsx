@@ -16,6 +16,7 @@ import { useState, useEffect, useCallback, useContext } from 'react';
 import { SeatCoverSelectionContext } from '@/contexts/SeatCoverContext';
 import { useStore } from 'zustand';
 import ProductVideo from '@/components/PDP/ProductVideo';
+import { Play } from 'lucide-react';
 
 export default function SeatCoverCarousel() {
   const store = useContext(SeatCoverSelectionContext);
@@ -54,8 +55,8 @@ export default function SeatCoverCarousel() {
     video?: string | Asset;
   }) => (
     <button
-      className={`w-25% relative flex h-full min-h-[25%] min-w-[25%] items-center justify-center rounded-[4px] ${index === current && 'outline outline-1'} p-[2px]`}
       onClick={() => scrollTo(index)}
+      className={`w-25% relative flex h-full min-h-[25%] min-w-[25%] items-center justify-center rounded-[4px] ${index === current && 'outline outline-1'} p-[2px]`}
     >
       <Image
         className="h-full w-full rounded-[4px]"
@@ -108,11 +109,15 @@ export default function SeatCoverCarousel() {
             {galleryImages?.map((image, index) => {
               if (index === 3) {
                 return (
-                  <CarouselPositionItem
-                    key={`position-item-${index}`}
-                    src={SeatThumbnail}
-                    index={index}
-                  />
+                  <div
+                    key={image}
+                    id="video-thumbnail"
+                    onClick={() => scrollTo(index)}
+                    className={`w-25% relative flex h-full min-h-[25%] min-w-[25%] items-center justify-center `}
+                  >
+                    <CarouselPositionItem src={SeatThumbnail} index={index} />
+                    <Play className="absolute rounded-full fill-white text-white" />
+                  </div>
                 );
               }
               return (
