@@ -26,6 +26,7 @@ import { useParams } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
 import { BsGlobeAmericas } from 'react-icons/bs';
 import { useMediaQuery } from '@mantine/hooks';
+import useDetermineType from '@/hooks/useDetermineType';
 
 type DetailItem = {
   icon: React.JSX.Element;
@@ -46,10 +47,12 @@ export default function FreeDetails() {
     headerText: '',
     jsx: <></>,
   });
+  const isMobile = useMediaQuery('(max-width: 1024px)');
   const params = useParams();
+  const { isSeatCover } = useDetermineType();
   const coverType = params?.coverType;
-  let warrantyLength: string | number = 'Lifetime';
   const indentStyling = 'flex flex-col gap-4 pl-[30px] pt-5';
+  let warrantyLength: string | number = 'Lifetime';
 
   switch (coverType) {
     case 'standard':
@@ -66,6 +69,10 @@ export default function FreeDetails() {
     case 'premium-plus':
       warrantyLength = 'Lifetime';
       break;
+  }
+
+  if (isSeatCover) {
+    warrantyLength = '10-Year';
   }
 
   useEffect(() => {
@@ -165,10 +172,6 @@ export default function FreeDetails() {
         title={'Free Returns'}
       />
       <div className={indentStyling}>
-        {/* <BulletItem
-          text="Return products within 30 days for a full refund or exchange. We
-          provide the return shipping label. Contact us to start the process."
-        /> */}
         <div className="grid w-full grid-cols-[4px_auto] gap-2 ">
           <TitleDot />
           <div className="flex flex-col gap-7 ">
@@ -210,11 +213,13 @@ export default function FreeDetails() {
     <div className="flex flex-col px-5 ">
       <IncludedDetailTitle
         icon={<ShieldCheck size={iconSize} />}
-        title={'Lifetime Warranty Policy'}
+        title={`${warrantyLength} Warranty Policy`}
       />
 
       <div className={indentStyling}>
-        <BulletItem text="Our warranty covers your product for a lifetime against various issues, including:" />
+        <BulletItem
+          text={`Our warranty covers your product for ${warrantyLength === 'Lifetime' ? 'a Lifetime' : warrantyLength + 's'} against various issues, including:`}
+        />
         <div className="flex flex-col gap-1">
           {[
             'Normal Wear and Tear',
@@ -356,7 +361,7 @@ export default function FreeDetails() {
     );
   };
 
-  const FreeDetailItems: DetailItem[] = [
+  const freeDetailItems: DetailItem[] = [
     {
       icon: <BoxIcon />,
       title: 'Free, Same-Day Shipping',
@@ -384,13 +389,14 @@ export default function FreeDetails() {
       jsx: <FreePackage />,
     },
   ];
-
-  const isMobile = useMediaQuery('(max-width: 1024px)');
+  if (isSeatCover) {
+    freeDetailItems.splice(freeDetailItems.length - 1, 1);
+  }
 
   return (
     <div className=" flex flex-col items-center justify-start bg-[#FBFBFB]">
       <Sheet>
-        {FreeDetailItems.map((data, index) => (
+        {freeDetailItems.map((data, index) => (
           <FreeDetailItem
             key={`Free-Detail-Item-${index}`}
             data={data}
