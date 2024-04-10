@@ -43,9 +43,9 @@ export default function StayNewSection() {
                   src={src}
                   autoplay
                   loop
-                  aspectRatio="4/3"
+                  aspectRatio="16/9"
                   controls={false}
-                  className="max-h-[224px] md:max-h-[349px] "
+                  className="max-h-[224px] md:max-h-[349px]"
                 />
               </div>
             )}
