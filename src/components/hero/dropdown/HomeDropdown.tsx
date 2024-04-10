@@ -4,6 +4,7 @@ import { TQuery } from './HeroDropdown';
 import { Search } from 'lucide-react';
 import { AiOutlineLoading3Quarters } from 'react-icons/ai';
 import { useMediaQuery } from '@mantine/hooks';
+import { useParams } from 'next/navigation';
 
 export default function HomeDropdown({
   queryObj,
@@ -11,8 +12,8 @@ export default function HomeDropdown({
   title,
   prevSelected,
   isDisabled,
-  items,
   value,
+  items,
 }: {
   place: number;
   title: string;
@@ -26,7 +27,9 @@ export default function HomeDropdown({
   };
 }) {
   const { setQuery } = queryObj;
-
+  const params = Object(useParams());
+  const paramKeys = Object.keys(params);
+  const paramValues = Object.values(params);
   const [selectedValue, setSelectedValue] = useState<string>('');
   const [selectedIndex, setSelectedIndex] = useState<number>(-1);
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -332,9 +335,9 @@ export default function HomeDropdown({
                     <div className="home-scrollbar flex max-h-[700px] w-full flex-col overflow-y-auto overflow-x-clip">
                       {filteredItems && filteredItems?.length > 0 ? (
                         <>
-                          {filteredItems?.map((type, i) => (
+                          {filteredItems?.map((items, i) => (
                             <div
-                              key={`type-${type}`}
+                              key={`type-${items}`}
                               id={`${title}-${i}`}
                               tabIndex={-1}
                               className={`flex py-1 pl-[20px] hover:bg-[#BE1B1B] hover:text-white ${i === selectedIndex && 'bg-[#BE1B1B] text-white'}`}
@@ -363,15 +366,15 @@ export default function HomeDropdown({
                                 }
                               }}
                             >
-                              {type}
+                              {items}
                             </div>
                           ))}
                         </>
                       ) : (
                         <>
-                          {items.map((type, i) => (
+                          {items.map((item, i) => (
                             <div
-                              key={`type-${type}`}
+                              key={`type-${item}`}
                               id={`${title}-${i}`}
                               tabIndex={-1}
                               className={`flex py-1 pl-[20px] hover:bg-[#BE1B1B] hover:text-white ${i === selectedIndex && 'bg-[#BE1B1B] text-white'}`}
@@ -401,7 +404,7 @@ export default function HomeDropdown({
                                 }
                               }}
                             >
-                              {type}
+                              {item}
                             </div>
                           ))}
                         </>
@@ -434,7 +437,7 @@ export default function HomeDropdown({
             disabled={isDisabled}
             // defaultValue={''}
             value={value}
-            autoComplete='off'
+            autoComplete="off"
             className={`absolute top-0 flex h-full w-full  cursor-pointer appearance-none items-center rounded-[8px] pl-[20px] outline outline-[2px] outline-offset-0 outline-transparent focus:outline-[#BE1B1B] `}
           >
             <option
@@ -444,9 +447,10 @@ export default function HomeDropdown({
               className={`flex h-full w-full items-center pl-[20px]`}
             >
               {place} &nbsp;
-              {value === ''
-                ? title.replace(title.charAt(0), title.charAt(0).toUpperCase())
-                : value}
+              {params[title].replace(
+                title.charAt(0),
+                title.charAt(0).toUpperCase()
+              )}
             </option>
             {items && items.length > 0 && (
               <>

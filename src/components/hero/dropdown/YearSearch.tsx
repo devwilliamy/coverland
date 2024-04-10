@@ -20,20 +20,6 @@ export function YearSearch({
     setValue('');
   }, [type]);
 
-  const handleChange = (event: ChangeEvent<HTMLSelectElement>) => {
-    const newValue = event.target.value;
-    setValue(newValue);
-    setQuery((p) => ({
-      ...p,
-      year: newValue,
-      parent_generation: '',
-      make: '',
-      model: '',
-      submodel1: '',
-      submodel2: '',
-    }));
-  };
-
   const startYear = type === 'Seat Covers' ? 1949 : 1921;
   const endYear = 2025;
   const years = Array.from(
@@ -54,29 +40,4 @@ export function YearSearch({
       items={years}
     />
   );
-}
-{
-  /* <div
-  className={`flex max-h-[53px] min-h-[53px] px-2 ${prevSelected ? ' w-full border-[5px] border-[#BE1B1B]' : 'w-[98%] border-[1px] border-[#767676] outline-[4px] outline-transparent'} items-center overflow-hidden rounded-[8px] bg-white  text-lg  md:max-h-[58px] lg:w-auto`}
->
-  <div
-    className={`flex h-full w-full ${prevSelected && 'border-[2.5px]  border-white'} items-center overflow-hidden rounded-[4px] bg-white  text-lg  md:max-h-[58px] lg:w-auto`}
-    tabIndex={1}
-  >
-    <div className="ml-[10px] pr-[15px]">2</div>
-    <select
-      value={value}
-      onChange={(event) => handleChange(event)}
-      disabled={isDisabled}
-      className={`w-full cursor-pointer  bg-transparent py-1 outline-none lg:py-3`}
-    >
-      <option value="">Year</option>
-      {years.map((year) => (
-        <option key={`year-${year}`} value={year.toString()}>
-          {year}
-        </option>
-      ))}
-    </select>
-  </div>
-</div>; */
 }

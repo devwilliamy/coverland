@@ -306,13 +306,8 @@ const ReviewSection = ({ showHeader }: { showHeader?: boolean }) => {
   //   setLoading(false);
   // };
 
-  console.log(
-    'Average Score Number: ',
-    Number(average_score?.toFixed(1)) || 4.9
-  );
-
   return (
-    <div className="relative mb-[56px] px-[22px] lg:px-[59px] flex w-full flex-col items-center lg:mb-0 lg:py-2">
+    <div className="relative mb-[56px] flex w-full flex-col items-center px-[22px] lg:mb-0 lg:px-[59px] lg:py-2">
       {isMobile ? null : (
         <>
           {showHeader && (
