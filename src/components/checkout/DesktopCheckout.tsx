@@ -36,8 +36,8 @@ export default function DesktopCheckout() {
   return (
     <>
       <div className="flex flex-col md:flex md:flex-row md:gap-12 md:px-12 lg:px-12 lg:py-4">
-        <div className="w-full">{renderStep()}</div>
-        <div className="hidden lg:flex lg:flex-col">
+        <div className="w-2/3">{renderStep()}</div>
+        <div className="hidden lg:w-1/3 lg:flex lg:flex-col">
           <CheckoutSummarySection />
           <OrderReview />
         </div>
