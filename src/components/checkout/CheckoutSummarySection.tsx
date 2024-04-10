@@ -32,7 +32,8 @@ export default function CheckoutSummarySection() {
   const orderSubtotal = getOrderSubtotal().toFixed(2) as unknown as number;
   const { currentStep, nextStep, setCurrentStep } = useCheckoutContext();
   const isCartStep = currentStep === CheckoutStep.CART;
-  const isDisabled = getTotalCartQuantity() === 0;
+
+  const isCartEmpty = getTotalCartQuantity() === 0;
   return (
     <div className="px-4 pb-[4vh] ">
       <div className="flex items-center justify-between pb-12 lg:pb-8">
@@ -55,10 +56,13 @@ export default function CheckoutSummarySection() {
         <div>Order Subtotal</div>
         <div>${orderSubtotal}</div>
       </div>
-      <div className="flex justify-between text-[#D13C3F]">
-        <div>Sale-discount</div>
-        <div>-${totalDiscountedPrice}</div>
-      </div>
+      {isCartEmpty ? null : (
+        <div className="flex justify-between text-[#D13C3F]">
+          <div>Sale-discount</div>
+          <div>-${totalDiscountedPrice}</div>
+        </div>
+      )}
+
       <div className="pb-14 pt-14">
         <Separator className="w-full bg-[#C8C7C7] lg:block" />
         <div className="flex self-end py-5 text-lg font-bold max-md:hidden lg:flex-row lg:justify-between lg:font-bold">
@@ -71,8 +75,8 @@ export default function CheckoutSummarySection() {
         <div className="my-8 hidden w-full justify-center md:flex md:flex-col lg:w-[350px]">
           <Button
             variant={'default'}
-            disabled={isDisabled}
-            className={`mb-3 w-full rounded-lg ${isDisabled ? 'bg-[#BE1B1B]/75' : 'bg-[#BE1B1B]'}  text-base font-bold uppercase text-white sm:h-[48px] lg:h-[55px] lg:text-xl`}
+            disabled={isCartEmpty}
+            className={`mb-3 w-full rounded-lg ${isCartEmpty ? 'bg-[#BE1B1B]/75' : 'bg-[#BE1B1B]'}  text-base font-bold uppercase text-white sm:h-[48px] lg:h-[55px] lg:text-xl`}
             onClick={nextStep}
           >
             {loading ? (

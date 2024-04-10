@@ -7,7 +7,7 @@ import {
 import { useCartContext } from '@/providers/CartProvider';
 import { useRouter } from 'next/navigation';
 
-export default function PaypalButtons() {
+export default function PayPalButtonSection() {
   const { clearLocalStorageCart, getTotalPrice } = useCartContext();
   const router = useRouter();
   const totalMsrpPrice = getTotalPrice().toFixed(2) as unknown as number;

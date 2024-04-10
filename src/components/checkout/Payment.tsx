@@ -9,7 +9,7 @@ import OrderReview from './OrderReview';
 import PriceBreakdown from './PriceBreakdown';
 import { Button } from '../ui/button';
 import { AiOutlineLoading3Quarters } from 'react-icons/ai';
-import PaypalButtons from './PaypalButtons';
+import PayPalButtonSection from './PayPalButtonSection';
 import { useCheckoutContext } from '@/contexts/CheckoutContext';
 
 export default function Payment() {
@@ -91,7 +91,7 @@ export default function Payment() {
           </Button>
         </div>
       </div>
-      <PaypalButtons />
+      <PayPalButtonSection />
     </div>
   );
 }
