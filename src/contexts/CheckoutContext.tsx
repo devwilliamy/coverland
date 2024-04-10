@@ -1,8 +1,9 @@
 import { CheckoutStep } from '@/lib/types/checkout';
-import { FC, createContext, useContext, useState } from 'react';
+import { Dispatch, FC, SetStateAction, createContext, useContext, useState } from 'react';
 
 export type CheckoutContextType = {
   currentStep: number;
+  setCurrentStep: Dispatch<SetStateAction<CheckoutStep>>;
   nextStep: () => void;
   prevStep: () => void;
 };
@@ -13,6 +14,7 @@ export type CheckoutProviderProps = {
 
 export const CheckoutContext = createContext<CheckoutContextType>({
   currentStep: 0,
+  setCurrentStep: () => {},
   nextStep: () => {},
   prevStep: () => {},
 });
@@ -35,6 +37,7 @@ const CheckoutProvider: FC<CheckoutProviderProps> = ({ children }) => {
         currentStep,
         nextStep,
         prevStep,
+        setCurrentStep
       }}
     >
       {children}
