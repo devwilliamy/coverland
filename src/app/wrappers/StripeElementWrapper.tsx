@@ -1,13 +1,13 @@
 'use client';
-import useGetStripePaymentIntent from '@/hooks/useGetStripePaymentIntent';
+import { useCheckoutContext } from '@/contexts/CheckoutContext';
 import { Elements } from '@stripe/react-stripe-js';
-import { loadStripe } from '@stripe/stripe-js';
+import { Appearance, loadStripe } from '@stripe/stripe-js';
 
 const stripePromise = loadStripe(
   process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!
 );
 
-const appearance = {
+const appearance: Appearance = {
   theme: 'stripe',
   variables: {
     colorPrimary: '#ed5f74',
@@ -18,17 +18,24 @@ const appearance = {
 
 export default function StripeElementWrapper({
   children,
+  clientSecret,
 }: {
   children: React.ReactNode;
+  clientSecret?: string;
 }) {
-  const { clientSecret } = useGetStripePaymentIntent();
+  const { clientSecret: contextClientSecret } = useCheckoutContext();
+
   const options = {
-    clientSecret,
+    clientSecret: clientSecret ?? contextClientSecret,
     appearance,
   };
   return (
-    <Elements stripe={stripePromise} options={options}>
-      {children}
-    </Elements>
+    <>
+      {(clientSecret || contextClientSecret) && (
+        <Elements stripe={stripePromise} options={options}>
+          {children}
+        </Elements>
+      )}
+    </>
   );
 }

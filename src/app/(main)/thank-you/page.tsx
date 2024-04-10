@@ -8,6 +8,7 @@ type PaymentIntentSuccessParams = {
     payment_intent: string;
     payment_intent_client_secret: string;
     redirect_status: string;
+    'order-number': string;
   };
 };
 
@@ -19,6 +20,7 @@ async function OrderConfirmationPage({
   searchParams,
 }: PaymentIntentSuccessParams) {
   const clientSecret = searchParams.payment_intent_client_secret;
+  const orderNumber = searchParams['order-number'];
   if (!clientSecret) {
     return;
   }
@@ -67,8 +69,11 @@ async function OrderConfirmationPage({
 
   return (
     <Suspense fallback={<div>Loading...</div>}>
-      <StripeElementWrapper>
-        <OrderConfirmationContent items={items} clientSecret={clientSecret} />
+      <StripeElementWrapper clientSecret={clientSecret}>
+        <OrderConfirmationContent
+          orderNumber={orderNumber}
+          clientSecret={clientSecret}
+        />
       </StripeElementWrapper>
     </Suspense>
   );

@@ -1,3 +1,4 @@
+import useGetStripePaymentIntent from '@/hooks/useGetStripePaymentIntent';
 import { CheckoutStep } from '@/lib/types/checkout';
 import {
   Dispatch,
@@ -15,6 +16,8 @@ export type CheckoutContextType = {
   prevStep: () => void;
   shipping: number;
   setShipping: (shipping: number) => void;
+  clientSecret: string;
+  orderNumber: string;
 };
 
 export type CheckoutProviderProps = {
@@ -28,11 +31,14 @@ export const CheckoutContext = createContext<CheckoutContextType>({
   prevStep: () => {},
   shipping: 0,
   setShipping: () => {},
+  clientSecret: '',
+  orderNumber: ''
 });
 
 const CheckoutProvider: FC<CheckoutProviderProps> = ({ children }) => {
-  const [currentStep, setCurrentStep] = useState(CheckoutStep.SHIPPING);
+  const [currentStep, setCurrentStep] = useState(CheckoutStep.CART);
   const [shipping, setShipping] = useState<number>(0);
+  const { clientSecret, orderNumber } = useGetStripePaymentIntent();
   const nextStep = () => {
     setCurrentStep(currentStep + 1);
   };
@@ -51,6 +57,8 @@ const CheckoutProvider: FC<CheckoutProviderProps> = ({ children }) => {
         setCurrentStep,
         shipping,
         setShipping,
+        clientSecret,
+        orderNumber
       }}
     >
       {children}

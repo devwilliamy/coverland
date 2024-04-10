@@ -3,12 +3,10 @@ import Shipping from '@/components/checkout/Shipping';
 import YourCart from '@/components/checkout/YourCart';
 import { useCheckoutContext } from '@/contexts/CheckoutContext';
 import { CheckoutStep } from '@/lib/types/checkout';
-import { useEffect, useState } from 'react';
 
 export default function MobileCheckout() {
-  // const [currentStep, setCurrentStep] = useState(CheckoutStep.SHIPPING);
   const { currentStep } = useCheckoutContext();
-  const handleSelectTab = (title: string, index: number) => {
+  const handleSelectTab = (title: string) => {
     if (document) {
       const el = document.getElementById(title);
       const elTop = el?.offsetTop;

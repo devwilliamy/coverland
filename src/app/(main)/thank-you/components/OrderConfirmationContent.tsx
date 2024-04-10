@@ -7,10 +7,7 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
-import useGetStripePaymentIntent from '@/hooks/useGetStripePaymentIntent';
 import { useThankYouViewedGoogleTag } from '@/hooks/useGoogleTagDataLayer';
-import { useCartContext } from '@/providers/CartProvider';
-import { sendGTMEvent } from '@next/third-parties/google';
 import { useStripe } from '@stripe/react-stripe-js';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
@@ -18,28 +15,16 @@ import { BsFillEnvelopeFill } from 'react-icons/bs';
 // const stripe = new Stripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!);
 
 type OrderConfirmationContentProps = {
-  // orderNumber: string;
-  items: any;
+  orderNumber: string;
   clientSecret: string;
 };
 
 export const OrderConfirmationContent = ({
-  // orderNumber,
-  items,
+  orderNumber,
   clientSecret,
 }: OrderConfirmationContentProps) => {
-  const [mounted, isMounted] = useState(false);
   const [message, setMessage] = useState('');
-  // const [orderNumber, setOrderNumber] = useState('');
   const stripe = useStripe();
-
-  const { clearLocalStorageCart } = useCartContext();
-  const { orderNumber } = useGetStripePaymentIntent();
-
-  useEffect(() => {
-    isMounted(true);
-    // clearLocalStorageCart();
-  }, []);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -67,22 +52,15 @@ export const OrderConfirmationContent = ({
     }
   }, [stripe, clientSecret]);
 
-  useThankYouViewedGoogleTag(items, orderNumber);
-
-  mounted &&
-    !!items &&
-    sendGTMEvent({
-      event: 'order_confirmation',
-      value: items[0]?.total,
-      transaction_id: orderNumber,
-      items: items[0]?.skus,
-    });
+  useThankYouViewedGoogleTag(orderNumber);
 
   return (
     <Card className="text-center">
       <CardHeader>
-        Message: {message}
         <CardTitle>Thank you for your order!</CardTitle>
+        <CardDescription>
+          Purchase Status: <span>{message}</span>
+        </CardDescription>
         <CardDescription>
           Your order number is: <span>{orderNumber}</span>
         </CardDescription>

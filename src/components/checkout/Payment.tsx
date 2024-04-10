@@ -4,21 +4,20 @@ import {
   useStripe,
 } from '@stripe/react-stripe-js';
 import PromoCode from './PromoCode';
-import { FormEvent, useEffect, useState } from 'react';
-import useGetStripePaymentIntent from '@/hooks/useGetStripePaymentIntent';
+import { FormEvent, useState } from 'react';
 import OrderReview from './OrderReview';
 import PriceBreakdown from './PriceBreakdown';
 import { Button } from '../ui/button';
 import { AiOutlineLoading3Quarters } from 'react-icons/ai';
 import PaypalButtons from './PaypalButtons';
+import { useCheckoutContext } from '@/contexts/CheckoutContext';
 
 export default function Payment() {
   const stripe = useStripe();
   const elements = useElements();
   const [isLoading, setIsLoading] = useState(false);
   const [message, setMessage] = useState(null);
-  const { clientSecret } = useGetStripePaymentIntent();
-
+  const { orderNumber } = useCheckoutContext();
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
@@ -34,7 +33,7 @@ export default function Payment() {
       elements,
       confirmParams: {
         // Make sure to change this to your payment completion page
-        return_url: 'http://localhost:3000/thank-you',
+        return_url: `http://localhost:3000/thank-you?order-number=${orderNumber}`,
       },
     });
 
@@ -56,6 +55,7 @@ export default function Payment() {
   const paymentElementOptions = {
     layout: 'tabs',
   };
+
   return (
     <div className="px-4">
       <div className="lg:hidden">
@@ -79,7 +79,6 @@ export default function Payment() {
             variant={'default'}
             className="mb-3 w-full rounded-lg bg-[#BE1B1B]  text-base font-bold uppercase text-white sm:h-[48px] lg:h-[55px] lg:text-xl"
             onClick={(e) => {
-              //   redirectToCheckout({ cartItems, promoCode, setLoading });
               setIsLoading(true);
               handleSubmit(e);
             }}

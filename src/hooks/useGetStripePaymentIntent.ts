@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 export default function useGetStripePaymentIntent() {
   const [clientSecret, setClientSecret] = useState<any>();
   const [orderNumber, setOrderNumber] = useState('');
-  const { cartItems } = useCartContext();
+  const { cartItems, getTotalCartQuantity } = useCartContext();
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -24,7 +24,10 @@ export default function useGetStripePaymentIntent() {
         console.error('[GetStripeClientSecret]: ', error);
       }
     };
-    fetchData();
-  }, []);
+    if (getTotalCartQuantity() > 0) {
+
+      fetchData();
+    }
+  }, [cartItems, getTotalCartQuantity]);
   return { clientSecret, orderNumber };
 }

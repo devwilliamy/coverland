@@ -1,58 +1,21 @@
-'use client';
-import { useCheckoutViewedGoogleTag } from '@/hooks/useGoogleTagDataLayer';
-import { Elements } from '@stripe/react-stripe-js';
-import useGetStripePaymentIntent from '@/hooks/useGetStripePaymentIntent';
-import { Appearance, loadStripe } from '@stripe/stripe-js';
-import { useMediaQuery } from '@mantine/hooks';
-import MobileCheckout from '@/app/(main)/[productType]/components/MobileCheckout';
-import {
-  CheckoutProvider,
-  useCheckoutContext,
-} from '@/contexts/CheckoutContext';
-import DesktopCheckout from '@/components/checkout/DesktopCheckout';
+import dynamic from 'next/dynamic';
+import { AiOutlineLoading3Quarters } from 'react-icons/ai';
 
-const appearance: Appearance = {
-  theme: 'stripe',
-  variables: {
-    colorPrimary: '#ed5f74',
-    borderRadius: '5px',
-    colorBackground: '#fafafa',
-  },
+const Checkout = dynamic(() => import('@/components/checkout/Checkout'), {
+  loading: () => <LoadingCheckout />,
+  ssr: false,
+});
+
+const CheckoutPage = () => {
+  return <Checkout />;
 };
 
-const stripePromise = loadStripe(
-  process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!
-);
-
-function CheckoutPage() {
-  const { clientSecret } = useGetStripePaymentIntent();
-  const isMobile = useMediaQuery('(max-width: 1024px)');
-
-  useCheckoutViewedGoogleTag();
-
+const LoadingCheckout = () => {
   return (
-    <div>
-      {clientSecret && (
-        <CheckoutProvider>
-          {clientSecret && (
-            <Elements
-              stripe={stripePromise}
-              options={{ clientSecret, appearance }}
-            >
-              <>
-                {isMobile ? (
-                  <MobileCheckout />
-                ) : (
-                  <>
-                    <DesktopCheckout />
-                  </>
-                )}
-              </>
-            </Elements>
-          )}
-        </CheckoutProvider>
-      )}
+    <div className="flex flex-row items-center justify-center pt-10">
+      <div className="text-lg font-normal">Your Cart is Loading...</div>
+      <AiOutlineLoading3Quarters className="animate-spin" />
     </div>
   );
-}
+};
 export default CheckoutPage;

@@ -2,8 +2,19 @@ import dynamic from 'next/dynamic';
 import Logo from '@/components/header/Logo';
 import { UserRound } from 'lucide-react';
 import Link from 'next/link';
+import { HiOutlineShoppingCart } from 'react-icons/hi';
 
-const Cart = dynamic(() => import('@/components/header/Cart'));
+const Cart = dynamic(() => import('@/components/header/Cart'), {
+  ssr: false,
+  loading: () => (
+    <div className="flex w-full items-center">
+      <HiOutlineShoppingCart
+        color={'#000000'}
+        className="mt-0.5 flex h-[20px] w-[20px] hover:cursor-pointer"
+      />
+    </div>
+  ),
+});
 const coverTypes = [
   { title: 'Car Covers', link: '/car-covers' },
   { title: 'SUV Covers', link: '/suv-covers' },

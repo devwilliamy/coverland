@@ -8,7 +8,6 @@ import {
   SheetHeader,
   SheetTitle,
   SheetTrigger,
-  SheetOverlay,
 } from '@/components/ui/sheet';
 import { TCartItem } from '@/lib/cart/useCart';
 import { HiOutlineShoppingCart } from 'react-icons/hi';
@@ -22,7 +21,7 @@ import { useMediaQuery } from '@mantine/hooks';
 function Cart() {
   const { cartItems, cartOpen, setCartOpen } = useCartContext();
   const [isClient, setIsClient] = useState(false);
-  // const cartColor = cartItems.length > 0 ? '#BE1B1B' : '#000000';
+  const cartColor = cartItems.length > 0 ? '#BE1B1B' : '#000000';
   const router = useRouter();
 
   useEffect(() => {
@@ -41,7 +40,7 @@ function Cart() {
       >
         {isClient && <ItemsInCartAnimation cartItems={cartItems} />}
         <HiOutlineShoppingCart
-          color={'#BE1B1B'}
+          color={cartColor}
           className="mt-0.5 flex h-[20px] w-[20px] hover:cursor-pointer"
         />
       </SheetTrigger>

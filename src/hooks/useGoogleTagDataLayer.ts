@@ -163,16 +163,11 @@ export const useCheckoutViewedGoogleTag = () => {
   }, [cartItems, getTotalPrice]);
 };
 
-type Item = {
-  sku: string[];
-  total: number;
-};
 
 export const useThankYouViewedGoogleTag = (
-  items: Item[],
   orderNumber: string
 ) => {
-  const { cartItems, getTotalPrice } = useCartContext();
+  const { cartItems, getTotalPrice, clearLocalStorageCart } = useCartContext();
   useEffect(() => {
     if (typeof window !== 'undefined' && window.performance) {
       const navigationType = window.performance.navigation.type;
@@ -194,6 +189,7 @@ export const useThankYouViewedGoogleTag = (
             items: cartItemsToGTagItems,
           },
         });
+        clearLocalStorageCart();
       }
     }
   }, [cartItems, getTotalPrice, orderNumber]);
