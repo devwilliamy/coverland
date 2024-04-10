@@ -24,7 +24,7 @@ export default function SeatContent({
   if (!store)
     throw new Error('Missing SeatCoverSelectionContext.Provider in the tree');
   const selectedProduct = useStore(store, (s) => s.selectedProduct);
-  const [coverPrice, setCoverPrice] = useState(280);
+  const [coverPrice, setCoverPrice] = useState(320);
 
   const { addToCart } = useCartContext();
   const router = useRouter();
