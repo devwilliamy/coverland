@@ -208,6 +208,13 @@ export default function FreeDetails() {
       </div>
     </div>
   );
+  const warrantyItems = [
+    'Normal Wear and Tear',
+    'Weather-Related Damages',
+    'Ripping and Tears',
+  ];
+
+  isSeatCover && warrantyItems.splice(1, 1);
 
   const Warranty = () => (
     <div className="flex flex-col px-5 ">
@@ -221,11 +228,7 @@ export default function FreeDetails() {
           text={`Our warranty covers your product for ${warrantyLength === 'Lifetime' ? 'a Lifetime' : warrantyLength + 's'} against various issues, including:`}
         />
         <div className="flex flex-col gap-1">
-          {[
-            'Normal Wear and Tear',
-            'Weather-Related Damages',
-            'Ripping and Tears',
-          ].map((text) => (
+          {warrantyItems.map((text) => (
             <CheckItem text={text} />
           ))}
         </div>
@@ -236,7 +239,7 @@ export default function FreeDetails() {
       <div className={indentStyling}>
         {[
           'Damage due to improper use or installation.',
-          'Alterations or modifications made to the car cover.',
+          'Alterations or modifications made to the cover.',
           'Damage caused by accidents, abuse, or neglect.',
         ].map((text) => (
           <BulletItem text={text} />
@@ -261,7 +264,7 @@ export default function FreeDetails() {
           {
             text: 'Step 3: Replacement',
             description:
-              'Upon approval, we will ship a new car cover the same day at no additional cost, except for shipping.',
+              'Upon approval, we will ship a new cover the same day at no additional cost, except for shipping.',
           },
         ].map(({ text, description }) => (
           <div key={text}>
