@@ -3,19 +3,33 @@ import Shipping from '@/components/checkout/Shipping';
 import YourCart from '@/components/checkout/YourCart';
 import { useCheckoutContext } from '@/contexts/CheckoutContext';
 import { CheckoutStep } from '@/lib/types/checkout';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 export default function MobileCheckout() {
   // const [currentStep, setCurrentStep] = useState(CheckoutStep.SHIPPING);
-  const { currentStep } = useCheckoutContext()
+  const { currentStep } = useCheckoutContext();
+  const handleSelectTab = (title: string, index: number) => {
+    if (document) {
+      const el = document.getElementById(title);
+      const elTop = el?.offsetTop;
+      setTimeout(() => {
+        window.scrollTo({
+          top: elTop as number,
+          behavior: 'instant',
+        });
+      }, 100);
+    }
+  };
   return (
     <>
       <div className="flex flex-col md:flex md:flex-row md:gap-12 md:px-12 lg:px-24">
         <div className="w-full">
           <YourCart />
-          <Shipping />
+          <Shipping handleSelectTab={handleSelectTab} />
           <div className="pt-4">
-            {currentStep >= CheckoutStep.PAYMENT && <Payment />}
+            <div id="payment">
+              {currentStep >= CheckoutStep.PAYMENT && <Payment />}
+            </div>
           </div>
         </div>
       </div>

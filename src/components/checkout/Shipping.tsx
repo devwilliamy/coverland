@@ -24,7 +24,7 @@ type ShippingPriceOption = 0.0 | 29.99;
 
 type ShippingInfo = 'ADDRESS' | 'SHIPPING_OPTION' | 'NONE';
 
-export default function Shipping() {
+export default function Shipping({ handleSelectTab }) {
   const [isDisabled, setIsDisabled] = useState(true);
   const [isEditingAddress, setIsEditingAddress] = useState(true);
   const [isEditingShipping, setIsEditingShipping] = useState(true);
@@ -55,22 +55,26 @@ export default function Shipping() {
     if (isEditingShipping && shippingInfo === 'SHIPPING_OPTION') {
       setIsEditingShipping(false);
       setShippingInfo('NONE');
+      handleSelectTab('payment');
     }
 
     if (!isEditingAddress && !isDisabled) {
+      if (currentStep !== CheckoutStep.PAYMENT) {
+        handleSelectTab('payment');
+      }
       setCurrentStep(CheckoutStep.PAYMENT);
       setShippingInfo('NONE');
     }
   };
 
   const handleEditAddress = () => {
-    setIsEditingAddress(true)
-    setShippingInfo("ADDRESS")
-  }
+    setIsEditingAddress(true);
+    setShippingInfo('ADDRESS');
+  };
   const handleEditShipping = () => {
-    setIsEditingShipping(true)
-    setShippingInfo("SHIPPING_OPTION")
-  }
+    setIsEditingShipping(true);
+    setShippingInfo('SHIPPING_OPTION');
+  };
   return (
     <div className="px-4">
       <div className="pb-7 pt-9 text-2xl font-medium lg:pt-0">Shipping</div>
@@ -88,18 +92,18 @@ export default function Shipping() {
       ) : (
         address && (
           <>
-            <div className="mb-12">
+            <div className="mb-4">
               <SavedAddressBox
                 address={address}
                 handleClick={handleEditAddress}
               />
             </div>
             {isEditingShipping ? (
-              <div className="pb-[52px]">
+              <div className="pb-12">
                 <ShippingSelection />
               </div>
             ) : (
-              <div className="pb-[52px]">
+              <div className="pb-4">
                 <SavedShippingBox handleClick={handleEditShipping} />
               </div>
             )}

@@ -70,7 +70,7 @@ export default function Payment() {
         {/* <LinkAuthenticationElement id="link-authentication-element" /> */}
         <PaymentElement id="payment-element" />
       </form>
-      <div className="-mt-5 lg:hidden">
+      <div className="mt-3 lg:hidden">
         <PriceBreakdown />
       </div>
       <div className="lg:flex lg:items-center lg:justify-center">
