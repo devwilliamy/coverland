@@ -28,12 +28,12 @@ export default function Payment() {
     }
 
     setIsLoading(true);
-
+    const origin = window.location.origin;
     const { error } = await stripe.confirmPayment({
       elements,
       confirmParams: {
         // Make sure to change this to your payment completion page
-        return_url: `http://localhost:3000/thank-you?order-number=${orderNumber}`,
+        return_url: `${origin}/thank-you?order-number=${orderNumber}`,
       },
     });
 
