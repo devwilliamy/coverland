@@ -72,7 +72,7 @@ export default function CheckoutSummarySection() {
         <Separator className="w-full bg-[#C8C7C7] lg:block" />
       </div>
       {isCartStep && (
-        <div className="my-8  hidden w-full justify-center md:flex md:flex-col lg:w-[350px]">
+        <div className="my-8 hidden w-full justify-center md:flex md:flex-col lg:w-[350px]">
           <Button
             variant={'default'}
             disabled={isCartEmpty}
