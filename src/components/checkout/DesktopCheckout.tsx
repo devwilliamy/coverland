@@ -41,15 +41,7 @@ export default function DesktopCheckout() {
   };
   return (
     <>
-      {currentStep !== CheckoutStep.CART && (
-        <button onClick={prevStep}>Previous</button>
-      )}
-      {currentStep !== CheckoutStep.THANK_YOU && (
-        <button onClick={nextStep}>Next</button>
-      )}
-
-      <NextButton />
-      <div className="flex flex-col md:flex md:flex-row md:gap-12 md:px-12 lg:px-24">
+      <div className="flex flex-col md:flex md:flex-row md:gap-12 md:px-12 lg:px-12 lg:py-4">
         <div className="w-full">{renderStep()}</div>
         <div className="hidden lg:flex lg:flex-col">
           <CheckoutSummarySection

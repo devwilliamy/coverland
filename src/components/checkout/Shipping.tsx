@@ -3,10 +3,13 @@ import { AddressElement } from '@stripe/react-stripe-js';
 import { AddressMode } from '@stripe/stripe-js';
 import { useState } from 'react';
 import SavedAddressBox from './SavedAddressBox';
-import ShippingOptions from './ShippingOptions';
+import ShippingSelection from './ShippingSelection';
 import { Button } from '../ui/button';
+import { useCheckoutContext } from '@/contexts/CheckoutContext';
+import { StripeAddressElementOptions } from '@stripe/stripe-js';
+import SavedShippingBox from './SavedShippingBox';
 
-const options = {
+const options: StripeAddressElementOptions = {
   mode: 'shipping' as AddressMode, // 'billing',
   allowedCountries: ['US'],
   fields: {
@@ -17,10 +20,18 @@ const options = {
   },
 };
 
-export default function Shipping({ setCurrentStep }) {
+type ShippingPriceOption = 0.0 | 29.99;
+
+type ShippingInfo = 'ADDRESS' | 'SHIPPING_OPTION' | 'NONE';
+
+export default function Shipping() {
   const [isDisabled, setIsDisabled] = useState(true);
-  const [isEditing, setIsEditing] = useState(true);
+  const [isEditingAddress, setIsEditingAddress] = useState(true);
+  const [isEditingShipping, setIsEditingShipping] = useState(true);
+  const [shippingInfo, setShippingInfo] = useState<ShippingInfo>('ADDRESS');
   const [address, setAddress] = useState<StripeAddress>();
+  const [shippingPrice, setShippingPrice] = useState<ShippingPriceOption>();
+  const { currentStep, setCurrentStep } = useCheckoutContext();
 
   const handleAddressFormChange = (event) => {
     if (event.complete) {
@@ -32,18 +43,37 @@ export default function Shipping({ setCurrentStep }) {
     }
   };
 
-  const buttonText = isEditing ? 'Save & Continue' : 'Continue to Payment';
+  const buttonText = isEditingAddress
+    ? 'Save & Continue'
+    : 'Continue to Payment';
   const handleButtonClick = () => {
-    if (isEditing) {
-      setIsEditing(false);
+    if (isEditingAddress && shippingInfo === 'ADDRESS') {
+      setIsEditingAddress(false);
+      setShippingInfo('SHIPPING_OPTION');
     }
-    if (!isEditing && !isDisabled) {
+
+    if (isEditingShipping && shippingInfo === 'SHIPPING_OPTION') {
+      setIsEditingShipping(false);
+      setShippingInfo('NONE');
+    }
+
+    if (!isEditingAddress && !isDisabled) {
       setCurrentStep(CheckoutStep.PAYMENT);
+      setShippingInfo('NONE');
     }
   };
+
+  const handleEditAddress = () => {
+    setIsEditingAddress(true)
+    setShippingInfo("ADDRESS")
+  }
+  const handleEditShipping = () => {
+    setIsEditingShipping(true)
+    setShippingInfo("SHIPPING_OPTION")
+  }
   return (
     <div className="px-4">
-      <div className="pb-7 pt-9 text-2xl font-medium">Shipping</div>
+      <div className="pb-7 pt-9 text-2xl font-medium lg:pt-0">Shipping</div>
       {/* <LinkAuthenticationElement
             // Access the email value like so:
             // onChange={(event) => {
@@ -53,30 +83,42 @@ export default function Shipping({ setCurrentStep }) {
             // Prefill the email field like so:
             // options={{defaultValues: {email: 'foo@bar.com'}}}
           /> */}
-      {isEditing ? (
+      {isEditingAddress ? (
         <AddressElement options={options} onChange={handleAddressFormChange} />
       ) : (
         address && (
           <>
             <div className="mb-12">
-              <SavedAddressBox address={address} setIsEditing={setIsEditing} />
+              <SavedAddressBox
+                address={address}
+                handleClick={handleEditAddress}
+              />
             </div>
-            <div className="pb-[52px]">
-              <ShippingOptions />
-            </div>
+            {isEditingShipping ? (
+              <div className="pb-[52px]">
+                <ShippingSelection />
+              </div>
+            ) : (
+              <div className="pb-[52px]">
+                <SavedShippingBox handleClick={handleEditShipping} />
+              </div>
+            )}
           </>
         )
       )}
-
-      <div className="flex flex-col items-center justify-between lg:mt-11">
-        <Button
-          disabled={isDisabled}
-          onClick={handleButtonClick}
-          className={`h-[48px] w-full max-w-[390px] cursor-pointer rounded-lg bg-black text-base font-bold uppercase text-white lg:h-[63px] lg:text-xl`}
-        >
-          {buttonText}
-        </Button>
-      </div>
+      {(currentStep === CheckoutStep.SHIPPING ||
+        isEditingAddress ||
+        isEditingShipping) && (
+        <div className="flex flex-col items-center justify-between lg:mt-11">
+          <Button
+            disabled={isDisabled}
+            onClick={handleButtonClick}
+            className={`h-[48px] w-full max-w-[390px] cursor-pointer rounded-lg bg-black text-base font-bold uppercase text-white lg:h-[63px] lg:text-xl`}
+          >
+            {buttonText}
+          </Button>
+        </div>
+      )}
     </div>
   );
 }

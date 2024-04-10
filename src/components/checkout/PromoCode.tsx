@@ -12,7 +12,7 @@ export default function PromoCode() {
       </div>
       <div className="flex mt-4">
         <input
-          className="h-[32px] w-[202px] rounded border border-[#9C9C9C] mx-2"
+          className="h-[32px] w-[202px] rounded border border-[#9C9C9C] mx-2 lg:ml-0 lg:mg-2"
           value={promoCode}
           onChange={(e) => {
             setPromoCode(e.target.value);

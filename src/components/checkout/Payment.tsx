@@ -1,4 +1,8 @@
-import { PaymentElement, useElements, useStripe } from '@stripe/react-stripe-js';
+import {
+  PaymentElement,
+  useElements,
+  useStripe,
+} from '@stripe/react-stripe-js';
 import PromoCode from './PromoCode';
 import { FormEvent, useEffect, useState } from 'react';
 import useGetStripePaymentIntent from '@/hooks/useGetStripePaymentIntent';
@@ -57,41 +61,36 @@ export default function Payment() {
       <div className="lg:hidden">
         <OrderReview />
       </div>
-      <div className="pb-7 pt-9 text-2xl font-medium">Payment</div>
+      <div className="pb-7 pt-9 text-2xl font-medium lg:pt-0">Payment</div>
       <div className="mb-10 lg:hidden">
         <PromoCode />
       </div>
       <div className="pb-7">Select Payment Method</div>
       <form id="payment-form" onSubmit={handleSubmit}>
         {/* <LinkAuthenticationElement id="link-authentication-element" /> */}
-        <PaymentElement
-          id="payment-element"
-          onChange={(event) => {
-            if (event.complete) {
-              console.log('Event. comete:', event);
-            }
-          }}
-        />
+        <PaymentElement id="payment-element" />
       </form>
-      <div className="-mt-5">
+      <div className="-mt-5 lg:hidden">
         <PriceBreakdown />
       </div>
-      <div className="my-8 w-full justify-center md:flex md:flex-col lg:w-[350px]">
-        <Button
-          variant={'default'}
-          className="mb-3 w-full rounded-lg bg-[#BE1B1B]  text-base font-bold uppercase text-white sm:h-[48px] lg:h-[55px] lg:text-xl"
-          onClick={(e) => {
-            //   redirectToCheckout({ cartItems, promoCode, setLoading });
-            setIsLoading(true);
-            handleSubmit(e);
-          }}
-        >
-          {isLoading ? (
-            <AiOutlineLoading3Quarters className="animate-spin" />
-          ) : (
-            'Checkout'
-          )}
-        </Button>
+      <div className="lg:flex lg:items-center lg:justify-center">
+        <div className="my-8 w-full justify-center md:flex md:flex-col lg:w-[350px]">
+          <Button
+            variant={'default'}
+            className="mb-3 w-full rounded-lg bg-[#BE1B1B]  text-base font-bold uppercase text-white sm:h-[48px] lg:h-[55px] lg:text-xl"
+            onClick={(e) => {
+              //   redirectToCheckout({ cartItems, promoCode, setLoading });
+              setIsLoading(true);
+              handleSubmit(e);
+            }}
+          >
+            {isLoading ? (
+              <AiOutlineLoading3Quarters className="animate-spin" />
+            ) : (
+              'Checkout'
+            )}
+          </Button>
+        </div>
       </div>
       <PaypalButtons />
     </div>

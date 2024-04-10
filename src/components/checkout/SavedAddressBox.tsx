@@ -1,32 +1,23 @@
 import { StripeAddress } from '@/lib/types/checkout';
+import SummaryBox from './SummaryBox';
 
 type SavedAddressBoxProps = {
   address: StripeAddress;
-  setIsEditing: (isEditing: boolean) => void;
+  handleClick: () => void;
 };
 export default function SavedAddressBox({
   address,
-  setIsEditing,
+  handleClick,
 }: SavedAddressBoxProps) {
   const { line1, line2, city, state, postal_code } = address.address;
   return (
-    <div className="min-w-[343px] rounded-xl border border-[#707070]">
-      <div className="flex flex-row py-5 pl-6 pr-5">
-        <div className="flex flex-1 flex-col text-base font-normal text-[#707070]">
-          <div>{address.name}</div>
-          <div>{line1}</div>
-          <div>{line2}</div>
-          <div>
-            {city} {state} {postal_code}
-          </div>
-        </div>
-        <div
-          onClick={() => setIsEditing(true)}
-          className="flex-row cursor-pointer text-sm font-normal text-[#0C87B8] underline "
-        >
-          Edit
-        </div>
+    <SummaryBox handleClick={handleClick}>
+      <div>{address.name}</div>
+      <div>{line1}</div>
+      <div>{line2}</div>
+      <div>
+        {city} {state} {postal_code}
       </div>
-    </div>
+    </SummaryBox>
   );
 }

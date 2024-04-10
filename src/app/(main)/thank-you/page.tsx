@@ -62,8 +62,8 @@ async function OrderConfirmationPage({
     return data;
   }
 
-  await handleOrderCompletion();
-  const items = await getOrderInfo();
+  // await handleOrderCompletion();
+  // const items = await getOrderInfo();
 
   return (
     <Suspense fallback={<div>Loading...</div>}>

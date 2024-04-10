@@ -13,6 +13,7 @@ import {
 import { useCheckoutContext } from '@/contexts/CheckoutContext';
 import { CheckoutStep } from '@/lib/types/checkout';
 import { Separator } from '../ui/separator';
+import PromoCode from './PromoCode';
 
 export default function CheckoutSummarySection({
   totalMsrpPrice,
@@ -34,64 +35,22 @@ export default function CheckoutSummarySection({
   const { currentStep, nextStep, setCurrentStep } = useCheckoutContext();
   const isCartStep = currentStep === CheckoutStep.CART;
   return (
-    <div className="mt-2 px-4 pb-[4vh]">
-      <div className="flex items-center justify-between pb-12">
+    <div className="px-4 pb-[4vh] ">
+      <div className="flex items-center justify-between pb-12 lg:pb-8">
         <div className="text-xl font-bold lg:text-[22px]">
           {isCartStep ? 'Summary' : 'In Your Cart'}
         </div>
-        <div
-          onClick={() => setCurrentStep(CheckoutStep.CART)}
-          className="cursor-pointer text-[#0C87B8] underline"
-        >
-          Edit
-        </div>
+        {!isCartStep && (
+          <div
+            onClick={() => setCurrentStep(CheckoutStep.CART)}
+            className="cursor-pointer text-[#0C87B8] underline"
+          >
+            Edit
+          </div>
+        )}
       </div>
-      <div className="lg:hidden">
-        <div className="py-[1vh] text-base font-normal text-[#343434]">
-          <div className="flex justify-between ">
-            <div>Order Subtotal</div>
-            <div>${orderSubtotal}</div>
-          </div>
-          <div className="flex justify-between text-[#D13C3F]">
-            <div>Sale-discount</div>
-            <div>-${totalDiscountedPrice}</div>
-          </div>
-        </div>
-        <PayPalScriptProvider
-          options={{
-            clientId: process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID ?? '',
-            currency: 'USD',
-            intent: 'capture',
-            components: 'buttons',
-            disableFunding: 'card',
-          }}
-        >
-          <Suspense fallback={<div>Loading...</div>}>
-            <PayPalButtons
-              style={{
-                color: 'gold',
-                shape: 'rect',
-                label: 'pay',
-                height: 50,
-              }}
-              createOrder={async () => {
-                const data = await paypalCreateOrder(totalMsrpPrice);
-                if (!data) {
-                  console.log('Error creating order');
-                  return '';
-                }
-                return data;
-              }}
-              onApprove={async (data) => {
-                const response = await paypalCaptureOrder(data.orderID);
-                if (response.success) {
-                  clearLocalStorageCart();
-                  router.push(`/thank-you?order-number=CL-P-${data.orderID}`);
-                }
-              }}
-            />
-          </Suspense>
-        </PayPalScriptProvider>
+      <div className="lg:pb-4">
+        <PromoCode />
       </div>
       <div className="hidden justify-between lg:flex">
         <div>Order Subtotal</div>
@@ -133,8 +92,9 @@ export default function CheckoutSummarySection({
       </div> */}
       <div className="pb-14 pt-14">
         <Separator className="w-full bg-[#C8C7C7] lg:block" />
-        <div className="self-end py-5 pr-5 text-lg font-bold max-md:hidden lg:font-bold">
-          Total: ${totalMsrpPrice}
+        <div className="flex self-end py-5 text-lg font-bold max-md:hidden lg:flex-row lg:justify-between lg:font-bold">
+          <div>Order Total: </div>
+          <div>${totalMsrpPrice}</div>
         </div>
         <Separator className="w-full bg-[#C8C7C7] lg:block" />
       </div>
