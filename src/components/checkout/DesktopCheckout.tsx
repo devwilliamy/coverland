@@ -49,7 +49,7 @@ export default function DesktopCheckout() {
                 onValueChange={setValue}
               >
                 <AccordionItem value="shipping">
-                  <AccordionTrigger className="my-4 px-4 text-xl font-medium">
+                  <AccordionTrigger className="-mt-2 mb-4 px-4 text-xl font-medium">
                     Shipping
                   </AccordionTrigger>
                   <AccordionContent>
