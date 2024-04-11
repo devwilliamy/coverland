@@ -25,7 +25,11 @@ type ShippingPriceOption = 0.0 | 29.99;
 
 type ShippingInfo = 'ADDRESS' | 'SHIPPING_OPTION' | 'NONE';
 
-export default function Shipping({ handleChangeAccordion }) {
+type ShippingProps = {
+  handleChangeAccordion: (accordionTitle: string) => void;
+  handleSelectTab: (id: string) => void;
+}
+export default function Shipping({ handleChangeAccordion, handleSelectTab }: ShippingProps) {
   const [isDisabled, setIsDisabled] = useState(true);
   const [isEditingAddress, setIsEditingAddress] = useState(true);
   const [isEditingShipping, setIsEditingShipping] = useState(true);
@@ -52,6 +56,7 @@ export default function Shipping({ handleChangeAccordion }) {
   };
   const handleEditButtonClick = () => {
     setIsEditingShipping(false);
+    handleSelectTab('payment');
     handleChangeAccordion('payment');
   };
 
@@ -75,7 +80,7 @@ export default function Shipping({ handleChangeAccordion }) {
             // options={{defaultValues: {email: 'foo@bar.com'}}}
           /> */}
       {isEditingAddress ? (
-        <div className="min-h-[350px]">
+        <div className="min-h-[400px]">
           <AddressElement
             options={options}
             onChange={handleAddressFormChange}

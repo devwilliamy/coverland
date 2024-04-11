@@ -19,13 +19,15 @@ export default function MobileCheckout() {
   const handleSelectTab = (title: string) => {
     if (document) {
       const el = document.getElementById(title);
-      const elTop = el?.offsetTop;
+      const elTop = el?.offsetTop as number - 200;
+      const timeout = value.includes("payment") ? 0 : 300
+      console.log("elTop", elTop)
       setTimeout(() => {
         window.scrollTo({
           top: elTop as number,
-          behavior: 'instant',
+          behavior: 'smooth',
         });
-      }, 100);
+      }, timeout);
     }
   };
 
@@ -56,10 +58,10 @@ export default function MobileCheckout() {
               Shipping
             </AccordionTrigger>
             <AccordionContent>
-              <Shipping handleChangeAccordion={handleChangeAccordion} />
+              <Shipping handleChangeAccordion={handleChangeAccordion} handleSelectTab={handleSelectTab} />
             </AccordionContent>
           </AccordionItem>
-          <AccordionItem value="payment">
+          <AccordionItem value="payment" id="payment">
             <AccordionTrigger className="my-4 px-4 text-xl font-medium">
               Payment
             </AccordionTrigger>
