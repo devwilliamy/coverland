@@ -34,7 +34,7 @@ export default function MobileCheckout() {
   const handleChangeAccordion = (value: string) => setValue((p) => [...p, value]);
   return (
     <>
-      <div className="flex flex-col md:flex md:flex-row md:gap-12 md:px-12 lg:px-24">
+      <div className="flex flex-col lg:flex lg:flex-row lg:px-24">
         <CartHeader />
         <Separator className="mt-5 w-full bg-[#C8C7C7]" />
         {/* <div> */}

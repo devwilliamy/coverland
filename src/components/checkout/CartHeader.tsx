@@ -7,10 +7,10 @@ export default function CartHeader() {
     <div
       className="flex h-full flex-1
         flex-col items-center 
-        leading-4 md:flex md:flex-row md:gap-2 md:pb-4"
+        leading-4 lg:flex lg:flex-row lg:gap-2 lg:pb-4"
     >
       <div className="text-[22px] font-bold text-black">Checkout</div>
-      <div className="pt-2 text-base font-light md:pb-0">
+      <div className="pt-2 text-base font-light lg:pb-0">
         {cartQuantity} Items
       </div>
     </div>
