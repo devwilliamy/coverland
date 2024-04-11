@@ -14,3 +14,5 @@ export enum CheckoutStep {
   PAYMENT = 2,
   THANK_YOU = 3,
 }
+
+export type PaymentMethod = 'creditCard' | 'paypal';

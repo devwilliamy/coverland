@@ -9,20 +9,18 @@ export default function OrderReview() {
   const { currentStep } = useCheckoutContext();
   return (
     <>
-      {currentStep !== CheckoutStep.CART && (
-        <>
-          <div id="order-review" className="pb-2 pt-9 text-2xl font-medium">
-            Order Review
+      {/* {currentStep !== CheckoutStep.CART && ( */}
+      <>
+        <div id="order-review" className="pb-2 pt-9 text-2xl font-medium">
+          Order Review
+        </div>
+        {cartItems.map((cartItem, i) => (
+          <div key={i} className="pb-2">
+            <OrderReviewItem  item={cartItem} />
           </div>
-          <Table>
-            <TableBody>
-              {cartItems.map((cartItem, i) => (
-                <OrderReviewItem key={i} item={cartItem} />
-              ))}
-            </TableBody>
-          </Table>
-        </>
-      )}
+        ))}
+      </>
+      {/* )} */}
     </>
   );
 }

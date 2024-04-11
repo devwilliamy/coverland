@@ -11,11 +11,16 @@ import { Button } from '../ui/button';
 import { AiOutlineLoading3Quarters } from 'react-icons/ai';
 import PayPalButtonSection from './PayPalButtonSection';
 import { useCheckoutContext } from '@/contexts/CheckoutContext';
+import PaymentSelector from './PaymentSelector';
+import { PaymentMethod } from '@/lib/types/checkout';
 
 export default function Payment() {
   const stripe = useStripe();
   const elements = useElements();
   const [isLoading, setIsLoading] = useState(false);
+  const [paymentMethod, setPaymentMethod] =
+    useState<PaymentMethod>('creditCard');
+
   const [message, setMessage] = useState(null);
   const { orderNumber } = useCheckoutContext();
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
@@ -58,40 +63,53 @@ export default function Payment() {
 
   return (
     <div className="px-4">
-      <div className="lg:hidden">
-        <OrderReview />
-      </div>
-      <div className="pb-7 pt-9 text-2xl font-medium lg:pt-0">Payment</div>
+      {/* <div className="pb-7 pt-9 text-2xl font-medium lg:pt-0">Payment</div> */}
       <div className="mb-10 lg:hidden">
         <PromoCode />
       </div>
-      <div className="pb-7">Select Payment Method</div>
-      <form id="payment-form" onSubmit={handleSubmit}>
-        {/* <LinkAuthenticationElement id="link-authentication-element" /> */}
-        <PaymentElement id="payment-element" />
-      </form>
+      <div className="pb-5">Select Payment Method</div>
+      <div className="pb-5">
+        <PaymentSelector
+          selectedPaymentMethod={paymentMethod}
+          onPaymentMethodChange={setPaymentMethod}
+        />
+      </div>
+      {paymentMethod === 'creditCard' ? (
+        <form id="payment-form" onSubmit={handleSubmit}>
+          {/* <LinkAuthenticationElement id="link-authentication-element" /> */}
+          <PaymentElement id="payment-element" />
+        </form>
+      ) : (
+        <div>You will be redirected to the PayPal site upon checkout.</div>
+      )}
+      <div className="lg:hidden">
+        <OrderReview />
+      </div>
       <div className="mt-3 lg:hidden">
         <PriceBreakdown />
       </div>
-      <div className="lg:flex lg:items-center lg:justify-center">
-        <div className="my-8 w-full justify-center md:flex md:flex-col lg:w-[350px]">
-          <Button
-            variant={'default'}
-            className="mb-3 w-full rounded-lg bg-[#BE1B1B]  text-base font-bold uppercase text-white sm:h-[48px] lg:h-[55px] lg:text-xl"
-            onClick={(e) => {
-              setIsLoading(true);
-              handleSubmit(e);
-            }}
-          >
-            {isLoading ? (
-              <AiOutlineLoading3Quarters className="animate-spin" />
-            ) : (
-              'Checkout'
-            )}
-          </Button>
+      {paymentMethod === 'creditCard' ? (
+        <div className="lg:flex lg:items-center lg:justify-center">
+          <div className="my-8 w-full justify-center md:flex md:flex-col lg:w-[350px]">
+            <Button
+              variant={'default'}
+              className="mb-3 w-full rounded-lg bg-[#BE1B1B]  text-base font-bold uppercase text-white sm:h-[48px] lg:h-[55px] lg:text-xl"
+              onClick={(e) => {
+                setIsLoading(true);
+                handleSubmit(e);
+              }}
+            >
+              {isLoading ? (
+                <AiOutlineLoading3Quarters className="animate-spin" />
+              ) : (
+                'Checkout'
+              )}
+            </Button>
+          </div>
         </div>
-      </div>
-      <PayPalButtonSection />
+      ) : (
+        <PayPalButtonSection />
+      )}
     </div>
   );
 }

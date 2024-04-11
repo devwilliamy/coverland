@@ -11,9 +11,11 @@ import {
 } from '../ui/accordion';
 import CartHeader from './CartHeader';
 import { Separator } from '../ui/separator';
+import { useState } from 'react';
 
 export default function MobileCheckout() {
   const { currentStep } = useCheckoutContext();
+  const [value, setValue] = useState(['shipping']);
   const handleSelectTab = (title: string) => {
     if (document) {
       const el = document.getElementById(title);
@@ -26,19 +28,43 @@ export default function MobileCheckout() {
       }, 100);
     }
   };
+
+  const handleChangeAccordion = (value: string) => setValue((p) => [...p, value]);
   return (
     <>
       <div className="flex flex-col md:flex md:flex-row md:gap-12 md:px-12 lg:px-24">
         <CartHeader />
         <Separator className="mt-5 w-full bg-[#C8C7C7]" />
         {/* <div> */}
-        <Accordion type="single" collapsible className="w-full">
-          <AccordionItem value="item-1">
+        <Accordion
+          type="multiple"
+          // collapsible
+          className="w-full"
+          value={value}
+          onValueChange={setValue}
+        >
+          <AccordionItem value="cart">
             <AccordionTrigger className="my-4 px-4 text-xl font-medium">
               In Your Cart
             </AccordionTrigger>
             <AccordionContent>
               <YourCart />
+            </AccordionContent>
+          </AccordionItem>
+          <AccordionItem value="shipping">
+            <AccordionTrigger className="my-4 px-4 text-xl font-medium">
+              Shipping
+            </AccordionTrigger>
+            <AccordionContent>
+              <Shipping handleChangeAccordion={handleChangeAccordion} />
+            </AccordionContent>
+          </AccordionItem>
+          <AccordionItem value="payment">
+            <AccordionTrigger className="my-4 px-4 text-xl font-medium">
+              Payment
+            </AccordionTrigger>
+            <AccordionContent>
+              <Payment />
             </AccordionContent>
           </AccordionItem>
         </Accordion>
