@@ -51,6 +51,7 @@ const useCart = () => {
   const clearLocalStorageCart = useCallback(() => {
     if (typeof window !== 'undefined') {
       localStorage.removeItem('cartItems');
+      setCartItems([])
     }
   }, []);
   const getOrderSubtotal = useCallback(() => {

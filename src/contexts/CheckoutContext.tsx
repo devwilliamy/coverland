@@ -18,6 +18,7 @@ export type CheckoutContextType = {
   setShipping: (shipping: number) => void;
   clientSecret: string;
   orderNumber: string;
+  stripePaymentIntentLoading: boolean;
 };
 
 export type CheckoutProviderProps = {
@@ -32,13 +33,18 @@ export const CheckoutContext = createContext<CheckoutContextType>({
   shipping: 0,
   setShipping: () => {},
   clientSecret: '',
-  orderNumber: ''
+  orderNumber: '',
+  stripePaymentIntentLoading: false,
 });
 
 const CheckoutProvider: FC<CheckoutProviderProps> = ({ children }) => {
   const [currentStep, setCurrentStep] = useState(CheckoutStep.CART);
   const [shipping, setShipping] = useState<number>(0);
-  const { clientSecret, orderNumber } = useGetStripePaymentIntent();
+  const {
+    clientSecret,
+    orderNumber,
+    isLoading: stripePaymentIntentLoading,
+  } = useGetStripePaymentIntent();
   const nextStep = () => {
     setCurrentStep(currentStep + 1);
   };
@@ -58,7 +64,8 @@ const CheckoutProvider: FC<CheckoutProviderProps> = ({ children }) => {
         shipping,
         setShipping,
         clientSecret,
-        orderNumber
+        orderNumber,
+        stripePaymentIntentLoading,
       }}
     >
       {children}

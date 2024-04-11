@@ -1,4 +1,5 @@
 'use client';
+import { LoadingCheckout } from '@/components/checkout/LoadingCheckout';
 import { useCheckoutContext } from '@/contexts/CheckoutContext';
 import { Elements } from '@stripe/react-stripe-js';
 import { Appearance, loadStripe } from '@stripe/stripe-js';
@@ -23,7 +24,7 @@ export default function StripeElementWrapper({
   children: React.ReactNode;
   clientSecret?: string;
 }) {
-  const { clientSecret: contextClientSecret } = useCheckoutContext();
+  const { clientSecret: contextClientSecret  } = useCheckoutContext();
   console.log("ClientSecret:", clientSecret)
   console.log("contextClientSecret:", contextClientSecret)
 
@@ -33,11 +34,11 @@ export default function StripeElementWrapper({
   };
   return (
     <>
-      {(clientSecret || contextClientSecret) && (
+      {(clientSecret || contextClientSecret) ? (
         <Elements stripe={stripePromise} options={options}>
           {children}
         </Elements>
-      )}
+      ): <LoadingCheckout/>}
     </>
   );
 }
