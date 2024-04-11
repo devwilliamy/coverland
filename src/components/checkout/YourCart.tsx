@@ -27,16 +27,29 @@ export default function YourCart() {
         </p>
       ) : (
         <div className="w-full">
-          <div className="px-4">
+          <div className="px-4 lg:hidden">
             {cartItems.map((cartItem, i) => (
-              <div key={i} className="pb-3">
+              <div
+                key={i}
+                className="pb-3 lg:border-b lg:border-t lg:pt-3 lg:transition-colors lg:hover:bg-muted/50 lg:data-[state=selected]:bg-muted"
+              >
                 <OrderReviewItem item={cartItem} />
               </div>
             ))}
-            <Separator className="mt-2 w-full bg-[#C8C7C7]" />
-            <div className="mt-4">
+            <Separator className="mt-2 w-full bg-[#C8C7C7] lg:hidden" />
+            <div className="mt-4 lg:hidden">
               <PriceBreakdown />
             </div>
+          </div>
+          <div className="hidden px-4 lg:flex lg:flex-col ">
+            {cartItems.map((item, i) => (
+              <div
+                key={i}
+                className="pb-3 lg:border-b lg:border-t lg:pt-3 lg:transition-colors lg:hover:bg-muted/50 lg:data-[state=selected]:bg-muted"
+              >
+                <CartItemCard item={item} />
+              </div>
+            ))}
           </div>
         </div>
         // <Table className="w-full">

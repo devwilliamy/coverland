@@ -12,6 +12,7 @@ import {
   AccordionTrigger,
 } from '../ui/accordion';
 import { useState } from 'react';
+import CartHeader from './CartHeader';
 
 export default function DesktopCheckout() {
   const { currentStep } = useCheckoutContext();
@@ -38,7 +39,11 @@ export default function DesktopCheckout() {
       <div className="flex flex-col md:flex md:flex-row md:gap-12 md:px-12 lg:px-12 lg:py-4">
         <div className="w-2/3">
           {currentStep === CheckoutStep.CART ? (
-            <YourCart />
+            <>
+              <CartHeader />
+
+              <YourCart />
+            </>
           ) : (
             <>
               <Accordion
