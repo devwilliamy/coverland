@@ -5,9 +5,20 @@ import { CheckoutStep } from '@/lib/types/checkout';
 import YourCart from './YourCart';
 import Shipping from './Shipping';
 import Payment from './Payment';
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from '../ui/accordion';
+import { useState } from 'react';
 
 export default function DesktopCheckout() {
   const { currentStep } = useCheckoutContext();
+  const [value, setValue] = useState(['shipping']);
+
+  const handleChangeAccordion = (value: string) =>
+    setValue((p) => [...p, value]);
 
   const handleSelectTab = (title: string) => {
     if (document) {
@@ -21,23 +32,46 @@ export default function DesktopCheckout() {
       }, 100);
     }
   };
-  const renderStep = () => {
-    switch (currentStep) {
-      case CheckoutStep.CART:
-        return <YourCart />;
-      case CheckoutStep.SHIPPING:
-        return <Shipping handleSelectTab={handleSelectTab} />;
-      case CheckoutStep.PAYMENT:
-        return <Payment />;
-      default:
-        return null;
-    }
-  };
+
   return (
     <>
       <div className="flex flex-col md:flex md:flex-row md:gap-12 md:px-12 lg:px-12 lg:py-4">
-        <div className="w-2/3">{renderStep()}</div>
-        <div className="hidden lg:w-1/3 lg:flex lg:flex-col">
+        <div className="w-2/3">
+          {currentStep === CheckoutStep.CART ? (
+            <YourCart />
+          ) : (
+            <>
+              <Accordion
+                type="multiple"
+                // collapsible
+                className="w-full"
+                value={value}
+                onValueChange={setValue}
+              >
+                <AccordionItem value="shipping">
+                  <AccordionTrigger className="my-4 px-4 text-xl font-medium">
+                    Shipping
+                  </AccordionTrigger>
+                  <AccordionContent>
+                    <Shipping
+                      handleChangeAccordion={handleChangeAccordion}
+                      handleSelectTab={handleSelectTab}
+                    />
+                  </AccordionContent>
+                </AccordionItem>
+                <AccordionItem value="payment" id="payment">
+                  <AccordionTrigger className="my-4 px-4 text-xl font-medium">
+                    Payment
+                  </AccordionTrigger>
+                  <AccordionContent>
+                    <Payment />
+                  </AccordionContent>
+                </AccordionItem>
+              </Accordion>
+            </>
+          )}
+        </div>
+        <div className="hidden lg:flex lg:w-1/3 lg:flex-col">
           <CheckoutSummarySection />
           <OrderReview />
         </div>
