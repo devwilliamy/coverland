@@ -111,16 +111,20 @@ export function ProductContent({
         <div className="flex flex-col gap-0.5">
           {/* Product Title */}
           <h1 className="mt-[24px] text-[24px] font-[900] leading-[27px] text-[#1A1A1A] lg:mt-0 lg:text-[28px] lg:leading-[30px] ">
-            {`${selectedProduct?.display_id} `}
-            {isDefaultCoverType && (
+            {`${selectedProduct?.make} `}
+            {`${selectedProduct?.model} `}
+            {`${productType} `}
+            {' - '}
+            <br
+            //  className="flex lg:hidden"
+            />
+            Waterproof, Outdoor, Custom-Fit
+            {/* {isDefaultCoverType && (
               <>
                 &trade;
                 <br />
               </>
-            )}
-            {isPremiumType
-              ? `Custom-Fit ${productType}`
-              : `Semi-Custom ${productType}`}
+            )} */}
           </h1>
           {/* Rating(s) */}
           <div className="-ml-0.5 mt-1 flex items-end gap-1 lg:mt-2">
