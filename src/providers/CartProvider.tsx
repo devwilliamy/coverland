@@ -19,7 +19,7 @@ const defaultCartValue = {
   cartItems: [] as TCartItem[],
   addToCart: (item: TCartItem) => {},
   removeItemFromCart: (sku: TCartItem['sku']) => {},
-  adjustItemQuantity: (sku: string, quantity: number) => {},
+  updateItemQuantity: (sku: string, quantity: number) => {},
   getTotalPrice: (): number => 0,
   getOrderSubtotal: (): number => 0,
   getTotalDiscountPrice: (): number => 0,

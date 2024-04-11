@@ -51,7 +51,7 @@ const useCart = () => {
     }
   }, []);
 
-  const adjustItemQuantity = useCallback((sku: string, quantity: number) => {
+  const updateItemQuantity = useCallback((sku: string, quantity: number) => {
     setCartItems((prevItems) => {
       const updatedItems = prevItems
         .map((item) => (item.sku === sku ? { ...item, quantity } : item))
@@ -97,7 +97,7 @@ const useCart = () => {
     cartItems,
     addToCart,
     removeItemFromCart,
-    adjustItemQuantity,
+    updateItemQuantity,
     getTotalPrice: getMsrpTotal,
     getOrderSubtotal,
     getTotalDiscountPrice,

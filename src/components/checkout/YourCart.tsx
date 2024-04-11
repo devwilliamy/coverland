@@ -25,12 +25,12 @@ export default function YourCart() {
                 <CartItemCard item={item} />
               </div>
             ))}
-            <div className="px-4 pb-20 pt-4">
-              <div className="text-xl font-medium lg:hidden">Summary</div>
+            <div className="px-4 pb-20 pt-4 lg:hidden">
+              <div className="text-xl font-medium">Summary</div>
               <div className="pt-6">
                 <PromoCode />
               </div>
-              <div className="pt-4 lg:hidden">
+              <div className="pt-4">
                 <PriceBreakdown />
               </div>
             </div>
