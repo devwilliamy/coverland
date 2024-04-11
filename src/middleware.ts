@@ -9,8 +9,14 @@ export function middleware(request: NextRequest) {
   console.log('Path 1', segments);
   const productTypes = ['car-covers', 'suv-covers', 'truck-covers'];
   const coverTypes = ['premium-plus'];
-  const outdatedTypes = ['premium', 'standard-pro', 'standard', 'coupon-codes'];
-  const homeRedirects = ['faqs'];
+  const outdatedTypes = [
+    'premium',
+    'standard-pro',
+    'standard',
+    'coupon-codes',
+    'geo-car-covers',
+  ];
+  const homeRedirects = ['faqs', 'blog'];
 
   const PREMIUM_PLUS_REDIRECT = NextResponse.redirect(
     new URL(`/car-covers/premium-plus/`, request.url),
@@ -62,7 +68,7 @@ export function middleware(request: NextRequest) {
     return PREMIUM_PLUS_REDIRECT;
   } else if (homeRedirects.includes(segments[0])) {
     return HOME_REDIRECT;
-  } else if (pathname.startsWith('/premium-plus')) {
+  } else if (pathname.toLowerCase().startsWith('/premium-plus')) {
     return PREMIUM_PLUS_REDIRECT;
   }
   return NextResponse.next();
