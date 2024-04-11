@@ -36,6 +36,9 @@ export async function generateMetadata({ params }: { params: TPathParams }) {
   return {
     title: `${make} ${model} ${productType}, Custom Fit - Coverland`,
     description: `${make} ${model} ${productType} ᐉ Coverland ⭐ Free, Same-Day Shipping ✔️ Free Returns & Purchase Protection ✔️ Made from premium quality, heavy-duty materials with a soft inner fabric.`,
+    alternates: {
+      canonical: `/${productType}/${make}/${model}`,
+    },
   };
 }
 

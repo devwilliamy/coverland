@@ -23,6 +23,7 @@ export default function SignInForm() {
 
   return (
     <div className="flex justify-center">
+      <h1 className="hidden">Login</h1>
       <div className="w-11/12 rounded-lg p-12 px-6 py-10 sm:w-8/12 sm:px-10 sm:py-6 md:w-6/12 lg:w-5/12 2xl:w-3/12">
         <div className="flex justify-center pb-4">
           <Logo />

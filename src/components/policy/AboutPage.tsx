@@ -43,7 +43,7 @@ const extraPerksGrid = [
 
 export default function AboutPage() {
   return (
-    <div className="-mt-[1px] mb-[65px] flex w-full flex-col items-center lg:mb-[100px]">
+    <div className="mb-[65px] flex w-full flex-col items-center lg:mb-[100px]">
       <PolicyHeader headerText="About Us" />
       <section className="flex w-full max-w-[850px] flex-col items-center gap-[50px] px-5">
         <p className="flex w-full items-center justify-center pt-[30px] text-sm lg:text-center">

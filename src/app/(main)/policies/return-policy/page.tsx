@@ -1,4 +1,5 @@
-import ReturnPolicyPage from './components/ReturnPolicyPage';
+'use server';
+import ReturnPolicyPage from '@/components/policy/ReturnPolicyPage';
 
 export async function generateMetadata() {
   return {
@@ -7,8 +8,6 @@ export async function generateMetadata() {
   };
 }
 
-function ReturnPolicy() {
+export default async function ReturnPolicy() {
   return <ReturnPolicyPage />;
 }
-
-export default ReturnPolicy;

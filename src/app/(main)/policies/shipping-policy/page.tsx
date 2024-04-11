@@ -1,15 +1,21 @@
-import React from 'react';
-import ShippingPolicyPage from './components/ShippingPolicyPage';
+'use server';
+
+import ShippingPolicyPage from '@/components/policy/ShippingPolicyPage';
 
 export async function generateMetadata() {
   return {
     title: `Shipping Policy – Coverland`,
     description: `Learn about our efficient shipping policy designed to deliver your car cover or seat cover order promptly and reliably. From shipping methods to delivery times, we prioritize your convenience every step of the way.`,
+    alternates: {
+      canonical: '/policies/shipping-policy',
+    },
   };
 }
 
-function ShippingPolicy({ showHeader }: { showHeader?: boolean }) {
+export default async function ShippingPolicy({
+  showHeader,
+}: {
+  showHeader?: boolean;
+}) {
   return <ShippingPolicyPage showHeader={showHeader} />;
 }
-
-export default ShippingPolicy;

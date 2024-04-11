@@ -1,10 +1,5 @@
-import React from 'react';
-import PolicyHeader from '@/components/policy/PolicyHeader';
-import PolicyTitle from '@/components/policy/PolicyTitle';
-import PolicyDetail from '@/components/policy/PolicyDetail';
-import PolicyFurtherAssistance from '@/components/policy/PolicyFurtherAssistance';
-import { usePathname } from 'next/navigation';
-import WarrantyPolicyPage from './components/WarrantyPolicyPage';
+'use server';
+import WarrantyPolicyPage from '@/components/policy/WarrantyPolicyPage';
 
 export async function generateMetadata() {
   return {
@@ -13,8 +8,10 @@ export async function generateMetadata() {
   };
 }
 
-function WarrantyPolicy({ showHeader }: { showHeader?: boolean }) {
+export default async function WarrantyPolicy({
+  showHeader,
+}: {
+  showHeader?: boolean;
+}) {
   return <WarrantyPolicyPage showHeader={showHeader} />;
 }
-
-export default WarrantyPolicy;

@@ -1,4 +1,4 @@
-import ContactPage from './components/ContactPage';
+import ContactPage from '../../../components/policy/ContactPage';
 export async function generateMetadata() {
   return {
     title: `Contact – Coverland`,
