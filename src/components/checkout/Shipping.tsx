@@ -91,7 +91,7 @@ export default function Shipping({ handleChangeAccordion, handleSelectTab }: Shi
               onClick={handleAddressButtonClick}
               className={`h-[48px] w-full max-w-[390px] cursor-pointer rounded-lg bg-black text-base font-bold uppercase text-white lg:h-[63px] lg:text-xl`}
             >
-              {buttonText}
+              Save & Continue
             </Button>
           </div>
         </div>

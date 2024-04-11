@@ -13,6 +13,7 @@ import PayPalButtonSection from './PayPalButtonSection';
 import { useCheckoutContext } from '@/contexts/CheckoutContext';
 import PaymentSelector from './PaymentSelector';
 import { PaymentMethod } from '@/lib/types/checkout';
+import BillingAddress from './BillingAddress';
 
 export default function Payment() {
   const stripe = useStripe();
@@ -75,10 +76,15 @@ export default function Payment() {
         />
       </div>
       {paymentMethod === 'creditCard' ? (
-        <form id="payment-form" onSubmit={handleSubmit}>
-          {/* <LinkAuthenticationElement id="link-authentication-element" /> */}
-          <PaymentElement id="payment-element" />
-        </form>
+        <>
+          <form id="payment-form" onSubmit={handleSubmit}>
+            {/* <LinkAuthenticationElement id="link-authentication-element" /> */}
+            <PaymentElement id="payment-element" />
+          </form>
+          <div className="pt-4">
+            <BillingAddress />
+          </div>
+        </>
       ) : (
         <div>You will be redirected to the PayPal site upon checkout.</div>
       )}
