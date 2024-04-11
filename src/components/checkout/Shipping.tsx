@@ -117,7 +117,7 @@ export default function Shipping({ handleChangeAccordion, handleSelectTab }: Shi
               </div>
             </div>
           ) : (
-            <div className="pb-4">
+            <div className="pb-8">
               <SavedShippingBox handleClick={handleEditShipping} />
             </div>
           )}

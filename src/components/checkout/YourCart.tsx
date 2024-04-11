@@ -3,6 +3,8 @@ import CartItemCard from '@/components/checkout/CartItemCard';
 import PriceBreakdown from './PriceBreakdown';
 import OrderReviewItem from './OrderReviewItem';
 import { Separator } from '../ui/separator';
+import StickyCheckoutButton from './StickyCheckoutButton';
+import PromoCode from './PromoCode';
 export default function YourCart() {
   const { cartItems } = useCartContext();
 
@@ -14,30 +16,26 @@ export default function YourCart() {
         </p>
       ) : (
         <div className="w-full">
-          <div className="px-4 lg:hidden">
-            {cartItems.map((cartItem, i) => (
-              <div
-                key={i}
-                className="pb-3 lg:border-b lg:border-t lg:pt-3 lg:transition-colors lg:hover:bg-muted/50 lg:data-[state=selected]:bg-muted"
-              >
-                <OrderReviewItem item={cartItem} />
-              </div>
-            ))}
-            <Separator className="mt-2 w-full bg-[#C8C7C7] lg:hidden" />
-            <div className="mt-4 lg:hidden">
-              <PriceBreakdown />
-            </div>
-          </div>
-          <div className="hidden px-4 lg:flex lg:flex-col ">
+          <div className="lg:flex lg:flex-col">
             {cartItems.map((item, i) => (
               <div
                 key={i}
-                className="pb-3 lg:border-b lg:border-t lg:pt-3 lg:transition-colors lg:hover:bg-muted/50 lg:data-[state=selected]:bg-muted"
+                className="border-b border-t pb-3 pt-3 transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted"
               >
                 <CartItemCard item={item} />
               </div>
             ))}
+            <div className="px-4 pb-20 pt-4">
+              <div className="text-xl font-medium lg:hidden">Summary</div>
+              <div className="pt-6">
+                <PromoCode />
+              </div>
+              <div className="pt-4 lg:hidden">
+                <PriceBreakdown />
+              </div>
+            </div>
           </div>
+          <StickyCheckoutButton />
         </div>
       )}
     </>

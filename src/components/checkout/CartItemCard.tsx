@@ -61,7 +61,7 @@ export default function CartItemCard({ item }: { item: TCartItem }) {
           </div>
           <div className="flex items-end justify-between pb-2 pt-0">
             <div className="flex flex-col">
-              <div className="text-sm font-normal text-[#343434] lg:text-base">
+              <div className="text-sm font-normal pt-2 text-[#343434] lg:text-base lg:pt-0">
                 Same-Day Shipping
               </div>
               <div className="flex items-center gap-3 pt-1 text-sm font-normal text-[#343434] lg:text-base">
