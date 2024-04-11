@@ -20,7 +20,7 @@ export default function MobileCheckout() {
     if (document) {
       const el = document.getElementById(title);
       const elTop = el?.offsetTop as number - 200;
-      const timeout = value.includes("payment") ? 0 : 300
+      const timeout = value.includes("payment") ? 0 : 250
       console.log("elTop", elTop)
       setTimeout(() => {
         window.scrollTo({
