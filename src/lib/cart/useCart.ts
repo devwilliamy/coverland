@@ -12,13 +12,16 @@ const useCart = () => {
     }
     return [];
   });
+
   const [cartOpen, setCartOpen] = useState(false);
+
   useEffect(() => {
     if (cartItems.length === 0) {
       localStorage.removeItem('cartItems');
     }
     localStorage.setItem('cartItems', JSON.stringify(cartItems));
   }, [cartItems]);
+
   const addToCart = useCallback((item: TCartItem) => {
     if (!item?.msrp) {
       return;
@@ -34,12 +37,20 @@ const useCart = () => {
       }
     });
   }, []);
+
   const removeItemFromCart = useCallback(
     (sku: TCartItem['sku'] | SeatItem['sku']) => {
       setCartItems((prevItems) => prevItems.filter((item) => item.sku !== sku));
     },
     []
   );
+
+  const resetCart = useCallback(() => {
+    if (cartItems.length > 0) {
+      setCartItems([]);
+    }
+  }, []);
+
   const adjustItemQuantity = useCallback((sku: string, quantity: number) => {
     setCartItems((prevItems) => {
       const updatedItems = prevItems
@@ -48,24 +59,28 @@ const useCart = () => {
       return updatedItems;
     });
   }, []);
+
   const clearLocalStorageCart = useCallback(() => {
-    if (typeof window !== 'undefined') {
+    if (typeof window !== 'undefined' && cartItems?.length > 0) {
       localStorage.removeItem('cartItems');
-      setCartItems([])
+      resetCart();
     }
   }, []);
+  
   const getOrderSubtotal = useCallback(() => {
     return cartItems.reduce(
       (total, item) => total + Number(item.price as string) * item.quantity,
       0
     );
   }, [cartItems]);
+
   const getMsrpTotal = useCallback(() => {
     return cartItems.reduce(
       (total, item) => total + Number(item.msrp as string) * item.quantity,
       0
     );
   }, [cartItems]);
+
   const getTotalDiscountPrice = useCallback(() => {
     return cartItems.reduce(
       (total, item) =>
@@ -73,6 +88,7 @@ const useCart = () => {
       0
     );
   }, [cartItems]);
+
   const getTotalCartQuantity = useCallback(() => {
     return cartItems.reduce((total, item) => total + item.quantity, 0);
   }, [cartItems]);

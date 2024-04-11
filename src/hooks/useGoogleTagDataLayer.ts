@@ -175,6 +175,7 @@ export const useThankYouViewedGoogleTag = (
         // console.log('Page was reloaded, GTAG not tracked.');
       } else {
         const cartItemsToGTagItems = mapCartItemsToGTagItems(cartItems);
+        console.log("MappedItems:", cartItemsToGTagItems)
         window?.dataLayer?.push({ ecommerce: null }); // Clear the previous ecommerce object.
         window?.dataLayer?.push({
           event: 'purchase',
@@ -189,10 +190,12 @@ export const useThankYouViewedGoogleTag = (
             items: cartItemsToGTagItems,
           },
         });
-        clearLocalStorageCart();
+        if (cartItems.length > 0) {
+          clearLocalStorageCart();
+        }  
       }
     }
-  }, [cartItems, getTotalPrice, orderNumber]);
+  }, [cartItems, getTotalPrice, orderNumber, clearLocalStorageCart]);
 };
 
 export const handleAddToCartGoogleTag = (
