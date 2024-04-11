@@ -41,7 +41,6 @@ export default function DesktopCheckout() {
           {currentStep === CheckoutStep.CART ? (
             <>
               <CartHeader />
-
               <YourCart />
             </>
           ) : (
