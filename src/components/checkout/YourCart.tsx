@@ -9,15 +9,16 @@ import { useCartContext } from '@/providers/CartProvider';
 import { IoArrowBack } from 'react-icons/io5';
 import { useRouter } from 'next/navigation';
 import CartItemCard from '@/components/checkout/CartItemCard';
+import PriceBreakdown from './PriceBreakdown';
+import OrderReview from './OrderReview';
+import OrderReviewItem from './OrderReviewItem';
+import { Separator } from '../ui/separator';
 export default function YourCart() {
-  const {
-    cartItems,
-    getTotalCartQuantity,
-  } = useCartContext();
+  const { cartItems, getTotalCartQuantity } = useCartContext();
+  const cartQuantity = getTotalCartQuantity();
 
   const router = useRouter();
 
-  const cartQuantity = getTotalCartQuantity();
   return (
     <>
       {cartItems.length === 0 ? (
@@ -25,36 +26,49 @@ export default function YourCart() {
           Your cart is empty.
         </p>
       ) : (
-        <Table className="w-full">
-          <TableHeader>
-            <TableRow>
-              <TableHead
-                className="flex h-full
-                  flex-row items-center justify-between text-3xl
-                  md:flex md:flex-row md:gap-2"
-              >
-                {/* <div onClick={() => router.back()}>
-                  <IoArrowBack />
-                </div> */}
-                <div
-                  className="flex h-full flex-1
-                  flex-col items-center 
-                  leading-4 md:flex md:flex-row md:gap-2 md:pb-4"
-                >
-                  <div className="text-[22px] font-bold text-black">Cart</div>
-                  <div className="text-base font-normal md:pb-0">
-                    {cartQuantity} Items
-                  </div>
-                </div>
-              </TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {cartItems.map((item) => {
-              return <CartItemCard item={item} key={item?.sku} />;
-            })}
-          </TableBody>
-        </Table>
+        <div className="w-full">
+          <div className="px-4">
+            {cartItems.map((cartItem, i) => (
+              <div key={i} className="pb-3">
+                <OrderReviewItem item={cartItem} />
+              </div>
+            ))}
+            <Separator className="mt-2 w-full bg-[#C8C7C7]" />
+            <div className="mt-4">
+              <PriceBreakdown />
+            </div>
+          </div>
+        </div>
+        // <Table className="w-full">
+        //   <TableHeader>
+        //     <TableRow>
+        //       <TableHead
+        //         className="flex h-full
+        //           flex-row items-center justify-between text-3xl
+        //           md:flex md:flex-row md:gap-2"
+        //       >
+        //         {/* <div onClick={() => router.back()}>
+        //           <IoArrowBack />
+        //         </div> */}
+        //         {/* <div
+        //           className="flex h-full flex-1
+        //           flex-col items-center
+        //           leading-4 md:flex md:flex-row md:gap-2 md:pb-4"
+        //         >
+        //           <div className="text-[22px] font-bold text-black">Cart</div>
+        //           <div className="text-base font-normal md:pb-0">
+        //             {cartQuantity} Items
+        //           </div>
+        //         </div> */}
+        //       </TableHead>
+        //     </TableRow>
+        //   </TableHeader>
+        //   <TableBody>
+        //     {cartItems.map((item) => {
+        //       return <CartItemCard item={item} key={item?.sku} />;
+        //     })}
+        //   </TableBody>
+        // </Table>
       )}
     </>
   );

@@ -69,12 +69,12 @@ async function OrderConfirmationPage({
 
   return (
     <Suspense fallback={<div>Loading...</div>}>
-      <StripeElementWrapper clientSecret={clientSecret}>
+      {/* <StripeElementWrapper clientSecret={clientSecret}> */}
         <OrderConfirmationContent
           orderNumber={orderNumber}
           clientSecret={clientSecret}
         />
-      </StripeElementWrapper>
+      {/* </StripeElementWrapper> */}
     </Suspense>
   );
 }

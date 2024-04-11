@@ -12,8 +12,8 @@ export default function CartItemCard({ item }: { item: TCartItem }) {
     const imageUrl =
       type === 'Seat Covers' ? item?.product?.split(',')[0] : item?.feature;
     return (
-        <TableRow className="flex flex-col">
-          <TableCell className="flex w-full justify-items-center gap-2 text-2xl font-medium">
+        <div className="flex flex-col px-4">
+          <div className="flex w-full justify-items-center gap-2 text-2xl font-medium">
             <div className="h-9/12 w-3/12 justify-items-center ">
               <Image
                 className="bg-gray-100 p-[6.5px] "
@@ -58,8 +58,8 @@ export default function CartItemCard({ item }: { item: TCartItem }) {
                   `$${(parseFloat(item?.price as string) * item?.quantity).toFixed(2)}`}
               </div>
             </div>
-          </TableCell>
-          <TableCell className="flex items-end justify-between pb-2 pt-0">
+          </div>
+          <div className="flex items-end justify-between pb-2 pt-0">
             <div className="flex flex-col">
               <div className="text-sm font-normal text-[#343434] lg:text-base">
                 Same-Day Shipping
@@ -82,8 +82,8 @@ export default function CartItemCard({ item }: { item: TCartItem }) {
                 }}
               />
             </IconContext.Provider>
-          </TableCell>
-        </TableRow>
+          </div>
+        </div>
     );
   }
   

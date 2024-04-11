@@ -8,8 +8,8 @@ export default function OrderReviewItem({ item }: { item: TCartItem }) {
   const imageUrl =
     type === 'Seat Covers' ? item?.product?.split(',')[0] : item?.feature;
   return (
-    <TableRow className="flex flex-col">
-      <TableCell className="flex w-full justify-items-center gap-2 text-2xl font-medium">
+    <div className="flex flex-col">
+      <div className="flex w-full justify-items-center gap-2 text-2xl font-medium">
         <div className="h-9/12 w-3/12 justify-items-center ">
           <Image
             className="bg-gray-100 p-[6.5px] "
@@ -48,7 +48,7 @@ export default function OrderReviewItem({ item }: { item: TCartItem }) {
             </div>
           </div>
         </div>
-      </TableCell>
-    </TableRow>
+      </div>
+    </div>
   );
 }

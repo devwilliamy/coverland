@@ -24,7 +24,7 @@ export default function useGetStripePaymentIntent() {
         console.error('[GetStripeClientSecret]: ', error);
       }
     };
-    if (getTotalCartQuantity() > 0) {
+    if (cartItems && getTotalCartQuantity() > 0) {
 
       fetchData();
     }

@@ -20,12 +20,12 @@ export default function PriceBreakdown() {
         <div>Sale-discount</div>
         <div>-${totalDiscountedPrice}</div>
       </div>
-      <div className="flex justify-between pt-8 pb-6 font-semibold">
+      <div className="flex justify-between pt-8 font-semibold">
       {/* <div className="self-end pb-1 pr-5 text-lg font-bold max-md:hidden lg:font-bold"> */}
         <div>Order Total: </div>
         <div>${totalMsrpPrice}</div>
       </div>
-      <Separator className="w-full bg-[#C8C7C7]" />
+      {/* <Separator className="w-full bg-[#C8C7C7]" /> */}
 
     </div>
   );

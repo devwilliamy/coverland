@@ -24,6 +24,8 @@ export default function StripeElementWrapper({
   clientSecret?: string;
 }) {
   const { clientSecret: contextClientSecret } = useCheckoutContext();
+  console.log("ClientSecret:", clientSecret)
+  console.log("contextClientSecret:", contextClientSecret)
 
   const options = {
     clientSecret: clientSecret ?? contextClientSecret,
