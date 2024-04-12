@@ -1,10 +1,13 @@
 'use client';
+import useDetermineType from '@/hooks/useDetermineType';
 import { useParams } from 'next/navigation';
 
 export default function LinkBreadcrumbs() {
   const params = Object(useParams());
   const paramKeys = Object.keys(params);
   const paramValues = Object.values(params);
+  const { isSeatCover } = useDetermineType();
+
   const getUrlFromBreadcrumbs = (index: number): string => {
     let returnString = '';
     for (let i = 0; i < index + 1; i++) {
@@ -18,6 +21,19 @@ export default function LinkBreadcrumbs() {
 
   return (
     <div className="mb-[14px] flex text-[12px] leading-[13px] lg:text-[14px] lg:leading-[15px]">
+      {isSeatCover && (
+        <div className="flex gap-1">
+          <p> </p>
+          <a
+            href={getUrlFromBreadcrumbs(0)}
+            className={`capitalize hover:underline `}
+          >
+            {/* Replacing hyphens with spaces (except for year_generation) */}
+            Seat Covers
+          </a>
+          <p>/</p>
+        </div>
+      )}
       {params &&
         paramKeys.map((key, index) => {
           return (
