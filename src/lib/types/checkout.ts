@@ -10,10 +10,10 @@ export type StripeAddress = {
 
 export enum CheckoutStep {
   CART = 0,
-  SHIPPING = 1,
-  PAYMENT = 2,
-  THANK_YOU = 3,
-  CHECKOUT = 4
+  // SHIPPING = 1,
+  // PAYMENT = 2,
+  // THANK_YOU = 3,
+  CHECKOUT = 1
 }
 
 export type PaymentMethod = 'creditCard' | 'paypal';

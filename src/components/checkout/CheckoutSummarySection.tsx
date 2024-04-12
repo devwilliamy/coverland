@@ -13,6 +13,7 @@ import { CheckoutStep } from '@/lib/types/checkout';
 import { Separator } from '../ui/separator';
 import PromoCode from './PromoCode';
 import { useCartContext } from '@/providers/CartProvider';
+import PriceBreakdown from './PriceBreakdown';
 
 export default function CheckoutSummarySection() {
   const [loading, setLoading] = useState(false);
@@ -52,25 +53,7 @@ export default function CheckoutSummarySection() {
       <div className="lg:pb-4">
         <PromoCode />
       </div>
-      <div className="hidden justify-between lg:flex">
-        <div>Order Subtotal</div>
-        <div>${orderSubtotal}</div>
-      </div>
-      {isCartEmpty ? null : (
-        <div className="flex justify-between text-[#D13C3F]">
-          <div>Sale-discount</div>
-          <div>-${totalDiscountedPrice}</div>
-        </div>
-      )}
-
-      <div className="pb-14 pt-14">
-        <Separator className="w-full bg-[#C8C7C7] lg:block" />
-        <div className="flex self-end py-5 text-lg font-bold max-md:hidden lg:flex-row lg:justify-between lg:font-bold">
-          <div>Order Total: </div>
-          <div>${totalMsrpPrice}</div>
-        </div>
-        <Separator className="w-full bg-[#C8C7C7] lg:block" />
-      </div>
+      <PriceBreakdown />
       {isCartStep && (
         <div className="my-8 hidden w-full justify-center md:flex md:flex-col lg:w-[320px]">
           <Button

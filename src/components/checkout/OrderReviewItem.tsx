@@ -44,7 +44,7 @@ export default function OrderReviewItem({ item }: { item: TCartItem }) {
           </div>
           <div className="flex gap-3 text-sm font-normal text-[#707070] lg:text-base">
             <div className="font-medium lg:text-base">
-              ${item?.quantity * item?.msrp}
+              ${(item?.quantity * Number(item?.msrp)).toFixed(2)}
             </div>
           </div>
         </div>
