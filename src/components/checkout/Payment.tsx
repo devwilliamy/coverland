@@ -14,6 +14,7 @@ import { useCheckoutContext } from '@/contexts/CheckoutContext';
 import PaymentSelector from './PaymentSelector';
 import { PaymentMethod } from '@/lib/types/checkout';
 import BillingAddress from './BillingAddress';
+import { useCartContext } from '@/providers/CartProvider';
 
 export default function Payment() {
   const stripe = useStripe();
@@ -23,9 +24,12 @@ export default function Payment() {
     useState<PaymentMethod>('creditCard');
 
   const [message, setMessage] = useState(null);
-  const { orderNumber } = useCheckoutContext();
-  const { billingAddress, shippingAddress, customerEmail } =
+  const { orderNumber, paymentIntentId } = useCheckoutContext();
+  const { billingAddress, shippingAddress, customerEmail, shipping } =
     useCheckoutContext();
+  const { getTotalPrice } = useCartContext();
+  const totalMsrpPrice = (getTotalPrice() + shipping) * 100
+  console.log("TotalMSRPPrice:", totalMsrpPrice)
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
@@ -38,7 +42,19 @@ export default function Payment() {
     setIsLoading(true);
 
     const origin = window.location.origin;
+    const response = await fetch('/api/stripe/payment-intent', {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        paymentIntentId,
+        amount: totalMsrpPrice,
+      }),
+    });
 
+    const data = await response.json();
+    console.log('useUpdateStripePaymentIntent Data:', data);
     const { error } = await stripe.confirmPayment({
       elements,
       confirmParams: {

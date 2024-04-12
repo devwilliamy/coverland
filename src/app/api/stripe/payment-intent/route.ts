@@ -40,3 +40,18 @@ export async function POST(request: NextRequest) {
     paymentIntent,
   });
 }
+
+export async function PUT(request: NextRequest) {
+  const {
+    paymentIntentId,
+    amount
+  } = await request.json();
+
+  const paymentIntent = await stripe.paymentIntents.update(paymentIntentId, {
+    amount
+  });
+
+  return NextResponse.json({
+    paymentIntent,
+  });
+}

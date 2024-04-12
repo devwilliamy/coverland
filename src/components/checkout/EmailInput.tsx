@@ -43,8 +43,8 @@ export default function EmailInput({ email, setEmail }: EmailInputProps) {
           id="email"
           className={`block w-full rounded-lg border-0 border-[#E1E1E1] bg-[#FAFAFA] py-2.5 pl-3 pr-10 ring-1 ring-inset focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6 ${inputStyle}`}
           //   placeholder="you@example.com"
-          aria-invalid="true"
-          aria-describedby="email-error"
+        //   aria-invalid="true"
+        //   aria-describedby="email-error"
           value={email}
           onChange={handleChange}
           onBlur={() => {

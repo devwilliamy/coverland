@@ -11,7 +11,7 @@ export default function PriceBreakdown() {
     getTotalDiscountPrice,
     getTotalCartQuantity,
   } = useCartContext();
-  const totalMsrpPrice = getTotalPrice().toFixed(2) as unknown as number;
+  const totalMsrpPrice = (getTotalPrice() + shipping).toFixed(2) as unknown as number;
   const totalDiscountedPrice = getTotalDiscountPrice().toFixed(
     2
   ) as unknown as number;

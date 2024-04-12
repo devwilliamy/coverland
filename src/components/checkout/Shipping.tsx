@@ -18,7 +18,7 @@ const options: StripeAddressElementOptions = {
   },
   validation: {
     phone: {
-      required: "always"
+      required: "auto"
     }
   },
   display: {
