@@ -85,7 +85,7 @@ export default function Shipping({ handleChangeAccordion, handleSelectTab }: Shi
             options={options}
             onChange={handleAddressFormChange}
           />
-          <div className="mt-4 flex flex-col items-center justify-between lg:mt-11">
+          <div className="mt-8 flex flex-col items-center justify-between lg:mt-11">
             <Button
               disabled={isDisabled}
               onClick={handleAddressButtonClick}
@@ -98,7 +98,7 @@ export default function Shipping({ handleChangeAccordion, handleSelectTab }: Shi
       ) : (
         // <AddressForm/>
         <div className="mb-4">
-          <SavedAddressBox address={address} handleClick={handleEditAddress} />
+          <SavedAddressBox address={address as StripeAddress} handleClick={handleEditAddress} />
         </div>
       )}
       {address && !isEditingAddress && (
