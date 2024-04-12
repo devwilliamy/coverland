@@ -6,7 +6,6 @@ export function middleware(request: NextRequest) {
   const search = request.nextUrl.search;
 
   const segments = pathname.split('/').filter(Boolean);
-  console.log('Path 1', segments);
   const productTypes = ['car-covers', 'suv-covers', 'truck-covers'];
   const coverTypes = ['premium-plus'];
   const outdatedTypes = [
