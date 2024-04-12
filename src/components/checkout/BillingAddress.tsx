@@ -40,6 +40,7 @@ export default function BillingAddress() {
       setAddress({
         name: event.value.name,
         address: event.value.address,
+        phone: event.value.phone
       });
     }
   };

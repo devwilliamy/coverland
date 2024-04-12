@@ -24,9 +24,8 @@ export default function Payment() {
 
   const [message, setMessage] = useState(null);
   const { orderNumber } = useCheckoutContext();
-  const { billingAddress: billing_details, shippingAddress } =
+  const { billingAddress, shippingAddress, customerEmail } =
     useCheckoutContext();
-
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
@@ -44,9 +43,8 @@ export default function Payment() {
       elements,
       confirmParams: {
         shipping: {
-          // email,
           name: shippingAddress.name,
-          // phone,
+          phone: shippingAddress.phone,
           address: {
             city: shippingAddress.address.city as string,
             country: shippingAddress.address.country as string,
@@ -58,19 +56,19 @@ export default function Payment() {
         },
         // Make sure to change this to your payment completion page
         return_url: `${origin}/thank-you?order-number=${orderNumber}`,
+        receipt_email: customerEmail,
         payment_method_data: {
-          // type,
           billing_details: {
-            // email,
-            name: billing_details.name,
-            // phone,
+            email: customerEmail,
+            name: billingAddress.name,
+            phone: billingAddress.phone,
             address: {
-              city: billing_details.address.city as string,
-              country: billing_details.address.country as string,
-              line1: billing_details.address.line1 as string,
-              line2: billing_details.address.line2 as string,
-              postal_code: billing_details.address.postal_code as string,
-              state: billing_details.address.state as string,
+              city: billingAddress.address.city as string,
+              country: billingAddress.address.country as string,
+              line1: billingAddress.address.line1 as string,
+              line2: billingAddress.address.line2 as string,
+              postal_code: billingAddress.address.postal_code as string,
+              state: billingAddress.address.state as string,
             },
           },
         },
@@ -115,11 +113,11 @@ export default function Payment() {
             {/* <LinkAuthenticationElement id="link-authentication-element" /> */}
             <PaymentElement
               id="payment-element"
-              onChange={(e) => {
-                if (e.complete) {
-                  console.log('e.value', e.value);
-                }
-              }}
+              // onChange={(e) => {
+              //   if (e.complete) {
+              //     console.log('e.value', e.value);
+              //   }
+              // }}
             />
           </form>
           <div className="pt-4">

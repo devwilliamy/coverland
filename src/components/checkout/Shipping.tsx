@@ -1,4 +1,4 @@
-import { CheckoutStep, StripeAddress } from '@/lib/types/checkout';
+import { StripeAddress } from '@/lib/types/checkout';
 import { AddressElement } from '@stripe/react-stripe-js';
 import { AddressMode } from '@stripe/stripe-js';
 import { useState } from 'react';
@@ -8,13 +8,18 @@ import { Button } from '../ui/button';
 import { useCheckoutContext } from '@/contexts/CheckoutContext';
 import { StripeAddressElementOptions } from '@stripe/stripe-js';
 import SavedShippingBox from './SavedShippingBox';
-import AddressForm from './AddressForm';
+import EmailInput from './EmailInput';
 
 const options: StripeAddressElementOptions = {
   mode: 'shipping' as AddressMode, // 'billing',
   allowedCountries: ['US'],
   fields: {
     phone: 'always',
+  },
+  validation: {
+    phone: {
+      required: "always"
+    }
   },
   display: {
     name: 'split',
@@ -36,11 +41,15 @@ export default function Shipping({
   const [isDisabled, setIsDisabled] = useState(true);
   const [isEditingAddress, setIsEditingAddress] = useState(true);
   const [isEditingShipping, setIsEditingShipping] = useState(true);
+  const [email, setEmail] = useState<string>('');
   const [address, setAddress] = useState<StripeAddress>();
   const [shippingPrice, setShippingPrice] = useState<ShippingPriceOption>();
 
-  const { updateShippingAddress, isBillingSameAsShipping } =
-    useCheckoutContext();
+  const {
+    updateShippingAddress,
+    isBillingSameAsShipping,
+    updateCustomerEmail,
+  } = useCheckoutContext();
 
   const handleAddressFormChange = (event) => {
     if (event.complete) {
@@ -48,12 +57,14 @@ export default function Shipping({
       setAddress({
         name: event.value.name,
         address: event.value.address,
+        phone: event.value.phone
       });
     }
   };
 
   const handleAddressButtonClick = () => {
     updateShippingAddress(address as StripeAddress, isBillingSameAsShipping);
+    updateCustomerEmail(email);
     setIsEditingAddress(false);
   };
   const handleEditButtonClick = () => {
@@ -83,6 +94,7 @@ export default function Shipping({
           /> */}
       {isEditingAddress ? (
         <div className="min-h-[400px]">
+          <EmailInput email={email} setEmail={setEmail} />
           <AddressElement
             options={options}
             onChange={handleAddressFormChange}
