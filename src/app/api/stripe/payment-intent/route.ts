@@ -1,6 +1,10 @@
 import { TCartItem } from '@/lib/cart/useCart';
 import { getMsrpTotal } from '@/lib/utils/calculations';
-import { convertPriceToStripeFormat, generateLineItemsForStripe, generateOrderId } from '@/lib/utils/stripe';
+import {
+  convertPriceToStripeFormat,
+  generateLineItemsForStripe,
+  generateOrderId,
+} from '@/lib/utils/stripe';
 import { NextRequest, NextResponse } from 'next/server';
 import Stripe from 'stripe';
 
@@ -10,14 +14,14 @@ const calculateOrderAmount = (items: TCartItem[]) => {
   // Replace this constant with a calculation of the order's amount
   // Calculate the order total on the server to prevent
   // people from directly manipulating the amount on the client
-  return convertPriceToStripeFormat(getMsrpTotal(items))
+  return convertPriceToStripeFormat(getMsrpTotal(items));
 };
 
 export async function POST(request: NextRequest) {
   const { items, promoCode } = await request.json();
   const isDev = process.env.NODE_ENV !== 'production';
-  const uniqueId = isDev ? "TEST" : "XXXX";
-  const orderId = generateOrderId(items, uniqueId)
+  const uniqueId = isDev ? 'TEST' : 'XXXX';
+  const orderId = generateOrderId(items, uniqueId);
   const lineItems = generateLineItemsForStripe(items, orderId);
   // Create a PaymentIntent with the order amount and currency
   const paymentIntent = await stripe.paymentIntents.create({
@@ -29,12 +33,10 @@ export async function POST(request: NextRequest) {
     },
     metadata: {
       orderId,
-
     },
   });
 
-
   return NextResponse.json({
-    paymentIntent
+    paymentIntent,
   });
 }

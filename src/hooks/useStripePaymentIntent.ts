@@ -1,9 +1,11 @@
+import { useCheckoutContext } from '@/contexts/CheckoutContext';
 import { useCartContext } from '@/providers/CartProvider';
 import { useEffect, useState } from 'react';
 
-export default function useGetStripePaymentIntent() {
-  const [clientSecret, setClientSecret] = useState<any>();
-  const [orderNumber, setOrderNumber] = useState('');
+export function useCreateStripePaymentIntent() {
+  const [clientSecret, setClientSecret] = useState<string>('');
+  const [paymentIntentId, setPaymentIntentId] = useState<string>('');
+  const [orderNumber, setOrderNumber] = useState<string>('');
   const { cartItems, getTotalCartQuantity } = useCartContext();
   const [isLoading, setIsLoading] = useState(false);
   useEffect(() => {
@@ -19,7 +21,9 @@ export default function useGetStripePaymentIntent() {
         });
 
         const data = await response.json();
-        setClientSecret(data.paymentIntent.client_secret);
+        console.log('Data:', data);
+        setPaymentIntentId(data.paymentIntent?.id);
+        setClientSecret(data.paymentIntent?.client_secret);
         setOrderNumber(data.paymentIntent?.metadata?.orderId);
       } catch (error) {
         console.error('[GetStripeClientSecret]: ', error);
@@ -31,5 +35,5 @@ export default function useGetStripePaymentIntent() {
       fetchData();
     }
   }, [cartItems, getTotalCartQuantity]);
-  return { clientSecret, orderNumber, isLoading };
+  return { paymentIntentId, clientSecret, orderNumber, isLoading };
 }

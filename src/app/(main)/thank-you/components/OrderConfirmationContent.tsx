@@ -24,35 +24,8 @@ export const OrderConfirmationContent = ({
   clientSecret,
 }: OrderConfirmationContentProps) => {
   const [message, setMessage] = useState('');
-  // const stripe = useStripe();
 
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     const response = await stripe?.retrievePaymentIntent(clientSecret);
-  //     const paymentIntent = response?.paymentIntent;
-  //     switch (paymentIntent?.status) {
-  //       case 'succeeded':
-  //         setMessage('Payment succeeded!');
-  //         break;
-  //       case 'processing':
-  //         setMessage('Your payment is processing.');
-  //         break;
-  //       case 'requires_payment_method':
-  //         setMessage('Your payment was not successful, please try again.');
-  //         break;
-  //       default:
-  //         setMessage('Something went wrong.');
-  //         break;
-  //     }
-  //   };
-  //   if (stripe) {
-  //     fetchData();
-  //   } else {
-  //     console.log('No stripe found');
-  //   }
-  // }, [stripe, clientSecret]);
-
-  useThankYouViewedGoogleTag(orderNumber);
+  // useThankYouViewedGoogleTag(orderNumber);
 
   return (
     <Card className="text-center">

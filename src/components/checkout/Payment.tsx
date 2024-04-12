@@ -24,6 +24,9 @@ export default function Payment() {
 
   const [message, setMessage] = useState(null);
   const { orderNumber } = useCheckoutContext();
+  const { billingAddress: billing_details, shippingAddress } =
+    useCheckoutContext();
+
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
@@ -34,12 +37,43 @@ export default function Payment() {
     }
 
     setIsLoading(true);
+
     const origin = window.location.origin;
+
     const { error } = await stripe.confirmPayment({
       elements,
       confirmParams: {
+        shipping: {
+          // email,
+          name: shippingAddress.name,
+          // phone,
+          address: {
+            city: shippingAddress.address.city as string,
+            country: shippingAddress.address.country as string,
+            line1: shippingAddress.address.line1 as string,
+            line2: shippingAddress.address.line2 as string,
+            postal_code: shippingAddress.address.postal_code as string,
+            state: shippingAddress.address.state as string,
+          },
+        },
         // Make sure to change this to your payment completion page
         return_url: `${origin}/thank-you?order-number=${orderNumber}`,
+        payment_method_data: {
+          // type,
+          billing_details: {
+            // email,
+            name: billing_details.name,
+            // phone,
+            address: {
+              city: billing_details.address.city as string,
+              country: billing_details.address.country as string,
+              line1: billing_details.address.line1 as string,
+              line2: billing_details.address.line2 as string,
+              postal_code: billing_details.address.postal_code as string,
+              state: billing_details.address.state as string,
+            },
+          },
+        },
       },
     });
 
@@ -79,7 +113,14 @@ export default function Payment() {
         <>
           <form id="payment-form" onSubmit={handleSubmit}>
             {/* <LinkAuthenticationElement id="link-authentication-element" /> */}
-            <PaymentElement id="payment-element" />
+            <PaymentElement
+              id="payment-element"
+              onChange={(e) => {
+                if (e.complete) {
+                  console.log('e.value', e.value);
+                }
+              }}
+            />
           </form>
           <div className="pt-4">
             <BillingAddress />

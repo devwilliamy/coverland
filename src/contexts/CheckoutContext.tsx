@@ -1,4 +1,4 @@
-import useGetStripePaymentIntent from '@/hooks/useGetStripePaymentIntent';
+import { useCreateStripePaymentIntent } from '@/hooks/useStripePaymentIntent';
 import { CheckoutStep, StripeAddress } from '@/lib/types/checkout';
 import {
   Dispatch,
@@ -30,6 +30,7 @@ export type CheckoutContextType = {
   updateCustomerEmail: (email: string) => void;
   isBillingSameAsShipping: boolean;
   updateIsBillingSameAsShipping: (value: boolean) => void;
+  paymentIntentId: string;
 };
 
 export type CheckoutProviderProps = {
@@ -64,6 +65,7 @@ export const CheckoutContext = createContext<CheckoutContextType>({
   updateCustomerEmail: () => {},
   isBillingSameAsShipping: true,
   updateIsBillingSameAsShipping: () => {},
+  paymentIntentId: '',
 });
 
 const CheckoutProvider: FC<CheckoutProviderProps> = ({ children }) => {
@@ -82,14 +84,16 @@ const CheckoutProvider: FC<CheckoutProviderProps> = ({ children }) => {
     },
   });
   const [customerEmail, setCustomerEmail] = useState<string>('');
+
   const [isBillingSameAsShipping, setIsBillingSameAsShipping] =
     useState<boolean>(true);
 
   const {
+    paymentIntentId,
     clientSecret,
     orderNumber,
     isLoading: stripePaymentIntentLoading,
-  } = useGetStripePaymentIntent();
+  } = useCreateStripePaymentIntent();
 
   const nextStep = () => {
     setCurrentStep(currentStep + 1);
@@ -143,6 +147,7 @@ const CheckoutProvider: FC<CheckoutProviderProps> = ({ children }) => {
         updateCustomerEmail,
         isBillingSameAsShipping,
         updateIsBillingSameAsShipping,
+        paymentIntentId,
       }}
     >
       {children}
