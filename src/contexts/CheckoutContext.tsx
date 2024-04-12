@@ -1,5 +1,5 @@
 import useGetStripePaymentIntent from '@/hooks/useGetStripePaymentIntent';
-import { CheckoutStep } from '@/lib/types/checkout';
+import { CheckoutStep, StripeAddress } from '@/lib/types/checkout';
 import {
   Dispatch,
   FC,
@@ -19,6 +19,17 @@ export type CheckoutContextType = {
   clientSecret: string;
   orderNumber: string;
   stripePaymentIntentLoading: boolean;
+  billingAddress: StripeAddress;
+  updateBillingAddress: (address: StripeAddress) => void;
+  shippingAddress: StripeAddress;
+  updateShippingAddress: (
+    address: StripeAddress,
+    isBillingSameAsShipping: boolean
+  ) => void;
+  customerEmail: string;
+  updateCustomerEmail: (email: string) => void;
+  isBillingSameAsShipping: boolean;
+  updateIsBillingSameAsShipping: (value: boolean) => void;
 };
 
 export type CheckoutProviderProps = {
@@ -35,22 +46,80 @@ export const CheckoutContext = createContext<CheckoutContextType>({
   clientSecret: '',
   orderNumber: '',
   stripePaymentIntentLoading: false,
+  billingAddress: {
+    name: '',
+    address: {
+      country: '',
+    },
+  },
+  updateBillingAddress: () => {},
+  shippingAddress: {
+    name: '',
+    address: {
+      country: '',
+    },
+  },
+  updateShippingAddress: () => {},
+  customerEmail: '',
+  updateCustomerEmail: () => {},
+  isBillingSameAsShipping: true,
+  updateIsBillingSameAsShipping: () => {},
 });
 
 const CheckoutProvider: FC<CheckoutProviderProps> = ({ children }) => {
   const [currentStep, setCurrentStep] = useState(CheckoutStep.CART);
   const [shipping, setShipping] = useState<number>(0);
+  const [billingAddress, setBillingAddress] = useState<StripeAddress>({
+    name: '',
+    address: {
+      country: '',
+    },
+  });
+  const [shippingAddress, setShippingAddress] = useState<StripeAddress>({
+    name: '',
+    address: {
+      country: '',
+    },
+  });
+  const [customerEmail, setCustomerEmail] = useState<string>('');
+  const [isBillingSameAsShipping, setIsBillingSameAsShipping] =
+    useState<boolean>(true);
+
   const {
     clientSecret,
     orderNumber,
     isLoading: stripePaymentIntentLoading,
   } = useGetStripePaymentIntent();
+
   const nextStep = () => {
     setCurrentStep(currentStep + 1);
   };
+
   const prevStep = () => {
     if (currentStep !== 0) {
       setCurrentStep(currentStep - 1);
+    }
+  };
+
+  const updateBillingAddress = (address: StripeAddress) =>
+    setBillingAddress({ ...billingAddress, ...address });
+
+  const updateShippingAddress = (
+    address: StripeAddress,
+    isSameAsBilling = true
+  ) => {
+    setShippingAddress({ ...shippingAddress, ...address });
+    if (isSameAsBilling) {
+      setBillingAddress({ ...billingAddress, ...address });
+    }
+  };
+
+  const updateCustomerEmail = (email: string) => setCustomerEmail(email);
+
+  const updateIsBillingSameAsShipping = (value: boolean) => {
+    setIsBillingSameAsShipping(value);
+    if (value) {
+      updateBillingAddress(shippingAddress);
     }
   };
 
@@ -66,6 +135,14 @@ const CheckoutProvider: FC<CheckoutProviderProps> = ({ children }) => {
         clientSecret,
         orderNumber,
         stripePaymentIntentLoading,
+        billingAddress,
+        updateBillingAddress,
+        shippingAddress,
+        updateShippingAddress,
+        customerEmail,
+        updateCustomerEmail,
+        isBillingSameAsShipping,
+        updateIsBillingSameAsShipping,
       }}
     >
       {children}

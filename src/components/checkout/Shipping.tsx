@@ -28,14 +28,19 @@ type ShippingInfo = 'ADDRESS' | 'SHIPPING_OPTION' | 'NONE';
 type ShippingProps = {
   handleChangeAccordion: (accordionTitle: string) => void;
   handleSelectTab: (id: string) => void;
-}
-export default function Shipping({ handleChangeAccordion, handleSelectTab }: ShippingProps) {
+};
+export default function Shipping({
+  handleChangeAccordion,
+  handleSelectTab,
+}: ShippingProps) {
   const [isDisabled, setIsDisabled] = useState(true);
   const [isEditingAddress, setIsEditingAddress] = useState(true);
   const [isEditingShipping, setIsEditingShipping] = useState(true);
   const [address, setAddress] = useState<StripeAddress>();
   const [shippingPrice, setShippingPrice] = useState<ShippingPriceOption>();
-  const { currentStep, setCurrentStep } = useCheckoutContext();
+
+  const { updateShippingAddress, isBillingSameAsShipping } =
+    useCheckoutContext();
 
   const handleAddressFormChange = (event) => {
     if (event.complete) {
@@ -47,11 +52,8 @@ export default function Shipping({ handleChangeAccordion, handleSelectTab }: Shi
     }
   };
 
-  const buttonText = isEditingAddress
-    ? 'Save & Continue'
-    : 'Continue to Payment';
-
   const handleAddressButtonClick = () => {
+    updateShippingAddress(address as StripeAddress, isBillingSameAsShipping);
     setIsEditingAddress(false);
   };
   const handleEditButtonClick = () => {
@@ -98,7 +100,10 @@ export default function Shipping({ handleChangeAccordion, handleSelectTab }: Shi
       ) : (
         // <AddressForm/>
         <div className="mb-4">
-          <SavedAddressBox address={address as StripeAddress} handleClick={handleEditAddress} />
+          <SavedAddressBox
+            address={address as StripeAddress}
+            handleClick={handleEditAddress}
+          />
         </div>
       )}
       {address && !isEditingAddress && (
@@ -123,19 +128,6 @@ export default function Shipping({ handleChangeAccordion, handleSelectTab }: Shi
           )}
         </div>
       )}
-      {/* {(currentStep === CheckoutStep.SHIPPING ||
-        isEditingAddress ||
-        isEditingShipping) && (
-        <div className="mt-4 flex flex-col items-center justify-between lg:mt-11">
-          <Button
-            disabled={isDisabled}
-            onClick={handleButtonClick}
-            className={`h-[48px] w-full max-w-[390px] cursor-pointer rounded-lg bg-black text-base font-bold uppercase text-white lg:h-[63px] lg:text-xl`}
-          >
-            {buttonText}
-          </Button>
-        </div>
-      )} */}
     </div>
   );
 }

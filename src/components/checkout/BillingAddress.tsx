@@ -8,6 +8,7 @@ import { Button } from '../ui/button';
 import { useCheckoutContext } from '@/contexts/CheckoutContext';
 import { StripeAddressElementOptions } from '@stripe/stripe-js';
 import SavedBillingAddressBox from './SavedBillingAddressBox';
+import SavedBillingAddress from './SavedBillingAddress';
 
 const options: StripeAddressElementOptions = {
   mode: 'billing' as AddressMode, // 'billing',
@@ -23,13 +24,14 @@ const options: StripeAddressElementOptions = {
 export default function BillingAddress() {
   const [isDisabled, setIsDisabled] = useState(true);
   const [isEditingAddress, setIsEditingAddress] = useState(true);
-  const [isBillingSameAsShipping, setIsBillingSameAsShipping] = useState(true);
-
+  // const [isBillingSameAsShipping, setIsBillingSameAsShipping] = useState(true);
   const [address, setAddress] = useState<StripeAddress>();
-  const { currentStep, setCurrentStep } = useCheckoutContext();
+
+  const { billingAddress, updateBillingAddress, isBillingSameAsShipping, updateIsBillingSameAsShipping } =
+    useCheckoutContext();
 
   const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setIsBillingSameAsShipping(event.target.checked);
+    updateIsBillingSameAsShipping(event.target.checked);
   };
 
   const handleAddressFormChange = (event) => {
@@ -44,6 +46,7 @@ export default function BillingAddress() {
 
   const handleAddressButtonClick = () => {
     setIsEditingAddress(false);
+    updateBillingAddress(address)
   };
 
   const handleEditAddress = () => {
@@ -79,14 +82,14 @@ export default function BillingAddress() {
           </div>
         </div>
       ) : (
-        !isBillingSameAsShipping && (
+        // !isBillingSameAsShipping && (
           <div className="mb-4">
-            <SavedAddressBox
-              address={address}
+            <SavedBillingAddress
+              address={billingAddress}
               handleClick={handleEditAddress}
             />
           </div>
-        )
+        // )
       )}
     </div>
   );
