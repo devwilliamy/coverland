@@ -1,5 +1,4 @@
-'use server';
-import PrivacyPolicyPage from '@/components/policy/PrivacyPolicyPage';
+import PrivacyPolicyContent from '@/components/policy/PrivacyPolicyContent';
 
 export async function generateMetadata() {
   return {
@@ -8,6 +7,6 @@ export async function generateMetadata() {
   };
 }
 
-export default async function PrivacyPolicy() {
-  return <PrivacyPolicyPage />;
+export default async function PrivacyPolicyPage() {
+  return <PrivacyPolicyContent />;
 }

@@ -5,7 +5,7 @@ import PolicyFurtherAssistance from "@/components/policy/PolicyFurtherAssistance
 import PolicyHeader from "@/components/policy/PolicyHeader";
 import PolicyTitle from "@/components/policy/PolicyTitle";
 
-export default function PrivacyPolicyPage() {
+export default function PrivacyPolicyContent() {
   return (
     <>
       <PolicyHeader headerText="Privacy Policy" />

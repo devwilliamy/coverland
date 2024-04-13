@@ -10,6 +10,7 @@ import {
 } from '@/lib/db/review';
 import { TPathParams } from '@/utils';
 import { deslugify } from '@/lib/utils';
+import { PREMIUM_PLUS_URL_PARAM } from '@/lib/constants';
 
 //TODO: Refactor code so we can generate our dynamic paths as static HTML for performance
 
@@ -37,7 +38,7 @@ export async function generateMetadata({ params }: { params: TPathParams }) {
     title: `${make} ${model} │ Lifetime Warranty │ Custom Fit │ 100% Weatherproof`,
     description: `${make} ${model} ${productType} ᐉ Coverland ⭐ Free, Same-Day Shipping ✔️ Free Returns & Purchase Protection ✔️ Made from premium quality, heavy-duty materials with a soft inner fabric.`,
     alternates: {
-      canonical: `/${productType}/${make}/${model}`,
+      canonical: `/${params.productType}/${PREMIUM_PLUS_URL_PARAM}/${params.make}/${params.model}`,
     },
   };
 }

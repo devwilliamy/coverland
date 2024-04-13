@@ -1,5 +1,4 @@
-'use server';
-import WarrantyPolicyPage from '@/components/policy/WarrantyPolicyPage';
+import WarrantyPolicyContent from '@/components/policy/WarrantyPolicyContent';
 
 export async function generateMetadata() {
   return {
@@ -13,5 +12,5 @@ export default async function WarrantyPolicy({
 }: {
   showHeader?: boolean;
 }) {
-  return <WarrantyPolicyPage showHeader={showHeader} />;
+  return <WarrantyPolicyContent showHeader={showHeader} />;
 }

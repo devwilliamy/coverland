@@ -5,7 +5,7 @@ import PolicyHeader from '@/components/policy/PolicyHeader';
 import PolicyTitle from '@/components/policy/PolicyTitle';
 import { usePathname } from 'next/navigation';
 
-export default function ShippingPolicyPage({
+export default function ShippingPolicyContent({
   showHeader,
 }: {
   showHeader?: boolean;

@@ -9,6 +9,7 @@ import {
 } from '@/lib/db/review';
 import { TPathParams } from '@/utils';
 import { deslugify } from '@/lib/utils';
+import { PREMIUM_PLUS_URL_PARAM } from '@/lib/constants';
 
 export type TCarCoverSlugParams = {
   make: string;
@@ -38,10 +39,10 @@ export async function generateMetadata({ params }: { params: TPathParams }) {
   const productType = deslugify(params.productType);
   const make = deslugify(params.make || '');
   return {
-    title: `${make} │ Lifetime Warranty │ Custom Fit │ 100% Weatherproof`,
+    title: `${make} ${productType} │ Lifetime Warranty │ Custom Fit │ 100% Weatherproof`,
     description: `${make} ${productType} ᐉ Coverland ⭐ Free, Same-Day Shipping ✔️ Free Returns & Purchase Protection ✔️ Made from premium quality, heavy-duty materials with a soft inner fabric.`,
     alternates: {
-      canonical: `/${productType}/${make}`,
+      canonical: `/${params.productType}/${PREMIUM_PLUS_URL_PARAM}/${params.make}`,
     },
   };
 }

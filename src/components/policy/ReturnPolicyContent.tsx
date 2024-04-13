@@ -3,9 +3,9 @@ import PolicyDetail from '@/components/policy/PolicyDetail';
 import PolicyFurtherAssistance from '@/components/policy/PolicyFurtherAssistance';
 import PolicyHeader from '@/components/policy/PolicyHeader';
 import PolicyTitle from '@/components/policy/PolicyTitle';
-import { Link } from 'lucide-react';
+import Link from 'next/link';
 
-export default function ReturnPolicyPage() {
+export default function ReturnPolicyContent() {
   return (
     <>
       <PolicyHeader headerText="Return Policy" />

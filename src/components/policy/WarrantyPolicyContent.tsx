@@ -6,7 +6,7 @@ import PolicyHeader from '@/components/policy/PolicyHeader';
 import PolicyTitle from '@/components/policy/PolicyTitle';
 import { usePathname } from 'next/navigation';
 
-export default function WarrantyPolicyPage({
+export default function WarrantyPolicyContent({
   showHeader,
 }: {
   showHeader?: boolean;
