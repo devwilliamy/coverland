@@ -124,6 +124,12 @@ export default function VideoReviewPage() {
         <p className="w-full items-center pb-[30px] pt-[60px] text-center text-[26px] font-[900] leading-[30px] text-[white]">
           Join now!
         </p>
+        <iframe
+          src="https://docs.google.com/forms/d/e/1FAIpQLSeRn7m2eZEvWFmOe9OfYZMrvduLhM8vPpVJTFzLVLRLtyVUyQ/viewform?embedded=true"
+          className="min-h-[620px] w-full"
+        >
+          Loading…
+        </iframe>
       </section>
     </div>
   );
