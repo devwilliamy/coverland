@@ -1,7 +1,8 @@
 import { Suspense } from 'react';
 import { OrderConfirmationContent } from './components/OrderConfirmationContent';
 import { supabaseDatabaseClient } from '@/lib/db/supabaseClients';
-import { mapPaymentIntentAndMethodToOrder } from '@/lib/utils/adminPanel';
+import { mapPaymentIntentAndMethodToOrder, mapPaymentMethodToCustomer } from '@/lib/utils/adminPanel';
+import { createOrUpdateUser } from '@/lib/db/admin-panel/customers';
 
 type PaymentIntentSuccessParams = {
   searchParams: {
@@ -27,19 +28,46 @@ async function OrderConfirmationPage({
   }
 
   // Get Payment Intent
+  // If have time, extract this from API. Don't need
   const paymentIntentResponse = await fetch(
     `http://localhost:3000/api/stripe/payment-intent/${payment_intent}`
   );
   const { paymentIntent } = await paymentIntentResponse.json();
 
   // Get Payment Method
+  // If have time, extract this from API. Don't need
   const { payment_method } = paymentIntent;
   const paymentMethodResponse = await fetch(
     `http://localhost:3000/api/stripe/payment-method/${payment_method}`
   );
   const { paymentMethod } = await paymentMethodResponse.json();
 
+
+  // Customers Goes Here
+
+  const customerInput = mapPaymentMethodToCustomer(paymentMethod)
+  const createdCustomer = createOrUpdateUser(customerInput)
+  // const createdCustomer = await fetch(
+  //   `http://localhost:3000/api/admin-panel/users/`,
+  //   {
+  //     method: 'POST',
+  //     headers: {
+  //       'Content-Type': 'application/json',
+  //     },
+  //     body: JSON.stringify({
+        
+        
+  //     }),
+  //   }
+  // );
+
+
+
+
+
+
   // Update Order Table
+  // If have time, extract this from API. Don't need
   const mappedOrder = mapPaymentIntentAndMethodToOrder(
     paymentIntent,
     paymentMethod

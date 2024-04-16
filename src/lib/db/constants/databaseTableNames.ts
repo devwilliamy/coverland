@@ -5,3 +5,4 @@ export const SEAT_COVERS_TABLE = 'seat_cover_20240401';
 export const ADMIN_PANEL_ORDERS = '_Orders'
 export const ADMIN_PANEL_ORDER_ITEMS = 'orderItems_table'
 export const ADMIN_PANEL_PRODUCTS = 'Products'
+export const ADMIN_PANEL_CUSTOMERS = 'users'

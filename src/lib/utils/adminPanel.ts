@@ -1,6 +1,9 @@
 import { PaymentIntent, PaymentMethod } from '@stripe/stripe-js';
 
-import { convertUnixTimestampToISOString, getCurrentTimeInISOFormat } from './date';
+import {
+  convertUnixTimestampToISOString,
+  getCurrentTimeInISOFormat,
+} from './date';
 import { Tables } from '../db/types';
 
 type TOrdersDB = Tables<'_Orders'>;
@@ -62,5 +65,38 @@ export const mapPaymentIntentAndMethodToOrder = (
     billing_address_country: billing_details?.address?.country,
     skus: metadata.skus,
     updated_at: getCurrentTimeInISOFormat(),
+  };
+};
+
+type CustomerInput = {
+  address?: string | null;
+  address_2?: string | null;
+  city?: string | null;
+  created_at?: string;
+  email?: string | null;
+  id?: number;
+  image_path?: string | null;
+  last_name?: string | null;
+  name?: string | null;
+  password?: string | null;
+  phone?: string | null;
+  pincode?: string | null;
+  state?: string | null;
+};
+export const mapPaymentMethodToCustomer = (
+  paymentMethodInput: PaymentMethod
+): CustomerInput => {
+  const { billing_details } = paymentMethodInput;
+  const splitName: string[] = billing_details?.name?.split(' ') || [];
+  return {
+    address: billing_details?.address?.line1,
+    address_2: billing_details?.address?.line2,
+    city: billing_details?.address?.city,
+    last_name: splitName[splitName.length - 1],
+    name: billing_details?.name,
+    phone: billing_details?.phone,
+    pincode: billing_details?.address?.postal_code,
+    state: billing_details?.address?.state,
+    email: billing_details.email
   };
 };
