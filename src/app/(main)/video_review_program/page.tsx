@@ -34,8 +34,8 @@ export default function VideoReviewPage() {
       description: (
         <>
           Receive our email with simple guidelines and
-          <br className="hidden lg:flex" /> questions to help you prepare your
-          review.
+          <br className="hidden min-[468px]:flex" /> questions to help you
+          prepare your review.
         </>
       ),
     },
@@ -47,26 +47,23 @@ export default function VideoReviewPage() {
   ];
   return (
     <div className="flex justify-center">
-      <div className="relative flex w-full max-w-[845px] flex-col">
-        <div className="absolute flex min-h-[427px] w-full">
+      <div className="relative flex w-full max-w-[845px] flex-col object-contain">
+        <div className="absolute flex min-h-[427px] w-full ">
           <Image
             alt="video_reviews_bg"
             src={MobileBG}
-            // className="absolute top-0 flex h-full max-h-[512px] w-full min-w-full  object-contain"
-            className="z-[-1] flex h-full w-full lg:hidden"
+            className="z-[-1] flex  h-full w-full  min-[621px]:hidden"
           />
           <Image
             alt="video_reviews_bg"
             src={DesktopBG}
-            // className="absolute top-0 flex h-full max-h-[512px] w-full min-w-full  object-contain"
-            // className="absolute z-[-1] hidden h-full w-full max-w-[842px] lg:flex  "
-            className="z-[-1]  hidden h-full  w-full  lg:flex lg:flex-1 lg:flex-col"
+            className="z-[-1] hidden  w-full  min-[621px]:flex min-[621px]:flex-1 min-[621px]:flex-col"
           />
         </div>
         <section className=" flex  flex-col items-center overflow-clip  ">
-          <div className="relative flex  h-full w-full max-w-[842px] flex-col max-lg:items-center  ">
+          <div className="relative flex  h-full w-full  flex-col min-[468px]:items-center  ">
             {/* Mobile Start */}
-            <div className="pb-[44px] lg:hidden">
+            <div className="flex w-full flex-col items-center pb-[44px] min-[621px]:hidden">
               <div className="flex flex-col items-center pt-[44px] ">
                 <div className="flex items-center justify-center self-center whitespace-nowrap rounded-full bg-[#717171] px-4 py-[3.5px] ">
                   <p className="text-[white]">Special Event</p>
@@ -78,40 +75,44 @@ export default function VideoReviewPage() {
                   For Your Honest Review
                 </p>
               </div>
-              <Image
-                alt="phone-car"
-                src={PhoneRec}
-                className=" min-w-[366px] max-w-[105vw] pl-[3vw] pt-5 max-lg:-mr-[min(5vw,40px)]"
-              />
+              <div className="-mr-[min(2vw,20px)] flex min-h-[217px] w-full items-center self-end pt-5 min-[621px]:-mr-[min(5vw,40px)]">
+                <Image
+                  alt="phone-car"
+                  src={PhoneRec}
+                  className="  h-full w-full  "
+                />
+              </div>
               <div className="flex w-full justify-center">
-                <p className="max-w-[320px]  pt-6 text-center text-[14px] font-[300] leading-[22px] text-[#F3F3F3] lg:text-[16px] lg:leading-[24px]">
-                  We're inviting everyone who's purchased <br /> our car covers
-                  to share their experience.
+                <p className="max-w-[320px]  pt-6 text-center text-[14px] font-[300] leading-[22px] text-[#F3F3F3] min-[468px]:text-[16px] min-[468px]:leading-[24px]">
+                  We're inviting everyone who's purchased
+                  <br className="hidden max-[702px]:block" /> our car covers to
+                  share their experience.
                 </p>
               </div>
             </div>
             {/* Mobile End */}
             {/* Desktop Start */}
-            <div className="relative hidden min-h-[425px] lg:flex lg:justify-between lg:gap-[35px]">
-              <div className="flex flex-col items-center justify-center px-[40px] ">
+            <div className="relative hidden min-h-[425px] max-w-[842px]  items-center min-[621px]:flex min-[621px]:justify-between min-[621px]:gap-[30px] min-[621px]:gap-[35px]">
+              <div className="flex w-full max-w-[320px] flex-col items-center justify-center pl-4 ">
                 <div className="flex items-center justify-center self-center whitespace-nowrap rounded-full bg-[#717171] px-4 py-[3.5px] ">
                   <p className="text-[white]">Special Event</p>
                 </div>
                 <p className="pt-[28px] text-[32px] font-[900] leading-[37.5px] text-[#F3F3F3]">
                   Get $200
                 </p>
-                <p className="pt-[6px] text-[22px] font-[500] leading-[25.78px] text-[#F3F3F3]">
+                <p className="pt-[6px] text-center text-[22px] font-[500] leading-[25.78px] text-[#F3F3F3]">
                   For Your Honest Review
                 </p>
-                <p className="flex w-full max-w-[320px] pb-[44px] pt-6   text-[14px] font-[300] leading-[22px] text-[#F3F3F3] lg:text-[16px] lg:leading-[24px]">
-                  We're inviting everyone who's purchased <br /> our car covers
-                  to share their experience.
+                <p className="flex w-full pb-[44px] pt-6   text-[14px] font-[300] leading-[22px] text-[#F3F3F3] min-[468px]:text-[16px] min-[468px]:leading-[24px]">
+                  We're inviting everyone who's purchased{' '}
+                  <br className="hidden min-[702px]:block" /> our car covers to
+                  share their experience.
                 </p>
               </div>
               <Image
                 alt="phone-car"
                 src={PhoneRec}
-                className=" -mr-[min(1vw,20px)] w-full min-w-[366px]  max-w-[457px] py-[85px]"
+                className=" -mr-[min(1vw,20px)] w-full min-w-[366px]  max-w-[457px] self-center"
               />
             </div>
             {/* Desktop End */}
@@ -121,23 +122,23 @@ export default function VideoReviewPage() {
           <div className="z-[3] flex items-center justify-center self-center whitespace-nowrap rounded-full bg-[#D13030] px-4 py-[3.5px] ">
             <p className=" text-[white]">How It Works:</p>
           </div>
-          <div className="relative flex  flex-col items-center gap-[22px] pb-[40px] pt-[32px] lg:pb-[68px] ">
-            <div className="absolute left-1/2 top-[-10px] h-full -translate-x-1/2 lg:top-[0px]">
+          <div className="relative flex  flex-col items-center gap-[22px] pb-[40px] pt-[32px] min-[468px]:pb-[68px] ">
+            <div className="absolute left-1/2 top-[-10px] h-full -translate-x-1/2 min-[468px]:top-[0px]">
               <Image
                 src={BigDownArrow}
                 alt="big-down-arrow"
-                className="h-full min-h-[110%] w-full min-w-[60px] lg:hidden lg:min-w-[120px] "
+                className="h-full min-h-[110%] w-full min-w-[60px] min-[468px]:hidden min-[468px]:min-w-[120px] "
               />
               <Image
                 src={BiggerArrow}
                 alt="bigger-down-arrow"
-                className="hidden h-full min-h-[110%] w-full min-w-[60px] lg:block  "
+                className="hidden h-full min-h-[110%] w-full min-w-[60px] min-[468px]:block  "
               />
             </div>
             {steps.map(({ icon, title, description }, i) => (
-              <div className="z-[1] flex w-full max-w-[320px] items-center gap-[14px] rounded-[12px] bg-[white] px-[10px] py-5 lg:max-w-[680px] lg:justify-center lg:gap-[100px]">
+              <div className="z-[1] flex w-full max-w-[320px] items-center gap-[14px] rounded-[12px] bg-[white] px-[10px] py-5 min-[468px]:max-w-[680px] min-[468px]:justify-center min-[468px]:gap-[100px]">
                 <div className={`min-w-[${iconSize}px]`}>{icon}</div>
-                <div className="flex flex-col text-[14px] font-[900] leading-[15px] lg:w-[321px]">
+                <div className="flex flex-col text-[14px] font-[900] leading-[15px] min-[468px]:w-[321px]">
                   <p className="text-[#D13030]">Step. {i + 1}</p>
                   <p className="pt-1">{title}</p>
                   <p className="pt-2 text-[12px] font-[300]">{description}</p>
@@ -146,27 +147,28 @@ export default function VideoReviewPage() {
             ))}
           </div>
         </section>
-        <section className="flex justify-center px-[27px] py-[70px] lg:py-[110px]">
-          <div className="z-[1] flex w-full max-w-[345px] items-center gap-[50px] rounded-[10px] bg-[white] py-[15px] pl-[30px] pr-[15px] text-[#D13030] outline outline-[2px]  outline-[#D13030] lg:max-w-[680px] lg:justify-center lg:gap-[110px]">
+        <section className="flex justify-center px-[27px] py-[70px] min-[468px]:py-[110px]">
+          <div className="z-[1] flex w-full max-w-[345px] items-center gap-[50px] rounded-[10px] bg-[white] py-[15px] pl-[30px] pr-[15px] text-[#D13030] outline outline-[2px]  outline-[#D13030] min-[468px]:max-w-[680px] min-[468px]:justify-center min-[468px]:gap-[110px]">
             <FilledAtm
-              className={`flex w-full min-w-[${iconSize}px] max-w-[60px] lg:min-h-[108px] lg:min-w-[138px] lg:max-w-[128px]`}
+              className={`flex w-full min-w-[${iconSize}px] max-w-[60px] min-[468px]:min-h-[108px] min-[468px]:min-w-[138px] min-[468px]:max-w-[128px]`}
             />
             <div className="flex max-w-[235px] flex-col  text-[14px] leading-[15px]">
               <p className="pt-1 text-[26px] font-[900] leading-[30px]">
                 Get $200
               </p>
               <p className="pt-2 text-[12px] ">
-                Send them to us and get cash via Zelle, Paypal, Venmo, etc.
+                Send them to us and get cash <br /> via Zelle, Paypal, Venmo,
+                etc.
               </p>
             </div>
           </div>
         </section>
         <section className="flex w-full max-w-[] flex-col  bg-[black] px-4 pt-10 ">
-          <div className="flex flex-col self-center">
-            <p className=" text-[14px] font-[700] leading-[30px] text-[white]">
+          <div className="min-[468px]: flex flex-col  self-center text-[14px] min-[468px]:text-[16px]">
+            <p className=" font-[700] leading-[30px] text-[white]">
               Participating will:
             </p>
-            <ul className=" list-disc text-[14px]  text-[#d6d6d6d3] ">
+            <ul className="flex list-disc flex-col gap-1 pt-1  text-[#d6d6d6d3] ">
               <li className="list-item">Reward you with $200 in cash</li>
               <li className="list-item">
                 Assist others in making well-informed decisions
