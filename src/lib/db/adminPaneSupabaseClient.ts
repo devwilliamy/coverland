@@ -4,10 +4,10 @@ import {
   createBrowserClient,
 } from '@supabase/ssr';
 import { cookies } from 'next/headers';
-import { Database } from './types';
+import { Database as AdminDatabase } from './adminPanelTypes'
 import { SupabaseClient, createClient } from '@supabase/supabase-js';
 
-export const supabaseAdminPanelDatabaseClient = createClient<Database>(
+export const supabaseAdminPanelDatabaseClient = createClient<AdminDatabase>(
   process.env.NEXT_PUBLIC_SUPABASE_ADMIN_NODE_URL!,
   process.env.NEXT_PUBLIC_SUPABASE_ADMIN_NODE_KEY!
 );
@@ -15,7 +15,7 @@ export const supabaseAdminPanelDatabaseClient = createClient<Database>(
 export const createSupabaseAdminPanelServerClient = (
   cookieStore: ReturnType<typeof cookies>
 ): SupabaseClient => {
-  return createServerClient<Database>(
+  return createServerClient<AdminDatabase>(
     process.env.NEXT_PUBLIC_SUPABASE_ADMIN_NODE_URL!,
     process.env.NEXT_PUBLIC_SUPABASE_ADMIN_NODE_KEY!,
     {

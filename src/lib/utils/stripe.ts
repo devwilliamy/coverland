@@ -1,6 +1,7 @@
 // NlSkeS0v is 99% off for Dev testing, UQpfBHt7 is 100% off
 
 import { TCartItem } from '../cart/useCart';
+import { getOrderIdSequence } from '../db/admin-panel/orders';
 
 // fnUHD0s8 is 99% off for Prod (for Google Tag Testing)
 const devPromoCodes = ['UQpfBHt7', 'NlSkeS0v'];
@@ -23,15 +24,21 @@ export const checkPromoCode = (promoCode: string, isDev: boolean): boolean => {
     NX for Mixed
     CL-240405-MX-AA01
  */
-export const generateOrderId = (
+export const generateOrderId = async (
   items: TCartItem[],
   uniqueNumber: string
-): string => {
+): Promise<string> => {
   const brand = uniqueNumber === 'TEST' ? 'CL-TEST' : 'CL';
   const date = formatDate(new Date()); // Current date in YYMMDD format
   const productInitials = getProductInitials(items); // Initials based on item type
-
-  return `${brand}-${date}-${productInitials}-${uniqueNumber}`;
+  const sequence = await getOrderIdSequence({
+    productType: productInitials,
+    date,
+  });
+  console.log(
+    `[Stripe.util.generateOrderId}: ${brand}-${date}-${productInitials}-${sequence}`
+  );
+  return `${brand}-${date}-${productInitials}-${sequence}`;
 };
 
 export const formatDate = (date: Date): string => {
@@ -89,27 +96,31 @@ export const convertPriceFromStripeFormat = (price: number): number => {
 };
 
 export const generateLineItemsForStripe = (items, order_id) => {
-    return items.map((item: TCartItem) => {
-        const unitAmount = item.msrp
-          ? parseInt((parseFloat(item.msrp) * 100).toFixed(0))
-          : 0;
-        const type = item.type === 'Seat Covers' ? 'Seat Cover' : 'Car Cover';
-        const itemName =
-          `${item?.year_generation || ''} ${item?.make || ''} ${item?.model || ''} ${
-            item?.submodel1 ? item?.submodel1 : ''
-          } ${item?.submodel2 ? item?.submodel2 : ''} ${type} ${item?.display_id} ${
-            item?.display_color
-          } ${item?.sku} ${order_id}`.trim();
-        console.log('StripeCheckout Item Name:', itemName);
-        return {
-          price_data: {
-            currency: 'usd',
-            product_data: {
-              name: itemName,
-            },
-            unit_amount: unitAmount,
-          },
-          quantity: item.quantity,
-        };
-      });
-}
+  return items.map((item: TCartItem) => {
+    const unitAmount = item.msrp
+      ? parseInt((parseFloat(item.msrp) * 100).toFixed(0))
+      : 0;
+    const type = item.type === 'Seat Covers' ? 'Seat Cover' : 'Car Cover';
+    const itemName =
+      `${item?.year_generation || ''} ${item?.make || ''} ${item?.model || ''} ${
+        item?.submodel1 ? item?.submodel1 : ''
+      } ${item?.submodel2 ? item?.submodel2 : ''} ${type} ${item?.display_id} ${
+        item?.display_color
+      } ${item?.sku} ${order_id}`.trim();
+    console.log('StripeCheckout Item Name:', itemName);
+    return {
+      price_data: {
+        currency: 'usd',
+        product_data: {
+          name: itemName,
+        },
+        unit_amount: unitAmount,
+      },
+      quantity: item.quantity,
+    };
+  });
+};
+
+export const getSkusFromCartItems = (items: TCartItem[]) => {
+  return items.map((item: TCartItem) => item.sku);
+};

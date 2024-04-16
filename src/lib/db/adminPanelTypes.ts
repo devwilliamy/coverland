@@ -11,42 +11,138 @@ export type Database = {
     Tables: {
       _Orders: {
         Row: {
+          billing_address_city: string | null
+          billing_address_country: string | null
+          billing_address_line_1: string | null
+          billing_address_line_2: string | null
+          billing_address_postal_code: string | null
+          billing_address_state: string | null
+          card_amount: number | null
+          card_brand: string | null
+          card_country: string | null
+          card_exp_month: number | null
+          card_exp_year: number | null
+          card_fingerprint: string | null
+          card_funding: string | null
+          card_installments: number | null
+          card_last4: string | null
+          card_three_d_secure: string | null
+          card_wallet: string | null
           created_at: string | null
+          customer_email: string | null
+          customer_id: number | null
+          customer_name: string | null
+          customer_phone: string | null
           id: number
-          is_complete: boolean | null
+          notes: string | null
+          order_date: string | null
           order_id: string | null
+          payment_date: string | null
           payment_method: string | null
-          skus: string | null
-          total: string | null
-          transcation_id: string | null
-          user_id: number | null
+          payment_status: string | null
+          shipping_address_city: string | null
+          shipping_address_country: string | null
+          shipping_address_line_1: string | null
+          shipping_address_line_2: string | null
+          shipping_address_postal_code: string | null
+          shipping_address_state: string | null
+          shipping_carrier: string | null
+          shipping_tracking_number: string | null
+          status: boolean | null
+          total_amount: number | null
+          transaction_id: string | null
+          updated_at: string | null
         }
         Insert: {
+          billing_address_city?: string | null
+          billing_address_country?: string | null
+          billing_address_line_1?: string | null
+          billing_address_line_2?: string | null
+          billing_address_postal_code?: string | null
+          billing_address_state?: string | null
+          card_amount?: number | null
+          card_brand?: string | null
+          card_country?: string | null
+          card_exp_month?: number | null
+          card_exp_year?: number | null
+          card_fingerprint?: string | null
+          card_funding?: string | null
+          card_installments?: number | null
+          card_last4?: string | null
+          card_three_d_secure?: string | null
+          card_wallet?: string | null
           created_at?: string | null
+          customer_email?: string | null
+          customer_id?: number | null
+          customer_name?: string | null
+          customer_phone?: string | null
           id?: number
-          is_complete?: boolean | null
+          notes?: string | null
+          order_date?: string | null
           order_id?: string | null
+          payment_date?: string | null
           payment_method?: string | null
-          skus?: string | null
-          total?: string | null
-          transcation_id?: string | null
-          user_id?: number | null
+          payment_status?: string | null
+          shipping_address_city?: string | null
+          shipping_address_country?: string | null
+          shipping_address_line_1?: string | null
+          shipping_address_line_2?: string | null
+          shipping_address_postal_code?: string | null
+          shipping_address_state?: string | null
+          shipping_carrier?: string | null
+          shipping_tracking_number?: string | null
+          status?: boolean | null
+          total_amount?: number | null
+          transaction_id?: string | null
+          updated_at?: string | null
         }
         Update: {
+          billing_address_city?: string | null
+          billing_address_country?: string | null
+          billing_address_line_1?: string | null
+          billing_address_line_2?: string | null
+          billing_address_postal_code?: string | null
+          billing_address_state?: string | null
+          card_amount?: number | null
+          card_brand?: string | null
+          card_country?: string | null
+          card_exp_month?: number | null
+          card_exp_year?: number | null
+          card_fingerprint?: string | null
+          card_funding?: string | null
+          card_installments?: number | null
+          card_last4?: string | null
+          card_three_d_secure?: string | null
+          card_wallet?: string | null
           created_at?: string | null
+          customer_email?: string | null
+          customer_id?: number | null
+          customer_name?: string | null
+          customer_phone?: string | null
           id?: number
-          is_complete?: boolean | null
+          notes?: string | null
+          order_date?: string | null
           order_id?: string | null
+          payment_date?: string | null
           payment_method?: string | null
-          skus?: string | null
-          total?: string | null
-          transcation_id?: string | null
-          user_id?: number | null
+          payment_status?: string | null
+          shipping_address_city?: string | null
+          shipping_address_country?: string | null
+          shipping_address_line_1?: string | null
+          shipping_address_line_2?: string | null
+          shipping_address_postal_code?: string | null
+          shipping_address_state?: string | null
+          shipping_carrier?: string | null
+          shipping_tracking_number?: string | null
+          status?: boolean | null
+          total_amount?: number | null
+          transaction_id?: string | null
+          updated_at?: string | null
         }
         Relationships: [
           {
-            foreignKeyName: "public__Orders_user_id_fkey"
-            columns: ["user_id"]
+            foreignKeyName: "public__Orders_customer_id_fkey"
+            columns: ["customer_id"]
             isOneToOne: false
             referencedRelation: "users"
             referencedColumns: ["id"]
@@ -158,6 +254,24 @@ export type Database = {
           created_at?: string
           id?: number
           name?: string | null
+        }
+        Relationships: []
+      }
+      order_id_sequences: {
+        Row: {
+          date: string
+          last_sequence: number | null
+          product_type: string
+        }
+        Insert: {
+          date: string
+          last_sequence?: number | null
+          product_type: string
+        }
+        Update: {
+          date?: string
+          last_sequence?: number | null
+          product_type?: string
         }
         Relationships: []
       }
@@ -817,6 +931,13 @@ export type Database = {
           id: number
           name: string
         }[]
+      }
+      get_next_sequence: {
+        Args: {
+          p_type: string
+          p_date: string
+        }
+        Returns: string
       }
       get_product_reviews_summary: {
         Args: {

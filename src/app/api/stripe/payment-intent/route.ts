@@ -4,6 +4,7 @@ import {
   convertPriceToStripeFormat,
   generateLineItemsForStripe,
   generateOrderId,
+  getSkusFromCartItems,
 } from '@/lib/utils/stripe';
 import { NextRequest, NextResponse } from 'next/server';
 import Stripe from 'stripe';
@@ -21,8 +22,9 @@ export async function POST(request: NextRequest) {
   const { items, promoCode } = await request.json();
   const isDev = process.env.NODE_ENV !== 'production';
   const uniqueId = isDev ? 'TEST' : 'XXXX';
-  const orderId = generateOrderId(items, uniqueId);
-  const lineItems = generateLineItemsForStripe(items, orderId);
+  const orderId = await generateOrderId(items, uniqueId);
+  // const lineItems = generateLineItemsForStripe(items, orderId);
+  const skus = getSkusFromCartItems(items);
   // Create a PaymentIntent with the order amount and currency
   const paymentIntent = await stripe.paymentIntents.create({
     amount: calculateOrderAmount(items),
@@ -33,6 +35,7 @@ export async function POST(request: NextRequest) {
     },
     metadata: {
       orderId,
+      skus: skus.join(','),
     },
   });
 
@@ -42,13 +45,10 @@ export async function POST(request: NextRequest) {
 }
 
 export async function PUT(request: NextRequest) {
-  const {
-    paymentIntentId,
-    amount
-  } = await request.json();
+  const { paymentIntentId, amount } = await request.json();
 
   const paymentIntent = await stripe.paymentIntents.update(paymentIntentId, {
-    amount
+    amount,
   });
 
   return NextResponse.json({

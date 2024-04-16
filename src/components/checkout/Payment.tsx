@@ -28,8 +28,7 @@ export default function Payment() {
   const { billingAddress, shippingAddress, customerEmail, shipping } =
     useCheckoutContext();
   const { getTotalPrice } = useCartContext();
-  const totalMsrpPrice = (getTotalPrice() + shipping) * 100
-  console.log("TotalMSRPPrice:", totalMsrpPrice)
+  const totalMsrpPrice = Math.round((getTotalPrice() + shipping) * 100)
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
@@ -54,7 +53,6 @@ export default function Payment() {
     });
 
     const data = await response.json();
-    console.log('useUpdateStripePaymentIntent Data:', data);
     const { error } = await stripe.confirmPayment({
       elements,
       confirmParams: {
