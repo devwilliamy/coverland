@@ -51,7 +51,7 @@ export function middleware(request: NextRequest) {
     startSegment === SUV_COVERS_URL_PARAM ||
     startSegment === TRUCK_COVERS_URL_PARAM;
 
-  const unwantedSymbols = [',', ',-', '(', ')', '.', '&-'];
+  const unwantedSymbols = [',-', ',', '(', ')', '.', '&-', ',-', '-,'];
 
   const segmentHasUnwantedSymbol = (segment: string) => {
     for (const uSymbol of unwantedSymbols) {
