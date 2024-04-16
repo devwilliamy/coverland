@@ -36,3 +36,37 @@ export async function getOrderIdSequence({
 
   return data;
 }
+
+// export const updateAdminPanelOrder = async (mappedOrder, order_id, customer_id) => {
+//   if (!order_id) {
+//     return NextResponse.json(
+//       { error: 'Order ID is required' },
+//       { status: 400 }
+//     );
+//   }
+
+//   const cookieStore: ReadonlyRequestCookies = cookies();
+//   const supabase: SupabaseClient =
+//     createSupabaseAdminPanelServerClient(cookieStore);
+//   try {
+//     const { data, error } = await supabase
+//       .from(ADMIN_PANEL_ORDERS)
+//       .update(order)
+//       .match({ order_id })
+//       .select('*');
+
+//     if (error) {
+//       if (Number(error.code) === 23505) {
+//         console.error('Order Already Exists');
+//       } else {
+//         console.error('An error occurred:', error.message);
+//       }
+//     }
+
+//     if (data && data?.length === 0) {
+//       return NextResponse.json(
+//         { error: 'No order found with the specified ID' },
+//         { status: 404 }
+//       );
+//     }
+// }

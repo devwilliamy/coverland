@@ -17,24 +17,14 @@ export const createOrUpdateUser = async (customerInput) => {
       .from(ADMIN_PANEL_CUSTOMERS)
       .upsert(customerInput, {
         onConflict: 'email',
-        
       })
       .select('*');
     if (error) {
       console.error('An error occurred:', error.message);
-      return NextResponse.json(
-        { error: 'An unexpected error occurred' },
-        { status: 500 }
-      );
+      throw error;
     }
-    return NextResponse.json({
-      data,
-    });
+    return data;
   } catch (error) {
     console.error('An unexpected error occurred:', error);
-    return NextResponse.json(
-      { error: 'An unexpected error occurred' },
-      { status: 500 }
-    );
   }
 };

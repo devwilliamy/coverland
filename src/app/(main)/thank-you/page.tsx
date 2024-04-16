@@ -3,6 +3,9 @@ import { OrderConfirmationContent } from './components/OrderConfirmationContent'
 import { supabaseDatabaseClient } from '@/lib/db/supabaseClients';
 import { mapPaymentIntentAndMethodToOrder, mapPaymentMethodToCustomer } from '@/lib/utils/adminPanel';
 import { createOrUpdateUser } from '@/lib/db/admin-panel/customers';
+import { getPaymentIntent } from '@/lib/stripe/paymentIntent';
+import { getPaymentMethod } from '@/lib/stripe/paymentMethod';
+import { PaymentIntent, PaymentMethod } from '@stripe/stripe-js';
 
 type PaymentIntentSuccessParams = {
   searchParams: {
@@ -27,51 +30,21 @@ async function OrderConfirmationPage({
     return;
   }
 
-  // Get Payment Intent
-  // If have time, extract this from API. Don't need
-  const paymentIntentResponse = await fetch(
-    `http://localhost:3000/api/stripe/payment-intent/${payment_intent}`
-  );
-  const { paymentIntent } = await paymentIntentResponse.json();
-
-  // Get Payment Method
-  // If have time, extract this from API. Don't need
+  const paymentIntent = await getPaymentIntent(payment_intent)
+  
   const { payment_method } = paymentIntent;
-  const paymentMethodResponse = await fetch(
-    `http://localhost:3000/api/stripe/payment-method/${payment_method}`
-  );
-  const { paymentMethod } = await paymentMethodResponse.json();
+  const paymentMethod = await getPaymentMethod(payment_method as string)
 
-
-  // Customers Goes Here
-
-  const customerInput = mapPaymentMethodToCustomer(paymentMethod)
-  const createdCustomer = createOrUpdateUser(customerInput)
-  // const createdCustomer = await fetch(
-  //   `http://localhost:3000/api/admin-panel/users/`,
-  //   {
-  //     method: 'POST',
-  //     headers: {
-  //       'Content-Type': 'application/json',
-  //     },
-  //     body: JSON.stringify({
-        
-        
-  //     }),
-  //   }
-  // );
-
-
-
-
-
-
-  // Update Order Table
-  // If have time, extract this from API. Don't need
+  const customerInput = mapPaymentMethodToCustomer(paymentMethod as PaymentMethod)
+  const createdCustomer = await createOrUpdateUser(customerInput) || []
+  
+  
   const mappedOrder = mapPaymentIntentAndMethodToOrder(
-    paymentIntent,
-    paymentMethod
+    paymentIntent as PaymentIntent,
+    paymentMethod as PaymentMethod
   );
+
+  // const updatedOrder = await updatedOrderResponse(mappedOrder, order_id, customer_id)
   const updatedOrderResponse = await fetch(
     `http://localhost:3000/api/admin-panel/orders/`,
     {
@@ -82,6 +55,7 @@ async function OrderConfirmationPage({
       body: JSON.stringify({
         order: mappedOrder,
         order_id: mappedOrder.order_id,
+        customer_id: createdCustomer.length > 1 && createdCustomer[0].id
       }),
     }
   );
@@ -99,48 +73,6 @@ async function OrderConfirmationPage({
       skusWithQuantity: paymentIntent.metadata.skusWithQuantity,
     }),
   });
-
-  // const orderNumber = searchParams?.['order-number'];
-
-  // if (!orderNumber) {
-  //   return redirect('/');
-  // }
-
-  async function handleOrderCompletion() {
-    const orderTable = orderNumber?.includes('test')
-      ? 'Test-Orders'
-      : '_Orders';
-    const { error } = await supabaseDatabaseClient
-      .from(orderTable)
-      .update({
-        is_complete: true,
-      })
-      .eq('order_id', orderNumber);
-
-    if (error) {
-      console.error('Error updating order status:', error);
-    }
-    console.log('Order status updated');
-  }
-
-  async function getOrderInfo() {
-    const orderTable = orderNumber?.includes('test')
-      ? 'Test-Orders'
-      : '_Orders';
-    const { data, error } = await supabaseDatabaseClient
-      .from(orderTable)
-      .select('skus, total')
-      .eq('order_id', orderNumber);
-
-    if (error) {
-      console.error('Error fetching order info:', error);
-    }
-
-    return data;
-  }
-
-  // await handleOrderCompletion();
-  // const items = await getOrderInfo();
 
   return (
     <Suspense fallback={<div>Loading...</div>}>
