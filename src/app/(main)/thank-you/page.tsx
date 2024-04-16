@@ -26,15 +26,20 @@ async function OrderConfirmationPage({
     return;
   }
 
+  // Get Payment Intent
   const paymentIntentResponse = await fetch(
     `http://localhost:3000/api/stripe/payment-intent/${payment_intent}`
   );
   const { paymentIntent } = await paymentIntentResponse.json();
+
+  // Get Payment Method
   const { payment_method } = paymentIntent;
   const paymentMethodResponse = await fetch(
     `http://localhost:3000/api/stripe/payment-method/${payment_method}`
   );
   const { paymentMethod } = await paymentMethodResponse.json();
+
+  // Update Order Table
   const mappedOrder = mapPaymentIntentAndMethodToOrder(
     paymentIntent,
     paymentMethod
@@ -52,6 +57,21 @@ async function OrderConfirmationPage({
       }),
     }
   );
+
+  const { data: updatedOrder } = await updatedOrderResponse.json();
+
+  // Add To OrderItem Table
+  await fetch(`http://localhost:3000/api/admin-panel/order-items/`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      id: updatedOrder[0].id,
+      skusWithQuantity: paymentIntent.metadata.skusWithQuantity,
+    }),
+  });
+
   // const orderNumber = searchParams?.['order-number'];
 
   // if (!orderNumber) {

@@ -124,3 +124,7 @@ export const generateLineItemsForStripe = (items, order_id) => {
 export const getSkusFromCartItems = (items: TCartItem[]) => {
   return items.map((item: TCartItem) => item.sku);
 };
+
+export const getSkusAndQuantityFromCartItems = (items: TCartItem[]) => {
+  return items.map((item: TCartItem) => ({ sku: item.sku, quantity: item.quantity}))
+}

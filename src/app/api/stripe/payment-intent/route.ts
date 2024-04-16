@@ -4,6 +4,7 @@ import {
   convertPriceToStripeFormat,
   generateLineItemsForStripe,
   generateOrderId,
+  getSkusAndQuantityFromCartItems,
   getSkusFromCartItems,
 } from '@/lib/utils/stripe';
 import { NextRequest, NextResponse } from 'next/server';
@@ -25,6 +26,7 @@ export async function POST(request: NextRequest) {
   const orderId = await generateOrderId(items, uniqueId);
   // const lineItems = generateLineItemsForStripe(items, orderId);
   const skus = getSkusFromCartItems(items);
+  const skusWithQuantity = getSkusAndQuantityFromCartItems(items);
   // Create a PaymentIntent with the order amount and currency
   const paymentIntent = await stripe.paymentIntents.create({
     amount: calculateOrderAmount(items),
@@ -36,6 +38,7 @@ export async function POST(request: NextRequest) {
     metadata: {
       orderId,
       skus: skus.join(','),
+      skusWithQuantity: JSON.stringify(skusWithQuantity)
     },
   });
 
