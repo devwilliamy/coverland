@@ -1,4 +1,4 @@
-import { useCheckoutContext } from '@/contexts/CheckoutContext';
+import { mapPaymentIntentIdToOrder } from '@/lib/utils/adminPanel';
 import { useCartContext } from '@/providers/CartProvider';
 import { useEffect, useState } from 'react';
 
@@ -20,11 +20,19 @@ export function useCreateStripePaymentIntent() {
           body: JSON.stringify({ items: cartItems }),
         });
 
-        const data = await response.json();
-        console.log('Data:', data);
-        setPaymentIntentId(data.paymentIntent?.id);
-        setClientSecret(data.paymentIntent?.client_secret);
-        setOrderNumber(data.paymentIntent?.metadata?.orderId);
+        const { paymentIntent } = await response.json();
+        const mappedPaymentIntent = mapPaymentIntentIdToOrder(paymentIntent);
+        await fetch('/api/admin-panel/orders', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ order: mappedPaymentIntent }),
+        });
+
+        setPaymentIntentId(paymentIntent?.id);
+        setClientSecret(paymentIntent?.client_secret);
+        setOrderNumber(paymentIntent?.metadata?.orderId);
       } catch (error) {
         console.error('[GetStripeClientSecret]: ', error);
       } finally {

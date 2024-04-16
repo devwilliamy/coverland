@@ -11,8 +11,6 @@ export async function GET(
   const paymentIntent = await stripe.paymentIntents.retrieve(
     paymentIntentId as string
   );
-  console.log('==============================');
-  console.log('[Payment-Intent.GET]: ', paymentIntent);
 
   return NextResponse.json({ paymentIntent });
 }

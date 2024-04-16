@@ -1,8 +1,7 @@
 import { Suspense } from 'react';
 import { OrderConfirmationContent } from './components/OrderConfirmationContent';
 import { supabaseDatabaseClient } from '@/lib/db/supabaseClients';
-import StripeElementWrapper from '@/app/wrappers/StripeElementWrapper';
-import { request } from 'http';
+import { mapPaymentIntentAndMethodToOrder } from '@/lib/utils/adminPanel';
 
 type PaymentIntentSuccessParams = {
   searchParams: {
@@ -30,13 +29,29 @@ async function OrderConfirmationPage({
   const paymentIntentResponse = await fetch(
     `http://localhost:3000/api/stripe/payment-intent/${payment_intent}`
   );
-  const paymentIntent = await paymentIntentResponse.json();
+  const { paymentIntent } = await paymentIntentResponse.json();
   const { payment_method } = paymentIntent;
   const paymentMethodResponse = await fetch(
     `http://localhost:3000/api/stripe/payment-method/${payment_method}`
   );
-  const paymentMethod = await paymentMethodResponse.json();
-
+  const { paymentMethod } = await paymentMethodResponse.json();
+  const mappedOrder = mapPaymentIntentAndMethodToOrder(
+    paymentIntent,
+    paymentMethod
+  );
+  const updatedOrderResponse = await fetch(
+    `http://localhost:3000/api/admin-panel/orders/`,
+    {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        order: mappedOrder,
+        order_id: mappedOrder.order_id,
+      }),
+    }
+  );
   // const orderNumber = searchParams?.['order-number'];
 
   // if (!orderNumber) {

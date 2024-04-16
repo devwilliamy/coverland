@@ -15,6 +15,7 @@ import PaymentSelector from './PaymentSelector';
 import { PaymentMethod } from '@/lib/types/checkout';
 import BillingAddress from './BillingAddress';
 import { useCartContext } from '@/providers/CartProvider';
+import { convertPriceToStripeFormat } from '@/lib/utils/stripe';
 
 export default function Payment() {
   const stripe = useStripe();
@@ -28,7 +29,7 @@ export default function Payment() {
   const { billingAddress, shippingAddress, customerEmail, shipping } =
     useCheckoutContext();
   const { getTotalPrice } = useCartContext();
-  const totalMsrpPrice = Math.round((getTotalPrice() + shipping) * 100)
+  const totalMsrpPrice = convertPriceToStripeFormat(getTotalPrice() + shipping)
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
