@@ -4,10 +4,9 @@ import React from 'react';
 import DesktopBG from '@/images/video_reviews_program/video-reviews-bg-desktop.webp';
 import MobileBG from '@/images/video_reviews_program/video-reviews-bg-mobile.webp';
 import PhoneRec from '@/images/video_reviews_program/phone-car.webp';
-import BigDownArrow from '@/images/video_reviews_program/big-review-arrow.png';
-import BiggerArrow from '@/images/video_reviews_program/bigger-arrow.png';
+import BigDownArrow from '@/images/video_reviews_program/big-review-arrow.webp';
+import BiggerArrow from '@/images/video_reviews_program/bigger-arrow.webp';
 import {
-  MdLocalAtm,
   MdOutlineArticle,
   MdOutlineDrafts,
   MdOutlinePhotoCamera,
@@ -101,10 +100,9 @@ export default function VideoReviewPage() {
                 <p className="pt-[6px] text-center text-[22px] font-[500] leading-[25.78px] text-[#F3F3F3]">
                   For Your Honest Review
                 </p>
-                <p className="flex pb-[44px] pt-6  text-[14px] font-[300] leading-[22px] text-[#F3F3F3]  min-[621px]:text-[16px]  min-[621px]:leading-[24px]">
-                  We're inviting everyone who's purchased{' '}
-                  <br className="hidden min-[702px]:block" /> our car covers to
-                  share their experience.
+                <p className="flex whitespace-nowrap p-2 pb-[44px] pt-6 text-[14px] font-[300] leading-[22px]  text-[#F3F3F3] min-[621px]:text-[16px] min-[621px]:leading-[24px]">
+                  We're inviting everyone who's purchased <br /> our car covers
+                  to share their experience.
                 </p>
               </div>
               <Image
@@ -169,8 +167,8 @@ export default function VideoReviewPage() {
             </div>
           </div>
         </section>
-        <section className="mb-[50px]  flex  flex-col bg-[black] px-4 pt-10  ">
-          <div className="flex flex-col px-8 text-[18px]  leading-[30px] min-[621px]:self-center min-[621px]:justify-self-center  min-[621px]:text-[20px]">
+        <section className="mb-[50px] flex flex-col bg-[black] px-4 pt-10  ">
+          <div className="px-8 text-[18px]  leading-[30px] min-[621px]:self-center min-[621px]:justify-self-center  min-[621px]:text-[20px]">
             <p className=" font-[700] text-[white]">Participating will:</p>
             <ul className="flex list-disc flex-col gap-1 pt-1  text-[#d6d6d6d3] ">
               <li className="list-item">Reward you with $200 in cash</li>
