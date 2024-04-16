@@ -1,7 +1,6 @@
 'use client';
 import Image from 'next/image';
 import { useState, useContext } from 'react';
-import SeatCoverFreeDetails from './SeatCoverFreeDetails';
 import installments from '@/images/PDP/Product-Details-Redesign-2/paypal-installments.webp';
 import { Rating } from '@mui/material';
 import { useCartContext } from '@/providers/CartProvider';
@@ -14,6 +13,7 @@ import { Separator } from '@/components/ui/separator';
 import { TQueryParams } from '@/utils';
 import AddToCart from '@/components/cart/AddToCart';
 import EditVehicle from '@/components/edit-vehicle/EditVehicle';
+import FreeDetails from '../../[productType]/components/FreeDetails';
 
 export default function SeatContent({
   searchParams,
@@ -24,7 +24,7 @@ export default function SeatContent({
   if (!store)
     throw new Error('Missing SeatCoverSelectionContext.Provider in the tree');
   const selectedProduct = useStore(store, (s) => s.selectedProduct);
-  const [coverPrice, setCoverPrice] = useState(280);
+  const [coverPrice, setCoverPrice] = useState(320);
 
   const { addToCart } = useCartContext();
   const router = useRouter();
@@ -79,7 +79,8 @@ export default function SeatContent({
         {/* <Info className="h-[17px] w-[17px] text-[#767676]" /> */}
       </div>
       <SeatCoverColorSelector />
-      <SeatCoverFreeDetails />
+      <Separator />
+      <FreeDetails />
       {/* <CompatibleVehiclesTrigger /> */}
       <div className="lg:py-4"></div>
       <div className="lg:hidden">

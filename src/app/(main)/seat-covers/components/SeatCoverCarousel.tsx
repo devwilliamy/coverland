@@ -10,9 +10,13 @@ import {
 import { StaticImport } from 'next/dist/shared/lib/get-img-props';
 import { Asset } from 'next-video/dist/assets.js';
 import SeatCover from '@/images/PDP/Product-Details-Redesign-2/seat-covers/featured-cover.webp';
+import SeatVideo from '@/videos/7_sec_seat_cover.mp4';
+import SeatThumbnail from '@/images/PDP/seat-covers-v2/seat-covers-listing-thumbnail.webp';
 import { useState, useEffect, useCallback, useContext } from 'react';
 import { SeatCoverSelectionContext } from '@/contexts/SeatCoverContext';
 import { useStore } from 'zustand';
+import ProductVideo from '@/components/PDP/ProductVideo';
+import { Play } from 'lucide-react';
 
 export default function SeatCoverCarousel() {
   const store = useContext(SeatCoverSelectionContext);
@@ -51,8 +55,8 @@ export default function SeatCoverCarousel() {
     video?: string | Asset;
   }) => (
     <button
-      className={`w-25% relative flex h-full min-h-[25%] min-w-[25%] items-center justify-center rounded-[4px] ${index === current && 'outline outline-1'} p-[2px]`}
       onClick={() => scrollTo(index)}
+      className={`w-25% relative flex h-full min-h-[25%] min-w-[25%] items-center justify-center rounded-[4px] ${index === current && 'outline outline-1'} p-[2px]`}
     >
       <Image
         className="h-full w-full rounded-[4px]"
@@ -63,25 +67,27 @@ export default function SeatCoverCarousel() {
       />
     </button>
   );
+
   return (
     <section className="flex h-full lg:hidden ">
       <div className="flex max-w-full flex-col bg-white  ">
         <Carousel setApi={setApi}>
           <CarouselContent id={'carousel-content'} className="no-scrollbar">
             {galleryImages?.map((image, index) => {
-              // if (index == 3) {
-              //   return (
-              //     <CarouselItem
-              //       key={`seat-video-${index}`}
-              //       className="h-full w-full"
-              //     >
-              //       <ProductVideo
-              //         src={SeatVideo}
-              //         imgSrc={FeaturedVideoThumbnail}
-              //       />
-              //     </CarouselItem>
-              //   );
-              // }
+              if (index == 3) {
+                return (
+                  <CarouselItem
+                    key={`seat-video-${index}`}
+                    className="h-full w-full"
+                  >
+                    <ProductVideo
+                      src={SeatVideo}
+                      imgSrc={SeatThumbnail}
+                      autoplay
+                    />
+                  </CarouselItem>
+                );
+              }
 
               return (
                 <CarouselItem key={`carousel-item-${index}`}>
@@ -100,13 +106,28 @@ export default function SeatCoverCarousel() {
         </Carousel>
         <section className="flex h-full w-full items-center pt-1">
           <span className="no-scrollbar flex flex-[80%] flex-row gap-1 overflow-x-auto whitespace-nowrap px-[6px] py-1">
-            {galleryImages?.map((image, index) => (
-              <CarouselPositionItem
-                key={`position-item-${index}`}
-                src={image}
-                index={index}
-              />
-            ))}
+            {galleryImages?.map((image, index) => {
+              if (index === 3) {
+                return (
+                  <div
+                    key={image}
+                    id="video-thumbnail"
+                    onClick={() => scrollTo(index)}
+                    className={`w-25% relative flex h-full min-h-[25%] min-w-[25%] items-center justify-center `}
+                  >
+                    <CarouselPositionItem src={SeatThumbnail} index={index} />
+                    <Play className="absolute rounded-full fill-white text-white" />
+                  </div>
+                );
+              }
+              return (
+                <CarouselPositionItem
+                  key={`position-item-${index}`}
+                  src={image}
+                  index={index}
+                />
+              );
+            })}
           </span>
           {/* <div
             className={`flex h-full min-h-[20%] min-w-[20%] max-w-[20%] flex-[20%] items-center justify-center rounded-[4px] bg-[#F2F2F2]  `}

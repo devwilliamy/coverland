@@ -18,7 +18,7 @@ export default function ProductDetailsHeader() {
   const { make, model } = useDetermineType();
 
   return (
-    <section className="relative -mx-4 mb-[60px] flex flex-col items-center lg:mb-[110px] lg:pt-[60px]  ">
+    <section className="relative -mx-4 mb-[40px] flex flex-col items-center lg:mb-[110px] lg:pt-[60px]  ">
       {make === 'ford' && model === 'f-150' && (
         <div className="hidden w-full  lg:flex">
           <DetailsTabHeader />

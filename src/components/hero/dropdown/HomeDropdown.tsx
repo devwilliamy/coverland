@@ -434,7 +434,7 @@ export default function HomeDropdown({
             disabled={isDisabled}
             // defaultValue={''}
             value={value}
-            autoComplete='off'
+            autoComplete="off"
             className={`absolute top-0 flex h-full w-full  cursor-pointer appearance-none items-center rounded-[8px] pl-[20px] outline outline-[2px] outline-offset-0 outline-transparent focus:outline-[#BE1B1B] `}
           >
             <option
@@ -444,9 +444,7 @@ export default function HomeDropdown({
               className={`flex h-full w-full items-center pl-[20px]`}
             >
               {place} &nbsp;
-              {value === ''
-                ? title.replace(title.charAt(0), title.charAt(0).toUpperCase())
-                : value}
+              {title.replace(title.charAt(0), title.charAt(0).toUpperCase())}
             </option>
             {items && items.length > 0 && (
               <>

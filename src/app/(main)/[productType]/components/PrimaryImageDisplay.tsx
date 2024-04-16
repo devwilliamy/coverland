@@ -24,14 +24,14 @@ export function PrimaryImageDisplay() {
         <FeatureImage />
       </div>
 
-      {/* Product Video */}
+      {/* Product Video
       <div className=" min-h hidden lg:block lg:max-h-[420px] lg:min-h-80">
         <ProductVideo
           src={SixMinVideo}
           imgSrc={Thumbnail}
           aspectRatio="16 / 9"
         />
-      </div>
+      </div> */}
 
       {/* Gallery Images */}
       <SelectedProductImages />
