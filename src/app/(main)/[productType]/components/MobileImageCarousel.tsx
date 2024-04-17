@@ -132,7 +132,7 @@ const MobileImageCarousel = () => {
                   <Image
                     src={
                       (removeWwwFromUrl(selectedProduct.mainImage as string) +
-                        '?v=9') as string
+                        '?v=10') as string
                     }
                     alt={`Additional images of the ${selectedProduct.display_id} cover`}
                     width={500}
@@ -158,7 +158,7 @@ const MobileImageCarousel = () => {
             return (
               <CarouselItem key={image}>
                 <Image
-                  src={removeWwwFromUrl(image) + '?v=9'}
+                  src={removeWwwFromUrl(image) + '?v=10'}
                   alt={`Additional images of the ${selectedProduct.display_id} cover`}
                   width={500}
                   height={500}
@@ -188,7 +188,7 @@ const MobileImageCarousel = () => {
                   <Image
                     src={
                       (removeWwwFromUrl(selectedProduct.mainImage as string) +
-                        '?v=9') as string
+                        '?v=10') as string
                     }
                     alt={`Additional images of the ${selectedProduct.display_id} cover`}
                     width={74}
