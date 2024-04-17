@@ -13,7 +13,7 @@ export default function FeatureImage() {
   return (
     <Image
       id="featured-image"
-      src={removeWwwFromUrl(featuredImage as string) + '?v=4' ?? ''}
+      src={removeWwwFromUrl(featuredImage as string) + '?v=5' ?? ''}
       alt="a car with a car cover on it"
       fill={true}
       className="hidden object-cover lg:block"
