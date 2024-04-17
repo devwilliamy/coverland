@@ -1,10 +1,53 @@
 import { TCartItem } from '@/lib/cart/useCart';
+import { generateOrderId } from '@/lib/utils/stripe';
 import { loadStripe } from '@stripe/stripe-js';
 import { Dispatch, SetStateAction } from 'react';
 
 export async function paypalCreateOrder(
-  totalMsrpPrice: number
+  totalMsrpPrice: number,
+  items: TCartItem[]
 ): Promise<string | null> {
+  const isDev = process.env.NODE_ENV !== 'production';
+  const uniqueId = isDev ? 'TEST' : 'XXXX';
+  const orderId = await generateOrderId(items, uniqueId);
+  const itemsForPaypal = items.map((item) => ({
+    name: `${item.parent_generation} ${item.display_id} ${item.model} ${item.type} ${item.display_color}`,
+    quantity: item.quantity?.toString(),
+    sku: item.sku,
+    unit_amount: {
+      currency_code: 'USD',
+      value: item.msrp,
+    },
+  }));
+  const purchase_units = [
+    {
+      reference_id: orderId, // order-id
+      custom_id: orderId, //order-id
+      items: itemsForPaypal,
+      amount: {
+        currency_code: 'USD',
+        value: totalMsrpPrice,
+        breakdown: {
+          item_total: {
+            currency_code: 'USD',
+            value: totalMsrpPrice.toString(),
+          },
+          // shipping: {
+          //   currency_code: "USD",
+          //   value: ""
+          // },
+          // tax_total: {
+          //   currency_code: "USD",
+          //   value:""
+          // }
+        },
+      },
+    },
+  ];
+  console.log(
+    '[Checkout.utils.paypalCreateOrder] Purchase Units:',
+    purchase_units
+  );
   try {
     const response = await fetch('/api/paypal', {
       method: 'POST',
@@ -15,6 +58,7 @@ export async function paypalCreateOrder(
         order_price: totalMsrpPrice,
         //current time and date
         user_id: new Date().toISOString(),
+        purchase_units,
       }),
     });
     if (!response.ok) {
@@ -22,6 +66,7 @@ export async function paypalCreateOrder(
     }
 
     const data = await response.json();
+    console.log('[Paypal.paypalCreateOrder]: ', data);
     return data.data.id;
   } catch (err) {
     return null;
@@ -77,7 +122,9 @@ export async function paypalCaptureOrder(orderID: string) {
     if (!response.ok) {
       throw new Error('Network response was not ok');
     }
-    return await response.json();
+    const data = await response.json();
+    console.log('[Paypal.paypalCaptureOrder]: ', data);
+    return data;
   } catch (err) {
     console.log(err);
   }

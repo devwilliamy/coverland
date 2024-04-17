@@ -5,6 +5,7 @@ import {
   getCurrentTimeInISOFormat,
 } from './date';
 import { Tables } from '../db/types';
+import { PayPalCaptureOrder, PayPalCompleteOrder } from '../types/paypal';
 
 type TOrdersDB = Tables<'_Orders'>;
 
@@ -12,12 +13,15 @@ export const mapPaymentIntentIdToOrder = (
   paymentIntentInput: PaymentIntent
 ) => {
   // Ignore metadata, it does exist
-  const { metadata, created, id, status, amount } = paymentIntentInput;
+  const { metadata, currency, created, id, status, amount } =
+    paymentIntentInput;
   return {
     order_id: metadata.orderId,
     order_date: convertUnixTimestampToISOString(created),
     total_amount: amount,
+    currency: currency,
     status: 'PENDING',
+    payment_gateway: 'stripe',
     transaction_id: id,
     payment_status: status,
     skus: metadata.skus,
@@ -28,14 +32,24 @@ export const mapPaymentIntentAndMethodToOrder = (
   paymentIntentInput: PaymentIntent,
   paymentMethodInput: PaymentMethod
 ) => {
-  const { metadata, created, id, status, amount, payment_method, shipping } =
-    paymentIntentInput;
+  const {
+    metadata,
+    currency,
+    created,
+    id,
+    status,
+    amount,
+    payment_method,
+    shipping,
+  } = paymentIntentInput;
   const { type, card, billing_details } = paymentMethodInput;
   return {
     order_id: metadata.orderId,
     order_date: convertUnixTimestampToISOString(created),
     total_amount: amount,
+    currency,
     status: 'COMPLETE',
+    payment_gateway: 'stripe',
     transaction_id: id,
     payment_status: status,
     payment_method_id: payment_method,
@@ -45,6 +59,7 @@ export const mapPaymentIntentAndMethodToOrder = (
     card_fingerprint: card?.fingerprint,
     card_funding: card?.funding,
     customer_id: null,
+    // payment_gateway_customer_id: payer.payer_id,
     payment_date: getCurrentTimeInISOFormat(),
     customer_name: billing_details.name,
     customer_email: billing_details.email,
@@ -97,6 +112,69 @@ export const mapPaymentMethodToCustomer = (
     phone: billing_details?.phone,
     pincode: billing_details?.address?.postal_code,
     state: billing_details?.address?.state,
-    email: billing_details.email
+    email: billing_details.email,
+  };
+};
+
+export const mapPaypalCaptureCreateToOrder = (
+  paypalPayload: PayPalCaptureOrder
+) => {
+  const { id, status, purchase_units, create_time } = paypalPayload;
+  const { reference_id: order_id, amount, items } = purchase_units[0];
+  const skus = items.map((item) => item.sku);
+  return {
+    order_id,
+    order_date: create_time,
+    total_amount: amount.value,
+    currency: amount.currency_code,
+    status,
+    payment_gateway: 'paypal',
+    transaction_id: id,
+    skus,
+  };
+};
+
+export const mapPaypalCreationToOrder = (
+  paypalPayload: PayPalCompleteOrder
+) => {
+  const { id, status, purchase_units, payment_source, payer } = paypalPayload;
+  const { reference_id: order_id, shipping, payments } = purchase_units[0];
+  return {
+    order_id,
+    // order_date: create_time,
+    total_amount: payments?.captures[0]?.amount?.value,
+    currency: payments?.captures[0]?.amount?.currency_code,
+    status: status,
+    payment_gateway: 'paypal',
+    transaction_id: id,
+    payment_status: payments?.captures[0]?.status,
+    payment_method_id: payments?.captures[0]?.id,
+    // payment_method: type,
+    card_amount: payments?.captures[0]?.amount?.value,
+    // card_brand: card?.brand,
+    // card_fingerprint: payments.captures[0].id,
+    // card_funding: card?.funding, // credit
+    customer_id: null,
+    payment_gateway_customer_id: payer.payer_id,
+    payment_date: getCurrentTimeInISOFormat(),
+    customer_name: shipping?.name?.full_name,
+    customer_email: payment_source?.paypal?.email_address,
+    customer_phone: payment_source?.paypal?.phone_number || '', // currently don't actually see phone number
+    shipping_address_line_1: shipping?.address?.address_line_1,
+    shipping_address_line_2: shipping?.address?.address_line_2 || '', // currnetly don't see it
+    shipping_address_city: shipping?.address?.admin_area_2,
+    shipping_address_state: shipping?.address?.admin_area_1,
+    shipping_address_postal_code: shipping?.address?.postal_code,
+    shipping_address_country: shipping?.address?.country_code,
+    billing_address_line_1:
+      payment_source?.paypal?.address?.address_line_1 || '', // Currnetly don't see different billing
+    billing_address_line_2:
+      payment_source?.paypal?.address?.address_line_2 || '', // currnetly don't see it // Currnetly don't see different billing
+    billing_address_city: payment_source?.paypal?.address?.admin_area_2 || '', // Currnetly don't see different billing
+    billing_address_state: payment_source?.paypal?.address?.admin_area_1 || '', // Currnetly don't see different billing
+    billing_address_postal_code:
+      payment_source?.paypal?.address?.postal_code || '', // Currnetly don't see different billing
+    billing_address_country: payment_source?.paypal?.address?.country_code, // Currnetly don't see different billing
+    updated_at: getCurrentTimeInISOFormat(),
   };
 };

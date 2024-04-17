@@ -1,13 +1,24 @@
 import paypal from '@paypal/checkout-server-sdk';
 
-import { PaypalClient } from '../utils';
+const clientId = process.env.PAYPAL_CLIENT_ID ?? '';
+const clientSecret = process.env.PAYPAL_CLIENT_SECRET ?? '';
+const isProduction = process.env.NODE_ENV === 'production';
+const productionEnvironment = new paypal.core.LiveEnvironment(
+  clientId,
+  clientSecret
+);
+
+const environment = isProduction
+  ? productionEnvironment
+  : new paypal.core.SandboxEnvironment(clientId, clientSecret);
+// Move this into another folder
+export const PaypalClient = new paypal.core.PayPalHttpClient(environment);
 
 export async function POST(req: Request) {
   if (req.method != 'POST') {
     return Response.json({ success: false, message: 'Not Found' });
   }
 
-  console.log('client_id:', process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID);
   const body = await req.json();
 
   if (!body.orderID) {
@@ -18,13 +29,17 @@ export async function POST(req: Request) {
   }
 
   const { orderID } = body;
-  console.log(orderID);
   try {
-    console.log('creating paypal order:', orderID);
+    console.log(
+      '[api.paypal.capture-order.route POST] creating paypal order:',
+      orderID
+    );
     const request = new paypal.orders.OrdersCaptureRequest(orderID);
+    console.log('[api.paypal.capture-order.route POST] request:', request);
+
     const response = await PaypalClient.execute(request);
 
-    console.log(response);
+    console.log('[api.paypal.capture-order.route POST] RESPONSE', response); // One of the useful repnoses
   } catch (error) {
     console.log(error);
     console.log(
