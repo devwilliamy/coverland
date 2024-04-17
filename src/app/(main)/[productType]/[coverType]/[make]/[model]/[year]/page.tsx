@@ -1,4 +1,4 @@
-import { TReviewData, getProductData } from '@/lib/db';
+import { TReviewData, getProductData, getProductMetadata } from '@/lib/db';
 import { notFound, redirect } from 'next/navigation';
 import CarPDP from '@/app/(main)/[productType]/components/CarPDP';
 import { TPathParams } from '@/utils';
@@ -41,9 +41,12 @@ export async function generateMetadata({ params }: { params: TPathParams }) {
   const make = deslugify(params.make || '');
   const model = deslugify(params.model || '');
   const year = deslugify(params.year || '');
+  const urlString = `https://coverland.com/${params.productType}/${PREMIUM_PLUS_URL_PARAM}/${params.make}/${params.model}/${params.year}`;
+
   return {
     title: `${make} ${model} ${year} │ Lifetime Warranty │ Custom Fit │ 100% Weatherproof`,
-    description: `${year} ${make} ${model} ${productType} ᐉ Coverland ⭐ Free, Same-Day Shipping ✔️ Free Returns & Purchase Protection ✔️ Made from premium quality, heavy-duty materials with a soft inner fabric.`,
+    // description: `${year} ${make} ${model} ${productType} ᐉ Coverland ⭐ Free, Same-Day Shipping ✔️ Free Returns & Purchase Protection ✔️ Made from premium quality, heavy-duty materials with a soft inner fabric.`,
+    description: (await getProductMetadata(urlString)).description,
     alternates: {
       canonical: `/${params.productType}/${PREMIUM_PLUS_URL_PARAM}/${params.make}/${params.model}/${params.year}`,
     },

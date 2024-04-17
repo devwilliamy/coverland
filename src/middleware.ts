@@ -10,7 +10,7 @@ import {
   SUV_COVERS_URL_PARAM,
   TRUCK_COVERS_URL_PARAM,
 } from './lib/constants';
-import { getCorrespondingProduct } from './lib/db';
+import { getProductWithoutType } from './lib/db';
 
 export function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
@@ -103,11 +103,8 @@ export function middleware(request: NextRequest) {
     const searchParamObj: Record<string, string> = {};
     for (const paramCombination of searchParams) {
       const comb = paramCombination.split('=');
-      console.log('Combination: ', comb[0], comb[1]);
       searchParamObj[comb[0]] = comb[1];
     }
-    console.log('Search Params: ', searchParams);
-    console.log('Search ParamsObj: ', searchParamObj);
     return searchParamObj;
   };
 
@@ -126,7 +123,7 @@ export function middleware(request: NextRequest) {
         !isNaN(Number(firstHyphenSegment)) &&
         firstHyphenSegment.length === 4
       ) {
-        await getCorrespondingProduct({
+        await getProductWithoutType({
           year: firstHyphenSegment,
           make: secondHyphenSegment,
           model: thirdHyphenSegment,
@@ -134,13 +131,12 @@ export function middleware(request: NextRequest) {
           make = secondHyphenSegment;
           model = thirdHyphenSegment;
           year = res.year_generation;
-          console.log('Hyphened URL: ', urlString);
         });
       } else if (
         !isNaN(Number(thirdHyphenSegment)) &&
         thirdHyphenSegment.length === 4
       ) {
-        await getCorrespondingProduct({
+        await getProductWithoutType({
           year: thirdHyphenSegment,
           make: firstHyphenSegment,
           model: secondHyphenSegment,
@@ -148,7 +144,6 @@ export function middleware(request: NextRequest) {
           make = firstHyphenSegment;
           model = secondHyphenSegment;
           year = res.year_generation;
-          console.log('Hyphened URL: ', urlString);
         });
       }
       urlString +=
@@ -161,7 +156,6 @@ export function middleware(request: NextRequest) {
         model +
         '/' +
         year;
-      console.log(urlString);
       return NextResponse.redirect(new URL(urlString, request.url), 301);
     };
     return determineNextResponse();
@@ -281,8 +275,6 @@ export function middleware(request: NextRequest) {
 
   // if (isVehicleCover && modelSegment) {
   //   newModelSegment = modelSegment.replace(',', '');
-  //   console.log('New Segment: ', newModelSegment);
-  //   console.log(
   //     'Concat URL: ',
   //     `/${startSegment}/${PREMIUM_PLUS_URL_PARAM}/${segments.slice(2, 3).join('/')}/${newModelSegment}/${segments.slice(4).join('/')}${search}`
   //   );

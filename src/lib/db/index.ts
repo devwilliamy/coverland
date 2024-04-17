@@ -196,14 +196,7 @@ export async function getAllUniqueModelsByYearMake({
           t?.submodel3 === car?.submodel3
       )
   );
-  // console.log('[Server]: getAllUniqueModelsByYearMake Params & Response:', {
-  //   data,
-  //   uniqueCars,
-  //   type,
-  //   cover,
-  //   year,
-  //   make,
-  // });
+
   return uniqueCars;
 }
 
@@ -256,7 +249,7 @@ export async function getAllYears({
   return data;
 }
 
-export async function getCorrespondingProduct({
+export async function getProductWithoutType({
   make,
   model,
   year,
@@ -276,7 +269,20 @@ export async function getCorrespondingProduct({
   if (error) {
     throw new Error(error.message);
   }
-  console.log('Found Product: ', data);
+
+  return data[0];
+}
+
+export async function getProductMetadata(URL: string) {
+  const { data, error } = await supabase
+    .from('Product-Metadata')
+    .select('description')
+    .ilike('URL', URL)
+    .limit(1);
+
+  if (error) {
+    throw new Error(error.message);
+  }
 
   return data[0];
 }
