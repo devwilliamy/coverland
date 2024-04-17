@@ -169,8 +169,8 @@ export async function getAllUniqueModelsByYearMake({
   year: string;
   make: string;
 }) {
-
-  const tableName = type === 'Seat Covers' ? SEAT_COVERS_TABLE : PRODUCT_DATA_TABLE
+  const tableName =
+    type === 'Seat Covers' ? SEAT_COVERS_TABLE : PRODUCT_DATA_TABLE;
   const { data, error } = await supabase
     .from(tableName)
     .select(
@@ -254,4 +254,29 @@ export async function getAllYears({
   }
 
   return data;
+}
+
+export async function getCorrespondingProduct({
+  make,
+  model,
+  year,
+}: {
+  make: string;
+  model: string;
+  year: string;
+}) {
+  const { data, error } = await supabase
+    .from('Products-Data-02-2024')
+    .select('*')
+    .ilike('make', make)
+    .ilike('model', model)
+    .like('year_options', `%${year}%`)
+    .limit(1);
+
+  if (error) {
+    throw new Error(error.message);
+  }
+  console.log('Found Product: ', data);
+
+  return data[0];
 }

@@ -9,13 +9,14 @@ import {
   STANDARD_URL_PARAM,
   SUV_COVERS_URL_PARAM,
   TRUCK_COVERS_URL_PARAM,
-  SEAT_COVERS_LEATHER_URL_PARAM,
 } from './lib/constants';
+import { getCorrespondingProduct } from './lib/db';
 
 export function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
   const search = request.nextUrl.search;
   const segments = pathname.split('/').filter(Boolean);
+  const hyphenSegments = pathname.slice(1).split('-').filter(Boolean);
 
   const productTypes = [
     CAR_COVERS_URL_PARAM,
@@ -43,15 +44,42 @@ export function middleware(request: NextRequest) {
     301
   );
 
-  const startSegment = segments[0];
-  const makeSegment = segments[2];
-  const modelSegment = segments[3];
+  const slashStartSegment = segments[0];
+  const firstHyphenSegment = hyphenSegments[0];
+  const secondHyphenSegment = hyphenSegments[1];
+  const thirdHyphenSegment = hyphenSegments[2];
+  const lastHyphenSegment = hyphenSegments[hyphenSegments.length - 1];
+  const secondToLastHyphenSegment = hyphenSegments[hyphenSegments.length - 2];
+  const hyphenTwoEndSegments = [secondToLastHyphenSegment, lastHyphenSegment];
+  const endHyphenString = hyphenTwoEndSegments.join('-');
+  const urlHasPremiumPlus = request.nextUrl.pathname
+    .toString()
+    .startsWith('/car-covers/premium-plus/');
+  const slashMakeSegment = urlHasPremiumPlus ? segments[2] : segments[1];
+  const slashModelSegment = urlHasPremiumPlus ? segments[3] : segments[2];
+  const slashYearSegment = urlHasPremiumPlus ? segments[4] : segments[3];
   const isVehicleCover =
-    startSegment === CAR_COVERS_URL_PARAM ||
-    startSegment === SUV_COVERS_URL_PARAM ||
-    startSegment === TRUCK_COVERS_URL_PARAM;
-
+    slashStartSegment === CAR_COVERS_URL_PARAM ||
+    slashStartSegment === SUV_COVERS_URL_PARAM ||
+    slashStartSegment === TRUCK_COVERS_URL_PARAM ||
+    endHyphenString === CAR_COVERS_URL_PARAM ||
+    endHyphenString === SUV_COVERS_URL_PARAM ||
+    endHyphenString === TRUCK_COVERS_URL_PARAM;
   const unwantedSymbols = [',-', ',', '(', ')', '.', '&-', ',-', '-,'];
+  const specificUrlObj: Record<string, string> = {
+    'chevrolet/camaro/1982-1988': 'chevrolet/camaro/1982-1992',
+    'chevrolet/camaro/1989-2002': 'chevrolet/camaro/1993-2002',
+    'chevrolet/el-camino/1964-1972': 'chevrolet/el-camino/1964-1967',
+    'ford/mustang/1979-1986': 'ford/mustang/1979-2004',
+    'hyundai/ioniq-6/2023': 'hyundai/ioniq-6/2023-2024',
+    'lexus/es/2013-2023': 'lexus/es/2013-2024',
+    'e-class/2017-2023': 'e-class/2017-2025',
+    'mercedes/e-class/2017-2023': 'mercedes/e-class/2017-2025',
+    'mitsubishi/mirage/2014-2022': 'mitsubishi/mirage/2014-2024',
+    'mitsubishi/mirage-g4/2017-2022': 'mitsubishi/mirage-g4/2017-2024',
+    'pontiac/grand-am/1992-2006': 'pontiac/grand-am/1992-2005',
+    'nash,-hudson/metropolitan/1954-1962': 'nashhudson/metropolitan/1954-1962',
+  };
 
   const segmentHasUnwantedSymbol = (segment: string) => {
     for (const uSymbol of unwantedSymbols) {
@@ -70,35 +98,137 @@ export function middleware(request: NextRequest) {
     return newString;
   };
 
-  if (productTypes.includes(startSegment)) {
-    // Has Product Type, but segments does not have coverType
+  const generateSearchObj = () => {
+    const searchParams = search.replace('?', '').split('&').filter(Boolean);
+    const searchParamObj: Record<string, string> = {};
+    for (const paramCombination of searchParams) {
+      const comb = paramCombination.split('=');
+      console.log('Combination: ', comb[0], comb[1]);
+      searchParamObj[comb[0]] = comb[1];
+    }
+    console.log('Search Params: ', searchParams);
+    console.log('Search ParamsObj: ', searchParamObj);
+    return searchParamObj;
+  };
+
+  // Checking url of structure /{year}-{make}-{model}-{vehicle-type} or /{make}-{model}-{year}-{vehicle-type}
+  if (
+    isVehicleCover &&
+    (!isNaN(Number(firstHyphenSegment)) || !isNaN(Number(thirdHyphenSegment)))
+  ) {
+    const determineNextResponse = async () => {
+      let urlString = '/';
+      let make = '';
+      let model = '';
+      let year;
+
+      if (
+        !isNaN(Number(firstHyphenSegment)) &&
+        firstHyphenSegment.length === 4
+      ) {
+        await getCorrespondingProduct({
+          year: firstHyphenSegment,
+          make: secondHyphenSegment,
+          model: thirdHyphenSegment,
+        }).then((res) => {
+          make = secondHyphenSegment;
+          model = thirdHyphenSegment;
+          year = res.year_generation;
+          console.log('Hyphened URL: ', urlString);
+        });
+      } else if (
+        !isNaN(Number(thirdHyphenSegment)) &&
+        thirdHyphenSegment.length === 4
+      ) {
+        await getCorrespondingProduct({
+          year: thirdHyphenSegment,
+          make: firstHyphenSegment,
+          model: secondHyphenSegment,
+        }).then((res) => {
+          make = firstHyphenSegment;
+          model = secondHyphenSegment;
+          year = res.year_generation;
+          console.log('Hyphened URL: ', urlString);
+        });
+      }
+      urlString +=
+        endHyphenString +
+        '/' +
+        PREMIUM_PLUS_URL_PARAM +
+        '/' +
+        make +
+        '/' +
+        model +
+        '/' +
+        year;
+      console.log(urlString);
+      return NextResponse.redirect(new URL(urlString, request.url), 301);
+    };
+    return determineNextResponse();
+  }
+
+  // Has Product Type, but segments does not have coverType
+  // MMY = Make Model Year
+  if (productTypes.includes(slashStartSegment)) {
+    for (const key in specificUrlObj) {
+      const incomingMMYSegment = `${slashMakeSegment}/${slashModelSegment}/${slashYearSegment}`;
+      if (key === incomingMMYSegment) {
+        const correctMMYValue = specificUrlObj[key];
+        return NextResponse.redirect(
+          new URL(
+            `/${slashStartSegment}/${PREMIUM_PLUS_URL_PARAM}/${correctMMYValue}`,
+            request.url
+          ),
+          301
+        );
+      }
+    }
+
     if (segments.length === 1) {
       return NextResponse.redirect(
-        new URL(`/${startSegment}/${PREMIUM_PLUS_URL_PARAM}`, request.url),
+        new URL(`/${slashStartSegment}/${PREMIUM_PLUS_URL_PARAM}`, request.url),
         301
       );
-      // Redirect outdated types to premium-plus
-    } else if (outdatedTypes.some((type) => segments.includes(type))) {
+    }
+
+    // Redirect outdated types to premium-plus
+    else if (outdatedTypes.some((type) => segments.includes(type))) {
       return NextResponse.redirect(
         new URL(
-          `/${startSegment}/${PREMIUM_PLUS_URL_PARAM}/${segments.slice(2).join('/')}${search}`,
+          `/${slashStartSegment}/${PREMIUM_PLUS_URL_PARAM}/${segments.slice(2).join('/')}${search}`,
           request.url
         ),
         301
       );
     }
 
+    // Checking url of structure /{vehicleType}/{make}/{model}/?...year=1966-1976&...
+    else if (
+      isVehicleCover &&
+      slashMakeSegment &&
+      slashModelSegment &&
+      search
+    ) {
+      const paramsObj = generateSearchObj();
+      let urlString = `/${slashStartSegment}/${PREMIUM_PLUS_URL_PARAM}/${slashMakeSegment.toLowerCase()}/${slashModelSegment.toLowerCase()}`;
+      if (paramsObj.year) {
+        urlString += '/' + paramsObj.year;
+      }
+
+      return NextResponse.redirect(new URL(urlString, request.url), 301);
+    }
+
     // Checking make segment
     else if (
-      makeSegment &&
-      segmentHasUnwantedSymbol(makeSegment) &&
+      slashMakeSegment &&
+      segmentHasUnwantedSymbol(slashMakeSegment) &&
       isVehicleCover
     ) {
-      const newMakeSegment = removeUnwantedSymbols(makeSegment);
+      const newMakeSegment = removeUnwantedSymbols(slashMakeSegment);
       return NextResponse.redirect(
         // Slicing modelSegment from url and replacing it with new segment
         new URL(
-          `/${startSegment}/${PREMIUM_PLUS_URL_PARAM}/${segments.slice(2, 2).join('/')}${newMakeSegment}/${segments.slice(3).join('/')}${search}`,
+          `/${slashStartSegment}/${PREMIUM_PLUS_URL_PARAM}/${segments.slice(2, 2).join('/')}${newMakeSegment}/${segments.slice(3).join('/')}${search}`,
           request.url
         ),
         301
@@ -107,39 +237,38 @@ export function middleware(request: NextRequest) {
 
     // Checking model segment
     else if (
-      modelSegment &&
-      segmentHasUnwantedSymbol(modelSegment) &&
+      slashModelSegment &&
+      segmentHasUnwantedSymbol(slashModelSegment) &&
       isVehicleCover
     ) {
-      const newModelSegment = removeUnwantedSymbols(modelSegment);
+      const newModelSegment = removeUnwantedSymbols(slashModelSegment);
       // Removing specific cases from model
       return NextResponse.redirect(
         // Slicing modelSegment from url and replacing it with new segment
         new URL(
-          `/${startSegment}/${PREMIUM_PLUS_URL_PARAM}/${segments.slice(2, 3)}/${newModelSegment}/${segments.slice(4)}/${search}`,
+          `/${slashStartSegment}/${PREMIUM_PLUS_URL_PARAM}/${segments.slice(2, 3)}/${newModelSegment}/${segments.slice(4)}/${search}`,
           request.url
         ),
         301
       );
     }
+
     // Checking if segments are not in cover type
     else if (
       segments.length > 1 &&
       !coverTypes.some((type) => segments.includes(type))
     ) {
-      console.log('Before In Cover Type Check');
-
       return NextResponse.redirect(
         new URL(
-          `/${startSegment}/${PREMIUM_PLUS_URL_PARAM}/${segments.slice(2).join('/')}${search}`,
+          `/${slashStartSegment}/${PREMIUM_PLUS_URL_PARAM}/${segments.slice(2).join('/')}${search}`,
           request.url
         ),
         301
       );
     }
-  } else if (outdatedTypes.includes(startSegment)) {
+  } else if (outdatedTypes.includes(slashStartSegment)) {
     return PREMIUM_PLUS_REDIRECT;
-  } else if (homeRedirects.includes(startSegment)) {
+  } else if (homeRedirects.includes(slashStartSegment)) {
     return HOME_REDIRECT;
   } else if (pathname.toLowerCase().startsWith(`/${PREMIUM_PLUS_URL_PARAM}`)) {
     return PREMIUM_PLUS_REDIRECT;
