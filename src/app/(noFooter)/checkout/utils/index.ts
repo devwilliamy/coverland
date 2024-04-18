@@ -1,14 +1,37 @@
 import { TCartItem } from '@/lib/cart/useCart';
-import { postAdminPanelOrder, updateAdminPanelOrder } from '@/lib/db/admin-panel/orders';
-import { mapPaypalCaptureCreateToOrder, mapPaypalCompletionToOrder } from '@/lib/utils/adminPanel';
+import {
+  postAdminPanelOrder,
+  updateAdminPanelOrder,
+} from '@/lib/db/admin-panel/orders';
+import { StripeAddress } from '@/lib/types/checkout';
+import { PaypalShipping } from '@/lib/types/paypal';
+import {
+  mapPaypalCaptureCreateToOrder,
+  mapPaypalCompletionToOrder,
+} from '@/lib/utils/adminPanel';
 import { generateOrderId } from '@/lib/utils/stripe';
 import { loadStripe } from '@stripe/stripe-js';
 import { Dispatch, SetStateAction } from 'react';
 
+function isValidShippingAddress({ address }: PaypalShipping) {
+  return (
+    address &&
+    address.address_line_1 !== '' &&
+    // address.address_line_2 &&
+    address.admin_area_2 !== '' &&
+    address.admin_area_1 !== '' &&
+    address.postal_code !== '' &&
+    address.country_code !== ''
+  );
+}
+
+
 export async function paypalCreateOrder(
   totalMsrpPrice: number,
   items: TCartItem[],
-  orderId: string
+  orderId: string,
+  shipping: number,
+  shippingAddress: StripeAddress
 ): Promise<string | null> {
   const itemsForPaypal = items.map((item) => ({
     name: `${item.parent_generation} ${item.display_id} ${item.model} ${item.type} ${item.display_color}`,
@@ -19,23 +42,45 @@ export async function paypalCreateOrder(
       value: item.msrp,
     },
   }));
+
+  const shippingForPaypal = {
+    type: 'SHIPPING',
+    name: {
+      full_name: shippingAddress.name || '',
+    },
+    address: {
+      address_line_1: shippingAddress?.address?.line1 || '',
+      address_line_2: shippingAddress?.address?.line2 || '',
+      admin_area_2: shippingAddress?.address?.city || '',
+      admin_area_1: shippingAddress?.address?.state || '',
+      postal_code: shippingAddress?.address?.postal_code || '',
+      country_code: shippingAddress?.address?.country || 'US',
+    },
+  };
+  console.log('ShippingForPyapal', {
+    shippingForPaypal,
+    valid: isValidShippingAddress(shippingForPaypal),
+  });
   const purchase_units = [
     {
       reference_id: orderId, // order-id
       custom_id: orderId, //order-id
       items: itemsForPaypal,
+      shipping: isValidShippingAddress(shippingForPaypal)
+        ? shippingForPaypal
+        : null,
       amount: {
         currency_code: 'USD',
-        value: totalMsrpPrice,
+        value: (Number(totalMsrpPrice) + shipping).toFixed(2),
         breakdown: {
           item_total: {
             currency_code: 'USD',
             value: totalMsrpPrice.toString(),
           },
-          // shipping: {
-          //   currency_code: "USD",
-          //   value: ""
-          // },
+          shipping: {
+            currency_code: 'USD',
+            value: shipping.toString(),
+          },
           // tax_total: {
           //   currency_code: "USD",
           //   value:""
@@ -69,7 +114,10 @@ export async function paypalCreateOrder(
     console.log('[Paypal.paypalCreateOrder] data: ', data);
     const mappedData = mapPaypalCaptureCreateToOrder(data);
     console.log('[Paypal.paypalCreateOrder] mappedData: ', mappedData);
-    const adminPanelOrder = await updateAdminPanelOrder(mappedData, mappedData.order_id);
+    const adminPanelOrder = await updateAdminPanelOrder(
+      mappedData,
+      mappedData.order_id
+    );
     console.log('[Paypal.paypalCreateOrder]: adminPanelOrder', adminPanelOrder);
     return data.id;
   } catch (err) {
@@ -130,7 +178,10 @@ export async function paypalCaptureOrder(orderID: string) {
     console.log('[Paypal.paypalCaptureOrder]: ', data);
     const mappedData = mapPaypalCompletionToOrder(data.data);
     console.log('[Paypal.paypalCreateOrder] mappedData: ', mappedData);
-    const adminPanelOrder = await updateAdminPanelOrder(mappedData, mappedData.order_id);
+    const adminPanelOrder = await updateAdminPanelOrder(
+      mappedData,
+      mappedData.order_id
+    );
     console.log('[Paypal.paypalCreateOrder]: adminPanelOrder', adminPanelOrder);
     return data;
   } catch (err) {
