@@ -31,11 +31,14 @@ export async function generateStaticParams({
 }
 
 export async function generateMetadata({ params }: { params: TPathParams }) {
-  const productType = deslugify(params.productType);
+  const productType = deslugify(params.productType).slice(
+    0,
+    params.productType.length - 1
+  );
   const make = deslugify(params.make || '');
   const model = deslugify(params.model || '');
   return {
-    title: `${make} ${model} │ Lifetime Warranty │ Custom Fit │ 100% Weatherproof`,
+    title: `${make} ${model} ${productType} │ Lifetime Warranty │ Custom Fit │ 100% Weatherproof`,
     description: `${make} ${model} ${productType} ᐉ Coverland ⭐ Free, Same-Day Shipping ✔️ Free Returns & Purchase Protection ✔️ Made from premium quality, heavy-duty materials with a soft inner fabric.`,
     alternates: {
       canonical: `/${params.productType}/${PREMIUM_PLUS_URL_PARAM}/${params.make}/${params.model}`,

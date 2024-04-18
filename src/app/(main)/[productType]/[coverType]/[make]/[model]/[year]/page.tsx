@@ -37,14 +37,17 @@ import { PREMIUM_PLUS_URL_PARAM } from '@/lib/constants';
 // }
 
 export async function generateMetadata({ params }: { params: TPathParams }) {
-  const productType = deslugify(params.productType);
+  const desluggedProductType = deslugify(params.productType).slice(
+    0,
+    params.productType.length - 1
+  );
   const make = deslugify(params.make || '');
   const model = deslugify(params.model || '');
   const year = deslugify(params.year || '');
   const urlString = `https://coverland.com/${params.productType}/${PREMIUM_PLUS_URL_PARAM}/${params.make}/${params.model}/${params.year}`;
 
   return {
-    title: `${make} ${model} ${year} │ Lifetime Warranty │ Custom Fit │ 100% Weatherproof`,
+    title: `${make} ${model} ${year} ${desluggedProductType} │ Lifetime Warranty │ Custom Fit │ 100% Weatherproof`,
     // description: `${year} ${make} ${model} ${productType} ᐉ Coverland ⭐ Free, Same-Day Shipping ✔️ Free Returns & Purchase Protection ✔️ Made from premium quality, heavy-duty materials with a soft inner fabric.`,
     description: (await getProductMetadata(urlString)).description,
     alternates: {

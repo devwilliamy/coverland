@@ -36,7 +36,10 @@ export async function generateStaticParams({
 }
 
 export async function generateMetadata({ params }: { params: TPathParams }) {
-  const productType = deslugify(params.productType);
+  const productType = deslugify(params.productType).slice(
+    0,
+    params.productType.length - 1
+  );
   const make = deslugify(params.make || '');
   return {
     title: `${make} ${productType} │ Lifetime Warranty │ Custom Fit │ 100% Weatherproof`,
