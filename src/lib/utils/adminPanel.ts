@@ -59,6 +59,7 @@ export const mapPaymentIntentAndMethodToOrder = (
     card_fingerprint: card?.fingerprint,
     card_funding: card?.funding,
     customer_id: null,
+    wallet_type: card?.wallet?.type || null,
     // payment_gateway_customer_id: payer.payer_id,
     payment_date: getCurrentTimeInISOFormat(),
     customer_name: billing_details.name,
