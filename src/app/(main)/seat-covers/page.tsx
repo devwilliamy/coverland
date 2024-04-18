@@ -11,8 +11,8 @@ export async function generateStaticParams() {
 
 export async function generateMetadata() {
   return {
-    title: `Shipping Policy – Coverland`,
-    description: `Learn about our efficient shipping policy designed to deliver your car cover or seat cover order promptly and reliably. From shipping methods to delivery times, we prioritize your convenience every step of the way.`,
+    title: `Seat Covers, Custom Fit - Coverland`,
+    description: `Seat Covers ᐉ Coverland ⭐ Free, Same-Day Shipping ✔️ Free Returns & Purchase Protection ✔️ Made from premium quality, heavy-duty materials with a soft inner fabric.`,
     alternates: {
       canonical: '/seat-covers',
     },

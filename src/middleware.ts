@@ -118,43 +118,35 @@ export function middleware(request: NextRequest) {
     return searchParamObj;
   };
 
+  const firstSegIsNum = !isNaN(Number(firstHyphenSegment));
+  const thirdSegIsNum = !isNaN(Number(thirdHyphenSegment));
+
   // Checking url of structure /{year}-{make}-{model}-{vehicle-type} or /{make}-{model}-{year}-{vehicle-type}
-  if (
-    isVehicleCover &&
-    (!isNaN(Number(firstHyphenSegment)) || !isNaN(Number(thirdHyphenSegment)))
-  ) {
+  if (isVehicleCover && (firstSegIsNum || thirdSegIsNum)) {
     const determineNextResponse = async () => {
       let urlString = '/';
       let make = '';
       let model = '';
       let year;
 
-      if (
-        !isNaN(Number(firstHyphenSegment)) &&
-        firstHyphenSegment.length === 4
-      ) {
-        await getProductWithoutType({
+      if (firstSegIsNum && firstHyphenSegment.length === 4) {
+        const { year_generation } = await getProductWithoutType({
           year: firstHyphenSegment,
           make: secondHyphenSegment,
           model: thirdHyphenSegment,
-        }).then((res) => {
-          make = secondHyphenSegment;
-          model = thirdHyphenSegment;
-          year = res.year_generation;
         });
-      } else if (
-        !isNaN(Number(thirdHyphenSegment)) &&
-        thirdHyphenSegment.length === 4
-      ) {
-        await getProductWithoutType({
+        make = secondHyphenSegment;
+        model = thirdHyphenSegment;
+        year = year_generation;
+      } else if (thirdSegIsNum && thirdHyphenSegment.length === 4) {
+        const { year_generation } = await getProductWithoutType({
           year: thirdHyphenSegment,
           make: firstHyphenSegment,
           model: secondHyphenSegment,
-        }).then((res) => {
-          make = firstHyphenSegment;
-          model = secondHyphenSegment;
-          year = res.year_generation;
         });
+        make = firstHyphenSegment;
+        model = secondHyphenSegment;
+        year = year_generation;
       }
       urlString +=
         endHyphenString +
@@ -171,16 +163,16 @@ export function middleware(request: NextRequest) {
     return determineNextResponse();
   }
 
-  // Has Product Type, but segments does not have coverType
+  // Has Product Type, and if segments does not have coverType
   // MMY = Make Model Year
   if (productTypes.includes(slashStartSegment)) {
-    for (const key in specificUrlObj) {
+    for (const segmentKey in specificUrlObj) {
       const incomingMMYSegment = `${slashMakeSegment}/${slashModelSegment}/${slashYearSegment}`;
-      if (key === incomingMMYSegment) {
-        const correctMMYValue = specificUrlObj[key];
+      if (segmentKey === incomingMMYSegment) {
+        const correctMMYSegment = specificUrlObj[segmentKey];
         return NextResponse.redirect(
           new URL(
-            `/${slashStartSegment}/${PREMIUM_PLUS_URL_PARAM}/${correctMMYValue}`,
+            `/${slashStartSegment}/${PREMIUM_PLUS_URL_PARAM}/${correctMMYSegment}`,
             request.url
           ),
           301
@@ -232,7 +224,7 @@ export function middleware(request: NextRequest) {
       return NextResponse.redirect(
         // Slicing modelSegment from url and replacing it with new segment
         new URL(
-          `/${slashStartSegment}/${PREMIUM_PLUS_URL_PARAM}/${segments.slice(2, 2).join('/')}${newMakeSegment}/${segments.slice(3).join('/')}${search}`,
+          `/${slashStartSegment}/${PREMIUM_PLUS_URL_PARAM}/${segments[2]}/${newMakeSegment}/${segments.slice(3).join('/')}${search}`,
           request.url
         ),
         301
@@ -282,15 +274,6 @@ export function middleware(request: NextRequest) {
   ) {
     return SEAT_COVERS_LEATHER_REDIRECT;
   }
-
-  // if (isVehicleCover && modelSegment) {
-  //   newModelSegment = modelSegment.replace(',', '');
-  //     'Concat URL: ',
-  //     `/${startSegment}/${PREMIUM_PLUS_URL_PARAM}/${segments.slice(2, 3).join('/')}/${newModelSegment}/${segments.slice(4).join('/')}${search}`
-  //   );
-  // }
-
-  // Removing commas from model name
-
+  
   return NextResponse.next();
 }
