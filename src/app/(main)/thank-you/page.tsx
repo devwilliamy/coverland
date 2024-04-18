@@ -11,6 +11,8 @@ import { PaymentIntent, PaymentMethod } from '@stripe/stripe-js';
 // import { Button } from '@/components/ui/button';
 // import { redirect } from 'next/navigation';
 
+const BASE_URL = process.env.NEXT_PUBLIC_HOSTNAME ?? 'https://coverland.com';
+
 type PaymentIntentSuccessParams = {
   searchParams: {
     payment_intent: string;
@@ -45,15 +47,15 @@ async function OrderConfirmationPage({
       paymentMethod as PaymentMethod
     );
 
-    console.log('Stripe Complete:', {
-      paymentIntent,
-      paymentMethod,
-      createdCustomer,
-    });
+    // console.log('Stripe Complete:', {
+    //   paymentIntent,
+    //   paymentMethod,
+    //   createdCustomer,
+    // });
 
     // const updatedOrder = await updatedOrderResponse(mappedOrder, order_id, customer_id)
     const updatedOrderResponse = await fetch(
-      `http://localhost:3000/api/admin-panel/orders/`,
+      `${BASE_URL}/api/admin-panel/orders/`,
       {
         method: 'PUT',
         headers: {
@@ -70,7 +72,7 @@ async function OrderConfirmationPage({
     const { data: updatedOrder } = await updatedOrderResponse.json();
 
     // Add To OrderItem Table
-    await fetch(`http://localhost:3000/api/admin-panel/order-items/`, {
+    await fetch(`${BASE_URL}/api/admin-panel/order-items/`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
