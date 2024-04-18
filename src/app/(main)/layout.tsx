@@ -7,6 +7,7 @@ import Footer from '@/components/footer/Footer';
 export const metadata: Metadata = {
   title: 'Coverland Car Covers',
   description: 'The ultimate marketplace for car protection',
+  metadataBase: new URL('https://coverland.com'),
 };
 
 export default function RootLayout({

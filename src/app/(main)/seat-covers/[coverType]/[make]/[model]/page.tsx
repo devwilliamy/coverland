@@ -37,9 +37,13 @@ export type TCarCoverSlugParams = {
 export async function generateMetadata({ params }: { params: TPathParams }) {
   const make = deslugify(params.make || '');
   const model = deslugify(params.model || '');
+  const productType = deslugify(params.productType || '');
   return {
     title: `${make} ${model} Seat Covers, Custom Fit - Coverland`,
     description: `${make} ${model} Seat Covers ᐉ Coverland ⭐ Free, Same-Day Shipping ✔️ Free Returns & Purchase Protection ✔️ Made from premium quality, heavy-duty materials with a soft inner fabric.`,
+    alternates: {
+      canonical: `/${productType}/${make}`,
+    },
   };
 }
 

@@ -9,6 +9,16 @@ export async function generateStaticParams() {
   return [{ coverType: 'leather' }];
 }
 
+export async function generateMetadata() {
+  return {
+    title: `Shipping Policy – Coverland`,
+    description: `Learn about our efficient shipping policy designed to deliver your car cover or seat cover order promptly and reliably. From shipping methods to delivery times, we prioritize your convenience every step of the way.`,
+    alternates: {
+      canonical: '/seat-covers',
+    },
+  };
+}
+
 export default async function SeatCoversPage({
   params,
 }: {
