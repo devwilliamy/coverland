@@ -39,6 +39,18 @@ type PayPalLink = {
   method: 'GET' | 'POST' | 'PATCH';
 };
 
+export type PaypalShipping = {
+  name: {
+    full_name: string;
+  };
+  address: {
+    address_line_1: string;
+    admin_area_2: string;
+    admin_area_1: string;
+    postal_code: string;
+    country_code: string;
+  };
+};
 export type PayPalCompleteOrder = {
   id: string;
   status: 'COMPLETED';
@@ -58,18 +70,7 @@ export type PayPalCompleteOrder = {
   };
   purchase_units: Array<{
     reference_id: string;
-    shipping: {
-      name: {
-        full_name: string;
-      };
-      address: {
-        address_line_1: string;
-        admin_area_2: string;
-        admin_area_1: string;
-        postal_code: string;
-        country_code: string;
-      };
-    };
+    shipping: PaypalShipping;
     payments: {
       captures: Array<{
         id: string;

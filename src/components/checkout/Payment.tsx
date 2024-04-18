@@ -1,10 +1,11 @@
 import {
   PaymentElement,
+  PaymentRequestButtonElement,
   useElements,
   useStripe,
 } from '@stripe/react-stripe-js';
 import PromoCode from './PromoCode';
-import { FormEvent, useState } from 'react';
+import { FormEvent, useEffect, useState } from 'react';
 import OrderReview from './OrderReview';
 import PriceBreakdown from './PriceBreakdown';
 import { Button } from '../ui/button';
@@ -23,13 +24,14 @@ export default function Payment() {
   const [isLoading, setIsLoading] = useState(false);
   const [paymentMethod, setPaymentMethod] =
     useState<PaymentMethod>('creditCard');
+  const [paymentRequest, setPaymentRequest] = useState(null);
 
-  const [message, setMessage] = useState<string>("");
+  const [message, setMessage] = useState<string>('');
   const { orderNumber, paymentIntentId } = useCheckoutContext();
   const { billingAddress, shippingAddress, customerEmail, shipping } =
     useCheckoutContext();
   const { getTotalPrice } = useCartContext();
-  const totalMsrpPrice = convertPriceToStripeFormat(getTotalPrice() + shipping)
+  const totalMsrpPrice = convertPriceToStripeFormat(getTotalPrice() + shipping);
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
@@ -97,7 +99,9 @@ export default function Payment() {
     // redirected to the `return_url`.
     if (error.type === 'card_error' || error.type === 'validation_error') {
       console.error('Error:', error.message);
-      setMessage(error.message || "There's an error, but could not find error message");
+      setMessage(
+        error.message || "There's an error, but could not find error message"
+      );
     } else {
       setMessage('An unexpected error occurred.');
     }
@@ -108,6 +112,30 @@ export default function Payment() {
   const paymentElementOptions = {
     layout: 'tabs',
   };
+
+  useEffect(() => {
+    if (stripe) {
+      const pr = stripe.paymentRequest({
+        country: 'US',
+        currency: 'usd',
+        total: {
+          label: 'Demo total',
+          amount: 1099,
+        },
+        requestPayerName: true,
+        requestPayerEmail: true,
+      });
+      console.log('Payment.useEffect PR:', pr);
+
+      // Check the availability of the Payment Request API.
+      pr.canMakePayment().then((result) => {
+        if (result) {
+          console.log("Payment.useEffect result:", result)
+          setPaymentRequest(pr);
+        }
+      });
+    }
+  }, [stripe]);
 
   return (
     <div className="px-4">
@@ -124,6 +152,12 @@ export default function Payment() {
       </div>
       {paymentMethod === 'creditCard' ? (
         <>
+          {paymentRequest && (
+            <div>
+              Payment Reqeuest
+              <PaymentRequestButtonElement options={{ paymentRequest }} />
+            </div>
+          )}
           <form id="payment-form" onSubmit={handleSubmit}>
             {/* <LinkAuthenticationElement id="link-authentication-element" /> */}
             <PaymentElement
