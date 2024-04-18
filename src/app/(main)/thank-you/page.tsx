@@ -47,11 +47,11 @@ async function OrderConfirmationPage({
       paymentMethod as PaymentMethod
     );
 
-    // console.log('Stripe Complete:', {
-    //   paymentIntent,
-    //   paymentMethod,
-    //   createdCustomer,
-    // });
+    console.log('Stripe Complete:', {
+      paymentIntent,
+      paymentMethod,
+      createdCustomer,
+    });
 
     // const updatedOrder = await updatedOrderResponse(mappedOrder, order_id, customer_id)
     const updatedOrderResponse = await fetch(
