@@ -114,7 +114,7 @@ export default function Payment() {
   };
 
   useEffect(() => {
-    if (stripe) {
+    const fetchPaymentRequest = async (stripe) => {
       const pr = stripe.paymentRequest({
         country: 'US',
         currency: 'usd',
@@ -128,12 +128,21 @@ export default function Payment() {
       console.log('Payment.useEffect PR:', pr);
 
       // Check the availability of the Payment Request API.
-      pr.canMakePayment().then((result) => {
-        if (result) {
-          console.log("Payment.useEffect result:", result)
-          setPaymentRequest(pr);
-        }
-      });
+      const result = await pr.canMakePayment();
+      console.log('Payment.useEffect result:', result);
+      if (result) {
+        console.log('Payment.useEffect result:', result);
+        setPaymentRequest(pr);
+      }
+      // pr.canMakePayment().then((result) => {
+      //   if (result) {
+      //     console.log("Payment.useEffect result:", result)
+      //     setPaymentRequest(pr);
+      //   }
+      // });
+    };
+    if (stripe) {
+      fetchPaymentRequest(stripe);
     }
   }, [stripe]);
 
@@ -152,12 +161,12 @@ export default function Payment() {
       </div>
       {paymentMethod === 'creditCard' ? (
         <>
-          {paymentRequest && (
+          {/* {paymentRequest && (
             <div>
               Payment Reqeuest
               <PaymentRequestButtonElement options={{ paymentRequest }} />
             </div>
-          )}
+          )} */}
           <form id="payment-form" onSubmit={handleSubmit}>
             {/* <LinkAuthenticationElement id="link-authentication-element" /> */}
             <PaymentElement
