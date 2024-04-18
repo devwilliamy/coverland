@@ -1,4 +1,5 @@
 import paypal from '@paypal/checkout-server-sdk';
+import { NextResponse } from 'next/server';
 
 const clientId = process.env.PAYPAL_CLIENT_ID ?? '';
 const clientSecret = process.env.PAYPAL_CLIENT_SECRET ?? '';
@@ -40,13 +41,16 @@ export async function POST(req: Request) {
     const response = await PaypalClient.execute(request);
 
     console.log('[api.paypal.capture-order.route POST] RESPONSE', response); // One of the useful repnoses
+    return Response.json({ success: true, data: response.result });
   } catch (error) {
     console.log(error);
     console.log(
       'error with client_id:',
       process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID
     );
+    return NextResponse.json(
+      { error: `An unexpected error occurred: ${error}` },
+      { status: 500 }
+    );
   }
-
-  return Response.json({ success: true, data: '' });
 }

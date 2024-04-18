@@ -24,7 +24,7 @@ export default function Payment() {
   const [paymentMethod, setPaymentMethod] =
     useState<PaymentMethod>('creditCard');
 
-  const [message, setMessage] = useState(null);
+  const [message, setMessage] = useState<string>("");
   const { orderNumber, paymentIntentId } = useCheckoutContext();
   const { billingAddress, shippingAddress, customerEmail, shipping } =
     useCheckoutContext();
@@ -70,7 +70,7 @@ export default function Payment() {
           },
         },
         // Make sure to change this to your payment completion page
-        return_url: `${origin}/thank-you?order-number=${orderNumber}`,
+        return_url: `${origin}/thank-you?order_number=${orderNumber}`,
         receipt_email: customerEmail,
         payment_method_data: {
           billing_details: {
@@ -97,7 +97,7 @@ export default function Payment() {
     // redirected to the `return_url`.
     if (error.type === 'card_error' || error.type === 'validation_error') {
       console.error('Error:', error.message);
-      setMessage(error.message);
+      setMessage(error.message || "There's an error, but could not find error message");
     } else {
       setMessage('An unexpected error occurred.');
     }

@@ -42,13 +42,10 @@ export default function PayPalButtonSection() {
             return data;
           }}
           onApprove={async (data) => {
-            console.log("PayPalButton data:", data) // Useless
             const response = await paypalCaptureOrder(data.orderID);
-
-            console.log("PayPalButton Resposne:", response) // Also useless
             if (response.success) {
               // clearLocalStorageCart();
-              router.push(`/thank-you?order-number=CL-P-${data.orderID}`);
+              router.push(`/thank-you?order_number=${orderNumber}&payment_gateway=paypal`);
             }
           }}
         />

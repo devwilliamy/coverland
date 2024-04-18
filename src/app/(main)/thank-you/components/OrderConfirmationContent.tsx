@@ -7,23 +7,16 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
-import { useThankYouViewedGoogleTag } from '@/hooks/useGoogleTagDataLayer';
-import { useStripe } from '@stripe/react-stripe-js';
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
 import { BsFillEnvelopeFill } from 'react-icons/bs';
-// const stripe = new Stripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!);
 
 type OrderConfirmationContentProps = {
   orderNumber: string;
-  clientSecret: string;
 };
 
 export const OrderConfirmationContent = ({
   orderNumber,
-  clientSecret,
 }: OrderConfirmationContentProps) => {
-  const [message, setMessage] = useState('');
 
   // useThankYouViewedGoogleTag(orderNumber);
 
@@ -31,9 +24,6 @@ export const OrderConfirmationContent = ({
     <Card className="text-center">
       <CardHeader>
         <CardTitle>Thank you for your order!</CardTitle>
-        <CardDescription>
-          Purchase Status: <span>{message}</span>
-        </CardDescription>
         <CardDescription>
           Your order number is: <span>{orderNumber}</span>
         </CardDescription>

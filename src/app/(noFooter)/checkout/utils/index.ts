@@ -10,9 +10,6 @@ export async function paypalCreateOrder(
   items: TCartItem[],
   orderId: string
 ): Promise<string | null> {
-  // const isDev = process.env.NODE_ENV !== 'production';
-  // const uniqueId = isDev ? 'TEST' : 'XXXX';
-  // const orderId = await generateOrderId(items, uniqueId);
   const itemsForPaypal = items.map((item) => ({
     name: `${item.parent_generation} ${item.display_id} ${item.model} ${item.type} ${item.display_color}`,
     quantity: item.quantity?.toString(),
@@ -131,9 +128,13 @@ export async function paypalCaptureOrder(orderID: string) {
     }
     const data = await response.json();
     console.log('[Paypal.paypalCaptureOrder]: ', data);
+    const mappedData = mapPaypalCompletionToOrder(data.data);
+    console.log('[Paypal.paypalCreateOrder] mappedData: ', mappedData);
+    const adminPanelOrder = await updateAdminPanelOrder(mappedData, mappedData.order_id);
+    console.log('[Paypal.paypalCreateOrder]: adminPanelOrder', adminPanelOrder);
     return data;
   } catch (err) {
-    console.log(err);
+    console.error(err);
   }
 }
 
