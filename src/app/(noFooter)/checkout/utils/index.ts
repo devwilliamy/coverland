@@ -1,15 +1,11 @@
 import { TCartItem } from '@/lib/cart/useCart';
-import {
-  postAdminPanelOrder,
-  updateAdminPanelOrder,
-} from '@/lib/db/admin-panel/orders';
+import { updateAdminPanelOrder } from '@/lib/db/admin-panel/orders';
 import { StripeAddress } from '@/lib/types/checkout';
 import { PaypalShipping } from '@/lib/types/paypal';
 import {
   mapPaypalCaptureCreateToOrder,
   mapPaypalCompletionToOrder,
 } from '@/lib/utils/adminPanel';
-import { generateOrderId } from '@/lib/utils/stripe';
 import { loadStripe } from '@stripe/stripe-js';
 import { Dispatch, SetStateAction } from 'react';
 

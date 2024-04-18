@@ -26,6 +26,8 @@ export type CheckoutContextType = {
     address: StripeAddress,
     isBillingSameAsShipping: boolean
   ) => void;
+  isShippingAddressShown: boolean;
+  toggleIsShippingAddressShown: (isShown: boolean) => void;
   customerEmail: string;
   updateCustomerEmail: (email: string) => void;
   isBillingSameAsShipping: boolean;
@@ -61,6 +63,8 @@ export const CheckoutContext = createContext<CheckoutContextType>({
     },
   },
   updateShippingAddress: () => {},
+  isShippingAddressShown: true,
+  toggleIsShippingAddressShown: () => {},
   customerEmail: '',
   updateCustomerEmail: () => {},
   isBillingSameAsShipping: true,
@@ -84,7 +88,8 @@ const CheckoutProvider: FC<CheckoutProviderProps> = ({ children }) => {
     },
   });
   const [customerEmail, setCustomerEmail] = useState<string>('');
-
+  const [isShippingAddressShown, setIsShippingAddressShown] =
+    useState<boolean>(true);
   const [isBillingSameAsShipping, setIsBillingSameAsShipping] =
     useState<boolean>(true);
 
@@ -127,6 +132,10 @@ const CheckoutProvider: FC<CheckoutProviderProps> = ({ children }) => {
     }
   };
 
+  const toggleIsShippingAddressShown = (isShown: boolean) => {
+    setIsShippingAddressShown(isShown);
+  };
+
   return (
     <CheckoutContext.Provider
       value={{
@@ -141,6 +150,8 @@ const CheckoutProvider: FC<CheckoutProviderProps> = ({ children }) => {
         stripePaymentIntentLoading,
         billingAddress,
         updateBillingAddress,
+        isShippingAddressShown,
+        toggleIsShippingAddressShown,
         shippingAddress,
         updateShippingAddress,
         customerEmail,

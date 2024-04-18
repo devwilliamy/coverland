@@ -18,8 +18,8 @@ const options: StripeAddressElementOptions = {
   },
   validation: {
     phone: {
-      required: "auto"
-    }
+      required: 'auto',
+    },
   },
   display: {
     name: 'split',
@@ -49,6 +49,7 @@ export default function Shipping({
     updateShippingAddress,
     isBillingSameAsShipping,
     updateCustomerEmail,
+    toggleIsShippingAddressShown,
   } = useCheckoutContext();
 
   const handleAddressFormChange = (event) => {
@@ -57,7 +58,7 @@ export default function Shipping({
       setAddress({
         name: event.value.name,
         address: event.value.address,
-        phone: event.value.phone
+        phone: event.value.phone,
       });
     }
   };
@@ -66,18 +67,22 @@ export default function Shipping({
     updateShippingAddress(address as StripeAddress, isBillingSameAsShipping);
     updateCustomerEmail(email);
     setIsEditingAddress(false);
+    toggleIsShippingAddressShown(false);
   };
   const handleEditButtonClick = () => {
     setIsEditingShipping(false);
+    toggleIsShippingAddressShown(false);
     handleSelectTab('payment');
     handleChangeAccordion('payment');
   };
 
   const handleEditAddress = () => {
     setIsEditingAddress(true);
+    toggleIsShippingAddressShown(true);
   };
   const handleEditShipping = () => {
     setIsEditingShipping(true);
+    toggleIsShippingAddressShown(true);
   };
 
   return (

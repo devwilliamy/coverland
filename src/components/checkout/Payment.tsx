@@ -13,10 +13,23 @@ import { AiOutlineLoading3Quarters } from 'react-icons/ai';
 import PayPalButtonSection from './PayPalButtonSection';
 import { useCheckoutContext } from '@/contexts/CheckoutContext';
 import PaymentSelector from './PaymentSelector';
-import { PaymentMethod } from '@/lib/types/checkout';
+import { PaymentMethod, StripeAddress } from '@/lib/types/checkout';
 import BillingAddress from './BillingAddress';
 import { useCartContext } from '@/providers/CartProvider';
 import { convertPriceToStripeFormat } from '@/lib/utils/stripe';
+
+function isValidShippingAddress({ address }: StripeAddress) {
+  return (
+    address &&
+    address.line1 !== '' &&
+    // address.address_line_2 &&
+    address.line2 !== '' &&
+    address.city !== '' &&
+    address.state !== '' &&
+    address.postal_code !== '' &&
+    address.country !== ''
+  );
+}
 
 export default function Payment() {
   const stripe = useStripe();
@@ -109,42 +122,11 @@ export default function Payment() {
     setIsLoading(false);
   };
 
+  const isDisabled = !isValidShippingAddress(shippingAddress);
+
   const paymentElementOptions = {
     layout: 'tabs',
   };
-
-  useEffect(() => {
-    const fetchPaymentRequest = async (stripe) => {
-      const pr = stripe.paymentRequest({
-        country: 'US',
-        currency: 'usd',
-        total: {
-          label: 'Demo total',
-          amount: 1099,
-        },
-        requestPayerName: true,
-        requestPayerEmail: true,
-      });
-      console.log('Payment.useEffect PR:', pr);
-
-      // Check the availability of the Payment Request API.
-      const result = await pr.canMakePayment();
-      console.log('Payment.useEffect result:', result);
-      if (result) {
-        console.log('Payment.useEffect result:', result);
-        setPaymentRequest(pr);
-      }
-      // pr.canMakePayment().then((result) => {
-      //   if (result) {
-      //     console.log("Payment.useEffect result:", result)
-      //     setPaymentRequest(pr);
-      //   }
-      // });
-    };
-    if (stripe) {
-      fetchPaymentRequest(stripe);
-    }
-  }, [stripe]);
 
   return (
     <div className="px-4">
@@ -195,8 +177,9 @@ export default function Payment() {
         <div className="lg:flex lg:items-center lg:justify-center">
           <div className="my-8 w-full justify-center md:flex md:flex-col lg:w-[350px]">
             <Button
+              disabled={isDisabled}
               variant={'default'}
-              className="mb-3 w-full rounded-lg bg-[#BE1B1B]  text-base font-bold uppercase text-white sm:h-[48px] lg:h-[55px] lg:text-xl"
+              className={`mb-3 w-full rounded-lg ${isDisabled ? 'bg-[#BE1B1B]/90' : 'bg-[#BE1B1B]'} text-base font-bold uppercase text-white sm:h-[48px] lg:h-[55px] lg:text-xl`}
               onClick={(e) => {
                 setIsLoading(true);
                 handleSubmit(e);
