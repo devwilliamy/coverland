@@ -6,9 +6,11 @@ import {
 } from '@/app/(noFooter)/checkout/utils';
 import { useCartContext } from '@/providers/CartProvider';
 import { useRouter } from 'next/navigation';
+import { useCheckoutContext } from '@/contexts/CheckoutContext';
 
 export default function PayPalButtonSection() {
   const { clearLocalStorageCart, getTotalPrice, cartItems } = useCartContext();
+  const { orderNumber } = useCheckoutContext();
   const router = useRouter();
   const totalMsrpPrice = getTotalPrice().toFixed(2) as unknown as number;
 
@@ -32,7 +34,7 @@ export default function PayPalButtonSection() {
             height: 50,
           }}
           createOrder={async () => {
-            const data = await paypalCreateOrder(totalMsrpPrice, cartItems);
+            const data = await paypalCreateOrder(totalMsrpPrice, cartItems, orderNumber);
             if (!data) {
               console.log('Error creating order');
               return '';
@@ -40,8 +42,8 @@ export default function PayPalButtonSection() {
             return data;
           }}
           onApprove={async (data) => {
-            const response = await paypalCaptureOrder(data.orderID);
             console.log("PayPalButton data:", data) // Useless
+            const response = await paypalCaptureOrder(data.orderID);
 
             console.log("PayPalButton Resposne:", response) // Also useless
             if (response.success) {

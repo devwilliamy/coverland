@@ -124,9 +124,9 @@ export const mapPaypalCaptureCreateToOrder = (
   const skus = items.map((item) => item.sku);
   return {
     order_id,
-    order_date: create_time,
+    // order_date: create_time,
     total_amount: amount.value,
-    currency: amount.currency_code,
+    currency: amount.currency_code.toLowerCase(),
     status,
     payment_gateway: 'paypal',
     transaction_id: id,
@@ -134,16 +134,17 @@ export const mapPaypalCaptureCreateToOrder = (
   };
 };
 
-export const mapPaypalCreationToOrder = (
+export const mapPaypalCompletionToOrder = (
   paypalPayload: PayPalCompleteOrder
 ) => {
+  console.log("[mapPaypalCompletionToOrder,PaypalPayload]", paypalPayload)
   const { id, status, purchase_units, payment_source, payer } = paypalPayload;
   const { reference_id: order_id, shipping, payments } = purchase_units[0];
   return {
     order_id,
     // order_date: create_time,
     total_amount: payments?.captures[0]?.amount?.value,
-    currency: payments?.captures[0]?.amount?.currency_code,
+    currency: payments?.captures[0]?.amount?.currency_code.toLowerCase(),
     status: status,
     payment_gateway: 'paypal',
     transaction_id: id,

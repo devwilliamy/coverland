@@ -1,5 +1,11 @@
-import { supabaseAdminPanelDatabaseClient } from '../adminPaneSupabaseClient';
+import { ReadonlyRequestCookies } from 'next/dist/server/web/spec-extension/adapters/request-cookies';
+import {
+  createSupabaseAdminPanelServerClient,
+  supabaseAdminPanelDatabaseClient,
+} from '../adminPaneSupabaseClient';
 import { ADMIN_PANEL_ORDERS } from '../constants/databaseTableNames';
+import { cookies } from 'next/headers';
+import { SupabaseClient } from '@supabase/supabase-js';
 
 export async function getAllAdminPanelOrders() {
   const { data, error } = await supabaseAdminPanelDatabaseClient
@@ -37,36 +43,50 @@ export async function getOrderIdSequence({
   return data;
 }
 
-// export const updateAdminPanelOrder = async (mappedOrder, order_id, customer_id) => {
-//   if (!order_id) {
-//     return NextResponse.json(
-//       { error: 'Order ID is required' },
-//       { status: 400 }
-//     );
-//   }
+export const postAdminPanelOrder = async (order) => {
+  try {
+    const { data, error } = await supabaseAdminPanelDatabaseClient
+      .from(ADMIN_PANEL_ORDERS)
+      .insert(order);
+    if (error) {
+      if (Number(error.code) === 23505) {
+        console.error('Order Already Exists');
+      } else {
+        console.error('An error occurred:', error.message);
+      }
+    }
+    return data;
+  } catch (error) {
+    console.error('An unexpected error occurred:', error);
+  }
+};
 
-//   const cookieStore: ReadonlyRequestCookies = cookies();
-//   const supabase: SupabaseClient =
-//     createSupabaseAdminPanelServerClient(cookieStore);
-//   try {
-//     const { data, error } = await supabase
-//       .from(ADMIN_PANEL_ORDERS)
-//       .update(order)
-//       .match({ order_id })
-//       .select('*');
+export const updateAdminPanelOrder = async (order, order_id) => {
+  if (!order_id) {
+    console.error('Order ID is required');
+    return;
+  }
 
-//     if (error) {
-//       if (Number(error.code) === 23505) {
-//         console.error('Order Already Exists');
-//       } else {
-//         console.error('An error occurred:', error.message);
-//       }
-//     }
+  try {
+    const { data, error } = await supabaseAdminPanelDatabaseClient
+      .from(ADMIN_PANEL_ORDERS)
+      .update(order)
+      .match({ order_id })
+      .select('*');
 
-//     if (data && data?.length === 0) {
-//       return NextResponse.json(
-//         { error: 'No order found with the specified ID' },
-//         { status: 404 }
-//       );
-//     }
-// }
+    if (error) {
+      if (Number(error.code) === 23505) {
+        console.error('Order Already Exists');
+      } else {
+        console.error('An error occurred:', error.message);
+      }
+    }
+
+    if (data && data?.length === 0) {
+      console.error('No order found with the specified ID');
+    }
+    return data;
+  } catch (error) {
+    console.error('An unexpected error occurred:', error);
+  }
+};
