@@ -24,7 +24,7 @@ const safteyFirstData = [
 export default function SafetyFirstSection() {
   return (
     <>
-      <p className="flex w-full items-center justify-center pb-[34px] pt-[43px] text-center text-[26px] font-[500] leading-[26px] lg:pb-[98px] lg:pt-[110px] lg:text-[45px]  lg:leading-[32px]">
+      <p className="flex w-full items-center justify-center  pb-[34px] pt-[43px] text-center text-[26px] font-[600] leading-[26px] lg:pb-[98px] lg:pt-[110px] lg:text-[45px]  lg:leading-[32px]">
         Your Safety Comes First
       </p>
       <section className="flex w-full flex-col items-center ">
