@@ -52,9 +52,19 @@ export function middleware(request: NextRequest) {
   const secondToLastHyphenSegment = hyphenSegments[hyphenSegments.length - 2];
   const hyphenTwoEndSegments = [secondToLastHyphenSegment, lastHyphenSegment];
   const endHyphenString = hyphenTwoEndSegments.join('-');
-  const urlHasPremiumPlus = request.nextUrl.pathname
+  const startsWithCarCoversAndPP = request.nextUrl.pathname
     .toString()
     .startsWith('/car-covers/premium-plus/');
+  const startsWithSUVCoversAndPP = request.nextUrl.pathname
+    .toString()
+    .startsWith('/suv-covers/premium-plus/');
+  const startsWithTruckCoversAndPP = request.nextUrl.pathname
+    .toString()
+    .startsWith('/truck-covers/premium-plus/');
+  const urlHasPremiumPlus =
+    startsWithCarCoversAndPP ||
+    startsWithSUVCoversAndPP ||
+    startsWithTruckCoversAndPP;
   const slashMakeSegment = urlHasPremiumPlus ? segments[2] : segments[1];
   const slashModelSegment = urlHasPremiumPlus ? segments[3] : segments[2];
   const slashYearSegment = urlHasPremiumPlus ? segments[4] : segments[3];
