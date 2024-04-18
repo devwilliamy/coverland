@@ -8,6 +8,8 @@ import { createOrUpdateUser } from '@/lib/db/admin-panel/customers';
 import { getPaymentIntent } from '@/lib/stripe/paymentIntent';
 import { getPaymentMethod } from '@/lib/stripe/paymentMethod';
 import { PaymentIntent, PaymentMethod } from '@stripe/stripe-js';
+import { updateAdminPanelOrder } from '@/lib/db/admin-panel/orders';
+import { postAdminPanelOrderItem } from '@/lib/db/admin-panel/orderItems';
 // import { Button } from '@/components/ui/button';
 // import { redirect } from 'next/navigation';
 
@@ -54,34 +56,34 @@ async function OrderConfirmationPage({
     });
 
     // const updatedOrder = await updatedOrderResponse(mappedOrder, order_id, customer_id)
-    const updatedOrderResponse = await fetch(
-      `${BASE_URL}/api/admin-panel/orders/`,
-      {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          order: mappedOrder,
-          order_id: mappedOrder.order_id,
-          customer_id: createdCustomer.length > 1 && createdCustomer[0].id,
-        }),
-      }
-    );
-
-    const { data: updatedOrder } = await updatedOrderResponse.json();
+    const updatedOrderResponse = await updateAdminPanelOrder(mappedOrder, mappedOrder.order_id)
+    // const updatedOrderResponse = await fetch(
+    //   `${BASE_URL}/api/admin-panel/orders/`,
+    //   {
+    //     method: 'PUT',
+    //     headers: {
+    //       'Content-Type': 'application/json',
+    //     },
+    //     body: JSON.stringify({
+    //       order: mappedOrder,
+    //       order_id: mappedOrder.order_id,
+    //       customer_id: createdCustomer.length > 1 && createdCustomer[0].id,
+    //     }),
+    //   }
+    // );
 
     // Add To OrderItem Table
-    await fetch(`${BASE_URL}/api/admin-panel/order-items/`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        id: updatedOrder[0].id,
-        skusWithQuantity: paymentIntent.metadata.skusWithQuantity,
-      }),
-    });
+    postAdminPanelOrderItem(updatedOrderResponse[0].id, paymentIntent.metadata.skusWithQuantity)
+    // await fetch(`${BASE_URL}/api/admin-panel/order-items/`, {
+    //   method: 'POST',
+    //   headers: {
+    //     'Content-Type': 'application/json',
+    //   },
+    //   body: JSON.stringify({
+    //     id: updatedOrderResponse[0].id,
+    //     skusWithQuantity: paymentIntent.metadata.skusWithQuantity,
+    //   }),
+    // });
   } else if (payment_gateway === 'paypal') {
     // If Paypal needs to do something here...
   } else {
