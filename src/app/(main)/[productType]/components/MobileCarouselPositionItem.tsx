@@ -21,7 +21,7 @@ export const CarouselPositionItem = ({
       className="rounded-[4px]"
       width={74}
       height={74}
-      src={removeWwwFromUrl(src as string) + '?v=10'}
+      src={removeWwwFromUrl(src as string) + '?v=11'}
       sizes="(max-width: 768px) 100vw"
       alt={`carousel-position-item-${index}`}
     />
