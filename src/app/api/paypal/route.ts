@@ -4,6 +4,7 @@ import paypal from '@paypal/checkout-server-sdk';
 const clientId = process.env.PAYPAL_CLIENT_ID ?? '';
 const clientSecret = process.env.PAYPAL_CLIENT_SECRET ?? '';
 const isProduction = process.env.NODE_ENV === 'production';
+const isPreview = process.env.IS_PREVIEW === "PREVIEW" ?? ''
 const productionEnvironment = new paypal.core.LiveEnvironment(
   clientId,
   clientSecret
@@ -14,7 +15,7 @@ console.log('[api/paypal/route] envs: ', {
   isProduction,
 });
 
-const environment = isProduction
+const environment = !isPreview
   ? productionEnvironment
   : new paypal.core.SandboxEnvironment(clientId, clientSecret);
 export const PaypalClient = new paypal.core.PayPalHttpClient(environment);
