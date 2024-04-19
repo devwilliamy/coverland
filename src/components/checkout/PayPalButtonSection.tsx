@@ -13,7 +13,7 @@ export default function PayPalButtonSection() {
   const { orderNumber, shipping, shippingAddress } = useCheckoutContext();
   const router = useRouter();
   const totalMsrpPrice = getTotalPrice().toFixed(2) as unknown as number;
-
+  console.log("[PaypalButtonSection]: ", process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID)
   return (
     <PayPalScriptProvider
       options={{

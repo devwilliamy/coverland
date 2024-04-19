@@ -8,6 +8,11 @@ const productionEnvironment = new paypal.core.LiveEnvironment(
   clientId,
   clientSecret
 );
+console.log('[api/paypal/route] envs: ', {
+  clientId,
+  clientSecret,
+  isProduction,
+});
 
 const environment = isProduction
   ? productionEnvironment
