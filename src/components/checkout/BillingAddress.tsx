@@ -25,7 +25,6 @@ export default function BillingAddress() {
   const [isDisabled, setIsDisabled] = useState(true);
   const [isEditingAddress, setIsEditingAddress] = useState(true);
   const { isShippingAddressShown } = useCheckoutContext();
-  console.log('isShippingAddressShown', isShippingAddressShown);
   const [address, setAddress] = useState<StripeAddress>();
 
   const {

@@ -47,6 +47,7 @@ export default function PayPalButtonSection() {
             return data;
           }}
           onApprove={async (data) => {
+            console.log("[PaypalButton Section] Data: ", data)
             const response = await paypalCaptureOrder(data.orderID);
             if (response.success) {
               // clearLocalStorageCart();

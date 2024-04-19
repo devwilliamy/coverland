@@ -43,7 +43,7 @@ export async function POST(req: Request) {
         status: 500,
       });
     }
-    // console.log('api/paypal/route POST: ', response); // Also useful
+    console.log('api/paypal/route POST: ', response); // Also useful
 
     return Response.json({ data: response.result as Order });
   } catch (err) {
