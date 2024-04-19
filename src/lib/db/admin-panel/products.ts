@@ -1,4 +1,4 @@
-import { supabaseAdminPanelDatabaseClient } from '../adminPaneSupabaseClient';
+import { supabaseAdminPanelDatabaseClient } from '../adminPanelSupabaseClient';
 import { ADMIN_PANEL_PRODUCTS } from '../constants/databaseTableNames';
 
 export async function getProductAndPriceBySku(skus: string[]) {

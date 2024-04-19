@@ -1,4 +1,4 @@
-import { createSupabaseAdminPanelServerClient } from '@/lib/db/adminPaneSupabaseClient';
+import { createSupabaseAdminPanelServerClient } from '@/lib/db/adminPanelSupabaseClient';
 import {
   ADMIN_PANEL_CUSTOMERS,
   ADMIN_PANEL_ORDERS,

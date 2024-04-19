@@ -1,4 +1,4 @@
-import { supabaseAdminPanelDatabaseClient } from '../adminPaneSupabaseClient';
+import { supabaseAdminPanelDatabaseClient } from '../adminPanelSupabaseClient';
 import { ADMIN_PANEL_ORDER_ITEMS } from '../constants/databaseTableNames';
 import { getProductAndPriceBySku } from './products';
 

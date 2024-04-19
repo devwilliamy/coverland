@@ -1,5 +1,5 @@
 import { getProductAndPriceBySku } from '@/lib/db/admin-panel/products';
-import { createSupabaseAdminPanelServerClient } from '@/lib/db/adminPaneSupabaseClient';
+import { createSupabaseAdminPanelServerClient } from '@/lib/db/adminPanelSupabaseClient';
 import { ADMIN_PANEL_ORDER_ITEMS } from '@/lib/db/constants/databaseTableNames';
 import { SupabaseClient } from '@supabase/supabase-js';
 import { ReadonlyRequestCookies } from 'next/dist/server/web/spec-extension/adapters/request-cookies';

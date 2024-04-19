@@ -2,7 +2,7 @@ import { ReadonlyRequestCookies } from 'next/dist/server/web/spec-extension/adap
 import {
   createSupabaseAdminPanelServerClient,
   supabaseAdminPanelDatabaseClient,
-} from '../adminPaneSupabaseClient';
+} from '../adminPanelSupabaseClient';
 import { ADMIN_PANEL_ORDERS } from '../constants/databaseTableNames';
 import { cookies } from 'next/headers';
 import { SupabaseClient } from '@supabase/supabase-js';

@@ -1,4 +1,4 @@
-import { createSupabaseAdminPanelServerClient } from '@/lib/db/adminPaneSupabaseClient';
+import { createSupabaseAdminPanelServerClient } from '@/lib/db/adminPanelSupabaseClient';
 import { ADMIN_PANEL_ORDERS } from '@/lib/db/constants/databaseTableNames';
 import { SupabaseClient } from '@supabase/supabase-js';
 import { ReadonlyRequestCookies } from 'next/dist/server/web/spec-extension/adapters/request-cookies';
