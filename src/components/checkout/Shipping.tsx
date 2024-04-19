@@ -26,14 +26,11 @@ const options: StripeAddressElementOptions = {
   },
 };
 
-type ShippingPriceOption = 0.0 | 29.99;
-
-type ShippingInfo = 'ADDRESS' | 'SHIPPING_OPTION' | 'NONE';
-
 type ShippingProps = {
   handleChangeAccordion: (accordionTitle: string) => void;
   handleSelectTab: (id: string) => void;
 };
+
 export default function Shipping({
   handleChangeAccordion,
   handleSelectTab,
@@ -43,7 +40,6 @@ export default function Shipping({
   const [isEditingShipping, setIsEditingShipping] = useState(true);
   const [email, setEmail] = useState<string>('');
   const [address, setAddress] = useState<StripeAddress>();
-  const [shippingPrice, setShippingPrice] = useState<ShippingPriceOption>();
 
   const {
     updateShippingAddress,
@@ -87,16 +83,6 @@ export default function Shipping({
 
   return (
     <div className="px-4">
-      {/* <div className="pb-7 pt-9 text-2xl font-medium lg:pt-0">Shipping</div> */}
-      {/* <LinkAuthenticationElement
-            // Access the email value like so:
-            // onChange={(event) => {
-            //  setEmail(event.value.email);
-            // }}
-            //
-            // Prefill the email field like so:
-            // options={{defaultValues: {email: 'foo@bar.com'}}}
-          /> */}
       {isEditingAddress ? (
         <div className="min-h-[400px]">
           <EmailInput email={email} setEmail={setEmail} />
@@ -115,7 +101,6 @@ export default function Shipping({
           </div>
         </div>
       ) : (
-        // <AddressForm/>
         <div className="mb-4">
           <SavedAddressBox
             address={address as StripeAddress}

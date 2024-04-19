@@ -85,10 +85,7 @@ export async function paypalCreateOrder(
       },
     },
   ];
-  console.log(
-    '[Checkout.utils.paypalCreateOrder] Purchase Units:',
-    purchase_units
-  );
+
   try {
     const response = await fetch('/api/paypal', {
       method: 'POST',
@@ -97,7 +94,7 @@ export async function paypalCreateOrder(
       },
       body: JSON.stringify({
         order_price: totalMsrpPrice,
-        //current time and date
+        // This one kinda useless, thinking about to do with it
         user_id: new Date().toISOString(),
         purchase_units,
       }),
@@ -107,9 +104,9 @@ export async function paypalCreateOrder(
     }
 
     const { data } = await response.json();
-    console.log('[Paypal.paypalCreateOrder] data: ', data);
+    // console.log('[Paypal.paypalCreateOrder] data: ', data);
     const mappedData = mapPaypalCaptureCreateToOrder(data);
-    console.log('[Paypal.paypalCreateOrder] mappedData: ', mappedData);
+    // console.log('[Paypal.paypalCreateOrder] mappedData: ', mappedData);
     const adminPanelOrder = await updateAdminPanelOrder(
       mappedData,
       mappedData.order_id
@@ -171,14 +168,14 @@ export async function paypalCaptureOrder(orderID: string) {
       throw new Error('Network response was not ok');
     }
     const data = await response.json();
-    console.log('[Paypal.paypalCaptureOrder]: ', data);
+    // console.log('[Paypal.paypalCaptureOrder]: ', data);
     const mappedData = mapPaypalCompletionToOrder(data.data);
-    console.log('[Paypal.paypalCreateOrder] mappedData: ', mappedData);
+    // console.log('[Paypal.paypalCreateOrder] mappedData: ', mappedData);
     const adminPanelOrder = await updateAdminPanelOrder(
       mappedData,
       mappedData.order_id
     );
-    console.log('[Paypal.paypalCreateOrder]: adminPanelOrder', adminPanelOrder);
+    // console.log('[Paypal.paypalCreateOrder]: adminPanelOrder', adminPanelOrder);
     return data;
   } catch (err) {
     console.error(err);

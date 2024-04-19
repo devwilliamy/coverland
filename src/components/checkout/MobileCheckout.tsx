@@ -17,10 +17,13 @@ import InYourCart from './InYourCart';
 export default function MobileCheckout() {
   const { currentStep } = useCheckoutContext();
   const [value, setValue] = useState(['shipping']);
+
   const handleSelectTab = (title: string) => {
     if (document) {
       const el = document.getElementById(title);
       const elTop = (el?.offsetTop as number) - 200;
+      // When payment is selected, need a little delay so screen will scroll to it when it opens
+      // If it's already open, don't need to wait.
       const timeout = value.includes('payment') ? 0 : 250;
       setTimeout(() => {
         window.scrollTo({
@@ -38,7 +41,6 @@ export default function MobileCheckout() {
       <div className="flex flex-col lg:flex lg:flex-row lg:px-24">
         <CartHeader />
         <Separator className="mt-5 w-full bg-[#C8C7C7]" />
-        {/* <div> */}
         {currentStep === CheckoutStep.CART ? (
           <>
             <YourCart />
@@ -56,7 +58,6 @@ export default function MobileCheckout() {
                 In Your Cart
               </AccordionTrigger>
               <AccordionContent>
-                {/* <YourCart /> */}
                 <div className="px-4">
                   <InYourCart />
                 </div>
@@ -83,15 +84,6 @@ export default function MobileCheckout() {
             </AccordionItem>
           </Accordion>
         )}
-
-        {/* <YourCart />
-          <Shipping handleSelectTab={handleSelectTab} />
-          <div className="pt-4">
-            <div id="payment">
-              {currentStep >= CheckoutStep.PAYMENT && <Payment />}
-            </div>
-          </div> */}
-        {/* </div> */}
       </div>
     </>
   );

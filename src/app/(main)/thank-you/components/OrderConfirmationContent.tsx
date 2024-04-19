@@ -7,6 +7,7 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
+import { useThankYouViewedGoogleTag } from '@/hooks/useGoogleTagDataLayer';
 import Link from 'next/link';
 import { BsFillEnvelopeFill } from 'react-icons/bs';
 
@@ -18,7 +19,7 @@ export const OrderConfirmationContent = ({
   orderNumber,
 }: OrderConfirmationContentProps) => {
 
-  // useThankYouViewedGoogleTag(orderNumber);
+  useThankYouViewedGoogleTag(orderNumber);
 
   return (
     <Card className="text-center">

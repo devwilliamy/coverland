@@ -10,10 +10,6 @@ import { getPaymentMethod } from '@/lib/stripe/paymentMethod';
 import { PaymentIntent, PaymentMethod } from '@stripe/stripe-js';
 import { updateAdminPanelOrder } from '@/lib/db/admin-panel/orders';
 import { postAdminPanelOrderItem } from '@/lib/db/admin-panel/orderItems';
-// import { Button } from '@/components/ui/button';
-// import { redirect } from 'next/navigation';
-
-const BASE_URL = process.env.NEXT_PUBLIC_HOSTNAME ?? 'https://coverland.com';
 
 type PaymentIntentSuccessParams = {
   searchParams: {
@@ -34,58 +30,34 @@ async function OrderConfirmationPage({
   const payment_gateway = searchParams.payment_gateway || '';
   // tbh don't really need this maybe send in a stripe payment_gateway
   if (clientSecret) {
+    // Get payment intent & payment method.
     const paymentIntent = await getPaymentIntent(payment_intent);
-
     const { payment_method } = paymentIntent;
     const paymentMethod = await getPaymentMethod(payment_method as string);
 
+    // Make customer info
     const customerInput = mapPaymentMethodToCustomer(
       paymentMethod as PaymentMethod
     );
-    const createdCustomer = (await createOrUpdateUser(customerInput)) || [];
 
+    // Create customer in customers table (this will only work for stripe ATM)
+    // TODO: Make this work with Paypal
+    const createdCustomer = (await createOrUpdateUser(customerInput)) || [];
+    // TODO: Update customer ID Here
     const mappedOrder = mapPaymentIntentAndMethodToOrder(
       paymentIntent as PaymentIntent,
       paymentMethod as PaymentMethod
     );
 
-    console.log('Stripe Complete:', {
-      paymentIntent,
-      paymentMethod,
-      createdCustomer,
-    });
-
-    // const updatedOrder = await updatedOrderResponse(mappedOrder, order_id, customer_id)
+    // Update Order in Orders table 
     const updatedOrderResponse = await updateAdminPanelOrder(mappedOrder, mappedOrder.order_id)
-    // const updatedOrderResponse = await fetch(
-    //   `${BASE_URL}/api/admin-panel/orders/`,
-    //   {
-    //     method: 'PUT',
-    //     headers: {
-    //       'Content-Type': 'application/json',
-    //     },
-    //     body: JSON.stringify({
-    //       order: mappedOrder,
-    //       order_id: mappedOrder.order_id,
-    //       customer_id: createdCustomer.length > 1 && createdCustomer[0].id,
-    //     }),
-    //   }
-    // );
 
     // Add To OrderItem Table
     postAdminPanelOrderItem(updatedOrderResponse[0].id, paymentIntent.metadata.skusWithQuantity)
-    // await fetch(`${BASE_URL}/api/admin-panel/order-items/`, {
-    //   method: 'POST',
-    //   headers: {
-    //     'Content-Type': 'application/json',
-    //   },
-    //   body: JSON.stringify({
-    //     id: updatedOrderResponse[0].id,
-    //     skusWithQuantity: paymentIntent.metadata.skusWithQuantity,
-    //   }),
-    // });
+
   } else if (payment_gateway === 'paypal') {
     // If Paypal needs to do something here...
+    // Oh, order items and customer have to be updated here
   } else {
     return (
       <div className="flex flex-row items-center justify-center py-10 text-xl font-bold">

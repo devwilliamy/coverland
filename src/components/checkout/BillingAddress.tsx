@@ -26,7 +26,6 @@ export default function BillingAddress() {
   const [isEditingAddress, setIsEditingAddress] = useState(true);
   const { isShippingAddressShown } = useCheckoutContext();
   console.log('isShippingAddressShown', isShippingAddressShown);
-  // const [isBillingSameAsShipping, setIsBillingSameAsShipping] = useState(true);
   const [address, setAddress] = useState<StripeAddress>();
 
   const {
@@ -53,7 +52,7 @@ export default function BillingAddress() {
 
   const handleAddressButtonClick = () => {
     setIsEditingAddress(false);
-    updateBillingAddress(address);
+    updateBillingAddress(address as StripeAddress);
   };
 
   const handleEditAddress = () => {
@@ -62,7 +61,9 @@ export default function BillingAddress() {
 
   return (
     <>
-      {isShippingAddressShown ? <div> Please fill out your shipping details above </div> : (
+      {isShippingAddressShown ? (
+        <div> Please fill out your shipping details above </div>
+      ) : (
         <div className="">
           <div className="flex flex-row items-center pb-4">
             <input
@@ -91,14 +92,12 @@ export default function BillingAddress() {
               </div>
             </div>
           ) : (
-            // !isBillingSameAsShipping && (
             <div className="mb-4">
               <SavedBillingAddress
                 address={billingAddress}
                 handleClick={handleEditAddress}
               />
             </div>
-            // )
           )}
         </div>
       )}

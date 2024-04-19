@@ -124,13 +124,8 @@ export default function Payment() {
 
   const isDisabled = !isValidShippingAddress(shippingAddress);
 
-  const paymentElementOptions = {
-    layout: 'tabs',
-  };
-
   return (
     <div className="px-4">
-      {/* <div className="pb-7 pt-9 text-2xl font-medium lg:pt-0">Payment</div> */}
       <div className="mb-10 lg:hidden">
         <PromoCode />
       </div>
@@ -143,14 +138,7 @@ export default function Payment() {
       </div>
       {paymentMethod === 'creditCard' ? (
         <>
-          {/* {paymentRequest && (
-            <div>
-              Payment Reqeuest
-              <PaymentRequestButtonElement options={{ paymentRequest }} />
-            </div>
-          )} */}
           <form id="payment-form" onSubmit={handleSubmit}>
-            {/* <LinkAuthenticationElement id="link-authentication-element" /> */}
             <PaymentElement
               id="payment-element"
               // onChange={(e) => {

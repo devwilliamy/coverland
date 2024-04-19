@@ -31,20 +31,20 @@ export async function POST(req: Request) {
 
   const { orderID } = body;
   try {
-    console.log(
-      '[api.paypal.capture-order.route POST] creating paypal order:',
-      orderID
-    );
+    // console.log(
+    //   '[api.paypal.capture-order.route POST] creating paypal order:',
+    //   orderID
+    // );
     const request = new paypal.orders.OrdersCaptureRequest(orderID);
-    console.log('[api.paypal.capture-order.route POST] request:', request);
+    // console.log('[api.paypal.capture-order.route POST] request:', request);
 
     const response = await PaypalClient.execute(request);
 
-    console.log('[api.paypal.capture-order.route POST] RESPONSE', response); // One of the useful repnoses
+    // console.log('[api.paypal.capture-order.route POST] RESPONSE', response); // One of the useful repnoses
     return Response.json({ success: true, data: response.result });
   } catch (error) {
-    console.log(error);
-    console.log(
+    console.error(error);
+    console.error(
       'error with client_id:',
       process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID
     );

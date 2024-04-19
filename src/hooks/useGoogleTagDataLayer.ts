@@ -175,7 +175,6 @@ export const useThankYouViewedGoogleTag = (
         // console.log('Page was reloaded, GTAG not tracked.');
       } else {
         const cartItemsToGTagItems = mapCartItemsToGTagItems(cartItems);
-        console.log("MappedItems:", cartItemsToGTagItems)
         window?.dataLayer?.push({ ecommerce: null }); // Clear the previous ecommerce object.
         window?.dataLayer?.push({
           event: 'purchase',
