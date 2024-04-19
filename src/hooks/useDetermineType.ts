@@ -38,11 +38,12 @@ function useDetermineType() {
   const isPremiumType = isDefaultCoverType || isPremium;
   const isStandardType = isStandard || isStandardPro;
 
-  const { make, model } = params as ParamsType;
+  const { make, model, year } = params as ParamsType;
 
   return {
     make,
     model,
+    year,
     productType,
     isCarCover,
     isSUVCover,
