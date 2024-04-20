@@ -1,10 +1,17 @@
-import React, { ChangeEvent, Dispatch, SetStateAction, useState } from 'react';
+import React, {
+  ChangeEvent,
+  Dispatch,
+  SetStateAction,
+  useEffect,
+  useState,
+} from 'react';
 import HomeChevronDown from './icons/HomeChevronDown';
 import { TQuery } from './HeroDropdown';
 import { Search } from 'lucide-react';
 import { AiOutlineLoading3Quarters } from 'react-icons/ai';
 import { useMediaQuery } from '@mantine/hooks';
 import { useParams } from 'next/navigation';
+import { deslugify } from '@/lib/utils';
 
 export default function HomeDropdown({
   queryObj,
@@ -29,7 +36,7 @@ export default function HomeDropdown({
   const { setQuery } = queryObj;
   const params = Object(useParams());
   const paramKeys = Object.keys(params);
-  console.log(params);
+  // console.log(params);
   const paramValues = Object.values(params);
   const [selectedValue, setSelectedValue] = useState<string>('');
   const [selectedIndex, setSelectedIndex] = useState<number>(-1);
@@ -40,8 +47,10 @@ export default function HomeDropdown({
   const [filteredItems, setFilteredItems] = useState<
     (string | number)[] | undefined
   >([]);
+
   const isActive = prevSelected || selectedValue !== title;
   const isMobile = useMediaQuery('(max-width: 768px)');
+
 
   const handleSelect = (newValue: string) => {
     switch (title) {
@@ -239,7 +248,7 @@ export default function HomeDropdown({
                       title.charAt(0),
                       title.charAt(0).toUpperCase()
                     )
-                  : value}
+                  : deslugify(value as string)}
                 {value === '' && isSubmodel1 && submodel1Text}
                 {value === '' && isSubmodel2 && submodel2Text}
               </p>
@@ -268,7 +277,7 @@ export default function HomeDropdown({
                             title.charAt(0),
                             title.charAt(0).toUpperCase()
                           )
-                        : value}
+                        : deslugify(value as string)}
                       {value === '' && isSubmodel1 && submodel1Text}
                       {value === '' && isSubmodel2 && submodel2Text}
                     </p>

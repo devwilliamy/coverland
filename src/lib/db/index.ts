@@ -169,8 +169,8 @@ export async function getAllUniqueModelsByYearMake({
   year: string;
   make: string;
 }) {
-
-  const tableName = type === 'Seat Covers' ? SEAT_COVERS_TABLE : PRODUCT_DATA_TABLE
+  const tableName =
+    type === 'Seat Covers' ? SEAT_COVERS_TABLE : PRODUCT_DATA_TABLE;
   const { data, error } = await supabase
     .from(tableName)
     .select(
@@ -248,6 +248,40 @@ export async function getAllYears({
     .eq('display_id', cover)
     .eq('make', make)
     .eq('model', model);
+
+  if (error) {
+    throw new Error(error.message);
+  }
+
+  return data;
+}
+
+export async function getAllMakesByCoverType(type: string) {
+  const { data, error } = await supabase.rpc('get_distinct_makes_by_type', {
+    type,
+  });
+
+  if (error) {
+    throw new Error(error.message);
+  }
+
+  return data;
+}
+
+export async function getModelsByTypeMake({
+  type,
+  make,
+}: {
+  type: string;
+  make: string;
+}) {
+  const { data, error } = await supabase.rpc(
+    'get_distinct_models_by_make_type',
+    {
+      type,
+      make,
+    }
+  );
 
   if (error) {
     throw new Error(error.message);
