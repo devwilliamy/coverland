@@ -256,7 +256,7 @@ export async function getAllYears({
   return data;
 }
 
-export async function getAllMakesByCoverType(type: string) {
+export async function getDistinctMakesByType(type: string) {
   const { data, error } = await supabase.rpc('get_distinct_makes_by_type', {
     type,
   });
@@ -268,7 +268,7 @@ export async function getAllMakesByCoverType(type: string) {
   return data;
 }
 
-export async function getModelsByTypeMake({
+export async function getDistinctModelsByTypeMake({
   type,
   make,
 }: {
@@ -276,10 +276,35 @@ export async function getModelsByTypeMake({
   make: string;
 }) {
   const { data, error } = await supabase.rpc(
-    'get_distinct_models_by_make_type',
+    'get_distinct_models_by_type_make',
     {
       type,
       make,
+    }
+  );
+
+  if (error) {
+    throw new Error(error.message);
+  }
+
+  return data;
+}
+
+export async function getDistinctParentGenerations({
+  type,
+  make,
+  model,
+}: {
+  type: string;
+  make: string;
+  model: string;
+}) {
+  const { data, error } = await supabase.rpc(
+    'get_distinct_parent_generations',
+    {
+      type,
+      make,
+      model,
     }
   );
 

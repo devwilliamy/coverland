@@ -11,7 +11,7 @@ import {
 } from '@/components/ui/popover';
 import { TPathParams, TQueryParams } from '@/utils';
 import { Button } from '@mui/material';
-import { useParams } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
 import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { AiOutlineLoading3Quarters } from 'react-icons/ai';
 import loading from '../../loading';
@@ -21,9 +21,11 @@ import HomeDropdown from '@/components/hero/dropdown/HomeDropdown';
 import { PopoverArrow } from '@radix-ui/react-popover';
 import { PREMIUM_PLUS_URL_PARAM, VEHICLE_TYPES } from '@/lib/constants';
 import {
-  getAllMakesByCoverType,
+  getDistinctMakesByType,
   getAllUniqueMakesByYear,
-  getModelsByTypeMake,
+  getAllYears,
+  getDistinctModelsByTypeMake,
+  getDistinctParentGenerations,
 } from '@/lib/db';
 import { deslugify } from '@/lib/utils';
 
@@ -59,67 +61,20 @@ export default function LinkBreadcrumbs() {
     parent_generation: '',
   });
 
+  const router = useRouter();
   const vehicleTypes = VEHICLE_TYPES;
-  const [makeData, setMakeData] = useState({});
   const [makeDataStrings, setMakeDataStrings] = useState<string[]>();
   const [modelDataStrings, setModelDataStrings] = useState<string[]>();
+  const [yearDataStrings, setYearDataStrings] = useState<string[]>();
   const [isLoading, setIsLoading] = useState(false);
-  const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
+  // const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
 
   const queryObj = {
     query: paramsObj as TQuery,
     setQuery: setParamsObj as Dispatch<SetStateAction<TQuery>>,
   };
 
-  useEffect(() => {
-    const getMakes = async (incomingType: string) => {
-      const desluggifiedType = deslugify(incomingType);
-      const data = await getAllMakesByCoverType(desluggifiedType);
-      console.log('Fetched Makes: ', data);
-      const tempArr = [];
-      for (const obj of data) {
-        tempArr.push(obj?.make);
-      }
-      // console.log(tempArr);
-
-      setMakeDataStrings(tempArr);
-      console.log(queryObj);
-
-      return data;
-    };
-    console.log(params);
-    if (paramsObj.type) {
-      getMakes(paramsObj.type);
-    }
-  }, [paramsObj.type]);
-
-  useEffect(() => {
-    const getModels = async (incomingType: string, incomingMake: string) => {
-      const desluggifiedType = deslugify(incomingType);
-      const desluggifiedMake = deslugify(incomingMake);
-      const data = await getModelsByTypeMake({
-        type: desluggifiedType,
-        make: desluggifiedMake,
-      });
-      // console.log('Fetched Models: ', data);
-      const tempArr = [];
-      for (const obj of data) {
-        tempArr.push(obj?.model);
-      }
-      console.log(tempArr);
-
-      setModelDataStrings(tempArr);
-      console.log(queryObj);
-
-      return data;
-    };
-    // console.log("Fetched Models: "params);
-    if (paramsObj.type && paramsObj.make) {
-      getModels(paramsObj.type, paramsObj.make);
-    }
-  }, [paramsObj.type, paramsObj.make]);
-
-  // const { productType, make, model, year } = useParams();
+  // const initialQueryParams = { type: productType, make, model, year } as TQuery;
 
   useEffect(() => {
     setParamsObj((e) => {
@@ -134,11 +89,94 @@ export default function LinkBreadcrumbs() {
   }, []);
 
   useEffect(() => {
-    // setParamObj({
-    //   type: paramsObj,
-    // });
+    const getMakes = async (incomingType: string) => {
+      const desluggifiedType = deslugify(incomingType);
+      const data = await getDistinctMakesByType(desluggifiedType);
+      console.log('Fetched Makes: ', data);
+      const makeTempArr = [];
+      for (const obj of data) {
+        makeTempArr.push(obj?.make);
+      }
+      // console.log(tempArr);
+
+      setMakeDataStrings(makeTempArr);
+      console.log(queryObj);
+
+      return data;
+    };
+
+    const getModels = async (incomingType: string, incomingMake: string) => {
+      const desluggifiedType = deslugify(incomingType);
+      const desluggifiedMake = deslugify(incomingMake);
+      const typeMakeObj = {
+        type: desluggifiedType,
+        make: desluggifiedMake,
+      };
+      const data = await getDistinctModelsByTypeMake(typeMakeObj);
+      console.log('Fetched Model: ', {
+        data,
+        typeMakeObj,
+      });
+
+      const modelTempArr = [];
+      for (const obj of data) {
+        modelTempArr.push(obj?.model);
+      }
+
+      setModelDataStrings(modelTempArr);
+      console.log('Query Obj From Model: ', queryObj);
+
+      return data;
+    };
+
+    const getYears = async (
+      incomingType: string,
+      incomingMake: string,
+      incomingModel: string
+    ) => {
+      const desluggifiedType = deslugify(incomingType);
+      const desluggifiedMake = deslugify(incomingMake);
+      const desluggifiedModel = deslugify(incomingModel);
+      const typeMakeModelObj = {
+        type: desluggifiedType,
+        make: desluggifiedMake,
+        model: desluggifiedModel,
+      };
+      const data = await getDistinctParentGenerations(typeMakeModelObj);
+      console.log('Fetched Years: ', data);
+
+      const yearTempArr = [];
+      for (const obj of data) {
+        yearTempArr.push(obj?.parent_generation);
+      }
+      setYearDataStrings(yearTempArr);
+      return data;
+    };
+
+    if (paramsObj.type) {
+      getMakes(paramsObj.type);
+    }
+
+    if (paramsObj.type && paramsObj.make) {
+      getModels(paramsObj.type, paramsObj.make);
+    }
+
+    if (paramsObj.type && paramsObj.make && paramsObj.model) {
+      getYears(paramsObj.type, paramsObj.make, paramsObj.model);
+    }
+  }, [paramsObj.type, paramsObj.make, paramsObj.model, params.year]);
+
+  useEffect(() => {
     console.log('Current Params: ', paramsObj);
   }, [paramsObj]);
+
+  const goIsDisabled = !paramsObj.make || !paramsObj.model || !paramsObj.year;
+
+  const handleSubmitDropdown = () => {
+    setIsLoading(true);
+
+    setIsLoading(false);
+  };
 
   return (
     <div className="mb-[14px] flex text-[12px] leading-[13px] lg:text-[14px] lg:leading-[15px]">
@@ -149,9 +187,9 @@ export default function LinkBreadcrumbs() {
               <Popover>
                 <PopoverTrigger
                   className="flex gap-0.5"
-                  onClick={() => {
-                    setSelectedIndex(selectedIndex);
-                  }}
+                  // onClick={() => {
+                  //   setSelectedIndex(selectedIndex);
+                  // }}
                 >
                   <p> </p>
                   <div
@@ -167,22 +205,7 @@ export default function LinkBreadcrumbs() {
                 </PopoverTrigger>
                 <PopoverContent>
                   <PopoverArrow className="fill-[#BE1B1B]" />
-                  {/* {paramKeys.map((item, i) => {
-                    if (index < i) {
-                      return (
-                        <div>
-                          {params[item]} {index} {i}
-                        </div>
-                      );
-                    }
-                    if (i === paramKeys.length - 1) {
-                      return (
-                        <div>
-                          {params[item]} {index} {i}
-                        </div>
-                      );
-                    }
-                  })} */}
+
                   <div className="z-100 relative flex w-full flex-col items-stretch  gap-[16px] *:flex-1">
                     {productType && selectedIndex === 0 && (
                       <HomeDropdown
@@ -191,6 +214,7 @@ export default function LinkBreadcrumbs() {
                         value={paramsObj.type}
                         queryObj={queryObj}
                         prevSelected={false}
+                        isBreadcrumb
                         items={vehicleTypes}
                       />
                     )}
@@ -202,6 +226,8 @@ export default function LinkBreadcrumbs() {
                         value={paramsObj.make}
                         queryObj={queryObj}
                         prevSelected={false}
+                        isDisabled={!paramsObj.type}
+                        isBreadcrumb
                         items={makeDataStrings}
                       />
                     )}
@@ -213,63 +239,47 @@ export default function LinkBreadcrumbs() {
                         value={paramsObj.model}
                         queryObj={queryObj}
                         prevSelected={false}
+                        isDisabled={!paramsObj.make}
+                        isBreadcrumb
                         items={modelDataStrings}
                       />
                     )}
 
-                    {/* {model && selectedIndex < 4 && (
+                    {year && selectedIndex < 4 && (
                       <HomeDropdown
-                        place={3}
+                        place={4}
                         title={'year'}
-                        value={paramsObj.model}
+                        value={paramsObj.year}
                         queryObj={queryObj}
                         prevSelected={false}
-                        items={}
+                        isDisabled={!paramsObj.model}
+                        isBreadcrumb
+                        items={yearDataStrings}
                       />
-                    )} */}
+                    )}
 
-                    {/* {paramKeys.map((item, index) => {
-                      if (selectedIndex < index) {
-                        return (
-                          <HomeDropdown
-                            key={'inner-' + item}
-                            place={index}
-                            title={paramKeys[index]}
-                            value={paramValues[index] as string}
-                            queryObj={queryObj}
-                            prevSelected={false}
-                            items={vehicleTypes}
-                          />
-                        );
-                      }
-                      // if (i === paramKeys.length - 1) {
-                      //   return (
-                      //     <HomeDropdown
-                      //       place={i}
-                      //       title={paramKeys[i]}
-                      //       value={paramsObj.type}
-                      //       queryObj={queryObj}
-                      //       prevSelected={false}
-                      //       items={vehicleTypes}
-                      //     />
-                      //   );
-                      // }
-                    })} */}
-                    {/* <YearSearch queryObj={queryObj} />
-                    <MakeSearch queryObj={queryObj} />
-                    <ModelSearch queryObj={queryObj} /> */}
-                    <Button
-                    // className={`mx-auto h-[40px] max-h-[44px] min-h-[44px] w-full max-w-[px] rounded-[4px] ${isDisabled ? 'bg-[black]' : 'bg-[#BE1B1B]'} text-lg `}
-                    // onClick={handleSubmitDropdown}
-                    // disabled={isDisabled}
+                    {/* <Button
+                      className={`mx-auto h-[40px] max-h-[44px] min-h-[44px] w-full max-w-[px] rounded-[4px] ${goIsDisabled ? 'bg-[black] text-[white]/10 ' : 'bg-[#BE1B1B] text-[white] '} text-lg  `}
+                      onClick={handleSubmitDropdown}
+                      disabled={goIsDisabled}
                     >
-                      {/* {loading ? (
+                      {isLoading ? (
                         <AiOutlineLoading3Quarters className="animate-spin" />
                       ) : (
                         'GO'
-                      )} */}
-                      GO
-                    </Button>
+                      )}
+                    </Button> */}
+                    <button
+                      className={`flex h-full max-h-[44px] min-h-[44px] w-full items-center justify-center rounded-lg bg-[#BE1B1B] text-lg  font-[700] text-white transition-colors duration-100 ease-in disabled:bg-[#BE1B1B]/40 `}
+                      onClick={handleSubmitDropdown}
+                      disabled={goIsDisabled}
+                    >
+                      {isLoading ? (
+                        <AiOutlineLoading3Quarters className="animate-spin" />
+                      ) : (
+                        'GO'
+                      )}
+                    </button>
                   </div>
                 </PopoverContent>
               </Popover>
