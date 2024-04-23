@@ -206,12 +206,12 @@ export function middleware(request: NextRequest) {
       search
     ) {
       const paramsObj = generateSearchObj();
-      let urlString = `/${slashStartSegment}/${PREMIUM_PLUS_URL_PARAM}/${slashMakeSegment.toLowerCase()}/${slashModelSegment.toLowerCase()}`;
-      if (paramsObj.year) {
-        urlString += '/' + paramsObj.year;
-      }
+      let urlString = `/${slashStartSegment}/${PREMIUM_PLUS_URL_PARAM}/${slashMakeSegment.toLowerCase()}/${slashModelSegment.toLowerCase()}/`;
 
-      return NextResponse.redirect(new URL(urlString, request.url), 301);
+      if (paramsObj.year) {
+        urlString += '/' + paramsObj.year + search;
+        return NextResponse.redirect(new URL(urlString, request.url), 301);
+      }
     }
 
     // Checking make segment
@@ -274,6 +274,6 @@ export function middleware(request: NextRequest) {
   ) {
     return SEAT_COVERS_LEATHER_REDIRECT;
   }
-  
+
   return NextResponse.next();
 }
