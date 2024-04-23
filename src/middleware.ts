@@ -206,8 +206,27 @@ export function middleware(request: NextRequest) {
       search
     ) {
       const paramsObj = generateSearchObj();
+      const objectLength = Object.keys(paramsObj).length;
       let urlString = `/${slashStartSegment}/${PREMIUM_PLUS_URL_PARAM}/${slashMakeSegment.toLowerCase()}/${slashModelSegment.toLowerCase()}/`;
 
+      if (objectLength > 0 && !paramsObj.submodel && !paramsObj.submodel2) {
+        return NextResponse.redirect(
+          new URL(
+            `/${slashStartSegment}/${PREMIUM_PLUS_URL_PARAM}/${segments.slice(2).join('/')}`,
+            request.url
+          ),
+          301
+        );
+      }
+      if (objectLength > 2 && paramsObj.submodel && paramsObj.submodel2) {
+        return NextResponse.redirect(
+          new URL(
+            `/${slashStartSegment}/${PREMIUM_PLUS_URL_PARAM}/${segments.slice(2).join('/')}?submodel=${paramsObj.submodel}&submodel2=${paramsObj.submodel2}`,
+            request.url
+          ),
+          301
+        );
+      }
       if (paramsObj.year) {
         urlString += '/' + paramsObj.year + search;
         return NextResponse.redirect(new URL(urlString, request.url), 301);
