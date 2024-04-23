@@ -49,10 +49,10 @@ export default function MobileHomeDropdown({
                   <option
                     key={`type-${item}`}
                     id={`${title}-${i}`}
-                    value={item}
+                    value={item.name}
                     className={`flex py-1 pl-[20px] hover:bg-[#BE1B1B] hover:text-white ${i === selectedIndex && 'bg-[#BE1B1B] text-white'}`}
                   >
-                    {item}
+                    {item.name}
                   </option>
                 ))}
               </>

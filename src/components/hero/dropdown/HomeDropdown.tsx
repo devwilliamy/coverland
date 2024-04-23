@@ -132,13 +132,14 @@ export default function HomeDropdown({
 
   const handleIncrease = () => {
     const drpCont = document?.getElementById('content');
-
+    const _items =
+      filteredItems && filteredItems?.length > 0 ? filteredItems : items;
     if (selectedIndex < 0) {
       setSelectedIndex(0);
       return;
     }
-    if (items?.length && selectedIndex >= items?.length - 1) {
-      setSelectedIndex(() => items.length - 1);
+    if (_items?.length && selectedIndex >= _items?.length - 1) {
+      setSelectedIndex(() => _items.length - 1);
       return;
     }
     setSelectedIndex((prevState) => {
@@ -164,11 +165,11 @@ export default function HomeDropdown({
     const inputValue = event.target.value;
     setSearch(inputValue);
     const newFilteredItems = items?.filter((item) => {
-      if (typeof item === 'string') {
-        return item?.toLowerCase().startsWith(inputValue.toLowerCase());
+      if (typeof item?.name === 'string') {
+        return item?.name?.toLowerCase().startsWith(inputValue.toLowerCase());
       }
-      if (typeof item === 'number') {
-        return item.toString().startsWith(inputValue.toLowerCase());
+      if (typeof item?.name === 'number') {
+        return item?.name?.toString().startsWith(inputValue.toLowerCase());
       }
     });
     setFilteredItems(newFilteredItems);
@@ -201,21 +202,26 @@ export default function HomeDropdown({
     }, 40);
   };
 
-  const handleOnMouseDown = (item: string | number | any) => () => {
-    setDropdownOpen((prevState) => !prevState);
+  const handleOnMouseDown = (item: string | number | any, index: number) => {
     handleSelect({
       newValue: item.name,
       id: item.id,
     });
+    setSelectedIndex(index);
+    setDropdownOpen((prevState) => !prevState);
   };
 
-  const handleOnKeyUp = (e: React.KeyboardEvent<HTMLDivElement>, item: string | number | any) => {
+  const handleOnKeyUp = (
+    e: React.KeyboardEvent<HTMLDivElement>,
+    item: string | number | any
+  ) => {
     if (isFocused) {
       if (e.key === 'Enter') {
         handleSelect({
           newValue: item.name,
           id: item.id,
         });
+        setDropdownOpen(false);
       }
       if (e.key === 'Escape') {
         setDropdownOpen(false);
@@ -291,8 +297,6 @@ export default function HomeDropdown({
             onFocus={() => setIsFocused(true)}
             onBlur={handleOnDropdownOnBlur}
             className={`absolute top-0  flex h-full w-full cursor-pointer items-center rounded-[8px] pl-[20px] ${prevSelected && !dropdownOpen && 'outline outline-[2px] outline-offset-0 outline-[#BE1B1B] '}  `}
-            onKeyUp={(e) => handleOnKeyUp(e, items?.[selectedIndex])}
-            onKeyDown={handleOnKeyDown}
             onClick={handleOnDropdownClicked}
           >
             <div className={`flex w-full items-center`}>
@@ -351,7 +355,13 @@ export default function HomeDropdown({
                     onFocus={handleInputOnFocus}
                     onBlur={handleInputOnBlur}
                     onClick={handleInputOnClick}
-                    onKeyUp={(e) => handleOnKeyUp(e, items?.[selectedIndex])}
+                    onKeyUp={(e) => {
+                      const _items =
+                        filteredItems && filteredItems.length > 0
+                          ? filteredItems
+                          : items;
+                      handleOnKeyUp(e, _items?.[selectedIndex]);
+                    }}
                     onKeyDown={handleOnKeyDown}
                   />
                 </div>
@@ -366,15 +376,11 @@ export default function HomeDropdown({
                               id={`${title}-${i}`}
                               tabIndex={-1}
                               className={`flex py-1 pl-[20px] hover:bg-[#BE1B1B] hover:text-white ${i === selectedIndex && 'bg-[#BE1B1B] text-white'}`}
-                              onMouseDown={() =>
-                                handleOnMouseDown(filteredItems?.[i])
-                              }
-                              onKeyUp={(e) =>
-                                handleOnKeyUp(e, filteredItems?.[i])
-                              }
-                              onKeyDown={handleOnKeyDown}
+                              onMouseDown={() => {
+                                handleOnMouseDown(filteredItems?.[i], i);
+                              }}
                             >
-                              {item}
+                              {item.name}
                             </div>
                           ))}
                         </>
@@ -386,9 +392,9 @@ export default function HomeDropdown({
                               id={`${title}-${i}`}
                               tabIndex={-1}
                               className={`flex py-1 pl-[20px] hover:bg-[#BE1B1B] hover:text-white ${i === selectedIndex && 'bg-[#BE1B1B] text-white'}`}
-                              onMouseDown={() => handleOnMouseDown(item)}
-                              onKeyUp={(e) => handleOnKeyUp(e, item)}
-                              onKeyDown={handleOnKeyDown}
+                              onMouseDown={() => {
+                                handleOnMouseDown(item, i);
+                              }}
                             >
                               {item.name}
                             </div>
