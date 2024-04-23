@@ -38,14 +38,13 @@ export default function SeatCoverDetails() {
         <p className="pt-1.5 text-[14px] font-[500] leading-[16.41px] lg:pt-[20px] lg:text-[26px] lg:font-[500] lg:leading-[26px] ">
           No tool needed! Follow Our Step by Step Guide
         </p>
-        <div className="flex  items-center  pt-[18px]  lg:pt-[40px] ">
+        <div className="flex max-w-[840px] items-center pt-[18px] lg:pt-[40px] ">
           <ProductVideo
             src={installVideo}
             imgSrc={installThumbnail}
             autoplay
             loop
             aspectRatio="16/9"
-            className="max-h-[224px] md:max-h-[349px]"
           />
         </div>
       </div>
