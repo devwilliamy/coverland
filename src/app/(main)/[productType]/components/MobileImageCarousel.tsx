@@ -45,13 +45,13 @@ const MobileImageCarousel = () => {
   const { productType, model, make, year } = useDetermineType();
   console.log('Type Data: ', { productType, model, make, year });
 
-  const { featured360, carouselVideoThumbnail } = useDetermineContent();
+  const { carouselSquare360, carouselThumb } = useDetermineContent();
 
   const carouselItems = useMemo(() => {
     const items = [...productImages];
-    items.splice(3, 0, String(carouselVideoThumbnail));
+    items.splice(3, 0, String(carouselThumb));
     return items;
-  }, [productImages, carouselVideoThumbnail]);
+  }, [productImages, carouselThumb]);
 
   useEffect(() => {
     if (!api) {
@@ -101,10 +101,10 @@ const MobileImageCarousel = () => {
               );
             if (index === 3) {
               return (
-                <CarouselItem key={String(carouselVideoThumbnail)}>
+                <CarouselItem key={String(carouselThumb)}>
                   <ProductVideo
-                    src={featured360}
-                    imgSrc={carouselVideoThumbnail}
+                    src={carouselSquare360}
+                    imgSrc={carouselThumb}
                     autoplay
                     loop
                   />
@@ -157,7 +157,7 @@ const MobileImageCarousel = () => {
             if (index === 3) {
               return (
                 <div
-                  key={String(carouselVideoThumbnail)}
+                  key={String(carouselThumb)}
                   id="video-thumbnail"
                   className={`relative flex aspect-square min-h-[80px] min-w-[80px] cursor-pointer items-center justify-center overflow-hidden rounded-[4px] p-0.5  ${productType === 'car-covers' && ''} ${index === current && 'outline outline-1  '} `}
                   onClick={() => scrollTo(index)}
@@ -166,7 +166,7 @@ const MobileImageCarousel = () => {
                     id="video-thumbnail"
                     alt="Video Thumbnail"
                     slot="poster"
-                    src={carouselVideoThumbnail as StaticImport}
+                    src={carouselThumb as StaticImport}
                     width={1600}
                     height={1600}
                     className="flex h-full w-full overflow-hidden rounded-[4px] object-cover"

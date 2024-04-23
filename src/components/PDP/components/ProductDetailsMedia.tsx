@@ -8,11 +8,13 @@ import useDetermineContent from '@/hooks/useDetermineContent';
 
 export default function ProductDetailsMedia() {
   const { isDefaultCoverType } = useDetermineType();
+  const { zoomVideo } = useDetermineContent();
+
   return (
     <>
       {isDefaultCoverType ? (
         <ProductVideo
-          src={CorvetteGif}
+          src={zoomVideo}
           autoplay
           loop
           aspectRatio="16/9"
