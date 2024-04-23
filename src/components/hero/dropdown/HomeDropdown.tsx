@@ -1,6 +1,7 @@
 import React, {
   ChangeEvent,
   Dispatch,
+  KeyboardEventHandler,
   SetStateAction,
   useEffect,
   useState,
@@ -10,6 +11,7 @@ import { TQuery } from './HeroDropdown';
 import { Search } from 'lucide-react';
 import { AiOutlineLoading3Quarters } from 'react-icons/ai';
 import { useMediaQuery } from '@mantine/hooks';
+import MobileHomeDropdown from './MobileHomeDropdown';
 
 export default function HomeDropdown({
   queryObj,
@@ -172,6 +174,98 @@ export default function HomeDropdown({
     setFilteredItems(newFilteredItems);
   };
 
+  const handleMobileSelectChange = (e: ChangeEvent<HTMLSelectElement>) => {
+    const selectedItem = items?.find(
+      (item) => item.name.toString() === e.target.value
+    );
+    if (selectedItem) {
+      handleSelect({
+        newValue: selectedItem.name,
+        id: selectedItem.id,
+      });
+    }
+  };
+
+  const handleOnDropdownOnBlur = () => {
+    setTimeout(() => {
+      if (
+        !document?.activeElement?.closest('#search') &&
+        !document?.activeElement?.closest('#scrollbar-thumb')
+      ) {
+        setIsFocused(false);
+        setDropdownOpen(false);
+        // set to true to keep dropdown open
+        // setIsFocused(true);
+        // setDropdownOpen(true);
+      }
+    }, 40);
+  };
+
+  const handleOnMouseDown = (item: string | number | any) => () => {
+    setDropdownOpen((prevState) => !prevState);
+    handleSelect({
+      newValue: item.name,
+      id: item.id,
+    });
+  };
+
+  const handleOnKeyUp = (e: React.KeyboardEvent<HTMLDivElement>, item: string | number | any) => {
+    if (isFocused) {
+      if (e.key === 'Enter') {
+        handleSelect({
+          newValue: item.name,
+          id: item.id,
+        });
+      }
+      if (e.key === 'Escape') {
+        setDropdownOpen(false);
+      }
+    }
+  };
+
+  const handleOnKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
+    if (isFocused) {
+      if (e.key === 'ArrowUp') {
+        e.preventDefault();
+        handleDecrease();
+      }
+      if (e.key === 'ArrowDown') {
+        e.preventDefault();
+        handleIncrease();
+      }
+    }
+  };
+
+  const handleOnDropdownClicked = () => {
+    if (!isDisabled) {
+      setDropdownOpen(() => {
+        setTimeout(() => {
+          const searchCont = document.getElementById('search');
+          searchCont?.focus();
+        }, 0);
+        return true;
+      });
+    }
+  };
+
+  const handleInputOnFocus = () => {
+    setIsFocused(true);
+    setSearchIsFocused(true);
+    setDropdownOpen(true);
+  };
+
+  const handleInputOnBlur = () => {
+    setIsFocused(false);
+    setDropdownOpen(false);
+    setSearchIsFocused(false);
+    setSearch('');
+  };
+
+  const handleInputOnClick = () => {
+    setDropdownOpen(true);
+    setIsFocused(true);
+  };
+
   const isSubmodel1 = title === 'submodel1';
   const isSubmodel2 = title === 'submodel2';
 
@@ -182,6 +276,9 @@ export default function HomeDropdown({
     ? 'Submodel 2'
     : title.replace(title.charAt(0), title.charAt(0).toUpperCase());
 
+  const capitalizeFirstLetter = (title: string) => {
+    return title.replace(title.charAt(0), title.charAt(0).toUpperCase());
+  };
   return (
     <div
       className={`relative flex min-h-[48px] w-full lg:h-[64px] lg:min-h-[64px]  ${dropdownOpen && !isMobile ? 'rounded-t-[8px] ' : 'rounded-[8px] '} ${!isDisabled ? ' bg-white outline outline-[1px] outline-black' : 'bg-gray-300/90'}`}
@@ -192,63 +289,17 @@ export default function HomeDropdown({
           <div
             tabIndex={0}
             onFocus={() => setIsFocused(true)}
-            onBlur={(e) => {
-              setTimeout(() => {
-                if (
-                  !document?.activeElement?.closest('#search') &&
-                  !document?.activeElement?.closest('#scrollbar-thumb')
-                ) {
-                  setIsFocused(false);
-                  setDropdownOpen(false);
-                  // set to true to keep dropdown open
-                  // setIsFocused(true);
-                  // setDropdownOpen(true);
-                }
-              }, 40);
-            }}
+            onBlur={handleOnDropdownOnBlur}
             className={`absolute top-0  flex h-full w-full cursor-pointer items-center rounded-[8px] pl-[20px] ${prevSelected && !dropdownOpen && 'outline outline-[2px] outline-offset-0 outline-[#BE1B1B] '}  `}
-            onKeyUp={(e) => {
-              if (isFocused) {
-                if (e.key === 'Enter') {
-                  handleSelect(items?.[selectedIndex] as string);
-                }
-                if (e.key === 'Escape') {
-                  setDropdownOpen(false);
-                }
-              }
-            }}
-            onKeyDown={(e) => {
-              if (isFocused) {
-                if (e.key === 'ArrowUp') {
-                  e.preventDefault();
-                  handleDecrease();
-                }
-                if (e.key === 'ArrowDown') {
-                  e.preventDefault();
-                  handleIncrease();
-                }
-              }
-            }}
-            onClick={() => {
-              if (!isDisabled) {
-                setDropdownOpen((e) => {
-                  setTimeout(() => {
-                    const searchCont = document.getElementById('search');
-                    searchCont?.focus();
-                  }, 0);
-                  return true;
-                });
-              }
-            }}
+            onKeyUp={(e) => handleOnKeyUp(e, items?.[selectedIndex])}
+            onKeyDown={handleOnKeyDown}
+            onClick={handleOnDropdownClicked}
           >
             <div className={`flex w-full items-center`}>
               <p className={``}>{value === '' && place} &nbsp;</p>
               <p className="capitalize">
                 {value === '' && !isSubmodel1 && !isSubmodel2
-                  ? title.replace(
-                      title.charAt(0),
-                      title.charAt(0).toUpperCase()
-                    )
+                  ? capitalizeFirstLetter(title)
                   : value}
                 {value === '' && isSubmodel1 && submodel1Text}
                 {value === '' && isSubmodel2 && submodel2Text}
@@ -274,10 +325,7 @@ export default function HomeDropdown({
                     <p className={``}>{value === '' && place} &nbsp;</p>
                     <p className="capitalize">
                       {value === '' && !isSubmodel1 && !isSubmodel2
-                        ? title.replace(
-                            title.charAt(0),
-                            title.charAt(0).toUpperCase()
-                          )
+                        ? capitalizeFirstLetter(title)
                         : value}
                       {value === '' && isSubmodel1 && submodel1Text}
                       {value === '' && isSubmodel2 && submodel2Text}
@@ -300,45 +348,11 @@ export default function HomeDropdown({
                     placeholder="Search..."
                     value={searchValue}
                     onChange={handleSearchInputChange}
-                    onFocus={() => {
-                      setIsFocused(true);
-                      setSearchIsFocused(true);
-                      setDropdownOpen(true);
-                    }}
-                    onBlur={() => {
-                      setIsFocused(false);
-                      setDropdownOpen(false);
-                      setSearchIsFocused(false);
-                      setSearch('');
-                    }}
-                    onClick={() => {
-                      setDropdownOpen(true);
-                      setIsFocused(true);
-                    }}
-                    onKeyUp={(e) => {
-                      if (isFocused) {
-                        if (e.key === 'Enter') {
-                          handleSelect(items?.[selectedIndex] as string);
-                          setSearch('');
-                        }
-                        if (e.key === 'Escape') {
-                          setDropdownOpen(false);
-                          setSearch('');
-                        }
-                      }
-                    }}
-                    onKeyDown={(e) => {
-                      if (isFocused) {
-                        if (e.key === 'ArrowUp') {
-                          e.preventDefault();
-                          handleDecrease();
-                        }
-                        if (e.key === 'ArrowDown') {
-                          e.preventDefault();
-                          handleIncrease();
-                        }
-                      }
-                    }}
+                    onFocus={handleInputOnFocus}
+                    onBlur={handleInputOnBlur}
+                    onClick={handleInputOnClick}
+                    onKeyUp={(e) => handleOnKeyUp(e, items?.[selectedIndex])}
+                    onKeyDown={handleOnKeyDown}
                   />
                 </div>
                 {items && items.length > 0 ? (
@@ -346,82 +360,37 @@ export default function HomeDropdown({
                     <div className="home-scrollbar flex max-h-[700px] w-full flex-col overflow-y-auto overflow-x-clip">
                       {filteredItems && filteredItems?.length > 0 ? (
                         <>
-                          {filteredItems?.map((type, i) => (
+                          {filteredItems?.map((item, i) => (
                             <div
-                              key={`type-${type}`}
+                              key={`item-${i}`}
                               id={`${title}-${i}`}
                               tabIndex={-1}
                               className={`flex py-1 pl-[20px] hover:bg-[#BE1B1B] hover:text-white ${i === selectedIndex && 'bg-[#BE1B1B] text-white'}`}
-                              onMouseDown={() => {
-                                setDropdownOpen((prevState) => !prevState);
-                                handleSelect(filteredItems?.[i] as string);
-                              }}
-                              onKeyUp={(e) => {
-                                if (isFocused) {
-                                  if (e.key === 'Enter') {
-                                    handleSelect(filteredItems?.[i] as string);
-                                  }
-                                  if (e.key === 'Escape') {
-                                    setDropdownOpen(false);
-                                  }
-                                }
-                              }}
-                              onKeyDown={(e) => {
-                                if (isFocused) {
-                                  if (e.key === 'ArrowUp') {
-                                    handleDecrease();
-                                  }
-                                  if (e.key === 'ArrowDown') {
-                                    handleIncrease();
-                                  }
-                                }
-                              }}
+                              onMouseDown={() =>
+                                handleOnMouseDown(filteredItems?.[i])
+                              }
+                              onKeyUp={(e) =>
+                                handleOnKeyUp(e, filteredItems?.[i])
+                              }
+                              onKeyDown={handleOnKeyDown}
                             >
-                              {type}
+                              {item}
                             </div>
                           ))}
                         </>
                       ) : (
                         <>
-                          {items.map((type, i) => (
+                          {items.map((item, i) => (
                             <div
-                              key={`type-${type.name}`}
+                              key={`item-${item.id}`}
                               id={`${title}-${i}`}
                               tabIndex={-1}
                               className={`flex py-1 pl-[20px] hover:bg-[#BE1B1B] hover:text-white ${i === selectedIndex && 'bg-[#BE1B1B] text-white'}`}
-                              onMouseDown={() => {
-                                setDropdownOpen((prevState) => !prevState);
-                                handleSelect({
-                                  newValue: type.name,
-                                  id: type.id,
-                                });
-                              }}
-                              onKeyUp={(e) => {
-                                if (isFocused) {
-                                  if (e.key === 'Enter') {
-                                    handleSelect({
-                                      newValue: type.name,
-                                      id: type.id,
-                                    });
-                                  }
-                                  if (e.key === 'Escape') {
-                                    setDropdownOpen(false);
-                                  }
-                                }
-                              }}
-                              onKeyDown={(e) => {
-                                // e.preventDefault();
-                                if (isFocused) {
-                                  if (e.key === 'ArrowUp') {
-                                    handleDecrease();
-                                  }
-                                  if (e.key === 'ArrowDown') {
-                                    handleIncrease();
-                                  }
-                                }
-                              }}
+                              onMouseDown={() => handleOnMouseDown(item)}
+                              onKeyUp={(e) => handleOnKeyUp(e, item)}
+                              onKeyDown={handleOnKeyDown}
                             >
-                              {type.name}
+                              {item.name}
                             </div>
                           ))}
                         </>
@@ -445,71 +414,17 @@ export default function HomeDropdown({
 
       {/*  ---------- Mobile Dropdown START ---------- */}
       {isMobile && (
-        <>
-          <select
-            onChange={(e) => {
-              const selectedItem = items?.find(
-                (item) => item.name.toString() === e.target.value
-              );
-              if (selectedItem) {
-                handleSelect({
-                  newValue: selectedItem.name,
-                  id: selectedItem.id,
-                });
-              }
-            }}
-            id={`mobile-select-${title}`}
-            disabled={isDisabled}
-            // defaultValue={''}
-            value={value}
-            autoComplete="off"
-            className={`absolute top-0 flex h-full w-full  cursor-pointer appearance-none items-center rounded-[8px] pl-[20px] outline outline-[2px] outline-offset-0 outline-transparent focus:outline-[#BE1B1B] `}
-          >
-            <option
-              // selected
-              disabled
-              value={''}
-              className={`flex h-full w-full items-center pl-[20px]`}
-            >
-              {place} &nbsp;
-              {title.replace(title.charAt(0), title.charAt(0).toUpperCase())}
-            </option>
-            {items && items.length > 0 && (
-              <>
-                {filteredItems && filteredItems?.length > 0 ? (
-                  <>
-                    {filteredItems?.map((item, i) => (
-                      <option
-                        key={`type-${item}`}
-                        id={`${title}-${i}`}
-                        value={item}
-                        className={`flex py-1 pl-[20px] hover:bg-[#BE1B1B] hover:text-white ${i === selectedIndex && 'bg-[#BE1B1B] text-white'}`}
-                      >
-                        {item}
-                      </option>
-                    ))}
-                  </>
-                ) : (
-                  <>
-                    {items.map((item, i) => (
-                      <option
-                        key={`type-${item.id}`}
-                        id={`${title}-${item.id}-${i}`}
-                        value={item.name}
-                        className={`flex py-1 pl-[20px] hover:bg-[#BE1B1B] hover:text-white ${i === selectedIndex && 'bg-[#BE1B1B] text-white'}`}
-                      >
-                        {item.name}
-                      </option>
-                    ))}
-                  </>
-                )}
-              </>
-            )}
-          </select>
-          <div className="absolute right-0 top-1/2 mr-[14px] flex -translate-y-1/2 items-center">
-            <HomeChevronDown />
-          </div>
-        </>
+        <MobileHomeDropdown
+          handleMobileSelectChange={handleMobileSelectChange}
+          title={title}
+          isDisabled={isDisabled as boolean}
+          value={value as string}
+          place={place}
+          capitalizeFirstLetter={capitalizeFirstLetter}
+          items={items as string[] | number[] | any[]}
+          filteredItems={filteredItems as string[] | number[] | any[]}
+          selectedIndex={selectedIndex}
+        />
       )}
       {/*  ---------- Mobile Dropdown END  ----------*/}
     </div>
