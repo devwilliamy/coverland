@@ -61,7 +61,8 @@ export default function EditVehicleDropdown({
   const [loading, setLoading] = useState(false);
   const [jsonData, setJsonData] = useState<TProductJsonData[]>([]);
   const router = useRouter();
-  const { year, type, make, model, submodel1, submodel2 } = query;
+  const { year, type, make, model, submodel1, submodel2, parent_generation } =
+    query;
   useEffect(() => {
     const getSearchData = async () => {
       try {
@@ -80,6 +81,7 @@ export default function EditVehicleDropdown({
             cover: 'Premium Plus',
             make: slugify(make),
           });
+          console.log('[EdhitVehicleDropdown getProductResponse]:', response);
           setJsonData(response);
           return;
         }
@@ -126,7 +128,8 @@ export default function EditVehicleDropdown({
     ),
   ];
 
-  const yearInUrl = dropdownData?.[0]?.parent_generation;
+  const yearInUrl = parent_generation ?? dropdownData?.[0]?.parent_generation;
+  console.log('YearInUrl:', yearInUrl);
   const createQueryString = useCallback((name: string, value: string) => {
     const params = new URLSearchParams();
     params.set(name, value);

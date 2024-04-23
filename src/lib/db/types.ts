@@ -697,6 +697,84 @@ export type Database = {
       "reviews-2": {
         Row: {
           gpt_review_id: string | null
+          helpful: number | null
+          id: number
+          make: string | null
+          make_slug: string | null
+          Mirror: string | null
+          model: string | null
+          model_slug: string | null
+          parent_generation: string | null
+          product_name: string | null
+          product_type: string | null
+          rating_stars: number | null
+          review_author: string | null
+          review_description: string | null
+          review_image: string | null
+          review_title: string | null
+          reviewed_at: string | null
+          Size: string | null
+          sku: string | null
+          submodel1: string | null
+          submodel2: string | null
+          type: string | null
+          year_generation: string | null
+        }
+        Insert: {
+          gpt_review_id?: string | null
+          helpful?: number | null
+          id?: number
+          make?: string | null
+          make_slug?: string | null
+          Mirror?: string | null
+          model?: string | null
+          model_slug?: string | null
+          parent_generation?: string | null
+          product_name?: string | null
+          product_type?: string | null
+          rating_stars?: number | null
+          review_author?: string | null
+          review_description?: string | null
+          review_image?: string | null
+          review_title?: string | null
+          reviewed_at?: string | null
+          Size?: string | null
+          sku?: string | null
+          submodel1?: string | null
+          submodel2?: string | null
+          type?: string | null
+          year_generation?: string | null
+        }
+        Update: {
+          gpt_review_id?: string | null
+          helpful?: number | null
+          id?: number
+          make?: string | null
+          make_slug?: string | null
+          Mirror?: string | null
+          model?: string | null
+          model_slug?: string | null
+          parent_generation?: string | null
+          product_name?: string | null
+          product_type?: string | null
+          rating_stars?: number | null
+          review_author?: string | null
+          review_description?: string | null
+          review_image?: string | null
+          review_title?: string | null
+          reviewed_at?: string | null
+          Size?: string | null
+          sku?: string | null
+          submodel1?: string | null
+          submodel2?: string | null
+          type?: string | null
+          year_generation?: string | null
+        }
+        Relationships: []
+      }
+      "reviews-2@@@": {
+        Row: {
+          gpt_review_id: string | null
           helpful: string | null
           id: number
           make: string | null
@@ -1143,6 +1221,38 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      get_distinct_review_images: {
+        Args: {
+          p_type?: string
+          p_make_slug?: string
+          p_model_slug?: string
+          p_parent_generation?: string
+        }
+        Returns: {
+          rating_stars: number
+          helpful: number
+          reviewed_at: string
+          gpt_review_id: string
+          model: string
+          year_generation: string
+          submodel1: string
+          submodel2: string
+          mirror: string
+          review_description: string
+          make_slug: string
+          review_title: string
+          review_author: string
+          review_image: string
+          model_slug: string
+          size: string
+          sku: string
+          parent_generation: string
+          product_type: string
+          product_name: string
+          type: string
+          make: string
+        }[]
+      }
       get_make_and_slug: {
         Args: {
           type_param: string

@@ -271,7 +271,7 @@ export async function getAllReviewsWithImages(
     const { data, error } = await fetch;
 
     if (error) {
-      console.error(error);
+      console.error("[GetAllReviewsWithImages] Error: ", error);
       return [];
     }
 
