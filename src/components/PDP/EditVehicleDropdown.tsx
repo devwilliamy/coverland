@@ -129,7 +129,7 @@ export default function EditVehicleDropdown({
   ];
 
   const yearInUrl = parent_generation ?? dropdownData?.[0]?.parent_generation;
-  console.log('YearInUrl:', yearInUrl);
+
   const createQueryString = useCallback((name: string, value: string) => {
     const params = new URLSearchParams();
     params.set(name, value);
