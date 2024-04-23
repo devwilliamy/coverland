@@ -19,6 +19,10 @@ export type TQuery = {
   model: string;
   submodel1: string;
   submodel2: string;
+  typeId:string;
+  yearId:string;
+  makeId:string;
+  modelId:string;
   // submodel3: string;
 };
 
@@ -31,6 +35,10 @@ export function HeroDropdown() {
     model: '',
     submodel1: '',
     submodel2: '',
+    typeId:'',
+    yearId:'',
+    makeId:'',
+    modelId:'',
     // submodel3: '',
   });
   const [loading, setLoading] = useState(false);
@@ -42,7 +50,6 @@ export function HeroDropdown() {
     query,
     setQuery,
   };
-
   const createQueryString = useCallback((name: string, value: string) => {
     const params = new URLSearchParams();
     params.set(name, value);

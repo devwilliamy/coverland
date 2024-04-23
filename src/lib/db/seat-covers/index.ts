@@ -294,6 +294,49 @@ export async function getSeatCoverProductsByDisplayColor({
   if (error) {
     throw new Error(error.message);
   }
-
   return data;
+
+  // console.log(data,type);
+
+
+    // try {
+    //     let query = supabaseDatabaseClient.from('seat_cover_20240401').select('*');
+
+    //     if (type) {
+    //         query = query.eq('type', type);
+    //     }
+    //     if (cover) {
+    //         query = query.eq('display_id', cover);
+    //     }
+    //     if (make) {
+    //         query = query.ilike('make_slug', make);
+    //     }
+    //     if (model) {
+    //         query = query.ilike('model_slug', model);
+    //     }
+    //     if (year) {
+    //         query = query.eq('parent_generation', year);
+    //     }
+    //     if (submodel) {
+    //         query = query.ilike('submodel', submodel);
+    //     }
+    //     if (submodel2) {
+    //         query = query.ilike('submodel2', submodel2);
+    //     }
+    //     if (submodel3) {
+    //         query = query.ilike('submodel3', submodel3);
+    //     }
+
+    //     const { data, error } = await query
+    //         .order('display_color', { ascending: true, nullsFirst: true });
+
+    //     if (error) {
+    //         throw error;
+    //     }
+
+    //     return data;
+    // } catch (error) {
+    //     console.error('Error fetching seat cover products:', error);
+    //     throw error;
+    // }
 }

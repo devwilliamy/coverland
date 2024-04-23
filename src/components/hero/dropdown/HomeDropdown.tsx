@@ -1,4 +1,10 @@
-import React, { ChangeEvent, Dispatch, SetStateAction, useState } from 'react';
+import React, {
+  ChangeEvent,
+  Dispatch,
+  SetStateAction,
+  useEffect,
+  useState,
+} from 'react';
 import HomeChevronDown from './icons/HomeChevronDown';
 import { TQuery } from './HeroDropdown';
 import { Search } from 'lucide-react';
@@ -19,7 +25,7 @@ export default function HomeDropdown({
   isDisabled?: boolean;
   prevSelected: boolean;
   value?: string | number;
-  items?: string[] | number[];
+  items?: string[] | number[] | any[];
   queryObj: {
     query: TQuery;
     setQuery: Dispatch<SetStateAction<TQuery>>;
@@ -39,7 +45,8 @@ export default function HomeDropdown({
   const isActive = prevSelected || selectedValue !== title;
   const isMobile = useMediaQuery('(max-width: 768px)');
 
-  const handleSelect = (newValue: string) => {
+  // const handleSelect = ({newValue,id}) => {
+  const handleSelect = ({ newValue, id }: { newValue: string; id: string }) => {
     switch (title) {
       case 'type':
         setQuery({
@@ -50,6 +57,10 @@ export default function HomeDropdown({
           submodel1: '',
           submodel2: '',
           parent_generation: '',
+          typeId: id,
+          yearId: '',
+          makeId: '',
+          modelId: '',
         });
         break;
       case 'year':
@@ -62,6 +73,7 @@ export default function HomeDropdown({
             submodel1: '',
             submodel2: '',
             parent_generation: '',
+            yearId: id,
           };
         });
         break;
@@ -74,6 +86,7 @@ export default function HomeDropdown({
             submodel1: '',
             submodel2: '',
             parent_generation: '',
+            makeId: id,
           };
         });
         break;
@@ -85,6 +98,7 @@ export default function HomeDropdown({
             submodel1: '',
             submodel2: '',
             parent_generation: '',
+            modelId: id,
           };
         });
         break;
@@ -371,18 +385,24 @@ export default function HomeDropdown({
                         <>
                           {items.map((type, i) => (
                             <div
-                              key={`type-${type}`}
+                              key={`type-${type.name}`}
                               id={`${title}-${i}`}
                               tabIndex={-1}
                               className={`flex py-1 pl-[20px] hover:bg-[#BE1B1B] hover:text-white ${i === selectedIndex && 'bg-[#BE1B1B] text-white'}`}
                               onMouseDown={() => {
                                 setDropdownOpen((prevState) => !prevState);
-                                handleSelect(items?.[i] as string);
+                                handleSelect({
+                                  newValue: type.name,
+                                  id: type.id,
+                                });
                               }}
                               onKeyUp={(e) => {
                                 if (isFocused) {
                                   if (e.key === 'Enter') {
-                                    handleSelect(items?.[i] as string);
+                                    handleSelect({
+                                      newValue: type.name,
+                                      id: type.id,
+                                    });
                                   }
                                   if (e.key === 'Escape') {
                                     setDropdownOpen(false);
@@ -401,7 +421,7 @@ export default function HomeDropdown({
                                 }
                               }}
                             >
-                              {type}
+                              {type.name}
                             </div>
                           ))}
                         </>
@@ -428,7 +448,15 @@ export default function HomeDropdown({
         <>
           <select
             onChange={(e) => {
-              handleSelect(e.target.value);
+              const selectedItem = items?.find(
+                (item) => item.name.toString() === e.target.value
+              );
+              if (selectedItem) {
+                handleSelect({
+                  newValue: selectedItem.name,
+                  id: selectedItem.id,
+                });
+              }
             }}
             id={`mobile-select-${title}`}
             disabled={isDisabled}
@@ -465,12 +493,12 @@ export default function HomeDropdown({
                   <>
                     {items.map((item, i) => (
                       <option
-                        key={`type-${item}`}
-                        id={`${title}-${i}`}
-                        value={item}
+                        key={`type-${item.id}`}
+                        id={`${title}-${item.id}-${i}`}
+                        value={item.name}
                         className={`flex py-1 pl-[20px] hover:bg-[#BE1B1B] hover:text-white ${i === selectedIndex && 'bg-[#BE1B1B] text-white'}`}
                       >
-                        {item}
+                        {item.name}
                       </option>
                     ))}
                   </>

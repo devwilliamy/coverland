@@ -19,6 +19,7 @@ import { useStore } from 'zustand';
 import useStoreContext from '@/hooks/useStoreContext';
 import { getSeatCoverProductData } from '@/lib/db/seat-covers';
 import { TQueryParams } from '@/utils';
+import { getProductData } from '@/lib/db';
 
 export type TProductJsonData = {
   type: string;
@@ -52,6 +53,10 @@ export default function EditVehicleDropdown({
     model: '',
     submodel1: '',
     submodel2: '',
+    typeId: '',
+    yearId: '',
+    makeId: '',
+    modelId: '',
   });
   const [loading, setLoading] = useState(false);
   const [jsonData, setJsonData] = useState<TProductJsonData[]>([]);
@@ -64,12 +69,18 @@ export default function EditVehicleDropdown({
         if (!make) return;
 
         if (type !== 'Seat Covers') {
-          const response = await fetch(
-            `/api/json-data?type=${slugify(type)}&make=${slugify(make)}`
-          );
-          const jsonData = await response.json();
+          // const response = await fetch(
+          //   `/api/json-data?type=${slugify(type)}&make=${slugify(make)}`
+          // );
+          // const jsonData = await response.json();
 
-          setJsonData(jsonData);
+          // setJsonData(jsonData);
+          const response = await getProductData({
+            type,
+            cover: 'Premium Plus',
+            make: slugify(make),
+          });
+          setJsonData(response);
           return;
         }
 
@@ -78,6 +89,7 @@ export default function EditVehicleDropdown({
           cover: 'Leather',
           make: slugify(make),
         });
+
         setJsonData(response);
       } catch (error) {
         console.error('[EditVehicleDropdown.getSearchData]: ', error);
@@ -132,7 +144,9 @@ export default function EditVehicleDropdown({
     )
       return;
     setLoading(true);
-    let url = `/${slugify(type)}/${coverType || 'premium-plus'}/${slugify(make)}/${slugify(model)}/${yearInUrl}`;
+
+    const determineType = type !== 'Seat Covers' ? 'premium-plus' : 'leather';
+    let url = `/${slugify(type)}/${determineType}/${slugify(make)}/${slugify(model)}/${yearInUrl}`;
 
     const submodelParam = searchParams?.submodel
       ? `?${createQueryString('submodel', searchParams.submodel)}`

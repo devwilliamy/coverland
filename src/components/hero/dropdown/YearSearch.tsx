@@ -2,7 +2,10 @@
 import { ChangeEvent, useEffect, useState } from 'react';
 import { TQuery } from './HeroDropdown';
 import HomeDropdown from './HomeDropdown';
+import { getAllYearByType } from '@/lib/db';
 
+
+type DateDropdown = { year_id:any; year: any; }[]| null;
 export function YearSearch({
   queryObj,
 }: {
@@ -12,7 +15,8 @@ export function YearSearch({
   };
 }) {
   const [value, setValue] = useState('');
-  const { type, year } = queryObj.query;
+  const [yearData, setYearData] = useState<DateDropdown[]>([]);
+  const { type, year,typeId } = queryObj.query;
   const isDisabled = !type;
   const { setQuery } = queryObj;
 
@@ -40,9 +44,25 @@ export function YearSearch({
     { length: endYear - startYear + 1 },
     (_, i) => endYear - i
   );
+
+  const fetchDataYear = async () => {
+    try {
+      const response = await getAllYearByType({
+        type:typeId
+      });
+        setYearData(response);
+    } catch (error) {
+      console.error('[Year Search]: ', error);
+    }
+  };
+  useEffect(() => {
+    if (typeId) {
+    fetchDataYear();
+    }
+  }, [typeId]);
+
   const prevSelected =
     queryObj && queryObj.query.year === '' && queryObj.query.type !== '';
-
   return (
     <HomeDropdown
       place={2}
@@ -51,7 +71,7 @@ export function YearSearch({
       value={year}
       isDisabled={isDisabled}
       prevSelected={prevSelected}
-      items={years}
+      items={yearData}
     />
   );
 }
