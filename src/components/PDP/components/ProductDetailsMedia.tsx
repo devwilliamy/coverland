@@ -4,6 +4,7 @@ import ProductVideo from '../ProductVideo';
 import CorvetteGif from '@/videos/Corvette Zoom.mp4';
 import DesktopHalfCover from '@/images/PDP/Product-Details-Redesign-2/dekstop-half-cover.webp';
 import Image from 'next/image';
+import useDetermineContent from '@/hooks/useDetermineContent';
 
 export default function ProductDetailsMedia() {
   const { isDefaultCoverType } = useDetermineType();
