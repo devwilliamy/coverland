@@ -33,20 +33,18 @@ export default function SeatCoverDetails() {
       <ElevateComfortSection showBanner={isFordF1502015} />
       <div className="flex w-full flex-col items-center py-[60px] lg:py-[110px]">
         <p className="text-[26px] font-[600] leading-[30px] lg:text-[45px] lg:font-[600] lg:leading-[52.73px] ">
-          Simple For All
+          Simple For All!
         </p>
         <p className="pt-1.5 text-[14px] font-[500] leading-[16.41px] lg:pt-[20px] lg:text-[26px] lg:font-[500] lg:leading-[26px] ">
-          No tool Need it! Follow Our Step by Step Guide
+          No tool needed! Follow Our Step by Step Guide
         </p>
-        <div className="flex  items-center  pt-[18px]  lg:pt-[40px] ">
+        <div className="flex w-full max-w-[840px] items-center pt-[18px] lg:pt-[40px] ">
           <ProductVideo
             src={installVideo}
             imgSrc={installThumbnail}
             autoplay
             loop
             aspectRatio="16/9"
-            controls={false}
-            className="max-h-[224px] md:max-h-[349px]"
           />
         </div>
       </div>

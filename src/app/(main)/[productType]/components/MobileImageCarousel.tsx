@@ -57,7 +57,7 @@ const MobileImageCarousel = () => {
     if (!api) {
       return;
     }
-
+   
     setCurrent(api.selectedScrollSnap());
 
     api.on('select', () => {
