@@ -9,6 +9,7 @@ import { useCheckoutContext } from '@/contexts/CheckoutContext';
 import { StripeAddressElementOptions } from '@stripe/stripe-js';
 import SavedShippingBox from './SavedShippingBox';
 import EmailInput from './EmailInput';
+import AddressForm from './AddressForm';
 
 const options: StripeAddressElementOptions = {
   mode: 'shipping' as AddressMode, // 'billing',
@@ -85,20 +86,13 @@ export default function Shipping({
     <div className="px-4">
       {isEditingAddress ? (
         <div className="min-h-[400px]">
-          <EmailInput email={email} setEmail={setEmail} />
-          <AddressElement
+          {/* <EmailInput email={email} setEmail={setEmail} /> */}
+          <AddressForm/>
+          {/* <AddressElement
             options={options}
             onChange={handleAddressFormChange}
-          />
-          <div className="mt-8 flex flex-col items-center justify-between lg:mt-11">
-            <Button
-              disabled={isDisabled}
-              onClick={handleAddressButtonClick}
-              className={`h-[48px] w-full max-w-[390px] cursor-pointer rounded-lg bg-black text-base font-bold uppercase text-white lg:h-[63px] lg:text-xl`}
-            >
-              Save & Continue
-            </Button>
-          </div>
+          /> */}
+          
         </div>
       ) : (
         <div className="mb-4">
