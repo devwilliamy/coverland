@@ -29,6 +29,11 @@ const nextConfig = {
         hostname: 'coverland.com',
         pathname: '/**',
       },
+      {
+        protocol: 'https',
+        hostname: '91.108.110.247',
+        pathname: '/**',
+      },
     ],
   },
   typescript: {
