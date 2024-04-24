@@ -32,18 +32,14 @@ export async function POST(request: NextRequest) {
     amount: calculateOrderAmount(items),
     currency: 'usd',
     // In the latest version of the API, specifying the `automatic_payment_methods` parameter is optional because Stripe enables its functionality by default.
-    // automatic_payment_methods: {
-    //   enabled: true,
-    // },
+    automatic_payment_methods: {
+      enabled: true,
+    },
     metadata: {
       orderId,
       skus: skus.join(','),
       skusWithQuantity: JSON.stringify(skusWithQuantity)
     },
-    payment_method_types: [
-      "card",
-      "link",
-    ],
   });
 
   return NextResponse.json({

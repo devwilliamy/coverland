@@ -127,7 +127,7 @@ export default function Payment() {
   return (
     <div className="px-4">
       <div className="mb-10 lg:hidden">
-        <PromoCode />
+        {/* <PromoCode /> */}
       </div>
       <div className="pb-5">Select Payment Method</div>
       <div className="pb-5">

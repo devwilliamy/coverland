@@ -34,7 +34,7 @@ export default function CheckoutSummarySection() {
         )}
       </div>
       <div className="lg:pb-4">
-        <PromoCode />
+        {/* <PromoCode /> */}
       </div>
       <PriceBreakdown />
       {isCartStep && (
