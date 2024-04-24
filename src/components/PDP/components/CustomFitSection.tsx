@@ -17,64 +17,20 @@ import Challenger360 from '@/videos/Challenger 360 Video.mp4';
 import Image from 'next/image';
 import { Asset } from 'next-video/dist/assets.js';
 import useDetermineType from '@/hooks/useDetermineType';
+import useDetermineContent from '@/hooks/useDetermineContent';
 
 const CustomFitSection = () => {
   const { productType, coverType, isPremiumPlus, model } = useDetermineType();
-
-  let PremiumImage = CarPremiumImage;
-  let StandardImage = CarStandardImage;
-  let baseFeaturedVideo: Asset;
-  switch (productType) {
-    case 'suv-covers':
-      baseFeaturedVideo = SUV360;
-      break;
-    case 'truck-covers':
-      baseFeaturedVideo = Truck360;
-      break;
-    default:
-      baseFeaturedVideo = Car360;
-      break;
-  }
-
-  switch (productType) {
-    case 'truck-covers':
-      PremiumImage = TruckPremiumImage;
-      StandardImage = TruckStandardImage;
-      break;
-    case 'suv-covers':
-      PremiumImage = SUVPremiumImage;
-      StandardImage = SUVStandardImage;
-      break;
-  }
-  const isCorvette = model === 'corvette';
-  const isChallenger = model === 'challenger';
-  const ChallengerOrDefault = isChallenger ? Challenger360 : baseFeaturedVideo;
-  const featured360 = isCorvette ? Corvette360 : ChallengerOrDefault;
-
-  const imageChoice = () => {
-    switch (coverType) {
-      case 'premium':
-        return <Image alt="premium image" src={PremiumImage} />;
-      case 'standard-pro':
-        return <Image alt="stadard pro image" src={StandardImage} />;
-      case 'standard':
-        return <Image alt="standard image" src={StandardImage} />;
-      default:
-        return (
-          <ProductVideo
-            src={!isCorvette && !isChallenger ? baseFeaturedVideo : featured360}
-            autoplay
-            loop
-            aspectRatio="16 / 9"
-            controls={false}
-          />
-        );
-    }
-  };
-
+  const { wide360 } = useDetermineContent();
   return (
     <div className="mt-[60px] lg:mt-[110px] lg:pb-[100px]">
-      {imageChoice()}
+      <ProductVideo
+        src={wide360}
+        autoplay
+        loop
+        aspectRatio="16 / 9"
+        controls={false}
+      />
       <div className="pb-[24px] pt-[34px]">
         <p className="mb-1.5 w-full text-center text-[30px] font-[500] leading-[35px] tracking-[0.027em] text-white lg:mb-6 lg:text-[45px] lg:leading-[52px]">
           Custom-Fit
