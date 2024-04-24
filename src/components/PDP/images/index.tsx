@@ -7,7 +7,6 @@ import { TempShiftsIcon } from './TempShifts';
 import { ThumbsUpIcon } from './ThumbsUp';
 import { UVHarmIcon } from './UVHarm';
 import { WaterHumidityIcon } from './WaterHumidity';
-import { YtCustomIcon } from './YtCustomIcon';
 
 export {
   BirdsAnimalIcon,
@@ -19,5 +18,4 @@ export {
   ThumbsUpIcon,
   UVHarmIcon,
   WaterHumidityIcon,
-  YtCustomIcon,
 };

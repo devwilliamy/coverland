@@ -9,6 +9,16 @@ export async function generateStaticParams() {
   return [{ coverType: 'leather' }];
 }
 
+export async function generateMetadata() {
+  return {
+    title: `Seat Covers, Custom Fit - Coverland`,
+    description: `Seat Covers ᐉ Coverland ⭐ Free, Same-Day Shipping ✔️ Free Returns & Purchase Protection ✔️ Made from premium quality, heavy-duty materials with a soft inner fabric.`,
+    alternates: {
+      canonical: '/seat-covers',
+    },
+  };
+}
+
 export default async function SeatCoversPage({
   params,
 }: {

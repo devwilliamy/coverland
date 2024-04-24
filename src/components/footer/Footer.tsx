@@ -14,8 +14,16 @@ import {
   VimeoCard,
   VisaCard,
 } from '@/components/PDP/images/cards';
-import { YtCustomIcon } from '@/components/PDP/images';
 import LiveChat from '@/components/LiveChat';
+import { FaYoutube } from 'react-icons/fa';
+import { PiInstagramLogoFill } from 'react-icons/pi';
+import { ReactNode } from 'react';
+
+const IconCircle = ({ children }: { children: ReactNode }) => (
+  <div className="flex aspect-square w-[30px] items-center justify-center rounded-full bg-white p-[5px]">
+    {children}
+  </div>
+);
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -50,7 +58,18 @@ const Footer = () => {
               target="_blank"
               aria-label="Go to Coverland Youtube page"
             >
-              <YtCustomIcon />
+              <IconCircle>
+                <FaYoutube className="h-full w-full" />
+              </IconCircle>
+            </Link>
+            <Link
+              href="https://www.instagram.com/coverland_us/?hl=ko"
+              target="_blank"
+              aria-label="Go to Coverland Instagram page"
+            >
+              <IconCircle>
+                <PiInstagramLogoFill className="h-full w-full" />
+              </IconCircle>
             </Link>
           </div>
         </div>

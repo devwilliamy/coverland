@@ -169,8 +169,8 @@ export async function getAllUniqueModelsByYearMake({
   year: string;
   make: string;
 }) {
-
-  const tableName = type === 'Seat Covers' ? SEAT_COVERS_TABLE : PRODUCT_DATA_TABLE
+  const tableName =
+    type === 'Seat Covers' ? SEAT_COVERS_TABLE : PRODUCT_DATA_TABLE;
   const { data, error } = await supabase
     .from(tableName)
     .select(
@@ -196,14 +196,7 @@ export async function getAllUniqueModelsByYearMake({
           t?.submodel3 === car?.submodel3
       )
   );
-  // console.log('[Server]: getAllUniqueModelsByYearMake Params & Response:', {
-  //   data,
-  //   uniqueCars,
-  //   type,
-  //   cover,
-  //   year,
-  //   make,
-  // });
+
   return uniqueCars;
 }
 
@@ -254,4 +247,42 @@ export async function getAllYears({
   }
 
   return data;
+}
+
+export async function getProductWithoutType({
+  make,
+  model,
+  year,
+}: {
+  make: string;
+  model: string;
+  year: string;
+}) {
+  const { data, error } = await supabase
+    .from('Products-Data-02-2024')
+    .select('*')
+    .ilike('make', make)
+    .ilike('model', model)
+    .like('year_options', `%${year}%`)
+    .limit(1);
+
+  if (error) {
+    throw new Error(error.message);
+  }
+
+  return data[0];
+}
+
+export async function getProductMetadata(URL: string) {
+  const { data, error } = await supabase
+    .from('Product-Metadata')
+    .select('description')
+    .ilike('URL', URL)
+    .limit(1);
+
+  if (error) {
+    throw new Error(error.message);
+  }
+
+  return data[0];
 }

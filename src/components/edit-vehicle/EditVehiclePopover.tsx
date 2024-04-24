@@ -1,4 +1,4 @@
-'use client';;
+'use client';
 import EditVehicleDropdown from '@/components/PDP/EditVehicleDropdown';
 import { EditIcon } from '@/components/PDP/icons';
 import {
@@ -48,10 +48,12 @@ export default function EditVehiclePopover({
           <button className="flex w-full flex-shrink cursor-pointer items-center justify-between pl-[30px]">
             <div className="flex w-full flex-col items-start justify-start">
               <p className="">Your Vehicle</p>
-              <h1 className="break-normal text-left text-[26px] font-[500] capitalize leading-[31px]">
+              <p className="break-normal text-left text-[26px] font-[500] capitalize leading-[31px]">
                 {productName}
-              </h1>
-              <h2 className="text-[#8F8F8F]">{productNameSubtitle}</h2>
+              </p>
+              <p className="text-[16px] leading-[22px] text-[#8F8F8F]">
+                {productNameSubtitle}
+              </p>
             </div>
             <EditIcon />
           </button>

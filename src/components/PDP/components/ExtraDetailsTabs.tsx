@@ -1,15 +1,16 @@
 'use client';
 import { useEffect, useState } from 'react';
 import ReviewSection from './ReviewSection';
-import WarrantyPolicy from '@/app/(main)/policies/warranty-policy/page';
 import { QuestionsAccordion } from '../QuestionsAccordion';
-import ShippingPolicy from '@/app/(main)/policies/shipping-policy/page';
+
 import InsightsTab from './InsightsTab';
 import SeatCoverDetails from '@/app/(main)/seat-covers/components/SeatCoverDetails';
 import useDetermineType from '@/hooks/useDetermineType';
 import VehicleCoverDetails from '@/app/(main)/[productType]/components/VehicleCoverDetails';
 import { useMediaQuery } from '@mantine/hooks';
 import { Separator } from '@/components/ui/separator';
+import ShippingPolicyContent from '@/components/policy/ShippingPolicyContent';
+import WarrantyPolicyContent from '@/components/policy/WarrantyPolicyContent';
 
 type TabsObj = {
   title: string;
@@ -191,11 +192,11 @@ export default function ExtraDetailsTabs() {
           </>
         )}
         <div id="Shipping & Returns">
-          <ShippingPolicy showHeader={false} />
+          <ShippingPolicyContent showHeader={false} />
         </div>
 
         <div id="Warranty">
-          <WarrantyPolicy showHeader={false} />
+          <WarrantyPolicyContent showHeader={false} />
         </div>
 
         {!isSeatCover && (
