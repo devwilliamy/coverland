@@ -33,9 +33,7 @@ export default function CheckoutSummarySection() {
           </div>
         )}
       </div>
-      <div className="lg:pb-4">
-        {/* <PromoCode /> */}
-      </div>
+      <div className="lg:pb-4">{/* <PromoCode /> */}</div>
       <PriceBreakdown />
       {isCartStep && (
         <div className="my-8 hidden w-full justify-center md:flex md:flex-col lg:w-[320px]">
@@ -51,7 +49,7 @@ export default function CheckoutSummarySection() {
               'Checkout'
             )}
           </Button>
-          <PayPalButtonSection />
+          {!isCartStep && <PayPalButtonSection />}
         </div>
       )}
     </div>
