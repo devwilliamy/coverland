@@ -9,6 +9,10 @@ import {
   useState,
 } from 'react';
 
+type CustomerInfo = {
+  email: string;
+  phoneNumber: string;
+};
 export type CheckoutContextType = {
   currentStep: number;
   setCurrentStep: Dispatch<SetStateAction<CheckoutStep>>;
@@ -28,8 +32,8 @@ export type CheckoutContextType = {
   ) => void;
   isShippingAddressShown: boolean;
   toggleIsShippingAddressShown: (isShown: boolean) => void;
-  customerEmail: string;
-  updateCustomerEmail: (email: string) => void;
+  customerInfo: CustomerInfo;
+  updateCustomerInfo: (info: Partial<CustomerInfo>) => void;
   isBillingSameAsShipping: boolean;
   updateIsBillingSameAsShipping: (value: boolean) => void;
   paymentIntentId: string;
@@ -65,8 +69,11 @@ export const CheckoutContext = createContext<CheckoutContextType>({
   updateShippingAddress: () => {},
   isShippingAddressShown: true,
   toggleIsShippingAddressShown: () => {},
-  customerEmail: '',
-  updateCustomerEmail: () => {},
+  customerInfo: {
+    email: '',
+    phoneNumber: '',
+  },
+  updateCustomerInfo: () => {},
   isBillingSameAsShipping: true,
   updateIsBillingSameAsShipping: () => {},
   paymentIntentId: '',
@@ -87,7 +94,10 @@ const CheckoutProvider: FC<CheckoutProviderProps> = ({ children }) => {
       country: '',
     },
   });
-  const [customerEmail, setCustomerEmail] = useState<string>('');
+  const [customerInfo, setCustomerInfo] = useState<CustomerInfo>({
+    email: '',
+    phoneNumber: '',
+  });
   const [isShippingAddressShown, setIsShippingAddressShown] =
     useState<boolean>(true);
   const [isBillingSameAsShipping, setIsBillingSameAsShipping] =
@@ -123,7 +133,10 @@ const CheckoutProvider: FC<CheckoutProviderProps> = ({ children }) => {
     }
   };
 
-  const updateCustomerEmail = (email: string) => setCustomerEmail(email);
+  const updateCustomerInfo = (info: Partial<CustomerInfo>) => setCustomerInfo((currentInfo) => ({
+    ...customerInfo,
+    ...info
+  }));
 
   const updateIsBillingSameAsShipping = (value: boolean) => {
     setIsBillingSameAsShipping(value);
@@ -154,8 +167,8 @@ const CheckoutProvider: FC<CheckoutProviderProps> = ({ children }) => {
         toggleIsShippingAddressShown,
         shippingAddress,
         updateShippingAddress,
-        customerEmail,
-        updateCustomerEmail,
+        customerInfo,
+        updateCustomerInfo,
         isBillingSameAsShipping,
         updateIsBillingSameAsShipping,
         paymentIntentId,

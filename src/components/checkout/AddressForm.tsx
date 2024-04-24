@@ -6,17 +6,25 @@ import { useCheckoutContext } from '@/contexts/CheckoutContext';
 import { StripeAddress } from '@/lib/types/checkout';
 
 type FormData = {
+  email: string;
   firstName: string;
   lastName: string;
+  line1: string;
+  line2: string;
+  city: string;
+  state: string;
+  postal_code: string;
+  phoneNumber: string;
 };
 
-export default function AddressForm() {
-  const [isDisabled, setIsDisabled] = useState(true);
-  const [isEditingAddress, setIsEditingAddress] = useState(true);
+type AddressFormProps = {
+  setIsEditingAddress: (isEditing: boolean) => void;
+};
+export default function AddressForm({ setIsEditingAddress }: AddressFormProps) {
   const {
     updateShippingAddress,
     isBillingSameAsShipping,
-    updateCustomerEmail,
+    updateCustomerInfo,
     toggleIsShippingAddressShown,
   } = useCheckoutContext();
   const {
@@ -25,9 +33,9 @@ export default function AddressForm() {
     handleSubmit,
     formState: { errors },
   } = useForm<FormData>();
-  const onSubmit = handleSubmit((data) => {
-    console.log('Data:', data);
-    const {
+
+  const onSubmit = handleSubmit(
+    ({
       email,
       firstName,
       lastName,
@@ -36,31 +44,28 @@ export default function AddressForm() {
       city,
       state,
       postal_code,
-    } = data;
-    const address: StripeAddress = {
-      name: `${firstName} ${lastName}`,
-      firstName,
-      lastName,
-      address: {
-        line1,
-        line2,
-        city,
-        state,
-        postal_code,
-        country: 'US',
-      },
-    };
-    updateShippingAddress(address as StripeAddress, isBillingSameAsShipping);
-    updateCustomerEmail(email);
-    setIsEditingAddress(false);
-    toggleIsShippingAddressShown(false);
-  });
-  const handleAddressButtonClick = () => {
-    updateShippingAddress(address as StripeAddress, isBillingSameAsShipping);
-    updateCustomerEmail(email);
-    setIsEditingAddress(false);
-    toggleIsShippingAddressShown(false);
-  };
+      phoneNumber
+    }) => {
+      const address: StripeAddress = {
+        name: `${firstName} ${lastName}`,
+        firstName,
+        lastName,
+        address: {
+          line1,
+          line2,
+          city,
+          state,
+          postal_code,
+          country: 'US',
+        },
+      };
+      updateShippingAddress(address as StripeAddress, isBillingSameAsShipping);
+      updateCustomerInfo({ email, phoneNumber });
+      setIsEditingAddress(false);
+      toggleIsShippingAddressShown(false);
+    }
+  );
+
   console.log('Errors', errors);
 
   return (
@@ -162,7 +167,6 @@ export default function AddressForm() {
         <Button
           type="submit"
           disabled={Object.keys(errors).length > 0}
-          onClick={handleAddressButtonClick}
           className={`h-[48px] w-full max-w-[390px] cursor-pointer rounded-lg bg-black text-base font-bold uppercase text-white lg:h-[63px] lg:text-xl`}
         >
           Save & Continue
