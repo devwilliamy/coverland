@@ -337,7 +337,7 @@ export async function getProductReviewSummary(
     const { productType, year, make, model } = validatedFilters;
 
     const fetch = supabaseDatabaseClient.rpc('get_product_reviews_summary', {
-      type: productType,
+      type: productType || null,
       make: generateSlug(make as string) || null,
       model: generateSlug(model as string) || null,
       year: year || null,
