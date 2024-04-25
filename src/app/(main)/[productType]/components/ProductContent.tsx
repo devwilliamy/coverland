@@ -118,7 +118,7 @@ export function ProductContent({
           {`${productType} `}
           {' - '}
           <br />
-          <>Waterproof, Outdoor, Custom-Fit {`${productType} `}</>
+          <>Waterproof, Outdoor, Custom-Fit</>
         </>
       )}
     </h1>
