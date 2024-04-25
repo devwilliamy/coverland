@@ -109,12 +109,17 @@ export function ProductContent({
 
   const ProductTitle = () => (
     <h1 className="mt-[24px] text-[24px] font-[900] leading-[27px] text-[#1A1A1A] lg:mt-0 lg:text-[28px] lg:leading-[30px] ">
-      {make && `${deslugify(make as string)} `}
-      {model && `${deslugify(model as string)} `}
-      {`${productType} `}
-      {' - '}
-      <br />
-      Waterproof, Outdoor, Custom-Fit
+      {!make && !model ? (
+        <>Waterproof, Outdoor, Custom-Fit {`${productType} `}</>
+      ) : (
+        <>
+          {make && `${deslugify(make as string)} `}
+          {model && `${deslugify(model as string)} `}
+          {`${productType} `}
+          {' - '}
+          <br />
+        </>
+      )}
     </h1>
   );
 
