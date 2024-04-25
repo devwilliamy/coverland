@@ -271,7 +271,7 @@ export async function getAllReviewsWithImages(
     const { data, error } = await fetch;
 
     if (error) {
-      console.error("[GetAllReviewsWithImages] Error: ", error);
+      console.error('[GetAllReviewsWithImages] Error: ', error);
       return [];
     }
 
@@ -338,9 +338,9 @@ export async function getProductReviewSummary(
 
     const fetch = supabaseDatabaseClient.rpc('get_product_reviews_summary', {
       type: productType,
-      make: generateSlug(make as string) || undefined,
-      model: generateSlug(model as string) || undefined,
-      year,
+      make: generateSlug(make as string) || null,
+      model: generateSlug(model as string) || null,
+      year: year || null,
     });
 
     const { data, error } = await fetch;
