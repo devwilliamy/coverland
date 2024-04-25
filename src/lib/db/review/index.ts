@@ -263,15 +263,15 @@ export async function getAllReviewsWithImages(
 
     const fetch = supabaseDatabaseClient.rpc('get_distinct_review_images', {
       p_type: productType,
-      p_make_slug: generateSlug(make as string) || undefined,
-      p_model_slug: generateSlug(model as string) || undefined,
-      p_parent_generation: year,
+      p_make_slug: generateSlug(make as string) || null,
+      p_model_slug: generateSlug(model as string) || null,
+      p_parent_generation: year || null,
     });
 
     const { data, error } = await fetch;
 
     if (error) {
-      console.error("[GetAllReviewsWithImages] Error: ", error);
+      console.error('[GetAllReviewsWithImages] Error: ', error);
       return [];
     }
 
