@@ -39,33 +39,15 @@ export default function Shipping({
   const [isDisabled, setIsDisabled] = useState(true);
   const [isEditingAddress, setIsEditingAddress] = useState(true);
   const [isEditingShipping, setIsEditingShipping] = useState(true);
-  const [email, setEmail] = useState<string>('');
   const [address, setAddress] = useState<StripeAddress>();
 
   const {
-    updateShippingAddress,
-    isBillingSameAsShipping,
-    updateCustomerEmail,
+    shippingAddress,
     toggleIsShippingAddressShown,
   } = useCheckoutContext();
 
-  const handleAddressFormChange = (event) => {
-    if (event.complete) {
-      setIsDisabled(false);
-      setAddress({
-        name: event.value.name,
-        address: event.value.address,
-        phone: event.value.phone,
-      });
-    }
-  };
 
-  const handleAddressButtonClick = () => {
-    updateShippingAddress(address as StripeAddress, isBillingSameAsShipping);
-    updateCustomerEmail(email);
-    setIsEditingAddress(false);
-    toggleIsShippingAddressShown(false);
-  };
+
   const handleEditButtonClick = () => {
     setIsEditingShipping(false);
     toggleIsShippingAddressShown(false);
@@ -86,13 +68,7 @@ export default function Shipping({
     <div className="px-4">
       {isEditingAddress ? (
         <div className="min-h-[400px]">
-          {/* <EmailInput email={email} setEmail={setEmail} /> */}
-          <AddressForm/>
-          {/* <AddressElement
-            options={options}
-            onChange={handleAddressFormChange}
-          /> */}
-          
+          <AddressForm setIsEditingAddress={setIsEditingAddress}/>
         </div>
       ) : (
         <div className="mb-4">

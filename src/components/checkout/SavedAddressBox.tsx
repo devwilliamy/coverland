@@ -1,18 +1,16 @@
 import { StripeAddress } from '@/lib/types/checkout';
 import SummaryBox from './SummaryBox';
+import { useCheckoutContext } from '@/contexts/CheckoutContext';
 
 type SavedAddressBoxProps = {
-  address: StripeAddress;
   handleClick: () => void;
 };
-export default function SavedAddressBox({
-  address,
-  handleClick,
-}: SavedAddressBoxProps) {
-  const { line1, line2, city, state, postal_code } = address.address;
+export default function SavedAddressBox({ handleClick }: SavedAddressBoxProps) {
+  const { shippingAddress } = useCheckoutContext();
+  const { line1, line2, city, state, postal_code } = shippingAddress.address;
   return (
     <SummaryBox handleClick={handleClick}>
-      <div>{address.name}</div>
+      <div>{shippingAddress.name}</div>
       <div>{line1}</div>
       <div>{line2}</div>
       <div>

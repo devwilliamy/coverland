@@ -2,9 +2,7 @@ import { FaExclamationCircle } from 'react-icons/fa';
 
 type OverlappingLabelProps = {
   title: string;
-  //   type: string;
   name: string;
-  //   id: string;
   placeholder: string;
   errors: any;
   register: any;
@@ -12,9 +10,7 @@ type OverlappingLabelProps = {
 };
 export default function OverlappingLabel({
   title,
-  //   type,
   name,
-  //   id,
   placeholder,
   errors,
   register,
@@ -30,12 +26,11 @@ export default function OverlappingLabel({
           htmlFor="name"
           className="absolute -top-2 left-2 inline-block bg-white px-1 text-xs font-medium text-gray-500"
         >
-          {/* Name */}
           {title} {options?.required && '*'}
         </label>
         <input
           className={`block w-full rounded-lg border-0 border-[#E1E1E1] bg-[#FAFAFA] py-2.5 pl-3 pr-10 ring-1 ring-inset focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6 ${inputStyle}`}
-          placeholder={placeholder} //Jane Doe
+          placeholder={placeholder}
           {...register(name, options)}
         />
         {errors[name] && (
