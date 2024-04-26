@@ -1,13 +1,12 @@
 import ReviewSheet from '@/components/PDP/components/ReviewSheet';
 import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';
-import React, { useContext } from 'react';
 import { useStore } from 'zustand';
-import { CarSelectionContext } from '@/contexts/CarSelectionContext';
 import ReviewSection from '@/components/PDP/components/ReviewSection';
+import useStoreContext from '@/hooks/useStoreContext';
 
 function ReviewsTextTrigger() {
-  const store = useContext(CarSelectionContext);
-  if (!store) throw new Error('Missing CarContext.Provider in the tree');
+  const store = useStoreContext();
+  if (!store) throw new Error('Missing Provider in the tree');
   const { total_reviews } = useStore(store, (s) => s.reviewDataSummary);
   const reviewData = useStore(store, (s) => s.reviewData);
 

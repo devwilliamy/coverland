@@ -11,12 +11,13 @@ import { useContext, useState } from 'react';
 import { useStore } from 'zustand';
 import { CarSelectionContext } from '@/contexts/CarSelectionContext';
 import ReviewSection from './ReviewSection';
+import useStoreContext from '@/hooks/useStoreContext';
 
 export default function ReviewSheet({ seeMore }: { seeMore?: boolean }) {
   const [reviewSheetOpen, setReviewSheetOpen] = useState<boolean>(false);
 
-  const store = useContext(CarSelectionContext);
-  if (!store) throw new Error('Missing CarContext.Provider in the tree');
+  const store = useStoreContext();
+  if (!store) throw new Error('Missing Provider in the tree');
   const { total_reviews } = useStore(store, (s) => s.reviewDataSummary);
 
   return (

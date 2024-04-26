@@ -357,6 +357,14 @@ export async function getProductReviewSummary(
     });
 
     const { data, error } = await fetch;
+
+    console.log(`[${rpc}] input: `, {
+      type: productType,
+      make: generateSlug(make as string) || undefined,
+      model: generateSlug(model as string) || undefined,
+      year,
+    });
+    console.log(`[${rpc}] data: `, data);
     if (error) {
       console.error(error);
       return { total_reviews: 0, average_score: 0 };
