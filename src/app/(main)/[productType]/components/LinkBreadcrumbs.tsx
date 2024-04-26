@@ -249,18 +249,16 @@ export default function LinkBreadcrumbs() {
                         isBreadCrumb
                       />
                     )}
-                    {year && (
-                      <MainDropdown
-                        place={4}
-                        title={'year'}
-                        value={paramsObj.year}
-                        queryObj={queryObj}
-                        prevSelected={false}
-                        items={yearData}
-                        isDisabled={!paramsObj.model}
-                        isBreadCrumb
-                      />
-                    )}
+                    <MainDropdown
+                      place={4}
+                      title={'year'}
+                      value={paramsObj.year}
+                      queryObj={queryObj}
+                      prevSelected={false}
+                      items={yearData}
+                      isDisabled={!paramsObj.model}
+                      isBreadCrumb
+                    />
                     <Button
                       className={`mx-auto h-[40px] max-h-[44px] min-h-[44px] w-full max-w-[px] rounded-[4px] text-lg  disabled:bg-[gray]/70 `}
                       onClick={handleSubmitDropdown}
