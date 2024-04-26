@@ -1,6 +1,6 @@
 import { ZodError, z } from 'zod';
 
-import { PRODUCT_REVIEWS_TABLE } from '../constants/databaseTableNames';
+import { PRODUCT_REVIEWS_TABLE, SEAT_PRODUCT_REVIEWS_TABLE } from '../constants/databaseTableNames';
 import { Tables } from '../types';
 import { getPagination } from '../utils';
 import { supabaseDatabaseClient } from '../supabaseClients';
@@ -8,7 +8,7 @@ import { supabaseDatabaseClient } from '../supabaseClients';
 export type TReviewData = Tables<'reviews-2'>;
 
 export type TProductReviewsQueryFilters = {
-  productType?: 'Car Covers' | 'SUV Covers' | 'Truck Covers';
+  productType?: 'Car Covers' | 'SUV Covers' | 'Truck Covers' | 'Seat Covers';
   year?: string;
   make?: string;
   model?: string;
@@ -100,6 +100,7 @@ const ProductReviewsQueryFiltersSchema = z.object({
       z.literal('Car Covers'),
       z.literal('SUV Covers'),
       z.literal('Truck Covers'),
+      z.literal('Seat Covers'),
     ])
   ),
   year: z.string().optional(),
@@ -143,8 +144,9 @@ export async function getProductReviewsByPage(
       // search,
     } = validatedOptions;
     const { from, to } = getPagination(page, limit);
+    const table = productType === "Seat Covers" ? SEAT_PRODUCT_REVIEWS_TABLE : PRODUCT_REVIEWS_TABLE
     let fetch = supabaseDatabaseClient
-      .from(PRODUCT_REVIEWS_TABLE)
+      .from(table)
       .select('*')
       .range(from, to);
 
@@ -335,8 +337,8 @@ export async function getProductReviewSummary(
   try {
     const validatedFilters = ProductReviewsQueryFiltersSchema.parse(filters);
     const { productType, year, make, model } = validatedFilters;
-
-    const fetch = supabaseDatabaseClient.rpc('get_product_reviews_summary', {
+    const rpc = productType === 'Seat Covers' ? 'get_seat_covers_product_reviews_summary' : 'get_product_reviews_summary'
+    const fetch = supabaseDatabaseClient.rpc(rpc, {
       type: productType,
       make: generateSlug(make as string) || undefined,
       model: generateSlug(model as string) || undefined,
