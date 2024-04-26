@@ -14,6 +14,7 @@ export default function HomeDropdown({
   isDisabled,
   value,
   items,
+  isBreadCrumb = false,
 }: {
   place: number;
   title: string;
@@ -21,6 +22,7 @@ export default function HomeDropdown({
   prevSelected: boolean;
   value?: string | number;
   items?: string[] | number[];
+  isBreadCrumb?: boolean;
   queryObj: {
     query: TQuery;
     setQuery: Dispatch<SetStateAction<TQuery>>;
@@ -29,6 +31,7 @@ export default function HomeDropdown({
   const { setQuery } = queryObj;
   const params = Object(useParams());
   const paramKeys = Object.keys(params);
+  // console.log(params);
   const paramValues = Object.values(params);
   const [selectedValue, setSelectedValue] = useState<string>('');
   const [selectedIndex, setSelectedIndex] = useState<number>(-1);
@@ -56,17 +59,26 @@ export default function HomeDropdown({
         });
         break;
       case 'year':
-        setQuery((e) => {
-          return {
-            ...e,
-            year: newValue,
-            make: '',
-            model: '',
-            submodel1: '',
-            submodel2: '',
-            parent_generation: '',
-          };
-        });
+        if (isBreadCrumb) {
+          setQuery((e) => {
+            return {
+              ...e,
+              year: newValue,
+            };
+          });
+        } else {
+          setQuery((e) => {
+            return {
+              ...e,
+              year: newValue,
+              make: '',
+              model: '',
+              submodel1: '',
+              submodel2: '',
+              parent_generation: '',
+            };
+          });
+        }
         break;
       case 'make':
         setQuery((e) => {
@@ -81,15 +93,25 @@ export default function HomeDropdown({
         });
         break;
       case 'model':
-        setQuery((e) => {
-          return {
-            ...e,
-            model: newValue,
-            submodel1: '',
-            submodel2: '',
-            parent_generation: '',
-          };
-        });
+        if (isBreadCrumb) {
+          setQuery((e) => {
+            return {
+              ...e,
+              model: newValue,
+              year: '',
+            };
+          });
+        } else {
+          setQuery((e) => {
+            return {
+              ...e,
+              model: newValue,
+              submodel1: '',
+              submodel2: '',
+              parent_generation: '',
+            };
+          });
+        }
         break;
       case 'submodel1':
         setQuery((e) => {
@@ -337,7 +359,7 @@ export default function HomeDropdown({
                         <>
                           {filteredItems?.map((items, i) => (
                             <div
-                              key={`type-${items}`}
+                              key={`${title}-${items}`}
                               id={`${title}-${i}`}
                               tabIndex={-1}
                               className={`flex py-1 pl-[20px] hover:bg-[#BE1B1B] hover:text-white ${i === selectedIndex && 'bg-[#BE1B1B] text-white'}`}
@@ -447,10 +469,12 @@ export default function HomeDropdown({
               className={`flex h-full w-full items-center pl-[20px]`}
             >
               {place} &nbsp;
-              {params[title].replace(
-                title.charAt(0),
-                title.charAt(0).toUpperCase()
-              )}
+              {params[title]
+                ? params[title].replace(
+                    title.charAt(0),
+                    title.charAt(0).toUpperCase()
+                  )
+                : title.replace(title.charAt(0), title.charAt(0).toUpperCase())}
             </option>
             {items && items.length > 0 && (
               <>
@@ -471,7 +495,7 @@ export default function HomeDropdown({
                   <>
                     {items.map((item, i) => (
                       <option
-                        key={`type-${item}`}
+                        key={`mobile-${title}-${item}`}
                         id={`${title}-${i}`}
                         value={item}
                         className={`flex py-1 pl-[20px] hover:bg-[#BE1B1B] hover:text-white ${i === selectedIndex && 'bg-[#BE1B1B] text-white'}`}

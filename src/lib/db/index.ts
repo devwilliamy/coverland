@@ -169,8 +169,8 @@ export async function getAllUniqueModelsByYearMake({
   year: string;
   make: string;
 }) {
-
-  const tableName = type === 'Seat Covers' ? SEAT_COVERS_TABLE : PRODUCT_DATA_TABLE
+  const tableName =
+    type === 'Seat Covers' ? SEAT_COVERS_TABLE : PRODUCT_DATA_TABLE;
   const { data, error } = await supabase
     .from(tableName)
     .select(
@@ -254,4 +254,97 @@ export async function getAllYears({
   }
 
   return data;
+}
+
+export async function getDistinctMakesByType(type: string) {
+  const { data, error } = await supabase.rpc('get_distinct_makes_by_type', {
+    type: type,
+  });
+
+  if (error) {
+    throw new Error(error.message);
+  }
+
+  const filteredMakes = data.map((obj: any) => {
+    return obj?.make;
+  });
+
+  return filteredMakes;
+}
+
+export async function getDistinctModelsByTypeMake(type: string, make: string) {
+  const { data, error } = await supabase.rpc(
+    'get_distinct_models_by_type_make',
+    {
+      type: type,
+      make: make,
+    }
+  );
+
+  if (error) {
+    throw new Error(error.message);
+  }
+
+  const filteredData = data.map((obj: any) => {
+    return obj?.model;
+  });
+
+  return filteredData;
+}
+
+export async function getDistinctYearsByTypeMakeModel(
+  type: string,
+  make: string,
+  model: string
+) {
+  const { data, error } = await supabase.rpc(
+    'get_distinct_years_by_type_make_model',
+    {
+      type: type,
+      make: make,
+      model: model,
+    }
+  );
+
+  if (error) {
+    throw new Error(error.message);
+  }
+  const temp: string[] = [];
+  data.filter(({ year_options }) => {
+    year_options.split(',').map((year: string) => {
+      temp.push(year);
+    });
+    return;
+  });
+  // temp.sort((a: string, b: string) => {
+  //   return Number(b) - Number(a);
+  // });
+
+  return temp;
+}
+
+export async function getDistinctYearGenerationFromTypeMakeModelYear(
+  type: string,
+  make: string,
+  model: string,
+  year: string
+) {
+  const { data, error } = await supabase.rpc(
+    'get_distinct_year_generation_by_type_make_model_year',
+    {
+      type: type,
+      make: make,
+      model: model,
+      year: year,
+    }
+  );
+
+  if (error) {
+    throw new Error(error.message);
+  }
+  const filteredYearGens = data.map((obj: any) => {
+    return obj?.year_generation;
+  });
+
+  return filteredYearGens;
 }
