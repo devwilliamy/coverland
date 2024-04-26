@@ -1224,9 +1224,9 @@ export type Database = {
       get_distinct_review_images: {
         Args: {
           p_type?: string
-          p_make_slug?: string
-          p_model_slug?: string
-          p_parent_generation?: string
+          p_make_slug?: string | null
+          p_model_slug?: string | null
+          p_parent_generation?: string | null
         }
         Returns: {
           rating_stars: number
