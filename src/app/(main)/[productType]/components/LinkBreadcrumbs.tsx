@@ -34,7 +34,7 @@ import { CarSelectionContext } from '@/contexts/CarSelectionContext';
 export default function LinkBreadcrumbs() {
   const {
     productType,
-    make,
+    // make,
     //  model,
     year,
   } = useDetermineType();
@@ -45,7 +45,7 @@ export default function LinkBreadcrumbs() {
   const paramKeys = Object.keys(params);
   const paramValues = Object.values(params);
   const { isSeatCover } = useDetermineType();
-  const model = selectedProduct.model;
+  const { make, model } = selectedProduct;
   console.log('[MODEL FROM BREADCRUMBS]: ', { model });
 
   const [paramsObj, setParamObj] = useState<TQuery>({
@@ -191,9 +191,11 @@ export default function LinkBreadcrumbs() {
                   <div
                     className={` hover:underline ${params[key].length < 4 ? 'uppercase' : 'capitalize'} `}
                   >
-                    {key !== 'model' &&
+                    {key !== 'make' &&
+                      key !== 'model' &&
                       key !== 'year' &&
                       deslugify(params[key])}
+                    {key === 'make' && make}
                     {key === 'model' && model}
                     {key == 'year' && params[key]}
                   </div>
