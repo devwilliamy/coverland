@@ -33,19 +33,29 @@ import { CarSelectionContext } from '@/contexts/CarSelectionContext';
 
 export default function LinkBreadcrumbs() {
   const {
+    isSeatCover,
     productType,
     // make,
     //  model,
     year,
   } = useDetermineType();
-  const store = useContext(CarSelectionContext);
-  if (!store) throw new Error('Missing CarContext.Provider in the tree');
-  const selectedProduct = useStore(store, (s) => s.selectedProduct);
+  let store;
+  let make: string = '';
+  let model: string = '';
+  if (!isSeatCover) {
+    store = useContext(CarSelectionContext);
+    if (!store) throw new Error('Missing CarContext.Provider in the tree');
+    // { make, model } = selectedProduct.make;
+    const selectedProduct = useStore(store, (s) => s.selectedProduct);
+    make = String(selectedProduct.make);
+    model = String(selectedProduct.model);
+  }
+
   const params = Object(useParams());
   const paramKeys = Object.keys(params);
   const paramValues = Object.values(params);
-  const { isSeatCover } = useDetermineType();
-  const { make, model } = selectedProduct;
+
+  // const { make, model } = selectedProduct;
   console.log('[MODEL FROM BREADCRUMBS]: ', { model });
 
   const [paramsObj, setParamObj] = useState<TQuery>({
