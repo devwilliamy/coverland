@@ -340,18 +340,20 @@ export async function getDistinctYearsByTypeMakeModel(
   if (error) {
     throw new Error(error.message);
   }
-  const temp: string[] = [];
+  let distinctYears: string[] = [];
   data.filter(({ year_options }) => {
     year_options.split(',').map((year: string) => {
-      temp.push(year);
+      !distinctYears.includes(year) && distinctYears.push(year);
     });
     return;
   });
-  temp.sort((a: string, b: string) => {
+
+  distinctYears.sort((a: string, b: string) => {
     return Number(b) - Number(a);
   });
+  console.log('[FILTERED DISTINCT YEARS: ', distinctYears);
 
-  return temp;
+  return distinctYears;
 }
 
 export async function getDistinctYearGenerationFromTypeMakeModelYear(

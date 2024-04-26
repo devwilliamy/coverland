@@ -5,7 +5,7 @@ import {
   PopoverTrigger,
 } from '@/components/ui/popover';
 
-import { useParams } from 'next/navigation';
+import { useParams, usePathname } from 'next/navigation';
 import {
   Dispatch,
   SetStateAction,
@@ -18,7 +18,7 @@ import { TQuery } from '@/components/hero/dropdown/HeroDropdown';
 import useDetermineType from '@/hooks/useDetermineType';
 import MainDropdown from '@/components/hero/dropdown/MainDropdown';
 import { PopoverArrow } from '@radix-ui/react-popover';
-import { VEHICLE_TYPES } from '@/lib/constants';
+import { PREMIUM_PLUS_URL_PARAM, VEHICLE_TYPES } from '@/lib/constants';
 import {
   getDistinctMakesByType,
   getDistinctModelsByTypeMake,
@@ -35,8 +35,8 @@ export default function LinkBreadcrumbs() {
   const {
     isSeatCover,
     productType,
-    // make,
-    //  model,
+    make: paramsMake,
+    model: paramsModel,
     year,
   } = useDetermineType();
   let store;
@@ -56,13 +56,13 @@ export default function LinkBreadcrumbs() {
   const paramValues = Object.values(params);
 
   // const { make, model } = selectedProduct;
-  console.log('[MODEL FROM BREADCRUMBS]: ', { model });
+  // console.log('[MODEL FROM BREADCRUMBS]: ', { model });
 
   const [paramsObj, setParamObj] = useState<TQuery>({
     type: deslugify(productType as string),
     year: year ? year : '',
-    make: make ? deslugify(make) : '',
-    model: model ? deslugify(model) : '',
+    make: paramsMake ? deslugify(make) : '',
+    model: paramsModel ? deslugify(model) : '',
     submodel1: '',
     submodel2: '',
     parent_generation: '',
@@ -75,6 +75,7 @@ export default function LinkBreadcrumbs() {
   const [isDisabled, setIsDisabled] = useState(false);
   const [clickedIndex, setClickedIndex] = useState(0);
   const router = useRouter();
+  const pathname = usePathname();
 
   // Fetching makes
   useEffect(() => {
@@ -157,15 +158,26 @@ export default function LinkBreadcrumbs() {
       paramsObj.model,
       paramsObj.year
     );
-    let url = `/${slugify(paramsObj.type)}/${'premium-plus'}/${slugify(paramsObj.make)}/${slugify(paramsObj.model)}/${yearGen[0]}`;
 
+    let url = `/${slugify(paramsObj.type)}/${PREMIUM_PLUS_URL_PARAM}/${slugify(paramsObj.make)}/${slugify(paramsObj.model)}/`;
+
+    if (yearGen[0]) {
+      url += `${yearGen[0]}`;
+    } else if (paramsObj.year) {
+      url += `${paramsObj.year}`;
+    }
+    if (url === pathname) {
+      setIsLoading(false);
+      return;
+    }
     try {
       router.push(url, { scroll: true });
+      console.log({ url, yearGen: yearGen[0], paramsObj });
     } catch (error) {
       console.log(error);
-    } finally {
-      setIsLoading(false);
     }
+
+    setIsLoading(false);
   };
 
   return (
@@ -192,7 +204,7 @@ export default function LinkBreadcrumbs() {
             <div key={key} className="">
               <Popover>
                 <PopoverTrigger
-                  className="flex gap-0.5"
+                  className="flex gap-1"
                   onClick={() => {
                     setClickedIndex(generatedIndex);
                   }}
@@ -213,7 +225,7 @@ export default function LinkBreadcrumbs() {
                     paramValues.length > 2 && <p>/</p>}
                 </PopoverTrigger>
                 <PopoverContent>
-                  <PopoverArrow className="fill-[#BE1B1B]" />
+                  <PopoverArrow className="mb-0 fill-[#BE1B1B] " />
                   <div className="z-100 relative flex w-full flex-col items-stretch  gap-[16px] *:flex-1">
                     {productType && clickedIndex <= 1 && (
                       <MainDropdown
