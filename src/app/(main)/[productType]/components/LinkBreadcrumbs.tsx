@@ -88,7 +88,7 @@ export default function LinkBreadcrumbs() {
     if (paramsObj.type && paramsObj.make) {
       getModels();
     }
-    if (paramsObj.type && paramsObj.make && paramsObj.year) {
+    if (paramsObj.type && paramsObj.make && paramsObj.model) {
       getYears();
     }
     const disabled =
@@ -127,10 +127,12 @@ export default function LinkBreadcrumbs() {
       paramsObj.model,
       paramsObj.year
     );
-    let url = `/${slugify(paramsObj.type)}/${'premium-plus'}/${slugify(paramsObj.make)}/${slugify(paramsObj.model)}/${yearGen}`;
-    console.log({ yearGen, url });
+    let url = `/${slugify(paramsObj.type)}/${'premium-plus'}/${slugify(paramsObj.make)}/${slugify(paramsObj.model)}/${yearGen[0]}`;
 
-    // router.push(url);
+    // let actualYearGen = yearGen[0];
+    // console.log({ yearGen, actualYearGen, url,  });
+
+    router.push(url);
     setIsLoading(false);
   };
 

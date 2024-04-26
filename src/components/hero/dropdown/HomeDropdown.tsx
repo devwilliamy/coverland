@@ -359,7 +359,7 @@ export default function HomeDropdown({
                         <>
                           {filteredItems?.map((items, i) => (
                             <div
-                              key={`${title}-${items}`}
+                              key={`filtered-${title}-${i}`}
                               id={`${title}-${i}`}
                               tabIndex={-1}
                               className={`flex py-1 pl-[20px] hover:bg-[#BE1B1B] hover:text-white ${i === selectedIndex && 'bg-[#BE1B1B] text-white'}`}
@@ -396,7 +396,7 @@ export default function HomeDropdown({
                         <>
                           {items.map((item, i) => (
                             <div
-                              key={`type-${item}`}
+                              key={`${title}-${i}`}
                               id={`${title}-${i}`}
                               tabIndex={-1}
                               className={`flex py-1 pl-[20px] hover:bg-[#BE1B1B] hover:text-white ${i === selectedIndex && 'bg-[#BE1B1B] text-white'}`}
@@ -469,12 +469,7 @@ export default function HomeDropdown({
               className={`flex h-full w-full items-center pl-[20px]`}
             >
               {place} &nbsp;
-              {params[title]
-                ? params[title].replace(
-                    title.charAt(0),
-                    title.charAt(0).toUpperCase()
-                  )
-                : title.replace(title.charAt(0), title.charAt(0).toUpperCase())}
+              {title.replace(title.charAt(0), title.charAt(0).toUpperCase())}
             </option>
             {items && items.length > 0 && (
               <>
@@ -482,7 +477,7 @@ export default function HomeDropdown({
                   <>
                     {filteredItems?.map((item, i) => (
                       <option
-                        key={`type-${item}`}
+                        key={`mobile-filtered-${title}-${i}`}
                         id={`${title}-${i}`}
                         value={item}
                         className={`flex py-1 pl-[20px] hover:bg-[#BE1B1B] hover:text-white ${i === selectedIndex && 'bg-[#BE1B1B] text-white'}`}
@@ -495,7 +490,7 @@ export default function HomeDropdown({
                   <>
                     {items.map((item, i) => (
                       <option
-                        key={`mobile-${title}-${item}`}
+                        key={`mobile-${title}-${i}`}
                         id={`${title}-${i}`}
                         value={item}
                         className={`flex py-1 pl-[20px] hover:bg-[#BE1B1B] hover:text-white ${i === selectedIndex && 'bg-[#BE1B1B] text-white'}`}
