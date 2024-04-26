@@ -6,7 +6,7 @@ import { AiOutlineLoading3Quarters } from 'react-icons/ai';
 import { useMediaQuery } from '@mantine/hooks';
 import { useParams } from 'next/navigation';
 
-export default function HomeDropdown({
+export default function MainDropdown({
   queryObj,
   place,
   title,
@@ -33,7 +33,9 @@ export default function HomeDropdown({
   const paramKeys = Object.keys(params);
   // console.log(params);
   const paramValues = Object.values(params);
-  const [selectedValue, setSelectedValue] = useState<string>('');
+  const [selectedValue, setSelectedValue] = useState<string>(
+    isBreadCrumb ? String(value) : ''
+  );
   const [selectedIndex, setSelectedIndex] = useState<number>(-1);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [isFocused, setIsFocused] = useState(false);
@@ -81,16 +83,27 @@ export default function HomeDropdown({
         }
         break;
       case 'make':
-        setQuery((e) => {
-          return {
-            ...e,
-            make: newValue,
-            model: '',
-            submodel1: '',
-            submodel2: '',
-            parent_generation: '',
-          };
-        });
+        if (isBreadCrumb) {
+          setQuery((e) => {
+            return {
+              ...e,
+              make: newValue,
+              model: '',
+              year: '',
+            };
+          });
+        } else {
+          setQuery((e) => {
+            return {
+              ...e,
+              make: newValue,
+              model: '',
+              submodel1: '',
+              submodel2: '',
+              parent_generation: '',
+            };
+          });
+        }
         break;
       case 'model':
         if (isBreadCrumb) {
@@ -457,8 +470,12 @@ export default function HomeDropdown({
             }}
             id={`mobile-select-${title}`}
             disabled={isDisabled}
-            // defaultValue={''}
+            // defaultValue={value}
             value={value}
+            title={title.replace(
+              title.charAt(0),
+              title.charAt(0).toUpperCase()
+            )}
             autoComplete="off"
             className={`absolute top-0 flex h-full w-full  cursor-pointer appearance-none items-center rounded-[8px] pl-[20px] outline outline-[2px] outline-offset-0 outline-transparent focus:outline-[#BE1B1B] `}
           >
@@ -480,6 +497,7 @@ export default function HomeDropdown({
                         key={`mobile-filtered-${title}-${i}`}
                         id={`${title}-${i}`}
                         value={item}
+                        selected={value === item}
                         className={`flex py-1 pl-[20px] hover:bg-[#BE1B1B] hover:text-white ${i === selectedIndex && 'bg-[#BE1B1B] text-white'}`}
                       >
                         {item}
@@ -493,6 +511,7 @@ export default function HomeDropdown({
                         key={`mobile-${title}-${i}`}
                         id={`${title}-${i}`}
                         value={item}
+                        selected={value === item}
                         className={`flex py-1 pl-[20px] hover:bg-[#BE1B1B] hover:text-white ${i === selectedIndex && 'bg-[#BE1B1B] text-white'}`}
                       >
                         {item}

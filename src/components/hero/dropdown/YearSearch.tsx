@@ -1,7 +1,7 @@
 'use client';
 import { ChangeEvent, useEffect, useState } from 'react';
 import { TQuery } from './HeroDropdown';
-import HomeDropdown from './HomeDropdown';
+import MainDropdown from './MainDropdown';
 
 export function YearSearch({
   queryObj,
@@ -30,7 +30,7 @@ export function YearSearch({
     queryObj && queryObj.query.year === '' && queryObj.query.type !== '';
 
   return (
-    <HomeDropdown
+    <MainDropdown
       place={2}
       title={'year'}
       queryObj={queryObj}

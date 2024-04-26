@@ -10,7 +10,7 @@ import {
 import { TQuery } from './HeroDropdown';
 import { ModelDropdown } from './ModelSearch';
 import { SecondSubmodelDropdown } from './SecondSubmodelDropdown';
-import HomeDropdown from './HomeDropdown';
+import MainDropdown from './MainDropdown';
 
 export function SubmodelDropdown({
   queryObj,
@@ -66,7 +66,7 @@ export function SubmodelDropdown({
 
   return (
     <>
-      <HomeDropdown
+      <MainDropdown
         place={5}
         title="submodel1"
         queryObj={queryObj}

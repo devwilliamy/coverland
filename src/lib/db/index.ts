@@ -347,9 +347,9 @@ export async function getDistinctYearsByTypeMakeModel(
     });
     return;
   });
-  // temp.sort((a: string, b: string) => {
-  //   return Number(b) - Number(a);
-  // });
+  temp.sort((a: string, b: string) => {
+    return Number(b) - Number(a);
+  });
 
   return temp;
 }

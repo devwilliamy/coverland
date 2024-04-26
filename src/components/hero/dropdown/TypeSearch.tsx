@@ -4,7 +4,7 @@ import { ChangeEvent, Dispatch, SetStateAction, useState } from 'react';
 import { TQuery } from './HeroDropdown';
 import SeeAllChevronDown from '@/components/PDP/components/icons/SeeAllChevronDown';
 import HomeChevronDown from './icons/HomeChevronDown';
-import HomeDropdown from './HomeDropdown';
+import MainDropdown from './MainDropdown';
 import { useParams, usePathname } from 'next/navigation';
 
 const vehicleTypes = ['Car Covers', 'SUV Covers', 'Truck Covers'];
@@ -29,7 +29,7 @@ export function TypeSearch({
   const prevSelected = queryObj?.query.type === '';
 
   return (
-    <HomeDropdown
+    <MainDropdown
       place={1}
       title={'type'}
       value={type}
