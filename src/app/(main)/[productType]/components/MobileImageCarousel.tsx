@@ -53,26 +53,8 @@ const MobileImageCarousel = () => {
   const [api, setApi] = useState<CarouselApi>();
   const [current, setCurrent] = useState(0);
   const { productType, model } = useDetermineType();
-  let baseListingVideo: Asset;
-  let baseListingVideoThumbnail: StaticImageData;
-
-  switch (productType) {
-    case 'truck-covers': {
-      baseListingVideo = TruckListingVideo;
-      baseListingVideoThumbnail = TruckListingThumb;
-      break;
-    }
-    case 'suv-covers': {
-      baseListingVideo = SUVListing;
-      baseListingVideoThumbnail = SUVListingThumb;
-      break;
-    }
-    default: {
-      baseListingVideo = CarListing;
-      baseListingVideoThumbnail = Car360Thumb;
-      break;
-    }
-  }
+  let baseListingVideo = CarListing;
+  let baseListingVideoThumbnail = Car360Thumb;
 
   const isCorvette = model === 'corvette';
   const isChallenger = model === 'challenger';
@@ -100,6 +82,23 @@ const MobileImageCarousel = () => {
   useEffect(() => {
     if (!api) {
       return;
+    }
+    switch (productType) {
+      case 'truck-covers': {
+        baseListingVideo = TruckListingVideo;
+        baseListingVideoThumbnail = TruckListingThumb;
+        break;
+      }
+      case 'suv-covers': {
+        baseListingVideo = SUVListing;
+        baseListingVideoThumbnail = SUVListingThumb;
+        break;
+      }
+      default: {
+        baseListingVideo = CarListing;
+        baseListingVideoThumbnail = Car360Thumb;
+        break;
+      }
     }
 
     setCurrent(api.selectedScrollSnap());
@@ -132,7 +131,7 @@ const MobileImageCarousel = () => {
                   <Image
                     src={
                       (removeWwwFromUrl(selectedProduct.mainImage as string) +
-                        '?v=9') as string
+                        '?v=11') as string
                     }
                     alt={`Additional images of the ${selectedProduct.display_id} cover`}
                     width={500}
@@ -158,7 +157,7 @@ const MobileImageCarousel = () => {
             return (
               <CarouselItem key={image}>
                 <Image
-                  src={removeWwwFromUrl(image) + '?v=9'}
+                  src={removeWwwFromUrl(image) + '?v=11'}
                   alt={`Additional images of the ${selectedProduct.display_id} cover`}
                   width={500}
                   height={500}
@@ -188,7 +187,7 @@ const MobileImageCarousel = () => {
                   <Image
                     src={
                       (removeWwwFromUrl(selectedProduct.mainImage as string) +
-                        '?v=9') as string
+                        '?v=11') as string
                     }
                     alt={`Additional images of the ${selectedProduct.display_id} cover`}
                     width={74}

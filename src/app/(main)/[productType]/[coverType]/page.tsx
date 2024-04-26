@@ -15,16 +15,23 @@ import {
   deslugify,
   productOptions,
 } from '@/lib/utils';
+import { PREMIUM_PLUS_URL_PARAM } from '@/lib/constants';
 
 export async function generateStaticParams() {
   return combineOptions(coverOptions, productOptions);
 }
 
 export async function generateMetadata({ params }: { params: TPathParams }) {
-  const productType = deslugify(params.productType);
+  const productType = deslugify(params.productType).slice(
+    0,
+    params.productType.length - 1
+  );
   return {
-    title: `${productType}, Custom Fit - Coverland`,
+    title: `${productType} │ Lifetime Warranty │ Custom Fit │ 100% Weatherproof`,
     description: `${productType} ᐉ Coverland ⭐ Free, Same-Day Shipping ✔️ Free Returns & Purchase Protection ✔️ Made from premium quality, heavy-duty materials with a soft inner fabric.`,
+    alternates: {
+      canonical: `/${params.productType}/${PREMIUM_PLUS_URL_PARAM}`,
+    },
   };
 }
 const coverTypes = ['premium-plus', 'premium', 'standard-pro', 'standard'];

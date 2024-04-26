@@ -1,4 +1,4 @@
-import { TReviewData, getProductData } from '@/lib/db';
+import { TReviewData, getProductData, getProductMetadata } from '@/lib/db';
 import { notFound, redirect } from 'next/navigation';
 import CarPDP from '@/app/(main)/[productType]/components/CarPDP';
 import { TPathParams } from '@/utils';
@@ -10,6 +10,7 @@ import {
   getProductReviewsByPage,
 } from '@/lib/db/review';
 import { deslugify } from '@/lib/utils';
+import { PREMIUM_PLUS_URL_PARAM } from '@/lib/constants';
 
 //TODO: Refactor code so we can generate our dynamic paths as static HTML for performance
 
@@ -34,15 +35,26 @@ import { deslugify } from '@/lib/utils';
 //     year: year,
 //   }));
 // }
-
 export async function generateMetadata({ params }: { params: TPathParams }) {
-  const productType = deslugify(params.productType);
+  const desluggedProductType = deslugify(params.productType).slice(
+    0,
+    params.productType.length - 1
+  );
   const make = deslugify(params.make || '');
   const model = deslugify(params.model || '');
   const year = deslugify(params.year || '');
+  const urlString = `https://coverland.com/${params.productType}/${PREMIUM_PLUS_URL_PARAM}/${params.make}/${params.model}/${params.year}`;
+  const productMetadata = await getProductMetadata(urlString);
+  const defaultMetadataDescription = `${year} ${make} ${model} ${desluggedProductType} ᐉ Coverland ⭐ Free, Same-Day Shipping ✔️ Free Returns & Purchase Protection ✔️ Made from premium quality, heavy-duty materials with a soft inner fabric.`;
+
   return {
-    title: `${year} ${make} ${model} ${productType}, Custom Fit - Coverland`,
-    description: `${year} ${make} ${model} ${productType} ᐉ Coverland ⭐ Free, Same-Day Shipping ✔️ Free Returns & Purchase Protection ✔️ Made from premium quality, heavy-duty materials with a soft inner fabric.`,
+    title: `${make} ${model} ${year} ${desluggedProductType} │ Lifetime Warranty │ Custom Fit │ 100% Weatherproof`,
+    description: productMetadata
+      ? productMetadata.description
+      : defaultMetadataDescription,
+    alternates: {
+      canonical: `/${params.productType}/${PREMIUM_PLUS_URL_PARAM}/${params.make}/${params.model}/${params.year}`,
+    },
   };
 }
 

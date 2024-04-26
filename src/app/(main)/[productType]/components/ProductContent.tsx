@@ -5,7 +5,7 @@ import { CarSelectionContext } from '@/contexts/CarSelectionContext';
 import { useMediaQuery } from '@mantine/hooks';
 import { Suspense, useContext, useState } from 'react';
 import CartSheet from '@/components/cart/CartSheet';
-import { compareRawStrings } from '@/lib/utils';
+import { compareRawStrings, deslugify } from '@/lib/utils';
 
 import { useStore } from 'zustand';
 import { useCartContext } from '@/providers/CartProvider';
@@ -40,6 +40,8 @@ export function ProductContent({
 
   const {
     coverType,
+    model,
+    make,
     isCarCover,
     isSUVCover,
     isTruckCover,
@@ -105,23 +107,28 @@ export function ProductContent({
     data: modelData,
   });
 
+  const ProductTitle = () => (
+    <h1 className="mt-[24px] text-[24px] font-[900] leading-[27px] text-[#1A1A1A] lg:mt-0 lg:text-[28px] lg:leading-[30px] ">
+      {!make && !model ? (
+        <>Waterproof Outdoor Custom-Fit {`${productType} `}</>
+      ) : (
+        <>
+          {make && `${deslugify(make as string)} `}
+          {model && `${deslugify(model as string)} `}
+          {`${productType} `}
+          {' - '}
+          <br />
+          <>Waterproof, Outdoor, Custom-Fit</>
+        </>
+      )}
+    </h1>
+  );
+
   return (
     <>
       <div className="grid grid-cols-1 lg:mt-[60px]">
         <div className="flex flex-col gap-0.5">
-          {/* Product Title */}
-          <h1 className="mt-[24px] text-[24px] font-[900] leading-[27px] text-[#1A1A1A] lg:mt-0 lg:text-[28px] lg:leading-[30px] ">
-            {`${selectedProduct?.display_id} `}
-            {isDefaultCoverType && (
-              <>
-                &trade;
-                <br />
-              </>
-            )}
-            {isPremiumType
-              ? `Custom-Fit ${productType}`
-              : `Semi-Custom ${productType}`}
-          </h1>
+          <ProductTitle />
           {/* Rating(s) */}
           <div className="-ml-0.5 mt-1 flex items-end gap-1 lg:mt-2">
             <div className="flex gap-1 ">

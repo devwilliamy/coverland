@@ -6,9 +6,9 @@ const HeroSection = () => {
       <div className="relative w-full  flex-col  ">
         <HeroImage />
         <div className="absolute bottom-0 w-full flex-col justify-center pb-2 text-center">
-          <p className="mb-1 text-[14px] font-[500] uppercase leading-[16px] tracking-wider text-white lg:my-2 lg:text-[28px] lg:font-[500] lg:leading-[39px]">
+          <h1 className="mb-1 text-[14px] font-[500] uppercase leading-[16px] tracking-wider text-white lg:my-2 lg:text-[28px] lg:font-[500] lg:leading-[39px]">
             #1 Rated Car Cover in the USA
-          </p>
+          </h1>
           <p className="text-[22px] font-black uppercase leading-[22px] tracking-wide text-white lg:my-2 lg:text-[55px] lg:leading-[55px]">
             Select your Vehicle
           </p>

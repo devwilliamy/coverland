@@ -13,21 +13,23 @@ type EditVehicleProps = {
   searchParams: TQueryParams;
 };
 export default function EditVehicle({ searchParams }: EditVehicleProps) {
-  const store = useStoreContext()
+  const store = useStoreContext();
   if (!store) throw new Error('Missing Provider in the tree');
   const selectedProduct = useStore(store, (s) => s.selectedProduct);
   const { isTruckCover, isSUVCover } = useDetermineType();
 
   return (
-    <div className="grid grid-cols-[1fr_2fr] place-items-center ">
-      <div className="flex max-h-[24px] max-w-[64px]  items-center justify-center lg:max-h-[42px] lg:max-w-[116px]">
-        <div className={` ${!isTruckCover && !isSUVCover ? 'flex' : 'hidden'}`}>
+    <div className="grid grid-cols-[0.33fr_auto] place-items-center ">
+      <div className="mx-[15px] flex items-center  justify-center lg:max-h-[42px] lg:max-w-[116px]">
+        <div
+          className={`  ${!isTruckCover && !isSUVCover ? 'flex' : 'hidden'}`}
+        >
           <CarIcon />
         </div>
-        <div className={` ${isTruckCover ? 'flex' : 'hidden'}`}>
+        <div className={` mx-[15px] ${isTruckCover ? 'flex' : 'hidden'}`}>
           <TruckIcon />
         </div>
-        <div className={` ${isSUVCover ? 'flex' : 'hidden'}`}>
+        <div className={` mx-[15px] ${isSUVCover ? 'flex' : 'hidden'}`}>
           <SuvIcon />
         </div>
       </div>

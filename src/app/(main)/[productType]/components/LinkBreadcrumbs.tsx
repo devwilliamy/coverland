@@ -28,6 +28,8 @@ export default function LinkBreadcrumbs() {
   const params = Object(useParams());
   const paramKeys = Object.keys(params);
   const paramValues = Object.values(params);
+  const { isSeatCover } = useDetermineType();
+
   const [paramsObj, setParamObj] = useState<TQuery>({
     type: deslugify(productType as string),
     year: year ? year : '',
@@ -138,6 +140,19 @@ export default function LinkBreadcrumbs() {
 
   return (
     <div className="mb-[14px] flex text-[12px] leading-[13px] lg:text-[14px] lg:leading-[15px]">
+      {isSeatCover && (
+        <div className="flex gap-1">
+          <p> </p>
+          <a
+            href={getUrlFromBreadcrumbs(0)}
+            className={`capitalize hover:underline `}
+          >
+            {/* Replacing hyphens with spaces (except for year_generation) */}
+            Seat Covers
+          </a>
+          <p>/</p>
+        </div>
+      )}
       {params &&
         paramKeys.map((key, generatedIndex) => {
           if (params[key] === 'premium-plus') {

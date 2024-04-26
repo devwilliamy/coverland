@@ -32,11 +32,11 @@ export default function PolicyHeader({
           />
         </div>
         <div className="absolute inset-0 flex items-center justify-center">
-          <p
+          <h1
             className={`leading-32 text-[32px] font-bold text-white ${raleway.className}`}
           >
             {headerText}
-          </p>
+          </h1>
         </div>
       </div>
       {showHeader && <PolicyTabs />}
