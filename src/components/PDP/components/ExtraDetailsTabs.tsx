@@ -1,59 +1,210 @@
-import { Separator } from '@/components/ui/separator';
-import { useState } from 'react';
+'use client';
+import { useEffect, useState } from 'react';
 import ReviewSection from './ReviewSection';
-import WarrantyPolicy from '@/app/(main)/policies/warranty-policy/page';
-import { PDPAccordion } from '../PDPAccordian';
-import ShippingPolicy from '@/app/(main)/policies/shipping-policy/page';
-import { usePathname } from 'next/navigation';
+import { QuestionsAccordion } from '../QuestionsAccordion';
+
+import InsightsTab from './InsightsTab';
+import SeatCoverDetails from '@/app/(main)/seat-covers/components/SeatCoverDetails';
+import useDetermineType from '@/hooks/useDetermineType';
+import VehicleCoverDetails from '@/app/(main)/[productType]/components/VehicleCoverDetails';
+import { useMediaQuery } from '@mantine/hooks';
+import { Separator } from '@/components/ui/separator';
+import ShippingPolicyContent from '@/components/policy/ShippingPolicyContent';
+import WarrantyPolicyContent from '@/components/policy/WarrantyPolicyContent';
+
+type TabsObj = {
+  title: string;
+  jsx?: React.JSX.Element;
+  top?: number | null;
+};
 
 export default function ExtraDetailsTabs() {
-  // const pathParams = useParams();
-  const pathname = usePathname();
-  const isSeatCovers = pathname === '/seat-covers';
+  const { isSeatCover } = useDetermineType();
 
-  const otherDetailsBar = [
-    // { title: 'Why Us?', jsx: <ReviewSection /> },
+  const isSmall = useMediaQuery('(max-width: 768px)');
+  const isMedium = useMediaQuery('(max-width: 1024px)');
 
-    { title: 'Shipping & Returns', jsx: <ShippingPolicy /> },
-    { title: 'Warranty', jsx: <WarrantyPolicy /> },
-    // { title: 'Specifications', jsx: <ReviewSection /> },
+  const calcOffset = () => {
+    switch (true) {
+      case isSeatCover:
+        return -45;
+      case isSmall:
+        return 70;
+      case isMedium:
+        return 200;
+      default:
+        return 195;
+    }
+  };
+
+
+  const queryOffset = calcOffset();
+  const [currentTabIndex, setCurrentTabIndex] = useState(0);
+  let scrollDirection: 'up' | 'down' = 'down';
+  const [defaultTabs, setDefaultTabs] = useState<TabsObj[]>([]);
+  let lastScrollY = 0;
+  const mainTabs = [
+    {
+      title: 'Shipping & Returns',
+    },
+    {
+      title: 'Warranty',
+    },
+    {
+      title: 'Insights',
+    },
   ];
 
-  if (!isSeatCovers) {
-    otherDetailsBar.splice(
+  if (!isSeatCover) {
+    mainTabs.splice(
       0,
-      2,
-      { title: 'Reviews', jsx: <ReviewSection /> },
-      { title: 'Q&A', jsx: <PDPAccordion /> }
+      0,
+      {
+        title: 'Details',
+      },
+      {
+        title: 'Reviews',
+      },
+      {
+        title: 'Q&A',
+      }
     );
   }
 
-  const [currentTabIndex, setCurrentTabIndex] = useState(0);
-  const [currentTabContent, setCurrentTabContent] = useState<
-    JSX.Element | JSX.Element[]
-  >(otherDetailsBar[0].jsx);
+  if (isSeatCover) {
+    mainTabs.splice(0, 0, {
+      title: 'Details',
+    });
+    mainTabs.splice(mainTabs.length - 1, 1);
+  }
+
+  const determineTabIndex = (currentTop: number, nextTop: number) => {
+    if (window) {
+      if (window.scrollY < lastScrollY) {
+        scrollDirection = 'up';
+      } else {
+        scrollDirection = 'down';
+      }
+      lastScrollY = window.scrollY;
+
+      if (
+        scrollDirection === 'down' &&
+        mainTabs[currentTabIndex + 1] &&
+        window.scrollY > Number(nextTop)
+      ) {
+        setCurrentTabIndex(currentTabIndex + 1);
+      } else if (
+        scrollDirection === 'up' &&
+        currentTabIndex > 0 &&
+        window.scrollY < Number(currentTop)
+      ) {
+        setCurrentTabIndex(currentTabIndex - 1);
+      }
+    }
+  };
+
+  useEffect(() => {
+    if (document) {
+      setDefaultTabs(mainTabs);
+      const tabsTopsObj: Record<string, number> = {
+        'Shipping & Returns':
+          (document.getElementById('Shipping & Returns')?.offsetTop as number) +
+          queryOffset,
+        Warranty:
+          (document.getElementById('Warranty')?.offsetTop as number) +
+          queryOffset,
+        Insights:
+          (document.getElementById('Insights')?.offsetTop as number) +
+          queryOffset,
+        Details:
+          (document.getElementById('Details')?.offsetTop as number) +
+          queryOffset,
+        Reviews:
+          (document.getElementById('Reviews')?.offsetTop as number) +
+          queryOffset,
+        'Q&A':
+          (document.getElementById('Q&A')?.offsetTop as number) + queryOffset,
+      };
+
+      const logScroll = () => {
+        const currentTitle = mainTabs[currentTabIndex].title;
+        const nextTitle = mainTabs[currentTabIndex + 1]
+          ? mainTabs[currentTabIndex + 1].title
+          : mainTabs[currentTabIndex].title;
+        const currentTop = tabsTopsObj[currentTitle];
+        const nextTop = tabsTopsObj[nextTitle];
+        determineTabIndex(currentTop, nextTop);
+      };
+      if (document) {
+        document.addEventListener('scroll', logScroll);
+      }
+      return () => {
+        if (document) {
+          document.removeEventListener('scroll', logScroll);
+        }
+      };
+    }
+  }, [document, currentTabIndex]);
+
+  const handleSelectTab = (title: string, index: number) => {
+    setCurrentTabIndex(index);
+    if (document) {
+      const el = document.getElementById(title);
+      const elTop = el?.offsetTop;
+      window.scrollTo({
+        top: (elTop as number) + queryOffset,
+        behavior: 'instant',
+      });
+    }
+  };
 
   return (
     <>
       <div
         id="Extra-Details-Tabs"
-        className="no-scrollbar  flex gap-[26px] overflow-x-auto  px-2 pb-4 lg:w-full lg:justify-evenly"
+        className="no-scrollbar sticky top-[-1px] z-[2] flex items-center justify-items-center overflow-x-auto bg-white lg:w-full "
       >
-        {otherDetailsBar.map(({ title, jsx }, index) => (
+        {defaultTabs.map(({ title, jsx }, index) => (
           <button
             key={`Extra-Details-Tab-${index}`}
-            onClick={() => {
-              setCurrentTabIndex(index);
-              setCurrentTabContent(jsx);
-            }}
-            className={`flex shrink-0 px-2 py-2 text-[16px] ${currentTabIndex === index ? 'border-b-2 border-b-black font-[700]' : 'font-[400]'}`}
+            onClick={() => handleSelectTab(title, index)}
+            className={` flex w-full items-center whitespace-nowrap px-2 py-2 text-[16px] text-[#767676] max-lg:min-w-max ${currentTabIndex === index ? 'border-b-2 border-b-[#BE1B1B] font-[700] text-[#BE1B1B]' : 'font-[400]'}`}
           >
-            {title}
+            <div className="flex w-full grow justify-center  px-2 py-1  ">
+              {title}
+            </div>
           </button>
         ))}
       </div>
-      <Separator className="-z-10 -mt-[18px] flex h-0.5 bg-[#BEBEBE]" />
-      <div className="p-4">{currentTabContent}</div>
+      <div>
+        <div id="Details">
+          {!isSeatCover ? <VehicleCoverDetails /> : <SeatCoverDetails />}
+        </div>
+        {!isSeatCover && (
+          <>
+            <Separator className="h-5 border-y-[1px] border-y-[#DADADA] bg-[#F1F1F1] lg:h-10" />
+            <div id="Reviews">
+              <ReviewSection showHeader={false} />
+            </div>
+            <div id="Q&A">
+              <QuestionsAccordion />
+            </div>
+          </>
+        )}
+        <div id="Shipping & Returns">
+          <ShippingPolicyContent showHeader={false} />
+        </div>
+
+        <div id="Warranty">
+          <WarrantyPolicyContent showHeader={false} />
+        </div>
+
+        {!isSeatCover && (
+          <div id="Insights">
+            <InsightsTab />
+          </div>
+        )}
+      </div>
     </>
   );
 }

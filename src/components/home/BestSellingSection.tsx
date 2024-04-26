@@ -1,9 +1,8 @@
-'use client';
 import React from 'react';
-import Challenger from '@/images/hero/best-selling-challenger.png';
-import ElCamino from '@/images/hero/best-selling-el-camino.png';
-import Miata from '@/images/hero/best-selling-miata.png';
-import Corvette from '@/images/hero/best-selling-corvette.png';
+import Challenger from '@/images/hero/best-selling-challenger.webp';
+import ElCamino from '@/images/hero/best-selling-el-camino.webp';
+import Miata from '@/images/hero/best-selling-miata.webp';
+import Corvette from '@/images/hero/best-selling-corvette.webp';
 import Image from 'next/image';
 
 const bestSelling = [
@@ -41,7 +40,14 @@ const BestSellingSection = () => {
             href={href}
             className="flex min-h-[209px] min-w-[209px] flex-[25%] flex-col items-center justify-between"
           >
-            <Image alt="Best-Selling-Car-Cover" className="" src={img} />
+            <Image
+              alt="Best-Selling-Car-Cover"
+              className=""
+              src={img}
+              width={250}
+              height={250}
+              loading="eager"
+            />
             <p className="mb-[18px] whitespace-nowrap text-[16px] font-[500] leading-[24px] lg:text-[22px]">
               {title}
             </p>

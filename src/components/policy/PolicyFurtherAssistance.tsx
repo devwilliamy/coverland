@@ -7,7 +7,7 @@ import { useMediaQuery } from '@mantine/hooks';
 export default function PolicyFurtherAssistance() {
   const isDesktop = useMediaQuery('(min-width: 1024px)');
   return (
-    <div className="bg-opacity-2 rounded-xl border-2 border-gray-300 py-8 lg:flex lg:flex-row lg:justify-evenly">
+    <div className="bg-opacity-2 w-full rounded-xl border-2 border-gray-300 py-8 lg:flex lg:flex-row lg:justify-evenly">
       <div className="px-5 text-center lg:flex lg:flex-col lg:justify-center lg:px-12 lg:text-left">
         <h3 className="text-2xl font-bold text-black lg:whitespace-nowrap lg:text-3xl">
           Need Further Assistance?

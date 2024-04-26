@@ -5,6 +5,7 @@ import PolicyTabs from './PolicyTabs';
 
 type PolicyHeaderProps = {
   headerText: string;
+  showHeader?: boolean | undefined;
 };
 
 const raleway = Raleway({
@@ -15,7 +16,10 @@ const raleway = Raleway({
   variable: '--font-raleway',
 });
 
-export default function PolicyHeader({ headerText }: PolicyHeaderProps) {
+export default function PolicyHeader({
+  headerText,
+  showHeader = true,
+}: PolicyHeaderProps) {
   return (
     <>
       <div className="relative">
@@ -28,14 +32,14 @@ export default function PolicyHeader({ headerText }: PolicyHeaderProps) {
           />
         </div>
         <div className="absolute inset-0 flex items-center justify-center">
-          <p
+          <h1
             className={`leading-32 text-[32px] font-bold text-white ${raleway.className}`}
           >
             {headerText}
-          </p>
+          </h1>
         </div>
       </div>
-      <PolicyTabs />
+      {showHeader && <PolicyTabs />}
     </>
   );
 }

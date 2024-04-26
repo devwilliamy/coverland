@@ -8,55 +8,136 @@ import {
   useState,
 } from 'react';
 import { TQuery } from './HeroDropdown';
-import { TProductJsonData } from '@/components/PDP/EditVehicleDropdown';
+import { getAllUniqueModelsByYearMake } from '@/lib/db';
+import { SubmodelDropdown } from './SubmodelDropdown';
+import HomeDropdown from './HomeDropdown';
+
+export type ModelDropdown = {
+  model: string | null;
+  model_slug: string | null;
+  parent_generation: string | null;
+  submodel1: string | null;
+  submodel2: string | null;
+  submodel3: string | null;
+};
 
 export function ModelSearch({
   queryObj,
-  dropdownData,
 }: {
   queryObj: {
     query: TQuery;
     setQuery: Dispatch<SetStateAction<TQuery>>;
   };
-  dropdownData: TProductJsonData[];
 }) {
   const [value, setValue] = useState('');
-  const { query, setQuery } = queryObj;
+  const [modelData, setModelData] = useState<ModelDropdown[]>([]);
+  const [modelDataStrings, setModelDataStrings] = useState<string[]>([]);
+  const [filteredModelData, setFilteredModelData] = useState<ModelDropdown[]>(
+    []
+  );
+  const [submodelData, setSubmodelData] = useState<ModelDropdown[]>([]);
+  const [submodelDataStrings, setSubmodelDataStrings] = useState<string[]>([]);
 
-  const { make } = query;
+  const {
+    query: { type, year, make, model },
+    setQuery,
+  } = queryObj;
 
   const handleChange = (event: ChangeEvent<HTMLSelectElement>) => {
     const newValue = event.target.value;
+    const parent_generation =
+      modelData.find((car) => car.model === newValue)?.parent_generation || '';
     setValue(newValue);
-    setQuery((p) => ({ ...p, model: newValue }));
+    setQuery((p) => ({
+      ...p,
+      model: newValue,
+      parent_generation,
+      submodel1: '',
+      submodel2: '',
+    }));
   };
 
   useEffect(() => {
-    !make && setValue('');
-  }, [make]);
+    if (model) {
+      const parent_generation =
+        modelData.find((car) => car.model === model)?.parent_generation || '';
+      setQuery((p) => ({
+        ...p,
+        parent_generation,
+      }));
+      // fetchData();
+    }
+  }, [model, modelData, setQuery]);
 
-  const isDisabled = !query.type || !query.make;
-  const models = Array.from(new Set(dropdownData.map((d) => d.model)));
+  useEffect(() => {
+    setValue('');
+  }, [type, year, make]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const cover = type === 'Seat Covers' ? 'Leather' : 'Premium Plus'; // TODO: - Extract cover from query obj or something
+        const response = await getAllUniqueModelsByYearMake({
+          type,
+          cover,
+          year,
+          make,
+        });
+        const uniqueModel = response.filter(
+          (car, index, self) =>
+            index === self.findIndex((t) => t.model_slug === car.model_slug)
+        );
+        setModelData(response);
+        setModelDataStrings(uniqueModel.map(({ model }) => model) as string[]);
+        setFilteredModelData(uniqueModel);
+      } catch (error) {
+        console.error('[Model Search]: ', error);
+      }
+    };
+    if (type && year && make) {
+      fetchData();
+    }
+  }, [type, year, make]);
+
+  useEffect(() => {
+    // Check for submodel
+    const submodel = modelData.filter(
+      (vehicle) => vehicle.model === model && vehicle.submodel1 !== null
+    );
+
+    // setSubmodelDataStrings(() => {
+    //   const modelStrings = uniqueModel.map(({ model }) => model);
+    //   return modelStrings as string[];
+    // });
+
+    setSubmodelData(submodel);
+  }, [model]);
+
+  const isDisabled = !type || !year || !make;
+  const showSubmodelDropdown = submodelData.length > 0;
+  const prevSelected =
+    queryObj &&
+    Boolean(
+      queryObj.query.type &&
+        queryObj.query.year &&
+        queryObj.query.make &&
+        queryObj.query.model === ''
+    );
 
   return (
-    <div
-      className={`flex max-h-[44px] min-h-[44px] w-full items-center rounded-[4px] outline outline-1 outline-offset-1 outline-[#767676] md:max-h-[58px] ${isDisabled ? 'bg-gray-100/75' : 'bg-white'} px-2 text-lg lg:w-auto`}
-      tabIndex={1}
-    >
-      <div className="ml-[10px] pr-[15px]">3</div>
-      <select
-        value={value}
-        onChange={handleChange}
-        disabled={isDisabled}
-        className=" w-full bg-transparent outline-none"
-      >
-        <option value="">{`${value ? 'Clear' : 'Model'}`}</option>
-        {models?.sort()?.map((model) => (
-          <option key={`model-${model}`} value={model}>
-            {model}
-          </option>
-        ))}
-      </select>
-    </div>
+    <>
+      <HomeDropdown
+        place={4}
+        title={'model'}
+        queryObj={queryObj}
+        isDisabled={isDisabled}
+        value={model}
+        prevSelected={!isDisabled}
+        items={modelDataStrings}
+      />
+      {showSubmodelDropdown && (
+        <SubmodelDropdown queryObj={queryObj} submodelData={submodelData} />
+      )}
+    </>
   );
 }

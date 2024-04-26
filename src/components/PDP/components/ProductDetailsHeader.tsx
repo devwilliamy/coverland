@@ -1,62 +1,39 @@
-import Image from 'next/image';
-import MobileHalfCover from '@/images/PDP/product-content-half-cover.webp';
-import DesktopHalfCover from '@/images/PDP/Product-Details-Redesign-2/dekstop-half-cover.webp';
 import {
   GrayCarIcon,
   GraySunIcon,
   GrayWaterIcon,
-} from '@/components/PDP/components/icons';
-import { useParams } from 'next/navigation';
-
+} from '@/components/PDP/icons';
+import ProtectHeaderText from './ProtectHeaderText';
+// import ProductDetailsMedia from './ProductDetailsMedia';
+import dynamic from 'next/dynamic';
+import DetailsTabHeader from '@/app/(main)/[productType]/components/DetailsTabHeader';
+import useDetermineType from '@/hooks/useDetermineType';
+const ProductDetailsMedia = dynamic(() => import('./ProductDetailsMedia'));
 export default function ProductDetailsHeader() {
-  const params = useParams<{
-    make?: string;
-    model?: string;
-    year?: string;
-    productType?: string;
-  }>();
-  if (!params) return null;
-  const { make, model } = params;
-  let productType = params?.productType;
-  if (productType === 'truck-covers') {
-    productType = 'Truck';
-  } else if (productType === 'suv-covers') {
-    productType = productType.toUpperCase();
-    productType = productType?.slice(0, 3);
-  } else {
-    productType = productType?.slice(0, 3);
-  }
-
   const threeIcons = [
     { title: 'Waterproof', icon: <GrayWaterIcon /> },
     { title: 'Paint Protection', icon: <GraySunIcon /> },
     { title: 'Custom Fit', icon: <GrayCarIcon /> },
   ];
+  const { make, model } = useDetermineType();
 
-  const protectText = model ?? make ?? productType;
   return (
-    <section className="relative -mx-4 mb-[60px] flex flex-col items-center lg:mb-[110px]  ">
-      <div className="flex py-7 text-center lg:py-[38px]">
-        <p className="w-full text-[26px] font-[500] leading-[26px] text-white lg:p-[6px] lg:pt-[28px] lg:text-[45px]  lg:leading-[32px]">
-          Protect your <span className={`capitalize`}>{protectText}</span> now
+    <section className="relative -mx-4 mb-[40px] flex flex-col items-center lg:mb-[110px] lg:pt-[60px]  ">
+      {make === 'ford' && model === 'f-150' && (
+        <div className="hidden w-full  lg:flex">
+          <DetailsTabHeader />
+        </div>
+      )}
+      <div className="flex flex-col pb-7 text-center max-lg:pt-10 lg:pb-[38px]">
+        <p className="text-[16px] capitalize leading-[26px] text-[#B23B4E] lg:text-[26px]">
+          Elevate Style, Keep it new
         </p>
+        <ProtectHeaderText />
       </div>
       <div className="flex w-screen items-center justify-center lg:w-full ">
-        <Image
-          alt="product-content-half-cover"
-          src={MobileHalfCover}
-          // fill
-          // height={700}
-          className="flex w-[1320px] lg:hidden "
-        />
-        <Image
-          alt="product-content-half-cover-desktop"
-          src={DesktopHalfCover}
-          // fill
-          height={472}
-          width={840}
-          className="hidden lg:block"
-        />
+        <div className="flex w-full max-w-[840px]">
+          <ProductDetailsMedia />
+        </div>
       </div>
 
       <div className="mt-[30px] grid grid-cols-3 items-center justify-center lg:gap-[120px]">

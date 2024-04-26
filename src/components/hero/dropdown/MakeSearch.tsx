@@ -2,11 +2,11 @@
 
 import { ChangeEvent, useEffect, useState } from 'react';
 import { TQuery } from './HeroDropdown';
-import {
-  CAR_COVER_MAKES,
-  SUV_COVER_MAKES,
-  TRUCK_COVER_MAKES,
-} from '@/lib/constants';
+import { getAllUniqueMakesByYear, getProductDataByPage } from '@/lib/db';
+import { AiOutlineLoading3Quarters } from 'react-icons/ai';
+import HomeDropdown from './HomeDropdown';
+
+export type MakeDropdown = { make: string | null; make_slug: string | null };
 
 export function MakeSearch({
   queryObj,
@@ -17,47 +17,112 @@ export function MakeSearch({
   };
 }) {
   const [value, setValue] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
   const {
     setQuery,
-    query: { type },
+    query: { type, year, make },
   } = queryObj;
-  const makeData =
-    type === 'Car Covers'
-      ? CAR_COVER_MAKES
-      : type === 'SUV Covers'
-        ? SUV_COVER_MAKES
-        : TRUCK_COVER_MAKES;
-  const sortedData = makeData.sort((a, b) => a.localeCompare(b));
+  const [makeData, setMakeData] = useState<MakeDropdown[]>([]);
+  const [makeDataStrings, setMakeDataStrings] = useState<string[]>([]);
+  const isDisabled = !type || !year;
+  const prevSelected = Boolean(
+    queryObj &&
+      queryObj.query.type &&
+      queryObj.query.year &&
+      queryObj.query.make === ''
+  );
+  // console.log(prevSelected);
 
   useEffect(() => {
-    !type && setValue('');
-  }, [type]);
+    // Doing this to warm up the DB
+    const fetchData = async () => {
+      try {
+        await getProductDataByPage();
+      } catch (error) {
+        console.error('Error:', error);
+      }
+    };
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    setValue('');
+  }, [type, year]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const cover = type === 'Seat Covers' ? 'Leather' : 'Premium Plus' // TODO: - Extract cover from query obj or something
+        setIsLoading(true);
+        const response = await getAllUniqueMakesByYear({
+          type,
+          cover, // TOOD: - Update this to make it work for premium as well.
+          year,
+        });
+        setMakeData(response);
+        const uniqueStrings = Array.from(new Set(response.map(({ make }) => make)))
+        setMakeDataStrings(uniqueStrings as string[]);
+      } catch (error) {
+        console.error('[Make Search]: ', error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    if (type && year) {
+      fetchData();
+    }
+  }, [queryObj]);
 
   const handleChange = (event: ChangeEvent<HTMLSelectElement>) => {
     const newValue = event.target.value;
     setValue(newValue);
-    setQuery((p) => ({ ...p, make: newValue }));
+    setQuery((p) => ({
+      ...p,
+      make: newValue,
+      model: '',
+      submodel1: '',
+      submodel2: '',
+    }));
   };
 
   return (
-    <div
-      className={`flex max-h-[44px] min-h-[44px] w-full items-center rounded-[4px] outline-[#767676] md:max-h-[58px] ${!type ? 'bg-gray-100/75' : 'bg-white'} px-2 text-lg outline outline-1 outline-offset-1 lg:w-auto`}
-      tabIndex={1}
-    >
-      <div className="ml-[10px] pr-[15px]">2</div>
-      <select
-        value={value}
-        onChange={handleChange}
-        disabled={!type}
-        className="w-full bg-transparent outline-none "
-      >
-        <option value="">{`${value ? 'Clear' : 'Make'}`}</option>
-        {sortedData.map((make) => (
-          <option key={make} value={make}>
-            {make}
-          </option>
-        ))}
-      </select>
-    </div>
+    // <div
+    //   className={`flex max-h-[53px] min-h-[53px] px-2 ${prevSelected ? ' w-full border-[5px] border-[#BE1B1B]' : 'w-[98%] border-[1px] border-[#767676] outline-[4px] outline-transparent'} items-center overflow-hidden rounded-[8px] bg-white  text-lg  md:max-h-[58px] lg:w-auto`}
+    // >
+    //   <div
+    //     className={`flex h-full w-full ${prevSelected && 'border-[2.5px]  border-white'} items-center overflow-hidden rounded-[4px] bg-white  text-lg  md:max-h-[58px] lg:w-auto`}
+    //     // tabIndex={1}
+    //   >
+    //     <div className="ml-[10px] pr-[15px]">3</div>
+    //     {isLoading ? (
+    //       <div className="pl-2">
+    //         <AiOutlineLoading3Quarters className="animate-spin " />
+    //       </div>
+    //     ) : (
+    //       <select
+    //         value={value}
+    //         onChange={handleChange}
+    //         disabled={isLoading || isDisabled}
+    //         className={`w-full cursor-pointer bg-transparent  py-1 outline-none lg:py-3`}
+    //       >
+    //         <option value="">{`Make`}</option>
+    //         {makeData.map(({ make }, index) => (
+    //           <option key={`${make}-${index}`} value={make || ''}>
+    //             {make}
+    //           </option>
+    //         ))}
+    //       </select>
+    //     )}
+    //   </div>
+    // </div>
+    <HomeDropdown
+      place={3}
+      title={'make'}
+      queryObj={queryObj}
+      isDisabled={isDisabled}
+      value={make}
+      prevSelected={prevSelected}
+      items={makeDataStrings}
+    />
   );
 }

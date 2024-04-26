@@ -68,4 +68,36 @@
     -ms-overflow-style: none; /* IE and Edge */
     scrollbar-width: none; /* Firefox */
   }
+
+  .home-scrollbar::-webkit-scrollbar {
+    width: 15px;
+  }
+  .home-scrollbar::-webkit-scrollbar-button {
+    max-height: 8px;
+    background: #be1b1b2a;
+  }
+
+  .home-scrollbar::-webkit-scrollbar-thumb {
+    background: #be1b1b94;
+  }
+
+  @supports (scrollbar-color: auto) {
+    .home-scrollbar {
+      scrollbar-color: #be1b1b94 #be1b1b2a;
+    }
+  }
+}
+@keyframes blink {
+  0% {
+    opacity: 0;
+  }
+  20% {
+    opacity: 1;
+  }
+  98% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
 }

@@ -1,9 +1,9 @@
-import { CarSelectionContext } from '@/app/(main)/[productType]/components/CarPDP';
+import { CarSelectionContext } from '../contexts/CarSelectionContext';
 import {
   IProductData,
   TPathParams,
   getCompleteSelectionData,
-} from '@/app/(main)/utils';
+} from '@/utils';
 import { TCartItem } from '@/lib/cart/useCart';
 import { deslugify } from '@/lib/utils';
 import { useCartContext } from '@/providers/CartProvider';
@@ -86,7 +86,9 @@ const mapCartItemsToGTagItems = (cartItems: TCartItem[]) => {
       cartItem.display_id as string,
       cartItem.make as string
     );
-    const productName = `${cartItem.fullProductName} ${cleanedDisplayId} ${cartItem.type}`;
+    const fullProductName =
+      `${cartItem.year_generation ?? ''} ${cartItem.make ?? ''} ${cartItem.model ?? ''} ${cartItem.submodel1 ?? ''} ${cartItem.submodel2 ?? ''}`.trim();
+    const productName = `${fullProductName} ${cleanedDisplayId} ${cartItem.type}`;
     // const price = parseFloat(cartItem?.price || '0') || 0;
     const msrp = parseFloat(cartItem?.msrp || '0') || 0;
     // const discount: number = price - msrp;
@@ -208,7 +210,9 @@ export const handleAddToCartGoogleTag = (
     cartProduct.display_id as string,
     cartProduct.make as string
   );
-  const productName = `${cartProduct.fullProductName} ${cleanedDisplayId} ${cartProduct.type}`;
+  const fullProductName =
+    `${cartProduct.year_generation ?? ''} ${cartProduct.make ?? ''} ${cartProduct.model ?? ''} ${cartProduct.submodel1 ?? ''} ${cartProduct.submodel2 ?? ''}`.trim();
+  const productName = `${fullProductName} ${cleanedDisplayId} ${cartProduct.type}`;
   window?.dataLayer?.push({ ecommerce: null }); // Clear the previous ecommerce object.
   window?.dataLayer?.push({
     event: 'add_to_cart',
@@ -224,11 +228,15 @@ export const handleAddToCartGoogleTag = (
           discount: undefined, // Removed temporarily because we transfer the promotional price or something
           index: 0,
           item_brand: 'Coverland',
-          item_category: deslugify(params?.productType || ''),
-          item_category2: deslugify(params?.coverType || ''),
-          item_category3: deslugify(params?.make || ''),
-          item_category4: deslugify(params?.model || ''),
-          item_category5: params?.year,
+          item_category: deslugify(
+            params?.productType || cartProduct.product_type || ''
+          ),
+          item_category2: deslugify(
+            params?.coverType || cartProduct.display_id || ''
+          ),
+          item_category3: deslugify(params?.make || cartProduct.make || ''),
+          item_category4: deslugify(params?.model || cartProduct.model || ''),
+          item_category5: params?.year || cartProduct.parent_generation || '',
           item_category6: deslugify(cartProduct?.submodel1 || ''),
           item_category7: deslugify(cartProduct?.submodel2 || ''),
           item_category8: deslugify(cartProduct?.submodel3 || ''),

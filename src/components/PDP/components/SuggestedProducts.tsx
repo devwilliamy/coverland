@@ -1,9 +1,11 @@
+'use client';
 import Image from 'next/image';
 import { useParams } from 'next/navigation';
 import { PRODUCT_PRICING_DATA } from '@/lib/constants';
-import Link from 'next/link';
+import { useMediaQuery } from '@mantine/hooks';
 
 export default function SuggestedProducts() {
+  const isMobile = useMediaQuery('(max-width: 1024px)');
   const params = useParams<{
     productType: 'car-covers' | 'suv-covers' | 'truck-covers';
     coverType?: 'premium' | 'premium-plus' | 'standard' | 'standard-pro';
@@ -24,7 +26,7 @@ export default function SuggestedProducts() {
       id="you-may-also-like-section"
       className="mt-[60px] px-4 pb-[20px] lg:mt-[110px] lg:px-[40px]"
     >
-      <h3 className="font-[900] uppercase lg:text-[32px] lg:font-[900]">
+      <h3 className="pb-3 text-[16px] font-[900] uppercase leading-[18px] lg:pb-8 lg:text-[32px] lg:font-[900]">
         you may also like
       </h3>
       <span className=" no-scrollbar flex gap-2 overflow-x-auto pb-[30px]">
@@ -33,8 +35,8 @@ export default function SuggestedProducts() {
             <a href={`/${productType}/${model.type.slug}`}>
               <Image
                 alt="suggested-product"
-                width={200}
-                height={200}
+                width={isMobile ? 200 : 316}
+                height={isMobile ? 200 : 316}
                 src={model.image}
               />
               <p className="pt-3 text-[16px] font-[600] leading-[16px]">

@@ -1,7 +1,9 @@
+'use client';
 import React, { LegacyRef } from 'react';
 import ProductVideo from '@/components/PDP/ProductVideo';
-// import ThreeSixtyVideo from '@/videos/360 degree_website.mp4';
-import ThreeSixtyVideo from 'https://x2kly621zrgfgwll.public.blob.vercel-storage.com/videos/360%20degree_mobile-4asLajZOfJp9h3V3q1XkSHFETp6T8h.mp4';
+import SUV360 from '@/videos/360 degree_website.mp4';
+import Car360 from '@/videos/Mustang 360 degree 16;9_Black Background.mp4';
+import Truck360 from '@/videos/Truck 360 Degree.mp4';
 import CarPremiumImage from '@/images/PDP/Product-Details-Redesign-2/premium/premium-car-cover-desktop.webp';
 import CarStandardImage from '@/images/PDP/Product-Details-Redesign-2/standard/standard-pro-car-cover-desktop.webp';
 import TruckPremiumImage from '@/images/PDP/Product-Details-Redesign-2/premium/premium-truck-desktop.webp';
@@ -9,15 +11,30 @@ import TruckStandardImage from '@/images/PDP/Product-Details-Redesign-2/standard
 import SUVPremiumImage from '@/images/PDP/Product-Details-Redesign-2/premium/premium-suv-desktop.webp';
 import SUVStandardImage from '@/images/PDP/Product-Details-Redesign-2/standard/standard-suv-desktop.webp';
 import { useParams } from 'next/navigation';
+import Corvette360 from '@/videos/Corvette 360 Video.mp4';
+import Challenger360 from '@/videos/Challenger 360 Video.mp4';
+
 import Image from 'next/image';
+import { Asset } from 'next-video/dist/assets.js';
+import useDetermineType from '@/hooks/useDetermineType';
 
 const CustomFitSection = () => {
-  const params = useParams();
-  const productType = params?.productType;
-  const coverType = params?.coverType;
-  const isPremimPlus = params?.coverType === 'premium-plus';
+  const { productType, coverType, isPremiumPlus, model } = useDetermineType();
+
   let PremiumImage = CarPremiumImage;
   let StandardImage = CarStandardImage;
+  let baseFeaturedVideo: Asset;
+  switch (productType) {
+    case 'suv-covers':
+      baseFeaturedVideo = SUV360;
+      break;
+    case 'truck-covers':
+      baseFeaturedVideo = Truck360;
+      break;
+    default:
+      baseFeaturedVideo = Car360;
+      break;
+  }
 
   switch (productType) {
     case 'truck-covers':
@@ -29,6 +46,10 @@ const CustomFitSection = () => {
       StandardImage = SUVStandardImage;
       break;
   }
+  const isCorvette = model === 'corvette';
+  const isChallenger = model === 'challenger';
+  const ChallengerOrDefault = isChallenger ? Challenger360 : baseFeaturedVideo;
+  const featured360 = isCorvette ? Corvette360 : ChallengerOrDefault;
 
   const imageChoice = () => {
     switch (coverType) {
@@ -41,10 +62,11 @@ const CustomFitSection = () => {
       default:
         return (
           <ProductVideo
-            src={ThreeSixtyVideo}
+            src={!isCorvette && !isChallenger ? baseFeaturedVideo : featured360}
             autoplay
             loop
             aspectRatio="16 / 9"
+            controls={false}
           />
         );
     }
@@ -58,7 +80,7 @@ const CustomFitSection = () => {
           Custom-Fit
         </p>
         <p className="w-full  text-center text-[22px] leading-[26px] text-[#ABABAB] lg:text-[34px]">
-          {isPremimPlus || coverType === undefined
+          {isPremiumPlus || coverType === undefined
             ? 'Experience the perfect fit we offer'
             : 'Experience the semi-custom fit'}
         </p>

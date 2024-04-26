@@ -1,53 +1,82 @@
 'use client';
-
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent, useEffect, useState } from 'react';
 import { TQuery } from './HeroDropdown';
-import { TProductJsonData } from '@/components/PDP/EditVehicleDropdown';
+import HomeDropdown from './HomeDropdown';
 
 export function YearSearch({
   queryObj,
-  dropdownData,
 }: {
   queryObj: {
     query: TQuery;
     setQuery: React.Dispatch<React.SetStateAction<TQuery>>;
   };
-  dropdownData: TProductJsonData[];
 }) {
   const [value, setValue] = useState('');
-  const { type, make, model } = queryObj.query;
-  const isDisabled = !type || !make || !model;
+  const { type, year } = queryObj.query;
+  const isDisabled = !type;
   const { setQuery } = queryObj;
+
+  useEffect(() => {
+    setValue('');
+  }, [type]);
 
   const handleChange = (event: ChangeEvent<HTMLSelectElement>) => {
     const newValue = event.target.value;
     setValue(newValue);
-    setQuery((p) => ({ ...p, year: newValue }));
+    setQuery((p) => ({
+      ...p,
+      year: newValue,
+      parent_generation: '',
+      make: '',
+      model: '',
+      submodel1: '',
+      submodel2: '',
+    }));
   };
 
+  const startYear = type === 'Seat Covers' ? 1949 : 1921;
+  const endYear = 2025;
   const years = Array.from(
-    new Set(dropdownData.flatMap((d) => d.year_options.split(',')))
-  ).sort((a, b) => parseInt(b) - parseInt(a));
+    { length: endYear - startYear + 1 },
+    (_, i) => endYear - i
+  );
+  const prevSelected =
+    queryObj && queryObj.query.year === '' && queryObj.query.type !== '';
 
   return (
-    <button
-      className={`flex max-h-[44px] min-h-[44px] w-full items-center rounded-[4px] outline-[#767676] md:max-h-[58px]  ${isDisabled ? 'bg-gray-100/75' : 'bg-white'} px-2 text-lg outline outline-1 outline-offset-1 lg:w-auto`}
-      tabIndex={1}
-    >
-      <div className="ml-[10px] pr-[15px]">4</div>
-      <select
-        value={value}
-        onChange={(event) => handleChange(event)}
-        disabled={isDisabled}
-        className="w-full bg-transparent outline-none"
-      >
-        <option value="">{`${value ? 'Clear' : 'Year'}`}</option>
-        {years.map((year) => (
-          <option key={`year-${year}`} value={year.toString()}>
-            {year}
-          </option>
-        ))}
-      </select>
-    </button>
+    <HomeDropdown
+      place={2}
+      title={'year'}
+      queryObj={queryObj}
+      value={year}
+      isDisabled={isDisabled}
+      prevSelected={prevSelected}
+      items={years}
+    />
   );
+}
+{
+  /* <div
+  className={`flex max-h-[53px] min-h-[53px] px-2 ${prevSelected ? ' w-full border-[5px] border-[#BE1B1B]' : 'w-[98%] border-[1px] border-[#767676] outline-[4px] outline-transparent'} items-center overflow-hidden rounded-[8px] bg-white  text-lg  md:max-h-[58px] lg:w-auto`}
+>
+  <div
+    className={`flex h-full w-full ${prevSelected && 'border-[2.5px]  border-white'} items-center overflow-hidden rounded-[4px] bg-white  text-lg  md:max-h-[58px] lg:w-auto`}
+    tabIndex={1}
+  >
+    <div className="ml-[10px] pr-[15px]">2</div>
+    <select
+      value={value}
+      onChange={(event) => handleChange(event)}
+      disabled={isDisabled}
+      className={`w-full cursor-pointer  bg-transparent py-1 outline-none lg:py-3`}
+    >
+      <option value="">Year</option>
+      {years.map((year) => (
+        <option key={`year-${year}`} value={year.toString()}>
+          {year}
+        </option>
+      ))}
+    </select>
+  </div>
+</div>; */
 }

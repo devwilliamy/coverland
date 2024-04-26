@@ -3,7 +3,7 @@ import path from 'path';
 import { slugify } from '@/lib/utils';
 
 const productTypes = ['car-covers', 'suv-covers', 'truck-covers'];
-const coverTypes = ['premium-plus', 'premium', 'standard-pro', 'standard'];
+const coverTypes = ['premium-plus'];
 
 export const readJsonFilesAndGenerateUrls = (
   productType: string,

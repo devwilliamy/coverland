@@ -1,5 +1,5 @@
 import { TReviewData, getAllMakes, getProductData } from '@/lib/db';
-import { redirect } from 'next/navigation';
+import { notFound, redirect } from 'next/navigation';
 import CarPDP from '@/app/(main)/[productType]/components/CarPDP';
 import {
   TProductReviewSummary,
@@ -7,8 +7,9 @@ import {
   getProductReviewSummary,
   getProductReviewsByPage,
 } from '@/lib/db/review';
-import { TPathParams } from '@/app/(main)/utils';
+import { TPathParams } from '@/utils';
 import { deslugify } from '@/lib/utils';
+import { PREMIUM_PLUS_URL_PARAM } from '@/lib/constants';
 
 export type TCarCoverSlugParams = {
   make: string;
@@ -35,11 +36,17 @@ export async function generateStaticParams({
 }
 
 export async function generateMetadata({ params }: { params: TPathParams }) {
-  const productType = deslugify(params.productType);
+  const productType = deslugify(params.productType).slice(
+    0,
+    params.productType.length - 1
+  );
   const make = deslugify(params.make || '');
   return {
-    title: `${make} ${productType}, Custom Fit - Coverland`,
+    title: `${make} ${productType} │ Lifetime Warranty │ Custom Fit │ 100% Weatherproof`,
     description: `${make} ${productType} ᐉ Coverland ⭐ Free, Same-Day Shipping ✔️ Free Returns & Purchase Protection ✔️ Made from premium quality, heavy-duty materials with a soft inner fabric.`,
+    alternates: {
+      canonical: `/${params.productType}/${PREMIUM_PLUS_URL_PARAM}/${params.make}`,
+    },
   };
 }
 
@@ -93,12 +100,12 @@ export default async function CarPDPDataLayer({
       ]);
     // filterDuplicateReviewImages({ reviewData, reviewImages });
 
-    if (!modelData) {
-      redirect('/404');
+    if (!modelData || modelData.length === 0) {
+      notFound();
     }
   } catch (error) {
     console.error('Error fetching data:', error);
-    redirect('/404');
+    notFound();
   }
   return (
     <>

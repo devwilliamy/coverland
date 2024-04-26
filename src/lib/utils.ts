@@ -152,3 +152,90 @@ export const generateProductsLeft = (
 //     .flatMap((model) => model.feature)
 //     .filter(Boolean) as string[];
 // }
+
+export type CoverType =
+  | 'premium-plus'
+  | 'premium'
+  | 'standard-pro'
+  | 'standard';
+export type ProductType = 'car-covers' | 'suv-covers' | 'truck-covers';
+
+export type CoverOption = { coverType: CoverType };
+export type ProductOption = { productType: ProductType };
+
+export const coverOptions: CoverOption[] = [
+  { coverType: 'premium-plus' },
+  { coverType: 'premium' },
+  { coverType: 'standard-pro' },
+  { coverType: 'standard' },
+];
+
+export const productOptions: ProductOption[] = [
+  { productType: 'car-covers' },
+  { productType: 'suv-covers' },
+  { productType: 'truck-covers' },
+];
+
+export function combineOptions(
+  coverOptions: CoverOption[],
+  productOptions: ProductOption[]
+): { coverType: CoverType; productType: ProductType }[] {
+  const combinedOptions: { coverType: CoverType; productType: ProductType }[] =
+    [];
+
+  coverOptions.forEach((coverOption) => {
+    productOptions.forEach((productOption) => {
+      combinedOptions.push({ ...productOption, ...coverOption });
+    });
+  });
+
+  return combinedOptions;
+}
+
+// Example SKU: CL-SC-10-F-11-BK-1TO-1136
+// Example SKU: CL-SC-10-FB-100-GR-1TO-3044
+export function detectFOrFB(sku: string) {
+  const parts = sku.split('-');
+  if (parts[1] === 'SC') {
+    if (parts[3] === 'F') {
+      return 'Front';
+    } else if (parts[3] === 'FB') {
+      return 'Full';
+    }
+  }
+  return 'Unknown';
+}
+
+
+export const determineTypeString = (type: string) => {
+  const typeOptions = ['Car Covers', 'SUV Covers', 'Truck Covers'];
+  return type === 'car-covers'
+    ? typeOptions[0]
+    : type === 'suv-covers'
+      ? typeOptions[1]
+      : type === 'truck-covers'
+        ? typeOptions[2]
+        : type;
+};
+
+export const determineCoverType = (type: string) => {
+  let coverType;
+  switch (type) {
+    case 'premium-plus':
+      coverType = 'Premium Plus';
+      break;
+    case 'premium':
+      coverType = 'Premium';
+      break;
+    case 'standard':
+      coverType = 'Standard';
+      break;
+    case 'standard-pro':
+      coverType = 'Standard Pro';
+      break;
+    default:
+      coverType = 'Premium Plus';
+      break;
+  }
+  return coverType;
+};

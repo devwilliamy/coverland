@@ -1,30 +1,18 @@
-'use client';
-
-import { useMediaQuery } from '@mantine/hooks';
 import { HeroDropdown } from './dropdown/HeroDropdown';
-import hero from '@/images/hero/hero.webp';
-import heroMobile from '@/images/hero/hero_mobile.webp';
-import Image from 'next/image';
-
+import HeroImage from './HeroImage';
 const HeroSection = () => {
-  const isMobile = useMediaQuery('(max-width: 500px)');
   return (
-    <section className="flex h-full flex-col items-center justify-end px-4 lg:justify-start lg:px-0">
-      <div className="relative flex h-full min-h-[550px] w-full flex-col justify-end ">
-        <Image
-          className="absolute"
-          src={isMobile ? heroMobile.src : hero.src}
-          alt="hero"
-          fill
-        />
-        <div className="relative flex h-full flex-col   pb-2 text-center">
-          <p className="text-xs uppercase tracking-wider text-white lg:my-2 lg:text-2xl">
+    <section className="flex h-full  min-w-[343px] flex-col items-center px-4   lg:justify-center lg:px-0">
+      <div className="relative w-full  flex-col  ">
+        <HeroImage />
+        <div className="absolute bottom-0 w-full flex-col justify-center pb-2 text-center">
+          <h1 className="mb-1 text-[14px] font-[500] uppercase leading-[16px] tracking-wider text-white lg:my-2 lg:text-[28px] lg:font-[500] lg:leading-[39px]">
             #1 Rated Car Cover in the USA
-          </p>
-          <p className="text-[22px] font-black uppercase tracking-wide text-white lg:my-2 lg:text-6xl">
+          </h1>
+          <p className="text-[22px] font-black uppercase leading-[22px] tracking-wide text-white lg:my-2 lg:text-[55px] lg:leading-[55px]">
             Select your Vehicle
           </p>
-          <div id="desktop-filter" className="my-4">
+          <div id="desktop-filter" className="z-[2] my-4 px-4">
             <HeroDropdown />
           </div>
         </div>

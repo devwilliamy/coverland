@@ -13,17 +13,12 @@ import { TypeSearch } from '../hero/dropdown/TypeSearch';
 import { MakeSearch } from '../hero/dropdown/MakeSearch';
 import { ModelSearch } from '../hero/dropdown/ModelSearch';
 import { YearSearch } from '../hero/dropdown/YearSearch';
-import { SubmodelDropdown } from '../hero/dropdown/SubmodelDropdown';
 import { slugify } from '@/lib/utils';
-import { BASE_URL } from '@/lib/constants';
-
-export type TQuery = {
-  year: string;
-  type: string;
-  make: string;
-  model: string;
-  submodel: string;
-};
+import { TQuery } from '../hero/dropdown/HeroDropdown';
+import { useStore } from 'zustand';
+import useStoreContext from '@/hooks/useStoreContext';
+import { getSeatCoverProductData } from '@/lib/db/seat-covers';
+import { TQueryParams } from '@/utils';
 
 export type TProductJsonData = {
   type: string;
@@ -40,40 +35,66 @@ export default function EditVehicleDropdown({
   searchParams,
 }: {
   setOpen?: Dispatch<SetStateAction<boolean>>;
-  searchParams: { submodel?: string; second_submodel?: string } | undefined;
+  searchParams: TQueryParams;
 }) {
   const pathname = usePathname();
+  const store = useStoreContext();
+  // const store = useContext(CarSelectionContext);
+  if (!store) throw new Error('Missing Provider in the tree');
+
+  const { coverType } = useStore(store, (s) => s.query);
 
   const [query, setQuery] = useState<TQuery>({
     year: '',
+    parent_generation: '',
     type: '',
     make: '',
     model: '',
-    submodel: '',
+    submodel1: '',
+    submodel2: '',
   });
   const [loading, setLoading] = useState(false);
   const [jsonData, setJsonData] = useState<TProductJsonData[]>([]);
   const router = useRouter();
-  const { year, type, make, model, submodel } = query;
+  const { year, type, make, model, submodel1, submodel2 } = query;
   useEffect(() => {
     const getSearchData = async () => {
-      if (!make) return;
+      try {
+        setLoading(true);
+        if (!make) return;
 
-      const response = await fetch(
-        `/api/json-data?type=${slugify(type)}&make=${slugify(make)}`
-      );
-      const jsonData = await response.json();
+        if (type !== 'Seat Covers') {
+          const response = await fetch(
+            `/api/json-data?type=${slugify(type)}&make=${slugify(make)}`
+          );
+          const jsonData = await response.json();
 
-      setJsonData(jsonData);
+          setJsonData(jsonData);
+          return;
+        }
+
+        const response = await getSeatCoverProductData({
+          type,
+          cover: 'Leather',
+          make: slugify(make),
+        });
+        setJsonData(response);
+      } catch (error) {
+        console.error('[EditVehicleDropdown.getSearchData]: ', error);
+      } finally {
+        setLoading(false);
+      }
     };
-    getSearchData();
+    if (type && make) {
+      getSearchData();
+    }
   }, [make, type]);
 
   const dropdownData = jsonData.filter(
     (obj) =>
       (!year ? true : obj.year_options.includes(year)) &&
       (!model ? true : obj.model === model) &&
-      (!submodel ? true : obj.submodel1 === submodel)
+      (!submodel1 ? true : obj.submodel1 === submodel1)
   );
 
   const closePopover = useCallback(() => {
@@ -94,7 +115,6 @@ export default function EditVehicleDropdown({
   ];
 
   const yearInUrl = dropdownData?.[0]?.parent_generation;
-
   const createQueryString = useCallback((name: string, value: string) => {
     const params = new URLSearchParams();
     params.set(name, value);
@@ -108,15 +128,27 @@ export default function EditVehicleDropdown({
       !type ||
       !make ||
       !model ||
-      (subModelData.length > 1 && !submodel)
+      (subModelData.length > 1 && !submodel1)
     )
       return;
     setLoading(true);
-    let url = `/${slugify(type)}/premium-plus/${slugify(make)}/${slugify(model)}/${yearInUrl}`;
-    const currentUrl = `${pathname}${searchParams?.toString() ? `?${searchParams.toString()}` : ''}`;
+    let url = `/${slugify(type)}/${coverType || 'premium-plus'}/${slugify(make)}/${slugify(model)}/${yearInUrl}`;
 
-    if (submodel) {
-      url += `?${createQueryString('submodel', submodel)}`;
+    const submodelParam = searchParams?.submodel
+      ? `?${createQueryString('submodel', searchParams.submodel)}`
+      : '';
+    const submodel2Param = searchParams?.second_submodel
+      ? `&${createQueryString('submodel2', searchParams.second_submodel)}`
+      : '';
+    const queryParams = [submodelParam, submodel2Param]
+      .filter((param) => param)
+      .join('&');
+    const currentUrl = `${pathname}${queryParams ? `${queryParams}` : ''}`;
+    if (submodel1) {
+      url += `?${createQueryString('submodel', submodel1)}`;
+    }
+    if (submodel2) {
+      url += `&${createQueryString('submodel2', submodel2)}`;
     }
 
     if (url === currentUrl) {
@@ -124,33 +156,28 @@ export default function EditVehicleDropdown({
       closePopover();
       return;
     }
-
     // refreshRoute('/');
     router.push(url);
     closePopover();
   };
 
-  const showSubmodelDropdown = subModelData.length > 0 && year;
+  let isDisabled =
+    !year ||
+    !type ||
+    !make ||
+    !model ||
+    (subModelData.length > 1 && !submodel1);
 
   return (
     <div className="z-100 relative flex w-full flex-col items-stretch  gap-[16px] *:flex-1">
       <TypeSearch queryObj={queryObj} />
+      <YearSearch queryObj={queryObj} />
       <MakeSearch queryObj={queryObj} />
-      <ModelSearch queryObj={queryObj} dropdownData={dropdownData} />
-      <YearSearch queryObj={queryObj} dropdownData={dropdownData} />
-      {showSubmodelDropdown && (
-        <SubmodelDropdown queryObj={queryObj} submodelData={subModelData} />
-      )}
+      <ModelSearch queryObj={queryObj} />
       <Button
-        className="mx-auto h-[40px] max-h-[44px] w-full max-w-[px] rounded-[4px] bg-black text-lg "
+        className={`mx-auto h-[40px] max-h-[44px] min-h-[44px] w-full max-w-[px] rounded-[4px] ${isDisabled ? 'bg-[black]' : 'bg-[#BE1B1B]'} text-lg `}
         onClick={handleSubmitDropdown}
-        disabled={
-          !year ||
-          !type ||
-          !make ||
-          !model ||
-          (subModelData.length > 1 && !submodel)
-        }
+        disabled={isDisabled}
       >
         {loading ? (
           <AiOutlineLoading3Quarters className="animate-spin" />
