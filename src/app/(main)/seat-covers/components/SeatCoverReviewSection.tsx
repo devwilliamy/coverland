@@ -46,9 +46,7 @@ const SeatCoverReviewSection = ({ showHeader }: { showHeader?: boolean }) => {
   // const [searchReview, setSearchReview] = useState<string>('');
 
   const areThereMoreReviews = reviewData.length < total_reviews;
-
-  const SuvOrTruckType = type === 'suv-covers' ? 'SUV Covers' : 'Truck Covers';
-  const typeString = type === 'car-covers' ? 'Car Covers' : SuvOrTruckType;
+  const typeString = 'Seat Covers'
 
   /**
    * Sets reviewImage back to <string, false>

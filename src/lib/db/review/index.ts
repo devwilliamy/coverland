@@ -1,6 +1,9 @@
 import { ZodError, z } from 'zod';
 
-import { PRODUCT_REVIEWS_TABLE, SEAT_PRODUCT_REVIEWS_TABLE } from '../constants/databaseTableNames';
+import {
+  PRODUCT_REVIEWS_TABLE,
+  SEAT_PRODUCT_REVIEWS_TABLE,
+} from '../constants/databaseTableNames';
 import { Tables } from '../types';
 import { getPagination } from '../utils';
 import { supabaseDatabaseClient } from '../supabaseClients';
@@ -144,11 +147,11 @@ export async function getProductReviewsByPage(
       // search,
     } = validatedOptions;
     const { from, to } = getPagination(page, limit);
-    const table = productType === "Seat Covers" ? SEAT_PRODUCT_REVIEWS_TABLE : PRODUCT_REVIEWS_TABLE
-    let fetch = supabaseDatabaseClient
-      .from(table)
-      .select('*')
-      .range(from, to);
+    const table =
+      productType === 'Seat Covers'
+        ? SEAT_PRODUCT_REVIEWS_TABLE
+        : PRODUCT_REVIEWS_TABLE;
+    let fetch = supabaseDatabaseClient.from(table).select('*').range(from, to);
 
     if (productType) {
       fetch = fetch.eq('type', productType);
@@ -263,7 +266,12 @@ export async function getAllReviewsWithImages(
     //   fetch = fetch.order(sort.field, { ascending: sort.order === 'asc' });
     // }
 
-    const fetch = supabaseDatabaseClient.rpc('get_distinct_review_images', {
+    const rpc =
+      productType === 'Seat Covers'
+        ? 'get_distinct_seat_covers_review_images'
+        : 'get_distinct_review_images';
+
+    const fetch = supabaseDatabaseClient.rpc(rpc, {
       p_type: productType,
       p_make_slug: generateSlug(make as string) || undefined,
       p_model_slug: generateSlug(model as string) || undefined,
@@ -289,7 +297,7 @@ export async function getAllReviewsWithImages(
     );
   } catch (error) {
     if (error instanceof ZodError) {
-      console.log('ZodError:', error);
+      console.error('ZodError:', error);
     }
     console.error(error);
     // return {};
@@ -337,7 +345,10 @@ export async function getProductReviewSummary(
   try {
     const validatedFilters = ProductReviewsQueryFiltersSchema.parse(filters);
     const { productType, year, make, model } = validatedFilters;
-    const rpc = productType === 'Seat Covers' ? 'get_seat_covers_product_reviews_summary' : 'get_product_reviews_summary'
+    const rpc =
+      productType === 'Seat Covers'
+        ? 'get_seat_covers_product_reviews_summary'
+        : 'get_product_reviews_summary';
     const fetch = supabaseDatabaseClient.rpc(rpc, {
       type: productType,
       make: generateSlug(make as string) || undefined,
@@ -357,7 +368,7 @@ export async function getProductReviewSummary(
     };
   } catch (error) {
     if (error instanceof ZodError) {
-      console.log('ZodError:', error);
+      console.error('ZodError:', error);
     }
     console.error(error);
     return { total_reviews: 0, average_score: 0 };
@@ -469,7 +480,7 @@ export async function getProductReviewsByImage(
     );
   } catch (error) {
     if (error instanceof ZodError) {
-      console.log('ZodError:', error);
+      console.error('ZodError:', error);
     }
     console.error(error);
     return [];

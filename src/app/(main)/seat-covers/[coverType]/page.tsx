@@ -65,7 +65,7 @@ export default async function Leatherette({ params }: { params: TPathParams }) {
           {}
         ),
       ]);
-    console.log('[page]:', { reviewData, reviewDataSummary, reviewImages });
+    console.log('[page]:', { reviewDataSummary, reviewImages });
   } catch (error) {
     console.error('Leatherette Error: ', error);
   }
