@@ -192,12 +192,13 @@ export default function LinkBreadcrumbs() {
             {/* Replacing hyphens with spaces (except for year_generation) */}
             Seat Covers
           </a>
-          <p>/</p>
+
+          {paramsObj.make && <p>/</p>}
         </div>
       )}
       {params &&
         paramKeys.map((key, generatedIndex) => {
-          if (params[key] === 'premium-plus') {
+          if (params[key] === 'premium-plus' || params[key] === 'leather') {
             return;
           }
           return (
