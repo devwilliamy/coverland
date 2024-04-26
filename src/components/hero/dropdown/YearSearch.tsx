@@ -4,8 +4,7 @@ import { TQuery } from './HeroDropdown';
 import HomeDropdown from './HomeDropdown';
 import { getAllYearByType } from '@/lib/db';
 
-
-type DateDropdown = { year_id:any; year: any; }[]| null;
+type DateDropdown = { year_id: any; year: any }[] | null;
 export function YearSearch({
   queryObj,
 }: {
@@ -16,7 +15,7 @@ export function YearSearch({
 }) {
   const [value, setValue] = useState('');
   const [yearData, setYearData] = useState<DateDropdown[]>([]);
-  const { type, year,typeId } = queryObj.query;
+  const { type, year, typeId } = queryObj.query;
   const isDisabled = !type;
   const { setQuery } = queryObj;
 
@@ -48,21 +47,22 @@ export function YearSearch({
   const fetchDataYear = async () => {
     try {
       const response = await getAllYearByType({
-        type:typeId
+        type: typeId,
       });
-        setYearData(response);
+      setYearData(response);
     } catch (error) {
       console.error('[Year Search]: ', error);
     }
   };
   useEffect(() => {
     if (typeId) {
-    fetchDataYear();
+      fetchDataYear();
     }
   }, [typeId]);
 
   const prevSelected =
     queryObj && queryObj.query.year === '' && queryObj.query.type !== '';
+
   return (
     <HomeDropdown
       place={2}

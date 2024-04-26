@@ -4,7 +4,11 @@ import { slugToCoverType } from '../constants';
 import { slugify } from '../utils';
 import {
   PRODUCT_DATA_TABLE,
+  RELATIONS_PRODUCT_TABLE,
+  RPC_GET_MAKE_RELATION,
+  RPC_GET_UNIQUE_YEARS,
   SEAT_COVERS_TABLE,
+  TYPE_TABLE,
 } from './constants/databaseTableNames';
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL ?? '';
@@ -46,7 +50,6 @@ export async function getProductData({
   cover?: string;
 }) {
   let fetch = supabase.from(PRODUCT_DATA_TABLE).select('*');
-
   if (type) {
     fetch = fetch.eq('type', type);
   }
@@ -80,7 +83,7 @@ export async function getProductData({
 
 // Using this to warm up the database
 export async function getProductDataByPage() {
-  const fetch = supabase.from('Products').select('*').range(0, 1);
+  const fetch = supabase.from(PRODUCT_DATA_TABLE).select('*').range(0, 1);
 
   const { data, error } = await fetch.limit(1);
 
@@ -99,7 +102,7 @@ export async function getAllMakes({
   cover: string;
 }) {
   const { data, error } = await supabase
-    .from('Products')
+    .from(PRODUCT_DATA_TABLE)
     .select('make_slug')
     .eq('type', type)
     .eq('display_id', cover);
@@ -134,7 +137,7 @@ export async function getAllUniqueMakesByYear({
     //       .like('year_options', `%${year}%`)
     //       .order('make_slug', { ascending: true })
     //   :
-    await supabase.rpc('get_make_relation', {
+    await supabase.rpc(RPC_GET_MAKE_RELATION, {
       type_id_web: typeId,
       year_id_web: yearId,
     });
@@ -183,9 +186,9 @@ export async function getAllUniqueModelsByYearMake({
   //   .order('model_slug', { ascending: true });
 
   const { data, error } = await supabase
-    .from('relations_product')
+    .from(RELATIONS_PRODUCT_TABLE)
     .select(
-      '*,Model(*),Products(id,model,model_slug, parent_generation, submodel1, submodel2, submodel3)'
+      `*,Model(*),Products(id,model,model_slug, parent_generation, submodel1, submodel2, submodel3)`
     )
     .eq('year_id', yearId)
     .eq('type_id', typeId)
@@ -251,7 +254,7 @@ export async function getAllModels({
   make: string;
 }) {
   const { data, error } = await supabase
-    .from('Products')
+    .from(PRODUCT_DATA_TABLE)
     .select('model_slug')
     .eq('type', type)
     .eq('display_id', cover)
@@ -276,7 +279,7 @@ export async function getAllYears({
   model: string;
 }) {
   const { data, error } = await supabase
-    .from('Products')
+    .from(PRODUCT_DATA_TABLE)
     .select('parent_generation')
     .eq('type', type)
     .eq('display_id', cover)
@@ -291,12 +294,12 @@ export async function getAllYears({
 }
 
 export async function getAllYearByType({ type }: { type: any }) {
-  const { data, error } = await supabase.rpc('get_unique_years', {
+  const { data, error } = await supabase.rpc(RPC_GET_UNIQUE_YEARS, {
     type_id_web: type,
   });
 
   if (error) {
-    console.log(error.message);
+    console.error(error.message);
   }
 
   return data;
@@ -304,7 +307,7 @@ export async function getAllYearByType({ type }: { type: any }) {
 
 export async function getAllType() {
   const { data, error } = await supabase
-    .from('Type')
+    .from(TYPE_TABLE)
     .select('*')
     .order('id', { ascending: true });
 

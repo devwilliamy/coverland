@@ -61,6 +61,7 @@ export function MakeSearch({
           typeId,
           yearId,
         });
+        
         setMakeData(response);
         // const uniqueStrings = Array.from(new Set(response.map(({ name,id }, index) => name)))
         // setMakeDataStrings(uniqueStrings as string[]);

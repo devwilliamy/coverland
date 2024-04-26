@@ -34,6 +34,7 @@ import { deslugify } from '@/lib/utils';
 //     year: year,
 //   }));
 // }
+export const revalidate = 0
 
 export async function generateMetadata({ params }: { params: TPathParams }) {
   const productType = deslugify(params.productType);

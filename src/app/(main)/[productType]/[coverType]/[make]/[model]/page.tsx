@@ -12,6 +12,7 @@ import { TPathParams } from '@/utils';
 import { deslugify } from '@/lib/utils';
 
 //TODO: Refactor code so we can generate our dynamic paths as static HTML for performance
+export const revalidate = 0
 
 export async function generateStaticParams({
   params: { productType, coverType, make },

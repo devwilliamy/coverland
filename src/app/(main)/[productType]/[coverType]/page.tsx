@@ -16,6 +16,8 @@ import {
   productOptions,
 } from '@/lib/utils';
 
+export const revalidate = 0
+
 export async function generateStaticParams() {
   return combineOptions(coverOptions, productOptions);
 }

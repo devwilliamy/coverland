@@ -11,6 +11,8 @@ import { TPathParams } from '@/utils';
 import { notFound } from 'next/navigation';
 import { TInitialProductDataDB, getProductData } from '@/lib/db';
 
+export const revalidate = 0
+
 export function generateStaticParams() {
   return [
     { productType: 'car-covers' },

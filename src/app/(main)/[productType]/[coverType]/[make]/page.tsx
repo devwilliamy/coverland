@@ -18,6 +18,7 @@ export type TCarCoverSlugParams = {
 };
 
 //TODO: Refactor code so we can generate our dynamic paths as static HTML for performance
+export const revalidate = 0
 
 export async function generateStaticParams({
   params: { productType, coverType },
