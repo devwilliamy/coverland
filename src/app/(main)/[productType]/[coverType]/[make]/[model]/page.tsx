@@ -10,6 +10,7 @@ import {
 } from '@/lib/db/review';
 import { TPathParams } from '@/utils';
 import { deslugify } from '@/lib/utils';
+import { PREMIUM_PLUS_URL_PARAM } from '@/lib/constants';
 
 //TODO: Refactor code so we can generate our dynamic paths as static HTML for performance
 export const revalidate = 0
@@ -31,12 +32,18 @@ export async function generateStaticParams({
 }
 
 export async function generateMetadata({ params }: { params: TPathParams }) {
-  const productType = deslugify(params.productType);
+  const productType = deslugify(params.productType).slice(
+    0,
+    params.productType.length - 1
+  );
   const make = deslugify(params.make || '');
   const model = deslugify(params.model || '');
   return {
-    title: `${make} ${model} ${productType}, Custom Fit - Coverland`,
+    title: `${make} ${model} ${productType} │ Lifetime Warranty │ Custom Fit │ 100% Weatherproof`,
     description: `${make} ${model} ${productType} ᐉ Coverland ⭐ Free, Same-Day Shipping ✔️ Free Returns & Purchase Protection ✔️ Made from premium quality, heavy-duty materials with a soft inner fabric.`,
+    alternates: {
+      canonical: `/${params.productType}/${PREMIUM_PLUS_URL_PARAM}/${params.make}/${params.model}`,
+    },
   };
 }
 

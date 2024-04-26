@@ -8,7 +8,7 @@ export default function CarIcon() {
       viewBox="0 0 88 30"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      className=" pr-[20px] lg:max-h-[42px] lg:max-w-[116px]"
+      className=" max-h-[24px] max-w-[64px]  lg:max-h-[42px] lg:max-w-[116px]"
     >
       <g clipPath="url(#clip0_1317_45872)">
         <path

@@ -24,8 +24,11 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }: { params: TPathParams }) {
   const productType = deslugify(params.productType);
   return {
-    title: `${productType}, Custom Fit - Coverland`,
+    title: `${deslugify(productType.slice(productType.length - 1))} │ Lifetime Warranty │ Custom Fit │ 100% Weatherproof`,
     description: `${productType} ᐉ Coverland ⭐ Free, Same-Day Shipping ✔️ Free Returns & Purchase Protection ✔️ Made from premium quality, heavy-duty materials with a soft inner fabric.`,
+    alternates: {
+      canonical: `/${productType}`,
+    },
   };
 }
 
