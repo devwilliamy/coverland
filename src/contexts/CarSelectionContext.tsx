@@ -47,9 +47,9 @@ export interface ICarCoverSelectionState extends ICarCoverProps {
   featuredImage: string;
   selectedColor: string;
   query: TQuery;
+  paramsYear: string;
   setReviewData: (newReviewData: TReviewData[]) => void;
   setReviewDataSummary: (newReviewDataSummary: TProductReviewSummary) => void;
-  paramsYear: string;
   reviewImageTracker: Record<string, boolean>;
   setReviewImageTracker: (newImageTracker: Record<string, boolean>) => void;
   customerSelectedYear: string;
