@@ -11,13 +11,17 @@ import { useContext, useState } from 'react';
 import { useStore } from 'zustand';
 import { CarSelectionContext } from '@/contexts/CarSelectionContext';
 import ReviewSection from './ReviewSection';
+import useStoreContext from '@/hooks/useStoreContext';
+import useDetermineType from '@/hooks/useDetermineType';
+import SeatCoverReviewSection from '@/app/(main)/seat-covers/components/SeatCoverReviewSection';
 
 export default function ReviewSheet({ seeMore }: { seeMore?: boolean }) {
   const [reviewSheetOpen, setReviewSheetOpen] = useState<boolean>(false);
 
-  const store = useContext(CarSelectionContext);
-  if (!store) throw new Error('Missing CarContext.Provider in the tree');
+  const store = useStoreContext();
+  if (!store) throw new Error('Missing Provider in the tree');
   const { total_reviews } = useStore(store, (s) => s.reviewDataSummary);
+  const { isSeatCover } = useDetermineType();
 
   return (
     <Sheet open={reviewSheetOpen} onOpenChange={setReviewSheetOpen}>
@@ -56,7 +60,7 @@ export default function ReviewSheet({ seeMore }: { seeMore?: boolean }) {
           >
             Car Cover Reviews
           </p>
-          <ReviewSection />
+          {isSeatCover ? <SeatCoverReviewSection /> : <ReviewSection />}
         </div>
       </SheetContent>
     </Sheet>

@@ -12,8 +12,8 @@ export default async function CarPDP({
   searchParams,
 }: {
   modelData: TInitialProductDataDB[];
-  reviewData: TReviewData[] | null;
   params: TPathParams;
+  reviewData: TReviewData[] | null;
   reviewDataSummary: TProductReviewSummary;
   reviewImages: TReviewData[];
   searchParams?:

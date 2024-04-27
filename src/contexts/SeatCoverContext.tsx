@@ -5,6 +5,8 @@ import { useRouter } from 'next/navigation';
 import { TSeatCoverDataDB } from '@/lib/db/seat-covers';
 import { TPathParams, TQueryParams, getCompleteSelectionData } from '@/utils';
 import { compareRawStrings } from '@/lib/utils';
+import { TReviewData } from '@/lib/db';
+import { TProductReviewSummary } from '@/lib/db/review';
 
 type SeatCoverSelectionStore = ReturnType<typeof createSeatCoverSelectionStore>;
 
@@ -23,6 +25,9 @@ export type TQuery = {
 
 interface ISeatCoverCoverProps {
   modelData: TSeatCoverDataDB[];
+  reviewData: TReviewData[];
+  reviewDataSummary: TProductReviewSummary;
+  reviewImages: TReviewData[];
 }
 
 export interface ISeatCoverCoverSelectionState extends ISeatCoverCoverProps {
@@ -33,18 +38,28 @@ export interface ISeatCoverCoverSelectionState extends ISeatCoverCoverProps {
   query: TQuery;
   setQuery: (newQuery: Partial<TQuery>) => void;
   isComplete: boolean;
+  setReviewData: (newReviewData: TReviewData[]) => void;
+  setReviewDataSummary: (newReviewDataSummary: TProductReviewSummary) => void;
+  reviewImageTracker: Record<string, boolean>;
+  setReviewImageTracker: (newImageTracker: Record<string, boolean>) => void;
 }
 
 type SeatCoverSelectionStoreParams = {
   modelData: TSeatCoverDataDB[];
   params: TPathParams;
   searchParams: TQueryParams | undefined;
+  initialReviewData: TReviewData[];
+  initialReviewDataSummary: TProductReviewSummary;
+  initialReviewImages: TReviewData[];
 };
 
 const createSeatCoverSelectionStore = ({
   modelData,
   params,
   searchParams,
+  initialReviewData,
+  initialReviewDataSummary,
+  initialReviewImages,
 }: SeatCoverSelectionStoreParams) => {
   const customerSelectedYear =
     typeof window !== 'undefined'
@@ -62,6 +77,17 @@ const createSeatCoverSelectionStore = ({
         compareRawStrings(model.submodel2, searchParams.submodel2 as string)
       )
     : modelDataWithFilteredSubmodelSelection;
+
+  const reviewImageTracker: Record<string, boolean> = {};
+
+  initialReviewData.forEach((reviewData) => {
+    !!reviewData.review_image &&
+      reviewData.review_image.split(',').map((imageUrl) => {
+        if (!reviewImageTracker[imageUrl]) {
+          reviewImageTracker[imageUrl] = true;
+        }
+      });
+  });
 
   const initialQueryState = {
     year: (params?.year && customerSelectedYear) || '',
@@ -106,6 +132,24 @@ const createSeatCoverSelectionStore = ({
     setSelectedColor: (newColor: string) =>
       set(() => ({ selectedColor: newColor })),
     isComplete,
+    reviewImages: initialReviewImages,
+    reviewImageTracker,
+    setReviewImageTracker: (newImageTracker: Record<string, boolean>) => {
+      set(() => ({
+        reviewImageTracker: newImageTracker,
+      }));
+    },
+    reviewData: initialReviewData,
+    setReviewData: (newReviewData: TReviewData[]) => {
+      set(() => ({ reviewData: newReviewData }));
+    },
+    reviewDataSummary: initialReviewDataSummary,
+    setReviewDataSummary: (newReviewDataSummary: TProductReviewSummary) => {
+      set(() => ({ reviewDataSummary: newReviewDataSummary }));
+    },
+    setReviewsWithImages: (newReviewImages: TReviewData[]) => {
+      set(() => ({ reviewImages: newReviewImages }));
+    },
   }));
 };
 
@@ -119,7 +163,14 @@ const SeatCoverSelectionProvider = ({
   children: React.ReactNode;
   initialState: any;
 }) => {
-  const { modelData, params, searchParams } = initialState;
+  const {
+    modelData,
+    params,
+    searchParams,
+    reviewData,
+    reviewDataSummary,
+    reviewImages,
+  } = initialState;
   const router = useRouter();
 
   if (modelData.length === 0) {
@@ -131,6 +182,9 @@ const SeatCoverSelectionProvider = ({
       modelData,
       params,
       searchParams,
+      initialReviewData: reviewData as TReviewData[],
+      initialReviewDataSummary: reviewDataSummary,
+      initialReviewImages: reviewImages,
     })
   ).current;
   return (

@@ -1,4 +1,5 @@
 import { CarSelectionContext } from '@/contexts/CarSelectionContext';
+import useStoreContext from '@/hooks/useStoreContext';
 import { ReviewImageIndexContext } from '@/lib/contexts/ReviewImageIndexContext';
 import { TReviewData } from '@/lib/db/review';
 import { ChevronDown, ThumbsUpIcon } from 'lucide-react';
@@ -17,8 +18,8 @@ function ReviewCardGallery({
   setMoreOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
   const reviewImagesSplit = reviewImages?.split(',');
-  const store = useContext(CarSelectionContext);
-  if (!store) throw new Error('Missing CarContext.Provider in the tree');
+  const store = useStoreContext();
+  if (!store) throw new Error('Missing Provider in the tree');
   const { currentReviewImage, setCurrentReviewImage, scrollTo } = useContext(
     ReviewImageIndexContext
   );

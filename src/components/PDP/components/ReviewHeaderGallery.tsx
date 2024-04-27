@@ -7,10 +7,12 @@ import ReviewImagesSheet from './ReviewImagesSheet';
 import Image from 'next/image';
 import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';
 import ReviewImageGalleryDesktop from './ReviewImageGalleryDesktop';
+import useStoreContext from '@/hooks/useStoreContext';
 
 export default function ReviewHeaderGallery() {
-  const store = useContext(CarSelectionContext);
-  if (!store) throw new Error('Missing CarContext.Provider in the tree');
+  const store = useStoreContext();
+
+  if (!store) throw new Error('Missing Provider in the tree');
   const reviewImages = useStore(store, (s) => s.reviewImages);
   let imageCount = 0;
 
