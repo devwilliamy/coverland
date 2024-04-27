@@ -47,7 +47,7 @@ export default function ReviewCard({
 
       <div className="flex justify-between pt-1.5 lg:mt-0 lg:gap-[104px]">
         <div className="line-clamp-3  text-[16px] leading-[28px] text-[#1A1A1A] lg:flex lg:text-[18px] ">
-          {review.review_description.replace(/�/g, " ")}
+          {review?.review_description?.replace(/�/g, " ")}
           
 
         </div>
