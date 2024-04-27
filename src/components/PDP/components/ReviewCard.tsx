@@ -15,7 +15,7 @@ export default function ReviewCard({
   fullGallery?: boolean;
 }) {
   const [moreOpen, setMoreOpen] = useState(false);
-
+  console.log("Review:", review)
   return (
     <div
       className={`relative flex h-full w-full min-w-full flex-col justify-between ${moreOpen ? 'overflow-auto overflow-y-auto' : 'overflow-hidden'} rounded ${!fullGallery && 'border-2 '} ${!fullGallery ? 'p-4' : 'px-4 '} `}
@@ -48,7 +48,9 @@ export default function ReviewCard({
 
       <div className="flex justify-between pt-1.5 lg:mt-0 lg:gap-[104px]">
         <div className="line-clamp-3  text-[16px] leading-[28px] text-[#1A1A1A] lg:flex lg:text-[18px] ">
-          {review.review_description}
+          {review.review_description.replace(/�/g, " ")}
+          
+
         </div>
       </div>
       {!fullGallery && (
