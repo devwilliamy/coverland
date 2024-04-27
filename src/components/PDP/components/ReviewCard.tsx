@@ -15,7 +15,6 @@ export default function ReviewCard({
   fullGallery?: boolean;
 }) {
   const [moreOpen, setMoreOpen] = useState(false);
-  console.log("Review:", review)
   return (
     <div
       className={`relative flex h-full w-full min-w-full flex-col justify-between ${moreOpen ? 'overflow-auto overflow-y-auto' : 'overflow-hidden'} rounded ${!fullGallery && 'border-2 '} ${!fullGallery ? 'p-4' : 'px-4 '} `}

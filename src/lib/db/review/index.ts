@@ -428,7 +428,12 @@ export async function getProductReviewsByImage(
     const validatedOptions = ProductReviewsQueryOptionsSchema.parse(options);
     const { productType, year, make, model } = validatedFilters;
     const { sort, filters } = validatedOptions;
-    let fetch = supabaseDatabaseClient.from(PRODUCT_REVIEWS_TABLE).select('*');
+
+    const table =
+    productType === 'Seat Covers'
+      ? SEAT_PRODUCT_REVIEWS_TABLE
+      : PRODUCT_REVIEWS_TABLE;
+    let fetch = supabaseDatabaseClient.from(table).select('*');
 
     if (productType) {
       fetch = fetch.eq('type', productType);
