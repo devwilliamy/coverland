@@ -132,7 +132,7 @@ export function ModelSearch({
         queryObj={queryObj}
         isDisabled={isDisabled}
         value={model}
-        prevSelected={!isDisabled}
+        prevSelected={prevSelected}
         items={modelDataStrings}
       />
       {showSubmodelDropdown && (
