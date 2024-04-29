@@ -1,9 +1,10 @@
 import { CarSelectionContext } from '@/contexts/CarSelectionContext';
 import { ReviewImageIndexContext } from '@/lib/contexts/ReviewImageIndexContext';
 import { TReviewData } from '@/lib/db/review';
-import { ChevronDown, ThumbsUpIcon } from 'lucide-react';
+import { ChevronDown } from 'lucide-react';
 import Image from 'next/image';
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
+import { ThumbsUpIcon } from '../icons';
 
 function ReviewCardGallery({
   reviewImages,
@@ -22,6 +23,7 @@ function ReviewCardGallery({
   const { currentReviewImage, setCurrentReviewImage, scrollTo } = useContext(
     ReviewImageIndexContext
   );
+  const [isHelpful, setIsHelpful] = useState(false);
 
   if (!reviewImages) return;
 
@@ -42,8 +44,15 @@ function ReviewCardGallery({
         <div className="my-2 leading-6 text-[#767676] ">
           {review.review_author}
         </div>
-        <div className="flex items-center gap-1.5">
-          <ThumbsUpIcon />
+        <div
+          className={`flex items-center gap-1.5 ${isHelpful ? 'text-[#1D8044]' : ''} cursor-pointer `}
+          onClick={() => {
+            setIsHelpful((e) => {
+              return !e;
+            });
+          }}
+        >
+          <ThumbsUpIcon fill="#1D8044" isHelpful={isHelpful} />
           <p>Helpful</p>
           <p>({review.helpful})</p>
         </div>

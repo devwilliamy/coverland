@@ -6,7 +6,6 @@ function ReviewCardCarousel({ reviewImages }: { reviewImages: string | null }) {
   const reviewImagesSplit = reviewImages?.split(',');
   const store = useContext(CarSelectionContext);
   if (!store) throw new Error('Missing CarContext.Provider in the tree');
-
   if (!reviewImages) return;
 
   return (
