@@ -37,7 +37,7 @@ export default function EditVehiclePopover({
   const productName = make
     ? `${selectedMake} ${model ? selectedModel : ''}`
     : `${type}`;
-  const productNameSubtitle = `${year && selectedYear}`;
+  const productNameSubtitle = `${year ? year : ''}`;
 
   return (
     <div className="my-4 hidden w-full border-l-2 border-l-[#C8C7C7] lg:flex lg:flex-col">
