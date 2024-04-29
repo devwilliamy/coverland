@@ -36,11 +36,11 @@ export default async function CarPDPModelDataLayer({
   params: { productType: string };
   searchParams: { submodel?: string; second_submodel?: string } | undefined;
 }) {
-  let reviewData: TReviewData[] = [];
   const productTypes = ['car-covers', 'truck-covers', 'suv-covers'];
   if (!productTypes.includes(params.productType)) {
     return notFound();
   }
+  let reviewData: TReviewData[] = [];
   let reviewDataSummary: TProductReviewSummary = {
     total_reviews: 0,
     average_score: 0,
@@ -53,8 +53,11 @@ export default async function CarPDPModelDataLayer({
   const typeString =
     params?.productType === 'car-covers' ? 'Car Covers' : SuvOrTruckType;
   try {
-    [reviewData, modelData, reviewDataSummary, reviewImages] =
+    [modelData, reviewData, reviewDataSummary, reviewImages] =
       await Promise.all([
+        getProductData({
+          type: typeString,
+        }),
         getProductReviewsByPage(
           { productType: typeString },
           {
@@ -64,9 +67,6 @@ export default async function CarPDPModelDataLayer({
             },
           }
         ),
-        getProductData({
-          type: typeString,
-        }),
         getProductReviewSummary({
           productType: typeString,
         }),
@@ -85,8 +85,8 @@ export default async function CarPDPModelDataLayer({
   return (
     <CarPDP
       modelData={modelData}
-      reviewData={reviewData}
       params={params}
+      reviewData={reviewData}
       reviewDataSummary={reviewDataSummary}
       reviewImages={reviewImages}
     />
