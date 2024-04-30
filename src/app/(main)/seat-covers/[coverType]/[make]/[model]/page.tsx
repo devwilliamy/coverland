@@ -56,6 +56,7 @@ export default async function SeatCoverDataLayer({
   try {
     modelData = await getSeatCoverProductsByDisplayColor({
       type: 'Seat Covers',
+      cover: 'Leather',
       make: params.make,
       model: params.model,
     });

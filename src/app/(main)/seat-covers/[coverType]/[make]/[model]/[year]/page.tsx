@@ -68,6 +68,7 @@ export default async function SeatCoverDataLayer({
     // });
     modelData = await getSeatCoverProductsByDisplayColor({
       type: 'Seat Covers',
+      cover: 'Leather',
       make: params.make,
       model: params.model,
       year: params.year,

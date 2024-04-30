@@ -29,6 +29,7 @@ export default async function Leatherette({ params }: { params: TPathParams }) {
   try {
     modelData = await getSeatCoverProductsByDisplayColor({
       type: 'Seat Covers',
+      cover: 'Leather',
     });
   } catch (error) {
     console.error('Leatherette Error: ', error);
