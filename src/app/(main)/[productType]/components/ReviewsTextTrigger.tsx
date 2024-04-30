@@ -1,15 +1,17 @@
 import ReviewSheet from '@/components/PDP/components/ReviewSheet';
 import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';
-import React, { useContext } from 'react';
 import { useStore } from 'zustand';
-import { CarSelectionContext } from '@/contexts/CarSelectionContext';
 import ReviewSection from '@/components/PDP/components/ReviewSection';
+import useStoreContext from '@/hooks/useStoreContext';
+import useDetermineType from '@/hooks/useDetermineType';
+import SeatCoverReviewSection from '../../seat-covers/components/SeatCoverReviewSection';
 
 function ReviewsTextTrigger() {
-  const store = useContext(CarSelectionContext);
-  if (!store) throw new Error('Missing CarContext.Provider in the tree');
+  const store = useStoreContext();
+  if (!store) throw new Error('Missing Provider in the tree');
   const { total_reviews } = useStore(store, (s) => s.reviewDataSummary);
   const reviewData = useStore(store, (s) => s.reviewData);
+  const { isSeatCover } = useDetermineType();
 
   return (
     <>
@@ -26,7 +28,7 @@ function ReviewsTextTrigger() {
 
               <DialogContent className="flex max-h-[65vh] min-h-[65vh] flex-col items-center overflow-y-auto lg:min-w-[77vw] lg:max-w-[80%] xl:max-w-[1024px]">
                 <div className={''}>
-                  <ReviewSection />
+                  {isSeatCover ? <SeatCoverReviewSection /> : <ReviewSection />}
                 </div>
               </DialogContent>
             </Dialog>

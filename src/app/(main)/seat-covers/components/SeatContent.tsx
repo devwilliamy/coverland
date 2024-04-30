@@ -14,6 +14,7 @@ import { TQueryParams } from '@/utils';
 import AddToCart from '@/components/cart/AddToCart';
 import EditVehicle from '@/components/edit-vehicle/EditVehicle';
 import FreeDetails from '../../[productType]/components/FreeDetails';
+import ReviewsTextTrigger from '../../[productType]/components/ReviewsTextTrigger';
 
 export default function SeatContent({
   searchParams,
@@ -49,16 +50,25 @@ export default function SeatContent({
             Premium Comfort <br className="lg:hidden" /> Leather Seat Covers
           </h2>
           {/* Rating(s) */}
-          <div className="flex pb-[18px] lg:pb-[18px] ">
-            <Rating
-              name="read-only"
-              value={5}
-              readOnly
-              style={{
-                height: '25px',
-                color: '#BE1B1B',
-              }}
-            />
+          <div className="-ml-0.5 mt-1 flex items-end gap-1 lg:mt-2">
+            <div className="flex gap-1 ">
+              <Rating
+                name="read-only"
+                value={4.5}
+                precision={0.1}
+                readOnly
+                sx={{
+                  gap: '2px',
+                  '& .MuiRating-iconFilled': {
+                    color: '#BE1B1B',
+                  },
+                  '& .MuiRating-iconEmpty': {
+                    color: '#BE1B1B',
+                  },
+                }}
+              />
+            </div>
+            <ReviewsTextTrigger />
           </div>
         </div>
       </div>
