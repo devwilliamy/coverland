@@ -138,7 +138,7 @@ export type Database = {
         }
         Relationships: [
           {
-            foreignKeyName: "public__Orders_customer_id_fkey"
+            foreignKeyName: "_Orders_customer_id_fkey"
             columns: ["customer_id"]
             isOneToOne: false
             referencedRelation: "users"
@@ -149,27 +149,24 @@ export type Database = {
       Blogs: {
         Row: {
           created_at: string
-          descripition: string | null
+          description: string | null
           id: number
           image_path: string | null
-          "Name  ": string | null
-          slug: string | null
+          Name: string | null
         }
         Insert: {
           created_at?: string
-          descripition?: string | null
+          description?: string | null
           id?: number
           image_path?: string | null
-          "Name  "?: string | null
-          slug?: string | null
+          Name?: string | null
         }
         Update: {
           created_at?: string
-          descripition?: string | null
+          description?: string | null
           id?: number
           image_path?: string | null
-          "Name  "?: string | null
-          slug?: string | null
+          Name?: string | null
         }
         Relationships: []
       }
@@ -223,6 +220,54 @@ export type Database = {
           created_at: string
           id: number
           name: string | null
+          slug: string | null
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          id?: number
+          name?: string | null
+          slug?: string | null
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          id?: number
+          name?: string | null
+          slug?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      make_20240425_backup: {
+        Row: {
+          created_at: string
+          id: number
+          name: string | null
+          slug: string | null
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          id?: number
+          name?: string | null
+          slug?: string | null
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          id?: number
+          name?: string | null
+          slug?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      Make_old: {
+        Row: {
+          created_at: string
+          id: number
+          name: string | null
         }
         Insert: {
           created_at?: string
@@ -237,6 +282,54 @@ export type Database = {
         Relationships: []
       }
       Model: {
+        Row: {
+          created_at: string
+          id: number
+          name: string | null
+          slug: string | null
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          id?: number
+          name?: string | null
+          slug?: string | null
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          id?: number
+          name?: string | null
+          slug?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      model_20240425_backup: {
+        Row: {
+          created_at: string
+          id: number
+          name: string | null
+          slug: string | null
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          id?: number
+          name?: string | null
+          slug?: string | null
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          id?: number
+          name?: string | null
+          slug?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      Model_old: {
         Row: {
           created_at: string
           id: number
@@ -297,15 +390,7 @@ export type Database = {
           product_id?: number | null
           quantity?: number | null
         }
-        Relationships: [
-          {
-            foreignKeyName: "public_orderItems_table_order_id_fkey"
-            columns: ["order_id"]
-            isOneToOne: false
-            referencedRelation: "_Orders"
-            referencedColumns: ["id"]
-          },
-        ]
+        Relationships: []
       }
       product_SeatCover: {
         Row: {
@@ -382,7 +467,424 @@ export type Database = {
         }
         Relationships: []
       }
+      product_test_compare: {
+        Row: {
+          banner: string | null
+          base_sku: string | null
+          description: string | null
+          display_color: string | null
+          display_id: string | null
+          feature: string | null
+          make: string | null
+          make_slug: string | null
+          model: string | null
+          model_slug: string | null
+          msrp: number | null
+          parent_generation: string | null
+          price: string | null
+          product: string | null
+          product_name: string | null
+          product_type: string | null
+          quantity: number | null
+          sku: string | null
+          sku_suffix: string | null
+          status: number | null
+          submodel1: string | null
+          submodel2: string | null
+          submodel3: string | null
+          type: string | null
+          year_generation: string | null
+          year_options: string | null
+        }
+        Insert: {
+          banner?: string | null
+          base_sku?: string | null
+          description?: string | null
+          display_color?: string | null
+          display_id?: string | null
+          feature?: string | null
+          make?: string | null
+          make_slug?: string | null
+          model?: string | null
+          model_slug?: string | null
+          msrp?: number | null
+          parent_generation?: string | null
+          price?: string | null
+          product?: string | null
+          product_name?: string | null
+          product_type?: string | null
+          quantity?: number | null
+          sku?: string | null
+          sku_suffix?: string | null
+          status?: number | null
+          submodel1?: string | null
+          submodel2?: string | null
+          submodel3?: string | null
+          type?: string | null
+          year_generation?: string | null
+          year_options?: string | null
+        }
+        Update: {
+          banner?: string | null
+          base_sku?: string | null
+          description?: string | null
+          display_color?: string | null
+          display_id?: string | null
+          feature?: string | null
+          make?: string | null
+          make_slug?: string | null
+          model?: string | null
+          model_slug?: string | null
+          msrp?: number | null
+          parent_generation?: string | null
+          price?: string | null
+          product?: string | null
+          product_name?: string | null
+          product_type?: string | null
+          quantity?: number | null
+          sku?: string | null
+          sku_suffix?: string | null
+          status?: number | null
+          submodel1?: string | null
+          submodel2?: string | null
+          submodel3?: string | null
+          type?: string | null
+          year_generation?: string | null
+          year_options?: string | null
+        }
+        Relationships: []
+      }
+      "Product-Metadata": {
+        Row: {
+          description: string | null
+          id: string | null
+          URL: string | null
+        }
+        Insert: {
+          description?: string | null
+          id?: string | null
+          URL?: string | null
+        }
+        Update: {
+          description?: string | null
+          id?: string | null
+          URL?: string | null
+        }
+        Relationships: []
+      }
       Products: {
+        Row: {
+          banner: string | null
+          description: string | null
+          display_color: string | null
+          display_id: string | null
+          feature: string | null
+          id: number
+          make: string | null
+          make_slug: string | null
+          model: string | null
+          model_slug: string | null
+          msrp: number | null
+          parent_generation: string | null
+          price: number | null
+          product: string | null
+          quantity: string | null
+          sku: string | null
+          status: string | null
+          submodel1: string | null
+          submodel2: string | null
+          submodel3: string | null
+          type: string | null
+          year_generation: string | null
+          year_options: string | null
+        }
+        Insert: {
+          banner?: string | null
+          description?: string | null
+          display_color?: string | null
+          display_id?: string | null
+          feature?: string | null
+          id?: number
+          make?: string | null
+          make_slug?: string | null
+          model?: string | null
+          model_slug?: string | null
+          msrp?: number | null
+          parent_generation?: string | null
+          price?: number | null
+          product?: string | null
+          quantity?: string | null
+          sku?: string | null
+          status?: string | null
+          submodel1?: string | null
+          submodel2?: string | null
+          submodel3?: string | null
+          type?: string | null
+          year_generation?: string | null
+          year_options?: string | null
+        }
+        Update: {
+          banner?: string | null
+          description?: string | null
+          display_color?: string | null
+          display_id?: string | null
+          feature?: string | null
+          id?: number
+          make?: string | null
+          make_slug?: string | null
+          model?: string | null
+          model_slug?: string | null
+          msrp?: number | null
+          parent_generation?: string | null
+          price?: number | null
+          product?: string | null
+          quantity?: string | null
+          sku?: string | null
+          status?: string | null
+          submodel1?: string | null
+          submodel2?: string | null
+          submodel3?: string | null
+          type?: string | null
+          year_generation?: string | null
+          year_options?: string | null
+        }
+        Relationships: []
+      }
+      Products_20240425: {
+        Row: {
+          banner: string | null
+          description: string | null
+          display_color: string | null
+          display_id: string | null
+          feature: string | null
+          id: number
+          make: string | null
+          make_slug: string | null
+          model: string | null
+          model_slug: string | null
+          msrp: number | null
+          parent_generation: string | null
+          price: number | null
+          product: string | null
+          quantity: string | null
+          sku: string | null
+          status: string | null
+          submodel1: string | null
+          submodel2: string | null
+          submodel3: string | null
+          type: string | null
+          year_generation: string | null
+          year_options: string | null
+        }
+        Insert: {
+          banner?: string | null
+          description?: string | null
+          display_color?: string | null
+          display_id?: string | null
+          feature?: string | null
+          id?: number
+          make?: string | null
+          make_slug?: string | null
+          model?: string | null
+          model_slug?: string | null
+          msrp?: number | null
+          parent_generation?: string | null
+          price?: number | null
+          product?: string | null
+          quantity?: string | null
+          sku?: string | null
+          status?: string | null
+          submodel1?: string | null
+          submodel2?: string | null
+          submodel3?: string | null
+          type?: string | null
+          year_generation?: string | null
+          year_options?: string | null
+        }
+        Update: {
+          banner?: string | null
+          description?: string | null
+          display_color?: string | null
+          display_id?: string | null
+          feature?: string | null
+          id?: number
+          make?: string | null
+          make_slug?: string | null
+          model?: string | null
+          model_slug?: string | null
+          msrp?: number | null
+          parent_generation?: string | null
+          price?: number | null
+          product?: string | null
+          quantity?: string | null
+          sku?: string | null
+          status?: string | null
+          submodel1?: string | null
+          submodel2?: string | null
+          submodel3?: string | null
+          type?: string | null
+          year_generation?: string | null
+          year_options?: string | null
+        }
+        Relationships: []
+      }
+      Products_20240425_backup: {
+        Row: {
+          banner: string | null
+          description: string | null
+          display_color: string | null
+          display_id: string | null
+          feature: string | null
+          id: number
+          make: string | null
+          make_slug: string | null
+          model: string | null
+          model_slug: string | null
+          msrp: number | null
+          parent_generation: string | null
+          price: number | null
+          product: string | null
+          quantity: string | null
+          sku: string | null
+          status: string | null
+          submodel1: string | null
+          submodel2: string | null
+          submodel3: string | null
+          type: string | null
+          year_generation: string | null
+          year_options: string | null
+        }
+        Insert: {
+          banner?: string | null
+          description?: string | null
+          display_color?: string | null
+          display_id?: string | null
+          feature?: string | null
+          id?: number
+          make?: string | null
+          make_slug?: string | null
+          model?: string | null
+          model_slug?: string | null
+          msrp?: number | null
+          parent_generation?: string | null
+          price?: number | null
+          product?: string | null
+          quantity?: string | null
+          sku?: string | null
+          status?: string | null
+          submodel1?: string | null
+          submodel2?: string | null
+          submodel3?: string | null
+          type?: string | null
+          year_generation?: string | null
+          year_options?: string | null
+        }
+        Update: {
+          banner?: string | null
+          description?: string | null
+          display_color?: string | null
+          display_id?: string | null
+          feature?: string | null
+          id?: number
+          make?: string | null
+          make_slug?: string | null
+          model?: string | null
+          model_slug?: string | null
+          msrp?: number | null
+          parent_generation?: string | null
+          price?: number | null
+          product?: string | null
+          quantity?: string | null
+          sku?: string | null
+          status?: string | null
+          submodel1?: string | null
+          submodel2?: string | null
+          submodel3?: string | null
+          type?: string | null
+          year_generation?: string | null
+          year_options?: string | null
+        }
+        Relationships: []
+      }
+      Products_20240425_SeatCovers_20240401: {
+        Row: {
+          banner: string | null
+          description: string | null
+          display_color: string | null
+          display_id: string | null
+          feature: string | null
+          id: number
+          make: string | null
+          make_slug: string | null
+          model: string | null
+          model_slug: string | null
+          msrp: number | null
+          parent_generation: string | null
+          price: number | null
+          product: string | null
+          quantity: string | null
+          sku: string | null
+          status: string | null
+          submodel1: string | null
+          submodel2: string | null
+          submodel3: string | null
+          type: string | null
+          year_generation: string | null
+          year_options: string | null
+        }
+        Insert: {
+          banner?: string | null
+          description?: string | null
+          display_color?: string | null
+          display_id?: string | null
+          feature?: string | null
+          id?: number
+          make?: string | null
+          make_slug?: string | null
+          model?: string | null
+          model_slug?: string | null
+          msrp?: number | null
+          parent_generation?: string | null
+          price?: number | null
+          product?: string | null
+          quantity?: string | null
+          sku?: string | null
+          status?: string | null
+          submodel1?: string | null
+          submodel2?: string | null
+          submodel3?: string | null
+          type?: string | null
+          year_generation?: string | null
+          year_options?: string | null
+        }
+        Update: {
+          banner?: string | null
+          description?: string | null
+          display_color?: string | null
+          display_id?: string | null
+          feature?: string | null
+          id?: number
+          make?: string | null
+          make_slug?: string | null
+          model?: string | null
+          model_slug?: string | null
+          msrp?: number | null
+          parent_generation?: string | null
+          price?: number | null
+          product?: string | null
+          quantity?: string | null
+          sku?: string | null
+          status?: string | null
+          submodel1?: string | null
+          submodel2?: string | null
+          submodel3?: string | null
+          type?: string | null
+          year_generation?: string | null
+          year_options?: string | null
+        }
+        Relationships: []
+      }
+      Products_backup: {
         Row: {
           banner: string | null
           base_sku: string | null
@@ -472,7 +974,7 @@ export type Database = {
         }
         Relationships: []
       }
-      Products_duplicate: {
+      Products_old: {
         Row: {
           banner: string | null
           base_sku: string | null
@@ -491,10 +993,10 @@ export type Database = {
           product: string | null
           product_name: string | null
           product_type: string | null
-          quantity: number | null
+          quantity: string | null
           sku: string
           sku_suffix: string | null
-          status: number | null
+          status: string | null
           submodel1: string | null
           submodel2: string | null
           submodel3: string | null
@@ -520,10 +1022,10 @@ export type Database = {
           product?: string | null
           product_name?: string | null
           product_type?: string | null
-          quantity?: number | null
+          quantity?: string | null
           sku: string
           sku_suffix?: string | null
-          status?: number | null
+          status?: string | null
           submodel1?: string | null
           submodel2?: string | null
           submodel3?: string | null
@@ -549,10 +1051,10 @@ export type Database = {
           product?: string | null
           product_name?: string | null
           product_type?: string | null
-          quantity?: number | null
+          quantity?: string | null
           sku?: string
           sku_suffix?: string | null
-          status?: number | null
+          status?: string | null
           submodel1?: string | null
           submodel2?: string | null
           submodel3?: string | null
@@ -563,6 +1065,213 @@ export type Database = {
         Relationships: []
       }
       relations_product: {
+        Row: {
+          created_at: string
+          id: number
+          make_id: number | null
+          model_id: number | null
+          product_id: number | null
+          type_id: number | null
+          updated_at: string
+          year_id: number | null
+        }
+        Insert: {
+          created_at?: string
+          id?: number
+          make_id?: number | null
+          model_id?: number | null
+          product_id?: number | null
+          type_id?: number | null
+          updated_at?: string
+          year_id?: number | null
+        }
+        Update: {
+          created_at?: string
+          id?: number
+          make_id?: number | null
+          model_id?: number | null
+          product_id?: number | null
+          type_id?: number | null
+          updated_at?: string
+          year_id?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "relations_product_20240429_make_id_fkey"
+            columns: ["make_id"]
+            isOneToOne: false
+            referencedRelation: "Make"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "relations_product_20240429_model_id_fkey"
+            columns: ["model_id"]
+            isOneToOne: false
+            referencedRelation: "Model"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "relations_product_20240429_product_id_fkey"
+            columns: ["product_id"]
+            isOneToOne: false
+            referencedRelation: "Products"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "relations_product_20240429_type_id_fkey"
+            columns: ["type_id"]
+            isOneToOne: false
+            referencedRelation: "Type"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "relations_product_20240429_year_id_fkey"
+            columns: ["year_id"]
+            isOneToOne: false
+            referencedRelation: "Years"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      relations_product_20240425: {
+        Row: {
+          created_at: string
+          id: number
+          make_id: number | null
+          model_id: number | null
+          product_id: number | null
+          type_id: number | null
+          updated_at: string
+          year_id: number | null
+        }
+        Insert: {
+          created_at?: string
+          id?: number
+          make_id?: number | null
+          model_id?: number | null
+          product_id?: number | null
+          type_id?: number | null
+          updated_at?: string
+          year_id?: number | null
+        }
+        Update: {
+          created_at?: string
+          id?: number
+          make_id?: number | null
+          model_id?: number | null
+          product_id?: number | null
+          type_id?: number | null
+          updated_at?: string
+          year_id?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "relations_product_make_id_fkey"
+            columns: ["make_id"]
+            isOneToOne: false
+            referencedRelation: "Make"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "relations_product_model_id_fkey"
+            columns: ["model_id"]
+            isOneToOne: false
+            referencedRelation: "Model"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "relations_product_product_id_fkey"
+            columns: ["product_id"]
+            isOneToOne: false
+            referencedRelation: "Products_20240425"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "relations_product_type_id_fkey"
+            columns: ["type_id"]
+            isOneToOne: false
+            referencedRelation: "Type"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "relations_product_year_id_fkey"
+            columns: ["year_id"]
+            isOneToOne: false
+            referencedRelation: "Years"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      relations_product_20240425_backup: {
+        Row: {
+          created_at: string
+          id: number
+          make_id: number | null
+          model_id: number | null
+          product_id: number | null
+          type_id: number | null
+          updated_at: string
+          year_id: number | null
+        }
+        Insert: {
+          created_at?: string
+          id?: number
+          make_id?: number | null
+          model_id?: number | null
+          product_id?: number | null
+          type_id?: number | null
+          updated_at?: string
+          year_id?: number | null
+        }
+        Update: {
+          created_at?: string
+          id?: number
+          make_id?: number | null
+          model_id?: number | null
+          product_id?: number | null
+          type_id?: number | null
+          updated_at?: string
+          year_id?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "relations_product_20240425_duplicate_make_id_fkey"
+            columns: ["make_id"]
+            isOneToOne: false
+            referencedRelation: "Make"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "relations_product_20240425_duplicate_model_id_fkey"
+            columns: ["model_id"]
+            isOneToOne: false
+            referencedRelation: "Model"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "relations_product_20240425_duplicate_product_id_fkey"
+            columns: ["product_id"]
+            isOneToOne: false
+            referencedRelation: "Products_20240425"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "relations_product_20240425_duplicate_type_id_fkey"
+            columns: ["type_id"]
+            isOneToOne: false
+            referencedRelation: "Type"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "relations_product_20240425_duplicate_year_id_fkey"
+            columns: ["year_id"]
+            isOneToOne: false
+            referencedRelation: "Years"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      relations_product_old: {
         Row: {
           created_at: string
           id: number
@@ -595,101 +1304,35 @@ export type Database = {
             foreignKeyName: "public_relations_product_make_id_fkey"
             columns: ["make_id"]
             isOneToOne: false
-            referencedRelation: "Make"
+            referencedRelation: "Make_old"
             referencedColumns: ["id"]
           },
           {
             foreignKeyName: "public_relations_product_model_id_fkey"
             columns: ["model_id"]
             isOneToOne: false
-            referencedRelation: "Model"
+            referencedRelation: "Model_old"
             referencedColumns: ["id"]
           },
           {
             foreignKeyName: "public_relations_product_product_id_fkey"
             columns: ["product_id"]
             isOneToOne: false
-            referencedRelation: "Products"
+            referencedRelation: "Products_old"
             referencedColumns: ["id"]
           },
           {
             foreignKeyName: "public_relations_product_type_id_fkey"
             columns: ["type_id"]
             isOneToOne: false
-            referencedRelation: "Type"
+            referencedRelation: "Type_old"
             referencedColumns: ["id"]
           },
           {
             foreignKeyName: "public_relations_product_year_id_fkey"
             columns: ["year_id"]
             isOneToOne: false
-            referencedRelation: "Years"
-            referencedColumns: ["id"]
-          },
-        ]
-      }
-      relations_product_duplicate: {
-        Row: {
-          created_at: string
-          id: number
-          make_id: number | null
-          model_id: number | null
-          product_id: number | null
-          type_id: number | null
-          year_id: number | null
-        }
-        Insert: {
-          created_at?: string
-          id?: number
-          make_id?: number | null
-          model_id?: number | null
-          product_id?: number | null
-          type_id?: number | null
-          year_id?: number | null
-        }
-        Update: {
-          created_at?: string
-          id?: number
-          make_id?: number | null
-          model_id?: number | null
-          product_id?: number | null
-          type_id?: number | null
-          year_id?: number | null
-        }
-        Relationships: [
-          {
-            foreignKeyName: "public_relations_product_duplicate_make_id_fkey"
-            columns: ["make_id"]
-            isOneToOne: false
-            referencedRelation: "Make"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "public_relations_product_duplicate_model_id_fkey"
-            columns: ["model_id"]
-            isOneToOne: false
-            referencedRelation: "Model"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "public_relations_product_duplicate_product_id_fkey"
-            columns: ["product_id"]
-            isOneToOne: false
-            referencedRelation: "Products"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "public_relations_product_duplicate_type_id_fkey"
-            columns: ["type_id"]
-            isOneToOne: false
-            referencedRelation: "Type"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "public_relations_product_duplicate_year_id_fkey"
-            columns: ["year_id"]
-            isOneToOne: false
-            referencedRelation: "Years"
+            referencedRelation: "Years_old"
             referencedColumns: ["id"]
           },
         ]
@@ -772,10 +1415,10 @@ export type Database = {
         }
         Relationships: []
       }
-      "reviews-2@@@": {
+      "reviews-2_old": {
         Row: {
           gpt_review_id: string | null
-          helpful: string | null
+          helpful: number | null
           id: number
           make: string | null
           make_slug: string | null
@@ -800,7 +1443,7 @@ export type Database = {
         }
         Insert: {
           gpt_review_id?: string | null
-          helpful?: string | null
+          helpful?: number | null
           id?: number
           make?: string | null
           make_slug?: string | null
@@ -825,7 +1468,7 @@ export type Database = {
         }
         Update: {
           gpt_review_id?: string | null
-          helpful?: string | null
+          helpful?: number | null
           id?: number
           make?: string | null
           make_slug?: string | null
@@ -916,7 +1559,67 @@ export type Database = {
         }
         Relationships: []
       }
-      seat_cover_20240401_old: {
+      seat_cover_reviews_20240426_backup: {
+        Row: {
+          helpful: number | null
+          make: string | null
+          make_slug: string | null
+          model: string | null
+          model_slug: string | null
+          parent_generation: string | null
+          rating_stars: number | null
+          recommend: string | null
+          review_author: string | null
+          review_description: string | null
+          review_image: string | null
+          review_title: string | null
+          reviewed_at: string | null
+          sku: string | null
+          type: string | null
+          verfied_status: string | null
+          year_generation: string | null
+        }
+        Insert: {
+          helpful?: number | null
+          make?: string | null
+          make_slug?: string | null
+          model?: string | null
+          model_slug?: string | null
+          parent_generation?: string | null
+          rating_stars?: number | null
+          recommend?: string | null
+          review_author?: string | null
+          review_description?: string | null
+          review_image?: string | null
+          review_title?: string | null
+          reviewed_at?: string | null
+          sku?: string | null
+          type?: string | null
+          verfied_status?: string | null
+          year_generation?: string | null
+        }
+        Update: {
+          helpful?: number | null
+          make?: string | null
+          make_slug?: string | null
+          model?: string | null
+          model_slug?: string | null
+          parent_generation?: string | null
+          rating_stars?: number | null
+          recommend?: string | null
+          review_author?: string | null
+          review_description?: string | null
+          review_image?: string | null
+          review_title?: string | null
+          reviewed_at?: string | null
+          sku?: string | null
+          type?: string | null
+          verfied_status?: string | null
+          year_generation?: string | null
+        }
+        Relationships: []
+      }
+      seat_covers: {
         Row: {
           availability: string | null
           display_color: string | null
@@ -929,8 +1632,8 @@ export type Database = {
           parent_generation: string | null
           price: number | null
           product: string | null
-          quantity: string | null
-          sku: string | null
+          quantity: number | null
+          sku: string
           submodel1: string | null
           submodel2: string | null
           submodel3: string | null
@@ -950,8 +1653,8 @@ export type Database = {
           parent_generation?: string | null
           price?: number | null
           product?: string | null
-          quantity?: string | null
-          sku?: string | null
+          quantity?: number | null
+          sku: string
           submodel1?: string | null
           submodel2?: string | null
           submodel3?: string | null
@@ -971,8 +1674,8 @@ export type Database = {
           parent_generation?: string | null
           price?: number | null
           product?: string | null
-          quantity?: string | null
-          sku?: string | null
+          quantity?: number | null
+          sku?: string
           submodel1?: string | null
           submodel2?: string | null
           submodel3?: string | null
@@ -982,42 +1685,87 @@ export type Database = {
         }
         Relationships: []
       }
-      seat_covers_20240308_duplicate: {
+      seat_covers_20240426_backup: {
         Row: {
+          availability: string | null
           display_color: string | null
           display_id: string | null
-          feature: string | null
-          id: string | null
+          make: string | null
+          make_slug: string | null
+          model: string | null
+          model_slug: string | null
           msrp: number | null
+          parent_generation: string | null
           price: number | null
           product: string | null
-          quantity: string | null
-          sku: string | null
+          quantity: number | null
+          sku: string
+          submodel1: string | null
+          submodel2: string | null
+          submodel3: string | null
           type: string | null
+          year_generation: string | null
+          year_options: string | null
         }
         Insert: {
+          availability?: string | null
           display_color?: string | null
           display_id?: string | null
-          feature?: string | null
-          id?: string | null
+          make?: string | null
+          make_slug?: string | null
+          model?: string | null
+          model_slug?: string | null
           msrp?: number | null
+          parent_generation?: string | null
           price?: number | null
           product?: string | null
-          quantity?: string | null
-          sku?: string | null
+          quantity?: number | null
+          sku: string
+          submodel1?: string | null
+          submodel2?: string | null
+          submodel3?: string | null
           type?: string | null
+          year_generation?: string | null
+          year_options?: string | null
         }
         Update: {
+          availability?: string | null
           display_color?: string | null
           display_id?: string | null
-          feature?: string | null
-          id?: string | null
+          make?: string | null
+          make_slug?: string | null
+          model?: string | null
+          model_slug?: string | null
           msrp?: number | null
+          parent_generation?: string | null
           price?: number | null
           product?: string | null
-          quantity?: string | null
-          sku?: string | null
+          quantity?: number | null
+          sku?: string
+          submodel1?: string | null
+          submodel2?: string | null
+          submodel3?: string | null
           type?: string | null
+          year_generation?: string | null
+          year_options?: string | null
+        }
+        Relationships: []
+      }
+      seat_covers_year_options: {
+        Row: {
+          id: number
+          year_generation: string | null
+          year_options: string | null
+        }
+        Insert: {
+          id?: number
+          year_generation?: string | null
+          year_options?: string | null
+        }
+        Update: {
+          id?: number
+          year_generation?: string | null
+          year_options?: string | null
         }
         Relationships: []
       }
@@ -1104,19 +1852,40 @@ export type Database = {
           created_at: string
           id: number
           name: string | null
-          type_slug_web: string | null
+          updated_at: string
         }
         Insert: {
           created_at?: string
           id?: number
           name?: string | null
-          type_slug_web?: string | null
+          updated_at?: string
         }
         Update: {
           created_at?: string
           id?: number
           name?: string | null
-          type_slug_web?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      type_20240425_backup: {
+        Row: {
+          created_at: string
+          id: number
+          name: string | null
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          id?: number
+          name?: string | null
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          id?: number
+          name?: string | null
+          updated_at?: string
         }
         Relationships: []
       }
@@ -1147,6 +1916,27 @@ export type Database = {
           parent_generation?: string | null
           type?: string | null
           year_options?: string | null
+        }
+        Relationships: []
+      }
+      Type_old: {
+        Row: {
+          created_at: string
+          id: number
+          name: string | null
+          type_slug_web: string | null
+        }
+        Insert: {
+          created_at?: string
+          id?: number
+          name?: string | null
+          type_slug_web?: string | null
+        }
+        Update: {
+          created_at?: string
+          id?: number
+          name?: string | null
+          type_slug_web?: string | null
         }
         Relationships: []
       }
@@ -1198,7 +1988,67 @@ export type Database = {
         }
         Relationships: []
       }
+      year_20240425_backup: {
+        Row: {
+          created_at: string
+          id: number
+          name: string | null
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          id?: number
+          name?: string | null
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          id?: number
+          name?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      year_options_20240425: {
+        Row: {
+          id: number
+          year_generation: string | null
+          year_options: string | null
+        }
+        Insert: {
+          id?: number
+          year_generation?: string | null
+          year_options?: string | null
+        }
+        Update: {
+          id?: number
+          year_generation?: string | null
+          year_options?: string | null
+        }
+        Relationships: []
+      }
       Years: {
+        Row: {
+          created_at: string
+          id: number
+          name: string | null
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          id?: number
+          name?: string | null
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          id?: number
+          name?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      Years_old: {
         Row: {
           created_at: string
           id: number
@@ -1221,12 +2071,37 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      get_all_products: {
+        Args: Record<PropertyKey, never>
+        Returns: {
+          products_row: unknown
+        }[]
+      }
+      get_distinct_models_by_type_make: {
+        Args: {
+          type: string
+          make: string
+        }
+        Returns: {
+          model: string
+        }[]
+      }
+      get_distinct_parent_generations: {
+        Args: {
+          type: string
+          make: string
+          model: string
+        }
+        Returns: {
+          parent_generation: string
+        }[]
+      }
       get_distinct_review_images: {
         Args: {
           p_type?: string
-          p_make_slug?: string | null
-          p_model_slug?: string | null
-          p_parent_generation?: string | null
+          p_make_slug?: string
+          p_model_slug?: string
+          p_parent_generation?: string
         }
         Returns: {
           rating_stars: number
@@ -1253,6 +2128,31 @@ export type Database = {
           make: string
         }[]
       }
+      get_distinct_seat_covers_review_images: {
+        Args: {
+          p_type?: string
+          p_make_slug?: string
+          p_model_slug?: string
+          p_parent_generation?: string
+        }
+        Returns: {
+          rating_stars: number
+          helpful: number
+          reviewed_at: string
+          model: string
+          year_generation: string
+          review_description: string
+          make_slug: string
+          review_title: string
+          review_author: string
+          review_image: string
+          model_slug: string
+          sku: string
+          parent_generation: string
+          type: string
+          make: string
+        }[]
+      }
       get_make_and_slug: {
         Args: {
           type_param: string
@@ -1265,6 +2165,26 @@ export type Database = {
         }[]
       }
       get_make_relation: {
+        Args: {
+          year_id_web: number
+          type_id_web: number
+        }
+        Returns: {
+          id: number
+          name: string
+        }[]
+      }
+      get_make_relation_20240429: {
+        Args: {
+          year_id_web: number
+          type_id_web: number
+        }
+        Returns: {
+          id: number
+          name: string
+        }[]
+      }
+      get_make_relation_old: {
         Args: {
           year_id_web: number
           type_id_web: number
@@ -1350,15 +2270,16 @@ export type Database = {
       get_seat_cover_products_sorted_by_color: {
         Args: {
           p_type?: string
+          p_cover?: string
           p_make?: string
           p_model?: string
           p_year?: string
           p_submodel?: string
           p_submodel2?: string
+          p_submodel3?: string
         }
         Returns: {
           sku: string
-          fk: number
           type: string
           make: string
           model: string
@@ -1366,11 +2287,12 @@ export type Database = {
           parent_generation: string
           submodel1: string
           submodel2: string
+          submodel3: string
           product: string
           display_color: string
           msrp: number
           price: number
-          quantity: number
+          quantity: string
           display_id: string
           make_slug: string
           model_slug: string
@@ -1409,7 +2331,39 @@ export type Database = {
           year_options: string
         }[]
       }
+      get_seat_covers_product_reviews_summary: {
+        Args: {
+          type?: string
+          make?: string
+          model?: string
+          year?: string
+          submodel?: string
+          submodel2?: string
+        }
+        Returns: {
+          total_reviews: number
+          average_score: number
+        }[]
+      }
       get_unique_years: {
+        Args: {
+          type_id_web: number
+        }
+        Returns: {
+          id: number
+          name: string
+        }[]
+      }
+      get_unique_years_20240429: {
+        Args: {
+          type_id_web: number
+        }
+        Returns: {
+          id: number
+          name: string
+        }[]
+      }
+      get_unique_years_old: {
         Args: {
           type_id_web: number
         }

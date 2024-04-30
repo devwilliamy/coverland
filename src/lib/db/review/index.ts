@@ -2,6 +2,8 @@ import { ZodError, z } from 'zod';
 
 import {
   PRODUCT_REVIEWS_TABLE,
+  RPC_GET_DISTINCT_REVIEW_IMAGES,
+  RPC_GET_PRODUCT_REVIEWS_SUMMARY,
   SEAT_PRODUCT_REVIEWS_TABLE,
 } from '../constants/databaseTableNames';
 import { Tables } from '../types';
@@ -147,11 +149,14 @@ export async function getProductReviewsByPage(
       // search,
     } = validatedOptions;
     const { from, to } = getPagination(page, limit);
-    const table =
-      productType === 'Seat Covers'
-        ? SEAT_PRODUCT_REVIEWS_TABLE
-        : PRODUCT_REVIEWS_TABLE;
-    let fetch = supabaseDatabaseClient.from(table).select('*').range(from, to);
+    // const table =
+    //   productType === 'Seat Covers'
+    //     ? SEAT_PRODUCT_REVIEWS_TABLE
+    //     : PRODUCT_REVIEWS_TABLE;
+    let fetch = supabaseDatabaseClient
+      .from(PRODUCT_REVIEWS_TABLE)
+      .select('*')
+      .range(from, to);
 
     if (productType) {
       fetch = fetch.eq('type', productType);
@@ -266,12 +271,7 @@ export async function getAllReviewsWithImages(
     //   fetch = fetch.order(sort.field, { ascending: sort.order === 'asc' });
     // }
 
-    const rpc =
-      productType === 'Seat Covers'
-        ? 'get_distinct_seat_covers_review_images'
-        : 'get_distinct_review_images';
-
-    const fetch = supabaseDatabaseClient.rpc(rpc, {
+    const fetch = supabaseDatabaseClient.rpc(RPC_GET_DISTINCT_REVIEW_IMAGES, {
       p_type: productType,
       p_make_slug: generateSlug(make as string) || null,
       p_model_slug: generateSlug(model as string) || null,
@@ -345,11 +345,7 @@ export async function getProductReviewSummary(
   try {
     const validatedFilters = ProductReviewsQueryFiltersSchema.parse(filters);
     const { productType, year, make, model } = validatedFilters;
-    const rpc =
-      productType === 'Seat Covers'
-        ? 'get_seat_covers_product_reviews_summary'
-        : 'get_product_reviews_summary';
-    const fetch = supabaseDatabaseClient.rpc(rpc, {
+    const fetch = supabaseDatabaseClient.rpc(RPC_GET_PRODUCT_REVIEWS_SUMMARY, {
       type: productType || null,
       make: generateSlug(make as string) || null,
       model: generateSlug(model as string) || null,
