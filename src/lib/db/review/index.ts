@@ -149,10 +149,7 @@ export async function getProductReviewsByPage(
       // search,
     } = validatedOptions;
     const { from, to } = getPagination(page, limit);
-    // const table =
-    //   productType === 'Seat Covers'
-    //     ? SEAT_PRODUCT_REVIEWS_TABLE
-    //     : PRODUCT_REVIEWS_TABLE;
+
     let fetch = supabaseDatabaseClient
       .from(PRODUCT_REVIEWS_TABLE)
       .select('*')
@@ -425,11 +422,7 @@ export async function getProductReviewsByImage(
     const { productType, year, make, model } = validatedFilters;
     const { sort, filters } = validatedOptions;
 
-    const table =
-      productType === 'Seat Covers'
-        ? SEAT_PRODUCT_REVIEWS_TABLE
-        : PRODUCT_REVIEWS_TABLE;
-    let fetch = supabaseDatabaseClient.from(table).select('*');
+    let fetch = supabaseDatabaseClient.from(PRODUCT_REVIEWS_TABLE).select('*');
 
     if (productType) {
       fetch = fetch.eq('type', productType);
