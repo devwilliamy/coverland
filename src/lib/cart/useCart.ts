@@ -1,8 +1,11 @@
 'use client';
 import { useState, useCallback, useEffect } from 'react';
 import { IProductData } from '@/utils';
-import { SeatItem } from '@/providers/CartProvider';
-export type TCartItem = (IProductData & { quantity: 1 }) | SeatItem;
+import { SeatItem, AccessoryItem } from '@/providers/CartProvider';
+export type TCartItem =
+  | (IProductData & { quantity: 1 })
+  | SeatItem
+  | AccessoryItem;
 
 const useCart = () => {
   const [cartItems, setCartItems] = useState<TCartItem[]>(() => {

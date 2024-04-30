@@ -3,6 +3,15 @@
 import React, { createContext, useContext } from 'react';
 import useCart, { TCartItem } from '@/lib/cart/useCart';
 
+export type AccessoryItem = {
+  id?: number;
+  sku: string;
+  title: string;
+  msrp: string;
+  description: string[];
+  image: string;
+};
+
 export type SeatItem = {
   sku: string;
   type: string | null;

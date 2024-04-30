@@ -9,9 +9,11 @@ const coverTypes = [
   { title: 'SUV Covers', link: '/suv-covers' },
   { title: 'Truck Covers', link: '/truck-covers' },
   { title: 'Seat Covers', link: '/seat-covers' },
+  { title: 'Accessories', link: '/accessories' },
 ];
 
 function Header() {
+
   return (
     <>
       <header className="hidden w-screen max-w-[1280px] flex-col items-stretch sm:mb-0   lg:ml-auto lg:flex lg:w-auto lg:pt-2.5">
