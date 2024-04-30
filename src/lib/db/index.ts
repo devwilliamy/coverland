@@ -171,9 +171,6 @@ export async function getAllUniqueModelsByYearMake({
   typeId: string;
   yearId: string;
 }) {
-  const tableName =
-    type === 'Seat Covers' ? SEAT_COVERS_TABLE : PRODUCT_DATA_TABLE;
-
   const { data, error } = await supabase
     .from(RELATIONS_PRODUCT_TABLE)
     .select(
