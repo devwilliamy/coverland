@@ -120,48 +120,53 @@ const MobileImageCarousel = () => {
   const handleCarouselItemClick = (index: number) => {
     scrollTo(index);
   };
-
+  // Test Code for Video JS
+  
+  
   const [vehicleType, setVehicleType] = useState('');
   const [videoJson, setVideoJson] = useState({});
   useEffect(() => {
     const fetchData = async () => {
-      const videos = await getAllVideos();
-      console.log('Videos:', { videos, json: videos[0].video_json });
-      setVehicleType('SUV Cover');
-      setVideoJson(videos[0].video_json);
-    };
-    fetchData();
-  }, []);
+        const videos = await getAllVideos();
+        console.log('Videos:', { videos, json: videos[0].video_json });
+        setVehicleType('SUV Cover');
+        setVideoJson(videos[0].video_json);
+      };
+      fetchData();
+    }, []);
 
-  const playerRef = useRef(null);
+    // Test Code for Video JS
+  /*
+  // const playerRef = useRef(null);
 
-  const videoJsOptions = {
-    autoplay: true,
-    controls: true,
-    responsive: true,
-    fluid: true,
-    sources: [
-      {
-        src: 'https://x2kly621zrgfgwll.public.blob.vercel-storage.com/videos/Cinematic%20Car%20Cover%20Ads_FINAL-HitEmHXyHRd9qh8F7PvXUzM5ze8vrx.mp4',
-        type: 'video/mp4',
-      },
-    ],
-  };
+  // const videoJsOptions = {
+  //   autoplay: true,
+  //   controls: true,
+  //   responsive: true,
+  //   fluid: true,
+  //   sources: [
+  //     {
+  //       src: 'https://x2kly621zrgfgwll.public.blob.vercel-storage.com/videos/Cinematic%20Car%20Cover%20Ads_FINAL-HitEmHXyHRd9qh8F7PvXUzM5ze8vrx.mp4',
+  //       type: 'video/mp4',
+  //     },
+  //   ],
+  // };
 
-  const handlePlayerReady = (player) => {
-    playerRef.current = player;
+  // const handlePlayerReady = (player) => {
+  //   playerRef.current = player;
 
-    // You can handle player events here, for example:
-    player.on('waiting', () => {
-      videojs.log('player is waiting');
-    });
+  //   // You can handle player events here, for example:
+  //   player.on('waiting', () => {
+  //     videojs.log('player is waiting');
+  //   });
 
-    player.on('dispose', () => {
-      videojs.log('player will dispose');
-    });
-  };
-
-  return (
+  //   player.on('dispose', () => {
+  //     videojs.log('player will dispose');
+  //   });
+  // };
+*/
+  
+return (
     <div className="flex max-w-full flex-col bg-white lg:hidden ">
       <Carousel setApi={setApi}>
         <CarouselContent id={'carousel-content'} className="no-scrollbar">
@@ -189,8 +194,12 @@ const MobileImageCarousel = () => {
             if (index === 3) {
               return (
                 <CarouselItem key={String(baseListingVideo)}>
-                             <VideoJS options={videoJsOptions} onReady={handlePlayerReady} />
-
+                  <ProductVideo
+                    src={videoJson}
+                    imgSrc={listingVideoThumbnail}
+                    autoplay
+                    loop
+                  />
                 </CarouselItem>
               );
             }
