@@ -1,4 +1,4 @@
-'use client';;
+'use client';
 import EditVehicleDropdown from '@/components/PDP/EditVehicleDropdown';
 import { EditIcon } from '@/components/PDP/icons';
 import {
@@ -37,10 +37,11 @@ export default function EditVehiclePopover({
   const productName = make
     ? `${selectedMake} ${model ? selectedModel : ''}`
     : `${type}`;
-  const productNameSubtitle = year
-    ? `${submodel1 ?? ''} ${selectedYear ?? ''}`
-    : '';
 
+    const s
+  const productNameSubtitle = year
+    ? `${selectedYear ? (submodel1 ? `${submodel1} ${selectedYear}` : `${selectedYear}`) : ''}`
+    : '';
   return (
     <div className="my-4 hidden w-full border-l-2 border-l-[#C8C7C7] lg:flex lg:flex-col">
       <Popover open={open} onOpenChange={() => setOpen(!open)}>
@@ -48,10 +49,12 @@ export default function EditVehiclePopover({
           <button className="flex w-full flex-shrink cursor-pointer items-center justify-between pl-[30px]">
             <div className="flex w-full flex-col items-start justify-start">
               <p className="">Your Vehicle</p>
-              <h1 className="break-normal text-left text-[26px] font-[500] capitalize leading-[31px]">
+              <p className="break-normal text-left text-[26px] font-[500] capitalize leading-[31px]">
                 {productName}
-              </h1>
-              <h2 className="text-[#8F8F8F]">{productNameSubtitle}</h2>
+              </p>
+              <p className="text-[16px] leading-[22px] text-[#8F8F8F]">
+                {productNameSubtitle}
+              </p>
             </div>
             <EditIcon />
           </button>

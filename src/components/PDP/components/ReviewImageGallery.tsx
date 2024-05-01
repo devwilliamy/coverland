@@ -21,6 +21,7 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from '@/components/ui/carousel';
+import useStoreContext from '@/hooks/useStoreContext';
 
 const ReviewImageGallery = ({
   setReviewsOpen,
@@ -35,8 +36,8 @@ const ReviewImageGallery = ({
     api.on('scroll', (e) => setCurrentReviewImage(e.selectedScrollSnap()));
   });
 
-  const store = useContext(CarSelectionContext);
-  if (!store) throw new Error('Missing CarContext.Provider in the tree');
+  const store = useStoreContext();
+  if (!store) throw new Error('Missing Provider in the tree');
   const reviewImages = useStore(store, (s) => s.reviewImages);
   const [reviewDialogOpen, setReviewDialogOpen] = useState(false);
   const [currentReview, setCurrentReview] = useState<TReviewData | null>(null);

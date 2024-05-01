@@ -71,7 +71,7 @@ const ProductImage = ({
   >
     <Image
       key={idx}
-      src={removeWwwFromUrl(img as string) + '?v=9'}
+      src={removeWwwFromUrl(img as string) + '?v=11'}
       width={350}
       height={350}
       alt="car cover details"
