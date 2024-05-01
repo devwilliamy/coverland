@@ -35,7 +35,10 @@ import { useStore } from 'zustand';
 import { removeWwwFromUrl } from '@/utils';
 import { CarouselPositionItem } from './MobileCarouselPositionItem';
 import { getAllVideos } from '@/lib/db/videos';
+import videojs from 'video.js';
 
+import { useRef } from 'react';
+import VideoJS from '@/components/PDP/VideoJS';
 const ProductVideo = dynamic(() => import('@/components/PDP/ProductVideo'), {
   loading: () => (
     <div className="flex h-full">
@@ -130,6 +133,34 @@ const MobileImageCarousel = () => {
     fetchData();
   }, []);
 
+  const playerRef = useRef(null);
+
+  const videoJsOptions = {
+    autoplay: true,
+    controls: true,
+    responsive: true,
+    fluid: true,
+    sources: [
+      {
+        src: 'https://91.108.110.247/video/product_video_carousel-1714564225100.mp4',
+        type: 'video/mp4',
+      },
+    ],
+  };
+
+  const handlePlayerReady = (player) => {
+    playerRef.current = player;
+
+    // You can handle player events here, for example:
+    player.on('waiting', () => {
+      videojs.log('player is waiting');
+    });
+
+    player.on('dispose', () => {
+      videojs.log('player will dispose');
+    });
+  };
+
   return (
     <div className="flex max-w-full flex-col bg-white lg:hidden ">
       <Carousel setApi={setApi}>
@@ -158,12 +189,8 @@ const MobileImageCarousel = () => {
             if (index === 3) {
               return (
                 <CarouselItem key={String(baseListingVideo)}>
-                  <ProductVideo
-                    src={videoJson}
-                    imgSrc={listingVideoThumbnail}
-                    autoplay
-                    loop
-                  />
+                             <VideoJS options={videoJsOptions} onReady={handlePlayerReady} />
+
                 </CarouselItem>
               );
             }
