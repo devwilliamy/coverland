@@ -142,7 +142,7 @@ const MobileImageCarousel = () => {
     fluid: true,
     sources: [
       {
-        src: 'https://91.108.110.247/video/product_video_carousel-1714564225100.mp4',
+        src: 'https://x2kly621zrgfgwll.public.blob.vercel-storage.com/videos/Cinematic%20Car%20Cover%20Ads_FINAL-HitEmHXyHRd9qh8F7PvXUzM5ze8vrx.mp4',
         type: 'video/mp4',
       },
     ],
