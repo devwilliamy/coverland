@@ -17,3 +17,6 @@ export const RPC_GET_DISTINCT_REVIEW_IMAGES = 'get_distinct_review_images';
 export const RPC_GET_SEAT_COVERS_PRODUCT_REVIEWS_SUMMARY =
   'get_seat_covers_product_reviews_summary';
 export const RPC_GET_PRODUCT_REVIEWS_SUMMARY = 'get_product_reviews_summary';
+
+export const VEHICLE_TYPE_VIDEO = 'vehicle_type_video'
+export const TYPE_MAKE_MODEL = 'type_make_model'

@@ -34,6 +34,7 @@ import { FaCamera } from 'react-icons/fa';
 import { useStore } from 'zustand';
 import { removeWwwFromUrl } from '@/utils';
 import { CarouselPositionItem } from './MobileCarouselPositionItem';
+import { getAllVideos } from '@/lib/db/videos';
 
 const ProductVideo = dynamic(() => import('@/components/PDP/ProductVideo'), {
   loading: () => (
@@ -117,6 +118,18 @@ const MobileImageCarousel = () => {
     scrollTo(index);
   };
 
+  const [vehicleType, setVehicleType] = useState('');
+  const [videoJson, setVideoJson] = useState({});
+  useEffect(() => {
+    const fetchData = async () => {
+      const videos = await getAllVideos();
+      console.log('Videos:', { videos, json: videos[0].video_json });
+      setVehicleType('SUV Cover');
+      setVideoJson(videos[0].video_json);
+    };
+    fetchData();
+  }, []);
+
   return (
     <div className="flex max-w-full flex-col bg-white lg:hidden ">
       <Carousel setApi={setApi}>
@@ -146,7 +159,7 @@ const MobileImageCarousel = () => {
               return (
                 <CarouselItem key={String(baseListingVideo)}>
                   <ProductVideo
-                    src={featured360}
+                    src={videoJson}
                     imgSrc={listingVideoThumbnail}
                     autoplay
                     loop
