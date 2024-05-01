@@ -34,7 +34,7 @@ import { FaCamera } from 'react-icons/fa';
 import { useStore } from 'zustand';
 import { removeWwwFromUrl } from '@/utils';
 import { CarouselPositionItem } from './MobileCarouselPositionItem';
-import { getAllVideos } from '@/lib/db/videos';
+import { getAllVideos, getType, getVideoByType } from '@/lib/db/videos';
 import videojs from 'video.js';
 
 import { useRef } from 'react';
@@ -56,7 +56,7 @@ const MobileImageCarousel = () => {
   const setFeaturedImage = useStore(store, (s) => s.setFeaturedImage);
   const [api, setApi] = useState<CarouselApi>();
   const [current, setCurrent] = useState(0);
-  const { productType, model } = useDetermineType();
+  const { productType, model, make } = useDetermineType();
   let baseListingVideo = CarListing;
   let baseListingVideoThumbnail = Car360Thumb;
 
@@ -127,13 +127,18 @@ const MobileImageCarousel = () => {
   const [videoJson, setVideoJson] = useState({});
   useEffect(() => {
     const fetchData = async () => {
-        const videos = await getAllVideos();
+        const type = await getType(make as string, model as string)
+        console.log("Type:", type)
+        debugger;
+        const videos = await getVideoByType(type);
         console.log('Videos:', { videos, json: videos[0].video_json });
         setVehicleType('SUV Cover');
         setVideoJson(videos[0].video_json);
       };
-      fetchData();
-    }, []);
+      if (make && model) {
+        fetchData();
+      }
+    }, [make, model]);
 
     // Test Code for Video JS
   /*
