@@ -49,12 +49,17 @@ async function OrderConfirmationPage({
       paymentMethod as PaymentMethod
     );
 
-    // Update Order in Orders table 
-    const updatedOrderResponse = await updateAdminPanelOrder(mappedOrder, mappedOrder.order_id)
+    // Update Order in Orders table
+    const updatedOrderResponse = await updateAdminPanelOrder(
+      mappedOrder,
+      mappedOrder.order_id
+    );
 
     // Add To OrderItem Table
-    postAdminPanelOrderItem(updatedOrderResponse[0].id, paymentIntent.metadata.skusWithQuantity)
-
+    postAdminPanelOrderItem(
+      updatedOrderResponse[0].id,
+      paymentIntent.metadata.skusWithQuantity
+    );
   } else if (payment_gateway === 'paypal') {
     // If Paypal needs to do something here...
     // Oh, order items and customer have to be updated here

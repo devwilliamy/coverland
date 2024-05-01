@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import OverlappingLabel from '../ui/overlapping-label';
 import { Button } from '../ui/button';
@@ -18,15 +18,19 @@ type FormData = {
 };
 
 type AddressFormProps = {
+  addressData: StripeAddress;
+  updateAddress: (address: StripeAddress) => void;
   setIsEditingAddress: (isEditing: boolean) => void;
+  showEmail: boolean;
 };
-export default function AddressForm({ setIsEditingAddress }: AddressFormProps) {
-  const {
-    updateShippingAddress,
-    isBillingSameAsShipping,
-    updateCustomerInfo,
-    toggleIsShippingAddressShown,
-  } = useCheckoutContext();
+export default function AddressForm({
+  addressData,
+  updateAddress,
+  setIsEditingAddress,
+  showEmail,
+}: AddressFormProps) {
+  const { customerInfo, updateCustomerInfo, toggleIsShippingAddressShown } =
+    useCheckoutContext();
   const {
     register,
     setValue,
@@ -44,12 +48,13 @@ export default function AddressForm({ setIsEditingAddress }: AddressFormProps) {
       city,
       state,
       postal_code,
-      phoneNumber
+      phoneNumber,
     }) => {
       const address: StripeAddress = {
         name: `${firstName} ${lastName}`,
         firstName,
         lastName,
+        phone: phoneNumber,
         address: {
           line1,
           line2,
@@ -59,7 +64,7 @@ export default function AddressForm({ setIsEditingAddress }: AddressFormProps) {
           country: 'US',
         },
       };
-      updateShippingAddress(address as StripeAddress, isBillingSameAsShipping);
+      updateAddress(address as StripeAddress);
       updateCustomerInfo({ email, phoneNumber });
       setIsEditingAddress(false);
       toggleIsShippingAddressShown(false);
@@ -68,18 +73,36 @@ export default function AddressForm({ setIsEditingAddress }: AddressFormProps) {
 
   console.log('Errors', errors);
 
+  useEffect(() => {
+    // Populate the form fields when shippingAddress changes
+    if (addressData) {
+      setValue('email', customerInfo.email || '');
+      setValue('firstName', addressData.firstName || '');
+      setValue('lastName', addressData.lastName || '');
+      setValue('line1', addressData.address.line1 || '');
+      setValue('line2', addressData.address.line2 || '');
+      setValue('city', addressData.address.city || '');
+      setValue('state', addressData.address.state || '');
+      setValue('postal_code', addressData.address.postal_code || '');
+      setValue('phoneNumber', customerInfo.phoneNumber || '');
+    }
+  }, [addressData, customerInfo, setValue]);
+
   return (
     <form onSubmit={onSubmit}>
-      <div className="pb-6 pt-2">
-        <OverlappingLabel
-          title="Email"
-          name="email"
-          errors={errors}
-          placeholder="abc@gmail.com"
-          register={register}
-          options={{ required: true }}
-        />
-      </div>
+      {showEmail && (
+        <div className="pb-6 pt-2">
+          <OverlappingLabel
+            title="Email"
+            name="email"
+            errors={errors}
+            placeholder="abc@gmail.com"
+            register={register}
+            options={{ required: true }}
+          />
+        </div>
+      )}
+
       <div className="flex flex-row pb-6">
         <div className="mr-2 flex-grow">
           <OverlappingLabel

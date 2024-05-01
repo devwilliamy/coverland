@@ -23,7 +23,7 @@ function isValidShippingAddress({ address }: StripeAddress) {
     address &&
     address.line1 !== '' &&
     // address.address_line_2 &&
-    address.line2 !== '' &&
+    // address.line2 !== '' &&
     address.city !== '' &&
     address.state !== '' &&
     address.postal_code !== '' &&
@@ -41,7 +41,7 @@ export default function Payment() {
 
   const [message, setMessage] = useState<string>('');
   const { orderNumber, paymentIntentId } = useCheckoutContext();
-  const { billingAddress, shippingAddress, customerEmail, shipping } =
+  const { billingAddress, shippingAddress, customerInfo, shipping } =
     useCheckoutContext();
   const { getTotalPrice } = useCartContext();
   const totalMsrpPrice = convertPriceToStripeFormat(getTotalPrice() + shipping);
@@ -67,7 +67,6 @@ export default function Payment() {
         amount: totalMsrpPrice,
       }),
     });
-
     const data = await response.json();
     const { error } = await stripe.confirmPayment({
       elements,
@@ -86,10 +85,10 @@ export default function Payment() {
         },
         // Make sure to change this to your payment completion page
         return_url: `${origin}/thank-you?order_number=${orderNumber}`,
-        receipt_email: customerEmail,
+        receipt_email: customerInfo.email,
         payment_method_data: {
           billing_details: {
-            email: customerEmail,
+            email: customerInfo.email,
             name: billingAddress.name,
             phone: billingAddress.phone,
             address: {
@@ -126,9 +125,7 @@ export default function Payment() {
 
   return (
     <div className="px-4">
-      <div className="mb-10 lg:hidden">
-        {/* <PromoCode /> */}
-      </div>
+      <div className="mb-10 lg:hidden">{/* <PromoCode /> */}</div>
       <div className="pb-5">Select Payment Method</div>
       <div className="pb-5">
         <PaymentSelector

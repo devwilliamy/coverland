@@ -1,31 +1,10 @@
-import { StripeAddress } from '@/lib/types/checkout';
-import { AddressElement } from '@stripe/react-stripe-js';
-import { AddressMode } from '@stripe/stripe-js';
 import { useState } from 'react';
 import SavedAddressBox from './SavedAddressBox';
 import ShippingSelection from './ShippingSelection';
 import { Button } from '../ui/button';
 import { useCheckoutContext } from '@/contexts/CheckoutContext';
-import { StripeAddressElementOptions } from '@stripe/stripe-js';
 import SavedShippingBox from './SavedShippingBox';
-import EmailInput from './EmailInput';
 import AddressForm from './AddressForm';
-
-const options: StripeAddressElementOptions = {
-  mode: 'shipping' as AddressMode, // 'billing',
-  allowedCountries: ['US'],
-  fields: {
-    phone: 'always',
-  },
-  validation: {
-    phone: {
-      required: 'auto',
-    },
-  },
-  display: {
-    name: 'split',
-  },
-};
 
 type ShippingProps = {
   handleChangeAccordion: (accordionTitle: string) => void;
@@ -36,17 +15,15 @@ export default function Shipping({
   handleChangeAccordion,
   handleSelectTab,
 }: ShippingProps) {
-  const [isDisabled, setIsDisabled] = useState(true);
   const [isEditingAddress, setIsEditingAddress] = useState(true);
   const [isEditingShipping, setIsEditingShipping] = useState(true);
-  const [address, setAddress] = useState<StripeAddress>();
 
   const {
     shippingAddress,
+    updateShippingAddress,
+    isBillingSameAsShipping,
     toggleIsShippingAddressShown,
   } = useCheckoutContext();
-
-
 
   const handleEditButtonClick = () => {
     setIsEditingShipping(false);
@@ -68,24 +45,28 @@ export default function Shipping({
     <div className="px-4">
       {isEditingAddress ? (
         <div className="min-h-[400px]">
-          <AddressForm setIsEditingAddress={setIsEditingAddress}/>
+          <AddressForm
+            addressData={shippingAddress}
+            updateAddress={(address) =>
+              updateShippingAddress(address, isBillingSameAsShipping)
+            }
+            setIsEditingAddress={setIsEditingAddress}
+            showEmail
+          />
         </div>
       ) : (
         <div className="mb-4">
-          <SavedAddressBox
-            address={address as StripeAddress}
-            handleClick={handleEditAddress}
-          />
+          <SavedAddressBox handleClick={handleEditAddress} />
         </div>
       )}
-      {address && !isEditingAddress && (
+      {shippingAddress && !isEditingAddress && (
         <div className="pt-4">
           {isEditingShipping ? (
             <div className="pb-12">
               <ShippingSelection />
               <div className="mt-4 flex flex-col items-center justify-between lg:mt-11">
                 <Button
-                  disabled={isDisabled}
+                  disabled={isEditingAddress}
                   onClick={handleEditButtonClick}
                   className={`h-[48px] w-full max-w-[390px] cursor-pointer rounded-lg bg-black text-base font-bold uppercase text-white lg:h-[63px] lg:text-xl`}
                 >
