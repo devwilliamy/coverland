@@ -42,7 +42,7 @@ export default function EditVehicleModal({
     ? `${selectedMake} ${model ? selectedModel : ''}`
     : `${type}`;
   const productNameSubtitle = year
-    ? `${submodel1 ?? ''} ${selectedYear ?? ''}`
+    ? `${selectedYear ? (searchParams?.submodel ? `${submodel1} ${selectedYear}` : `${selectedYear}`) : ''}`
     : '';
   return (
     <div className=" flex h-full w-full flex-col  justify-center lg:hidden">
