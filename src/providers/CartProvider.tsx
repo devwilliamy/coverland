@@ -9,7 +9,7 @@ export type AccessoryItem = {
   title: string;
   msrp: string;
   description: string[];
-  image: string;
+  images: string;
 };
 
 export type SeatItem = {

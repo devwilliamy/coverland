@@ -15,5 +15,5 @@ export async function getAllAcessories() {
   }
   console.log('[Accessories]: ', { data });
 
-  //   return data;
+  return data;
 }
