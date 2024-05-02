@@ -17,3 +17,18 @@ export async function getAllAcessories() {
 
   return data;
 }
+
+export async function getAccessoryBySKU(sku: string) {
+  const { data, error } = await supabase
+    .from('Accessories')
+    .select('*')
+    .eq('sku', sku);
+  // acc[1]?.images?.split(',');
+
+  if (error) {
+    throw new Error(error.message);
+  }
+  console.log('[Single Accessory]: ', { data });
+
+  return data;
+}

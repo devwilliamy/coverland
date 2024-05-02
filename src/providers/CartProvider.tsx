@@ -5,6 +5,7 @@ import useCart, { TCartItem } from '@/lib/cart/useCart';
 
 export type AccessoryItem = {
   id?: number;
+  type?: string | null;
   sku: string;
   title: string;
   msrp: string;

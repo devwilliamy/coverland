@@ -101,7 +101,8 @@ export default CheckoutPage;
 function CartItemCard({ item }: { item: TCartItem }) {
   const { removeItemFromCart } = useCartContext();
   const { type } = item;
-  const imageUrl = type === 'Seat Covers' ? item?.product?.split(',')[0] : item?.feature 
+  const imageUrl =
+    type === 'Seat Covers' ? item?.product?.split(',')[0] : item?.feature;
   return (
     <TableBody key={item?.sku}>
       <TableRow className="flex flex-col">
@@ -117,7 +118,7 @@ function CartItemCard({ item }: { item: TCartItem }) {
           </div>
           <div className="flex w-7/12 flex-col gap-1">
             <div className="w-10/12 text-base font-bold lg:text-lg">
-              {item?.display_id}&trade; {item?.type}
+              {item?.display_id} {item?.title} &trade; {item?.type}
             </div>
             <div
               className={`text-sm font-normal ${!item?.make && 'hidden'} text-[#707070] lg:text-base`}
@@ -130,7 +131,9 @@ function CartItemCard({ item }: { item: TCartItem }) {
             >
               {detectFOrFB(item.sku)} Seat Cover
             </div>
-            <div className="text-sm font-normal text-[#707070] lg:text-base">
+            <div
+              className={`text-sm font-normal ${!item?.display_color && 'hidden'} text-[#707070] lg:text-base`}
+            >
               Color: {item?.display_color}
             </div>
             <div className="flex gap-3 text-sm font-normal text-[#707070] lg:text-base">

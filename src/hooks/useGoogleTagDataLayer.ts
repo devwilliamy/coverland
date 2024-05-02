@@ -1,9 +1,5 @@
 import { CarSelectionContext } from '../contexts/CarSelectionContext';
-import {
-  IProductData,
-  TPathParams,
-  getCompleteSelectionData,
-} from '@/utils';
+import { IProductData, TPathParams, getCompleteSelectionData } from '@/utils';
 import { TCartItem } from '@/lib/cart/useCart';
 import { deslugify } from '@/lib/utils';
 import { useCartContext } from '@/providers/CartProvider';
@@ -19,7 +15,7 @@ export const removeMakeFromDisplayId = (
     return displayId ?? ''; // Return displayId if it's not null, otherwise return an empty string
   }
 
-  if (displayId.includes(make)) {
+  if (displayId?.includes(make)) {
     return displayId.replace(make, '').trim();
   }
   return displayId;
