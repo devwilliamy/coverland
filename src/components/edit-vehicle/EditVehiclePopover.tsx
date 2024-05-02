@@ -39,7 +39,7 @@ export default function EditVehiclePopover({
     : `${type}`;
 
   const productNameSubtitle = year
-    ? `${selectedYear ? (submodel1 ? `${submodel1} ${selectedYear}` : `${selectedYear}`) : ''}`
+    ? `${selectedYear ? (searchParams?.submodel ? `${submodel1} ${selectedYear}` : `${selectedYear}`) : ''}`
     : '';
   return (
     <div className="my-4 hidden w-full border-l-2 border-l-[#C8C7C7] lg:flex lg:flex-col">
