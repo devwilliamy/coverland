@@ -38,7 +38,6 @@ export default function EditVehiclePopover({
     ? `${selectedMake} ${model ? selectedModel : ''}`
     : `${type}`;
 
-    const s
   const productNameSubtitle = year
     ? `${selectedYear ? (submodel1 ? `${submodel1} ${selectedYear}` : `${selectedYear}`) : ''}`
     : '';
