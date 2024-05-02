@@ -5,7 +5,7 @@ import {
   getCurrentTimeInISOFormat,
 } from './date';
 import { Tables } from '../db/types';
-import { PayPalCaptureOrder, PayPalCompleteOrder } from '../types/paypal';
+import { TPayPalCaptureOrder, PayPalCompleteOrder } from '../types/paypal';
 
 type TOrdersDB = Tables<'_Orders'>;
 
@@ -119,7 +119,7 @@ export const mapPaymentMethodToCustomer = (
 };
 
 export const mapPaypalCaptureCreateToOrder = (
-  paypalPayload: PayPalCaptureOrder
+  paypalPayload: TPayPalCaptureOrder
 ) => {
   const { id, status, purchase_units, create_time } = paypalPayload;
   const { reference_id: order_id, amount, items } = purchase_units[0];
@@ -137,7 +137,8 @@ export const mapPaypalCaptureCreateToOrder = (
 };
 
 export const mapPaypalCompletionToOrder = (
-  paypalPayload: PayPalCompleteOrder
+  paypalPayload: PayPalCompleteOrder,
+  phone: string
 ) => {
   console.log("[mapPaypalCompletionToOrder,PaypalPayload]", paypalPayload)
   const { id, status, purchase_units, payment_source, payer } = paypalPayload;
@@ -162,7 +163,7 @@ export const mapPaypalCompletionToOrder = (
     payment_date: getCurrentTimeInISOFormat(),
     customer_name: shipping?.name?.full_name,
     customer_email: payment_source?.paypal?.email_address,
-    customer_phone: payment_source?.paypal?.phone_number || '', // currently don't actually see phone number
+    customer_phone: phone || "", // currently don't actually see phone number
     shipping_address_line_1: shipping?.address?.address_line_1,
     shipping_address_line_2: shipping?.address?.address_line_2 || '', // currnetly don't see it
     shipping_address_city: shipping?.address?.admin_area_2,

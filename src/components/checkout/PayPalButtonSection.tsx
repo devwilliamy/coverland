@@ -10,7 +10,7 @@ import { useCheckoutContext } from '@/contexts/CheckoutContext';
 
 export default function PayPalButtonSection() {
   const { clearLocalStorageCart, getTotalPrice, cartItems } = useCartContext();
-  const { orderNumber, shipping, shippingAddress } = useCheckoutContext();
+  const { orderNumber, shipping, shippingAddress, customerInfo } = useCheckoutContext();
   const router = useRouter();
   const totalMsrpPrice = getTotalPrice().toFixed(2) as unknown as number;
   console.log("[PaypalButtonSection]: ", process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID)
@@ -48,7 +48,7 @@ export default function PayPalButtonSection() {
           }}
           onApprove={async (data) => {
             console.log("[PaypalButton Section] Data: ", data)
-            const response = await paypalCaptureOrder(data.orderID);
+            const response = await paypalCaptureOrder(data.orderID, customerInfo.phoneNumber);
             if (response.success) {
               // clearLocalStorageCart();
               router.push(

@@ -1,4 +1,4 @@
-export type PayPalCaptureOrder = {
+export type TPayPalCaptureOrder = {
   id: string;
   intent: 'CAPTURE';
   status: 'CREATED';

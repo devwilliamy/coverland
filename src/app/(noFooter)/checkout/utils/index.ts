@@ -157,7 +157,7 @@ export const redirectToCheckout = async ({
   }
 };
 
-export async function paypalCaptureOrder(orderID: string) {
+export async function paypalCaptureOrder(orderID: string, phone: string) {
   try {
     const response = await fetch('/api/paypal/capture-order', {
       method: 'POST',
@@ -174,7 +174,7 @@ export async function paypalCaptureOrder(orderID: string) {
     }
     const data = await response.json();
     // console.log('[Paypal.paypalCaptureOrder]: ', data);
-    const mappedData = mapPaypalCompletionToOrder(data.data);
+    const mappedData = mapPaypalCompletionToOrder(data.data, phone);
     // console.log('[Paypal.paypalCreateOrder] mappedData: ', mappedData);
     const adminPanelOrder = await updateAdminPanelOrder(
       mappedData,

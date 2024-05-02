@@ -1,7 +1,7 @@
 import { useCheckoutContext } from '@/contexts/CheckoutContext';
 import CheckoutSummarySection from './CheckoutSummarySection';
 import OrderReview from './OrderReview';
-import { CheckoutStep } from '@/lib/types/checkout';
+import { CheckoutStep, StripeAddress } from '@/lib/types/checkout';
 import YourCart from './YourCart';
 import Shipping from './Shipping';
 import Payment from './Payment';
@@ -14,8 +14,21 @@ import {
 import { useState } from 'react';
 import CartHeader from './CartHeader';
 
+function isValidShippingAddress({ address }: StripeAddress) {
+  return (
+    address &&
+    address.line1 !== '' &&
+    // address.address_line_2 &&
+    // address.line2 !== '' &&
+    address.city !== '' &&
+    address.state !== '' &&
+    address.postal_code !== '' &&
+    address.country !== ''
+  );
+}
+
 export default function DesktopCheckout() {
-  const { currentStep } = useCheckoutContext();
+  const { currentStep, shippingAddress } = useCheckoutContext();
   const [value, setValue] = useState(['shipping']);
 
   const handleChangeAccordion = (value: string) =>
@@ -42,6 +55,8 @@ export default function DesktopCheckout() {
       },
     });
   };
+
+  const isDisabled = !isValidShippingAddress(shippingAddress)
   return (
     <>
       <button onClick={handleEmailClicl}>Send Mail</button>
@@ -73,7 +88,7 @@ export default function DesktopCheckout() {
                   </AccordionContent>
                 </AccordionItem>
                 <AccordionItem value="payment" id="payment">
-                  <AccordionTrigger className="my-4 px-4 text-xl font-medium">
+                  <AccordionTrigger className={`my-4 px-4 text-xl font-medium ${isDisabled ? "text-gray-400/90" : ""}`} disabled={isDisabled}>
                     Payment
                   </AccordionTrigger>
                   <AccordionContent>
