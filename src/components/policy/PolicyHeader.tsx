@@ -5,7 +5,7 @@ import PolicyTabs from './PolicyTabs';
 
 type PolicyHeaderProps = {
   headerText: string;
-  showHeader?: boolean | undefined;
+  showTabs?: boolean | undefined;
 };
 
 const raleway = Raleway({
@@ -18,7 +18,7 @@ const raleway = Raleway({
 
 export default function PolicyHeader({
   headerText,
-  showHeader = true,
+  showTabs = true,
 }: PolicyHeaderProps) {
   return (
     <>
@@ -39,7 +39,7 @@ export default function PolicyHeader({
           </h1>
         </div>
       </div>
-      {showHeader && <PolicyTabs />}
+      {showTabs && <PolicyTabs />}
     </>
   );
 }

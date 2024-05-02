@@ -280,13 +280,21 @@ const AccessoryGallery = ({ imageStrings }: { imageStrings: string[] }) => (
           return null;
         }
         return (
-          <Image
-            src={image}
-            alt="accessories-header"
-            width={700}
-            height={700}
-            className="aspect-square h-full w-full rounded-xl "
-          />
+          <Suspense
+            fallback={
+              <div className="p-4">
+                <Skeleton className="min-h-screen w-full bg-[#BE1B1B]/80 " />
+              </div>
+            }
+          >
+            <Image
+              src={image}
+              alt="accessories-header"
+              width={700}
+              height={700}
+              className="aspect-square h-full w-full rounded-xl "
+            />
+          </Suspense>
         );
       })}
     </span>
