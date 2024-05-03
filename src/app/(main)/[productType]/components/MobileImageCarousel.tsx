@@ -151,7 +151,7 @@ const MobileImageCarousel = () => {
                 <CarouselItem key={String(baseListingVideo)}>
                   <ProductVideo
                   
-                    src={selectedProduct.product_video_carousel}
+                    src={"https://coders-desk.com/7secListingVideo_2.mp4"}
                     imgSrc={listingVideoThumbnail}
                     autoplay
                     loop
