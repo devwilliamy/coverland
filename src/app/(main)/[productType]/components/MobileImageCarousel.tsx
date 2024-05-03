@@ -158,6 +158,7 @@ const MobileImageCarousel = () => {
                   /> */}
                   <ReactPlayer
                     controls={true}
+                    muted
                     playsInline
                     playing={true}
                     width="100%"
@@ -178,6 +179,7 @@ const MobileImageCarousel = () => {
                   /> */}
                   <ReactPlayer
                     controls={true}
+                    muted
                     playsInline
                     playing={true}
                     width="100%"
@@ -198,6 +200,7 @@ const MobileImageCarousel = () => {
                   /> */}
                   <ReactPlayer
                     controls={true}
+                    muted
                     playsInline
                     playing={true}
                     width="100%"
