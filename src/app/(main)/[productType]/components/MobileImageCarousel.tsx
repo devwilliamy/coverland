@@ -34,6 +34,7 @@ import { FaCamera } from 'react-icons/fa';
 import { useStore } from 'zustand';
 import { removeWwwFromUrl } from '@/utils';
 import { CarouselPositionItem } from './MobileCarouselPositionItem';
+import ReactPlayer from 'react-player';
 
 const ProductVideo = dynamic(() => import('@/components/PDP/ProductVideo'), {
   loading: () => (
@@ -149,11 +150,56 @@ const MobileImageCarousel = () => {
             if (index === 3) {
               return (
                 <CarouselItem key={String(baseListingVideo)}>
-                  <ProductVideo
+                  {/* <ProductVideo
                     src={featured360}
                     imgSrc={listingVideoThumbnail}
                     autoplay
                     loop
+                  /> */}
+                  <ReactPlayer
+                    controls={true}
+                    playing={true}
+                    width="100%"
+                    height="auto"
+                    url="https://91.108.110.247/video/product_video_carousel-1714756400564.mp4"
+                  />
+                </CarouselItem>
+              );
+            }
+            if (index === 4) {
+              return (
+                <CarouselItem key={'asdsfdasfdasfda'}>
+                  {/* <ProductVideo
+                    src={featured360}
+                    imgSrc={listingVideoThumbnail}
+                    autoplay
+                    loop
+                  /> */}
+                  <ReactPlayer
+                    controls={true}
+                    playing={true}
+                    width="100%"
+                    height="auto"
+                    url="https://coders-desk.com/7secListingVideo_2.mp4"
+                  />
+                </CarouselItem>
+              );
+            }
+            if (index === 2) {
+              return (
+                <CarouselItem key={'asdsfeqdasfdasfda'}>
+                  {/* <ProductVideo
+                    src={featured360}
+                    imgSrc={listingVideoThumbnail}
+                    autoplay
+                    loop
+                  /> */}
+                  <ReactPlayer
+                    controls={true}
+                    playing={true}
+                    width="100%"
+                    height="auto"
+                    url="https://www.youtube.com/watch?v=LXb3EKWsInQ"
                   />
                 </CarouselItem>
               );
@@ -213,7 +259,7 @@ const MobileImageCarousel = () => {
                     id="video-thumbnail"
                     alt="Video Thumbnail"
                     slot="poster"
-                    src={selectedProduct.product_video_carousel_thumbnail}
+                    src={SUVListingThumb}
                     width={1600}
                     height={1600}
                     className="flex h-full w-full overflow-hidden rounded-[4px] object-cover"

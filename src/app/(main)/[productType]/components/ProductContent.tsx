@@ -17,7 +17,7 @@ import ReviewsTextTrigger from './ReviewsTextTrigger';
 import installments from '@/images/PDP/Product-Details-Redesign-2/paypal-installments.webp';
 import Image from 'next/image';
 import useDetermineType from '@/hooks/useDetermineType';
-
+import ReactPlayer from 'react-player';
 export function ProductContent({
   searchParams,
 }: {
@@ -126,6 +126,41 @@ export function ProductContent({
 
   return (
     <>
+      <div>
+        <ReactPlayer
+          url="https://www.youtube.com/watch?v=LXb3EKWsInQ"
+          controls={true}
+          width="100%"
+          height="auto"
+        />
+      </div>
+      <div>Space Product Carousel</div>
+      <div>
+        <ReactPlayer
+          url="https://91.108.110.247/video/product_video_carousel-1714756400564.mp4"
+          controls={true}
+          width="100%"
+          height="auto"
+        />
+      </div>
+      <div>Space Coders Desk</div>
+      <div>
+        <ReactPlayer
+          url="https://coders-desk.com/7secListingVideo_2.mp4"
+          controls={true}
+          width="100%"
+          height="auto"
+        />
+      </div>
+      <div>Space Vercel</div>
+      <div>
+        <ReactPlayer
+          url="https://x2kly621zrgfgwll.public.blob.vercel-storage.com/https://x2kly621zrgfgwll.public.blob.vercel-storage.com/videos/UVGIF-TlV19CyIwM0bRVnUtMrzWyWf7AJucy-cVuyPuWNJ4If5hol9t4e4IAZf9hugb.mp4"
+          controls={true}
+          width="100%"
+          height="auto"
+        />
+      </div>
       <div className="grid grid-cols-1 lg:mt-[60px]">
         <div className="flex flex-col gap-0.5">
           <ProductTitle />
