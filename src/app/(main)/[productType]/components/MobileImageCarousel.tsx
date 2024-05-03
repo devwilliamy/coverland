@@ -164,7 +164,13 @@ const MobileImageCarousel = () => {
                     muted
                     config={{
                       file: {
-                        forceDisableFullscreen: isMobile, // Disable full-screen on mobile devices
+                        attributes: {
+                          autoplay: true,
+                          controls: false,
+                          muted: true,
+                          loop: true,
+                          playsinline: true,
+                        }
                       },
                     }}
                     playing={true}
@@ -189,7 +195,13 @@ const MobileImageCarousel = () => {
                     muted
                     config={{
                       file: {
-                        forceDisableFullscreen: isMobile, // Disable full-screen on mobile devices
+                        attributes: {
+                          autoplay: true,
+                          controls: false,
+                          muted: true,
+                          loop: true,
+                          playsinline: true,
+                        }
                       },
                     }}
                     playing={true}
@@ -214,7 +226,13 @@ const MobileImageCarousel = () => {
                     muted
                     config={{
                       file: {
-                        forceDisableFullscreen: isMobile, // Disable full-screen on mobile devices
+                        attributes: {
+                          autoplay: true,
+                          controls: false,
+                          muted: true,
+                          loop: true,
+                          playsinline: true,
+                        }
                       },
                     }}
                     playing={true}
