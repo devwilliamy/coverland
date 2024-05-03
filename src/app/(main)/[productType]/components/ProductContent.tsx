@@ -129,7 +129,7 @@ export function ProductContent({
       <div>Space Coders Desk</div>
       <div>
         <ReactPlayer
-          url="https://coders-desk.com/7secListingVideo_2.mp4"
+          url="https://x2kly621zrgfgwll.public.blob.vercel-storage.com/https://x2kly621zrgfgwll.public.blob.vercel-storage.com/videos/7sec%20Listing%20Video_Compressed-5HxXKYp1dbtgG8gEs5DR6quoWoOpFS-Djmequ4Wu6pBrE58ayx4ZkTuH3fet5.mp4"
           muted
           autoplay
           loop

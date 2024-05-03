@@ -167,7 +167,7 @@ const MobileImageCarousel = () => {
                     playsinline
                     width="100%"
                     height="auto"
-                    url="https://91.108.110.247/video/product_video_carousel-1714756400564.mp4"
+                    url="https://x2kly621zrgfgwll.public.blob.vercel-storage.com/https://x2kly621zrgfgwll.public.blob.vercel-storage.com/videos/WaterGIF-I3oRFkQJIk8PSQddqC2fDKx08cNJNG-yXAStwAKYLcpHM5UeRF0lXD9C4TkPd.mp4"
                   />
                 </CarouselItem>
               );
@@ -190,30 +190,7 @@ const MobileImageCarousel = () => {
                     playing
                     width="100%"
                     height="auto"
-                    url="https://coders-desk.com/7secListingVideo_2.mp4"
-                  />
-                </CarouselItem>
-              );
-            }
-            if (index === 2) {
-              return (
-                <CarouselItem key={'asdsfeqdasfdasfda'}>
-                  {/* <ProductVideo
-                    src={featured360}
-                    imgSrc={listingVideoThumbnail}
-                    autoplay
-                    loop
-                  /> */}
-                  <ReactPlayer
-                    controls={true}
-                    muted
-                    autoplay
-                    loop
-                    playsinline
-                    playing={true}
-                    width="100%"
-                    height="auto"
-                    url="https://www.youtube.com/watch?v=LXb3EKWsInQ"
+                    url="https://x2kly621zrgfgwll.public.blob.vercel-storage.com/https://x2kly621zrgfgwll.public.blob.vercel-storage.com/videos/7sec%20Listing%20Video_Compressed-5HxXKYp1dbtgG8gEs5DR6quoWoOpFS-Djmequ4Wu6pBrE58ayx4ZkTuH3fet5.mp4"
                   />
                 </CarouselItem>
               );
