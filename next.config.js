@@ -41,6 +41,20 @@ const nextConfig = {
       },
     ],
   },
+  videos: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: '91.108.110.247',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'coders-desk.com',
+        pathname: '/**',
+      },
+    ],
+  },
   typescript: {
     ignoreBuildErrors: true,
   },
