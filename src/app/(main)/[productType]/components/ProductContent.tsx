@@ -153,6 +153,20 @@ export function ProductContent({
           height="auto"
         />
       </div>
+      <div>91.108 Vercel</div>
+      <div>
+        <ReactPlayer
+          url="https://91.108.110.247/video/product_video_carousel-1714756400564.mp4"
+          muted
+          autoplay
+          playing
+          loop
+          playsinline
+          
+          width="100%"
+          height="auto"
+        />
+      </div>
       <div className="grid grid-cols-1 lg:mt-[60px]">
         <div className="flex flex-col gap-0.5">
           <ProductTitle />
