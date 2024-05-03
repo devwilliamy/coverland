@@ -128,7 +128,11 @@ export function ProductContent({
     <>
       <div>
         <ReactPlayer
-          playsInline
+          config={{
+            file: {
+              forceDisableFullscreen: isMobile, // Disable full-screen on mobile devices
+            },
+          }}
           url="https://www.youtube.com/watch?v=LXb3EKWsInQ"
           controls={true}
           muted
@@ -139,7 +143,11 @@ export function ProductContent({
       <div>Space Product Carousel</div>
       <div>
         <ReactPlayer
-          playsInline
+          config={{
+            file: {
+              forceDisableFullscreen: isMobile, // Disable full-screen on mobile devices
+            },
+          }}
           url="https://91.108.110.247/video/product_video_carousel-1714756400564.mp4"
           controls={true}
           muted
@@ -150,7 +158,11 @@ export function ProductContent({
       <div>Space Coders Desk</div>
       <div>
         <ReactPlayer
-          playsInline
+          config={{
+            file: {
+              forceDisableFullscreen: isMobile, // Disable full-screen on mobile devices
+            },
+          }}
           url="https://coders-desk.com/7secListingVideo_2.mp4"
           controls={true}
           muted
@@ -161,7 +173,11 @@ export function ProductContent({
       <div>Space Vercel</div>
       <div>
         <ReactPlayer
-          playsInline
+          config={{
+            file: {
+              forceDisableFullscreen: isMobile, // Disable full-screen on mobile devices
+            },
+          }}
           url="https://x2kly621zrgfgwll.public.blob.vercel-storage.com/https://x2kly621zrgfgwll.public.blob.vercel-storage.com/videos/UVGIF-TlV19CyIwM0bRVnUtMrzWyWf7AJucy-cVuyPuWNJ4If5hol9t4e4IAZf9hugb.mp4"
           controls={true}
           muted

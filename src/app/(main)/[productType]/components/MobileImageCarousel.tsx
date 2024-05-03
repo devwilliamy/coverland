@@ -159,7 +159,11 @@ const MobileImageCarousel = () => {
                   <ReactPlayer
                     controls={true}
                     muted
-                    playsInline
+                    config={{
+                      file: {
+                        forceDisableFullscreen: isMobile, // Disable full-screen on mobile devices
+                      },
+                    }}
                     playing={true}
                     width="100%"
                     height="auto"
@@ -180,7 +184,11 @@ const MobileImageCarousel = () => {
                   <ReactPlayer
                     controls={true}
                     muted
-                    playsInline
+                    config={{
+                      file: {
+                        forceDisableFullscreen: isMobile, // Disable full-screen on mobile devices
+                      },
+                    }}
                     playing={true}
                     width="100%"
                     height="auto"
@@ -201,7 +209,11 @@ const MobileImageCarousel = () => {
                   <ReactPlayer
                     controls={true}
                     muted
-                    playsInline
+                    config={{
+                      file: {
+                        forceDisableFullscreen: isMobile, // Disable full-screen on mobile devices
+                      },
+                    }}
                     playing={true}
                     width="100%"
                     height="auto"
