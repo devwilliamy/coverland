@@ -12,6 +12,7 @@ import { getAccessoryBySKU, getAllAcessories } from '@/lib/db/accessories';
 import { Skeleton } from '@/components/ui/skeleton';
 import { useParams } from 'next/navigation';
 import { Button } from '@/components/ui/button';
+import { AiOutlineLoading3Quarters } from 'react-icons/ai';
 
 type AccessoriesTheme = {
   bg: string;
@@ -74,7 +75,9 @@ export default function AccessoryPage() {
   if (loading) {
     return (
       <div className="p-4">
-        <Skeleton className="min-h-screen w-full bg-[#BE1B1B]/80 " />
+        <Skeleton className="min-h-screen w-full bg-[#BE1B1B]/80 ">
+          <AiOutlineLoading3Quarters className="animate-spin" />
+        </Skeleton>
       </div>
     );
   }

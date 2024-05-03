@@ -57,10 +57,10 @@ const Accessory = ({ accessoryData }: { accessoryData: AccessoryItem }) => {
     setIsLoading(false);
   }, []);
 
-  if (isLoading)
-    return (
-      <Skeleton className="aspect flex aspect-square h-[300px] w-full shrink bg-[#BE1B1B]/80 md:h-[400px] lg:h-[405px] " />
-    );
+  // if (isLoading)
+  //   return (
+  //     <Skeleton className="aspect flex aspect-square h-[300px] w-full shrink bg-[#BE1B1B]/80 md:h-[400px] lg:h-[405px] " />
+  //   );
 
   return (
     <div
@@ -69,16 +69,20 @@ const Accessory = ({ accessoryData }: { accessoryData: AccessoryItem }) => {
         router.push(`/accessories/${accessoryData.sku}`);
       }}
     >
-      <Image
-        width={500}
-        height={500}
-        alt={`product-${accessoryData.sku}`}
-        src={featuredImage}
-        className="aspect-square h-full w-full"
-      />
+      {isLoading ? (
+        <Skeleton className="aspect flex aspect-square h-[500px] w-full shrink bg-[#BE1B1B]/80 md:h-[400px] lg:h-[405px] " />
+      ) : (
+        <Image
+          width={500}
+          height={500}
+          alt={`product-${accessoryData.sku}`}
+          src={featuredImage}
+          className="flex aspect-square h-full w-full flex-1"
+        />
+      )}
       <p className="pt-2 text-[18px] font-[800] ">{accessoryData.title}</p>
       <RedRating />
-      <p className="">${accessoryData.msrp}</p>
+      <p className="font-[600]">${accessoryData.msrp}</p>
     </div>
   );
 };
