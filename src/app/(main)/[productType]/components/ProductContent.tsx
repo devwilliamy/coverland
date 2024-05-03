@@ -126,19 +126,6 @@ export function ProductContent({
 
   return (
     <>
-      <div>
-        <ReactPlayer
-          muted
-          autoplay
-          loop
-          playsinline
-          url="https://www.youtube.com/watch?v=LXb3EKWsInQ"
-          controls={true}
-          width="100%"
-          height="auto"
-        />
-      </div>
-
       <div>Space Coders Desk</div>
       <div>
         <ReactPlayer
@@ -147,6 +134,7 @@ export function ProductContent({
           autoplay
           loop
           playsinline
+          playing
           width="100%"
           height="auto"
         />
@@ -157,8 +145,10 @@ export function ProductContent({
           url="https://x2kly621zrgfgwll.public.blob.vercel-storage.com/https://x2kly621zrgfgwll.public.blob.vercel-storage.com/videos/UVGIF-TlV19CyIwM0bRVnUtMrzWyWf7AJucy-cVuyPuWNJ4If5hol9t4e4IAZf9hugb.mp4"
           muted
           autoplay
+          playing
           loop
           playsinline
+          
           width="100%"
           height="auto"
         />

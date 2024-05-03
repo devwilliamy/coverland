@@ -187,6 +187,7 @@ const MobileImageCarousel = () => {
                     autoplay
                     loop
                     playsinline
+                    playing
                     width="100%"
                     height="auto"
                     url="https://coders-desk.com/7secListingVideo_2.mp4"
