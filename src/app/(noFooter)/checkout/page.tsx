@@ -118,12 +118,15 @@ function CartItemCard({ item }: { item: TCartItem }) {
           </div>
           <div className="flex w-7/12 flex-col gap-1">
             <div className="w-10/12 text-base font-bold lg:text-lg">
-              {item?.display_id} {item?.title} &trade; {item?.type}
+              {item?.display_id} {item?.title}
+              {item.type !== 'Accessories' && <>&trade;</>}
+              {item.type !== 'Accessories' && ` ${item.type}`}
             </div>
             <div
               className={`text-sm font-normal ${!item?.make && 'hidden'} text-[#707070] lg:text-base`}
             >
-              Vehicle: {item?.make} {item?.model} {item?.year_generation}{' '}
+              {item?.make &&
+                `Vehicle: ${item?.make} ${item?.model} ${item?.year_generation} `}
               {item?.submodel1 ?? ''} {item?.submodel2 ?? ''}
             </div>
             <div
@@ -132,9 +135,9 @@ function CartItemCard({ item }: { item: TCartItem }) {
               {detectFOrFB(item.sku)} Seat Cover
             </div>
             <div
-              className={`text-sm font-normal ${!item?.display_color && 'hidden'} text-[#707070] lg:text-base`}
+              className={`${item.display_color ? 'text-sm font-normal text-[#707070] lg:text-sm' : 'hidden'}`}
             >
-              Color: {item?.display_color}
+              Color: {item.display_color}
             </div>
             <div className="flex gap-3 text-sm font-normal text-[#707070] lg:text-base">
               <div className="font-medium lg:text-base">Quantity</div>

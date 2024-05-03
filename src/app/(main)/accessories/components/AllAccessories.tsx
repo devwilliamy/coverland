@@ -20,8 +20,6 @@ export default function AllAccessories() {
     getAccessories();
   }, []);
 
-  const router = useRouter();
-
   return (
     <>
       {/* <h1
@@ -30,41 +28,60 @@ export default function AllAccessories() {
         All Accessories
       </h1> */}
       <PolicyHeader headerText="All Accessories" showTabs={false} />
-      <section className="grid min-h-screen grid-cols-1 gap-4 px-4 py-2 md:grid-cols-2 lg:grid-cols-3">
-        {allAccessories.map(({ title, sku, images, msrp }) => {
-          const featuredImage = images.split(',')[0];
+      <section className="grid min-h-screen grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-3">
+        {allAccessories.map((data) => {
           return (
-            <Suspense
-              fallback={
-                <div className="p-4">
-                  <Skeleton className="min-h-screen w-full bg-[#BE1B1B]/80 " />
-                </div>
-              }
-            >
-              <div
-                className="flex w-full cursor-pointer flex-col items-center gap-1 rounded-xl p-4 shadow-md lg:gap-1.5"
-                onClick={() => {
-                  router.push(`/accessories/${sku}`);
-                }}
-              >
-                <Image
-                  width={500}
-                  height={500}
-                  alt={`product-${sku}`}
-                  src={featuredImage}
-                  className="aspect-square h-full w-full"
-                />
-                <p className="font-[800] ">{title}</p>
-                <RedRating />
-                <p className="">${msrp}</p>
-              </div>
-            </Suspense>
+            // <Suspense
+            //   fallback={
+            // <div className="flex h-full w-full p-4">
+            //   <Skeleton className="min-h-screen w-full bg-[#BE1B1B]/80 " />
+            // </div>
+            //   }
+            // >
+
+            // </Suspense>
+            <Accessory accessoryData={data} />
           );
         })}
       </section>
     </>
   );
 }
+
+const Accessory = ({ accessoryData }: { accessoryData: AccessoryItem }) => {
+  const router = useRouter();
+  const featuredImage = accessoryData.images.split(',')[0];
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    setIsLoading(false);
+  }, []);
+
+  if (isLoading)
+    return (
+      <Skeleton className="aspect flex aspect-square h-[300px] w-full shrink bg-[#BE1B1B]/80 md:h-[400px] lg:h-[405px] " />
+    );
+
+  return (
+    <div
+      className="flex w-full cursor-pointer flex-col items-center gap-1 rounded-xl p-4 shadow-md outline outline-[#BE1B1B]/50 lg:gap-1.5"
+      onClick={() => {
+        router.push(`/accessories/${accessoryData.sku}`);
+      }}
+    >
+      <Image
+        width={500}
+        height={500}
+        alt={`product-${accessoryData.sku}`}
+        src={featuredImage}
+        className="aspect-square h-full w-full"
+      />
+      <p className="pt-2 text-[18px] font-[800] ">{accessoryData.title}</p>
+      <RedRating />
+      <p className="">${accessoryData.msrp}</p>
+    </div>
+  );
+};
 
 const RedRating = () => (
   <Rating
