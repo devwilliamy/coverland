@@ -118,8 +118,8 @@ const MobileImageCarousel = () => {
   };
 
   useEffect(() => {
-    console.log("Selected Product:", selectedProduct)
-  }, [])
+    console.log('Selected Product:', selectedProduct);
+  }, []);
 
   return (
     <div className="flex max-w-full flex-col bg-white lg:hidden ">
@@ -150,8 +150,7 @@ const MobileImageCarousel = () => {
               return (
                 <CarouselItem key={String(baseListingVideo)}>
                   <ProductVideo
-                  
-                    src={"https://coders-desk.com/7secListingVideo_2.mp4"}
+                    src={featured360}
                     imgSrc={listingVideoThumbnail}
                     autoplay
                     loop
