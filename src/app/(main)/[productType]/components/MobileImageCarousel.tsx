@@ -35,6 +35,7 @@ import { useStore } from 'zustand';
 import { removeWwwFromUrl } from '@/utils';
 import { CarouselPositionItem } from './MobileCarouselPositionItem';
 import ReactPlayer from 'react-player';
+import { useMediaQuery } from '@mantine/hooks';
 
 const ProductVideo = dynamic(() => import('@/components/PDP/ProductVideo'), {
   loading: () => (
@@ -46,6 +47,8 @@ const ProductVideo = dynamic(() => import('@/components/PDP/ProductVideo'), {
 });
 
 const MobileImageCarousel = () => {
+  const isMobile = useMediaQuery('(max-width: 1023px)');
+
   const store = useContext(CarSelectionContext);
   if (!store) throw new Error('Missing CarContext.Provider in the tree');
   const selectedProduct = useStore(store, (s) => s.selectedProduct);
