@@ -117,6 +117,10 @@ const MobileImageCarousel = () => {
     scrollTo(index);
   };
 
+  useEffect(() => {
+    console.log("Selected Product:", selectedProduct)
+  }, [])
+
   return (
     <div className="flex max-w-full flex-col bg-white lg:hidden ">
       <Carousel setApi={setApi}>
@@ -146,7 +150,8 @@ const MobileImageCarousel = () => {
               return (
                 <CarouselItem key={String(baseListingVideo)}>
                   <ProductVideo
-                    src={featured360}
+                  
+                    src={selectedProduct.product_video_carousel}
                     imgSrc={listingVideoThumbnail}
                     autoplay
                     loop
@@ -209,7 +214,7 @@ const MobileImageCarousel = () => {
                     id="video-thumbnail"
                     alt="Video Thumbnail"
                     slot="poster"
-                    src={listingVideoThumbnail}
+                    src={selectedProduct.product_video_carousel_thumbnail}
                     width={1600}
                     height={1600}
                     className="flex h-full w-full overflow-hidden rounded-[4px] object-cover"
