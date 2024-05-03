@@ -128,61 +128,25 @@ export function ProductContent({
     <>
       <div>
         <ReactPlayer
-          config={{
-            file: {
-              attributes: {
-                autoplay: true,
-                controls: false,
-                muted: true,
-                loop: true,
-                playsinline: true,
-              },
-            },
-          }}
+          muted
+          autoplay
+          loop
+          playsinline
           url="https://www.youtube.com/watch?v=LXb3EKWsInQ"
           controls={true}
-          muted
           width="100%"
           height="auto"
         />
       </div>
-      <div>Space Product Carousel</div>
-      <div>
-        <ReactPlayer
-          config={{
-            file: {
-              attributes: {
-                autoplay: true,
-                controls: false,
-                muted: true,
-                loop: true,
-                playsinline: true,
-              },
-            },
-          }}
-          url="https://91.108.110.247/video/product_video_carousel-1714756400564.mp4"
-          controls={true}
-          muted
-          width="100%"
-          height="auto"
-        />
-      </div>
+
       <div>Space Coders Desk</div>
       <div>
         <ReactPlayer
-          config={{
-            file: {
-              attributes: {
-                autoplay: true,
-                controls: true,
-                muted: true,
-                loop: true,
-                playsinline: true,
-              },
-            },
-          }}
           url="https://coders-desk.com/7secListingVideo_2.mp4"
           muted
+          autoplay
+          loop
+          playsinline
           width="100%"
           height="auto"
         />
@@ -190,19 +154,11 @@ export function ProductContent({
       <div>Space Vercel</div>
       <div>
         <ReactPlayer
-          config={{
-            file: {
-              attributes: {
-                autoplay: true,
-                controls: false,
-                muted: true,
-                loop: true,
-                playsinline: true,
-              },
-            },
-          }}
           url="https://x2kly621zrgfgwll.public.blob.vercel-storage.com/https://x2kly621zrgfgwll.public.blob.vercel-storage.com/videos/UVGIF-TlV19CyIwM0bRVnUtMrzWyWf7AJucy-cVuyPuWNJ4If5hol9t4e4IAZf9hugb.mp4"
           muted
+          autoplay
+          loop
+          playsinline
           width="100%"
           height="auto"
         />

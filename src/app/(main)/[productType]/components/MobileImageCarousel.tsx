@@ -162,18 +162,9 @@ const MobileImageCarousel = () => {
                   <ReactPlayer
                     controls={true}
                     muted
-                    config={{
-                      file: {
-                        attributes: {
-                          autoplay: true,
-                          controls: false,
-                          muted: true,
-                          loop: true,
-                          playsinline: true,
-                        }
-                      },
-                    }}
-                    playing={true}
+                    autoplay
+                    loop
+                    playsinline
                     width="100%"
                     height="auto"
                     url="https://91.108.110.247/video/product_video_carousel-1714756400564.mp4"
@@ -193,18 +184,9 @@ const MobileImageCarousel = () => {
                   <ReactPlayer
                     controls={true}
                     muted
-                    config={{
-                      file: {
-                        attributes: {
-                          autoplay: true,
-                          controls: false,
-                          muted: true,
-                          loop: true,
-                          playsinline: true,
-                        }
-                      },
-                    }}
-                    playing={true}
+                    autoplay
+                    loop
+                    playsinline
                     width="100%"
                     height="auto"
                     url="https://coders-desk.com/7secListingVideo_2.mp4"
@@ -224,17 +206,9 @@ const MobileImageCarousel = () => {
                   <ReactPlayer
                     controls={true}
                     muted
-                    config={{
-                      file: {
-                        attributes: {
-                          autoplay: true,
-                          controls: false,
-                          muted: true,
-                          loop: true,
-                          playsinline: true,
-                        }
-                      },
-                    }}
+                    autoplay
+                    loop
+                    playsinline
                     playing={true}
                     width="100%"
                     height="auto"
