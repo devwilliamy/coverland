@@ -130,6 +130,14 @@ const MobileImageCarousel = () => {
 
   useEffect(() => {
     console.log('Selected Product:', selectedProduct);
+    console.log(
+      'THumbnail url',
+      (selectedProduct?.product_video_carousel_thumbnail as string).substring(
+        (selectedProduct?.product_video_carousel_thumbnail as string).indexOf(
+          '/video'
+        )
+      ) || ''
+    );
   }, []);
 
   return (
@@ -159,7 +167,10 @@ const MobileImageCarousel = () => {
               );
             if (index === 3) {
               return (
-                <CarouselItem key={String(baseListingVideo)} className='bg-black'>
+                <CarouselItem
+                  key={String(baseListingVideo)}
+                  className="bg-black"
+                >
                   {/* <ProductVideo
                     src={featured360}
                     imgSrc={listingVideoThumbnail}
@@ -176,7 +187,7 @@ const MobileImageCarousel = () => {
                       playing
                       width="100%"
                       height="100%"
-                      url={(selectedProduct?.product_video_carousel as string).substring((selectedProduct?.product_video_carousel as string).indexOf('/video'))  || ''}
+                      url={selectedProduct?.product_video_carousel || ''}
                       // light={
                       //   selectedProduct?.product_video_carousel_thumbnail || ''
                       // }
@@ -242,6 +253,13 @@ const MobileImageCarousel = () => {
                     slot="poster"
                     src={
                       selectedProduct?.product_video_carousel_thumbnail || ''
+                      // (
+                      //   selectedProduct?.product_video_carousel_thumbnail as string
+                      // ).substring(
+                      //   (
+                      //     selectedProduct?.product_video_carousel_thumbnail as string
+                      //   ).indexOf('/video')
+                      // ) || ''
                     }
                     width={1600}
                     height={1600}
