@@ -132,8 +132,8 @@ const MobileImageCarousel = () => {
     console.log('Selected Product:', selectedProduct);
     console.log(
       'THumbnail url',
-      (selectedProduct?.product_video_carousel_thumbnail as string).substring(
-        (selectedProduct?.product_video_carousel_thumbnail as string).indexOf(
+      (selectedProduct?.product_video_carousel_thumbnail || '').substring(
+        (selectedProduct?.product_video_carousel_thumbnail || '').indexOf(
           '/video'
         )
       ) || ''
