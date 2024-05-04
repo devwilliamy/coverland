@@ -126,47 +126,6 @@ export function ProductContent({
 
   return (
     <>
-      <div>Space Coders Desk</div>
-      <div>
-        <ReactPlayer
-          url="https://x2kly621zrgfgwll.public.blob.vercel-storage.com/https://x2kly621zrgfgwll.public.blob.vercel-storage.com/videos/7sec%20Listing%20Video_Compressed-5HxXKYp1dbtgG8gEs5DR6quoWoOpFS-Djmequ4Wu6pBrE58ayx4ZkTuH3fet5.mp4"
-          muted
-          autoplay
-          loop
-          playsinline
-          playing
-          width="100%"
-          height="auto"
-        />
-      </div>
-      <div>Space Vercel</div>
-      <div>
-        <ReactPlayer
-          url="https://x2kly621zrgfgwll.public.blob.vercel-storage.com/https://x2kly621zrgfgwll.public.blob.vercel-storage.com/videos/UVGIF-TlV19CyIwM0bRVnUtMrzWyWf7AJucy-cVuyPuWNJ4If5hol9t4e4IAZf9hugb.mp4"
-          muted
-          autoplay
-          playing
-          loop
-          playsinline
-          
-          width="100%"
-          height="auto"
-        />
-      </div>
-      <div>91.108 Vercel</div>
-      <div>
-        <ReactPlayer
-          url="https://91.108.110.247/video/product_video_carousel-1714756400564.mp4"
-          muted
-          autoplay
-          playing
-          loop
-          playsinline
-          
-          width="100%"
-          height="auto"
-        />
-      </div>
       <div className="grid grid-cols-1 lg:mt-[60px]">
         <div className="flex flex-col gap-0.5">
           <ProductTitle />

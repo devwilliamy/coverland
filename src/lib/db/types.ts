@@ -17,6 +17,7 @@ export type Database = {
           billing_address_line_2: string | null
           billing_address_postal_code: string | null
           billing_address_state: string | null
+          billing_customer_name: string | null
           card_amount: number | null
           card_brand: string | null
           card_fingerprint: string | null
@@ -59,6 +60,7 @@ export type Database = {
           billing_address_line_2?: string | null
           billing_address_postal_code?: string | null
           billing_address_state?: string | null
+          billing_customer_name?: string | null
           card_amount?: number | null
           card_brand?: string | null
           card_fingerprint?: string | null
@@ -101,6 +103,7 @@ export type Database = {
           billing_address_line_2?: string | null
           billing_address_postal_code?: string | null
           billing_address_state?: string | null
+          billing_customer_name?: string | null
           card_amount?: number | null
           card_brand?: string | null
           card_fingerprint?: string | null
@@ -588,6 +591,10 @@ export type Database = {
           parent_generation: string | null
           price: number | null
           product: string | null
+          product_video_360: string | null
+          product_video_carousel: string | null
+          product_video_carousel_thumbnail: string | null
+          product_video_zoom: string | null
           quantity: string | null
           sku: string | null
           status: string | null
@@ -613,6 +620,10 @@ export type Database = {
           parent_generation?: string | null
           price?: number | null
           product?: string | null
+          product_video_360?: string | null
+          product_video_carousel?: string | null
+          product_video_carousel_thumbnail?: string | null
+          product_video_zoom?: string | null
           quantity?: string | null
           sku?: string | null
           status?: string | null
@@ -638,6 +649,10 @@ export type Database = {
           parent_generation?: string | null
           price?: number | null
           product?: string | null
+          product_video_360?: string | null
+          product_video_carousel?: string | null
+          product_video_carousel_thumbnail?: string | null
+          product_video_zoom?: string | null
           quantity?: string | null
           sku?: string | null
           status?: string | null
@@ -872,6 +887,96 @@ export type Database = {
           parent_generation?: string | null
           price?: number | null
           product?: string | null
+          quantity?: string | null
+          sku?: string | null
+          status?: string | null
+          submodel1?: string | null
+          submodel2?: string | null
+          submodel3?: string | null
+          type?: string | null
+          year_generation?: string | null
+          year_options?: string | null
+        }
+        Relationships: []
+      }
+      Products_20240502: {
+        Row: {
+          banner: string | null
+          description: string | null
+          display_color: string | null
+          display_id: string | null
+          feature: string | null
+          id: number
+          make: string | null
+          make_slug: string | null
+          model: string | null
+          model_slug: string | null
+          msrp: number | null
+          parent_generation: string | null
+          price: number | null
+          product: string | null
+          product_video_360: string | null
+          product_video_carousel: string | null
+          product_video_carousel_thumbnail: string | null
+          product_video_zoom: string | null
+          quantity: string | null
+          sku: string | null
+          status: string | null
+          submodel1: string | null
+          submodel2: string | null
+          submodel3: string | null
+          type: string | null
+          year_generation: string | null
+          year_options: string | null
+        }
+        Insert: {
+          banner?: string | null
+          description?: string | null
+          display_color?: string | null
+          display_id?: string | null
+          feature?: string | null
+          id?: number
+          make?: string | null
+          make_slug?: string | null
+          model?: string | null
+          model_slug?: string | null
+          msrp?: number | null
+          parent_generation?: string | null
+          price?: number | null
+          product?: string | null
+          product_video_360?: string | null
+          product_video_carousel?: string | null
+          product_video_carousel_thumbnail?: string | null
+          product_video_zoom?: string | null
+          quantity?: string | null
+          sku?: string | null
+          status?: string | null
+          submodel1?: string | null
+          submodel2?: string | null
+          submodel3?: string | null
+          type?: string | null
+          year_generation?: string | null
+          year_options?: string | null
+        }
+        Update: {
+          banner?: string | null
+          description?: string | null
+          display_color?: string | null
+          display_id?: string | null
+          feature?: string | null
+          id?: number
+          make?: string | null
+          make_slug?: string | null
+          model?: string | null
+          model_slug?: string | null
+          msrp?: number | null
+          parent_generation?: string | null
+          price?: number | null
+          product?: string | null
+          product_video_360?: string | null
+          product_video_carousel?: string | null
+          product_video_carousel_thumbnail?: string | null
+          product_video_zoom?: string | null
           quantity?: string | null
           sku?: string | null
           status?: string | null
@@ -1351,6 +1456,7 @@ export type Database = {
           product_name: string | null
           product_type: string | null
           rating_stars: number | null
+          recommend: string | null
           review_author: string | null
           review_description: string | null
           review_image: string | null
@@ -1361,6 +1467,7 @@ export type Database = {
           submodel1: string | null
           submodel2: string | null
           type: string | null
+          verified_status: string | null
           year_generation: string | null
         }
         Insert: {
@@ -1376,6 +1483,7 @@ export type Database = {
           product_name?: string | null
           product_type?: string | null
           rating_stars?: number | null
+          recommend?: string | null
           review_author?: string | null
           review_description?: string | null
           review_image?: string | null
@@ -1386,6 +1494,7 @@ export type Database = {
           submodel1?: string | null
           submodel2?: string | null
           type?: string | null
+          verified_status?: string | null
           year_generation?: string | null
         }
         Update: {
@@ -1401,6 +1510,7 @@ export type Database = {
           product_name?: string | null
           product_type?: string | null
           rating_stars?: number | null
+          recommend?: string | null
           review_author?: string | null
           review_description?: string | null
           review_image?: string | null
@@ -1411,6 +1521,7 @@ export type Database = {
           submodel1?: string | null
           submodel2?: string | null
           type?: string | null
+          verified_status?: string | null
           year_generation?: string | null
         }
         Relationships: []
@@ -1850,18 +1961,21 @@ export type Database = {
       Type: {
         Row: {
           created_at: string
+          description: string | null
           id: number
           name: string | null
           updated_at: string
         }
         Insert: {
           created_at?: string
+          description?: string | null
           id?: number
           name?: string | null
           updated_at?: string
         }
         Update: {
           created_at?: string
+          description?: string | null
           id?: number
           name?: string | null
           updated_at?: string
@@ -1886,6 +2000,36 @@ export type Database = {
           id?: number
           name?: string | null
           updated_at?: string
+        }
+        Relationships: []
+      }
+      type_make_model: {
+        Row: {
+          created_at: string
+          id: number
+          make: string | null
+          make_slug: string | null
+          model: string | null
+          model_slug: string | null
+          type: string | null
+        }
+        Insert: {
+          created_at?: string
+          id?: number
+          make?: string | null
+          make_slug?: string | null
+          model?: string | null
+          model_slug?: string | null
+          type?: string | null
+        }
+        Update: {
+          created_at?: string
+          id?: number
+          make?: string | null
+          make_slug?: string | null
+          model?: string | null
+          model_slug?: string | null
+          type?: string | null
         }
         Relationships: []
       }
@@ -1985,6 +2129,33 @@ export type Database = {
           phone?: string | null
           pincode?: string | null
           state?: string | null
+        }
+        Relationships: []
+      }
+      vehicle_type_video: {
+        Row: {
+          created_at: string
+          id: number
+          type: string | null
+          video_json: Json | null
+          video_thumbnail: string | null
+          video_type: string | null
+        }
+        Insert: {
+          created_at?: string
+          id?: number
+          type?: string | null
+          video_json?: Json | null
+          video_thumbnail?: string | null
+          video_type?: string | null
+        }
+        Update: {
+          created_at?: string
+          id?: number
+          type?: string | null
+          video_json?: Json | null
+          video_thumbnail?: string | null
+          video_type?: string | null
         }
         Relationships: []
       }

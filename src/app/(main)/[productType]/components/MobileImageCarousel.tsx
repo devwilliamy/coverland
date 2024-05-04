@@ -29,7 +29,14 @@ import { Asset } from 'next-video/dist/assets.js';
 import { StaticImageData } from 'next/dist/shared/lib/get-img-props';
 import dynamic from 'next/dynamic';
 import Image from 'next/image';
-import { useCallback, useContext, useEffect, useMemo, useState } from 'react';
+import {
+  Suspense,
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+} from 'react';
 import { FaCamera } from 'react-icons/fa';
 import { useStore } from 'zustand';
 import { removeWwwFromUrl } from '@/utils';
@@ -152,46 +159,29 @@ const MobileImageCarousel = () => {
               );
             if (index === 3) {
               return (
-                <CarouselItem key={String(baseListingVideo)}>
+                <CarouselItem key={String(baseListingVideo)} className='bg-black'>
                   {/* <ProductVideo
                     src={featured360}
                     imgSrc={listingVideoThumbnail}
                     autoplay
                     loop
                   /> */}
-                  <ReactPlayer
-                    controls={true}
-                    muted
-                    autoplay
-                    loop
-                    playsinline
-                    width="100%"
-                    height="auto"
-                    url="https://x2kly621zrgfgwll.public.blob.vercel-storage.com/https://x2kly621zrgfgwll.public.blob.vercel-storage.com/videos/WaterGIF-I3oRFkQJIk8PSQddqC2fDKx08cNJNG-yXAStwAKYLcpHM5UeRF0lXD9C4TkPd.mp4"
-                  />
-                </CarouselItem>
-              );
-            }
-            if (index === 4) {
-              return (
-                <CarouselItem key={'asdsfdasfdasfda'}>
-                  {/* <ProductVideo
-                    src={featured360}
-                    imgSrc={listingVideoThumbnail}
-                    autoplay
-                    loop
-                  /> */}
-                  <ReactPlayer
-                    controls={true}
-                    muted
-                    autoplay
-                    loop
-                    playsinline
-                    playing
-                    width="100%"
-                    height="auto"
-                    url="https://x2kly621zrgfgwll.public.blob.vercel-storage.com/https://x2kly621zrgfgwll.public.blob.vercel-storage.com/videos/7sec%20Listing%20Video_Compressed-5HxXKYp1dbtgG8gEs5DR6quoWoOpFS-Djmequ4Wu6pBrE58ayx4ZkTuH3fet5.mp4"
-                  />
+                  <Suspense>
+                    <ReactPlayer
+                      controls={true}
+                      muted
+                      autoplay
+                      loop
+                      playsinline
+                      playing
+                      width="100%"
+                      height="100%"
+                      url={(selectedProduct?.product_video_carousel as string).substring((selectedProduct?.product_video_carousel as string).indexOf('/video'))  || ''}
+                      // light={
+                      //   selectedProduct?.product_video_carousel_thumbnail || ''
+                      // }
+                    />
+                  </Suspense>
                 </CarouselItem>
               );
             }
@@ -250,7 +240,9 @@ const MobileImageCarousel = () => {
                     id="video-thumbnail"
                     alt="Video Thumbnail"
                     slot="poster"
-                    src={SUVListingThumb}
+                    src={
+                      selectedProduct?.product_video_carousel_thumbnail || ''
+                    }
                     width={1600}
                     height={1600}
                     className="flex h-full w-full overflow-hidden rounded-[4px] object-cover"
