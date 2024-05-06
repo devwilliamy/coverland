@@ -1,14 +1,17 @@
 import { useCartContext } from '@/providers/CartProvider';
 import Link from 'next/link';
 import { Button } from '../ui/button';
+import { useRouter } from 'next/navigation';
 
 const AddToCartFooter = () => {
+  const router = useRouter();
   const { getTotalPrice, getTotalCartQuantity, setCartOpen } = useCartContext();
   const totalMsrpPrice = getTotalPrice().toFixed(2) as unknown as number;
   const cartQuantity = getTotalCartQuantity();
 
   const handleClick = () => {
     setCartOpen(false);
+    router.push('/checkout');
   };
 
   return (
@@ -16,16 +19,13 @@ const AddToCartFooter = () => {
       <div className="pr-4 text-end text-xl font-extrabold lg:font-bold">
         <div>Total: ${totalMsrpPrice}</div>
       </div>
-      <Link
-        href="/checkout"
+      <Button
         onClick={handleClick}
-        className="
-      my-3 inline-flex h-[48px] w-full items-center justify-center whitespace-nowrap rounded-md bg-[#BE1B1B] bg-primary text-base font-bold  uppercase
-      text-primary-foreground text-white ring-offset-background
-      transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 md:h-[62px] md:text-lg"
+        aria-label="Close"
+        className="my-3 h-[48px] w-full bg-[#BE1B1B] text-base font-bold uppercase text-white disabled:bg-[#BE1B1B] md:h-[62px] md:text-lg"
       >
         View Cart ({cartQuantity})
-      </Link>
+      </Button>
     </div>
   );
 };
