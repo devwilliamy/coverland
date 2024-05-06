@@ -55,7 +55,23 @@ const MobileImageCarousel = () => {
   const { productType, model } = useDetermineType();
   let baseListingVideo = CarListing;
   let baseListingVideoThumbnail = Car360Thumb;
-
+  switch (productType) {
+    case 'truck-covers': {
+      baseListingVideo = TruckListingVideo;
+      baseListingVideoThumbnail = TruckListingThumb;
+      break;
+    }
+    case 'suv-covers': {
+      baseListingVideo = SUVListing;
+      baseListingVideoThumbnail = SUVListingThumb;
+      break;
+    }
+    default: {
+      baseListingVideo = CarListing;
+      baseListingVideoThumbnail = Car360Thumb;
+      break;
+    }
+  }
   const isCorvette = model === 'corvette';
   const isChallenger = model === 'challenger';
   const ChallengerOrDefaultVideo = isChallenger
@@ -82,23 +98,6 @@ const MobileImageCarousel = () => {
   useEffect(() => {
     if (!api) {
       return;
-    }
-    switch (productType) {
-      case 'truck-covers': {
-        baseListingVideo = TruckListingVideo;
-        baseListingVideoThumbnail = TruckListingThumb;
-        break;
-      }
-      case 'suv-covers': {
-        baseListingVideo = SUVListing;
-        baseListingVideoThumbnail = SUVListingThumb;
-        break;
-      }
-      default: {
-        baseListingVideo = CarListing;
-        baseListingVideoThumbnail = Car360Thumb;
-        break;
-      }
     }
 
     setCurrent(api.selectedScrollSnap());
