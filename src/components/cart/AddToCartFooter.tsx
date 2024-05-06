@@ -24,7 +24,7 @@ const AddToCartFooter = () => {
       text-primary-foreground text-white ring-offset-background
       transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:bg-[#BE1B1B] disabled:opacity-50 md:h-[62px] md:text-lg"
       >
-        <Button aria-label="Close">View Cart ({cartQuantity})</Button>
+        View Cart ({cartQuantity})
       </Link>
     </div>
   );
