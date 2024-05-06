@@ -20,9 +20,9 @@ const AddToCartFooter = () => {
         href="/checkout"
         onClick={handleClick}
         className="
-      my-3 inline-flex h-[48px] w-full items-center justify-center whitespace-nowrap rounded-md bg-[#BE1B1B] bg-primary text-base text-sm font-bold font-medium uppercase
+      my-3 inline-flex h-[48px] w-full items-center justify-center whitespace-nowrap rounded-md bg-[#BE1B1B] bg-primary text-base font-bold  uppercase
       text-primary-foreground text-white ring-offset-background
-      transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:bg-[#BE1B1B] disabled:opacity-50 md:h-[62px] md:text-lg"
+      transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 md:h-[62px] md:text-lg"
       >
         View Cart ({cartQuantity})
       </Link>
