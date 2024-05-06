@@ -1,5 +1,5 @@
 import { Tables } from '../types';
-import { SEAT_COVERS_TABLE } from '../constants/databaseTableNames';
+import { RPC_GET_SEAT_COVER_SORTED_BY_COLOR, SEAT_COVERS_TABLE } from '../constants/databaseTableNames';
 import { supabaseDatabaseClient } from '../supabaseClients';
 import { slugToCoverType } from '@/lib/constants';
 import { slugify } from '@/lib/utils';
@@ -29,7 +29,7 @@ export async function getUniqueSeatProduct({
   product_id: any;
 }) {
   const { data, error } = await supabaseDatabaseClient
-    .from('seat_cover_20240401')
+    .from(SEAT_COVERS_TABLE)
     .select('*')
     .eq('sku', product_id)
     .single();
@@ -56,7 +56,7 @@ export async function getUniqueSeatCoverProductSingle({
   submodel1: string;
 }) {
   const { data, error } = await supabaseDatabaseClient
-    .from('seat_cover_20240401')
+    .from(SEAT_COVERS_TABLE)
     .select('sku')
     .eq('type', type)
     .eq('display_id', cover)
@@ -276,7 +276,7 @@ export async function getSeatCoverProductsByDisplayColor({
   submodel3?: string;
 }) {
   const { data, error } = await supabaseDatabaseClient.rpc(
-    'get_seat_cover_products_sorted_by_color',
+    RPC_GET_SEAT_COVER_SORTED_BY_COLOR,
     {
       p_type: type,
       p_cover: 'Leather',
@@ -297,7 +297,7 @@ export async function getSeatCoverProductsByDisplayColor({
   // console.log(data,type);
 
   // try {
-  //     let query = supabaseDatabaseClient.from('seat_cover_20240401').select('*');
+  //     let query = supabaseDatabaseClient.from(SEAT_COVERS_TABLE).select('*');
 
   //     if (type) {
   //         query = query.eq('type', type);

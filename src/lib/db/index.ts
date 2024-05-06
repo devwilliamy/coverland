@@ -4,6 +4,7 @@ import { slugToCoverType } from '../constants';
 import { slugify } from '../utils';
 import {
   PRODUCT_DATA_TABLE,
+  PRODUCT_METADATA_TABLE,
   RELATIONS_PRODUCT_TABLE,
   RPC_GET_MAKE_RELATION,
   RPC_GET_UNIQUE_YEARS,
@@ -178,7 +179,7 @@ export async function getAllUniqueModelsByYearMake({
   const { data, error } = await supabase
     .from(RELATIONS_PRODUCT_TABLE)
     .select(
-      `*,Model(*),Products(id,model,model_slug, parent_generation, submodel1, submodel2, submodel3)`
+      `*,Model(*),${PRODUCT_DATA_TABLE}(id,model,model_slug, parent_generation, submodel1, submodel2, submodel3)`
     )
     .eq('year_id', yearId)
     .eq('type_id', typeId)
@@ -189,7 +190,7 @@ export async function getAllUniqueModelsByYearMake({
     throw new Error(error.message);
   }
 
-  const allProductData = data.map((relation) => relation.Products);
+  const allProductData = data.map((relation) => relation[PRODUCT_DATA_TABLE]);
 
   const models = data
     .map((relation) => relation.Model)
@@ -333,7 +334,7 @@ export async function getProductWithoutType({
 
 export async function getProductMetadata(URL: string) {
   const { data, error } = await supabase
-    .from('Product-Metadata')
+    .from(PRODUCT_METADATA_TABLE)
     .select('description')
     .ilike('URL', URL)
     .limit(1);

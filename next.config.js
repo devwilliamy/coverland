@@ -34,6 +34,11 @@ const nextConfig = {
         hostname: '91.108.110.247',
         pathname: '/**',
       },
+      {
+        protocol: 'https',
+        hostname: 'devstaging.shop',
+        pathname: '/**',
+      },
     ],
   },
   typescript: {

@@ -41,9 +41,16 @@ import { FaCamera } from 'react-icons/fa';
 import { useStore } from 'zustand';
 import { removeWwwFromUrl } from '@/utils';
 import { CarouselPositionItem } from './MobileCarouselPositionItem';
-import ReactPlayer from 'react-player';
+// import ReactPlayer from 'react-player';
 import { useMediaQuery } from '@mantine/hooks';
-
+const ReactPlayer = dynamic(() => import('react-player'), {
+  loading: () => (
+    <div className="flex h-full">
+      <Skeleton />
+    </div>
+  ),
+  ssr: false,
+});
 const ProductVideo = dynamic(() => import('@/components/PDP/ProductVideo'), {
   loading: () => (
     <div className="flex h-full">
@@ -181,7 +188,7 @@ const MobileImageCarousel = () => {
                     <ReactPlayer
                       controls={true}
                       muted
-                      autoplay
+                      autoPlay
                       loop
                       playsinline
                       playing

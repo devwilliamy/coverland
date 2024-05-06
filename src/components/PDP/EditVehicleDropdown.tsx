@@ -68,7 +68,7 @@ export default function EditVehicleDropdown({
       try {
         setLoading(true);
         if (!make) return;
-
+        console.log('EditVehicleDropdown', { type, make, model });
         if (type !== 'Seat Covers') {
           // const response = await fetch(
           //   `/api/json-data?type=${slugify(type)}&make=${slugify(make)}`
@@ -86,11 +86,12 @@ export default function EditVehicleDropdown({
           return;
         }
 
-        const response = await getSeatCoverProductData({
+        const response = await getProductData({
           type,
           cover: 'Leather',
           make: slugify(make),
         });
+        console.log("Response Seat Covers: ", response)
 
         setJsonData(response);
       } catch (error) {

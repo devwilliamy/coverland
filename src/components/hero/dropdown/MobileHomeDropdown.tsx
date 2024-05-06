@@ -47,7 +47,7 @@ export default function MobileHomeDropdown({
               <>
                 {filteredItems?.map((item, i) => (
                   <option
-                    key={`type-${item}`}
+                    key={`type-${i}`}
                     id={`${title}-${i}`}
                     value={item.name}
                     className={`flex py-1 pl-[20px] hover:bg-[#BE1B1B] hover:text-white ${i === selectedIndex && 'bg-[#BE1B1B] text-white'}`}
@@ -60,7 +60,7 @@ export default function MobileHomeDropdown({
               <>
                 {items.map((item, i) => (
                   <option
-                    key={`type-${item.id}`}
+                    key={`type-${i}`}
                     id={`${title}-${item.id}-${i}`}
                     value={item.name}
                     className={`flex py-1 pl-[20px] hover:bg-[#BE1B1B] hover:text-white ${i === selectedIndex && 'bg-[#BE1B1B] text-white'}`}
