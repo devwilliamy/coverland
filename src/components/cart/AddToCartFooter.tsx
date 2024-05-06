@@ -16,14 +16,15 @@ const AddToCartFooter = () => {
       <div className="pr-4 text-end text-xl font-extrabold lg:font-bold">
         <div>Total: ${totalMsrpPrice}</div>
       </div>
-      <Link href="/checkout">
-        <Button
-          onClick={handleClick}
-          aria-label="Close"
-          className="my-3 h-[48px] w-full bg-[#BE1B1B] text-base font-bold uppercase text-white disabled:bg-[#BE1B1B] md:h-[62px] md:text-lg"
-        >
-          View Cart ({cartQuantity})
-        </Button>
+      <Link
+        href="/checkout"
+        onClick={handleClick}
+        className="
+      my-3 inline-flex h-[48px] w-full items-center justify-center whitespace-nowrap rounded-md bg-[#BE1B1B] bg-primary text-base text-sm font-bold font-medium uppercase
+      text-primary-foreground text-white ring-offset-background
+      transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:bg-[#BE1B1B] disabled:opacity-50 md:h-[62px] md:text-lg"
+      >
+        <Button aria-label="Close">View Cart ({cartQuantity})</Button>
       </Link>
     </div>
   );
