@@ -53,8 +53,10 @@ const CarInsights = () => {
         Advantages of our covers:
       </p>
       <ul className="flex w-full list-inside list-disc flex-col gap-3 text-[14px] lg:text-[18px]">
-        {carInsightAdvantages.map((item, i) => (
-          <li key={i} className="list-item w-full">{item}</li>
+        {carInsightAdvantages.map((item) => (
+          <li key={item} className="list-item w-full">
+            {item}
+          </li>
         ))}
       </ul>
       <p className="text-[18px] font-[700]">
@@ -78,8 +80,10 @@ const SuvInsights = () => {
         Why are our covers the best?
       </p>
       <ul className="flex w-full list-inside list-disc flex-col gap-3 text-[14px] lg:text-[18px]">
-        {suvInsightQualities.map((item, i) => (
-          <li key={i} className="list-item w-full">{item}</li>
+        {suvInsightQualities.map((item) => (
+          <li key={item} className="list-item w-full">
+            {item}
+          </li>
         ))}
       </ul>
       <p className="text-[18px] font-[700]">

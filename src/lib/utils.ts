@@ -40,6 +40,7 @@ export const deslugify = (slug: string) => {
   if (slug.toLowerCase() === 'bmw') return 'BMW';
   if (slug.toLowerCase() === '3-series') return '3-Series';
   if (slug.toLowerCase() === 'f-150') return 'F-150';
+
   if (slug.toLowerCase() === 'suv') return 'SUV';
   if (slug.toLowerCase() === 'suv covers') return 'SUV Covers';
   if (slug.toLowerCase() === 'suv-covers') return 'SUV Covers';
@@ -47,6 +48,14 @@ export const deslugify = (slug: string) => {
   // Check if the format is like a date range (e.g., 2006-2016)
   const dateRangePattern = /^\d{4}-\d{4}$/;
   if (dateRangePattern.test(slug)) return slug;
+
+  // Further F-150 types
+  const hyphenArray = slug.split('-');
+  const f150String = [hyphenArray[0], hyphenArray[1]].join('-');
+  const isF150Type = f150String.toLowerCase() === 'f-150';
+  if (isF150Type) {
+    console.log('[IS F-150 TYPE]', { hyphenArray });
+  }
 
   // General case
   return slug
@@ -205,7 +214,6 @@ export function detectFOrFB(sku: string) {
   }
   return 'Unknown';
 }
-
 
 export const determineTypeString = (type: string) => {
   const typeOptions = ['Car Covers', 'SUV Covers', 'Truck Covers'];

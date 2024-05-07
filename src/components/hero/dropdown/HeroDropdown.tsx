@@ -64,7 +64,7 @@ export function HeroDropdown() {
       localStorage.setItem('heroDropdownYear', year);
     }
     const yearInUrl = parent_generation;
-    
+
     let url = `/${slugify(type)}/premium-plus/${slugify(make)}/${slugify(model)}/${yearInUrl}`;
 
     if (submodel1) {

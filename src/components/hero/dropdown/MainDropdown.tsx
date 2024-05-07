@@ -12,15 +12,17 @@ import { Search } from 'lucide-react';
 import { AiOutlineLoading3Quarters } from 'react-icons/ai';
 import { useMediaQuery } from '@mantine/hooks';
 import MobileHomeDropdown from './MobileHomeDropdown';
+import { useParams } from 'next/navigation';
 
-export default function HomeDropdown({
+export default function MainDropdown({
   queryObj,
   place,
   title,
   prevSelected,
   isDisabled,
-  items,
   value,
+  items,
+  isBreadCrumb = false,
 }: {
   place: number;
   title: string;
@@ -28,14 +30,20 @@ export default function HomeDropdown({
   prevSelected: boolean;
   value?: string | number;
   items?: string[] | number[] | any[];
+  isBreadCrumb?: boolean;
   queryObj: {
     query: TQuery;
     setQuery: Dispatch<SetStateAction<TQuery>>;
   };
 }) {
   const { setQuery } = queryObj;
-
-  const [selectedValue, setSelectedValue] = useState<string>('');
+  const params = Object(useParams());
+  const paramKeys = Object.keys(params);
+  // console.log(params);
+  const paramValues = Object.values(params);
+  const [selectedValue, setSelectedValue] = useState<string>(
+    isBreadCrumb ? String(value) : ''
+  );
   const [selectedIndex, setSelectedIndex] = useState<number>(-1);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [isFocused, setIsFocused] = useState(false);
@@ -66,43 +74,76 @@ export default function HomeDropdown({
         });
         break;
       case 'year':
-        setQuery((e) => {
-          return {
-            ...e,
-            year: newValue,
-            make: '',
-            model: '',
-            submodel1: '',
-            submodel2: '',
-            parent_generation: '',
-            yearId: id,
-          };
-        });
+        if (isBreadCrumb) {
+          setQuery((e) => {
+            return {
+              ...e,
+              year: newValue,
+              yearId: id,
+            };
+          });
+        } else {
+          setQuery((e) => {
+            return {
+              ...e,
+              year: newValue,
+              make: '',
+              model: '',
+              submodel1: '',
+              submodel2: '',
+              parent_generation: '',
+              yearId: id,
+            };
+          });
+        }
         break;
       case 'make':
-        setQuery((e) => {
-          return {
-            ...e,
-            make: newValue,
-            model: '',
-            submodel1: '',
-            submodel2: '',
-            parent_generation: '',
-            makeId: id,
-          };
-        });
+        if (isBreadCrumb) {
+          setQuery((e) => {
+            return {
+              ...e,
+              make: newValue,
+              model: '',
+              year: '',
+              makeId: id,
+            };
+          });
+        } else {
+          setQuery((e) => {
+            return {
+              ...e,
+              make: newValue,
+              model: '',
+              submodel1: '',
+              submodel2: '',
+              parent_generation: '',
+              makeId: id,
+            };
+          });
+        }
         break;
       case 'model':
-        setQuery((e) => {
-          return {
-            ...e,
-            model: newValue,
-            submodel1: '',
-            submodel2: '',
-            parent_generation: '',
-            modelId: id,
-          };
-        });
+        if (isBreadCrumb) {
+          setQuery((e) => {
+            return {
+              ...e,
+              model: newValue,
+              year: '',
+              modelId: id,
+            };
+          });
+        } else {
+          setQuery((e) => {
+            return {
+              ...e,
+              model: newValue,
+              submodel1: '',
+              submodel2: '',
+              parent_generation: '',
+              modelId: id,
+            };
+          });
+        }
         break;
       case 'submodel1':
         setQuery((e) => {
@@ -370,9 +411,9 @@ export default function HomeDropdown({
                     <div className="home-scrollbar flex max-h-[700px] w-full flex-col overflow-y-auto overflow-x-clip">
                       {filteredItems && filteredItems?.length > 0 ? (
                         <>
-                          {filteredItems?.map((item, i) => (
+                          {filteredItems?.map((items, i) => (
                             <div
-                              key={`item-${i}`}
+                              key={`filtered-${title}-${i}`}
                               id={`${title}-${i}`}
                               tabIndex={-1}
                               className={`flex py-1 pl-[20px] hover:bg-[#BE1B1B] hover:text-white ${i === selectedIndex && 'bg-[#BE1B1B] text-white'}`}
@@ -388,7 +429,7 @@ export default function HomeDropdown({
                         <>
                           {items.map((item, i) => (
                             <div
-                              key={`item-${item.id}`}
+                              key={`${title}-${i}`}
                               id={`${title}-${i}`}
                               tabIndex={-1}
                               className={`flex py-1 pl-[20px] hover:bg-[#BE1B1B] hover:text-white ${i === selectedIndex && 'bg-[#BE1B1B] text-white'}`}

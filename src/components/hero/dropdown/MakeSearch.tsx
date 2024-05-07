@@ -4,7 +4,7 @@ import { ChangeEvent, useEffect, useState } from 'react';
 import { TQuery } from './HeroDropdown';
 import { getAllUniqueMakesByYear, getProductDataByPage } from '@/lib/db';
 import { AiOutlineLoading3Quarters } from 'react-icons/ai';
-import HomeDropdown from './HomeDropdown';
+import MainDropdown from './MainDropdown';
 
 export type MakeDropdown = { make: string | null; make_slug: string | null };
 
@@ -61,7 +61,7 @@ export function MakeSearch({
           typeId,
           yearId,
         });
-        
+
         setMakeData(response);
         // const uniqueStrings = Array.from(new Set(response.map(({ name,id }, index) => name)))
         // setMakeDataStrings(uniqueStrings as string[]);
@@ -76,20 +76,8 @@ export function MakeSearch({
     }
   }, [queryObj]);
 
-  const handleChange = (event: ChangeEvent<HTMLSelectElement>) => {
-    const newValue = event.target.value;
-    setValue(newValue);
-    setQuery((p) => ({
-      ...p,
-      make: newValue,
-      model: '',
-      submodel1: '',
-      submodel2: '',
-    }));
-  };
-
   return (
-    <HomeDropdown
+    <MainDropdown
       place={3}
       title={'make'}
       queryObj={queryObj}

@@ -1,8 +1,11 @@
 'use client';;
 import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { TQuery } from './HeroDropdown';
-import HomeDropdown from './HomeDropdown';
 import { getAllType } from '@/lib/db';
+import SeeAllChevronDown from '@/components/PDP/components/icons/SeeAllChevronDown';
+import HomeChevronDown from './icons/HomeChevronDown';
+import MainDropdown from './MainDropdown';
+import { useParams, usePathname } from 'next/navigation';
 
 type TypeDropdown = {
   id: string | number;
@@ -47,7 +50,6 @@ export function TypeSearch({
   //   ? seatCoverTypes
   //   : vehicleTypes;
 
-  const [dropdownOpen, setDropdownOpen] = useState(false);
   const {
     query: { type },
     setQuery,
@@ -66,33 +68,8 @@ export function TypeSearch({
     fetchData();
   }, []);
 
-  // return (
-  //   <div
-  //     className={`flex max-h-[53px] min-h-[53px] px-2 ${prevSelected ? ' w-full border-[5px] border-[#BE1B1B]' : 'w-[98%] border-[1px] border-[#767676] outline-[4px] outline-transparent'} items-center overflow-hidden rounded-[8px] bg-white  text-lg  md:max-h-[58px] lg:w-auto`}
-  //     tabIndex={1}
-  //   >
-  //     <div
-  //       className={`flex h-full w-full ${prevSelected && 'border-[2.5px]  border-white'} items-center overflow-hidden rounded-[4px] bg-white  text-lg  md:max-h-[58px] lg:w-auto`}
-  //       // tabIndex={1}
-  //     >
-  //       <div className=" ml-[10px] pr-[15px]">1</div>
-  //       <select
-  //         value={value}
-  //         onChange={handleChange}
-  //         className="h-full w-full cursor-pointer bg-transparent  outline-none lg:py-3"
-  //       >
-  //         <option value="">Type</option>
-  //         {types.map((type, i) => (
-  //           <option key={`type-${type}-${i}`} value={type}>
-  //             {type}
-  //           </option>
-  //         ))}
-  //       </select>
-  //     </div>
-  //   </div>
-  // );
   return (
-    <HomeDropdown
+    <MainDropdown
       place={1}
       title={'type'}
       value={type}
