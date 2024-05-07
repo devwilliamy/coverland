@@ -1,6 +1,6 @@
 import { TReviewData } from '@/lib/db';
 import { useMediaQuery } from '@mui/material';
-import { ThumbsUpIcon } from '../icons';
+import { FaRegThumbsUp, FaThumbsUp } from 'react-icons/fa6';
 import WouldRecomend from './WouldRecomend';
 import ReviewCardGallery from './ReviewCardGallery';
 import { useEffect, useState } from 'react';
@@ -116,7 +116,8 @@ export default function ReviewCard({
               });
             }}
           >
-            <ThumbsUpIcon fill="#1D8044" isHelpful={isHelpful} />
+            {isHelpful ? <FaThumbsUp fill="#1D8044" /> : <FaRegThumbsUp />}
+
             <p>Helpful</p>
             <p>({review.helpful})</p>
           </div>
@@ -196,7 +197,7 @@ export default function ReviewCard({
                   {api?.canScrollPrev() && (
                     <CarouselPrevious className="left-0" />
                   )}
-                  {api?.canScrollNext() && <CarouselNext className="right-0" />} 
+                  {api?.canScrollNext() && <CarouselNext className="right-0" />}
                 </Carousel>
               </div>
             </DialogContent>
