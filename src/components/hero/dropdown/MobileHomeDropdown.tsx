@@ -30,6 +30,7 @@ export default function MobileHomeDropdown({
         id={`mobile-select-${title}`}
         disabled={isDisabled}
         value={value}
+        title={capitalizeFirstLetter(title)}
         autoComplete="off"
         className={`absolute top-0 flex h-full w-full  cursor-pointer appearance-none items-center rounded-[8px] pl-[20px] outline outline-[2px] outline-offset-0 outline-transparent focus:outline-[#BE1B1B] `}
       >
@@ -47,9 +48,10 @@ export default function MobileHomeDropdown({
               <>
                 {filteredItems?.map((item, i) => (
                   <option
-                    key={`type-${i}`}
+                    key={`mobile-filtered-${title}-${i}`}
                     id={`${title}-${i}`}
                     value={item.name}
+                    selected={value === item.name}
                     className={`flex py-1 pl-[20px] hover:bg-[#BE1B1B] hover:text-white ${i === selectedIndex && 'bg-[#BE1B1B] text-white'}`}
                   >
                     {item.name}
@@ -60,9 +62,10 @@ export default function MobileHomeDropdown({
               <>
                 {items.map((item, i) => (
                   <option
-                    key={`type-${i}`}
+                    key={`mobile-${title}-${i}`}
                     id={`${title}-${item.id}-${i}`}
                     value={item.name}
+                    selected={value === item.name}
                     className={`flex py-1 pl-[20px] hover:bg-[#BE1B1B] hover:text-white ${i === selectedIndex && 'bg-[#BE1B1B] text-white'}`}
                   >
                     {item.name}
