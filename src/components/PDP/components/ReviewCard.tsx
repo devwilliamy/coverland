@@ -119,7 +119,7 @@ export default function ReviewCard({
             {isHelpful ? <FaThumbsUp fill="#1D8044" /> : <FaRegThumbsUp />}
 
             <p>Helpful</p>
-            <p>({review.helpful})</p>
+            <p>({isHelpful ? Number(review?.helpful) + 1 : review.helpful})</p>
           </div>
         </div>
       )}
