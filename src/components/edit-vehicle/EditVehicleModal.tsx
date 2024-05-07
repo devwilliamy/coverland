@@ -41,7 +41,9 @@ export default function EditVehicleModal({
   const productName = make
     ? `${selectedMake} ${model ? selectedModel : ''}`
     : `${type}`;
-  const productNameSubtitle = year ? `${selectedYear ?? ''}` : '';
+  const productNameSubtitle = year
+    ? `${selectedYear ? (searchParams?.submodel ? `${submodel1} ${selectedYear}` : `${selectedYear}`) : ''}`
+    : '';
   return (
     <div className=" flex h-full w-full flex-col  justify-center lg:hidden">
       <Sheet open={open} onOpenChange={setOpen}>
