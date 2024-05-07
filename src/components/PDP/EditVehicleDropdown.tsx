@@ -68,7 +68,6 @@ export default function EditVehicleDropdown({
       try {
         setLoading(true);
         if (!make) return;
-        console.log('EditVehicleDropdown', { type, make, model });
         if (type !== 'Seat Covers') {
           // const response = await fetch(
           //   `/api/json-data?type=${slugify(type)}&make=${slugify(make)}`
@@ -81,7 +80,6 @@ export default function EditVehicleDropdown({
             cover: 'Premium Plus',
             make: slugify(make),
           });
-          console.log('[EdhitVehicleDropdown getProductResponse]:', response);
           setJsonData(response);
           return;
         }
@@ -91,8 +89,6 @@ export default function EditVehicleDropdown({
           cover: 'Leather',
           make: slugify(make),
         });
-        console.log("Response Seat Covers: ", response)
-
         setJsonData(response);
       } catch (error) {
         console.error('[EditVehicleDropdown.getSearchData]: ', error);
