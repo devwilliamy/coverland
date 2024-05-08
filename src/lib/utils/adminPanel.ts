@@ -18,7 +18,7 @@ export const mapPaymentIntentIdToOrder = (
   return {
     order_id: metadata.orderId,
     order_date: convertUnixTimestampToISOString(created),
-    total_amount: amount,
+    total_amount: amount / 100, // [CK] - Please store as dollars 5/8/24,,
     currency: currency,
     status: 'PENDING',
     payment_gateway: 'stripe',
@@ -47,7 +47,7 @@ export const mapPaymentIntentAndMethodToOrder = (
   return {
     order_id: metadata.orderId,
     order_date: convertUnixTimestampToISOString(created),
-    total_amount: amount,
+    total_amount: amount / 100, // [CK] - Please store as dollars 5/8/24,
     currency,
     status: 'COMPLETE',
     payment_gateway: 'stripe',
@@ -55,7 +55,7 @@ export const mapPaymentIntentAndMethodToOrder = (
     payment_status: status,
     payment_method_id: payment_method,
     payment_method: type,
-    card_amount: amount,
+    card_amount: amount / 100, // [CK] - Please store as dollars 5/8/24
     card_brand: card?.brand,
     card_fingerprint: card?.fingerprint,
     card_funding: card?.funding,
