@@ -9,7 +9,7 @@ import Link from 'next/link';
 const coverTypes = [
   {
     title: 'Car Covers',
-    description: 'Car/ SUV/ Truck',
+    description: 'Car / SUV / Truck',
     img: CAR,
     link: '/car-covers/premium-plus',
   },
@@ -17,7 +17,7 @@ const coverTypes = [
   // { title: 'SUV Covers', img: SUV, link: '/suv-covers/premium-plus' },
   {
     title: 'Seat Covers',
-    description: 'Front Seat/ Full Set',
+    description: 'Front Seat / Full Set',
     img: SEAT,
     link: '/seat-covers/leather',
   },
@@ -34,9 +34,9 @@ const CoversGrid = () => {
                 href={link}
                 className="flex h-full min-w-[167px]  items-center justify-between rounded-[8px] px-[15px] py-[20px] shadow-md lg:flex-row lg:gap-[36px] lg:px-[50px]"
               >
-                <div className=" flex w-full min-w-[45%] flex-[0.4] flex-col gap-[10px]  whitespace-nowrap  text-center align-middle text-[20px] font-[900] uppercase leading-[22px] lg:order-first lg:w-1/2 lg:max-w-[45%] lg:text-[24px]">
-                  <p className="text-left leading-[17.6px]"> {title}</p>
-                  <p className="text-left text-[16px] font-[500] normal-case leading-[17.6px] text-[#A7A7A7]">
+                <div className=" flex w-full min-w-[45%] flex-[0.4] flex-col gap-[10px]  whitespace-nowrap align-middle text-[20px] font-[900] uppercase leading-[17.6px] lg:order-first lg:w-1/2 lg:max-w-[45%] lg:text-[24px]">
+                  <p className="text-left "> {title}</p>
+                  <p className="text-left text-[16px] font-[500] normal-case text-[#A7A7A7]">
                     {description}
                   </p>
                 </div>

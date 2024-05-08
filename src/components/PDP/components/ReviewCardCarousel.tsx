@@ -5,8 +5,8 @@ import { useContext } from 'react';
 
 function ReviewCardCarousel({ reviewImages }: { reviewImages: string | null }) {
   const reviewImagesSplit = reviewImages?.split(',');
-  const store = useContext(CarSelectionContext);
-  if (!store) throw new Error('Missing CarContext.Provider in the tree');
+  const store = useStoreContext();
+  if (!store) throw new Error('Missing Provider in the tree');
   if (!reviewImages) return;
 
   return (

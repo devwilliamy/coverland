@@ -30,14 +30,13 @@ export default function ReviewCard({
   review: TReviewData;
   fullGallery?: boolean;
 }) {
+  const [pdpMoreTextOpen, setPdpMoreTextOpen] = useState(false);
   const [moreOpen, setMoreOpen] = useState(false);
-  const [moreTextOpen, setMoreTextOpen] = useState(false);
   const [isHelpful, setIsHelpful] = useState(false);
   const [reviewDialogOpen, setReviewDialogOpen] = useState(false);
   const reviewImagesSplit = review.review_image?.split(',');
   const [selectedImage, setSelectedImage] = useState('');
-  const [imageLoading, setImageLoading] = useState(false);
-  const [imageLoaded, setImageLoaded] = useState(false);
+  const [imageLoading, setImageLoading] = useState(true);
   const isMobile = useMediaQuery('(max-width: 768px)');
   const [api, setApi] = useState<CarouselApi>();
   const [current, setCurrent] = useState(0);
@@ -54,6 +53,18 @@ export default function ReviewCard({
     });
   }, [api]);
   // const store = useContext(CarSelectionContext);
+
+  function ReadMore() {
+    return (
+      <div className="flex items-center gap-1">
+        {pdpMoreTextOpen ? <ChevronUp size={14} /> : <ChevronDown size={14} />}
+        <p className="text-[14px]">
+          {pdpMoreTextOpen ? 'Read Less' : 'Read More'}
+        </p>
+        {pdpMoreTextOpen ? <ChevronUp size={14} /> : <ChevronDown size={14} />}
+      </div>
+    );
+  }
 
   return (
     <div
@@ -86,7 +97,9 @@ export default function ReviewCard({
       </div>
 
       <div className="flex justify-between pt-0.5 lg:mt-0 lg:gap-[104px]">
-        <div className="line-clamp-3  text-[14px] leading-[28px] text-[#1A1A1A] lg:flex lg:text-[18px] ">
+        <div
+          className={`${!pdpMoreTextOpen && 'line-clamp-3'}  text-[14px] leading-[28px] text-[#1A1A1A] lg:flex lg:text-[18px] `}
+        >
           {review?.review_description?.replace(/�/g, ' ')}
         </div>
       </div>
@@ -97,13 +110,10 @@ export default function ReviewCard({
             <div
               className="flex flex-col items-center"
               onClick={() => {
-                setMoreTextOpen((e) => {
-                  return !e;
-                });
+                setPdpMoreTextOpen((prev) => !prev);
               }}
             >
-              {moreTextOpen ? <ChevronUp /> : <ChevronDown />}
-              <p>{moreTextOpen ? 'Read Less' : 'Read More'}</p>
+              <ReadMore />
             </div>
           </div>
         )}
@@ -144,8 +154,7 @@ export default function ReviewCard({
                     <DialogTrigger
                       onClick={() => {
                         const thisImage = reviewImagesSplit[index];
-                        if (!imageLoaded) {
-                          console.log('Loading');
+                        if (!imageLoading) {
                           setImageLoading(true);
                         }
                         setSelectedImage(thisImage);
@@ -158,8 +167,8 @@ export default function ReviewCard({
                         className="flex aspect-square items-center"
                         alt="review-card-image-trigger"
                         src={image}
-                        onError={(e) => {
-                          console.log(
+                        onError={() => {
+                          console.error(
                             `Image: review-card-image-${index} |  ERROR | `,
                             image
                           );
@@ -186,8 +195,6 @@ export default function ReviewCard({
                 <Carousel
                   setApi={setApi}
                   onLoad={() => {
-                    console.log('Finish:', { imageLoading });
-                    setImageLoaded(true);
                     setImageLoading(false);
                   }}
                 >

@@ -6,6 +6,7 @@ import { ChevronDown, ChevronUp } from 'lucide-react';
 import Image from 'next/image';
 import React, { useContext, useState } from 'react';
 import { ThumbsUpIcon } from '../icons';
+import { FaRegThumbsUp, FaThumbsUp } from 'react-icons/fa';
 
 function ReviewCardGallery({
   reviewImages,
@@ -66,9 +67,10 @@ function ReviewCardGallery({
             });
           }}
         >
-          <ThumbsUpIcon fill="#1D8044" isHelpful={isHelpful} />
+          {isHelpful ? <FaThumbsUp fill="#1D8044" /> : <FaRegThumbsUp />}
+
           <p>Helpful</p>
-          <p>({review.helpful})</p>
+          <p>({isHelpful ? Number(review?.helpful) + 1 : review.helpful})</p>
         </div>
       </div>
 
