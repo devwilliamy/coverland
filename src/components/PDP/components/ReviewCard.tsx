@@ -140,27 +140,34 @@ export default function ReviewCard({
           <Dialog open={reviewDialogOpen} onOpenChange={setReviewDialogOpen}>
             <span className="flex gap-2 overflow-x-auto">
               {reviewImagesSplit?.map((image, index) => {
-                return (
-                  <DialogTrigger
-                    onClick={() => {
-                      const thisImage = reviewImagesSplit[index];
-                      if (!imageLoaded) {
-                        console.log('Loading');
-                        setImageLoading(true);
-                      }
-                      setSelectedImage(thisImage);
-                    }}
-                  >
-                    <Image
-                      key={`review-card-image-${index}`}
-                      height={160}
-                      width={160}
-                      className="flex aspect-square items-center"
-                      alt="review-card-image-trigger"
-                      src={image}
-                    />
-                  </DialogTrigger>
-                );
+                if (image)
+                  return (
+                    <DialogTrigger
+                      onClick={() => {
+                        const thisImage = reviewImagesSplit[index];
+                        if (!imageLoaded) {
+                          console.log('Loading');
+                          setImageLoading(true);
+                        }
+                        setSelectedImage(thisImage);
+                      }}
+                    >
+                      <Image
+                        key={`review-card-image-${index}`}
+                        height={160}
+                        width={160}
+                        className="flex aspect-square items-center"
+                        alt="review-card-image-trigger"
+                        src={image}
+                        onError={(e) => {
+                          console.log(
+                            `Image: review-card-image-${index} |  ERROR | `,
+                            image
+                          );
+                        }}
+                      />
+                    </DialogTrigger>
+                  );
               })}
             </span>
             <DialogContent
