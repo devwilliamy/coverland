@@ -14,6 +14,8 @@ import {
 import { deslugify } from '@/lib/utils';
 import SeatCoverDataWrapper from '../../../components/SeatCoverDataWrapper';
 
+export const revalidate = 0
+
 export type TCarCoverSlugParams = {
   make: string;
   model: string;
