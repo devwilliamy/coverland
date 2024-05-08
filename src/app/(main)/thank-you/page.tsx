@@ -38,16 +38,19 @@ async function OrderConfirmationPage({
 
     // Make customer info
     const customerInput = mapPaymentMethodToCustomer(
+      paymentIntent as PaymentIntent,
       paymentMethod as PaymentMethod
     );
 
     // Create customer in customers table (this will only work for stripe ATM)
     // TODO: Make this work with Paypal
     const createdCustomer = (await createOrUpdateUser(customerInput)) || [];
+    console.log("[Thank you page] Customer:", createdCustomer)
     // TODO: Update customer ID Here
     const mappedOrder = mapPaymentIntentAndMethodToOrder(
       paymentIntent as PaymentIntent,
-      paymentMethod as PaymentMethod
+      paymentMethod as PaymentMethod,
+      createdCustomer[0].id
     );
 
     // Update Order in Orders table
@@ -69,6 +72,8 @@ async function OrderConfirmationPage({
   } else if (payment_gateway === 'paypal') {
     // If Paypal needs to do something here...
     // Oh, order items and customer have to be updated here
+
+    // JK. Probably do whatever needs to be done here in PayPalButtonSection.tsx onApprove 
   } else {
     return (
       <div className="flex flex-row items-center justify-center py-10 text-xl font-bold">

@@ -1,19 +1,9 @@
-import { createSupabaseAdminPanelServerClient } from '@/lib/db/adminPanelSupabaseClient';
-import {
-  ADMIN_PANEL_CUSTOMERS,
-  ADMIN_PANEL_ORDERS,
-} from '@/lib/db/constants/databaseTableNames';
-import { SupabaseClient } from '@supabase/supabase-js';
-import { ReadonlyRequestCookies } from 'next/dist/server/web/spec-extension/adapters/request-cookies';
-import { cookies } from 'next/headers';
-import { NextRequest, NextResponse } from 'next/server';
+import { supabaseAdminPanelDatabaseClient } from '@/lib/db/adminPanelSupabaseClient';
+import { ADMIN_PANEL_CUSTOMERS } from '@/lib/db/constants/databaseTableNames';
 
 export const createOrUpdateUser = async (customerInput) => {
-  const cookieStore: ReadonlyRequestCookies = cookies();
-  const supabase: SupabaseClient =
-    createSupabaseAdminPanelServerClient(cookieStore);
   try {
-    const { data, error } = await supabase
+    const { data, error } = await supabaseAdminPanelDatabaseClient
       .from(ADMIN_PANEL_CUSTOMERS)
       .upsert(customerInput, {
         onConflict: 'email',

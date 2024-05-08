@@ -7,13 +7,14 @@ import {
 import { useCartContext } from '@/providers/CartProvider';
 import { useRouter } from 'next/navigation';
 import { useCheckoutContext } from '@/contexts/CheckoutContext';
-import { mapPaypalCompletionToOrder } from '@/lib/utils/adminPanel';
+import { mapPaypalCompletionToCustomer, mapPaypalCompletionToOrder } from '@/lib/utils/adminPanel';
 import { updateAdminPanelOrder } from '@/lib/db/admin-panel/orders';
 import {
   getSkusAndQuantityFromCartItems,
   getSkusFromCartItems,
 } from '@/lib/utils/stripe';
 import { postAdminPanelOrderItem } from '@/lib/db/admin-panel/orderItems';
+import { createOrUpdateUser } from '@/lib/db/admin-panel/customers';
 
 export default function PayPalButtonSection() {
   const { clearLocalStorageCart, getTotalPrice, cartItems } = useCartContext();
@@ -64,10 +65,16 @@ export default function PayPalButtonSection() {
               data.orderID,
               customerInfo.phoneNumber
             );
+            console.log("Response:", response)
+            const customerInput = mapPaypalCompletionToCustomer(response.data, customerInfo.phoneNumber)
+            // Create Customer for Paypal
+            const createdCustomer = (await createOrUpdateUser(customerInput)) || [];
+
             // This gets the paypal order ready
             const mappedData = mapPaypalCompletionToOrder(
               response.data,
-              customerInfo.phoneNumber
+              customerInfo.phoneNumber,
+              createdCustomer[0].id
             );
             // console.log('[Paypal.paypalCreateOrder] mappedData: ', mappedData);
             // This takes paypal response and adds to order table
