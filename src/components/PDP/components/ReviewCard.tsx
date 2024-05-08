@@ -5,7 +5,12 @@ import WouldRecomend from './WouldRecomend';
 import ReviewCardGallery from './ReviewCardGallery';
 import { useEffect, useState } from 'react';
 import ReviewRatingStar from '@/components/icons/ReviewRatingStar';
-import { ChevronDown, ChevronUp } from 'lucide-react';
+import {
+  ChevronDown,
+  ChevronLeft,
+  ChevronRight,
+  ChevronUp,
+} from 'lucide-react';
 import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';
 import Image from 'next/image';
 import { AiOutlineLoading3Quarters } from 'react-icons/ai';
@@ -81,7 +86,7 @@ export default function ReviewCard({
       </div>
       <div className="flex pt-1.5 lg:mt-0 lg:gap-[104px]">
         <div
-          className={`${moreTextOpen ? '' : 'line-clamp-3'}  text-[16px] leading-[28px] text-[#1A1A1A] lg:flex lg:text-[18px] `}
+          className={`${moreTextOpen ? '' : 'line-clamp-[2]'}  text-[16px] leading-[28px] text-[#1A1A1A] lg:flex lg:text-[18px] `}
         >
           {review.review_description}
         </div>
@@ -160,7 +165,7 @@ export default function ReviewCard({
             </span>
             <DialogContent
               id="review-modal"
-              className="flex aspect-square min-w-[100vw] flex-col items-center justify-center rounded-lg lg:min-w-[45vw] "
+              className="flex aspect-square min-w-[100vw] flex-col items-center justify-center rounded-lg md:min-w-[45vw]"
             >
               <div className="relative flex min-h-full min-w-full">
                 {imageLoading && (
@@ -195,9 +200,18 @@ export default function ReviewCard({
                     ))}
                   </CarouselContent>
                   {api?.canScrollPrev() && (
-                    <CarouselPrevious className="left-0" />
+                    <CarouselPrevious
+                      size={'icon'}
+                      className="left-0 border-none bg-transparent hover:bg-transparent md:-left-20"
+                    >
+                      <ChevronLeft size={40} stroke="white" />
+                    </CarouselPrevious>
                   )}
-                  {api?.canScrollNext() && <CarouselNext className="right-0" />}
+                  {api?.canScrollNext() && (
+                    <CarouselNext className="right-0 border-none bg-transparent hover:bg-transparent md:-right-20">
+                      <ChevronRight size={40} stroke="white" />
+                    </CarouselNext>
+                  )}
                 </Carousel>
               </div>
             </DialogContent>

@@ -26,7 +26,7 @@ const coverTypes = [
 const CoversGrid = () => {
   return (
     <span className="mt-[-40px] h-full flex-col items-center px-4 lg:mt-[-80px] lg:flex lg:px-[80px]">
-      <div className="grid h-full max-w-[1280px]  grid-cols-1 grid-rows-2 place-items-center gap-[7px] lg:gap-[20px]  ">
+      <div className="grid h-full max-w-[1280px]  grid-cols-1 grid-rows-2 place-items-center gap-[7px] md:grid-cols-2 md:grid-rows-1  lg:gap-[20px]  ">
         {coverTypes.map(({ title, description, img, link }, i) => {
           return (
             <div key={`${title}-${i}-block`} className="h-full w-full">

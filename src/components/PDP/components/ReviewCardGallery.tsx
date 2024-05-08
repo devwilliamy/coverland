@@ -2,7 +2,7 @@ import { CarSelectionContext } from '@/contexts/CarSelectionContext';
 import useStoreContext from '@/hooks/useStoreContext';
 import { ReviewImageIndexContext } from '@/lib/contexts/ReviewImageIndexContext';
 import { TReviewData } from '@/lib/db/review';
-import { ChevronDown } from 'lucide-react';
+import { ChevronDown, ChevronUp } from 'lucide-react';
 import Image from 'next/image';
 import React, { useContext, useState } from 'react';
 import { ThumbsUpIcon } from '../icons';
@@ -31,14 +31,27 @@ function ReviewCardGallery({
   return (
     <section
       className={`drop-shadow- absolute ${moreOpen ? '-bottom-8' : '-bottom-0'} bg-gradient-to-t from-white from-85% to-white/45 pt-5  `}
-      onClick={() => setMoreOpen((e: boolean) => !e)}
     >
       {!moreOpen && (
-        <div className="flex items-center">
+        <div
+          className="flex items-center"
+          onClick={() => setMoreOpen((e: boolean) => true)}
+        >
           <div>
             <ChevronDown />
           </div>
           <div className="text-base">More</div>
+        </div>
+      )}
+      {moreOpen && (
+        <div
+          className="flex items-center"
+          onClick={() => setMoreOpen((e: boolean) => false)}
+        >
+          <div>
+            <ChevronUp />
+          </div>
+          <div className="text-base">Hide</div>
         </div>
       )}
       <div className="flex items-center justify-between">
