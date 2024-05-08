@@ -1,12 +1,10 @@
 import { Tables } from '../types';
-import {
-  SEAT_COVERS_TABLE,
-} from '../constants/databaseTableNames';
+import { RPC_GET_SEAT_COVER_SORTED_BY_COLOR, SEAT_COVERS_TABLE } from '../constants/databaseTableNames';
 import { supabaseDatabaseClient } from '../supabaseClients';
 import { slugToCoverType } from '@/lib/constants';
 import { slugify } from '@/lib/utils';
 
-export type TSeatCoverDataDB = Tables<'seat_cover_20240401'>;
+export type TSeatCoverDataDB = Tables<'seat_covers'>;
 
 // URL: supabase.com/dashboard/project/<project_id>/api?pages=tables-intro
 //If the table you want to access isn't listed in TableRow,
@@ -31,7 +29,7 @@ export async function getUniqueSeatProduct({
   product_id: any;
 }) {
   const { data, error } = await supabaseDatabaseClient
-    .from('seat_cover_20240401')
+    .from(SEAT_COVERS_TABLE)
     .select('*')
     .eq('sku', product_id)
     .single();
@@ -58,7 +56,7 @@ export async function getUniqueSeatCoverProductSingle({
   submodel1: string;
 }) {
   const { data, error } = await supabaseDatabaseClient
-    .from('seat_cover_20240401')
+    .from(SEAT_COVERS_TABLE)
     .select('sku')
     .eq('type', type)
     .eq('display_id', cover)
@@ -266,7 +264,7 @@ export async function getSeatCoverProductsByDisplayColor({
   model,
   submodel,
   submodel2,
-  submodel3
+  submodel3,
 }: {
   type: string;
   cover?: string;
@@ -278,10 +276,10 @@ export async function getSeatCoverProductsByDisplayColor({
   submodel3?: string;
 }) {
   const { data, error } = await supabaseDatabaseClient.rpc(
-    'get_seat_cover_products_sorted_by_color_20240401',
+    RPC_GET_SEAT_COVER_SORTED_BY_COLOR,
     {
       p_type: type,
-      p_cover: cover,
+      p_cover: 'Leather',
       p_make: make,
       p_model: model,
       p_year: year,
@@ -294,6 +292,48 @@ export async function getSeatCoverProductsByDisplayColor({
   if (error) {
     throw new Error(error.message);
   }
-
   return data;
+
+  // console.log(data,type);
+
+  // try {
+  //     let query = supabaseDatabaseClient.from(SEAT_COVERS_TABLE).select('*');
+
+  //     if (type) {
+  //         query = query.eq('type', type);
+  //     }
+  //     if (cover) {
+  //         query = query.eq('display_id', cover);
+  //     }
+  //     if (make) {
+  //         query = query.ilike('make_slug', make);
+  //     }
+  //     if (model) {
+  //         query = query.ilike('model_slug', model);
+  //     }
+  //     if (year) {
+  //         query = query.eq('parent_generation', year);
+  //     }
+  //     if (submodel) {
+  //         query = query.ilike('submodel', submodel);
+  //     }
+  //     if (submodel2) {
+  //         query = query.ilike('submodel2', submodel2);
+  //     }
+  //     if (submodel3) {
+  //         query = query.ilike('submodel3', submodel3);
+  //     }
+
+  //     const { data, error } = await query
+  //         .order('display_color', { ascending: true, nullsFirst: true });
+
+  //     if (error) {
+  //         throw error;
+  //     }
+
+  //     return data;
+  // } catch (error) {
+  //     console.error('Error fetching seat cover products:', error);
+  //     throw error;
+  // }
 }

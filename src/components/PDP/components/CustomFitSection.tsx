@@ -1,5 +1,5 @@
 'use client';
-import React, { LegacyRef } from 'react';
+import React, { LegacyRef, useContext } from 'react';
 import ProductVideo from '@/components/PDP/ProductVideo';
 import SUV360 from '@/videos/360 degree_website.mp4';
 import Car360 from '@/videos/Mustang 360 degree 16;9_Black Background.mp4';
@@ -17,9 +17,15 @@ import Challenger360 from '@/videos/Challenger 360 Video.mp4';
 import Image from 'next/image';
 import { Asset } from 'next-video/dist/assets.js';
 import useDetermineType from '@/hooks/useDetermineType';
+import ReactPlayer from 'react-player';
+import { CarSelectionContext } from '@/contexts/CarSelectionContext';
+import { useStore } from 'zustand';
 
 const CustomFitSection = () => {
   const { productType, coverType, isPremiumPlus, model } = useDetermineType();
+  const store = useContext(CarSelectionContext);
+  if (!store) throw new Error('Missing CarContext.Provider in the tree');
+  const selectedProduct = useStore(store, (s) => s.selectedProduct);
 
   let PremiumImage = CarPremiumImage;
   let StandardImage = CarStandardImage;
@@ -61,12 +67,15 @@ const CustomFitSection = () => {
         return <Image alt="standard image" src={StandardImage} />;
       default:
         return (
-          <ProductVideo
-            src={!isCorvette && !isChallenger ? baseFeaturedVideo : featured360}
-            autoplay
+          <ReactPlayer
+            url={selectedProduct?.product_video_360 || ''}
+            muted
+            // autoplay
             loop
-            aspectRatio="16 / 9"
-            controls={false}
+            playsinline
+            playing
+            width="100%"
+            height="auto"
           />
         );
     }

@@ -15,6 +15,8 @@ import {
 } from '@/lib/db/review';
 export const dynamicParams = false;
 
+export const revalidate = 0
+
 export async function generateStaticParams() {
   return [{ coverType: 'leather' }];
 }
@@ -45,6 +47,7 @@ export default async function Leatherette({ params }: { params: TPathParams }) {
       await Promise.all([
         getSeatCoverProductsByDisplayColor({
           type: params.productType,
+          cover: 'Leather',
         }),
         getProductReviewsByPage(
           { productType: typeString },

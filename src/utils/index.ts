@@ -176,7 +176,11 @@ function generatePDPContent({
   });
 }
 
-export function getCompleteSelectionData({ data }: { data: IProductData[] | TSeatCoverDataDB[] }) {
+export function getCompleteSelectionData({
+  data,
+}: {
+  data: IProductData[] | TSeatCoverDataDB[];
+}) {
   const completeSelectionState = {
     shouldDisplayType: true,
     shouldDisplayMake: true,
@@ -187,8 +191,15 @@ export function getCompleteSelectionData({ data }: { data: IProductData[] | TSea
     isComplete: true,
   };
 
-  const checkUniformity = (property: keyof IProductData | keyof TSeatCoverDataDB) =>
-    data.every((item, _, arr) => item[property] === arr[0][property]);
+  const normalize = (value: string) => (value === null ? '' : value);
+
+  const checkUniformity = (
+    property: keyof IProductData | keyof TSeatCoverDataDB
+  ) =>
+    data.every(
+      (item, _, arr) =>
+        normalize(item[property]) === normalize(arr[0][property])
+    );
 
   if (data.length > 0) {
     completeSelectionState.shouldDisplayType = !checkUniformity('type');

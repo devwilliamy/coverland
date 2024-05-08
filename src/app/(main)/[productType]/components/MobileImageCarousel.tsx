@@ -29,12 +29,28 @@ import { Asset } from 'next-video/dist/assets.js';
 import { StaticImageData } from 'next/dist/shared/lib/get-img-props';
 import dynamic from 'next/dynamic';
 import Image from 'next/image';
-import { useCallback, useContext, useEffect, useMemo, useState } from 'react';
+import {
+  Suspense,
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+} from 'react';
 import { FaCamera } from 'react-icons/fa';
 import { useStore } from 'zustand';
 import { removeWwwFromUrl } from '@/utils';
 import { CarouselPositionItem } from './MobileCarouselPositionItem';
-
+// import ReactPlayer from 'react-player';
+import { useMediaQuery } from '@mantine/hooks';
+const ReactPlayer = dynamic(() => import('react-player'), {
+  loading: () => (
+    <div className="flex h-full">
+      <Skeleton />
+    </div>
+  ),
+  ssr: false,
+});
 const ProductVideo = dynamic(() => import('@/components/PDP/ProductVideo'), {
   loading: () => (
     <div className="flex h-full">
@@ -45,6 +61,8 @@ const ProductVideo = dynamic(() => import('@/components/PDP/ProductVideo'), {
 });
 
 const MobileImageCarousel = () => {
+  const isMobile = useMediaQuery('(max-width: 1023px)');
+
   const store = useContext(CarSelectionContext);
   if (!store) throw new Error('Missing CarContext.Provider in the tree');
   const selectedProduct = useStore(store, (s) => s.selectedProduct);
@@ -55,7 +73,23 @@ const MobileImageCarousel = () => {
   const { productType, model } = useDetermineType();
   let baseListingVideo = CarListing;
   let baseListingVideoThumbnail = Car360Thumb;
-
+  switch (productType) {
+    case 'truck-covers': {
+      baseListingVideo = TruckListingVideo;
+      baseListingVideoThumbnail = TruckListingThumb;
+      break;
+    }
+    case 'suv-covers': {
+      baseListingVideo = SUVListing;
+      baseListingVideoThumbnail = SUVListingThumb;
+      break;
+    }
+    default: {
+      baseListingVideo = CarListing;
+      baseListingVideoThumbnail = Car360Thumb;
+      break;
+    }
+  }
   const isCorvette = model === 'corvette';
   const isChallenger = model === 'challenger';
   const ChallengerOrDefaultVideo = isChallenger
@@ -82,23 +116,6 @@ const MobileImageCarousel = () => {
   useEffect(() => {
     if (!api) {
       return;
-    }
-    switch (productType) {
-      case 'truck-covers': {
-        baseListingVideo = TruckListingVideo;
-        baseListingVideoThumbnail = TruckListingThumb;
-        break;
-      }
-      case 'suv-covers': {
-        baseListingVideo = SUVListing;
-        baseListingVideoThumbnail = SUVListingThumb;
-        break;
-      }
-      default: {
-        baseListingVideo = CarListing;
-        baseListingVideoThumbnail = Car360Thumb;
-        break;
-      }
     }
 
     setCurrent(api.selectedScrollSnap());
@@ -131,7 +148,7 @@ const MobileImageCarousel = () => {
                   <Image
                     src={
                       (removeWwwFromUrl(selectedProduct.mainImage as string) +
-                        '?v=11') as string
+                        '?v=1') as string
                     }
                     alt={`Additional images of the ${selectedProduct.display_id} cover`}
                     width={500}
@@ -144,25 +161,44 @@ const MobileImageCarousel = () => {
               );
             if (index === 3) {
               return (
-                <CarouselItem key={String(baseListingVideo)}>
-                  <ProductVideo
+                <CarouselItem
+                  key={String(baseListingVideo)}
+                  className="bg-black"
+                >
+                  {/* <ProductVideo
                     src={featured360}
                     imgSrc={listingVideoThumbnail}
                     autoplay
                     loop
-                  />
+                  /> */}
+                  <Suspense>
+                    <ReactPlayer
+                      controls={true}
+                      muted
+                      autoPlay
+                      loop
+                      playsinline
+                      playing
+                      width="100%"
+                      height="100%"
+                      url={selectedProduct?.product_video_carousel || ''}
+                      // light={
+                      //   selectedProduct?.product_video_carousel_thumbnail || ''
+                      // }
+                    />
+                  </Suspense>
                 </CarouselItem>
               );
             }
             return (
               <CarouselItem key={image}>
                 <Image
-                  src={removeWwwFromUrl(image) + '?v=11'}
+                  src={removeWwwFromUrl(image) + '?v=1'}
                   alt={`Additional images of the ${selectedProduct.display_id} cover`}
                   width={500}
                   height={500}
                   onError={() => {
-                    console.log('Failed image:', `${image}`);
+                    console.error('Failed image:', `${image}`);
                   }}
                   className="h-auto w-full"
                 />
@@ -187,7 +223,7 @@ const MobileImageCarousel = () => {
                   <Image
                     src={
                       (removeWwwFromUrl(selectedProduct.mainImage as string) +
-                        '?v=11') as string
+                        '?v=1') as string
                     }
                     alt={`Additional images of the ${selectedProduct.display_id} cover`}
                     width={74}
@@ -209,7 +245,16 @@ const MobileImageCarousel = () => {
                     id="video-thumbnail"
                     alt="Video Thumbnail"
                     slot="poster"
-                    src={listingVideoThumbnail}
+                    src={
+                      selectedProduct?.product_video_carousel_thumbnail || ''
+                      // (
+                      //   selectedProduct?.product_video_carousel_thumbnail as string
+                      // ).substring(
+                      //   (
+                      //     selectedProduct?.product_video_carousel_thumbnail as string
+                      //   ).indexOf('/video')
+                      // ) || ''
+                    }
                     width={1600}
                     height={1600}
                     className="flex h-full w-full overflow-hidden rounded-[4px] object-cover"

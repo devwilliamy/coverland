@@ -7,15 +7,15 @@ import SEAT from '@/images/hero/covers-grid/main-seatcover.webp';
 
 const coverTypes = [
   { title: 'Car Covers', img: CAR, link: '/car-covers/premium-plus' },
-  { title: 'Truck Covers', img: TRUCK, link: '/truck-covers/premium-plus' },
-  { title: 'SUV Covers', img: SUV, link: '/suv-covers/premium-plus' },
+  // { title: 'Truck Covers', img: TRUCK, link: '/truck-covers/premium-plus' },
+  // { title: 'SUV Covers', img: SUV, link: '/suv-covers/premium-plus' },
   { title: 'Seat Covers', img: SEAT, link: '/seat-covers/leather' },
 ];
 
 const CoversGrid = () => {
   return (
     <span className="mt-[-40px] h-full flex-col items-center px-4 lg:mt-[-80px] lg:flex lg:px-[80px]">
-      <div className="grid h-full max-w-[1280px]  grid-cols-2 grid-rows-2 place-items-center gap-[7px] lg:gap-[20px]  ">
+      <div className="grid h-full max-w-[1280px]  grid-cols-2 grid-rows-1 place-items-center gap-[7px] lg:gap-[20px]  ">
         {coverTypes.map(({ title, img, link }, i) => {
           return (
             <div key={`${title}-${i}-block`} className="h-full">

@@ -17,7 +17,7 @@ import ReviewsTextTrigger from './ReviewsTextTrigger';
 import installments from '@/images/PDP/Product-Details-Redesign-2/paypal-installments.webp';
 import Image from 'next/image';
 import useDetermineType from '@/hooks/useDetermineType';
-
+import ReactPlayer from 'react-player';
 export function ProductContent({
   searchParams,
 }: {
