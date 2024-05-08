@@ -73,10 +73,6 @@ export async function getProductData({
     fetch = fetch.eq('model_slug', model);
   }
 
-  if (!make) {
-    fetch = fetch.not('product_video_360', 'is', null);
-  }
-
   const { data, error } = await fetch.limit(1000);
 
   if (error) {
