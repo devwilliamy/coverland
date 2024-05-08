@@ -59,7 +59,7 @@ export default function ReviewCard({
     <div
       className={`relative flex h-full w-full min-w-full flex-col justify-between ${moreOpen ? 'overflow-auto overflow-y-auto' : 'overflow-hidden'} rounded ${!fullGallery && 'border-2 '} ${!fullGallery ? 'p-4' : 'px-4 '} `}
     >
-      <div className="text-xl font-bold normal-case text-neutral-700 max-md:max-w-full lg:text-3xl">
+      <div className="text-[16px] font-bold normal-case text-neutral-700 max-md:max-w-full lg:text-3xl">
         {review.review_title
           ? review.review_title.charAt(0).toUpperCase() +
             review.review_title?.slice(1)
@@ -69,7 +69,7 @@ export default function ReviewCard({
         <div className="flex gap-1 text-yellow-300 lg:my-0">
           <ReviewRatingStar rating={Number(review.rating_stars)} />
         </div>
-        <div className="text-sm font-light normal-case text-neutral-500">
+        <div className="text-[12px] font-light normal-case text-neutral-500 lg:hidden">
           {review?.reviewed_at &&
             new Date(review?.reviewed_at ?? '').toLocaleDateString('en-US', {
               month: 'short',
@@ -84,11 +84,10 @@ export default function ReviewCard({
           <WouldRecomend />
         ) : null}
       </div>
-      <div className="flex pt-1.5 lg:mt-0 lg:gap-[104px]">
-        <div
-          className={`${moreTextOpen ? '' : 'line-clamp-[2]'}  text-[16px] leading-[28px] text-[#1A1A1A] lg:flex lg:text-[18px] `}
-        >
-          {review.review_description}
+
+      <div className="flex justify-between pt-0.5 lg:mt-0 lg:gap-[104px]">
+        <div className="line-clamp-3  text-[14px] leading-[28px] text-[#1A1A1A] lg:flex lg:text-[18px] ">
+          {review?.review_description?.replace(/�/g, ' ')}
         </div>
       </div>
       {review.review_description &&
@@ -109,8 +108,8 @@ export default function ReviewCard({
           </div>
         )}
       {!fullGallery && (
-        <div className="flex items-center justify-between">
-          <div className="my-2 leading-6 text-[#767676] ">
+        <div className="flex items-center justify-between text-[14px]">
+          <div className="my-1 leading-6 text-[#767676] ">
             {review.review_author}
           </div>
           <div
