@@ -1,3 +1,4 @@
+
 import { Suspense } from 'react';
 import { OrderConfirmationContent } from './components/OrderConfirmationContent';
 import {
@@ -55,6 +56,11 @@ async function OrderConfirmationPage({
       mappedOrder.order_id
     );
 
+    console.log('[UpdatedResponse]:', updatedOrderResponse);
+    console.log('[Other Order IteM]:', {
+      id: updatedOrderResponse[0].id,
+      skus: paymentIntent.metadata.skusWithQuantity,
+    });
     // Add To OrderItem Table
     postAdminPanelOrderItem(
       updatedOrderResponse[0].id,

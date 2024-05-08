@@ -173,14 +173,7 @@ export async function paypalCaptureOrder(orderID: string, phone: string) {
       throw new Error('Network response was not ok');
     }
     const data = await response.json();
-    // console.log('[Paypal.paypalCaptureOrder]: ', data);
-    const mappedData = mapPaypalCompletionToOrder(data.data, phone);
-    // console.log('[Paypal.paypalCreateOrder] mappedData: ', mappedData);
-    const adminPanelOrder = await updateAdminPanelOrder(
-      mappedData,
-      mappedData.order_id
-    );
-    // console.log('[Paypal.paypalCreateOrder]: adminPanelOrder', adminPanelOrder);
+    
     return data;
   } catch (err) {
     console.error(err);

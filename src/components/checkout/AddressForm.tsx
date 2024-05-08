@@ -177,14 +177,16 @@ export default function AddressForm({
         </div>
       </div>
       <div className="pb-6">
-        <OverlappingLabel
-          title="Phone Number"
-          name="phoneNumber"
-          errors={errors}
-          placeholder="(000) 000-0000"
-          register={register}
-          options={{ required: true }}
-        />
+        {showEmail && (
+          <OverlappingLabel
+            title="Phone Number"
+            name="phoneNumber"
+            errors={errors}
+            placeholder="(000) 000-0000"
+            register={register}
+            options={{ required: true }}
+          />
+        )}
       </div>
       <div className="flex flex-col items-center justify-between lg:mt-11">
         <Button

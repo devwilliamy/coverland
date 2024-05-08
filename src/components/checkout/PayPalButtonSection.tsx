@@ -7,13 +7,24 @@ import {
 import { useCartContext } from '@/providers/CartProvider';
 import { useRouter } from 'next/navigation';
 import { useCheckoutContext } from '@/contexts/CheckoutContext';
+import { mapPaypalCompletionToOrder } from '@/lib/utils/adminPanel';
+import { updateAdminPanelOrder } from '@/lib/db/admin-panel/orders';
+import {
+  getSkusAndQuantityFromCartItems,
+  getSkusFromCartItems,
+} from '@/lib/utils/stripe';
+import { postAdminPanelOrderItem } from '@/lib/db/admin-panel/orderItems';
 
 export default function PayPalButtonSection() {
   const { clearLocalStorageCart, getTotalPrice, cartItems } = useCartContext();
-  const { orderNumber, shipping, shippingAddress, customerInfo } = useCheckoutContext();
+  const { orderNumber, shipping, shippingAddress, customerInfo } =
+    useCheckoutContext();
   const router = useRouter();
   const totalMsrpPrice = getTotalPrice().toFixed(2) as unknown as number;
-  console.log("[PaypalButtonSection]: ", process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID)
+  console.log(
+    '[PaypalButtonSection]: ',
+    process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID
+  );
   return (
     <PayPalScriptProvider
       options={{
@@ -47,8 +58,39 @@ export default function PayPalButtonSection() {
             return data;
           }}
           onApprove={async (data) => {
-            console.log("[PaypalButton Section] Data: ", data)
-            const response = await paypalCaptureOrder(data.orderID, customerInfo.phoneNumber);
+            console.log('[PaypalButton Section] Data: ', data);
+            // This will get the order from paypal
+            const response = await paypalCaptureOrder(
+              data.orderID,
+              customerInfo.phoneNumber
+            );
+            // This gets the paypal order ready
+            const mappedData = mapPaypalCompletionToOrder(
+              response.data,
+              customerInfo.phoneNumber
+            );
+            // console.log('[Paypal.paypalCreateOrder] mappedData: ', mappedData);
+            // This takes paypal response and adds to order table
+            const adminPanelOrder = await updateAdminPanelOrder(
+              mappedData,
+              mappedData.order_id
+            );
+            console.log(
+              '[Paypal.paypalCreateOrder]: adminPanelOrder',
+              adminPanelOrder
+            );
+
+            const skus = getSkusFromCartItems(cartItems);
+            const skusWithQuantity = getSkusAndQuantityFromCartItems(cartItems);
+            console.log('[postAdminPanelOrderItem] inputs:', {
+              id: adminPanelOrder[0].id,
+              skus: JSON.stringify(skusWithQuantity)
+            });
+            // Add To OrderItem Table
+            postAdminPanelOrderItem(
+              adminPanelOrder[0].id,
+              JSON.stringify(skusWithQuantity)
+            );
             if (response.success) {
               // clearLocalStorageCart();
               router.push(
