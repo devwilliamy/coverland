@@ -51,10 +51,10 @@ export default function MobileHomeDropdown({
                     key={`mobile-filtered-${title}-${i}`}
                     id={`${title}-${i}`}
                     value={item.name}
-                    selected={value === item.name}
+                    // selected={item.name ? value === item.name : value === item}
                     className={`flex py-1 pl-[20px] hover:bg-[#BE1B1B] hover:text-white ${i === selectedIndex && 'bg-[#BE1B1B] text-white'}`}
                   >
-                    {item.name}
+                    {item.name ? item.name : item}
                   </option>
                 ))}
               </>
@@ -65,10 +65,10 @@ export default function MobileHomeDropdown({
                     key={`mobile-${title}-${i}`}
                     id={`${title}-${item.id}-${i}`}
                     value={item.name}
-                    selected={value === item.name}
+                    selected={item.name ? value === item.name : value === item}
                     className={`flex py-1 pl-[20px] hover:bg-[#BE1B1B] hover:text-white ${i === selectedIndex && 'bg-[#BE1B1B] text-white'}`}
                   >
-                    {item.name}
+                    {item.name ? item.name : item}
                   </option>
                 ))}
               </>

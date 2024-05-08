@@ -13,16 +13,17 @@ import { TypeSearch } from '../hero/dropdown/TypeSearch';
 import { MakeSearch } from '../hero/dropdown/MakeSearch';
 import { ModelSearch } from '../hero/dropdown/ModelSearch';
 import { YearSearch } from '../hero/dropdown/YearSearch';
-import { slugify } from '@/lib/utils';
+import { deslugify, slugify } from '@/lib/utils';
 import { TQuery } from '../hero/dropdown/HeroDropdown';
 import { useStore } from 'zustand';
 import useStoreContext from '@/hooks/useStoreContext';
 import { getSeatCoverProductData } from '@/lib/db/seat-covers';
 import { TQueryParams } from '@/utils';
 import { getProductData } from '@/lib/db';
+import useDetermineType from '@/hooks/useDetermineType';
 
 export type TProductJsonData = {
-  type: string;
+  type: string | { name: string; id: number };
   make: string;
   model: string;
   submodel1: string | null;
@@ -44,13 +45,19 @@ export default function EditVehicleDropdown({
   if (!store) throw new Error('Missing Provider in the tree');
 
   const { coverType } = useStore(store, (s) => s.query);
+  const {
+    productType,
+    make: makeParam,
+    model: modelParam,
+    year: yearParam,
+  } = useDetermineType();
 
   const [query, setQuery] = useState<TQuery>({
-    year: '',
+    type: productType ? deslugify(productType) : '',
+    year: yearParam ? yearParam.split('-')[0] : '',
     parent_generation: '',
-    type: '',
-    make: '',
-    model: '',
+    make: makeParam ? deslugify(makeParam) : '',
+    model: modelParam ? deslugify(modelParam) : '',
     submodel1: '',
     submodel2: '',
     typeId: '',
@@ -58,6 +65,13 @@ export default function EditVehicleDropdown({
     makeId: '',
     modelId: '',
   });
+
+  useEffect(() => {
+    const getTypeId = async () => {
+      // take in type to get type id
+      // setQueryState
+    };
+  }, []);
   const [loading, setLoading] = useState(false);
   const [jsonData, setJsonData] = useState<TProductJsonData[]>([]);
   const router = useRouter();
@@ -91,7 +105,7 @@ export default function EditVehicleDropdown({
           cover: 'Leather',
           make: slugify(make),
         });
-        console.log("Response Seat Covers: ", response)
+        console.log('Response Seat Covers: ', response);
 
         setJsonData(response);
       } catch (error) {
@@ -186,12 +200,64 @@ export default function EditVehicleDropdown({
     !model ||
     (subModelData.length > 1 && !submodel1);
 
+  const isMakePage = Boolean(
+    productType && makeParam && !modelParam && !yearParam
+  );
+  const isModelPage = Boolean(
+    productType && makeParam && modelParam && !yearParam
+  );
+  const isYearPage = Boolean(
+    productType && makeParam && modelParam && yearParam
+  );
+
+  const determineDropdownOrder = () => {
+    switch (true) {
+      case isMakePage:
+        return (
+          <>
+            <TypeSearch queryObj={queryObj} />
+            <MakeSearch queryObj={queryObj} />
+            <YearSearch queryObj={queryObj} />
+            <ModelSearch queryObj={queryObj} />
+          </>
+        );
+      case isModelPage:
+        return (
+          <>
+            <TypeSearch queryObj={queryObj} />
+            <MakeSearch queryObj={queryObj} />
+            <ModelSearch queryObj={queryObj} />
+            <YearSearch queryObj={queryObj} />
+          </>
+        );
+      case isYearPage:
+        return (
+          <>
+            <TypeSearch queryObj={queryObj} />
+            <YearSearch queryObj={queryObj} />
+            <MakeSearch queryObj={queryObj} />
+            <ModelSearch queryObj={queryObj} />
+          </>
+        );
+      default:
+        return (
+          <>
+            <TypeSearch queryObj={queryObj} />
+            <YearSearch queryObj={queryObj} />
+            <MakeSearch queryObj={queryObj} />
+            <ModelSearch queryObj={queryObj} />
+          </>
+        );
+    }
+  };
+
   return (
     <div className="z-100 relative flex w-full flex-col items-stretch  gap-[16px] *:flex-1">
-      <TypeSearch queryObj={queryObj} />
+      {/* <TypeSearch queryObj={queryObj} />
       <YearSearch queryObj={queryObj} />
       <MakeSearch queryObj={queryObj} />
-      <ModelSearch queryObj={queryObj} />
+      <ModelSearch queryObj={queryObj} /> */}
+      {determineDropdownOrder()}
       <Button
         className={`mx-auto h-[40px] max-h-[44px] min-h-[44px] w-full max-w-[px] rounded-[4px] ${isDisabled ? 'bg-[black]' : 'bg-[#BE1B1B]'} text-lg `}
         onClick={handleSubmitDropdown}

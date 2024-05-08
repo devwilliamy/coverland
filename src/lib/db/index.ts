@@ -410,7 +410,7 @@ export async function getDistinctYearsByTypeMakeModel(
   distinctYears.sort((a: string, b: string) => {
     return Number(b) - Number(a);
   });
-  console.log('[FILTERED DISTINCT YEARS: ', distinctYears);
+  // console.log('[FILTERED DISTINCT YEARS: ', distinctYears);
 
   return distinctYears;
 }

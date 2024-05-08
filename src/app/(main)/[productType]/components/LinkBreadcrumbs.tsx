@@ -20,6 +20,7 @@ import MainDropdown from '@/components/hero/dropdown/MainDropdown';
 import { PopoverArrow } from '@radix-ui/react-popover';
 import { PREMIUM_PLUS_URL_PARAM, VEHICLE_TYPES } from '@/lib/constants';
 import {
+  getAllType,
   getDistinctMakesByType,
   getDistinctModelsByTypeMake,
   getDistinctYearGenerationFromTypeMakeModelYear,
@@ -66,7 +67,12 @@ export default function LinkBreadcrumbs() {
     submodel1: '',
     submodel2: '',
     parent_generation: '',
+    typeId: '',
+    makeId: '',
+    modelId: '',
+    yearId: '',
   });
+  const [typeData, setTypeData] = useState<any[]>([]);
   const [makeData, setMakeData] = useState<string[]>([]);
   const [modelData, setModelData] = useState<string[]>([]);
   const [yearData, setYearData] = useState<string[]>([]);
@@ -79,6 +85,14 @@ export default function LinkBreadcrumbs() {
 
   // Fetching makes
   useEffect(() => {
+    const getTypes = async () => {
+      try {
+        const response = await getAllType();
+        setTypeData(response);
+      } catch (error) {
+        console.error('[Type Search]: ', error);
+      }
+    };
     const getMakes = async () => {
       if (paramsObj.type) {
         const makes = await getDistinctMakesByType(paramsObj.type);
@@ -113,6 +127,8 @@ export default function LinkBreadcrumbs() {
         setYearData(years);
       }
     };
+    getTypes();
+
     if (paramsObj.type) {
       getMakes();
     }
@@ -172,7 +188,7 @@ export default function LinkBreadcrumbs() {
     }
     try {
       router.push(url, { scroll: true });
-      console.log({ url, yearGen: yearGen[0], paramsObj });
+      // console.log({ url, yearGen: yearGen[0], paramsObj });
     } catch (error) {
       console.log(error);
     }
@@ -235,7 +251,8 @@ export default function LinkBreadcrumbs() {
                         value={paramsObj.type}
                         queryObj={queryObj}
                         prevSelected={false}
-                        items={vehicleTypes}
+                        items={typeData}
+                        isBreadCrumb
                       />
                     )}
                     {make && clickedIndex <= 2 && (

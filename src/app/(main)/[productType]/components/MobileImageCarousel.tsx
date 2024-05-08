@@ -135,17 +135,17 @@ const MobileImageCarousel = () => {
     scrollTo(index);
   };
 
-  useEffect(() => {
-    console.log('Selected Product:', selectedProduct);
-    console.log(
-      'THumbnail url',
-      (selectedProduct?.product_video_carousel_thumbnail || '').substring(
-        (selectedProduct?.product_video_carousel_thumbnail || '').indexOf(
-          '/video'
-        )
-      ) || ''
-    );
-  }, []);
+  // useEffect(() => {
+  // console.log('Selected Product:', selectedProduct);
+  // console.log(
+  //   'THumbnail url',
+  //   (selectedProduct?.product_video_carousel_thumbnail || '').substring(
+  //     (selectedProduct?.product_video_carousel_thumbnail || '').indexOf(
+  //       '/video'
+  //     )
+  //   ) || ''
+  // );
+  // }, []);
 
   return (
     <div className="flex max-w-full flex-col bg-white lg:hidden ">

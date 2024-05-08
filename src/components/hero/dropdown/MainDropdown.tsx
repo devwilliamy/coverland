@@ -13,6 +13,7 @@ import { AiOutlineLoading3Quarters } from 'react-icons/ai';
 import { useMediaQuery } from '@mantine/hooks';
 import MobileHomeDropdown from './MobileHomeDropdown';
 import { useParams } from 'next/navigation';
+import useDetermineType from '@/hooks/useDetermineType';
 
 export default function MainDropdown({
   queryObj,
@@ -54,9 +55,62 @@ export default function MainDropdown({
   >([]);
   const isActive = prevSelected || selectedValue !== title;
   const isMobile = useMediaQuery('(max-width: 768px)');
+  const { productType, make, model, year } = useDetermineType();
+
+  const isMakePage = Boolean(productType && make && !model && !year);
+  const isModelPage = Boolean(productType && make && model && !year);
+  const isYearPage = Boolean(productType && make && model && year);
+  const handleYearData = ({
+    newValue,
+    id,
+  }: {
+    newValue: string;
+    id?: string;
+  }) => {
+    switch (true) {
+      case isBreadCrumb:
+        setQuery((e) => {
+          return {
+            ...e,
+            year: newValue,
+            yearId: id as string,
+          };
+        });
+
+      case isMakePage:
+        setQuery((e) => {
+          return {
+            ...e,
+            year: newValue,
+            yearId: id as string,
+          };
+        });
+
+      default:
+        setQuery((e) => {
+          return {
+            ...e,
+            year: newValue as string,
+            make: '',
+            model: '',
+            submodel1: '',
+            submodel2: '',
+            parent_generation: '',
+            yearId: id as string,
+          };
+        });
+        break;
+    }
+  };
 
   // const handleSelect = ({newValue,id}) => {
-  const handleSelect = ({ newValue, id }: { newValue: string; id: string }) => {
+  const handleSelect = ({
+    newValue,
+    id,
+  }: {
+    newValue: string;
+    id?: string;
+  }) => {
     switch (title) {
       case 'type':
         setQuery({
@@ -67,57 +121,36 @@ export default function MainDropdown({
           submodel1: '',
           submodel2: '',
           parent_generation: '',
-          typeId: id,
+          typeId: id as string,
           yearId: '',
           makeId: '',
           modelId: '',
         });
         break;
       case 'year':
-        if (isBreadCrumb) {
-          setQuery((e) => {
-            return {
-              ...e,
-              year: newValue,
-              yearId: id,
-            };
-          });
-        } else {
-          setQuery((e) => {
-            return {
-              ...e,
-              year: newValue,
-              make: '',
-              model: '',
-              submodel1: '',
-              submodel2: '',
-              parent_generation: '',
-              yearId: id,
-            };
-          });
-        }
+        handleYearData({ newValue, id });
         break;
       case 'make':
         if (isBreadCrumb) {
           setQuery((e) => {
             return {
               ...e,
-              make: newValue,
+              make: newValue as string,
               model: '',
               year: '',
-              makeId: id,
+              makeId: id as string,
             };
           });
         } else {
           setQuery((e) => {
             return {
               ...e,
-              make: newValue,
+              make: newValue as string,
               model: '',
               submodel1: '',
               submodel2: '',
               parent_generation: '',
-              makeId: id,
+              makeId: id as string,
             };
           });
         }
@@ -129,7 +162,7 @@ export default function MainDropdown({
               ...e,
               model: newValue,
               year: '',
-              modelId: id,
+              modelId: id as string,
             };
           });
         } else {
@@ -140,7 +173,7 @@ export default function MainDropdown({
               submodel1: '',
               submodel2: '',
               parent_generation: '',
-              modelId: id,
+              modelId: id as string,
             };
           });
         }
@@ -217,13 +250,15 @@ export default function MainDropdown({
   };
 
   const handleMobileSelectChange = (e: ChangeEvent<HTMLSelectElement>) => {
-    const selectedItem = items?.find(
-      (item) => item.name.toString() === e.target.value
+    const selectedItem = items?.find((item) =>
+      item.name
+        ? item.name.toString() === e.target.value
+        : item.toString() === e.target.value
     );
     if (selectedItem) {
       handleSelect({
-        newValue: selectedItem.name,
-        id: selectedItem.id,
+        newValue: selectedItem.name ? selectedItem.name : selectedItem,
+        id: selectedItem.id ? selectedItem.id : '',
       });
     }
   };
@@ -245,9 +280,10 @@ export default function MainDropdown({
 
   const handleOnMouseDown = (item: string | number | any, index: number) => {
     handleSelect({
-      newValue: item.name,
-      id: item.id,
+      newValue: item.name ? item.name : item,
+      id: item.id ? item.id : '',
     });
+    console.log(queryObj.query);
     setSelectedIndex(index);
     setDropdownOpen((prevState) => !prevState);
   };
@@ -411,17 +447,18 @@ export default function MainDropdown({
                     <div className="home-scrollbar flex max-h-[700px] w-full flex-col overflow-y-auto overflow-x-clip">
                       {filteredItems && filteredItems?.length > 0 ? (
                         <>
-                          {filteredItems?.map((items, i) => (
+                          {filteredItems?.map((filteredItem, i) => (
                             <div
                               key={`filtered-${title}-${i}`}
                               id={`${title}-${i}`}
                               tabIndex={-1}
                               className={`flex py-1 pl-[20px] hover:bg-[#BE1B1B] hover:text-white ${i === selectedIndex && 'bg-[#BE1B1B] text-white'}`}
                               onMouseDown={() => {
-                                handleOnMouseDown(filteredItems?.[i], i);
+                                handleOnMouseDown(filteredItem, i);
+                                console.log(`[MOUSE DOWN]`, { filteredItem });
                               }}
                             >
-                              {item.name}
+                              {item.name ? item.name : item}
                             </div>
                           ))}
                         </>
@@ -435,9 +472,10 @@ export default function MainDropdown({
                               className={`flex py-1 pl-[20px] hover:bg-[#BE1B1B] hover:text-white ${i === selectedIndex && 'bg-[#BE1B1B] text-white'}`}
                               onMouseDown={() => {
                                 handleOnMouseDown(item, i);
+                                console.log(`[MOUSE DOWN]`, { item });
                               }}
                             >
-                              {item.name}
+                              {item.name ? item.name : item}{' '}
                             </div>
                           ))}
                         </>
