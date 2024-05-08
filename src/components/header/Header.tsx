@@ -6,8 +6,8 @@ import Link from 'next/link';
 const Cart = dynamic(() => import('@/components/header/Cart'));
 const coverTypes = [
   { title: 'Car Covers', link: '/car-covers' },
-  { title: 'SUV Covers', link: '/suv-covers' },
-  { title: 'Truck Covers', link: '/truck-covers' },
+  // { title: 'SUV Covers', link: '/suv-covers' },
+  // { title: 'Truck Covers', link: '/truck-covers' },
   { title: 'Seat Covers', link: '/seat-covers' },
 ];
 

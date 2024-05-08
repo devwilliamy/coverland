@@ -45,6 +45,7 @@ export default async function Leatherette({ params }: { params: TPathParams }) {
       await Promise.all([
         getSeatCoverProductsByDisplayColor({
           type: params.productType,
+          cover: 'Leather',
         }),
         getProductReviewsByPage(
           { productType: typeString },
