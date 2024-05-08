@@ -7,12 +7,6 @@ import SEAT from '@/images/hero/covers-grid/main-seatcover.webp';
 import Link from 'next/link';
 
 const coverTypes = [
-<<<<<<< HEAD
-  { title: 'Car Covers', img: CAR, link: '/car-covers/premium-plus' },
-  // { title: 'Truck Covers', img: TRUCK, link: '/truck-covers/premium-plus' },
-  // { title: 'SUV Covers', img: SUV, link: '/suv-covers/premium-plus' },
-  { title: 'Seat Covers', img: SEAT, link: '/seat-covers/leather' },
-=======
   {
     title: 'Car Covers',
     description: 'Car/ SUV/ Truck',
@@ -27,19 +21,13 @@ const coverTypes = [
     img: SEAT,
     link: '/seat-covers/leather',
   },
->>>>>>> d2bbd00d8cb732bdb26d79a2ad7ac34ffceeda31
 ];
 
 const CoversGrid = () => {
   return (
     <span className="mt-[-40px] h-full flex-col items-center px-4 lg:mt-[-80px] lg:flex lg:px-[80px]">
-<<<<<<< HEAD
-      <div className="grid h-full max-w-[1280px]  grid-cols-2 grid-rows-1 place-items-center gap-[7px] lg:gap-[20px]  ">
-        {coverTypes.map(({ title, img, link }, i) => {
-=======
       <div className="grid h-full max-w-[1280px]  grid-cols-1 grid-rows-2 place-items-center gap-[7px] lg:gap-[20px]  ">
         {coverTypes.map(({ title, description, img, link }, i) => {
->>>>>>> d2bbd00d8cb732bdb26d79a2ad7ac34ffceeda31
           return (
             <div key={`${title}-${i}-block`} className="h-full w-full">
               <Link
