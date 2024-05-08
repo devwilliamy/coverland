@@ -8,25 +8,14 @@ import {
 } from '@/components/ui/carousel';
 import { Skeleton } from '@/components/ui/skeleton';
 
-// --------- Listing Videos
-import CarListing from '@/videos/Mustang 360 degree 16;9_Black Background.mp4';
-import SUVListing from '@/videos/7sec Listing Video_Compressed.mp4';
-import TruckListingVideo from '@/videos/Truck Listing Video.mp4';
-import ChallengerListingVideo from '@/videos/Challenger 360 Square.mp4';
-import CorvetteListingVideo from '@/videos/Corvette 360 Video Square.mp4';
-
-// --------- Listing Thumbnails
-import Car360Thumb from '@/images/PDP/Product-Details-Redesign-2/car-360-thumb.webp';
-import TruckListingThumb from '@/images/PDP/Product-Details-Redesign-2/truck-7-thumb.webp';
-import SUVListingThumb from '@/video/7second image.webp';
-import ChallengerListingThumb from '@/images/PDP/PDP-Redesign-v3/challenger-thumbnail.webp';
-import CorvetteListingThumb from '@/images/PDP/PDP-Redesign-v3/corvette-thumbnail.webp';
-
 import { CarSelectionContext } from '@/contexts/CarSelectionContext';
 import useDetermineType from '@/hooks/useDetermineType';
 import { Play } from 'lucide-react';
 import { Asset } from 'next-video/dist/assets.js';
-import { StaticImageData } from 'next/dist/shared/lib/get-img-props';
+import {
+  StaticImageData,
+  StaticImport,
+} from 'next/dist/shared/lib/get-img-props';
 import dynamic from 'next/dynamic';
 import Image from 'next/image';
 import {
@@ -51,6 +40,8 @@ const ReactPlayer = dynamic(() => import('react-player'), {
   ),
   ssr: false,
 });
+import useDetermineContent from '@/hooks/useDetermineContent';
+
 const ProductVideo = dynamic(() => import('@/components/PDP/ProductVideo'), {
   loading: () => (
     <div className="flex h-full">
@@ -70,48 +61,16 @@ const MobileImageCarousel = () => {
   const setFeaturedImage = useStore(store, (s) => s.setFeaturedImage);
   const [api, setApi] = useState<CarouselApi>();
   const [current, setCurrent] = useState(0);
-  const { productType, model } = useDetermineType();
-  let baseListingVideo = CarListing;
-  let baseListingVideoThumbnail = Car360Thumb;
-  switch (productType) {
-    case 'truck-covers': {
-      baseListingVideo = TruckListingVideo;
-      baseListingVideoThumbnail = TruckListingThumb;
-      break;
-    }
-    case 'suv-covers': {
-      baseListingVideo = SUVListing;
-      baseListingVideoThumbnail = SUVListingThumb;
-      break;
-    }
-    default: {
-      baseListingVideo = CarListing;
-      baseListingVideoThumbnail = Car360Thumb;
-      break;
-    }
-  }
-  const isCorvette = model === 'corvette';
-  const isChallenger = model === 'challenger';
-  const ChallengerOrDefaultVideo = isChallenger
-    ? ChallengerListingVideo
-    : baseListingVideo;
-  const ChallengerOrDefaultThumbnail = isChallenger
-    ? ChallengerListingThumb
-    : baseListingVideoThumbnail;
-  const featured360 = isCorvette
-    ? CorvetteListingVideo
-    : ChallengerOrDefaultVideo;
-  const listingVideoThumbnail = isCorvette
-    ? CorvetteListingThumb
-    : ChallengerOrDefaultThumbnail;
-  // const mainListing =
-  //   !isChallenger && !isCorvette ? baseListingVideo : featured360;
+  const { productType, model, make, year } = useDetermineType();
+  console.log('Type Data: ', { productType, model, make, year });
+
+  const { carouselSquare360, carouselThumb } = useDetermineContent();
 
   const carouselItems = useMemo(() => {
     const items = [...productImages];
-    items.splice(3, 0, String(baseListingVideoThumbnail));
+    items.splice(3, 0, String(carouselThumb));
     return items;
-  }, [productImages, baseListingVideoThumbnail]);
+  }, [productImages, carouselThumb]);
 
   useEffect(() => {
     if (!api) {
@@ -161,16 +120,13 @@ const MobileImageCarousel = () => {
               );
             if (index === 3) {
               return (
-                <CarouselItem
-                  key={String(baseListingVideo)}
-                  className="bg-black"
-                >
+                <CarouselItem key={String(carouselThumb)}>
                   {/* <ProductVideo
-                    src={featured360}
-                    imgSrc={listingVideoThumbnail}
+                    src={carouselSquare360}
+                    imgSrc={carouselThumb}
                     autoplay
                     loop
-                  /> */}
+                  />  */}
                   <Suspense>
                     <ReactPlayer
                       controls={true}
@@ -236,7 +192,7 @@ const MobileImageCarousel = () => {
             if (index === 3) {
               return (
                 <div
-                  key={String(SUVListingThumb)}
+                  key={String(carouselThumb)}
                   id="video-thumbnail"
                   className={`relative flex aspect-square min-h-[80px] min-w-[80px] cursor-pointer items-center justify-center overflow-hidden rounded-[4px] p-0.5  ${productType === 'car-covers' && ''} ${index === current && 'outline outline-1  '} `}
                   onClick={() => scrollTo(index)}
@@ -245,16 +201,7 @@ const MobileImageCarousel = () => {
                     id="video-thumbnail"
                     alt="Video Thumbnail"
                     slot="poster"
-                    src={
-                      selectedProduct?.product_video_carousel_thumbnail || ''
-                      // (
-                      //   selectedProduct?.product_video_carousel_thumbnail as string
-                      // ).substring(
-                      //   (
-                      //     selectedProduct?.product_video_carousel_thumbnail as string
-                      //   ).indexOf('/video')
-                      // ) || ''
-                    }
+                    src={carouselThumb as StaticImport}
                     width={1600}
                     height={1600}
                     className="flex h-full w-full overflow-hidden rounded-[4px] object-cover"

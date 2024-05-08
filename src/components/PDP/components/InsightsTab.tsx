@@ -54,7 +54,9 @@ const CarInsights = () => {
       </p>
       <ul className="flex w-full list-inside list-disc flex-col gap-3 text-[14px] lg:text-[18px]">
         {carInsightAdvantages.map((item, i) => (
-          <li key={i} className="list-item w-full">{item}</li>
+          <li key={`car-insights-item-${i}`} className="list-item w-full">
+            {item}
+          </li>
         ))}
       </ul>
       <p className="text-[18px] font-[700]">
@@ -79,7 +81,9 @@ const SuvInsights = () => {
       </p>
       <ul className="flex w-full list-inside list-disc flex-col gap-3 text-[14px] lg:text-[18px]">
         {suvInsightQualities.map((item, i) => (
-          <li key={i} className="list-item w-full">{item}</li>
+          <li key={`suv-insights-item-${i}`} className="list-item w-full">
+            {item}
+          </li>
         ))}
       </ul>
       <p className="text-[18px] font-[700]">

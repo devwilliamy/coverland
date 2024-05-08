@@ -20,7 +20,10 @@ type TabsObj = {
 };
 
 export default function ExtraDetailsTabs() {
-  const { isSeatCover } = useDetermineType();
+  const {
+    isSeatCover,
+    //  productType, model, make, year
+  } = useDetermineType();
 
   const isSmall = useMediaQuery('(max-width: 768px)');
   const isMedium = useMediaQuery('(max-width: 1024px)');
