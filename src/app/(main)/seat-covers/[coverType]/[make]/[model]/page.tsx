@@ -70,6 +70,7 @@ export default async function SeatCoverDataLayer({
       await Promise.all([
         getSeatCoverProductsByDisplayColor({
           type: typeString,
+          cover: 'Leather',
           make: params.make,
           model: params.model,
         }),

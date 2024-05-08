@@ -21,7 +21,6 @@ export function SecondSubmodelDropdown({
   };
   secondSubmodelData: ModelDropdown[];
 }) {
-
   // Leaving this for when third submodel becomes a thing
   // const [thirdSubmodelData, setThirdSubmodelData] = useState<ModelDropdown[]>(
   //   []
@@ -40,7 +39,9 @@ export function SecondSubmodelDropdown({
         )
         .map((vehicle) => vehicle.submodel2)
     )
-  );
+  ).map((submodel) => ({
+    name: submodel,
+  }));
 
   // useEffect(() => {
   // }, [submodel1]);
@@ -55,7 +56,6 @@ export function SecondSubmodelDropdown({
   //   setThirdSubmodelData(thirdSubmodelData);
   //   console.log('ThirdSubmodel:', thirdSubmodelData);
   // }, [value]);
-
 
   const isDisabled =
     !query.make ||

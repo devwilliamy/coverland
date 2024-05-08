@@ -14,6 +14,8 @@ import {
 import { deslugify } from '@/lib/utils';
 import SeatCoverDataWrapper from '@/app/(main)/seat-covers/components/SeatCoverDataWrapper';
 
+export const revalidate = 0;
+
 export type TCarCoverSlugParams = {
   make: string;
   model: string;
@@ -83,6 +85,7 @@ export default async function SeatCoverDataLayer({
       await Promise.all([
         getSeatCoverProductsByDisplayColor({
           type: typeString,
+          cover: 'Leather',
           make: params.make,
           model: params.model,
           year: params.year,

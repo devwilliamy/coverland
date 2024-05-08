@@ -34,12 +34,13 @@ export function SubmodelDropdown({
     new Set(
       submodelData
         .filter(
-          (vehicle) =>
-            vehicle.model === (model as string) && vehicle.submodel1 !== null
+          (vehicle) => vehicle.model === (model as string) && vehicle.submodel1
         )
         .map((vehicle) => vehicle.submodel1)
     )
-  );
+  ).map((submodel) => ({
+    name: submodel,
+  }));
 
   useEffect(() => {
     setValue('');
@@ -48,7 +49,7 @@ export function SubmodelDropdown({
   useEffect(() => {
     // Check for second submodel
     const secondSubmodelData = submodelData.filter(
-      (vehicle) => vehicle.submodel1 === submodel1 && vehicle.submodel2 !== null
+      (vehicle) => vehicle.submodel1 === submodel1 && vehicle.submodel2
     );
 
     setSecondSubmodelData(secondSubmodelData);

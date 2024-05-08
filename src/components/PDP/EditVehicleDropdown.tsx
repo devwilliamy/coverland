@@ -19,6 +19,7 @@ import { useStore } from 'zustand';
 import useStoreContext from '@/hooks/useStoreContext';
 import { getSeatCoverProductData } from '@/lib/db/seat-covers';
 import { TQueryParams } from '@/utils';
+import { getProductData } from '@/lib/db';
 
 export type TProductJsonData = {
   type: string;
@@ -52,28 +53,38 @@ export default function EditVehicleDropdown({
     model: '',
     submodel1: '',
     submodel2: '',
+    typeId: '',
+    yearId: '',
+    makeId: '',
+    modelId: '',
   });
   const [loading, setLoading] = useState(false);
   const [jsonData, setJsonData] = useState<TProductJsonData[]>([]);
   const router = useRouter();
-  const { year, type, make, model, submodel1, submodel2 } = query;
+  const { year, type, make, model, submodel1, submodel2, parent_generation } =
+    query;
   useEffect(() => {
     const getSearchData = async () => {
       try {
         setLoading(true);
         if (!make) return;
-
         if (type !== 'Seat Covers') {
-          const response = await fetch(
-            `/api/json-data?type=${slugify(type)}&make=${slugify(make)}`
-          );
-          const jsonData = await response.json();
+          // const response = await fetch(
+          //   `/api/json-data?type=${slugify(type)}&make=${slugify(make)}`
+          // );
+          // const jsonData = await response.json();
 
-          setJsonData(jsonData);
+          // setJsonData(jsonData);
+          const response = await getProductData({
+            type,
+            cover: 'Premium Plus',
+            make: slugify(make),
+          });
+          setJsonData(response);
           return;
         }
 
-        const response = await getSeatCoverProductData({
+        const response = await getProductData({
           type,
           cover: 'Leather',
           make: slugify(make),
@@ -114,7 +125,8 @@ export default function EditVehicleDropdown({
     ),
   ];
 
-  const yearInUrl = dropdownData?.[0]?.parent_generation;
+  const yearInUrl = parent_generation ?? dropdownData?.[0]?.parent_generation;
+
   const createQueryString = useCallback((name: string, value: string) => {
     const params = new URLSearchParams();
     params.set(name, value);
@@ -132,7 +144,9 @@ export default function EditVehicleDropdown({
     )
       return;
     setLoading(true);
-    let url = `/${slugify(type)}/${coverType || 'premium-plus'}/${slugify(make)}/${slugify(model)}/${yearInUrl}`;
+
+    const determineType = type !== 'Seat Covers' ? 'premium-plus' : 'leather';
+    let url = `/${slugify(type)}/${determineType}/${slugify(make)}/${slugify(model)}/${yearInUrl}`;
 
     const submodelParam = searchParams?.submodel
       ? `?${createQueryString('submodel', searchParams.submodel)}`
