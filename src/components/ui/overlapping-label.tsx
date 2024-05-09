@@ -7,6 +7,7 @@ type OverlappingLabelProps = {
   errors: any;
   register: any;
   options?: any;
+  autocomplete: string;
 };
 export default function OverlappingLabel({
   title,
@@ -15,6 +16,7 @@ export default function OverlappingLabel({
   errors,
   register,
   options,
+  autocomplete
 }: OverlappingLabelProps) {
   const inputStyle = errors[name]
     ? 'text-red-900 ring-red-300 placeholder:text-red-300 focus:ring-red-500'
@@ -29,8 +31,9 @@ export default function OverlappingLabel({
           {title} {options?.required && '*'}
         </label>
         <input
-          className={`block w-full rounded-lg border-0 border-[#E1E1E1] bg-[#FAFAFA] py-2.5 pl-3 pr-10 ring-1 ring-inset focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6 ${inputStyle}`}
+          className={`block w-full rounded-lg border-0 border-[#E1E1E1] bg-[#FAFAFA] py-3 pl-3 pr-10 ring-1 ring-inset focus:ring-2 focus:ring-inset sm:text-base sm:leading-6 ${inputStyle}`}
           placeholder={placeholder}
+          autocomplete={autocomplete}
           {...register(name, options)}
         />
         {errors[name] && (
