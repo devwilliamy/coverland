@@ -3,8 +3,15 @@ import { useCheckoutContext } from '@/contexts/CheckoutContext';
 import SavedBillingAddress from './SavedBillingAddress';
 import AddressForm from './AddressForm';
 
-export default function BillingAddress() {
-  const [isEditingAddress, setIsEditingAddress] = useState(true);
+type BillingAddressProps = {
+  isEditingAddress: boolean;
+  setIsEditingAddress: (isEditing: boolean) => void;
+};
+
+export default function BillingAddress({
+  isEditingAddress,
+  setIsEditingAddress,
+}: BillingAddressProps) {
   const { isShippingAddressShown } = useCheckoutContext();
 
   const {

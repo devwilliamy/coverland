@@ -4,6 +4,8 @@ import OverlappingLabel from '../ui/overlapping-label';
 import { Button } from '../ui/button';
 import { useCheckoutContext } from '@/contexts/CheckoutContext';
 import { StripeAddress } from '@/lib/types/checkout';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { z } from 'zod';
 
 type FormData = {
   email: string;
@@ -23,6 +25,24 @@ type AddressFormProps = {
   setIsEditingAddress: (isEditing: boolean) => void;
   showEmail: boolean;
 };
+
+const formSchema = z.object({
+  firstName: z.string().min(1, 'First name is required'),
+  lastName: z.string().min(1, 'Last name is required'),
+  line1: z.string().min(1, 'Address line 1 is required'),
+  line2: z.string().optional(),
+  city: z.string().min(1, 'City is required'),
+  state: z.string().min(1, 'State is required'),
+  postal_code: z.string().min(1, 'Postal code is required'),
+  email: z.string().email({ message: 'Please provide a valid email' }),
+  phoneNumber: z
+    .string()
+    .regex(
+      /^(?:\+([0-9]{1,3})[-. ]?)?\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/,
+      { message: 'Please provide a valid phone number' }
+    ),
+});
+
 export default function AddressForm({
   addressData,
   updateAddress,
@@ -36,7 +56,7 @@ export default function AddressForm({
     setValue,
     handleSubmit,
     formState: { errors },
-  } = useForm<FormData>();
+  } = useForm<FormData>({ resolver: zodResolver(formSchema) });
 
   const onSubmit = handleSubmit(
     ({

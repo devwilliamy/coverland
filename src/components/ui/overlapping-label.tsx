@@ -43,8 +43,13 @@ export default function OverlappingLabel({
         )}
       </div>
       {errors[name] && errors[name]?.type === 'required' && (
-        <p className="mt-2 ml-2 text-sm text-red-600" id="email-error">
+        <p className="ml-2 mt-2 text-sm text-red-600" id="email-error">
           {title} is required!
+        </p>
+      )}
+      {errors[name] && (
+        <p className="ml-2 mt-2 text-sm text-red-600" id="email-error">
+          {errors[name].message}
         </p>
       )}
     </div>

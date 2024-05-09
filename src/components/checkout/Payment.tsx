@@ -38,7 +38,7 @@ export default function Payment() {
   const [paymentMethod, setPaymentMethod] =
     useState<PaymentMethod>('creditCard');
   const [paymentRequest, setPaymentRequest] = useState(null);
-
+  const [isEditingAddress, setIsEditingAddress] = useState(false);
   const [message, setMessage] = useState<string>('');
   const { orderNumber, paymentIntentId } = useCheckoutContext();
   const { billingAddress, shippingAddress, customerInfo, shipping } =
@@ -115,13 +115,15 @@ export default function Payment() {
         error.message || "There's an error, but could not find error message"
       );
     } else {
-      setMessage('An unexpected error occurred.');
+      console.error('Error:', error.message);
+      setMessage(error.message || 'An unexpected error occurred.');
     }
 
     setIsLoading(false);
   };
 
-  const isDisabled = !isValidShippingAddress(shippingAddress);
+  const isDisabled =
+    !isValidShippingAddress(shippingAddress) || isEditingAddress;
 
   return (
     <div className="px-4">
@@ -146,7 +148,10 @@ export default function Payment() {
             />
           </form>
           <div className="pt-4">
-            <BillingAddress />
+            <BillingAddress
+              isEditingAddress={isEditingAddress}
+              setIsEditingAddress={setIsEditingAddress}
+            />
           </div>
         </>
       ) : (
@@ -160,7 +165,7 @@ export default function Payment() {
       </div>
       {paymentMethod === 'creditCard' ? (
         <div className="lg:flex lg:items-center lg:justify-center">
-          <div className="my-8 w-full justify-center md:flex md:flex-col lg:w-[350px]">
+          <div className="my-4 w-full justify-center md:flex md:flex-col lg:w-[350px]">
             <Button
               disabled={isDisabled}
               variant={'default'}
@@ -180,6 +185,11 @@ export default function Payment() {
         </div>
       ) : (
         <PayPalButtonSection />
+      )}
+      {message && (
+        <div className="font-base flex items-center justify-center text-lg text-red-500">
+          Error: {message}
+        </div>
       )}
     </div>
   );
