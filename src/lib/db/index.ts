@@ -415,7 +415,7 @@ export async function getDistinctYearsByTypeMakeModel(
   return distinctYears;
 }
 
-export async function getDistinctYearGenerationFromTypeMakeModelYear(
+export async function getDistinctYearGenerationByTypeMakeModelYear(
   type: string,
   make: string,
   model: string,
@@ -439,4 +439,60 @@ export async function getDistinctYearGenerationFromTypeMakeModelYear(
   });
 
   return filteredYearGens;
+}
+
+export async function getTypeID(type: string) {
+  const { data, error } = await supabase
+    .from('Type')
+    .select('id')
+    .eq('name', type);
+
+  if (error) {
+    throw new Error(error.message);
+  }
+  const id = data[0].id;
+
+  return id;
+}
+
+export async function getMakeID(make: string) {
+  const { data, error } = await supabase
+    .from('Make')
+    .select('id')
+    .eq('name', make);
+
+  if (error) {
+    throw new Error(error.message);
+  }
+  const id = data[0].id;
+
+  return id;
+}
+
+export async function getModelID(model: string) {
+  const { data, error } = await supabase
+    .from('Model')
+    .select('id')
+    .eq('name', model);
+
+  if (error) {
+    throw new Error(error.message);
+  }
+  const id = data[0].id;
+
+  return id;
+}
+
+export async function getYearID(year: string) {
+  const { data, error } = await supabase
+    .from('Year')
+    .select('id')
+    .eq('name', year);
+
+  if (error) {
+    throw new Error(error.message);
+  }
+  const id = data[0].id;
+
+  return id;
 }

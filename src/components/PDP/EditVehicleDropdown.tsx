@@ -19,7 +19,13 @@ import { useStore } from 'zustand';
 import useStoreContext from '@/hooks/useStoreContext';
 import { getSeatCoverProductData } from '@/lib/db/seat-covers';
 import { TQueryParams } from '@/utils';
-import { getProductData } from '@/lib/db';
+import {
+  getMakeID,
+  getModelID,
+  getProductData,
+  getTypeID,
+  getYearID,
+} from '@/lib/db';
 import useDetermineType from '@/hooks/useDetermineType';
 
 export type TProductJsonData = {
@@ -33,9 +39,11 @@ export type TProductJsonData = {
 };
 
 export default function EditVehicleDropdown({
+  open,
   setOpen,
   searchParams,
 }: {
+  open?: boolean;
   setOpen?: Dispatch<SetStateAction<boolean>>;
   searchParams: TQueryParams;
 }) {
@@ -54,7 +62,8 @@ export default function EditVehicleDropdown({
 
   const [query, setQuery] = useState<TQuery>({
     type: productType ? deslugify(productType) : '',
-    year: yearParam ? yearParam.split('-')[0] : '',
+    year: yearParam ? yearParam : '',
+    // year: yearParam ? yearParam.split('-')[0] : '', // Split to the first year
     parent_generation: '',
     make: makeParam ? deslugify(makeParam) : '',
     model: modelParam ? deslugify(modelParam) : '',
@@ -67,11 +76,37 @@ export default function EditVehicleDropdown({
   });
 
   useEffect(() => {
-    const getTypeId = async () => {
-      // take in type to get type id
-      // setQueryState
+    const fetchTypeId = async () => {
+      if (query.type) {
+        const res = await getTypeID(query.type);
+        setQuery((prev) => {
+          return { ...prev, typeId: res };
+        });
+      }
+
+      if (query.make) {
+        const res = await getMakeID(query.make);
+        setQuery((prev) => {
+          return { ...prev, makeId: res };
+        });
+      }
+
+      if (query.model) {
+        const res = await getModelID(query.model);
+        setQuery((prev) => {
+          return { ...prev, modelId: res };
+        });
+      }
+
+      if (query.year) {
+        const res = await getYearID(query.year);
+        setQuery((prev) => {
+          return { ...prev, yearId: res };
+        });
+      }
     };
-  }, []);
+    fetchTypeId();
+  }, [open]);
   const [loading, setLoading] = useState(false);
   const [jsonData, setJsonData] = useState<TProductJsonData[]>([]);
   const router = useRouter();
@@ -82,7 +117,7 @@ export default function EditVehicleDropdown({
       try {
         setLoading(true);
         if (!make) return;
-        console.log('EditVehicleDropdown', { type, make, model });
+        // console.log('EditVehicleDropdown', { type, make, model });
         if (type !== 'Seat Covers') {
           // const response = await fetch(
           //   `/api/json-data?type=${slugify(type)}&make=${slugify(make)}`
@@ -95,7 +130,7 @@ export default function EditVehicleDropdown({
             cover: 'Premium Plus',
             make: slugify(make),
           });
-          console.log('[EdhitVehicleDropdown getProductResponse]:', response);
+          // console.log('[EdhitVehicleDropdown getProductResponse]:', response);
           setJsonData(response);
           return;
         }

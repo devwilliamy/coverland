@@ -94,6 +94,7 @@ export default function EditVehicleModal({
                 className="flex min-h-[50vh] pt-[75px] "
               >
                 <EditVehicleDropdown
+                  open={open}
                   setOpen={setOpen}
                   searchParams={searchParams}
                 />

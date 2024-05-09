@@ -23,7 +23,7 @@ import {
   getAllType,
   getDistinctMakesByType,
   getDistinctModelsByTypeMake,
-  getDistinctYearGenerationFromTypeMakeModelYear,
+  getDistinctYearGenerationByTypeMakeModelYear,
   getDistinctYearsByTypeMakeModel,
 } from '@/lib/db';
 import { deslugify, slugify } from '@/lib/utils';
@@ -168,7 +168,7 @@ export default function LinkBreadcrumbs() {
     )
       return;
     setIsLoading(true);
-    const yearGen = await getDistinctYearGenerationFromTypeMakeModelYear(
+    const yearGen = await getDistinctYearGenerationByTypeMakeModelYear(
       paramsObj.type,
       paramsObj.make,
       paramsObj.model,
