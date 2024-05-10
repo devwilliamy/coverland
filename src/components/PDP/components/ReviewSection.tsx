@@ -344,6 +344,7 @@ const ReviewSection = ({ showHeader }: { showHeader?: boolean }) => {
           </div>
         </div>
       </header>
+      
       <ReviewHeaderGallery />
       <div className="flex w-full items-center justify-end gap-1 pt-7 *:rounded-lg  lg:gap-4">
         <select

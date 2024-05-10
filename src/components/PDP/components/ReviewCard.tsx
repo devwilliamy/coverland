@@ -10,6 +10,7 @@ import {
   ChevronLeft,
   ChevronRight,
   ChevronUp,
+  X,
 } from 'lucide-react';
 import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';
 import Image from 'next/image';
@@ -22,6 +23,7 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from '@/components/ui/carousel';
+import { DialogClose } from '@radix-ui/react-dialog';
 
 export default function ReviewCard({
   review,
@@ -37,9 +39,9 @@ export default function ReviewCard({
   const reviewImagesSplit = review.review_image?.split(',');
   const [selectedImage, setSelectedImage] = useState('');
   const [imageLoading, setImageLoading] = useState(true);
-  const isMobile = useMediaQuery('(max-width: 768px)');
-  const [api, setApi] = useState<CarouselApi>();
+  const isMobile = useMediaQuery('(max-width: 430px)');
   const [current, setCurrent] = useState(0);
+  const [api, setApi] = useState<CarouselApi>();
 
   useEffect(() => {
     if (!api) {
@@ -70,17 +72,19 @@ export default function ReviewCard({
     <div
       className={`relative flex h-full w-full min-w-full flex-col justify-between ${moreOpen ? 'overflow-auto overflow-y-auto' : 'overflow-hidden'} rounded ${!fullGallery && 'border-2 '} ${!fullGallery ? 'p-4' : 'px-4 '} `}
     >
-      <div className="text-[16px] font-bold normal-case text-neutral-700 max-md:max-w-full lg:text-3xl">
+      <div className="text-[16px] font-bold lg:text-[30px]  ">
         {review.review_title
           ? review.review_title.charAt(0).toUpperCase() +
             review.review_title?.slice(1)
           : ''}
+        {/* {review.review_title} */}
       </div>
       <div className="mt-2 flex items-center gap-2">
         <div className="flex gap-1 text-yellow-300 lg:my-0">
           <ReviewRatingStar rating={Number(review.rating_stars)} />
         </div>
-        <div className="text-[12px] font-light normal-case text-neutral-500 lg:hidden">
+
+        <div className="text-[12px] font-light normal-case text-neutral-500 ">
           {review?.reviewed_at &&
             new Date(review?.reviewed_at ?? '').toLocaleDateString('en-US', {
               month: 'short',
@@ -89,6 +93,7 @@ export default function ReviewCard({
             })}
         </div>
       </div>
+
       <div className="flex gap-4 text-[12px] leading-[24px]">
         <p className="text-[#1D8044]">Verified Purchase</p>
         {review.rating_stars && review.rating_stars >= 3 ? (
@@ -103,8 +108,9 @@ export default function ReviewCard({
           {review?.review_description?.replace(/�/g, ' ')}
         </div>
       </div>
+
       {review.review_description &&
-        review.review_description.length > 115 &&
+        review.review_description.length > 163 &&
         isMobile && (
           <div className="flex w-full items-center justify-center">
             <div
@@ -113,10 +119,12 @@ export default function ReviewCard({
                 setPdpMoreTextOpen((prev) => !prev);
               }}
             >
+              {review.review_description.length}
               <ReadMore />
             </div>
           </div>
         )}
+
       {!fullGallery && (
         <div className="flex items-center justify-between text-[14px]">
           <div className="my-1 leading-6 text-[#767676] ">
@@ -178,10 +186,19 @@ export default function ReviewCard({
                   );
               })}
             </span>
+
             <DialogContent
               id="review-modal"
               className="flex aspect-square min-w-[100vw] flex-col items-center justify-center rounded-lg md:min-w-[45vw]"
             >
+              <div className="absolute right-0 top-0 ">
+                <X
+                  className=""
+                  onClick={() => {
+                    setReviewDialogOpen(false);
+                  }}
+                />
+              </div>
               <div className="relative flex min-h-full min-w-full">
                 {imageLoading && (
                   <div className="flex min-h-full min-w-full animate-pulse items-center justify-center rounded-md bg-[#BE1B1B]/50">
