@@ -10,7 +10,6 @@ const mapSkusWithQuantityToOrderItem = async (
   id: number,
   skusWithQuantity: SkuWithQuantity[]
 ) => {
-  console.log("[mapSkusWithQuantityToOrderItem] skusWithQuantity", skusWithQuantity)
   const skus: string[] = skusWithQuantity.map(
     (skuWithQuantity) => skuWithQuantity.sku
   );

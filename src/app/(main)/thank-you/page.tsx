@@ -45,7 +45,6 @@ async function OrderConfirmationPage({
     // Create customer in customers table (this will only work for stripe ATM)
     // TODO: Make this work with Paypal
     const createdCustomer = (await createOrUpdateUser(customerInput)) || [];
-    console.log("[Thank you page] Customer:", createdCustomer)
     // TODO: Update customer ID Here
     const mappedOrder = mapPaymentIntentAndMethodToOrder(
       paymentIntent as PaymentIntent,
@@ -59,11 +58,6 @@ async function OrderConfirmationPage({
       mappedOrder.order_id
     );
 
-    console.log('[UpdatedResponse]:', updatedOrderResponse);
-    console.log('[Other Order IteM]:', {
-      id: updatedOrderResponse[0].id,
-      skus: paymentIntent.metadata.skusWithQuantity,
-    });
     // Add To OrderItem Table
     postAdminPanelOrderItem(
       updatedOrderResponse[0].id,

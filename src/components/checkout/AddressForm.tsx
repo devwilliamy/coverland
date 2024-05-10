@@ -119,7 +119,7 @@ export default function AddressForm({
             placeholder="abc@gmail.com"
             register={register}
             options={{ required: true }}
-            autocomplete="email"
+            autoComplete="email"
           />
         </div>
       )}
@@ -133,7 +133,7 @@ export default function AddressForm({
             placeholder="John"
             register={register}
             options={{ required: true }}
-            autocomplete="given-name"
+            autoComplete="given-name"
           />
         </div>
         <div className="ml-2 flex-grow">
@@ -144,7 +144,7 @@ export default function AddressForm({
             placeholder="Smith"
             register={register}
             options={{ required: true }}
-            autocomplete="family-name"
+            autoComplete="family-name"
           />
         </div>
       </div>
@@ -156,7 +156,7 @@ export default function AddressForm({
           placeholder="123 Main Street"
           register={register}
           options={{ required: true }}
-          autocomplete="address-line1"
+          autoComplete="address-line1"
         />
       </div>
       <div className="pb-6">
@@ -166,7 +166,7 @@ export default function AddressForm({
           errors={errors}
           placeholder="P.O. Box 123"
           register={register}
-          autocomplete="address-line2"
+          autoComplete="address-line2"
         />
       </div>
       <div className="pb-6">
@@ -177,7 +177,7 @@ export default function AddressForm({
           placeholder="Los Angeles"
           register={register}
           options={{ required: true }}
-          autocomplete="address-level2"
+          autoComplete="address-level2"
         />
       </div>
       <div className="flex flex-row pb-6">
@@ -189,7 +189,7 @@ export default function AddressForm({
             placeholder="CA"
             register={register}
             options={{ required: true }}
-            autocomplete="address-level1"
+            autoComplete="address-level1"
           />
         </div>
         <div className="ml-2 flex-grow">
@@ -200,7 +200,7 @@ export default function AddressForm({
             placeholder="91801"
             register={register}
             options={{ required: true }}
-            autocomplete="postal-code"
+            autoComplete="postal-code"
           />
         </div>
       </div>
@@ -213,7 +213,7 @@ export default function AddressForm({
             placeholder="(000) 000-0000"
             register={register}
             options={{ required: true }}
-            autocomplete="tel"
+            autoComplete="tel"
           />
         )}
       </div>

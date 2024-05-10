@@ -1,4 +1,3 @@
-import { useCreateStripePaymentIntent } from '@/hooks/useStripePaymentIntent';
 import { CheckoutStep, StripeAddress } from '@/lib/types/checkout';
 import {
   Dispatch,
@@ -13,6 +12,13 @@ type CustomerInfo = {
   email: string;
   phoneNumber: string;
 };
+
+export type StripeData = {
+  paymentIntentId: string;
+  clientSecret: string;
+  orderNumber: string;
+};
+
 export type CheckoutContextType = {
   currentStep: number;
   setCurrentStep: Dispatch<SetStateAction<CheckoutStep>>;
@@ -22,7 +28,6 @@ export type CheckoutContextType = {
   setShipping: (shipping: number) => void;
   clientSecret: string;
   orderNumber: string;
-  stripePaymentIntentLoading: boolean;
   billingAddress: StripeAddress;
   updateBillingAddress: (address: StripeAddress) => void;
   shippingAddress: StripeAddress;
@@ -37,6 +42,7 @@ export type CheckoutContextType = {
   isBillingSameAsShipping: boolean;
   updateIsBillingSameAsShipping: (value: boolean) => void;
   paymentIntentId: string;
+  setStripeData: (value: StripeData) => void;
 };
 
 export type CheckoutProviderProps = {
@@ -52,7 +58,6 @@ export const CheckoutContext = createContext<CheckoutContextType>({
   setShipping: () => {},
   clientSecret: '',
   orderNumber: '',
-  stripePaymentIntentLoading: false,
   billingAddress: {
     name: '',
     address: {
@@ -77,6 +82,7 @@ export const CheckoutContext = createContext<CheckoutContextType>({
   isBillingSameAsShipping: true,
   updateIsBillingSameAsShipping: () => {},
   paymentIntentId: '',
+  setStripeData: () => {},
 });
 
 const CheckoutProvider: FC<CheckoutProviderProps> = ({ children }) => {
@@ -102,13 +108,11 @@ const CheckoutProvider: FC<CheckoutProviderProps> = ({ children }) => {
     useState<boolean>(true);
   const [isBillingSameAsShipping, setIsBillingSameAsShipping] =
     useState<boolean>(true);
-
-  const {
-    paymentIntentId,
-    clientSecret,
-    orderNumber,
-    isLoading: stripePaymentIntentLoading,
-  } = useCreateStripePaymentIntent();
+  const [stripeData, setStripeData] = useState({
+    paymentIntentId: '',
+    clientSecret: '',
+    orderNumber: '',
+  });
 
   const nextStep = () => {
     setCurrentStep(currentStep + 1);
@@ -133,10 +137,11 @@ const CheckoutProvider: FC<CheckoutProviderProps> = ({ children }) => {
     }
   };
 
-  const updateCustomerInfo = (info: Partial<CustomerInfo>) => setCustomerInfo((currentInfo) => ({
-    ...customerInfo,
-    ...info
-  }));
+  const updateCustomerInfo = (info: Partial<CustomerInfo>) =>
+    setCustomerInfo(() => ({
+      ...customerInfo,
+      ...info,
+    }));
 
   const updateIsBillingSameAsShipping = (value: boolean) => {
     setIsBillingSameAsShipping(value);
@@ -158,9 +163,8 @@ const CheckoutProvider: FC<CheckoutProviderProps> = ({ children }) => {
         setCurrentStep,
         shipping,
         setShipping,
-        clientSecret,
-        orderNumber,
-        stripePaymentIntentLoading,
+        clientSecret: stripeData.clientSecret,
+        orderNumber: stripeData.orderNumber,
         billingAddress,
         updateBillingAddress,
         isShippingAddressShown,
@@ -171,7 +175,8 @@ const CheckoutProvider: FC<CheckoutProviderProps> = ({ children }) => {
         updateCustomerInfo,
         isBillingSameAsShipping,
         updateIsBillingSameAsShipping,
-        paymentIntentId,
+        paymentIntentId: stripeData.paymentIntentId,
+        setStripeData,
       }}
     >
       {children}

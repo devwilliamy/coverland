@@ -1,6 +1,7 @@
 'use client';
 import { LoadingCheckout } from '@/components/checkout/LoadingCheckout';
 import { useCheckoutContext } from '@/contexts/CheckoutContext';
+import { useCreateStripePaymentIntent } from '@/hooks/useStripePaymentIntent';
 import { Elements } from '@stripe/react-stripe-js';
 import { Appearance, loadStripe } from '@stripe/stripe-js';
 
@@ -24,19 +25,25 @@ export default function StripeElementWrapper({
   children: React.ReactNode;
   clientSecret?: string;
 }) {
-  const { clientSecret: contextClientSecret  } = useCheckoutContext();
-
+  useCreateStripePaymentIntent();
+  const { clientSecret: contextClientSecret } = useCheckoutContext();
   const options = {
     clientSecret: clientSecret ?? contextClientSecret,
     appearance,
   };
   return (
     <>
-      {(clientSecret || contextClientSecret) ? (
-        <Elements stripe={stripePromise} options={options}>
+      {clientSecret || contextClientSecret ? (
+        <Elements
+          stripe={stripePromise}
+          options={options}
+          key={options.clientSecret}
+        >
           {children}
         </Elements>
-      ): <LoadingCheckout/>}
+      ) : (
+        <LoadingCheckout />
+      )}
     </>
   );
 }

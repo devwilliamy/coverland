@@ -1,17 +1,15 @@
+import { useCheckoutContext } from '@/contexts/CheckoutContext';
 import { mapPaymentIntentIdToOrder } from '@/lib/utils/adminPanel';
 import { useCartContext } from '@/providers/CartProvider';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 
 export function useCreateStripePaymentIntent() {
-  const [clientSecret, setClientSecret] = useState<string>('');
-  const [paymentIntentId, setPaymentIntentId] = useState<string>('');
-  const [orderNumber, setOrderNumber] = useState<string>('');
+  const { paymentIntentId, clientSecret, orderNumber, setStripeData } =
+    useCheckoutContext();
   const { cartItems, getTotalCartQuantity } = useCartContext();
-  const [isLoading, setIsLoading] = useState(false);
   useEffect(() => {
     const fetchData = async () => {
       try {
-        setIsLoading(true);
         const response = await fetch('/api/stripe/payment-intent', {
           method: 'POST',
           headers: {
@@ -29,19 +27,23 @@ export function useCreateStripePaymentIntent() {
           },
           body: JSON.stringify({ order: mappedPaymentIntent }),
         });
-
-        setPaymentIntentId(paymentIntent?.id);
-        setClientSecret(paymentIntent?.client_secret);
-        setOrderNumber(paymentIntent?.metadata?.orderId);
+        setStripeData({
+          paymentIntentId: paymentIntent?.id,
+          clientSecret: paymentIntent?.client_secret,
+          orderNumber: paymentIntent?.metadata?.orderId,
+        });
       } catch (error) {
         console.error('[GetStripeClientSecret]: ', error);
       } finally {
-        setIsLoading(false);
       }
     };
     if (cartItems && getTotalCartQuantity() > 0) {
       fetchData();
     }
-  }, [cartItems, getTotalCartQuantity]);
-  return { paymentIntentId, clientSecret, orderNumber, isLoading };
+  }, [cartItems, getTotalCartQuantity, setStripeData]);
+  return {
+    paymentIntentId,
+    clientSecret,
+    orderNumber,
+  };
 }
