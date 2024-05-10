@@ -17,6 +17,9 @@ import { PaymentMethod, StripeAddress } from '@/lib/types/checkout';
 import BillingAddress from './BillingAddress';
 import { useCartContext } from '@/providers/CartProvider';
 import { convertPriceToStripeFormat } from '@/lib/utils/stripe';
+import { sendThankYouEmail } from '@/lib/sendgrid/emails/test-email';
+import { getCurrentDayInLocaleDateString } from '@/lib/utils/date';
+import { useRouter } from 'next/navigation';
 
 function isValidShippingAddress({ address }: StripeAddress) {
   return (
@@ -34,6 +37,7 @@ function isValidShippingAddress({ address }: StripeAddress) {
 export default function Payment() {
   const stripe = useStripe();
   const elements = useElements();
+  const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
   const [paymentMethod, setPaymentMethod] =
     useState<PaymentMethod>('creditCard');
@@ -67,57 +71,92 @@ export default function Payment() {
         amount: totalMsrpPrice,
       }),
     });
-    const data = await response.json();
-    const { error } = await stripe.confirmPayment({
-      elements,
-      confirmParams: {
-        shipping: {
-          name: shippingAddress.name,
-          phone: shippingAddress.phone,
-          address: {
-            city: shippingAddress.address.city as string,
-            country: shippingAddress.address.country as string,
-            line1: shippingAddress.address.line1 as string,
-            line2: shippingAddress.address.line2 as string,
-            postal_code: shippingAddress.address.postal_code as string,
-            state: shippingAddress.address.state as string,
-          },
-        },
-        // Make sure to change this to your payment completion page
-        return_url: `${origin}/thank-you?order_number=${orderNumber}`,
-        receipt_email: customerInfo.email,
-        payment_method_data: {
-          billing_details: {
-            email: customerInfo.email,
-            name: billingAddress.name,
-            phone: billingAddress.phone,
+    stripe
+      .confirmPayment({
+        elements,
+        redirect: 'if_required',
+        confirmParams: {
+          shipping: {
+            name: shippingAddress.name,
+            phone: shippingAddress.phone,
             address: {
-              city: billingAddress.address.city as string,
-              country: billingAddress.address.country as string,
-              line1: billingAddress.address.line1 as string,
-              line2: billingAddress.address.line2 as string,
-              postal_code: billingAddress.address.postal_code as string,
-              state: billingAddress.address.state as string,
+              city: shippingAddress.address.city as string,
+              country: shippingAddress.address.country as string,
+              line1: shippingAddress.address.line1 as string,
+              line2: shippingAddress.address.line2 as string,
+              postal_code: shippingAddress.address.postal_code as string,
+              state: shippingAddress.address.state as string,
+            },
+          },
+          // Make sure to change this to your payment completion page
+          // return_url: `${origin}/thank-you?order_number=${orderNumber}`,
+          receipt_email: customerInfo.email,
+          payment_method_data: {
+            billing_details: {
+              email: customerInfo.email,
+              name: billingAddress.name,
+              phone: billingAddress.phone,
+              address: {
+                city: billingAddress.address.city as string,
+                country: billingAddress.address.country as string,
+                line1: billingAddress.address.line1 as string,
+                line2: billingAddress.address.line2 as string,
+                postal_code: billingAddress.address.postal_code as string,
+                state: billingAddress.address.state as string,
+              },
             },
           },
         },
-      },
-    });
+      })
+      .then(async function (result) {
+        if (result.error) {
+          const { error } = result;
+          if (
+            error.type === 'card_error' ||
+            error.type === 'validation_error'
+          ) {
+            console.error('Error:', error.message);
+            setMessage(
+              error.message ||
+                "There's an error, but could not find error message"
+            );
+          } else {
+            console.error('Error:', error.message);
+            setMessage(error.message || 'An unexpected error occurred.');
+          }
+        } else if (
+          result.paymentIntent &&
+          result.paymentIntent.status === 'succeeded'
+        ) {
+          const emailInput = {
+            to: customerInfo.email,
+            name: {
+              firstName: shippingAddress.firstName,
+              fullName: `${shippingAddress.firstName} ${shippingAddress.lastName}`,
+            },
+            orderInfo: {
+              orderDate: getCurrentDayInLocaleDateString(),
+              orderNumber,
+              // products
+            },
+            // address,
+            // shippingInfo,
+            // billingInfo,
+          };
+          const response = await fetch('/api/email/test', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({emailInput}),
+          });
 
-    // This point will only be reached if there is an immediate error when
-    // confirming the payment. Otherwise, your customer will be redirected to
-    // your `return_url`. For some payment methods like iDEAL, your customer will
-    // be redirected to an intermediate site first to authorize the payment, then
-    // redirected to the `return_url`.
-    if (error.type === 'card_error' || error.type === 'validation_error') {
-      console.error('Error:', error.message);
-      setMessage(
-        error.message || "There's an error, but could not find error message"
-      );
-    } else {
-      console.error('Error:', error.message);
-      setMessage(error.message || 'An unexpected error occurred.');
-    }
+          const { id, client_secret } = result.paymentIntent;
+          router.push(
+            `/thank-you?order_number=${orderNumber}&payment_intent=${id}&payment_intent_client_secret=${client_secret}`
+          );
+        }
+      });
 
     setIsLoading(false);
   };

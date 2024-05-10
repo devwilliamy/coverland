@@ -1,12 +1,10 @@
 import { sendThankYouEmail } from "@/lib/sendgrid/emails/test-email";
 import { NextRequest, NextResponse } from "next/server";
 
-export async function POST(req: NextRequest) {
+export async function POST(request: NextRequest) {
   try {
-    console.log("Inside POST")
-    sendThankYouEmail()
-    console.log("DONE EMAIL")
-    
+    const { emailInput } = await request.json();
+    sendThankYouEmail(emailInput)
     return NextResponse.json({ message: "Email sent"});
   } catch (err) {
     console.log(err);
