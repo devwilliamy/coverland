@@ -190,7 +190,7 @@ export const useThankYouViewedGoogleTag = (
           },
         });
         if (cartItems.length > 0) {
-          // clearLocalStorageCart();
+          clearLocalStorageCart();
         }  
       }
     }
