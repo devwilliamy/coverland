@@ -59,6 +59,9 @@ export default function SignInForm() {
             Create an account
           </Link>
         </div>
+        <div className="pt-4 text-center text-red-500">
+        <span className="font-bold">NOTICE</span>: If you made an account with us before <span className="font-bold">May 8th, 2024</span>, please remake your account. We apologize for any inconvenience.
+        </div>
       </div>
     </div>
   );
