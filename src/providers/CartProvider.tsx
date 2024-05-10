@@ -2,24 +2,15 @@
 
 import React, { createContext, useContext } from 'react';
 import useCart, { TCartItem } from '@/lib/cart/useCart';
+import { TSeatCoverDataDB } from '@/lib/db/seat-covers';
 
-export type SeatItem = {
-  sku: string;
-  type: string | null;
-  feature: string | null;
-  product: string | null;
-  display_color: string | null;
-  msrp: number | string | null;
-  price: number | string | null;
-  display_id: string | null;
-  quantity: number;
-};
+export type SeatItem = TSeatCoverDataDB;
 
 const defaultCartValue = {
   cartItems: [] as TCartItem[],
   addToCart: (item: TCartItem) => {},
   removeItemFromCart: (sku: TCartItem['sku']) => {},
-  adjustItemQuantity: (sku: string, quantity: number) => {},
+  updateItemQuantity: (sku: string, quantity: number) => {},
   getTotalPrice: (): number => 0,
   getOrderSubtotal: (): number => 0,
   getTotalDiscountPrice: (): number => 0,

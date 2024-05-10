@@ -65,7 +65,7 @@ export async function POST(req: NextRequest) {
     mode: 'payment',
     success_url: `${headersList.get(
       'origin'
-    )}/thank-you?order-number=${order_id}`,
+    )}/thank-you?order_number=${order_id}`,
     cancel_url: `${headersList.get('origin')}/checkout`,
     billing_address_collection: 'required',
   };
