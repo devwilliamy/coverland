@@ -148,7 +148,7 @@ export default function Payment() {
             headers: {
               'Content-Type': 'application/json',
             },
-            body: JSON.stringify({emailInput}),
+            body: JSON.stringify({ emailInput }),
           });
 
           const { id, client_secret } = result.paymentIntent;
@@ -156,9 +156,10 @@ export default function Payment() {
             `/thank-you?order_number=${orderNumber}&payment_intent=${id}&payment_intent_client_secret=${client_secret}`
           );
         }
+      })
+      .finally(() => {
+        setIsLoading(false);
       });
-
-    setIsLoading(false);
   };
 
   const isDisabled =
