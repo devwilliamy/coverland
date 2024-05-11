@@ -1,11 +1,29 @@
 import { TReviewData } from '@/lib/db';
-import { Rating } from '@mui/material';
-import { ThumbsUpIcon } from '../icons';
-import ReviewCardCarousel from './ReviewCardCarousel';
+import { useMediaQuery } from '@mui/material';
+import { FaRegThumbsUp, FaThumbsUp } from 'react-icons/fa6';
 import WouldRecomend from './WouldRecomend';
 import ReviewCardGallery from './ReviewCardGallery';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import ReviewRatingStar from '@/components/icons/ReviewRatingStar';
+import {
+  ChevronDown,
+  ChevronLeft,
+  ChevronRight,
+  ChevronUp,
+  X,
+} from 'lucide-react';
+import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';
+import Image from 'next/image';
+import { AiOutlineLoading3Quarters } from 'react-icons/ai';
+import {
+  Carousel,
+  CarouselApi,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from '@/components/ui/carousel';
+import { DialogClose } from '@radix-ui/react-dialog';
 
 export default function ReviewCard({
   review,
@@ -14,22 +32,59 @@ export default function ReviewCard({
   review: TReviewData;
   fullGallery?: boolean;
 }) {
+  const [pdpMoreTextOpen, setPdpMoreTextOpen] = useState(false);
   const [moreOpen, setMoreOpen] = useState(false);
+  const [isHelpful, setIsHelpful] = useState(false);
+  const [reviewDialogOpen, setReviewDialogOpen] = useState(false);
+  const reviewImagesSplit = review.review_image?.split(',');
+  const [selectedImage, setSelectedImage] = useState('');
+  const [imageLoading, setImageLoading] = useState(true);
+  const isMobile = useMediaQuery('(max-width: 430px)');
+  const [current, setCurrent] = useState(0);
+  const [api, setApi] = useState<CarouselApi>();
+
+  useEffect(() => {
+    if (!api) {
+      return;
+    }
+
+    setCurrent(api.selectedScrollSnap() + 1);
+
+    api.on('select', () => {
+      setCurrent(api.selectedScrollSnap() + 1);
+    });
+  }, [api]);
+  // const store = useContext(CarSelectionContext);
+
+  function ReadMore() {
+    return (
+      <div className="flex items-center gap-1">
+        {pdpMoreTextOpen ? <ChevronUp size={14} /> : <ChevronDown size={14} />}
+        <p className="text-[14px]">
+          {pdpMoreTextOpen ? 'Read Less' : 'Read More'}
+        </p>
+        {pdpMoreTextOpen ? <ChevronUp size={14} /> : <ChevronDown size={14} />}
+      </div>
+    );
+  }
+
   return (
     <div
       className={`relative flex h-full w-full min-w-full flex-col justify-between ${moreOpen ? 'overflow-auto overflow-y-auto' : 'overflow-hidden'} rounded ${!fullGallery && 'border-2 '} ${!fullGallery ? 'p-4' : 'px-4 '} `}
     >
-      <div className="text-xl font-bold normal-case text-neutral-700 max-md:max-w-full lg:text-3xl">
+      <div className="text-[16px] font-bold lg:text-[30px]  ">
         {review.review_title
           ? review.review_title.charAt(0).toUpperCase() +
             review.review_title?.slice(1)
           : ''}
+        {/* {review.review_title} */}
       </div>
       <div className="mt-2 flex items-center gap-2">
-        <div className="flex gap-1 text-yellow-300 lg:my-0 lg:min-w-[286px]">
+        <div className="flex gap-1 text-yellow-300 lg:my-0">
           <ReviewRatingStar rating={Number(review.rating_stars)} />
         </div>
-        <div className="text-sm font-light normal-case text-neutral-500 lg:hidden">
+
+        <div className="text-[12px] font-light normal-case text-neutral-500 ">
           {review?.reviewed_at &&
             new Date(review?.reviewed_at ?? '').toLocaleDateString('en-US', {
               month: 'short',
@@ -38,6 +93,7 @@ export default function ReviewCard({
             })}
         </div>
       </div>
+
       <div className="flex gap-4 text-[12px] leading-[24px]">
         <p className="text-[#1D8044]">Verified Purchase</p>
         {review.rating_stars && review.rating_stars >= 3 ? (
@@ -45,26 +101,50 @@ export default function ReviewCard({
         ) : null}
       </div>
 
-      <div className="flex justify-between pt-1.5 lg:mt-0 lg:gap-[104px]">
-        <div className="line-clamp-3  text-[16px] leading-[28px] text-[#1A1A1A] lg:flex lg:text-[18px] ">
-          {review?.review_description?.replace(/�/g, " ")}
-          
-
+      <div className="flex justify-between pt-0.5 lg:mt-0 lg:gap-[104px]">
+        <div
+          className={`${!pdpMoreTextOpen && 'line-clamp-3'}  text-[14px] leading-[28px] text-[#1A1A1A] lg:flex lg:text-[18px] `}
+        >
+          {review?.review_description?.replace(/�/g, ' ')}
         </div>
       </div>
+
+      {review.review_description &&
+        review.review_description.length > 163 &&
+        isMobile && (
+          <div className="flex w-full items-center justify-center">
+            <div
+              className="flex flex-col items-center"
+              onClick={() => {
+                setPdpMoreTextOpen((prev) => !prev);
+              }}
+            >
+              {review.review_description.length}
+              <ReadMore />
+            </div>
+          </div>
+        )}
+
       {!fullGallery && (
-        <div className="flex items-center justify-between">
-          <div className="my-2 leading-6 text-[#767676] ">
+        <div className="flex items-center justify-between text-[14px]">
+          <div className="my-1 leading-6 text-[#767676] ">
             {review.review_author}
           </div>
-          <div className="flex items-center gap-1.5">
-            <ThumbsUpIcon />
+          <div
+            className={`flex items-center gap-1.5 ${isHelpful ? 'text-[#1D8044]' : ''} cursor-pointer `}
+            onClick={() => {
+              setIsHelpful((e) => {
+                return !e;
+              });
+            }}
+          >
+            {isHelpful ? <FaThumbsUp fill="#1D8044" /> : <FaRegThumbsUp />}
+
             <p>Helpful</p>
-            <p>({review.helpful})</p>
+            <p>({isHelpful ? Number(review?.helpful) + 1 : review.helpful})</p>
           </div>
         </div>
       )}
-
       <div id="review-card-footer" className="mt-auto flex flex-col gap-2">
         {review.review_image && fullGallery ? (
           <ReviewCardGallery
@@ -74,7 +154,98 @@ export default function ReviewCard({
             setMoreOpen={setMoreOpen}
           />
         ) : (
-          <ReviewCardCarousel reviewImages={review?.review_image} />
+          <Dialog open={reviewDialogOpen} onOpenChange={setReviewDialogOpen}>
+            <span className="flex gap-2 overflow-x-auto">
+              {reviewImagesSplit?.map((image, index) => {
+                if (image)
+                  return (
+                    <DialogTrigger
+                      onClick={() => {
+                        const thisImage = reviewImagesSplit[index];
+                        if (!imageLoading) {
+                          setImageLoading(true);
+                        }
+                        setSelectedImage(thisImage);
+                      }}
+                    >
+                      <Image
+                        key={`review-card-image-${index}`}
+                        height={160}
+                        width={160}
+                        className="flex aspect-square items-center"
+                        alt="review-card-image-trigger"
+                        src={image}
+                        onError={() => {
+                          console.error(
+                            `Image: review-card-image-${index} |  ERROR | `,
+                            image
+                          );
+                        }}
+                      />
+                    </DialogTrigger>
+                  );
+              })}
+            </span>
+
+            <DialogContent
+              id="review-modal"
+              className="flex aspect-square min-w-[100vw] flex-col items-center justify-center rounded-lg md:min-w-[45vw]"
+            >
+              <div className="absolute right-0 top-0 ">
+                <X
+                  className=""
+                  onClick={() => {
+                    setReviewDialogOpen(false);
+                  }}
+                />
+              </div>
+              <div className="relative flex min-h-full min-w-full">
+                {imageLoading && (
+                  <div className="flex min-h-full min-w-full animate-pulse items-center justify-center rounded-md bg-[#BE1B1B]/50">
+                    <AiOutlineLoading3Quarters
+                      className="animate-spin"
+                      fill="#BE1B1B"
+                      opacity={0.5}
+                    />
+                  </div>
+                )}
+                <Carousel
+                  setApi={setApi}
+                  onLoad={() => {
+                    setImageLoading(false);
+                  }}
+                >
+                  <CarouselContent>
+                    {reviewImagesSplit?.map((img) => (
+                      <CarouselItem>
+                        <Image
+                          key={`selected-review-card-image`}
+                          width={800}
+                          height={800}
+                          className="flex aspect-square h-full w-full items-center"
+                          alt="selected-review-card-image-alt"
+                          src={img}
+                        />
+                      </CarouselItem>
+                    ))}
+                  </CarouselContent>
+                  {api?.canScrollPrev() && (
+                    <CarouselPrevious
+                      size={'icon'}
+                      className="left-0 border-none bg-transparent hover:bg-transparent md:-left-20"
+                    >
+                      <ChevronLeft size={40} stroke="white" />
+                    </CarouselPrevious>
+                  )}
+                  {api?.canScrollNext() && (
+                    <CarouselNext className="right-0 border-none bg-transparent hover:bg-transparent md:-right-20">
+                      <ChevronRight size={40} stroke="white" />
+                    </CarouselNext>
+                  )}
+                </Carousel>
+              </div>
+            </DialogContent>
+          </Dialog>
         )}
       </div>
     </div>

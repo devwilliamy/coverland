@@ -4,39 +4,82 @@ import CAR from '@/images/hero/covers-grid/car-cover-home-icon.webp';
 import TRUCK from '@/images/hero/covers-grid/truck-cover-home-icon.webp';
 import SUV from '@/images/hero/covers-grid/suv-cover-home-icon.webp';
 import SEAT from '@/images/hero/covers-grid/main-seatcover.webp';
+import Link from 'next/link';
 
 const coverTypes = [
-  { title: 'Car Covers', img: CAR, link: '/car-covers/premium-plus' },
+  {
+    title: 'Car Covers',
+    description: 'Car / SUV / Truck',
+    img: CAR,
+    link: '/car-covers/premium-plus',
+  },
   // { title: 'Truck Covers', img: TRUCK, link: '/truck-covers/premium-plus' },
   // { title: 'SUV Covers', img: SUV, link: '/suv-covers/premium-plus' },
-  { title: 'Seat Covers', img: SEAT, link: '/seat-covers/leather' },
+  {
+    title: 'Seat Covers',
+    description: 'Front Seat / Full Set',
+    img: SEAT,
+    link: '/seat-covers/leather',
+  },
 ];
 
 const CoversGrid = () => {
   return (
     <span className="mt-[-40px] h-full flex-col items-center px-4 lg:mt-[-80px] lg:flex lg:px-[80px]">
-      <div className="grid h-full max-w-[1280px]  grid-cols-2 grid-rows-1 place-items-center gap-[7px] lg:gap-[20px]  ">
-        {coverTypes.map(({ title, img, link }, i) => {
+      <div className="grid h-full max-w-[1280px]  grid-cols-1 grid-rows-2 place-items-center gap-[7px] md:grid-cols-2 md:grid-rows-1  lg:gap-[20px]  ">
+        {coverTypes.map(({ title, description, img, link }, i) => {
           return (
-            <div key={`${title}-${i}-block`} className="h-full">
-              <a
+            <div key={`${title}-${i}-block`} className="h-full w-full">
+              <Link
                 href={link}
-                className="flex h-full min-w-[167px]  flex-col items-center justify-center rounded-[8px] p-[10px] shadow-md lg:flex-row lg:gap-[36px] lg:px-[50px]"
+                className="flex h-full min-w-[167px]  items-center justify-between rounded-[8px] px-[15px] py-[20px] shadow-md lg:flex-row lg:gap-[36px] lg:px-[50px]"
               >
-                <p className="order-last flex min-w-[45%] flex-[0.1] justify-center whitespace-nowrap text-center align-middle text-[14px] font-[900] uppercase lg:order-first lg:w-1/2 lg:max-w-[45%] lg:text-[24px]">
-                  {title}
-                </p>
-                <div className={`flex flex-[0.9] lg:w-full `}>
+                <div className=" flex w-full min-w-[45%] flex-[0.4] flex-col gap-[10px]  whitespace-nowrap align-middle text-[20px] font-[900] uppercase leading-[17.6px] lg:order-first lg:w-1/2 lg:max-w-[45%] lg:text-[24px]">
+                  <p className="text-left "> {title}</p>
+                  <p className="text-left text-[16px] font-[500] normal-case text-[#A7A7A7]">
+                    {description}
+                  </p>
+                </div>
+                <div
+                  className={`flex max-h-[146px] max-w-[160px] shrink lg:w-full `}
+                >
                   <Image
                     alt={`cover-image-${title}`}
                     src={img}
-                    className=" object-cover"
+                    className=" flex-[0.3] shrink object-cover"
                     loading="eager"
                     width={175}
                     height={152}
                   />
                 </div>
-              </a>
+                {/* {img === SEAT ? (
+                  <div
+                    className={`flex max-h-[128px] max-w-[114px] shrink lg:w-full `}
+                  >
+                    <Image
+                      alt={`cover-image-${title}`}
+                      src={img}
+                      className=" flex-[0.3] shrink object-cover"
+                      loading="eager"
+                      width={175}
+                      height={152}
+                    />
+                  </div>
+                ) : (
+                  <div
+                    className={`flex max-h-[146px] max-w-[160px] shrink lg:w-full `}
+                  >
+                    <Image
+                      alt={`cover-image-${title}`}
+                      src={img}
+                      className=" flex-[0.3] shrink object-cover"
+                      loading="eager"
+                      width={175}
+                      height={152}
+                    />
+                  </div>
+                )} */}
+              </Link>
             </div>
           );
         })}
