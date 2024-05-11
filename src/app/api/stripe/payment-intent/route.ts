@@ -2,7 +2,6 @@ import { TCartItem } from '@/lib/cart/useCart';
 import { getMsrpTotal } from '@/lib/utils/calculations';
 import {
   convertPriceToStripeFormat,
-  generateLineItemsForStripe,
   generateOrderId,
   getSkusAndQuantityFromCartItems,
   getSkusFromCartItems,

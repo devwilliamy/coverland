@@ -20,3 +20,14 @@ export const convertUnixTimestampToISOString = (timestamp: number) => {
 export const getCurrentTimeInISOFormat = () => {
   return new Date().toISOString();
 };
+
+// Outputs: "May 10, 2024" (if today is May 10, 2024)
+export const getCurrentDayInLocaleDateString = () => {
+  const date = new Date(); 
+  const formattedDate = date.toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  });
+  return formattedDate; 
+};
