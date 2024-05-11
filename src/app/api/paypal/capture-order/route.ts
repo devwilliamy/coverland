@@ -4,16 +4,11 @@ import { NextResponse } from 'next/server';
 const clientId = process.env.PAYPAL_CLIENT_ID ?? '';
 const clientSecret = process.env.PAYPAL_CLIENT_SECRET ?? '';
 const isProduction = process.env.NODE_ENV === 'production';
-const isPreview = process.env.IS_PREVIEW === "PREVIEW" ?? ''
+const isPreview = process.env.IS_PREVIEW === "PREVIEW"
 const productionEnvironment = new paypal.core.LiveEnvironment(
   clientId,
   clientSecret
 );
-console.log('[api/paypal/route] envs: ', {
-  clientId,
-  clientSecret,
-  isProduction,
-});
 
 const environment = !isPreview
   ? productionEnvironment
