@@ -38,23 +38,9 @@ export function ModelSearch({
   const [submodelDataStrings, setSubmodelDataStrings] = useState<string[]>([]);
 
   const {
-    query: { type, year, make, model, makeId, yearId, typeId },
+    query: { type, year, make, model, modelId, makeId, yearId, typeId },
     setQuery,
   } = queryObj;
-
-  const handleChange = (event: ChangeEvent<HTMLSelectElement>) => {
-    const newValue = event.target.value;
-    const parent_generation =
-      modelData.find((car) => car.model === newValue)?.parent_generation || '';
-    setValue(newValue);
-    setQuery((p) => ({
-      ...p,
-      model: newValue,
-      parent_generation,
-      submodel1: '',
-      submodel2: '',
-    }));
-  };
 
   useEffect(() => {
     if (model) {
@@ -66,7 +52,7 @@ export function ModelSearch({
       }));
       // fetchData();
     }
-  }, [model, modelData, setQuery]);
+  }, [model, modelData, setQuery, modelId]);
 
   useEffect(() => {
     setValue('');
@@ -92,25 +78,21 @@ export function ModelSearch({
         setModelData(response.uniqueCars);
         setModelDataStrings(response.uniqueModels);
         setFilteredModelData(response.uniqueModels);
+        console.log({ response });
       } catch (error) {
         console.error('[Model Search]: ', error);
       }
     };
-    if (type && year && make) {
+    if (type && year && make && typeId && yearId && makeId) {
       fetchData();
     }
-  }, [type, year, make]);
+  }, [type, year, make, typeId, yearId, makeId]);
 
   useEffect(() => {
     // Check for submodel
     const submodel = modelData.filter(
       (vehicle) => vehicle.model === model && vehicle.submodel1
     );
-
-    // setSubmodelDataStrings(() => {
-    //   const modelStrings = uniqueModel.map(({ model }) => model);
-    //   return modelStrings as string[];
-    // });
 
     setSubmodelData(submodel);
   }, [model]);

@@ -143,8 +143,8 @@ export async function getAllUniqueMakesByYear({
     //       .order('make_slug', { ascending: true })
     //   :
     await supabase.rpc(RPC_GET_MAKE_RELATION, {
-      type_id_web: typeId,
-      year_id_web: yearId,
+      type_id_web: Number(typeId),
+      year_id_web: Number(yearId),
     });
   if (error) {
     throw new Error(error.message);
@@ -181,9 +181,9 @@ export async function getAllUniqueModelsByYearMake({
     .select(
       `*,Model(*),${PRODUCT_DATA_TABLE}(id,model,model_slug, parent_generation, submodel1, submodel2, submodel3)`
     )
-    .eq('year_id', yearId)
-    .eq('type_id', typeId)
-    .eq('make_id', makeId)
+    .eq('year_id', Number(yearId))
+    .eq('type_id', Number(typeId))
+    .eq('make_id', Number(makeId))
     .order('name', { foreignTable: 'Model', ascending: false });
 
   if (error) {
@@ -459,7 +459,7 @@ export async function getMakeID(make: string) {
   const { data, error } = await supabase
     .from('Make')
     .select('id')
-    .eq('name', make);
+    .eq('slug', make);
 
   if (error) {
     throw new Error(error.message);
@@ -473,7 +473,7 @@ export async function getModelID(model: string) {
   const { data, error } = await supabase
     .from('Model')
     .select('id')
-    .eq('name', model);
+    .eq('slug', model);
 
   if (error) {
     throw new Error(error.message);
@@ -485,14 +485,16 @@ export async function getModelID(model: string) {
 
 export async function getYearID(year: string) {
   const { data, error } = await supabase
-    .from('Year')
+    .from('Years')
     .select('id')
     .eq('name', year);
 
   if (error) {
     throw new Error(error.message);
   }
+
   const id = data[0].id;
+  console.log(id);
 
   return id;
 }

@@ -1,5 +1,6 @@
 import { ChangeEvent } from 'react';
 import HomeChevronDown from './icons/HomeChevronDown';
+import { deslugify } from '@/lib/utils';
 
 type MobileHomeDropdownProps = {
   handleMobileSelectChange: (e: ChangeEvent<HTMLSelectElement>) => void;
@@ -23,6 +24,7 @@ export default function MobileHomeDropdown({
   filteredItems,
   selectedIndex,
 }: MobileHomeDropdownProps) {
+  const desluggedVal = deslugify(value);
   return (
     <>
       <select
@@ -44,35 +46,25 @@ export default function MobileHomeDropdown({
         </option>
         {items && items.length > 0 && (
           <>
-            {filteredItems && filteredItems?.length > 0 ? (
-              <>
-                {filteredItems?.map((item, i) => (
-                  <option
-                    key={`mobile-filtered-${title}-${i}`}
-                    id={`${title}-${i}`}
-                    value={item.name}
-                    // selected={item.name ? value === item.name : value === item}
-                    className={`flex py-1 pl-[20px] hover:bg-[#BE1B1B] hover:text-white ${i === selectedIndex && 'bg-[#BE1B1B] text-white'}`}
-                  >
-                    {item.name ? item.name : item}
-                  </option>
-                ))}
-              </>
-            ) : (
-              <>
-                {items.map((item, i) => (
-                  <option
-                    key={`mobile-${title}-${i}`}
-                    id={`${title}-${item.id}-${i}`}
-                    value={item.name}
-                    selected={item.name ? value === item.name : value === item}
-                    className={`flex py-1 pl-[20px] hover:bg-[#BE1B1B] hover:text-white ${i === selectedIndex && 'bg-[#BE1B1B] text-white'}`}
-                  >
-                    {item.name ? item.name : item}
-                  </option>
-                ))}
-              </>
-            )}
+            {items.map((item, i) => {
+              const deslugItem = item.name ? item.name : item;
+              // const deslugItemName = deslugify(item.name);
+              const isSame = desluggedVal === deslugify(deslugItem);
+              if (isSame) {
+                console.log({ desluggedVal, deslugItem, isSame, value });
+              }
+              return (
+                <option
+                  key={`mobile-${title}-${i}`}
+                  id={`${title}-${item.id}-${i}`}
+                  value={item.name ? item.name : item}
+                  // selected={isSame}
+                  className={`flex py-1 pl-[20px] hover:bg-[#BE1B1B] hover:text-white ${i === selectedIndex && 'bg-[#BE1B1B] text-white'}`}
+                >
+                  {item.name ? item.name : item}
+                </option>
+              );
+            })}
           </>
         )}
       </select>

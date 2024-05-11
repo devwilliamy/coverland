@@ -14,6 +14,7 @@ import { useMediaQuery } from '@mantine/hooks';
 import MobileHomeDropdown from './MobileHomeDropdown';
 import { useParams } from 'next/navigation';
 import useDetermineType from '@/hooks/useDetermineType';
+import { deslugify } from '@/lib/utils';
 
 export default function MainDropdown({
   queryObj,
@@ -40,7 +41,6 @@ export default function MainDropdown({
   const { setQuery } = queryObj;
   const params = Object(useParams());
   const paramKeys = Object.keys(params);
-  // console.log(params);
   const paramValues = Object.values(params);
   const [selectedValue, setSelectedValue] = useState<string>(
     isBreadCrumb ? String(value) : ''
@@ -283,7 +283,6 @@ export default function MainDropdown({
       newValue: item.name ? item.name : item,
       id: item.id ? item.id : '',
     });
-    console.log(queryObj.query);
     setSelectedIndex(index);
     setDropdownOpen((prevState) => !prevState);
   };
@@ -455,7 +454,6 @@ export default function MainDropdown({
                               className={`flex py-1 pl-[20px] hover:bg-[#BE1B1B] hover:text-white ${i === selectedIndex && 'bg-[#BE1B1B] text-white'}`}
                               onMouseDown={() => {
                                 handleOnMouseDown(filteredItem, i);
-                                console.log(`[MOUSE DOWN]`, { filteredItem });
                               }}
                             >
                               {item.name ? item.name : item}
@@ -472,7 +470,6 @@ export default function MainDropdown({
                               className={`flex py-1 pl-[20px] hover:bg-[#BE1B1B] hover:text-white ${i === selectedIndex && 'bg-[#BE1B1B] text-white'}`}
                               onMouseDown={() => {
                                 handleOnMouseDown(item, i);
-                                console.log(`[MOUSE DOWN]`, { item });
                               }}
                             >
                               {item.name ? item.name : item}{' '}
@@ -503,7 +500,7 @@ export default function MainDropdown({
           handleMobileSelectChange={handleMobileSelectChange}
           title={title}
           isDisabled={isDisabled as boolean}
-          value={value as string}
+          value={deslugify(value as string)}
           place={place}
           capitalizeFirstLetter={capitalizeFirstLetter}
           items={items as string[] | number[] | any[]}

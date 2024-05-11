@@ -71,7 +71,7 @@ export function MakeSearch({
         setIsLoading(false);
       }
     };
-    if (type && year) {
+    if (type && year && typeId && yearId) {
       fetchData();
     }
   }, [queryObj]);

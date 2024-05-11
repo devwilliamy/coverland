@@ -62,11 +62,11 @@ export default function EditVehicleDropdown({
 
   const [query, setQuery] = useState<TQuery>({
     type: productType ? deslugify(productType) : '',
-    year: yearParam ? yearParam : '',
-    // year: yearParam ? yearParam.split('-')[0] : '', // Split to the first year
-    parent_generation: '',
-    make: makeParam ? deslugify(makeParam) : '',
-    model: modelParam ? deslugify(modelParam) : '',
+    // year: yearParam ? yearParam : '',
+    year: yearParam ? yearParam.split('-')[0] : '', // Split to the first year
+    parent_generation: yearParam ? yearParam : '',
+    make: makeParam ? makeParam : '',
+    model: modelParam ? modelParam : '',
     submodel1: '',
     submodel2: '',
     typeId: '',
@@ -107,6 +107,7 @@ export default function EditVehicleDropdown({
     };
     fetchTypeId();
   }, [open]);
+
   const [loading, setLoading] = useState(false);
   const [jsonData, setJsonData] = useState<TProductJsonData[]>([]);
   const router = useRouter();
