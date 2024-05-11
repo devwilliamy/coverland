@@ -55,9 +55,9 @@ const generateThankYouEmail = ({to, name, orderInfo, address, shippingInfo, bill
   },
 });
 
-export const sendThankYouEmail = (emailInput: ThankYouEmailInput) => {
+export const sendThankYouEmail = async (emailInput: ThankYouEmailInput) => {
   const msg = generateThankYouEmail(emailInput);
-  sgMail
+  await sgMail
     .send(msg)
     .then(() => {
       console.log('Email sent');

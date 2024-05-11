@@ -152,6 +152,8 @@ export default function Payment() {
             body: JSON.stringify({ emailInput }),
           });
 
+          const data = await response.json();
+
           const { id, client_secret } = result.paymentIntent;
           router.push(
             `/thank-you?order_number=${orderNumber}&payment_intent=${id}&payment_intent_client_secret=${client_secret}`
