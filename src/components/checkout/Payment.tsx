@@ -71,6 +71,7 @@ export default function Payment() {
         amount: totalMsrpPrice,
       }),
     });
+    const data = await response.json();
     stripe
       .confirmPayment({
         elements,
