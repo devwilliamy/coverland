@@ -22,11 +22,11 @@ export default function Home() {
     <div className="flex flex-col gap-[60px] pb-4 lg:gap-[110px]">
       <HeroSection />
       <CoversGrid />
+      <HomepageVideoSection />
       <div className="flex flex-col gap-[60px] bg-[#F9F9FB] lg:gap-[110px] lg:py-[44px]">
         <BestSellingSection />
         <TrendingCarsSection />
       </div>
-      <HomepageVideoSection />
       <HomepageReviews />
       <TrustBanner />
       <BuyWithConfidenceSection />

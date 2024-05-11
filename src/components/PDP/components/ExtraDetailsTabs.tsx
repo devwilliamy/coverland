@@ -192,7 +192,7 @@ export default function ExtraDetailsTabs() {
           {isSeatCover ? (
             <SeatCoverReviewSection showHeader={false} />
           ) : (
-            <ReviewSection showHeader={false} />
+            <ReviewSection showHeader />
           )}
         </div>
         <div id="Q&A">

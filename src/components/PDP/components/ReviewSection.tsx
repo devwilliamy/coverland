@@ -309,17 +309,13 @@ const ReviewSection = ({ showHeader }: { showHeader?: boolean }) => {
 
   return (
     <div className="relative mb-[56px] flex w-full flex-col items-center px-[22px] lg:mb-0 lg:px-[59px] lg:py-2">
-      {isMobile ? null : (
-        <>
-          {showHeader && (
-            <p
-              className="mb-5 hidden text-center text-xl font-black uppercase text-black md:text-3xl lg:mb-20 lg:block lg:text-[42px]"
-              id="reviews"
-            >
-              Car Cover Reviews
-            </p>
-          )}
-        </>
+      {showHeader && (
+        <p
+          className="flex items-center justify-center pt-[30px] text-center text-[30px]  font-black uppercase text-black md:text-3xl lg:block lg:pt-[80px] lg:text-[42px]"
+          id="reviews"
+        >
+          Reviews
+        </p>
       )}
       <header className="flex w-full flex-col items-center pb-[30px] lg:max-w-[1080px]  lg:flex-row lg:pb-[80px] lg:pt-[80px]">
         <div className="flex w-full min-w-[188px] items-center lg:justify-center ">
@@ -348,6 +344,7 @@ const ReviewSection = ({ showHeader }: { showHeader?: boolean }) => {
           </div>
         </div>
       </header>
+      
       <ReviewHeaderGallery />
       <div className="flex w-full items-center justify-end gap-1 pt-7 *:rounded-lg  lg:gap-4">
         <select

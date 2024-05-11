@@ -2,9 +2,11 @@ import { CarSelectionContext } from '@/contexts/CarSelectionContext';
 import useStoreContext from '@/hooks/useStoreContext';
 import { ReviewImageIndexContext } from '@/lib/contexts/ReviewImageIndexContext';
 import { TReviewData } from '@/lib/db/review';
-import { ChevronDown, ThumbsUpIcon } from 'lucide-react';
+import { ChevronDown, ChevronUp } from 'lucide-react';
 import Image from 'next/image';
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
+import { ThumbsUpIcon } from '../icons';
+import { FaRegThumbsUp, FaThumbsUp } from 'react-icons/fa';
 
 function ReviewCardGallery({
   reviewImages,
@@ -23,30 +25,52 @@ function ReviewCardGallery({
   const { currentReviewImage, setCurrentReviewImage, scrollTo } = useContext(
     ReviewImageIndexContext
   );
+  const [isHelpful, setIsHelpful] = useState(false);
 
   if (!reviewImages) return;
 
   return (
     <section
       className={`drop-shadow- absolute ${moreOpen ? '-bottom-8' : '-bottom-0'} bg-gradient-to-t from-white from-85% to-white/45 pt-5  `}
-      onClick={() => setMoreOpen((e: boolean) => !e)}
     >
       {!moreOpen && (
-        <div className="flex items-center">
+        <div
+          className="flex items-center"
+          onClick={() => setMoreOpen((e: boolean) => true)}
+        >
           <div>
             <ChevronDown />
           </div>
           <div className="text-base">More</div>
         </div>
       )}
+      {moreOpen && (
+        <div
+          className="flex items-center"
+          onClick={() => setMoreOpen((e: boolean) => false)}
+        >
+          <div>
+            <ChevronUp />
+          </div>
+          <div className="text-base">Hide</div>
+        </div>
+      )}
       <div className="flex items-center justify-between">
         <div className="my-2 leading-6 text-[#767676] ">
           {review.review_author}
         </div>
-        <div className="flex items-center gap-1.5">
-          <ThumbsUpIcon />
+        <div
+          className={`flex items-center gap-1.5 ${isHelpful ? 'text-[#1D8044]' : ''} cursor-pointer `}
+          onClick={() => {
+            setIsHelpful((e) => {
+              return !e;
+            });
+          }}
+        >
+          {isHelpful ? <FaThumbsUp fill="#1D8044" /> : <FaRegThumbsUp />}
+
           <p>Helpful</p>
-          <p>({review.helpful})</p>
+          <p>({isHelpful ? Number(review?.helpful) + 1 : review.helpful})</p>
         </div>
       </div>
 

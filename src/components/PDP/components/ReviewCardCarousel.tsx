@@ -7,7 +7,6 @@ function ReviewCardCarousel({ reviewImages }: { reviewImages: string | null }) {
   const reviewImagesSplit = reviewImages?.split(',');
   const store = useStoreContext();
   if (!store) throw new Error('Missing Provider in the tree');
-
   if (!reviewImages) return;
 
   return (
