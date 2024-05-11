@@ -149,7 +149,7 @@ export const mapPaypalCompletionToOrder = (
   phone: string,
   customer_id: string
 ) => {
-  console.log('[mapPaypalCompletionToOrder,PaypalPayload]', paypalPayload);
+  // console.log('[mapPaypalCompletionToOrder,PaypalPayload]', paypalPayload);
   const { id, status, purchase_units, payment_source, payer } = paypalPayload;
   const { reference_id: order_id, shipping, payments } = purchase_units[0];
   return {

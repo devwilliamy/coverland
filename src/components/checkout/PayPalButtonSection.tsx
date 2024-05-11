@@ -22,10 +22,10 @@ export default function PayPalButtonSection() {
     useCheckoutContext();
   const router = useRouter();
   const totalMsrpPrice = getTotalPrice().toFixed(2) as unknown as number;
-  console.log(
-    '[PaypalButtonSection]: ',
-    process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID
-  );
+  // console.log(
+  //   '[PaypalButtonSection]: ',
+  //   process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID
+  // );
   return (
     <PayPalScriptProvider
       options={{
@@ -59,13 +59,13 @@ export default function PayPalButtonSection() {
             return data;
           }}
           onApprove={async (data) => {
-            console.log('[PaypalButton Section] Data: ', data);
+            // console.log('[PaypalButton Section] Data: ', data);
             // This will get the order from paypal
             const response = await paypalCaptureOrder(
               data.orderID,
               customerInfo.phoneNumber
             );
-            console.log("Response:", response)
+            // console.log("Response:", response)
             const customerInput = mapPaypalCompletionToCustomer(response.data, customerInfo.phoneNumber)
             // Create Customer for Paypal
             const createdCustomer = (await createOrUpdateUser(customerInput)) || [];
@@ -82,17 +82,17 @@ export default function PayPalButtonSection() {
               mappedData,
               mappedData.order_id
             );
-            console.log(
-              '[Paypal.paypalCreateOrder]: adminPanelOrder',
-              adminPanelOrder
-            );
+            // console.log(
+            //   '[Paypal.paypalCreateOrder]: adminPanelOrder',
+            //   adminPanelOrder
+            // );
 
             const skus = getSkusFromCartItems(cartItems);
             const skusWithQuantity = getSkusAndQuantityFromCartItems(cartItems);
-            console.log('[postAdminPanelOrderItem] inputs:', {
-              id: adminPanelOrder[0].id,
-              skus: JSON.stringify(skusWithQuantity)
-            });
+            // console.log('[postAdminPanelOrderItem] inputs:', {
+            //   id: adminPanelOrder[0].id,
+            //   skus: JSON.stringify(skusWithQuantity)
+            // });
             // Add To OrderItem Table
             postAdminPanelOrderItem(
               adminPanelOrder[0].id,

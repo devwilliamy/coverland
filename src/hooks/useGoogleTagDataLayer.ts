@@ -1,9 +1,5 @@
 import { CarSelectionContext } from '../contexts/CarSelectionContext';
-import {
-  IProductData,
-  TPathParams,
-  getCompleteSelectionData,
-} from '@/utils';
+import { IProductData, TPathParams, getCompleteSelectionData } from '@/utils';
 import { TCartItem } from '@/lib/cart/useCart';
 import { deslugify } from '@/lib/utils';
 import { useCartContext } from '@/providers/CartProvider';
@@ -163,10 +159,8 @@ export const useCheckoutViewedGoogleTag = () => {
   }, [cartItems, getTotalPrice]);
 };
 
-
-export const useThankYouViewedGoogleTag = (
-  orderNumber: string
-) => {
+export const useThankYouViewedGoogleTag = (orderNumber: string) => {
+  console.log('[useThankYouViewedGoogleTag]', orderNumber);
   const { cartItems, getTotalPrice, clearLocalStorageCart } = useCartContext();
   useEffect(() => {
     if (typeof window !== 'undefined' && window.performance) {
@@ -190,8 +184,10 @@ export const useThankYouViewedGoogleTag = (
           },
         });
         if (cartItems.length > 0) {
+          console.log('[useThankYouViewedGoogleTag] clearLocalCart');
+
           clearLocalStorageCart();
-        }  
+        }
       }
     }
   }, [cartItems, getTotalPrice, orderNumber, clearLocalStorageCart]);

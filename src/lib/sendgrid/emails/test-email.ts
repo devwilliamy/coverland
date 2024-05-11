@@ -57,12 +57,10 @@ const generateThankYouEmail = ({to, name, orderInfo, address, shippingInfo, bill
 
 export const sendThankYouEmail = async (emailInput: ThankYouEmailInput) => {
   const msg = generateThankYouEmail(emailInput);
-  await sgMail
-    .send(msg)
-    .then(() => {
-      console.log('Email sent');
-    })
-    .catch((error) => {
-      console.error(error);
-    });
+  try {
+    const data = await sgMail.send(msg)
+    console.log("Email sent", data)
+  } catch (error) {
+    console.error(error)
+  }
 };

@@ -52,10 +52,10 @@ export async function paypalCreateOrder(
       country_code: shippingAddress?.address?.country || 'US',
     },
   };
-  console.log('ShippingForPyapal', {
-    shippingForPaypal,
-    valid: isValidShippingAddress(shippingForPaypal),
-  });
+  // console.log('ShippingForPyapal', {
+  //   shippingForPaypal,
+  //   valid: isValidShippingAddress(shippingForPaypal),
+  // });
   const purchase_units = [
     {
       reference_id: orderId, // order-id
@@ -84,12 +84,12 @@ export async function paypalCreateOrder(
       },
     },
   ];
-  console.log('Paypal Create body:', {
-    order_price: totalMsrpPrice,
-    // This one kinda useless, thinking about to do with it
-    user_id: new Date().toISOString(),
-    purchase_units,
-  });
+  // console.log('Paypal Create body:', {
+  //   order_price: totalMsrpPrice,
+  //   // This one kinda useless, thinking about to do with it
+  //   user_id: new Date().toISOString(),
+  //   purchase_units,
+  // });
 
   try {
     const response = await fetch('/api/paypal', {
@@ -109,14 +109,14 @@ export async function paypalCreateOrder(
     }
 
     const { data } = await response.json();
-    console.log('[Paypal.paypalCreateOrder] data: ', data);
+    // console.log('[Paypal.paypalCreateOrder] data: ', data);
     const mappedData = mapPaypalCaptureCreateToOrder(data);
-    console.log('[Paypal.paypalCreateOrder] mappedData: ', mappedData);
+    // console.log('[Paypal.paypalCreateOrder] mappedData: ', mappedData);
     const adminPanelOrder = await updateAdminPanelOrder(
       mappedData,
       mappedData.order_id
     );
-    console.log('[Paypal.paypalCreateOrder]: adminPanelOrder', adminPanelOrder);
+    // console.log('[Paypal.paypalCreateOrder]: adminPanelOrder', adminPanelOrder);
     return data.id;
   } catch (err) {
     return null;
