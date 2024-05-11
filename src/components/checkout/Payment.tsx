@@ -144,15 +144,15 @@ export default function Payment() {
             // shippingInfo,
             // billingInfo,
           };
-          const response = await fetch('/api/email/test', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ emailInput }),
-          });
+          // const response = await fetch('/api/email/test', {
+          //   method: 'POST',
+          //   headers: {
+          //     'Content-Type': 'application/json',
+          //   },
+          //   body: JSON.stringify({ emailInput }),
+          // });
 
-          const data = await response.json();
+          // const data = await response.json();
 
           const { id, client_secret } = result.paymentIntent;
           router.push(
