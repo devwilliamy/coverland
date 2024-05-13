@@ -17,9 +17,10 @@ import { PaymentMethod, StripeAddress } from '@/lib/types/checkout';
 import BillingAddress from './BillingAddress';
 import { useCartContext } from '@/providers/CartProvider';
 import { convertPriceToStripeFormat } from '@/lib/utils/stripe';
-import { sendThankYouEmail } from '@/lib/sendgrid/emails/test-email';
+import { sendThankYouEmail } from '@/lib/sendgrid/emails/thank-you';
 import { getCurrentDayInLocaleDateString } from '@/lib/utils/date';
 import { useRouter } from 'next/navigation';
+import { handlePurchaseGoogleTag } from '@/hooks/useGoogleTagDataLayer';
 
 function isValidShippingAddress({ address }: StripeAddress) {
   return (
@@ -47,7 +48,7 @@ export default function Payment() {
   const { orderNumber, paymentIntentId } = useCheckoutContext();
   const { billingAddress, shippingAddress, customerInfo, shipping } =
     useCheckoutContext();
-  const { getTotalPrice } = useCartContext();
+  const { cartItems, getTotalPrice, clearLocalStorageCart } = useCartContext();
   const totalMsrpPrice = convertPriceToStripeFormat(getTotalPrice() + shipping);
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -144,15 +145,16 @@ export default function Payment() {
             // shippingInfo,
             // billingInfo,
           };
-          // const response = await fetch('/api/email/test', {
-          //   method: 'POST',
-          //   headers: {
-          //     'Content-Type': 'application/json',
-          //   },
-          //   body: JSON.stringify({ emailInput }),
-          // });
+          const response = await fetch('/api/email/thank-you', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ emailInput }),
+          });
 
-          // const data = await response.json();
+          await response.json();
+          handlePurchaseGoogleTag(cartItems, orderNumber, getTotalPrice().toFixed(2), clearLocalStorageCart)
 
           const { id, client_secret } = result.paymentIntent;
           router.push(
