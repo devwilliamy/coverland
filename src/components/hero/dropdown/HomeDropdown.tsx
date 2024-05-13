@@ -21,6 +21,7 @@ export default function HomeDropdown({
   isDisabled,
   items,
   value,
+  isLoading,
 }: {
   place: number;
   title: string;
@@ -32,6 +33,7 @@ export default function HomeDropdown({
     query: TQuery;
     setQuery: Dispatch<SetStateAction<TQuery>>;
   };
+  isLoading: boolean;
 }) {
   const { setQuery } = queryObj;
 
@@ -365,20 +367,26 @@ export default function HomeDropdown({
                     onKeyDown={handleOnKeyDown}
                   />
                 </div>
-                {items && items.length > 0 ? (
+                {isLoading ? (
+                  <div className="px-[10px] py-2">
+                    <AiOutlineLoading3Quarters className="animate-spin" />
+                  </div>
+                ) : (items && items.length === 0) ? (
+                  <div className="px-[10px] py-2">No available items</div>
+                ) : (
                   <div className="relative z-[100] flex w-full flex-col justify-center">
                     <div className="home-scrollbar flex max-h-[700px] w-full flex-col overflow-y-auto overflow-x-clip">
-                      {filteredItems && filteredItems?.length > 0 ? (
+                      {filteredItems && filteredItems.length > 0 ? (
                         <>
-                          {filteredItems?.map((item, i) => (
+                          {filteredItems.map((item, i) => (
                             <div
                               key={`item-${i}`}
                               id={`${title}-${i}`}
                               tabIndex={-1}
-                              className={`flex py-1 pl-[20px] hover:bg-[#BE1B1B] hover:text-white ${i === selectedIndex && 'bg-[#BE1B1B] text-white'}`}
-                              onMouseDown={() => {
-                                handleOnMouseDown(filteredItems?.[i], i);
-                              }}
+                              className={`flex py-1 pl-[20px] hover:bg-[#BE1B1B] hover:text-white ${i === selectedIndex ? 'bg-[#BE1B1B] text-white' : ''}`}
+                              onMouseDown={() =>
+                                handleOnMouseDown(filteredItems[i], i)
+                              }
                             >
                               {item.name}
                             </div>
@@ -386,26 +394,21 @@ export default function HomeDropdown({
                         </>
                       ) : (
                         <>
-                          {items.map((item, i) => (
-                            <div
-                              key={`item-${item.id}`}
-                              id={`${title}-${i}`}
-                              tabIndex={-1}
-                              className={`flex py-1 pl-[20px] hover:bg-[#BE1B1B] hover:text-white ${i === selectedIndex && 'bg-[#BE1B1B] text-white'}`}
-                              onMouseDown={() => {
-                                handleOnMouseDown(item, i);
-                              }}
-                            >
-                              {item.name}
-                            </div>
-                          ))}
+                          {items &&
+                            items.map((item, i) => (
+                              <div
+                                key={`item-${item.id}`}
+                                id={`${title}-${i}`}
+                                tabIndex={-1}
+                                className={`flex py-1 pl-[20px] hover:bg-[#BE1B1B] hover:text-white ${i === selectedIndex ? 'bg-[#BE1B1B] text-white' : ''}`}
+                                onMouseDown={() => handleOnMouseDown(item, i)}
+                              >
+                                {item.name}
+                              </div>
+                            ))}
                         </>
                       )}
                     </div>
-                  </div>
-                ) : (
-                  <div className="px-[10px] py-2">
-                    <AiOutlineLoading3Quarters className="animate-spin" />
                   </div>
                 )}
               </section>

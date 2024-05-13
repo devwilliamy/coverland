@@ -36,7 +36,7 @@ export function ModelSearch({
   );
   const [submodelData, setSubmodelData] = useState<ModelDropdown[]>([]);
   const [submodelDataStrings, setSubmodelDataStrings] = useState<string[]>([]);
-
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const {
     query: { type, year, make, model, makeId, yearId, typeId },
     setQuery,
@@ -75,6 +75,7 @@ export function ModelSearch({
   useEffect(() => {
     const fetchData = async () => {
       try {
+        setIsLoading(true)
         const cover = type === 'Seat Covers' ? 'Leather' : 'Premium Plus'; // TODO: - Extract cover from query obj or something
         const response = await getAllUniqueModelsByYearMake({
           type,
@@ -94,6 +95,8 @@ export function ModelSearch({
         setFilteredModelData(response.uniqueModels);
       } catch (error) {
         console.error('[Model Search]: ', error);
+      } finally {
+        setIsLoading(false)
       }
     };
     if (type && year && make) {
@@ -136,6 +139,7 @@ export function ModelSearch({
         value={model}
         prevSelected={!isDisabled}
         items={modelDataStrings}
+        isLoading={isLoading}
       />
       {showSubmodelDropdown && (
         <SubmodelDropdown queryObj={queryObj} submodelData={submodelData} />
