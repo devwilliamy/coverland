@@ -10,6 +10,7 @@ import Logo from '../header/Logo';
 // const DynamicSignIn = dynamic(() =>
 //   import('@supabase/auth-ui-react').then((mod) => mod.SignIn)
 // );
+
 export default function SignInForm() {
   const router = useRouter();
   const supabase: SupabaseClient = createSupabaseBrowserClient();
@@ -21,10 +22,8 @@ export default function SignInForm() {
   });
 
   return (
-    // <div className="container mx-auto p-4">
-    //   <div className="flex justify-center">
-    //     <div className="border-2 px-14 sm:max-w-md">
     <div className="flex justify-center">
+      <h1 className="hidden">Login</h1>
       <div className="w-11/12 rounded-lg p-12 px-6 py-10 sm:w-8/12 sm:px-10 sm:py-6 md:w-6/12 lg:w-5/12 2xl:w-3/12">
         <div className="flex justify-center pb-4">
           <Logo />
@@ -59,6 +58,12 @@ export default function SignInForm() {
           <Link href="/signup" className="underline">
             Create an account
           </Link>
+        </div>
+        <div className="pt-4 text-center text-red-500">
+          <span className="font-bold">NOTICE</span>: If you made an account with
+          us before <span className="font-bold">May 8th, 2024</span>, please
+          remake your account. If you get an email rate exceeded message, please
+          try again later. We apologize for any inconvenience.
         </div>
       </div>
     </div>

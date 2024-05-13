@@ -5,6 +5,7 @@ import ReviewCardCarousel from './ReviewCardCarousel';
 import WouldRecomend from './WouldRecomend';
 import ReviewCardGallery from './ReviewCardGallery';
 import { useState } from 'react';
+import ReviewRatingStar from '@/components/icons/ReviewRatingStar';
 
 export default function ReviewCard({
   review,
@@ -14,7 +15,6 @@ export default function ReviewCard({
   fullGallery?: boolean;
 }) {
   const [moreOpen, setMoreOpen] = useState(false);
-
   return (
     <div
       className={`relative flex h-full w-full min-w-full flex-col justify-between ${moreOpen ? 'overflow-auto overflow-y-auto' : 'overflow-hidden'} rounded ${!fullGallery && 'border-2 '} ${!fullGallery ? 'p-4' : 'px-4 '} `}
@@ -26,15 +26,8 @@ export default function ReviewCard({
           : ''}
       </div>
       <div className="mt-2 flex items-center gap-2">
-        <div className="flex gap-1 text-yellow-300 lg:my-0">
-          <Rating
-            name="read-only"
-            value={review.rating_stars}
-            readOnly
-            style={{
-              height: '25px',
-            }}
-          />
+        <div className="flex gap-1 text-yellow-300 lg:my-0 lg:min-w-[286px]">
+          <ReviewRatingStar rating={Number(review.rating_stars)} />
         </div>
         <div className="text-sm font-light normal-case text-neutral-500 lg:hidden">
           {review?.reviewed_at &&
@@ -54,7 +47,9 @@ export default function ReviewCard({
 
       <div className="flex justify-between pt-1.5 lg:mt-0 lg:gap-[104px]">
         <div className="line-clamp-3  text-[16px] leading-[28px] text-[#1A1A1A] lg:flex lg:text-[18px] ">
-          {review.review_description}
+          {review?.review_description?.replace(/�/g, " ")}
+          
+
         </div>
       </div>
       {!fullGallery && (

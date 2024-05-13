@@ -1,0 +1,27 @@
+import { TCartItem } from '../cart/useCart';
+
+export const getOrderSubtotal = (cartItems: TCartItem[]) => {
+  return cartItems.reduce(
+    (total, item) => total + Number(item.price as string) * item.quantity,
+    0
+  );
+};
+
+export const getMsrpTotal = (cartItems: TCartItem[]) => {
+  return cartItems.reduce(
+    (total, item) => total + Number(item.msrp as string) * item.quantity,
+    0
+  );
+};
+
+export const getTotalDiscountPrice = (cartItems: TCartItem[]) => {
+  return cartItems.reduce(
+    (total, item) =>
+      total + Number(Number(item.price) - Number(item.msrp)) * item.quantity,
+    0
+  );
+};
+
+export const getTotalCartQuantity = (cartItems: TCartItem[]) => {
+  return cartItems.reduce((total, item) => total + item.quantity, 0);
+};

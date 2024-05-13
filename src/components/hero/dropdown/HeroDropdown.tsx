@@ -6,7 +6,7 @@ import { TypeSearch } from './TypeSearch';
 import { MakeSearch } from './MakeSearch';
 import { ModelSearch } from './ModelSearch';
 import { useRouter } from 'next/navigation';
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 // import { SubmodelDropdown } from './SubmodelDropdown';
 import { slugify } from '@/lib/utils';
 import { BASE_URL } from '@/lib/constants';
@@ -19,6 +19,10 @@ export type TQuery = {
   model: string;
   submodel1: string;
   submodel2: string;
+  typeId:string;
+  yearId:string;
+  makeId:string;
+  modelId:string;
   // submodel3: string;
 };
 
@@ -31,6 +35,10 @@ export function HeroDropdown() {
     model: '',
     submodel1: '',
     submodel2: '',
+    typeId:'',
+    yearId:'',
+    makeId:'',
+    modelId:'',
     // submodel3: '',
   });
   const [loading, setLoading] = useState(false);
@@ -42,9 +50,6 @@ export function HeroDropdown() {
     query,
     setQuery,
   };
-
-  const yearInUrl = parent_generation;
-
   const createQueryString = useCallback((name: string, value: string) => {
     const params = new URLSearchParams();
     params.set(name, value);
@@ -58,12 +63,9 @@ export function HeroDropdown() {
     if (typeof window !== 'undefined') {
       localStorage.setItem('heroDropdownYear', year);
     }
-
+    const yearInUrl = parent_generation;
+    
     let url = `/${slugify(type)}/premium-plus/${slugify(make)}/${slugify(model)}/${yearInUrl}`;
-
-    if (model === 'Corvette') {
-      url = `/${slugify(type)}/premium/${slugify(make)}/${slugify(model)}/${yearInUrl}`;
-    }
 
     if (submodel1) {
       url += `?${createQueryString('submodel', submodel1)}`;
@@ -81,13 +83,15 @@ export function HeroDropdown() {
   };
 
   return (
-    <div className="relative flex w-full flex-col items-center justify-center gap-4 px-4 font-medium *:flex-1 *:py-3 lg:max-h-[58px] lg:flex-row lg:px-16 lg:*:py-4">
+    <div
+      className={`relative z-[400]  grid w-full grid-cols-1 items-center justify-center gap-4 px-4 font-[500] lg:flex `}
+    >
       <TypeSearch queryObj={queryObj} />
       <YearSearch queryObj={queryObj} />
       <MakeSearch queryObj={queryObj} />
       <ModelSearch queryObj={queryObj} />
-      <Button
-        className="flex h-full max-h-[44px] min-h-[44px] w-full items-center justify-center border border-red-300 text-lg lg:h-[58px] lg:min-h-[58px] lg:max-w-[58px] lg:border-0"
+      <button
+        className={`flex h-full max-h-[44px] min-h-[44px] w-full  items-center justify-center rounded-lg bg-[#BE1B1B]  text-lg text-white disabled:bg-[#BE1B1B] lg:h-[58px] lg:min-h-[58px] lg:max-w-[58px] lg:border-0`}
         onClick={handleSubmitDropdown}
         disabled={!year || !type || !make || !model}
       >
@@ -96,7 +100,7 @@ export function HeroDropdown() {
         ) : (
           'Go'
         )}
-      </Button>
+      </button>
     </div>
   );
 }

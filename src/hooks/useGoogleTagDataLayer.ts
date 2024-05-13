@@ -1,9 +1,5 @@
-import { CarSelectionContext } from '@/app/(main)/[productType]/components/CarPDP';
-import {
-  IProductData,
-  TPathParams,
-  getCompleteSelectionData,
-} from '@/app/(main)/utils';
+import { CarSelectionContext } from '../contexts/CarSelectionContext';
+import { IProductData, TPathParams, getCompleteSelectionData } from '@/utils';
 import { TCartItem } from '@/lib/cart/useCart';
 import { deslugify } from '@/lib/utils';
 import { useCartContext } from '@/providers/CartProvider';
@@ -163,16 +159,9 @@ export const useCheckoutViewedGoogleTag = () => {
   }, [cartItems, getTotalPrice]);
 };
 
-type Item = {
-  sku: string[];
-  total: number;
-};
-
-export const useThankYouViewedGoogleTag = (
-  items: Item[],
-  orderNumber: string
-) => {
-  const { cartItems, getTotalPrice } = useCartContext();
+export const useThankYouViewedGoogleTag = (orderNumber: string) => {
+  console.log('[useThankYouViewedGoogleTag]', orderNumber);
+  const { cartItems, getTotalPrice, clearLocalStorageCart } = useCartContext();
   useEffect(() => {
     if (typeof window !== 'undefined' && window.performance) {
       const navigationType = window.performance.navigation.type;
@@ -194,9 +183,14 @@ export const useThankYouViewedGoogleTag = (
             items: cartItemsToGTagItems,
           },
         });
+        if (cartItems.length > 0) {
+          console.log('[useThankYouViewedGoogleTag] clearLocalCart');
+
+          clearLocalStorageCart();
+        }
       }
     }
-  }, [cartItems, getTotalPrice, orderNumber]);
+  }, [cartItems, getTotalPrice, orderNumber, clearLocalStorageCart]);
 };
 
 export const handleAddToCartGoogleTag = (

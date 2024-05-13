@@ -4,11 +4,11 @@ import BuyWithConfidenceSection from '@/components/home/BuyWithConfdienceSection
 import CoversGrid from '@/components/home/CoversGrid';
 import SecuritySection from '@/components/home/SecuritySection';
 import TrendingCarsSection from '@/components/home/TrendingCarsSection';
-import DesignedInUSA from '@/pages/home/DesignedInUSA';
-import TrustBanner from '@/pages/home/TrustBanner';
-import HomepageVideoSection from '@/pages/home/HomepageVideoSection';
-import WhyChooseCoverland from '@/pages/home/WhyChooseCoverland';
-import HomepageReviews from '@/pages/home/HomepageReviews';
+import DesignedInUSA from '@/components/home/DesignedInUSA';
+import TrustBanner from '@/components/home/TrustBanner';
+import HomepageVideoSection from '@/components/home/HomepageVideoSection';
+import HomepageReviews from '@/components/home/HomepageReviews';
+import WhyChooseCoverland from '@/components/home/WhyChooseCoverland';
 
 export async function generateMetadata() {
   return {

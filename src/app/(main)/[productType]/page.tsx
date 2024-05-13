@@ -1,17 +1,17 @@
-import { defaultSuvModelData, defaultTruckModelData } from '@/lib/constants';
-import { TInitialProductDataDB, getProductData } from '@/lib/db';
 import CarPDP from './components/CarPDP';
 import {
   TProductReviewSummary,
   TReviewData,
-  // filterDuplicateReviewImages,
   getAllReviewsWithImages,
   getProductReviewSummary,
   getProductReviewsByPage,
 } from '@/lib/db/review';
 import { deslugify } from '@/lib/utils';
-import { TPathParams } from '../utils';
+import { TPathParams } from '@/utils';
 import { notFound } from 'next/navigation';
+import { TInitialProductDataDB, getProductData } from '@/lib/db';
+
+export const revalidate = 0
 
 export function generateStaticParams() {
   return [
@@ -24,8 +24,11 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }: { params: TPathParams }) {
   const productType = deslugify(params.productType);
   return {
-    title: `${productType}, Custom Fit - Coverland`,
+    title: `${deslugify(productType.slice(productType.length - 1))} │ Lifetime Warranty │ Custom Fit │ 100% Weatherproof`,
     description: `${productType} ᐉ Coverland ⭐ Free, Same-Day Shipping ✔️ Free Returns & Purchase Protection ✔️ Made from premium quality, heavy-duty materials with a soft inner fabric.`,
+    alternates: {
+      canonical: `/${productType}`,
+    },
   };
 }
 
@@ -35,11 +38,11 @@ export default async function CarPDPModelDataLayer({
   params: { productType: string };
   searchParams: { submodel?: string; second_submodel?: string } | undefined;
 }) {
-  let reviewData: TReviewData[] = [];
   const productTypes = ['car-covers', 'truck-covers', 'suv-covers'];
   if (!productTypes.includes(params.productType)) {
     return notFound();
   }
+  let reviewData: TReviewData[] = [];
   let reviewDataSummary: TProductReviewSummary = {
     total_reviews: 0,
     average_score: 0,
@@ -51,10 +54,12 @@ export default async function CarPDPModelDataLayer({
     params?.productType === 'suv-covers' ? 'SUV Covers' : 'Truck Covers';
   const typeString =
     params?.productType === 'car-covers' ? 'Car Covers' : SuvOrTruckType;
-
   try {
-    [reviewData, modelData, reviewDataSummary, reviewImages] =
+    [modelData, reviewData, reviewDataSummary, reviewImages] =
       await Promise.all([
+        getProductData({
+          type: typeString,
+        }),
         getProductReviewsByPage(
           { productType: typeString },
           {
@@ -64,9 +69,6 @@ export default async function CarPDPModelDataLayer({
             },
           }
         ),
-        getProductData({
-          type: typeString,
-        }),
         getProductReviewSummary({
           productType: typeString,
         }),
@@ -77,6 +79,7 @@ export default async function CarPDPModelDataLayer({
           {}
         ),
       ]);
+    modelData = await getProductData({ type: typeString });
   } catch (error) {
     console.error('CarPDPModelDataLayer Error: ', error);
   }
@@ -84,8 +87,8 @@ export default async function CarPDPModelDataLayer({
   return (
     <CarPDP
       modelData={modelData}
-      reviewData={reviewData}
       params={params}
+      reviewData={reviewData}
       reviewDataSummary={reviewDataSummary}
       reviewImages={reviewImages}
     />

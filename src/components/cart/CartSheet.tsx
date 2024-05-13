@@ -5,29 +5,34 @@ import {
   SheetFooter,
   SheetHeader,
   SheetTitle,
-  SheetTrigger,
 } from '@/components/ui/sheet';
 import { IoClose } from 'react-icons/io5';
 import AddToCartHeader from '../cart/AddToCartHeader';
 import AddToCartBody from '../cart/AddToCartBody';
 import AddToCartFooter from '../cart/AddToCartFooter';
 import { TInitialProductDataDB } from '@/lib/db';
-import { IProductData } from '@/app/(main)/utils';
+import { IProductData } from '@/utils';
+import { useMediaQuery } from '@mantine/hooks';
+import { Separator } from '../ui/separator';
+import { TSeatCoverDataDB } from '@/lib/db/seat-covers';
 
 type CartSheetProps = {
   open: boolean;
   setOpen: (open: boolean) => void;
-  selectedProduct: TInitialProductDataDB | IProductData | null | undefined;
+  selectedProduct: TInitialProductDataDB | IProductData | null | undefined | TSeatCoverDataDB;
 };
 const CartSheet = ({
   open,
   setOpen,
   selectedProduct,
 }: CartSheetProps): JSX.Element => {
+  const isMobile = useMediaQuery('(max-width: 1023px)');
   return (
-    <Sheet open={open}>
-      <SheetTrigger asChild></SheetTrigger>
-      <SheetContent className="flex flex-col">
+    <Sheet open={open} onOpenChange={setOpen}>
+      <SheetContent
+        className="flex flex-col gap-0 max-lg:max-h-[85vh] max-lg:rounded-t-2xl"
+        side={isMobile ? 'bottom' : 'right'}
+      >
         <SheetHeader>
           <SheetTitle className="flex w-full items-center justify-between py-7 pl-4 pr-7">
             <AddToCartHeader />
@@ -43,9 +48,9 @@ const CartSheet = ({
               </button>
             </SheetClose>
           </SheetTitle>
-          <div className="border-b bg-white shadow-[0_4px_4px_0px_rgba(0,0,0,0.1)]"></div>
+          <Separator />
         </SheetHeader>
-        <div className="mx-auto flex h-screen w-full flex-col overflow-y-scroll px-4 pt-20">
+        <div className=" flex h-screen w-full flex-col overflow-y-scroll px-4 ">
           <AddToCartBody selectedProduct={selectedProduct} />
         </div>
         <div className="w-full bg-white shadow-[0_-4px_4px_-0px_rgba(0,0,0,0.1)]">

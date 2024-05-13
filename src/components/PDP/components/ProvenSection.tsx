@@ -56,7 +56,7 @@ export default function ProvenSection() {
           className="hidden w-full rounded-ss-sm lg:block"
         />
       </div>
-      <div id="uv-section" className=" w-full max-w-[850px]">
+      <div id="uv-section" className="w-full max-w-[850px]">
         <p className="w-full  pb-3 text-center text-[22px] font-[700] leading-[25px] lg:pb-[38px] lg:text-[38px] lg:leading-[44px]">
           UV Resistance Proven
         </p>

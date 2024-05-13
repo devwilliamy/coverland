@@ -9,6 +9,7 @@ import {
 } from 'react';
 import { TQuery } from './HeroDropdown';
 import { ModelDropdown } from './ModelSearch';
+import HomeDropdown from './HomeDropdown';
 
 export function SecondSubmodelDropdown({
   queryObj,
@@ -20,14 +21,13 @@ export function SecondSubmodelDropdown({
   };
   secondSubmodelData: ModelDropdown[];
 }) {
-  const [value, setValue] = useState('');
   // Leaving this for when third submodel becomes a thing
   // const [thirdSubmodelData, setThirdSubmodelData] = useState<ModelDropdown[]>(
   //   []
   // );
 
   const { query, setQuery } = queryObj;
-  const { submodel1 } = query;
+  const { submodel1, submodel2 } = query;
 
   const filteredSecondSubmodelData: (string | null)[] = Array.from(
     new Set(
@@ -39,11 +39,12 @@ export function SecondSubmodelDropdown({
         )
         .map((vehicle) => vehicle.submodel2)
     )
-  );
+  ).map((submodel) => ({
+    name: submodel,
+  }));
 
-  useEffect(() => {
-    setValue('');
-  }, [submodel1]);
+  // useEffect(() => {
+  // }, [submodel1]);
 
   // Leaving this for when third submodel becomes a thing
   // useEffect(() => {
@@ -56,32 +57,36 @@ export function SecondSubmodelDropdown({
   //   console.log('ThirdSubmodel:', thirdSubmodelData);
   // }, [value]);
 
-  const handleChange = (event: ChangeEvent<HTMLSelectElement>) => {
-    const newValue = event.target.value;
-    setValue(newValue);
-    setQuery((p) => ({ ...p, submodel2: newValue }));
-  };
-
   const isDisabled =
     !query.make ||
     !query.year ||
     !query.type ||
     !query.model ||
     !query.submodel1;
+
+  const prevSelected =
+    !queryObj ||
+    (queryObj.query.type !== '' &&
+      queryObj.query.year !== '' &&
+      queryObj.query.make !== '' &&
+      queryObj.query.model !== '' &&
+      queryObj.query.submodel1 !== '' &&
+      queryObj.query.submodel2 === '');
   // const showThirdSubmodelDropdown = thirdSubmodelData.length > 0;
 
   return (
     <>
-      <div
-        className={`flex max-h-[44px] min-h-[44px] w-full items-center rounded-lg outline-[#767676] md:max-h-[58px] ${isDisabled ? 'bg-gray-100/75' : 'bg-white'} px-2 text-lg outline outline-1 outline-offset-1 lg:w-auto`}
-        tabIndex={1}
+      {/* <div
+        className={`flex max-h-[53px] min-h-[53px] px-2 ${prevSelected ? ' w-full border-[5px] border-[#BE1B1B]' : 'w-[98%] border-[1px] border-[#767676] outline-[4px] outline-transparent'} items-center overflow-hidden rounded-[8px] bg-white  text-lg  md:max-h-[58px] lg:w-auto`}
       >
         <div className="ml-[10px] pr-[15px]">6</div>
+        <label htmlFor="secondsubmode"></label>
         <select
           value={value}
           onChange={handleChange}
           disabled={isDisabled}
           className={`w-full cursor-pointer bg-transparent py-1 outline-none lg:py-3`}
+          aria-label="secondsubmodel"
         >
           <option value="">{`Submodel 2`}</option>
           {filteredSecondSubmodelData?.sort()?.map((secondSubmodel) => (
@@ -93,7 +98,16 @@ export function SecondSubmodelDropdown({
             </option>
           ))}
         </select>
-      </div>
+      </div> */}
+      <HomeDropdown
+        place={6}
+        title="submodel2"
+        queryObj={queryObj}
+        isDisabled={isDisabled}
+        prevSelected={prevSelected}
+        items={filteredSecondSubmodelData as string[]}
+        value={submodel2}
+      />
       {/* {showThirdSubmodelDropdown && (
         <ThirdSubmodelDropdown
           queryObj={queryObj}

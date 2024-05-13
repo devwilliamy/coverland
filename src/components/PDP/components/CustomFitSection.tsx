@@ -1,4 +1,5 @@
-import React, { LegacyRef } from 'react';
+'use client';
+import React, { LegacyRef, useContext } from 'react';
 import ProductVideo from '@/components/PDP/ProductVideo';
 import SUV360 from '@/videos/360 degree_website.mp4';
 import Car360 from '@/videos/Mustang 360 degree 16;9_Black Background.mp4';
@@ -10,26 +11,34 @@ import TruckStandardImage from '@/images/PDP/Product-Details-Redesign-2/standard
 import SUVPremiumImage from '@/images/PDP/Product-Details-Redesign-2/premium/premium-suv-desktop.webp';
 import SUVStandardImage from '@/images/PDP/Product-Details-Redesign-2/standard/standard-suv-desktop.webp';
 import { useParams } from 'next/navigation';
+import Corvette360 from '@/videos/Corvette 360 Video.mp4';
+import Challenger360 from '@/videos/Challenger 360 Video.mp4';
+
 import Image from 'next/image';
 import { Asset } from 'next-video/dist/assets.js';
+import useDetermineType from '@/hooks/useDetermineType';
+import ReactPlayer from 'react-player';
+import { CarSelectionContext } from '@/contexts/CarSelectionContext';
+import { useStore } from 'zustand';
 
 const CustomFitSection = () => {
-  const params = useParams();
-  const productType = params?.productType;
-  const coverType = params?.coverType;
-  const isPremimPlus = params?.coverType === 'premium-plus';
+  const { productType, coverType, isPremiumPlus, model } = useDetermineType();
+  const store = useContext(CarSelectionContext);
+  if (!store) throw new Error('Missing CarContext.Provider in the tree');
+  const selectedProduct = useStore(store, (s) => s.selectedProduct);
+
   let PremiumImage = CarPremiumImage;
   let StandardImage = CarStandardImage;
-  let featuredVideo: Asset;
+  let baseFeaturedVideo: Asset;
   switch (productType) {
     case 'suv-covers':
-      featuredVideo = SUV360;
+      baseFeaturedVideo = SUV360;
       break;
     case 'truck-covers':
-      featuredVideo = Truck360;
+      baseFeaturedVideo = Truck360;
       break;
     default:
-      featuredVideo = Car360;
+      baseFeaturedVideo = Car360;
       break;
   }
 
@@ -43,6 +52,10 @@ const CustomFitSection = () => {
       StandardImage = SUVStandardImage;
       break;
   }
+  const isCorvette = model === 'corvette';
+  const isChallenger = model === 'challenger';
+  const ChallengerOrDefault = isChallenger ? Challenger360 : baseFeaturedVideo;
+  const featured360 = isCorvette ? Corvette360 : ChallengerOrDefault;
 
   const imageChoice = () => {
     switch (coverType) {
@@ -54,12 +67,15 @@ const CustomFitSection = () => {
         return <Image alt="standard image" src={StandardImage} />;
       default:
         return (
-          <ProductVideo
-            src={featuredVideo}
-            autoplay
+          <ReactPlayer
+            url={selectedProduct?.product_video_360 || ''}
+            muted
+            // autoplay
             loop
-            aspectRatio="16 / 9"
-            controls={false}
+            playsinline
+            playing
+            width="100%"
+            height="auto"
           />
         );
     }
@@ -73,7 +89,7 @@ const CustomFitSection = () => {
           Custom-Fit
         </p>
         <p className="w-full  text-center text-[22px] leading-[26px] text-[#ABABAB] lg:text-[34px]">
-          {isPremimPlus || coverType === undefined
+          {isPremiumPlus || coverType === undefined
             ? 'Experience the perfect fit we offer'
             : 'Experience the semi-custom fit'}
         </p>

@@ -1,12 +1,13 @@
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import { useContext, useState } from 'react';
 import { useStore } from 'zustand';
-import { CarSelectionContext } from '@/app/(main)/[productType]/components/CarPDP';
+import { CarSelectionContext } from '@/contexts/CarSelectionContext';
 import ReviewImageGallery from './ReviewImageGallery';
 import Logo from '@/components/header/Logo';
 import Link from 'next/link';
 import { UserRound } from 'lucide-react';
 import Cart from '@/components/header/Cart';
+import useStoreContext from '@/hooks/useStoreContext';
 
 export default function ReviewImagesSheet({
   children,
@@ -15,8 +16,8 @@ export default function ReviewImagesSheet({
 }) {
   const [reviewOpen, setReviewsOpen] = useState<boolean>(false);
 
-  const store = useContext(CarSelectionContext);
-  if (!store) throw new Error('Missing CarContext.Provider in the tree');
+  const store = useStoreContext();
+  if (!store) throw new Error('Missing Provider in the tree');
   const { total_reviews } = useStore(store, (s) => s.reviewDataSummary);
 
   return (
@@ -36,7 +37,7 @@ export default function ReviewImagesSheet({
           <header className="flex  flex-col items-stretch ">
             <section className="min-h-[7px] w-full bg-black" />
             <section className="whitespace-nowrap bg-white  px-20 text-center text-[18px] font-[600] uppercase text-black lg:text-4xl">
-              <p>March Special Sale!</p>
+              <p>April Special Sale!</p>
             </section>
             <section className="whitespace-nowrap bg-black  px-20 text-center text-[18px] font-[500] uppercase text-white lg:text-4xl">
               <p>SAVE UP TO 50%</p>

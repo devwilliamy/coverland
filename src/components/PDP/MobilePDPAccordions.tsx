@@ -1,7 +1,7 @@
 import { Layers } from './Layers';
 import { MoneyBackMobile } from './MoneyBackMobile';
 import { OurCarCovers } from './OurCarCovers';
-import { PDPAccordion } from './PDPAccordian';
+import { QuestionsAccordion } from './QuestionsAccordion';
 import { ProductChecklist } from './ProductChecklist';
 import AccordionDrawerItem from './components/AccordionDrawerItem';
 import { ClimateCrisisMobile } from './components/ClimateCrisisMobile';
@@ -32,7 +32,7 @@ export function MobilePDPAccordions() {
 
       <AccordionDrawerItem title="Q&A">
         <div className="lg:mt-28">
-          <PDPAccordion />
+          <QuestionsAccordion />
         </div>
       </AccordionDrawerItem>
 

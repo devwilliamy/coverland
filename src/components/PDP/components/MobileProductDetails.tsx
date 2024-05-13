@@ -17,7 +17,7 @@ export default function MobileProductDetails() {
       <div className="px-4 pt-8 lg:pt-[100px]">
         <Layers seeMore={seeMore} setSeeMore={setSeeMore} />
       </div>
-      <SuggestedProducts />
+      {/* <SuggestedProducts /> */}
     </div>
   );
 }

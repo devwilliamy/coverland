@@ -1,11 +1,12 @@
-import { CarSelectionContext } from '@/app/(main)/[productType]/components/CarPDP';
+import { CarSelectionContext } from '@/contexts/CarSelectionContext';
+import useStoreContext from '@/hooks/useStoreContext';
 import Image from 'next/image';
 import { useContext } from 'react';
 
 function ReviewCardCarousel({ reviewImages }: { reviewImages: string | null }) {
   const reviewImagesSplit = reviewImages?.split(',');
-  const store = useContext(CarSelectionContext);
-  if (!store) throw new Error('Missing CarContext.Provider in the tree');
+  const store = useStoreContext();
+  if (!store) throw new Error('Missing Provider in the tree');
 
   if (!reviewImages) return;
 

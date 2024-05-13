@@ -1,9 +1,8 @@
-'use client';
 import Image, { StaticImageData } from 'next/image';
 import { Asset } from 'next-video/dist/assets.js';
 import dynamic from 'next/dynamic';
 
-const Video = dynamic(() => import('next-video'), { ssr: false });
+const Video = dynamic(() => import('next-video'));
 
 type ProductVideoProps = {
   src: Asset;
@@ -12,6 +11,7 @@ type ProductVideoProps = {
   controls?: boolean;
   loop?: boolean;
   aspectRatio?: string;
+  className?: string;
 };
 
 export default function ProductVideo({
@@ -21,6 +21,7 @@ export default function ProductVideo({
   controls = true,
   loop = false,
   aspectRatio = '1 / 1',
+  className = '',
 }: ProductVideoProps) {
   return (
     <Video
@@ -29,6 +30,7 @@ export default function ProductVideo({
       autoPlay={autoplay}
       loop={loop}
       playsInline
+      className={className}
       style={{
         aspectRatio: aspectRatio,
         height: '100%',

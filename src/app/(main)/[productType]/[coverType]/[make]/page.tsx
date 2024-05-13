@@ -7,8 +7,9 @@ import {
   getProductReviewSummary,
   getProductReviewsByPage,
 } from '@/lib/db/review';
-import { TPathParams } from '@/app/(main)/utils';
+import { TPathParams } from '@/utils';
 import { deslugify } from '@/lib/utils';
+import { PREMIUM_PLUS_URL_PARAM } from '@/lib/constants';
 
 export type TCarCoverSlugParams = {
   make: string;
@@ -18,6 +19,7 @@ export type TCarCoverSlugParams = {
 };
 
 //TODO: Refactor code so we can generate our dynamic paths as static HTML for performance
+export const revalidate = 0;
 
 export async function generateStaticParams({
   params: { productType, coverType },
@@ -35,11 +37,17 @@ export async function generateStaticParams({
 }
 
 export async function generateMetadata({ params }: { params: TPathParams }) {
-  const productType = deslugify(params.productType);
+  const productType = deslugify(params.productType).slice(
+    0,
+    params.productType.length - 1
+  );
   const make = deslugify(params.make || '');
   return {
-    title: `${make} ${productType}, Custom Fit - Coverland`,
+    title: `${make} ${productType} │ Lifetime Warranty │ Custom Fit │ 100% Weatherproof`,
     description: `${make} ${productType} ᐉ Coverland ⭐ Free, Same-Day Shipping ✔️ Free Returns & Purchase Protection ✔️ Made from premium quality, heavy-duty materials with a soft inner fabric.`,
+    alternates: {
+      canonical: `/${params.productType}/${PREMIUM_PLUS_URL_PARAM}/${params.make}`,
+    },
   };
 }
 
@@ -71,7 +79,10 @@ export default async function CarPDPDataLayer({
           type: typeString,
         }),
         getProductReviewsByPage(
-          { productType: typeString, make: params?.make },
+          {
+            productType: typeString,
+            make: params?.make,
+          },
           {
             pagination: {
               page: 0,

@@ -1,5 +1,4 @@
 'use client';
-
 import {
   Card,
   CardContent,
@@ -9,37 +8,18 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 import { useThankYouViewedGoogleTag } from '@/hooks/useGoogleTagDataLayer';
-import { useCartContext } from '@/providers/CartProvider';
-import { sendGTMEvent } from '@next/third-parties/google';
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
 import { BsFillEnvelopeFill } from 'react-icons/bs';
+
+type OrderConfirmationContentProps = {
+  orderNumber: string;
+};
 
 export const OrderConfirmationContent = ({
   orderNumber,
-  items,
-}: {
-  orderNumber: string;
-  items: any;
-}) => {
-  const [mounted, isMounted] = useState(false);
+}: OrderConfirmationContentProps) => {
 
-  const { clearLocalStorageCart } = useCartContext();
-
-  useEffect(() => {
-    isMounted(true);
-    clearLocalStorageCart();
-  }, []);
-  useThankYouViewedGoogleTag(items, orderNumber);
-
-  mounted &&
-    !!items &&
-    sendGTMEvent({
-      event: 'order_confirmation',
-      value: items[0]?.total,
-      transaction_id: orderNumber,
-      items: items[0]?.skus,
-    });
+  useThankYouViewedGoogleTag(orderNumber);
 
   return (
     <Card className="text-center">
@@ -51,7 +31,8 @@ export const OrderConfirmationContent = ({
       </CardHeader>
       <CardContent>
         <p>
-          Your order confirmation has been sent to your email. Please contact us
+          {/* Your order confirmation has been sent to your email.  */}
+          Please contact us
           if you need any support.
         </p>
       </CardContent>

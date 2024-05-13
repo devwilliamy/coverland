@@ -1,6 +1,6 @@
 import { Layers } from './Layers';
 import { OurCarCovers } from './OurCarCovers';
-import { PDPAccordion } from './PDPAccordian';
+import { QuestionsAccordion } from './QuestionsAccordion';
 import { ProductChecklist } from './ProductChecklist';
 import { ClimateCrisisMobile } from './components/ClimateCrisisMobile';
 import { NoGarageMobile } from './components/NoGarageMobile';
@@ -20,7 +20,7 @@ import { Plus } from 'lucide-react';
 import ProductVideo from './ProductVideo';
 import ThreeSixtyVideo from '@/videos/https_x2kly621zrgfgwll.public.blob.vercel-storage.com_videos_360_20degree_mobile-4asLajZOfJp9h3V3q1XkSHFETp6T8h.mp4.json';
 import { track } from '@vercel/analytics';
-import { CarSelectionContext } from '@/app/(main)/[productType]/components/CarPDP';
+import { CarSelectionContext } from '@/contexts/CarSelectionContext';
 
 const CarCoverFeature = ({ children }: { children: string }) => (
   <li className="text-[14px] font-[500] normal-case leading-[26px]">
@@ -126,7 +126,7 @@ export const MobilePDPDetails = () => {
 
             <StickySheetItem title="Q&A">
               <div className="lg:mt-28" ref={qaRef}>
-                <PDPAccordion />
+                <QuestionsAccordion />
               </div>
             </StickySheetItem>
 
@@ -232,7 +232,7 @@ const ScrollSheetTrigger = ({
     py-4 text-left text-[22px] font-black uppercase text-[#1A1A1A] !no-underline`}
     onClick={() => {
       setTimeout(() => {
-        const DrawerScrollable = document.getElementById('DrawerScrollable');
+        const DrawerScrollable = document?.getElementById('DrawerScrollable');
         DrawerScrollable?.scrollTo({
           top: toRef.current?.offsetTop
             ? toRef.current?.offsetTop - 85
