@@ -144,6 +144,7 @@ export async function getAllUniqueMakesByYear({
       type_id_web: typeId,
       year_id_web: yearId,
     });
+
   if (error) {
     throw new Error(error.message);
   }

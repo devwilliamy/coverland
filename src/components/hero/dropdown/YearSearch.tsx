@@ -17,6 +17,8 @@ export function YearSearch({
   const [yearData, setYearData] = useState<DateDropdown[]>([]);
   const { type, year, typeId } = queryObj.query;
   const isDisabled = !type;
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  
   const { setQuery } = queryObj;
 
   useEffect(() => {
@@ -46,12 +48,15 @@ export function YearSearch({
 
   const fetchDataYear = async () => {
     try {
+      setIsLoading(true)
       const response = await getAllYearByType({
         type: typeId,
       });
       setYearData(response);
     } catch (error) {
       console.error('[Year Search]: ', error);
+    } finally {
+      setIsLoading(false)
     }
   };
   useEffect(() => {
@@ -72,6 +77,7 @@ export function YearSearch({
       isDisabled={isDisabled}
       prevSelected={prevSelected}
       items={yearData}
+      isLoading={isLoading}
     />
   );
 }
