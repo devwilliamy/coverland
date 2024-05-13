@@ -63,9 +63,9 @@ const generateThankYouEmail = ({
 export const sendThankYouEmail = async (emailInput: ThankYouEmailInput) => {
   const msg = generateThankYouEmail(emailInput);
   try {
-    const data = await sgMail.send(msg);
-    console.log('Email sent', data);
-    return data;
+    await sgMail.send(msg);
+    // console.log('Email sent', data);
+    // return data;
   } catch (error) {
     console.error(error);
   }

@@ -17,7 +17,7 @@ import { PaymentMethod, StripeAddress } from '@/lib/types/checkout';
 import BillingAddress from './BillingAddress';
 import { useCartContext } from '@/providers/CartProvider';
 import { convertPriceToStripeFormat } from '@/lib/utils/stripe';
-import { sendThankYouEmail } from '@/lib/sendgrid/emails/test-email';
+import { sendThankYouEmail } from '@/lib/sendgrid/emails/thank-you';
 import { getCurrentDayInLocaleDateString } from '@/lib/utils/date';
 import { useRouter } from 'next/navigation';
 
@@ -144,7 +144,7 @@ export default function Payment() {
             // shippingInfo,
             // billingInfo,
           };
-          const response = await fetch('/api/email/test', {
+          const response = await fetch('/api/email/thank-you', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
@@ -152,7 +152,7 @@ export default function Payment() {
             body: JSON.stringify({ emailInput }),
           });
 
-          const data = await response.json();
+          await response.json();
 
           const { id, client_secret } = result.paymentIntent;
           router.push(
