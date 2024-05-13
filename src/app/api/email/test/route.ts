@@ -6,7 +6,8 @@ export async function POST(request: NextRequest) {
     const { emailInput } = await request.json();
 
     console.log("Inside POST:", emailInput)
-    await sendThankYouEmail(emailInput)
+    const mail = await sendThankYouEmail(emailInput)
+    console.log("Mail:", mail)
     console.log("DONE EMAIL")
     
     return NextResponse.json({ message: "Email sent"});

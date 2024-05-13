@@ -1,10 +1,15 @@
 import sgMail from '@sendgrid/mail';
 sgMail.setApiKey(process.env.SENDGRID_API_KEY || '');
 
-type ThankYouEmailInput = {
-
-}
-const generateThankYouEmail = ({to, name, orderInfo, address, shippingInfo, billingInfo }: ThankYouEmailInput) => ({
+type ThankYouEmailInput = {};
+const generateThankYouEmail = ({
+  to,
+  name,
+  orderInfo,
+  address,
+  shippingInfo,
+  billingInfo,
+}: ThankYouEmailInput) => ({
   // to: 'dev.william.coverland@gmail.com', // Change to your recipient
   to, // Change to your recipient
   from: 'info@coverland.com', // Process ENV
@@ -58,9 +63,10 @@ const generateThankYouEmail = ({to, name, orderInfo, address, shippingInfo, bill
 export const sendThankYouEmail = async (emailInput: ThankYouEmailInput) => {
   const msg = generateThankYouEmail(emailInput);
   try {
-    const data = await sgMail.send(msg)
-    console.log("Email sent", data)
+    const data = await sgMail.send(msg);
+    console.log('Email sent', data);
+    return data;
   } catch (error) {
-    console.error(error)
+    console.error(error);
   }
 };
