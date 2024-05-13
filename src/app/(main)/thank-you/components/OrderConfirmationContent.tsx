@@ -31,7 +31,7 @@ export const OrderConfirmationContent = ({
       </CardHeader>
       <CardContent>
         <p>
-          {/* Your order confirmation has been sent to your email.  */}
+          Your order confirmation has been sent to your email. 
           Please contact us
           if you need any support.
         </p>

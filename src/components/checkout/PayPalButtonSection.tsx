@@ -15,6 +15,7 @@ import {
 } from '@/lib/utils/stripe';
 import { postAdminPanelOrderItem } from '@/lib/db/admin-panel/orderItems';
 import { createOrUpdateUser } from '@/lib/db/admin-panel/customers';
+import { getCurrentDayInLocaleDateString } from '@/lib/utils/date';
 
 export default function PayPalButtonSection() {
   const { clearLocalStorageCart, getTotalPrice, cartItems } = useCartContext();
@@ -100,6 +101,28 @@ export default function PayPalButtonSection() {
             );
             if (response.success) {
               // clearLocalStorageCart();
+              const emailInput = {
+                to: customerInfo.email,
+                name: {
+                  firstName: shippingAddress.firstName,
+                  fullName: `${shippingAddress.firstName} ${shippingAddress.lastName}`,
+                },
+                orderInfo: {
+                  orderDate: getCurrentDayInLocaleDateString(),
+                  orderNumber,
+                  // products
+                },
+                // address,
+                // shippingInfo,
+                // billingInfo,
+              };
+              const emailResponse = await fetch('/api/email/thank-you', {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ emailInput }),
+              });
               router.push(
                 `/thank-you?order_number=${orderNumber}&payment_gateway=paypal`
               );
