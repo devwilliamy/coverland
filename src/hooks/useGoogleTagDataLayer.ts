@@ -160,13 +160,12 @@ export const useCheckoutViewedGoogleTag = () => {
 };
 
 export const useThankYouViewedGoogleTag = (orderNumber: string) => {
-  console.log('[useThankYouViewedGoogleTag]', orderNumber);
   const { cartItems, getTotalPrice, clearLocalStorageCart } = useCartContext();
   useEffect(() => {
     if (typeof window !== 'undefined' && window.performance) {
       const navigationType = window.performance.navigation.type;
       if (navigationType === PerformanceNavigation.TYPE_RELOAD) {
-        // console.log('Page was reloaded, GTAG not tracked.');
+        console.log('Page was reloaded, GTAG not tracked.');
       } else {
         const cartItemsToGTagItems = mapCartItemsToGTagItems(cartItems);
         window?.dataLayer?.push({ ecommerce: null }); // Clear the previous ecommerce object.
@@ -191,6 +190,33 @@ export const useThankYouViewedGoogleTag = (orderNumber: string) => {
       }
     }
   }, [cartItems, getTotalPrice, orderNumber, clearLocalStorageCart]);
+};
+
+export const handlePurchaseGoogleTag = (
+  cartItems: TCartItem[],
+  orderNumber: string,
+  totalPrice: string,
+  clearLocalStorageCart: () => void
+) => {
+  debugger;
+  const cartItemsToGTagItems = mapCartItemsToGTagItems(cartItems);
+  window?.dataLayer?.push({ ecommerce: null }); // Clear the previous ecommerce object.
+  window?.dataLayer?.push({
+    event: 'purchase',
+    ecommerce: {
+      transaction_id: orderNumber,
+      // Sum of (price * quantity) for all items.
+      value: parseFloat(totalPrice),
+      tax: 0.0, // Femi working on this
+      shipping: 0.0, // Free shipping for now
+      currency: 'USD',
+      coupon: undefined, // will need to put in coupon for later but we don't track this ATM
+      items: cartItemsToGTagItems,
+    },
+  });
+  if (cartItems.length > 0) {
+    clearLocalStorageCart();
+  }
 };
 
 export const handleAddToCartGoogleTag = (

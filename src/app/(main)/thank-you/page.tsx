@@ -59,7 +59,7 @@ async function OrderConfirmationPage({
     );
 
     // Add To OrderItem Table
-    postAdminPanelOrderItem(
+    await postAdminPanelOrderItem(
       updatedOrderResponse[0].id,
       paymentIntent.metadata.skusWithQuantity
     );
