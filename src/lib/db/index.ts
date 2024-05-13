@@ -73,6 +73,8 @@ export async function getProductData({
     fetch = fetch.eq('model_slug', model);
   }
 
+  fetch = fetch.neq('quantity', "0");
+
   const { data, error } = await fetch.limit(1000);
 
   if (error) {
