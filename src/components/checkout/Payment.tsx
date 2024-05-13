@@ -20,6 +20,7 @@ import { convertPriceToStripeFormat } from '@/lib/utils/stripe';
 import { sendThankYouEmail } from '@/lib/sendgrid/emails/thank-you';
 import { getCurrentDayInLocaleDateString } from '@/lib/utils/date';
 import { useRouter } from 'next/navigation';
+import { handlePurchaseGoogleTag } from '@/hooks/useGoogleTagDataLayer';
 
 function isValidShippingAddress({ address }: StripeAddress) {
   return (
@@ -47,7 +48,7 @@ export default function Payment() {
   const { orderNumber, paymentIntentId } = useCheckoutContext();
   const { billingAddress, shippingAddress, customerInfo, shipping } =
     useCheckoutContext();
-  const { getTotalPrice } = useCartContext();
+  const { cartItems, getTotalPrice, clearLocalStorageCart } = useCartContext();
   const totalMsrpPrice = convertPriceToStripeFormat(getTotalPrice() + shipping);
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -153,6 +154,7 @@ export default function Payment() {
           });
 
           await response.json();
+          handlePurchaseGoogleTag(cartItems, orderNumber, getTotalPrice().toFixed(2), clearLocalStorageCart)
 
           const { id, client_secret } = result.paymentIntent;
           router.push(

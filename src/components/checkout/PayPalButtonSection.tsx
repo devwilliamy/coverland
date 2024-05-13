@@ -16,6 +16,7 @@ import {
 import { postAdminPanelOrderItem } from '@/lib/db/admin-panel/orderItems';
 import { createOrUpdateUser } from '@/lib/db/admin-panel/customers';
 import { getCurrentDayInLocaleDateString } from '@/lib/utils/date';
+import { handlePurchaseGoogleTag, useThankYouViewedGoogleTag } from '@/hooks/useGoogleTagDataLayer';
 
 export default function PayPalButtonSection() {
   const { clearLocalStorageCart, getTotalPrice, cartItems } = useCartContext();
@@ -95,7 +96,7 @@ export default function PayPalButtonSection() {
             //   skus: JSON.stringify(skusWithQuantity)
             // });
             // Add To OrderItem Table
-            postAdminPanelOrderItem(
+            await postAdminPanelOrderItem(
               adminPanelOrder[0].id,
               JSON.stringify(skusWithQuantity)
             );
@@ -123,6 +124,7 @@ export default function PayPalButtonSection() {
                 },
                 body: JSON.stringify({ emailInput }),
               });
+              handlePurchaseGoogleTag(cartItems, orderNumber, getTotalPrice().toFixed(2), clearLocalStorageCart)
               router.push(
                 `/thank-you?order_number=${orderNumber}&payment_gateway=paypal`
               );
