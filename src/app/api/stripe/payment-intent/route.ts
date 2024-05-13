@@ -2,6 +2,7 @@ import { TCartItem } from '@/lib/cart/useCart';
 import { getMsrpTotal } from '@/lib/utils/calculations';
 import {
   convertPriceToStripeFormat,
+  generateLineItemsForStripe,
   generateOrderId,
   getSkusAndQuantityFromCartItems,
   getSkusFromCartItems,
@@ -23,7 +24,7 @@ export async function POST(request: NextRequest) {
   const isDev = process.env.NODE_ENV !== 'production';
   const uniqueId = isDev ? 'TEST' : 'XXXX';
   const orderId = await generateOrderId(items, uniqueId);
-  // const lineItems = generateLineItemsForStripe(items, orderId);
+  const lineItems = generateLineItemsForStripe(items, orderId);
   const skus = getSkusFromCartItems(items);
   const skusWithQuantity = getSkusAndQuantityFromCartItems(items);
   // Create a PaymentIntent with the order amount and currency
@@ -37,7 +38,8 @@ export async function POST(request: NextRequest) {
     metadata: {
       orderId,
       skus: skus.join(','),
-      skusWithQuantity: JSON.stringify(skusWithQuantity)
+      skusWithQuantity: JSON.stringify(skusWithQuantity),
+      line_items: JSON.stringify(lineItems)
     },
   });
 
