@@ -22,7 +22,8 @@ const calculateOrderAmount = (items: TCartItem[]) => {
 export async function POST(request: NextRequest) {
   const { items, promoCode } = await request.json();
   const isDev = process.env.NODE_ENV !== 'production';
-  const uniqueId = isDev ? 'TEST' : 'XXXX';
+  const isPreview = process.env.IS_PREVIEW === 'PREVIEW'
+  const uniqueId = (isDev || isPreview) ? 'TEST' : 'XXXX';
   const orderId = await generateOrderId(items, uniqueId);
   const lineItems = generateLineItemsForStripe(items, orderId);
   const skus = getSkusFromCartItems(items);
