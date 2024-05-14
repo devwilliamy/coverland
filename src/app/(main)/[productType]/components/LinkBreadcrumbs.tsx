@@ -20,6 +20,7 @@ import MainDropdown from '@/components/hero/dropdown/MainDropdown';
 import { PopoverArrow } from '@radix-ui/react-popover';
 import { PREMIUM_PLUS_URL_PARAM, VEHICLE_TYPES } from '@/lib/constants';
 import {
+  breadcrumbsGetDistinctModelByTypeMake,
   getAllType,
   getDistinctMakesByType,
   getDistinctModelsByTypeMake,
@@ -84,51 +85,55 @@ export default function LinkBreadcrumbs() {
   const pathname = usePathname();
 
   // Fetching makes
+
+  const getTypes = async () => {
+    try {
+      const response = await getAllType();
+      setTypeData(response);
+    } catch (error) {
+      console.error('[Type Search]: ', error);
+    }
+  };
+  const getMakes = async () => {
+    if (paramsObj.type) {
+      const makes = await getDistinctMakesByType(paramsObj.type);
+      setMakeData(makes);
+      // console.log('Fetched Makes', makes);
+    }
+  };
+  const getModels = async () => {
+    // console.log(paramsObj);
+    const res = await breadcrumbsGetDistinctModelByTypeMake(
+      paramsObj.type,
+      paramsObj.make
+    );
+    // const models = res.map((data) => {
+    //   return data.model;
+    // });
+    console.log({ res });
+
+    // console.log('Fetched Models', models);
+
+    setModelData(res as string[]);
+  };
+
+  const getYears = async () => {
+    // console.log(paramsObj);
+
+    if (paramsObj.type && paramsObj.make) {
+      const years = await getDistinctYearsByTypeMakeModel(
+        paramsObj.type,
+        paramsObj.make,
+        paramsObj.model
+      );
+      // console.log('Fetched Years', years);
+
+      setYearData(years);
+    }
+  };
+
   useEffect(() => {
-    const getTypes = async () => {
-      try {
-        const response = await getAllType();
-        setTypeData(response);
-      } catch (error) {
-        console.error('[Type Search]: ', error);
-      }
-    };
-    const getMakes = async () => {
-      if (paramsObj.type) {
-        const makes = await getDistinctMakesByType(paramsObj.type);
-        setMakeData(makes);
-        // console.log('Fetched Makes', makes);
-      }
-    };
-    const getModels = async () => {
-      // console.log(paramsObj);
-
-      if (paramsObj.type && paramsObj.make) {
-        const models = await getDistinctModelsByTypeMake(
-          paramsObj.type,
-          paramsObj.make
-        );
-        // console.log('Fetched Models', models);
-
-        setModelData(models);
-      }
-    };
-    const getYears = async () => {
-      // console.log(paramsObj);
-
-      if (paramsObj.type && paramsObj.make) {
-        const years = await getDistinctYearsByTypeMakeModel(
-          paramsObj.type,
-          paramsObj.make,
-          paramsObj.model
-        );
-        // console.log('Fetched Years', years);
-
-        setYearData(years);
-      }
-    };
     getTypes();
-
     if (paramsObj.type) {
       getMakes();
     }
@@ -138,10 +143,25 @@ export default function LinkBreadcrumbs() {
     if (paramsObj.type && paramsObj.make && paramsObj.model) {
       getYears();
     }
+    console.log({ paramsObj });
+
     const disabled =
       !paramsObj.type || !paramsObj.make || !paramsObj.model || !paramsObj.year;
     setIsDisabled(disabled);
-  }, [paramsObj.type, paramsObj.make, paramsObj.model, paramsObj.year]);
+  }, [
+    paramsObj.type,
+    paramsObj.make,
+    paramsObj.model,
+    paramsObj.year,
+    // paramsObj.typeId,
+    // paramsObj.makeId,
+    // paramsObj.modelId,
+    // paramsObj.yearId,
+  ]);
+
+  // useEffect(() => {
+
+  // }, [paramsObj.type, paramsObj.make, paramsObj.typeId, paramsObj.makeId]);
 
   const getUrlFromBreadcrumbs = (index: number): string => {
     let returnString = '';

@@ -58,6 +58,9 @@ export default function EditVehicleDropdown({
     make: makeParam,
     model: modelParam,
     year: yearParam,
+    isMakePage,
+    isModelPage,
+    isYearPage,
   } = useDetermineType();
 
   const [query, setQuery] = useState<TQuery>({
@@ -80,28 +83,28 @@ export default function EditVehicleDropdown({
       if (query.type) {
         const res = await getTypeID(query.type);
         setQuery((prev) => {
-          return { ...prev, typeId: res };
+          return { ...prev, typeId: String(res) };
         });
       }
 
       if (query.make) {
         const res = await getMakeID(query.make);
         setQuery((prev) => {
-          return { ...prev, makeId: res };
+          return { ...prev, makeId: String(res) };
         });
       }
 
       if (query.model) {
         const res = await getModelID(query.model);
         setQuery((prev) => {
-          return { ...prev, modelId: res };
+          return { ...prev, modelId: String(res) };
         });
       }
 
       if (query.year) {
         const res = await getYearID(query.year);
         setQuery((prev) => {
-          return { ...prev, yearId: res };
+          return { ...prev, yearId: String(res) };
         });
       }
     };
@@ -113,47 +116,48 @@ export default function EditVehicleDropdown({
   const router = useRouter();
   const { year, type, make, model, submodel1, submodel2, parent_generation } =
     query;
-  useEffect(() => {
-    const getSearchData = async () => {
-      try {
-        setLoading(true);
-        if (!make) return;
-        // console.log('EditVehicleDropdown', { type, make, model });
-        if (type !== 'Seat Covers') {
-          // const response = await fetch(
-          //   `/api/json-data?type=${slugify(type)}&make=${slugify(make)}`
-          // );
-          // const jsonData = await response.json();
 
-          // setJsonData(jsonData);
-          const response = await getProductData({
-            type,
-            cover: 'Premium Plus',
-            make: slugify(make),
-          });
-          // console.log('[EdhitVehicleDropdown getProductResponse]:', response);
-          setJsonData(response);
-          return;
-        }
+  // useEffect(() => {
+  //   const getSearchData = async () => {
+  //     try {
+  //       setLoading(true);
+  //       if (!make) return;
+  //       // console.log('EditVehicleDropdown', { type, make, model });
+  //       if (type !== 'Seat Covers') {
+  //         // const response = await fetch(
+  //         //   `/api/json-data?type=${slugify(type)}&make=${slugify(make)}`
+  //         // );
+  //         // const jsonData = await response.json();
 
-        const response = await getProductData({
-          type,
-          cover: 'Leather',
-          make: slugify(make),
-        });
-        console.log('Response Seat Covers: ', response);
+  //         // setJsonData(jsonData);
+  //         const response = await getProductData({
+  //           type,
+  //           cover: 'Premium Plus',
+  //           make: slugify(make),
+  //         });
+  //         // console.log('[EdhitVehicleDropdown getProductResponse]:', response);
+  //         setJsonData(response);
+  //         return;
+  //       }
 
-        setJsonData(response);
-      } catch (error) {
-        console.error('[EditVehicleDropdown.getSearchData]: ', error);
-      } finally {
-        setLoading(false);
-      }
-    };
-    if (type && make) {
-      getSearchData();
-    }
-  }, [make, type]);
+  //       const response = await getProductData({
+  //         type,
+  //         cover: 'Leather',
+  //         make: slugify(make),
+  //       });
+  //       console.log('Response Seat Covers: ', response);
+
+  //       setJsonData(response);
+  //     } catch (error) {
+  //       console.error('[EditVehicleDropdown.getSearchData]: ', error);
+  //     } finally {
+  //       setLoading(false);
+  //     }
+  //   };
+  //   if (type && make) {
+  //     getSearchData();
+  //   }
+  // }, [make, type]);
 
   const dropdownData = jsonData.filter(
     (obj) =>
@@ -205,12 +209,15 @@ export default function EditVehicleDropdown({
     const submodelParam = searchParams?.submodel
       ? `?${createQueryString('submodel', searchParams.submodel)}`
       : '';
+
     const submodel2Param = searchParams?.second_submodel
       ? `&${createQueryString('submodel2', searchParams.second_submodel)}`
       : '';
+
     const queryParams = [submodelParam, submodel2Param]
       .filter((param) => param)
       .join('&');
+
     const currentUrl = `${pathname}${queryParams ? `${queryParams}` : ''}`;
     if (submodel1) {
       url += `?${createQueryString('submodel', submodel1)}`;
@@ -236,22 +243,12 @@ export default function EditVehicleDropdown({
     !model ||
     (subModelData.length > 1 && !submodel1);
 
-  const isMakePage = Boolean(
-    productType && makeParam && !modelParam && !yearParam
-  );
-  const isModelPage = Boolean(
-    productType && makeParam && modelParam && !yearParam
-  );
-  const isYearPage = Boolean(
-    productType && makeParam && modelParam && yearParam
-  );
-
   const determineDropdownOrder = () => {
     switch (true) {
       case isMakePage:
         return (
           <>
-            <TypeSearch queryObj={queryObj} />
+            {/* <TypeSearch queryObj={queryObj} /> */}
             <MakeSearch queryObj={queryObj} />
             <YearSearch queryObj={queryObj} />
             <ModelSearch queryObj={queryObj} />
@@ -260,7 +257,7 @@ export default function EditVehicleDropdown({
       case isModelPage:
         return (
           <>
-            <TypeSearch queryObj={queryObj} />
+            {/* <TypeSearch queryObj={queryObj} /> */}
             <MakeSearch queryObj={queryObj} />
             <ModelSearch queryObj={queryObj} />
             <YearSearch queryObj={queryObj} />
@@ -269,7 +266,7 @@ export default function EditVehicleDropdown({
       case isYearPage:
         return (
           <>
-            <TypeSearch queryObj={queryObj} />
+            {/* <TypeSearch queryObj={queryObj} /> */}
             <YearSearch queryObj={queryObj} />
             <MakeSearch queryObj={queryObj} />
             <ModelSearch queryObj={queryObj} />
@@ -278,7 +275,7 @@ export default function EditVehicleDropdown({
       default:
         return (
           <>
-            <TypeSearch queryObj={queryObj} />
+            {/* <TypeSearch queryObj={queryObj} /> */}
             <YearSearch queryObj={queryObj} />
             <MakeSearch queryObj={queryObj} />
             <ModelSearch queryObj={queryObj} />
@@ -289,10 +286,6 @@ export default function EditVehicleDropdown({
 
   return (
     <div className="z-100 relative flex w-full flex-col items-stretch  gap-[16px] *:flex-1">
-      {/* <TypeSearch queryObj={queryObj} />
-      <YearSearch queryObj={queryObj} />
-      <MakeSearch queryObj={queryObj} />
-      <ModelSearch queryObj={queryObj} /> */}
       {determineDropdownOrder()}
       <Button
         className={`mx-auto h-[40px] max-h-[44px] min-h-[44px] w-full max-w-[px] rounded-[4px] ${isDisabled ? 'bg-[black]' : 'bg-[#BE1B1B]'} text-lg `}

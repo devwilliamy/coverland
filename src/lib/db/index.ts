@@ -232,7 +232,53 @@ export async function getAllUniqueModelsByYearMake({
   //   year,
   //   make,
   // });
+
   return { uniqueCars, uniqueModels, data };
+}
+
+export async function getAllYearsByTypeMakeModel(
+  typeId: number,
+  makeId: number,
+  modelId: number
+) {
+  const { data, error } = await supabase
+    .from(RELATIONS_PRODUCT_TABLE)
+    .select(
+      `*,Years(*),Model(*),${PRODUCT_DATA_TABLE}(id,model,model_slug, parent_generation, submodel1, submodel2, submodel3)`
+    )
+    .eq('type_id', Number(typeId))
+    .eq('make_id', Number(makeId))
+    .eq('model_id', Number(modelId))
+    .order('name', { foreignTable: 'Years', ascending: false });
+
+  if (error) {
+    throw new Error(error.message);
+  }
+
+  const allProductData = data.map((relation) => relation[PRODUCT_DATA_TABLE]);
+
+  const allYears = data
+    .map((relation) => relation.Years)
+    .sort((a, b) => a.name.localeCompare(b.name));
+
+  const uniqueYears = allYears.filter(
+    (currentYear, index, self) =>
+      index === self.findIndex((year) => year.id === currentYear.id)
+  );
+
+  const yearData = allProductData.filter(
+    (year, index, self) =>
+      index ===
+      self.findIndex(
+        (t) =>
+          t.year_generation === year.year_generation &&
+          t.submodel1 === year.submodel1 &&
+          t.submodel2 === year.submodel2 &&
+          t.submodel3 === year.submodel3
+      )
+  );
+  console.log({ allYears, uniqueYears, yearData });
+  return { allYears, uniqueYears, yearData };
 }
 
 export async function getAllModels({
@@ -362,7 +408,87 @@ export async function getDistinctMakesByType(type: string) {
   return filteredMakes;
 }
 
-export async function getDistinctModelsByTypeMake(type: string, make: string) {
+export async function getDistinctModelsByTypeMake(
+  type_id: number,
+  make_id: number
+) {
+  // const { data, error } = await supabase.rpc(
+  //   'get_distinct_models_by_type_make',
+  //   {
+  //     type: type,
+  //     make: make,
+  //   }
+  // );
+
+  const { data, error } = await supabase
+    .from(RELATIONS_PRODUCT_TABLE)
+    .select(
+      `*,Model(*),${PRODUCT_DATA_TABLE}(id,model,model_slug, parent_generation, submodel1, submodel2, submodel3)`
+    )
+    // .eq('year_id', Number(yearId))
+    .eq('type_id', Number(type_id))
+    .eq('make_id', Number(make_id));
+
+  if (error) {
+    throw new Error(error.message);
+  }
+
+  // let modelData: any[] = [];
+  // // let submodelData: any[] = [];
+  // data.map((obj: any) => {
+  //   if (obj?.model) {
+  //     modelData.push(obj);
+  //   }
+  // });
+
+  // let uniqueModels: any[] = [];
+
+  // const preppedModels = modelData.filter((data) => {
+  //   if (!uniqueModels.includes(data.model)) {
+  //     uniqueModels.push(data.model);
+  //   }
+  // });
+
+  const allProductData = data.map((relation) => relation[PRODUCT_DATA_TABLE]);
+
+  const models = data
+    .map((relation) => relation.Model)
+    .sort((a, b) => a.name.localeCompare(b.name));
+
+  const uniqueModels = models.filter(
+    (model, index, self) => index === self.findIndex((m) => m.id === model.id)
+  );
+
+  const uniqueCars = allProductData.filter(
+    (car, index, self) =>
+      index ===
+      self.findIndex(
+        (t) =>
+          t.model_slug === car.model_slug &&
+          t.submodel1 === car.submodel1 &&
+          t.submodel2 === car.submodel2 &&
+          t.submodel3 === car.submodel3
+      )
+  );
+  // (car, index, self) =>
+  //   index ===
+  //   self.findIndex(
+  //     (t) =>
+  //       t.model_slug === car.model_slug &&
+  //       t.submodel1 === car.submodel1 &&
+  //       t.submodel2 === car.submodel2 &&
+  //       t.submodel3 === car.submodel3
+  //   );
+
+  // console.log({ modelData, uniqueModels, uniqueCars });
+
+  return { modelData: models, uniqueModels, uniqueCars };
+}
+
+export async function breadcrumbsGetDistinctModelByTypeMake(
+  type: string,
+  make: string
+) {
   const { data, error } = await supabase.rpc(
     'get_distinct_models_by_type_make',
     {
@@ -380,6 +506,28 @@ export async function getDistinctModelsByTypeMake(type: string, make: string) {
   });
 
   return filteredData;
+}
+
+export async function getDistinctModelsByTypeMakeSlug(
+  type: string,
+  make_slug: string
+) {
+  console.log({ type, make_slug });
+
+  const { data, error } = await supabase.rpc(
+    'get_distinct_models_by_type_make_slug',
+    {
+      type: type,
+      make: make_slug,
+    }
+  );
+
+  if (error) {
+    throw new Error(error.message);
+  }
+  console.log('[Fetched Model Data]: ', data);
+
+  return data;
 }
 
 export async function getDistinctYearsByTypeMakeModel(
@@ -453,6 +601,38 @@ export async function getTypeID(type: string) {
   const id = data[0].id;
 
   return id;
+}
+
+export async function editVehicleGetAllMakes() {
+  const { data, error } = await supabase.from('Make').select('id, name, slug');
+  if (error) {
+    throw new Error(error.message);
+  }
+  // console.log(data);
+
+  return data;
+}
+
+export async function editVehicleGetAllModelsByTypeIdMakeID(
+  type_id: number,
+  make_id: number
+) {
+  console.log({ type_id, make_id });
+
+  const { data, error } = await supabase.rpc(
+    'get_model_by_type_id_make_id_relation',
+    {
+      type_id_web: type_id,
+      make_id_web: make_id,
+    }
+  );
+
+  if (error) {
+    console.error(error.message);
+  }
+  console.log(data);
+
+  return data;
 }
 
 export async function getMakeID(make: string) {

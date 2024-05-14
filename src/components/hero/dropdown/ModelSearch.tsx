@@ -8,9 +8,17 @@ import {
   useState,
 } from 'react';
 import { TQuery } from './HeroDropdown';
-import { getAllUniqueModelsByYearMake } from '@/lib/db';
+import {
+  editVehicleGetAllModelsByTypeIdMakeID,
+  getAllUniqueModelsByYearMake,
+  getDistinctModelsByTypeMake,
+  getDistinctModelsByTypeMakeSlug,
+  // getUniqueModelsByTypeMake,
+} from '@/lib/db';
 import { SubmodelDropdown } from './SubmodelDropdown';
 import MainDropdown from './MainDropdown';
+import useDetermineType from '@/hooks/useDetermineType';
+import { deslugify } from '@/lib/utils';
 
 export type ModelDropdown = {
   model: string | null;
@@ -22,20 +30,19 @@ export type ModelDropdown = {
 };
 export function ModelSearch({
   queryObj,
+  isBreadCrumb = false,
 }: {
   queryObj: {
     query: TQuery;
     setQuery: Dispatch<SetStateAction<TQuery>>;
   };
+  isBreadCrumb?: boolean;
 }) {
-  const [value, setValue] = useState('');
   const [modelData, setModelData] = useState<ModelDropdown[]>([]);
   const [modelDataStrings, setModelDataStrings] = useState<string[]>([]);
-  const [filteredModelData, setFilteredModelData] = useState<ModelDropdown[]>(
-    []
-  );
   const [submodelData, setSubmodelData] = useState<ModelDropdown[]>([]);
-  const [submodelDataStrings, setSubmodelDataStrings] = useState<string[]>([]);
+
+  const { isMakePage, isModelPage } = useDetermineType();
 
   const {
     query: { type, year, make, model, modelId, makeId, yearId, typeId },
@@ -54,10 +61,7 @@ export function ModelSearch({
     }
   }, [model, modelData, setQuery, modelId]);
 
-  useEffect(() => {
-    setValue('');
-  }, [type, year, make, makeId, typeId, yearId]);
-
+  // Get Unique Models By Type / Year / Make
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -77,8 +81,8 @@ export function ModelSearch({
         );
         setModelData(response.uniqueCars);
         setModelDataStrings(response.uniqueModels);
-        setFilteredModelData(response.uniqueModels);
-        console.log({ response });
+
+        // console.log({ response });
       } catch (error) {
         console.error('[Model Search]: ', error);
       }
@@ -89,6 +93,28 @@ export function ModelSearch({
   }, [type, year, make, typeId, yearId, makeId]);
 
   useEffect(() => {
+    if (!isBreadCrumb && isModelPage && typeId && makeId) {
+      const getModels = async () => {
+        // console.log({ typeId, makeId });
+
+        const res = await getDistinctModelsByTypeMake(
+          Number(typeId),
+          Number(makeId)
+        );
+
+        const fetchedCars = res.uniqueCars;
+        const fetchedModels = res.uniqueModels;
+
+        setModelDataStrings(fetchedModels);
+        setModelData(fetchedCars as ModelDropdown[]);
+        // console.log({ fetchedCars, fetchedModels });
+      };
+
+      getModels();
+    }
+  }, [typeId, makeId]);
+
+  useEffect(() => {
     // Check for submodel
     const submodel = modelData.filter(
       (vehicle) => vehicle.model === model && vehicle.submodel1
@@ -97,16 +123,18 @@ export function ModelSearch({
     setSubmodelData(submodel);
   }, [model]);
 
-  const isDisabled = !type || !year || !make;
+  const determineDisabled = () => {
+    switch (true) {
+      case isModelPage:
+        return !type || !make;
+      default:
+        return !type || !year || !make;
+    }
+  };
+
+  const isDisabled = determineDisabled();
+
   const showSubmodelDropdown = submodelData.length > 0;
-  const prevSelected =
-    queryObj &&
-    Boolean(
-      queryObj.query.type &&
-        queryObj.query.year &&
-        queryObj.query.make &&
-        queryObj.query.model === ''
-    );
 
   return (
     <>
@@ -119,7 +147,7 @@ export function ModelSearch({
         prevSelected={!isDisabled}
         items={modelDataStrings}
       />
-      {showSubmodelDropdown && (
+      {!isMakePage && !isModelPage && showSubmodelDropdown && (
         <SubmodelDropdown queryObj={queryObj} submodelData={submodelData} />
       )}
     </>

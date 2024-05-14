@@ -55,11 +55,8 @@ export default function MainDropdown({
   >([]);
   const isActive = prevSelected || selectedValue !== title;
   const isMobile = useMediaQuery('(max-width: 768px)');
-  const { productType, make, model, year } = useDetermineType();
+  const { isMakePage, isModelPage } = useDetermineType();
 
-  const isMakePage = Boolean(productType && make && !model && !year);
-  const isModelPage = Boolean(productType && make && model && !year);
-  const isYearPage = Boolean(productType && make && model && year);
   const handleYearData = ({
     newValue,
     id,
@@ -76,8 +73,23 @@ export default function MainDropdown({
             yearId: id as string,
           };
         });
+        break;
 
       case isMakePage:
+        setQuery((e) => {
+          return {
+            ...e,
+            make: e.make,
+            makeId: e.makeId,
+            year: newValue,
+            yearId: id as string,
+            model: '',
+            modelId: '',
+          };
+        });
+        break;
+
+      case isModelPage:
         setQuery((e) => {
           return {
             ...e,
@@ -85,6 +97,7 @@ export default function MainDropdown({
             yearId: id as string,
           };
         });
+        break;
 
       default:
         setQuery((e) => {
@@ -97,6 +110,121 @@ export default function MainDropdown({
             submodel2: '',
             parent_generation: '',
             yearId: id as string,
+          };
+        });
+        break;
+    }
+  };
+  const handleMakeData = ({
+    newValue,
+    id,
+  }: {
+    newValue: string;
+    id?: string;
+  }) => {
+    switch (true) {
+      case isBreadCrumb:
+        setQuery((e) => {
+          return {
+            ...e,
+            make: newValue as string,
+            model: '',
+            year: '',
+            makeId: id as string,
+          };
+        });
+        break;
+
+      case isMakePage:
+        setQuery((e) => {
+          return {
+            ...e,
+            make: newValue,
+            makeId: id as string,
+            year: '',
+            yearId: '',
+            model: '',
+            modelId: '',
+          };
+        });
+
+      case isModelPage:
+        setQuery((e) => {
+          return {
+            ...e,
+            make: newValue,
+            makeId: id as string,
+            year: '',
+            yearId: '',
+            model: '',
+            modelId: '',
+          };
+        });
+
+      default:
+        setQuery((e) => {
+          return {
+            ...e,
+            make: newValue as string,
+            model: '',
+            submodel1: '',
+            submodel2: '',
+            parent_generation: '',
+            makeId: id as string,
+          };
+        });
+    }
+  };
+  const handleModelData = ({
+    newValue,
+    id,
+  }: {
+    newValue: string;
+    id?: string;
+  }) => {
+    switch (true) {
+      case isBreadCrumb:
+        setQuery((e) => {
+          return {
+            ...e,
+            model: newValue,
+            year: '',
+            modelId: id as string,
+          };
+        });
+        break;
+
+      case isMakePage:
+        setQuery((e) => {
+          return {
+            ...e,
+            model: newValue,
+            modelId: id as string,
+          };
+        });
+        break;
+
+      case isModelPage:
+        setQuery((e) => {
+          return {
+            ...e,
+            model: newValue,
+            modelId: id as string,
+            year: '',
+            yearId: '',
+          };
+        });
+        break;
+
+      default:
+        setQuery((e) => {
+          return {
+            ...e,
+            model: newValue,
+            submodel1: '',
+            submodel2: '',
+            parent_generation: '',
+            modelId: id as string,
           };
         });
         break;
@@ -131,52 +259,10 @@ export default function MainDropdown({
         handleYearData({ newValue, id });
         break;
       case 'make':
-        if (isBreadCrumb) {
-          setQuery((e) => {
-            return {
-              ...e,
-              make: newValue as string,
-              model: '',
-              year: '',
-              makeId: id as string,
-            };
-          });
-        } else {
-          setQuery((e) => {
-            return {
-              ...e,
-              make: newValue as string,
-              model: '',
-              submodel1: '',
-              submodel2: '',
-              parent_generation: '',
-              makeId: id as string,
-            };
-          });
-        }
+        handleMakeData({ newValue, id });
         break;
       case 'model':
-        if (isBreadCrumb) {
-          setQuery((e) => {
-            return {
-              ...e,
-              model: newValue,
-              year: '',
-              modelId: id as string,
-            };
-          });
-        } else {
-          setQuery((e) => {
-            return {
-              ...e,
-              model: newValue,
-              submodel1: '',
-              submodel2: '',
-              parent_generation: '',
-              modelId: id as string,
-            };
-          });
-        }
+        handleModelData({ newValue, id });
         break;
       case 'submodel1':
         setQuery((e) => {
@@ -456,7 +542,7 @@ export default function MainDropdown({
                                 handleOnMouseDown(filteredItem, i);
                               }}
                             >
-                              {item.name ? item.name : item}
+                              {item?.name ? item.name : item}
                             </div>
                           ))}
                         </>
@@ -472,7 +558,7 @@ export default function MainDropdown({
                                 handleOnMouseDown(item, i);
                               }}
                             >
-                              {item.name ? item.name : item}{' '}
+                              {item?.name ? item.name : item}{' '}
                             </div>
                           ))}
                         </>

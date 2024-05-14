@@ -1,8 +1,10 @@
 'use client';
 import { ChangeEvent, useEffect, useState } from 'react';
 import { TQuery } from './HeroDropdown';
-import { getAllYearByType } from '@/lib/db';
+import { getAllYearByType, getAllYearsByTypeMakeModel } from '@/lib/db';
 import MainDropdown from './MainDropdown';
+import useDetermineType from '@/hooks/useDetermineType';
+import { SubmodelDropdown } from './SubmodelDropdown';
 
 type DateDropdown = { year_id: any; year: any }[] | null;
 export function YearSearch({
@@ -13,15 +15,22 @@ export function YearSearch({
     setQuery: React.Dispatch<React.SetStateAction<TQuery>>;
   };
 }) {
-  const [value, setValue] = useState('');
   const [yearData, setYearData] = useState<DateDropdown[]>([]);
-  const { type, year, typeId } = queryObj.query;
-  const isDisabled = !type;
-  const { setQuery } = queryObj;
+  const { type, year, typeId, make, makeId, model, modelId } = queryObj.query;
+  const { isMakePage, isModelPage } = useDetermineType();
+  const determineDisabled = () => {
+    switch (true) {
+      case isMakePage:
+        return !type || !make;
+      case isModelPage:
+        return !type || !make || !model;
+      default:
+        return !type;
+    }
+  };
 
-  useEffect(() => {
-    setValue('');
-  }, [type]);
+  const isDisabled = determineDisabled();
+  const { setQuery } = queryObj;
 
   const startYear = type === 'Seat Covers' ? 1949 : 1921;
   const endYear = 2025;
@@ -40,24 +49,54 @@ export function YearSearch({
       console.error('[Year Search]: ', error);
     }
   };
+
+  const getYearsAndSubmodels = async () => {
+    const fetchedYearsandSubmodels = await getAllYearsByTypeMakeModel(
+      Number(typeId),
+      Number(makeId),
+      Number(modelId)
+    );
+
+    const filteredYears = fetchedYearsandSubmodels.uniqueYears.map(
+      (yearObj) => {
+        return { id: yearObj?.id, name: yearObj?.name };
+      }
+    );
+    console.log({ filteredYears });
+
+    setYearData(filteredYears);
+  };
+
   useEffect(() => {
     if (typeId) {
       fetchDataYear();
     }
   }, [typeId]);
 
-  const prevSelected =
-    queryObj && queryObj.query.year === '' && queryObj.query.type !== '';
+  useEffect(() => {
+    if (typeId && makeId && modelId && (isMakePage || isModelPage)) {
+      getYearsAndSubmodels();
+    }
+  }, [typeId, makeId, modelId]);
+
+  // const prevSelected =
+  //   queryObj && queryObj.query.year === '' && queryObj.query.type !== '';
 
   return (
-    <MainDropdown
-      place={2}
-      title={'year'}
-      queryObj={queryObj}
-      value={year}
-      isDisabled={isDisabled}
-      prevSelected={prevSelected}
-      items={yearData}
-    />
+    <>
+      <MainDropdown
+        place={2}
+        title={'year'}
+        queryObj={queryObj}
+        value={year}
+        isDisabled={isDisabled}
+        prevSelected={!isDisabled}
+        items={yearData}
+      />
+      {/* {isMakePage ||
+        (isModelPage && showSubmodelDropdown && (
+          <SubmodelDropdown queryObj={queryObj} submodelData={submodelData} />
+        ))} */}
+    </>
   );
 }

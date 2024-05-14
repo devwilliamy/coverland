@@ -20,6 +20,8 @@ type ParamsType = {
 function useDetermineType() {
   const params = useParams<ParamsType>();
   const pathname = usePathname();
+  const { make, model, year } = params as ParamsType;
+
   // Product Types
   const productType = params?.productType;
   const isTruckCover = productType === TRUCK_COVERS_URL_PARAM;
@@ -38,7 +40,9 @@ function useDetermineType() {
   const isPremiumType = isDefaultCoverType || isPremium;
   const isStandardType = isStandard || isStandardPro;
 
-  const { make, model, year } = params as ParamsType;
+  const isMakePage = Boolean(productType && make && !model && !year);
+  const isModelPage = Boolean(productType && make && model && !year);
+  const isYearPage = Boolean(productType && make && model && year);
 
   return {
     make,
@@ -58,6 +62,9 @@ function useDetermineType() {
     isDefaultCoverType,
     isPremiumType,
     isStandardType,
+    isMakePage,
+    isModelPage,
+    isYearPage,
   };
 }
 

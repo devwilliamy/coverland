@@ -22,7 +22,6 @@ export function SubmodelDropdown({
   };
   submodelData: ModelDropdown[];
 }) {
-  const [value, setValue] = useState('');
   const [secondSubmodelData, setSecondSubmodelData] = useState<ModelDropdown[]>(
     []
   );
@@ -41,10 +40,6 @@ export function SubmodelDropdown({
   ).map((submodel) => ({
     name: submodel,
   }));
-
-  useEffect(() => {
-    setValue('');
-  }, [model]);
 
   useEffect(() => {
     // Check for second submodel

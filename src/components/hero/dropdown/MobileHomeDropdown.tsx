@@ -47,21 +47,25 @@ export default function MobileHomeDropdown({
         {items && items.length > 0 && (
           <>
             {items.map((item, i) => {
-              const deslugItem = item.name ? item.name : item;
+              // const deslugItem = item.name ? item.name : item;
               // const deslugItemName = deslugify(item.name);
-              const isSame = desluggedVal === deslugify(deslugItem);
-              if (isSame) {
-                console.log({ desluggedVal, deslugItem, isSame, value });
-              }
+              // const isSame = desluggedVal === deslugify(deslugItem);
+              // if (isSame) {
+              //   console.log({ desluggedVal, deslugItem, isSame, value });
+              // }
               return (
                 <option
                   key={`mobile-${title}-${i}`}
-                  id={`${title}-${item.id}-${i}`}
-                  value={item.name ? item.name : item}
+                  id={
+                    item?.id
+                      ? `${title}-${item.id}-${i}`
+                      : `${title}-${item}-${i}`
+                  }
+                  value={item?.name ? item.name : item}
                   // selected={isSame}
                   className={`flex py-1 pl-[20px] hover:bg-[#BE1B1B] hover:text-white ${i === selectedIndex && 'bg-[#BE1B1B] text-white'}`}
                 >
-                  {item.name ? item.name : item}
+                  {item?.name ? item.name : item}
                 </option>
               );
             })}
