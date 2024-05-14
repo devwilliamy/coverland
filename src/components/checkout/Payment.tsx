@@ -145,16 +145,41 @@ export default function Payment() {
             // shippingInfo,
             // billingInfo,
           };
-          const response = await fetch('/api/email/thank-you', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ emailInput }),
-          });
+          try {
+            const response = await fetch('/api/email/thank-you', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({ emailInput }),
+            });
+            const emailResponse = await response.json(); // Making sure the await goes through and email is sent
+          } catch (error) {
+            console.error('Error:', error?.message);
+            setMessage(
+              error?.message ||
+                "There's an error, but could not find error message"
+            );
+          }
+          const enhancedGoogleCovnersionInput = {
+            email: customerInfo.email || '',
+            phone_number: shippingAddress.phone || '',
+            first_name: shippingAddress.firstName || '',
+            last_name: shippingAddress.lastName || '',
+            address_line1: shippingAddress.address.line1 || '',
+            city: shippingAddress.address.city || '',
+            state: shippingAddress.address.state || '',
+            postal_code: shippingAddress.address.postal_code || '',
+            country: shippingAddress.address.country || '',
+          };
 
-          await response.json();
-          handlePurchaseGoogleTag(cartItems, orderNumber, getTotalPrice().toFixed(2), clearLocalStorageCart)
+          handlePurchaseGoogleTag(
+            cartItems,
+            orderNumber,
+            getTotalPrice().toFixed(2),
+            clearLocalStorageCart,
+            enhancedGoogleCovnersionInput
+          );
 
           const { id, client_secret } = result.paymentIntent;
           router.push(
