@@ -73,9 +73,7 @@ export async function getProductData({
     fetch = fetch.eq('model_slug', model);
   }
 
-  if (!make) {
-    fetch = fetch.not('product_video_360', 'is', null);
-  }
+  fetch = fetch.neq('quantity', '0');
 
   const { data, error } = await fetch.limit(1000);
 
@@ -146,6 +144,7 @@ export async function getAllUniqueMakesByYear({
       type_id_web: Number(typeId),
       year_id_web: Number(yearId),
     });
+
   if (error) {
     throw new Error(error.message);
   }
@@ -179,23 +178,24 @@ export async function getAllUniqueModelsByYearMake({
   const { data, error } = await supabase
     .from(RELATIONS_PRODUCT_TABLE)
     .select(
-      `*,Model(*),${PRODUCT_DATA_TABLE}(id,model,model_slug, parent_generation, submodel1, submodel2, submodel3)`
+      `*,Model(*),${PRODUCT_DATA_TABLE}(id,model,model_slug, parent_generation, submodel1, submodel2, submodel3, quantity)`
     )
     .eq('year_id', Number(yearId))
     .eq('type_id', Number(typeId))
     .eq('make_id', Number(makeId))
+    .neq(`${PRODUCT_DATA_TABLE}.quantity`, 0)
     .order('name', { foreignTable: 'Model', ascending: false });
 
   if (error) {
     throw new Error(error.message);
   }
-
-  const allProductData = data.map((relation) => relation[PRODUCT_DATA_TABLE]);
-
+  const allProductData = data
+    .map((relation) => relation[PRODUCT_DATA_TABLE])
+    .filter((item) => item !== null);
   const models = data
+    .filter((relation) => relation[PRODUCT_DATA_TABLE] !== null)
     .map((relation) => relation.Model)
     .sort((a, b) => a.name.localeCompare(b.name));
-
   const uniqueModels = models.filter(
     (model, index, self) => index === self.findIndex((m) => m.id === model.id)
   );

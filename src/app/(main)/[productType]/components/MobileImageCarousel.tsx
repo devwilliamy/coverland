@@ -73,7 +73,23 @@ const MobileImageCarousel = () => {
   const { productType, model } = useDetermineType();
   let baseListingVideo = CarListing;
   let baseListingVideoThumbnail = Car360Thumb;
-
+  switch (productType) {
+    case 'truck-covers': {
+      baseListingVideo = TruckListingVideo;
+      baseListingVideoThumbnail = TruckListingThumb;
+      break;
+    }
+    case 'suv-covers': {
+      baseListingVideo = SUVListing;
+      baseListingVideoThumbnail = SUVListingThumb;
+      break;
+    }
+    default: {
+      baseListingVideo = CarListing;
+      baseListingVideoThumbnail = Car360Thumb;
+      break;
+    }
+  }
   const isCorvette = model === 'corvette';
   const isChallenger = model === 'challenger';
   const ChallengerOrDefaultVideo = isChallenger
@@ -101,23 +117,6 @@ const MobileImageCarousel = () => {
     if (!api) {
       return;
     }
-    switch (productType) {
-      case 'truck-covers': {
-        baseListingVideo = TruckListingVideo;
-        baseListingVideoThumbnail = TruckListingThumb;
-        break;
-      }
-      case 'suv-covers': {
-        baseListingVideo = SUVListing;
-        baseListingVideoThumbnail = SUVListingThumb;
-        break;
-      }
-      default: {
-        baseListingVideo = CarListing;
-        baseListingVideoThumbnail = Car360Thumb;
-        break;
-      }
-    }
 
     setCurrent(api.selectedScrollSnap());
 
@@ -134,18 +133,6 @@ const MobileImageCarousel = () => {
   const handleCarouselItemClick = (index: number) => {
     scrollTo(index);
   };
-
-  // useEffect(() => {
-  // console.log('Selected Product:', selectedProduct);
-  // console.log(
-  //   'THumbnail url',
-  //   (selectedProduct?.product_video_carousel_thumbnail || '').substring(
-  //     (selectedProduct?.product_video_carousel_thumbnail || '').indexOf(
-  //       '/video'
-  //     )
-  //   ) || ''
-  // );
-  // }, []);
 
   return (
     <div className="flex max-w-full flex-col bg-white lg:hidden ">
@@ -211,7 +198,7 @@ const MobileImageCarousel = () => {
                   width={500}
                   height={500}
                   onError={() => {
-                    console.log('Failed image:', `${image}`);
+                    console.error('Failed image:', `${image}`);
                   }}
                   className="h-auto w-full"
                 />

@@ -28,6 +28,7 @@ export function YearSearch({
         return !type;
     }
   };
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const isDisabled = determineDisabled();
   const { setQuery } = queryObj;
@@ -41,12 +42,15 @@ export function YearSearch({
 
   const fetchDataYear = async () => {
     try {
+      setIsLoading(true);
       const response = await getAllYearByType({
         type: typeId,
       });
       setYearData(response);
     } catch (error) {
       console.error('[Year Search]: ', error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -92,6 +96,7 @@ export function YearSearch({
         isDisabled={isDisabled}
         prevSelected={!isDisabled}
         items={yearData}
+        isLoading={isLoading}
       />
       {/* {isMakePage ||
         (isModelPage && showSubmodelDropdown && (

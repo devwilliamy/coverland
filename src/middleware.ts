@@ -24,7 +24,7 @@ export function middleware(request: NextRequest) {
     TRUCK_COVERS_URL_PARAM,
   ];
   const coverTypes = [PREMIUM_PLUS_URL_PARAM];
-  const outdatedTypes = [
+  const outdatedCoverTypes = [
     PREMIUM_URL_PARAM,
     STANDARD_PRO_URL_PARAM,
     STANDARD_URL_PARAM,
@@ -39,12 +39,19 @@ export function middleware(request: NextRequest) {
   );
 
   const HOME_REDIRECT = NextResponse.redirect(new URL(`/`, request.url), 301);
+  const WILLY_SPEEDWAY_REDIRECT = NextResponse.redirect(
+    new URL(
+      `/${CAR_COVERS_URL_PARAM}/${PREMIUM_PLUS_URL_PARAM}/willys/speedway/1939-1942`,
+      request.url
+    ),
+    301
+  );
   const SEAT_COVERS_LEATHER_REDIRECT = NextResponse.redirect(
     new URL(`/seat-covers/leather`, request.url),
     301
   );
 
-  const slashStartSegment = segments[0];
+  let slashStartSegment = segments[0];
   const firstHyphenSegment = hyphenSegments[0];
   const secondHyphenSegment = hyphenSegments[1];
   const thirdHyphenSegment = hyphenSegments[2];
@@ -76,7 +83,7 @@ export function middleware(request: NextRequest) {
     endHyphenString === SUV_COVERS_URL_PARAM ||
     endHyphenString === TRUCK_COVERS_URL_PARAM;
   const unwantedSymbols = [',-', ',', '(', ')', '.', '&-', ',-', '-,'];
-  const specificUrlObj: Record<string, string> = {
+  const specificUrlsObj: Record<string, string> = {
     'chevrolet/camaro/1982-1988': 'chevrolet/camaro/1982-1992',
     'chevrolet/camaro/1989-2002': 'chevrolet/camaro/1993-2002',
     'chevrolet/el-camino/1964-1972': 'chevrolet/el-camino/1964-1967',
@@ -128,7 +135,7 @@ export function middleware(request: NextRequest) {
       let make = '';
       let model = '';
       let year;
-
+      //     /{year}-{make}-{model}-{vehicle-type}
       if (firstSegIsNum && firstHyphenSegment.length === 4) {
         const { year_generation } = await getProductWithoutType({
           year: firstHyphenSegment,
@@ -138,7 +145,9 @@ export function middleware(request: NextRequest) {
         make = secondHyphenSegment;
         model = thirdHyphenSegment;
         year = year_generation;
-      } else if (thirdSegIsNum && thirdHyphenSegment.length === 4) {
+      }
+      //    /{make}-{model}-{year}-{vehicle-type}
+      else if (thirdSegIsNum && thirdHyphenSegment.length === 4) {
         const { year_generation } = await getProductWithoutType({
           year: thirdHyphenSegment,
           make: firstHyphenSegment,
@@ -148,8 +157,9 @@ export function middleware(request: NextRequest) {
         model = secondHyphenSegment;
         year = year_generation;
       }
+      // Generate URL string for the NEXT response
       urlString +=
-        endHyphenString +
+        CAR_COVERS_URL_PARAM +
         '/' +
         PREMIUM_PLUS_URL_PARAM +
         '/' +
@@ -166,13 +176,13 @@ export function middleware(request: NextRequest) {
   // Has Product Type, and if segments does not have coverType
   // MMY = Make Model Year
   if (productTypes.includes(slashStartSegment)) {
-    for (const segmentKey in specificUrlObj) {
+    for (const segmentKey in specificUrlsObj) {
       const incomingMMYSegment = `${slashMakeSegment}/${slashModelSegment}/${slashYearSegment}`;
       if (segmentKey === incomingMMYSegment) {
-        const correctMMYSegment = specificUrlObj[segmentKey];
+        const correctMMYSegment = specificUrlsObj[segmentKey];
         return NextResponse.redirect(
           new URL(
-            `/${slashStartSegment}/${PREMIUM_PLUS_URL_PARAM}/${correctMMYSegment}`,
+            `/${CAR_COVERS_URL_PARAM}/${PREMIUM_PLUS_URL_PARAM}/${correctMMYSegment}`,
             request.url
           ),
           301
@@ -182,16 +192,19 @@ export function middleware(request: NextRequest) {
 
     if (segments.length === 1) {
       return NextResponse.redirect(
-        new URL(`/${slashStartSegment}/${PREMIUM_PLUS_URL_PARAM}`, request.url),
+        new URL(
+          `/${CAR_COVERS_URL_PARAM}/${PREMIUM_PLUS_URL_PARAM}`,
+          request.url
+        ),
         301
       );
     }
 
     // Redirect outdated types to premium-plus
-    else if (outdatedTypes.some((type) => segments.includes(type))) {
+    else if (outdatedCoverTypes.some((type) => segments.includes(type))) {
       return NextResponse.redirect(
         new URL(
-          `/${slashStartSegment}/${PREMIUM_PLUS_URL_PARAM}/${segments.slice(2).join('/')}${search}`,
+          `/${CAR_COVERS_URL_PARAM}/${PREMIUM_PLUS_URL_PARAM}/${segments.slice(2).join('/')}${search}`,
           request.url
         ),
         301
@@ -207,12 +220,12 @@ export function middleware(request: NextRequest) {
     ) {
       const paramsObj = generateSearchObj();
       const objectLength = Object.keys(paramsObj).length;
-      let urlString = `/${slashStartSegment}/${PREMIUM_PLUS_URL_PARAM}/${slashMakeSegment.toLowerCase()}/${slashModelSegment.toLowerCase()}/`;
+      let urlString = `/${CAR_COVERS_URL_PARAM}/${PREMIUM_PLUS_URL_PARAM}/${slashMakeSegment.toLowerCase()}/${slashModelSegment.toLowerCase()}/`;
 
       if (objectLength > 0 && !paramsObj.submodel && !paramsObj.submodel2) {
         return NextResponse.redirect(
           new URL(
-            `/${slashStartSegment}/${PREMIUM_PLUS_URL_PARAM}/${segments.slice(2).join('/')}`,
+            `/${CAR_COVERS_URL_PARAM}/${PREMIUM_PLUS_URL_PARAM}/${segments.slice(2).join('/')}`,
             request.url
           ),
           301
@@ -221,7 +234,7 @@ export function middleware(request: NextRequest) {
       if (objectLength > 2 && paramsObj.submodel && paramsObj.submodel2) {
         return NextResponse.redirect(
           new URL(
-            `/${slashStartSegment}/${PREMIUM_PLUS_URL_PARAM}/${segments.slice(2).join('/')}?submodel=${paramsObj.submodel}&submodel2=${paramsObj.submodel2}`,
+            `/${CAR_COVERS_URL_PARAM}/${PREMIUM_PLUS_URL_PARAM}/${segments.slice(2).join('/')}?submodel=${paramsObj.submodel}&submodel2=${paramsObj.submodel2}`,
             request.url
           ),
           301
@@ -243,7 +256,7 @@ export function middleware(request: NextRequest) {
       return NextResponse.redirect(
         // Slicing modelSegment from url and replacing it with new segment
         new URL(
-          `/${slashStartSegment}/${PREMIUM_PLUS_URL_PARAM}/${segments[2]}/${newMakeSegment}/${segments.slice(3).join('/')}${search}`,
+          `/${CAR_COVERS_URL_PARAM}/${PREMIUM_PLUS_URL_PARAM}/${segments[2]}/${newMakeSegment}/${segments.slice(3).join('/')}${search}`,
           request.url
         ),
         301
@@ -261,7 +274,7 @@ export function middleware(request: NextRequest) {
       return NextResponse.redirect(
         // Slicing modelSegment from url and replacing it with new segment
         new URL(
-          `/${slashStartSegment}/${PREMIUM_PLUS_URL_PARAM}/${segments.slice(2, 3)}/${newModelSegment}/${segments.slice(4)}/${search}`,
+          `/${CAR_COVERS_URL_PARAM}/${PREMIUM_PLUS_URL_PARAM}/${segments.slice(2, 3)}/${newModelSegment}/${segments.slice(4)}/${search}`,
           request.url
         ),
         301
@@ -275,13 +288,15 @@ export function middleware(request: NextRequest) {
     ) {
       return NextResponse.redirect(
         new URL(
-          `/${slashStartSegment}/${PREMIUM_PLUS_URL_PARAM}/${segments.slice(2).join('/')}${search}`,
+          `/${CAR_COVERS_URL_PARAM}/${PREMIUM_PLUS_URL_PARAM}/${segments.slice(2).join('/')}${search}`,
           request.url
         ),
         301
       );
     }
-  } else if (outdatedTypes.includes(slashStartSegment)) {
+  } else if (pathname.toLowerCase() === '/willys-speedway-car-covers') {
+    return WILLY_SPEEDWAY_REDIRECT;
+  } else if (outdatedCoverTypes.includes(slashStartSegment)) {
     return PREMIUM_PLUS_REDIRECT;
   } else if (homeRedirects.includes(slashStartSegment)) {
     return HOME_REDIRECT;
@@ -292,6 +307,30 @@ export function middleware(request: NextRequest) {
     pathname.toLowerCase().startsWith(`/${SEAT_COVERS_URL_PARAM}`)
   ) {
     return SEAT_COVERS_LEATHER_REDIRECT;
+  }
+
+  if (
+    slashStartSegment === SUV_COVERS_URL_PARAM ||
+    slashStartSegment === TRUCK_COVERS_URL_PARAM
+  ) {
+    const searchObj = generateSearchObj();
+
+    if (searchObj.submodel && searchObj.submodel2) {
+      return NextResponse.redirect(
+        new URL(
+          `/${CAR_COVERS_URL_PARAM}/${PREMIUM_PLUS_URL_PARAM}/${segments.slice(2).join('/')}?submodel=${searchObj.submodel}&submodel2=${searchObj.submodel2}`,
+          request.url
+        ),
+        301
+      );
+    }
+    return NextResponse.redirect(
+      new URL(
+        `/${CAR_COVERS_URL_PARAM}/${PREMIUM_PLUS_URL_PARAM}/${segments.slice(2).join('/')}`,
+        request.url
+      ),
+      301
+    );
   }
 
   return NextResponse.next();

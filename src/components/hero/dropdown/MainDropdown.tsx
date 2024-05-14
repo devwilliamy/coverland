@@ -25,6 +25,7 @@ export default function MainDropdown({
   value,
   items,
   isBreadCrumb = false,
+  isLoading,
 }: {
   place: number;
   title: string;
@@ -37,6 +38,7 @@ export default function MainDropdown({
     query: TQuery;
     setQuery: Dispatch<SetStateAction<TQuery>>;
   };
+  isLoading: boolean;
 }) {
   const { setQuery } = queryObj;
   const params = Object(useParams());
@@ -527,10 +529,16 @@ export default function MainDropdown({
                     onKeyDown={handleOnKeyDown}
                   />
                 </div>
-                {items && items.length > 0 ? (
+                {isLoading ? (
+                  <div className="px-[10px] py-2">
+                    <AiOutlineLoading3Quarters className="animate-spin" />
+                  </div>
+                ) : items && items.length === 0 ? (
+                  <div className="px-[10px] py-2">No available items</div>
+                ) : (
                   <div className="relative z-[100] flex w-full flex-col justify-center">
                     <div className="home-scrollbar flex max-h-[700px] w-full flex-col overflow-y-auto overflow-x-clip">
-                      {filteredItems && filteredItems?.length > 0 ? (
+                      {filteredItems && filteredItems.length > 0 ? (
                         <>
                           {filteredItems?.map((filteredItem, i) => (
                             <div
@@ -542,13 +550,15 @@ export default function MainDropdown({
                                 handleOnMouseDown(filteredItem, i);
                               }}
                             >
-                              {item?.name ? item.name : item}
+                              {filteredItem?.name
+                                ? filteredItem.name
+                                : filteredItem}
                             </div>
                           ))}
                         </>
                       ) : (
                         <>
-                          {items.map((item, i) => (
+                          {items?.map((item, i) => (
                             <div
                               key={`${title}-${i}`}
                               id={`${title}-${i}`}
@@ -564,10 +574,6 @@ export default function MainDropdown({
                         </>
                       )}
                     </div>
-                  </div>
-                ) : (
-                  <div className="px-[10px] py-2">
-                    <AiOutlineLoading3Quarters className="animate-spin" />
                   </div>
                 )}
               </section>

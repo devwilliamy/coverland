@@ -112,6 +112,7 @@ export function MakeSearch({
       value={make}
       prevSelected={prevSelected}
       items={makeData}
+      isLoading={isLoading}
     />
   );
 }

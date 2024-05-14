@@ -2,8 +2,19 @@ import dynamic from 'next/dynamic';
 import Logo from '@/components/header/Logo';
 import { UserRound } from 'lucide-react';
 import Link from 'next/link';
+import { HiOutlineShoppingCart } from 'react-icons/hi';
 
-const Cart = dynamic(() => import('@/components/header/Cart'));
+const Cart = dynamic(() => import('@/components/header/Cart'), {
+  ssr: false,
+  loading: () => (
+    <div className="flex w-full items-center">
+      <HiOutlineShoppingCart
+        color={'#000000'}
+        className="mt-0.5 flex h-[20px] w-[20px] hover:cursor-pointer"
+      />
+    </div>
+  ),
+});
 const coverTypes = [
   { title: 'Car Covers', link: '/car-covers' },
   // { title: 'SUV Covers', link: '/suv-covers' },
@@ -35,7 +46,7 @@ function Header() {
         </section>
         <section className="min-h-[7px] w-full bg-black" />
         <section className="min-h-[40px] whitespace-nowrap bg-white px-20  py-1.5 text-center text-[18px] font-[700] uppercase lg:text-[24px] lg:leading-[28px]">
-          <p>April Special Sale!</p>
+          <p>May Special Sale!</p>
         </section>
         <section className="min-h-[40px] whitespace-nowrap bg-black px-20 py-2 text-center text-[18px] font-[500] uppercase text-white lg:text-[24px] lg:leading-[26px]">
           <p>SAVE UP TO 50%</p>
@@ -45,7 +56,7 @@ function Header() {
       <header className="flex w-screen max-w-[1280px] flex-col items-stretch lg:hidden">
         <section className="min-h-[7px] w-full bg-black" />
         <section className="min-h-[27px] whitespace-nowrap bg-white  px-20 text-center text-[18px] font-[600] uppercase text-black ">
-          <p>April Special Sale!</p>
+          <p>May Special Sale!</p>
         </section>
         <section className="min-h-[27px] whitespace-nowrap bg-black  px-20 text-center text-[18px] font-[500] uppercase text-white ">
           <p>SAVE UP TO 50%</p>

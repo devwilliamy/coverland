@@ -49,6 +49,7 @@ export function TypeSearch({
   // const coverTypes = pathname.startsWith('/seat-covers')
   //   ? seatCoverTypes
   //   : vehicleTypes;
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const {
     query: { type },
@@ -59,10 +60,13 @@ export function TypeSearch({
   useEffect(() => {
     const fetchData = async () => {
       try {
+        setIsLoading(true)
         const response = await getAllType();
         setTypeData(response);
       } catch (error) {
         console.error('[Type Search]: ', error);
+      } finally {
+        setIsLoading(false)
       }
     };
     fetchData();
@@ -76,6 +80,7 @@ export function TypeSearch({
       queryObj={queryObj}
       prevSelected={prevSelected}
       items={typeData}
+      isLoading={isLoading}
     />
   );
 }
