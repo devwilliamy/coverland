@@ -215,6 +215,7 @@ export const handlePurchaseGoogleTag = (
     },
     enhanced_conversion_data: createEnhancedGoogleConversionData({...enhancedParameterInput}),
   });
+  
   if (cartItems.length > 0) {
     clearLocalStorageCart();
   }

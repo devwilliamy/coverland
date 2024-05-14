@@ -6,6 +6,8 @@ import { useCheckoutContext } from '@/contexts/CheckoutContext';
 import { StripeAddress } from '@/lib/types/checkout';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
+import CustomPhoneInput from '../ui/phone-input';
+import { parsePhoneNumberFromString } from 'libphonenumber-js';
 
 type FormData = {
   email: string;
@@ -35,12 +37,21 @@ const formSchema = z.object({
   state: z.string().min(1, 'State is required'),
   postal_code: z.string().min(1, 'Postal code is required'),
   email: z.string().email({ message: 'Please provide a valid email' }),
-  phoneNumber: z
-    .string()
-    .regex(
-      /^(?:\+([0-9]{1,3})[-. ]?)?\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/,
-      { message: 'Please provide a valid phone number' }
-    ),
+  // phoneNumber: z
+  //   .string()
+  //   .regex(
+  //     /^(?:\+([0-9]{1,3})[-. ]?)?\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/,
+  //     { message: 'Please provide a valid phone number' }
+  //   ),
+  phoneNumber: z.string().refine(
+    (value) => {
+      const phoneNumber = parsePhoneNumberFromString(value, "US");
+      return phoneNumber && phoneNumber.isPossible();
+    },
+    {
+      message: 'Please provide a valid phone number',
+    }
+  ),
 });
 
 export default function AddressForm({
@@ -51,11 +62,13 @@ export default function AddressForm({
 }: AddressFormProps) {
   const { customerInfo, updateCustomerInfo, toggleIsShippingAddressShown } =
     useCheckoutContext();
+
   const {
     register,
     setValue,
     handleSubmit,
     formState: { errors },
+    // trigger,
   } = useForm<FormData>({ resolver: zodResolver(formSchema) });
 
   const onSubmit = handleSubmit(
@@ -70,11 +83,14 @@ export default function AddressForm({
       postal_code,
       phoneNumber,
     }) => {
+      const formattedPhoneNumber =
+        parsePhoneNumberFromString(phoneNumber)?.format('E.164');
+
       const address: StripeAddress = {
         name: `${firstName} ${lastName}`,
         firstName,
         lastName,
-        phone: phoneNumber,
+        phone: formattedPhoneNumber,
         address: {
           line1,
           line2,
@@ -206,14 +222,23 @@ export default function AddressForm({
       </div>
       <div className="pb-6">
         {showEmail && (
-          <OverlappingLabel
-            title="Phone Number"
+          // <OverlappingLabel
+          //   title="Phone Number"
+          //   name="phoneNumber"
+          //   errors={errors}
+          //   placeholder="+1 123 456 7890"
+          //   register={register}
+          //   options={{ required: true }}
+          //   autoComplete="tel"
+          // />
+          <CustomPhoneInput
+            label="Phone Number"
             name="phoneNumber"
-            errors={errors}
-            placeholder="(000) 000-0000"
-            register={register}
-            options={{ required: true }}
+            placeholder="+1 123 456 7890"
             autoComplete="tel"
+            register={register}
+            errors={errors}
+            required={true}
           />
         )}
       </div>
