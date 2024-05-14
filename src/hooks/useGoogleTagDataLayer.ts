@@ -198,7 +198,6 @@ export const handlePurchaseGoogleTag = (
   totalPrice: string,
   clearLocalStorageCart: () => void
 ) => {
-  debugger;
   const cartItemsToGTagItems = mapCartItemsToGTagItems(cartItems);
   window?.dataLayer?.push({ ecommerce: null }); // Clear the previous ecommerce object.
   window?.dataLayer?.push({
@@ -217,6 +216,22 @@ export const handlePurchaseGoogleTag = (
   if (cartItems.length > 0) {
     clearLocalStorageCart();
   }
+};
+
+export const createEnhancedGoogleConversionData = (email: string, phone_number: string,) => {
+  return {
+    enhanced_conversion_data: {
+      email: email.toLowerCase().trim(),
+      phone_number: 'yourPhoneVariable',
+      first_name: 'yourFirstNameVariable',
+      last_name: 'yourLastNameVariable',
+      street: 'yourStreetAddressVariable',
+      city: 'yourCityVariable',
+      region: 'yourRegionVariable',
+      postal_code: 'yourPostalCodeVariable',
+      country: 'yourCountryVariable',
+    },
+  };
 };
 
 export const handleAddToCartGoogleTag = (
