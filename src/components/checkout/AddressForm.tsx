@@ -8,6 +8,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import CustomPhoneInput from '../ui/phone-input';
 import { parsePhoneNumberFromString } from 'libphonenumber-js';
+import StateDropdown from '../ui/state-dropdown';
 
 type FormData = {
   email: string;
@@ -45,7 +46,7 @@ const formSchema = z.object({
   //   ),
   phoneNumber: z.string().refine(
     (value) => {
-      const phoneNumber = parsePhoneNumberFromString(value, "US");
+      const phoneNumber = parsePhoneNumberFromString(value, 'US');
       return phoneNumber && phoneNumber.isPossible();
     },
     {
@@ -100,6 +101,7 @@ export default function AddressForm({
           country: 'US',
         },
       };
+      // console.log("Address:", address)
       updateAddress(address as StripeAddress);
       updateCustomerInfo({ email, phoneNumber });
       setIsEditingAddress(false);
@@ -198,7 +200,7 @@ export default function AddressForm({
       </div>
       <div className="flex flex-row pb-6">
         <div className="mr-2 flex-grow">
-          <OverlappingLabel
+          {/* <OverlappingLabel
             title="State"
             name="state"
             errors={errors}
@@ -206,6 +208,12 @@ export default function AddressForm({
             register={register}
             options={{ required: true }}
             autoComplete="address-level1"
+          /> */}
+          <StateDropdown
+            name="state"
+            label="State"
+            register={register}
+            errors={errors}
           />
         </div>
         <div className="ml-2 flex-grow">

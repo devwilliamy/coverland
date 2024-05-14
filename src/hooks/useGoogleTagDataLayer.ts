@@ -6,6 +6,7 @@ import { useCartContext } from '@/providers/CartProvider';
 import { useParams } from 'next/navigation';
 import { useContext, useEffect } from 'react';
 import { useStore } from 'zustand';
+import { US_STATES_ABBRV_MAP } from '@/lib/constants';
 
 export const removeMakeFromDisplayId = (
   displayId: string,
@@ -251,7 +252,7 @@ export const createEnhancedGoogleConversionData = ({
     last_name: last_name.toLowerCase().trim(),
     street: address_line1.toLowerCase().trim(),
     city: city.toLowerCase().trim(),
-    region: state.toLowerCase().trim(),
+    region: US_STATES_ABBRV_MAP[state].toLowerCase().trim(),
     postal_code: postal_code.toLowerCase().trim(),
     country: country.toLowerCase().trim(),
   };
