@@ -47,6 +47,7 @@ export default function PayPalButtonSection() {
             height: 50,
           }}
           createOrder={async () => {
+            // debugger
             const data = await paypalCreateOrder(
               totalMsrpPrice,
               cartItems,
@@ -61,6 +62,7 @@ export default function PayPalButtonSection() {
             return data;
           }}
           onApprove={async (data) => {
+            // debugger
             // console.log('[PaypalButton Section] Data: ', data);
             // This will get the order from paypal
             const response = await paypalCaptureOrder(
@@ -124,7 +126,18 @@ export default function PayPalButtonSection() {
                 },
                 body: JSON.stringify({ emailInput }),
               });
-              handlePurchaseGoogleTag(cartItems, orderNumber, getTotalPrice().toFixed(2), clearLocalStorageCart)
+              const enhancedGoogleCovnersionInput = {
+                email: customerInfo.email || '',
+                phone_number: shippingAddress.phone || '',
+                first_name: shippingAddress.firstName || '',
+                last_name: shippingAddress.lastName || '',
+                address_line1: shippingAddress.address.line1 || '',
+                city: shippingAddress.address.city || '',
+                state: shippingAddress.address.state || '',
+                postal_code: shippingAddress.address.postal_code || '',
+                country: shippingAddress.address.country || '',
+              };
+              handlePurchaseGoogleTag(cartItems, orderNumber, getTotalPrice().toFixed(2), clearLocalStorageCart, enhancedGoogleCovnersionInput)
               router.push(
                 `/thank-you?order_number=${orderNumber}&payment_gateway=paypal`
               );
