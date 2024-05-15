@@ -140,7 +140,7 @@ export const mapPaypalCaptureCreateToOrder = (
     status,
     payment_gateway: 'paypal',
     transaction_id: id,
-    skus,
+    skus: skus.join(','),
   };
 };
 
