@@ -26,7 +26,7 @@ export async function POST(request: NextRequest) {
   const uniqueId = (isDev || isPreview) ? 'TEST' : 'XXXX';
   const orderId = await generateOrderId(items, uniqueId);
   const lineItems = generateLineItemsForStripe(items, orderId);
-  const justTheProductName = lineItems.map(item => item.price_data.product_data.name);
+  const justTheProductName = lineItems.map(item => item?.price_data?.product_data?.name);
   const skus = getSkusFromCartItems(items);
   const skusWithQuantity = getSkusAndQuantityFromCartItems(items);
   // Create a PaymentIntent with the order amount and currency
