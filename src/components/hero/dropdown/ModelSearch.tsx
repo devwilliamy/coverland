@@ -67,7 +67,7 @@ export function ModelSearch({
   useEffect(() => {
     const fetchData = async () => {
       try {
-        setIsLoading(true)
+        setIsLoading(true);
         const cover = type === 'Seat Covers' ? 'Leather' : 'Premium Plus'; // TODO: - Extract cover from query obj or something
         const response = await getAllUniqueModelsByYearMake({
           type,
@@ -89,7 +89,7 @@ export function ModelSearch({
       } catch (error) {
         console.error('[Model Search]: ', error);
       } finally {
-        setIsLoading(false)
+        setIsLoading(false);
       }
     };
     if (type && year && make && typeId && yearId && makeId) {
@@ -130,14 +130,31 @@ export function ModelSearch({
 
   const determineDisabled = () => {
     switch (true) {
+      case isMakePage:
+        return Boolean(!type || !make);
       case isModelPage:
-        return !type || !make;
+        return Boolean(!type || !make);
       default:
-        return !type || !year || !make;
+        return Boolean(!type || !year || !make);
     }
   };
 
   const isDisabled = determineDisabled();
+
+  const determinePrevSelected = () => {
+    switch (true) {
+      case isMakePage:
+        return !type ?? !make;
+      case isModelPage:
+        // return Boolean(type && make);
+        return !type ?? !make;
+      default:
+        // return Boolean(type && make && year);
+        return type ?? make ?? year;
+    }
+  };
+
+  const prevSelected = determinePrevSelected();
 
   const showSubmodelDropdown = submodelData.length > 0;
 
@@ -149,7 +166,7 @@ export function ModelSearch({
         queryObj={queryObj}
         isDisabled={isDisabled}
         value={model}
-        prevSelected={!isDisabled}
+        prevSelected={prevSelected}
         items={modelDataStrings}
         isLoading={isLoading}
       />

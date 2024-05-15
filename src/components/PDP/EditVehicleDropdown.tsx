@@ -27,6 +27,7 @@ import {
   getYearID,
 } from '@/lib/db';
 import useDetermineType from '@/hooks/useDetermineType';
+import { SubmodelDropdown } from '../hero/dropdown/SubmodelDropdown';
 
 export type TProductJsonData = {
   type: string | { name: string; id: number };
@@ -261,6 +262,11 @@ export default function EditVehicleDropdown({
             <MakeSearch queryObj={queryObj} />
             <ModelSearch queryObj={queryObj} />
             <YearSearch queryObj={queryObj} />
+            {queryObj.query.make &&
+              queryObj.query.model &&
+              queryObj.query.year && (
+                <SubmodelDropdown queryObj={queryObj} submodelData={[]} />
+              )}
           </>
         );
       case isYearPage:

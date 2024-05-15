@@ -11,6 +11,8 @@ import { TQuery } from './HeroDropdown';
 import { ModelDropdown } from './ModelSearch';
 import { SecondSubmodelDropdown } from './SecondSubmodelDropdown';
 import MainDropdown from './MainDropdown';
+import useDetermineType from '@/hooks/useDetermineType';
+import { getAllSubmodelsByTypeMakeModelYear } from '@/lib/db';
 
 export function SubmodelDropdown({
   queryObj,
@@ -27,7 +29,20 @@ export function SubmodelDropdown({
   );
 
   const { query, setQuery } = queryObj;
-  const { model, submodel1 } = query;
+  const {
+    type,
+    typeId,
+    model,
+    modelId,
+    make,
+    makeId,
+    year,
+    yearId,
+    submodel1,
+  } = query;
+
+  console.log('[SubmodelDropdown DATA: ]', { submodelData });
+  const { isMakePage, isModelPage } = useDetermineType();
 
   const filteredSubmodelData: (string | null)[] = Array.from(
     new Set(
@@ -40,6 +55,21 @@ export function SubmodelDropdown({
   ).map((submodel) => ({
     name: submodel,
   }));
+
+  // const getUniqueSubmodelData = async () => {
+  //   const data = await getAllSubmodelsByTypeMakeModelYear(
+  //     Number(typeId),
+  //     Number(makeId),
+  //     Number(modelId),
+  //     Number(yearId)
+  //   );
+  //   console.log(data);
+  // };
+  // useEffect(() => {
+  //   if (isMakePage || isModelPage) {
+  //     getUniqueSubmodelData();
+  //   }
+  // }, [year]);
 
   useEffect(() => {
     // Check for second submodel
@@ -64,7 +94,7 @@ export function SubmodelDropdown({
     <>
       <MainDropdown
         place={5}
-        title="submodel1"
+        title="submodel"
         queryObj={queryObj}
         isDisabled={isDisabled}
         prevSelected={prevSelected}

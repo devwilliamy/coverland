@@ -16,21 +16,37 @@ export function YearSearch({
   };
 }) {
   const [yearData, setYearData] = useState<DateDropdown[]>([]);
-  const { type, year, typeId, make, makeId, model, modelId } = queryObj.query;
+  const [submodelData, setSubmodelData] = useState<any[]>([]);
+  const { type, year, typeId, make, makeId, model, modelId, yearId } =
+    queryObj.query;
   const { isMakePage, isModelPage } = useDetermineType();
   const determineDisabled = () => {
     switch (true) {
       case isMakePage:
-        return !type || !make;
+        return type ?? make ?? model;
       case isModelPage:
-        return !type || !make || !model;
+        return !type ?? !make ?? !model;
       default:
         return !type;
     }
   };
-  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const isDisabled = determineDisabled();
+
+  const determinePrevSelected = () => {
+    switch (true) {
+      case isMakePage:
+        return Boolean(type && make);
+      case isModelPage:
+        return Boolean(type && make && model && !year);
+      default:
+        return Boolean(type && !year);
+    }
+  };
+
+  const prevSelected = determinePrevSelected();
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+
   const { setQuery } = queryObj;
 
   const startYear = type === 'Seat Covers' ? 1949 : 1921;
@@ -61,15 +77,39 @@ export function YearSearch({
       Number(modelId)
     );
 
-    const filteredYears = fetchedYearsandSubmodels.uniqueYears.map(
-      (yearObj) => {
+    const filteredYears = fetchedYearsandSubmodels.uniqueYears
+      .map((yearObj) => {
         return { id: yearObj?.id, name: yearObj?.name };
-      }
-    );
-    console.log({ filteredYears });
+      })
+      .sort((a, b) => {
+        if (a.id && b.id) {
+          return b.id - a.id;
+        }
+        return 0;
+      });
+    // console.log({
+    //   filteredYears,
+    //   submodelData: fetchedYearsandSubmodels.yearData,
+    // });
 
     setYearData(filteredYears);
+    setSubmodelData(fetchedYearsandSubmodels.submodelData);
   };
+
+  const getUniqueSubmodelData = async () => {
+    const data = await getAllSubmodelsByTypeMakeModelYear(
+      Number(typeId),
+      Number(makeId),
+      Number(modelId),
+      Number(yearId)
+    );
+    console.log(data);
+  };
+  useEffect(() => {
+    if (isMakePage || isModelPage &&) {
+      getUniqueSubmodelData();
+    }
+  }, [year]);
 
   useEffect(() => {
     if (typeId) {
@@ -85,6 +125,7 @@ export function YearSearch({
 
   // const prevSelected =
   //   queryObj && queryObj.query.year === '' && queryObj.query.type !== '';
+  const submodelDataExists = submodelData.length > 0;
 
   return (
     <>
@@ -94,14 +135,14 @@ export function YearSearch({
         queryObj={queryObj}
         value={year}
         isDisabled={isDisabled}
-        prevSelected={!isDisabled}
+        // prevSelected={!isDisabled}
+        prevSelected={prevSelected}
         items={yearData}
         isLoading={isLoading}
       />
-      {/* {isMakePage ||
-        (isModelPage && showSubmodelDropdown && (
+      {/* {(isMakePage || isModelPage) && submodelDataExists && (
           <SubmodelDropdown queryObj={queryObj} submodelData={submodelData} />
-        ))} */}
+        )} */}
     </>
   );
 }

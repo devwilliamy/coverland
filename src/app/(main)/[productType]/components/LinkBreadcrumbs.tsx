@@ -110,7 +110,6 @@ export default function LinkBreadcrumbs() {
     // const models = res.map((data) => {
     //   return data.model;
     // });
-    console.log({ res });
 
     // console.log('Fetched Models', models);
 

@@ -244,12 +244,11 @@ export async function getAllYearsByTypeMakeModel(
   const { data, error } = await supabase
     .from(RELATIONS_PRODUCT_TABLE)
     .select(
-      `*,Years(*),Model(*),${PRODUCT_DATA_TABLE}(id,model,model_slug, parent_generation, submodel1, submodel2, submodel3)`
+      `*,Model(*),Years(*),${PRODUCT_DATA_TABLE}(id,model,model_slug, parent_generation, submodel1, submodel2, submodel3)`
     )
     .eq('type_id', Number(typeId))
     .eq('make_id', Number(makeId))
-    .eq('model_id', Number(modelId))
-    .order('name', { foreignTable: 'Years', ascending: false });
+    .eq('model_id', Number(modelId));
 
   if (error) {
     throw new Error(error.message);
@@ -257,9 +256,7 @@ export async function getAllYearsByTypeMakeModel(
 
   const allProductData = data.map((relation) => relation[PRODUCT_DATA_TABLE]);
 
-  const allYears = data
-    .map((relation) => relation.Years)
-    .sort((a, b) => a.name.localeCompare(b.name));
+  const allYears = data.map((relation) => relation.Years);
 
   const uniqueYears = allYears.filter(
     (currentYear, index, self) =>
@@ -277,8 +274,59 @@ export async function getAllYearsByTypeMakeModel(
           t.submodel3 === year.submodel3
       )
   );
-  console.log({ allYears, uniqueYears, yearData });
-  return { allYears, uniqueYears, yearData };
+  let submodelData: any[] = [];
+  // const submodelData =
+  yearData.map((year) => {
+    // const submodel = String(year?.submodel1);
+    if (!submodelData.includes(year)) {
+      return submodelData.push(year);
+    }
+  });
+  // console.log({ allYears, uniqueYears, yearData, submodelData });
+  return { allYears, uniqueYears, yearData, submodelData };
+}
+
+export async function getAllSubmodelsByTypeMakeModelYear(
+  typeId: number,
+  makeId: number,
+  modelId: number,
+  yearId: number
+) {
+  const { data, error } = await supabase
+    .from(RELATIONS_PRODUCT_TABLE)
+    .select(
+      `${PRODUCT_DATA_TABLE}(id,model,model_slug, parent_generation, submodel1, submodel2, submodel3)`
+    )
+    .eq('type_id', Number(typeId))
+    .eq('make_id', Number(makeId))
+    .eq('model_id', Number(modelId))
+    .eq('year_id', Number(yearId));
+
+  if (error) {
+    throw new Error(error.message);
+  }
+
+  const allProductData = data.map((relation) => relation[PRODUCT_DATA_TABLE]);
+
+  let uniqueSubmodel1s: string[] = [];
+  let uniqueSubmodel2s: any[] = [];
+
+  allProductData.map((modelData) => {
+    const submodel1 = String(modelData?.submodel1);
+    const submodel2 = String(modelData?.submodel2);
+    if (!uniqueSubmodel1s.includes(submodel1)) {
+      uniqueSubmodel1s.push(submodel1);
+    }
+    if (!uniqueSubmodel2s.includes(submodel2)) {
+      uniqueSubmodel2s.push(submodel2);
+    }
+  });
+
+  console.log({
+    productsWithSubmodels: allProductData,
+    uniqueSubmodel1s,
+    uniqueSubmodel2s,
+  });
 }
 
 export async function getAllModels({
