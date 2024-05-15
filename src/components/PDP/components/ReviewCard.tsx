@@ -39,7 +39,8 @@ export default function ReviewCard({
   const reviewImagesSplit = review.review_image?.split(',');
   const [selectedImage, setSelectedImage] = useState('');
   const [imageLoading, setImageLoading] = useState(true);
-  const isMobile = useMediaQuery('(max-width: 430px)');
+  const isMobile = useMediaQuery('(max-width: 375px)');
+  const isMobile2 = useMediaQuery('(max-width: 430px)');
   const [current, setCurrent] = useState(0);
   const [api, setApi] = useState<CarouselApi>();
 
@@ -67,6 +68,24 @@ export default function ReviewCard({
       </div>
     );
   }
+
+  const determineMaxReviewLength = () => {
+    switch (true) {
+      case isMobile:
+        if (review && review.review_description) {
+          return review?.review_description?.length > 148;
+        }
+      case isMobile2:
+        if (review && review.review_description) {
+          return review?.review_description?.length > 153;
+        }
+      default:
+        if (review && review.review_description) {
+          return review?.review_description?.length > 163;
+        }
+        return false;
+    }
+  };
 
   return (
     <div
@@ -103,27 +122,25 @@ export default function ReviewCard({
 
       <div className="flex justify-between pt-0.5 lg:mt-0 lg:gap-[104px]">
         <div
-          className={`${!pdpMoreTextOpen && 'line-clamp-3'}  text-[14px] leading-[28px] text-[#1A1A1A] lg:flex lg:text-[18px] `}
+          className={`${!pdpMoreTextOpen && isMobile && 'line-clamp-3'}  text-[14px] leading-[28px] text-[#1A1A1A] lg:flex lg:text-[18px] `}
         >
           {review?.review_description?.replace(/�/g, ' ')}
         </div>
       </div>
 
-      {review.review_description &&
-        review.review_description.length > 163 &&
-        isMobile && (
-          <div className="flex w-full items-center justify-center">
-            <div
-              className="flex flex-col items-center"
-              onClick={() => {
-                setPdpMoreTextOpen((prev) => !prev);
-              }}
-            >
-              {review.review_description.length}
-              <ReadMore />
-            </div>
+      {review.review_description && determineMaxReviewLength() && isMobile && (
+        <div className="flex w-full items-center justify-center">
+          <div
+            className="flex flex-col items-center"
+            onClick={() => {
+              setPdpMoreTextOpen((prev) => !prev);
+            }}
+          >
+            {/* {review.review_description.length} */}
+            <ReadMore />
           </div>
-        )}
+        </div>
+      )}
 
       {!fullGallery && (
         <div className="flex items-center justify-between text-[14px]">
