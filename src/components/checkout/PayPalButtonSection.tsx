@@ -7,7 +7,10 @@ import {
 import { useCartContext } from '@/providers/CartProvider';
 import { useRouter } from 'next/navigation';
 import { useCheckoutContext } from '@/contexts/CheckoutContext';
-import { mapPaypalCompletionToCustomer, mapPaypalCompletionToOrder } from '@/lib/utils/adminPanel';
+import {
+  mapPaypalCompletionToCustomer,
+  mapPaypalCompletionToOrder,
+} from '@/lib/utils/adminPanel';
 import { updateAdminPanelOrder } from '@/lib/db/admin-panel/orders';
 import {
   getSkusAndQuantityFromCartItems,
@@ -16,7 +19,10 @@ import {
 import { postAdminPanelOrderItem } from '@/lib/db/admin-panel/orderItems';
 import { createOrUpdateUser } from '@/lib/db/admin-panel/customers';
 import { getCurrentDayInLocaleDateString } from '@/lib/utils/date';
-import { handlePurchaseGoogleTag, useThankYouViewedGoogleTag } from '@/hooks/useGoogleTagDataLayer';
+import {
+  handlePurchaseGoogleTag,
+  useThankYouViewedGoogleTag,
+} from '@/hooks/useGoogleTagDataLayer';
 
 export default function PayPalButtonSection() {
   const { clearLocalStorageCart, getTotalPrice, cartItems } = useCartContext();
@@ -70,9 +76,13 @@ export default function PayPalButtonSection() {
               customerInfo.phoneNumber
             );
             // console.log("Response:", response)
-            const customerInput = mapPaypalCompletionToCustomer(response.data, customerInfo.phoneNumber)
+            const customerInput = mapPaypalCompletionToCustomer(
+              response.data,
+              customerInfo.phoneNumber
+            );
             // Create Customer for Paypal
-            const createdCustomer = (await createOrUpdateUser(customerInput)) || [];
+            const createdCustomer =
+              (await createOrUpdateUser(customerInput)) || [];
 
             // This gets the paypal order ready
             const mappedData = mapPaypalCompletionToOrder(
@@ -80,6 +90,8 @@ export default function PayPalButtonSection() {
               customerInfo.phoneNumber,
               createdCustomer[0].id
             );
+            // debugger;
+
             // console.log('[Paypal.paypalCreateOrder] mappedData: ', mappedData);
             // This takes paypal response and adds to order table
             const adminPanelOrder = await updateAdminPanelOrder(
@@ -90,7 +102,6 @@ export default function PayPalButtonSection() {
             //   '[Paypal.paypalCreateOrder]: adminPanelOrder',
             //   adminPanelOrder
             // );
-
             const skus = getSkusFromCartItems(cartItems);
             const skusWithQuantity = getSkusAndQuantityFromCartItems(cartItems);
             // console.log('[postAdminPanelOrderItem] inputs:', {
@@ -137,7 +148,13 @@ export default function PayPalButtonSection() {
                 postal_code: shippingAddress.address.postal_code || '',
                 country: shippingAddress.address.country || '',
               };
-              handlePurchaseGoogleTag(cartItems, orderNumber, getTotalPrice().toFixed(2), clearLocalStorageCart, enhancedGoogleCovnersionInput)
+              handlePurchaseGoogleTag(
+                cartItems,
+                orderNumber,
+                getTotalPrice().toFixed(2),
+                clearLocalStorageCart,
+                enhancedGoogleCovnersionInput
+              );
               router.push(
                 `/thank-you?order_number=${orderNumber}&payment_gateway=paypal`
               );
