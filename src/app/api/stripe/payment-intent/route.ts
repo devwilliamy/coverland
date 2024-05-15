@@ -26,9 +26,12 @@ export async function POST(request: NextRequest) {
   const uniqueId = (isDev || isPreview) ? 'TEST' : 'XXXX';
   const orderId = await generateOrderId(items, uniqueId);
   const lineItems = generateLineItemsForStripe(items, orderId);
+  const justTheProductName = lineItems.map(item => item?.price_data?.product_data?.name);
   const skus = getSkusFromCartItems(items);
   const skusWithQuantity = getSkusAndQuantityFromCartItems(items);
   // Create a PaymentIntent with the order amount and currency
+  // console.log("LineItems:", lineItems)
+  // console.log("LineItems:", justTheProductName)
   const paymentIntent = await stripe.paymentIntents.create({
     amount: calculateOrderAmount(items),
     currency: 'usd',
@@ -40,7 +43,7 @@ export async function POST(request: NextRequest) {
       orderId,
       skus: skus.join(','),
       skusWithQuantity: JSON.stringify(skusWithQuantity),
-      line_items: JSON.stringify(lineItems)
+      line_items: JSON.stringify(justTheProductName)
     },
   });
 
