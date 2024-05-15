@@ -89,6 +89,15 @@ export default function LinkBreadcrumbs() {
   const getTypes = async () => {
     try {
       const response = await getAllType();
+
+      if (!isSeatCover) {
+        const filteredArray = response.filter((type) => {
+          return type.name !== 'Seat Covers';
+        });
+        setTypeData(filteredArray);
+        return;
+      }
+
       setTypeData(response);
     } catch (error) {
       console.error('[Type Search]: ', error);
