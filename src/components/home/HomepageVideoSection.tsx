@@ -33,17 +33,14 @@ const ProductVideo = dynamic(() => import('@/components/PDP/ProductVideo'));
 export default function HomepageVideoSection() {
   return (
     <span className="flex flex-col items-center">
-      <p className=" mb-[32px] text-center text-[24px] font-black uppercase leading-[32px] lg:hidden">
-        Perfect Solution <br />
-        for All Weather
-      </p>
       <p className="mb-[40px] hidden text-center text-[45px] font-black uppercase leading-[36px] lg:flex ">
         Perfect Solution for All Weather
       </p>
       <span className="flex w-full flex-col items-center bg-[#1A1A1A] px-[18px] pt-[45px] lg:px-[150px] lg:pt-[92px]">
-        {/* <Suspense fallback={<p>Loading video...</p>}>
-          <VideoComponent fileName="videos/" />
-        </Suspense> */}
+        <p className=" mb-[32px] text-center text-[24px] font-black uppercase leading-[32px] text-[white] lg:hidden">
+          Perfect Solution <br />
+          for All Weather
+        </p>
         <ProductVideo
           src={NewVideo}
           imgSrc={NewVideoThumb}
