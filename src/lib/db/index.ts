@@ -118,15 +118,15 @@ export async function getAllMakes({
 }
 
 export async function getAllUniqueMakesByYear({
-  type,
-  cover,
-  year,
+  // type,
+  // cover,
+  // year,
   typeId,
   yearId,
 }: {
-  type: string;
-  cover: string;
-  year: string;
+  // type: string;
+  // cover: string;
+  // year: string;
   typeId: string;
   yearId: string;
 }) {
@@ -275,15 +275,28 @@ export async function getAllYearsByTypeMakeModel(
       )
   );
   let submodelData: any[] = [];
-  // const submodelData =
+
   yearData.map((year) => {
-    // const submodel = String(year?.submodel1);
     if (!submodelData.includes(year)) {
       return submodelData.push(year);
     }
   });
-  // console.log({ allYears, uniqueYears, yearData, submodelData });
-  return { allYears, uniqueYears, yearData, submodelData };
+
+  // console.log({
+  //   allYears,
+  //   uniqueYears,
+  //   yearData,
+  //   submodelData,
+  //   // uniqueSubmodel1s,
+  //   // uniqueSubmodel2s,
+  // });
+
+  return {
+    allYears,
+    uniqueYears,
+    yearData,
+    submodelData,
+  };
 }
 
 export async function getAllSubmodelsByTypeMakeModelYear(
@@ -314,19 +327,25 @@ export async function getAllSubmodelsByTypeMakeModelYear(
   allProductData.map((modelData) => {
     const submodel1 = String(modelData?.submodel1);
     const submodel2 = String(modelData?.submodel2);
-    if (!uniqueSubmodel1s.includes(submodel1)) {
+    if (submodel1 !== 'null' && !uniqueSubmodel1s.includes(submodel1)) {
       uniqueSubmodel1s.push(submodel1);
     }
-    if (!uniqueSubmodel2s.includes(submodel2)) {
+    if (submodel2 !== 'null' && !uniqueSubmodel2s.includes(submodel2)) {
       uniqueSubmodel2s.push(submodel2);
     }
   });
 
   console.log({
-    productsWithSubmodels: allProductData,
+    allProductData,
     uniqueSubmodel1s,
     uniqueSubmodel2s,
   });
+
+  return {
+    allProductData,
+    uniqueSubmodel1s,
+    uniqueSubmodel2s,
+  };
 }
 
 export async function getAllModels({
@@ -713,8 +732,8 @@ export async function getModelID(model: string) {
 
 export async function getYearID(year: string) {
   const { data, error } = await supabase
-    .from('Years')
-    .select('id')
+    .from(`Years`)
+    .select(`id`)
     .eq('name', year);
 
   if (error) {
@@ -722,7 +741,43 @@ export async function getYearID(year: string) {
   }
 
   const id = data[0].id;
-  console.log(id);
 
   return id;
+}
+
+export async function getYearGenByID(
+  typeId: number,
+  makeId: number,
+  modelId: number,
+  yearId: number
+) {
+  const { data, error } = await supabase
+    .from(RELATIONS_PRODUCT_TABLE)
+    .select(`id, ${PRODUCT_DATA_TABLE}(parent_generation)`)
+    .eq('type_id', typeId)
+    .eq('make_id', makeId)
+    .eq('model_id', modelId)
+    .eq('year_id', yearId);
+  if (error) {
+    throw new Error(error.message);
+  }
+  let parentGens: string[] = [];
+
+  // Adding Parent Gens
+  data
+    .map((relation) => relation[PRODUCT_DATA_TABLE])
+    .map((product) => {
+      return product?.parent_generation;
+    })
+    .map((incomingParentGen) => {
+      const gen = String(incomingParentGen);
+      if (!parentGens.includes(gen)) {
+        parentGens.push(gen);
+      }
+    });
+
+  const parentGen = parentGens[0];
+  // console.log({ parentGen });
+
+  return parentGen;
 }

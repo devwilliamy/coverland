@@ -41,7 +41,6 @@ export function SubmodelDropdown({
     submodel1,
   } = query;
 
-  console.log('[SubmodelDropdown DATA: ]', { submodelData });
   const { isMakePage, isModelPage } = useDetermineType();
 
   const filteredSubmodelData: (string | null)[] = Array.from(
@@ -94,7 +93,8 @@ export function SubmodelDropdown({
     <>
       <MainDropdown
         place={5}
-        title="submodel"
+        title="submodel1"
+        displayTitle="submodel"
         queryObj={queryObj}
         isDisabled={isDisabled}
         prevSelected={prevSelected}

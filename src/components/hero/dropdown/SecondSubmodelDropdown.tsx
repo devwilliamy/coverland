@@ -102,6 +102,7 @@ export function SecondSubmodelDropdown({
       <MainDropdown
         place={6}
         title="submodel2"
+        displayTitle="submodel"
         queryObj={queryObj}
         isDisabled={isDisabled}
         prevSelected={prevSelected}

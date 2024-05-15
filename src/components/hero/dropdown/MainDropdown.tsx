@@ -20,6 +20,7 @@ export default function MainDropdown({
   queryObj,
   place,
   title,
+  displayTitle,
   prevSelected,
   isDisabled,
   value,
@@ -29,6 +30,7 @@ export default function MainDropdown({
 }: {
   place: number;
   title: string;
+  displayTitle?: string;
   isDisabled?: boolean;
   prevSelected: boolean;
   value?: string | number;
@@ -467,7 +469,7 @@ export default function MainDropdown({
               <p className={``}>{value === '' && place} &nbsp;</p>
               <p className="capitalize">
                 {value === '' && !isSubmodel1 && !isSubmodel2
-                  ? capitalizeFirstLetter(title)
+                  ? capitalizeFirstLetter(displayTitle ? displayTitle : title)
                   : value}
                 {value === '' && isSubmodel1 && submodel1Text}
                 {value === '' && isSubmodel2 && submodel2Text}
@@ -493,7 +495,9 @@ export default function MainDropdown({
                     <p className={``}>{value === '' && place} &nbsp;</p>
                     <p className="capitalize">
                       {value === '' && !isSubmodel1 && !isSubmodel2
-                        ? capitalizeFirstLetter(title)
+                        ? capitalizeFirstLetter(
+                            displayTitle ? displayTitle : title
+                          )
                         : value}
                       {value === '' && isSubmodel1 && submodel1Text}
                       {value === '' && isSubmodel2 && submodel2Text}
@@ -590,9 +594,13 @@ export default function MainDropdown({
       {isMobile && (
         <MobileHomeDropdown
           handleMobileSelectChange={handleMobileSelectChange}
-          title={title}
+          title={displayTitle ? displayTitle : title}
           isDisabled={isDisabled as boolean}
-          value={deslugify(value as string)}
+          value={
+            displayTitle === 'submodel'
+              ? (value as string)
+              : deslugify(value as string)
+          }
           place={place}
           capitalizeFirstLetter={capitalizeFirstLetter}
           items={items as string[] | number[] | any[]}

@@ -1,7 +1,11 @@
 'use client';
 import { ChangeEvent, useEffect, useState } from 'react';
 import { TQuery } from './HeroDropdown';
-import { getAllYearByType, getAllYearsByTypeMakeModel } from '@/lib/db';
+import {
+  getAllSubmodelsByTypeMakeModelYear,
+  getAllYearByType,
+  getAllYearsByTypeMakeModel,
+} from '@/lib/db';
 import MainDropdown from './MainDropdown';
 import useDetermineType from '@/hooks/useDetermineType';
 import { SubmodelDropdown } from './SubmodelDropdown';
@@ -16,27 +20,44 @@ export function YearSearch({
   };
 }) {
   const [yearData, setYearData] = useState<DateDropdown[]>([]);
-  const [submodelData, setSubmodelData] = useState<any[]>([]);
-  const { type, year, typeId, make, makeId, model, modelId, yearId } =
-    queryObj.query;
+  const [allSubmodelData, setAllSubmodelData] = useState<any[]>([]);
+  const [submodel1Data, setSubmodel1Data] = useState<any[]>([]);
+  const [submodel2Data, setSubmodel2Data] = useState<any[]>([]);
+
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const { isMakePage, isModelPage } = useDetermineType();
+  const {
+    type,
+    year,
+    submodel1,
+    submodel2,
+    typeId,
+    make,
+    makeId,
+    model,
+    modelId,
+    yearId,
+  } = queryObj.query;
+  const { setQuery } = queryObj;
+
   const determineDisabled = () => {
     switch (true) {
       case isMakePage:
-        return type ?? make ?? model;
+        return Boolean(!type && !make && !model);
       case isModelPage:
-        return !type ?? !make ?? !model;
+        return Boolean(!type && !make && !model);
       default:
-        return !type;
+        return Boolean(!type);
     }
   };
 
   const isDisabled = determineDisabled();
+  const isSubmodel1Disabled = Boolean(!type && !make && !model && !year);
 
   const determinePrevSelected = () => {
     switch (true) {
       case isMakePage:
-        return Boolean(type && make);
+        return Boolean(type && make && model && !year);
       case isModelPage:
         return Boolean(type && make && model && !year);
       default:
@@ -45,9 +66,6 @@ export function YearSearch({
   };
 
   const prevSelected = determinePrevSelected();
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-
-  const { setQuery } = queryObj;
 
   const startYear = type === 'Seat Covers' ? 1949 : 1921;
   const endYear = 2025;
@@ -62,6 +80,7 @@ export function YearSearch({
       const response = await getAllYearByType({
         type: typeId,
       });
+
       setYearData(response);
     } catch (error) {
       console.error('[Year Search]: ', error);
@@ -89,11 +108,10 @@ export function YearSearch({
       });
     // console.log({
     //   filteredYears,
-    //   submodelData: fetchedYearsandSubmodels.yearData,
+    //   submodelData: fetchedYearsandSubmodels.submodelData,
     // });
 
     setYearData(filteredYears);
-    setSubmodelData(fetchedYearsandSubmodels.submodelData);
   };
 
   const getUniqueSubmodelData = async () => {
@@ -104,12 +122,11 @@ export function YearSearch({
       Number(yearId)
     );
     console.log(data);
-  };
-  useEffect(() => {
-    if (isMakePage || isModelPage &&) {
-      getUniqueSubmodelData();
+    setAllSubmodelData(data.allProductData);
+    if (data.uniqueSubmodel1s) {
+      setSubmodel1Data(data.uniqueSubmodel1s);
     }
-  }, [year]);
+  };
 
   useEffect(() => {
     if (typeId) {
@@ -123,14 +140,44 @@ export function YearSearch({
     }
   }, [typeId, makeId, modelId]);
 
-  // const prevSelected =
-  //   queryObj && queryObj.query.year === '' && queryObj.query.type !== '';
-  const submodelDataExists = submodelData.length > 0;
+  const submodel1DataExists = submodel1Data.length > 0;
+  const submodel2DataExists = submodel2Data.length > 0;
+
+  useEffect(() => {
+    if (submodel1) {
+      const selectedSubmodel2 = allSubmodelData
+        .filter((product) => {
+          if (product.submodel1 === submodel1) {
+            return product;
+          }
+        })
+        .map((product) => {
+          if (!product.submodel2) {
+            return;
+          }
+          return product.submodel2;
+        })
+        .filter((name) => {
+          if (Boolean(name !== undefined && name !== null)) {
+            return name;
+          }
+        });
+      console.log('[SELECTED SUBMODEL2 ARRAY]: ', selectedSubmodel2);
+
+      setSubmodel2Data(selectedSubmodel2);
+    }
+  }, [year, submodel1, allSubmodelData]);
+
+  useEffect(() => {
+    if ((isMakePage || isModelPage) && year) {
+      getUniqueSubmodelData();
+    }
+  }, [year]);
 
   return (
     <>
       <MainDropdown
-        place={2}
+        place={isMakePage || isModelPage ? 3 : 2}
         title={'year'}
         queryObj={queryObj}
         value={year}
@@ -140,9 +187,36 @@ export function YearSearch({
         items={yearData}
         isLoading={isLoading}
       />
-      {/* {(isMakePage || isModelPage) && submodelDataExists && (
-          <SubmodelDropdown queryObj={queryObj} submodelData={submodelData} />
-        )} */}
+      {(isMakePage || isModelPage) && submodel1DataExists && year && (
+        // <SubmodelDropdown queryObj={queryObj} submodelData={submodelData} />
+        <MainDropdown
+          place={4}
+          title={'submodel1'}
+          displayTitle={'submodel'}
+          queryObj={queryObj}
+          value={submodel1}
+          isDisabled={isDisabled}
+          // prevSelected={!isDisabled}
+          prevSelected={prevSelected}
+          items={submodel1Data}
+          isLoading={isLoading}
+        />
+      )}
+      {(isMakePage || isModelPage) && submodel2DataExists && submodel1 && (
+        // <SubmodelDropdown queryObj={queryObj} submodelData={submodelData} />
+        <MainDropdown
+          place={5}
+          title={'submodel2'}
+          displayTitle={'submodel'}
+          queryObj={queryObj}
+          value={submodel2}
+          isDisabled={isDisabled}
+          // prevSelected={!isDisabled}
+          prevSelected={prevSelected}
+          items={submodel2Data}
+          isLoading={isLoading}
+        />
+      )}
     </>
   );
 }

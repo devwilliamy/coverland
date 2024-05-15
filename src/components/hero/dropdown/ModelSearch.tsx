@@ -18,7 +18,7 @@ import {
 import { SubmodelDropdown } from './SubmodelDropdown';
 import MainDropdown from './MainDropdown';
 import useDetermineType from '@/hooks/useDetermineType';
-import { deslugify } from '@/lib/utils';
+import { deslugify, slugify } from '@/lib/utils';
 
 export type ModelDropdown = {
   model: string | null;
@@ -41,13 +41,25 @@ export function ModelSearch({
   const [modelData, setModelData] = useState<ModelDropdown[]>([]);
   const [modelDataStrings, setModelDataStrings] = useState<string[]>([]);
   const [submodelData, setSubmodelData] = useState<ModelDropdown[]>([]);
+  const [submodel2Data, setSubmodel2Data] = useState<ModelDropdown[]>([]);
 
-  const { isMakePage, isModelPage } = useDetermineType();
+  const { isMakePage, isModelPage, isYearPage } = useDetermineType();
 
   const [submodelDataStrings, setSubmodelDataStrings] = useState<string[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const {
-    query: { type, year, make, model, modelId, makeId, yearId, typeId },
+    query: {
+      type,
+      year,
+      make,
+      model,
+      modelId,
+      makeId,
+      yearId,
+      typeId,
+      submodel1,
+      submodel2,
+    },
     setQuery,
   } = queryObj;
 
@@ -125,8 +137,80 @@ export function ModelSearch({
       (vehicle) => vehicle.model === model && vehicle.submodel1
     );
 
-    setSubmodelData(submodel);
+    if (!isYearPage) {
+      setSubmodelData(submodel);
+    }
   }, [model]);
+
+  useEffect(() => {
+    if (isYearPage && model && modelData.length > 0) {
+      const submodels = modelData
+        .filter((product) => {
+          const productModel = slugify(String(product.model));
+
+          if (productModel.toLowerCase() === model.toLowerCase()) {
+            // console.log({ productModel, model });
+
+            return product;
+          }
+
+          return;
+        })
+        .filter((product, index, self) => {
+          return self.indexOf(product) === index;
+        })
+        .map((product) => {
+          if (product.submodel1) {
+            return product.submodel1;
+          }
+        })
+        .filter((submodel, index, self) => {
+          return self.indexOf(submodel) === index;
+        })
+        .filter((submodel) => {
+          if (submodel !== null && submodel !== undefined) {
+            return submodel;
+          }
+        });
+
+      setSubmodelData(submodels as ModelDropdown[]);
+      // console.log({ submodels, modelData, queryObj });
+    }
+  }, [queryObj.query, modelData, model]);
+
+  useEffect(() => {
+    if (isYearPage && submodel1 && modelData.length > 0) {
+      const submodels2 = modelData
+        .filter((product) => {
+          const productModel = String(product.model);
+          const productSubmodel = String(product.submodel1).toLowerCase();
+          const lowercaseSubParam = submodel1.toLowerCase();
+          console.log({ productSubmodel, lowercaseSubParam, submodel1 });
+
+          if (
+            slugify(productModel).toLowerCase() === model.toLowerCase() &&
+            productSubmodel &&
+            productSubmodel === lowercaseSubParam
+          ) {
+            return product;
+          }
+
+          return;
+        })
+        .filter((product, index, self) => {
+          return self.indexOf(product) === index;
+        })
+        .map((product) => {
+          return product.submodel2;
+        })
+        .filter((submodel2, index, self) => {
+          return self.indexOf(submodel2) === index;
+        });
+      console.log({ submodels2, modelData });
+
+      setSubmodel2Data(submodels2 as ModelDropdown[]);
+    }
+  }, [queryObj.query, modelData]);
 
   const determineDisabled = () => {
     switch (true) {
@@ -157,11 +241,12 @@ export function ModelSearch({
   const prevSelected = determinePrevSelected();
 
   const showSubmodelDropdown = submodelData.length > 0;
+  const showSubmodel2Dropdown = submodel2Data.length > 0;
 
   return (
     <>
       <MainDropdown
-        place={4}
+        place={3}
         title={'model'}
         queryObj={queryObj}
         isDisabled={isDisabled}
@@ -170,8 +255,37 @@ export function ModelSearch({
         items={modelDataStrings}
         isLoading={isLoading}
       />
-      {!isMakePage && !isModelPage && showSubmodelDropdown && (
+
+      {!isMakePage && !isModelPage && !isYearPage && showSubmodelDropdown && (
         <SubmodelDropdown queryObj={queryObj} submodelData={submodelData} />
+      )}
+
+      {isYearPage && model && showSubmodelDropdown && (
+        <MainDropdown
+          place={4}
+          title={'submodel1'}
+          displayTitle={'submodel'}
+          queryObj={queryObj}
+          isDisabled={isDisabled}
+          value={submodel1}
+          prevSelected={prevSelected}
+          items={submodelData}
+          isLoading={isLoading}
+        />
+      )}
+
+      {isYearPage && submodel1 && showSubmodel2Dropdown && (
+        <MainDropdown
+          place={5}
+          title="submodel2"
+          displayTitle="submodel"
+          queryObj={queryObj}
+          isDisabled={isDisabled}
+          value={submodel2}
+          prevSelected={prevSelected}
+          items={submodel2Data}
+          isLoading={isLoading}
+        />
       )}
     </>
   );

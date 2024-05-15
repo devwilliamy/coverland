@@ -1,7 +1,7 @@
 'use client';
 import { AiOutlineLoading3Quarters } from 'react-icons/ai';
 import { Button } from '@/components/ui/button';
-import { usePathname, useRouter } from 'next/navigation';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import {
   Dispatch,
   SetStateAction,
@@ -24,6 +24,7 @@ import {
   getModelID,
   getProductData,
   getTypeID,
+  getYearGenByID,
   getYearID,
 } from '@/lib/db';
 import useDetermineType from '@/hooks/useDetermineType';
@@ -64,6 +65,15 @@ export default function EditVehicleDropdown({
     isYearPage,
   } = useDetermineType();
 
+  const currentSearchParams = useSearchParams();
+  const submodelParam = currentSearchParams.has('submodel')
+    ? String(currentSearchParams.get('submodel'))
+    : '';
+  const submodel2Param = currentSearchParams.has('submodel2')
+    ? String(currentSearchParams.get('submodel2'))
+    : '';
+  // console.log({ submodelParam, submodel2Param });
+
   const [query, setQuery] = useState<TQuery>({
     type: productType ? deslugify(productType) : '',
     // year: yearParam ? yearParam : '',
@@ -71,13 +81,22 @@ export default function EditVehicleDropdown({
     parent_generation: yearParam ? yearParam : '',
     make: makeParam ? makeParam : '',
     model: modelParam ? modelParam : '',
-    submodel1: '',
-    submodel2: '',
+    submodel1: submodelParam,
+    submodel2: submodel2Param,
     typeId: '',
     yearId: '',
     makeId: '',
     modelId: '',
   });
+
+  const { year, type, make, model, submodel1, submodel2, parent_generation } =
+    query;
+
+  const [loading, setLoading] = useState(false);
+  const [jsonData, setJsonData] = useState<TProductJsonData[]>([]);
+  const router = useRouter();
+
+  const [urlParentGen, setUrlParentGen] = useState(parent_generation);
 
   useEffect(() => {
     const fetchTypeId = async () => {
@@ -112,53 +131,68 @@ export default function EditVehicleDropdown({
     fetchTypeId();
   }, [open]);
 
-  const [loading, setLoading] = useState(false);
-  const [jsonData, setJsonData] = useState<TProductJsonData[]>([]);
-  const router = useRouter();
-  const { year, type, make, model, submodel1, submodel2, parent_generation } =
-    query;
+  // const urlParentGen = parent_generation;
 
-  // useEffect(() => {
-  //   const getSearchData = async () => {
-  //     try {
-  //       setLoading(true);
-  //       if (!make) return;
-  //       // console.log('EditVehicleDropdown', { type, make, model });
-  //       if (type !== 'Seat Covers') {
-  //         // const response = await fetch(
-  //         //   `/api/json-data?type=${slugify(type)}&make=${slugify(make)}`
-  //         // );
-  //         // const jsonData = await response.json();
+  const getYearGen = async () => {
+    const fetchedGen = await getYearGenByID(
+      Number(query.typeId),
+      Number(query.makeId),
+      Number(query.modelId),
+      Number(query.yearId)
+    );
 
-  //         // setJsonData(jsonData);
-  //         const response = await getProductData({
-  //           type,
-  //           cover: 'Premium Plus',
-  //           make: slugify(make),
-  //         });
-  //         // console.log('[EdhitVehicleDropdown getProductResponse]:', response);
-  //         setJsonData(response);
-  //         return;
-  //       }
+    const gen = fetchedGen ?? dropdownData?.[0]?.parent_generation;
 
-  //       const response = await getProductData({
-  //         type,
-  //         cover: 'Leather',
-  //         make: slugify(make),
-  //       });
-  //       console.log('Response Seat Covers: ', response);
+    setUrlParentGen(gen);
+  };
 
-  //       setJsonData(response);
-  //     } catch (error) {
-  //       console.error('[EditVehicleDropdown.getSearchData]: ', error);
-  //     } finally {
-  //       setLoading(false);
-  //     }
-  //   };
-  //   if (type && make) {
-  //     getSearchData();
-  //   }
-  // }, [make, type]);
+  useEffect(() => {
+    if (query.typeId && query.makeId && query.modelId && query.yearId) {
+      getYearGen();
+    }
+  }, [query]);
+
+  useEffect(() => {
+    const getSearchData = async () => {
+      try {
+        setLoading(true);
+        if (!make) return;
+        // console.log('EditVehicleDropdown', { type, make, model });
+        if (type !== 'Seat Covers') {
+          // const response = await fetch(
+          //   `/api/json-data?type=${slugify(type)}&make=${slugify(make)}`
+          // );
+          // const jsonData = await response.json();
+
+          // setJsonData(jsonData);
+          const response = await getProductData({
+            type,
+            cover: 'Premium Plus',
+            make: slugify(make),
+          });
+          // console.log('[EdhitVehicleDropdown getProductResponse]:', response);
+          setJsonData(response);
+          return;
+        }
+
+        const response = await getProductData({
+          type,
+          cover: 'Leather',
+          make: slugify(make),
+        });
+        console.log('Response Seat Covers: ', response);
+
+        setJsonData(response);
+      } catch (error) {
+        console.error('[EditVehicleDropdown.getSearchData]: ', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    if (type && make) {
+      getSearchData();
+    }
+  }, [make, type]);
 
   const dropdownData = jsonData.filter(
     (obj) =>
@@ -184,7 +218,7 @@ export default function EditVehicleDropdown({
     ),
   ];
 
-  const yearInUrl = parent_generation ?? dropdownData?.[0]?.parent_generation;
+  // const yearInUrl = parent_generation ?? dropdownData?.[0]?.parent_generation;
 
   const createQueryString = useCallback((name: string, value: string) => {
     const params = new URLSearchParams();
@@ -205,7 +239,7 @@ export default function EditVehicleDropdown({
     setLoading(true);
 
     const determineType = type !== 'Seat Covers' ? 'premium-plus' : 'leather';
-    let url = `/${slugify(type)}/${determineType}/${slugify(make)}/${slugify(model)}/${yearInUrl}`;
+    let url = `/${slugify(type)}/${determineType}/${slugify(make)}/${slugify(model)}/${urlParentGen}`;
 
     const submodelParam = searchParams?.submodel
       ? `?${createQueryString('submodel', searchParams.submodel)}`
@@ -262,11 +296,6 @@ export default function EditVehicleDropdown({
             <MakeSearch queryObj={queryObj} />
             <ModelSearch queryObj={queryObj} />
             <YearSearch queryObj={queryObj} />
-            {queryObj.query.make &&
-              queryObj.query.model &&
-              queryObj.query.year && (
-                <SubmodelDropdown queryObj={queryObj} submodelData={[]} />
-              )}
           </>
         );
       case isYearPage:

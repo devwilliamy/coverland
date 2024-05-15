@@ -29,7 +29,7 @@ export function MakeSearch({
 
   const [makeData, setMakeData] = useState<{ id: number; name: string }[]>([]);
 
-  const { isMakePage, isModelPage } = useDetermineType();
+  const { isMakePage, isModelPage, isYearPage } = useDetermineType();
 
   const determineDisabled = () => {
     switch (true) {
@@ -69,9 +69,6 @@ export function MakeSearch({
         const cover = type === 'Seat Covers' ? 'Leather' : 'Premium Plus'; // TODO: - Extract cover from query obj or something
         setIsLoading(true);
         const response = await getAllUniqueMakesByYear({
-          type,
-          cover, // TOOD: - Update this to make it work for premium as well.
-          year,
           typeId,
           yearId,
         });
@@ -101,11 +98,12 @@ export function MakeSearch({
       };
       getMakes();
     }
+    // console.log({ queryObj });
   }, [queryObj]);
 
   return (
     <MainDropdown
-      place={isMakePage || isModelPage ? 1 : 3}
+      place={isMakePage || isModelPage ? 1 : 2}
       title={'make'}
       queryObj={queryObj}
       isDisabled={isDisabled}
