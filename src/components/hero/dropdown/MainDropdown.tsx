@@ -59,7 +59,7 @@ export default function MainDropdown({
   >([]);
   const isActive = prevSelected || selectedValue !== title;
   const isMobile = useMediaQuery('(max-width: 768px)');
-  const { isMakePage, isModelPage } = useDetermineType();
+  const { isMakePage, isModelPage, isYearPage } = useDetermineType();
 
   const handleYearData = ({
     newValue,
@@ -94,6 +94,16 @@ export default function MainDropdown({
         break;
 
       case isModelPage:
+        setQuery((e) => {
+          return {
+            ...e,
+            year: newValue,
+            yearId: id as string,
+          };
+        });
+        break;
+
+      case isYearPage:
         setQuery((e) => {
           return {
             ...e,
@@ -164,6 +174,20 @@ export default function MainDropdown({
             modelId: '',
           };
         });
+        break;
+      case isYearPage:
+        setQuery((e) => {
+          return {
+            ...e,
+            make: newValue,
+            makeId: id as string,
+            model: '',
+            modelId: '',
+            year: '',
+            yearId: '',
+          };
+        });
+        break;
 
       default:
         setQuery((e) => {
@@ -209,6 +233,18 @@ export default function MainDropdown({
         break;
 
       case isModelPage:
+        setQuery((e) => {
+          return {
+            ...e,
+            model: newValue,
+            modelId: id as string,
+            year: '',
+            yearId: '',
+          };
+        });
+        break;
+
+      case isYearPage:
         setQuery((e) => {
           return {
             ...e,

@@ -25,7 +25,7 @@ export function YearSearch({
   const [submodel2Data, setSubmodel2Data] = useState<any[]>([]);
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const { isMakePage, isModelPage } = useDetermineType();
+  const { isMakePage, isModelPage, isYearPage } = useDetermineType();
   const {
     type,
     year,
@@ -43,9 +43,11 @@ export function YearSearch({
   const determineDisabled = () => {
     switch (true) {
       case isMakePage:
-        return Boolean(!type && !make && !model);
+        return Boolean(!type || !make);
       case isModelPage:
         return Boolean(!type && !make && !model);
+      case isYearPage:
+        return Boolean(!type || !make || !model);
       default:
         return Boolean(!type);
     }
@@ -57,15 +59,25 @@ export function YearSearch({
   const determinePrevSelected = () => {
     switch (true) {
       case isMakePage:
-        return Boolean(type && make && model && !year);
+        return Boolean(type && make && !year);
       case isModelPage:
+        return Boolean(type && make && model && !year);
+      case isYearPage:
         return Boolean(type && make && model && !year);
       default:
         return Boolean(type && !year);
     }
   };
 
+ 
+
   const prevSelected = determinePrevSelected();
+  const submodelPrevSelected = Boolean(
+    type && make && model && year && !submodel1
+  );
+  const submodel2PrevSelected = Boolean(
+    type && make && model && year && submodel1 && !submodel2
+  );
 
   const startYear = type === 'Seat Covers' ? 1949 : 1921;
   const endYear = 2025;
@@ -135,7 +147,12 @@ export function YearSearch({
   }, [typeId]);
 
   useEffect(() => {
-    if (typeId && makeId && modelId && (isMakePage || isModelPage)) {
+    if (
+      typeId &&
+      makeId &&
+      modelId &&
+      (isMakePage || isModelPage || isYearPage)
+    ) {
       getYearsAndSubmodels();
     }
   }, [typeId, makeId, modelId]);
@@ -169,15 +186,28 @@ export function YearSearch({
   }, [year, submodel1, allSubmodelData]);
 
   useEffect(() => {
-    if ((isMakePage || isModelPage) && year) {
+    if ((isMakePage || isModelPage || isYearPage) && year) {
       getUniqueSubmodelData();
     }
   }, [year]);
 
+  const determinePlace = () => {
+    switch (true) {
+      case isMakePage:
+        return 2;
+      case isModelPage:
+        return 3;
+      case isYearPage:
+        return 3;
+      default:
+        return 1;
+    }
+  };
+
   return (
     <>
       <MainDropdown
-        place={isMakePage || isModelPage ? 3 : 2}
+        place={determinePlace()}
         title={'year'}
         queryObj={queryObj}
         value={year}
@@ -187,7 +217,24 @@ export function YearSearch({
         items={yearData}
         isLoading={isLoading}
       />
-      {(isMakePage || isModelPage) && submodel1DataExists && year && (
+      {(isMakePage || isModelPage || isYearPage) &&
+        submodel1DataExists &&
+        year && (
+          // <SubmodelDropdown queryObj={queryObj} submodelData={submodelData} />
+          <MainDropdown
+            place={4}
+            title={'submodel1'}
+            displayTitle={'submodel'}
+            queryObj={queryObj}
+            value={submodel1}
+            isDisabled={isDisabled}
+            // prevSelected={!isDisabled}
+            prevSelected={submodelPrevSelected}
+            items={submodel1Data}
+            isLoading={isLoading}
+          />
+        )}
+      {/* {isYearPage && submodel1DataExists && year && (
         // <SubmodelDropdown queryObj={queryObj} submodelData={submodelData} />
         <MainDropdown
           place={4}
@@ -201,22 +248,23 @@ export function YearSearch({
           items={submodel1Data}
           isLoading={isLoading}
         />
-      )}
-      {(isMakePage || isModelPage) && submodel2DataExists && submodel1 && (
-        // <SubmodelDropdown queryObj={queryObj} submodelData={submodelData} />
-        <MainDropdown
-          place={5}
-          title={'submodel2'}
-          displayTitle={'submodel'}
-          queryObj={queryObj}
-          value={submodel2}
-          isDisabled={isDisabled}
-          // prevSelected={!isDisabled}
-          prevSelected={prevSelected}
-          items={submodel2Data}
-          isLoading={isLoading}
-        />
-      )}
+      )} */}
+      {(isMakePage || isModelPage || isYearPage) &&
+        submodel2DataExists &&
+        submodel1 && (
+          <MainDropdown
+            place={5}
+            title={'submodel2'}
+            displayTitle={'submodel'}
+            queryObj={queryObj}
+            value={submodel2}
+            isDisabled={isDisabled}
+            // prevSelected={!isDisabled}
+            prevSelected={submodel2PrevSelected}
+            items={submodel2Data}
+            isLoading={isLoading}
+          />
+        )}
     </>
   );
 }

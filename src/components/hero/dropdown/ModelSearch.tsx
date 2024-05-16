@@ -94,8 +94,10 @@ export function ModelSearch({
           (car, index, self) =>
             index === self.findIndex((t) => t.model_slug === car.model_slug)
         );
-        setModelData(response.uniqueCars);
-        setModelDataStrings(response.uniqueModels);
+        if (!isYearPage) {
+          setModelData(response.uniqueCars);
+          setModelDataStrings(response.uniqueModels);
+        }
 
         // console.log({ response });
       } catch (error) {
@@ -110,7 +112,7 @@ export function ModelSearch({
   }, [type, year, make, typeId, yearId, makeId]);
 
   useEffect(() => {
-    if (!isBreadCrumb && isModelPage && typeId && makeId) {
+    if (!isBreadCrumb && (isModelPage || isYearPage) && typeId && makeId) {
       const getModels = async () => {
         // console.log({ typeId, makeId });
 
@@ -143,7 +145,7 @@ export function ModelSearch({
   }, [model]);
 
   useEffect(() => {
-    if (isYearPage && model && modelData.length > 0) {
+    if ((isMakePage || isYearPage) && model && modelData.length > 0) {
       const submodels = modelData
         .filter((product) => {
           const productModel = slugify(String(product.model));
@@ -174,18 +176,18 @@ export function ModelSearch({
         });
 
       setSubmodelData(submodels as ModelDropdown[]);
-      // console.log({ submodels, modelData, queryObj });
+      console.log({ submodels, modelData, queryObj });
     }
   }, [queryObj.query, modelData, model]);
 
   useEffect(() => {
-    if (isYearPage && submodel1 && modelData.length > 0) {
+    if ((isMakePage || isYearPage) && submodel1 && modelData.length > 0) {
       const submodels2 = modelData
         .filter((product) => {
           const productModel = String(product.model);
           const productSubmodel = String(product.submodel1).toLowerCase();
           const lowercaseSubParam = submodel1.toLowerCase();
-          console.log({ productSubmodel, lowercaseSubParam, submodel1 });
+          // console.log({ productSubmodel, lowercaseSubParam, submodel1 });
 
           if (
             slugify(productModel).toLowerCase() === model.toLowerCase() &&
@@ -215,8 +217,10 @@ export function ModelSearch({
   const determineDisabled = () => {
     switch (true) {
       case isMakePage:
-        return Boolean(!type || !make);
+        return Boolean(!type || !make || !year);
       case isModelPage:
+        return Boolean(!type || !make);
+      case isYearPage:
         return Boolean(!type || !make);
       default:
         return Boolean(!type || !year || !make);
@@ -225,16 +229,26 @@ export function ModelSearch({
 
   const isDisabled = determineDisabled();
 
+  // const determinePrevSelected = () => {
+  //   switch (true) {
+  //     case isMakePage:
+  //       return !type ?? !make;
+  //     case isModelPage:
+  //       return !type ?? !make;
+  //     default:
+  //       return type ?? make ?? year;
+  //   }
+  // };
   const determinePrevSelected = () => {
     switch (true) {
       case isMakePage:
-        return !type ?? !make;
+        return Boolean(type && year && make && !model);
       case isModelPage:
-        // return Boolean(type && make);
-        return !type ?? !make;
+        return Boolean(type && make && !model);
+      case isYearPage:
+        return Boolean(type && make && !model);
       default:
-        // return Boolean(type && make && year);
-        return type ?? make ?? year;
+        return Boolean(type && year && make && !model);
     }
   };
 
@@ -243,10 +257,29 @@ export function ModelSearch({
   const showSubmodelDropdown = submodelData.length > 0;
   const showSubmodel2Dropdown = submodel2Data.length > 0;
 
+  const determinePlace = () => {
+    switch (true) {
+      case isMakePage:
+        return 3;
+      case isModelPage:
+        return 2;
+      case isYearPage:
+        return 2;
+      default:
+        return 3;
+    }
+  };
+  const submodelPrevSelected = Boolean(
+    type && make && model && year && !submodel1
+  );
+  const submodel2PrevSelected = Boolean(
+    type && make && model && year && submodel1 && !submodel2
+  );
+
   return (
     <>
       <MainDropdown
-        place={3}
+        place={determinePlace()}
         title={'model'}
         queryObj={queryObj}
         isDisabled={isDisabled}
@@ -260,7 +293,7 @@ export function ModelSearch({
         <SubmodelDropdown queryObj={queryObj} submodelData={submodelData} />
       )}
 
-      {isYearPage && model && showSubmodelDropdown && (
+      {isMakePage && model && showSubmodelDropdown && (
         <MainDropdown
           place={4}
           title={'submodel1'}
@@ -268,13 +301,13 @@ export function ModelSearch({
           queryObj={queryObj}
           isDisabled={isDisabled}
           value={submodel1}
-          prevSelected={prevSelected}
+          prevSelected={submodelPrevSelected}
           items={submodelData}
           isLoading={isLoading}
         />
       )}
 
-      {isYearPage && submodel1 && showSubmodel2Dropdown && (
+      {isMakePage && submodel1 && showSubmodel2Dropdown && (
         <MainDropdown
           place={5}
           title="submodel2"
@@ -282,7 +315,7 @@ export function ModelSearch({
           queryObj={queryObj}
           isDisabled={isDisabled}
           value={submodel2}
-          prevSelected={prevSelected}
+          prevSelected={submodel2PrevSelected}
           items={submodel2Data}
           isLoading={isLoading}
         />

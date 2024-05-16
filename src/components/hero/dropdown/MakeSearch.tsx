@@ -37,6 +37,8 @@ export function MakeSearch({
         return !type;
       case isModelPage:
         return !type;
+      case isYearPage:
+        return !type;
       default:
         return !type || !year;
     }
@@ -88,7 +90,7 @@ export function MakeSearch({
   }, [queryObj]);
 
   useEffect(() => {
-    if (isMakePage || isModelPage) {
+    if (isMakePage || isModelPage || isYearPage) {
       const getMakes = async () => {
         const res = await editVehicleGetAllMakes();
         const fetchedMakeData = res.map((e) => {

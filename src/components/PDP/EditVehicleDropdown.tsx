@@ -76,13 +76,15 @@ export default function EditVehicleDropdown({
 
   const [query, setQuery] = useState<TQuery>({
     type: productType ? deslugify(productType) : '',
-    // year: yearParam ? yearParam : '',
-    year: yearParam ? yearParam.split('-')[0] : '', // Split to the first year
-    parent_generation: yearParam ? yearParam : '',
+    // // year: yearParam ? yearParam : '',
+    // year: yearParam ? yearParam.split('-')[0] : '', // Split to the first year
+    // parent_generation: yearParam ? yearParam : '',
+    year: '',
+    parent_generation: yearParam ? yearParam: '',
     make: makeParam ? makeParam : '',
     model: modelParam ? modelParam : '',
-    submodel1: submodelParam,
-    submodel2: submodel2Param,
+    submodel1: '',
+    submodel2: '',
     typeId: '',
     yearId: '',
     makeId: '',
@@ -302,9 +304,9 @@ export default function EditVehicleDropdown({
         return (
           <>
             {/* <TypeSearch queryObj={queryObj} /> */}
-            <YearSearch queryObj={queryObj} />
             <MakeSearch queryObj={queryObj} />
             <ModelSearch queryObj={queryObj} />
+            <YearSearch queryObj={queryObj} />
           </>
         );
       default:
