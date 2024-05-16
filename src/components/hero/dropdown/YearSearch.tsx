@@ -69,8 +69,6 @@ export function YearSearch({
     }
   };
 
- 
-
   const prevSelected = determinePrevSelected();
   const submodelPrevSelected = Boolean(
     type && make && model && year && !submodel1
@@ -100,6 +98,8 @@ export function YearSearch({
       setIsLoading(false);
     }
   };
+
+  console.log({ queryObj });
 
   const getYearsAndSubmodels = async () => {
     const fetchedYearsandSubmodels = await getAllYearsByTypeMakeModel(

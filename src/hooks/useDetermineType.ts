@@ -40,9 +40,16 @@ function useDetermineType() {
   const isPremiumType = isDefaultCoverType || isPremium;
   const isStandardType = isStandard || isStandardPro;
 
-  const isMakePage = Boolean(productType && make && !model && !year);
-  const isModelPage = Boolean(productType && make && model && !year);
-  const isYearPage = Boolean(productType && make && model && year);
+  const determinePoductType = () => {
+    if (isSeatCover) {
+      return 'Seat Covers';
+    }
+    return String(productType);
+  };
+
+  const isMakePage = Boolean(determinePoductType() && make && !model && !year);
+  const isModelPage = Boolean(determinePoductType() && make && model && !year);
+  const isYearPage = Boolean(determinePoductType() && make && model && year);
 
   return {
     make,

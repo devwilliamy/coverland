@@ -51,7 +51,6 @@ export default function EditVehicleDropdown({
 }) {
   const pathname = usePathname();
   const store = useStoreContext();
-  // const store = useContext(CarSelectionContext);
   if (!store) throw new Error('Missing Provider in the tree');
 
   const { coverType } = useStore(store, (s) => s.query);
@@ -63,24 +62,30 @@ export default function EditVehicleDropdown({
     isMakePage,
     isModelPage,
     isYearPage,
+    isCarCover,
+    isSeatCover,
   } = useDetermineType();
 
-  const currentSearchParams = useSearchParams();
-  const submodelParam = currentSearchParams.has('submodel')
-    ? String(currentSearchParams.get('submodel'))
-    : '';
-  const submodel2Param = currentSearchParams.has('submodel2')
-    ? String(currentSearchParams.get('submodel2'))
-    : '';
-  // console.log({ submodelParam, submodel2Param });
+  // ---------- Used for fetching both submodels from Search Parameters  -----------
+  // const currentSearchParams = useSearchParams();
+  // const submodelParam = currentSearchParams.has('submodel')
+  //   ? String(currentSearchParams.get('submodel'))
+  //   : '';
+  // const submodel2Param = currentSearchParams.has('submodel2')
+  //   ? String(currentSearchParams.get('submodel2'))
+  //   : '';
+
+  const determinePoductType = () => {
+    if (isSeatCover) {
+      return 'Seat Covers';
+    }
+    return String(productType);
+  };
 
   const [query, setQuery] = useState<TQuery>({
-    type: productType ? deslugify(productType) : '',
-    // // year: yearParam ? yearParam : '',
-    // year: yearParam ? yearParam.split('-')[0] : '', // Split to the first year
-    // parent_generation: yearParam ? yearParam : '',
+    type: determinePoductType() ? deslugify(determinePoductType()) : '',
     year: '',
-    parent_generation: yearParam ? yearParam: '',
+    parent_generation: yearParam ? yearParam : '',
     make: makeParam ? makeParam : '',
     model: modelParam ? modelParam : '',
     submodel1: '',
@@ -93,6 +98,8 @@ export default function EditVehicleDropdown({
 
   const { year, type, make, model, submodel1, submodel2, parent_generation } =
     query;
+
+  console.log({ type, make, model, isSeatCover });
 
   const [loading, setLoading] = useState(false);
   const [jsonData, setJsonData] = useState<TProductJsonData[]>([]);
@@ -132,8 +139,6 @@ export default function EditVehicleDropdown({
     };
     fetchTypeId();
   }, [open]);
-
-  // const urlParentGen = parent_generation;
 
   const getYearGen = async () => {
     const fetchedGen = await getYearGenByID(
@@ -220,8 +225,6 @@ export default function EditVehicleDropdown({
     ),
   ];
 
-  // const yearInUrl = parent_generation ?? dropdownData?.[0]?.parent_generation;
-
   const createQueryString = useCallback((name: string, value: string) => {
     const params = new URLSearchParams();
     params.set(name, value);
@@ -281,7 +284,10 @@ export default function EditVehicleDropdown({
     (subModelData.length > 1 && !submodel1);
 
   const determineDropdownOrder = () => {
-    switch (true) {
+    const isCarCoversOrSeatCovers = isCarCover || isSeatCover;
+    console.log({ isMakePage, isModelPage, isYearPage, isSeatCover });
+
+    switch (isCarCoversOrSeatCovers) {
       case isMakePage:
         return (
           <>
