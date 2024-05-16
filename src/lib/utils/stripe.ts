@@ -101,12 +101,18 @@ export const generateLineItemsForStripe = (items, order_id) => {
       ? parseInt((parseFloat(item.msrp) * 100).toFixed(0))
       : 0;
     const type = item.type === 'Seat Covers' ? 'Seat Cover' : 'Car Cover';
+    // const itemName =
+    //   `${item?.year_generation || ''} ${item?.make || ''} ${item?.model || ''} ${
+    //     item?.submodel1 ? item?.submodel1 : ''
+    //   } ${item?.submodel2 ? item?.submodel2 : ''} ${type} ${item?.display_id} ${
+    //     item?.display_color
+    //   } ${item?.sku} ${order_id}`.replace(/\s+/g, ' ').trim();
     const itemName =
       `${item?.year_generation || ''} ${item?.make || ''} ${item?.model || ''} ${
         item?.submodel1 ? item?.submodel1 : ''
       } ${item?.submodel2 ? item?.submodel2 : ''} ${type} ${item?.display_id} ${
         item?.display_color
-      } ${item?.sku} ${order_id}`.trim();
+      }`.replace(/\s+/g, ' ').trim();
     console.log('StripeCheckout Item Name:', itemName);
     return {
       price_data: {
