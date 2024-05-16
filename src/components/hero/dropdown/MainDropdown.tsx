@@ -240,6 +240,8 @@ export default function MainDropdown({
             modelId: id as string,
             year: '',
             yearId: '',
+            submodel1: '',
+            submodel2: '',
           };
         });
         break;
@@ -252,6 +254,8 @@ export default function MainDropdown({
             modelId: id as string,
             year: '',
             yearId: '',
+            submodel1: '',
+            submodel2: '',
           };
         });
         break;
