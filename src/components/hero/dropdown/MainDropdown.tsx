@@ -493,7 +493,7 @@ export default function MainDropdown({
   };
   return (
     <div
-      className={`relative flex min-h-[48px] w-full lg:h-[64px] lg:min-h-[64px]  ${dropdownOpen && !isMobile ? 'rounded-t-[8px] ' : 'rounded-[8px] '} ${!isDisabled ? ' bg-white outline outline-[1px] outline-black' : 'bg-gray-300/90'}`}
+      className={`relative flex max-h-[48px] min-h-[48px] w-full lg:max-h-[64px] lg:min-h-[64px]  ${dropdownOpen && !isMobile ? 'rounded-t-[8px] ' : 'rounded-[8px] '} ${!isDisabled ? ' bg-white outline outline-[1px] outline-black' : 'bg-gray-300/90'}`}
     >
       {/*  ---------- Desktop Dropdown START  ----------*/}
       <>
