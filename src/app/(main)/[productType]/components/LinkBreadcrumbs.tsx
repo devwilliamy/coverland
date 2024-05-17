@@ -32,6 +32,7 @@ import { Button } from '@/components/ui/button';
 import { useRouter } from 'next/navigation';
 import { useStore } from 'zustand';
 import { CarSelectionContext } from '@/contexts/CarSelectionContext';
+import useStoreContext from '@/hooks/useStoreContext';
 
 export default function LinkBreadcrumbs() {
   const {
@@ -41,38 +42,75 @@ export default function LinkBreadcrumbs() {
     model: paramsModel,
     year,
   } = useDetermineType();
-  let store;
-  let make: string = '';
-  let model: string = '';
-  if (!isSeatCover) {
-    store = useContext(CarSelectionContext);
-    if (!store) throw new Error('Missing CarContext.Provider in the tree');
-    // { make, model } = selectedProduct.make;
-    const selectedProduct = useStore(store, (s) => s.selectedProduct);
-    make = String(selectedProduct.make);
-    model = String(selectedProduct.model);
-  }
 
+  // let store;
+  // let make: string = '';
+  // let model: string = '';
+  // if (!isSeatCover) {
+  const store = useStoreContext();
+  // store = useContext(context);
+  if (!store) throw new Error('Missing CarContext.Provider in the tree');
+  // { make, model } = selectedProduct.make;
+  const selectedProduct = useStore(store, (s) => s.selectedProduct);
+  console.log({ selectedProduct });
+  const stringMake = String(selectedProduct.make);
+  const stringModel = String(selectedProduct.model);
+  let make = stringMake ? stringMake : '';
+  let model = stringModel ? stringModel : '';
+  // make = ;
+  // model = String(selectedProduct.model);
+  // }
+  console.log({
+    productType,
+    make,
+    model,
+    year,
+    //  make, model
+  });
   const params = Object(useParams());
   const paramKeys = Object.keys(params);
   const paramValues = Object.values(params);
 
   // const { make, model } = selectedProduct;
   // console.log('[MODEL FROM BREADCRUMBS]: ', { model });
+  const determineProductType = () => {
+    if (isSeatCover) {
+      return 'Seat Covers';
+    }
+    return String(productType);
+  };
+
+  const determineMake = () => {
+    if (isSeatCover) {
+      return String(make);
+    }
+    return deslugify(String(make));
+  };
 
   const [paramsObj, setParamObj] = useState<TQuery>({
-    type: deslugify(productType as string),
+    // type: deslugify(productType as string),
     year: year ? year : '',
-    make: paramsMake ? deslugify(make) : '',
-    model: paramsModel ? deslugify(model) : '',
+    // make: make ? deslugify(make) : '',
+    // model: model ? deslugify(model) : '',
+    // submodel1: '',
+    // submodel2: '',
+    // parent_generation: '',
+    // typeId: '',
+    // makeId: '',
+    // modelId: '',
+    // yearId: '',
+    type: determineProductType() ? deslugify(determineProductType()) : '',
+    parent_generation: year ? year : '',
+    make: make ? determineMake() : '',
+    model: model ? deslugify(model) : '',
     submodel1: '',
     submodel2: '',
-    parent_generation: '',
     typeId: '',
+    yearId: '',
     makeId: '',
     modelId: '',
-    yearId: '',
   });
+
   const [typeData, setTypeData] = useState<any[]>([]);
   const [makeData, setMakeData] = useState<string[]>([]);
   const [modelData, setModelData] = useState<string[]>([]);
@@ -157,10 +195,11 @@ export default function LinkBreadcrumbs() {
       !paramsObj.type || !paramsObj.make || !paramsObj.model || !paramsObj.year;
     setIsDisabled(disabled);
   }, [
-    paramsObj.type,
-    paramsObj.make,
-    paramsObj.model,
-    paramsObj.year,
+    paramsObj,
+    // paramsObj.type,
+    // paramsObj.make,
+    // paramsObj.model,
+    // paramsObj.year,
     // paramsObj.typeId,
     // paramsObj.makeId,
     // paramsObj.modelId,
@@ -233,18 +272,20 @@ export default function LinkBreadcrumbs() {
             href={getUrlFromBreadcrumbs(0)}
             className={`capitalize hover:underline `}
           >
-            {/* Replacing hyphens with spaces (except for year_generation) */}
             Seat Covers
           </a>
 
           {paramsObj.make && <p>/</p>}
         </div>
       )}
+      {/* Replacing hyphens with spaces (except for year_generation) */}
       {params &&
         paramKeys.map((key, generatedIndex) => {
           if (params[key] === 'premium-plus' || params[key] === 'leather') {
             return;
           }
+          // console.log(queryObj.query);
+
           return (
             <div key={key} className="">
               <Popover>
@@ -258,6 +299,7 @@ export default function LinkBreadcrumbs() {
                   <div
                     className={` hover:underline ${params[key].length < 4 ? 'uppercase' : 'capitalize'} `}
                   >
+                    {/* Checking and Setting trigger text */}
                     {key !== 'make' &&
                       key !== 'model' &&
                       key !== 'year' &&
@@ -283,7 +325,7 @@ export default function LinkBreadcrumbs() {
                         isBreadCrumb
                       />
                     )}
-                    {make && clickedIndex <= 2 && (
+                    {clickedIndex <= 2 && (
                       <MainDropdown
                         place={2}
                         title={'make'}
@@ -295,7 +337,7 @@ export default function LinkBreadcrumbs() {
                         isBreadCrumb
                       />
                     )}
-                    {model && clickedIndex <= 3 && (
+                    {clickedIndex <= 3 && (
                       <MainDropdown
                         place={3}
                         title={'model'}

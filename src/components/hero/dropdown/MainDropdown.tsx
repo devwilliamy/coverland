@@ -49,6 +49,8 @@ export default function MainDropdown({
   const [selectedValue, setSelectedValue] = useState<string>(
     isBreadCrumb ? String(value) : ''
   );
+  console.log({ value, desl: deslugify(String(value)) });
+
   const [selectedIndex, setSelectedIndex] = useState<number>(-1);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [isFocused, setIsFocused] = useState(false);

@@ -23,11 +23,17 @@ function useDetermineType() {
   const { make, model, year } = params as ParamsType;
 
   // Product Types
-  const productType = params?.productType;
+  const isSeatCover = pathname.startsWith(SEAT_COVERS_URL_PARAM_WITH_SLASH);
+  const determineProductType = () => {
+    if (isSeatCover) {
+      return 'Seat Covers';
+    }
+    return String(params?.productType);
+  };
+  const productType = determineProductType();
   const isTruckCover = productType === TRUCK_COVERS_URL_PARAM;
   const isSUVCover = productType === SUV_COVERS_URL_PARAM;
   const isCarCover = productType === CAR_COVERS_URL_PARAM;
-  const isSeatCover = pathname.startsWith(SEAT_COVERS_URL_PARAM_WITH_SLASH);
   const isVehicleCover = isCarCover || isSUVCover || isTruckCover;
 
   // Cover Types
@@ -40,16 +46,9 @@ function useDetermineType() {
   const isPremiumType = isDefaultCoverType || isPremium;
   const isStandardType = isStandard || isStandardPro;
 
-  const determinePoductType = () => {
-    if (isSeatCover) {
-      return 'Seat Covers';
-    }
-    return String(productType);
-  };
-
-  const isMakePage = Boolean(determinePoductType() && make && !model && !year);
-  const isModelPage = Boolean(determinePoductType() && make && model && !year);
-  const isYearPage = Boolean(determinePoductType() && make && model && year);
+  const isMakePage = Boolean(determineProductType() && make && !model && !year);
+  const isModelPage = Boolean(determineProductType() && make && model && !year);
+  const isYearPage = Boolean(determineProductType() && make && model && year);
 
   return {
     make,
