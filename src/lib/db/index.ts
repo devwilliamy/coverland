@@ -475,6 +475,25 @@ export async function getDistinctMakesByType(type: string) {
   return filteredMakes;
 }
 
+export async function getDistinctMakesByTypeSeatCover(type: string) {
+  const { data, error } = await supabase.rpc(
+    'get_distinct_makes_by_type_seatcover',
+    {
+      type: type,
+    }
+  );
+
+  if (error) {
+    throw new Error(error.message);
+  }
+
+  const filteredMakes = data.map((obj: any) => {
+    return obj?.make;
+  });
+
+  return filteredMakes;
+}
+
 export async function getDistinctModelsByTypeMake(
   type_id: number,
   make_id: number

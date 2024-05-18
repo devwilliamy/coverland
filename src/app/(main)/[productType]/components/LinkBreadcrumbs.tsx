@@ -23,6 +23,7 @@ import {
   breadcrumbsGetDistinctModelByTypeMake,
   getAllType,
   getDistinctMakesByType,
+  getDistinctMakesByTypeSeatCover,
   getDistinctModelsByTypeMake,
   getDistinctYearGenerationByTypeMakeModelYear,
   getDistinctYearsByTypeMakeModel,
@@ -143,7 +144,12 @@ export default function LinkBreadcrumbs() {
   };
   const getMakes = async () => {
     if (paramsObj.type) {
-      const makes = await getDistinctMakesByType(paramsObj.type);
+      let makes = [];
+      if (isSeatCover) {
+        makes = await getDistinctMakesByTypeSeatCover(paramsObj.type);
+      } else {
+        makes = await getDistinctMakesByType(paramsObj.type);
+      }
       setMakeData(makes);
       // console.log('Fetched Makes', makes);
     }
@@ -275,7 +281,7 @@ export default function LinkBreadcrumbs() {
             Seat Covers
           </a>
 
-          {paramsObj.make && <p>/</p>}
+          {paramsMake && <p>/</p>}
         </div>
       )}
       {/* Replacing hyphens with spaces (except for year_generation) */}
