@@ -184,7 +184,7 @@ export default function VideoReviewPage() {
           </p>
         </section>
         <iframe
-          height={isMobile ? 1450 : 1300}
+          height="1450"
           src="https://docs.google.com/forms/d/e/1FAIpQLSeRn7m2eZEvWFmOe9OfYZMrvduLhM8vPpVJTFzLVLRLtyVUyQ/viewform?embedded=true"
           className="w-full "
         >
