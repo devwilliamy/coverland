@@ -257,7 +257,7 @@ export const determineShortReviewCount = (total_reviews: number) => {
       return '700+';
     case total_reviews >= 800 && total_reviews <= 899:
       return '800+';
-    case total_reviews >= 900 && total_reviews <= 999:
+    case total_reviews >= 900:
       return '900+';
     default:
       return total_reviews;
