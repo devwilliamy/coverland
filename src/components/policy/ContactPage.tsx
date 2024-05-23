@@ -1,6 +1,6 @@
 'use client';
 import Banner from '@/images/hero/hero.webp';
-import Image from 'next/image';
+import Image, { StaticImageData } from 'next/image';
 import { Raleway } from 'next/font/google';
 import { Lato } from 'next/font/google';
 import Phone from '@/images/contact/call 2.webp';
@@ -8,9 +8,10 @@ import Chat from '@/images/contact/chat 2.webp';
 import Pin from '@/images/contact/location 1.webp';
 import Mail from '@/images/contact/mail 1.webp';
 import { Separator } from '@/components/ui/separator';
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent, useContext, useState } from 'react';
 import PolicyTabs from '@/components/policy/PolicyTabs';
 import PolicyHeader from '@/components/policy/PolicyHeader';
+import { useLiveChatContext } from '@/contexts/LiveChatContext';
 
 const raleway = Raleway({
   weight: ['100', '400', '700', '900'],
@@ -76,7 +77,16 @@ export default function ContactPage() {
       errorMessage: '',
       firstVisit: true,
     },
+    toEmail: {
+      value: '',
+      errors: false,
+      errorMessage: '',
+      firstVisit: true,
+    },
   });
+  const [emailSent, setEmailSent] = useState(false);
+  const { visible, setVisible } = useLiveChatContext();
+
   const validateEmail = (e: ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     const isValid = emailRegex.test(value);
@@ -131,17 +141,50 @@ export default function ContactPage() {
       };
     });
   };
-  const handleSubmit = (formData: FormData) => {
+  const handleSubmit = async (formData: FormData) => {
     let subject: string | unknown;
     let body: string | unknown;
     let email: string | unknown;
     let phoneNumber: string | unknown;
+    let to: string | unknown;
     if (formData) {
+      to = formData.get('to')?.valueOf();
       email = formData.get('email')?.valueOf();
       phoneNumber = formData.get('phoneNumber')?.valueOf();
       subject = formData.get('subject')?.valueOf();
       body = formData.get('body')?.valueOf();
-      window.location.href = `mailto:info@coverland.com?subject=${subject}&body=${email}%0A${phoneNumber}%0A${body}`;
+
+      const bodyData = {
+        to,
+        email,
+        subject,
+        text: body,
+      };
+      // console.log({ bodyData, stringified: JSON.stringify({ bodyData }) });
+
+      try {
+        const response = await fetch('/api/email/contact', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ bodyData }),
+        });
+        const emailResponse = await response.json();
+        if (emailResponse.code === 200) {
+          setEmailSent(true);
+          setTimeout(() => {
+            setEmailSent(false);
+          }, 5000);
+        }
+        console.log({ emailResponse }); // Making sure the await goes through and email is sent
+      } catch (error) {
+        console.error('Error:', error);
+        // setMessage(
+        //   error?.message || "There's an error, but could not find error message"
+        // );
+      }
+      // window.location.href = `mailto:info@coverland.com?subject=${subject}&body=${email}%0A${phoneNumber}%0A${body}`;
       return;
     }
   };
@@ -160,6 +203,34 @@ export default function ContactPage() {
     });
   };
 
+  const determineOnClick = (img: StaticImageData) => {
+    switch (img) {
+      case Mail:
+        const el = document.getElementById('emailTop');
+        // return (window.location.href = `mailto:info@coverland.com`);
+        const elTop = el?.offsetTop;
+        window.scrollTo({
+          top: (elTop as number) - 10,
+          behavior: 'smooth',
+        });
+        break;
+      case Phone:
+        return (window.location.href = 'tel:8007995165');
+      case Chat:
+        if (visible === 'hidden' || visible === 'minimized') {
+          return setVisible('maximized');
+        } else {
+          return setVisible('minimized');
+        }
+      default:
+        return;
+    }
+  };
+
+  const determineClickable = (img: StaticImageData) => {
+    return img === Mail || img === Chat || img === Phone;
+  };
+
   return (
     <section className="flex w-full flex-col items-center">
       <PolicyHeader headerText="Contact Us" />
@@ -168,14 +239,10 @@ export default function ContactPage() {
           {contactGrid.map(({ img, text }, i) => (
             <div
               key={`contact-item-${i}`}
-              className={`${img === Mail && 'cursor-pointer'} flex  flex-col items-center justify-center`}
-              onClick={
-                img === Mail
-                  ? () => {
-                      window.location.href = `mailto:info@coverland.com`;
-                    }
-                  : () => {}
-              }
+              className={`${determineClickable(img) && 'cursor-pointer'} flex  flex-col items-center justify-center`}
+              onClick={() => {
+                determineOnClick(img);
+              }}
             >
               <Image src={img} alt="contact-grid-image" />
               <h1
@@ -186,7 +253,7 @@ export default function ContactPage() {
             </div>
           ))}
         </span>
-        <Separator />
+        <Separator id="emailTop" />
         <form
           id="form"
           method="post"
@@ -284,6 +351,55 @@ export default function ContactPage() {
               </p>
             </div>
           </span>
+          {/* ------------------ ⌄ REMOVE BEFORE PUSHING TO PROD ⌄ ------------------ */}
+          {/* <span>
+            <div className="flex w-full flex-col ">
+              <label
+                htmlFor="phoneNumber"
+                className="mb-2 font-black text-[red]"
+              >
+                CUSTOM "TO" EMAIL ( FOR TESTING ONLY)
+              </label>
+              <input
+                id="to"
+                name="to"
+                placeholder="to:JohnDoe@email.com"
+                type="text"
+                value={validationObject.toEmail.value}
+                onChange={(e) => {
+                  setValidationObject((prev) => {
+                    return {
+                      ...prev,
+                      toEmail: {
+                        ...prev.toEmail,
+                        value: e.target.value,
+                      },
+                    };
+                  });
+                }}
+                onBlur={(e) => {
+                  setValidationObject((state) => {
+                    return {
+                      ...state,
+                      phone: {
+                        ...state.phone,
+                        firstVisit: false,
+                      },
+                    };
+                  });
+                  handlePhoneChange(e);
+                }}
+                className="mb-[13px] min-h-[50px] w-full border-[2px] border-[#DBDBDB] pl-1"
+              />
+              <p
+                className={`${validationObject.phone.errors ? 'font-bold text-[#BE1B1B]' : 'hidden'}`}
+              >
+                {validationObject.phone.errorMessage}
+              </p>
+            </div>
+          </span> */}
+          {/* ------------------ ^ REMOVE BEFORE PUSHING TO PROD ^ ------------------ */}
+
           <label htmlFor="body" className="pb-2 font-black">
             How Can We Help? *
           </label>
@@ -294,7 +410,9 @@ export default function ContactPage() {
             required
             className="mb-[13px] min-h-[190px] w-full resize-none border-[2px] border-[#DBDBDB] p-1"
           />
-
+          {emailSent && (
+            <div className="mb-[13px] font-black text-[red]"> Email Sent! </div>
+          )}
           <input
             type="submit"
             value={'SUBMIT'}
