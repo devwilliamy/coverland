@@ -14,7 +14,6 @@ function ReviewsTextTrigger() {
   const reviewData = useStore(store, (s) => s.reviewData);
   const { isSeatCover, isYearPage, make, productType, model, year } =
     useDetermineType();
-  console.log({ productType, make, model, year });
 
   return (
     <>
