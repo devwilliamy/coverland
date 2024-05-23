@@ -63,7 +63,7 @@ const Footer = () => {
               </IconCircle>
             </Link>
             <Link
-              href="https://www.instagram.com/coverland_us/?hl=ko"
+              href="https://www.instagram.com/coverland_us/"
               target="_blank"
               aria-label="Go to Coverland Instagram page"
             >
