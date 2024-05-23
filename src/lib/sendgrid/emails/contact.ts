@@ -1,4 +1,4 @@
-import sgMail from '@sendgrid/mail';
+import sgMail, { MailDataRequired } from '@sendgrid/mail';
 sgMail.setApiKey(process.env.SENDGRID_API_KEY || '');
 
 type ContactEmailInput = {
@@ -40,7 +40,7 @@ export const sendContactEmail = async (emailInput: ContactEmailInput) => {
   console.log({ msg });
 
   try {
-    await sgMail.send(msg);
+    await sgMail.send(msg as MailDataRequired);
   } catch (error) {
     console.error(error);
   }
