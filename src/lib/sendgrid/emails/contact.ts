@@ -12,6 +12,7 @@ type ContactEmailInput = {
 const generateContactEmail = ({
   to,
   subject,
+  phoneNumber,
   text,
   email,
 }: ContactEmailInput) => {
@@ -25,6 +26,9 @@ const generateContactEmail = ({
     text:
       `Customer Email: ${email} ` +
       '\n' +
+      `Customer Phone: ${phoneNumber} ` +
+      '\n' +
+      '\n' +
       `Thank you for your response! Here is a copy of your email:` +
       '\n' +
       `${text}`,
@@ -33,6 +37,8 @@ const generateContactEmail = ({
 
 export const sendContactEmail = async (emailInput: ContactEmailInput) => {
   const msg = generateContactEmail(emailInput);
+  console.log({ msg });
+
   try {
     await sgMail.send(msg);
   } catch (error) {

@@ -77,12 +77,6 @@ export default function ContactPage() {
       errorMessage: '',
       firstVisit: true,
     },
-    toEmail: {
-      value: '',
-      errors: false,
-      errorMessage: '',
-      firstVisit: true,
-    },
   });
   const [emailSent, setEmailSent] = useState(false);
   const { visible, setVisible } = useLiveChatContext();
@@ -159,6 +153,7 @@ export default function ContactPage() {
         email,
         subject,
         text: body,
+        phoneNumber,
       };
       // console.log({ bodyData, stringified: JSON.stringify({ bodyData }) });
 
@@ -351,55 +346,6 @@ export default function ContactPage() {
               </p>
             </div>
           </span>
-          {/* ------------------ ⌄ REMOVE BEFORE PUSHING TO PROD ⌄ ------------------ */}
-          {/* <span>
-            <div className="flex w-full flex-col ">
-              <label
-                htmlFor="phoneNumber"
-                className="mb-2 font-black text-[red]"
-              >
-                CUSTOM "TO" EMAIL ( FOR TESTING ONLY)
-              </label>
-              <input
-                id="to"
-                name="to"
-                placeholder="to:JohnDoe@email.com"
-                type="text"
-                value={validationObject.toEmail.value}
-                onChange={(e) => {
-                  setValidationObject((prev) => {
-                    return {
-                      ...prev,
-                      toEmail: {
-                        ...prev.toEmail,
-                        value: e.target.value,
-                      },
-                    };
-                  });
-                }}
-                onBlur={(e) => {
-                  setValidationObject((state) => {
-                    return {
-                      ...state,
-                      phone: {
-                        ...state.phone,
-                        firstVisit: false,
-                      },
-                    };
-                  });
-                  handlePhoneChange(e);
-                }}
-                className="mb-[13px] min-h-[50px] w-full border-[2px] border-[#DBDBDB] pl-1"
-              />
-              <p
-                className={`${validationObject.phone.errors ? 'font-bold text-[#BE1B1B]' : 'hidden'}`}
-              >
-                {validationObject.phone.errorMessage}
-              </p>
-            </div>
-          </span> */}
-          {/* ------------------ ^ REMOVE BEFORE PUSHING TO PROD ^ ------------------ */}
-
           <label htmlFor="body" className="pb-2 font-black">
             How Can We Help? *
           </label>
