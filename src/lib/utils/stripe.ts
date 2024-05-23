@@ -112,7 +112,9 @@ export const generateLineItemsForStripe = (items, order_id) => {
         item?.submodel1 ? item?.submodel1 : ''
       } ${item?.submodel2 ? item?.submodel2 : ''} ${type} ${item?.display_id} ${
         item?.display_color
-      }`.replace(/\s+/g, ' ').trim();
+      }`
+        .replace(/\s+/g, ' ')
+        .trim();
     console.log('StripeCheckout Item Name:', itemName);
     return {
       price_data: {
@@ -132,5 +134,16 @@ export const getSkusFromCartItems = (items: TCartItem[]) => {
 };
 
 export const getSkusAndQuantityFromCartItems = (items: TCartItem[]) => {
-  return items.map((item: TCartItem) => ({ sku: item.sku, quantity: item.quantity}))
-}
+  return items.map((item: TCartItem) => ({
+    sku: item.sku,
+    quantity: item.quantity,
+  }));
+};
+
+export const getSkuQuantityPriceFromCartItemsForMeta = (items: TCartItem[]) => {
+  return items.map(({ sku, quantity, msrp }: TCartItem) => ({
+    id: sku,
+    quantity,
+    item_price: msrp,
+  }));
+};
