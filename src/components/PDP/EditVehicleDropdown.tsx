@@ -25,7 +25,7 @@ import {
   getProductData,
   getTypeId,
   getYearGenById,
-  getYearIdByYearSlug,
+  getYearIdByYear,
 } from '@/lib/db';
 import useDetermineType from '@/hooks/useDetermineType';
 import { SubmodelDropdown } from '../hero/dropdown/SubmodelDropdown';
@@ -129,7 +129,7 @@ export default function EditVehicleDropdown({
       }
 
       if (query.year) {
-        const res = await getYearIdByYearSlug(query.year);
+        const res = await getYearIdByYear(query.year);
         setQuery((prev) => {
           return { ...prev, yearId: String(res) };
         });

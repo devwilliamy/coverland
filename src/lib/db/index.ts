@@ -685,7 +685,7 @@ export async function getModelIdByModelSlug(model: string) {
   return id;
 }
 
-export async function getYearIdByYearSlug(year: string) {
+export async function getYearIdByYear(year: string) {
   const { data, error } = await supabase
     .from(YEARS_TABLE)
     .select(`id`)

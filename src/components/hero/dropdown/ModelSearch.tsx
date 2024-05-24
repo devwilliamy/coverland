@@ -271,6 +271,8 @@ export function ModelSearch({
     type && make && model && year && submodel1 && !submodel2
   );
 
+  // console.log('[MODEL]: ', { model, modelData });
+
   return (
     <>
       <MainDropdown
@@ -283,11 +285,11 @@ export function ModelSearch({
         items={modelDataStrings}
         isLoading={isLoading}
       />
-
+      {/* Hero Submodel Dropdown */}
       {!isMakePage && !isModelPage && !isYearPage && showSubmodelDropdown && (
         <SubmodelDropdown queryObj={queryObj} submodelData={submodelData} />
       )}
-
+      {/* EditVehicle Submodel Dropdowns */}
       {isMakePage && model && showSubmodelDropdown && (
         <MainDropdown
           place={4}
