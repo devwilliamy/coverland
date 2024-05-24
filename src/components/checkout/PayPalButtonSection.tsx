@@ -26,6 +26,7 @@ import {
 } from '@/hooks/useGoogleTagDataLayer';
 import { hashData } from '@/lib/utils/hash';
 import { getCookie } from '@/lib/utils/cookie';
+import { v4 as uuidv4 } from 'uuid';
 
 export default function PayPalButtonSection() {
   const { clearLocalStorageCart, getTotalPrice, cartItems } = useCartContext();
@@ -160,10 +161,12 @@ export default function PayPalButtonSection() {
               );
               const skusWithQuantityMsrpForMeta =
                 getSkuQuantityPriceFromCartItemsForMeta(cartItems);
+              const eventID = uuidv4();
 
               const metaCPIEvent = {
                 event_name: 'Purchase',
                 event_time: Math.floor(Date.now() / 1000),
+                event_id: eventID,
                 action_source: 'website',
                 user_data: {
                   em: [hashData(customerInfo.email)],
@@ -198,12 +201,17 @@ export default function PayPalButtonSection() {
               // Track the purchase event
               if (typeof fbq === 'function') {
                 console.log('inside fbq');
-                fbq('track', 'Purchase', {
-                  value: parseFloat(getTotalPrice().toFixed(2)),
-                  currency: 'USD',
-                  contents: skusWithQuantityMsrpForMeta,
-                  content_type: 'product',
-                });
+                fbq(
+                  'track',
+                  'Purchase',
+                  {
+                    value: parseFloat(getTotalPrice().toFixed(2)),
+                    currency: 'USD',
+                    contents: skusWithQuantityMsrpForMeta,
+                    content_type: 'product',
+                  },
+                  { eventID }
+                );
                 console.log('fbq fired');
               }
 
