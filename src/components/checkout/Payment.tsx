@@ -16,11 +16,18 @@ import PaymentSelector from './PaymentSelector';
 import { PaymentMethod, StripeAddress } from '@/lib/types/checkout';
 import BillingAddress from './BillingAddress';
 import { useCartContext } from '@/providers/CartProvider';
-import { convertPriceToStripeFormat } from '@/lib/utils/stripe';
+import {
+  convertPriceToStripeFormat,
+  getSkuQuantityPriceFromCartItemsForMeta,
+  getSkusAndQuantityFromCartItems,
+  getSkusFromCartItems,
+} from '@/lib/utils/stripe';
 import { sendThankYouEmail } from '@/lib/sendgrid/emails/thank-you';
 import { getCurrentDayInLocaleDateString } from '@/lib/utils/date';
 import { useRouter } from 'next/navigation';
 import { handlePurchaseGoogleTag } from '@/hooks/useGoogleTagDataLayer';
+import { hashData } from '@/lib/utils/hash';
+import { getCookie } from '@/lib/utils/cookie';
 
 function isValidShippingAddress({ address }: StripeAddress) {
   return (
@@ -145,17 +152,92 @@ export default function Payment() {
             // shippingInfo,
             // billingInfo,
           };
-          const response = await fetch('/api/email/thank-you', {
+          try {
+            const response = await fetch('/api/email/thank-you', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({ emailInput }),
+            });
+            const emailResponse = await response.json(); // Making sure the await goes through and email is sent
+          } catch (error) {
+            console.error('Error:', error?.message);
+            setMessage(
+              error?.message ||
+                "There's an error, but could not find error message"
+            );
+          }
+          const enhancedGoogleCovnersionInput = {
+            email: customerInfo.email || '',
+            phone_number: shippingAddress.phone || '',
+            first_name: shippingAddress.firstName || '',
+            last_name: shippingAddress.lastName || '',
+            address_line1: shippingAddress.address.line1 || '',
+            city: shippingAddress.address.city || '',
+            state: shippingAddress.address.state || '',
+            postal_code: shippingAddress.address.postal_code || '',
+            country: shippingAddress.address.country || '',
+          };
+
+          handlePurchaseGoogleTag(
+            cartItems,
+            orderNumber,
+            getTotalPrice().toFixed(2),
+            clearLocalStorageCart,
+            enhancedGoogleCovnersionInput
+          );
+
+          const skus = getSkusFromCartItems(cartItems);
+          const skusWithQuantityMsrpForMeta =
+            getSkuQuantityPriceFromCartItemsForMeta(cartItems);
+
+          const metaCPIEvent = {
+            event_name: 'Purchase',
+            event_time: Math.floor(Date.now() / 1000),
+            action_source: 'website',
+            user_data: {
+              em: [hashData(customerInfo.email)],
+              ph: [hashData(shippingAddress.phone || '')],
+              ct: [hashData(shippingAddress.address.city || '')],
+              country: [hashData(shippingAddress.address.country || '')],
+              fn: [hashData(shippingAddress.firstName || '')],
+              ln: [hashData(shippingAddress.lastName || '')],
+              st: [hashData(shippingAddress.address.state || '')],
+              zp: [hashData(shippingAddress.address.postal_code || '')],
+              fbp: getCookie('_fbp'),
+              // client_ip_address: '', // Replace with the user's IP address
+              client_user_agent: navigator.userAgent, // Browser user agent string
+            },
+            custom_data: {
+              currency: 'USD',
+              value: parseFloat(getTotalPrice().toFixed(2)),
+              order_id: orderNumber,
+              content_ids: skus.join(','),
+              contents: skusWithQuantityMsrpForMeta,
+            },
+            event_source_url: origin,
+          };
+          // debugger
+          const metaCAPIResponse = await fetch('/api/meta/event', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ emailInput }),
+            body: JSON.stringify({ metaCPIEvent }),
           });
-
-          await response.json();
-          handlePurchaseGoogleTag(cartItems, orderNumber, getTotalPrice().toFixed(2), clearLocalStorageCart)
-
+          // Track the purchase event
+          if (typeof fbq === 'function') {
+            console.log("inside fbq")
+            fbq('track', 'Purchase', {
+              value: parseFloat(getTotalPrice().toFixed(2)),
+              currency: 'USD',
+              contents: skusWithQuantityMsrpForMeta,
+              content_type: 'product',
+            });
+            console.log("fbq fired")
+          }
+          // debugger
           const { id, client_secret } = result.paymentIntent;
           router.push(
             `/thank-you?order_number=${orderNumber}&payment_intent=${id}&payment_intent_client_secret=${client_secret}`

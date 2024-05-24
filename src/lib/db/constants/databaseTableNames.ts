@@ -6,10 +6,10 @@ export const TYPE_TABLE = 'Type';
 export const YEARS_TABLE = 'Years';
 export const SEAT_PRODUCT_REVIEWS_TABLE = 'seat_cover_reviews_20240426';
 export const TYPE_MAKE_YEAR_DISTINCT = 'type_make_year_distinct';
-export const ADMIN_PANEL_ORDERS = '_Orders';
-export const ADMIN_PANEL_ORDER_ITEMS = 'orderItems_table';
-export const ADMIN_PANEL_PRODUCTS = 'Products';
-export const ADMIN_PANEL_CUSTOMERS = 'users';
+export const ADMIN_PANEL_ORDERS = process.env.NEXT_PUBLIC_IS_PREVIEW === "PREVIEW" ? '_Orders_TEST' : '_Orders'
+export const ADMIN_PANEL_ORDER_ITEMS =  process.env.NEXT_PUBLIC_IS_PREVIEW === "PREVIEW" ? 'orderItems_table_TEST' : "orderItems_table"
+export const ADMIN_PANEL_PRODUCTS = 'Products'
+export const ADMIN_PANEL_CUSTOMERS = 'users'
 export const SEAT_COVERS_TABLE = 'seat_covers';
 export const MODEL_TABLE = 'Model';
 export const MAKE_TABLE = 'Make';

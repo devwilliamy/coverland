@@ -6,6 +6,7 @@ import { useCartContext } from '@/providers/CartProvider';
 import { useParams } from 'next/navigation';
 import { useContext, useEffect } from 'react';
 import { useStore } from 'zustand';
+import { US_STATES_ABBRV_MAP } from '@/lib/constants';
 
 export const removeMakeFromDisplayId = (
   displayId: string,
@@ -196,7 +197,8 @@ export const handlePurchaseGoogleTag = (
   cartItems: TCartItem[],
   orderNumber: string,
   totalPrice: string,
-  clearLocalStorageCart: () => void
+  clearLocalStorageCart: () => void,
+  enhancedParameterInput: EnhancedGoogleConversionInput
 ) => {
   const cartItemsToGTagItems = mapCartItemsToGTagItems(cartItems);
   window?.dataLayer?.push({ ecommerce: null }); // Clear the previous ecommerce object.
@@ -212,31 +214,53 @@ export const handlePurchaseGoogleTag = (
       coupon: undefined, // will need to put in coupon for later but we don't track this ATM
       items: cartItemsToGTagItems,
     },
+    enhanced_conversion_data: createEnhancedGoogleConversionData({...enhancedParameterInput}),
   });
+  
   if (cartItems.length > 0) {
     clearLocalStorageCart();
   }
 };
 
-export const createEnhancedGoogleConversionData = (email: string, phone_number: string,) => {
+export type EnhancedGoogleConversionInput = {
+  email: string;
+  phone_number: string;
+  first_name: string;
+  last_name: string;
+  address_line1: string;
+  city: string;
+  state: string;
+  postal_code: string;
+  country: string;
+};
+
+export const createEnhancedGoogleConversionData = ({
+  email,
+  phone_number,
+  first_name,
+  last_name,
+  address_line1,
+  city,
+  state,
+  postal_code,
+  country,
+}: EnhancedGoogleConversionInput) => {
   return {
-    enhanced_conversion_data: {
-      email: email.toLowerCase().trim(),
-      phone_number: 'yourPhoneVariable',
-      first_name: 'yourFirstNameVariable',
-      last_name: 'yourLastNameVariable',
-      street: 'yourStreetAddressVariable',
-      city: 'yourCityVariable',
-      region: 'yourRegionVariable',
-      postal_code: 'yourPostalCodeVariable',
-      country: 'yourCountryVariable',
-    },
+    email: email.toLowerCase().trim(),
+    phone_number: phone_number,
+    first_name: first_name.toLowerCase().trim(),
+    last_name: last_name.toLowerCase().trim(),
+    street: address_line1.toLowerCase().trim(),
+    city: city.toLowerCase().trim(),
+    region: US_STATES_ABBRV_MAP[state].toLowerCase().trim(),
+    postal_code: postal_code.toLowerCase().trim(),
+    country: country.toLowerCase().trim(),
   };
 };
 
 export const handleAddToCartGoogleTag = (
   cartProduct: IProductData,
-  params: TPathParams
+  params: TPathParams,
 ) => {
   // const price = parseFloat(cartProduct?.price || '0') || 0;
   const msrp = parseFloat(cartProduct?.msrp || '0') || 0;

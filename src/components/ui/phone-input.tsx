@@ -1,26 +1,45 @@
+import React, { useState } from 'react';
+import { parsePhoneNumberFromString } from 'libphonenumber-js';
 import { FaExclamationCircle } from 'react-icons/fa';
 
-type OverlappingLabelProps = {
-  title: string;
+type CustomPhoneInputProps = {
+  label: string;
+  register: any;
   name: string;
   placeholder: string;
-  errors: any;
-  register: any;
-  options?: any;
   autoComplete: string;
+  errors: any;
+  required?: boolean;
 };
-export default function OverlappingLabel({
-  title,
+
+const CustomPhoneInput: React.FC<CustomPhoneInputProps> = ({
+  label,
+  register,
   name,
   placeholder,
+  autoComplete,
   errors,
-  register,
-  options,
-  autoComplete
-}: OverlappingLabelProps) {
+  required = false,
+}) => {
   const inputStyle = errors[name]
     ? 'text-red-900 ring-red-300 placeholder:text-red-300 focus:ring-red-500'
     : 'text-gray-900 ring-gray-300 placeholder:text-gray-400 focus:ring-[#ed5f74]';
+  const [inputValue, setInputValue] = useState('');
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const rawValue = e.target.value;
+    setInputValue(rawValue);
+
+    const phoneNumber = parsePhoneNumberFromString(rawValue, 'US');
+
+    if (phoneNumber) {
+      setInputValue(phoneNumber.formatInternational());
+      register(name).onChange(e);
+            // trigger(name);
+      //   setInputValue(phoneNumber.format('E.164'));
+    }
+  };
+
   return (
     <div>
       <div className="relative">
@@ -28,13 +47,17 @@ export default function OverlappingLabel({
           htmlFor={name}
           className="absolute -top-2 left-2 inline-block bg-white px-1 text-xs font-medium text-gray-500"
         >
-          {title} {options?.required && '*'}
+          {label} {required && '*'}
         </label>
         <input
-          className={`block w-full rounded-lg border-0 border-[#E1E1E1] bg-[#FAFAFA] py-3 pl-3 pr-10 ring-1 ring-inset focus:ring-2 focus:ring-inset sm:text-base sm:leading-6 ${inputStyle}`}
+          id={name}
+          type="tel"
           placeholder={placeholder}
           autoComplete={autoComplete}
-          {...register(name, options)}
+          {...register(name, { required })}
+          value={inputValue}
+          onChange={handleChange}
+          className={`block w-full rounded-lg border-0 border-[#E1E1E1] bg-[#FAFAFA] py-3 pl-3 pr-10 ring-1 ring-inset focus:ring-2 focus:ring-inset sm:text-base sm:leading-6 ${inputStyle}`}
         />
         {errors[name] && (
           <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
@@ -45,9 +68,10 @@ export default function OverlappingLabel({
           </div>
         )}
       </div>
+
       {errors[name] && errors[name]?.type === 'required' && (
         <p className="ml-2 mt-2 text-sm text-red-600" id="email-error">
-          {title} is required!
+          {label} is required!
         </p>
       )}
       {errors[name] && (
@@ -57,4 +81,6 @@ export default function OverlappingLabel({
       )}
     </div>
   );
-}
+};
+
+export default CustomPhoneInput;
