@@ -34,7 +34,7 @@ export default function MobileHomeDropdown({
         value={value}
         title={capitalizeFirstLetter(title)}
         autoComplete="off"
-        className={`absolute top-0 flex h-full w-full  cursor-pointer appearance-none items-center rounded-[8px] pl-[20px] outline outline-[2px] outline-offset-0 outline-transparent focus:outline-[#BE1B1B] `}
+        className={`absolute top-0 flex h-full w-full cursor-pointer appearance-none items-center rounded-[8px] pl-[20px] outline outline-[2px] outline-offset-0 outline-transparent focus:outline-[#BE1B1B] `}
       >
         <option
           disabled
@@ -47,12 +47,6 @@ export default function MobileHomeDropdown({
         {items && items.length > 0 && (
           <>
             {items.map((item, i) => {
-              // const deslugItem = item.name ? item.name : item;
-              // const deslugItemName = deslugify(item.name);
-              // const isSame = desluggedVal === deslugify(deslugItem);
-              // if (isSame) {
-              //   console.log({ desluggedVal, deslugItem, isSame, value });
-              // }
               return (
                 <option
                   key={`mobile-${title}-${i}`}
@@ -70,6 +64,15 @@ export default function MobileHomeDropdown({
               );
             })}
           </>
+        )}
+        {items && items.length <= 0 && (
+          <option
+            disabled
+            value={'No Items'}
+            className={`flex h-full w-full items-center pl-[20px]`}
+          >
+            No Items
+          </option>
         )}
       </select>
       <div className="absolute right-0 top-1/2 mr-[14px] flex -translate-y-1/2 items-center">

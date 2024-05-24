@@ -326,7 +326,7 @@ export default function EditVehicleDropdown({
   };
 
   return (
-    <div className="z-100 relative flex w-full flex-col items-stretch  gap-[16px] *:flex-1">
+    <div className="relative flex w-full flex-col items-stretch  gap-[16px] *:flex-1">
       {determineDropdownOrder()}
       <Button
         className={`mx-auto h-[40px] max-h-[44px] min-h-[44px] w-full max-w-[px] rounded-[4px] ${isDisabled ? 'bg-[black]' : 'bg-[#BE1B1B]'} text-lg `}
