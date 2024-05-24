@@ -55,21 +55,6 @@ export function SubmodelDropdown({
     name: submodel,
   }));
 
-  // const getUniqueSubmodelData = async () => {
-  //   const data = await getAllSubmodelsByTypeMakeModelYear(
-  //     Number(typeId),
-  //     Number(makeId),
-  //     Number(modelId),
-  //     Number(yearId)
-  //   );
-  //   console.log(data);
-  // };
-  // useEffect(() => {
-  //   if (isMakePage || isModelPage) {
-  //     getUniqueSubmodelData();
-  //   }
-  // }, [year]);
-
   useEffect(() => {
     // Check for second submodel
     const secondSubmodelData = submodelData.filter(

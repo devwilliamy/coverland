@@ -53,9 +53,6 @@ export const deslugify = (slug: string) => {
   const hyphenArray = slug.split('-');
   const f150String = [hyphenArray[0], hyphenArray[1]].join('-');
   const isF150Type = f150String.toLowerCase() === 'f-150';
-  if (isF150Type) {
-    console.log('[IS F-150 TYPE]', { hyphenArray });
-  }
 
   // General case
   return slug

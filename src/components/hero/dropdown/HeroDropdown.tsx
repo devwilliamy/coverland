@@ -19,10 +19,10 @@ export type TQuery = {
   model: string;
   submodel1: string;
   submodel2: string;
-  typeId:string;
-  yearId:string;
-  makeId:string;
-  modelId:string;
+  typeId: string;
+  yearId: string;
+  makeId: string;
+  modelId: string;
   // submodel3: string;
 };
 
@@ -35,10 +35,10 @@ export function HeroDropdown() {
     model: '',
     submodel1: '',
     submodel2: '',
-    typeId:'',
-    yearId:'',
-    makeId:'',
-    modelId:'',
+    typeId: '',
+    yearId: '',
+    makeId: '',
+    modelId: '',
     // submodel3: '',
   });
   const [loading, setLoading] = useState(false);

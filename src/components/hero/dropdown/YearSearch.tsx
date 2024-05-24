@@ -99,7 +99,7 @@ export function YearSearch({
     }
   };
 
-  console.log({ queryObj });
+  // console.log({ queryObj });
 
   const getYearsAndSubmodels = async () => {
     const fetchedYearsandSubmodels = await getAllYearsByTypeMakeModel(
@@ -109,18 +109,16 @@ export function YearSearch({
     );
 
     const filteredYears = fetchedYearsandSubmodels.uniqueYears
-      .map((yearObj) => {
-        return { id: yearObj?.id, name: yearObj?.name };
-      })
-      .sort((a, b) => {
-        if (a.id && b.id) {
-          return b.id - a.id;
-        }
-        return 0;
-      });
-    // console.log({
-    //   filteredYears,
-    //   submodelData: fetchedYearsandSubmodels.submodelData,
+      .map((yearObj) => ({ id: yearObj?.id, name: yearObj?.name }))
+      .sort((a, b) => (b.id ?? 0) - (a.id ?? 0));
+    // .map((yearObj) => {
+    //   return { id: yearObj?.id, name: yearObj?.name };
+    // })
+    // .sort((a, b) => {
+    //   if (a.id && b.id) {
+    //     return b.id - a.id;
+    //   }
+    //   return 0;
     // });
 
     setYearData(filteredYears);
@@ -133,7 +131,7 @@ export function YearSearch({
       Number(modelId),
       Number(yearId)
     );
-    console.log(data);
+    // console.log(data);
     setAllSubmodelData(data.allProductData);
     if (data.uniqueSubmodel1s) {
       setSubmodel1Data(data.uniqueSubmodel1s);
@@ -163,23 +161,27 @@ export function YearSearch({
   useEffect(() => {
     if (submodel1) {
       const selectedSubmodel2 = allSubmodelData
-        .filter((product) => {
-          if (product.submodel1 === submodel1) {
-            return product;
-          }
-        })
-        .map((product) => {
-          if (!product.submodel2) {
-            return;
-          }
-          return product.submodel2;
-        })
-        .filter((name) => {
-          if (Boolean(name !== undefined && name !== null)) {
-            return name;
-          }
-        });
-      console.log('[SELECTED SUBMODEL2 ARRAY]: ', selectedSubmodel2);
+        // .filter((product) => {
+        //   if (product.submodel1 === submodel1) {
+        //     return product;
+        //   }
+        // })
+        // .map((product) => {
+        //   if (!product.submodel2) {
+        //     return;
+        //   }
+        //   return product.submodel2;
+        // })
+        // .filter((name) => {
+        //   if (Boolean(name !== undefined && name !== null)) {
+        //     return name;
+        //   }
+        // });
+        .filter(
+          (product) => product.submodel1 === submodel1 && product.submodel2
+        )
+        .map((product) => product.submodel2);
+      // console.log('[SELECTED SUBMODEL2 ARRAY]: ', selectedSubmodel2);
 
       setSubmodel2Data(selectedSubmodel2);
     }

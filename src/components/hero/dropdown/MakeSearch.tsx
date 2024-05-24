@@ -33,11 +33,13 @@ export function MakeSearch({
 
   const determineDisabled = () => {
     switch (true) {
-      case isMakePage:
-        return !type;
-      case isModelPage:
-        return !type;
-      case isYearPage:
+      // case isMakePage:
+      //   return !type;
+      // case isModelPage:
+      //   return !type;
+      // case isYearPage:
+      //   return !type;
+      case isMakePage || isModelPage || isYearPage:
         return !type;
       default:
         return !type || !year;
@@ -93,8 +95,8 @@ export function MakeSearch({
     if (isMakePage || isModelPage || isYearPage) {
       const getMakes = async () => {
         const res = await editVehicleGetAllMakes();
-        const fetchedMakeData = res.map((e) => {
-          return { name: e.name as string, id: e.id };
+        const fetchedMakeData = res.map((item) => {
+          return { name: item.name as string, id: item.id };
         });
         setMakeData(fetchedMakeData);
       };

@@ -20,12 +20,12 @@ import useStoreContext from '@/hooks/useStoreContext';
 import { getSeatCoverProductData } from '@/lib/db/seat-covers';
 import { TQueryParams } from '@/utils';
 import {
-  getMakeID,
-  getModelID,
+  getMakeIdByMakeSlug,
+  getModelIdByModelSlug,
   getProductData,
-  getTypeID,
-  getYearGenByID,
-  getYearID,
+  getTypeId,
+  getYearGenById,
+  getYearIdByYearSlug,
 } from '@/lib/db';
 import useDetermineType from '@/hooks/useDetermineType';
 import { SubmodelDropdown } from '../hero/dropdown/SubmodelDropdown';
@@ -99,8 +99,6 @@ export default function EditVehicleDropdown({
   const { year, type, make, model, submodel1, submodel2, parent_generation } =
     query;
 
-  console.log({ type, make, model, isSeatCover });
-
   const [loading, setLoading] = useState(false);
   const [jsonData, setJsonData] = useState<TProductJsonData[]>([]);
   const router = useRouter();
@@ -110,28 +108,28 @@ export default function EditVehicleDropdown({
   useEffect(() => {
     const fetchTypeId = async () => {
       if (query.type) {
-        const res = await getTypeID(query.type);
+        const res = await getTypeId(query.type);
         setQuery((prev) => {
           return { ...prev, typeId: String(res) };
         });
       }
 
       if (query.make) {
-        const res = await getMakeID(query.make);
+        const res = await getMakeIdByMakeSlug(query.make);
         setQuery((prev) => {
           return { ...prev, makeId: String(res) };
         });
       }
 
       if (query.model) {
-        const res = await getModelID(query.model);
+        const res = await getModelIdByModelSlug(query.model);
         setQuery((prev) => {
           return { ...prev, modelId: String(res) };
         });
       }
 
       if (query.year) {
-        const res = await getYearID(query.year);
+        const res = await getYearIdByYearSlug(query.year);
         setQuery((prev) => {
           return { ...prev, yearId: String(res) };
         });
@@ -141,7 +139,7 @@ export default function EditVehicleDropdown({
   }, [open]);
 
   const getYearGen = async () => {
-    const fetchedGen = await getYearGenByID(
+    const fetchedGen = await getYearGenById(
       Number(query.typeId),
       Number(query.makeId),
       Number(query.modelId),
@@ -285,7 +283,7 @@ export default function EditVehicleDropdown({
 
   const determineDropdownOrder = () => {
     const isCarCoversOrSeatCovers = isCarCover || isSeatCover;
-    console.log({ isMakePage, isModelPage, isYearPage, isSeatCover });
+    // console.log({ isMakePage, isModelPage, isYearPage, isSeatCover });
 
     switch (isCarCoversOrSeatCovers) {
       case isMakePage:

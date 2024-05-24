@@ -9,7 +9,7 @@ import {
 } from 'react';
 import { TQuery } from './HeroDropdown';
 import {
-  editVehicleGetAllModelsByTypeIdMakeID,
+  editVehicleGetAllModelsByTypeIdMakeId,
   getAllUniqueModelsByYearMake,
   getDistinctModelsByTypeMake,
   getDistinctModelsByTypeMakeSlug,
@@ -147,6 +147,7 @@ export function ModelSearch({
   useEffect(() => {
     if ((isMakePage || isYearPage) && model && modelData.length > 0) {
       const submodels = modelData
+        // Filtering products
         .filter((product) => {
           const productModel = slugify(String(product.model));
 
@@ -158,25 +159,19 @@ export function ModelSearch({
 
           return;
         })
-        .filter((product, index, self) => {
-          return self.indexOf(product) === index;
-        })
-        .map((product) => {
-          if (product.submodel1) {
-            return product.submodel1;
-          }
-        })
-        .filter((submodel, index, self) => {
-          return self.indexOf(submodel) === index;
-        })
-        .filter((submodel) => {
-          if (submodel !== null && submodel !== undefined) {
-            return submodel;
-          }
-        });
+        // Filtering unique products
+        .filter((product, index, self) => self.indexOf(product) === index)
+        // Getting array of submodels only
+        .map((product) => product.submodel1 && product.submodel1)
+        // Filtering unique submodels
+        .filter((submodel, index, self) => self.indexOf(submodel) === index)
+        // Filtering null or underfined submodels
+        .filter(
+          (submodel) => submodel !== null && submodel !== undefined && submodel
+        );
 
       setSubmodelData(submodels as ModelDropdown[]);
-      console.log({ submodels, modelData, queryObj });
+      // console.log({ submodels, modelData, queryObj });
     }
   }, [queryObj.query, modelData, model]);
 

@@ -18,7 +18,11 @@ import { TQuery } from '@/components/hero/dropdown/HeroDropdown';
 import useDetermineType from '@/hooks/useDetermineType';
 import MainDropdown from '@/components/hero/dropdown/MainDropdown';
 import { PopoverArrow } from '@radix-ui/react-popover';
-import { PREMIUM_PLUS_URL_PARAM, VEHICLE_TYPES } from '@/lib/constants';
+import {
+  PREMIUM_PLUS_URL_PARAM,
+  SEAT_COVERS_LEATHER_URL_PARAM,
+  VEHICLE_TYPES,
+} from '@/lib/constants';
 import {
   breadcrumbsGetDistinctModelByTypeMake,
   getAllType,
@@ -44,36 +48,18 @@ export default function LinkBreadcrumbs() {
     year,
   } = useDetermineType();
 
-  // let store;
-  // let make: string = '';
-  // let model: string = '';
-  // if (!isSeatCover) {
   const store = useStoreContext();
-  // store = useContext(context);
   if (!store) throw new Error('Missing CarContext.Provider in the tree');
-  // { make, model } = selectedProduct.make;
   const selectedProduct = useStore(store, (s) => s.selectedProduct);
-  console.log({ selectedProduct });
   const stringMake = String(selectedProduct.make);
   const stringModel = String(selectedProduct.model);
   let make = stringMake ? stringMake : '';
   let model = stringModel ? stringModel : '';
-  // make = ;
-  // model = String(selectedProduct.model);
-  // }
-  console.log({
-    productType,
-    make,
-    model,
-    year,
-    //  make, model
-  });
+
   const params = Object(useParams());
   const paramKeys = Object.keys(params);
   const paramValues = Object.values(params);
 
-  // const { make, model } = selectedProduct;
-  // console.log('[MODEL FROM BREADCRUMBS]: ', { model });
   const determineProductType = () => {
     if (isSeatCover) {
       return 'Seat Covers';
@@ -89,17 +75,7 @@ export default function LinkBreadcrumbs() {
   };
 
   const [paramsObj, setParamObj] = useState<TQuery>({
-    // type: deslugify(productType as string),
     year: year ? year : '',
-    // make: make ? deslugify(make) : '',
-    // model: model ? deslugify(model) : '',
-    // submodel1: '',
-    // submodel2: '',
-    // parent_generation: '',
-    // typeId: '',
-    // makeId: '',
-    // modelId: '',
-    // yearId: '',
     type: determineProductType() ? deslugify(determineProductType()) : '',
     parent_generation: year ? year : '',
     make: make ? determineMake() : '',
@@ -151,34 +127,24 @@ export default function LinkBreadcrumbs() {
         makes = await getDistinctMakesByType(paramsObj.type);
       }
       setMakeData(makes);
-      // console.log('Fetched Makes', makes);
     }
   };
   const getModels = async () => {
-    // console.log(paramsObj);
     const res = await breadcrumbsGetDistinctModelByTypeMake(
       paramsObj.type,
       paramsObj.make
     );
-    // const models = res.map((data) => {
-    //   return data.model;
-    // });
-
-    // console.log('Fetched Models', models);
 
     setModelData(res as string[]);
   };
 
   const getYears = async () => {
-    // console.log(paramsObj);
-
     if (paramsObj.type && paramsObj.make) {
       const years = await getDistinctYearsByTypeMakeModel(
         paramsObj.type,
         paramsObj.make,
         paramsObj.model
       );
-      // console.log('Fetched Years', years);
 
       setYearData(years);
     }
@@ -195,26 +161,12 @@ export default function LinkBreadcrumbs() {
     if (paramsObj.type && paramsObj.make && paramsObj.model) {
       getYears();
     }
-    console.log({ paramsObj });
+    // console.log({ paramsObj });
 
     const disabled =
       !paramsObj.type || !paramsObj.make || !paramsObj.model || !paramsObj.year;
     setIsDisabled(disabled);
-  }, [
-    paramsObj,
-    // paramsObj.type,
-    // paramsObj.make,
-    // paramsObj.model,
-    // paramsObj.year,
-    // paramsObj.typeId,
-    // paramsObj.makeId,
-    // paramsObj.modelId,
-    // paramsObj.yearId,
-  ]);
-
-  // useEffect(() => {
-
-  // }, [paramsObj.type, paramsObj.make, paramsObj.typeId, paramsObj.makeId]);
+  }, [paramsObj]);
 
   const getUrlFromBreadcrumbs = (index: number): string => {
     let returnString = '';
@@ -237,7 +189,6 @@ export default function LinkBreadcrumbs() {
       !paramsObj.make ||
       !paramsObj.model ||
       !paramsObj.year
-      // (!paramsObj.submodel1 && !paramsObj.submodel2)
     )
       return;
     setIsLoading(true);
@@ -261,7 +212,6 @@ export default function LinkBreadcrumbs() {
     }
     try {
       router.push(url, { scroll: true });
-      // console.log({ url, yearGen: yearGen[0], paramsObj });
     } catch (error) {
       console.log(error);
     }
@@ -287,13 +237,15 @@ export default function LinkBreadcrumbs() {
       {/* Replacing hyphens with spaces (except for year_generation) */}
       {params &&
         paramKeys.map((key, generatedIndex) => {
-          if (params[key] === 'premium-plus' || params[key] === 'leather') {
+          if (
+            params[key] === PREMIUM_PLUS_URL_PARAM ||
+            params[key] === SEAT_COVERS_LEATHER_URL_PARAM
+          ) {
             return;
           }
-          // console.log(queryObj.query);
 
           return (
-            <div key={key} className="">
+            <div key={key}>
               <Popover>
                 <PopoverTrigger
                   className="flex gap-1"
@@ -303,7 +255,7 @@ export default function LinkBreadcrumbs() {
                 >
                   <p> </p>
                   <div
-                    className={` hover:underline ${params[key].length < 4 ? 'uppercase' : 'capitalize'} `}
+                    className={`hover:underline ${params[key].length < 4 ? 'uppercase' : 'capitalize'} `}
                   >
                     {/* Checking and Setting trigger text */}
                     {key !== 'make' &&
@@ -319,7 +271,7 @@ export default function LinkBreadcrumbs() {
                 </PopoverTrigger>
                 <PopoverContent>
                   <PopoverArrow className="mb-0 fill-[#BE1B1B] " />
-                  <div className="z-100 relative flex w-full flex-col items-stretch  gap-[16px] *:flex-1">
+                  <div className="relative flex w-full flex-col items-stretch  gap-[16px] *:flex-1">
                     {productType && clickedIndex <= 1 && (
                       <MainDropdown
                         place={1}

@@ -49,7 +49,6 @@ export default function MainDropdown({
   const [selectedValue, setSelectedValue] = useState<string>(
     isBreadCrumb ? String(value) : ''
   );
-  console.log({ value, desl: deslugify(String(value)) });
 
   const [selectedIndex, setSelectedIndex] = useState<number>(-1);
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -95,7 +94,7 @@ export default function MainDropdown({
         });
         break;
 
-      case isModelPage:
+      case isModelPage || isYearPage:
         setQuery((e) => {
           return {
             ...e,
@@ -105,15 +104,25 @@ export default function MainDropdown({
         });
         break;
 
-      case isYearPage:
-        setQuery((e) => {
-          return {
-            ...e,
-            year: newValue,
-            yearId: id as string,
-          };
-        });
-        break;
+      // case isModelPage:
+      //   setQuery((e) => {
+      //     return {
+      //       ...e,
+      //       year: newValue,
+      //       yearId: id as string,
+      //     };
+      //   });
+      //   break;
+
+      // case isYearPage:
+      //   setQuery((e) => {
+      //     return {
+      //       ...e,
+      //       year: newValue,
+      //       yearId: id as string,
+      //     };
+      //   });
+      //   break;
 
       default:
         setQuery((e) => {
@@ -151,7 +160,7 @@ export default function MainDropdown({
         });
         break;
 
-      case isMakePage:
+      case isMakePage || isModelPage || isYearPage:
         setQuery((e) => {
           return {
             ...e,
@@ -164,32 +173,46 @@ export default function MainDropdown({
           };
         });
 
-      case isModelPage:
-        setQuery((e) => {
-          return {
-            ...e,
-            make: newValue,
-            makeId: id as string,
-            year: '',
-            yearId: '',
-            model: '',
-            modelId: '',
-          };
-        });
-        break;
-      case isYearPage:
-        setQuery((e) => {
-          return {
-            ...e,
-            make: newValue,
-            makeId: id as string,
-            model: '',
-            modelId: '',
-            year: '',
-            yearId: '',
-          };
-        });
-        break;
+      // case isMakePage:
+      //   setQuery((e) => {
+      //     return {
+      //       ...e,
+      //       make: newValue,
+      //       makeId: id as string,
+      //       year: '',
+      //       yearId: '',
+      //       model: '',
+      //       modelId: '',
+      //     };
+      //   });
+
+      // case isModelPage:
+      //   setQuery((e) => {
+      //     return {
+      //       ...e,
+      //       make: newValue,
+      //       makeId: id as string,
+      //       year: '',
+      //       yearId: '',
+      //       model: '',
+      //       modelId: '',
+      //     };
+      //   });
+      //   break;
+
+      // case isYearPage:
+      //   setQuery((e) => {
+      //     return {
+      //       ...e,
+      //       make: newValue,
+      //       makeId: id as string,
+      //       model: '',
+      //       modelId: '',
+      //       year: '',
+      //       yearId: '',
+      //     };
+      //   });
+      //   break;
 
       default:
         setQuery((e) => {
