@@ -28,6 +28,7 @@ import { useRouter } from 'next/navigation';
 import { handlePurchaseGoogleTag } from '@/hooks/useGoogleTagDataLayer';
 import { hashData } from '@/lib/utils/hash';
 import { getCookie } from '@/lib/utils/cookie';
+import { v4 as uuidv4 } from 'uuid';
 
 function isValidShippingAddress({ address }: StripeAddress) {
   return (
@@ -191,10 +192,12 @@ export default function Payment() {
           const skus = getSkusFromCartItems(cartItems);
           const skusWithQuantityMsrpForMeta =
             getSkuQuantityPriceFromCartItemsForMeta(cartItems);
+          const eventID = uuidv4();
 
           const metaCPIEvent = {
             event_name: 'Purchase',
             event_time: Math.floor(Date.now() / 1000),
+            event_id: eventID,
             action_source: 'website',
             user_data: {
               em: [hashData(customerInfo.email)],
@@ -218,7 +221,6 @@ export default function Payment() {
             },
             event_source_url: origin,
           };
-          // debugger
           const metaCAPIResponse = await fetch('/api/meta/event', {
             method: 'POST',
             headers: {
@@ -228,16 +230,18 @@ export default function Payment() {
           });
           // Track the purchase event
           if (typeof fbq === 'function') {
-            console.log("inside fbq")
-            fbq('track', 'Purchase', {
-              value: parseFloat(getTotalPrice().toFixed(2)),
-              currency: 'USD',
-              contents: skusWithQuantityMsrpForMeta,
-              content_type: 'product',
-            });
-            console.log("fbq fired")
+            fbq(
+              'track',
+              'Purchase',
+              {
+                value: parseFloat(getTotalPrice().toFixed(2)),
+                currency: 'USD',
+                contents: skusWithQuantityMsrpForMeta,
+                content_type: 'product',
+              },
+              { eventID }
+            );
           }
-          // debugger
           const { id, client_secret } = result.paymentIntent;
           router.push(
             `/thank-you?order_number=${orderNumber}&payment_intent=${id}&payment_intent_client_secret=${client_secret}`
