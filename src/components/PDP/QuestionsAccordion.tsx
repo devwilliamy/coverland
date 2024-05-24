@@ -4,164 +4,173 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from '@/components/ui/accordion';
+import {
+  Button 
+} from '@/components/ui/button';
 import { track } from '@vercel/analytics';
+import { useState } from 'react';
+const qa = 
+[
+ { 
+  name:"General",
+  questions:[
+    {
+      title: "Do I need a cover? ",
+      content:`If you want to preserve the paint finish, prevent rust and corrosion, maintain the interior, and prolong the overall lifespan of your vehicle - then yes, a car cover is a wise investment. It provides protection against various environmental factors such as rain, UV rays, dust, bird droppings, and tree sap.
+      Additionally, it can deter theft by attracting less attention to your vehicle and reduce the frequency of car washes, saving you time and effort in maintenance.
+      `,
+    },
+    {
+      title: "Will this fit my car? Is this a custom fit?  ",
+      content:`Certainly! Our car covers are tailored for a precise fit, using the vehicle's shape, with added elastic hems and mirror pockets to ensure a perfect fit.`,
+    },
+    {
+      title: "What if I'm not happy with it? ",
+      content:`No worries! We prioritize your happiness. If you're not completely satisfied, you're covered by our free 30-day return policy, along with a 90-day full money-back guarantee. If something happens with a cover later on, you can always utilize our lifetime warranty.`,
+    }
+  ],
+ 
+  
+},
+{
+  name:"Protection",
+  questions:[
+    {
+      title: "Can a car cover cause rust from trapped moisture?",
+      content:`Nope, since our covers feature two air vents to facilitate drying, even when moisture is trapped inside. This unique feature ensures that your car will not rust. Additionally, as of 2024, we're unaware of any other car cover brand offering a similar feature.`,
+    },
+    {
+      title: " Is it safe to leave my car covered outside in heavy rain?",
+      content:`Of course! You can leave your vehicle outdoors during heavy rain with our 100% waterproof cover on. No more water spots, paint erosion, rust formation and electrical issues`,
+    },
+    {
+      title: "Can a cover damage paint?",
+      content:`No, our covers are designed to protect without causing damage. However, other covers can potentially damage paint due to factors like cheap non-soft lining, lack of a tight fit without bottom straps, dust accumulation caused by wind, and the risk of plastic-like materials fusing to the paint in hot conditions.`
+    },
+    {
+      title: " Does this cover protect from the sun?",
+      content:`Yes. This car cover guarantees to provide you with 99.96% protection from the sun's heat and UV rays. No more fading and cracking of paint, dashboard warping, damage to rubber seals and trim.`,
+    },
+    {
+      title: "Can dust blown under the cover scratch my car's paint?",
+      content:`It can be a concern, but not with our covers. Our tight custom fit, elastic hem, and additional three straps underneath the car ensure the cover remains snug even in strong winds.`,
+    },
+    {
+      title: "Can dust blown under the cover scratch my car's paint?",
+      content:`It can be a concern, but not with our covers. Our tight custom fit, elastic hem, and additional three straps underneath the car ensure the cover remains snug even in strong winds.`,
+    },
+  ],
+},
+{ 
+  name:"USAGE ",
+  questions:[
+    {
+      title: "Is it easy to put on and take off? ",
+      content:`Absolutely! Our car covers are designed for easy installation and removal. With features like elastic hems and a snug fit, you can effortlessly slide the cover on and off your vehicle whenever needed, providing convenience and hassle-free protection.`,
+    },
+    {
+      title: "Does it have mirror pockets? ",
+      content:`No, our car covers do not include mirror pockets, but they are tailored to fit your vehicle snugly without compromising protection.`,
+      content_two:"Yes, our car covers come equipped with mirror pockets for a secure fit and added protection."
+    },
+    {
+      title: "Do your car covers fit older vehicles with antennas?",
+      content:`Yes, our covers include an extra antenna grommet for seamless accommodation, ensuring a perfect fit and protection for vintage vehicles.`,
+    },
+    {
+      title: "Do I need a cable lock if the car cover can prevent theft?",
+      content:`Our car covers deter theft by concealing your vehicle. While a cable lock can offer additional security, it may not be necessary for everyone. However, if you seek extra peace of mind, our covers come with reinforced grommets for use with a cable lock, available separately.`,
+    }
+  ],
+},
+]
+export const AccordingListedItems = ({titleName,value,index,accordionState,handleAccordionState}) =>{
+    
 
+  return (
+    <AccordionItem className={`${accordionState === `item-${index}-${titleName}` ? 'bg-[#F9F9FB]' : 'bg-white'}  p-2 border-t` } value={`item-${index}-${titleName}`}>
+    <AccordionTrigger 
+      className="text-left text-base font-black pb-3  text-[#1A1A1A] md:text-xl lg:py-8 lg:text-[22px] hover:no-underline"
+      onClick={() =>{
+        handleAccordionState(accordionState === `item-${index}-${name}` ? "" : `item-${index}-${titleName}`)
+
+        track(`Opened Q&A${value.title}`)
+      }
+      }
+    >
+      {
+        value.title
+      }
+    </AccordionTrigger>
+    <AccordionContent className="text-sm text-[#636363]  font-normal   md:text-lg">
+      {value.content}
+    </AccordionContent>
+  </AccordionItem>
+  )
+
+}
 export function QuestionsAccordion() {
+  const handleAccordionExpand = (value:string) => {
+    setAccordionOpen(value);
+  };
+  const [accordionOpen, setAccordionOpen] = useState("");
   return (
     <>
-      <div className="min-h-[60vh] bg-[#F9F9FB] px-2 md:p-8 lg:max-h-none lg:p-14">
-        <h3 className="hidden text-center text-2xl font-black uppercase text-[#1A1A1A] md:text-3xl lg:text-5xl">
-          q&a
+      <div className="min-h-[60vh] bg-white px-2 md:p-8 lg:max-h-none lg:p-14">
+        <h3 className="text-center text-2xl font-black uppercase text-[#1A1A1A] md:text-3xl lg:text-5xl">
+          FAQ
         </h3>
-        <Accordion type="single" collapsible className="w-full ">
-          <div className=" hidden h-[137px] w-full flex-col text-center text-[45px] font-black lg:flex  ">
-            Q&A
-          </div>
-          <AccordionItem value="item-1">
-            <AccordionTrigger
-              className="text-left text-base font-black  text-[#1A1A1A] md:text-xl lg:py-8 lg:text-[28px]"
-              onClick={() =>
-                track('Opened Q&A:Why is this car cover a good choice?')
-              }
-            >
-              Why is this car cover a good choice?
-            </AccordionTrigger>
-            <AccordionContent className="text-sm font-normal text-[#1A1A1A] md:text-lg">
-              If you are looking for the best of the best on the market,
-              you&apos;ve found the right one. Engineered to fight off rain,
-              sun, and dust, it keeps your car in pristine condition for years.
-              It&apos;s a must-have for long-lasting car care protection.
-            </AccordionContent>
-          </AccordionItem>
-          <AccordionItem value="item-2">
-            <AccordionTrigger
-              className="py-4 text-left text-base font-black text-[#1A1A1A] md:py-6 md:text-xl lg:py-8 lg:text-[28px]"
-              onClick={() =>
-                track('Opened Q&A:How many laters does your car cover have?')
-              }
-            >
-              How many layers does your car cover have?
-            </AccordionTrigger>
-            <AccordionContent className="text-sm font-normal text-[#1A1A1A] md:text-lg">
-              Our car cover features a cutting-edge single-layer design, free of
-              bonding welds, offering all the benefits of multilayered materials
-              without the drawbacks. This design forms a tight bond, eliminating
-              the risk of material separation and ensuring optimal performance.
-            </AccordionContent>
-          </AccordionItem>
-          <AccordionItem value="item-3">
-            <AccordionTrigger
-              className="py-4 text-left text-base font-black text-[#1A1A1A] md:py-6 md:text-xl lg:py-8 lg:text-[28px]"
-              onClick={() =>
-                track('Opened Q&A:What special features does this cover have?')
-              }
-            >
-              What special features does this cover have?{' '}
-            </AccordionTrigger>
-            <AccordionContent className="text-sm font-normal text-[#1A1A1A] md:text-lg">
-              Beyond weather protection, it also guards against bird droppings
-              and tree sap. Additionally, this car cover&apos;s design prevents
-              moisture buildup, ensuring top-tier care for your car.
-            </AccordionContent>
-          </AccordionItem>
-          <AccordionItem value="item-4">
-            <AccordionTrigger
-              className="py-4 text-left text-base font-black text-[#1A1A1A] md:py-6 md:text-xl lg:py-8 lg:text-[28px]"
-              onClick={() => track('Opened Q&A:Will this fit my car?')}
-            >
-              Will this fit my car?{' '}
-            </AccordionTrigger>
-            <AccordionContent className="text-sm font-normal text-[#1A1A1A] md:text-lg">
-              Our car covers are specially designed for a precise fit, offering
-              ultimate protection for your vehicle.
-            </AccordionContent>
-          </AccordionItem>
-          <AccordionItem value="item-5">
-            <AccordionTrigger
-              className="py-4 text-left text-base font-black text-[#1A1A1A] md:py-6 md:text-xl lg:py-8 lg:text-[28px]"
-              onClick={() =>
-                track('Opened Q&A:What if I&apos;m not happy with it?')
-              }
-            >
-              What if I&apos;m not happy with it?{' '}
-            </AccordionTrigger>
-            <AccordionContent className="text-sm font-normal text-[#1A1A1A] md:text-lg">
-              No worries! We prioritize your happiness. If you&apos;re not
-              completely satisfied, you&apos;re covered by our free 30-day
-              return policy, along with a 60-day full money-back guarantee. Shop
-              with confidence!
-            </AccordionContent>
-          </AccordionItem>
-          <AccordionItem value="item-6">
-            <AccordionTrigger
-              className="py-4 text-left text-base font-black text-[#1A1A1A] md:py-6 md:text-xl lg:py-8 lg:text-[28px]"
-              onClick={() =>
-                track(
-                  'Opened Q&A:Is it safe to leave my car covered outside in heavy rain?'
-                )
-              }
-            >
-              Is it safe to leave my car covered outside in heavy rain?{' '}
-            </AccordionTrigger>
-            <AccordionContent className="text-sm font-normal text-[#1A1A1A] md:text-lg">
-              Of course! You can leave your vehicle outdoors during heavy rain
-              with this cover on. Our unique car covers are built with
-              heavy-duty materials designed to protect your car from extreme and
-              harsh weather conditions, including rain, snow, hail, and storms.
-              The strong construction not only ensures all-weather protection
-              but also safeguards against abrasion, thanks to a soft cotton
-              inner lining.
-            </AccordionContent>
-          </AccordionItem>
-          <AccordionItem value="item-7">
-            <AccordionTrigger
-              className="py-4 text-left text-base font-black text-[#1A1A1A] md:py-6 md:text-xl lg:py-8 lg:text-[28px]"
-              onClick={() =>
-                track('Opened Q&A:Does this cover protect from the sun?')
-              }
-            >
-              Does this cover protect from the sun?{' '}
-            </AccordionTrigger>
-            <AccordionContent className="text-sm font-normal text-[#1A1A1A] md:text-lg">
-              Yes. This car cover guarantees to provide you with 100% protection
-              from the sun&apos;s heat and UV rays. We ensure that your
-              car&apos;s interior temperature is regulated while protecting the
-              exterior from any kind of damage.
-            </AccordionContent>
-          </AccordionItem>
-          <AccordionItem value="item-8">
-            <AccordionTrigger
-              className="py-4 text-left text-base font-black text-[#1A1A1A] md:py-6 md:text-xl lg:py-8 lg:text-[28px]"
-              onClick={() =>
-                track('Opened Q&A:Can I use your car cover on a windy day?')
-              }
-            >
-              Can I use your car cover on a windy day?{' '}
-            </AccordionTrigger>
-            <AccordionContent className="text-sm font-normal text-[#1A1A1A] md:text-lg">
-              Yes, this car cover comes with three tie-down straps in the front,
-              middle, and back, preventing the car cover from blowing away, even
-              in winds of up to 50 mph.
-            </AccordionContent>
-          </AccordionItem>
-          <AccordionItem value="item-9">
-            <AccordionTrigger
-              className="py-4 text-left text-base font-black text-[#1A1A1A] md:py-6 md:text-xl lg:py-8 lg:text-[28px]"
-              onClick={() => track('Opened Q&A:When will I receive my order?')}
-            >
-              When will I receive my order?{' '}
-            </AccordionTrigger>
-            <AccordionContent className="text-sm font-normal text-[#1A1A1A] md:text-lg">
-              We offer same-day shipping with a cut-off time at 2 pm PST. Your
-              item will typically arrive within 1-5 business days after
-              shipment.
-            </AccordionContent>
-          </AccordionItem>
-        </Accordion>
+        {
+        qa && qa?.map(({name,questions},index)=>{
+            return(
+              <div key={`${name + index}`}>
+                <p className='bg-white font-medium my-2	text-2xl text-[#C95656] mt-[36px]  px-2 lg:mt-20 capitalize'>{name.toLowerCase()}</p>
+            
+                <Accordion type='single' collapsible className='w-full' >
+            
+            {  
+            questions.map((question,questionIndex)=>{
+            return (
+              <div key={`qa-title-${questionIndex}`}>
+               {/* <AccordingListedItems
+                titleName={name}
+                value={question}
+                index={questionIndex}
+                accordionState={accordionOpen}
+                handleAccordionState={handleAccordionExpand}
+               /> */}
+                {/* <AccordionItem className={`${accordionOpen === `item-${questionIndex}-${name}` ? 'bg-[#F9F9FB]' : 'bg-white'}  p-2 border-t` } value={`item-${questionIndex}-${name}`}>
+                  <AccordionTrigger 
+                    className="text-left text-base font-black pb-3  text-[#1A1A1A] md:text-xl lg:py-8 lg:text-[22px] hover:no-underline"
+                    onClick={() =>{
+                      handleAccordionExpand(accordionOpen === `item-${questionIndex}-${name}` ? "" : `item-${questionIndex}-${name}`)
 
-        {/* <Button className="flex h-12 w-[216px] mx-auto mt-9 text-lg hover:bg-transparent bg-[#1A1A1A] rounded border border-[#1A1A1A]  font-bold hover:text-[#1A1A1A] text-white uppercase">
+                      track(`Opened Q&A${question.title}`)
+                    }
+                    }
+                  >
+                    {
+                      question.title
+                    }
+                  </AccordionTrigger>
+                  <AccordionContent className="text-sm text-[#636363]  font-normal   md:text-lg">
+                    {question.content}
+                  </AccordionContent>
+                </AccordionItem> */}
+               
+                </div>
+              )
+              }
+            )
+        }
+        </Accordion>
+        </div>
+        )
+      })
+    }
+      <Button className="flex h-12 w-[216px] mx-auto my-10 mt-9 text-lg hover:bg-transparent bg-[#1A1A1A] rounded border border-[#1A1A1A]  font-bold hover:text-[#1A1A1A] text-white uppercase">
           ask a question
-        </Button>  */}
+        </Button> 
       </div>
     </>
   );
