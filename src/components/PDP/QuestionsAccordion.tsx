@@ -86,13 +86,12 @@ const qa =
 ]
 export const AccordingListedItems = ({titleName,value,index,accordionState,handleAccordionState}) =>{
     
-
   return (
     <AccordionItem className={`${accordionState === `item-${index}-${titleName}` ? 'bg-[#F9F9FB]' : 'bg-white'}  p-2 border-t` } value={`item-${index}-${titleName}`}>
     <AccordionTrigger 
       className="text-left text-base font-black pb-3  text-[#1A1A1A] md:text-xl lg:py-8 lg:text-[22px] hover:no-underline"
       onClick={() =>{
-        handleAccordionState(accordionState === `item-${index}-${name}` ? "" : `item-${index}-${titleName}`)
+        handleAccordionState(accordionState === `item-${index}-${titleName}` ? "" : `item-${index}-${titleName}`)
 
         track(`Opened Q&A${value.title}`)
       }
@@ -125,7 +124,9 @@ export function QuestionsAccordion() {
             return(
               <div key={`${name + index}`}>
                 <p className='bg-white font-medium my-2	text-2xl text-[#C95656] mt-[36px]  px-2 lg:mt-20 capitalize'>{name.toLowerCase()}</p>
+            
                 <Accordion type='single' collapsible className='w-full' >
+            
             {  
             questions.map((question,questionIndex)=>{
             return (
@@ -136,7 +137,7 @@ export function QuestionsAccordion() {
                 index={questionIndex}
                 accordionState={accordionOpen}
                 handleAccordionState={handleAccordionExpand}
-               /> 
+               />
                 </div>
               )
               }
