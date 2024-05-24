@@ -535,7 +535,7 @@ export default function MainDropdown({
               <p className="capitalize">
                 {value === '' && !isSubmodel1 && !isSubmodel2
                   ? capitalizeFirstLetter(displayTitle ? displayTitle : title)
-                  : value}
+                  : deslugify(value as string)}
                 {value === '' && isSubmodel1 && submodel1Text}
                 {value === '' && isSubmodel2 && submodel2Text}
               </p>
@@ -563,7 +563,7 @@ export default function MainDropdown({
                         ? capitalizeFirstLetter(
                             displayTitle ? displayTitle : title
                           )
-                        : value}
+                        : deslugify(value as string)}
                       {value === '' && isSubmodel1 && submodel1Text}
                       {value === '' && isSubmodel2 && submodel2Text}
                     </p>

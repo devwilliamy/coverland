@@ -406,8 +406,6 @@ export const US_STATES_ABBRV_MAP: Record<string, string> = {
   // AA: 'Armed Forces Americas'
 };
 
-
-
 export const SHIPPING_RATES = [
   {
     shipping_type: 'Free Shipping',
@@ -959,7 +957,8 @@ export const CAR_COVERS_URL_PARAM = 'car-covers';
 export const SUV_COVERS_URL_PARAM = 'suv-covers';
 export const TRUCK_COVERS_URL_PARAM = 'truck-covers';
 export const SEAT_COVERS_URL_PARAM = 'seat-covers';
-export const SEAT_COVERS_LEATHER_URL_PARAM = 'seat-covers/leather'
+export const SEAT_COVERS_LEATHER_URL_PARAM = 'seat-covers/leather';
+export const SEAT_COVERS_BREADCRUMB_LEATHER = 'leather';
 export const SEAT_COVERS_URL_PARAM_WITH_SLASH = '/seat-covers';
 
 export const VEHICLE_TYPES = [CAR_COVERS, SUV_COVERS, TRUCK_COVERS];

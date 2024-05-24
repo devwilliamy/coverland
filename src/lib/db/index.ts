@@ -126,32 +126,16 @@ export async function getAllMakes({
 }
 
 export async function getAllUniqueMakesByYear({
-  // type,
-  // cover,
-  // year,
   typeId,
   yearId,
 }: {
-  // type: string;
-  // cover: string;
-  // year: string;
   typeId: string;
   yearId: string;
 }) {
-  const { data, error } =
-    // type === 'Seat Covers'
-    //   ? await supabase
-    //       .from(SEAT_COVERS_TABLE) // OR PRODUCT_DATA_TABLE
-    //       .select('make, make_slug')
-    //       .eq('type', type)
-    //       .eq('display_id', cover)
-    //       .like('year_options', `%${year}%`)
-    //       .order('make_slug', { ascending: true })
-    //   :
-    await supabase.rpc(RPC_GET_MAKE_RELATION, {
-      type_id_web: Number(typeId),
-      year_id_web: Number(yearId),
-    });
+  const { data, error } = await supabase.rpc(RPC_GET_MAKE_RELATION, {
+    type_id_web: Number(typeId),
+    year_id_web: Number(yearId),
+  });
 
   if (error) {
     throw new Error(error.message);

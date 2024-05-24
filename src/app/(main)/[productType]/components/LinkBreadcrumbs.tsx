@@ -19,6 +19,7 @@ import useDetermineType from '@/hooks/useDetermineType';
 import MainDropdown from '@/components/hero/dropdown/MainDropdown';
 import { PopoverArrow } from '@radix-ui/react-popover';
 import {
+  SEAT_COVERS_BREADCRUMB_LEATHER,
   PREMIUM_PLUS_URL_PARAM,
   SEAT_COVERS_LEATHER_URL_PARAM,
   VEHICLE_TYPES,
@@ -53,8 +54,9 @@ export default function LinkBreadcrumbs() {
   const selectedProduct = useStore(store, (s) => s.selectedProduct);
   const stringMake = String(selectedProduct.make);
   const stringModel = String(selectedProduct.model);
-  let make = stringMake ? stringMake : '';
-  let model = stringModel ? stringModel : '';
+
+  let make = paramsMake ? stringMake : '';
+  let model = paramsModel ? stringModel : '';
 
   const params = Object(useParams());
   const paramKeys = Object.keys(params);
@@ -112,8 +114,10 @@ export default function LinkBreadcrumbs() {
         setTypeData(filteredArray);
         return;
       }
-
-      setTypeData(response);
+      const filteredArray = response.filter((type) => {
+        return type.name !== 'Car Covers';
+      });
+      setTypeData(filteredArray);
     } catch (error) {
       console.error('[Type Search]: ', error);
     }
@@ -239,7 +243,7 @@ export default function LinkBreadcrumbs() {
         paramKeys.map((key, generatedIndex) => {
           if (
             params[key] === PREMIUM_PLUS_URL_PARAM ||
-            params[key] === SEAT_COVERS_LEATHER_URL_PARAM
+            params[key] === SEAT_COVERS_BREADCRUMB_LEATHER
           ) {
             return;
           }
