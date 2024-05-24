@@ -10,6 +10,8 @@ import {
   RELATIONS_PRODUCT_TABLE,
   RPC_GET_DISTINCT_MAKES_BY_TYPE,
   RPC_GET_DISTINCT_MAKES_BY_TYPE_SEATCOVERS,
+  RPC_GET_DISTINCT_MODELS_BY_TYPE_MAKE,
+  RPC_GET_DISTINCT_YEARS_BY_TYPE_MAKE_MODEL,
   RPC_GET_DISTINCT_YEAR_GENERATION_BY_TYPE_MAKE_MODEL,
   RPC_GET_MAKE_RELATION,
   RPC_GET_MODEL_BY_TYPE_ID_MAKE_ID_RElATION,
@@ -195,13 +197,16 @@ export async function getAllUniqueModelsByYearMake({
   if (error) {
     throw new Error(error.message);
   }
+
   const allProductData = data
     .map((relation) => relation[PRODUCT_DATA_TABLE])
     .filter((item) => item !== null);
+
   const models = data
     .filter((relation) => relation[PRODUCT_DATA_TABLE] !== null)
     .map((relation) => relation.Model)
     .sort((a, b) => a.name.localeCompare(b.name));
+
   const uniqueModels = models.filter(
     (model, index, self) => index === self.findIndex((m) => m.id === model.id)
   );
@@ -218,27 +223,6 @@ export async function getAllUniqueModelsByYearMake({
       )
   );
 
-  // const uniqueCars = data.filter(
-  //   (car, index, self) =>
-  //     index ===
-  //     self.findIndex(
-  //       (t) =>
-  //         t.model_slug === car.model_slug &&
-  //         t.submodel1 === car.submodel1 &&
-  //         t.submodel2 === car.submodel2 &&
-  //         t?.submodel3 === car?.submodel3
-  //     )
-  // );
-
-  // console.log('[Server]: getAllUniqueModelsByYearMake Params & Response:', {
-  //   data,
-  //   uniqueCars,
-  //   type,
-  //   cover,
-  //   year,
-  //   make,
-  // });
-
   return { uniqueCars, uniqueModels, data };
 }
 
@@ -250,19 +234,29 @@ export async function getAllYearsByTypeMakeModel(
   const { data, error } = await supabase
     .from(RELATIONS_PRODUCT_TABLE)
     .select(
-      `*,Model(*),Years(*),${PRODUCT_DATA_TABLE}(id,model,model_slug, parent_generation, submodel1, submodel2, submodel3)`
+      `*,Model(*),Years(*),${PRODUCT_DATA_TABLE}(id,model,model_slug, quantity, parent_generation, submodel1, submodel2, submodel3)`
     )
     .eq('type_id', Number(typeId))
     .eq('make_id', Number(makeId))
-    .eq('model_id', Number(modelId));
+    .eq('model_id', Number(modelId))
+    .filter(`${PRODUCT_DATA_TABLE}.quantity`, 'not.eq', '0');
 
   if (error) {
     throw new Error(error.message);
   }
 
-  const allProductData = data.map((relation) => relation[PRODUCT_DATA_TABLE]);
+  const allProductData = data
+    .map((relation) => relation[PRODUCT_DATA_TABLE])
+    .filter((product) => product != null);
 
-  const allYears = data.map((relation) => relation.Years);
+  const allYears = data
+    .filter((product) => {
+      const dataYears = product.Years;
+      if (product.Products?.quantity && product.Products?.quantity != '0') {
+        return dataYears;
+      }
+    })
+    .map((relation) => relation.Years);
 
   const uniqueYears = allYears.filter(
     (currentYear, index, self) =>
@@ -282,24 +276,9 @@ export async function getAllYearsByTypeMakeModel(
   );
   let submodelData: any[] = [];
 
-  // yearData.map((year) => {
-  //   if (!submodelData.includes(year)) {
-  //     return submodelData.push(year);
-  //   }
-  // });
-
   submodelData = yearData.filter(
     (year) => !submodelData.includes(year) && year
   );
-
-  // console.log({
-  //   allYears,
-  //   uniqueYears,
-  //   yearData,
-  //   submodelData,
-  //   // uniqueSubmodel1s,
-  //   // uniqueSubmodel2s,
-  // });
 
   return {
     allYears,
@@ -334,7 +313,7 @@ export async function getAllSubmodelsByTypeMakeModelYear(
   let uniqueSubmodel1s: string[] = [];
   let uniqueSubmodel2s: any[] = [];
 
-  allProductData.map((modelData) => {
+  allProductData.forEach((modelData) => {
     const submodel1 = String(modelData?.submodel1);
     const submodel2 = String(modelData?.submodel2);
     if (submodel1 !== 'null' && !uniqueSubmodel1s.includes(submodel1)) {
@@ -344,12 +323,6 @@ export async function getAllSubmodelsByTypeMakeModelYear(
       uniqueSubmodel2s.push(submodel2);
     }
   });
-
-  // console.log({
-  //   allProductData,
-  //   uniqueSubmodel1s,
-  //   uniqueSubmodel2s,
-  // });
 
   return {
     allProductData,
@@ -548,7 +521,7 @@ export async function breadcrumbsGetDistinctModelByTypeMake(
   make: string
 ) {
   const { data, error } = await supabase.rpc(
-    'get_distinct_models_by_type_make',
+    RPC_GET_DISTINCT_MODELS_BY_TYPE_MAKE,
     {
       type: type,
       make: make,
@@ -570,10 +543,8 @@ export async function getDistinctModelsByTypeMakeSlug(
   type: string,
   make_slug: string
 ) {
-  console.log({ type, make_slug });
-
   const { data, error } = await supabase.rpc(
-    'get_distinct_models_by_type_make_slug',
+    RPC_GET_DISTINCT_MODELS_BY_TYPE_MAKE_SLUG,
     {
       type: type,
       make: make_slug,
@@ -583,7 +554,6 @@ export async function getDistinctModelsByTypeMakeSlug(
   if (error) {
     throw new Error(error.message);
   }
-  console.log('[Fetched Model Data]: ', data);
 
   return data;
 }
@@ -594,7 +564,7 @@ export async function getDistinctYearsByTypeMakeModel(
   model: string
 ) {
   const { data, error } = await supabase.rpc(
-    'get_distinct_years_by_type_make_model',
+    RPC_GET_DISTINCT_YEARS_BY_TYPE_MAKE_MODEL,
     {
       type: type,
       make: make,
@@ -616,9 +586,7 @@ export async function getDistinctYearsByTypeMakeModel(
 
   const distinctYears = Array.from(distinctYearsSet);
 
-  distinctYears.sort((a: string, b: string) => {
-    return Number(b) - Number(a);
-  });
+  distinctYears.sort((a: string, b: string) => Number(b) - Number(a));
 
   return distinctYears;
 }
@@ -666,7 +634,6 @@ export async function editVehicleGetAllMakes() {
   if (error) {
     throw new Error(error.message);
   }
-  // console.log(data);
 
   return data;
 }
@@ -675,8 +642,6 @@ export async function editVehicleGetAllModelsByTypeIdMakeId(
   type_id: number,
   make_id: number
 ) {
-  console.log({ type_id, make_id });
-
   const { data, error } = await supabase.rpc(
     RPC_GET_MODEL_BY_TYPE_ID_MAKE_ID_RElATION,
     {
@@ -688,7 +653,6 @@ export async function editVehicleGetAllModelsByTypeIdMakeId(
   if (error) {
     console.error(error.message);
   }
-  console.log(data);
 
   return data;
 }
@@ -768,7 +732,6 @@ export async function getYearGenById(
     });
 
   const parentGen = parentGens[0];
-  // console.log({ parentGen });
 
   return parentGen;
 }
