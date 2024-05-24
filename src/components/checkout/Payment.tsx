@@ -193,6 +193,7 @@ export default function Payment() {
           const skusWithQuantityMsrpForMeta =
             getSkuQuantityPriceFromCartItemsForMeta(cartItems);
           const eventID = uuidv4();
+
           const metaCPIEvent = {
             event_name: 'Purchase',
             event_time: Math.floor(Date.now() / 1000),
@@ -220,7 +221,6 @@ export default function Payment() {
             },
             event_source_url: origin,
           };
-          // debugger
           const metaCAPIResponse = await fetch('/api/meta/event', {
             method: 'POST',
             headers: {
@@ -230,7 +230,6 @@ export default function Payment() {
           });
           // Track the purchase event
           if (typeof fbq === 'function') {
-            console.log('inside fbq');
             fbq(
               'track',
               'Purchase',
@@ -242,9 +241,7 @@ export default function Payment() {
               },
               { eventID }
             );
-            console.log('fbq fired');
           }
-          // debugger
           const { id, client_secret } = result.paymentIntent;
           router.push(
             `/thank-you?order_number=${orderNumber}&payment_intent=${id}&payment_intent_client_secret=${client_secret}`

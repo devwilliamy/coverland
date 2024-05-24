@@ -200,7 +200,6 @@ export default function PayPalButtonSection() {
               });
               // Track the purchase event
               if (typeof fbq === 'function') {
-                console.log('inside fbq');
                 fbq(
                   'track',
                   'Purchase',
@@ -212,7 +211,6 @@ export default function PayPalButtonSection() {
                   },
                   { eventID }
                 );
-                console.log('fbq fired');
               }
 
               router.push(
