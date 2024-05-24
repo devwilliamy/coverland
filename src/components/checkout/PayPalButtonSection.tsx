@@ -13,6 +13,7 @@ import {
 } from '@/lib/utils/adminPanel';
 import { updateAdminPanelOrder } from '@/lib/db/admin-panel/orders';
 import {
+  getSkuQuantityPriceFromCartItemsForMeta,
   getSkusAndQuantityFromCartItems,
   getSkusFromCartItems,
 } from '@/lib/utils/stripe';
@@ -23,6 +24,8 @@ import {
   handlePurchaseGoogleTag,
   useThankYouViewedGoogleTag,
 } from '@/hooks/useGoogleTagDataLayer';
+import { hashData } from '@/lib/utils/hash';
+import { getCookie } from '@/lib/utils/cookie';
 
 export default function PayPalButtonSection() {
   const { clearLocalStorageCart, getTotalPrice, cartItems } = useCartContext();
@@ -155,6 +158,55 @@ export default function PayPalButtonSection() {
                 clearLocalStorageCart,
                 enhancedGoogleCovnersionInput
               );
+              const skusWithQuantityMsrpForMeta =
+                getSkuQuantityPriceFromCartItemsForMeta(cartItems);
+
+              const metaCPIEvent = {
+                event_name: 'Purchase',
+                event_time: Math.floor(Date.now() / 1000),
+                action_source: 'website',
+                user_data: {
+                  em: [hashData(customerInfo.email)],
+                  ph: [hashData(shippingAddress.phone || '')],
+                  ct: [hashData(shippingAddress.address.city || '')],
+                  country: [hashData(shippingAddress.address.country || '')],
+                  fn: [hashData(shippingAddress.firstName || '')],
+                  ln: [hashData(shippingAddress.lastName || '')],
+                  st: [hashData(shippingAddress.address.state || '')],
+                  zp: [hashData(shippingAddress.address.postal_code || '')],
+                  fbp: getCookie('_fbp'),
+                  // client_ip_address: '', // Replace with the user's IP address
+                  client_user_agent: navigator.userAgent, // Browser user agent string
+                },
+                custom_data: {
+                  currency: 'USD',
+                  value: parseFloat(getTotalPrice().toFixed(2)),
+                  order_id: orderNumber,
+                  content_ids: skus.join(','),
+                  contents: skusWithQuantityMsrpForMeta,
+                },
+                event_source_url: origin,
+              };
+              // debugger
+              const metaCAPIResponse = await fetch('/api/meta/event', {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ metaCPIEvent }),
+              });
+              // Track the purchase event
+              if (typeof fbq === 'function') {
+                console.log('inside fbq');
+                fbq('track', 'Purchase', {
+                  value: parseFloat(getTotalPrice().toFixed(2)),
+                  currency: 'USD',
+                  contents: skusWithQuantityMsrpForMeta,
+                  content_type: 'product',
+                });
+                console.log('fbq fired');
+              }
+
               router.push(
                 `/thank-you?order_number=${orderNumber}&payment_gateway=paypal`
               );
