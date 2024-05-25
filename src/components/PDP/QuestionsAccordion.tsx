@@ -117,6 +117,7 @@ export const AccordingListedItems = ({
       value={`item-${index}-${titleName}`}
     >
       <AccordionTrigger
+       showPlus={true}
         className="pb-3 text-left text-base font-black  text-[#1A1A1A] hover:no-underline md:text-xl lg:py-8 lg:text-[22px]"
         onClick={() => {
           handleAccordionState(
@@ -203,7 +204,7 @@ export function QuestionsAccordion() {
   return (
     <>
       <div className="min-h-[60vh] bg-white px-2 md:p-8 lg:max-h-none lg:p-14">
-        <h3 className="text-center text-2xl font-black uppercase text-[#1A1A1A] md:text-3xl lg:text-5xl">
+        <h3 className="text-center pt-5 text-2xl font-black uppercase text-[#1A1A1A] md:text-3xl lg:text-5xl">
           FAQ
         </h3>
         {qa &&
