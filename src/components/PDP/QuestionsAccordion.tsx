@@ -6,20 +6,14 @@ import {
 } from '@/components/ui/accordion';
 import {
   Dialog,
-  DialogClose,
   DialogContent,
   DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog';
-import { FaArrowsAltH } from 'react-icons/fa';
-import { ChevronRight, X } from 'lucide-react';
+import {  X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { track } from '@vercel/analytics';
 import { useState } from 'react';
-import { Label } from '@radix-ui/react-select';
 import { Separator } from '../ui/separator';
 import {
   Sheet,
@@ -30,6 +24,8 @@ import {
   SheetTitle,
   SheetTrigger,
 } from '../ui/sheet';
+
+import { AiOutlineLoading3Quarters } from 'react-icons/ai';
 const qa = [
   {
     name: 'General',
@@ -73,10 +69,7 @@ const qa = [
         title: "Can dust blown under the cover scratch my car's paint?",
         content: `It can be a concern, but not with our covers. Our tight custom fit, elastic hem, and additional three straps underneath the car ensure the cover remains snug even in strong winds.`,
       },
-      {
-        title: "Can dust blown under the cover scratch my car's paint?",
-        content: `It can be a concern, but not with our covers. Our tight custom fit, elastic hem, and additional three straps underneath the car ensure the cover remains snug even in strong winds.`,
-      },
+
     ],
   },
   {
@@ -104,12 +97,12 @@ const qa = [
   },
 ];
 
-interface AccordionProps{
-  titleName:string;
-  value:any;
-  index:number;
-  accordionState:string;
-  handleAccordionState: (value : string) => void; 
+interface AccordionProps {
+  titleName: string;
+  value: any;
+  index: number;
+  accordionState: string;
+  handleAccordionState: (value: string) => void;
 }
 export const AccordingListedItems = ({
   titleName,
@@ -117,7 +110,7 @@ export const AccordingListedItems = ({
   index,
   accordionState,
   handleAccordionState,
-}:AccordionProps) => {
+}: AccordionProps) => {
   return (
     <AccordionItem
       className={`${accordionState === `item-${index}-${titleName}` ? 'bg-[#F9F9FB]' : 'bg-white'}  border-t p-2`}
@@ -151,10 +144,62 @@ export function QuestionsAccordion() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [message, setMessage] = useState('');
+  const [formState, setFormState] = useState({
+    isLoading: false,
+    errorMessage: '',
+    successMessage: '',
+  });
+
   const handleAccordionExpand = (value: string) => {
     setAccordionOpen(value);
   };
 
+  const handleEmailSubmit = async () => {
+    try {
+      setFormState({ ...formState, isLoading: true });
+      const formData = {
+        name,
+        email,
+        message,
+      };
+      const response = await fetch('/api/email/question', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+      if (!response.ok) {
+        setFormState({
+          ...formState,
+          errorMessage: 'An error occurred. Please try again.',
+        });
+        throw Error('Server Error : Email not sent');
+      }
+      console.log('we are here');
+      setFormState({
+        ...formState,
+        successMessage: 'Message submitted successfully!',
+      });
+      setName('');
+      setEmail('');
+      setMessage('');
+    } catch (error) {
+      setTimeout(() => {
+        setFormState({ ...formState, errorMessage: '', isLoading: false });
+      }, 3000);
+    }
+  };
+  const handleCloseForm = () => {
+    setFormState({
+      isLoading: false,
+      errorMessage: '',
+      successMessage: '',
+    });
+    setName('');
+    setEmail('');
+    setMessage('');
+  };
   return (
     <>
       <div className="min-h-[60vh] bg-white px-2 md:p-8 lg:max-h-none lg:p-14">
@@ -201,7 +246,7 @@ export function QuestionsAccordion() {
                   Have Questions?
                 </SheetTitle>
                 <SheetDescription className="mb-2 text-left text-[14px]">
-                  We're here for you! Let us know, and we'll get back to you
+                  We&apos;re here for you! Let us know, and we&apos;ll get back to you
                   shortly. Thanks!
                 </SheetDescription>
 
@@ -219,6 +264,21 @@ export function QuestionsAccordion() {
               </div>
             </SheetHeader>
             <Separator />
+            {formState.isLoading ? (
+              <div className="flex justify-center items-center py-20">
+                <AiOutlineLoading3Quarters className=" size-24 animate-spin text-center" />
+              </div>
+              
+            ) : formState.errorMessage ? (
+              <div className="flex justify-center items-center py-20">
+                <p>{formState.errorMessage}</p>
+              </div>
+              
+            ) : formState.successMessage ? (
+              <div className="flex justify-center items-center py-20">
+                 <p>{formState.successMessage}</p>
+              </div>
+            ) : (
             <div className="grid gap-4 py-4 pt-10">
               <div className="grid grid-cols-1 items-center gap-4">
                 <label htmlFor="name" className="pl-2 font-bold capitalize		">
@@ -259,8 +319,9 @@ export function QuestionsAccordion() {
               </div>
               <div className="flex flex-col">
                 <Button
-                  onClick={() => {
-                    setOpen(false);
+                  onClick={(e) => {
+                    e.preventDefault();
+                    handleEmailSubmit();
                   }}
                   className="mx-auto mt-3 flex h-12  w-full rounded border border-[#1A1A1A] bg-[#1A1A1A] text-lg font-bold  uppercase text-white hover:bg-transparent hover:text-[#1A1A1A]"
                 >
@@ -268,6 +329,7 @@ export function QuestionsAccordion() {
                 </Button>
                 <Button
                   onClick={() => {
+                    handleCloseForm();
                     setOpen(false);
                   }}
                   className="mx-auto mt-5 flex h-12 w-full   rounded border  border-[#1A1A1A] bg-transparent text-lg font-bold  uppercase text-[#1A1A1A] hover:bg-[#1A1A1A] hover:text-white"
@@ -276,6 +338,8 @@ export function QuestionsAccordion() {
                 </Button>
               </div>
             </div>
+            )
+          }
           </SheetContent>
         </Sheet>
         {/* </span> */}
@@ -304,63 +368,76 @@ export function QuestionsAccordion() {
               <div className=" w-full pt-[30px]  text-left text-[38px] font-[900] ">
                 Have Questions?
               </div>
-              <DialogDescription className=" w-full py-2 text-left font-large">
-                We're here for you! Let us know, and we'll get back to you
+              <DialogDescription className=" font-large w-full py-2 text-left">
+                We&apos;re here for you! Let us know, and we&apos;ll get back to you
                 shortly. Thanks!
               </DialogDescription>
             </div>
 
             <Separator className="my-2" />
-
-            <div className="flex w-full py-5">
-              <div className="w-1/2 pr-4">
-                <label className="pl-2 font-bold capitalize" htmlFor="name">
-                  Name
-                </label>
-                <input
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                  name="name"
-                  type="text"
-                  placeholder="Your name"
-                  className="w-full rounded border p-2"
-                />
+            {formState.isLoading ? (
+              <AiOutlineLoading3Quarters className=" size-24 animate-spin" />
+            ) : formState.errorMessage ? (
+              <p>{formState.errorMessage}</p>
+            ) : formState.successMessage ? (
+              <p>{formState.successMessage}</p>
+            ) : (
+              <div className="w-full">
+                <div className="flex w-full py-5">
+                  <div className="w-1/2 pr-4">
+                    <label className="pl-2 font-bold capitalize" htmlFor="name">
+                      Name
+                    </label>
+                    <input
+                      value={name}
+                      onChange={(e) => setName(e.target.value)}
+                      name="name"
+                      type="text"
+                      placeholder="Your name"
+                      className="w-full rounded border p-2"
+                    />
+                  </div>
+                  <div className="w-1/2 pl-4">
+                    <label
+                      className="pl-2 font-bold capitalize"
+                      htmlFor="email"
+                    >
+                      Email
+                    </label>
+                    <input
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      name="email"
+                      type="text"
+                      placeholder="Your Email"
+                      className="w-full rounded border p-2"
+                    />
+                  </div>
+                </div>
+                <div className="mt-4 w-full">
+                  <label
+                    className="pl-2 font-bold capitalize"
+                    htmlFor="leave_question"
+                  >
+                    Leave Your Questions
+                  </label>
+                  <div className="flex">
+                    <textarea
+                      value={message}
+                      onChange={(e) => setMessage(e.target.value)}
+                      name="leave_question"
+                      placeholder="Email subject here"
+                      className="h-[240px] flex-grow rounded border p-2"
+                    ></textarea>
+                  </div>
+                </div>
               </div>
-              <div className="w-1/2 pl-4">
-                <label className="pl-2 font-bold capitalize" htmlFor="email">
-                  Email
-                </label>
-                <input
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  name="email"
-                  type="text"
-                  placeholder="Your Email"
-                  className="w-full rounded border p-2"
-                />
-              </div>
-            </div>
-            <div className="mt-4 w-full">
-              <label
-                className="pl-2 font-bold capitalize"
-                htmlFor="leave_question"
-              >
-                Leave Your Questions
-              </label>
-              <div className="flex">
-                <textarea
-                  value={message}
-                  onChange={(e) => setMessage(e.target.value)}
-                  name="leave_question"
-                  placeholder="Email subject here"
-                  className="h-[240px] flex-grow rounded border p-2"
-                ></textarea>
-              </div>
-            </div>
+            )}
             <Separator className="my-8" />
             <div className=" mt-10 flex  w-full flex-row justify-end">
               <Button
                 onClick={() => {
+                  handleCloseForm();
                   setDialogOpen(false);
                 }}
                 className=" mx-2  h-12 w-1/5   rounded border  border-[#1A1A1A] bg-transparent text-lg font-bold  uppercase text-[#1A1A1A] hover:bg-[#1A1A1A] hover:text-white"
@@ -368,8 +445,9 @@ export function QuestionsAccordion() {
                 Cancel
               </Button>
               <Button
-                onClick={() => {
-                  setDialogOpen(false);
+                onClick={(e) => {
+                  e.preventDefault();
+                  handleEmailSubmit();
                 }}
                 className=" mx-2 h-12 w-1/5 rounded border border-[#1A1A1A] bg-[#1A1A1A] text-lg font-bold  uppercase text-white hover:bg-transparent hover:text-[#1A1A1A]"
               >

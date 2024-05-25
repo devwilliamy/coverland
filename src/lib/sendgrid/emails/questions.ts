@@ -1,0 +1,51 @@
+import sgMail, { MailDataRequired } from '@sendgrid/mail';
+sgMail.setApiKey(process.env.SENDGRID_API_KEY || '');
+
+type ContactEmailInput = {
+  name?: string;
+  email?: string;
+  message: string;
+};
+const generateQuestionsEmail = ({
+    name,
+    email,
+    message,
+}: ContactEmailInput) => {
+  const additionalEmails = [
+    'info@coverland.com',
+    'vasiliy@coverland.com',
+    'jeff.coverland@gmail.com',
+    'dev.william.coverland@gmail.com',
+    email
+  ]
+  const  testEmail = 'info@coverland.com' // change for development emails
+  return {
+    to: process.env.NODE_ENV !== 'development' ? additionalEmails : testEmail,
+    from: 'info@coverland.com', // Process ENV
+    subject:  'Customer Question',
+    text:
+      '\n' +
+     `Thank you for reaching out to us! We have received your message and appreciate your interest. Our team will review your inquiry and we\'ll reach back shortly` +
+     '\n' +
+     '\n' +
+     '\n' +
+      `Here is a copy of your email:` +
+      '\n' +
+      `Customer Name: ${name}  ` +
+      '\n' +
+      `Customer Email: ${email}  ` +
+      '\n' +
+      '\n' +
+      `${message}`,
+  };
+};
+
+export const sendQuestionsEmail = async (emailInput: ContactEmailInput) => {
+  const msg = generateQuestionsEmail(emailInput);
+
+  try {
+    await sgMail.send(msg as MailDataRequired);
+  } catch (error) {
+    console.error(error);
+  }
+};
