@@ -15,6 +15,7 @@ import AddToCart from '@/components/cart/AddToCart';
 import EditVehicle from '@/components/edit-vehicle/EditVehicle';
 import FreeDetails from '../../[productType]/components/FreeDetails';
 import ReviewsTextTrigger from '../../[productType]/components/ReviewsTextTrigger';
+import SeatCoverSelection from './SeatCoverSelector';
 
 export default function SeatContent({
   searchParams,
@@ -24,12 +25,12 @@ export default function SeatContent({
   const store = useContext(SeatCoverSelectionContext);
   if (!store)
     throw new Error('Missing SeatCoverSelectionContext.Provider in the tree');
-  const selectedProduct = useStore(store, (s) => s.selectedProduct);
-  const [coverPrice, setCoverPrice] = useState(320);
-
-  const { addToCart } = useCartContext();
   const router = useRouter();
+  
+  const selectedProduct = useStore(store, (s) => s.selectedProduct);
   const [addToCartOpen, setAddToCartOpen] = useState<boolean>(false);
+  const { addToCart } = useCartContext();
+  const [coverPrice, setCoverPrice] = useState(320);
 
   const handleAddToCart = () => {
     addToCart({ ...selectedProduct, quantity: 1 });
@@ -94,6 +95,10 @@ export default function SeatContent({
       </div>
       <SeatCoverColorSelector />
       <Separator />
+      <SeatCoverSelection
+      seatCover={selectedProduct}
+
+      />
       <FreeDetails />
       {/* <CompatibleVehiclesTrigger /> */}
       <div className="lg:py-4"></div>
