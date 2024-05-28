@@ -2,11 +2,16 @@
 
 import { ChangeEvent, useEffect, useState } from 'react';
 import { TQuery } from './HeroDropdown';
-import { getAllUniqueMakesByYear, getProductDataByPage } from '@/lib/db';
+import {
+  editVehicleGetAllMakes,
+  getAllUniqueMakesByYear,
+  getProductDataByPage,
+} from '@/lib/db';
 import { AiOutlineLoading3Quarters } from 'react-icons/ai';
-import HomeDropdown from './HomeDropdown';
+import MainDropdown from './MainDropdown';
+import useDetermineType from '@/hooks/useDetermineType';
 
-export type MakeDropdown = { make: string | null; make_slug: string | null };
+// export type MakeDropdown = { make: string | null; make_slug: string | null };
 
 export function MakeSearch({
   queryObj,
@@ -16,15 +21,32 @@ export function MakeSearch({
     setQuery: React.Dispatch<React.SetStateAction<TQuery>>;
   };
 }) {
-  const [value, setValue] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const {
     setQuery,
-    query: { type, year, make, typeId, yearId },
+    query: { type, year, make, model, typeId, yearId },
   } = queryObj;
-  const [makeData, setMakeData] = useState<MakeDropdown[]>([]);
-  const [makeDataStrings, setMakeDataStrings] = useState<string[]>([]);
-  const isDisabled = !type || !year;
+
+  const [makeData, setMakeData] = useState<{ id: number; name: string }[]>([]);
+
+  const { isMakePage, isModelPage, isYearPage } = useDetermineType();
+
+  const determineDisabled = () => {
+    switch (true) {
+      // case isMakePage:
+      //   return !type;
+      // case isModelPage:
+      //   return !type;
+      // case isYearPage:
+      //   return !type;
+      case isMakePage || isModelPage || isYearPage:
+        return !type;
+      default:
+        return !type || !year;
+    }
+  };
+
+  const isDisabled = determineDisabled();
   const prevSelected = Boolean(
     queryObj &&
       queryObj.query.type &&
@@ -46,51 +68,46 @@ export function MakeSearch({
   }, []);
 
   useEffect(() => {
-    setValue('');
-  }, [type, year]);
-
-  useEffect(() => {
     const fetchData = async () => {
       try {
         const cover = type === 'Seat Covers' ? 'Leather' : 'Premium Plus'; // TODO: - Extract cover from query obj or something
         setIsLoading(true);
         const response = await getAllUniqueMakesByYear({
-          type,
-          cover, // TOOD: - Update this to make it work for premium as well.
-          year,
           typeId,
           yearId,
         });
-        
+
+        // console.log({ response });
+
         setMakeData(response);
-        // const uniqueStrings = Array.from(new Set(response.map(({ name,id }, index) => name)))
-        // setMakeDataStrings(uniqueStrings as string[]);
       } catch (error) {
         console.error('[Make Search]: ', error);
       } finally {
         setIsLoading(false);
       }
     };
-    if (type && year) {
+    if (type && year && typeId && yearId) {
       fetchData();
     }
   }, [queryObj]);
 
-  const handleChange = (event: ChangeEvent<HTMLSelectElement>) => {
-    const newValue = event.target.value;
-    setValue(newValue);
-    setQuery((p) => ({
-      ...p,
-      make: newValue,
-      model: '',
-      submodel1: '',
-      submodel2: '',
-    }));
-  };
+  useEffect(() => {
+    if (isMakePage || isModelPage || isYearPage) {
+      const getMakes = async () => {
+        const res = await editVehicleGetAllMakes();
+        const fetchedMakeData = res.map((item) => {
+          return { name: item.name as string, id: item.id };
+        });
+        setMakeData(fetchedMakeData);
+      };
+      getMakes();
+    }
+    // console.log({ queryObj });
+  }, [queryObj]);
 
   return (
-    <HomeDropdown
-      place={3}
+    <MainDropdown
+      place={isMakePage || isModelPage ? 1 : 2}
       title={'make'}
       queryObj={queryObj}
       isDisabled={isDisabled}

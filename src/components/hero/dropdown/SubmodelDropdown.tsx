@@ -10,7 +10,9 @@ import {
 import { TQuery } from './HeroDropdown';
 import { ModelDropdown } from './ModelSearch';
 import { SecondSubmodelDropdown } from './SecondSubmodelDropdown';
-import HomeDropdown from './HomeDropdown';
+import MainDropdown from './MainDropdown';
+import useDetermineType from '@/hooks/useDetermineType';
+import { getAllSubmodelsByTypeMakeModelYear } from '@/lib/db';
 
 export function SubmodelDropdown({
   queryObj,
@@ -22,13 +24,24 @@ export function SubmodelDropdown({
   };
   submodelData: ModelDropdown[];
 }) {
-  const [value, setValue] = useState('');
   const [secondSubmodelData, setSecondSubmodelData] = useState<ModelDropdown[]>(
     []
   );
 
   const { query, setQuery } = queryObj;
-  const { model, submodel1 } = query;
+  const {
+    type,
+    typeId,
+    model,
+    modelId,
+    make,
+    makeId,
+    year,
+    yearId,
+    submodel1,
+  } = query;
+
+  const { isMakePage, isModelPage } = useDetermineType();
 
   const filteredSubmodelData: (string | null)[] = Array.from(
     new Set(
@@ -41,10 +54,6 @@ export function SubmodelDropdown({
   ).map((submodel) => ({
     name: submodel,
   }));
-
-  useEffect(() => {
-    setValue('');
-  }, [model]);
 
   useEffect(() => {
     // Check for second submodel
@@ -67,31 +76,10 @@ export function SubmodelDropdown({
 
   return (
     <>
-      {/* <div
-        className={`flex max-h-[44px] min-h-[44px] w-full items-center rounded-lg outline-[#767676] md:max-h-[58px] ${isDisabled ? 'bg-gray-100/75' : 'bg-white'} px-2 text-lg outline outline-1 outline-offset-1 lg:w-auto`}
-        tabIndex={1}
-      >
-        <div className="ml-[10px] pr-[15px]">5</div>
-        <label htmlFor="submodel"></label>
-
-        <select
-          value={value}
-          onChange={handleChange}
-          disabled={isDisabled}
-          className={`w-full cursor-pointer bg-transparent py-1 outline-none lg:py-3`}
-          aria-label="submodel"
-        >
-          <option value="">{`Submodel`}</option>
-          {filteredSubmodelData?.sort()?.map((submodel) => (
-            <option key={`model-${submodel}`} value={submodel || ''}>
-              {submodel}
-            </option>
-          ))}
-        </select>
-      </div> */}
-      <HomeDropdown
+      <MainDropdown
         place={5}
         title="submodel1"
+        displayTitle="submodel"
         queryObj={queryObj}
         isDisabled={isDisabled}
         prevSelected={prevSelected}

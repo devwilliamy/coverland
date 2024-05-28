@@ -25,8 +25,13 @@ function useDetermineType() {
 
   // Product Types
   const isSeatCover = pathname.startsWith(SEAT_COVERS_URL_PARAM_WITH_SLASH);
-
-  const productType = isSeatCover ? SEAT_COVERS : params?.productType;
+  const determineProductType = () => {
+    if (isSeatCover) {
+      return 'Seat Covers';
+    }
+    return String(params?.productType);
+  };
+  const productType = determineProductType();
   const isTruckCover = productType === TRUCK_COVERS_URL_PARAM;
   const isSUVCover = productType === SUV_COVERS_URL_PARAM;
   const isCarCover = productType === CAR_COVERS_URL_PARAM;
@@ -41,7 +46,10 @@ function useDetermineType() {
   const isDefaultCoverType = isPremiumPlus || coverType === undefined;
   const isPremiumType = isDefaultCoverType || isPremium;
   const isStandardType = isStandard || isStandardPro;
-  const isYearPage = productType && make && model && year;
+
+  const isMakePage = Boolean(determineProductType() && make && !model && !year);
+  const isModelPage = Boolean(determineProductType() && make && model && !year);
+  const isYearPage = Boolean(determineProductType() && make && model && year);
 
   return {
     make,
@@ -61,6 +69,8 @@ function useDetermineType() {
     isDefaultCoverType,
     isPremiumType,
     isStandardType,
+    isMakePage,
+    isModelPage,
     isYearPage,
   };
 }

@@ -12,23 +12,30 @@ import { Search } from 'lucide-react';
 import { AiOutlineLoading3Quarters } from 'react-icons/ai';
 import { useMediaQuery } from '@mantine/hooks';
 import MobileHomeDropdown from './MobileHomeDropdown';
+import { useParams } from 'next/navigation';
+import useDetermineType from '@/hooks/useDetermineType';
+import { deslugify } from '@/lib/utils';
 
-export default function HomeDropdown({
+export default function MainDropdown({
   queryObj,
   place,
   title,
+  displayTitle,
   prevSelected,
   isDisabled,
-  items,
   value,
+  items,
+  isBreadCrumb = false,
   isLoading,
 }: {
   place: number;
   title: string;
+  displayTitle?: string;
   isDisabled?: boolean;
   prevSelected: boolean;
   value?: string | number;
   items?: string[] | number[] | any[];
+  isBreadCrumb?: boolean;
   queryObj: {
     query: TQuery;
     setQuery: Dispatch<SetStateAction<TQuery>>;
@@ -36,8 +43,13 @@ export default function HomeDropdown({
   isLoading: boolean;
 }) {
   const { setQuery } = queryObj;
+  const params = Object(useParams());
+  const paramKeys = Object.keys(params);
+  const paramValues = Object.values(params);
+  const [selectedValue, setSelectedValue] = useState<string>(
+    isBreadCrumb ? String(value) : ''
+  );
 
-  const [selectedValue, setSelectedValue] = useState<string>('');
   const [selectedIndex, setSelectedIndex] = useState<number>(-1);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [isFocused, setIsFocused] = useState(false);
@@ -48,9 +60,254 @@ export default function HomeDropdown({
   >([]);
   const isActive = prevSelected || selectedValue !== title;
   const isMobile = useMediaQuery('(max-width: 768px)');
+  const { isMakePage, isModelPage, isYearPage } = useDetermineType();
+
+  const handleYearData = ({
+    newValue,
+    id,
+  }: {
+    newValue: string;
+    id?: string;
+  }) => {
+    switch (true) {
+      case isBreadCrumb:
+        setQuery((e) => {
+          return {
+            ...e,
+            year: newValue,
+            yearId: id as string,
+          };
+        });
+        break;
+
+      case isMakePage:
+        setQuery((e) => {
+          return {
+            ...e,
+            make: e.make,
+            makeId: e.makeId,
+            year: newValue,
+            yearId: id as string,
+            model: '',
+            modelId: '',
+          };
+        });
+        break;
+
+      case isModelPage || isYearPage:
+        setQuery((e) => {
+          return {
+            ...e,
+            year: newValue,
+            yearId: id as string,
+          };
+        });
+        break;
+
+      // case isModelPage:
+      //   setQuery((e) => {
+      //     return {
+      //       ...e,
+      //       year: newValue,
+      //       yearId: id as string,
+      //     };
+      //   });
+      //   break;
+
+      // case isYearPage:
+      //   setQuery((e) => {
+      //     return {
+      //       ...e,
+      //       year: newValue,
+      //       yearId: id as string,
+      //     };
+      //   });
+      //   break;
+
+      default:
+        setQuery((e) => {
+          return {
+            ...e,
+            year: newValue as string,
+            make: '',
+            model: '',
+            submodel1: '',
+            submodel2: '',
+            parent_generation: '',
+            yearId: id as string,
+          };
+        });
+        break;
+    }
+  };
+  const handleMakeData = ({
+    newValue,
+    id,
+  }: {
+    newValue: string;
+    id?: string;
+  }) => {
+    switch (true) {
+      case isBreadCrumb:
+        setQuery((e) => {
+          return {
+            ...e,
+            make: newValue as string,
+            model: '',
+            year: '',
+            makeId: id as string,
+          };
+        });
+        break;
+
+      case isMakePage || isModelPage || isYearPage:
+        setQuery((e) => {
+          return {
+            ...e,
+            make: newValue,
+            makeId: id as string,
+            year: '',
+            yearId: '',
+            model: '',
+            modelId: '',
+          };
+        });
+
+      // case isMakePage:
+      //   setQuery((e) => {
+      //     return {
+      //       ...e,
+      //       make: newValue,
+      //       makeId: id as string,
+      //       year: '',
+      //       yearId: '',
+      //       model: '',
+      //       modelId: '',
+      //     };
+      //   });
+
+      // case isModelPage:
+      //   setQuery((e) => {
+      //     return {
+      //       ...e,
+      //       make: newValue,
+      //       makeId: id as string,
+      //       year: '',
+      //       yearId: '',
+      //       model: '',
+      //       modelId: '',
+      //     };
+      //   });
+      //   break;
+
+      // case isYearPage:
+      //   setQuery((e) => {
+      //     return {
+      //       ...e,
+      //       make: newValue,
+      //       makeId: id as string,
+      //       model: '',
+      //       modelId: '',
+      //       year: '',
+      //       yearId: '',
+      //     };
+      //   });
+      //   break;
+
+      default:
+        setQuery((e) => {
+          return {
+            ...e,
+            make: newValue as string,
+            model: '',
+            submodel1: '',
+            submodel2: '',
+            parent_generation: '',
+            makeId: id as string,
+          };
+        });
+    }
+  };
+  const handleModelData = ({
+    newValue,
+    id,
+  }: {
+    newValue: string;
+    id?: string;
+  }) => {
+    switch (true) {
+      case isBreadCrumb:
+        setQuery((e) => {
+          return {
+            ...e,
+            model: newValue,
+            year: '',
+            modelId: id as string,
+          };
+        });
+        break;
+
+      case isMakePage:
+        setQuery((e) => {
+          return {
+            ...e,
+            model: newValue,
+            modelId: id as string,
+          };
+        });
+        break;
+
+      case isModelPage:
+        setQuery((e) => {
+          return {
+            ...e,
+            model: newValue,
+            modelId: id as string,
+            year: '',
+            yearId: '',
+            submodel1: '',
+            submodel2: '',
+          };
+        });
+        break;
+
+      case isYearPage:
+        setQuery((e) => {
+          return {
+            ...e,
+            model: newValue,
+            modelId: id as string,
+            year: '',
+            yearId: '',
+            submodel1: '',
+            submodel2: '',
+          };
+        });
+        break;
+
+      default:
+        setQuery((e) => {
+          return {
+            ...e,
+            model: newValue,
+            submodel1: '',
+            submodel2: '',
+            parent_generation: '',
+            modelId: id as string,
+          };
+        });
+        break;
+    }
+  };
 
   // const handleSelect = ({newValue,id}) => {
-  const handleSelect = ({ newValue, id }: { newValue: string; id: string }) => {
+  const handleSelect = ({
+    newValue,
+    id,
+  }: {
+    newValue: string;
+    id?: string;
+  }) => {
     switch (title) {
       case 'type':
         setQuery({
@@ -61,50 +318,20 @@ export default function HomeDropdown({
           submodel1: '',
           submodel2: '',
           parent_generation: '',
-          typeId: id,
+          typeId: id as string,
           yearId: '',
           makeId: '',
           modelId: '',
         });
         break;
       case 'year':
-        setQuery((e) => {
-          return {
-            ...e,
-            year: newValue,
-            make: '',
-            model: '',
-            submodel1: '',
-            submodel2: '',
-            parent_generation: '',
-            yearId: id,
-          };
-        });
+        handleYearData({ newValue, id });
         break;
       case 'make':
-        setQuery((e) => {
-          return {
-            ...e,
-            make: newValue,
-            model: '',
-            submodel1: '',
-            submodel2: '',
-            parent_generation: '',
-            makeId: id,
-          };
-        });
+        handleMakeData({ newValue, id });
         break;
       case 'model':
-        setQuery((e) => {
-          return {
-            ...e,
-            model: newValue,
-            submodel1: '',
-            submodel2: '',
-            parent_generation: '',
-            modelId: id,
-          };
-        });
+        handleModelData({ newValue, id });
         break;
       case 'submodel1':
         setQuery((e) => {
@@ -178,13 +405,15 @@ export default function HomeDropdown({
   };
 
   const handleMobileSelectChange = (e: ChangeEvent<HTMLSelectElement>) => {
-    const selectedItem = items?.find(
-      (item) => item.name.toString() === e.target.value
+    const selectedItem = items?.find((item) =>
+      item.name
+        ? item.name.toString() === e.target.value
+        : item.toString() === e.target.value
     );
     if (selectedItem) {
       handleSelect({
-        newValue: selectedItem.name,
-        id: selectedItem.id,
+        newValue: selectedItem.name ? selectedItem.name : selectedItem,
+        id: selectedItem.id ? selectedItem.id : '',
       });
     }
   };
@@ -206,8 +435,8 @@ export default function HomeDropdown({
 
   const handleOnMouseDown = (item: string | number | any, index: number) => {
     handleSelect({
-      newValue: item.name,
-      id: item.id,
+      newValue: item.name ? item.name : item,
+      id: item.id ? item.id : '',
     });
     setSelectedIndex(index);
     setDropdownOpen((prevState) => !prevState);
@@ -289,7 +518,7 @@ export default function HomeDropdown({
   };
   return (
     <div
-      className={`relative flex min-h-[48px] w-full lg:h-[64px] lg:min-h-[64px]  ${dropdownOpen && !isMobile ? 'rounded-t-[8px] ' : 'rounded-[8px] '} ${!isDisabled ? ' bg-white outline outline-[1px] outline-black' : 'bg-gray-300/90'}`}
+      className={`relative flex max-h-[48px] min-h-[48px] w-full lg:max-h-[64px] lg:min-h-[64px]  ${dropdownOpen && !isMobile ? 'rounded-t-[8px] ' : 'rounded-[8px] '} ${!isDisabled ? ' bg-white outline outline-[1px] outline-black' : 'bg-gray-300/90'}`}
     >
       {/*  ---------- Desktop Dropdown START  ----------*/}
       <>
@@ -305,8 +534,8 @@ export default function HomeDropdown({
               <p className={``}>{value === '' && place} &nbsp;</p>
               <p className="capitalize">
                 {value === '' && !isSubmodel1 && !isSubmodel2
-                  ? capitalizeFirstLetter(title)
-                  : value}
+                  ? capitalizeFirstLetter(displayTitle ? displayTitle : title)
+                  : deslugify(value as string)}
                 {value === '' && isSubmodel1 && submodel1Text}
                 {value === '' && isSubmodel2 && submodel2Text}
               </p>
@@ -331,8 +560,10 @@ export default function HomeDropdown({
                     <p className={``}>{value === '' && place} &nbsp;</p>
                     <p className="capitalize">
                       {value === '' && !isSubmodel1 && !isSubmodel2
-                        ? capitalizeFirstLetter(title)
-                        : value}
+                        ? capitalizeFirstLetter(
+                            displayTitle ? displayTitle : title
+                          )
+                        : deslugify(value as string)}
                       {value === '' && isSubmodel1 && submodel1Text}
                       {value === '' && isSubmodel2 && submodel2Text}
                     </p>
@@ -371,41 +602,44 @@ export default function HomeDropdown({
                   <div className="px-[10px] py-2">
                     <AiOutlineLoading3Quarters className="animate-spin" />
                   </div>
-                ) : (items && items.length === 0) ? (
+                ) : items && items.length === 0 ? (
                   <div className="px-[10px] py-2">No available items</div>
                 ) : (
                   <div className="relative z-[100] flex w-full flex-col justify-center">
                     <div className="home-scrollbar flex max-h-[700px] w-full flex-col overflow-y-auto overflow-x-clip">
                       {filteredItems && filteredItems.length > 0 ? (
                         <>
-                          {filteredItems.map((item, i) => (
+                          {filteredItems?.map((filteredItem, i) => (
                             <div
-                              key={`item-${i}`}
+                              key={`filtered-${title}-${i}`}
                               id={`${title}-${i}`}
                               tabIndex={-1}
-                              className={`flex py-1 pl-[20px] hover:bg-[#BE1B1B] hover:text-white ${i === selectedIndex ? 'bg-[#BE1B1B] text-white' : ''}`}
-                              onMouseDown={() =>
-                                handleOnMouseDown(filteredItems[i], i)
-                              }
+                              className={`flex py-1 pl-[20px] hover:bg-[#BE1B1B] hover:text-white ${i === selectedIndex && 'bg-[#BE1B1B] text-white'}`}
+                              onMouseDown={() => {
+                                handleOnMouseDown(filteredItem, i);
+                              }}
                             >
-                              {item.name}
+                              {filteredItem?.name
+                                ? filteredItem.name
+                                : filteredItem}
                             </div>
                           ))}
                         </>
                       ) : (
                         <>
-                          {items &&
-                            items.map((item, i) => (
-                              <div
-                                key={`item-${item.id}`}
-                                id={`${title}-${i}`}
-                                tabIndex={-1}
-                                className={`flex py-1 pl-[20px] hover:bg-[#BE1B1B] hover:text-white ${i === selectedIndex ? 'bg-[#BE1B1B] text-white' : ''}`}
-                                onMouseDown={() => handleOnMouseDown(item, i)}
-                              >
-                                {item.name}
-                              </div>
-                            ))}
+                          {items?.map((item, i) => (
+                            <div
+                              key={`${title}-${i}`}
+                              id={`${title}-${i}`}
+                              tabIndex={-1}
+                              className={`flex py-1 pl-[20px] hover:bg-[#BE1B1B] hover:text-white ${i === selectedIndex && 'bg-[#BE1B1B] text-white'}`}
+                              onMouseDown={() => {
+                                handleOnMouseDown(item, i);
+                              }}
+                            >
+                              {item?.name ? item.name : item}{' '}
+                            </div>
+                          ))}
                         </>
                       )}
                     </div>
@@ -425,9 +659,13 @@ export default function HomeDropdown({
       {isMobile && (
         <MobileHomeDropdown
           handleMobileSelectChange={handleMobileSelectChange}
-          title={title}
+          title={displayTitle ? displayTitle : title}
           isDisabled={isDisabled as boolean}
-          value={value as string}
+          value={
+            displayTitle === 'submodel'
+              ? (value as string)
+              : deslugify(value as string)
+          }
           place={place}
           capitalizeFirstLetter={capitalizeFirstLetter}
           items={items as string[] | number[] | any[]}

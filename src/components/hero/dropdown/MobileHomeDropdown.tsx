@@ -1,5 +1,6 @@
 import { ChangeEvent } from 'react';
 import HomeChevronDown from './icons/HomeChevronDown';
+import { deslugify } from '@/lib/utils';
 
 type MobileHomeDropdownProps = {
   handleMobileSelectChange: (e: ChangeEvent<HTMLSelectElement>) => void;
@@ -30,8 +31,9 @@ export default function MobileHomeDropdown({
         id={`mobile-select-${title}`}
         disabled={isDisabled}
         value={value}
+        title={capitalizeFirstLetter(title)}
         autoComplete="off"
-        className={`absolute top-0 flex h-full w-full  cursor-pointer appearance-none items-center rounded-[8px] pl-[20px] outline outline-[2px] outline-offset-0 outline-transparent focus:outline-[#BE1B1B] `}
+        className={`absolute top-0 flex h-full w-full cursor-pointer appearance-none items-center rounded-[8px] pl-[20px] outline outline-[2px] outline-offset-0 outline-transparent focus:outline-[#BE1B1B] `}
       >
         <option
           disabled
@@ -43,34 +45,33 @@ export default function MobileHomeDropdown({
         </option>
         {items && items.length > 0 && (
           <>
-            {filteredItems && filteredItems?.length > 0 ? (
-              <>
-                {filteredItems?.map((item, i) => (
-                  <option
-                    key={`type-${i}`}
-                    id={`${title}-${i}`}
-                    value={item.name}
-                    className={`flex py-1 pl-[20px] hover:bg-[#BE1B1B] hover:text-white ${i === selectedIndex && 'bg-[#BE1B1B] text-white'}`}
-                  >
-                    {item.name}
-                  </option>
-                ))}
-              </>
-            ) : (
-              <>
-                {items.map((item, i) => (
-                  <option
-                    key={`type-${i}`}
-                    id={`${title}-${item.id}-${i}`}
-                    value={item.name}
-                    className={`flex py-1 pl-[20px] hover:bg-[#BE1B1B] hover:text-white ${i === selectedIndex && 'bg-[#BE1B1B] text-white'}`}
-                  >
-                    {item.name}
-                  </option>
-                ))}
-              </>
-            )}
+            {items.map((item, i) => {
+              return (
+                <option
+                  key={`mobile-${title}-${i}`}
+                  id={
+                    item?.id
+                      ? `${title}-${item.id}-${i}`
+                      : `${title}-${item}-${i}`
+                  }
+                  value={item?.name ? item.name : item}
+                  // selected={isSame}
+                  className={`flex py-1 pl-[20px] hover:bg-[#BE1B1B] hover:text-white ${i === selectedIndex && 'bg-[#BE1B1B] text-white'}`}
+                >
+                  {item?.name ? item.name : item}
+                </option>
+              );
+            })}
           </>
+        )}
+        {items && items.length <= 0 && (
+          <option
+            disabled
+            value={'No Items'}
+            className={`flex h-full w-full items-center pl-[20px]`}
+          >
+            No Items
+          </option>
         )}
       </select>
       <div className="absolute right-0 top-1/2 mr-[14px] flex -translate-y-1/2 items-center">

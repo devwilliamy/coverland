@@ -1,12 +1,176 @@
 'use client';
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from '@/components/ui/popover';
+
+import { useParams, usePathname } from 'next/navigation';
+import {
+  Dispatch,
+  SetStateAction,
+  useContext,
+  useEffect,
+  useState,
+} from 'react';
+import { AiOutlineLoading3Quarters } from 'react-icons/ai';
+import { TQuery } from '@/components/hero/dropdown/HeroDropdown';
 import useDetermineType from '@/hooks/useDetermineType';
-import { useParams } from 'next/navigation';
+import MainDropdown from '@/components/hero/dropdown/MainDropdown';
+import { PopoverArrow } from '@radix-ui/react-popover';
+import {
+  SEAT_COVERS_BREADCRUMB_LEATHER,
+  PREMIUM_PLUS_URL_PARAM,
+  SEAT_COVERS_LEATHER_URL_PARAM,
+  VEHICLE_TYPES,
+} from '@/lib/constants';
+import {
+  breadcrumbsGetDistinctModelByTypeMake,
+  getAllType,
+  getDistinctMakesByType,
+  getDistinctMakesByTypeSeatCover,
+  getDistinctModelsByTypeMake,
+  getDistinctYearGenerationByTypeMakeModelYear,
+  getDistinctYearsByTypeMakeModel,
+} from '@/lib/db';
+import { deslugify, slugify } from '@/lib/utils';
+import { Button } from '@/components/ui/button';
+import { useRouter } from 'next/navigation';
+import { useStore } from 'zustand';
+import { CarSelectionContext } from '@/contexts/CarSelectionContext';
+import useStoreContext from '@/hooks/useStoreContext';
 
 export default function LinkBreadcrumbs() {
+  const {
+    isSeatCover,
+    productType,
+    make: paramsMake,
+    model: paramsModel,
+    year,
+  } = useDetermineType();
+
+  const store = useStoreContext();
+  if (!store) throw new Error('Missing CarContext.Provider in the tree');
+  const selectedProduct = useStore(store, (s) => s.selectedProduct);
+  const stringMake = String(selectedProduct.make);
+  const stringModel = String(selectedProduct.model);
+
+  let make = paramsMake ? stringMake : '';
+  let model = paramsModel ? stringModel : '';
+
   const params = Object(useParams());
   const paramKeys = Object.keys(params);
   const paramValues = Object.values(params);
-  const { isSeatCover } = useDetermineType();
+
+  const determineProductType = () => {
+    if (isSeatCover) {
+      return 'Seat Covers';
+    }
+    return String(productType);
+  };
+
+  const determineMake = () => {
+    if (isSeatCover) {
+      return String(make);
+    }
+    return deslugify(String(make));
+  };
+
+  const [paramsObj, setParamObj] = useState<TQuery>({
+    year: year ? year : '',
+    type: determineProductType() ? deslugify(determineProductType()) : '',
+    parent_generation: year ? year : '',
+    make: make ? determineMake() : '',
+    model: model ? deslugify(model) : '',
+    submodel1: '',
+    submodel2: '',
+    typeId: '',
+    yearId: '',
+    makeId: '',
+    modelId: '',
+  });
+
+  const [typeData, setTypeData] = useState<any[]>([]);
+  const [makeData, setMakeData] = useState<string[]>([]);
+  const [modelData, setModelData] = useState<string[]>([]);
+  const [yearData, setYearData] = useState<string[]>([]);
+  const vehicleTypes = VEHICLE_TYPES;
+  const [isLoading, setIsLoading] = useState(false);
+  const [isDisabled, setIsDisabled] = useState(false);
+  const [clickedIndex, setClickedIndex] = useState(0);
+  const router = useRouter();
+  const pathname = usePathname();
+
+  // Fetching makes
+
+  const getTypes = async () => {
+    try {
+      const response = await getAllType();
+
+      if (!isSeatCover) {
+        const filteredArray = response.filter((type) => {
+          return type.name !== 'Seat Covers';
+        });
+        setTypeData(filteredArray);
+        return;
+      }
+      const filteredArray = response.filter((type) => {
+        return type.name !== 'Car Covers';
+      });
+      setTypeData(filteredArray);
+    } catch (error) {
+      console.error('[Type Search]: ', error);
+    }
+  };
+  const getMakes = async () => {
+    if (paramsObj.type) {
+      let makes = [];
+      if (isSeatCover) {
+        makes = await getDistinctMakesByTypeSeatCover(paramsObj.type);
+      } else {
+        makes = await getDistinctMakesByType(paramsObj.type);
+      }
+      setMakeData(makes);
+    }
+  };
+  const getModels = async () => {
+    const res = await breadcrumbsGetDistinctModelByTypeMake(
+      paramsObj.type,
+      paramsObj.make
+    );
+
+    setModelData(res as string[]);
+  };
+
+  const getYears = async () => {
+    if (paramsObj.type && paramsObj.make) {
+      const years = await getDistinctYearsByTypeMakeModel(
+        paramsObj.type,
+        paramsObj.make,
+        paramsObj.model
+      );
+
+      setYearData(years);
+    }
+  };
+
+  useEffect(() => {
+    getTypes();
+    if (paramsObj.type) {
+      getMakes();
+    }
+    if (paramsObj.type && paramsObj.make) {
+      getModels();
+    }
+    if (paramsObj.type && paramsObj.make && paramsObj.model) {
+      getYears();
+    }
+    // console.log({ paramsObj });
+
+    const disabled =
+      !paramsObj.type || !paramsObj.make || !paramsObj.model || !paramsObj.year;
+    setIsDisabled(disabled);
+  }, [paramsObj]);
 
   const getUrlFromBreadcrumbs = (index: number): string => {
     let returnString = '';
@@ -18,6 +182,46 @@ export default function LinkBreadcrumbs() {
     }
     return returnString;
   };
+  const queryObj = {
+    query: paramsObj as TQuery,
+    setQuery: setParamObj as Dispatch<SetStateAction<TQuery>>,
+  };
+
+  const handleSubmitDropdown = async () => {
+    if (
+      !paramsObj.type ||
+      !paramsObj.make ||
+      !paramsObj.model ||
+      !paramsObj.year
+    )
+      return;
+    setIsLoading(true);
+    const yearGen = await getDistinctYearGenerationByTypeMakeModelYear(
+      paramsObj.type,
+      paramsObj.make,
+      paramsObj.model,
+      paramsObj.year
+    );
+
+    let url = `/${slugify(paramsObj.type)}/${PREMIUM_PLUS_URL_PARAM}/${slugify(paramsObj.make)}/${slugify(paramsObj.model)}/`;
+
+    if (yearGen[0]) {
+      url += `${yearGen[0]}`;
+    } else if (paramsObj.year) {
+      url += `${paramsObj.year}`;
+    }
+    if (url === pathname) {
+      setIsLoading(false);
+      return;
+    }
+    try {
+      router.push(url, { scroll: true });
+    } catch (error) {
+      console.log(error);
+    }
+
+    setIsLoading(false);
+  };
 
   return (
     <div className="mb-[14px] flex text-[12px] leading-[13px] lg:text-[14px] lg:leading-[15px]">
@@ -28,27 +232,109 @@ export default function LinkBreadcrumbs() {
             href={getUrlFromBreadcrumbs(0)}
             className={`capitalize hover:underline `}
           >
-            {/* Replacing hyphens with spaces (except for year_generation) */}
             Seat Covers
           </a>
-          <p>/</p>
+
+          {paramsMake && <p>/</p>}
         </div>
       )}
+      {/* Replacing hyphens with spaces (except for year_generation) */}
       {params &&
-        paramKeys.map((key, index) => {
+        paramKeys.map((key, generatedIndex) => {
+          if (
+            params[key] === PREMIUM_PLUS_URL_PARAM ||
+            params[key] === SEAT_COVERS_BREADCRUMB_LEATHER
+          ) {
+            return;
+          }
+
           return (
-            <div key={String(params[key])} className="flex gap-1">
-              <p> </p>
-              <a
-                href={getUrlFromBreadcrumbs(index)}
-                className={`hover:underline ${params[key].length < 4 ? 'uppercase' : 'capitalize'} `}
-              >
-                {/* Replacing hyphens with spaces (except for year_generation) */}
-                {params[key] && key === 'year'
-                  ? params[key]
-                  : String(params[key]).replaceAll('-', ' ')}
-              </a>
-              {index != paramKeys.length - 1 && <p>/</p>}
+            <div key={key} >
+              <Popover>
+                <PopoverTrigger
+                  className="flex gap-1"
+                  onClick={() => {
+                    setClickedIndex(generatedIndex);
+                  }}
+                >
+                  <p> </p>
+                  <div
+                    className={`hover:underline ${params[key].length < 4 ? 'uppercase' : 'capitalize'} `}
+                  >
+                    {/* Checking and Setting trigger text */}
+                    {key !== 'make' &&
+                      key !== 'model' &&
+                      key !== 'year' &&
+                      deslugify(params[key])}
+                    {key === 'make' && make}
+                    {key === 'model' && model}
+                    {key == 'year' && params[key]}
+                  </div>
+                  {generatedIndex != paramKeys.length - 1 &&
+                    paramValues.length > 2 && <p>/</p>}
+                </PopoverTrigger>
+                <PopoverContent>
+                  <PopoverArrow className="mb-0 fill-[#BE1B1B] " />
+                  <div className="relative flex w-full flex-col items-stretch  gap-[16px] *:flex-1">
+                    {productType && clickedIndex <= 1 && (
+                      <MainDropdown
+                        place={1}
+                        title={'type'}
+                        value={paramsObj.type}
+                        queryObj={queryObj}
+                        prevSelected={false}
+                        items={typeData}
+                        isBreadCrumb
+                      />
+                    )}
+                    {clickedIndex <= 2 && (
+                      <MainDropdown
+                        place={2}
+                        title={'make'}
+                        value={paramsObj.make}
+                        queryObj={queryObj}
+                        prevSelected={false}
+                        items={makeData}
+                        isDisabled={!paramsObj.type}
+                        isBreadCrumb
+                      />
+                    )}
+                    {clickedIndex <= 3 && (
+                      <MainDropdown
+                        place={3}
+                        title={'model'}
+                        value={paramsObj.model}
+                        queryObj={queryObj}
+                        prevSelected={false}
+                        items={modelData}
+                        isDisabled={!paramsObj.make}
+                        isBreadCrumb
+                      />
+                    )}
+                    <MainDropdown
+                      place={4}
+                      title={'year'}
+                      value={paramsObj.year}
+                      queryObj={queryObj}
+                      prevSelected={false}
+                      items={yearData}
+                      isDisabled={!paramsObj.model}
+                      isBreadCrumb
+                    />
+                    <Button
+                      className={`mx-auto h-[40px] max-h-[44px] min-h-[44px] w-full max-w-[px] rounded-[4px] text-lg  disabled:bg-[gray]/70 `}
+                      onClick={handleSubmitDropdown}
+                      disabled={isDisabled}
+                    >
+                      {isLoading ? (
+                        <AiOutlineLoading3Quarters className="animate-spin" />
+                      ) : (
+                        'GO'
+                      )}
+                    </Button>
+                  </div>
+                </PopoverContent>
+              </Popover>
             </div>
           );
         })}

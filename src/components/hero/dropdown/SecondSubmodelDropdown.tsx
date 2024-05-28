@@ -9,7 +9,7 @@ import {
 } from 'react';
 import { TQuery } from './HeroDropdown';
 import { ModelDropdown } from './ModelSearch';
-import HomeDropdown from './HomeDropdown';
+import MainDropdown from './MainDropdown';
 
 export function SecondSubmodelDropdown({
   queryObj,
@@ -99,9 +99,10 @@ export function SecondSubmodelDropdown({
           ))}
         </select>
       </div> */}
-      <HomeDropdown
+      <MainDropdown
         place={6}
         title="submodel2"
+        displayTitle="submodel"
         queryObj={queryObj}
         isDisabled={isDisabled}
         prevSelected={prevSelected}

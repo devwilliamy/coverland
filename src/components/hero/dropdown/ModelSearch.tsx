@@ -8,9 +8,17 @@ import {
   useState,
 } from 'react';
 import { TQuery } from './HeroDropdown';
-import { getAllUniqueModelsByYearMake } from '@/lib/db';
+import {
+  editVehicleGetAllModelsByTypeIdMakeId,
+  getAllUniqueModelsByYearMake,
+  getDistinctModelsByTypeMake,
+  getDistinctModelsByTypeMakeSlug,
+  // getUniqueModelsByTypeMake,
+} from '@/lib/db';
 import { SubmodelDropdown } from './SubmodelDropdown';
-import HomeDropdown from './HomeDropdown';
+import MainDropdown from './MainDropdown';
+import useDetermineType from '@/hooks/useDetermineType';
+import { deslugify, slugify } from '@/lib/utils';
 
 export type ModelDropdown = {
   model: string | null;
@@ -22,39 +30,38 @@ export type ModelDropdown = {
 };
 export function ModelSearch({
   queryObj,
+  isBreadCrumb = false,
 }: {
   queryObj: {
     query: TQuery;
     setQuery: Dispatch<SetStateAction<TQuery>>;
   };
+  isBreadCrumb?: boolean;
 }) {
-  const [value, setValue] = useState('');
   const [modelData, setModelData] = useState<ModelDropdown[]>([]);
   const [modelDataStrings, setModelDataStrings] = useState<string[]>([]);
-  const [filteredModelData, setFilteredModelData] = useState<ModelDropdown[]>(
-    []
-  );
   const [submodelData, setSubmodelData] = useState<ModelDropdown[]>([]);
+  const [submodel2Data, setSubmodel2Data] = useState<ModelDropdown[]>([]);
+
+  const { isMakePage, isModelPage, isYearPage } = useDetermineType();
+
   const [submodelDataStrings, setSubmodelDataStrings] = useState<string[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const {
-    query: { type, year, make, model, makeId, yearId, typeId },
+    query: {
+      type,
+      year,
+      make,
+      model,
+      modelId,
+      makeId,
+      yearId,
+      typeId,
+      submodel1,
+      submodel2,
+    },
     setQuery,
   } = queryObj;
-
-  const handleChange = (event: ChangeEvent<HTMLSelectElement>) => {
-    const newValue = event.target.value;
-    const parent_generation =
-      modelData.find((car) => car.model === newValue)?.parent_generation || '';
-    setValue(newValue);
-    setQuery((p) => ({
-      ...p,
-      model: newValue,
-      parent_generation,
-      submodel1: '',
-      submodel2: '',
-    }));
-  };
 
   useEffect(() => {
     if (model) {
@@ -66,16 +73,13 @@ export function ModelSearch({
       }));
       // fetchData();
     }
-  }, [model, modelData, setQuery]);
+  }, [model, modelData, setQuery, modelId]);
 
-  useEffect(() => {
-    setValue('');
-  }, [type, year, make, makeId, typeId, yearId]);
-
+  // Get Unique Models By Type / Year / Make
   useEffect(() => {
     const fetchData = async () => {
       try {
-        setIsLoading(true)
+        setIsLoading(true);
         const cover = type === 'Seat Covers' ? 'Leather' : 'Premium Plus'; // TODO: - Extract cover from query obj or something
         const response = await getAllUniqueModelsByYearMake({
           type,
@@ -90,19 +94,44 @@ export function ModelSearch({
           (car, index, self) =>
             index === self.findIndex((t) => t.model_slug === car.model_slug)
         );
-        setModelData(response.uniqueCars);
-        setModelDataStrings(response.uniqueModels);
-        setFilteredModelData(response.uniqueModels);
+        if (!isYearPage) {
+          setModelData(response.uniqueCars);
+          setModelDataStrings(response.uniqueModels);
+        }
+
+        // console.log({ response });
       } catch (error) {
         console.error('[Model Search]: ', error);
       } finally {
-        setIsLoading(false)
+        setIsLoading(false);
       }
     };
-    if (type && year && make) {
+    if (type && year && make && typeId && yearId && makeId) {
       fetchData();
     }
-  }, [type, year, make]);
+  }, [type, year, make, typeId, yearId, makeId]);
+
+  useEffect(() => {
+    if (!isBreadCrumb && (isModelPage || isYearPage) && typeId && makeId) {
+      const getModels = async () => {
+        // console.log({ typeId, makeId });
+
+        const res = await getDistinctModelsByTypeMake(
+          Number(typeId),
+          Number(makeId)
+        );
+
+        const fetchedCars = res.uniqueCars;
+        const fetchedModels = res.uniqueModels;
+
+        setModelDataStrings(fetchedModels);
+        setModelData(fetchedCars as ModelDropdown[]);
+        // console.log({ fetchedCars, fetchedModels });
+      };
+
+      getModels();
+    }
+  }, [typeId, makeId]);
 
   useEffect(() => {
     // Check for submodel
@@ -110,39 +139,183 @@ export function ModelSearch({
       (vehicle) => vehicle.model === model && vehicle.submodel1
     );
 
-    // setSubmodelDataStrings(() => {
-    //   const modelStrings = uniqueModel.map(({ model }) => model);
-    //   return modelStrings as string[];
-    // });
-
-    setSubmodelData(submodel);
+    if (!isYearPage) {
+      setSubmodelData(submodel);
+    }
   }, [model]);
 
-  const isDisabled = !type || !year || !make;
+  useEffect(() => {
+    if ((isMakePage || isYearPage) && model && modelData.length > 0) {
+      const submodels = modelData
+        // Filtering products
+        .filter((product) => {
+          const productModel = slugify(String(product.model));
+
+          if (productModel.toLowerCase() === model.toLowerCase()) {
+            // console.log({ productModel, model });
+
+            return product;
+          }
+
+          return;
+        })
+        // Filtering unique products
+        .filter((product, index, self) => self.indexOf(product) === index)
+        // Getting array of submodels only
+        .map((product) => product.submodel1 && product.submodel1)
+        // Filtering unique submodels
+        .filter((submodel, index, self) => self.indexOf(submodel) === index)
+        // Filtering null or underfined submodels
+        .filter(
+          (submodel) => submodel !== null && submodel !== undefined && submodel
+        );
+
+      setSubmodelData(submodels as ModelDropdown[]);
+      // console.log({ submodels, modelData, queryObj });
+    }
+  }, [queryObj.query, modelData, model]);
+
+  useEffect(() => {
+    if ((isMakePage || isYearPage) && submodel1 && modelData.length > 0) {
+      const submodels2 = modelData
+        .filter((product) => {
+          const productModel = String(product.model);
+          const productSubmodel = String(product.submodel1).toLowerCase();
+          const lowercaseSubParam = submodel1.toLowerCase();
+          // console.log({ productSubmodel, lowercaseSubParam, submodel1 });
+
+          if (
+            slugify(productModel).toLowerCase() === model.toLowerCase() &&
+            productSubmodel &&
+            productSubmodel === lowercaseSubParam
+          ) {
+            return product;
+          }
+
+          return;
+        })
+        .filter((product, index, self) => {
+          return self.indexOf(product) === index;
+        })
+        .map((product) => {
+          return product.submodel2;
+        })
+        .filter((submodel2, index, self) => {
+          return self.indexOf(submodel2) === index;
+        });
+      console.log({ submodels2, modelData });
+
+      setSubmodel2Data(submodels2 as ModelDropdown[]);
+    }
+  }, [queryObj.query, modelData]);
+
+  const determineDisabled = () => {
+    switch (true) {
+      case isMakePage:
+        return Boolean(!type || !make || !year);
+      case isModelPage:
+        return Boolean(!type || !make);
+      case isYearPage:
+        return Boolean(!type || !make);
+      default:
+        return Boolean(!type || !year || !make);
+    }
+  };
+
+  const isDisabled = determineDisabled();
+
+  // const determinePrevSelected = () => {
+  //   switch (true) {
+  //     case isMakePage:
+  //       return !type ?? !make;
+  //     case isModelPage:
+  //       return !type ?? !make;
+  //     default:
+  //       return type ?? make ?? year;
+  //   }
+  // };
+  const determinePrevSelected = () => {
+    switch (true) {
+      case isMakePage:
+        return Boolean(type && year && make && !model);
+      case isModelPage:
+        return Boolean(type && make && !model);
+      case isYearPage:
+        return Boolean(type && make && !model);
+      default:
+        return Boolean(type && year && make && !model);
+    }
+  };
+
+  const prevSelected = determinePrevSelected();
+
   const showSubmodelDropdown = submodelData.length > 0;
-  const prevSelected =
-    queryObj &&
-    Boolean(
-      queryObj.query.type &&
-        queryObj.query.year &&
-        queryObj.query.make &&
-        queryObj.query.model === ''
-    );
+  const showSubmodel2Dropdown = submodel2Data.length > 0;
+
+  const determinePlace = () => {
+    switch (true) {
+      case isMakePage:
+        return 3;
+      case isModelPage:
+        return 2;
+      case isYearPage:
+        return 2;
+      default:
+        return 3;
+    }
+  };
+  const submodelPrevSelected = Boolean(
+    type && make && model && year && !submodel1
+  );
+  const submodel2PrevSelected = Boolean(
+    type && make && model && year && submodel1 && !submodel2
+  );
+
+  // console.log('[MODEL]: ', { model, modelData });
 
   return (
     <>
-      <HomeDropdown
-        place={4}
+      <MainDropdown
+        place={determinePlace()}
         title={'model'}
         queryObj={queryObj}
         isDisabled={isDisabled}
         value={model}
-        prevSelected={!isDisabled}
+        prevSelected={prevSelected}
         items={modelDataStrings}
         isLoading={isLoading}
       />
-      {showSubmodelDropdown && (
+      {/* Hero Submodel Dropdown */}
+      {!isMakePage && !isModelPage && !isYearPage && showSubmodelDropdown && (
         <SubmodelDropdown queryObj={queryObj} submodelData={submodelData} />
+      )}
+      {/* EditVehicle Submodel Dropdowns */}
+      {isMakePage && model && showSubmodelDropdown && (
+        <MainDropdown
+          place={4}
+          title={'submodel1'}
+          displayTitle={'submodel'}
+          queryObj={queryObj}
+          isDisabled={isDisabled}
+          value={submodel1}
+          prevSelected={submodelPrevSelected}
+          items={submodelData}
+          isLoading={isLoading}
+        />
+      )}
+
+      {isMakePage && submodel1 && showSubmodel2Dropdown && (
+        <MainDropdown
+          place={5}
+          title="submodel2"
+          displayTitle="submodel"
+          queryObj={queryObj}
+          isDisabled={isDisabled}
+          value={submodel2}
+          prevSelected={submodel2PrevSelected}
+          items={submodel2Data}
+          isLoading={isLoading}
+        />
       )}
     </>
   );
