@@ -254,3 +254,28 @@ export const determineCoverType = (type: string) => {
   }
   return coverType;
 };
+
+export const determineShortReviewCount = (total_reviews: number) => {
+  switch (true) {
+    case total_reviews >= 100 && total_reviews <= 199:
+      return '100+';
+    case total_reviews >= 200 && total_reviews <= 299:
+      return '200+';
+    case total_reviews >= 300 && total_reviews <= 399:
+      return '300+';
+    case total_reviews >= 400 && total_reviews <= 499:
+      return '400+';
+    case total_reviews >= 500 && total_reviews <= 599:
+      return '500+';
+    case total_reviews >= 600 && total_reviews <= 699:
+      return '600+';
+    case total_reviews >= 700 && total_reviews <= 799:
+      return '700+';
+    case total_reviews >= 800 && total_reviews <= 899:
+      return '800+';
+    case total_reviews >= 900:
+      return '900+';
+    default:
+      return total_reviews;
+  }
+};

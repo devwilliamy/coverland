@@ -11,7 +11,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from '../ui/accordion';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import CartHeader from './CartHeader';
 
 function isValidShippingAddress({ address }: StripeAddress) {
@@ -47,31 +47,9 @@ export default function DesktopCheckout() {
     }
   };
 
-  // const handleMetaClick = async () => {
-  //   const response = await fetch('/api/meta/event', {
-  //     method: 'POST',
-  //     headers: {
-  //       'Content-Type': 'application/json',
-  //     },
-  //   });
-  // };
-
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     const response = await fetch('/api/meta/event', {
-  //       method: 'POST',
-  //       headers: {
-  //         'Content-Type': 'application/json',
-  //       },
-  //     });
-  //   };
-  //   fetchData();
-  // }, []);
-
   const isDisabled = !isValidShippingAddress(shippingAddress);
   return (
     <>
-      {/* <button onClick={handleMetaClick}>Send Meta Event</button> */}
       <div className="flex flex-col md:flex md:flex-row md:gap-12 md:px-12 lg:px-12 lg:py-4">
         <div className="w-2/3">
           {currentStep === CheckoutStep.CART ? (

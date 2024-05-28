@@ -14,6 +14,7 @@ import ReviewSection from './ReviewSection';
 import useStoreContext from '@/hooks/useStoreContext';
 import useDetermineType from '@/hooks/useDetermineType';
 import SeatCoverReviewSection from '@/app/(main)/seat-covers/components/SeatCoverReviewSection';
+import { determineShortReviewCount } from '@/lib/utils';
 
 export default function ReviewSheet({ seeMore }: { seeMore?: boolean }) {
   const [reviewSheetOpen, setReviewSheetOpen] = useState<boolean>(false);
@@ -21,7 +22,7 @@ export default function ReviewSheet({ seeMore }: { seeMore?: boolean }) {
   const store = useStoreContext();
   if (!store) throw new Error('Missing Provider in the tree');
   const { total_reviews } = useStore(store, (s) => s.reviewDataSummary);
-  const { isSeatCover } = useDetermineType();
+  const { isSeatCover, isYearPage } = useDetermineType();
 
   return (
     <Sheet open={reviewSheetOpen} onOpenChange={setReviewSheetOpen}>
@@ -34,7 +35,15 @@ export default function ReviewSheet({ seeMore }: { seeMore?: boolean }) {
             See more <br /> review images
           </p>
         ) : (
-          (total_reviews || '2') + ' Reviews'
+          // (total_reviews || '2') + ' Reviews'
+          <>
+            {isYearPage
+              ? determineShortReviewCount(total_reviews)
+              : total_reviews
+                ? total_reviews
+                : '2'}{' '}
+            Reviews
+          </>
         )}
       </SheetTrigger>
       <SheetContent className="rounded-t-[10px] px-[2px]" side="bottom">
