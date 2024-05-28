@@ -18,6 +18,8 @@ import { useMediaQuery } from '@mantine/hooks';
 import { AiOutlineLoading3Quarters } from 'react-icons/ai';
 import ReviewRatingStar from '@/components/icons/ReviewRatingStar';
 import useStoreContext from '@/hooks/useStoreContext';
+import { determineShortReviewCount } from '@/lib/utils';
+import useDetermineType from '@/hooks/useDetermineType';
 
 const ReviewSection = ({ showHeader }: { showHeader?: boolean }) => {
   const isMobile = useMediaQuery('(max-width: 768px)');
@@ -33,6 +35,7 @@ const ReviewSection = ({ showHeader }: { showHeader?: boolean }) => {
   );
 
   const { type, make, model } = useStore(store, (s) => s.query);
+  const { isModelPage, isYearPage } = useDetermineType();
   const year = useStore(store, (s) => s.paramsYear);
 
   const [loading, setLoading] = useState(false);
@@ -306,7 +309,6 @@ const ReviewSection = ({ showHeader }: { showHeader?: boolean }) => {
   //   }
   //   setLoading(false);
   // };
-
   return (
     <div className="relative mb-[56px] flex w-full flex-col items-center px-[22px] lg:mb-0 lg:px-[59px] lg:py-2">
       {showHeader && (
@@ -331,7 +333,10 @@ const ReviewSection = ({ showHeader }: { showHeader?: boolean }) => {
               />
             </div>
             <p className="pl-4 text-sm font-normal text-[#767676] lg:text-lg">
-              {total_reviews} reviews
+              {isYearPage || isModelPage
+                ? determineShortReviewCount(total_reviews)
+                : total_reviews}{' '}
+              reviews
             </p>
           </div>
         </div>
@@ -344,7 +349,7 @@ const ReviewSection = ({ showHeader }: { showHeader?: boolean }) => {
           </div>
         </div>
       </header>
-      
+
       <ReviewHeaderGallery />
       <div className="flex w-full items-center justify-end gap-1 pt-7 *:rounded-lg  lg:gap-4">
         <select

@@ -22,7 +22,7 @@ export default function ReviewSheet({ seeMore }: { seeMore?: boolean }) {
   const store = useStoreContext();
   if (!store) throw new Error('Missing Provider in the tree');
   const { total_reviews } = useStore(store, (s) => s.reviewDataSummary);
-  const { isSeatCover, isYearPage } = useDetermineType();
+  const { isSeatCover, isModelPage, isYearPage } = useDetermineType();
 
   return (
     <Sheet open={reviewSheetOpen} onOpenChange={setReviewSheetOpen}>
@@ -37,7 +37,7 @@ export default function ReviewSheet({ seeMore }: { seeMore?: boolean }) {
         ) : (
           // (total_reviews || '2') + ' Reviews'
           <>
-            {isYearPage
+            {isYearPage || isModelPage
               ? determineShortReviewCount(total_reviews)
               : total_reviews
                 ? total_reviews

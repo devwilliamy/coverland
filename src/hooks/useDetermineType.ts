@@ -41,6 +41,7 @@ function useDetermineType() {
   const isDefaultCoverType = isPremiumPlus || coverType === undefined;
   const isPremiumType = isDefaultCoverType || isPremium;
   const isStandardType = isStandard || isStandardPro;
+  const isModelPage = Boolean(productType && make && model && !year);
   const isYearPage = productType && make && model && year;
 
   return {
@@ -61,6 +62,7 @@ function useDetermineType() {
     isDefaultCoverType,
     isPremiumType,
     isStandardType,
+    isModelPage,
     isYearPage,
   };
 }
