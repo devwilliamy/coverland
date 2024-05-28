@@ -7,7 +7,6 @@ const hashData = (data: string): string => {
 
 export async function POST(request: NextRequest) {
   try {
-    console.log('requies.theader.referer:', request.headers.get('referer'));
     console.log('Headers', request?.headers.get('x-forwarded-for'));
     console.log('[/api/meta/event/route.ts] Start');
     
