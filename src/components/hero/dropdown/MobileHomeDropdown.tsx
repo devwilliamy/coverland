@@ -24,7 +24,6 @@ export default function MobileHomeDropdown({
   filteredItems,
   selectedIndex,
 }: MobileHomeDropdownProps) {
-  const desluggedVal = deslugify(value);
   return (
     <>
       <select

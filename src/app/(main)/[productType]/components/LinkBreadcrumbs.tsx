@@ -249,7 +249,7 @@ export default function LinkBreadcrumbs() {
           }
 
           return (
-            <div key={key}>
+            <div key={key} >
               <Popover>
                 <PopoverTrigger
                   className="flex gap-1"

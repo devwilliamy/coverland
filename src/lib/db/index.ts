@@ -466,20 +466,30 @@ export async function getDistinctModelsByTypeMake(
   const { data, error } = await supabase
     .from(RELATIONS_PRODUCT_TABLE)
     .select(
-      `*,Model(*),${PRODUCT_DATA_TABLE}(id,model,model_slug, parent_generation, submodel1, submodel2, submodel3)`
+      `*,Model(*),${PRODUCT_DATA_TABLE}(id,model,model_slug, quantity, parent_generation, submodel1, submodel2, submodel3)`
     )
     .eq('type_id', Number(type_id))
-    .eq('make_id', Number(make_id));
+    .eq('make_id', Number(make_id))
+    .filter(`${PRODUCT_DATA_TABLE}.quantity`, 'not.eq', '0');
 
   if (error) {
     throw new Error(error.message);
   }
 
-  const allProductData = data.map((relation) => relation[PRODUCT_DATA_TABLE]);
+  const allProductData = data
+    .map((relation) => relation[PRODUCT_DATA_TABLE])
+    .filter((product) => product != null);
 
   const models = data
+    .filter((product) => {
+      const dataModels = product.Model;
+      if (product.Products?.quantity && product.Products?.quantity != '0') {
+        return dataModels;
+      }
+    })
     .map((relation) => relation.Model)
     .sort((a, b) => a.name.localeCompare(b.name));
+  console.log({ allProductData, models });
 
   const uniqueModels = models.filter(
     (model, index, self) => index === self.findIndex((m) => m.id === model.id)
