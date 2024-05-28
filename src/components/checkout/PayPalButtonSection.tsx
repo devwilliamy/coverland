@@ -141,24 +141,7 @@ export default function PayPalButtonSection() {
                 },
                 body: JSON.stringify({ emailInput }),
               });
-              const enhancedGoogleCovnersionInput = {
-                email: customerInfo.email || '',
-                phone_number: shippingAddress.phone || '',
-                first_name: shippingAddress.firstName || '',
-                last_name: shippingAddress.lastName || '',
-                address_line1: shippingAddress.address.line1 || '',
-                city: shippingAddress.address.city || '',
-                state: shippingAddress.address.state || '',
-                postal_code: shippingAddress.address.postal_code || '',
-                country: shippingAddress.address.country || '',
-              };
-              handlePurchaseGoogleTag(
-                cartItems,
-                orderNumber,
-                getTotalPrice().toFixed(2),
-                clearLocalStorageCart,
-                enhancedGoogleCovnersionInput
-              );
+              
               const skusWithQuantityMsrpForMeta =
                 getSkuQuantityPriceFromCartItemsForMeta(cartItems);
               const eventID = uuidv4();
@@ -212,6 +195,43 @@ export default function PayPalButtonSection() {
                   { eventID }
                 );
               }
+              // Microsoft Conversion API Tracking
+              if (typeof window !== 'undefined') {
+                window.uetq = window.uetq || [];
+                window.uetq.push('set', {
+                  pid: {
+                    em: customerInfo.email,
+                    ph: customerInfo.phoneNumber,
+                  },
+                });
+                window.uetq.push('event', 'purchase', {
+                  revenue_value: parseFloat(getTotalPrice().toFixed(2)),
+                  currency: 'USD',
+                  pid: {
+                    em: customerInfo.email,
+                    ph: customerInfo.phoneNumber,
+                  },
+                });
+              }
+
+              const enhancedGoogleConversionInput = {
+                email: customerInfo.email || '',
+                phone_number: shippingAddress.phone || '',
+                first_name: shippingAddress.firstName || '',
+                last_name: shippingAddress.lastName || '',
+                address_line1: shippingAddress.address.line1 || '',
+                city: shippingAddress.address.city || '',
+                state: shippingAddress.address.state || '',
+                postal_code: shippingAddress.address.postal_code || '',
+                country: shippingAddress.address.country || '',
+              };
+              handlePurchaseGoogleTag(
+                cartItems,
+                orderNumber,
+                getTotalPrice().toFixed(2),
+                clearLocalStorageCart,
+                enhancedGoogleConversionInput
+              );
 
               router.push(
                 `/thank-you?order_number=${orderNumber}&payment_gateway=paypal`

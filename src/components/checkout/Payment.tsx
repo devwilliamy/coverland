@@ -169,25 +169,6 @@ export default function Payment() {
                 "There's an error, but could not find error message"
             );
           }
-          const enhancedGoogleCovnersionInput = {
-            email: customerInfo.email || '',
-            phone_number: shippingAddress.phone || '',
-            first_name: shippingAddress.firstName || '',
-            last_name: shippingAddress.lastName || '',
-            address_line1: shippingAddress.address.line1 || '',
-            city: shippingAddress.address.city || '',
-            state: shippingAddress.address.state || '',
-            postal_code: shippingAddress.address.postal_code || '',
-            country: shippingAddress.address.country || '',
-          };
-
-          handlePurchaseGoogleTag(
-            cartItems,
-            orderNumber,
-            getTotalPrice().toFixed(2),
-            clearLocalStorageCart,
-            enhancedGoogleCovnersionInput
-          );
 
           const skus = getSkusFromCartItems(cartItems);
           const skusWithQuantityMsrpForMeta =
@@ -242,6 +223,47 @@ export default function Payment() {
               { eventID }
             );
           }
+
+          // Microsoft Conversion API Tracking
+          if (typeof window !== 'undefined') {
+            window.uetq = window.uetq || [];
+
+            window.uetq.push('set', {
+              pid: {
+                em: customerInfo.email,
+                ph: customerInfo.phoneNumber,
+              },
+            });
+            window.uetq.push('event', 'purchase', {
+              revenue_value: parseFloat(getTotalPrice().toFixed(2)),
+              currency: 'USD',
+              pid: {
+                em: customerInfo.email,
+                ph: customerInfo.phoneNumber,
+              },
+            });
+          }
+
+          const enhancedGoogleConversionInput = {
+            email: customerInfo.email || '',
+            phone_number: shippingAddress.phone || '',
+            first_name: shippingAddress.firstName || '',
+            last_name: shippingAddress.lastName || '',
+            address_line1: shippingAddress.address.line1 || '',
+            city: shippingAddress.address.city || '',
+            state: shippingAddress.address.state || '',
+            postal_code: shippingAddress.address.postal_code || '',
+            country: shippingAddress.address.country || '',
+          };
+
+          handlePurchaseGoogleTag(
+            cartItems,
+            orderNumber,
+            getTotalPrice().toFixed(2),
+            clearLocalStorageCart,
+            enhancedGoogleConversionInput
+          );
+
           const { id, client_secret } = result.paymentIntent;
           router.push(
             `/thank-you?order_number=${orderNumber}&payment_intent=${id}&payment_intent_client_secret=${client_secret}`
