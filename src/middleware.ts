@@ -131,7 +131,6 @@ export function middleware(request: NextRequest) {
     'mercedes/e-class/2017-2023': 'mercedes/e-class/2017-2025',
     'mercedes/www.youtube.com/coverland': 'mercedes ',
     'mark-vii': 'lincoln/mark/1984-1992',
-    // 'car-covers/premium-plus/mark-vii': 'lincoln/mark/1984-1992 ',
     'nash,-hudson/metropolitan/1954-1962': 'nashhudson/metropolitan/1954-1962',
     'mitsubishi/mirage/2014-2022': 'mitsubishi/mirage/2014-2024',
     'mitsubishi/mirage-g4/2017-2022': 'mitsubishi/mirage-g4/2017-2024',
@@ -208,7 +207,18 @@ export function middleware(request: NextRequest) {
   }
 
   // Checking url of structure /{year}-{make}-{model}-{vehicle-type} or /{make}-{model}-{year}-{vehicle-type}
-  if (isVehicleCover && (firstSegIsNum || thirdSegIsNum)) {
+  // EX:
+  if (
+    isVehicleCover &&
+    (firstSegIsNum || thirdSegIsNum) &&
+    !secondHyphenSegment.includes('/')
+  ) {
+    // console.log({
+    //   firstHyphenSegment,
+    //   secondHyphenSegment,
+    //   thirdHyphenSegment,
+    // });
+
     const determineNextResponse = async () => {
       let urlString = '/';
       let make = '';
@@ -272,11 +282,12 @@ export function middleware(request: NextRequest) {
         );
       }
     }
-    console.log({
-      outdatedPaths,
-      segments,
-      doesInclude: outdatedPaths.some((type) => segments.includes(type)),
-    });
+
+    // console.log({
+    //   outdatedPaths,
+    //   segments,
+    //   doesInclude: outdatedPaths.some((type) => segments.includes(type)),
+    // });
 
     // If there is only one segment of any type, redirect to premium-plus
     if (segments.length === 1) {
