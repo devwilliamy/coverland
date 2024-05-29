@@ -12,6 +12,7 @@ import { ChangeEvent, useContext, useState } from 'react';
 import PolicyTabs from '@/components/policy/PolicyTabs';
 import PolicyHeader from '@/components/policy/PolicyHeader';
 import { useLiveChatContext } from '@/contexts/LiveChatContext';
+import { AiOutlineLoading3Quarters } from 'react-icons/ai';
 
 const raleway = Raleway({
   weight: ['100', '400', '700', '900'],
@@ -78,7 +79,8 @@ export default function ContactPage() {
       firstVisit: true,
     },
   });
-  const [emailSent, setEmailSent] = useState(false);
+  const [emailSent, setEmailSent] = useState<number | undefined | null>();
+  const [emailSending, setEmailSending] = useState<boolean | undefined>();
   const { visible, setVisible } = useLiveChatContext();
 
   const validateEmail = (e: ChangeEvent<HTMLInputElement>) => {
@@ -136,6 +138,7 @@ export default function ContactPage() {
     });
   };
   const handleSubmit = async (formData: FormData) => {
+    let senderName: string | unknown;
     let subject: string | unknown;
     let body: string | unknown;
     let email: string | unknown;
@@ -145,17 +148,19 @@ export default function ContactPage() {
       to = formData.get('to')?.valueOf();
       email = formData.get('email')?.valueOf();
       phoneNumber = formData.get('phoneNumber')?.valueOf();
+      senderName = formData.get('senderName')?.valueOf();
       subject = formData.get('subject')?.valueOf();
       body = formData.get('body')?.valueOf();
+      setEmailSending(true);
 
       const bodyData = {
         to,
         email,
         subject,
         text: body,
+        name: senderName,
         phoneNumber,
       };
-      // console.log({ bodyData, stringified: JSON.stringify({ bodyData }) });
 
       try {
         const response = await fetch('/api/email/contact', {
@@ -167,19 +172,23 @@ export default function ContactPage() {
         });
         const emailResponse = await response.json();
         if (emailResponse.code === 200) {
-          setEmailSent(true);
+          setEmailSent(200);
+          setEmailSending(false);
           setTimeout(() => {
-            setEmailSent(false);
+            setEmailSent(undefined);
           }, 5000);
         }
-        console.log({ emailResponse }); // Making sure the await goes through and email is sent
+        if (emailResponse.code !== 200) {
+          setEmailSent(null);
+          setEmailSending(false);
+          setTimeout(() => {
+            setEmailSent(undefined);
+          }, 5000);
+        }
+        // console.log({ emailResponse }); // Making sure the await goes through and email is sent
       } catch (error) {
         console.error('Error:', error);
-        // setMessage(
-        //   error?.message || "There's an error, but could not find error message"
-        // );
       }
-      // window.location.href = `mailto:info@coverland.com?subject=${subject}&body=${email}%0A${phoneNumber}%0A${body}`;
       return;
     }
   };
@@ -235,9 +244,7 @@ export default function ContactPage() {
             <div
               key={`contact-item-${i}`}
               className={`${determineClickable(img) && 'cursor-pointer'} flex  flex-col items-center justify-center`}
-              onClick={() => {
-                determineOnClick(img);
-              }}
+              onClick={() => determineOnClick(img)}
             >
               <Image src={img} alt="contact-grid-image" />
               <h1
@@ -267,12 +274,12 @@ export default function ContactPage() {
           <p className="pb-2">* Required</p>
           <span className="items center grid w-full grid-cols-1 justify-items-center gap-[30px]  lg:grid-cols-3">
             <div className=" flex w-full flex-col">
-              <label htmlFor="subject" className="pb-2 font-black">
+              <label htmlFor="userName" className="pb-2 font-black">
                 Name *
               </label>
               <input
-                id="subject"
-                name="subject"
+                id="senderName"
+                name="senderName"
                 placeholder="John Doe"
                 type="text"
                 required
@@ -346,7 +353,19 @@ export default function ContactPage() {
               </p>
             </div>
           </span>
-          <label htmlFor="body" className="pb-2 font-black">
+          <span className="mt-[30px] flex w-full flex-col lg:mt-0">
+            <label htmlFor="subject" className="pb-2 font-black">
+              Subject
+            </label>
+            <input
+              id="subject"
+              name="subject"
+              placeholder="My Car cover..."
+              type="text"
+              className="min-h-[50px] w-full border-[2px] border-[#DBDBDB] pl-1 max-lg:mb-[30px] lg:mb-[13px]"
+            />
+          </span>
+          <label htmlFor="body" className="font-black">
             How Can We Help? *
           </label>
           <textarea
@@ -354,17 +373,31 @@ export default function ContactPage() {
             name="body"
             placeholder="I'd like to talk about..."
             required
-            className="mb-[13px] min-h-[190px] w-full resize-none border-[2px] border-[#DBDBDB] p-1"
+            className="mb-[13px] mt-2 min-h-[190px] w-full resize-none border-[2px] border-[#DBDBDB] p-1"
           />
-          {emailSent && (
+          {emailSent === 200 && (
             <div className="mb-[13px] font-black text-[red]"> Email Sent! </div>
           )}
-          <input
-            type="submit"
-            value={'SUBMIT'}
-            disabled={validationObject.email.errors}
-            className={`${lato.className} mb-[70px] flex min-h-[40px] min-w-[135px] max-w-[135px]  items-center ${validationObject.email.errors ? 'bg-blue-500/30' : 'cursor-pointer bg-gradient-to-r from-[#072c58] from-5% to-[#034998] to-80%'} justify-center rounded-full   text-[16px] font-[700] leading-[21px] text-white `}
-          />
+          {emailSent === null && (
+            <div className="mb-[13px] font-black text-[red]">
+              {' '}
+              An Error Occured{' '}
+            </div>
+          )}
+          {emailSending ? (
+            <div
+              className={`${lato.className} mb-[70px] flex min-h-[40px] min-w-[135px] max-w-[135px]  cursor-pointer items-center justify-center rounded-full bg-gradient-to-r from-[#072c58] from-5% to-[#034998] to-80% text-[16px] font-[700] leading-[21px] text-white `}
+            >
+              <AiOutlineLoading3Quarters className="animate-spin" />
+            </div>
+          ) : (
+            <input
+              type="submit"
+              value={'SUBMIT'}
+              disabled={validationObject.email.errors}
+              className={`${lato.className} mb-[70px] flex min-h-[40px] min-w-[135px] max-w-[135px]  items-center ${validationObject.email.errors ? 'bg-blue-500/30' : 'cursor-pointer bg-gradient-to-r from-[#072c58] from-5% to-[#034998] to-80%'} justify-center rounded-full   text-[16px] font-[700] leading-[21px] text-white `}
+            />
+          )}
         </form>
       </section>
     </section>
