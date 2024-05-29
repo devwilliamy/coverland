@@ -26,7 +26,7 @@ const generateContactEmail = ({
       '\n' +
       `Customer Email: ${email} ` +
       '\n' +
-      ` ${phoneNumber ? 'Customer Phone:' + phoneNumber : null}` +
+      `${phoneNumber ? 'Customer Phone:' + phoneNumber : null}` +
       '\n' +
       '\n' +
       `Thank you for your response! How can we help you?` +

@@ -8,9 +8,10 @@ export async function POST(request: NextRequest) {
     await sendContactEmail(bodyData);
     return NextResponse.json({
       message: 'Email sent to ' + bodyData.email,
-      code: 200,
+      code: true,
     });
   } catch (err) {
+    console.error(err);
     return NextResponse.json({ error: 'Error sending email' });
   }
 }

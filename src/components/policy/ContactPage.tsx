@@ -79,8 +79,11 @@ export default function ContactPage() {
       firstVisit: true,
     },
   });
-  const [emailSent, setEmailSent] = useState<number | undefined | null>();
+  const [emailSent, setEmailSent] = useState<boolean | undefined | null>();
   const [emailSending, setEmailSending] = useState<boolean | undefined>();
+  const [errorFromServer, setErrorFromServer] = useState<
+    string | null | undefined
+  >();
   const { visible, setVisible } = useLiveChatContext();
 
   const validateEmail = (e: ChangeEvent<HTMLInputElement>) => {
@@ -110,6 +113,7 @@ export default function ContactPage() {
       };
     });
   };
+
   const validatePhone = (e: ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     const isValid = phoneRegex.test(value);
@@ -171,23 +175,24 @@ export default function ContactPage() {
           body: JSON.stringify({ bodyData }),
         });
         const emailResponse = await response.json();
-        if (emailResponse.code === 200) {
-          setEmailSent(200);
-          setEmailSending(false);
+        if (emailResponse.code) {
+          setEmailSent(true);
           setTimeout(() => {
             setEmailSent(undefined);
           }, 5000);
-        }
-        if (emailResponse.code !== 200) {
+        } else {
           setEmailSent(null);
-          setEmailSending(false);
+          setErrorFromServer(emailResponse?.error);
           setTimeout(() => {
             setEmailSent(undefined);
           }, 5000);
         }
         // console.log({ emailResponse }); // Making sure the await goes through and email is sent
+        // return emailResponse;
       } catch (error) {
         console.error('Error:', error);
+      } finally {
+        setEmailSending(false);
       }
       return;
     }
@@ -360,7 +365,7 @@ export default function ContactPage() {
             <input
               id="subject"
               name="subject"
-              placeholder="My Car cover..."
+              placeholder="My car cover..."
               type="text"
               className="min-h-[50px] w-full border-[2px] border-[#DBDBDB] pl-1 max-lg:mb-[30px] lg:mb-[13px]"
             />
@@ -375,15 +380,21 @@ export default function ContactPage() {
             required
             className="mb-[13px] mt-2 min-h-[190px] w-full resize-none border-[2px] border-[#DBDBDB] p-1"
           />
-          {emailSent === 200 && (
+          {emailSent === true && (
             <div className="mb-[13px] font-black text-[red]"> Email Sent! </div>
           )}
-          {emailSent === null && (
+          {errorFromServer && (
+            <div className="mb-[13px] font-black text-[red]">
+              {' '}
+              {errorFromServer}{' '}
+            </div>
+          )}
+          {/* {emailSent === null && (
             <div className="mb-[13px] font-black text-[red]">
               {' '}
               An Error Occured{' '}
             </div>
-          )}
+          )} */}
           {emailSending ? (
             <div
               className={`${lato.className} mb-[70px] flex min-h-[40px] min-w-[135px] max-w-[135px]  cursor-pointer items-center justify-center rounded-full bg-gradient-to-r from-[#072c58] from-5% to-[#034998] to-80% text-[16px] font-[700] leading-[21px] text-white `}
