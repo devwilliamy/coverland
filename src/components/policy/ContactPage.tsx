@@ -277,7 +277,7 @@ export default function ContactPage() {
           <p className="pb-2">* Required</p>
           <span className="items center grid w-full grid-cols-1 justify-items-center gap-[30px]  lg:grid-cols-3">
             <div className=" flex w-full flex-col">
-              <label htmlFor="userName" className="pb-2 font-black">
+              <label htmlFor="senderName" className="pb-2 font-black">
                 Name *
               </label>
               <input
