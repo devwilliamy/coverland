@@ -44,7 +44,7 @@ export default function CartItemCard({ item }: { item: TCartItem }) {
           <div
             className={`text-sm font-normal ${item?.type === 'Seat Covers' ? 'flex' : 'hidden'}  text-[#707070] lg:text-base`}
           >
-            {detectFOrFB(item.sku)} Seat Cover
+            {detectFOrFB(item.sku).toLowerCase() == "full" ? "Full Seat Set (Front + Rear Seat Set)": ' Front Seats (Driver +  Passenger seats)'} 
           </div>
           <div className="text-sm font-normal text-[#707070] lg:text-base">
             Color: {item?.display_color}

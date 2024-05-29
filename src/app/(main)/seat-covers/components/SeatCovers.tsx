@@ -26,6 +26,7 @@ export default function SeatCovers({
       {/* This is for mobile */}
       <SeatCoverCarousel />
       <section className="flex h-max w-full lg:gap-[60px]">
+      
         <DesktopImageDisplay />
         {/* <Separator className="w-full bg-[#C8C7C7]" /> */}
         <SeatContent searchParams={searchParams} />

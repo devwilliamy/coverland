@@ -4,7 +4,7 @@ import { useState, useContext } from 'react';
 import installments from '@/images/PDP/Product-Details-Redesign-2/paypal-installments.webp';
 import { Rating } from '@mui/material';
 import { useCartContext } from '@/providers/CartProvider';
-import { useRouter } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
 import { SeatCoverSelectionContext } from '@/contexts/SeatCoverContext';
 import { useStore } from 'zustand';
 import SeatCoverColorSelector from './SeatCoverColorSelector';
@@ -22,6 +22,8 @@ export default function SeatContent({
 }: {
   searchParams: TQueryParams;
 }) {
+  const params = useParams<TPathParams>();
+  const isFinalSelection = params?.year;
   const store = useContext(SeatCoverSelectionContext);
   if (!store)
     throw new Error('Missing SeatCoverSelectionContext.Provider in the tree');
@@ -31,7 +33,8 @@ export default function SeatContent({
   const [addToCartOpen, setAddToCartOpen] = useState<boolean>(false);
   const { addToCart } = useCartContext();
   const [coverPrice, setCoverPrice] = useState(320);
-
+  
+  
   const handleAddToCart = () => {
     addToCart({ ...selectedProduct, quantity: 1 });
     router.push('/checkout');
@@ -95,10 +98,9 @@ export default function SeatContent({
       </div>
       <SeatCoverColorSelector />
       <Separator />
-      <SeatCoverSelection
-      seatCover={selectedProduct}
-
-      />
+      {!!isFinalSelection ? (
+        <SeatCoverSelection seatCover={selectedProduct} />
+      ) : null}
       <FreeDetails />
       {/* <CompatibleVehiclesTrigger /> */}
       <div className="lg:py-4"></div>
