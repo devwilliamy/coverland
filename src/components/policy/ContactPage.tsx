@@ -187,8 +187,6 @@ export default function ContactPage() {
             setEmailSent(undefined);
           }, 5000);
         }
-        // console.log({ emailResponse }); // Making sure the await goes through and email is sent
-        // return emailResponse;
       } catch (error) {
         console.error('Error:', error);
       } finally {
@@ -389,12 +387,6 @@ export default function ContactPage() {
               {errorFromServer}{' '}
             </div>
           )}
-          {/* {emailSent === null && (
-            <div className="mb-[13px] font-black text-[red]">
-              {' '}
-              An Error Occured{' '}
-            </div>
-          )} */}
           {emailSending ? (
             <div
               className={`${lato.className} mb-[70px] flex min-h-[40px] min-w-[135px] max-w-[135px]  cursor-pointer items-center justify-center rounded-full bg-gradient-to-r from-[#072c58] from-5% to-[#034998] to-80% text-[16px] font-[700] leading-[21px] text-white `}
