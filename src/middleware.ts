@@ -28,10 +28,36 @@ export function middleware(request: NextRequest) {
     PREMIUM_URL_PARAM,
     STANDARD_PRO_URL_PARAM,
     STANDARD_URL_PARAM,
+  ];
+  const outdatedPaths = [
+    PREMIUM_URL_PARAM,
+    STANDARD_PRO_URL_PARAM,
+    STANDARD_URL_PARAM,
     'coupon-codes',
     'geo-car-covers',
+    'geo-car-covers',
+    'view',
   ];
-  const homeRedirects = ['faqs', 'blog'];
+  const homeRedirects = [
+    'faqs',
+    'blog',
+    'ferrari-california-car-covers',
+    'atv-covers',
+    'rv-covers',
+    'car-wash-towel',
+    'van-covers',
+    'car-wash-mitt',
+    'snowmobile-covers',
+    'utv-covers',
+    'jet-ski-covers',
+    'boat-covers',
+    'scooter-covers',
+    'motorcycle-covers',
+    'Kmain.htm',
+    'Emain.htm',
+    'VCD',
+    'information',
+  ];
 
   const PREMIUM_PLUS_REDIRECT = NextResponse.redirect(
     new URL(`/${CAR_COVERS_URL_PARAM}/${PREMIUM_PLUS_URL_PARAM}/`, request.url),
@@ -72,6 +98,7 @@ export function middleware(request: NextRequest) {
     startsWithCarCoversAndPP ||
     startsWithSUVCoversAndPP ||
     startsWithTruckCoversAndPP;
+  const slashCoverTypeSegment = urlHasPremiumPlus ? segments[1] : null;
   const slashMakeSegment = urlHasPremiumPlus ? segments[2] : segments[1];
   const slashModelSegment = urlHasPremiumPlus ? segments[3] : segments[2];
   const slashYearSegment = urlHasPremiumPlus ? segments[4] : segments[3];
@@ -84,18 +111,34 @@ export function middleware(request: NextRequest) {
     endHyphenString === TRUCK_COVERS_URL_PARAM;
   const unwantedSymbols = [',-', ',', '(', ')', '.', '&-', ',-', '-,'];
   const specificUrlsObj: Record<string, string> = {
+    'amc-rambler-cross-country-1961-car-covers':
+      'amc/rambler-cross-country/1958-1962',
+    'bmw-5-series-car-covers': 'bmw/5-series/2018-2024',
+    'bmw-x5-suv-covers': 'bmw/x5-m/2019-2025',
+    'bmw-car-covers': 'bmw',
     'chevrolet/camaro/1982-1988': 'chevrolet/camaro/1982-1992',
     'chevrolet/camaro/1989-2002': 'chevrolet/camaro/1993-2002',
     'chevrolet/el-camino/1964-1972': 'chevrolet/el-camino/1964-1967',
+    'chrysler/town-&-country/1982-1988': 'chrysler/town-country/1982-1988',
+    'charger-car-cover': 'dodge/charger/2006-2023',
+    'camry-car-covers': 'toyota/camry/2002-2024',
+    'miata-car-cover': 'mazda/miata-mx-5/2016-2024',
+    'dodge-challenger-car-covers': 'dodge/challenger/2008-2023',
+    'e-class/2017-2023': 'e-class/2017-2025',
     'ford/mustang/1979-1986': 'ford/mustang/1979-2004',
     'hyundai/ioniq-6/2023': 'hyundai/ioniq-6/2023-2024',
     'lexus/es/2013-2023': 'lexus/es/2013-2024',
-    'e-class/2017-2023': 'e-class/2017-2025',
     'mercedes/e-class/2017-2023': 'mercedes/e-class/2017-2025',
+    'mercedes/www.youtube.com/coverland': 'mercedes ',
+    'mark-vii': 'lincoln/mark/1984-1992',
+    // 'car-covers/premium-plus/mark-vii': 'lincoln/mark/1984-1992 ',
+    'nash,-hudson/metropolitan/1954-1962': 'nashhudson/metropolitan/1954-1962',
     'mitsubishi/mirage/2014-2022': 'mitsubishi/mirage/2014-2024',
     'mitsubishi/mirage-g4/2017-2022': 'mitsubishi/mirage-g4/2017-2024',
     'pontiac/grand-am/1992-2006': 'pontiac/grand-am/1992-2005',
-    'nash,-hudson/metropolitan/1954-1962': 'nashhudson/metropolitan/1954-1962',
+    'subaru-wrx-car-covers': 'subaru/wrx/2015-2024',
+    'suburban-suv-cover': 'chevrolet/suburban/1973-2024',
+    'toyota-gr-supra-2023-car-covers': 'toyota/gr-supra/2020-2024',
   };
 
   const segmentHasUnwantedSymbol = (segment: string) => {
@@ -125,8 +168,44 @@ export function middleware(request: NextRequest) {
     return searchParamObj;
   };
 
+  // Replacing specific make model year segments:
+  // EX:                                           V                                                 V
+  //    - car-covers/premium-plus/ford/mustang/1979-1986 -> car-covers/premium-plus/ford/mustang/1979-2004,
+  const checkSpecificUrlMMY = () => {
+    for (const segmentKey in specificUrlsObj) {
+      const incomingMMYSegment = `${slashMakeSegment}/${slashModelSegment}/${slashYearSegment}`;
+      if (segmentKey === incomingMMYSegment) {
+        const correctMMYSegment = specificUrlsObj[segmentKey];
+        return NextResponse.redirect(
+          new URL(
+            `/${CAR_COVERS_URL_PARAM}/${PREMIUM_PLUS_URL_PARAM}/${correctMMYSegment}`,
+            request.url
+          ),
+          301
+        );
+      }
+    }
+    return;
+  };
+
   const firstSegIsNum = !isNaN(Number(firstHyphenSegment));
   const thirdSegIsNum = !isNaN(Number(thirdHyphenSegment));
+
+  if (slashCoverTypeSegment != PREMIUM_PLUS_URL_PARAM) {
+    // Checking specific urls
+    for (const segmentKey in specificUrlsObj) {
+      if (segmentKey === slashStartSegment) {
+        const correctSegment = specificUrlsObj[segmentKey];
+        return NextResponse.redirect(
+          new URL(
+            `/${CAR_COVERS_URL_PARAM}/${PREMIUM_PLUS_URL_PARAM}/${correctSegment}`,
+            request.url
+          ),
+          301
+        );
+      }
+    }
+  }
 
   // Checking url of structure /{year}-{make}-{model}-{vehicle-type} or /{make}-{model}-{year}-{vehicle-type}
   if (isVehicleCover && (firstSegIsNum || thirdSegIsNum)) {
@@ -176,39 +255,46 @@ export function middleware(request: NextRequest) {
   // Has Product Type, and if segments does not have coverType
   // MMY = Make Model Year
   if (productTypes.includes(slashStartSegment)) {
-    for (const segmentKey in specificUrlsObj) {
-      const incomingMMYSegment = `${slashMakeSegment}/${slashModelSegment}/${slashYearSegment}`;
-      if (segmentKey === incomingMMYSegment) {
-        const correctMMYSegment = specificUrlsObj[segmentKey];
+    checkSpecificUrlMMY();
+
+    const remainingSegments = segments.slice(2).join('/');
+    // ------------ NEEDS REFACTORING BAD ------------
+    // Checking specificUrl with premium-plus
+    for (const specificUrl in specificUrlsObj) {
+      if (specificUrl === remainingSegments) {
+        const correctSegment = specificUrlsObj[specificUrl];
         return NextResponse.redirect(
           new URL(
-            `/${CAR_COVERS_URL_PARAM}/${PREMIUM_PLUS_URL_PARAM}/${correctMMYSegment}`,
+            `/${CAR_COVERS_URL_PARAM}/${PREMIUM_PLUS_URL_PARAM}/${correctSegment}`,
             request.url
           ),
           301
         );
       }
     }
+    console.log({
+      outdatedPaths,
+      segments,
+      doesInclude: outdatedPaths.some((type) => segments.includes(type)),
+    });
 
+    // If there is only one segment of any type, redirect to premium-plus
     if (segments.length === 1) {
-      return NextResponse.redirect(
-        new URL(
-          `/${CAR_COVERS_URL_PARAM}/${PREMIUM_PLUS_URL_PARAM}`,
-          request.url
-        ),
-        301
-      );
+      return PREMIUM_PLUS_REDIRECT;
     }
 
     // Redirect outdated types to premium-plus
-    else if (outdatedCoverTypes.some((type) => segments.includes(type))) {
-      return NextResponse.redirect(
-        new URL(
-          `/${CAR_COVERS_URL_PARAM}/${PREMIUM_PLUS_URL_PARAM}/${segments.slice(2).join('/')}${search}`,
-          request.url
-        ),
-        301
-      );
+    else if (outdatedPaths.some((type) => segments.includes(type))) {
+      if (outdatedCoverTypes.some((type) => outdatedPaths.includes(type))) {
+        return NextResponse.redirect(
+          new URL(
+            `/${CAR_COVERS_URL_PARAM}/${PREMIUM_PLUS_URL_PARAM}/${segments.slice(2).join('/')}${search}`,
+            request.url
+          ),
+          301
+        );
+      }
+      return PREMIUM_PLUS_REDIRECT;
     }
 
     // Checking url of structure /{vehicleType}/{make}/{model}/?...year=1966-1976&...
@@ -296,7 +382,7 @@ export function middleware(request: NextRequest) {
     }
   } else if (pathname.toLowerCase() === '/willys-speedway-car-covers') {
     return WILLY_SPEEDWAY_REDIRECT;
-  } else if (outdatedCoverTypes.includes(slashStartSegment)) {
+  } else if (outdatedPaths.includes(slashStartSegment)) {
     return PREMIUM_PLUS_REDIRECT;
   } else if (homeRedirects.includes(slashStartSegment)) {
     return HOME_REDIRECT;
@@ -314,19 +400,34 @@ export function middleware(request: NextRequest) {
     slashStartSegment === TRUCK_COVERS_URL_PARAM
   ) {
     const searchObj = generateSearchObj();
+    const remainingSegments = segments.slice(2).join('/');
+
+    for (const specificUrl in specificUrlsObj) {
+      if (specificUrl === remainingSegments) {
+        const correctSegment = specificUrlsObj[specificUrl];
+        return NextResponse.redirect(
+          new URL(
+            `/${CAR_COVERS_URL_PARAM}/${PREMIUM_PLUS_URL_PARAM}/${correctSegment}`,
+            request.url
+          ),
+          301
+        );
+      }
+    }
 
     if (searchObj.submodel && searchObj.submodel2) {
       return NextResponse.redirect(
         new URL(
-          `/${CAR_COVERS_URL_PARAM}/${PREMIUM_PLUS_URL_PARAM}/${segments.slice(2).join('/')}?submodel=${searchObj.submodel}&submodel2=${searchObj.submodel2}`,
+          `/${CAR_COVERS_URL_PARAM}/${PREMIUM_PLUS_URL_PARAM}/${remainingSegments}?submodel=${searchObj.submodel}&submodel2=${searchObj.submodel2}`,
           request.url
         ),
         301
       );
     }
+
     return NextResponse.redirect(
       new URL(
-        `/${CAR_COVERS_URL_PARAM}/${PREMIUM_PLUS_URL_PARAM}/${segments.slice(2).join('/')}`,
+        `/${CAR_COVERS_URL_PARAM}/${PREMIUM_PLUS_URL_PARAM}/${remainingSegments}`,
         request.url
       ),
       301
