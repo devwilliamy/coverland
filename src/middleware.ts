@@ -265,9 +265,16 @@ export function middleware(request: NextRequest) {
   // Has Product Type, and if segments does not have coverType
   // MMY = Make Model Year
   if (productTypes.includes(slashStartSegment)) {
+    console.log({ slashCoverTypeSegment });
+
     checkSpecificUrlMMY();
 
-    const remainingSegments = segments.slice(2).join('/');
+    const remainingSegments = slashCoverTypeSegment
+      ? !outdatedCoverTypes.includes(slashStartSegment)
+        ? segments.slice(3).join('/')
+        : segments.slice(2).join('/')
+      : segments.slice(1).join('/');
+
     // ------------ NEEDS REFACTORING BAD ------------
     // Checking specificUrl with premium-plus
     for (const specificUrl in specificUrlsObj) {
@@ -283,12 +290,6 @@ export function middleware(request: NextRequest) {
       }
     }
 
-    // console.log({
-    //   outdatedPaths,
-    //   segments,
-    //   doesInclude: outdatedPaths.some((type) => segments.includes(type)),
-    // });
-
     // If there is only one segment of any type, redirect to premium-plus
     if (segments.length === 1) {
       return PREMIUM_PLUS_REDIRECT;
@@ -299,7 +300,7 @@ export function middleware(request: NextRequest) {
       if (outdatedCoverTypes.some((type) => outdatedPaths.includes(type))) {
         return NextResponse.redirect(
           new URL(
-            `/${CAR_COVERS_URL_PARAM}/${PREMIUM_PLUS_URL_PARAM}/${segments.slice(2).join('/')}${search}`,
+            `/${CAR_COVERS_URL_PARAM}/${PREMIUM_PLUS_URL_PARAM}/${remainingSegments}${search}`,
             request.url
           ),
           301
@@ -322,7 +323,7 @@ export function middleware(request: NextRequest) {
       if (objectLength > 0 && !paramsObj.submodel && !paramsObj.submodel2) {
         return NextResponse.redirect(
           new URL(
-            `/${CAR_COVERS_URL_PARAM}/${PREMIUM_PLUS_URL_PARAM}/${segments.slice(2).join('/')}`,
+            `/${CAR_COVERS_URL_PARAM}/${PREMIUM_PLUS_URL_PARAM}/${remainingSegments}`,
             request.url
           ),
           301
@@ -331,7 +332,7 @@ export function middleware(request: NextRequest) {
       if (objectLength > 2 && paramsObj.submodel && paramsObj.submodel2) {
         return NextResponse.redirect(
           new URL(
-            `/${CAR_COVERS_URL_PARAM}/${PREMIUM_PLUS_URL_PARAM}/${segments.slice(2).join('/')}?submodel=${paramsObj.submodel}&submodel2=${paramsObj.submodel2}`,
+            `/${CAR_COVERS_URL_PARAM}/${PREMIUM_PLUS_URL_PARAM}/${remainingSegments}?submodel=${paramsObj.submodel}&submodel2=${paramsObj.submodel2}`,
             request.url
           ),
           301
@@ -385,7 +386,7 @@ export function middleware(request: NextRequest) {
     ) {
       return NextResponse.redirect(
         new URL(
-          `/${CAR_COVERS_URL_PARAM}/${PREMIUM_PLUS_URL_PARAM}/${segments.slice(2).join('/')}${search}`,
+          `/${CAR_COVERS_URL_PARAM}/${PREMIUM_PLUS_URL_PARAM}/${remainingSegments}${search}`,
           request.url
         ),
         301
