@@ -15,6 +15,8 @@ import AddToCart from '@/components/cart/AddToCart';
 import EditVehicle from '@/components/edit-vehicle/EditVehicle';
 import FreeDetails from '../../[productType]/components/FreeDetails';
 import ReviewsTextTrigger from '../../[productType]/components/ReviewsTextTrigger';
+import { deslugify } from '@/lib/utils';
+import useDetermineType from '@/hooks/useDetermineType';
 
 export default function SeatContent({
   searchParams,
@@ -30,6 +32,7 @@ export default function SeatContent({
   const { addToCart } = useCartContext();
   const router = useRouter();
   const [addToCartOpen, setAddToCartOpen] = useState<boolean>(false);
+  const { make, model } = useDetermineType();
 
   const handleAddToCart = () => {
     addToCart({ ...selectedProduct, quantity: 1 });
@@ -47,7 +50,10 @@ export default function SeatContent({
         <div className="mt-4 flex flex-col gap-0.5 lg:mt-10">
           {/* Product Title */}
           <h2 className="text-[24px] font-[900] leading-[27px] text-[#1A1A1A] lg:text-[28px] lg:leading-[30px] ">
-            Premium Comfort <br className="lg:hidden" /> Leather Seat Covers
+            {make && `${deslugify(make as string)} `}
+            {model && `${deslugify(model as string)} `} Custom-Fit,{' '}
+            <br className="lg:hidden" />
+            Fine Comfort Leather
           </h2>
           {/* Rating(s) */}
           <div className="-ml-0.5 mt-1 flex items-end gap-1 lg:mt-2">
