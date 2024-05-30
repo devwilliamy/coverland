@@ -43,11 +43,11 @@ export default function SeatCoverColorSelector() {
   return (
     <section
       id="select-color"
-      className="mb-[10px] mt-[24px] flex  w-full flex-col py-1"
+      className="mb-[10px] ml-[4px] pt-[15px]  lg:pt-[34px] flex  w-full flex-col py-1"
     >
       <div className="mb-[6px] flex flex-row content-center justify-start align-middle leading-[14px]">
         <h3 className=" max-h-[13px] text-[16px] font-[400]  text-black ">
-          Select Color
+          Color
         </h3>{' '}
         {!!getSelectedColor ? (
           <span className="ml-1 capitalize text-[#8F8F8F]">

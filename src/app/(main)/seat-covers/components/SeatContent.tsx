@@ -76,8 +76,8 @@ export default function SeatContent({
           </div>
         </div>
       </div>
-      <p className="pb-2 text-[12px] font-[500] leading-[16px]">From</p>
-      <div className=" flex  items-end gap-[9px]   text-center text-[28px] font-[900]  lg:text-[32px] lg:leading-[37.5px] ">
+      
+      <div className=" flex pt-[34px]  items-end gap-[9px]   text-center text-[28px] font-[900]  lg:text-[32px] lg:leading-[37.5px] ">
         <div className="leading-[20px]">${selectedProduct.msrp}</div>
         <div className="flex gap-1.5 pb-[1px] text-[22px] font-[400] leading-[14px] text-[#BE1B1B] lg:text-[22px] ">
           <span className=" text-[#BEBEBE] line-through">
@@ -86,8 +86,8 @@ export default function SeatContent({
           <p>(-50%)</p>
         </div>
       </div>
-      <div className="pb-4.5 mt-1.5 flex items-center gap-2 ">
-        <p className=" text-[14px] leading-[16px] text-[#767676] lg:text-[16px]">
+      <div className="mt-[15px] pb-4.5 flex items-center gap-2 ">
+        <p className="mb-[4px] text-[14px] leading-[16px] text-[#767676] lg:text-[16px]">
           4 interest-free installments of{' '}
           <b className="font-[400] text-black">
             ${((selectedProduct.price || 1) / 8 - 0.01).toFixed(2)}

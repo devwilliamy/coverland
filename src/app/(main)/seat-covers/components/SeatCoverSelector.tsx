@@ -59,9 +59,9 @@ function handleSeatSelected(type,value){
 const DisplaySeatSet = ({ product,containerClass = '' }) => {
   return (
     <div className={containerClass}>
-    <h3 className="my-[6px] mx-2 max-h-[13px] text-[16px] font-[400] leading-[14px] text-black ">
+    <h3 className="my-[6px] ml-[4px]  max-h-[13px] text-[16px] font-[400] leading-[14px] text-black ">
       Select Set{' '}
-      <span className="ml-1  text-[#8F8F8F]">
+      <span className="ml-[2px]  text-[#8F8F8F]">
         {!product.toLowerCase() ? null : product.toLowerCase() === 'full' ? (
           <span>Front + Rear Seat Set</span>
         ) : (
@@ -77,7 +77,7 @@ const SeatCoverList = ({ product, isSelected, handleClick }) => {
   const typeOfCover = isFullSet(product.display_set) === 'front' ? false : true;
   const isSelectedNow = isSelected  === isFullSet(product.display_set);
   const enabledButton = Boolean(product.quantity <= 0);
-  const buttonStyle = `p-3 m-1 bg-white text-black border rounded-md capitalize text-sm hover:bg-black  hover:text-white ${isSelectedNow ? 'border-slate-700 font-bold	' : ' '} ${enabledButton ? 'line-through' : ' '} `;
+  const buttonStyle = `px-[14px] py-[18px] m-1 bg-white text-black border rounded-md capitalize text-[16px] hover:bg-black  hover:text-white ${isSelectedNow ? 'border-slate-700 font-bold	' : ' '} ${enabledButton ? 'line-through' : ' '} `;
   return (
     <>
       {!typeOfCover ? (
