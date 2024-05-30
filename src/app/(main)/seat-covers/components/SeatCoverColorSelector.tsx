@@ -11,9 +11,9 @@ import { TSeatCoverDataDB } from '@/lib/db/seat-covers';
 
 const iconMap: Record<string, StaticImageData> = {
   'Solid Black with Red Stitching': CircleBlackRed,
-  'Solid Black': CircleBlack,
-  'Solid Gray': CircleGray,
-  'Solid Beige': CircleBeige,
+  Black: CircleBlack,
+  Gray: CircleGray,
+  Beige: CircleBeige,
 };
 
 export default function SeatCoverColorSelector() {
@@ -23,7 +23,7 @@ export default function SeatCoverColorSelector() {
   const [colorIndex, setColorIndex] = useState(0);
   const modelData = useStore(store, (s) => s.modelData);
   const setSelectedProduct = useStore(store, (s) => s.setSelectedProduct);
-  const setSelectedColor = useStore(store, (s) => s.setSelectedColor)
+  const setSelectedColor = useStore(store, (s) => s.setSelectedColor);
   //   const params = useParams<TPathParams>();
 
   //   const handleColorChange = (newSelectedProduct: IProductData) => {

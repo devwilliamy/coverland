@@ -3,6 +3,7 @@ import type { Metadata } from 'next';
 import '../globals.css';
 import Header from '@/components/header/Header';
 import Footer from '@/components/footer/Footer';
+import { LiveChatProvider } from '@/contexts/LiveChatContext';
 
 export const metadata: Metadata = {
   title: 'Coverland Car Covers',
@@ -17,9 +18,11 @@ export default function RootLayout({
 }) {
   return (
     <>
-      <Header />
-      {children}
-      <Footer />
+      <LiveChatProvider>
+        <Header />
+        {children}
+        <Footer />
+      </LiveChatProvider>
     </>
   );
 }
