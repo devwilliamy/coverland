@@ -1,7 +1,7 @@
 /* Supabase Table Names */
 export const PRODUCT_REVIEWS_TABLE = 'reviews-2';
-export const PRODUCT_DATA_TABLE = 'Products_20240529';
-export const RELATIONS_PRODUCT_TABLE = 'relations_product_20240529';
+export const PRODUCT_DATA_TABLE = 'Products';
+export const RELATIONS_PRODUCT_TABLE = 'relations_product';
 export const TYPE_TABLE = 'Type';
 export const SEAT_PRODUCT_REVIEWS_TABLE = 'seat_cover_reviews_20240426';
 export const TYPE_MAKE_YEAR_DISTINCT = 'type_make_year_distinct';
@@ -15,12 +15,12 @@ export const MAKE_TABLE = 'Make';
 export const PRODUCT_METADATA_TABLE = 'Product-Metadata'
 
 /* Supabase RPC Names */
-export const RPC_GET_MAKE_RELATION = 'get_make_relation_20240529';
-export const RPC_GET_UNIQUE_YEARS = 'get_unique_years_20240529';
+export const RPC_GET_MAKE_RELATION = 'get_make_relation';
+export const RPC_GET_UNIQUE_YEARS = 'get_unique_years';
 export const RPC_GET_DISTINCT_SEAT_COVERS_REVIEW_IMAGES =
   'get_distinct_seat_covers_review_images';
 export const RPC_GET_DISTINCT_REVIEW_IMAGES = 'get_distinct_review_images';
 export const RPC_GET_SEAT_COVERS_PRODUCT_REVIEWS_SUMMARY =
   'get_seat_covers_product_reviews_summary';
 export const RPC_GET_PRODUCT_REVIEWS_SUMMARY = 'get_product_reviews_summary';
-export const RPC_GET_SEAT_COVER_SORTED_BY_COLOR = 'get_seat_cover_products_sorted_by_color_20240529'
+export const RPC_GET_SEAT_COVER_SORTED_BY_COLOR = 'get_seat_cover_products_sorted_by_color'
