@@ -18,6 +18,8 @@ import { SeatCoverSelectionContext } from '@/contexts/SeatCoverContext';
 import ReviewCard from '@/components/PDP/components/ReviewCard';
 import ReviewHeaderGallery from '@/components/PDP/components/ReviewHeaderGallery';
 import ReviewPercentCircle from '@/components/PDP/components/ReviewPercentCircle';
+import { determineShortReviewCount } from '@/lib/utils';
+import useDetermineType from '@/hooks/useDetermineType';
 
 const SeatCoverReviewSection = ({ showHeader }: { showHeader?: boolean }) => {
   const isMobile = useMediaQuery('(max-width: 768px)');
@@ -31,7 +33,7 @@ const SeatCoverReviewSection = ({ showHeader }: { showHeader?: boolean }) => {
     store,
     (s) => s.reviewDataSummary
   );
-
+  const { isModelPage, isYearPage } = useDetermineType();
   const { type, make, model } = useStore(store, (s) => s.query);
   const year = useStore(store, (s) => s.paramsYear);
 
@@ -340,7 +342,12 @@ const SeatCoverReviewSection = ({ showHeader }: { showHeader?: boolean }) => {
                   />
                 </div>
                 <p className="pl-4 text-sm font-normal text-[#767676] lg:text-lg">
-                  {total_reviews} reviews
+                  {isYearPage || isModelPage
+                    ? determineShortReviewCount(total_reviews)
+                    : total_reviews
+                      ? total_reviews
+                      : '2'}{' '}
+                  Reviews
                 </p>
               </div>
             </div>

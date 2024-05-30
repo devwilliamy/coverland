@@ -12,8 +12,15 @@ function ReviewsTextTrigger() {
   if (!store) throw new Error('Missing Provider in the tree');
   const { total_reviews } = useStore(store, (s) => s.reviewDataSummary);
   const reviewData = useStore(store, (s) => s.reviewData);
-  const { isSeatCover, isYearPage, make, productType, model, year } =
-    useDetermineType();
+  const {
+    isSeatCover,
+    isYearPage,
+    isModelPage,
+    make,
+    productType,
+    model,
+    year,
+  } = useDetermineType();
 
   return (
     <>
@@ -25,7 +32,7 @@ function ReviewsTextTrigger() {
                 className="ml-2 text-blue-400 underline"
                 disabled={!total_reviews}
               >
-                {isYearPage
+                {isYearPage || isModelPage
                   ? determineShortReviewCount(total_reviews)
                   : total_reviews
                     ? total_reviews

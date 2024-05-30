@@ -27,6 +27,24 @@ export default function AppScripts() {
         a.appendChild(r);
         })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');`}
       </Script>
+      <Script id="microsoft-advertising-tracking" async defer>
+        {`(function(w,d,t,r,u)
+        {
+          var f,n,i;
+          w[u]=w[u]||[],f=function()
+          {
+            var o={ti:"97108490", enableAutoSpaTracking: true};
+            o.q=w[u],w[u]=new UET(o),w[u].push("pageLoad")
+          },
+          n=d.createElement(t),n.src=r,n.async=1,n.onload=n.onreadystatechange=function()
+          {
+            var s=this.readyState;
+            s&&s!=="loaded"&&s!=="complete"||(f(),n.onload=n.onreadystatechange=null)
+          },
+          i=d.getElementsByTagName(t)[0],i.parentNode.insertBefore(n,i)
+        })
+        (window,document,"script","//bat.bing.com/bat.js","uetq");`}
+      </Script>
       {/*
       <Script id="UR_initiator" strategy="lazyOnload">
         {`(function () {
