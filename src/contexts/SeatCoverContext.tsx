@@ -150,6 +150,10 @@ const createSeatCoverSelectionStore = ({
     setReviewsWithImages: (newReviewImages: TReviewData[]) => {
       set(() => ({ reviewImages: newReviewImages }));
     },
+    selectedSetDisplay:'',
+    setSelectedSetDisplay:(netSet:string) =>{
+      set(() => ({selectedSetDisplay:netSet}));
+    }
   }));
 };
 

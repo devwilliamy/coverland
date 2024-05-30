@@ -3,12 +3,15 @@ import { useState } from 'react';
 import { TPathParams } from '../../utils';
 import { useParams } from 'next/navigation';
 import CarMagnify from '@/components/icons/CarMagnify';
+import { FaSpinner } from 'react-icons/fa';
 
 type AddToCartButtonProps = {
   handleAddToCartClicked: () => void;
+  isLoading:boolean
 };
 export default function AddToCartButton({
-  handleAddToCartClicked
+  handleAddToCartClicked,
+  isLoading
 }: AddToCartButtonProps) {
   const params = useParams<TPathParams>();
   const isFinalSelection = params?.year;
@@ -39,14 +42,18 @@ export default function AddToCartButton({
           });
         }}
       >
-        {nonFinalButtonText === 'Start Here' && (
+        {
+        isLoading ? <FaSpinner className='animate-spin'/> :
+        nonFinalButtonText === 'Start Here' && (
           // <Image alt="car-magnifying-glass" src={CarMag} />
           <div className="flex min-h-[30px] min-w-[67px]">
             <CarMagnify />
           </div>
         )}
         <p className="">
-          {!isFinalSelection ? nonFinalButtonText : 'Add To Cart'}
+          {!isFinalSelection ? nonFinalButtonText :
+           'Add To Cart'
+          }
         </p>
       </div>
     </Button>

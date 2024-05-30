@@ -1,7 +1,7 @@
 import { TableCell, TableRow } from '@/components/ui/table';
 import Image from 'next/image';
 import { TCartItem } from '@/lib/cart/useCart';
-import { detectFOrFB } from '@/lib/utils';
+import { detectFOrFB, isFullSet } from '@/lib/utils';
 
 export default function OrderReviewItem({ item }: { item: TCartItem }) {
   const { type } = item;
@@ -32,7 +32,7 @@ export default function OrderReviewItem({ item }: { item: TCartItem }) {
           <div
             className={`text-sm font-normal ${item?.type === 'Seat Covers' ? 'flex' : 'hidden'}  text-[#707070] lg:text-base`}
           >
-            {detectFOrFB(item.sku)} Seat Cover
+            {isFullSet(item.display_set).toLowerCase() == "full" ? "Full Seat Set (Front + Rear Seat Set)": ' Front Seats (Driver +  Passenger seats)'} 
           </div>
           <div className="text-sm font-normal text-[#707070] lg:text-base">
             Color: {item?.display_color}

@@ -34,6 +34,8 @@ export default function AddToCart({
   const modelData = useStore(store, (s) => s.modelData);
   const [addToCartSelectorOpen, setAddToCartSelectorOpen] =
     useState<boolean>(false);
+  const initalLoadingState = false;
+  const [isLoading,setIsLoading] = useState<boolean>(initalLoadingState);
   const [selectSeatOpen, setSelectSeatOpen] = useState<boolean>(false);
   const { isSeatCover } = useDetermineType();
   const isFinalSelection = params?.year;
@@ -45,7 +47,7 @@ export default function AddToCart({
   });
 
   const handleAddToCartClicked = () => {
-
+    setIsLoading(true)
     if (isComplete) {
         handleAddToCart();
         handleAddToCartGoogleTag(selectedProduct, params as TPathParams);
@@ -53,8 +55,10 @@ export default function AddToCart({
           track('PDP_add_to_cart', {
             sku: selectedProduct?.sku,
           });
+          setIsLoading(false)
       return; // Don't want to open add to cart selector
     }
+    setIsLoading(false)
     setAddToCartSelectorOpen((p) => !p);
   };
 
@@ -81,7 +85,7 @@ export default function AddToCart({
         <VehicleSelector searchParams={searchParams} />
       ) : ( */}
         <div className="fixed inset-x-0 bottom-0 z-20 flex bg-white p-4 lg:relative lg:p-1">
-          <AddToCartButton handleAddToCartClicked={handleAddToCartClicked} />
+          <AddToCartButton  handleAddToCartClicked={handleAddToCartClicked} isLoading={isLoading} />
         </div>
       {/* )} */}
     </Suspense>

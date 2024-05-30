@@ -43,7 +43,7 @@ export default function SeatCoverColorSelector() {
   return (
     <section
       id="select-color"
-      className="mb-[30px] mt-[24px] flex  w-full flex-col py-1"
+      className="mb-[10px] mt-[24px] flex  w-full flex-col py-1"
     >
       <div className="mb-[6px] flex flex-row content-center justify-start align-middle leading-[14px]">
         <h3 className=" max-h-[13px] text-[16px] font-[400]  text-black ">

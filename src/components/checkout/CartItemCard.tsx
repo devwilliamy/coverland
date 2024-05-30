@@ -4,7 +4,7 @@ import Image from 'next/image';
 import { FaRegTrashAlt } from 'react-icons/fa';
 import { IconContext } from 'react-icons';
 import { TCartItem } from '@/lib/cart/useCart';
-import { detectFOrFB } from '@/lib/utils';
+import { detectFOrFB, isFullSet } from '@/lib/utils';
 import { useState } from 'react';
 
 export default function CartItemCard({ item }: { item: TCartItem }) {
@@ -44,7 +44,7 @@ export default function CartItemCard({ item }: { item: TCartItem }) {
           <div
             className={`text-sm font-normal ${item?.type === 'Seat Covers' ? 'flex' : 'hidden'}  text-[#707070] lg:text-base`}
           >
-            {detectFOrFB(item.sku).toLowerCase() == "full" ? "Full Seat Set (Front + Rear Seat Set)": ' Front Seats (Driver +  Passenger seats)'} 
+            {isFullSet(item.display_set).toLowerCase() == "full" ? "Full Seat Set (Front + Rear Seat Set)": ' Front Seats (Driver +  Passenger seats)'} 
           </div>
           <div className="text-sm font-normal text-[#707070] lg:text-base">
             Color: {item?.display_color}

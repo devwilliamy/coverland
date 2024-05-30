@@ -97,7 +97,6 @@ export default function SeatContent({
         {/* <Info className="h-[17px] w-[17px] text-[#767676]" /> */}
       </div>
       <SeatCoverColorSelector />
-      <Separator />
       {!!isFinalSelection ? (
         <SeatCoverSelection seatCover={selectedProduct} />
       ) : null}
