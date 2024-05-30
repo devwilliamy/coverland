@@ -11,9 +11,9 @@ import { TSeatCoverDataDB } from '@/lib/db/seat-covers';
 
 const iconMap: Record<string, StaticImageData> = {
   'Solid Black with Red Stitching': CircleBlackRed,
-  'Solid Black': CircleBlack,
-  'Solid Gray': CircleGray,
-  'Solid Beige': CircleBeige,
+  'Black': CircleBlack,
+  'Gray': CircleGray,
+  'Beige': CircleBeige,
 };
 
 export default function SeatCoverColorSelector() {
