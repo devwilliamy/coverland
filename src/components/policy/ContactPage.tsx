@@ -1,6 +1,6 @@
 'use client';
 import Banner from '@/images/hero/hero.webp';
-import Image from 'next/image';
+import Image, { StaticImageData } from 'next/image';
 import { Raleway } from 'next/font/google';
 import { Lato } from 'next/font/google';
 import Phone from '@/images/contact/call 2.webp';
@@ -8,9 +8,11 @@ import Chat from '@/images/contact/chat 2.webp';
 import Pin from '@/images/contact/location 1.webp';
 import Mail from '@/images/contact/mail 1.webp';
 import { Separator } from '@/components/ui/separator';
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent, useContext, useState } from 'react';
 import PolicyTabs from '@/components/policy/PolicyTabs';
 import PolicyHeader from '@/components/policy/PolicyHeader';
+import { useLiveChatContext } from '@/contexts/LiveChatContext';
+import { AiOutlineLoading3Quarters } from 'react-icons/ai';
 
 const raleway = Raleway({
   weight: ['100', '400', '700', '900'],
@@ -77,6 +79,13 @@ export default function ContactPage() {
       firstVisit: true,
     },
   });
+  const [emailSent, setEmailSent] = useState<boolean | undefined | null>();
+  const [emailSending, setEmailSending] = useState<boolean | undefined>();
+  const [errorFromServer, setErrorFromServer] = useState<
+    string | null | undefined
+  >();
+  const { visible, setVisible } = useLiveChatContext();
+
   const validateEmail = (e: ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     const isValid = emailRegex.test(value);
@@ -104,6 +113,7 @@ export default function ContactPage() {
       };
     });
   };
+
   const validatePhone = (e: ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     const isValid = phoneRegex.test(value);
@@ -131,17 +141,57 @@ export default function ContactPage() {
       };
     });
   };
-  const handleSubmit = (formData: FormData) => {
+  const handleSubmit = async (formData: FormData) => {
+    let senderName: string | unknown;
     let subject: string | unknown;
     let body: string | unknown;
     let email: string | unknown;
     let phoneNumber: string | unknown;
+    let to: string | unknown;
     if (formData) {
+      to = formData.get('to')?.valueOf();
       email = formData.get('email')?.valueOf();
       phoneNumber = formData.get('phoneNumber')?.valueOf();
+      senderName = formData.get('senderName')?.valueOf();
       subject = formData.get('subject')?.valueOf();
       body = formData.get('body')?.valueOf();
-      window.location.href = `mailto:info@coverland.com?subject=${subject}&body=${email}%0A${phoneNumber}%0A${body}`;
+      setEmailSending(true);
+
+      const bodyData = {
+        to,
+        email,
+        subject,
+        text: body,
+        name: senderName,
+        phoneNumber,
+      };
+
+      try {
+        const response = await fetch('/api/email/contact', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ bodyData }),
+        });
+        const emailResponse = await response.json();
+        if (emailResponse.code) {
+          setEmailSent(true);
+          setTimeout(() => {
+            setEmailSent(undefined);
+          }, 5000);
+        } else {
+          setEmailSent(null);
+          setErrorFromServer(emailResponse?.error);
+          setTimeout(() => {
+            setEmailSent(undefined);
+          }, 5000);
+        }
+      } catch (error) {
+        console.error('Error:', error);
+      } finally {
+        setEmailSending(false);
+      }
       return;
     }
   };
@@ -160,6 +210,34 @@ export default function ContactPage() {
     });
   };
 
+  const determineOnClick = (img: StaticImageData) => {
+    switch (img) {
+      case Mail:
+        const el = document.getElementById('emailTop');
+        // return (window.location.href = `mailto:info@coverland.com`);
+        const elTop = el?.offsetTop;
+        window.scrollTo({
+          top: (elTop as number) - 10,
+          behavior: 'smooth',
+        });
+        break;
+      case Phone:
+        return (window.location.href = 'tel:8007995165');
+      case Chat:
+        if (visible === 'hidden' || visible === 'minimized') {
+          return setVisible('maximized');
+        } else {
+          return setVisible('minimized');
+        }
+      default:
+        return;
+    }
+  };
+
+  const determineClickable = (img: StaticImageData) => {
+    return img === Mail || img === Chat || img === Phone;
+  };
+
   return (
     <section className="flex w-full flex-col items-center">
       <PolicyHeader headerText="Contact Us" />
@@ -168,14 +246,8 @@ export default function ContactPage() {
           {contactGrid.map(({ img, text }, i) => (
             <div
               key={`contact-item-${i}`}
-              className={`${img === Mail && 'cursor-pointer'} flex  flex-col items-center justify-center`}
-              onClick={
-                img === Mail
-                  ? () => {
-                      window.location.href = `mailto:info@coverland.com`;
-                    }
-                  : () => {}
-              }
+              className={`${determineClickable(img) && 'cursor-pointer'} flex  flex-col items-center justify-center`}
+              onClick={() => determineOnClick(img)}
             >
               <Image src={img} alt="contact-grid-image" />
               <h1
@@ -186,7 +258,7 @@ export default function ContactPage() {
             </div>
           ))}
         </span>
-        <Separator />
+        <Separator id="emailTop" />
         <form
           id="form"
           method="post"
@@ -205,12 +277,12 @@ export default function ContactPage() {
           <p className="pb-2">* Required</p>
           <span className="items center grid w-full grid-cols-1 justify-items-center gap-[30px]  lg:grid-cols-3">
             <div className=" flex w-full flex-col">
-              <label htmlFor="subject" className="pb-2 font-black">
+              <label htmlFor="senderName" className="pb-2 font-black">
                 Name *
               </label>
               <input
-                id="subject"
-                name="subject"
+                id="senderName"
+                name="senderName"
                 placeholder="John Doe"
                 type="text"
                 required
@@ -284,7 +356,19 @@ export default function ContactPage() {
               </p>
             </div>
           </span>
-          <label htmlFor="body" className="pb-2 font-black">
+          <span className="mt-[30px] flex w-full flex-col lg:mt-0">
+            <label htmlFor="subject" className="pb-2 font-black">
+              Subject
+            </label>
+            <input
+              id="subject"
+              name="subject"
+              placeholder="My car cover..."
+              type="text"
+              className="min-h-[50px] w-full border-[2px] border-[#DBDBDB] pl-1 max-lg:mb-[30px] lg:mb-[13px]"
+            />
+          </span>
+          <label htmlFor="body" className="font-black">
             How Can We Help? *
           </label>
           <textarea
@@ -292,15 +376,31 @@ export default function ContactPage() {
             name="body"
             placeholder="I'd like to talk about..."
             required
-            className="mb-[13px] min-h-[190px] w-full resize-none border-[2px] border-[#DBDBDB] p-1"
+            className="mb-[13px] mt-2 min-h-[190px] w-full resize-none border-[2px] border-[#DBDBDB] p-1"
           />
-
-          <input
-            type="submit"
-            value={'SUBMIT'}
-            disabled={validationObject.email.errors}
-            className={`${lato.className} mb-[70px] flex min-h-[40px] min-w-[135px] max-w-[135px]  items-center ${validationObject.email.errors ? 'bg-blue-500/30' : 'cursor-pointer bg-gradient-to-r from-[#072c58] from-5% to-[#034998] to-80%'} justify-center rounded-full   text-[16px] font-[700] leading-[21px] text-white `}
-          />
+          {emailSent === true && (
+            <div className="mb-[13px] font-black text-[red]"> Email Sent! </div>
+          )}
+          {errorFromServer && (
+            <div className="mb-[13px] font-black text-[red]">
+              {' '}
+              {errorFromServer}{' '}
+            </div>
+          )}
+          {emailSending ? (
+            <div
+              className={`${lato.className} mb-[70px] flex min-h-[40px] min-w-[135px] max-w-[135px]  cursor-pointer items-center justify-center rounded-full bg-gradient-to-r from-[#072c58] from-5% to-[#034998] to-80% text-[16px] font-[700] leading-[21px] text-white `}
+            >
+              <AiOutlineLoading3Quarters className="animate-spin" />
+            </div>
+          ) : (
+            <input
+              type="submit"
+              value={'SUBMIT'}
+              disabled={validationObject.email.errors}
+              className={`${lato.className} mb-[70px] flex min-h-[40px] min-w-[135px] max-w-[135px]  items-center ${validationObject.email.errors ? 'bg-blue-500/30' : 'cursor-pointer bg-gradient-to-r from-[#072c58] from-5% to-[#034998] to-80%'} justify-center rounded-full   text-[16px] font-[700] leading-[21px] text-white `}
+            />
+          )}
         </form>
       </section>
     </section>

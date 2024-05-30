@@ -5,13 +5,22 @@ import ReviewSection from '@/components/PDP/components/ReviewSection';
 import useStoreContext from '@/hooks/useStoreContext';
 import useDetermineType from '@/hooks/useDetermineType';
 import SeatCoverReviewSection from '../../seat-covers/components/SeatCoverReviewSection';
+import { determineShortReviewCount } from '@/lib/utils';
 
 function ReviewsTextTrigger() {
   const store = useStoreContext();
   if (!store) throw new Error('Missing Provider in the tree');
   const { total_reviews } = useStore(store, (s) => s.reviewDataSummary);
   const reviewData = useStore(store, (s) => s.reviewData);
-  const { isSeatCover } = useDetermineType();
+  const {
+    isSeatCover,
+    isYearPage,
+    isModelPage,
+    make,
+    productType,
+    model,
+    year,
+  } = useDetermineType();
 
   return (
     <>
@@ -23,7 +32,12 @@ function ReviewsTextTrigger() {
                 className="ml-2 text-blue-400 underline"
                 disabled={!total_reviews}
               >
-                {total_reviews || '2'} Reviews
+                {isYearPage || isModelPage
+                  ? determineShortReviewCount(total_reviews)
+                  : total_reviews
+                    ? total_reviews
+                    : '2'}{' '}
+                Reviews
               </DialogTrigger>
 
               <DialogContent className="flex max-h-[65vh] min-h-[65vh] flex-col items-center overflow-y-auto lg:min-w-[77vw] lg:max-w-[80%] xl:max-w-[1024px]">

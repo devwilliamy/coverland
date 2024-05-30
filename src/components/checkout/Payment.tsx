@@ -16,11 +16,19 @@ import PaymentSelector from './PaymentSelector';
 import { PaymentMethod, StripeAddress } from '@/lib/types/checkout';
 import BillingAddress from './BillingAddress';
 import { useCartContext } from '@/providers/CartProvider';
-import { convertPriceToStripeFormat } from '@/lib/utils/stripe';
+import {
+  convertPriceToStripeFormat,
+  getSkuQuantityPriceFromCartItemsForMeta,
+  getSkusAndQuantityFromCartItems,
+  getSkusFromCartItems,
+} from '@/lib/utils/stripe';
 import { sendThankYouEmail } from '@/lib/sendgrid/emails/thank-you';
 import { getCurrentDayInLocaleDateString } from '@/lib/utils/date';
 import { useRouter } from 'next/navigation';
 import { handlePurchaseGoogleTag } from '@/hooks/useGoogleTagDataLayer';
+import { hashData } from '@/lib/utils/hash';
+import { getCookie } from '@/lib/utils/cookie';
+import { v4 as uuidv4 } from 'uuid';
 
 function isValidShippingAddress({ address }: StripeAddress) {
   return (
@@ -161,7 +169,82 @@ export default function Payment() {
                 "There's an error, but could not find error message"
             );
           }
-          const enhancedGoogleCovnersionInput = {
+
+          const skus = getSkusFromCartItems(cartItems);
+          const skusWithQuantityMsrpForMeta =
+            getSkuQuantityPriceFromCartItemsForMeta(cartItems);
+          const eventID = uuidv4();
+
+          const metaCPIEvent = {
+            event_name: 'Purchase',
+            event_time: Math.floor(Date.now() / 1000),
+            event_id: eventID,
+            action_source: 'website',
+            user_data: {
+              em: [hashData(customerInfo.email)],
+              ph: [hashData(shippingAddress.phone || '')],
+              ct: [hashData(shippingAddress.address.city || '')],
+              country: [hashData(shippingAddress.address.country || '')],
+              fn: [hashData(shippingAddress.firstName || '')],
+              ln: [hashData(shippingAddress.lastName || '')],
+              st: [hashData(shippingAddress.address.state || '')],
+              zp: [hashData(shippingAddress.address.postal_code || '')],
+              fbp: getCookie('_fbp'),
+              // client_ip_address: '', // Replace with the user's IP address
+              client_user_agent: navigator.userAgent, // Browser user agent string
+            },
+            custom_data: {
+              currency: 'USD',
+              value: parseFloat(getTotalPrice().toFixed(2)),
+              order_id: orderNumber,
+              content_ids: skus.join(','),
+              contents: skusWithQuantityMsrpForMeta,
+            },
+            event_source_url: origin,
+          };
+          const metaCAPIResponse = await fetch('/api/meta/event', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ metaCPIEvent }),
+          });
+          // Track the purchase event
+          if (typeof fbq === 'function') {
+            fbq(
+              'track',
+              'Purchase',
+              {
+                value: parseFloat(getTotalPrice().toFixed(2)),
+                currency: 'USD',
+                contents: skusWithQuantityMsrpForMeta,
+                content_type: 'product',
+              },
+              { eventID }
+            );
+          }
+
+          // Microsoft Conversion API Tracking
+          if (typeof window !== 'undefined') {
+            window.uetq = window.uetq || [];
+
+            window.uetq.push('set', {
+              pid: {
+                em: customerInfo.email,
+                ph: customerInfo.phoneNumber,
+              },
+            });
+            window.uetq.push('event', 'purchase', {
+              revenue_value: parseFloat(getTotalPrice().toFixed(2)),
+              currency: 'USD',
+              pid: {
+                em: customerInfo.email,
+                ph: customerInfo.phoneNumber,
+              },
+            });
+          }
+
+          const enhancedGoogleConversionInput = {
             email: customerInfo.email || '',
             phone_number: shippingAddress.phone || '',
             first_name: shippingAddress.firstName || '',
@@ -178,7 +261,7 @@ export default function Payment() {
             orderNumber,
             getTotalPrice().toFixed(2),
             clearLocalStorageCart,
-            enhancedGoogleCovnersionInput
+            enhancedGoogleConversionInput
           );
 
           const { id, client_secret } = result.paymentIntent;

@@ -47,19 +47,9 @@ export default function DesktopCheckout() {
     }
   };
 
-  const handleEmailClicl = async () => {
-    const response = await fetch('/api/email/test', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
-  };
-
-  const isDisabled = !isValidShippingAddress(shippingAddress)
+  const isDisabled = !isValidShippingAddress(shippingAddress);
   return (
     <>
-      {/* <button onClick={handleEmailClicl}>Send Mail</button> */}
       <div className="flex flex-col md:flex md:flex-row md:gap-12 md:px-12 lg:px-12 lg:py-4">
         <div className="w-2/3">
           {currentStep === CheckoutStep.CART ? (
@@ -88,7 +78,10 @@ export default function DesktopCheckout() {
                   </AccordionContent>
                 </AccordionItem>
                 <AccordionItem value="payment" id="payment">
-                  <AccordionTrigger className={`my-4 px-4 text-xl font-medium ${isDisabled ? "text-gray-400/90" : ""}`} disabled={isDisabled}>
+                  <AccordionTrigger
+                    className={`my-4 px-4 text-xl font-medium ${isDisabled ? 'text-gray-400/90' : ''}`}
+                    disabled={isDisabled}
+                  >
                     Payment
                   </AccordionTrigger>
                   <AccordionContent>
