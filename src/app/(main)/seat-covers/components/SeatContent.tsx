@@ -51,9 +51,8 @@ export default function SeatContent({
           {/* Product Title */}
           <h2 className="text-[24px] font-[900] leading-[27px] text-[#1A1A1A] lg:text-[28px] lg:leading-[30px] ">
             {make && `${deslugify(make as string)} `}
-            {model && `${deslugify(model as string)} `} Custom-Fit,{' '}
-            <br className="lg:hidden" />
-            Fine Comfort Leather
+            {model && `${deslugify(model as string)} `} Seat Covers -
+            <br className="max-lg:hidden" /> Custom-Fit, Fine Comfort Leather
           </h2>
           {/* Rating(s) */}
           <div className="-ml-0.5 mt-1 flex items-end gap-1 lg:mt-2">
