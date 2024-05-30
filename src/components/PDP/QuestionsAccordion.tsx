@@ -13,7 +13,7 @@ import {
 import {  X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { track } from '@vercel/analytics';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { Separator } from '../ui/separator';
 import {
   Sheet,
@@ -26,6 +26,9 @@ import {
 } from '../ui/sheet';
 
 import { AiOutlineLoading3Quarters } from 'react-icons/ai';
+import { useStore } from 'zustand';
+import { detectMirrors } from '@/lib/utils';
+import useStoreContext from '@/hooks/useStoreContext';
 const qa = [
   {
     name: 'General',
@@ -38,7 +41,8 @@ const qa = [
       },
       {
         title: 'Will this fit my car? Is this a custom fit?  ',
-        content: `Certainly! Our car covers are tailored for a precise fit, using the vehicle's shape, with added elastic hems and mirror pockets to ensure a perfect fit.`,
+        content: `Certainly! Our car covers are tailored for a precise fit, using the vehicle's shape, with added elastic hems`,
+        altContent: `Certainly! Our car covers are tailored for a precise fit, using the vehicle's shape, with added elastic hems and mirror pockets to ensure a perfect fit.`
       },
       {
         title: "What if I'm not happy with it? ",
@@ -82,7 +86,7 @@ const qa = [
       {
         title: 'Does it have mirror pockets? ',
         content: `No, our car covers do not include mirror pockets, but they are tailored to fit your vehicle snugly without compromising protection.`,
-        content_two:
+        altContent:
           'Yes, our car covers come equipped with mirror pockets for a secure fit and added protection.',
       },
       {
@@ -98,6 +102,7 @@ const qa = [
 ];
 
 interface AccordionProps {
+  isMirror:boolean;
   titleName: string;
   value: any;
   index: number;
@@ -105,6 +110,7 @@ interface AccordionProps {
   handleAccordionState: (value: string) => void;
 }
 export const AccordingListedItems = ({
+  isMirror,
   titleName,
   value,
   index,
@@ -117,7 +123,7 @@ export const AccordingListedItems = ({
       value={`item-${index}-${titleName}`}
     >
       <AccordionTrigger
-       showPlus={true}
+        showPlus={true}
         className="pb-3 text-left text-base font-black  text-[#1A1A1A] hover:no-underline md:text-xl lg:py-8 lg:text-[22px]"
         onClick={() => {
           handleAccordionState(
@@ -132,13 +138,16 @@ export const AccordingListedItems = ({
         {value.title}
       </AccordionTrigger>
       <AccordionContent className="text-sm font-normal  text-[#636363]   md:text-lg">
-        {value.content}
+        {!isMirror ? value.content : value.altContent}
       </AccordionContent>
     </AccordionItem>
   );
 };
 
 export function QuestionsAccordion() {
+  const store = useStoreContext();
+  const selectedProduct = useStore(store, (s) => s.selectedProduct);
+  const isMirror = detectMirrors(selectedProduct.sku)
   const [accordionOpen, setAccordionOpen] = useState('');
   const [open, setOpen] = useState(false);
   const [dialogOpen, setDialogOpen] = useState(false);
@@ -220,6 +229,7 @@ export function QuestionsAccordion() {
                     return (
                       <div key={`qa-title-${questionIndex}`}>
                         <AccordingListedItems
+                          isMirror={isMirror}
                           titleName={name}
                           value={question}
                           index={questionIndex}

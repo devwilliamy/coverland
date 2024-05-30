@@ -206,6 +206,17 @@ export function detectFOrFB(sku: string) {
   return 'Unknown';
 }
 
+export function detectMirrors(sku:string){
+  const lowerStr = sku.toLowerCase()
+  if(lowerStr.includes('cs') || lowerStr.includes('cp')){
+    return true;
+  }
+  else {
+    return false;
+  }
+  throw Error('Issue Finding Mirrors')
+  return undefined;
+}
 
 export const determineTypeString = (type: string) => {
   const typeOptions = ['Car Covers', 'SUV Covers', 'Truck Covers'];
