@@ -193,15 +193,17 @@ export function combineOptions(
 }
 
 // Example SKU: CL-SC-10-F-11-BK-1TO-1136
-// Example SKU: CL-SC-10-FB-100-GR-1TO-3044
+// Example SKU (old): CL-SC-10-FB-100-GR-1TO-3044
+// Example Full Set SKU 5/29/24: CL-SC-10-F-10-B-32-BE-1TO-20017
 export function detectFOrFB(sku: string) {
   const parts = sku.split('-');
   if (parts[1] === 'SC') {
-    if (parts[3] === 'F') {
-      return 'Front';
-    } else if (parts[3] === 'FB') {
+    if (parts[5] === 'B') {
       return 'Full';
     }
+    else if (parts[3] === 'F') {
+      return 'Front';
+    } 
   }
   return 'Unknown';
 }
