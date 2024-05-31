@@ -15,6 +15,7 @@ const generateQuestionsEmail = ({
     'info@coverland.com',
     'jeff.coverland@gmail.com',
     'dev.william.coverland@gmail.com',
+    'vasiliy@coverland.com',
     email
   ]
  const removeDuplicates = [...new Set(additionalEmails)]
