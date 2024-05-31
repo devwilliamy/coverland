@@ -255,7 +255,7 @@ export function QuestionsAccordion() {
               <div className="justify-left flex flex-col">
                 {formState.successMessage ? null : (
                   <>
-                    <SheetTitle className="pb-4 pt-[32px] text-left text-[29px] font-[700] leading-[26px]">
+                    <SheetTitle className="pb-4 pt-[32px] text-left text-[29px] font-black leading-[26px]">
                       Have Questions?
                     </SheetTitle>
                     <SheetDescription className="mb-2 text-left text-[14px]">
@@ -301,9 +301,10 @@ export function QuestionsAccordion() {
                 </div>
               </div>
             ) : (
-              <div className="grid gap-4 py-4 pt-10">
-                <div className="grid grid-cols-1 items-center gap-4">
-                  <label htmlFor="name" className="pl-2 font-bold capitalize		">
+              <div className="grid gap-4 py-4 pt-[38px]">
+                <div className="flex flex-col">
+                  <div className='flex flex-col '>        
+                  <label htmlFor="name" className="pl-2 pb-[6px] font-bold capitalize		">
                     Name
                   </label>
                   <input
@@ -314,7 +315,11 @@ export function QuestionsAccordion() {
                     type="text"
                     placeholder="Your name"
                   />
-                  <label htmlFor="email" className="pl-2 font-bold capitalize		 ">
+                  </div>
+                  <div className='flex flex-col py-[16px]'>
+
+                 
+                  <label htmlFor="email" className="pl-2 pb-[6px] font-bold capitalize		 ">
                     Email
                   </label>
                   <input
@@ -323,11 +328,15 @@ export function QuestionsAccordion() {
                     onChange={(e) => setEmail(e.target.value)}
                     name="email"
                     type="text"
-                    placeholder="Your Email"
+                    placeholder="Your email"
                   />
+                   </div>
+                   <div className='flex flex-col pb-[22px]'>
+
+                
                   <label
                     htmlFor="leave_question"
-                    className="pl-2 font-bold capitalize		"
+                    className="pl-2 font-bold capitalize pb-[6px]		"
                   >
                     Leave a question
                   </label>
@@ -338,6 +347,7 @@ export function QuestionsAccordion() {
                     name="leave_question"
                     placeholder="Email subject here"
                   />
+                     </div>
                 </div>
                 {formState.successMessage ? (
                   <div className="w-[200px]">
@@ -458,21 +468,21 @@ export function QuestionsAccordion() {
                       onChange={(e) => setEmail(e.target.value)}
                       name="email"
                       type="text"
-                      placeholder="Your Email"
+                      placeholder="Your email"
                       className="w-full rounded border p-2"
                     />
                   </div>
                 </div>
                 <div className="mt-4 w-full">
                   <label className="pl-2 font-bold " htmlFor="leave_question">
-                    Leave your questions
+                    Leave your question
                   </label>
                   <div className="flex">
                     <textarea
                       value={message}
                       onChange={(e) => setMessage(e.target.value)}
                       name="leave_question"
-                      placeholder="Email subject here"
+                      placeholder="Write your question here."
                       className="h-[240px] flex-grow rounded border p-2"
                     ></textarea>
                   </div>
