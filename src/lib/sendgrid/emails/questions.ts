@@ -18,11 +18,15 @@ const generateQuestionsEmail = ({
     'vasiliy@coverland.com',
     email
   ]
+  console.log('email',email)
+  console.log('name',name)
+  console.log('message',message)
  const removeDuplicates = [...new Set(additionalEmails)]
 
   const  testEmail = 'jeff.coverland@gmail.com' // change for development emails
+  const  prodEmail =  process.env.NODE_ENV !== 'development' ? removeDuplicates : testEmail
   return {
-    to: process.env.NODE_ENV !== 'development' ? removeDuplicates : testEmail,
+    to: testEmail,
     from: 'info@coverland.com', // Process ENV
     subject:  'Customer Question',
     text:
@@ -44,6 +48,7 @@ const generateQuestionsEmail = ({
 
 export const sendQuestionsEmail = async (emailInput: ContactEmailInput) => {
   const msg = generateQuestionsEmail(emailInput);
+  console.log(msg)
   try {
     await sgMail.send(msg as MailDataRequired);
   } catch (error) {
