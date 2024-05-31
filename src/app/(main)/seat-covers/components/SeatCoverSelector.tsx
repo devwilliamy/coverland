@@ -60,7 +60,7 @@ const DisplaySeatSet = ({ product,containerClass = '' }) => {
   return (
     <div className={containerClass}>
     <h3 className="my-[6px] ml-[4px]  max-h-[13px] text-[16px] font-[400] leading-[14px] text-black ">
-      Select Set{' '}
+      Seat Set{' '}
       <span className="ml-[2px]  text-[#8F8F8F]">
         {!product.toLowerCase() ? null : product.toLowerCase() === 'full' ? (
           <span>Front + Rear Seat Set</span>
