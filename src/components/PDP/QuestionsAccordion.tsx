@@ -371,7 +371,7 @@ export function QuestionsAccordion() {
           <DialogTrigger className="hidden w-full items-center md:flex">
             <OpenTrigger />
           </DialogTrigger>
-          <DialogContent className={`flex ${formState.successMessage ? "justify-center" : ''}  max-h-[86vh] min-h-[85vh]  min-w-[75vw] flex-col items-center gap-0 rounded-t-2xl py-0 `}>
+          <DialogContent className={`flex ${formState.successMessage ? " px-[200px]" : ''}  max-h-[86vh] min-h-[85vh]  min-w-[75vw] flex-col items-center gap-0 rounded-t-2xl py-0 `}>
             {/* <DialogHeader>
               <DialogClose className="fixed right-0 z-[400] mr-[16px] flex items-center py-[4px]">
                 <div
@@ -397,15 +397,15 @@ export function QuestionsAccordion() {
                 </DialogDescription>
               </div>
             )}
-            <Separator className="my-2" />
+            <Separator className={`${formState.successMessage ? 'mt-[121px]' : 'my-2' } `} />
             {formState.isLoading ? (
               <AiOutlineLoading3Quarters className=" size-24 animate-spin" />
             ) : formState.errorMessage ? (
               <p>{formState.errorMessage}</p>
             ) : formState.successMessage ? (
-              <div className='flex flex-col text-center py-10'>
-                <p className='font-extrabold mb-3 text-3xl'>Thank you for reaching out to us!</p>
-                 <p className='font-[22px]'>{"Your message has been received, and we'll get back to you shortly. Thanks!"}</p>
+              <div className='flex flex-col text-center pt-[43px] pb-[20px]'>
+                <p className='font-black mb-3 text-4xl'>Thank you for reaching out to us!</p>
+                 <p className='text-[20px] text-[#767676]'>{"Your message has been received, and we'll get back to you shortly. Thanks!"}</p>
               </div>
              
             ) : (
@@ -467,7 +467,7 @@ export function QuestionsAccordion() {
                   onClick={() => {
                     setDialogOpen(false);
                   }}
-                  className="mx-auto mt-5 flex h-12   w-[200px]  rounded border  border-[#1A1A1A] bg-transparent text-lg font-bold  uppercase text-[#1A1A1A] hover:bg-[#1A1A1A] hover:text-white"
+                  className="mx-auto mt-5 flex h-12 text-base   w-[200px]  rounded border  border-[#1A1A1A] bg-transparent  font-bold  uppercase text-[#1A1A1A] hover:bg-[#1A1A1A] hover:text-white"
                 >
                   ok
                 </Button>
