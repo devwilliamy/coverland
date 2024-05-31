@@ -17,13 +17,15 @@ const generateQuestionsEmail = ({
     'dev.william.coverland@gmail.com',
     email
   ]
+ const removeDuplicates = [...new Set(additionalEmails)]
+ console.log(removeDuplicates)
 console.log('name',name);
 console.log('email',email);
 console.log('message',message);
 
   const  testEmail = 'jeff.coverland@gmail.com' // change for development emails
   return {
-    to: additionalEmails,
+    to: removeDuplicates,
     from: 'info@coverland.com', // Process ENV
     subject:  'Customer Question',
     text:
