@@ -65,7 +65,7 @@ const DisplaySeatSet = ({ product,containerClass = '' }) => {
         {!product.toLowerCase() ? null : product.toLowerCase() === 'full' ? (
           <span>Front + Rear Seat Set</span>
         ) : (
-          <span>Front Seat Set</span>
+          <span>Driver +  Passenger seats</span>
         )}
       </span>
     </h3>
