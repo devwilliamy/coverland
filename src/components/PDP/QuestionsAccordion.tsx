@@ -345,7 +345,7 @@ export function QuestionsAccordion() {
                     value={message}
                     onChange={(e) => setMessage(e.target.value)}
                     name="leave_question"
-                    placeholder="Email subject here"
+                    placeholder="Write your question here."
                   />
                      </div>
                 </div>
