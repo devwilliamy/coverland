@@ -210,14 +210,19 @@ export function detectFOrFB(sku: string) {
 
 export function detectMirrors(sku:string){
   const lowerStr = sku.toLowerCase()
-  if(lowerStr.includes('cs') || lowerStr.includes('cp')){
+  if(lowerStr.includes('cn')){
+    return false;
+   }
+  if(lowerStr.includes('chcv11')){
+    if(lowerStr.includes('15')){
+      return false 
+    }
+  }
+  if(lowerStr.includes('cs') || lowerStr.includes('cp') ||  lowerStr.includes('15')){
     return true;
   }
-  else {
-    return false;
-  }
-  throw Error('Issue Finding Mirrors')
-  return undefined;
+  return false;
+
 }
 
 export const determineTypeString = (type: string) => {
