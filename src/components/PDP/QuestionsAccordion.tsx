@@ -253,13 +253,17 @@ export function QuestionsAccordion() {
           >
             <SheetHeader>
               <div className="justify-left flex flex-col">
-                <SheetTitle className="pb-4 pt-[32px] text-left text-[29px] font-[700] leading-[26px]">
-                  Have Questions?
-                </SheetTitle>
-                <SheetDescription className="mb-2 text-left text-[14px]">
-                  We&apos;re here for you! Let us know, and we&apos;ll get back
-                  to you shortly. Thanks!
-                </SheetDescription>
+                {formState.successMessage ? null : (
+                  <>
+                    <SheetTitle className="pb-4 pt-[32px] text-left text-[29px] font-[700] leading-[26px]">
+                      Have Questions?
+                    </SheetTitle>
+                    <SheetDescription className="mb-2 text-left text-[14px]">
+                      We&apos;re here for you! Let us know, and we&apos;ll get
+                      back to you shortly. Thanks!
+                    </SheetDescription>
+                  </>
+                )}
 
                 <SheetClose className="fixed right-0 z-[400] mr-[16px] flex items-center py-[4px]">
                   <div
@@ -285,7 +289,16 @@ export function QuestionsAccordion() {
               </div>
             ) : formState.successMessage ? (
               <div className="flex items-center justify-center py-20">
-                <p>{formState.successMessage}</p>
+                <div className="flex flex-col pb-[20px] pt-[43px] text-center">
+                  <p className="mb-3 text-3xl font-black">
+                    Thank you for reaching out to us!
+                  </p>
+                  <p className="text-[16px] text-[#767676]">
+                    {
+                      "Your message has been received, and we'll get back to you shortly. Thanks!"
+                    }
+                  </p>
+                </div>
               </div>
             ) : (
               <div className="grid gap-4 py-4 pt-10">
@@ -371,7 +384,9 @@ export function QuestionsAccordion() {
           <DialogTrigger className="hidden w-full items-center md:flex">
             <OpenTrigger />
           </DialogTrigger>
-          <DialogContent className={`flex ${formState.successMessage ? " px-[200px]" : ''}  max-h-[86vh] min-h-[85vh]  min-w-[75vw] flex-col items-center gap-0 rounded-t-2xl py-0 `}>
+          <DialogContent
+            className={`flex max-h-[86vh]  min-h-[85vh] min-w-[75vw]  flex-col items-center gap-0 rounded-t-2xl px-[200px] py-0 `}
+          >
             {/* <DialogHeader>
               <DialogClose className="fixed right-0 z-[400] mr-[16px] flex items-center py-[4px]">
                 <div
@@ -387,27 +402,34 @@ export function QuestionsAccordion() {
                 
             </DialogHeader> */}
             {formState.successMessage ? null : (
-              <div className="w-full py-5">
-                <div className=" w-full pt-[30px]  text-left text-[38px] font-[900] ">
+              <div className="w-full pt-5">
+                <div className=" w-full pt-[30px]  text-left text-[38px] font-black	 ">
                   Have Questions?
                 </div>
-                <DialogDescription className=" font-large w-full py-2 text-left">
+                <DialogDescription className=" w-full py-2 text-left text-base font-normal">
                   We&apos;re here for you! Let us know, and we&apos;ll get back
                   to you shortly. Thanks!
                 </DialogDescription>
               </div>
             )}
-            <Separator className={`${formState.successMessage ? 'mt-[121px]' : 'my-2' } `} />
+            <Separator
+              className={`${formState.successMessage ? 'mt-[121px]' : 'my-2'} `}
+            />
             {formState.isLoading ? (
               <AiOutlineLoading3Quarters className=" size-24 animate-spin" />
             ) : formState.errorMessage ? (
               <p>{formState.errorMessage}</p>
             ) : formState.successMessage ? (
-              <div className='flex flex-col text-center pt-[43px] pb-[20px]'>
-                <p className='font-black mb-3 text-4xl'>Thank you for reaching out to us!</p>
-                 <p className='text-[20px] text-[#767676]'>{"Your message has been received, and we'll get back to you shortly. Thanks!"}</p>
+              <div className="flex flex-col pb-[20px] pt-[43px] text-center">
+                <p className="mb-3 text-4xl font-black">
+                  Thank you for reaching out to us!
+                </p>
+                <p className="text-[20px] text-[#767676]">
+                  {
+                    "Your message has been received, and we'll get back to you shortly. Thanks!"
+                  }
+                </p>
               </div>
-             
             ) : (
               <div className="w-full">
                 <div className="flex w-full py-5">
@@ -442,11 +464,8 @@ export function QuestionsAccordion() {
                   </div>
                 </div>
                 <div className="mt-4 w-full">
-                  <label
-                    className="pl-2 font-bold capitalize"
-                    htmlFor="leave_question"
-                  >
-                    Leave Your Questions
+                  <label className="pl-2 font-bold " htmlFor="leave_question">
+                    Leave your questions
                   </label>
                   <div className="flex">
                     <textarea
@@ -467,13 +486,13 @@ export function QuestionsAccordion() {
                   onClick={() => {
                     setDialogOpen(false);
                   }}
-                  className="mx-auto mt-5 flex h-12 text-base   w-[200px]  rounded border  border-[#1A1A1A] bg-transparent  font-bold  uppercase text-[#1A1A1A] hover:bg-[#1A1A1A] hover:text-white"
+                  className="mx-auto mt-5 flex h-12 w-[200px]   rounded  border border-[#1A1A1A]  bg-transparent text-base  font-bold  uppercase text-[#1A1A1A] hover:bg-[#1A1A1A] hover:text-white"
                 >
                   ok
                 </Button>
               </div>
             ) : (
-              <div className=" mt-10 flex  w-full flex-row justify-end">
+              <div className="  flex  w-full flex-row justify-end">
                 <Button
                   onClick={() => {
                     handleCloseForm();
