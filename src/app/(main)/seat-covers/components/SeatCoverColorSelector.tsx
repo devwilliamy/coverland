@@ -50,7 +50,7 @@ export default function SeatCoverColorSelector() {
           Color
         </h3>{' '}
         {!!getSelectedColor ? (
-          <span className="ml-1 capitalize text-[#8F8F8F]">
+          <span className="ml-[6px] capitalize text-[#8F8F8F]">
             {renderSelectedColor()}
           </span>
         ) : (
