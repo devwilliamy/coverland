@@ -16,17 +16,15 @@ const generateQuestionsEmail = ({
     'jeff.coverland@gmail.com',
     'dev.william.coverland@gmail.com',
     'vasiliy@coverland.com',
-    email
+    email?.toLowerCase()
   ]
-  console.log('email',email)
-  console.log('name',name)
-  console.log('message',message)
+
  const removeDuplicates = [...new Set(additionalEmails)]
 
   const  testEmail = 'jeff.coverland@gmail.com' // change for development emails
   const  prodEmail =  process.env.NODE_ENV !== 'development' ? removeDuplicates : testEmail
   return {
-    to: testEmail,
+    to: prodEmail,
     from: 'info@coverland.com', // Process ENV
     subject:  'Customer Question',
     text:
