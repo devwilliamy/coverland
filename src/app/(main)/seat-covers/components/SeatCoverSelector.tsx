@@ -77,7 +77,7 @@ const SeatCoverList = ({ product, isSelected, handleClick }) => {
   const typeOfCover = isFullSet(product.display_set) === 'front' ? false : true;
   const isSelectedNow = isSelected  === isFullSet(product.display_set);
   const enabledButton = Boolean(product.quantity <= 0);
-  const buttonStyle = `px-[14px] py-[18px] m-1 bg-white text-black border rounded-md capitalize text-[16px] hover:bg-black  hover:text-white ${isSelectedNow ? 'border-slate-700 font-bold	' : ' '} ${enabledButton ? 'line-through' : ' '} `;
+  const buttonStyle = `px-[14px] py-[18px] m-1 bg-white text-black border font-normal	 rounded-md capitalize text-[16px] hover:bg-black  hover:text-white ${isSelectedNow ? 'border-slate-700 font-bold	' : ' '} ${enabledButton ? 'line-through' : ' '} `;
   return (
     <>
       {!typeOfCover ? (
