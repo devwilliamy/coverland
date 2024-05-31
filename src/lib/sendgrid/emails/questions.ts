@@ -13,7 +13,6 @@ const generateQuestionsEmail = ({
 }: ContactEmailInput) => {
   const additionalEmails = [
     'info@coverland.com',
-    'vasiliy@coverland.com',
     'jeff.coverland@gmail.com',
     'dev.william.coverland@gmail.com',
     email
@@ -24,7 +23,7 @@ console.log('message',message);
 
   const  testEmail = 'jeff.coverland@gmail.com' // change for development emails
   return {
-    to: testEmail,
+    to: additionalEmails,
     from: 'info@coverland.com', // Process ENV
     subject:  'Customer Question',
     text:
