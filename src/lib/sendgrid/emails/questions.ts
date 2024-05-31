@@ -18,9 +18,13 @@ const generateQuestionsEmail = ({
     'dev.william.coverland@gmail.com',
     email
   ]
-  const  testEmail = 'info@coverland.com' // change for development emails
+console.log('name',name);
+console.log('email',email);
+console.log('message',message);
+
+  const  testEmail = 'jeff.coverland@gmail.com' // change for development emails
   return {
-    to: process.env.NODE_ENV !== 'development' ? additionalEmails : testEmail,
+    to: testEmail,
     from: 'info@coverland.com', // Process ENV
     subject:  'Customer Question',
     text:
@@ -42,7 +46,7 @@ const generateQuestionsEmail = ({
 
 export const sendQuestionsEmail = async (emailInput: ContactEmailInput) => {
   const msg = generateQuestionsEmail(emailInput);
-
+    console.log('msg',msg)
   try {
     await sgMail.send(msg as MailDataRequired);
   } catch (error) {
