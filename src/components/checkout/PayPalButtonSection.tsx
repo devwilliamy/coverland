@@ -127,7 +127,7 @@ export default function PayPalButtonSection() {
                 },
                 body: JSON.stringify({ emailInput }),
               });
-              
+
               const skusWithQuantityMsrpForMeta =
                 getSkuQuantityPriceFromCartItemsForMeta(cartItems);
               const eventID = uuidv4();
