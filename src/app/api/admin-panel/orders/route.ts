@@ -13,7 +13,8 @@ export async function POST(request: NextRequest) {
   try {
     const { data, error } = await supabase
       .from(ADMIN_PANEL_ORDERS)
-      .insert(order);
+      .insert(order)
+      .select('*');
     if (error) {
       if (Number(error.code) === 23505) {
         console.error('Order Already Exists');
@@ -29,9 +30,7 @@ export async function POST(request: NextRequest) {
         );
       }
     }
-    return NextResponse.json({
-      data,
-    });
+    return NextResponse.json(data);
   } catch (error) {
     console.error('An unexpected error occurred:', error);
     return NextResponse.json(

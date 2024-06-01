@@ -17,13 +17,9 @@ import {
   getSkusAndQuantityFromCartItems,
   getSkusFromCartItems,
 } from '@/lib/utils/stripe';
-import { postAdminPanelOrderItem } from '@/lib/db/admin-panel/orderItems';
 import { createOrUpdateUser } from '@/lib/db/admin-panel/customers';
 import { getCurrentDayInLocaleDateString } from '@/lib/utils/date';
-import {
-  handlePurchaseGoogleTag,
-  useThankYouViewedGoogleTag,
-} from '@/hooks/useGoogleTagDataLayer';
+import { handlePurchaseGoogleTag } from '@/hooks/useGoogleTagDataLayer';
 import { hashData } from '@/lib/utils/hash';
 import { getCookie } from '@/lib/utils/cookie';
 import { v4 as uuidv4 } from 'uuid';
@@ -34,10 +30,7 @@ export default function PayPalButtonSection() {
     useCheckoutContext();
   const router = useRouter();
   const totalMsrpPrice = getTotalPrice().toFixed(2) as unknown as number;
-  // console.log(
-  //   '[PaypalButtonSection]: ',
-  //   process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID
-  // );
+
   return (
     <PayPalScriptProvider
       options={{
@@ -57,7 +50,6 @@ export default function PayPalButtonSection() {
             height: 50,
           }}
           createOrder={async () => {
-            // debugger
             const data = await paypalCreateOrder(
               totalMsrpPrice,
               cartItems,
@@ -94,7 +86,6 @@ export default function PayPalButtonSection() {
               customerInfo.phoneNumber,
               createdCustomer[0].id
             );
-            // debugger;
 
             // console.log('[Paypal.paypalCreateOrder] mappedData: ', mappedData);
             // This takes paypal response and adds to order table
@@ -112,13 +103,8 @@ export default function PayPalButtonSection() {
             //   id: adminPanelOrder[0].id,
             //   skus: JSON.stringify(skusWithQuantity)
             // });
-            // Add To OrderItem Table
-            await postAdminPanelOrderItem(
-              adminPanelOrder[0].id,
-              JSON.stringify(skusWithQuantity)
-            );
+
             if (response.success) {
-              // clearLocalStorageCart();
               const emailInput = {
                 to: customerInfo.email,
                 name: {
@@ -173,7 +159,7 @@ export default function PayPalButtonSection() {
                 },
                 event_source_url: origin,
               };
-              // debugger
+
               const metaCAPIResponse = await fetch('/api/meta/event', {
                 method: 'POST',
                 headers: {

@@ -107,7 +107,7 @@ const createOrderItems = (
       order_id: order_id,
       product_id: product.id,
       quantity: quantity,
-      price: price,
+      price: parseFloat(price.toFixed(2)),
     };
 
     return orderItem;
