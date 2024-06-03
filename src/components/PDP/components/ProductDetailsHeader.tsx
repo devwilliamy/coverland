@@ -18,11 +18,9 @@ export default function ProductDetailsHeader() {
   const { make, model } = useDetermineType();
 
   return (
-    <section className="relative -mx-4 mb-[40px] flex flex-col items-center lg:mb-[110px]  ">
-      <div className="w-full lg:flex">
-        <DetailsTabHeader />
-      </div>
-      <div className="mt-[35px] flex flex-col pb-7 text-center lg:mt-[60px] lg:pb-[38px] ">
+    <section className="relative mb-[40px] flex flex-col items-center lg:mb-[110px]  ">
+      <DetailsTabHeader />
+      <div className="mt-[35px] flex flex-col pb-7 text-center lg:mt-[110px] lg:pb-[38px] ">
         <p className="text-[16px] capitalize leading-[26px] text-[#B23B4E] lg:text-[26px]">
           Elevate Style, Keep it new
         </p>
