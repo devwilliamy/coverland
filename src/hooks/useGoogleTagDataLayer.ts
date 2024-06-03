@@ -16,8 +16,8 @@ export const removeMakeFromDisplayId = (
     return displayId ?? ''; // Return displayId if it's not null, otherwise return an empty string
   }
 
-  if (displayId.includes(make)) {
-    return displayId.replace(make, '').trim();
+  if (displayId?.includes(make)) {
+    return displayId?.replace(make, '').trim();
   }
   return displayId;
 };

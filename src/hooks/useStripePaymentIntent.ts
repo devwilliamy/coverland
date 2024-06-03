@@ -20,13 +20,27 @@ export function useCreateStripePaymentIntent() {
 
         const { paymentIntent } = await response.json();
         const mappedPaymentIntent = mapPaymentIntentIdToOrder(paymentIntent);
-        await fetch('/api/admin-panel/orders', {
+        const newOrderResponse = await fetch('/api/admin-panel/orders', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({ order: mappedPaymentIntent }),
         });
+
+        const newOrder = await newOrderResponse.json();
+
+        await fetch('/api/admin-panel/order-items', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            id: newOrder[0].id,
+            skusWithQuantity: paymentIntent.metadata.skusWithQuantity,
+          }),
+        });
+
         setStripeData({
           paymentIntentId: paymentIntent?.id,
           clientSecret: paymentIntent?.client_secret,

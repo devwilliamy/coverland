@@ -38,8 +38,13 @@ export const deslugify = (slug: string) => {
 
   // Handle specific cases
   if (slug.toLowerCase() === 'bmw') return 'BMW';
+  if (slug.toLowerCase() === '1-series-hatchback') return '1-Series Hatchback';
+  if (slug.toLowerCase() === '2-series') return '2-Series';
   if (slug.toLowerCase() === '3-series') return '3-Series';
-  // if (slug.toLowerCase() === '1-series-hatchback') return '1-Series hatchback';
+  if (slug.toLowerCase() === '4-series') return '4-Series';
+  if (slug.toLowerCase() === '5-series') return '5-Series';
+  if (slug.toLowerCase() === '6-series') return '6-Series';
+  if (slug.toLowerCase() === '7-series') return '7-Series';
   if (slug.toLowerCase() === 'f-150') return 'F-150';
   if (slug.toLowerCase() === 'suv') return 'SUV';
   if (slug.toLowerCase() === 'suv covers') return 'SUV Covers';
