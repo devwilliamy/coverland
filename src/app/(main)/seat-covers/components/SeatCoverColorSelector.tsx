@@ -25,6 +25,7 @@ export default function SeatCoverColorSelector({isFinalSelection}: {isFinalSelec
   const setSelectedProduct = useStore(store, (s) => s.setSelectedProduct);
   const setSelectedColor = useStore(store, (s) => s.setSelectedColor)
   const getSelectedColor = useStore(store,(state) => state.selectedColor)
+  console.log('getSelectedColor',getSelectedColor)
   const availableColors = useStore(store, (s) => s.availableColors);
   const selectedSetDisplay = useStore(store, (s) => s.selectedSetDisplay);
   console.log('selectedProductType',selectedSetDisplay);
@@ -49,9 +50,12 @@ export default function SeatCoverColorSelector({isFinalSelection}: {isFinalSelec
   
   // display the all color even missing color with opc
 
-  // allows to get the current selectedColor to be picked and remove the word "solid" using regex 
+  const initialSelectedColor = availableColors[0] || getSelectedColor;
   const renderSelectedColor = () =>{
-   return getSelectedColor.toLowerCase().replace(/\bsolid\b/g, "");
+    const selectedColorModel = uniqueProductColors.find((model) => model.display_color?.toLowerCase() === initialSelectedColor);
+    const displayColor = selectedColorModel?.display_color?.toLowerCase() || '';
+      // allows to get the current selectedColor to be picked and remove the word "solid" using regex 
+    return displayColor.replace(/\bsolid\b/g, "");
   }
 
   return (
