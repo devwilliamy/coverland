@@ -102,7 +102,7 @@ export default function SeatContent({
         <Image alt="paypal-installents" src={installments} />
         {/* <Info className="h-[17px] w-[17px] text-[#767676]" /> */}
       </div>
-      <SeatCoverColorSelector />
+      <SeatCoverColorSelector isFinalSelection={isFinalSelection} />
       {!!isFinalSelection ? (
         <SeatCoverSelection seatCover={selectedProduct} />
       ) : null}

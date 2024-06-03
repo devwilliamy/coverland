@@ -16,7 +16,7 @@ const iconMap: Record<string, StaticImageData> = {
   'Beige': CircleBeige,
 };
 
-export default function SeatCoverColorSelector() {
+export default function SeatCoverColorSelector({isFinalSelection}: {isFinalSelection: unknown}) {
   const store = useContext(SeatCoverSelectionContext);
   if (!store)
     throw new Error('Missing SeatCoverSelectionContext.Provider in the tree');
@@ -43,7 +43,7 @@ export default function SeatCoverColorSelector() {
   return (
     <section
       id="select-color"
-      className="mb-[10px] ml-[4px] pt-[15px]  lg:pt-[34px] flex  w-full flex-col py-1"
+      className={` ${isFinalSelection ? 'mb-[10px]' : 'mb-[40px]' } ml-[4px] pt-[15px]  lg:pt-[34px] flex  w-full flex-col py-1}`}
     >
       <div className="mb-[6px] flex flex-row content-center justify-start align-middle leading-[14px]">
         <h3 className=" max-h-[13px] text-[16px] font-[400]  text-black ">
