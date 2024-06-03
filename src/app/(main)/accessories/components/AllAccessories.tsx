@@ -22,26 +22,10 @@ export default function AllAccessories() {
 
   return (
     <>
-      {/* <h1
-        className={`mt-[24px] p-4 text-[24px] font-[900] leading-[27px] text-[#1A1A1A] lg:mt-0 lg:text-[28px] lg:leading-[30px] `}
-      >
-        All Accessories
-      </h1> */}
       <PolicyHeader headerText="All Accessories" showTabs={false} />
       <section className="grid min-h-screen grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-3">
         {allAccessories.map((data) => {
-          return (
-            // <Suspense
-            //   fallback={
-            // <div className="flex h-full w-full p-4">
-            //   <Skeleton className="min-h-screen w-full bg-[#BE1B1B]/80 " />
-            // </div>
-            //   }
-            // >
-
-            // </Suspense>
-            <Accessory accessoryData={data} />
-          );
+          return <Accessory accessoryData={data} />;
         })}
       </section>
     </>
@@ -61,13 +45,14 @@ const Accessory = ({ accessoryData }: { accessoryData: AccessoryItem }) => {
   //   return (
   //     <Skeleton className="aspect flex aspect-square h-[300px] w-full shrink bg-[#BE1B1B]/80 md:h-[400px] lg:h-[405px] " />
   //   );
+  const handleClick = () => {
+    router.push(`/accessories/${accessoryData.sku}`);
+  };
 
   return (
     <div
       className="flex w-full cursor-pointer flex-col items-center gap-1 rounded-xl p-4 shadow-md outline outline-[#BE1B1B]/50 lg:gap-1.5"
-      onClick={() => {
-        router.push(`/accessories/${accessoryData.sku}`);
-      }}
+      onClick={handleClick}
     >
       {isLoading ? (
         <Skeleton className="aspect flex aspect-square h-[500px] w-full shrink bg-[#BE1B1B]/80 md:h-[400px] lg:h-[405px] " />

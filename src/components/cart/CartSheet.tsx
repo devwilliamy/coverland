@@ -39,7 +39,7 @@ const CartSheet = ({
         className="flex flex-col gap-0 max-lg:max-h-[85vh] max-lg:rounded-t-2xl"
         side={isMobile ? 'bottom' : 'right'}
       >
-        <SheetHeader className='m-0 mb-2'>
+        <SheetHeader className="m-0 mb-2">
           <SheetTitle className="flex w-full items-center justify-between py-7 pl-4 pr-7">
             <AddToCartHeader />
             <SheetClose
