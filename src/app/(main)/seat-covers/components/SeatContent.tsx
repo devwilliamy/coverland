@@ -102,10 +102,11 @@ export default function SeatContent({
         <Image alt="paypal-installents" src={installments} />
         {/* <Info className="h-[17px] w-[17px] text-[#767676]" /> */}
       </div>
-      <SeatCoverColorSelector isFinalSelection={isFinalSelection} />
+      
       {!!isFinalSelection ? (
         <SeatCoverSelection seatCover={selectedProduct} />
       ) : null}
+       <SeatCoverColorSelector isFinalSelection={isFinalSelection} />
       <FreeDetails />
       {/* <CompatibleVehiclesTrigger /> */}
       <div className="lg:py-4"></div>

@@ -6,6 +6,7 @@ import { SeatCoverSelectionContext } from '@/contexts/SeatCoverContext';
 import { useStore } from 'zustand';
 import { TSeatCoverDataDB } from '@/lib/db/seat-covers';
 import { detectFOrFB, isFullSet } from '@/lib/utils';
+import useStoreContext from '@/hooks/useStoreContext';
 
 type SeatOptionProps = {
   option: 'Full' | 'Front' | 'Unknown';
@@ -25,47 +26,92 @@ export default function SeatCoverSelection({
   const modelData = useStore(store,(state) => state.modelData);
   const selectedColor = useStore(store,(state) => state.selectedColor)
   const selectedProduct = useStore(store,(state) => state.selectedProduct);
+  console.log('selectedProduct',selectedProduct);
   const selectedSetDisplay = useStore(store,(state)=> state.selectedSetDisplay);
+  console.log('selectedSetDisplay',selectedSetDisplay);
   const setSelectedSetDisplay = useStore(store,(state)=> state.setSelectedSetDisplay);
-  const initalSeatCover = ''
+  const setAvailableColors = useStore(store,(state)=> state.setAvailableColors);
+  const initalSeatCover = isFullSet(selectedSetDisplay)
   const [selectedSeatCoverType, setSelectedSeatCoverType] = useState(initalSeatCover);
-  const availableSeatCovers = modelData.filter(
+  
+  const frontSeatCovers = modelData.filter(
+    (seatCover) => isFullSet(seatCover.display_set) === 'front'
+  );
+  console.log(frontSeatCovers);
+  const fullSeatCovers = modelData.filter(
+    (seatCover) => isFullSet(seatCover.display_set) === 'full'
+  );
+  console.log('isFullSet(selectedSetDisplay)',selectedSetDisplay);
+  const availableSeatCoversFiltered = selectedSetDisplay === 'full'
+    ? fullSeatCovers
+    : frontSeatCovers;
+    console.log(availableSeatCoversFiltered);
+  
+  const availableColors = (availableSeatCoversFiltered) =>{
+    return availableSeatCoversFiltered.map((seatCover) => seatCover.display_color.toLowerCase())
+    .filter((color, index, self) => self.indexOf(color) === index)
+    .filter((color) => ['gray', 'black', 'beige'].includes(color))
+  }
+    
+  
+
+  
+  const allOutOfStock = (availableSeats: []) => {
+    return availableSeats.every(
+      (seatCover) => seatCover.quantity === '0')
+    
+  }
+  
+  const availableSeatCovers = modelData.filter(   
     (seatCover) => seatCover.display_color === selectedColor
   );
 
 
-function handleSeatSelected(type,value){
+function handleSeatSelected(type){
+  let seatCover = type === 'full'
+  ? fullSeatCovers
+  : frontSeatCovers;
+  setAvailableColors(availableColors(seatCover));
+  setSelectedSeatCoverType(type)
   setSelectedSetDisplay(type);
-  setSelectedProduct(value);
+  // setSelectedProduct(value);
 };
   return (
-    <div className='py-1 mb-[30px]'>
-      <DisplaySeatSet containerClass='py-2' product={isFullSet(selectedProduct.display_set)} />{' '}
+    <div className="mb-[30px] py-1">
+      <DisplaySeatSet
+        containerClass="py-2"
+        selectedCover={selectedSeatCoverType}
+        allOutOfStock={allOutOfStock}
+        frontSeatCovers={frontSeatCovers}
+        fullSeatCovers={fullSeatCovers}
+        product={isFullSet(selectedProduct.display_set)}
+      />{' '}
       <div className="flex flex-row content-center items-center">
-        {availableSeatCovers &&
-          availableSeatCovers.map((value, key) => {
-            return <SeatCoverList key={key} 
-            product={value} 
-            isSelected={isFullSet(selectedProduct.display_set)} 
-            handleClick={handleSeatSelected} />;
-          })}
+      <SeatCoverList
+                isSelected={selectedSeatCoverType}
+                handleClick={handleSeatSelected}
+                allOutOfStock={allOutOfStock}
+                frontSeat={frontSeatCovers}
+                fullSeat={fullSeatCovers}
+              />
       </div>
       {/* Enable Comment Below to Debug the Data   */}
-      {/* {JSON.stringify(availableSeatCovers,null,2)} */}
-    
+      {JSON.stringify(availableSeatCoversFiltered, null, 2)}
     </div>
   );
 }
-const DisplaySeatSet = ({ product,containerClass = '' }) => {
+const DisplaySeatSet = ({ product,containerClass = '' ,selectedCover,allOutOfStock,frontSeatCovers,fullSeatCovers}) => {
   return (
     <div className={containerClass}>
     <h3 className="my-[6px] ml-[4px]  max-h-[13px] text-[16px] font-[400] leading-[14px] text-black ">
       Seat Set{' '}
       <span className="ml-[2px]  text-[#8F8F8F]">
-        {!product.toLowerCase() ? null : product.toLowerCase() === 'full' ? (
-          <span>Front + Rear Seat Set</span>
+        {!selectedCover.toLowerCase() ? null : selectedCover.toLowerCase() === 'full' ? (
+          <span>Front + Rear Seat Set
+            {allOutOfStock(frontSeatCovers) ? <span className=""> - Out of Stock</span> : null}
+          </span>
         ) : (
-          <span>Driver +  Passenger seats</span>
+          <span>Driver +  Passenger seats  {allOutOfStock(fullSeatCovers) ? <span className=""> - Out of Stock</span> : null}</span>
         )}
       </span>
     </h3>
@@ -73,30 +119,27 @@ const DisplaySeatSet = ({ product,containerClass = '' }) => {
   );
 };
 
-const SeatCoverList = ({ product, isSelected, handleClick }) => {
-  const typeOfCover = isFullSet(product.display_set) === 'front' ? false : true;
-  const isSelectedNow = isSelected  === isFullSet(product.display_set);
-  const enabledButton = Boolean(product.quantity <= 0);
-  const buttonStyle = `px-[14px] py-[18px] m-1 bg-white text-black border font-normal	 rounded-md capitalize text-[16px] hover:bg-black  hover:text-white ${isSelectedNow ? 'border-gray-400	 border-2 font-bold	' : ' '} ${enabledButton ? 'line-through' : ' '} `;
+const SeatCoverList = ({ isSelected, handleClick,allOutOfStock,frontSeat,fullSeat }) => {
+  const isSelectedNow = isSelected
+  const buttonStyle = `px-[14px] py-[18px] m-1 bg-white text-black border 
+  font-normal	 rounded-md capitalize text-[16px] hover:bg-black  
+  hover:text-white  `;
   return (
     <>
-      {!typeOfCover ? (
         <Button
-          disabled={enabledButton}
-          onClick={() => handleClick('front',product)}
-          className={buttonStyle}
+          disabled={allOutOfStock(frontSeat)}
+          onClick={() => handleClick('front')}
+          className={`${buttonStyle} ${isSelectedNow === 'front' ? 'border-gray-400	 border-2 font-bold' : ''} ${!allOutOfStock(frontSeat) ? 'line-through' : ''}`}
         >
           Front Seats
         </Button>
-      ) : (
         <Button
-          disabled={enabledButton}
-          onClick={() => handleClick('full',product)}
-          className={buttonStyle}
+          disabled={allOutOfStock(fullSeat)}
+          onClick={() => handleClick('full')}
+          className={`${buttonStyle} ${isSelectedNow === 'full' ? 'border-gray-400	 border-2 font-bold' : ''} ${!allOutOfStock(fullSeat) ? 'line-through' : ''}`}
         >
           Full Seat Set
         </Button>
-      )}
     </>
   );
 };
