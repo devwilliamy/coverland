@@ -13,6 +13,7 @@ import { Skeleton } from '@/components/ui/skeleton';
 import { useParams } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { AiOutlineLoading3Quarters } from 'react-icons/ai';
+import CartSheet from '@/components/cart/CartSheet';
 
 type AccessoriesTheme = {
   bg: string;
@@ -62,7 +63,6 @@ export default function AccessoryPage() {
       setLoading(false);
       // const accessoryString = allAccessories[0]?.images;
       // console.log({ accessoryString });
-
       // return acc;
     };
     gettingAcc();
@@ -170,6 +170,7 @@ const ProductHero = ({
 }) => {
   const { addToCart, cartItems } = useCartContext();
   const [test, setTest] = useState(true);
+  const [addToCartOpen, setAddToCartOpen] = useState(false);
   const handleAddToCart = () => {
     addToCart({
       ...product,
@@ -178,6 +179,7 @@ const ProductHero = ({
       price: product.msrp,
       quantity: 1,
     });
+    setAddToCartOpen(true);
     console.log(cartItems);
   };
 
@@ -256,11 +258,11 @@ const ProductHero = ({
         handleAddToCart={handleAddToCart}
         searchParams={searchParams}
       /> */}
-        {/* <CartSheet
-        open={addToCartOpen}
-        setOpen={setAddToCartOpen}
-        selectedProduct={selectedProduct}
-      /> */}
+        <CartSheet
+          open={addToCartOpen}
+          setOpen={setAddToCartOpen}
+          selectedProduct={product}
+        />
       </div>
     </div>
   );
