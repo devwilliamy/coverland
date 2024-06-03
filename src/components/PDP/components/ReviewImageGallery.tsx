@@ -21,6 +21,8 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from '@/components/ui/carousel';
+import useStoreContext from '@/hooks/useStoreContext';
+import { FaRegThumbsUp, FaThumbsUp } from 'react-icons/fa';
 
 const ReviewImageGallery = ({
   setReviewsOpen,
@@ -35,13 +37,18 @@ const ReviewImageGallery = ({
     api.on('scroll', (e) => setCurrentReviewImage(e.selectedScrollSnap()));
   });
 
-  const store = useContext(CarSelectionContext);
-  if (!store) throw new Error('Missing CarContext.Provider in the tree');
+  const store = useStoreContext();
+  if (!store) throw new Error('Missing Provider in the tree');
   const reviewImages = useStore(store, (s) => s.reviewImages);
   const [reviewDialogOpen, setReviewDialogOpen] = useState(false);
+  const [isHelpful, setIsHelpful] = useState(false);
   const [currentReview, setCurrentReview] = useState<TReviewData | null>(null);
   const [moreDetailsOpen, setMoreDetailsOpen] = useState(false);
   const [currentReviewImage, setCurrentReviewImage] = useState(0);
+
+  const handleCloseMore = () => {
+    moreDetailsOpen && setMoreDetailsOpen(false);
+  };
 
   if (!reviewImages) return null;
 
@@ -90,9 +97,6 @@ const ReviewImageGallery = ({
       <Dialog open={reviewDialogOpen} onOpenChange={setReviewDialogOpen}>
         <DialogContent
           id="review-modal"
-          onClick={() => {
-            moreDetailsOpen && setMoreDetailsOpen(false);
-          }}
           className="absolute top-0 h-screen w-screen bg-black/95"
         >
           {currentReview && (
@@ -153,6 +157,7 @@ const ReviewImageGallery = ({
               <div className="flex flex-col pt-1.5 lg:mt-0 lg:gap-[104px]">
                 <div
                   className={` ${!moreDetailsOpen && 'line-clamp-3'}  text-[16px] leading-[28px] text-[#DBDBDB] lg:flex lg:text-[18px] `}
+                  onClick={handleCloseMore}
                 >
                   {currentReview.review_description}
                 </div>
@@ -161,18 +166,39 @@ const ReviewImageGallery = ({
                     <div className="my-2 leading-6 text-[#767676] ">
                       {currentReview.review_author}
                     </div>
-                    <div className="flex items-center gap-1.5 text-white">
-                      <ThumbsUpIcon fill="white" />
+                    <div
+                      className={`flex items-center gap-1.5 ${isHelpful ? 'text-[#1D8044]' : 'text-white'} cursor-pointer `}
+                      onClick={() => {
+                        setIsHelpful((prev) => !prev);
+                      }}
+                    >
+                      {isHelpful ? (
+                        <FaThumbsUp fill="#1D8044" />
+                      ) : (
+                        <FaRegThumbsUp />
+                      )}
+
                       <p>Helpful</p>
-                      <p>({currentReview.helpful})</p>
+                      <p>
+                        {isHelpful
+                          ? Number(currentReview?.helpful) + 1
+                          : currentReview.helpful}
+                      </p>
                     </div>
                   </div>
                 )}
                 {moreDetailsOpen ? (
-                  <ChevronUp
-                    color="white"
-                    className={`mb-[30px]  mt-[10px] self-end justify-self-end`}
-                  />
+                  <>
+                    <ChevronUp
+                      color="white"
+                      className={` self-end justify-self-end`}
+                      onClick={handleCloseMore}
+                    />
+                    <div
+                      className={`flex h-full min-h-[60vh] min-w-full bg-transparent`}
+                      onClick={handleCloseMore}
+                    />
+                  </>
                 ) : (
                   <ChevronDown
                     color="white"

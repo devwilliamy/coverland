@@ -14,6 +14,9 @@ import { TQueryParams } from '@/utils';
 import AddToCart from '@/components/cart/AddToCart';
 import EditVehicle from '@/components/edit-vehicle/EditVehicle';
 import FreeDetails from '../../[productType]/components/FreeDetails';
+import ReviewsTextTrigger from '../../[productType]/components/ReviewsTextTrigger';
+import { deslugify } from '@/lib/utils';
+import useDetermineType from '@/hooks/useDetermineType';
 
 export default function SeatContent({
   searchParams,
@@ -29,6 +32,7 @@ export default function SeatContent({
   const { addToCart } = useCartContext();
   const router = useRouter();
   const [addToCartOpen, setAddToCartOpen] = useState<boolean>(false);
+  const { make, model } = useDetermineType();
 
   const handleAddToCart = () => {
     addToCart({ ...selectedProduct, quantity: 1 });
@@ -46,34 +50,49 @@ export default function SeatContent({
         <div className="mt-4 flex flex-col gap-0.5 lg:mt-10">
           {/* Product Title */}
           <h2 className="text-[24px] font-[900] leading-[27px] text-[#1A1A1A] lg:text-[28px] lg:leading-[30px] ">
-            Premium Comfort <br className="lg:hidden" /> Leather Seat Covers
+            {make && `${deslugify(make as string)} `}
+            {model && `${deslugify(model as string)} `} Seat Covers -
+            <br className="max-lg:hidden" /> Custom-Fit, Fine Comfort Leather
           </h2>
           {/* Rating(s) */}
-          <div className="flex pb-[18px] lg:pb-[18px] ">
-            <Rating
-              name="read-only"
-              value={5}
-              readOnly
-              style={{
-                height: '25px',
-                color: '#BE1B1B',
-              }}
-            />
+          <div className="-ml-0.5 mt-1 flex items-end gap-1 lg:mt-2">
+            <div className="flex gap-1 ">
+              <Rating
+                name="read-only"
+                value={4.5}
+                precision={0.1}
+                readOnly
+                sx={{
+                  gap: '2px',
+                  '& .MuiRating-iconFilled': {
+                    color: '#BE1B1B',
+                  },
+                  '& .MuiRating-iconEmpty': {
+                    color: '#BE1B1B',
+                  },
+                }}
+              />
+            </div>
+            <ReviewsTextTrigger />
           </div>
         </div>
       </div>
       <p className="pb-2 text-[12px] font-[500] leading-[16px]">From</p>
       <div className=" flex  items-end gap-[9px]   text-center text-[28px] font-[900]  lg:text-[32px] lg:leading-[37.5px] ">
-        <div className="leading-[20px]">${coverPrice / 2 - 0.05}</div>
+        <div className="leading-[20px]">${selectedProduct.msrp}</div>
         <div className="flex gap-1.5 pb-[1px] text-[22px] font-[400] leading-[14px] text-[#BE1B1B] lg:text-[22px] ">
-          <span className=" text-[#BEBEBE] line-through">${coverPrice}</span>
+          <span className=" text-[#BEBEBE] line-through">
+            ${selectedProduct.price}
+          </span>
           <p>(-50%)</p>
         </div>
       </div>
       <div className="pb-4.5 mt-1.5 flex items-center gap-2 ">
         <p className=" text-[14px] leading-[16px] text-[#767676] lg:text-[16px]">
           4 interest-free installments of{' '}
-          <b className="font-[400] text-black">${coverPrice / 8 - 0.01}</b>
+          <b className="font-[400] text-black">
+            ${((selectedProduct.price || 1) / 8 - 0.01).toFixed(2)}
+          </b>
         </p>
         <Image alt="paypal-installents" src={installments} />
         {/* <Info className="h-[17px] w-[17px] text-[#767676]" /> */}

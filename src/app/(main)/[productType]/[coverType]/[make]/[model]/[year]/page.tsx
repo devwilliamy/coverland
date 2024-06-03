@@ -35,6 +35,8 @@ import { PREMIUM_PLUS_URL_PARAM } from '@/lib/constants';
 //     year: year,
 //   }));
 // }
+export const revalidate = 0;
+
 export async function generateMetadata({ params }: { params: TPathParams }) {
   const desluggedProductType = deslugify(params.productType).slice(
     0,
@@ -87,7 +89,12 @@ export default async function CarPDPDataLayer({
           cover: params.coverType,
         }),
         getProductReviewsByPage(
-          { make: params.make, model: params.model, year: params.year },
+          {
+            productType: typeString,
+            make: params.make,
+            model: params.model,
+            year: params.year,
+          },
           {
             pagination: {
               page: 0,
@@ -96,6 +103,7 @@ export default async function CarPDPDataLayer({
           }
         ),
         getProductReviewSummary({
+          productType: typeString,
           make: params?.make,
           model: params.model,
           year: params.year,

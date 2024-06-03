@@ -7,6 +7,7 @@ import Logo from '@/components/header/Logo';
 import Link from 'next/link';
 import { UserRound } from 'lucide-react';
 import Cart from '@/components/header/Cart';
+import useStoreContext from '@/hooks/useStoreContext';
 
 export default function ReviewImagesSheet({
   children,
@@ -15,8 +16,8 @@ export default function ReviewImagesSheet({
 }) {
   const [reviewOpen, setReviewsOpen] = useState<boolean>(false);
 
-  const store = useContext(CarSelectionContext);
-  if (!store) throw new Error('Missing CarContext.Provider in the tree');
+  const store = useStoreContext();
+  if (!store) throw new Error('Missing Provider in the tree');
   const { total_reviews } = useStore(store, (s) => s.reviewDataSummary);
 
   return (

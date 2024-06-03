@@ -20,7 +20,6 @@ export type ModelDropdown = {
   submodel2: string | null;
   submodel3: string | null;
 };
-
 export function ModelSearch({
   queryObj,
 }: {
@@ -37,9 +36,9 @@ export function ModelSearch({
   );
   const [submodelData, setSubmodelData] = useState<ModelDropdown[]>([]);
   const [submodelDataStrings, setSubmodelDataStrings] = useState<string[]>([]);
-
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const {
-    query: { type, year, make, model },
+    query: { type, year, make, model, makeId, yearId, typeId },
     setQuery,
   } = queryObj;
 
@@ -71,27 +70,33 @@ export function ModelSearch({
 
   useEffect(() => {
     setValue('');
-  }, [type, year, make]);
+  }, [type, year, make, makeId, typeId, yearId]);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
+        setIsLoading(true)
         const cover = type === 'Seat Covers' ? 'Leather' : 'Premium Plus'; // TODO: - Extract cover from query obj or something
         const response = await getAllUniqueModelsByYearMake({
           type,
           cover,
           year,
           make,
+          makeId,
+          yearId,
+          typeId,
         });
-        const uniqueModel = response.filter(
+        const uniqueModel = response.uniqueCars.filter(
           (car, index, self) =>
             index === self.findIndex((t) => t.model_slug === car.model_slug)
         );
-        setModelData(response);
-        setModelDataStrings(uniqueModel.map(({ model }) => model) as string[]);
-        setFilteredModelData(uniqueModel);
+        setModelData(response.uniqueCars);
+        setModelDataStrings(response.uniqueModels);
+        setFilteredModelData(response.uniqueModels);
       } catch (error) {
         console.error('[Model Search]: ', error);
+      } finally {
+        setIsLoading(false)
       }
     };
     if (type && year && make) {
@@ -102,7 +107,7 @@ export function ModelSearch({
   useEffect(() => {
     // Check for submodel
     const submodel = modelData.filter(
-      (vehicle) => vehicle.model === model && vehicle.submodel1 !== null
+      (vehicle) => vehicle.model === model && vehicle.submodel1
     );
 
     // setSubmodelDataStrings(() => {
@@ -134,6 +139,7 @@ export function ModelSearch({
         value={model}
         prevSelected={!isDisabled}
         items={modelDataStrings}
+        isLoading={isLoading}
       />
       {showSubmodelDropdown && (
         <SubmodelDropdown queryObj={queryObj} submodelData={submodelData} />

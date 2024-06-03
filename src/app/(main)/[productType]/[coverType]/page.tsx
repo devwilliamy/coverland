@@ -17,6 +17,8 @@ import {
 } from '@/lib/utils';
 import { PREMIUM_PLUS_URL_PARAM } from '@/lib/constants';
 
+export const revalidate = 0
+
 export async function generateStaticParams() {
   return combineOptions(coverOptions, productOptions);
 }

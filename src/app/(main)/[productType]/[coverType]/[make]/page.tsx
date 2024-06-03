@@ -19,6 +19,7 @@ export type TCarCoverSlugParams = {
 };
 
 //TODO: Refactor code so we can generate our dynamic paths as static HTML for performance
+export const revalidate = 0;
 
 export async function generateStaticParams({
   params: { productType, coverType },
@@ -78,7 +79,10 @@ export default async function CarPDPDataLayer({
           type: typeString,
         }),
         getProductReviewsByPage(
-          { productType: typeString, make: params?.make },
+          {
+            productType: typeString,
+            make: params?.make,
+          },
           {
             pagination: {
               page: 0,

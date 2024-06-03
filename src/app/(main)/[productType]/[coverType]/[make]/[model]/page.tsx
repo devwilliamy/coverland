@@ -13,6 +13,7 @@ import { deslugify } from '@/lib/utils';
 import { PREMIUM_PLUS_URL_PARAM } from '@/lib/constants';
 
 //TODO: Refactor code so we can generate our dynamic paths as static HTML for performance
+export const revalidate = 0;
 
 export async function generateStaticParams({
   params: { productType, coverType, make },
@@ -72,7 +73,11 @@ export default async function CarPDPDataLayer({
           year: params.year,
         }),
         getProductReviewsByPage(
-          { make: params?.make, model: params.model },
+          {
+            productType: typeString,
+            make: params?.make,
+            model: params.model,
+          },
           {
             pagination: {
               page: 0,
@@ -81,6 +86,7 @@ export default async function CarPDPDataLayer({
           }
         ),
         getProductReviewSummary({
+          productType: typeString,
           make: params?.make,
           model: params.model,
         }),

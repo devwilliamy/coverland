@@ -1,13 +1,20 @@
-import { getAllMakes } from '@/lib/db';
 import { notFound } from 'next/navigation';
 import { TPathParams } from '@/utils';
-import { deslugify } from '@/lib/utils';
-
 import {
-  getSeatCoverProductData,
+  TSeatCoverDataDB,
   getSeatCoverProductsByDisplayColor,
 } from '@/lib/db/seat-covers';
+import {
+  TProductReviewSummary,
+  TReviewData,
+  getAllReviewsWithImages,
+  getProductReviewSummary,
+  getProductReviewsByPage,
+} from '@/lib/db/review';
+import { deslugify } from '@/lib/utils';
 import SeatCoverDataWrapper from '@/app/(main)/seat-covers/components/SeatCoverDataWrapper';
+
+export const revalidate = 0;
 
 export type TCarCoverSlugParams = {
   make: string;
@@ -57,7 +64,14 @@ export default async function SeatCoverDataLayer({
   params: TPathParams;
   searchParams: { submodel?: string; second_submodel?: string };
 }) {
-  let modelData = [];
+  let modelData: TSeatCoverDataDB[] = [];
+  let reviewData: TReviewData[] = [];
+  let reviewDataSummary: TProductReviewSummary = {
+    total_reviews: 0,
+    average_score: 0,
+  };
+  let reviewImages: TReviewData[] = [];
+  const typeString = 'Seat Covers';
   try {
     // modelData = await getSeatCoverProductData({
     //   type: 'Seat Covers',
@@ -66,12 +80,46 @@ export default async function SeatCoverDataLayer({
     // model: params.model,
     // year: params.year,
     // });
-    modelData = await getSeatCoverProductsByDisplayColor({
-      type: 'Seat Covers',
-      make: params.make,
-      model: params.model,
-      year: params.year,
-    });
+
+    [modelData, reviewData, reviewDataSummary, reviewImages] =
+      await Promise.all([
+        getSeatCoverProductsByDisplayColor({
+          type: typeString,
+          cover: 'Leather',
+          make: params.make,
+          model: params.model,
+          year: params.year,
+        }),
+        getProductReviewsByPage(
+          {
+            productType: typeString,
+            make: params.make,
+            model: params.model,
+            year: params.year,
+          },
+          {
+            pagination: {
+              page: 0,
+              limit: 8,
+            },
+          }
+        ),
+        getProductReviewSummary({
+          productType: typeString,
+          make: params.make,
+          model: params.model,
+          year: params.year,
+        }),
+        getAllReviewsWithImages(
+          {
+            productType: typeString,
+            make: params.make,
+            model: params.model,
+            year: params.year,
+          },
+          {}
+        ),
+      ]);
 
     if (!modelData || modelData.length === 0) {
       notFound();
@@ -85,6 +133,9 @@ export default async function SeatCoverDataLayer({
       modelData={modelData}
       params={params}
       searchParams={searchParams}
+      reviewData={reviewData}
+      reviewDataSummary={reviewDataSummary}
+      reviewImages={reviewImages}
     />
   );
 }

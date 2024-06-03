@@ -1,14 +1,23 @@
-'use client';
-
-import { ChangeEvent, Dispatch, SetStateAction, useState } from 'react';
+'use client';;
+import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { TQuery } from './HeroDropdown';
-import SeeAllChevronDown from '@/components/PDP/components/icons/SeeAllChevronDown';
-import HomeChevronDown from './icons/HomeChevronDown';
 import HomeDropdown from './HomeDropdown';
-import { useParams, usePathname } from 'next/navigation';
+import { getAllType } from '@/lib/db';
 
-const vehicleTypes = ['Car Covers', 'SUV Covers', 'Truck Covers'];
-const seatCoverTypes = ['Seat Covers'];
+type TypeDropdown = {
+  id: string | number;
+  name: string | null;
+};
+
+//const vehicleTypes = ['Car Covers', 'SUV Covers', 'Truck Covers'];
+
+// const vehicleTypes = [
+//   { id: 1, name: 'Car Covers' },
+//   { id: 2, name: 'SUV Covers' },
+//   { id: 3, name: 'Truck Covers' },
+// ];
+
+// const seatCoverTypes = { id: 4, name: 'Seat Covers' };
 export function TypeSearch({
   queryObj,
 }: {
@@ -17,24 +26,27 @@ export function TypeSearch({
     setQuery: Dispatch<SetStateAction<TQuery>>;
   };
 }) {
-  const handleSelect = (newType: string) => {
-    setDropdownOpen((b) => !b);
-    setSelectedValue(newType);
-    setQuery({
-      type: newType,
-      year: '',
-      make: '',
-      model: '',
-      submodel1: '',
-      submodel2: '',
-      parent_generation: '',
-    });
-  };
-  const pathname = usePathname();
-  const [selectedValue, setSelectedValue] = useState<string>('Type');
-  const coverTypes = pathname.startsWith('/seat-covers')
-    ? seatCoverTypes
-    : vehicleTypes;
+  // const handleSelect = (newType: string) => {
+  //   setDropdownOpen((b) => !b);
+  //   setSelectedValue(newType);
+  //   setQuery({
+  //     type: newType,
+  //     year: '',
+  //     make: '',
+  //     model: '',
+  //     submodel1: '',
+  //     submodel2: '',
+  //     parent_generation: '',
+  //     typeId: '',
+  //   });
+  // };
+  // const pathname = usePathname();
+  // const [selectedValue, setSelectedValue] = useState<string>('Type');
+  const [typeData, setTypeData] = useState<TypeDropdown[]>([]);
+  // const coverTypes = pathname.startsWith('/seat-covers')
+  //   ? seatCoverTypes
+  //   : vehicleTypes;
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const {
@@ -42,6 +54,21 @@ export function TypeSearch({
     setQuery,
   } = queryObj;
   const prevSelected = queryObj?.query.type === '';
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        setIsLoading(true)
+        const response = await getAllType();
+        setTypeData(response);
+      } catch (error) {
+        console.error('[Type Search]: ', error);
+      } finally {
+        setIsLoading(false)
+      }
+    };
+    fetchData();
+  }, []);
 
   // return (
   //   <div
@@ -75,7 +102,8 @@ export function TypeSearch({
       value={type}
       queryObj={queryObj}
       prevSelected={prevSelected}
-      items={coverTypes}
+      items={typeData}
+      isLoading={isLoading}
     />
   );
 }

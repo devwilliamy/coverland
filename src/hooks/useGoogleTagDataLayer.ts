@@ -6,6 +6,7 @@ import { useCartContext } from '@/providers/CartProvider';
 import { useParams } from 'next/navigation';
 import { useContext, useEffect } from 'react';
 import { useStore } from 'zustand';
+import { US_STATES_ABBRV_MAP } from '@/lib/constants';
 
 export const removeMakeFromDisplayId = (
   displayId: string,
@@ -16,7 +17,7 @@ export const removeMakeFromDisplayId = (
   }
 
   if (displayId?.includes(make)) {
-    return displayId.replace(make, '').trim();
+    return displayId?.replace(make, '').trim();
   }
   return displayId;
 };
@@ -159,21 +160,13 @@ export const useCheckoutViewedGoogleTag = () => {
   }, [cartItems, getTotalPrice]);
 };
 
-type Item = {
-  sku: string[];
-  total: number;
-};
-
-export const useThankYouViewedGoogleTag = (
-  items: Item[],
-  orderNumber: string
-) => {
-  const { cartItems, getTotalPrice } = useCartContext();
+export const useThankYouViewedGoogleTag = (orderNumber: string) => {
+  const { cartItems, getTotalPrice, clearLocalStorageCart } = useCartContext();
   useEffect(() => {
     if (typeof window !== 'undefined' && window.performance) {
       const navigationType = window.performance.navigation.type;
       if (navigationType === PerformanceNavigation.TYPE_RELOAD) {
-        // console.log('Page was reloaded, GTAG not tracked.');
+        console.log('Page was reloaded, GTAG not tracked.');
       } else {
         const cartItemsToGTagItems = mapCartItemsToGTagItems(cartItems);
         window?.dataLayer?.push({ ecommerce: null }); // Clear the previous ecommerce object.
@@ -190,14 +183,84 @@ export const useThankYouViewedGoogleTag = (
             items: cartItemsToGTagItems,
           },
         });
+        if (cartItems.length > 0) {
+          console.log('[useThankYouViewedGoogleTag] clearLocalCart');
+
+          clearLocalStorageCart();
+        }
       }
     }
-  }, [cartItems, getTotalPrice, orderNumber]);
+  }, [cartItems, getTotalPrice, orderNumber, clearLocalStorageCart]);
+};
+
+export const handlePurchaseGoogleTag = (
+  cartItems: TCartItem[],
+  orderNumber: string,
+  totalPrice: string,
+  clearLocalStorageCart: () => void,
+  enhancedParameterInput: EnhancedGoogleConversionInput
+) => {
+  const cartItemsToGTagItems = mapCartItemsToGTagItems(cartItems);
+  window?.dataLayer?.push({ ecommerce: null }); // Clear the previous ecommerce object.
+  window?.dataLayer?.push({
+    event: 'purchase',
+    ecommerce: {
+      transaction_id: orderNumber,
+      // Sum of (price * quantity) for all items.
+      value: parseFloat(totalPrice),
+      tax: 0.0, // Femi working on this
+      shipping: 0.0, // Free shipping for now
+      currency: 'USD',
+      coupon: undefined, // will need to put in coupon for later but we don't track this ATM
+      items: cartItemsToGTagItems,
+    },
+    enhanced_conversion_data: createEnhancedGoogleConversionData({...enhancedParameterInput}),
+  });
+  
+  if (cartItems.length > 0) {
+    clearLocalStorageCart();
+  }
+};
+
+export type EnhancedGoogleConversionInput = {
+  email: string;
+  phone_number: string;
+  first_name: string;
+  last_name: string;
+  address_line1: string;
+  city: string;
+  state: string;
+  postal_code: string;
+  country: string;
+};
+
+export const createEnhancedGoogleConversionData = ({
+  email,
+  phone_number,
+  first_name,
+  last_name,
+  address_line1,
+  city,
+  state,
+  postal_code,
+  country,
+}: EnhancedGoogleConversionInput) => {
+  return {
+    email: email.toLowerCase().trim(),
+    phone_number: phone_number,
+    first_name: first_name.toLowerCase().trim(),
+    last_name: last_name.toLowerCase().trim(),
+    street: address_line1.toLowerCase().trim(),
+    city: city.toLowerCase().trim(),
+    region: US_STATES_ABBRV_MAP[state].toLowerCase().trim(),
+    postal_code: postal_code.toLowerCase().trim(),
+    country: country.toLowerCase().trim(),
+  };
 };
 
 export const handleAddToCartGoogleTag = (
   cartProduct: IProductData,
-  params: TPathParams
+  params: TPathParams,
 ) => {
   // const price = parseFloat(cartProduct?.price || '0') || 0;
   const msrp = parseFloat(cartProduct?.msrp || '0') || 0;

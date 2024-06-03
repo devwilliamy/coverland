@@ -1,6 +1,11 @@
 import { ZodError, z } from 'zod';
 
-import { PRODUCT_REVIEWS_TABLE } from '../constants/databaseTableNames';
+import {
+  PRODUCT_REVIEWS_TABLE,
+  RPC_GET_DISTINCT_REVIEW_IMAGES,
+  RPC_GET_PRODUCT_REVIEWS_SUMMARY,
+  SEAT_PRODUCT_REVIEWS_TABLE,
+} from '../constants/databaseTableNames';
 import { Tables } from '../types';
 import { getPagination } from '../utils';
 import { supabaseDatabaseClient } from '../supabaseClients';
@@ -8,7 +13,7 @@ import { supabaseDatabaseClient } from '../supabaseClients';
 export type TReviewData = Tables<'reviews-2'>;
 
 export type TProductReviewsQueryFilters = {
-  productType?: 'Car Covers' | 'SUV Covers' | 'Truck Covers';
+  productType?: 'Car Covers' | 'SUV Covers' | 'Truck Covers' | 'Seat Covers';
   year?: string;
   make?: string;
   model?: string;
@@ -100,6 +105,7 @@ const ProductReviewsQueryFiltersSchema = z.object({
       z.literal('Car Covers'),
       z.literal('SUV Covers'),
       z.literal('Truck Covers'),
+      z.literal('Seat Covers'),
     ])
   ),
   year: z.string().optional(),
@@ -143,6 +149,7 @@ export async function getProductReviewsByPage(
       // search,
     } = validatedOptions;
     const { from, to } = getPagination(page, limit);
+
     let fetch = supabaseDatabaseClient
       .from(PRODUCT_REVIEWS_TABLE)
       .select('*')
@@ -261,17 +268,17 @@ export async function getAllReviewsWithImages(
     //   fetch = fetch.order(sort.field, { ascending: sort.order === 'asc' });
     // }
 
-    const fetch = supabaseDatabaseClient.rpc('get_distinct_review_images', {
+    const fetch = supabaseDatabaseClient.rpc(RPC_GET_DISTINCT_REVIEW_IMAGES, {
       p_type: productType,
-      p_make_slug: generateSlug(make as string) || undefined,
-      p_model_slug: generateSlug(model as string) || undefined,
-      p_parent_generation: year,
+      p_make_slug: generateSlug(make as string) || null,
+      p_model_slug: generateSlug(model as string) || null,
+      p_parent_generation: year || null,
     });
 
     const { data, error } = await fetch;
 
     if (error) {
-      console.error(error);
+      console.error('[GetAllReviewsWithImages] Error: ', error);
       return [];
     }
 
@@ -287,7 +294,7 @@ export async function getAllReviewsWithImages(
     );
   } catch (error) {
     if (error instanceof ZodError) {
-      console.log('ZodError:', error);
+      console.error('ZodError:', error);
     }
     console.error(error);
     // return {};
@@ -335,15 +342,15 @@ export async function getProductReviewSummary(
   try {
     const validatedFilters = ProductReviewsQueryFiltersSchema.parse(filters);
     const { productType, year, make, model } = validatedFilters;
-
-    const fetch = supabaseDatabaseClient.rpc('get_product_reviews_summary', {
-      type: productType,
-      make: generateSlug(make as string) || undefined,
-      model: generateSlug(model as string) || undefined,
-      year,
+    const fetch = supabaseDatabaseClient.rpc(RPC_GET_PRODUCT_REVIEWS_SUMMARY, {
+      type: productType || null,
+      make: generateSlug(make as string) || null,
+      model: generateSlug(model as string) || null,
+      year: year || null,
     });
 
     const { data, error } = await fetch;
+
     if (error) {
       console.error(error);
       return { total_reviews: 0, average_score: 0 };
@@ -355,7 +362,7 @@ export async function getProductReviewSummary(
     };
   } catch (error) {
     if (error instanceof ZodError) {
-      console.log('ZodError:', error);
+      console.error('ZodError:', error);
     }
     console.error(error);
     return { total_reviews: 0, average_score: 0 };
@@ -414,6 +421,7 @@ export async function getProductReviewsByImage(
     const validatedOptions = ProductReviewsQueryOptionsSchema.parse(options);
     const { productType, year, make, model } = validatedFilters;
     const { sort, filters } = validatedOptions;
+
     let fetch = supabaseDatabaseClient.from(PRODUCT_REVIEWS_TABLE).select('*');
 
     if (productType) {
@@ -467,7 +475,7 @@ export async function getProductReviewsByImage(
     );
   } catch (error) {
     if (error instanceof ZodError) {
-      console.log('ZodError:', error);
+      console.error('ZodError:', error);
     }
     console.error(error);
     return [];

@@ -105,7 +105,7 @@ export default function AccessoryPage() {
         {/* -------------- Product Details Header Banner -------------- */}
         {/* <Image src={Header} alt="accessories-header" /> */}
 
-        <Separator className=" mx-4 my-[40px] w-full lg:my-[80px]" />
+        <Separator className=" mx-4 my-4 w-full lg:my-[80px]" />
         {/* <div className="mx-4 my-[40px] h-[1px] w-[calc(100vw_-_32px)] bg-[#C8C7C7] lg:my-[80px] "/> */}
         <span className="grid w-full max-w-[1024px] items-center gap-[56px] md:grid-cols-2 ">
           {imageStrings?.map((img, index) => {

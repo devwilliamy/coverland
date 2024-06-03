@@ -38,7 +38,13 @@ export const deslugify = (slug: string) => {
 
   // Handle specific cases
   if (slug.toLowerCase() === 'bmw') return 'BMW';
+  if (slug.toLowerCase() === '1-series-hatchback') return '1-Series Hatchback';
+  if (slug.toLowerCase() === '2-series') return '2-Series';
   if (slug.toLowerCase() === '3-series') return '3-Series';
+  if (slug.toLowerCase() === '4-series') return '4-Series';
+  if (slug.toLowerCase() === '5-series') return '5-Series';
+  if (slug.toLowerCase() === '6-series') return '6-Series';
+  if (slug.toLowerCase() === '7-series') return '7-Series';
   if (slug.toLowerCase() === 'f-150') return 'F-150';
   if (slug.toLowerCase() === 'suv') return 'SUV';
   if (slug.toLowerCase() === 'suv covers') return 'SUV Covers';
@@ -193,19 +199,20 @@ export function combineOptions(
 }
 
 // Example SKU: CL-SC-10-F-11-BK-1TO-1136
-// Example SKU: CL-SC-10-FB-100-GR-1TO-3044
+// Example SKU (old): CL-SC-10-FB-100-GR-1TO-3044
+// Example Full Set SKU 5/29/24: CL-SC-10-F-10-B-32-BE-1TO-20017
 export function detectFOrFB(sku: string) {
   const parts = sku.split('-');
   if (parts[1] === 'SC') {
-    if (parts[3] === 'F') {
-      return 'Front';
-    } else if (parts[3] === 'FB') {
+    if (parts[5] === 'B') {
       return 'Full';
     }
+    else if (parts[3] === 'F') {
+      return 'Front';
+    } 
   }
   return 'Unknown';
 }
-
 
 export const determineTypeString = (type: string) => {
   const typeOptions = ['Car Covers', 'SUV Covers', 'Truck Covers'];
@@ -238,4 +245,29 @@ export const determineCoverType = (type: string) => {
       break;
   }
   return coverType;
+};
+
+export const determineShortReviewCount = (total_reviews: number) => {
+  switch (true) {
+    case total_reviews >= 100 && total_reviews <= 199:
+      return '100+';
+    case total_reviews >= 200 && total_reviews <= 299:
+      return '200+';
+    case total_reviews >= 300 && total_reviews <= 399:
+      return '300+';
+    case total_reviews >= 400 && total_reviews <= 499:
+      return '400+';
+    case total_reviews >= 500 && total_reviews <= 599:
+      return '500+';
+    case total_reviews >= 600 && total_reviews <= 699:
+      return '600+';
+    case total_reviews >= 700 && total_reviews <= 799:
+      return '700+';
+    case total_reviews >= 800 && total_reviews <= 899:
+      return '800+';
+    case total_reviews >= 900 && total_reviews <= 999:
+      return '900+';
+    default:
+      return total_reviews;
+  }
 };
