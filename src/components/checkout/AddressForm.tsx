@@ -30,14 +30,16 @@ type AddressFormProps = {
 };
 
 const formSchema = z.object({
-  firstName: z.string().min(1, 'First name is required'),
-  lastName: z.string().min(1, 'Last name is required'),
-  line1: z.string().min(1, 'Address line 1 is required'),
+  firstName: z.string().min(1, 'Please enter your first name.'),
+  lastName: z.string().min(1, 'Please enter your last name.'),
+  line1: z
+    .string()
+    .min(1, 'Please complete address selection or enter address manually'),
   line2: z.string().optional(),
   city: z.string().min(1, 'City is required'),
   state: z.string().min(1, 'State is required'),
   postal_code: z.string().min(1, 'Postal code is required'),
-  email: z.string().email({ message: 'Please provide a valid email' }),
+  email: z.string().email({ message: 'Please enter a valid email address' }),
   // phoneNumber: z
   //   .string()
   //   .regex(
