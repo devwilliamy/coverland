@@ -214,6 +214,23 @@ export function detectFOrFB(sku: string) {
   return 'Unknown';
 }
 
+export function detectMirrors(sku:string){
+  const lowerStr = sku.toLowerCase()
+  if(lowerStr.includes('cn')){
+    return false;
+   }
+  if(lowerStr.includes('chcv11')){
+    if(lowerStr.includes('15')){
+      return false 
+    }
+  }
+  if(lowerStr.includes('cs') || lowerStr.includes('cp') ||  lowerStr.includes('15')){
+    return true;
+  }
+  return false;
+
+}
+
 export const determineTypeString = (type: string) => {
   const typeOptions = ['Car Covers', 'SUV Covers', 'Truck Covers'];
   return type === 'car-covers'
