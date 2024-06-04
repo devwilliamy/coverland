@@ -1,5 +1,6 @@
 'use client';
 import useDetermineType from '@/hooks/useDetermineType';
+import { deslugify } from '@/lib/utils';
 import { useParams } from 'next/navigation';
 
 export default function LinkBreadcrumbs() {
@@ -46,7 +47,8 @@ export default function LinkBreadcrumbs() {
                 {/* Replacing hyphens with spaces (except for year_generation) */}
                 {params[key] && key === 'year'
                   ? params[key]
-                  : String(params[key]).replaceAll('-', ' ')}
+                  : // : String(params[key]).replaceAll('-', ' ')
+                    deslugify(String(params[key]))}
               </a>
               {index != paramKeys.length - 1 && <p>/</p>}
             </div>
