@@ -37,11 +37,9 @@ export default function SeatCoverSelection({
   const frontSeatCovers = modelData.filter(
     (seatCover) => isFullSet(seatCover.display_set) === 'front'
   );
-  console.log(frontSeatCovers);
   const fullSeatCovers = modelData.filter(
     (seatCover) => isFullSet(seatCover.display_set) === 'full'
   );
-  console.log('isFullSet(selectedSetDisplay)',selectedSetDisplay);
   const availableSeatCoversFiltered = selectedSetDisplay === 'full'
     ? fullSeatCovers
     : frontSeatCovers;
@@ -108,10 +106,10 @@ const DisplaySeatSet = ({ product,containerClass = '' ,selectedCover,allOutOfSto
       <span className="ml-[2px]  text-[#8F8F8F]">
         {!selectedCover.toLowerCase() ? null : selectedCover.toLowerCase() === 'full' ? (
           <span>Front + Rear Seat Set
-            {allOutOfStock(frontSeatCovers) ? <span className=""> - Out of Stock</span> : null}
+            {allOutOfStock(fullSeatCovers) ? <span className=""> - Out of Stock</span> : null}
           </span>
         ) : (
-          <span>Driver +  Passenger seats  {allOutOfStock(fullSeatCovers) ? <span className=""> - Out of Stock</span> : null}</span>
+          <span>Driver +  Passenger seats  {allOutOfStock(frontSeatCovers) ? <span className=""> - Out of Stock</span> : null}</span>
         )}
       </span>
     </h3>
@@ -121,25 +119,32 @@ const DisplaySeatSet = ({ product,containerClass = '' ,selectedCover,allOutOfSto
 
 const SeatCoverList = ({ isSelected, handleClick,allOutOfStock,frontSeat,fullSeat }) => {
   const isSelectedNow = isSelected
-  const buttonStyle = `px-[14px] py-[18px] m-1 bg-white text-black border 
+  const buttonStyle = ` m-1 bg-white text-black border 
   font-normal	 rounded-md capitalize text-[16px] hover:bg-black  
   hover:text-white  `;
   return (
     <>
+      <div className="relative inline-block">
         <Button
-          disabled={allOutOfStock(frontSeat)}
+         
           onClick={() => handleClick('front')}
-          className={`${buttonStyle} ${isSelectedNow === 'front' ? 'border-gray-400	 border-2 font-bold' : ''} ${allOutOfStock(frontSeat) ? 'cross' : ''}`}
+          className={`${buttonStyle} ${isSelectedNow === 'front' ? 'border-2	 border-gray-400 font-bold' : ''} ${allOutOfStock(frontSeat) ? 'cross font-normal	' : ''}`}
         >
           Front Seat
         </Button>
+        {allOutOfStock(frontSeat) ? (<div className={`ofs-overlay !h-[2%] !w-[34%]`}></div>) : null}
+      </div>
+
+      <div className="relative inline-block">
         <Button
-          disabled={allOutOfStock(fullSeat)}
+         
           onClick={() => handleClick('full')}
-          className={`${buttonStyle} ${isSelectedNow === 'full' ? 'border-gray-400	 border-2 font-bold' : ''} ${allOutOfStock(fullSeat) ? 'line-through' : ''}`}
+          className={`${buttonStyle} ${isSelectedNow === 'full' ? 'border-2	 border-gray-400 font-bold' : ''} ${allOutOfStock(fullSeat) ? 'cross font-normal	' : ''}`}
         >
           Full Seat Set
         </Button>
+        {allOutOfStock(fullSeat) ? (<div className={`ofs-overlay !h-[2%] !w-[34%] `}></div>) : null}
+      </div>
     </>
   );
 };

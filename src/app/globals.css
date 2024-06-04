@@ -108,16 +108,16 @@
   border: 1px dashed black !important;
   opacity: 0.5;
 }
-.cross::before {
+/* .cross::before {
   content: '';
   width: 29%;
   border-bottom: 1px solid black;
   position: absolute;
-  right: calc(44% - 10px); /* Adjusted for padding */
-  top: calc(40% - 10px); /* Adjusted for padding */
+  right: calc(44% - 10px);
+  top: calc(40% - 10px); 
   transform-origin: top right;
   transform: skewY(-43deg);
-}
+} */
 .cross-img {
   position: relative;
   display: inline-block;
@@ -133,4 +133,15 @@
   top: calc(40% - 10px); /* Adjusted for padding */
   transform-origin: top right;
   transform: skewY(-43deg);
+}
+
+.ofs-overlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100%; /* sqrt(2) * 100% */
+  height: 3%;
+  background: #7f7f7f;
+  transform: translate(-50%, -50%) rotate(-45deg);
+  transform-origin: center;
 }

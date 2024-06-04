@@ -16,6 +16,7 @@ import VehicleSelector from './VehicleSelector';
 import useDetermineType from '@/hooks/useDetermineType';
 import AddtoCartSeatSelect from '../../app/(main)/seat-covers/components/AddToCartSeatSelect';
 import useStoreContext from '@/hooks/useStoreContext';
+import { isFullSet } from '@/lib/utils';
 
 export default function AddToCart({
   selectedProduct,
@@ -32,6 +33,14 @@ export default function AddToCart({
   const store = useStoreContext();
   if (!store) throw new Error('Missing Provider in the tree');
   const modelData = useStore(store, (s) => s.modelData);
+  console.log('selectedProduct',selectedProduct.quantity);
+  const selectedSetDisplay = useStore(store, (s) => s.selectedSetDisplay);
+  const selectedColor = useStore(store, (s) => s.selectedColor);  
+  const filterdData = modelData.filter(
+    (seatCover) => isFullSet(seatCover.display_set) === selectedSetDisplay.toLowerCase()
+  );
+  
+  const isSelectedColorAvailable = filterdData.some(seatCover => seatCover.display_color.toLowerCase() === selectedColor.toLowerCase());
   const [addToCartSelectorOpen, setAddToCartSelectorOpen] =
     useState<boolean>(false);
   const initalLoadingState = false;
@@ -47,6 +56,9 @@ export default function AddToCart({
   });
 
   const handleAddToCartClicked = () => {
+    if (isSeatCover && isSelectedColorAvailable === false) {
+        return; // Don't want to open add to cart selector
+    }
     setIsLoading(true)
     if (isComplete) {
         handleAddToCart();
@@ -85,7 +97,7 @@ export default function AddToCart({
         <VehicleSelector searchParams={searchParams} />
       ) : ( */}
         <div className="fixed inset-x-0 bottom-0 z-20 flex bg-white p-4 lg:relative lg:p-1">
-          <AddToCartButton  handleAddToCartClicked={handleAddToCartClicked} isLoading={isLoading} />
+          <AddToCartButton isColorAvailable={isSelectedColorAvailable} handleAddToCartClicked={handleAddToCartClicked} isLoading={isLoading} />
         </div>
       {/* )} */}
     </Suspense>

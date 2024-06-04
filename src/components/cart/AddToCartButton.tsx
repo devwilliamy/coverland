@@ -7,9 +7,11 @@ import { FaSpinner } from 'react-icons/fa';
 
 type AddToCartButtonProps = {
   handleAddToCartClicked: () => void;
-  isLoading:boolean
+  isColorAvailable: boolean;
+  isLoading:boolean;
 };
 export default function AddToCartButton({
+  isColorAvailable,
   handleAddToCartClicked,
   isLoading
 }: AddToCartButtonProps) {
@@ -23,6 +25,7 @@ export default function AddToCartButton({
     <Button
       className=" h-[48px] w-full rounded bg-[#BE1B1B] text-lg font-bold uppercase text-white disabled:bg-[#BE1B1B] lg:h-[62px]"
       onClick={handleAddToCartClicked}
+      disabled={!isColorAvailable}
     >
       <div
         className="flex gap-[10px]"

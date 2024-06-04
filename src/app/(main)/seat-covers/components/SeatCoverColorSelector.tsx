@@ -30,21 +30,38 @@ export default function SeatCoverColorSelector({isFinalSelection}: {isFinalSelec
   const selectedSetDisplay = useStore(store, (s) => s.selectedSetDisplay);
   const setAvailableColors = useStore(store, (s) => s.setAvailableColors);
 
-  const getModelDataBySet = (): SeatData[] => {
-    return modelData.filter(
-      (seatCover) => isFullSet(seatCover.display_set) === selectedSetDisplay
-    );
-  };
+
+  const showColors = [{
+    display_color:"black",
+    product:"http://www.coverland.com/custom-leather-seat-cover/01-seatcover-pc-bk-1to.webp,http://www.coverland.com/custom-leather-seat-cover/02-seatcover-pc-bk-1to.webp,http://www.coverland.com/custom-leather-seat-cover/03-seatcover-pc-bk-1to.webp,http://www.coverland.com/custom-leather-seat-cover/04-seatcover-pc-bk-1to.webp,http://www.coverland.com/custom-leather-seat-cover/05-seatcover-pc-bk-1to.webp,http://www.coverland.com/custom-leather-seat-cover/06-seatcover-pc-bk-1to.webp,http://www.coverland.com/custom-leather-seat-cover/07-seatcover-pc-bk-1to.webp,http://www.coverland.com/custom-leather-seat-cover/08-seatcover-pc-bk-1to.webp,http://www.coverland.com/custom-leather-seat-cover/09-seatcover-pc-bk-1to.webp"
+  },
+  {
+    display_color:"gray",
+    product:"http://www.coverland.com/custom-leather-seat-cover/01-seatcover-pc-gr-1to.webp,http://www.coverland.com/custom-leather-seat-cover/02-seatcover-pc-gr-1to.webp,http://www.coverland.com/custom-leather-seat-cover/03-seatcover-pc-gr-1to.webp,http://www.coverland.com/custom-leather-seat-cover/04-seatcover-pc-gr-1to.webp,http://www.coverland.com/custom-leather-seat-cover/05-seatcover-pc-gr-1to.webp,http://www.coverland.com/custom-leather-seat-cover/06-seatcover-pc-gr-1to.webp,http://www.coverland.com/custom-leather-seat-cover/07-seatcover-pc-gr-1to.webp,http://www.coverland.com/custom-leather-seat-cover/08-seatcover-pc-gr-1to.webp,http://www.coverland.com/custom-leather-seat-cover/09-seatcover-pc-gr-1to.webp"
+  },
+  {
+    display_color:"beige",
+    product:'http://www.coverland.com/custom-leather-seat-cover/01-seatcover-pc-be-1to.webp,http://www.coverland.com/custom-leather-seat-cover/02-seatcover-pc-be-1to.webp,http://www.coverland.com/custom-leather-seat-cover/03-seatcover-pc-be-1to.webp,http://www.coverland.com/custom-leather-seat-cover/04-seatcover-pc-be-1to.webp,http://www.coverland.com/custom-leather-seat-cover/05-seatcover-pc-be-1to.webp,http://www.coverland.com/custom-leather-seat-cover/06-seatcover-pc-be-1to.webp,http://www.coverland.com/custom-leather-seat-cover/07-seatcover-pc-be-1to.webp,http://www.coverland.com/custom-leather-seat-cover/08-seatcover-pc-be-1to.webp,http://www.coverland.com/custom-leather-seat-cover/09-seatcover-pc-be-1to.webp'
+ 
+  }
+]
+
+  const getModelDataBySet = [...new Map(modelData
+    .filter((seatCover) => isFullSet(seatCover.display_set) === selectedSetDisplay)
+    .map((x) => [x['display_color'], x])).values()];
+    
+  
   const uniqueProductColors = Array.from(
     new Set(modelData.map((model) => model.display_color))
-  ).map((color) => modelData.find((model) => model.display_color === color));// get the unique index of the color for availableColors[0]
+  ).map((color) => modelData.find((model) => model.display_color === color));
 
+   
  useEffect(()=>{
   const availableColorIndex = uniqueProductColors.findIndex((product) => availableColors[0].toLowerCase() === product?.display_color?.toLowerCase());
   setColorIndex(availableColorIndex);
-  setSelectedProduct(uniqueProductColors[availableColorIndex]);
+  setSelectedProduct(getModelDataBySet[0]);
 
-  setSelectedColor(getModelDataBySet()[0].display_color.toLowerCase());
+  setSelectedColor(getModelDataBySet[0].display_color.toLowerCase());
  },[selectedSetDisplay])
 
 
@@ -67,31 +84,48 @@ export default function SeatCoverColorSelector({isFinalSelection}: {isFinalSelec
       </div>
 
       <div className="flex w-full min-w-[288px]  gap-[11px] overflow-x-auto py-[1px] md:overflow-x-hidden">
-        {uniqueProductColors &&
-          uniqueProductColors.map((product, index) => {
-            const isAvailableColor = availableColors.includes(product.display_color?.toLowerCase());
-            return (
-              <div
-                key={`seat-color-${index}`}
-                className={`flex ${index === colorIndex && 'border-1 border border-[#6F6F6F] '} ${
-                  !isAvailableColor && ' cross-img'
-                } cursor-pointer flex-col place-content-center rounded-full p-[2px] `}
-                onClick={() => {
-                    setColorIndex(index);
-                    setSelectedProduct(product as TSeatCoverDataDB);
-                    setSelectedColor(product?.display_color as string);
-                }}
-              >
-                <Image
-                  alt="cover-color"
-                  src={
-                    iconMap[product?.display_color as string] as StaticImageData
-                  }
-                  className="rounded-full"
-                />
-              </div>
-            );
-          })}
+        {uniqueProductColors.map((product, index) => {
+          const isAvailableColor = availableColors.includes(product?.display_color?.toLowerCase());
+          const isOutOfStock = !isAvailableColor;
+          const seatCover = getModelDataBySet.find(
+            (seatCover) => seatCover?.display_color?.toLowerCase() === product?.display_color?.toLowerCase()
+          );
+         
+          return (
+            <div
+              key={`seat-color-${index}`}
+              className={`flex ${index === colorIndex  ? 'border-1 border border-[#6F6F6F] ' : ''} ${
+                isOutOfStock && 'relative inline-block'
+              } cursor-pointer flex-col place-content-center rounded-full p-[2px] `}
+              onClick={() => {
+                setColorIndex(index);
+                if (!seatCover) {
+                  const matchingColor = showColors.find(
+                    (color) => color.display_color.toLowerCase() === product.display_color.toLowerCase()
+                  );
+                  setSelectedProduct(matchingColor as TSeatCoverDataDB);
+                  setSelectedColor(matchingColor?.display_color as string);
+                 return 
+                }
+                setSelectedProduct(seatCover as TSeatCoverDataDB);
+                setSelectedColor(seatCover?.display_color as string);
+              }}
+            >
+              <Image
+                alt="cover-color"
+                src={
+                  iconMap[product?.display_color as string] as StaticImageData
+                }
+                className={`rounded-full ${isOutOfStock ? 'opacity-20' : ''}`}
+              />
+              {isOutOfStock && (
+                <div
+                  className={`ofs-overlay ${index === colorIndex ? '!w-full' : '!w-[94%]'}`}
+                ></div>
+              )}
+            </div>
+          );
+        })}
       </div>
     </section>
   );
