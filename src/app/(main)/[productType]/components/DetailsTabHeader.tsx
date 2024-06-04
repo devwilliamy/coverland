@@ -25,7 +25,7 @@ export default function DetailsTabHeader() {
     <>
       {bannerImg && hasModelOrYear && (
         <div className="flex w-full lg:mt-[60px] ">
-          <div className="relative w-full items-center justify-center">
+          <div className="relative w-full max-w-[840px] items-center justify-center">
             <Image
               alt={`${model}-header-image`}
               width={1000}
