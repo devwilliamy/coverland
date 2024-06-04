@@ -60,9 +60,7 @@ console.log('availableColors',availableColors)
       (seatCover) => seatCover.quantity === '0')
     
   } 
-  // const seatCover = getModelDataBySet.find(
-  //   (seatCover) => seatCover?.display_color?.toLowerCase() === product?.display_color?.toLowerCase()
-  // );
+
  useEffect(()=>{
   const availableColorIndex = uniqueProductColors.findIndex((product) => availableColors[0]?.toLowerCase() === product?.display_color?.toLowerCase());
   setColorIndex(availableColorIndex);
