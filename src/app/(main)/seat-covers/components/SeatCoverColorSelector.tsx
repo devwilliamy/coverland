@@ -29,7 +29,7 @@ export default function SeatCoverColorSelector({isFinalSelection}: {isFinalSelec
   const availableColors = useStore(store, (s) => s.availableColors);
   const selectedSetDisplay = useStore(store, (s) => s.selectedSetDisplay);
   const setAvailableColors = useStore(store, (s) => s.setAvailableColors);
-
+console.log('availableColors',availableColors)
 
   const showColors = [{
     display_color:"black",
@@ -60,12 +60,15 @@ export default function SeatCoverColorSelector({isFinalSelection}: {isFinalSelec
       (seatCover) => seatCover.quantity === '0')
     
   } 
+  // const seatCover = getModelDataBySet.find(
+  //   (seatCover) => seatCover?.display_color?.toLowerCase() === product?.display_color?.toLowerCase()
+  // );
  useEffect(()=>{
-  const availableColorIndex = uniqueProductColors.findIndex((product) => availableColors[0].toLowerCase() === product?.display_color?.toLowerCase());
+  const availableColorIndex = uniqueProductColors.findIndex((product) => availableColors[0]?.toLowerCase() === product?.display_color?.toLowerCase());
   setColorIndex(availableColorIndex);
-  setSelectedProduct(getModelDataBySet[0]);
+  setSelectedProduct(getModelDataBySet[0] ? getModelDataBySet[0] : uniqueProductColors[0]);
 
-  setSelectedColor(getModelDataBySet[0].display_color.toLowerCase());
+  setSelectedColor(getModelDataBySet[0]?.display_color.toLowerCase() ? getModelDataBySet[0]?.display_color.toLowerCase() : uniqueProductColors[0]?.display_color.toLowerCase());
  },[selectedSetDisplay])
 
 
@@ -92,59 +95,92 @@ export default function SeatCoverColorSelector({isFinalSelection}: {isFinalSelec
         )}
       </div>
 
-      <div className="flex w-full min-w-[288px]  gap-[11px] overflow-x-auto py-[1px] md:overflow-x-hidden">
-        {uniqueProductColors.map((product, index) => {
-          const isAvailableColor = availableColors.includes(product?.display_color?.toLowerCase());
-          const isOutOfStock = !isAvailableColor;
-          const seatCover = getModelDataBySet.find(
-            (seatCover) => seatCover?.display_color?.toLowerCase() === product?.display_color?.toLowerCase()
-          );
-         
-          return (
-            <div
-              key={`seat-color-${index}`}
-              className={`flex ${index === colorIndex  ? 'border-1 border border-[#6F6F6F] ' : ''} ${
-                isOutOfStock && 'relative inline-block'
-              } cursor-pointer flex-col place-content-center rounded-full p-[2px] `}
-              onClick={() => {
-                setColorIndex(index);
-                if (!seatCover) {
-                  const matchingColor = showColors.find(
-                    (color) => color.display_color.toLowerCase() === product.display_color.toLowerCase()
-                  );
-                  setSelectedProduct({
-                    ...matchingColor,
-                    make: getModelDataBySet[0].make,
-                    model: getModelDataBySet[0].model,
-                    year_generation: getModelDataBySet[0].year_generation,
-                    parent_generation: getModelDataBySet[0].parent_generation,
-                    ...(selectedSetDisplay === 'full'
-                      ? { msrp: 279.95, price: 560 }
-                      : { msrp: 199.95, price: 400 })
-                  } as TSeatCoverDataDB);
-                  setSelectedColor(matchingColor?.display_color as string);
-                 return 
-                }
-                setSelectedProduct(seatCover as TSeatCoverDataDB);
-                setSelectedColor(seatCover?.display_color as string);
-              }}
-            >
-              <Image
-                alt="cover-color"
-                src={
-                  iconMap[product?.display_color as string] as StaticImageData
-                }
-                className={`rounded-full ${isOutOfStock ? 'opacity-20' : ''}`}
-              />
-              {isOutOfStock && (
-                <div
-                  className={`ofs-overlay ${index === colorIndex ? '!w-full' : '!w-[87%]'}`}
-                ></div>
-              )}
-            </div>
-          );
-        })}
-      </div>
+      {allOutOfStock(getModelDataBySet) ? (
+        <div className="flex w-full min-w-[288px]  gap-[11px] overflow-x-auto py-[1px] md:overflow-x-hidden">
+          {uniqueProductColors.map((product, index) => {
+            const isAvailableColor = availableColors.includes(product?.display_color?.toLowerCase());
+            const isOutOfStock = true;
+            const seatCover = getModelDataBySet.find(
+              (seatCover) => seatCover?.display_color?.toLowerCase() === product?.display_color?.toLowerCase()
+            );
+            return (
+              <div
+                key={`seat-color-${index}`}
+                className={`flex ${index === colorIndex ? 'border-1 border border-[#6F6F6F] ' : ''} ${
+                  isOutOfStock && 'relative inline-block'
+                } cursor-pointer flex-col place-content-center rounded-full p-[2px] `}
+                onClick={() => {
+                  setColorIndex(index);
+                  setSelectedProduct(getModelDataBySet[0]);
+                  setSelectedColor(product?.display_color as string);
+                }}
+              >
+                <Image
+                  alt="cover-color"
+                  src={
+                    iconMap[product?.display_color as string] as StaticImageData
+                  }
+                  className={`rounded-full opacity-20`}
+                />
+                <div className="ofs-overlay w-full"></div>
+              </div>
+            );
+          })}
+        </div>
+      ) : (
+        <div className="flex w-full min-w-[288px]  gap-[11px] overflow-x-auto py-[1px] md:overflow-x-hidden">
+          {uniqueProductColors.map((product, index) => {
+            const isAvailableColor = availableColors.includes(product?.display_color?.toLowerCase());
+            const isOutOfStock = !isAvailableColor;
+            const seatCover = getModelDataBySet.find(
+              (seatCover) => seatCover?.display_color?.toLowerCase() === product?.display_color?.toLowerCase()
+            );
+            return (
+              <div
+                key={`seat-color-${index}`}
+                className={`flex ${index === colorIndex ? 'border-1 border border-[#6F6F6F] ' : ''} ${
+                  isOutOfStock && 'relative inline-block'
+                } cursor-pointer flex-col place-content-center rounded-full p-[2px] `}
+                onClick={() => {
+                  setColorIndex(index);
+                  if (!seatCover) {
+                    const matchingColor = showColors.find(
+                      (color) => color.display_color.toLowerCase() === product.display_color.toLowerCase()
+                    );
+                    setSelectedProduct({
+                      ...matchingColor,
+                      make: getModelDataBySet[0].make,
+                      model: getModelDataBySet[0].model,
+                      year_generation: getModelDataBySet[0].year_generation,
+                      parent_generation: getModelDataBySet[0].parent_generation,
+                      ...(selectedSetDisplay === 'full'
+                        ? { msrp: 279.95, price: 560 }
+                        : { msrp: 199.95, price: 400 })
+                    } as TSeatCoverDataDB);
+                    setSelectedColor(matchingColor?.display_color as string);
+                    return;
+                  }
+                  setSelectedProduct(seatCover as TSeatCoverDataDB);
+                  setSelectedColor(seatCover?.display_color as string);
+                }}
+              >
+                <Image
+                  alt="cover-color"
+                  src={
+                    iconMap[product?.display_color as string] as StaticImageData
+                  }
+                  className={`rounded-full ${isOutOfStock ? 'opacity-20' : ''}`}
+                />
+                {isOutOfStock && (
+                  <div
+                    className={`ofs-overlay ${index === colorIndex ? '!w-full' : '!w-[87%]'}`}
+                  ></div>
+                )}
+              </div>
+            );
+          })}
+        </div>
+      )}
     </section>
   );
 }
