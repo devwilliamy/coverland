@@ -75,11 +75,11 @@ export default function SeatCoverColorSelector({isFinalSelection}: {isFinalSelec
       className={` ${!isFinalSelection ? 'mb-[30px] mt-[24px]' : 'mb-[40px]' } ml-[4px]  flex  w-full flex-col py-1}`}
     >
       <div className="mb-[6px] flex flex-row content-center justify-start align-middle leading-[14px]">
-        <h3 className=" max-h-[13px] text-[16px] font-[400]  text-black ">
+        <h3 className=" max-h-[13px] text-[16px] font-[400] pl-[3px] text-black ">
           Color
         </h3>{' '}
         {!!getSelectedColor ? (
-          <span className="ml-[6px] capitalize text-[#8F8F8F]">
+          <span className="ml-[12px] capitalize text-[#8F8F8F]">
             { allOutOfStock(getModelDataBySet)
               ? 'Out of stock'
               : !availableColors.includes(getSelectedColor.toLowerCase())
