@@ -9,6 +9,7 @@ import { z } from 'zod';
 import CustomPhoneInput from '../ui/phone-input';
 import { parsePhoneNumberFromString } from 'libphonenumber-js';
 import StateDropdown from '../ui/state-dropdown';
+import { Autocomplete, MenuItem, TextField } from '@mui/material';
 
 type FormData = {
   email: string;
@@ -128,9 +129,11 @@ export default function AddressForm({
     }
   }, [addressData, customerInfo, setValue]);
 
-  const [address, setAddress] = useState('');
+  const [address, setAddress] = useState<string>('');
+  const [isManualAddress, setIsManualAddress] = useState(false);
   const [suggestions, setSuggestions] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [addressOpen, setAddressOpen] = useState(false);
 
   const getAddressAutocomplete = async (addressInput: string) => {
     setLoading(true);
@@ -154,69 +157,163 @@ export default function AddressForm({
   };
 
   return (
-    <form onSubmit={onSubmit}>
-      {showEmail && (
-        <div className="pb-6 pt-2">
-          <OverlappingLabel
-            title="Email"
-            name="email"
-            errors={errors}
-            placeholder="abc@gmail.com"
-            register={register}
-            options={{ required: true }}
-            autoComplete="email"
-          />
-        </div>
-      )}
-
-      <div className="flex flex-row pb-6">
-        <div className="mr-2 flex-grow">
-          <OverlappingLabel
-            title="First Name"
-            name="firstName"
-            errors={errors}
-            placeholder="John"
-            register={register}
-            options={{ required: true }}
-            autoComplete="given-name"
-          />
-        </div>
-        <div className="ml-2 flex-grow">
-          <OverlappingLabel
-            title="Last Name"
-            name="lastName"
-            errors={errors}
-            placeholder="Smith"
-            register={register}
-            options={{ required: true }}
-            autoComplete="family-name"
-          />
-        </div>
-      </div>
-      {/* <div className="pb-6">
-        <OverlappingLabel
-          title="Address Line 1"
-          name="line1"
-          errors={errors}
-          placeholder="123 Main Street"
-          register={register}
-          options={{ required: true }}
-          autoComplete="address-line1"
-        />
-      </div>
-      <div className="pb-6">
-        <OverlappingLabel
-          title="Address Line 2"
-          name="line2"
-          errors={errors}
-          placeholder="P.O. Box 123"
-          register={register}
-          autoComplete="address-line2"
-        />
-      </div> */}
-      <div className="pb-6">
+    <form onSubmit={onSubmit} className="flex flex-col gap-6 py-2">
+      {/* <OverlappingLabel
+        title="First Name"
+        name="firstName"
+        errors={errors}
+        placeholder="John"
+        register={register}
+        options={{ required: true }}
+        autoComplete="given-name"
+      />
+      <OverlappingLabel
+        title="Last Name"
+        name="lastName"
+        errors={errors}
+        placeholder="Smith"
+        register={register}
+        options={{ required: true }}
+        autoComplete="family-name"
+      /> */}
+      {/* <TextField
+        required
+        label="First Name"
+        name="firstName"
+        placeholder="John"
+        fullWidth
+      />
+      <TextField
+        required
+        label="Last Name"
+        name="lastName"
+        placeholder="Smith"
+        fullWidth
+      /> */}
+      <OverlappingLabel
+        title="First Name"
+        name="firstName"
+        errors={errors}
+        placeholder="John"
+        register={register}
+        options={{ required: true }}
+        autoComplete="family-name"
+      />
+      <OverlappingLabel
+        title="Last Name"
+        name="lastName"
+        errors={errors}
+        placeholder="Smith"
+        register={register}
+        options={{ required: true }}
+        autoComplete="family-name"
+      />
+      <Autocomplete
+        id="asynchronous-demo"
+        open={addressOpen}
+        filterOptions={(x) => x}
+        getOptionLabel={(option) => {
+          return option?.placePrediction?.text.text ?? option;
+        }}
+        // isOptionEqualToValue={(option, value) => {
+        //   if (!option || option === '') {
+        //     return false;
+        //   }
+        //   // return true;
+        //   return String(option.placePrediction?.text.text).includes(address);
+        //   // option.placePrediction?.text.text ===
+        //   // (value?.placePrediction?.text.text ?? value)
+        // }}
+        onOpen={() => {
+          setAddressOpen(true);
+        }}
+        onClose={() => {
+          setAddressOpen(false);
+        }}
+        onChange={(e, eventValue) => {
+          if (eventValue === null) {
+            return '';
+          }
+          setAddress(String(eventValue.placePrediction?.text.text));
+        }}
+        onInputChange={(event, newInputValue) => {
+          if (newInputValue === null) {
+            return '';
+          }
+          const val = String(newInputValue);
+          getAddressAutocomplete(val);
+          setAddress(val);
+          console.log({ address: val });
+        }}
+        value={address?.placePrediction?.text.text ?? address}
+        className="w-full"
+        fullWidth
+        options={suggestions}
+        loading={loading}
+        filterSelectedOptions
+        noOptionsText="No locations"
+        renderInput={(params) => (
+          <TextField
+            {...params}
+            key={`text-field-address-auto`}
+            label="Address"
+            placeholder="12345 Sunset Blvd, Los Angeles, CA, USA"
+            // placeholder="12345 Sunset Blvd, Los Angeles, CA 54321, USA" // With zipcode
+            fullWidth
+          >
+            {suggestions.map((suggestion) => {
+              const text = suggestion.placePrediction.text.text;
+              return (
+                <MenuItem key={`places-${text}`} value={text}>
+                  {text}
+                </MenuItem>
+              );
+            })}
+          </TextField>
+        )}
+        renderOption={(props, option) => {
+          const text = option.placePrediction.text.text;
+          // return <option value={text}>{text}</option>;
+          return (
+            <li key={`${option.placeId}`} {...props}>
+              <p>{text}</p>
+            </li>
+          );
+        }}
+        // helperText="Please complete address selection or enter an address manually."
+      ></Autocomplete>
+      {/* <TextField
+        required
+        type="email"
+        label="Email"
+        title="Email"
+        name="email"
+        placeholder="abc@gmail.com"
+        fullWidth
+      /> */}
+      <OverlappingLabel
+        title="Email"
+        name="email"
+        errors={errors}
+        placeholder="abc@gmail.com"
+        register={register}
+        options={{ required: true }}
+        autoComplete="email"
+      />
+      <CustomPhoneInput
+        label="Phone Number"
+        name="phoneNumber"
+        placeholder="+1 123 456 7890"
+        autoComplete="tel"
+        register={register}
+        errors={errors}
+        required
+      />
+      {/* <div>
+       <label htmlFor="AutocompleteAddress">Address</label>
         <input
           type="text"
+          placeholder="12345 Sunset Blvd, Los Angeles, CA 54321, USA"
           name="AutocompleteAddress"
           id="AutocompleteAddress"
           list="addressDataList"
@@ -231,14 +328,95 @@ export default function AddressForm({
           autoComplete="off"
           className="block w-full rounded-lg border-0 border-[#E1E1E1] bg-[#FAFAFA] px-3 py-3  ring-1 ring-inset focus:ring-2 focus:ring-inset sm:text-base sm:leading-6 "
         />
-        <datalist id="addressDataList" className="w-full">
+        <datalist id="addressDataList" className="w-full bg-white">
           {suggestions.map((suggestion) => {
             const text = suggestion.placePrediction.text.text;
             return <option value={text}>{text}</option>;
           })}
-        </datalist>
-      </div>
-      <div className="pb-6">
+        </datalist> 
+        <TextField
+          label="Address"
+          placeholder="12345 Sunset Blvd, Los Angeles, CA 54321, USA"
+          name="AutocompleteAddress"
+          id="AutocompleteAddress"
+          onChange={(e) => {
+            const val = e.target.value;
+            getAddressAutocomplete(val);
+            setAddress(val);
+            console.log({ address: val });
+          }}
+          value={address}
+          // helperText="Please complete address selection or enter an address manually."
+          className="w-full"
+        >
+          {suggestions.map((suggestion) => {
+            const text = suggestion.placePrediction.text.text;
+            return (
+              <MenuItem key={`places-${text}`} value={text}>
+                {text}
+              </MenuItem>
+            );
+          })}
+        </TextField> 
+      </div> */}
+      {/* {showEmail && (
+        <OverlappingLabel
+          title="Email"
+          name="email"
+          errors={errors}
+          placeholder="abc@gmail.com"
+          register={register}
+          options={{ required: true }}
+          autoComplete="email"
+        />
+      )} */}
+      {/* {showEmail && (
+        // <OverlappingLabel
+        //   title="Phone Number"
+        //   name="phoneNumber"
+        //   errors={errors}
+        //   placeholder="+1 123 456 7890"
+        //   register={register}
+        //   options={{ required: true }}
+        //   autoComplete="tel"
+        // />
+        <CustomPhoneInput
+          label="Phone Number"
+          name="phoneNumber"
+          placeholder="+1 123 456 7890"
+          autoComplete="tel"
+          register={register}
+          errors={errors}
+          required={true}
+        />
+      )} */}
+      {/* <div className="flex flex-row pb-6">
+        
+       
+      </div> */}
+      {/* <div className="pb-6">
+        <OverlappingLabel
+          title="Address Line 1"
+          name="line1"
+          errors={errors}
+          placeholder="123 Main Street"
+          register={register}
+          options={{ required: true }}
+          autoComplete="address-line1"
+        />
+      </div> */}
+      {/* <div className="pb-6">
+        <OverlappingLabel
+          title="Address Line 2"
+          name="line2"
+          errors={errors}
+          placeholder="P.O. Box 123"
+          register={register}
+          autoComplete="address-line2"
+        />
+      </div> */}
+
+      {/* <div className="pb-6">
         <OverlappingLabel
           title="City"
           name="city"
@@ -248,10 +426,10 @@ export default function AddressForm({
           options={{ required: true }}
           autoComplete="address-level2"
         />
-      </div>
-      <div className="flex flex-row pb-6">
+      </div> */}
+      {/* <div className="flex flex-row pb-6">
         <div className="mr-2 flex-grow">
-          {/* <OverlappingLabel
+          <OverlappingLabel
             title="State"
             name="state"
             errors={errors}
@@ -259,7 +437,7 @@ export default function AddressForm({
             register={register}
             options={{ required: true }}
             autoComplete="address-level1"
-          /> */}
+          />
           <StateDropdown
             name="state"
             label="State"
@@ -278,29 +456,8 @@ export default function AddressForm({
             autoComplete="postal-code"
           />
         </div>
-      </div>
-      <div className="pb-6">
-        {showEmail && (
-          // <OverlappingLabel
-          //   title="Phone Number"
-          //   name="phoneNumber"
-          //   errors={errors}
-          //   placeholder="+1 123 456 7890"
-          //   register={register}
-          //   options={{ required: true }}
-          //   autoComplete="tel"
-          // />
-          <CustomPhoneInput
-            label="Phone Number"
-            name="phoneNumber"
-            placeholder="+1 123 456 7890"
-            autoComplete="tel"
-            register={register}
-            errors={errors}
-            required={true}
-          />
-        )}
-      </div>
+      </div> */}
+
       <div className="flex flex-col items-center justify-between lg:mt-11">
         <Button
           type="submit"

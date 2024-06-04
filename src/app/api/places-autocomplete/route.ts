@@ -16,13 +16,20 @@ export async function POST(request: NextRequest) {
     body: JSON.stringify({
       input: addressInput,
       includeQueryPredictions: true,
-      includedPrimaryTypes: ['street_address'],
+      includedPrimaryTypes: [
+        'street_address',
+        'street_number',
+        'premise',
+        'geocode',
+        'postal_code',
+      ],
     }),
   });
 
   const data = await res.json();
   const suggestions = data['suggestions'];
-  //   console.log({ data: data['suggestions'] });
+  console.log({ data: JSON.stringify(data.suggestions) });
 
   return NextResponse.json(suggestions, { status: 200 });
+  //   return NextResponse.json(data, { status: 200 });
 }

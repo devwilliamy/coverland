@@ -1,3 +1,4 @@
+import { TextField } from '@mui/material';
 import { FaExclamationCircle } from 'react-icons/fa';
 
 type OverlappingLabelProps = {
@@ -6,6 +7,7 @@ type OverlappingLabelProps = {
   placeholder: string;
   errors: any;
   register: any;
+  required?: boolean;
   options?: any;
   autoComplete: string;
 };
@@ -24,7 +26,7 @@ export default function OverlappingLabel({
   return (
     <div>
       <div className="relative">
-        <label
+        {/* <label
           htmlFor={name}
           className="absolute -top-2 left-2 inline-block bg-white px-1 text-xs font-medium text-gray-500"
         >
@@ -32,6 +34,14 @@ export default function OverlappingLabel({
         </label>
         <input
           className={`block w-full rounded-lg border-0 border-[#E1E1E1] bg-[#FAFAFA] py-3 pl-3 pr-10 ring-1 ring-inset focus:ring-2 focus:ring-inset sm:text-base sm:leading-6 ${inputStyle}`}
+          placeholder={placeholder}
+          autoComplete={autoComplete}
+          {...register(name, options)}
+        /> */}
+        <TextField
+          label={title}
+          fullWidth
+          required={options.required ?? false}
           placeholder={placeholder}
           autoComplete={autoComplete}
           {...register(name, options)}
