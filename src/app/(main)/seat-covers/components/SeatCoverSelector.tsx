@@ -31,7 +31,7 @@ export default function SeatCoverSelection({
   console.log('selectedSetDisplay',selectedSetDisplay);
   const setSelectedSetDisplay = useStore(store,(state)=> state.setSelectedSetDisplay);
   const setAvailableColors = useStore(store,(state)=> state.setAvailableColors);
-  const initalSeatCover = isFullSet(selectedSetDisplay)
+  const initalSeatCover = selectedSetDisplay;
   const [selectedSeatCoverType, setSelectedSeatCoverType] = useState(initalSeatCover);
   
   const frontSeatCovers = modelData.filter(
@@ -129,14 +129,14 @@ const SeatCoverList = ({ isSelected, handleClick,allOutOfStock,frontSeat,fullSea
         <Button
           disabled={allOutOfStock(frontSeat)}
           onClick={() => handleClick('front')}
-          className={`${buttonStyle} ${isSelectedNow === 'front' ? 'border-gray-400	 border-2 font-bold' : ''} ${!allOutOfStock(frontSeat) ? 'line-through' : ''}`}
+          className={`${buttonStyle} ${isSelectedNow === 'front' ? 'border-gray-400	 border-2 font-bold' : ''} ${allOutOfStock(frontSeat) ? 'cross' : ''}`}
         >
-          Front Seats
+          Front Seat
         </Button>
         <Button
           disabled={allOutOfStock(fullSeat)}
           onClick={() => handleClick('full')}
-          className={`${buttonStyle} ${isSelectedNow === 'full' ? 'border-gray-400	 border-2 font-bold' : ''} ${!allOutOfStock(fullSeat) ? 'line-through' : ''}`}
+          className={`${buttonStyle} ${isSelectedNow === 'full' ? 'border-gray-400	 border-2 font-bold' : ''} ${allOutOfStock(fullSeat) ? 'line-through' : ''}`}
         >
           Full Seat Set
         </Button>

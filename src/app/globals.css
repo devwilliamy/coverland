@@ -101,3 +101,36 @@
     opacity: 0;
   }
 }
+
+.cross {
+  position: relative;
+  display: inline-block;
+  border: 1px dashed black !important;
+  opacity: 0.5;
+}
+.cross::before {
+  content: '';
+  width: 29%;
+  border-bottom: 1px solid black;
+  position: absolute;
+  right: calc(44% - 10px); /* Adjusted for padding */
+  top: calc(40% - 10px); /* Adjusted for padding */
+  transform-origin: top right;
+  transform: skewY(-43deg);
+}
+.cross-img {
+  position: relative;
+  display: inline-block;
+  /* border: 1px dashed black !important; */
+  opacity: 0.5;
+}
+.cross-img::before {
+  content: '';
+  width: 64%;
+  border-bottom: 1px solid black;
+  position: absolute;
+  right: calc(44% - 10px); /* Adjusted for padding */
+  top: calc(40% - 10px); /* Adjusted for padding */
+  transform-origin: top right;
+  transform: skewY(-43deg);
+}

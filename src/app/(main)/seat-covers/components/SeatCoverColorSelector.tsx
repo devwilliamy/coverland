@@ -1,6 +1,6 @@
 import { SeatCoverSelectionContext } from '@/contexts/SeatCoverContext';
 import Image, { StaticImageData } from 'next/image';
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { useStore } from 'zustand';
 import { SeatData, SeatImageDataObject, SeatString } from '../util';
 import CircleBlackRed from '@/images/PDP/Product-Details-Redesign-2/seat-covers/cover-colors/black-red/seat-circle-black-red.webp';
@@ -8,6 +8,7 @@ import CircleBlack from '@/images/PDP/Product-Details-Redesign-2/seat-covers/cov
 import CircleGray from '@/images/PDP/Product-Details-Redesign-2/seat-covers/cover-colors/gray/seat-circle-gray.webp';
 import CircleBeige from '@/images/PDP/Product-Details-Redesign-2/seat-covers/cover-colors/beige/seat-circle-beige.webp';
 import { TSeatCoverDataDB } from '@/lib/db/seat-covers';
+import { isFullSet } from '@/lib/utils';
 
 const iconMap: Record<string, StaticImageData> = {
   'Solid Black with Red Stitching': CircleBlackRed,
@@ -25,38 +26,27 @@ export default function SeatCoverColorSelector({isFinalSelection}: {isFinalSelec
   const setSelectedProduct = useStore(store, (s) => s.setSelectedProduct);
   const setSelectedColor = useStore(store, (s) => s.setSelectedColor)
   const getSelectedColor = useStore(store,(state) => state.selectedColor)
-  console.log('getSelectedColor',getSelectedColor)
   const availableColors = useStore(store, (s) => s.availableColors);
   const selectedSetDisplay = useStore(store, (s) => s.selectedSetDisplay);
-  console.log('selectedProductType',selectedSetDisplay);
-  console.log('availableColors', availableColors);
   const setAvailableColors = useStore(store, (s) => s.setAvailableColors);
-  //   const params = useParams<TPathParams>();
 
-  //   const handleColorChange = (newSelectedProduct: IProductData) => {
-  //     handleViewItemColorChangeGoogleTag(newSelectedProduct, params, isComplete);
-  //   };
-
+  const getModelDataBySet = (): SeatData[] => {
+    return modelData.filter(
+      (seatCover) => isFullSet(seatCover.display_set) === selectedSetDisplay
+    );
+  };
   const uniqueProductColors = Array.from(
     new Set(modelData.map((model) => model.display_color))
-  ).map((color) => modelData.find((model) => model.display_color === color));
+  ).map((color) => modelData.find((model) => model.display_color === color));// get the unique index of the color for availableColors[0]
 
-  console.log('uniqueProductColors', uniqueProductColors);
- 
- 
-  // figure our display_set 
-  
-  // find out only the missing color 
-  
-  // display the all color even missing color with opc
+ useEffect(()=>{
+  const availableColorIndex = uniqueProductColors.findIndex((product) => availableColors[0].toLowerCase() === product?.display_color?.toLowerCase());
+  setColorIndex(availableColorIndex);
+  setSelectedProduct(uniqueProductColors[availableColorIndex]);
 
-  const initialSelectedColor = availableColors[0] || getSelectedColor;
-  const renderSelectedColor = () =>{
-    const selectedColorModel = uniqueProductColors.find((model) => model.display_color?.toLowerCase() === initialSelectedColor);
-    const displayColor = selectedColorModel?.display_color?.toLowerCase() || '';
-      // allows to get the current selectedColor to be picked and remove the word "solid" using regex 
-    return displayColor.replace(/\bsolid\b/g, "");
-  }
+  setSelectedColor(getModelDataBySet()[0].display_color.toLowerCase());
+ },[selectedSetDisplay])
+
 
   return (
     <section
@@ -69,7 +59,7 @@ export default function SeatCoverColorSelector({isFinalSelection}: {isFinalSelec
         </h3>{' '}
         {!!getSelectedColor ? (
           <span className="ml-[6px] capitalize text-[#8F8F8F]">
-            {renderSelectedColor()}
+            { !availableColors.includes(getSelectedColor.toLowerCase()) ? `${getSelectedColor} - out of stock` : getSelectedColor}
           </span>
         ) : (
           <></>
@@ -79,21 +69,17 @@ export default function SeatCoverColorSelector({isFinalSelection}: {isFinalSelec
       <div className="flex w-full min-w-[288px]  gap-[11px] overflow-x-auto py-[1px] md:overflow-x-hidden">
         {uniqueProductColors &&
           uniqueProductColors.map((product, index) => {
-            console.log('product', product,product.display_color, availableColors, availableColors.includes(product.display_color)  );
             const isAvailableColor = availableColors.includes(product.display_color?.toLowerCase());
-            console.log('isAvailableColor', isAvailableColor);
             return (
               <div
                 key={`seat-color-${index}`}
-                className={`flex ${isAvailableColor && index === colorIndex && 'border-1 border border-[#6F6F6F] '} ${
-                  !isAvailableColor && 'opacity-50'
+                className={`flex ${index === colorIndex && 'border-1 border border-[#6F6F6F] '} ${
+                  !isAvailableColor && ' cross-img'
                 } cursor-pointer flex-col place-content-center rounded-full p-[2px] `}
                 onClick={() => {
-                  if (isAvailableColor) {
                     setColorIndex(index);
                     setSelectedProduct(product as TSeatCoverDataDB);
                     setSelectedColor(product?.display_color as string);
-                  }
                 }}
               >
                 <Image
