@@ -75,7 +75,7 @@ function handleSeatSelected(type){
   // setSelectedProduct(value);
 };
   return (
-    <div className="mb-[30px] py-1">
+    <div className="mb-[20px] py-1">
       <DisplaySeatSet
         containerClass="py-2"
         selectedCover={selectedSeatCoverType}
@@ -94,7 +94,7 @@ function handleSeatSelected(type){
               />
       </div>
       {/* Enable Comment Below to Debug the Data   */}
-      {JSON.stringify(availableSeatCoversFiltered, null, 2)}
+      {/* {JSON.stringify(availableSeatCoversFiltered, null, 2)} */}
     </div>
   );
 }
@@ -119,7 +119,7 @@ const DisplaySeatSet = ({ product,containerClass = '' ,selectedCover,allOutOfSto
 
 const SeatCoverList = ({ isSelected, handleClick,allOutOfStock,frontSeat,fullSeat }) => {
   const isSelectedNow = isSelected
-  const buttonStyle = ` m-1 bg-white text-black border 
+  const buttonStyle = `px-[18px] py-[14px] m-1 bg-white text-black border 
   font-normal	 rounded-md capitalize text-[16px] hover:bg-black  
   hover:text-white  `;
   return (
@@ -128,22 +128,22 @@ const SeatCoverList = ({ isSelected, handleClick,allOutOfStock,frontSeat,fullSea
         <Button
          
           onClick={() => handleClick('front')}
-          className={`${buttonStyle} ${isSelectedNow === 'front' ? 'border-2	 border-gray-400 font-bold' : ''} ${allOutOfStock(frontSeat) ? 'cross font-normal	' : ''}`}
+          className={`${buttonStyle} ${isSelectedNow === 'front' ? '!border-2 !border-solid	border-gray-400 font-bold' : ''} ${allOutOfStock(frontSeat) ? 'cross  font-normal	' : ''}`}
         >
           Front Seat
         </Button>
-        {allOutOfStock(frontSeat) ? (<div className={`ofs-overlay !h-[2%] !w-[34%]`}></div>) : null}
+        {allOutOfStock(frontSeat) ? (<div className={`ofs-overlay-seat !h-[2%] !w-[52%]`}></div>) : null}
       </div>
 
       <div className="relative inline-block">
         <Button
          
           onClick={() => handleClick('full')}
-          className={`${buttonStyle} ${isSelectedNow === 'full' ? 'border-2	 border-gray-400 font-bold' : ''} ${allOutOfStock(fullSeat) ? 'cross font-normal	' : ''}`}
+          className={`${buttonStyle} ${isSelectedNow === 'full' ? '!border-2	!border-solid	 border-gray-400 font-bold' : ''} ${allOutOfStock(fullSeat) ? ' cross font-normal :hover:bg-transparent	' : ''}`}
         >
-          Full Seat Set
+          Full Seat
         </Button>
-        {allOutOfStock(fullSeat) ? (<div className={`ofs-overlay !h-[2%] !w-[34%] `}></div>) : null}
+        {allOutOfStock(fullSeat) ? (<div className={`ofs-overlay-seat !h-[1%] !w-[52%] z-10 `}></div>) : null}
       </div>
     </>
   );

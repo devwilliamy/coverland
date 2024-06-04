@@ -72,7 +72,7 @@ export default function SeatCoverColorSelector({isFinalSelection}: {isFinalSelec
   return (
     <section
       id="select-color"
-      className={` ${isFinalSelection ? 'mb-[10px]' : 'mb-[40px]' } ml-[4px] pt-[15px]  lg:pt-[34px] flex  w-full flex-col py-1}`}
+      className={` ${!isFinalSelection ? 'mb-[30px] mt-[24px]' : 'mb-[40px]' } ml-[4px]  flex  w-full flex-col py-1}`}
     >
       <div className="mb-[6px] flex flex-row content-center justify-start align-middle leading-[14px]">
         <h3 className=" max-h-[13px] text-[16px] font-[400]  text-black ">
@@ -134,7 +134,7 @@ export default function SeatCoverColorSelector({isFinalSelection}: {isFinalSelec
               />
               {isOutOfStock && (
                 <div
-                  className={`ofs-overlay ${index === colorIndex ? '!w-full' : '!w-[94%]'}`}
+                  className={`ofs-overlay ${index === colorIndex ? '!w-full' : '!w-[87%]'}`}
                 ></div>
               )}
             </div>
