@@ -80,12 +80,12 @@ console.log('availableColors',availableColors)
           Color
         </h3>{' '}
         {!!getSelectedColor ? (
-          <span className="ml-[12px] capitalize text-[#8F8F8F]">
+          <span className="ml-[12px]  text-[#8F8F8F]">
             { allOutOfStock(getModelDataBySet)
-              ? 'Out of stock'
+              ? 'Out of Stock'
               : !availableColors.includes(getSelectedColor.toLowerCase())
-              ? `${getSelectedColor} - out of stock`
-              : getSelectedColor
+              ? `${getSelectedColor.charAt(0).toUpperCase()}${getSelectedColor.slice(1)} - Out of Stock`
+              : getSelectedColor.charAt(0).toUpperCase() + getSelectedColor.slice(1)
             }
           </span>
         ) : (
@@ -120,7 +120,7 @@ console.log('availableColors',availableColors)
                   }
                   className={`rounded-full opacity-20`}
                 />
-                <div className="ofs-overlay w-full"></div>
+                <div className={`ofs-overlay ${index === colorIndex ? '!w-full' : '!w-[89%]'}`}></div>
               </div>
             );
           })}
@@ -171,7 +171,7 @@ console.log('availableColors',availableColors)
                 />
                 {isOutOfStock && (
                   <div
-                    className={`ofs-overlay ${index === colorIndex ? '!w-full' : '!w-[87%]'}`}
+                    className={`ofs-overlay ${index === colorIndex ? '!w-full' : '!w-[89%]'}`}
                   ></div>
                 )}
               </div>
