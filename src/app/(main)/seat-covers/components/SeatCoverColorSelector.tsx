@@ -55,7 +55,11 @@ export default function SeatCoverColorSelector({isFinalSelection}: {isFinalSelec
     new Set(modelData.map((model) => model.display_color))
   ).map((color) => modelData.find((model) => model.display_color === color));
 
-   
+  const allOutOfStock = (availableSeats: []) => {
+    return availableSeats.every(
+      (seatCover) => seatCover.quantity === '0')
+    
+  } 
  useEffect(()=>{
   const availableColorIndex = uniqueProductColors.findIndex((product) => availableColors[0].toLowerCase() === product?.display_color?.toLowerCase());
   setColorIndex(availableColorIndex);
@@ -76,7 +80,12 @@ export default function SeatCoverColorSelector({isFinalSelection}: {isFinalSelec
         </h3>{' '}
         {!!getSelectedColor ? (
           <span className="ml-[6px] capitalize text-[#8F8F8F]">
-            { !availableColors.includes(getSelectedColor.toLowerCase()) ? `${getSelectedColor} - out of stock` : getSelectedColor}
+            { allOutOfStock(getModelDataBySet)
+              ? 'Out of stock'
+              : !availableColors.includes(getSelectedColor.toLowerCase())
+              ? `${getSelectedColor} - out of stock`
+              : getSelectedColor
+            }
           </span>
         ) : (
           <></>
@@ -103,7 +112,12 @@ export default function SeatCoverColorSelector({isFinalSelection}: {isFinalSelec
                   const matchingColor = showColors.find(
                     (color) => color.display_color.toLowerCase() === product.display_color.toLowerCase()
                   );
-                  setSelectedProduct(matchingColor as TSeatCoverDataDB);
+                  setSelectedProduct({
+                    ...matchingColor,
+                    ...(selectedSetDisplay === 'full'
+                      ? { msrp: 279.95, price: 560 }
+                      : { msrp: 199.95, price: 400 })
+                  } as TSeatCoverDataDB);
                   setSelectedColor(matchingColor?.display_color as string);
                  return 
                 }
