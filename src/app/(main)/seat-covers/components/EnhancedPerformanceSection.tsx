@@ -22,7 +22,7 @@ export default function EnhancedPerformanceSection() {
   if (!store)
     throw new Error('Missing SeatCoverSelectionContext.Provider in the tree');
   const selectedProduct = useStore(store, (state) => state.selectedProduct);
-  const fullSeat = isFullSet(selectedProduct.display_set) === 'full' ? true : false;
+  const fullSeat = isFullSet(selectedProduct?.display_set) === 'full' ? true : false;
   const excludedIds = [1, 2]; // Add more IDs to this array as needed
   const oldSection = 'grid w-full max-w-[840px] grid-cols-2 gap-[7px] max-lg:px-4 lg:grid-cols-4 lg:gap-[14px]';
   const sectionStyle = `grid w-full ${!fullSeat ? 'max-w-[630px] lg:max-w-[840px] grid-cols-1' : 'max-w-[840px] grid-cols-2'} gap-[7px] max-lg:px-4 lg:${!fullSeat ? 'grid-cols-2' : 'grid-cols-4'} lg:gap-[14px]`;

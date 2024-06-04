@@ -37,7 +37,7 @@ export default function AddToCart({
   const selectedSetDisplay = useStore(store, (s) => s.selectedSetDisplay);
   const selectedColor = useStore(store, (s) => s.selectedColor);  
   const filterdData = modelData.filter(
-    (seatCover) => isFullSet(seatCover.display_set) === selectedSetDisplay.toLowerCase()
+    (seatCover) => isFullSet(seatCover.display_set) === selectedSetDisplay?.toLowerCase()
   );
   
   const isSelectedColorAvailable = filterdData.some(seatCover => seatCover.display_color.toLowerCase() === selectedColor.toLowerCase());

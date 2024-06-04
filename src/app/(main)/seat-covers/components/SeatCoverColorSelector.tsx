@@ -114,6 +114,10 @@ export default function SeatCoverColorSelector({isFinalSelection}: {isFinalSelec
                   );
                   setSelectedProduct({
                     ...matchingColor,
+                    make: getModelDataBySet[0].make,
+                    model: getModelDataBySet[0].model,
+                    year_generation: getModelDataBySet[0].year_generation,
+                    parent_generation: getModelDataBySet[0].parent_generation,
                     ...(selectedSetDisplay === 'full'
                       ? { msrp: 279.95, price: 560 }
                       : { msrp: 199.95, price: 400 })
