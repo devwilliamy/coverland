@@ -128,6 +128,31 @@ export default function AddressForm({
     }
   }, [addressData, customerInfo, setValue]);
 
+  const [address, setAddress] = useState('');
+  const [suggestions, setSuggestions] = useState([]);
+  const [loading, setLoading] = useState(false);
+
+  const getAddressAutocomplete = async (addressInput: string) => {
+    setLoading(true);
+    try {
+      const response = await fetch('/api/places-autocomplete', {
+        method: 'POST',
+        body: JSON.stringify({ addressInput }),
+      });
+
+      const data = await response.json();
+      console.log({ data });
+      setSuggestions(data);
+      // for (const iterator of data) {
+
+      // }
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <form onSubmit={onSubmit}>
       {showEmail && (
@@ -168,7 +193,7 @@ export default function AddressForm({
           />
         </div>
       </div>
-      <div className="pb-6">
+      {/* <div className="pb-6">
         <OverlappingLabel
           title="Address Line 1"
           name="line1"
@@ -188,6 +213,30 @@ export default function AddressForm({
           register={register}
           autoComplete="address-line2"
         />
+      </div> */}
+      <div className="pb-6">
+        <input
+          type="text"
+          name="AutocompleteAddress"
+          id="AutocompleteAddress"
+          list="addressDataList"
+          title="Address"
+          onChange={(e) => {
+            const val = e.target.value;
+            getAddressAutocomplete(val);
+            setAddress(val);
+            console.log({ address: val });
+          }}
+          value={address}
+          autoComplete="off"
+          className="block w-full rounded-lg border-0 border-[#E1E1E1] bg-[#FAFAFA] px-3 py-3  ring-1 ring-inset focus:ring-2 focus:ring-inset sm:text-base sm:leading-6 "
+        />
+        <datalist id="addressDataList" className="w-full">
+          {suggestions.map((suggestion) => {
+            const text = suggestion.placePrediction.text.text;
+            return <option value={text}>{text}</option>;
+          })}
+        </datalist>
       </div>
       <div className="pb-6">
         <OverlappingLabel

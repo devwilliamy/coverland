@@ -47,9 +47,10 @@ export default function Shipping({
         <div className="min-h-[400px]">
           <AddressForm
             addressData={shippingAddress}
-            updateAddress={(address) =>
-              updateShippingAddress(address, isBillingSameAsShipping)
-            }
+            updateAddress={(address) => {
+              updateShippingAddress(address, isBillingSameAsShipping);
+              console.log({ address });
+            }}
             setIsEditingAddress={setIsEditingAddress}
             showEmail
           />

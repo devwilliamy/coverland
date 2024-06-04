@@ -16,7 +16,7 @@ export default function OverlappingLabel({
   errors,
   register,
   options,
-  autoComplete
+  autoComplete,
 }: OverlappingLabelProps) {
   const inputStyle = errors[name]
     ? 'text-red-900 ring-red-300 placeholder:text-red-300 focus:ring-red-500'
