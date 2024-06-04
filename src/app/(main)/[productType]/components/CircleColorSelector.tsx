@@ -29,7 +29,6 @@ export default function CircleColorSelector() {
   const modelData = useStore(store, (s) => s.modelData);
   const selectedProduct = useStore(store, (s) => s.selectedProduct);
   const setSelectedProduct = useStore(store, (s) => s.setSelectedProduct);
-  // const setSelectedSeatCoverType = useStore(store,(s) => s.setSelectedSeatCoverType)
   const params = useParams<TPathParams>();
 
   const uniqueColors: IProductData[] = Array.from(
@@ -77,7 +76,6 @@ export default function CircleColorSelector() {
                   key={`car-color-${index}`}
                   className={`flex ${modelData?.display_color === selectedProduct?.display_color && 'border-1 border border-[#6F6F6F] '} flex-col place-content-center rounded-full p-[2px] `}
                   onClick={() => {
-                    // setSelectedSeatCoverType(modelData.display_set)
                     setSelectedProduct(modelData);
                     setSelectedColor(modelData.display_color as string);
                     track('color_selected', {

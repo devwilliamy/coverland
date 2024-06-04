@@ -26,9 +26,7 @@ export default function SeatCoverSelection({
   const modelData = useStore(store,(state) => state.modelData);
   const selectedColor = useStore(store,(state) => state.selectedColor)
   const selectedProduct = useStore(store,(state) => state.selectedProduct);
-  console.log('selectedProduct',selectedProduct);
   const selectedSetDisplay = useStore(store,(state)=> state.selectedSetDisplay);
-  console.log('selectedSetDisplay',selectedSetDisplay);
   const setSelectedSetDisplay = useStore(store,(state)=> state.setSelectedSetDisplay);
   const setAvailableColors = useStore(store,(state)=> state.setAvailableColors);
   const initalSeatCover = selectedSetDisplay;
@@ -43,7 +41,6 @@ export default function SeatCoverSelection({
   const availableSeatCoversFiltered = selectedSetDisplay === 'full'
     ? fullSeatCovers
     : frontSeatCovers;
-    console.log(availableSeatCoversFiltered);
   
   const availableColors = (availableSeatCoversFiltered) =>{
     return availableSeatCoversFiltered.map((seatCover) => seatCover.display_color.toLowerCase())

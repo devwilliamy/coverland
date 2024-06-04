@@ -6,6 +6,7 @@ import { useContext } from 'react';
 import { SeatCoverSelectionContext } from '@/contexts/SeatCoverContext';
 import { useStore } from 'zustand';
 import { isFullSet } from '@/lib/utils';
+import useStoreContext from '@/hooks/useStoreContext';
 
 const safteyFirstData = [
   {
@@ -29,7 +30,7 @@ const safteyFirstData = [
 ];
 
 export default function SafetyFirstSection() {
-  const store = useContext(SeatCoverSelectionContext);
+  const store = useStoreContext()
   if (!store)
     throw new Error('Missing SeatCoverSelectionContext.Provider in the tree');
   const selectedProduct = useStore(store,(state) => state.selectedProduct);

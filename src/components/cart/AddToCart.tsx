@@ -33,7 +33,6 @@ export default function AddToCart({
   const store = useStoreContext();
   if (!store) throw new Error('Missing Provider in the tree');
   const modelData = useStore(store, (s) => s.modelData);
-  console.log('selectedProduct',selectedProduct.quantity);
   const selectedSetDisplay = useStore(store, (s) => s.selectedSetDisplay);
   const selectedColor = useStore(store, (s) => s.selectedColor);  
   const filterdData = modelData.filter(
