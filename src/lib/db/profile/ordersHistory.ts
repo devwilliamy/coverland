@@ -11,10 +11,12 @@ import { supabaseDatabaseClient } from '../supabaseClients';
 //generate new types in the Supabase dashboard to update
 //them and replace the types.ts file in this folder
 
-export async function getAllOrders() {
+export async function getAllCompleteOrders() {
   const { data, error } = await supabaseDatabaseClient
     .from(ADMIN_PANEL_ORDERS)
-    .select('*');
+    .select('*')
+
+    .eq('status', 'COMPLETE');
 
   if (error) {
     throw new Error(error.message);
