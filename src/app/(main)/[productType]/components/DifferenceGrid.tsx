@@ -215,10 +215,11 @@ export default function DifferenceGrid() {
   return (
     <div className="mt-[20px] px-2 pb-2 lg:w-full lg:px-0">
       <span className="flex w-full flex-col text-center">
-        <p className="w-full text-[22px] font-[500] leading-[24px] text-[#EBE9E9] lg:pb-[36px] lg:text-[40px] lg:font-[500]">
-          See the Difference:
-        </p>
-        <div className="flex pb-2 pt-4 italic lg:pb-5 lg:text-[28px] lg:font-[500] lg:leading-[24px] ">
+        <div className="flex w-full flex-col pb-[26px] text-center text-[22px] font-[600] leading-[26px] text-[#EBE9E9] lg:pb-[36px] lg:text-[40px] lg:font-[600] lg:leading-[48px]">
+          <p>Fabric Matters!</p>
+          <p className="font-[400]">See the Difference:</p>
+        </div>
+        <div className="flex pb-2 italic lg:pb-5 lg:text-[28px] lg:font-[500] lg:leading-[24px] ">
           <p className=" w-1/2 text-[#B5B5B5]">Others</p>
           <p className=" w-1/2  text-white">Coverland</p>
         </div>
