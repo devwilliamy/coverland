@@ -11,11 +11,22 @@ import { supabaseDatabaseClient } from '../supabaseClients';
 //generate new types in the Supabase dashboard to update
 //them and replace the types.ts file in this folder
 
+import { ReadonlyRequestCookies } from 'next/dist/server/web/spec-extension/adapters/request-cookies';
+import { SupabaseClient } from '@supabase/supabase-js';
+import { cookies } from 'next/headers';
+import { createSupabaseServerClient } from '@/lib/db/supabaseClients';
+
 export async function getAllCompleteOrders() {
+  const cookieStore: ReadonlyRequestCookies = cookies();
+  const supabase: SupabaseClient = createSupabaseServerClient(cookieStore);
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
   const { data, error } = await supabaseDatabaseClient
     .from(ADMIN_PANEL_ORDERS)
     .select('*')
-
+    .eq('customer_email', user?.email)
     .eq('status', 'COMPLETE');
 
   if (error) {
