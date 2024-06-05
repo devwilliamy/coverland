@@ -1,13 +1,10 @@
-import { createSupabaseServerClient } from '@/lib/db/supabaseClients';
+import { createSupabaseServerClient } from '@/lib/db/supabqaseClients';
 import Link from 'next/link';
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 import { ReadonlyRequestCookies } from 'next/dist/server/web/spec-extension/adapters/request-cookies';
 import { SupabaseClient } from '@supabase/supabase-js';
 import { Button } from '@/components/ui/button';
-import {
-  getAllOrders,
-} from '@/lib/db/profile/ordersHistory';
 
 async function signOut() {
   'use server';
@@ -17,8 +14,6 @@ async function signOut() {
   return redirect('/login');
 }
 
-
-
 export default async function Profile() {
   const cookieStore: ReadonlyRequestCookies = cookies();
   const supabase: SupabaseClient = createSupabaseServerClient(cookieStore);
@@ -26,11 +21,7 @@ export default async function Profile() {
     data: { user },
   } = await supabase.auth.getUser();
 
-  // let orders: any[] = [];
-
-  let orders = getAllOrders();
-
-  // console.log('orders:', orders);
+  console.log("data", user);
 
   return user ? (
     // <div className="flex h-[70vh] min-h-[70vh]">
