@@ -14,7 +14,8 @@ import { TInitialProductDataDB } from '@/lib/db';
 import { IProductData } from '@/utils';
 import { useMediaQuery } from '@mantine/hooks';
 import { Separator } from '../ui/separator';
-import { TAccessoryDataDB, TSeatCoverDataDB } from '@/lib/db/seat-covers';
+import { TSeatCoverDataDB } from '@/lib/db/seat-covers';
+import { TAccessoriesData } from '@/lib/db/accessories';
 
 type CartSheetProps = {
   open: boolean;
@@ -23,7 +24,7 @@ type CartSheetProps = {
     | TInitialProductDataDB
     | IProductData
     | TSeatCoverDataDB
-    | TAccessoryDataDB
+    | TAccessoriesData
     | null
     | undefined;
 };

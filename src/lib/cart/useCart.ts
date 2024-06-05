@@ -2,11 +2,12 @@
 import { useState, useCallback, useEffect } from 'react';
 import { IProductData } from '@/utils';
 import { SeatItem } from '@/providers/CartProvider';
-import { TAccessoryDataDB, TSeatCoverDataDB } from '../db/seat-covers';
+import { TSeatCoverDataDB } from '../db/seat-covers';
+import { TAccessoriesData } from '../db/accessories';
 export type TCartItem =
   | (IProductData & { quantity: 1 })
   | TSeatCoverDataDB
-  | TAccessoryDataDB;
+  | TAccessoriesData;
 
 const useCart = () => {
   const [cartItems, setCartItems] = useState<TCartItem[]>(() => {

@@ -4,6 +4,6 @@ import AccessoryPage from './components/AccessoryPage';
 import { CartProvider } from '@/providers/CartProvider';
 import AllAccessories from './components/AllAccessories';
 
-export default function page() {
+export default function AllAccessoriesPageRoute() {
   return <AllAccessories />;
 }

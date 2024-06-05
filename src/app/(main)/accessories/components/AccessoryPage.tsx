@@ -1,19 +1,14 @@
 'use client';
 import { Separator } from '@/components/ui/separator';
-import { Rating } from '@mui/material';
 import Image from 'next/image';
 import { Suspense, useEffect, useState } from 'react';
-import {
-  AccessoryItem,
-  CartProvider,
-  useCartContext,
-} from '@/providers/CartProvider';
+import { AccessoryItem, CartProvider } from '@/providers/CartProvider';
 import { getAccessoryBySKU, getAllAcessories } from '@/lib/db/accessories';
 import { Skeleton } from '@/components/ui/skeleton';
 import { useParams } from 'next/navigation';
-import { Button } from '@/components/ui/button';
 import { AiOutlineLoading3Quarters } from 'react-icons/ai';
-import CartSheet from '@/components/cart/CartSheet';
+import { ProductHero } from './ProductHero';
+import { AccessoryGallery } from './AccessoryGallery';
 
 type AccessoriesTheme = {
   bg: string;
@@ -35,42 +30,29 @@ const themes: Record<string, AccessoriesTheme> = {
 
 export default function AccessoryPage() {
   const [theme, setTheme] = useState<AccessoriesTheme>(themes.light);
-  // const cart = useCart();
-  const { addToCart, cartItems } = useCartContext();
-
-  let accessoryFeatures: string[] = [];
-  let accessoryBullets: string[] = [];
-  let dummyProduct: AccessoryItem = {
-    title: '',
-    sku: '',
-    msrp: '',
-    description: [],
-    images: '',
-  };
-
   const [currentAccessory, setCurrentAccessory] = useState<AccessoryItem>();
   const [imageStrings, setImageStrings] = useState<string[]>([]);
   const [loading, setLoading] = useState(false);
   const { sku } = useParams();
   useEffect(() => {
-    const gettingAcc = async () => {
+    const getAccessoryData = async () => {
       setLoading(true);
       const data = await getAccessoryBySKU(sku as string);
       const accessoryObj = data[0];
-      const accessoryImages = accessoryObj.images.split(',');
+      const accessoryImages =
+        accessoryObj && accessoryObj.images
+          ? accessoryObj.images.split(',')
+          : [''];
       setCurrentAccessory(accessoryObj);
       setImageStrings(accessoryImages);
       setLoading(false);
-      // const accessoryString = allAccessories[0]?.images;
-      // console.log({ accessoryString });
-      // return acc;
     };
-    gettingAcc();
+    getAccessoryData();
   }, []);
 
-  useEffect(() => {
-    console.log({ currentAccessory, imageStrings });
-  }, [currentAccessory, imageStrings]);
+  // useEffect(() => {
+  //   console.log({ currentAccessory, imageStrings });
+  // }, [currentAccessory, imageStrings]);
 
   if (loading) {
     return (
@@ -83,7 +65,6 @@ export default function AccessoryPage() {
   }
 
   return (
-    // <CartProvider>
     <Suspense
       fallback={
         <div className="p-4">
@@ -157,151 +138,5 @@ export default function AccessoryPage() {
       </button> */}
       </div>
     </Suspense>
-    // </CartProvider>
   );
 }
-
-const ProductHero = ({
-  isComplete,
-  product,
-}: {
-  isComplete: boolean;
-  product: AccessoryItem;
-}) => {
-  const { addToCart, cartItems } = useCartContext();
-  const [test, setTest] = useState(true);
-  const [addToCartOpen, setAddToCartOpen] = useState(false);
-  const handleAddToCart = () => {
-    addToCart({
-      ...product,
-      type: 'Accessories',
-      feature: product.images.split(',')[0],
-      price: product.msrp,
-      quantity: 1,
-    });
-    setAddToCartOpen(true);
-    console.log(cartItems);
-  };
-
-  return (
-    <div className="relative flex h-full w-full flex-col ">
-      <div className="sticky top-[20px] flex w-full flex-col gap-4 ">
-        <h1 className="text-[24px] font-[900] leading-[27px] text-[#1A1A1A] lg:text-[28px] lg:leading-[30px] ">
-          {product?.title}
-        </h1>
-        <p
-          className={`${isComplete && 'hidden'} mb-3 text-[16px] leading-[14px]`}
-        >
-          From
-        </p>
-        <div className=" flex  items-end gap-[9px]   text-center text-[28px] font-[900]  lg:text-[32px] lg:leading-[37.5px] ">
-          <div className="leading-[20px]">
-            ${isComplete ? product?.msrp : '19.99'}
-          </div>
-          {/* {selectedProduct?.price && (
-            <div className="flex gap-1.5 pb-[1px] text-[22px] font-[400] leading-[14px] text-[#BE1B1B] lg:text-[22px] ">
-              <span className=" text-[#BEBEBE] line-through">
-                ${isComplete ? `${Number(selectedProduct?.price)}` : defaultPrice}
-              </span>
-              <p>(-50%)</p>
-            </div>
-          )} */}
-        </div>
-        <div className="flex flex-col gap-0.5">
-          <Rating
-            name="read-only"
-            value={4.5}
-            precision={0.1}
-            readOnly
-            sx={{
-              gap: '2px',
-              '& .MuiRating-iconFilled': {
-                color: '#BE1B1B',
-              },
-              '& .MuiRating-iconEmpty': {
-                color: '#BE1B1B',
-              },
-            }}
-          />
-          {/* <ReviewsTextTrigger /> */}
-        </div>
-        <section className="flex flex-col">
-          <div className="mt-1 flex items-center gap-2 ">
-            {product && product?.msrp && (
-              <p className=" text-[14px] leading-[16px] text-[#767676] lg:text-[16px]">
-                4 interest-free installments of{' '}
-                <b className="font-[400] text-black">
-                  ${(Number(product?.msrp) / 4 - 0.01).toFixed(2)}
-                </b>
-              </p>
-            )}
-            {/* <Image alt="paypal-installents" src={installments} /> */}
-            {/* <Info className="h-[17px] w-[17px] text-[#767676]" /> */}
-          </div>
-        </section>
-        <Separator />
-        {/* <section className="flex flex-col gap-4 px-2 max-md:px-4 ">
-          {product?.description?.map((text) => (
-            <ul className="list-inside list-disc">
-              <li className="list-item">{text}</li>
-            </ul>
-          ))}
-        </section> */}
-        <Button
-          className=" flex h-[48px] w-full cursor-pointer items-center justify-center rounded bg-[#BE1B1B] text-lg font-bold uppercase text-white disabled:bg-[#BE1B1B] lg:h-[62px]"
-          onClick={handleAddToCart}
-        >
-          Add to Cart
-        </Button>
-        {/* <AddToCart
-        selectedProduct={selectedProduct}
-        handleAddToCart={handleAddToCart}
-        searchParams={searchParams}
-      /> */}
-        <CartSheet
-          open={addToCartOpen}
-          setOpen={setAddToCartOpen}
-          selectedProduct={product}
-        />
-      </div>
-    </div>
-  );
-};
-
-const AccessoryGallery = ({ imageStrings }: { imageStrings: string[] }) => (
-  <span className="flex flex-col gap-2">
-    {imageStrings[0] && (
-      <Image
-        src={imageStrings[0]}
-        width={700}
-        height={700}
-        alt="accessories-header"
-        className="aspect-square w-full rounded-xl  "
-      />
-    )}
-    <span className="hidden grid-cols-2 gap-2 md:grid">
-      {imageStrings?.map((image, i) => {
-        if (i === 0) {
-          return null;
-        }
-        return (
-          <Suspense
-            fallback={
-              <div className="p-4">
-                <Skeleton className="min-h-screen w-full bg-[#BE1B1B]/80 " />
-              </div>
-            }
-          >
-            <Image
-              src={image}
-              alt="accessories-header"
-              width={700}
-              height={700}
-              className="aspect-square h-full w-full rounded-xl "
-            />
-          </Suspense>
-        );
-      })}
-    </span>
-  </span>
-);

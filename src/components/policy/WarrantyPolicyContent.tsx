@@ -7,9 +7,9 @@ import PolicyTitle from '@/components/policy/PolicyTitle';
 import { usePathname } from 'next/navigation';
 
 export default function WarrantyPolicyContent({
-  showHeader,
+  showTabs,
 }: {
-  showHeader?: boolean;
+  showTabs?: boolean;
 }) {
   const path = usePathname();
   const isSeatCovers = path.startsWith('/seat-covers');
@@ -20,7 +20,7 @@ export default function WarrantyPolicyContent({
 
   return (
     <>
-      <PolicyHeader showTabs={showHeader} headerText="Warranty" />
+      <PolicyHeader showTabs={showTabs} headerText="Warranty" />
       <div className="lg:mx-auto lg:flex lg:w-[842px] lg:flex-col lg:justify-center">
         <div className="relative px-5 pb-4 lg:py-14">
           <PolicyTitle

@@ -3,10 +3,10 @@ import { useCartContext } from '@/providers/CartProvider';
 import Image from 'next/image';
 import LineSeparator from '../ui/line-separator';
 import { IProductData } from '@/utils';
-import { TAccessoryDataDB } from '@/lib/db/seat-covers';
+import { TAccessoriesData } from '@/lib/db/accessories';
 
 type AddToCartBodyProps = {
-  selectedProduct?: IProductData | TAccessoryDataDB | null | undefined;
+  selectedProduct?: IProductData | null | undefined;
 };
 
 const AddToCartBody = ({ selectedProduct }: AddToCartBodyProps) => {

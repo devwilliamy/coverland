@@ -199,11 +199,11 @@ export default function ExtraDetailsTabs() {
           <QuestionsAccordion />
         </div>
         <div id="Shipping & Returns">
-          <ShippingPolicyContent showHeader={false} />
+          <ShippingPolicyContent showTabs={false} />
         </div>
 
         <div id="Warranty">
-          <WarrantyPolicyContent showHeader={false} />
+          <WarrantyPolicyContent showTabs={false} />
         </div>
 
         {!isSeatCover && (
