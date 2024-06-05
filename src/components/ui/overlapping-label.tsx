@@ -41,7 +41,7 @@ export default function OverlappingLabel({
         <TextField
           label={title}
           fullWidth
-          required={options.required ?? false}
+          required={options?.required ?? false}
           placeholder={placeholder}
           autoComplete={autoComplete}
           {...register(name, options)}

@@ -1,28 +1,27 @@
 import { NextRequest, NextResponse } from 'next/server';
 
-const GOOGLE_PLACES_URL = `https://places.googleapis.com/v1/places:autocomplete?fields=*&access_token=${process.env.GOOGLE_MAPS_API_KEY}`;
-
+const GOOGLE_PLACES_URL = `https://places.googleapis.com/v1/places:autocomplete`;
 export async function POST(request: NextRequest) {
   const { addressInput } = await request.json();
   const res = await fetch(GOOGLE_PLACES_URL, {
     method: 'POST',
     headers: {
-      //   Authorization: `Bearer ${process.env.GOOGLE_MAPS_API_KEY}`,
       'X-Goog-Api-Key': `${process.env.GOOGLE_MAPS_API_KEY}`,
-      //   Accept: 'application/json',
+      'X-Goog-FieldMask': '*',
       'Content-Type': 'application/json',
     },
     // body: {},
     body: JSON.stringify({
       input: addressInput,
       includeQueryPredictions: true,
-      includedPrimaryTypes: [
-        'street_address',
-        'street_number',
-        'premise',
-        'geocode',
-        'postal_code',
-      ],
+      // includedPrimaryTypes: [
+      //   'street_address',
+      //   'street_number',
+      //   'premise',
+      //   'subpremise',
+      //   // 'geocode',
+      //   // 'postal_code',
+      // ],
     }),
   });
 
