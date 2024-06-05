@@ -46,6 +46,14 @@ export default async function Profile() {
           <form action={signOut}>
             <Button>Log Out</Button>
           </form>
+          <Link
+            className="mt-2"
+            href="/profile/orders"
+          >
+            <Button>
+              My Orders
+            </Button>
+          </Link>
         </div>
       </div>
     </div>
