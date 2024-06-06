@@ -20,7 +20,15 @@ export default async function Orders() {
       <h1>Orders</h1>
       <ul>
         {orders.map((order) => (
-          <li key={order.id}>{order.order_id}</li>
+          <ul
+            className='mb-2'
+            key={order.id}
+            >
+            <li>{order.order_id}</li>
+            <li>{`${order.payment_method} ${order.card_brand}`}</li>
+            <li>{`$${order.total_amount}`}</li>
+            <li>{`${order.order_date}`}</li>
+          </ul>
         ))}
       </ul>
     </div>
