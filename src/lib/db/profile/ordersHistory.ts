@@ -20,6 +20,28 @@ import { get } from 'http';
 const cookieStore: ReadonlyRequestCookies = cookies();
 const supabase: SupabaseClient = createSupabaseServerClient(cookieStore);
 
+// Define the types for your tables
+export type Product = {
+    id: number;
+    name: string;
+    price: number;
+};
+
+export type OrderItem = {
+    id: number;
+    order_id: number;
+    product_id: number;
+    quantity: number;
+    product?: Product; // Optional because it will be added after fetching
+};
+
+export type Order = {
+    id: number;
+    created_at: string;
+    total_amount: number;
+    items?: OrderItem[]; // Optional because it will be added after fetching
+};
+
 async function fetchOrders(): Promise<number[] | null> {
     const {
         data: { user },
