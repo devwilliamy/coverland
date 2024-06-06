@@ -1,11 +1,9 @@
-import { CarSelectionContext } from '@/contexts/CarSelectionContext';
 import useStoreContext from '@/hooks/useStoreContext';
 import { ReviewImageIndexContext } from '@/lib/contexts/ReviewImageIndexContext';
 import { TReviewData } from '@/lib/db/review';
 import { ChevronDown, ChevronUp } from 'lucide-react';
 import Image from 'next/image';
 import React, { useContext, useState } from 'react';
-import { ThumbsUpIcon } from '../icons';
 import { FaRegThumbsUp, FaThumbsUp } from 'react-icons/fa';
 
 function ReviewCardGallery({
@@ -70,7 +68,9 @@ function ReviewCardGallery({
           {isHelpful ? <FaThumbsUp fill="#1D8044" /> : <FaRegThumbsUp />}
 
           <p>Helpful</p>
-          <p>({isHelpful ? Number(review?.helpful) + 1 : review.helpful})</p>
+          <p>
+            ({isHelpful ? Number(review?.helpful) + 1 : review.helpful ?? 0})
+          </p>
         </div>
       </div>
 

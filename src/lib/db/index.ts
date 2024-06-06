@@ -8,7 +8,6 @@ import {
   RELATIONS_PRODUCT_TABLE,
   RPC_GET_MAKE_RELATION,
   RPC_GET_UNIQUE_YEARS,
-  SEAT_COVERS_TABLE,
   TYPE_TABLE,
 } from './constants/databaseTableNames';
 
@@ -130,20 +129,10 @@ export async function getAllUniqueMakesByYear({
   typeId: string;
   yearId: string;
 }) {
-  const { data, error } =
-    // type === 'Seat Covers'
-    //   ? await supabase
-    //       .from(SEAT_COVERS_TABLE) // OR PRODUCT_DATA_TABLE
-    //       .select('make, make_slug')
-    //       .eq('type', type)
-    //       .eq('display_id', cover)
-    //       .like('year_options', `%${year}%`)
-    //       .order('make_slug', { ascending: true })
-    //   :
-    await supabase.rpc(RPC_GET_MAKE_RELATION, {
-      type_id_web: typeId,
-      year_id_web: yearId,
-    });
+  const { data, error } = await supabase.rpc(RPC_GET_MAKE_RELATION, {
+    type_id_web: typeId,
+    year_id_web: yearId,
+  });
 
   if (error) {
     throw new Error(error.message);

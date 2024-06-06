@@ -1,14 +1,12 @@
-'use client';
-
+'use client';;
 import Image from 'next/image';
-import { Fragment, useContext, useEffect, useState } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 import { useStore } from 'zustand';
-import { CarSelectionContext } from '@/contexts/CarSelectionContext';
 import { ChevronDown, ChevronUp, X } from 'lucide-react';
 import { Dialog } from '@/components/ui/dialog';
 import { DialogContent } from '@radix-ui/react-dialog';
 import { TReviewData } from '@/lib/db';
-import { ReviewChevronLeft, ReviewChevronRight, ThumbsUpIcon } from '../icons';
+import { ReviewChevronLeft, ReviewChevronRight } from '../icons';
 import WouldRecomend from './WouldRecomend';
 import { Rating } from '@mui/material';
 import { Separator } from '@/components/ui/separator';
@@ -182,7 +180,7 @@ const ReviewImageGallery = ({
                       <p>
                         {isHelpful
                           ? Number(currentReview?.helpful) + 1
-                          : currentReview.helpful}
+                          : currentReview.helpful ?? 0}
                       </p>
                     </div>
                   </div>

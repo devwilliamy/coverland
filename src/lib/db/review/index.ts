@@ -4,7 +4,6 @@ import {
   PRODUCT_REVIEWS_TABLE,
   RPC_GET_DISTINCT_REVIEW_IMAGES,
   RPC_GET_PRODUCT_REVIEWS_SUMMARY,
-  SEAT_PRODUCT_REVIEWS_TABLE,
 } from '../constants/databaseTableNames';
 import { Tables } from '../types';
 import { getPagination } from '../utils';
@@ -152,7 +151,11 @@ export async function getProductReviewsByPage(
 
     let fetch = supabaseDatabaseClient
       .from(PRODUCT_REVIEWS_TABLE)
-      .select('*')
+      .select('review_image,review_description,review_title,rating_stars,review_author,helpful,reviewed_at')
+      // .not('helpful', 'is', null)
+      .not('sku', 'like', '%N/A%')
+      .not('review_author', 'is', null)
+
       .range(from, to);
 
     if (productType) {
@@ -201,14 +204,17 @@ export async function getProductReviewsByPage(
       }
     });
 
-    if (sort && sort.field) {
+    if (productType === 'Seat Covers') {
+      fetch = fetch.neq('sku', 'CL-SC-10--BK-1TO-')
+      fetch = fetch.order('sku', { ascending: true });
+      fetch = fetch.order('helpful', { nullsFirst: false, ascending: false });
+    } else if (sort && sort.field) {
       fetch = fetch.order(sort.field, { ascending: sort.order === 'asc' });
     }
 
     // if (search) {
     //   fetch = fetch.textSearch('review_description', search);
     // }
-
     const { data, error } = await fetch;
 
     if (error) {
