@@ -1,12 +1,11 @@
-import { getAllCompleteOrders } from '@/lib/db/profile/ordersHistory';
-
+import { fetchOrdersWithItemsAndProducts } from '@/lib/db/profile/ordersHistory';
 import { ReadonlyRequestCookies } from 'next/dist/server/web/spec-extension/adapters/request-cookies';
 import { SupabaseClient } from '@supabase/supabase-js';
 import { cookies } from 'next/headers';
 import { createSupabaseServerClient } from '@/lib/db/supabaseClients';
 
 export default async function Orders() {
-  const orders = await getAllCompleteOrders();
+  const orders = await fetchOrdersWithItemsAndProducts();
 
   const cookieStore: ReadonlyRequestCookies = cookies();
   const supabase: SupabaseClient = createSupabaseServerClient(cookieStore);
@@ -17,7 +16,25 @@ export default async function Orders() {
   return (
     <div>
       <h1>Welcome, {user?.email}</h1>
-      <div className='flex flex-col'>
+      <h1>Orders</h1>
+            {orders.map(order => (
+                <div key={order.id}>
+                    <h2>Order ID: {order.id}</h2>
+                    <p>Total Amount: {order.total_amount}</p>
+                    <p>Date: {order.created_at}</p>
+                    <h3>Items:</h3>
+                    <ul>
+                        {order.items?.map(item => (
+                            <li key={item.id}>
+                                <p>Product Name: {`${item.product?.make} ${item.product?.model} ${item.product?.type}`}</p>
+                                <p>Quantity: {item.quantity}</p>
+                                <p>Price: {item.product?.price}</p>
+                            </li>
+                        ))}
+                    </ul>
+                </div>
+            ))}
+      {/* <div className='flex flex-col'>
         <h1 className="items-center text-lg text-center font-extrabold">Orders History</h1>
         <ul className="items-center text-center">
             {orders.map((order) => (
@@ -32,7 +49,7 @@ export default async function Orders() {
             </ul>
             ))}
         </ul>
-      </div>
+      </div> */}
     </div>
   );
 }
