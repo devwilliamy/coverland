@@ -21,7 +21,7 @@ export default async function Profile() {
     data: { user },
   } = await supabase.auth.getUser();
 
-  console.log("data", user);
+  // console.log("data", user);
 
   return user ? (
     // <div className="flex h-[70vh] min-h-[70vh]">
