@@ -92,6 +92,36 @@ export const generateSlug = (text: string) => {
   return slug.trim();
 };
 
+/**
+ * Takes in an async function and will retry the function call after a delay
+ * @param fn
+ * @param retries
+ * @param delay
+ * @returns
+ */
+const retry = async <T>(
+  fn: () => Promise<T>,
+  retries: number = 3,
+  delay: number = 2000
+): Promise<T> => {
+  for (let attempt = 1; attempt <= retries; attempt++) {
+    try {
+      return await fn();
+    } catch (error) {
+      if (attempt < retries) {
+        console.warn(
+          `Attempt ${attempt} failed. Retrying in ${delay / 1000} seconds...`
+        );
+        await new Promise((res) => setTimeout(res, delay));
+      } else {
+        console.error(`All ${retries} attempts failed.`);
+        throw error;
+      }
+    }
+  }
+  throw new Error('Unexpected error in retry logic.');
+};
+
 const FilterSchema = z.object({
   field: z.string(),
   operator: z.enum(['eq', 'neq', 'gt', 'lt', 'gte', 'lte', 'notnull']),
@@ -139,88 +169,98 @@ export async function getProductReviewsByPage(
   try {
     const validatedFilters =
       ProductReviewsQueryFiltersSchema.parse(productQueryFilters);
+
     const validatedOptions = ProductReviewsQueryOptionsSchema.parse(options);
+
     const { productType, year, make, model } = validatedFilters;
+
     const {
       pagination: { page, limit },
       sort,
       filters,
       // search,
     } = validatedOptions;
+
     const { from, to } = getPagination(page, limit);
 
-    let fetch = supabaseDatabaseClient
-      .from(PRODUCT_REVIEWS_TABLE)
-      .select('review_image,review_description,review_title,rating_stars,review_author,helpful,reviewed_at')
-      // .not('helpful', 'is', null)
-      .not('sku', 'like', '%N/A%')
-      .not('review_author', 'is', null)
+    const fetchReviews = async () => {
+      let fetch = supabaseDatabaseClient
+        .from(PRODUCT_REVIEWS_TABLE)
+        .select(
+          'review_image,review_description,review_title,rating_stars,review_author,helpful,reviewed_at'
+        )
+        .not('sku', 'like', '%N/A%')
+        .not('review_author', 'is', null)
 
-      .range(from, to);
+        .range(from, to);
 
-    if (productType) {
-      fetch = fetch.eq('type', productType);
-    }
-
-    if (make) {
-      fetch = fetch.textSearch('make_slug', generateSlug(make));
-    }
-
-    if (model) {
-      fetch = fetch.textSearch('model_slug', generateSlug(model));
-    }
-
-    if (year) {
-      fetch = fetch.eq('parent_generation', year);
-    }
-
-    // Dynamically apply filters
-    filters?.forEach(({ field, operator, value }) => {
-      switch (operator) {
-        case 'eq':
-          fetch = fetch.eq(field, value);
-          break;
-        case 'neq':
-          fetch = fetch.neq(field, value);
-          break;
-        case 'gt':
-          fetch = fetch.gt(field, value);
-          break;
-        case 'lt':
-          fetch = fetch.lt(field, value);
-          break;
-        case 'gte':
-          fetch = fetch.gte(field, value);
-          break;
-        case 'lte':
-          fetch = fetch.lte(field, value);
-          break;
-        case 'notnull':
-          fetch = fetch.not(field, 'is', null);
-          break;
-        // Add cases for other operators as needed
-        default:
-          break;
+      if (productType) {
+        fetch = fetch.eq('type', productType);
       }
-    });
 
-    if (productType === 'Seat Covers') {
-      fetch = fetch.neq('sku', 'CL-SC-10--BK-1TO-')
-      fetch = fetch.order('sku', { ascending: true });
-      fetch = fetch.order('helpful', { nullsFirst: false, ascending: false });
-    } else if (sort && sort.field) {
-      fetch = fetch.order(sort.field, { ascending: sort.order === 'asc' });
-    }
+      if (make) {
+        fetch = fetch.textSearch('make_slug', generateSlug(make));
+      }
 
-    // if (search) {
-    //   fetch = fetch.textSearch('review_description', search);
-    // }
-    const { data, error } = await fetch;
+      if (model) {
+        fetch = fetch.textSearch('model_slug', generateSlug(model));
+      }
 
-    if (error) {
-      console.error(error);
-      return [];
-    }
+      if (year) {
+        fetch = fetch.eq('parent_generation', year);
+      }
+
+      // Dynamically apply filters
+      filters?.forEach(({ field, operator, value }) => {
+        switch (operator) {
+          case 'eq':
+            fetch = fetch.eq(field, value);
+            break;
+          case 'neq':
+            fetch = fetch.neq(field, value);
+            break;
+          case 'gt':
+            fetch = fetch.gt(field, value);
+            break;
+          case 'lt':
+            fetch = fetch.lt(field, value);
+            break;
+          case 'gte':
+            fetch = fetch.gte(field, value);
+            break;
+          case 'lte':
+            fetch = fetch.lte(field, value);
+            break;
+          case 'notnull':
+            fetch = fetch.not(field, 'is', null);
+            break;
+          // Add cases for other operators as needed
+          default:
+            break;
+        }
+      });
+
+      if (productType === 'Seat Covers') {
+        fetch = fetch.neq('sku', 'CL-SC-10--BK-1TO-')
+        fetch = fetch.order('sku', { ascending: true });
+        fetch = fetch.order('helpful', { nullsFirst: false, ascending: false });
+      } else if (sort && sort.field) {
+        fetch = fetch.order(sort.field, { ascending: sort.order === 'asc' });
+      }
+
+      // if (search) {
+      //   fetch = fetch.textSearch('review_description', search);
+      // }
+      const { data, error } = await fetch;
+
+      if (error) {
+        console.error('[getProductReviewsByPage]:', error);
+        throw error;
+      }
+      return data;
+    };
+
+    const data = await retry(fetchReviews, 3, 500);
 
     return filterDuplicateReviewImages({
       reviewData: data,
@@ -230,7 +270,7 @@ export async function getProductReviewsByPage(
     if (error instanceof ZodError) {
       console.error('ZodError:', error);
     }
-    console.error(error);
+    console.error('[getProductReviewsByPage] caught: ', error);
     return [];
   }
 }
@@ -250,43 +290,25 @@ export async function getAllReviewsWithImages(
       // search,
     } = validatedOptions;
 
-    // let fetch = supabaseDatabaseClient
-    //   .from(PRODUCT_REVIEWS_TABLE)
-    //   .select('*')
-    //   .not('review_image', 'is', null);
+    const fetchAllReviewsWithImages = async () => {
+      const fetch = supabaseDatabaseClient.rpc(RPC_GET_DISTINCT_REVIEW_IMAGES, {
+        p_type: productType,
+        p_make_slug: generateSlug(make as string) || null,
+        p_model_slug: generateSlug(model as string) || null,
+        p_parent_generation: year || null,
+      });
 
-    // if (productType) {
-    //   fetch = fetch.eq('type', productType);
-    // }
-    // if (make) {
-    //   fetch = fetch.textSearch('make_slug', generateSlug(make));
-    // }
+      const { data, error } = await fetch;
 
-    // if (model) {
-    //   fetch = fetch.textSearch('model_slug', generateSlug(model));
-    // }
+      if (error) {
+        console.error('[GetAllReviewsWithImages] Error: ', error);
+        throw error;
+      }
 
-    // if (year) {
-    //   fetch = fetch.eq('parent_generation', year);
-    // }
+      return data;
+    };
 
-    // if (sort && sort.field) {
-    //   fetch = fetch.order(sort.field, { ascending: sort.order === 'asc' });
-    // }
-
-    const fetch = supabaseDatabaseClient.rpc(RPC_GET_DISTINCT_REVIEW_IMAGES, {
-      p_type: productType,
-      p_make_slug: generateSlug(make as string) || null,
-      p_model_slug: generateSlug(model as string) || null,
-      p_parent_generation: year || null,
-    });
-
-    const { data, error } = await fetch;
-
-    if (error) {
-      console.error('[GetAllReviewsWithImages] Error: ', error);
-      return [];
-    }
+    const data = await retry(fetchAllReviewsWithImages, 3, 500);
 
     const filteredDuplicatedReviewImages:
       | TReviewData[]
@@ -302,7 +324,7 @@ export async function getAllReviewsWithImages(
     if (error instanceof ZodError) {
       console.error('ZodError:', error);
     }
-    console.error(error);
+    console.error('[GetAllReviewsWithImages] Caught Error: ', error);
     // return {};
     return [];
   }
@@ -348,19 +370,28 @@ export async function getProductReviewSummary(
   try {
     const validatedFilters = ProductReviewsQueryFiltersSchema.parse(filters);
     const { productType, year, make, model } = validatedFilters;
-    const fetch = supabaseDatabaseClient.rpc(RPC_GET_PRODUCT_REVIEWS_SUMMARY, {
-      type: productType || null,
-      make: generateSlug(make as string) || null,
-      model: generateSlug(model as string) || null,
-      year: year || null,
-    });
 
-    const { data, error } = await fetch;
+    const fetchReviewSummary = async () => {
+      const fetch = supabaseDatabaseClient.rpc(
+        RPC_GET_PRODUCT_REVIEWS_SUMMARY,
+        {
+          type: productType || null,
+          make: generateSlug(make as string) || null,
+          model: generateSlug(model as string) || null,
+          year: year || null,
+        }
+      );
 
-    if (error) {
-      console.error(error);
-      return { total_reviews: 0, average_score: 0 };
-    }
+      const { data, error } = await fetch;
+
+      if (error) {
+        console.error('[getProductReviewsByPage]:', error);
+        throw error;
+      }
+      return data;
+    };
+
+    const data = await retry(fetchReviewSummary, 3, 500);
 
     return {
       total_reviews: data[0].total_reviews,
@@ -370,7 +401,7 @@ export async function getProductReviewSummary(
     if (error instanceof ZodError) {
       console.error('ZodError:', error);
     }
-    console.error(error);
+    console.error('[getProductReviewSummary] caught error: ', error);
     return { total_reviews: 0, average_score: 0 };
   }
 }
@@ -397,7 +428,7 @@ export async function getProductReviewData(
     if (year) {
     }
     if (error) {
-      console.error(error);
+      console.error('[getProductReviewData] error:', error);
     }
 
     return data || [];
@@ -405,7 +436,7 @@ export async function getProductReviewData(
     if (error instanceof ZodError) {
       console.error('ZodError:', error);
     }
-    console.error(error);
+    console.error('[getProductReviewData] error:', error);
     return [];
   }
 }
@@ -467,7 +498,7 @@ export async function getProductReviewsByImage(
     const { data, error } = await fetch;
 
     if (error) {
-      console.error(error);
+      console.error('[getProductReviewsByImage] error:', error);
       return [];
     }
     const filteredDuplicatedReviewImages: TReviewData[] =
@@ -483,7 +514,8 @@ export async function getProductReviewsByImage(
     if (error instanceof ZodError) {
       console.error('ZodError:', error);
     }
-    console.error(error);
+    console.error('[getProductReviewsByImage] caught error:', error);
+
     return [];
   }
 }
