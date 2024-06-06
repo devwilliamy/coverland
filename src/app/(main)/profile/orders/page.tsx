@@ -17,20 +17,22 @@ export default async function Orders() {
   return (
     <div>
       <h1>Welcome, {user?.email}</h1>
-      <h1>Orders</h1>
-      <ul>
-        {orders.map((order) => (
-          <ul
-            className='mb-2'
-            key={order.id}
-            >
-            <li>{order.order_id}</li>
-            <li>{`${order.payment_method} ${order.card_brand}`}</li>
-            <li>{`$${order.total_amount}`}</li>
-            <li>{`${order.order_date}`}</li>
-          </ul>
-        ))}
-      </ul>
+      <div className='flex flex-col'>
+        <h1 className="items-center text-lg text-center font-extrabold">Orders History</h1>
+        <ul className="items-center text-center">
+            {orders.map((order) => (
+            <ul
+                className='mb-2'
+                key={order.id}
+                >
+                <li className="font-bold">{order.order_id}</li>
+                <li>{`${order.payment_method} ${order.card_brand}`}</li>
+                <li>{`$${order.total_amount}`}</li>
+                <li>{`${order.order_date}`}</li>
+            </ul>
+            ))}
+        </ul>
+      </div>
     </div>
   );
 }
