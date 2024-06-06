@@ -14,14 +14,14 @@ export async function POST(request: NextRequest) {
     body: JSON.stringify({
       input: addressInput,
       includeQueryPredictions: true,
-      // includedPrimaryTypes: [
-      //   'street_address',
-      //   'street_number',
-      //   'premise',
-      //   'subpremise',
-      //   // 'geocode',
-      //   // 'postal_code',
-      // ],
+      includedPrimaryTypes: [
+        'street_address',
+        'street_number',
+        'premise',
+        'subpremise',
+        //   // 'geocode',
+        'postal_code',
+      ],
     }),
   });
 

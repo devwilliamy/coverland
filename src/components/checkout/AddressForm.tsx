@@ -10,6 +10,7 @@ import CustomPhoneInput from '../ui/phone-input';
 import { parsePhoneNumberFromString } from 'libphonenumber-js';
 import StateDropdown from '../ui/state-dropdown';
 import { Autocomplete, MenuItem, TextField } from '@mui/material';
+import { ManualAdressComponents } from './ManualAdressComponents';
 
 type FormData = {
   email: string;
@@ -18,10 +19,23 @@ type FormData = {
   line1: string;
   line2: string;
   city: string;
+  country?: string;
   state: string;
   postal_code: string;
   phoneNumber: string;
 };
+
+type FormString =
+  | 'email'
+  | 'firstName'
+  | 'lastName'
+  | 'line1'
+  | 'line2'
+  | 'city'
+  | 'state'
+  | 'postal_code'
+  | 'phoneNumber'
+  | 'country';
 
 type AddressFormProps = {
   addressData: StripeAddress;
@@ -112,7 +126,7 @@ export default function AddressForm({
     }
   );
 
-  console.log('Errors', errors);
+  // console.log('Errors', errors);
   const [address, setAddress] = useState<string>('');
   const [isManualAddress, setIsManualAddress] = useState(false);
   const [suggestions, setSuggestions] = useState([]);
@@ -135,7 +149,14 @@ export default function AddressForm({
     console.log({ customerInfo, addressData });
   }, [addressData, customerInfo, setValue]);
 
-  const getAddressAutocomplete = async (addressInput: string) => {
+  const autocompleteObj: Record<string, FormString> = {
+    locality: 'city',
+    administrative_area_level_1: 'state',
+    postal_code: 'postal_code',
+    country: 'country',
+  };
+
+  const getAddressAutocompleteOptions = async (addressInput: string) => {
     setLoading(true);
     try {
       const response = await fetch('/api/places-autocomplete', {
@@ -163,26 +184,58 @@ export default function AddressForm({
 
       const data = await response.json();
       const formattedAddress = data.places[0].formattedAddress;
-      const addressComponents = data.places[0].addressComponents;
+      const addressComponents: any[] = data.places[0].addressComponents;
       console.log('FORMATTED ADDRESS SEARCH', {
         formattedAddress,
         addressComponents,
       });
-      // setValue('email', customerInfo.email || '');
-      // setValue('firstName', addressData.firstName || '');
-      // setValue('lastName', addressData.lastName || '');
-      // setValue('line1', addressData.address.line1 || '');
-      // setValue('line2', addressData.address.line2 || '');
-      // setValue('city', addressData.address.city || '');
-      // setValue('state', addressData.address.state || '');
-      // setValue('postal_code', addressData.address.postal_code || '');
-      // setValue('phoneNumber', customerInfo.phoneNumber || '');
-      // if (true) {
-      //   setValue('email', customerInfo.email || '');
-      //   setValue('firstName', addressData.firstName || '');
-      //   setValue('lastName', addressData.lastName || '');
-      //   setValue('phoneNumber', customerInfo.phoneNumber || '');
-      // }
+
+      let filteredAddressComponents = new Map();
+
+      const determineIncludes = (component) => {
+        for (const key in autocompleteObj) {
+          if (
+            component.longText &&
+            component.types &&
+            component.types.includes(key)
+          ) {
+            const val = autocompleteObj[key];
+            filteredAddressComponents.set(val, component.longText);
+            // console.log({ val, text: component.longText });
+          }
+        }
+      };
+
+      addressComponents.forEach((component, index) =>
+        determineIncludes(component)
+      );
+
+      const line1 = String(formattedAddress).split(',')[0];
+      setValue('line1', line1 ?? '');
+
+      //
+      for (const arr of filteredAddressComponents) {
+        setValue(arr[0], arr[1] ?? '');
+      }
+      // country: string;
+      // line1?: string | null;
+      // line2?: string | null;
+      // city?: string | null;
+      // postal_code?: string | null;
+      // state?: string | null;
+      const address: StripeAddress = {
+        address: {
+          line1: line1,
+          city: filteredAddressComponents.get('city'),
+          state: filteredAddressComponents.get('state'),
+          postal_code: filteredAddressComponents.get('postal_code'),
+          country: filteredAddressComponents.get('country'),
+        },
+      };
+      updateAddress();
+
+      console.log({ addressData });
+
       if (formattedAddress) {
         setAddress(formattedAddress);
       } else {
@@ -218,61 +271,10 @@ export default function AddressForm({
         options={{ required: true }}
         autoComplete="family-name"
       />
-      {/* Manual Adress Fields */}
-      {isManualAddress ? (
-        <>
-          <OverlappingLabel
-            title="Address Line 1"
-            name="line1"
-            errors={errors}
-            placeholder="123 Main Street"
-            register={register}
-            options={{ required: true }}
-            autoComplete="address-line1"
-          />
-          <OverlappingLabel
-            title="Address Line 2"
-            name="line2"
-            errors={errors}
-            placeholder="P.O. Box 123"
-            register={register}
-            autoComplete="address-line2"
-          />
-          <OverlappingLabel
-            title="City"
-            name="city"
-            errors={errors}
-            placeholder="Los Angeles"
-            register={register}
-            options={{ required: true }}
-            autoComplete="address-level2"
-          />
-          <OverlappingLabel
-            title="State"
-            name="state"
-            errors={errors}
-            placeholder="CA"
-            register={register}
-            options={{ required: true }}
-            autoComplete="address-level1"
-          />
-          <OverlappingLabel
-            title="ZIP"
-            name="postal_code"
-            errors={errors}
-            placeholder="91801"
-            register={register}
-            options={{ required: true }}
-            autoComplete="postal-code"
-          />
-        </>
-      ) : (
-        <></>
-      )}
 
-      {/* Autocomplete Fields */}
+      {/* Manual Address Fields */}
       {isManualAddress ? (
-        <></>
+        <ManualAdressComponents />
       ) : (
         <Autocomplete
           id="address-autocomplete"
@@ -301,7 +303,7 @@ export default function AddressForm({
               return '';
             }
             const val = String(newInputValue);
-            getAddressAutocomplete(val);
+            getAddressAutocompleteOptions(val);
             setAddress(val);
             console.log({ address: val });
           }}
@@ -322,20 +324,16 @@ export default function AddressForm({
               fullWidth
             >
               {suggestions.map((suggestion) => {
-                const text = suggestion.placePrediction.text.text;
-                return (
-                  <MenuItem key={`places-${text}`} value={text}>
-                    {text}
-                  </MenuItem>
-                );
+                const text = suggestion?.placePrediction?.text.text;
+                return <MenuItem value={text}>{text}</MenuItem>;
               })}
             </TextField>
           )}
           renderOption={(props, option) => {
-            const text = option.placePrediction.text.text;
+            const text = option?.placePrediction?.text.text;
             // return <option value={text}>{text}</option>;
             return (
-              <li key={`${option.placeId}`} {...props}>
+              <li {...props}>
                 <p>{text}</p>
               </li>
             );
@@ -343,6 +341,7 @@ export default function AddressForm({
           // helperText="Please complete address selection or enter an address manually."
         />
       )}
+
       <p
         className="cursor-pointer text-[14px] font-[400] leading-[16.4px] text-[#767676] underline"
         onClick={() => setIsManualAddress((prev) => !prev)}
@@ -376,154 +375,6 @@ export default function AddressForm({
           Save & Continue
         </Button>
       </div>
-      {/* <div>
-       <label htmlFor="AutocompleteAddress">Address</label>
-        <input
-          type="text"
-          placeholder="12345 Sunset Blvd, Los Angeles, CA 54321, USA"
-          name="AutocompleteAddress"
-          id="AutocompleteAddress"
-          list="addressDataList"
-          title="Address"
-          onChange={(e) => {
-            const val = e.target.value;
-            getAddressAutocomplete(val);
-            setAddress(val);
-            console.log({ address: val });
-          }}
-          value={address}
-          autoComplete="off"
-          className="block w-full rounded-lg border-0 border-[#E1E1E1] bg-[#FAFAFA] px-3 py-3  ring-1 ring-inset focus:ring-2 focus:ring-inset sm:text-base sm:leading-6 "
-        />
-        <datalist id="addressDataList" className="w-full bg-white">
-          {suggestions.map((suggestion) => {
-            const text = suggestion.placePrediction.text.text;
-            return <option value={text}>{text}</option>;
-          })}
-        </datalist> 
-        <TextField
-          label="Address"
-          placeholder="12345 Sunset Blvd, Los Angeles, CA 54321, USA"
-          name="AutocompleteAddress"
-          id="AutocompleteAddress"
-          onChange={(e) => {
-            const val = e.target.value;
-            getAddressAutocomplete(val);
-            setAddress(val);
-            console.log({ address: val });
-          }}
-          value={address}
-          // helperText="Please complete address selection or enter an address manually."
-          className="w-full"
-        >
-          {suggestions.map((suggestion) => {
-            const text = suggestion.placePrediction.text.text;
-            return (
-              <MenuItem key={`places-${text}`} value={text}>
-                {text}
-              </MenuItem>
-            );
-          })}
-        </TextField> 
-      </div> */}
-      {/* {showEmail && (
-        <OverlappingLabel
-          title="Email"
-          name="email"
-          errors={errors}
-          placeholder="abc@gmail.com"
-          register={register}
-          options={{ required: true }}
-          autoComplete="email"
-        />
-      )} */}
-      {/* {showEmail && (
-        // <OverlappingLabel
-        //   title="Phone Number"
-        //   name="phoneNumber"
-        //   errors={errors}
-        //   placeholder="+1 123 456 7890"
-        //   register={register}
-        //   options={{ required: true }}
-        //   autoComplete="tel"
-        // />
-        <CustomPhoneInput
-          label="Phone Number"
-          name="phoneNumber"
-          placeholder="+1 123 456 7890"
-          autoComplete="tel"
-          register={register}
-          errors={errors}
-          required={true}
-        />
-      )} */}
-      {/* <div className="flex flex-row pb-6">
-        
-       
-      </div> */}
-      {/* <div className="pb-6">
-        <OverlappingLabel
-          title="Address Line 1"
-          name="line1"
-          errors={errors}
-          placeholder="123 Main Street"
-          register={register}
-          options={{ required: true }}
-          autoComplete="address-line1"
-        />
-      </div> */}
-      {/* <div className="pb-6">
-        <OverlappingLabel
-          title="Address Line 2"
-          name="line2"
-          errors={errors}
-          placeholder="P.O. Box 123"
-          register={register}
-          autoComplete="address-line2"
-        />
-      </div> */}
-
-      {/* <div className="pb-6">
-        <OverlappingLabel
-          title="City"
-          name="city"
-          errors={errors}
-          placeholder="Los Angeles"
-          register={register}
-          options={{ required: true }}
-          autoComplete="address-level2"
-        />
-      </div> */}
-      {/* <div className="flex flex-row pb-6">
-        <div className="mr-2 flex-grow">
-          <OverlappingLabel
-            title="State"
-            name="state"
-            errors={errors}
-            placeholder="CA"
-            register={register}
-            options={{ required: true }}
-            autoComplete="address-level1"
-          />
-          <StateDropdown
-            name="state"
-            label="State"
-            register={register}
-            errors={errors}
-          />
-        </div>
-        <div className="ml-2 flex-grow">
-          <OverlappingLabel
-            title="ZIP"
-            name="postal_code"
-            errors={errors}
-            placeholder="91801"
-            register={register}
-            options={{ required: true }}
-            autoComplete="postal-code"
-          />
-        </div>
-      </div> */}
     </form>
   );
 }
