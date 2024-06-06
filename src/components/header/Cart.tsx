@@ -26,7 +26,8 @@ function Cart() {
 
   useEffect(() => {
     setIsClient(true);
-  }, []);
+    console.log(cartItems);
+  }, [cartItems]);
   const isMobile = useMediaQuery('(max-width: 1023px)');
 
   return (

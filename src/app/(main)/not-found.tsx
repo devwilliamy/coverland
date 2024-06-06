@@ -1,5 +1,6 @@
 import Link from 'next/link';
 
+
 export default function NotFound() {
   return (
     <div className="flex w-full flex-col items-center">

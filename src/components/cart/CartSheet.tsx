@@ -15,11 +15,18 @@ import { IProductData } from '@/utils';
 import { useMediaQuery } from '@mantine/hooks';
 import { Separator } from '../ui/separator';
 import { TSeatCoverDataDB } from '@/lib/db/seat-covers';
+import { TAccessoriesData } from '@/lib/db/accessories';
 
 type CartSheetProps = {
   open: boolean;
   setOpen: (open: boolean) => void;
-  selectedProduct: TInitialProductDataDB | IProductData | null | undefined | TSeatCoverDataDB;
+  selectedProduct:
+    | TInitialProductDataDB
+    | IProductData
+    | TSeatCoverDataDB
+    | TAccessoriesData
+    | null
+    | undefined;
 };
 const CartSheet = ({
   open,
@@ -33,7 +40,7 @@ const CartSheet = ({
         className="flex flex-col gap-0 max-lg:max-h-[85vh] max-lg:rounded-t-2xl"
         side={isMobile ? 'bottom' : 'right'}
       >
-        <SheetHeader>
+        <SheetHeader className="m-0 mb-2">
           <SheetTitle className="flex w-full items-center justify-between py-7 pl-4 pr-7">
             <AddToCartHeader />
             <SheetClose
@@ -48,7 +55,7 @@ const CartSheet = ({
               </button>
             </SheetClose>
           </SheetTitle>
-          <Separator />
+          <Separator className="m-0 my-2" />
         </SheetHeader>
         <div className=" flex h-screen w-full flex-col overflow-y-scroll px-4 ">
           <AddToCartBody selectedProduct={selectedProduct} />

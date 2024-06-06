@@ -1,5 +1,8 @@
 import { Tables } from '../types';
-import { RPC_GET_SEAT_COVER_SORTED_BY_COLOR, SEAT_COVERS_TABLE } from '../constants/databaseTableNames';
+import {
+  RPC_GET_SEAT_COVER_SORTED_BY_COLOR,
+  SEAT_COVERS_TABLE,
+} from '../constants/databaseTableNames';
 import { supabaseDatabaseClient } from '../supabaseClients';
 import { slugToCoverType } from '@/lib/constants';
 import { slugify } from '@/lib/utils';

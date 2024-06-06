@@ -6,15 +6,15 @@ import PolicyTitle from '@/components/policy/PolicyTitle';
 import { usePathname } from 'next/navigation';
 
 export default function ShippingPolicyContent({
-  showHeader,
+  showTabs,
 }: {
-  showHeader?: boolean;
+  showTabs?: boolean;
 }) {
   const path = usePathname();
   const isSeatCovers = path === '/seat-covers';
   return (
     <>
-      <PolicyHeader showHeader={showHeader} headerText="Shipping Policy" />
+      <PolicyHeader showTabs={showTabs} headerText="Shipping Policy" />
       <div className="lg:mx-auto lg:flex lg:w-[842px] lg:flex-col lg:justify-center">
         <div className="relative px-5 py-5 lg:py-14">
           <PolicyTitle title="Free Delivery" uppercase />

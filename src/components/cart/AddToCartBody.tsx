@@ -3,6 +3,7 @@ import { useCartContext } from '@/providers/CartProvider';
 import Image from 'next/image';
 import LineSeparator from '../ui/line-separator';
 import { IProductData } from '@/utils';
+import { TAccessoriesData } from '@/lib/db/accessories';
 
 type AddToCartBodyProps = {
   selectedProduct?: IProductData | null | undefined;
@@ -34,7 +35,8 @@ type CartItemProps = {
 };
 
 const CartItem = ({ item }: CartItemProps) => {
-  const imageUrl = item.type === 'Seat Covers' ? item?.product?.split(',')[0] : item?.feature 
+  const imageUrl =
+    item.type === 'Seat Covers' ? item?.product?.split(',')[0] : item?.feature;
 
   return (
     <>
@@ -51,13 +53,18 @@ const CartItem = ({ item }: CartItemProps) => {
       </div>
       <div className="pb-3 pl-5">
         <div className="w-10/12 text-base font-bold lg:text-lg">
-          {item?.display_id}&trade; {item.type}
+          {item?.display_id} {item?.title}
+          {item.type !== 'Accessories' && <>&trade;</>}
+          {item.type !== 'Accessories' && ` ${item.type}`}
         </div>
         <div className="text-sm font-normal text-[#707070] lg:text-sm">
-          Vehicle: {item?.make} {item.model} {item.year_generation}
+          {item?.make &&
+            `Vehicle: ${item?.make} ${item?.model} ${item?.year_generation} `}
           {/* {item.submodel1 && item.submodel1} */}
         </div>
-        <div className="text-sm font-normal text-[#707070] lg:text-sm">
+        <div
+          className={`${item.display_color ? 'text-sm font-normal text-[#707070] lg:text-sm' : 'hidden'}`}
+        >
           Color: {item.display_color}
         </div>
         <div className="flex text-sm font-normal text-[#707070] lg:text-sm">

@@ -1,6 +1,6 @@
 'use client';
 import { track } from '@vercel/analytics/react';
-import { Suspense, useContext, useState } from 'react';
+import { Suspense, useState } from 'react';
 import { useParams } from 'next/navigation';
 import {
   TPathParams,
@@ -8,11 +8,9 @@ import {
   getCompleteSelectionData,
 } from '../../utils';
 import { useStore } from 'zustand';
-import { CarSelectionContext } from '@/contexts/CarSelectionContext';
 import { handleAddToCartGoogleTag } from '@/hooks/useGoogleTagDataLayer';
 import AddToCartSelector from './AddToCartSelector';
 import AddToCartButton from './AddToCartButton';
-import VehicleSelector from './VehicleSelector';
 import useDetermineType from '@/hooks/useDetermineType';
 import AddtoCartSeatSelect from '../../app/(main)/seat-covers/components/AddToCartSeatSelect';
 import useStoreContext from '@/hooks/useStoreContext';
@@ -83,9 +81,9 @@ export default function AddToCart({
       {/* {!isFinalSelection && !isSticky ? (
         <VehicleSelector searchParams={searchParams} />
       ) : ( */}
-        <div className="fixed inset-x-0 bottom-0 z-20 flex bg-white p-4 lg:relative lg:p-1">
-          <AddToCartButton handleAddToCartClicked={handleAddToCartClicked} />
-        </div>
+      <div className="fixed inset-x-0 bottom-0 z-20 flex bg-white p-4 lg:relative lg:p-1">
+        <AddToCartButton handleAddToCartClicked={handleAddToCartClicked} />
+      </div>
       {/* )} */}
     </Suspense>
   );

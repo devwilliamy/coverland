@@ -3,7 +3,11 @@ import { useState, useCallback, useEffect } from 'react';
 import { IProductData } from '@/utils';
 import { SeatItem } from '@/providers/CartProvider';
 import { TSeatCoverDataDB } from '../db/seat-covers';
-export type TCartItem = (IProductData & { quantity: 1 }) | TSeatCoverDataDB;
+import { TAccessoriesData } from '../db/accessories';
+export type TCartItem =
+  | (IProductData & { quantity: 1 })
+  | TSeatCoverDataDB
+  | TAccessoriesData;
 
 const useCart = () => {
   const [cartItems, setCartItems] = useState<TCartItem[]>(() => {
@@ -67,7 +71,7 @@ const useCart = () => {
       resetCart();
     }
   }, []);
-  
+
   const getOrderSubtotal = useCallback(() => {
     return cartItems.reduce(
       (total, item) => total + Number(item.price as string) * item.quantity,

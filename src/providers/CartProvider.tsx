@@ -3,8 +3,10 @@
 import React, { createContext, useContext } from 'react';
 import useCart, { TCartItem } from '@/lib/cart/useCart';
 import { TSeatCoverDataDB } from '@/lib/db/seat-covers';
+import { TAccessoriesData } from '@/lib/db/accessories';
 
 export type SeatItem = TSeatCoverDataDB;
+export type AccessoryItem = TAccessoriesData;
 
 const defaultCartValue = {
   cartItems: [] as TCartItem[],
