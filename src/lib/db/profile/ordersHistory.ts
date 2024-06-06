@@ -94,6 +94,7 @@ export async function fetchOrdersWithItemsAndProducts() {
                 order_id: item.order_id,
                 product_id: item.product_id,
                 quantity: item.quantity,
+                price: item.price,
                 product: product
             };
         });

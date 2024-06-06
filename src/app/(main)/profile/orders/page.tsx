@@ -3,6 +3,7 @@ import { ReadonlyRequestCookies } from 'next/dist/server/web/spec-extension/adap
 import { SupabaseClient } from '@supabase/supabase-js';
 import { cookies } from 'next/headers';
 import { createSupabaseServerClient } from '@/lib/db/supabaseClients';
+import Image from 'next/image'
 
 export default async function Orders() {
   const orders = await fetchOrdersWithItemsAndProducts();
@@ -27,8 +28,16 @@ export default async function Orders() {
                         {order.items?.map(item => (
                             <li key={item.id}>
                                 <p>Product Name: {`${item.product?.make} ${item.product?.model} ${item.product?.type}`}</p>
-                                <p>Quantity: {item.quantity}</p>
                                 <p>Price: {item.product?.price}</p>
+                                <p>Quantity: {item.quantity}</p>
+                                <p>Price (Discounted): {item.product?.msrp}</p>
+                                <p>Subtotal: {item.price}</p>
+                                <Image
+                                    src={item.product?.feature}
+                                    width={200}
+                                    height={200}
+                                    alt="Picture of the Order Item"
+                                />
                             </li>
                         ))}
                     </ul>
