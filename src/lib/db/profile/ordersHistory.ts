@@ -1,5 +1,5 @@
 // import { Tables } from '../types';
-import {  ADMIN_PANEL_ORDERS } from '../constants/databaseTableNames';
+import {  ADMIN_PANEL_ORDERS, ADMIN_PANEL_ORDER_ITEMS } from '../constants/databaseTableNames';
 import { supabaseDatabaseClient } from '../supabaseClients';
 // import { slugToCoverType } from '@/lib/constants';
 // import { slugify } from '@/lib/utils';
@@ -35,4 +35,17 @@ export async function getAllCompleteOrders() {
 
   console.log("orders", data[0]);
   return data;
+}
+
+export async function getOrderItemsByOrderId(id) {
+    const { data, error } = await supabaseDatabaseClient
+    .from(ADMIN_PANEL_ORDER_ITEMS)
+    .select('*')
+    .eq('order_id', id);
+
+  if (error) {
+    throw new Error(error.message);
+  }
+
+  console.log("order items", data);
 }
