@@ -1,5 +1,5 @@
 // takes input isoDateString and returns mm/dd/yyyy
-export default function formatISODate(isoDateString: string): string {
+export function formatISODate(isoDateString: string): string {
     const date = new Date(isoDateString);
 
     // Check if the date is valid
@@ -13,5 +13,3 @@ export default function formatISODate(isoDateString: string): string {
   
     return `${month}/${day}/${year}`;
   }
-
-  console.log(formatISODate("2024-06-05T23:33:08.753308+00:00"));
