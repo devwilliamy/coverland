@@ -17,6 +17,8 @@ import { cookies } from 'next/headers';
 import { createSupabaseServerClient } from '@/lib/db/supabaseClients';
 import { get } from 'http';
 
+import { formatISODate } from '@/lib/db/profile/utils/date';
+
 const cookieStore: ReadonlyRequestCookies = cookies();
 const supabase: SupabaseClient = createSupabaseServerClient(cookieStore);
 
@@ -140,7 +142,7 @@ export async function fetchOrdersWithItemsAndProducts() {
         return {
             id: order.id,
             total_amount: order.total_amount,
-            created_at: order.created_at,
+            created_at: formatISODate(order.created_at) || order.created_at,
             items: items
         };
     });
