@@ -138,6 +138,7 @@ export default function Payment() {
           result.paymentIntent &&
           result.paymentIntent.status === 'succeeded'
         ) {
+          // SendGrid Thank You Email
           const emailInput = {
             to: customerInfo.email,
             name: {
@@ -170,6 +171,7 @@ export default function Payment() {
             );
           }
 
+          // Meta Conversion API
           const skus = getSkusFromCartItems(cartItems);
           const skusWithQuantityMsrpForMeta =
             getSkuQuantityPriceFromCartItemsForMeta(cartItems);
@@ -244,6 +246,7 @@ export default function Payment() {
             });
           }
 
+          // Google Conversion API
           const enhancedGoogleConversionInput = {
             email: customerInfo.email || '',
             phone_number: shippingAddress.phone || '',
@@ -256,18 +259,73 @@ export default function Payment() {
             country: shippingAddress.address.country || '',
           };
 
-          handlePurchaseGoogleTag(
-            cartItems,
-            orderNumber,
-            getTotalPrice().toFixed(2),
-            clearLocalStorageCart,
-            enhancedGoogleConversionInput
+          // handlePurchaseGoogleTag(
+          //   cartItems,
+          //   orderNumber,
+          //   getTotalPrice().toFixed(2),
+          //   clearLocalStorageCart,
+          //   enhancedGoogleConversionInput
+          // );
+
+          const exampleOrder = {
+            store_id: '62f0fcbffc3f4e916f865d6a',
+            order_number: orderNumber,
+            stash: {
+              store_id: '62f0fcbffc3f4e916f865d6a',
+              type: 'manual',
+              id: orderNumber,
+              notes: 'TEST ORDER',
+              date: '2024-06-07T13:01:00-07:00',
+              items: [
+                {
+                  quantity: 1,
+                  price: 279.95,
+                  type: 'item',
+                  id: '66283531141d505bdb1c491b',
+                  lineSku: 'CA-SC-10-FB-125-BK-1TO',
+                  lineName: 'Car Seat Cover FB-125 (Full Set) - Black',
+                },
+              ],
+              discount: 0,
+              shipping: 0,
+              financial_status: '',
+              tax: 0,
+              total: 279.95,
+              shipping_information: {
+                name: 'William Test User',
+                phone: '16267368476',
+                email: 'dev.william.coverland@gmail.com',
+                company: 'Coverland',
+                city: 'Norwalk',
+                country: 'US',
+                state: 'CA',
+                zip: '90650',
+                address: '15529 Blackburn Ave',
+                address_2: '',
+                method: '2 day free shipping',
+              },
+              tags: ['Coverland'],
+            },
+          };
+
+          // SKU Labs Order Creation
+          // Post Items
+          const skuLabCreateOrderResponse = await fetch(
+            '/api/sku-labs/orders',
+            {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({ order: exampleOrder }),
+            }
           );
+          debugger;
 
           const { id, client_secret } = result.paymentIntent;
-          router.push(
-            `/thank-you?order_number=${orderNumber}&payment_intent=${id}&payment_intent_client_secret=${client_secret}`
-          );
+          // router.push(
+          //   `/thank-you?order_number=${orderNumber}&payment_intent=${id}&payment_intent_client_secret=${client_secret}`
+          // );
         }
       })
       .finally(() => {
