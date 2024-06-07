@@ -18,7 +18,10 @@ import { SeatCoverSelectionContext } from '@/contexts/SeatCoverContext';
 import ReviewCard from '@/components/PDP/components/ReviewCard';
 import ReviewHeaderGallery from '@/components/PDP/components/ReviewHeaderGallery';
 import ReviewPercentCircle from '@/components/PDP/components/ReviewPercentCircle';
-import { determineShortReviewCount } from '@/lib/utils';
+import {
+  determineShortReviewCount,
+  generateNumberFromCarBuild,
+} from '@/lib/utils';
 import useDetermineType from '@/hooks/useDetermineType';
 
 const SeatCoverReviewSection = ({ showHeader }: { showHeader?: boolean }) => {
@@ -28,7 +31,7 @@ const SeatCoverReviewSection = ({ showHeader }: { showHeader?: boolean }) => {
   const reviewData = useStore(store, (s) => s.reviewData);
   const setReviewData = useStore(store, (s) => s.setReviewData);
   const reviewImageTracker = useStore(store, (s) => s.reviewImageTracker);
-
+  const selectedProduct = useStore(store, (s) => s.selectedProduct);
   const { total_reviews, average_score } = useStore(
     store,
     (s) => s.reviewDataSummary
@@ -49,7 +52,15 @@ const SeatCoverReviewSection = ({ showHeader }: { showHeader?: boolean }) => {
 
   const areThereMoreReviews = reviewData.length < total_reviews;
   const typeString = 'Seat Covers';
-
+  const generatedReviewScore =
+    selectedProduct &&
+    generateNumberFromCarBuild(
+      selectedProduct.type,
+      selectedProduct.display_id,
+      selectedProduct.make,
+      selectedProduct.model,
+      selectedProduct.year_generation
+    ).toFixed(1);
   /**
    * Sets reviewImage back to <string, false>
    * Used for filterByImage quick fix, can get rid later
@@ -331,7 +342,7 @@ const SeatCoverReviewSection = ({ showHeader }: { showHeader?: boolean }) => {
           <header className="flex w-full flex-col items-center pb-[30px] lg:max-w-[1080px]  lg:flex-row lg:pb-[80px] lg:pt-[80px]">
             <div className="flex w-full min-w-[188px] items-center lg:justify-center ">
               <p className="pl-0.5 text-[40px] font-black lg:pl-0 lg:text-[60px]">
-                {average_score?.toFixed(1) || '4.9'}
+                {generatedReviewScore || '4.9'}
               </p>
               <div className="flex flex-col items-stretch  gap-1 pl-4 text-yellow-300 ">
                 <div className="pt-[30px] lg:pt-[35px]">
