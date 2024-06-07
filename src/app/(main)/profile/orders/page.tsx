@@ -28,16 +28,16 @@ export default async function Orders() {
                         {order.items?.map(item => (
                             <li key={item.id}>
                                 <p>Product Name: {`${item.product?.make} ${item.product?.model} ${item.product?.type}`}</p>
-                                <p>Price: {item.product?.price}</p>
-                                <p>Quantity: {item.quantity}</p>
-                                <p>Price (Discounted): {item.product?.msrp}</p>
-                                <p>Subtotal: {item.price}</p>
                                 <Image
                                     src={item.product?.feature}
                                     width={200}
                                     height={200}
                                     alt="Picture of the Order Item"
                                 />
+                                {/* <p>Price: {item.product?.price}</p> */}
+                                <p>Quantity: {item.quantity}</p>
+                                <p>Price (Discounted): {item.product?.msrp}</p>
+                                <p>Subtotal: {item.price}</p>
                             </li>
                         ))}
                     </ul>

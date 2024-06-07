@@ -43,14 +43,30 @@ export type Order = {
 };
 
 async function fetchOrders(): Promise<number[] | null> {
+    const cookieStore: ReadonlyRequestCookies = cookies();
+    const supabase: SupabaseClient = createSupabaseServerClient(cookieStore);
     const {
-        data: { user },
+      data: { user },
     } = await supabase.auth.getUser();
+
+    if (!user) {
+        console.error('No user is logged in');
+        return null;
+    }
+
+    console.log('Logged in user:', user);
+    // user object has unique UUID ('user_id') in supabase
+    const userId = user.id;
 
     const { data, error } = await supabase
         .from<Order>(ADMIN_PANEL_ORDERS)
+        // if you want to grab orderItems by order ids only
         // .select('id')
+        // this returns a inner join between orders and auth.users
+        // .select('*, users(*)')
         .select('*')
+        // filter by logged in user_id (currently does not exist in Users table, need to add it?)
+        // .eq('user_id', userId)
         .eq('customer_email', user?.email)
         .eq('status', 'COMPLETE');
 
