@@ -17,13 +17,17 @@ import { PaymentMethod, StripeAddress } from '@/lib/types/checkout';
 import BillingAddress from './BillingAddress';
 import { useCartContext } from '@/providers/CartProvider';
 import {
+  convertPriceFromStripeFormat,
   convertPriceToStripeFormat,
   getSkuQuantityPriceFromCartItemsForMeta,
   getSkusAndQuantityFromCartItems,
   getSkusFromCartItems,
 } from '@/lib/utils/stripe';
 import { sendThankYouEmail } from '@/lib/sendgrid/emails/thank-you';
-import { getCurrentDayInLocaleDateString } from '@/lib/utils/date';
+import {
+  getCurrentDateInPST,
+  getCurrentDayInLocaleDateString,
+} from '@/lib/utils/date';
 import { useRouter } from 'next/navigation';
 import { handlePurchaseGoogleTag } from '@/hooks/useGoogleTagDataLayer';
 import { hashData } from '@/lib/utils/hash';
@@ -267,41 +271,40 @@ export default function Payment() {
           //   enhancedGoogleConversionInput
           // );
 
-          const exampleOrder = {
-            store_id: '62f0fcbffc3f4e916f865d6a',
+          const skuLabOrderInput = {
+            store_id: '62f0fcbffc3f4e916f865d6a', // Hard Coded for now
             order_number: orderNumber,
             stash: {
-              store_id: '62f0fcbffc3f4e916f865d6a',
+              store_id: '62f0fcbffc3f4e916f865d6a', // Hard Coded for now, must match store_id higher up
               type: 'manual',
               id: orderNumber,
-              notes: 'TEST ORDER',
-              date: '2024-06-07T13:01:00-07:00',
-              items: [
-                {
-                  quantity: 1,
-                  price: 279.95,
-                  type: 'item',
-                  id: '66283531141d505bdb1c491b',
-                  lineSku: 'CA-SC-10-FB-125-BK-1TO',
-                  lineName: 'Car Seat Cover FB-125 (Full Set) - Black',
-                },
-              ],
-              discount: 0,
-              shipping: 0,
+              notes: `${JSON.stringify(skusWithQuantityMsrpForMeta)}`,
+              date: getCurrentDateInPST(),
+              items: cartItems.map((cartItem) => ({
+                quantity: cartItem.quantity,
+                price: cartItem.msrp,
+                type: 'item', // Item Or Kit (for Full Seat Cover bundle)
+                // lineSku: '', // In the future will need to grab the SKU Lab sku
+                // id: '' // In the future need to grab SKU Lab item id
+                // lineName: '' // In the future need to grab SKU Lab lineName
+                // lineId: '' // In the future will need to grab from SKU Lab
+              })),
+              discount: 0, // TODO: Currently no promo, but need to update later
+              shipping: 0, // TODO: Currently no shipping, but need to update later
               financial_status: '',
-              tax: 0,
-              total: 279.95,
+              tax: 0, // Currently no tax
+              total: convertPriceFromStripeFormat(totalMsrpPrice),
               shipping_information: {
-                name: 'William Test User',
-                phone: '16267368476',
-                email: 'dev.william.coverland@gmail.com',
-                company: 'Coverland',
-                city: 'Norwalk',
-                country: 'US',
-                state: 'CA',
-                zip: '90650',
-                address: '15529 Blackburn Ave',
-                address_2: '',
+                name: shippingAddress.name,
+                phone: shippingAddress.phone,
+                email: customerInfo.email,
+                company: '',
+                city: shippingAddress.address.city,
+                country: shippingAddress.address.country,
+                state: shippingAddress.address.state,
+                zip: shippingAddress.address.postal_code,
+                address: shippingAddress.address.line1,
+                address_2: shippingAddress.address.line2,
                 method: '2 day free shipping',
               },
               tags: ['Coverland'],
@@ -310,6 +313,7 @@ export default function Payment() {
 
           // SKU Labs Order Creation
           // Post Items
+          console.log('[skuLabOrderInput]:', skuLabOrderInput);
           const skuLabCreateOrderResponse = await fetch(
             '/api/sku-labs/orders',
             {
@@ -317,7 +321,7 @@ export default function Payment() {
               headers: {
                 'Content-Type': 'application/json',
               },
-              body: JSON.stringify({ order: exampleOrder }),
+              body: JSON.stringify({ order: skuLabOrderInput }),
             }
           );
           debugger;
