@@ -3,7 +3,8 @@ import { ReadonlyRequestCookies } from 'next/dist/server/web/spec-extension/adap
 import { SupabaseClient } from '@supabase/supabase-js';
 import { cookies } from 'next/headers';
 import { createSupabaseServerClient } from '@/lib/db/supabaseClients';
-import Image from 'next/image'
+import Image from 'next/image';
+import OrderItemCard from '@/components/profile/orders/OrderItemCard';
 
 export default async function Orders() {
   const orders = await fetchOrdersWithItemsAndProducts();
@@ -16,8 +17,11 @@ export default async function Orders() {
 
   return (
     <div>
+      <OrderItemCard/>
       <h1>Welcome, {user?.email}</h1>
-      <h1>Orders</h1>
+      <h1 className='text-2xl font-bold'>My Orders</h1>
+      <p className='text-gray-500'>View, Manage and track orders</p>
+      <h2>Recent Orders</h2>
             {orders.map(order => (
                 <div key={order.id}>
                     <h2>Order ID: {order.id}</h2>
