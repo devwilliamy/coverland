@@ -1,57 +1,18 @@
 import { NextRequest, NextResponse } from 'next/server';
 
-// Define the type for items within the stash
-type SkuLabItem = {
-  quantity: number;
-  price: number;
-  type: string;
-  id: string;
-  lineSku: string;
-  lineName: string;
-};
-
-// Define the type for shipping information within the stash
-type SkuLabShippingInformation = {
-  name: string;
-  phone: string;
-  email: string;
-  company: string;
-  city: string;
-  country: string;
-  state: string;
-  zip: string;
-  address: string;
-  address_2: string;
-  method: string;
-};
-
-// Define the type for the stash itself
-type SkuLabStash = {
-  store_id: string;
-  type: string;
-  id: string;
-  notes: string;
-  date: string;
-  items: SkuLabItem[];
-  discount: number;
-  shipping: number;
-  financial_status: string;
-  tax: number;
-  total: number;
-  shipping_information: SkuLabShippingInformation;
-  tags: string[];
-};
-
-// Define the type for the main structure
-type SkuLabOrderDTO = {
-  store_id: string;
-  order_number: string;
-  stash: SkuLabStash;
+export type SkuLabOrderResponse = {
+  data?: {
+    success: boolean;
+    store_id: string;
+    order_number: string;
+  };
+  error?: string;
+  status?: number;
 };
 
 const SKU_LAB_URL = 'https://api.skulabs.com';
 
-export async function POST(request: NextRequest) {
+export async function POST(request: NextRequest): Promise<SkuLabOrderResponse> {
   // TODO: Probably good to have schema validation here
   const { order } = await request.json();
   if (!order) {
@@ -77,6 +38,7 @@ export async function POST(request: NextRequest) {
     console.info('[SkulabPost] Data:', data);
     return NextResponse.json({
       data,
+      status: 200,
     });
   } catch (error) {
     console.error(

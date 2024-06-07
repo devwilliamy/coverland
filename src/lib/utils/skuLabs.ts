@@ -4,6 +4,55 @@ import { StripeAddress } from '../types/checkout';
 import { getCurrentDateInPST } from './date';
 import { convertPriceFromStripeFormat } from './stripe';
 
+// Define the type for items within the stash
+type SkuLabItem = {
+  quantity: number;
+  price: number;
+  type: string;
+  id?: string; // temp optional
+  lineSku?: string; // temp optional
+  lineName?: string; // temp optional
+};
+
+// Define the type for shipping information within the stash
+type SkuLabShippingInformation = {
+  name: string;
+  phone: string;
+  email: string;
+  company: string;
+  city: string;
+  country: string;
+  state: string;
+  zip: string;
+  address: string;
+  address_2: string;
+  method: string;
+};
+
+// Define the type for the stash itself
+type SkuLabStash = {
+  store_id: string;
+  type: string;
+  id: string;
+  notes: string;
+  date: string;
+  items: SkuLabItem[];
+  discount: number;
+  shipping: number;
+  financial_status: string;
+  tax: number;
+  total: number;
+  shipping_information: SkuLabShippingInformation;
+  tags: string[];
+};
+
+// Define the type for the main structure
+type SkuLabOrderDTO = {
+  store_id: string;
+  order_number: string;
+  stash: SkuLabStash;
+};
+
 type SkuLabOrderInput = {
   orderNumber: string;
   cartItems: TCartItem[];
@@ -33,7 +82,7 @@ export const generateSkuLabOrderInput = ({
   totalMsrpPrice,
   shippingAddress,
   customerInfo,
-}: SkuLabOrderInput) => {
+}: SkuLabOrderInput): SkuLabOrderDTO => {
   const notes = generateNote(cartItems);
   return {
     store_id: '62f0fcbffc3f4e916f865d6a', // Hard Coded for now
@@ -43,10 +92,10 @@ export const generateSkuLabOrderInput = ({
       type: 'manual',
       id: orderNumber,
       notes: notes,
-      date: getCurrentDateInPST(),
+      date: getCurrentDateInPST() as string,
       items: cartItems.map((cartItem) => ({
-        quantity: cartItem.quantity,
-        price: cartItem.msrp,
+        quantity: cartItem.quantity as number,
+        price: cartItem.msrp as number,
         type: 'item', // Item Or Kit (for Full Seat Cover bundle)
         // lineSku: '', // In the future will need to grab the SKU Lab sku
         // id: '' // In the future need to grab SKU Lab item id
@@ -60,15 +109,15 @@ export const generateSkuLabOrderInput = ({
       total: convertPriceFromStripeFormat(totalMsrpPrice),
       shipping_information: {
         name: shippingAddress.name,
-        phone: shippingAddress.phone,
+        phone: shippingAddress.phone || '',
         email: customerInfo.email,
         company: '',
-        city: shippingAddress.address.city,
+        city: shippingAddress.address.city || '',
         country: shippingAddress.address.country,
-        state: shippingAddress.address.state,
-        zip: shippingAddress.address.postal_code,
-        address: shippingAddress.address.line1,
-        address_2: shippingAddress.address.line2,
+        state: shippingAddress.address.state || '',
+        zip: shippingAddress.address.postal_code || '',
+        address: shippingAddress.address.line1 || '',
+        address_2: shippingAddress.address.line2 || '',
         method: '2 day free shipping',
       },
       tags: ['Coverland'],
