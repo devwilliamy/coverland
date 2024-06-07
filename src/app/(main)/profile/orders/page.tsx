@@ -1,4 +1,4 @@
-import { fetchOrdersWithItemsAndProducts } from '@/lib/db/profile/ordersHistory';
+import { TUserOrders, TOrderItem, TOrderItemProduct, TInitialOrderItemsDataDB, TInitialOrdersDataDB, TInitialProductDataDB, fetchUserRecentOrders } from '@/lib/db/profile/ordersHistory';
 import { ReadonlyRequestCookies } from 'next/dist/server/web/spec-extension/adapters/request-cookies';
 import { SupabaseClient } from '@supabase/supabase-js';
 import { cookies } from 'next/headers';
@@ -7,7 +7,7 @@ import Image from 'next/image';
 import OrderItemCard from '@/components/profile/orders/OrderItemCard';
 
 export default async function Orders() {
-  const orders = await fetchOrdersWithItemsAndProducts();
+  const orders: TInitialOrdersDataDB[] = await fetchUserRecentOrders(3);
 
   const cookieStore: ReadonlyRequestCookies = cookies();
   const supabase: SupabaseClient = createSupabaseServerClient(cookieStore);
@@ -22,16 +22,17 @@ export default async function Orders() {
       <h1 className='text-2xl font-bold'>My Orders</h1>
       <p className='text-gray-500'>View, Manage and track orders</p>
       <h2>Recent Orders</h2>
-            {orders.map(order => (
+            {orders.map((order: TInitialOrdersDataDB) => (
                 <div key={order.id}>
                     <h2>Order ID: {order.id}</h2>
                     <p>Total Amount: {order.total_amount}</p>
-                    <p>Date: {order.created_at}</p>
+                    <p>Date: {order.payment_date}</p>
                     <h3>Items:</h3>
                     <ul>
-                        {order.items?.map(item => (
+                        {order.items?.map((item: TInitialOrderItemsDataDB) => (
                             <li key={item.id}>
                                 <p>Product Name: {`${item.product?.make} ${item.product?.model} ${item.product?.type}`}</p>
+                                <p>Color: {item.product?.display_color}</p>
                                 <Image
                                     src={item.product?.feature}
                                     width={200}

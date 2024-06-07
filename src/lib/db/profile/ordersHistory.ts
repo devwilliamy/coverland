@@ -18,35 +18,39 @@ import { createSupabaseServerClient } from '@/lib/db/supabaseClients';
 import { get } from 'http';
 
 import { formatISODate } from '@/lib/db/profile/utils/date';
+import { TInitialProductDataDB } from '..';
+import { Tables } from '../types';
 
 const cookieStore: ReadonlyRequestCookies = cookies();
 const supabase: SupabaseClient = createSupabaseServerClient(cookieStore);
 
-// Define the types for your tables
-export type Product = {
+// these types model the entire database tables, in case other columns will be used inside User Profile > Orders in the future
+export type TInitialOrdersDataDB = Tables<'_Orders'>;
+export type TInitialOrderItemsDataDB = Tables<'orderItems_table'>;
+
+// These custom types are utilized on the actual Profile > Order page and only contain columns that are necessary
+export type TOrderItemProduct = {
     id: number;
     name: string;
     price: number;
 };
 
-export type OrderItem = {
+export type TOrderItem = {
     id: number;
     order_id: number;
     product_id: number;
     quantity: number;
-    product?: Product; // Optional because it will be added after fetching
+    product?: TInitialProductDataDB; // Optional because it will be added after fetching
 };
 
-export type Order = {
+export type TUserOrders = {
     id: number;
-    created_at: string;
+    payment_date: string;
     total_amount: number;
-    items?: OrderItem[]; // Optional because it will be added after fetching
+    items?: TInitialOrderItemsDataDB[]; // Optional because it will be added after fetching
 };
 
-async function fetchOrders(): Promise<number[] | null> {
-    const cookieStore: ReadonlyRequestCookies = cookies();
-    const supabase: SupabaseClient = createSupabaseServerClient(cookieStore);
+async function fetchUserOrders(ordersQuantity: number): Promise<TUserOrders[] | null> {
     const {
       data: { user },
     } = await supabase.auth.getUser();
@@ -70,7 +74,9 @@ async function fetchOrders(): Promise<number[] | null> {
         // filter by logged in user_id (currently does not exist in Users table, need to add it?)
         // .eq('user_id', userId)
         .eq('customer_email', user?.email)
-        .eq('status', 'COMPLETE');
+        .eq('status', 'COMPLETE')
+        .order('payment_date', { ascending: false }) // Order by latest date in descending order
+        .limit(ordersQuantity);
 
     if (error) {
         console.error('Error fetching order IDs:', error);
@@ -81,7 +87,7 @@ async function fetchOrders(): Promise<number[] | null> {
     return data
 }
 
-async function fetchOrderItems(orderIds: number[]): Promise<OrderItem[] | null> {
+async function fetchOrderItems(orderIds: number[]): Promise<TOrderItem[] | null> {
     const { data, error } = await supabase
         .from<OrderItem>(ADMIN_PANEL_ORDER_ITEMS)
         .select('*')
@@ -95,7 +101,7 @@ async function fetchOrderItems(orderIds: number[]): Promise<OrderItem[] | null> 
     return data;
 }
 
-async function fetchProducts(productIds: number[]): Promise<Product[] | null> {
+async function fetchOrderItemProducts(productIds: number[]): Promise<TOrderItemProduct[] | null> {
     const { data, error } = await supabase
         .from<Product>(ADMIN_PANEL_PRODUCTS)
         .select('*')
@@ -109,8 +115,9 @@ async function fetchProducts(productIds: number[]): Promise<Product[] | null> {
     return data;
 }
 
-export async function fetchOrdersWithItemsAndProducts() {
-    const orders = await fetchOrders();
+export async function fetchUserRecentOrders(ordersQuantity: number): Promise<TUserOrders[]> {
+    // fetch recent user orders
+    const orders = await fetchUserOrders(ordersQuantity);
     if (!orders) return;
 
     const orderIds = orders.map(order => order.id);
@@ -122,11 +129,11 @@ export async function fetchOrdersWithItemsAndProducts() {
     const productIds = orderItems.map(item => item.product_id);
     console.log('Fetched product IDs:', productIds);
 
-    const products = await fetchProducts(productIds);
+    const products = await fetchOrderItemProducts(productIds);
     if (!products) return;
 
     // Combine the data as needed
-    const ordersWithItemsAndProducts = orders.map(order => {
+    const userOrdersWithItemsAndProducts = orders.map(order => {
         const items = orderItems.filter(item => item.order_id === order.id).map(item => {
             const product = products.find(product => product.id === item.product_id);
             return {
@@ -142,21 +149,21 @@ export async function fetchOrdersWithItemsAndProducts() {
         return {
             id: order.id,
             total_amount: order.total_amount,
-            created_at: formatISODate(order.created_at) || order.created_at,
+            payment_date: formatISODate(order.payment_date) || order.payment_date,
             items: items
         };
     });
 
-    console.log('Orders with their items and products:', ordersWithItemsAndProducts);
+    console.log('Orders with their items and products:', userOrdersWithItemsAndProducts);
 
-    ordersWithItemsAndProducts.forEach(order => {
+    userOrdersWithItemsAndProducts.forEach(order => {
         console.log('order items', order.items)
         order.items.forEach(item => { 
             // console.log('product item', item) 
         })     
     })
 
-    return ordersWithItemsAndProducts;
+    return userOrdersWithItemsAndProducts;
 }
 
 // fetchOrdersWithItemsAndProducts();
