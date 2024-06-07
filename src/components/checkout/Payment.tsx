@@ -1,11 +1,5 @@
-import {
-  PaymentElement,
-  PaymentRequestButtonElement,
-  useElements,
-  useStripe,
-} from '@stripe/react-stripe-js';
-import PromoCode from './PromoCode';
-import { FormEvent, useEffect, useState } from 'react';
+import { PaymentElement, useElements, useStripe } from '@stripe/react-stripe-js';
+import { FormEvent, useState } from 'react';
 import OrderReview from './OrderReview';
 import PriceBreakdown from './PriceBreakdown';
 import { Button } from '../ui/button';
@@ -17,22 +11,17 @@ import { PaymentMethod, StripeAddress } from '@/lib/types/checkout';
 import BillingAddress from './BillingAddress';
 import { useCartContext } from '@/providers/CartProvider';
 import {
-  convertPriceFromStripeFormat,
   convertPriceToStripeFormat,
   getSkuQuantityPriceFromCartItemsForMeta,
-  getSkusAndQuantityFromCartItems,
   getSkusFromCartItems,
 } from '@/lib/utils/stripe';
-import { sendThankYouEmail } from '@/lib/sendgrid/emails/thank-you';
-import {
-  getCurrentDateInPST,
-  getCurrentDayInLocaleDateString,
-} from '@/lib/utils/date';
+import { getCurrentDayInLocaleDateString } from '@/lib/utils/date';
 import { useRouter } from 'next/navigation';
 import { handlePurchaseGoogleTag } from '@/hooks/useGoogleTagDataLayer';
 import { hashData } from '@/lib/utils/hash';
 import { getCookie } from '@/lib/utils/cookie';
 import { v4 as uuidv4 } from 'uuid';
+import { generateSkuLabOrderInput } from '@/lib/utils/skuLabs';
 
 function isValidShippingAddress({ address }: StripeAddress) {
   return (
@@ -250,6 +239,27 @@ export default function Payment() {
             });
           }
 
+          const skuLabOrderInput = generateSkuLabOrderInput({
+            orderNumber,
+            cartItems,
+            totalMsrpPrice,
+            shippingAddress,
+            customerInfo,
+          });
+
+          // SKU Labs Order Creation
+          // Post Items
+          const skuLabCreateOrderResponse = await fetch(
+            '/api/sku-labs/orders',
+            {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({ order: skuLabOrderInput }),
+            }
+          );
+
           // Google Conversion API
           const enhancedGoogleConversionInput = {
             email: customerInfo.email || '',
@@ -263,73 +273,18 @@ export default function Payment() {
             country: shippingAddress.address.country || '',
           };
 
-          // handlePurchaseGoogleTag(
-          //   cartItems,
-          //   orderNumber,
-          //   getTotalPrice().toFixed(2),
-          //   clearLocalStorageCart,
-          //   enhancedGoogleConversionInput
-          // );
-
-          const skuLabOrderInput = {
-            store_id: '62f0fcbffc3f4e916f865d6a', // Hard Coded for now
-            order_number: orderNumber,
-            stash: {
-              store_id: '62f0fcbffc3f4e916f865d6a', // Hard Coded for now, must match store_id higher up
-              type: 'manual',
-              id: orderNumber,
-              notes: `${JSON.stringify(skusWithQuantityMsrpForMeta)}`,
-              date: getCurrentDateInPST(),
-              items: cartItems.map((cartItem) => ({
-                quantity: cartItem.quantity,
-                price: cartItem.msrp,
-                type: 'item', // Item Or Kit (for Full Seat Cover bundle)
-                // lineSku: '', // In the future will need to grab the SKU Lab sku
-                // id: '' // In the future need to grab SKU Lab item id
-                // lineName: '' // In the future need to grab SKU Lab lineName
-                // lineId: '' // In the future will need to grab from SKU Lab
-              })),
-              discount: 0, // TODO: Currently no promo, but need to update later
-              shipping: 0, // TODO: Currently no shipping, but need to update later
-              financial_status: '',
-              tax: 0, // Currently no tax
-              total: convertPriceFromStripeFormat(totalMsrpPrice),
-              shipping_information: {
-                name: shippingAddress.name,
-                phone: shippingAddress.phone,
-                email: customerInfo.email,
-                company: '',
-                city: shippingAddress.address.city,
-                country: shippingAddress.address.country,
-                state: shippingAddress.address.state,
-                zip: shippingAddress.address.postal_code,
-                address: shippingAddress.address.line1,
-                address_2: shippingAddress.address.line2,
-                method: '2 day free shipping',
-              },
-              tags: ['Coverland'],
-            },
-          };
-
-          // SKU Labs Order Creation
-          // Post Items
-          console.log('[skuLabOrderInput]:', skuLabOrderInput);
-          const skuLabCreateOrderResponse = await fetch(
-            '/api/sku-labs/orders',
-            {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json',
-              },
-              body: JSON.stringify({ order: skuLabOrderInput }),
-            }
+          handlePurchaseGoogleTag(
+            cartItems,
+            orderNumber,
+            getTotalPrice().toFixed(2),
+            clearLocalStorageCart,
+            enhancedGoogleConversionInput
           );
-          debugger;
 
           const { id, client_secret } = result.paymentIntent;
-          // router.push(
-          //   `/thank-you?order_number=${orderNumber}&payment_intent=${id}&payment_intent_client_secret=${client_secret}`
-          // );
+          router.push(
+            `/thank-you?order_number=${orderNumber}&payment_intent=${id}&payment_intent_client_secret=${client_secret}`
+          );
         }
       })
       .finally(() => {
