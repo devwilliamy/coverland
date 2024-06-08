@@ -1,21 +1,11 @@
-// import { Tables } from '../types';
 import {  ADMIN_PANEL_ORDERS, ADMIN_PANEL_ORDER_ITEMS, ADMIN_PANEL_PRODUCTS } from '../constants/databaseTableNames';
 import { supabaseDatabaseClient } from '../supabaseClients';
-// import { slugToCoverType } from '@/lib/constants';
-// import { slugify } from '@/lib/utils';
-
-// export type TSeatCoverDataDB = Tables<'seat_covers'>;
-
-// URL: supabase.com/dashboard/project/<project_id>/api?pages=tables-intro
-//If the table you want to access isn't listed in TableRow,
-//generate new types in the Supabase dashboard to update
-//them and replace the types.ts file in this folder
 
 import { ReadonlyRequestCookies } from 'next/dist/server/web/spec-extension/adapters/request-cookies';
 import { SupabaseClient } from '@supabase/supabase-js';
 import { cookies } from 'next/headers';
 import { createSupabaseServerClient } from '@/lib/db/supabaseClients';
-import { get } from 'http';
+// import { get } from 'http';
 
 import { formatISODate } from '@/lib/db/profile/utils/date';
 import { formatMoney } from '@/lib/db/profile/utils/money';
@@ -157,12 +147,12 @@ export async function fetchUserRecentOrders(ordersQuantity: number): Promise<TUs
 
     console.log('Orders with their items and products:', userOrdersWithItemsAndProducts);
 
-    userOrdersWithItemsAndProducts.forEach(order => {
-        console.log('order items', order.items)
-        order.items.forEach(item => { 
-            // console.log('product item', item) 
-        })     
-    })
+    // userOrdersWithItemsAndProducts.forEach(order => {
+    //     console.log('order items', order.items)
+    //     order.items.forEach(item => { 
+    //         console.log('product item', item) 
+    //     })     
+    // })
 
     return userOrdersWithItemsAndProducts;
 }

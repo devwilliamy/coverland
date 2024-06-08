@@ -34,7 +34,7 @@ export default async function Orders() {
 
   const trademarkSymbol = '\u2122';
 
-  console.log('items', orders);
+  // console.log('items', orders);
 
   return (
     <div className="">
