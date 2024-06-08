@@ -37,18 +37,18 @@ export default async function Orders() {
   console.log('items', orders);
 
   return (
-    <div>
+    <div className="">
       {/* <OrderItemCard/> */}
-      <div className="pl-4">
-        <h1 className="mt-4 text-2xl font-bold">My Orders</h1>
+      <div className="pl-5 md:pl-3">
+        <h1 className="mt-4 text-xl md:text-2xl font-bold">My Orders</h1>
         <p className="mb-4 text-sm text-gray-500">
           View, Manage and track orders
         </p>
       </div>
       <Card className="p-2 mb-4">
-        <CardHeader className="text-xl font-bold">Recent Orders</CardHeader>
+        <CardHeader className="text-xl md:text-xl font-bold p-4 pt-2 pb-2 lg:p-6">Recent Orders</CardHeader>
         {orders.map((order: TInitialOrdersDataDB) => (
-          <div key={order.id} className="m-2 md:flex justify-between border-t p-4">
+          <div key={order.id} className="md:m-2 md:flex justify-between border-t p-4">
             <div className="md:w-2/5">
               <div className="flex justify-left gap-2">
                 <span className="false mb-1 text-base font-normal text-[#707070] md:text-base min-w-[110px]">Order Number</span><span className="font-semibold">#{order.id}</span>
@@ -75,7 +75,7 @@ export default async function Orders() {
                         />
                       </div>
                     </div>
-                    <div className="ml-3 md:w-3/5 p-2 pt-0 md:max-w-[325px]">
+                    <div className="md:ml-5 md:w-3/5 pt-0 md:max-w-[325px]">
                       <div className="false mb-1 text-base font-bold md:text-base">
                         {`${item.product?.display_id}${trademarkSymbol} ${item.product?.type}`}
                       </div>
