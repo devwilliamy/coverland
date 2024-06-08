@@ -18,7 +18,7 @@ export function formatMoney(value) {
   try {
     const price = 319.9;
     const formattedPrice = formatMoney(price);
-    console.log(formattedPrice); // Outputs: $319.90
+    // console.log(formattedPrice); // Outputs: $319.90
   } catch (error) {
     console.error(error.message);
   }
