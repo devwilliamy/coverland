@@ -61,6 +61,12 @@ type SkuLabOrderInput = {
   customerInfo: CustomerInfo;
 };
 
+// 
+/**
+ * Generates the note for SKU Labs so CSRs can see SKU, item name, and quantity
+ * @param cartItems 
+ * @returns 
+ */
 const generateNote = (cartItems: TCartItem[]) => {
   const skuNameQuantity = cartItems.map((cartItem: TCartItem) => {
     const itemName =
@@ -76,6 +82,7 @@ const generateNote = (cartItems: TCartItem[]) => {
 
   return skuNameQuantity.join('\n');
 };
+
 export const generateSkuLabOrderInput = ({
   orderNumber,
   cartItems,
