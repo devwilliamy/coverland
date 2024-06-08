@@ -18,6 +18,7 @@ import { createSupabaseServerClient } from '@/lib/db/supabaseClients';
 import { get } from 'http';
 
 import { formatISODate } from '@/lib/db/profile/utils/date';
+import { formatMoney } from '@/lib/db/profile/utils/money';
 import { TInitialProductDataDB } from '..';
 import { Tables } from '../types';
 
@@ -141,14 +142,14 @@ export async function fetchUserRecentOrders(ordersQuantity: number): Promise<TUs
                 order_id: item.order_id,
                 product_id: item.product_id,
                 quantity: item.quantity,
-                price: item.price,
+                price: formatMoney(item.price) || item.price,
                 product: product
             };
         });
 
         return {
             id: order.id,
-            total_amount: order.total_amount,
+            total_amount: formatMoney(order.total_amount) || order.total_amount,
             payment_date: formatISODate(order.payment_date) || order.payment_date,
             items: items
         };

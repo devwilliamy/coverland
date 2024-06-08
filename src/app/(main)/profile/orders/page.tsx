@@ -24,7 +24,7 @@ import {
 } from '@/components/ui/card';
 
 export default async function Orders() {
-  const orders: TInitialOrdersDataDB[] = await fetchUserRecentOrders(10);
+  const orders: TInitialOrdersDataDB[] = await fetchUserRecentOrders(4);
 
   const cookieStore: ReadonlyRequestCookies = cookies();
   const supabase: SupabaseClient = createSupabaseServerClient(cookieStore);
@@ -32,49 +32,71 @@ export default async function Orders() {
     data: { user },
   } = await supabase.auth.getUser();
 
-  console.log('items', orders)
+  const trademarkSymbol = '\u2122';
+
+  console.log('items', orders);
 
   return (
     <div>
       {/* <OrderItemCard/> */}
-      <div>
-        <h1 className="text-2xl font-bold mt-4">My Orders</h1>
-        <p className="text-gray-500 text-sm mb-4">View, Manage and track orders</p>
+      <div className="pl-2">
+        <h1 className="mt-4 text-2xl font-bold">My Orders</h1>
+        <p className="mb-4 text-sm text-gray-500">
+          View, Manage and track orders
+        </p>
       </div>
-      <Card className="p-2">
-        <CardHeader className="font-bold text-xl">
-          Recent Orders
-        </CardHeader>
+      <Card className="p-2 mb-4">
+        <CardHeader className="text-xl font-bold">Recent Orders</CardHeader>
         {orders.map((order: TInitialOrdersDataDB) => (
-          <div key={order.id} className="flex justify-between border-t m-2 p-4">
+          <div key={order.id} className="m-2 flex justify-between border-t p-4">
             <div className="w-2/5">
-              <div>Order Number #{order.id}</div>
-              <div>Order Date {order.payment_date}</div>
-              <div>Total Amount ${order.total_amount}</div>
+              <div className="flex justify-left gap-2">
+                <span className="false mb-1 text-sm font-normal text-[#707070] lg:text-base min-w-[110px]">Order Number</span><span className="font-semibold">#{order.id}</span>
+              </div>
+              <div className="flex justify-left gap-2">
+                <span className="false mb-1 text-sm font-normal text-[#707070] lg:text-base min-w-[110px]">Order Date</span><span className="font-semibold">{order.payment_date}</span>
+              </div>
+              <div className="flex justify-left gap-2">
+                <span className="false mb-1 text-sm font-normal text-[#707070] lg:text-base min-w-[110px]">Total</span><span className="font-semibold">{order.total_amount}</span>
+              </div>
             </div>
             <ul className="w-3/5">
               {order.items?.map((item: TInitialOrderItemsDataDB) => (
                 <li key={item.id}>
-                  <div className="flex m-2 justify-end">
+                  <div className="m-2 flex justify-end">
                     <div className="w-2/5">
                       <div className="flex justify-end">
                         <Image
-                            className="bg-gray-100 p-[6.5px]"
-                            src={item.product?.feature}
-                            width={175}
-                            height={175}
-                            alt="Picture of the Order Item"
-                          />
+                          className="bg-gray-100 p-[6.5px]"
+                          src={item.product?.feature}
+                          width={150}
+                          height={150}
+                          alt="Picture of the Order Item"
+                        />
                       </div>
                     </div>
-                    <div className="w-2/5 pt-0 p-2 ml-1">
-                      <div className="text-base font-bold lg:text-lg">
-                        {`${item.product?.make} ${item.product?.model} ${item.product?.type}`}
+                    <div className="ml-3 w-3/5 p-2 pt-0 max-w-[325px]">
+                      <div className="false mb-1 text-sm font-bold lg:text-base">
+                        {`${item.product?.display_id}${trademarkSymbol} ${item.product?.type}`}
                       </div>
-                      <div className="text-sm font-normal false text-[#707070] lg:text-base">Color: {item.product?.display_color}</div>
+                      {/* <div className="false mb-1 text-sm font-normal text-[#707070] lg:text-base">
+                        {`${item.product?.display_id}${trademarkSymbol} ${item.product?.type}`}
+                      </div> */}
+                      <div className="false mb-1 text-sm font-normal text-[#707070] lg:text-base">
+                        Vehicle: {item.product?.make} {item.product?.model}{' '}
+                        {item.product?.year_generation}{' '}
+                        {item.product?.submodel1}
+                      </div>
+                      <div className="false mb-1 text-sm font-normal text-[#707070] lg:text-base">
+                        Color: {item.product?.display_color}
+                      </div>
                       {/* <div>Price: {item.product?.price}</div> */}
-                      <div className="text-sm font-normal false text-[#707070] lg:text-base">Qty:{item.quantity} @ ${item.product?.msrp}</div>
-                      <div className="text-sm font-normal false text-[#707070] lg:text-base">${item.price}</div>
+                      <div className="false mb-1 text-sm font-normal text-[#707070] lg:text-base">
+                        Qty:{item.quantity} @ ${item.product?.msrp}
+                      </div>
+                      <div className="false text-sm font-normal text-[#707070] lg:text-base">
+                        {item.price}
+                      </div>
                     </div>
                   </div>
                 </li>
