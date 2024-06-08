@@ -51,7 +51,7 @@ async function fetchUserOrders(ordersQuantity: number): Promise<TUserOrders[] | 
         return null;
     }
 
-    console.log('Logged in user:', user);
+    // console.log('Logged in user:', user);
     // user object has unique UUID ('user_id') in supabase
     const userId = user.id;
 
