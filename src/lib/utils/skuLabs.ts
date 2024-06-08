@@ -2,7 +2,6 @@ import { CustomerInfo } from '@/contexts/CheckoutContext';
 import { TCartItem } from '../cart/useCart';
 import { StripeAddress } from '../types/checkout';
 import { getCurrentDateInPST } from './date';
-import { convertPriceFromStripeFormat } from './stripe';
 
 // Define the type for items within the stash
 type SkuLabItem = {
@@ -113,7 +112,7 @@ export const generateSkuLabOrderInput = ({
       shipping: 0, // TODO: Currently no shipping, but need to update later
       financial_status: '',
       tax: 0, // Currently no tax
-      total: convertPriceFromStripeFormat(totalMsrpPrice),
+      total: totalMsrpPrice,
       shipping_information: {
         name: shippingAddress.name,
         phone: shippingAddress.phone || '',

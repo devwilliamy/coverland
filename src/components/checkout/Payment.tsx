@@ -11,6 +11,7 @@ import { PaymentMethod, StripeAddress } from '@/lib/types/checkout';
 import BillingAddress from './BillingAddress';
 import { useCartContext } from '@/providers/CartProvider';
 import {
+  convertPriceFromStripeFormat,
   convertPriceToStripeFormat,
   getSkuQuantityPriceFromCartItemsForMeta,
   getSkusFromCartItems,
@@ -242,7 +243,7 @@ export default function Payment() {
           const skuLabOrderInput = generateSkuLabOrderInput({
             orderNumber,
             cartItems,
-            totalMsrpPrice,
+            totalMsrpPrice: convertPriceFromStripeFormat(totalMsrpPrice),
             shippingAddress,
             customerInfo,
           });
