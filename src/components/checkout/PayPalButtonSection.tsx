@@ -201,9 +201,7 @@ export default function PayPalButtonSection() {
                 });
               }
 
-              console.log('NODE_ENV:', process.env.NODE_ENV);
               if (process.env.NEXT_PUBLIC_IS_PREVIEW !== 'PREVIEW') {
-                console.log('NODE_ENV:', process.env.NODE_ENV);
                 const skuLabOrderInput = generateSkuLabOrderInput({
                   orderNumber,
                   cartItems,
