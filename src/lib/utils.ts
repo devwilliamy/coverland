@@ -206,15 +206,14 @@ export function detectFOrFB(sku: string) {
   if (parts[1] === 'SC') {
     if (parts[5] === 'B') {
       return 'Full';
-    }
-    else if (parts[3] === 'F') {
+    } else if (parts[3] === 'F') {
       return 'Front';
-    } 
+    }
   }
   return 'Unknown';
 }
-export function isFullSet(displaySet:string){
-  return displaySet?.toLowerCase() == 'front seats' ? 'front' : 'full'
+export function isFullSet(displaySet: string) {
+  return displaySet?.toLowerCase() == 'front seats' ? 'front' : 'full';
 }
 export const determineTypeString = (type: string) => {
   const typeOptions = ['Car Covers', 'SUV Covers', 'Truck Covers'];

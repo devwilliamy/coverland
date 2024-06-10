@@ -25,8 +25,11 @@ export default function SeatCoverCarousel() {
     throw new Error('Missing SeatCoverSelectionContext.Provider in the tree');
   const selectedProduct = useStore(store, (s) => s.selectedProduct);
 
-  const isFrontCover = isFullSet(selectedProduct.display_set) === 'front' ? true : false;
-  const galleryImages = isFrontCover ?  selectedProduct?.product?.split(',').slice(0, -3) : selectedProduct?.product?.split(',');
+  const isFrontCover =
+    isFullSet(selectedProduct.display_set) === 'front' ? true : false;
+  const galleryImages = isFrontCover
+    ? selectedProduct?.product?.split(',').slice(0, -3)
+    : selectedProduct?.product?.split(',');
   const [api, setApi] = useState<CarouselApi>();
   const [current, setCurrent] = useState(0);
 

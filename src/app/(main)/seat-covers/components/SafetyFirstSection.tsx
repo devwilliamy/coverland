@@ -10,19 +10,19 @@ import useStoreContext from '@/hooks/useStoreContext';
 
 const safteyFirstData = [
   {
-    id:1,
+    id: 1,
     img: Safety1,
     title: 'Airbag Compatible',
     description: 'Safety, seamlessly integrated',
   },
   {
-    id:2,
+    id: 2,
     img: Safety2,
     title: 'Car seat Compatible',
     description: 'Ensures Child Seat Compatibility',
   },
   {
-    id:3,
+    id: 3,
     img: Safety3,
     title: 'Anti-Slip Security',
     description: 'Enhanced Grip for Ultimate Security',
@@ -30,11 +30,12 @@ const safteyFirstData = [
 ];
 
 export default function SafetyFirstSection() {
-  const store = useStoreContext()
+  const store = useStoreContext();
   if (!store)
     throw new Error('Missing SeatCoverSelectionContext.Provider in the tree');
-  const selectedProduct = useStore(store,(state) => state.selectedProduct);
-  const fullSeat = isFullSet(selectedProduct.display_set) === 'front' ? false : true;
+  const selectedProduct = useStore(store, (state) => state.selectedProduct);
+  const fullSeat =
+    isFullSet(selectedProduct.display_set) === 'front' ? false : true;
   return (
     <>
       <p className="flex w-full items-center justify-center  pb-[34px] pt-[43px] text-center text-[26px] font-[600] leading-[26px] lg:pb-[98px] lg:pt-[110px] lg:text-[45px]  lg:leading-[32px]">

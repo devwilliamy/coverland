@@ -1,4 +1,4 @@
-'use client'
+'use client';
 // import { Dialog } from '@/components/ui/dialog';
 // import { DialogTrigger } from '@radix-ui/react-dialog';
 // import { useState } from 'react';
@@ -17,8 +17,11 @@ const SeatDesktopGallery = () => {
   const selectedProduct = useStore(store, (s) => s.selectedProduct);
 
   const [showMore, setShowMore] = useState(false);
-  const isFrontCover = isFullSet(selectedProduct.display_set) === 'front' ? true : false;
-  const galleryImages = isFrontCover ?  selectedProduct?.product?.split(',').slice(0, -3) : selectedProduct?.product?.split(',');
+  const isFrontCover =
+    isFullSet(selectedProduct.display_set) === 'front' ? true : false;
+  const galleryImages = isFrontCover
+    ? selectedProduct?.product?.split(',').slice(0, -3)
+    : selectedProduct?.product?.split(',');
   const fourImages = selectedProduct?.product?.split(',')?.slice(0, 4);
 
   return (

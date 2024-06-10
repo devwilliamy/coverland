@@ -108,14 +108,16 @@ const createSeatCoverSelectionStore = ({
     data: modelDataWithFilteredSubmodel2Selection,
   });
 
- const firstAvailableSet = modelDataWithFilteredSubmodel2Selection.filter(
-  (seatCover) => isFullSet(seatCover.display_set) === isFullSet(modelDataWithFilteredSubmodel2Selection[0].display_set)
-)
+  const firstAvailableSet = modelDataWithFilteredSubmodel2Selection.filter(
+    (seatCover) =>
+      isFullSet(seatCover.display_set) ===
+      isFullSet(modelDataWithFilteredSubmodel2Selection[0].display_set)
+  );
 
-const availableColors = new Set(['gray', 'black', 'beige']);
-const firstAvaiableColor = firstAvailableSet
-  .map((seatCover) => seatCover.display_color.toLowerCase())
-  .filter((color) => availableColors.has(color));
+  const availableColors = new Set(['gray', 'black', 'beige']);
+  const firstAvaiableColor = firstAvailableSet
+    .map((seatCover) => seatCover.display_color.toLowerCase())
+    .filter((color) => availableColors.has(color));
 
   return createStore<ISeatCoverCoverSelectionState>()((set, get) => ({
     modelData: modelDataWithFilteredSubmodel2Selection,
@@ -159,11 +161,12 @@ const firstAvaiableColor = firstAvailableSet
     setReviewsWithImages: (newReviewImages: TReviewData[]) => {
       set(() => ({ reviewImages: newReviewImages }));
     },
-    selectedSetDisplay:isFullSet(modelDataWithFilteredSubmodel2Selection[0]?.display_set) ?? '',
-    setSelectedSetDisplay:(netSet:TSeatCoverDataDB) =>{
-      set(() => ({selectedSetDisplay:netSet}));
+    selectedSetDisplay:
+      isFullSet(modelDataWithFilteredSubmodel2Selection[0]?.display_set) ?? '',
+    setSelectedSetDisplay: (netSet: TSeatCoverDataDB) => {
+      set(() => ({ selectedSetDisplay: netSet }));
     },
-    availableColors:firstAvaiableColor,
+    availableColors: firstAvaiableColor,
     setAvailableColors: (newAvailableColors: string[]) =>
       set(() => ({ availableColors: newAvailableColors })),
   }));
