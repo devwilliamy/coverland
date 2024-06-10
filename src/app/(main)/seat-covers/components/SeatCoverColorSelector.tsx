@@ -33,7 +33,6 @@ export default function SeatCoverColorSelector({
   const availableColors = useStore(store, (s) => s.availableColors);
   const selectedSetDisplay = useStore(store, (s) => s.selectedSetDisplay);
   const setAvailableColors = useStore(store, (s) => s.setAvailableColors);
-  console.log('availableColors', availableColors);
 
   const showColors = [
     {
