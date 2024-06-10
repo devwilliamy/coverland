@@ -1,11 +1,5 @@
-import {
-  PaymentElement,
-  PaymentRequestButtonElement,
-  useElements,
-  useStripe,
-} from '@stripe/react-stripe-js';
-import PromoCode from './PromoCode';
-import { FormEvent, useEffect, useState } from 'react';
+import { PaymentElement, useElements, useStripe } from '@stripe/react-stripe-js';
+import { FormEvent, useState } from 'react';
 import OrderReview from './OrderReview';
 import PriceBreakdown from './PriceBreakdown';
 import { Button } from '../ui/button';
@@ -17,18 +11,18 @@ import { PaymentMethod, StripeAddress } from '@/lib/types/checkout';
 import BillingAddress from './BillingAddress';
 import { useCartContext } from '@/providers/CartProvider';
 import {
+  convertPriceFromStripeFormat,
   convertPriceToStripeFormat,
   getSkuQuantityPriceFromCartItemsForMeta,
-  getSkusAndQuantityFromCartItems,
   getSkusFromCartItems,
 } from '@/lib/utils/stripe';
-import { sendThankYouEmail } from '@/lib/sendgrid/emails/thank-you';
 import { getCurrentDayInLocaleDateString } from '@/lib/utils/date';
 import { useRouter } from 'next/navigation';
 import { handlePurchaseGoogleTag } from '@/hooks/useGoogleTagDataLayer';
 import { hashData } from '@/lib/utils/hash';
 import { getCookie } from '@/lib/utils/cookie';
 import { v4 as uuidv4 } from 'uuid';
+import { generateSkuLabOrderInput } from '@/lib/utils/skuLabs';
 
 function isValidShippingAddress({ address }: StripeAddress) {
   return (
@@ -138,6 +132,7 @@ export default function Payment() {
           result.paymentIntent &&
           result.paymentIntent.status === 'succeeded'
         ) {
+          // SendGrid Thank You Email
           const emailInput = {
             to: customerInfo.email,
             name: {
@@ -170,6 +165,7 @@ export default function Payment() {
             );
           }
 
+          // Meta Conversion API
           const skus = getSkusFromCartItems(cartItems);
           const skusWithQuantityMsrpForMeta =
             getSkuQuantityPriceFromCartItemsForMeta(cartItems);
@@ -244,6 +240,28 @@ export default function Payment() {
             });
           }
 
+          const skuLabOrderInput = generateSkuLabOrderInput({
+            orderNumber,
+            cartItems,
+            totalMsrpPrice: convertPriceFromStripeFormat(totalMsrpPrice),
+            shippingAddress,
+            customerInfo,
+          });
+
+          // SKU Labs Order Creation
+          // Post Items
+          const skuLabCreateOrderResponse = await fetch(
+            '/api/sku-labs/orders',
+            {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({ order: skuLabOrderInput }),
+            }
+          );
+
+          // Google Conversion API
           const enhancedGoogleConversionInput = {
             email: customerInfo.email || '',
             phone_number: shippingAddress.phone || '',

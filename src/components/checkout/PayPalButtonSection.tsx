@@ -23,6 +23,7 @@ import { handlePurchaseGoogleTag } from '@/hooks/useGoogleTagDataLayer';
 import { hashData } from '@/lib/utils/hash';
 import { getCookie } from '@/lib/utils/cookie';
 import { v4 as uuidv4 } from 'uuid';
+import { generateSkuLabOrderInput } from '@/lib/utils/skuLabs';
 
 export default function PayPalButtonSection() {
   const { clearLocalStorageCart, getTotalPrice, cartItems } = useCartContext();
@@ -199,6 +200,27 @@ export default function PayPalButtonSection() {
                   },
                 });
               }
+
+              const skuLabOrderInput = generateSkuLabOrderInput({
+                orderNumber,
+                cartItems,
+                totalMsrpPrice,
+                shippingAddress,
+                customerInfo,
+              });
+    
+              // SKU Labs Order Creation
+              // Post Items
+              const skuLabCreateOrderResponse = await fetch(
+                '/api/sku-labs/orders',
+                {
+                  method: 'POST',
+                  headers: {
+                    'Content-Type': 'application/json',
+                  },
+                  body: JSON.stringify({ order: skuLabOrderInput }),
+                }
+              );
 
               const enhancedGoogleConversionInput = {
                 email: customerInfo.email || '',
