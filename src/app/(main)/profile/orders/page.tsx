@@ -40,32 +40,46 @@ export default async function Orders() {
     <div className="">
       {/* <OrderItemCard/> */}
       <div className="pl-5 md:pl-3">
-        <h1 className="mt-4 text-xl md:text-2xl font-bold">My Orders</h1>
+        <h1 className="mt-4 text-xl font-bold md:text-2xl">My Orders</h1>
         <p className="mb-4 text-sm text-gray-500">
           View, Manage and track orders
         </p>
       </div>
-      <Card className="p-2 m-1 md:m-0 md:mb-4">
-        <CardHeader className="text-xl md:text-xl font-bold p-2 pt-4 pb-4 md:p-4">Recent Orders</CardHeader>
+      <Card className="m-1 p-2 md:m-0 md:mb-4">
+        <CardHeader className="p-2 pb-4 pt-4 text-xl font-bold md:p-4 md:text-xl">
+          Recent Orders
+        </CardHeader>
         {orders.map((order: TInitialOrdersDataDB) => (
-          <div key={order.id} className="md:m-2 md:flex justify-between border-t p-4 pl-2">
-            <div className="mt-6 mb-8 md:mt-4 md:mb-4 md:w-2/5">
-              <div className="flex justify-left gap-2">
-                <span className="false mb-1 text-base font-normal text-[#707070] md:text-base min-w-[110px]">Order Number</span><span className="font-semibold">#{order.id}</span>
+          <div
+            key={order.id}
+            className="justify-between border-t p-4 pl-2 md:m-2 md:flex"
+          >
+            <div className="mb-8 mt-6 md:mb-4 md:mt-4 md:w-2/5">
+              <div className="justify-left flex gap-2">
+                <span className="mb-1 min-w-[110px] text-base font-normal text-gray-500 md:text-base">
+                  Order Number
+                </span>
+                <span className="font-semibold">#{order.id}</span>
               </div>
-              <div className="flex justify-left gap-2">
-                <span className="false mb-1 text-base font-normal text-[#707070] md:text-base min-w-[110px]">Order Date</span><span className="font-semibold">{order.payment_date}</span>
+              <div className="justify-left flex gap-2">
+                <span className="mb-1 min-w-[110px] text-base font-normal text-gray-500 md:text-base">
+                  Order Date
+                </span>
+                <span className="font-semibold">{order.payment_date}</span>
               </div>
-              <div className="flex justify-left gap-2">
-                <span className="false mmb-1 text-base font-normal text-[#707070] md:text-base min-w-[110px]">Total</span><span className="font-semibold">{order.total_amount}</span>
+              <div className="justify-left flex gap-2">
+                <span className="mmb-1 min-w-[110px] text-base font-normal text-gray-500 md:text-base">
+                  Total
+                </span>
+                <span className="font-semibold">{order.total_amount}</span>
               </div>
             </div>
             <ul className="md:w-3/5">
               {order.items?.map((item: TInitialOrderItemsDataDB) => (
                 <li key={item.id}>
-                  <div className="md:m-0 md:flex justify-end">
-                    <div className="mt-4 mb-4 md:w-2/5 md:mt-2 md:mb-2">
-                      <div className="md:flex justify-end">
+                  <div className="justify-end md:m-0 md:flex">
+                    <div className="mb-4 mt-4 md:mb-2 md:mt-2 md:w-2/5">
+                      <div className="justify-end md:flex">
                         <Image
                           className="bg-gray-100 p-[6.5px]"
                           src={item.product?.feature}
@@ -75,8 +89,8 @@ export default async function Orders() {
                         />
                       </div>
                     </div>
-                    <div className="mt-4 mb-4 md:mt-2 md:mb-2 md:ml-5 md:w-3/5 pt-0 md:max-w-[325px]">
-                      <div className="false mb-1 text-base font-bold md:text-base">
+                    <div className="mb-4 mt-4 pt-0 md:mb-2 md:ml-5 md:mt-2 md:w-3/5 md:max-w-[325px]">
+                      <div className="mb-1 text-base font-bold md:text-base">
                         {`${item.product?.display_id}${trademarkSymbol} ${item.product?.type}`}
                       </div>
                       {/* <div className="mb-1 text-base font-normal text-[#707070] md:text-base">
