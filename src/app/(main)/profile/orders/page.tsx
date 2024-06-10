@@ -16,15 +16,9 @@ import { createSupabaseServerClient } from '@/lib/db/supabaseClients';
 import OrderList from './components/OrderList';
 // import { TInitialOrdersDataDB } from '@/types';
 
-const orders: TInitialOrdersDataDB[] = await fetchUserRecentOrders(4);
+const OrdersPage = async () => {
+  const orders: TInitialOrdersDataDB[] = await fetchUserRecentOrders(4);
 
-const cookieStore: ReadonlyRequestCookies = cookies();
-const supabase: SupabaseClient = createSupabaseServerClient(cookieStore);
-const {
-  data: { user },
-} = await supabase.auth.getUser();
-
-const OrdersPage = () => {
   return <OrderList orders={orders} />;
 };
 

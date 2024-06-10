@@ -33,7 +33,7 @@ const OrderList = ({ orders }: OrderListProps) => {
                 <span className="font-semibold">{order.total_amount}</span>
               </div>
             </div>
-            <ul className="md:w-3/5">
+            <ul className="md:w-3/5 md:mt-2">
               {order.items?.map((item) => (
                 <OrderItem key={item.id} item={item} />
               ))}
