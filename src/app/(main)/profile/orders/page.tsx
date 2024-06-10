@@ -24,8 +24,6 @@ const {
   data: { user },
 } = await supabase.auth.getUser();
 
-const trademarkSymbol = '\u2122';
-
 const OrdersPage = () => {
   return <OrderList orders={orders} />;
 };
