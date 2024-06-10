@@ -1,4 +1,8 @@
-import { PaymentElement, useElements, useStripe } from '@stripe/react-stripe-js';
+import {
+  PaymentElement,
+  useElements,
+  useStripe,
+} from '@stripe/react-stripe-js';
 import { FormEvent, useState } from 'react';
 import OrderReview from './OrderReview';
 import PriceBreakdown from './PriceBreakdown';
@@ -239,27 +243,28 @@ export default function Payment() {
               },
             });
           }
+          if (process.env.NEXT_PUBLIC_IS_PREVIEW !== 'PREVIEW') {
+            const skuLabOrderInput = generateSkuLabOrderInput({
+              orderNumber,
+              cartItems,
+              totalMsrpPrice: convertPriceFromStripeFormat(totalMsrpPrice),
+              shippingAddress,
+              customerInfo,
+            });
 
-          const skuLabOrderInput = generateSkuLabOrderInput({
-            orderNumber,
-            cartItems,
-            totalMsrpPrice: convertPriceFromStripeFormat(totalMsrpPrice),
-            shippingAddress,
-            customerInfo,
-          });
-
-          // SKU Labs Order Creation
-          // Post Items
-          const skuLabCreateOrderResponse = await fetch(
-            '/api/sku-labs/orders',
-            {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json',
-              },
-              body: JSON.stringify({ order: skuLabOrderInput }),
-            }
-          );
+            // SKU Labs Order Creation
+            // Post Items
+            const skuLabCreateOrderResponse = await fetch(
+              '/api/sku-labs/orders',
+              {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ order: skuLabOrderInput }),
+              }
+            );
+          }
 
           // Google Conversion API
           const enhancedGoogleConversionInput = {
