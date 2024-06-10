@@ -42,6 +42,8 @@ export type TUserOrders = {
 };
 
 async function fetchUserOrders(ordersQuantity: number): Promise<TUserOrders[] | null> {
+    const cookieStore: ReadonlyRequestCookies = cookies();
+    const supabase: SupabaseClient = createSupabaseServerClient(cookieStore);
     const {
       data: { user },
     } = await supabase.auth.getUser();
