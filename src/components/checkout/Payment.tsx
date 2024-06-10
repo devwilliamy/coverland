@@ -244,6 +244,7 @@ export default function Payment() {
             });
           }
           console.log('NODE_ENV:', process.env.NODE_ENV);
+          console.log('IS_PREVIEW:', process.env.NEXT_PUBLIC_IS_PREVIEW);
           if (process.env.NEXT_PUBLIC_IS_PREVIEW !== 'PREVIEW') {
             console.log('NODE_ENV:', process.env.NODE_ENV);
             const skuLabOrderInput = generateSkuLabOrderInput({
