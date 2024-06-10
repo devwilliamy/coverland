@@ -1,13 +1,13 @@
-// components/OrderItemCard.tsx
+// components/OrderItem.tsx
 import Image from 'next/image';
 // import { TInitialOrderItemsDataDB } from '@/types';
 import { TInitialOrderItemsDataDB, TInitialProductDataDB } from '@/lib/db/profile/ordersHistory';
 
-interface OrderItemCardProps {
+interface OrderItemProps {
   item: TInitialOrderItemsDataDB;
 }
 
-const OrderItemCard: React.FC<OrderItemCardProps> = ({ item }) => {
+const OrderItem = ({ item }: OrderItemProps) => {
   return (
     <li key={item.id}>
       <div className="md:m-0 md:flex justify-end">
@@ -44,4 +44,4 @@ const OrderItemCard: React.FC<OrderItemCardProps> = ({ item }) => {
   );
 };
 
-export default OrderItemCard;
+export default OrderItem;

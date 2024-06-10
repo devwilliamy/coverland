@@ -14,7 +14,7 @@ import { createSupabaseServerClient } from '@/lib/db/supabaseClients';
 
 
 import OrderList from './components/OrderList';
-import { TInitialOrdersDataDB } from '@/types';
+// import { TInitialOrdersDataDB } from '@/types';
 
 const orders: TInitialOrdersDataDB[] = await fetchUserRecentOrders(4);
 
@@ -26,7 +26,7 @@ const {
 
 const trademarkSymbol = '\u2122';
 
-const OrdersPage: React.FC = () => {
+const OrdersPage = () => {
   return <OrderList orders={orders} />;
 };
 
