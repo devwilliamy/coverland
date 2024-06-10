@@ -8,7 +8,7 @@ interface OrderListProps {
   orders: TInitialOrdersDataDB[];
 }
 
-const OrderList: React.FC<OrderListProps> = ({ orders }) => {
+const OrderList = ({ orders }: OrderListProps) => {
   return (
     <>
       <div className="pl-5 md:pl-3">
