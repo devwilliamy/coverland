@@ -8,7 +8,7 @@ import {
   useState,
 } from 'react';
 
-type CustomerInfo = {
+export type CustomerInfo = {
   email: string;
   phoneNumber: string;
 };

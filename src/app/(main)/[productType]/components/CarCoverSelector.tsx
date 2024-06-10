@@ -33,8 +33,6 @@ export function CarCoverSelector({
             <ProductContent searchParams={searchParams} />
           </section>
         </div>
-
-        <DetailsTabHeader />
         <ExtraDetailsTabs />
         {/* <Separator className="h-5 w-full border-b-[1px] border-t-[1px] border-b-[#DBDBDB] border-t-[#DBDBDB] bg-[#F1F1F1] pt-[10px] lg:h-10 " />
         <p className="flex w-full justify-center pt-[60px] text-[20px] font-[900] uppercase leading-[23px] lg:pt-[110px] lg:text-[45px] lg:leading-[36px]">
