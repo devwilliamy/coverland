@@ -13,6 +13,7 @@ export type SkuLabOrderResponse = {
 const SKU_LAB_URL = 'https://api.skulabs.com';
 
 export async function POST(request: NextRequest): Promise<SkuLabOrderResponse> {
+  console.log('NODE_ENV:', process.env.NODE_ENV);
   // TODO: Probably good to have schema validation here
   const { order } = await request.json();
   if (!order) {

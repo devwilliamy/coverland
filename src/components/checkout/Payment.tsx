@@ -1,4 +1,8 @@
-import { PaymentElement, useElements, useStripe } from '@stripe/react-stripe-js';
+import {
+  PaymentElement,
+  useElements,
+  useStripe,
+} from '@stripe/react-stripe-js';
 import { FormEvent, useState } from 'react';
 import OrderReview from './OrderReview';
 import PriceBreakdown from './PriceBreakdown';
@@ -239,27 +243,30 @@ export default function Payment() {
               },
             });
           }
+          console.log('NODE_ENV:', process.env.NODE_ENV);
+          if (process.env.NEXT_PUBLIC_IS_PREVIEW !== 'PREVIEW') {
+            console.log('NODE_ENV:', process.env.NODE_ENV);
+            const skuLabOrderInput = generateSkuLabOrderInput({
+              orderNumber,
+              cartItems,
+              totalMsrpPrice: convertPriceFromStripeFormat(totalMsrpPrice),
+              shippingAddress,
+              customerInfo,
+            });
 
-          const skuLabOrderInput = generateSkuLabOrderInput({
-            orderNumber,
-            cartItems,
-            totalMsrpPrice: convertPriceFromStripeFormat(totalMsrpPrice),
-            shippingAddress,
-            customerInfo,
-          });
-
-          // SKU Labs Order Creation
-          // Post Items
-          const skuLabCreateOrderResponse = await fetch(
-            '/api/sku-labs/orders',
-            {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json',
-              },
-              body: JSON.stringify({ order: skuLabOrderInput }),
-            }
-          );
+            // SKU Labs Order Creation
+            // Post Items
+            const skuLabCreateOrderResponse = await fetch(
+              '/api/sku-labs/orders',
+              {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ order: skuLabOrderInput }),
+              }
+            );
+          }
 
           // Google Conversion API
           const enhancedGoogleConversionInput = {
