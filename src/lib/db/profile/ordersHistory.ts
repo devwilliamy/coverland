@@ -12,9 +12,6 @@ import { formatMoney } from '@/lib/db/profile/utils/money';
 import { TInitialProductDataDB } from '..';
 import { Tables } from '../types';
 
-const cookieStore: ReadonlyRequestCookies = cookies();
-const supabase: SupabaseClient = createSupabaseServerClient(cookieStore);
-
 // these types model the entire database tables, in case other columns will be used inside User Profile > Orders in the future
 export type TInitialOrdersDataDB = Tables<'_Orders'>;
 export type TInitialOrderItemsDataDB = Tables<'orderItems_table'>;
@@ -81,6 +78,8 @@ async function fetchUserOrders(ordersQuantity: number): Promise<TUserOrders[] | 
 }
 
 async function fetchOrderItems(orderIds: number[]): Promise<TOrderItem[] | null> {
+    const cookieStore: ReadonlyRequestCookies = cookies();
+    const supabase: SupabaseClient = createSupabaseServerClient(cookieStore);
     const { data, error } = await supabase
         .from<OrderItem>(ADMIN_PANEL_ORDER_ITEMS)
         .select('*')
@@ -95,6 +94,8 @@ async function fetchOrderItems(orderIds: number[]): Promise<TOrderItem[] | null>
 }
 
 async function fetchOrderItemProducts(productIds: number[]): Promise<TOrderItemProduct[] | null> {
+    const cookieStore: ReadonlyRequestCookies = cookies();
+    const supabase: SupabaseClient = createSupabaseServerClient(cookieStore);
     const { data, error } = await supabase
         .from<Product>(ADMIN_PANEL_PRODUCTS)
         .select('*')
@@ -114,13 +115,13 @@ export async function fetchUserRecentOrders(ordersQuantity: number): Promise<TUs
     if (!orders) return;
 
     const orderIds = orders.map(order => order.id);
-    console.log('Fetched order IDs:', orderIds);
+    // console.log('Fetched order IDs:', orderIds);
 
     const orderItems = await fetchOrderItems(orderIds);
     if (!orderItems) return;
 
     const productIds = orderItems.map(item => item.product_id);
-    console.log('Fetched product IDs:', productIds);
+    // console.log('Fetched product IDs:', productIds);
 
     const products = await fetchOrderItemProducts(productIds);
     if (!products) return;
@@ -147,7 +148,7 @@ export async function fetchUserRecentOrders(ordersQuantity: number): Promise<TUs
         };
     });
 
-    console.log('Orders with their items and products:', userOrdersWithItemsAndProducts);
+    // console.log('Orders with their items and products:', userOrdersWithItemsAndProducts);
 
     // userOrdersWithItemsAndProducts.forEach(order => {
     //     console.log('order items', order.items)
