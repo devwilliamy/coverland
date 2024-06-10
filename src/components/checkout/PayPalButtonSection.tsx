@@ -201,26 +201,28 @@ export default function PayPalButtonSection() {
                 });
               }
 
-              const skuLabOrderInput = generateSkuLabOrderInput({
-                orderNumber,
-                cartItems,
-                totalMsrpPrice,
-                shippingAddress,
-                customerInfo,
-              });
-    
-              // SKU Labs Order Creation
-              // Post Items
-              const skuLabCreateOrderResponse = await fetch(
-                '/api/sku-labs/orders',
-                {
-                  method: 'POST',
-                  headers: {
-                    'Content-Type': 'application/json',
-                  },
-                  body: JSON.stringify({ order: skuLabOrderInput }),
-                }
-              );
+              if (process.env.NEXT_PUBLIC_IS_PREVIEW !== 'PREVIEW') {
+                const skuLabOrderInput = generateSkuLabOrderInput({
+                  orderNumber,
+                  cartItems,
+                  totalMsrpPrice,
+                  shippingAddress,
+                  customerInfo,
+                });
+
+                // SKU Labs Order Creation
+                // Post Items
+                const skuLabCreateOrderResponse = await fetch(
+                  '/api/sku-labs/orders',
+                  {
+                    method: 'POST',
+                    headers: {
+                      'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ order: skuLabOrderInput }),
+                  }
+                );
+              }
 
               const enhancedGoogleConversionInput = {
                 email: customerInfo.email || '',
