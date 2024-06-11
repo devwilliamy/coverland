@@ -4,7 +4,7 @@ import { createContext, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import { TSeatCoverDataDB } from '@/lib/db/seat-covers';
 import { TPathParams, TQueryParams, getCompleteSelectionData } from '@/utils';
-import { compareRawStrings } from '@/lib/utils';
+import { compareRawStrings, isFullSet } from '@/lib/utils';
 import { TReviewData } from '@/lib/db';
 import { TProductReviewSummary } from '@/lib/db/review';
 
@@ -108,6 +108,17 @@ const createSeatCoverSelectionStore = ({
     data: modelDataWithFilteredSubmodel2Selection,
   });
 
+  const firstAvailableSet = modelDataWithFilteredSubmodel2Selection.filter(
+    (seatCover) =>
+      isFullSet(seatCover.display_set) ===
+      isFullSet(modelDataWithFilteredSubmodel2Selection[0].display_set)
+  );
+
+  const availableColors = new Set(['gray', 'black', 'beige']);
+  const firstAvaiableColor = firstAvailableSet
+    .map((seatCover) => seatCover.display_color.toLowerCase())
+    .filter((color) => availableColors.has(color));
+
   return createStore<ISeatCoverCoverSelectionState>()((set, get) => ({
     modelData: modelDataWithFilteredSubmodel2Selection,
     query: initialQueryState,
@@ -150,6 +161,14 @@ const createSeatCoverSelectionStore = ({
     setReviewsWithImages: (newReviewImages: TReviewData[]) => {
       set(() => ({ reviewImages: newReviewImages }));
     },
+    selectedSetDisplay:
+      isFullSet(modelDataWithFilteredSubmodel2Selection[0]?.display_set) ?? '',
+    setSelectedSetDisplay: (netSet: TSeatCoverDataDB) => {
+      set(() => ({ selectedSetDisplay: netSet }));
+    },
+    availableColors: firstAvaiableColor,
+    setAvailableColors: (newAvailableColors: string[]) =>
+      set(() => ({ availableColors: newAvailableColors })),
   }));
 };
 

@@ -1,6 +1,6 @@
-'use client';
+'use client';;
 import { track } from '@vercel/analytics/react';
-import { Suspense, useContext, useState } from 'react';
+import { Suspense, useState } from 'react';
 import { useParams } from 'next/navigation';
 import {
   TPathParams,
@@ -8,14 +8,13 @@ import {
   getCompleteSelectionData,
 } from '../../utils';
 import { useStore } from 'zustand';
-import { CarSelectionContext } from '@/contexts/CarSelectionContext';
 import { handleAddToCartGoogleTag } from '@/hooks/useGoogleTagDataLayer';
 import AddToCartSelector from './AddToCartSelector';
 import AddToCartButton from './AddToCartButton';
-import VehicleSelector from './VehicleSelector';
 import useDetermineType from '@/hooks/useDetermineType';
 import AddtoCartSeatSelect from '../../app/(main)/seat-covers/components/AddToCartSeatSelect';
 import useStoreContext from '@/hooks/useStoreContext';
+import { isFullSet } from '@/lib/utils';
 
 export default function AddToCart({
   selectedProduct,
@@ -32,8 +31,21 @@ export default function AddToCart({
   const store = useStoreContext();
   if (!store) throw new Error('Missing Provider in the tree');
   const modelData = useStore(store, (s) => s.modelData);
+  const selectedSetDisplay = useStore(store, (s) => s.selectedSetDisplay);
+  const selectedColor = useStore(store, (s) => s.selectedColor);
+  const filterdData = modelData.filter(
+    (seatCover) =>
+      isFullSet(seatCover.display_set) === selectedSetDisplay?.toLowerCase()
+  );
+
+  const isSelectedColorAvailable = filterdData.some(
+    (seatCover) =>
+      seatCover.display_color.toLowerCase() === selectedColor.toLowerCase()
+  );
   const [addToCartSelectorOpen, setAddToCartSelectorOpen] =
     useState<boolean>(false);
+  const initalLoadingState = false;
+  const [isLoading, setIsLoading] = useState<boolean>(initalLoadingState);
   const [selectSeatOpen, setSelectSeatOpen] = useState<boolean>(false);
   const { isSeatCover } = useDetermineType();
   const isFinalSelection = params?.year;
@@ -45,19 +57,21 @@ export default function AddToCart({
   });
 
   const handleAddToCartClicked = () => {
-    if (isComplete) {
-      if (isSeatCover) {
-        setSelectSeatOpen(true);
-      } else {
-        handleAddToCart();
-        handleAddToCartGoogleTag(selectedProduct, params as TPathParams);
-        selectedProduct?.sku &&
-          track('PDP_add_to_cart', {
-            sku: selectedProduct?.sku,
-          });
-      }
+    if (isSeatCover && isSelectedColorAvailable === false) {
       return; // Don't want to open add to cart selector
     }
+    setIsLoading(true);
+    if (isComplete) {
+      handleAddToCart();
+      handleAddToCartGoogleTag(selectedProduct, params as TPathParams);
+      selectedProduct?.sku &&
+        track('PDP_add_to_cart', {
+          sku: selectedProduct?.sku,
+        });
+      setIsLoading(false);
+      return; // Don't want to open add to cart selector
+    }
+    setIsLoading(false);
     setAddToCartSelectorOpen((p) => !p);
   };
 
@@ -83,9 +97,13 @@ export default function AddToCart({
       {/* {!isFinalSelection && !isSticky ? (
         <VehicleSelector searchParams={searchParams} />
       ) : ( */}
-        <div className="fixed inset-x-0 bottom-0 z-20 flex bg-white p-4 lg:relative lg:p-1">
-          <AddToCartButton handleAddToCartClicked={handleAddToCartClicked} />
-        </div>
+      <div className="fixed inset-x-0 bottom-0 z-20 flex bg-white p-4 lg:relative lg:p-1">
+        <AddToCartButton
+          isColorAvailable={isSelectedColorAvailable}
+          handleAddToCartClicked={handleAddToCartClicked}
+          isLoading={isLoading}
+        />
+      </div>
       {/* )} */}
     </Suspense>
   );
