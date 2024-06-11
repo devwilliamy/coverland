@@ -1,7 +1,8 @@
-import sgMail from '@sendgrid/mail';
+import sgMail, { MailDataRequired } from '@sendgrid/mail';
 sgMail.setApiKey(process.env.SENDGRID_API_KEY || '');
 
-type EmailOrderItem = {
+
+type OrderItem = {
   name: string;
   vehicle: string;
   color: string;
@@ -20,11 +21,11 @@ type ShippingInfo = {
   shipping_date: string;
 };
 
-type ThankYouEmailInput = {
+type DynamicTemplateData = {
   first_name: string;
   order_date: string;
   order_number: string;
-  order_items: EmailOrderItem[];
+  order_items: OrderItem[];
   shipping_info: ShippingInfo;
   total_item_quantity: number;
   subtotal: number;
@@ -36,7 +37,7 @@ type ThankYouEmailInput = {
 };
 
 // // Example of using the types with the provided data
-// const orderConfirmationEmail: ThankYouEmailInput = {
+// const dyanmicTemplateData: DynamicTemplateData = {
 //   first_name: "John",
 //   order_date: "November 20, 2023",
 //   order_number: "CL-00001",
@@ -82,8 +83,8 @@ const generateThankYouEmail = ({
   orderInfo,
   address,
   shippingInfo,
-  billingInfo,
-}: ThankYouEmailInput) => ({
+  billingInfo, 
+}: MailDataRequired) => ({
   // to: 'dev.william.coverland@gmail.com', // Change to your recipient
   to, // Change to your recipient
   from: 'info@coverland.com', // Process ENV
@@ -134,7 +135,7 @@ const generateThankYouEmail = ({
   },
 });
 
-export const sendThankYouEmail = async (emailInput: ThankYouEmailInput) => {
+export const sendThankYouEmail = async (emailInput: MailDataRequired) => {
   const msg = generateThankYouEmail(emailInput);
   try {
     await sgMail.send(msg);
