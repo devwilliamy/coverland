@@ -42,7 +42,7 @@ function useDetermineType() {
   const isPremiumType = isDefaultCoverType || isPremium;
   const isStandardType = isStandard || isStandardPro;
   const isModelPage = Boolean(productType && make && model && !year);
-  const isYearPage = productType && make && model && year;
+  const isYearPage = Boolean(productType && make && model && year);
 
   return {
     make,

@@ -98,7 +98,6 @@ export async function getProductReviewsByPage(
         .select(
           'review_image,review_description,review_title,rating_stars,review_author,helpful,reviewed_at'
         )
-        .not('review_author', 'is', null)
         .range(from, to);
 
       if (productType) {
@@ -146,6 +145,7 @@ export async function getProductReviewsByPage(
             break;
         }
       });
+      fetch = fetch.not('review_author', 'is', null);
 
       // if (productType === 'Seat Covers') {
       //   fetch = fetch.neq('sku', 'CL-SC-10--BK-1TO-')
@@ -165,7 +165,7 @@ export async function getProductReviewsByPage(
       // if (search) {
       //   fetch = fetch.textSearch('review_description', search);
       // }
-      console.log('FetcH:', fetch);
+      console.log('getProductReviewsByPage FetcH:', fetch);
       const { data, error } = await fetch;
 
       if (error) {
@@ -368,54 +368,65 @@ export async function getProductReviewsByImage(
   options: TProductReviewsQueryOptions
 ): Promise<TReviewData[]> {
   try {
+    debugger;
     const validatedFilters =
       ProductReviewsQueryFiltersSchema.parse(productQueryFilters);
     const validatedOptions = ProductReviewsQueryOptionsSchema.parse(options);
     const { productType, year, make, model } = validatedFilters;
     const { sort, filters } = validatedOptions;
+    const fetchReviews = async () => {
+      let fetch = supabaseDatabaseClient
+        .from(PRODUCT_REVIEWS_TABLE)
+        .select(
+          'review_image,review_description,review_title,rating_stars,review_author,helpful,reviewed_at'
+        );
 
-    let fetch = supabaseDatabaseClient.from(PRODUCT_REVIEWS_TABLE).select('*');
-
-    if (productType) {
-      fetch = fetch.eq('type', productType);
-    }
-
-    if (make) {
-      fetch = fetch.textSearch('make_slug', generateSlug(make));
-    }
-
-    if (model) {
-      fetch = fetch.textSearch('model_slug', generateSlug(model));
-    }
-
-    if (year) {
-      fetch = fetch.eq('parent_generation', year);
-    }
-
-    // Dynamically apply filters
-    // Special case, this should only be using review image
-    // Field SHOULD only be "review_image", operator SHOULD only be "neq"
-    filters?.forEach(({ field, operator, value }) => {
-      switch (operator) {
-        case 'neq':
-          fetch = fetch.neq(field, value);
-          break;
-        // Add cases for other operators as needed
-        default:
-          break;
+      if (productType) {
+        fetch = fetch.eq('type', productType);
       }
-    });
 
-    sort.forEach(({ field, order, nullsFirst }) => {
-      fetch = fetch.order(field, { ascending: order === 'asc', nullsFirst });
-    });
+      if (make) {
+        fetch = fetch.textSearch('make_slug', generateSlug(make));
+      }
 
-    const { data, error } = await fetch;
+      if (model) {
+        fetch = fetch.textSearch('model_slug', generateSlug(model));
+      }
 
-    if (error) {
-      console.error('[getProductReviewsByImage] error:', error);
-      return [];
-    }
+      if (year) {
+        fetch = fetch.eq('parent_generation', year);
+      }
+
+      // Dynamically apply filters
+      // Special case, this should only be using review image
+      // Field SHOULD only be "review_image", operator SHOULD only be "neq"
+      filters?.forEach(({ field, operator, value }) => {
+        switch (operator) {
+          case 'neq':
+            fetch = fetch.neq(field, value);
+            break;
+          // Add cases for other operators as needed
+          default:
+            break;
+        }
+      });
+      fetch = fetch.not('review_author', 'is', null);
+
+      sort.forEach(({ field, order, nullsFirst }) => {
+        fetch = fetch.order(field, { ascending: order === 'asc', nullsFirst });
+      });
+
+      const { data, error } = await fetch;
+
+      if (error) {
+        console.error('[getProductReviewsByImage] error:', error);
+        throw error;
+      }
+      return data;
+    };
+
+    const data = await retry(fetchReviews, 3, 500);
+
     const filteredDuplicatedReviewImages: TReviewData[] =
       filterDuplicateReviewImages({
         reviewData: data,
