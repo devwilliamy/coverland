@@ -1,3 +1,4 @@
+import { TCartItem } from '@/lib/cart/useCart';
 import sgMail, { MailDataRequired } from '@sendgrid/mail';
 sgMail.setApiKey(process.env.SENDGRID_API_KEY || '');
 
@@ -82,6 +83,33 @@ type ThankYouEmailInput = MailDataRequired & { dynamicTemplateData: DynamicTempl
 //   cv_exp_date: "11/2026"
 // };
 
+const generateOrderItems = (cartItems: TCartItem[]) => {
+  return cartItems.map(({ 
+    fullProductName,
+    display_id,
+    type, 
+    make, 
+    model, 
+    year_generation, 
+    submodel1 = '', 
+    submodel2 = '', 
+    submodel3 = '', 
+    display_color, 
+    quantity, 
+    msrp, 
+    mainImage,
+    feature,
+    product, 
+  }) => ({
+    name: fullProductName || `${display_id}\u2122 ${type}`,
+    vehicle: `${make} ${model} ${year_generation} ${submodel1 || ''} ${submodel2 || ''} ${submodel3 || ''}`.trim(),
+    color: display_color,
+    quantity: quantity,
+    price: msrp,
+    img_url: mainImage || feature || product.split(',')[0],
+  }));
+};
+
 const generateThankYouEmail = ({
   to,
   name,
@@ -105,6 +133,7 @@ const generateThankYouEmail = ({
     shipping_info: {
       ...shippingInfo,
     },
+    order_items: generateOrderItems(orderInfo.orderItems),
     // order_items: [
     //   {
     //     name: 'Premium Plus Custom Car Cover',

@@ -149,7 +149,7 @@ export default function Payment() {
             orderInfo: {
               orderDate: getCurrentDayInLocaleDateString(),
               orderNumber,
-              // orderItems,
+              orderItems: cartItems,
               // products
             },
             shippingInfo: {
