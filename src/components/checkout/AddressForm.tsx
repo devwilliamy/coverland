@@ -126,6 +126,20 @@ export default function AddressForm({
     }
   }, [addressData, customerInfo, setValue]);
 
+  // useEffect(() => {
+  //   if (process.env.NEXT_PUBLIC_IS_PREVIEW === 'PREVIEW') {
+  //     setValue('email', 'dev.william.coverland@gmail.com' || '');
+  //     setValue('firstName', 'William' || '');
+  //     setValue('lastName', 'Yang' || '');
+  //     setValue('line1', '123 Main Street' || '');
+  //     setValue('line2', addressData.address.line2 || '');
+  //     setValue('city', 'Irvine' || '');
+  //     setValue('state', 'CA' || '');
+  //     setValue('postal_code', '12345' || '');
+  //     setValue('phoneNumber', '+1 424 424 4242' || '');
+  //   }
+  // }, []);
+
   return (
     <form onSubmit={onSubmit}>
       {showEmail && (

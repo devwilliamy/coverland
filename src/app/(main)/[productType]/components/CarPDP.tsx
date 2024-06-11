@@ -1,8 +1,9 @@
-import { TInitialProductDataDB, TReviewData } from '@/lib/db';
+import { TInitialProductDataDB } from '@/lib/db';
 import CarCoverSelector from './CarCoverSelector';
 import { TPathParams } from '@/utils';
-import { TProductReviewSummary } from '@/lib/db/review';
+
 import CarSelectionProvider from '@/contexts/CarSelectionContext';
+import { TReviewData, TProductReviewSummary } from '@/lib/types/review';
 
 export default async function CarPDP({
   modelData: modelDataProps,

@@ -5,7 +5,7 @@ import { useStore } from 'zustand';
 import { ChevronDown, ChevronUp, X } from 'lucide-react';
 import { Dialog } from '@/components/ui/dialog';
 import { DialogContent } from '@radix-ui/react-dialog';
-import { TReviewData } from '@/lib/db';
+import { TReviewData } from '@/lib/types/review';
 import { ReviewChevronLeft, ReviewChevronRight } from '../icons';
 import WouldRecomend from './WouldRecomend';
 import { Rating } from '@mui/material';

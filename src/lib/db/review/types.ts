@@ -1,7 +1,6 @@
 import { z } from 'zod';
 import { Tables } from '../types';
 
-export type TReviewData = Tables<'reviews-2'>;
 
 export type TProductReviewsQueryFilters = {
   productType?: 'Car Covers' | 'SUV Covers' | 'Truck Covers' | 'Seat Covers';
@@ -30,11 +29,6 @@ export type TProductReviewsQueryOptions = {
   sort?: SortParams[];
   filters?: FilterParams[];
   search?: string;
-};
-
-export type TProductReviewSummary = {
-  total_reviews: number;
-  average_score: number;
 };
 
 export type TProductReviewDistinctImages = {
@@ -71,7 +65,7 @@ export const FilterSchema = z.object({
 export const SortOptionSchema = z.object({
   field: z.string().default('helpful'),
   order: z.enum(['asc', 'desc']).default('desc'),
-  nullsFirst: z.boolean().optional().default(false),
+  nullsFirst: z.boolean().optional(),
 });
 
 export const ProductReviewsQueryFiltersSchema = z.object({

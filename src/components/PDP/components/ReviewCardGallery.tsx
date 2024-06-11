@@ -1,6 +1,6 @@
 import useStoreContext from '@/hooks/useStoreContext';
 import { ReviewImageIndexContext } from '@/lib/contexts/ReviewImageIndexContext';
-import { TReviewData } from '@/lib/db/review';
+import { TReviewData } from '@/lib/types/review';
 import { ChevronDown, ChevronUp } from 'lucide-react';
 import Image from 'next/image';
 import React, { useContext, useState } from 'react';

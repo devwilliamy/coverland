@@ -5,14 +5,13 @@ import {
   getSeatCoverProductsByDisplayColor,
 } from '@/lib/db/seat-covers';
 import {
-  TProductReviewSummary,
-  TReviewData,
   getAllReviewsWithImages,
   getProductReviewSummary,
   getProductReviewsByPage,
 } from '@/lib/db/review';
 import { deslugify } from '@/lib/utils';
 import SeatCoverDataWrapper from '@/app/(main)/seat-covers/components/SeatCoverDataWrapper';
+import { TReviewData, TProductReviewSummary } from '@/lib/types/review';
 
 export const revalidate = 0;
 
@@ -102,6 +101,10 @@ export default async function SeatCoverDataLayer({
               page: 0,
               limit: 8,
             },
+            sort: [
+              { field: 'sku', order: 'asc' },
+              { field: 'helpful', order: 'desc', nullsFirst: false },
+            ],
           }
         ),
         getProductReviewSummary({

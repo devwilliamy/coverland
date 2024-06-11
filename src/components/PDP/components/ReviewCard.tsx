@@ -1,4 +1,3 @@
-import { TReviewData } from '@/lib/db';
 import { useMediaQuery } from '@mui/material';
 import { FaRegThumbsUp, FaThumbsUp } from 'react-icons/fa6';
 import WouldRecomend from './WouldRecomend';
@@ -23,6 +22,7 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from '@/components/ui/carousel';
+import { TReviewData } from '@/lib/types/review';
 
 export default function ReviewCard({
   review,

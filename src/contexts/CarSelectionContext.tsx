@@ -1,5 +1,5 @@
 'use client';
-import { TReviewData } from '@/lib/db';
+import { TReviewData } from '@/lib/types/review';
 // import CarCoverSelector from './CarCoverSelector';
 import { createStore } from 'zustand';
 import { createContext, useRef } from 'react';

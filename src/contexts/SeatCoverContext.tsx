@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import { TSeatCoverDataDB } from '@/lib/db/seat-covers';
 import { TPathParams, TQueryParams, getCompleteSelectionData } from '@/utils';
 import { compareRawStrings, isFullSet } from '@/lib/utils';
-import { TReviewData } from '@/lib/db';
+import { TReviewData } from '@/lib/types/review';
 import { TProductReviewSummary } from '@/lib/db/review';
 
 type SeatCoverSelectionStore = ReturnType<typeof createSeatCoverSelectionStore>;

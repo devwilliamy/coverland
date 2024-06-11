@@ -7,15 +7,15 @@ import {
 } from '../constants/databaseTableNames';
 import { getPagination } from '../utils';
 import { supabaseDatabaseClient } from '../supabaseClients';
-import { TReviewData } from '..';
+
 import {
   TProductReviewsQueryFilters,
   TProductReviewsQueryOptions,
   ProductReviewsQueryFiltersSchema,
   ProductReviewsQueryOptionsSchema,
   TProductReviewDistinctImages,
-  TProductReviewSummary,
 } from './types';
+import { TReviewData, TProductReviewSummary } from '@/lib/types/review';
 
 export const generateSlug = (text: string) => {
   if (!text) return ''; // Return an empty string if text is falsy
@@ -159,9 +159,13 @@ export async function getProductReviewsByPage(
         fetch = fetch.order(field, { ascending: order === 'asc', nullsFirst });
       });
 
+      // fetch = fetch.order('sku', { ascending: true });
+      // fetch = fetch.order('helpful', { nullsFirst: false, ascending: false });
+
       // if (search) {
       //   fetch = fetch.textSearch('review_description', search);
       // }
+      console.log('FetcH:', fetch);
       const { data, error } = await fetch;
 
       if (error) {
