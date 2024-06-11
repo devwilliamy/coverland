@@ -27,6 +27,8 @@ import { hashData } from '@/lib/utils/hash';
 import { getCookie } from '@/lib/utils/cookie';
 import { v4 as uuidv4 } from 'uuid';
 import { generateSkuLabOrderInput } from '@/lib/utils/skuLabs';
+import { detectConflictingPaths } from 'next/dist/build/utils';
+import { determineDeliveryByDate } from '@/lib/utils/deliveryDateUtils';
 
 function isValidShippingAddress({ address }: StripeAddress) {
   return (
@@ -54,6 +56,7 @@ export default function Payment() {
   const { orderNumber, paymentIntentId } = useCheckoutContext();
   const { billingAddress, shippingAddress, customerInfo, shipping } =
     useCheckoutContext();
+  const shippingInfo = { shipping_method: 'Standard: UPS ground - Free shipping', shipping_date: determineDeliveryByDate(), delivery_fee: shipping };
   const { cartItems, getTotalPrice, clearLocalStorageCart } = useCartContext();
   const totalMsrpPrice = convertPriceToStripeFormat(getTotalPrice() + shipping);
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
@@ -152,13 +155,15 @@ export default function Payment() {
             shippingInfo: {
               city: shippingAddress.address.city as string,
               country: shippingAddress.address.country as string,
-              line1: shippingAddress.address.line1 as string,
-              line2: shippingAddress.address.line2 as string,
+              address_line1: shippingAddress.address.line1 as string,
+              address_line2: shippingAddress.address.line2 as string,
               postal_code: shippingAddress.address.postal_code as string,
               state: shippingAddress.address.state as string,
               full_name: `${shippingAddress.firstName} ${shippingAddress.lastName}`,
-              shipping_method: shipping?.shipping_method as string,
-              shipping_date: shipping?.shipping_date as string,
+              shipping_method: shippingInfo.shipping_method as string,
+              shipping_date: shippingInfo.shipping_date as string,
+              delivery_fee: shippingInfo.delivery_fee as number,
+              free_delivery: shippingInfo.delivery_fee === 0,
             },
             // billingInfo,
           };

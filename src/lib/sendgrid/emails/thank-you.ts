@@ -21,6 +21,8 @@ type ShippingInfo = {
   postal_code: string;
   shipping_method: string;
   shipping_date: string;
+  delivery_fee: number;
+  free_delivery: boolean;
 };
 
 type DynamicTemplateData = {
@@ -31,7 +33,6 @@ type DynamicTemplateData = {
   shipping_info: ShippingInfo;
   total_item_quantity: number;
   subtotal: number;
-  delivery_fee: string;
   taxes: number;
   total: number;
   cv_four_digits: string;
@@ -90,10 +91,10 @@ const generateThankYouEmail = ({
 }: ThankYouEmailInput) => ({
   // to: 'dev.william.coverland@gmail.com', // Change to your recipient
   to, // Change to your recipient
-  // from: 'info@coverland.com', // Process ENV
-  from: process.env.FROM_EMAIL || '', // need to add an error catch
-  templateId: process.env.SENDGRID_THANK_YOU_EMAIL_TEMPLATE_ID || '', // need to add an error catch
-  // templateId: 'd-fe756cb7460345508833395151dc88bb', // Process ENV
+  from: 'info@coverland.com', // Process ENV
+  // from: {email : process.env.FROM_EMAIL},
+  // templateId: process.env.SENDGRID_THANK_YOU_EMAIL_TEMPLATE_ID || '', // need to add an error catch
+  templateId: 'd-fe756cb7460345508833395151dc88bb', // Process ENV
   dynamicTemplateData: {
     // first_name: 'William',
     first_name: name.firstName,
@@ -101,7 +102,7 @@ const generateThankYouEmail = ({
     order_date: orderInfo.orderDate,
     // order_number: 'CL-00002',
     order_number: orderInfo.orderNumber,
-    shippingInfo: {
+    shipping_info: {
       ...shippingInfo,
     },
     // order_items: [
