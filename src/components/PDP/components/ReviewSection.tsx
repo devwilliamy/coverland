@@ -48,7 +48,6 @@ const ReviewSection = ({ showHeader }: { showHeader?: boolean }) => {
   });
   const [filters, setFilters] = useState<FilterParams[]>([]);
   const { productType } = useDetermineType();
-  // const [searchReview, setSearchReview] = useState<string>('');
 
   const areThereMoreReviews = reviewData.length < total_reviews;
 
@@ -110,40 +109,6 @@ const ReviewSection = ({ showHeader }: { showHeader?: boolean }) => {
     setFilterImageOn,
   });
 
-  /* Text search - was told to leave it out for now */
-  // const handleSearchEnter = async (e: React.ChangeEvent<HTMLButtonElement>) => {
-  //   e.preventDefault();
-
-  //   try {
-  //     setLoading(true);
-  //     // If set to none, do the default sort
-  //     const newReviewData = await getProductReviewsByPage(
-  //       {
-  //         productType: typeString,
-  //         year,
-  //         make,
-  //         model,
-  //       },
-  //       {
-  //         pagination: {
-  //           page: 0, // Reset to the beginning
-  //           limit,
-  //         },
-  //         search: searchReview,
-  //         sort: {
-  //           field: 'helpful',
-  //           order: 'desc',
-  //         },
-  //       }
-  //     );
-
-  //     setReviewData([...newReviewData]); // Only show the first 8 when a sort has been picked
-  //     setPage(1);
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  //   setLoading(false);
-  // };
   return (
     <div className="relative mb-[56px] flex w-full flex-col items-center px-[22px] lg:mb-0 lg:px-[59px] lg:py-2">
       {showHeader && (
@@ -215,14 +180,6 @@ const ReviewSection = ({ showHeader }: { showHeader?: boolean }) => {
               <option value="positive">Positive Reviews</option>
               <option value="critical">Critical Reviews</option>
             </select>
-            {/* Text search - was told to leave it out for now */}
-            {/* <input
-        className="mt-3 h-12 w-full rounded border border-[#C8C7C7] pl-4 text-lg font-normal text-[#1A1A1A] lg:h-[45px] lg:w-[427px]"
-        placeholder="Search Reviews"
-        value={searchReview}
-        onChange={(e) => setSearchReview(e.target.value)}
-      />
-      <button onClick={handleSearchEnter}>Search</button> */}
           </div>
         </>
       )}
