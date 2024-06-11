@@ -153,9 +153,9 @@ export default function Payment() {
               cartItems, // note: cartItems transformed to orderItems inside generateThankYouEmail
               // products
               totalItemQuantity: getTotalCartQuantity(),
-              subtotal: getOrderSubtotal(),
-              total: getTotalPrice() + shipping,
-              totalDiscount: getTotalDiscountPrice(),
+              subtotal: getOrderSubtotal().toFixed(2),
+              total: (getTotalPrice() + shipping).toFixed(2),
+              totalDiscount: getTotalDiscountPrice().toFixed(2),
             },
             shippingInfo: {
               city: shippingAddress.address.city as string,
