@@ -29,6 +29,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { generateSkuLabOrderInput } from '@/lib/utils/skuLabs';
 import { detectConflictingPaths } from 'next/dist/build/utils';
 import { determineDeliveryByDate } from '@/lib/utils/deliveryDateUtils';
+import { getTotalCartQuantity } from '@/lib/utils/calculations';
 
 function isValidShippingAddress({ address }: StripeAddress) {
   return (
@@ -56,8 +57,8 @@ export default function Payment() {
   const { orderNumber, paymentIntentId } = useCheckoutContext();
   const { billingAddress, shippingAddress, customerInfo, shipping } =
     useCheckoutContext();
-  const shippingInfo = { shipping_method: 'Standard: UPS ground - Free shipping', shipping_date: determineDeliveryByDate(), delivery_fee: shipping };
-  const { cartItems, getTotalPrice, clearLocalStorageCart } = useCartContext();
+  const shippingInfo = { shipping_method: 'Standard: UPS Ground - Free Shipping', shipping_date: determineDeliveryByDate(), delivery_fee: shipping };
+  const { cartItems, getTotalPrice, getOrderSubtotal, getTotalDiscountPrice, getTotalCartQuantity, clearLocalStorageCart } = useCartContext();
   const totalMsrpPrice = convertPriceToStripeFormat(getTotalPrice() + shipping);
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -149,8 +150,12 @@ export default function Payment() {
             orderInfo: {
               orderDate: getCurrentDayInLocaleDateString(),
               orderNumber,
-              orderItems: cartItems,
+              cartItems, // note: cartItems transformed to orderItems inside generateThankYouEmail
               // products
+              totalItemQuantity: getTotalCartQuantity(),
+              subtotal: getOrderSubtotal(),
+              total: getTotalPrice() + shipping,
+              totalDiscount: getTotalDiscountPrice(),
             },
             shippingInfo: {
               city: shippingAddress.address.city as string,

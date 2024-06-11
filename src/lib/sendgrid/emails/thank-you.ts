@@ -34,6 +34,7 @@ type DynamicTemplateData = {
   shipping_info: ShippingInfo;
   total_item_quantity: number;
   subtotal: number;
+  total_discount: number;
   taxes: number;
   total: number;
   cv_four_digits: string;
@@ -133,7 +134,7 @@ const generateThankYouEmail = ({
     shipping_info: {
       ...shippingInfo,
     },
-    order_items: generateOrderItems(orderInfo.orderItems),
+    order_items: generateOrderItems(orderInfo.cartItems),
     // order_items: [
     //   {
     //     name: 'Premium Plus Custom Car Cover',
@@ -170,6 +171,11 @@ const generateThankYouEmail = ({
     // total: 369.98,
     // cv_four_digits: '*4242',
     // cv_exp_date: '11/2026',
+    total_item_quantity: orderInfo.totalItemQuantity,
+    subtotal: orderInfo.subtotal,
+    total_discount: orderInfo.totalDiscount,
+    // taxes: orderInfo.taxes;
+    total: orderInfo.total,
   },
 });
 
