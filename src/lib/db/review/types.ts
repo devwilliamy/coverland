@@ -1,6 +1,6 @@
 import { z } from 'zod';
 import { Tables } from '../types';
-
+import { SortParams } from '@/lib/types/review';
 
 export type TProductReviewsQueryFilters = {
   productType?: 'Car Covers' | 'SUV Covers' | 'Truck Covers' | 'Seat Covers';
@@ -13,12 +13,6 @@ export type FilterParams = {
   field: string;
   operator: 'eq' | 'neq' | 'gt' | 'lt' | 'gte' | 'lte' | 'notnull';
   value: string | number;
-};
-
-export type SortParams = {
-  field: string;
-  order: 'asc' | 'desc';
-  nullsFirst?: boolean;
 };
 
 export type TProductReviewsQueryOptions = {

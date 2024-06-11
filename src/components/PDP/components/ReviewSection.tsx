@@ -22,6 +22,7 @@ import useFilterHandler from '@/hooks/review/useFilterHandler';
 import useViewMoreHandler from '@/hooks/review/useViewMoreHandler';
 import useSortHandler from '@/hooks/review/useSortHandler';
 import useDetermineType from '@/hooks/useDetermineType';
+import { SortParams } from '@/lib/types/review';
 
 const ReviewSection = ({ showHeader }: { showHeader?: boolean }) => {
   const isMobile = useMediaQuery('(max-width: 768px)');
@@ -41,7 +42,7 @@ const ReviewSection = ({ showHeader }: { showHeader?: boolean }) => {
   const [loading, setLoading] = useState(false);
   const [page, setPage] = useState(1); // Starting at 1 because we're already starting at 0
   const limit = 8;
-  const [sort, setSort] = useState<{ field: string; order: 'desc' | 'asc' }>({
+  const [sort, setSort] = useState<SortParams[]>({
     field: 'helpful',
     order: 'desc',
   });
@@ -196,8 +197,8 @@ const ReviewSection = ({ showHeader }: { showHeader?: boolean }) => {
               <option disabled className="hidden" value="sort">
                 Sort
               </option>
-              <option value="helpful">Sort By Most Helpful</option>
-              <option value="newest">Sort By Most Recent</option>
+              <option value="helpful">Most Helpful</option>
+              <option value="newest">Most Recent</option>
               {/* <option value="oldest">Sort By Oldest</option> */}
             </select>
 
@@ -209,10 +210,10 @@ const ReviewSection = ({ showHeader }: { showHeader?: boolean }) => {
               <option disabled className="hidden" value="filter">
                 Filter
               </option>
-              <option value="images">Filter By Images Only</option>
-              {/* <option value="verified">Filter By Verified Purchases Only</option> */}
-              <option value="positive">Filter By Positive Reviews</option>
-              <option value="critical">Filter By Critical Reviews</option>
+              <option value="images">Images Only</option>
+              {/* <option value="verified">Verified Purchases Only</option> */}
+              <option value="positive">Positive Reviews</option>
+              <option value="critical">Critical Reviews</option>
             </select>
             {/* Text search - was told to leave it out for now */}
             {/* <input

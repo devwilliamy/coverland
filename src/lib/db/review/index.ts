@@ -147,14 +147,6 @@ export async function getProductReviewsByPage(
       });
       fetch = fetch.not('review_author', 'is', null);
 
-      // if (productType === 'Seat Covers') {
-      //   fetch = fetch.neq('sku', 'CL-SC-10--BK-1TO-')
-      //   fetch = fetch.order('sku', { ascending: true });
-      //   fetch = fetch.order('helpful', { nullsFirst: false, ascending: false });
-      // } else if (sort && sort.field) {
-      //   fetch = fetch.order(sort.field, { ascending: sort.order === 'asc' });
-      // }
-
       sort.forEach(({ field, order, nullsFirst }) => {
         fetch = fetch.order(field, { ascending: order === 'asc', nullsFirst });
       });

@@ -4,7 +4,7 @@ import {
   getProductReviewsByPage,
   getProductReviewsByImage,
 } from '@/lib/db/review';
-import { TReviewData } from '@/lib/types/review';
+import { SortParams, TReviewData } from '@/lib/types/review';
 
 type SortHandlerProps = {
   typeString: string;
@@ -15,7 +15,7 @@ type SortHandlerProps = {
   setLoading: (loading: boolean) => void;
   setReviewData: (data: TReviewData[]) => void;
   setPage: (page: number) => void;
-  setSort: (sort: { field: string; order: 'asc' | 'desc' }) => void;
+  setSort: (sort: SortParams[]) => void;
 };
 
 const useSortHandler = ({
@@ -32,25 +32,26 @@ const useSortHandler = ({
   const handleSortSelectionChange = async (
     e: React.ChangeEvent<HTMLSelectElement>
   ) => {
-    let field: string;
-    let order: 'asc' | 'desc' = 'asc';
-
+    let sortArray: SortParams[] = [];
     switch (e.target.value) {
       case 'newest':
-        field = 'reviewed_at';
-        order = 'desc';
+        sortArray = [{ field: 'reviewed_at', order: 'desc' }];
         break;
       case 'helpful':
-        field = 'helpful';
-        order = 'desc';
+        sortArray = [
+          { field: 'sku', order: 'asc' }, // Temporary requirement to make images show first
+          { field: 'helpful', order: 'desc', nullsFirst: false },
+        ];
         break;
       case 'oldest':
-        field = 'reviewed_at';
+        sortArray = [{ field: 'reviewed_at', order: 'asc' }];
         break;
       // Add more cases as needed
       default:
-        field = 'helpful';
-        order = 'desc';
+        sortArray = [
+          { field: 'sku', order: 'asc' }, // Temporary requirement to make images show first
+          { field: 'helpful', order: 'desc', nullsFirst: false },
+        ];
     }
 
     try {
@@ -68,14 +69,11 @@ const useSortHandler = ({
             page: 0, // Reset to the beginning
             limit,
           },
-          sort: {
-            field,
-            order,
-          },
+          sort: sortArray,
         }
       );
 
-      setSort({ field, order });
+      setSort(sortArray);
       setReviewData(newReviewData); // Only show the first 8 when a sort has been picked
       setPage(1);
     } catch (error) {
