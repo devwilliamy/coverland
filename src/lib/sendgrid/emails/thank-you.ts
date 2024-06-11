@@ -90,8 +90,10 @@ const generateThankYouEmail = ({
 }: ThankYouEmailInput) => ({
   // to: 'dev.william.coverland@gmail.com', // Change to your recipient
   to, // Change to your recipient
-  from: 'info@coverland.com', // Process ENV
-  templateId: 'd-fe756cb7460345508833395151dc88bb', // Process ENV
+  // from: 'info@coverland.com', // Process ENV
+  from: process.env.FROM_EMAIL || '', // need to add an error catch
+  templateId: process.env.SENDGRID_THANK_YOU_EMAIL_TEMPLATE_ID || '', // need to add an error catch
+  // templateId: 'd-fe756cb7460345508833395151dc88bb', // Process ENV
   dynamicTemplateData: {
     // first_name: 'William',
     first_name: name.firstName,
@@ -101,7 +103,7 @@ const generateThankYouEmail = ({
     order_number: orderInfo.orderNumber,
     shippingInfo: {
       ...shippingInfo,
-    }
+    },
     // order_items: [
     //   {
     //     name: 'Premium Plus Custom Car Cover',
@@ -149,5 +151,17 @@ export const sendThankYouEmail = async (emailInput: MailDataRequired) => {
     // return data;
   } catch (error) {
     console.error(error);
+
+    // Check if err.response exists to get more details
+    if (error.response) {
+      console.log('Error Response:', error.response.body);
+
+      // Log each error in the errors array
+      if (error.response.body.errors) {
+        error.response.body.errors.forEach((error: any) => {
+          console.log('Error Detail:', error);
+        });
+      }
+    }
   }
 };
