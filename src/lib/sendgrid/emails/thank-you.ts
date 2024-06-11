@@ -91,7 +91,7 @@ const generateThankYouEmail = ({
   // to: 'dev.william.coverland@gmail.com', // Change to your recipient
   to, // Change to your recipient
   from: 'info@coverland.com', // Process ENV
-  templateId: 'd-bd1f970dc40e436f8a25176e65c94e72', // Process ENV
+  templateId: 'd-fe756cb7460345508833395151dc88bb', // Process ENV
   dynamicTemplateData: {
     // first_name: 'William',
     first_name: name.firstName,
