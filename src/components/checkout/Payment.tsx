@@ -146,10 +146,20 @@ export default function Payment() {
             orderInfo: {
               orderDate: getCurrentDayInLocaleDateString(),
               orderNumber,
+              // orderItems,
               // products
             },
-            // address,
-            // shippingInfo,
+            shippingInfo: {
+              city: shippingAddress.address.city as string,
+              country: shippingAddress.address.country as string,
+              line1: shippingAddress.address.line1 as string,
+              line2: shippingAddress.address.line2 as string,
+              postal_code: shippingAddress.address.postal_code as string,
+              state: shippingAddress.address.state as string,
+              full_name: `${shippingAddress.firstName} ${shippingAddress.lastName}`,
+              shipping_method: shipping?.shipping_method as string,
+              shipping_date: shipping?.shipping_date as string,
+            },
             // billingInfo,
           };
           try {

@@ -14,8 +14,10 @@ type OrderItem = {
 type ShippingInfo = {
   full_name: string;
   address_line1: string;
+  address_line2: string;
   city: string;
   state: string;
+  country: string;
   postal_code: string;
   shipping_method: string;
   shipping_date: string;
@@ -35,6 +37,8 @@ type DynamicTemplateData = {
   cv_four_digits: string;
   cv_exp_date: string;
 };
+
+type ThankYouEmailInput = MailDataRequired & { dynamicTemplateData: DynamicTemplateData };
 
 // // Example of using the types with the provided data
 // const dyanmicTemplateData: DynamicTemplateData = {
@@ -81,10 +85,9 @@ const generateThankYouEmail = ({
   to,
   name,
   orderInfo,
-  address,
   shippingInfo,
   billingInfo, 
-}: MailDataRequired) => ({
+}: ThankYouEmailInput) => ({
   // to: 'dev.william.coverland@gmail.com', // Change to your recipient
   to, // Change to your recipient
   from: 'info@coverland.com', // Process ENV
@@ -96,6 +99,9 @@ const generateThankYouEmail = ({
     order_date: orderInfo.orderDate,
     // order_number: 'CL-00002',
     order_number: orderInfo.orderNumber,
+    shippingInfo: {
+      ...shippingInfo,
+    }
     // order_items: [
     //   {
     //     name: 'Premium Plus Custom Car Cover',
