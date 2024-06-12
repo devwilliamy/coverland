@@ -36,7 +36,7 @@ type DynamicTemplateData = {
   total_item_quantity: number;
   subtotal: number;
   total_discount: number;
-  taxes: number;
+  // taxes: number;
   total: number;
   cv_four_digits: string;
   cv_exp_date: string;
