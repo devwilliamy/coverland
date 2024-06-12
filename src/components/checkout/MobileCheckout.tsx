@@ -505,12 +505,17 @@ export default function MobileCheckout() {
             <AccordionItem value="orderReview" id="orderReview">
               <AccordionTrigger
                 onClick={(e) => {
-                  if (!isAddressComplete || isEditingAddress) {
+                  if (
+                    !isAddressComplete ||
+                    isEditingAddress ||
+                    !isReadyToPay ||
+                    !isReadyToShip
+                  ) {
                     e.preventDefault();
                   }
                   handleSelectTab('orderReview');
                 }}
-                className={`${(!isAddressComplete || isEditingAddress || !isReadyToPay) && 'disabled cursor-default text-[grey] hover:no-underline'} my-4 px-4 text-xl font-medium`}
+                className={`${(!isAddressComplete || isEditingAddress || !isReadyToPay || !isReadyToShip) && 'disabled cursor-default text-[grey] hover:no-underline'} my-4 px-4 text-xl font-medium`}
               >
                 Order Review
               </AccordionTrigger>
