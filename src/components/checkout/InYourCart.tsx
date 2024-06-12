@@ -14,7 +14,7 @@ export default function InYourCart() {
       <div className="flex flex-row justify-end">
         <div
           onClick={() => setCurrentStep(CheckoutStep.CART)}
-          className="cursor-pointer text-[#0C87B8] underline"
+          className="mb-2 cursor-pointer font-[500] underline hover:text-[#0C87B8]"
         >
           Edit
         </div>

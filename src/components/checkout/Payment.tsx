@@ -865,7 +865,7 @@ export default function Payment({
           </div>
           <div>
             <p
-              className="flex max-h-fit cursor-pointer underline hover:text-[#0C87B8]"
+              className="flex max-h-fit cursor-pointer font-[500] underline hover:text-[#0C87B8]"
               onClick={() => updateIsReadyToPay(false)}
             >
               Edit

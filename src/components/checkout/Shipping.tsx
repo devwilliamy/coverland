@@ -100,8 +100,13 @@ export default function Shipping({
               <div>{shippingOptions[selectedIndex].upsText}</div>
             </div>
           </div>
-          <div className="cursor-pointer" onClick={handleEditShipping}>
-            Edit
+          <div>
+            <p
+              className="cursor-pointer font-[500] underline hover:text-[#0C87B8]"
+              onClick={handleEditShipping}
+            >
+              Edit
+            </p>
           </div>
         </section>
       )}
