@@ -154,8 +154,9 @@ export default function Payment() {
               // products
               totalItemQuantity: getTotalCartQuantity(),
               subtotal: getOrderSubtotal().toFixed(2),
-              total: (getTotalPrice() + shipping).toFixed(2),
+              total: (getTotalPrice() + shipping).toFixed(2), // may need to add taxes later
               totalDiscount: getTotalDiscountPrice().toFixed(2),
+              hasDiscount: parseFloat(getTotalDiscountPrice().toFixed(2)) > 0,
             },
             shippingInfo: {
               city: shippingAddress.address.city as string,

@@ -1,6 +1,6 @@
 import { TCartItem } from '@/lib/cart/useCart';
 import sgMail, { MailDataRequired } from '@sendgrid/mail';
-import { formatMoneyAsNumber } from '@/lib/utils/money'
+import { formatMoneyAsNumber, trimToWholeNumber } from '@/lib/utils/money'
 sgMail.setApiKey(process.env.SENDGRID_API_KEY || '');
 
 
@@ -108,6 +108,7 @@ const generateOrderItems = (cartItems: TCartItem[]) => {
     color: display_color,
     quantity: quantity,
     price: msrp,
+    total_price: formatMoneyAsNumber(msrp * quantity),
     img_url: mainImage || feature || product.split(',')[0],
   }));
 };
@@ -174,13 +175,16 @@ const generateThankYouEmail = ({
     // cv_exp_date: '11/2026',
     total_item_quantity: orderInfo.totalItemQuantity,
     subtotal: formatMoneyAsNumber(orderInfo.subtotal),
-    total_discount: formatMoneyAsNumber(orderInfo.totalDiscount),
+    // total_discount: trimToWholeNumber(orderInfo.totalDiscount),
+    total_discount: orderInfo.totalDiscount,
+    has_discount: orderInfo.hasDiscount,
     // taxes: orderInfo.taxes;
     total: formatMoneyAsNumber(orderInfo.total),
   },
 });
 
 export const sendThankYouEmail = async (emailInput: MailDataRequired) => {
+  console.log('emailInput Shipping Info', emailInput);
   const msg = generateThankYouEmail(emailInput);
   try {
     await sgMail.send(msg);
