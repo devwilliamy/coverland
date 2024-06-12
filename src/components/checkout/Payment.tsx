@@ -1,54 +1,22 @@
-import {
-  AuBankAccountElement,
-  CardElement,
-  FpxBankElement,
-  IbanElement,
-  IdealBankElement,
-  LinkAuthenticationElement,
-  P24BankElement,
-  PaymentElement,
-  PaymentRequestButtonElement,
-  useElements,
-  useStripe,
-} from '@stripe/react-stripe-js';
-import PromoCode from './PromoCode';
-import { FormEvent, useEffect, useState } from 'react';
-import OrderReview from './OrderReview';
-import PriceBreakdown from './PriceBreakdown';
+import { useElements, useStripe } from '@stripe/react-stripe-js';
+import { useEffect, useState } from 'react';
 import { Button } from '../ui/button';
 import { AiOutlineLoading3Quarters } from 'react-icons/ai';
-import PayPalButtonSection from './PayPalButtonSection';
 import { useCheckoutContext } from '@/contexts/CheckoutContext';
 import PaymentSelector from './PaymentSelector';
-import { PaymentMethod, StripeAddress } from '@/lib/types/checkout';
 import BillingAddress from './BillingAddress';
 import { useCartContext } from '@/providers/CartProvider';
-import {
-  convertPriceToStripeFormat,
-  getSkuQuantityPriceFromCartItemsForMeta,
-  getSkusAndQuantityFromCartItems,
-  getSkusFromCartItems,
-} from '@/lib/utils/stripe';
-import { sendThankYouEmail } from '@/lib/sendgrid/emails/thank-you';
-import { getCurrentDayInLocaleDateString } from '@/lib/utils/date';
+import { convertPriceToStripeFormat } from '@/lib/utils/stripe';
 import { useRouter } from 'next/navigation';
-import { handlePurchaseGoogleTag } from '@/hooks/useGoogleTagDataLayer';
-import { hashData } from '@/lib/utils/hash';
-import { getCookie } from '@/lib/utils/cookie';
-import { v4 as uuidv4 } from 'uuid';
-import {
-  AddressParam,
-  BillingDetails,
-  ConfirmCardPaymentData,
-  CreatePaymentMethodKlarnaData,
-  StripeCardNumberElement,
-} from '@stripe/stripe-js';
-import { useCreateStripePaymentIntent } from '@/hooks/useStripePaymentIntent';
+import { StripeCardNumberElement } from '@stripe/stripe-js';
 import { NewCheckout } from './NewCheckout';
 import Klarna from '@/images/checkout/Klarna-Black.webp';
 import Image from 'next/image';
 import { CreditCard } from 'lucide-react';
 import PayPalIcon from '../PDP/components/icons/PayPalIcon';
+import VisaBlue from '@/images/checkout/VisaLogoBlue.webp';
+import VisaWhite from '@/images/checkout/VisaLogoWhite.webp';
+import Mastercard from '@/images/checkout/MastercardIcon.webp';
 
 // function isValidShippingAddress({ address }: StripeAddress) {
 //   return (
@@ -74,14 +42,8 @@ export default function Payment({
   const [isLoading, setIsLoading] = useState(false);
   // const [paymentMethod, setPaymentMethod] =
   //   useState<PaymentMethod>('creditCard');
-  const [paymentRequest, setPaymentRequest] = useState(null);
   const [isEditingAddress, setIsEditingAddress] = useState(false);
   const [message, setMessage] = useState<string>('');
-  const {
-    orderNumber,
-    paymentIntentId,
-    // paymentMethod, updatePaymentMethod
-  } = useCheckoutContext();
   const {
     billingAddress,
     shippingAddress,
@@ -97,7 +59,7 @@ export default function Payment({
     stripePaymentMethod,
     updateStripePaymentMethod,
   } = useCheckoutContext();
-  const { cartItems, getTotalPrice, clearLocalStorageCart } = useCartContext();
+  const { getTotalPrice, clearLocalStorageCart } = useCartContext();
   const totalMsrpPrice = convertPriceToStripeFormat(getTotalPrice() + shipping);
 
   // const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
@@ -795,7 +757,6 @@ export default function Payment({
   // };
 
   const isDisabledCard =
-    // !isValidShippingAddress(shippingAddress) ||
     isEditingAddress ||
     Boolean(cardNumberError.error || !cardNumberError.visited) ||
     Boolean(cardExpiryError.error || !cardExpiryError.visited) ||
@@ -803,7 +764,6 @@ export default function Payment({
 
   useEffect(() => {
     console.log({
-      // validSHippingAddress: !isValidShippingAddress(shippingAddress),
       isDisabledCard,
       isEditingAddress,
       cardVisited: cardNumberError,
@@ -812,8 +772,32 @@ export default function Payment({
     });
   }, [cardNumberError, cardExpiryError, cardCvvError]);
 
-  const { firstName, lastName, name } = shippingAddress;
+  const { name } = shippingAddress;
   const { city, line1, state, postal_code, country } = shippingAddress.address;
+  const customerBilling = {
+    email: customerInfo.email,
+    name: billingAddress.name,
+    phone: billingAddress.phone,
+    address: {
+      city: billingAddress.address.city as string,
+      country: billingAddress.address.country as string,
+      line1: billingAddress.address.line1 as string,
+      line2: billingAddress.address.line2 as string,
+      postal_code: billingAddress.address.postal_code as string,
+      state: billingAddress.address.state as string,
+    },
+  };
+
+  const determineBrandLogo = (brand: string) => {
+    switch (brand) {
+      case 'visa':
+        return <Image alt="Visa" src={VisaBlue} />;
+      case 'mastercard':
+        return <Image alt="Mastercard" src={Mastercard} />;
+      default:
+        return null;
+    }
+  };
 
   return (
     <section className="px-4 ">
@@ -822,7 +806,7 @@ export default function Payment({
         <span className="flex justify-between">
           <div className="flex flex-col">
             <p className="text-base font-[500]"> Payment Method</p>
-            <div className="flex pb-2.5">
+            <div className="flex py-5">
               {paymentMethod === 'paypal' && (
                 <div className="flex items-center gap-2">
                   <PayPalIcon />
@@ -846,8 +830,26 @@ export default function Payment({
               )}
               {paymentMethod === 'creditCard' && (
                 <div className="flex items-center gap-2">
-                  <CreditCard />
-                  <p className="">Credit Card</p>
+                  {/* <CreditCard />
+                  <p className="">Credit Card</p> */}
+
+                  {stripePaymentMethod &&
+                    stripePaymentMethod.paymentMethod?.card && (
+                      <div className="flex items-center gap-2 text-[16px] leading-[27px] text-[#767676]">
+                        <div className="flex max-h-[16px] max-w-[48px]">
+                          {determineBrandLogo(
+                            stripePaymentMethod.paymentMethod.card.brand
+                          )}
+                        </div>
+                        <div className="flex">
+                          <p>
+                            {stripePaymentMethod.paymentMethod.card.last4} Exp:{' '}
+                            {stripePaymentMethod.paymentMethod.card.exp_month}/
+                            {stripePaymentMethod.paymentMethod.card.exp_year}
+                          </p>
+                        </div>
+                      </div>
+                    )}
                 </div>
               )}
             </div>
@@ -949,20 +951,7 @@ export default function Payment({
                   ?.createPaymentMethod({
                     type: 'card',
                     card: cardNumberElement,
-                    billing_details: {
-                      email: customerInfo.email,
-                      name: billingAddress.name,
-                      phone: billingAddress.phone,
-                      address: {
-                        city: billingAddress.address.city as string,
-                        country: billingAddress.address.country as string,
-                        line1: billingAddress.address.line1 as string,
-                        line2: billingAddress.address.line2 as string,
-                        postal_code: billingAddress.address
-                          .postal_code as string,
-                        state: billingAddress.address.state as string,
-                      },
-                    },
+                    billing_details: customerBilling,
                   })
                   .then((paymentMethod) => {
                     if (paymentMethod.paymentMethod?.type === 'card') {

@@ -36,6 +36,7 @@ import {
 } from '@stripe/stripe-js';
 import { useRouter } from 'next/navigation';
 import PayPalButtonSection from './PayPalButtonSection';
+import { Check } from 'lucide-react';
 
 export default function MobileCheckout() {
   const stripe = useStripe();
@@ -115,7 +116,7 @@ export default function MobileCheckout() {
       stripePaymentMethod: stripePaymentMethod?.paymentMethod,
     });
 
-    const fetchedShipping = {
+    const customerShipping = {
       name: shippingAddress.name,
       phone: shippingAddress.phone,
       address: {
@@ -134,7 +135,7 @@ export default function MobileCheckout() {
           .confirmCardPayment(String(retrievedSecret), {
             // payment_method: { card: CardNumber as StripeCardNumberElement },
             payment_method: stripePaymentMethod?.paymentMethod?.id,
-            shipping: fetchedShipping,
+            shipping: customerShipping,
           })
           .then(async function (result) {
             if (result.error) {
@@ -300,12 +301,14 @@ export default function MobileCheckout() {
             payment_method: {
               type: 'klarna',
               billing_details: {
-                address: shippingAddress.address,
+                address: billingAddress.address,
                 email: customerInfo.email,
+                phone: customerInfo.phoneNumber,
+                name: billingAddress.name,
               },
             } as CreatePaymentMethodKlarnaData,
             return_url: `${origin}/checkout`,
-            shipping: fetchedShipping,
+            shipping: customerShipping,
           },
           // Enable if wanting to open new window
           { handleActions: false }
@@ -332,7 +335,6 @@ export default function MobileCheckout() {
         const interval = setInterval(async () => {
           if (!klarnaWindow) {
             console.log('[NO KLARNA WINDOW]');
-
             clearInterval(interval);
           }
           if (
@@ -442,7 +444,10 @@ export default function MobileCheckout() {
             </AccordionItem>
             <AccordionItem value="shipping">
               <AccordionTrigger className="my-4 px-4 text-xl font-medium">
-                Shipping
+                <h2 className="flex gap-2">
+                  <span>Shipping</span>
+                  {isReadyToShip && <ReadyCheck />}
+                </h2>
               </AccordionTrigger>
               <AccordionContent>
                 <Shipping
@@ -461,7 +466,10 @@ export default function MobileCheckout() {
                 }}
                 className={`${(!isReadyToShip || isEditingAddress) && 'disabled cursor-default text-[grey] hover:no-underline'} my-4 px-4 text-xl font-medium`}
               >
-                Payment
+                <h2 className="flex gap-2">
+                  <span>Payment</span>
+                  {isReadyToPay && <ReadyCheck />}
+                </h2>
               </AccordionTrigger>
               <AccordionContent>
                 <Payment handleChangeAccordion={handleChangeAccordion} />
@@ -534,4 +542,8 @@ export default function MobileCheckout() {
       </div>
     </>
   );
+}
+
+function ReadyCheck() {
+  return <Check className="text-[#43A047]" />;
 }
