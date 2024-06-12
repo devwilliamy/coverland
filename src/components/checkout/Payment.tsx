@@ -27,9 +27,7 @@ import { hashData } from '@/lib/utils/hash';
 import { getCookie } from '@/lib/utils/cookie';
 import { v4 as uuidv4 } from 'uuid';
 import { generateSkuLabOrderInput } from '@/lib/utils/skuLabs';
-import { detectConflictingPaths } from 'next/dist/build/utils';
 import { determineDeliveryByDate } from '@/lib/utils/deliveryDateUtils';
-import { getTotalCartQuantity } from '@/lib/utils/calculations';
 
 function isValidShippingAddress({ address }: StripeAddress) {
   return (
