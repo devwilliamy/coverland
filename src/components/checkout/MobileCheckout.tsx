@@ -1,3 +1,4 @@
+'use client';
 import Payment from '@/components/checkout/Payment';
 import Shipping from '@/components/checkout/Shipping';
 import YourCart from '@/components/checkout/YourCart';
@@ -11,12 +12,57 @@ import {
 } from '../ui/accordion';
 import CartHeader from './CartHeader';
 import { Separator } from '../ui/separator';
-import { useState } from 'react';
+import { FormEvent, useEffect, useState } from 'react';
 import InYourCart from './InYourCart';
+import { useCartContext } from '@/providers/CartProvider';
+import OrderReviewItem from './OrderReviewItem';
+import PriceBreakdown from './PriceBreakdown';
+import { Button } from '../ui/button';
+import { AiOutlineLoading3Quarters } from 'react-icons/ai';
+import { useElements, useStripe } from '@stripe/react-stripe-js';
+import {
+  convertPriceToStripeFormat,
+  getSkuQuantityPriceFromCartItemsForMeta,
+  getSkusFromCartItems,
+} from '@/lib/utils/stripe';
+import { getCurrentDayInLocaleDateString } from '@/lib/utils/date';
+import { v4 as uuidv4 } from 'uuid';
+import { hashData } from '@/lib/utils/hash';
+import { getCookie } from '@/lib/utils/cookie';
+import {
+  CreatePaymentMethodKlarnaData,
+  PaymentMethodResult,
+  StripeCardNumberElement,
+} from '@stripe/stripe-js';
+import { useRouter } from 'next/navigation';
+import PayPalButtonSection from './PayPalButtonSection';
 
 export default function MobileCheckout() {
-  const { currentStep } = useCheckoutContext();
+  const stripe = useStripe();
+  const elements = useElements();
+  const router = useRouter();
+  const { cartItems, getTotalPrice, clearLocalStorageCart } = useCartContext();
+  const {
+    billingAddress,
+    currentStep,
+    customerInfo,
+    shipping,
+    shippingAddress,
+    orderNumber,
+    paymentMethod,
+    updatePaymentMethod,
+    paymentIntentId,
+    isAddressComplete,
+    isEditingAddress,
+    isReadyToPay,
+    isReadyToShip,
+    stripePaymentMethod,
+  } = useCheckoutContext();
+  // const { orderNumber, paymentIntentId, paymentMethod, updatePaymentMethod } = useCheckoutContext();
+
+  const totalMsrpPrice = convertPriceToStripeFormat(getTotalPrice() + shipping);
   const [value, setValue] = useState(['shipping']);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleSelectTab = (title: string) => {
     if (document) {
@@ -36,6 +82,337 @@ export default function MobileCheckout() {
 
   const handleChangeAccordion = (value: string) =>
     setValue((p) => [...p, value]);
+
+  const handleSubmit = async () => {
+    // e.preventDefault();
+
+    if (!stripe || !elements) {
+      // Stripe.js hasn't yet loaded.
+      // Make sure to disable form submission until Stripe.js has loaded.
+      return;
+    }
+
+    setIsLoading(true);
+
+    const origin = window.location.origin;
+    const response = await fetch('/api/stripe/payment-intent', {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        paymentIntentId,
+        amount: totalMsrpPrice,
+      }),
+    });
+
+    const data = await response.json();
+    const { id, client_secret } = data.paymentIntent;
+    const retrievedSecret = client_secret;
+    console.log({
+      id,
+      retrievedSecret,
+      stripePaymentMethod: stripePaymentMethod?.paymentMethod,
+    });
+
+    const fetchedShipping = {
+      name: shippingAddress.name,
+      phone: shippingAddress.phone,
+      address: {
+        city: shippingAddress.address.city as string,
+        country: shippingAddress.address.country as string,
+        line1: shippingAddress.address.line1 as string,
+        line2: shippingAddress.address.line2 as string,
+        postal_code: shippingAddress.address.postal_code as string,
+        state: shippingAddress.address.state as string,
+      },
+    };
+
+    switch (paymentMethod) {
+      case 'creditCard':
+        stripe
+          .confirmCardPayment(String(retrievedSecret), {
+            // payment_method: { card: CardNumber as StripeCardNumberElement },
+            payment_method: stripePaymentMethod?.paymentMethod?.id,
+            shipping: fetchedShipping,
+          })
+          .then(async function (result) {
+            if (result.error) {
+              const { error } = result;
+              if (
+                error.type === 'card_error' ||
+                error.type === 'validation_error'
+              ) {
+                console.error('Error:', error.message);
+                // setMessage(
+                //   error.message ||
+                //     "There's an error, but could not find error message"
+                // );
+              } else {
+                console.error('Error:', error.message);
+                // setMessage(error.message || 'An unexpected error occurred.');
+              }
+            } else if (
+              result.paymentIntent &&
+              result.paymentIntent.status === 'succeeded'
+            ) {
+              const emailInput = {
+                to: customerInfo.email,
+                name: {
+                  firstName: shippingAddress.firstName,
+                  fullName: `${shippingAddress.firstName} ${shippingAddress.lastName}`,
+                },
+                orderInfo: {
+                  orderDate: getCurrentDayInLocaleDateString(),
+                  orderNumber,
+                  // products
+                },
+                // address,
+                // shippingInfo,
+                // billingInfo,
+              };
+              try {
+                const response = await fetch('/api/email/thank-you', {
+                  method: 'POST',
+                  headers: {
+                    'Content-Type': 'application/json',
+                  },
+                  body: JSON.stringify({ emailInput }),
+                });
+                const emailResponse = await response.json(); // Making sure the await goes through and email is sent
+              } catch (error) {
+                console.error('Error:', error?.message);
+                // setMessage(
+                //   error?.message ||
+                //     "There's an error, but could not find error message"
+                // );
+              }
+
+              const skus = getSkusFromCartItems(cartItems);
+              const skusWithQuantityMsrpForMeta =
+                getSkuQuantityPriceFromCartItemsForMeta(cartItems);
+              const eventID = uuidv4();
+
+              const metaCPIEvent = {
+                event_name: 'Purchase',
+                event_time: Math.floor(Date.now() / 1000),
+                event_id: eventID,
+                action_source: 'website',
+                user_data: {
+                  em: [hashData(customerInfo.email)],
+                  ph: [hashData(shippingAddress.phone || '')],
+                  ct: [hashData(shippingAddress.address.city || '')],
+                  country: [hashData(shippingAddress.address.country || '')],
+                  fn: [hashData(shippingAddress.firstName || '')],
+                  ln: [hashData(shippingAddress.lastName || '')],
+                  st: [hashData(shippingAddress.address.state || '')],
+                  zp: [hashData(shippingAddress.address.postal_code || '')],
+                  fbp: getCookie('_fbp'),
+                  // client_ip_address: '', // Replace with the user's IP address
+                  client_user_agent: navigator.userAgent, // Browser user agent string
+                },
+                custom_data: {
+                  currency: 'USD',
+                  value: parseFloat(getTotalPrice().toFixed(2)),
+                  order_id: orderNumber,
+                  content_ids: skus.join(','),
+                  contents: skusWithQuantityMsrpForMeta,
+                },
+                event_source_url: origin,
+              };
+              const metaCAPIResponse = await fetch('/api/meta/event', {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ metaCPIEvent }),
+              });
+
+              // Track the purchase event
+              if (typeof fbq === 'function') {
+                fbq(
+                  'track',
+                  'Purchase',
+                  {
+                    value: parseFloat(getTotalPrice().toFixed(2)),
+                    currency: 'USD',
+                    contents: skusWithQuantityMsrpForMeta,
+                    content_type: 'product',
+                  },
+                  { eventID }
+                );
+              }
+
+              // Microsoft Conversion API Tracking
+              if (typeof window !== 'undefined') {
+                window.uetq = window.uetq || [];
+
+                window.uetq.push('set', {
+                  pid: {
+                    em: customerInfo.email,
+                    ph: customerInfo.phoneNumber,
+                  },
+                });
+                window.uetq.push('event', 'purchase', {
+                  revenue_value: parseFloat(getTotalPrice().toFixed(2)),
+                  currency: 'USD',
+                  pid: {
+                    em: customerInfo.email,
+                    ph: customerInfo.phoneNumber,
+                  },
+                });
+              }
+
+              const enhancedGoogleConversionInput = {
+                email: customerInfo.email || '',
+                phone_number: shippingAddress.phone || '',
+                first_name: shippingAddress.firstName || '',
+                last_name: shippingAddress.lastName || '',
+                address_line1: shippingAddress.address.line1 || '',
+                city: shippingAddress.address.city || '',
+                state: shippingAddress.address.state || '',
+                postal_code: shippingAddress.address.postal_code || '',
+                country: shippingAddress.address.country || '',
+              };
+
+              // handlePurchaseGoogleTag(
+              //   cartItems,
+              //   orderNumber,
+              //   getTotalPrice().toFixed(2),
+              //   clearLocalStorageCart,
+              //   enhancedGoogleConversionInput
+              // );
+
+              const { id, client_secret } = result.paymentIntent;
+              router.push(
+                `/thank-you?order_number=${orderNumber}&payment_intent=${id}&payment_intent_client_secret=${client_secret}`
+              );
+            }
+          })
+          .finally(() => {
+            setIsLoading(false);
+          });
+        break;
+      case 'klarna':
+        const result = await stripe.confirmKlarnaPayment(
+          retrievedSecret,
+          {
+            payment_method: {
+              type: 'klarna',
+              billing_details: {
+                address: shippingAddress.address,
+                email: customerInfo.email,
+              },
+            } as CreatePaymentMethodKlarnaData,
+            return_url: `${origin}/checkout`,
+            shipping: fetchedShipping,
+          },
+          // Enable if wanting to open new window
+          { handleActions: false }
+        );
+
+        const klarnaWindow = window.open(
+          'about:blank',
+          'Klarna Payment',
+          'left=200,top=100,width=430,height=700'
+        );
+        klarnaWindow?.addEventListener('unload', () => {
+          setIsLoading(false);
+        });
+
+        console.log({
+          status: result?.paymentIntent?.status,
+          errors: result?.error,
+        });
+
+        klarnaWindow?.document.location.replace(
+          String(result.paymentIntent?.next_action?.redirect_to_url?.url)
+        );
+
+        const interval = setInterval(async () => {
+          if (!klarnaWindow) {
+            console.log('[NO KLARNA WINDOW]');
+
+            clearInterval(interval);
+          }
+          if (
+            klarnaWindow?.location.href &&
+            klarnaWindow?.location.href
+              .toString()
+              .startsWith(`${origin}/checkout`)
+          ) {
+            console.log({ url: klarnaWindow.location.href });
+            klarnaWindow.close();
+            clearInterval(interval);
+          }
+          if (klarnaWindow?.closed) {
+            const isSuccessful =
+              (await stripe.retrievePaymentIntent(retrievedSecret))
+                .paymentIntent?.status === 'succeeded';
+            console.log('Payment window closed.');
+
+            if (isSuccessful) {
+              console.log({
+                status: isSuccessful,
+              });
+              const emailInput = {
+                to: customerInfo.email,
+                name: {
+                  firstName: shippingAddress.firstName,
+                  fullName: `${shippingAddress.firstName} ${shippingAddress.lastName}`,
+                },
+                orderInfo: {
+                  orderDate: getCurrentDayInLocaleDateString(),
+                  orderNumber,
+                },
+              };
+              console.log({ shippingAddress });
+
+              try {
+                const response = await fetch('/api/email/thank-you', {
+                  method: 'POST',
+                  headers: {
+                    'Content-Type': 'application/json',
+                  },
+                  body: JSON.stringify({ emailInput }),
+                });
+                const emailResponse = await response.json(); // Making sure the await goes through and email is sent
+              } catch (error) {
+                console.error('Error:', error?.message);
+                // setMessage(
+                //   error?.message ||
+                //     "There's an error, but could not find error message"
+                // );
+              }
+              router.push(
+                `/thank-you?order_number=${orderNumber}&payment_intent=${id}&payment_intent_client_secret=${client_secret}`
+              );
+            }
+
+            setIsLoading(false);
+          }
+          // You can add more logic here to handle success/failure states
+        }, 1000);
+
+        break;
+
+      default:
+        return;
+    }
+  };
+
+  useEffect(() => {
+    if ((!isAddressComplete || isEditingAddress) && !isReadyToShip) {
+      setValue(['shipping']);
+    }
+  }, [isAddressComplete, isEditingAddress, isReadyToShip]);
+
+  useEffect(() => {
+    if (isReadyToShip && !isReadyToPay) {
+      setValue(['payment']);
+    }
+  }, [isReadyToPay]);
+
   return (
     <>
       <div className="flex flex-col lg:flex lg:flex-row lg:px-24">
@@ -75,11 +452,81 @@ export default function MobileCheckout() {
               </AccordionContent>
             </AccordionItem>
             <AccordionItem value="payment" id="payment">
-              <AccordionTrigger className="my-4 px-4 text-xl font-medium">
+              <AccordionTrigger
+                onClick={(e) => {
+                  if (!isReadyToShip || isEditingAddress) {
+                    e.preventDefault();
+                  }
+                  handleSelectTab('payment');
+                }}
+                className={`${(!isReadyToShip || isEditingAddress) && 'disabled cursor-default text-[grey] hover:no-underline'} my-4 px-4 text-xl font-medium`}
+              >
                 Payment
               </AccordionTrigger>
               <AccordionContent>
-                <Payment />
+                <Payment handleChangeAccordion={handleChangeAccordion} />
+              </AccordionContent>
+            </AccordionItem>
+            <AccordionItem value="orderReview" id="orderReview">
+              <AccordionTrigger
+                onClick={(e) => {
+                  if (!isAddressComplete || isEditingAddress) {
+                    e.preventDefault();
+                  }
+                  handleSelectTab('orderReview');
+                }}
+                className={`${(!isAddressComplete || isEditingAddress || !isReadyToPay) && 'disabled cursor-default text-[grey] hover:no-underline'} my-4 px-4 text-xl font-medium`}
+              >
+                Order Review
+              </AccordionTrigger>
+              <AccordionContent>
+                <section className="flex w-full flex-col px-4">
+                  {cartItems.map((cartItem, i) => (
+                    <div
+                      key={i}
+                      className="pb-3 lg:border-b lg:border-t lg:pt-3 lg:transition-colors lg:hover:bg-muted/50 lg:data-[state=selected]:bg-muted"
+                    >
+                      <OrderReviewItem item={cartItem} withPrice />
+                    </div>
+                  ))}
+                  <div className="mt-4 lg:hidden">
+                    <PriceBreakdown />
+                  </div>
+
+                  {paymentMethod === 'paypal' ? (
+                    <PayPalButtonSection />
+                  ) : (
+                    <>
+                      <p className="pb-[40px] text-[14px] font-[400] text-[#767676]">
+                        By Clicking the “Submit Payment” button, you confirm
+                        that you have read, understand, and accept our Terms of
+                        use,{' '}
+                        <a href="" className="underline">
+                          Privacy Policy,
+                        </a>{' '}
+                        <a href="" className="underline">
+                          Return Policy
+                        </a>
+                      </p>
+                      <Button
+                        // disabled={isDisabled}
+                        variant={'default'}
+                        // className={`mb-3 w-full rounded-lg ${isDisabled ? 'bg-[#BE1B1B]/90' : 'bg-[#BE1B1B]'} text-base font-bold uppercase text-white sm:h-[48px] lg:h-[55px] lg:text-xl`}
+                        className={`mb-3 w-full rounded-lg bg-black text-base font-bold uppercase text-white sm:h-[48px] lg:h-[55px] lg:text-xl`}
+                        onClick={(e) => {
+                          setIsLoading(true);
+                          handleSubmit();
+                        }}
+                      >
+                        {isLoading ? (
+                          <AiOutlineLoading3Quarters className="animate-spin" />
+                        ) : (
+                          'Submit Payment'
+                        )}
+                      </Button>
+                    </>
+                  )}
+                </section>
               </AccordionContent>
             </AccordionItem>
           </Accordion>

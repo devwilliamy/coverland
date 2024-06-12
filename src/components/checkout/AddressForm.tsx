@@ -86,6 +86,7 @@ export default function AddressForm({
     setValue,
     handleSubmit,
     formState: { errors },
+    getValues,
     // trigger,
   } = useForm<FormData>({ resolver: zodResolver(formSchema) });
 
@@ -128,26 +129,45 @@ export default function AddressForm({
 
   // console.log('Errors', errors);
   const [address, setAddress] = useState<string>('');
-  const [isManualAddress, setIsManualAddress] = useState(false);
+  const [isManualAddress, setIsManualAddress] = useState(true);
   const [suggestions, setSuggestions] = useState([]);
   const [loading, setLoading] = useState(false);
   const [addressOpen, setAddressOpen] = useState(false);
+  const [isDisabled, setIsDisabled] = useState(true);
+
+  const determineDisabled = () => {
+    const formValues = getValues();
+  };
 
   useEffect(() => {
     // Populate the form fields when shippingAddress changes
+    setValue('email', customerInfo.email || '');
+    setValue('firstName', addressData.firstName || '');
+    setValue('lastName', addressData.lastName || '');
+    setValue('phoneNumber', customerInfo.phoneNumber || '');
     if (addressData && isManualAddress) {
-      setValue('email', customerInfo.email || '');
-      setValue('firstName', addressData.firstName || '');
-      setValue('lastName', addressData.lastName || '');
       setValue('line1', addressData.address.line1 || '');
       setValue('line2', addressData.address.line2 || '');
       setValue('city', addressData.address.city || '');
       setValue('state', addressData.address.state || '');
       setValue('postal_code', addressData.address.postal_code || '');
-      setValue('phoneNumber', customerInfo.phoneNumber || '');
     }
-    console.log({ customerInfo, addressData });
+    determineDisabled();
   }, [addressData, customerInfo, setValue]);
+
+  useEffect(() => {
+    if (process.env.NEXT_PUBLIC_IS_PREVIEW === 'PREVIEW') {
+      setValue('email', 'george.icarcover@gmail.com' || '');
+      setValue('firstName', 'George' || '');
+      setValue('lastName', 'Anumba' || '');
+      setValue('line1', '123 Main Street' || '');
+      setValue('line2', 'P.O. Box 424' || '');
+      setValue('city', 'Norwalk' || '');
+      setValue('state', 'CA' || '');
+      setValue('postal_code', '12345' || '');
+      setValue('phoneNumber', '+14244244242' || '');
+    }
+  }, []);
 
   const autocompleteObj: Record<string, FormString> = {
     locality: 'city',
@@ -165,7 +185,8 @@ export default function AddressForm({
       });
 
       const data = await response.json();
-      console.log({ data });
+      const values = getValues();
+      console.log({ data, values });
       setSuggestions(data);
     } catch (error) {
       console.error(error);
@@ -174,7 +195,7 @@ export default function AddressForm({
     }
   };
 
-  const getFormattedAddress = async (addressInput: string) => {
+  const getAddressWithPostalCode = async (addressInput: string) => {
     setLoading(true);
     try {
       const response = await fetch('/api/places-text-search', {
@@ -223,16 +244,18 @@ export default function AddressForm({
       // city?: string | null;
       // postal_code?: string | null;
       // state?: string | null;
-      const address: StripeAddress = {
-        address: {
-          line1: line1,
-          city: filteredAddressComponents.get('city'),
-          state: filteredAddressComponents.get('state'),
-          postal_code: filteredAddressComponents.get('postal_code'),
-          country: filteredAddressComponents.get('country'),
-        },
-      };
-      updateAddress();
+
+      // const address: StripeAddress = {
+      //   // name:
+      //   address: {
+      //     line1: line1,
+      //     city: filteredAddressComponents.get('city'),
+      //     state: filteredAddressComponents.get('state'),
+      //     postal_code: filteredAddressComponents.get('postal_code'),
+      //     country: filteredAddressComponents.get('country'),
+      //   },
+      // };
+      // updateAddress(address as StripeAddress);
 
       console.log({ addressData });
 
@@ -274,7 +297,56 @@ export default function AddressForm({
 
       {/* Manual Address Fields */}
       {isManualAddress ? (
-        <ManualAdressComponents />
+        // <ManualAdressComponents register={register} errors={errors} />
+        // Unable to extract for some reason:
+        //    - I keep getting "register is not a function" error no matter how I pass register in
+        // V---------------VV---------------VV---------------VV---------------V
+        <>
+          <OverlappingLabel
+            title="Address Line 1"
+            name="line1"
+            errors={errors}
+            placeholder="123 Main Street"
+            register={register}
+            options={{ required: true }}
+            autoComplete="address-line1"
+          />
+          <OverlappingLabel
+            title="Address Line 2"
+            name="line2"
+            errors={errors}
+            placeholder="P.O. Box 123"
+            register={register}
+            autoComplete="address-line2"
+          />
+          <OverlappingLabel
+            title="City"
+            name="city"
+            errors={errors}
+            placeholder="Los Angeles"
+            register={register}
+            options={{ required: true }}
+            autoComplete="address-level2"
+          />
+          <OverlappingLabel
+            title="State"
+            name="state"
+            errors={errors}
+            placeholder="CA"
+            register={register}
+            options={{ required: true }}
+            autoComplete="address-level1"
+          />
+          <OverlappingLabel
+            title="ZIP"
+            name="postal_code"
+            errors={errors}
+            placeholder="91801"
+            register={register}
+            options={{ required: true }}
+            autoComplete="postal-code"
+          />
+        </>
       ) : (
         <Autocomplete
           id="address-autocomplete"
@@ -296,7 +368,7 @@ export default function AddressForm({
             const selectedString = String(
               eventValue.placePrediction?.text.text
             );
-            getFormattedAddress(selectedString);
+            getAddressWithPostalCode(selectedString);
           }}
           onInputChange={(event, newInputValue) => {
             if (newInputValue === null) {
@@ -344,7 +416,14 @@ export default function AddressForm({
 
       <p
         className="cursor-pointer text-[14px] font-[400] leading-[16.4px] text-[#767676] underline"
-        onClick={() => setIsManualAddress((prev) => !prev)}
+        onClick={() => {
+          setIsManualAddress((prev) => !prev);
+          setValue('line1', '');
+          setValue('line2', '');
+          setValue('city', '');
+          setValue('state', '');
+          setValue('postal_code', '');
+        }}
       >
         {isManualAddress ? 'Find address' : 'Enter address manually'}
       </p>

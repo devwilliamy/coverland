@@ -1,4 +1,3 @@
-
 import { Suspense } from 'react';
 import { OrderConfirmationContent } from './components/OrderConfirmationContent';
 import {
@@ -66,8 +65,7 @@ async function OrderConfirmationPage({
   } else if (payment_gateway === 'paypal') {
     // If Paypal needs to do something here...
     // Oh, order items and customer have to be updated here
-
-    // JK. Probably do whatever needs to be done here in PayPalButtonSection.tsx onApprove 
+    // JK. Probably do whatever needs to be done here in PayPalButtonSection.tsx onApprove
   } else {
     return (
       <div className="flex flex-row items-center justify-center py-10 text-xl font-bold">

@@ -27,7 +27,7 @@ export async function POST(request: NextRequest) {
 
   const data = await res.json();
   const suggestions = data['suggestions'];
-  console.log({ data: JSON.stringify(data.suggestions) });
+  // console.log({ data: JSON.stringify(data.suggestions) });
 
   return NextResponse.json(suggestions, { status: 200 });
   //   return NextResponse.json(data, { status: 200 });

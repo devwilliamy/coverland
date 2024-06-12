@@ -1,8 +1,29 @@
-import { PaymentMethod } from "@/lib/types/checkout";
+import { PaymentMethod } from '@/lib/types/checkout';
+import { CreditCard } from 'lucide-react';
+import PayPalIcon from '../PDP/components/icons/PayPalIcon';
+import GooglePayIcon from '../PDP/components/icons/googlePayIcon';
+import Klarna from '@/images/checkout/Klarna-Black.webp';
+import Image from 'next/image';
 
 type PaymentSelectorProps = {
   selectedPaymentMethod: PaymentMethod;
   onPaymentMethodChange: (method: PaymentMethod) => void;
+};
+
+const inputStyle = 'w-[18px] h-[18px]';
+
+function isIOS() {
+  const userAgent = navigator.userAgent || navigator.vendor || window.opera;
+
+  // iOS detection
+  return /iPad|iPhone|iPod/.test(userAgent) && !window.MSStream;
+}
+
+// Example usage
+if (isIOS()) {
+  console.log('This is an iOS device');
+} else {
+  console.log('This is not an iOS device');
 }
 
 const PaymentSelector: React.FC<PaymentSelectorProps> = ({
@@ -10,31 +31,74 @@ const PaymentSelector: React.FC<PaymentSelectorProps> = ({
   onPaymentMethodChange,
 }) => {
   return (
-    <div>
-      <ul>
-        <li>
+    <div className="my-[26px] flex flex-col gap-[10px] text-[16px] font-[400] leading-[27px]">
+      {isIOS() && (
+        <div className="flex items-center gap-2 ">
           <input
             type="radio"
-            id="creditCard"
+            id="applePay"
             name="paymentMethod"
-            value="creditCard"
-            checked={selectedPaymentMethod === 'creditCard'}
-            onChange={() => onPaymentMethodChange('creditCard')}
+            value="applePay"
+            checked={selectedPaymentMethod === 'applePay'}
+            onChange={() => onPaymentMethodChange('applePay')}
+            className={inputStyle}
           />
-          <label htmlFor="creditCard" className="pl-2">Credit Card</label>
-        </li>
-        <li>
-          <input
-            type="radio"
-            id="paypalInput"
-            name="paymentMethod"
-            value="paypal"
-            checked={selectedPaymentMethod === 'paypal'}
-            onChange={() => onPaymentMethodChange('paypal')}
-          />
-          <label htmlFor="paypal" className="pl-2">PayPal</label>
-        </li>
-      </ul>
+          APPLE PAY
+          <label htmlFor="applePay">APPLE PAY</label>
+        </div>
+      )}
+
+      <div className="flex items-center gap-2 ">
+        <input
+          type="radio"
+          id="creditCard"
+          name="paymentMethod"
+          value="creditCard"
+          checked={selectedPaymentMethod === 'creditCard'}
+          onChange={() => onPaymentMethodChange('creditCard')}
+          className={inputStyle}
+        />
+        <CreditCard />
+        <label htmlFor="creditCard">Credit Card</label>
+      </div>
+
+      <div className="flex items-center gap-2 ">
+        <input
+          type="radio"
+          id="paypalInput"
+          name="paymentMethod"
+          value="paypal"
+          checked={selectedPaymentMethod === 'paypal'}
+          onChange={() => onPaymentMethodChange('paypal')}
+          className={inputStyle}
+        />
+        <PayPalIcon />
+      </div>
+      <div className="flex items-center gap-2 ">
+        <input
+          type="radio"
+          id="klarnaInput"
+          name="paymentMethod"
+          value="klarna"
+          checked={selectedPaymentMethod === 'klarna'}
+          onChange={() => onPaymentMethodChange('klarna')}
+          className={inputStyle}
+        />
+        <Image alt="Klarna" src={Klarna} className="-mx-2 max-w-[70px]" />
+        <h2> 4 interest-free payments</h2>
+      </div>
+      <div className="flex items-center gap-2 ">
+        <input
+          type="radio"
+          id="paypalInput"
+          name="paymentMethod"
+          value="paypal"
+          checked={selectedPaymentMethod === 'googlePay'}
+          onChange={() => onPaymentMethodChange('googlePay')}
+          className={inputStyle}
+        />
+        <GooglePayIcon />
+      </div>
     </div>
   );
 };
