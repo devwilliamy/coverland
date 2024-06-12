@@ -425,7 +425,6 @@ export default function MobileCheckout() {
         }, 1000);
 
         break;
-
       default:
         return;
     }
