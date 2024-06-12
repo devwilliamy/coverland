@@ -49,7 +49,7 @@ const trademark = "\u2122";
 type ThankYouEmailInput = MailDataRequired & { dynamicTemplateData: DynamicTemplateData };
 
 const generateOrderItems = (cartItems: TCartItem[]) => {
-  console.log('checking order items from checkout', cartItems);
+  // console.log('checking order items from checkout', cartItems);
 
   return cartItems.map(({ 
     fullProductName,
@@ -110,9 +110,9 @@ const generateThankYouEmail = ({
 });
 
 export const sendThankYouEmail = async (emailInput: MailDataRequired) => {
-  console.log('emailInput Shipping Info', emailInput);
+  // console.log('emailInput Shipping Info', emailInput);
   const msg = generateThankYouEmail(emailInput);
-  console.log('transformedemail message', msg);
+  // console.log('transformedemail message', msg);
   try {
     await sgMail.send(msg);
     // console.log('Email sent', data);
