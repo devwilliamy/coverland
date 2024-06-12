@@ -9,7 +9,6 @@ import { getPaymentIntent } from '@/lib/stripe/paymentIntent';
 import { getPaymentMethod } from '@/lib/stripe/paymentMethod';
 import { PaymentIntent, PaymentMethod } from '@stripe/stripe-js';
 import { updateAdminPanelOrder } from '@/lib/db/admin-panel/orders';
-import { postAdminPanelOrderItem } from '@/lib/db/admin-panel/orderItems';
 
 type PaymentIntentSuccessParams = {
   searchParams: {
@@ -42,9 +41,7 @@ async function OrderConfirmationPage({
     );
 
     // Create customer in customers table (this will only work for stripe ATM)
-    // TODO: Make this work with Paypal
     const createdCustomer = (await createOrUpdateUser(customerInput)) || [];
-    // TODO: Update customer ID Here
     const mappedOrder = mapPaymentIntentAndMethodToOrder(
       paymentIntent as PaymentIntent,
       paymentMethod as PaymentMethod,
@@ -58,10 +55,10 @@ async function OrderConfirmationPage({
     );
 
     // Add To OrderItem Table
-    await postAdminPanelOrderItem(
-      updatedOrderResponse[0].id,
-      paymentIntent.metadata.skusWithQuantity
-    );
+    // await postAdminPanelOrderItem(
+    //   updatedOrderResponse[0].id,
+    //   paymentIntent.metadata.skusWithQuantity
+    // );
   } else if (payment_gateway === 'paypal') {
     // If Paypal needs to do something here...
     // Oh, order items and customer have to be updated here

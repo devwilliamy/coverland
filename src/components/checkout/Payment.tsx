@@ -1,13 +1,17 @@
-import { useElements, useStripe } from '@stripe/react-stripe-js';
-import { useEffect, useState } from 'react';
+import {
+  PaymentElement,
+  useElements,
+  useStripe,
+} from '@stripe/react-stripe-js';
+import { FormEvent, useState, useEffect } from 'react';
+import OrderReview from './OrderReview';
+import PriceBreakdown from './PriceBreakdown';
 import { Button } from '../ui/button';
 import { AiOutlineLoading3Quarters } from 'react-icons/ai';
 import { useCheckoutContext } from '@/contexts/CheckoutContext';
 import PaymentSelector from './PaymentSelector';
 import BillingAddress from './BillingAddress';
 import { useCartContext } from '@/providers/CartProvider';
-import { convertPriceToStripeFormat } from '@/lib/utils/stripe';
-import { useRouter } from 'next/navigation';
 import { StripeCardNumberElement } from '@stripe/stripe-js';
 import { NewCheckout } from './NewCheckout';
 import Klarna from '@/images/checkout/Klarna-Black.webp';
@@ -17,6 +21,19 @@ import PayPalIcon from '../PDP/components/icons/PayPalIcon';
 import VisaBlue from '@/images/checkout/VisaLogoBlue.webp';
 import VisaWhite from '@/images/checkout/VisaLogoWhite.webp';
 import Mastercard from '@/images/checkout/MastercardIcon.webp';
+import {
+  convertPriceFromStripeFormat,
+  convertPriceToStripeFormat,
+  getSkuQuantityPriceFromCartItemsForMeta,
+  getSkusFromCartItems,
+} from '@/lib/utils/stripe';
+import { getCurrentDayInLocaleDateString } from '@/lib/utils/date';
+import { useRouter } from 'next/navigation';
+import { handlePurchaseGoogleTag } from '@/hooks/useGoogleTagDataLayer';
+import { hashData } from '@/lib/utils/hash';
+import { getCookie } from '@/lib/utils/cookie';
+import { v4 as uuidv4 } from 'uuid';
+import { generateSkuLabOrderInput } from '@/lib/utils/skuLabs';
 
 // function isValidShippingAddress({ address }: StripeAddress) {
 //   return (
@@ -787,6 +804,226 @@ export default function Payment({
       state: billingAddress.address.state as string,
     },
   };
+
+  
+  //   stripe
+  //     .confirmPayment({
+  //       elements,
+  //       redirect: 'if_required',
+  //       confirmParams: {
+  //         shipping: {
+  //           name: shippingAddress.name,
+  //           phone: shippingAddress.phone,
+  //           address: {
+  //             city: shippingAddress.address.city as string,
+  //             country: shippingAddress.address.country as string,
+  //             line1: shippingAddress.address.line1 as string,
+  //             line2: shippingAddress.address.line2 as string,
+  //             postal_code: shippingAddress.address.postal_code as string,
+  //             state: shippingAddress.address.state as string,
+  //           },
+  //         },
+  //         // Make sure to change this to your payment completion page
+  //         // return_url: `${origin}/thank-you?order_number=${orderNumber}`,
+  //         receipt_email: customerInfo.email,
+  //         payment_method_data: {
+  //           billing_details: {
+  //             email: customerInfo.email,
+  //             name: billingAddress.name,
+  //             phone: billingAddress.phone,
+  //             address: {
+  //               city: billingAddress.address.city as string,
+  //               country: billingAddress.address.country as string,
+  //               line1: billingAddress.address.line1 as string,
+  //               line2: billingAddress.address.line2 as string,
+  //               postal_code: billingAddress.address.postal_code as string,
+  //               state: billingAddress.address.state as string,
+  //             },
+  //           },
+  //         },
+  //       },
+  //     })
+      // .then(async function (result) {
+      //   if (result.error) {
+      //     const { error } = result;
+      //     if (
+      //       error.type === 'card_error' ||
+      //       error.type === 'validation_error'
+      //     ) {
+      //       console.error('Error:', error.message);
+      //       setMessage(
+      //         error.message ||
+      //           "There's an error, but could not find error message"
+      //       );
+      //     } else {
+      //       console.error('Error:', error.message);
+      //       setMessage(error.message || 'An unexpected error occurred.');
+      //     }
+      //   } else if (
+      //     result.paymentIntent &&
+      //     result.paymentIntent.status === 'succeeded'
+      //   ) {
+      //     // SendGrid Thank You Email
+      //     const emailInput = {
+      //       to: customerInfo.email,
+      //       name: {
+      //         firstName: shippingAddress.firstName,
+      //         fullName: `${shippingAddress.firstName} ${shippingAddress.lastName}`,
+      //       },
+      //       orderInfo: {
+      //         orderDate: getCurrentDayInLocaleDateString(),
+      //         orderNumber,
+      //         // products
+      //       },
+      //       // address,
+      //       // shippingInfo,
+      //       // billingInfo,
+      //     };
+      //     try {
+      //       const response = await fetch('/api/email/thank-you', {
+      //         method: 'POST',
+      //         headers: {
+      //           'Content-Type': 'application/json',
+      //         },
+      //         body: JSON.stringify({ emailInput }),
+      //       });
+      //       const emailResponse = await response.json(); // Making sure the await goes through and email is sent
+      //     } catch (error) {
+      //       console.error('Error:', error?.message);
+      //       setMessage(
+      //         error?.message ||
+      //           "There's an error, but could not find error message"
+      //       );
+      //     }
+
+      //     // Meta Conversion API
+      //     const skus = getSkusFromCartItems(cartItems);
+      //     const skusWithQuantityMsrpForMeta =
+      //       getSkuQuantityPriceFromCartItemsForMeta(cartItems);
+      //     const eventID = uuidv4();
+
+      //     const metaCPIEvent = {
+      //       event_name: 'Purchase',
+      //       event_time: Math.floor(Date.now() / 1000),
+      //       event_id: eventID,
+      //       action_source: 'website',
+      //       user_data: {
+      //         em: [hashData(customerInfo.email)],
+      //         ph: [hashData(shippingAddress.phone || '')],
+      //         ct: [hashData(shippingAddress.address.city || '')],
+      //         country: [hashData(shippingAddress.address.country || '')],
+      //         fn: [hashData(shippingAddress.firstName || '')],
+      //         ln: [hashData(shippingAddress.lastName || '')],
+      //         st: [hashData(shippingAddress.address.state || '')],
+      //         zp: [hashData(shippingAddress.address.postal_code || '')],
+      //         fbp: getCookie('_fbp'),
+      //         // client_ip_address: '', // Replace with the user's IP address
+      //         client_user_agent: navigator.userAgent, // Browser user agent string
+      //       },
+      //       custom_data: {
+      //         currency: 'USD',
+      //         value: parseFloat(getTotalPrice().toFixed(2)),
+      //         order_id: orderNumber,
+      //         content_ids: skus.join(','),
+      //         contents: skusWithQuantityMsrpForMeta,
+      //       },
+      //       event_source_url: origin,
+      //     };
+      //     const metaCAPIResponse = await fetch('/api/meta/event', {
+      //       method: 'POST',
+      //       headers: {
+      //         'Content-Type': 'application/json',
+      //       },
+      //       body: JSON.stringify({ metaCPIEvent }),
+      //     });
+      //     // Track the purchase event
+      //     if (typeof fbq === 'function') {
+      //       fbq(
+      //         'track',
+      //         'Purchase',
+      //         {
+      //           value: parseFloat(getTotalPrice().toFixed(2)),
+      //           currency: 'USD',
+      //           contents: skusWithQuantityMsrpForMeta,
+      //           content_type: 'product',
+      //         },
+      //         { eventID }
+      //       );
+      //     }
+
+      //     // Microsoft Conversion API Tracking
+      //     if (typeof window !== 'undefined') {
+      //       window.uetq = window.uetq || [];
+
+      //       window.uetq.push('set', {
+      //         pid: {
+      //           em: customerInfo.email,
+      //           ph: customerInfo.phoneNumber,
+      //         },
+      //       });
+      //       window.uetq.push('event', 'purchase', {
+      //         revenue_value: parseFloat(getTotalPrice().toFixed(2)),
+      //         currency: 'USD',
+      //         pid: {
+      //           em: customerInfo.email,
+      //           ph: customerInfo.phoneNumber,
+      //         },
+      //       });
+      //     }
+      //     if (process.env.NEXT_PUBLIC_IS_PREVIEW !== 'PREVIEW') {
+      //       const skuLabOrderInput = generateSkuLabOrderInput({
+      //         orderNumber,
+      //         cartItems,
+      //         totalMsrpPrice: convertPriceFromStripeFormat(totalMsrpPrice),
+      //         shippingAddress,
+      //         customerInfo,
+      //       });
+
+      //       // SKU Labs Order Creation
+      //       // Post Items
+      //       const skuLabCreateOrderResponse = await fetch(
+      //         '/api/sku-labs/orders',
+      //         {
+      //           method: 'POST',
+      //           headers: {
+      //             'Content-Type': 'application/json',
+      //           },
+      //           body: JSON.stringify({ order: skuLabOrderInput }),
+      //         }
+      //       );
+      //     }
+
+      //     // Google Conversion API
+      //     const enhancedGoogleConversionInput = {
+      //       email: customerInfo.email || '',
+      //       phone_number: shippingAddress.phone || '',
+      //       first_name: shippingAddress.firstName || '',
+      //       last_name: shippingAddress.lastName || '',
+      //       address_line1: shippingAddress.address.line1 || '',
+      //       city: shippingAddress.address.city || '',
+      //       state: shippingAddress.address.state || '',
+      //       postal_code: shippingAddress.address.postal_code || '',
+      //       country: shippingAddress.address.country || '',
+      //     };
+
+      //     handlePurchaseGoogleTag(
+      //       cartItems,
+      //       orderNumber,
+      //       getTotalPrice().toFixed(2),
+      //       clearLocalStorageCart,
+      //       enhancedGoogleConversionInput
+      //     );
+
+      //     const { id, client_secret } = result.paymentIntent;
+      //     router.push(
+      //       `/thank-you?order_number=${orderNumber}&payment_intent=${id}&payment_intent_client_secret=${client_secret}`
+      //     );
+      //   }
+      // })
+  //     .finally(() => {
+  //       setIsLoading(false);
+  //     });
+  // };
 
   const determineBrandLogo = (brand: string) => {
     switch (brand) {

@@ -1,4 +1,4 @@
-'use client'
+'use client';
 // import { Dialog } from '@/components/ui/dialog';
 // import { DialogTrigger } from '@radix-ui/react-dialog';
 // import { useState } from 'react';
@@ -8,6 +8,7 @@ import { useContext, useState } from 'react';
 import { useStore } from 'zustand';
 import Image, { StaticImageData } from 'next/image';
 import { Button } from '@/components/ui/button';
+import { isFullSet } from '@/lib/utils';
 
 const SeatDesktopGallery = () => {
   const store = useContext(SeatCoverSelectionContext);
@@ -16,7 +17,11 @@ const SeatDesktopGallery = () => {
   const selectedProduct = useStore(store, (s) => s.selectedProduct);
 
   const [showMore, setShowMore] = useState(false);
-  const galleryImages = selectedProduct?.product?.split(',');
+  const isFrontCover =
+    isFullSet(selectedProduct.display_set) === 'front' ? true : false;
+  const galleryImages = isFrontCover
+    ? selectedProduct?.product?.split(',').slice(0, -3)
+    : selectedProduct?.product?.split(',');
   const fourImages = selectedProduct?.product?.split(',')?.slice(0, 4);
 
   return (

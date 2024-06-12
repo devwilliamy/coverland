@@ -11,12 +11,6 @@ const FabricMattersSection = () => {
   const isDefault = coverType === 'premium-plus' || coverType === undefined;
   return (
     <div className="w-full lg:mb-[60px]">
-      <div className="flex pb-7 text-center">
-        <p className="w-full text-[30px] font-[500] leading-[26px] text-white lg:text-[45px] lg:leading-[52px]">
-          Fabric Matters
-        </p>
-      </div>
-
       {isDefault ? (
         <ProductVideo
           src={FabricVid}

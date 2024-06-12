@@ -21,6 +21,7 @@ import { Button } from '../ui/button';
 import { AiOutlineLoading3Quarters } from 'react-icons/ai';
 import { useElements, useStripe } from '@stripe/react-stripe-js';
 import {
+  convertPriceFromStripeFormat,
   convertPriceToStripeFormat,
   getSkuQuantityPriceFromCartItemsForMeta,
   getSkusFromCartItems,
@@ -37,6 +38,8 @@ import {
 import { useRouter } from 'next/navigation';
 import PayPalButtonSection from './PayPalButtonSection';
 import { Check } from 'lucide-react';
+import { generateSkuLabOrderInput } from '@/lib/utils/skuLabs';
+import { handlePurchaseGoogleTag } from '@/hooks/useGoogleTagDataLayer';
 
 export default function MobileCheckout() {
   const stripe = useStripe();
@@ -64,6 +67,7 @@ export default function MobileCheckout() {
   const totalMsrpPrice = convertPriceToStripeFormat(getTotalPrice() + shipping);
   const [value, setValue] = useState(['shipping']);
   const [isLoading, setIsLoading] = useState(false);
+  const [message, setMessage] = useState('');
 
   const handleSelectTab = (title: string) => {
     if (document) {
@@ -145,18 +149,19 @@ export default function MobileCheckout() {
                 error.type === 'validation_error'
               ) {
                 console.error('Error:', error.message);
-                // setMessage(
-                //   error.message ||
-                //     "There's an error, but could not find error message"
-                // );
+                setMessage(
+                  error.message ||
+                    "There's an error, but could not find error message"
+                );
               } else {
                 console.error('Error:', error.message);
-                // setMessage(error.message || 'An unexpected error occurred.');
+                setMessage(error.message || 'An unexpected error occurred.');
               }
             } else if (
               result.paymentIntent &&
               result.paymentIntent.status === 'succeeded'
             ) {
+              // SendGrid Thank You Email
               const emailInput = {
                 to: customerInfo.email,
                 name: {
@@ -183,12 +188,13 @@ export default function MobileCheckout() {
                 const emailResponse = await response.json(); // Making sure the await goes through and email is sent
               } catch (error) {
                 console.error('Error:', error?.message);
-                // setMessage(
-                //   error?.message ||
-                //     "There's an error, but could not find error message"
-                // );
+                setMessage(
+                  error?.message ||
+                    "There's an error, but could not find error message"
+                );
               }
 
+              // Meta Conversion API
               const skus = getSkusFromCartItems(cartItems);
               const skusWithQuantityMsrpForMeta =
                 getSkuQuantityPriceFromCartItemsForMeta(cartItems);
@@ -228,7 +234,6 @@ export default function MobileCheckout() {
                 },
                 body: JSON.stringify({ metaCPIEvent }),
               });
-
               // Track the purchase event
               if (typeof fbq === 'function') {
                 fbq(
@@ -263,7 +268,30 @@ export default function MobileCheckout() {
                   },
                 });
               }
+              if (process.env.NEXT_PUBLIC_IS_PREVIEW !== 'PREVIEW') {
+                const skuLabOrderInput = generateSkuLabOrderInput({
+                  orderNumber,
+                  cartItems,
+                  totalMsrpPrice: convertPriceFromStripeFormat(totalMsrpPrice),
+                  shippingAddress,
+                  customerInfo,
+                });
 
+                // SKU Labs Order Creation
+                // Post Items
+                const skuLabCreateOrderResponse = await fetch(
+                  '/api/sku-labs/orders',
+                  {
+                    method: 'POST',
+                    headers: {
+                      'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ order: skuLabOrderInput }),
+                  }
+                );
+              }
+
+              // Google Conversion API
               const enhancedGoogleConversionInput = {
                 email: customerInfo.email || '',
                 phone_number: shippingAddress.phone || '',
@@ -276,13 +304,13 @@ export default function MobileCheckout() {
                 country: shippingAddress.address.country || '',
               };
 
-              // handlePurchaseGoogleTag(
-              //   cartItems,
-              //   orderNumber,
-              //   getTotalPrice().toFixed(2),
-              //   clearLocalStorageCart,
-              //   enhancedGoogleConversionInput
-              // );
+              handlePurchaseGoogleTag(
+                cartItems,
+                orderNumber,
+                getTotalPrice().toFixed(2),
+                clearLocalStorageCart,
+                enhancedGoogleConversionInput
+              );
 
               const { id, client_secret } = result.paymentIntent;
               router.push(
@@ -381,10 +409,10 @@ export default function MobileCheckout() {
                 const emailResponse = await response.json(); // Making sure the await goes through and email is sent
               } catch (error) {
                 console.error('Error:', error?.message);
-                // setMessage(
-                //   error?.message ||
-                //     "There's an error, but could not find error message"
-                // );
+                setMessage(
+                  error?.message ||
+                    "There's an error, but could not find error message"
+                );
               }
               router.push(
                 `/thank-you?order_number=${orderNumber}&payment_intent=${id}&payment_intent_client_secret=${client_secret}`
@@ -532,6 +560,9 @@ export default function MobileCheckout() {
                           'Submit Payment'
                         )}
                       </Button>
+                      {message && (
+                        <p className="font-[500] text-[red]">{message}</p>
+                      )}
                     </>
                   )}
                 </section>
