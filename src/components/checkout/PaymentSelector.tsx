@@ -1,7 +1,7 @@
 import { PaymentMethod } from '@/lib/types/checkout';
 import { CreditCard } from 'lucide-react';
 import PayPalIcon from '../PDP/components/icons/PayPalIcon';
-import GooglePayIcon from '../PDP/components/icons/googlePayIcon';
+import GooglePayIcon from '../PDP/components/icons/GooglePayIcon';
 import Klarna from '@/images/checkout/Klarna-Black.webp';
 import Image from 'next/image';
 
