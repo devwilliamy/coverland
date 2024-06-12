@@ -44,6 +44,8 @@ type DynamicTemplateData = {
   cv_exp_date: string;
 };
 
+const trademark = "\u2122";
+
 type ThankYouEmailInput = MailDataRequired & { dynamicTemplateData: DynamicTemplateData };
 
 const generateOrderItems = (cartItems: TCartItem[]) => {
@@ -64,7 +66,7 @@ const generateOrderItems = (cartItems: TCartItem[]) => {
     feature,
     product, 
   }) => ({
-    name: fullProductName || `${display_id}\u2122 ${type}`,
+    name: fullProductName || `${display_id}${trademark} ${type}`,
     vehicle: `${make} ${model} ${year_generation} ${submodel1 || ''} ${submodel2 || ''} ${submodel3 || ''}`.trim(),
     color: display_color,
     quantity: quantity,
@@ -108,6 +110,7 @@ const generateThankYouEmail = ({
 export const sendThankYouEmail = async (emailInput: MailDataRequired) => {
   console.log('emailInput Shipping Info', emailInput);
   const msg = generateThankYouEmail(emailInput);
+  console.log('email message', msg);
   try {
     await sgMail.send(msg);
     // console.log('Email sent', data);
