@@ -53,8 +53,15 @@ const ReviewSection = ({ showHeader }: { showHeader?: boolean }) => {
   const { productType } = useDetermineType();
 
   const areThereMoreReviews = reviewData.length < total_reviews;
+  const typeMappings: { [key: string]: string } = {
+    'suv-covers': 'SUV Covers',
+    'truck-covers': 'Truck Covers',
+    'car-covers': 'Car Covers',
+    'seat-covers': 'Seat Covers',
+  };
+  
+  const typeString = typeMappings[productType || ""] || 'Car Covers';
 
-  const typeString = productType;
   const generatedReviewScore =
     selectedProduct &&
     generateNumberFromCarBuild(

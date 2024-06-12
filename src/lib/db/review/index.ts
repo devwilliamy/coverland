@@ -151,12 +151,6 @@ export async function getProductReviewsByPage(
         fetch = fetch.order(field, { ascending: order === 'asc', nullsFirst });
       });
 
-      // fetch = fetch.order('sku', { ascending: true });
-      // fetch = fetch.order('helpful', { nullsFirst: false, ascending: false });
-
-      // if (search) {
-      //   fetch = fetch.textSearch('review_description', search);
-      // }
       console.log('getProductReviewsByPage FetcH:', fetch);
       const { data, error } = await fetch;
 
@@ -167,7 +161,7 @@ export async function getProductReviewsByPage(
       return data;
     };
 
-    const data = await retry(fetchReviews, 3, 500);
+    const data = await retry(fetchReviews, 3, 100);
 
     return filterDuplicateReviewImages({
       reviewData: data,
@@ -215,7 +209,7 @@ export async function getAllReviewsWithImages(
       return data;
     };
 
-    const data = await retry(fetchAllReviewsWithImages, 3, 500);
+    const data = await retry(fetchAllReviewsWithImages, 3, 100);
 
     const filteredDuplicatedReviewImages:
       | TReviewData[]
@@ -298,7 +292,7 @@ export async function getProductReviewSummary(
       return data;
     };
 
-    const data = await retry(fetchReviewSummary, 3, 500);
+    const data = await retry(fetchReviewSummary, 3, 100);
 
     return {
       total_reviews: data[0].total_reviews,
@@ -360,7 +354,6 @@ export async function getProductReviewsByImage(
   options: TProductReviewsQueryOptions
 ): Promise<TReviewData[]> {
   try {
-    debugger;
     const validatedFilters =
       ProductReviewsQueryFiltersSchema.parse(productQueryFilters);
     const validatedOptions = ProductReviewsQueryOptionsSchema.parse(options);
@@ -417,7 +410,7 @@ export async function getProductReviewsByImage(
       return data;
     };
 
-    const data = await retry(fetchReviews, 3, 500);
+    const data = await retry(fetchReviews, 3, 100);
 
     const filteredDuplicatedReviewImages: TReviewData[] =
       filterDuplicateReviewImages({
