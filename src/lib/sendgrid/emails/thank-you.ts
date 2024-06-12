@@ -1,5 +1,6 @@
 import { TCartItem } from '@/lib/cart/useCart';
 import sgMail, { MailDataRequired } from '@sendgrid/mail';
+import { formatMoneyAsNumber } from '@/lib/utils/money'
 sgMail.setApiKey(process.env.SENDGRID_API_KEY || '');
 
 
@@ -172,10 +173,10 @@ const generateThankYouEmail = ({
     // cv_four_digits: '*4242',
     // cv_exp_date: '11/2026',
     total_item_quantity: orderInfo.totalItemQuantity,
-    subtotal: orderInfo.subtotal,
-    total_discount: orderInfo.totalDiscount,
+    subtotal: formatMoneyAsNumber(orderInfo.subtotal),
+    total_discount: formatMoneyAsNumber(orderInfo.totalDiscount),
     // taxes: orderInfo.taxes;
-    total: orderInfo.total,
+    total: formatMoneyAsNumber(orderInfo.total),
   },
 });
 

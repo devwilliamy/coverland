@@ -167,7 +167,7 @@ export default function Payment() {
               full_name: `${shippingAddress.firstName} ${shippingAddress.lastName}`,
               shipping_method: shippingInfo.shipping_method as string,
               shipping_date: shippingInfo.shipping_date as string,
-              delivery_fee: shippingInfo.delivery_fee as number,
+              delivery_fee: shippingInfo.delivery_fee.toFixed(2) as number,
               free_delivery: shippingInfo.delivery_fee === 0,
             },
             // billingInfo,
