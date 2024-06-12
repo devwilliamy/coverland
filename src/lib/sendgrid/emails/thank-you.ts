@@ -2,6 +2,8 @@ import { TCartItem } from '@/lib/cart/useCart';
 import sgMail, { MailDataRequired } from '@sendgrid/mail';
 import { formatMoneyAsNumber, trimToWholeNumber } from '@/lib/utils/money'
 sgMail.setApiKey(process.env.SENDGRID_API_KEY || '');
+const sgFromEmail = process.env.SENDGRID_FROM_EMAIL;
+const sgThankYouEmailTemplateId = process.env.SENDGRID_THANK_YOU_EMAIL_TEMPLATE_ID;
 
 
 type OrderItem = {
@@ -44,47 +46,6 @@ type DynamicTemplateData = {
 
 type ThankYouEmailInput = MailDataRequired & { dynamicTemplateData: DynamicTemplateData };
 
-// // Example of using the types with the provided data
-// const dyanmicTemplateData: DynamicTemplateData = {
-//   first_name: "John",
-//   order_date: "November 20, 2023",
-//   order_number: "CL-00001",
-//   order_items: [
-//       {
-//           name: "Premium Plus Custom Car Cover",
-//           vehicle: "Ford Mustang 2019 Fastback",
-//           color: "2-Tone Black & Gray",
-//           quantity: 1,
-//           price: 179.99,
-//           img_url: "https://coverland.com/custom-cover/01-fomu12-bkrd-str-nm.webp"
-//       },
-//       {
-//           name: "Premium Plus Custom Car Cover",
-//           vehicle: "AMC Matador 2019 2-Door",
-//           color: "2-Tone Black & Gray",
-//           quantity: 1,
-//           price: 179.99,
-//           img_url: "https://cdn-icons-png.flaticon.com/512/1581/1581884.png"
-//       }
-//   ],
-//   shipping_info: {
-//       full_name: "John Newman",
-//       address_line1: "2125 Chestnut Street",
-//       city: "San Francisco",
-//       state: "CA",
-//       postal_code: "94123",
-//       shipping_method: "Standard, free shipping",
-//       shipping_date: "Wed, Nov 30"
-//   },
-//   total_item_quantity: 2,
-//   subtotal: 550.00,
-//   delivery_fee: "FREE",
-//   taxes: 10.00,
-//   total: 369.98,
-//   cv_four_digits: "*4242",
-//   cv_exp_date: "11/2026"
-// };
-
 const generateOrderItems = (cartItems: TCartItem[]) => {
   return cartItems.map(({ 
     fullProductName,
@@ -120,65 +81,26 @@ const generateThankYouEmail = ({
   shippingInfo,
   billingInfo, 
 }: ThankYouEmailInput) => ({
-  // to: 'dev.william.coverland@gmail.com', // Change to your recipient
   to, // Change to your recipient
-  from: 'info@coverland.com', // Process ENV
-  // from: {email : process.env.FROM_EMAIL},
-  // templateId: process.env.SENDGRID_THANK_YOU_EMAIL_TEMPLATE_ID || '', // need to add an error catch
-  templateId: 'd-fe756cb7460345508833395151dc88bb', // Process ENV
+  from: sgFromEmail,
+  templateId: sgThankYouEmailTemplateId, // Process ENV
   dynamicTemplateData: {
-    // first_name: 'William',
     first_name: name.firstName,
-    // order_date: 'April 20, 2024',
     order_date: orderInfo.orderDate,
-    // order_number: 'CL-00002',
     order_number: orderInfo.orderNumber,
     shipping_info: {
       ...shippingInfo,
     },
     order_items: generateOrderItems(orderInfo.cartItems),
-    // order_items: [
-    //   {
-    //     name: 'Premium Plus Custom Car Cover',
-    //     vehicle: 'Ford Mustang 2019 Fastback',
-    //     color: '2-Tone Black & Gray',
-    //     quantity: 1,
-    //     price: 179.99,
-    //     img_url:
-    //       'https://coverland.com/custom-cover/01-fomu12-bkrd-str-nm.webp',
-    //   },
-    //   {
-    //     name: 'Premium Plus Custom Car Cover',
-    //     vehicle: 'AMC Matador 2019 2-Door',
-    //     color: '2-Tone Black & Gray',
-    //     quantity: 1,
-    //     price: 179.99,
-    //     img_url: 'https://cdn-icons-png.flaticon.com/512/1581/1581884.png',
-    //   },
-    // ],
-    // products: orderInfo.products,
-    // full_name: 'William Yang',
+
     full_name: name.fullName,
-    // address_line1: '2125 Chestnut Street',
-    // address_line1: address.address_line1,
-    // city: 'San Francisco',
-    // state: 'CA',
-    // postal_code: '94123',
-    // shipping_method: 'Standard, free shipping',
-    // shipping_date: 'Wed, Nov 30',
-    // total_item_quantity: 2,
-    // subtotal: 550.0,
-    // delivery_fee: 'FREE',
-    // taxes: 10.0,
-    // total: 369.98,
-    // cv_four_digits: '*4242',
-    // cv_exp_date: '11/2026',
+
     total_item_quantity: orderInfo.totalItemQuantity,
     subtotal: formatMoneyAsNumber(orderInfo.subtotal),
-    // total_discount: trimToWholeNumber(orderInfo.totalDiscount),
+    // total_discount: trimToWholeNumber(orderInfo.totalDiscount), // option to change to cleaner discount format i.e. $720.04 -> $720
     total_discount: orderInfo.totalDiscount,
     has_discount: orderInfo.hasDiscount,
-    // taxes: orderInfo.taxes;
+    // taxes: orderInfo.taxes, // not yet implemented
     total: formatMoneyAsNumber(orderInfo.total),
   },
 });
@@ -206,3 +128,109 @@ export const sendThankYouEmail = async (emailInput: MailDataRequired) => {
     }
   }
 };
+
+/*
+Refer below for examples of what SendGrid expects us to send
+*/
+
+/*
+* Typescript *
+thankYouEmailInput: ThankYouEmailInput = {
+  to: 'pVWu5@example.com',
+  from: 'hello@notreal.com',
+  templateId: 'sg-124124-1259149asf9124124',
+    dynamicTemplateData: {
+      first_name: "John",
+      order_date: "November 20, 2023",
+      order_number: "CL-00001",
+      order_items: [
+        {
+          name: "Premium Plus Custom Car Cover",
+          vehicle: "Ford Mustang 2019 Fastback",
+          color: "2-Tone Black & Gray",
+          quantity: 1,
+          price: 179.99,
+          total_price: 179.99,
+          img_url: "https://coverland.com/custom-cover/01-fomu12-bkrd-str-nm.webp"
+        },
+        {
+          name: "Premium Plus Custom Car Cover",
+          vehicle: "AMC Matador 2019 2-Door",
+          color: "2-Tone Black & Gray",
+          quantity: 3,
+          price: 179.99,
+          total_price: 539.97,
+          img_url: "https://cdn-icons-png.flaticon.com/512/1581/1581884.png"
+        }
+      ],
+      shipping_info: {
+        full_name: "John Newman",
+        address_line1: "2125 Chestnut Street",
+        city: "San Francisco",
+        state: "CA",
+        postal_code: "94123",
+        shipping_method: "Standard, free shipping",
+        shipping_date: "Wed, Nov 30",
+        delivery_fee: 0.00,
+        free_delivery: true
+      },
+      total_item_quantity: 4,
+      subtotal: 1440.00,
+      total_discount: 720.04,
+      has_discount: true,
+      taxes: 10.00,
+      total: 719.96,
+      cv_four_digits: "*4242",
+      cv_exp_date: "11/2026"
+    }
+  }
+*/
+
+/*
+* JSON Object of Dynamic Template Data *
+{
+  "first_name": "John",
+  "order_date": "November 20, 2023",
+  "order_number": "CL-00001",
+  "order_items": [
+    {
+      "name": "Premium Plus Custom Car Cover",
+      "vehicle": "Ford Mustang 2019 Fastback",
+      "color": "2-Tone Black & Gray",
+      "quantity": 1,
+      "price": 179.99,
+      "total_price": 179.99,
+      "img_url": "https://coverland.com/custom-cover/01-fomu12-bkrd-str-nm.webp"
+    },
+    {
+      "name": "Premium Plus Custom Car Cover",
+      "vehicle": "AMC Matador 2019 2-Door",
+      "color": "2-Tone Black & Gray",
+      "quantity": 3,
+      "price": 179.99,
+      "total_price": 539.97,
+      "img_url": "https://cdn-icons-png.flaticon.com/512/1581/1581884.png"
+    }
+  ],
+  "shipping_info": {
+    "full_name": "John Newman",
+    "address_line1": "2125 Chestnut Street",
+    "city": "San Francisco",
+    "state": "CA",
+    "postal_code": "94123",
+    "shipping_method": "Standard, free shipping",
+    "shipping_date": "Wed, Nov 30",
+    "delivery_fee": 0.00,
+    "free_delivery": true
+  },
+  "total_item_quantity": 4,
+  "subtotal": 1440.00,
+  "total_discount": 720.04,
+  "has_discount": true,
+  "taxes": 10.00,
+  "total": 719.96,
+  "cv_four_digits": "*4242",
+  "cv_exp_date": "11/2026"
+}
+*/
+
