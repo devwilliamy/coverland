@@ -12,3 +12,9 @@ export type SortParams = {
   order: 'asc' | 'desc';
   nullsFirst?: boolean;
 };
+
+export type FilterParams = {
+  field: string;
+  operator: 'eq' | 'neq' | 'gt' | 'lt' | 'gte' | 'lte' | 'notnull';
+  value: string | number;
+};

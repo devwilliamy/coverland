@@ -39,6 +39,7 @@ export interface ISeatCoverCoverSelectionState extends ISeatCoverCoverProps {
   setQuery: (newQuery: Partial<TQuery>) => void;
   isComplete: boolean;
   setReviewData: (newReviewData: TReviewData[]) => void;
+  addReviewData: (data: TReviewData[]) => void;
   setReviewDataSummary: (newReviewDataSummary: TProductReviewSummary) => void;
   reviewImageTracker: Record<string, boolean>;
   setReviewImageTracker: (newImageTracker: Record<string, boolean>) => void;
@@ -154,6 +155,8 @@ const createSeatCoverSelectionStore = ({
     setReviewData: (newReviewData: TReviewData[]) => {
       set(() => ({ reviewData: newReviewData }));
     },
+    addReviewData: (data: TReviewData[]) =>
+      set((state) => ({ reviewData: [...state.reviewData, ...data] })),
     reviewDataSummary: initialReviewDataSummary,
     setReviewDataSummary: (newReviewDataSummary: TProductReviewSummary) => {
       set(() => ({ reviewDataSummary: newReviewDataSummary }));

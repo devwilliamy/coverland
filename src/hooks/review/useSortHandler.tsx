@@ -4,7 +4,7 @@ import {
   getProductReviewsByPage,
   getProductReviewsByImage,
 } from '@/lib/db/review';
-import { SortParams, TReviewData } from '@/lib/types/review';
+import { FilterParams, SortParams, TReviewData } from '@/lib/types/review';
 
 type SortHandlerProps = {
   typeString: string;
@@ -12,6 +12,7 @@ type SortHandlerProps = {
   make: string;
   model: string;
   limit: number;
+  filters: FilterParams[]
   setLoading: (loading: boolean) => void;
   setReviewData: (data: TReviewData[]) => void;
   setPage: (page: number) => void;
@@ -24,6 +25,7 @@ const useSortHandler = ({
   make,
   model,
   limit,
+  filters,
   setLoading,
   setReviewData,
   setPage,
@@ -69,6 +71,7 @@ const useSortHandler = ({
             page: 0, // Reset to the beginning
             limit,
           },
+          filters,
           sort: sortArray,
         }
       );

@@ -1,6 +1,9 @@
 // useViewMoreHandler.ts
 import { useState } from 'react';
-import { getProductReviewsByPage, getProductReviewsByImage } from '@/lib/db/review';
+import {
+  getProductReviewsByPage,
+  getProductReviewsByImage,
+} from '@/lib/db/review';
 import { TReviewData } from '@/lib/types/review';
 
 type ViewMoreHandlerProps = {
@@ -14,7 +17,7 @@ type ViewMoreHandlerProps = {
   filters: any; // Adjust the type as needed
   reviewImageTracker: Record<string, boolean>;
   setLoading: (loading: boolean) => void;
-  setReviewData: (data: TReviewData[]) => void;
+  addReviewData: (data: TReviewData[]) => void;
   setPage: (page: number) => void;
 };
 
@@ -29,7 +32,7 @@ const useViewMoreHandler = ({
   filters,
   reviewImageTracker,
   setLoading,
-  setReviewData,
+  addReviewData,
   setPage,
 }: ViewMoreHandlerProps) => {
   const handleViewMore = async () => {
@@ -54,7 +57,7 @@ const useViewMoreHandler = ({
         reviewImageTracker
       );
 
-      setReviewData((prevReviewData) => [...prevReviewData, ...newReviewData]);
+      addReviewData(newReviewData);
       setPage((prevPage) => prevPage + 1);
     } catch (error) {
       console.error(error);

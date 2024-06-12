@@ -3,12 +3,7 @@ import { useState } from 'react';
 import { track } from '@vercel/analytics';
 
 import { useStore } from 'zustand';
-import {
-  FilterParams,
-  // filterReviewImages,
-  getProductReviewsByImage,
-  getProductReviewsByPage,
-} from '@/lib/db/review';
+import { FilterParams } from '@/lib/db/review';
 import { useMediaQuery } from '@mantine/hooks';
 import { AiOutlineLoading3Quarters } from 'react-icons/ai';
 import ReviewRatingStar from '@/components/icons/ReviewRatingStar';
@@ -30,6 +25,7 @@ const ReviewSection = ({ showHeader }: { showHeader?: boolean }) => {
   if (!store) throw new Error('Missing Provider in the tree');
   const reviewData = useStore(store, (s) => s.reviewData);
   const setReviewData = useStore(store, (s) => s.setReviewData);
+  const addReviewData = useStore(store, (s) => s.addReviewData);
   const reviewImageTracker = useStore(store, (s) => s.reviewImageTracker);
   const selectedProduct = useStore(store, (s) => s.selectedProduct);
   const { total_reviews, average_score } = useStore(
@@ -42,10 +38,17 @@ const ReviewSection = ({ showHeader }: { showHeader?: boolean }) => {
   const [loading, setLoading] = useState(false);
   const [page, setPage] = useState(1); // Starting at 1 because we're already starting at 0
   const limit = 8;
-  const [sort, setSort] = useState<SortParams[]>({
-    field: 'helpful',
-    order: 'desc',
-  });
+  const [sort, setSort] = useState<SortParams[]>([
+    {
+      field: 'sku',
+      order: 'asc',
+    },
+    {
+      field: 'helpful',
+      order: 'desc',
+      nullsFirst: false,
+    },
+  ]);
   const [filters, setFilters] = useState<FilterParams[]>([]);
   const { productType } = useDetermineType();
 
@@ -77,7 +80,7 @@ const ReviewSection = ({ showHeader }: { showHeader?: boolean }) => {
     filters,
     reviewImageTracker,
     setLoading,
-    setReviewData,
+    addReviewData,
     setPage,
   });
 
@@ -87,6 +90,7 @@ const ReviewSection = ({ showHeader }: { showHeader?: boolean }) => {
     make,
     model,
     limit,
+    filters,
     setLoading,
     setReviewData,
     setPage,
@@ -102,6 +106,7 @@ const ReviewSection = ({ showHeader }: { showHeader?: boolean }) => {
     make,
     model,
     limit,
+    sort,
     setLoading,
     setReviewData,
     setPage,
@@ -153,6 +158,7 @@ const ReviewSection = ({ showHeader }: { showHeader?: boolean }) => {
             </div>
           </header>
           <ReviewHeaderGallery />
+          {/* Review Sort & Filter Section */}
           <div className="flex w-full items-center justify-end gap-1 pt-7 *:rounded-lg  lg:gap-4">
             <select
               className=" h-12 rounded border border-[#C8C7C7] bg-transparent px-4 text-lg font-normal capitalize text-[#1A1A1A] max-lg:max-w-[100px]"
@@ -162,8 +168,8 @@ const ReviewSection = ({ showHeader }: { showHeader?: boolean }) => {
               <option disabled className="hidden" value="sort">
                 Sort
               </option>
-              <option value="helpful">Most Helpful</option>
-              <option value="newest">Most Recent</option>
+              <option value="helpful">Most helpful</option>
+              <option value="newest">Most recent</option>
               {/* <option value="oldest">Sort By Oldest</option> */}
             </select>
 
@@ -175,10 +181,10 @@ const ReviewSection = ({ showHeader }: { showHeader?: boolean }) => {
               <option disabled className="hidden" value="filter">
                 Filter
               </option>
-              <option value="images">Images Only</option>
+              <option value="images">Images only</option>
               {/* <option value="verified">Verified Purchases Only</option> */}
-              <option value="positive">Positive Reviews</option>
-              <option value="critical">Critical Reviews</option>
+              <option value="positive">Positive reviews</option>
+              <option value="critical">Critical reviews</option>
             </select>
           </div>
         </>

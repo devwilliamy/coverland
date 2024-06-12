@@ -2,7 +2,7 @@ import {
   getProductReviewsByPage,
   getProductReviewsByImage,
 } from '@/lib/db/review';
-import { TReviewData } from '@/lib/types/review';
+import { FilterParams, SortParams, TReviewData } from '@/lib/types/review';
 
 type FilterHandlerProps = {
   typeString: string;
@@ -10,12 +10,11 @@ type FilterHandlerProps = {
   make: string;
   model: string;
   limit: number;
+  sort: SortParams[];
   setLoading: (loading: boolean) => void;
   setReviewData: (data: TReviewData[]) => void;
   setPage: (page: number) => void;
-  setFilters: (
-    filters: Array<{ field: string; operator: string; value: any }>
-  ) => void;
+  setFilters: (filters: FilterParams[]) => void;
   setFilterImageOn: (on: boolean) => void;
 };
 
@@ -25,6 +24,7 @@ const useFilterHandler = ({
   make,
   model,
   limit,
+  sort,
   setLoading,
   setReviewData,
   setPage,
@@ -73,10 +73,7 @@ const useFilterHandler = ({
           { productType: typeString, year, make, model },
           {
             pagination: { page: 0, limit },
-            sort: [
-              { field: 'sku', order: 'asc' },
-              { field: 'helpful', order: 'desc', nullsFirst: false },
-            ],
+            sort,
           }
         );
         setFilterImageOn(false);
@@ -85,10 +82,7 @@ const useFilterHandler = ({
           { productType: typeString, year, make, model },
           {
             filters: [{ field, operator, value }],
-            sort: [
-              { field: 'sku', order: 'asc' },
-              { field: 'helpful', order: 'desc', nullsFirst: false },
-            ],
+            sort,
           }
         );
         setFilterImageOn(true);
@@ -98,10 +92,7 @@ const useFilterHandler = ({
           {
             pagination: { page: 0, limit },
             filters: [{ field, operator, value }],
-            sort: [
-              { field: 'sku', order: 'asc' },
-              { field: 'helpful', order: 'desc', nullsFirst: false },
-            ],
+            sort,
           }
         );
         setFilterImageOn(false);

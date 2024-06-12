@@ -1,18 +1,11 @@
 import { z } from 'zod';
-import { Tables } from '../types';
-import { SortParams } from '@/lib/types/review';
+import { FilterParams, SortParams } from '@/lib/types/review';
 
 export type TProductReviewsQueryFilters = {
   productType?: 'Car Covers' | 'SUV Covers' | 'Truck Covers' | 'Seat Covers';
   year?: string;
   make?: string;
   model?: string;
-};
-
-export type FilterParams = {
-  field: string;
-  operator: 'eq' | 'neq' | 'gt' | 'lt' | 'gte' | 'lte' | 'notnull';
-  value: string | number;
 };
 
 export type TProductReviewsQueryOptions = {
