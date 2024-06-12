@@ -1,4 +1,4 @@
-'use client';;
+'use client';
 import { track } from '@vercel/analytics/react';
 import { Suspense, useState } from 'react';
 import { useParams } from 'next/navigation';
@@ -33,21 +33,23 @@ export default function AddToCart({
   const modelData = useStore(store, (s) => s.modelData);
   const selectedSetDisplay = useStore(store, (s) => s.selectedSetDisplay);
   const selectedColor = useStore(store, (s) => s.selectedColor);
-  const filterdData = modelData.filter(
-    (seatCover) =>
-      isFullSet(seatCover.display_set) === selectedSetDisplay?.toLowerCase()
-  );
+  const { isSeatCover } = useDetermineType();
+  const filterdData = isSeatCover
+    ? modelData.filter(
+        (product) =>
+          isFullSet(product.display_set) === selectedSetDisplay?.toLowerCase()
+      )
+    : modelData;
 
   const isSelectedColorAvailable = filterdData.some(
-    (seatCover) =>
-      seatCover.display_color.toLowerCase() === selectedColor.toLowerCase()
+    (product) =>
+      product.display_color.toLowerCase() === selectedColor.toLowerCase()
   );
   const [addToCartSelectorOpen, setAddToCartSelectorOpen] =
     useState<boolean>(false);
   const initalLoadingState = false;
   const [isLoading, setIsLoading] = useState<boolean>(initalLoadingState);
   const [selectSeatOpen, setSelectSeatOpen] = useState<boolean>(false);
-  const { isSeatCover } = useDetermineType();
   const isFinalSelection = params?.year;
 
   const {
