@@ -202,12 +202,35 @@ export default function PayPalButtonSection() {
               }
 
               if (process.env.NEXT_PUBLIC_IS_PREVIEW !== 'PREVIEW') {
+                // Mapping it differently because sometimes Paypal info is different than what customer provides
+                // Using Paypal so we can match it with Paypal itself
+                const paypalShipping =
+                  response.data?.purchase_units[0]?.shipping;
+                const paymentSourceCustomerEmail =
+                  response.data?.payment_source?.paypal?.email_address;
+                const shippingAddressPaypalForSkuLab = {
+                  name: paypalShipping?.name?.full_name,
+                  phone: customerInfo.phoneNumber,
+                  address: {
+                    city: paypalShipping?.address?.admin_area_2,
+                    country: paypalShipping?.address?.country_code,
+                    state: paypalShipping?.address?.admin_area_1,
+                    postal_code: paypalShipping?.address?.postal_code,
+                    line1: paypalShipping?.address?.address_line_1,
+                    line2: paypalShipping?.address?.address_line_2 || '',
+                  },
+                };
+                const customerInfoPaypalForSkuLab = {
+                  email: paymentSourceCustomerEmail,
+                  phoneNumber: customerInfo.phoneNumber,
+                };
                 const skuLabOrderInput = generateSkuLabOrderInput({
                   orderNumber,
                   cartItems,
                   totalMsrpPrice,
-                  shippingAddress,
-                  customerInfo,
+                  shippingAddress: shippingAddressPaypalForSkuLab,
+                  customerInfo: customerInfoPaypalForSkuLab,
+                  paymentMethod: 'Paypal',
                 });
 
                 // SKU Labs Order Creation

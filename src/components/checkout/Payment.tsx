@@ -250,6 +250,7 @@ export default function Payment() {
               totalMsrpPrice: convertPriceFromStripeFormat(totalMsrpPrice),
               shippingAddress,
               customerInfo,
+              paymentMethod: "Stripe"
             });
 
             // SKU Labs Order Creation
