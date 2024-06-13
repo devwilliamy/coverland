@@ -8,6 +8,7 @@ import {
     TInitialProductDataDB,
     fetchUserRecentOrders,
   } from '@/lib/db/profile/ordersHistory';
+  import OrderItem from '../components/OrderItem';
 
   type OrderDetailProps = {
     params: { orderId: string };
@@ -23,19 +24,17 @@ import {
   
     return (
       <div>
-        <h1>Order Details for Order ID: {order.id}</h1>
-        {/* <p>Total Amount: {order.total_amount}</p>
-        <p>Payment Date: {order.payment_date}</p>
-        <h2>Items:</h2>
-        <ul>
-          {order.items.map(item => (
-            <li key={item.id}>
-              <p>Product: {item.product.name}</p>
-              <p>Quantity: {item.quantity}</p>
-              <p>Price: {item.price}</p>
-            </li>
-          ))}
-        </ul> */}
+        <div>
+            <h1>Order Details for Order ID: {order.id}</h1>
+            <p>Total Amount: {order.total_amount}</p>
+            <p>Payment Date: {order.payment_date}</p>
+            <h2>Items:</h2>
+            <ul>
+                {order.items?.map(item => (
+                    <OrderItem key={item.id} item={item} />
+                ))}
+            </ul>
+        </div>
       </div>
     );
   };
