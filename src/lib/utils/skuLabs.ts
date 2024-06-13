@@ -58,6 +58,7 @@ type SkuLabOrderInput = {
   totalMsrpPrice: number;
   shippingAddress: StripeAddress;
   customerInfo: CustomerInfo;
+  paymentMethod: string;
 };
 
 // 
@@ -66,7 +67,7 @@ type SkuLabOrderInput = {
  * @param cartItems 
  * @returns 
  */
-const generateNote = (cartItems: TCartItem[]) => {
+const generateNote = (cartItems: TCartItem[], paymentMethod: string) => {
   const skuNameQuantity = cartItems.map((cartItem: TCartItem) => {
     const itemName =
       `${cartItem?.year_generation || ''} ${cartItem?.make || ''} ${cartItem?.model || ''} ${
@@ -76,7 +77,7 @@ const generateNote = (cartItems: TCartItem[]) => {
       }`
         .replace(/\s+/g, ' ')
         .trim();
-    return `${cartItem.sku} ${itemName} Quantity: ${cartItem.quantity}`;
+    return `Payment Method: ${paymentMethod} ${cartItem.sku} ${itemName} Quantity: ${cartItem.quantity}`;
   });
 
   return skuNameQuantity.join('\n');
@@ -88,8 +89,9 @@ export const generateSkuLabOrderInput = ({
   totalMsrpPrice,
   shippingAddress,
   customerInfo,
+  paymentMethod
 }: SkuLabOrderInput): SkuLabOrderDTO => {
-  const notes = generateNote(cartItems);
+  const notes = generateNote(cartItems, paymentMethod);
   return {
     store_id: '62f0fcbffc3f4e916f865d6a', // Hard Coded for now
     order_number: orderNumber,
