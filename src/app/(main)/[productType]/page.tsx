@@ -1,7 +1,5 @@
 import CarPDP from './components/CarPDP';
 import {
-  TProductReviewSummary,
-  TReviewData,
   getAllReviewsWithImages,
   getProductReviewSummary,
   getProductReviewsByPage,
@@ -10,8 +8,9 @@ import { deslugify } from '@/lib/utils';
 import { TPathParams } from '@/utils';
 import { notFound } from 'next/navigation';
 import { TInitialProductDataDB, getProductData } from '@/lib/db';
+import { TReviewData, TProductReviewSummary } from '@/lib/types/review';
 
-export const revalidate = 0
+export const revalidate = 0;
 
 export function generateStaticParams() {
   return [
@@ -67,6 +66,10 @@ export default async function CarPDPModelDataLayer({
               page: 0,
               limit: 8,
             },
+            sort: [
+              { field: 'sku', order: 'asc' },
+              { field: 'helpful', order: 'desc', nullsFirst: false },
+            ],
           }
         ),
         getProductReviewSummary({

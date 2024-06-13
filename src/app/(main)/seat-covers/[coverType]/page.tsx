@@ -7,15 +7,14 @@ import {
   getSeatCoverProductsByDisplayColor,
 } from '@/lib/db/seat-covers';
 import {
-  TProductReviewSummary,
-  TReviewData,
   getAllReviewsWithImages,
   getProductReviewSummary,
   getProductReviewsByPage,
 } from '@/lib/db/review';
+import { TReviewData, TProductReviewSummary } from '@/lib/types/review';
 export const dynamicParams = false;
 
-export const revalidate = 0
+export const revalidate = 0;
 
 export async function generateStaticParams() {
   return [{ coverType: 'leather' }];
@@ -56,6 +55,10 @@ export default async function Leatherette({ params }: { params: TPathParams }) {
               page: 0,
               limit: 8,
             },
+            sort: [
+              { field: 'sku', order: 'asc' },
+              { field: 'helpful', order: 'desc', nullsFirst: false },
+            ],
           }
         ),
         getProductReviewSummary({
