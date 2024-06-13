@@ -151,7 +151,6 @@ export async function getProductReviewsByPage(
         fetch = fetch.order(field, { ascending: order === 'asc', nullsFirst });
       });
 
-      console.log('getProductReviewsByPage FetcH:', fetch);
       const { data, error } = await fetch;
 
       if (error) {
