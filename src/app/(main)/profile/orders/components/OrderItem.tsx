@@ -23,7 +23,7 @@ const OrderItem = ({ item }: OrderItemProps) => {
           </div>
         </div>
         <div className="mt-4 mb-4 md:mt-2 md:mb-2 md:ml-5 md:w-3/5 pt-0 md:max-w-[325px]">
-          <div className="mb-1 text-base font-bold md:text-base">
+          <div className="mb-1 text-base md:text-base text-[#707070]">
             {`${item.product?.display_id}™ ${item.product?.type}`}
           </div>
           <div className="mb-1 text-base font-normal text-[#707070] md:text-base">
