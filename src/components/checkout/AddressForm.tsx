@@ -126,6 +126,20 @@ export default function AddressForm({
     }
   }, [addressData, customerInfo, setValue]);
 
+  useEffect(() => {
+    // if (process.env.NEXT_PUBLIC_IS_PREVIEW === 'PREVIEW') {
+    setValue('email', 'george.icarcover@gmail.com' || '');
+    setValue('firstName', 'George' || '');
+    setValue('lastName', 'Anumba' || '');
+    setValue('line1', '123 Main Street' || '');
+    setValue('line2', 'P.O. Box 424' || '');
+    setValue('city', 'Norwalk' || '');
+    setValue('state', 'CA' || '');
+    setValue('postal_code', '12345' || '');
+    setValue('phoneNumber', '+14244244242' || '');
+    // }
+  }, []);
+
   return (
     <form onSubmit={onSubmit}>
       {showEmail && (

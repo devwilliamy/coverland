@@ -1,4 +1,5 @@
 import {
+  ExpressCheckoutElement,
   PaymentElement,
   useElements,
   useStripe,
@@ -250,7 +251,7 @@ export default function Payment() {
               totalMsrpPrice: convertPriceFromStripeFormat(totalMsrpPrice),
               shippingAddress,
               customerInfo,
-              paymentMethod: "Stripe"
+              paymentMethod: 'Stripe',
             });
 
             // SKU Labs Order Creation
@@ -363,6 +364,14 @@ export default function Payment() {
       ) : (
         <PayPalButtonSection />
       )}
+
+      <ExpressCheckoutElement
+        options={{
+          paymentMethodOrder: ['applePay', 'googlePay'],
+          buttonType: { applePay: 'check-out', googlePay: 'order' },
+        }}
+        onConfirm={() => {}}
+      />
       {message && (
         <div className="font-base flex items-center justify-center text-lg text-red-500">
           Error: {message}
