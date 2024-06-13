@@ -6,9 +6,9 @@ export default function SummaryBox({
   handleClick: () => void;
 }) {
   return (
-    <div className="w-full rounded-xl border border-[#707070]">
+    <div className="w-full rounded-[8px] border-[1px] border-[#DADADA]">
       <div className="flex flex-row px-6 py-5">
-        <div className="flex flex-1 flex-col text-base font-normal text-[#707070]">
+        <div className="flex flex-1 flex-col text-base font-normal ">
           {children}
         </div>
         <div

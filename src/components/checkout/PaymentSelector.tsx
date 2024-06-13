@@ -4,6 +4,7 @@ import PayPalIcon from '../PDP/components/icons/PayPalIcon';
 import GooglePayIcon from '../PDP/components/icons/GooglePayIcon';
 import Klarna from '@/images/checkout/Klarna-Black.webp';
 import Image from 'next/image';
+import { FaApplePay } from 'react-icons/fa';
 
 type PaymentSelectorProps = {
   selectedPaymentMethod: PaymentMethod;
@@ -43,8 +44,8 @@ const PaymentSelector: React.FC<PaymentSelectorProps> = ({
             onChange={() => onPaymentMethodChange('applePay')}
             className={inputStyle}
           />
-          APPLE PAY
-          <label htmlFor="applePay">APPLE PAY</label>
+          <FaApplePay  className="max-h-[30px] max-w-[60px]" />
+          {/* <label htmlFor="applePay"></label> */}
         </div>
       )}
 

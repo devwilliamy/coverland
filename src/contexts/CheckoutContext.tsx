@@ -74,6 +74,8 @@ export type CheckoutContextType = {
   updateStripePaymentMethod: (
     paymentMethod: PaymentMethodResult | null | undefined
   ) => void;
+  twoLetterStateCode: string;
+  updateTwoLetterStateCode: (code: string) => void;
 };
 
 export type CheckoutProviderProps = {
@@ -132,6 +134,8 @@ export const CheckoutContext = createContext<CheckoutContextType>({
   updateCardCvvError: () => {},
   stripePaymentMethod: null,
   updateStripePaymentMethod: () => {},
+  twoLetterStateCode: '',
+  updateTwoLetterStateCode: () => {},
 });
 
 const CheckoutProvider: FC<CheckoutProviderProps> = ({ children }) => {
@@ -301,6 +305,11 @@ const CheckoutProvider: FC<CheckoutProviderProps> = ({ children }) => {
     setStripePaymentMethod(paymentMethod);
   };
 
+  const [twoLetterStateCode, setTwoLetterStateCode] = useState('');
+  const updateTwoLetterStateCode = (code: string) => {
+    setTwoLetterStateCode(code);
+  };
+
   return (
     <CheckoutContext.Provider
       value={{
@@ -342,6 +351,8 @@ const CheckoutProvider: FC<CheckoutProviderProps> = ({ children }) => {
         updateCardCvvError,
         stripePaymentMethod,
         updateStripePaymentMethod,
+        twoLetterStateCode,
+        updateTwoLetterStateCode,
       }}
     >
       {children}

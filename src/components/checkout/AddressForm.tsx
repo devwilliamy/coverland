@@ -78,8 +78,13 @@ export default function AddressForm({
   setIsEditingAddress,
   showEmail,
 }: AddressFormProps) {
-  const { customerInfo, updateCustomerInfo, toggleIsShippingAddressShown } =
-    useCheckoutContext();
+  const {
+    customerInfo,
+    updateCustomerInfo,
+    toggleIsShippingAddressShown,
+    twoLetterStateCode,
+    updateTwoLetterStateCode,
+  } = useCheckoutContext();
 
   const {
     register,
@@ -129,7 +134,7 @@ export default function AddressForm({
 
   // console.log('Errors', errors);
   const [address, setAddress] = useState<string>('');
-  const [isManualAddress, setIsManualAddress] = useState(true);
+  const [isManualAddress, setIsManualAddress] = useState(false);
   const [suggestions, setSuggestions] = useState([]);
   const [loading, setLoading] = useState(false);
   const [addressOpen, setAddressOpen] = useState(false);
@@ -186,7 +191,7 @@ export default function AddressForm({
 
       const data = await response.json();
       const values = getValues();
-      console.log({ data, values });
+      // console.log({ data, values });
       setSuggestions(data);
     } catch (error) {
       console.error(error);
@@ -206,56 +211,41 @@ export default function AddressForm({
       const data = await response.json();
       const formattedAddress = data.places[0].formattedAddress;
       const addressComponents: any[] = data.places[0].addressComponents;
-      console.log('FORMATTED ADDRESS SEARCH', {
-        formattedAddress,
-        addressComponents,
-      });
+      // console.log('FORMATTED ADDRESS SEARCH', {
+      //   formattedAddress,
+      //   addressComponents,
+      // });
 
       let filteredAddressComponents = new Map();
 
-      const determineIncludes = (component) => {
+      const determineAddressIncludesComponent = (component: any) => {
         for (const key in autocompleteObj) {
           if (
             component.longText &&
             component.types &&
             component.types.includes(key)
           ) {
+            if (component.types.includes('administrative_area_level_1')) {
+              console.log({ state: component.shortText });
+              updateTwoLetterStateCode(component.shortText);
+            }
             const val = autocompleteObj[key];
             filteredAddressComponents.set(val, component.longText);
-            // console.log({ val, text: component.longText });
           }
         }
       };
 
-      addressComponents.forEach((component, index) =>
-        determineIncludes(component)
-      );
+      addressComponents.forEach((component, index) => {
+        // console.log(component);
+        determineAddressIncludesComponent(component);
+      });
 
       const line1 = String(formattedAddress).split(',')[0];
       setValue('line1', line1 ?? '');
 
-      //
       for (const arr of filteredAddressComponents) {
         setValue(arr[0], arr[1] ?? '');
       }
-      // country: string;
-      // line1?: string | null;
-      // line2?: string | null;
-      // city?: string | null;
-      // postal_code?: string | null;
-      // state?: string | null;
-
-      // const address: StripeAddress = {
-      //   // name:
-      //   address: {
-      //     line1: line1,
-      //     city: filteredAddressComponents.get('city'),
-      //     state: filteredAddressComponents.get('state'),
-      //     postal_code: filteredAddressComponents.get('postal_code'),
-      //     country: filteredAddressComponents.get('country'),
-      //   },
-      // };
-      // updateAddress(address as StripeAddress);
 
       console.log({ addressData });
 
@@ -377,7 +367,6 @@ export default function AddressForm({
             const val = String(newInputValue);
             getAddressAutocompleteOptions(val);
             setAddress(val);
-            console.log({ address: val });
           }}
           value={address?.placePrediction?.text.text ?? address}
           className="col-span-2 w-full"

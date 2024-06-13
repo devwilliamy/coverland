@@ -86,13 +86,13 @@ export default function Payment({
     Boolean(cardCvvError.error || !cardCvvError.visited);
 
   useEffect(() => {
-    console.log({
-      isDisabledCard,
-      isEditingAddress,
-      cardVisited: cardNumberError,
-      expiryVisited: cardExpiryError,
-      cvvVisited: cardCvvError,
-    });
+    // console.log({
+    //   isDisabledCard,
+    //   isEditingAddress,
+    //   cardVisited: cardNumberError,
+    //   expiryVisited: cardExpiryError,
+    //   cvvVisited: cardCvvError,
+    // });
   }, [cardNumberError, cardExpiryError, cardCvvError]);
 
   const { name } = shippingAddress;
@@ -111,7 +111,6 @@ export default function Payment({
     },
   };
 
-  
   //   stripe
   //     .confirmPayment({
   //       elements,
@@ -149,183 +148,183 @@ export default function Payment({
   //         },
   //       },
   //     })
-      // .then(async function (result) {
-      //   if (result.error) {
-      //     const { error } = result;
-      //     if (
-      //       error.type === 'card_error' ||
-      //       error.type === 'validation_error'
-      //     ) {
-      //       console.error('Error:', error.message);
-      //       setMessage(
-      //         error.message ||
-      //           "There's an error, but could not find error message"
-      //       );
-      //     } else {
-      //       console.error('Error:', error.message);
-      //       setMessage(error.message || 'An unexpected error occurred.');
-      //     }
-      //   } else if (
-      //     result.paymentIntent &&
-      //     result.paymentIntent.status === 'succeeded'
-      //   ) {
-      //     // SendGrid Thank You Email
-      //     const emailInput = {
-      //       to: customerInfo.email,
-      //       name: {
-      //         firstName: shippingAddress.firstName,
-      //         fullName: `${shippingAddress.firstName} ${shippingAddress.lastName}`,
-      //       },
-      //       orderInfo: {
-      //         orderDate: getCurrentDayInLocaleDateString(),
-      //         orderNumber,
-      //         // products
-      //       },
-      //       // address,
-      //       // shippingInfo,
-      //       // billingInfo,
-      //     };
-      //     try {
-      //       const response = await fetch('/api/email/thank-you', {
-      //         method: 'POST',
-      //         headers: {
-      //           'Content-Type': 'application/json',
-      //         },
-      //         body: JSON.stringify({ emailInput }),
-      //       });
-      //       const emailResponse = await response.json(); // Making sure the await goes through and email is sent
-      //     } catch (error) {
-      //       console.error('Error:', error?.message);
-      //       setMessage(
-      //         error?.message ||
-      //           "There's an error, but could not find error message"
-      //       );
-      //     }
+  // .then(async function (result) {
+  //   if (result.error) {
+  //     const { error } = result;
+  //     if (
+  //       error.type === 'card_error' ||
+  //       error.type === 'validation_error'
+  //     ) {
+  //       console.error('Error:', error.message);
+  //       setMessage(
+  //         error.message ||
+  //           "There's an error, but could not find error message"
+  //       );
+  //     } else {
+  //       console.error('Error:', error.message);
+  //       setMessage(error.message || 'An unexpected error occurred.');
+  //     }
+  //   } else if (
+  //     result.paymentIntent &&
+  //     result.paymentIntent.status === 'succeeded'
+  //   ) {
+  //     // SendGrid Thank You Email
+  //     const emailInput = {
+  //       to: customerInfo.email,
+  //       name: {
+  //         firstName: shippingAddress.firstName,
+  //         fullName: `${shippingAddress.firstName} ${shippingAddress.lastName}`,
+  //       },
+  //       orderInfo: {
+  //         orderDate: getCurrentDayInLocaleDateString(),
+  //         orderNumber,
+  //         // products
+  //       },
+  //       // address,
+  //       // shippingInfo,
+  //       // billingInfo,
+  //     };
+  //     try {
+  //       const response = await fetch('/api/email/thank-you', {
+  //         method: 'POST',
+  //         headers: {
+  //           'Content-Type': 'application/json',
+  //         },
+  //         body: JSON.stringify({ emailInput }),
+  //       });
+  //       const emailResponse = await response.json(); // Making sure the await goes through and email is sent
+  //     } catch (error) {
+  //       console.error('Error:', error?.message);
+  //       setMessage(
+  //         error?.message ||
+  //           "There's an error, but could not find error message"
+  //       );
+  //     }
 
-      //     // Meta Conversion API
-      //     const skus = getSkusFromCartItems(cartItems);
-      //     const skusWithQuantityMsrpForMeta =
-      //       getSkuQuantityPriceFromCartItemsForMeta(cartItems);
-      //     const eventID = uuidv4();
+  //     // Meta Conversion API
+  //     const skus = getSkusFromCartItems(cartItems);
+  //     const skusWithQuantityMsrpForMeta =
+  //       getSkuQuantityPriceFromCartItemsForMeta(cartItems);
+  //     const eventID = uuidv4();
 
-      //     const metaCPIEvent = {
-      //       event_name: 'Purchase',
-      //       event_time: Math.floor(Date.now() / 1000),
-      //       event_id: eventID,
-      //       action_source: 'website',
-      //       user_data: {
-      //         em: [hashData(customerInfo.email)],
-      //         ph: [hashData(shippingAddress.phone || '')],
-      //         ct: [hashData(shippingAddress.address.city || '')],
-      //         country: [hashData(shippingAddress.address.country || '')],
-      //         fn: [hashData(shippingAddress.firstName || '')],
-      //         ln: [hashData(shippingAddress.lastName || '')],
-      //         st: [hashData(shippingAddress.address.state || '')],
-      //         zp: [hashData(shippingAddress.address.postal_code || '')],
-      //         fbp: getCookie('_fbp'),
-      //         // client_ip_address: '', // Replace with the user's IP address
-      //         client_user_agent: navigator.userAgent, // Browser user agent string
-      //       },
-      //       custom_data: {
-      //         currency: 'USD',
-      //         value: parseFloat(getTotalPrice().toFixed(2)),
-      //         order_id: orderNumber,
-      //         content_ids: skus.join(','),
-      //         contents: skusWithQuantityMsrpForMeta,
-      //       },
-      //       event_source_url: origin,
-      //     };
-      //     const metaCAPIResponse = await fetch('/api/meta/event', {
-      //       method: 'POST',
-      //       headers: {
-      //         'Content-Type': 'application/json',
-      //       },
-      //       body: JSON.stringify({ metaCPIEvent }),
-      //     });
-      //     // Track the purchase event
-      //     if (typeof fbq === 'function') {
-      //       fbq(
-      //         'track',
-      //         'Purchase',
-      //         {
-      //           value: parseFloat(getTotalPrice().toFixed(2)),
-      //           currency: 'USD',
-      //           contents: skusWithQuantityMsrpForMeta,
-      //           content_type: 'product',
-      //         },
-      //         { eventID }
-      //       );
-      //     }
+  //     const metaCPIEvent = {
+  //       event_name: 'Purchase',
+  //       event_time: Math.floor(Date.now() / 1000),
+  //       event_id: eventID,
+  //       action_source: 'website',
+  //       user_data: {
+  //         em: [hashData(customerInfo.email)],
+  //         ph: [hashData(shippingAddress.phone || '')],
+  //         ct: [hashData(shippingAddress.address.city || '')],
+  //         country: [hashData(shippingAddress.address.country || '')],
+  //         fn: [hashData(shippingAddress.firstName || '')],
+  //         ln: [hashData(shippingAddress.lastName || '')],
+  //         st: [hashData(shippingAddress.address.state || '')],
+  //         zp: [hashData(shippingAddress.address.postal_code || '')],
+  //         fbp: getCookie('_fbp'),
+  //         // client_ip_address: '', // Replace with the user's IP address
+  //         client_user_agent: navigator.userAgent, // Browser user agent string
+  //       },
+  //       custom_data: {
+  //         currency: 'USD',
+  //         value: parseFloat(getTotalPrice().toFixed(2)),
+  //         order_id: orderNumber,
+  //         content_ids: skus.join(','),
+  //         contents: skusWithQuantityMsrpForMeta,
+  //       },
+  //       event_source_url: origin,
+  //     };
+  //     const metaCAPIResponse = await fetch('/api/meta/event', {
+  //       method: 'POST',
+  //       headers: {
+  //         'Content-Type': 'application/json',
+  //       },
+  //       body: JSON.stringify({ metaCPIEvent }),
+  //     });
+  //     // Track the purchase event
+  //     if (typeof fbq === 'function') {
+  //       fbq(
+  //         'track',
+  //         'Purchase',
+  //         {
+  //           value: parseFloat(getTotalPrice().toFixed(2)),
+  //           currency: 'USD',
+  //           contents: skusWithQuantityMsrpForMeta,
+  //           content_type: 'product',
+  //         },
+  //         { eventID }
+  //       );
+  //     }
 
-      //     // Microsoft Conversion API Tracking
-      //     if (typeof window !== 'undefined') {
-      //       window.uetq = window.uetq || [];
+  //     // Microsoft Conversion API Tracking
+  //     if (typeof window !== 'undefined') {
+  //       window.uetq = window.uetq || [];
 
-      //       window.uetq.push('set', {
-      //         pid: {
-      //           em: customerInfo.email,
-      //           ph: customerInfo.phoneNumber,
-      //         },
-      //       });
-      //       window.uetq.push('event', 'purchase', {
-      //         revenue_value: parseFloat(getTotalPrice().toFixed(2)),
-      //         currency: 'USD',
-      //         pid: {
-      //           em: customerInfo.email,
-      //           ph: customerInfo.phoneNumber,
-      //         },
-      //       });
-      //     }
-      //     if (process.env.NEXT_PUBLIC_IS_PREVIEW !== 'PREVIEW') {
-      //       const skuLabOrderInput = generateSkuLabOrderInput({
-      //         orderNumber,
-      //         cartItems,
-      //         totalMsrpPrice: convertPriceFromStripeFormat(totalMsrpPrice),
-      //         shippingAddress,
-      //         customerInfo,
-      //       });
+  //       window.uetq.push('set', {
+  //         pid: {
+  //           em: customerInfo.email,
+  //           ph: customerInfo.phoneNumber,
+  //         },
+  //       });
+  //       window.uetq.push('event', 'purchase', {
+  //         revenue_value: parseFloat(getTotalPrice().toFixed(2)),
+  //         currency: 'USD',
+  //         pid: {
+  //           em: customerInfo.email,
+  //           ph: customerInfo.phoneNumber,
+  //         },
+  //       });
+  //     }
+  //     if (process.env.NEXT_PUBLIC_IS_PREVIEW !== 'PREVIEW') {
+  //       const skuLabOrderInput = generateSkuLabOrderInput({
+  //         orderNumber,
+  //         cartItems,
+  //         totalMsrpPrice: convertPriceFromStripeFormat(totalMsrpPrice),
+  //         shippingAddress,
+  //         customerInfo,
+  //       });
 
-      //       // SKU Labs Order Creation
-      //       // Post Items
-      //       const skuLabCreateOrderResponse = await fetch(
-      //         '/api/sku-labs/orders',
-      //         {
-      //           method: 'POST',
-      //           headers: {
-      //             'Content-Type': 'application/json',
-      //           },
-      //           body: JSON.stringify({ order: skuLabOrderInput }),
-      //         }
-      //       );
-      //     }
+  //       // SKU Labs Order Creation
+  //       // Post Items
+  //       const skuLabCreateOrderResponse = await fetch(
+  //         '/api/sku-labs/orders',
+  //         {
+  //           method: 'POST',
+  //           headers: {
+  //             'Content-Type': 'application/json',
+  //           },
+  //           body: JSON.stringify({ order: skuLabOrderInput }),
+  //         }
+  //       );
+  //     }
 
-      //     // Google Conversion API
-      //     const enhancedGoogleConversionInput = {
-      //       email: customerInfo.email || '',
-      //       phone_number: shippingAddress.phone || '',
-      //       first_name: shippingAddress.firstName || '',
-      //       last_name: shippingAddress.lastName || '',
-      //       address_line1: shippingAddress.address.line1 || '',
-      //       city: shippingAddress.address.city || '',
-      //       state: shippingAddress.address.state || '',
-      //       postal_code: shippingAddress.address.postal_code || '',
-      //       country: shippingAddress.address.country || '',
-      //     };
+  //     // Google Conversion API
+  //     const enhancedGoogleConversionInput = {
+  //       email: customerInfo.email || '',
+  //       phone_number: shippingAddress.phone || '',
+  //       first_name: shippingAddress.firstName || '',
+  //       last_name: shippingAddress.lastName || '',
+  //       address_line1: shippingAddress.address.line1 || '',
+  //       city: shippingAddress.address.city || '',
+  //       state: shippingAddress.address.state || '',
+  //       postal_code: shippingAddress.address.postal_code || '',
+  //       country: shippingAddress.address.country || '',
+  //     };
 
-      //     handlePurchaseGoogleTag(
-      //       cartItems,
-      //       orderNumber,
-      //       getTotalPrice().toFixed(2),
-      //       clearLocalStorageCart,
-      //       enhancedGoogleConversionInput
-      //     );
+  //     handlePurchaseGoogleTag(
+  //       cartItems,
+  //       orderNumber,
+  //       getTotalPrice().toFixed(2),
+  //       clearLocalStorageCart,
+  //       enhancedGoogleConversionInput
+  //     );
 
-      //     const { id, client_secret } = result.paymentIntent;
-      //     router.push(
-      //       `/thank-you?order_number=${orderNumber}&payment_intent=${id}&payment_intent_client_secret=${client_secret}`
-      //     );
-      //   }
-      // })
+  //     const { id, client_secret } = result.paymentIntent;
+  //     router.push(
+  //       `/thank-you?order_number=${orderNumber}&payment_intent=${id}&payment_intent_client_secret=${client_secret}`
+  //     );
+  //   }
+  // })
   //     .finally(() => {
   //       setIsLoading(false);
   //     });
@@ -341,7 +340,7 @@ export default function Payment({
         return null;
     }
   };
-
+  const buttonStyle = `mb-3 w-full rounded-lg ${isDisabledCard ? 'bg-[#1A1A1A]/90' : 'bg-[#1A1A1A] hover:bg-[#1A1A1A]/90'}  text-base font-bold uppercase text-white sm:h-[48px] lg:h-[55px] lg:text-xl`;
   return (
     <section className="px-4 ">
       {/* <div className="mb-10 lg:hidden"><PromoCode /></div> */}
@@ -456,7 +455,7 @@ export default function Payment({
                 <Button
                   // disabled={isDisabledCard}
                   variant={'default'}
-                  className={`mb-3 w-full rounded-lg ${isDisabledCard ? 'bg-[#BE1B1B]/90' : 'bg-[#BE1B1B]'} text-base font-bold uppercase text-white sm:h-[48px] lg:h-[55px] lg:text-xl`}
+                  className={buttonStyle}
                   onClick={(e) => {
                     // setIsLoading(true);
                     // handleSubmit(e);
@@ -482,7 +481,7 @@ export default function Payment({
             <Button
               disabled={isDisabledCard}
               variant={'default'}
-              className={`mb-3 w-full rounded-lg ${isDisabledCard ? 'bg-[#BE1B1B]/90' : 'bg-[#BE1B1B]'} text-base font-bold uppercase text-white sm:h-[48px] lg:h-[55px] lg:text-xl`}
+              className={buttonStyle}
               onClick={async (e) => {
                 setIsLoading(true);
                 // handleSubmit(e);
@@ -500,7 +499,6 @@ export default function Payment({
                     if (paymentMethod.paymentMethod?.type === 'card') {
                       updateIsReadyToPay(true);
                     }
-                    console.log({ paymentMethod });
                     updateStripePaymentMethod(paymentMethod);
                     handleChangeAccordion('orderReview');
                     setIsLoading(false);
@@ -516,13 +514,37 @@ export default function Payment({
           </div>
         </div>
       )}
+
       {paymentMethod === 'paypal' && !isReadyToPay && (
         <div className="lg:flex lg:items-center lg:justify-center">
           <div className="my-4 w-full justify-center md:flex md:flex-col lg:w-[350px]">
             <Button
               disabled={isDisabledCard}
               variant={'default'}
-              className={`mb-3 w-full rounded-lg ${isDisabledCard ? 'bg-[#BE1B1B]/90' : 'bg-[#BE1B1B]'} text-base font-bold uppercase text-white sm:h-[48px] lg:h-[55px] lg:text-xl`}
+              className={buttonStyle}
+              onClick={async (e) => {
+                // setIsLoading(true);
+                // handleSubmit(e);
+                handleChangeAccordion('orderReview');
+                updateIsReadyToPay(true);
+              }}
+            >
+              {isLoading ? (
+                <AiOutlineLoading3Quarters className="animate-spin" />
+              ) : (
+                'Continue to Order Review'
+              )}
+            </Button>
+          </div>
+        </div>
+      )}
+      {paymentMethod === 'googlePay' && !isReadyToPay && (
+        <div className="lg:flex lg:items-center lg:justify-center">
+          <div className="my-4 w-full justify-center md:flex md:flex-col lg:w-[350px]">
+            <Button
+              disabled={isDisabledCard}
+              variant={'default'}
+              className={buttonStyle}
               onClick={async (e) => {
                 // setIsLoading(true);
                 // handleSubmit(e);

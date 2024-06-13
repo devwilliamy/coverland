@@ -30,6 +30,8 @@ export default function Shipping({
     isReadyToShip,
     updateIsReadyToShip,
     customerInfo,
+    isReadyToPay,
+    updateIsReadyToPay,
   } = useCheckoutContext();
 
   const handleToPayment = () => {
@@ -50,6 +52,7 @@ export default function Shipping({
     setIsEditingShipping(true);
     setIsEditingAddress(true);
     updateIsReadyToShip(false);
+    updateIsReadyToPay(false);
     toggleIsShippingAddressShown(true);
   };
 

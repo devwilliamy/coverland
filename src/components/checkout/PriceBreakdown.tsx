@@ -1,12 +1,22 @@
+'use client';
 import { useCartContext } from '@/providers/CartProvider';
+import * as PopoverPrimitive from '@radix-ui/react-popover';
 import { Separator } from '../ui/separator';
 import { useCheckoutContext } from '@/contexts/CheckoutContext';
 import { CheckoutStep } from '@/lib/types/checkout';
 import { error } from 'console';
+import { useEffect, useState } from 'react';
+import { Popover, PopoverContent, PopoverTrigger } from '../ui/popover';
+import { Info } from 'lucide-react';
 
 export default function PriceBreakdown() {
-  const { currentStep, shipping, shippingAddress, isReadyToPay } =
-    useCheckoutContext();
+  const {
+    currentStep,
+    shipping,
+    shippingAddress,
+    isReadyToPay,
+    twoLetterStateCode,
+  } = useCheckoutContext();
   const {
     getTotalPrice,
     getOrderSubtotal,
@@ -24,6 +34,7 @@ export default function PriceBreakdown() {
 
   const shippingText = shipping === 0 ? 'FREE' : `$${shipping}`;
   const isCartEmpty = getTotalCartQuantity() === 0;
+  const [tax, setTax] = useState<string>();
   const getTax = async () => {
     let taxItems = [];
     let count = 0;
@@ -39,32 +50,12 @@ export default function PriceBreakdown() {
 
     const bodyData = {
       to_country: shippingAddress.address.country,
-      // to_zip: shippingAddress.address.postal_code,
-      to_zip: '90245',
-      // to_state: shippingAddress.address.state,
-      to_state: 'CA',
+      to_zip: shippingAddress.address.postal_code,
+      to_state: twoLetterStateCode,
       amount: orderSubtotal,
       shipping: 0,
       line_items: taxItems,
     };
-
-    // const bodyData = {
-    //   to_country: shippingAddress.address.country,
-    //   // to_zip: shippingAddress.address.postal_code,
-    //   to_zip: '90245',
-    //   // to_state: shippingAddress.address.state,
-    //   to_state: 'CA',
-    //   amount: 15,
-    //   shipping: 0,
-    //   line_items: [
-    //     {
-    //       id: '1',
-    //       quantity: 1,
-    //       unit_price: 15,
-    //       discount: 0,
-    //     },
-    //   ],
-    // };
 
     const response = await fetch('/api/taxjar/sales-tax', {
       method: 'POST',
@@ -73,14 +64,15 @@ export default function PriceBreakdown() {
       },
       body: JSON.stringify({ bodyData }),
     });
-
-    console.log('[TAXJAR RESPONSE]', { tax: response });
-    return;
+    const taxRes = await response.json();
+    setTax(taxRes?.tax?.amount_to_collect);
   };
 
-  if (!isCartEmpty && isReadyToPay) {
-    getTax();
-  }
+  useEffect(() => {
+    if (!isCartEmpty && isReadyToPay) {
+      getTax();
+    }
+  }, [isCartEmpty, isReadyToPay]);
 
   return (
     <div className="py-[1vh] text-base font-normal text-[#343434]">
@@ -100,13 +92,37 @@ export default function PriceBreakdown() {
             <div>Shipping</div>
             <div>{shippingText}</div>
           </div>
+          <div className="flex justify-between ">
+            <div className="flex gap-2">
+              <p>Estimated Tax</p>
+              <Popover>
+                <PopoverTrigger>
+                  <Info size={16} />
+                </PopoverTrigger>
+                <PopoverContent className="border-none bg-[#1A1A1A] text-white outline-none">
+                  <PopoverPrimitive.PopoverArrow className="h-[22px] w-[22px] -translate-y-1 fill-[#1A1A1A]" />
+                  <div className="border-none">
+                    The actual tax will be calculated based on the applicable
+                    state and local sales taxes when your order is shipped.
+                    Learn More
+                  </div>
+                </PopoverContent>
+              </Popover>
+            </div>
+            <div>{<p>${tax && Number.parseFloat(tax).toFixed(2)}</p>}</div>
+          </div>
         </>
       )}
       <div className="lg:pb-14 lg:pt-14">
         <Separator className="hidden w-full bg-[#C8C7C7] lg:block" />
         <div className="flex justify-between pt-8 font-semibold lg:flex-row lg:justify-between lg:py-5 lg:font-bold">
           <div>Order Total: </div>
-          <div>${totalMsrpPrice}</div>
+          <div>
+            $
+            {tax
+              ? Number(Number(totalMsrpPrice) + Number(tax)).toFixed(2)
+              : totalMsrpPrice}
+          </div>
         </div>
         <Separator className="hidden w-full bg-[#C8C7C7] lg:block" />
       </div>

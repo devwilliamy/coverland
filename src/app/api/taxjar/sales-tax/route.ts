@@ -11,9 +11,9 @@ export async function POST(request: NextRequest) {
     },
     body: JSON.stringify(bodyData),
   });
-
   const data = await res.json();
+
   console.log({ data });
 
-  return NextResponse.json(data, { status: 200 });
+  return NextResponse.json({ tax: data.tax }, { status: 200 });
 }
