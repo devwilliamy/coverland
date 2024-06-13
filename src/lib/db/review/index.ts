@@ -145,7 +145,6 @@ export async function getProductReviewsByPage(
             break;
         }
       });
-      fetch = fetch.not('review_author', 'is', null);
 
       sort.forEach(({ field, order, nullsFirst }) => {
         fetch = fetch.order(field, { ascending: order === 'asc', nullsFirst });
@@ -394,7 +393,6 @@ export async function getProductReviewsByImage(
             break;
         }
       });
-      fetch = fetch.not('review_author', 'is', null);
 
       sort.forEach(({ field, order, nullsFirst }) => {
         fetch = fetch.order(field, { ascending: order === 'asc', nullsFirst });
