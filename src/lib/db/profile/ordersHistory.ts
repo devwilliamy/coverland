@@ -9,6 +9,8 @@ import { createSupabaseServerClient } from '@/lib/db/supabaseClients';
 
 import { formatISODate } from '@/lib/db/profile/utils/date';
 import { formatMoney } from '@/lib/db/profile/utils/money';
+import { getOrderSubtotal, getOrderItemDiscount, getProductDiscount } from '@/lib/db/profile/utils/orderSummary';
+
 import { TInitialProductDataDB } from '..';
 import { Tables } from '../types';
 
@@ -130,15 +132,27 @@ export async function fetchUserRecentOrders(ordersQuantity: number): Promise<TUs
     const userOrdersWithItemsAndProducts = orders.map(order => {
         const items = orderItems.filter(item => item.order_id === order.id).map(item => {
             const product = products.find(product => product.id === item.product_id);
+
+            if (!product) {
+                // Handle case where product is not found
+                console.error(`Product not found for item id ${item.id}`);
+                return null; // or handle differently based on your use case
+            }
+
             return {
                 id: item.id,
                 order_id: item.order_id,
                 product_id: item.product_id,
                 quantity: item.quantity,
                 price: formatMoney(item.price) || item.price,
-                product: product
+                order_item_discount: getOrderItemDiscount(item),
+                product: {
+                    ...product,
+                    discount: getProductDiscount(product),
+                }
             };
-        });
+        })
+        .filter(item => item !== null); // Remove null items if any;
 
         return {
             // id: order.id,

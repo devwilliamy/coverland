@@ -1,0 +1,38 @@
+/* This File is used to create a summary of the order. */
+
+import {
+    TUserOrders,
+    TOrderItem,
+    TOrderItemProduct,
+    TInitialOrderItemsDataDB,
+    TInitialOrdersDataDB,
+    TInitialProductDataDB,
+  } from '@/lib/db/profile/ordersHistory';
+
+export const getOrderSubtotal = (order: TInitialOrdersDataDB): number => {
+    let subtotal = 0;
+    order.items?.forEach(item => {
+        subtotal += item.product.price * item.quantity;
+    });
+    return subtotal;
+}
+
+export const getOrderItemDiscount = (item: TInitialOrderItemsDataDB): number => {
+    return item.product.price - item.product.msrp * item.quantity;
+}
+
+export const getProductDiscount = (product: TInitialProductDataDB): number => {
+    return product.msrp - product.price;
+}
+
+// export const getOrderTotalDiscount = (order: TInitialOrdersDataDB): number => {
+//     let totalDiscount = 0;
+//     order.items?.forEach(item => {
+//         totalDiscount += item.product.discount * item.quantity; // neither item nor product has a discount property
+//     });
+//     return totalDiscount;
+// }
+
+export const getOrderTotalDiscount = (order: TInitialOrdersDataDB): number => {
+    return getOrderSubtotal(order) - order.total_amount;
+}
