@@ -7,14 +7,13 @@ import {
   SheetTrigger,
 } from '@/components/ui/sheet';
 import { IoClose } from 'react-icons/io5';
-import { useContext, useState } from 'react';
+import { useState } from 'react';
 import { useStore } from 'zustand';
-import { CarSelectionContext } from '@/contexts/CarSelectionContext';
 import ReviewSection from './ReviewSection';
 import useStoreContext from '@/hooks/useStoreContext';
 import useDetermineType from '@/hooks/useDetermineType';
-import SeatCoverReviewSection from '@/app/(main)/seat-covers/components/SeatCoverReviewSection';
 import { determineShortReviewCount } from '@/lib/utils';
+import ReviewTotalCount from './ReviewTotalCount';
 
 export default function ReviewSheet({ seeMore }: { seeMore?: boolean }) {
   const [reviewSheetOpen, setReviewSheetOpen] = useState<boolean>(false);
@@ -22,7 +21,6 @@ export default function ReviewSheet({ seeMore }: { seeMore?: boolean }) {
   const store = useStoreContext();
   if (!store) throw new Error('Missing Provider in the tree');
   const { total_reviews } = useStore(store, (s) => s.reviewDataSummary);
-  const { isSeatCover, isModelPage, isYearPage } = useDetermineType();
 
   return (
     <Sheet open={reviewSheetOpen} onOpenChange={setReviewSheetOpen}>
@@ -35,15 +33,7 @@ export default function ReviewSheet({ seeMore }: { seeMore?: boolean }) {
             See more <br /> review images
           </p>
         ) : (
-          // (total_reviews || '2') + ' Reviews'
-          <>
-            {isYearPage || isModelPage
-              ? determineShortReviewCount(total_reviews)
-              : total_reviews
-                ? total_reviews
-                : '2'}{' '}
-            Reviews
-          </>
+          <ReviewTotalCount />
         )}
       </SheetTrigger>
       <SheetContent className="rounded-t-[10px] px-[2px]" side="bottom">
@@ -67,9 +57,9 @@ export default function ReviewSheet({ seeMore }: { seeMore?: boolean }) {
             className="mt-[58px] text-center text-xl font-black uppercase text-black"
             id="reviews"
           >
-            Car Cover Reviews
+            Reviews
           </p>
-          {isSeatCover ? <SeatCoverReviewSection /> : <ReviewSection />}
+          <ReviewSection />
         </div>
       </SheetContent>
     </Sheet>
