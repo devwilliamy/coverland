@@ -12,7 +12,7 @@ import {
 } from '../ui/accordion';
 import CartHeader from './CartHeader';
 import { Separator } from '../ui/separator';
-import { FormEvent, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import InYourCart from './InYourCart';
 import { useCartContext } from '@/providers/CartProvider';
 import OrderReviewItem from './OrderReviewItem';
@@ -30,11 +30,7 @@ import { getCurrentDayInLocaleDateString } from '@/lib/utils/date';
 import { v4 as uuidv4 } from 'uuid';
 import { hashData } from '@/lib/utils/hash';
 import { getCookie } from '@/lib/utils/cookie';
-import {
-  CreatePaymentMethodKlarnaData,
-  PaymentMethodResult,
-  StripeCardNumberElement,
-} from '@stripe/stripe-js';
+import { CreatePaymentMethodKlarnaData } from '@stripe/stripe-js';
 import { useRouter } from 'next/navigation';
 import PayPalButtonSection from './PayPalButtonSection';
 import { Check } from 'lucide-react';
@@ -45,7 +41,13 @@ export default function MobileCheckout() {
   const stripe = useStripe();
   const elements = useElements();
   const router = useRouter();
-  const { cartItems, getTotalPrice, clearLocalStorageCart } = useCartContext();
+  const {
+    cartItems,
+    getTotalPrice,
+    clearLocalStorageCart,
+    getTotalCartQuantity,
+    getOrderSubtotal,
+  } = useCartContext();
   const {
     billingAddress,
     currentStep,
@@ -61,10 +63,15 @@ export default function MobileCheckout() {
     isReadyToPay,
     isReadyToShip,
     stripePaymentMethod,
+    twoLetterStateCode,
+    totalTax,
+    updateTotalTax,
   } = useCheckoutContext();
   // const { orderNumber, paymentIntentId, paymentMethod, updatePaymentMethod } = useCheckoutContext();
-
+  const orderSubtotal = getOrderSubtotal().toFixed(2);
+  const cartMSRP = getTotalPrice() + shipping;
   const totalMsrpPrice = convertPriceToStripeFormat(getTotalPrice() + shipping);
+  const isCartEmpty = getTotalCartQuantity() === 0;
   const [value, setValue] = useState(['shipping']);
   const [isLoading, setIsLoading] = useState(false);
   const [message, setMessage] = useState('');
@@ -236,6 +243,40 @@ export default function MobileCheckout() {
     );
   };
 
+  const handleGetTax = async () => {
+    let taxItems = [];
+    let count = 0;
+    for (const item of cartItems) {
+      taxItems.push({
+        id: item.id ? item.id : count,
+        quantity: item.quantity,
+        unit_price: item.msrp,
+        discount: 0,
+      });
+      count++;
+    }
+
+    const bodyData = {
+      to_country: shippingAddress.address.country,
+      to_zip: shippingAddress.address.postal_code,
+      to_state: twoLetterStateCode,
+      // amount: orderSubtotal,
+      shipping: 0,
+      line_items: taxItems,
+    };
+    setIsLoading(true);
+    const response = await fetch('/api/taxjar/sales-tax', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ bodyData }),
+    });
+    const taxRes = await response.json();
+    updateTotalTax(taxRes?.tax?.amount_to_collect);
+    setIsLoading(false);
+  };
+
   const handleSubmit = async () => {
     // e.preventDefault();
 
@@ -248,6 +289,10 @@ export default function MobileCheckout() {
     setIsLoading(true);
 
     const origin = window.location.origin;
+    const taxSum = Number(Number(cartMSRP) + Number(totalTax)).toFixed(2);
+    const totalWithTax = convertPriceToStripeFormat(taxSum);
+    // console.log({ totalWithTax, orderSubtotal, totalTax, cartMSRP });
+
     const response = await fetch('/api/stripe/payment-intent', {
       method: 'PUT',
       headers: {
@@ -255,7 +300,7 @@ export default function MobileCheckout() {
       },
       body: JSON.stringify({
         paymentIntentId,
-        amount: totalMsrpPrice,
+        amount: totalWithTax,
       }),
     });
 
@@ -397,6 +442,7 @@ export default function MobileCheckout() {
               };
               console.log({ shippingAddress });
               handleConversions();
+              setIsLoading(false);
               router.push(
                 `/thank-you?order_number=${orderNumber}&payment_intent=${id}&payment_intent_client_secret=${client_secret}`
               );
@@ -420,7 +466,13 @@ export default function MobileCheckout() {
     if (isReadyToShip && !isReadyToPay) {
       setValue(['payment']);
     }
-  }, [isReadyToPay]);
+  }, [isReadyToShip, isReadyToPay]);
+
+  useEffect(() => {
+    if (!isCartEmpty && isReadyToPay) {
+      handleGetTax();
+    }
+  }, [isCartEmpty, isReadyToPay]);
 
   return (
     <>

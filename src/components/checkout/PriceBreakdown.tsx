@@ -16,6 +16,7 @@ export default function PriceBreakdown() {
     shippingAddress,
     isReadyToPay,
     twoLetterStateCode,
+    totalTax,
   } = useCheckoutContext();
   const {
     getTotalPrice,
@@ -34,45 +35,45 @@ export default function PriceBreakdown() {
 
   const shippingText = shipping === 0 ? 'FREE' : `$${shipping}`;
   const isCartEmpty = getTotalCartQuantity() === 0;
-  const [tax, setTax] = useState<string>();
-  const getTax = async () => {
-    let taxItems = [];
-    let count = 0;
-    for (const item of cartItems) {
-      taxItems.push({
-        id: item.id ? item.id : count,
-        quantity: item.quantity,
-        unit_price: item.msrp,
-        discount: 0,
-      });
-      count++;
-    }
+  // const [tax, setTax] = useState<string>();
+  // const getTax = async () => {
+  //   let taxItems = [];
+  //   let count = 0;
+  //   for (const item of cartItems) {
+  //     taxItems.push({
+  //       id: item.id ? item.id : count,
+  //       quantity: item.quantity,
+  //       unit_price: item.msrp,
+  //       discount: 0,
+  //     });
+  //     count++;
+  //   }
 
-    const bodyData = {
-      to_country: shippingAddress.address.country,
-      to_zip: shippingAddress.address.postal_code,
-      to_state: twoLetterStateCode,
-      amount: orderSubtotal,
-      shipping: 0,
-      line_items: taxItems,
-    };
+  //   const bodyData = {
+  //     to_country: shippingAddress.address.country,
+  //     to_zip: shippingAddress.address.postal_code,
+  //     to_state: twoLetterStateCode,
+  //     amount: orderSubtotal,
+  //     shipping: 0,
+  //     line_items: taxItems,
+  //   };
 
-    const response = await fetch('/api/taxjar/sales-tax', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ bodyData }),
-    });
-    const taxRes = await response.json();
-    setTax(taxRes?.tax?.amount_to_collect);
-  };
+  //   const response = await fetch('/api/taxjar/sales-tax', {
+  //     method: 'POST',
+  //     headers: {
+  //       'Content-Type': 'application/json',
+  //     },
+  //     body: JSON.stringify({ bodyData }),
+  //   });
+  //   const taxRes = await response.json();
+  //   setTax(taxRes?.tax?.amount_to_collect);
+  // };
 
-  useEffect(() => {
-    if (!isCartEmpty && isReadyToPay) {
-      getTax();
-    }
-  }, [isCartEmpty, isReadyToPay]);
+  // useEffect(() => {
+  //   if (!isCartEmpty && isReadyToPay) {
+  //     // getTax();
+  //   }
+  // }, [isCartEmpty, isReadyToPay]);
 
   return (
     <div className="py-[1vh] text-base font-normal text-[#343434]">
@@ -99,7 +100,10 @@ export default function PriceBreakdown() {
                 <PopoverTrigger>
                   <Info size={16} />
                 </PopoverTrigger>
-                <PopoverContent className="border-none bg-[#1A1A1A] text-white outline-none">
+                <PopoverContent
+                  side="right"
+                  className="border-none bg-[#1A1A1A] text-white outline-none"
+                >
                   <PopoverPrimitive.PopoverArrow className="h-[22px] w-[22px] -translate-y-1 fill-[#1A1A1A]" />
                   <div className="border-none">
                     The actual tax will be calculated based on the applicable
@@ -109,7 +113,15 @@ export default function PriceBreakdown() {
                 </PopoverContent>
               </Popover>
             </div>
-            <div>{<p>${tax && Number.parseFloat(tax).toFixed(2)}</p>}</div>
+            <div>
+              {
+                <p>
+                  {totalTax
+                    ? `$${Number.parseFloat(totalTax).toFixed(2)}`
+                    : '-'}
+                </p>
+              }
+            </div>
           </div>
         </>
       )}
@@ -119,8 +131,8 @@ export default function PriceBreakdown() {
           <div>Order Total: </div>
           <div>
             $
-            {tax
-              ? Number(Number(totalMsrpPrice) + Number(tax)).toFixed(2)
+            {totalTax
+              ? Number(Number(totalMsrpPrice) + Number(totalTax)).toFixed(2)
               : totalMsrpPrice}
           </div>
         </div>
