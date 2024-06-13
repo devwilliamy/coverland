@@ -38,7 +38,7 @@ export type TUserOrders = {
     items?: TInitialOrderItemsDataDB[]; // Optional because it will be added after fetching
 };
 
-async function fetchUserOrders(ordersQuantity: number): Promise<TUserOrders[] | null> {
+async function fetchUserOrders(ordersQuantity: number): Promise<TInitialOrdersDataDB[] | null> {
     const cookieStore: ReadonlyRequestCookies = cookies();
     const supabase: SupabaseClient = createSupabaseServerClient(cookieStore);
     const {
@@ -141,7 +141,8 @@ export async function fetchUserRecentOrders(ordersQuantity: number): Promise<TUs
         });
 
         return {
-            id: order.id,
+            // id: order.id,
+            ...order,
             total_amount: formatMoney(order.total_amount) || order.total_amount,
             payment_date: formatISODate(order.payment_date) || order.payment_date,
             items: items
