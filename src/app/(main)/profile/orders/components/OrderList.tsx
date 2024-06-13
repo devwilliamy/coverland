@@ -6,6 +6,7 @@ import {
   TInitialOrdersDataDB,
   TInitialOrderItemsDataDB,
 } from '@/lib/db/profile/ordersHistory';
+import Link from 'next/link';
 
 interface OrderListProps {
   orders: TInitialOrdersDataDB[];
@@ -59,6 +60,9 @@ const OrderList = ({ orders }: OrderListProps) => {
                   <OrderItem key={item.id} item={item} />
                 ))}
               </ul>
+              <Link href={`/order/${order.id}`}>
+                Order ID: {order.id} - Total Amount: {order.total_amount}
+              </Link>
             </div>
           ))
         )}
