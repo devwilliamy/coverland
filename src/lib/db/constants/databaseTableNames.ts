@@ -1,5 +1,5 @@
 /* Supabase Table Names */
-export const PRODUCT_REVIEWS_TABLE = 'reviews-2';
+export const PRODUCT_REVIEWS_TABLE = 'reviews_20240610';
 export const PRODUCT_DATA_TABLE = 'Products';
 export const RELATIONS_PRODUCT_TABLE = 'relations_product';
 export const TYPE_TABLE = 'Type';
@@ -20,7 +20,7 @@ export const PRODUCT_METADATA_TABLE = 'Product-Metadata';
 /* Supabase RPC Names */
 export const RPC_GET_MAKE_RELATION = 'get_make_relation';
 export const RPC_GET_UNIQUE_YEARS = 'get_unique_years';
-export const RPC_GET_DISTINCT_REVIEW_IMAGES = 'get_distinct_review_images';
-export const RPC_GET_PRODUCT_REVIEWS_SUMMARY = 'get_product_reviews_summary';
+export const RPC_GET_DISTINCT_REVIEW_IMAGES = 'get_distinct_review_images_20240610';
+export const RPC_GET_PRODUCT_REVIEWS_SUMMARY = 'get_product_reviews_summary_20240610';
 export const RPC_GET_SEAT_COVER_SORTED_BY_COLOR =
   'get_seat_cover_products_sorted_by_color';
