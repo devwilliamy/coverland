@@ -187,11 +187,14 @@ export async function fetchUserRecentOrders(ordersQuantity: number): Promise<TUs
 // fetchOrdersWithItemsAndProducts();
 
 /* 
-  The purpose of this file is to fetch a list of user orders, with their items and related product
+The purpose of this file is to fetch a list of user orders, with their items and related products
 
-  It outputs an Orders Array of order objects with the following basic structure:
+Basically each order object contains a list of order items with each item mapping to one product
 
-  Orders: Array<{
+It outputs an array of orders with the following basic structure:
+
+  Orders = [
+    {
       id: 1245,
       order_date: Jan 1st 2024,
       items: [
@@ -201,19 +204,19 @@ export async function fetchUserRecentOrders(ordersQuantity: number): Promise<TUs
             product: {
             id: number,
             price: number,
-            // more product properties
+            // .. more product properties
             },
-            // more item properties
+            // .. more item properties
         },
-        // more items
+        // .. more items
       ],
-      // more order properties
-  }
+      // .. more order properties
+    },
+    // .. more orders
+  ]
 
-  Basically each order object contains a list of items with each item mapping to one product
 
-
-  Examples:
+  Example of an Order:
   {
     id: 1564,
     order_id: 'CL-TEST-240612-SE-0098',
@@ -264,7 +267,7 @@ export async function fetchUserRecentOrders(ordersQuantity: number): Promise<TUs
 
 
 
-example of order items:
+Example of Order Items:
 
 order items [
   {
