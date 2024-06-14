@@ -49,8 +49,6 @@ const trademark = "\u2122";
 type ThankYouEmailInput = MailDataRequired & { dynamicTemplateData: DynamicTemplateData };
 
 const generateOrderItems = (cartItems: TCartItem[]) => {
-  // console.log('checking order items from checkout', cartItems);
-
   return cartItems.map(({ 
     fullProductName,
     display_id,
@@ -122,12 +120,12 @@ export const sendThankYouEmail = async (emailInput: MailDataRequired) => {
 
     // Check if err.response exists to get more details
     if (error.response) {
-      console.log('Error Response:', error.response.body);
+      console.error('Error Response:', error.response.body);
 
       // Log each error in the errors array
       if (error.response.body.errors) {
         error.response.body.errors.forEach((error: any) => {
-          console.log('Error Detail:', error);
+          console.error('Error Detail:', error);
         });
       }
     }
