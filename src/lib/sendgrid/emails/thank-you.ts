@@ -1,6 +1,7 @@
 import { TCartItem } from '@/lib/cart/useCart';
 import sgMail, { MailDataRequired } from '@sendgrid/mail';
-import { formatMoneyAsNumber, trimToWholeNumber } from '@/lib/utils/money'
+import { formatMoneyAsNumber, trimToWholeNumber } from '@/lib/utils/money';
+import { isFullSet } from '@/lib/utils';
 sgMail.setApiKey(process.env.SENDGRID_API_KEY || '');
 const sgFromEmail = process.env.SENDGRID_FROM_EMAIL;
 const sgThankYouEmailTemplateId = process.env.SENDGRID_THANK_YOU_EMAIL_TEMPLATE_ID;
@@ -116,7 +117,8 @@ const generateOrderItems = (cartItems: TCartItem[]) => {
     msrp, 
     mainImage,
     feature,
-    product, 
+    product,
+    display_set, 
   }) => ({
     name: fullProductName || `${display_id}${trademark} ${type}`,
     vehicle: `${make} ${model} ${year_generation} ${submodel1 || ''} ${submodel2 || ''} ${submodel3 || ''}`.trim(),
@@ -125,6 +127,7 @@ const generateOrderItems = (cartItems: TCartItem[]) => {
     price: msrp,
     total_price: formatMoneyAsNumber(msrp * quantity),
     img_url: mainImage || feature || product.split(',')[0],
+    full_set: type === 'Seat Covers' ? isFullSet(display_set).toLowerCase() == "full" ? "Full Seat Set (Front + Rear Seat Set)": 'Front Seats (Driver +  Passenger seats)' : display_set,
   }));
 };
 
@@ -146,9 +149,7 @@ const generateThankYouEmail = ({
       ...shippingInfo,
     },
     order_items: generateOrderItems(orderInfo.cartItems),
-
     full_name: name.fullName,
-
     total_item_quantity: orderInfo.totalItemQuantity,
     subtotal: formatMoneyAsNumber(orderInfo.subtotal),
     // total_discount: trimToWholeNumber(orderInfo.totalDiscount), // option to change to cleaner discount format i.e. $720.04 -> $720
