@@ -1,4 +1,3 @@
-import { TReviewData } from '@/lib/db';
 import { useMediaQuery } from '@mui/material';
 import { FaRegThumbsUp, FaThumbsUp } from 'react-icons/fa6';
 import WouldRecomend from './WouldRecomend';
@@ -23,7 +22,7 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from '@/components/ui/carousel';
-import { DialogClose } from '@radix-ui/react-dialog';
+import { TReviewData } from '@/lib/types/review';
 
 export default function ReviewCard({
   review,
@@ -158,7 +157,9 @@ export default function ReviewCard({
             {isHelpful ? <FaThumbsUp fill="#1D8044" /> : <FaRegThumbsUp />}
 
             <p>Helpful</p>
-            <p>({isHelpful ? Number(review?.helpful) + 1 : review.helpful})</p>
+            <p>
+              ({isHelpful ? Number(review?.helpful) + 1 : review.helpful ?? 0})
+            </p>
           </div>
         </div>
       )}
@@ -177,6 +178,7 @@ export default function ReviewCard({
                 if (image)
                   return (
                     <DialogTrigger
+                      key={`review-card-image-${index}`}
                       onClick={() => {
                         const thisImage = reviewImagesSplit[index];
                         if (!imageLoading) {
@@ -186,7 +188,6 @@ export default function ReviewCard({
                       }}
                     >
                       <Image
-                        key={`review-card-image-${index}`}
                         height={160}
                         width={160}
                         className="flex aspect-square items-center"
@@ -233,10 +234,9 @@ export default function ReviewCard({
                   }}
                 >
                   <CarouselContent>
-                    {reviewImagesSplit?.map((img) => (
-                      <CarouselItem>
+                    {reviewImagesSplit?.map((img, index) => (
+                      <CarouselItem key={`selected-review-card-image-${index}`}>
                         <Image
-                          key={`selected-review-card-image`}
                           width={800}
                           height={800}
                           className="flex aspect-square h-full w-full items-center"

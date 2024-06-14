@@ -3,6 +3,7 @@ import {
   PREMIUM_PLUS_URL_PARAM,
   PREMIUM_URL_PARAM,
   SEAT_COVERS,
+  SEAT_COVERS_URL_PARAM,
   SEAT_COVERS_URL_PARAM_WITH_SLASH,
   STANDARD_PRO_URL_PARAM,
   STANDARD_URL_PARAM,
@@ -26,7 +27,7 @@ function useDetermineType() {
   // Product Types
   const isSeatCover = pathname.startsWith(SEAT_COVERS_URL_PARAM_WITH_SLASH);
 
-  const productType = isSeatCover ? SEAT_COVERS : params?.productType;
+  const productType = isSeatCover ? SEAT_COVERS_URL_PARAM : params?.productType;
   const isTruckCover = productType === TRUCK_COVERS_URL_PARAM;
   const isSUVCover = productType === SUV_COVERS_URL_PARAM;
   const isCarCover = productType === CAR_COVERS_URL_PARAM;
@@ -42,7 +43,7 @@ function useDetermineType() {
   const isPremiumType = isDefaultCoverType || isPremium;
   const isStandardType = isStandard || isStandardPro;
   const isModelPage = Boolean(productType && make && model && !year);
-  const isYearPage = productType && make && model && year;
+  const isYearPage = Boolean(productType && make && model && year);
 
   return {
     make,

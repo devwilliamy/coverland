@@ -8,7 +8,7 @@ import {
   CarouselNext,
 } from '@/components/ui/carousel';
 import { ReviewImageIndexContext } from '@/lib/contexts/ReviewImageIndexContext';
-import { TReviewData } from '@/lib/db';
+import { TReviewData } from '@/lib/types/review';
 import useReviewImageIndex from '@/lib/hooks/useReviewImageIndex';
 import { ChevronLeft, X } from 'lucide-react';
 import {

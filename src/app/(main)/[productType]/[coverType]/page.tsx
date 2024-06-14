@@ -1,7 +1,5 @@
 import { TInitialProductDataDB, getProductData } from '@/lib/db';
 import {
-  TProductReviewSummary,
-  TReviewData,
   getAllReviewsWithImages,
   getProductReviewSummary,
   getProductReviewsByPage,
@@ -16,8 +14,9 @@ import {
   productOptions,
 } from '@/lib/utils';
 import { PREMIUM_PLUS_URL_PARAM } from '@/lib/constants';
+import { TReviewData, TProductReviewSummary } from '@/lib/types/review';
 
-export const revalidate = 0
+export const revalidate = 0;
 
 export async function generateStaticParams() {
   return combineOptions(coverOptions, productOptions);
@@ -80,6 +79,10 @@ export default async function CarPDPModelDataLayer({
               page: 0,
               limit: 8,
             },
+            sort: [
+              { field: 'sku', order: 'asc' },
+              { field: 'helpful', order: 'desc', nullsFirst: false },
+            ],
           }
         ),
         getProductReviewSummary({

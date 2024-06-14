@@ -148,6 +148,27 @@ export const generateProductsLeft = (
   return productAmount;
 };
 
+export const generateNumberFromCarBuild = (
+  type: string,
+  displayId: string,
+  make: string,
+  model: string,
+  yearGeneration: string
+): number => {
+  const combinedString = `${type}${displayId}${make}${model}${yearGeneration}`;
+
+  // Simple hash function to convert SKU to a numeric value
+  const hash = Array.from(combinedString).reduce((acc, char) => {
+    return acc + char.charCodeAt(0);
+  }, 0);
+  // Normalize the hash value to a range between 0 and 1
+  const normalizedHash = (hash % 1000) / 1000;
+
+  // Scale the normalized value to the range [4.6, 4.8]
+  const scaledValue = 4.5 + normalizedHash * 0.3;
+  return scaledValue;
+};
+
 // export function getColorOptions(data: Model[], selectedModel: { year_generation: number }): string[] {
 //   return data
 //     .filter(
