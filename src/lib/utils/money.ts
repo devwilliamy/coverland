@@ -1,3 +1,16 @@
+/**
+ * 
+ * @param num number | string
+ * @returns number
+ * 
+ * Examples:
+ *  123 -> 123
+ *  123.4 -> 123.40
+ *  123.456 -> 123.46
+ *  123.00 -> 123
+ *  "123" -> 123
+ *  "abc" -> Throws an error
+ */
 export function formatMoneyAsNumber(num: number | string): number | string {
   // Attempt to parse the input as a float
   const parsedNum = parseFloat(num as string);
@@ -16,21 +29,18 @@ export function formatMoneyAsNumber(num: number | string): number | string {
   return parsedNum.toFixed(2);
 }
 
-// Example usage:
-// try {
-//   console.log(formatToTwoDecimalPlaces(123));        // Output: 123
-//   console.log(formatToTwoDecimalPlaces(123.4));      // Output: 123.40
-//   console.log(formatToTwoDecimalPlaces(123.456));    // Output: 123.46
-//   console.log(formatToTwoDecimalPlaces(123.00));     // Output: 123
-//   console.log(formatToTwoDecimalPlaces("123"));      // Output: 123
-//   console.log(formatToTwoDecimalPlaces("123.4"));    // Output: 123.40
-//   console.log(formatToTwoDecimalPlaces("123.456"));  // Output: 123.46
-//   console.log(formatToTwoDecimalPlaces("123.00"));   // Output: 123
-//   console.log(formatToTwoDecimalPlaces("abc"));      // Throws an error
-// } catch (error) {
-//   console.error(error.message);
-// }
-
+/**
+ * 
+ * @param num number | string
+ * @returns number
+ * 
+ * Examples:
+ *  720.02 -> 720
+ *  123.99 -> 123
+ *  123 -> 123
+ *  "720.02" -> 720
+ *  "abc" -> Throws an error
+ */
 export function trimToWholeNumber(num: number | string): number {
   // Attempt to parse the input as a float
   const parsedNum = parseFloat(num as string);
@@ -43,18 +53,3 @@ export function trimToWholeNumber(num: number | string): number {
   // Truncate the number to remove the decimal places
   return Math.floor(parsedNum);
 }
-
-// // Example usage:
-// try {
-//   console.log(trimToWholeNumber(720.02));     // Output: 720
-//   console.log(trimToWholeNumber(123.99));     // Output: 123
-//   console.log(trimToWholeNumber(123.45));     // Output: 123
-//   console.log(trimToWholeNumber(123));        // Output: 123
-//   console.log(trimToWholeNumber("720.02"));   // Output: 720
-//   console.log(trimToWholeNumber("123.99"));   // Output: 123
-//   console.log(trimToWholeNumber("123.45"));   // Output: 123
-//   console.log(trimToWholeNumber("123"));      // Output: 123
-//   console.log(trimToWholeNumber("abc"));      // Throws an error
-// } catch (error) {
-//   console.error(error.message);
-// }
