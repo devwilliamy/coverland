@@ -42,7 +42,7 @@ const CustomPhoneInput: React.FC<CustomPhoneInputProps> = ({
   };
 
   return (
-    <div>
+    <div className={'max-lg:col-span-2'}>
       <div className="relative">
         {/* <label
           htmlFor={name}

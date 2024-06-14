@@ -90,10 +90,6 @@ export default function PriceBreakdown() {
       {currentStep === CheckoutStep.CHECKOUT && (
         <>
           <div className="flex justify-between ">
-            <div>Shipping</div>
-            <div>{shippingText}</div>
-          </div>
-          <div className="flex justify-between ">
             <div className="flex gap-2">
               <p>Estimated Tax</p>
               <Popover>
@@ -122,6 +118,10 @@ export default function PriceBreakdown() {
                 </p>
               }
             </div>
+          </div>
+          <div className="flex justify-between ">
+            <div>Shipping</div>
+            <div>{shippingText}</div>
           </div>
         </>
       )}

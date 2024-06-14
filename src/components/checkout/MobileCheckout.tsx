@@ -33,9 +33,10 @@ import { getCookie } from '@/lib/utils/cookie';
 import { CreatePaymentMethodKlarnaData } from '@stripe/stripe-js';
 import { useRouter } from 'next/navigation';
 import PayPalButtonSection from './PayPalButtonSection';
-import { Check } from 'lucide-react';
 import { generateSkuLabOrderInput } from '@/lib/utils/skuLabs';
 import { handlePurchaseGoogleTag } from '@/hooks/useGoogleTagDataLayer';
+import PayWithKlarnaWhite from './PayWithKlarnaWhite';
+import { ReadyCheck } from './ReadyCheck';
 
 export default function MobileCheckout() {
   const stripe = useStripe();
@@ -564,10 +565,7 @@ export default function MobileCheckout() {
                   <div className="mt-4 lg:hidden">
                     <PriceBreakdown />
                   </div>
-
-                  {paymentMethod === 'paypal' ? (
-                    <PayPalButtonSection />
-                  ) : (
+                  {paymentMethod === 'creditCard' && (
                     <>
                       <p className="pb-[40px] text-[14px] font-[400] text-[#767676]">
                         By Clicking the “Submit Payment” button, you confirm
@@ -601,6 +599,25 @@ export default function MobileCheckout() {
                       )}
                     </>
                   )}
+                  {paymentMethod === 'paypal' && <PayPalButtonSection />}
+                  {paymentMethod === 'klarna' && (
+                    <Button
+                      // disabled={isDisabled}
+                      variant={'default'}
+                      // className={`mb-3 w-full rounded-lg ${isDisabled ? 'bg-[#BE1B1B]/90' : 'bg-[#BE1B1B]'} text-base font-bold uppercase text-white sm:h-[48px] lg:h-[55px] lg:text-xl`}
+                      className={`mb-3 w-full rounded-lg bg-black text-base font-bold uppercase text-white sm:h-[48px] lg:h-[55px] lg:text-xl`}
+                      onClick={(e) => {
+                        setIsLoading(true);
+                        handleSubmit();
+                      }}
+                    >
+                      {isLoading ? (
+                        <AiOutlineLoading3Quarters className="animate-spin" />
+                      ) : (
+                        <PayWithKlarnaWhite />
+                      )}
+                    </Button>
+                  )}
                 </section>
               </AccordionContent>
             </AccordionItem>
@@ -609,8 +626,4 @@ export default function MobileCheckout() {
       </div>
     </>
   );
-}
-
-function ReadyCheck() {
-  return <Check className="text-[#43A047]" />;
 }

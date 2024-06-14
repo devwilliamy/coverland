@@ -13,7 +13,7 @@ export default function SummaryBox({
         </div>
         <div
           onClick={handleClick}
-          className="cursor-pointer flex-row text-sm font-normal text-[#0C87B8] underline"
+          className="flex max-h-fit cursor-pointer font-[500] underline hover:text-[#0C87B8]"
         >
           Edit
         </div>

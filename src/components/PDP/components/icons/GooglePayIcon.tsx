@@ -8,6 +8,7 @@ const GooglePayIcon = () => {
       viewBox="0 0 59 31"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      className="h-fit max-h-[30px] w-fit max-w-[70px]"
     >
       <g clipPath="url(#clip0_4048_7818)">
         <path

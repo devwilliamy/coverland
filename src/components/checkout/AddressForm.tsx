@@ -141,7 +141,16 @@ export default function AddressForm({
   const [isDisabled, setIsDisabled] = useState(true);
 
   const determineDisabled = () => {
-    const formValues = getValues();
+    const formValues: Record<string, string> = getValues();
+
+    for (const iterator in formValues) {
+      if (!formValues[iterator]) {
+        console.log(iterator);
+
+        return true;
+      }
+    }
+    return false;
   };
 
   useEffect(() => {
@@ -165,13 +174,15 @@ export default function AddressForm({
       setValue('email', 'george.icarcover@gmail.com' || '');
       setValue('firstName', 'George' || '');
       setValue('lastName', 'Anumba' || '');
-      setValue('line1', '123 Main Street' || '');
+      setValue('line1', '1231 S Hill St' || '');
       setValue('line2', 'P.O. Box 424' || '');
-      setValue('city', 'Norwalk' || '');
+      setValue('city', 'Los Angeles' || '');
       setValue('state', 'CA' || '');
-      setValue('postal_code', '12345' || '');
-      setValue('phoneNumber', '+14244244242' || '');
+      setValue('postal_code', '90015' || '');
+      setValue('phoneNumber', '+1 424 424 4242' || '');
+      setAddress('1231 S Hill St, Los Angeles, CA 90015, USA');
     }
+    determineDisabled();
   }, []);
 
   const autocompleteObj: Record<string, FormString> = {
@@ -264,7 +275,7 @@ export default function AddressForm({
   return (
     <form
       onSubmit={onSubmit}
-      className="flex grid-cols-2 flex-col gap-6 py-2 lg:grid"
+      className="flex grid-cols-2 flex-col gap-6 py-2 lg:grid lg:grid-cols-2"
     >
       <OverlappingLabel
         title="First Name"
@@ -309,33 +320,35 @@ export default function AddressForm({
             register={register}
             autoComplete="address-line2"
           />
-          <OverlappingLabel
-            title="City"
-            name="city"
-            errors={errors}
-            placeholder="Los Angeles"
-            register={register}
-            options={{ required: true }}
-            autoComplete="address-level2"
-          />
-          <OverlappingLabel
-            title="State"
-            name="state"
-            errors={errors}
-            placeholder="CA"
-            register={register}
-            options={{ required: true }}
-            autoComplete="address-level1"
-          />
-          <OverlappingLabel
-            title="ZIP"
-            name="postal_code"
-            errors={errors}
-            placeholder="91801"
-            register={register}
-            options={{ required: true }}
-            autoComplete="postal-code"
-          />
+          <div className="col-span-2 grid gap-6 lg:grid-cols-3">
+            <OverlappingLabel
+              title="City"
+              name="city"
+              errors={errors}
+              placeholder="Los Angeles"
+              register={register}
+              options={{ required: true }}
+              autoComplete="address-level2"
+            />
+            <OverlappingLabel
+              title="State"
+              name="state"
+              errors={errors}
+              placeholder="CA"
+              register={register}
+              options={{ required: true }}
+              autoComplete="address-level1"
+            />
+            <OverlappingLabel
+              title="ZIP"
+              name="postal_code"
+              errors={errors}
+              placeholder="91801"
+              register={register}
+              options={{ required: true }}
+              autoComplete="postal-code"
+            />
+          </div>
         </>
       ) : (
         <Autocomplete
@@ -404,7 +417,7 @@ export default function AddressForm({
       )}
 
       <p
-        className="cursor-pointer text-[14px] font-[400] leading-[16.4px] text-[#767676] underline"
+        className="col-span-2 cursor-pointer text-[14px] font-[400] leading-[16.4px] text-[#767676] underline"
         onClick={() => {
           setIsManualAddress((prev) => !prev);
           setValue('line1', '');
@@ -416,29 +429,76 @@ export default function AddressForm({
       >
         {isManualAddress ? 'Find address' : 'Enter address manually'}
       </p>
-      <OverlappingLabel
-        title="Email"
-        name="email"
-        errors={errors}
-        placeholder="abc@gmail.com"
-        register={register}
-        options={{ required: true }}
-        autoComplete="email"
-      />
-      <CustomPhoneInput
-        label="Phone Number"
-        name="phoneNumber"
-        placeholder="+1 123 456 7890"
-        autoComplete="tel"
-        register={register}
-        errors={errors}
-        required
-      />
+      {/* {isManualAddress ? (
+        <div className="col-span-2 grid grid-cols-2">
+          <OverlappingLabel
+            title="Email"
+            name="email"
+            errors={errors}
+            placeholder="abc@gmail.com"
+            register={register}
+            options={{ required: true }}
+            autoComplete="email"
+            isManualAddress={isManualAddress}
+          />
+          <CustomPhoneInput
+            label="Phone Number"
+            name="phoneNumber"
+            placeholder="+1 123 456 7890"
+            autoComplete="tel"
+            register={register}
+            errors={errors}
+            required
+          />
+        </div>
+      ) : (
+        <>
+          <OverlappingLabel
+            title="Email"
+            name="email"
+            errors={errors}
+            placeholder="abc@gmail.com"
+            register={register}
+            options={{ required: true }}
+            autoComplete="email"
+            isManualAddress={isManualAddress}
+          />
+          <CustomPhoneInput
+            label="Phone Number"
+            name="phoneNumber"
+            placeholder="+1 123 456 7890"
+            autoComplete="tel"
+            register={register}
+            errors={errors}
+            required
+          />
+        </>
+      )} */}
+      <div className="col-span-2 grid grid-cols-2 gap-6">
+        <OverlappingLabel
+          title="Email"
+          name="email"
+          errors={errors}
+          placeholder="abc@gmail.com"
+          register={register}
+          options={{ required: true }}
+          autoComplete="email"
+        />
+        <CustomPhoneInput
+          label="Phone Number"
+          name="phoneNumber"
+          placeholder="+1 123 456 7890"
+          autoComplete="tel"
+          register={register}
+          errors={errors}
+          required
+        />
+      </div>
       <div className="flex flex-col items-center justify-between lg:col-span-2 lg:mt-11">
         <Button
           type="submit"
-          disabled={Object.keys(errors).length > 0}
-          className={`h-[48px] w-full max-w-[390px] cursor-pointer rounded-lg bg-black text-base font-bold uppercase text-white lg:h-[63px] lg:text-xl`}
+          disabled={determineDisabled() || Object.keys(errors).length > 0}
+          className={`h-[48px] w-full cursor-pointer rounded-lg  bg-black text-base font-bold uppercase text-white lg:h-[63px] lg:max-w-[307px] lg:self-end lg:text-xl`}
         >
           Save & Continue
         </Button>
