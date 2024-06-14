@@ -45,7 +45,59 @@ type DynamicTemplateData = {
 };
 
 const trademark = "\u2122";
-
+/**
+ * example obj SendGrid expects us to send (there are more parameters available inside MailDataRequired type):
+ * 
+ * thankYouEmailInput: ThankYouEmailInput = {
+  to: 'pVWu5@example.com',
+  from: 'hello@notreal.com',
+  templateId: 'sg-124124-1259149asf9124124',
+    dynamicTemplateData: {
+      first_name: "John",
+      order_date: "November 20, 2023",
+      order_number: "CL-00001",
+      order_items: [
+        {
+          name: "Premium Plus Custom Car Cover",
+          vehicle: "Ford Mustang 2019 Fastback",
+          color: "2-Tone Black & Gray",
+          quantity: 1,
+          price: 179.99,
+          total_price: 179.99,
+          img_url: "https://coverland.com/custom-cover/01-fomu12-bkrd-str-nm.webp"
+        },
+        {
+          name: "Premium Plus Custom Car Cover",
+          vehicle: "AMC Matador 2019 2-Door",
+          color: "2-Tone Black & Gray",
+          quantity: 3,
+          price: 179.99,
+          total_price: 539.97,
+          img_url: "https://cdn-icons-png.flaticon.com/512/1581/1581884.png"
+        }
+      ],
+      shipping_info: {
+        full_name: "John Newman",
+        address_line1: "2125 Chestnut Street",
+        city: "San Francisco",
+        state: "CA",
+        postal_code: "94123",
+        shipping_method: "Standard, free shipping",
+        shipping_date: "Wed, Nov 30",
+        delivery_fee: 0.00,
+        free_delivery: true
+      },
+      total_item_quantity: 4,
+      subtotal: 1440.00,
+      total_discount: 720.04,
+      has_discount: true,
+      taxes: 10.00,
+      total: 719.96,
+      cv_four_digits: "*4242",
+      cv_exp_date: "11/2026"
+    }
+  }
+ */
 type ThankYouEmailInput = MailDataRequired & { dynamicTemplateData: DynamicTemplateData };
 
 const generateOrderItems = (cartItems: TCartItem[]) => {
@@ -131,109 +183,3 @@ export const sendThankYouEmail = async (emailInput: MailDataRequired) => {
     }
   }
 };
-
-/*
-Refer below for examples of what SendGrid expects us to send
-*/
-
-/*
-* Typescript *
-thankYouEmailInput: ThankYouEmailInput = {
-  to: 'pVWu5@example.com',
-  from: 'hello@notreal.com',
-  templateId: 'sg-124124-1259149asf9124124',
-    dynamicTemplateData: {
-      first_name: "John",
-      order_date: "November 20, 2023",
-      order_number: "CL-00001",
-      order_items: [
-        {
-          name: "Premium Plus Custom Car Cover",
-          vehicle: "Ford Mustang 2019 Fastback",
-          color: "2-Tone Black & Gray",
-          quantity: 1,
-          price: 179.99,
-          total_price: 179.99,
-          img_url: "https://coverland.com/custom-cover/01-fomu12-bkrd-str-nm.webp"
-        },
-        {
-          name: "Premium Plus Custom Car Cover",
-          vehicle: "AMC Matador 2019 2-Door",
-          color: "2-Tone Black & Gray",
-          quantity: 3,
-          price: 179.99,
-          total_price: 539.97,
-          img_url: "https://cdn-icons-png.flaticon.com/512/1581/1581884.png"
-        }
-      ],
-      shipping_info: {
-        full_name: "John Newman",
-        address_line1: "2125 Chestnut Street",
-        city: "San Francisco",
-        state: "CA",
-        postal_code: "94123",
-        shipping_method: "Standard, free shipping",
-        shipping_date: "Wed, Nov 30",
-        delivery_fee: 0.00,
-        free_delivery: true
-      },
-      total_item_quantity: 4,
-      subtotal: 1440.00,
-      total_discount: 720.04,
-      has_discount: true,
-      taxes: 10.00,
-      total: 719.96,
-      cv_four_digits: "*4242",
-      cv_exp_date: "11/2026"
-    }
-  }
-*/
-
-/*
-* JSON Object of Dynamic Template Data *
-{
-  "first_name": "John",
-  "order_date": "November 20, 2023",
-  "order_number": "CL-00001",
-  "order_items": [
-    {
-      "name": "Premium Plus Custom Car Cover",
-      "vehicle": "Ford Mustang 2019 Fastback",
-      "color": "2-Tone Black & Gray",
-      "quantity": 1,
-      "price": 179.99,
-      "total_price": 179.99,
-      "img_url": "https://coverland.com/custom-cover/01-fomu12-bkrd-str-nm.webp"
-    },
-    {
-      "name": "Premium Plus Custom Car Cover",
-      "vehicle": "AMC Matador 2019 2-Door",
-      "color": "2-Tone Black & Gray",
-      "quantity": 3,
-      "price": 179.99,
-      "total_price": 539.97,
-      "img_url": "https://cdn-icons-png.flaticon.com/512/1581/1581884.png"
-    }
-  ],
-  "shipping_info": {
-    "full_name": "John Newman",
-    "address_line1": "2125 Chestnut Street",
-    "city": "San Francisco",
-    "state": "CA",
-    "postal_code": "94123",
-    "shipping_method": "Standard, free shipping",
-    "shipping_date": "Wed, Nov 30",
-    "delivery_fee": 0.00,
-    "free_delivery": true
-  },
-  "total_item_quantity": 4,
-  "subtotal": 1440.00,
-  "total_discount": 720.04,
-  "has_discount": true,
-  "taxes": 10.00,
-  "total": 719.96,
-  "cv_four_digits": "*4242",
-  "cv_exp_date": "11/2026"
-}
-*/
-
