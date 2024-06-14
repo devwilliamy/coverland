@@ -55,7 +55,8 @@ export default function Payment() {
   const { orderNumber, paymentIntentId } = useCheckoutContext();
   const { billingAddress, shippingAddress, customerInfo, shipping } =
     useCheckoutContext();
-  const shippingInfo = { shipping_method: 'Standard: UPS Ground - Free Shipping', shipping_date: determineDeliveryByDate(), delivery_fee: shipping };
+  const shipping_method = 'Standard: UPS Ground - Free Shipping';
+  const shippingInfo = { shipping_method, shipping_date: determineDeliveryByDate(), delivery_fee: shipping };
   const { cartItems, getTotalPrice, getOrderSubtotal, getTotalDiscountPrice, getTotalCartQuantity, clearLocalStorageCart } = useCartContext();
   const totalMsrpPrice = convertPriceToStripeFormat(getTotalPrice() + shipping);
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
