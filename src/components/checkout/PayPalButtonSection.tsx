@@ -24,13 +24,13 @@ import { hashData } from '@/lib/utils/hash';
 import { getCookie } from '@/lib/utils/cookie';
 import { v4 as uuidv4 } from 'uuid';
 import { generateSkuLabOrderInput } from '@/lib/utils/skuLabs';
-import { determineDeliveryByDateWithDay } from '@/lib/utils/deliveryDateUtils';
+import { determineDeliveryByDate } from '@/lib/utils/deliveryDateUtils';
 import { SHIPPING_METHOD } from '@/lib/constants';
 
 export default function PayPalButtonSection() {
   const { orderNumber, shipping, shippingAddress, customerInfo } =
     useCheckoutContext();
-  const shippingInfo = { shipping_method: SHIPPING_METHOD, shipping_date: determineDeliveryByDateWithDay(), delivery_fee: shipping };
+  const shippingInfo = { shipping_method: SHIPPING_METHOD, shipping_date: determineDeliveryByDate("EEE, LLL dd"), delivery_fee: shipping };
   const { cartItems, getTotalPrice, getOrderSubtotal, getTotalDiscountPrice, getTotalCartQuantity, clearLocalStorageCart } = useCartContext();
   const router = useRouter();
   const totalMsrpPrice = getTotalPrice().toFixed(2) as unknown as number;

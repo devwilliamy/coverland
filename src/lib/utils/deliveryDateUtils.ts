@@ -28,9 +28,11 @@ export const getClientTimeZone = (): string => {
  * If after 2 PM, add another day.
  * For MST, it will be 3 days later. For CST, 4 days later. For EST, 5 days later.
  * Currently don't know what to do for other time zones and defaulting to 5 days later.
+ * 
+ * @param format string : format of the date output | default -> "Jul 15" | "EEE, LLL dd" -> "Mon, Jul 15"
  * @returns string
  */
-export const determineDeliveryByDate = (): string => {
+export const determineDeliveryByDate = (format = 'LLL dd'): string => {
   const clientTimeZone: string = getClientTimeZone();
   const now: DateTime = DateTime.now().setZone(clientTimeZone);
   let daysToAdd: number;
@@ -62,45 +64,5 @@ export const determineDeliveryByDate = (): string => {
 
   const deliveryDate: DateTime = now.plus({ days: daysToAdd });
 
-  return deliveryDate.toFormat('LLL dd');
-};
-
-/**
- * Same function as above but returns different Date format
- * i.e. "Mon Jan 15"
- * @returns string
- */
-export const determineDeliveryByDateWithDay = (): string => {
-  const clientTimeZone: string = getClientTimeZone();
-  const now: DateTime = DateTime.now().setZone(clientTimeZone);
-  let daysToAdd: number;
-
-  switch (clientTimeZone) {
-    case 'America/Los_Angeles': // PST
-      daysToAdd = 2;
-      break;
-    case 'America/Denver': // MST
-      daysToAdd = 3;
-      break;
-    case 'America/Chicago': // CST
-      daysToAdd = 4;
-      break;
-    case 'America/New_York': // EST
-      daysToAdd = 5;
-      break;
-    case 'Unknown':
-      daysToAdd = 5;
-      break;
-    default:
-      daysToAdd = 0; // Adjusted if needed
-  }
-
-  // If it's after 2 PM, add an extra day
-  if (now.hour >= 14) {
-    daysToAdd += 1;
-  }
-
-  const deliveryDate: DateTime = now.plus({ days: daysToAdd });
-
-  return deliveryDate.toFormat('EEE LLL dd');
+  return deliveryDate.toFormat(format);
 };
