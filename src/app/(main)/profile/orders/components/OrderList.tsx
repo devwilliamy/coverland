@@ -4,7 +4,7 @@ import {
   TInitialOrdersDataDB,
 } from '@/lib/db/profile/ordersHistory';
 
-interface OrderListProps {
+type OrderListProps = {
   orders: TInitialOrdersDataDB[];
 }
 

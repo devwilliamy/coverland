@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import { TInitialOrderItemsDataDB } from '@/lib/db/profile/ordersHistory';
 
-interface OrderItemProps {
+type OrderItemProps = {
   item: TInitialOrderItemsDataDB;
 }
 
