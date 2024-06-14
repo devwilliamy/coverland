@@ -9,7 +9,7 @@ import { createSupabaseServerClient } from '@/lib/db/supabaseClients';
 
 import { formatISODate } from '@/lib/db/profile/utils/date';
 import { formatMoney } from '@/lib/db/profile/utils/money';
-import { getOrderSubtotal, getOrderItemDiscount, getProductDiscount } from '@/lib/db/profile/utils/orderSummary';
+import { getOrderSubtotal, getOrderItemDiscount, getProductDiscount, getOrderTotalDiscount } from '@/lib/db/profile/utils/orderSummary';
 
 import { TInitialProductDataDB } from '..';
 import { Tables } from '../types';
@@ -132,38 +132,47 @@ export async function fetchUserRecentOrders(ordersQuantity: number): Promise<TUs
     const userOrdersWithItemsAndProducts = orders.map(order => {
         const items = orderItems.filter(item => item.order_id === order.id).map(item => {
             const product = products.find(product => product.id === item.product_id);
-
+    
             if (!product) {
                 // Handle case where product is not found
                 console.error(`Product not found for item id ${item.id}`);
-                return null; // or handle differently based on your use case
+                return null;
             }
-
+    
+            const productWithDiscount = {
+                ...product,
+                discount: getProductDiscount(product),  // Calculate product discount first
+            };
+    
             return {
                 id: item.id,
                 order_id: item.order_id,
                 product_id: item.product_id,
                 quantity: item.quantity,
                 price: formatMoney(item.price) || item.price,
-                order_item_discount: getOrderItemDiscount(item),
-                product: {
-                    ...product,
-                    discount: getProductDiscount(product),
-                }
+                product: productWithDiscount,
+                item_discount: getOrderItemDiscount({
+                    ...item,
+                    product: productWithDiscount,  // Pass the product with discount to the item discount function
+                }),
             };
-        })
-        .filter(item => item !== null); // Remove null items if any;
-
-        return {
-            // id: order.id,
+        }).filter(item => item !== null); // Remove null items if any
+    
+        const orderWithItems = {
             ...order,
             total_amount: formatMoney(order.total_amount) || order.total_amount,
             payment_date: formatISODate(order.payment_date) || order.payment_date,
-            items: items
+            items: items,
+        };
+    
+        return {
+            ...orderWithItems,
+            subtotal: getOrderSubtotal(orderWithItems),  // Calculate subtotal last based on the constructed orderWithItems
+            total_discount: getOrderTotalDiscount(orderWithItems), // Same with total discount
         };
     });
 
-    // console.log('Orders with their items and products:', userOrdersWithItemsAndProducts);
+    console.log('Orders with their items and products:', userOrdersWithItemsAndProducts);
 
     // userOrdersWithItemsAndProducts.forEach(order => {
     //     console.log('order items', order.items)
@@ -176,3 +185,164 @@ export async function fetchUserRecentOrders(ordersQuantity: number): Promise<TUs
 }
 
 // fetchOrdersWithItemsAndProducts();
+
+/* 
+  The purpose of this file is to fetch a list of user orders, with their items and related product
+
+  It outputs an Orders Array of order objects with the following basic structure:
+
+  Orders: Array<{
+      id: 1245,
+      order_date: Jan 1st 2024,
+      items: [
+        {
+            id: 4124215,
+            quantity: 1,
+            product: {
+            id: number,
+            price: number,
+            // more product properties
+            },
+            // more item properties
+        },
+        // more items
+      ],
+      // more order properties
+  }
+
+  Basically each order object contains a list of items with each item mapping to one product
+
+
+  Examples:
+  {
+    id: 1564,
+    order_id: 'CL-TEST-240612-SE-0098',
+    order_date: '2024-06-12T18:18:59+00:00',
+    total_amount: '$999.75',
+    status: 'COMPLETE',
+    transaction_id: 'pi_3PQvl9DnAldfe1lt3NVsviVL',
+    payment_status: 'succeeded',
+    payment_method: 'card',
+    card_amount: 999.75,
+    card_brand: 'visa',
+    card_fingerprint: 'TQvfz2g4Iq6DtrG1',
+    card_funding: 'credit',
+    customer_id: 1284,
+    payment_date: '06/12/2024',
+    customer_name: 'John Lee',
+    customer_email: 'john.l.coverland@gmail.com',
+    customer_phone: null,
+    shipping_address_line_1: '4242 Main Street',
+    shipping_address_line_2: 'PO Box 424',
+    shipping_address_city: 'Norwalk',
+    shipping_address_state: 'CA',
+    shipping_address_postal_code: '42424',
+    shipping_address_country: 'US',
+    shipping_carrier: null,
+    shipping_tracking_number: null,
+    billing_address_line_1: '4242 Main Street',
+    billing_address_line_2: 'PO Box 424',
+    billing_address_city: 'Norwalk',
+    billing_address_state: 'CA',
+    billing_address_postal_code: '42424',
+    billing_address_country: 'US',
+    notes: null,
+    created_at: '2024-06-12T18:18:59.847307+00:00',
+    updated_at: '2024-06-12T18:45:38.703+00:00',
+    payment_method_id: 'pm_1PQvleDnAldfe1ltjRJw99ZS',
+    skus: 'CL-SC-10-F-10-BE-1TO-20031,CL-SC-10-F-10-GR-1TO-10275',
+    currency: 'usd',
+    payment_gateway: 'stripe',
+    payment_gateway_customer_id: null,
+    wallet_type: null,
+    billing_customer_name: 'John Lee',
+    created_at_pst: '2024-06-12T11:18:59.847307+00:00',
+    items: [ [Object], [Object] ], // ** These are the order items **
+    subtotal: 2000,
+    total_discount: 1000.25
+  }
+
+
+
+example of order items:
+
+order items [
+  {
+    id: 975,
+    order_id: 1599,
+    product_id: 20144,
+    quantity: 4,
+    price: '$799.80',
+    product: {
+      id: 20144,
+      sku: 'CL-SC-10-F-10-BE-1TO-20031',
+      type: 'Seat Covers',
+      make: 'BMW',
+      model: 'X3',
+      year_generation: '2011-2024',
+      parent_generation: '2011-2024',
+      submodel1: null,
+      submodel2: null,
+      submodel3: null,
+      feature: 'http://www.coverland.com/custom-leather-seat-cover/01-seatcover-pc-be-1to.webp',
+      product: 'http://www.coverland.com/custom-leather-seat-cover/01-seatcover-pc-be-1to.webp,http://www.coverland.com/custom-leather-seat-cover/02-seatcover-pc-be-1to.webp,http://www.coverland.com/custom-leather-seat-cover/03-seatcover-pc-be-1to.webp,http://www.coverland.com/custom-leather-seat-cover/04-seatcover-pc-be-1to.webp,http://www.coverland.com/custom-leather-seat-cover/05-seatcover-pc-be-1to.webp,http://www.coverland.com/custom-leather-seat-cover/06-seatcover-pc-be-1to.webp,http://www.coverland.com/custom-leather-seat-cover/07-seatcover-pc-be-1to.webp,http://www.coverland.com/custom-leather-seat-cover/08-seatcover-pc-be-1to.webp,http://www.coverland.com/custom-leather-seat-cover/09-seatcover-pc-be-1to.webp',
+      display_color: 'Beige',
+      msrp: 199.95,
+      price: 400,
+      quantity: '110',
+      display_id: 'Leather',
+      make_slug: 'bmw',
+      model_slug: 'x3',
+      year_options: '2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024',
+      banner: null,
+      product_video_carousel: null,
+      product_video_carousel_thumbnail: null,
+      product_video_zoom: null,
+      product_video_360: null,
+      display_set: 'Front Seats',
+      discount: 200.05
+    },
+    item_discount: 800.2
+  },
+  {
+    id: 976,
+    order_id: 1599,
+    product_id: 21254,
+    quantity: 1,
+    price: '$199.95',
+    product: {
+      id: 21254,
+      sku: 'CL-SC-10-F-10-GR-1TO-10275',
+      type: 'Seat Covers',
+      make: 'BMW',
+      model: 'i4',
+      year_generation: '2022-2024',
+      parent_generation: '2022-2024',
+      submodel1: null,
+      submodel2: null,
+      submodel3: null,
+      feature: 'http://www.coverland.com/custom-leather-seat-cover/01-seatcover-pc-gr-1to.webp',
+      product: 'http://www.coverland.com/custom-leather-seat-cover/01-seatcover-pc-gr-1to.webp,http://www.coverland.com/custom-leather-seat-cover/02-seatcover-pc-gr-1to.webp,http://www.coverland.com/custom-leather-seat-cover/03-seatcover-pc-gr-1to.webp,http://www.coverland.com/custom-leather-seat-cover/04-seatcover-pc-gr-1to.webp,http://www.coverland.com/custom-leather-seat-cover/05-seatcover-pc-gr-1to.webp,http://www.coverland.com/custom-leather-seat-cover/06-seatcover-pc-gr-1to.webp,http://www.coverland.com/custom-leather-seat-cover/07-seatcover-pc-gr-1to.webp,http://www.coverland.com/custom-leather-seat-cover/08-seatcover-pc-gr-1to.webp,http://www.coverland.com/custom-leather-seat-cover/09-seatcover-pc-gr-1to.webp',
+      display_color: 'Gray',
+      msrp: 199.95,
+      price: 400,
+      quantity: '59',
+      display_id: 'Leather',
+      make_slug: 'bmw',
+      model_slug: 'i4',
+      year_options: '2022,2023,2024',
+      banner: null,
+      product_video_carousel: null,
+      product_video_carousel_thumbnail: null,
+      product_video_zoom: null,
+      product_video_360: null,
+      display_set: 'Front Seats',
+      discount: 200.05
+    },
+    item_discount: 200.05
+  }
+]
+
+
+
+*/

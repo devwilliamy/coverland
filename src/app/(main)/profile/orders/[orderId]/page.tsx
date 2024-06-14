@@ -46,6 +46,12 @@ const OrderDetailPage = async ({ params }: OrderDetailProps) => {
                     <div>{order.shipping_address_city} {order.shipping_address_state} {order.shipping_address_postal_code}</div>
                     <div>{order.shipping_address_country}</div>
                 </div>
+                <div>
+                    <div className="font-bold">Order Summary</div>
+                    <div>Order Subtotal{order.subtotal}</div>
+                    <div>Sale-discount {order.total_discount}</div>
+                    <div>Order Subtotal{order.total_amount}</div>
+                </div>
             </div>
           </div>
         </Card>
