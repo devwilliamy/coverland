@@ -27,6 +27,8 @@ import { hashData } from '@/lib/utils/hash';
 import { getCookie } from '@/lib/utils/cookie';
 import { v4 as uuidv4 } from 'uuid';
 import { generateSkuLabOrderInput } from '@/lib/utils/skuLabs';
+import { determineDeliveryByDate } from '@/lib/utils/deliveryDateUtils';
+import { SHIPPING_METHOD } from '@/lib/constants';
 
 function isValidShippingAddress({ address }: StripeAddress) {
   return (
@@ -54,7 +56,8 @@ export default function Payment() {
   const { orderNumber, paymentIntentId } = useCheckoutContext();
   const { billingAddress, shippingAddress, customerInfo, shipping } =
     useCheckoutContext();
-  const { cartItems, getTotalPrice, clearLocalStorageCart } = useCartContext();
+  const shippingInfo = { shipping_method: SHIPPING_METHOD, shipping_date: determineDeliveryByDate("EEE, LLL dd"), delivery_fee: shipping };
+  const { cartItems, getTotalPrice, getOrderSubtotal, getTotalDiscountPrice, getTotalCartQuantity, clearLocalStorageCart } = useCartContext();
   const totalMsrpPrice = convertPriceToStripeFormat(getTotalPrice() + shipping);
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -146,10 +149,27 @@ export default function Payment() {
             orderInfo: {
               orderDate: getCurrentDayInLocaleDateString(),
               orderNumber,
+              cartItems, // note: cartItems transformed to orderItems inside generateThankYouEmail
               // products
+              totalItemQuantity: getTotalCartQuantity(),
+              subtotal: getOrderSubtotal().toFixed(2),
+              total: (getTotalPrice() + shipping).toFixed(2), // may need to add taxes later
+              totalDiscount: getTotalDiscountPrice().toFixed(2),
+              hasDiscount: parseFloat(getTotalDiscountPrice().toFixed(2)) > 0,
             },
-            // address,
-            // shippingInfo,
+            shippingInfo: {
+              city: shippingAddress.address.city as string,
+              country: shippingAddress.address.country as string,
+              address_line1: shippingAddress.address.line1 as string,
+              address_line2: shippingAddress.address.line2 as string,
+              postal_code: shippingAddress.address.postal_code as string,
+              state: shippingAddress.address.state as string,
+              full_name: `${shippingAddress.firstName} ${shippingAddress.lastName}`,
+              shipping_method: shippingInfo.shipping_method as string,
+              shipping_date: shippingInfo.shipping_date as string,
+              delivery_fee: shippingInfo.delivery_fee.toFixed(2) as number,
+              free_delivery: shippingInfo.delivery_fee === 0,
+            },
             // billingInfo,
           };
           try {
