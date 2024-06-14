@@ -11,12 +11,13 @@ import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 import { createSupabaseServerClient } from '@/lib/db/supabaseClients';
 
-
 import OrderList from './components/OrderList';
 
 const OrdersPage = async () => {
   const cookieStore: ReadonlyRequestCookies = cookies();
   const supabase: SupabaseClient = createSupabaseServerClient(cookieStore);
+  let orders: TInitialOrdersDataDB[] = [];
+
   const {
     data: { user },
   } = await supabase.auth.getUser();
@@ -25,7 +26,11 @@ const OrdersPage = async () => {
     redirect('/login');
   }
 
-  const orders: TInitialOrdersDataDB[] = await fetchUserRecentOrders(4);
+  try {
+    orders = await fetchUserRecentOrders(4);
+  } catch (error) {
+    console.error('Error fetching recent orders:', error);
+  }
 
   return <OrderList orders={orders} />;
 };
