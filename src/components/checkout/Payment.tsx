@@ -1,10 +1,11 @@
 import {
   ExpressCheckoutElement,
   PaymentElement,
+  PaymentRequestButtonElement,
   useElements,
   useStripe,
 } from '@stripe/react-stripe-js';
-import { FormEvent, useState } from 'react';
+import { FormEvent, useEffect, useState } from 'react';
 import OrderReview from './OrderReview';
 import PriceBreakdown from './PriceBreakdown';
 import { Button } from '../ui/button';
@@ -28,6 +29,10 @@ import { hashData } from '@/lib/utils/hash';
 import { getCookie } from '@/lib/utils/cookie';
 import { v4 as uuidv4 } from 'uuid';
 import { generateSkuLabOrderInput } from '@/lib/utils/skuLabs';
+import {
+  ExpressCheckoutWalletOption,
+  ExpressCheckoutWalletsOption,
+} from '@stripe/stripe-js';
 
 function isValidShippingAddress({ address }: StripeAddress) {
   return (
@@ -57,8 +62,9 @@ export default function Payment() {
     useCheckoutContext();
   const { cartItems, getTotalPrice, clearLocalStorageCart } = useCartContext();
   const totalMsrpPrice = convertPriceToStripeFormat(getTotalPrice() + shipping);
-  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  const [cardPaymentReq, setCardPaymentReq] = useState<any>();
+  const handleSubmit = async (e?: FormEvent<HTMLFormElement>) => {
+    e?.preventDefault();
 
     if (!stripe || !elements) {
       // Stripe.js hasn't yet loaded.
@@ -80,6 +86,7 @@ export default function Payment() {
       }),
     });
     const data = await response.json();
+
     stripe
       .confirmPayment({
         elements,
@@ -303,6 +310,30 @@ export default function Payment() {
   const isDisabled =
     !isValidShippingAddress(shippingAddress) || isEditingAddress;
 
+  useEffect(() => {
+    const b = async () => {
+      setIsLoading(true);
+      const { country, city } = shippingAddress.address;
+      const paymentReq = stripe?.paymentRequest({
+        country,
+        currency: 'usd',
+        total: { amount: totalMsrpPrice, label: 'EXPRESS PAYMENT' },
+        disableWallets: ['link'],
+      });
+      const canMakePayment = await paymentReq?.canMakePayment();
+      console.log({ canMakePayment });
+
+      if (canMakePayment) {
+        paymentReq?.show();
+        setCardPaymentReq(paymentReq);
+        console.log('[SUCCESSFULLY SET PAYMENT REQ]');
+      }
+    };
+    if (stripe) {
+      b();
+    }
+  }, [paymentMethod]);
+
   return (
     <div className="px-4">
       <div className="mb-10 lg:hidden">{/* <PromoCode /> */}</div>
@@ -315,15 +346,8 @@ export default function Payment() {
       </div>
       {paymentMethod === 'creditCard' ? (
         <>
-          <form id="payment-form" onSubmit={handleSubmit}>
-            <PaymentElement
-              id="payment-element"
-              // onChange={(e) => {
-              //   if (e.complete) {
-              //     console.log('e.value', e.value);
-              //   }
-              // }}
-            />
+          <form id="payment-form" onSubmit={(e) => handleSubmit(e)}>
+            <PaymentElement id="payment-element" />
           </form>
           <div className="pt-4">
             <BillingAddress
@@ -350,7 +374,7 @@ export default function Payment() {
               className={`mb-3 w-full rounded-lg ${isDisabled ? 'bg-[#BE1B1B]/90' : 'bg-[#BE1B1B]'} text-base font-bold uppercase text-white sm:h-[48px] lg:h-[55px] lg:text-xl`}
               onClick={(e) => {
                 setIsLoading(true);
-                handleSubmit(e);
+                handleSubmit();
               }}
             >
               {isLoading ? (
@@ -364,13 +388,44 @@ export default function Payment() {
       ) : (
         <PayPalButtonSection />
       )}
+      {/* <Button
+        className="h-[30px] max-h-[30px] w-full"
+        onClick={async () => {
+          setIsLoading(true);
+          const { country, city } = shippingAddress.address;
+          const paymentReq = stripe?.paymentRequest({
+            country,
+            currency: 'usd',
+            total: { amount: totalMsrpPrice, label: 'EXPRESS PAYMENT' },
+          });
+          const canMakePayment = await paymentReq?.canMakePayment();
+          console.log({ canMakePayment });
 
+          if (canMakePayment) {
+            setCardPaymentReq(paymentReq);
+            paymentReq?.show();
+          }
+        }}
+      >
+        TEST
+      </Button> */}
+      {/* {cardPaymentReq && (
+        <PaymentRequestButtonElement
+          options={{
+            disableMultipleButtons: false,
+            paymentRequest: cardPaymentReq,
+          }}
+        />
+      )} */}
       <ExpressCheckoutElement
         options={{
           paymentMethodOrder: ['applePay', 'googlePay'],
-          buttonType: { applePay: 'check-out', googlePay: 'order' },
+          // buttonType: { applePay: 'order', googlePay: 'order' },
+          wallets: { googlePay: 'always', applePay: 'always' },
         }}
-        onConfirm={() => {}}
+        onConfirm={async () => {
+          // handleSubmit();
+        }}
       />
       {message && (
         <div className="font-base flex items-center justify-center text-lg text-red-500">
