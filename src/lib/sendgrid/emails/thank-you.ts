@@ -160,13 +160,9 @@ const generateThankYouEmail = ({
 });
 
 export const sendThankYouEmail = async (emailInput: MailDataRequired) => {
-  // console.log('emailInput Shipping Info', emailInput);
   const msg = generateThankYouEmail(emailInput);
-  // console.log('transformedemail message', msg);
   try {
     await sgMail.send(msg);
-    // console.log('Email sent', data);
-    // return data;
   } catch (error) {
     console.error(error);
 
