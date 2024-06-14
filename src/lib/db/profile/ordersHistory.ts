@@ -1,11 +1,9 @@
 import {  ADMIN_PANEL_ORDERS, ADMIN_PANEL_ORDER_ITEMS, ADMIN_PANEL_PRODUCTS } from '../constants/databaseTableNames';
-import { supabaseDatabaseClient } from '../supabaseClients';
 
 import { ReadonlyRequestCookies } from 'next/dist/server/web/spec-extension/adapters/request-cookies';
 import { SupabaseClient } from '@supabase/supabase-js';
 import { cookies } from 'next/headers';
 import { createSupabaseServerClient } from '@/lib/db/supabaseClients';
-// import { get } from 'http';
 
 import { formatISODate } from '@/lib/db/profile/utils/date';
 import { formatMoney } from '@/lib/db/profile/utils/money';
@@ -50,7 +48,6 @@ async function fetchUserOrders(ordersQuantity: number): Promise<TUserOrders[] | 
         return null;
     }
 
-    // console.log('Logged in user:', user);
     // user object has unique UUID ('user_id') in supabase
     const userId = user.id;
 
@@ -73,7 +70,6 @@ async function fetchUserOrders(ordersQuantity: number): Promise<TUserOrders[] | 
         return null;
     }
 
-    // return data.map(order => order.id);
     return data
 }
 
@@ -115,13 +111,11 @@ export async function fetchUserRecentOrders(ordersQuantity: number): Promise<TUs
     if (!orders) return;
 
     const orderIds = orders.map(order => order.id);
-    // console.log('Fetched order IDs:', orderIds);
 
     const orderItems = await fetchOrderItems(orderIds);
     if (!orderItems) return;
 
     const productIds = orderItems.map(item => item.product_id);
-    // console.log('Fetched product IDs:', productIds);
 
     const products = await fetchOrderItemProducts(productIds);
     if (!products) return;
@@ -148,16 +142,5 @@ export async function fetchUserRecentOrders(ordersQuantity: number): Promise<TUs
         };
     });
 
-    // console.log('Orders with their items and products:', userOrdersWithItemsAndProducts);
-
-    // userOrdersWithItemsAndProducts.forEach(order => {
-    //     console.log('order items', order.items)
-    //     order.items.forEach(item => { 
-    //         console.log('product item', item) 
-    //     })     
-    // })
-
     return userOrdersWithItemsAndProducts;
 }
-
-// fetchOrdersWithItemsAndProducts();

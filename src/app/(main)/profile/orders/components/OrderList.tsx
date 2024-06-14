@@ -1,10 +1,7 @@
-// components/OrderList.tsx
 import OrderItem from './OrderItem';
 import { Card, CardHeader } from '@/components/ui/card'; // Import your Card components
-// import { TInitialOrdersDataDB, TInitialOrderItemsDataDB } from '@/types';
 import {
   TInitialOrdersDataDB,
-  TInitialOrderItemsDataDB,
 } from '@/lib/db/profile/ordersHistory';
 
 interface OrderListProps {

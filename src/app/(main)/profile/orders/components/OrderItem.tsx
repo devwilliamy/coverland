@@ -1,7 +1,5 @@
-// components/OrderItem.tsx
 import Image from 'next/image';
-// import { TInitialOrderItemsDataDB } from '@/types';
-import { TInitialOrderItemsDataDB, TInitialProductDataDB } from '@/lib/db/profile/ordersHistory';
+import { TInitialOrderItemsDataDB } from '@/lib/db/profile/ordersHistory';
 
 interface OrderItemProps {
   item: TInitialOrderItemsDataDB;
@@ -14,7 +12,7 @@ const OrderItem = ({ item }: OrderItemProps) => {
         <div className="mt-4 mb-4 md:w-2/5 md:mt-2 md:mb-2">
           <div className="md:flex justify-end">
             <Image
-              className="bg-gray-100 p-[6.5px]"
+              className="bg-gray-100 p-[6.5pxW]"
               src={item.product?.feature || ''}
               width={155}
               height={155}

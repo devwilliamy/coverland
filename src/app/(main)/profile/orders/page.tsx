@@ -2,9 +2,7 @@ import {
   TUserOrders,
   TOrderItem,
   TOrderItemProduct,
-  TInitialOrderItemsDataDB,
   TInitialOrdersDataDB,
-  TInitialProductDataDB,
   fetchUserRecentOrders,
 } from '@/lib/db/profile/ordersHistory';
 import { ReadonlyRequestCookies } from 'next/dist/server/web/spec-extension/adapters/request-cookies';
@@ -15,7 +13,6 @@ import { createSupabaseServerClient } from '@/lib/db/supabaseClients';
 
 
 import OrderList from './components/OrderList';
-// import { TInitialOrdersDataDB } from '@/types';
 
 const OrdersPage = async () => {
   const cookieStore: ReadonlyRequestCookies = cookies();
