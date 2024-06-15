@@ -34,7 +34,7 @@ export type TUserOrders = {
     payment_date: string;
     total_amount: number;
     items?: TInitialOrderItemsDataDB[]; // Optional because it will be added after fetching
-};
+}[];
 
 async function fetchUserOrders(ordersQuantity: number): Promise<TUserOrders[] | null> {
     const cookieStore: ReadonlyRequestCookies = cookies();
@@ -61,7 +61,7 @@ async function fetchUserOrders(ordersQuantity: number): Promise<TUserOrders[] | 
         // filter by logged in user_id (currently does not exist in Users table, need to add it?)
         // .eq('user_id', userId)
         .eq('customer_email', user?.email)
-        .eq('status', 'COMPLETE')
+        .in('status', ['COMPLETE', 'COMPLETED'])
         .order('payment_date', { ascending: false }) // Order by latest date in descending order
         .limit(ordersQuantity);
 
