@@ -27,17 +27,17 @@ export default async function Profile() {
         <div className="flex flex-col items-center justify-center">
           <h1 className="mb-4 text-2xl font-bold">Profile</h1>
           <p className="mb-2">Email: {user.email}</p>
-          <form action={signOut}>
-            <Button>Log Out</Button>
-          </form>
           <Link
-            className="mt-2"
+            className="mb-2 mt-2"
             href="/profile/orders"
           >
-            <Button>
+            <Button className="bg-blue-500 hover:bg-blue-600 text-white">
               My Orders
             </Button>
           </Link>
+          <form action={signOut}>
+            <Button>Log Out</Button>
+          </form>
         </div>
       </div>
     </div>
