@@ -113,6 +113,7 @@ export function ProductContent({
     if (quantityBetween1and5) {
       calcedPrice = Number((cartProduct.msrp = cartProduct.price));
       console.log({ calcedPrice });
+      setBetween1and5(true);
       setDiscountPercent(null);
       setNewMSRP(calcedPrice);
     }
@@ -120,8 +121,6 @@ export function ProductContent({
     else if (quantityBetween6and10) {
       calcedPrice =
         evenCartProductPrice - Math.floor(evenCartProductPrice / 4) - 0.05;
-      setNewMSRP(calcedPrice);
-      setBetween1and5(true);
       console.log({
         evenCartProductPrice,
         quarterPrice: Math.floor(evenCartProductPrice / 4),
@@ -129,6 +128,7 @@ export function ProductContent({
       });
       setBetween6and10(true);
       setDiscountPercent('25%');
+      setNewMSRP(calcedPrice);
     }
   }, [modelData]);
 

@@ -1,6 +1,6 @@
 'use client';
 import Image from 'next/image';
-import { useState, useContext } from 'react';
+import { useState, useContext, useEffect } from 'react';
 import installments from '@/images/PDP/Product-Details-Redesign-2/paypal-installments.webp';
 import { Rating } from '@mui/material';
 import { useCartContext } from '@/providers/CartProvider';
@@ -38,8 +38,63 @@ export default function SeatContent({
 
   const { make, model } = useDetermineType();
 
+  // const defaultPrice: number = defaultMSRP * 2;
+  // const isStandardPrice = isStandardType ? defaultMSRP : defaultMSRP - 0.05;
+  const [discountPercent, setDiscountPercent] = useState<string | null>('50%');
+  // let quantityBetween1and5: boolean;
+  // let quantityBetween6and10: boolean;
+  const [between1and5, setBetween1and5] = useState(false);
+  const [between6and10, setBetween6and10] = useState(false);
+  const [newMSRP, setNewMSRP] = useState(selectedProduct.msrp);
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    setLoading(true);
+    if (!selectedProduct) return setLoading(false);
+    console.log(selectedProduct);
+    setNewMSRP(selectedProduct.msrp);
+    const quantityBetween1and5 =
+      Number(selectedProduct.quantity) >= 1 &&
+      Number(selectedProduct.quantity) <= 5;
+    const quantityBetween6and10 =
+      Number(selectedProduct.quantity) >= 6 &&
+      Number(selectedProduct.quantity) <= 10;
+    const evenCartProductPrice = Number(selectedProduct.price);
+    let calcedPrice: number;
+    // if 1 <= x <= 5
+    if (quantityBetween1and5) {
+      calcedPrice = Number((selectedProduct.msrp = selectedProduct.price));
+      console.log({ calcedPrice });
+      setBetween1and5(true);
+      setDiscountPercent(null);
+      setNewMSRP(calcedPrice);
+    }
+    // Else if 6 <= x <= 10
+    else if (quantityBetween6and10) {
+      calcedPrice =
+        evenCartProductPrice - Math.floor(evenCartProductPrice / 4) - 0.05;
+      console.log({
+        evenCartProductPrice,
+        quarterPrice: Math.floor(evenCartProductPrice / 4),
+        calcedPrice,
+      });
+      setBetween6and10(true);
+      setDiscountPercent('25%');
+      setNewMSRP(calcedPrice);
+    } else {
+      setDiscountPercent('50%');
+      setNewMSRP(selectedProduct.msrp);
+    }
+    setLoading(false);
+  }, [selectedProduct]);
+
   const handleAddToCart = () => {
-    addToCart({ ...selectedProduct, quantity: 1 });
+    if (between1and5 || between6and10) {
+      addToCart({ ...selectedProduct, msrp: newMSRP, quantity: 1 });
+    } else {
+      addToCart({ ...selectedProduct, quantity: 1 });
+    }
+
     router.push('/checkout');
   };
 
@@ -80,12 +135,12 @@ export default function SeatContent({
         </div>
       </div>
       <div className=" flex items-end  gap-[9px] pt-[34px]   text-center text-[28px] font-[900]  lg:text-[32px] lg:leading-[37.5px] ">
-        <div className="leading-[20px]">${selectedProduct.msrp}</div>
+        <div className="leading-[20px]">${newMSRP}</div>
         <div className="flex gap-1.5 pb-[1px] text-[22px] font-[400] leading-[14px] text-[#BE1B1B] lg:text-[22px] ">
           <span className=" text-[#BEBEBE] line-through">
             ${selectedProduct.price}
           </span>
-          <p>(-50%)</p>
+          <p>(-{discountPercent})</p>
         </div>
       </div>
       <div className="pb-4.5 mt-[15px] flex items-center gap-2 ">
