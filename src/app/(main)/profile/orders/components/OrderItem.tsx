@@ -12,7 +12,7 @@ const OrderItem = ({ item }: OrderItemProps) => {
         <div className="my-4 md:my-2 md:w-2/5">
           <div className="justify-end md:flex">
             <Image
-              className="bg-gray-100 p-[6.5pxW]"
+              className="bg-gray-100 p-[6.5px]"
               src={item.product?.feature || ''}
               width={155}
               height={155}
