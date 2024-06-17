@@ -19,13 +19,11 @@ export const NewCheckout = () => {
   const stripe = useStripe();
   const elements = useElements() ?? undefined;
   const router = useRouter();
-  // const clientSecret = String(process.env.STRIPE_SECRET_KEY);
   const {
     orderNumber,
     clientSecret,
     paymentIntentId: id,
   } = useCheckoutContext();
-  // const { orderNumber, clientSecret } = useCreateStripePaymentIntent();
   const origin = window.location.origin;
   const {
     billingAddress,
@@ -39,19 +37,13 @@ export const NewCheckout = () => {
     updateCardExpiryError,
     updateCardCvvError,
   } = useCheckoutContext();
-  // const [cardNumberError, setCardNumberError] = useState('');
-  // const [cardExpiryError, setCardExpiryError] = useState('');
-  // const [cardCvvError, setCardCvvError] = useState('');
 
   const paymentContainerStyle = `border rounded-[8px] px-[17px] py-[19px]`;
-  // if (!stripe || !elements) {
-  //   // Stripe.js hasn't yet loaded.
-  //   // Make sure to disable form submission until Stripe.js has loaded.
-  //   return;
-  // }
-  const express = elements?.getElement('expressCheckout');
-  express?.focus();
-  console.log({ express });
+  if (!stripe || !elements) {
+    // Stripe.js hasn't yet loaded.
+    // Make sure to disable form submission until Stripe.js has loaded.
+    return;
+  }
 
   return (
     <>

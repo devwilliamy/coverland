@@ -13,7 +13,5 @@ export async function POST(request: NextRequest) {
   });
   const data = await res.json();
 
-  console.log({ data });
-
   return NextResponse.json({ tax: data.tax }, { status: 200 });
 }

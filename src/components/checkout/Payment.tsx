@@ -275,7 +275,7 @@ export default function Payment({
                 <Button
                   // disabled={isDisabledCard}
                   variant={'default'}
-                  className={buttonStyle}
+                  className={buttonStyle + ' mt-4'}
                   onClick={(e) => {
                     // setIsLoading(true);
                     // handleSubmit(e);

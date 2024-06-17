@@ -44,6 +44,13 @@ type AddressFormProps = {
   showEmail: boolean;
 };
 
+type AddressComponent = {
+  longText: string;
+  shortText: string;
+  types: string[];
+  languageCode: string;
+};
+
 const formSchema = z.object({
   firstName: z.string().min(1, 'Please enter your first name.'),
   lastName: z.string().min(1, 'Please enter your last name.'),
@@ -144,17 +151,28 @@ export default function AddressForm({
     const formValues: Record<string, string> = getValues();
 
     for (const iterator in formValues) {
-      if (!formValues[iterator]) {
-        console.log(iterator);
-
+      if (formValues[iterator] == '' && iterator != 'line2') {
+        // console.log(iterator);
+        setIsDisabled(true);
         return true;
       }
     }
+    setIsDisabled(false);
     return false;
   };
 
   useEffect(() => {
     // Populate the form fields when shippingAddress changes
+    // customerInfo.email
+    //   ? setValue('email', customerInfo.email)
+    //   : setValue('email', '');
+    // addressData.firstName
+    //   ? setValue('firstName', addressData.firstName)
+    //   : setValue('firstName', '');
+    // addressData.lastName
+    //   ? setValue('lastName', addressData.lastName)
+    //   : setValue('lastName', '');
+
     setValue('email', customerInfo.email || '');
     setValue('firstName', addressData.firstName || '');
     setValue('lastName', addressData.lastName || '');
@@ -167,23 +185,23 @@ export default function AddressForm({
       setValue('postal_code', addressData.address.postal_code || '');
     }
     determineDisabled();
-  }, [addressData, customerInfo, setValue]);
+  }, [addressData, customerInfo, setValue, isManualAddress]);
 
-  useEffect(() => {
-    if (process.env.NEXT_PUBLIC_IS_PREVIEW === 'PREVIEW') {
-      setValue('email', 'george.icarcover@gmail.com' || '');
-      setValue('firstName', 'George' || '');
-      setValue('lastName', 'Anumba' || '');
-      setValue('line1', '1231 S Hill St' || '');
-      setValue('line2', 'P.O. Box 424' || '');
-      setValue('city', 'Los Angeles' || '');
-      setValue('state', 'CA' || '');
-      setValue('postal_code', '90015' || '');
-      setValue('phoneNumber', '+1 424 424 4242' || '');
-      setAddress('1231 S Hill St, Los Angeles, CA 90015, USA');
-    }
-    determineDisabled();
-  }, []);
+  // useEffect(() => {
+  //   if (process.env.NEXT_PUBLIC_IS_PREVIEW === 'PREVIEW') {
+  //     setValue('email', 'george.icarcover@gmail.com' || '');
+  //     setValue('firstName', 'George' || '');
+  //     setValue('lastName', 'Anumba' || '');
+  //     setValue('line1', '1231 S Hill St' || '');
+  //     setValue('line2', 'P.O. Box 424' || '');
+  //     setValue('city', 'Los Angeles' || '');
+  //     setValue('state', 'CA' || '');
+  //     setValue('postal_code', '90015' || '');
+  //     setValue('phoneNumber', '+1 424 424 4242' || '');
+  //     setAddress('1231 S Hill St, Los Angeles, CA 90015, USA');
+  //   }
+  //   determineDisabled();
+  // }, []);
 
   const autocompleteObj: Record<string, FormString> = {
     locality: 'city',
@@ -220,12 +238,13 @@ export default function AddressForm({
       });
 
       const data = await response.json();
-      const formattedAddress = data.places[0].formattedAddress;
-      const addressComponents: any[] = data.places[0].addressComponents;
-      // console.log('FORMATTED ADDRESS SEARCH', {
-      //   formattedAddress,
-      //   addressComponents,
-      // });
+      const formattedAddress: string = data.places[0].formattedAddress;
+      const addressComponents: AddressComponent[] =
+        data.places[0].addressComponents;
+      console.log('FORMATTED ADDRESS SEARCH', {
+        formattedAddress,
+        addressComponents,
+      });
 
       let filteredAddressComponents = new Map();
 
@@ -275,6 +294,9 @@ export default function AddressForm({
   return (
     <form
       onSubmit={onSubmit}
+      onChange={() => {
+        determineDisabled();
+      }}
       className="flex grid-cols-2 flex-col gap-6 py-2 lg:grid lg:grid-cols-2"
     >
       <OverlappingLabel
@@ -393,8 +415,7 @@ export default function AddressForm({
               {...params}
               key={`text-field-address-auto`}
               label="Address"
-              placeholder="12345 Sunset Blvd, Los Angeles, CA, USA"
-              // placeholder="12345 Sunset Blvd, Los Angeles, CA 54321, USA" // With zipcode
+              placeholder="12345 Sunset Blvd, Los Angeles, CA 54321, USA" // With zipcode
               fullWidth
             >
               {suggestions.map((suggestion) => {
@@ -419,61 +440,22 @@ export default function AddressForm({
       <p
         className="col-span-2 cursor-pointer text-[14px] font-[400] leading-[16.4px] text-[#767676] underline"
         onClick={() => {
+          const formValues: Record<string, string> = getValues();
+          console.log({ formValues });
+          if (isManualAddress) {
+            setAddress('');
+          }
           setIsManualAddress((prev) => !prev);
           setValue('line1', '');
           setValue('line2', '');
           setValue('city', '');
           setValue('state', '');
           setValue('postal_code', '');
+          setValue('phoneNumber', '');
         }}
       >
         {isManualAddress ? 'Find address' : 'Enter address manually'}
       </p>
-      {/* {isManualAddress ? (
-        <div className="col-span-2 grid grid-cols-2">
-          <OverlappingLabel
-            title="Email"
-            name="email"
-            errors={errors}
-            placeholder="abc@gmail.com"
-            register={register}
-            options={{ required: true }}
-            autoComplete="email"
-            isManualAddress={isManualAddress}
-          />
-          <CustomPhoneInput
-            label="Phone Number"
-            name="phoneNumber"
-            placeholder="+1 123 456 7890"
-            autoComplete="tel"
-            register={register}
-            errors={errors}
-            required
-          />
-        </div>
-      ) : (
-        <>
-          <OverlappingLabel
-            title="Email"
-            name="email"
-            errors={errors}
-            placeholder="abc@gmail.com"
-            register={register}
-            options={{ required: true }}
-            autoComplete="email"
-            isManualAddress={isManualAddress}
-          />
-          <CustomPhoneInput
-            label="Phone Number"
-            name="phoneNumber"
-            placeholder="+1 123 456 7890"
-            autoComplete="tel"
-            register={register}
-            errors={errors}
-            required
-          />
-        </>
-      )} */}
       <div className="col-span-2 grid grid-cols-2 gap-6">
         <OverlappingLabel
           title="Email"
@@ -497,8 +479,8 @@ export default function AddressForm({
       <div className="flex flex-col items-center justify-between lg:col-span-2 lg:mt-11">
         <Button
           type="submit"
-          disabled={determineDisabled() || Object.keys(errors).length > 0}
-          className={`h-[48px] w-full cursor-pointer rounded-lg  bg-black text-base font-bold uppercase text-white lg:h-[63px] lg:max-w-[307px] lg:self-end lg:text-xl`}
+          disabled={isDisabled}
+          className={`h-[48px] w-full cursor-pointer rounded-lg bg-black text-base font-bold uppercase text-white lg:h-[63px] lg:max-w-[307px] lg:self-end lg:text-xl`}
         >
           Save & Continue
         </Button>
