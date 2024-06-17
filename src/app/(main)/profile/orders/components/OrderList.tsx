@@ -1,16 +1,13 @@
-// components/OrderList.tsx
 import OrderItem from './OrderItem';
 import { Card, CardHeader } from '@/components/ui/card'; // Import your Card components
-// import { TInitialOrdersDataDB, TInitialOrderItemsDataDB } from '@/types';
-import {
-  TInitialOrdersDataDB,
-  TInitialOrderItemsDataDB,
-} from '@/lib/db/profile/ordersHistory';
+import { TInitialOrdersDataDB } from '@/lib/db/profile/ordersHistory';
 import Link from 'next/link';
+import { TInitialOrdersDataDB } from '@/lib/db/profile/ordersHistory';
 
-interface OrderListProps {
+
+type OrderListProps = {
   orders: TInitialOrdersDataDB[];
-}
+};
 
 const OrderList = ({ orders }: OrderListProps) => {
   return (
@@ -21,8 +18,8 @@ const OrderList = ({ orders }: OrderListProps) => {
           View, Manage and track orders
         </p>
       </div>
-      <Card className="m-3 p-2 md:m-0 md:m-1 md:mb-4">
-        <CardHeader className="p-2 pb-4 pt-4 text-xl font-bold md:p-4 md:text-xl">
+      <Card className="m-3 p-2 md:m-1 md:mb-4">
+        <CardHeader className="p-2 py-4 text-xl font-bold md:p-4">
           Recent Orders
         </CardHeader>
         {orders.length === 0 ? (
@@ -35,21 +32,21 @@ const OrderList = ({ orders }: OrderListProps) => {
               key={order.id}
               className="justify-between border-t p-4 pl-2 md:m-2 md:flex"
             >
-              <div className="mb-8 mt-6 md:mb-4 md:mt-4 md:w-2/5">
+              <div className="mb-8 mt-6 md:my-4 md:w-2/5">
                 <div className="justify-left flex gap-2">
-                  <span className="mb-1 min-w-[110px] text-base font-normal text-[#707070] md:text-base">
+                  <span className="mb-1 min-w-[110px] text-base font-normal text-[#707070]">
                     Order Number
                   </span>
-                  <span className="font-semibold">#{order.id}</span>
+                  <span className="font-semibold">#{order.order_id}</span>
                 </div>
                 <div className="justify-left flex gap-2">
-                  <span className="mb-1 min-w-[110px] text-base font-normal text-[#707070] md:text-base">
+                  <span className="mb-1 min-w-[110px] text-base font-normal text-[#707070]">
                     Order Date
                   </span>
                   <span className="font-semibold">{order.payment_date}</span>
                 </div>
                 <div className="justify-left flex gap-2">
-                  <span className="mb-1 min-w-[110px] text-base font-normal text-[#707070] md:text-base">
+                  <span className="mb-1 min-w-[110px] text-base font-normal text-[#707070]">
                     Total
                   </span>
                   <span className="font-semibold">{order.total_amount}</span>

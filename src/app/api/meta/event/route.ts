@@ -13,7 +13,6 @@ export async function POST(request: NextRequest) {
     const { metaCPIEvent: event } = await request.json();
     event.user_data.client_ip_address = request?.headers.get('x-forwarded-for')
     event.event_source_url = request.headers.get('referer') || ""
-    console.log('[Event]:', event);
     
     const response = await fetch(
       `https://graph.facebook.com/v19.0/${process.env.META_PIXEL_ID}/events?access_token=${process.env.META_CAPI_ACCESS_TOKEN}`,

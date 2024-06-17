@@ -173,7 +173,7 @@ export function ProductContent({
           )}
         </div>
         <div className="mt-1 flex items-center gap-2 ">
-          <p className=" text-[14px] leading-[16px] text-[#767676] lg:text-[16px]">
+          <p className=" mb-[4px] text-[14px] leading-[16px] text-[#767676] lg:text-[16px]">
             4 interest-free installments of{' '}
             <b className="font-[400] text-black">${defaultMSRP / 4 - 0.01}</b>
           </p>

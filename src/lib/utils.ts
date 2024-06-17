@@ -148,6 +148,27 @@ export const generateProductsLeft = (
   return productAmount;
 };
 
+export const generateNumberFromCarBuild = (
+  type: string,
+  displayId: string,
+  make: string,
+  model: string,
+  yearGeneration: string
+): number => {
+  const combinedString = `${type}${displayId}${make}${model}${yearGeneration}`;
+
+  // Simple hash function to convert SKU to a numeric value
+  const hash = Array.from(combinedString).reduce((acc, char) => {
+    return acc + char.charCodeAt(0);
+  }, 0);
+  // Normalize the hash value to a range between 0 and 1
+  const normalizedHash = (hash % 1000) / 1000;
+
+  // Scale the normalized value to the range [4.6, 4.8]
+  const scaledValue = 4.5 + normalizedHash * 0.3;
+  return scaledValue;
+};
+
 // export function getColorOptions(data: Model[], selectedModel: { year_generation: number }): string[] {
 //   return data
 //     .filter(
@@ -206,14 +227,15 @@ export function detectFOrFB(sku: string) {
   if (parts[1] === 'SC') {
     if (parts[5] === 'B') {
       return 'Full';
-    }
-    else if (parts[3] === 'F') {
+    } else if (parts[3] === 'F') {
       return 'Front';
-    } 
+    }
   }
   return 'Unknown';
 }
-
+export function isFullSet(displaySet: string) {
+  return displaySet?.toLowerCase() == 'front seats' ? 'front' : 'full';
+}
 export const determineTypeString = (type: string) => {
   const typeOptions = ['Car Covers', 'SUV Covers', 'Truck Covers'];
   return type === 'car-covers'

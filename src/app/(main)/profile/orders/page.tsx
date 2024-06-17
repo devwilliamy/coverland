@@ -2,9 +2,7 @@ import {
   TUserOrders,
   TOrderItem,
   TOrderItemProduct,
-  TInitialOrderItemsDataDB,
   TInitialOrdersDataDB,
-  TInitialProductDataDB,
   fetchUserRecentOrders,
 } from '@/lib/db/profile/ordersHistory';
 import { ReadonlyRequestCookies } from 'next/dist/server/web/spec-extension/adapters/request-cookies';
@@ -13,22 +11,31 @@ import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 import { createSupabaseServerClient } from '@/lib/db/supabaseClients';
 
-
 import OrderList from './components/OrderList';
-// import { TInitialOrdersDataDB } from '@/types';
 
 const OrdersPage = async () => {
   const cookieStore: ReadonlyRequestCookies = cookies();
   const supabase: SupabaseClient = createSupabaseServerClient(cookieStore);
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+  let orders: TInitialOrdersDataDB[] = [];
 
-  if (!user) {
-    redirect('/login');
+  try {
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
+  
+    if (!user) {
+      redirect('/login');
+    }
+  } catch (error) {
+    console.error('Error getting user:', error);
+    redirect('/login'); // Redirect to login page in case of error
   }
 
-  const orders: TInitialOrdersDataDB[] = await fetchUserRecentOrders(4);
+  try {
+    orders = await fetchUserRecentOrders(4);
+  } catch (error) {
+    console.error('Error fetching recent orders:', error);
+  }
 
   return <OrderList orders={orders} />;
 };

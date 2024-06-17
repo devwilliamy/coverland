@@ -4,8 +4,8 @@ import { createContext, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import { TSeatCoverDataDB } from '@/lib/db/seat-covers';
 import { TPathParams, TQueryParams, getCompleteSelectionData } from '@/utils';
-import { compareRawStrings } from '@/lib/utils';
-import { TReviewData } from '@/lib/db';
+import { compareRawStrings, isFullSet } from '@/lib/utils';
+import { TReviewData } from '@/lib/types/review';
 import { TProductReviewSummary } from '@/lib/db/review';
 
 type SeatCoverSelectionStore = ReturnType<typeof createSeatCoverSelectionStore>;
@@ -39,6 +39,7 @@ export interface ISeatCoverCoverSelectionState extends ISeatCoverCoverProps {
   setQuery: (newQuery: Partial<TQuery>) => void;
   isComplete: boolean;
   setReviewData: (newReviewData: TReviewData[]) => void;
+  addReviewData: (data: TReviewData[]) => void;
   setReviewDataSummary: (newReviewDataSummary: TProductReviewSummary) => void;
   reviewImageTracker: Record<string, boolean>;
   setReviewImageTracker: (newImageTracker: Record<string, boolean>) => void;
@@ -108,6 +109,17 @@ const createSeatCoverSelectionStore = ({
     data: modelDataWithFilteredSubmodel2Selection,
   });
 
+  const firstAvailableSet = modelDataWithFilteredSubmodel2Selection.filter(
+    (seatCover) =>
+      isFullSet(seatCover.display_set) ===
+      isFullSet(modelDataWithFilteredSubmodel2Selection[0].display_set)
+  );
+
+  const availableColors = new Set(['gray', 'black', 'beige']);
+  const firstAvaiableColor = firstAvailableSet
+    .map((seatCover) => seatCover.display_color.toLowerCase())
+    .filter((color) => availableColors.has(color));
+
   return createStore<ISeatCoverCoverSelectionState>()((set, get) => ({
     modelData: modelDataWithFilteredSubmodel2Selection,
     query: initialQueryState,
@@ -143,6 +155,8 @@ const createSeatCoverSelectionStore = ({
     setReviewData: (newReviewData: TReviewData[]) => {
       set(() => ({ reviewData: newReviewData }));
     },
+    addReviewData: (data: TReviewData[]) =>
+      set((state) => ({ reviewData: [...state.reviewData, ...data] })),
     reviewDataSummary: initialReviewDataSummary,
     setReviewDataSummary: (newReviewDataSummary: TProductReviewSummary) => {
       set(() => ({ reviewDataSummary: newReviewDataSummary }));
@@ -150,6 +164,14 @@ const createSeatCoverSelectionStore = ({
     setReviewsWithImages: (newReviewImages: TReviewData[]) => {
       set(() => ({ reviewImages: newReviewImages }));
     },
+    selectedSetDisplay:
+      isFullSet(modelDataWithFilteredSubmodel2Selection[0]?.display_set) ?? '',
+    setSelectedSetDisplay: (netSet: TSeatCoverDataDB) => {
+      set(() => ({ selectedSetDisplay: netSet }));
+    },
+    availableColors: firstAvaiableColor,
+    setAvailableColors: (newAvailableColors: string[]) =>
+      set(() => ({ availableColors: newAvailableColors })),
   }));
 };
 
