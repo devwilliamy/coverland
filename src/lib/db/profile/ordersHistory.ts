@@ -157,32 +157,33 @@ export async function fetchUserRecentOrders(
         if (!products) return;
 
         // Combine the data as needed
-        const userOrdersWithItemsAndProducts = orders.map((order) => {
-          const items = orderItems
-            .filter((item) => item.order_id === order.id)
-            .map((item) => {
-              const product = products.find(
-                (product) => product.id === item.product_id
-              );
-              return {
-                id: item.id,
-                order_id: item.order_id,
-                product_id: item.product_id,
-                quantity: item.quantity,
-                price: formatMoney(item.price) || item.price,
-                product: product,
-              };
-            });
+        const userOrdersWithItemsAndProducts = orders.map(
+          ({ id, order_id, total_amount, payment_date }) => {
+            const items = orderItems
+              .filter((item) => item.order_id === id)
+              .map(({ id, order_id, product_id, quantity, price }) => {
+                const product = products.find(
+                  (product) => product.id === product_id
+                );
+                return {
+                  id,
+                  order_id,
+                  product_id,
+                  quantity,
+                  price: formatMoney(price) || price,
+                  product,
+                };
+              });
 
-          return {
-            id: order.id,
-            order_id: order.order_id,
-            total_amount: formatMoney(order.total_amount) || order.total_amount,
-            payment_date:
-              formatISODate(order.payment_date) || order.payment_date,
-            items: items,
-          };
-        });
+            return {
+              id,
+              order_id,
+              total_amount: formatMoney(total_amount) || total_amount,
+              payment_date: formatISODate(payment_date) || payment_date,
+              items,
+            };
+          }
+        );
 
         return userOrdersWithItemsAndProducts;
       } catch (err) {
