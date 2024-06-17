@@ -439,25 +439,27 @@ export default function AddressForm({
         />
       )}
 
-      <p
-        className="col-span-2 cursor-pointer text-[14px] font-[400] leading-[16.4px] text-[#767676] underline"
-        onClick={() => {
-          const formValues: Record<string, string> = getValues();
-          // console.log({ formValues });
-          if (isManualAddress) {
-            setAddress('');
-          }
-          setIsManualAddress((prev) => !prev);
-          setValue('line1', '');
-          setValue('line2', '');
-          setValue('city', '');
-          setValue('state', '');
-          setValue('postal_code', '');
-          setValue('phoneNumber', '');
-        }}
-      >
-        {isManualAddress ? 'Find address' : 'Enter address manually'}
-      </p>
+      <div className="col-span-2 w-full">
+        <p
+          className="w-fit cursor-pointer text-[14px] font-[400] leading-[16.4px] text-[#767676] underline"
+          onClick={() => {
+            const formValues: Record<string, string> = getValues();
+            // console.log({ formValues });
+            if (isManualAddress) {
+              setAddress('');
+            }
+            setIsManualAddress((prev) => !prev);
+            setValue('line1', '');
+            setValue('line2', '');
+            setValue('city', '');
+            setValue('state', '');
+            setValue('postal_code', '');
+            setValue('phoneNumber', '');
+          }}
+        >
+          {isManualAddress ? 'Find address' : 'Enter address manually'}
+        </p>
+      </div>
       <div className="col-span-2 grid grid-cols-2 gap-6">
         <OverlappingLabel
           title="Email"
