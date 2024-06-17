@@ -60,8 +60,14 @@ const OrderList = ({ orders }: OrderListProps) => {
                   <OrderItem key={item.id} item={item} />
                 ))}
               </ul>
-              <Link href={`/order/${order.id}`}>
-                Order ID: {order.id} - Total Amount: {order.total_amount}
+              <Link href={`/profile/orders/${order.id}`}>
+                {/* Provide aria-label for additional context */}
+                <div
+                  className="order-link"
+                  aria-label={`View details for Order ${order.id}`}
+                >
+                  Order ID: {order.id} - Total Amount: {order.total_amount}
+                </div>
               </Link>
             </div>
           ))
