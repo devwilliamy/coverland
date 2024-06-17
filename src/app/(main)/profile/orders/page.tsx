@@ -18,12 +18,17 @@ const OrdersPage = async () => {
   const supabase: SupabaseClient = createSupabaseServerClient(cookieStore);
   let orders: TInitialOrdersDataDB[] = [];
 
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-
-  if (!user) {
-    redirect('/login');
+  try {
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
+  
+    if (!user) {
+      redirect('/login');
+    }
+  } catch (error) {
+    console.error('Error getting user:', error);
+    redirect('/login'); // Redirect to login page in case of error
   }
 
   try {
