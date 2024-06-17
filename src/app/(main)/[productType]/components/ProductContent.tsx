@@ -3,7 +3,7 @@ import { Separator } from '@/components/ui/separator';
 import { Rating } from '@mui/material';
 import { CarSelectionContext } from '@/contexts/CarSelectionContext';
 import { useMediaQuery } from '@mantine/hooks';
-import { Suspense, useContext, useState } from 'react';
+import { Suspense, useContext, useEffect, useState } from 'react';
 import CartSheet from '@/components/cart/CartSheet';
 import { compareRawStrings, deslugify } from '@/lib/utils';
 
@@ -94,10 +94,52 @@ export function ProductContent({
 
   const defaultPrice: number = defaultMSRP * 2;
   const isStandardPrice = isStandardType ? defaultMSRP : defaultMSRP - 0.05;
+  const [discountPercent, setDiscountPercent] = useState<string | null>('50%');
+  // let quantityBetween1and5: boolean;
+  // let quantityBetween6and10: boolean;
+  const [between1and5, setBetween1and5] = useState(false);
+  const [between6and10, setBetween6and10] = useState(false);
+  const [newMSRP, setNewMSRP] = useState(0);
+  useEffect(() => {
+    if (!cartProduct) return;
+    console.log();
+    const quantityBetween1and5 =
+      Number(cartProduct.quantity) >= 1 && Number(cartProduct.quantity) <= 5;
+    const quantityBetween6and10 =
+      Number(cartProduct.quantity) >= 6 && Number(cartProduct.quantity) <= 10;
+    const evenCartProductPrice = Number(cartProduct.price);
+    let calcedPrice: number;
+    // if 1 <= x <= 5
+    if (quantityBetween1and5) {
+      calcedPrice = Number((cartProduct.msrp = cartProduct.price));
+      console.log({ calcedPrice });
+      setDiscountPercent(null);
+      setNewMSRP(calcedPrice);
+    }
+    // Else if 6 <= x <= 10
+    else if (quantityBetween6and10) {
+      calcedPrice =
+        evenCartProductPrice - Math.floor(evenCartProductPrice / 4) - 0.05;
+      setNewMSRP(calcedPrice);
+      setBetween1and5(true);
+      console.log({
+        evenCartProductPrice,
+        quarterPrice: Math.floor(evenCartProductPrice / 4),
+        calcedPrice,
+      });
+      setBetween6and10(true);
+      setDiscountPercent('25%');
+    }
+  }, [modelData]);
 
   const handleAddToCart = () => {
     if (!cartProduct) return;
     setAddToCartOpen(true);
+
+    if (between1and5 || between6and10) {
+      return addToCart({ ...cartProduct, msrp: newMSRP, quantity: 1 });
+    }
+
     return addToCart({ ...cartProduct, quantity: 1 });
   };
 
@@ -158,9 +200,14 @@ export function ProductContent({
         </p>
         <div className=" flex  items-end gap-[9px]   text-center text-[28px] font-[900]  lg:text-[32px] lg:leading-[37.5px] ">
           <div className="leading-[20px]">
-            ${isComplete ? `${Number(selectedProduct?.msrp)}` : isStandardPrice}
+            $
+            {isComplete
+              ? newMSRP
+                ? newMSRP
+                : `${Number(cartProduct?.msrp)}`
+              : isStandardPrice}
           </div>
-          {selectedProduct?.price && (
+          {selectedProduct?.price && discountPercent && (
             <div className="flex gap-1.5 pb-[1px] text-[22px] font-[400] leading-[14px] text-[#BE1B1B] lg:text-[22px] ">
               <span className=" text-[#BEBEBE] line-through">
                 $
@@ -168,7 +215,7 @@ export function ProductContent({
                   ? `${Number(selectedProduct?.price)}`
                   : defaultPrice}
               </span>
-              <p>(-50%)</p>
+              {discountPercent && <p>(-{discountPercent})</p>}
             </div>
           )}
         </div>

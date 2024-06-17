@@ -245,6 +245,15 @@ const CarSelectionProvider = ({
   const secondSubmodelParams = searchParams?.submodel2 ?? '';
   if (modelDataProps.length === 0) {
     router.push('/404');
+  } else if (modelDataProps.length >= 1 && modelDataProps.length <= 5) {
+    // console.log('[CAR WITH EXTREMELY LOW QUANTITY]:', modelDataProps);
+    for (const iterator of modelDataProps) {
+      if (iterator) {
+        console.log(iterator);
+      }
+    }
+  } else if (modelDataProps.length >= 6 && modelDataProps.quantity <= 10) {
+    console.log('[CAR WITH LOW QUANTITY]:', modelDataProps.quantity);
   }
 
   const queryParams = {

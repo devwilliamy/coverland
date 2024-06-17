@@ -1,5 +1,5 @@
 import { Button } from '@/components/ui/button';
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { SeatCoverSelectionContext } from '@/contexts/SeatCoverContext';
 import { useStore } from 'zustand';
 import { TSeatCoverDataDB } from '@/lib/db/seat-covers';
@@ -62,6 +62,46 @@ export default function SeatCoverSelection({
   const availableSeatCovers = modelData.filter(
     (seatCover) => seatCover.display_color === selectedColor
   );
+
+  const defaultPrice: number = defaultMSRP * 2;
+  const isStandardPrice = isStandardType ? defaultMSRP : defaultMSRP - 0.05;
+  const [discountPercent, setDiscountPercent] = useState<string | null>('50%');
+  // let quantityBetween1and5: boolean;
+  // let quantityBetween6and10: boolean;
+  const [between1and5, setBetween1and5] = useState(false);
+  const [between6and10, setBetween6and10] = useState(false);
+  const [newMSRP, setNewMSRP] = useState(0);
+  useEffect(() => {
+    if (!selectedProduct) return;
+    console.log();
+    const quantityBetween1and5 =
+      Number(selectedProduct.quantity) >= 1 && Number(selectedProduct.quantity) <= 5;
+    const quantityBetween6and10 =
+      Number(selectedProduct.quantity) >= 6 && Number(selectedProduct.quantity) <= 10;
+    const evenCartProductPrice = Number(selectedProduct.price);
+    let calcedPrice: number;
+    // if 1 <= x <= 5
+    if (quantityBetween1and5) {
+      calcedPrice = Number((selectedProduct.msrp = selectedProduct.price));
+      console.log({ calcedPrice });
+      setDiscountPercent(null);
+      setNewMSRP(calcedPrice);
+    }
+    // Else if 6 <= x <= 10
+    else if (quantityBetween6and10) {
+      calcedPrice =
+        evenCartProductPrice - Math.floor(evenCartProductPrice / 4) - 0.05;
+      setNewMSRP(calcedPrice);
+      setBetween1and5(true);
+      console.log({
+        evenCartProductPrice,
+        quarterPrice: Math.floor(evenCartProductPrice / 4),
+        calcedPrice,
+      });
+      setBetween6and10(true);
+      setDiscountPercent('25%');
+    }
+  }, [modelData]);
 
   function handleSeatSelected(type) {
     let seatCover = type === 'full' ? fullSeatCovers : frontSeatCovers;
