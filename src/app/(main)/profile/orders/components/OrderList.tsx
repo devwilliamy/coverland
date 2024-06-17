@@ -34,7 +34,7 @@ const OrderList = ({ orders }: OrderListProps) => {
                   <span className="mb-1 min-w-[110px] text-base font-normal text-[#707070]">
                     Order Number
                   </span>
-                  <span className="font-semibold">#{order.id}</span>
+                  <span className="font-semibold">#{order.order_id}</span>
                 </div>
                 <div className="justify-left flex gap-2">
                   <span className="mb-1 min-w-[110px] text-base font-normal text-[#707070]">

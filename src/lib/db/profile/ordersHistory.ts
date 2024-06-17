@@ -35,6 +35,7 @@ export type TOrderItem = {
 
 export type TUserOrders = {
   id: number;
+  order_id: string;
   payment_date: string;
   total_amount: number;
   items?: TInitialOrderItemsDataDB[]; // Optional because it will be added after fetching
@@ -170,6 +171,7 @@ export async function fetchUserRecentOrders(
 
           return {
             id: order.id,
+            order_id: order.order_id,
             total_amount: formatMoney(order.total_amount) || order.total_amount,
             payment_date:
               formatISODate(order.payment_date) || order.payment_date,
