@@ -18,11 +18,11 @@ export const getOrderSubtotal = (order: TInitialOrdersDataDB): number => {
 }
 
 export const getOrderItemDiscount = (item: TInitialOrderItemsDataDB): number => {
-    return item.product?.discount * item.quantity;
+    return parseFloat(item.product?.discount * item.quantity).toFixed(2);
 }
 
 export const getProductDiscount = (product: TInitialProductDataDB): number => {
-    return product.price - product.msrp;
+    return parseFloat(product.price - product.msrp).toFixed(2);
 }
 
 export const getOrderTotalDiscount = (order: TInitialOrdersDataDB): number => {
@@ -30,7 +30,7 @@ export const getOrderTotalDiscount = (order: TInitialOrdersDataDB): number => {
     order.items?.forEach(item => {
         totalDiscount += item.product.discount * item.quantity; // neither item nor product has a discount property
     });
-    return totalDiscount;
+    return parseFloat(totalDiscount).toFixed(2);
 }
 
 // export const getOrderTotalDiscount = (order: TInitialOrdersDataDB): number => {

@@ -32,7 +32,7 @@ const OrderItem = ({ item }: OrderItemProps) => {
           <div className="mb-1">
             Qty: {item.quantity} @ ${item.product?.msrp}
           </div>
-          <div>{item.price}</div>
+          <div>${item.price}</div>
         </div>
       </div>
     </li>

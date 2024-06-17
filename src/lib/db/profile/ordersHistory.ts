@@ -11,7 +11,13 @@ import { createSupabaseServerClient } from '@/lib/db/supabaseClients';
 
 import { formatISODate } from '@/lib/utils/date';
 import { formatMoney } from '@/lib/db/profile/utils/money';
-import { getOrderSubtotal, getOrderItemDiscount, getProductDiscount, getOrderTotalDiscount } from '@/lib/db/profile/utils/orderSummary';
+import { formatMoneyAsNumber } from '@/lib/utils/money';
+import {
+  getOrderSubtotal,
+  getOrderItemDiscount,
+  getProductDiscount,
+  getOrderTotalDiscount,
+} from '@/lib/db/profile/utils/orderSummary';
 
 import { TInitialProductDataDB } from '..';
 import { Tables } from '../types';
@@ -158,36 +164,73 @@ export async function fetchUserRecentOrders(
         const products = await fetchOrderItemProducts(productIds);
         if (!products) return;
 
-        // Combine the data as needed
-        const userOrdersWithItemsAndProducts = orders.map(
-          ({ id, order_id, total_amount, payment_date }) => {
-            const items = orderItems
-              .filter((item) => item.order_id === id)
-              .map(({ id, order_id, product_id, quantity, price }) => {
-                const product = products.find(
-                  (product) => product.id === product_id
-                );
-                return {
-                  id,
-                  order_id,
-                  product_id,
-                  quantity,
-                  price: formatMoney(price) || price,
-                  product,
-                };
-              });
+        // Create a final userOrders object that contains all desired data (items, products, discounts, subtotal, etc.)
+        const userOrders = orders.map((order) => {
+          // Filter items that belong to the current order and map them to include product information and discounts
+          const items = orderItems
+            .filter((item) => item.order_id === order.id)
+            .map((item) => {
+              const {
+                id: itemId,
+                order_id,
+                product_id,
+                quantity,
+                price,
+              } = item;
 
-            return {
-              id,
-              order_id,
-              total_amount: formatMoney(total_amount) || total_amount,
-              payment_date: formatISODate(payment_date) || payment_date,
-              items,
-            };
-          }
-        );
+              const product = products.find(
+                (product) => product.id === product_id
+              );
 
-        return userOrdersWithItemsAndProducts;
+              if (!product) {
+                // Handle case where product is not found
+                console.error(`Product not found for item id ${itemId}`);
+                return null;
+              }
+
+              const productWithDiscount = {
+                ...product,
+                discount: getProductDiscount(product), // Calculate and add a product discount property
+              };
+
+              return {
+                id: itemId,
+                order_id,
+                product_id,
+                quantity,
+                price: formatMoneyAsNumber(price) || price,
+                product: productWithDiscount,
+                // Add an item discount property that's based on item quantity * product discount
+                item_discount: getOrderItemDiscount({
+                  ...item,
+                  product: productWithDiscount, // Pass productWithDiscount instead of product
+                }),
+              };
+            })
+            .filter((item) => item !== null); // Remove null items if any
+
+          // Calculate and format additional expected order properties (total amount, payment date, subtotal, total discount)
+          const orderWithItemsProductsAndDiscounts = {
+            ...order,
+            total_amount:
+              formatMoneyAsNumber(order.total_amount) || order.total_amount,
+            payment_date:
+              formatISODate(order.payment_date) || order.payment_date,
+            items,
+            subtotal: formatMoneyAsNumber(
+              getOrderSubtotal({ ...order, items })
+            ),
+            total_discount: formatMoneyAsNumber(
+              getOrderTotalDiscount({ ...order, items })
+            ),
+          };
+
+          return orderWithItemsProductsAndDiscounts;
+        });
+
+        console.log(userOrders);
+
+        return userOrders;
       } catch (err) {
         console.error('Unexpected error fetching products:', err);
         return null;
@@ -201,7 +244,6 @@ export async function fetchUserRecentOrders(
     return null;
   }
 }
-
 
 /* 
 The purpose of this file is to fetch a list of user orders, with their items and related products
@@ -233,135 +275,185 @@ It outputs an array of orders with the following basic structure:
   ]
 
 
-  Example of an Order:
-  {
-    id: 1564,
-    order_id: 'CL-TEST-240612-SE-0098',
-    order_date: '2024-06-12T18:18:59+00:00',
-    total_amount: '$999.75',
-    status: 'COMPLETE',
-    transaction_id: 'pi_3PQvl9DnAldfe1lt3NVsviVL',
-    payment_status: 'succeeded',
-    payment_method: 'card',
-    card_amount: 999.75,
-    card_brand: 'visa',
-    card_fingerprint: 'TQvfz2g4Iq6DtrG1',
-    card_funding: 'credit',
-    customer_id: 1284,
-    payment_date: '06/12/2024',
-    customer_name: 'John Lee',
-    customer_email: 'john.l.coverland@gmail.com',
-    customer_phone: null,
-    shipping_address_line_1: '4242 Main Street',
-    shipping_address_line_2: 'PO Box 424',
-    shipping_address_city: 'Norwalk',
-    shipping_address_state: 'CA',
-    shipping_address_postal_code: '42424',
-    shipping_address_country: 'US',
-    shipping_carrier: null,
-    shipping_tracking_number: null,
-    billing_address_line_1: '4242 Main Street',
-    billing_address_line_2: 'PO Box 424',
-    billing_address_city: 'Norwalk',
-    billing_address_state: 'CA',
-    billing_address_postal_code: '42424',
-    billing_address_country: 'US',
-    notes: null,
-    created_at: '2024-06-12T18:18:59.847307+00:00',
-    updated_at: '2024-06-12T18:45:38.703+00:00',
-    payment_method_id: 'pm_1PQvleDnAldfe1ltjRJw99ZS',
-    skus: 'CL-SC-10-F-10-BE-1TO-20031,CL-SC-10-F-10-GR-1TO-10275',
-    currency: 'usd',
-    payment_gateway: 'stripe',
-    payment_gateway_customer_id: null,
-    wallet_type: null,
-    billing_customer_name: 'John Lee',
-    created_at_pst: '2024-06-12T11:18:59.847307+00:00',
-    items: [ [Object], [Object] ], // ** These are the order items **
-    subtotal: 2000,
-    total_discount: 1000.25
-  }
-
-
-
-Example of Order Items:
-
-order items [
-  {
-    id: 975,
-    order_id: 1599,
-    product_id: 20144,
-    quantity: 4,
-    price: '$799.80',
-    product: {
-      id: 20144,
-      sku: 'CL-SC-10-F-10-BE-1TO-20031',
-      type: 'Seat Covers',
-      make: 'BMW',
-      model: 'X3',
-      year_generation: '2011-2024',
-      parent_generation: '2011-2024',
-      submodel1: null,
-      submodel2: null,
-      submodel3: null,
-      feature: 'http://www.coverland.com/custom-leather-seat-cover/01-seatcover-pc-be-1to.webp',
-      product: 'http://www.coverland.com/custom-leather-seat-cover/01-seatcover-pc-be-1to.webp,http://www.coverland.com/custom-leather-seat-cover/02-seatcover-pc-be-1to.webp,http://www.coverland.com/custom-leather-seat-cover/03-seatcover-pc-be-1to.webp,http://www.coverland.com/custom-leather-seat-cover/04-seatcover-pc-be-1to.webp,http://www.coverland.com/custom-leather-seat-cover/05-seatcover-pc-be-1to.webp,http://www.coverland.com/custom-leather-seat-cover/06-seatcover-pc-be-1to.webp,http://www.coverland.com/custom-leather-seat-cover/07-seatcover-pc-be-1to.webp,http://www.coverland.com/custom-leather-seat-cover/08-seatcover-pc-be-1to.webp,http://www.coverland.com/custom-leather-seat-cover/09-seatcover-pc-be-1to.webp',
-      display_color: 'Beige',
-      msrp: 199.95,
-      price: 400,
-      quantity: '110',
-      display_id: 'Leather',
-      make_slug: 'bmw',
-      model_slug: 'x3',
-      year_options: '2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024',
-      banner: null,
-      product_video_carousel: null,
-      product_video_carousel_thumbnail: null,
-      product_video_zoom: null,
-      product_video_360: null,
-      display_set: 'Front Seats',
-      discount: 200.05
+  Example of userOrders:
+ [
+    {
+      id: 1972,
+      order_id: 'CL-TEST-240614-MX-0040',
+      order_date: '2024-06-14T20:27:03+00:00',
+      total_amount: '639.85',
+      status: 'COMPLETE',
+      transaction_id: 'pi_3PRgiBDnAldfe1lt2B1Deono',
+      payment_status: 'succeeded',
+      payment_method: 'card',
+      card_amount: 639.85,
+      card_brand: 'visa',
+      card_fingerprint: 'TQvfz2g4Iq6DtrG1',
+      card_funding: 'credit',
+      customer_id: 1284,
+      payment_date: '06/14/2024',
+      customer_name: 'John Lee',
+      customer_email: 'john.l.coverland@gmail.com',
+      customer_phone: null,
+      shipping_address_line_1: '4242 Main Street',
+      shipping_address_line_2: 'PO Box 424',
+      shipping_address_city: 'Norwalk',
+      shipping_address_state: 'CA',
+      shipping_address_postal_code: '42424',
+      shipping_address_country: 'US',
+      shipping_carrier: null,
+      shipping_tracking_number: null,
+      billing_address_line_1: '4242 Main Street',
+      billing_address_line_2: 'PO Box 424',
+      billing_address_city: 'Norwalk',
+      billing_address_state: 'CA',
+      billing_address_postal_code: '42424',
+      billing_address_country: 'US',
+      notes: null,
+      created_at: '2024-06-14T20:27:03.971098+00:00',
+      updated_at: '2024-06-14T20:27:23.257+00:00',
+      payment_method_id: 'pm_1PRgiSDnAldfe1ltY3Acgj4G',
+      skus: 
+        'CL-CC-CP-15-J-BKRD-STR-PP-100111,CL-SC-10-F-10-B-22-BE-1TO-10193,CL-SC-10-F-10-GR-1TO-10193',
+      currency: 'usd',
+      payment_gateway: 'stripe',
+      payment_gateway_customer_id: null,
+      wallet_type: null,
+      billing_customer_name: 'John Lee',
+      created_at_pst: '2024-06-14T13:27:03.971098+00:00',
+      shipping_previous_status: null,
+      shipping_status: null,
+      shipping_status_last_updated_pst: null,
+      shipping_service: null,
+      shipping_status_last_updated: null,
+      items: [
+        {
+          id: 1547,
+          order_id: 1972,
+          product_id: 114,
+          quantity: 1,
+          price: '159.95',
+          product: {
+            id: 114,
+            sku: 'CL-CC-CP-15-J-BKRD-STR-PP-100111',
+            type: 'Car Covers',
+            make: 'Aston Martin',
+            model: 'DB12',
+            year_generation: '2024-2025',
+            parent_generation: '2024-2025',
+            submodel1: null,
+            submodel2: null,
+            submodel3: null,
+            feature: 'http://www.coverland.com/custom-cover/01-bkrd-str-m.webp',
+            product: 
+              'http://www.coverland.com/custom-cover/01-bkrd-str-m.webp,http://www.coverland.com/pms/02-bkrd-str-m.webp,http://www.coverland.com/pms/03-bkrd-str-m.webp,http://www.coverland.com/pms/04-bkrd-str-m.webp,http://www.coverland.com/pms/05-bkrd-str-m.webp,http://www.coverland.com/pms/06-bkrd-str-m.webp,http://www.coverland.com/pms/07-bkrd-str-m.webp,http://www.coverland.com/pms/08-bkrd-str-m.webp,http://www.coverland.com/pms/09-bkrd-str-m.webp,http://www.coverland.com/pms/10-bkrd-str-m.webp,http://www.coverland.com/pms/11-bkrd-str-m.webp,http://www.coverland.com/pms/12-bkrd-str-m.webp',
+            display_color: 'Black Red Stripe',
+            msrp: 159.95,
+            price: 320,
+            quantity: '34',
+            display_id: 'Premium Plus',
+            make_slug: 'aston-martin',
+            model_slug: 'db12',
+            year_options: '2024,2025',
+            banner: 
+              'https://coverland.sfo3.cdn.digitaloceanspaces.com/pdpbanner/pdpbanner-aston-martin-db12-2024-100111.webp',
+            product_video_carousel: 
+              'https://x2kly621zrgfgwll.public.blob.vercel-storage.com/videos/Challenger%20360%20Square_Small-40XPIrsyzagRPC7jg5IsiK3vIav0SN.mp4',
+            product_video_carousel_thumbnail: 
+              'http://coverland.com/video/thumbnails/Challenger_Thumbnail.webp',
+            product_video_zoom: 
+              'https://x2kly621zrgfgwll.public.blob.vercel-storage.com/videos/Challenger%20Zoom%20Video_Small-a6PwN5MRo4nAHSsKZ5EzlQqwCtkfa3.mp4',
+            product_video_360: 
+              'https://x2kly621zrgfgwll.public.blob.vercel-storage.com/videos/Challenger%20360%20Video_Small-ZuVCNYnGLFHCWL0kGSLH134B4pSasz.mp4',
+            display_set: null,
+            discount: '160.05'
+          },
+          item_discount: '160.05'
+        },
+        {
+          id: 1548,
+          order_id: 1972,
+          product_id: 27510,
+          quantity: 1,
+          price: '279.95',
+          product: {
+            id: 27510,
+            sku: 'CL-SC-10-F-10-B-22-BE-1TO-10193',
+            type: 'Seat Covers',
+            make: 'Bentley',
+            model: 'Flying Spur',
+            year_generation: '2014-2023',
+            parent_generation: '2014-2023',
+            submodel1: null,
+            submodel2: null,
+            submodel3: null,
+            feature: 
+              'http://www.coverland.com/custom-leather-seat-cover/01-seatcover-pc-be-1to.webp',
+            product: 
+              'http://www.coverland.com/custom-leather-seat-cover/01-seatcover-pc-be-1to.webp,http://www.coverland.com/custom-leather-seat-cover/02-seatcover-pc-be-1to.webp,http://www.coverland.com/custom-leather-seat-cover/03-seatcover-pc-be-1to.webp,http://www.coverland.com/custom-leather-seat-cover/04-seatcover-pc-be-1to.webp,http://www.coverland.com/custom-leather-seat-cover/05-seatcover-pc-be-1to.webp,http://www.coverland.com/custom-leather-seat-cover/06-seatcover-pc-be-1to.webp,http://www.coverland.com/custom-leather-seat-cover/07-seatcover-pc-be-1to.webp,http://www.coverland.com/custom-leather-seat-cover/08-seatcover-pc-be-1to.webp,http://www.coverland.com/custom-leather-seat-cover/09-seatcover-pc-be-1to.webp',
+            display_color: 'Beige',
+            msrp: 279.95,
+            price: 560,
+            quantity: '110',
+            display_id: 'Leather',
+            make_slug: 'bentley',
+            model_slug: 'flying-spur',
+            year_options: '2014,2015,2016,2017,2018,2019,2020,2021,2022,2023',
+            banner: null,
+            product_video_carousel: null,
+            product_video_carousel_thumbnail: null,
+            product_video_zoom: null,
+            product_video_360: null,
+            display_set: 'Full Seat Set',
+            discount: '280.05'
+          },
+          item_discount: '280.05'
+        },
+        {
+          id: 1549,
+          order_id: 1972,
+          product_id: 21172,
+          quantity: 1,
+          price: '199.95',
+          product: {
+            id: 21172,
+            sku: 'CL-SC-10-F-10-GR-1TO-10193',
+            type: 'Seat Covers',
+            make: 'Bentley',
+            model: 'Flying Spur',
+            year_generation: '2014-2023',
+            parent_generation: '2014-2023',
+            submodel1: null,
+            submodel2: null,
+            submodel3: null,
+            feature: 
+              'http://www.coverland.com/custom-leather-seat-cover/01-seatcover-pc-gr-1to.webp',
+            product: 
+              'http://www.coverland.com/custom-leather-seat-cover/01-seatcover-pc-gr-1to.webp,http://www.coverland.com/custom-leather-seat-cover/02-seatcover-pc-gr-1to.webp,http://www.coverland.com/custom-leather-seat-cover/03-seatcover-pc-gr-1to.webp,http://www.coverland.com/custom-leather-seat-cover/04-seatcover-pc-gr-1to.webp,http://www.coverland.com/custom-leather-seat-cover/05-seatcover-pc-gr-1to.webp,http://www.coverland.com/custom-leather-seat-cover/06-seatcover-pc-gr-1to.webp,http://www.coverland.com/custom-leather-seat-cover/07-seatcover-pc-gr-1to.webp,http://www.coverland.com/custom-leather-seat-cover/08-seatcover-pc-gr-1to.webp,http://www.coverland.com/custom-leather-seat-cover/09-seatcover-pc-gr-1to.webp',
+            display_color: 'Gray',
+            msrp: 199.95,
+            price: 400,
+            quantity: '59',
+            display_id: 'Leather',
+            make_slug: 'bentley',
+            model_slug: 'flying-spur',
+            year_options: '2014,2015,2016,2017,2018,2019,2020,2021,2022,2023',
+            banner: null,
+            product_video_carousel: null,
+            product_video_carousel_thumbnail: null,
+            product_video_zoom: null,
+            product_video_360: null,
+            display_set: 'Front Seats',
+            discount: '200.05'
+          },
+          item_discount: '200.05'
+        }
+      ],
+      subtotal: 1280,
+      total_discount: '640.15'
     },
-    item_discount: 800.2
-  },
-  {
-    id: 976,
-    order_id: 1599,
-    product_id: 21254,
-    quantity: 1,
-    price: '$199.95',
-    product: {
-      id: 21254,
-      sku: 'CL-SC-10-F-10-GR-1TO-10275',
-      type: 'Seat Covers',
-      make: 'BMW',
-      model: 'i4',
-      year_generation: '2022-2024',
-      parent_generation: '2022-2024',
-      submodel1: null,
-      submodel2: null,
-      submodel3: null,
-      feature: 'http://www.coverland.com/custom-leather-seat-cover/01-seatcover-pc-gr-1to.webp',
-      product: 'http://www.coverland.com/custom-leather-seat-cover/01-seatcover-pc-gr-1to.webp,http://www.coverland.com/custom-leather-seat-cover/02-seatcover-pc-gr-1to.webp,http://www.coverland.com/custom-leather-seat-cover/03-seatcover-pc-gr-1to.webp,http://www.coverland.com/custom-leather-seat-cover/04-seatcover-pc-gr-1to.webp,http://www.coverland.com/custom-leather-seat-cover/05-seatcover-pc-gr-1to.webp,http://www.coverland.com/custom-leather-seat-cover/06-seatcover-pc-gr-1to.webp,http://www.coverland.com/custom-leather-seat-cover/07-seatcover-pc-gr-1to.webp,http://www.coverland.com/custom-leather-seat-cover/08-seatcover-pc-gr-1to.webp,http://www.coverland.com/custom-leather-seat-cover/09-seatcover-pc-gr-1to.webp',
-      display_color: 'Gray',
-      msrp: 199.95,
-      price: 400,
-      quantity: '59',
-      display_id: 'Leather',
-      make_slug: 'bmw',
-      model_slug: 'i4',
-      year_options: '2022,2023,2024',
-      banner: null,
-      product_video_carousel: null,
-      product_video_carousel_thumbnail: null,
-      product_video_zoom: null,
-      product_video_360: null,
-      display_set: 'Front Seats',
-      discount: 200.05
-    },
-    item_discount: 200.05
-  }
-]
+    ...
+  ]
 
 
 
