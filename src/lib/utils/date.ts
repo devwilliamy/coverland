@@ -40,6 +40,11 @@ export const getCurrentDateInPST = () => {
   return pstDate;
 };
 
+/**
+ * 
+ * @param isoDateString "2024-06-07T13:01:00-07:00"
+ * @returns string "06/07/2024"
+ */
 export function formatISODate(isoDateString: string): string {
   const date = new Date(isoDateString);
 
