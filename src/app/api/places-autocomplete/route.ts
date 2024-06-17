@@ -10,7 +10,6 @@ export async function POST(request: NextRequest) {
       'X-Goog-FieldMask': '*',
       'Content-Type': 'application/json',
     },
-    // body: {},
     body: JSON.stringify({
       input: addressInput,
       includeQueryPredictions: true,
@@ -19,7 +18,6 @@ export async function POST(request: NextRequest) {
         'street_number',
         'premise',
         'subpremise',
-        //   // 'geocode',
         'postal_code',
       ],
     }),
@@ -27,7 +25,7 @@ export async function POST(request: NextRequest) {
 
   const data = await res.json();
   const suggestions = data['suggestions'];
-  // console.log({ data: JSON.stringify(data.suggestions) });
+  console.log({ data: JSON.stringify(data.suggestions) });
 
   return NextResponse.json(suggestions, { status: 200 });
   //   return NextResponse.json(data, { status: 200 });

@@ -201,8 +201,8 @@ export default function AddressForm({
       });
 
       const data = await response.json();
-      const values = getValues();
-      // console.log({ data, values });
+      // const values = getValues();
+      console.log({ data });
       setSuggestions(data);
     } catch (error) {
       console.error(error);
