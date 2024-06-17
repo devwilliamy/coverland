@@ -134,44 +134,60 @@ export async function fetchUserRecentOrders(
   ordersQuantity: number
 ): Promise<TUserOrders[]> {
   // fetch recent user orders
-  const orders = await fetchUserOrders(ordersQuantity);
-  if (!orders) return;
+  try {
+    const orders = await fetchUserOrders(ordersQuantity);
+    if (!orders) return;
 
-  const orderIds = orders.map((order) => order.id);
+    const orderIds = orders.map((order) => order.id);
 
-  const orderItems = await fetchOrderItems(orderIds);
-  if (!orderItems) return;
+    try {
+      const orderItems = await fetchOrderItems(orderIds);
+      if (!orderItems) return;
 
-  const productIds = orderItems.map((item) => item.product_id);
+      const productIds = orderItems.map((item) => item.product_id);
 
-  const products = await fetchOrderItemProducts(productIds);
-  if (!products) return;
+      try {
+        const products = await fetchOrderItemProducts(productIds);
+        if (!products) return;
 
-  // Combine the data as needed
-  const userOrdersWithItemsAndProducts = orders.map((order) => {
-    const items = orderItems
-      .filter((item) => item.order_id === order.id)
-      .map((item) => {
-        const product = products.find(
-          (product) => product.id === item.product_id
-        );
-        return {
-          id: item.id,
-          order_id: item.order_id,
-          product_id: item.product_id,
-          quantity: item.quantity,
-          price: formatMoney(item.price) || item.price,
-          product: product,
-        };
-      });
+        // Combine the data as needed
+        const userOrdersWithItemsAndProducts = orders.map((order) => {
+          const items = orderItems
+            .filter((item) => item.order_id === order.id)
+            .map((item) => {
+              const product = products.find(
+                (product) => product.id === item.product_id
+              );
+              return {
+                id: item.id,
+                order_id: item.order_id,
+                product_id: item.product_id,
+                quantity: item.quantity,
+                price: formatMoney(item.price) || item.price,
+                product: product,
+              };
+            });
 
-    return {
-      id: order.id,
-      total_amount: formatMoney(order.total_amount) || order.total_amount,
-      payment_date: formatISODate(order.payment_date) || order.payment_date,
-      items: items,
-    };
-  });
+          return {
+            id: order.id,
+            total_amount: formatMoney(order.total_amount) || order.total_amount,
+            payment_date:
+              formatISODate(order.payment_date) || order.payment_date,
+            items: items,
+          };
+        });
 
-  return userOrdersWithItemsAndProducts;
+        return userOrdersWithItemsAndProducts;
+      } catch (err) {
+        console.error('Unexpected error fetching products:', err);
+        return null;
+      }
+    } catch (err) {
+      console.error('Unexpected error fetching order items:', err);
+      return null;
+    }
+  } catch (err) {
+    console.error('Unexpected error fetching user orders:', err);
+    return null;
+  }
 }
