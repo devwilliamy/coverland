@@ -46,42 +46,47 @@ async function fetchUserOrders(
 ): Promise<TUserOrders[] | null> {
   const cookieStore: ReadonlyRequestCookies = cookies();
   const supabase: SupabaseClient = createSupabaseServerClient(cookieStore);
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-
-  if (!user) {
-    console.error('No user is logged in');
-    return null;
-  }
-
-  // user object has unique UUID ('user_id') in supabase
-  const userId = user.id;
-
   try {
-    const { data, error } = await supabase
-      .from<Order>(ADMIN_PANEL_ORDERS)
-      // if you want to grab orderItems by order ids only
-      // .select('id')
-      // this returns an inner join between orders and auth.users
-      // .select('*, users(*)')
-      .select('*')
-      // filter by logged-in user_id (currently does not exist in Users table, need to add it?)
-      // .eq('user_id', userId)
-      .eq('customer_email', user?.email)
-      .in('status', ['COMPLETE', 'COMPLETED'])
-      .order('payment_date', { ascending: false }) // Order by latest date in descending order
-      .limit(ordersQuantity);
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
 
-    if (error) {
-      console.error('Error fetching User Orders from supabase:', error);
+    if (!user) {
+      console.error('No user is logged in');
       return null;
     }
 
-    return data;
-  } catch (err) {
-    console.error('Unexpected error fetching User Orders:', err);
-    return null;
+    // user object has unique UUID ('user_id') in supabase
+    const userId = user.id;
+
+    try {
+      const { data, error } = await supabase
+        .from<Order>(ADMIN_PANEL_ORDERS)
+        // if you want to grab orderItems by order ids only
+        // .select('id')
+        // this returns an inner join between orders and auth.users
+        // .select('*, users(*)')
+        .select('*')
+        // filter by logged-in user_id (currently does not exist in Users table, need to add it?)
+        // .eq('user_id', userId)
+        .eq('customer_email', user?.email)
+        .in('status', ['COMPLETE', 'COMPLETED'])
+        .order('payment_date', { ascending: false }) // Order by latest date in descending order
+        .limit(ordersQuantity);
+
+      if (error) {
+        console.error('Error fetching User Orders from supabase:', error);
+        return null;
+      }
+
+      return data;
+    } catch (err) {
+      console.error('Unexpected error fetching User Orders:', err);
+      return null;
+    }
+  } catch (error) {
+    console.error('Error getting user:', error);
+    // Handle the error case for getting the user
   }
 }
 
