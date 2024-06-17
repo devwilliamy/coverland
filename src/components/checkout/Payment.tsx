@@ -1,42 +1,18 @@
-import {
-  PaymentElement,
-  useElements,
-  useStripe,
-} from '@stripe/react-stripe-js';
-import { FormEvent, useState, useEffect } from 'react';
-import OrderReview from './OrderReview';
-import PriceBreakdown from './PriceBreakdown';
+import { useElements, useStripe } from '@stripe/react-stripe-js';
+import { useState } from 'react';
 import { Button } from '../ui/button';
 import { AiOutlineLoading3Quarters } from 'react-icons/ai';
 import { useCheckoutContext } from '@/contexts/CheckoutContext';
 import PaymentSelector from './PaymentSelector';
 import BillingAddress from './BillingAddress';
-import { useCartContext } from '@/providers/CartProvider';
 import { StripeCardNumberElement } from '@stripe/stripe-js';
 import { NewCheckout } from './NewCheckout';
 import Klarna from '@/images/checkout/Klarna-Black.webp';
 import Image from 'next/image';
-import { CreditCard } from 'lucide-react';
 import PayPalIcon from '../PDP/components/icons/PayPalIcon';
 import VisaBlue from '@/images/checkout/VisaLogoBlue.webp';
-import VisaWhite from '@/images/checkout/VisaLogoWhite.webp';
 import Mastercard from '@/images/checkout/MastercardIcon.webp';
-import {
-  convertPriceFromStripeFormat,
-  convertPriceToStripeFormat,
-  getSkuQuantityPriceFromCartItemsForMeta,
-  getSkusFromCartItems,
-} from '@/lib/utils/stripe';
-import { getCurrentDayInLocaleDateString } from '@/lib/utils/date';
 import { useRouter } from 'next/navigation';
-import { handlePurchaseGoogleTag } from '@/hooks/useGoogleTagDataLayer';
-import { hashData } from '@/lib/utils/hash';
-import { getCookie } from '@/lib/utils/cookie';
-import { v4 as uuidv4 } from 'uuid';
-import { generateSkuLabOrderInput } from '@/lib/utils/skuLabs';
-import { Separator } from '../ui/separator';
-import { determineDeliveryByDate } from '@/lib/utils/deliveryDateUtils';
-import { SHIPPING_METHOD } from '@/lib/constants';
 
 export default function Payment({
   handleChangeAccordion,
@@ -45,10 +21,7 @@ export default function Payment({
 }) {
   const stripe = useStripe();
   const elements = useElements();
-  const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
-  // const [paymentMethod, setPaymentMethod] =
-  //   useState<PaymentMethod>('creditCard');
   const [isEditingAddress, setIsEditingAddress] = useState(false);
   const [message, setMessage] = useState<string>('');
   const {
@@ -69,36 +42,11 @@ export default function Payment({
     paymentIntentId,
   } = useCheckoutContext();
 
-  const shippingInfo = {
-    shipping_method: SHIPPING_METHOD,
-    shipping_date: determineDeliveryByDate('EEE, LLL dd'),
-    delivery_fee: shipping,
-  };
-  const {
-    cartItems,
-    getTotalPrice,
-    getOrderSubtotal,
-    getTotalDiscountPrice,
-    getTotalCartQuantity,
-    clearLocalStorageCart,
-  } = useCartContext();
-  const totalMsrpPrice = convertPriceToStripeFormat(getTotalPrice() + shipping);
-
   const isDisabledCard =
     isEditingAddress ||
     Boolean(cardNumberError.error || !cardNumberError.visited) ||
     Boolean(cardExpiryError.error || !cardExpiryError.visited) ||
     Boolean(cardCvvError.error || !cardCvvError.visited);
-
-  // useEffect(() => {
-  //   // console.log({
-  //   //   isDisabledCard,
-  //   //   isEditingAddress,
-  //   //   cardVisited: cardNumberError,
-  //   //   expiryVisited: cardExpiryError,
-  //   //   cvvVisited: cardCvvError,
-  //   // });
-  // }, [cardNumberError, cardExpiryError, cardCvvError]);
 
   const { name } = shippingAddress;
   const { city, line1, state, postal_code, country } = shippingAddress.address;
@@ -141,6 +89,11 @@ export default function Payment({
         billing_details: customerBilling,
       })
       .then((paymentMethod) => {
+        if (paymentMethod.error) {
+          console.error(paymentMethod.error.message, paymentMethod.error);
+          setMessage(String(paymentMethod.error.message));
+          return;
+        }
         if (paymentMethod.paymentMethod?.type === 'card') {
           updateIsReadyToPay(true);
           updateStripePaymentMethod(paymentMethod);
