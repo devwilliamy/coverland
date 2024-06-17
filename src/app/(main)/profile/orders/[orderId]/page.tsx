@@ -48,9 +48,9 @@ const OrderDetailPage = async ({ params }: OrderDetailProps) => {
                 </div>
                 <div>
                     <div className="font-bold">Order Summary</div>
-                    <div>Order Subtotal{order.subtotal}</div>
-                    <div>Sale-discount {order.total_discount}</div>
-                    <div>Order Subtotal{order.total_amount}</div>
+                    <div>Order Subtotal ${order.subtotal}</div>
+                    <div>Sale-discount ${order.total_discount}</div>
+                    <div>Order total ${order.total_amount}</div>
                 </div>
             </div>
           </div>
