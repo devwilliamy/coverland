@@ -28,7 +28,7 @@ export default async function Profile() {
           <h1 className="mb-4 text-2xl font-bold">Profile</h1>
           <p className="mb-2">Email: {user.email}</p>
           <Link
-            className="mb-2 mt-2"
+            className="my-2"
             href="/profile/orders"
           >
             <Button className="bg-blue-500 hover:bg-blue-600 text-white">
