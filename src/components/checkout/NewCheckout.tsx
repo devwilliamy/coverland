@@ -12,7 +12,7 @@ import { getCurrentDayInLocaleDateString } from '@/lib/utils/date';
 import { useRouter } from 'next/navigation';
 import LockIcon from '../PDP/components/icons/LockIcon';
 import { CvvPopover } from './CvvPopover';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { LockKeyhole } from 'lucide-react';
 import {
   StripeCardCvcElementChangeEvent,
@@ -42,7 +42,9 @@ export const NewCheckout = () => {
     updateCardNumberError,
     updateCardExpiryError,
     updateCardCvvError,
+    paymentMethod,
   } = useCheckoutContext();
+  
 
   const paymentContainerStyle = `border rounded-[8px] px-[17px] py-[19px]`;
   if (!stripe || !elements) {
@@ -134,6 +136,7 @@ export const NewCheckout = () => {
           <LockIcon />
         </div>
         {/* <div className="h-full w-full"> */}
+      
         {/* <ExpressCheckoutElement
           className="h-full w-full min-w-[100vw]"
           options={{

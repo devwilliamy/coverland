@@ -229,10 +229,9 @@ export default function Payment({
           {paymentMethod === 'googlePay' && (
             <>
               <div>You will be redirected to Google Pay upon checkout.</div>
-              {/* <Button
-                disabled={isDisabledCard}
+              <Button
                 variant={'default'}
-                className={buttonStyle}
+                className={buttonStyle + ' mt-4'}
                 onClick={async (e) => {
                   // setIsLoading(true);
                   // handleSubmit(e);
@@ -245,7 +244,7 @@ export default function Payment({
                 ) : (
                   'Continue to Order Review'
                 )}
-              </Button> */}
+              </Button>
             </>
           )}
           {paymentMethod === 'klarna' && (
