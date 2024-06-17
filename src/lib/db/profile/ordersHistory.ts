@@ -9,7 +9,7 @@ import { SupabaseClient } from '@supabase/supabase-js';
 import { cookies } from 'next/headers';
 import { createSupabaseServerClient } from '@/lib/db/supabaseClients';
 
-import { formatISODate } from '@/lib/db/profile/utils/date';
+import { formatISODate } from '@/lib/utils/date';
 import { formatMoney } from '@/lib/db/profile/utils/money';
 import { TInitialProductDataDB } from '..';
 import { Tables } from '../types';
