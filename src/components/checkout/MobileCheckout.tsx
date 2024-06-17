@@ -308,11 +308,11 @@ export default function MobileCheckout() {
     const data = await response.json();
     const { id, client_secret } = data.paymentIntent;
     const retrievedSecret = client_secret;
-    console.log({
-      id,
-      retrievedSecret,
-      stripePaymentMethod: stripePaymentMethod?.paymentMethod,
-    });
+    // console.log({
+    //   id,
+    //   retrievedSecret,
+    //   stripePaymentMethod: stripePaymentMethod?.paymentMethod,
+    // });
 
     const customerShipping = {
       name: shippingAddress.name,
@@ -395,10 +395,10 @@ export default function MobileCheckout() {
           setIsLoading(false);
         });
 
-        console.log({
-          status: result?.paymentIntent?.status,
-          errors: result?.error,
-        });
+        // console.log({
+        //   status: result?.paymentIntent?.status,
+        //   errors: result?.error,
+        // });
 
         klarnaWindow?.document.location.replace(
           String(result.paymentIntent?.next_action?.redirect_to_url?.url)
@@ -415,7 +415,6 @@ export default function MobileCheckout() {
               .toString()
               .startsWith(`${origin}/checkout`)
           ) {
-            console.log({ url: klarnaWindow.location.href });
             klarnaWindow.close();
             setIsLoading(false);
             clearInterval(interval);
@@ -427,21 +426,6 @@ export default function MobileCheckout() {
             console.log('Payment window closed.');
 
             if (isSuccessful) {
-              console.log({
-                status: isSuccessful,
-              });
-              const emailInput = {
-                to: customerInfo.email,
-                name: {
-                  firstName: shippingAddress.firstName,
-                  fullName: `${shippingAddress.firstName} ${shippingAddress.lastName}`,
-                },
-                orderInfo: {
-                  orderDate: getCurrentDayInLocaleDateString(),
-                  orderNumber,
-                },
-              };
-              console.log({ shippingAddress });
               handleConversions();
               setIsLoading(false);
               router.push(

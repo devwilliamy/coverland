@@ -5,7 +5,6 @@ export const getPaymentIntent = async (paymentIntentId: string) => {
   const paymentIntent = await stripe.paymentIntents.retrieve(
     paymentIntentId as string
   );
-  console.log({ paymentIntent });
 
   return paymentIntent;
 };

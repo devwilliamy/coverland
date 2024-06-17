@@ -274,7 +274,6 @@ export default function DesktopCheckout() {
       to_country: shippingAddress.address.country,
       to_zip: shippingAddress.address.postal_code,
       to_state: twoLetterStateCode,
-      // amount: orderSubtotal,
       shipping: 0,
       line_items: taxItems,
     };
@@ -292,8 +291,6 @@ export default function DesktopCheckout() {
   };
 
   const handleSubmit = async () => {
-    // e.preventDefault();
-
     if (!stripe || !elements) {
       // Stripe.js hasn't yet loaded.
       // Make sure to disable form submission until Stripe.js has loaded.
@@ -309,7 +306,6 @@ export default function DesktopCheckout() {
     const origin = window.location.origin;
     const taxSum = Number(Number(cartMSRP) + Number(totalTax)).toFixed(2);
     const totalWithTax = convertPriceToStripeFormat(taxSum);
-    // console.log({ totalWithTax, orderSubtotal, totalTax, cartMSRP });
 
     const response = await fetch('/api/stripe/payment-intent', {
       method: 'PUT',
@@ -325,11 +321,6 @@ export default function DesktopCheckout() {
     const data = await response.json();
     const { id, client_secret } = data.paymentIntent;
     const retrievedSecret = client_secret;
-    console.log({
-      id,
-      retrievedSecret,
-      stripePaymentMethod: stripePaymentMethod?.paymentMethod,
-    });
 
     const customerShipping = {
       name: shippingAddress.name,
@@ -412,18 +403,13 @@ export default function DesktopCheckout() {
           setIsLoading(false);
         });
 
-        console.log({
-          status: result?.paymentIntent?.status,
-          errors: result?.error,
-        });
-
         klarnaWindow?.document.location.replace(
           String(result.paymentIntent?.next_action?.redirect_to_url?.url)
         );
 
         const interval = setInterval(async () => {
           if (!klarnaWindow) {
-            console.log('[NO KLARNA WINDOW]');
+            console.error('[NO KLARNA WINDOW]');
             clearInterval(interval);
           }
           if (
@@ -432,7 +418,6 @@ export default function DesktopCheckout() {
               .toString()
               .startsWith(`${origin}/checkout`)
           ) {
-            console.log({ url: klarnaWindow.location.href });
             klarnaWindow.close();
             setIsLoading(false);
             clearInterval(interval);
@@ -441,24 +426,8 @@ export default function DesktopCheckout() {
             const isSuccessful =
               (await stripe.retrievePaymentIntent(retrievedSecret))
                 .paymentIntent?.status === 'succeeded';
-            console.log('Payment window closed.');
 
             if (isSuccessful) {
-              console.log({
-                status: isSuccessful,
-              });
-              const emailInput = {
-                to: customerInfo.email,
-                name: {
-                  firstName: shippingAddress.firstName,
-                  fullName: `${shippingAddress.firstName} ${shippingAddress.lastName}`,
-                },
-                orderInfo: {
-                  orderDate: getCurrentDayInLocaleDateString(),
-                  orderNumber,
-                },
-              };
-              console.log({ shippingAddress });
               handleConversions();
               setIsLoading(false);
               router.push(

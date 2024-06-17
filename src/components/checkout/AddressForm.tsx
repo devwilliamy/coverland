@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { SyntheticEvent, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import OverlappingLabel from '../ui/overlapping-label';
 import { Button } from '../ui/button';
@@ -62,12 +62,6 @@ const formSchema = z.object({
   state: z.string().min(1, 'State is required'),
   postal_code: z.string().min(1, 'Postal code is required'),
   email: z.string().email({ message: 'Please enter a valid email address' }),
-  // phoneNumber: z
-  //   .string()
-  //   .regex(
-  //     /^(?:\+([0-9]{1,3})[-. ]?)?\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/,
-  //     { message: 'Please provide a valid phone number' }
-  //   ),
   phoneNumber: z.string().refine(
     (value) => {
       const phoneNumber = parsePhoneNumberFromString(value, 'US');
@@ -220,7 +214,7 @@ export default function AddressForm({
 
       const data = await response.json();
       // const values = getValues();
-      console.log({ data });
+      // console.log({ data });
       setSuggestions(data);
     } catch (error) {
       console.error(error);
@@ -241,10 +235,10 @@ export default function AddressForm({
       const formattedAddress: string = data.places[0].formattedAddress;
       const addressComponents: AddressComponent[] =
         data.places[0].addressComponents;
-      console.log('FORMATTED ADDRESS SEARCH', {
-        formattedAddress,
-        addressComponents,
-      });
+      // console.log('FORMATTED ADDRESS SEARCH', {
+      //   formattedAddress,
+      //   addressComponents,
+      // });
 
       let filteredAddressComponents = new Map();
 
@@ -256,7 +250,7 @@ export default function AddressForm({
             component.types.includes(key)
           ) {
             if (component.types.includes('administrative_area_level_1')) {
-              console.log({ state: component.shortText });
+              // console.log({ state: component.shortText });
               updateTwoLetterStateCode(component.shortText);
             }
             const val = autocompleteObj[key];
@@ -277,7 +271,7 @@ export default function AddressForm({
         setValue(arr[0], arr[1] ?? '');
       }
 
-      console.log({ addressData });
+      // console.log({ addressData });
 
       if (formattedAddress) {
         setAddress(formattedAddress);
@@ -289,6 +283,29 @@ export default function AddressForm({
     } finally {
       setLoading(false);
     }
+  };
+
+  const handleAutocompleteChange = (
+    e: SyntheticEvent<Element, Event>,
+    eventValue: any
+  ) => {
+    if (eventValue === null) {
+      return '';
+    }
+    const selectedString = String(eventValue.placePrediction?.text.text);
+    getAddressWithPostalCode(selectedString);
+  };
+
+  const handleAutocompleteInputChange = (
+    e: SyntheticEvent<Element, Event>,
+    newInputValue: any
+  ) => {
+    if (newInputValue === null) {
+      return '';
+    }
+    const val = String(newInputValue);
+    getAddressAutocompleteOptions(val);
+    setAddress(val);
   };
 
   return (
@@ -303,7 +320,7 @@ export default function AddressForm({
         title="First Name"
         name="firstName"
         errors={errors}
-        placeholder="John"
+        placeholder="First Name"
         register={register}
         options={{ required: true }}
         autoComplete="given-name"
@@ -312,7 +329,7 @@ export default function AddressForm({
         title="Last Name"
         name="lastName"
         errors={errors}
-        placeholder="Smith"
+        placeholder="Last Name"
         register={register}
         options={{ required: true }}
         autoComplete="family-name"
@@ -380,42 +397,27 @@ export default function AddressForm({
           getOptionLabel={(option) => {
             return option?.placePrediction?.text.text ?? option;
           }}
-          onOpen={() => {
-            setAddressOpen(true);
-          }}
-          onClose={() => {
-            setAddressOpen(false);
-          }}
-          onChange={(e, eventValue) => {
-            if (eventValue === null) {
-              return '';
-            }
-            const selectedString = String(
-              eventValue.placePrediction?.text.text
-            );
-            getAddressWithPostalCode(selectedString);
-          }}
-          onInputChange={(event, newInputValue) => {
-            if (newInputValue === null) {
-              return '';
-            }
-            const val = String(newInputValue);
-            getAddressAutocompleteOptions(val);
-            setAddress(val);
-          }}
+          onOpen={() => setAddressOpen(true)}
+          onClose={() => setAddressOpen(false)}
+          onChange={(e, eventValue) => handleAutocompleteChange(e, eventValue)}
+          onInputChange={(e, newInputValue) =>
+            handleAutocompleteInputChange(e, newInputValue)
+          }
           value={address?.placePrediction?.text.text ?? address}
           className="col-span-2 w-full"
           fullWidth
           options={suggestions}
           loading={loading}
           filterSelectedOptions
+          aria-placeholder=""
           noOptionsText="No locations"
           renderInput={(params) => (
             <TextField
               {...params}
               key={`text-field-address-auto`}
               label="Address"
-              placeholder="12345 Sunset Blvd, Los Angeles, CA 54321, USA" // With zipcode
+              // placeholder="12345 Sunset Blvd, Los Angeles, CA 54321, USA" // With zipcode
+              placeholder="Start typing address"
               fullWidth
             >
               {suggestions.map((suggestion) => {
@@ -441,7 +443,7 @@ export default function AddressForm({
         className="col-span-2 cursor-pointer text-[14px] font-[400] leading-[16.4px] text-[#767676] underline"
         onClick={() => {
           const formValues: Record<string, string> = getValues();
-          console.log({ formValues });
+          // console.log({ formValues });
           if (isManualAddress) {
             setAddress('');
           }
@@ -461,7 +463,7 @@ export default function AddressForm({
           title="Email"
           name="email"
           errors={errors}
-          placeholder="abc@gmail.com"
+          placeholder="Email"
           register={register}
           options={{ required: true }}
           autoComplete="email"

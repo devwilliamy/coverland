@@ -135,9 +135,6 @@ export default function Shipping({
           )}
         </div>
       )}
-      {/* {isReadyToShip && (
-      
-      )} */}
     </div>
   );
 }

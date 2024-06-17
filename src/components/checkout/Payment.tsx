@@ -123,6 +123,29 @@ export default function Payment({
     }
   };
   const buttonStyle = `mb-3 w-full rounded-lg ${isDisabledCard ? 'bg-[#1A1A1A]/90' : 'bg-[#1A1A1A] hover:bg-[#1A1A1A]/90'}  text-base font-bold uppercase text-white sm:h-[48px] lg:h-[55px] lg:text-xl`;
+
+  const handleSubmitCreditCard = () => {
+    setIsLoading(true);
+    const cardNumberElement = elements?.getElement(
+      'cardNumber'
+    ) as StripeCardNumberElement;
+
+    stripe
+      ?.createPaymentMethod({
+        type: 'card',
+        card: cardNumberElement,
+        billing_details: customerBilling,
+      })
+      .then((paymentMethod) => {
+        if (paymentMethod.paymentMethod?.type === 'card') {
+          updateIsReadyToPay(true);
+        }
+        updateStripePaymentMethod(paymentMethod);
+        handleChangeAccordion('orderReview');
+        setIsLoading(false);
+      });
+  };
+
   return (
     <section className="px-4 ">
       {/* <div className="mb-10 lg:hidden"><PromoCode /></div> */}
@@ -302,28 +325,7 @@ export default function Payment({
               disabled={isDisabledCard}
               variant={'default'}
               className={buttonStyle}
-              onClick={async (e) => {
-                setIsLoading(true);
-                // handleSubmit(e);
-                const cardNumberElement = elements?.getElement(
-                  'cardNumber'
-                ) as StripeCardNumberElement;
-
-                stripe
-                  ?.createPaymentMethod({
-                    type: 'card',
-                    card: cardNumberElement,
-                    billing_details: customerBilling,
-                  })
-                  .then((paymentMethod) => {
-                    if (paymentMethod.paymentMethod?.type === 'card') {
-                      updateIsReadyToPay(true);
-                    }
-                    updateStripePaymentMethod(paymentMethod);
-                    handleChangeAccordion('orderReview');
-                    setIsLoading(false);
-                  });
-              }}
+              onClick={async () => handleSubmitCreditCard()}
             >
               {isLoading ? (
                 <AiOutlineLoading3Quarters className="animate-spin" />

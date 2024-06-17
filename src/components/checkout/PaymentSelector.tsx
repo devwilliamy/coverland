@@ -23,12 +23,11 @@ function isIOS() {
   return /iPad|iPhone|iPod/.test(userAgent) && !window.MSStream;
 }
 
-// Example usage
-if (isIOS()) {
-  console.log('This is an iOS device');
-} else {
-  console.log('This is not an iOS device');
-}
+// if (isIOS()) {
+//   console.log('This is an iOS device');
+// } else {
+//   console.log('This is not an iOS device');
+// }
 
 const selctionStyle = `grid gap-2.5 grid-cols-[auto_58px_1fr] min-h-[30px] max-h-[30px] place-items-center`;
 
