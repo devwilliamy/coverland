@@ -9,6 +9,7 @@ import {
   getProductReviewSummary,
   getProductReviewsByPage,
 } from '@/lib/db/review';
+import { TReviewData, TProductReviewSummary } from '@/lib/types/review';
 
 export async function generateStaticParams() {
   return [{ coverType: 'leather' }];
@@ -50,6 +51,10 @@ export default async function SeatCoversPage({
               page: 0,
               limit: 8,
             },
+            sort: [
+              { field: 'sku', order: 'asc' },
+              { field: 'helpful', order: 'desc', nullsFirst: false },
+            ],
           }
         ),
         getProductReviewSummary({

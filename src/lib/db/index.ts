@@ -8,7 +8,6 @@ import {
   RELATIONS_PRODUCT_TABLE,
   RPC_GET_MAKE_RELATION,
   RPC_GET_UNIQUE_YEARS,
-  SEAT_COVERS_TABLE,
   TYPE_TABLE,
 } from './constants/databaseTableNames';
 
@@ -18,7 +17,6 @@ const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_KEY ?? '';
 const supabase = createClient<Database>(supabaseUrl, supabaseKey);
 
 export type TInitialProductDataDB = Tables<'Products'>;
-export type TReviewData = Tables<'reviews-2'>;
 
 //If the table you want to access isn't listed in TableRow,
 //generate new types in the Supabase dashboard to update
@@ -130,20 +128,10 @@ export async function getAllUniqueMakesByYear({
   typeId: string;
   yearId: string;
 }) {
-  const { data, error } =
-    // type === 'Seat Covers'
-    //   ? await supabase
-    //       .from(SEAT_COVERS_TABLE) // OR PRODUCT_DATA_TABLE
-    //       .select('make, make_slug')
-    //       .eq('type', type)
-    //       .eq('display_id', cover)
-    //       .like('year_options', `%${year}%`)
-    //       .order('make_slug', { ascending: true })
-    //   :
-    await supabase.rpc(RPC_GET_MAKE_RELATION, {
-      type_id_web: typeId,
-      year_id_web: yearId,
-    });
+  const { data, error } = await supabase.rpc(RPC_GET_MAKE_RELATION, {
+    type_id_web: typeId,
+    year_id_web: yearId,
+  });
 
   if (error) {
     throw new Error(error.message);

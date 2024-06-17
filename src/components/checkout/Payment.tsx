@@ -35,19 +35,8 @@ import { getCookie } from '@/lib/utils/cookie';
 import { v4 as uuidv4 } from 'uuid';
 import { generateSkuLabOrderInput } from '@/lib/utils/skuLabs';
 import { Separator } from '../ui/separator';
-
-// function isValidShippingAddress({ address }: StripeAddress) {
-//   return (
-//     address &&
-//     address.line1 !== '' &&
-//     // address.address_line_2 &&
-//     // address.line2 !== '' &&
-//     address.city !== '' &&
-//     address.state !== '' &&
-//     address.postal_code !== '' &&
-//     address.country !== ''
-//   );
-// }
+import { determineDeliveryByDate } from '@/lib/utils/deliveryDateUtils';
+import { SHIPPING_METHOD } from '@/lib/constants';
 
 export default function Payment({
   handleChangeAccordion,
@@ -76,8 +65,23 @@ export default function Payment({
     cardCvvError,
     stripePaymentMethod,
     updateStripePaymentMethod,
+    orderNumber,
+    paymentIntentId,
   } = useCheckoutContext();
-  const { getTotalPrice, clearLocalStorageCart } = useCartContext();
+
+  const shippingInfo = {
+    shipping_method: SHIPPING_METHOD,
+    shipping_date: determineDeliveryByDate('EEE, LLL dd'),
+    delivery_fee: shipping,
+  };
+  const {
+    cartItems,
+    getTotalPrice,
+    getOrderSubtotal,
+    getTotalDiscountPrice,
+    getTotalCartQuantity,
+    clearLocalStorageCart,
+  } = useCartContext();
   const totalMsrpPrice = convertPriceToStripeFormat(getTotalPrice() + shipping);
 
   const isDisabledCard =
@@ -86,15 +90,15 @@ export default function Payment({
     Boolean(cardExpiryError.error || !cardExpiryError.visited) ||
     Boolean(cardCvvError.error || !cardCvvError.visited);
 
-  useEffect(() => {
-    // console.log({
-    //   isDisabledCard,
-    //   isEditingAddress,
-    //   cardVisited: cardNumberError,
-    //   expiryVisited: cardExpiryError,
-    //   cvvVisited: cardCvvError,
-    // });
-  }, [cardNumberError, cardExpiryError, cardCvvError]);
+  // useEffect(() => {
+  //   // console.log({
+  //   //   isDisabledCard,
+  //   //   isEditingAddress,
+  //   //   cardVisited: cardNumberError,
+  //   //   expiryVisited: cardExpiryError,
+  //   //   cvvVisited: cardCvvError,
+  //   // });
+  // }, [cardNumberError, cardExpiryError, cardCvvError]);
 
   const { name } = shippingAddress;
   const { city, line1, state, postal_code, country } = shippingAddress.address;
@@ -124,7 +128,7 @@ export default function Payment({
   };
   const buttonStyle = `mb-3 w-full rounded-lg ${isDisabledCard ? 'bg-[#1A1A1A]/90' : 'bg-[#1A1A1A] hover:bg-[#1A1A1A]/90'}  text-base font-bold uppercase text-white sm:h-[48px] lg:h-[55px] lg:text-xl`;
 
-  const handleSubmitCreditCard = () => {
+  const handleContinueWithCard = () => {
     setIsLoading(true);
     const cardNumberElement = elements?.getElement(
       'cardNumber'
@@ -139,9 +143,9 @@ export default function Payment({
       .then((paymentMethod) => {
         if (paymentMethod.paymentMethod?.type === 'card') {
           updateIsReadyToPay(true);
+          updateStripePaymentMethod(paymentMethod);
+          handleChangeAccordion('orderReview');
         }
-        updateStripePaymentMethod(paymentMethod);
-        handleChangeAccordion('orderReview');
         setIsLoading(false);
       });
   };
@@ -325,7 +329,7 @@ export default function Payment({
               disabled={isDisabledCard}
               variant={'default'}
               className={buttonStyle}
-              onClick={async () => handleSubmitCreditCard()}
+              onClick={async () => handleContinueWithCard()}
             >
               {isLoading ? (
                 <AiOutlineLoading3Quarters className="animate-spin" />
