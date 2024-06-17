@@ -17,7 +17,7 @@ type OrderDetailProps = {
 
 const OrderDetailPage = async ({ params }: OrderDetailProps) => {
   const orders: TInitialOrdersDataDB[] = await fetchUserRecentOrders(4); // Adjust the quantity as needed
-  const order = orders.find((order) => order.id.toString() === params.orderId);
+  const order = orders.find((order) => order.order_id.toString() === params.orderId);
 
   if (!order) {
     return <div>Order not found</div>;
@@ -27,7 +27,7 @@ const OrderDetailPage = async ({ params }: OrderDetailProps) => {
     <div>
         <Card className="m-3 p-2 md:m-0 md:m-1 md:mb-4">
           <CardHeader className="p-2 pb-4 pt-4 text-xl font-bold md:p-4 md:text-xl">
-            Ordered on {order.payment_date} | Order #{order.id}
+            Ordered on {order.payment_date} | Order #{order.order_id}
           </CardHeader>
           <p>Total Amount: {order.total_amount}</p>
           <div className="border-t">
