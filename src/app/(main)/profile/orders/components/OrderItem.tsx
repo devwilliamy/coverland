@@ -21,15 +21,15 @@ const OrderItem = ({ item }: OrderItemProps) => {
           </div>
         </div>
         <div className="my-6 md:m-0 pt-0 text-base text-[#707070] md:pl-8 md:max-w-[325px]">
-          <div className="mb-2">
+          <div className="mb-1 md:mb-2">
             {`${item.product?.display_id}™ ${item.product?.type}`}
           </div>
-          <div className="mb-2">
+          <div className="mb-1 md:mb-2">
             Vehicle: {item.product?.make} {item.product?.model}{' '}
             {item.product?.year_generation} {item.product?.submodel1}
           </div>
-          <div className="mb-2">Color: {item.product?.display_color}</div>
-          <div className="mb-2">
+          <div className="mb-1 md:mb-2">Color: {item.product?.display_color}</div>
+          <div className="mb-1 md:mb-2">
             Qty: {item.quantity} @ ${item.product?.msrp}
           </div>
           <div>${item.price}</div>

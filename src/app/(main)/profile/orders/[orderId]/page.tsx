@@ -27,14 +27,14 @@ const OrderDetailPage = async ({ params }: OrderDetailProps) => {
 
   return (
     <div>
-      <div className="pl-5 md:pl-3">
-        <h1 className="mt-4 text-2xl font-bold text-center">Order Details</h1>
+      <div className="py-6">
+        <h1 className="mt-4 text-center text-2xl font-bold">Order Details</h1>
       </div>
-      <Card className="m-3 p-2 md:m-1 md:mb-4">
-        <CardHeader className="p-2 pb-4 pt-4 text-xl font-bold md:p-4 md:text-xl">
-          Ordered on {order.payment_date} | Order #{order.order_id}
+      <Card className="m-3 px-4 pb-6 md:m-1 md:my-4 md:px-8 md:py-0">
+        <CardHeader className="text-l block px-0 py-6 font-bold md:my-6">
+          Ordered on {order.payment_date} <span className="mx-2">|</span> Order
+          #{order.order_id}
         </CardHeader>
-        <p>Total Amount: {order.total_amount}</p>
         <div className="border-t">
           <ul>
             {order.items?.map((item) => (
@@ -43,9 +43,9 @@ const OrderDetailPage = async ({ params }: OrderDetailProps) => {
           </ul>
         </div>
         <div className="border-t">
-          <div className="flex">
-            <div>
-              <div className="font-bold">Shipping Address</div>
+          <div className="md:flex">
+            <div className="mt-6 text-[#707070]">
+              <div className="mb-2 font-bold text-black">Shipping Address</div>
               <div>{order.shipping_address_line_1}</div>
               <div>{order.shipping_address_line_2}</div>
               <div>
@@ -54,15 +54,24 @@ const OrderDetailPage = async ({ params }: OrderDetailProps) => {
               </div>
               <div>{order.shipping_address_country}</div>
             </div>
-            <div>
-              <div className="font-bold">Payment Method</div>
+            {/* <div className="mt-6 text-[#707070]">
+              <div className="font-bold text-black">Payment Method</div>
               <div>Pending</div>
-            </div>
-            <div>
-              <div className="font-bold">Order Summary</div>
-              <div>Order Subtotal ${order.subtotal}</div>
-              <div>Sale-discount ${order.total_discount}</div>
-              <div>Order total ${order.total_amount}</div>
+            </div> */}
+            <div className="mt-6">
+              <div className="mb-1 font-bold">Order Summary</div>
+              <div className="mb-1 flex justify-between">
+                <div>Order Subtotal</div>
+                <div>${order.subtotal}</div>
+              </div>
+              <div className="mb-1 flex justify-between">
+                <div>Sale-discount</div>
+                <div>- ${order.total_discount}</div>
+              </div>
+              <div className="my-3 pt-3 flex justify-between font-bold border-t">
+                <div>Order Total</div>
+                <div>${order.total_amount}</div>
+              </div>
             </div>
           </div>
         </div>
