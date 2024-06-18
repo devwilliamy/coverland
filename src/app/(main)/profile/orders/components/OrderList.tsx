@@ -51,13 +51,13 @@ const OrderList = ({ orders }: OrderListProps) => {
                 </div> */}
               </div>
               <ul className="md:mt-2">
-                {order.items?.map((item) => (
-                  <OrderItem key={item.id} item={item} />
-                ))}
                 <div>
-                  <Link
-                    href={`/profile/orders/${order.order_id}`}
-                  >
+                  {order.items?.[0] && (
+                    <OrderItem key={order.items[0].id} item={order.items[0]} />
+                  )}
+                </div>
+                <div>
+                  <Link href={`/profile/orders/${order.order_id}`}>
                     {/* Provide aria-label for additional context */}
                     <div
                       className="order-link"
