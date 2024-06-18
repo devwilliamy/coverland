@@ -7,8 +7,8 @@ type OrderItemProps = {
 
 const OrderItem = ({ item }: OrderItemProps) => {
   return (
-    <li key={item.id}>
-      <div className="justify-start md:m-0 md:flex">
+    <li key={item.id} className="">
+      <div className="justify-start md:m-0 md:my-4 md:flex">
         <div className="my-6 md:my-0">
           <div className="justify-start md:flex">
             <Image
