@@ -10,14 +10,14 @@ type OrderListProps = {
 const OrderList = ({ orders }: OrderListProps) => {
   return (
     <>
-      <div className="pl-5 md:pl-3">
+      <div className="pl-5 md:pl-2">
         <h1 className="mt-4 text-xl font-bold md:text-2xl">My Orders</h1>
         <p className="mb-4 text-sm text-gray-500">
           View and Manage orders
         </p>
       </div>
-      <Card className="m-3 px-2 md:m-1 md:mb-4">
-        <CardHeader className="p-2 py-6 text-xl font-bold md:py-6 md:px-8">
+      <Card className="m-3 px-4 pt-4 md:py-0 md:px-8 md:m-1 md:my-4">
+        <CardHeader className="my-4 p-0 text-xl md:my-6 font-bold">
           Recent Orders
         </CardHeader>
         {orders.length === 0 ? (
@@ -28,17 +28,17 @@ const OrderList = ({ orders }: OrderListProps) => {
           orders.map((order) => (
             <div
               key={order.id}
-              className="justify-between border-t p-4 px-2 md:p-8 md:m-2 md:flex"
+              className="justify-between border-t md:py-8 md:pt-10 md:flex"
             >
-              <div className="mb-8 mt-6 md:my-4 md:w-2/5">
-                <div className="justify-left flex gap-2">
-                  <span className="mb-1 min-w-[110px] text-base font-normal text-[#707070]">
+              <div className="my-8 md:my-2 md:w-2/5">
+                <div className="justify-left flex gap-2 mb-1">
+                  <span className="min-w-[110px] text-base font-normal text-[#707070]">
                     Order Number
                   </span>
                   <span className="font-semibold">#{order.order_id}</span>
                 </div>
-                <div className="justify-left flex gap-2">
-                  <span className="mb-1 min-w-[110px] text-base font-normal text-[#707070]">
+                <div className="justify-left flex gap-2 mb-1">
+                  <span className="min-w-[110px] text-base font-normal text-[#707070]">
                     Order Date
                   </span>
                   <span className="font-semibold">{order.payment_date}</span>
@@ -53,10 +53,10 @@ const OrderList = ({ orders }: OrderListProps) => {
               <ul className="md:mt-2">
                 <div>
                   {order.items?.[0] && (
-                    <OrderItem key={order.items[0].id} item={order.items[0]} />
+                    <OrderItem key={order.items[0].id} item={order.items[0]} order_id={order.order_id}/>
                   )}
                 </div>
-                <div>
+                <div className="my-6 mb-8 md:my-4 md:mt-6 max-w-[150px]">
                   <Link href={`/profile/orders/${order.order_id}`} className='underline'>
                     {/* Provide aria-label for additional context */}
                     <div

@@ -9,7 +9,7 @@ const OrderItem = ({ item }: OrderItemProps) => {
   return (
     <li key={item.id}>
       <div className="justify-start md:m-0 md:flex">
-        <div className="my-4 md:my-2">
+        <div className="my-6 md:my-0">
           <div className="justify-start md:flex">
             <Image
               className="bg-gray-100 p-[6.5px]"
@@ -20,7 +20,7 @@ const OrderItem = ({ item }: OrderItemProps) => {
             />
           </div>
         </div>
-        <div className="my-4 pt-0 text-base text-[#707070] md:my-2 md:pl-5 md:max-w-[325px]">
+        <div className="my-6 md:m-0 pt-0 text-base text-[#707070] md:pl-8 md:max-w-[325px]">
           <div className="mb-2">
             {`${item.product?.display_id}™ ${item.product?.type}`}
           </div>
