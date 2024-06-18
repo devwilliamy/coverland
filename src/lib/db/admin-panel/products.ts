@@ -1,5 +1,5 @@
 import { supabaseAdminPanelDatabaseClient } from '../adminPanelSupabaseClient';
-import { ADMIN_PANEL_PRODUCTS } from '../constants/databaseTableNames';
+import { PRODUCT_DATA_TABLE } from '../constants/databaseTableNames';
 
 export async function getProductAndPriceBySku(skus: string[]) {
   try {
@@ -8,7 +8,7 @@ export async function getProductAndPriceBySku(skus: string[]) {
     }
 
     const { data, error } = await supabaseAdminPanelDatabaseClient
-      .from(ADMIN_PANEL_PRODUCTS) 
+      .from(PRODUCT_DATA_TABLE) 
       .select('id, sku, msrp') 
       .in('sku', skus); 
     if (error) {
