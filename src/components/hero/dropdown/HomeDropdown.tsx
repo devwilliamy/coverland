@@ -371,7 +371,7 @@ export default function HomeDropdown({
                   <div className="px-[10px] py-2">
                     <AiOutlineLoading3Quarters className="animate-spin" />
                   </div>
-                ) : (items && items.length === 0) ? (
+                ) : items && items.length === 0 ? (
                   <div className="px-[10px] py-2">No available items</div>
                 ) : (
                   <div className="relative z-[100] flex w-full flex-col justify-center">
@@ -397,7 +397,7 @@ export default function HomeDropdown({
                           {items &&
                             items.map((item, i) => (
                               <div
-                                key={`item-${item.id}`}
+                                key={`item-${i}`}
                                 id={`${title}-${i}`}
                                 tabIndex={-1}
                                 className={`flex py-1 pl-[20px] hover:bg-[#BE1B1B] hover:text-white ${i === selectedIndex ? 'bg-[#BE1B1B] text-white' : ''}`}
