@@ -20,7 +20,7 @@ const OrderItem = ({ item }: OrderItemProps) => {
             />
           </div>
         </div>
-        <div className="my-4 pt-0 text-base text-[#707070] md:my-2 md:ml-5  md:w-3/5 md:max-w-[325px]">
+        <div className="my-4 pt-0 text-base text-[#707070] md:my-2 md:pl-5 md:max-w-[325px]">
           <div className="mb-1">
             {`${item.product?.display_id}™ ${item.product?.type}`}
           </div>
