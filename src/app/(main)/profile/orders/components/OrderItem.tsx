@@ -1,8 +1,8 @@
 import Image from 'next/image';
-import { TInitialOrderItemsDataDB } from '@/lib/db/profile/ordersHistory';
+import { TOrderItem } from '@/lib/db/profile/ordersHistory';
 
 type OrderItemProps = {
-  item: TInitialOrderItemsDataDB;
+  item: TOrderItem;
 };
 
 const OrderItem = ({ item }: OrderItemProps) => {

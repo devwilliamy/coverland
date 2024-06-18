@@ -22,36 +22,28 @@ import {
 import { TInitialProductDataDB } from '..';
 import { Tables } from '../types';
 
-// these types model the entire database tables, in case other columns will be used inside User Profile > Orders in the future
+// these types come directly from supabase models
 export type TInitialOrdersDataDB = Tables<'_Orders'>;
 export type TInitialOrderItemsDataDB = Tables<'orderItems_table'>;
 
-// These custom types are utilized on the actual Profile > Order page and only contain columns that are necessary
-export type TOrderItemProduct = {
-  id: number;
-  name: string;
-  price: number;
+export type TUserOrder = TInitialOrdersDataDB & {
+  items: TOrderItem[];
+  subtotal: number | string;
+  total_discount: number | string;
 };
 
-export type TOrderItem = {
-  id: number;
-  order_id: number;
-  product_id: number;
-  quantity: number;
-  product?: TInitialProductDataDB; // Optional because it will be added after fetching
+export type TOrderItem = TInitialOrderItemsDataDB & {
+  product: TOrderItemProduct;
+  item_discount: number | string;
 };
 
-export type TUserOrders = {
-  id: number;
-  order_id: string;
-  payment_date: string;
-  total_amount: number;
-  items?: TInitialOrderItemsDataDB[]; // Optional because it will be added after fetching
-}[];
+export type TOrderItemProduct = TInitialProductDataDB & {
+  discount: number | string;
+};
 
 async function fetchUserOrders(
   ordersQuantity: number
-): Promise<TUserOrders[] | null> {
+): Promise<TUserOrder[] | null> {
   const cookieStore: ReadonlyRequestCookies = cookies();
   const supabase: SupabaseClient = createSupabaseServerClient(cookieStore);
   try {
@@ -87,14 +79,14 @@ async function fetchUserOrders(
         return null;
       }
 
-      return data;
+      return data || [];
     } catch (err) {
       console.error('Unexpected error fetching User Orders:', err);
       return null;
     }
   } catch (error) {
     console.error('Error getting user:', error);
-    // Handle the error case for getting the user
+    return null;
   }
 }
 
@@ -146,28 +138,28 @@ async function fetchOrderItemProducts(
 
 export async function fetchUserRecentOrders(
   ordersQuantity: number
-): Promise<TUserOrders[]> {
+): Promise<TUserOrder[] | null> {
   // fetch recent user orders
   try {
     const orders = await fetchUserOrders(ordersQuantity);
-    if (!orders) return;
+    if (!orders) return null;
 
     const orderIds = orders.map((order) => order.id);
 
     try {
       const orderItems = await fetchOrderItems(orderIds);
-      if (!orderItems) return;
+      if (!orderItems) return null;
 
       const productIds = orderItems.map((item) => item.product_id);
 
       try {
         const products = await fetchOrderItemProducts(productIds);
-        if (!products) return;
+        if (!products) return null;
 
         // Create a final userOrders object that contains all desired data (items, products, discounts, subtotal, etc.)
         const userOrders = orders.map((order) => {
           // Filter items that belong to the current order and map them to include product information and discounts
-          const items = orderItems
+          const items: TOrderItem[] = orderItems
             .filter((item) => item.order_id === order.id)
             .map((item) => {
               const {
@@ -188,7 +180,7 @@ export async function fetchUserRecentOrders(
                 return null;
               }
 
-              const productWithDiscount = {
+              const productWithDiscount: TOrderItemProduct = {
                 ...product,
                 discount: getProductDiscount(product), // Calculate and add a product discount property
               };

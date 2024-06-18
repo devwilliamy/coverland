@@ -1,12 +1,10 @@
 import OrderItem from './OrderItem';
 import { Card, CardHeader } from '@/components/ui/card'; // Import your Card components
-import { TInitialOrdersDataDB } from '@/lib/db/profile/ordersHistory';
+import { TUserOrder } from '@/lib/db/profile/ordersHistory';
 import Link from 'next/link';
-import { TInitialOrdersDataDB } from '@/lib/db/profile/ordersHistory';
-
 
 type OrderListProps = {
-  orders: TInitialOrdersDataDB[];
+  orders: TUserOrder[];
 };
 
 const OrderList = ({ orders }: OrderListProps) => {
