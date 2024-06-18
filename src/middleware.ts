@@ -343,7 +343,6 @@ export function middleware(request: NextRequest) {
   return NextResponse.next();
 }
 
-//
 /**
  * 6/17/24: Mercedes got changed to Mercedes Benz, need to redirect
  * @param segments - ex: ['car-covers', 'premium-plus', 'mercedes']
@@ -354,12 +353,7 @@ const redirectMercedes = (
   isVehicleCover: boolean,
   requestUrl: string
 ) => {
-  console.log('Checking fro mercedses:', segments);
   if (isVehicleCover) {
-    console.log(
-      `New URL: /${CAR_COVERS_URL_PARAM}/${PREMIUM_PLUS_URL_PARAM}/mercedes-benz/${segments.slice(3).join('/')}${search}`,
-      requestUrl
-    );
     return NextResponse.redirect(
       new URL(
         `/${CAR_COVERS_URL_PARAM}/${PREMIUM_PLUS_URL_PARAM}/mercedes-benz/${segments.slice(3).join('/')}${search}`,
