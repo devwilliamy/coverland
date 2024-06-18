@@ -97,28 +97,28 @@ export function ProductContent({
   const [discountPercent, setDiscountPercent] = useState<string | null>('50%');
   // let quantityBetween1and5: boolean;
   // let quantityBetween6and10: boolean;
-  const [between1and5, setBetween1and5] = useState(false);
-  const [between6and10, setBetween6and10] = useState(false);
+  const [between1and3, setBetween1and3] = useState(false);
+  const [between4and10, setBetween4and10] = useState(false);
   const [newMSRP, setNewMSRP] = useState(0);
   useEffect(() => {
     if (!cartProduct) return;
     console.log();
-    const quantityBetween1and5 =
-      Number(cartProduct.quantity) >= 1 && Number(cartProduct.quantity) <= 5;
-    const quantityBetween6and10 =
-      Number(cartProduct.quantity) >= 6 && Number(cartProduct.quantity) <= 10;
+    const quantityBetween1and3 =
+      Number(cartProduct.quantity) >= 1 && Number(cartProduct.quantity) <= 3;
+    const quantityBetween4and10 =
+      Number(cartProduct.quantity) >= 4 && Number(cartProduct.quantity) <= 10;
     const evenCartProductPrice = Number(cartProduct.price);
     let calcedPrice: number;
     // if 1 <= x <= 5
-    if (quantityBetween1and5) {
+    if (quantityBetween1and3) {
       calcedPrice = Number((cartProduct.msrp = cartProduct.price));
       console.log({ calcedPrice });
-      setBetween1and5(true);
+      setBetween1and3(true);
       setDiscountPercent(null);
       setNewMSRP(calcedPrice);
     }
     // Else if 6 <= x <= 10
-    else if (quantityBetween6and10) {
+    else if (quantityBetween4and10) {
       calcedPrice =
         evenCartProductPrice - Math.floor(evenCartProductPrice / 4) - 0.05;
       console.log({
@@ -126,7 +126,7 @@ export function ProductContent({
         quarterPrice: Math.floor(evenCartProductPrice / 4),
         calcedPrice,
       });
-      setBetween6and10(true);
+      setBetween4and10(true);
       setDiscountPercent('25%');
       setNewMSRP(calcedPrice);
     }
@@ -136,7 +136,7 @@ export function ProductContent({
     if (!cartProduct) return;
     setAddToCartOpen(true);
 
-    if (between1and5 || between6and10) {
+    if (between1and3 || between4and10) {
       return addToCart({ ...cartProduct, msrp: newMSRP, quantity: 1 });
     }
 
