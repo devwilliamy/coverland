@@ -13,11 +13,11 @@ const OrderList = ({ orders }: OrderListProps) => {
       <div className="pl-5 md:pl-3">
         <h1 className="mt-4 text-xl font-bold md:text-2xl">My Orders</h1>
         <p className="mb-4 text-sm text-gray-500">
-          View, Manage and track orders
+          View and Manage orders
         </p>
       </div>
-      <Card className="m-3 p-2 md:m-1 md:mb-4">
-        <CardHeader className="p-2 py-4 text-xl font-bold md:p-4">
+      <Card className="m-3 px-2 md:m-1 md:mb-4">
+        <CardHeader className="p-2 py-6 text-xl font-bold md:py-6 md:px-8">
           Recent Orders
         </CardHeader>
         {orders.length === 0 ? (
@@ -28,7 +28,7 @@ const OrderList = ({ orders }: OrderListProps) => {
           orders.map((order) => (
             <div
               key={order.id}
-              className="justify-between border-t p-4 pl-2 md:m-2 md:flex"
+              className="justify-between border-t p-4 px-2 md:p-8 md:m-2 md:flex"
             >
               <div className="mb-8 mt-6 md:my-4 md:w-2/5">
                 <div className="justify-left flex gap-2">
@@ -57,7 +57,7 @@ const OrderList = ({ orders }: OrderListProps) => {
                   )}
                 </div>
                 <div>
-                  <Link href={`/profile/orders/${order.order_id}`}>
+                  <Link href={`/profile/orders/${order.order_id}`} className='underline'>
                     {/* Provide aria-label for additional context */}
                     <div
                       className="order-link"
