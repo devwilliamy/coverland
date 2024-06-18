@@ -27,6 +27,9 @@ const OrderDetailPage = async ({ params }: OrderDetailProps) => {
 
   return (
     <div>
+      <div className="pl-5 md:pl-3">
+        <h1 className="my-10 text-2xl font-bold text-center">Order Details</h1>
+      </div>
       <Card className="m-3 p-2 md:m-0 md:m-1 md:mb-4">
         <CardHeader className="p-2 pb-4 pt-4 text-xl font-bold md:p-4 md:text-xl">
           Ordered on {order.payment_date} | Order #{order.order_id}
@@ -50,6 +53,10 @@ const OrderDetailPage = async ({ params }: OrderDetailProps) => {
                 {order.shipping_address_postal_code}
               </div>
               <div>{order.shipping_address_country}</div>
+            </div>
+            <div>
+              <div className="font-bold">Payment Method</div>
+              <div>Pending</div>
             </div>
             <div>
               <div className="font-bold">Order Summary</div>

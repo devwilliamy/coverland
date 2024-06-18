@@ -8,9 +8,9 @@ type OrderItemProps = {
 const OrderItem = ({ item }: OrderItemProps) => {
   return (
     <li key={item.id}>
-      <div className="justify-end md:m-0 md:flex">
-        <div className="my-4 md:my-2 md:w-2/5">
-          <div className="justify-end md:flex">
+      <div className="justify-start md:m-0 md:flex">
+        <div className="my-4 md:my-2">
+          <div className="justify-start md:flex">
             <Image
               className="bg-gray-100 p-[6.5px]"
               src={item.product?.feature || ''}

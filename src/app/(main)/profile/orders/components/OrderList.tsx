@@ -47,7 +47,7 @@ const OrderList = ({ orders }: OrderListProps) => {
                   <span className="mb-1 min-w-[110px] text-base font-normal text-[#707070]">
                     Total
                   </span>
-                  <span className="font-semibold">{order.total_amount}</span>
+                  <span className="font-semibold">${order.total_amount}</span>
                 </div>
               </div>
               <ul className="md:mt-2 md:w-3/5">
@@ -55,15 +55,17 @@ const OrderList = ({ orders }: OrderListProps) => {
                   <OrderItem key={item.id} item={item} />
                 ))}
               </ul>
-              <Link href={`/profile/orders/${order.order_id}`}>
-                {/* Provide aria-label for additional context */}
-                <div
-                  className="order-link"
-                  aria-label={`View details for Order ${order.order_id}`}
-                >
-                  View Order Details
-                </div>
-              </Link>
+              <div>
+                <Link href={`/profile/orders/${order.order_id}`} className="block">
+                  {/* Provide aria-label for additional context */}
+                  <div
+                    className="order-link"
+                    aria-label={`View details for Order ${order.order_id}`}
+                  >
+                    View Order Details
+                  </div>
+                </Link>
+              </div>
             </div>
           ))
         )}
