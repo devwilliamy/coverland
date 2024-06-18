@@ -5,11 +5,11 @@ const KlarnaIcon = () => {
     <svg
       version="1.0"
       xmlns="http://www.w3.org/2000/svg"
-      width="3222.000000pt"
-      height="1566.000000pt"
-      viewBox="0 0 3222.000000 1566.000000"
+      width="3200pt"
+      height="1566pt"
+      viewBox="0 0 3200 1566.000000"
       preserveAspectRatio="xMidYMid meet"
-      className="h-fit max-h-[30px] w-fit max-w-[70px]"
+      className="-mx-4 h-fit w-fit max-w-[70px]"
     >
       <g
         transform="translate(0.000000,1566.000000) scale(0.100000,-0.100000)"

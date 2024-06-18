@@ -482,7 +482,7 @@ export default function DesktopCheckout() {
               >
                 <AccordionItem value="shipping">
                   <AccordionTrigger className="-mt-2 mb-4 px-4 text-[24px] font-medium">
-                    <h2 className="flex gap-2">
+                    <h2 className="flex items-center gap-2">
                       <span>Shipping</span>
                       {isReadyToShip && <ReadyCheck />}
                     </h2>
@@ -505,7 +505,7 @@ export default function DesktopCheckout() {
                     className={`${(!isReadyToShip || isEditingAddress) && 'disabled cursor-default text-[grey] hover:no-underline'} my-4 px-4 text-[24px] font-medium`}
                     // disabled={isDisabled}
                   >
-                    <h2 className="flex gap-2">
+                    <h2 className="flex items-center gap-2">
                       <span>Payment</span>
                       {isReadyToPay && <ReadyCheck />}
                     </h2>

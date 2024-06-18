@@ -429,6 +429,8 @@ export default function MobileCheckout() {
   const handleGetTax = async () => {
     let taxItems = [];
     let count = 0;
+    setIsLoading(true);
+
     for (const item of cartItems) {
       taxItems.push({
         id: item.id ? item.id : count,
@@ -447,7 +449,6 @@ export default function MobileCheckout() {
       shipping: 0,
       line_items: taxItems,
     };
-    setIsLoading(true);
     const response = await fetch('/api/taxjar/sales-tax', {
       method: 'POST',
       headers: {
@@ -567,10 +568,14 @@ export default function MobileCheckout() {
           { handleActions: false }
         );
 
+        const klarnaWindowLeft = window.innerWidth / 2 - 430 / 2;
+        const y = window.outerHeight / 2 + window.screenY - 700 / 2;
+        const x = window.outerWidth / 2 + window.screenX - 430 / 2;
+
         const klarnaWindow = window.open(
           'about:blank',
           'Klarna Payment',
-          'left=200,top=100,width=430,height=700'
+          `toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no, width=${x}, height=${y}, left=${klarnaWindowLeft}, top=100,`
         );
 
         klarnaWindow?.addEventListener('beforeUnload', () => {
@@ -637,9 +642,10 @@ export default function MobileCheckout() {
 
   useEffect(() => {
     if (!isCartEmpty && isReadyToPay) {
+      console.log({ isReadyToPay });
       handleGetTax();
     }
-  }, [isCartEmpty, isReadyToPay]);
+  }, [isCartEmpty, isReadyToPay, shippingAddress]);
 
   return (
     <>

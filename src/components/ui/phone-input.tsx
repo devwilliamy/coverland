@@ -69,7 +69,7 @@ const CustomPhoneInput: React.FC<CustomPhoneInputProps> = ({
           placeholder={placeholder}
           autoComplete={autoComplete}
           required={required}
-          value={inputValue}
+          // value={inputValue}
           {...register(name, { required })}
           onChange={handleChange}
           fullWidth

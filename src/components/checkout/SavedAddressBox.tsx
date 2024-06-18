@@ -6,7 +6,8 @@ type SavedAddressBoxProps = {
   handleClick: () => void;
 };
 export default function SavedAddressBox({ handleClick }: SavedAddressBoxProps) {
-  const { shippingAddress, customerInfo } = useCheckoutContext();
+  const { shippingAddress, customerInfo, twoLetterStateCode } =
+    useCheckoutContext();
   const { line1, line2, city, state, postal_code } = shippingAddress.address;
   return (
     <SummaryBox handleClick={handleClick}>
@@ -14,7 +15,7 @@ export default function SavedAddressBox({ handleClick }: SavedAddressBoxProps) {
       <div>{line1}</div>
       <div>{line2}</div>
       <div>
-        {city} {state} {postal_code}
+        {city} {twoLetterStateCode ?? state} {postal_code}
       </div>
       <div>{customerInfo.email}</div>
       <div>{customerInfo.phoneNumber}</div>

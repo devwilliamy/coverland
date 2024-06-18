@@ -1,7 +1,7 @@
 import * as PopoverPrimitive from '@radix-ui/react-popover';
 import { Popover, PopoverContent, PopoverTrigger } from '../ui/popover';
-import AMEX from '@/images/checkout/AMEX-Card.webp';
-import DefaultCard from '@/images/checkout/defaultCard.webp';
+import AMEX from '@/images/checkout/AMEX-red-circle.png';
+import DefaultCard from '@/images/checkout/default-card-circle.png';
 import Image from 'next/image';
 
 export const CvvPopover = () => {

@@ -8,9 +8,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import CustomPhoneInput from '../ui/phone-input';
 import { parsePhoneNumberFromString } from 'libphonenumber-js';
-import StateDropdown from '../ui/state-dropdown';
 import { Autocomplete, MenuItem, TextField } from '@mui/material';
-import { ManualAdressComponents } from './ManualAdressComponents';
 
 type FormData = {
   email: string;
@@ -85,6 +83,8 @@ export default function AddressForm({
     toggleIsShippingAddressShown,
     twoLetterStateCode,
     updateTwoLetterStateCode,
+    updateBillingTwoLetterStateCode,
+    isBillingSameAsShipping,
   } = useCheckoutContext();
 
   const {
@@ -133,8 +133,7 @@ export default function AddressForm({
     }
   );
 
-  // console.log('Errors', errors);
-  const [address, setAddress] = useState<string>('');
+  const [autocompleteAddress, setAutocompleteAddress] = useState<string>('');
   const [isManualAddress, setIsManualAddress] = useState(false);
   const [suggestions, setSuggestions] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -146,7 +145,6 @@ export default function AddressForm({
 
     for (const iterator in formValues) {
       if (formValues[iterator] == '' && iterator != 'line2') {
-        // console.log(iterator);
         setIsDisabled(true);
         return true;
       }
@@ -157,16 +155,6 @@ export default function AddressForm({
 
   useEffect(() => {
     // Populate the form fields when shippingAddress changes
-    // customerInfo.email
-    //   ? setValue('email', customerInfo.email)
-    //   : setValue('email', '');
-    // addressData.firstName
-    //   ? setValue('firstName', addressData.firstName)
-    //   : setValue('firstName', '');
-    // addressData.lastName
-    //   ? setValue('lastName', addressData.lastName)
-    //   : setValue('lastName', '');
-
     setValue('email', customerInfo.email || '');
     setValue('firstName', addressData.firstName || '');
     setValue('lastName', addressData.lastName || '');
@@ -177,6 +165,10 @@ export default function AddressForm({
       setValue('city', addressData.address.city || '');
       setValue('state', addressData.address.state || '');
       setValue('postal_code', addressData.address.postal_code || '');
+    }
+    if (!showEmail) {
+      setValue('email', customerInfo.email || '');
+      setValue('phoneNumber', customerInfo.phoneNumber || '');
     }
     determineDisabled();
   }, [addressData, customerInfo, setValue, isManualAddress]);
@@ -214,7 +206,7 @@ export default function AddressForm({
 
       const data = await response.json();
       // const values = getValues();
-      // console.log({ data });
+      console.log({ data });
       setSuggestions(data);
     } catch (error) {
       console.error(error);
@@ -251,7 +243,14 @@ export default function AddressForm({
           ) {
             if (component.types.includes('administrative_area_level_1')) {
               // console.log({ state: component.shortText });
-              updateTwoLetterStateCode(component.shortText);
+              if (isBillingSameAsShipping) {
+                updateTwoLetterStateCode(component.shortText);
+                updateBillingTwoLetterStateCode(component.shortText);
+              } else {
+                showEmail
+                  ? updateTwoLetterStateCode(component.shortText)
+                  : updateBillingTwoLetterStateCode(component.shortText);
+              }
             }
             const val = autocompleteObj[key];
             filteredAddressComponents.set(val, component.longText);
@@ -267,6 +266,7 @@ export default function AddressForm({
       const line1 = String(formattedAddress).split(',')[0];
       setValue('line1', line1 ?? '');
 
+      // FilteredAddressComponents => Map([['key','value'],...])
       for (const arr of filteredAddressComponents) {
         setValue(arr[0], arr[1] ?? '');
       }
@@ -274,9 +274,9 @@ export default function AddressForm({
       // console.log({ addressData });
 
       if (formattedAddress) {
-        setAddress(formattedAddress);
+        setAutocompleteAddress(formattedAddress);
       } else {
-        setAddress(addressInput);
+        setAutocompleteAddress(addressInput);
       }
     } catch (error) {
       console.error(error);
@@ -305,7 +305,7 @@ export default function AddressForm({
     }
     const val = String(newInputValue);
     getAddressAutocompleteOptions(val);
-    setAddress(val);
+    setAutocompleteAddress(val);
   };
 
   return (
@@ -403,7 +403,11 @@ export default function AddressForm({
           onInputChange={(e, newInputValue) =>
             handleAutocompleteInputChange(e, newInputValue)
           }
-          value={address?.placePrediction?.text.text ?? address}
+          // value={address?.placePrediction?.text.text ?? address}
+          value={
+            autocompleteAddress?.placePrediction?.text.text ??
+            autocompleteAddress
+          }
           className="col-span-2 w-full"
           fullWidth
           options={suggestions}
@@ -422,7 +426,11 @@ export default function AddressForm({
             >
               {suggestions.map((suggestion) => {
                 const text = suggestion?.placePrediction?.text.text;
-                return <MenuItem value={text}>{text}</MenuItem>;
+                return (
+                  <MenuItem key={text} value={text}>
+                    {text}
+                  </MenuItem>
+                );
               })}
             </TextField>
           )}
@@ -430,7 +438,7 @@ export default function AddressForm({
             const text = option?.placePrediction?.text.text;
             // return <option value={text}>{text}</option>;
             return (
-              <li {...props}>
+              <li {...props} key={text}>
                 <p>{text}</p>
               </li>
             );
@@ -446,7 +454,7 @@ export default function AddressForm({
             const formValues: Record<string, string> = getValues();
             // console.log({ formValues });
             if (isManualAddress) {
-              setAddress('');
+              setAutocompleteAddress('');
             }
             setIsManualAddress((prev) => !prev);
             setValue('line1', '');
@@ -460,26 +468,28 @@ export default function AddressForm({
           {isManualAddress ? 'Find address' : 'Enter address manually'}
         </p>
       </div>
-      <div className="col-span-2 grid grid-cols-2 gap-6">
-        <OverlappingLabel
-          title="Email"
-          name="email"
-          errors={errors}
-          placeholder="Email"
-          register={register}
-          options={{ required: true }}
-          autoComplete="email"
-        />
-        <CustomPhoneInput
-          label="Phone Number"
-          name="phoneNumber"
-          placeholder="+1 123 456 7890"
-          autoComplete="tel"
-          register={register}
-          errors={errors}
-          required
-        />
-      </div>
+      {showEmail && (
+        <div className="col-span-2 grid grid-cols-2 gap-6">
+          <OverlappingLabel
+            title="Email"
+            name="email"
+            errors={errors}
+            placeholder="Email"
+            register={register}
+            options={{ required: true }}
+            autoComplete="email"
+          />
+          <CustomPhoneInput
+            label="Phone Number"
+            name="phoneNumber"
+            placeholder="+1 123 456 7890"
+            autoComplete="tel"
+            register={register}
+            errors={errors}
+            required
+          />
+        </div>
+      )}
       <div className="flex flex-col items-center justify-between lg:col-span-2 lg:mt-11">
         <Button
           type="submit"

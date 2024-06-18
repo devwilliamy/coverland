@@ -76,22 +76,22 @@ export default function PriceBreakdown() {
   // }, [isCartEmpty, isReadyToPay]);
 
   return (
-    <div className="py-[1vh] text-base font-normal text-[#343434]">
+    <div className="flex flex-col gap-1.5 text-[16px] font-normal leading-4 text-[#343434]">
       <div className="flex justify-between lg:flex">
         <div>Order Subtotal</div>
         <div>${orderSubtotal}</div>
       </div>
       {isCartEmpty ? null : (
-        <div className="flex justify-between text-[#D13C3F]">
+        <div className="flex justify-between">
           <div>Sale-discount</div>
-          <div>-${totalDiscountedPrice}</div>
+          <div>- ${totalDiscountedPrice}</div>
         </div>
       )}
       {currentStep === CheckoutStep.CHECKOUT && (
         <>
           <div className="flex justify-between ">
             <div className="flex gap-2">
-              <p>Estimated Tax</p>
+              <p>Tax</p>
               <Popover>
                 <PopoverTrigger>
                   <Info size={16} />
@@ -125,10 +125,10 @@ export default function PriceBreakdown() {
           </div>
         </>
       )}
-      <div className="lg:pb-14 lg:pt-14">
+      <div className="lg:py-[30px]">
         <Separator className="hidden w-full bg-[#C8C7C7] lg:block" />
-        <div className="flex justify-between pt-8 font-semibold lg:flex-row lg:justify-between lg:py-5 lg:font-bold">
-          <div>Order Total: </div>
+        <div className="flex justify-between pb-3 pt-5 font-semibold lg:flex-row lg:justify-between lg:py-6 lg:font-bold">
+          <div>Order Total </div>
           <div>
             $
             {totalTax

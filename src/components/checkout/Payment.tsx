@@ -40,6 +40,7 @@ export default function Payment({
     updateStripePaymentMethod,
     orderNumber,
     paymentIntentId,
+    billingTwoLetterStateCode,
   } = useCheckoutContext();
 
   const isDisabledCard =
@@ -74,7 +75,7 @@ export default function Payment({
         return null;
     }
   };
-  const buttonStyle = `mb-3 w-full rounded-lg ${isDisabledCard ? 'bg-[#1A1A1A]/90' : 'bg-[#1A1A1A] hover:bg-[#1A1A1A]/90'}  text-base font-bold uppercase text-white sm:h-[48px] lg:h-[55px] lg:text-xl`;
+  const buttonStyle = `mb-3 w-full rounded-lg ${isDisabledCard ? 'bg-[#1A1A1A]/90' : 'bg-[#1A1A1A] hover:bg-[#1A1A1A]/90'} text-center uppercase m-0 max-h-[48px] min-h-[48px] max-w-[350px] self-end justify-self-end text-[16px] leading-[17px]`;
 
   const handleContinueWithCard = () => {
     setIsLoading(true);
@@ -95,8 +96,8 @@ export default function Payment({
           return;
         }
         if (paymentMethod.paymentMethod?.type === 'card') {
-          updateIsReadyToPay(true);
           updateStripePaymentMethod(paymentMethod);
+          updateIsReadyToPay(true);
           handleChangeAccordion('orderReview');
         }
         setIsLoading(false);
@@ -124,11 +125,14 @@ export default function Payment({
               )}
               {paymentMethod === 'klarna' && (
                 <div className="flex items-center gap-2 ">
-                  <Image
-                    alt="Klarna"
-                    src={Klarna}
-                    className="-mx-2 -my-2 min-w-[70px] max-w-[70px]"
-                  />
+                  <div className="flex min-w-[70px] max-w-[70px]">
+                    <Image
+                      alt="Klarna"
+                      src={Klarna}
+                      className="-mx-4 -my-2 object-cover"
+                    />
+                  </div>
+
                   <h2> 4 interest-free payments</h2>
                 </div>
               )}
@@ -159,11 +163,13 @@ export default function Payment({
             </div>
             <p className="text-base font-[500]"> Billing Details</p>
             <div className="text-[16px] font-[400] leading-[27px] text-[#767676]">
-              <p>{name}</p>
+              <p>{customerBilling.name}</p>
 
-              <p>{line1}</p>
+              <p>{customerBilling.address.line1}</p>
               <p>
-                {city} {state} {postal_code}
+                {customerBilling.address.city}{' '}
+                {billingTwoLetterStateCode ?? customerBilling.address.state}{' '}
+                {customerBilling.address.postal_code}
               </p>
             </div>
           </div>
@@ -205,104 +211,42 @@ export default function Payment({
             <div>You will be redirected to the PayPal site upon checkout.</div>
           )}
           {paymentMethod === 'applePay' && (
-            <>
-              <div>You will be redirected to Apple Pay upon checkout.</div>
-              {/* <Button
-                disabled={isDisabledCard}
-                variant={'default'}
-                className={buttonStyle}
-                onClick={async (e) => {
-                  // setIsLoading(true);
-                  // handleSubmit(e);
-                  handleChangeAccordion('orderReview');
-                  updateIsReadyToPay(true);
-                }}
-              >
-                {isLoading ? (
-                  <AiOutlineLoading3Quarters className="animate-spin" />
-                ) : (
-                  'Continue to Order Review'
-                )}
-              </Button> */}
-            </>
+            <div>You will be redirected to Apple Pay upon checkout.</div>
           )}
           {paymentMethod === 'googlePay' && (
-            <>
-              <div>You will be redirected to Google Pay upon checkout.</div>
-              {/* <Button
-                disabled={isDisabledCard}
-                variant={'default'}
-                className={buttonStyle}
-                onClick={async (e) => {
-                  // setIsLoading(true);
-                  // handleSubmit(e);
-                  handleChangeAccordion('orderReview');
-                  updateIsReadyToPay(true);
-                }}
-              >
-                {isLoading ? (
-                  <AiOutlineLoading3Quarters className="animate-spin" />
-                ) : (
-                  'Continue to Order Review'
-                )}
-              </Button> */}
-            </>
+            <div>You will be redirected to Google Pay upon checkout.</div>
           )}
           {paymentMethod === 'klarna' && (
-            <div className="lg:flex lg:items-center lg:justify-center">
-              <div className="my-4 w-full justify-center md:flex md:flex-col lg:w-[350px]">
-                <div>You will be redirected to Klarna upon checkout.</div>
-                <Button
-                  // disabled={isDisabledCard}
-                  variant={'default'}
-                  className={buttonStyle + ' mt-4'}
-                  onClick={(e) => {
-                    // setIsLoading(true);
-                    // handleSubmit(e);
-                    updateIsReadyToPay(true);
-                    handleChangeAccordion('orderReview');
-                  }}
-                >
-                  {isLoading ? (
-                    <AiOutlineLoading3Quarters className="animate-spin" />
-                  ) : (
-                    'Continue to Order Review'
-                  )}
-                </Button>
-              </div>
-            </div>
+            <div>You will be redirected to Klarna upon checkout.</div>
           )}
         </>
       )}
       {/* Continue To Order Review Button */}
       {paymentMethod === 'creditCard' && !isReadyToPay && (
-        <div className="lg:flex lg:items-center lg:justify-center">
-          <div className="my-4 w-full justify-center md:flex md:flex-col lg:w-[350px]">
-            <Button
-              disabled={isDisabledCard}
-              variant={'default'}
-              className={buttonStyle}
-              onClick={async () => handleContinueWithCard()}
-            >
-              {isLoading ? (
-                <AiOutlineLoading3Quarters className="animate-spin" />
-              ) : (
-                'Continue to Order Review'
-              )}
-            </Button>
-          </div>
+        <div className="my-[48px] flex w-full items-center justify-center lg:justify-end">
+          <Button
+            variant={'default'}
+            className={buttonStyle}
+            onClick={async () => handleContinueWithCard()}
+          >
+            {isLoading ? (
+              <AiOutlineLoading3Quarters className="animate-spin" />
+            ) : (
+              'Continue to Order Review'
+            )}
+          </Button>
         </div>
       )}
-
-      {paymentMethod === 'paypal' && !isReadyToPay && (
-        <div className="lg:flex lg:items-center lg:justify-center">
-          <div className="my-4 w-full justify-center md:flex md:flex-col lg:w-[350px]">
+      {(paymentMethod === 'klarna' ||
+        paymentMethod === 'googlePay' ||
+        paymentMethod === 'applePay' ||
+        paymentMethod === 'paypal') &&
+        !isReadyToPay && (
+          <div className="my-[48px] flex w-full items-center justify-center lg:justify-end">
             <Button
               variant={'default'}
               className={buttonStyle}
               onClick={async (e) => {
-                // setIsLoading(true);
-                // handleSubmit(e);
                 handleChangeAccordion('orderReview');
                 updateIsReadyToPay(true);
               }}
@@ -314,8 +258,8 @@ export default function Payment({
               )}
             </Button>
           </div>
-        </div>
-      )}
+        )}
+
       {message && (
         <div className="font-base flex items-center justify-center text-lg text-red-500">
           Error: {message}

@@ -76,6 +76,8 @@ export type CheckoutContextType = {
   ) => void;
   twoLetterStateCode: string;
   updateTwoLetterStateCode: (code: string) => void;
+  billingTwoLetterStateCode: string;
+  updateBillingTwoLetterStateCode: (code: string) => void;
   totalTax: string;
   updateTotalTax: (tax: string) => void;
 };
@@ -140,6 +142,8 @@ export const CheckoutContext = createContext<CheckoutContextType>({
   updateTwoLetterStateCode: () => {},
   totalTax: '',
   updateTotalTax: () => {},
+  billingTwoLetterStateCode: '',
+  updateBillingTwoLetterStateCode: () => {},
 });
 
 const CheckoutProvider: FC<CheckoutProviderProps> = ({ children }) => {
@@ -319,6 +323,13 @@ const CheckoutProvider: FC<CheckoutProviderProps> = ({ children }) => {
     setTotalTax(tax);
   };
 
+  const [billingTwoLetterStateCode, setBillingTwoLetterStateCode] =
+    useState('');
+
+  const updateBillingTwoLetterStateCode = (code: string) => {
+    setBillingTwoLetterStateCode(code);
+  };
+
   return (
     <CheckoutContext.Provider
       value={{
@@ -364,6 +375,8 @@ const CheckoutProvider: FC<CheckoutProviderProps> = ({ children }) => {
         updateTwoLetterStateCode,
         totalTax,
         updateTotalTax,
+        billingTwoLetterStateCode,
+        updateBillingTwoLetterStateCode,
       }}
     >
       {children}

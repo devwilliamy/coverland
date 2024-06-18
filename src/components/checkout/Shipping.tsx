@@ -31,6 +31,7 @@ export default function Shipping({
     updateIsReadyToShip,
     customerInfo,
     isReadyToPay,
+    twoLetterStateCode,
     updateIsReadyToPay,
   } = useCheckoutContext();
 
@@ -90,14 +91,12 @@ export default function Shipping({
               <div>{line1}</div>
               <div>{line2}</div>
               <div>
-                {city} {state} {postal_code}
+                {city} {twoLetterStateCode ?? state} {postal_code}
               </div>
               <div>{customerInfo.email}</div>
               <div>{customerInfo.phoneNumber}</div>
             </div>
-            <div className="text-base font-medium">
-              Select Your Shipping Option
-            </div>
+            <div className="text-base font-medium">Shipping Speed</div>
             <div className="text-base font-[400] leading-[27px] text-[#767676]">
               <div>{shippingOptions[selectedIndex].shippingText}</div>
               <div>{shippingOptions[selectedIndex].upsText}</div>
