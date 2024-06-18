@@ -10,7 +10,7 @@ export const ADMIN_PANEL_ORDER_ITEMS =
   process.env.NEXT_PUBLIC_IS_PREVIEW === 'PREVIEW'
     ? 'orderItems_table_TEST'
     : 'orderItems_table';
-export const ADMIN_PANEL_PRODUCTS = 'Products';
+export const ADMIN_PANEL_PRODUCTS = 'Products_20240617';
 export const ADMIN_PANEL_CUSTOMERS = 'users';
 export const SEAT_COVERS_TABLE = 'seat_covers';
 export const MODEL_TABLE = 'Model';
