@@ -63,6 +63,8 @@ const createOrderItems = (
       product_id: product.id,
       quantity: quantity,
       price: price,
+      original_price: original_price,
+      discount_amount: discount_amount,
     };
 
     return orderItem;
