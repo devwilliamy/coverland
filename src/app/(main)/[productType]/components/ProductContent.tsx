@@ -18,6 +18,7 @@ import installments from '@/images/PDP/Product-Details-Redesign-2/paypal-install
 import Image from 'next/image';
 import useDetermineType from '@/hooks/useDetermineType';
 import ReactPlayer from 'react-player';
+import { set } from 'zod';
 export function ProductContent({
   searchParams,
 }: {
@@ -88,7 +89,7 @@ export function ProductContent({
       defaultMSRP = 80;
       break;
     default:
-      defaultMSRP = 160;
+      defaultMSRP = 180;
       break;
   }
 
@@ -97,27 +98,28 @@ export function ProductContent({
   const [discountPercent, setDiscountPercent] = useState<string | null>('50%');
   // let quantityBetween1and5: boolean;
   // let quantityBetween6and10: boolean;
-  const [between1and3, setBetween1and3] = useState(false);
-  const [between4and10, setBetween4and10] = useState(false);
+  const [isBetween1and3, setIsBetween1and3] = useState(false);
+  const [isBetween4and10, setIsBetween4and10] = useState(false);
   const [newMSRP, setNewMSRP] = useState(0);
   useEffect(() => {
     if (!cartProduct) return;
-    console.log();
+    console.log(cartProduct);
     const quantityBetween1and3 =
       Number(cartProduct.quantity) >= 1 && Number(cartProduct.quantity) <= 3;
     const quantityBetween4and10 =
       Number(cartProduct.quantity) >= 4 && Number(cartProduct.quantity) <= 10;
     const evenCartProductPrice = Number(cartProduct.price);
     let calcedPrice: number;
-    // if 1 <= x <= 5
+    // if 1 <= x <= 3
     if (quantityBetween1and3) {
       calcedPrice = Number((cartProduct.msrp = cartProduct.price));
       console.log({ calcedPrice });
-      setBetween1and3(true);
+      setIsBetween1and3(true);
       setDiscountPercent(null);
       setNewMSRP(calcedPrice);
+      return;
     }
-    // Else if 6 <= x <= 10
+    // Else if 4 <= x <= 10
     else if (quantityBetween4and10) {
       calcedPrice =
         evenCartProductPrice - Math.floor(evenCartProductPrice / 4) - 0.05;
@@ -126,17 +128,19 @@ export function ProductContent({
         quarterPrice: Math.floor(evenCartProductPrice / 4),
         calcedPrice,
       });
-      setBetween4and10(true);
+      setIsBetween4and10(true);
       setDiscountPercent('25%');
       setNewMSRP(calcedPrice);
+      return;
     }
-  }, [modelData]);
+    setNewMSRP(0);
+  }, [cartProduct]);
 
   const handleAddToCart = () => {
     if (!cartProduct) return;
     setAddToCartOpen(true);
 
-    if (between1and3 || between4and10) {
+    if (newMSRP !== 0) {
       return addToCart({ ...cartProduct, msrp: newMSRP, quantity: 1 });
     }
 
@@ -165,7 +169,7 @@ export function ProductContent({
       )}
     </h1>
   );
-
+  const installmentPrice = newMSRP !== 0 ? newMSRP : defaultMSRP;
   return (
     <>
       <div className="grid grid-cols-1 lg:mt-[60px]">
@@ -215,14 +219,16 @@ export function ProductContent({
                   ? `${Number(selectedProduct?.price)}`
                   : defaultPrice}
               </span>
-              {discountPercent && <p>(-{discountPercent})</p>}
+              <p>(-{discountPercent})</p>
             </div>
           )}
         </div>
         <div className="mt-1 flex items-center gap-2 ">
           <p className=" mb-[4px] text-[14px] leading-[16px] text-[#767676] lg:text-[16px]">
             4 interest-free installments of{' '}
-            <b className="font-[400] text-black">${defaultMSRP / 4 - 0.01}</b>
+            <b className="font-[400] text-black">
+              ${(Math.round(installmentPrice) / 4 - 0.01).toFixed(2)}
+            </b>
           </p>
           <Image alt="paypal-installents" src={installments} />
           {/* <Info className="h-[17px] w-[17px] text-[#767676]" /> */}

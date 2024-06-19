@@ -75,7 +75,7 @@ const CartItem = ({ item }: CartItemProps) => {
           {item.msrp !== item.price && (
             <div className="text-sm font-normal text-[#707070] line-through decoration-[#707070] lg:text-base">
               {item?.price &&
-                `$${(parseFloat(item?.price as string) * item?.quantity).toFixed(2)}`}
+                `$${parseFloat(item?.price as string).toFixed(2)}`}
             </div>
           )}
         </div>

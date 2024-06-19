@@ -38,39 +38,34 @@ export default function SeatContent({
 
   const { make, model } = useDetermineType();
 
-  // const defaultPrice: number = defaultMSRP * 2;
-  // const isStandardPrice = isStandardType ? defaultMSRP : defaultMSRP - 0.05;
   const [discountPercent, setDiscountPercent] = useState<string | null>('50%');
-  // let quantityBetween1and5: boolean;
-  // let quantityBetween6and10: boolean;
-  const [between1and5, setBetween1and5] = useState(false);
-  const [between6and10, setBetween6and10] = useState(false);
+  const [isBetween1and3, setIsBetween1and3] = useState(false);
+  const [isBetween4and10, setIsBetween4and10] = useState(false);
   const [newMSRP, setNewMSRP] = useState(selectedProduct.msrp);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     setLoading(true);
     if (!selectedProduct) return setLoading(false);
-    console.log(selectedProduct);
     setNewMSRP(selectedProduct.msrp);
-    const quantityBetween1and5 =
+    const quantityBetween1and3 =
       Number(selectedProduct.quantity) >= 1 &&
-      Number(selectedProduct.quantity) <= 5;
-    const quantityBetween6and10 =
-      Number(selectedProduct.quantity) >= 6 &&
+      Number(selectedProduct.quantity) <= 3;
+    const quantityBetween4and10 =
+      Number(selectedProduct.quantity) >= 4 &&
       Number(selectedProduct.quantity) <= 10;
     const evenCartProductPrice = Number(selectedProduct.price);
     let calcedPrice: number;
-    // if 1 <= x <= 5
-    if (quantityBetween1and5) {
+    // if 1 <= x <= 3
+    if (quantityBetween1and3) {
       calcedPrice = Number((selectedProduct.msrp = selectedProduct.price));
       console.log({ calcedPrice });
-      setBetween1and5(true);
+      setIsBetween1and3(true);
       setDiscountPercent(null);
       setNewMSRP(calcedPrice);
     }
-    // Else if 6 <= x <= 10
-    else if (quantityBetween6and10) {
+    // Else if 4 <= x <= 10
+    else if (quantityBetween4and10) {
       calcedPrice =
         evenCartProductPrice - Math.floor(evenCartProductPrice / 4) - 0.05;
       console.log({
@@ -78,7 +73,7 @@ export default function SeatContent({
         quarterPrice: Math.floor(evenCartProductPrice / 4),
         calcedPrice,
       });
-      setBetween6and10(true);
+      setIsBetween4and10(true);
       setDiscountPercent('25%');
       setNewMSRP(calcedPrice);
     } else {
@@ -89,7 +84,7 @@ export default function SeatContent({
   }, [selectedProduct]);
 
   const handleAddToCart = () => {
-    if (between1and5 || between6and10) {
+    if (newMSRP !== 0) {
       addToCart({ ...selectedProduct, msrp: newMSRP, quantity: 1 });
     } else {
       addToCart({ ...selectedProduct, quantity: 1 });
@@ -97,6 +92,8 @@ export default function SeatContent({
 
     router.push('/checkout');
   };
+
+  const installmentPrice = newMSRP !== 0 ? newMSRP : selectedProduct.price / 2;
 
   return (
     <section className="flex w-full flex-col max-lg:px-4 max-lg:pt-4 lg:sticky lg:top-8 lg:w-1/2">
@@ -136,20 +133,24 @@ export default function SeatContent({
       </div>
       <div className=" flex items-end  gap-[9px] pt-[34px]   text-center text-[28px] font-[900]  lg:text-[32px] lg:leading-[37.5px] ">
         <div className="leading-[20px]">${newMSRP}</div>
-        <div className="flex gap-1.5 pb-[1px] text-[22px] font-[400] leading-[14px] text-[#BE1B1B] lg:text-[22px] ">
-          <span className=" text-[#BEBEBE] line-through">
-            ${selectedProduct.price}
-          </span>
-          <p>(-{discountPercent})</p>
-        </div>
+        {discountPercent && (
+          <div className="flex gap-1.5 pb-[1px] text-[22px] font-[400] leading-[14px] text-[#BE1B1B] lg:text-[22px] ">
+            <span className=" text-[#BEBEBE] line-through">
+              ${selectedProduct.price}
+            </span>
+            <p>(-{discountPercent})</p>
+          </div>
+        )}
       </div>
       <div className="pb-4.5 mt-[15px] flex items-center gap-2 ">
-        <p className="mb-[4px] text-[14px] leading-[16px] text-[#767676] lg:text-[16px]">
-          4 interest-free installments of{' '}
-          <b className="font-[400] text-black">
-            ${((selectedProduct.price || 1) / 8 - 0.01).toFixed(2)}
-          </b>
-        </p>
+        {installmentPrice && (
+          <p className="mb-[4px] text-[14px] leading-[16px] text-[#767676] lg:text-[16px]">
+            4 interest-free installments of{' '}
+            <b className="font-[400] text-black">
+              ${(Math.round(installmentPrice) / 4 - 0.01).toFixed(2)}
+            </b>
+          </p>
+        )}
         <Image alt="paypal-installents" src={installments} />
         {/* <Info className="h-[17px] w-[17px] text-[#767676]" /> */}
       </div>
