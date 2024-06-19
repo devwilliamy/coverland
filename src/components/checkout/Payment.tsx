@@ -100,6 +100,8 @@ export default function Payment({
           updateIsReadyToPay(true);
           handleChangeAccordion('orderReview');
         }
+      })
+      .finally(() => {
         setIsLoading(false);
       });
   };
@@ -260,11 +262,11 @@ export default function Payment({
           </div>
         )}
 
-      {message && (
+      {/* {message && (
         <div className="font-base flex items-center justify-center text-lg text-red-500">
           Error: {message}
         </div>
-      )}
+      )} */}
     </section>
   );
 }
