@@ -14,7 +14,7 @@ import {
 import { TReviewData, TProductReviewSummary } from '@/lib/types/review';
 export const dynamicParams = false;
 
-export const revalidate = 86400;
+export const revalidate = 300;
 
 export async function generateStaticParams() {
   return [{ coverType: 'leather' }];

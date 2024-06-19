@@ -10,7 +10,7 @@ import { notFound } from 'next/navigation';
 import { TInitialProductDataDB, getProductData } from '@/lib/db';
 import { TReviewData, TProductReviewSummary } from '@/lib/types/review';
 
-export const revalidate = 86400;
+export const revalidate = 300;
 
 export function generateStaticParams() {
   return [
