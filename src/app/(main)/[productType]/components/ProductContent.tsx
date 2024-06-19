@@ -95,7 +95,7 @@ export function ProductContent({
 
   const defaultPrice: number = defaultMSRP * 2;
   const isStandardPrice = isStandardType ? defaultMSRP : defaultMSRP - 0.05;
-  const [discountPercent, setDiscountPercent] = useState<string | null>('50%');
+  const [discountPercent, setDiscountPercent] = useState<number | null>(50);
   // let quantityBetween1and5: boolean;
   // let quantityBetween6and10: boolean;
   const [isBetween1and3, setIsBetween1and3] = useState(false);
@@ -129,7 +129,7 @@ export function ProductContent({
         calcedPrice,
       });
       setIsBetween4and10(true);
-      setDiscountPercent('25%');
+      setDiscountPercent(25);
       setNewMSRP(calcedPrice);
       return;
     }
@@ -219,7 +219,7 @@ export function ProductContent({
                   ? `${Number(selectedProduct?.price)}`
                   : defaultPrice}
               </span>
-              <p>(-{discountPercent})</p>
+              <p>(-{discountPercent}%)</p>
             </div>
           )}
         </div>

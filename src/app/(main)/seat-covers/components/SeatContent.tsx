@@ -38,7 +38,7 @@ export default function SeatContent({
 
   const { make, model } = useDetermineType();
 
-  const [discountPercent, setDiscountPercent] = useState<string | null>('50%');
+  const [discountPercent, setDiscountPercent] = useState<number | null>(50);
   const [isBetween1and3, setIsBetween1and3] = useState(false);
   const [isBetween4and10, setIsBetween4and10] = useState(false);
   const [newMSRP, setNewMSRP] = useState(selectedProduct.msrp);
@@ -74,10 +74,10 @@ export default function SeatContent({
         calcedPrice,
       });
       setIsBetween4and10(true);
-      setDiscountPercent('25%');
+      setDiscountPercent(25);
       setNewMSRP(calcedPrice);
     } else {
-      setDiscountPercent('50%');
+      setDiscountPercent(50);
       setNewMSRP(selectedProduct.msrp);
     }
     setLoading(false);
@@ -138,7 +138,7 @@ export default function SeatContent({
             <span className=" text-[#BEBEBE] line-through">
               ${selectedProduct.price}
             </span>
-            <p>(-{discountPercent})</p>
+            <p>(-{discountPercent}%)</p>
           </div>
         )}
       </div>
