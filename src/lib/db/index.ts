@@ -73,7 +73,7 @@ export async function getProductData({
 
   fetch = fetch.neq('quantity', '0');
 
-  const { data, error } = await fetch.limit(1000);
+  const { data, error } = await fetch.limit(750);
 
   if (error) {
     throw new Error(error.message);

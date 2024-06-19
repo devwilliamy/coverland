@@ -35,8 +35,8 @@ export async function generateMetadata({ params }: { params: TPathParams }) {
     },
   };
 }
-const coverTypes = ['premium-plus', 'premium', 'standard-pro', 'standard'];
-const productTypes = ['car-covers', 'truck-covers', 'suv-covers'];
+const coverTypes = ['premium-plus'];
+const productTypes = ['car-covers'];
 
 export default async function CarPDPModelDataLayer({
   params,
@@ -66,7 +66,7 @@ export default async function CarPDPModelDataLayer({
     productType === 'car-covers' ? 'Car Covers' : SuvOrTruckType;
 
   try {
-    [modelData, reviewDataSummary, reviewImages] =
+    [modelData, reviewData, reviewDataSummary, reviewImages] =
       await Promise.all([
         getProductData({
           type: typeString,
