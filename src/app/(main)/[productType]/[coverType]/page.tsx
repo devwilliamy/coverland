@@ -16,7 +16,7 @@ import {
 import { PREMIUM_PLUS_URL_PARAM } from '@/lib/constants';
 import { TReviewData, TProductReviewSummary } from '@/lib/types/review';
 
-export const revalidate = 0;
+export const revalidate = 300;
 
 export async function generateStaticParams() {
   return combineOptions(coverOptions, productOptions);
@@ -35,8 +35,8 @@ export async function generateMetadata({ params }: { params: TPathParams }) {
     },
   };
 }
-const coverTypes = ['premium-plus', 'premium', 'standard-pro', 'standard'];
-const productTypes = ['car-covers', 'truck-covers', 'suv-covers'];
+const coverTypes = ['premium-plus'];
+const productTypes = ['car-covers'];
 
 export default async function CarPDPModelDataLayer({
   params,

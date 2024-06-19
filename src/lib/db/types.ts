@@ -46,11 +46,17 @@ export type Database = {
           shipping_address_postal_code: string | null
           shipping_address_state: string | null
           shipping_carrier: string | null
+          shipping_previous_status: string | null
+          shipping_service: string | null
+          shipping_status: string | null
+          shipping_status_last_updated: string | null
+          shipping_status_last_updated_pst: string | null
           shipping_tracking_number: string | null
           skus: string | null
           status: string | null
           total_amount: number | null
-          tracking_number: string | null
+          total_discount_amount: number | null
+          total_original_amount: number | null
           transaction_id: string | null
           updated_at: string | null
           wallet_type: string | null
@@ -91,11 +97,17 @@ export type Database = {
           shipping_address_postal_code?: string | null
           shipping_address_state?: string | null
           shipping_carrier?: string | null
+          shipping_previous_status?: string | null
+          shipping_service?: string | null
+          shipping_status?: string | null
+          shipping_status_last_updated?: string | null
+          shipping_status_last_updated_pst?: string | null
           shipping_tracking_number?: string | null
           skus?: string | null
           status?: string | null
           total_amount?: number | null
-          tracking_number?: string | null
+          total_discount_amount?: number | null
+          total_original_amount?: number | null
           transaction_id?: string | null
           updated_at?: string | null
           wallet_type?: string | null
@@ -136,11 +148,17 @@ export type Database = {
           shipping_address_postal_code?: string | null
           shipping_address_state?: string | null
           shipping_carrier?: string | null
+          shipping_previous_status?: string | null
+          shipping_service?: string | null
+          shipping_status?: string | null
+          shipping_status_last_updated?: string | null
+          shipping_status_last_updated_pst?: string | null
           shipping_tracking_number?: string | null
           skus?: string | null
           status?: string | null
           total_amount?: number | null
-          tracking_number?: string | null
+          total_discount_amount?: number | null
+          total_original_amount?: number | null
           transaction_id?: string | null
           updated_at?: string | null
           wallet_type?: string | null
@@ -559,7 +577,7 @@ export type Database = {
         }
         Relationships: []
       }
-      _Orders_TEST: {
+      _Orders_duplicate: {
         Row: {
           billing_address_city: string | null
           billing_address_country: string | null
@@ -596,10 +614,17 @@ export type Database = {
           shipping_address_postal_code: string | null
           shipping_address_state: string | null
           shipping_carrier: string | null
+          shipping_previous_status: string | null
+          shipping_service: string | null
+          shipping_status: string | null
+          shipping_status_last_updated: string | null
+          shipping_status_last_updated_pst: string | null
           shipping_tracking_number: string | null
           skus: string | null
           status: string | null
           total_amount: number | null
+          total_discount_amount: number | null
+          total_original_amount: number | null
           transaction_id: string | null
           updated_at: string | null
           wallet_type: string | null
@@ -640,10 +665,17 @@ export type Database = {
           shipping_address_postal_code?: string | null
           shipping_address_state?: string | null
           shipping_carrier?: string | null
+          shipping_previous_status?: string | null
+          shipping_service?: string | null
+          shipping_status?: string | null
+          shipping_status_last_updated?: string | null
+          shipping_status_last_updated_pst?: string | null
           shipping_tracking_number?: string | null
           skus?: string | null
           status?: string | null
           total_amount?: number | null
+          total_discount_amount?: number | null
+          total_original_amount?: number | null
           transaction_id?: string | null
           updated_at?: string | null
           wallet_type?: string | null
@@ -684,10 +716,181 @@ export type Database = {
           shipping_address_postal_code?: string | null
           shipping_address_state?: string | null
           shipping_carrier?: string | null
+          shipping_previous_status?: string | null
+          shipping_service?: string | null
+          shipping_status?: string | null
+          shipping_status_last_updated?: string | null
+          shipping_status_last_updated_pst?: string | null
           shipping_tracking_number?: string | null
           skus?: string | null
           status?: string | null
           total_amount?: number | null
+          total_discount_amount?: number | null
+          total_original_amount?: number | null
+          transaction_id?: string | null
+          updated_at?: string | null
+          wallet_type?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "_Orders_duplicate_customer_id_fkey"
+            columns: ["customer_id"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      _Orders_TEST: {
+        Row: {
+          billing_address_city: string | null
+          billing_address_country: string | null
+          billing_address_line_1: string | null
+          billing_address_line_2: string | null
+          billing_address_postal_code: string | null
+          billing_address_state: string | null
+          billing_customer_name: string | null
+          card_amount: number | null
+          card_brand: string | null
+          card_fingerprint: string | null
+          card_funding: string | null
+          created_at: string | null
+          created_at_pst: string | null
+          currency: string | null
+          customer_email: string | null
+          customer_id: number | null
+          customer_name: string | null
+          customer_phone: string | null
+          id: number
+          notes: string | null
+          order_date: string | null
+          order_id: string | null
+          payment_date: string | null
+          payment_gateway: string | null
+          payment_gateway_customer_id: string | null
+          payment_method: string | null
+          payment_method_id: string | null
+          payment_status: string | null
+          shipping_address_city: string | null
+          shipping_address_country: string | null
+          shipping_address_line_1: string | null
+          shipping_address_line_2: string | null
+          shipping_address_postal_code: string | null
+          shipping_address_state: string | null
+          shipping_carrier: string | null
+          shipping_previous_status: string | null
+          shipping_service: string | null
+          shipping_status: string | null
+          shipping_status_last_updated: string | null
+          shipping_status_last_updated_pst: string | null
+          shipping_tracking_number: string | null
+          skus: string | null
+          status: string | null
+          total_amount: number | null
+          total_discount_amount: number | null
+          total_original_amount: number | null
+          transaction_id: string | null
+          updated_at: string | null
+          wallet_type: string | null
+        }
+        Insert: {
+          billing_address_city?: string | null
+          billing_address_country?: string | null
+          billing_address_line_1?: string | null
+          billing_address_line_2?: string | null
+          billing_address_postal_code?: string | null
+          billing_address_state?: string | null
+          billing_customer_name?: string | null
+          card_amount?: number | null
+          card_brand?: string | null
+          card_fingerprint?: string | null
+          card_funding?: string | null
+          created_at?: string | null
+          created_at_pst?: string | null
+          currency?: string | null
+          customer_email?: string | null
+          customer_id?: number | null
+          customer_name?: string | null
+          customer_phone?: string | null
+          id?: number
+          notes?: string | null
+          order_date?: string | null
+          order_id?: string | null
+          payment_date?: string | null
+          payment_gateway?: string | null
+          payment_gateway_customer_id?: string | null
+          payment_method?: string | null
+          payment_method_id?: string | null
+          payment_status?: string | null
+          shipping_address_city?: string | null
+          shipping_address_country?: string | null
+          shipping_address_line_1?: string | null
+          shipping_address_line_2?: string | null
+          shipping_address_postal_code?: string | null
+          shipping_address_state?: string | null
+          shipping_carrier?: string | null
+          shipping_previous_status?: string | null
+          shipping_service?: string | null
+          shipping_status?: string | null
+          shipping_status_last_updated?: string | null
+          shipping_status_last_updated_pst?: string | null
+          shipping_tracking_number?: string | null
+          skus?: string | null
+          status?: string | null
+          total_amount?: number | null
+          total_discount_amount?: number | null
+          total_original_amount?: number | null
+          transaction_id?: string | null
+          updated_at?: string | null
+          wallet_type?: string | null
+        }
+        Update: {
+          billing_address_city?: string | null
+          billing_address_country?: string | null
+          billing_address_line_1?: string | null
+          billing_address_line_2?: string | null
+          billing_address_postal_code?: string | null
+          billing_address_state?: string | null
+          billing_customer_name?: string | null
+          card_amount?: number | null
+          card_brand?: string | null
+          card_fingerprint?: string | null
+          card_funding?: string | null
+          created_at?: string | null
+          created_at_pst?: string | null
+          currency?: string | null
+          customer_email?: string | null
+          customer_id?: number | null
+          customer_name?: string | null
+          customer_phone?: string | null
+          id?: number
+          notes?: string | null
+          order_date?: string | null
+          order_id?: string | null
+          payment_date?: string | null
+          payment_gateway?: string | null
+          payment_gateway_customer_id?: string | null
+          payment_method?: string | null
+          payment_method_id?: string | null
+          payment_status?: string | null
+          shipping_address_city?: string | null
+          shipping_address_country?: string | null
+          shipping_address_line_1?: string | null
+          shipping_address_line_2?: string | null
+          shipping_address_postal_code?: string | null
+          shipping_address_state?: string | null
+          shipping_carrier?: string | null
+          shipping_previous_status?: string | null
+          shipping_service?: string | null
+          shipping_status?: string | null
+          shipping_status_last_updated?: string | null
+          shipping_status_last_updated_pst?: string | null
+          shipping_tracking_number?: string | null
+          skus?: string | null
+          status?: string | null
+          total_amount?: number | null
+          total_discount_amount?: number | null
+          total_original_amount?: number | null
           transaction_id?: string | null
           updated_at?: string | null
           wallet_type?: string | null
@@ -695,6 +898,170 @@ export type Database = {
         Relationships: [
           {
             foreignKeyName: "_Orders_TEST_customer_id_fkey"
+            columns: ["customer_id"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      _Orders_TEST_duplicate: {
+        Row: {
+          billing_address_city: string | null
+          billing_address_country: string | null
+          billing_address_line_1: string | null
+          billing_address_line_2: string | null
+          billing_address_postal_code: string | null
+          billing_address_state: string | null
+          billing_customer_name: string | null
+          card_amount: number | null
+          card_brand: string | null
+          card_fingerprint: string | null
+          card_funding: string | null
+          created_at: string | null
+          created_at_pst: string | null
+          currency: string | null
+          customer_email: string | null
+          customer_id: number | null
+          customer_name: string | null
+          customer_phone: string | null
+          id: number
+          notes: string | null
+          order_date: string | null
+          order_id: string | null
+          payment_date: string | null
+          payment_gateway: string | null
+          payment_gateway_customer_id: string | null
+          payment_method: string | null
+          payment_method_id: string | null
+          payment_status: string | null
+          shipping_address_city: string | null
+          shipping_address_country: string | null
+          shipping_address_line_1: string | null
+          shipping_address_line_2: string | null
+          shipping_address_postal_code: string | null
+          shipping_address_state: string | null
+          shipping_carrier: string | null
+          shipping_previous_status: string | null
+          shipping_service: string | null
+          shipping_status: string | null
+          shipping_status_last_updated: string | null
+          shipping_status_last_updated_pst: string | null
+          shipping_tracking_number: string | null
+          skus: string | null
+          status: string | null
+          total_amount: number | null
+          total_discount_amount: number | null
+          total_original_amount: number | null
+          transaction_id: string | null
+          updated_at: string | null
+          wallet_type: string | null
+        }
+        Insert: {
+          billing_address_city?: string | null
+          billing_address_country?: string | null
+          billing_address_line_1?: string | null
+          billing_address_line_2?: string | null
+          billing_address_postal_code?: string | null
+          billing_address_state?: string | null
+          billing_customer_name?: string | null
+          card_amount?: number | null
+          card_brand?: string | null
+          card_fingerprint?: string | null
+          card_funding?: string | null
+          created_at?: string | null
+          created_at_pst?: string | null
+          currency?: string | null
+          customer_email?: string | null
+          customer_id?: number | null
+          customer_name?: string | null
+          customer_phone?: string | null
+          id?: number
+          notes?: string | null
+          order_date?: string | null
+          order_id?: string | null
+          payment_date?: string | null
+          payment_gateway?: string | null
+          payment_gateway_customer_id?: string | null
+          payment_method?: string | null
+          payment_method_id?: string | null
+          payment_status?: string | null
+          shipping_address_city?: string | null
+          shipping_address_country?: string | null
+          shipping_address_line_1?: string | null
+          shipping_address_line_2?: string | null
+          shipping_address_postal_code?: string | null
+          shipping_address_state?: string | null
+          shipping_carrier?: string | null
+          shipping_previous_status?: string | null
+          shipping_service?: string | null
+          shipping_status?: string | null
+          shipping_status_last_updated?: string | null
+          shipping_status_last_updated_pst?: string | null
+          shipping_tracking_number?: string | null
+          skus?: string | null
+          status?: string | null
+          total_amount?: number | null
+          total_discount_amount?: number | null
+          total_original_amount?: number | null
+          transaction_id?: string | null
+          updated_at?: string | null
+          wallet_type?: string | null
+        }
+        Update: {
+          billing_address_city?: string | null
+          billing_address_country?: string | null
+          billing_address_line_1?: string | null
+          billing_address_line_2?: string | null
+          billing_address_postal_code?: string | null
+          billing_address_state?: string | null
+          billing_customer_name?: string | null
+          card_amount?: number | null
+          card_brand?: string | null
+          card_fingerprint?: string | null
+          card_funding?: string | null
+          created_at?: string | null
+          created_at_pst?: string | null
+          currency?: string | null
+          customer_email?: string | null
+          customer_id?: number | null
+          customer_name?: string | null
+          customer_phone?: string | null
+          id?: number
+          notes?: string | null
+          order_date?: string | null
+          order_id?: string | null
+          payment_date?: string | null
+          payment_gateway?: string | null
+          payment_gateway_customer_id?: string | null
+          payment_method?: string | null
+          payment_method_id?: string | null
+          payment_status?: string | null
+          shipping_address_city?: string | null
+          shipping_address_country?: string | null
+          shipping_address_line_1?: string | null
+          shipping_address_line_2?: string | null
+          shipping_address_postal_code?: string | null
+          shipping_address_state?: string | null
+          shipping_carrier?: string | null
+          shipping_previous_status?: string | null
+          shipping_service?: string | null
+          shipping_status?: string | null
+          shipping_status_last_updated?: string | null
+          shipping_status_last_updated_pst?: string | null
+          shipping_tracking_number?: string | null
+          skus?: string | null
+          status?: string | null
+          total_amount?: number | null
+          total_discount_amount?: number | null
+          total_original_amount?: number | null
+          transaction_id?: string | null
+          updated_at?: string | null
+          wallet_type?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "_Orders_TEST_duplicate_customer_id_fkey"
             columns: ["customer_id"]
             isOneToOne: false
             referencedRelation: "users"
@@ -750,390 +1117,6 @@ export type Database = {
           id?: number
           image_path?: string | null
           Name?: string | null
-        }
-        Relationships: []
-      }
-      car_cover_reviews_20240604: {
-        Row: {
-          "car type": string | null
-          customer_name: string | null
-          date: string | null
-          display_color: string | null
-          display_id: string | null
-          f: number | null
-          helpful: number | null
-          helpful_tier: number | null
-          id: number
-          image_link: string | null
-          make: string | null
-          make_slug: string | null
-          model: string | null
-          model_slug: string | null
-          parent_generation: string | null
-          popular: string | null
-          quantity: string | null
-          rating: number | null
-          recommend: string | null
-          review_description: string | null
-          review_title: string | null
-          sku: string | null
-          sku_1: string | null
-          submodel1: string | null
-          submodel2: string | null
-          submodel3: string | null
-          type: string | null
-          verfied_status: string | null
-          year_generation: string | null
-        }
-        Insert: {
-          "car type"?: string | null
-          customer_name?: string | null
-          date?: string | null
-          display_color?: string | null
-          display_id?: string | null
-          f?: number | null
-          helpful?: number | null
-          helpful_tier?: number | null
-          id: number
-          image_link?: string | null
-          make?: string | null
-          make_slug?: string | null
-          model?: string | null
-          model_slug?: string | null
-          parent_generation?: string | null
-          popular?: string | null
-          quantity?: string | null
-          rating?: number | null
-          recommend?: string | null
-          review_description?: string | null
-          review_title?: string | null
-          sku?: string | null
-          sku_1?: string | null
-          submodel1?: string | null
-          submodel2?: string | null
-          submodel3?: string | null
-          type?: string | null
-          verfied_status?: string | null
-          year_generation?: string | null
-        }
-        Update: {
-          "car type"?: string | null
-          customer_name?: string | null
-          date?: string | null
-          display_color?: string | null
-          display_id?: string | null
-          f?: number | null
-          helpful?: number | null
-          helpful_tier?: number | null
-          id?: number
-          image_link?: string | null
-          make?: string | null
-          make_slug?: string | null
-          model?: string | null
-          model_slug?: string | null
-          parent_generation?: string | null
-          popular?: string | null
-          quantity?: string | null
-          rating?: number | null
-          recommend?: string | null
-          review_description?: string | null
-          review_title?: string | null
-          sku?: string | null
-          sku_1?: string | null
-          submodel1?: string | null
-          submodel2?: string | null
-          submodel3?: string | null
-          type?: string | null
-          verfied_status?: string | null
-          year_generation?: string | null
-        }
-        Relationships: []
-      }
-      car_cover_reviews_20240611_1: {
-        Row: {
-          "car type": string | null
-          customer_name: string | null
-          date: string | null
-          display_color: string | null
-          display_id: string | null
-          f: number | null
-          helpful: number | null
-          helpful_tier: number | null
-          id: number
-          image_link: string | null
-          make: string | null
-          make_slug: string | null
-          model: string | null
-          model_slug: string | null
-          parent_generation: string | null
-          popular: string | null
-          quantity: string | null
-          rating: number | null
-          recommend: string | null
-          review_description: string | null
-          review_title: string | null
-          sku: string | null
-          skulabs_sku: string | null
-          submodel1: string | null
-          submodel2: string | null
-          submodel3: string | null
-          type: string | null
-          verfied_status: string | null
-          year_generation: string | null
-        }
-        Insert: {
-          "car type"?: string | null
-          customer_name?: string | null
-          date?: string | null
-          display_color?: string | null
-          display_id?: string | null
-          f?: number | null
-          helpful?: number | null
-          helpful_tier?: number | null
-          id: number
-          image_link?: string | null
-          make?: string | null
-          make_slug?: string | null
-          model?: string | null
-          model_slug?: string | null
-          parent_generation?: string | null
-          popular?: string | null
-          quantity?: string | null
-          rating?: number | null
-          recommend?: string | null
-          review_description?: string | null
-          review_title?: string | null
-          sku?: string | null
-          skulabs_sku?: string | null
-          submodel1?: string | null
-          submodel2?: string | null
-          submodel3?: string | null
-          type?: string | null
-          verfied_status?: string | null
-          year_generation?: string | null
-        }
-        Update: {
-          "car type"?: string | null
-          customer_name?: string | null
-          date?: string | null
-          display_color?: string | null
-          display_id?: string | null
-          f?: number | null
-          helpful?: number | null
-          helpful_tier?: number | null
-          id?: number
-          image_link?: string | null
-          make?: string | null
-          make_slug?: string | null
-          model?: string | null
-          model_slug?: string | null
-          parent_generation?: string | null
-          popular?: string | null
-          quantity?: string | null
-          rating?: number | null
-          recommend?: string | null
-          review_description?: string | null
-          review_title?: string | null
-          sku?: string | null
-          skulabs_sku?: string | null
-          submodel1?: string | null
-          submodel2?: string | null
-          submodel3?: string | null
-          type?: string | null
-          verfied_status?: string | null
-          year_generation?: string | null
-        }
-        Relationships: []
-      }
-      car_cover_reviews_20240611_2: {
-        Row: {
-          "car type": string | null
-          customer_name: string | null
-          date: string | null
-          display_color: string | null
-          display_id: string | null
-          f: number | null
-          helpful: number | null
-          helpful_tier: number | null
-          id: number
-          image_link: string | null
-          make: string | null
-          make_slug: string | null
-          model: string | null
-          model_slug: string | null
-          parent_generation: string | null
-          popular: string | null
-          quantity: string | null
-          rating: number | null
-          recommend: string | null
-          review_description: string | null
-          review_title: string | null
-          sku: string | null
-          skulabs_sku: string | null
-          submodel1: string | null
-          submodel2: string | null
-          submodel3: string | null
-          type: string | null
-          verfied_status: string | null
-          year_generation: string | null
-        }
-        Insert: {
-          "car type"?: string | null
-          customer_name?: string | null
-          date?: string | null
-          display_color?: string | null
-          display_id?: string | null
-          f?: number | null
-          helpful?: number | null
-          helpful_tier?: number | null
-          id: number
-          image_link?: string | null
-          make?: string | null
-          make_slug?: string | null
-          model?: string | null
-          model_slug?: string | null
-          parent_generation?: string | null
-          popular?: string | null
-          quantity?: string | null
-          rating?: number | null
-          recommend?: string | null
-          review_description?: string | null
-          review_title?: string | null
-          sku?: string | null
-          skulabs_sku?: string | null
-          submodel1?: string | null
-          submodel2?: string | null
-          submodel3?: string | null
-          type?: string | null
-          verfied_status?: string | null
-          year_generation?: string | null
-        }
-        Update: {
-          "car type"?: string | null
-          customer_name?: string | null
-          date?: string | null
-          display_color?: string | null
-          display_id?: string | null
-          f?: number | null
-          helpful?: number | null
-          helpful_tier?: number | null
-          id?: number
-          image_link?: string | null
-          make?: string | null
-          make_slug?: string | null
-          model?: string | null
-          model_slug?: string | null
-          parent_generation?: string | null
-          popular?: string | null
-          quantity?: string | null
-          rating?: number | null
-          recommend?: string | null
-          review_description?: string | null
-          review_title?: string | null
-          sku?: string | null
-          skulabs_sku?: string | null
-          submodel1?: string | null
-          submodel2?: string | null
-          submodel3?: string | null
-          type?: string | null
-          verfied_status?: string | null
-          year_generation?: string | null
-        }
-        Relationships: []
-      }
-      car_cover_reviews_20240611_3: {
-        Row: {
-          "car type": string | null
-          customer_name: string | null
-          date: string | null
-          display_color: string | null
-          display_id: string | null
-          f: number | null
-          helpful: number | null
-          helpful_tier: number | null
-          id: number
-          image_link: string | null
-          make: string | null
-          make_slug: string | null
-          model: string | null
-          model_slug: string | null
-          parent_generation: string | null
-          popular: string | null
-          quantity: string | null
-          rating: number | null
-          recommend: string | null
-          review_description: string | null
-          review_title: string | null
-          sku: string | null
-          skulabs_sku: string | null
-          submodel1: string | null
-          submodel2: string | null
-          submodel3: string | null
-          type: string | null
-          verfied_status: string | null
-          year_generation: string | null
-        }
-        Insert: {
-          "car type"?: string | null
-          customer_name?: string | null
-          date?: string | null
-          display_color?: string | null
-          display_id?: string | null
-          f?: number | null
-          helpful?: number | null
-          helpful_tier?: number | null
-          id: number
-          image_link?: string | null
-          make?: string | null
-          make_slug?: string | null
-          model?: string | null
-          model_slug?: string | null
-          parent_generation?: string | null
-          popular?: string | null
-          quantity?: string | null
-          rating?: number | null
-          recommend?: string | null
-          review_description?: string | null
-          review_title?: string | null
-          sku?: string | null
-          skulabs_sku?: string | null
-          submodel1?: string | null
-          submodel2?: string | null
-          submodel3?: string | null
-          type?: string | null
-          verfied_status?: string | null
-          year_generation?: string | null
-        }
-        Update: {
-          "car type"?: string | null
-          customer_name?: string | null
-          date?: string | null
-          display_color?: string | null
-          display_id?: string | null
-          f?: number | null
-          helpful?: number | null
-          helpful_tier?: number | null
-          id?: number
-          image_link?: string | null
-          make?: string | null
-          make_slug?: string | null
-          model?: string | null
-          model_slug?: string | null
-          parent_generation?: string | null
-          popular?: string | null
-          quantity?: string | null
-          rating?: number | null
-          recommend?: string | null
-          review_description?: string | null
-          review_title?: string | null
-          sku?: string | null
-          skulabs_sku?: string | null
-          submodel1?: string | null
-          submodel2?: string | null
-          submodel3?: string | null
-          type?: string | null
-          verfied_status?: string | null
-          year_generation?: string | null
         }
         Relationships: []
       }
@@ -1314,24 +1297,30 @@ export type Database = {
       orderItems_table: {
         Row: {
           created_at: string
+          discount_amount: number | null
           id: number
           order_id: number | null
+          original_price: number | null
           price: number | null
           product_id: number | null
           quantity: number | null
         }
         Insert: {
           created_at?: string
+          discount_amount?: number | null
           id?: number
           order_id?: number | null
+          original_price?: number | null
           price?: number | null
           product_id?: number | null
           quantity?: number | null
         }
         Update: {
           created_at?: string
+          discount_amount?: number | null
           id?: number
           order_id?: number | null
+          original_price?: number | null
           price?: number | null
           product_id?: number | null
           quantity?: number | null
@@ -1352,6 +1341,33 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
+      }
+      orderItems_table_20240618_backup: {
+        Row: {
+          created_at: string | null
+          id: number | null
+          order_id: number | null
+          price: number | null
+          product_id: number | null
+          quantity: number | null
+        }
+        Insert: {
+          created_at?: string | null
+          id?: number | null
+          order_id?: number | null
+          price?: number | null
+          product_id?: number | null
+          quantity?: number | null
+        }
+        Update: {
+          created_at?: string | null
+          id?: number | null
+          order_id?: number | null
+          price?: number | null
+          product_id?: number | null
+          quantity?: number | null
+        }
+        Relationships: []
       }
       orderItems_table_backup_20240613: {
         Row: {
@@ -1390,32 +1406,38 @@ export type Database = {
             foreignKeyName: "orderItems_table_backup_20240613_product_id_fkey"
             columns: ["product_id"]
             isOneToOne: false
-            referencedRelation: "Products"
+            referencedRelation: "Products_20240529_old"
             referencedColumns: ["id"]
           },
         ]
       }
-      orderItems_table_duplicate_20240531: {
+      orderItems_table_duplicate: {
         Row: {
           created_at: string
+          discount_amount: number | null
           id: number
           order_id: number | null
+          original_price: number | null
           price: number | null
           product_id: number | null
           quantity: number | null
         }
         Insert: {
           created_at?: string
+          discount_amount?: number | null
           id?: number
           order_id?: number | null
+          original_price?: number | null
           price?: number | null
           product_id?: number | null
           quantity?: number | null
         }
         Update: {
           created_at?: string
+          discount_amount?: number | null
           id?: number
           order_id?: number | null
+          original_price?: number | null
           price?: number | null
           product_id?: number | null
           quantity?: number | null
@@ -1432,7 +1454,7 @@ export type Database = {
             foreignKeyName: "orderItems_table_duplicate_product_id_fkey"
             columns: ["product_id"]
             isOneToOne: false
-            referencedRelation: "Products_20240513_old"
+            referencedRelation: "Products"
             referencedColumns: ["id"]
           },
         ]
@@ -1440,24 +1462,30 @@ export type Database = {
       orderItems_table_TEST: {
         Row: {
           created_at: string
+          discount_amount: number | null
           id: number
           order_id: number | null
+          original_price: number | null
           price: number | null
           product_id: number | null
           quantity: number | null
         }
         Insert: {
           created_at?: string
+          discount_amount?: number | null
           id?: number
           order_id?: number | null
+          original_price?: number | null
           price?: number | null
           product_id?: number | null
           quantity?: number | null
         }
         Update: {
           created_at?: string
+          discount_amount?: number | null
           id?: number
           order_id?: number | null
+          original_price?: number | null
           price?: number | null
           product_id?: number | null
           quantity?: number | null
@@ -1474,7 +1502,55 @@ export type Database = {
             foreignKeyName: "orderItems_table_TEST_product_id_fkey"
             columns: ["product_id"]
             isOneToOne: false
-            referencedRelation: "Products_20240513_old"
+            referencedRelation: "Products"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      orderItems_table_TEST_duplicate: {
+        Row: {
+          created_at: string
+          discount_amount: number | null
+          id: number
+          order_id: number | null
+          original_price: number | null
+          price: number | null
+          product_id: number | null
+          quantity: number | null
+        }
+        Insert: {
+          created_at?: string
+          discount_amount?: number | null
+          id?: number
+          order_id?: number | null
+          original_price?: number | null
+          price?: number | null
+          product_id?: number | null
+          quantity?: number | null
+        }
+        Update: {
+          created_at?: string
+          discount_amount?: number | null
+          id?: number
+          order_id?: number | null
+          original_price?: number | null
+          price?: number | null
+          product_id?: number | null
+          quantity?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "orderItems_table_TEST_duplicate_order_id_fkey"
+            columns: ["order_id"]
+            isOneToOne: false
+            referencedRelation: "_Orders_TEST"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "orderItems_table_TEST_duplicate_product_id_fkey"
+            columns: ["product_id"]
+            isOneToOne: false
+            referencedRelation: "Products"
             referencedColumns: ["id"]
           },
         ]
@@ -1519,6 +1595,7 @@ export type Database = {
           product_video_zoom: string | null
           quantity: string | null
           sku: string | null
+          "skulabs SKU": string | null
           submodel1: string | null
           submodel2: string | null
           submodel3: string | null
@@ -1527,6 +1604,35 @@ export type Database = {
           year_options: string | null
         }
         Insert: {
+          banner?: string | null
+          display_color?: string | null
+          display_id?: string | null
+          display_set?: string | null
+          feature?: string | null
+          id: number
+          make?: string | null
+          make_slug?: string | null
+          model?: string | null
+          model_slug?: string | null
+          msrp?: number | null
+          parent_generation?: string | null
+          price?: number | null
+          product?: string | null
+          product_video_360?: string | null
+          product_video_carousel?: string | null
+          product_video_carousel_thumbnail?: string | null
+          product_video_zoom?: string | null
+          quantity?: string | null
+          sku?: string | null
+          "skulabs SKU"?: string | null
+          submodel1?: string | null
+          submodel2?: string | null
+          submodel3?: string | null
+          type?: string | null
+          year_generation?: string | null
+          year_options?: string | null
+        }
+        Update: {
           banner?: string | null
           display_color?: string | null
           display_id?: string | null
@@ -1547,34 +1653,7 @@ export type Database = {
           product_video_zoom?: string | null
           quantity?: string | null
           sku?: string | null
-          submodel1?: string | null
-          submodel2?: string | null
-          submodel3?: string | null
-          type?: string | null
-          year_generation?: string | null
-          year_options?: string | null
-        }
-        Update: {
-          banner?: string | null
-          display_color?: string | null
-          display_id?: string | null
-          display_set?: string | null
-          feature?: string | null
-          id?: number
-          make?: string | null
-          make_slug?: string | null
-          model?: string | null
-          model_slug?: string | null
-          msrp?: number | null
-          parent_generation?: string | null
-          price?: number | null
-          product?: string | null
-          product_video_360?: string | null
-          product_video_carousel?: string | null
-          product_video_carousel_thumbnail?: string | null
-          product_video_zoom?: string | null
-          quantity?: string | null
-          sku?: string | null
+          "skulabs SKU"?: string | null
           submodel1?: string | null
           submodel2?: string | null
           submodel3?: string | null
@@ -1584,445 +1663,7 @@ export type Database = {
         }
         Relationships: []
       }
-      Products_20240425: {
-        Row: {
-          banner: string | null
-          description: string | null
-          display_color: string | null
-          display_id: string | null
-          feature: string | null
-          id: number
-          make: string | null
-          make_slug: string | null
-          model: string | null
-          model_slug: string | null
-          msrp: number | null
-          parent_generation: string | null
-          price: number | null
-          product: string | null
-          quantity: string | null
-          sku: string | null
-          status: string | null
-          submodel1: string | null
-          submodel2: string | null
-          submodel3: string | null
-          type: string | null
-          year_generation: string | null
-          year_options: string | null
-        }
-        Insert: {
-          banner?: string | null
-          description?: string | null
-          display_color?: string | null
-          display_id?: string | null
-          feature?: string | null
-          id?: number
-          make?: string | null
-          make_slug?: string | null
-          model?: string | null
-          model_slug?: string | null
-          msrp?: number | null
-          parent_generation?: string | null
-          price?: number | null
-          product?: string | null
-          quantity?: string | null
-          sku?: string | null
-          status?: string | null
-          submodel1?: string | null
-          submodel2?: string | null
-          submodel3?: string | null
-          type?: string | null
-          year_generation?: string | null
-          year_options?: string | null
-        }
-        Update: {
-          banner?: string | null
-          description?: string | null
-          display_color?: string | null
-          display_id?: string | null
-          feature?: string | null
-          id?: number
-          make?: string | null
-          make_slug?: string | null
-          model?: string | null
-          model_slug?: string | null
-          msrp?: number | null
-          parent_generation?: string | null
-          price?: number | null
-          product?: string | null
-          quantity?: string | null
-          sku?: string | null
-          status?: string | null
-          submodel1?: string | null
-          submodel2?: string | null
-          submodel3?: string | null
-          type?: string | null
-          year_generation?: string | null
-          year_options?: string | null
-        }
-        Relationships: []
-      }
-      Products_20240503_backup: {
-        Row: {
-          banner: string | null
-          description: string | null
-          display_color: string | null
-          display_id: string | null
-          feature: string | null
-          id: number
-          make: string | null
-          make_slug: string | null
-          model: string | null
-          model_slug: string | null
-          msrp: number | null
-          parent_generation: string | null
-          price: number | null
-          product: string | null
-          product_video_360: string | null
-          product_video_carousel: string | null
-          product_video_carousel_thumbnail: string | null
-          product_video_zoom: string | null
-          quantity: string | null
-          sku: string | null
-          status: string | null
-          submodel1: string | null
-          submodel2: string | null
-          submodel3: string | null
-          type: string | null
-          year_generation: string | null
-          year_options: string | null
-        }
-        Insert: {
-          banner?: string | null
-          description?: string | null
-          display_color?: string | null
-          display_id?: string | null
-          feature?: string | null
-          id?: number
-          make?: string | null
-          make_slug?: string | null
-          model?: string | null
-          model_slug?: string | null
-          msrp?: number | null
-          parent_generation?: string | null
-          price?: number | null
-          product?: string | null
-          product_video_360?: string | null
-          product_video_carousel?: string | null
-          product_video_carousel_thumbnail?: string | null
-          product_video_zoom?: string | null
-          quantity?: string | null
-          sku?: string | null
-          status?: string | null
-          submodel1?: string | null
-          submodel2?: string | null
-          submodel3?: string | null
-          type?: string | null
-          year_generation?: string | null
-          year_options?: string | null
-        }
-        Update: {
-          banner?: string | null
-          description?: string | null
-          display_color?: string | null
-          display_id?: string | null
-          feature?: string | null
-          id?: number
-          make?: string | null
-          make_slug?: string | null
-          model?: string | null
-          model_slug?: string | null
-          msrp?: number | null
-          parent_generation?: string | null
-          price?: number | null
-          product?: string | null
-          product_video_360?: string | null
-          product_video_carousel?: string | null
-          product_video_carousel_thumbnail?: string | null
-          product_video_zoom?: string | null
-          quantity?: string | null
-          sku?: string | null
-          status?: string | null
-          submodel1?: string | null
-          submodel2?: string | null
-          submodel3?: string | null
-          type?: string | null
-          year_generation?: string | null
-          year_options?: string | null
-        }
-        Relationships: []
-      }
-      Products_20240503_old: {
-        Row: {
-          banner: string | null
-          description: string | null
-          display_color: string | null
-          display_id: string | null
-          feature: string | null
-          id: number
-          make: string | null
-          make_slug: string | null
-          model: string | null
-          model_slug: string | null
-          msrp: number | null
-          parent_generation: string | null
-          price: number | null
-          product: string | null
-          product_video_360: string | null
-          product_video_carousel: string | null
-          product_video_carousel_thumbnail: string | null
-          product_video_zoom: string | null
-          quantity: string | null
-          sku: string | null
-          status: string | null
-          submodel1: string | null
-          submodel2: string | null
-          submodel3: string | null
-          type: string | null
-          year_generation: string | null
-          year_options: string | null
-        }
-        Insert: {
-          banner?: string | null
-          description?: string | null
-          display_color?: string | null
-          display_id?: string | null
-          feature?: string | null
-          id?: number
-          make?: string | null
-          make_slug?: string | null
-          model?: string | null
-          model_slug?: string | null
-          msrp?: number | null
-          parent_generation?: string | null
-          price?: number | null
-          product?: string | null
-          product_video_360?: string | null
-          product_video_carousel?: string | null
-          product_video_carousel_thumbnail?: string | null
-          product_video_zoom?: string | null
-          quantity?: string | null
-          sku?: string | null
-          status?: string | null
-          submodel1?: string | null
-          submodel2?: string | null
-          submodel3?: string | null
-          type?: string | null
-          year_generation?: string | null
-          year_options?: string | null
-        }
-        Update: {
-          banner?: string | null
-          description?: string | null
-          display_color?: string | null
-          display_id?: string | null
-          feature?: string | null
-          id?: number
-          make?: string | null
-          make_slug?: string | null
-          model?: string | null
-          model_slug?: string | null
-          msrp?: number | null
-          parent_generation?: string | null
-          price?: number | null
-          product?: string | null
-          product_video_360?: string | null
-          product_video_carousel?: string | null
-          product_video_carousel_thumbnail?: string | null
-          product_video_zoom?: string | null
-          quantity?: string | null
-          sku?: string | null
-          status?: string | null
-          submodel1?: string | null
-          submodel2?: string | null
-          submodel3?: string | null
-          type?: string | null
-          year_generation?: string | null
-          year_options?: string | null
-        }
-        Relationships: []
-      }
-      Products_20240513_backup: {
-        Row: {
-          banner: string | null
-          description: string | null
-          display_color: string | null
-          display_id: string | null
-          feature: string | null
-          id: number
-          make: string | null
-          make_slug: string | null
-          model: string | null
-          model_slug: string | null
-          msrp: number | null
-          parent_generation: string | null
-          price: number | null
-          product: string | null
-          product_video_360: string | null
-          product_video_carousel: string | null
-          product_video_carousel_thumbnail: string | null
-          product_video_zoom: string | null
-          quantity: string | null
-          sku: string | null
-          status: string | null
-          submodel1: string | null
-          submodel2: string | null
-          submodel3: string | null
-          type: string | null
-          year_generation: string | null
-          year_options: string | null
-        }
-        Insert: {
-          banner?: string | null
-          description?: string | null
-          display_color?: string | null
-          display_id?: string | null
-          feature?: string | null
-          id?: number
-          make?: string | null
-          make_slug?: string | null
-          model?: string | null
-          model_slug?: string | null
-          msrp?: number | null
-          parent_generation?: string | null
-          price?: number | null
-          product?: string | null
-          product_video_360?: string | null
-          product_video_carousel?: string | null
-          product_video_carousel_thumbnail?: string | null
-          product_video_zoom?: string | null
-          quantity?: string | null
-          sku?: string | null
-          status?: string | null
-          submodel1?: string | null
-          submodel2?: string | null
-          submodel3?: string | null
-          type?: string | null
-          year_generation?: string | null
-          year_options?: string | null
-        }
-        Update: {
-          banner?: string | null
-          description?: string | null
-          display_color?: string | null
-          display_id?: string | null
-          feature?: string | null
-          id?: number
-          make?: string | null
-          make_slug?: string | null
-          model?: string | null
-          model_slug?: string | null
-          msrp?: number | null
-          parent_generation?: string | null
-          price?: number | null
-          product?: string | null
-          product_video_360?: string | null
-          product_video_carousel?: string | null
-          product_video_carousel_thumbnail?: string | null
-          product_video_zoom?: string | null
-          quantity?: string | null
-          sku?: string | null
-          status?: string | null
-          submodel1?: string | null
-          submodel2?: string | null
-          submodel3?: string | null
-          type?: string | null
-          year_generation?: string | null
-          year_options?: string | null
-        }
-        Relationships: []
-      }
-      Products_20240513_old: {
-        Row: {
-          banner: string | null
-          description: string | null
-          display_color: string | null
-          display_id: string | null
-          feature: string | null
-          id: number
-          make: string | null
-          make_slug: string | null
-          model: string | null
-          model_slug: string | null
-          msrp: number | null
-          parent_generation: string | null
-          price: number | null
-          product: string | null
-          product_video_360: string | null
-          product_video_carousel: string | null
-          product_video_carousel_thumbnail: string | null
-          product_video_zoom: string | null
-          quantity: string | null
-          sku: string | null
-          status: string | null
-          submodel1: string | null
-          submodel2: string | null
-          submodel3: string | null
-          type: string | null
-          year_generation: string | null
-          year_options: string | null
-        }
-        Insert: {
-          banner?: string | null
-          description?: string | null
-          display_color?: string | null
-          display_id?: string | null
-          feature?: string | null
-          id?: number
-          make?: string | null
-          make_slug?: string | null
-          model?: string | null
-          model_slug?: string | null
-          msrp?: number | null
-          parent_generation?: string | null
-          price?: number | null
-          product?: string | null
-          product_video_360?: string | null
-          product_video_carousel?: string | null
-          product_video_carousel_thumbnail?: string | null
-          product_video_zoom?: string | null
-          quantity?: string | null
-          sku?: string | null
-          status?: string | null
-          submodel1?: string | null
-          submodel2?: string | null
-          submodel3?: string | null
-          type?: string | null
-          year_generation?: string | null
-          year_options?: string | null
-        }
-        Update: {
-          banner?: string | null
-          description?: string | null
-          display_color?: string | null
-          display_id?: string | null
-          feature?: string | null
-          id?: number
-          make?: string | null
-          make_slug?: string | null
-          model?: string | null
-          model_slug?: string | null
-          msrp?: number | null
-          parent_generation?: string | null
-          price?: number | null
-          product?: string | null
-          product_video_360?: string | null
-          product_video_carousel?: string | null
-          product_video_carousel_thumbnail?: string | null
-          product_video_zoom?: string | null
-          quantity?: string | null
-          sku?: string | null
-          status?: string | null
-          submodel1?: string | null
-          submodel2?: string | null
-          submodel3?: string | null
-          type?: string | null
-          year_generation?: string | null
-          year_options?: string | null
-        }
-        Relationships: []
-      }
-      Products_20240529_backup: {
+      Products_20240529_old: {
         Row: {
           banner: string | null
           display_color: string | null
@@ -2109,7 +1750,7 @@ export type Database = {
         }
         Relationships: []
       }
-      Products_20240605_backup: {
+      Products_20240617_backup: {
         Row: {
           banner: string | null
           display_color: string | null
@@ -2131,6 +1772,7 @@ export type Database = {
           product_video_zoom: string | null
           quantity: string | null
           sku: string | null
+          "skulabs SKU": string | null
           submodel1: string | null
           submodel2: string | null
           submodel3: string | null
@@ -2159,6 +1801,7 @@ export type Database = {
           product_video_zoom?: string | null
           quantity?: string | null
           sku?: string | null
+          "skulabs SKU"?: string | null
           submodel1?: string | null
           submodel2?: string | null
           submodel3?: string | null
@@ -2187,6 +1830,7 @@ export type Database = {
           product_video_zoom?: string | null
           quantity?: string | null
           sku?: string | null
+          "skulabs SKU"?: string | null
           submodel1?: string | null
           submodel2?: string | null
           submodel3?: string | null
@@ -2197,6 +1841,75 @@ export type Database = {
         Relationships: []
       }
       relations_product: {
+        Row: {
+          created_at: string | null
+          id: number
+          make_id: number
+          model_id: number
+          product_id: number
+          type_id: number
+          updated_at: string | null
+          year_id: number
+        }
+        Insert: {
+          created_at?: string | null
+          id?: number
+          make_id: number
+          model_id: number
+          product_id: number
+          type_id: number
+          updated_at?: string | null
+          year_id: number
+        }
+        Update: {
+          created_at?: string | null
+          id?: number
+          make_id?: number
+          model_id?: number
+          product_id?: number
+          type_id?: number
+          updated_at?: string | null
+          year_id?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "relations_product_20240617_make_id_fkey"
+            columns: ["make_id"]
+            isOneToOne: false
+            referencedRelation: "Make"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "relations_product_20240617_model_id_fkey"
+            columns: ["model_id"]
+            isOneToOne: false
+            referencedRelation: "Model"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "relations_product_20240617_product_id_fkey"
+            columns: ["product_id"]
+            isOneToOne: false
+            referencedRelation: "Products"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "relations_product_20240617_type_id_fkey"
+            columns: ["type_id"]
+            isOneToOne: false
+            referencedRelation: "Type"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "relations_product_20240617_year_id_fkey"
+            columns: ["year_id"]
+            isOneToOne: false
+            referencedRelation: "Years"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      relations_product_20240529_old: {
         Row: {
           created_at: string | null
           id: number
@@ -2246,7 +1959,7 @@ export type Database = {
             foreignKeyName: "relations_product_20240529_2_product_id_fkey"
             columns: ["product_id"]
             isOneToOne: false
-            referencedRelation: "Products"
+            referencedRelation: "Products_20240529_old"
             referencedColumns: ["id"]
           },
           {
@@ -2265,283 +1978,7 @@ export type Database = {
           },
         ]
       }
-      relations_product_20240425: {
-        Row: {
-          created_at: string
-          id: number
-          make_id: number | null
-          model_id: number | null
-          product_id: number | null
-          type_id: number | null
-          updated_at: string
-          year_id: number | null
-        }
-        Insert: {
-          created_at?: string
-          id?: number
-          make_id?: number | null
-          model_id?: number | null
-          product_id?: number | null
-          type_id?: number | null
-          updated_at?: string
-          year_id?: number | null
-        }
-        Update: {
-          created_at?: string
-          id?: number
-          make_id?: number | null
-          model_id?: number | null
-          product_id?: number | null
-          type_id?: number | null
-          updated_at?: string
-          year_id?: number | null
-        }
-        Relationships: [
-          {
-            foreignKeyName: "relations_product_make_id_fkey"
-            columns: ["make_id"]
-            isOneToOne: false
-            referencedRelation: "Make"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "relations_product_model_id_fkey"
-            columns: ["model_id"]
-            isOneToOne: false
-            referencedRelation: "Model"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "relations_product_product_id_fkey"
-            columns: ["product_id"]
-            isOneToOne: false
-            referencedRelation: "Products_20240425"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "relations_product_type_id_fkey"
-            columns: ["type_id"]
-            isOneToOne: false
-            referencedRelation: "Type"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "relations_product_year_id_fkey"
-            columns: ["year_id"]
-            isOneToOne: false
-            referencedRelation: "Years"
-            referencedColumns: ["id"]
-          },
-        ]
-      }
-      relations_product_20240513_backup: {
-        Row: {
-          created_at: string
-          id: number
-          make_id: number | null
-          model_id: number | null
-          product_id: number | null
-          type_id: number | null
-          updated_at: string
-          year_id: number | null
-        }
-        Insert: {
-          created_at?: string
-          id?: number
-          make_id?: number | null
-          model_id?: number | null
-          product_id?: number | null
-          type_id?: number | null
-          updated_at?: string
-          year_id?: number | null
-        }
-        Update: {
-          created_at?: string
-          id?: number
-          make_id?: number | null
-          model_id?: number | null
-          product_id?: number | null
-          type_id?: number | null
-          updated_at?: string
-          year_id?: number | null
-        }
-        Relationships: [
-          {
-            foreignKeyName: "relations_product_20240513_duplicate_make_id_fkey"
-            columns: ["make_id"]
-            isOneToOne: false
-            referencedRelation: "Make"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "relations_product_20240513_duplicate_model_id_fkey"
-            columns: ["model_id"]
-            isOneToOne: false
-            referencedRelation: "Model"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "relations_product_20240513_duplicate_product_id_fkey"
-            columns: ["product_id"]
-            isOneToOne: false
-            referencedRelation: "Products_20240513_old"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "relations_product_20240513_duplicate_type_id_fkey"
-            columns: ["type_id"]
-            isOneToOne: false
-            referencedRelation: "Type"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "relations_product_20240513_duplicate_year_id_fkey"
-            columns: ["year_id"]
-            isOneToOne: false
-            referencedRelation: "Years"
-            referencedColumns: ["id"]
-          },
-        ]
-      }
-      relations_product_20240513_old: {
-        Row: {
-          created_at: string
-          id: number
-          make_id: number | null
-          model_id: number | null
-          product_id: number | null
-          type_id: number | null
-          updated_at: string
-          year_id: number | null
-        }
-        Insert: {
-          created_at?: string
-          id?: number
-          make_id?: number | null
-          model_id?: number | null
-          product_id?: number | null
-          type_id?: number | null
-          updated_at?: string
-          year_id?: number | null
-        }
-        Update: {
-          created_at?: string
-          id?: number
-          make_id?: number | null
-          model_id?: number | null
-          product_id?: number | null
-          type_id?: number | null
-          updated_at?: string
-          year_id?: number | null
-        }
-        Relationships: [
-          {
-            foreignKeyName: "relations_product_20240513_make_id_fkey"
-            columns: ["make_id"]
-            isOneToOne: false
-            referencedRelation: "Make"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "relations_product_20240513_model_id_fkey"
-            columns: ["model_id"]
-            isOneToOne: false
-            referencedRelation: "Model"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "relations_product_20240513_product_id_fkey"
-            columns: ["product_id"]
-            isOneToOne: false
-            referencedRelation: "Products_20240513_old"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "relations_product_20240513_type_id_fkey"
-            columns: ["type_id"]
-            isOneToOne: false
-            referencedRelation: "Type"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "relations_product_20240513_year_id_fkey"
-            columns: ["year_id"]
-            isOneToOne: false
-            referencedRelation: "Years"
-            referencedColumns: ["id"]
-          },
-        ]
-      }
-      relations_product_20240529_backup: {
-        Row: {
-          created_at: string | null
-          id: number
-          make_id: number | null
-          model_id: number | null
-          product_id: number | null
-          type_id: number | null
-          updated_at: string | null
-          year_id: number | null
-        }
-        Insert: {
-          created_at?: string | null
-          id?: number
-          make_id?: number | null
-          model_id?: number | null
-          product_id?: number | null
-          type_id?: number | null
-          updated_at?: string | null
-          year_id?: number | null
-        }
-        Update: {
-          created_at?: string | null
-          id?: number
-          make_id?: number | null
-          model_id?: number | null
-          product_id?: number | null
-          type_id?: number | null
-          updated_at?: string | null
-          year_id?: number | null
-        }
-        Relationships: [
-          {
-            foreignKeyName: "relations_product_20240529_backup_make_id_fkey"
-            columns: ["make_id"]
-            isOneToOne: false
-            referencedRelation: "Make"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "relations_product_20240529_backup_model_id_fkey"
-            columns: ["model_id"]
-            isOneToOne: false
-            referencedRelation: "Model"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "relations_product_20240529_backup_product_id_fkey"
-            columns: ["product_id"]
-            isOneToOne: false
-            referencedRelation: "Products"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "relations_product_20240529_backup_type_id_fkey"
-            columns: ["type_id"]
-            isOneToOne: false
-            referencedRelation: "Type"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "relations_product_20240529_backup_year_id_fkey"
-            columns: ["year_id"]
-            isOneToOne: false
-            referencedRelation: "Years"
-            referencedColumns: ["id"]
-          },
-        ]
-      }
-      relations_product_20240605_backup: {
+      relations_product_20240617_backup: {
         Row: {
           created_at: string | null
           id: number | null
@@ -2574,7 +2011,91 @@ export type Database = {
         }
         Relationships: []
       }
-      reviews_20240610: {
+      reviews_car_covers: {
+        Row: {
+          gpt_review_id: string | null
+          helpful: number | null
+          id: number
+          make: string | null
+          make_slug: string | null
+          Mirror: string | null
+          model: string | null
+          model_slug: string | null
+          parent_generation: string | null
+          product_name: string | null
+          product_type: string | null
+          rating_stars: number | null
+          recommend: string | null
+          review_author: string | null
+          review_description: string | null
+          review_image: string | null
+          review_title: string | null
+          reviewed_at: string | null
+          Size: string | null
+          sku: string | null
+          submodel1: string | null
+          submodel2: string | null
+          type: string | null
+          verified_status: string | null
+          year_generation: string | null
+        }
+        Insert: {
+          gpt_review_id?: string | null
+          helpful?: number | null
+          id: number
+          make?: string | null
+          make_slug?: string | null
+          Mirror?: string | null
+          model?: string | null
+          model_slug?: string | null
+          parent_generation?: string | null
+          product_name?: string | null
+          product_type?: string | null
+          rating_stars?: number | null
+          recommend?: string | null
+          review_author?: string | null
+          review_description?: string | null
+          review_image?: string | null
+          review_title?: string | null
+          reviewed_at?: string | null
+          Size?: string | null
+          sku?: string | null
+          submodel1?: string | null
+          submodel2?: string | null
+          type?: string | null
+          verified_status?: string | null
+          year_generation?: string | null
+        }
+        Update: {
+          gpt_review_id?: string | null
+          helpful?: number | null
+          id?: number
+          make?: string | null
+          make_slug?: string | null
+          Mirror?: string | null
+          model?: string | null
+          model_slug?: string | null
+          parent_generation?: string | null
+          product_name?: string | null
+          product_type?: string | null
+          rating_stars?: number | null
+          recommend?: string | null
+          review_author?: string | null
+          review_description?: string | null
+          review_image?: string | null
+          review_title?: string | null
+          reviewed_at?: string | null
+          Size?: string | null
+          sku?: string | null
+          submodel1?: string | null
+          submodel2?: string | null
+          type?: string | null
+          verified_status?: string | null
+          year_generation?: string | null
+        }
+        Relationships: []
+      }
+      reviews_seat_covers: {
         Row: {
           gpt_review_id: string | null
           helpful: number | null
@@ -2689,7 +2210,7 @@ export type Database = {
         Insert: {
           gpt_review_id?: string | null
           helpful?: number | null
-          id?: number
+          id: number
           make?: string | null
           make_slug?: string | null
           Mirror?: string | null
@@ -2738,576 +2259,6 @@ export type Database = {
           submodel2?: string | null
           type?: string | null
           verified_status?: string | null
-          year_generation?: string | null
-        }
-        Relationships: []
-      }
-      "reviews-2_20240603": {
-        Row: {
-          gpt_review_id: string | null
-          helpful: number | null
-          id: number
-          make: string | null
-          make_slug: string | null
-          Mirror: string | null
-          model: string | null
-          model_slug: string | null
-          parent_generation: string | null
-          product_name: string | null
-          product_type: string | null
-          rating_stars: number | null
-          recommend: string | null
-          review_author: string | null
-          review_description: string | null
-          review_image: string | null
-          review_title: string | null
-          reviewed_at: string | null
-          Size: string | null
-          sku: string | null
-          submodel1: string | null
-          submodel2: string | null
-          type: string | null
-          verified_status: string | null
-          year_generation: string | null
-        }
-        Insert: {
-          gpt_review_id?: string | null
-          helpful?: number | null
-          id?: number
-          make?: string | null
-          make_slug?: string | null
-          Mirror?: string | null
-          model?: string | null
-          model_slug?: string | null
-          parent_generation?: string | null
-          product_name?: string | null
-          product_type?: string | null
-          rating_stars?: number | null
-          recommend?: string | null
-          review_author?: string | null
-          review_description?: string | null
-          review_image?: string | null
-          review_title?: string | null
-          reviewed_at?: string | null
-          Size?: string | null
-          sku?: string | null
-          submodel1?: string | null
-          submodel2?: string | null
-          type?: string | null
-          verified_status?: string | null
-          year_generation?: string | null
-        }
-        Update: {
-          gpt_review_id?: string | null
-          helpful?: number | null
-          id?: number
-          make?: string | null
-          make_slug?: string | null
-          Mirror?: string | null
-          model?: string | null
-          model_slug?: string | null
-          parent_generation?: string | null
-          product_name?: string | null
-          product_type?: string | null
-          rating_stars?: number | null
-          recommend?: string | null
-          review_author?: string | null
-          review_description?: string | null
-          review_image?: string | null
-          review_title?: string | null
-          reviewed_at?: string | null
-          Size?: string | null
-          sku?: string | null
-          submodel1?: string | null
-          submodel2?: string | null
-          type?: string | null
-          verified_status?: string | null
-          year_generation?: string | null
-        }
-        Relationships: []
-      }
-      "reviews-2_backup": {
-        Row: {
-          gpt_review_id: string | null
-          helpful: number | null
-          id: number
-          make: string | null
-          make_slug: string | null
-          Mirror: string | null
-          model: string | null
-          model_slug: string | null
-          parent_generation: string | null
-          product_name: string | null
-          product_type: string | null
-          rating_stars: number | null
-          recommend: string | null
-          review_author: string | null
-          review_description: string | null
-          review_image: string | null
-          review_title: string | null
-          reviewed_at: string | null
-          Size: string | null
-          sku: string | null
-          submodel1: string | null
-          submodel2: string | null
-          type: string | null
-          verified_status: string | null
-          year_generation: string | null
-        }
-        Insert: {
-          gpt_review_id?: string | null
-          helpful?: number | null
-          id?: number
-          make?: string | null
-          make_slug?: string | null
-          Mirror?: string | null
-          model?: string | null
-          model_slug?: string | null
-          parent_generation?: string | null
-          product_name?: string | null
-          product_type?: string | null
-          rating_stars?: number | null
-          recommend?: string | null
-          review_author?: string | null
-          review_description?: string | null
-          review_image?: string | null
-          review_title?: string | null
-          reviewed_at?: string | null
-          Size?: string | null
-          sku?: string | null
-          submodel1?: string | null
-          submodel2?: string | null
-          type?: string | null
-          verified_status?: string | null
-          year_generation?: string | null
-        }
-        Update: {
-          gpt_review_id?: string | null
-          helpful?: number | null
-          id?: number
-          make?: string | null
-          make_slug?: string | null
-          Mirror?: string | null
-          model?: string | null
-          model_slug?: string | null
-          parent_generation?: string | null
-          product_name?: string | null
-          product_type?: string | null
-          rating_stars?: number | null
-          recommend?: string | null
-          review_author?: string | null
-          review_description?: string | null
-          review_image?: string | null
-          review_title?: string | null
-          reviewed_at?: string | null
-          Size?: string | null
-          sku?: string | null
-          submodel1?: string | null
-          submodel2?: string | null
-          type?: string | null
-          verified_status?: string | null
-          year_generation?: string | null
-        }
-        Relationships: []
-      }
-      seat_cover_reviews_20240426_backup: {
-        Row: {
-          helpful: number | null
-          make: string | null
-          make_slug: string | null
-          model: string | null
-          model_slug: string | null
-          parent_generation: string | null
-          rating_stars: number | null
-          recommend: string | null
-          review_author: string | null
-          review_description: string | null
-          review_image: string | null
-          review_title: string | null
-          reviewed_at: string | null
-          sku: string | null
-          type: string | null
-          verfied_status: string | null
-          year_generation: string | null
-        }
-        Insert: {
-          helpful?: number | null
-          make?: string | null
-          make_slug?: string | null
-          model?: string | null
-          model_slug?: string | null
-          parent_generation?: string | null
-          rating_stars?: number | null
-          recommend?: string | null
-          review_author?: string | null
-          review_description?: string | null
-          review_image?: string | null
-          review_title?: string | null
-          reviewed_at?: string | null
-          sku?: string | null
-          type?: string | null
-          verfied_status?: string | null
-          year_generation?: string | null
-        }
-        Update: {
-          helpful?: number | null
-          make?: string | null
-          make_slug?: string | null
-          model?: string | null
-          model_slug?: string | null
-          parent_generation?: string | null
-          rating_stars?: number | null
-          recommend?: string | null
-          review_author?: string | null
-          review_description?: string | null
-          review_image?: string | null
-          review_title?: string | null
-          reviewed_at?: string | null
-          sku?: string | null
-          type?: string | null
-          verfied_status?: string | null
-          year_generation?: string | null
-        }
-        Relationships: []
-      }
-      seat_cover_reviews_20240530: {
-        Row: {
-          customer_name: string | null
-          date: string | null
-          display_color: string | null
-          display_id: string | null
-          "F# Seat Cover": number | null
-          helpful: number | null
-          id: number
-          image_link: string | null
-          make: string | null
-          make_slug: string | null
-          model: string | null
-          model_slug: string | null
-          parent_generation: string | null
-          rating: number | null
-          recommend: string | null
-          review_description: string | null
-          review_title: string | null
-          sku: string | null
-          submodel1: string | null
-          submodel2: string | null
-          submodel3: string | null
-          type: string | null
-          verfied_status: string | null
-          year_generation: string | null
-        }
-        Insert: {
-          customer_name?: string | null
-          date?: string | null
-          display_color?: string | null
-          display_id?: string | null
-          "F# Seat Cover"?: number | null
-          helpful?: number | null
-          id?: number
-          image_link?: string | null
-          make?: string | null
-          make_slug?: string | null
-          model?: string | null
-          model_slug?: string | null
-          parent_generation?: string | null
-          rating?: number | null
-          recommend?: string | null
-          review_description?: string | null
-          review_title?: string | null
-          sku?: string | null
-          submodel1?: string | null
-          submodel2?: string | null
-          submodel3?: string | null
-          type?: string | null
-          verfied_status?: string | null
-          year_generation?: string | null
-        }
-        Update: {
-          customer_name?: string | null
-          date?: string | null
-          display_color?: string | null
-          display_id?: string | null
-          "F# Seat Cover"?: number | null
-          helpful?: number | null
-          id?: number
-          image_link?: string | null
-          make?: string | null
-          make_slug?: string | null
-          model?: string | null
-          model_slug?: string | null
-          parent_generation?: string | null
-          rating?: number | null
-          recommend?: string | null
-          review_description?: string | null
-          review_title?: string | null
-          sku?: string | null
-          submodel1?: string | null
-          submodel2?: string | null
-          submodel3?: string | null
-          type?: string | null
-          verfied_status?: string | null
-          year_generation?: string | null
-        }
-        Relationships: []
-      }
-      seat_cover_reviews_20240610_1: {
-        Row: {
-          "car type": string | null
-          customer_name: string | null
-          date: string | null
-          display_color: string | null
-          display_id: string | null
-          "Front Seat SKU": string | null
-          helpful: number | null
-          id: number
-          image_link: string | null
-          make: string | null
-          make_slug: string | null
-          model: string | null
-          model_slug: string | null
-          parent_generation: string | null
-          quantity: string | null
-          rating: number | null
-          recommend: string | null
-          review_description: string | null
-          review_title: string | null
-          sku: string | null
-          submodel1: string | null
-          submodel2: string | null
-          submodel3: string | null
-          type: string | null
-          verfied_status: string | null
-          year_generation: string | null
-        }
-        Insert: {
-          "car type"?: string | null
-          customer_name?: string | null
-          date?: string | null
-          display_color?: string | null
-          display_id?: string | null
-          "Front Seat SKU"?: string | null
-          helpful?: number | null
-          id: number
-          image_link?: string | null
-          make?: string | null
-          make_slug?: string | null
-          model?: string | null
-          model_slug?: string | null
-          parent_generation?: string | null
-          quantity?: string | null
-          rating?: number | null
-          recommend?: string | null
-          review_description?: string | null
-          review_title?: string | null
-          sku?: string | null
-          submodel1?: string | null
-          submodel2?: string | null
-          submodel3?: string | null
-          type?: string | null
-          verfied_status?: string | null
-          year_generation?: string | null
-        }
-        Update: {
-          "car type"?: string | null
-          customer_name?: string | null
-          date?: string | null
-          display_color?: string | null
-          display_id?: string | null
-          "Front Seat SKU"?: string | null
-          helpful?: number | null
-          id?: number
-          image_link?: string | null
-          make?: string | null
-          make_slug?: string | null
-          model?: string | null
-          model_slug?: string | null
-          parent_generation?: string | null
-          quantity?: string | null
-          rating?: number | null
-          recommend?: string | null
-          review_description?: string | null
-          review_title?: string | null
-          sku?: string | null
-          submodel1?: string | null
-          submodel2?: string | null
-          submodel3?: string | null
-          type?: string | null
-          verfied_status?: string | null
-          year_generation?: string | null
-        }
-        Relationships: []
-      }
-      seat_cover_reviews_20240610_2: {
-        Row: {
-          "car type": string | null
-          customer_name: string | null
-          date: string | null
-          display_color: string | null
-          display_id: string | null
-          "Front Seat SKU": string | null
-          helpful: number | null
-          id: number
-          image_link: string | null
-          make: string | null
-          make_slug: string | null
-          model: string | null
-          model_slug: string | null
-          parent_generation: string | null
-          quantity: string | null
-          rating: number | null
-          recommend: string | null
-          review_description: string | null
-          review_title: string | null
-          sku: string | null
-          submodel1: string | null
-          submodel2: string | null
-          submodel3: string | null
-          type: string | null
-          verfied_status: string | null
-          year_generation: string | null
-        }
-        Insert: {
-          "car type"?: string | null
-          customer_name?: string | null
-          date?: string | null
-          display_color?: string | null
-          display_id?: string | null
-          "Front Seat SKU"?: string | null
-          helpful?: number | null
-          id: number
-          image_link?: string | null
-          make?: string | null
-          make_slug?: string | null
-          model?: string | null
-          model_slug?: string | null
-          parent_generation?: string | null
-          quantity?: string | null
-          rating?: number | null
-          recommend?: string | null
-          review_description?: string | null
-          review_title?: string | null
-          sku?: string | null
-          submodel1?: string | null
-          submodel2?: string | null
-          submodel3?: string | null
-          type?: string | null
-          verfied_status?: string | null
-          year_generation?: string | null
-        }
-        Update: {
-          "car type"?: string | null
-          customer_name?: string | null
-          date?: string | null
-          display_color?: string | null
-          display_id?: string | null
-          "Front Seat SKU"?: string | null
-          helpful?: number | null
-          id?: number
-          image_link?: string | null
-          make?: string | null
-          make_slug?: string | null
-          model?: string | null
-          model_slug?: string | null
-          parent_generation?: string | null
-          quantity?: string | null
-          rating?: number | null
-          recommend?: string | null
-          review_description?: string | null
-          review_title?: string | null
-          sku?: string | null
-          submodel1?: string | null
-          submodel2?: string | null
-          submodel3?: string | null
-          type?: string | null
-          verfied_status?: string | null
-          year_generation?: string | null
-        }
-        Relationships: []
-      }
-      seat_cover_reviews_20240610_3: {
-        Row: {
-          "car type": string | null
-          customer_name: string | null
-          date: string | null
-          display_color: string | null
-          display_id: string | null
-          "Front Seat SKU": string | null
-          helpful: number | null
-          id: number
-          image_link: string | null
-          make: string | null
-          make_slug: string | null
-          model: string | null
-          model_slug: string | null
-          parent_generation: string | null
-          quantity: string | null
-          rating: number | null
-          recommend: string | null
-          review_description: string | null
-          review_title: string | null
-          sku: string | null
-          submodel1: string | null
-          submodel2: string | null
-          submodel3: string | null
-          type: string | null
-          verfied_status: string | null
-          year_generation: string | null
-        }
-        Insert: {
-          "car type"?: string | null
-          customer_name?: string | null
-          date?: string | null
-          display_color?: string | null
-          display_id?: string | null
-          "Front Seat SKU"?: string | null
-          helpful?: number | null
-          id: number
-          image_link?: string | null
-          make?: string | null
-          make_slug?: string | null
-          model?: string | null
-          model_slug?: string | null
-          parent_generation?: string | null
-          quantity?: string | null
-          rating?: number | null
-          recommend?: string | null
-          review_description?: string | null
-          review_title?: string | null
-          sku?: string | null
-          submodel1?: string | null
-          submodel2?: string | null
-          submodel3?: string | null
-          type?: string | null
-          verfied_status?: string | null
-          year_generation?: string | null
-        }
-        Update: {
-          "car type"?: string | null
-          customer_name?: string | null
-          date?: string | null
-          display_color?: string | null
-          display_id?: string | null
-          "Front Seat SKU"?: string | null
-          helpful?: number | null
-          id?: number
-          image_link?: string | null
-          make?: string | null
-          make_slug?: string | null
-          model?: string | null
-          model_slug?: string | null
-          parent_generation?: string | null
-          quantity?: string | null
-          rating?: number | null
-          recommend?: string | null
-          review_description?: string | null
-          review_title?: string | null
-          sku?: string | null
-          submodel1?: string | null
-          submodel2?: string | null
-          submodel3?: string | null
-          type?: string | null
-          verfied_status?: string | null
           year_generation?: string | null
         }
         Relationships: []
@@ -3713,11 +2664,17 @@ export type Database = {
               shipping_address_postal_code: string | null
               shipping_address_state: string | null
               shipping_carrier: string | null
+              shipping_previous_status: string | null
+              shipping_service: string | null
+              shipping_status: string | null
+              shipping_status_last_updated: string | null
+              shipping_status_last_updated_pst: string | null
               shipping_tracking_number: string | null
               skus: string | null
               status: string | null
               total_amount: number | null
-              tracking_number: string | null
+              total_discount_amount: number | null
+              total_original_amount: number | null
               transaction_id: string | null
               updated_at: string | null
               wallet_type: string | null
@@ -3764,11 +2721,17 @@ export type Database = {
               shipping_address_postal_code: string | null
               shipping_address_state: string | null
               shipping_carrier: string | null
+              shipping_previous_status: string | null
+              shipping_service: string | null
+              shipping_status: string | null
+              shipping_status_last_updated: string | null
+              shipping_status_last_updated_pst: string | null
               shipping_tracking_number: string | null
               skus: string | null
               status: string | null
               total_amount: number | null
-              tracking_number: string | null
+              total_discount_amount: number | null
+              total_original_amount: number | null
               transaction_id: string | null
               updated_at: string | null
               wallet_type: string | null
@@ -3826,60 +2789,21 @@ export type Database = {
           p_parent_generation?: string
         }
         Returns: {
-          rating_stars: number
           helpful: number
-          reviewed_at: string
-          gpt_review_id: string
-          model: string
-          year_generation: string
-          submodel1: string
-          submodel2: string
-          mirror: string
-          review_description: string
-          make_slug: string
-          review_title: string
-          review_author: string
           review_image: string
-          model_slug: string
-          size: string
-          sku: string
-          parent_generation: string
-          product_type: string
-          product_name: string
-          type: string
-          make: string
         }[]
       }
-      get_distinct_review_images_20240610: {
+      get_distinct_review_images_20240619: {
         Args: {
+          p_table_name: string
           p_type?: string
           p_make_slug?: string
           p_model_slug?: string
           p_parent_generation?: string
         }
         Returns: {
-          rating_stars: number
           helpful: number
-          reviewed_at: string
-          gpt_review_id: string
-          model: string
-          year_generation: string
-          submodel1: string
-          submodel2: string
-          mirror: string
-          review_description: string
-          make_slug: string
-          review_title: string
-          review_author: string
           review_image: string
-          model_slug: string
-          size: string
-          sku: string
-          parent_generation: string
-          product_type: string
-          product_name: string
-          type: string
-          make: string
         }[]
       }
       get_distinct_year_generation_by_type_make_model_year: {
@@ -3924,16 +2848,6 @@ export type Database = {
         }[]
       }
       get_make_relation: {
-        Args: {
-          year_id_web: number
-          type_id_web: number
-        }
-        Returns: {
-          id: number
-          name: string
-        }[]
-      }
-      get_make_relation_20240529: {
         Args: {
           year_id_web: number
           type_id_web: number
@@ -3994,22 +2908,9 @@ export type Database = {
           average_score: number
         }[]
       }
-      get_product_reviews_summary_20240603: {
+      get_product_reviews_summary_20240619: {
         Args: {
-          type?: string
-          make?: string
-          model?: string
-          year?: string
-          submodel?: string
-          submodel2?: string
-        }
-        Returns: {
-          total_reviews: number
-          average_score: number
-        }[]
-      }
-      get_product_reviews_summary_20240610: {
-        Args: {
+          table_name: string
           type?: string
           make?: string
           model?: string
@@ -4055,122 +2956,7 @@ export type Database = {
           display_set: string
         }[]
       }
-      get_seat_cover_products_sorted_by_color_20240401: {
-        Args: {
-          p_type?: string
-          p_cover?: string
-          p_make?: string
-          p_model?: string
-          p_year?: string
-          p_submodel?: string
-          p_submodel2?: string
-          p_submodel3?: string
-        }
-        Returns: {
-          sku: string
-          type: string
-          make: string
-          model: string
-          year_generation: string
-          parent_generation: string
-          submodel1: string
-          submodel2: string
-          submodel3: string
-          product: string
-          display_color: string
-          msrp: number
-          price: number
-          quantity: number
-          display_id: string
-          make_slug: string
-          model_slug: string
-          year_options: string
-        }[]
-      }
-      get_seat_cover_products_sorted_by_color_20240503: {
-        Args: {
-          p_type?: string
-          p_cover?: string
-          p_make?: string
-          p_model?: string
-          p_year?: string
-          p_submodel?: string
-          p_submodel2?: string
-          p_submodel3?: string
-        }
-        Returns: {
-          sku: string
-          type: string
-          make: string
-          model: string
-          year_generation: string
-          parent_generation: string
-          submodel1: string
-          submodel2: string
-          submodel3: string
-          product: string
-          display_color: string
-          msrp: number
-          price: number
-          quantity: string
-          display_id: string
-          make_slug: string
-          model_slug: string
-          year_options: string
-        }[]
-      }
-      get_seat_cover_products_sorted_by_color_20240529: {
-        Args: {
-          p_type?: string
-          p_cover?: string
-          p_make?: string
-          p_model?: string
-          p_year?: string
-          p_submodel?: string
-          p_submodel2?: string
-          p_submodel3?: string
-        }
-        Returns: {
-          sku: string
-          type: string
-          make: string
-          model: string
-          year_generation: string
-          parent_generation: string
-          submodel1: string
-          submodel2: string
-          submodel3: string
-          product: string
-          display_color: string
-          msrp: number
-          price: number
-          quantity: string
-          display_id: string
-          make_slug: string
-          model_slug: string
-          year_options: string
-          display_set: string
-        }[]
-      }
       get_unique_years: {
-        Args: {
-          type_id_web: number
-        }
-        Returns: {
-          id: number
-          name: string
-        }[]
-      }
-      get_unique_years_20240529: {
-        Args: {
-          type_id_web: number
-        }
-        Returns: {
-          id: number
-          name: string
-        }[]
-      }
-      get_unique_years_old: {
         Args: {
           type_id_web: number
         }

@@ -73,6 +73,7 @@ type ProductDetail = {
   id: number;
   sku: string;
   msrp: number | null;
+  price: number | null;
 };
 
 type OrderItem = {
@@ -82,6 +83,8 @@ type OrderItem = {
   product_id: number;
   quantity: number;
   price: number;
+  original_price: number;
+  discount_amount: number;
 };
 
 const createOrderItems = (
@@ -102,12 +105,16 @@ const createOrderItems = (
     }
 
     const price = Number(product.msrp) * quantity;
+    const original_price = Number(product.price) * quantity;
+    const discount_amount = original_price - price;
 
     const orderItem: OrderItem = {
       order_id: order_id,
       product_id: product.id,
       quantity: quantity,
       price: parseFloat(price.toFixed(2)),
+      original_price: parseFloat(original_price.toFixed(2)),
+      discount_amount: parseFloat(discount_amount.toFixed(2)),
     };
 
     return orderItem;

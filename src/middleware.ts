@@ -93,7 +93,7 @@ export function middleware(request: NextRequest) {
     'hyundai/ioniq-6/2023': 'hyundai/ioniq-6/2023-2024',
     'lexus/es/2013-2023': 'lexus/es/2013-2024',
     'e-class/2017-2023': 'e-class/2017-2025',
-    'mercedes/e-class/2017-2023': 'mercedes/e-class/2017-2025',
+    'mercedes/e-class/2017-2023': 'mercedes-benz/e-class/2017-2025',
     'mitsubishi/mirage/2014-2022': 'mitsubishi/mirage/2014-2024',
     'mitsubishi/mirage-g4/2017-2022': 'mitsubishi/mirage-g4/2017-2024',
     'pontiac/grand-am/1992-2006': 'pontiac/grand-am/1992-2005',
