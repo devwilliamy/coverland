@@ -25,6 +25,8 @@ export const mapPaymentIntentIdToOrder = (
     transaction_id: id,
     payment_status: status,
     skus: metadata.skus,
+    total_original_amount: Number(metadata.total_original_amount),
+    total_discount_amount: Number(metadata.total_discount_amount),
   };
 };
 
