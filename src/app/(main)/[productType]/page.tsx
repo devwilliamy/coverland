@@ -15,8 +15,6 @@ export const revalidate = 86400;
 export function generateStaticParams() {
   return [
     { productType: 'car-covers' },
-    { productType: 'suv-covers' },
-    { productType: 'truck-covers' },
   ];
 }
 
@@ -37,7 +35,7 @@ export default async function CarPDPModelDataLayer({
   params: { productType: string };
   searchParams: { submodel?: string; second_submodel?: string } | undefined;
 }) {
-  const productTypes = ['car-covers', 'truck-covers', 'suv-covers'];
+  const productTypes = ['car-covers'];
   if (!productTypes.includes(params.productType)) {
     return notFound();
   }
