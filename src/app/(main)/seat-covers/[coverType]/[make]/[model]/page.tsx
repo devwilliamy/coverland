@@ -13,7 +13,7 @@ import { deslugify } from '@/lib/utils';
 import SeatCoverDataWrapper from '../../../components/SeatCoverDataWrapper';
 import { TReviewData, TProductReviewSummary } from '@/lib/types/review';
 
-export const revalidate = 0;
+export const revalidate = 86400;
 
 export type TCarCoverSlugParams = {
   make: string;

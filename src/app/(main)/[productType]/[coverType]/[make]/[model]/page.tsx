@@ -12,7 +12,7 @@ import { PREMIUM_PLUS_URL_PARAM } from '@/lib/constants';
 import { TReviewData, TProductReviewSummary } from '@/lib/types/review';
 
 //TODO: Refactor code so we can generate our dynamic paths as static HTML for performance
-export const revalidate = 0;
+export const revalidate = 86400;
 
 export async function generateStaticParams({
   params: { productType, coverType, make },

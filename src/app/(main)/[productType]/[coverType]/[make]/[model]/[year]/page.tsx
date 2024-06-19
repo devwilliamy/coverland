@@ -35,7 +35,7 @@ import { TProductReviewSummary, TReviewData } from '@/lib/types/review';
 //     year: year,
 //   }));
 // }
-export const revalidate = 0;
+export const revalidate = 86400;
 
 export async function generateMetadata({ params }: { params: TPathParams }) {
   const desluggedProductType = deslugify(params.productType).slice(
