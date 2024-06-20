@@ -78,7 +78,7 @@ export type CheckoutContextType = {
   updateTwoLetterStateCode: (code: string) => void;
   billingTwoLetterStateCode: string;
   updateBillingTwoLetterStateCode: (code: string) => void;
-  totalTax: string;
+  totalTax: string | null;
   updateTotalTax: (tax: string) => void;
 };
 
@@ -140,7 +140,7 @@ export const CheckoutContext = createContext<CheckoutContextType>({
   updateStripePaymentMethod: () => {},
   twoLetterStateCode: '',
   updateTwoLetterStateCode: () => {},
-  totalTax: '',
+  totalTax: null,
   updateTotalTax: () => {},
   billingTwoLetterStateCode: '',
   updateBillingTwoLetterStateCode: () => {},
@@ -318,7 +318,7 @@ const CheckoutProvider: FC<CheckoutProviderProps> = ({ children }) => {
     setTwoLetterStateCode(code);
   };
 
-  const [totalTax, setTotalTax] = useState('');
+  const [totalTax, setTotalTax] = useState<string | null>(null);
   const updateTotalTax = (tax: string) => {
     setTotalTax(tax);
   };

@@ -49,6 +49,7 @@ import { ReadyCheck } from './ReadyCheck';
 import { getTotalDiscountPrice } from '@/lib/utils/calculations';
 import { SHIPPING_METHOD } from '@/lib/constants';
 import { determineDeliveryByDate } from '@/lib/utils/deliveryDateUtils';
+import { TCartItem } from '@/lib/cart/useCart';
 
 export default function MobileCheckout() {
   const stripe = useStripe();
@@ -123,25 +124,23 @@ export default function MobileCheckout() {
   };
 
   const handleGetTax = async () => {
-    let taxItems = [];
-    let count = 0;
     setIsLoading(true);
+    let taxItems = [];
 
-    for (const item of cartItems) {
+    for (let index = 0; index < cartItems.length; index++) {
+      const item = cartItems[index] as any;
       taxItems.push({
-        id: item.id ? item.id : count,
+        id: item.id ? item.id : index,
         quantity: item.quantity,
         unit_price: item.msrp,
         discount: 0,
       });
-      count++;
     }
 
     const bodyData = {
       to_country: shippingAddress.address.country,
       to_zip: shippingAddress.address.postal_code,
       to_state: twoLetterStateCode,
-      // amount: orderSubtotal,
       shipping: 0,
       line_items: taxItems,
     };
@@ -163,37 +162,16 @@ export default function MobileCheckout() {
     const totalWithTax = convertPriceToStripeFormat(taxSum);
 
     if (totalWithTax) {
-      const pI = (await stripe?.retrievePaymentIntent(clientSecret))
-        ?.paymentIntent;
-
-      console.log({ pI });
-
       try {
         elements?.update({
           amount: totalWithTax,
           mode: 'payment',
-          // paymentMethodTypes: ['klarna', 'card'],
           currency: 'usd',
         });
         await elements?.submit();
-        const pI2 = (await stripe?.retrievePaymentIntent(clientSecret))
-          ?.paymentIntent;
-        console.log({ pI2 });
-
-        // const updateElements = await elements?.fetchUpdates();
-        // console.log({ updateElements });
       } catch (error) {
-        console.log(error);
         console.error(error);
       }
-      console.log('[handleGetTax]:', {
-        totalWithTax,
-        orderSubtotal,
-        totalTax,
-        cartMSRP,
-        amount_to_collect,
-        elements,
-      });
     }
     await fetch('/api/stripe/payment-intent', {
       method: 'PUT',
@@ -211,8 +189,6 @@ export default function MobileCheckout() {
   };
 
   const handleSubmit = async () => {
-    // e.preventDefault();
-
     if (!stripe || !elements) {
       // Stripe.js hasn't yet loaded.
       // Make sure to disable form submission until Stripe.js has loaded.
@@ -240,11 +216,6 @@ export default function MobileCheckout() {
     const data = await response.json();
     const { id, client_secret } = data.paymentIntent;
     const retrievedSecret = client_secret;
-    // console.log({
-    //   id,
-    //   retrievedSecret,
-    //   stripePaymentMethod: stripePaymentMethod?.paymentMethod,
-    // });
 
     const customerShipping = {
       name: shippingAddress.name,
@@ -351,11 +322,6 @@ export default function MobileCheckout() {
           clearInterval(interval);
         });
 
-        // console.log({
-        //   status: result?.paymentIntent?.status,
-        //   errors: result?.error,
-        // });
-
         klarnaWindow?.document.location.replace(
           String(
             klarnaPaymentResult.paymentIntent?.next_action?.redirect_to_url?.url
@@ -429,12 +395,9 @@ export default function MobileCheckout() {
   };
 
   useEffect(() => {
-    const b = async () => {
+    const updateIntent = async () => {
       const pI = (await stripe?.retrievePaymentIntent(clientSecret))
         ?.paymentIntent;
-
-      console.log('[BEFORE ELEMENT UPDATE]', { pI });
-
       try {
         elements?.update({
           amount: 888888,
@@ -445,17 +408,12 @@ export default function MobileCheckout() {
         await elements?.submit();
         const pI2 = (await stripe?.retrievePaymentIntent(clientSecret))
           ?.paymentIntent;
-        console.log('[AFTER ELEMENT UPDATE]', { pI2 });
-
-        // const updateElements = await elements?.fetchUpdates();
-        // console.log({ updateElements });
       } catch (error) {
-        console.log(error);
         console.error(error);
       }
     };
-    if (paymentMethod === 'googlePay') {
-      b();
+    if (paymentMethod === 'googlePay' || paymentMethod === 'applePay') {
+      updateIntent();
     }
   }, [paymentMethod]);
 
@@ -589,9 +547,7 @@ export default function MobileCheckout() {
                         </a>
                       </p>
                       <Button
-                        // disabled={isDisabled}
                         variant={'default'}
-                        // className={`mb-3 w-full rounded-lg ${isDisabled ? 'bg-[#BE1B1B]/90' : 'bg-[#BE1B1B]'} text-base font-bold uppercase text-white sm:h-[48px] lg:h-[55px] lg:text-xl`}
                         className={`mb-3 w-full rounded-lg bg-black text-base font-bold uppercase text-white sm:h-[48px] lg:h-[55px] lg:text-xl`}
                         onClick={(e) => {
                           setIsLoading(true);
@@ -609,7 +565,9 @@ export default function MobileCheckout() {
                       )}
                     </>
                   )}
-                  {paymentMethod === 'paypal' && <PayPalButtonSection />}
+                  {paymentMethod === 'paypal' && totalTax && (
+                    <PayPalButtonSection />
+                  )}
                   {(paymentMethod === 'applePay' ||
                     paymentMethod === 'googlePay') && (
                     <ExpressCheckoutElement
@@ -621,22 +579,16 @@ export default function MobileCheckout() {
                             ? { googlePay: 'never', applePay: 'always' }
                             : { googlePay: 'always', applePay: 'never' },
                       }}
-                      // onClick={() => {
-                      //   console.log('[CHECKOUT BUTTON CLICK]: ', totalTax);
-                      // }}
                       onConfirm={async (e) => {
                         console.log('Handle Submit has been clicked');
                         await handleSubmit();
                         console.log(e);
                       }}
                     />
-                    // <div id="expressDiv" className=""></div>
                   )}
                   {paymentMethod === 'klarna' && (
                     <Button
-                      // disabled={isDisabled}
                       variant={'default'}
-                      // className={`mb-3 w-full rounded-lg ${isDisabled ? 'bg-[#BE1B1B]/90' : 'bg-[#BE1B1B]'} text-base font-bold uppercase text-white sm:h-[48px] lg:h-[55px] lg:text-xl`}
                       className={`mb-3 w-full rounded-lg bg-black text-base font-bold uppercase text-white sm:h-[48px] lg:h-[55px] lg:text-xl`}
                       onClick={(e) => {
                         setIsLoading(true);

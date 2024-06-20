@@ -26,7 +26,8 @@ export async function paypalCreateOrder(
   items: TCartItem[],
   orderId: string,
   shipping: number,
-  shippingAddress: StripeAddress
+  shippingAddress: StripeAddress,
+  incomingTax?: number
 ): Promise<string | null> {
   const itemsForPaypal = items.map((item) => ({
     name: `${item.parent_generation} ${item.display_id} ${item.model} ${item.type} ${item.display_color}`,
@@ -56,6 +57,16 @@ export async function paypalCreateOrder(
   //   shippingForPaypal,
   //   valid: isValidShippingAddress(shippingForPaypal),
   // });
+  const totalWithTax = incomingTax
+    ? (totalMsrpPrice + incomingTax).toFixed(2)
+    : totalMsrpPrice.toString();
+
+  console.log('BEFORE PURCHASE UNITS', {
+    totalMsrpPrice,
+    incomingTax,
+    totalWithTax,
+  });
+
   const purchase_units = [
     {
       reference_id: orderId, // order-id
@@ -66,7 +77,7 @@ export async function paypalCreateOrder(
         : null,
       amount: {
         currency_code: 'USD',
-        value: (Number(totalMsrpPrice) + shipping).toFixed(2),
+        value: totalWithTax,
         breakdown: {
           item_total: {
             currency_code: 'USD',
@@ -76,14 +87,21 @@ export async function paypalCreateOrder(
             currency_code: 'USD',
             value: shipping.toString(),
           },
-          // tax_total: {
-          //   currency_code: "USD",
-          //   value:""
-          // }
+          tax_total: {
+            currency_code: 'USD',
+            value: incomingTax ? incomingTax : '0.00',
+          },
         },
       },
     },
   ];
+  console.log({
+    purch: purchase_units,
+    totalMsrpPrice,
+    incomingTax,
+    totalWithTax,
+  });
+
   // console.log('Paypal Create body:', {
   //   order_price: totalMsrpPrice,
   //   // This one kinda useless, thinking about to do with it
@@ -173,7 +191,7 @@ export async function paypalCaptureOrder(orderID: string, phone: string) {
       throw new Error('Network response was not ok');
     }
     const data = await response.json();
-    
+
     return data;
   } catch (err) {
     console.error(err);
