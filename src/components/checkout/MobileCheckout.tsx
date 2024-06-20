@@ -625,8 +625,8 @@ export default function MobileCheckout() {
                     </>
                   )}
                   {paymentMethod === 'paypal' && <PayPalButtonSection />}
-                  {(paymentMethod === 'googlePay' ||
-                    paymentMethod === 'applePay') && (
+                  {(paymentMethod === 'applePay' ||
+                    paymentMethod === 'googlePay') && (
                     <ExpressCheckoutElement
                       options={{
                         paymentMethodOrder: ['applePay', 'googlePay'],
@@ -636,9 +636,9 @@ export default function MobileCheckout() {
                             ? { googlePay: 'never', applePay: 'always' }
                             : { googlePay: 'always', applePay: 'never' },
                       }}
-                      onClick={() => {
-                        console.log('[CHECKOUT BUTTON CLICK]: ', totalTax);
-                      }}
+                      // onClick={() => {
+                      //   console.log('[CHECKOUT BUTTON CLICK]: ', totalTax);
+                      // }}
                       onConfirm={async (e) => {
                         console.log('Handle Submit has been clicked');
                         await handleSubmit();
