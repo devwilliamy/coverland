@@ -1,9 +1,11 @@
 import { ZodError, z } from 'zod';
 
 import {
+  CAR_COVERS_REVIEWS_TABLE,
   PRODUCT_REVIEWS_TABLE,
   RPC_GET_DISTINCT_REVIEW_IMAGES,
   RPC_GET_PRODUCT_REVIEWS_SUMMARY,
+  SEAT_COVERS_REVIEWS_TABLE,
 } from '../constants/databaseTableNames';
 import { getPagination } from '../utils';
 import { supabaseDatabaseClient } from '../supabaseClients';
@@ -16,6 +18,7 @@ import {
   TProductReviewDistinctImages,
 } from './types';
 import { TReviewData, TProductReviewSummary } from '@/lib/types/review';
+import { CAR_COVERS } from '@/lib/constants';
 
 export const generateSlug = (text: string) => {
   if (!text) return ''; // Return an empty string if text is falsy
@@ -91,25 +94,26 @@ export async function getProductReviewsByPage(
     } = validatedOptions;
 
     const { from, to } = getPagination(page, limit);
-
     const fetchReviews = async () => {
+      const TABLE_NAME = productType === CAR_COVERS ? CAR_COVERS_REVIEWS_TABLE : SEAT_COVERS_REVIEWS_TABLE
       let fetch = supabaseDatabaseClient
-        .from(PRODUCT_REVIEWS_TABLE)
+        .from(TABLE_NAME)
         .select(
           'review_image,review_description,review_title,rating_stars,review_author,helpful,reviewed_at'
         )
         .range(from, to);
 
-      if (productType) {
-        fetch = fetch.eq('type', productType);
-      }
+      // 6/20/24: Separating tables by type, testing to see if this works. If it does, remove.
+      // if (productType) {
+      //   fetch = fetch.eq('type', productType);
+      // }
 
       if (make) {
-        fetch = fetch.textSearch('make_slug', generateSlug(make));
+        fetch = fetch.eq('make_slug', generateSlug(make));
       }
 
       if (model) {
-        fetch = fetch.textSearch('model_slug', generateSlug(model));
+        fetch = fetch.eq('model_slug', generateSlug(model));
       }
 
       if (year) {
@@ -188,9 +192,11 @@ export async function getAllReviewsWithImages(
       sort,
       // search,
     } = validatedOptions;
+    const TABLE_NAME = productType === CAR_COVERS ? CAR_COVERS_REVIEWS_TABLE : SEAT_COVERS_REVIEWS_TABLE
 
     const fetchAllReviewsWithImages = async () => {
       const fetch = supabaseDatabaseClient.rpc(RPC_GET_DISTINCT_REVIEW_IMAGES, {
+        p_table_name: TABLE_NAME,
         p_type: productType,
         p_make_slug: generateSlug(make as string) || null,
         p_model_slug: generateSlug(model as string) || null,
@@ -269,11 +275,13 @@ export async function getProductReviewSummary(
   try {
     const validatedFilters = ProductReviewsQueryFiltersSchema.parse(filters);
     const { productType, year, make, model } = validatedFilters;
+    const TABLE_NAME = productType === CAR_COVERS ? CAR_COVERS_REVIEWS_TABLE : SEAT_COVERS_REVIEWS_TABLE
 
     const fetchReviewSummary = async () => {
       const fetch = supabaseDatabaseClient.rpc(
         RPC_GET_PRODUCT_REVIEWS_SUMMARY,
         {
+          table_name: TABLE_NAME,
           type: productType || null,
           make: generateSlug(make as string) || null,
           model: generateSlug(model as string) || null,
@@ -305,41 +313,6 @@ export async function getProductReviewSummary(
   }
 }
 
-export async function getProductReviewData(
-  filters: TProductReviewsQueryFilters
-): Promise<TReviewData[]> {
-  try {
-    const validatedFilters = ProductReviewsQueryFiltersSchema.parse(filters);
-    const { year, make, model } = validatedFilters;
-
-    let fetch = supabaseDatabaseClient.from(PRODUCT_REVIEWS_TABLE).select('*');
-
-    if (make) {
-      fetch = fetch.textSearch('make', make);
-    }
-
-    if (model) {
-      fetch = fetch.textSearch('model', model);
-    }
-
-    const { data, error } = await fetch;
-
-    if (year) {
-    }
-    if (error) {
-      console.error('[getProductReviewData] error:', error);
-    }
-
-    return data || [];
-  } catch (error) {
-    if (error instanceof ZodError) {
-      console.error('ZodError:', error);
-    }
-    console.error('[getProductReviewData] error:', error);
-    return [];
-  }
-}
-
 /*
   Special function for special case.
   Need to run this when user selects filter by image
@@ -358,8 +331,10 @@ export async function getProductReviewsByImage(
     const { productType, year, make, model } = validatedFilters;
     const { sort, filters } = validatedOptions;
     const fetchReviews = async () => {
+      const TABLE_NAME = productType === CAR_COVERS ? CAR_COVERS_REVIEWS_TABLE : SEAT_COVERS_REVIEWS_TABLE
+
       let fetch = supabaseDatabaseClient
-        .from(PRODUCT_REVIEWS_TABLE)
+        .from(TABLE_NAME)
         .select(
           'review_image,review_description,review_title,rating_stars,review_author,helpful,reviewed_at'
         );
@@ -369,11 +344,11 @@ export async function getProductReviewsByImage(
       }
 
       if (make) {
-        fetch = fetch.textSearch('make_slug', generateSlug(make));
+        fetch = fetch.eq('make_slug', generateSlug(make));
       }
 
       if (model) {
-        fetch = fetch.textSearch('model_slug', generateSlug(model));
+        fetch = fetch.eq('model_slug', generateSlug(model));
       }
 
       if (year) {
