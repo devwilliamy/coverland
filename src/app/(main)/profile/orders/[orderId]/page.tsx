@@ -62,11 +62,11 @@ const OrderDetailPage = async ({ params }: OrderDetailProps) => {
               <div className="mb-1 font-bold">Order Summary</div>
               <div className="mb-1 flex justify-between">
                 <div>Order Subtotal</div>
-                <div>${order.subtotal}</div>
+                <div>${order.total_original_amount}</div>
               </div>
               <div className="mb-1 flex justify-between">
                 <div>Sale-discount</div>
-                <div>- ${order.total_discount}</div>
+                <div>- ${order.total_discount_amount}</div>
               </div>
               <div className="my-3 pt-3 flex justify-between font-bold border-t">
                 <div>Order Total</div>

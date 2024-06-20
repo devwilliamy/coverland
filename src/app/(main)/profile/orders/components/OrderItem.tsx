@@ -30,7 +30,7 @@ const OrderItem = ({ item }: OrderItemProps) => {
           </div>
           <div className="mb-1 md:mb-2">Color: {item.product?.display_color}</div>
           <div className="mb-1 md:mb-2">
-            Qty: {item.quantity} @ ${item.product?.msrp}
+            Qty: {item.quantity} @ ${item.price / item.quantity}
           </div>
           <div>${item.price}</div>
         </div>
