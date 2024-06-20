@@ -215,6 +215,8 @@ export async function fetchUserRecentOrders(
             total_discount: formatMoneyAsNumber(
               getOrderTotalDiscount({ ...order, items })
             ),
+            total_original_amount: formatMoneyAsNumber(order.total_original_amount) || order.total_original_amount,
+            total_discount_amount: formatMoneyAsNumber(order.total_discount_amount) || order.total_discount_amount,
           };
 
           return orderWithItemsProductsAndDiscounts;
