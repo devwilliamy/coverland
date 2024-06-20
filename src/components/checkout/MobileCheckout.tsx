@@ -159,7 +159,13 @@ export default function MobileCheckout() {
       2
     );
     const totalWithTax = convertPriceToStripeFormat(taxSum);
-    console.log({ totalWithTax, orderSubtotal, totalTax, cartMSRP });
+    console.log('[handleGetTax]:', {
+      totalWithTax,
+      orderSubtotal,
+      totalTax,
+      cartMSRP,
+      amount_to_collect,
+    });
 
     await fetch('/api/stripe/payment-intent', {
       method: 'PUT',
@@ -171,8 +177,9 @@ export default function MobileCheckout() {
         amount: totalWithTax,
       }),
     });
-
     setIsLoading(false);
+
+    return totalWithTax;
   };
 
   const handleSubmit = async () => {
@@ -189,7 +196,7 @@ export default function MobileCheckout() {
     const origin = window.location.origin;
     const taxSum = Number(Number(cartMSRP) + Number(totalTax)).toFixed(2);
     const totalWithTax = convertPriceToStripeFormat(taxSum);
-    console.log({ totalWithTax, orderSubtotal, totalTax, cartMSRP });
+    console.log({ totalWithTax, orderSubtotal, cartMSRP });
 
     const response = await fetch('/api/stripe/payment-intent', {
       method: 'PUT',
@@ -343,26 +350,24 @@ export default function MobileCheckout() {
             setIsLoading(false);
             clearInterval(interval);
           }
-          // if (klarnaWindow.closed) {
-          //   // const isSuccessful =
-          //   //   (await stripe.retrievePaymentIntent(retrievedSecret))
-          //   //     .paymentIntent?.status === 'succeeded';
-          //   // console.log('Payment window closed.');
+          if (klarnaWindow.closed) {
+            const isSuccessful =
+              (await stripe.retrievePaymentIntent(retrievedSecret))
+                .paymentIntent?.status === 'succeeded';
+            console.log('Payment window closed.');
 
-          //   // if (isSuccessful) {
-          //   //   handleConversions();
-          //   //   setIsLoading(false);
-          //   //   router.push(
-          //   //     `/thank-you?order_number=${orderNumber}&payment_intent=${id}&payment_intent_client_secret=${client_secret}`
-          //   //   );
-          //   // }
-          // }
+            if (isSuccessful) {
+              handleConversions();
+              setIsLoading(false);
+              router.push(
+                `/thank-you?order_number=${orderNumber}&payment_intent=${id}&payment_intent_client_secret=${client_secret}`
+              );
+            }
+          }
         }, 1000);
 
         break;
       case 'googlePay':
-        console.log();
-
         const googlePayResult = await stripe.confirmPayment({
           elements,
           clientSecret: retrievedSecret,
@@ -408,52 +413,91 @@ export default function MobileCheckout() {
   }, [isReadyToShip, isReadyToPay]);
 
   useEffect(() => {
+    const handleGetGooglePayTax = async () => {
+      console.log('[Single Handle Get Tax]');
+      const taxAmount = await handleGetTax();
+      // await createGooglePayPaymentRequest(taxAmount);
+    };
     if (!isCartEmpty && isReadyToPay) {
-      handleGetTax();
+      //  Create a function and call the function instead of having anon async function
+      handleGetGooglePayTax();
     }
-  }, [isCartEmpty, isReadyToPay, shippingAddress]);
+  }, [isCartEmpty, isReadyToPay, shippingAddress, paymentMethod]);
 
   const [cardPaymentReq, setCardPaymentReq] = useState<any>();
 
-  const createGooglePayPaymentRequest = async () => {
-    setIsLoading(true);
-    const { country, city } = shippingAddress.address;
-    const totalWithTax = getTotalPrice() + shipping + totalTax;
-    const formattedTotalWithTax = convertPriceToStripeFormat(totalWithTax);
-    console.log({
-      totalWithTax,
-      formattedTotalTax: formattedTotalWithTax,
-      totalTax,
-    });
+  // const createGooglePayPaymentRequest = async (tax: number) => {
+  //   setIsLoading(true);
+  //   const { country } = shippingAddress.address;
+  //   const formattedTotalWithTax = convertPriceToStripeFormat(tax);
+  //   console.log('[createGooglePayPaymentRequest]:', {
+  //     formattedTotalTax: formattedTotalWithTax,
+  //   });
 
-    const paymentReq = stripe?.paymentRequest({
-      country,
-      currency: 'usd',
-      total: { amount: formattedTotalWithTax, label: 'GOOGLE PAY PAYMENT' },
-      disableWallets: ['applePay'],
-      shippingOptions: [] as PaymentRequestShippingOption[],
-    });
-    const canMakePayment = await paymentReq?.canMakePayment();
-    console.log({ canMakePayment });
+  //   const paymentReq = stripe?.paymentRequest({
+  //     country,
+  //     currency: 'usd',
+  //     total: { amount: formattedTotalWithTax, label: 'GOOGLE PAY PAYMENT' },
+  //     disableWallets: ['applePay', 'link'],
+  //     shippingOptions: [] as PaymentRequestShippingOption[],
+  //   });
+  //   const canMakePayment = await paymentReq?.canMakePayment();
+  //   console.log({ canMakePayment });
 
-    if (canMakePayment) {
-      // paymentReq?.show();
-      setCardPaymentReq(paymentReq);
-      // console.log('[SUCCESSFULLY SET PAYMENT REQ]');
-    }
-  };
+  //   if (canMakePayment) {
+  //     // paymentReq?.show();
+  //     setCardPaymentReq(paymentReq);
+  //     console.log('[SUCCESSFULLY SET GOOGLE PAY PAYMENT REQ]');
+  //   }
+  // };
+  // const createApplePayPaymentRequest = async (tax: number) => {
+  //   setIsLoading(true);
+  //   const { country } = shippingAddress.address;
+  //   const formattedTotalWithTax = convertPriceToStripeFormat(tax);
+  //   console.log('[createApplePayPaymentRequest]:', {
+  //     formattedTotalTax: formattedTotalWithTax,
+  //   });
 
-  useEffect(() => {
-    if (!stripe) {
-      return;
-    }
-    if (paymentMethod == 'googlePay') {
-      async () => {
-        await handleGetTax();
-        await createGooglePayPaymentRequest();
-      };
-    }
-  }, [paymentMethod, totalTax]);
+  //   const paymentReq = stripe?.paymentRequest({
+  //     country,
+  //     currency: 'usd',
+  //     total: { amount: formattedTotalWithTax, label: 'APPLE PAY PAYMENT' },
+  //     disableWallets: ['googlePay', 'link'],
+  //     shippingOptions: [] as PaymentRequestShippingOption[],
+  //   });
+  //   const canMakePayment = await paymentReq?.canMakePayment();
+  //   console.log({ canMakePayment });
+
+  //   if (canMakePayment) {
+  //     // paymentReq?.show();
+  //     setCardPaymentReq(paymentReq);
+  //     console.log('[SUCCESSFULLY SET APPLE PAY PAYMENT REQ]');
+  //   }
+  // };
+
+  // useEffect(() => {
+  //   console.log('[EXPRESSCHECKOUT] useEffect');
+  //   const handleGooglePayRequest = async () => {
+  //     const taxAmount = await handleGetTax();
+  //     await createGooglePayPaymentRequest(taxAmount);
+  //   };
+  //   const handleApplePayRequest = async () => {
+  //     const taxAmount = await handleGetTax();
+  //     await createApplePayPaymentRequest(taxAmount);
+  //   };
+
+  //   if (!stripe) {
+  //     return;
+  //   }
+  //   if (paymentMethod == 'googlePay') {
+  //     console.log('[googlePay] useEffect: Inside if case');
+  //     handleGooglePayRequest();
+  //   }
+  //   if (paymentMethod == 'applePay') {
+  //     console.log('[applePay] useEffect: Inside if case');
+  //     handleApplePayRequest();
+  //   }
+  // }, [paymentMethod, totalTax]);
 
   return (
     <>
@@ -496,6 +540,7 @@ export default function MobileCheckout() {
                 />
               </AccordionContent>
             </AccordionItem>
+
             <AccordionItem value="payment" id="payment">
               <AccordionTrigger
                 onClick={(e) => {
@@ -580,15 +625,23 @@ export default function MobileCheckout() {
                     </>
                   )}
                   {paymentMethod === 'paypal' && <PayPalButtonSection />}
-                  {paymentMethod === 'googlePay' && (
+                  {(paymentMethod === 'googlePay' ||
+                    paymentMethod === 'applePay') && (
                     <ExpressCheckoutElement
                       options={{
                         paymentMethodOrder: ['applePay', 'googlePay'],
                         buttonType: { applePay: 'order', googlePay: 'order' },
-                        wallets: { googlePay: 'always', applePay: 'always' },
+                        wallets:
+                          paymentMethod === 'applePay'
+                            ? { googlePay: 'never', applePay: 'always' }
+                            : { googlePay: 'always', applePay: 'never' },
+                      }}
+                      onClick={() => {
+                        console.log('[CHECKOUT BUTTON CLICK]: ', totalTax);
                       }}
                       onConfirm={async (e) => {
-                        handleSubmit();
+                        console.log('Handle Submit has been clicked');
+                        await handleSubmit();
                         console.log(e);
                       }}
                     />

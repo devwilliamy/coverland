@@ -308,6 +308,22 @@ export default function AddressForm({
     setAutocompleteAddress(val);
   };
 
+  useEffect(() => {
+    if (process.env.NEXT_PUBLIC_IS_PREVIEW === 'PREVIEW') {
+      setValue('email', 'george.icarcover@gmail.com' || '');
+      setValue('firstName', 'George' || '');
+      setValue('lastName', 'Anumba' || '');
+      setValue('line1', '1231 S Hill St' || '');
+      setValue('line2', 'P.O. Box 424' || '');
+      setValue('city', 'Los Angeles' || '');
+      setValue('state', 'CA' || '');
+      setValue('postal_code', '90015' || '');
+      setValue('phoneNumber', '+1 424 424 4242' || '');
+      // setAddress('1231 S Hill St, Los Angeles, CA 90015, USA');
+    }
+    determineDisabled();
+  }, []);
+
   return (
     <form
       onSubmit={onSubmit}
