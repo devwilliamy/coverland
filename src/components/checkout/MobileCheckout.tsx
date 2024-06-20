@@ -38,6 +38,7 @@ import {
   CreatePaymentMethodKlarnaData,
   PaymentMethodCreateParams,
   PaymentRequestShippingOption,
+  StripeExpressCheckoutElementOptions,
 } from '@stripe/stripe-js';
 import { useRouter } from 'next/navigation';
 import PayPalButtonSection from './PayPalButtonSection';
@@ -78,6 +79,7 @@ export default function MobileCheckout() {
     twoLetterStateCode,
     totalTax,
     updateTotalTax,
+    clientSecret,
   } = useCheckoutContext();
   // const { orderNumber, paymentIntentId, paymentMethod, updatePaymentMethod } = useCheckoutContext();
   const orderSubtotal = getOrderSubtotal().toFixed(2);
@@ -159,14 +161,40 @@ export default function MobileCheckout() {
       2
     );
     const totalWithTax = convertPriceToStripeFormat(taxSum);
-    console.log('[handleGetTax]:', {
-      totalWithTax,
-      orderSubtotal,
-      totalTax,
-      cartMSRP,
-      amount_to_collect,
-    });
 
+    if (totalWithTax) {
+      const pI = (await stripe?.retrievePaymentIntent(clientSecret))
+        ?.paymentIntent;
+
+      console.log({ pI });
+
+      try {
+        elements?.update({
+          amount: totalWithTax,
+          mode: 'payment',
+          // paymentMethodTypes: ['klarna', 'card'],
+          currency: 'usd',
+        });
+        await elements?.submit();
+        const pI2 = (await stripe?.retrievePaymentIntent(clientSecret))
+          ?.paymentIntent;
+        console.log({ pI2 });
+
+        // const updateElements = await elements?.fetchUpdates();
+        // console.log({ updateElements });
+      } catch (error) {
+        console.log(error);
+        console.error(error);
+      }
+      console.log('[handleGetTax]:', {
+        totalWithTax,
+        orderSubtotal,
+        totalTax,
+        cartMSRP,
+        amount_to_collect,
+        elements,
+      });
+    }
     await fetch('/api/stripe/payment-intent', {
       method: 'PUT',
       headers: {
@@ -367,8 +395,8 @@ export default function MobileCheckout() {
         }, 1000);
 
         break;
-      case 'googlePay':
-        const googlePayResult = await stripe.confirmPayment({
+      case 'googlePay' || 'applePay':
+        await stripe.confirmPayment({
           elements,
           clientSecret: retrievedSecret,
           confirmParams: {
@@ -401,6 +429,37 @@ export default function MobileCheckout() {
   };
 
   useEffect(() => {
+    const b = async () => {
+      const pI = (await stripe?.retrievePaymentIntent(clientSecret))
+        ?.paymentIntent;
+
+      console.log('[BEFORE ELEMENT UPDATE]', { pI });
+
+      try {
+        elements?.update({
+          amount: 888888,
+          mode: 'payment',
+          paymentMethodTypes: ['klarna', 'card'],
+          currency: 'usd',
+        });
+        await elements?.submit();
+        const pI2 = (await stripe?.retrievePaymentIntent(clientSecret))
+          ?.paymentIntent;
+        console.log('[AFTER ELEMENT UPDATE]', { pI2 });
+
+        // const updateElements = await elements?.fetchUpdates();
+        // console.log({ updateElements });
+      } catch (error) {
+        console.log(error);
+        console.error(error);
+      }
+    };
+    if (paymentMethod === 'googlePay') {
+      b();
+    }
+  }, [paymentMethod]);
+
+  useEffect(() => {
     if ((!isAddressComplete || isEditingAddress) && !isReadyToShip) {
       setValue(['shipping']);
     }
@@ -413,91 +472,17 @@ export default function MobileCheckout() {
   }, [isReadyToShip, isReadyToPay]);
 
   useEffect(() => {
-    const handleGetGooglePayTax = async () => {
+    const useHandleGetTax = async () => {
       console.log('[Single Handle Get Tax]');
-      const taxAmount = await handleGetTax();
-      // await createGooglePayPaymentRequest(taxAmount);
+      await handleGetTax();
     };
     if (!isCartEmpty && isReadyToPay) {
       //  Create a function and call the function instead of having anon async function
-      handleGetGooglePayTax();
+      useHandleGetTax();
     }
   }, [isCartEmpty, isReadyToPay, shippingAddress, paymentMethod]);
 
   const [cardPaymentReq, setCardPaymentReq] = useState<any>();
-
-  // const createGooglePayPaymentRequest = async (tax: number) => {
-  //   setIsLoading(true);
-  //   const { country } = shippingAddress.address;
-  //   const formattedTotalWithTax = convertPriceToStripeFormat(tax);
-  //   console.log('[createGooglePayPaymentRequest]:', {
-  //     formattedTotalTax: formattedTotalWithTax,
-  //   });
-
-  //   const paymentReq = stripe?.paymentRequest({
-  //     country,
-  //     currency: 'usd',
-  //     total: { amount: formattedTotalWithTax, label: 'GOOGLE PAY PAYMENT' },
-  //     disableWallets: ['applePay', 'link'],
-  //     shippingOptions: [] as PaymentRequestShippingOption[],
-  //   });
-  //   const canMakePayment = await paymentReq?.canMakePayment();
-  //   console.log({ canMakePayment });
-
-  //   if (canMakePayment) {
-  //     // paymentReq?.show();
-  //     setCardPaymentReq(paymentReq);
-  //     console.log('[SUCCESSFULLY SET GOOGLE PAY PAYMENT REQ]');
-  //   }
-  // };
-  // const createApplePayPaymentRequest = async (tax: number) => {
-  //   setIsLoading(true);
-  //   const { country } = shippingAddress.address;
-  //   const formattedTotalWithTax = convertPriceToStripeFormat(tax);
-  //   console.log('[createApplePayPaymentRequest]:', {
-  //     formattedTotalTax: formattedTotalWithTax,
-  //   });
-
-  //   const paymentReq = stripe?.paymentRequest({
-  //     country,
-  //     currency: 'usd',
-  //     total: { amount: formattedTotalWithTax, label: 'APPLE PAY PAYMENT' },
-  //     disableWallets: ['googlePay', 'link'],
-  //     shippingOptions: [] as PaymentRequestShippingOption[],
-  //   });
-  //   const canMakePayment = await paymentReq?.canMakePayment();
-  //   console.log({ canMakePayment });
-
-  //   if (canMakePayment) {
-  //     // paymentReq?.show();
-  //     setCardPaymentReq(paymentReq);
-  //     console.log('[SUCCESSFULLY SET APPLE PAY PAYMENT REQ]');
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   console.log('[EXPRESSCHECKOUT] useEffect');
-  //   const handleGooglePayRequest = async () => {
-  //     const taxAmount = await handleGetTax();
-  //     await createGooglePayPaymentRequest(taxAmount);
-  //   };
-  //   const handleApplePayRequest = async () => {
-  //     const taxAmount = await handleGetTax();
-  //     await createApplePayPaymentRequest(taxAmount);
-  //   };
-
-  //   if (!stripe) {
-  //     return;
-  //   }
-  //   if (paymentMethod == 'googlePay') {
-  //     console.log('[googlePay] useEffect: Inside if case');
-  //     handleGooglePayRequest();
-  //   }
-  //   if (paymentMethod == 'applePay') {
-  //     console.log('[applePay] useEffect: Inside if case');
-  //     handleApplePayRequest();
-  //   }
-  // }, [paymentMethod, totalTax]);
 
   return (
     <>
@@ -645,6 +630,7 @@ export default function MobileCheckout() {
                         console.log(e);
                       }}
                     />
+                    // <div id="expressDiv" className=""></div>
                   )}
                   {paymentMethod === 'klarna' && (
                     <Button
