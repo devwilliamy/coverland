@@ -113,9 +113,8 @@ export function ProductContent({
         <>Waterproof Outdoor Custom-Fit {`${productType} `}</>
       ) : (
         <>
-          {make && `${deslugify(make as string)} `}
-          {model && `${deslugify(model as string)} `}
-          {`${productType} `}
+          {make && (selectedProduct.make as string)}{' '}
+          {model && (selectedProduct.model as string)} {`${productType} `}
           {' - '}
           <br />
           <>Waterproof, Outdoor, Custom-Fit</>
