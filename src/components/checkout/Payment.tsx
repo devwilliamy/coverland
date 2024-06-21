@@ -56,8 +56,19 @@ export default function Payment() {
   const { orderNumber, paymentIntentId } = useCheckoutContext();
   const { billingAddress, shippingAddress, customerInfo, shipping } =
     useCheckoutContext();
-  const shippingInfo = { shipping_method: SHIPPING_METHOD, shipping_date: determineDeliveryByDate("EEE, LLL dd"), delivery_fee: shipping };
-  const { cartItems, getTotalPrice, getOrderSubtotal, getTotalDiscountPrice, getTotalCartQuantity, clearLocalStorageCart } = useCartContext();
+  const shippingInfo = {
+    shipping_method: SHIPPING_METHOD,
+    shipping_date: determineDeliveryByDate('EEE, LLL dd'),
+    delivery_fee: shipping,
+  };
+  const {
+    cartItems,
+    getTotalPrice,
+    getOrderSubtotal,
+    getTotalDiscountPrice,
+    getTotalCartQuantity,
+    clearLocalStorageCart,
+  } = useCartContext();
   const totalMsrpPrice = convertPriceToStripeFormat(getTotalPrice() + shipping);
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -188,89 +199,89 @@ export default function Payment() {
                 "There's an error, but could not find error message"
             );
           }
-
-          // Meta Conversion API
-          const skus = getSkusFromCartItems(cartItems);
-          const skusWithQuantityMsrpForMeta =
-            getSkuQuantityPriceFromCartItemsForMeta(cartItems);
-          const eventID = uuidv4();
-
-          const metaCPIEvent = {
-            event_name: 'Purchase',
-            event_time: Math.floor(Date.now() / 1000),
-            event_id: eventID,
-            action_source: 'website',
-            user_data: {
-              em: [hashData(customerInfo.email)],
-              ph: [hashData(shippingAddress.phone || '')],
-              ct: [hashData(shippingAddress.address.city || '')],
-              country: [hashData(shippingAddress.address.country || '')],
-              fn: [hashData(shippingAddress.firstName || '')],
-              ln: [hashData(shippingAddress.lastName || '')],
-              st: [hashData(shippingAddress.address.state || '')],
-              zp: [hashData(shippingAddress.address.postal_code || '')],
-              fbp: getCookie('_fbp'),
-              // client_ip_address: '', // Replace with the user's IP address
-              client_user_agent: navigator.userAgent, // Browser user agent string
-            },
-            custom_data: {
-              currency: 'USD',
-              value: parseFloat(getTotalPrice().toFixed(2)),
-              order_id: orderNumber,
-              content_ids: skus.join(','),
-              contents: skusWithQuantityMsrpForMeta,
-            },
-            event_source_url: origin,
-          };
-          const metaCAPIResponse = await fetch('/api/meta/event', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ metaCPIEvent }),
-          });
-          // Track the purchase event
-          if (typeof fbq === 'function') {
-            fbq(
-              'track',
-              'Purchase',
-              {
-                value: parseFloat(getTotalPrice().toFixed(2)),
-                currency: 'USD',
-                contents: skusWithQuantityMsrpForMeta,
-                content_type: 'product',
-              },
-              { eventID }
-            );
-          }
-
-          // Microsoft Conversion API Tracking
-          if (typeof window !== 'undefined') {
-            window.uetq = window.uetq || [];
-
-            window.uetq.push('set', {
-              pid: {
-                em: customerInfo.email,
-                ph: customerInfo.phoneNumber,
-              },
-            });
-            window.uetq.push('event', 'purchase', {
-              revenue_value: parseFloat(getTotalPrice().toFixed(2)),
-              currency: 'USD',
-              pid: {
-                em: customerInfo.email,
-                ph: customerInfo.phoneNumber,
-              },
-            });
-          }
           if (process.env.NEXT_PUBLIC_IS_PREVIEW !== 'PREVIEW') {
+            // Meta Conversion API
+            const skus = getSkusFromCartItems(cartItems);
+            const skusWithQuantityMsrpForMeta =
+              getSkuQuantityPriceFromCartItemsForMeta(cartItems);
+            const eventID = uuidv4();
+
+            const metaCPIEvent = {
+              event_name: 'Purchase',
+              event_time: Math.floor(Date.now() / 1000),
+              event_id: eventID,
+              action_source: 'website',
+              user_data: {
+                em: [hashData(customerInfo.email)],
+                ph: [hashData(shippingAddress.phone || '')],
+                ct: [hashData(shippingAddress.address.city || '')],
+                country: [hashData(shippingAddress.address.country || '')],
+                fn: [hashData(shippingAddress.firstName || '')],
+                ln: [hashData(shippingAddress.lastName || '')],
+                st: [hashData(shippingAddress.address.state || '')],
+                zp: [hashData(shippingAddress.address.postal_code || '')],
+                fbp: getCookie('_fbp'),
+                // client_ip_address: '', // Replace with the user's IP address
+                client_user_agent: navigator.userAgent, // Browser user agent string
+              },
+              custom_data: {
+                currency: 'USD',
+                value: parseFloat(getTotalPrice().toFixed(2)),
+                order_id: orderNumber,
+                content_ids: skus.join(','),
+                contents: skusWithQuantityMsrpForMeta,
+              },
+              event_source_url: origin,
+            };
+            const metaCAPIResponse = await fetch('/api/meta/event', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({ metaCPIEvent }),
+            });
+            // Track the purchase event
+            if (typeof fbq === 'function') {
+              fbq(
+                'track',
+                'Purchase',
+                {
+                  value: parseFloat(getTotalPrice().toFixed(2)),
+                  currency: 'USD',
+                  contents: skusWithQuantityMsrpForMeta,
+                  content_type: 'product',
+                },
+                { eventID }
+              );
+            }
+
+            // Microsoft Conversion API Tracking
+            if (typeof window !== 'undefined') {
+              window.uetq = window.uetq || [];
+
+              window.uetq.push('set', {
+                pid: {
+                  em: customerInfo.email,
+                  ph: customerInfo.phoneNumber,
+                },
+              });
+              window.uetq.push('event', 'purchase', {
+                revenue_value: parseFloat(getTotalPrice().toFixed(2)),
+                currency: 'USD',
+                pid: {
+                  em: customerInfo.email,
+                  ph: customerInfo.phoneNumber,
+                },
+              });
+            }
+
             const skuLabOrderInput = generateSkuLabOrderInput({
               orderNumber,
               cartItems,
               totalMsrpPrice: convertPriceFromStripeFormat(totalMsrpPrice),
               shippingAddress,
               customerInfo,
-              paymentMethod: "Stripe"
+              paymentMethod: 'Stripe',
             });
 
             // SKU Labs Order Creation
@@ -285,28 +296,28 @@ export default function Payment() {
                 body: JSON.stringify({ order: skuLabOrderInput }),
               }
             );
+
+            // Google Conversion API
+            const enhancedGoogleConversionInput = {
+              email: customerInfo.email || '',
+              phone_number: shippingAddress.phone || '',
+              first_name: shippingAddress.firstName || '',
+              last_name: shippingAddress.lastName || '',
+              address_line1: shippingAddress.address.line1 || '',
+              city: shippingAddress.address.city || '',
+              state: shippingAddress.address.state || '',
+              postal_code: shippingAddress.address.postal_code || '',
+              country: shippingAddress.address.country || '',
+            };
+
+            handlePurchaseGoogleTag(
+              cartItems,
+              orderNumber,
+              getTotalPrice().toFixed(2),
+              clearLocalStorageCart,
+              enhancedGoogleConversionInput
+            );
           }
-
-          // Google Conversion API
-          const enhancedGoogleConversionInput = {
-            email: customerInfo.email || '',
-            phone_number: shippingAddress.phone || '',
-            first_name: shippingAddress.firstName || '',
-            last_name: shippingAddress.lastName || '',
-            address_line1: shippingAddress.address.line1 || '',
-            city: shippingAddress.address.city || '',
-            state: shippingAddress.address.state || '',
-            postal_code: shippingAddress.address.postal_code || '',
-            country: shippingAddress.address.country || '',
-          };
-
-          handlePurchaseGoogleTag(
-            cartItems,
-            orderNumber,
-            getTotalPrice().toFixed(2),
-            clearLocalStorageCart,
-            enhancedGoogleConversionInput
-          );
 
           const { id, client_secret } = result.paymentIntent;
           router.push(

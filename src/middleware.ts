@@ -4,6 +4,7 @@ import {
   CAR_COVERS_URL_PARAM,
   PREMIUM_PLUS_URL_PARAM,
   PREMIUM_URL_PARAM,
+  SEAT_COVERS_LEATHER_URL_PARAM,
   SEAT_COVERS_URL_PARAM,
   STANDARD_PRO_URL_PARAM,
   STANDARD_URL_PARAM,
@@ -51,6 +52,7 @@ export function middleware(request: NextRequest) {
     301
   );
 
+  // Ex: car-covers or seat-covers
   let slashStartSegment = segments[0];
   const firstHyphenSegment = hyphenSegments[0];
   const secondHyphenSegment = hyphenSegments[1];
@@ -91,7 +93,7 @@ export function middleware(request: NextRequest) {
     'hyundai/ioniq-6/2023': 'hyundai/ioniq-6/2023-2024',
     'lexus/es/2013-2023': 'lexus/es/2013-2024',
     'e-class/2017-2023': 'e-class/2017-2025',
-    'mercedes/e-class/2017-2023': 'mercedes/e-class/2017-2025',
+    'mercedes/e-class/2017-2023': 'mercedes-benz/e-class/2017-2025',
     'mitsubishi/mirage/2014-2022': 'mitsubishi/mirage/2014-2024',
     'mitsubishi/mirage-g4/2017-2022': 'mitsubishi/mirage-g4/2017-2024',
     'pontiac/grand-am/1992-2006': 'pontiac/grand-am/1992-2005',
@@ -171,6 +173,11 @@ export function middleware(request: NextRequest) {
       return NextResponse.redirect(new URL(urlString, request.url), 301);
     };
     return determineNextResponse();
+  }
+
+  // Checks make for mercedes
+  if (segments[2] === 'mercedes') {
+    return redirectMercedes(segments, search, isVehicleCover, request.url);
   }
 
   // Has Product Type, and if segments does not have coverType
@@ -335,3 +342,32 @@ export function middleware(request: NextRequest) {
 
   return NextResponse.next();
 }
+
+/**
+ * 6/17/24: Mercedes got changed to Mercedes Benz, need to redirect
+ * @param segments - ex: ['car-covers', 'premium-plus', 'mercedes']
+ */
+const redirectMercedes = (
+  segments: string[],
+  search: string,
+  isVehicleCover: boolean,
+  requestUrl: string
+) => {
+  if (isVehicleCover) {
+    return NextResponse.redirect(
+      new URL(
+        `/${CAR_COVERS_URL_PARAM}/${PREMIUM_PLUS_URL_PARAM}/mercedes-benz/${segments.slice(3).join('/')}${search}`,
+        requestUrl
+      ),
+      301
+    );
+  } else {
+    return NextResponse.redirect(
+      new URL(
+        `/${SEAT_COVERS_LEATHER_URL_PARAM}/mercedes-benz/${segments.slice(3).join('/')}${search}`,
+        requestUrl
+      ),
+      301
+    );
+  }
+};
