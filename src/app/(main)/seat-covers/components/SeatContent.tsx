@@ -18,6 +18,12 @@ import ReviewsTextTrigger from '../../[productType]/components/ReviewsTextTrigge
 import SeatCoverSelection from './SeatCoverSelector';
 import { deslugify } from '@/lib/utils';
 import useDetermineType from '@/hooks/useDetermineType';
+import {
+  DISCOUNT_25_LOWER_BOUND,
+  DISCOUNT_25_UPPER_BOUND,
+  NO_DISCOUNT_LOWER_BOUND,
+  NO_DISCOUNT_UPPER_BOUND,
+} from '@/lib/constants';
 
 export default function SeatContent({
   searchParams,
@@ -39,41 +45,34 @@ export default function SeatContent({
   const { make, model } = useDetermineType();
 
   const [discountPercent, setDiscountPercent] = useState<number | null>(50);
-  const [isBetween1and3, setIsBetween1and3] = useState(false);
-  const [isBetween4and10, setIsBetween4and10] = useState(false);
   const [newMSRP, setNewMSRP] = useState(selectedProduct.msrp);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     setLoading(true);
-    if (!selectedProduct) return setLoading(false);
+    if (!selectedProduct) {
+      setLoading(false);
+      throw new Error('No Selected Product in store');
+    }
+
     setNewMSRP(selectedProduct.msrp);
-    const quantityBetween1and3 =
-      Number(selectedProduct.quantity) >= 1 &&
-      Number(selectedProduct.quantity) <= 3;
-    const quantityBetween4and10 =
-      Number(selectedProduct.quantity) >= 4 &&
-      Number(selectedProduct.quantity) <= 10;
+    const isInNoDiscountRange =
+      Number(selectedProduct.quantity) >= NO_DISCOUNT_LOWER_BOUND &&
+      Number(selectedProduct.quantity) <= NO_DISCOUNT_UPPER_BOUND;
+    const isIn25PercentDiscountRange =
+      Number(selectedProduct.quantity) >= DISCOUNT_25_LOWER_BOUND &&
+      Number(selectedProduct.quantity) <= DISCOUNT_25_UPPER_BOUND;
     const evenCartProductPrice = Number(selectedProduct.price);
     let calcedPrice: number;
-    // if 1 <= x <= 3
-    if (quantityBetween1and3) {
+
+    if (isInNoDiscountRange) {
       calcedPrice = Number((selectedProduct.msrp = selectedProduct.price));
       console.log({ calcedPrice });
-      setIsBetween1and3(true);
       setDiscountPercent(null);
       setNewMSRP(calcedPrice);
-    }
-    // Else if 4 <= x <= 10
-    else if (quantityBetween4and10) {
+    } else if (isIn25PercentDiscountRange) {
       calcedPrice =
         evenCartProductPrice - Math.floor(evenCartProductPrice / 4) - 0.05;
-      console.log({
-        evenCartProductPrice,
-        quarterPrice: Math.floor(evenCartProductPrice / 4),
-        calcedPrice,
-      });
-      setIsBetween4and10(true);
       setDiscountPercent(25);
       setNewMSRP(calcedPrice);
     } else {
@@ -93,6 +92,10 @@ export default function SeatContent({
     router.push('/checkout');
   };
 
+  if (!selectedProduct.price) {
+    setLoading(false);
+    throw new Error('No Selected Product Price in store');
+  }
   const installmentPrice = newMSRP !== 0 ? newMSRP : selectedProduct.price / 2;
 
   return (

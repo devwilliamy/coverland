@@ -19,6 +19,12 @@ import Image from 'next/image';
 import useDetermineType from '@/hooks/useDetermineType';
 import ReactPlayer from 'react-player';
 import { set } from 'zod';
+import {
+  DISCOUNT_25_LOWER_BOUND,
+  DISCOUNT_25_UPPER_BOUND,
+  NO_DISCOUNT_LOWER_BOUND,
+  NO_DISCOUNT_UPPER_BOUND,
+} from '@/lib/constants';
 export function ProductContent({
   searchParams,
 }: {
@@ -96,39 +102,27 @@ export function ProductContent({
   const defaultPrice: number = defaultMSRP * 2;
   const isStandardPrice = isStandardType ? defaultMSRP : defaultMSRP - 0.05;
   const [discountPercent, setDiscountPercent] = useState<number | null>(50);
-  // let quantityBetween1and5: boolean;
-  // let quantityBetween6and10: boolean;
-  const [isBetween1and3, setIsBetween1and3] = useState(false);
-  const [isBetween4and10, setIsBetween4and10] = useState(false);
   const [newMSRP, setNewMSRP] = useState(0);
   useEffect(() => {
     if (!cartProduct) return;
     console.log(cartProduct);
-    const quantityBetween1and3 =
-      Number(cartProduct.quantity) >= 1 && Number(cartProduct.quantity) <= 3;
-    const quantityBetween4and10 =
-      Number(cartProduct.quantity) >= 4 && Number(cartProduct.quantity) <= 10;
+    const isInNoDiscountRange =
+      Number(cartProduct.quantity) >= NO_DISCOUNT_LOWER_BOUND &&
+      Number(cartProduct.quantity) <= NO_DISCOUNT_UPPER_BOUND;
+    const isIn25PercentDiscountRange =
+      Number(cartProduct.quantity) >= DISCOUNT_25_LOWER_BOUND &&
+      Number(cartProduct.quantity) <= DISCOUNT_25_UPPER_BOUND;
     const evenCartProductPrice = Number(cartProduct.price);
     let calcedPrice: number;
-    // if 1 <= x <= 3
-    if (quantityBetween1and3) {
+
+    if (isInNoDiscountRange) {
       calcedPrice = Number((cartProduct.msrp = cartProduct.price));
-      console.log({ calcedPrice });
-      setIsBetween1and3(true);
       setDiscountPercent(null);
       setNewMSRP(calcedPrice);
       return;
-    }
-    // Else if 4 <= x <= 10
-    else if (quantityBetween4and10) {
+    } else if (isIn25PercentDiscountRange) {
       calcedPrice =
         evenCartProductPrice - Math.floor(evenCartProductPrice / 4) - 0.05;
-      console.log({
-        evenCartProductPrice,
-        quarterPrice: Math.floor(evenCartProductPrice / 4),
-        calcedPrice,
-      });
-      setIsBetween4and10(true);
       setDiscountPercent(25);
       setNewMSRP(calcedPrice);
       return;
