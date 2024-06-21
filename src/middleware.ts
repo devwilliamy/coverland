@@ -98,6 +98,7 @@ export function middleware(request: NextRequest) {
     'mitsubishi/mirage-g4/2017-2022': 'mitsubishi/mirage-g4/2017-2024',
     'pontiac/grand-am/1992-2006': 'pontiac/grand-am/1992-2005',
     'nash,-hudson/metropolitan/1954-1962': 'nashhudson/metropolitan/1954-1962',
+    'ford/mustang/2005-2024': 'ford/mustang/2005-2025',
   };
 
   const segmentHasUnwantedSymbol = (segment: string) => {
