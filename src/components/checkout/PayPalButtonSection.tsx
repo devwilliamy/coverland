@@ -28,8 +28,15 @@ import { determineDeliveryByDate } from '@/lib/utils/deliveryDateUtils';
 import { SHIPPING_METHOD } from '@/lib/constants';
 
 export default function PayPalButtonSection() {
-  const { orderNumber, shipping, shippingAddress, customerInfo, totalTax } =
-    useCheckoutContext();
+  const {
+    orderNumber,
+    shipping,
+    shippingAddress,
+    customerInfo,
+    totalTax,
+    billingAddress,
+    isBillingSameAsShipping,
+  } = useCheckoutContext();
   const shippingInfo = {
     shipping_method: SHIPPING_METHOD,
     shipping_date: determineDeliveryByDate('EEE, LLL dd'),
@@ -72,8 +79,8 @@ export default function PayPalButtonSection() {
               orderNumber,
               shipping,
               shippingAddress,
-              Number(totalTax),
-              totalWithTax
+              isBillingSameAsShipping ? shippingAddress : billingAddress,
+              Number(totalTax)
             );
             if (!data) {
               console.log('Error creating order');

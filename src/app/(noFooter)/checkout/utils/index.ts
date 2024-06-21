@@ -13,7 +13,6 @@ function isValidShippingAddress({ address }: PaypalShipping) {
   return (
     address &&
     address.address_line_1 !== '' &&
-    // address.address_line_2 &&
     address.admin_area_2 !== '' &&
     address.admin_area_1 !== '' &&
     address.postal_code !== '' &&
@@ -27,6 +26,7 @@ export async function paypalCreateOrder(
   orderId: string,
   shipping: number,
   shippingAddress: StripeAddress,
+  billingAddress?: StripeAddress,
   incomingTax?: number
 ): Promise<string | null> {
   const itemsForPaypal = items.map((item) => ({
@@ -57,6 +57,15 @@ export async function paypalCreateOrder(
   //   shippingForPaypal,
   //   valid: isValidShippingAddress(shippingForPaypal),
   // });
+
+  const billingForPaypal = {
+    address_line_1: billingAddress?.address?.line1 || '',
+    address_line_2: billingAddress?.address?.line2 || '',
+    admin_area_2: billingAddress?.address?.city || '',
+    admin_area_1: billingAddress?.address?.state || '',
+    postal_code: billingAddress?.address?.postal_code || '',
+    country_code: billingAddress?.address?.country || 'US',
+  };
   const totalWithTax = incomingTax
     ? (totalMsrpPrice + incomingTax).toFixed(2)
     : totalMsrpPrice.toString();
@@ -65,6 +74,7 @@ export async function paypalCreateOrder(
     totalMsrpPrice,
     incomingTax,
     totalWithTax,
+    billingForPaypal,
   });
 
   const purchase_units = [
@@ -91,6 +101,11 @@ export async function paypalCreateOrder(
             currency_code: 'USD',
             value: incomingTax ? incomingTax : '0.00',
           },
+        },
+      },
+      payment_source: {
+        paypal: {
+          address: billingForPaypal,
         },
       },
     },
