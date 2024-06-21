@@ -125,6 +125,9 @@ export function ProductContent({
       setDiscountPercent(25);
       setNewMSRP(calcedPrice);
       return;
+    } else {
+      setDiscountPercent(50);
+      setNewMSRP(cartProduct.msrp);
     }
     setNewMSRP(0);
   }, [cartProduct]);
