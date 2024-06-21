@@ -10,7 +10,7 @@ import { useStore } from 'zustand';
 import SeatCoverColorSelector from './SeatCoverColorSelector';
 import CartSheet from '@/components/cart/CartSheet';
 import { Separator } from '@/components/ui/separator';
-import { TQueryParams } from '@/utils';
+import { IProductData, TQueryParams } from '@/utils';
 import AddToCart from '@/components/cart/AddToCart';
 import EditVehicle from '@/components/edit-vehicle/EditVehicle';
 import FreeDetails from '../../[productType]/components/FreeDetails';
@@ -24,6 +24,8 @@ import {
   NO_DISCOUNT_LOWER_BOUND,
   NO_DISCOUNT_UPPER_BOUND,
 } from '@/lib/constants';
+import { TSeatCoverDataDB } from '@/lib/db/seat-covers';
+import { handleCheckLowQuantity } from '@/lib/utils/calculations';
 
 export default function SeatContent({
   searchParams,
@@ -45,39 +47,21 @@ export default function SeatContent({
   const { make, model } = useDetermineType();
 
   const [discountPercent, setDiscountPercent] = useState<number | null>(50);
-  const [newMSRP, setNewMSRP] = useState(selectedProduct.msrp);
+  const [newMSRP, setNewMSRP] = useState<number | null>(selectedProduct.msrp);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     setLoading(true);
-    if (!selectedProduct) {
-      setLoading(false);
-      throw new Error('No Selected Product in store');
-    }
+    const checkLowQuantity = async () => {
+      const {
+        discountPercent: incomingDiscountPercent,
+        newMSRP: incomingMSRP,
+      } = handleCheckLowQuantity(selectedProduct as TSeatCoverDataDB);
+      setDiscountPercent(incomingDiscountPercent);
+      setNewMSRP(incomingMSRP);
+    };
+    checkLowQuantity();
 
-    setNewMSRP(selectedProduct.msrp);
-    const isInNoDiscountRange =
-      Number(selectedProduct.quantity) >= NO_DISCOUNT_LOWER_BOUND &&
-      Number(selectedProduct.quantity) <= NO_DISCOUNT_UPPER_BOUND;
-    const isIn25PercentDiscountRange =
-      Number(selectedProduct.quantity) >= DISCOUNT_25_LOWER_BOUND &&
-      Number(selectedProduct.quantity) <= DISCOUNT_25_UPPER_BOUND;
-    const original_price = Number(selectedProduct.price);
-    let calcedPrice: number;
-
-    if (isInNoDiscountRange) {
-      calcedPrice = Number((selectedProduct.msrp = selectedProduct.price));
-      setDiscountPercent(null);
-      setNewMSRP(calcedPrice);
-    } else if (isIn25PercentDiscountRange) {
-      calcedPrice =
-        original_price - Math.floor(original_price / 4) - 0.05;
-      setDiscountPercent(25);
-      setNewMSRP(calcedPrice);
-    } else {
-      setDiscountPercent(50);
-      setNewMSRP(selectedProduct.msrp);
-    }
     setLoading(false);
   }, [selectedProduct]);
 

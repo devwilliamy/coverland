@@ -9,7 +9,7 @@ import { compareRawStrings, deslugify } from '@/lib/utils';
 
 import { useStore } from 'zustand';
 import { useCartContext } from '@/providers/CartProvider';
-import { TQueryParams, getCompleteSelectionData } from '@/utils';
+import { IProductData, TQueryParams, getCompleteSelectionData } from '@/utils';
 import FreeDetails from './FreeDetails';
 import AddToCart from '@/components/cart/AddToCart';
 import CircleColorSelector from './CircleColorSelector';
@@ -25,6 +25,8 @@ import {
   NO_DISCOUNT_LOWER_BOUND,
   NO_DISCOUNT_UPPER_BOUND,
 } from '@/lib/constants';
+import { TCartItem } from '@/lib/cart/useCart';
+import { handleCheckLowQuantity } from '@/lib/utils/calculations';
 export function ProductContent({
   searchParams,
 }: {
@@ -102,33 +104,19 @@ export function ProductContent({
   const defaultPrice: number = defaultMSRP * 2;
   const isStandardPrice = isStandardType ? defaultMSRP : defaultMSRP - 0.05;
   const [discountPercent, setDiscountPercent] = useState<number | null>(50);
-  const [newMSRP, setNewMSRP] = useState(0);
-  useEffect(() => {
-    if (!cartProduct) return;
-    const isInNoDiscountRange =
-      Number(cartProduct.quantity) >= NO_DISCOUNT_LOWER_BOUND &&
-      Number(cartProduct.quantity) <= NO_DISCOUNT_UPPER_BOUND;
-    const isIn25PercentDiscountRange =
-      Number(cartProduct.quantity) >= DISCOUNT_25_LOWER_BOUND &&
-      Number(cartProduct.quantity) <= DISCOUNT_25_UPPER_BOUND;
-    const original_price = Number(cartProduct.price);
-    let calcedPrice: number;
+  const [newMSRP, setNewMSRP] = useState<number | null>(0);
 
-    if (isInNoDiscountRange) {
-      calcedPrice = Number((cartProduct.msrp = cartProduct.price));
-      setDiscountPercent(null);
-      setNewMSRP(calcedPrice);
-      return;
-    } else if (isIn25PercentDiscountRange) {
-      calcedPrice = original_price - Math.floor(original_price / 4) - 0.05;
-      setDiscountPercent(25);
-      setNewMSRP(calcedPrice);
-      return;
-    } else {
-      setDiscountPercent(50);
-      setNewMSRP(cartProduct.msrp);
-    }
-    setNewMSRP(0);
+  useEffect(() => {
+    const checkLowQuantity = async () => {
+      const {
+        discountPercent: incomingDiscountPercent,
+        newMSRP: incomingMSRP,
+      } = handleCheckLowQuantity(cartProduct as IProductData);
+
+      setDiscountPercent(incomingDiscountPercent);
+      setNewMSRP(incomingMSRP);
+    };
+    checkLowQuantity();
   }, [cartProduct]);
 
   const handleAddToCart = () => {
@@ -200,11 +188,13 @@ export function ProductContent({
         <div className=" flex  items-end gap-[9px]   text-center text-[28px] font-[900]  lg:text-[32px] lg:leading-[37.5px] ">
           <div className="leading-[20px]">
             $
-            {isComplete
-              ? newMSRP
+            {Number(
+              isComplete
                 ? newMSRP
-                : `${Number(cartProduct?.msrp)}`
-              : isStandardPrice}
+                  ? newMSRP
+                  : `${Number(cartProduct?.msrp)}`
+                : isStandardPrice
+            ).toFixed(2)}
           </div>
           {selectedProduct?.price && discountPercent && (
             <div className="flex gap-1.5 pb-[1px] text-[22px] font-[400] leading-[14px] text-[#BE1B1B] lg:text-[22px] ">

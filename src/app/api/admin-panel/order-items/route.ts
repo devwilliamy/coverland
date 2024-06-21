@@ -7,6 +7,8 @@ import {
 import { getProductAndPriceBySku } from '@/lib/db/admin-panel/products';
 import { createSupabaseAdminPanelServerClient } from '@/lib/db/adminPanelSupabaseClient';
 import { ADMIN_PANEL_ORDER_ITEMS } from '@/lib/db/constants/databaseTableNames';
+import { handleCheckLowQuantity } from '@/lib/utils/calculations';
+import { IProductData } from '@/utils';
 import { SupabaseClient } from '@supabase/supabase-js';
 import { ReadonlyRequestCookies } from 'next/dist/server/web/spec-extension/adapters/request-cookies';
 import { cookies } from 'next/headers';
@@ -110,24 +112,12 @@ const createOrderItems = (
       throw new Error(`No product price found for SKU: ${sku}`);
     }
 
-    const stock_quantity = Number(product.quantity);
-    let calculatedPrice: number = Number(product.msrp);
+    const { newMSRP: incomingMSRP } = handleCheckLowQuantity(
+      product as IProductData
+    );
 
-    if (
-      stock_quantity >= NO_DISCOUNT_LOWER_BOUND &&
-      stock_quantity <= NO_DISCOUNT_UPPER_BOUND
-    ) {
-      calculatedPrice = Math.round(product.price);
-    }
-    if (
-      stock_quantity >= DISCOUNT_25_LOWER_BOUND &&
-      stock_quantity <= DISCOUNT_25_UPPER_BOUND
-    ) {
-      calculatedPrice = product.price - Math.round(product.price) / 4 - 0.05;
-    }
-
-    const totalProductPrice = calculatedPrice * quantity;
-    const original_price = product.price * quantity;
+    const totalProductPrice = Number((incomingMSRP * quantity).toFixed(2));
+    const original_price = Number((product.price * quantity).toFixed(2));
     const discount_amount = original_price - totalProductPrice;
 
     const orderItem: OrderItem = {
