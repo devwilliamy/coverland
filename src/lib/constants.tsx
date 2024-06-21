@@ -972,6 +972,6 @@ export const STANDARD_URL_PARAM = 'standard';
 export const SHIPPING_METHOD = 'Standard: UPS Ground - Free Shipping';
 
 export const NO_DISCOUNT_LOWER_BOUND = 1;
-export const NO_DISCOUNT_UPPER_BOUND = 3;
-export const DISCOUNT_25_LOWER_BOUND = 4;
-export const DISCOUNT_25_UPPER_BOUND = 10;
+export const NO_DISCOUNT_UPPER_BOUND = 2;
+export const DISCOUNT_25_LOWER_BOUND = 3;
+export const DISCOUNT_25_UPPER_BOUND = 5;
