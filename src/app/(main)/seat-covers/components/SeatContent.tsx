@@ -67,7 +67,6 @@ export default function SeatContent({
 
     if (isInNoDiscountRange) {
       calcedPrice = Number((selectedProduct.msrp = selectedProduct.price));
-      console.log({ calcedPrice });
       setDiscountPercent(null);
       setNewMSRP(calcedPrice);
     } else if (isIn25PercentDiscountRange) {

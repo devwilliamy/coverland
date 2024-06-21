@@ -105,7 +105,6 @@ export function ProductContent({
   const [newMSRP, setNewMSRP] = useState(0);
   useEffect(() => {
     if (!cartProduct) return;
-    console.log(cartProduct);
     const isInNoDiscountRange =
       Number(cartProduct.quantity) >= NO_DISCOUNT_LOWER_BOUND &&
       Number(cartProduct.quantity) <= NO_DISCOUNT_UPPER_BOUND;

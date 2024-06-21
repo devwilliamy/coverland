@@ -126,10 +126,6 @@ const createOrderItems = (
       calculatedPrice = product.price - Math.round(product.price) / 4 - 0.05;
     }
 
-    // const price = Number(product.msrp) * quantity;
-    // const original_price = Number(product.price) * quantity;
-    // const discount_amount = original_price - price;
-
     const totalProductPrice = calculatedPrice * quantity;
     const original_price = product.price * quantity;
     const discount_amount = original_price - totalProductPrice;
@@ -144,11 +140,6 @@ const createOrderItems = (
     };
 
     return orderItem;
-  });
-
-  console.log('[END OF ORDER ITEMS]', {
-    productData,
-    orderItems,
   });
 
   return orderItems;
