@@ -111,7 +111,7 @@ export function ProductContent({
     const isIn25PercentDiscountRange =
       Number(cartProduct.quantity) >= DISCOUNT_25_LOWER_BOUND &&
       Number(cartProduct.quantity) <= DISCOUNT_25_UPPER_BOUND;
-    const evenCartProductPrice = Number(cartProduct.price);
+    const original_price = Number(cartProduct.price);
     let calcedPrice: number;
 
     if (isInNoDiscountRange) {
@@ -120,8 +120,7 @@ export function ProductContent({
       setNewMSRP(calcedPrice);
       return;
     } else if (isIn25PercentDiscountRange) {
-      calcedPrice =
-        evenCartProductPrice - Math.floor(evenCartProductPrice / 4) - 0.05;
+      calcedPrice = original_price - Math.floor(original_price / 4) - 0.05;
       setDiscountPercent(25);
       setNewMSRP(calcedPrice);
       return;

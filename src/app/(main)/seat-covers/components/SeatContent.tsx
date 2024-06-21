@@ -62,7 +62,7 @@ export default function SeatContent({
     const isIn25PercentDiscountRange =
       Number(selectedProduct.quantity) >= DISCOUNT_25_LOWER_BOUND &&
       Number(selectedProduct.quantity) <= DISCOUNT_25_UPPER_BOUND;
-    const evenCartProductPrice = Number(selectedProduct.price);
+    const original_price = Number(selectedProduct.price);
     let calcedPrice: number;
 
     if (isInNoDiscountRange) {
@@ -71,7 +71,7 @@ export default function SeatContent({
       setNewMSRP(calcedPrice);
     } else if (isIn25PercentDiscountRange) {
       calcedPrice =
-        evenCartProductPrice - Math.floor(evenCartProductPrice / 4) - 0.05;
+        original_price - Math.floor(original_price / 4) - 0.05;
       setDiscountPercent(25);
       setNewMSRP(calcedPrice);
     } else {
