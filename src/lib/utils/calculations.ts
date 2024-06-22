@@ -37,8 +37,7 @@ export const getTotalCartQuantity = (cartItems: TCartItem[]) => {
 export const handleCheckLowQuantity = (
   cartProduct: IProductData | TSeatCoverDataDB
 ) => {
-  if (!cartProduct) return;
-  if (!cartProduct.msrp) return;
+  if (!cartProduct || !cartProduct.msrp) return;
   const isInNoDiscountRange =
     Number(cartProduct.quantity) >= NO_DISCOUNT_LOWER_BOUND &&
     Number(cartProduct.quantity) <= NO_DISCOUNT_UPPER_BOUND;

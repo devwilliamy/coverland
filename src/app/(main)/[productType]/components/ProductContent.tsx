@@ -102,7 +102,7 @@ export function ProductContent({
   }
 
   const defaultPrice: number = defaultMSRP * 2;
-  const isStandardPrice = isStandardType ? defaultMSRP : defaultMSRP - 0.05;
+  const priceMinus5Cents = defaultMSRP - 0.05;
   const [discountPercent, setDiscountPercent] = useState<number | null>(50);
   const [newMSRP, setNewMSRP] = useState<number | null>(0);
 
@@ -112,7 +112,6 @@ export function ProductContent({
         discountPercent: incomingDiscountPercent,
         newMSRP: incomingMSRP,
       } = handleCheckLowQuantity(cartProduct as IProductData);
-
       setDiscountPercent(incomingDiscountPercent);
       setNewMSRP(incomingMSRP);
     };
@@ -153,6 +152,18 @@ export function ProductContent({
     </h1>
   );
   const installmentPrice = newMSRP !== 0 ? newMSRP : defaultMSRP;
+  const getFormattedMSRP = () => {
+    const num = Number(
+      isComplete
+        ? newMSRP
+          ? newMSRP
+          : `${Number(cartProduct?.msrp)}`
+        : priceMinus5Cents
+    );
+
+    const formattedMSRP = String(num).includes('.5') ? num.toFixed(2) : num;
+    return formattedMSRP;
+  };
   return (
     <>
       <div className="grid grid-cols-1 lg:mt-[60px]">
@@ -186,16 +197,7 @@ export function ProductContent({
           {isComplete ? '' : 'From'}
         </p>
         <div className=" flex  items-end gap-[9px]   text-center text-[28px] font-[900]  lg:text-[32px] lg:leading-[37.5px] ">
-          <div className="leading-[20px]">
-            $
-            {Number(
-              isComplete
-                ? newMSRP
-                  ? newMSRP
-                  : `${Number(cartProduct?.msrp)}`
-                : isStandardPrice
-            )}
-          </div>
+          <div className="leading-[20px]">${getFormattedMSRP()}</div>
           {selectedProduct?.price && discountPercent && (
             <div className="flex gap-1.5 pb-[1px] text-[22px] font-[400] leading-[14px] text-[#BE1B1B] lg:text-[22px] ">
               <span className=" text-[#BEBEBE] line-through">
