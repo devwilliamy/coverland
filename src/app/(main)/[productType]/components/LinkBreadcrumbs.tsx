@@ -1,13 +1,22 @@
 'use client';
+import { SeatCoverSelectionContext } from '@/contexts/SeatCoverContext';
 import useDetermineType from '@/hooks/useDetermineType';
+import useStoreContext from '@/hooks/useStoreContext';
 import { deslugify } from '@/lib/utils';
-import { useParams } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
+import { useContext } from 'react';
+import { useStore } from 'zustand';
 
 export default function LinkBreadcrumbs() {
   const params = Object(useParams());
   const paramKeys = Object.keys(params);
   const paramValues = Object.values(params);
   const { isSeatCover } = useDetermineType();
+  const store = useStoreContext();
+  if (!store)
+    throw new Error('Missing SeatCoverSelectionContext.Provider in the tree');
+
+  const selectedProduct = useStore(store, (s) => s.selectedProduct);
 
   const getUrlFromBreadcrumbs = (index: number): string => {
     let returnString = '';
@@ -45,10 +54,15 @@ export default function LinkBreadcrumbs() {
                 className={`hover:underline ${params[key].length < 4 ? 'uppercase' : 'capitalize'} `}
               >
                 {/* Replacing hyphens with spaces (except for year_generation) */}
-                {params[key] && key === 'year'
-                  ? params[key]
-                  : // : String(params[key]).replaceAll('-', ' ')
-                    deslugify(String(params[key]))}
+
+                {key === 'productType' && selectedProduct.type}
+                {key === 'coverType' &&
+                  params[key] !== 'leather' &&
+                  'Premium Plus'}
+                {key === 'make' && selectedProduct.make}
+                {key === 'model' && selectedProduct.model}
+                {key === 'year' && params[key]}
+                {params[key] === 'leather' && 'Leather'}
               </a>
               {index != paramKeys.length - 1 && <p>/</p>}
             </div>
