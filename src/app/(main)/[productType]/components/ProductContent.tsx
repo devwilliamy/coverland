@@ -194,7 +194,7 @@ export function ProductContent({
                   ? newMSRP
                   : `${Number(cartProduct?.msrp)}`
                 : isStandardPrice
-            ).toFixed(2)}
+            )}
           </div>
           {selectedProduct?.price && discountPercent && (
             <div className="flex gap-1.5 pb-[1px] text-[22px] font-[400] leading-[14px] text-[#BE1B1B] lg:text-[22px] ">
