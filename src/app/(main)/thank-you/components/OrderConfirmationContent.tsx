@@ -11,12 +11,12 @@ import { BsFillEnvelopeFill } from 'react-icons/bs';
 
 type OrderConfirmationContentProps = {
   orderNumber: string;
+  clientSecret?: string;
 };
 
 export const OrderConfirmationContent = ({
   orderNumber,
 }: OrderConfirmationContentProps) => {
-
   // useThankYouViewedGoogleTag(orderNumber);
 
   return (
@@ -29,8 +29,7 @@ export const OrderConfirmationContent = ({
       </CardHeader>
       <CardContent>
         <p>
-          Your order confirmation has been sent to your email. 
-          Please contact us
+          Your order confirmation has been sent to your email. Please contact us
           if you need any support.
         </p>
       </CardContent>

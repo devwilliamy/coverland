@@ -11,8 +11,40 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from '../ui/accordion';
-import { useState } from 'react';
+import { Suspense, useEffect, useState } from 'react';
 import CartHeader from './CartHeader';
+import { handlePurchaseGoogleTag } from '@/hooks/useGoogleTagDataLayer';
+import { getCookie } from '@/lib/utils/cookie';
+import { getCurrentDayInLocaleDateString } from '@/lib/utils/date';
+import { hashData } from '@/lib/utils/hash';
+import { generateSkuLabOrderInput } from '@/lib/utils/skuLabs';
+import {
+  convertPriceToStripeFormat,
+  getSkusFromCartItems,
+  getSkuQuantityPriceFromCartItemsForMeta,
+  convertPriceFromStripeFormat,
+} from '@/lib/utils/stripe';
+import { useCartContext } from '@/providers/CartProvider';
+import {
+  useStripe,
+  useElements,
+  ExpressCheckoutElement,
+} from '@stripe/react-stripe-js';
+import {
+  CreatePaymentMethodKlarnaData,
+  PaymentMethodCreateParams,
+} from '@stripe/stripe-js';
+import { v4 as uuidv4 } from 'uuid';
+import { useRouter } from 'next/navigation';
+import { ReadyCheck } from './ReadyCheck';
+import OrderReviewItem from './OrderReviewItem';
+import { Button } from '../ui/button';
+import { AiOutlineLoading3Quarters } from 'react-icons/ai';
+import PayPalButtonSection from './PayPalButtonSection';
+import PayWithKlarnaWhite from './PayWithKlarnaWhite';
+import PriceBreakdown from './PriceBreakdown';
+import { Separator } from '../ui/separator';
+import { handleConversions } from '@/lib/utils/checkoutUtils';
 
 function isValidShippingAddress({ address }: StripeAddress) {
   return (
@@ -28,24 +60,545 @@ function isValidShippingAddress({ address }: StripeAddress) {
 }
 
 export default function DesktopCheckout() {
-  const { currentStep, shippingAddress } = useCheckoutContext();
+  const stripe = useStripe();
+  const elements = useElements();
+  const router = useRouter();
+  const {
+    cartItems,
+    getTotalPrice,
+    clearLocalStorageCart,
+    getTotalCartQuantity,
+    getOrderSubtotal,
+  } = useCartContext();
+  const {
+    billingAddress,
+    currentStep,
+    customerInfo,
+    shipping,
+    shippingAddress,
+    orderNumber,
+    paymentMethod,
+    updatePaymentMethod,
+    paymentIntentId,
+    isAddressComplete,
+    isEditingAddress,
+    isReadyToPay,
+    isReadyToShip,
+    stripePaymentMethod,
+    twoLetterStateCode,
+    totalTax,
+    updateTotalTax,
+  } = useCheckoutContext();
+  // const { orderNumber, paymentIntentId, paymentMethod, updatePaymentMethod } = useCheckoutContext();
+  const orderSubtotal = getOrderSubtotal().toFixed(2);
+  const cartMSRP = getTotalPrice() + shipping;
+  const totalMsrpPrice = convertPriceToStripeFormat(getTotalPrice() + shipping);
+  const isCartEmpty = getTotalCartQuantity() === 0;
   const [value, setValue] = useState(['shipping']);
-
-  const handleChangeAccordion = (value: string) =>
-    setValue((p) => [...p, value]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [message, setMessage] = useState('');
 
   const handleSelectTab = (title: string) => {
     if (document) {
       const el = document.getElementById(title);
-      const elTop = el?.offsetTop;
+      const elTop = (el?.offsetTop as number) - 200;
+      // When payment is selected, need a little delay so screen will scroll to it when it opens
+      // If it's already open, don't need to wait.
+      const timeout = value.includes('payment') ? 0 : 250;
       setTimeout(() => {
         window.scrollTo({
           top: elTop as number,
-          behavior: 'instant',
+          behavior: 'smooth',
         });
-      }, 100);
+      }, timeout);
     }
   };
+
+  const handleChangeAccordion = (value: string) =>
+    setValue((p) => [...p, value]);
+
+  const handleConversions = async (id: any, client_secret: any) => {
+    // SendGrid Thank You Email
+    const emailInput = {
+      to: customerInfo.email,
+      name: {
+        firstName: shippingAddress.firstName,
+        fullName: `${shippingAddress.firstName} ${shippingAddress.lastName}`,
+      },
+      orderInfo: {
+        orderDate: getCurrentDayInLocaleDateString(),
+        orderNumber,
+        cartItems, // note: cartItems transformed to orderItems inside generateThankYouEmail
+        // products
+        totalItemQuantity: getTotalCartQuantity(),
+        subtotal: getOrderSubtotal().toFixed(2),
+        total: (getTotalPrice() + shipping).toFixed(2), // may need to add taxes later
+        totalDiscount: getTotalDiscountPrice().toFixed(2),
+        hasDiscount: parseFloat(getTotalDiscountPrice().toFixed(2)) > 0,
+      },
+      shippingInfo: {
+        city: shippingAddress.address.city as string,
+        country: shippingAddress.address.country as string,
+        address_line1: shippingAddress.address.line1 as string,
+        address_line2: shippingAddress.address.line2 as string,
+        postal_code: shippingAddress.address.postal_code as string,
+        state: shippingAddress.address.state as string,
+        full_name: `${shippingAddress.firstName} ${shippingAddress.lastName}`,
+        shipping_method: shippingInfo.shipping_method as string,
+        shipping_date: shippingInfo.shipping_date as string,
+        delivery_fee: shippingInfo.delivery_fee.toFixed(2) as number,
+        free_delivery: shippingInfo.delivery_fee === 0,
+      },
+      // billingInfo,
+    };
+    try {
+      const response = await fetch('/api/email/thank-you', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ emailInput }),
+      });
+      const emailResponse = await response.json(); // Making sure the await goes through and email is sent
+    } catch (error) {
+      console.error('Error:', error?.message);
+      setMessage(
+        error?.message || "There's an error, but could not find error message"
+      );
+    }
+    if (process.env.NEXT_PUBLIC_IS_PREVIEW !== 'PREVIEW') {
+      // Meta Conversion API
+      const skus = getSkusFromCartItems(cartItems);
+      const skusWithQuantityMsrpForMeta =
+        getSkuQuantityPriceFromCartItemsForMeta(cartItems);
+      const eventID = uuidv4();
+
+      const metaCPIEvent = {
+        event_name: 'Purchase',
+        event_time: Math.floor(Date.now() / 1000),
+        event_id: eventID,
+        action_source: 'website',
+        user_data: {
+          em: [hashData(customerInfo.email)],
+          ph: [hashData(shippingAddress.phone || '')],
+          ct: [hashData(shippingAddress.address.city || '')],
+          country: [hashData(shippingAddress.address.country || '')],
+          fn: [hashData(shippingAddress.firstName || '')],
+          ln: [hashData(shippingAddress.lastName || '')],
+          st: [hashData(shippingAddress.address.state || '')],
+          zp: [hashData(shippingAddress.address.postal_code || '')],
+          fbp: getCookie('_fbp'),
+          // client_ip_address: '', // Replace with the user's IP address
+          client_user_agent: navigator.userAgent, // Browser user agent string
+        },
+        custom_data: {
+          currency: 'USD',
+          value: parseFloat(getTotalPrice().toFixed(2)),
+          order_id: orderNumber,
+          content_ids: skus.join(','),
+          contents: skusWithQuantityMsrpForMeta,
+        },
+        event_source_url: origin,
+      };
+      const metaCAPIResponse = await fetch('/api/meta/event', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ metaCPIEvent }),
+      });
+      // Track the purchase event
+      if (typeof fbq === 'function') {
+        fbq(
+          'track',
+          'Purchase',
+          {
+            value: parseFloat(getTotalPrice().toFixed(2)),
+            currency: 'USD',
+            contents: skusWithQuantityMsrpForMeta,
+            content_type: 'product',
+          },
+          { eventID }
+        );
+      }
+
+      // Microsoft Conversion API Tracking
+      if (typeof window !== 'undefined') {
+        window.uetq = window.uetq || [];
+
+        window.uetq.push('set', {
+          pid: {
+            em: customerInfo.email,
+            ph: customerInfo.phoneNumber,
+          },
+        });
+        window.uetq.push('event', 'purchase', {
+          revenue_value: parseFloat(getTotalPrice().toFixed(2)),
+          currency: 'USD',
+          pid: {
+            em: customerInfo.email,
+            ph: customerInfo.phoneNumber,
+          },
+        });
+      }
+
+      const skuLabOrderInput = generateSkuLabOrderInput({
+        orderNumber,
+        cartItems,
+        totalMsrpPrice: convertPriceFromStripeFormat(totalMsrpPrice),
+        shippingAddress,
+        customerInfo,
+        paymentMethod: 'Stripe',
+      });
+
+      // SKU Labs Order Creation
+      // Post Items
+      const skuLabCreateOrderResponse = await fetch('/api/sku-labs/orders', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ order: skuLabOrderInput }),
+      });
+
+      // Google Conversion API
+      const enhancedGoogleConversionInput = {
+        email: customerInfo.email || '',
+        phone_number: shippingAddress.phone || '',
+        first_name: shippingAddress.firstName || '',
+        last_name: shippingAddress.lastName || '',
+        address_line1: shippingAddress.address.line1 || '',
+        city: shippingAddress.address.city || '',
+        state: shippingAddress.address.state || '',
+        postal_code: shippingAddress.address.postal_code || '',
+        country: shippingAddress.address.country || '',
+      };
+
+      handlePurchaseGoogleTag(
+        cartItems,
+        orderNumber,
+        getTotalPrice().toFixed(2),
+        clearLocalStorageCart,
+        enhancedGoogleConversionInput
+      );
+    }
+
+    router.push(
+      `/thank-you?order_number=${orderNumber}&payment_intent=${id}&payment_intent_client_secret=${client_secret}`
+    );
+  };
+
+  const handleGetTax = async () => {
+    setIsLoading(true);
+    let taxItems = [];
+
+    for (let index = 0; index < cartItems.length; index++) {
+      const item = cartItems[index] as any;
+      taxItems.push({
+        id: item.id ? item.id : index,
+        quantity: item.quantity,
+        unit_price: item.msrp,
+        discount: 0,
+      });
+    }
+
+    const bodyData = {
+      to_country: shippingAddress.address.country,
+      to_zip: shippingAddress.address.postal_code,
+      to_state: twoLetterStateCode,
+      shipping: 0,
+      line_items: taxItems,
+    };
+    const response = await fetch('/api/taxjar/sales-tax', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ bodyData }),
+    });
+
+    const taxRes = await response.json();
+    const amount_to_collect = taxRes?.tax?.amount_to_collect;
+    updateTotalTax(amount_to_collect);
+
+    const taxSum = Number(Number(cartMSRP) + Number(amount_to_collect)).toFixed(
+      2
+    );
+    const totalWithTax = convertPriceToStripeFormat(taxSum);
+
+    if (totalWithTax) {
+      try {
+        elements?.update({
+          amount: totalWithTax,
+          mode: 'payment',
+          currency: 'usd',
+        });
+        await elements?.submit();
+      } catch (error) {
+        console.error(error);
+      }
+    }
+    await fetch('/api/stripe/payment-intent', {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        paymentIntentId,
+        amount: totalWithTax,
+      }),
+    });
+    setIsLoading(false);
+
+    return totalWithTax;
+  };
+
+  const handleSubmit = async () => {
+    if (!stripe || !elements) {
+      // Stripe.js hasn't yet loaded.
+      // Make sure to disable form submission until Stripe.js has loaded.
+      return;
+    }
+
+    setIsLoading(true);
+
+    const origin = window.location.origin;
+    const taxSum = Number(Number(cartMSRP) + Number(totalTax)).toFixed(2);
+    const totalWithTax = convertPriceToStripeFormat(taxSum);
+    // console.log({ totalWithTax, orderSubtotal, cartMSRP });
+
+    const response = await fetch('/api/stripe/payment-intent', {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        paymentIntentId,
+        amount: totalWithTax,
+      }),
+    });
+
+    const data = await response.json();
+    const { id, client_secret } = data.paymentIntent;
+    const retrievedSecret = client_secret;
+
+    const customerShipping = {
+      name: shippingAddress.name,
+      phone: shippingAddress.phone,
+      address: {
+        city: shippingAddress.address.city as string,
+        country: shippingAddress.address.country as string,
+        line1: shippingAddress.address.line1 as string,
+        line2: shippingAddress.address.line2 as string,
+        postal_code: shippingAddress.address.postal_code as string,
+        state: shippingAddress.address.state as string,
+      },
+    };
+
+    const customerBilling = {
+      address: billingAddress.address,
+      email: customerInfo.email,
+      phone: customerInfo.phoneNumber,
+      name: billingAddress.name,
+    };
+
+    switch (paymentMethod) {
+      case 'creditCard':
+        stripe
+          .confirmCardPayment(String(retrievedSecret), {
+            // payment_method: { card: CardNumber as StripeCardNumberElement },
+            payment_method: stripePaymentMethod?.paymentMethod?.id,
+            shipping: customerShipping,
+          })
+          .then(async function (result) {
+            if (result.error) {
+              const { error } = result;
+              if (
+                error.type === 'card_error' ||
+                error.type === 'validation_error'
+              ) {
+                console.error('Error:', error.message);
+                setMessage(
+                  error.message ||
+                    "There's an error, but could not find error message"
+                );
+              } else {
+                console.error('Error:', error.message);
+                setMessage(error.message || 'An unexpected error occurred.');
+              }
+            } else if (
+              result.paymentIntent &&
+              result.paymentIntent.status === 'succeeded'
+            ) {
+              handleConversions(id, client_secret);
+
+              // const { id, client_secret } = result.paymentIntent;
+              setIsLoading(false);
+              router.push(
+                `/thank-you?order_number=${orderNumber}&payment_intent=${id}&payment_intent_client_secret=${client_secret}`
+              );
+            }
+          });
+        break;
+      case 'klarna':
+        const klarnaPaymentResult = await stripe.confirmKlarnaPayment(
+          retrievedSecret,
+          {
+            payment_method: {
+              type: 'klarna',
+              billing_details: customerBilling,
+            } as CreatePaymentMethodKlarnaData,
+            return_url: `${origin}/checkout`,
+            shipping: customerShipping,
+          },
+          // Enable if wanting to open new window
+          { handleActions: false }
+        );
+
+        const y =
+          window.outerHeight / 2 + (window.screenY - window.screenY / 2);
+        const x = window.outerWidth / 2 + (window.screenX - window.screenX / 2);
+        const klarnaWindowLeft = window.screenX - window.screenX / 2 + x / 2;
+
+        const klarnaWindow = window.open(
+          'about:blank',
+          'Klarna Payment',
+          `toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no, width=${x}, height=${y}, left=${klarnaWindowLeft}, top=100,`
+        );
+
+        klarnaWindow?.addEventListener('beforeUnload', () => {
+          setIsLoading(false);
+        });
+
+        klarnaWindow?.addEventListener('close', async () => {
+          // console.log('closeD');
+
+          const isSuccessful =
+            (await stripe.retrievePaymentIntent(retrievedSecret)).paymentIntent
+              ?.status === 'succeeded';
+          console.log('Payment window closed.');
+
+          if (isSuccessful) {
+            handleConversions(id, client_secret);
+            router.push(
+              `/thank-you?order_number=${orderNumber}&payment_intent=${id}&payment_intent_client_secret=${client_secret}`
+            );
+          }
+          setIsLoading(false);
+          clearInterval(interval);
+        });
+
+        klarnaWindow?.document.location.replace(
+          String(
+            klarnaPaymentResult.paymentIntent?.next_action?.redirect_to_url?.url
+          )
+        );
+
+        if (!klarnaWindow) {
+          console.log('[NO KLARNA WINDOW]');
+          return;
+        }
+
+        const interval = klarnaWindow.setInterval(async () => {
+          if (
+            klarnaWindow?.location.href &&
+            klarnaWindow?.location.href
+              .toString()
+              .startsWith(`${origin}/checkout`)
+          ) {
+            klarnaWindow.close();
+            setIsLoading(false);
+            clearInterval(interval);
+          }
+          if (klarnaWindow.closed) {
+            const isSuccessful =
+              (await stripe.retrievePaymentIntent(retrievedSecret))
+                .paymentIntent?.status === 'succeeded';
+            console.log('Payment window closed.');
+
+            if (isSuccessful) {
+              handleConversions(id, client_secret);
+              setIsLoading(false);
+              router.push(
+                `/thank-you?order_number=${orderNumber}&payment_intent=${id}&payment_intent_client_secret=${client_secret}`
+              );
+            }
+          }
+        }, 1000);
+
+        break;
+      case 'googlePay' || 'applePay':
+        await stripe.confirmPayment({
+          elements,
+          clientSecret: retrievedSecret,
+          confirmParams: {
+            payment_method_data: {
+              billing_details: {
+                ...customerBilling,
+                address:
+                  customerBilling.address as PaymentMethodCreateParams.BillingDetails.Address,
+              },
+            },
+            shipping: customerShipping,
+          },
+          redirect: 'if_required',
+        });
+        const isSuccessful =
+          (await stripe.retrievePaymentIntent(retrievedSecret)).paymentIntent
+            ?.status === 'succeeded';
+
+        // console.log('Payment window closed.');
+        if (isSuccessful) {
+          handleConversions(id, client_secret);
+          setIsLoading(false);
+          router.push(
+            `/thank-you?order_number=${orderNumber}&payment_intent=${id}&payment_intent_client_secret=${client_secret}`
+          );
+        }
+      default:
+        return;
+    }
+  };
+
+  useEffect(() => {
+    const updateIntent = async () => {
+      try {
+        elements?.update({
+          amount: 888888,
+          mode: 'payment',
+          paymentMethodTypes: ['klarna', 'card'],
+          currency: 'usd',
+        });
+        await elements?.submit();
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    if (paymentMethod === 'googlePay' || paymentMethod === 'applePay') {
+      updateIntent();
+    }
+  }, [paymentMethod]);
+
+  useEffect(() => {
+    if ((!isAddressComplete || isEditingAddress) && !isReadyToShip) {
+      setValue(['shipping']);
+    }
+  }, [isAddressComplete, isEditingAddress, isReadyToShip]);
+
+  useEffect(() => {
+    if (isReadyToShip && !isReadyToPay) {
+      setValue(['payment']);
+    }
+  }, [isReadyToShip, isReadyToPay]);
+
+  useEffect(() => {
+    const useHandleGetTax = async () => {
+      await handleGetTax();
+    };
+    if (!isCartEmpty && isReadyToPay) {
+      useHandleGetTax();
+    }
+  }, [isCartEmpty, isReadyToPay, shippingAddress, paymentMethod]);
 
   const isDisabled = !isValidShippingAddress(shippingAddress);
   return (
@@ -67,8 +620,11 @@ export default function DesktopCheckout() {
                 onValueChange={setValue}
               >
                 <AccordionItem value="shipping">
-                  <AccordionTrigger className="-mt-2 mb-4 px-4 text-xl font-medium">
-                    Shipping
+                  <AccordionTrigger className="-mt-2 mb-4 px-4 text-[24px] font-medium">
+                    <h2 className="flex items-center gap-2">
+                      <span>Shipping</span>
+                      {isReadyToShip && <ReadyCheck />}
+                    </h2>
                   </AccordionTrigger>
                   <AccordionContent>
                     <Shipping
@@ -79,13 +635,114 @@ export default function DesktopCheckout() {
                 </AccordionItem>
                 <AccordionItem value="payment" id="payment">
                   <AccordionTrigger
-                    className={`my-4 px-4 text-xl font-medium ${isDisabled ? 'text-gray-400/90' : ''}`}
-                    disabled={isDisabled}
+                    onClick={(e) => {
+                      if (!isReadyToShip || isEditingAddress) {
+                        e.preventDefault();
+                      }
+                      handleSelectTab('payment');
+                    }}
+                    className={`${(!isReadyToShip || isEditingAddress) && 'disabled cursor-default text-[#DBDBDB] hover:no-underline'} my-4 px-4 text-[24px] font-medium`}
+                    // disabled={isDisabled}
                   >
-                    Payment
+                    <h2 className="flex items-center gap-2">
+                      <span>Payment</span>
+                      {isReadyToPay && <ReadyCheck />}
+                    </h2>
                   </AccordionTrigger>
-                  <AccordionContent>
-                    <Payment />
+                  <AccordionContent className="lg:pb-[30px]">
+                    <Payment handleChangeAccordion={handleChangeAccordion} />
+                    {isReadyToPay && (
+                      <>
+                        <Separator className="my-[30px] h-[0.8px] max-h-[0.8px] bg-[#DBDBDB]" />
+                        <section className="flex w-full flex-col border border-none px-4">
+                          {paymentMethod === 'creditCard' && (
+                            <>
+                              <p className="pb-[40px] text-[14px] font-[400] text-[#767676]">
+                                By Clicking the “Submit Payment” button, you
+                                confirm that you have read, understand, and
+                                accept our Terms of use,{' '}
+                                <a href="" className="underline">
+                                  Privacy Policy,
+                                </a>{' '}
+                                <a href="" className="underline">
+                                  Return Policy
+                                </a>
+                              </p>
+                              <Button
+                                // disabled={isDisabled}
+                                variant={'default'}
+                                className={`mb-3 w-full rounded-lg bg-black text-base font-bold uppercase text-white sm:h-[48px] lg:mb-[40px] lg:h-[55px] lg:max-w-[350px] lg:self-end lg:text-xl`}
+                                onClick={(e) => {
+                                  setIsLoading(true);
+                                  handleSubmit();
+                                }}
+                              >
+                                {isLoading ? (
+                                  <AiOutlineLoading3Quarters className="animate-spin" />
+                                ) : (
+                                  'Submit Payment'
+                                )}
+                              </Button>
+                              {message && (
+                                <p className="font-[500] text-[red]">
+                                  {message}
+                                </p>
+                              )}
+                            </>
+                          )}
+                          {paymentMethod === 'paypal' && (
+                            <Suspense
+                              fallback={
+                                <AiOutlineLoading3Quarters className="h-fit w-full animate-spin fill-[#BE1B1B]" />
+                              }
+                            >
+                              <PayPalButtonSection />
+                            </Suspense>
+                          )}
+                          {(paymentMethod === 'applePay' ||
+                            paymentMethod === 'googlePay') && (
+                            <ExpressCheckoutElement
+                              className="w-full lg:max-w-[350px] lg:self-end lg:text-xl"
+                              options={{
+                                buttonHeight: 55,
+                                paymentMethodOrder: ['applePay', 'googlePay'],
+                                buttonType: {
+                                  applePay: 'order',
+                                  googlePay: 'order',
+                                },
+                                wallets:
+                                  paymentMethod === 'applePay'
+                                    ? { googlePay: 'never', applePay: 'always' }
+                                    : {
+                                        googlePay: 'always',
+                                        applePay: 'never',
+                                      },
+                              }}
+                              onConfirm={async (e) => {
+                                await handleSubmit();
+                              }}
+                            />
+                          )}
+                          {paymentMethod === 'klarna' && (
+                            <Button
+                              // disabled={isDisabled}
+                              variant={'default'}
+                              className={`mb-3 w-full rounded-lg bg-black  text-base font-bold uppercase text-white sm:h-[48px] lg:mb-0  lg:h-[55px] lg:max-w-[350px] lg:self-end lg:text-xl`}
+                              onClick={(e) => {
+                                setIsLoading(true);
+                                handleSubmit();
+                              }}
+                            >
+                              {isLoading ? (
+                                <AiOutlineLoading3Quarters className="animate-spin" />
+                              ) : (
+                                <PayWithKlarnaWhite />
+                              )}
+                            </Button>
+                          )}
+                        </section>
+                      </>
+                    )}
                   </AccordionContent>
                 </AccordionItem>
               </Accordion>

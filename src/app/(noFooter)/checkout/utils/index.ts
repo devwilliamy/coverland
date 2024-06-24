@@ -13,7 +13,6 @@ function isValidShippingAddress({ address }: PaypalShipping) {
   return (
     address &&
     address.address_line_1 !== '' &&
-    // address.address_line_2 &&
     address.admin_area_2 !== '' &&
     address.admin_area_1 !== '' &&
     address.postal_code !== '' &&
@@ -26,7 +25,9 @@ export async function paypalCreateOrder(
   items: TCartItem[],
   orderId: string,
   shipping: number,
-  shippingAddress: StripeAddress
+  shippingAddress: StripeAddress,
+  billingAddress?: StripeAddress,
+  incomingTax?: number
 ): Promise<string | null> {
   const itemsForPaypal = items.map((item) => ({
     name: `${item.parent_generation} ${item.display_id} ${item.model} ${item.type} ${item.display_color}`,
@@ -52,10 +53,19 @@ export async function paypalCreateOrder(
       country_code: shippingAddress?.address?.country || 'US',
     },
   };
-  // console.log('ShippingForPyapal', {
-  //   shippingForPaypal,
-  //   valid: isValidShippingAddress(shippingForPaypal),
-  // });
+
+  const billingForPaypal = {
+    address_line_1: billingAddress?.address?.line1 || '',
+    address_line_2: billingAddress?.address?.line2 || '',
+    admin_area_2: billingAddress?.address?.city || '',
+    admin_area_1: billingAddress?.address?.state || '',
+    postal_code: billingAddress?.address?.postal_code || '',
+    country_code: billingAddress?.address?.country || 'US',
+  };
+  const totalWithTax = incomingTax
+    ? (totalMsrpPrice + incomingTax).toFixed(2)
+    : totalMsrpPrice.toString();
+
   const purchase_units = [
     {
       reference_id: orderId, // order-id
@@ -66,7 +76,7 @@ export async function paypalCreateOrder(
         : null,
       amount: {
         currency_code: 'USD',
-        value: (Number(totalMsrpPrice) + shipping).toFixed(2),
+        value: totalWithTax,
         breakdown: {
           item_total: {
             currency_code: 'USD',
@@ -76,20 +86,19 @@ export async function paypalCreateOrder(
             currency_code: 'USD',
             value: shipping.toString(),
           },
-          // tax_total: {
-          //   currency_code: "USD",
-          //   value:""
-          // }
+          tax_total: {
+            currency_code: 'USD',
+            value: incomingTax ? incomingTax : '0.00',
+          },
+        },
+      },
+      payment_source: {
+        paypal: {
+          address: billingForPaypal,
         },
       },
     },
   ];
-  // console.log('Paypal Create body:', {
-  //   order_price: totalMsrpPrice,
-  //   // This one kinda useless, thinking about to do with it
-  //   user_id: new Date().toISOString(),
-  //   purchase_units,
-  // });
 
   try {
     const response = await fetch('/api/paypal', {
@@ -173,7 +182,7 @@ export async function paypalCaptureOrder(orderID: string, phone: string) {
       throw new Error('Network response was not ok');
     }
     const data = await response.json();
-    
+
     return data;
   } catch (err) {
     console.error(err);

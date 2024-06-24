@@ -214,9 +214,11 @@ export const handlePurchaseGoogleTag = (
       coupon: undefined, // will need to put in coupon for later but we don't track this ATM
       items: cartItemsToGTagItems,
     },
-    enhanced_conversion_data: createEnhancedGoogleConversionData({...enhancedParameterInput}),
+    enhanced_conversion_data: createEnhancedGoogleConversionData({
+      ...enhancedParameterInput,
+    }),
   });
-  
+
   if (cartItems.length > 0) {
     clearLocalStorageCart();
   }
@@ -246,21 +248,21 @@ export const createEnhancedGoogleConversionData = ({
   country,
 }: EnhancedGoogleConversionInput) => {
   return {
-    email: email.toLowerCase().trim(),
+    email: String(email).toLowerCase().trim(),
     phone_number: phone_number,
-    first_name: first_name.toLowerCase().trim(),
-    last_name: last_name.toLowerCase().trim(),
-    street: address_line1.toLowerCase().trim(),
-    city: city.toLowerCase().trim(),
-    region: US_STATES_ABBRV_MAP[state].toLowerCase().trim(),
-    postal_code: postal_code.toLowerCase().trim(),
-    country: country.toLowerCase().trim(),
+    first_name: String(first_name).toLowerCase().trim(),
+    last_name: String(last_name).toLowerCase().trim(),
+    street: String(address_line1).toLowerCase().trim(),
+    city: String(city).toLowerCase().trim(),
+    region: String(US_STATES_ABBRV_MAP[state]).toLowerCase().trim(),
+    postal_code: String(postal_code).toLowerCase().trim(),
+    country: String(country).toLowerCase().trim(),
   };
 };
 
 export const handleAddToCartGoogleTag = (
   cartProduct: IProductData,
-  params: TPathParams,
+  params: TPathParams
 ) => {
   // const price = parseFloat(cartProduct?.price || '0') || 0;
   const msrp = parseFloat(cartProduct?.msrp || '0') || 0;

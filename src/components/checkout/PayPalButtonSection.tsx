@@ -28,8 +28,15 @@ import { determineDeliveryByDate } from '@/lib/utils/deliveryDateUtils';
 import { SHIPPING_METHOD } from '@/lib/constants';
 
 export default function PayPalButtonSection() {
-  const { orderNumber, shipping, shippingAddress, customerInfo } =
-    useCheckoutContext();
+  const {
+    orderNumber,
+    shipping,
+    shippingAddress,
+    customerInfo,
+    totalTax,
+    billingAddress,
+    isBillingSameAsShipping,
+  } = useCheckoutContext();
   const shippingInfo = {
     shipping_method: SHIPPING_METHOD,
     shipping_date: determineDeliveryByDate('EEE, LLL dd'),
@@ -44,7 +51,8 @@ export default function PayPalButtonSection() {
     clearLocalStorageCart,
   } = useCartContext();
   const router = useRouter();
-  const totalMsrpPrice = getTotalPrice().toFixed(2) as unknown as number;
+  const totalMsrpPrice = Number(getTotalPrice().toFixed(2));
+  const totalWithTax = Number(totalMsrpPrice + Number(totalTax).toFixed(2));
 
   return (
     <PayPalScriptProvider
@@ -62,15 +70,18 @@ export default function PayPalButtonSection() {
             color: 'gold',
             shape: 'rect',
             label: 'pay',
-            height: 50,
+            height: 55,
           }}
+          className="w-full lg:max-w-[350px] lg:self-end lg:text-xl"
           createOrder={async () => {
             const data = await paypalCreateOrder(
               totalMsrpPrice,
               cartItems,
               orderNumber,
               shipping,
-              shippingAddress
+              shippingAddress,
+              isBillingSameAsShipping ? shippingAddress : billingAddress,
+              Number(totalTax)
             );
             if (!data) {
               console.log('Error creating order');

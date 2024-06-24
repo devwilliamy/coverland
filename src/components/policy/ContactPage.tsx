@@ -172,7 +172,7 @@ export default function ContactPage() {
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify({ bodyData }),
+          body: JSON.stringify(bodyData),
         });
         const emailResponse = await response.json();
         if (emailResponse.code) {

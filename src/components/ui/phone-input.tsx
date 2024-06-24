@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { parsePhoneNumberFromString } from 'libphonenumber-js';
 import { FaExclamationCircle } from 'react-icons/fa';
+import { TextField } from '@mui/material';
 
 type CustomPhoneInputProps = {
   label: string;
@@ -35,21 +36,21 @@ const CustomPhoneInput: React.FC<CustomPhoneInputProps> = ({
     if (phoneNumber) {
       setInputValue(phoneNumber.formatInternational());
       register(name).onChange(e);
-            // trigger(name);
+      // trigger(name);
       //   setInputValue(phoneNumber.format('E.164'));
     }
   };
 
   return (
-    <div>
+    <div className={'max-lg:col-span-2'}>
       <div className="relative">
-        <label
+        {/* <label
           htmlFor={name}
           className="absolute -top-2 left-2 inline-block bg-white px-1 text-xs font-medium text-gray-500"
         >
           {label} {required && '*'}
-        </label>
-        <input
+        </label> */}
+        {/* <input
           id={name}
           type="tel"
           placeholder={placeholder}
@@ -58,6 +59,20 @@ const CustomPhoneInput: React.FC<CustomPhoneInputProps> = ({
           value={inputValue}
           onChange={handleChange}
           className={`block w-full rounded-lg border-0 border-[#E1E1E1] bg-[#FAFAFA] py-3 pl-3 pr-10 ring-1 ring-inset focus:ring-2 focus:ring-inset sm:text-base sm:leading-6 ${inputStyle}`}
+        /> */}
+        <TextField
+          type="tel"
+          label="Phone Number"
+          title="Phone Number"
+          name="phoneNumber"
+          // placeholder="+1 123 456 7890"
+          placeholder={placeholder}
+          autoComplete={autoComplete}
+          required={required}
+          // value={inputValue}
+          {...register(name, { required })}
+          onChange={handleChange}
+          fullWidth
         />
         {errors[name] && (
           <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">

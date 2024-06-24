@@ -2,7 +2,7 @@ export const shippingOptions = [
   {
     price: 0,
     shippingText: '$ 0.00 Free Shipping',
-    fedexText: 'FedEx Ground 1-5 Business Days',
+    upsText: 'UPS Ground 1-5 Business Days',
   },
   // {
   //   price: 29.99,

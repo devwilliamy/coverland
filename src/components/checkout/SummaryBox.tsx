@@ -6,14 +6,14 @@ export default function SummaryBox({
   handleClick: () => void;
 }) {
   return (
-    <div className="min-w-[343px] rounded-xl border border-[#707070]">
-      <div className="flex flex-row py-5 pl-6 pr-5">
-        <div className="flex flex-1 flex-col text-base font-normal text-[#707070]">
+    <div className="w-full rounded-[8px] border-[1px] border-[#DADADA]">
+      <div className="flex flex-row px-6 py-5">
+        <div className="flex flex-1 flex-col text-base font-normal ">
           {children}
         </div>
         <div
           onClick={handleClick}
-          className="cursor-pointer flex-row text-sm font-normal text-[#0C87B8] underline"
+          className="flex max-h-fit cursor-pointer font-[500] underline hover:text-[#0C87B8]"
         >
           Edit
         </div>
