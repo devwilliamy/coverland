@@ -28,9 +28,9 @@ const OrderList = ({ orders }: OrderListProps) => {
           orders.map((order) => (
             <div
               key={order.id}
-              className="justify-between border-t md:py-8 md:pt-10 md:flex"
+              className="justify-between border-t md:py-8 md:pt-12 md:flex"
             >
-              <div className="my-8 md:my-2 md:w-2/5">
+              <div className="my-8 md:my-0 md:w-2/5">
                 <div className="justify-left flex gap-2 mb-1">
                   <span className="min-w-[110px] text-base font-normal text-[#707070]">
                     Order Number
@@ -50,20 +50,20 @@ const OrderList = ({ orders }: OrderListProps) => {
                   <span className="font-semibold">${order.total_amount}</span>
                 </div> */}
               </div>
-              <ul className="md:mt-2">
+              <ul className="">
                 <div>
                   {order.items?.[0] && (
                     <OrderItem key={order.items[0].id} item={order.items[0]} order_id={order.order_id}/>
                   )}
                 </div>
-                <div className="my-6 mb-8 md:my-4 md:mt-6 max-w-[150px]">
-                  <Link href={`/profile/orders/${order.order_id}`} className='underline'>
+                <div className="my-6 mb-8 md:my-2 md:mt-4 max-w-[150px] md:ml-[185px]">
+                  <Link href={`/profile/orders/${order.order_id}`} className='underline text-[#0C87B8]'>
                     {/* Provide aria-label for additional context */}
                     <div
                       className="order-link"
                       aria-label={`View details for Order ${order.order_id}`}
                     >
-                      View Order Details
+                      Check Order Details
                     </div>
                   </Link>
                 </div>

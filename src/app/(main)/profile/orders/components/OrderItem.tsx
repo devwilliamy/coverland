@@ -8,7 +8,7 @@ type OrderItemProps = {
 const OrderItem = ({ item }: OrderItemProps) => {
   return (
     <li key={item.id} className="">
-      <div className="justify-start md:m-0 md:my-4 md:flex">
+      <div className="justify-start md:flex">
         <div className="my-6 md:my-0">
           <div className="justify-start md:flex">
             <Image
@@ -20,7 +20,7 @@ const OrderItem = ({ item }: OrderItemProps) => {
             />
           </div>
         </div>
-        <div className="my-6 md:m-0 pt-0 text-base text-[#707070] md:pl-8">
+        <div className="my-6 md:m-0 pt-0 text-base text-[#707070] md:pl-8 md:w-[320px]">
           <div className="mb-1 md:mb-2">
             {`${item.product?.display_id}™ ${item.product?.type}`}
           </div>
