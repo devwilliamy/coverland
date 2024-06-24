@@ -13,10 +13,7 @@ import { formatISODate } from '@/lib/utils/date';
 import { formatMoney } from '@/lib/db/profile/utils/money';
 import { formatMoneyAsNumber } from '@/lib/utils/money';
 import {
-  getOrderSubtotal,
-  getOrderItemDiscount,
   getProductDiscount,
-  getOrderTotalDiscount,
 } from '@/lib/db/profile/utils/orderSummary';
 
 import { TInitialProductDataDB } from '..';
