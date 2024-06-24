@@ -28,7 +28,7 @@ const OrderList = ({ orders }: OrderListProps) => {
           orders.map((order) => (
             <div
               key={order.id}
-              className="justify-between border-t md:py-8 md:pt-12 md:flex"
+              className="justify-between border-t md:py-10 md:pt-12 md:flex"
             >
               <div className="my-8 md:my-0 md:w-2/5">
                 <div className="justify-left flex gap-2 mb-1">
@@ -56,14 +56,14 @@ const OrderList = ({ orders }: OrderListProps) => {
                     <OrderItem key={order.items[0].id} item={order.items[0]} order_id={order.order_id}/>
                   )}
                 </div>
-                <div className="my-6 mb-8 md:my-2 md:mt-4 max-w-[150px] md:ml-[185px]">
+                <div className="my-6 mb-8 md:my-0 md:mt-4 max-w-[150px] md:ml-[185px]">
                   <Link href={`/profile/orders/${order.order_id}`} className='underline text-[#0C87B8]'>
                     {/* Provide aria-label for additional context */}
                     <div
                       className="order-link"
                       aria-label={`View details for Order ${order.order_id}`}
                     >
-                      Check Order Details
+                      Check order details
                     </div>
                   </Link>
                 </div>

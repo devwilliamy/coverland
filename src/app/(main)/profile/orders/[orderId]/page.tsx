@@ -28,7 +28,7 @@ const OrderDetailPage = async ({ params }: OrderDetailProps) => {
 
   return (
     <div>
-      <div className="py-6 md:py-8">
+      <div className="py-2 md:py-8">
         <h1 className="mt-4 text-center text-2xl font-bold">Order Details</h1>
       </div>
       <Card className="m-3 px-4 pb-6 md:m-1 md:my-4 md:px-8 md:py-0">
@@ -37,7 +37,7 @@ const OrderDetailPage = async ({ params }: OrderDetailProps) => {
           #{order.order_id}
         </CardHeader>
         <div className="border-t">
-          <ul className="py-6">
+          <ul className="py-2">
             {order.items?.map((item) => (
               <OrderItem key={item.id} item={item} />
             ))}
@@ -63,13 +63,13 @@ const OrderDetailPage = async ({ params }: OrderDetailProps) => {
               <div className="mb-1 font-bold">Order Summary</div>
               <div className="mb-1 flex justify-between">
                 <div>Order Subtotal</div>
-                <div>${order.total_original_amount}</div>
+                <div>${order.total_original_amount?.toFixed(2)}</div>
               </div>
               <div className="mb-1 flex justify-between">
                 <div>Sale-discount</div>
                 <div>- ${order.total_discount_amount}</div>
               </div>
-              <div className="my-3 flex justify-between border-t pt-3 font-bold">
+              <div className="mt-3 flex justify-between border-t pt-3 font-bold">
                 <div>Order Total</div>
                 <div>${order.total_amount}</div>
               </div>
