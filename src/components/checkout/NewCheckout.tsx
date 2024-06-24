@@ -2,24 +2,20 @@ import {
   CardCvcElement,
   CardExpiryElement,
   CardNumberElement,
-  ExpressCheckoutElement,
-  PaymentRequestButtonElement,
   useElements,
   useStripe,
 } from '@stripe/react-stripe-js';
 import { useCheckoutContext } from '@/contexts/CheckoutContext';
-import { getCurrentDayInLocaleDateString } from '@/lib/utils/date';
 import { useRouter } from 'next/navigation';
 import LockIcon from '../PDP/components/icons/LockIcon';
 import { CvvPopover } from './CvvPopover';
-import { useState } from 'react';
-import { LockKeyhole } from 'lucide-react';
 import {
   StripeCardCvcElementChangeEvent,
   StripeCardExpiryElementChangeEvent,
   StripeCardNumberElementChangeEvent,
 } from '@stripe/stripe-js';
 import { CardLockIcon } from './CardLockIcon';
+import { useState } from 'react';
 
 export const NewCheckout = () => {
   const stripe = useStripe();
@@ -44,7 +40,7 @@ export const NewCheckout = () => {
     updateCardCvvError,
   } = useCheckoutContext();
 
-  const paymentContainerStyle = `border rounded-[8px] px-[17px] py-[19px]`;
+  const paymentContainerStyle = `border rounded-[8px] px-[17px] py-[19px] items-center`;
   if (!stripe || !elements) {
     // Stripe.js hasn't yet loaded.
     // Make sure to disable form submission until Stripe.js has loaded.
@@ -127,102 +123,14 @@ export const NewCheckout = () => {
     }
   };
 
+  const [showLock, setShowLock] = useState(true);
+
   return (
     <>
       <section className="flex flex-col gap-3">
         <div className="flex w-full justify-center">
           <LockIcon />
         </div>
-        {/* <div className="h-full w-full"> */}
-        {/* <ExpressCheckoutElement
-          className="h-full w-full min-w-[100vw]"
-          options={{
-            paymentMethodOrder: ['applePay', 'googlePay', 'link'],
-            layout: { overflow: 'auto' },
-          }}
-          onConfirm={(event) => {
-            // console.log({
-            //   event,
-            //   elements,
-            //   clientSecret,
-            //   orderNumber,
-            //   shippingAddress,
-            //   billingAddress,
-            //   shipping,
-            // });
-            // stripe
-            //   ?.confirmPayment({
-            //     redirect: 'if_required',
-            //     elements,
-            //     clientSecret,
-            //     confirmParams: {
-            //       return_url: `${origin}/thank-you?order_number=${orderNumber}`,
-            //       receipt_email: customerInfo.email,
-            //     },
-            //   })
-            //   .then(async (data) => {
-            //     const emailInput = {
-            //       to: customerInfo.email,
-            //       name: {
-            //         firstName: shippingAddress.firstName,
-            //         fullName: `${shippingAddress.firstName} ${shippingAddress.lastName}`,
-            //       },
-            //       orderInfo: {
-            //         orderDate: getCurrentDayInLocaleDateString(),
-            //         orderNumber,
-            //       },
-            //     };
-            //     if (data.error) {
-            //       const { error } = data;
-            //       if (
-            //         error.type === 'card_error' ||
-            //         error.type === 'validation_error'
-            //       ) {
-            //         console.error('Error:', error.message);
-            //         // setMessage(
-            //         //   error.message ||
-            //         //     "There's an error, but could not find error message"
-            //         // );
-            //       } else {
-            //         console.error('Error:', error.message);
-            //         // setMessage(
-            //         //   error.message || 'An unexpected error occurred.'
-            //         // );
-            //       }
-            //     } else if (
-            //       data.paymentIntent &&
-            //       data.paymentIntent.status === 'succeeded'
-            //     ) {
-            //       try {
-            //         const response = await fetch('/api/email/thank-you', {
-            //           method: 'POST',
-            //           headers: {
-            //             'Content-Type': 'application/json',
-            //           },
-            //           body: JSON.stringify({ emailInput }),
-            //         });
-            //         const emailResponse = await response.json(); // Making sure the await goes through and email is sent
-            //       } catch (error) {
-            //         console.error('Error:', error?.message);
-            //         // setMessage(
-            //         //   error?.message ||
-            //         //     "There's an error, but could not find error message"
-            //         // );
-            //       }
-            //     }
-            //     console.log('Confirm Payment Then:', data);
-            //   })
-            //   .catch((error) => {
-            //     console.error('Confirm Payment Error:', error);
-            //   })
-            //   .finally(() => {
-            //     router.push(
-            //       `/thank-you?order_number=${orderNumber}&payment_intent=${id}&payment_intent_client_secret=${clientSecret}`
-            //     );
-            //   });
-          }}
-        /> */}
-        {/* </div> */}
         <p className="mx-auto w-full text-center ">
           Secure, 1-click checkout with link
         </p>
@@ -237,16 +145,15 @@ export const NewCheckout = () => {
                 paymentContainerStyle
               }
             >
-              <div className="w-full">
-                <CardNumberElement
-                  onChange={(e) => handleCardNumberElementChange(e)}
-                  options={{
-                    style: { base: { fontSize: '16px' } },
-                    placeholder: 'Card Number',
-                    showIcon: false,
-                  }}
-                />
-              </div>
+              <CardNumberElement
+                onChange={(e) => handleCardNumberElementChange(e)}
+                className="w-full min-w-[217px]"
+                options={{
+                  style: { base: { fontSize: '16px' } },
+                  placeholder: 'Card Number',
+                  showIcon: false,
+                }}
+              />
               <CardLockIcon />
             </div>
             {cardNumberError.error && (

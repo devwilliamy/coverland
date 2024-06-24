@@ -117,8 +117,6 @@ export default function MobileCheckout() {
     setValue((p) => [...p, value]);
 
   const handleConversions = async (id: any, client_secret: any) => {
-    // V-----------------------V--- RE IMPLEMENT CONVERSIONS BELOW ---V----------------------- V
-
     // SendGrid Thank You Email
     const emailInput = {
       to: customerInfo.email,
@@ -456,9 +454,10 @@ export default function MobileCheckout() {
           { handleActions: false }
         );
 
-        const klarnaWindowLeft = window.innerWidth / 2 - 430 / 2;
-        const y = window.outerHeight / 2 + window.screenY - 700 / 2;
-        const x = window.outerWidth / 2 + window.screenX - 430 / 2;
+        const y =
+          window.outerHeight / 2 + (window.screenY - window.screenY / 2);
+        const x = window.outerWidth / 2 + (window.screenX - window.screenX / 2);
+        const klarnaWindowLeft = window.screenX - window.screenX / 2 + x / 2;
 
         const klarnaWindow = window.open(
           'about:blank',
