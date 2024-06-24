@@ -27,12 +27,12 @@ const OrderDetailPage = async ({ params }: OrderDetailProps) => {
   }
 
   return (
-    <div>
+    <>
       <div className="py-2 md:py-12 max-w-[1000px] md:mx-auto">
         <h1 className="mt-4 text-center text-2xl font-bold">Order Details</h1>
       </div>
       <Card className="m-3 px-4 pb-6 md:m-1 md:mb-8 max-w-[1000px] md:mx-auto md:px-8 md:py-0">
-        <CardHeader className="text-l block px-0 py-8 font-bold">
+        <CardHeader className="text-xl block px-0 py-8 font-bold">
           Ordered on {order.payment_date} <span className="mx-2">|</span> Order
           #{order.order_id}
         </CardHeader>
@@ -77,7 +77,7 @@ const OrderDetailPage = async ({ params }: OrderDetailProps) => {
           </div>
         </div>
       </Card>
-    </div>
+    </>
   );
 };
 
