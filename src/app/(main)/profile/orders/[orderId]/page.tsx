@@ -58,7 +58,7 @@ const OrderDetailPage = async ({ params }: OrderDetailProps) => {
               <div className="font-bold text-black">Payment Method</div>
               <div>Pending</div>
             </div> */}
-            <div className="mt-6 md:min-w-[210px] md:m-4">
+            <div className="mt-6 md:min-w-[210px] md:m-4 md:mt-6">
               <div className="mb-1 font-bold">Order Summary</div>
               <div className="mb-1 flex justify-between">
                 <div>Order Subtotal</div>
