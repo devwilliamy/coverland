@@ -20,6 +20,7 @@ import { deslugify } from '@/lib/utils';
 import useDetermineType from '@/hooks/useDetermineType';
 import { TSeatCoverDataDB } from '@/lib/db/seat-covers';
 import { handleCheckLowQuantity } from '@/lib/utils/calculations';
+import KlarnaIcon from '@/components/icons/KlarnaIcon';
 
 export default function SeatContent({
   searchParams,
@@ -122,16 +123,16 @@ export default function SeatContent({
           </div>
         )}
       </div>
-      <div className="pb-4.5 mt-[15px] flex items-center gap-2 ">
+      <div className="pb-4.5 mt-[15px] flex items-center gap-0.5">
         {installmentPrice && (
-          <p className="mb-[4px] text-[14px] leading-[16px] text-[#767676] lg:text-[16px]">
+          <p className="text-[14px] leading-[16px] text-[#767676] lg:text-[16px]">
             4 interest-free installments of{' '}
             <b className="font-[400] text-black">
               ${(installmentPrice / 4).toFixed(2)}
             </b>
           </p>
         )}
-        <Image alt="paypal-installents" src={installments} />
+        <KlarnaIcon className="flex max-h-[30px] w-fit" />
         {/* <Info className="h-[17px] w-[17px] text-[#767676]" /> */}
       </div>
 

@@ -211,18 +211,14 @@ export function ProductContent({
             </div>
           )}
         </div>
-        <div className="mt-1 flex items-center gap-2 ">
+        <div className="mt-1 flex items-center gap-0.5 ">
           <p className=" text-[14px] leading-[16px] text-[#767676] lg:text-[16px]">
             4 interest-free installments of{' '}
             <b className="font-[400] text-black">
               ${(installmentPrice / 4).toFixed(2)}
             </b>
           </p>
-          {/* <Image alt="paypal-installents" src={installments} /> */}
-          {/* <div className="flex max-h-[40px] w-full object-contain">
-          </div> */}
           <KlarnaIcon className="flex max-h-[30px] w-fit" />
-
           {/* <Info className="h-[17px] w-[17px] text-[#767676]" /> */}
         </div>
       </section>
