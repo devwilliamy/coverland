@@ -5,6 +5,7 @@ import {
 } from '@/lib/db/profile/ordersHistory';
 import OrderItem from '../components/OrderItem';
 import { Card, CardHeader } from '@/components/ui/card';
+import { getFullCountryName } from '@/lib/db/profile/utils/shipping';
 
 type OrderDetailProps = {
   params: { orderId: string };
@@ -43,7 +44,7 @@ const OrderDetailPage = async ({ params }: OrderDetailProps) => {
           </ul>
         </div>
         <div className="border-t">
-          <div className="md:flex justify-between md:m-4 md:mt-6">
+          <div className="justify-between md:m-4 md:mt-6 md:flex">
             <div className="mt-6 text-[#707070]">
               <div className="mb-2 font-bold text-black">Shipping Address</div>
               <div>{order.shipping_address_line_1}</div>
@@ -52,13 +53,13 @@ const OrderDetailPage = async ({ params }: OrderDetailProps) => {
                 {order.shipping_address_city} {order.shipping_address_state}{' '}
                 {order.shipping_address_postal_code}
               </div>
-              <div>{order.shipping_address_country}</div>
+              <div>{getFullCountryName(order.shipping_address_country)}</div>
             </div>
             {/* <div className="mt-6 text-[#707070]">
               <div className="font-bold text-black">Payment Method</div>
               <div>Pending</div>
             </div> */}
-            <div className="mt-6 md:min-w-[210px] md:m-4 md:mt-6">
+            <div className="mt-6 md:m-4 md:mt-6 md:min-w-[210px]">
               <div className="mb-1 font-bold">Order Summary</div>
               <div className="mb-1 flex justify-between">
                 <div>Order Subtotal</div>
@@ -68,7 +69,7 @@ const OrderDetailPage = async ({ params }: OrderDetailProps) => {
                 <div>Sale-discount</div>
                 <div>- ${order.total_discount_amount}</div>
               </div>
-              <div className="my-3 pt-3 flex justify-between font-bold border-t">
+              <div className="my-3 flex justify-between border-t pt-3 font-bold">
                 <div>Order Total</div>
                 <div>${order.total_amount}</div>
               </div>
