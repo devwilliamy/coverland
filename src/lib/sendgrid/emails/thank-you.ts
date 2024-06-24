@@ -138,26 +138,28 @@ const generateThankYouEmail = ({
   shippingInfo,
   billingInfo, 
 }: ThankYouEmailInput) => ({
-  to, // Change to your recipient
-  from: sgFromEmail,
-  templateId: sgThankYouEmailTemplateId, // Process ENV
-  dynamicTemplateData: {
-    first_name: name.firstName,
-    order_date: orderInfo.orderDate,
-    order_number: orderInfo.orderNumber,
-    shipping_info: {
-      ...shippingInfo,
+  personalizations: [
+    {
+      to: [{ email: to }], // Updated to be an array with a recipient object
+      dynamic_template_data: {
+        first_name: name.firstName,
+        order_date: orderInfo.orderDate,
+        order_number: orderInfo.orderNumber,
+        shipping_info: {
+          ...shippingInfo,
+        },
+        order_items: generateOrderItems(orderInfo.cartItems),
+        full_name: name.fullName,
+        total_item_quantity: orderInfo.totalItemQuantity,
+        subtotal: formatMoneyAsNumber(orderInfo.subtotal),
+        total_discount: orderInfo.totalDiscount,
+        has_discount: orderInfo.hasDiscount,
+        total: formatMoneyAsNumber(orderInfo.total),
+      },
     },
-    order_items: generateOrderItems(orderInfo.cartItems),
-    full_name: name.fullName,
-    total_item_quantity: orderInfo.totalItemQuantity,
-    subtotal: formatMoneyAsNumber(orderInfo.subtotal),
-    // total_discount: trimToWholeNumber(orderInfo.totalDiscount), // option to change to cleaner discount format i.e. $720.04 -> $720
-    total_discount: orderInfo.totalDiscount,
-    has_discount: orderInfo.hasDiscount,
-    // taxes: orderInfo.taxes, // not yet implemented
-    total: formatMoneyAsNumber(orderInfo.total),
-  },
+  ],
+  from: { email: sgFromEmail }, // Updated to be an object
+  template_id: sgThankYouEmailTemplateId, // Process ENV
 });
 
 export const sendThankYouEmail = async (emailInput: MailDataRequired) => {
