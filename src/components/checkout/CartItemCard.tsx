@@ -44,7 +44,9 @@ export default function CartItemCard({ item }: { item: TCartItem }) {
           <div
             className={`text-sm font-normal ${item?.type === 'Seat Covers' ? 'flex' : 'hidden'}  text-[#707070] lg:text-base`}
           >
-            {isFullSet(item.display_set).toLowerCase() == "full" ? "Full Seat Set (Front + Rear Seat Set)": ' Front Seats (Driver +  Passenger seats)'} 
+            {isFullSet(item.display_set).toLowerCase() == 'full'
+              ? 'Full Seat Set (Front + Rear Seat Set)'
+              : ' Front Seats (Driver +  Passenger seats)'}
           </div>
           <div className="text-sm font-normal text-[#707070] lg:text-base">
             Color: {item?.display_color}
@@ -72,10 +74,12 @@ export default function CartItemCard({ item }: { item: TCartItem }) {
               ? (parseFloat(item?.msrp) * item?.quantity).toFixed(2)
               : ''}
           </div>
-          <div className="text-sm font-normal text-[#707070] line-through decoration-[#707070] lg:text-base">
-            {item?.price &&
-              `$${(parseFloat(item?.price as string) * item?.quantity).toFixed(2)}`}
-          </div>
+          {item.msrp !== item.price && (
+            <div className="text-sm font-normal text-[#707070] line-through decoration-[#707070] lg:text-base">
+              {item?.price &&
+                `$${(parseFloat(item?.price as string) * item?.quantity).toFixed(2)}`}
+            </div>
+          )}
         </div>
       </div>
       <div className="flex items-end justify-between pb-2 pt-0">
