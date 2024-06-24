@@ -34,7 +34,8 @@ type CartItemProps = {
 };
 
 const CartItem = ({ item }: CartItemProps) => {
-  const imageUrl = item.type === 'Seat Covers' ? item?.product?.split(',')[0] : item?.feature 
+  const imageUrl =
+    item.type === 'Seat Covers' ? item?.product?.split(',')[0] : item?.feature;
 
   return (
     <>
@@ -71,9 +72,12 @@ const CartItem = ({ item }: CartItemProps) => {
           <div className="text-xl font-bold lg:text-lg">
             ${item.msrp ? (parseFloat(item.msrp) * 1).toFixed(2) : ''}
           </div>
-          <div className="text-lg font-normal text-[#707070] line-through decoration-[#707070] lg:text-base">
-            ${(parseFloat(item?.price as string) * 1).toFixed(2)}
-          </div>
+          {item.msrp !== item.price && (
+            <div className="text-sm font-normal text-[#707070] line-through decoration-[#707070] lg:text-base">
+              {item?.price &&
+                `$${parseFloat(item?.price as string).toFixed(2)}`}
+            </div>
+          )}
         </div>
       </div>
     </>

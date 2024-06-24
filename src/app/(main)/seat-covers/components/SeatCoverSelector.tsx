@@ -1,5 +1,5 @@
 import { Button } from '@/components/ui/button';
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { SeatCoverSelectionContext } from '@/contexts/SeatCoverContext';
 import { useStore } from 'zustand';
 import { TSeatCoverDataDB } from '@/lib/db/seat-covers';
@@ -62,6 +62,8 @@ export default function SeatCoverSelection({
   const availableSeatCovers = modelData.filter(
     (seatCover) => seatCover.display_color === selectedColor
   );
+
+
 
   function handleSeatSelected(type) {
     let seatCover = type === 'full' ? fullSeatCovers : frontSeatCovers;

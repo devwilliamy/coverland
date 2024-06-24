@@ -1,5 +1,5 @@
 import { supabaseAdminPanelDatabaseClient } from '../adminPanelSupabaseClient';
-import { ADMIN_PANEL_PRODUCTS } from '../constants/databaseTableNames';
+import { PRODUCT_DATA_TABLE } from '../constants/databaseTableNames';
 
 export async function getProductAndPriceBySku(skus: string[]) {
   try {
@@ -8,18 +8,18 @@ export async function getProductAndPriceBySku(skus: string[]) {
     }
 
     const { data, error } = await supabaseAdminPanelDatabaseClient
-      .from(ADMIN_PANEL_PRODUCTS) 
-      .select('id, sku, msrp') 
-      .in('sku', skus); 
+      .from(PRODUCT_DATA_TABLE)
+      .select('id, sku, msrp, price, quantity')
+      .in('sku', skus);
     if (error) {
       console.error('Error fetching product details:', error.message);
-      throw error; 
+      throw error;
     }
 
-    return data; 
+    return data;
   } catch (error: any) {
     console.error('Failed to fetch product details:', error.message);
-    
+
     throw error;
   }
 }

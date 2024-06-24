@@ -1,6 +1,14 @@
+import {
+  DISCOUNT_25_LOWER_BOUND,
+  DISCOUNT_25_UPPER_BOUND,
+  NO_DISCOUNT_LOWER_BOUND,
+  NO_DISCOUNT_UPPER_BOUND,
+} from '@/lib/constants';
 import { getProductAndPriceBySku } from '@/lib/db/admin-panel/products';
 import { createSupabaseAdminPanelServerClient } from '@/lib/db/adminPanelSupabaseClient';
 import { ADMIN_PANEL_ORDER_ITEMS } from '@/lib/db/constants/databaseTableNames';
+import { handleCheckLowQuantity } from '@/lib/utils/calculations';
+import { IProductData } from '@/utils';
 import { SupabaseClient } from '@supabase/supabase-js';
 import { ReadonlyRequestCookies } from 'next/dist/server/web/spec-extension/adapters/request-cookies';
 import { cookies } from 'next/headers';
@@ -60,19 +68,17 @@ const mapSkusWithQuantityToOrderItem = async (
   const skus: string[] = skusWithQuantity.map(
     (skuWithQuantity) => skuWithQuantity.sku
   );
-  const skusProductIdAndMsrp = await getProductAndPriceBySku(skus);
-  const orderItems = createOrderItems(
-    id,
-    skusWithQuantity,
-    skusProductIdAndMsrp
-  );
+  const productData = await getProductAndPriceBySku(skus);
+  const orderItems = createOrderItems(id, skusWithQuantity, productData);
   return orderItems;
 };
 
 type ProductDetail = {
   id: number;
-  sku: string;
+  sku: string | null;
   msrp: number | null;
+  price: number | null;
+  quantity: string | null;
 };
 
 type OrderItem = {
@@ -82,16 +88,18 @@ type OrderItem = {
   product_id: number;
   quantity: number;
   price: number;
+  original_price: number;
+  discount_amount: number;
 };
 
 const createOrderItems = (
   order_id: number,
   skusWithQuantity: SkuWithQuantity[],
-  skusProductIdAndMsrp: ProductDetail[]
+  productData: ProductDetail[]
 ): OrderItem[] => {
   // Create a map of SKU to ProductDetail for quick lookup
   const skuToProductMap = new Map(
-    skusProductIdAndMsrp.map((product) => [product.sku, product])
+    productData.map((product) => [product.sku, product])
   );
 
   // Transform skusWithQuantity to the desired order item format
@@ -100,14 +108,25 @@ const createOrderItems = (
     if (!product) {
       throw new Error(`No product details found for SKU: ${sku}`);
     }
+    if (!product.price) {
+      throw new Error(`No product price found for SKU: ${sku}`);
+    }
 
-    const price = Number(product.msrp) * quantity;
+    const { newMSRP: incomingMSRP } = handleCheckLowQuantity(
+      product as IProductData
+    );
+
+    const totalProductPrice = Number((incomingMSRP * quantity).toFixed(2));
+    const original_price = Number((product.price * quantity).toFixed(2));
+    const discount_amount = original_price - totalProductPrice;
 
     const orderItem: OrderItem = {
       order_id: order_id,
       product_id: product.id,
       quantity: quantity,
-      price: parseFloat(price.toFixed(2)),
+      price: totalProductPrice,
+      original_price: parseFloat(original_price.toFixed(2)),
+      discount_amount: parseFloat(discount_amount.toFixed(2)),
     };
 
     return orderItem;

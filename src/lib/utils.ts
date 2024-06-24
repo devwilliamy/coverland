@@ -1,8 +1,18 @@
 import { TInitialProductDataDB } from './db/index';
 import { type ClassValue, clsx } from 'clsx';
 import { twMerge } from 'tailwind-merge';
-import { modelStrings } from './constants';
+import {
+  DISCOUNT_25_LOWER_BOUND,
+  DISCOUNT_25_UPPER_BOUND,
+  NO_DISCOUNT_LOWER_BOUND,
+  NO_DISCOUNT_UPPER_BOUND,
+  modelStrings,
+} from './constants';
 import { TCarCoverData } from '@/app/(main)/car-covers/components/CarPDP';
+import { TCartItem } from './cart/useCart';
+import { Dispatch, SetStateAction } from 'react';
+import { IProductData } from '@/utils';
+import { TSeatCoverDataDB } from './db/seat-covers';
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -20,7 +30,6 @@ export function stringToSlug(str: string) {
     .replace(/[^a-z0-9 ]/g, '') // Remove all non-word chars except spaces
     .replace(/\s+/g, '+'); // Replace spaces with +
 
-  // console.log(slug);
   return slug;
 }
 
