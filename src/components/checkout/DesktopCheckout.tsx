@@ -11,7 +11,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from '../ui/accordion';
-import { useEffect, useState } from 'react';
+import { Suspense, useEffect, useState } from 'react';
 import CartHeader from './CartHeader';
 import { handlePurchaseGoogleTag } from '@/hooks/useGoogleTagDataLayer';
 import { getCookie } from '@/lib/utils/cookie';
@@ -25,8 +25,15 @@ import {
   convertPriceFromStripeFormat,
 } from '@/lib/utils/stripe';
 import { useCartContext } from '@/providers/CartProvider';
-import { useStripe, useElements } from '@stripe/react-stripe-js';
-import { CreatePaymentMethodKlarnaData } from '@stripe/stripe-js';
+import {
+  useStripe,
+  useElements,
+  ExpressCheckoutElement,
+} from '@stripe/react-stripe-js';
+import {
+  CreatePaymentMethodKlarnaData,
+  PaymentMethodCreateParams,
+} from '@stripe/stripe-js';
 import { v4 as uuidv4 } from 'uuid';
 import { useRouter } from 'next/navigation';
 import { ReadyCheck } from './ReadyCheck';
@@ -37,6 +44,7 @@ import PayPalButtonSection from './PayPalButtonSection';
 import PayWithKlarnaWhite from './PayWithKlarnaWhite';
 import PriceBreakdown from './PriceBreakdown';
 import { Separator } from '../ui/separator';
+import { handleConversions } from '@/lib/utils/checkoutUtils';
 
 function isValidShippingAddress({ address }: StripeAddress) {
   return (
@@ -109,7 +117,7 @@ export default function DesktopCheckout() {
   const handleChangeAccordion = (value: string) =>
     setValue((p) => [...p, value]);
 
-  const handleConversions = async () => {
+  const handleConversions = async (id: any, client_secret: any) => {
     // SendGrid Thank You Email
     const emailInput = {
       to: customerInfo.email,
@@ -120,10 +128,27 @@ export default function DesktopCheckout() {
       orderInfo: {
         orderDate: getCurrentDayInLocaleDateString(),
         orderNumber,
+        cartItems, // note: cartItems transformed to orderItems inside generateThankYouEmail
         // products
+        totalItemQuantity: getTotalCartQuantity(),
+        subtotal: getOrderSubtotal().toFixed(2),
+        total: (getTotalPrice() + shipping).toFixed(2), // may need to add taxes later
+        totalDiscount: getTotalDiscountPrice().toFixed(2),
+        hasDiscount: parseFloat(getTotalDiscountPrice().toFixed(2)) > 0,
       },
-      // address,
-      // shippingInfo,
+      shippingInfo: {
+        city: shippingAddress.address.city as string,
+        country: shippingAddress.address.country as string,
+        address_line1: shippingAddress.address.line1 as string,
+        address_line2: shippingAddress.address.line2 as string,
+        postal_code: shippingAddress.address.postal_code as string,
+        state: shippingAddress.address.state as string,
+        full_name: `${shippingAddress.firstName} ${shippingAddress.lastName}`,
+        shipping_method: shippingInfo.shipping_method as string,
+        shipping_date: shippingInfo.shipping_date as string,
+        delivery_fee: shippingInfo.delivery_fee.toFixed(2) as number,
+        free_delivery: shippingInfo.delivery_fee === 0,
+      },
       // billingInfo,
     };
     try {
@@ -141,87 +166,89 @@ export default function DesktopCheckout() {
         error?.message || "There's an error, but could not find error message"
       );
     }
-    // Meta Conversion API
-    const skus = getSkusFromCartItems(cartItems);
-    const skusWithQuantityMsrpForMeta =
-      getSkuQuantityPriceFromCartItemsForMeta(cartItems);
-    const eventID = uuidv4();
-
-    const metaCPIEvent = {
-      event_name: 'Purchase',
-      event_time: Math.floor(Date.now() / 1000),
-      event_id: eventID,
-      action_source: 'website',
-      user_data: {
-        em: [hashData(customerInfo.email)],
-        ph: [hashData(shippingAddress.phone || '')],
-        ct: [hashData(shippingAddress.address.city || '')],
-        country: [hashData(shippingAddress.address.country || '')],
-        fn: [hashData(shippingAddress.firstName || '')],
-        ln: [hashData(shippingAddress.lastName || '')],
-        st: [hashData(shippingAddress.address.state || '')],
-        zp: [hashData(shippingAddress.address.postal_code || '')],
-        fbp: getCookie('_fbp'),
-        // client_ip_address: '', // Replace with the user's IP address
-        client_user_agent: navigator.userAgent, // Browser user agent string
-      },
-      custom_data: {
-        currency: 'USD',
-        value: parseFloat(getTotalPrice().toFixed(2)),
-        order_id: orderNumber,
-        content_ids: skus.join(','),
-        contents: skusWithQuantityMsrpForMeta,
-      },
-      event_source_url: origin,
-    };
-    const metaCAPIResponse = await fetch('/api/meta/event', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ metaCPIEvent }),
-    });
-    // Track the purchase event
-    if (typeof fbq === 'function') {
-      fbq(
-        'track',
-        'Purchase',
-        {
-          value: parseFloat(getTotalPrice().toFixed(2)),
-          currency: 'USD',
-          contents: skusWithQuantityMsrpForMeta,
-          content_type: 'product',
-        },
-        { eventID }
-      );
-    }
-
-    // Microsoft Conversion API Tracking
-    if (typeof window !== 'undefined') {
-      window.uetq = window.uetq || [];
-
-      window.uetq.push('set', {
-        pid: {
-          em: customerInfo.email,
-          ph: customerInfo.phoneNumber,
-        },
-      });
-      window.uetq.push('event', 'purchase', {
-        revenue_value: parseFloat(getTotalPrice().toFixed(2)),
-        currency: 'USD',
-        pid: {
-          em: customerInfo.email,
-          ph: customerInfo.phoneNumber,
-        },
-      });
-    }
     if (process.env.NEXT_PUBLIC_IS_PREVIEW !== 'PREVIEW') {
+      // Meta Conversion API
+      const skus = getSkusFromCartItems(cartItems);
+      const skusWithQuantityMsrpForMeta =
+        getSkuQuantityPriceFromCartItemsForMeta(cartItems);
+      const eventID = uuidv4();
+
+      const metaCPIEvent = {
+        event_name: 'Purchase',
+        event_time: Math.floor(Date.now() / 1000),
+        event_id: eventID,
+        action_source: 'website',
+        user_data: {
+          em: [hashData(customerInfo.email)],
+          ph: [hashData(shippingAddress.phone || '')],
+          ct: [hashData(shippingAddress.address.city || '')],
+          country: [hashData(shippingAddress.address.country || '')],
+          fn: [hashData(shippingAddress.firstName || '')],
+          ln: [hashData(shippingAddress.lastName || '')],
+          st: [hashData(shippingAddress.address.state || '')],
+          zp: [hashData(shippingAddress.address.postal_code || '')],
+          fbp: getCookie('_fbp'),
+          // client_ip_address: '', // Replace with the user's IP address
+          client_user_agent: navigator.userAgent, // Browser user agent string
+        },
+        custom_data: {
+          currency: 'USD',
+          value: parseFloat(getTotalPrice().toFixed(2)),
+          order_id: orderNumber,
+          content_ids: skus.join(','),
+          contents: skusWithQuantityMsrpForMeta,
+        },
+        event_source_url: origin,
+      };
+      const metaCAPIResponse = await fetch('/api/meta/event', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ metaCPIEvent }),
+      });
+      // Track the purchase event
+      if (typeof fbq === 'function') {
+        fbq(
+          'track',
+          'Purchase',
+          {
+            value: parseFloat(getTotalPrice().toFixed(2)),
+            currency: 'USD',
+            contents: skusWithQuantityMsrpForMeta,
+            content_type: 'product',
+          },
+          { eventID }
+        );
+      }
+
+      // Microsoft Conversion API Tracking
+      if (typeof window !== 'undefined') {
+        window.uetq = window.uetq || [];
+
+        window.uetq.push('set', {
+          pid: {
+            em: customerInfo.email,
+            ph: customerInfo.phoneNumber,
+          },
+        });
+        window.uetq.push('event', 'purchase', {
+          revenue_value: parseFloat(getTotalPrice().toFixed(2)),
+          currency: 'USD',
+          pid: {
+            em: customerInfo.email,
+            ph: customerInfo.phoneNumber,
+          },
+        });
+      }
+
       const skuLabOrderInput = generateSkuLabOrderInput({
         orderNumber,
         cartItems,
         totalMsrpPrice: convertPriceFromStripeFormat(totalMsrpPrice),
         shippingAddress,
         customerInfo,
+        paymentMethod: 'Stripe',
       });
 
       // SKU Labs Order Creation
@@ -233,41 +260,46 @@ export default function DesktopCheckout() {
         },
         body: JSON.stringify({ order: skuLabOrderInput }),
       });
+
+      // Google Conversion API
+      const enhancedGoogleConversionInput = {
+        email: customerInfo.email || '',
+        phone_number: shippingAddress.phone || '',
+        first_name: shippingAddress.firstName || '',
+        last_name: shippingAddress.lastName || '',
+        address_line1: shippingAddress.address.line1 || '',
+        city: shippingAddress.address.city || '',
+        state: shippingAddress.address.state || '',
+        postal_code: shippingAddress.address.postal_code || '',
+        country: shippingAddress.address.country || '',
+      };
+
+      handlePurchaseGoogleTag(
+        cartItems,
+        orderNumber,
+        getTotalPrice().toFixed(2),
+        clearLocalStorageCart,
+        enhancedGoogleConversionInput
+      );
     }
 
-    // Google Conversion API
-    const enhancedGoogleConversionInput = {
-      email: customerInfo.email || '',
-      phone_number: shippingAddress.phone || '',
-      first_name: shippingAddress.firstName || '',
-      last_name: shippingAddress.lastName || '',
-      address_line1: shippingAddress.address.line1 || '',
-      city: shippingAddress.address.city || '',
-      state: shippingAddress.address.state || '',
-      postal_code: shippingAddress.address.postal_code || '',
-      country: shippingAddress.address.country || '',
-    };
-
-    handlePurchaseGoogleTag(
-      cartItems,
-      orderNumber,
-      getTotalPrice().toFixed(2),
-      clearLocalStorageCart,
-      enhancedGoogleConversionInput
+    router.push(
+      `/thank-you?order_number=${orderNumber}&payment_intent=${id}&payment_intent_client_secret=${client_secret}`
     );
   };
 
   const handleGetTax = async () => {
+    setIsLoading(true);
     let taxItems = [];
-    let count = 0;
-    for (const item of cartItems) {
+
+    for (let index = 0; index < cartItems.length; index++) {
+      const item = cartItems[index] as any;
       taxItems.push({
-        id: item.id ? item.id : count,
+        id: item.id ? item.id : index,
         quantity: item.quantity,
         unit_price: item.msrp,
         discount: 0,
       });
-      count++;
     }
 
     const bodyData = {
@@ -277,7 +309,6 @@ export default function DesktopCheckout() {
       shipping: 0,
       line_items: taxItems,
     };
-    setIsLoading(true);
     const response = await fetch('/api/taxjar/sales-tax', {
       method: 'POST',
       headers: {
@@ -285,9 +316,41 @@ export default function DesktopCheckout() {
       },
       body: JSON.stringify({ bodyData }),
     });
+
     const taxRes = await response.json();
-    updateTotalTax(taxRes?.tax?.amount_to_collect);
+    const amount_to_collect = taxRes?.tax?.amount_to_collect;
+    updateTotalTax(amount_to_collect);
+
+    const taxSum = Number(Number(cartMSRP) + Number(amount_to_collect)).toFixed(
+      2
+    );
+    const totalWithTax = convertPriceToStripeFormat(taxSum);
+
+    if (totalWithTax) {
+      try {
+        elements?.update({
+          amount: totalWithTax,
+          mode: 'payment',
+          currency: 'usd',
+        });
+        await elements?.submit();
+      } catch (error) {
+        console.error(error);
+      }
+    }
+    await fetch('/api/stripe/payment-intent', {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        paymentIntentId,
+        amount: totalWithTax,
+      }),
+    });
     setIsLoading(false);
+
+    return totalWithTax;
   };
 
   const handleSubmit = async () => {
@@ -299,13 +362,10 @@ export default function DesktopCheckout() {
 
     setIsLoading(true);
 
-    if (totalTax == '0') {
-      await handleGetTax();
-    }
-
     const origin = window.location.origin;
     const taxSum = Number(Number(cartMSRP) + Number(totalTax)).toFixed(2);
     const totalWithTax = convertPriceToStripeFormat(taxSum);
+    // console.log({ totalWithTax, orderSubtotal, cartMSRP });
 
     const response = await fetch('/api/stripe/payment-intent', {
       method: 'PUT',
@@ -333,6 +393,13 @@ export default function DesktopCheckout() {
         postal_code: shippingAddress.address.postal_code as string,
         state: shippingAddress.address.state as string,
       },
+    };
+
+    const customerBilling = {
+      address: billingAddress.address,
+      email: customerInfo.email,
+      phone: customerInfo.phoneNumber,
+      name: billingAddress.name,
     };
 
     switch (paymentMethod) {
@@ -363,9 +430,9 @@ export default function DesktopCheckout() {
               result.paymentIntent &&
               result.paymentIntent.status === 'succeeded'
             ) {
-              handleConversions();
+              handleConversions(id, client_secret);
 
-              const { id, client_secret } = result.paymentIntent;
+              // const { id, client_secret } = result.paymentIntent;
               setIsLoading(false);
               router.push(
                 `/thank-you?order_number=${orderNumber}&payment_intent=${id}&payment_intent_client_secret=${client_secret}`
@@ -374,17 +441,12 @@ export default function DesktopCheckout() {
           });
         break;
       case 'klarna':
-        const result = await stripe.confirmKlarnaPayment(
+        const klarnaPaymentResult = await stripe.confirmKlarnaPayment(
           retrievedSecret,
           {
             payment_method: {
               type: 'klarna',
-              billing_details: {
-                address: billingAddress.address,
-                email: customerInfo.email,
-                phone: customerInfo.phoneNumber,
-                name: billingAddress.name,
-              },
+              billing_details: customerBilling,
             } as CreatePaymentMethodKlarnaData,
             return_url: `${origin}/checkout`,
             shipping: customerShipping,
@@ -393,25 +455,51 @@ export default function DesktopCheckout() {
           { handleActions: false }
         );
 
+        const y =
+          window.outerHeight / 2 + (window.screenY - window.screenY / 2);
+        const x = window.outerWidth / 2 + (window.screenX - window.screenX / 2);
+        const klarnaWindowLeft = window.screenX - window.screenX / 2 + x / 2;
+
         const klarnaWindow = window.open(
           'about:blank',
           'Klarna Payment',
-          'left=200,top=100,width=430,height=700'
+          `toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no, width=${x}, height=${y}, left=${klarnaWindowLeft}, top=100,`
         );
 
         klarnaWindow?.addEventListener('beforeUnload', () => {
           setIsLoading(false);
         });
 
+        klarnaWindow?.addEventListener('close', async () => {
+          // console.log('closeD');
+
+          const isSuccessful =
+            (await stripe.retrievePaymentIntent(retrievedSecret)).paymentIntent
+              ?.status === 'succeeded';
+          console.log('Payment window closed.');
+
+          if (isSuccessful) {
+            handleConversions(id, client_secret);
+            router.push(
+              `/thank-you?order_number=${orderNumber}&payment_intent=${id}&payment_intent_client_secret=${client_secret}`
+            );
+          }
+          setIsLoading(false);
+          clearInterval(interval);
+        });
+
         klarnaWindow?.document.location.replace(
-          String(result.paymentIntent?.next_action?.redirect_to_url?.url)
+          String(
+            klarnaPaymentResult.paymentIntent?.next_action?.redirect_to_url?.url
+          )
         );
 
-        const interval = setInterval(async () => {
-          if (!klarnaWindow) {
-            console.error('[NO KLARNA WINDOW]');
-            clearInterval(interval);
-          }
+        if (!klarnaWindow) {
+          console.log('[NO KLARNA WINDOW]');
+          return;
+        }
+
+        const interval = klarnaWindow.setInterval(async () => {
           if (
             klarnaWindow?.location.href &&
             klarnaWindow?.location.href
@@ -422,13 +510,14 @@ export default function DesktopCheckout() {
             setIsLoading(false);
             clearInterval(interval);
           }
-          if (klarnaWindow?.closed) {
+          if (klarnaWindow.closed) {
             const isSuccessful =
               (await stripe.retrievePaymentIntent(retrievedSecret))
                 .paymentIntent?.status === 'succeeded';
+            console.log('Payment window closed.');
 
             if (isSuccessful) {
-              handleConversions();
+              handleConversions(id, client_secret);
               setIsLoading(false);
               router.push(
                 `/thank-you?order_number=${orderNumber}&payment_intent=${id}&payment_intent_client_secret=${client_secret}`
@@ -438,10 +527,57 @@ export default function DesktopCheckout() {
         }, 1000);
 
         break;
+      case 'googlePay' || 'applePay':
+        await stripe.confirmPayment({
+          elements,
+          clientSecret: retrievedSecret,
+          confirmParams: {
+            payment_method_data: {
+              billing_details: {
+                ...customerBilling,
+                address:
+                  customerBilling.address as PaymentMethodCreateParams.BillingDetails.Address,
+              },
+            },
+            shipping: customerShipping,
+          },
+          redirect: 'if_required',
+        });
+        const isSuccessful =
+          (await stripe.retrievePaymentIntent(retrievedSecret)).paymentIntent
+            ?.status === 'succeeded';
+
+        // console.log('Payment window closed.');
+        if (isSuccessful) {
+          handleConversions(id, client_secret);
+          setIsLoading(false);
+          router.push(
+            `/thank-you?order_number=${orderNumber}&payment_intent=${id}&payment_intent_client_secret=${client_secret}`
+          );
+        }
       default:
         return;
     }
   };
+
+  useEffect(() => {
+    const updateIntent = async () => {
+      try {
+        elements?.update({
+          amount: 888888,
+          mode: 'payment',
+          paymentMethodTypes: ['klarna', 'card'],
+          currency: 'usd',
+        });
+        await elements?.submit();
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    if (paymentMethod === 'googlePay' || paymentMethod === 'applePay') {
+      updateIntent();
+    }
+  }, [paymentMethod]);
 
   useEffect(() => {
     if ((!isAddressComplete || isEditingAddress) && !isReadyToShip) {
@@ -456,10 +592,13 @@ export default function DesktopCheckout() {
   }, [isReadyToShip, isReadyToPay]);
 
   useEffect(() => {
+    const useHandleGetTax = async () => {
+      await handleGetTax();
+    };
     if (!isCartEmpty && isReadyToPay) {
-      handleGetTax();
+      useHandleGetTax();
     }
-  }, [isCartEmpty, isReadyToPay]);
+  }, [isCartEmpty, isReadyToPay, shippingAddress, paymentMethod]);
 
   const isDisabled = !isValidShippingAddress(shippingAddress);
   return (
@@ -502,7 +641,7 @@ export default function DesktopCheckout() {
                       }
                       handleSelectTab('payment');
                     }}
-                    className={`${(!isReadyToShip || isEditingAddress) && 'disabled cursor-default text-[grey] hover:no-underline'} my-4 px-4 text-[24px] font-medium`}
+                    className={`${(!isReadyToShip || isEditingAddress) && 'disabled cursor-default text-[#DBDBDB] hover:no-underline'} my-4 px-4 text-[24px] font-medium`}
                     // disabled={isDisabled}
                   >
                     <h2 className="flex items-center gap-2">
@@ -510,12 +649,12 @@ export default function DesktopCheckout() {
                       {isReadyToPay && <ReadyCheck />}
                     </h2>
                   </AccordionTrigger>
-                  <AccordionContent>
+                  <AccordionContent className="lg:pb-[30px]">
                     <Payment handleChangeAccordion={handleChangeAccordion} />
                     {isReadyToPay && (
                       <>
-                        <Separator className="my-[30px] bg-[#DBDBDB]" />
-                        <section className="flex w-full flex-col px-4">
+                        <Separator className="my-[30px] h-[0.8px] max-h-[0.8px] bg-[#DBDBDB]" />
+                        <section className="flex w-full flex-col border border-none px-4">
                           {paymentMethod === 'creditCard' && (
                             <>
                               <p className="pb-[40px] text-[14px] font-[400] text-[#767676]">
@@ -532,7 +671,7 @@ export default function DesktopCheckout() {
                               <Button
                                 // disabled={isDisabled}
                                 variant={'default'}
-                                className={`mb-3 w-full rounded-lg bg-black text-base font-bold uppercase text-white sm:h-[48px] lg:mb-[70px] lg:h-[55px] lg:max-w-[307px] lg:self-end lg:text-xl`}
+                                className={`mb-3 w-full rounded-lg bg-black text-base font-bold uppercase text-white sm:h-[48px] lg:mb-[40px] lg:h-[55px] lg:max-w-[350px] lg:self-end lg:text-xl`}
                                 onClick={(e) => {
                                   setIsLoading(true);
                                   handleSubmit();
@@ -552,13 +691,43 @@ export default function DesktopCheckout() {
                             </>
                           )}
                           {paymentMethod === 'paypal' && (
-                            <PayPalButtonSection />
+                            <Suspense
+                              fallback={
+                                <AiOutlineLoading3Quarters className="h-fit w-full animate-spin fill-[#BE1B1B]" />
+                              }
+                            >
+                              <PayPalButtonSection />
+                            </Suspense>
+                          )}
+                          {(paymentMethod === 'applePay' ||
+                            paymentMethod === 'googlePay') && (
+                            <ExpressCheckoutElement
+                              className="w-full lg:max-w-[350px] lg:self-end lg:text-xl"
+                              options={{
+                                buttonHeight: 55,
+                                paymentMethodOrder: ['applePay', 'googlePay'],
+                                buttonType: {
+                                  applePay: 'order',
+                                  googlePay: 'order',
+                                },
+                                wallets:
+                                  paymentMethod === 'applePay'
+                                    ? { googlePay: 'never', applePay: 'always' }
+                                    : {
+                                        googlePay: 'always',
+                                        applePay: 'never',
+                                      },
+                              }}
+                              onConfirm={async (e) => {
+                                await handleSubmit();
+                              }}
+                            />
                           )}
                           {paymentMethod === 'klarna' && (
                             <Button
                               // disabled={isDisabled}
                               variant={'default'}
-                              className={`mb-3 w-full rounded-lg bg-black text-base font-bold uppercase text-white sm:h-[48px] lg:mb-[70px] lg:h-[55px] lg:text-xl`}
+                              className={`mb-3 w-full rounded-lg bg-black  text-base font-bold uppercase text-white sm:h-[48px] lg:mb-0  lg:h-[55px] lg:max-w-[350px] lg:self-end lg:text-xl`}
                               onClick={(e) => {
                                 setIsLoading(true);
                                 handleSubmit();

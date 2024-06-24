@@ -53,10 +53,6 @@ export async function paypalCreateOrder(
       country_code: shippingAddress?.address?.country || 'US',
     },
   };
-  // console.log('ShippingForPyapal', {
-  //   shippingForPaypal,
-  //   valid: isValidShippingAddress(shippingForPaypal),
-  // });
 
   const billingForPaypal = {
     address_line_1: billingAddress?.address?.line1 || '',
@@ -69,13 +65,6 @@ export async function paypalCreateOrder(
   const totalWithTax = incomingTax
     ? (totalMsrpPrice + incomingTax).toFixed(2)
     : totalMsrpPrice.toString();
-
-  console.log('BEFORE PURCHASE UNITS', {
-    totalMsrpPrice,
-    incomingTax,
-    totalWithTax,
-    billingForPaypal,
-  });
 
   const purchase_units = [
     {
@@ -110,19 +99,6 @@ export async function paypalCreateOrder(
       },
     },
   ];
-  console.log({
-    purch: purchase_units,
-    totalMsrpPrice,
-    incomingTax,
-    totalWithTax,
-  });
-
-  // console.log('Paypal Create body:', {
-  //   order_price: totalMsrpPrice,
-  //   // This one kinda useless, thinking about to do with it
-  //   user_id: new Date().toISOString(),
-  //   purchase_units,
-  // });
 
   try {
     const response = await fetch('/api/paypal', {

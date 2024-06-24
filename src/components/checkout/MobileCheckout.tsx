@@ -364,7 +364,7 @@ export default function MobileCheckout() {
     const origin = window.location.origin;
     const taxSum = Number(Number(cartMSRP) + Number(totalTax)).toFixed(2);
     const totalWithTax = convertPriceToStripeFormat(taxSum);
-    console.log({ totalWithTax, orderSubtotal, cartMSRP });
+    // console.log({ totalWithTax, orderSubtotal, cartMSRP });
 
     const response = await fetch('/api/stripe/payment-intent', {
       method: 'PUT',
@@ -470,7 +470,7 @@ export default function MobileCheckout() {
         });
 
         klarnaWindow?.addEventListener('close', async () => {
-          console.log('closeD');
+          // console.log('closeD');
 
           const isSuccessful =
             (await stripe.retrievePaymentIntent(retrievedSecret)).paymentIntent
@@ -592,7 +592,7 @@ export default function MobileCheckout() {
 
   useEffect(() => {
     const useHandleGetTax = async () => {
-      console.log('[Single Handle Get Tax]');
+      // console.log('[Single Handle Get Tax]');
       await handleGetTax();
     };
     if (!isCartEmpty && isReadyToPay) {
@@ -738,9 +738,7 @@ export default function MobileCheckout() {
                             : { googlePay: 'always', applePay: 'never' },
                       }}
                       onConfirm={async (e) => {
-                        console.log('Handle Submit has been clicked');
                         await handleSubmit();
-                        console.log(e);
                       }}
                     />
                   )}

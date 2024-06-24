@@ -133,9 +133,13 @@ export default function AddressForm({
     }
   );
 
+  type AutocompleteData = {
+    placePrediction: any;
+  };
+
   const [autocompleteAddress, setAutocompleteAddress] = useState<string>('');
   const [isManualAddress, setIsManualAddress] = useState(false);
-  const [suggestions, setSuggestions] = useState([]);
+  const [suggestions, setSuggestions] = useState<AutocompleteData[]>([]);
   const [loading, setLoading] = useState(false);
   const [addressOpen, setAddressOpen] = useState(false);
   const [isDisabled, setIsDisabled] = useState(true);
@@ -173,21 +177,21 @@ export default function AddressForm({
     determineDisabled();
   }, [addressData, customerInfo, setValue, isManualAddress]);
 
-  // useEffect(() => {
-  //   if (process.env.NEXT_PUBLIC_IS_PREVIEW === 'PREVIEW') {
-  //     setValue('email', 'george.icarcover@gmail.com' || '');
-  //     setValue('firstName', 'George' || '');
-  //     setValue('lastName', 'Anumba' || '');
-  //     setValue('line1', '1231 S Hill St' || '');
-  //     setValue('line2', 'P.O. Box 424' || '');
-  //     setValue('city', 'Los Angeles' || '');
-  //     setValue('state', 'CA' || '');
-  //     setValue('postal_code', '90015' || '');
-  //     setValue('phoneNumber', '+1 424 424 4242' || '');
-  //     setAddress('1231 S Hill St, Los Angeles, CA 90015, USA');
-  //   }
-  //   determineDisabled();
-  // }, []);
+  useEffect(() => {
+    //   if (process.env.NEXT_PUBLIC_IS_PREVIEW === 'PREVIEW') {
+    //     setValue('email', 'george.icarcover@gmail.com' || '');
+    //     setValue('firstName', 'George' || '');
+    //     setValue('lastName', 'Anumba' || '');
+    //     setValue('line1', '1231 S Hill St' || '');
+    //     setValue('line2', 'P.O. Box 424' || '');
+    //     setValue('city', 'Los Angeles' || '');
+    //     setValue('state', 'CA' || '');
+    //     setValue('postal_code', '90015' || '');
+    //     setValue('phoneNumber', '+1 424 424 4242' || '');
+    //     setAddress('1231 S Hill St, Los Angeles, CA 90015, USA');
+    //   }
+    determineDisabled();
+  }, []);
 
   const autocompleteObj: Record<string, FormString> = {
     locality: 'city',
@@ -306,22 +310,6 @@ export default function AddressForm({
     getAddressAutocompleteOptions(val);
     setAutocompleteAddress(val);
   };
-
-  useEffect(() => {
-    if (process.env.NEXT_PUBLIC_IS_PREVIEW === 'PREVIEW') {
-      setValue('email', 'george.icarcover@gmail.com' || '');
-      setValue('firstName', 'George' || '');
-      setValue('lastName', 'Anumba' || '');
-      setValue('line1', '1231 S Hill St' || '');
-      setValue('line2', 'P.O. Box 424' || '');
-      setValue('city', 'Los Angeles' || '');
-      setValue('state', 'CA' || '');
-      setValue('postal_code', '90015' || '');
-      setValue('phoneNumber', '+1 424 424 4242' || '');
-      // setAddress('1231 S Hill St, Los Angeles, CA 90015, USA');
-    }
-    determineDisabled();
-  }, []);
 
   return (
     <form

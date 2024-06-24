@@ -70,8 +70,9 @@ export default function PayPalButtonSection() {
             color: 'gold',
             shape: 'rect',
             label: 'pay',
-            height: 50,
+            height: 55,
           }}
+          className="w-full lg:max-w-[350px] lg:self-end lg:text-xl"
           createOrder={async () => {
             const data = await paypalCreateOrder(
               totalMsrpPrice,
