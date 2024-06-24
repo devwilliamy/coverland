@@ -151,7 +151,7 @@ export function ProductContent({
       )}
     </h1>
   );
-  const installmentPrice = newMSRP !== 0 ? newMSRP : defaultMSRP;
+  const installmentPrice = newMSRP && newMSRP !== 0 ? newMSRP : defaultMSRP;
   const getFormattedMSRP = () => {
     const num = Number(
       isComplete
@@ -214,7 +214,7 @@ export function ProductContent({
           <p className=" mb-[4px] text-[14px] leading-[16px] text-[#767676] lg:text-[16px]">
             4 interest-free installments of{' '}
             <b className="font-[400] text-black">
-              ${(Math.round(installmentPrice) / 4 - 0.01).toFixed(2)}
+              ${(installmentPrice / 4).toFixed(2)}
             </b>
           </p>
           <Image alt="paypal-installents" src={installments} />
