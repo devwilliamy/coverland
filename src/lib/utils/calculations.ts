@@ -45,22 +45,22 @@ export const handleCheckLowQuantity = (
     Number(cartProduct.quantity) >= DISCOUNT_25_LOWER_BOUND &&
     Number(cartProduct.quantity) <= DISCOUNT_25_UPPER_BOUND;
   const original_price = Number(cartProduct.price);
-  let calcedPrice: number;
+  let calculatedPrice: number;
   // If product stock quantity is in the no disocunt range
   if (isInNoDiscountRange) {
-    calcedPrice = Number((cartProduct.msrp = cartProduct.price));
+    calculatedPrice = Number((cartProduct.msrp = cartProduct.price));
     // Return no discount and original price
     return { discountPercent: null, newMSRP: original_price };
   } else if (isIn25PercentDiscountRange) {
-    calcedPrice = original_price * 0.75;
-    const formattedPrice = calcedPrice.toFixed(2);
+    calculatedPrice = original_price * 0.75;
+    const formattedPrice = calculatedPrice.toFixed(2);
     // If the ending number is 0.50¢ keep it at 50¢
     if (formattedPrice.slice(-3) === '.50') {
-      return { discountPercent: 25, newMSRP: calcedPrice };
+      return { discountPercent: 25, newMSRP: calculatedPrice };
     }
     // Everything else reduce by 0.05¢
-    calcedPrice -= 0.05;
-    return { discountPercent: 25, newMSRP: calcedPrice };
+    calculatedPrice -= 0.05;
+    return { discountPercent: 25, newMSRP: calculatedPrice };
   } else {
     return { discountPercent: 50, newMSRP: cartProduct.msrp };
   }

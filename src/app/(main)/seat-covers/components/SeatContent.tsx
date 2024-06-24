@@ -10,7 +10,7 @@ import { useStore } from 'zustand';
 import SeatCoverColorSelector from './SeatCoverColorSelector';
 import CartSheet from '@/components/cart/CartSheet';
 import { Separator } from '@/components/ui/separator';
-import { IProductData, TQueryParams } from '@/utils';
+import { TQueryParams } from '@/utils';
 import AddToCart from '@/components/cart/AddToCart';
 import EditVehicle from '@/components/edit-vehicle/EditVehicle';
 import FreeDetails from '../../[productType]/components/FreeDetails';
@@ -18,14 +18,9 @@ import ReviewsTextTrigger from '../../[productType]/components/ReviewsTextTrigge
 import SeatCoverSelection from './SeatCoverSelector';
 import { deslugify } from '@/lib/utils';
 import useDetermineType from '@/hooks/useDetermineType';
-import {
-  DISCOUNT_25_LOWER_BOUND,
-  DISCOUNT_25_UPPER_BOUND,
-  NO_DISCOUNT_LOWER_BOUND,
-  NO_DISCOUNT_UPPER_BOUND,
-} from '@/lib/constants';
 import { TSeatCoverDataDB } from '@/lib/db/seat-covers';
 import { handleCheckLowQuantity } from '@/lib/utils/calculations';
+import KlarnaIcon from '@/components/icons/KlarnaIcon';
 
 export default function SeatContent({
   searchParams,
@@ -79,7 +74,7 @@ export default function SeatContent({
     setLoading(false);
     throw new Error('No Selected Product Price in store');
   }
-  const installmentPrice = newMSRP !== 0 ? newMSRP : selectedProduct.price / 2;
+  const installmentPrice = newMSRP !== 0 ? newMSRP : selectedProduct.msrp;
 
   return (
     <section className="flex w-full flex-col max-lg:px-4 max-lg:pt-4 lg:sticky lg:top-8 lg:w-1/2">
@@ -128,16 +123,16 @@ export default function SeatContent({
           </div>
         )}
       </div>
-      <div className="pb-4.5 mt-[15px] flex items-center gap-2 ">
+      <div className="pb-4.5 mt-[15px] flex items-center gap-0.5">
         {installmentPrice && (
-          <p className="mb-[4px] text-[14px] leading-[16px] text-[#767676] lg:text-[16px]">
+          <p className="text-[14px] leading-[16px] text-[#767676] lg:text-[16px]">
             4 interest-free installments of{' '}
             <b className="font-[400] text-black">
-              ${(Math.round(installmentPrice) / 4 - 0.01).toFixed(2)}
+              ${(installmentPrice / 4).toFixed(2)}
             </b>
           </p>
         )}
-        <Image alt="paypal-installents" src={installments} />
+        <KlarnaIcon className="flex max-h-[30px] w-fit" />
         {/* <Info className="h-[17px] w-[17px] text-[#767676]" /> */}
       </div>
 
