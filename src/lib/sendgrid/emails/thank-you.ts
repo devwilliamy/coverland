@@ -152,8 +152,10 @@ const generateThankYouEmail = ({
         full_name: name.fullName,
         total_item_quantity: orderInfo.totalItemQuantity,
         subtotal: formatMoneyAsNumber(orderInfo.subtotal),
+        // total_discount: trimToWholeNumber(orderInfo.totalDiscount), // option to change to cleaner discount format i.e. $720.04 -> $720
         total_discount: orderInfo.totalDiscount,
         has_discount: orderInfo.hasDiscount,
+        // taxes: orderInfo.taxes, // not yet implemented
         total: formatMoneyAsNumber(orderInfo.total),
       },
     },
