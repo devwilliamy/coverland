@@ -140,7 +140,7 @@ const generateThankYouEmail = ({
 }: ThankYouEmailInput) => ({
   personalizations: [
     {
-      to: [{ email: to }], // Updated to be an array with a recipient object
+      to: [{ email: to }],
       dynamic_template_data: {
         first_name: name.firstName,
         order_date: orderInfo.orderDate,
@@ -158,8 +158,8 @@ const generateThankYouEmail = ({
       },
     },
   ],
-  from: { email: sgFromEmail }, // Updated to be an object
-  template_id: sgThankYouEmailTemplateId, // Process ENV
+  from: { email: sgFromEmail },
+  template_id: sgThankYouEmailTemplateId,
 });
 
 export const sendThankYouEmail = async (emailInput: MailDataRequired) => {
