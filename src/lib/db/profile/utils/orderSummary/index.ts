@@ -32,7 +32,3 @@ export const getOrderTotalDiscount = (order: TInitialOrdersDataDB): number => {
     });
     return parseFloat(totalDiscount).toFixed(2);
 }
-
-// export const getOrderTotalDiscount = (order: TInitialOrdersDataDB): number => {
-//     return getOrderSubtotal(order) - order.total_amount;
-// }
