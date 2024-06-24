@@ -53,7 +53,7 @@ const OrderList = ({ orders }: OrderListProps) => {
               <ul className="">
                 <div>
                   {order.items?.[0] && (
-                    <OrderItem key={order.items[0].id} item={order.items[0]} order_id={order.order_id}/>
+                    <OrderItem key={order.items[0].id} item={order.items[0]}/>
                   )}
                 </div>
                 <div className="my-6 mb-8 md:my-0 md:mt-4 max-w-[150px] md:ml-[185px]">
