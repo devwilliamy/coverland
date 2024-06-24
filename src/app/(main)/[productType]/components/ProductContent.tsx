@@ -15,6 +15,7 @@ import AddToCart from '@/components/cart/AddToCart';
 import CircleColorSelector from './CircleColorSelector';
 import ReviewsTextTrigger from './ReviewsTextTrigger';
 import installments from '@/images/PDP/Product-Details-Redesign-2/paypal-installments.webp';
+import KlarnaIcon from '@/components/icons/KlarnaIcon';
 import Image from 'next/image';
 import useDetermineType from '@/hooks/useDetermineType';
 import ReactPlayer from 'react-player';
@@ -211,13 +212,17 @@ export function ProductContent({
           )}
         </div>
         <div className="mt-1 flex items-center gap-2 ">
-          <p className=" mb-[4px] text-[14px] leading-[16px] text-[#767676] lg:text-[16px]">
+          <p className=" text-[14px] leading-[16px] text-[#767676] lg:text-[16px]">
             4 interest-free installments of{' '}
             <b className="font-[400] text-black">
               ${(installmentPrice / 4).toFixed(2)}
             </b>
           </p>
-          <Image alt="paypal-installents" src={installments} />
+          {/* <Image alt="paypal-installents" src={installments} /> */}
+          {/* <div className="flex max-h-[40px] w-full object-contain">
+          </div> */}
+          <KlarnaIcon className="flex max-h-[30px] w-fit" />
+
           {/* <Info className="h-[17px] w-[17px] text-[#767676]" /> */}
         </div>
       </section>
