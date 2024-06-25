@@ -1,7 +1,7 @@
 // app/order/[order_id]/page.tsx
 import {
   TUserOrder,
-  fetchUserRecentOrders,
+  fetchAllUserOrders,
 } from '@/lib/db/profile/ordersHistory';
 import OrderItem from '../components/OrderItem';
 import { Card, CardHeader } from '@/components/ui/card';
@@ -12,14 +12,14 @@ type OrderDetailProps = {
 };
 
 const OrderDetailPage = async ({ params }: OrderDetailProps) => {
-  const orders: TUserOrder[] | null = await fetchUserRecentOrders(4); // number of orders to be retrieved
+  const orders: TUserOrder[] | null = await fetchAllUserOrders(); // option to pass in a number of orders to be retrieved
 
   if (!orders) {
     return <div className="m-2">Order not found</div>;
   }
 
   const order: TUserOrder | undefined = orders.find(
-    (order) => order.order_id.toString() === params.orderId
+    (order) => order.id.toString() === params.orderId
   );
 
   if (!order) {
@@ -32,19 +32,19 @@ const OrderDetailPage = async ({ params }: OrderDetailProps) => {
         <h1 className="mt-4 text-center text-2xl font-bold">Order Details</h1>
       </div>
       <Card className="m-3 px-4 pb-6 md:m-1 md:mb-8 max-w-[1000px] md:mx-auto md:px-8 md:py-0">
-        <CardHeader className="text-xl block px-0 py-8 font-bold">
+        <CardHeader className="text-lg block px-0 py-8 font-bold">
           Ordered on {order.payment_date} <span className="mx-2">|</span> Order
-          #{order.order_id}
+          #{order.id}
         </CardHeader>
         <div className="border-t">
-          <ul className="py-2 md:py-8 md:pb-10">
+          <ul className="py-2 md:pt-8 md:pb-0">
             {order.items?.map((item) => (
-              <OrderItem key={item.id} item={item} />
+              <OrderItem key={item.id} item={item} marginClass="md:mb-14" />
             ))}
           </ul>
         </div>
         <div className="border-t mt-4">
-          <div className="justify-between md:m-4 md:mt-6 md:flex">
+          <div className="justify-between md:m-4 md:mt-8 md:flex">
             <div className="mt-6 text-[#707070]">
               <div className="mb-2 font-bold text-black">Shipping Address</div>
               <div>{order.shipping_address_line_1}</div>

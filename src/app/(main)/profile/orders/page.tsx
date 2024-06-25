@@ -1,7 +1,6 @@
 import {
   TUserOrder,
-  fetchUserRecentOrders,
-} from '@/lib/db/profile/ordersHistory';
+  fetchAllUserOrders,} from '@/lib/db/profile/ordersHistory';
 import { ReadonlyRequestCookies } from 'next/dist/server/web/spec-extension/adapters/request-cookies';
 import { SupabaseClient } from '@supabase/supabase-js';
 import { cookies } from 'next/headers';
@@ -29,7 +28,7 @@ const OrdersPage = async () => {
   }
 
   try {
-    const fetchedOrders = await fetchUserRecentOrders(4);
+    const fetchedOrders = await fetchAllUserOrders(); // option to pass in a number of orders to be retrieved
     if (!fetchedOrders) {
       console.error('fetchUserRecentOrders failed to find the orders');
       return; // Ensure function exits early if orders were not found
@@ -39,7 +38,7 @@ const OrdersPage = async () => {
     console.error('Error fetching recent orders:', error);
   }
 
-  return <OrderList orders={orders} />;
+  return <OrderList orders={orders.slice(0, 4)} />;
 };
 
 export default OrdersPage;

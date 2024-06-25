@@ -4,11 +4,12 @@ import { formatMoneyAsNumber } from '@/lib/utils/money';
 
 type OrderItemProps = {
   item: TOrderItem;
+  marginClass?: string;
 };
 
-const OrderItem = ({ item }: OrderItemProps) => {
+const OrderItem = ({ item, marginClass="md:mb-2" }: OrderItemProps) => {
   return (
-    <li key={item.id} className="">
+    <li key={item.id} className={`${marginClass}`}>
       <div className="justify-start md:flex">
         <div className="my-6 md:my-0">
           <Image

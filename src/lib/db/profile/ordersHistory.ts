@@ -33,7 +33,7 @@ export type TOrderItemProduct = TInitialProductDataDB & {
 };
 
 async function fetchUserOrders(
-  ordersQuantity: number
+  ordersQuantity?: number
 ): Promise<TUserOrder[] | null> {
   const cookieStore: ReadonlyRequestCookies = cookies();
   const supabase: SupabaseClient = createSupabaseServerClient(cookieStore);
@@ -51,19 +51,21 @@ async function fetchUserOrders(
     const userId = user.id;
 
     try {
-      const { data, error } = await supabase
+      let query = supabase
         .from<Order>(ADMIN_PANEL_ORDERS)
-        // if you want to grab orderItems by order ids only
-        // .select('id')
-        // this returns an inner join between orders and auth.users
-        // .select('*, users(*)')
         .select('*')
         // filter by logged-in user_id (currently does not exist in Users table, need to add it?)
         // .eq('user_id', userId)
-        .eq('customer_email', user?.email)
+        .eq('customer_email', user.email)
         .in('status', ['COMPLETE', 'COMPLETED'])
-        .order('payment_date', { ascending: false }) // Order by latest date in descending order
-        .limit(ordersQuantity);
+        .order('payment_date', { ascending: false }); // Order by latest date in descending order
+
+      // Apply limit only if ordersQuantity is provided
+      if (ordersQuantity !== undefined) {
+        query = query.limit(ordersQuantity);
+      }
+
+      const { data, error } = await query;
 
       if (error) {
         console.error('Error fetching User Orders from supabase:', error);
@@ -129,7 +131,7 @@ async function fetchOrderItemProducts(
 
 /**
  * 
- * @param ordersQuantity number
+ * @param ordersQuantity? number
  * @returns TUserOrder[] | null
  * 
  * returns an array of user orders, each order containing a list of order items, and each order item associated to one specific product; 
@@ -273,8 +275,8 @@ async function fetchOrderItemProducts(
 
   ]
  */
-export async function fetchUserRecentOrders(
-  ordersQuantity: number
+export async function fetchAllUserOrders(
+  ordersQuantity?: number
 ): Promise<TUserOrder[] | null> {
   // fetch recent user orders
   try {
