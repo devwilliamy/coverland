@@ -24,7 +24,7 @@ const PaymentSelector: React.FC<PaymentSelectorProps> = ({
           <label htmlFor="creditCard" className="pl-2">Credit Card</label>
         </li>
         {/* Temporarily removing Paypal due to account freeze */}
-        {/* <li>
+        <li>
           <input
             type="radio"
             id="paypalInput"
@@ -34,7 +34,7 @@ const PaymentSelector: React.FC<PaymentSelectorProps> = ({
             onChange={() => onPaymentMethodChange('paypal')}
           />
           <label htmlFor="paypal" className="pl-2">PayPal</label>
-        </li> */}
+        </li>
       </ul>
     </div>
   );
