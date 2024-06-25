@@ -11,13 +11,13 @@ const OrderList = ({ orders }: OrderListProps) => {
   return (
     <>
       <div className="pl-5 md:pl-2">
-        <h1 className="mt-4 text-xl font-bold md:text-2xl">My Orders</h1>
-        <p className="mb-4 text-sm text-gray-500">
+        <h1 className="mt-4 text-2xl font-bold">My Orders</h1>
+        <p className="mb-4  text-base md:text-sm text-gray-500">
           View and Manage orders
         </p>
       </div>
       <Card className="m-3 px-4 pt-4 md:py-0 md:px-8 md:m-1 md:my-4">
-        <CardHeader className="my-4 p-0 text-xl md:my-6 font-bold">
+        <CardHeader className="my-5 p-0 text-2xl md:text-xl md:my-6 font-bold">
           Recent Orders
         </CardHeader>
         {orders.length === 0 ? (
@@ -30,15 +30,15 @@ const OrderList = ({ orders }: OrderListProps) => {
               key={order.id}
               className="justify-between border-t md:py-10 md:pt-12 md:flex"
             >
-              <div className="my-8 md:my-0 md:w-2/5">
-                <div className="justify-left flex gap-2 mb-1">
-                  <span className="min-w-[110px] text-base font-normal text-[#707070]">
+              <div className="my-8 md:my-0 md:w-2/5 text-lg md:text-base">
+                <div className="justify-left flex gap-4 md:gap-2 mb-1">
+                  <span className="min-w-[110px] font-normal text-[#707070]">
                     Order Number
                   </span>
                   <span className="font-semibold">#{order.id}</span>
                 </div>
-                <div className="justify-left flex gap-2 mb-1">
-                  <span className="min-w-[110px] text-base font-normal text-[#707070]">
+                <div className="justify-left flex gap-4 md:gap-2 mb-1">
+                  <span className="min-w-[110px] font-normal text-[#707070]">
                     Order Date
                   </span>
                   <span className="font-semibold">{order.payment_date}</span>
@@ -56,7 +56,7 @@ const OrderList = ({ orders }: OrderListProps) => {
                     <OrderItem key={order.items[0].id} item={order.items[0]}/>
                   )}
                 </div>
-                <div className="my-6 mb-8 md:my-0 md:mt-4 max-w-[150px] md:ml-[188px]">
+                <div className="my-6 mb-8 md:my-0 md:mt-4 max-w-[165px] md:ml-[188px] text-lg md:text-base">
                   <Link href={`/profile/orders/${order.id}`} className='underline text-[#0C87B8]'>
                     {/* Provide aria-label for additional context */}
                     <div

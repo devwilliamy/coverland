@@ -5,7 +5,7 @@ import { formatMoneyAsNumber } from '@/lib/utils/money';
 type OrderItemProps = {
   item: TOrderItem;
   marginClass?: string;
-  version: 'short' | 'regular'; 
+  version: 'short' | 'regular';
 };
 
 const OrderItem = ({
@@ -17,15 +17,17 @@ const OrderItem = ({
     <li key={item.id} className={`${marginClass}`}>
       <div className="justify-start md:flex">
         <div className="my-6 md:my-0">
-          <Image
-            className="bg-gray-100 p-[6.5px]"
-            src={item.product?.feature || ''}
-            width={155}
-            height={155}
-            alt="Picture of the Order Item"
-          />
+          <div className="bg-gray-100 p-[6.5px] w-[180px] md:w-[155px]">
+            <Image
+              className="w-full h-auto"
+              src={item.product?.feature || ''}
+              width={155}
+              height={155}
+              alt="Picture of the Order Item"
+            />
+          </div>
         </div>
-        <div className="my-6 pt-0 text-base text-[#707070] md:m-0 md:w-[320px] md:pl-8">
+        <div className="my-6 pt-0 text-lg text-[#707070] md:m-0 md:w-[320px] md:pl-8 md:text-base">
           <div className="mb-2">
             {`${item.product?.display_id}™ ${item.product?.type}`}
           </div>
