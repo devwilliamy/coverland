@@ -11,8 +11,8 @@ const OrderList = ({ orders }: OrderListProps) => {
   return (
     <>
       <div className="pl-5 md:pl-2">
-        <h1 className="mt-4 text-2xl font-bold">My Orders</h1>
-        <p className="mb-4  text-base md:text-sm text-gray-500">
+        <h1 className="md:mt-10 mt-4 text-3xl font-bold">My Orders</h1>
+        <p className="mb-6  text-base text-gray-500">
           View and Manage orders
         </p>
       </div>

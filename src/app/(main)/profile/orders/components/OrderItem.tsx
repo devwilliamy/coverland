@@ -17,7 +17,7 @@ const OrderItem = ({
     <li key={item.id} className={`${marginClass}`}>
       <div className="justify-start md:flex">
         <div className="my-6 md:my-0">
-          <div className="bg-gray-100 p-[6.5px] w-[180px] md:w-[155px]">
+          <div className="bg-gray-100 p-[6.5px] w-[170px] md:w-[155px]">
             <Image
               className="w-full h-auto"
               src={item.product?.feature || ''}
