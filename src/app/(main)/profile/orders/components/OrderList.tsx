@@ -61,7 +61,7 @@ const OrderList = ({ orders }: OrderListProps) => {
                     {/* Provide aria-label for additional context */}
                     <div
                       className="order-link"
-                      aria-label={`View details for Order ${order.order_id}`}
+                      aria-label={`View details for Order ${order.id}`}
                     >
                       Check order details
                     </div>
