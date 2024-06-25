@@ -19,13 +19,14 @@ export default function Checkout() {
       ) : (
         <StripeElementWrapper>
           <>
-            {isMobile ? (
+            <MobileCheckout />
+            {/* {isMobile ? (
               <MobileCheckout />
             ) : (
               <>
                 <DesktopCheckout />
               </>
-            )}
+            )} */}
           </>
         </StripeElementWrapper>
       )}

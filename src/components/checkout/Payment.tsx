@@ -43,7 +43,11 @@ function isValidShippingAddress({ address }: StripeAddress) {
   );
 }
 
-export default function Payment() {
+export default function Payment({
+  handleChangeAccordion,
+}: {
+  handleChangeAccordion: () => {};
+}) {
   const stripe = useStripe();
   const elements = useElements();
   const router = useRouter();

@@ -42,7 +42,7 @@ export default function Shipping({
   };
 
   return (
-    <div className="px-4">
+    <div className="my-2 px-4">
       {isEditingAddress ? (
         <div className="min-h-[400px]">
           <AddressForm
@@ -51,7 +51,6 @@ export default function Shipping({
               updateShippingAddress(address, isBillingSameAsShipping)
             }
             setIsEditingAddress={setIsEditingAddress}
-            showEmail
           />
         </div>
       ) : (
