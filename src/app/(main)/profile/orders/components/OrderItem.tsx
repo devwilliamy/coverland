@@ -17,30 +17,30 @@ const OrderItem = ({
     <li key={item.id} className={`${marginClass}`}>
       <div className="justify-start md:flex">
         <div className="my-6 md:my-0">
-          <div className="bg-gray-100 p-[6.5px] w-[170px] md:w-[155px]">
+          <div className="bg-gray-100 p-[6.5px] w-[152px] md:w-[152px]">
             <Image
               className="w-full h-auto"
               src={item.product?.feature || ''}
-              width={155}
-              height={155}
+              width={152}
+              height={152}
               alt="Picture of the Order Item"
             />
           </div>
         </div>
-        <div className="my-6 pt-0 text-lg text-[#707070] md:m-0 md:w-[320px] md:pl-8 md:text-base">
-          <div className="mb-2">
+        <div className="my-6 pt-0 text-md text-[#707070] md:m-0 md:w-[320px] md:pl-8 md:text-base">
+          <div className="mb-1.5">
             {`${item.product?.display_id}™ ${item.product?.type}`}
           </div>
-          <div className="mb-2">
+          <div className="mb-1.5">
             Vehicle: {item.product?.make} {item.product?.model}{' '}
             {item.product?.year_generation} {item.product?.submodel1}
           </div>
-          <div className="mb-2">Color: {item.product?.display_color}</div>
+          <div className="mb-1.5">Color: {item.product?.display_color}</div>
           {version === 'short' ? (
-            <div className="mb-2">Qty: {item.quantity}</div>
+            <div className="mb-1.5">Qty: {item.quantity}</div>
           ) : (
             <>
-              <div className="mb-2">
+              <div className="mb-1.5">
                 Qty: {item.quantity} @ $
                 {formatMoneyAsNumber(item.price / item.quantity)}
               </div>

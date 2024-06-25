@@ -28,11 +28,11 @@ const OrderDetailPage = async ({ params }: OrderDetailProps) => {
 
   return (
     <>
-      <div className="py-10 md:py-14 max-w-[1000px] md:mx-auto">
+      <div className="py-10 md:py-14 max-w-[984px] md:mx-auto">
         <h1 className="mt-4 text-center text-3xl font-bold">Order Details</h1>
       </div>
-      <Card className="m-3 px-4 pb-6 md:m-1 md:mb-8 max-w-[1000px] md:mx-auto md:px-8 md:py-0">
-        <CardHeader className="text-lg md:text-base block px-0 py-7 font-bold">
+      <Card className="m-3 px-4 pb-6 md:m-1 md:mb-8 max-w-[984px] md:mx-auto md:px-8 md:py-0">
+        <CardHeader className="text-base block px-0 py-7 font-bold">
           Ordered on {order.payment_date} <span className="mx-2">|</span> Order
           #{order.id}
         </CardHeader>
@@ -43,7 +43,7 @@ const OrderDetailPage = async ({ params }: OrderDetailProps) => {
             ))}
           </ul>
         </div>
-        <div className="border-t md:mt-4 text-lg md:text-base">
+        <div className="border-t md:mt-4 text-base">
           <div className="justify-between md:m-4 md:mt-8 md:flex">
             <div className="mt-6 text-[#707070]">
               <div className="mb-2 font-bold text-black">Shipping Address</div>
