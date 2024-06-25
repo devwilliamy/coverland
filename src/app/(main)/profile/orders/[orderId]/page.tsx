@@ -29,9 +29,9 @@ const OrderDetailPage = async ({ params }: OrderDetailProps) => {
   return (
     <>
       <div className="py-10 md:py-14 max-w-[984px] md:mx-auto">
-        <h1 className="mt-4 text-center text-3xl font-bold">Order Details</h1>
+        <h1 className="mt-4 md:mt-0 text-center text-3xl font-bold">Order Details</h1>
       </div>
-      <Card className="m-4 px-5 py-8 md:m-1 md:mb-8 max-w-[984px] md:mx-auto md:px-8 md:py-0 rounded-[8px]">
+      <Card className="m-4 px-5 py-8 md:px-10 md:m-1 md:mb-8 max-w-[984px] md:mx-auto rounded-[8px]">
         <CardHeader className="p-0 pb-8 text-base block font-bold">
           Ordered on {order.payment_date} <span className="mx-2">|</span> Order
           #{order.id}
@@ -39,13 +39,13 @@ const OrderDetailPage = async ({ params }: OrderDetailProps) => {
         <div className="border-t">
           <ul className="py-2 md:pt-8 md:pb-0">
             {order.items?.map((item) => (
-              <OrderItem key={item.id} item={item} marginClass="md:mb-14" version="short"/>
+              <OrderItem key={item.id} item={item} marginClass="md:mb-10" version="short"/>
             ))}
           </ul>
         </div>
-        <div className="border-t md:mt-4 text-base leading-7">
-          <div className="justify-between md:m-4 md:mt-8 md:flex">
-            <div className="mt-8 text-[#707070]">
+        <div className="border-t text-base leading-7">
+          <div className="justify-between md:flex">
+            <div className="mt-8 md:mt-10 text-[#707070]">
               <div className="mb-1 font-bold text-black">Shipping Address</div>
               <div>{order.shipping_address_line_1}</div>
               <div>{order.shipping_address_line_2}</div>
@@ -59,7 +59,7 @@ const OrderDetailPage = async ({ params }: OrderDetailProps) => {
               <div className="font-bold text-black">Payment Method</div>
               <div>Pending</div>
             </div> */}
-            <div className="mt-6 md:m-4 md:mt-6 md:min-w-[210px]">
+            <div className="mt-8 md:mt-10 md:min-w-[223px]">
               <div className="mb-1 font-bold">Order Summary</div>
               <div className="mb-1 flex justify-between">
                 <div>Order Subtotal</div>
