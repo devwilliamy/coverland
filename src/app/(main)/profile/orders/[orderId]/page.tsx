@@ -28,22 +28,22 @@ const OrderDetailPage = async ({ params }: OrderDetailProps) => {
 
   return (
     <>
-      <div className="py-2 md:py-12 max-w-[1000px] md:mx-auto">
-        <h1 className="mt-4 text-center text-2xl font-bold">Order Details</h1>
+      <div className="py-8 md:py-14 max-w-[1000px] md:mx-auto">
+        <h1 className="mt-4 text-center text-3xl font-bold">Order Details</h1>
       </div>
       <Card className="m-3 px-4 pb-6 md:m-1 md:mb-8 max-w-[1000px] md:mx-auto md:px-8 md:py-0">
-        <CardHeader className="text-lg block px-0 py-8 font-bold">
+        <CardHeader className="text-lg md:text-base block px-0 py-7 font-bold">
           Ordered on {order.payment_date} <span className="mx-2">|</span> Order
           #{order.id}
         </CardHeader>
         <div className="border-t">
           <ul className="py-2 md:pt-8 md:pb-0">
             {order.items?.map((item) => (
-              <OrderItem key={item.id} item={item} marginClass="md:mb-14" />
+              <OrderItem key={item.id} item={item} marginClass="md:mb-14" version="short"/>
             ))}
           </ul>
         </div>
-        <div className="border-t mt-4">
+        <div className="border-t md:mt-4">
           <div className="justify-between md:m-4 md:mt-8 md:flex">
             <div className="mt-6 text-[#707070]">
               <div className="mb-2 font-bold text-black">Shipping Address</div>

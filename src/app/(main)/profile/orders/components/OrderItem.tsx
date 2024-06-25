@@ -5,9 +5,14 @@ import { formatMoneyAsNumber } from '@/lib/utils/money';
 type OrderItemProps = {
   item: TOrderItem;
   marginClass?: string;
+  version: 'short' | 'regular'; 
 };
 
-const OrderItem = ({ item, marginClass="md:mb-2" }: OrderItemProps) => {
+const OrderItem = ({
+  item,
+  marginClass = 'md:mb-2',
+  version = 'regular',
+}: OrderItemProps) => {
   return (
     <li key={item.id} className={`${marginClass}`}>
       <div className="justify-start md:flex">
@@ -29,10 +34,17 @@ const OrderItem = ({ item, marginClass="md:mb-2" }: OrderItemProps) => {
             {item.product?.year_generation} {item.product?.submodel1}
           </div>
           <div className="mb-2">Color: {item.product?.display_color}</div>
-          <div className="mb-2">
-            Qty: {item.quantity} @ ${formatMoneyAsNumber(item.price / item.quantity)}
-          </div>
-          <div>${item.price}</div>
+          {version === 'short' ? (
+            <div className="mb-2">Qty: {item.quantity}</div>
+          ) : (
+            <>
+              <div className="mb-2">
+                Qty: {item.quantity} @ $
+                {formatMoneyAsNumber(item.price / item.quantity)}
+              </div>
+              <div>${item.price}</div>
+            </>
+          )}
         </div>
       </div>
     </li>
