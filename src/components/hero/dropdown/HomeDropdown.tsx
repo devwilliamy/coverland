@@ -2,6 +2,7 @@ import React, {
   ChangeEvent,
   Dispatch,
   KeyboardEventHandler,
+  MouseEventHandler,
   SetStateAction,
   useEffect,
   useState,
@@ -197,6 +198,7 @@ export default function HomeDropdown({
       ) {
         setIsFocused(false);
         setDropdownOpen(false);
+        setClickedLowerThan700(false);
         // set to true to keep dropdown open
         // setIsFocused(true);
         // setDropdownOpen(true);
@@ -244,7 +246,7 @@ export default function HomeDropdown({
     }
   };
 
-  const handleOnDropdownClicked = () => {
+  const handleOnDropdownClicked = (event: MouseEvent) => {
     if (!isDisabled) {
       setDropdownOpen(() => {
         setTimeout(() => {
@@ -252,6 +254,16 @@ export default function HomeDropdown({
           searchCont?.focus();
         }, 0);
         return true;
+      });
+      if (event.clientY > 590) {
+        setClickedLowerThan700(true);
+      } else {
+        setClickedLowerThan700(false);
+      }
+      console.log('[DESKTOP DROPDOWN CLICKED]: ', {
+        cY: event.clientY,
+        eY: event.pageY,
+        esY: event.screenY,
       });
     }
   };
@@ -287,6 +299,9 @@ export default function HomeDropdown({
   const capitalizeFirstLetter = (title: string) => {
     return title.replace(title.charAt(0), title.charAt(0).toUpperCase());
   };
+
+  const [clickedLowerThan700, setClickedLowerThan700] = useState(false);
+
   return (
     <div
       className={`relative flex min-h-[48px] w-full lg:h-[64px] lg:min-h-[64px]  ${dropdownOpen && !isMobile ? 'rounded-t-[8px] ' : 'rounded-[8px] '} ${!isDisabled ? ' bg-white outline outline-[1px] outline-black' : 'bg-gray-300/90'}`}
@@ -295,6 +310,7 @@ export default function HomeDropdown({
       <>
         {!isMobile && (
           <div
+            id={`${title}-dropdown`}
             tabIndex={0}
             onFocus={() => setIsFocused(true)}
             onBlur={handleOnDropdownOnBlur}
@@ -308,7 +324,6 @@ export default function HomeDropdown({
                   ? capitalizeFirstLetter(title)
                   : value}
                 {value === '' && isSubmodel1 && submodel1Text}
-                {value === '' && isSubmodel2 && submodel2Text}
               </p>
             </div>
 
@@ -322,7 +337,7 @@ export default function HomeDropdown({
             <>
               <section
                 id="dropdown-container"
-                className={`absolute top-0 z-[1] w-full cursor-pointer overflow-clip ${dropdownOpen && 'rounded-[8px] outline outline-[2px] outline-offset-0 outline-[#BE1B1B] '}  flex-col justify-start bg-white text-left`}
+                className={`absolute z-[1] w-full cursor-pointer overflow-clip ${dropdownOpen && 'rounded-[8px] outline outline-[2px] outline-offset-0 outline-[#BE1B1B] '}  flex-col justify-start bg-white text-left`}
               >
                 <div
                   className={`flex w-full items-center pl-[20px] ${prevSelected ? 'min-h-[48px] lg:h-[64px] lg:min-h-[64px] ' : 'min-h-[44px] lg:h-[58px] lg:min-h-[58px]'} bg-white  ${dropdownOpen ? 'rounded-t-[8px] ' : 'rounded-[8px] '} ${isDisabled ? ' bg-white' : 'bg-gray-300/90'}`}
@@ -343,7 +358,7 @@ export default function HomeDropdown({
                 </div>
                 <div
                   id="search-container"
-                  className={`flex w-full items-center gap-[6px] bg-[#D9D9D9] `}
+                  className={`order-first flex w-full items-center gap-[6px] bg-[#D9D9D9] `}
                 >
                   <Search className="pl-[5px] text-[#9C9C9C]" />
                   <input
@@ -375,7 +390,9 @@ export default function HomeDropdown({
                   <div className="px-[10px] py-2">No available items</div>
                 ) : (
                   <div className="relative z-[100] flex w-full flex-col justify-center">
-                    <div className="home-scrollbar flex max-h-[700px] w-full flex-col overflow-y-auto overflow-x-clip">
+                    <div
+                      className={`home-scrollbar flex ${clickedLowerThan700 ? 'max-h-[600px]' : 'max-h-[600px]'}  w-full flex-col overflow-y-auto overflow-x-clip`}
+                    >
                       {filteredItems && filteredItems.length > 0 ? (
                         <>
                           {filteredItems.map((item, i) => (
