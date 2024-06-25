@@ -57,7 +57,7 @@ const OrderList = ({ orders }: OrderListProps) => {
                   )}
                 </div>
                 <div className="my-6 mb-8 md:my-0 md:mt-4 max-w-[150px] md:ml-[185px]">
-                  <Link href={`/profile/orders/${order.order_id}`} className='underline text-[#0C87B8]'>
+                  <Link href={`/profile/orders/${order.id}`} className='underline text-[#0C87B8]'>
                     {/* Provide aria-label for additional context */}
                     <div
                       className="order-link"
