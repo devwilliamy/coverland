@@ -17,9 +17,9 @@ const OrderItem = ({
     <li key={item.id} className={`${marginClass}`}>
       <div className="justify-start md:flex">
         <div className="my-6 md:my-0">
-          <div className="bg-gray-100 p-[6.5px] w-[152px] md:w-[152px]">
+          <div className="w-[152px] bg-gray-100 p-[6.5px] md:w-[152px]">
             <Image
-              className="w-full h-auto"
+              className="h-auto w-full"
               src={item.product?.feature || ''}
               width={152}
               height={152}
@@ -27,7 +27,7 @@ const OrderItem = ({
             />
           </div>
         </div>
-        <div className="my-6 pt-0 text-md text-[#707070] md:m-0 md:w-[320px] md:pl-8 md:text-base">
+        <div className="text-md my-6 pt-0 text-[#707070] md:m-0 md:w-[320px] md:pl-8 md:text-base">
           <div className="mb-1.5">
             {`${item.product?.display_id}™ ${item.product?.type}`}
           </div>

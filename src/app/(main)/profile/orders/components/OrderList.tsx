@@ -10,14 +10,16 @@ type OrderListProps = {
 const OrderList = ({ orders }: OrderListProps) => {
   return (
     <>
-      <div className="pl-5 md:pl-2 max-w-[984px] md:mx-auto">
-        <h1 className="md:mt-10 mt-4 text-2xl md:text-3xl font-bold">My Orders</h1>
-        <p className="pt-1 mb-5 text-sm md:text-base text-gray-500">
+      <div className="max-w-[984px] pl-5 md:mx-auto md:pl-2">
+        <h1 className="mt-4 text-2xl font-bold md:mt-10 md:text-3xl">
+          My Orders
+        </h1>
+        <p className="mb-5 pt-1 text-sm text-gray-500 md:text-base">
           View and manage orders
         </p>
       </div>
-      <Card className="m-4 px-5 pt-8 md:px-10 md:m-1 md:my-4 rounded-[8px] max-w-[984px] md:mx-auto">
-        <CardHeader className="p-0 pb-3 text-xl md:text-xl md:pb-6 font-bold">
+      <Card className="m-4 max-w-[984px] rounded-[8px] px-5 pt-8 md:m-1 md:mx-auto md:my-4 md:px-10">
+        <CardHeader className="p-0 pb-3 text-xl font-bold md:pb-6 md:text-xl">
           Recent Orders
         </CardHeader>
         {orders.length === 0 ? (
@@ -28,16 +30,16 @@ const OrderList = ({ orders }: OrderListProps) => {
           orders.map((order) => (
             <div
               key={order.id}
-              className="justify-between border-t md:py-10 md:pt-12 md:flex"
+              className="justify-between border-t md:flex md:py-10 md:pt-12"
             >
-              <div className="my-5 md:my-0 md:w-2/5 text-base">
-                <div className="justify-left flex gap-4 md:gap-2 mb-1">
+              <div className="my-5 text-base md:my-0 md:w-2/5">
+                <div className="justify-left mb-1 flex gap-4 md:gap-2">
                   <span className="min-w-[110px] font-normal text-[#707070]">
                     Order Number
                   </span>
                   <span className="font-semibold">#{order.id}</span>
                 </div>
-                <div className="justify-left flex gap-4 md:gap-2 mb-1">
+                <div className="justify-left mb-1 flex gap-4 md:gap-2">
                   <span className="min-w-[110px] font-normal text-[#707070]">
                     Order Date
                   </span>
@@ -53,11 +55,14 @@ const OrderList = ({ orders }: OrderListProps) => {
               <ul className="">
                 <div>
                   {order.items?.[0] && (
-                    <OrderItem key={order.items[0].id} item={order.items[0]}/>
+                    <OrderItem key={order.items[0].id} item={order.items[0]} />
                   )}
                 </div>
-                <div className="my-6 mb-8 md:my-0 md:mt-4 max-w-[165px] md:ml-[187px] text-base">
-                  <Link href={`/profile/orders/${order.id}`} className='underline text-[#0C87B8]'>
+                <div className="my-6 mb-8 max-w-[165px] text-base md:my-0 md:ml-[187px] md:mt-4">
+                  <Link
+                    href={`/profile/orders/${order.id}`}
+                    className="text-[#0C87B8] underline"
+                  >
                     {/* Provide aria-label for additional context */}
                     <div
                       className="order-link"
