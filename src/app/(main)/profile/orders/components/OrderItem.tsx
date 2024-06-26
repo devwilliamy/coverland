@@ -29,7 +29,7 @@ const OrderItem = ({
         </div>
         <div className="text-md my-6 pt-0 text-[#707070] md:m-0 md:w-[320px] md:pl-8 md:text-base">
           <div className="mb-1.5">
-            {`${item.product?.display_id}™ ${item.product?.type}`}
+            {item.product?.type === 'Car Covers' ? `${item.product?.display_id}™ Custom ${item.product?.type}`: `${item.product?.display_id}™ ${item.product?.type}`}
           </div>
           <div className="mb-1.5">
             Vehicle: {item.product?.make} {item.product?.model}{' '}
