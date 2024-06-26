@@ -249,7 +249,7 @@ const testData = {
     test_dynamic_template_data
 }
 
-const generateSend(data): MailDataRequired => {
+const generateSendGridApiPayload(data): MailDataRequired => {
     {
         from: { email: sgFromEmail },
         template_id: sgShippingConfirmationTemplateId,   
