@@ -51,7 +51,7 @@ export default function LinkBreadcrumbs() {
               <p> </p>
               <a
                 href={getUrlFromBreadcrumbs(index)}
-                className={`'uppercase' hover:underline`}
+                className={`hover:underline`}
               >
                 {/* Replacing hyphens with spaces (except for year_generation) */}
 
