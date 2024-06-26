@@ -51,24 +51,44 @@ type DynamicTemplateData = {
   };
 
 const generateDynamicTemplateDataFromUserOrder = (order: TUserOrder): DynamicTemplateData => {
-    const {payment_date, items} = order;
+    const {payment_date, updated_at, shipping_status, shipping_previous_status, shipping_status_last_updated, items} = order;
+
+    const main_data = orders.map(({
+        order_id,
+        payment_date,
+        updated_at,
+        shipping_status,
+        shipping_previous_status,
+        shipping_status_last_updated,
+        customer_name,
+        shipping_tracking_number,
+      }) => ({
+        id: order_id,
+        ordered_on: payment_date,
+        shipped_on: shipping_status_last_updated,
+        // expected_delivery_on: myDeliveryFunction(payment_date), // need to add a function to convert order date into estimated delivery date
+        tracking_number: shipping_tracking_number,
+        // tracking_url: '',
+        customer_name,
+        // order_detail_page: `/order/${id}` // Example URL to order detail page
+      }));
 
     const shipping_info = order.map(({
         customer_name, 
         shipping_address_line_1,
         shipping_address_line_2, 
-        shipping_address_city, 
-        shipping_address_state, 
-        shipping_address_country, 
-        shipping_address_postal_code, 
+        shipping_address_city,
+        shipping_address_state,
+        shipping_address_country,
+        shipping_address_postal_code,
     }) => ({
-        full_name: customer_name, 
-        address_line1: shipping_address_line_1, 
-        address_line2: shipping_address_line_2, 
-        city: shipping_address_city, 
-        state: shipping_address_state, 
-        country: shipping_address_country, 
-        postal_code: shipping_address_postal_code, 
+        full_name: customer_name,
+        address_line1: shipping_address_line_1,
+        address_line2: shipping_address_line_2,
+        city: shipping_address_city,
+        state: shipping_address_state,
+        country: shipping_address_country,
+        postal_code: shipping_address_postal_code,
     }));
 
     const combinedShippingInfo: ShippingInfo = shipping_info.map(info => ({
@@ -105,7 +125,7 @@ const generateDynamicTemplateDataFromUserOrder = (order: TUserOrder): DynamicTem
       }));
 
     return {
-        ordered_on: payment_date,
+        ...main_data,
         order_items,
         shipping_info: combinedShippingInfo,
     }
