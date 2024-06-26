@@ -11,7 +11,7 @@ type OrderDetailProps = {
 const OrderDetailPage = async ({ params }: OrderDetailProps) => {
   const order: TUserOrder | null = await fetchUserOrderById(params.orderId); // option to pass in a number of orders to be retrieved
 
-  // if there is no found under the logged in user, it will say Order not found - might want to change the UX here
+  // if there is no user, it will say Order not found - might want to change the UX here evemtually
   // if (!user) {
   //   return <div className="m-2">Order not found</div>;
   // }
@@ -56,7 +56,7 @@ const OrderDetailPage = async ({ params }: OrderDetailProps) => {
               <div>{order.shipping_address_line_1}</div>
               <div>{order.shipping_address_line_2}</div>
               <div>
-                {order.shipping_address_city} {order.shipping_address_state}{' '}
+                {order.shipping_address_city}, {order.shipping_address_state}{' '}
                 {order.shipping_address_postal_code}
               </div>
               <div>{getFullCountryName(order.shipping_address_country)}</div>
