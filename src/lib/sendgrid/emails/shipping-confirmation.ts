@@ -7,6 +7,7 @@ import { formatMoneyAsNumber } from '@/lib/utils/money';
 // import { TUserOrder, TOrderItem, TOrderItemProduct, fetchUserOrderById } from '@/lib/db/profile/ordersHistory';
 import { SHIPPING_METHOD } from '@/lib/constants';
 import { determineDeliveryByDate } from '@/lib/utils/deliveryDateUtils';
+import { generateTrackingUrl } from '@/lib/utils/generateTrackingUrl';
 
 
 const shippingConstants = {
@@ -63,6 +64,7 @@ const generateDynamicTemplateDataFromUserOrder = (order: TUserOrder): DynamicTem
         order_id,
         payment_date,
         updated_at,
+        shipping_carrier,
         shipping_status,
         shipping_previous_status,
         shipping_status_last_updated,
@@ -72,9 +74,10 @@ const generateDynamicTemplateDataFromUserOrder = (order: TUserOrder): DynamicTem
         id: order_id,
         ordered_on: payment_date,
         shipped_on: shipping_status_last_updated,
+        shipping_status,
         // expected_delivery_on: myDeliveryFunction(payment_date), // need to add a function to convert order date into estimated delivery date
         tracking_number: shipping_tracking_number,
-        // tracking_url: '',
+        tracking_url: generateTrackingUrl(shipping_tracking_number, shipping_carrier),
         customer_name,
         // order_detail_page: `/order/${id}` // Example URL to order detail page
       }));
