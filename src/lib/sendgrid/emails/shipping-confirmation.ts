@@ -23,7 +23,7 @@ type DynamicTemplateData = {
     shipping_info: ShippingInfo;
   };
 
-  type MainShippingData = {
+  type MainShippingEmailData = {
     id: string;
     ordered_on: string;
     shipped_on: string; //check for order.shipping_status == "shipped" and order.previous_status == "unstarted"
