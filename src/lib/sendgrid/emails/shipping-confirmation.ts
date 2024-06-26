@@ -16,6 +16,14 @@ const shippingConstants = {
   };
 
 type DynamicTemplateData = {
+    main_data: MainShippingData;
+    order_detail_page: string // url to order detail page (order.id)
+    order_items: OrderItem[];
+    shipping_info: ShippingInfo;
+  };
+
+  type MainShippingData = {
+    id: string;
     ordered_on: string;
     shipped_on: string; //check for order.shipping_status == "shipped" and order.previous_status == "unstarted"
     expected_delivery_on: string;
@@ -23,9 +31,7 @@ type DynamicTemplateData = {
     tracking_url: string;
     customer_name: string;
     order_detail_page: string // url to order detail page (order.id)
-    order_items: OrderItem[];
-    shipping_info: ShippingInfo;
-  };
+  }
 
   type OrderItem = {
     name: string;
@@ -53,7 +59,7 @@ type DynamicTemplateData = {
 const generateDynamicTemplateDataFromUserOrder = (order: TUserOrder): DynamicTemplateData => {
     const {payment_date, updated_at, shipping_status, shipping_previous_status, shipping_status_last_updated, items} = order;
 
-    const main_data = orders.map(({
+    const main_data = order.map(({
         order_id,
         payment_date,
         updated_at,
@@ -125,7 +131,7 @@ const generateDynamicTemplateDataFromUserOrder = (order: TUserOrder): DynamicTem
       }));
 
     return {
-        ...main_data,
+        main_data,
         order_items,
         shipping_info: combinedShippingInfo,
     }
@@ -136,7 +142,7 @@ const generateShippingConfirmationEmail(data): MailDataRequired => {
         from: { email: sgFromEmail },
         template_id: sgShippingConfirmationTemplateId,   
         personalizations: [
-            to: [{email: "customer@gmail.com"}],
+            to: [{email: "customer@gmail.com"}], // data.to
             dynamic_template_data: data.dynamic_template_data,
         ]
     },
