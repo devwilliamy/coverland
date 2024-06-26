@@ -1,23 +1,25 @@
 // app/order/[order_id]/page.tsx
-import { TUserOrder, fetchAllUserOrders } from '@/lib/db/profile/ordersHistory';
+import { TUserOrder, fetchUserOrderById } from '@/lib/db/profile/ordersHistory';
 import OrderItem from '../components/OrderItem';
 import { Card, CardHeader } from '@/components/ui/card';
 import { getFullCountryName } from '@/lib/db/profile/utils/shipping';
 
 type OrderDetailProps = {
-  params: { orderId: string };
+  params: { orderId: number };
 };
 
 const OrderDetailPage = async ({ params }: OrderDetailProps) => {
-  const orders: TUserOrder[] | null = await fetchAllUserOrders(); // option to pass in a number of orders to be retrieved
+  const order: TUserOrder | null = await fetchUserOrderById(params.orderId); // option to pass in a number of orders to be retrieved
 
-  if (!orders) {
-    return <div className="m-2">Order not found</div>;
-  }
+  // if there is no found under the logged in user, it will say Order not found - might want to change the UX here
+  // if (!user) {
+  //   return <div className="m-2">Order not found</div>;
+  // }
 
-  const order: TUserOrder | undefined = orders.find(
-    (order) => order.id.toString() === params.orderId
-  );
+  // there may be a small optimization where we can find the order by id through the fetched Orders list if it's already cached
+  // const order: TUserOrder | undefined = orders.find(
+  //   (order) => order.id.toString() === params.orderId
+  // );
 
   if (!order) {
     return <div className="m-2">Order not found</div>;
