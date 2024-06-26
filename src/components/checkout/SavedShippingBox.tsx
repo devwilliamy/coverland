@@ -15,7 +15,7 @@ export default function SavedShippingBox({
   return (
     <SummaryBox handleClick={handleClick}>
       <div>{shippingOptions[selectedIndex].shippingText}</div>
-      <div>{shippingOptions[selectedIndex].fedexText}</div>
+      <div>{shippingOptions[selectedIndex].shippingEstimateText}</div>
     </SummaryBox>
   );
 }

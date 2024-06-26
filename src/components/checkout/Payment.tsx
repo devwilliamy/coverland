@@ -26,6 +26,15 @@ export default function Payment({
   const [isLoading, setIsLoading] = useState(false);
   const [isEditingAddress, setIsEditingAddress] = useState(false);
   const [message, setMessage] = useState<string>('');
+  const [paypalSuccessMessage, setPaypalSuccessMessage] = useState<string>('');
+  const { orderNumber, paymentIntentId } = useCheckoutContext();
+  const { billingAddress, shippingAddress, customerInfo, shipping } =
+    useCheckoutContext();
+  const shippingInfo = {
+    shipping_method: SHIPPING_METHOD,
+    shipping_date: determineDeliveryByDate('EEE, LLL dd'),
+    delivery_fee: shipping,
+  };
   const {
     billingAddress,
     shippingAddress,
@@ -267,6 +276,17 @@ export default function Payment({
         )}
 
       {/* {message && (
+        </div>
+      ) : (
+        <>
+          <PayPalButtonSection
+            setPaypalSuccessMessage={setPaypalSuccessMessage} 
+            setMessage={setMessage}
+          />
+          <div className="text-md font-bold text-green-700">{paypalSuccessMessage}</div>
+        </>
+      )}
+      {message && (
         <div className="font-base flex items-center justify-center text-lg text-red-500">
           Error: {message}
         </div>

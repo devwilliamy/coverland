@@ -23,9 +23,7 @@ export default function ShippingSelection() {
           className={`mb-2 cursor-pointer rounded-xl px-6 py-4 ${selectedIndex === i ? 'border border-[#1A1A1A]' : 'border border-[#707070]'}`}
         >
           <div>{shippingOption?.shippingText}</div>
-          <div className="text-[16px] font-[400] leading-[27px] text-[#767676]">
-            {shippingOption?.fedexText}
-          </div>
+          <div>{shippingOption?.shippingEstimateText}</div>
         </div>
       ))}
     </>
