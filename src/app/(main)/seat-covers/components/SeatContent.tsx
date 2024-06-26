@@ -132,7 +132,7 @@ export default function SeatContent({
             </b>
           </p>
         )}
-        <KlarnaIcon className="flex max-h-[30px] w-fit" />
+        <KlarnaIcon className="flex max-h-[30px] w-fit max-w-[61px]" />
         {/* <Info className="h-[17px] w-[17px] text-[#767676]" /> */}
       </div>
 
