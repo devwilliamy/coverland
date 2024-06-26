@@ -666,17 +666,17 @@ export default function MobileCheckout() {
             </AccordionItem>
             <AccordionItem value="orderReview" id="orderReview">
               <AccordionTrigger
-                onClick={(e) => {
-                  if (
-                    !isAddressComplete ||
-                    isEditingAddress ||
-                    !isReadyToPay ||
-                    !isReadyToShip
-                  ) {
-                    e.preventDefault();
-                  }
-                  handleSelectTab('orderReview');
-                }}
+                // onClick={(e) => {
+                //   if (
+                //     !isAddressComplete ||
+                //     isEditingAddress ||
+                //     !isReadyToPay ||
+                //     !isReadyToShip
+                //   ) {
+                //     e.preventDefault();
+                //   }
+                //   handleSelectTab('orderReview');
+                // }}
                 // className={`${(!isAddressComplete || isEditingAddress || !isReadyToPay || !isReadyToShip) && 'disabled cursor-default text-[grey] hover:no-underline'} my-4 px-4 text-xl font-medium`}
                 className={accordionTriggerStyle}
               >

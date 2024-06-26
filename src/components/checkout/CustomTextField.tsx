@@ -16,12 +16,14 @@ export const CustomTextField = ({
   placeholder,
   shippingState,
   setShippingState,
+  required,
 }: {
   label: string;
   type: CustomFieldTypes;
   placeholder: string;
   shippingState: Record<string, ShippingStateType>;
   setShippingState: Dispatch<SetStateAction<Record<string, ShippingStateType>>>;
+  required: boolean;
 }) => {
   const validateEmail = (email: string) => {
     const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -251,6 +253,7 @@ export const CustomTextField = ({
           placeholder={placeholder}
           error={!!shippingState[type].error}
           helperText={shippingState[type].message}
+          required={required}
           sx={{
             margin: 0,
             '.MuiInputBase-root': {
@@ -276,6 +279,7 @@ export const CustomTextField = ({
           placeholder={placeholder}
           error={!!shippingState[type].error}
           helperText={shippingState[type].message}
+          required={required}
           sx={{
             margin: 0,
             '.MuiInputBase-root': {
@@ -308,6 +312,7 @@ export const CustomTextField = ({
           placeholder={placeholder}
           error={!!shippingState[type].error}
           helperText={shippingState[type].message}
+          required={required}
           sx={{
             margin: 0,
             '.MuiInputBase-root': {
@@ -321,7 +326,7 @@ export const CustomTextField = ({
       )}
       {type === 'state' && (
         <FormControl>
-          <InputLabel id="demo-simple-select-helper-label">State</InputLabel>
+          <InputLabel id="demo-simple-select-helper-label">State *</InputLabel>
 
           <Select
             // labelId="demo-simple-select-helper-label"
@@ -340,6 +345,7 @@ export const CustomTextField = ({
                 },
               }));
             }}
+            required={required}
             sx={{
               margin: 0,
               '.MuiInputBase-root': {

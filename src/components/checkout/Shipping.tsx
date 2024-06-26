@@ -17,16 +17,20 @@ export default function Shipping({
 }: ShippingProps) {
   const [isEditingAddress, setIsEditingAddress] = useState(true);
   const [isEditingShipping, setIsEditingShipping] = useState(true);
+  const [isSelectingPayment, setIsSelectingPayment] = useState(false);
 
   const {
     shippingAddress,
+    customerInfo,
     updateShippingAddress,
     isBillingSameAsShipping,
     toggleIsShippingAddressShown,
   } = useCheckoutContext();
+  const { line1, line2, city, state, postal_code } = shippingAddress.address;
 
   const handleEditButtonClick = () => {
     setIsEditingShipping(false);
+    setIsSelectingPayment(true);
     toggleIsShippingAddressShown(false);
     handleSelectTab('payment');
     handleChangeAccordion('payment');
@@ -38,12 +42,13 @@ export default function Shipping({
   };
   const handleEditShipping = () => {
     setIsEditingShipping(true);
+    setIsSelectingPayment(false);
     toggleIsShippingAddressShown(true);
   };
 
   return (
     <div className="my-2 px-4">
-      {isEditingAddress ? (
+      {isEditingAddress && !isSelectingPayment ? (
         <div className="min-h-[400px]">
           <AddressForm
             addressData={shippingAddress}
@@ -51,11 +56,25 @@ export default function Shipping({
               updateShippingAddress(address, isBillingSameAsShipping)
             }
             setIsEditingAddress={setIsEditingAddress}
+            handleChangeAccordion={handleChangeAccordion}
+            handleSelectTab={handleSelectTab}
           />
         </div>
       ) : (
         <div className="mb-4">
           <SavedAddressBox handleClick={handleEditAddress} />
+        </div>
+      )}
+      {isSelectingPayment && (
+        <div>
+          <div>{shippingAddress.name}</div>
+          <div>{line1}</div>
+          <div>{line2}</div>
+          <div>
+            {city} {state} {postal_code}
+          </div>
+          <div>{customerInfo.email}</div>
+          <div>{customerInfo.phoneNumber}</div>
         </div>
       )}
       {shippingAddress && !isEditingAddress && (

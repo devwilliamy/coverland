@@ -2,7 +2,7 @@ import { ChangeEventHandler, SyntheticEvent, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import OverlappingLabel from '../ui/overlapping-label';
 import { Button } from '../ui/button';
-import { useCheckoutContext } from '@/contexts/CheckoutContext';
+import { CustomerInfo, useCheckoutContext } from '@/contexts/CheckoutContext';
 import { StripeAddress } from '@/lib/types/checkout';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
@@ -41,6 +41,8 @@ type AddressFormProps = {
   updateAddress: (address: StripeAddress) => void;
   setIsEditingAddress: (isEditing: boolean) => void;
   showEmail?: boolean;
+  handleChangeAccordion: (accordionTitle: string) => void;
+  handleSelectTab: (id: string) => void;
 };
 
 type AddressComponent = {
@@ -95,6 +97,8 @@ export default function AddressForm({
   updateAddress,
   setIsEditingAddress,
   showEmail,
+  handleChangeAccordion,
+  handleSelectTab,
 }: AddressFormProps) {
   const {
     customerInfo,
@@ -156,24 +160,109 @@ export default function AddressForm({
 
   // const emailValue = watch('email');
 
+  // TODO: Extract this to checkout context or its own context
+  const [shippingState, setShippingState] = useState<
+    Record<string, ShippingStateType>
+  >({
+    email: { value: '', visited: false, message: '', error: null },
+    firstName: { value: '', visited: false, message: '', error: null },
+    lastName: { value: '', visited: false, message: '', error: null },
+    line1: { value: '', visited: false, message: '', error: null },
+    line2: { value: '', visited: false, message: '', error: null },
+    city: { value: '', visited: false, message: '', error: null },
+    state: { value: '', visited: false, message: '', error: null },
+    postal_code: { value: '', visited: false, message: '', error: null },
+    phoneNumber: { value: '', visited: false, message: '', error: null },
+  });
+
+  useEffect(() => {
+    // Populate the form fields when shippingAddress changes
+    if (addressData) {
+      setShippingState({
+        email: {
+          value: customerInfo.email,
+          visited: false,
+          message: '',
+          error: false,
+        },
+        firstName: {
+          value: addressData.firstName as string,
+          visited: false,
+          message: '',
+          error: false,
+        },
+        lastName: {
+          value: addressData.lastName as string,
+          visited: false,
+          message: '',
+          error: false,
+        },
+        line1: {
+          value: addressData.address.line1 as string,
+          visited: false,
+          message: '',
+          error: false,
+        },
+        line2: {
+          value: addressData.address.line2 as string,
+          visited: false,
+          message: '',
+          error: false,
+        },
+        city: {
+          value: addressData.address.city as string,
+          visited: false,
+          message: '',
+          error: false,
+        },
+        state: {
+          value: addressData.address.state as string,
+          visited: false,
+          message: '',
+          error: false,
+        },
+        postal_code: {
+          value: addressData.address.postal_code as string,
+          visited: false,
+          message: '',
+          error: false,
+        },
+        phoneNumber: {
+          value: customerInfo.phoneNumber,
+          visited: false,
+          message: '',
+          error: false,
+        },
+      });
+      // setValue('email', customerInfo.email || '');
+      // setValue('firstName', addressData.firstName || '');
+      // setValue('lastName', addressData.lastName || '');
+      // setValue('line1', addressData.address.line1 || '');
+      // setValue('line2', addressData.address.line2 || '');
+      // setValue('city', addressData.address.city || '');
+      // setValue('state', addressData.address.state || '');
+      // setValue('postal_code', addressData.address.postal_code || '');
+      // setValue('phoneNumber', customerInfo.phoneNumber || '');
+    }
+  }, [addressData, customerInfo]);
+
   // useEffect(() => {
-  //   // Populate the form fields when shippingAddress changes
-  //   if (addressData) {
-  //     setValue('email', customerInfo.email || '');
-  //     setValue('firstName', addressData.firstName || '');
-  //     setValue('lastName', addressData.lastName || '');
-  //     setValue('line1', addressData.address.line1 || '');
-  //     setValue('line2', addressData.address.line2 || '');
-  //     setValue('city', addressData.address.city || '');
-  //     setValue('state', addressData.address.state || '');
-  //     setValue('postal_code', addressData.address.postal_code || '');
-  //     setValue('phoneNumber', customerInfo.phoneNumber || '');
+  //   if (process.env.NEXT_PUBLIC_IS_PREVIEW === 'PREVIEW') {
+  //     setValue('email', 'george.icarcover@gmail.com' || '');
+  //     setValue('firstName', 'George' || '');
+  //     setValue('lastName', 'Anumba' || '');
+  //     setValue('line1', '1231 S Hill St' || '');
+  //     setValue('line2', 'P.O. Box 424' || '');
+  //     setValue('city', 'Los Angeles' || '');
+  //     setValue('state', 'CA' || '');
+  //     setValue('postal_code', '90015' || '');
+  //     setValue('phoneNumber', '+1 424 424 4242' || '');
+  //     setAddress('1231 S Hill St, Los Angeles, CA 90015, USA');
   //   }
-  // }, [addressData, customerInfo, setValue]);
+  // }, []);
   // ---------------------------------------------------------------------------------------------------
 
   // --------- V ----------- V ---------- Used for Autocomplete --------- V ----------- V ----------
-
   // type AutocompleteData = {
   //   placePrediction: any;
   // };
@@ -183,21 +272,6 @@ export default function AddressForm({
   // const [suggestions, setSuggestions] = useState<AutocompleteData[]>([]);
   // const [loading, setLoading] = useState(false);
   // const [addressOpen, setAddressOpen] = useState(false);
-  // useEffect(() => {
-  //   //   if (process.env.NEXT_PUBLIC_IS_PREVIEW === 'PREVIEW') {
-  //   //     setValue('email', 'george.icarcover@gmail.com' || '');
-  //   //     setValue('firstName', 'George' || '');
-  //   //     setValue('lastName', 'Anumba' || '');
-  //   //     setValue('line1', '1231 S Hill St' || '');
-  //   //     setValue('line2', 'P.O. Box 424' || '');
-  //   //     setValue('city', 'Los Angeles' || '');
-  //   //     setValue('state', 'CA' || '');
-  //   //     setValue('postal_code', '90015' || '');
-  //   //     setValue('phoneNumber', '+1 424 424 4242' || '');
-  //   //     setAddress('1231 S Hill St, Los Angeles, CA 90015, USA');
-  //   //   }
-  //   determineDisabled();
-  // }, []);
 
   // const autocompleteObj: Record<string, FormString> = {
   //   locality: 'city',
@@ -322,21 +396,6 @@ export default function AddressForm({
     return re.test(String(email).toLowerCase());
   };
 
-  // TODO: Extract this to checkout context or its own context
-  const [shippingState, setShippingState] = useState<
-    Record<string, ShippingStateType>
-  >({
-    email: { value: '', visited: false, message: '', error: null },
-    firstName: { value: '', visited: false, message: '', error: null },
-    lastName: { value: '', visited: false, message: '', error: null },
-    line1: { value: '', visited: false, message: '', error: null },
-    line2: { value: '', visited: false, message: '', error: null },
-    city: { value: '', visited: false, message: '', error: null },
-    state: { value: '', visited: false, message: '', error: null },
-    postal_code: { value: '', visited: false, message: '', error: null },
-    phoneNumber: { value: '', visited: false, message: '', error: null },
-  });
-
   const checkErrors = () => {
     for (const key in shippingState) {
       if (shippingState[key].error || shippingState[key].error === null) {
@@ -350,6 +409,9 @@ export default function AddressForm({
   return (
     <form
       // onSubmit={onSubmit}
+      onSubmit={(e) => {
+        e.preventDefault();
+      }}
       className="flex flex-col gap-[29.5px]"
     >
       {/* Previous Shipping Checkout Form  */}
@@ -436,12 +498,14 @@ export default function AddressForm({
         label="First Name"
         type="firstName"
         placeholder="First Name"
+        required
         shippingState={shippingState}
         setShippingState={setShippingState}
       />
       <CustomTextField
         label="Last Name"
         type="lastName"
+        required
         placeholder="Last Name"
         shippingState={shippingState}
         setShippingState={setShippingState}
@@ -449,6 +513,7 @@ export default function AddressForm({
       <CustomTextField
         label="Address"
         type="line1"
+        required
         placeholder="Start typing address"
         shippingState={shippingState}
         setShippingState={setShippingState}
@@ -456,6 +521,7 @@ export default function AddressForm({
       <CustomTextField
         label="Company, C/O, Apt, Suite, Unit"
         type="line2"
+        required={false}
         placeholder="Add Company, C/O, Apt, Suite, Unit"
         shippingState={shippingState}
         setShippingState={setShippingState}
@@ -463,6 +529,7 @@ export default function AddressForm({
       <CustomTextField
         label="City"
         type="city"
+        required
         placeholder="City"
         shippingState={shippingState}
         setShippingState={setShippingState}
@@ -470,6 +537,7 @@ export default function AddressForm({
       <CustomTextField
         label="State"
         type="state"
+        required
         placeholder="State"
         shippingState={shippingState}
         setShippingState={setShippingState}
@@ -477,6 +545,7 @@ export default function AddressForm({
       <CustomTextField
         label="ZIP"
         type="postal_code"
+        required
         placeholder="ZIP"
         shippingState={shippingState}
         setShippingState={setShippingState}
@@ -484,6 +553,7 @@ export default function AddressForm({
       <CustomTextField
         label="Email"
         type="email"
+        required
         placeholder="Email"
         shippingState={shippingState}
         setShippingState={setShippingState}
@@ -491,6 +561,7 @@ export default function AddressForm({
       <CustomTextField
         label="Phone Number"
         type="phoneNumber"
+        required
         placeholder="Phone Number"
         shippingState={shippingState}
         setShippingState={setShippingState}
@@ -498,7 +569,42 @@ export default function AddressForm({
       <Button
         type="submit"
         disabled={checkErrors()}
-        className={`h-[48px] w-full max-w-[390px] cursor-pointer rounded-lg bg-black text-base font-bold uppercase text-white lg:h-[63px] lg:text-xl`}
+        onClick={(e) => {
+          e.preventDefault();
+          console.log(shippingState);
+
+          const incStripeAddress = {
+            firstName: shippingState.firstName.value,
+            lastName: shippingState.lastName.value,
+            name:
+              shippingState.firstName.value +
+              ' ' +
+              shippingState.lastName.value,
+            phone: shippingState.phoneNumber.value,
+            address: {
+              city: shippingState.city.value,
+              line1: shippingState.line1.value,
+              line2: shippingState.line2.value,
+              postal_code: shippingState.postal_code.value,
+              state: shippingState.state.value,
+              country: 'US',
+            },
+          };
+
+          const incCustomerInfo = {
+            email: shippingState.email.value,
+            phoneNumber: shippingState.phoneNumber.value,
+          } as CustomerInfo;
+
+          console.log({ incStripeAddress });
+
+          updateAddress(incStripeAddress as StripeAddress);
+          updateCustomerInfo(incCustomerInfo);
+          setIsEditingAddress(false);
+          // handleChangeAccordion('payment');
+          // handleSelectTab('payment');
+        }}
+        className={`h-[48px] w-full cursor-pointer self-center rounded-lg bg-black text-base font-bold uppercase text-white lg:h-[63px] lg:max-w-[390px] lg:text-xl`}
       >
         Save & Continue
       </Button>

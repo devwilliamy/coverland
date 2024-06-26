@@ -339,9 +339,9 @@ export default function Payment({
 
   return (
     <div className="px-4">
-      <div className="mb-10 lg:hidden">{/* <PromoCode /> */}</div>
-      <div className="pb-5">Select Payment Method</div>
-      <div className="pb-5">
+      <div>{/* <PromoCode /> */}</div>
+      <div>Select Payment Method</div>
+      <div>
         <PaymentSelector
           selectedPaymentMethod={paymentMethod}
           onPaymentMethodChange={setPaymentMethod}
@@ -369,12 +369,7 @@ export default function Payment({
       ) : (
         <div>You will be redirected to the PayPal site upon checkout.</div>
       )}
-      <div className="lg:hidden">
-        <OrderReview />
-      </div>
-      <div className="mt-3 lg:hidden">
-        <PriceBreakdown />
-      </div>
+
       {paymentMethod === 'creditCard' ? (
         <div className="lg:flex lg:items-center lg:justify-center">
           <div className="my-4 w-full justify-center md:flex md:flex-col lg:w-[350px]">
