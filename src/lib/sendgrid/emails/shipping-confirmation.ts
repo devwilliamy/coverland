@@ -11,7 +11,7 @@ import { determineDeliveryByDate } from '@/lib/utils/deliveryDateUtils';
 
 const shippingConstants = {
     shipping_method: SHIPPING_METHOD,
-    shipping_date: determineDeliveryByDate('EEE, LLL dd'), //this needs to be grabbed from somewhere (stored?)
+    shipping_date: determineDeliveryByDate('EEE, LLL dd'), //this needs to be grabbed from somewhere or pass in a starting date
     delivery_fee: shipping || 0,
   };
 
@@ -25,6 +25,15 @@ type DynamicTemplateData = {
     order_detail_page: string // url to order detail page (order.id)
     order_items: OrderItem[];
     shipping_info: ShippingInfo;
+  };
+
+  type OrderItem = {
+    name: string;
+    vehicle: string;
+    color: string;
+    quantity: number;
+    price: number;
+    img_url: string;
   };
 
   type ShippingInfo = {
@@ -41,21 +50,42 @@ type DynamicTemplateData = {
     free_delivery: boolean;
   };
 
-const generateDynamicTemplateData(order: TUserOrder) {
-    return order.map(({
-        
-    }) =>{
-        {
-            name: fullProductName || `${display_id}${trademark} ${type}`,
-            vehicle: `${make} ${model} ${year_generation} ${submodel1 || ''} ${submodel2 || ''} ${submodel3 || ''}`.trim(),
-            color: display_color,
-            quantity: quantity,
-            price: msrp,
-            total_price: formatMoneyAsNumber(msrp * quantity),
-            img_url: mainImage || feature || product.split(',')[0],
-            full_set: type === 'Seat Covers' ? isFullSet(display_set).toLowerCase() == "full" ? "Full Seat Set (Front + Rear Seat Set)": 'Front Seats (Driver +  Passenger seats)' : display_set,
-          }
-    })
+const generateDynamicTemplateDataFromUserOrder = (order: TUserOrder): DynamicTemplateData => {
+    const {payment_date, items} = order;
+
+    const order_items = items.map(({
+        fullProductName,
+        display_id,
+        type, 
+        make, 
+        model, 
+        year_generation, 
+        submodel1 = '', 
+        submodel2 = '', 
+        submodel3 = '', 
+        display_color, 
+        quantity, 
+        msrp, 
+        mainImage,
+        feature,
+        product,
+        display_set, 
+    }) => ({
+        name: fullProductName || `${display_id}${trademark} ${type}`,
+        vehicle: `${make} ${model} ${year_generation} ${submodel1 || ''} ${submodel2 || ''} ${submodel3 || ''}`.trim(),
+        color: display_color,
+        quantity: quantity,
+        price: msrp,
+        total_price: formatMoneyAsNumber(msrp * quantity),
+        img_url: mainImage || feature || product.split(',')[0],
+        full_set: type === 'Seat Covers' ? isFullSet(display_set).toLowerCase() == "full" ? "Full Seat Set (Front + Rear Seat Set)": 'Front Seats (Driver +  Passenger seats)' : display_set,
+      }));
+
+    return {
+        ordered_on: payment_date,
+        order_items,
+
+        }
 }
 
 const generateShippingConfirmationEmail(data): MailDataRequired => {
