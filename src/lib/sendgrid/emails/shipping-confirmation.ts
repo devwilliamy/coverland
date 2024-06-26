@@ -53,6 +53,28 @@ type DynamicTemplateData = {
 const generateDynamicTemplateDataFromUserOrder = (order: TUserOrder): DynamicTemplateData => {
     const {payment_date, items} = order;
 
+    const shipping_info = order.map(({
+        customer_name, 
+        shipping_address_line_1, 
+        shipping_address_line_2, 
+        shipping_address_city, 
+        shipping_address_state, 
+        shipping_address_country, 
+        shipping_address_postal_code, 
+    }) => ({
+        full_name: customer_name, 
+        address_line1: shipping_address_line_1, 
+        address_line2: shipping_address_line_2, 
+        city: shipping_address_city, 
+        state: shipping_address_state, 
+        country: shipping_address_country, 
+        postal_code: shipping_address_postal_code, 
+        shipping_method = SHIPPING_METHOD, 
+        shipping_date = determineDeliveryByDate('EEE, LLL dd'), 
+        delivery_fee = 0, 
+        free_shipping = false
+    }));
+
     const order_items = items.map(({
         fullProductName,
         display_id,
