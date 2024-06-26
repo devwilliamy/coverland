@@ -51,8 +51,11 @@ import { SHIPPING_METHOD } from '@/lib/constants';
 import { determineDeliveryByDate } from '@/lib/utils/deliveryDateUtils';
 import { TCartItem } from '@/lib/cart/useCart';
 import { ReadyCheck } from './icons/ReadyCheck';
+import { useMediaQuery } from '@mantine/hooks';
+import CheckoutSummarySection from './CheckoutSummarySection';
+import OrderReview from './OrderReview';
 
-export default function MobileCheckout() {
+export default function CheckoutAccordion() {
   const stripe = useStripe();
   const elements = useElements();
   const router = useRouter();
@@ -603,175 +606,296 @@ export default function MobileCheckout() {
 
   const accordionTriggerStyle = `px-4 py-10 font-[500] text-[24px] leading-[12px]`;
 
-  return (
-    <>
-      <div className="flex flex-col lg:flex lg:flex-row lg:px-24">
-        <CartHeader />
-        <Separator className="mt-5 w-full bg-[#C8C7C7]" />
-        {currentStep === CheckoutStep.CART ? (
-          <>
-            <YourCart />
-          </>
-        ) : (
-          <Accordion
-            type="multiple"
-            // collapsible
-            className="w-full"
-            value={value}
-            onValueChange={setValue}
-          >
-            <AccordionItem value="cart">
-              <AccordionTrigger className={accordionTriggerStyle}>
-                In Your Cart
-              </AccordionTrigger>
-              <AccordionContent>
-                <div className="px-4">
-                  <InYourCart />
-                </div>
-              </AccordionContent>
-            </AccordionItem>
-            <AccordionItem value="shipping">
-              <AccordionTrigger className={accordionTriggerStyle}>
-                <h2 className="flex items-center gap-2">
-                  <span>Shipping</span>
-                  {isReadyToShip && <ReadyCheck />}
-                </h2>
-              </AccordionTrigger>
-              <AccordionContent>
-                <Shipping
-                  handleChangeAccordion={handleChangeAccordion}
-                  handleSelectTab={handleSelectTab}
-                />
-              </AccordionContent>
-            </AccordionItem>
+  const isMobile = useMediaQuery('(max-width: 1023px)');
 
-            <AccordionItem value="payment" id="payment">
-              <AccordionTrigger
-                onClick={(e) => {
-                  if (!isReadyToShip || isEditingAddress) {
-                    e.preventDefault();
-                  }
-                  handleSelectTab('payment');
-                }}
-                className={
-                  accordionTriggerStyle +
-                  `${(!isReadyToShip || isEditingAddress) && 'disabled cursor-default text-[grey] hover:no-underline'}`
-                }
+  return (
+    <div className="flex w-full flex-col items-center">
+      {!isMobile && currentStep !== CheckoutStep.CART && (
+        <div className="w-full py-[80px] text-center text-[24px] font-[700] leading-[12px]">
+          Checkout
+        </div>
+      )}
+      <div className="flex w-full max-w-[1080px] pt-2 lg:gap-[70px] lg:px-[24px] lg:pt-[38px]">
+        <div className="flex w-full flex-col lg:w-2/3 ">
+          {isMobile && currentStep === CheckoutStep.CART && (
+            <div className="mb-[32px]">
+              <CartHeader />
+            </div>
+          )}
+          {!isMobile && currentStep === CheckoutStep.CART && (
+            <div className="mb-[42px]">
+              <CartHeader />
+            </div>
+          )}
+
+          {currentStep === CheckoutStep.CART ? (
+            <>
+              <YourCart />
+            </>
+          ) : (
+            <>
+              <Accordion
+                type="multiple"
+                // collapsible
+                className="w-full"
+                value={value}
+                onValueChange={setValue}
               >
-                <h2 className="flex items-center gap-2">
-                  <span>Payment</span>
-                  {isReadyToPay && <ReadyCheck />}
-                </h2>
-              </AccordionTrigger>
-              <AccordionContent>
-                <Payment handleChangeAccordion={handleChangeAccordion} />
-              </AccordionContent>
-            </AccordionItem>
-            <AccordionItem value="orderReview" id="orderReview">
-              <AccordionTrigger
-                onClick={(e) => {
-                  if (
-                    !isAddressComplete ||
-                    isEditingAddress ||
-                    !isReadyToPay ||
-                    !isReadyToShip
-                  ) {
-                    e.preventDefault();
-                  }
-                  handleSelectTab('orderReview');
-                }}
-                className={
-                  accordionTriggerStyle +
-                  `${(!isAddressComplete || isEditingAddress || !isReadyToPay || !isReadyToShip) && 'disabled cursor-default text-[grey] hover:no-underline'}`
-                }
-              >
-                Order Review
-              </AccordionTrigger>
-              <AccordionContent>
-                <section className="flex w-full flex-col px-4">
-                  {cartItems.map((cartItem, i) => (
-                    <div
-                      key={i}
-                      className="pb-3 lg:border-b lg:border-t lg:pt-3 lg:transition-colors lg:hover:bg-muted/50 lg:data-[state=selected]:bg-muted"
-                    >
-                      <OrderReviewItem item={cartItem} />
-                    </div>
-                  ))}
-                  <div className="mt-4 lg:hidden">
-                    <PriceBreakdown />
-                  </div>
-                  {paymentMethod === 'creditCard' && (
-                    <>
-                      <p className="pb-[40px] text-[14px] font-[400] text-[#767676]">
-                        By Clicking the “Submit Payment” button, you confirm
-                        that you have read, understand, and accept our Terms of
-                        use,{' '}
-                        <a href="" className="underline">
-                          Privacy Policy,
-                        </a>{' '}
-                        <a href="" className="underline">
-                          Return Policy
-                        </a>
-                      </p>
-                      <Button
-                        variant={'default'}
-                        className={`mb-3 w-full rounded-lg bg-black text-base font-bold uppercase text-white sm:h-[48px] lg:h-[55px] lg:text-xl`}
-                        onClick={(e) => {
-                          setIsLoading(true);
-                          handleSubmit();
-                        }}
-                      >
-                        {isLoading ? (
-                          <AiOutlineLoading3Quarters className="animate-spin" />
-                        ) : (
-                          'Submit Payment'
-                        )}
-                      </Button>
-                      {message && (
-                        <p className="font-[500] text-[red]">{message}</p>
-                      )}
-                    </>
-                  )}
-                  {paymentMethod === 'paypal' && <PayPalButtonSection />}
-                  {(paymentMethod === 'applePay' ||
-                    paymentMethod === 'googlePay') && (
-                    <ExpressCheckoutElement
-                      options={{
-                        paymentMethodOrder: ['applePay', 'googlePay'],
-                        buttonType: { applePay: 'order', googlePay: 'order' },
-                        wallets:
-                          paymentMethod === 'applePay'
-                            ? { googlePay: 'never', applePay: 'always' }
-                            : { googlePay: 'always', applePay: 'never' },
-                      }}
-                      onConfirm={async (e) => {
-                        await handleSubmit();
-                      }}
+                {isMobile && (
+                  <AccordionItem value="cart">
+                    <AccordionTrigger className={accordionTriggerStyle}>
+                      In Your Cart
+                    </AccordionTrigger>
+                    <AccordionContent>
+                      <div className="px-4">
+                        <InYourCart />
+                      </div>
+                    </AccordionContent>
+                  </AccordionItem>
+                )}
+
+                <AccordionItem value="shipping">
+                  <AccordionTrigger
+                    className={
+                      accordionTriggerStyle + `${!isMobile && ' pt-0'}`
+                    }
+                  >
+                    <h2 className="flex items-center gap-2">
+                      <span>Shipping</span>
+                      {isReadyToShip && <ReadyCheck />}
+                    </h2>
+                  </AccordionTrigger>
+                  <AccordionContent>
+                    <Shipping
+                      handleChangeAccordion={handleChangeAccordion}
+                      handleSelectTab={handleSelectTab}
                     />
-                  )}
-                  {paymentMethod === 'klarna' && (
-                    <Button
-                      variant={'default'}
-                      className={`mb-3 w-full rounded-lg bg-black text-base font-bold uppercase text-white sm:h-[48px] lg:h-[55px] lg:text-xl`}
+                  </AccordionContent>
+                </AccordionItem>
+
+                <AccordionItem value="payment" id="payment">
+                  <AccordionTrigger
+                    onClick={(e) => {
+                      if (!isReadyToShip || isEditingAddress) {
+                        e.preventDefault();
+                      }
+                      handleSelectTab('payment');
+                    }}
+                    className={
+                      accordionTriggerStyle +
+                      `${(!isReadyToShip || isEditingAddress) && 'disabled cursor-default text-[grey] hover:no-underline'}`
+                    }
+                  >
+                    <h2 className="flex items-center gap-2">
+                      <span>Payment</span>
+                      {isReadyToPay && <ReadyCheck />}
+                    </h2>
+                  </AccordionTrigger>
+                  <AccordionContent>
+                    <Payment handleChangeAccordion={handleChangeAccordion} />
+                    {!isMobile && isReadyToPay && (
+                      <div className="flex flex-col">
+                        {paymentMethod === 'creditCard' && (
+                          <>
+                            <Separator />
+                            <p className=" pb-[4px] pt-[35px] text-[14px] font-[400] text-[#767676] lg:px-4 lg:pb-[48px]">
+                              By Clicking the “Submit Payment” button, you
+                              confirm that you have read, understand, and accept
+                              our Terms of use,{' '}
+                              <a href="" className="underline">
+                                Privacy Policy,
+                              </a>{' '}
+                              <a href="" className="underline">
+                                Return Policy
+                              </a>
+                            </p>
+                            <Button
+                              variant={'default'}
+                              className={`mb-3 w-full self-end rounded-lg bg-black text-base font-bold uppercase text-white sm:h-[48px] lg:h-[55px] lg:max-w-[307px] lg:text-xl`}
+                              onClick={(e) => {
+                                setIsLoading(true);
+                                handleSubmit();
+                              }}
+                            >
+                              {isLoading ? (
+                                <AiOutlineLoading3Quarters className="animate-spin" />
+                              ) : (
+                                'Submit Payment'
+                              )}
+                            </Button>
+                            {message && (
+                              <p className="font-[500] text-[red]">{message}</p>
+                            )}
+                          </>
+                        )}
+                        {paymentMethod === 'paypal' && (
+                          <div className="w-full max-w-[307px] self-end justify-self-end">
+                            <PayPalButtonSection />
+                          </div>
+                        )}
+                        {(paymentMethod === 'applePay' ||
+                          paymentMethod === 'googlePay') && (
+                          <div className="w-full max-w-[307px] self-end justify-self-end">
+                            <ExpressCheckoutElement
+                              options={{
+                                paymentMethodOrder: ['applePay', 'googlePay'],
+                                buttonType: {
+                                  applePay: 'order',
+                                  googlePay: 'order',
+                                },
+                                wallets:
+                                  paymentMethod === 'applePay'
+                                    ? { googlePay: 'never', applePay: 'always' }
+                                    : {
+                                        googlePay: 'always',
+                                        applePay: 'never',
+                                      },
+                              }}
+                              onConfirm={async (e) => {
+                                await handleSubmit();
+                              }}
+                            />
+                          </div>
+                        )}
+                        {paymentMethod === 'klarna' && (
+                          <Button
+                            variant={'default'}
+                            className={`mb-3 w-full rounded-lg bg-black text-base font-bold uppercase text-white sm:h-[48px] lg:h-[55px] lg:text-xl`}
+                            onClick={(e) => {
+                              setIsLoading(true);
+                              handleSubmit();
+                            }}
+                          >
+                            {isLoading ? (
+                              <AiOutlineLoading3Quarters className="animate-spin" />
+                            ) : (
+                              <></>
+                              // <PayWithKlarnaWhite />
+                            )}
+                          </Button>
+                        )}
+                      </div>
+                    )}
+                  </AccordionContent>
+                </AccordionItem>
+                {isMobile && (
+                  <AccordionItem value="orderReview" id="orderReview">
+                    <AccordionTrigger
                       onClick={(e) => {
-                        setIsLoading(true);
-                        handleSubmit();
+                        if (
+                          !isAddressComplete ||
+                          isEditingAddress ||
+                          !isReadyToPay ||
+                          !isReadyToShip
+                        ) {
+                          e.preventDefault();
+                        }
+                        handleSelectTab('orderReview');
                       }}
+                      className={
+                        accordionTriggerStyle +
+                        `${(!isAddressComplete || isEditingAddress || !isReadyToPay || !isReadyToShip) && 'disabled cursor-default text-[grey] hover:no-underline'}`
+                      }
                     >
-                      {isLoading ? (
-                        <AiOutlineLoading3Quarters className="animate-spin" />
-                      ) : (
-                        <></>
-                        // <PayWithKlarnaWhite />
-                      )}
-                    </Button>
-                  )}
-                </section>
-              </AccordionContent>
-            </AccordionItem>
-          </Accordion>
+                      Order Review
+                    </AccordionTrigger>
+                    <AccordionContent>
+                      <section className="flex w-full flex-col px-4">
+                        {cartItems.map((cartItem, i) => (
+                          <div
+                            key={i}
+                            className="pb-3 lg:border-b lg:border-t lg:pt-3 lg:transition-colors lg:hover:bg-muted/50 lg:data-[state=selected]:bg-muted"
+                          >
+                            <OrderReviewItem item={cartItem} />
+                          </div>
+                        ))}
+                        <div className="mt-4 lg:hidden">
+                          <PriceBreakdown />
+                        </div>
+                        {paymentMethod === 'creditCard' && (
+                          <>
+                            <p className="pb-[40px] text-[14px] font-[400] text-[#767676]">
+                              By Clicking the “Submit Payment” button, you
+                              confirm that you have read, understand, and accept
+                              our Terms of use,{' '}
+                              <a href="" className="underline">
+                                Privacy Policy,
+                              </a>{' '}
+                              <a href="" className="underline">
+                                Return Policy
+                              </a>
+                            </p>
+                            <Button
+                              variant={'default'}
+                              className={`mb-3 w-full rounded-lg bg-black text-base font-bold uppercase text-white sm:h-[48px] lg:h-[55px] lg:text-xl`}
+                              onClick={(e) => {
+                                setIsLoading(true);
+                                handleSubmit();
+                              }}
+                            >
+                              {isLoading ? (
+                                <AiOutlineLoading3Quarters className="animate-spin" />
+                              ) : (
+                                'Submit Payment'
+                              )}
+                            </Button>
+                            {message && (
+                              <p className="font-[500] text-[red]">{message}</p>
+                            )}
+                          </>
+                        )}
+                        {paymentMethod === 'paypal' && <PayPalButtonSection />}
+                        {(paymentMethod === 'applePay' ||
+                          paymentMethod === 'googlePay') && (
+                          <ExpressCheckoutElement
+                            options={{
+                              paymentMethodOrder: ['applePay', 'googlePay'],
+                              buttonType: {
+                                applePay: 'order',
+                                googlePay: 'order',
+                              },
+                              wallets:
+                                paymentMethod === 'applePay'
+                                  ? { googlePay: 'never', applePay: 'always' }
+                                  : { googlePay: 'always', applePay: 'never' },
+                            }}
+                            onConfirm={async (e) => {
+                              await handleSubmit();
+                            }}
+                          />
+                        )}
+                        {paymentMethod === 'klarna' && (
+                          <Button
+                            variant={'default'}
+                            className={`mb-3 w-full rounded-lg bg-black text-base font-bold uppercase text-white sm:h-[48px] lg:h-[55px] lg:text-xl`}
+                            onClick={(e) => {
+                              setIsLoading(true);
+                              handleSubmit();
+                            }}
+                          >
+                            {isLoading ? (
+                              <AiOutlineLoading3Quarters className="animate-spin" />
+                            ) : (
+                              <></>
+                              // <PayWithKlarnaWhite />
+                            )}
+                          </Button>
+                        )}
+                      </section>
+                    </AccordionContent>
+                  </AccordionItem>
+                )}
+              </Accordion>
+            </>
+          )}
+        </div>
+        {!isMobile && (
+          <div className="flex lg:w-1/3 lg:flex-col">
+            <CheckoutSummarySection />
+            <OrderReview />
+          </div>
         )}
       </div>
-    </>
+    </div>
   );
 }

@@ -9,7 +9,10 @@ export default function OrderReview() {
   const { currentStep } = useCheckoutContext();
   return (
     <div className={`${currentStep === CheckoutStep.CART && 'lg:hidden'}`}>
-      <div id="order-review" className="pb-2 pt-9 text-2xl font-medium">
+      <div
+        id="order-review"
+        className="lg:mb-[40px] lg:text-[24px] lg:font-[500]"
+      >
         Order Review
       </div>
       {cartItems.map((cartItem, i) => (

@@ -64,6 +64,7 @@ export default function PayPalButtonSection() {
             label: 'pay',
             height: 50,
           }}
+          className="w-full"
           createOrder={async () => {
             const data = await paypalCreateOrder(
               totalMsrpPrice,

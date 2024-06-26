@@ -8,11 +8,13 @@ import BillingAddress from './BillingAddress';
 import { StripeCardNumberElement } from '@stripe/stripe-js';
 import { NewCheckout } from './NewCheckout';
 // import Klarna from '@/images/checkout/Klarna-Black.webp';
+import PayPalIcon from './icons/PayPalIcon';
 import Image from 'next/image';
-// import PayPalIcon from '../PDP/components/icons/PayPalIcon';
-// import VisaBlue from '@/images/checkout/VisaLogoBlue.webp';
-// import Mastercard from '@/images/checkout/MastercardIcon.webp';
+import VisaBlue from '@/images/checkout/VisaLogoBlue.webp';
+import Mastercard from '@/images/checkout/MastercardIcon.webp';
 import { useRouter } from 'next/navigation';
+import ApplePayIcon from './icons/ApplePayIcon';
+import GooglePayIcon from './icons/GooglePayIcon';
 
 export default function Payment({
   handleChangeAccordion,
@@ -65,16 +67,16 @@ export default function Payment({
     },
   };
 
-  // const determineBrandLogo = (brand: string) => {
-  //   switch (brand) {
-  //     case 'visa':
-  //       return <Image alt="Visa" src={VisaBlue} />;
-  //     case 'mastercard':
-  //       return <Image alt="Mastercard" src={Mastercard} />;
-  //     default:
-  //       return null;
-  //   }
-  // };
+  const determineBrandLogo = (brand: string) => {
+    switch (brand) {
+      case 'visa':
+        return <Image alt="Visa" src={VisaBlue} />;
+      case 'mastercard':
+        return <Image alt="Mastercard" src={Mastercard} />;
+      default:
+        return null;
+    }
+  };
 
   const buttonStyle = `mb-3 w-full rounded-lg ${isDisabledCard ? 'bg-[#1A1A1A]/90' : 'bg-[#1A1A1A] hover:bg-[#1A1A1A]/90'} text-center uppercase m-0 max-h-[48px] min-h-[48px] max-w-[350px] self-end justify-self-end text-[16px] leading-[17px]`;
 
@@ -117,14 +119,16 @@ export default function Payment({
             <div className="flex py-5">
               {paymentMethod === 'paypal' && (
                 <div className="flex items-center gap-2">
-                  {/* <PayPalIcon /> */}
+                  <PayPalIcon />
                 </div>
               )}
               {paymentMethod === 'applePay' && (
-                <div>You will be redirected to Apple Pay upon checkout.</div>
+                // <div>You will be redirected to Apple Pay upon checkout.</div>
+                <ApplePayIcon />
               )}
               {paymentMethod === 'googlePay' && (
-                <div>You will be redirected to Google Pay upon checkout.</div>
+                // <div>You will be redirected to Google Pay upon checkout.</div>
+                <GooglePayIcon />
               )}
               {paymentMethod === 'klarna' && (
                 <div className="flex items-center gap-2 ">
@@ -141,17 +145,14 @@ export default function Payment({
               )}
               {paymentMethod === 'creditCard' && (
                 <div className="flex items-center gap-2">
-                  {/* <CreditCard />
-                  <p className="">Credit Card</p> */}
-
                   {stripePaymentMethod &&
                     stripePaymentMethod.paymentMethod?.card && (
                       <div className="flex items-center gap-2 text-[16px] leading-[27px] text-[#767676]">
-                        {/* <div className="flex max-h-[16px] max-w-[48px]">
+                        <div className="flex max-h-[16px] max-w-[48px]">
                           {determineBrandLogo(
                             stripePaymentMethod.paymentMethod.card.brand
                           )}
-                        </div> */}
+                        </div>
                         <div className="flex">
                           <p>
                             {stripePaymentMethod.paymentMethod.card.last4} Exp:{' '}
@@ -165,7 +166,7 @@ export default function Payment({
               )}
             </div>
             <p className="text-base font-[500]"> Billing Details</p>
-            <div className="text-[16px] font-[400] leading-[27px] text-[#767676]">
+            <div className="pb-[40px] text-[16px] font-[400] leading-[27px] text-[#767676]">
               <p>{customerBilling.name}</p>
 
               <p>{customerBilling.address.line1}</p>
@@ -196,12 +197,8 @@ export default function Payment({
           />
           {paymentMethod === 'creditCard' ? (
             <div className="flex flex-col gap-4">
-              <form
-                id="payment-form"
-                // onSubmit={handleSubmit}
-              >
+              <form id="payment-form">
                 <NewCheckout />
-                {/* <PaymentElement id="payment-element" /> */}
               </form>
 
               <BillingAddress
@@ -231,7 +228,7 @@ export default function Payment({
       )}
       {/* Continue To Order Review Button */}
       {paymentMethod === 'creditCard' && !isReadyToPay && (
-        <div className="my-[48px] flex w-full items-center justify-center lg:justify-end">
+        <div className="my-[48px] flex w-full max-w-[390px] items-center justify-center lg:justify-end">
           <Button
             variant={'default'}
             className={buttonStyle}

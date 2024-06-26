@@ -1,6 +1,6 @@
 'use client';
 import { useMediaQuery } from '@mantine/hooks';
-import MobileCheckout from '@/components/checkout/MobileCheckout';
+import CheckoutAccordion from '@/components/checkout/CheckoutAccordion';
 import { CheckoutProvider } from '@/contexts/CheckoutContext';
 import DesktopCheckout from '@/components/checkout/DesktopCheckout';
 import StripeElementWrapper from '@/app/wrappers/StripeElementWrapper';
@@ -19,7 +19,7 @@ export default function Checkout() {
       ) : (
         <StripeElementWrapper>
           <>
-            <MobileCheckout />
+            <CheckoutAccordion />
             {/* {isMobile ? (
               <MobileCheckout />
             ) : (

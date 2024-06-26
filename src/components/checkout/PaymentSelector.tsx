@@ -44,7 +44,7 @@ const PaymentSelector: React.FC<PaymentSelectorProps> = ({
     <div className="flex flex-col gap-[10px]">
       {/* CARD */}
       <div
-        className={`grid grid-cols-[auto_24px_1fr] place-items-center gap-2.5`}
+        className={`grid grid-cols-[auto_24px_1fr] place-items-center gap-2.5 text-[16px]`}
       >
         <input
           type="radio"
@@ -56,7 +56,7 @@ const PaymentSelector: React.FC<PaymentSelectorProps> = ({
           className={inputStyle}
         />
         <CheckoutCard />
-        <label htmlFor="creditCard" className="w-full text-left">
+        <label htmlFor="creditCard" className="w-full text-left ">
           Credit Card
         </label>
       </div>
@@ -90,9 +90,9 @@ const PaymentSelector: React.FC<PaymentSelectorProps> = ({
       <div className={selctionStyle}>
         <input
           type="radio"
-          id="paypalInput"
+          id="googlePayInput"
           name="paymentMethod"
-          value="paypal"
+          value="googlePay"
           checked={selectedPaymentMethod === 'googlePay'}
           onChange={() => onPaymentMethodChange('googlePay')}
           className={inputStyle}
