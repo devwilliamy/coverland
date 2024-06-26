@@ -14,7 +14,7 @@ export default function ShippingSelection() {
   return (
     <>
       <div className="pb-4 text-base font-medium">
-        Select Your Shipping Option
+        Select your shipping speed
       </div>
       {shippingOptions.map((shippingOption, i) => (
         <div

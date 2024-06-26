@@ -55,12 +55,10 @@ export default function BillingAddress({
               />
             </div>
           ) : (
-            <div className="mb-4">
-              <SavedBillingAddress
-                address={billingAddress}
-                handleClick={handleEditAddress}
-              />
-            </div>
+            <SavedBillingAddress
+              address={billingAddress}
+              handleClick={handleEditAddress}
+            />
           )}
         </div>
       )}

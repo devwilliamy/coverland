@@ -10,6 +10,7 @@ import CustomPhoneInput from '../ui/phone-input';
 import { parsePhoneNumberFromString } from 'libphonenumber-js';
 import { Autocomplete, MenuItem } from '@mui/material';
 import { CustomTextField } from './CustomTextField';
+import { GEORGE_DEFAULT_ADDRESS_DATA } from '@/lib/constants';
 
 type FormData = {
   email: string;
@@ -181,55 +182,55 @@ export default function AddressForm({
       setShippingState({
         email: {
           value: customerInfo.email,
-          visited: false,
+          visited: true,
           message: '',
           error: false,
         },
         firstName: {
           value: addressData.firstName as string,
-          visited: false,
+          visited: true,
           message: '',
           error: false,
         },
         lastName: {
           value: addressData.lastName as string,
-          visited: false,
+          visited: true,
           message: '',
           error: false,
         },
         line1: {
           value: addressData.address.line1 as string,
-          visited: false,
+          visited: true,
           message: '',
           error: false,
         },
         line2: {
           value: addressData.address.line2 as string,
-          visited: false,
+          visited: true,
           message: '',
           error: false,
         },
         city: {
           value: addressData.address.city as string,
-          visited: false,
+          visited: true,
           message: '',
           error: false,
         },
         state: {
           value: addressData.address.state as string,
-          visited: false,
+          visited: true,
           message: '',
           error: false,
         },
         postal_code: {
           value: addressData.address.postal_code as string,
-          visited: false,
+          visited: true,
           message: '',
           error: false,
         },
         phoneNumber: {
           value: customerInfo.phoneNumber,
-          visited: false,
+          visited: true,
           message: '',
           error: false,
         },
@@ -246,20 +247,11 @@ export default function AddressForm({
     }
   }, [addressData, customerInfo]);
 
-  // useEffect(() => {
-  //   if (process.env.NEXT_PUBLIC_IS_PREVIEW === 'PREVIEW') {
-  //     setValue('email', 'george.icarcover@gmail.com' || '');
-  //     setValue('firstName', 'George' || '');
-  //     setValue('lastName', 'Anumba' || '');
-  //     setValue('line1', '1231 S Hill St' || '');
-  //     setValue('line2', 'P.O. Box 424' || '');
-  //     setValue('city', 'Los Angeles' || '');
-  //     setValue('state', 'CA' || '');
-  //     setValue('postal_code', '90015' || '');
-  //     setValue('phoneNumber', '+1 424 424 4242' || '');
-  //     setAddress('1231 S Hill St, Los Angeles, CA 90015, USA');
-  //   }
-  // }, []);
+  useEffect(() => {
+    if (process.env.NEXT_PUBLIC_IS_PREVIEW === 'PREVIEW') {
+      setShippingState(GEORGE_DEFAULT_ADDRESS_DATA);
+    }
+  }, []);
   // ---------------------------------------------------------------------------------------------------
 
   // --------- V ----------- V ---------- Used for Autocomplete --------- V ----------- V ----------

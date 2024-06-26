@@ -50,6 +50,7 @@ import { getTotalDiscountPrice } from '@/lib/utils/calculations';
 import { SHIPPING_METHOD } from '@/lib/constants';
 import { determineDeliveryByDate } from '@/lib/utils/deliveryDateUtils';
 import { TCartItem } from '@/lib/cart/useCart';
+import { ReadyCheck } from './icons/ReadyCheck';
 
 export default function MobileCheckout() {
   const stripe = useStripe();
@@ -590,15 +591,15 @@ export default function MobileCheckout() {
     }
   }, [isReadyToShip, isReadyToPay]);
 
-  useEffect(() => {
-    const useHandleGetTax = async () => {
-      // console.log('[Single Handle Get Tax]');
-      await handleGetTax();
-    };
-    if (!isCartEmpty && isReadyToPay) {
-      useHandleGetTax();
-    }
-  }, [isCartEmpty, isReadyToPay, shippingAddress, paymentMethod]);
+  // useEffect(() => {
+  //   const useHandleGetTax = async () => {
+  //     // console.log('[Single Handle Get Tax]');
+  //     await handleGetTax();
+  //   };
+  //   if (!isCartEmpty && isReadyToPay) {
+  //     useHandleGetTax();
+  //   }
+  // }, [isCartEmpty, isReadyToPay, shippingAddress, paymentMethod]);
 
   const accordionTriggerStyle = `px-4 py-10 font-[500] text-[24px] leading-[12px]`;
 
@@ -631,9 +632,9 @@ export default function MobileCheckout() {
             </AccordionItem>
             <AccordionItem value="shipping">
               <AccordionTrigger className={accordionTriggerStyle}>
-                <h2 className="flex gap-2">
+                <h2 className="flex items-center gap-2">
                   <span>Shipping</span>
-                  {/* {isReadyToShip && <ReadyCheck />} */}
+                  {isReadyToShip && <ReadyCheck />}
                 </h2>
               </AccordionTrigger>
               <AccordionContent>
@@ -652,12 +653,14 @@ export default function MobileCheckout() {
                   }
                   handleSelectTab('payment');
                 }}
-                // className={`${(!isReadyToShip || isEditingAddress) && 'disabled cursor-default text-[grey] hover:no-underline'} my-4 px-4 text-xl font-medium`}
-                className={accordionTriggerStyle}
+                className={
+                  accordionTriggerStyle +
+                  `${(!isReadyToShip || isEditingAddress) && 'disabled cursor-default text-[grey] hover:no-underline'}`
+                }
               >
-                <h2 className="flex gap-2">
+                <h2 className="flex items-center gap-2">
                   <span>Payment</span>
-                  {/* {isReadyToPay && <ReadyCheck />} */}
+                  {isReadyToPay && <ReadyCheck />}
                 </h2>
               </AccordionTrigger>
               <AccordionContent>
@@ -666,19 +669,21 @@ export default function MobileCheckout() {
             </AccordionItem>
             <AccordionItem value="orderReview" id="orderReview">
               <AccordionTrigger
-                // onClick={(e) => {
-                //   if (
-                //     !isAddressComplete ||
-                //     isEditingAddress ||
-                //     !isReadyToPay ||
-                //     !isReadyToShip
-                //   ) {
-                //     e.preventDefault();
-                //   }
-                //   handleSelectTab('orderReview');
-                // }}
-                // className={`${(!isAddressComplete || isEditingAddress || !isReadyToPay || !isReadyToShip) && 'disabled cursor-default text-[grey] hover:no-underline'} my-4 px-4 text-xl font-medium`}
-                className={accordionTriggerStyle}
+                onClick={(e) => {
+                  if (
+                    !isAddressComplete ||
+                    isEditingAddress ||
+                    !isReadyToPay ||
+                    !isReadyToShip
+                  ) {
+                    e.preventDefault();
+                  }
+                  handleSelectTab('orderReview');
+                }}
+                className={
+                  accordionTriggerStyle +
+                  `${(!isAddressComplete || isEditingAddress || !isReadyToPay || !isReadyToShip) && 'disabled cursor-default text-[grey] hover:no-underline'}`
+                }
               >
                 Order Review
               </AccordionTrigger>
@@ -689,7 +694,7 @@ export default function MobileCheckout() {
                       key={i}
                       className="pb-3 lg:border-b lg:border-t lg:pt-3 lg:transition-colors lg:hover:bg-muted/50 lg:data-[state=selected]:bg-muted"
                     >
-                      <OrderReviewItem item={cartItem} withPrice />
+                      <OrderReviewItem item={cartItem} />
                     </div>
                   ))}
                   <div className="mt-4 lg:hidden">
@@ -727,9 +732,7 @@ export default function MobileCheckout() {
                       )}
                     </>
                   )}
-                  {paymentMethod === 'paypal' && totalTax && (
-                    <PayPalButtonSection />
-                  )}
+                  {paymentMethod === 'paypal' && <PayPalButtonSection />}
                   {(paymentMethod === 'applePay' ||
                     paymentMethod === 'googlePay') && (
                     <ExpressCheckoutElement
