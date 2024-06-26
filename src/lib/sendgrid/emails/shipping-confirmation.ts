@@ -151,7 +151,7 @@ const generateShippingConfirmationEmail(data): MailDataRequired => {
     },
 }
 
-export const sendShippingConfirmationEmail = async (data: MailDataRequired) => {
+export const sendShippingConfirmationEmailToSendGrid = async (data: MailDataRequired) => {
     try{
         await sgMail.send(data);
     } catch (error) {
