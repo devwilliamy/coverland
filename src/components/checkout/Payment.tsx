@@ -15,6 +15,8 @@ import Mastercard from '@/images/checkout/MastercardIcon.webp';
 import { useRouter } from 'next/navigation';
 import ApplePayIcon from './icons/ApplePayIcon';
 import GooglePayIcon from './icons/GooglePayIcon';
+import { determineDeliveryByDate } from '@/lib/utils/deliveryDateUtils';
+import { SHIPPING_METHOD } from '@/lib/constants';
 
 export default function Payment({
   handleChangeAccordion,
@@ -27,14 +29,7 @@ export default function Payment({
   const [isEditingAddress, setIsEditingAddress] = useState(false);
   const [message, setMessage] = useState<string>('');
   const [paypalSuccessMessage, setPaypalSuccessMessage] = useState<string>('');
-  const { orderNumber, paymentIntentId } = useCheckoutContext();
-  const { billingAddress, shippingAddress, customerInfo, shipping } =
-    useCheckoutContext();
-  const shippingInfo = {
-    shipping_method: SHIPPING_METHOD,
-    shipping_date: determineDeliveryByDate('EEE, LLL dd'),
-    delivery_fee: shipping,
-  };
+
   const {
     billingAddress,
     shippingAddress,
@@ -53,6 +48,12 @@ export default function Payment({
     paymentIntentId,
     billingTwoLetterStateCode,
   } = useCheckoutContext();
+
+  const shippingInfo = {
+    shipping_method: SHIPPING_METHOD,
+    shipping_date: determineDeliveryByDate('EEE, LLL dd'),
+    delivery_fee: shipping,
+  };
 
   const isDisabledCard =
     isEditingAddress ||
