@@ -55,7 +55,7 @@ const generateDynamicTemplateDataFromUserOrder = (order: TUserOrder): DynamicTem
 
     const shipping_info = order.map(({
         customer_name, 
-        shipping_address_line_1, 
+        shipping_address_line_1,
         shipping_address_line_2, 
         shipping_address_city, 
         shipping_address_state, 
@@ -69,11 +69,12 @@ const generateDynamicTemplateDataFromUserOrder = (order: TUserOrder): DynamicTem
         state: shipping_address_state, 
         country: shipping_address_country, 
         postal_code: shipping_address_postal_code, 
-        shipping_method = SHIPPING_METHOD, 
-        shipping_date = determineDeliveryByDate('EEE, LLL dd'), 
-        delivery_fee = 0, 
-        free_shipping = false
     }));
+
+    const combinedShippingInfo: ShippingInfo = shipping_info.map(info => ({
+        ...info,
+        ...shippingConstants,
+      }));
 
     const order_items = items.map(({
         fullProductName,
@@ -106,8 +107,8 @@ const generateDynamicTemplateDataFromUserOrder = (order: TUserOrder): DynamicTem
     return {
         ordered_on: payment_date,
         order_items,
-
-        }
+        shipping_info: combinedShippingInfo,
+    }
 }
 
 const generateShippingConfirmationEmail(data): MailDataRequired => {
