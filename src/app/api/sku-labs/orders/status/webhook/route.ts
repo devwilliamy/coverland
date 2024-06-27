@@ -42,7 +42,7 @@ const SKU_LAB_URL = 'https://api.skulabs.com';
 
 export async function POST(request: NextRequest): Promise<SkuLabOrderResponse> {
   // TODO: Probably good to have schema validation here
-  const { webhookData } = await request.json();
+  const webhookData = await request.json();
   console.info(`[${getTimestamp()}] Webhook received:`, webhookData);
   console.info(`[Time In PST]: ${formatTime(webhookData.data.time, 'PST')}`);
 
