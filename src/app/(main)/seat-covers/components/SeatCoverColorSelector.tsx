@@ -77,15 +77,23 @@ export default function SeatCoverColorSelector({
         product?.display_color?.toLowerCase()
     );
     setColorIndex(availableColorIndex);
+    // If color is available, use the product at that index
+    // If there are no colors available, index will be -1
+    // If that's the case, then the selected product will be 'black'
+    // TODO: - Ideally we'd still change the colors but no time at the moment.
     setSelectedProduct(
-      getModelDataBySet[0]
-        ? getModelDataBySet[0]
-        : (uniqueProductColors[0] as TSeatCoverDataDB)
+      getModelDataBySet[availableColorIndex]
+        ? getModelDataBySet[availableColorIndex]
+        : availableColorIndex === -1
+          ? getModelDataBySet[0]
+          : (uniqueProductColors[0] as TSeatCoverDataDB)
     );
 
     setSelectedColor(
-      getModelDataBySet[0]?.display_color?.toLowerCase()
-        ? (getModelDataBySet[0]?.display_color?.toLowerCase() as string)
+      getModelDataBySet[availableColorIndex]?.display_color?.toLowerCase()
+        ? (getModelDataBySet[
+            availableColorIndex
+          ]?.display_color?.toLowerCase() as string)
         : (uniqueProductColors[0]?.display_color?.toLowerCase() as string)
     );
   }, [selectedSetDisplay]);

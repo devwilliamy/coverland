@@ -44,7 +44,7 @@ export interface ISeatCoverCoverSelectionState extends ISeatCoverCoverProps {
   setReviewImageTracker: (newImageTracker: Record<string, boolean>) => void;
   availableColors: string[];
   selectedSetDisplay: string;
-  setAvailableColors: (availableColors: string[]) => void;
+  setAvailableColors: (availableColors: string[]) => void
   setSelectedSetDisplay: (selectedSet: string) => void;
 }
 

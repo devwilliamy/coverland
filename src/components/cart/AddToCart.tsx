@@ -31,20 +31,23 @@ export default function AddToCart({
   const store = useStoreContext();
   if (!store) throw new Error('Missing Provider in the tree');
   const modelData = useStore(store, (s) => s.modelData);
-  const selectedSetDisplay = useStore(store, (s) => s.selectedSetDisplay);
+  const selectedSetDisplay = useStore(store, (s) => s.selectedSetDisplay); // Not sure what to do about typing here, will research later
   const selectedColor = useStore(store, (s) => s.selectedColor);
   const { isSeatCover } = useDetermineType();
-  const filterdData = isSeatCover
+  const filteredData = isSeatCover
     ? modelData.filter(
         (product) =>
-          isFullSet(product.display_set) === selectedSetDisplay?.toLowerCase()
+          isFullSet(product.display_set ?? '') ===
+          selectedSetDisplay?.toLowerCase()
       )
     : modelData;
 
-  const isSelectedColorAvailable = filterdData.some(
+  const isSelectedColorAvailable = filteredData.some(
     (product) =>
-      product.display_color.toLowerCase() === selectedColor.toLowerCase()
+      product?.display_color?.toLowerCase() === selectedColor.toLowerCase() &&
+      product.quantity !== '0'
   );
+
   const [addToCartSelectorOpen, setAddToCartSelectorOpen] =
     useState<boolean>(false);
   const initalLoadingState = false;
