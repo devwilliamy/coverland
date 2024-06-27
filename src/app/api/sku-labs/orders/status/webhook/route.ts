@@ -42,9 +42,8 @@ const SKU_LAB_URL = 'https://api.skulabs.com';
 
 export async function POST(request: NextRequest): Promise<SkuLabOrderResponse> {
   // TODO: Probably good to have schema validation here
-  const { webhookData } = await request.json();
+  const webhookData = await request.json();
   console.info(`[${getTimestamp()}] Webhook received:`, webhookData);
-  console.info(`[Time In PST]: ${formatTime(webhookData.data.time, 'PST')}`);
 
   // Once received webhook, get the order number and store number
   if (
@@ -52,6 +51,9 @@ export async function POST(request: NextRequest): Promise<SkuLabOrderResponse> {
     !webhookData.data.store_id ||
     !webhookData.data.order_number
   ) {
+    console.error(
+      `[${getTimestamp()}] Webhook Data did not container store id or order number`
+    );
     return NextResponse.json(
       {
         message: `[${getTimestamp()}] Webhook Data did not container store id or order number`,
@@ -151,6 +153,9 @@ export async function POST(request: NextRequest): Promise<SkuLabOrderResponse> {
         { status: 200 }
       );
     } else {
+      console.error(
+        `${getTimestamp()} No shipments found in the order data: ${order_number}`
+      );
       return NextResponse.json(
         {
           message: `${getTimestamp()} No shipments found in the order data: ${order_number}`,
