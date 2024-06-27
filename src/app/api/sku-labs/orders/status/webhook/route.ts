@@ -56,9 +56,9 @@ export async function POST(request: NextRequest): Promise<SkuLabOrderResponse> {
     );
     return NextResponse.json(
       {
-        message: `[${getTimestamp()}] Webhook Data did not container store id or order number`,
+        message: `[${getTimestamp()}] Webhook Data did not contain store id or order number`,
       },
-      { status: 400 }
+      { status: 200 } // Returning 200 because I think SKU Labs will try to re-send this if it got a 400
     );
   }
 
@@ -73,11 +73,7 @@ export async function POST(request: NextRequest): Promise<SkuLabOrderResponse> {
         Accept: 'application/json',
       },
     });
-    // const {
-    //   data: {
-    //     order: { orderData },
-    //   },
-    // } = await response.json();
+
     const data = await response.json();
     const { order: orderData } = data;
 
@@ -88,7 +84,7 @@ export async function POST(request: NextRequest): Promise<SkuLabOrderResponse> {
       order_number.startsWith('CL')
     ) {
       const shipment = orderData.shipments[0].response;
-      console.log(`${getTimestamp()} OrderData Shipments:`, shipment);
+      console.log(`${getTimestamp()} OrderData Shipments ${order_number}:`, shipment);
 
       // Extract necessary data for the Supabase update
       const shipping_carrier = shipment.provider || '';
@@ -153,14 +149,14 @@ export async function POST(request: NextRequest): Promise<SkuLabOrderResponse> {
         { status: 200 }
       );
     } else {
-      console.error(
+      console.warn(
         `${getTimestamp()} No shipments found in the order data: ${order_number}`
       );
       return NextResponse.json(
         {
           message: `${getTimestamp()} No shipments found in the order data: ${order_number}`,
         },
-        { status: 400 }
+        { status: 200 } // Returning 200 because I think SKU Labs will try to re-send this if it got a 400
       );
     }
   } catch (error) {
@@ -171,7 +167,7 @@ export async function POST(request: NextRequest): Promise<SkuLabOrderResponse> {
       {
         message: `${getTimestamp()} No shipments found in the order data or does not start with CL: ${order_number}. ${JSON.stringify(error)}`,
       },
-      { status: 500 }
+      { status: 500 } // Keeping this as 500 because that means something went wrong
     );
   }
 }
