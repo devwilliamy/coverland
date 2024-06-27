@@ -54,9 +54,9 @@ const OrderList = ({ orders }: OrderListProps) => {
               </div>
               <ul className="">
                 <div>
-                  {order.items?.[0] && (
-                    <OrderItem key={order.items[0].id} item={order.items[0]} />
-                  )}
+                  {order.items?.map((item) => (
+                    <OrderItem key={item.id} item={item} version={"regular"} />
+                  ))}
                 </div>
                 <div className="my-6 mb-8 max-w-[165px] text-base md:my-0 md:ml-[187px] md:mt-4">
                   <Link
