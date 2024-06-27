@@ -10,7 +10,7 @@ type OrderItemProps = {
 
 const OrderItem = ({
   item,
-  marginClass = 'md:mb-6',
+  marginClass = 'md:mb-4',
   version = 'regular',
 }: OrderItemProps) => {
   return (
