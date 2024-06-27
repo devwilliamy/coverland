@@ -36,7 +36,7 @@ const OrderDetailPage = async ({ params }: OrderDetailProps) => {
       <Card className="m-4 max-w-[984px] rounded-[8px] px-5 py-8 md:m-1 md:mx-auto md:mb-8 md:px-10">
         <CardHeader className="block p-0 pb-8 text-base font-bold">
           Ordered on {order.payment_date} <span className="mx-2">|</span> Order
-          #{order.id}
+          #{order.order_id}
         </CardHeader>
         <div className="border-t">
           <ul className="py-2 md:pb-0 md:pt-8">
