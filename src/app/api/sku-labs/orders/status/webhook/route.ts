@@ -52,6 +52,9 @@ export async function POST(request: NextRequest): Promise<SkuLabOrderResponse> {
     !webhookData.data.store_id ||
     !webhookData.data.order_number
   ) {
+    console.error(
+      `[${getTimestamp()}] Webhook Data did not container store id or order number`
+    );
     return NextResponse.json(
       {
         message: `[${getTimestamp()}] Webhook Data did not container store id or order number`,
@@ -151,6 +154,9 @@ export async function POST(request: NextRequest): Promise<SkuLabOrderResponse> {
         { status: 200 }
       );
     } else {
+      console.error(
+        `${getTimestamp()} No shipments found in the order data: ${order_number}`
+      );
       return NextResponse.json(
         {
           message: `${getTimestamp()} No shipments found in the order data: ${order_number}`,
