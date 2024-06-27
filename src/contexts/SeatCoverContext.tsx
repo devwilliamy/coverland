@@ -139,7 +139,7 @@ const createSeatCoverSelectionStore = ({
     setSelectedProduct: (newProduct: TSeatCoverDataDB) => {
       set(() => ({
         selectedProduct: newProduct,
-        featuredImage: newProduct.product?.split(',')[0] ?? '',
+        featuredImage: newProduct?.product?.split(',')[0] ?? '',
       }));
     },
     selectedColor:
