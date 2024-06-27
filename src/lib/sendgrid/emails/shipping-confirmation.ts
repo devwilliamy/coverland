@@ -74,7 +74,7 @@ const testOrder = {
   customer_id: 1284,
   payment_date: '06/19/2024',
   customer_name: 'John Doe',
-  customer_email: 'john.doe.coverland@gmail.com',
+  customer_email: 'john.l.coverland@gmail.com',
   customer_phone: null,
   shipping_address_line_1: '4242 Main Street',
   shipping_address_line_2: 'PO Box 424',
@@ -83,7 +83,7 @@ const testOrder = {
   shipping_address_postal_code: '42424',
   shipping_address_country: 'US',
   shipping_carrier: 'ups',
-  shipping_tracking_number: null,
+  shipping_tracking_number: '1ZA039660311981504',
   billing_address_line_1: '4242 Main Street',
   billing_address_line_2: 'PO Box 424',
   billing_address_city: 'Norwalk',
@@ -258,10 +258,12 @@ const test_dynamic_template_data =
 
 const testData = {
   to: testOrder.customer_email,
-  test_dynamic_template_data,
+  dynamic_template_data: test_dynamic_template_data,
 };
 
 const generateSendGridApiPayload = (data): MailDataRequired => {
+  console.log('generateSendGridApiPayload:', data);
+
   return {
     from: { email: sgFromEmail },
     template_id: sgShippingConfirmationTemplateId,
@@ -274,8 +276,9 @@ const generateSendGridApiPayload = (data): MailDataRequired => {
   };
 };
 
+
 export const sendShippingConfirmationEmailToSendGrid = async (
-  data: MailDataRequired
+  data: MailDataRequired = generateSendGridApiPayload(testData)
 ) => {
   try {
     await sgMail.send(data);

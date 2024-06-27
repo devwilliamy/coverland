@@ -5,6 +5,7 @@ export async function POST(request: NextRequest) {
     try {
     //   const { emailInput } = await request.json();
       const { emailInput } = await request.json();
+      console.log(emailInput);
       await sendShippingConfirmationEmailToSendGrid(emailInput)
       return NextResponse.json({ message: "Email sent"});
     } catch (err) {
