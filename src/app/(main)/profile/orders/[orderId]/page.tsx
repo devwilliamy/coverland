@@ -3,6 +3,7 @@ import { TUserOrder, fetchUserOrderById } from '@/lib/db/profile/ordersHistory';
 import OrderItem from '../components/OrderItem';
 import { Card, CardHeader } from '@/components/ui/card';
 import { getFullCountryName } from '@/lib/db/profile/utils/shipping';
+import { formatPhoneNumber } from '@/lib/db/profile/utils/phone';
 
 type OrderDetailProps = {
   params: { orderId: number };
@@ -60,7 +61,7 @@ const OrderDetailPage = async ({ params }: OrderDetailProps) => {
                 {order.shipping_address_postal_code}
               </div>
               <div>{getFullCountryName(order.shipping_address_country)}</div>
-              <div>{order.customer_phone}</div>
+              <div>{formatPhoneNumber(order.customer_phone)}</div>
             </div>
             {/* <div className="mt-6 text-[#707070]">
               <div className="font-bold text-black">Payment Method</div>
