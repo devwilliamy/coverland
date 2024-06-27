@@ -73,11 +73,7 @@ export async function POST(request: NextRequest): Promise<SkuLabOrderResponse> {
         Accept: 'application/json',
       },
     });
-    // const {
-    //   data: {
-    //     order: { orderData },
-    //   },
-    // } = await response.json();
+
     const data = await response.json();
     const { order: orderData } = data;
 
