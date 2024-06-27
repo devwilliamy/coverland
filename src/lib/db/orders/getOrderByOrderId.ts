@@ -1,114 +1,113 @@
 import {
-    ADMIN_PANEL_ORDERS,
-    ADMIN_PANEL_ORDER_ITEMS,
-    ADMIN_PANEL_PRODUCTS,
-  } from '../constants/databaseTableNames';
-  
-  import { ReadonlyRequestCookies } from 'next/dist/server/web/spec-extension/adapters/request-cookies';
-  import { SupabaseClient } from '@supabase/supabase-js';
-  import { cookies } from 'next/headers';
-  import { createSupabaseServerClient } from '@/lib/db/supabaseClients';
-  
-  import { formatISODate } from '@/lib/utils/date';
-  import { formatMoneyAsNumber } from '@/lib/utils/money';
-  import { getProductDiscount } from '@/lib/db/profile/utils/orderSummary';
-  
-  import { TInitialProductDataDB } from '..';
-  import { Tables } from '../types';
-  
-  // these types come directly from supabase models
-  export type TInitialOrdersDataDB = Tables<'_Orders'>;
-  export type TInitialOrderItemsDataDB = Tables<'orderItems_table'>;
-  
-  export type TUserOrder = TInitialOrdersDataDB & {
-    items: TOrderItem[];
-  };
-  
-  export type TOrderItem = TInitialOrderItemsDataDB & {
-    product: TOrderItemProduct;
-  };
-  
-  export type TOrderItemProduct = TInitialProductDataDB & {
-    discount: number | string; // there is no discount property in the supabase model for Products
-  };
-  
-  async function fetchOrderByOrderId(orderId: string): Promise<TUserOrder | null> {
-    const cookieStore: ReadonlyRequestCookies = cookies();
-    const supabase: SupabaseClient = createSupabaseServerClient(cookieStore);
-  
-      try {
-        const { data, error } = await supabase
-          .from<TUserOrder>(ADMIN_PANEL_ORDERS)
-          .select('*')
-          .eq('order_id', orderId)
-          .single();
-  
-        if (error) {
-          console.error('Error fetching Order from supabase server client:', error);
-          return null;
-        }
-  
-        return data || null;
-      } catch (err) {
-        console.error('Unexpected error fetching Order:', err);
+  ADMIN_PANEL_ORDERS,
+  ADMIN_PANEL_ORDER_ITEMS,
+  ADMIN_PANEL_PRODUCTS,
+} from '../constants/databaseTableNames';
+
+import { ReadonlyRequestCookies } from 'next/dist/server/web/spec-extension/adapters/request-cookies';
+import { SupabaseClient } from '@supabase/supabase-js';
+import { cookies } from 'next/headers';
+import { createSupabaseServerClient, createSupabaseServerDatabaseClient } from '@/lib/db/supabaseClients';
+
+import { formatISODate } from '@/lib/utils/date';
+import { formatMoneyAsNumber } from '@/lib/utils/money';
+import { getProductDiscount } from '@/lib/db/profile/utils/orderSummary';
+
+import { TInitialProductDataDB } from '..';
+import { Tables } from '../types';
+
+// these types come directly from supabase models
+export type TInitialOrdersDataDB = Tables<'_Orders'>;
+export type TInitialOrderItemsDataDB = Tables<'orderItems_table'>;
+
+export type TUserOrder = TInitialOrdersDataDB & {
+  items: TOrderItem[];
+};
+
+export type TOrderItem = TInitialOrderItemsDataDB & {
+  product: TOrderItemProduct;
+};
+
+export type TOrderItemProduct = TInitialProductDataDB & {
+  discount: number | string; // there is no discount property in the supabase model for Products
+};
+
+
+async function fetchUserOrder(orderId: string): Promise<TUserOrder | null> {
+  const cookieStore: ReadonlyRequestCookies = cookies();
+  const supabase: SupabaseClient = createSupabaseServerClient(cookieStore);
+
+    try {
+      const { data, error } = await supabase
+        .from<TUserOrder>(ADMIN_PANEL_ORDERS)
+        .select('*')
+        .eq('order_id', orderId)
+        .single();
+
+      if (error) {
+        console.error('Error fetching User Order from supabase:', error);
         return null;
       }
 
-  }
-  
-  async function fetchOrderItems(
-    orderIds: number[]
-  ): Promise<TOrderItem[] | null> {
-    const cookieStore: ReadonlyRequestCookies = cookies();
-    const supabase: SupabaseClient = createSupabaseServerClient(cookieStore);
-    try {
-      const { data, error } = await supabase
-        .from<OrderItem>(ADMIN_PANEL_ORDER_ITEMS)
-        .select('*')
-        .in('order_id', orderIds);
-  
-      if (error) {
-        console.error('Error fetching order items from supabase:', error);
-        return null;
-      }
-  
-      return data;
+      return data || null;
     } catch (err) {
-      console.error('Unexpected error fetching order items:', err);
+      console.error('Unexpected error fetching User Order:', err);
       return null;
     }
-  }
-  
-  async function fetchOrderItemProducts(
-    productIds: number[]
-  ): Promise<TOrderItemProduct[] | null> {
-    const cookieStore: ReadonlyRequestCookies = cookies();
-    const supabase: SupabaseClient = createSupabaseServerClient(cookieStore);
-    try {
-      const { data, error } = await supabase
-        .from<Product>(ADMIN_PANEL_PRODUCTS)
-        .select('*')
-        .in('id', productIds);
-  
-      if (error) {
-        console.error('Error fetching products from supabase:', error);
-        return null;
-      }
-  
-      return data;
-    } catch (err) {
-      console.error('Unexpected error fetching products:', err);
-      return null;
-    }
-  }
-  
+}
 
-  export async function fetchUserOrderById(
+async function fetchOrderItems(
+  orderIds: number[]
+): Promise<TOrderItem[] | null> {
+  const cookieStore: ReadonlyRequestCookies = cookies();
+  const supabase: SupabaseClient = createSupabaseServerClient(cookieStore);
+  try {
+    const { data, error } = await supabase
+      .from<OrderItem>(ADMIN_PANEL_ORDER_ITEMS)
+      .select('*')
+      .in('order_id', orderIds);
+
+    if (error) {
+      console.error('Error fetching order items from supabase:', error);
+      return null;
+    }
+
+    return data;
+  } catch (err) {
+    console.error('Unexpected error fetching order items:', err);
+    return null;
+  }
+}
+
+async function fetchOrderItemProducts(
+  productIds: number[]
+): Promise<TOrderItemProduct[] | null> {
+  const cookieStore: ReadonlyRequestCookies = cookies();
+  const supabase: SupabaseClient = createSupabaseServerClient(cookieStore);
+  try {
+    const { data, error } = await supabase
+      .from<Product>(ADMIN_PANEL_PRODUCTS)
+      .select('*')
+      .in('id', productIds);
+
+    if (error) {
+      console.error('Error fetching products from supabase:', error);
+      return null;
+    }
+
+    return data;
+  } catch (err) {
+    console.error('Unexpected error fetching products:', err);
+    return null;
+  }
+}
+
+export async function fetchUserOrderById(
     orderId: string
   ): Promise<TUserOrder | null> {
-    // fetch an order by order.order_id
+    // fetch user order by id
     try {
-      const order = await fetchOrderByOrderId(orderId);
+      const order = await fetchUserOrder(orderId);
       if (!order) return null;
   
       try {
