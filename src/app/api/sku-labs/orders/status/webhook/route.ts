@@ -58,7 +58,7 @@ export async function POST(request: NextRequest): Promise<SkuLabOrderResponse> {
       {
         message: `[${getTimestamp()}] Webhook Data did not contain store id or order number`,
       },
-      { status: 400 }
+      { status: 200 } // Returning 200 because I think SKU Labs will try to re-send this if it got a 400
     );
   }
 
@@ -160,7 +160,7 @@ export async function POST(request: NextRequest): Promise<SkuLabOrderResponse> {
         {
           message: `${getTimestamp()} No shipments found in the order data: ${order_number}`,
         },
-        { status: 400 }
+        { status: 200 } // Returning 200 because I think SKU Labs will try to re-send this if it got a 400
       );
     }
   } catch (error) {
@@ -171,7 +171,7 @@ export async function POST(request: NextRequest): Promise<SkuLabOrderResponse> {
       {
         message: `${getTimestamp()} No shipments found in the order data or does not start with CL: ${order_number}. ${JSON.stringify(error)}`,
       },
-      { status: 500 }
+      { status: 500 } // Keeping this as 500 because that means something went wrong
     );
   }
 }
