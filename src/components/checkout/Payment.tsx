@@ -17,6 +17,7 @@ import ApplePayIcon from './icons/ApplePayIcon';
 import GooglePayIcon from './icons/GooglePayIcon';
 import { determineDeliveryByDate } from '@/lib/utils/deliveryDateUtils';
 import { SHIPPING_METHOD } from '@/lib/constants';
+import KlarnaIcon from './icons/KlarnaIcon';
 
 export default function Payment({
   handleChangeAccordion,
@@ -142,15 +143,13 @@ export default function Payment({
               )}
               {paymentMethod === 'klarna' && (
                 <div className="flex items-center gap-2 ">
-                  <div className="flex min-w-[70px] max-w-[70px]">
-                    {/* <Image
-                      alt="Klarna"
-                      src={Klarna}
-                      className="-mx-4 -my-2 object-cover"
-                    /> */}
+                  <div className="ml-2">
+                    <KlarnaIcon />
                   </div>
 
-                  <h2> 4 interest-free payments</h2>
+                  <h2 className="ml-[8px] mt-[1px]">
+                    4 interest-free payments
+                  </h2>
                 </div>
               )}
               {paymentMethod === 'creditCard' && (

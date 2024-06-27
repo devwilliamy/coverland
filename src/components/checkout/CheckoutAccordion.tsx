@@ -44,7 +44,6 @@ import { useRouter } from 'next/navigation';
 import PayPalButtonSection from './PayPalButtonSection';
 import { generateSkuLabOrderInput } from '@/lib/utils/skuLabs';
 import { handlePurchaseGoogleTag } from '@/hooks/useGoogleTagDataLayer';
-// import PayWithKlarnaWhite from './PayWithKlarnaWhite';
 // import { ReadyCheck } from './ReadyCheck';
 import { getTotalDiscountPrice } from '@/lib/utils/calculations';
 import { SHIPPING_METHOD } from '@/lib/constants';
@@ -54,6 +53,7 @@ import { ReadyCheck } from './icons/ReadyCheck';
 import { useMediaQuery } from '@mantine/hooks';
 import CheckoutSummarySection from './CheckoutSummarySection';
 import OrderReview from './OrderReview';
+import PayWithKlarnaWhite from './icons/PayWithKlarnaWhite';
 
 export default function CheckoutAccordion() {
   const stripe = useStripe();
@@ -291,70 +291,70 @@ export default function CheckoutAccordion() {
     );
   };
 
-  const handleGetTax = async () => {
-    setIsLoading(true);
-    let taxItems = [];
+  // const handleGetTax = async () => {
+  //   setIsLoading(true);
+  //   let taxItems = [];
 
-    for (let index = 0; index < cartItems.length; index++) {
-      const item = cartItems[index] as any;
-      taxItems.push({
-        id: item.id ? item.id : index,
-        quantity: item.quantity,
-        unit_price: item.msrp,
-        discount: 0,
-      });
-    }
+  //   for (let index = 0; index < cartItems.length; index++) {
+  //     const item = cartItems[index] as any;
+  //     taxItems.push({
+  //       id: item.id ? item.id : index,
+  //       quantity: item.quantity,
+  //       unit_price: item.msrp,
+  //       discount: 0,
+  //     });
+  //   }
 
-    const bodyData = {
-      to_country: shippingAddress.address.country,
-      to_zip: shippingAddress.address.postal_code,
-      to_state: twoLetterStateCode,
-      shipping: 0,
-      line_items: taxItems,
-    };
-    const response = await fetch('/api/taxjar/sales-tax', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ bodyData }),
-    });
+  //   const bodyData = {
+  //     to_country: shippingAddress.address.country,
+  //     to_zip: shippingAddress.address.postal_code,
+  //     to_state: twoLetterStateCode,
+  //     shipping: 0,
+  //     line_items: taxItems,
+  //   };
+  //   const response = await fetch('/api/taxjar/sales-tax', {
+  //     method: 'POST',
+  //     headers: {
+  //       'Content-Type': 'application/json',
+  //     },
+  //     body: JSON.stringify({ bodyData }),
+  //   });
 
-    const taxRes = await response.json();
-    const amount_to_collect = taxRes?.tax?.amount_to_collect;
-    updateTotalTax(amount_to_collect);
+  //   const taxRes = await response.json();
+  //   const amount_to_collect = taxRes?.tax?.amount_to_collect;
+  //   updateTotalTax(amount_to_collect);
 
-    const taxSum = Number(Number(cartMSRP) + Number(amount_to_collect)).toFixed(
-      2
-    );
-    const totalWithTax = convertPriceToStripeFormat(taxSum);
+  //   const taxSum = Number(Number(cartMSRP) + Number(amount_to_collect)).toFixed(
+  //     2
+  //   );
+  //   const totalWithTax = convertPriceToStripeFormat(taxSum);
 
-    if (totalWithTax) {
-      try {
-        elements?.update({
-          amount: totalWithTax,
-          mode: 'payment',
-          currency: 'usd',
-        });
-        await elements?.submit();
-      } catch (error) {
-        console.error(error);
-      }
-    }
-    await fetch('/api/stripe/payment-intent', {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        paymentIntentId,
-        amount: totalWithTax,
-      }),
-    });
-    setIsLoading(false);
+  //   if (totalWithTax) {
+  //     try {
+  //       elements?.update({
+  //         amount: totalWithTax,
+  //         mode: 'payment',
+  //         currency: 'usd',
+  //       });
+  //       await elements?.submit();
+  //     } catch (error) {
+  //       console.error(error);
+  //     }
+  //   }
+  //   await fetch('/api/stripe/payment-intent', {
+  //     method: 'PUT',
+  //     headers: {
+  //       'Content-Type': 'application/json',
+  //     },
+  //     body: JSON.stringify({
+  //       paymentIntentId,
+  //       amount: totalWithTax,
+  //     }),
+  //   });
+  //   setIsLoading(false);
 
-    return totalWithTax;
-  };
+  //   return totalWithTax;
+  // };
 
   const handleSubmit = async () => {
     if (!stripe || !elements) {
@@ -876,8 +876,7 @@ export default function CheckoutAccordion() {
                             {isLoading ? (
                               <AiOutlineLoading3Quarters className="animate-spin" />
                             ) : (
-                              <></>
-                              // <PayWithKlarnaWhite />
+                              <PayWithKlarnaWhite />
                             )}
                           </Button>
                         )}

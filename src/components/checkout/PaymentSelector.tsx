@@ -99,7 +99,7 @@ const PaymentSelector: React.FC<PaymentSelectorProps> = ({
         />
         <GooglePayIcon />
       </div>
-      {/* <div className={selctionStyle}>
+      <div className={selctionStyle + ' items-center '}>
         <input
           type="radio"
           id="klarnaInput"
@@ -109,9 +109,11 @@ const PaymentSelector: React.FC<PaymentSelectorProps> = ({
           onChange={() => onPaymentMethodChange('klarna')}
           className={inputStyle}
         />
-        <KlarnaIcon />
-        <h2 className="w-full text-left"> 4 interest-free payments</h2>
-      </div> */}
+        <div className=" -mt-[1px]">
+          <KlarnaIcon />
+        </div>
+        <h2 className="-ml-2.5 w-full text-left">4 interest-free payments</h2>
+      </div>
     </div>
   );
 };
