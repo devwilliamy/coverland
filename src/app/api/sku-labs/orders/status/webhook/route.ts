@@ -44,7 +44,6 @@ export async function POST(request: NextRequest): Promise<SkuLabOrderResponse> {
   // TODO: Probably good to have schema validation here
   const webhookData = await request.json();
   console.info(`[${getTimestamp()}] Webhook received:`, webhookData);
-  console.info(`[Time In PST]: ${formatTime(webhookData.data.time, 'PST')}`);
 
   // Once received webhook, get the order number and store number
   if (
