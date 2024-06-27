@@ -9,6 +9,7 @@ import { formatMoneyAsNumber } from '@/lib/utils/money';
 import { SHIPPING_METHOD } from '@/lib/constants';
 import { determineDeliveryByDate } from '@/lib/utils/deliveryDateUtils';
 import { generateTrackingUrl } from '@/lib/utils/generateTrackingUrl';
+import { formatISODate } from '@/lib/utils/date';
 let shipping;
 
 const shippingConstants = {
@@ -181,7 +182,7 @@ const generateDynamicTemplateDataFromUserOrder = (
       const main_data = {
         id: order_id,
         ordered_on: payment_date,
-        shipped_on: shipping_status_last_updated,
+        shipped_on: formatISODate(shipping_status_last_updated),
         shipping_status,
         // expected_delivery_on: myDeliveryFunction(payment_date), // need to add a function to convert order date into estimated delivery date
         tracking_number: shipping_tracking_number,
