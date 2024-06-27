@@ -17,6 +17,7 @@ export const CustomTextField = ({
   shippingState,
   setShippingState,
   required,
+  errorMessage,
 }: {
   label: string;
   type: CustomFieldTypes;
@@ -24,6 +25,7 @@ export const CustomTextField = ({
   shippingState: Record<string, ShippingStateType>;
   setShippingState: Dispatch<SetStateAction<Record<string, ShippingStateType>>>;
   required: boolean;
+  errorMessage?: string;
 }) => {
   const validateEmail = (email: string) => {
     const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -252,7 +254,7 @@ export const CustomTextField = ({
           onBlur={handleBlur}
           placeholder={placeholder}
           error={!!shippingState[type].error}
-          helperText={shippingState[type].message}
+          helperText={''}
           required={required}
           sx={{
             margin: 0,
@@ -278,7 +280,7 @@ export const CustomTextField = ({
           onBlur={handleBlur}
           placeholder={placeholder}
           error={!!shippingState[type].error}
-          helperText={shippingState[type].message}
+          helperText={errorMessage ? errorMessage :shippingState[type].message}
           required={required}
           sx={{
             margin: 0,

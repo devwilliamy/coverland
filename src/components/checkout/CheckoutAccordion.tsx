@@ -615,7 +615,7 @@ export default function CheckoutAccordion() {
           Checkout
         </div>
       )}
-      <div className="flex w-full max-w-[1080px] pt-2 lg:gap-[70px] lg:px-[24px] lg:pt-[38px]">
+      <div className="flex w-full max-w-[1080px] pt-2 lg:gap-[70px] lg:px-[24px] lg:pt-0 ">
         <div className="flex w-full flex-col lg:w-2/3 ">
           {isMobile && currentStep === CheckoutStep.CART && (
             <div className="mb-[32px]">

@@ -235,15 +235,6 @@ export default function AddressForm({
           error: false,
         },
       });
-      // setValue('email', customerInfo.email || '');
-      // setValue('firstName', addressData.firstName || '');
-      // setValue('lastName', addressData.lastName || '');
-      // setValue('line1', addressData.address.line1 || '');
-      // setValue('line2', addressData.address.line2 || '');
-      // setValue('city', addressData.address.city || '');
-      // setValue('state', addressData.address.state || '');
-      // setValue('postal_code', addressData.address.postal_code || '');
-      // setValue('phoneNumber', customerInfo.phoneNumber || '');
     }
   }, [addressData, customerInfo]);
 
@@ -485,23 +476,25 @@ export default function AddressForm({
         /> */}
       </>
       {/* Previous Shipping Checkout Form  */}
-
-      <CustomTextField
-        label="First Name"
-        type="firstName"
-        placeholder="First Name"
-        required
-        shippingState={shippingState}
-        setShippingState={setShippingState}
-      />
-      <CustomTextField
-        label="Last Name"
-        type="lastName"
-        required
-        placeholder="Last Name"
-        shippingState={shippingState}
-        setShippingState={setShippingState}
-      />
+      <div className="flex grid-cols-2 flex-col gap-[29.5px] lg:grid lg:gap-[14px]">
+        <CustomTextField
+          label="First Name"
+          type="firstName"
+          placeholder="First Name"
+          required
+          shippingState={shippingState}
+          setShippingState={setShippingState}
+          errorMessage="Please enter your first name."
+        />
+        <CustomTextField
+          label="Last Name"
+          type="lastName"
+          required
+          placeholder="Last Name"
+          shippingState={shippingState}
+          setShippingState={setShippingState}
+        />
+      </div>
       <CustomTextField
         label="Address"
         type="line1"
@@ -518,46 +511,52 @@ export default function AddressForm({
         shippingState={shippingState}
         setShippingState={setShippingState}
       />
-      <CustomTextField
-        label="City"
-        type="city"
-        required
-        placeholder="City"
-        shippingState={shippingState}
-        setShippingState={setShippingState}
-      />
-      <CustomTextField
-        label="State"
-        type="state"
-        required
-        placeholder="State"
-        shippingState={shippingState}
-        setShippingState={setShippingState}
-      />
-      <CustomTextField
-        label="ZIP"
-        type="postal_code"
-        required
-        placeholder="ZIP"
-        shippingState={shippingState}
-        setShippingState={setShippingState}
-      />
-      <CustomTextField
-        label="Email"
-        type="email"
-        required
-        placeholder="Email"
-        shippingState={shippingState}
-        setShippingState={setShippingState}
-      />
-      <CustomTextField
-        label="Phone Number"
-        type="phoneNumber"
-        required
-        placeholder="Phone Number"
-        shippingState={shippingState}
-        setShippingState={setShippingState}
-      />
+      <div className="flex grid-cols-3 flex-col gap-[29.5px] lg:grid lg:gap-[14px]">
+        <CustomTextField
+          label="City"
+          type="city"
+          required
+          placeholder="City"
+          shippingState={shippingState}
+          setShippingState={setShippingState}
+        />
+        <CustomTextField
+          label="State"
+          type="state"
+          required
+          placeholder="State"
+          shippingState={shippingState}
+          setShippingState={setShippingState}
+        />
+        <CustomTextField
+          label="ZIP"
+          type="postal_code"
+          required
+          placeholder="ZIP"
+          shippingState={shippingState}
+          setShippingState={setShippingState}
+        />
+      </div>
+
+      <div className="flex grid-cols-2 flex-col gap-[29.5px] lg:grid lg:gap-[14px]">
+        <CustomTextField
+          label="Email"
+          type="email"
+          required
+          placeholder="Email"
+          shippingState={shippingState}
+          setShippingState={setShippingState}
+        />
+        <CustomTextField
+          label="Phone Number"
+          type="phoneNumber"
+          required
+          placeholder="Phone Number"
+          shippingState={shippingState}
+          setShippingState={setShippingState}
+        />
+      </div>
+
       <Button
         type="submit"
         disabled={checkErrors()}
@@ -596,7 +595,7 @@ export default function AddressForm({
           // handleChangeAccordion('payment');
           // handleSelectTab('payment');
         }}
-        className={`h-[48px] w-full cursor-pointer self-center rounded-lg bg-black text-base font-bold uppercase text-white lg:h-[63px] lg:max-w-[390px] lg:text-xl`}
+        className={`h-[48px] w-full cursor-pointer self-center rounded-lg bg-black text-base font-bold uppercase text-white lg:h-[63px] lg:max-w-[307px] lg:self-end lg:text-xl`}
       >
         Save & Continue
       </Button>
