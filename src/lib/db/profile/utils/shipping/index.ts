@@ -24,6 +24,10 @@ const countryNames: { [key: string]: string } = {
  * @param value string
  * @returns string
  */
-export function getFullCountryName(abbreviation: string): string {
+export function getFullCountryName(abbreviation: string | null): string | null {
+    if(!abbreviation) {
+        return null;
+    }
+
     return countryNames[abbreviation] || abbreviation;
 }
