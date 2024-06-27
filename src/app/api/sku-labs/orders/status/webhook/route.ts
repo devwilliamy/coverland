@@ -56,7 +56,7 @@ export async function POST(request: NextRequest): Promise<SkuLabOrderResponse> {
     );
     return NextResponse.json(
       {
-        message: `[${getTimestamp()}] Webhook Data did not container store id or order number`,
+        message: `[${getTimestamp()}] Webhook Data did not contain store id or order number`,
       },
       { status: 400 }
     );
@@ -88,7 +88,7 @@ export async function POST(request: NextRequest): Promise<SkuLabOrderResponse> {
       order_number.startsWith('CL')
     ) {
       const shipment = orderData.shipments[0].response;
-      console.log(`${getTimestamp()} OrderData Shipments:`, shipment);
+      console.log(`${getTimestamp()} OrderData Shipments ${order_number}:`, shipment);
 
       // Extract necessary data for the Supabase update
       const shipping_carrier = shipment.provider || '';
@@ -153,7 +153,7 @@ export async function POST(request: NextRequest): Promise<SkuLabOrderResponse> {
         { status: 200 }
       );
     } else {
-      console.error(
+      console.warn(
         `${getTimestamp()} No shipments found in the order data: ${order_number}`
       );
       return NextResponse.json(
