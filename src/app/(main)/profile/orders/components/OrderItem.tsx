@@ -41,10 +41,9 @@ const OrderItem = ({
           ) : (
             <>
               <div className="mb-1.5">
-                Qty: {item.quantity} @ $
-                {formatMoneyAsNumber(item.price / item.quantity)}
+                Qty: {item.quantity} 
               </div>
-              <div>${item.price}</div>
+              <div>Total: ${item.price}</div>
             </>
           )}
         </div>
