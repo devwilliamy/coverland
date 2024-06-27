@@ -12,11 +12,12 @@ export const supabaseDatabaseClient = createClient<Database>(
   process.env.NEXT_PUBLIC_SUPABASE_KEY!
 );
 
-export const supabasePureServerDatabaseClient = createServerClient<Database>(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.NEXT_PUBLIC_SUPABASE_KEY!,
-  {}
-);
+export const createSupabaseServerDatabaseClient = (): SupabaseClient => {
+  return createClient<Database>(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.NEXT_PUBLIC_SUPABASE_KEY!,
+  );
+};
 
 export const createSupabaseServerClient = (
   cookieStore: ReturnType<typeof cookies>
