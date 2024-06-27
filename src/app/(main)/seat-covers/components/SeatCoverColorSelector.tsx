@@ -2,7 +2,6 @@ import { SeatCoverSelectionContext } from '@/contexts/SeatCoverContext';
 import Image, { StaticImageData } from 'next/image';
 import { useContext, useEffect, useState } from 'react';
 import { useStore } from 'zustand';
-import { SeatData, SeatImageDataObject, SeatString } from '../util';
 import CircleBlackRed from '@/images/PDP/Product-Details-Redesign-2/seat-covers/cover-colors/black-red/seat-circle-black-red.webp';
 import CircleBlack from '@/images/PDP/Product-Details-Redesign-2/seat-covers/cover-colors/black/seat-circle-black.webp';
 import CircleGray from '@/images/PDP/Product-Details-Redesign-2/seat-covers/cover-colors/gray/seat-circle-gray.webp';
@@ -27,12 +26,12 @@ export default function SeatCoverColorSelector({
     throw new Error('Missing SeatCoverSelectionContext.Provider in the tree');
   const [colorIndex, setColorIndex] = useState(0);
   const modelData = useStore(store, (s) => s.modelData);
+  const selectedProduct = useStore(store, (s) => s.selectedProduct);
   const setSelectedProduct = useStore(store, (s) => s.setSelectedProduct);
   const setSelectedColor = useStore(store, (s) => s.setSelectedColor);
-  const getSelectedColor = useStore(store, (state) => state.selectedColor);
+  const selectedColor = useStore(store, (state) => state.selectedColor);
   const availableColors = useStore(store, (s) => s.availableColors);
   const selectedSetDisplay = useStore(store, (s) => s.selectedSetDisplay);
-  const setAvailableColors = useStore(store, (s) => s.setAvailableColors);
 
   const showColors = [
     {
@@ -52,13 +51,14 @@ export default function SeatCoverColorSelector({
     },
   ];
 
-  const getModelDataBySet = [
+  const getModelDataBySet: TSeatCoverDataDB[] = [
     ...new Map(
       modelData
         .filter(
-          (seatCover) => isFullSet(seatCover.display_set) === selectedSetDisplay
+          (seatCover: TSeatCoverDataDB) =>
+            isFullSet(seatCover.display_set as string) === selectedSetDisplay
         )
-        .map((x) => [x['display_color'], x])
+        .map((x: TSeatCoverDataDB) => [x['display_color'], x])
     ).values(),
   ];
 
@@ -66,7 +66,7 @@ export default function SeatCoverColorSelector({
     new Set(modelData.map((model) => model.display_color))
   ).map((color) => modelData.find((model) => model.display_color === color));
 
-  const allOutOfStock = (availableSeats: []) => {
+  const allOutOfStock = (availableSeats: TSeatCoverDataDB[]) => {
     return availableSeats.every((seatCover) => seatCover.quantity === '0');
   };
 
@@ -78,13 +78,15 @@ export default function SeatCoverColorSelector({
     );
     setColorIndex(availableColorIndex);
     setSelectedProduct(
-      getModelDataBySet[0] ? getModelDataBySet[0] : uniqueProductColors[0]
+      getModelDataBySet[0]
+        ? getModelDataBySet[0]
+        : (uniqueProductColors[0] as TSeatCoverDataDB)
     );
 
     setSelectedColor(
-      getModelDataBySet[0]?.display_color.toLowerCase()
-        ? getModelDataBySet[0]?.display_color.toLowerCase()
-        : uniqueProductColors[0]?.display_color.toLowerCase()
+      getModelDataBySet[0]?.display_color?.toLowerCase()
+        ? (getModelDataBySet[0]?.display_color?.toLowerCase() as string)
+        : (uniqueProductColors[0]?.display_color?.toLowerCase() as string)
     );
   }, [selectedSetDisplay]);
 
@@ -97,14 +99,15 @@ export default function SeatCoverColorSelector({
         <h3 className=" max-h-[13px] pl-[3px] text-[16px] font-[400] text-black ">
           Color
         </h3>{' '}
-        {!!getSelectedColor ? (
+        {!!selectedColor ? (
           <span className="ml-[12px]  text-[#8F8F8F]">
             {allOutOfStock(getModelDataBySet)
               ? 'Out of Stock'
-              : !availableColors.includes(getSelectedColor.toLowerCase())
-                ? `${getSelectedColor.charAt(0).toUpperCase()}${getSelectedColor.slice(1)} - Out of Stock`
-                : getSelectedColor.charAt(0).toUpperCase() +
-                  getSelectedColor.slice(1)}
+              : !availableColors.includes(selectedColor.toLowerCase()) ||
+                  selectedProduct.quantity === '0'
+                ? `${selectedColor.charAt(0).toUpperCase()}${selectedColor.slice(1)} - Out of Stock`
+                : selectedColor.charAt(0).toUpperCase() +
+                  selectedColor.slice(1)}
           </span>
         ) : (
           <></>
@@ -113,49 +116,37 @@ export default function SeatCoverColorSelector({
 
       {allOutOfStock(getModelDataBySet) ? (
         <div className="flex w-full min-w-[288px]  gap-[11px] overflow-x-auto py-[1px] md:overflow-x-hidden">
-          {uniqueProductColors.map((product, index) => {
-            const isAvailableColor = availableColors.includes(
-              product?.display_color?.toLowerCase()
-            );
-            const isOutOfStock = true;
-            const seatCover = getModelDataBySet.find(
-              (seatCover) =>
-                seatCover?.display_color?.toLowerCase() ===
-                product?.display_color?.toLowerCase()
-            );
-            return (
+          {uniqueProductColors.map((product, index) => (
+            <div
+              key={`seat-color-${index}`}
+              className={`flex ${index === colorIndex ? 'border-1 border border-[#6F6F6F] ' : ''} 
+                relative inline-block cursor-pointer flex-col place-content-center rounded-full p-[2px] `}
+              onClick={() => {
+                setColorIndex(index);
+                setSelectedProduct(getModelDataBySet[0]);
+                setSelectedColor(product?.display_color as string);
+              }}
+            >
+              <Image
+                alt="cover-color"
+                src={
+                  iconMap[product?.display_color as string] as StaticImageData
+                }
+                className={`rounded-full opacity-20`}
+              />
               <div
-                key={`seat-color-${index}`}
-                className={`flex ${index === colorIndex ? 'border-1 border border-[#6F6F6F] ' : ''} ${
-                  isOutOfStock && 'relative inline-block'
-                } cursor-pointer flex-col place-content-center rounded-full p-[2px] `}
-                onClick={() => {
-                  setColorIndex(index);
-                  setSelectedProduct(getModelDataBySet[0]);
-                  setSelectedColor(product?.display_color as string);
-                }}
-              >
-                <Image
-                  alt="cover-color"
-                  src={
-                    iconMap[product?.display_color as string] as StaticImageData
-                  }
-                  className={`rounded-full opacity-20`}
-                />
-                <div
-                  className={`ofs-overlay ${index === colorIndex ? '!w-full' : '!w-[89%]'}`}
-                ></div>
-              </div>
-            );
-          })}
+                className={`ofs-overlay ${index === colorIndex ? '!w-full' : '!w-[89%]'}`}
+              ></div>
+            </div>
+          ))}
         </div>
       ) : (
         <div className="flex w-full min-w-[288px]  gap-[11px] overflow-x-auto py-[1px] md:overflow-x-hidden">
           {uniqueProductColors.map((product, index) => {
             const isAvailableColor = availableColors.includes(
-              product?.display_color?.toLowerCase()
+              product?.display_color?.toLowerCase() as string
             );
-            const isOutOfStock = !isAvailableColor;
+            const isOutOfStock = !isAvailableColor || product?.quantity === '0';
             const seatCover = getModelDataBySet.find(
               (seatCover) =>
                 seatCover?.display_color?.toLowerCase() ===
@@ -173,7 +164,7 @@ export default function SeatCoverColorSelector({
                     const matchingColor = showColors.find(
                       (color) =>
                         color.display_color.toLowerCase() ===
-                        product.display_color.toLowerCase()
+                        product?.display_color?.toLowerCase()
                     );
                     // TODO: Change msrp/price to be msrp / price from DB
                     // Don't have time to test

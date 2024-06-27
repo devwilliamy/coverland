@@ -137,7 +137,7 @@ export default function SeatContent({
       </div>
 
       {!!isFinalSelection ? (
-        <SeatCoverSelection seatCover={selectedProduct} />
+        <SeatCoverSelection />
       ) : null}
       <SeatCoverColorSelector isFinalSelection={isFinalSelection} />
       <FreeDetails />
