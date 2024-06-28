@@ -175,10 +175,17 @@ export const sendShippingConfirmationEmailToSendGrid = async (
   data: MailDataRequired
 ) => {
   try {
-    console.log('data!', data);
-    console.log('personalizations', data.personalizations);
-    console.log('dynamicTemplateData', data.personalizations[0].dynamicTemplateData);
-    console.log('to', data.personalizations[0].to);
+    console.log('Sending email with data:', data);
+
+    const response = await sgMail.send(data);
+
+    if (response[0].statusCode === 202) {
+      console.log('Email sent successfully - Status 202:', response[0].headers);
+      // Optionally handle further processing
+    } else {
+      console.error('Unexpected status:', response[0].statusCode, response[0].headers);
+    }
+
     await sgMail.send(data);
   } catch (error) {
     console.error(error);
