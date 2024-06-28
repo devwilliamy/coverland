@@ -2,6 +2,12 @@ import { NextRequest, NextResponse } from 'next/server';
 import { SkuLabOrderResponse } from '../../route';
 import { DateTime } from 'luxon';
 import { supabaseDatabaseClient } from '@/lib/db/supabaseClients';
+import {
+  sendShippingConfirmationEmailToSendGrid,
+  generateDynamicTemplateDataFromUserOrder,
+  generateSendGridApiPayload,
+} from '@/lib/sendgrid/emails/shipping-confirmation';
+import { fetchUserOrderById } from '@/lib/db/orders/getOrderByOrderId';
 
 function getTimestamp() {
   return DateTime.now().setZone('America/Los_Angeles').toISO();
@@ -84,7 +90,10 @@ export async function POST(request: NextRequest): Promise<SkuLabOrderResponse> {
       order_number.startsWith('CL')
     ) {
       const shipment = orderData.shipments[0].response;
-      console.log(`${getTimestamp()} OrderData Shipments ${order_number}:`, shipment);
+      console.log(
+        `${getTimestamp()} OrderData Shipments ${order_number}:`,
+        shipment
+      );
 
       // Extract necessary data for the Supabase update
       const shipping_carrier = shipment.provider || '';
@@ -134,6 +143,20 @@ export async function POST(request: NextRequest): Promise<SkuLabOrderResponse> {
         [TODO]: Send Tracking Number Email.
 
       */
+
+      const fullOrderData = await fetchUserOrderById(data[0].id);
+
+      const emailTo = fullOrderData?.customer_email;
+
+      const toSendgrid = {
+        to: emailTo,
+        dynamic_template_data:
+          generateDynamicTemplateDataFromUserOrder(fullOrderData),
+      };
+
+      sendShippingConfirmationEmailToSendGrid(
+        generateSendGridApiPayload(toSendgrid)
+      );
 
       /*
       
