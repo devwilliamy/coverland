@@ -79,7 +79,7 @@ export const generateDynamicTemplateDataFromUserOrder = (
 
   const main_data = {
     id: order_id,
-    ordered_on: payment_date,
+    ordered_on: payment_date, // might need to change this to actual order date, but need to confirm which one is more accurate first
     shipped_on: formatISODate(shipping_status_last_updated),
     shipping_status,
     // expected_delivery_on: myDeliveryFunction(payment_date), // need to add a function to convert order date into estimated delivery date
