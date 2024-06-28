@@ -175,7 +175,6 @@ export const sendShippingConfirmationEmailToSendGrid = async (
   data: MailDataRequired
 ) => {
   try {
-    console.log('data!', data);
     await sgMail.send(data);
   } catch (error) {
     console.error(error);

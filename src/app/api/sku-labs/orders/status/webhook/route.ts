@@ -146,22 +146,13 @@ export async function POST(request: NextRequest): Promise<SkuLabOrderResponse> {
 
       const fullOrderData = await fetchUserOrderById(data[0].id);
 
-      console.log('fullOrderData', fullOrderData);
-
       const emailTo = fullOrderData?.customer_email;
-
-      console.log(
-        'dyamicTemplateData',
-        generateDynamicTemplateDataFromUserOrder(fullOrderData)
-      );
 
       const toSendgrid = {
         to: emailTo,
         dynamic_template_data:
           generateDynamicTemplateDataFromUserOrder(fullOrderData),
       };
-
-      console.log('toSendgrid', toSendgrid);
 
       sendShippingConfirmationEmailToSendGrid(
         generateSendGridApiPayload(toSendgrid)
