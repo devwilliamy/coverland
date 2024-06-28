@@ -33,15 +33,15 @@ export type TOrderItemProduct = TInitialProductDataDB & {
 };
 
 
-async function fetchUserOrder(orderId: string): Promise<TUserOrder | null> {
+async function fetchUserOrder(orderId: number): Promise<TUserOrder | null> {
   const cookieStore: ReadonlyRequestCookies = cookies();
-  const supabase: SupabaseClient = createSupabaseServerClient(cookieStore);
+  const supabase: SupabaseClient = createSupabaseServerDatabaseClient();
 
     try {
       const { data, error } = await supabase
         .from<TUserOrder>(ADMIN_PANEL_ORDERS)
         .select('*')
-        .eq('order_id', orderId)
+        .eq('id', orderId)
         .single();
 
       if (error) {
@@ -60,7 +60,7 @@ async function fetchOrderItems(
   orderIds: number[]
 ): Promise<TOrderItem[] | null> {
   const cookieStore: ReadonlyRequestCookies = cookies();
-  const supabase: SupabaseClient = createSupabaseServerClient(cookieStore);
+  const supabase: SupabaseClient = createSupabaseServerDatabaseClient();
   try {
     const { data, error } = await supabase
       .from<OrderItem>(ADMIN_PANEL_ORDER_ITEMS)
@@ -83,7 +83,7 @@ async function fetchOrderItemProducts(
   productIds: number[]
 ): Promise<TOrderItemProduct[] | null> {
   const cookieStore: ReadonlyRequestCookies = cookies();
-  const supabase: SupabaseClient = createSupabaseServerClient(cookieStore);
+  const supabase: SupabaseClient = createSupabaseServerDatabaseClient();
   try {
     const { data, error } = await supabase
       .from<Product>(ADMIN_PANEL_PRODUCTS)
@@ -103,7 +103,7 @@ async function fetchOrderItemProducts(
 }
 
 export async function fetchUserOrderById(
-    orderId: string
+    orderId: number
   ): Promise<TUserOrder | null> {
     // fetch user order by id
     try {
@@ -136,7 +136,7 @@ export async function fetchUserOrderById(
   
               const productWithDiscount: TOrderItemProduct = {
                 ...product,
-                discount: getProductDiscount(product), // Calculate and add a product discount property
+                discount: '180.05', // Calculate and add a product discount property
               };
   
               return {

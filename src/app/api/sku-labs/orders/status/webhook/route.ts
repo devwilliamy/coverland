@@ -2,6 +2,14 @@ import { NextRequest, NextResponse } from 'next/server';
 import { SkuLabOrderResponse } from '../../route';
 import { DateTime } from 'luxon';
 import { supabaseDatabaseClient } from '@/lib/db/supabaseClients';
+import { sendShippingConfirmationEmailToSendGrid, generateDynamicTemplateDataFromUserOrder, generateSendGridApiPayload, 
+  DynamicTemplateData,
+  MainShippingEmailData,
+  OrderItem,
+  ShippingInfo
+ } from "@/lib/sendgrid/emails/shipping-confirmation";
+import { MailDataRequired } from '@sendgrid/mail';
+import { fetchUserOrderById } from '@/lib/db/orders/getOrderByOrderId';
 
 function getTimestamp() {
   return DateTime.now().setZone('America/Los_Angeles').toISO();
@@ -134,6 +142,27 @@ export async function POST(request: NextRequest): Promise<SkuLabOrderResponse> {
         [TODO]: Send Tracking Number Email.
 
       */
+      console.log('data!!', data);
+
+      const fullOrderData = await fetchUserOrderById(data[0].id);
+
+      console.log('fullOrderData', fullOrderData);
+
+      const emailTo = fullOrderData?.customer_email;
+
+      console.log('emailTo', emailTo);
+
+      console.log('dyamicTemplateData', generateDynamicTemplateDataFromUserOrder(fullOrderData));
+
+      const toSendgrid = {
+        to: emailTo,
+        dynamic_template_data: generateDynamicTemplateDataFromUserOrder(fullOrderData)
+      }
+
+      console.log('toSendgrid', toSendgrid);
+
+      sendShippingConfirmationEmailToSendGrid(generateSendGridApiPayload(toSendgrid));
+
 
       /*
       

@@ -18,14 +18,14 @@ const shippingConstants = {
   delivery_fee: shipping || 0,
 };
 
-type DynamicTemplateData = {
+export type DynamicTemplateData = {
   main_data: MainShippingData;
   order_detail_page: string; // url to order detail page (order.id)
   order_items: OrderItem[];
   shipping_info: ShippingInfo;
 };
 
-type MainShippingEmailData = {
+export type MainShippingEmailData = {
   id: string;
   ordered_on: string;
   shipped_on: string; //check for order.shipping_status == "shipped" and order.previous_status == "unstarted"
@@ -36,7 +36,7 @@ type MainShippingEmailData = {
   order_detail_page: string; // url to order detail page (order.id)
 };
 
-type OrderItem = {
+export type OrderItem = {
   name: string;
   vehicle: string;
   color: string;
@@ -45,7 +45,7 @@ type OrderItem = {
   img_url: string;
 };
 
-type ShippingInfo = {
+export type ShippingInfo = {
   full_name: string;
   address_line1: string;
   address_line2: string;
@@ -53,10 +53,10 @@ type ShippingInfo = {
   state: string;
   country: string;
   postal_code: string;
-  shipping_method: string;
-  shipping_date: string;
-  delivery_fee: number;
-  free_delivery: boolean;
+  // shipping_method: string;
+  // shipping_date: string;
+  // delivery_fee: number;
+  // free_delivery: boolean;
 };
 
 const testOrder = {
@@ -161,7 +161,7 @@ const testOrder = {
   ],
 };
 
-const generateDynamicTemplateDataFromUserOrder = (
+export const generateDynamicTemplateDataFromUserOrder = (
   order: TUserOrder
 ): DynamicTemplateData => {
     const {
@@ -207,49 +207,48 @@ const generateDynamicTemplateDataFromUserOrder = (
         state: shipping_address_state,
         country: shipping_address_country,
         postal_code: shipping_address_postal_code,
-        ...shippingConstants
       };
 
-      const order_items = items.map(
-        ({
-          product: {
-            fullProductName,
-            display_id,
-            type,
-            make,
-            model,
-            year_generation,
-            submodel1 = '',
-            submodel2 = '',
-            submodel3 = '',
-            display_color,
-            quantity,
-            msrp,
-            mainImage,
-            feature,
-            product,
-            display_set,
-          },
-        }) => ({
-          name: fullProductName || `${display_id} ${type}`,
-          vehicle: `${make} ${model} ${year_generation} ${submodel1 || ''} ${submodel2 || ''} ${submodel3 || ''}`.trim(),
-          color: display_color,
-          quantity: quantity,
-          price: msrp,
-          total_price: formatMoneyAsNumber(msrp * quantity),
-          img_url: mainImage || feature || product.split(',')[0],
-          full_set:
-            type === 'Seat Covers'
-              ? isFullSet(display_set).toLowerCase() == 'full'
-                ? 'Full Seat Set (Front + Rear Seat Set)'
-                : 'Front Seats (Driver + Passenger seats)'
-              : display_set,
-        })
-      );
+      // const order_items = items.map(
+      //   ({
+      //     product: {
+      //       fullProductName,
+      //       display_id,
+      //       type,
+      //       make,
+      //       model,
+      //       year_generation,
+      //       submodel1 = '',
+      //       submodel2 = '',
+      //       submodel3 = '',
+      //       display_color,
+      //       quantity,
+      //       msrp,
+      //       mainImage,
+      //       feature,
+      //       product,
+      //       display_set,
+      //     },
+      //   }) => ({
+      //     name: fullProductName || `${display_id} ${type}`,
+      //     vehicle: `${make} ${model} ${year_generation} ${submodel1 || ''} ${submodel2 || ''} ${submodel3 || ''}`.trim(),
+      //     color: display_color,
+      //     quantity: quantity,
+      //     price: msrp,
+      //     total_price: formatMoneyAsNumber(msrp * quantity),
+      //     img_url: mainImage || feature || product.split(',')[0],
+      //     full_set:
+      //       type === 'Seat Covers'
+      //         ? isFullSet(display_set).toLowerCase() == 'full'
+      //           ? 'Full Seat Set (Front + Rear Seat Set)'
+      //           : 'Front Seats (Driver + Passenger seats)'
+      //         : display_set,
+      //   })
+      // );
 
   return {
     main_data,
-    order_items,
+    // order_items,
     shipping_info,
   };
 };
@@ -262,7 +261,7 @@ const testData = {
   dynamic_template_data: test_dynamic_template_data,
 };
 
-const generateSendGridApiPayload = (data): MailDataRequired => {
+export const generateSendGridApiPayload = (data): MailDataRequired => {
   console.log('generateSendGridApiPayload:', data);
 
   return {
@@ -279,9 +278,10 @@ const generateSendGridApiPayload = (data): MailDataRequired => {
 
 
 export const sendShippingConfirmationEmailToSendGrid = async (
-  data: MailDataRequired = generateSendGridApiPayload(testData)
+  data: MailDataRequired
 ) => {
   try {
+    console.log("data!", data)
     await sgMail.send(data);
   } catch (error) {
     console.error(error);
