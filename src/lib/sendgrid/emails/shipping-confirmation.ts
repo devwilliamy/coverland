@@ -157,14 +157,6 @@ export const generateDynamicTemplateDataFromUserOrder = (
   };
 };
 
-const test_dynamic_template_data =
-  generateDynamicTemplateDataFromUserOrder(testOrder);
-
-const testData = {
-  to: testOrder.customer_email,
-  dynamic_template_data: test_dynamic_template_data,
-};
-
 export const generateSendGridApiPayload = (data): MailDataRequired => {
 
   return {
