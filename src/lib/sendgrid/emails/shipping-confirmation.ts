@@ -185,8 +185,6 @@ export const sendShippingConfirmationEmailToSendGrid = async (
     } else {
       console.error('Unexpected status:', response[0].statusCode, response[0].headers);
     }
-
-    await sgMail.send(data);
   } catch (error) {
     console.error(error);
 
