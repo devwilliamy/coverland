@@ -175,7 +175,7 @@ export const sendShippingConfirmationEmailToSendGrid = async (
   data: MailDataRequired
 ) => {
   try {
-    console.log('Sending email with data:', data);
+    // console.log('Sending email with data:', data); // leaving this console for debugging/logging purposes
 
     const response = await sgMail.send(data);
 
