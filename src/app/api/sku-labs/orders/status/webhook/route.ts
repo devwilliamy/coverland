@@ -2,13 +2,11 @@ import { NextRequest, NextResponse } from 'next/server';
 import { SkuLabOrderResponse } from '../../route';
 import { DateTime } from 'luxon';
 import { supabaseDatabaseClient } from '@/lib/db/supabaseClients';
-import { sendShippingConfirmationEmailToSendGrid, generateDynamicTemplateDataFromUserOrder, generateSendGridApiPayload, 
-  DynamicTemplateData,
-  MainShippingEmailData,
-  OrderItem,
-  ShippingInfo
- } from "@/lib/sendgrid/emails/shipping-confirmation";
-import { MailDataRequired } from '@sendgrid/mail';
+import {
+  sendShippingConfirmationEmailToSendGrid,
+  generateDynamicTemplateDataFromUserOrder,
+  generateSendGridApiPayload,
+} from '@/lib/sendgrid/emails/shipping-confirmation';
 import { fetchUserOrderById } from '@/lib/db/orders/getOrderByOrderId';
 
 function getTimestamp() {
@@ -92,7 +90,10 @@ export async function POST(request: NextRequest): Promise<SkuLabOrderResponse> {
       order_number.startsWith('CL')
     ) {
       const shipment = orderData.shipments[0].response;
-      console.log(`${getTimestamp()} OrderData Shipments ${order_number}:`, shipment);
+      console.log(
+        `${getTimestamp()} OrderData Shipments ${order_number}:`,
+        shipment
+      );
 
       // Extract necessary data for the Supabase update
       const shipping_carrier = shipment.provider || '';
@@ -152,17 +153,22 @@ export async function POST(request: NextRequest): Promise<SkuLabOrderResponse> {
 
       console.log('emailTo', emailTo);
 
-      console.log('dyamicTemplateData', generateDynamicTemplateDataFromUserOrder(fullOrderData));
+      console.log(
+        'dyamicTemplateData',
+        generateDynamicTemplateDataFromUserOrder(fullOrderData)
+      );
 
       const toSendgrid = {
         to: emailTo,
-        dynamic_template_data: generateDynamicTemplateDataFromUserOrder(fullOrderData)
-      }
+        dynamic_template_data:
+          generateDynamicTemplateDataFromUserOrder(fullOrderData),
+      };
 
       console.log('toSendgrid', toSendgrid);
 
-      sendShippingConfirmationEmailToSendGrid(generateSendGridApiPayload(toSendgrid));
-
+      sendShippingConfirmationEmailToSendGrid(
+        generateSendGridApiPayload(toSendgrid)
+      );
 
       /*
       
