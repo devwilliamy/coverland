@@ -143,15 +143,12 @@ export async function POST(request: NextRequest): Promise<SkuLabOrderResponse> {
         [TODO]: Send Tracking Number Email.
 
       */
-      console.log('data!!', data);
 
       const fullOrderData = await fetchUserOrderById(data[0].id);
 
       console.log('fullOrderData', fullOrderData);
 
       const emailTo = fullOrderData?.customer_email;
-
-      console.log('emailTo', emailTo);
 
       console.log(
         'dyamicTemplateData',
