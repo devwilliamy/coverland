@@ -6,12 +6,11 @@ import {
 
 import { ReadonlyRequestCookies } from 'next/dist/server/web/spec-extension/adapters/request-cookies';
 import { SupabaseClient } from '@supabase/supabase-js';
-import { cookies } from 'next/headers';
-import { createSupabaseServerClient, createSupabaseServerDatabaseClient } from '@/lib/db/supabaseClients';
+import { createSupabaseServerDatabaseClient } from '@/lib/db/supabaseClients';
 
 import { formatISODate } from '@/lib/utils/date';
 import { formatMoneyAsNumber } from '@/lib/utils/money';
-import { getProductDiscount } from '@/lib/db/profile/utils/orderSummary';
+// import { getProductDiscount } from '@/lib/db/profile/utils/orderSummary'; // will grab from a different branch eventually
 
 import { TInitialProductDataDB } from '..';
 import { Tables } from '../types';
@@ -34,7 +33,6 @@ export type TOrderItemProduct = TInitialProductDataDB & {
 
 
 async function fetchUserOrder(orderId: number): Promise<TUserOrder | null> {
-  const cookieStore: ReadonlyRequestCookies = cookies();
   const supabase: SupabaseClient = createSupabaseServerDatabaseClient();
 
     try {
@@ -59,7 +57,6 @@ async function fetchUserOrder(orderId: number): Promise<TUserOrder | null> {
 async function fetchOrderItems(
   orderIds: number[]
 ): Promise<TOrderItem[] | null> {
-  const cookieStore: ReadonlyRequestCookies = cookies();
   const supabase: SupabaseClient = createSupabaseServerDatabaseClient();
   try {
     const { data, error } = await supabase
@@ -82,7 +79,6 @@ async function fetchOrderItems(
 async function fetchOrderItemProducts(
   productIds: number[]
 ): Promise<TOrderItemProduct[] | null> {
-  const cookieStore: ReadonlyRequestCookies = cookies();
   const supabase: SupabaseClient = createSupabaseServerDatabaseClient();
   try {
     const { data, error } = await supabase
@@ -136,7 +132,7 @@ export async function fetchUserOrderById(
   
               const productWithDiscount: TOrderItemProduct = {
                 ...product,
-                discount: '180.05', // Calculate and add a product discount property
+                discount: '', // Calculate and add a product discount property
               };
   
               return {
