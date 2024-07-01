@@ -154,7 +154,7 @@ export async function POST(request: NextRequest): Promise<SkuLabOrderResponse> {
           generateDynamicTemplateDataFromUserOrder(fullOrderData),
       };
 
-      sendShippingConfirmationEmailToSendGrid(
+      await sendShippingConfirmationEmailToSendGrid(
         generateSendGridApiPayload(toSendgrid)
       );
 
