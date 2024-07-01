@@ -13,7 +13,12 @@ export enum CheckoutStep {
   // SHIPPING = 1,
   // PAYMENT = 2,
   // THANK_YOU = 3,
-  CHECKOUT = 1
+  CHECKOUT = 1,
 }
 
-export type PaymentMethod = 'creditCard' | 'paypal';
+export type PaymentMethod =
+  | 'creditCard'
+  | 'paypal'
+  | 'applePay'
+  | 'googlePay'
+  | 'klarna';

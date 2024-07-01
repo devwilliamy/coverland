@@ -1,3 +1,4 @@
+import { TextField } from '@mui/material';
 import { FaExclamationCircle } from 'react-icons/fa';
 
 type OverlappingLabelProps = {
@@ -6,6 +7,7 @@ type OverlappingLabelProps = {
   placeholder: string;
   errors: any;
   register: any;
+  required?: boolean;
   options?: any;
   autoComplete: string;
 };
@@ -16,25 +18,26 @@ export default function OverlappingLabel({
   errors,
   register,
   options,
-  autoComplete
+  autoComplete,
 }: OverlappingLabelProps) {
   const inputStyle = errors[name]
     ? 'text-red-900 ring-red-300 placeholder:text-red-300 focus:ring-red-500'
     : 'text-gray-900 ring-gray-300 placeholder:text-gray-400 focus:ring-[#ed5f74]';
+
   return (
-    <div>
-      <div className="relative">
-        <label
-          htmlFor={name}
-          className="absolute -top-2 left-2 inline-block bg-white px-1 text-xs font-medium text-gray-500"
-        >
-          {title} {options?.required && '*'}
-        </label>
-        <input
-          className={`block w-full rounded-lg border-0 border-[#E1E1E1] bg-[#FAFAFA] py-3 pl-3 pr-10 ring-1 ring-inset focus:ring-2 focus:ring-inset sm:text-base sm:leading-6 ${inputStyle}`}
+    <div className={'max-lg:col-span-2'}>
+      <div className={`relative `}>
+        <TextField
+          label={title}
+          fullWidth
+          required={options?.required ?? false}
           placeholder={placeholder}
           autoComplete={autoComplete}
           {...register(name, options)}
+          sx={{
+            borderRadius: '4px',
+          }}
+          className={`${inputStyle}  border-[1px] border-[#2A2A2A]`}
         />
         {errors[name] && (
           <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">

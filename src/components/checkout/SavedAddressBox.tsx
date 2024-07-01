@@ -16,12 +16,8 @@ export default function SavedAddressBox({ handleClick }: SavedAddressBoxProps) {
       <div>
         {city} {state} {postal_code}
       </div>
-      <div>
-        {customerInfo.email}
-      </div>
-      <div>
-        {customerInfo.phoneNumber}
-      </div>
+      <div>{customerInfo.email}</div>
+      <div>{customerInfo.phoneNumber}</div>
     </SummaryBox>
   );
 }

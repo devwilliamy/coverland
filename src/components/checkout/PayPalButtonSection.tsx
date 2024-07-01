@@ -71,6 +71,7 @@ export default function PayPalButtonSection({
             label: 'pay',
             height: 50,
           }}
+          className="w-full"
           createOrder={async () => {
             setMessage(''); // If there was an error message previously, reset it
             const data = await paypalCreateOrder(

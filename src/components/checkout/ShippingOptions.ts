@@ -1,3 +1,14 @@
+// export const shippingOptions = {
+//   ups: {
+//     options: {
+//       standard: {
+//         price: 0,
+//         shippingText: '$0.00 Free Shipping',
+//         infoText: 'USPS or UPS 2-5 Business Days',
+//       },
+//     },
+//   },
+// };
 export const shippingOptions = [
   {
     price: 0,

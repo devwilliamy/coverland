@@ -11,7 +11,7 @@ export default function SavedBillingAddress({
   handleClick,
 }: SavedBillingAddressProps) {
   const { line1, line2, city, state, postal_code } = address.address;
-  const { isBillingSameAsShipping } = useCheckoutContext();
+  const { isBillingSameAsShipping, twoLetterStateCode } = useCheckoutContext();
   return (
     <>
       <div className="flex flex-row items-center justify-between leading-10">
