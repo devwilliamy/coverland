@@ -39,7 +39,7 @@ export default function PayPalButtonSection({
     useCheckoutContext();
   const shippingInfo = {
     shipping_method: SHIPPING_METHOD,
-    shipping_date: determineDeliveryByDate('EEE, LLL dd'),
+    shipping_date: determineDeliveryByDate({ format: 'EEE, LLL dd'}),
     delivery_fee: shipping,
   };
   const {
