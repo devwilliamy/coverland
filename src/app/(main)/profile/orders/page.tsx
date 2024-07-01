@@ -1,10 +1,6 @@
 import {
-  TUserOrders,
-  TOrderItem,
-  TOrderItemProduct,
-  TInitialOrdersDataDB,
-  fetchUserRecentOrders,
-} from '@/lib/db/profile/ordersHistory';
+  TUserOrder,
+  fetchAllUserOrders,} from '@/lib/db/profile/ordersHistory';
 import { ReadonlyRequestCookies } from 'next/dist/server/web/spec-extension/adapters/request-cookies';
 import { SupabaseClient } from '@supabase/supabase-js';
 import { cookies } from 'next/headers';
@@ -16,13 +12,13 @@ import OrderList from './components/OrderList';
 const OrdersPage = async () => {
   const cookieStore: ReadonlyRequestCookies = cookies();
   const supabase: SupabaseClient = createSupabaseServerClient(cookieStore);
-  let orders: TInitialOrdersDataDB[] = [];
+  let orders: TUserOrder[] = [];
 
   try {
     const {
       data: { user },
     } = await supabase.auth.getUser();
-  
+
     if (!user) {
       redirect('/login');
     }
@@ -32,12 +28,17 @@ const OrdersPage = async () => {
   }
 
   try {
-    orders = await fetchUserRecentOrders(4);
+    const fetchedOrders = await fetchAllUserOrders(); // option to pass in a number of orders to be retrieved
+    if (!fetchedOrders) {
+      console.error('fetchUserRecentOrders failed to find the orders');
+      return; // Ensure function exits early if orders were not found
+    }
+    orders = fetchedOrders;
   } catch (error) {
     console.error('Error fetching recent orders:', error);
   }
 
-  return <OrderList orders={orders} />;
+  return <OrderList orders={orders.slice(0, 4)} />;
 };
 
 export default OrdersPage;
