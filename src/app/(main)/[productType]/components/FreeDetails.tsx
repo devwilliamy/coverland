@@ -397,8 +397,9 @@ export default function FreeDetails() {
   }
 
   return (
-    <div className=" flex flex-col items-center justify-start bg-[#FBFBFB]">
+    <div className="mt-[33px] flex flex-col items-center justify-start bg-[#FBFBFB] lg:mt-[48px]">
       <Sheet>
+        <Separator />
         {freeDetailItems.map((data, index) => (
           <FreeDetailItem
             key={`Free-Detail-Item-${index}`}
