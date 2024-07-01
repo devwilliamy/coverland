@@ -18,7 +18,13 @@ export const getClientTimeZone = (): string => {
   } else if (timeZoneOffset === EST) {
     return 'America/New_York';
   } else {
-    return 'Unknown';
+    try {
+      // Attempt to get the client's time zone from the browser
+      return Intl.DateTimeFormat().resolvedOptions().timeZone;
+    } catch (error) {
+      console.error('Error determining client time zone:', error);
+      return 'UTC'; // Fallback to UTC
+    }
   }
 };
 
@@ -28,13 +34,20 @@ export const getClientTimeZone = (): string => {
  * If after 2 PM, add another day.
  * For MST, it will be 3 days later. For CST, 4 days later. For EST, 5 days later.
  * Currently don't know what to do for other time zones and defaulting to 5 days later.
- * 
+ *
  * @param format string : format of the date output | default -> "Jul 15" | "EEE, LLL dd" -> "Mon, Jul 15"
  * @returns string
  */
 export const determineDeliveryByDate = (format = 'LLL dd'): string => {
   const clientTimeZone: string = getClientTimeZone();
-  const now: DateTime = DateTime.now().setZone(clientTimeZone);
+  let now: DateTime;
+
+  try {
+    now = DateTime.now().setZone(clientTimeZone);
+  } catch (error) {
+    console.error('Invalid time zone:', clientTimeZone, error);
+    now = DateTime.now().setZone('UTC'); // Fallback to UTC
+  }
   let daysToAdd: number;
 
   switch (clientTimeZone) {
@@ -50,11 +63,8 @@ export const determineDeliveryByDate = (format = 'LLL dd'): string => {
     case 'America/New_York': // EST
       daysToAdd = 5;
       break;
-    case 'Unknown':
-      daysToAdd = 5;
-      break;
     default:
-      daysToAdd = 0; // Adjusted if needed
+      daysToAdd = 5; // Default to 5 days for "other" cases, i.e. UTC
   }
 
   // If it's after 2 PM, add an extra day
