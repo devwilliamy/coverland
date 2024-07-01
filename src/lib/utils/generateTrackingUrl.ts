@@ -4,7 +4,9 @@
  * @param shippingCarrier: string 'ups' | 'fedex' | 'usps'
  * @returns trackingUrl: string -> 'https://wwwapps.ups.com/WebTracking/track?track=yes&trackNums=123456789'
  */
-export const generateTrackingUrl = (trackingNumber: string, shippingCarrier: string): string => {
+
+type ShippingCarriers = 'ups' | 'fedex' | 'usps'
+export const generateTrackingUrl = (trackingNumber: string, shippingCarrier: ShippingCarriers): string => {
     const carrierUrls: { [key: string]: string } = {
         'ups': 'https://wwwapps.ups.com/WebTracking/track?track=yes&trackNums=',
         'fedex': 'https://www.fedex.com/apps/fedextrack/?tracknumbers=',
