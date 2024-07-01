@@ -164,7 +164,7 @@ export const generateSendGridApiPayload = (data): MailDataRequired => {
     template_id: sgShippingConfirmationTemplateId,
     personalizations: [
       {
-        to: [{ email: data.to }], // data.to
+        to: [{ email: data.to }],
         dynamicTemplateData: data.dynamic_template_data,
       },
     ],
@@ -180,7 +180,7 @@ export const sendShippingConfirmationEmailToSendGrid = async (
     const response = await sgMail.send(data);
 
     if (response[0].statusCode === 202) {
-      console.log('Email sent successfully - Status 202:', response[0].headers);
+      console.log('Email sent successfully - Status 202:', response[0].headers); // keeping this to easily spot email step in logs
       // Optionally handle further processing
     } else {
       console.error('Unexpected status:', response[0].statusCode, response[0].headers);
