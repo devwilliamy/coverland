@@ -6,7 +6,7 @@ import {
 
 import { ReadonlyRequestCookies } from 'next/dist/server/web/spec-extension/adapters/request-cookies';
 import { SupabaseClient } from '@supabase/supabase-js';
-import { createSupabaseServerDatabaseClient } from '@/lib/db/supabaseClients';
+import { supabaseDatabaseClient } from '@/lib/db/supabaseClients';
 
 import { formatISODate } from '@/lib/utils/date';
 import { formatMoneyAsNumber } from '@/lib/utils/money';
@@ -33,7 +33,7 @@ export type TOrderItemProduct = TInitialProductDataDB & {
 
 
 async function fetchUserOrder(orderId: number): Promise<TUserOrder | null> {
-  const supabase: SupabaseClient = createSupabaseServerDatabaseClient();
+  const supabase = supabaseDatabaseClient;
 
     try {
       const { data, error } = await supabase
@@ -57,7 +57,7 @@ async function fetchUserOrder(orderId: number): Promise<TUserOrder | null> {
 async function fetchOrderItems(
   orderIds: number[]
 ): Promise<TOrderItem[] | null> {
-  const supabase: SupabaseClient = createSupabaseServerDatabaseClient();
+  const supabase = supabaseDatabaseClient;
   try {
     const { data, error } = await supabase
       .from<OrderItem>(ADMIN_PANEL_ORDER_ITEMS)
@@ -79,7 +79,7 @@ async function fetchOrderItems(
 async function fetchOrderItemProducts(
   productIds: number[]
 ): Promise<TOrderItemProduct[] | null> {
-  const supabase: SupabaseClient = createSupabaseServerDatabaseClient();
+  const supabase = supabaseDatabaseClient;
   try {
     const { data, error } = await supabase
       .from<Product>(ADMIN_PANEL_PRODUCTS)
