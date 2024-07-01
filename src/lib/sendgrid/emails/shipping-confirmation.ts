@@ -1,15 +1,13 @@
 import sgMail, { MailDataRequired } from '@sendgrid/mail';
-sgMail.setApiKey(process.env.SENDGRID_API_KEY || '');
-const sgFromEmail = process.env.SENDGRID_FROM_EMAIL;
-const sgShippingConfirmationTemplateId =
-  process.env.SENDGRID_SHIPPING_CONFIRMATION_EMAIL_TEMPLATE_ID;
 import { formatMoneyAsNumber } from '@/lib/utils/money';
-// import fetchUserOrderById
-// import { TUserOrder, TOrderItem, TOrderItemProduct, fetchUserOrderById } from '@/lib/db/profile/ordersHistory';
 import { SHIPPING_METHOD } from '@/lib/constants';
 import { determineDeliveryByDate } from '@/lib/utils/deliveryDateUtils';
 import { generateTrackingUrl } from '@/lib/utils/generateTrackingUrl';
 import { formatISODate } from '@/lib/utils/date';
+sgMail.setApiKey(process.env.SENDGRID_API_KEY || '');
+const sgFromEmail = process.env.SENDGRID_FROM_EMAIL;
+const sgShippingConfirmationTemplateId =
+  process.env.SENDGRID_SHIPPING_CONFIRMATION_EMAIL_TEMPLATE_ID;
 let shipping_fee; // this is a placeholder for later iteration
 
 const shippingConstants = {
