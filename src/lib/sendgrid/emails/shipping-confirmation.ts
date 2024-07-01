@@ -14,7 +14,7 @@ let shipping_fee; // this is a placeholder for later iteration
 
 const shippingConstants = {
   shipping_method: SHIPPING_METHOD,
-  shipping_date: determineDeliveryByDate('EEE, LLL dd'), //this needs to be grabbed from somewhere or pass in a starting date
+  shipping_date: determineDeliveryByDate({ format: 'EEE, LLL dd'}), //this needs to be grabbed from somewhere or pass in a starting date
   delivery_fee: shipping_fee || 0,
 };
 

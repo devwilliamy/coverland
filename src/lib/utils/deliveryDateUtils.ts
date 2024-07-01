@@ -1,6 +1,10 @@
 import { DateTime } from 'luxon';
 
-export const getClientTimeZone = (): string => {
+export const getClientTimeZone = (overrideTimeZone?: string): string => {
+  if (overrideTimeZone) {
+    return overrideTimeZone;
+  }
+
   const timeZoneOffset: number = new Date().getTimezoneOffset();
   // Timezone offset in minutes for PST, MST, CST, EST
   const PST: number = 480; // UTC -8
@@ -35,11 +39,18 @@ export const getClientTimeZone = (): string => {
  * For MST, it will be 3 days later. For CST, 4 days later. For EST, 5 days later.
  * Currently don't know what to do for other time zones and defaulting to 5 days later.
  *
- * @param format string : format of the date output | default -> "Jul 15" | "EEE, LLL dd" -> "Mon, Jul 15"
+ * @param options object : { format?: string, overrideTimeZone?: string }
+ * @param options.format: optional format of the date output || default -> "Jul 15" | "EEE, LLL dd" -> "Mon, Jul 15"
+ * @param options.overrideTimeZone string : optional time zone for testing | i.e. "Asia/Tokyo"
  * @returns string
+ *
+ *
  */
-export const determineDeliveryByDate = (format = 'LLL dd'): string => {
-  const clientTimeZone: string = getClientTimeZone();
+export const determineDeliveryByDate = (
+  options: { format?: string; overrideTimeZone?: string } = {}
+): string => {
+  const { format = 'LLL dd', overrideTimeZone } = options;
+  const clientTimeZone: string = getClientTimeZone(overrideTimeZone);
   let now: DateTime;
 
   try {
@@ -48,6 +59,7 @@ export const determineDeliveryByDate = (format = 'LLL dd'): string => {
     console.error('Invalid time zone:', clientTimeZone, error);
     now = DateTime.now().setZone('UTC'); // Fallback to UTC
   }
+
   let daysToAdd: number;
 
   switch (clientTimeZone) {
