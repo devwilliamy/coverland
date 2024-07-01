@@ -61,7 +61,7 @@ export default function Shipping({
   };
 
   return (
-    <div className="my-2 px-4">
+    <div>
       {isEditingAddress && !isReadyToShip && (
         <div className="min-h-[400px]">
           <AddressForm
@@ -97,10 +97,10 @@ export default function Shipping({
               <div>{customerInfo.email}</div>
               <div>{customerInfo.phoneNumber}</div>
             </section>
-            <section>
+            <section className="mb-[26px]">
               <div className="font-[500] text-black">Shipping Speed</div>
               <div>{shippingOptions[0].shippingText}</div>
-              <div>{shippingOptions[0].fedexText}</div>
+              <div>{shippingOptions[0].shippingEstimateText}</div>
             </section>
           </div>
           <div className="">
@@ -114,10 +114,10 @@ export default function Shipping({
         </div>
       )}
       {shippingAddress && !isEditingAddress && (
-        <div className="pt-4">
+        <div>
           {isEditingShipping && !isReadyToShip && (
-            <div className="pb-[44px]">
-              <div className="mt-10 flex flex-col items-center justify-between lg:mt-11">
+            <div className="pb-[60px] pt-[40px]">
+              <div className="flex w-full flex-col items-center justify-between  lg:items-end">
                 <Button
                   disabled={isEditingAddress}
                   onClick={handleToPayment}

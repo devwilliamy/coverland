@@ -11,6 +11,7 @@ import { parsePhoneNumberFromString } from 'libphonenumber-js';
 import { Autocomplete, MenuItem } from '@mui/material';
 import { CustomTextField } from './CustomTextField';
 import { GEORGE_DEFAULT_ADDRESS_DATA } from '@/lib/constants';
+import { cleanPhoneInput } from '@/app/(noFooter)/checkout/utils';
 
 type FormData = {
   email: string;
@@ -42,8 +43,8 @@ type AddressFormProps = {
   updateAddress: (address: StripeAddress) => void;
   setIsEditingAddress: (isEditing: boolean) => void;
   showEmail?: boolean;
-  handleChangeAccordion: (accordionTitle: string) => void;
-  handleSelectTab: (id: string) => void;
+  handleChangeAccordion?: (accordionTitle: string) => void;
+  handleSelectTab?: (id: string) => void;
 };
 
 type AddressComponent = {
@@ -111,7 +112,7 @@ export default function AddressForm({
     isBillingSameAsShipping,
   } = useCheckoutContext();
 
-  // ----------------------V----------------------VV----------------------V----------------------
+  // ----------------------V----------------------V--- Zod Code ---V----------------------V----------------------
   // const {
   //   register,
   //   setValue,
@@ -162,6 +163,7 @@ export default function AddressForm({
   // const emailValue = watch('email');
 
   // TODO: Extract this to checkout context or its own context
+
   const [shippingState, setShippingState] = useState<
     Record<string, ShippingStateType>
   >({
@@ -243,9 +245,8 @@ export default function AddressForm({
       setShippingState(GEORGE_DEFAULT_ADDRESS_DATA);
     }
   }, []);
-  // ---------------------------------------------------------------------------------------------------
 
-  // --------- V ----------- V ---------- Used for Autocomplete --------- V ----------- V ----------
+  // --------- V ----------- V ---------- Code for Autocomplete --------- V ----------- V ----------
   // type AutocompleteData = {
   //   placePrediction: any;
   // };
@@ -395,7 +396,7 @@ export default function AddressForm({
       onSubmit={(e) => {
         e.preventDefault();
       }}
-      className="flex flex-col gap-[29.5px]"
+      className="mt-2 flex flex-col gap-[29.5px]"
     >
       {/* Previous Shipping Checkout Form  */}
       <>
@@ -562,8 +563,6 @@ export default function AddressForm({
         disabled={checkErrors()}
         onClick={(e) => {
           e.preventDefault();
-          console.log(shippingState);
-
           const incStripeAddress = {
             firstName: shippingState.firstName.value,
             lastName: shippingState.lastName.value,
@@ -582,18 +581,23 @@ export default function AddressForm({
             },
           };
 
+          const formattedPhone = parsePhoneNumberFromString(
+            shippingState.phoneNumber.value
+          )?.format('E.164');
+
+          // const incCustomerInfo = {
+          //   email: shippingState.email.value,
+          //   phoneNumber: formattedPhone,
+          // } as CustomerInfo;
+
           const incCustomerInfo = {
             email: shippingState.email.value,
             phoneNumber: shippingState.phoneNumber.value,
           } as CustomerInfo;
 
-          console.log({ incStripeAddress });
-
           updateAddress(incStripeAddress as StripeAddress);
           updateCustomerInfo(incCustomerInfo);
           setIsEditingAddress(false);
-          // handleChangeAccordion('payment');
-          // handleSelectTab('payment');
         }}
         className={`h-[48px] w-full cursor-pointer self-center rounded-lg bg-black text-base font-bold uppercase text-white lg:h-[63px] lg:max-w-[307px] lg:self-end lg:text-xl`}
       >

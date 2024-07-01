@@ -54,6 +54,7 @@ import { ReadyCheck } from './icons/ReadyCheck';
 import { useMediaQuery } from '@mantine/hooks';
 import CheckoutSummarySection from './CheckoutSummarySection';
 import OrderReview from './OrderReview';
+import parsePhoneNumberFromString from 'libphonenumber-js';
 
 export default function CheckoutAccordion() {
   const stripe = useStripe();
@@ -84,6 +85,7 @@ export default function CheckoutAccordion() {
     twoLetterStateCode,
     totalTax,
     updateTotalTax,
+    updateCustomerInfo,
     clientSecret,
   } = useCheckoutContext();
   // const { orderNumber, paymentIntentId, paymentMethod, updatePaymentMethod } = useCheckoutContext();
@@ -370,6 +372,15 @@ export default function CheckoutAccordion() {
     const totalWithTax = convertPriceToStripeFormat(taxSum);
     // console.log({ totalWithTax, orderSubtotal, cartMSRP });
 
+    const formattedPhone = parsePhoneNumberFromString(
+      shippingAddress.phone as string
+    )?.format('E.164');
+
+    updateCustomerInfo({
+      ...customerInfo,
+      phoneNumber: formattedPhone,
+    });
+
     const response = await fetch('/api/stripe/payment-intent', {
       method: 'PUT',
       headers: {
@@ -387,7 +398,7 @@ export default function CheckoutAccordion() {
 
     const customerShipping = {
       name: shippingAddress.name,
-      phone: shippingAddress.phone,
+      phone: formattedPhone,
       address: {
         city: shippingAddress.address.city as string,
         country: shippingAddress.address.country as string,
@@ -401,7 +412,7 @@ export default function CheckoutAccordion() {
     const customerBilling = {
       address: billingAddress.address,
       email: customerInfo.email,
-      phone: customerInfo.phoneNumber,
+      phone: formattedPhone,
       name: billingAddress.name,
     };
 
@@ -604,7 +615,7 @@ export default function CheckoutAccordion() {
   //   }
   // }, [isCartEmpty, isReadyToPay, shippingAddress, paymentMethod]);
 
-  const accordionTriggerStyle = `px-4 py-10 font-[500] text-[24px] leading-[12px]`;
+  const accordionTriggerStyle = `py-10 font-[500] text-[24px] leading-[12px]`;
 
   const isMobile = useMediaQuery('(max-width: 1023px)');
 
@@ -637,7 +648,7 @@ export default function CheckoutAccordion() {
               <Accordion
                 type="multiple"
                 // collapsible
-                className="w-full"
+                className="w-full px-4"
                 value={value}
                 onValueChange={setValue}
               >
@@ -647,9 +658,9 @@ export default function CheckoutAccordion() {
                       In Your Cart
                     </AccordionTrigger>
                     <AccordionContent>
-                      <div className="px-4">
-                        <InYourCart />
-                      </div>
+                      {/* <div className="px-4"> */}
+                      <InYourCart />
+                      {/* </div> */}
                     </AccordionContent>
                   </AccordionItem>
                 )}
@@ -665,7 +676,7 @@ export default function CheckoutAccordion() {
                       {isReadyToShip && <ReadyCheck />}
                     </h2>
                   </AccordionTrigger>
-                  <AccordionContent>
+                  <AccordionContent className="py-0">
                     <Shipping
                       handleChangeAccordion={handleChangeAccordion}
                       handleSelectTab={handleSelectTab}
@@ -691,7 +702,7 @@ export default function CheckoutAccordion() {
                       {isReadyToPay && <ReadyCheck />}
                     </h2>
                   </AccordionTrigger>
-                  <AccordionContent>
+                  <AccordionContent className="py-0">
                     <Payment handleChangeAccordion={handleChangeAccordion} />
                     {!isMobile && isReadyToPay && (
                       <div className="flex flex-col">
@@ -799,12 +810,12 @@ export default function CheckoutAccordion() {
                     >
                       Order Review
                     </AccordionTrigger>
-                    <AccordionContent>
-                      <section className="flex w-full flex-col px-4">
+                    <AccordionContent className="py-0">
+                      <section className="flex w-full flex-col ">
                         {cartItems.map((cartItem, i) => (
                           <div
                             key={i}
-                            className="pb-3 lg:border-b lg:border-t lg:pt-3 lg:transition-colors lg:hover:bg-muted/50 lg:data-[state=selected]:bg-muted"
+                            className="mb-4 lg:border-b lg:border-t lg:pt-3 lg:transition-colors lg:hover:bg-muted/50 lg:data-[state=selected]:bg-muted"
                           >
                             <OrderReviewItem item={cartItem} />
                           </div>
@@ -818,10 +829,16 @@ export default function CheckoutAccordion() {
                               By Clicking the “Submit Payment” button, you
                               confirm that you have read, understand, and accept
                               our Terms of use,{' '}
-                              <a href="" className="underline">
+                              <a
+                                href="/policies/privacy-policy"
+                                className="underline"
+                              >
                                 Privacy Policy,
                               </a>{' '}
-                              <a href="" className="underline">
+                              <a
+                                href="/policies/return-policy"
+                                className="underline"
+                              >
                                 Return Policy
                               </a>
                             </p>

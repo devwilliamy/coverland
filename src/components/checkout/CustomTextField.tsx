@@ -9,6 +9,7 @@ import {
 import { CustomFieldTypes, ShippingStateType } from './AddressForm';
 import { US_STATES } from '@/lib/constants';
 import { phoneNumberAutoFormat } from '../policy/ContactPage';
+import { cleanPhoneInput } from '@/app/(noFooter)/checkout/utils';
 
 export const CustomTextField = ({
   label,
@@ -45,13 +46,19 @@ export const CustomTextField = ({
   };
 
   const isValidPhoneNumber = (inputString: string) => {
+    const cleanedInput = cleanPhoneInput(inputString);
+
+    if (cleanedInput.length < 10) {
+      return false;
+    }
+
     // Regex pattern to check if the input is a valid phone number
     const pattern =
       /^\+?(\d{1,3})?[-.\s]?(\(\d{1,4}\)|\d{1,4})[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}$/;
     return pattern.test(inputString);
   };
 
-  const determineValidation = (value: string) => {
+  const isValidInput = (value: string) => {
     switch (type) {
       case 'email':
         return validateEmail(value);
@@ -79,7 +86,7 @@ export const CustomTextField = ({
     if (
       shippingState[type].visited &&
       type !== 'line2' &&
-      !determineValidation(value)
+      !isValidInput(value)
     ) {
       setShippingState((prevState) => ({
         ...prevState,
@@ -90,6 +97,7 @@ export const CustomTextField = ({
           error: true,
         },
       }));
+      return;
     } else {
       setShippingState((prevState) => {
         return {
@@ -110,7 +118,7 @@ export const CustomTextField = ({
       });
       return;
     }
-    if (!determineValidation(shippingState[type].value)) {
+    if (!isValidInput(shippingState[type].value)) {
       setShippingState((prevState) => ({
         ...prevState,
         [type]: {
@@ -120,6 +128,7 @@ export const CustomTextField = ({
           error: true,
         },
       }));
+      return;
     } else {
       setShippingState((prevState) => {
         return {
@@ -160,10 +169,6 @@ export const CustomTextField = ({
   };
 
   const handlePhoneChange = (value: string) => {
-    // if (isNaN(Number(value))) {
-    //   return;
-    // }
-
     setShippingState((prevState) => {
       return {
         ...prevState,
@@ -179,7 +184,7 @@ export const CustomTextField = ({
     if (
       shippingState[type].visited &&
       type !== 'line2' &&
-      !determineValidation(value)
+      !isValidInput(value)
     ) {
       setShippingState((prevState) => ({
         ...prevState,
@@ -222,7 +227,7 @@ export const CustomTextField = ({
     if (
       shippingState[type].visited &&
       type !== 'line2' &&
-      !determineValidation(value)
+      !isValidInput(value)
     ) {
       setShippingState((prevState) => ({
         ...prevState,
@@ -280,16 +285,15 @@ export const CustomTextField = ({
           onBlur={handleBlur}
           placeholder={placeholder}
           error={!!shippingState[type].error}
-          helperText={errorMessage ? errorMessage :shippingState[type].message}
+          helperText={errorMessage ? errorMessage : shippingState[type].message}
           required={required}
           sx={{
             margin: 0,
             '.MuiInputBase-root': {
               borderRadius: '8px',
+              color: '#707070',
+              borderColor: '#707070',
             },
-          }}
-          style={{
-            borderRadius: '20px',
           }}
           variant="outlined"
           fullWidth
@@ -299,7 +303,7 @@ export const CustomTextField = ({
       {type === 'phoneNumber' && (
         <TextField
           id={label}
-          // type="tel"
+          type="tel"
           label={label}
           value={shippingState[type].value}
           onChange={(e) => {
@@ -329,10 +333,7 @@ export const CustomTextField = ({
       {type === 'state' && (
         <FormControl>
           <InputLabel id="demo-simple-select-helper-label">State *</InputLabel>
-
           <Select
-            // labelId="demo-simple-select-helper-label"
-            // id="demo-simple-select-helper"
             value={shippingState.state.value}
             label={label}
             fullWidth
@@ -363,12 +364,6 @@ export const CustomTextField = ({
                 {state.name}
               </MenuItem>
             ))}
-            {/* <MenuItem value="">
-              <em>None</em>
-            </MenuItem>
-            <MenuItem value={10}>Ten</MenuItem>
-            <MenuItem value={20}>Twenty</MenuItem>
-            <MenuItem value={30}>Thirty</MenuItem> */}
           </Select>
         </FormControl>
       )}

@@ -46,6 +46,8 @@ export default function Payment({
     updateStripePaymentMethod,
     orderNumber,
     paymentIntentId,
+    isBillingSameAsShipping,
+    twoLetterStateCode,
     billingTwoLetterStateCode,
   } = useCheckoutContext();
 
@@ -88,7 +90,7 @@ export default function Payment({
     }
   };
 
-  const buttonStyle = `mb-3 w-full rounded-lg ${isDisabledCard ? 'bg-[#1A1A1A]/90' : 'bg-[#1A1A1A] hover:bg-[#1A1A1A]/90'} text-center uppercase m-0 max-h-[48px] min-h-[48px] max-w-[350px] self-end justify-self-end text-[16px] leading-[17px]`;
+  const buttonStyle = `mb-3 w-full max-w-[390px] rounded-lg ${isDisabledCard ? 'bg-[#1A1A1A]/90' : 'bg-[#1A1A1A] hover:bg-[#1A1A1A]/90'} text-center uppercase m-0 max-h-[48px] min-h-[48px] max-w-[350px] self-end justify-self-end text-[16px] leading-[17px]`;
 
   const handleContinueWithCard = () => {
     setIsLoading(true);
@@ -120,7 +122,7 @@ export default function Payment({
   };
 
   return (
-    <section className="px-4 ">
+    <section>
       {/* <div className="mb-10 lg:hidden"><PromoCode /></div> */}
       {isReadyToPay ? (
         <span className="flex justify-between">
@@ -176,13 +178,12 @@ export default function Payment({
               )}
             </div>
             <p className="text-base font-[500]"> Billing Details</p>
-            <div className="pb-[40px] text-[16px] font-[400] leading-[27px] text-[#767676]">
+            <div className="pb-[26px] text-[16px] font-[400] leading-[27px] text-[#767676]">
               <p>{customerBilling.name}</p>
 
               <p>{customerBilling.address.line1}</p>
               <p>
-                {customerBilling.address.city}{' '}
-                {billingTwoLetterStateCode ?? customerBilling.address.state}{' '}
+                {customerBilling.address.city} {customerBilling.address.state}{' '}
                 {customerBilling.address.postal_code}
               </p>
             </div>
@@ -238,7 +239,7 @@ export default function Payment({
       )}
       {/* Continue To Order Review Button */}
       {paymentMethod === 'creditCard' && !isReadyToPay && (
-        <div className="my-[48px] flex w-full max-w-[390px] items-center justify-center lg:justify-end">
+        <div className="my-[48px] flex w-full  items-center justify-center lg:justify-end">
           <Button
             variant={'default'}
             className={buttonStyle}

@@ -8,15 +8,17 @@ export default function OrderReview() {
   const { cartItems } = useCartContext();
   const { currentStep } = useCheckoutContext();
   return (
-    <div className={`${currentStep === CheckoutStep.CART && 'lg:hidden'}`}>
+    <div
+      className={`${currentStep === CheckoutStep.CART && 'lg:hidden'} lg:px-4`}
+    >
       <div
         id="order-review"
-        className="lg:mb-[40px] lg:text-[24px] lg:font-[500]"
+        className="pb-2 pt-9 text-2xl font-medium lg:p-0 lg:pb-10"
       >
         Order Review
       </div>
       {cartItems.map((cartItem, i) => (
-        <div key={i} className="pb-2">
+        <div key={i} className="pb-2 lg:pb-4">
           <OrderReviewItem item={cartItem} />
         </div>
       ))}

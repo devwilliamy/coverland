@@ -38,6 +38,7 @@ export default function BillingAddress({
           <div className="flex flex-row items-center pb-4">
             <input
               type="checkbox"
+              className="bg-black fill-black text-black"
               checked={isBillingSameAsShipping}
               onChange={handleCheckboxChange}
             />
@@ -51,7 +52,6 @@ export default function BillingAddress({
                 addressData={billingAddress}
                 updateAddress={updateBillingAddress}
                 setIsEditingAddress={setIsEditingAddress}
-                isEditingBilling={false}
               />
             </div>
           ) : (

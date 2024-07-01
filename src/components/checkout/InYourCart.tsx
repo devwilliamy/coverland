@@ -22,7 +22,7 @@ export default function InYourCart() {
       {cartItems.map((cartItem, i) => (
         <div
           key={i}
-          className="pb-3 lg:border-b lg:border-t lg:pt-3 lg:transition-colors lg:hover:bg-muted/50 lg:data-[state=selected]:bg-muted"
+          className="mb-4 lg:border-b lg:border-t lg:pt-3 lg:transition-colors lg:hover:bg-muted/50 lg:data-[state=selected]:bg-muted"
         >
           <OrderReviewItem item={cartItem} />
         </div>

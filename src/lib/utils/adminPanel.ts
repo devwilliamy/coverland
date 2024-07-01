@@ -1,3 +1,4 @@
+import { cleanPhoneInput } from './../../app/(noFooter)/checkout/utils/index';
 import { PaymentIntent, PaymentMethod } from '@stripe/stripe-js';
 
 import {
@@ -6,6 +7,7 @@ import {
 } from './date';
 import { Tables } from '../db/types';
 import { TPayPalCaptureOrder, PayPalCompleteOrder } from '../types/paypal';
+import parsePhoneNumberFromString from 'libphonenumber-js';
 
 type TOrdersDB = Tables<'_Orders'>;
 
@@ -46,6 +48,14 @@ export const mapPaymentIntentAndMethodToOrder = (
     shipping,
   } = paymentIntentInput;
   const { type, card, billing_details } = paymentMethodInput;
+
+  const formattedPhone = parsePhoneNumberFromString(
+    billing_details.phone as string,
+    'US'
+  )?.format('E.164');
+
+  console.log({ billingPhone: billing_details.phone, formattedPhone });
+
   return {
     order_id: metadata.orderId,
     order_date: convertUnixTimestampToISOString(created),
@@ -67,7 +77,7 @@ export const mapPaymentIntentAndMethodToOrder = (
     payment_date: getCurrentTimeInISOFormat(),
     customer_name: shipping?.name,
     customer_email: billing_details.email,
-    customer_phone: billing_details.phone,
+    customer_phone: formattedPhone, // Stored in E.164 format
     shipping_address_line_1: shipping?.address?.line1,
     shipping_address_line_2: shipping?.address?.line2,
     shipping_address_city: shipping?.address?.city,
@@ -110,13 +120,16 @@ export const mapPaymentMethodToCustomer = (
   const { shipping } = paymentIntentInput;
   const { billing_details } = paymentMethodInput;
   const splitName: string[] = billing_details?.name?.split(' ') || [];
+  const formattedPhone = parsePhoneNumberFromString(
+    billing_details.phone as string
+  )?.format('E.164');
   return {
     address: billing_details?.address?.line1,
     address_2: billing_details?.address?.line2,
     city: billing_details?.address?.city,
     last_name: splitName[splitName.length - 1],
     name: splitName[0],
-    phone: billing_details?.phone,
+    phone: formattedPhone,
     pincode: billing_details?.address?.postal_code,
     state: billing_details?.address?.state,
     email: billing_details.email,
