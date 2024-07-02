@@ -71,6 +71,11 @@ export const NewCheckout = () => {
     const hasErrors =
       cardNumberError.error || cardExpiryError.error || cardCvvError.error;
 
+    const oneFieldUnvisited =
+      !cardNumberError.visited ||
+      !cardExpiryError.visited ||
+      !cardCvvError.visited;
+
     if (hasErrors) {
       updateIsReadyToPay(false);
     } else {
@@ -92,13 +97,11 @@ export const NewCheckout = () => {
           }
           if (paymentMethod.paymentMethod?.type === 'card') {
             updateStripePaymentMethod(paymentMethod);
-            updateIsReadyToPay(true);
             // handleChangeAccordion('orderReview');
           }
         })
         .finally(() => {
-          // setIsLoading(false);
-          updateIsReadyToPay(true);
+          !hasErrors && !oneFieldUnvisited && updateIsReadyToPay(true);
         });
     }
   };
