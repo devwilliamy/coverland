@@ -7,7 +7,7 @@ import { TUserOrder } from '@/lib/db/orders/getOrderByOrderId';
 
 sgMail.setApiKey(process.env.SENDGRID_API_KEY || '');
 const sgFromEmail = process.env.SENDGRID_FROM_EMAIL;
-const sgShippingConfirmationTemplateId =
+const sgDeliveryConfirmationTemplateId =
   process.env.SENDGRID_DELIVERY_CONFIRMATION_EMAIL_TEMPLATE_ID;
 
 let shipping_fee; // this is a placeholder for later iteration
@@ -28,8 +28,8 @@ export type DynamicTemplateData = {
 export type MainDeliveryEmailData = {
   id: string;
   ordered_on: string;
-  shipped_on: string; //check for order.shipping_status == "shipped" and order.previous_status == "unstarted"
-  expected_delivery_on: string;
+  shipped_on: string;
+  delivered_on: string; //check for order.shipping_status == "delivered" and order.previous_status == "shipped"
   tracking_number: string;
   tracking_url: string;
   customer_name: string;
