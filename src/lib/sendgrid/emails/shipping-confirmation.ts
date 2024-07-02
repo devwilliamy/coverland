@@ -4,6 +4,8 @@ import { SHIPPING_METHOD } from '@/lib/constants';
 import { determineDeliveryByDate } from '@/lib/utils/deliveryDateUtils';
 import { generateTrackingUrl } from '@/lib/utils/generateTrackingUrl';
 import { formatISODate } from '@/lib/utils/date';
+import { TUserOrder } from '@/lib/db/orders/getOrderByOrderId';
+
 sgMail.setApiKey(process.env.SENDGRID_API_KEY || '');
 const sgFromEmail = process.env.SENDGRID_FROM_EMAIL;
 const sgShippingConfirmationTemplateId =
