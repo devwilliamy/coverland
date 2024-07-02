@@ -8,7 +8,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import CustomPhoneInput from '../ui/phone-input';
 import { parsePhoneNumberFromString } from 'libphonenumber-js';
-import { Autocomplete, MenuItem } from '@mui/material';
+import { Autocomplete, MenuItem, TextField } from '@mui/material';
 import { CustomTextField } from './CustomTextField';
 import { GEORGE_DEFAULT_ADDRESS_DATA } from '@/lib/constants';
 import { cleanPhoneInput } from '@/app/(noFooter)/checkout/utils';
@@ -177,6 +177,24 @@ export default function AddressForm({
     postal_code: { value: '', visited: false, message: '', error: null },
     phoneNumber: { value: '', visited: false, message: '', error: null },
   });
+
+  type AutocompleteData = {
+    placePrediction: any;
+  };
+
+  const [autocompleteAddress, setAutocompleteAddress] = useState<string>('');
+  const [isManualAddress, setIsManualAddress] = useState();
+  const [suggestions, setSuggestions] = useState<AutocompleteData[]>([]);
+  const [loading, setLoading] = useState(false);
+  const [addressOpen, setAddressOpen] = useState(false);
+  const [isDisabled, setIsDisabled] = useState(true);
+
+  const autocompleteObj: Record<string, FormString> = {
+    locality: 'city',
+    administrative_area_level_1: 'state',
+    postal_code: 'postal_code',
+    country: 'country',
+  };
 
   useEffect(() => {
     // Populate the form fields when shippingAddress changes
@@ -383,11 +401,130 @@ export default function AddressForm({
   const checkErrors = () => {
     for (const key in shippingState) {
       if (shippingState[key].error || shippingState[key].error === null) {
+        if (!isManualAddress && !autocompleteAddress) {
+          return true;
+        }
         return true;
       }
     }
 
     return false;
+  };
+
+  const getAddressWithPostalCode = async (addressInput: string) => {
+    setLoading(true);
+    try {
+      const response = await fetch('/api/places-text-search', {
+        method: 'POST',
+        body: JSON.stringify({ addressInput }),
+      });
+
+      const data = await response.json();
+      const formattedAddress: string = data.places[0].formattedAddress;
+      const addressComponents: AddressComponent[] =
+        data.places[0].addressComponents;
+      // console.log('FORMATTED ADDRESS SEARCH', {
+      //   formattedAddress,
+      //   addressComponents,
+      // });
+
+      let filteredAddressComponents = new Map();
+
+      const determineAddressIncludesComponent = (component: any) => {
+        for (const key in autocompleteObj) {
+          if (
+            component.longText &&
+            component.types &&
+            component.types.includes(key)
+          ) {
+            if (component.types.includes('administrative_area_level_1')) {
+              // console.log({ state: component.shortText });
+              if (isBillingSameAsShipping) {
+                updateTwoLetterStateCode(component.shortText);
+                updateBillingTwoLetterStateCode(component.shortText);
+              } else {
+                showEmail
+                  ? updateTwoLetterStateCode(component.shortText)
+                  : updateBillingTwoLetterStateCode(component.shortText);
+              }
+            }
+            const val = autocompleteObj[key];
+            filteredAddressComponents.set(val, component.longText);
+          }
+        }
+      };
+
+      addressComponents.forEach((component, index) => {
+        // console.log(component);
+        determineAddressIncludesComponent(component);
+      });
+
+      // const line1 = String(formattedAddress).split(',')[0];
+      // setValue('line1', line1 ?? '');
+
+      // // FilteredAddressComponents => Map([['key','value'],...])
+      // for (const arr of filteredAddressComponents) {
+      //   setValue(arr[0], arr[1] ?? '');
+      // }
+
+      // console.log({ addressData });
+
+      if (formattedAddress) {
+        setAutocompleteAddress(formattedAddress);
+      } else {
+        setAutocompleteAddress(addressInput);
+      }
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const getAddressAutocompleteOptions = async (addressInput: string) => {
+    setLoading(true);
+    if (addressInput === '' || addressInput.trim() === '') {
+      setSuggestions([]);
+      setLoading(false);
+      return;
+    }
+    try {
+      const response = await fetch('/api/places-autocomplete', {
+        method: 'POST',
+        body: JSON.stringify({ addressInput }),
+      });
+
+      const data = await response.json();
+      // const values = getValues();
+      setSuggestions(data);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleAutocompleteChange = (
+    e: SyntheticEvent<Element, Event>,
+    eventValue: any
+  ) => {
+    if (eventValue === null) {
+      return '';
+    }
+    const selectedString = String(eventValue.placePrediction?.text.text);
+    getAddressWithPostalCode(selectedString);
+  };
+
+  const handleAutocompleteInputChange = (
+    e: SyntheticEvent<Element, Event>,
+    newInputValue: any
+  ) => {
+    if (newInputValue === null) {
+      return '';
+    }
+    const val = String(newInputValue);
+    getAddressAutocompleteOptions(val);
+    setAutocompleteAddress(val);
   };
 
   return (
@@ -496,47 +633,129 @@ export default function AddressForm({
           setShippingState={setShippingState}
         />
       </div>
-      <CustomTextField
-        label="Address"
-        type="line1"
-        required
-        placeholder="Start typing address"
-        shippingState={shippingState}
-        setShippingState={setShippingState}
-      />
-      <CustomTextField
-        label="Company, C/O, Apt, Suite, Unit"
-        type="line2"
-        required={false}
-        placeholder="Add Company, C/O, Apt, Suite, Unit"
-        shippingState={shippingState}
-        setShippingState={setShippingState}
-      />
-      <div className="flex grid-cols-3 flex-col gap-[29.5px] lg:grid lg:gap-[14px]">
-        <CustomTextField
-          label="City"
-          type="city"
-          required
-          placeholder="City"
-          shippingState={shippingState}
-          setShippingState={setShippingState}
+      {isManualAddress ? (
+        <>
+          <CustomTextField
+            label="Address"
+            type="line1"
+            required
+            placeholder="Start typing address"
+            shippingState={shippingState}
+            setShippingState={setShippingState}
+          />
+          <CustomTextField
+            label="Company, C/O, Apt, Suite, Unit"
+            type="line2"
+            required={false}
+            placeholder="Add Company, C/O, Apt, Suite, Unit"
+            shippingState={shippingState}
+            setShippingState={setShippingState}
+          />
+          <div className="flex grid-cols-3 flex-col gap-[29.5px] lg:grid lg:gap-[14px]">
+            <CustomTextField
+              label="City"
+              type="city"
+              required
+              placeholder="City"
+              shippingState={shippingState}
+              setShippingState={setShippingState}
+            />
+            <CustomTextField
+              label="State"
+              type="state"
+              required
+              placeholder="State"
+              shippingState={shippingState}
+              setShippingState={setShippingState}
+            />
+            <CustomTextField
+              label="ZIP"
+              type="postal_code"
+              required
+              placeholder="ZIP"
+              shippingState={shippingState}
+              setShippingState={setShippingState}
+            />
+          </div>
+        </>
+      ) : (
+        <Autocomplete
+          id="address-autocomplete"
+          open={addressOpen}
+          filterOptions={(x) => x}
+          getOptionLabel={(option) => {
+            return option?.placePrediction?.text.text ?? option;
+          }}
+          onOpen={() => setAddressOpen(true)}
+          onClose={() => setAddressOpen(false)}
+          onChange={(e, eventValue) => handleAutocompleteChange(e, eventValue)}
+          onInputChange={(e, newInputValue) =>
+            handleAutocompleteInputChange(e, newInputValue)
+          }
+          // value={address?.placePrediction?.text.text ?? address}
+          value={
+            autocompleteAddress?.placePrediction?.text.text ??
+            autocompleteAddress
+          }
+          className="col-span-2 w-full"
+          fullWidth
+          options={suggestions}
+          loading={loading}
+          filterSelectedOptions
+          aria-placeholder=""
+          noOptionsText="No locations"
+          renderInput={(params) => (
+            <TextField
+              {...params}
+              key={`text-field-address-auto`}
+              label="Address"
+              // placeholder="12345 Sunset Blvd, Los Angeles, CA 54321, USA" // With zipcode
+              placeholder="Start typing address"
+              fullWidth
+            >
+              {suggestions.map((suggestion) => {
+                const text = suggestion?.placePrediction?.text.text;
+                return (
+                  <MenuItem key={text} value={text}>
+                    {text}
+                  </MenuItem>
+                );
+              })}
+            </TextField>
+          )}
+          renderOption={(props, option) => {
+            const text = option?.placePrediction?.text.text;
+            // return <option value={text}>{text}</option>;
+            return (
+              <li {...props} key={text}>
+                <p>{text}</p>
+              </li>
+            );
+          }}
+          // helperText="Please complete address selection or enter an address manually."
         />
-        <CustomTextField
-          label="State"
-          type="state"
-          required
-          placeholder="State"
-          shippingState={shippingState}
-          setShippingState={setShippingState}
-        />
-        <CustomTextField
-          label="ZIP"
-          type="postal_code"
-          required
-          placeholder="ZIP"
-          shippingState={shippingState}
-          setShippingState={setShippingState}
-        />
+      )}
+
+      <div className="col-span-2 w-full">
+        <p
+          className="w-fit cursor-pointer text-[14px] font-[400] leading-[16.4px] text-[#767676] underline"
+          onClick={() => {
+            // const formValues: Record<string, string> = getValues();
+            // console.log({ formValues });
+            if (isManualAddress) {
+              setAutocompleteAddress('');
+            }
+            setIsManualAddress((prev) => !prev);
+            // setValue('line1', '');
+            // setValue('line2', '');
+            // setValue('city', '');
+            // setValue('state', '');
+            // setValue('postal_code', '');
+            // setValue('phoneNumber', '');
+          }}
+        >
+          {isManualAddress ? 'Find address' : 'Enter address manually'}
+        </p>
       </div>
 
       <div className="flex grid-cols-2 flex-col gap-[29.5px] lg:grid lg:gap-[14px]">
