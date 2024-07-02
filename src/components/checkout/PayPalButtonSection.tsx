@@ -29,11 +29,9 @@ import { SHIPPING_METHOD } from '@/lib/constants';
 
 type PaypalButtonSectionProps = {
   setPaypalSuccessMessage: (message: string) => void;
-  setMessage: (message: string) => void;
 };
 export default function PayPalButtonSection({
   setPaypalSuccessMessage,
-  setMessage,
 }: PaypalButtonSectionProps) {
   const { orderNumber, shipping, shippingAddress, customerInfo } =
     useCheckoutContext();
@@ -73,7 +71,6 @@ export default function PayPalButtonSection({
           }}
           className="fixed bottom-4 -ml-2 flex w-[calc(100%_-_16px)] items-center justify-center"
           createOrder={async () => {
-            setMessage(''); // If there was an error message previously, reset it
             const data = await paypalCreateOrder(
               totalMsrpPrice,
               cartItems,
@@ -136,10 +133,10 @@ export default function PayPalButtonSection({
             // });
 
             if (response.success) {
-              setMessage('');
-              setPaypalSuccessMessage(
-                'Paypal Payment Accepted, please wait for the page to finish loading.'
-              );
+              // ('');
+              // setPaypalSuccessMessage(
+              //   'Paypal Payment Accepted, please wait for the page to finish loading.'
+              // );
               const emailInput = {
                 to: customerInfo.email,
                 name: {
@@ -310,11 +307,11 @@ export default function PayPalButtonSection({
               console.error(
                 `[PaypalButtonSection] Error: Popup closed unexpectedly`
               );
-              setMessage('Popup closed unexpectedly');
+              ('Popup closed unexpectedly');
             } else if (error?.message) {
-              setMessage(error?.message);
+              error?.message;
             } else {
-              setMessage('Unexpected Error Occurred');
+              ('Unexpected Error Occurred');
             }
           }}
         />
