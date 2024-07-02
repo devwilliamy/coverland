@@ -90,155 +90,82 @@ export default function Payment({
     }
   };
 
-  const buttonStyle = `mb-3 w-full max-w-[390px] rounded-lg ${isDisabledCard ? 'bg-[#1A1A1A]/90' : 'bg-[#1A1A1A] hover:bg-[#1A1A1A]/90'} text-center uppercase m-0 max-h-[48px] min-h-[48px] max-w-[350px] self-end justify-self-end text-[16px] leading-[17px]`;
+  const buttonStyle = `sticky bottom-0 mb-3 w-full max-w-[390px] rounded-lg ${isDisabledCard ? 'bg-[#1A1A1A]/90' : 'bg-[#1A1A1A] hover:bg-[#1A1A1A]/90'} text-center uppercase m-0 max-h-[48px] min-h-[48px] max-w-[350px] self-end justify-self-end text-[16px] leading-[17px]`;
 
-  const handleContinueWithCard = () => {
-    setIsLoading(true);
-    const cardNumberElement = elements?.getElement(
-      'cardNumber'
-    ) as StripeCardNumberElement;
+  // const handleContinueWithCard = () => {
+  //   setIsLoading(true);
+  //   const cardNumberElement = elements?.getElement(
+  //     'cardNumber'
+  //   ) as StripeCardNumberElement;
 
-    stripe
-      ?.createPaymentMethod({
-        type: 'card',
-        card: cardNumberElement,
-        billing_details: customerBilling,
-      })
-      .then((paymentMethod) => {
-        if (paymentMethod.error) {
-          console.error(paymentMethod.error.message, paymentMethod.error);
-          setMessage(String(paymentMethod.error.message));
-          return;
-        }
-        if (paymentMethod.paymentMethod?.type === 'card') {
-          updateStripePaymentMethod(paymentMethod);
-          updateIsReadyToPay(true);
-          handleChangeAccordion('orderReview');
-        }
-      })
-      .finally(() => {
-        setIsLoading(false);
-      });
-  };
+  //   stripe
+  //     ?.createPaymentMethod({
+  //       type: 'card',
+  //       card: cardNumberElement,
+  //       billing_details: customerBilling,
+  //     })
+  //     .then((paymentMethod) => {
+  //       if (paymentMethod.error) {
+  //         console.error(paymentMethod.error.message, paymentMethod.error);
+  //         setMessage(String(paymentMethod.error.message));
+  //         return;
+  //       }
+  //       if (paymentMethod.paymentMethod?.type === 'card') {
+  //         updateStripePaymentMethod(paymentMethod);
+  //         updateIsReadyToPay(true);
+  //         handleChangeAccordion('orderReview');
+  //       }
+  //     })
+  //     .finally(() => {
+  //       setIsLoading(false);
+  //     });
+  // };
 
   return (
     <section>
       {/* <div className="mb-10 lg:hidden"><PromoCode /></div> */}
-      {isReadyToPay ? (
-        <span className="flex justify-between">
-          <div className="flex flex-col">
-            <p className="text-base font-[500]"> Payment Method</p>
-            <div className="flex py-5">
-              {paymentMethod === 'paypal' && (
-                <div className="flex items-center gap-2">
-                  <PayPalIcon />
-                </div>
-              )}
-              {paymentMethod === 'applePay' && (
-                // <div>You will be redirected to Apple Pay upon checkout.</div>
-                <ApplePayIcon />
-              )}
-              {paymentMethod === 'googlePay' && (
-                // <div>You will be redirected to Google Pay upon checkout.</div>
-                <GooglePayIcon />
-              )}
-              {paymentMethod === 'klarna' && (
-                <div className="flex items-center gap-2 ">
-                  <div className="flex min-w-[70px] max-w-[70px]">
-                    {/* <Image
-                      alt="Klarna"
-                      src={Klarna}
-                      className="-mx-4 -my-2 object-cover"
-                    /> */}
-                  </div>
 
-                  <h2> 4 interest-free payments</h2>
-                </div>
-              )}
-              {paymentMethod === 'creditCard' && (
-                <div className="flex items-center gap-2">
-                  {stripePaymentMethod &&
-                    stripePaymentMethod.paymentMethod?.card && (
-                      <div className="flex items-center gap-2 text-[16px] leading-[27px] text-[#767676]">
-                        <div className="flex max-h-[16px] max-w-[48px]">
-                          {determineBrandLogo(
-                            stripePaymentMethod.paymentMethod.card.brand
-                          )}
-                        </div>
-                        <div className="flex">
-                          <p>
-                            {stripePaymentMethod.paymentMethod.card.last4} Exp:{' '}
-                            {stripePaymentMethod.paymentMethod.card.exp_month}/
-                            {stripePaymentMethod.paymentMethod.card.exp_year}
-                          </p>
-                        </div>
-                      </div>
-                    )}
-                </div>
-              )}
-            </div>
-            <p className="text-base font-[500]"> Billing Details</p>
-            <div className="pb-[26px] text-[16px] font-[400] leading-[27px] text-[#767676]">
-              <p>{customerBilling.name}</p>
+      <>
+        <h2 className="pb-[26px] text-[16px] font-[500] leading-[27px]">
+          Select Payment Method
+        </h2>
+        <PaymentSelector
+          selectedPaymentMethod={paymentMethod}
+          onPaymentMethodChange={updatePaymentMethod}
+        />
+        {paymentMethod === 'creditCard' ? (
+          <div className="flex flex-col gap-4">
+            <form id="payment-form">
+              <NewCheckout />
+            </form>
 
-              <p>{customerBilling.address.line1}</p>
-              <p>
-                {customerBilling.address.city} {customerBilling.address.state}{' '}
-                {customerBilling.address.postal_code}
-              </p>
-            </div>
+            <BillingAddress
+              isEditingAddress={isEditingAddress}
+              setIsEditingAddress={setIsEditingAddress}
+            />
           </div>
-          <div>
-            <p
-              className="flex max-h-fit cursor-pointer font-[500] underline hover:text-[#0C87B8]"
-              onClick={() => updateIsReadyToPay(false)}
-            >
-              Edit
-            </p>
+        ) : (
+          <div className="py-[15px]">
+            {paymentMethod === 'paypal' && (
+              <div>
+                You will be redirected to the PayPal site upon checkout.
+              </div>
+            )}
+            {paymentMethod === 'applePay' && (
+              <div>You will be redirected to Apple Pay upon checkout.</div>
+            )}
+            {paymentMethod === 'googlePay' && (
+              <div>You will be redirected to Google Pay upon checkout.</div>
+            )}
+            {paymentMethod === 'klarna' && (
+              <div>You will be redirected to Klarna upon checkout.</div>
+            )}
           </div>
-        </span>
-      ) : (
-        <>
-          <h2 className="pb-[26px] text-[16px] font-[500] leading-[27px]">
-            Select Payment Method
-          </h2>
-          <PaymentSelector
-            selectedPaymentMethod={paymentMethod}
-            onPaymentMethodChange={updatePaymentMethod}
-          />
-          {paymentMethod === 'creditCard' ? (
-            <div className="flex flex-col gap-4">
-              <form id="payment-form">
-                <NewCheckout />
-              </form>
+        )}
+      </>
 
-              <BillingAddress
-                isEditingAddress={isEditingAddress}
-                setIsEditingAddress={setIsEditingAddress}
-              />
-            </div>
-          ) : (
-            <div className="pt-[15px]">
-              {paymentMethod === 'paypal' && (
-                <div>
-                  You will be redirected to the PayPal site upon checkout.
-                </div>
-              )}
-              {paymentMethod === 'applePay' && (
-                <div>You will be redirected to Apple Pay upon checkout.</div>
-              )}
-              {paymentMethod === 'googlePay' && (
-                <div>You will be redirected to Google Pay upon checkout.</div>
-              )}
-              {paymentMethod === 'klarna' && (
-                <div>You will be redirected to Klarna upon checkout.</div>
-              )}
-            </div>
-          )}
-        </>
-      )}
       {/* Continue To Order Review Button */}
-      {paymentMethod === 'creditCard' && !isReadyToPay && (
+      {/* {paymentMethod === 'creditCard' && !isReadyToPay && (
         <div className="my-[48px] flex w-full  items-center justify-center lg:justify-end">
           <Button
             variant={'default'}
@@ -253,13 +180,13 @@ export default function Payment({
             )}
           </Button>
         </div>
-      )}
+      )} */}
       {(paymentMethod === 'klarna' ||
         paymentMethod === 'googlePay' ||
         paymentMethod === 'applePay' ||
         paymentMethod === 'paypal') &&
         !isReadyToPay && (
-          <div className="my-[48px] flex w-full items-center justify-center lg:justify-end">
+          <div className="relative my-[48px] flex w-full items-center justify-center lg:justify-end">
             <Button
               variant={'default'}
               className={buttonStyle}
@@ -296,3 +223,117 @@ export default function Payment({
     </section>
   );
 }
+
+// {isReadyToPay ? (
+//   <span className="flex justify-between">
+//     <div className="flex flex-col">
+//       <p className="text-base font-[500]"> Payment Method</p>
+//       <div className="flex py-5">
+//         {paymentMethod === 'paypal' && (
+//           <div className="flex items-center gap-2">
+//             <PayPalIcon />
+//           </div>
+//         )}
+//         {paymentMethod === 'applePay' && (
+//           // <div>You will be redirected to Apple Pay upon checkout.</div>
+//           <ApplePayIcon />
+//         )}
+//         {paymentMethod === 'googlePay' && (
+//           // <div>You will be redirected to Google Pay upon checkout.</div>
+//           <GooglePayIcon />
+//         )}
+//         {paymentMethod === 'klarna' && (
+//           <div className="flex items-center gap-2 ">
+//             <div className="flex min-w-[70px] max-w-[70px]">
+//               {/* <Image
+//                 alt="Klarna"
+//                 src={Klarna}
+//                 className="-mx-4 -my-2 object-cover"
+//               /> */}
+//             </div>
+
+//             <h2> 4 interest-free payments</h2>
+//           </div>
+//         )}
+//         {paymentMethod === 'creditCard' && (
+//           <div className="flex items-center gap-2">
+//             {stripePaymentMethod &&
+//               stripePaymentMethod.paymentMethod?.card && (
+//                 <div className="flex items-center gap-2 text-[16px] leading-[27px] text-[#767676]">
+//                   <div className="flex max-h-[16px] max-w-[48px]">
+//                     {determineBrandLogo(
+//                       stripePaymentMethod.paymentMethod.card.brand
+//                     )}
+//                   </div>
+//                   <div className="flex">
+//                     <p>
+//                       {stripePaymentMethod.paymentMethod.card.last4} Exp:{' '}
+//                       {stripePaymentMethod.paymentMethod.card.exp_month}/
+//                       {stripePaymentMethod.paymentMethod.card.exp_year}
+//                     </p>
+//                   </div>
+//                 </div>
+//               )}
+//           </div>
+//         )}
+//       </div>
+//       <p className="text-base font-[500]"> Billing Details</p>
+//       <div className="pb-[26px] text-[16px] font-[400] leading-[27px] text-[#767676]">
+//         <p>{customerBilling.name}</p>
+
+//         <p>{customerBilling.address.line1}</p>
+//         <p>
+//           {customerBilling.address.city} {customerBilling.address.state}{' '}
+//           {customerBilling.address.postal_code}
+//         </p>
+//       </div>
+//     </div>
+//     <div>
+//       <p
+//         className="flex max-h-fit cursor-pointer font-[500] underline hover:text-[#0C87B8]"
+//         onClick={() => updateIsReadyToPay(false)}
+//       >
+//         Edit
+//       </p>
+//     </div>
+//   </span>
+// ) : (
+//   <>
+//     <h2 className="pb-[26px] text-[16px] font-[500] leading-[27px]">
+//       Select Payment Method
+//     </h2>
+//     <PaymentSelector
+//       selectedPaymentMethod={paymentMethod}
+//       onPaymentMethodChange={updatePaymentMethod}
+//     />
+//     {paymentMethod === 'creditCard' ? (
+//       <div className="flex flex-col gap-4">
+//         <form id="payment-form">
+//           <NewCheckout />
+//         </form>
+
+//         <BillingAddress
+//           isEditingAddress={isEditingAddress}
+//           setIsEditingAddress={setIsEditingAddress}
+//         />
+//       </div>
+//     ) : (
+//       <div className="pt-[15px]">
+//         {paymentMethod === 'paypal' && (
+//           <div>
+//             You will be redirected to the PayPal site upon checkout.
+//           </div>
+//         )}
+//         {paymentMethod === 'applePay' && (
+//           <div>You will be redirected to Apple Pay upon checkout.</div>
+//         )}
+//         {paymentMethod === 'googlePay' && (
+//           <div>You will be redirected to Google Pay upon checkout.</div>
+//         )}
+//         {paymentMethod === 'klarna' && (
+//           <div>You will be redirected to Klarna upon checkout.</div>
+//         )}
+//       </div>
+//     )}
+//   </>
+// )}

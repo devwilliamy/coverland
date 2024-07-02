@@ -86,6 +86,7 @@ export default function CheckoutAccordion() {
     totalTax,
     updateTotalTax,
     updateCustomerInfo,
+    paymentIsFilled,
     clientSecret,
   } = useCheckoutContext();
   // const { orderNumber, paymentIntentId, paymentMethod, updatePaymentMethod } = useCheckoutContext();
@@ -620,7 +621,7 @@ export default function CheckoutAccordion() {
   const isMobile = useMediaQuery('(max-width: 1023px)');
 
   return (
-    <div className="flex w-full flex-col items-center">
+    <div className="relative flex w-full flex-col items-center">
       {!isMobile && currentStep !== CheckoutStep.CART && (
         <div className="w-full py-[80px] text-center text-[24px] font-[700] leading-[12px]">
           Checkout
@@ -648,7 +649,7 @@ export default function CheckoutAccordion() {
               <Accordion
                 type="multiple"
                 // collapsible
-                className="w-full px-4"
+                className="relative w-full px-4"
                 value={value}
                 onValueChange={setValue}
               >
@@ -702,27 +703,43 @@ export default function CheckoutAccordion() {
                       {isReadyToPay && <ReadyCheck />}
                     </h2>
                   </AccordionTrigger>
-                  <AccordionContent className="py-0">
+                  <AccordionContent className=" py-0">
                     <Payment handleChangeAccordion={handleChangeAccordion} />
-                    {!isMobile && isReadyToPay && (
-                      <div className="flex flex-col">
-                        {paymentMethod === 'creditCard' && (
-                          <>
-                            <Separator />
-                            <p className=" pb-[4px] pt-[35px] text-[14px] font-[400] text-[#767676] lg:px-4 lg:pb-[48px]">
-                              By Clicking the “Submit Payment” button, you
-                              confirm that you have read, understand, and accept
-                              our Terms of use,{' '}
-                              <a href="" className="underline">
-                                Privacy Policy,
-                              </a>{' '}
-                              <a href="" className="underline">
-                                Return Policy
-                              </a>
-                            </p>
+                    <section className="flex w-full flex-col pt-4 ">
+                      {cartItems.map((cartItem, i) => (
+                        <div
+                          key={i}
+                          className="mb-4 lg:border-b lg:border-t lg:pt-3 lg:transition-colors lg:hover:bg-muted/50 lg:data-[state=selected]:bg-muted"
+                        >
+                          <OrderReviewItem item={cartItem} />
+                        </div>
+                      ))}
+                      <div className="mt-4 lg:hidden">
+                        <PriceBreakdown />
+                      </div>
+                      {paymentMethod === 'creditCard' && isReadyToPay && (
+                        <>
+                          <p className="pb-[40px] text-[14px] font-[400] text-[#767676]">
+                            By Clicking the “Submit Payment” button, you confirm
+                            that you have read, understand, and accept our Terms
+                            of use,{' '}
+                            <a
+                              href="/policies/privacy-policy"
+                              className="underline"
+                            >
+                              Privacy Policy,
+                            </a>{' '}
+                            <a
+                              href="/policies/return-policy"
+                              className="underline"
+                            >
+                              Return Policy
+                            </a>
+                          </p>
+                          <div className="relative flex w-full items-center justify-center  py-4 ">
                             <Button
                               variant={'default'}
-                              className={`mb-3 w-full self-end rounded-lg bg-black text-base font-bold uppercase text-white sm:h-[48px] lg:h-[55px] lg:max-w-[307px] lg:text-xl`}
+                              className={`fixed bottom-0  mb-3 flex w-[calc(100%_-_16px)] rounded-lg bg-black px-4  text-base font-bold uppercase text-white sm:h-[48px] lg:h-[55px] lg:text-xl`}
                               onClick={(e) => {
                                 setIsLoading(true);
                                 handleSubmit();
@@ -734,62 +751,150 @@ export default function CheckoutAccordion() {
                                 'Submit Payment'
                               )}
                             </Button>
-                            {message && (
-                              <p className="font-[500] text-[red]">{message}</p>
-                            )}
-                          </>
-                        )}
-                        {paymentMethod === 'paypal' && (
-                          <div className="w-full max-w-[307px] self-end justify-self-end">
-                            <PayPalButtonSection />
                           </div>
-                        )}
-                        {(paymentMethod === 'applePay' ||
-                          paymentMethod === 'googlePay') && (
-                          <div className="w-full max-w-[307px] self-end justify-self-end">
-                            <ExpressCheckoutElement
-                              options={{
-                                paymentMethodOrder: ['applePay', 'googlePay'],
-                                buttonType: {
-                                  applePay: 'order',
-                                  googlePay: 'order',
-                                },
-                                wallets:
-                                  paymentMethod === 'applePay'
-                                    ? { googlePay: 'never', applePay: 'always' }
-                                    : {
-                                        googlePay: 'always',
-                                        applePay: 'never',
-                                      },
+
+                          {message && (
+                            <p className="font-[500] text-[red]">{message}</p>
+                          )}
+                        </>
+                      )}
+                      {paymentMethod === 'paypal' && (
+                        // <div className="fixed bottom-0 -ml-2 min-h-[130px] w-[calc(100%_-_16px)]">
+                        <div className="relative min-h-[130px]">
+                          <PayPalButtonSection />
+                        </div>
+                      )}
+                      {(paymentMethod === 'applePay' ||
+                        paymentMethod === 'googlePay') && (
+                        <ExpressCheckoutElement
+                          options={{
+                            paymentMethodOrder: ['applePay', 'googlePay'],
+                            buttonType: {
+                              applePay: 'order',
+                              googlePay: 'order',
+                            },
+                            wallets:
+                              paymentMethod === 'applePay'
+                                ? { googlePay: 'never', applePay: 'always' }
+                                : { googlePay: 'always', applePay: 'never' },
+                          }}
+                          onConfirm={async (e) => {
+                            await handleSubmit();
+                          }}
+                        />
+                      )}
+                      {paymentMethod === 'klarna' && (
+                        <Button
+                          variant={'default'}
+                          className={`mb-3 w-full rounded-lg bg-black text-base font-bold uppercase text-white sm:h-[48px] lg:h-[55px] lg:text-xl`}
+                          onClick={(e) => {
+                            setIsLoading(true);
+                            handleSubmit();
+                          }}
+                        >
+                          {isLoading ? (
+                            <AiOutlineLoading3Quarters className="animate-spin" />
+                          ) : (
+                            <></>
+                            // <PayWithKlarnaWhite />
+                          )}
+                        </Button>
+                      )}
+                    </section>
+                    {
+                      // !isMobile &&
+                      isReadyToPay && (
+                        <div className="flex flex-col">
+                          {paymentMethod === 'creditCard' && (
+                            <>
+                              <Separator />
+                              {/* <p className=" pb-[4px] pt-[35px] text-[14px] font-[400] text-[#767676] lg:px-4 lg:pb-[48px]">
+                                By Clicking the “Submit Payment” button, you
+                                confirm that you have read, understand, and
+                                accept our Terms of use,{' '}
+                                <a href="" className="underline">
+                                  Privacy Policy,
+                                </a>{' '}
+                                <a href="" className="underline">
+                                  Return Policy
+                                </a>
+                              </p>
+                              <Button
+                                variant={'default'}
+                                className={`mb-3 w-full self-end rounded-lg bg-black text-base font-bold uppercase text-white sm:h-[48px] lg:h-[55px] lg:max-w-[307px] lg:text-xl`}
+                                onClick={(e) => {
+                                  setIsLoading(true);
+                                  handleSubmit();
+                                }}
+                              >
+                                {isLoading ? (
+                                  <AiOutlineLoading3Quarters className="animate-spin" />
+                                ) : (
+                                  'Submit Payment'
+                                )}
+                              </Button> */}
+                              {message && (
+                                <p className="font-[500] text-[red]">
+                                  {message}
+                                </p>
+                              )}
+                            </>
+                          )}
+                          {/* {paymentMethod === 'paypal' && (
+                            <div className="w-full max-w-[307px] self-end justify-self-end">
+                              <PayPalButtonSection />
+                            </div>
+                          )}
+                          {(paymentMethod === 'applePay' ||
+                            paymentMethod === 'googlePay') && (
+                            <div className="w-full max-w-[307px] self-end justify-self-end">
+                              <ExpressCheckoutElement
+                                options={{
+                                  paymentMethodOrder: ['applePay', 'googlePay'],
+                                  buttonType: {
+                                    applePay: 'order',
+                                    googlePay: 'order',
+                                  },
+                                  wallets:
+                                    paymentMethod === 'applePay'
+                                      ? {
+                                          googlePay: 'never',
+                                          applePay: 'always',
+                                        }
+                                      : {
+                                          googlePay: 'always',
+                                          applePay: 'never',
+                                        },
+                                }}
+                                onConfirm={async (e) => {
+                                  await handleSubmit();
+                                }}
+                              />
+                            </div>
+                          )}
+                          {paymentMethod === 'klarna' && (
+                            <Button
+                              variant={'default'}
+                              className={`mb-3 w-full rounded-lg bg-black text-base font-bold uppercase text-white sm:h-[48px] lg:h-[55px] lg:text-xl`}
+                              onClick={(e) => {
+                                setIsLoading(true);
+                                handleSubmit();
                               }}
-                              onConfirm={async (e) => {
-                                await handleSubmit();
-                              }}
-                            />
-                          </div>
-                        )}
-                        {paymentMethod === 'klarna' && (
-                          <Button
-                            variant={'default'}
-                            className={`mb-3 w-full rounded-lg bg-black text-base font-bold uppercase text-white sm:h-[48px] lg:h-[55px] lg:text-xl`}
-                            onClick={(e) => {
-                              setIsLoading(true);
-                              handleSubmit();
-                            }}
-                          >
-                            {isLoading ? (
-                              <AiOutlineLoading3Quarters className="animate-spin" />
-                            ) : (
-                              <></>
-                              // <PayWithKlarnaWhite />
-                            )}
-                          </Button>
-                        )}
-                      </div>
-                    )}
+                            >
+                              {isLoading ? (
+                                <AiOutlineLoading3Quarters className="animate-spin" />
+                              ) : (
+                                <></>
+                                // <PayWithKlarnaWhite />
+                              )}
+                            </Button>
+                          )} */}
+                        </div>
+                      )
+                    }
                   </AccordionContent>
                 </AccordionItem>
-                {isMobile && (
+                {/* {isMobile && (
                   <AccordionItem value="orderReview" id="orderReview">
                     <AccordionTrigger
                       onClick={(e) => {
@@ -901,7 +1006,7 @@ export default function CheckoutAccordion() {
                       </section>
                     </AccordionContent>
                   </AccordionItem>
-                )}
+                )} */}
               </Accordion>
             </>
           )}
@@ -916,3 +1021,86 @@ export default function CheckoutAccordion() {
     </div>
   );
 }
+
+// export const OrderReviewSection = (cartItems, paymentMethod) => {
+//   return (
+//     <section className="flex w-full flex-col ">
+//       {cartItems.map((cartItem, i) => (
+//         <div
+//           key={i}
+//           className="mb-4 lg:border-b lg:border-t lg:pt-3 lg:transition-colors lg:hover:bg-muted/50 lg:data-[state=selected]:bg-muted"
+//         >
+//           <OrderReviewItem item={cartItem} />
+//         </div>
+//       ))}
+//       <div className="mt-4 lg:hidden">
+//         <PriceBreakdown />
+//       </div>
+//       {paymentMethod === 'creditCard' && (
+//         <>
+//           <p className="pb-[40px] text-[14px] font-[400] text-[#767676]">
+//             By Clicking the “Submit Payment” button, you confirm that you have
+//             read, understand, and accept our Terms of use,{' '}
+//             <a href="/policies/privacy-policy" className="underline">
+//               Privacy Policy,
+//             </a>{' '}
+//             <a href="/policies/return-policy" className="underline">
+//               Return Policy
+//             </a>
+//           </p>
+//           <Button
+//             variant={'default'}
+//             className={`mb-3 w-full rounded-lg bg-black text-base font-bold uppercase text-white sm:h-[48px] lg:h-[55px] lg:text-xl`}
+//             onClick={(e) => {
+//               setIsLoading(true);
+//               handleSubmit();
+//             }}
+//           >
+//             {isLoading ? (
+//               <AiOutlineLoading3Quarters className="animate-spin" />
+//             ) : (
+//               'Submit Payment'
+//             )}
+//           </Button>
+//           {message && <p className="font-[500] text-[red]">{message}</p>}
+//         </>
+//       )}
+//       {paymentMethod === 'paypal' && <PayPalButtonSection />}
+//       {(paymentMethod === 'applePay' || paymentMethod === 'googlePay') && (
+//         <ExpressCheckoutElement
+//           options={{
+//             paymentMethodOrder: ['applePay', 'googlePay'],
+//             buttonType: {
+//               applePay: 'order',
+//               googlePay: 'order',
+//             },
+//             wallets:
+//               paymentMethod === 'applePay'
+//                 ? { googlePay: 'never', applePay: 'always' }
+//                 : { googlePay: 'always', applePay: 'never' },
+//           }}
+//           onConfirm={async (e) => {
+//             await handleSubmit();
+//           }}
+//         />
+//       )}
+//       {paymentMethod === 'klarna' && (
+//         <Button
+//           variant={'default'}
+//           className={`mb-3 w-full rounded-lg bg-black text-base font-bold uppercase text-white sm:h-[48px] lg:h-[55px] lg:text-xl`}
+//           onClick={(e) => {
+//             setIsLoading(true);
+//             handleSubmit();
+//           }}
+//         >
+//           {isLoading ? (
+//             <AiOutlineLoading3Quarters className="animate-spin" />
+//           ) : (
+//             <></>
+//             // <PayWithKlarnaWhite />
+//           )}
+//         </Button>
+//       )}
+//     </section>
+//   );
+// };

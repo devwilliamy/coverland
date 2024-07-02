@@ -10,9 +10,10 @@ import { useRouter } from 'next/navigation';
 import {
   StripeCardCvcElementChangeEvent,
   StripeCardExpiryElementChangeEvent,
+  StripeCardNumberElement,
   StripeCardNumberElementChangeEvent,
 } from '@stripe/stripe-js';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { CvvPopover } from './CvvPopover';
 import LockIcon from './icons/LockIcon';
 import { CardLockIcon } from './icons/CardLockIcon';
@@ -38,7 +39,12 @@ export const NewCheckout = () => {
     updateCardNumberError,
     updateCardExpiryError,
     updateCardCvvError,
+    isReadyToPay,
+    updateStripePaymentMethod,
+    updateIsReadyToPay,
   } = useCheckoutContext();
+  const [message, setMessage] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
   const paymentContainerStyle = `border rounded-[8px] px-[17px] py-[19px] items-center`;
   if (!stripe || !elements) {
@@ -46,6 +52,56 @@ export const NewCheckout = () => {
     // Make sure to disable form submission until Stripe.js has loaded.
     return;
   }
+
+  const customerBilling = {
+    email: customerInfo.email,
+    name: billingAddress.name,
+    phone: billingAddress.phone,
+    address: {
+      city: billingAddress.address.city as string,
+      country: billingAddress.address.country as string,
+      line1: billingAddress.address.line1 as string,
+      line2: billingAddress.address.line2 as string,
+      postal_code: billingAddress.address.postal_code as string,
+      state: billingAddress.address.state as string,
+    },
+  };
+
+  const checkErrors = () => {
+    const hasErrors =
+      cardNumberError.error || cardExpiryError.error || cardCvvError.error;
+
+    if (hasErrors) {
+      updateIsReadyToPay(false);
+    } else {
+      const cardNumberElement = elements?.getElement(
+        'cardNumber'
+      ) as StripeCardNumberElement;
+
+      stripe
+        ?.createPaymentMethod({
+          type: 'card',
+          card: cardNumberElement,
+          billing_details: customerBilling,
+        })
+        .then((paymentMethod) => {
+          if (paymentMethod.error) {
+            console.error(paymentMethod.error.message, paymentMethod.error);
+            setMessage(String(paymentMethod.error.message));
+            return;
+          }
+          if (paymentMethod.paymentMethod?.type === 'card') {
+            updateStripePaymentMethod(paymentMethod);
+            updateIsReadyToPay(true);
+            // handleChangeAccordion('orderReview');
+          }
+        })
+        .finally(() => {
+          // setIsLoading(false);
+          updateIsReadyToPay(true);
+        });
+    }
+  };
 
   const handleCardNumberElementChange = (
     e: StripeCardNumberElementChangeEvent
@@ -71,6 +127,7 @@ export const NewCheckout = () => {
         error: null,
       });
     }
+    // checkErrors();
   };
 
   const handleCardExpiryElementChange = (
@@ -97,6 +154,7 @@ export const NewCheckout = () => {
         error: null,
       });
     }
+    // checkErrors();
   };
 
   const handleCardCvcElementChange = (e: StripeCardCvcElementChangeEvent) => {
@@ -121,7 +179,12 @@ export const NewCheckout = () => {
         visited: true,
       });
     }
+    // checkErrors();
   };
+
+  useEffect(() => {
+    checkErrors();
+  }, [cardNumberError, cardExpiryError, cardCvvError]);
 
   const [showLock, setShowLock] = useState(true);
 

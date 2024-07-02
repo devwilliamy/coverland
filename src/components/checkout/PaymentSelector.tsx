@@ -10,6 +10,10 @@ import PayPalIcon from './icons/PayPalIcon';
 import ApplePayIcon from './icons/ApplePayIcon';
 import GooglePayIcon from './icons/GooglePayIcon';
 import KlarnaIcon from './icons/KlarnaIcon';
+import { StripeCardNumberElement } from '@stripe/stripe-js';
+import { useElements, useStripe } from '@stripe/react-stripe-js';
+import { useEffect, useState } from 'react';
+import { useCheckoutContext } from '@/contexts/CheckoutContext';
 // import ApplePayIcon from './ApplePayIcon';
 // import KlarnaIcon from './KlarnaIcon';
 // import CheckoutCard from './CheckoutCard';
@@ -27,12 +31,6 @@ function isIOS() {
   // iOS detection
   return /iPad|iPhone|iPod/.test(userAgent) && !window.MSStream;
 }
-
-// if (isIOS()) {
-//   console.log('This is an iOS device');
-// } else {
-//   console.log('This is not an iOS device');
-// }
 
 const selctionStyle = `grid gap-2.5 grid-cols-[auto_58px_1fr] min-h-[30px] max-h-[30px] place-items-center`;
 
@@ -52,7 +50,9 @@ const PaymentSelector: React.FC<PaymentSelectorProps> = ({
           name="paymentMethod"
           value="creditCard"
           checked={selectedPaymentMethod === 'creditCard'}
-          onChange={() => onPaymentMethodChange('creditCard')}
+          onChange={() => {
+            onPaymentMethodChange('creditCard');
+          }}
           className={inputStyle}
         />
         <CheckoutCard />
@@ -73,7 +73,7 @@ const PaymentSelector: React.FC<PaymentSelectorProps> = ({
         />
         <PayPalIcon />
       </div>
-      {isIOS() && (
+      {/* {isIOS() && (
         <div className={selctionStyle}>
           <input
             type="radio"
@@ -86,8 +86,8 @@ const PaymentSelector: React.FC<PaymentSelectorProps> = ({
           />
           <ApplePayIcon />
         </div>
-      )}
-      <div className={selctionStyle}>
+      )} */}
+      {/* <div className={selctionStyle}>
         <input
           type="radio"
           id="googlePayInput"
@@ -98,7 +98,7 @@ const PaymentSelector: React.FC<PaymentSelectorProps> = ({
           className={inputStyle}
         />
         <GooglePayIcon />
-      </div>
+      </div> */}
       {/* <div className={selctionStyle}>
         <input
           type="radio"
