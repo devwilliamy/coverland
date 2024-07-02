@@ -4,6 +4,7 @@ import '../globals.css';
 import Header from '@/components/header/Header';
 import Footer from '@/components/footer/Footer';
 import { LiveChatProvider } from '@/contexts/LiveChatContext';
+import  IntercomLiveChat  from '@/components/intercom/IntercomLiveChat';
 
 export const metadata: Metadata = {
   title: 'Coverland Car Covers',
@@ -18,11 +19,12 @@ export default function RootLayout({
 }) {
   return (
     <>
-      <LiveChatProvider>
+      {/* <LiveChatProvider> */}
         <Header />
         {children}
         <Footer />
-      </LiveChatProvider>
+        <IntercomLiveChat />
+      {/* </LiveChatProvider> */}
     </>
   );
 }
