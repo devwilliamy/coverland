@@ -157,3 +157,48 @@ export const generateDynamicTemplateDataFromUserOrder = (
     shipping_info,
   };
 };
+
+export const generateSendGridApiPayload = (data): MailDataRequired => {
+
+  return {
+    from: { email: sgFromEmail },
+    template_id: sgDeliveryConfirmationTemplateId,
+    personalizations: [
+      {
+        to: [{ email: data.to }], // data.to
+        dynamicTemplateData: data.dynamic_template_data,
+      },
+    ],
+  };
+};
+
+export const sendDeliveryConfirmationEmailToSendGrid = async (
+  data: MailDataRequired
+) => {
+  try {
+    // console.log('Sending email with data:', data); // leaving this console for debugging/logging purposes
+
+    const response = await sgMail.send(data);
+
+    if (response[0].statusCode === 202) {
+      console.log('Email sent successfully - Status 202:', response[0].headers);
+      // Optionally handle further processing
+    } else {
+      console.error('Unexpected status:', response[0].statusCode, response[0].headers);
+    }
+  } catch (error) {
+    console.error(error);
+
+    // Check if err.response exists to get more details
+    if (error.response) {
+      console.error('Error Response:', error.response.body);
+
+      // Log each error in the errors array
+      if (error.response.body.errors) {
+        error.response.body.errors.forEach((error: any) => {
+          console.error('Error Detail:', error);
+        });
+      }
+    }
+  }
+};
