@@ -1,17 +1,12 @@
-import { ChangeEventHandler, SyntheticEvent, useEffect, useState } from 'react';
-import { useForm } from 'react-hook-form';
-import OverlappingLabel from '../ui/overlapping-label';
+import { SyntheticEvent, useEffect, useState } from 'react';
 import { Button } from '../ui/button';
 import { CustomerInfo, useCheckoutContext } from '@/contexts/CheckoutContext';
 import { StripeAddress } from '@/lib/types/checkout';
-import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
-import CustomPhoneInput from '../ui/phone-input';
 import { parsePhoneNumberFromString } from 'libphonenumber-js';
 import { Autocomplete, MenuItem, TextField } from '@mui/material';
 import { CustomTextField } from './CustomTextField';
 import { GEORGE_DEFAULT_ADDRESS_DATA } from '@/lib/constants';
-import { cleanPhoneInput } from '@/app/(noFooter)/checkout/utils';
 
 type FormData = {
   email: string;
@@ -112,58 +107,6 @@ export default function AddressForm({
     isBillingSameAsShipping,
   } = useCheckoutContext();
 
-  // ----------------------V----------------------V--- Zod Code ---V----------------------V----------------------
-  // const {
-  //   register,
-  //   setValue,
-  //   handleSubmit,
-  //   formState: { errors },
-  //   watch,
-  //   getValues,
-  //   // trigger,
-  // } = useForm<FormData>({ resolver: zodResolver(formSchema) });
-
-  // const onSubmit = handleSubmit(
-  //   ({
-  //     email,
-  //     firstName,
-  //     lastName,
-  //     line1,
-  //     line2,
-  //     city,
-  //     state,
-  //     postal_code,
-  //     phoneNumber,
-  //   }) => {
-  //     const formattedPhoneNumber =
-  //       parsePhoneNumberFromString(phoneNumber)?.format('E.164');
-
-  //     const address: StripeAddress = {
-  //       name: `${firstName} ${lastName}`,
-  //       firstName,
-  //       lastName,
-  //       phone: formattedPhoneNumber,
-  //       address: {
-  //         line1,
-  //         line2,
-  //         city,
-  //         state,
-  //         postal_code,
-  //         country: 'US',
-  //       },
-  //     };
-  //     // console.log("Address:", address)
-  //     updateAddress(address as StripeAddress);
-  //     updateCustomerInfo({ email, phoneNumber });
-  //     setIsEditingAddress(false);
-  //     toggleIsShippingAddressShown(false);
-  //   }
-  // );
-
-  // const emailValue = watch('email');
-
-  // TODO: Extract this to checkout context or its own context
-
   const [shippingState, setShippingState] = useState<
     Record<string, ShippingStateType>
   >({
@@ -183,7 +126,7 @@ export default function AddressForm({
   };
 
   const [autocompleteAddress, setAutocompleteAddress] = useState<string>('');
-  const [isManualAddress, setIsManualAddress] = useState();
+  const [isManualAddress, setIsManualAddress] = useState(false);
   const [suggestions, setSuggestions] = useState<AutocompleteData[]>([]);
   const [loading, setLoading] = useState(false);
   const [addressOpen, setAddressOpen] = useState(false);
@@ -264,135 +207,6 @@ export default function AddressForm({
     }
   }, []);
 
-  // --------- V ----------- V ---------- Code for Autocomplete --------- V ----------- V ----------
-  // type AutocompleteData = {
-  //   placePrediction: any;
-  // };
-
-  // const [autocompleteAddress, setAutocompleteAddress] = useState<string>('');
-  // const [isManualAddress, setIsManualAddress] = useState(false);
-  // const [suggestions, setSuggestions] = useState<AutocompleteData[]>([]);
-  // const [loading, setLoading] = useState(false);
-  // const [addressOpen, setAddressOpen] = useState(false);
-
-  // const autocompleteObj: Record<string, FormString> = {
-  //   locality: 'city',
-  //   administrative_area_level_1: 'state',
-  //   postal_code: 'postal_code',
-  //   country: 'country',
-  // };
-
-  // const getAddressAutocompleteOptions = async (addressInput: string) => {
-  //   setLoading(true);
-  //   try {
-  //     const response = await fetch('/api/places-autocomplete', {
-  //       method: 'POST',
-  //       body: JSON.stringify({ addressInput }),
-  //     });
-
-  //     const data = await response.json();
-  //     // const values = getValues();
-  //     setSuggestions(data);
-  //   } catch (error) {
-  //     console.error(error);
-  //   } finally {
-  //     setLoading(false);
-  //   }
-  // };
-
-  // const getAddressWithPostalCode = async (addressInput: string) => {
-  //   setLoading(true);
-  //   try {
-  //     const response = await fetch('/api/places-text-search', {
-  //       method: 'POST',
-  //       body: JSON.stringify({ addressInput }),
-  //     });
-
-  //     const data = await response.json();
-  //     const formattedAddress: string = data.places[0].formattedAddress;
-  //     const addressComponents: AddressComponent[] =
-  //       data.places[0].addressComponents;
-  //     // console.log('FORMATTED ADDRESS SEARCH', {
-  //     //   formattedAddress,
-  //     //   addressComponents,
-  //     // });
-
-  //     let filteredAddressComponents = new Map();
-
-  //     const determineAddressIncludesComponent = (component: any) => {
-  //       for (const key in autocompleteObj) {
-  //         if (
-  //           component.longText &&
-  //           component.types &&
-  //           component.types.includes(key)
-  //         ) {
-  //           if (component.types.includes('administrative_area_level_1')) {
-  //             // console.log({ state: component.shortText });
-  //             if (isBillingSameAsShipping) {
-  //               updateTwoLetterStateCode(component.shortText);
-  //               updateBillingTwoLetterStateCode(component.shortText);
-  //             } else {
-  //               showEmail
-  //                 ? updateTwoLetterStateCode(component.shortText)
-  //                 : updateBillingTwoLetterStateCode(component.shortText);
-  //             }
-  //           }
-  //           const val = autocompleteObj[key];
-  //           filteredAddressComponents.set(val, component.longText);
-  //         }
-  //       }
-  //     };
-
-  //     addressComponents.forEach((component, index) => {
-  //       // console.log(component);
-  //       determineAddressIncludesComponent(component);
-  //     });
-
-  //     const line1 = String(formattedAddress).split(',')[0];
-  //     setValue('line1', line1 ?? '');
-
-  //     // FilteredAddressComponents => Map([['key','value'],...])
-  //     for (const arr of filteredAddressComponents) {
-  //       setValue(arr[0], arr[1] ?? '');
-  //     }
-
-  //     // console.log({ addressData });
-
-  //     if (formattedAddress) {
-  //       setAutocompleteAddress(formattedAddress);
-  //     } else {
-  //       setAutocompleteAddress(addressInput);
-  //     }
-  //   } catch (error) {
-  //     console.error(error);
-  //   } finally {
-  //     setLoading(false);
-  //   }
-  // };
-
-  // const handleAutocompleteChange = (
-  //   e: SyntheticEvent<Element, Event>,
-  //   eventValue: any
-  // ) => {
-  //   if (eventValue === null) {
-  //     return '';
-  //   }
-  //   const selectedString = String(eventValue.placePrediction?.text.text);
-  //   getAddressWithPostalCode(selectedString);
-  // };
-
-  // const handleAutocompleteInputChange = (
-  //   e: SyntheticEvent<Element, Event>,
-  //   newInputValue: any
-  // ) => {
-  //   if (newInputValue === null) {
-  //     return '';
-  //   }
-  //   const val = String(newInputValue);
-  //   getAddressAutocompleteOptions(val);
-  //   setAutocompleteAddress(val);
-  // };
-
   const validateEmail = (email: string) => {
     const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return re.test(String(email).toLowerCase());
@@ -423,19 +237,20 @@ export default function AddressForm({
       const formattedAddress: string = data.places[0].formattedAddress;
       const addressComponents: AddressComponent[] =
         data.places[0].addressComponents;
-      // console.log('FORMATTED ADDRESS SEARCH', {
-      //   formattedAddress,
-      //   addressComponents,
-      // });
+
+      console.log('FORMATTED ADDRESS SEARCH', {
+        formattedAddress,
+        addressComponents,
+      });
 
       let filteredAddressComponents = new Map();
 
       const determineAddressIncludesComponent = (component: any) => {
-        for (const key in autocompleteObj) {
+        for (const type in autocompleteObj) {
           if (
             component.longText &&
             component.types &&
-            component.types.includes(key)
+            component.types.includes(type)
           ) {
             if (component.types.includes('administrative_area_level_1')) {
               // console.log({ state: component.shortText });
@@ -448,7 +263,7 @@ export default function AddressForm({
                   : updateBillingTwoLetterStateCode(component.shortText);
               }
             }
-            const val = autocompleteObj[key];
+            const val = autocompleteObj[type];
             filteredAddressComponents.set(val, component.longText);
           }
         }
@@ -459,13 +274,40 @@ export default function AddressForm({
         determineAddressIncludesComponent(component);
       });
 
-      // const line1 = String(formattedAddress).split(',')[0];
+      const line1 = String(formattedAddress).split(',')[0];
       // setValue('line1', line1 ?? '');
+      setShippingState((prev) => {
+        return {
+          ...prev,
+          line1: {
+            value: line1,
+            visited: true,
+            message: '',
+            error: false,
+          },
+        };
+      });
 
-      // // FilteredAddressComponents => Map([['key','value'],...])
+      // FilteredAddressComponents => Map([['key','value'],...])
       // for (const arr of filteredAddressComponents) {
       //   setValue(arr[0], arr[1] ?? '');
       // }
+
+      for (const arr of filteredAddressComponents) {
+        setShippingState((prev) => {
+          const key = arr[0];
+          const value = arr[1] ?? '';
+          return {
+            ...prev,
+            [key]: {
+              value,
+              visited: true,
+              message: '',
+              error: false,
+            },
+          };
+        });
+      }
 
       // console.log({ addressData });
 
@@ -525,6 +367,13 @@ export default function AddressForm({
     const val = String(newInputValue);
     getAddressAutocompleteOptions(val);
     setAutocompleteAddress(val);
+
+    if (!isManualAddress) {
+      const splitAddress = autocompleteAddress.split(',');
+      // console.log({ splitAddress });
+    }
+
+    // console.log({ val });
   };
 
   return (
@@ -746,12 +595,62 @@ export default function AddressForm({
               setAutocompleteAddress('');
             }
             setIsManualAddress((prev) => !prev);
-            // setValue('line1', '');
-            // setValue('line2', '');
-            // setValue('city', '');
-            // setValue('state', '');
-            // setValue('postal_code', '');
-            // setValue('phoneNumber', '');
+            setShippingState({
+              email: {
+                value: '',
+                visited: false,
+                message: '',
+                error: false,
+              },
+              firstName: {
+                value: '',
+                visited: false,
+                message: '',
+                error: false,
+              },
+              lastName: {
+                value: '',
+                visited: false,
+                message: '',
+                error: false,
+              },
+              line1: {
+                value: '',
+                visited: false,
+                message: '',
+                error: false,
+              },
+              line2: {
+                value: '',
+                visited: false,
+                message: '',
+                error: false,
+              },
+              city: {
+                value: '',
+                visited: false,
+                message: '',
+                error: false,
+              },
+              state: {
+                value: '',
+                visited: false,
+                message: '',
+                error: false,
+              },
+              postal_code: {
+                value: '',
+                visited: false,
+                message: '',
+                error: false,
+              },
+              phoneNumber: {
+                value: '',
+                visited: false,
+                message: '',
+                error: false,
+              },
+            });
           }}
         >
           {isManualAddress ? 'Find address' : 'Enter address manually'}
@@ -782,6 +681,7 @@ export default function AddressForm({
         disabled={checkErrors()}
         onClick={(e) => {
           e.preventDefault();
+
           const incStripeAddress = {
             firstName: shippingState.firstName.value,
             lastName: shippingState.lastName.value,
@@ -800,15 +700,6 @@ export default function AddressForm({
             },
           };
 
-          const formattedPhone = parsePhoneNumberFromString(
-            shippingState.phoneNumber.value
-          )?.format('E.164');
-
-          // const incCustomerInfo = {
-          //   email: shippingState.email.value,
-          //   phoneNumber: formattedPhone,
-          // } as CustomerInfo;
-
           const incCustomerInfo = {
             email: shippingState.email.value,
             phoneNumber: shippingState.phoneNumber.value,
@@ -816,6 +707,7 @@ export default function AddressForm({
 
           updateAddress(incStripeAddress as StripeAddress);
           updateCustomerInfo(incCustomerInfo);
+          setAutocompleteAddress;
           setIsEditingAddress(false);
         }}
         className={`h-[48px] w-full cursor-pointer self-center rounded-lg bg-black text-base font-bold uppercase text-white lg:h-[63px] lg:max-w-[307px] lg:self-end lg:text-xl`}
