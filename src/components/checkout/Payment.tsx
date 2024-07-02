@@ -183,8 +183,8 @@ export default function Payment({
       )} */}
       {(paymentMethod === 'klarna' ||
         paymentMethod === 'googlePay' ||
-        paymentMethod === 'applePay' ||
-        paymentMethod === 'paypal') &&
+        paymentMethod === 'applePay') &&
+        // || paymentMethod === 'paypal'
         !isReadyToPay && (
           <div className="relative my-[48px] flex w-full items-center justify-center lg:justify-end">
             <Button
