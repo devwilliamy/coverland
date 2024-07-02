@@ -17,7 +17,7 @@ const shippingConstants = {
 };
 
 export type DynamicTemplateData = {
-  main_data: MainShippingData;
+  main_data: MainShippingEmailData;
   order_detail_page: string; // url to order detail page (order.id)
   order_items: OrderItem[];
   shipping_info: ShippingInfo;
