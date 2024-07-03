@@ -27,6 +27,9 @@ const OrderDetailPage = async ({ params }: OrderDetailProps) => {
     return <div className="m-2">Order not found</div>;
   }
 
+  const hasShippingDetails =
+    order.shipping_tracking_number && order.shipping_carrier;
+
   return (
     <>
       <div className="max-w-[984px] py-10 md:mx-auto md:py-14">
@@ -51,17 +54,19 @@ const OrderDetailPage = async ({ params }: OrderDetailProps) => {
             ))}
           </ul>
           <ul class="p-8">
-            <button class="bg-black text-white py-2 px-4 rounded">
-              <a
-                href={generateTrackingUrl(
-                  order.shipping_tracking_number,
-                  order.shipping_carrier
-                )}
-                target="_blank"
-              >
-                Track Package
-              </a>
-            </button>
+            {hasShippingDetails && (
+              <button class="rounded bg-black px-4 py-2 text-white">
+                <a
+                  href={generateTrackingUrl(
+                    order.shipping_tracking_number,
+                    order.shipping_carrier
+                  )}
+                  target="_blank"
+                >
+                  Track Package
+                </a>
+              </button>
+            )}
           </ul>
         </div>
         <div className="border-t text-base leading-7">
