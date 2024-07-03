@@ -50,10 +50,10 @@ const OrderDetailPage = async ({ params }: OrderDetailProps) => {
           paymentMethodLogo = '/images/profile/orders/visa.svg';
           break;
         case 'mastercard':
-          paymentMethodLogo = '/images/profile/orders/mastercard.svg';
+          paymentMethodLogo = '/images/profile/orders/mc_symbol.svg';
           break;
         case 'amex':
-          paymentMethodLogo = '/images/profile/orders/amex.webp';
+          paymentMethodLogo = '/images/profile/orders/amex.svg';
           break;
         case 'discover':
           paymentMethodLogo = '/images/profile/orders/discover-icon.webp';
