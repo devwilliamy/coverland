@@ -40,6 +40,7 @@ const OrderDetailPage = async ({ params }: OrderDetailProps) => {
   switch (order.payment_method) {
     // we aren't storing payment method when customer checks out using link method
     case 'link':
+      paymentMethodText = 'Card Link';
       break;
     case 'card':
       paymentMethodAlt = `${order.card_brand} Card`;
@@ -60,6 +61,10 @@ const OrderDetailPage = async ({ params }: OrderDetailProps) => {
       }
       break;
     case 'klarna':
+      paymentMethodLogo = '/images/profile/orders/klarna.svg';
+      paymentMethodAlt = `Klarna Logo`;
+      paymentMethodText = `${capitalizeString(order.payment_method)}` || 'Klarna';
+      
       break;
     case null:
       // null indicates it's paypal
@@ -145,8 +150,8 @@ const OrderDetailPage = async ({ params }: OrderDetailProps) => {
                   src={paymentMethodLogo}
                   alt={`${paymentMethodAlt} logo`}
                   layout="intrinsic"
-                  width={30}
-                  height={30}
+                  width={33}
+                  height={28}
                 />
                 <span className="pl-2">{paymentMethodText}</span>
               </div>
