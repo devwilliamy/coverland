@@ -509,33 +509,33 @@ export default function CheckoutAccordion() {
   };
 
   useEffect(() => {
-    const updateIntent = async () => {
-      console.log('UPDATING INTENT');
-      // try {
-      //   elements?.update({
-      //     amount: 888888,
-      //     mode: 'payment',
-      //     paymentMethodTypes: ['klarna', 'card'],
-      //     currency: 'usd',
-      //   });
-      //   await elements?.submit();
-      // } catch (error) {
-      //   console.error(error);
-      // }
-      await fetch('/api/stripe/payment-intent', {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          paymentIntentId,
-          amount: totalMsrpPrice,
-        }),
-      });
-    };
-    if (paymentMethod === 'googlePay' || paymentMethod === 'applePay') {
-      updateIntent();
-    }
+    // const updateIntent = async () => {
+    //   console.log('UPDATING INTENT');
+    //   // try {
+    //   //   elements?.update({
+    //   //     amount: 888888,
+    //   //     mode: 'payment',
+    //   //     paymentMethodTypes: ['klarna', 'card'],
+    //   //     currency: 'usd',
+    //   //   });
+    //   const bum = await elements?.submit();
+    //   console.log(bum);
+    //   // } catch (error) {
+    //   //   console.error(error);
+    //   // }
+    //   await fetch('/api/stripe/payment-intent', {
+    //     method: 'PUT',
+    //     headers: {
+    //       'Content-Type': 'application/json',
+    //     },
+    //     body: JSON.stringify({
+    //       paymentIntentId,
+    //       amount: totalMsrpPrice,
+    //     }),
+    //   });
+    // };
+    // if (paymentMethod === 'googlePay' || paymentMethod === 'applePay') {
+    //   updateIntent();
   }, [paymentMethod]);
 
   useEffect(() => {
@@ -700,11 +700,14 @@ export default function CheckoutAccordion() {
                                   googlePay: 'order',
                                 },
                                 wallets:
-                                  paymentMethod === 'applePay'
-                                    ? { googlePay: 'never', applePay: 'always' }
-                                    : {
+                                  paymentMethod === 'googlePay'
+                                    ? {
                                         googlePay: 'always',
                                         applePay: 'never',
+                                      }
+                                    : {
+                                        googlePay: 'never',
+                                        applePay: 'always',
                                       },
                               }}
                               onConfirm={async (e) => {
