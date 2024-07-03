@@ -131,7 +131,7 @@ const OrderDetailPage = async ({ params }: OrderDetailProps) => {
               />
             ))}
           </ul>
-          <div className="pb-8">
+          <div className={`${order.shipping_tracking_number ? 'pb-8' : ''}`}>
             <ul className="flex flex-col items-center">
               {hasShippingDetails && (
                 <a
