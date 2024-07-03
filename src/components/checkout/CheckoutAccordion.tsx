@@ -683,7 +683,7 @@ export default function CheckoutAccordion() {
                         )}
                         {(paymentMethod === 'applePay' ||
                           paymentMethod === 'googlePay') && (
-                          <div className="w-full max-w-[307px] self-end justify-self-end">
+                          <div className="mb-[29.5px] w-full max-w-[307px] self-end justify-self-end">
                             <ExpressCheckoutElement
                               options={{
                                 paymentMethodOrder: ['applePay', 'googlePay'],
