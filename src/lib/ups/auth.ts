@@ -1,7 +1,7 @@
 import axios from 'axios';
 
-const UPS_AUTH_URL = 'https://wwwcie.ups.com/security/v1/oauth/token';
-const UPS_API_URL = 'https://onlinetools.ups.com/track/v1/details';
+const UPS_AUTH_URL = process.env.UPS_AUTH_URL as string;
+const UPS_API_URL = process.env.UPS_API_URL as string;
 const UPS_CLIENT_ID = process.env.UPS_CLIENT_ID as string;
 const UPS_CLIENT_SECRET = process.env.UPS_CLIENT_SECRET as string;
 
