@@ -1,4 +1,3 @@
-
 import { TCartItem } from '@/lib/cart/useCart';
 import { updateAdminPanelOrder } from '@/lib/db/admin-panel/orders';
 import { StripeAddress } from '@/lib/types/checkout';
@@ -245,3 +244,14 @@ export const getEligibleShippingOptions = () =>
     // }
     // return finalOptions;
   };
+
+export const cleanPhoneInput = (inputString: string) => {
+  const cleanedString = inputString
+    .replaceAll(' ', '')
+    .replaceAll('(', '')
+    .replaceAll(')', '')
+    .replaceAll('-', '')
+    .replaceAll('+', '');
+
+  return cleanedString;
+};

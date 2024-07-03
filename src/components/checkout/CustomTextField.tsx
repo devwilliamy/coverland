@@ -8,7 +8,6 @@ import {
 } from '@mui/material';
 import { CustomFieldTypes, ShippingStateType } from './AddressForm';
 import { US_STATES } from '@/lib/constants';
-import { phoneNumberAutoFormat } from '../policy/ContactPage';
 import { cleanPhoneInput } from '@/app/(noFooter)/checkout/utils';
 
 export const CustomTextField = ({
