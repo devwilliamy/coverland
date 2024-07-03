@@ -5,6 +5,8 @@ import { Card, CardHeader } from '@/components/ui/card';
 import { getFullCountryName } from '@/lib/db/profile/utils/shipping';
 import { formatPhoneNumber } from '@/lib/db/profile/utils/phone';
 import { generateTrackingUrl } from '@/lib/utils/generateTrackingUrl';
+import Image from 'next/image';
+import cardLogo from '@/images/profile/orders/card.svg';
 
 type OrderDetailProps = {
   params: { orderId: number };
@@ -29,6 +31,10 @@ const OrderDetailPage = async ({ params }: OrderDetailProps) => {
 
   const hasShippingDetails =
     order.shipping_tracking_number && order.shipping_carrier;
+
+  const paymentMethodLogo = cardLogo;
+  const paymentMethodAlt = 'Card';
+  const paymentMethodText = 'Card';
 
   return (
     <>
@@ -86,9 +92,18 @@ const OrderDetailPage = async ({ params }: OrderDetailProps) => {
             </div>
             <div className="mt-8 text-[#707070] md:mt-10">
               <div className="mb-1 font-bold text-black">Payment Method</div>
-              <div>Pending</div>
+              <div className="inline-flex">
+                <Image
+                  src={paymentMethodLogo}
+                  alt={`${paymentMethodAlt} logo`}
+                  layout="intrinsic"
+                  width={25}
+                  height={25}
+                />
+                <span className="pl-2">{paymentMethodText}</span>
+              </div>
             </div>
-            <div className="mt-8 md:mt-10 md:min-w-[223px]">
+            <div className="mt-4 md:mt-10 md:min-w-[223px]">
               <div className="mb-1 font-bold">Order Summary</div>
               <div className="mb-1 flex justify-between">
                 <div>Order Subtotal</div>
