@@ -1,42 +1,9 @@
-import { ChangeEventHandler, SyntheticEvent, useEffect, useState } from 'react';
-import { useForm } from 'react-hook-form';
-import OverlappingLabel from '../ui/overlapping-label';
+import { useEffect, useState } from 'react';
 import { Button } from '../ui/button';
 import { CustomerInfo, useCheckoutContext } from '@/contexts/CheckoutContext';
 import { StripeAddress } from '@/lib/types/checkout';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { z } from 'zod';
-import CustomPhoneInput from '../ui/phone-input';
-import { parsePhoneNumberFromString } from 'libphonenumber-js';
-import { Autocomplete, MenuItem } from '@mui/material';
 import { CustomTextField } from './CustomTextField';
 import { GEORGE_DEFAULT_ADDRESS_DATA } from '@/lib/constants';
-import { cleanPhoneInput } from '@/app/(noFooter)/checkout/utils';
-
-type FormData = {
-  email: string;
-  firstName: string;
-  lastName: string;
-  line1: string;
-  line2: string;
-  city: string;
-  country?: string;
-  state: string;
-  postal_code: string;
-  phoneNumber: string;
-};
-
-type FormString =
-  | 'email'
-  | 'firstName'
-  | 'lastName'
-  | 'line1'
-  | 'line2'
-  | 'city'
-  | 'state'
-  | 'postal_code'
-  | 'phoneNumber'
-  | 'country';
 
 type AddressFormProps = {
   addressData: StripeAddress;
@@ -47,41 +14,12 @@ type AddressFormProps = {
   handleSelectTab?: (id: string) => void;
 };
 
-type AddressComponent = {
-  longText: string;
-  shortText: string;
-  types: string[];
-  languageCode: string;
-};
-
 export type ShippingStateType = {
   value: string;
   visited: boolean;
   message: string;
   error: boolean | null;
 };
-
-const formSchema = z.object({
-  firstName: z.string().min(1, 'Please enter your first name.'),
-  lastName: z.string().min(1, 'Please enter your last name.'),
-  line1: z
-    .string()
-    .min(1, 'Please complete address selection or enter address manually'),
-  line2: z.string().optional(),
-  city: z.string().min(1, 'City is required'),
-  state: z.string().min(1, 'State is required'),
-  postal_code: z.string().min(1, 'Postal code is required'),
-  email: z.string().email({ message: 'Please enter a valid email address' }),
-  phoneNumber: z.string().refine(
-    (value) => {
-      const phoneNumber = parsePhoneNumberFromString(value, 'US');
-      return phoneNumber && phoneNumber.isPossible();
-    },
-    {
-      message: 'Please provide a valid phone number',
-    }
-  ),
-});
 
 export type CustomFieldTypes =
   | 'email'
@@ -111,58 +49,6 @@ export default function AddressForm({
     updateBillingTwoLetterStateCode,
     isBillingSameAsShipping,
   } = useCheckoutContext();
-
-  // ----------------------V----------------------V--- Zod Code ---V----------------------V----------------------
-  // const {
-  //   register,
-  //   setValue,
-  //   handleSubmit,
-  //   formState: { errors },
-  //   watch,
-  //   getValues,
-  //   // trigger,
-  // } = useForm<FormData>({ resolver: zodResolver(formSchema) });
-
-  // const onSubmit = handleSubmit(
-  //   ({
-  //     email,
-  //     firstName,
-  //     lastName,
-  //     line1,
-  //     line2,
-  //     city,
-  //     state,
-  //     postal_code,
-  //     phoneNumber,
-  //   }) => {
-  //     const formattedPhoneNumber =
-  //       parsePhoneNumberFromString(phoneNumber)?.format('E.164');
-
-  //     const address: StripeAddress = {
-  //       name: `${firstName} ${lastName}`,
-  //       firstName,
-  //       lastName,
-  //       phone: formattedPhoneNumber,
-  //       address: {
-  //         line1,
-  //         line2,
-  //         city,
-  //         state,
-  //         postal_code,
-  //         country: 'US',
-  //       },
-  //     };
-  //     // console.log("Address:", address)
-  //     updateAddress(address as StripeAddress);
-  //     updateCustomerInfo({ email, phoneNumber });
-  //     setIsEditingAddress(false);
-  //     toggleIsShippingAddressShown(false);
-  //   }
-  // );
-
-  // const emailValue = watch('email');
-
-  // TODO: Extract this to checkout context or its own context
 
   const [shippingState, setShippingState] = useState<
     Record<string, ShippingStateType>
@@ -246,140 +132,6 @@ export default function AddressForm({
     }
   }, []);
 
-  // --------- V ----------- V ---------- Code for Autocomplete --------- V ----------- V ----------
-  // type AutocompleteData = {
-  //   placePrediction: any;
-  // };
-
-  // const [autocompleteAddress, setAutocompleteAddress] = useState<string>('');
-  // const [isManualAddress, setIsManualAddress] = useState(false);
-  // const [suggestions, setSuggestions] = useState<AutocompleteData[]>([]);
-  // const [loading, setLoading] = useState(false);
-  // const [addressOpen, setAddressOpen] = useState(false);
-
-  // const autocompleteObj: Record<string, FormString> = {
-  //   locality: 'city',
-  //   administrative_area_level_1: 'state',
-  //   postal_code: 'postal_code',
-  //   country: 'country',
-  // };
-
-  // const getAddressAutocompleteOptions = async (addressInput: string) => {
-  //   setLoading(true);
-  //   try {
-  //     const response = await fetch('/api/places-autocomplete', {
-  //       method: 'POST',
-  //       body: JSON.stringify({ addressInput }),
-  //     });
-
-  //     const data = await response.json();
-  //     // const values = getValues();
-  //     setSuggestions(data);
-  //   } catch (error) {
-  //     console.error(error);
-  //   } finally {
-  //     setLoading(false);
-  //   }
-  // };
-
-  // const getAddressWithPostalCode = async (addressInput: string) => {
-  //   setLoading(true);
-  //   try {
-  //     const response = await fetch('/api/places-text-search', {
-  //       method: 'POST',
-  //       body: JSON.stringify({ addressInput }),
-  //     });
-
-  //     const data = await response.json();
-  //     const formattedAddress: string = data.places[0].formattedAddress;
-  //     const addressComponents: AddressComponent[] =
-  //       data.places[0].addressComponents;
-  //     // console.log('FORMATTED ADDRESS SEARCH', {
-  //     //   formattedAddress,
-  //     //   addressComponents,
-  //     // });
-
-  //     let filteredAddressComponents = new Map();
-
-  //     const determineAddressIncludesComponent = (component: any) => {
-  //       for (const key in autocompleteObj) {
-  //         if (
-  //           component.longText &&
-  //           component.types &&
-  //           component.types.includes(key)
-  //         ) {
-  //           if (component.types.includes('administrative_area_level_1')) {
-  //             // console.log({ state: component.shortText });
-  //             if (isBillingSameAsShipping) {
-  //               updateTwoLetterStateCode(component.shortText);
-  //               updateBillingTwoLetterStateCode(component.shortText);
-  //             } else {
-  //               showEmail
-  //                 ? updateTwoLetterStateCode(component.shortText)
-  //                 : updateBillingTwoLetterStateCode(component.shortText);
-  //             }
-  //           }
-  //           const val = autocompleteObj[key];
-  //           filteredAddressComponents.set(val, component.longText);
-  //         }
-  //       }
-  //     };
-
-  //     addressComponents.forEach((component, index) => {
-  //       // console.log(component);
-  //       determineAddressIncludesComponent(component);
-  //     });
-
-  //     const line1 = String(formattedAddress).split(',')[0];
-  //     setValue('line1', line1 ?? '');
-
-  //     // FilteredAddressComponents => Map([['key','value'],...])
-  //     for (const arr of filteredAddressComponents) {
-  //       setValue(arr[0], arr[1] ?? '');
-  //     }
-
-  //     // console.log({ addressData });
-
-  //     if (formattedAddress) {
-  //       setAutocompleteAddress(formattedAddress);
-  //     } else {
-  //       setAutocompleteAddress(addressInput);
-  //     }
-  //   } catch (error) {
-  //     console.error(error);
-  //   } finally {
-  //     setLoading(false);
-  //   }
-  // };
-
-  // const handleAutocompleteChange = (
-  //   e: SyntheticEvent<Element, Event>,
-  //   eventValue: any
-  // ) => {
-  //   if (eventValue === null) {
-  //     return '';
-  //   }
-  //   const selectedString = String(eventValue.placePrediction?.text.text);
-  //   getAddressWithPostalCode(selectedString);
-  // };
-
-  // const handleAutocompleteInputChange = (
-  //   e: SyntheticEvent<Element, Event>,
-  //   newInputValue: any
-  // ) => {
-  //   if (newInputValue === null) {
-  //     return '';
-  //   }
-  //   const val = String(newInputValue);
-  //   getAddressAutocompleteOptions(val);
-  //   setAutocompleteAddress(val);
-  // };
-
-  const validateEmail = (email: string) => {
-    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return re.test(String(email).toLowerCase());
-  };
-
   const checkErrors = () => {
     for (const key in shippingState) {
       if (shippingState[key].error || shippingState[key].error === null) {
@@ -398,85 +150,6 @@ export default function AddressForm({
       }}
       className="mt-2 flex flex-col gap-[29.5px]"
     >
-      {/* Previous Shipping Checkout Form  */}
-      <>
-        {/* <OverlappingLabel
-          title="First Name"
-          name="firstName"
-          errors={errors}
-          placeholder="John"
-          register={register}
-          options={{ required: true }}
-          autoComplete="given-name"
-        />
-        <OverlappingLabel
-          title="Last Name"
-          name="lastName"
-          errors={errors}
-          placeholder="Smith"
-          register={register}
-          options={{ required: true }}
-          autoComplete="family-name"
-        />
-        <OverlappingLabel
-          title="Address Line 1"
-          name="line1"
-          errors={errors}
-          placeholder="123 Main Street"
-          register={register}
-          options={{ required: true }}
-          autoComplete="address-line1"
-        />
-        <OverlappingLabel
-          title="Address Line 2"
-          name="line2"
-          errors={errors}
-          placeholder="P.O. Box 123"
-          register={register}
-          options={{ required: false }}
-          autoComplete="address-line2"
-        />
-        <OverlappingLabel
-          title="City"
-          name="city"
-          errors={errors}
-          placeholder="Los Angeles"
-          register={register}
-          options={{ required: true }}
-          autoComplete="address-level2"
-        />
-
-        <OverlappingLabel
-          title="Email"
-          name="email"
-          errors={errors}
-          placeholder="Email"
-          register={register}
-          options={{ required: true }}
-          autoComplete="email"
-        />
-
-        <OverlappingLabel
-          title="ZIP"
-          name="postal_code"
-          errors={errors}
-          placeholder="91801"
-          register={register}
-          options={{ required: true }}
-          autoComplete="postal-code"
-        />
-
-        <CustomPhoneInput
-          label="Phone Number"
-          name="phoneNumber"
-          placeholder="+1 123 456 7890"
-          autoComplete="tel"
-          register={register}
-          errors={errors}
-          required={true}
-        /> */}
-      </>
-      {/* Previous Shipping Checkout Form  */}
       <div className="flex grid-cols-2 flex-col gap-[29.5px] lg:grid lg:gap-[14px]">
         <CustomTextField
           label="First Name"
@@ -581,15 +254,6 @@ export default function AddressForm({
             },
           };
 
-          const formattedPhone = parsePhoneNumberFromString(
-            shippingState.phoneNumber.value
-          )?.format('E.164');
-
-          // const incCustomerInfo = {
-          //   email: shippingState.email.value,
-          //   phoneNumber: formattedPhone,
-          // } as CustomerInfo;
-
           const incCustomerInfo = {
             email: shippingState.email.value,
             phoneNumber: shippingState.phoneNumber.value,
@@ -599,7 +263,7 @@ export default function AddressForm({
           updateCustomerInfo(incCustomerInfo);
           setIsEditingAddress(false);
         }}
-        className={`h-[48px] w-full cursor-pointer self-center rounded-lg bg-black text-base font-bold uppercase text-white lg:h-[63px] lg:max-w-[307px] lg:self-end lg:text-xl`}
+        className={`mb-[29.5px] h-[48px] w-full cursor-pointer self-center rounded-lg bg-black text-base font-bold uppercase text-white lg:h-[63px] lg:max-w-[307px] lg:self-end lg:text-xl`}
       >
         Save & Continue
       </Button>

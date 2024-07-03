@@ -68,8 +68,9 @@ export default function PayPalButtonSection({
             shape: 'rect',
             label: 'pay',
             height: 50,
+            disableMaxWidth: true,
           }}
-          className="fixed bottom-4 -ml-2 flex w-[calc(100%_-_16px)] items-center justify-center"
+          className="flex items-center justify-center max-lg:fixed max-lg:bottom-4 max-lg:-ml-2 max-lg:w-[calc(100%_-_16px)] lg:w-full"
           createOrder={async () => {
             const data = await paypalCreateOrder(
               totalMsrpPrice,

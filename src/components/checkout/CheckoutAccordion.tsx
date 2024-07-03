@@ -37,19 +37,14 @@ import { getCookie } from '@/lib/utils/cookie';
 import {
   CreatePaymentMethodKlarnaData,
   PaymentMethodCreateParams,
-  PaymentRequestShippingOption,
-  StripeExpressCheckoutElementOptions,
 } from '@stripe/stripe-js';
 import { useRouter } from 'next/navigation';
 import PayPalButtonSection from './PayPalButtonSection';
 import { generateSkuLabOrderInput } from '@/lib/utils/skuLabs';
 import { handlePurchaseGoogleTag } from '@/hooks/useGoogleTagDataLayer';
-// import PayWithKlarnaWhite from './PayWithKlarnaWhite';
-// import { ReadyCheck } from './ReadyCheck';
 import { getTotalDiscountPrice } from '@/lib/utils/calculations';
 import { SHIPPING_METHOD } from '@/lib/constants';
 import { determineDeliveryByDate } from '@/lib/utils/deliveryDateUtils';
-import { TCartItem } from '@/lib/cart/useCart';
 import { ReadyCheck } from './icons/ReadyCheck';
 import { useMediaQuery } from '@mantine/hooks';
 import CheckoutSummarySection from './CheckoutSummarySection';
@@ -292,71 +287,6 @@ export default function CheckoutAccordion() {
     router.push(
       `/thank-you?order_number=${orderNumber}&payment_intent=${id}&payment_intent_client_secret=${client_secret}`
     );
-  };
-
-  const handleGetTax = async () => {
-    setIsLoading(true);
-    let taxItems = [];
-
-    for (let index = 0; index < cartItems.length; index++) {
-      const item = cartItems[index] as any;
-      taxItems.push({
-        id: item.id ? item.id : index,
-        quantity: item.quantity,
-        unit_price: item.msrp,
-        discount: 0,
-      });
-    }
-
-    const bodyData = {
-      to_country: shippingAddress.address.country,
-      to_zip: shippingAddress.address.postal_code,
-      to_state: twoLetterStateCode,
-      shipping: 0,
-      line_items: taxItems,
-    };
-    const response = await fetch('/api/taxjar/sales-tax', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ bodyData }),
-    });
-
-    const taxRes = await response.json();
-    const amount_to_collect = taxRes?.tax?.amount_to_collect;
-    updateTotalTax(amount_to_collect);
-
-    const taxSum = Number(Number(cartMSRP) + Number(amount_to_collect)).toFixed(
-      2
-    );
-    const totalWithTax = convertPriceToStripeFormat(taxSum);
-
-    if (totalWithTax) {
-      try {
-        elements?.update({
-          amount: totalWithTax,
-          mode: 'payment',
-          currency: 'usd',
-        });
-        await elements?.submit();
-      } catch (error) {
-        console.error(error);
-      }
-    }
-    await fetch('/api/stripe/payment-intent', {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        paymentIntentId,
-        amount: totalWithTax,
-      }),
-    });
-    setIsLoading(false);
-
-    return totalWithTax;
   };
 
   const handleSubmit = async () => {
@@ -606,16 +536,6 @@ export default function CheckoutAccordion() {
     }
   }, [isReadyToShip, isReadyToPay]);
 
-  // useEffect(() => {
-  //   const useHandleGetTax = async () => {
-  //     // console.log('[Single Handle Get Tax]');
-  //     await handleGetTax();
-  //   };
-  //   if (!isCartEmpty && isReadyToPay) {
-  //     useHandleGetTax();
-  //   }
-  // }, [isCartEmpty, isReadyToPay, shippingAddress, paymentMethod]);
-
   const accordionTriggerStyle = `py-10 font-[500] text-[24px] leading-[12px]`;
 
   const isMobile = useMediaQuery('(max-width: 1023px)');
@@ -627,7 +547,9 @@ export default function CheckoutAccordion() {
           Checkout
         </div>
       )}
-      <div className="flex w-full max-w-[1080px] pt-2 lg:gap-[70px] lg:px-[24px] lg:pt-0 ">
+      <div
+        className={`flex ${!isMobile && isReadyToPay && paymentMethod === 'creditCard' && 'pb-[65px]'} ${!isMobile && isReadyToPay && paymentMethod === 'paypal' && 'pb-[130px]'} w-full max-w-[1080px] pt-2 lg:gap-[70px] lg:px-[24px] lg:pt-0 `}
+      >
         <div className="flex w-full flex-col lg:w-2/3 ">
           {isMobile && currentStep === CheckoutStep.CART && (
             <div className="mb-[32px]">
@@ -649,7 +571,7 @@ export default function CheckoutAccordion() {
               <Accordion
                 type="multiple"
                 // collapsible
-                className="relative w-full px-4"
+                className="relative w-full max-lg:px-4"
                 value={value}
                 onValueChange={setValue}
               >
@@ -705,7 +627,7 @@ export default function CheckoutAccordion() {
                   </AccordionTrigger>
                   <AccordionContent className=" py-0">
                     <Payment handleChangeAccordion={handleChangeAccordion} />
-                    <section className="flex w-full flex-col pt-4 ">
+                    <section className="flex w-full flex-col pt-4 lg:hidden ">
                       {cartItems.map((cartItem, i) => (
                         <div
                           key={i}
@@ -739,7 +661,7 @@ export default function CheckoutAccordion() {
                           <div className="relative flex w-full items-center justify-center  py-4 ">
                             <Button
                               variant={'default'}
-                              className={`fixed bottom-0  mb-3 flex w-[calc(100%_-_16px)] rounded-lg bg-black px-4  text-base font-bold uppercase text-white sm:h-[48px] lg:h-[55px] lg:text-xl`}
+                              className={`fixed bottom-0 mb-3 flex w-[calc(100%_-_16px)] rounded-lg bg-black px-4 text-base  font-bold uppercase text-white sm:h-[48px] lg:hidden lg:h-[55px] lg:text-xl`}
                               onClick={(e) => {
                                 setIsLoading(true);
                                 handleSubmit();
@@ -804,7 +726,7 @@ export default function CheckoutAccordion() {
                     {
                       // !isMobile &&
                       isReadyToPay && (
-                        <div className="flex flex-col">
+                        <div className="flex flex-col lg:hidden">
                           {paymentMethod === 'creditCard' && (
                             <>
                               <Separator />
@@ -840,173 +762,11 @@ export default function CheckoutAccordion() {
                               )}
                             </>
                           )}
-                          {/* {paymentMethod === 'paypal' && (
-                            <div className="w-full max-w-[307px] self-end justify-self-end">
-                              <PayPalButtonSection />
-                            </div>
-                          )}
-                          {(paymentMethod === 'applePay' ||
-                            paymentMethod === 'googlePay') && (
-                            <div className="w-full max-w-[307px] self-end justify-self-end">
-                              <ExpressCheckoutElement
-                                options={{
-                                  paymentMethodOrder: ['applePay', 'googlePay'],
-                                  buttonType: {
-                                    applePay: 'order',
-                                    googlePay: 'order',
-                                  },
-                                  wallets:
-                                    paymentMethod === 'applePay'
-                                      ? {
-                                          googlePay: 'never',
-                                          applePay: 'always',
-                                        }
-                                      : {
-                                          googlePay: 'always',
-                                          applePay: 'never',
-                                        },
-                                }}
-                                onConfirm={async (e) => {
-                                  await handleSubmit();
-                                }}
-                              />
-                            </div>
-                          )}
-                          {paymentMethod === 'klarna' && (
-                            <Button
-                              variant={'default'}
-                              className={`mb-3 w-full rounded-lg bg-black text-base font-bold uppercase text-white sm:h-[48px] lg:h-[55px] lg:text-xl`}
-                              onClick={(e) => {
-                                setIsLoading(true);
-                                handleSubmit();
-                              }}
-                            >
-                              {isLoading ? (
-                                <AiOutlineLoading3Quarters className="animate-spin" />
-                              ) : (
-                                <></>
-                                // <PayWithKlarnaWhite />
-                              )}
-                            </Button>
-                          )} */}
                         </div>
                       )
                     }
                   </AccordionContent>
                 </AccordionItem>
-                {/* {isMobile && (
-                  <AccordionItem value="orderReview" id="orderReview">
-                    <AccordionTrigger
-                      onClick={(e) => {
-                        if (
-                          !isAddressComplete ||
-                          isEditingAddress ||
-                          !isReadyToPay ||
-                          !isReadyToShip
-                        ) {
-                          e.preventDefault();
-                        }
-                        handleSelectTab('orderReview');
-                      }}
-                      className={
-                        accordionTriggerStyle +
-                        `${(!isAddressComplete || isEditingAddress || !isReadyToPay || !isReadyToShip) && 'disabled cursor-default text-[grey] hover:no-underline'}`
-                      }
-                    >
-                      Order Review
-                    </AccordionTrigger>
-                    <AccordionContent className="py-0">
-                      <section className="flex w-full flex-col ">
-                        {cartItems.map((cartItem, i) => (
-                          <div
-                            key={i}
-                            className="mb-4 lg:border-b lg:border-t lg:pt-3 lg:transition-colors lg:hover:bg-muted/50 lg:data-[state=selected]:bg-muted"
-                          >
-                            <OrderReviewItem item={cartItem} />
-                          </div>
-                        ))}
-                        <div className="mt-4 lg:hidden">
-                          <PriceBreakdown />
-                        </div>
-                        {paymentMethod === 'creditCard' && (
-                          <>
-                            <p className="pb-[40px] text-[14px] font-[400] text-[#767676]">
-                              By Clicking the “Submit Payment” button, you
-                              confirm that you have read, understand, and accept
-                              our Terms of use,{' '}
-                              <a
-                                href="/policies/privacy-policy"
-                                className="underline"
-                              >
-                                Privacy Policy,
-                              </a>{' '}
-                              <a
-                                href="/policies/return-policy"
-                                className="underline"
-                              >
-                                Return Policy
-                              </a>
-                            </p>
-                            <Button
-                              variant={'default'}
-                              className={`mb-3 w-full rounded-lg bg-black text-base font-bold uppercase text-white sm:h-[48px] lg:h-[55px] lg:text-xl`}
-                              onClick={(e) => {
-                                setIsLoading(true);
-                                handleSubmit();
-                              }}
-                            >
-                              {isLoading ? (
-                                <AiOutlineLoading3Quarters className="animate-spin" />
-                              ) : (
-                                'Submit Payment'
-                              )}
-                            </Button>
-                            {message && (
-                              <p className="font-[500] text-[red]">{message}</p>
-                            )}
-                          </>
-                        )}
-                        {paymentMethod === 'paypal' && <PayPalButtonSection />}
-                        {(paymentMethod === 'applePay' ||
-                          paymentMethod === 'googlePay') && (
-                          <ExpressCheckoutElement
-                            options={{
-                              paymentMethodOrder: ['applePay', 'googlePay'],
-                              buttonType: {
-                                applePay: 'order',
-                                googlePay: 'order',
-                              },
-                              wallets:
-                                paymentMethod === 'applePay'
-                                  ? { googlePay: 'never', applePay: 'always' }
-                                  : { googlePay: 'always', applePay: 'never' },
-                            }}
-                            onConfirm={async (e) => {
-                              await handleSubmit();
-                            }}
-                          />
-                        )}
-                        {paymentMethod === 'klarna' && (
-                          <Button
-                            variant={'default'}
-                            className={`mb-3 w-full rounded-lg bg-black text-base font-bold uppercase text-white sm:h-[48px] lg:h-[55px] lg:text-xl`}
-                            onClick={(e) => {
-                              setIsLoading(true);
-                              handleSubmit();
-                            }}
-                          >
-                            {isLoading ? (
-                              <AiOutlineLoading3Quarters className="animate-spin" />
-                            ) : (
-                              <></>
-                              // <PayWithKlarnaWhite />
-                            )}
-                          </Button>
-                        )}
-                      </section>
-                    </AccordionContent>
-                  </AccordionItem>
-                )} */}
               </Accordion>
             </>
           )}
@@ -1018,89 +778,27 @@ export default function CheckoutAccordion() {
           </div>
         )}
       </div>
+      {isReadyToPay && paymentMethod === 'creditCard' && (
+        <Button
+          variant={'default'}
+          className={`fixed bottom-0 mb-3 flex w-[calc(100%_-_16px)] max-w-[1032px] rounded-lg bg-black px-4  text-base font-bold uppercase text-white sm:h-[48px] lg:h-[55px] lg:text-xl`}
+          onClick={(e) => {
+            setIsLoading(true);
+            handleSubmit();
+          }}
+        >
+          {isLoading ? (
+            <AiOutlineLoading3Quarters className="animate-spin" />
+          ) : (
+            'Submit Payment'
+          )}
+        </Button>
+      )}
+      {paymentMethod === 'paypal' && (
+        <div className="fixed bottom-0 mb-3 flex w-full  max-w-[1064px] max-lg:hidden">
+          <PayPalButtonSection />
+        </div>
+      )}
     </div>
   );
 }
-
-// export const OrderReviewSection = (cartItems, paymentMethod) => {
-//   return (
-//     <section className="flex w-full flex-col ">
-//       {cartItems.map((cartItem, i) => (
-//         <div
-//           key={i}
-//           className="mb-4 lg:border-b lg:border-t lg:pt-3 lg:transition-colors lg:hover:bg-muted/50 lg:data-[state=selected]:bg-muted"
-//         >
-//           <OrderReviewItem item={cartItem} />
-//         </div>
-//       ))}
-//       <div className="mt-4 lg:hidden">
-//         <PriceBreakdown />
-//       </div>
-//       {paymentMethod === 'creditCard' && (
-//         <>
-//           <p className="pb-[40px] text-[14px] font-[400] text-[#767676]">
-//             By Clicking the “Submit Payment” button, you confirm that you have
-//             read, understand, and accept our Terms of use,{' '}
-//             <a href="/policies/privacy-policy" className="underline">
-//               Privacy Policy,
-//             </a>{' '}
-//             <a href="/policies/return-policy" className="underline">
-//               Return Policy
-//             </a>
-//           </p>
-//           <Button
-//             variant={'default'}
-//             className={`mb-3 w-full rounded-lg bg-black text-base font-bold uppercase text-white sm:h-[48px] lg:h-[55px] lg:text-xl`}
-//             onClick={(e) => {
-//               setIsLoading(true);
-//               handleSubmit();
-//             }}
-//           >
-//             {isLoading ? (
-//               <AiOutlineLoading3Quarters className="animate-spin" />
-//             ) : (
-//               'Submit Payment'
-//             )}
-//           </Button>
-//           {message && <p className="font-[500] text-[red]">{message}</p>}
-//         </>
-//       )}
-//       {paymentMethod === 'paypal' && <PayPalButtonSection />}
-//       {(paymentMethod === 'applePay' || paymentMethod === 'googlePay') && (
-//         <ExpressCheckoutElement
-//           options={{
-//             paymentMethodOrder: ['applePay', 'googlePay'],
-//             buttonType: {
-//               applePay: 'order',
-//               googlePay: 'order',
-//             },
-//             wallets:
-//               paymentMethod === 'applePay'
-//                 ? { googlePay: 'never', applePay: 'always' }
-//                 : { googlePay: 'always', applePay: 'never' },
-//           }}
-//           onConfirm={async (e) => {
-//             await handleSubmit();
-//           }}
-//         />
-//       )}
-//       {paymentMethod === 'klarna' && (
-//         <Button
-//           variant={'default'}
-//           className={`mb-3 w-full rounded-lg bg-black text-base font-bold uppercase text-white sm:h-[48px] lg:h-[55px] lg:text-xl`}
-//           onClick={(e) => {
-//             setIsLoading(true);
-//             handleSubmit();
-//           }}
-//         >
-//           {isLoading ? (
-//             <AiOutlineLoading3Quarters className="animate-spin" />
-//           ) : (
-//             <></>
-//             // <PayWithKlarnaWhite />
-//           )}
-//         </Button>
-//       )}
-//     </section>
-//   );
-// };

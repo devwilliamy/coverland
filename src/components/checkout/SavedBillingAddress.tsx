@@ -13,7 +13,7 @@ export default function SavedBillingAddress({
   const { line1, line2, city, state, postal_code } = address.address;
   const { isBillingSameAsShipping, twoLetterStateCode } = useCheckoutContext();
   return (
-    <>
+    <div className="flex flex-col lg:mb-4">
       <div className="flex flex-row items-center justify-between leading-10">
         <div className="text-base font-medium">Billing Details</div>
         {!isBillingSameAsShipping && (
@@ -33,6 +33,6 @@ export default function SavedBillingAddress({
           {city} {state} {postal_code}
         </div>
       </div>
-    </>
+    </div>
   );
 }
