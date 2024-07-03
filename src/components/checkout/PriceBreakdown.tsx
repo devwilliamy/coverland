@@ -4,7 +4,7 @@ import { useCheckoutContext } from '@/contexts/CheckoutContext';
 import { CheckoutStep } from '@/lib/types/checkout';
 
 export default function PriceBreakdown() {
-  const { currentStep, shipping } = useCheckoutContext();
+  const { currentStep, shipping, totalTax } = useCheckoutContext();
   const {
     getTotalPrice,
     getOrderSubtotal,
@@ -34,6 +34,12 @@ export default function PriceBreakdown() {
           <div>- ${totalDiscountedPrice}</div>
         </div>
       )}
+
+      <div className="flex justify-between ">
+        <div>Tax</div>
+        <div>{totalTax ? `$${totalTax}` : '-'}</div>
+      </div>
+
       {currentStep === CheckoutStep.CHECKOUT && (
         <>
           <div className="flex justify-between ">
@@ -46,7 +52,12 @@ export default function PriceBreakdown() {
         <Separator className="hidden w-full bg-[#C8C7C7] lg:block" />
         <div className="flex justify-between font-semibold lg:flex-row lg:justify-between lg:py-5 lg:font-bold">
           <div>Order Total: </div>
-          <div>${totalMsrpPrice}</div>
+          <div>
+            $
+            {totalTax
+              ? Number(Number(totalMsrpPrice) + Number(totalTax)).toFixed(2)
+              : totalMsrpPrice}
+          </div>
         </div>
         <Separator className="hidden w-full bg-[#C8C7C7] lg:block" />
       </div>

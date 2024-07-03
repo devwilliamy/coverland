@@ -88,7 +88,6 @@ export default function CheckoutAccordion() {
     updateCustomerInfo,
     clientSecret,
   } = useCheckoutContext();
-  // const { orderNumber, paymentIntentId, paymentMethod, updatePaymentMethod } = useCheckoutContext();
   const orderSubtotal = getOrderSubtotal().toFixed(2);
   const cartMSRP = getTotalPrice() + shipping;
   const totalMsrpPrice = convertPriceToStripeFormat(getTotalPrice() + shipping);
@@ -330,6 +329,7 @@ export default function CheckoutAccordion() {
       2
     );
     const totalWithTax = convertPriceToStripeFormat(taxSum);
+    console.log({ amount_to_collect, totalWithTax, taxSum, taxRes });
 
     if (totalWithTax) {
       try {
@@ -370,7 +370,7 @@ export default function CheckoutAccordion() {
     const origin = window.location.origin;
     const taxSum = Number(Number(cartMSRP) + Number(totalTax)).toFixed(2);
     const totalWithTax = convertPriceToStripeFormat(taxSum);
-    // console.log({ totalWithTax, orderSubtotal, cartMSRP });
+    console.log({ totalWithTax, orderSubtotal, cartMSRP });
 
     const formattedPhone = parsePhoneNumberFromString(
       shippingAddress.phone as string
@@ -605,15 +605,15 @@ export default function CheckoutAccordion() {
     }
   }, [isReadyToShip, isReadyToPay]);
 
-  // useEffect(() => {
-  //   const useHandleGetTax = async () => {
-  //     // console.log('[Single Handle Get Tax]');
-  //     await handleGetTax();
-  //   };
-  //   if (!isCartEmpty && isReadyToPay) {
-  //     useHandleGetTax();
-  //   }
-  // }, [isCartEmpty, isReadyToPay, shippingAddress, paymentMethod]);
+  useEffect(() => {
+    const useHandleGetTax = async () => {
+      console.log('[Single Handle Get Tax]');
+      await handleGetTax();
+    };
+    if (!isCartEmpty && isReadyToShip) {
+      useHandleGetTax();
+    }
+  }, [isCartEmpty, isReadyToShip, shippingAddress, paymentMethod]);
 
   const accordionTriggerStyle = `py-10 font-[500] text-[24px] leading-[12px]`;
 

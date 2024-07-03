@@ -27,16 +27,16 @@ import { generateSkuLabOrderInput } from '@/lib/utils/skuLabs';
 import { determineDeliveryByDate } from '@/lib/utils/deliveryDateUtils';
 import { SHIPPING_METHOD } from '@/lib/constants';
 
-type PaypalButtonSectionProps = {
-  setPaypalSuccessMessage: (message: string) => void;
-  setMessage: (message: string) => void;
-};
-export default function PayPalButtonSection({
-  setPaypalSuccessMessage,
-  setMessage,
-}: PaypalButtonSectionProps) {
-  const { orderNumber, shipping, shippingAddress, customerInfo } =
-    useCheckoutContext();
+export default function PayPalButtonSection() {
+  const {
+    orderNumber,
+    shipping,
+    shippingAddress,
+    customerInfo,
+    totalTax,
+    billingAddress,
+    isBillingSameAsShipping,
+  } = useCheckoutContext();
   const shippingInfo = {
     shipping_method: SHIPPING_METHOD,
     shipping_date: determineDeliveryByDate('EEE, LLL dd'),
@@ -51,7 +51,8 @@ export default function PayPalButtonSection({
     clearLocalStorageCart,
   } = useCartContext();
   const router = useRouter();
-  const totalMsrpPrice = getTotalPrice().toFixed(2) as unknown as number;
+  const totalMsrpPrice = Number(getTotalPrice().toFixed(2));
+  const totalWithTax = Number(totalMsrpPrice + Number(totalTax).toFixed(2));
 
   return (
     <PayPalScriptProvider
@@ -69,17 +70,18 @@ export default function PayPalButtonSection({
             color: 'gold',
             shape: 'rect',
             label: 'pay',
-            height: 50,
+            height: 55,
           }}
-          className="w-full"
+          className="w-full lg:max-w-[350px] lg:self-end lg:text-xl"
           createOrder={async () => {
-            setMessage(''); // If there was an error message previously, reset it
             const data = await paypalCreateOrder(
               totalMsrpPrice,
               cartItems,
               orderNumber,
               shipping,
-              shippingAddress
+              shippingAddress,
+              isBillingSameAsShipping ? shippingAddress : billingAddress,
+              Number(totalTax)
             );
             if (!data) {
               console.log('Error creating order');
@@ -88,21 +90,14 @@ export default function PayPalButtonSection({
             return data;
           }}
           onApprove={async (data) => {
-            // Leaving debugger and logs here due to frequent Paypal debugging
             // debugger
             // console.log('[PaypalButton Section] Data: ', data);
             // This will get the order from paypal
-            let response;
-            try {
-              response = await paypalCaptureOrder(
-                data.orderID,
-                customerInfo.phoneNumber
-              );
-              // console.log('Response:', response);
-            } catch (error) {
-              // debugger;
-              throw error;
-            }
+            const response = await paypalCaptureOrder(
+              data.orderID,
+              customerInfo.phoneNumber
+            );
+            // console.log("Response:", response)
             const customerInput = mapPaypalCompletionToCustomer(
               response.data,
               customerInfo.phoneNumber
@@ -136,10 +131,6 @@ export default function PayPalButtonSection({
             // });
 
             if (response.success) {
-              setMessage('');
-              setPaypalSuccessMessage(
-                'Paypal Payment Accepted, please wait for the page to finish loading.'
-              );
               const emailInput = {
                 to: customerInfo.email,
                 name: {
@@ -302,19 +293,6 @@ export default function PayPalButtonSection({
               router.push(
                 `/thank-you?order_number=${orderNumber}&payment_gateway=paypal`
               );
-            }
-          }}
-          onError={(error) => {
-            console.error(`[Paypal Error]:`, error);
-            if (error.message?.includes('popup close')) {
-              console.error(
-                `[PaypalButtonSection] Error: Popup closed unexpectedly`
-              );
-              setMessage('Popup closed unexpectedly');
-            } else if (error?.message) {
-              setMessage(error?.message);
-            } else {
-              setMessage('Unexpected Error Occurred');
             }
           }}
         />

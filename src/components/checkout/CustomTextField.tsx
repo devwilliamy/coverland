@@ -338,11 +338,14 @@ export const CustomTextField = ({
             label={label}
             fullWidth
             onChange={(e) => {
+              const stateString = e.target.value;
+              // console.log(stateString);
+
               setShippingState((prevState) => ({
                 ...prevState,
                 state: {
                   ...prevState.state,
-                  value: e.target.value as string,
+                  value: stateString as string,
                   visited: true,
                   error: false,
                 },

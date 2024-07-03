@@ -581,20 +581,12 @@ export default function AddressForm({
             },
           };
 
-          const formattedPhone = parsePhoneNumberFromString(
-            shippingState.phoneNumber.value
-          )?.format('E.164');
-
-          // const incCustomerInfo = {
-          //   email: shippingState.email.value,
-          //   phoneNumber: formattedPhone,
-          // } as CustomerInfo;
-
           const incCustomerInfo = {
             email: shippingState.email.value,
             phoneNumber: shippingState.phoneNumber.value,
           } as CustomerInfo;
 
+          updateTwoLetterStateCode(shippingState.state.value);
           updateAddress(incStripeAddress as StripeAddress);
           updateCustomerInfo(incCustomerInfo);
           setIsEditingAddress(false);
