@@ -42,8 +42,8 @@ const OrderDetailPage = async ({ params }: OrderDetailProps) => {
           Ordered on {order.payment_date} <span className="mx-2">|</span> Order
           #{order.order_id}
         </CardHeader>
-        <div className="justify-between border-t md:flex">
-          <ul className="py-2 md:pb-0 md:pt-8">
+        <div className="justify-between border-t md:flex md:pt-8">
+          <ul className="py-2 md:py-0">
             {order.items?.map((item) => (
               <OrderItem
                 key={item.id}
@@ -53,9 +53,9 @@ const OrderDetailPage = async ({ params }: OrderDetailProps) => {
               />
             ))}
           </ul>
-          <ul class="p-8">
+          <div>
             {hasShippingDetails && (
-              <button class="rounded bg-black px-4 py-2 text-white">
+              <button class="rounded bg-black px-4 py-2 text-white text-sm w-[235px] font-bold h-[40px] tracking-wider">
                 <a
                   href={generateTrackingUrl(
                     order.shipping_tracking_number,
@@ -63,11 +63,11 @@ const OrderDetailPage = async ({ params }: OrderDetailProps) => {
                   )}
                   target="_blank"
                 >
-                  Track Package
+                  TRACK PACKAGE
                 </a>
               </button>
             )}
-          </ul>
+          </div>
         </div>
         <div className="border-t text-base leading-7">
           <div className="justify-between md:flex">
