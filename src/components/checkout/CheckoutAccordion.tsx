@@ -293,71 +293,6 @@ export default function CheckoutAccordion() {
     );
   };
 
-  const handleGetTax = async () => {
-    setIsLoading(true);
-    let taxItems = [];
-
-    for (let index = 0; index < cartItems.length; index++) {
-      const item = cartItems[index] as any;
-      taxItems.push({
-        id: item.id ? item.id : index,
-        quantity: item.quantity,
-        unit_price: item.msrp,
-        discount: 0,
-      });
-    }
-
-    const bodyData = {
-      to_country: shippingAddress.address.country,
-      to_zip: shippingAddress.address.postal_code,
-      to_state: twoLetterStateCode,
-      shipping: 0,
-      line_items: taxItems,
-    };
-    const response = await fetch('/api/taxjar/sales-tax', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ bodyData }),
-    });
-
-    const taxRes = await response.json();
-    const amount_to_collect = taxRes?.tax?.amount_to_collect;
-    updateTotalTax(amount_to_collect);
-
-    const taxSum = Number(Number(cartMSRP) + Number(amount_to_collect)).toFixed(
-      2
-    );
-    const totalWithTax = convertPriceToStripeFormat(taxSum);
-
-    if (totalWithTax) {
-      try {
-        elements?.update({
-          amount: totalWithTax,
-          mode: 'payment',
-          currency: 'usd',
-        });
-        await elements?.submit();
-      } catch (error) {
-        console.error(error);
-      }
-    }
-    await fetch('/api/stripe/payment-intent', {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        paymentIntentId,
-        amount: totalWithTax,
-      }),
-    });
-    setIsLoading(false);
-
-    return totalWithTax;
-  };
-
   const handleSubmit = async () => {
     if (!stripe || !elements) {
       // Stripe.js hasn't yet loaded.
@@ -576,6 +511,8 @@ export default function CheckoutAccordion() {
 
   useEffect(() => {
     const updateIntent = async () => {
+      console.log('UPDATING INTENT');
+
       try {
         elements?.update({
           amount: 888888,
