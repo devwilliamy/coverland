@@ -4,6 +4,7 @@ import OrderItem from '../components/OrderItem';
 import { Card, CardHeader } from '@/components/ui/card';
 import { getFullCountryName } from '@/lib/db/profile/utils/shipping';
 import { formatPhoneNumber } from '@/lib/db/profile/utils/phone';
+import { capitalizeString } from '@/lib/utils/stringFuncs'
 import { generateTrackingUrl } from '@/lib/utils/generateTrackingUrl';
 import Image from 'next/image';
 import cardLogo from '@/images/profile/orders/card.svg';
@@ -42,9 +43,7 @@ const OrderDetailPage = async ({ params }: OrderDetailProps) => {
       break;
     case 'card':
       paymentMethodAlt = `${order.card_brand} Card`;
-      paymentMethodText =
-        order.card_brand?.charAt(0).toUpperCase() +
-          order.card_brand?.slice(1) || 'Card';
+      paymentMethodText = `${capitalizeString(order.card_brand)} ${capitalizeString(order.card_funding)} Card` || 'Card'; // "Visa Credit Card"
       switch (order.card_brand) {
         case 'visa':
           paymentMethodLogo = '/images/profile/orders/visa.svg';
@@ -144,8 +143,8 @@ const OrderDetailPage = async ({ params }: OrderDetailProps) => {
                   src={paymentMethodLogo}
                   alt={`${paymentMethodAlt} logo`}
                   layout="intrinsic"
-                  width={23}
-                  height={23}
+                  width={30}
+                  height={30}
                 />
                 <span className="pl-2">{paymentMethodText}</span>
               </div>
