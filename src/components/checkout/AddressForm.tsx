@@ -591,7 +591,7 @@ export default function AddressForm({
           updateCustomerInfo(incCustomerInfo);
           setIsEditingAddress(false);
         }}
-        className={`h-[48px] w-full cursor-pointer self-center rounded-lg bg-black text-base font-bold uppercase text-white lg:h-[63px] lg:max-w-[307px] lg:self-end lg:text-xl`}
+        className={`h-[48px] w-full cursor-pointer self-center rounded-lg bg-black text-base font-bold uppercase text-white lg:mb-[29.5px] lg:h-[63px] lg:max-w-[307px] lg:self-end lg:text-xl`}
       >
         Save & Continue
       </Button>
