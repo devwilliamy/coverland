@@ -88,7 +88,6 @@ export default function CheckoutAccordion() {
     updateCustomerInfo,
     clientSecret,
   } = useCheckoutContext();
-  // const { orderNumber, paymentIntentId, paymentMethod, updatePaymentMethod } = useCheckoutContext();
   const orderSubtotal = getOrderSubtotal().toFixed(2);
   const cartMSRP = getTotalPrice() + shipping;
   const totalMsrpPrice = convertPriceToStripeFormat(getTotalPrice() + shipping);
@@ -512,18 +511,27 @@ export default function CheckoutAccordion() {
   useEffect(() => {
     const updateIntent = async () => {
       console.log('UPDATING INTENT');
-
-      try {
-        elements?.update({
-          amount: 888888,
-          mode: 'payment',
-          paymentMethodTypes: ['klarna', 'card'],
-          currency: 'usd',
-        });
-        await elements?.submit();
-      } catch (error) {
-        console.error(error);
-      }
+      // try {
+      //   elements?.update({
+      //     amount: 888888,
+      //     mode: 'payment',
+      //     paymentMethodTypes: ['klarna', 'card'],
+      //     currency: 'usd',
+      //   });
+      //   await elements?.submit();
+      // } catch (error) {
+      //   console.error(error);
+      // }
+      await fetch('/api/stripe/payment-intent', {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          paymentIntentId,
+          amount: totalMsrpPrice,
+        }),
+      });
     };
     if (paymentMethod === 'googlePay' || paymentMethod === 'applePay') {
       updateIntent();
