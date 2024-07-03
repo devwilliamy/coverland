@@ -141,7 +141,7 @@ const OrderDetailPage = async ({ params }: OrderDetailProps) => {
                   )}
                   target="_blank"
                 >
-                  <button class="h-[40px] w-[235px] rounded bg-black px-4 py-2 text-sm font-bold tracking-wider text-white">
+                  <button className="h-[40px] w-[235px] rounded bg-black px-4 py-2 text-sm font-bold tracking-wider text-white">
                     TRACK PACKAGE
                   </button>
                 </a>
