@@ -31,10 +31,45 @@ const OrderDetailPage = async ({ params }: OrderDetailProps) => {
 
   const hasShippingDetails =
     order.shipping_tracking_number && order.shipping_carrier;
+  
+  let paymentMethodLogo;
+  let paymentMethodAlt = 'Card';
+  let paymentMethodText = 'Card';
 
-  const paymentMethodLogo = cardLogo;
-  const paymentMethodAlt = 'Card';
-  const paymentMethodText = 'Card';
+  switch(order.payment_method) {
+    // we aren't storing payment method when customer checks out using link method
+    case 'link':
+      paymentMethodLogo = cardLogo;
+      break;
+    case 'card':
+      paymentMethodLogo = cardLogo;
+      paymentMethodAlt = 'Card';
+      paymentMethodText = order.card_brand?.charAt(0).toUpperCase() + order.card_brand?.slice(1) || 'Card';
+      break;
+    case 'klarna':
+      break;
+    case null:
+      // null indicates it's paypal
+      if(order.payment_gateway === 'paypal') {
+
+      }
+      break;
+    default:
+      break;
+  }
+
+  // further payment methods to capture if customer used apple or googlepay
+  switch(order.wallet_type) {
+    case null:
+      break;
+    case 'google_pay':
+      break;
+    case 'apple_pay':
+      break;
+    default:
+      break;
+  }
+
 
   return (
     <>
@@ -97,8 +132,8 @@ const OrderDetailPage = async ({ params }: OrderDetailProps) => {
                   src={paymentMethodLogo}
                   alt={`${paymentMethodAlt} logo`}
                   layout="intrinsic"
-                  width={25}
-                  height={25}
+                  width={23}
+                  height={23}
                 />
                 <span className="pl-2">{paymentMethodText}</span>
               </div>
