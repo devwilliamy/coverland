@@ -31,27 +31,40 @@ const OrderDetailPage = async ({ params }: OrderDetailProps) => {
 
   const hasShippingDetails =
     order.shipping_tracking_number && order.shipping_carrier;
-  
-  let paymentMethodLogo;
+
+  let paymentMethodLogo = cardLogo;
   let paymentMethodAlt = 'Card';
   let paymentMethodText = 'Card';
 
-  switch(order.payment_method) {
+  switch (order.payment_method) {
     // we aren't storing payment method when customer checks out using link method
     case 'link':
-      paymentMethodLogo = cardLogo;
       break;
     case 'card':
-      paymentMethodLogo = cardLogo;
-      paymentMethodAlt = 'Card';
-      paymentMethodText = order.card_brand?.charAt(0).toUpperCase() + order.card_brand?.slice(1) || 'Card';
+      paymentMethodAlt = `${order.card_brand} Card`;
+      paymentMethodText =
+        order.card_brand?.charAt(0).toUpperCase() +
+          order.card_brand?.slice(1) || 'Card';
+      switch (order.card_brand) {
+        case 'visa':
+          paymentMethodLogo = '/images/profile/orders/visa.svg';
+          break;
+        case 'mastercard':
+          paymentMethodLogo = '/images/profile/orders/mastercard.svg';
+          break;
+        case 'amex':
+          paymentMethodLogo = '/images/profile/orders/amex.svg';
+          break;
+        case 'discover':
+          paymentMethodLogo = '/images/profile/orders/discover.svg';
+          break;
+      }
       break;
     case 'klarna':
       break;
     case null:
       // null indicates it's paypal
-      if(order.payment_gateway === 'paypal') {
-
+      if (order.payment_gateway === 'paypal') {
       }
       break;
     default:
@@ -59,7 +72,7 @@ const OrderDetailPage = async ({ params }: OrderDetailProps) => {
   }
 
   // further payment methods to capture if customer used apple or googlepay
-  switch(order.wallet_type) {
+  switch (order.wallet_type) {
     case null:
       break;
     case 'google_pay':
@@ -69,7 +82,6 @@ const OrderDetailPage = async ({ params }: OrderDetailProps) => {
     default:
       break;
   }
-
 
   return (
     <>
