@@ -4,7 +4,7 @@ import OrderItem from '../components/OrderItem';
 import { Card, CardHeader } from '@/components/ui/card';
 import { getFullCountryName } from '@/lib/db/profile/utils/shipping';
 import { formatPhoneNumber } from '@/lib/db/profile/utils/phone';
-import { capitalizeString } from '@/lib/utils/stringFuncs'
+import { capitalizeString } from '@/lib/utils/stringFuncs';
 import { generateTrackingUrl } from '@/lib/utils/generateTrackingUrl';
 import Image from 'next/image';
 import cardLogo from '@/images/profile/orders/card.svg';
@@ -36,6 +36,7 @@ const OrderDetailPage = async ({ params }: OrderDetailProps) => {
   let paymentMethodLogo = cardLogo;
   let paymentMethodAlt = 'Card';
   let paymentMethodText = 'Card';
+  let paymentLogoSize = 22;
 
   switch (order.payment_method) {
     // we aren't storing payment method when customer checks out using link method
@@ -48,29 +49,36 @@ const OrderDetailPage = async ({ params }: OrderDetailProps) => {
       switch (order.card_brand) {
         case 'visa':
           paymentMethodLogo = '/images/profile/orders/visa.svg';
+          paymentLogoSize = 35;
           break;
         case 'mastercard':
           paymentMethodLogo = '/images/profile/orders/mc_symbol.svg';
+          paymentLogoSize = 33;
           break;
         case 'amex':
           paymentMethodLogo = '/images/profile/orders/amex.svg';
+          paymentLogoSize = 28;
           break;
         case 'discover':
           paymentMethodLogo = '/images/profile/orders/discover-icon.webp';
+          paymentLogoSize = 35;
           break;
       }
       break;
     case 'klarna':
       paymentMethodLogo = '/images/profile/orders/klarna.svg';
+      paymentLogoSize = 35;
       paymentMethodAlt = `Klarna Logo`;
-      paymentMethodText = `${capitalizeString(order.payment_method)}` || 'Klarna';
-      
+      paymentMethodText =
+        `${capitalizeString(order.payment_method)}` || 'Klarna';
+
       break;
     case null:
       // null indicates it's paypal
       if (order.payment_gateway === 'paypal') {
         paymentMethodLogo = '/images/profile/orders/paypal-color-icon.webp';
         paymentMethodText = 'PayPal';
+        paymentLogoSize = 35;
       }
       break;
     default:
@@ -82,8 +90,14 @@ const OrderDetailPage = async ({ params }: OrderDetailProps) => {
     case null:
       break;
     case 'google_pay':
+      paymentMethodLogo = '/images/profile/orders/google_pay.svg';
+      paymentMethodText = 'Google Pay';
+      paymentLogoSize = 40;
       break;
     case 'apple_pay':
+      paymentMethodLogo = '/images/profile/orders/apple_pay.svg';
+      paymentMethodText = 'Apple Pay';
+      paymentLogoSize = 35;
       break;
     default:
       break;
@@ -150,8 +164,8 @@ const OrderDetailPage = async ({ params }: OrderDetailProps) => {
                   src={paymentMethodLogo}
                   alt={`${paymentMethodAlt} logo`}
                   layout="intrinsic"
-                  width={33}
-                  height={28}
+                  width={paymentLogoSize}
+                  height={paymentLogoSize}
                 />
                 <span className="pl-2">{paymentMethodText}</span>
               </div>
