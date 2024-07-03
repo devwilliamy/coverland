@@ -55,6 +55,7 @@ import { useMediaQuery } from '@mantine/hooks';
 import CheckoutSummarySection from './CheckoutSummarySection';
 import OrderReview from './OrderReview';
 import parsePhoneNumberFromString from 'libphonenumber-js';
+import PayWithKlarnaWhite from './PayWithKlarnaWhite';
 
 export default function CheckoutAccordion() {
   const stripe = useStripe();
@@ -744,7 +745,7 @@ export default function CheckoutAccordion() {
                             <PayPalButtonSection />
                           </div>
                         )}
-                        {(paymentMethod === 'applePay' ||
+                        {/* {(paymentMethod === 'applePay' ||
                           paymentMethod === 'googlePay') && (
                           <div className="w-full max-w-[307px] self-end justify-self-end">
                             <ExpressCheckoutElement
@@ -767,7 +768,7 @@ export default function CheckoutAccordion() {
                               }}
                             />
                           </div>
-                        )}
+                        )} */}
                         {paymentMethod === 'klarna' && (
                           <Button
                             variant={'default'}
@@ -893,8 +894,8 @@ export default function CheckoutAccordion() {
                             {isLoading ? (
                               <AiOutlineLoading3Quarters className="animate-spin" />
                             ) : (
-                              <></>
-                              // <PayWithKlarnaWhite />
+                              // <></>
+                              <PayWithKlarnaWhite />
                             )}
                           </Button>
                         )}
