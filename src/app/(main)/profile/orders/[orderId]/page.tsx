@@ -33,15 +33,17 @@ const OrderDetailPage = async ({ params }: OrderDetailProps) => {
   const hasShippingDetails =
     order.shipping_tracking_number && order.shipping_carrier;
 
-  let paymentMethodLogo = cardLogo;
-  let paymentMethodAlt = 'Card';
-  let paymentMethodText = 'Card';
-  let paymentLogoSize = 22;
+  let paymentMethodLogo;
+  let paymentMethodAlt;
+  let paymentMethodText;
+  let paymentLogoSize;
 
   switch (order.payment_method) {
-    // we aren't storing payment method when customer checks out using link method
-    case 'link':
+    case 'link': // we aren't storing payment method when customer checks out using link method, defalting to "Card" scenario
+      paymentMethodAlt = 'Card Link';
       paymentMethodText = 'Card Link';
+      paymentMethodLogo = cardLogo;
+      paymentLogoSize = 22;
       break;
     case 'card':
       paymentMethodAlt = `${order.card_brand} Card`;
@@ -71,7 +73,6 @@ const OrderDetailPage = async ({ params }: OrderDetailProps) => {
       paymentMethodAlt = `Klarna Logo`;
       paymentMethodText =
         `${capitalizeString(order.payment_method)}` || 'Klarna';
-
       break;
     case null:
       // null indicates it's paypal
@@ -82,10 +83,14 @@ const OrderDetailPage = async ({ params }: OrderDetailProps) => {
       }
       break;
     default:
+      paymentMethodAlt = 'Card';
+      paymentMethodText = 'Card';
+      paymentMethodLogo = cardLogo;
+      paymentLogoSize = 22;
       break;
   }
 
-  // further payment methods to capture if customer used apple or googlepay
+  // further payment methods to capture if customer used apple or google pay
   switch (order.wallet_type) {
     case null:
       break;
