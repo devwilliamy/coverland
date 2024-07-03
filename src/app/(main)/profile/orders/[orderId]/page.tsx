@@ -56,17 +56,17 @@ const OrderDetailPage = async ({ params }: OrderDetailProps) => {
           <div className="pb-8">
             <ul className="flex flex-col items-center">
               {hasShippingDetails && (
-                <button class="h-[40px] w-[235px] rounded bg-black px-4 py-2 text-sm font-bold tracking-wider text-white">
-                  <a
-                    href={generateTrackingUrl(
-                      order.shipping_tracking_number,
-                      order.shipping_carrier
-                    )}
-                    target="_blank"
-                  >
+                <a
+                  href={generateTrackingUrl(
+                    order.shipping_tracking_number,
+                    order.shipping_carrier
+                  )}
+                  target="_blank"
+                >
+                  <button class="h-[40px] w-[235px] rounded bg-black px-4 py-2 text-sm font-bold tracking-wider text-white">
                     TRACK PACKAGE
-                  </a>
-                </button>
+                  </button>
+                </a>
               )}
             </ul>
           </div>
