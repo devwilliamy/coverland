@@ -4,6 +4,7 @@ import OrderItem from '../components/OrderItem';
 import { Card, CardHeader } from '@/components/ui/card';
 import { getFullCountryName } from '@/lib/db/profile/utils/shipping';
 import { formatPhoneNumber } from '@/lib/db/profile/utils/phone';
+import { generateTrackingUrl } from '@/lib/utils/generateTrackingUrl';
 
 type OrderDetailProps = {
   params: { orderId: number };
@@ -38,7 +39,7 @@ const OrderDetailPage = async ({ params }: OrderDetailProps) => {
           Ordered on {order.payment_date} <span className="mx-2">|</span> Order
           #{order.order_id}
         </CardHeader>
-        <div className="border-t">
+        <div className="justify-between border-t md:flex">
           <ul className="py-2 md:pb-0 md:pt-8">
             {order.items?.map((item) => (
               <OrderItem
@@ -48,6 +49,19 @@ const OrderDetailPage = async ({ params }: OrderDetailProps) => {
                 version="short"
               />
             ))}
+          </ul>
+          <ul class="p-8">
+            <button class="bg-black text-white py-2 px-4 rounded">
+              <a
+                href={generateTrackingUrl(
+                  order.shipping_tracking_number,
+                  order.shipping_carrier
+                )}
+                target="_blank"
+              >
+                Track Package
+              </a>
+            </button>
           </ul>
         </div>
         <div className="border-t text-base leading-7">
