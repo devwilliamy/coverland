@@ -43,7 +43,7 @@ const OrderDetailPage = async ({ params }: OrderDetailProps) => {
       break;
     case 'card':
       paymentMethodAlt = `${order.card_brand} Card`;
-      paymentMethodText = `${capitalizeString(order.card_brand)} ${capitalizeString(order.card_funding)} Card` || 'Card'; // "Visa Credit Card"
+      paymentMethodText = `${capitalizeString(order.card_brand)}` || 'Card'; // "Visa" ${capitalizeString(order.card_funding)} -> "Debit" / "Credit"
       switch (order.card_brand) {
         case 'visa':
           paymentMethodLogo = '/images/profile/orders/visa.svg';
@@ -52,10 +52,10 @@ const OrderDetailPage = async ({ params }: OrderDetailProps) => {
           paymentMethodLogo = '/images/profile/orders/mastercard.svg';
           break;
         case 'amex':
-          paymentMethodLogo = '/images/profile/orders/amex.svg';
+          paymentMethodLogo = '/images/profile/orders/amex.webp';
           break;
         case 'discover':
-          paymentMethodLogo = '/images/profile/orders/discover.svg';
+          paymentMethodLogo = '/images/profile/orders/discover-icon.webp';
           break;
       }
       break;
@@ -64,6 +64,8 @@ const OrderDetailPage = async ({ params }: OrderDetailProps) => {
     case null:
       // null indicates it's paypal
       if (order.payment_gateway === 'paypal') {
+        paymentMethodLogo = '/images/profile/orders/paypal-color-icon.webp';
+        paymentMethodText = 'PayPal';
       }
       break;
     default:
