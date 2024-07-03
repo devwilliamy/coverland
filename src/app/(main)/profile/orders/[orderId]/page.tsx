@@ -84,10 +84,10 @@ const OrderDetailPage = async ({ params }: OrderDetailProps) => {
               <div>{getFullCountryName(order.shipping_address_country)}</div>
               <div>{formatPhoneNumber(order.customer_phone)}</div>
             </div>
-            {/* <div className="mt-6 text-[#707070]">
-              <div className="font-bold text-black">Payment Method</div>
+            <div className="mt-8 text-[#707070] md:mt-10">
+              <div className="mb-1 font-bold text-black">Payment Method</div>
               <div>Pending</div>
-            </div> */}
+            </div>
             <div className="mt-8 md:mt-10 md:min-w-[223px]">
               <div className="mb-1 font-bold">Order Summary</div>
               <div className="mb-1 flex justify-between">
