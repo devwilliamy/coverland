@@ -1,15 +1,15 @@
 import sgMail, { MailDataRequired } from '@sendgrid/mail';
-sgMail.setApiKey(process.env.SENDGRID_API_KEY || '');
-const sgFromEmail = process.env.SENDGRID_FROM_EMAIL;
-const sgShippingConfirmationTemplateId =
-  process.env.SENDGRID_SHIPPING_CONFIRMATION_EMAIL_TEMPLATE_ID;
 import { formatMoneyAsNumber } from '@/lib/utils/money';
-// import fetchUserOrderById
-// import { TUserOrder, TOrderItem, TOrderItemProduct, fetchUserOrderById } from '@/lib/db/profile/ordersHistory';
 import { SHIPPING_METHOD } from '@/lib/constants';
 import { determineDeliveryByDate } from '@/lib/utils/deliveryDateUtils';
 import { generateTrackingUrl } from '@/lib/utils/generateTrackingUrl';
 import { formatISODate } from '@/lib/utils/date';
+import { TUserOrder } from '@/lib/db/orders/getOrderByOrderId';
+
+sgMail.setApiKey(process.env.SENDGRID_API_KEY || '');
+const sgFromEmail = process.env.SENDGRID_FROM_EMAIL;
+const sgShippingConfirmationTemplateId =
+  process.env.SENDGRID_SHIPPING_CONFIRMATION_EMAIL_TEMPLATE_ID;
 let shipping_fee; // this is a placeholder for later iteration
 
 const shippingConstants = {
@@ -19,7 +19,7 @@ const shippingConstants = {
 };
 
 export type DynamicTemplateData = {
-  main_data: MainShippingData;
+  main_data: MainShippingEmailData;
   order_detail_page: string; // url to order detail page (order.id)
   order_items: OrderItem[];
   shipping_info: ShippingInfo;
@@ -164,7 +164,7 @@ export const generateSendGridApiPayload = (data): MailDataRequired => {
     template_id: sgShippingConfirmationTemplateId,
     personalizations: [
       {
-        to: [{ email: data.to }], // data.to
+        to: [{ email: data.to }],
         dynamicTemplateData: data.dynamic_template_data,
       },
     ],
@@ -180,7 +180,7 @@ export const sendShippingConfirmationEmailToSendGrid = async (
     const response = await sgMail.send(data);
 
     if (response[0].statusCode === 202) {
-      console.log('Email sent successfully - Status 202:', response[0].headers);
+      console.log('Email sent successfully - Status 202:', response[0].headers); // keeping this to easily spot email step in logs
       // Optionally handle further processing
     } else {
       console.error('Unexpected status:', response[0].statusCode, response[0].headers);

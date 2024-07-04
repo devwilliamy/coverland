@@ -146,7 +146,25 @@ export async function POST(request: NextRequest): Promise<SkuLabOrderResponse> {
 
       const fullOrderData = await fetchUserOrderById(data[0].id);
 
-      const emailTo = fullOrderData?.customer_email;
+      if (!fullOrderData) {
+        return NextResponse.json(
+          {
+            message: `[${getTimestamp()}]: User Order not found`,
+          },
+          { status: 404 }
+        );
+      }
+
+      const emailTo = fullOrderData.customer_email;
+      if (!emailTo) {
+        console.error(`[${getTimestamp()}]: Customer email not found in order data`, fullOrderData);
+        return NextResponse.json(
+          {
+            message: `[${getTimestamp()}]: Customer email not found in order data`,
+          },
+          { status: 400 }
+        );
+      }
 
       const toSendgrid = {
         to: emailTo,
@@ -166,7 +184,7 @@ export async function POST(request: NextRequest): Promise<SkuLabOrderResponse> {
 
       return NextResponse.json(
         {
-          message: `[${getTimestamp()}]: Order updated successfully: ${order_number}`,
+          message: `[${getTimestamp()}]: Order ${order_number} updated successfully & email sent`,
           data,
         },
         { status: 200 }
@@ -188,7 +206,8 @@ export async function POST(request: NextRequest): Promise<SkuLabOrderResponse> {
     );
     return NextResponse.json(
       {
-        message: `${getTimestamp()} No shipments found in the order data or does not start with CL: ${order_number}. ${JSON.stringify(error)}`,
+        message: `[${getTimestamp()}]: Internal Server Error`,
+        error: (error as Error).message,
       },
       { status: 500 } // Keeping this as 500 because that means something went wrong
     );
