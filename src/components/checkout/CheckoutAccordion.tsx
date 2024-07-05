@@ -94,7 +94,7 @@ export default function CheckoutAccordion() {
     getTotalPrice() + shipping
   );
   const isCartEmpty = getTotalCartQuantity() === 0;
-  const [value, setValue] = useState(['shipping']);
+  const [accordionState, setAccordionState] = useState(['shipping']);
   const [isLoading, setIsLoading] = useState(false);
   const [message, setMessage] = useState('');
 
@@ -110,7 +110,7 @@ export default function CheckoutAccordion() {
       const elTop = (el?.offsetTop as number) - 200;
       // When payment is selected, need a little delay so screen will scroll to it when it opens
       // If it's already open, don't need to wait.
-      const timeout = value.includes('payment') ? 0 : 250;
+      const timeout = accordionState.includes('payment') ? 0 : 250;
       setTimeout(() => {
         window.scrollTo({
           top: elTop as number,
@@ -121,7 +121,7 @@ export default function CheckoutAccordion() {
   };
 
   const handleChangeAccordion = (value: string) =>
-    setValue((p) => [...p, value]);
+    setAccordionState((p) => [...p, value]);
 
   const handleConversions = async (id: any, client_secret: any) => {
     // SendGrid Thank You Email
@@ -390,93 +390,94 @@ export default function CheckoutAccordion() {
             }
           });
         break;
-      case 'klarna':
-        const klarnaPaymentResult = await stripe.confirmKlarnaPayment(
-          retrievedSecret,
-          {
-            payment_method: {
-              type: 'klarna',
-              billing_details: customerBilling,
-            } as CreatePaymentMethodKlarnaData,
-            return_url: `${origin}/checkout`,
-            shipping: customerShipping,
-          },
-          // Enable if wanting to open new window
-          { handleActions: false }
-        );
+      // case 'klarna':
+      //   const klarnaPaymentResult = await stripe.confirmKlarnaPayment(
+      //     retrievedSecret,
+      //     {
+      //       payment_method: {
+      //         type: 'klarna',
+      //         billing_details: customerBilling,
+      //       } as CreatePaymentMethodKlarnaData,
+      //       return_url: `${origin}/checkout`,
+      //       shipping: customerShipping,
+      //     },
+      //     // Enable if wanting to open new window
+      //     { handleActions: false }
+      //   );
 
-        const y =
-          window.outerHeight / 2 + (window.screenY - window.screenY / 2);
-        const x = window.outerWidth / 2 + (window.screenX - window.screenX / 2);
-        const klarnaWindowLeft = window.screenX - window.screenX / 2 + x / 2;
+      //   const y =
+      //     window.outerHeight / 2 + (window.screenY - window.screenY / 2);
+      //   const x = window.outerWidth / 2 + (window.screenX - window.screenX / 2);
+      //   const klarnaWindowLeft = window.screenX - window.screenX / 2 + x / 2;
 
-        const klarnaWindow = window.open(
-          'about:blank',
-          'Klarna Payment',
-          `toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no, width=${x}, height=${y}, left=${klarnaWindowLeft}, top=100,`
-        );
+      //   const klarnaWindow = window.open(
+      //     'about:blank',
+      //     'Klarna Payment',
+      //     `toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no, width=${x}, height=${y}, left=${klarnaWindowLeft}, top=100,`
+      //   );
 
-        klarnaWindow?.addEventListener('beforeUnload', () => {
-          setIsLoading(false);
-        });
+      //   klarnaWindow?.addEventListener('beforeUnload', () => {
+      //     setIsLoading(false);
+      //   });
 
-        klarnaWindow?.addEventListener('close', async () => {
-          // console.log('closeD');
+      //   klarnaWindow?.addEventListener('close', async () => {
+      //     // console.log('closeD');
 
-          const isSuccessful =
-            (await stripe.retrievePaymentIntent(retrievedSecret)).paymentIntent
-              ?.status === 'succeeded';
-          console.log('Payment window closed.');
+      //     const isSuccessful =
+      //       (await stripe.retrievePaymentIntent(retrievedSecret)).paymentIntent
+      //         ?.status === 'succeeded';
+      //     console.log('Payment window closed.');
 
-          if (isSuccessful) {
-            handleConversions(id, client_secret);
-            router.push(
-              `/thank-you?order_number=${orderNumber}&payment_intent=${id}&payment_intent_client_secret=${client_secret}`
-            );
-          }
-          setIsLoading(false);
-          clearInterval(interval);
-        });
+      //     if (isSuccessful) {
+      //       handleConversions(id, client_secret);
+      //       router.push(
+      //         `/thank-you?order_number=${orderNumber}&payment_intent=${id}&payment_intent_client_secret=${client_secret}`
+      //       );
+      //     }
+      //     setIsLoading(false);
+      //     clearInterval(interval);
+      //   });
 
-        klarnaWindow?.document.location.replace(
-          String(
-            klarnaPaymentResult.paymentIntent?.next_action?.redirect_to_url?.url
-          )
-        );
+      //   klarnaWindow?.document.location.replace(
+      //     String(
+      //       klarnaPaymentResult.paymentIntent?.next_action?.redirect_to_url?.url
+      //     )
+      //   );
 
-        if (!klarnaWindow) {
-          console.log('[NO KLARNA WINDOW]');
-          return;
-        }
+      //   if (!klarnaWindow) {
+      //     console.log('[NO KLARNA WINDOW]');
+      //     return;
+      //   }
 
-        const interval = klarnaWindow.setInterval(async () => {
-          if (
-            klarnaWindow?.location.href &&
-            klarnaWindow?.location.href
-              .toString()
-              .startsWith(`${origin}/checkout`)
-          ) {
-            klarnaWindow.close();
-            setIsLoading(false);
-            clearInterval(interval);
-          }
-          if (klarnaWindow.closed) {
-            const isSuccessful =
-              (await stripe.retrievePaymentIntent(retrievedSecret))
-                .paymentIntent?.status === 'succeeded';
-            console.log('Payment window closed.');
+      //   const interval = klarnaWindow.setInterval(async () => {
+      //     if (
+      //       klarnaWindow?.location.href &&
+      //       klarnaWindow?.location.href
+      //         .toString()
+      //         .startsWith(`${origin}/checkout`)
+      //     ) {
+      //       klarnaWindow.close();
+      //       setIsLoading(false);
+      //       clearInterval(interval);
+      //     }
+      //     if (klarnaWindow.closed) {
+      //       const isSuccessful =
+      //         (await stripe.retrievePaymentIntent(retrievedSecret))
+      //           .paymentIntent?.status === 'succeeded';
+      //       console.log('Payment window closed.');
 
-            if (isSuccessful) {
-              handleConversions(id, client_secret);
-              setIsLoading(false);
-              router.push(
-                `/thank-you?order_number=${orderNumber}&payment_intent=${id}&payment_intent_client_secret=${client_secret}`
-              );
-            }
-          }
-        }, 1000);
+      //       if (isSuccessful) {
+      //         handleConversions(id, client_secret);
+      //         setIsLoading(false);
+      //         router.push(
+      //           `/thank-you?order_number=${orderNumber}&payment_intent=${id}&payment_intent_client_secret=${client_secret}`
+      //         );
+      //       }
+      //     }
+      //   }, 1000);
 
-        break;
+      //   break;
+
       case 'googlePay' || 'applePay':
         await stripe.confirmPayment({
           elements,
@@ -510,67 +511,101 @@ export default function CheckoutAccordion() {
     }
   };
 
-  useEffect(() => {
-    const updateIntent = async () => {
-      try {
-        elements?.update({
-          amount: 888888,
-          mode: 'payment',
-          paymentMethodTypes: ['klarna', 'card'],
-          currency: 'usd',
-        });
-        await elements?.submit();
-      } catch (error) {
-        console.error(error);
-      }
-    };
-    if (paymentMethod === 'googlePay' || paymentMethod === 'applePay') {
-      updateIntent();
-    }
-  }, [paymentMethod]);
+  // useEffect(() => {
+  //   const updateIntent = async () => {
+  //     try {
+  //       const res = elements?.update({
+  //         amount: 888888,
+  //         mode: 'payment',
+  //         paymentMethodTypes: ['klarna', 'card'],
+  //         currency: 'usd',
+  //       });
+  //       console.log(res);
+
+  //       await elements?.submit();
+  //     } catch (error) {
+  //       console.error(error);
+  //     }
+  //   };
+  //   if (paymentMethod === 'googlePay' || paymentMethod === 'applePay') {
+  //     updateIntent();
+  //   }
+  // }, [paymentMethod]);
 
   useEffect(() => {
     if ((!isAddressComplete || isEditingAddress) && !isReadyToShip) {
-      setValue(['shipping']);
+      setAccordionState(['shipping']);
     }
   }, [isAddressComplete, isEditingAddress, isReadyToShip]);
 
   useEffect(() => {
     if (isReadyToShip && !isReadyToPay) {
-      setValue(['payment']);
+      setAccordionState(['payment']);
     }
   }, [isReadyToShip, isReadyToPay]);
 
   useEffect(() => {
     const useUpdatePaymentIntent = async () => {
-      console.log('[Single Handle Get Tax]');
+      console.log('[INSIDE UPDATING PAYMENT INTENT FUNCTION]');
       // await handleGetTax();
 
-      try {
-        elements?.update({
-          amount: stripeTotalMsrp,
-          mode: 'payment',
-          currency: 'usd',
-        });
-        await elements?.submit();
-      } catch (error) {
-        console.error(error);
-      }
-      await fetch('/api/stripe/payment-intent', {
+      console.log('[UPDATING PAYMENT INTENT]');
+      const res = await fetch('/api/stripe/payment-intent', {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
           paymentIntentId,
-          amount: stripeTotalMsrp,
+          amount: 888888,
         }),
       });
+
+      const data = await res.json();
+
+      const paymentIntentGet = await fetch(
+        `/api/stripe/payment-intent/${paymentIntentId}`,
+        {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        }
+      );
+
+      const intentData = await paymentIntentGet.json();
+      // const updateRes = await stripe?.elements().fetchUpdates();
+      const updateRes = await elements?.fetchUpdates();
+
+      try {
+        elements?.update({
+          amount: stripeTotalMsrp,
+          paymentMethodTypes: [
+            // 'klarna',
+            'card',
+          ],
+          mode: 'payment',
+          currency: 'usd',
+        });
+
+        const submitRes = await elements?.submit();
+        console.log('[SUBMIT RES]', { submitRes, updateRes });
+      } catch (error) {
+        console.error(error);
+      }
+
+      console.log('[FINISHED UPDATING PAYMENT INTENT]', { data, intentData });
     };
-    if (!isCartEmpty && isReadyToShip) {
+    if (!isCartEmpty && isReadyToPay) {
       useUpdatePaymentIntent();
     }
-  }, [isCartEmpty, isReadyToShip, shippingAddress, paymentMethod]);
+  }, [
+    isCartEmpty,
+    isReadyToShip,
+    isReadyToPay,
+    shippingAddress,
+    paymentMethod,
+  ]);
 
   const accordionTriggerStyle = `py-10 font-[500] text-[24px] leading-[12px]`;
 
@@ -606,8 +641,8 @@ export default function CheckoutAccordion() {
                 type="multiple"
                 // collapsible
                 className="w-full px-4"
-                value={value}
-                onValueChange={setValue}
+                value={accordionState}
+                onValueChange={setAccordionState}
               >
                 {isMobile && (
                   <AccordionItem value="cart">
