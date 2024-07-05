@@ -90,7 +90,9 @@ export default function CheckoutAccordion() {
   } = useCheckoutContext();
   const orderSubtotal = getOrderSubtotal().toFixed(2);
   const cartMSRP = getTotalPrice() + shipping;
-  const totalMsrpPrice = convertPriceToStripeFormat(getTotalPrice() + shipping);
+  const stripeTotalMsrp = convertPriceToStripeFormat(
+    getTotalPrice() + shipping
+  );
   const isCartEmpty = getTotalCartQuantity() === 0;
   const [value, setValue] = useState(['shipping']);
   const [isLoading, setIsLoading] = useState(false);
@@ -249,7 +251,7 @@ export default function CheckoutAccordion() {
       const skuLabOrderInput = generateSkuLabOrderInput({
         orderNumber,
         cartItems,
-        totalMsrpPrice: convertPriceFromStripeFormat(totalMsrpPrice),
+        totalMsrpPrice: convertPriceFromStripeFormat(stripeTotalMsrp),
         shippingAddress,
         customerInfo,
         paymentMethod: 'Stripe',
@@ -509,33 +511,22 @@ export default function CheckoutAccordion() {
   };
 
   useEffect(() => {
-    // const updateIntent = async () => {
-    //   console.log('UPDATING INTENT');
-    //   // try {
-    //   //   elements?.update({
-    //   //     amount: 888888,
-    //   //     mode: 'payment',
-    //   //     paymentMethodTypes: ['klarna', 'card'],
-    //   //     currency: 'usd',
-    //   //   });
-    //   const bum = await elements?.submit();
-    //   console.log(bum);
-    //   // } catch (error) {
-    //   //   console.error(error);
-    //   // }
-    //   await fetch('/api/stripe/payment-intent', {
-    //     method: 'PUT',
-    //     headers: {
-    //       'Content-Type': 'application/json',
-    //     },
-    //     body: JSON.stringify({
-    //       paymentIntentId,
-    //       amount: totalMsrpPrice,
-    //     }),
-    //   });
-    // };
-    // if (paymentMethod === 'googlePay' || paymentMethod === 'applePay') {
-    //   updateIntent();
+    const updateIntent = async () => {
+      try {
+        elements?.update({
+          amount: 888888,
+          mode: 'payment',
+          paymentMethodTypes: ['klarna', 'card'],
+          currency: 'usd',
+        });
+        await elements?.submit();
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    if (paymentMethod === 'googlePay' || paymentMethod === 'applePay') {
+      updateIntent();
+    }
   }, [paymentMethod]);
 
   useEffect(() => {
@@ -550,15 +541,36 @@ export default function CheckoutAccordion() {
     }
   }, [isReadyToShip, isReadyToPay]);
 
-  // useEffect(() => {
-  //   const useHandleGetTax = async () => {
-  //     // console.log('[Single Handle Get Tax]');
-  //     await handleGetTax();
-  //   };
-  //   if (!isCartEmpty && isReadyToPay) {
-  //     useHandleGetTax();
-  //   }
-  // }, [isCartEmpty, isReadyToPay, shippingAddress, paymentMethod]);
+  useEffect(() => {
+    const useUpdatePaymentIntent = async () => {
+      console.log('[Single Handle Get Tax]');
+      // await handleGetTax();
+
+      try {
+        elements?.update({
+          amount: stripeTotalMsrp,
+          mode: 'payment',
+          currency: 'usd',
+        });
+        await elements?.submit();
+      } catch (error) {
+        console.error(error);
+      }
+      await fetch('/api/stripe/payment-intent', {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          paymentIntentId,
+          amount: stripeTotalMsrp,
+        }),
+      });
+    };
+    if (!isCartEmpty && isReadyToShip) {
+      useUpdatePaymentIntent();
+    }
+  }, [isCartEmpty, isReadyToShip, shippingAddress, paymentMethod]);
 
   const accordionTriggerStyle = `py-10 font-[500] text-[24px] leading-[12px]`;
 
