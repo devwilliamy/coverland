@@ -544,68 +544,68 @@ export default function CheckoutAccordion() {
     }
   }, [isReadyToShip, isReadyToPay]);
 
-  useEffect(() => {
-    const useUpdatePaymentIntent = async () => {
-      console.log('[INSIDE UPDATING PAYMENT INTENT FUNCTION]');
-      // await handleGetTax();
+  // useEffect(() => {
+  //   const useUpdatePaymentIntent = async () => {
+  //     console.log('[INSIDE UPDATING PAYMENT INTENT FUNCTION]');
+  //     // await handleGetTax();
 
-      console.log('[UPDATING PAYMENT INTENT]');
-      const res = await fetch('/api/stripe/payment-intent', {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          paymentIntentId,
-          amount: 888888,
-        }),
-      });
+  //     console.log('[UPDATING PAYMENT INTENT]');
+  //     const res = await fetch('/api/stripe/payment-intent', {
+  //       method: 'PUT',
+  //       headers: {
+  //         'Content-Type': 'application/json',
+  //       },
+  //       body: JSON.stringify({
+  //         paymentIntentId,
+  //         amount: 888888,
+  //       }),
+  //     });
 
-      const data = await res.json();
+  //     const data = await res.json();
 
-      const paymentIntentGet = await fetch(
-        `/api/stripe/payment-intent/${paymentIntentId}`,
-        {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        }
-      );
+  //     const paymentIntentGet = await fetch(
+  //       `/api/stripe/payment-intent/${paymentIntentId}`,
+  //       {
+  //         method: 'GET',
+  //         headers: {
+  //           'Content-Type': 'application/json',
+  //         },
+  //       }
+  //     );
 
-      const intentData = await paymentIntentGet.json();
-      // const updateRes = await stripe?.elements().fetchUpdates();
-      const updateRes = await elements?.fetchUpdates();
+  //     const intentData = await paymentIntentGet.json();
+  //     // const updateRes = await stripe?.elements().fetchUpdates();
+  //     const updateRes = await elements?.fetchUpdates();
 
-      try {
-        elements?.update({
-          amount: stripeTotalMsrp,
-          paymentMethodTypes: [
-            // 'klarna',
-            'card',
-          ],
-          mode: 'payment',
-          currency: 'usd',
-        });
+  //     try {
+  //       elements?.update({
+  //         amount: stripeTotalMsrp,
+  //         paymentMethodTypes: [
+  //           // 'klarna',
+  //           'card',
+  //         ],
+  //         mode: 'payment',
+  //         currency: 'usd',
+  //       });
 
-        const submitRes = await elements?.submit();
-        console.log('[SUBMIT RES]', { submitRes, updateRes });
-      } catch (error) {
-        console.error(error);
-      }
+  //       const submitRes = await elements?.submit();
+  //       console.log('[SUBMIT RES]', { submitRes, updateRes });
+  //     } catch (error) {
+  //       console.error(error);
+  //     }
 
-      console.log('[FINISHED UPDATING PAYMENT INTENT]', { data, intentData });
-    };
-    if (!isCartEmpty && isReadyToPay) {
-      useUpdatePaymentIntent();
-    }
-  }, [
-    isCartEmpty,
-    isReadyToShip,
-    isReadyToPay,
-    shippingAddress,
-    paymentMethod,
-  ]);
+  //     console.log('[FINISHED UPDATING PAYMENT INTENT]', { data, intentData });
+  //   };
+  //   if (!isCartEmpty && isReadyToPay) {
+  //     useUpdatePaymentIntent();
+  //   }
+  // }, [
+  //   isCartEmpty,
+  //   isReadyToShip,
+  //   isReadyToPay,
+  //   shippingAddress,
+  //   paymentMethod,
+  // ]);
 
   const accordionTriggerStyle = `py-10 font-[500] text-[24px] leading-[12px]`;
 
