@@ -1,7 +1,13 @@
 import cardLogo from '@/images/profile/orders/card.svg';
 import { capitalizeString } from '@/lib/utils/stringFuncs';
+import { TUserOrder, TInitialOrderItemsDataDB } from '@/lib/db/profile/ordersHistory';
 
-export const getPaymentMethodDetails = (order) => {
+/**
+ * 
+ * @param order TUserOrder | TInitialOrderItemsDataDB (takes a general order from DB or the modified User Order)
+ * @returns paymentMethod, which is an object with image logoPath, image alt, image size, and display text
+ */
+export const getPaymentMethodDetails = (order: TUserOrder | TInitialOrderItemsDataDB ) => {
     const paymentMethods = {
       link: {
         alt: 'Card Link',
