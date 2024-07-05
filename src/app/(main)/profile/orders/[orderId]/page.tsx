@@ -4,10 +4,9 @@ import OrderItem from '../components/OrderItem';
 import { Card, CardHeader } from '@/components/ui/card';
 import { getFullCountryName } from '@/lib/db/profile/utils/shipping';
 import { formatPhoneNumber } from '@/lib/db/profile/utils/phone';
-import { capitalizeString } from '@/lib/utils/stringFuncs';
+import { getPaymentMethodDetails } from '@/lib/db/profile/utils/getPaymentMethodDetails';
 import { generateTrackingUrl } from '@/lib/utils/generateTrackingUrl';
 import Image from 'next/image';
-import cardLogo from '@/images/profile/orders/card.svg';
 
 type OrderDetailProps = {
   params: { orderId: number };
@@ -32,86 +31,6 @@ const OrderDetailPage = async ({ params }: OrderDetailProps) => {
 
   const hasShippingDetails =
     order.shipping_tracking_number && order.shipping_carrier;
-
-  const getPaymentMethodDetails = (order) => {
-    const paymentMethods = {
-      link: {
-        alt: 'Card Link',
-        text: 'Card Link',
-        logo: cardLogo,
-        size: 22,
-      },
-      card: {
-        alt: `${order.card_brand} Card`,
-        text: capitalizeString(order.card_brand) || 'Card',
-        brandLogos: {
-          visa: { logo: '/images/profile/orders/visa.svg', size: 35 },
-          mastercard: {
-            logo: '/images/profile/orders/mc_symbol.svg',
-            size: 33,
-          },
-          amex: { logo: '/images/profile/orders/amex.svg', size: 28 },
-          discover: {
-            logo: '/images/profile/orders/discover-icon.webp',
-            size: 35,
-          },
-        },
-      },
-      klarna: {
-        alt: 'Klarna Logo',
-        text: capitalizeString(order.payment_method) || 'Klarna',
-        logo: '/images/profile/orders/klarna.svg',
-        size: 35,
-      },
-      paypal: {
-        alt: 'PayPal',
-        text: 'PayPal',
-        logo: '/images/profile/orders/paypal-color-icon.webp',
-        size: 35,
-      },
-      default: {
-        alt: 'Card',
-        text: 'Card',
-        logo: cardLogo,
-        size: 22,
-      },
-    };
-
-    const walletTypes = {
-      google_pay: {
-        text: 'Google Pay',
-        logo: '/images/profile/orders/google_pay.svg',
-        size: 40,
-      },
-      apple_pay: {
-        text: 'Apple Pay',
-        logo: '/images/profile/orders/apple_pay.svg',
-        size: 35,
-      },
-    };
-
-    const method =
-      order.payment_method ||
-      (order.payment_gateway === 'paypal' ? 'paypal' : 'default');
-    const paymentMethod = paymentMethods[method] || paymentMethods.default;
-
-    if (method === 'card' && order.card_brand) {
-      const brandDetails = paymentMethod.brandLogos[order.card_brand];
-      if (brandDetails) {
-        paymentMethod.logo = brandDetails.logo;
-        paymentMethod.size = brandDetails.size;
-      }
-    }
-
-    if (order.wallet_type && walletTypes[order.wallet_type]) {
-      const wallet = walletTypes[order.wallet_type];
-      paymentMethod.logo = wallet.logo;
-      paymentMethod.text = wallet.text;
-      paymentMethod.size = wallet.size;
-    }
-
-    return paymentMethod;
-  };
 
   const paymentMethodDetails = getPaymentMethodDetails(order);
   const {
