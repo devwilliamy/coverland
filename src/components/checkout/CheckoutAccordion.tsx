@@ -503,6 +503,7 @@ export default function CheckoutAccordion() {
           clearInterval(interval);
         });
 
+        // console.log({ url: klarnaPaymentResult });
         klarnaWindow?.document.location.replace(
           String(
             klarnaPaymentResult.paymentIntent?.next_action?.redirect_to_url?.url
@@ -514,7 +515,8 @@ export default function CheckoutAccordion() {
           return;
         }
 
-        const interval = klarnaWindow.setInterval(async () => {
+        const interval = setInterval(async () => {
+          console.log('Window interval');
           if (
             klarnaWindow?.location.href &&
             klarnaWindow?.location.href

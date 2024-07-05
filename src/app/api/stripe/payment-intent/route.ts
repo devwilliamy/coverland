@@ -66,10 +66,7 @@ export async function POST(request: NextRequest) {
     // automatic_payment_methods: {
     //   enabled: true,
     // },
-    payment_method_types: [
-      // 'klarna',
-      'card',
-    ],
+    payment_method_types: ['klarna', 'card'],
 
     metadata: {
       orderId,
