@@ -477,7 +477,6 @@ export default function CheckoutAccordion() {
       //   }, 1000);
 
       //   break;
-
       case 'googlePay' || 'applePay':
         await stripe.confirmPayment({
           elements,
@@ -531,6 +530,29 @@ export default function CheckoutAccordion() {
   //     updateIntent();
   //   }
   // }, [paymentMethod]);
+  useEffect(() => {
+    const b = async () => {
+      setIsLoading(true);
+      const { country, city } = shippingAddress.address;
+      const paymentReq = stripe?.paymentRequest({
+        country,
+        currency: 'usd',
+        total: { amount: 888888, label: 'EXPRESS PAYMENT' },
+        disableWallets: ['link'],
+      });
+      const canMakePayment = await paymentReq?.canMakePayment();
+      console.log({ canMakePayment });
+
+      if (canMakePayment) {
+        // paymentReq?.show();
+        // setCardPaymentReq(paymentReq);
+        console.log('[SUCCESSFULLY SET PAYMENT REQ]', paymentReq);
+      }
+    };
+    if (stripe) {
+      b();
+    }
+  }, [paymentMethod]);
 
   useEffect(() => {
     if ((!isAddressComplete || isEditingAddress) && !isReadyToShip) {
