@@ -6,7 +6,7 @@ import { useCheckoutContext } from '@/contexts/CheckoutContext';
 import PaymentSelector from './PaymentSelector';
 import BillingAddress from './BillingAddress';
 import { StripeCardNumberElement } from '@stripe/stripe-js';
-import { NewCheckout } from './NewCheckout';
+import { CreditCardSection } from './CreditCardSection';
 // import Klarna from '@/images/checkout/Klarna-Black.webp';
 import PayPalIcon from './icons/PayPalIcon';
 import Image from 'next/image';
@@ -90,7 +90,7 @@ export default function Payment({
     }
   };
 
-  const buttonStyle = `mb-3 w-full max-w-[390px] rounded-lg ${isDisabledCard ? 'bg-[#1A1A1A]/90' : 'bg-[#1A1A1A] hover:bg-[#1A1A1A]/90'} text-center uppercase m-0 max-h-[48px] min-h-[48px] max-w-[350px] self-end justify-self-end text-[16px] leading-[17px]`;
+  const buttonStyle = `mb-3 w-full lg:max-w-[307px] font-[700] rounded-lg text-white disabled:bg-[#D6D6D6] disabled:text-[#767676] bg-[#1A1A1A] hover:bg-[#1A1A1A]/90  bg: text-center uppercase m-0 max-h-[48px] min-h-[48px] self-end justify-self-end text-[16px] leading-[17px]`;
 
   const handleContinueWithCard = () => {
     setIsLoading(true);
@@ -209,7 +209,7 @@ export default function Payment({
           {paymentMethod === 'creditCard' ? (
             <div className="flex flex-col gap-4">
               <form id="payment-form">
-                <NewCheckout />
+                <CreditCardSection />
               </form>
 
               <BillingAddress

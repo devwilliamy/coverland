@@ -73,7 +73,7 @@ const PaymentSelector: React.FC<PaymentSelectorProps> = ({
         />
         <PayPalIcon />
       </div>
-      {isIOS() && (
+      {/* {isIOS() && (
         <div className={selctionStyle}>
           <input
             type="radio"
@@ -86,8 +86,8 @@ const PaymentSelector: React.FC<PaymentSelectorProps> = ({
           />
           <ApplePayIcon />
         </div>
-      )}
-      <div className={selctionStyle}>
+      )} */}
+      {/* <div className={selctionStyle}>
         <input
           type="radio"
           id="googlePayInput"
@@ -98,7 +98,7 @@ const PaymentSelector: React.FC<PaymentSelectorProps> = ({
           className={inputStyle}
         />
         <GooglePayIcon />
-      </div>
+      </div> */}
       {/* <div className={selctionStyle}>
         <input
           type="radio"

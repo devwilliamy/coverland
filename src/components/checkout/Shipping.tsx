@@ -121,7 +121,7 @@ export default function Shipping({
                 <Button
                   disabled={isEditingAddress}
                   onClick={handleToPayment}
-                  className={`h-[48px] w-full cursor-pointer rounded-lg bg-black text-base font-bold uppercase text-white lg:h-[63px] lg:max-w-[390px] lg:text-xl`}
+                  className={`h-[48px] w-full cursor-pointer rounded-lg bg-black text-base font-bold uppercase text-white disabled:bg-[#D6D6D6] disabled:text-[#767676] lg:h-[63px] lg:max-w-[390px] lg:text-xl`}
                 >
                   Continue to Payment
                 </Button>
