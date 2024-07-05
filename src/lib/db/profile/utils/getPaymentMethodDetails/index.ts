@@ -16,9 +16,10 @@ type PaymentDetails = {
 };
 
 const paymentMethods: Record<PaymentMethod, PaymentDetails> = {
+  // TODO: we need to store further link details (like link id, card etc. or whatever is grabbable because simply displaying One Click Link doesn't really capture customer payment details)
   link: {
-    alt: 'Card Link',
-    text: 'Card Link',
+    alt: '1-click Link',
+    text: '1-click Link',
     logo: cardLogo,
     size: 22,
   },
