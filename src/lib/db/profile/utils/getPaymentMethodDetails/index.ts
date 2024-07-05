@@ -2,7 +2,7 @@ import cardLogo from '@/images/profile/orders/card.svg';
 import { capitalizeString } from '@/lib/utils/stringFuncs';
 import {
   TUserOrder,
-  TInitialOrderItemsDataDB,
+  TInitialOrderItemsDataDB, // note I grabbed this type from supabase but it's missing card_brand and a couple other order properties. Maybe need to update our imported _Orders / _Orders_TEST table type?
 } from '@/lib/db/profile/ordersHistory';
 
 type PaymentMethod = 'link' | 'card' | 'klarna' | 'paypal' | 'default';
