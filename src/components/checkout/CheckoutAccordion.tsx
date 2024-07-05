@@ -661,7 +661,7 @@ export default function CheckoutAccordion() {
                   </AccordionTrigger>
                   <AccordionContent className="py-0">
                     <Payment handleChangeAccordion={handleChangeAccordion} />
-                    {!isMobile && isReadyToPay && (
+                    {/* {!isMobile && isReadyToPay && (
                       <div className="flex flex-col">
                         {paymentMethod === 'creditCard' && (
                           <>
@@ -746,7 +746,7 @@ export default function CheckoutAccordion() {
                           </Button>
                         )}
                       </div>
-                    )}
+                    )} */}
                   </AccordionContent>
                 </AccordionItem>
                 {isMobile && (
@@ -825,6 +825,7 @@ export default function CheckoutAccordion() {
                         {(paymentMethod === 'applePay' ||
                           paymentMethod === 'googlePay') && (
                           <ExpressCheckoutElement
+                            className="pb-3"
                             options={{
                               paymentMethodOrder: ['applePay', 'googlePay'],
                               buttonType: {
