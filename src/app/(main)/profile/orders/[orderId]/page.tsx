@@ -33,80 +33,93 @@ const OrderDetailPage = async ({ params }: OrderDetailProps) => {
   const hasShippingDetails =
     order.shipping_tracking_number && order.shipping_carrier;
 
-  let paymentMethodLogo;
-  let paymentMethodAlt;
-  let paymentMethodText;
-  let paymentLogoSize;
+  const getPaymentMethodDetails = (order) => {
+    const paymentMethods = {
+      link: {
+        alt: 'Card Link',
+        text: 'Card Link',
+        logo: cardLogo,
+        size: 22,
+      },
+      card: {
+        alt: `${order.card_brand} Card`,
+        text: capitalizeString(order.card_brand) || 'Card',
+        brandLogos: {
+          visa: { logo: '/images/profile/orders/visa.svg', size: 35 },
+          mastercard: {
+            logo: '/images/profile/orders/mc_symbol.svg',
+            size: 33,
+          },
+          amex: { logo: '/images/profile/orders/amex.svg', size: 28 },
+          discover: {
+            logo: '/images/profile/orders/discover-icon.webp',
+            size: 35,
+          },
+        },
+      },
+      klarna: {
+        alt: 'Klarna Logo',
+        text: capitalizeString(order.payment_method) || 'Klarna',
+        logo: '/images/profile/orders/klarna.svg',
+        size: 35,
+      },
+      paypal: {
+        alt: 'PayPal',
+        text: 'PayPal',
+        logo: '/images/profile/orders/paypal-color-icon.webp',
+        size: 35,
+      },
+      default: {
+        alt: 'Card',
+        text: 'Card',
+        logo: cardLogo,
+        size: 22,
+      },
+    };
 
-  switch (order.payment_method) {
-    case 'link': // we aren't storing payment method when customer checks out using link method, defalting to "Card" scenario
-      paymentMethodAlt = 'Card Link';
-      paymentMethodText = 'Card Link';
-      paymentMethodLogo = cardLogo;
-      paymentLogoSize = 22;
-      break;
-    case 'card':
-      paymentMethodAlt = `${order.card_brand} Card`;
-      paymentMethodText = `${capitalizeString(order.card_brand)}` || 'Card'; // "Visa" ${capitalizeString(order.card_funding)} -> "Debit" / "Credit"
-      switch (order.card_brand) {
-        case 'visa':
-          paymentMethodLogo = '/images/profile/orders/visa.svg';
-          paymentLogoSize = 35;
-          break;
-        case 'mastercard':
-          paymentMethodLogo = '/images/profile/orders/mc_symbol.svg';
-          paymentLogoSize = 33;
-          break;
-        case 'amex':
-          paymentMethodLogo = '/images/profile/orders/amex.svg';
-          paymentLogoSize = 28;
-          break;
-        case 'discover':
-          paymentMethodLogo = '/images/profile/orders/discover-icon.webp';
-          paymentLogoSize = 35;
-          break;
-      }
-      break;
-    case 'klarna':
-      paymentMethodLogo = '/images/profile/orders/klarna.svg';
-      paymentLogoSize = 35;
-      paymentMethodAlt = `Klarna Logo`;
-      paymentMethodText =
-        `${capitalizeString(order.payment_method)}` || 'Klarna';
-      break;
-    case null:
-      // null indicates it's paypal
-      if (order.payment_gateway === 'paypal') {
-        paymentMethodLogo = '/images/profile/orders/paypal-color-icon.webp';
-        paymentMethodText = 'PayPal';
-        paymentLogoSize = 35;
-      }
-      break;
-    default:
-      paymentMethodAlt = 'Card';
-      paymentMethodText = 'Card';
-      paymentMethodLogo = cardLogo;
-      paymentLogoSize = 22;
-      break;
-  }
+    const walletTypes = {
+      google_pay: {
+        text: 'Google Pay',
+        logo: '/images/profile/orders/google_pay.svg',
+        size: 40,
+      },
+      apple_pay: {
+        text: 'Apple Pay',
+        logo: '/images/profile/orders/apple_pay.svg',
+        size: 35,
+      },
+    };
 
-  // further payment methods to capture if customer used apple or google pay
-  switch (order.wallet_type) {
-    case null:
-      break;
-    case 'google_pay':
-      paymentMethodLogo = '/images/profile/orders/google_pay.svg';
-      paymentMethodText = 'Google Pay';
-      paymentLogoSize = 40;
-      break;
-    case 'apple_pay':
-      paymentMethodLogo = '/images/profile/orders/apple_pay.svg';
-      paymentMethodText = 'Apple Pay';
-      paymentLogoSize = 35;
-      break;
-    default:
-      break;
-  }
+    const method =
+      order.payment_method ||
+      (order.payment_gateway === 'paypal' ? 'paypal' : 'default');
+    const paymentMethod = paymentMethods[method] || paymentMethods.default;
+
+    if (method === 'card' && order.card_brand) {
+      const brandDetails = paymentMethod.brandLogos[order.card_brand];
+      if (brandDetails) {
+        paymentMethod.logo = brandDetails.logo;
+        paymentMethod.size = brandDetails.size;
+      }
+    }
+
+    if (order.wallet_type && walletTypes[order.wallet_type]) {
+      const wallet = walletTypes[order.wallet_type];
+      paymentMethod.logo = wallet.logo;
+      paymentMethod.text = wallet.text;
+      paymentMethod.size = wallet.size;
+    }
+
+    return paymentMethod;
+  };
+
+  const paymentMethodDetails = getPaymentMethodDetails(order);
+  const {
+    logo: paymentMethodLogo,
+    alt: paymentMethodAlt,
+    text: paymentMethodText,
+    size: paymentLogoSize,
+  } = paymentMethodDetails;
 
   return (
     <>
