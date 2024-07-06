@@ -1,5 +1,9 @@
 // app/order/[order_id]/page.tsx
 import { TUserOrder, fetchUserOrderById } from '@/lib/db/profile/ordersHistory';
+import { SupabaseClient } from '@supabase/supabase-js';
+import { cookies } from 'next/headers';
+import { redirect } from 'next/navigation';
+import { createSupabaseServerClient } from '@/lib/db/supabaseClients';
 import OrderItem from '../components/OrderItem';
 import { Card, CardHeader } from '@/components/ui/card';
 import { getFullCountryName } from '@/lib/db/profile/utils/shipping';
@@ -23,7 +27,23 @@ const OrderDetailPage = async ({ params }: OrderDetailProps) => {
   // there may be a small optimization where we can find the order by id through the fetched Orders list if it's already cached
   // const order: TUserOrder | undefined = orders.find(
   //   (order) => order.id.toString() === params.orderId
-  // );
+  // )
+
+  const cookieStore: ReadonlyRequestCookies = cookies();
+  const supabase: SupabaseClient = createSupabaseServerClient(cookieStore);
+  
+  try {
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
+
+    if (!user) {
+      redirect('/login');
+    }
+  } catch (error) {
+    console.error('Error getting user:', error);
+    redirect('/login'); // Redirect to login page in case of error
+  }
 
   if (!order) {
     return <div className="m-2">Order not found</div>;
