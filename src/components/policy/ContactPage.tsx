@@ -11,7 +11,6 @@ import { Separator } from '@/components/ui/separator';
 import { ChangeEvent, useContext, useState } from 'react';
 import PolicyTabs from '@/components/policy/PolicyTabs';
 import PolicyHeader from '@/components/policy/PolicyHeader';
-import { useLiveChatContext } from '@/contexts/LiveChatContext';
 import { AiOutlineLoading3Quarters } from 'react-icons/ai';
 
 const raleway = Raleway({
@@ -84,7 +83,6 @@ export default function ContactPage() {
   const [errorFromServer, setErrorFromServer] = useState<
     string | null | undefined
   >();
-  const { visible, setVisible } = useLiveChatContext();
 
   const validateEmail = (e: ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
