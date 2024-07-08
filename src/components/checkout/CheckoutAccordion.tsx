@@ -623,7 +623,7 @@ export default function CheckoutAccordion() {
 
 const TermsOfUseStatement = () => {
   return (
-    <p className="pb-[40px] text-[14px] font-[400] text-[#767676] lg:px-4 lg:pb-[48px] lg:pt-[35px]">
+    <p className="pb-[40px] text-[14px] font-[400] text-[#767676] lg:border-t lg:border-[#DBDBDB] lg:px-4 lg:pb-[48px] lg:pt-[35px]">
       By Clicking the “Submit Payment” button, you confirm that you have read,
       understand, and accept our Terms of use,{' '}
       <a href="/policies/privacy-policy" className="underline">
