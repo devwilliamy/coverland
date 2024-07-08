@@ -21,12 +21,12 @@ type PaymentSelectorProps = {
 
 const inputStyle = 'min-w-[18px] min-h-[18px] flex';
 
-function isIOS() {
-  const userAgent = navigator.userAgent || navigator.vendor || window.opera;
+// function isIOS() {
+//   const userAgent = navigator.userAgent || navigator.vendor || window.opera;
 
-  // iOS detection
-  return /iPad|iPhone|iPod/.test(userAgent) && !window.MSStream;
-}
+//   // iOS detection
+//   return /iPad|iPhone|iPod/.test(userAgent) && !window.MSStream;
+// }
 
 // if (isIOS()) {
 //   console.log('This is an iOS device');

@@ -10,6 +10,7 @@ import { CustomFieldTypes, ShippingStateType } from './AddressForm';
 import { US_STATES } from '@/lib/constants';
 import { phoneNumberAutoFormat } from '../policy/ContactPage';
 import { cleanPhoneInput } from '@/app/(noFooter)/checkout/utils';
+import parsePhoneNumberFromString from 'libphonenumber-js';
 
 export const CustomTextField = ({
   label,
@@ -198,6 +199,11 @@ export const CustomTextField = ({
 
     // If the number doesn't match any of the expected lengths
     return input;
+
+    // const formattedString = parsePhoneNumberFromString(input as string, 'US');
+    // const nationalPhone = formattedString?.formatNational();
+    // console.log({ formattedString, input, nationalPhone });
+    // return nationalPhone;
   };
 
   const handlePhoneChange = (value: string) => {

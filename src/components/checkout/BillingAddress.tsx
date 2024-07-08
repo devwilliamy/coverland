@@ -52,6 +52,7 @@ export default function BillingAddress({
                 addressData={billingAddress}
                 updateAddress={updateBillingAddress}
                 setIsEditingAddress={setIsEditingAddress}
+                isBilling
               />
             </div>
           ) : (

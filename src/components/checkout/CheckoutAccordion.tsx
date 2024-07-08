@@ -45,8 +45,6 @@ import PayPalButtonSection from './PayPalButtonSection';
 import { generateSkuLabOrderInput } from '@/lib/utils/skuLabs';
 import { handlePurchaseGoogleTag } from '@/hooks/useGoogleTagDataLayer';
 // import PayWithKlarnaWhite from './PayWithKlarnaWhite';
-// import { ReadyCheck } from './ReadyCheck';
-import { getTotalDiscountPrice } from '@/lib/utils/calculations';
 import { SHIPPING_METHOD } from '@/lib/constants';
 import { determineDeliveryByDate } from '@/lib/utils/deliveryDateUtils';
 import { TCartItem } from '@/lib/cart/useCart';
@@ -66,6 +64,7 @@ export default function CheckoutAccordion() {
     clearLocalStorageCart,
     getTotalCartQuantity,
     getOrderSubtotal,
+    getTotalDiscountPrice,
   } = useCartContext();
   const {
     billingAddress,
@@ -123,6 +122,10 @@ export default function CheckoutAccordion() {
     setValue((p) => [...p, value]);
 
   const handleConversions = async (id: any, client_secret: any) => {
+    const formattedPhone = parsePhoneNumberFromString(
+      shippingAddress.phone as string
+    )?.format('E.164');
+
     // SendGrid Thank You Email
     const emailInput = {
       to: customerInfo.email,
@@ -178,6 +181,7 @@ export default function CheckoutAccordion() {
         getSkuQuantityPriceFromCartItemsForMeta(cartItems);
       const eventID = uuidv4();
 
+      console.log({ shippingPhone: formattedPhone });
       const metaCPIEvent = {
         event_name: 'Purchase',
         event_time: Math.floor(Date.now() / 1000),
@@ -185,7 +189,7 @@ export default function CheckoutAccordion() {
         action_source: 'website',
         user_data: {
           em: [hashData(customerInfo.email)],
-          ph: [hashData(shippingAddress.phone || '')],
+          ph: [hashData(formattedPhone || '')],
           ct: [hashData(shippingAddress.address.city || '')],
           country: [hashData(shippingAddress.address.country || '')],
           fn: [hashData(shippingAddress.firstName || '')],
@@ -234,7 +238,7 @@ export default function CheckoutAccordion() {
         window.uetq.push('set', {
           pid: {
             em: customerInfo.email,
-            ph: customerInfo.phoneNumber,
+            ph: formattedPhone,
           },
         });
         window.uetq.push('event', 'purchase', {
@@ -242,7 +246,7 @@ export default function CheckoutAccordion() {
           currency: 'USD',
           pid: {
             em: customerInfo.email,
-            ph: customerInfo.phoneNumber,
+            ph: formattedPhone,
           },
         });
       }
@@ -269,7 +273,7 @@ export default function CheckoutAccordion() {
       // Google Conversion API
       const enhancedGoogleConversionInput = {
         email: customerInfo.email || '',
-        phone_number: shippingAddress.phone || '',
+        phone_number: formattedPhone || '',
         first_name: shippingAddress.firstName || '',
         last_name: shippingAddress.lastName || '',
         address_line1: shippingAddress.address.line1 || '',
@@ -291,71 +295,6 @@ export default function CheckoutAccordion() {
     router.push(
       `/thank-you?order_number=${orderNumber}&payment_intent=${id}&payment_intent_client_secret=${client_secret}`
     );
-  };
-
-  const handleGetTax = async () => {
-    setIsLoading(true);
-    let taxItems = [];
-
-    for (let index = 0; index < cartItems.length; index++) {
-      const item = cartItems[index] as any;
-      taxItems.push({
-        id: item.id ? item.id : index,
-        quantity: item.quantity,
-        unit_price: item.msrp,
-        discount: 0,
-      });
-    }
-
-    const bodyData = {
-      to_country: shippingAddress.address.country,
-      to_zip: shippingAddress.address.postal_code,
-      to_state: twoLetterStateCode,
-      shipping: 0,
-      line_items: taxItems,
-    };
-    const response = await fetch('/api/taxjar/sales-tax', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ bodyData }),
-    });
-
-    const taxRes = await response.json();
-    const amount_to_collect = taxRes?.tax?.amount_to_collect;
-    updateTotalTax(amount_to_collect);
-
-    const taxSum = Number(Number(cartMSRP) + Number(amount_to_collect)).toFixed(
-      2
-    );
-    const totalWithTax = convertPriceToStripeFormat(taxSum);
-
-    if (totalWithTax) {
-      try {
-        elements?.update({
-          amount: totalWithTax,
-          mode: 'payment',
-          currency: 'usd',
-        });
-        await elements?.submit();
-      } catch (error) {
-        console.error(error);
-      }
-    }
-    await fetch('/api/stripe/payment-intent', {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        paymentIntentId,
-        amount: totalWithTax,
-      }),
-    });
-    setIsLoading(false);
-
-    return totalWithTax;
   };
 
   const handleSubmit = async () => {
@@ -409,12 +348,12 @@ export default function CheckoutAccordion() {
       },
     };
 
-    const customerBilling = {
-      address: billingAddress.address,
-      email: customerInfo.email,
-      phone: formattedPhone,
-      name: billingAddress.name,
-    };
+    // const customerBilling = {
+    //   address: billingAddress.address,
+    //   email: customerInfo.email,
+    //   phone: formattedPhone,
+    //   name: billingAddress.name,
+    // };
 
     switch (paymentMethod) {
       case 'creditCard':
@@ -436,162 +375,25 @@ export default function CheckoutAccordion() {
                   error.message ||
                     "There's an error, but could not find error message"
                 );
+                // setIsLoading(false);
               } else {
                 console.error('Error:', error.message);
                 setMessage(error.message || 'An unexpected error occurred.');
+                // setIsLoading(false);
               }
             } else if (
               result.paymentIntent &&
               result.paymentIntent.status === 'succeeded'
             ) {
               handleConversions(id, client_secret);
-
-              // const { id, client_secret } = result.paymentIntent;
-              setIsLoading(false);
-              router.push(
-                `/thank-you?order_number=${orderNumber}&payment_intent=${id}&payment_intent_client_secret=${client_secret}`
-              );
             }
+            setIsLoading(false);
           });
         break;
-      case 'klarna':
-        const klarnaPaymentResult = await stripe.confirmKlarnaPayment(
-          retrievedSecret,
-          {
-            payment_method: {
-              type: 'klarna',
-              billing_details: customerBilling,
-            } as CreatePaymentMethodKlarnaData,
-            return_url: `${origin}/checkout`,
-            shipping: customerShipping,
-          },
-          // Enable if wanting to open new window
-          { handleActions: false }
-        );
-
-        const y =
-          window.outerHeight / 2 + (window.screenY - window.screenY / 2);
-        const x = window.outerWidth / 2 + (window.screenX - window.screenX / 2);
-        const klarnaWindowLeft = window.screenX - window.screenX / 2 + x / 2;
-
-        const klarnaWindow = window.open(
-          'about:blank',
-          'Klarna Payment',
-          `toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no, width=${x}, height=${y}, left=${klarnaWindowLeft}, top=100,`
-        );
-
-        klarnaWindow?.addEventListener('beforeUnload', () => {
-          setIsLoading(false);
-        });
-
-        klarnaWindow?.addEventListener('close', async () => {
-          // console.log('closeD');
-
-          const isSuccessful =
-            (await stripe.retrievePaymentIntent(retrievedSecret)).paymentIntent
-              ?.status === 'succeeded';
-          console.log('Payment window closed.');
-
-          if (isSuccessful) {
-            handleConversions(id, client_secret);
-            router.push(
-              `/thank-you?order_number=${orderNumber}&payment_intent=${id}&payment_intent_client_secret=${client_secret}`
-            );
-          }
-          setIsLoading(false);
-          clearInterval(interval);
-        });
-
-        klarnaWindow?.document.location.replace(
-          String(
-            klarnaPaymentResult.paymentIntent?.next_action?.redirect_to_url?.url
-          )
-        );
-
-        if (!klarnaWindow) {
-          console.log('[NO KLARNA WINDOW]');
-          return;
-        }
-
-        const interval = klarnaWindow.setInterval(async () => {
-          if (
-            klarnaWindow?.location.href &&
-            klarnaWindow?.location.href
-              .toString()
-              .startsWith(`${origin}/checkout`)
-          ) {
-            klarnaWindow.close();
-            setIsLoading(false);
-            clearInterval(interval);
-          }
-          if (klarnaWindow.closed) {
-            const isSuccessful =
-              (await stripe.retrievePaymentIntent(retrievedSecret))
-                .paymentIntent?.status === 'succeeded';
-            console.log('Payment window closed.');
-
-            if (isSuccessful) {
-              handleConversions(id, client_secret);
-              setIsLoading(false);
-              router.push(
-                `/thank-you?order_number=${orderNumber}&payment_intent=${id}&payment_intent_client_secret=${client_secret}`
-              );
-            }
-          }
-        }, 1000);
-
-        break;
-      case 'googlePay' || 'applePay':
-        await stripe.confirmPayment({
-          elements,
-          clientSecret: retrievedSecret,
-          confirmParams: {
-            payment_method_data: {
-              billing_details: {
-                ...customerBilling,
-                address:
-                  customerBilling.address as PaymentMethodCreateParams.BillingDetails.Address,
-              },
-            },
-            shipping: customerShipping,
-          },
-          redirect: 'if_required',
-        });
-        const isSuccessful =
-          (await stripe.retrievePaymentIntent(retrievedSecret)).paymentIntent
-            ?.status === 'succeeded';
-
-        console.log('Payment window closed.');
-        if (isSuccessful) {
-          handleConversions(id, client_secret);
-          setIsLoading(false);
-          router.push(
-            `/thank-you?order_number=${orderNumber}&payment_intent=${id}&payment_intent_client_secret=${client_secret}`
-          );
-        }
       default:
         return;
     }
   };
-
-  useEffect(() => {
-    const updateIntent = async () => {
-      try {
-        elements?.update({
-          amount: 888888,
-          mode: 'payment',
-          paymentMethodTypes: ['klarna', 'card'],
-          currency: 'usd',
-        });
-        await elements?.submit();
-      } catch (error) {
-        console.error(error);
-      }
-    };
-    if (paymentMethod === 'googlePay' || paymentMethod === 'applePay') {
-      updateIntent();
-    }
-  }, [paymentMethod]);
 
   useEffect(() => {
     if ((!isAddressComplete || isEditingAddress) && !isReadyToShip) {
@@ -604,16 +406,6 @@ export default function CheckoutAccordion() {
       setValue(['payment']);
     }
   }, [isReadyToShip, isReadyToPay]);
-
-  // useEffect(() => {
-  //   const useHandleGetTax = async () => {
-  //     // console.log('[Single Handle Get Tax]');
-  //     await handleGetTax();
-  //   };
-  //   if (!isCartEmpty && isReadyToPay) {
-  //     useHandleGetTax();
-  //   }
-  // }, [isCartEmpty, isReadyToPay, shippingAddress, paymentMethod]);
 
   const accordionTriggerStyle = `py-10 font-[500] text-[24px] leading-[12px]`;
 
@@ -628,19 +420,11 @@ export default function CheckoutAccordion() {
       )}
       <div className="flex w-full max-w-[1080px] pt-2 lg:gap-[70px] lg:px-[24px] lg:pt-0 ">
         <div className="flex w-full flex-col lg:w-2/3 ">
-          {isMobile && currentStep === CheckoutStep.CART && (
-            <div className="mb-[32px]">
-              <CartHeader />
-            </div>
-          )}
-          {!isMobile && currentStep === CheckoutStep.CART && (
-            <div className="mb-[42px]">
-              <CartHeader />
-            </div>
-          )}
-
           {currentStep === CheckoutStep.CART ? (
             <>
+              <div className={isMobile ? 'mb-[32px]' : 'mb-[42px]'}>
+                <CartHeader />
+              </div>
               <YourCart />
             </>
           ) : (
@@ -708,21 +492,10 @@ export default function CheckoutAccordion() {
                       <div className="flex flex-col">
                         {paymentMethod === 'creditCard' && (
                           <>
-                            <Separator />
-                            <p className=" pb-[4px] pt-[35px] text-[14px] font-[400] text-[#767676] lg:px-4 lg:pb-[48px]">
-                              By Clicking the “Submit Payment” button, you
-                              confirm that you have read, understand, and accept
-                              our Terms of use,{' '}
-                              <a href="" className="underline">
-                                Privacy Policy,
-                              </a>{' '}
-                              <a href="" className="underline">
-                                Return Policy
-                              </a>
-                            </p>
+                            <TermsOfUseStatement />
                             <Button
                               variant={'default'}
-                              className={`mb-3 w-full self-end rounded-lg bg-black text-base font-bold uppercase text-white sm:h-[48px] lg:h-[55px] lg:max-w-[307px] lg:text-xl`}
+                              className={`mb-[70px] min-h-[48px] w-full self-end rounded-lg bg-black text-base font-bold uppercase text-white lg:min-h-[55px] lg:max-w-[307px] lg:text-xl`}
                               onClick={(e) => {
                                 setIsLoading(true);
                                 handleSubmit();
@@ -768,23 +541,6 @@ export default function CheckoutAccordion() {
                             />
                           </div>
                         )}
-                        {paymentMethod === 'klarna' && (
-                          <Button
-                            variant={'default'}
-                            className={`mb-3 w-full rounded-lg bg-black text-base font-bold uppercase text-white sm:h-[48px] lg:h-[55px] lg:text-xl`}
-                            onClick={(e) => {
-                              setIsLoading(true);
-                              handleSubmit();
-                            }}
-                          >
-                            {isLoading ? (
-                              <AiOutlineLoading3Quarters className="animate-spin" />
-                            ) : (
-                              <></>
-                              // <PayWithKlarnaWhite />
-                            )}
-                          </Button>
-                        )}
                       </div>
                     )}
                   </AccordionContent>
@@ -825,26 +581,10 @@ export default function CheckoutAccordion() {
                         </div>
                         {paymentMethod === 'creditCard' && (
                           <>
-                            <p className="pb-[40px] text-[14px] font-[400] text-[#767676]">
-                              By Clicking the “Submit Payment” button, you
-                              confirm that you have read, understand, and accept
-                              our Terms of use,{' '}
-                              <a
-                                href="/policies/privacy-policy"
-                                className="underline"
-                              >
-                                Privacy Policy,
-                              </a>{' '}
-                              <a
-                                href="/policies/return-policy"
-                                className="underline"
-                              >
-                                Return Policy
-                              </a>
-                            </p>
+                            <TermsOfUseStatement />
                             <Button
                               variant={'default'}
-                              className={`mb-3 w-full rounded-lg bg-black text-base font-bold uppercase text-white sm:h-[48px] lg:h-[55px] lg:text-xl`}
+                              className={`mb-[70px] min-h-[48px] w-full rounded-lg bg-black text-base font-bold uppercase text-white lg:min-h-[55px] lg:text-xl`}
                               onClick={(e) => {
                                 setIsLoading(true);
                                 handleSubmit();
@@ -862,42 +602,6 @@ export default function CheckoutAccordion() {
                           </>
                         )}
                         {paymentMethod === 'paypal' && <PayPalButtonSection />}
-                        {(paymentMethod === 'applePay' ||
-                          paymentMethod === 'googlePay') && (
-                          <ExpressCheckoutElement
-                            options={{
-                              paymentMethodOrder: ['applePay', 'googlePay'],
-                              buttonType: {
-                                applePay: 'order',
-                                googlePay: 'order',
-                              },
-                              wallets:
-                                paymentMethod === 'applePay'
-                                  ? { googlePay: 'never', applePay: 'always' }
-                                  : { googlePay: 'always', applePay: 'never' },
-                            }}
-                            onConfirm={async (e) => {
-                              await handleSubmit();
-                            }}
-                          />
-                        )}
-                        {paymentMethod === 'klarna' && (
-                          <Button
-                            variant={'default'}
-                            className={`mb-3 w-full rounded-lg bg-black text-base font-bold uppercase text-white sm:h-[48px] lg:h-[55px] lg:text-xl`}
-                            onClick={(e) => {
-                              setIsLoading(true);
-                              handleSubmit();
-                            }}
-                          >
-                            {isLoading ? (
-                              <AiOutlineLoading3Quarters className="animate-spin" />
-                            ) : (
-                              <></>
-                              // <PayWithKlarnaWhite />
-                            )}
-                          </Button>
-                        )}
                       </section>
                     </AccordionContent>
                   </AccordionItem>
@@ -916,3 +620,18 @@ export default function CheckoutAccordion() {
     </div>
   );
 }
+
+const TermsOfUseStatement = () => {
+  return (
+    <p className="pb-[40px] text-[14px] font-[400] text-[#767676] lg:px-4 lg:pb-[48px] lg:pt-[35px]">
+      By Clicking the “Submit Payment” button, you confirm that you have read,
+      understand, and accept our Terms of use,{' '}
+      <a href="/policies/privacy-policy" className="underline">
+        Privacy Policy,
+      </a>{' '}
+      <a href="/policies/return-policy" className="underline">
+        Return Policy
+      </a>
+    </p>
+  );
+};
