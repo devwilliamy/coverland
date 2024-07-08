@@ -494,25 +494,27 @@ export default function CheckoutAccordion() {
                         {paymentMethod === 'creditCard' && (
                           <>
                             <TermsOfUseStatement />
-                            <Button
-                              variant={'default'}
-                              className={`mb-[70px] min-h-[48px] w-full self-end rounded-lg bg-black text-base font-bold uppercase text-white lg:min-h-[55px] lg:max-w-[307px] lg:text-xl`}
-                              onClick={(e) => {
-                                setIsLoading(true);
-                                handleSubmit();
-                              }}
-                            >
-                              {isLoading ? (
-                                <AiOutlineLoading3Quarters className="animate-spin" />
-                              ) : (
-                                'Submit Payment'
+                            <div className="mb-[70px] flex flex-col self-end">
+                              {submitErrorMessage && (
+                                <p className="w-full text-center font-[500] text-[red]">
+                                  {submitErrorMessage}
+                                </p>
                               )}
-                            </Button>
-                            {submitErrorMessage && (
-                              <p className="font-[500] text-[red] w-full text-center">
-                                {submitErrorMessage}
-                              </p>
-                            )}
+                              <Button
+                                variant={'default'}
+                                className={` min-h-[48px] w-full min-w-[307px] rounded-lg bg-black text-base font-bold uppercase text-white lg:min-h-[55px] lg:max-w-[307px] lg:text-xl`}
+                                onClick={(e) => {
+                                  setIsLoading(true);
+                                  handleSubmit();
+                                }}
+                              >
+                                {isLoading ? (
+                                  <AiOutlineLoading3Quarters className="animate-spin" />
+                                ) : (
+                                  'Submit Payment'
+                                )}
+                              </Button>
+                            </div>
                           </>
                         )}
                         {paymentMethod === 'paypal' && (
@@ -586,9 +588,10 @@ export default function CheckoutAccordion() {
                           <>
                             <TermsOfUseStatement />
                             {submitErrorMessage && (
-                              <p className="font-[500] text-[red] w-full text-center">
-                              {submitErrorMessage}
-                            </p>)}
+                              <p className="w-full text-center font-[500] text-[red]">
+                                {submitErrorMessage}
+                              </p>
+                            )}
                             <Button
                               variant={'default'}
                               className={`mb-[70px] min-h-[48px] w-full rounded-lg bg-black text-base font-bold uppercase text-white lg:min-h-[55px] lg:text-xl`}
@@ -603,7 +606,6 @@ export default function CheckoutAccordion() {
                                 'Submit Payment'
                               )}
                             </Button>
-                           
                           </>
                         )}
                         {paymentMethod === 'paypal' && <PayPalButtonSection />}
