@@ -94,7 +94,7 @@ export default function CheckoutAccordion() {
   const isCartEmpty = getTotalCartQuantity() === 0;
   const [value, setValue] = useState(['shipping']);
   const [isLoading, setIsLoading] = useState(false);
-  const [message, setMessage] = useState('');
+  const [submitErrorMessage, setSubmitErrorMessage] = useState('');
 
   const shippingInfo = {
     shipping_method: SHIPPING_METHOD,
@@ -170,7 +170,7 @@ export default function CheckoutAccordion() {
       const emailResponse = await response.json(); // Making sure the await goes through and email is sent
     } catch (error) {
       console.error('Error:', error?.message);
-      setMessage(
+      setSubmitErrorMessage(
         error?.message || "There's an error, but could not find error message"
       );
     }
@@ -181,7 +181,6 @@ export default function CheckoutAccordion() {
         getSkuQuantityPriceFromCartItemsForMeta(cartItems);
       const eventID = uuidv4();
 
-      console.log({ shippingPhone: formattedPhone });
       const metaCPIEvent = {
         event_name: 'Purchase',
         event_time: Math.floor(Date.now() / 1000),
@@ -309,7 +308,6 @@ export default function CheckoutAccordion() {
     const origin = window.location.origin;
     const taxSum = Number(Number(cartMSRP) + Number(totalTax)).toFixed(2);
     const totalWithTax = convertPriceToStripeFormat(taxSum);
-    // console.log({ totalWithTax, orderSubtotal, cartMSRP });
 
     const formattedPhone = parsePhoneNumberFromString(
       shippingAddress.phone as string
@@ -371,14 +369,16 @@ export default function CheckoutAccordion() {
                 error.type === 'validation_error'
               ) {
                 console.error('Error:', error.message);
-                setMessage(
+                setSubmitErrorMessage(
                   error.message ||
                     "There's an error, but could not find error message"
                 );
                 // setIsLoading(false);
               } else {
                 console.error('Error:', error.message);
-                setMessage(error.message || 'An unexpected error occurred.');
+                setSubmitErrorMessage(
+                  error.message || 'An unexpected error occurred.'
+                );
                 // setIsLoading(false);
               }
             } else if (
@@ -405,6 +405,7 @@ export default function CheckoutAccordion() {
     if (isReadyToShip && !isReadyToPay) {
       setValue(['payment']);
     }
+    setSubmitErrorMessage('');
   }, [isReadyToShip, isReadyToPay]);
 
   const accordionTriggerStyle = `py-10 font-[500] text-[24px] leading-[12px]`;
@@ -507,8 +508,10 @@ export default function CheckoutAccordion() {
                                 'Submit Payment'
                               )}
                             </Button>
-                            {message && (
-                              <p className="font-[500] text-[red]">{message}</p>
+                            {submitErrorMessage && (
+                              <p className="font-[500] text-[red] w-full text-center">
+                                {submitErrorMessage}
+                              </p>
                             )}
                           </>
                         )}
@@ -582,6 +585,10 @@ export default function CheckoutAccordion() {
                         {paymentMethod === 'creditCard' && (
                           <>
                             <TermsOfUseStatement />
+                            {submitErrorMessage && (
+                              <p className="font-[500] text-[red] w-full text-center">
+                              {submitErrorMessage}
+                            </p>)}
                             <Button
                               variant={'default'}
                               className={`mb-[70px] min-h-[48px] w-full rounded-lg bg-black text-base font-bold uppercase text-white lg:min-h-[55px] lg:text-xl`}
@@ -596,9 +603,7 @@ export default function CheckoutAccordion() {
                                 'Submit Payment'
                               )}
                             </Button>
-                            {message && (
-                              <p className="font-[500] text-[red]">{message}</p>
-                            )}
+                           
                           </>
                         )}
                         {paymentMethod === 'paypal' && <PayPalButtonSection />}
@@ -623,9 +628,9 @@ export default function CheckoutAccordion() {
 
 const TermsOfUseStatement = () => {
   return (
-    <p className="pb-[40px] text-[14px] font-[400] text-[#767676] lg:border-t lg:border-[#DBDBDB] lg:px-4 lg:pb-[48px] lg:pt-[35px]">
-      By Clicking the “Submit Payment” button, you confirm that you have read,
-      understand, and accept our Terms of use,{' '}
+    <p className="pb-[40px] text-[14px] font-[400] text-[#767676] lg:border-t lg:border-[#DBDBDB] lg:pb-[48px] lg:pt-[35px]">
+      By clicking the “Submit Payment” button, you confirm that you have read,
+      understand, and accept our Terms of Use,{' '}
       <a href="/policies/privacy-policy" className="underline">
         Privacy Policy,
       </a>{' '}

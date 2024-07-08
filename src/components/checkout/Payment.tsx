@@ -121,6 +121,10 @@ export default function Payment({
       });
   };
 
+  const handleEditPayment = () => {
+    updateIsReadyToPay(false);
+  };
+
   return (
     <section>
       {/* <div className="mb-10 lg:hidden"><PromoCode /></div> */}
@@ -191,7 +195,7 @@ export default function Payment({
           <div>
             <p
               className="flex max-h-fit cursor-pointer font-[500] underline hover:text-[#0C87B8]"
-              onClick={() => updateIsReadyToPay(false)}
+              onClick={() => handleEditPayment()}
             >
               Edit
             </p>

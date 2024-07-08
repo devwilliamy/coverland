@@ -199,11 +199,6 @@ export const CustomTextField = ({
 
     // If the number doesn't match any of the expected lengths
     return input;
-
-    // const formattedString = parsePhoneNumberFromString(input as string, 'US');
-    // const nationalPhone = formattedString?.formatNational();
-    // console.log({ formattedString, input, nationalPhone });
-    // return nationalPhone;
   };
 
   const handlePhoneChange = (value: string) => {
