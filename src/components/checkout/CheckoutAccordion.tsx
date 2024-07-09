@@ -21,6 +21,7 @@ import { Button } from '../ui/button';
 import { AiOutlineLoading3Quarters } from 'react-icons/ai';
 import {
   ExpressCheckoutElement,
+  PaymentRequestButtonElement,
   useElements,
   useStripe,
 } from '@stripe/react-stripe-js';
@@ -55,6 +56,7 @@ import { useMediaQuery } from '@mantine/hooks';
 import CheckoutSummarySection from './CheckoutSummarySection';
 import OrderReview from './OrderReview';
 import parsePhoneNumberFromString from 'libphonenumber-js';
+import { PaymentRequest } from '@stripe/stripe-js';
 
 export default function CheckoutAccordion() {
   const stripe = useStripe();
@@ -611,6 +613,60 @@ export default function CheckoutAccordion() {
 
   const isMobile = useMediaQuery('(max-width: 1023px)');
 
+  const [paymentRequest, setPaymentRequest] = useState<PaymentRequest | null>(
+    null
+  );
+
+  useEffect(() => {
+    if (stripe && paymentMethod === 'applePay') {
+      const pr = stripe.paymentRequest({
+        country: 'US',
+        currency: 'usd',
+        total: {
+          label: 'Total',
+          amount: 1000,
+        },
+        requestPayerName: true,
+        requestPayerEmail: true,
+        requestPayerPhone: false,
+        disableWallets: ['googlePay', 'browserCard'], // Only allow Apple Pay
+      });
+      console.log({ pr });
+
+      pr.canMakePayment().then((result) => {
+        if (result && result.applePay) {
+          console.log({ pr, result });
+
+          setPaymentRequest(pr);
+        }
+      });
+
+      // pr.on('paymentmethod', async (event) => {
+      //   // Confirm the PaymentIntent with the payment method returned from the payment request
+      //   const { error, paymentIntent } = await stripe.confirmCardPayment(
+      //     'your-client-secret-from-backend',
+      //     { payment_method: event.paymentMethod.id },
+      //     { handleActions: false }
+      //   );
+
+      //   if (error) {
+      //     event.complete('fail');
+      //   } else {
+      //     event.complete('success');
+      //     if (paymentIntent.status === 'requires_action') {
+      //       // Handle next actions if necessary (e.g., 3D Secure authentication)
+      //       const { error: errorAction } = await stripe.confirmCardPayment(
+      //         'your-client-secret-from-backend'
+      //       );
+      //       if (errorAction) {
+      //         console.error(errorAction);
+      //       }
+      //     }
+      //   }
+      // });
+    }
+  }, [stripe, paymentMethod]);
+
   return (
     <div className="flex w-full flex-col items-center">
       {!isMobile && currentStep !== CheckoutStep.CART && (
@@ -857,25 +913,39 @@ export default function CheckoutAccordion() {
                           </>
                         )}
                         {paymentMethod === 'paypal' && <PayPalButtonSection />}
-                        {(paymentMethod === 'applePay' ||
-                          paymentMethod === 'googlePay') && (
-                          <ExpressCheckoutElement
-                            className="pb-3"
-                            options={{
-                              paymentMethodOrder: ['applePay', 'googlePay'],
-                              buttonType: {
-                                applePay: 'order',
-                                googlePay: 'order',
-                              },
-                              wallets:
-                                paymentMethod === 'applePay'
-                                  ? { googlePay: 'never', applePay: 'always' }
-                                  : { googlePay: 'always', applePay: 'never' },
-                            }}
-                            onConfirm={async (e) => {
-                              await handleSubmit();
-                            }}
-                          />
+                        {
+                          // paymentMethod === 'applePay' ||
+                          paymentMethod === 'googlePay' && (
+                            <ExpressCheckoutElement
+                              className="pb-3"
+                              options={{
+                                paymentMethodOrder: ['applePay', 'googlePay'],
+                                buttonType: {
+                                  applePay: 'order',
+                                  googlePay: 'order',
+                                },
+                                wallets:
+                                  paymentMethod === 'googlePay'
+                                    ? { googlePay: 'always', applePay: 'never' }
+                                    : {
+                                        googlePay: 'never',
+                                        applePay: 'always',
+                                      },
+                              }}
+                              onConfirm={async (e) => {
+                                await handleSubmit();
+                              }}
+                            />
+                          )
+                        }
+                        {paymentMethod === 'applePay' && (
+                          <>
+                            {paymentRequest && (
+                              <PaymentRequestButtonElement
+                                options={{ paymentRequest }}
+                              />
+                            )}
+                          </>
                         )}
                         {paymentMethod === 'klarna' && (
                           <Button
