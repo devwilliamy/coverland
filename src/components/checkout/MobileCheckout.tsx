@@ -499,12 +499,22 @@ export default function MobileCheckout() {
       setValue(['shipping']);
     }
   }, [isAddressComplete, isEditingAddress, isReadyToShip]);
-
+  useEffect(() => {
+    console.log('Stripe:', stripe);
+    console.log('Elements:', elements);
+  }, [stripe, elements]);
   useEffect(() => {
     if (isReadyToShip && !isReadyToPay) {
       setValue(['payment']);
     }
   }, [isReadyToShip, isReadyToPay]);
+
+  useEffect(() => {
+    console.log('Payment Method:', paymentMethod);
+  }, [paymentMethod]);
+  useEffect(() => {
+    console.log('Client Secret:', clientSecret);
+  }, [clientSecret]);
 
   return (
     <>
