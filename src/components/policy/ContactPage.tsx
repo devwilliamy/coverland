@@ -38,7 +38,7 @@ const contactGrid = [
     ),
   },
   { img: Chat, text: 'Live Chat' },
-  { img: Phone, text: '(800)-799-5165' },
+  { img: Phone, text: '(888)-694-9915' },
   { img: Mail, text: 'info@coverland.com' },
 ];
 type validObj = {
@@ -220,7 +220,7 @@ export default function ContactPage() {
         });
         break;
       case Phone:
-        return (window.location.href = 'tel:8007995165');
+        return (window.location.href = 'tel:8886949915');
       case Chat:
         if (visible === 'hidden' || visible === 'minimized') {
           return setVisible('maximized');
