@@ -46,6 +46,7 @@ export interface ISeatCoverCoverSelectionState extends ISeatCoverCoverProps {
   selectedSetDisplay: string;
   setAvailableColors: (availableColors: string[]) => void
   setSelectedSetDisplay: (selectedSet: string) => void;
+  // setPreorder: ({preorder: boolean, preorder_date?: Date, preorder_discount?: number}) => void;
 }
 
 type SeatCoverSelectionStoreParams = {

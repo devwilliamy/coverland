@@ -45,6 +45,11 @@ export default function SeatContent({
   const [newMSRP, setNewMSRP] = useState<number | null>(selectedProduct.msrp);
   const [loading, setLoading] = useState(false);
 
+  const [preorder, setPreorder] = useState(false);
+  const [preorder_date, setPreorderDate] = useState(null);
+  const [preorder_discount, setPreorderDiscount] = useState(null);
+
+
   useEffect(() => {
     setLoading(true);
     const checkLowQuantity = async () => {
@@ -59,6 +64,13 @@ export default function SeatContent({
 
     setLoading(false);
   }, [selectedProduct]);
+
+  useEffect(() => {
+    setPreorder(selectedProduct?.preorder);
+    setPreorderDate(selectedProduct?.preorder_date);
+    setPreorderDiscount(selectedProduct?.preorder_discount);
+    console.log(selectedProduct);
+  }, [selectedProduct])
 
   const handleAddToCart = () => {
     if (newMSRP !== 0) {

@@ -1120,6 +1120,186 @@ export type Database = {
         }
         Relationships: []
       }
+      fix_full_set_seat_cover_20240621: {
+        Row: {
+          banner: string | null
+          display_color: string | null
+          display_id: string | null
+          display_set: string | null
+          feature: string | null
+          id: number
+          make: string | null
+          make_slug: string | null
+          model: string | null
+          model_slug: string | null
+          msrp: number | null
+          parent_generation: string | null
+          price: number | null
+          product: string | null
+          product_video_360: string | null
+          product_video_carousel: string | null
+          product_video_carousel_thumbnail: string | null
+          product_video_zoom: string | null
+          quantity: string | null
+          sku: string | null
+          "skulabs sku": string | null
+          submodel1: string | null
+          submodel2: string | null
+          submodel3: string | null
+          type: string | null
+          year_generation: string | null
+          year_options: string | null
+        }
+        Insert: {
+          banner?: string | null
+          display_color?: string | null
+          display_id?: string | null
+          display_set?: string | null
+          feature?: string | null
+          id: number
+          make?: string | null
+          make_slug?: string | null
+          model?: string | null
+          model_slug?: string | null
+          msrp?: number | null
+          parent_generation?: string | null
+          price?: number | null
+          product?: string | null
+          product_video_360?: string | null
+          product_video_carousel?: string | null
+          product_video_carousel_thumbnail?: string | null
+          product_video_zoom?: string | null
+          quantity?: string | null
+          sku?: string | null
+          "skulabs sku"?: string | null
+          submodel1?: string | null
+          submodel2?: string | null
+          submodel3?: string | null
+          type?: string | null
+          year_generation?: string | null
+          year_options?: string | null
+        }
+        Update: {
+          banner?: string | null
+          display_color?: string | null
+          display_id?: string | null
+          display_set?: string | null
+          feature?: string | null
+          id?: number
+          make?: string | null
+          make_slug?: string | null
+          model?: string | null
+          model_slug?: string | null
+          msrp?: number | null
+          parent_generation?: string | null
+          price?: number | null
+          product?: string | null
+          product_video_360?: string | null
+          product_video_carousel?: string | null
+          product_video_carousel_thumbnail?: string | null
+          product_video_zoom?: string | null
+          quantity?: string | null
+          sku?: string | null
+          "skulabs sku"?: string | null
+          submodel1?: string | null
+          submodel2?: string | null
+          submodel3?: string | null
+          type?: string | null
+          year_generation?: string | null
+          year_options?: string | null
+        }
+        Relationships: []
+      }
+      ford_bronco_fix: {
+        Row: {
+          banner: string | null
+          display_color: string | null
+          display_id: string | null
+          display_set: string | null
+          feature: string | null
+          id: number
+          make: string | null
+          make_slug: string | null
+          model: string | null
+          model_slug: string | null
+          msrp: number | null
+          parent_generation: string | null
+          price: number | null
+          product: string | null
+          product_video_360: string | null
+          product_video_carousel: string | null
+          product_video_carousel_thumbnail: string | null
+          product_video_zoom: string | null
+          quantity: number | null
+          sku: string | null
+          "skulabs SKU": string | null
+          submodel1: string | null
+          submodel2: string | null
+          submodel3: string | null
+          type: string | null
+          year_generation: string | null
+          year_options: string | null
+        }
+        Insert: {
+          banner?: string | null
+          display_color?: string | null
+          display_id?: string | null
+          display_set?: string | null
+          feature?: string | null
+          id: number
+          make?: string | null
+          make_slug?: string | null
+          model?: string | null
+          model_slug?: string | null
+          msrp?: number | null
+          parent_generation?: string | null
+          price?: number | null
+          product?: string | null
+          product_video_360?: string | null
+          product_video_carousel?: string | null
+          product_video_carousel_thumbnail?: string | null
+          product_video_zoom?: string | null
+          quantity?: number | null
+          sku?: string | null
+          "skulabs SKU"?: string | null
+          submodel1?: string | null
+          submodel2?: string | null
+          submodel3?: string | null
+          type?: string | null
+          year_generation?: string | null
+          year_options?: string | null
+        }
+        Update: {
+          banner?: string | null
+          display_color?: string | null
+          display_id?: string | null
+          display_set?: string | null
+          feature?: string | null
+          id?: number
+          make?: string | null
+          make_slug?: string | null
+          model?: string | null
+          model_slug?: string | null
+          msrp?: number | null
+          parent_generation?: string | null
+          price?: number | null
+          product?: string | null
+          product_video_360?: string | null
+          product_video_carousel?: string | null
+          product_video_carousel_thumbnail?: string | null
+          product_video_zoom?: string | null
+          quantity?: number | null
+          sku?: string | null
+          "skulabs SKU"?: string | null
+          submodel1?: string | null
+          submodel2?: string | null
+          submodel3?: string | null
+          type?: string | null
+          year_generation?: string | null
+          year_options?: string | null
+        }
+        Relationships: []
+      }
       Make: {
         Row: {
           created_at: string
@@ -1822,6 +2002,195 @@ export type Database = {
           model_slug?: string | null
           msrp?: number | null
           parent_generation?: string | null
+          price?: number | null
+          product?: string | null
+          product_video_360?: string | null
+          product_video_carousel?: string | null
+          product_video_carousel_thumbnail?: string | null
+          product_video_zoom?: string | null
+          quantity?: string | null
+          sku?: string | null
+          "skulabs SKU"?: string | null
+          submodel1?: string | null
+          submodel2?: string | null
+          submodel3?: string | null
+          type?: string | null
+          year_generation?: string | null
+          year_options?: string | null
+        }
+        Relationships: []
+      }
+      Products_duplicate_20240625: {
+        Row: {
+          banner: string | null
+          display_color: string | null
+          display_id: string | null
+          display_set: string | null
+          feature: string | null
+          id: number
+          make: string | null
+          make_slug: string | null
+          model: string | null
+          model_slug: string | null
+          msrp: number | null
+          parent_generation: string | null
+          price: number | null
+          product: string | null
+          product_video_360: string | null
+          product_video_carousel: string | null
+          product_video_carousel_thumbnail: string | null
+          product_video_zoom: string | null
+          quantity: string | null
+          sku: string | null
+          "skulabs SKU": string | null
+          submodel1: string | null
+          submodel2: string | null
+          submodel3: string | null
+          type: string | null
+          year_generation: string | null
+          year_options: string | null
+        }
+        Insert: {
+          banner?: string | null
+          display_color?: string | null
+          display_id?: string | null
+          display_set?: string | null
+          feature?: string | null
+          id: number
+          make?: string | null
+          make_slug?: string | null
+          model?: string | null
+          model_slug?: string | null
+          msrp?: number | null
+          parent_generation?: string | null
+          price?: number | null
+          product?: string | null
+          product_video_360?: string | null
+          product_video_carousel?: string | null
+          product_video_carousel_thumbnail?: string | null
+          product_video_zoom?: string | null
+          quantity?: string | null
+          sku?: string | null
+          "skulabs SKU"?: string | null
+          submodel1?: string | null
+          submodel2?: string | null
+          submodel3?: string | null
+          type?: string | null
+          year_generation?: string | null
+          year_options?: string | null
+        }
+        Update: {
+          banner?: string | null
+          display_color?: string | null
+          display_id?: string | null
+          display_set?: string | null
+          feature?: string | null
+          id?: number
+          make?: string | null
+          make_slug?: string | null
+          model?: string | null
+          model_slug?: string | null
+          msrp?: number | null
+          parent_generation?: string | null
+          price?: number | null
+          product?: string | null
+          product_video_360?: string | null
+          product_video_carousel?: string | null
+          product_video_carousel_thumbnail?: string | null
+          product_video_zoom?: string | null
+          quantity?: string | null
+          sku?: string | null
+          "skulabs SKU"?: string | null
+          submodel1?: string | null
+          submodel2?: string | null
+          submodel3?: string | null
+          type?: string | null
+          year_generation?: string | null
+          year_options?: string | null
+        }
+        Relationships: []
+      }
+      Products_preorder_duplicate: {
+        Row: {
+          banner: string | null
+          display_color: string | null
+          display_id: string | null
+          display_set: string | null
+          feature: string | null
+          id: number
+          make: string | null
+          make_slug: string | null
+          model: string | null
+          model_slug: string | null
+          msrp: number | null
+          parent_generation: string | null
+          preorder: boolean | null
+          preorder_date: string | null
+          preorder_discount: number | null
+          price: number | null
+          product: string | null
+          product_video_360: string | null
+          product_video_carousel: string | null
+          product_video_carousel_thumbnail: string | null
+          product_video_zoom: string | null
+          quantity: string | null
+          sku: string | null
+          "skulabs SKU": string | null
+          submodel1: string | null
+          submodel2: string | null
+          submodel3: string | null
+          type: string | null
+          year_generation: string | null
+          year_options: string | null
+        }
+        Insert: {
+          banner?: string | null
+          display_color?: string | null
+          display_id?: string | null
+          display_set?: string | null
+          feature?: string | null
+          id: number
+          make?: string | null
+          make_slug?: string | null
+          model?: string | null
+          model_slug?: string | null
+          msrp?: number | null
+          parent_generation?: string | null
+          preorder?: boolean | null
+          preorder_date?: string | null
+          preorder_discount?: number | null
+          price?: number | null
+          product?: string | null
+          product_video_360?: string | null
+          product_video_carousel?: string | null
+          product_video_carousel_thumbnail?: string | null
+          product_video_zoom?: string | null
+          quantity?: string | null
+          sku?: string | null
+          "skulabs SKU"?: string | null
+          submodel1?: string | null
+          submodel2?: string | null
+          submodel3?: string | null
+          type?: string | null
+          year_generation?: string | null
+          year_options?: string | null
+        }
+        Update: {
+          banner?: string | null
+          display_color?: string | null
+          display_id?: string | null
+          display_set?: string | null
+          feature?: string | null
+          id?: number
+          make?: string | null
+          make_slug?: string | null
+          model?: string | null
+          model_slug?: string | null
+          msrp?: number | null
+          parent_generation?: string | null
+          preorder?: boolean | null
+          preorder_date?: string | null
+          preorder_discount?: number | null
           price?: number | null
           product?: string | null
           product_video_360?: string | null
@@ -2737,6 +3106,20 @@ export type Database = {
               wallet_type: string | null
             }[]
           }
+      get_current_user_and_timeout: {
+        Args: Record<PropertyKey, never>
+        Returns: {
+          user_name: string
+          statement_timeout: string
+        }[]
+      }
+      get_current_user_and_timeout_and_set_timeout: {
+        Args: Record<PropertyKey, never>
+        Returns: {
+          user_name: string
+          statement_timeout: string
+        }[]
+      }
       get_distinct_makes_by_type: {
         Args: {
           type: string
@@ -2783,14 +3166,35 @@ export type Database = {
       }
       get_distinct_review_images: {
         Args: {
+          p_table_name: string
           p_type?: string
           p_make_slug?: string
           p_model_slug?: string
           p_parent_generation?: string
         }
         Returns: {
+          rating_stars: number
           helpful: number
+          reviewed_at: string
+          gpt_review_id: string
+          model: string
+          year_generation: string
+          submodel1: string
+          submodel2: string
+          mirror: string
+          review_description: string
+          make_slug: string
+          review_title: string
+          review_author: string
           review_image: string
+          model_slug: string
+          size: string
+          sku: string
+          parent_generation: string
+          product_type: string
+          product_name: string
+          type: string
+          make: string
         }[]
       }
       get_distinct_review_images_20240619: {
@@ -2802,8 +3206,34 @@ export type Database = {
           p_parent_generation?: string
         }
         Returns: {
+          rating_stars: number
           helpful: number
+          reviewed_at: string
+          gpt_review_id: string
+          model: string
+          year_generation: string
+          submodel1: string
+          submodel2: string
+          mirror: string
+          review_description: string
+          make_slug: string
+          review_title: string
+          review_author: string
           review_image: string
+          model_slug: string
+          size: string
+          sku: string
+          parent_generation: string
+          product_type: string
+          product_name: string
+          type: string
+          make: string
+        }[]
+      }
+      get_distinct_sku_lab_skus: {
+        Args: Record<PropertyKey, never>
+        Returns: {
+          "skulabs SKU": string
         }[]
       }
       get_distinct_year_generation_by_type_make_model_year: {
@@ -2896,6 +3326,7 @@ export type Database = {
       }
       get_product_reviews_summary: {
         Args: {
+          table_name: string
           type?: string
           make?: string
           model?: string
@@ -2955,6 +3386,10 @@ export type Database = {
           year_options: string
           display_set: string
         }[]
+      }
+      get_statement_timeout: {
+        Args: Record<PropertyKey, never>
+        Returns: string
       }
       get_unique_years: {
         Args: {
