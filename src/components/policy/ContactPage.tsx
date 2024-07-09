@@ -11,6 +11,7 @@ import { Separator } from '@/components/ui/separator';
 import { ChangeEvent, useContext, useState } from 'react';
 import PolicyTabs from '@/components/policy/PolicyTabs';
 import PolicyHeader from '@/components/policy/PolicyHeader';
+import { useLiveChatContext } from '@/contexts/LiveChatContext';
 import { AiOutlineLoading3Quarters } from 'react-icons/ai';
 
 const raleway = Raleway({
@@ -38,7 +39,7 @@ const contactGrid = [
     ),
   },
   { img: Chat, text: 'Live Chat' },
-  { img: Phone, text: '(888)-694-9915' },
+  { img: Phone, text: '(800)-799-5165' },
   { img: Mail, text: 'info@coverland.com' },
 ];
 type validObj = {
@@ -83,6 +84,7 @@ export default function ContactPage() {
   const [errorFromServer, setErrorFromServer] = useState<
     string | null | undefined
   >();
+  const { visible, setVisible } = useLiveChatContext();
 
   const validateEmail = (e: ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
@@ -220,7 +222,7 @@ export default function ContactPage() {
         });
         break;
       case Phone:
-        return (window.location.href = 'tel:8886949915');
+        return (window.location.href = 'tel:8007995165');
       case Chat:
         if (visible === 'hidden' || visible === 'minimized') {
           return setVisible('maximized');
