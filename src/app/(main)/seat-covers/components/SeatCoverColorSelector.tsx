@@ -113,7 +113,7 @@ export default function SeatCoverColorSelector({
             {allOutOfStock(getModelDataBySet)
               ? 'Out of Stock'
               : !availableColors.includes(selectedColor.toLowerCase()) ||
-                  selectedProduct.preorder
+                  selectedProduct.preorder && isFinalSelection // only displays Pre-Order if we are in a final selection product page such as seat-covers/leather/make/model/year and the selected product has preorder set to true
                 ? `${selectedColor.charAt(0).toUpperCase()}${selectedColor.slice(1)} (Pre-Order)`
                 : selectedColor.charAt(0).toUpperCase() +
                   selectedColor.slice(1)}
