@@ -28,6 +28,15 @@ function isIOS() {
   return /iPad|iPhone|iPod/.test(userAgent) && !window.MSStream;
 }
 
+const isMacOS = () => {
+  console.log(
+    '[CHECKING If MAC]',
+    navigator.platform.toUpperCase().indexOf('MAC')
+  );
+
+  return navigator.platform.toUpperCase().indexOf('MAC') >= 0;
+};
+
 // if (isIOS()) {
 //   console.log('This is an iOS device');
 // } else {
@@ -73,7 +82,7 @@ const PaymentSelector: React.FC<PaymentSelectorProps> = ({
         />
         <PayPalIcon />
       </div>
-      {isIOS() && (
+      {(isIOS() || isMacOS()) && (
         <div className={selctionStyle}>
           <input
             type="radio"
@@ -99,19 +108,6 @@ const PaymentSelector: React.FC<PaymentSelectorProps> = ({
         />
         <GooglePayIcon />
       </div>
-      {/* <div className={selctionStyle}>
-        <input
-          type="radio"
-          id="klarnaInput"
-          name="paymentMethod"
-          value="klarna"
-          checked={selectedPaymentMethod === 'klarna'}
-          onChange={() => onPaymentMethodChange('klarna')}
-          className={inputStyle}
-        />
-        <KlarnaIcon />
-        <h2 className="w-full text-left"> 4 interest-free payments</h2>
-      </div> */}
     </div>
   );
 };
