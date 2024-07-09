@@ -38,14 +38,15 @@ export default function SeatCoverSelection() {
     availableSeatCoversFiltered: TSeatCoverDataDB[]
   ): string[] => {
     return availableSeatCoversFiltered
-      .filter((seatCover) => seatCover.quantity !== '0')
+      // .filter((seatCover) => seatCover.quantity !== '0')
       .map((seatCover) => seatCover.display_color?.toLowerCase() as string)
       .filter((color, index, self) => self.indexOf(color) === index)
       .filter((color) => ['gray', 'black', 'beige'].includes(color as string));
   };
 
   const isAllOutOfStock = (availableSeats: TSeatCoverDataDB[]): boolean => {
-    return availableSeats.every((seatCover) => seatCover.quantity === '0');
+    // return availableSeats.every((seatCover) => seatCover.quantity === '0');
+    return;
   };
 
   function handleSeatSelected(type: string) {

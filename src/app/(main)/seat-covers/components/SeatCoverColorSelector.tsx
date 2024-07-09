@@ -67,7 +67,8 @@ export default function SeatCoverColorSelector({
   ).map((color) => modelData.find((model) => model.display_color === color));
 
   const allOutOfStock = (availableSeats: TSeatCoverDataDB[]) => {
-    return availableSeats.every((seatCover) => seatCover.quantity === '0');
+    return;
+    // return availableSeats.every((seatCover) => seatCover.quantity === '0');
   };
 
   useEffect(() => {
@@ -112,8 +113,8 @@ export default function SeatCoverColorSelector({
             {allOutOfStock(getModelDataBySet)
               ? 'Out of Stock'
               : !availableColors.includes(selectedColor.toLowerCase()) ||
-                  selectedProduct.quantity === '0'
-                ? `${selectedColor.charAt(0).toUpperCase()}${selectedColor.slice(1)} - Out of Stock`
+                  selectedProduct.preorder
+                ? `${selectedColor.charAt(0).toUpperCase()}${selectedColor.slice(1)} (Pre-Order)`
                 : selectedColor.charAt(0).toUpperCase() +
                   selectedColor.slice(1)}
           </span>
