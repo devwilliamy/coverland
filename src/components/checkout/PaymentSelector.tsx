@@ -23,6 +23,10 @@ function isIOS() {
   return /iPad|iPhone|iPod/.test(userAgent) && !window.MSStream;
 }
 
+const isMacOS = () => {
+  return navigator.platform.toUpperCase().indexOf('MAC') >= 0;
+};
+
 // if (isIOS()) {
 //   console.log('This is an iOS device');
 // } else {
@@ -68,7 +72,7 @@ const PaymentSelector: React.FC<PaymentSelectorProps> = ({
         />
         <PayPalIcon />
       </div>
-      {isIOS() && (
+      {(isIOS() || isMacOS()) && (
         <div className={selctionStyle}>
           <input
             type="radio"
