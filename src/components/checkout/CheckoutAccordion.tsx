@@ -392,94 +392,6 @@ export default function CheckoutAccordion() {
             }
           });
         break;
-      // case 'klarna':
-      //   const klarnaPaymentResult = await stripe.confirmKlarnaPayment(
-      //     retrievedSecret,
-      //     {
-      //       payment_method: {
-      //         type: 'klarna',
-      //         billing_details: customerBilling,
-      //       } as CreatePaymentMethodKlarnaData,
-      //       return_url: `${origin}/checkout`,
-      //       shipping: customerShipping,
-      //     },
-      //     // Enable if wanting to open new window
-      //     { handleActions: false }
-      //   );
-
-      //   const y =
-      //     window.outerHeight / 2 + (window.screenY - window.screenY / 2);
-      //   const x = window.outerWidth / 2 + (window.screenX - window.screenX / 2);
-      //   const klarnaWindowLeft = window.screenX - window.screenX / 2 + x / 2;
-
-      //   const klarnaWindow = window.open(
-      //     'about:blank',
-      //     'Klarna Payment',
-      //     `toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no, width=${x}, height=${y}, left=${klarnaWindowLeft}, top=100,`
-      //   );
-
-      //   klarnaWindow?.addEventListener('beforeUnload', () => {
-      //     setIsLoading(false);
-      //   });
-
-      //   klarnaWindow?.addEventListener('close', async () => {
-      //     // console.log('closeD');
-
-      //     const isSuccessful =
-      //       (await stripe.retrievePaymentIntent(retrievedSecret)).paymentIntent
-      //         ?.status === 'succeeded';
-      //     console.log('Payment window closed.');
-
-      //     if (isSuccessful) {
-      //       handleConversions(id, client_secret);
-      //       router.push(
-      //         `/thank-you?order_number=${orderNumber}&payment_intent=${id}&payment_intent_client_secret=${client_secret}`
-      //       );
-      //     }
-      //     setIsLoading(false);
-      //     clearInterval(interval);
-      //   });
-
-      //   klarnaWindow?.document.location.replace(
-      //     String(
-      //       klarnaPaymentResult.paymentIntent?.next_action?.redirect_to_url?.url
-      //     )
-      //   );
-
-      //   if (!klarnaWindow) {
-      //     console.log('[NO KLARNA WINDOW]');
-      //     return;
-      //   }
-
-      //   const interval = klarnaWindow.setInterval(async () => {
-      //     if (
-      //       klarnaWindow?.location.href &&
-      //       klarnaWindow?.location.href
-      //         .toString()
-      //         .startsWith(`${origin}/checkout`)
-      //     ) {
-      //       klarnaWindow.close();
-      //       setIsLoading(false);
-      //       clearInterval(interval);
-      //     }
-      //     if (klarnaWindow.closed) {
-      //       const isSuccessful =
-      //         (await stripe.retrievePaymentIntent(retrievedSecret))
-      //           .paymentIntent?.status === 'succeeded';
-      //       console.log('Payment window closed.');
-
-      //       if (isSuccessful) {
-      //         handleConversions(id, client_secret);
-      //         setIsLoading(false);
-      //         router.push(
-      //           `/thank-you?order_number=${orderNumber}&payment_intent=${id}&payment_intent_client_secret=${client_secret}`
-      //         );
-      //       }
-      //     }
-      //   }, 1000);
-
-      //   break;
-
       case 'googlePay' || 'applePay':
         await stripe.confirmPayment({
           elements,
@@ -513,26 +425,34 @@ export default function CheckoutAccordion() {
     }
   };
 
-  // useEffect(() => {
-  //   const updateIntent = async () => {
-  //     try {
-  //       const res = elements?.update({
-  //         amount: 888888,
-  //         mode: 'payment',
-  //         paymentMethodTypes: ['klarna', 'card'],
-  //         currency: 'usd',
-  //       });
-  //       console.log(res);
+  useEffect(() => {
+    if (!stripe || !elements) {
+      return;
+    }
 
-  //       await elements?.submit();
-  //     } catch (error) {
-  //       console.error(error);
-  //     }
-  //   };
-  //   if (paymentMethod === 'googlePay' || paymentMethod === 'applePay') {
-  //     updateIntent();
-  //   }
-  // }, [paymentMethod]);
+    const updateIntent = async () => {
+      const res = await stripe.retrievePaymentIntent(clientSecret);
+      console.log('[BFORE USE EFFECT UPDATE INTENT]', res);
+      try {
+        elements?.update({
+          amount: 888888,
+          mode: 'payment',
+          paymentMethodTypes: ['klarna', 'card'],
+          currency: 'usd',
+        });
+
+        const res = await stripe.retrievePaymentIntent(clientSecret);
+        console.log('[AFTER USE EFFECT UPDATE INTENT]', res);
+
+        await elements?.submit();
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    if (paymentMethod === 'googlePay' || paymentMethod === 'applePay') {
+      updateIntent();
+    }
+  }, [paymentMethod, stripe, elements]);
 
   useEffect(() => {
     if ((!isAddressComplete || isEditingAddress) && !isReadyToShip) {
@@ -913,29 +833,26 @@ export default function CheckoutAccordion() {
                           </>
                         )}
                         {paymentMethod === 'paypal' && <PayPalButtonSection />}
-                        {paymentMethod === 'applePay' ||
-                          (paymentMethod === 'googlePay' && (
-                            <ExpressCheckoutElement
-                              className="pb-3"
-                              options={{
-                                paymentMethodOrder: ['applePay', 'googlePay'],
-                                buttonType: {
-                                  applePay: 'order',
-                                  googlePay: 'order',
-                                },
-                                wallets:
-                                  paymentMethod === 'googlePay'
-                                    ? { googlePay: 'always', applePay: 'never' }
-                                    : {
-                                        googlePay: 'never',
-                                        applePay: 'always',
-                                      },
-                              }}
-                              onConfirm={async (e) => {
-                                await handleSubmit();
-                              }}
-                            />
-                          ))}
+                        {(paymentMethod === 'applePay' ||
+                          paymentMethod === 'googlePay') && (
+                          <ExpressCheckoutElement
+                            className="pb-3"
+                            options={{
+                              paymentMethodOrder: ['applePay', 'googlePay'],
+                              buttonType: {
+                                applePay: 'order',
+                                googlePay: 'order',
+                              },
+                              wallets:
+                                paymentMethod === 'applePay'
+                                  ? { googlePay: 'never', applePay: 'always' }
+                                  : { googlePay: 'always', applePay: 'never' },
+                            }}
+                            onConfirm={async (e) => {
+                              await handleSubmit();
+                            }}
+                          />
+                        )}
                         {paymentMethod === 'applePay' && (
                           <>
                             {paymentRequest && (
