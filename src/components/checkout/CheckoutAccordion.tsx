@@ -913,9 +913,8 @@ export default function CheckoutAccordion() {
                           </>
                         )}
                         {paymentMethod === 'paypal' && <PayPalButtonSection />}
-                        {
-                          // paymentMethod === 'applePay' ||
-                          paymentMethod === 'googlePay' && (
+                        {paymentMethod === 'applePay' ||
+                          (paymentMethod === 'googlePay' && (
                             <ExpressCheckoutElement
                               className="pb-3"
                               options={{
@@ -936,8 +935,7 @@ export default function CheckoutAccordion() {
                                 await handleSubmit();
                               }}
                             />
-                          )
-                        }
+                          ))}
                         {paymentMethod === 'applePay' && (
                           <>
                             {paymentRequest && (
