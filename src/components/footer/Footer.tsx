@@ -14,6 +14,7 @@ import {
   VimeoCard,
   VisaCard,
 } from '@/components/PDP/images/cards';
+import LiveChat from '@/components/LiveChat';
 import { FaYoutube } from 'react-icons/fa';
 import { PiInstagramLogoFill } from 'react-icons/pi';
 import { ReactNode } from 'react';
@@ -172,6 +173,7 @@ const Footer = () => {
           </div>
         </div>
       </div>
+      <LiveChat />
     </footer>
   );
 };
