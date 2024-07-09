@@ -91,12 +91,12 @@ const Footer = () => {
               </li>
               <li className="mb-4 text-white">
                 <Link
-                  href="tel:888-694-9915"
+                  href="tel:800-799-5165"
                   target="_blank"
                   className="flex flex-row items-center justify-center"
                 >
                   <p className="hover-underline-animation text-2xl font-extrabold uppercase lg:text-xl">
-                    1-888-694-9915
+                    1-800-799-5165
                   </p>
                 </Link>
               </li>
