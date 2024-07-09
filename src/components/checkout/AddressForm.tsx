@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { MouseEvent, useEffect, useState } from 'react';
 import { Button } from '../ui/button';
 import { CustomerInfo, useCheckoutContext } from '@/contexts/CheckoutContext';
 import { StripeAddress } from '@/lib/types/checkout';
@@ -129,7 +129,9 @@ export default function AddressForm({
   }, [addressData, customerInfo]);
 
   useEffect(() => {
-    console.log("----------------------------REFRESHED----------------------------")
+    console.log(
+      '----------------------------REFRESHED----------------------------'
+    );
   }, []);
 
   // useEffect(() => {
@@ -147,11 +149,36 @@ export default function AddressForm({
     return false;
   };
 
+  function handleSaveAndContinue(e: MouseEvent<HTMLButtonElement>) {
+    e.preventDefault();
+    const incStripeAddress = {
+      firstName: shippingState.firstName.value,
+      lastName: shippingState.lastName.value,
+      name: shippingState.firstName.value + ' ' + shippingState.lastName.value,
+      phone: shippingState.phoneNumber.value,
+      address: {
+        city: shippingState.city.value,
+        line1: shippingState.line1.value,
+        line2: shippingState.line2.value,
+        postal_code: shippingState.postal_code.value,
+        state: shippingState.state.value,
+        country: 'US',
+      },
+    };
+
+    const incCustomerInfo = {
+      email: shippingState.email.value,
+      phoneNumber: shippingState.phoneNumber.value,
+    } as CustomerInfo;
+
+    updateAddress(incStripeAddress as StripeAddress);
+    updateCustomerInfo(incCustomerInfo);
+    setIsEditingAddress(false);
+  }
+
   return (
     <form
-      onSubmit={(e) => {
-        e.preventDefault();
-      }}
+      onSubmit={(e) => e.preventDefault()}
       className="mt-2 flex flex-col gap-[29.5px]"
     >
       <div className="flex grid-cols-2 flex-col gap-[29.5px] lg:grid lg:gap-[14px]">
@@ -238,35 +265,7 @@ export default function AddressForm({
       <Button
         type="submit"
         disabled={checkErrors()}
-        onClick={(e) => {
-          e.preventDefault();
-          const incStripeAddress = {
-            firstName: shippingState.firstName.value,
-            lastName: shippingState.lastName.value,
-            name:
-              shippingState.firstName.value +
-              ' ' +
-              shippingState.lastName.value,
-            phone: shippingState.phoneNumber.value,
-            address: {
-              city: shippingState.city.value,
-              line1: shippingState.line1.value,
-              line2: shippingState.line2.value,
-              postal_code: shippingState.postal_code.value,
-              state: shippingState.state.value,
-              country: 'US',
-            },
-          };
-
-          const incCustomerInfo = {
-            email: shippingState.email.value,
-            phoneNumber: shippingState.phoneNumber.value,
-          } as CustomerInfo;
-
-          updateAddress(incStripeAddress as StripeAddress);
-          updateCustomerInfo(incCustomerInfo);
-          setIsEditingAddress(false);
-        }}
+        onClick={handleSaveAndContinue}
         className={`h-[48px] w-full cursor-pointer self-center rounded-lg bg-black text-base font-bold uppercase text-white lg:h-[63px] lg:max-w-[307px] lg:self-end lg:text-xl`}
       >
         Save & Continue
