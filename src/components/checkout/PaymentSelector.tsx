@@ -24,14 +24,19 @@ function isIOS() {
 }
 
 const isMacOS = () => {
+  console.log(
+    '[CHECKING If MAC]',
+    navigator.platform.toUpperCase().indexOf('MAC')
+  );
+
   return navigator.platform.toUpperCase().indexOf('MAC') >= 0;
 };
 
-// if (isIOS()) {
-//   console.log('This is an iOS device');
-// } else {
-//   console.log('This is not an iOS device');
-// }
+if (isMacOS()) {
+  console.log('This is an MAC device');
+} else {
+  console.log('This is not an MAC device');
+}
 
 const selctionStyle = `grid gap-2.5 grid-cols-[auto_58px_1fr] min-h-[30px] max-h-[30px] place-items-center`;
 
