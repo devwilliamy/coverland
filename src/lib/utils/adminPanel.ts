@@ -54,7 +54,6 @@ export const mapPaymentIntentAndMethodToOrder = (
     'US'
   )?.format('E.164');
 
-
   return {
     order_id: metadata.orderId,
     order_date: convertUnixTimestampToISOString(created),

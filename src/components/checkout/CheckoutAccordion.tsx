@@ -95,6 +95,7 @@ export default function CheckoutAccordion() {
   const [value, setValue] = useState(['shipping']);
   const [isLoading, setIsLoading] = useState(false);
   const [submitErrorMessage, setSubmitErrorMessage] = useState('');
+  const [paypalSuccessMessage, setPaypalSuccessMessage] = useState('');
 
   const shippingInfo = {
     shipping_method: SHIPPING_METHOD,
@@ -122,11 +123,13 @@ export default function CheckoutAccordion() {
     setValue((p) => [...p, value]);
 
   const handleConversions = async (id: any, client_secret: any) => {
-    const formattedPhone = parsePhoneNumberFromString(
-      shippingAddress.phone as string
-    )?.format('E.164');
+    // const formattedPhone = parsePhoneNumberFromString(
+    //   shippingAddress.phone as string
+    // )?.format('E.164');
 
-    // SendGrid Thank You Email
+    // console.log({ formattedPhone, og: shippingAddress.phone });
+
+    // -------------------- SendGrid Thank You Email ------------------------
     const emailInput = {
       to: customerInfo.email,
       name: {
@@ -296,6 +299,15 @@ export default function CheckoutAccordion() {
     );
   };
 
+  const testConversions = async () => {
+    const formattedPhone = parsePhoneNumberFromString(
+      shippingAddress.phone as string
+    )?.format('E.164');
+
+    console.log({ formattedPhone, og: shippingAddress.phone });
+    setIsLoading(false);
+  };
+
   const handleSubmit = async () => {
     if (!stripe || !elements) {
       // Stripe.js hasn't yet loaded.
@@ -304,95 +316,97 @@ export default function CheckoutAccordion() {
     }
 
     setIsLoading(true);
+    testConversions();
 
-    const origin = window.location.origin;
-    const taxSum = Number(Number(cartMSRP) + Number(totalTax)).toFixed(2);
-    const totalWithTax = convertPriceToStripeFormat(taxSum);
+    // const origin = window.location.origin;
+    // const taxSum = Number(Number(cartMSRP) + Number(totalTax)).toFixed(2);
+    // const totalWithTax = convertPriceToStripeFormat(taxSum);
 
     const formattedPhone = parsePhoneNumberFromString(
       shippingAddress.phone as string
     )?.format('E.164');
+    console.log('[FORMATTED PHONE FROM HANDLE SUBMIT]', { formattedPhone });
 
-    updateCustomerInfo({
-      ...customerInfo,
-      phoneNumber: formattedPhone,
-    });
+    // updateCustomerInfo({
+    //   ...customerInfo,
+    //   phoneNumber: formattedPhone,
+    // });
 
-    const response = await fetch('/api/stripe/payment-intent', {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        paymentIntentId,
-        amount: totalWithTax,
-      }),
-    });
+    // const response = await fetch('/api/stripe/payment-intent', {
+    //   method: 'PUT',
+    //   headers: {
+    //     'Content-Type': 'application/json',
+    //   },
+    //   body: JSON.stringify({
+    //     paymentIntentId,
+    //     amount: totalWithTax,
+    //   }),
+    // });
 
-    const data = await response.json();
-    const { id, client_secret } = data.paymentIntent;
-    const retrievedSecret = client_secret;
+    // const data = await response.json();
+    // const { id, client_secret } = data.paymentIntent;
+    // const retrievedSecret = client_secret;
 
-    const customerShipping = {
-      name: shippingAddress.name,
-      phone: formattedPhone,
-      address: {
-        city: shippingAddress.address.city as string,
-        country: shippingAddress.address.country as string,
-        line1: shippingAddress.address.line1 as string,
-        line2: shippingAddress.address.line2 as string,
-        postal_code: shippingAddress.address.postal_code as string,
-        state: shippingAddress.address.state as string,
-      },
-    };
-
-    // const customerBilling = {
-    //   address: billingAddress.address,
-    //   email: customerInfo.email,
+    // const customerShipping = {
+    //   name: shippingAddress.name,
     //   phone: formattedPhone,
-    //   name: billingAddress.name,
+    //   address: {
+    //     city: shippingAddress.address.city as string,
+    //     country: shippingAddress.address.country as string,
+    //     line1: shippingAddress.address.line1 as string,
+    //     line2: shippingAddress.address.line2 as string,
+    //     postal_code: shippingAddress.address.postal_code as string,
+    //     state: shippingAddress.address.state as string,
+    //   },
     // };
 
-    switch (paymentMethod) {
-      case 'creditCard':
-        stripe
-          .confirmCardPayment(String(retrievedSecret), {
-            // payment_method: { card: CardNumber as StripeCardNumberElement },
-            payment_method: stripePaymentMethod?.paymentMethod?.id,
-            shipping: customerShipping,
-          })
-          .then(async function (result) {
-            if (result.error) {
-              const { error } = result;
-              if (
-                error.type === 'card_error' ||
-                error.type === 'validation_error'
-              ) {
-                console.error('Error:', error.message);
-                setSubmitErrorMessage(
-                  error.message ||
-                    "There's an error, but could not find error message"
-                );
-                // setIsLoading(false);
-              } else {
-                console.error('Error:', error.message);
-                setSubmitErrorMessage(
-                  error.message || 'An unexpected error occurred.'
-                );
-                // setIsLoading(false);
-              }
-            } else if (
-              result.paymentIntent &&
-              result.paymentIntent.status === 'succeeded'
-            ) {
-              handleConversions(id, client_secret);
-            }
-            setIsLoading(false);
-          });
-        break;
-      default:
-        return;
-    }
+    // // const customerBilling = {
+    // //   address: billingAddress.address,
+    // //   email: customerInfo.email,
+    // //   phone: formattedPhone,
+    // //   name: billingAddress.name,
+    // // };
+
+    // switch (paymentMethod) {
+    //   case 'creditCard':
+    //     stripe
+    //       .confirmCardPayment(String(retrievedSecret), {
+    //         // payment_method: { card: CardNumber as StripeCardNumberElement },
+    //         payment_method: stripePaymentMethod?.paymentMethod?.id,
+    //         shipping: customerShipping,
+    //       })
+    //       .then(async function (result) {
+    //         if (result.error) {
+    //           const { error } = result;
+    //           if (
+    //             error.type === 'card_error' ||
+    //             error.type === 'validation_error'
+    //           ) {
+    //             console.error('Error:', error.message);
+    //             setSubmitErrorMessage(
+    //               error.message ||
+    //                 "There's an error, but could not find error message"
+    //             );
+    //             // setIsLoading(false);
+    //           } else {
+    //             console.error('Error:', error.message);
+    //             setSubmitErrorMessage(
+    //               error.message || 'An unexpected error occurred.'
+    //             );
+    //             // setIsLoading(false);
+    //           }
+    //         } else if (
+    //           result.paymentIntent &&
+    //           result.paymentIntent.status === 'succeeded'
+    //         ) {
+    //           handleConversions(id, client_secret);
+    //         }
+    //         setIsLoading(false);
+    //       });
+    //     break;
+    //   default:
+    //     return;
+    // }
   };
 
   useEffect(() => {
@@ -519,7 +533,10 @@ export default function CheckoutAccordion() {
                         )}
                         {paymentMethod === 'paypal' && (
                           <div className="w-full max-w-[307px] self-end justify-self-end">
-                            <PayPalButtonSection />
+                            <PayPalButtonSection
+                              setPaypalSuccessMessage={setPaypalSuccessMessage}
+                              setMessage={setSubmitErrorMessage}
+                            />
                           </div>
                         )}
                         {(paymentMethod === 'applePay' ||
@@ -608,7 +625,12 @@ export default function CheckoutAccordion() {
                             </Button>
                           </>
                         )}
-                        {paymentMethod === 'paypal' && <PayPalButtonSection />}
+                        {paymentMethod === 'paypal' && (
+                          <PayPalButtonSection
+                            setPaypalSuccessMessage={setPaypalSuccessMessage}
+                            setMessage={setSubmitErrorMessage}
+                          />
+                        )}
                       </section>
                     </AccordionContent>
                   </AccordionItem>
