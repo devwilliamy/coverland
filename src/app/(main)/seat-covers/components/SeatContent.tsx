@@ -164,6 +164,7 @@ export default function SeatContent({
         />
       </div>
       <AddToCart
+        preorder={preorder}
         selectedProduct={selectedProduct}
         handleAddToCart={handleAddToCart}
         searchParams={searchParams}

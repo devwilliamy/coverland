@@ -155,7 +155,8 @@ export default function SeatCoverColorSelector({
             const isAvailableColor = availableColors.includes(
               product?.display_color?.toLowerCase() as string
             );
-            const isOutOfStock = !isAvailableColor || product?.quantity === '0';
+            // const isOutOfStock = !isAvailableColor || product?.quantity === '0'; // leaving this here if we need to go back to showing out of stock
+            const isOutOfStock = false;
             const seatCover = getModelDataBySet.find(
               (seatCover) =>
                 seatCover?.display_color?.toLowerCase() ===
