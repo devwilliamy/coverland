@@ -12,7 +12,7 @@ import {
 } from '../ui/accordion';
 import CartHeader from './CartHeader';
 import { Separator } from '../ui/separator';
-import { useEffect, useState } from 'react';
+import { MouseEvent, useEffect, useState } from 'react';
 import InYourCart from './InYourCart';
 import { useCartContext } from '@/providers/CartProvider';
 import OrderReviewItem from './OrderReviewItem';
@@ -52,7 +52,12 @@ import { ReadyCheck } from './icons/ReadyCheck';
 import { useMediaQuery } from '@mantine/hooks';
 import CheckoutSummarySection from './CheckoutSummarySection';
 import OrderReview from './OrderReview';
-import parsePhoneNumberFromString from 'libphonenumber-js';
+import parsePhoneNumberFromString, {
+  findPhoneNumbersInText,
+  parsePhoneNumber,
+} from 'libphonenumber-js';
+import { formatToE164 } from '@/lib/utils';
+import { TermsOfUseStatement } from './TermsOfUseStatement';
 
 export default function CheckoutAccordion() {
   const stripe = useStripe();
@@ -123,11 +128,7 @@ export default function CheckoutAccordion() {
     setValue((p) => [...p, value]);
 
   const handleConversions = async (id: any, client_secret: any) => {
-    // const formattedPhone = parsePhoneNumberFromString(
-    //   shippingAddress.phone as string
-    // )?.format('E.164');
-
-    // console.log({ formattedPhone, og: shippingAddress.phone });
+    const formattedPhone = formatToE164(customerInfo.phoneNumber);
 
     // -------------------- SendGrid Thank You Email ------------------------
     const emailInput = {
@@ -299,15 +300,6 @@ export default function CheckoutAccordion() {
     );
   };
 
-  const testConversions = async () => {
-    const formattedPhone = parsePhoneNumberFromString(
-      shippingAddress.phone as string
-    )?.format('E.164');
-
-    console.log({ formattedPhone, og: shippingAddress.phone });
-    setIsLoading(false);
-  };
-
   const handleSubmit = async () => {
     if (!stripe || !elements) {
       // Stripe.js hasn't yet loaded.
@@ -316,97 +308,91 @@ export default function CheckoutAccordion() {
     }
 
     setIsLoading(true);
-    testConversions();
 
-    // const origin = window.location.origin;
-    // const taxSum = Number(Number(cartMSRP) + Number(totalTax)).toFixed(2);
-    // const totalWithTax = convertPriceToStripeFormat(taxSum);
+    const taxSum = Number(Number(cartMSRP) + Number(totalTax)).toFixed(2);
+    const totalWithTax = convertPriceToStripeFormat(taxSum);
 
-    const formattedPhone = parsePhoneNumberFromString(
-      shippingAddress.phone as string
-    )?.format('E.164');
-    console.log('[FORMATTED PHONE FROM HANDLE SUBMIT]', { formattedPhone });
+    const formattedPhone = formatToE164(customerInfo.phoneNumber);
 
-    // updateCustomerInfo({
-    //   ...customerInfo,
-    //   phoneNumber: formattedPhone,
-    // });
 
-    // const response = await fetch('/api/stripe/payment-intent', {
-    //   method: 'PUT',
-    //   headers: {
-    //     'Content-Type': 'application/json',
-    //   },
-    //   body: JSON.stringify({
-    //     paymentIntentId,
-    //     amount: totalWithTax,
-    //   }),
-    // });
+    updateCustomerInfo({
+      ...customerInfo,
+      phoneNumber: formattedPhone,
+    });
 
-    // const data = await response.json();
-    // const { id, client_secret } = data.paymentIntent;
-    // const retrievedSecret = client_secret;
+    const response = await fetch('/api/stripe/payment-intent', {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        paymentIntentId,
+        amount: totalWithTax,
+      }),
+    });
 
-    // const customerShipping = {
-    //   name: shippingAddress.name,
-    //   phone: formattedPhone,
-    //   address: {
-    //     city: shippingAddress.address.city as string,
-    //     country: shippingAddress.address.country as string,
-    //     line1: shippingAddress.address.line1 as string,
-    //     line2: shippingAddress.address.line2 as string,
-    //     postal_code: shippingAddress.address.postal_code as string,
-    //     state: shippingAddress.address.state as string,
-    //   },
-    // };
+    const data = await response.json();
+    const { id, client_secret } = data.paymentIntent;
+    const retrievedSecret = client_secret;
 
-    // // const customerBilling = {
-    // //   address: billingAddress.address,
-    // //   email: customerInfo.email,
-    // //   phone: formattedPhone,
-    // //   name: billingAddress.name,
-    // // };
+    const customerShipping = {
+      name: shippingAddress.name,
+      phone: formattedPhone,
+      address: {
+        city: shippingAddress.address.city as string,
+        country: shippingAddress.address.country as string,
+        line1: shippingAddress.address.line1 as string,
+        line2: shippingAddress.address.line2 as string,
+        postal_code: shippingAddress.address.postal_code as string,
+        state: shippingAddress.address.state as string,
+      },
+    };
 
-    // switch (paymentMethod) {
-    //   case 'creditCard':
-    //     stripe
-    //       .confirmCardPayment(String(retrievedSecret), {
-    //         // payment_method: { card: CardNumber as StripeCardNumberElement },
-    //         payment_method: stripePaymentMethod?.paymentMethod?.id,
-    //         shipping: customerShipping,
-    //       })
-    //       .then(async function (result) {
-    //         if (result.error) {
-    //           const { error } = result;
-    //           if (
-    //             error.type === 'card_error' ||
-    //             error.type === 'validation_error'
-    //           ) {
-    //             console.error('Error:', error.message);
-    //             setSubmitErrorMessage(
-    //               error.message ||
-    //                 "There's an error, but could not find error message"
-    //             );
-    //             // setIsLoading(false);
-    //           } else {
-    //             console.error('Error:', error.message);
-    //             setSubmitErrorMessage(
-    //               error.message || 'An unexpected error occurred.'
-    //             );
-    //             // setIsLoading(false);
-    //           }
-    //         } else if (
-    //           result.paymentIntent &&
-    //           result.paymentIntent.status === 'succeeded'
-    //         ) {
-    //           handleConversions(id, client_secret);
-    //         }
-    //         setIsLoading(false);
-    //       });
-    //     break;
-    //   default:
-    //     return;
-    // }
+    const customerBilling = {
+      address: billingAddress.address,
+      email: customerInfo.email,
+      phone: formattedPhone,
+      name: billingAddress.name,
+    };
+
+    switch (paymentMethod) {
+      case 'creditCard':
+        stripe
+          .confirmCardPayment(String(retrievedSecret), {
+            // payment_method: { card: CardNumber as StripeCardNumberElement },
+            payment_method: stripePaymentMethod?.paymentMethod?.id,
+            shipping: customerShipping,
+          })
+          .then(async function (result) {
+            if (result.error) {
+              const { error } = result;
+              if (
+                error.type === 'card_error' ||
+                error.type === 'validation_error'
+              ) {
+                console.error('Error:', error.message);
+                setSubmitErrorMessage(
+                  error.message ||
+                    "There's an error, but could not find error message"
+                );
+              } else {
+                console.error('Error:', error.message);
+                setSubmitErrorMessage(
+                  error.message || 'An unexpected error occurred.'
+                );
+              }
+            } else if (
+              result.paymentIntent &&
+              result.paymentIntent.status === 'succeeded'
+            ) {
+              handleConversions(id, client_secret);
+            }
+            setIsLoading(false);
+          });
+        break;
+      default:
+        return;
+    }
   };
 
   useEffect(() => {
@@ -425,6 +411,25 @@ export default function CheckoutAccordion() {
   const accordionTriggerStyle = `py-10 font-[500] text-[24px] leading-[12px]`;
 
   const isMobile = useMediaQuery('(max-width: 1023px)');
+
+  const handleSelectOrderReview = (e: MouseEvent<HTMLElement>) => {
+    if (
+      !isAddressComplete ||
+      isEditingAddress ||
+      !isReadyToPay ||
+      !isReadyToShip
+    ) {
+      e.preventDefault();
+    }
+    handleSelectTab('orderReview');
+  };
+
+  const handleSelectPaymentTab = (e: MouseEvent<HTMLElement>) => {
+    if (!isReadyToShip || isEditingAddress) {
+      e.preventDefault();
+    }
+    handleSelectTab('payment');
+  };
 
   return (
     <div className="flex w-full flex-col items-center">
@@ -457,9 +462,7 @@ export default function CheckoutAccordion() {
                       In Your Cart
                     </AccordionTrigger>
                     <AccordionContent>
-                      {/* <div className="px-4"> */}
                       <InYourCart />
-                      {/* </div> */}
                     </AccordionContent>
                   </AccordionItem>
                 )}
@@ -485,12 +488,7 @@ export default function CheckoutAccordion() {
 
                 <AccordionItem value="payment" id="payment">
                   <AccordionTrigger
-                    onClick={(e) => {
-                      if (!isReadyToShip || isEditingAddress) {
-                        e.preventDefault();
-                      }
-                      handleSelectTab('payment');
-                    }}
+                    onClick={handleSelectPaymentTab}
                     className={
                       accordionTriggerStyle +
                       `${(!isReadyToShip || isEditingAddress) && 'disabled cursor-default text-[grey] hover:no-underline'}`
@@ -570,17 +568,7 @@ export default function CheckoutAccordion() {
                 {isMobile && (
                   <AccordionItem value="orderReview" id="orderReview">
                     <AccordionTrigger
-                      onClick={(e) => {
-                        if (
-                          !isAddressComplete ||
-                          isEditingAddress ||
-                          !isReadyToPay ||
-                          !isReadyToShip
-                        ) {
-                          e.preventDefault();
-                        }
-                        handleSelectTab('orderReview');
-                      }}
+                      onClick={handleSelectOrderReview}
                       className={
                         accordionTriggerStyle +
                         `${(!isAddressComplete || isEditingAddress || !isReadyToPay || !isReadyToShip) && 'disabled cursor-default text-[grey] hover:no-underline'}`
@@ -649,18 +637,3 @@ export default function CheckoutAccordion() {
     </div>
   );
 }
-
-const TermsOfUseStatement = () => {
-  return (
-    <p className="pb-[40px] text-[14px] font-[400] text-[#767676] lg:border-t lg:border-[#DBDBDB] lg:pb-[48px] lg:pt-[35px]">
-      By clicking the “Submit Payment” button, you confirm that you have read,
-      understand, and accept our Terms of Use,{' '}
-      <a href="/policies/privacy-policy" className="underline">
-        Privacy Policy,
-      </a>{' '}
-      <a href="/policies/return-policy" className="underline">
-        Return Policy
-      </a>
-    </p>
-  );
-};

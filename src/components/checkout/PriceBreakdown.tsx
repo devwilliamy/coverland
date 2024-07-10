@@ -29,7 +29,7 @@ export default function PriceBreakdown() {
         <div>${orderSubtotal}</div>
       </div>
       {isCartEmpty ? null : (
-        <div className="flex justify-between text-[#1A1A1A]">
+        <div className="flex justify-between text-[#D13C3F]">
           <div>Sale-discount</div>
           <div>- ${totalDiscountedPrice}</div>
         </div>

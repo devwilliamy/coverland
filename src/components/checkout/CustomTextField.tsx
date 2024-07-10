@@ -351,7 +351,7 @@ export const CustomTextField = ({
           onChange={(e) => {
             const value = e.target.value;
             const cleaned = ('' + value).replace(/\D/g, '');
-            if (cleaned.length > 11) {
+            if (cleaned.length > 15) {
               return;
             }
             handlePhoneChange(cleaned);
