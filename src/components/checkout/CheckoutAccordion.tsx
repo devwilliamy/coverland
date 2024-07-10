@@ -862,42 +862,6 @@ export default function CheckoutAccordion() {
                           </>
                         )}
                         {paymentMethod === 'paypal' && <PayPalButtonSection />}
-                        {(paymentMethod === 'applePay' ||
-                          paymentMethod === 'googlePay') && (
-                          <ExpressCheckoutElement
-                            options={{
-                              paymentMethodOrder: ['applePay', 'googlePay'],
-                              buttonType: {
-                                applePay: 'order',
-                                googlePay: 'order',
-                              },
-                              wallets:
-                                paymentMethod === 'applePay'
-                                  ? { googlePay: 'never', applePay: 'always' }
-                                  : { googlePay: 'always', applePay: 'never' },
-                            }}
-                            onConfirm={async (e) => {
-                              await handleSubmit();
-                            }}
-                          />
-                        )}
-                        {paymentMethod === 'klarna' && (
-                          <Button
-                            variant={'default'}
-                            className={`mb-3 w-full rounded-lg bg-black text-base font-bold uppercase text-white sm:h-[48px] lg:h-[55px] lg:text-xl`}
-                            onClick={(e) => {
-                              setIsLoading(true);
-                              handleSubmit();
-                            }}
-                          >
-                            {isLoading ? (
-                              <AiOutlineLoading3Quarters className="animate-spin" />
-                            ) : (
-                              <></>
-                              // <PayWithKlarnaWhite />
-                            )}
-                          </Button>
-                        )}
                       </section>
                     </AccordionContent>
                   </AccordionItem>

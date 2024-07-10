@@ -54,8 +54,6 @@ export const mapPaymentIntentAndMethodToOrder = (
     'US'
   )?.format('E.164');
 
-  console.log({ billingPhone: billing_details.phone, formattedPhone });
-
   return {
     order_id: metadata.orderId,
     order_date: convertUnixTimestampToISOString(created),

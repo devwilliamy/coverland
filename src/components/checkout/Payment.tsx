@@ -7,14 +7,11 @@ import PaymentSelector from './PaymentSelector';
 import BillingAddress from './BillingAddress';
 import { StripeCardNumberElement } from '@stripe/stripe-js';
 import { NewCheckout } from './NewCheckout';
-// import Klarna from '@/images/checkout/Klarna-Black.webp';
 import PayPalIcon from './icons/PayPalIcon';
 import Image from 'next/image';
 import VisaBlue from '@/images/checkout/VisaLogoBlue.webp';
 import Mastercard from '@/images/checkout/MastercardIcon.webp';
-import { useRouter } from 'next/navigation';
-import ApplePayIcon from './icons/ApplePayIcon';
-import GooglePayIcon from './icons/GooglePayIcon';
+
 import { determineDeliveryByDate } from '@/lib/utils/deliveryDateUtils';
 import { SHIPPING_METHOD } from '@/lib/constants';
 
@@ -65,6 +62,8 @@ export default function Payment({
 
   const { name } = shippingAddress;
   const { city, line1, state, postal_code, country } = shippingAddress.address;
+  const buttonStyle = `mb-3 w-full max-w-[390px] rounded-lg ${isDisabledCard ? 'bg-[#1A1A1A]/90' : 'bg-[#1A1A1A] hover:bg-[#1A1A1A]/90'} text-center uppercase m-0 max-h-[48px] min-h-[48px] max-w-[350px] self-end justify-self-end text-[16px] leading-[17px]`;
+
   const customerBilling = {
     email: customerInfo.email,
     name: billingAddress.name,
@@ -89,8 +88,6 @@ export default function Payment({
         return null;
     }
   };
-
-  const buttonStyle = `mb-3 w-full max-w-[390px] rounded-lg ${isDisabledCard ? 'bg-[#1A1A1A]/90' : 'bg-[#1A1A1A] hover:bg-[#1A1A1A]/90'} text-center uppercase m-0 max-h-[48px] min-h-[48px] max-w-[350px] self-end justify-self-end text-[16px] leading-[17px]`;
 
   const handleContinueWithCard = () => {
     setIsLoading(true);
@@ -123,7 +120,6 @@ export default function Payment({
 
   return (
     <section>
-      {/* <div className="mb-10 lg:hidden"><PromoCode /></div> */}
       {isReadyToPay ? (
         <span className="flex justify-between">
           <div className="flex flex-col">
@@ -132,27 +128,6 @@ export default function Payment({
               {paymentMethod === 'paypal' && (
                 <div className="flex items-center gap-2">
                   <PayPalIcon />
-                </div>
-              )}
-              {paymentMethod === 'applePay' && (
-                // <div>You will be redirected to Apple Pay upon checkout.</div>
-                <ApplePayIcon />
-              )}
-              {paymentMethod === 'googlePay' && (
-                // <div>You will be redirected to Google Pay upon checkout.</div>
-                <GooglePayIcon />
-              )}
-              {paymentMethod === 'klarna' && (
-                <div className="flex items-center gap-2 ">
-                  <div className="flex min-w-[70px] max-w-[70px]">
-                    {/* <Image
-                      alt="Klarna"
-                      src={Klarna}
-                      className="-mx-4 -my-2 object-cover"
-                    /> */}
-                  </div>
-
-                  <h2> 4 interest-free payments</h2>
                 </div>
               )}
               {paymentMethod === 'creditCard' && (
@@ -224,15 +199,6 @@ export default function Payment({
                   You will be redirected to the PayPal site upon checkout.
                 </div>
               )}
-              {paymentMethod === 'applePay' && (
-                <div>You will be redirected to Apple Pay upon checkout.</div>
-              )}
-              {paymentMethod === 'googlePay' && (
-                <div>You will be redirected to Google Pay upon checkout.</div>
-              )}
-              {paymentMethod === 'klarna' && (
-                <div>You will be redirected to Klarna upon checkout.</div>
-              )}
             </div>
           )}
         </>
@@ -254,28 +220,24 @@ export default function Payment({
           </Button>
         </div>
       )}
-      {(paymentMethod === 'klarna' ||
-        paymentMethod === 'googlePay' ||
-        paymentMethod === 'applePay' ||
-        paymentMethod === 'paypal') &&
-        !isReadyToPay && (
-          <div className="my-[48px] flex w-full items-center justify-center lg:justify-end">
-            <Button
-              variant={'default'}
-              className={buttonStyle}
-              onClick={async (e) => {
-                handleChangeAccordion('orderReview');
-                updateIsReadyToPay(true);
-              }}
-            >
-              {isLoading ? (
-                <AiOutlineLoading3Quarters className="animate-spin" />
-              ) : (
-                'Continue to Order Review'
-              )}
-            </Button>
-          </div>
-        )}
+      {paymentMethod === 'paypal' && !isReadyToPay && (
+        <div className="my-[48px] flex w-full items-center justify-center lg:justify-end">
+          <Button
+            variant={'default'}
+            className={buttonStyle}
+            onClick={async (e) => {
+              handleChangeAccordion('orderReview');
+              updateIsReadyToPay(true);
+            }}
+          >
+            {isLoading ? (
+              <AiOutlineLoading3Quarters className="animate-spin" />
+            ) : (
+              'Continue to Order Review'
+            )}
+          </Button>
+        </div>
+      )}
 
       {/* {message && (
         </div>
