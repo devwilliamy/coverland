@@ -8,7 +8,7 @@ import { useParams, useRouter } from 'next/navigation';
 import { SeatCoverSelectionContext } from '@/contexts/SeatCoverContext';
 import { useStore } from 'zustand';
 import SeatCoverColorSelector from './SeatCoverColorSelector';
-import CartSheet from '@/components/cart/CartSheet';
+import PreorderSheet from '@/components/cart/PreorderSheet';
 import { Separator } from '@/components/ui/separator';
 import { TQueryParams } from '@/utils';
 import AddToCart from '@/components/cart/AddToCart';
@@ -73,13 +73,16 @@ export default function SeatContent({
   }, [selectedProduct])
 
   const handleAddToCart = () => {
+    // if (!cartProduct) return;
+    setAddToCartOpen(true);
+
     if (newMSRP !== 0) {
       addToCart({ ...selectedProduct, msrp: newMSRP, quantity: 1 });
     } else {
       addToCart({ ...selectedProduct, quantity: 1 });
     }
 
-    router.push('/checkout');
+    // router.push('/checkout');
   };
 
   if (!selectedProduct.price) {
@@ -169,7 +172,10 @@ export default function SeatContent({
         handleAddToCart={handleAddToCart}
         searchParams={searchParams}
       />
-      <CartSheet
+      <PreorderSheet
+        preorder={preorder}
+        preorder_date={preorder_date}
+        preorder_discount={preorder_discount}
         open={addToCartOpen}
         setOpen={setAddToCartOpen}
         selectedProduct={selectedProduct}
