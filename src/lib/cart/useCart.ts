@@ -86,7 +86,7 @@ const useCart = () => {
       (total, item) =>
         total +
         Number(item.msrp as string) * item.quantity -
-        (item.preorder ? Number(item.preorder_discount) * item.quantity : 0),
+        (item.preorder ? Number(item.preorder_discount) * item.quantity : 0), // checking for preorder discount here
       0
     );
   }, [cartItems]);
@@ -131,7 +131,7 @@ const useCart = () => {
     addToCart,
     removeItemFromCart,
     updateItemQuantity,
-    getTotalPrice: getMsrpTotal,
+    getTotalPrice: getMsrpTotal, // we should actually change this to its own getTotalPrice to account for all discounts ie preorder_discount (and not be reliant on mrsp)!! but due to time sake I will leave it as is. 
     getOrderSubtotal,
     getTotalPreorderDiscount,
     getTotalDiscountPrice,
