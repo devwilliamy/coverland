@@ -77,15 +77,16 @@ const useCart = () => {
 
   const getMsrpTotal = useCallback(() => {
     return cartItems.reduce(
-      (total, item) => total + Number(item.msrp as string) * item.quantity,
+      (total, item) => total + ((Number(item.msrp as string) - Number(item?.preorder_discount)) * item.quantity),
       0
     );
   }, [cartItems]);
 
   const getTotalDiscountPrice = useCallback(() => {
+    console.log('cartItems', cartItems);
     return cartItems.reduce(
       (total, item) =>
-        total + Number(Number(item.price) - Number(item.msrp)) * item.quantity,
+        total + Number((Number(item.price) - Number(item.msrp)) + Number(item?.preorder_discount)) * item.quantity,
       0
     );
   }, [cartItems]);

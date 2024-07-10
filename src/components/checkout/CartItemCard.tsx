@@ -10,6 +10,7 @@ import { useState } from 'react';
 export default function CartItemCard({ item }: { item: TCartItem }) {
   const { updateItemQuantity } = useCartContext();
   const [quantity, setQuantity] = useState(item?.quantity || 1);
+  const [preorder, setPreorder] = useState(item?.preorder || false);
   const handleQuantityChange = (e) => {
     const newQuantity = parseInt(e.target.value, 10);
     setQuantity(newQuantity);
@@ -33,7 +34,7 @@ export default function CartItemCard({ item }: { item: TCartItem }) {
         </div>
         <div className="flex w-7/12 flex-col gap-1">
           <div className="w-10/12 text-base font-bold lg:text-lg">
-            {item?.display_id}&trade; {item?.type}
+            {preorder ? 'Preorder' : ''}{item?.display_id}&trade; {item?.type}
           </div>
           <div
             className={`text-sm font-normal ${!item?.make && 'hidden'} text-[#707070] lg:text-base`}
