@@ -15,6 +15,12 @@ const useCart = () => {
   });
 
   const [cartOpen, setCartOpen] = useState(false);
+  const [cartPreorder, setCartPreorder] = useState(false);
+
+  useEffect(() => {
+    const anyItemPreorder = cartItems.some((item) => item.preorder);
+    setCartPreorder(anyItemPreorder);
+  }, [cartItems]);
 
   useEffect(() => {
     if (cartItems.length === 0) {
@@ -67,7 +73,7 @@ const useCart = () => {
       resetCart();
     }
   }, []);
-  
+
   const getOrderSubtotal = useCallback(() => {
     return cartItems.reduce(
       (total, item) => total + Number(item.price as string) * item.quantity,
@@ -77,7 +83,17 @@ const useCart = () => {
 
   const getMsrpTotal = useCallback(() => {
     return cartItems.reduce(
-      (total, item) => total + ((Number(item.msrp as string) - Number(item?.preorder_discount)) * item.quantity),
+      (total, item) =>
+        total +
+        Number(item.msrp as string) * item.quantity -
+        (item.preorder ? Number(item.preorder_discount) * item.quantity : 0),
+      0
+    );
+  }, [cartItems]);
+
+  const getTotalPreorderDiscount = useCallback(() => {
+    return cartItems.reduce(
+      (total, item) => total + (item.preorder ? Number(item.preorder_discount) * item.quantity : 0),
       0
     );
   }, [cartItems]);
@@ -86,7 +102,22 @@ const useCart = () => {
     console.log('cartItems', cartItems);
     return cartItems.reduce(
       (total, item) =>
-        total + Number((Number(item.price) - Number(item.msrp)) + Number(item?.preorder_discount)) * item.quantity,
+        total + Number(Number(item.price) - Number(item.msrp)) * item.quantity,
+      0
+    );
+  }, [cartItems]);
+
+  const getTotalDiscountPricePlusPreorder = useCallback(() => {
+    console.log('cartItems', cartItems);
+    return cartItems.reduce(
+      (total, item) =>
+        total +
+        Number(
+          Number(item.price) -
+            Number(item.msrp) +
+            Number(item?.preorder_discount)
+        ) *
+          item.quantity,
       0
     );
   }, [cartItems]);
@@ -102,10 +133,13 @@ const useCart = () => {
     updateItemQuantity,
     getTotalPrice: getMsrpTotal,
     getOrderSubtotal,
+    getTotalPreorderDiscount,
     getTotalDiscountPrice,
+    getTotalDiscountPricePlusPreorder,
     getTotalCartQuantity,
     cartOpen,
     setCartOpen,
+    cartPreorder,
     clearLocalStorageCart,
   };
 };

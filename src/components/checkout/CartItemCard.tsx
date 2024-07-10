@@ -34,7 +34,8 @@ export default function CartItemCard({ item }: { item: TCartItem }) {
         </div>
         <div className="flex w-7/12 flex-col gap-1">
           <div className="w-10/12 text-base font-bold lg:text-lg">
-            {preorder ? 'Preorder' : ''}{item?.display_id}&trade; {item?.type}
+            {preorder ? 'Preorder - ' : ''}
+            {item?.display_id}&trade; {item?.type}
           </div>
           <div
             className={`text-sm font-normal ${!item?.make && 'hidden'} text-[#707070] lg:text-base`}
@@ -70,9 +71,14 @@ export default function CartItemCard({ item }: { item: TCartItem }) {
         </div>
         <div className="flex w-2/12 flex-col text-right ">
           <div className="text-base font-bold lg:text-lg">
-            $
             {item?.msrp
-              ? (parseFloat(item?.msrp) * item?.quantity).toFixed(2)
+              ? (
+                  parseFloat(item?.msrp) -
+                  (item?.preorder
+                    ? parseFloat(item?.preorder_discount)
+                    : 0) *
+                    item?.quantity
+                ).toFixed(2)
               : ''}
           </div>
           {item.msrp !== item.price && (
