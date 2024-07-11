@@ -11,6 +11,7 @@ import {
   SheetTrigger,
 } from '@/components/ui/sheet';
 import { determineDeliveryByDate } from '@/lib/utils/deliveryDateUtils';
+import { formatISODate } from '@/lib/utils/date';
 import FreePackageItem from '@/images/PDP/PDP-Redesign-v3/free-package.webp';
 import {
   BoxIcon,
@@ -36,8 +37,8 @@ type DetailItem = {
   jsx: React.JSX.Element;
 };
 
-export default function FreeDetails() {
-  const deliveryDate = determineDeliveryByDate();
+export default function FreeDetails({preorder, preorder_date}) {
+  const deliveryDate = determineDeliveryByDate('LLL dd', preorder_date);
   const iconSize = 28;
   const [timeRemaining, setTimeRemaining] = useState(calculateTimeTo2PM());
   const [currentPage, setCurrentPage] = useState<DetailItem>({
@@ -367,7 +368,7 @@ export default function FreeDetails() {
   const freeDetailItems: DetailItem[] = [
     {
       icon: <BoxIcon />,
-      title: 'Free, Same-Day Shipping',
+      title: preorder ? 'Estimated Restock Date: ' + formatISODate(preorder_date) : 'Free, Same-Day Shipping',
       description: `Order within ${timeRemaining} - Receive by ${deliveryDate}`,
       headerText: 'Shipping Information',
       jsx: <ShippingInformation />,

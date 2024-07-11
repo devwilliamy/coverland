@@ -156,7 +156,7 @@ export default function SeatContent({
         <SeatCoverSelection />
       ) : null}
       <SeatCoverColorSelector isFinalSelection={isFinalSelection} />
-      <FreeDetails />
+      <FreeDetails preorder={preorder} preorder_date={preorder_date} />
       {/* <CompatibleVehiclesTrigger /> */}
       <div className="lg:py-4"></div>
       <div className="lg:hidden">
