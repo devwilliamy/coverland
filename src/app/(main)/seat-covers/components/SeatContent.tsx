@@ -67,10 +67,11 @@ export default function SeatContent({
   }, [selectedProduct]);
 
   useEffect(() => {
-    setPreorder(selectedProduct?.preorder);
-    setPreorderDate(selectedProduct?.preorder_date);
-    setPreorderDiscount(selectedProduct?.preorder_discount);
-    console.log(selectedProduct);
+    if (isFinalSelection) {
+      setPreorder(selectedProduct?.preorder);
+      setPreorderDate(selectedProduct?.preorder_date);
+      setPreorderDiscount(selectedProduct?.preorder_discount);
+    }
   }, [selectedProduct])
 
   const handleAddToCart = () => {
