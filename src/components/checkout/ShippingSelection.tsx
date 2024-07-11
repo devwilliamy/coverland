@@ -20,7 +20,7 @@ export default function ShippingSelection() {
         <div
           key={i}
           onClick={() => handleClick(i)}
-          className={`mb-[26px] cursor-pointer rounded-xl px-6 py-4 ${selectedIndex === i ? 'border border-[#1A1A1A]' : 'border border-[#707070]'}`}
+          className={`cursor-pointer rounded-xl px-6 py-4 ${selectedIndex === i ? 'border border-[#1A1A1A]' : 'border border-[#707070]'}`}
         >
           <div>{shippingOption?.shippingText}</div>
           <div>{shippingOption?.shippingEstimateText}</div>
