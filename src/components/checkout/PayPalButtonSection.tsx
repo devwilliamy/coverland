@@ -46,6 +46,7 @@ export default function PayPalButtonSection({
     clearLocalStorageCart,
     isCartPreorder,
     cartPreorderDate,
+    getTotalPreorderDiscount
   } = useCartContext();
   const preorderDate = isCartPreorder ? cartPreorderDate : undefined;
   const shippingInfo = {
@@ -157,6 +158,8 @@ export default function PayPalButtonSection({
                   subtotal: getOrderSubtotal().toFixed(2),
                   total: (getTotalPrice() + shipping).toFixed(2), // may need to add taxes later
                   totalDiscount: getTotalDiscountPrice().toFixed(2),
+                  totalPreorderDiscount: getTotalPreorderDiscount().toFixed(2),
+                  isPreorder: isCartPreorder,
                   hasDiscount:
                     parseFloat(getTotalDiscountPrice().toFixed(2)) > 0,
                 },

@@ -66,6 +66,7 @@ export default function Payment() {
     clearLocalStorageCart,
     isCartPreorder,
     cartPreorderDate,
+    getTotalPreorderDiscount
   } = useCartContext();
   const preorderDate = isCartPreorder ? cartPreorderDate : undefined;
   const shippingInfo = {
@@ -73,6 +74,8 @@ export default function Payment() {
     shipping_date: determineDeliveryByDate('EEE, LLL dd', preorderDate),
     delivery_fee: shipping,
   };
+  console.log('getTotalDiscountPrice', getTotalDiscountPrice());
+  console.log('getTotalPreorderDiscount', getTotalPreorderDiscount());
   const totalMsrpPrice = convertPriceToStripeFormat(getTotalPrice() + shipping);
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -170,6 +173,8 @@ export default function Payment() {
               subtotal: getOrderSubtotal().toFixed(2),
               total: (getTotalPrice() + shipping).toFixed(2), // may need to add taxes later
               totalDiscount: getTotalDiscountPrice().toFixed(2),
+              totalPreorderDiscount: getTotalPreorderDiscount().toFixed(2),
+              isPreorder: isCartPreorder,
               hasDiscount: parseFloat(getTotalDiscountPrice().toFixed(2)) > 0,
             },
             shippingInfo: {

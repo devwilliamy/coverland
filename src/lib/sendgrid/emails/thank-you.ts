@@ -158,6 +158,8 @@ const generateThankYouEmail = ({
         total_discount: orderInfo.totalDiscount,
         has_discount: orderInfo.hasDiscount,
         // taxes: orderInfo.taxes, // not yet implemented
+        is_preorder: orderInfo.isPreorder,
+        total_preorder_discount: formatMoneyAsNumber(orderInfo.totalPreorderDiscount),
         total: formatMoneyAsNumber(orderInfo.total),
       },
     },
