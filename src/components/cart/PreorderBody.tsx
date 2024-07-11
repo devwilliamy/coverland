@@ -6,13 +6,13 @@ import { IProductData } from '@/utils';
 import PriceBreakdown from '../checkout/PriceBreakdown';
 import { weeksFromCurrentDate } from '@/lib/utils/date';
 
-type AddToCartBodyProps = {
+type PreorderBodyProps = {
   selectedProduct?: IProductData | null | undefined;
 };
 
-const AddToCartBody = ({
+const PreorderBody = ({
   selectedProduct,
-}: AddToCartBodyProps) => {
+}: PreorderBodyProps) => {
   const { cartItems, getTotalPreorderDiscount } = useCartContext();
   const sortedCartItems = selectedProduct
     ? cartItems.sort((a, b) => (b.sku === selectedProduct.sku ? 1 : -1))
@@ -66,4 +66,4 @@ type CartItemProps = {
   item: TCartItem;
 };
 
-export default AddToCartBody;
+export default PreorderBody;

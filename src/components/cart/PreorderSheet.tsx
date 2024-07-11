@@ -17,16 +17,16 @@ import {
   import { TSeatCoverDataDB } from '@/lib/db/seat-covers';
   import PriceBreakdown from './PriceBreakdown';
   
-  type CartSheetProps = {
+  type PreorderSheetProps = {
     open: boolean;
     setOpen: (open: boolean) => void;
     selectedProduct: TInitialProductDataDB | IProductData | null | undefined | TSeatCoverDataDB;
   };
-  const CartSheet = ({
+  const PreorderSheet = ({
     open,
     setOpen,
     selectedProduct,
-  }: CartSheetProps): JSX.Element => {
+  }: PreorderSheetProps): JSX.Element => {
     const isMobile = useMediaQuery('(max-width: 1023px)');
     return (
       <Sheet open={open} onOpenChange={setOpen}>
@@ -66,5 +66,5 @@ import {
     );
   };
   
-  export default CartSheet;
+  export default PreorderSheet;
   

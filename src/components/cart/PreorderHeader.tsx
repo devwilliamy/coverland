@@ -1,6 +1,6 @@
 import { FaCheck } from 'react-icons/fa6';
 
-const AddToCartHeader = (): JSX.Element => {
+const PreorderHeader = (): JSX.Element => {
   return (
     <div>
       <div className="flex flex-row ">
@@ -11,4 +11,4 @@ const AddToCartHeader = (): JSX.Element => {
   );
 };
 
-export default AddToCartHeader;
+export default PreorderHeader;
