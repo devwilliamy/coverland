@@ -75,7 +75,13 @@ export default function SeatContent({
 
   const handleAddToCart = () => {
     // if (!cartProduct) return;
-    setAddToCartOpen(true);
+
+    if (preorder) {
+      setAddToCartOpen(true);
+      return;
+    } else {
+      router.push('/checkout');
+    }
 
     if (newMSRP !== 0) {
       addToCart({ ...selectedProduct, msrp: newMSRP, quantity: 1 });
