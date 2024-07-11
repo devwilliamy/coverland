@@ -1,15 +1,27 @@
-import { useEffect, useState } from 'react';
+
+import {
+  ChangeEventHandler,
+  MouseEvent,
+  SyntheticEvent,
+  useEffect,
+  useState,
+} from 'react';
+import { useForm } from 'react-hook-form';
+import OverlappingLabel from '../ui/overlapping-label';
 import { Button } from '../ui/button';
 import { CustomerInfo, useCheckoutContext } from '@/contexts/CheckoutContext';
 import { StripeAddress } from '@/lib/types/checkout';
 import { CustomTextField } from './CustomTextField';
 import { GEORGE_DEFAULT_ADDRESS_DATA } from '@/lib/constants';
 
+import { cleanPhoneInput } from '@/app/(noFooter)/checkout/utils';
+
+
 type AddressFormProps = {
   addressData: StripeAddress;
   updateAddress: (address: StripeAddress) => void;
   setIsEditingAddress: (isEditing: boolean) => void;
-  showEmail?: boolean;
+  isBilling?: boolean;
   handleChangeAccordion?: (accordionTitle: string) => void;
   handleSelectTab?: (id: string) => void;
 };
@@ -36,7 +48,7 @@ export default function AddressForm({
   addressData,
   updateAddress,
   setIsEditingAddress,
-  showEmail,
+  isBilling,
   handleChangeAccordion,
   handleSelectTab,
 }: AddressFormProps) {
@@ -49,6 +61,10 @@ export default function AddressForm({
     updateBillingTwoLetterStateCode,
     isBillingSameAsShipping,
   } = useCheckoutContext();
+
+
+  // TODO: Extract this to checkout context or its own context
+
 
   const [shippingState, setShippingState] = useState<
     Record<string, ShippingStateType>
@@ -66,7 +82,7 @@ export default function AddressForm({
 
   useEffect(() => {
     // Populate the form fields when shippingAddress changes
-    if (addressData) {
+    if (addressData.address.line1) {
       setShippingState({
         email: {
           value: customerInfo.email,
@@ -126,28 +142,57 @@ export default function AddressForm({
     }
   }, [addressData, customerInfo]);
 
-  useEffect(() => {
-    if (process.env.NEXT_PUBLIC_IS_PREVIEW === 'PREVIEW') {
-      setShippingState(GEORGE_DEFAULT_ADDRESS_DATA);
-    }
-  }, []);
-
   const checkErrors = () => {
     for (const key in shippingState) {
-      if (shippingState[key].error || shippingState[key].error === null) {
+      if (
+        key !== 'line2' &&
+        (shippingState[key].error || shippingState[key].error === null)
+      ) {
         return true;
       }
     }
-
     return false;
+  };
+
+  const handleSaveAndContinue = (e: MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    const incStripeAddress = {
+      firstName: shippingState.firstName.value,
+      lastName: shippingState.lastName.value,
+      name: shippingState.firstName.value + ' ' + shippingState.lastName.value,
+      phone: shippingState.phoneNumber.value,
+      address: {
+        city: shippingState.city.value,
+        line1: shippingState.line1.value,
+        line2: shippingState.line2.value,
+        postal_code: shippingState.postal_code.value,
+        state: shippingState.state.value,
+        country: 'US',
+      },
+    };
+
+    // const formattedPhone = parsePhoneNumberFromString(
+    //   shippingState.phoneNumber.value
+    // )?.format('E.164');
+
+    // const incCustomerInfo = {
+    //   email: shippingState.email.value,
+    //   phoneNumber: formattedPhone,
+    // } as CustomerInfo;
+
+    const incCustomerInfo = {
+      email: shippingState.email.value,
+      phoneNumber: shippingState.phoneNumber.value,
+    } as CustomerInfo;
+
+    updateAddress(incStripeAddress as StripeAddress);
+    updateCustomerInfo(incCustomerInfo);
+    setIsEditingAddress(false);
   };
 
   return (
     <form
-      // onSubmit={onSubmit}
-      onSubmit={(e) => {
-        e.preventDefault();
-      }}
+      onSubmit={(e) => e.preventDefault()}
       className="mt-2 flex flex-col gap-[29.5px]"
     >
       <div className="flex grid-cols-2 flex-col gap-[29.5px] lg:grid lg:gap-[14px]">
@@ -158,7 +203,6 @@ export default function AddressForm({
           required
           shippingState={shippingState}
           setShippingState={setShippingState}
-          errorMessage="Please enter your first name."
         />
         <CustomTextField
           label="Last Name"
@@ -212,58 +256,32 @@ export default function AddressForm({
         />
       </div>
 
-      <div className="flex grid-cols-2 flex-col gap-[29.5px] lg:grid lg:gap-[14px]">
-        <CustomTextField
-          label="Email"
-          type="email"
-          required
-          placeholder="Email"
-          shippingState={shippingState}
-          setShippingState={setShippingState}
-        />
-        <CustomTextField
-          label="Phone Number"
-          type="phoneNumber"
-          required
-          placeholder="Phone Number"
-          shippingState={shippingState}
-          setShippingState={setShippingState}
-        />
-      </div>
+      {!isBilling && (
+        <div className="flex grid-cols-2 flex-col gap-[29.5px] lg:grid lg:gap-[14px]">
+          <CustomTextField
+            label="Email"
+            type="email"
+            required
+            placeholder="Email"
+            shippingState={shippingState}
+            setShippingState={setShippingState}
+          />
+          <CustomTextField
+            label="Phone Number"
+            type="phoneNumber"
+            required
+            placeholder="Phone Number"
+            shippingState={shippingState}
+            setShippingState={setShippingState}
+          />
+        </div>
+      )}
 
       <Button
         type="submit"
         disabled={checkErrors()}
-        onClick={(e) => {
-          e.preventDefault();
-          const incStripeAddress = {
-            firstName: shippingState.firstName.value,
-            lastName: shippingState.lastName.value,
-            name:
-              shippingState.firstName.value +
-              ' ' +
-              shippingState.lastName.value,
-            phone: shippingState.phoneNumber.value,
-            address: {
-              city: shippingState.city.value,
-              line1: shippingState.line1.value,
-              line2: shippingState.line2.value,
-              postal_code: shippingState.postal_code.value,
-              state: shippingState.state.value,
-              country: 'US',
-            },
-          };
-
-          const incCustomerInfo = {
-            email: shippingState.email.value,
-            phoneNumber: shippingState.phoneNumber.value,
-          } as CustomerInfo;
-
-          updateAddress(incStripeAddress as StripeAddress);
-          updateCustomerInfo(incCustomerInfo);
-          setIsEditingAddress(false);
-        }}
-        className={`mb-[29.5px] h-[48px] w-full cursor-pointer self-center rounded-lg bg-black text-base font-bold uppercase text-white lg:h-[63px] lg:max-w-[307px] lg:self-end lg:text-xl`}
+        onClick={handleSaveAndContinue}
+        className={`h-[48px] w-full cursor-pointer self-center rounded-lg bg-black text-base font-bold uppercase text-white disabled:bg-[#D6D6D6] disabled:text-[#767676] lg:mb-[70px] lg:mt-[19.5px] lg:max-w-[307px] lg:self-end lg:text-xl`}
       >
         Save & Continue
       </Button>

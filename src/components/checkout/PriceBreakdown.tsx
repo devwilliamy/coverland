@@ -29,7 +29,7 @@ export default function PriceBreakdown() {
         <div>${orderSubtotal}</div>
       </div>
       {isCartEmpty ? null : (
-        <div className="flex justify-between text-[#1A1A1A]">
+        <div className="flex justify-between text-[#D13C3F]">
           <div>Sale-discount</div>
           <div>- ${totalDiscountedPrice}</div>
         </div>
@@ -43,12 +43,10 @@ export default function PriceBreakdown() {
         </>
       )}
       <div className="pb-3 pt-[26px]">
-        <Separator className="hidden w-full bg-[#C8C7C7] lg:block" />
-        <div className="flex justify-between font-semibold lg:flex-row lg:justify-between lg:py-5 lg:font-bold">
+        <div className="flex justify-between border-y border-[#C8C7C7] py-5 font-semibold lg:flex-row lg:justify-between lg:font-bold">
           <div>Order Total: </div>
           <div>${totalMsrpPrice}</div>
         </div>
-        <Separator className="hidden w-full bg-[#C8C7C7] lg:block" />
       </div>
     </div>
   );

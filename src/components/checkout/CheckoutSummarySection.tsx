@@ -21,7 +21,7 @@ export default function CheckoutSummarySection() {
   return (
     <div>
       <div className="flex items-center justify-between pb-12 lg:pb-8">
-        <div className="text-xl font-bold lg:text-[22px]">
+        <div className="text-xl font-bold  lg:pt-[38px]">
           {isCartStep ? 'Summary' : 'In Your Cart'}
         </div>
         {!isCartStep && (
@@ -33,7 +33,7 @@ export default function CheckoutSummarySection() {
           </div>
         )}
       </div>
-      <div className="lg:pb-4">{/* <PromoCode /> */}</div>
+      {/* <div className="lg:pb-4"><PromoCode /></div> */}
       <PriceBreakdown />
       {isCartStep && (
         <div className="my-8 hidden w-full justify-center md:flex md:flex-col lg:w-[320px]">

@@ -6,7 +6,7 @@ import { useCheckoutContext } from '@/contexts/CheckoutContext';
 import PaymentSelector from './PaymentSelector';
 import BillingAddress from './BillingAddress';
 import { StripeCardNumberElement } from '@stripe/stripe-js';
-import { NewCheckout } from './NewCheckout';
+import { CreditCardSection } from './CreditCardSection';
 // import Klarna from '@/images/checkout/Klarna-Black.webp';
 import PayPalIcon from './icons/PayPalIcon';
 import Image from 'next/image';
@@ -91,39 +91,14 @@ export default function Payment({
   };
 
   const buttonStyle = `sticky bottom-0 mb-3 w-full max-w-[390px] rounded-lg ${isDisabledCard ? 'bg-[#1A1A1A]/90' : 'bg-[#1A1A1A] hover:bg-[#1A1A1A]/90'} text-center uppercase m-0 max-h-[48px] min-h-[48px] max-w-[350px] self-end justify-self-end text-[16px] leading-[17px]`;
+  // const buttonStyle = `mb-3 w-full lg:max-w-[307px] font-[700] rounded-lg text-white disabled:bg-[#D6D6D6] disabled:text-[#767676] bg-[#1A1A1A] hover:bg-[#1A1A1A]/90  bg: text-center uppercase m-0 max-h-[48px] min-h-[48px] self-end justify-self-end text-[16px] leading-[17px]`;
 
-  // const handleContinueWithCard = () => {
-  //   setIsLoading(true);
-  //   const cardNumberElement = elements?.getElement(
-  //     'cardNumber'
-  //   ) as StripeCardNumberElement;
-
-  //   stripe
-  //     ?.createPaymentMethod({
-  //       type: 'card',
-  //       card: cardNumberElement,
-  //       billing_details: customerBilling,
-  //     })
-  //     .then((paymentMethod) => {
-  //       if (paymentMethod.error) {
-  //         console.error(paymentMethod.error.message, paymentMethod.error);
-  //         setMessage(String(paymentMethod.error.message));
-  //         return;
-  //       }
-  //       if (paymentMethod.paymentMethod?.type === 'card') {
-  //         updateStripePaymentMethod(paymentMethod);
-  //         updateIsReadyToPay(true);
-  //         handleChangeAccordion('orderReview');
-  //       }
-  //     })
-  //     .finally(() => {
-  //       setIsLoading(false);
-  //     });
-  // };
+  const handleEditPayment = () => {
+    updateIsReadyToPay(false);
+  };
 
   return (
     <section>
-      {/* <div className="mb-10 lg:hidden"><PromoCode /></div> */}
 
       <>
         <h2 className="pb-[26px] text-[16px] font-[500] leading-[27px]">
@@ -136,7 +111,7 @@ export default function Payment({
         {paymentMethod === 'creditCard' ? (
           <div className="flex flex-col gap-4">
             <form id="payment-form">
-              <NewCheckout />
+              <CreditCardSection />
             </form>
 
             <BillingAddress
@@ -163,6 +138,29 @@ export default function Payment({
           </div>
         )}
       </>
+      {/* <div>
+            <p
+              className="flex max-h-fit cursor-pointer font-[500] underline hover:text-[#0C87B8]"
+              onClick={handleEditPayment}
+            >
+              Edit
+            </p>
+          </div>
+        </span>
+      ) : (
+        <>
+          <h2 className="pb-[26px] text-[16px] font-[500] leading-[27px]">
+            Select Payment Method
+          </h2>
+          <PaymentSelector
+            selectedPaymentMethod={paymentMethod}
+            onPaymentMethodChange={updatePaymentMethod}
+          />
+          {paymentMethod === 'creditCard' ? (
+            <div className="flex flex-col gap-4">
+              <form id="payment-form">
+                <CreditCardSection />
+              </form> */}
 
       {/* Continue To Order Review Button */}
       {/* {paymentMethod === 'creditCard' && !isReadyToPay && (
@@ -181,28 +179,6 @@ export default function Payment({
           </Button>
         </div>
       )} */}
-      {(paymentMethod === 'klarna' ||
-        paymentMethod === 'googlePay' ||
-        paymentMethod === 'applePay') &&
-        // || paymentMethod === 'paypal'
-        !isReadyToPay && (
-          <div className="relative my-[48px] flex w-full items-center justify-center lg:justify-end">
-            <Button
-              variant={'default'}
-              className={buttonStyle}
-              onClick={async (e) => {
-                handleChangeAccordion('orderReview');
-                updateIsReadyToPay(true);
-              }}
-            >
-              {isLoading ? (
-                <AiOutlineLoading3Quarters className="animate-spin" />
-              ) : (
-                'Continue to Order Review'
-              )}
-            </Button>
-          </div>
-        )}
 
       {/* {message && (
         </div>

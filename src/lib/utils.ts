@@ -13,6 +13,7 @@ import { TCartItem } from './cart/useCart';
 import { Dispatch, SetStateAction } from 'react';
 import { IProductData } from '@/utils';
 import { TSeatCoverDataDB } from './db/seat-covers';
+import { parsePhoneNumber } from 'libphonenumber-js';
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -301,4 +302,19 @@ export const determineShortReviewCount = (total_reviews: number) => {
     default:
       return total_reviews;
   }
+};
+
+export const formatToE164 = (num: string) => {
+  if (!num) {
+    return '';
+  }
+  num
+    .replaceAll('(', '')
+    .replaceAll(')', '')
+    .replaceAll(' ', '')
+    .replaceAll('-', '');
+  const numWithPlus = '+' + num;
+  const formattedPhone = parsePhoneNumber(numWithPlus, 'US')?.format('E.164');
+  // console.log('[FORMAT TO E.164 FUNCTION: ]', { formattedPhone });
+  return formattedPhone;
 };

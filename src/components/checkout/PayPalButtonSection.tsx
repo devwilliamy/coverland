@@ -26,6 +26,8 @@ import { v4 as uuidv4 } from 'uuid';
 import { generateSkuLabOrderInput } from '@/lib/utils/skuLabs';
 import { determineDeliveryByDate } from '@/lib/utils/deliveryDateUtils';
 import { SHIPPING_METHOD } from '@/lib/constants';
+import parsePhoneNumberFromString from 'libphonenumber-js';
+import { formatToE164 } from '@/lib/utils';
 
 type PaypalButtonSectionProps = {
   setPaypalSuccessMessage: (message: string) => void;
@@ -33,8 +35,14 @@ type PaypalButtonSectionProps = {
 export default function PayPalButtonSection({
   setPaypalSuccessMessage,
 }: PaypalButtonSectionProps) {
-  const { orderNumber, shipping, shippingAddress, customerInfo } =
-    useCheckoutContext();
+  const {
+    orderNumber,
+    shipping,
+    shippingAddress,
+    customerInfo,
+    billingAddress,
+    isBillingSameAsShipping,
+  } = useCheckoutContext();
   const shippingInfo = {
     shipping_method: SHIPPING_METHOD,
     shipping_date: determineDeliveryByDate('EEE, LLL dd'),
@@ -77,7 +85,7 @@ export default function PayPalButtonSection({
               cartItems,
               orderNumber,
               shipping,
-              shippingAddress
+              isBillingSameAsShipping ? shippingAddress : billingAddress
             );
             if (!data) {
               console.log('Error creating order');
@@ -91,19 +99,20 @@ export default function PayPalButtonSection({
             // console.log('[PaypalButton Section] Data: ', data);
             // This will get the order from paypal
             let response;
+
+            const formattedPhone = formatToE164(customerInfo.phoneNumber);
+
             try {
-              response = await paypalCaptureOrder(
-                data.orderID,
-                customerInfo.phoneNumber
-              );
+              response = await paypalCaptureOrder(data.orderID, formattedPhone);
               // console.log('Response:', response);
             } catch (error) {
               // debugger;
               throw error;
             }
+
             const customerInput = mapPaypalCompletionToCustomer(
               response.data,
-              customerInfo.phoneNumber
+              formattedPhone
             );
             // Create Customer for Paypal
             const createdCustomer =
@@ -112,7 +121,7 @@ export default function PayPalButtonSection({
             // This gets the paypal order ready
             const mappedData = mapPaypalCompletionToOrder(
               response.data,
-              customerInfo.phoneNumber,
+              formattedPhone,
               createdCustomer[0].id
             );
 
@@ -191,7 +200,7 @@ export default function PayPalButtonSection({
                   action_source: 'website',
                   user_data: {
                     em: [hashData(customerInfo.email)],
-                    ph: [hashData(shippingAddress.phone || '')],
+                    ph: [hashData(formattedPhone || '')],
                     ct: [hashData(shippingAddress.address.city || '')],
                     country: [hashData(shippingAddress.address.country || '')],
                     fn: [hashData(shippingAddress.firstName || '')],
@@ -241,7 +250,7 @@ export default function PayPalButtonSection({
                   window.uetq.push('set', {
                     pid: {
                       em: customerInfo.email,
-                      ph: customerInfo.phoneNumber,
+                      ph: formattedPhone,
                     },
                   });
                   window.uetq.push('event', 'purchase', {
@@ -249,7 +258,7 @@ export default function PayPalButtonSection({
                     currency: 'USD',
                     pid: {
                       em: customerInfo.email,
-                      ph: customerInfo.phoneNumber,
+                      ph: formattedPhone,
                     },
                   });
                 }
@@ -278,7 +287,7 @@ export default function PayPalButtonSection({
 
                 const enhancedGoogleConversionInput = {
                   email: customerInfo.email || '',
-                  phone_number: shippingAddress.phone || '',
+                  phone_number: formattedPhone || '',
                   first_name: shippingAddress.firstName || '',
                   last_name: shippingAddress.lastName || '',
                   address_line1: shippingAddress.address.line1 || '',

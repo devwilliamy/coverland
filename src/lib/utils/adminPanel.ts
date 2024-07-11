@@ -8,6 +8,7 @@ import {
 import { Tables } from '../db/types';
 import { TPayPalCaptureOrder, PayPalCompleteOrder } from '../types/paypal';
 import parsePhoneNumberFromString from 'libphonenumber-js';
+import { formatToE164 } from '../utils';
 
 type TOrdersDB = Tables<'_Orders'>;
 
@@ -49,12 +50,7 @@ export const mapPaymentIntentAndMethodToOrder = (
   } = paymentIntentInput;
   const { type, card, billing_details } = paymentMethodInput;
 
-  const formattedPhone = parsePhoneNumberFromString(
-    billing_details.phone as string,
-    'US'
-  )?.format('E.164');
-
-  console.log({ billingPhone: billing_details.phone, formattedPhone });
+  const formattedPhone = formatToE164(billing_details.phone as string);
 
   return {
     order_id: metadata.orderId,
@@ -120,9 +116,8 @@ export const mapPaymentMethodToCustomer = (
   const { shipping } = paymentIntentInput;
   const { billing_details } = paymentMethodInput;
   const splitName: string[] = billing_details?.name?.split(' ') || [];
-  const formattedPhone = parsePhoneNumberFromString(
-    billing_details.phone as string
-  )?.format('E.164');
+  const formattedPhone = formatToE164(billing_details.phone as string);
+
   return {
     address: billing_details?.address?.line1,
     address_2: billing_details?.address?.line2,
@@ -164,7 +159,6 @@ export const mapPaypalCompletionToOrder = (
   phone: string,
   customer_id: string
 ) => {
-  // console.log('[mapPaypalCompletionToOrder,PaypalPayload]', paypalPayload);
   const { id, status, purchase_units, payment_source, payer } = paypalPayload;
   const { reference_id: order_id, shipping, payments } = purchase_units[0];
   return {
