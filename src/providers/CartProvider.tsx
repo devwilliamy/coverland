@@ -14,6 +14,7 @@ const defaultCartValue = {
   getTotalPrice: (): number => 0,
   getOrderSubtotal: (): number => 0,
   getTotalDiscountPrice: (): number => 0,
+  getTotalPreorderDiscount: (): number => 0,
   getTotalCartQuantity: (): number => 0,
   setCartOpen: (open: boolean) => {},
   clearLocalStorageCart: () => {},

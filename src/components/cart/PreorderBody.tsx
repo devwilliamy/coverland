@@ -13,12 +13,16 @@ type AddToCartBodyProps = {
 const AddToCartBody = ({
   selectedProduct,
 }: AddToCartBodyProps) => {
-  const { cartItems } = useCartContext();
+  const { cartItems, getTotalPreorderDiscount } = useCartContext();
   const sortedCartItems = selectedProduct
     ? cartItems.sort((a, b) => (b.sku === selectedProduct.sku ? 1 : -1))
     : cartItems;
 
+
   const preorderWeeks = weeksFromCurrentDate(selectedProduct?.preorder_date);
+  const totalPreorderDiscount = getTotalPreorderDiscount();
+
+  console.log('totalPreorderDiscount', totalPreorderDiscount);
 
   return (
     <>
@@ -46,8 +50,8 @@ const AddToCartBody = ({
             <div className="mx-2 text-xl font-bold text-[#2BA45B]">
               {preorderWeeks} Weeks
             </div>
-            <div className="w-[72px] rounded bg-[#2BA45B] py-1 text-center text-[#ffffff]">
-              ${selectedProduct?.preorder_discount} Off
+            <div className="w-[75px] rounded bg-[#2BA45B] py-1 text-center text-[#ffffff]">
+              ${totalPreorderDiscount} Off
             </div>
           </div>
         </div>
