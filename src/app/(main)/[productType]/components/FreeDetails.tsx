@@ -369,7 +369,7 @@ export default function FreeDetails({preorder, preorder_date}) {
     {
       icon: <BoxIcon />,
       title: preorder ? 'Estimated Restock Date: ' + formatISODate(preorder_date) : 'Free, Same-Day Shipping',
-      title: preorder ? 'Shipped when Restocked' : 'Free, Same-Day Shipping',
+      title: preorder ? 'Shipped When Restocked' : 'Free, Same-Day Shipping',
       description: `Order within ${timeRemaining} - Receive by ${deliveryDate}`,
       headerText: 'Shipping Information',
       jsx: <ShippingInformation />,

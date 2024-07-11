@@ -10,7 +10,6 @@ import { useState } from 'react';
 export default function CartItemCard({ item }: { item: TCartItem }) {
   const { updateItemQuantity } = useCartContext();
   const [quantity, setQuantity] = useState(item?.quantity || 1);
-  const [preorder, setPreorder] = useState(item?.preorder || false);
   const handleQuantityChange = (e) => {
     const newQuantity = parseInt(e.target.value, 10);
     setQuantity(newQuantity);
@@ -33,12 +32,12 @@ export default function CartItemCard({ item }: { item: TCartItem }) {
           />
         </div>
         <div className="flex w-7/12 flex-col gap-1">
-          <div className="md:flex items-center md:space-x-2">
-            <div className="w-10/12 md:w-auto text-base font-bold lg:text-lg">
+          <div className="items-center md:flex md:space-x-2">
+            <div className="w-10/12 text-base font-bold md:w-auto lg:text-lg">
               {item?.display_id}&trade; {item?.type}
             </div>
             {item?.preorder && (
-              <div className="max-w-[90px] bg-[#2BA45B] rounded px-[8px] text-center text-[#ffffff] text-sm leading-[27px] h-[27px] font-bold">
+              <div className="h-[27px] max-w-[90px] rounded bg-[#2BA45B] px-[8px] text-center text-sm font-bold leading-[27px] text-[#ffffff]">
                 Pre-Order
               </div>
             )}
@@ -77,6 +76,7 @@ export default function CartItemCard({ item }: { item: TCartItem }) {
         </div>
         <div className="flex w-2/12 flex-col text-right ">
           <div className="text-base font-bold lg:text-lg">
+            $
             {item?.msrp
               ? (
                   (parseFloat(item?.msrp) -
