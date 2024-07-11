@@ -72,7 +72,9 @@ export async function getProductData({
     fetch = fetch.eq('model_slug', model);
   }
 
-  fetch = fetch.neq('quantity', '0');
+  if (type !== 'Seat Covers') {
+    fetch = fetch.neq('quantity', '0');
+  }
 
   const { data, error } = await fetch.limit(750);
 
@@ -164,20 +166,27 @@ export async function getAllUniqueModelsByYearMake({
   typeId: string;
   yearId: string;
 }) {
-  const { data, error } = await supabase
+  let query = supabase
     .from(RELATIONS_PRODUCT_TABLE)
     .select(
       `*,Model(*),${PRODUCT_DATA_TABLE}(id,model,model_slug, parent_generation, submodel1, submodel2, submodel3, quantity)`
     )
     .eq('year_id', yearId)
     .eq('type_id', typeId)
-    .eq('make_id', makeId)
-    .neq(`${PRODUCT_DATA_TABLE}.quantity`, 0)
-    .order('name', { foreignTable: 'Model', ascending: false });
+    .eq('make_id', makeId);
+
+  if (type !== 'Seat Covers') {
+    query = query.neq(`${PRODUCT_DATA_TABLE}.quantity`, 0);
+  }
+
+  query = query.order('name', { foreignTable: 'Model', ascending: false });
+
+  const { data, error } = await query;
 
   if (error) {
     throw new Error(error.message);
   }
+
   const allProductData = data
     .map((relation) => relation[PRODUCT_DATA_TABLE])
     .filter((item) => item !== null);
