@@ -74,7 +74,7 @@ export default function CartItemCard({ item }: { item: TCartItem }) {
             {item?.msrp
               ? (
                   (parseFloat(item?.msrp) -
-                    (item?.preorder
+                    (item?.preorder && item?.preorder_discount
                       ? parseFloat(item?.preorder_discount)
                       : 0)) *
                   item?.quantity
