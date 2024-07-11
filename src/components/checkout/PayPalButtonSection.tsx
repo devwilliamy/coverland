@@ -85,6 +85,7 @@ export default function PayPalButtonSection({
               cartItems,
               orderNumber,
               shipping,
+              shippingAddress,
               isBillingSameAsShipping ? shippingAddress : billingAddress
             );
             if (!data) {

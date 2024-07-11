@@ -55,6 +55,7 @@ import parsePhoneNumberFromString, {
 } from 'libphonenumber-js';
 import { formatToE164 } from '@/lib/utils';
 import { TermsOfUseStatement } from './TermsOfUseStatement';
+import { checkCardErrors } from '@/app/(noFooter)/checkout/utils';
 
 export default function CheckoutAccordion() {
   const stripe = useStripe();
@@ -89,8 +90,14 @@ export default function CheckoutAccordion() {
     updateCustomerInfo,
     paymentIsFilled,
     clientSecret,
+    updateIsReadyToPay,
+    cardNumberError,
+    cardExpiryError,
+    cardCvvError,
+    updateCardNumberError,
+    updateCardExpiryError,
+    updateCardCvvError,
   } = useCheckoutContext();
-  // const { orderNumber, paymentIntentId, paymentMethod, updatePaymentMethod } = useCheckoutContext();
   const orderSubtotal = getOrderSubtotal().toFixed(2);
   const cartMSRP = getTotalPrice() + shipping;
   const totalMsrpPrice = convertPriceToStripeFormat(getTotalPrice() + shipping);
@@ -405,21 +412,51 @@ export default function CheckoutAccordion() {
     setSubmitErrorMessage('');
   }, [isReadyToShip, isReadyToPay]);
 
+  useEffect(() => {
+    const { hasErrors, oneFieldUnvisited, oneFieldEmpty } = checkCardErrors(
+      cardNumberError,
+      cardExpiryError,
+      cardCvvError
+    );
+    if (paymentMethod === 'paypal' && !isEditingAddress) {
+      return updateIsReadyToPay(true);
+    } else {
+      if (
+        hasErrors ||
+        oneFieldUnvisited
+        //  || oneFieldEmpty
+      ) {
+        updateIsReadyToPay(false);
+      }
+    }
+  }, [isEditingAddress, paymentMethod]);
+
+  useEffect(() => {
+   
+    updateCardNumberError({
+      ...cardNumberError,
+      error: null,
+      message: undefined,
+      visited: false,
+    });
+    updateCardExpiryError({
+      ...cardExpiryError,
+      error: null,
+      message: undefined,
+      visited: false,
+    });
+
+    updateCardCvvError({
+      ...cardCvvError,
+      error: null,
+      message: undefined,
+      visited: false,
+    });
+  }, [paymentMethod]);
+
   const accordionTriggerStyle = `py-10 font-[500] text-[24px] leading-[12px]`;
 
   const isMobile = useMediaQuery('(max-width: 1023px)');
-
-  const handleSelectOrderReview = (e: MouseEvent<HTMLElement>) => {
-    if (
-      !isAddressComplete ||
-      isEditingAddress ||
-      !isReadyToPay ||
-      !isReadyToShip
-    ) {
-      e.preventDefault();
-    }
-    handleSelectTab('orderReview');
-  };
 
   const handleSelectPaymentTab = (e: MouseEvent<HTMLElement>) => {
     if (!isReadyToShip || isEditingAddress) {
@@ -514,7 +551,7 @@ export default function CheckoutAccordion() {
                         <PriceBreakdown />
                       </div>
                       <div
-                        className={`relative ${paymentMethod === 'paypal' && 'mb-[130px]'} flex w-full flex-col items-center justify-center py-4 ${submitErrorMessage && 'mb-10'}`}
+                        className={`relative ${paymentMethod === 'paypal' && 'mb-[130px]'} ${isReadyToPay && paymentMethod === 'creditCard' && 'mb-[60px]'} flex w-full flex-col items-center justify-center py-4 ${submitErrorMessage && 'mb-10'}`}
                       >
                         <TermsOfUseStatement />
                         {isReadyToPay && (
@@ -545,30 +582,33 @@ export default function CheckoutAccordion() {
           </div>
         )}
       </div>
-
-      {isReadyToPay && paymentMethod === 'creditCard' && (
-        <Button
-          variant={'default'}
-          className={`fixed bottom-0 mb-3 flex w-[calc(100%_-_16px)] max-w-[1032px] rounded-lg bg-black px-4  text-base font-bold uppercase text-white sm:h-[48px] lg:h-[55px] lg:text-xl`}
-          onClick={(e) => {
-            setIsLoading(true);
-            handleSubmit();
-          }}
-        >
-          {isLoading ? (
-            <AiOutlineLoading3Quarters className="animate-spin" />
-          ) : (
-            'Submit Payment'
+      {isReadyToPay && !isEditingAddress && (
+        <>
+          {paymentMethod === 'creditCard' && (
+            <Button
+              variant={'default'}
+              className={`fixed bottom-0 mb-3 flex h-[48px] w-[calc(100%_-_16px)] max-w-[1032px] rounded-lg bg-black  px-4 text-base font-bold uppercase text-white lg:text-xl`}
+              onClick={(e) => {
+                setIsLoading(true);
+                handleSubmit();
+              }}
+            >
+              {isLoading ? (
+                <AiOutlineLoading3Quarters className="animate-spin" />
+              ) : (
+                'Submit Payment'
+              )}
+            </Button>
           )}
-        </Button>
-      )}
-      {paymentMethod === 'paypal' && (
-        <div className="fixed bottom-0 mb-3 flex w-full  max-w-[1064px] max-lg:ml-8">
-          <PayPalButtonSection
-            setPaypalSuccessMessage={setPaypalSuccessMessage}
-            setMessage={setSubmitErrorMessage}
-          />
-        </div>
+          {paymentMethod === 'paypal' && (
+            <div className="fixed bottom-0 mb-3 flex w-full max-w-[1064px] max-lg:ml-8 lg:px-4">
+              <PayPalButtonSection
+                setPaypalSuccessMessage={setPaypalSuccessMessage}
+                setMessage={setSubmitErrorMessage}
+              />
+            </div>
+          )}
+        </>
       )}
     </div>
   );

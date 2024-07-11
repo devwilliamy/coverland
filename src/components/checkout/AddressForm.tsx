@@ -1,4 +1,3 @@
-
 import {
   ChangeEventHandler,
   MouseEvent,
@@ -14,8 +13,10 @@ import { StripeAddress } from '@/lib/types/checkout';
 import { CustomTextField } from './CustomTextField';
 import { GEORGE_DEFAULT_ADDRESS_DATA } from '@/lib/constants';
 
-import { cleanPhoneInput } from '@/app/(noFooter)/checkout/utils';
-
+import {
+  checkCardErrors,
+  cleanPhoneInput,
+} from '@/app/(noFooter)/checkout/utils';
 
 type AddressFormProps = {
   addressData: StripeAddress;
@@ -60,11 +61,17 @@ export default function AddressForm({
     updateTwoLetterStateCode,
     updateBillingTwoLetterStateCode,
     isBillingSameAsShipping,
+    updateIsEditingAddress,
+    paymentMethod,
+    cardNumberError,
+    cardExpiryError,
+    cardCvvError,
+    isReadyToPay,
+    updateIsReadyToPay,
+    isEditingAddress,
   } = useCheckoutContext();
 
-
   // TODO: Extract this to checkout context or its own context
-
 
   const [shippingState, setShippingState] = useState<
     Record<string, ShippingStateType>
@@ -185,34 +192,65 @@ export default function AddressForm({
       phoneNumber: shippingState.phoneNumber.value,
     } as CustomerInfo;
 
+    const { hasErrors, oneFieldUnvisited, oneFieldEmpty } = checkCardErrors(
+      cardNumberError,
+      cardExpiryError,
+      cardCvvError
+    );
+
+    if (
+      isBilling &&
+      paymentMethod === 'creditCard' &&
+      isEditingAddress &&
+      !hasErrors &&
+      !oneFieldUnvisited
+      // !oneFieldEmpty
+    ) {
+      console.log({
+        hasErrors,
+        oneFieldUnvisited,
+        // oneFieldEmpty,
+        expectedReadyToPay: !isReadyToPay,
+        expectedEdit: !isEditingAddress,
+      });
+
+      updateIsReadyToPay(true);
+    }
+
     updateAddress(incStripeAddress as StripeAddress);
     updateCustomerInfo(incCustomerInfo);
-    setIsEditingAddress(false);
+    updateIsEditingAddress(false);
   };
+
+  useEffect(() => {
+    updateIsReadyToPay(false);
+  }, []);
 
   return (
     <form
       onSubmit={(e) => e.preventDefault()}
       className="mt-2 flex flex-col gap-[29.5px]"
     >
-      <div className="flex grid-cols-2 flex-col gap-[29.5px] lg:grid lg:gap-[14px]">
-        <CustomTextField
-          label="First Name"
-          type="firstName"
-          placeholder="First Name"
-          required
-          shippingState={shippingState}
-          setShippingState={setShippingState}
-        />
-        <CustomTextField
-          label="Last Name"
-          type="lastName"
-          required
-          placeholder="Last Name"
-          shippingState={shippingState}
-          setShippingState={setShippingState}
-        />
-      </div>
+      {!isBilling && (
+        <div className="flex grid-cols-2 flex-col gap-[29.5px] lg:grid lg:gap-[14px]">
+          <CustomTextField
+            label="First Name"
+            type="firstName"
+            placeholder="First Name"
+            required
+            shippingState={shippingState}
+            setShippingState={setShippingState}
+          />
+          <CustomTextField
+            label="Last Name"
+            type="lastName"
+            required
+            placeholder="Last Name"
+            shippingState={shippingState}
+            setShippingState={setShippingState}
+          />
+        </div>
+      )}
       <CustomTextField
         label="Address"
         type="line1"

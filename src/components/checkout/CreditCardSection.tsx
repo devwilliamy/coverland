@@ -5,7 +5,7 @@ import {
   useElements,
   useStripe,
 } from '@stripe/react-stripe-js';
-import { useCheckoutContext } from '@/contexts/CheckoutContext';
+import { CardErrorData, useCheckoutContext } from '@/contexts/CheckoutContext';
 import { useRouter } from 'next/navigation';
 import {
   StripeCardCvcElementChangeEvent,
@@ -17,6 +17,7 @@ import { useEffect, useState } from 'react';
 import { CvvPopover } from './CvvPopover';
 import LockIcon from './icons/LockIcon';
 import { CardLockIcon } from './icons/CardLockIcon';
+import { checkCardErrors } from '@/app/(noFooter)/checkout/utils';
 
 export const CreditCardSection = () => {
   const stripe = useStripe();
@@ -42,6 +43,7 @@ export const CreditCardSection = () => {
     isReadyToPay,
     updateStripePaymentMethod,
     updateIsReadyToPay,
+    paymentMethod,
   } = useCheckoutContext();
   const [message, setMessage] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -68,15 +70,16 @@ export const CreditCardSection = () => {
   };
 
   const checkErrors = () => {
-    const hasErrors =
-      cardNumberError.error || cardExpiryError.error || cardCvvError.error;
-
-    const oneFieldUnvisited =
-      !cardNumberError.visited ||
-      !cardExpiryError.visited ||
-      !cardCvvError.visited;
-
-    if (hasErrors) {
+    const { hasErrors, oneFieldUnvisited, oneFieldEmpty } = checkCardErrors(
+      cardNumberError,
+      cardExpiryError,
+      cardCvvError
+    );
+    if (
+      hasErrors ||
+      oneFieldUnvisited
+      //  || oneFieldEmpty
+    ) {
       updateIsReadyToPay(false);
     } else {
       const cardNumberElement = elements?.getElement(
@@ -101,7 +104,14 @@ export const CreditCardSection = () => {
           }
         })
         .finally(() => {
-          !hasErrors && !oneFieldUnvisited && updateIsReadyToPay(true);
+          const { hasErrors, oneFieldUnvisited, oneFieldEmpty } =
+            checkCardErrors(cardNumberError, cardExpiryError, cardCvvError);
+          const isReadyToPayWithCard = !hasErrors && !oneFieldUnvisited;
+          //  && !oneFieldEmpty;
+
+          if (isReadyToPayWithCard) {
+            updateIsReadyToPay(true);
+          }
         });
     }
   };
@@ -109,18 +119,20 @@ export const CreditCardSection = () => {
   const handleCardNumberElementChange = (
     e: StripeCardNumberElementChangeEvent
   ) => {
-    if (e.error) {
+    if (e.error?.type) {
       updateCardNumberError({
         ...cardNumberError,
         error: 'invalid',
         message: e.error.message,
         visited: true,
       });
-    } else if (e.empty) {
+    } else if (e.empty || !e.complete) {
       updateCardNumberError({
         ...cardNumberError,
         error: 'empty',
-        message: 'Please enter card number.',
+        message: e.empty
+          ? 'Please enter card number.'
+          : "Your card's security code is incomplete.",
         visited: true,
       });
     } else {
@@ -136,18 +148,20 @@ export const CreditCardSection = () => {
   const handleCardExpiryElementChange = (
     e: StripeCardExpiryElementChangeEvent
   ) => {
-    if (e.error) {
+    if (e.error?.type) {
       updateCardExpiryError({
         ...cardExpiryError,
         error: 'invalid',
         message: e.error.message,
         visited: true,
       });
-    } else if (e.empty) {
+    } else if (e.empty || !e.complete) {
       updateCardExpiryError({
         ...cardExpiryError,
         error: 'empty',
-        message: 'Please enter date.',
+        message: e.empty
+          ? 'Please enter date.'
+          : "Your card's security code is incomplete.",
         visited: true,
       });
     } else {
@@ -161,18 +175,20 @@ export const CreditCardSection = () => {
   };
 
   const handleCardCvcElementChange = (e: StripeCardCvcElementChangeEvent) => {
-    if (e.error) {
-      updateCardCvvError({
+    if (e.error?.type) {
+      return updateCardCvvError({
         ...cardCvvError,
         error: 'invalid',
         message: e.error.message,
         visited: true,
       });
-    } else if (e.empty) {
+    } else if (e.empty || !e.complete) {
       updateCardCvvError({
         ...cardCvvError,
         error: 'empty',
-        message: 'Please enter CVV.',
+        message: e.empty
+          ? 'Please enter CVV.'
+          : "Your card's security code is incomplete.",
         visited: true,
       });
     } else {

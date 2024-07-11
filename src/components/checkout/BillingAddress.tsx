@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useCheckoutContext } from '@/contexts/CheckoutContext';
 import SavedBillingAddress from './SavedBillingAddress';
 import AddressForm from './AddressForm';
@@ -19,15 +19,15 @@ export default function BillingAddress({
     updateBillingAddress,
     isBillingSameAsShipping,
     updateIsBillingSameAsShipping,
+    updateIsReadyToPay,
   } = useCheckoutContext();
 
   const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setIsEditingAddress(!event.target.checked);
     updateIsBillingSameAsShipping(event.target.checked);
   };
 
-  const handleEditAddress = () => {
-    setIsEditingAddress(true);
-  };
+  // useEffect(() => {}, [isBillingSameAsShipping]);
 
   return (
     <>
@@ -56,10 +56,7 @@ export default function BillingAddress({
               />
             </div>
           ) : (
-            <SavedBillingAddress
-              address={billingAddress}
-              handleClick={handleEditAddress}
-            />
+            <SavedBillingAddress address={billingAddress} />
           )}
         </div>
       )}

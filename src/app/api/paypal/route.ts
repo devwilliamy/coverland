@@ -4,7 +4,7 @@ import paypal from '@paypal/checkout-server-sdk';
 const clientId = process.env.PAYPAL_CLIENT_ID ?? '';
 const clientSecret = process.env.PAYPAL_CLIENT_SECRET ?? '';
 const isProduction = process.env.NODE_ENV === 'production';
-const isPreview = process.env.NEXT_PUBLIC_IS_PREVIEW === "PREVIEW"
+const isPreview = process.env.NEXT_PUBLIC_IS_PREVIEW === 'PREVIEW';
 const productionEnvironment = new paypal.core.LiveEnvironment(
   clientId,
   clientSecret
@@ -37,6 +37,7 @@ export async function POST(req: Request) {
     request.requestBody({
       intent: 'CAPTURE',
       purchase_units: body.purchase_units,
+      payer: body.payer,
     });
     const response = await PaypalClient.execute(request);
     if (response.statusCode !== 201) {

@@ -173,34 +173,11 @@ export const CustomTextField = ({
   };
 
   const formatPhoneNumber = (input: string) => {
-    // Remove any non-digit characters
-    const cleaned = ('' + input).replace(/\D/g, '');
-
-    // Format based on the length of the cleaned number
-    let match;
-    if (cleaned.length === 7) {
-      match = cleaned.match(/^(\d{3})(\d{4})$/);
-      if (match) {
-        return `${match[1]}-${match[2]}`;
-      }
-    } else if (cleaned.length === 10) {
-      match = cleaned.match(/^(\d{3})(\d{3})(\d{4})$/);
-      if (match) {
-        return `(${match[1]}) ${match[2]}-${match[3]}`;
-      }
-    } else if (cleaned.length === 11) {
-      match = cleaned.match(/^(\d{1})(\d{3})(\d{3})(\d{4})$/);
-      if (match) {
-        return `${match[1]} (${match[2]}) ${match[3]}-${match[4]}`;
-      }
-    } else if (cleaned.length <= 6) {
-      return cleaned;
-    }
-
-    // If the number doesn't match any of the expected lengths
-    return input;
+    const parsedPhone = parsePhoneNumberFromString(input, 'US');
+    const formattedPhone = parsedPhone?.formatNational();
+    return formattedPhone;
   };
-
+  
   const handlePhoneChange = (value: string) => {
     setShippingState((prevState) => {
       return {
@@ -351,7 +328,7 @@ export const CustomTextField = ({
           onChange={(e) => {
             const value = e.target.value;
             const cleaned = ('' + value).replace(/\D/g, '');
-            if (cleaned.length > 15) {
+            if (cleaned.length > 10) {
               return;
             }
             handlePhoneChange(cleaned);
