@@ -62,8 +62,4 @@ const PreorderBody = ({
   );
 };
 
-type CartItemProps = {
-  item: TCartItem;
-};
-
 export default PreorderBody;
