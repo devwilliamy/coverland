@@ -57,11 +57,6 @@ export default function Payment() {
   const { orderNumber, paymentIntentId } = useCheckoutContext();
   const { billingAddress, shippingAddress, customerInfo, shipping } =
     useCheckoutContext();
-  const shippingInfo = {
-    shipping_method: SHIPPING_METHOD,
-    shipping_date: determineDeliveryByDate('EEE, LLL dd'),
-    delivery_fee: shipping,
-  };
   const {
     cartItems,
     getTotalPrice,
@@ -69,7 +64,15 @@ export default function Payment() {
     getTotalDiscountPrice,
     getTotalCartQuantity,
     clearLocalStorageCart,
+    cartPreorder,
+    cartPreorderDate,
   } = useCartContext();
+  const preorderDate = cartPreorder ? cartPreorderDate : undefined;
+  const shippingInfo = {
+    shipping_method: SHIPPING_METHOD,
+    shipping_date: determineDeliveryByDate('EEE, LLL dd', preorderDate),
+    delivery_fee: shipping,
+  };
   const totalMsrpPrice = convertPriceToStripeFormat(getTotalPrice() + shipping);
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();

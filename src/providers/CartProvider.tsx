@@ -18,6 +18,7 @@ const defaultCartValue = {
   setCartOpen: (open: boolean) => {},
   clearLocalStorageCart: () => {},
   cartPreorder: false,
+  cartPreorderDate: null,
   cartOpen: false,
 };
 const CartContext = createContext(defaultCartValue);
