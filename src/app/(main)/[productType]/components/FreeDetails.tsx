@@ -38,7 +38,7 @@ type DetailItem = {
 };
 
 export default function FreeDetails({preorder, preorder_date}) {
-  const deliveryDate = determineDeliveryByDate('LLL dd', preorder_date);
+  const deliveryDate = determineDeliveryByDate('LLL dd', preorder ? preorder_date : undefined);
   const iconSize = 28;
   const [timeRemaining, setTimeRemaining] = useState(calculateTimeTo2PM());
   const [currentPage, setCurrentPage] = useState<DetailItem>({
@@ -369,6 +369,7 @@ export default function FreeDetails({preorder, preorder_date}) {
     {
       icon: <BoxIcon />,
       title: preorder ? 'Estimated Restock Date: ' + formatISODate(preorder_date) : 'Free, Same-Day Shipping',
+      title: preorder ? 'Shipped when Restocked' : 'Free, Same-Day Shipping',
       description: `Order within ${timeRemaining} - Receive by ${deliveryDate}`,
       headerText: 'Shipping Information',
       jsx: <ShippingInformation />,
