@@ -28,7 +28,6 @@ const useCart = () => {
       setIsCartPreorder(false);
       setCartPreorderDate('');
     }
-    console.log('cartPreorderDate:', cartPreorderDate);
   }, [cartItems]);
 
   useEffect(() => {
@@ -108,7 +107,6 @@ const useCart = () => {
   }, [cartItems]);
 
   const getTotalDiscountPrice = useCallback(() => {
-    console.log('cartItems', cartItems);
     return cartItems.reduce(
       (total, item) =>
         total + Number(Number(item.price) - Number(item.msrp)) * item.quantity,
@@ -117,7 +115,6 @@ const useCart = () => {
   }, [cartItems]);
 
   const getTotalDiscountPricePlusPreorder = useCallback(() => {
-    console.log('cartItems', cartItems);
     return cartItems.reduce(
       (total, item) =>
         total +

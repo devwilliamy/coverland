@@ -61,7 +61,7 @@ export default function SeatContent({
     setLoading(false);
   }, [selectedProduct]);
   const handleAddToCart = () => {
-    // if (!cartProduct) return;
+    // if (!cartProduct) return; I commented this out, cartProduct is undefined
 
     if (newMSRP !== 0) {
       addToCart({ ...selectedProduct, msrp: newMSRP, quantity: 1 });
@@ -75,8 +75,6 @@ export default function SeatContent({
     } else {
       router.push('/checkout');
     }
-
-    // router.push('/checkout');
   };
 
   if (!selectedProduct.price) {
