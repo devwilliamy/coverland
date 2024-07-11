@@ -36,7 +36,7 @@ const AddToCartBody = ({ selectedProduct, preorderWeeks }: AddToCartBodyProps) =
               />
             </svg>
             <div className="text-xl font-bold text-[#2BA45B] mx-2">{preorderWeeks} Weeks</div>
-            <div className="w-[72px] bg-[#2BA45B] py-1 text-center text-[#ffffff]">
+            <div className="w-[72px] bg-[#2BA45B] py-1 text-center text-[#ffffff] rounded">
               $10 Off
             </div>
           </div>

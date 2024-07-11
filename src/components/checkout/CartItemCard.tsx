@@ -33,9 +33,15 @@ export default function CartItemCard({ item }: { item: TCartItem }) {
           />
         </div>
         <div className="flex w-7/12 flex-col gap-1">
-          <div className="w-10/12 text-base font-bold lg:text-lg">
-            {preorder ? 'Preorder - ' : ''}
-            {item?.display_id}&trade; {item?.type}
+          <div className="md:flex items-center md:space-x-2">
+            <div className="w-10/12 md:w-auto text-base font-bold lg:text-lg">
+              {item?.display_id}&trade; {item?.type}
+            </div>
+            {item?.preorder && (
+              <div className="max-w-[90px] bg-[#2BA45B] rounded px-[8px] text-center text-[#ffffff] text-sm leading-[27px] h-[27px] font-bold">
+                Pre-Order
+              </div>
+            )}
           </div>
           <div
             className={`text-sm font-normal ${!item?.make && 'hidden'} text-[#707070] lg:text-base`}
@@ -92,7 +98,7 @@ export default function CartItemCard({ item }: { item: TCartItem }) {
       <div className="flex items-end justify-between pb-2 pt-0">
         <div className="flex flex-col">
           <div className="pt-2 text-sm font-normal text-[#343434] lg:pt-0 lg:text-base">
-            {item?.preorder ? '' : 'Same-Day Shipping' }
+            {item?.preorder ? 'Pre-order Item' : 'Same-Day Shipping'}
           </div>
           <div className="flex items-center gap-3 pt-1 text-sm font-normal text-[#343434] lg:text-base">
             <div>Free Delivery</div>
