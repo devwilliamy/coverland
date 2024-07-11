@@ -52,7 +52,7 @@ import {
             </SheetTitle>
             <Separator />
           </SheetHeader>
-          <div className=" flex w-full flex-col overflow-y-scroll px-4">
+          <div className=" flex w-full flex-col px-4">
             <PreorderBody selectedProduct={selectedProduct} preorderWeeks={preorderWeeks} />
           </div>
           <div className="w-full bg-white shadow-[0_-4px_4px_-0px_rgba(0,0,0,0.1)]">
