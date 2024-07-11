@@ -28,6 +28,7 @@ const useCart = () => {
       setCartPreorder(false);
       setCartPreorderDate('');
     }
+    console.log('cartPreorderDate:', cartPreorderDate);
   }, [cartItems]);
 
   useEffect(() => {
@@ -148,6 +149,7 @@ const useCart = () => {
     cartOpen,
     setCartOpen,
     cartPreorder,
+    cartPreorderDate,
     clearLocalStorageCart,
   };
 };
