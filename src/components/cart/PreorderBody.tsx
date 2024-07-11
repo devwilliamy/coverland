@@ -10,7 +10,10 @@ type AddToCartBodyProps = {
   preorderWeeks?: number;
 };
 
-const AddToCartBody = ({ selectedProduct, preorderWeeks }: AddToCartBodyProps) => {
+const AddToCartBody = ({
+  selectedProduct,
+  preorderWeeks,
+}: AddToCartBodyProps) => {
   const { cartItems } = useCartContext();
   const sortedCartItems = selectedProduct
     ? cartItems.sort((a, b) => (b.sku === selectedProduct.sku ? 1 : -1))
@@ -19,10 +22,14 @@ const AddToCartBody = ({ selectedProduct, preorderWeeks }: AddToCartBodyProps) =
   return (
     <>
       <div className="px-2 py-4">
-        <div className="text-center pb-4">
-          <p className="text-2xl font-extrabold py-4">Get It First, Pay Less!</p>
-          <p className="text-[#767676]">Expected Re-stock in {preorderWeeks} weeks</p>
-          <div className="flex justify-center items-center space-x-2 mt-1 mb-3">
+        <div className="pb-4 text-center">
+          <p className="py-4 text-2xl font-extrabold">
+            Get It First, Pay Less!
+          </p>
+          <p className="text-[#767676]">
+            Expected Re-stock in {preorderWeeks} weeks
+          </p>
+          <div className="mb-3 mt-1 flex items-center justify-center space-x-2">
             <svg
               width="32"
               height="29"
@@ -35,13 +42,15 @@ const AddToCartBody = ({ selectedProduct, preorderWeeks }: AddToCartBodyProps) =
                 fill="#2BA45B"
               />
             </svg>
-            <div className="text-xl font-bold text-[#2BA45B] mx-2">{preorderWeeks} Weeks</div>
-            <div className="w-[72px] bg-[#2BA45B] py-1 text-center text-[#ffffff] rounded">
-              $10 Off
+            <div className="mx-2 text-xl font-bold text-[#2BA45B]">
+              {preorderWeeks} Weeks
+            </div>
+            <div className="w-[72px] rounded bg-[#2BA45B] py-1 text-center text-[#ffffff]">
+              ${selectedProduct?.preorder_discount} Off
             </div>
           </div>
         </div>
-        <LineSeparator className='mb-2' />
+        <LineSeparator className="mb-2" />
         <PriceBreakdown />
       </div>
     </>
