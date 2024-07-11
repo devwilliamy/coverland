@@ -73,11 +73,11 @@ export default function CartItemCard({ item }: { item: TCartItem }) {
           <div className="text-base font-bold lg:text-lg">
             {item?.msrp
               ? (
-                  parseFloat(item?.msrp) -
-                  (item?.preorder
-                    ? parseFloat(item?.preorder_discount)
-                    : 0) *
-                    item?.quantity
+                  (parseFloat(item?.msrp) -
+                    (item?.preorder
+                      ? parseFloat(item?.preorder_discount)
+                      : 0)) *
+                  item?.quantity
                 ).toFixed(2)
               : ''}
           </div>
