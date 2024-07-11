@@ -76,17 +76,17 @@ export default function SeatContent({
   const handleAddToCart = () => {
     // if (!cartProduct) return;
 
+    if (newMSRP !== 0) {
+      addToCart({ ...selectedProduct, msrp: newMSRP, quantity: 1 });
+    } else {
+      addToCart({ ...selectedProduct, quantity: 1 });
+    }
+
     if (preorder) {
       setAddToCartOpen(true);
       return;
     } else {
       router.push('/checkout');
-    }
-
-    if (newMSRP !== 0) {
-      addToCart({ ...selectedProduct, msrp: newMSRP, quantity: 1 });
-    } else {
-      addToCart({ ...selectedProduct, quantity: 1 });
     }
 
     // router.push('/checkout');
