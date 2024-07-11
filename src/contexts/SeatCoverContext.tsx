@@ -137,12 +137,10 @@ const createSeatCoverSelectionStore = ({
     },
     selectedProduct: modelDataWithFilteredSubmodel2Selection[0],
     setSelectedProduct: (newProduct: TSeatCoverDataDB) => {
-      if (params?.year) {
-        set(() => ({
-          selectedProduct: newProduct,
-          featuredImage: newProduct?.product?.split(',')[0] ?? '',
-        }));
-      }
+      set(() => ({
+        selectedProduct: newProduct,
+        featuredImage: newProduct?.product?.split(',')[0] ?? '',
+      }));
     },
     selectedColor:
       modelDataWithFilteredSubmodel2Selection[0]?.display_color ?? '',
