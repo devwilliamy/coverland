@@ -21,6 +21,7 @@ import useDetermineType from '@/hooks/useDetermineType';
 import { TSeatCoverDataDB } from '@/lib/db/seat-covers';
 import { handleCheckLowQuantity } from '@/lib/utils/calculations';
 import KlarnaIcon from '@/components/icons/KlarnaIcon';
+import { weeksFromCurrentDate } from '@/lib/utils/date';
 
 export default function SeatContent({
   searchParams,
@@ -174,6 +175,7 @@ export default function SeatContent({
       />
       <PreorderSheet
         preorder={preorder}
+        preorderWeeks={weeksFromCurrentDate(preorder_date)}
         preorder_date={preorder_date}
         preorder_discount={preorder_discount}
         open={addToCartOpen}

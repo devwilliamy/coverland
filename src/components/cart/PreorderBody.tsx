@@ -7,9 +7,10 @@ import PriceBreakdown from '../checkout/PriceBreakdown';
 
 type AddToCartBodyProps = {
   selectedProduct?: IProductData | null | undefined;
+  preorderWeeks?: number;
 };
 
-const AddToCartBody = ({ selectedProduct }: AddToCartBodyProps) => {
+const AddToCartBody = ({ selectedProduct, preorderWeeks }: AddToCartBodyProps) => {
   const { cartItems } = useCartContext();
   const sortedCartItems = selectedProduct
     ? cartItems.sort((a, b) => (b.sku === selectedProduct.sku ? 1 : -1))
@@ -20,7 +21,7 @@ const AddToCartBody = ({ selectedProduct }: AddToCartBodyProps) => {
       <div className="px-2 py-4">
         <div className="text-center pb-4">
           <p className="text-2xl font-extrabold py-4">Get It First, Pay Less!</p>
-          <p className="text-[#767676]">Expected Re-stock in 4 weeks</p>
+          <p className="text-[#767676]">Expected Re-stock in {preorderWeeks} weeks</p>
           <div className="flex justify-center items-center space-x-2 mt-1 mb-3">
             <svg
               width="32"
@@ -34,7 +35,7 @@ const AddToCartBody = ({ selectedProduct }: AddToCartBodyProps) => {
                 fill="#2BA45B"
               />
             </svg>
-            <div className="text-xl font-bold text-[#2BA45B] mx-2">4 Weeks</div>
+            <div className="text-xl font-bold text-[#2BA45B] mx-2">{preorderWeeks} Weeks</div>
             <div className="w-[72px] bg-[#2BA45B] py-1 text-center text-[#ffffff]">
               $10 Off
             </div>
