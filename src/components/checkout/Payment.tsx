@@ -73,8 +73,6 @@ export default function Payment() {
     shipping_date: determineDeliveryByDate('EEE, LLL dd', preorderDate),
     delivery_fee: shipping,
   };
-  console.log('Preorder Date:', preorderDate);
-  console.log('shipping_date:', shippingInfo.shipping_date);
   const totalMsrpPrice = convertPriceToStripeFormat(getTotalPrice() + shipping);
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
