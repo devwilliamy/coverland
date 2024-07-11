@@ -1,6 +1,6 @@
 import { TCartItem } from '@/lib/cart/useCart';
 import {
-  getMsrpTotal,
+  getTotalPrice,
   getOrderSubtotal,
   getTotalDiscountPrice,
 } from '@/lib/utils/calculations';
@@ -20,7 +20,7 @@ const calculateOrderAmount = (items: TCartItem[]) => {
   // Replace this constant with a calculation of the order's amount
   // Calculate the order total on the server to prevent
   // people from directly manipulating the amount on the client
-  return convertPriceToStripeFormat(getMsrpTotal(items));
+  return convertPriceToStripeFormat(getTotalPrice(items));
 };
 
 const calculateOrderTotalOriginalAmount = (items: TCartItem[]) => {
