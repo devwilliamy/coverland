@@ -44,10 +44,10 @@ export default function PayPalButtonSection({
     getTotalDiscountPrice,
     getTotalCartQuantity,
     clearLocalStorageCart,
-    cartPreorder,
+    isCartPreorder,
     cartPreorderDate,
   } = useCartContext();
-  const preorderDate = cartPreorder ? cartPreorderDate : undefined;
+  const preorderDate = isCartPreorder ? cartPreorderDate : undefined;
   const shippingInfo = {
     shipping_method: SHIPPING_METHOD,
     shipping_date: determineDeliveryByDate('EEE, LLL dd', preorderDate),

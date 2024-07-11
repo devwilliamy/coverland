@@ -15,17 +15,17 @@ const useCart = () => {
   });
 
   const [cartOpen, setCartOpen] = useState(false);
-  const [cartPreorder, setCartPreorder] = useState(false);
+  const [isCartPreorder, setIsCartPreorder] = useState(false);
   const [cartPreorderDate, setCartPreorderDate] = useState('');
 
   useEffect(() => {
     const preorderItem = cartItems.find((item) => item?.preorder);
     if (preorderItem) {
-      setCartPreorder(true);
+      setIsCartPreorder(true);
       // this only captures the first preorder item found in the cart, will have to come back and fix this later
       setCartPreorderDate(preorderItem?.preorder_date);
     } else {
-      setCartPreorder(false);
+      setIsCartPreorder(false);
       setCartPreorderDate('');
     }
     console.log('cartPreorderDate:', cartPreorderDate);
@@ -148,7 +148,7 @@ const useCart = () => {
     getTotalCartQuantity,
     cartOpen,
     setCartOpen,
-    cartPreorder,
+    isCartPreorder,
     cartPreorderDate,
     clearLocalStorageCart,
   };

@@ -10,7 +10,7 @@ export default function PriceBreakdown() {
     getOrderSubtotal,
     getTotalDiscountPrice,
     getTotalCartQuantity,
-    cartPreorder,
+    isCartPreorder,
     getTotalPreorderDiscount,
   } = useCartContext();
   const totalMsrpPrice = (getTotalPrice() + shipping).toFixed(
@@ -40,7 +40,7 @@ export default function PriceBreakdown() {
           <div>-${totalDiscountedPrice}</div>
         </div>
       )}
-      {!isCartEmpty && cartPreorder ? (
+      {!isCartEmpty && isCartPreorder ? (
         <div className="flex justify-between text-[#D13C3F]">
           <div>Pre-order Savings</div>
           <div>-${totalPreorderDiscount}</div>
