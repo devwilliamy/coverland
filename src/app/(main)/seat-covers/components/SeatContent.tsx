@@ -21,7 +21,6 @@ import useDetermineType from '@/hooks/useDetermineType';
 import { TSeatCoverDataDB } from '@/lib/db/seat-covers';
 import { handleCheckLowQuantity } from '@/lib/utils/calculations';
 import KlarnaIcon from '@/components/icons/KlarnaIcon';
-import { weeksFromCurrentDate } from '@/lib/utils/date';
 
 export default function SeatContent({
   searchParams,
@@ -46,10 +45,6 @@ export default function SeatContent({
   const [newMSRP, setNewMSRP] = useState<number | null>(selectedProduct.msrp);
   const [loading, setLoading] = useState(false);
 
-  const [preorder, setPreorder] = useState(false);
-  const [preorder_date, setPreorderDate] = useState(null);
-  const [preorder_discount, setPreorderDiscount] = useState(null);
-
 
   useEffect(() => {
     setLoading(true);
@@ -65,15 +60,6 @@ export default function SeatContent({
 
     setLoading(false);
   }, [selectedProduct]);
-
-  useEffect(() => {
-    if (isFinalSelection) {
-      setPreorder(selectedProduct?.preorder);
-      setPreorderDate(selectedProduct?.preorder_date);
-      setPreorderDiscount(selectedProduct?.preorder_discount);
-    }
-  }, [selectedProduct])
-
   const handleAddToCart = () => {
     // if (!cartProduct) return;
 
@@ -83,7 +69,7 @@ export default function SeatContent({
       addToCart({ ...selectedProduct, quantity: 1 });
     }
 
-    if (preorder) {
+    if (selectedProduct.preorder) {
       setAddToCartOpen(true);
       return;
     } else {
@@ -163,7 +149,7 @@ export default function SeatContent({
         <SeatCoverSelection />
       ) : null}
       <SeatCoverColorSelector isFinalSelection={isFinalSelection} />
-      <FreeDetails preorder={preorder} preorder_date={preorder_date} />
+      <FreeDetails selectedProduct={selectedProduct} />
       {/* <CompatibleVehiclesTrigger /> */}
       <div className="lg:py-4"></div>
       <div className="lg:hidden">
@@ -175,16 +161,11 @@ export default function SeatContent({
         />
       </div>
       <AddToCart
-        preorder={preorder}
         selectedProduct={selectedProduct}
         handleAddToCart={handleAddToCart}
         searchParams={searchParams}
       />
       <PreorderSheet
-        preorder={preorder}
-        preorderWeeks={weeksFromCurrentDate(preorder_date)}
-        preorder_date={preorder_date}
-        preorder_discount={preorder_discount}
         open={addToCartOpen}
         setOpen={setAddToCartOpen}
         selectedProduct={selectedProduct}

@@ -37,8 +37,9 @@ type DetailItem = {
   jsx: React.JSX.Element;
 };
 
-export default function FreeDetails({preorder, preorder_date}) {
-  const deliveryDate = determineDeliveryByDate('LLL dd', preorder ? preorder_date : undefined);
+export default function FreeDetails({selectedProduct}) {
+  const params = useParams();
+  const deliveryDate = determineDeliveryByDate('LLL dd', selectedProduct?.preorder && params.year ? selectedProduct?.preorder_date : undefined);
   const iconSize = 28;
   const [timeRemaining, setTimeRemaining] = useState(calculateTimeTo2PM());
   const [currentPage, setCurrentPage] = useState<DetailItem>({
@@ -49,7 +50,6 @@ export default function FreeDetails({preorder, preorder_date}) {
     jsx: <></>,
   });
   const isMobile = useMediaQuery('(max-width: 1024px)');
-  const params = useParams();
   const { isSeatCover } = useDetermineType();
   const coverType = params?.coverType;
   const indentStyling = 'flex flex-col gap-4 pl-[30px] pt-5';
@@ -368,8 +368,8 @@ export default function FreeDetails({preorder, preorder_date}) {
   const freeDetailItems: DetailItem[] = [
     {
       icon: <BoxIcon />,
-      title: preorder ? 'Estimated Restock Date: ' + formatISODate(preorder_date) : 'Free, Same-Day Shipping',
-      title: preorder ? 'Shipped When Restocked' : 'Free, Same-Day Shipping',
+      title: selectedProduct?.preorder && params.year ? 'Estimated Restock Date: ' + formatISODate(selectedProduct?.preorder) : 'Free, Same-Day Shipping',
+      title: selectedProduct?.preorder && params.year ? 'Shipped When Restocked' : 'Free, Same-Day Shipping',
       description: `Order within ${timeRemaining} - Receive by ${deliveryDate}`,
       headerText: 'Shipping Information',
       jsx: <ShippingInformation />,

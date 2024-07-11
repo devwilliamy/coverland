@@ -1,7 +1,7 @@
 'use client';
 import { createStore } from 'zustand';
 import { createContext, useRef } from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter, useParams } from 'next/navigation';
 import { TSeatCoverDataDB } from '@/lib/db/seat-covers';
 import { TPathParams, TQueryParams, getCompleteSelectionData } from '@/utils';
 import { compareRawStrings, isFullSet } from '@/lib/utils';
@@ -46,7 +46,6 @@ export interface ISeatCoverCoverSelectionState extends ISeatCoverCoverProps {
   selectedSetDisplay: string;
   setAvailableColors: (availableColors: string[]) => void
   setSelectedSetDisplay: (selectedSet: string) => void;
-  // setPreorder: ({preorder: boolean, preorder_date?: Date, preorder_discount?: number}) => void;
 }
 
 type SeatCoverSelectionStoreParams = {
@@ -65,7 +64,7 @@ const createSeatCoverSelectionStore = ({
   initialReviewData,
   initialReviewDataSummary,
   initialReviewImages,
-}: SeatCoverSelectionStoreParams) => {
+}: SeatCoverSelectionStoreParams) => {  
   const customerSelectedYear =
     typeof window !== 'undefined'
       ? localStorage?.getItem('heroDropdownYear')
@@ -138,10 +137,12 @@ const createSeatCoverSelectionStore = ({
     },
     selectedProduct: modelDataWithFilteredSubmodel2Selection[0],
     setSelectedProduct: (newProduct: TSeatCoverDataDB) => {
-      set(() => ({
-        selectedProduct: newProduct,
-        featuredImage: newProduct?.product?.split(',')[0] ?? '',
-      }));
+      if (params?.year) {
+        set(() => ({
+          selectedProduct: newProduct,
+          featuredImage: newProduct?.product?.split(',')[0] ?? '',
+        }));
+      }
     },
     selectedColor:
       modelDataWithFilteredSubmodel2Selection[0]?.display_color ?? '',

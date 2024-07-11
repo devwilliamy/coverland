@@ -4,20 +4,21 @@ import Image from 'next/image';
 import LineSeparator from '../ui/line-separator';
 import { IProductData } from '@/utils';
 import PriceBreakdown from '../checkout/PriceBreakdown';
+import { weeksFromCurrentDate } from '@/lib/utils/date';
 
 type AddToCartBodyProps = {
   selectedProduct?: IProductData | null | undefined;
-  preorderWeeks?: number;
 };
 
 const AddToCartBody = ({
   selectedProduct,
-  preorderWeeks,
 }: AddToCartBodyProps) => {
   const { cartItems } = useCartContext();
   const sortedCartItems = selectedProduct
     ? cartItems.sort((a, b) => (b.sku === selectedProduct.sku ? 1 : -1))
     : cartItems;
+
+  const preorderWeeks = weeksFromCurrentDate(selectedProduct?.preorder_date);
 
   return (
     <>
