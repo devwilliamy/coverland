@@ -1,6 +1,6 @@
 'use client';
 import Image from 'next/image';
-import { useState, useContext, useEffect } from 'react';
+import { useState, useContext } from 'react';
 import installments from '@/images/PDP/Product-Details-Redesign-2/paypal-installments.webp';
 import { Rating } from '@mui/material';
 import { useCartContext } from '@/providers/CartProvider';
@@ -88,7 +88,7 @@ export default function SeatContent({
         </div>
       </div>
       <div className=" flex items-end  gap-[9px] pt-[34px]   text-center text-[28px] font-[900]  lg:text-[32px] lg:leading-[37.5px] ">
-      <div className="leading-[20px]">${selectedProduct.msrp}</div>
+        <div className="leading-[20px]">${selectedProduct.msrp}</div>
         <div className="flex gap-1.5 pb-[1px] text-[22px] font-[400] leading-[14px] text-[#BE1B1B] lg:text-[22px] ">
           <span className=" text-[#BEBEBE] line-through">
             ${selectedProduct.price}
@@ -97,7 +97,7 @@ export default function SeatContent({
         </div>
       </div>
       <div className="pb-4.5 mt-[15px] flex items-center gap-0.5">
-      <p className="mb-[4px] text-[14px] leading-[16px] text-[#767676] lg:text-[16px]">
+        <p className="mb-[4px] text-[14px] leading-[16px] text-[#767676] lg:text-[16px]">
           4 interest-free installments of{' '}
           <b className="font-[400] text-black">
             ${((selectedProduct.price || 1) / 8 - 0.01).toFixed(2)}
