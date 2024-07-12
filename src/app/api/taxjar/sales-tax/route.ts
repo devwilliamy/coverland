@@ -13,7 +13,7 @@ export async function POST(request: NextRequest) {
   });
   const data = await res.json();
 
-  //   console.log({ data, bodyData });
+  console.log({ data, bodyData });
 
   return NextResponse.json({ tax: data.tax }, { status: 200 });
 }

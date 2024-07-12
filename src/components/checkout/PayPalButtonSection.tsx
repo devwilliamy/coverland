@@ -27,7 +27,14 @@ import { generateSkuLabOrderInput } from '@/lib/utils/skuLabs';
 import { determineDeliveryByDate } from '@/lib/utils/deliveryDateUtils';
 import { SHIPPING_METHOD } from '@/lib/constants';
 
-export default function PayPalButtonSection() {
+type PaypalButtonSectionProps = {
+  setPaypalSuccessMessage: (message: string) => void;
+  setMessage: (message: string) => void;
+};
+export default function PayPalButtonSection({
+  setPaypalSuccessMessage,
+  setMessage,
+}: PaypalButtonSectionProps) {
   const {
     orderNumber,
     shipping,
@@ -74,6 +81,7 @@ export default function PayPalButtonSection() {
           }}
           className="w-full lg:max-w-[350px] lg:self-end lg:text-xl"
           createOrder={async () => {
+            setMessage(''); // If there was an error message previously, reset it
             const data = await paypalCreateOrder(
               totalMsrpPrice,
               cartItems,
@@ -90,13 +98,23 @@ export default function PayPalButtonSection() {
             return data;
           }}
           onApprove={async (data) => {
+            // Leaving debugger and logs here due to frequent Paypal debugging
             // debugger
             // console.log('[PaypalButton Section] Data: ', data);
             // This will get the order from paypal
-            const response = await paypalCaptureOrder(
-              data.orderID,
-              customerInfo.phoneNumber
-            );
+
+            let response;
+            try {
+              response = await paypalCaptureOrder(
+                data.orderID,
+                customerInfo.phoneNumber
+              );
+              // console.log('Response:', response);
+            } catch (error) {
+              // debugger;
+              throw error;
+            }
+
             // console.log("Response:", response)
             const customerInput = mapPaypalCompletionToCustomer(
               response.data,
@@ -131,6 +149,11 @@ export default function PayPalButtonSection() {
             // });
 
             if (response.success) {
+              setMessage('');
+              setPaypalSuccessMessage(
+                'Paypal Payment Accepted, please wait for the page to finish loading.'
+              );
+
               const emailInput = {
                 to: customerInfo.email,
                 name: {
@@ -293,6 +316,19 @@ export default function PayPalButtonSection() {
               router.push(
                 `/thank-you?order_number=${orderNumber}&payment_gateway=paypal`
               );
+            }
+          }}
+          onError={(error) => {
+            console.error(`[Paypal Error]:`, error);
+            if (error.message?.includes('popup close')) {
+              console.error(
+                `[PaypalButtonSection] Error: Popup closed unexpectedly`
+              );
+              setMessage('Popup closed unexpectedly');
+            } else if (error?.message) {
+              setMessage(error?.message);
+            } else {
+              setMessage('Unexpected Error Occurred');
             }
           }}
         />

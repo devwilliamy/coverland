@@ -95,6 +95,8 @@ export default function CheckoutAccordion() {
   const [value, setValue] = useState(['shipping']);
   const [isLoading, setIsLoading] = useState(false);
   const [message, setMessage] = useState('');
+  const [paypalErrorMessage, setPaypalErrorMessage] = useState('');
+  const [paypalSuccessMessage, setPaypalSuccessMessage] = useState('');
 
   const shippingInfo = {
     shipping_method: SHIPPING_METHOD,
@@ -329,7 +331,7 @@ export default function CheckoutAccordion() {
       2
     );
     const totalWithTax = convertPriceToStripeFormat(taxSum);
-    console.log({ amount_to_collect, totalWithTax, taxSum, taxRes });
+    // console.log({ amount_to_collect, totalWithTax, taxSum, taxRes });
 
     if (totalWithTax) {
       try {
@@ -370,7 +372,7 @@ export default function CheckoutAccordion() {
     const origin = window.location.origin;
     const taxSum = Number(Number(cartMSRP) + Number(totalTax)).toFixed(2);
     const totalWithTax = convertPriceToStripeFormat(taxSum);
-    console.log({ totalWithTax, orderSubtotal, cartMSRP });
+    // console.log({ totalWithTax, orderSubtotal, cartMSRP });
 
     const formattedPhone = parsePhoneNumberFromString(
       shippingAddress.phone as string
@@ -490,7 +492,7 @@ export default function CheckoutAccordion() {
           const isSuccessful =
             (await stripe.retrievePaymentIntent(retrievedSecret)).paymentIntent
               ?.status === 'succeeded';
-          console.log('Payment window closed.');
+          // console.log('Payment window closed.');
 
           if (isSuccessful) {
             handleConversions(id, client_secret);
@@ -509,7 +511,7 @@ export default function CheckoutAccordion() {
         );
 
         if (!klarnaWindow) {
-          console.log('[NO KLARNA WINDOW]');
+          // console.log('[NO KLARNA WINDOW]');
           return;
         }
 
@@ -528,7 +530,7 @@ export default function CheckoutAccordion() {
             const isSuccessful =
               (await stripe.retrievePaymentIntent(retrievedSecret))
                 .paymentIntent?.status === 'succeeded';
-            console.log('Payment window closed.');
+            // console.log('Payment window closed.');
 
             if (isSuccessful) {
               handleConversions(id, client_secret);
@@ -561,7 +563,7 @@ export default function CheckoutAccordion() {
           (await stripe.retrievePaymentIntent(retrievedSecret)).paymentIntent
             ?.status === 'succeeded';
 
-        console.log('Payment window closed.');
+        // console.log('Payment window closed.');
         if (isSuccessful) {
           handleConversions(id, client_secret);
           setIsLoading(false);
@@ -607,7 +609,6 @@ export default function CheckoutAccordion() {
 
   useEffect(() => {
     const useHandleGetTax = async () => {
-      console.log('[Single Handle Get Tax]');
       await handleGetTax();
     };
     if (!isCartEmpty && isReadyToShip) {
@@ -741,7 +742,10 @@ export default function CheckoutAccordion() {
                         )}
                         {paymentMethod === 'paypal' && (
                           <div className="w-full max-w-[307px] self-end justify-self-end">
-                            <PayPalButtonSection />
+                            <PayPalButtonSection
+                              setPaypalSuccessMessage={setPaypalSuccessMessage}
+                              setMessage={setPaypalErrorMessage}
+                            />
                           </div>
                         )}
                         {(paymentMethod === 'applePay' ||
@@ -861,7 +865,24 @@ export default function CheckoutAccordion() {
                             )}
                           </>
                         )}
-                        {paymentMethod === 'paypal' && <PayPalButtonSection />}
+                        {paymentMethod === 'paypal' && (
+                          <>
+                            {paypalSuccessMessage && (
+                              <p className="font-[500] text-[lightgreen]">
+                                {paypalSuccessMessage}
+                              </p>
+                            )}
+                            <PayPalButtonSection
+                              setPaypalSuccessMessage={setPaypalSuccessMessage}
+                              setMessage={setPaypalErrorMessage}
+                            />
+                            {paypalErrorMessage && (
+                              <p className="font-[500] text-[red]">
+                                {paypalErrorMessage}
+                              </p>
+                            )}
+                          </>
+                        )}
                         {(paymentMethod === 'applePay' ||
                           paymentMethod === 'googlePay') && (
                           <ExpressCheckoutElement
