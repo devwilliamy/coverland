@@ -32,10 +32,14 @@ export const getClientTimeZone = (): string => {
  * @param format string : format of the date output | default -> "Jul 15" | "EEE, LLL dd" -> "Mon, Jul 15"
  * @returns string
  */
-export const determineDeliveryByDate = (format = 'LLL dd'): string => {
+export const determineDeliveryByDate = (format = 'LLL dd', preorder_date?: string): string => {
   const clientTimeZone: string = getClientTimeZone();
-  const now: DateTime = DateTime.now().setZone(clientTimeZone);
+  let now: DateTime = DateTime.now().setZone(clientTimeZone);
   let daysToAdd: number;
+
+  if (preorder_date) {
+    now = DateTime.fromISO(preorder_date).setZone(clientTimeZone);
+  }
 
   switch (clientTimeZone) {
     case 'America/Los_Angeles': // PST

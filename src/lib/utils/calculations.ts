@@ -22,6 +22,16 @@ export const getMsrpTotal = (cartItems: TCartItem[]) => {
   );
 };
 
+export const getTotalPrice = (cartItems: TCartItem[]) => {
+  return cartItems.reduce(
+    (total, item) =>
+      total +
+      Number(item.msrp as string) * item.quantity -
+      (item.preorder ? Number(item.preorder_discount) * item.quantity : 0), // checking for preorder discount here
+    0
+  );
+};
+
 export const getTotalDiscountPrice = (cartItems: TCartItem[]) => {
   return cartItems.reduce(
     (total, item) =>
