@@ -1,23 +1,8 @@
-import {
-  ChangeEventHandler,
-  MouseEvent,
-  SyntheticEvent,
-  useEffect,
-  useState,
-} from 'react';
-import { useForm } from 'react-hook-form';
-import OverlappingLabel from '../ui/overlapping-label';
+import { MouseEvent, useEffect, useState } from 'react';
 import { Button } from '../ui/button';
 import { CustomerInfo, useCheckoutContext } from '@/contexts/CheckoutContext';
 import { StripeAddress } from '@/lib/types/checkout';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { z } from 'zod';
-import CustomPhoneInput from '../ui/phone-input';
-import { parsePhoneNumberFromString } from 'libphonenumber-js';
-import { Autocomplete, MenuItem } from '@mui/material';
 import { CustomTextField } from './CustomTextField';
-import { GEORGE_DEFAULT_ADDRESS_DATA } from '@/lib/constants';
-import { cleanPhoneInput } from '@/app/(noFooter)/checkout/utils';
 
 type AddressFormProps = {
   addressData: StripeAddress;
@@ -170,15 +155,6 @@ export default function AddressForm({
         country: 'US',
       },
     };
-
-    // const formattedPhone = parsePhoneNumberFromString(
-    //   shippingState.phoneNumber.value
-    // )?.format('E.164');
-
-    // const incCustomerInfo = {
-    //   email: shippingState.email.value,
-    //   phoneNumber: formattedPhone,
-    // } as CustomerInfo;
 
     const incCustomerInfo = {
       email: shippingState.email.value,

@@ -44,7 +44,6 @@ import { useRouter } from 'next/navigation';
 import PayPalButtonSection from './PayPalButtonSection';
 import { generateSkuLabOrderInput } from '@/lib/utils/skuLabs';
 import { handlePurchaseGoogleTag } from '@/hooks/useGoogleTagDataLayer';
-// import PayWithKlarnaWhite from './PayWithKlarnaWhite';
 import { SHIPPING_METHOD } from '@/lib/constants';
 import { determineDeliveryByDate } from '@/lib/utils/deliveryDateUtils';
 import { TCartItem } from '@/lib/cart/useCart';
@@ -72,7 +71,7 @@ export default function CheckoutAccordion() {
     getTotalDiscountPrice,
     isCartPreorder,
     cartPreorderDate,
-    getTotalPreorderDiscount
+    getTotalPreorderDiscount,
   } = useCartContext();
   const {
     billingAddress,
@@ -95,7 +94,6 @@ export default function CheckoutAccordion() {
     updateCustomerInfo,
     clientSecret,
   } = useCheckoutContext();
-  // const { orderNumber, paymentIntentId, paymentMethod, updatePaymentMethod } = useCheckoutContext();
 
   const orderSubtotal = getOrderSubtotal().toFixed(2);
   const cartMSRP = getTotalPrice() + shipping;
@@ -518,6 +516,11 @@ export default function CheckoutAccordion() {
                                   {submitErrorMessage}
                                 </p>
                               )}
+                              {paypalSuccessMessage && (
+                                <div className="font-base flex items-center justify-center text-lg text-red-500">
+                                  Error: {paypalSuccessMessage}
+                                </div>
+                              )}
                               <Button
                                 variant={'default'}
                                 className={` min-h-[48px] w-full min-w-[307px] rounded-lg bg-black text-base font-bold uppercase text-white lg:min-h-[55px] lg:max-w-[307px] lg:text-xl`}
@@ -536,11 +539,20 @@ export default function CheckoutAccordion() {
                           </>
                         )}
                         {paymentMethod === 'paypal' && (
-                          <div className="w-full max-w-[307px] self-end justify-self-end">
-                            <PayPalButtonSection
-                              setPaypalSuccessMessage={setPaypalSuccessMessage}
-                              setMessage={setSubmitErrorMessage}
-                            />
+                          <div className={`flex flex-col gap-[26px]`}>
+                            {submitErrorMessage && (
+                              <p className="w-full  text-center font-[500] text-[red]">
+                                {submitErrorMessage}
+                              </p>
+                            )}
+                            <div className="w-full max-w-[307px] pb-[26px] self-end justify-self-end">
+                              <PayPalButtonSection
+                                setPaypalSuccessMessage={
+                                  setPaypalSuccessMessage
+                                }
+                                setMessage={setSubmitErrorMessage}
+                              />
+                            </div>
                           </div>
                         )}
                         {(paymentMethod === 'applePay' ||
@@ -603,6 +615,7 @@ export default function CheckoutAccordion() {
                                 {submitErrorMessage}
                               </p>
                             )}
+
                             <Button
                               variant={'default'}
                               className={`mb-[70px] min-h-[48px] w-full rounded-lg bg-black text-base font-bold uppercase text-white lg:min-h-[55px] lg:text-xl`}
@@ -618,6 +631,16 @@ export default function CheckoutAccordion() {
                               )}
                             </Button>
                           </>
+                        )}
+                        {submitErrorMessage && (
+                          <p className="w-full text-center font-[500] text-[red]">
+                            {submitErrorMessage}
+                          </p>
+                        )}
+                        {paypalSuccessMessage && (
+                          <div className="font-base flex items-center justify-center text-lg text-[green]">
+                            {paypalSuccessMessage}
+                          </div>
                         )}
                         {paymentMethod === 'paypal' && (
                           <PayPalButtonSection
