@@ -46,7 +46,6 @@ import { generateSkuLabOrderInput } from '@/lib/utils/skuLabs';
 import { handlePurchaseGoogleTag } from '@/hooks/useGoogleTagDataLayer';
 // import PayWithKlarnaWhite from './PayWithKlarnaWhite';
 // import { ReadyCheck } from './ReadyCheck';
-import { getTotalDiscountPrice } from '@/lib/utils/calculations';
 import { SHIPPING_METHOD } from '@/lib/constants';
 import { determineDeliveryByDate } from '@/lib/utils/deliveryDateUtils';
 import { TCartItem } from '@/lib/cart/useCart';
@@ -66,6 +65,7 @@ export default function CheckoutAccordion() {
     clearLocalStorageCart,
     getTotalCartQuantity,
     getOrderSubtotal,
+    getTotalDiscountPrice,
   } = useCartContext();
   const {
     billingAddress,
