@@ -15,6 +15,20 @@ const useCart = () => {
   });
 
   const [cartOpen, setCartOpen] = useState(false);
+  const [isCartPreorder, setIsCartPreorder] = useState(false);
+  const [cartPreorderDate, setCartPreorderDate] = useState('');
+
+  useEffect(() => {
+    const preorderItem = cartItems.find((item) => item?.preorder);
+    if (preorderItem) {
+      setIsCartPreorder(true);
+      // this only captures the first preorder item found in the cart, will have to come back and fix this later
+      setCartPreorderDate(preorderItem?.preorder_date);
+    } else {
+      setIsCartPreorder(false);
+      setCartPreorderDate('');
+    }
+  }, [cartItems]);
 
   useEffect(() => {
     if (cartItems.length === 0) {
@@ -67,7 +81,7 @@ const useCart = () => {
       resetCart();
     }
   }, []);
-  
+
   const getOrderSubtotal = useCallback(() => {
     return cartItems.reduce(
       (total, item) => total + Number(item.price as string) * item.quantity,
@@ -82,6 +96,13 @@ const useCart = () => {
     );
   }, [cartItems]);
 
+  const getTotalPreorderDiscount = useCallback(() => {
+    return cartItems.reduce(
+      (total, item) => total + (item.preorder ? Number(item.preorder_discount) * item.quantity : 0),
+      0
+    );
+  }, [cartItems]);
+
   const getTotalDiscountPrice = useCallback(() => {
     return cartItems.reduce(
       (total, item) =>
@@ -90,8 +111,32 @@ const useCart = () => {
     );
   }, [cartItems]);
 
+  const getTotalDiscountPricePlusPreorder = useCallback(() => {
+    return cartItems.reduce(
+      (total, item) =>
+        total +
+        Number(
+          Number(item.price) -
+            Number(item.msrp) +
+            Number(item?.preorder_discount)
+        ) *
+          item.quantity,
+      0
+    );
+  }, [cartItems]);
+
   const getTotalCartQuantity = useCallback(() => {
     return cartItems.reduce((total, item) => total + item.quantity, 0);
+  }, [cartItems]);
+
+  const getTotalPrice = useCallback(() => {
+    return cartItems.reduce(
+      (total, item) =>
+        total +
+        Number(item.msrp as string) * item.quantity -
+        (item.preorder ? Number(item.preorder_discount) * item.quantity : 0), // checking for preorder discount here
+      0
+    );
   }, [cartItems]);
 
   return {
@@ -99,12 +144,17 @@ const useCart = () => {
     addToCart,
     removeItemFromCart,
     updateItemQuantity,
-    getTotalPrice: getMsrpTotal,
+    getMsrpTotal,
+    getTotalPrice,
     getOrderSubtotal,
+    getTotalPreorderDiscount,
     getTotalDiscountPrice,
+    getTotalDiscountPricePlusPreorder,
     getTotalCartQuantity,
     cartOpen,
     setCartOpen,
+    isCartPreorder,
+    cartPreorderDate,
     clearLocalStorageCart,
   };
 };

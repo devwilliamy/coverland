@@ -7,10 +7,12 @@ import { FaSpinner } from 'react-icons/fa';
 
 type AddToCartButtonProps = {
   handleAddToCartClicked: () => void;
+  preorder: boolean;
   isColorAvailable: boolean;
   isLoading: boolean;
 };
 export default function AddToCartButton({
+  preorder,
   isColorAvailable,
   handleAddToCartClicked,
   isLoading,
@@ -58,7 +60,7 @@ export default function AddToCartButton({
           )
         )}
         <p>
-          {!isFinalSelection ? nonFinalButtonText : 'Add To Cart'}
+          {!isFinalSelection ? nonFinalButtonText : preorder? 'Pre-order & Save Big' : 'Add To Cart'}
         </p>
       </div>
     </Button>

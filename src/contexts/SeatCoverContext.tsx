@@ -1,12 +1,11 @@
 'use client';
 import { createStore } from 'zustand';
 import { createContext, useRef } from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter, useParams } from 'next/navigation';
 import { TSeatCoverDataDB } from '@/lib/db/seat-covers';
 import { TPathParams, TQueryParams, getCompleteSelectionData } from '@/utils';
 import { compareRawStrings, isFullSet } from '@/lib/utils';
-import { TReviewData } from '@/lib/types/review';
-import { TProductReviewSummary } from '@/lib/db/review';
+import { TProductReviewSummary, TReviewData } from '@/lib/types/review';
 
 type SeatCoverSelectionStore = ReturnType<typeof createSeatCoverSelectionStore>;
 
@@ -43,6 +42,10 @@ export interface ISeatCoverCoverSelectionState extends ISeatCoverCoverProps {
   setReviewDataSummary: (newReviewDataSummary: TProductReviewSummary) => void;
   reviewImageTracker: Record<string, boolean>;
   setReviewImageTracker: (newImageTracker: Record<string, boolean>) => void;
+  availableColors: string[];
+  selectedSetDisplay: string;
+  setAvailableColors: (availableColors: string[]) => void
+  setSelectedSetDisplay: (selectedSet: string) => void;
 }
 
 type SeatCoverSelectionStoreParams = {
@@ -61,7 +64,7 @@ const createSeatCoverSelectionStore = ({
   initialReviewData,
   initialReviewDataSummary,
   initialReviewImages,
-}: SeatCoverSelectionStoreParams) => {
+}: SeatCoverSelectionStoreParams) => {  
   const customerSelectedYear =
     typeof window !== 'undefined'
       ? localStorage?.getItem('heroDropdownYear')
@@ -111,13 +114,13 @@ const createSeatCoverSelectionStore = ({
 
   const firstAvailableSet = modelDataWithFilteredSubmodel2Selection.filter(
     (seatCover) =>
-      isFullSet(seatCover.display_set) ===
-      isFullSet(modelDataWithFilteredSubmodel2Selection[0].display_set)
+      isFullSet(seatCover?.display_set ?? '') ===
+      isFullSet(modelDataWithFilteredSubmodel2Selection[0]?.display_set ?? '')
   );
 
   const availableColors = new Set(['gray', 'black', 'beige']);
   const firstAvaiableColor = firstAvailableSet
-    .map((seatCover) => seatCover.display_color.toLowerCase())
+    .map((seatCover) => seatCover?.display_color?.toLowerCase() ?? '')
     .filter((color) => availableColors.has(color));
 
   return createStore<ISeatCoverCoverSelectionState>()((set, get) => ({
@@ -136,7 +139,7 @@ const createSeatCoverSelectionStore = ({
     setSelectedProduct: (newProduct: TSeatCoverDataDB) => {
       set(() => ({
         selectedProduct: newProduct,
-        featuredImage: newProduct.product?.split(',')[0] ?? '',
+        featuredImage: newProduct?.product?.split(',')[0] ?? '',
       }));
     },
     selectedColor:
@@ -164,10 +167,11 @@ const createSeatCoverSelectionStore = ({
     setReviewsWithImages: (newReviewImages: TReviewData[]) => {
       set(() => ({ reviewImages: newReviewImages }));
     },
-    selectedSetDisplay:
-      isFullSet(modelDataWithFilteredSubmodel2Selection[0]?.display_set) ?? '',
-    setSelectedSetDisplay: (netSet: TSeatCoverDataDB) => {
-      set(() => ({ selectedSetDisplay: netSet }));
+    selectedSetDisplay: isFullSet(
+      modelDataWithFilteredSubmodel2Selection[0]?.display_set ?? ''
+    ),
+    setSelectedSetDisplay: (selectedSet: string) => {
+      set(() => ({ selectedSetDisplay: selectedSet }));
     },
     availableColors: firstAvaiableColor,
     setAvailableColors: (newAvailableColors: string[]) =>

@@ -40,12 +40,12 @@ export default function OrderReviewItem({ item }: { item: TCartItem }) {
           </div>
           <div className="flex gap-3 text-sm font-normal text-[#707070] lg:text-base">
             <div className="font-medium lg:text-base">
-              Qty: {item?.quantity} @ ${item?.msrp}
+            Qty: {item?.quantity} @ ${item?.preorder ? (parseFloat(item?.msrp) - parseFloat(item?.preorder_discount)).toFixed(2) : parseFloat(item?.msrp).toFixed(2)}
             </div>
           </div>
           <div className="flex gap-3 text-sm font-normal text-[#707070] lg:text-base">
             <div className="font-medium lg:text-base">
-              ${(item?.quantity * Number(item?.msrp)).toFixed(2)}
+            ${(item?.quantity * (item?.preorder ? parseFloat(item?.msrp) - parseFloat(item?.preorder_discount) : parseFloat(item?.msrp))).toFixed(2)}
             </div>
           </div>
         </div>

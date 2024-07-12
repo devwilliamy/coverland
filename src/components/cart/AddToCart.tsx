@@ -31,20 +31,23 @@ export default function AddToCart({
   const store = useStoreContext();
   if (!store) throw new Error('Missing Provider in the tree');
   const modelData = useStore(store, (s) => s.modelData);
-  const selectedSetDisplay = useStore(store, (s) => s.selectedSetDisplay);
+  const selectedSetDisplay = useStore(store, (s) => s.selectedSetDisplay); // Not sure what to do about typing here, will research later
   const selectedColor = useStore(store, (s) => s.selectedColor);
   const { isSeatCover } = useDetermineType();
-  const filterdData = isSeatCover
+  const filteredData = isSeatCover
     ? modelData.filter(
         (product) =>
-          isFullSet(product.display_set) === selectedSetDisplay?.toLowerCase()
+          isFullSet(product.display_set ?? '') ===
+          selectedSetDisplay?.toLowerCase()
       )
     : modelData;
 
-  const isSelectedColorAvailable = filterdData.some(
+  const isSelectedColorAvailable = filteredData.some(
     (product) =>
-      product.display_color.toLowerCase() === selectedColor.toLowerCase()
+      product?.display_color?.toLowerCase() === selectedColor.toLowerCase() &&
+      product.quantity !== '0'
   );
+
   const [addToCartSelectorOpen, setAddToCartSelectorOpen] =
     useState<boolean>(false);
   const initalLoadingState = false;
@@ -59,9 +62,9 @@ export default function AddToCart({
   });
 
   const handleAddToCartClicked = () => {
-    if (isSeatCover && isSelectedColorAvailable === false) {
-      return; // Don't want to open add to cart selector
-    }
+    // if (isSeatCover && isSelectedColorAvailable === false) {
+    //   return; // Don't want to open add to cart selector
+    // }
     setIsLoading(true);
     if (isComplete) {
       handleAddToCart();
@@ -101,7 +104,8 @@ export default function AddToCart({
       ) : ( */}
       <div className="fixed inset-x-0 bottom-0 z-20 flex bg-white p-4 lg:relative lg:p-1">
         <AddToCartButton
-          isColorAvailable={isSelectedColorAvailable}
+          preorder={selectedProduct.preorder}
+          isColorAvailable={true} // since we are always allowing customers to add to cart, overriding isSelectedColorAvailable with true
           handleAddToCartClicked={handleAddToCartClicked}
           isLoading={isLoading}
         />
