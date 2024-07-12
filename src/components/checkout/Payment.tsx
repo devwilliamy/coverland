@@ -285,6 +285,8 @@ export default function Payment() {
             const skuLabOrderInput = generateSkuLabOrderInput({
               orderNumber,
               cartItems,
+              isPreorder: isCartPreorder,
+              preorder_discount: getTotalPreorderDiscount(),
               totalMsrpPrice: convertPriceFromStripeFormat(totalMsrpPrice),
               shippingAddress,
               customerInfo,

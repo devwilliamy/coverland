@@ -264,6 +264,8 @@ export default function PayPalButtonSection({
                 const skuLabOrderInput = generateSkuLabOrderInput({
                   orderNumber,
                   cartItems,
+                  isPreorder: isCartPreorder,
+                  preorder_discount: getTotalPreorderDiscount(),
                   totalMsrpPrice,
                   shippingAddress,
                   customerInfo,

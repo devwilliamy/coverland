@@ -55,6 +55,8 @@ type SkuLabOrderDTO = {
 type SkuLabOrderInput = {
   orderNumber: string;
   cartItems: TCartItem[];
+  isPreorder: boolean;
+  preorder_discount: number;
   totalMsrpPrice: number;
   shippingAddress: StripeAddress;
   customerInfo: CustomerInfo;
@@ -87,6 +89,8 @@ export const generateSkuLabOrderInput = ({
   orderNumber,
   cartItems,
   totalMsrpPrice,
+  preorder_discount = 0,
+  isPreorder = false,
   shippingAddress,
   customerInfo,
   paymentMethod
@@ -110,7 +114,7 @@ export const generateSkuLabOrderInput = ({
         // lineName: '' // In the future need to grab SKU Lab lineName
         // lineId: '' // In the future will need to grab from SKU Lab
       })),
-      discount: 0, // TODO: Currently no promo, but need to update later
+      discount: isPreorder ? preorder_discount : 0, // might need to extract into a separate discount variable as we add more discounts to our model
       shipping: 0, // TODO: Currently no shipping, but need to update later
       financial_status: '',
       tax: 0, // Currently no tax
