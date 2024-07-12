@@ -11,6 +11,7 @@ import {
   SheetTrigger,
 } from '@/components/ui/sheet';
 import { determineDeliveryByDate } from '@/lib/utils/deliveryDateUtils';
+import { formatISODate } from '@/lib/utils/date';
 import FreePackageItem from '@/images/PDP/PDP-Redesign-v3/free-package.webp';
 import {
   BoxIcon,
@@ -36,8 +37,9 @@ type DetailItem = {
   jsx: React.JSX.Element;
 };
 
-export default function FreeDetails() {
-  const deliveryDate = determineDeliveryByDate();
+export default function FreeDetails({selectedProduct}) {
+  const params = useParams();
+  const deliveryDate = determineDeliveryByDate('LLL dd', selectedProduct?.preorder && params.year ? selectedProduct?.preorder_date : undefined);
   const iconSize = 28;
   const [timeRemaining, setTimeRemaining] = useState(calculateTimeTo2PM());
   const [currentPage, setCurrentPage] = useState<DetailItem>({
@@ -48,7 +50,6 @@ export default function FreeDetails() {
     jsx: <></>,
   });
   const isMobile = useMediaQuery('(max-width: 1024px)');
-  const params = useParams();
   const { isSeatCover } = useDetermineType();
   const coverType = params?.coverType;
   const indentStyling = 'flex flex-col gap-4 pl-[30px] pt-5';
@@ -367,7 +368,8 @@ export default function FreeDetails() {
   const freeDetailItems: DetailItem[] = [
     {
       icon: <BoxIcon />,
-      title: 'Free, Same-Day Shipping',
+      title: selectedProduct?.preorder && params.year ? 'Estimated Restock Date: ' + formatISODate(selectedProduct?.preorder) : 'Free, Same-Day Shipping',
+      title: selectedProduct?.preorder && params.year ? 'Shipped When Restocked' : 'Free, Same-Day Shipping',
       description: `Order within ${timeRemaining} - Receive by ${deliveryDate}`,
       headerText: 'Shipping Information',
       jsx: <ShippingInformation />,

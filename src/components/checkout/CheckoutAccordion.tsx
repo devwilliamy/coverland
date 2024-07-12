@@ -70,6 +70,9 @@ export default function CheckoutAccordion() {
     getTotalCartQuantity,
     getOrderSubtotal,
     getTotalDiscountPrice,
+    isCartPreorder,
+    cartPreorderDate,
+    getTotalPreorderDiscount
   } = useCartContext();
   const {
     billingAddress,
@@ -93,6 +96,7 @@ export default function CheckoutAccordion() {
     clientSecret,
   } = useCheckoutContext();
   // const { orderNumber, paymentIntentId, paymentMethod, updatePaymentMethod } = useCheckoutContext();
+
   const orderSubtotal = getOrderSubtotal().toFixed(2);
   const cartMSRP = getTotalPrice() + shipping;
   const totalMsrpPrice = convertPriceToStripeFormat(getTotalPrice() + shipping);
@@ -101,10 +105,11 @@ export default function CheckoutAccordion() {
   const [isLoading, setIsLoading] = useState(false);
   const [submitErrorMessage, setSubmitErrorMessage] = useState('');
   const [paypalSuccessMessage, setPaypalSuccessMessage] = useState('');
+  const preorderDate = isCartPreorder ? cartPreorderDate : undefined;
 
   const shippingInfo = {
     shipping_method: SHIPPING_METHOD,
-    shipping_date: determineDeliveryByDate('EEE, LLL dd'),
+    shipping_date: determineDeliveryByDate('EEE, LLL dd', preorderDate),
     delivery_fee: shipping,
   };
 
@@ -146,6 +151,8 @@ export default function CheckoutAccordion() {
         subtotal: getOrderSubtotal().toFixed(2),
         total: (getTotalPrice() + shipping).toFixed(2), // may need to add taxes later
         totalDiscount: getTotalDiscountPrice().toFixed(2),
+        totalPreorderDiscount: getTotalPreorderDiscount().toFixed(2),
+        isPreorder: isCartPreorder,
         hasDiscount: parseFloat(getTotalDiscountPrice().toFixed(2)) > 0,
       },
       shippingInfo: {
@@ -313,7 +320,6 @@ export default function CheckoutAccordion() {
     const totalWithTax = convertPriceToStripeFormat(taxSum);
 
     const formattedPhone = formatToE164(customerInfo.phoneNumber);
-
 
     updateCustomerInfo({
       ...customerInfo,

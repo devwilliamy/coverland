@@ -45,11 +45,7 @@ export default function PayPalButtonSection({
     billingAddress,
     isBillingSameAsShipping,
   } = useCheckoutContext();
-  const shippingInfo = {
-    shipping_method: SHIPPING_METHOD,
-    shipping_date: determineDeliveryByDate('EEE, LLL dd'),
-    delivery_fee: shipping,
-  };
+
   const {
     cartItems,
     getTotalPrice,
@@ -57,7 +53,16 @@ export default function PayPalButtonSection({
     getTotalDiscountPrice,
     getTotalCartQuantity,
     clearLocalStorageCart,
+    isCartPreorder,
+    cartPreorderDate,
+    getTotalPreorderDiscount,
   } = useCartContext();
+  const preorderDate = isCartPreorder ? cartPreorderDate : undefined;
+  const shippingInfo = {
+    shipping_method: SHIPPING_METHOD,
+    shipping_date: determineDeliveryByDate('EEE, LLL dd', preorderDate),
+    delivery_fee: shipping,
+  };
   const router = useRouter();
   const totalMsrpPrice = getTotalPrice().toFixed(2) as unknown as number;
 
@@ -165,6 +170,8 @@ export default function PayPalButtonSection({
                   subtotal: getOrderSubtotal().toFixed(2),
                   total: (getTotalPrice() + shipping).toFixed(2), // may need to add taxes later
                   totalDiscount: getTotalDiscountPrice().toFixed(2),
+                  totalPreorderDiscount: getTotalPreorderDiscount().toFixed(2),
+                  isPreorder: isCartPreorder,
                   hasDiscount:
                     parseFloat(getTotalDiscountPrice().toFixed(2)) > 0,
                 },

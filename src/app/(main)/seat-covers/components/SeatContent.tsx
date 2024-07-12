@@ -8,7 +8,7 @@ import { useParams, useRouter } from 'next/navigation';
 import { SeatCoverSelectionContext } from '@/contexts/SeatCoverContext';
 import { useStore } from 'zustand';
 import SeatCoverColorSelector from './SeatCoverColorSelector';
-import CartSheet from '@/components/cart/CartSheet';
+import PreorderSheet from '@/components/cart/PreorderSheet';
 import { Separator } from '@/components/ui/separator';
 import { TQueryParams } from '@/utils';
 import AddToCart from '@/components/cart/AddToCart';
@@ -45,6 +45,7 @@ export default function SeatContent({
   const [newMSRP, setNewMSRP] = useState<number | null>(selectedProduct.msrp);
   const [loading, setLoading] = useState(false);
 
+
   useEffect(() => {
     setLoading(true);
     const checkLowQuantity = async () => {
@@ -59,15 +60,21 @@ export default function SeatContent({
 
     setLoading(false);
   }, [selectedProduct]);
-
   const handleAddToCart = () => {
+    // if (!cartProduct) return; I commented this out, cartProduct is undefined
+
     if (newMSRP !== 0) {
       addToCart({ ...selectedProduct, msrp: newMSRP, quantity: 1 });
     } else {
       addToCart({ ...selectedProduct, quantity: 1 });
     }
 
-    router.push('/checkout');
+    if (selectedProduct.preorder) {
+      setAddToCartOpen(true);
+      return;
+    } else {
+      router.push('/checkout');
+    }
   };
 
   if (!selectedProduct.price) {
@@ -85,9 +92,9 @@ export default function SeatContent({
         <div className="mt-4 flex flex-col gap-0.5 lg:mt-10">
           {/* Product Title */}
           <h2 className="text-[24px] font-[900] leading-[27px] text-[#1A1A1A] lg:text-[28px] lg:leading-[30px] ">
-            {make && `${deslugify(make as string)} `}
-            {model && `${deslugify(model as string)} `} Seat Covers -
-            <br className="max-lg:hidden" /> Custom-Fit, Fine Comfort Leather
+            {make && (selectedProduct.make as string)}{' '}
+            {model && (selectedProduct.model as string)} Seat Covers -
+            <br className="max-lg:hidden" /> Custom-Fit, Comfort Leather
           </h2>
           {/* Rating(s) */}
           <div className="-ml-0.5 mt-1 flex items-end gap-1 lg:mt-2">
@@ -132,15 +139,15 @@ export default function SeatContent({
             </b>
           </p>
         )}
-        <KlarnaIcon className="flex max-h-[30px] w-fit" />
+        <KlarnaIcon className="flex max-h-[30px] w-fit max-w-[61px]" />
         {/* <Info className="h-[17px] w-[17px] text-[#767676]" /> */}
       </div>
 
       {!!isFinalSelection ? (
-        <SeatCoverSelection seatCover={selectedProduct} />
+        <SeatCoverSelection />
       ) : null}
       <SeatCoverColorSelector isFinalSelection={isFinalSelection} />
-      <FreeDetails />
+      <FreeDetails selectedProduct={selectedProduct} />
       {/* <CompatibleVehiclesTrigger /> */}
       <div className="lg:py-4"></div>
       <div className="lg:hidden">
@@ -156,7 +163,7 @@ export default function SeatContent({
         handleAddToCart={handleAddToCart}
         searchParams={searchParams}
       />
-      <CartSheet
+      <PreorderSheet
         open={addToCartOpen}
         setOpen={setAddToCartOpen}
         selectedProduct={selectedProduct}
