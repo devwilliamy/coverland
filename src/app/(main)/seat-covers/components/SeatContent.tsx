@@ -18,8 +18,6 @@ import ReviewsTextTrigger from '../../[productType]/components/ReviewsTextTrigge
 import SeatCoverSelection from './SeatCoverSelector';
 import { deslugify } from '@/lib/utils';
 import useDetermineType from '@/hooks/useDetermineType';
-import { TSeatCoverDataDB } from '@/lib/db/seat-covers';
-import { handleCheckLowQuantity } from '@/lib/utils/calculations';
 import KlarnaIcon from '@/components/icons/KlarnaIcon';
 
 export default function SeatContent({
