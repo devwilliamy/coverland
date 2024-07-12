@@ -37,37 +37,11 @@ export default function SeatContent({
   const selectedProduct = useStore(store, (s) => s.selectedProduct);
   const [addToCartOpen, setAddToCartOpen] = useState<boolean>(false);
   const { addToCart } = useCartContext();
-  const [coverPrice, setCoverPrice] = useState(320);
 
   const { make, model } = useDetermineType();
 
-  const [discountPercent, setDiscountPercent] = useState<number | null>(50);
-  const [newMSRP, setNewMSRP] = useState<number | null>(selectedProduct.msrp);
-  const [loading, setLoading] = useState(false);
-
-
-  useEffect(() => {
-    setLoading(true);
-    const checkLowQuantity = async () => {
-      const {
-        discountPercent: incomingDiscountPercent,
-        newMSRP: incomingMSRP,
-      } = handleCheckLowQuantity(selectedProduct as TSeatCoverDataDB);
-      setDiscountPercent(incomingDiscountPercent);
-      setNewMSRP(incomingMSRP);
-    };
-    checkLowQuantity();
-
-    setLoading(false);
-  }, [selectedProduct]);
   const handleAddToCart = () => {
-    // if (!cartProduct) return; I commented this out, cartProduct is undefined
-
-    if (newMSRP !== 0) {
-      addToCart({ ...selectedProduct, msrp: newMSRP, quantity: 1 });
-    } else {
-      addToCart({ ...selectedProduct, quantity: 1 });
-    }
+    addToCart({ ...selectedProduct, quantity: 1 });
 
     if (selectedProduct.preorder) {
       setAddToCartOpen(true);
@@ -76,12 +50,6 @@ export default function SeatContent({
       router.push('/checkout');
     }
   };
-
-  if (!selectedProduct.price) {
-    setLoading(false);
-    throw new Error('No Selected Product Price in store');
-  }
-  const installmentPrice = newMSRP !== 0 ? newMSRP : selectedProduct.msrp;
 
   return (
     <section className="flex w-full flex-col max-lg:px-4 max-lg:pt-4 lg:sticky lg:top-8 lg:w-1/2">
@@ -120,32 +88,26 @@ export default function SeatContent({
         </div>
       </div>
       <div className=" flex items-end  gap-[9px] pt-[34px]   text-center text-[28px] font-[900]  lg:text-[32px] lg:leading-[37.5px] ">
-        <div className="leading-[20px]">${newMSRP}</div>
-        {discountPercent && (
-          <div className="flex gap-1.5 pb-[1px] text-[22px] font-[400] leading-[14px] text-[#BE1B1B] lg:text-[22px] ">
-            <span className=" text-[#BEBEBE] line-through">
-              ${selectedProduct.price}
-            </span>
-            <p>(-{discountPercent}%)</p>
-          </div>
-        )}
+      <div className="leading-[20px]">${selectedProduct.msrp}</div>
+        <div className="flex gap-1.5 pb-[1px] text-[22px] font-[400] leading-[14px] text-[#BE1B1B] lg:text-[22px] ">
+          <span className=" text-[#BEBEBE] line-through">
+            ${selectedProduct.price}
+          </span>
+          <p>(-50%)</p>
+        </div>
       </div>
       <div className="pb-4.5 mt-[15px] flex items-center gap-0.5">
-        {installmentPrice && (
-          <p className="text-[14px] leading-[16px] text-[#767676] lg:text-[16px]">
-            4 interest-free installments of{' '}
-            <b className="font-[400] text-black">
-              ${(installmentPrice / 4).toFixed(2)}
-            </b>
-          </p>
-        )}
+      <p className="mb-[4px] text-[14px] leading-[16px] text-[#767676] lg:text-[16px]">
+          4 interest-free installments of{' '}
+          <b className="font-[400] text-black">
+            ${((selectedProduct.price || 1) / 8 - 0.01).toFixed(2)}
+          </b>
+        </p>
         <KlarnaIcon className="flex max-h-[30px] w-fit max-w-[61px]" />
         {/* <Info className="h-[17px] w-[17px] text-[#767676]" /> */}
       </div>
 
-      {!!isFinalSelection ? (
-        <SeatCoverSelection />
-      ) : null}
+      {!!isFinalSelection ? <SeatCoverSelection /> : null}
       <SeatCoverColorSelector isFinalSelection={isFinalSelection} />
       <FreeDetails selectedProduct={selectedProduct} />
       {/* <CompatibleVehiclesTrigger /> */}
@@ -155,7 +117,6 @@ export default function SeatContent({
           selectedProduct={selectedProduct}
           handleAddToCart={handleAddToCart}
           searchParams={searchParams}
-          isSticky
         />
       </div>
       <AddToCart
