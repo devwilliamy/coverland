@@ -16,8 +16,8 @@ const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_KEY ?? '';
 
 const supabase = createClient<Database>(supabaseUrl, supabaseKey);
 
-// export type TInitialProductDataDB = Tables<'Products'>;
-export type TSeatCoverDataDB = Tables<'Products_preorder_duplicate'>;
+export type TInitialProductDataDB = Tables<'Products'>;
+export type TSeatCoverDataDB = Tables<'Products'>;
 
 //If the table you want to access isn't listed in TableRow,
 //generate new types in the Supabase dashboard to update

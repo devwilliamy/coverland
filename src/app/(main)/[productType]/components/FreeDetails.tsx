@@ -7,7 +7,6 @@ import {
   SheetClose,
   SheetContent,
   SheetHeader,
-  SheetOverlay,
   SheetTrigger,
 } from '@/components/ui/sheet';
 import { determineDeliveryByDate } from '@/lib/utils/deliveryDateUtils';
@@ -28,6 +27,9 @@ import React, { useEffect, useState } from 'react';
 import { BsGlobeAmericas } from 'react-icons/bs';
 import { useMediaQuery } from '@mantine/hooks';
 import useDetermineType from '@/hooks/useDetermineType';
+import useStoreContext from '@/hooks/useStoreContext';
+import { getCompleteSelectionData } from '@/utils';
+import { useStore } from 'zustand';
 
 type DetailItem = {
   icon: React.JSX.Element;
@@ -37,9 +39,12 @@ type DetailItem = {
   jsx: React.JSX.Element;
 };
 
-export default function FreeDetails({selectedProduct}) {
+export default function FreeDetails() {
   const params = useParams();
-  const deliveryDate = determineDeliveryByDate('LLL dd', selectedProduct?.preorder && params.year ? selectedProduct?.preorder_date : undefined);
+  const store = useStoreContext();
+  if (!store) throw new Error('Missing Provider in the tree');
+  const modelData = useStore(store, (s) => s.modelData);
+  const selectedProduct = useStore(store, (s) => s.selectedProduct);
   const iconSize = 28;
   const [timeRemaining, setTimeRemaining] = useState(calculateTimeTo2PM());
   const [currentPage, setCurrentPage] = useState<DetailItem>({
@@ -54,6 +59,17 @@ export default function FreeDetails({selectedProduct}) {
   const coverType = params?.coverType;
   const indentStyling = 'flex flex-col gap-4 pl-[30px] pt-5';
   let warrantyLength: string | number = 'Lifetime';
+  const {
+    completeSelectionState: { isComplete },
+  } = getCompleteSelectionData({
+    data: modelData,
+  });
+  const deliveryDate = determineDeliveryByDate(
+    'LLL dd',
+    selectedProduct?.preorder && isComplete
+      ? selectedProduct?.preorder_date ?? ""
+      : undefined
+  );
 
   switch (coverType) {
     case 'standard':
@@ -77,6 +93,8 @@ export default function FreeDetails({selectedProduct}) {
   }
 
   useEffect(() => {
+    setTimeRemaining(calculateTimeTo2PM());
+
     const interval = setInterval(() => {
       setTimeRemaining(calculateTimeTo2PM());
     }, 60000); // Update every minute
@@ -149,8 +167,8 @@ export default function FreeDetails({selectedProduct}) {
           'Orders placed before 2 PM PT (Monday-Saturday) are shipped the same day and delivered within 5 business days. ',
           'We also ship to Hawaii, Alaska, Puerto Rico, Virgin Island, Guam, APO, FPO for $49.99 (3-6 business days) via USPS.',
           'All items are in stock and ready to ship immediately.',
-        ].map((text) => (
-          <BulletItem text={text} />
+        ].map((text, i) => (
+          <BulletItem key={i} text={text} />
         ))}
       </div>
       <IncludedDetailTitle
@@ -229,8 +247,8 @@ export default function FreeDetails({selectedProduct}) {
           text={`Our warranty covers your product for ${warrantyLength === 'Lifetime' ? 'a Lifetime' : warrantyLength + 's'} against various issues, including:`}
         />
         <div className="flex flex-col gap-1">
-          {warrantyItems.map((text) => (
-            <CheckItem text={text} />
+          {warrantyItems.map((text, i) => (
+            <CheckItem key={i} text={text} />
           ))}
         </div>
       </div>
@@ -242,8 +260,8 @@ export default function FreeDetails({selectedProduct}) {
           'Damage due to improper use or installation.',
           'Alterations or modifications made to the cover.',
           'Damage caused by accidents, abuse, or neglect.',
-        ].map((text) => (
-          <BulletItem text={text} />
+        ].map((text, i) => (
+          <BulletItem key={i} text={text} />
         ))}
       </div>
       <Separator className="my-10" />
@@ -305,7 +323,7 @@ export default function FreeDetails({selectedProduct}) {
                 'Holds the cover in place from the front, middle, and back, even in gusts of up to 50 mph.',
             },
           ].map(({ title, description }, index) => (
-            <div className="flex gap-3.5">
+            <div key={index} className="flex gap-3.5">
               <div className="flex aspect-square h-[26px] w-[26px] items-center justify-center rounded-full bg-[#E0E0E0] p-2 text-[16px] font-[900] leading-[16px] text-[#767676]">
                 {index + 1}
               </div>
@@ -368,8 +386,10 @@ export default function FreeDetails({selectedProduct}) {
   const freeDetailItems: DetailItem[] = [
     {
       icon: <BoxIcon />,
-      title: selectedProduct?.preorder && params.year ? 'Estimated Restock Date: ' + formatISODate(selectedProduct?.preorder) : 'Free, Same-Day Shipping',
-      title: selectedProduct?.preorder && params.year ? 'Shipped When Restocked' : 'Free, Same-Day Shipping',
+      title:
+        selectedProduct?.preorder && isComplete
+          ? 'Shipped When Restocked'
+          : 'Free, Same-Day Shipping',
       description: `Order within ${timeRemaining} - Receive by ${deliveryDate}`,
       headerText: 'Shipping Information',
       jsx: <ShippingInformation />,

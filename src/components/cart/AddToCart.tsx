@@ -53,7 +53,6 @@ export default function AddToCart({
   const initalLoadingState = false;
   const [isLoading, setIsLoading] = useState<boolean>(initalLoadingState);
   const [selectSeatOpen, setSelectSeatOpen] = useState<boolean>(false);
-  const isFinalSelection = params?.year;
 
   const {
     completeSelectionState: { isComplete },
