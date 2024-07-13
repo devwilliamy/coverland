@@ -132,7 +132,7 @@ export const CreditCardSection = () => {
         error: 'empty',
         message: e.empty
           ? 'Please enter card number.'
-          : "Your card's security code is incomplete.",
+          : "Your card number is incomplete.",
         visited: true,
       });
     } else {
@@ -161,7 +161,7 @@ export const CreditCardSection = () => {
         error: 'empty',
         message: e.empty
           ? 'Please enter date.'
-          : "Your card's security code is incomplete.",
+          : "Your card's expiry date is incomplete.",
         visited: true,
       });
     } else {

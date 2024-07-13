@@ -21,7 +21,7 @@ export default function CheckoutSummarySection() {
   return (
     <div>
       <div className="flex items-center justify-between pb-12 lg:pb-8">
-        <div className="text-xl font-bold  lg:pt-[38px]">
+        <div className="text-xl font-bold">
           {isCartStep ? 'Summary' : 'In Your Cart'}
         </div>
         {!isCartStep && (
