@@ -23,7 +23,7 @@ const useCart = () => {
     if (preorderItem) {
       setIsCartPreorder(true);
       // this only captures the first preorder item found in the cart, will have to come back and fix this later
-      setCartPreorderDate(preorderItem?.preorder_date);
+      setCartPreorderDate(preorderItem.preorder_date ? preorderItem.preorder_date : '');
     } else {
       setIsCartPreorder(false);
       setCartPreorderDate('');
