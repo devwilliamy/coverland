@@ -42,7 +42,6 @@ import { useRouter } from 'next/navigation';
 import PayPalButtonSection from './PayPalButtonSection';
 import { generateSkuLabOrderInput } from '@/lib/utils/skuLabs';
 import { handlePurchaseGoogleTag } from '@/hooks/useGoogleTagDataLayer';
-
 import { SHIPPING_METHOD } from '@/lib/constants';
 import { determineDeliveryByDate } from '@/lib/utils/deliveryDateUtils';
 import { ReadyCheck } from './icons/ReadyCheck';
@@ -68,6 +67,9 @@ export default function CheckoutAccordion() {
     getTotalCartQuantity,
     getOrderSubtotal,
     getTotalDiscountPrice,
+    isCartPreorder,
+    cartPreorderDate,
+    getTotalPreorderDiscount,
   } = useCartContext();
   const {
     billingAddress,
@@ -98,6 +100,7 @@ export default function CheckoutAccordion() {
     updateCardExpiryError,
     updateCardCvvError,
   } = useCheckoutContext();
+
   const orderSubtotal = getOrderSubtotal().toFixed(2);
   const cartMSRP = getTotalPrice() + shipping;
   const totalMsrpPrice = convertPriceToStripeFormat(getTotalPrice() + shipping);
@@ -106,10 +109,11 @@ export default function CheckoutAccordion() {
   const [isLoading, setIsLoading] = useState(false);
   const [submitErrorMessage, setSubmitErrorMessage] = useState('');
   const [paypalSuccessMessage, setPaypalSuccessMessage] = useState('');
+  const preorderDate = isCartPreorder ? cartPreorderDate : undefined;
 
   const shippingInfo = {
     shipping_method: SHIPPING_METHOD,
-    shipping_date: determineDeliveryByDate('EEE, LLL dd'),
+    shipping_date: determineDeliveryByDate('EEE, LLL dd', preorderDate),
     delivery_fee: shipping,
   };
 
@@ -151,6 +155,8 @@ export default function CheckoutAccordion() {
         subtotal: getOrderSubtotal().toFixed(2),
         total: (getTotalPrice() + shipping).toFixed(2), // may need to add taxes later
         totalDiscount: getTotalDiscountPrice().toFixed(2),
+        totalPreorderDiscount: getTotalPreorderDiscount().toFixed(2),
+        isPreorder: isCartPreorder,
         hasDiscount: parseFloat(getTotalDiscountPrice().toFixed(2)) > 0,
       },
       shippingInfo: {
@@ -432,7 +438,6 @@ export default function CheckoutAccordion() {
   }, [isEditingAddress, paymentMethod]);
 
   useEffect(() => {
-   
     updateCardNumberError({
       ...cardNumberError,
       error: null,
@@ -537,7 +542,6 @@ export default function CheckoutAccordion() {
                   </AccordionTrigger>
                   <AccordionContent className=" py-0">
                     <Payment handleChangeAccordion={handleChangeAccordion} />
-
                     <section className="flex w-full flex-col pt-4 lg:hidden ">
                       {cartItems.map((cartItem, i) => (
                         <div
@@ -550,10 +554,10 @@ export default function CheckoutAccordion() {
                       <div className="mt-4 lg:hidden">
                         <PriceBreakdown />
                       </div>
+                      <TermsOfUseStatement />
                       <div
                         className={`relative ${paymentMethod === 'paypal' && 'mb-[130px]'} ${isReadyToPay && paymentMethod === 'creditCard' && 'mb-[60px]'} flex w-full flex-col items-center justify-center py-4 ${submitErrorMessage && 'mb-10'}`}
                       >
-                        <TermsOfUseStatement />
                         {isReadyToPay && (
                           <div className="flex flex-col lg:hidden">
                             {paymentMethod === 'creditCard' && (
@@ -562,6 +566,11 @@ export default function CheckoutAccordion() {
                                   <p className="w-full py-2 text-center font-[500] text-[red]">
                                     {submitErrorMessage}
                                   </p>
+                                )}
+                                {paypalSuccessMessage && (
+                                  <div className="font-base flex items-center justify-center text-lg text-red-500">
+                                    Error: {paypalSuccessMessage}
+                                  </div>
                                 )}
                               </>
                             )}

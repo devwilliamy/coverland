@@ -243,8 +243,8 @@ export function detectFOrFB(sku: string) {
   }
   return 'Unknown';
 }
-export function isFullSet(displaySet: string) {
-  return displaySet?.toLowerCase() == 'front seats' ? 'front' : 'full';
+export function isFullSet(displaySet: string): string {
+  return displaySet?.toLowerCase() === 'front seats' ? 'front' : 'full';
 }
 export const determineTypeString = (type: string) => {
   const typeOptions = ['Car Covers', 'SUV Covers', 'Truck Covers'];
@@ -305,9 +305,8 @@ export const determineShortReviewCount = (total_reviews: number) => {
 };
 
 export const formatToE164 = (num: string) => {
-  if (!num) {
-    return '';
-  }
+  if (!num) return '';
+  
   const formattedPhone = parsePhoneNumber(num, 'US')?.format('E.164');
   // console.log('[FORMAT TO E.164 FUNCTION: ]', { formattedPhone });
   return formattedPhone;

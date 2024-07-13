@@ -142,9 +142,8 @@ export function ProductContent({
         <>Waterproof Outdoor Custom-Fit {`${productType} `}</>
       ) : (
         <>
-          {make && `${deslugify(make as string)} `}
-          {model && `${deslugify(model as string)} `}
-          {`${productType} `}
+          {make && (selectedProduct.make as string)}{' '}
+          {model && (selectedProduct.model as string)} {`${productType} `}
           {' - '}
           <br />
           <>Waterproof, Outdoor, Custom-Fit</>
@@ -212,13 +211,13 @@ export function ProductContent({
           )}
         </div>
         <div className="mt-1 flex items-center gap-0.5 ">
-          <p className=" text-[14px] leading-[16px] text-[#767676] lg:text-[16px]">
+          <p className=" text-[16px] leading-[16px] text-[#767676] ">
             4 interest-free installments of{' '}
-            <b className="font-[400] text-black">
+            <b className="font-[500] text-black">
               ${(installmentPrice / 4).toFixed(2)}
             </b>
           </p>
-          <KlarnaIcon className="flex max-h-[30px] w-fit" />
+          <KlarnaIcon className="-ml-[5px] -mt-[1px] flex max-h-[30px] w-fit max-w-[61px]" />
           {/* <Info className="h-[17px] w-[17px] text-[#767676]" /> */}
         </div>
       </section>

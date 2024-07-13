@@ -57,7 +57,7 @@ export default function CircleColorSelector() {
   return (
     <section
       id="select-color"
-      className="mt-[24px] flex h-full w-full flex-col py-1"
+      className="mt-[24px] flex h-full w-full flex-col"
     >
       <h3 className="mb-[6px] max-h-[13px] text-[16px] font-[400] leading-[14px] text-black ">
         Select Color

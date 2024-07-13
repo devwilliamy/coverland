@@ -10,6 +10,8 @@ export default function PriceBreakdown() {
     getOrderSubtotal,
     getTotalDiscountPrice,
     getTotalCartQuantity,
+    isCartPreorder,
+    getTotalPreorderDiscount,
   } = useCartContext();
   const totalMsrpPrice = (getTotalPrice() + shipping).toFixed(
     2
@@ -18,6 +20,10 @@ export default function PriceBreakdown() {
     2
   ) as unknown as number;
   const orderSubtotal = getOrderSubtotal().toFixed(2) as unknown as number;
+
+  const totalPreorderDiscount = getTotalPreorderDiscount().toFixed(
+    2
+  ) as unknown as number;
 
   const shippingText = shipping === 0 ? 'FREE' : `$${shipping}`;
   const isCartEmpty = getTotalCartQuantity() === 0;
@@ -34,6 +40,12 @@ export default function PriceBreakdown() {
           <div>- ${totalDiscountedPrice}</div>
         </div>
       )}
+      {!isCartEmpty && isCartPreorder ? (
+        <div className="flex justify-between text-[#D13C3F]">
+          <div>Pre-order Savings</div>
+          <div>-${totalPreorderDiscount}</div>
+        </div>
+      ) : null}
       {currentStep === CheckoutStep.CHECKOUT && (
         <>
           <div className="flex justify-between ">

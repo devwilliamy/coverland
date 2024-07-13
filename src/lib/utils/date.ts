@@ -59,3 +59,23 @@ export function formatISODate(isoDateString: string): string {
 
   return `${month}/${day}/${year}`;
 }
+
+export function weeksFromCurrentDate(targetDate: string): number {
+  const currentDate = new Date();
+  const target = new Date(targetDate);
+  
+  const diffInMilliseconds = target.getTime() - currentDate.getTime();
+  const diffInDays = diffInMilliseconds / (1000 * 60 * 60 * 24);
+  const diffInWeeks = diffInDays / 7;
+
+  return Math.ceil(diffInWeeks);
+}
+
+export function getCurrentMonth() {
+  const monthNames = [
+    "January", "February", "March", "April", "May", "June",
+    "July", "August", "September", "October", "November", "December"
+  ];
+  const date = new Date();
+  return monthNames[date.getMonth()];
+};

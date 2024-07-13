@@ -1,5 +1,5 @@
 import { useElements, useStripe } from '@stripe/react-stripe-js';
-import { useState } from 'react';
+import { FormEvent, useState } from 'react';
 import { Button } from '../ui/button';
 import { AiOutlineLoading3Quarters } from 'react-icons/ai';
 import { useCheckoutContext } from '@/contexts/CheckoutContext';
@@ -18,6 +18,8 @@ import GooglePayIcon from './icons/GooglePayIcon';
 import { determineDeliveryByDate } from '@/lib/utils/deliveryDateUtils';
 import { SHIPPING_METHOD } from '@/lib/constants';
 import { TermsOfUseStatement } from './TermsOfUseStatement';
+import { useCartContext } from '@/providers/CartProvider';
+import { convertPriceToStripeFormat } from '@/lib/utils/stripe';
 
 export default function Payment({
   handleChangeAccordion,
@@ -53,12 +55,17 @@ export default function Payment({
     isEditingAddress,
     updateIsEditingAddress,
   } = useCheckoutContext();
-
-  const shippingInfo = {
-    shipping_method: SHIPPING_METHOD,
-    shipping_date: determineDeliveryByDate('EEE, LLL dd'),
-    delivery_fee: shipping,
-  };
+  const {
+    cartItems,
+    getTotalPrice,
+    getOrderSubtotal,
+    getTotalDiscountPrice,
+    getTotalCartQuantity,
+    clearLocalStorageCart,
+    isCartPreorder,
+    cartPreorderDate,
+    getTotalPreorderDiscount,
+  } = useCartContext();
 
   const isDisabledCard =
     isEditingAddress ||
@@ -66,8 +73,6 @@ export default function Payment({
     Boolean(cardExpiryError.error || !cardExpiryError.visited) ||
     Boolean(cardCvvError.error || !cardCvvError.visited);
 
-  const { name } = shippingAddress;
-  const { city, line1, state, postal_code, country } = shippingAddress.address;
   const customerBilling = {
     email: customerInfo.email,
     name: billingAddress.name,
@@ -116,6 +121,9 @@ export default function Payment({
               isEditingAddress={isEditingAddress}
               setIsEditingAddress={updateIsEditingAddress}
             />
+            <div className="max-lg:hidden">
+              <TermsOfUseStatement />
+            </div>
           </div>
         ) : (
           <div className="py-[15px]">
@@ -133,6 +141,9 @@ export default function Payment({
             {paymentMethod === 'klarna' && (
               <div>You will be redirected to Klarna upon checkout.</div>
             )}
+            <div className="mt-[20px] max-lg:hidden">
+              <TermsOfUseStatement />
+            </div>
           </div>
         )}
       </>
