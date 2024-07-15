@@ -16,9 +16,7 @@ import CircleColorSelector from './CircleColorSelector';
 import ReviewsTextTrigger from './ReviewsTextTrigger';
 import installments from '@/images/PDP/Product-Details-Redesign-2/paypal-installments.webp';
 import KlarnaIcon from '@/components/icons/KlarnaIcon';
-import Image from 'next/image';
 import useDetermineType from '@/hooks/useDetermineType';
-import ReactPlayer from 'react-player';
 export function ProductContent({
   searchParams,
 }: {
