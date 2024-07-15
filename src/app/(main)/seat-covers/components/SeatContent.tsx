@@ -10,7 +10,7 @@ import { useStore } from 'zustand';
 import SeatCoverColorSelector from './SeatCoverColorSelector';
 import PreorderSheet from '@/components/cart/PreorderSheet';
 import { Separator } from '@/components/ui/separator';
-import { TQueryParams } from '@/utils';
+import { getCompleteSelectionData, TQueryParams } from '@/utils';
 import AddToCart from '@/components/cart/AddToCart';
 import EditVehicle from '@/components/edit-vehicle/EditVehicle';
 import FreeDetails from '../../[productType]/components/FreeDetails';
@@ -25,11 +25,17 @@ export default function SeatContent({
 }: {
   searchParams: TQueryParams;
 }) {
-  const params = useParams<TPathParams>();
-  const isFinalSelection = params?.year;
   const store = useContext(SeatCoverSelectionContext);
   if (!store)
     throw new Error('Missing SeatCoverSelectionContext.Provider in the tree');
+  const modelData = useStore(store, (s) => s.modelData);
+
+  const {
+    completeSelectionState: { isComplete },
+  } = getCompleteSelectionData({
+    data: modelData,
+  });
+
   const router = useRouter();
 
   const selectedProduct = useStore(store, (s) => s.selectedProduct);
@@ -105,9 +111,9 @@ export default function SeatContent({
         {/* <Info className="h-[17px] w-[17px] text-[#767676]" /> */}
       </div>
 
-      {!!isFinalSelection ? <SeatCoverSelection /> : null}
-      <SeatCoverColorSelector isFinalSelection={isFinalSelection} />
-      <FreeDetails selectedProduct={selectedProduct} />
+      {!!isComplete ? <SeatCoverSelection /> : null}
+      <SeatCoverColorSelector />
+      <FreeDetails />
       {/* <CompatibleVehiclesTrigger /> */}
       <div className="lg:py-4"></div>
       <div className="lg:hidden">

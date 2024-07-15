@@ -29,7 +29,7 @@ export default function PriceBreakdown() {
   const isCartEmpty = getTotalCartQuantity() === 0;
 
   return (
-    <div className="py-[1vh] text-base font-normal text-[#343434]">
+    <div className=" text-base font-normal text-[#343434]">
       <div className="flex justify-between lg:flex">
         <div>Order Subtotal</div>
         <div>${orderSubtotal}</div>
@@ -37,7 +37,7 @@ export default function PriceBreakdown() {
       {isCartEmpty ? null : (
         <div className="flex justify-between text-[#D13C3F]">
           <div>Sale-discount</div>
-          <div>-${totalDiscountedPrice}</div>
+          <div>- ${totalDiscountedPrice}</div>
         </div>
       )}
       {!isCartEmpty && isCartPreorder ? (
@@ -54,13 +54,11 @@ export default function PriceBreakdown() {
           </div>
         </>
       )}
-      <div className="lg:pb-14 lg:pt-14">
-        <Separator className="hidden w-full bg-[#C8C7C7] lg:block" />
-        <div className="flex justify-between pt-8 font-semibold lg:flex-row lg:justify-between lg:py-5 lg:font-bold">
+      <div className="pb-3 pt-[26px]">
+        <div className="flex justify-between border-y border-[#C8C7C7] py-5 font-semibold lg:flex-row lg:justify-between lg:font-bold">
           <div>Order Total: </div>
           <div>${totalMsrpPrice}</div>
         </div>
-        <Separator className="hidden w-full bg-[#C8C7C7] lg:block" />
       </div>
     </div>
   );

@@ -256,3 +256,14 @@ export const getEligibleShippingOptions = () =>
     // }
     // return finalOptions;
   };
+
+export const cleanPhoneInput = (inputString: string) => {
+  const cleanedString = inputString
+    .replaceAll(' ', '')
+    .replaceAll('(', '')
+    .replaceAll(')', '')
+    .replaceAll('-', '')
+    .replaceAll('+', '');
+
+  return cleanedString;
+};
