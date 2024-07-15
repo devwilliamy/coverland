@@ -87,7 +87,7 @@ const Footer = () => {
             </p>
             <ul className="flex list-none flex-col items-start justify-start">
               <li className="mb-4 text-base font-normal text-[#DBDBDB]">
-                <p className="">Call us toll-free:</p>
+                <p className="">Contact us 24/7</p>
               </li>
               <li className="mb-4 text-white">
                 <Link
@@ -99,9 +99,6 @@ const Footer = () => {
                     1-800-799-5165
                   </p>
                 </Link>
-              </li>
-              <li className="mb-4 text-base font-normal text-[#DBDBDB]">
-                <p className="">Mon-Fri 9am-5pm PST</p>
               </li>
               <li className="mb-4 text-white">
                 <Link

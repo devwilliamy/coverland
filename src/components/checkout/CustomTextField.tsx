@@ -1,4 +1,4 @@
-import { ChangeEvent, Dispatch, SetStateAction } from 'react';
+import { ChangeEvent, Dispatch, SetStateAction, useState } from 'react';
 import {
   FormControl,
   InputLabel,
@@ -10,6 +10,7 @@ import { CustomFieldTypes, ShippingStateType } from './AddressForm';
 import { US_STATES } from '@/lib/constants';
 import { phoneNumberAutoFormat } from '../policy/ContactPage';
 import { cleanPhoneInput } from '@/app/(noFooter)/checkout/utils';
+import parsePhoneNumberFromString from 'libphonenumber-js';
 
 export const CustomTextField = ({
   label,
@@ -18,7 +19,7 @@ export const CustomTextField = ({
   shippingState,
   setShippingState,
   required,
-  errorMessage,
+  // errorMessage,
 }: {
   label: string;
   type: CustomFieldTypes;
@@ -26,15 +27,29 @@ export const CustomTextField = ({
   shippingState: Record<string, ShippingStateType>;
   setShippingState: Dispatch<SetStateAction<Record<string, ShippingStateType>>>;
   required: boolean;
-  errorMessage?: string;
+  // errorMessage?: string;
 }) => {
+  const shippingStateOption = shippingState[type];
+  const { visited, error, value } = shippingStateOption;
+
   const validateEmail = (email: string) => {
+    // Matching strings with valid email format
+    // Ex:
+    // ---- paul@example.org
+    // ---- example.dev.co@example.co
+    // ---- example3@gmail.com
+
     const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return re.test(String(email).toLowerCase());
   };
 
   const validateLengthGreaterThanOne = (inputString: string) => {
     // Regex to match strings with more than one alphabetic character
+
+    if (!inputString) {
+      return false;
+    }
+
     const pattern = /\b[a-zA-Z]{2,}\b/g;
     return pattern.test(inputString);
   };
@@ -71,6 +86,27 @@ export const CustomTextField = ({
     }
   };
 
+  const determineInputErrorMessage = () => {
+    switch (type) {
+      case 'firstName':
+        return 'Please enter your first name';
+      case 'lastName':
+        return 'Please enter your last name';
+      case 'line1':
+        return 'Please enter your street address';
+      case 'email':
+        return 'Please enter a valid email address';
+      case 'city':
+        return 'Please enter a valid city';
+      case 'postal_code':
+        return 'Please enter a valid ZIP code';
+      case 'phoneNumber':
+        return 'This field is required';
+      default:
+        return `Invalid ${label}`;
+    }
+  };
+
   const handleChange = (
     event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement> | undefined
   ) => {
@@ -83,18 +119,14 @@ export const CustomTextField = ({
     });
 
     // Validate and update the error object
-    if (
-      shippingState[type].visited &&
-      type !== 'line2' &&
-      !isValidInput(value)
-    ) {
+    if (type !== 'line2' && !isValidInput(value)) {
       setShippingState((prevState) => ({
         ...prevState,
         [type]: {
           ...prevState[type],
-          visited: true,
-          message: `Invalid ${label}`,
-          error: true,
+          // visited: true,
+          message: determineInputErrorMessage(),
+          error: !visited && value.length < 2 ? false : true,
         },
       }));
       return;
@@ -109,6 +141,7 @@ export const CustomTextField = ({
   };
 
   const handleBlur = () => {
+    // When the user clicks away from the component
     if (type === 'line2') {
       setShippingState((prevState) => {
         return {
@@ -118,13 +151,13 @@ export const CustomTextField = ({
       });
       return;
     }
-    if (!isValidInput(shippingState[type].value)) {
+    if (!isValidInput(shippingStateOption.value)) {
       setShippingState((prevState) => ({
         ...prevState,
         [type]: {
           ...prevState[type],
           visited: true,
-          message: `Invalid ${label}`,
+          message: determineInputErrorMessage(),
           error: true,
         },
       }));
@@ -140,32 +173,35 @@ export const CustomTextField = ({
   };
 
   const formatPhoneNumber = (input: string) => {
-    // Remove any non-digit characters
-    const cleaned = ('' + input).replace(/\D/g, '');
+    // // Remove any non-digit characters
+    // const cleaned = ('' + input).replace(/\D/g, '');
 
-    // Format based on the length of the cleaned number
-    let match;
-    if (cleaned.length === 7) {
-      match = cleaned.match(/^(\d{3})(\d{4})$/);
-      if (match) {
-        return `${match[1]}-${match[2]}`;
-      }
-    } else if (cleaned.length === 10) {
-      match = cleaned.match(/^(\d{3})(\d{3})(\d{4})$/);
-      if (match) {
-        return `(${match[1]}) ${match[2]}-${match[3]}`;
-      }
-    } else if (cleaned.length === 11) {
-      match = cleaned.match(/^(\d{1})(\d{3})(\d{3})(\d{4})$/);
-      if (match) {
-        return `${match[1]} (${match[2]}) ${match[3]}-${match[4]}`;
-      }
-    } else if (cleaned.length <= 6) {
-      return cleaned;
-    }
+    // // Format based on the length of the cleaned number
+    // let match;
+    // if (cleaned.length === 7) {
+    //   match = cleaned.match(/^(\d{3})(\d{4})$/);
+    //   if (match) {
+    //     return `${match[1]}-${match[2]}`;
+    //   }
+    // } else if (cleaned.length === 10) {
+    //   match = cleaned.match(/^(\d{3})(\d{3})(\d{4})$/);
+    //   if (match) {
+    //     return `(${match[1]}) ${match[2]}-${match[3]}`;
+    //   }
+    // } else if (cleaned.length === 11) {
+    //   match = cleaned.match(/^(\d{1})(\d{3})(\d{3})(\d{4})$/);
+    //   if (match) {
+    //     return `${match[1]} (${match[2]}) ${match[3]}-${match[4]}`;
+    //   }
+    // } else if (cleaned.length <= 6) {
+    //   return cleaned;
+    // }
 
     // If the number doesn't match any of the expected lengths
-    return input;
+    // return input;
+    const parsedPhone = parsePhoneNumberFromString(input, 'US');
+    const formattedPhone = parsedPhone?.formatNational();
+    return formattedPhone;
   };
 
   const handlePhoneChange = (value: string) => {
@@ -182,7 +218,7 @@ export const CustomTextField = ({
 
     // Validate and update the error object
     if (
-      shippingState[type].visited &&
+      shippingStateOption.visited &&
       type !== 'line2' &&
       !isValidInput(value)
     ) {
@@ -191,7 +227,7 @@ export const CustomTextField = ({
         phoneNumber: {
           ...prevState.phoneNumber,
           visited: true,
-          message: `Invalid ${label}`,
+          message: determineInputErrorMessage(),
           error: true,
         },
       }));
@@ -225,7 +261,7 @@ export const CustomTextField = ({
     });
 
     if (
-      shippingState[type].visited &&
+      shippingStateOption.visited &&
       type !== 'line2' &&
       !isValidInput(value)
     ) {
@@ -234,7 +270,7 @@ export const CustomTextField = ({
         postal_code: {
           ...prevState.postal_code,
           visited: true,
-          message: `Invalid ${label}`,
+          message: determineInputErrorMessage(),
           error: true,
         },
       }));
@@ -254,12 +290,14 @@ export const CustomTextField = ({
         <TextField
           id={label}
           label={label}
-          value={shippingState[type].value}
+          value={value}
           onChange={handleChange}
           onBlur={handleBlur}
           placeholder={placeholder}
-          error={!!shippingState[type].error}
-          helperText={''}
+          error={!!error}
+          helperText={
+            shippingStateOption.visited && shippingStateOption.message
+          }
           required={required}
           sx={{
             margin: 0,
@@ -280,12 +318,19 @@ export const CustomTextField = ({
           id={label}
           type="tel"
           label={label}
-          value={shippingState[type].value}
+          value={shippingStateOption.value}
           onChange={handleZipChange}
           onBlur={handleBlur}
           placeholder={placeholder}
-          error={!!shippingState[type].error}
-          helperText={errorMessage ? errorMessage : shippingState[type].message}
+          error={!!shippingStateOption.error}
+          // helperText={
+          //   errorMessage && shippingStateOption.visited
+          //     ? errorMessage
+          //     : shippingStateOption.message
+          // }
+          helperText={
+            shippingStateOption.visited && shippingStateOption.message
+          }
           required={required}
           sx={{
             margin: 0,
@@ -305,19 +350,19 @@ export const CustomTextField = ({
           id={label}
           type="tel"
           label={label}
-          value={shippingState[type].value}
+          value={shippingStateOption.value}
           onChange={(e) => {
             const value = e.target.value;
             const cleaned = ('' + value).replace(/\D/g, '');
-            if (cleaned.length > 11) {
+            if (cleaned.length > 10) {
               return;
             }
             handlePhoneChange(cleaned);
           }}
           onBlur={handleBlur}
           placeholder={placeholder}
-          error={!!shippingState[type].error}
-          helperText={shippingState[type].message}
+          error={!!shippingStateOption.error}
+          helperText={shippingStateOption.message}
           required={required}
           sx={{
             margin: 0,

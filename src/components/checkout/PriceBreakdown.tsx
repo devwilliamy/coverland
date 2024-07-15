@@ -10,6 +10,8 @@ export default function PriceBreakdown() {
     getOrderSubtotal,
     getTotalDiscountPrice,
     getTotalCartQuantity,
+    isCartPreorder,
+    getTotalPreorderDiscount,
   } = useCartContext();
   const totalMsrpPrice = (getTotalPrice() + shipping).toFixed(
     2
@@ -18,6 +20,10 @@ export default function PriceBreakdown() {
     2
   ) as unknown as number;
   const orderSubtotal = getOrderSubtotal().toFixed(2) as unknown as number;
+
+  const totalPreorderDiscount = getTotalPreorderDiscount().toFixed(
+    2
+  ) as unknown as number;
 
   const shippingText = shipping === 0 ? 'FREE' : `$${shipping}`;
   const isCartEmpty = getTotalCartQuantity() === 0;
@@ -29,11 +35,17 @@ export default function PriceBreakdown() {
         <div>${orderSubtotal}</div>
       </div>
       {isCartEmpty ? null : (
-        <div className="flex justify-between text-[#1A1A1A]">
+        <div className="flex justify-between text-[#D13C3F]">
           <div>Sale-discount</div>
           <div>- ${totalDiscountedPrice}</div>
         </div>
       )}
+      {!isCartEmpty && isCartPreorder ? (
+        <div className="flex justify-between text-[#D13C3F]">
+          <div>Pre-order Savings</div>
+          <div>-${totalPreorderDiscount}</div>
+        </div>
+      ) : null}
       {currentStep === CheckoutStep.CHECKOUT && (
         <>
           <div className="flex justify-between ">
@@ -43,12 +55,10 @@ export default function PriceBreakdown() {
         </>
       )}
       <div className="pb-3 pt-[26px]">
-        <Separator className="hidden w-full bg-[#C8C7C7] lg:block" />
-        <div className="flex justify-between font-semibold lg:flex-row lg:justify-between lg:py-5 lg:font-bold">
+        <div className="flex justify-between border-y border-[#C8C7C7] py-5 font-semibold lg:flex-row lg:justify-between lg:font-bold">
           <div>Order Total: </div>
           <div>${totalMsrpPrice}</div>
         </div>
-        <Separator className="hidden w-full bg-[#C8C7C7] lg:block" />
       </div>
     </div>
   );

@@ -1,19 +1,24 @@
 import { useElements, useStripe } from '@stripe/react-stripe-js';
-import { useState } from 'react';
+import { FormEvent, useState } from 'react';
 import { Button } from '../ui/button';
 import { AiOutlineLoading3Quarters } from 'react-icons/ai';
 import { useCheckoutContext } from '@/contexts/CheckoutContext';
 import PaymentSelector from './PaymentSelector';
 import BillingAddress from './BillingAddress';
 import { StripeCardNumberElement } from '@stripe/stripe-js';
-import { NewCheckout } from './NewCheckout';
 import PayPalIcon from './icons/PayPalIcon';
 import Image from 'next/image';
 import VisaBlue from '@/images/checkout/VisaLogoBlue.webp';
 import Mastercard from '@/images/checkout/MastercardIcon.webp';
-
+import { CreditCardSection } from './CreditCardSection';
+import { useRouter } from 'next/navigation';
+import ApplePayIcon from './icons/ApplePayIcon';
+import GooglePayIcon from './icons/GooglePayIcon';
 import { determineDeliveryByDate } from '@/lib/utils/deliveryDateUtils';
 import { SHIPPING_METHOD } from '@/lib/constants';
+import { useCartContext } from '@/providers/CartProvider';
+import { convertPriceToStripeFormat } from '@/lib/utils/stripe';
+import { SelectedCardLogo } from './SelectedCardLogo';
 
 export default function Payment({
   handleChangeAccordion,
@@ -47,12 +52,17 @@ export default function Payment({
     twoLetterStateCode,
     billingTwoLetterStateCode,
   } = useCheckoutContext();
-
-  const shippingInfo = {
-    shipping_method: SHIPPING_METHOD,
-    shipping_date: determineDeliveryByDate('EEE, LLL dd'),
-    delivery_fee: shipping,
-  };
+  const {
+    cartItems,
+    getTotalPrice,
+    getOrderSubtotal,
+    getTotalDiscountPrice,
+    getTotalCartQuantity,
+    clearLocalStorageCart,
+    isCartPreorder,
+    cartPreorderDate,
+    getTotalPreorderDiscount,
+  } = useCartContext();
 
   const isDisabledCard =
     isEditingAddress ||
@@ -62,7 +72,7 @@ export default function Payment({
 
   const { name } = shippingAddress;
   const { city, line1, state, postal_code, country } = shippingAddress.address;
-  const buttonStyle = `mb-3 w-full max-w-[390px] rounded-lg ${isDisabledCard ? 'bg-[#1A1A1A]/90' : 'bg-[#1A1A1A] hover:bg-[#1A1A1A]/90'} text-center uppercase m-0 max-h-[48px] min-h-[48px] max-w-[350px] self-end justify-self-end text-[16px] leading-[17px]`;
+  const buttonStyle = `mb-3 w-full lg:max-w-[307px] rounded-lg ${isDisabledCard ? 'bg-[#1A1A1A]/90' : 'bg-[#1A1A1A] hover:bg-[#1A1A1A]/90'} text-center uppercase m-0 max-h-[48px] min-h-[48px] self-end justify-self-end text-[16px] leading-[17px]`;
 
   const customerBilling = {
     email: customerInfo.email,
@@ -88,6 +98,7 @@ export default function Payment({
         return null;
     }
   };
+  // const buttonStyle = `mb-3 w-full lg:max-w-[307px] font-[700] rounded-lg text-white disabled:bg-[#D6D6D6] disabled:text-[#767676] bg-[#1A1A1A] hover:bg-[#1A1A1A]/90  bg: text-center uppercase m-0 max-h-[48px] min-h-[48px] self-end justify-self-end text-[16px] leading-[17px]`;
 
   const handleContinueWithCard = () => {
     setIsLoading(true);
@@ -118,6 +129,10 @@ export default function Payment({
       });
   };
 
+  const handleEditPayment = () => {
+    updateIsReadyToPay(false);
+  };
+
   return (
     <section>
       {isReadyToPay ? (
@@ -135,10 +150,10 @@ export default function Payment({
                   {stripePaymentMethod &&
                     stripePaymentMethod.paymentMethod?.card && (
                       <div className="flex items-center gap-2 text-[16px] leading-[27px] text-[#767676]">
-                        <div className="flex max-h-[16px] max-w-[48px]">
-                          {determineBrandLogo(
-                            stripePaymentMethod.paymentMethod.card.brand
-                          )}
+                        <div className="flex max-h-[16px] max-w-[48px] items-center">
+                          <SelectedCardLogo
+                            brand={stripePaymentMethod.paymentMethod.card.brand}
+                          />
                         </div>
                         <div className="flex">
                           <p>
@@ -166,7 +181,7 @@ export default function Payment({
           <div>
             <p
               className="flex max-h-fit cursor-pointer font-[500] underline hover:text-[#0C87B8]"
-              onClick={() => updateIsReadyToPay(false)}
+              onClick={handleEditPayment}
             >
               Edit
             </p>
@@ -184,7 +199,7 @@ export default function Payment({
           {paymentMethod === 'creditCard' ? (
             <div className="flex flex-col gap-4">
               <form id="payment-form">
-                <NewCheckout />
+                <CreditCardSection />
               </form>
 
               <BillingAddress
@@ -238,23 +253,6 @@ export default function Payment({
           </Button>
         </div>
       )}
-
-      {/* {message && (
-        </div>
-      ) : (
-        <>
-          <PayPalButtonSection
-            setPaypalSuccessMessage={setPaypalSuccessMessage} 
-            setMessage={setMessage}
-          />
-          <div className="text-md font-bold text-green-700">{paypalSuccessMessage}</div>
-        </>
-      )}
-      {message && (
-        <div className="font-base flex items-center justify-center text-lg text-red-500">
-          Error: {message}
-        </div>
-      )} */}
     </section>
   );
 }

@@ -1,4 +1,4 @@
-import { HTMLAttributes, SyntheticEvent, useEffect, useState } from 'react';
+import { HTMLAttributes, SyntheticEvent,MouseEvent, useEffect, useState } from 'react';
 import { Button } from '../ui/button';
 import { CustomerInfo, useCheckoutContext } from '@/contexts/CheckoutContext';
 import { StripeAddress } from '@/lib/types/checkout';
@@ -21,6 +21,7 @@ type FormString =
   | 'postal_code'
   | 'phoneNumber'
   | 'country';
+
 
 type AddressFormProps = {
   addressData: StripeAddress;
@@ -62,6 +63,8 @@ export default function AddressForm({
   updateAddress,
   setIsEditingAddress,
   isBilling,
+  handleChangeAccordion,
+  handleSelectTab,
 }: AddressFormProps) {
   const {
     customerInfo,
@@ -70,6 +73,8 @@ export default function AddressForm({
     updateBillingTwoLetterStateCode,
     isBillingSameAsShipping,
   } = useCheckoutContext();
+
+  // TODO: Extract this to checkout context or its own context
 
   const [shippingState, setShippingState] = useState<
     Record<string, ShippingStateType>
@@ -503,13 +508,38 @@ export default function AddressForm({
         <p>{text}</p>
       </li>
     );
+  }
+  const handleSaveAndContinue = (e: MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    const incStripeAddress = {
+      firstName: shippingState.firstName.value,
+      lastName: shippingState.lastName.value,
+      name: shippingState.firstName.value + ' ' + shippingState.lastName.value,
+      phone: shippingState.phoneNumber.value,
+      address: {
+        city: shippingState.city.value,
+        line1: shippingState.line1.value,
+        line2: shippingState.line2.value,
+        postal_code: shippingState.postal_code.value,
+        state: shippingState.state.value,
+        country: 'US',
+      },
+    };
+
+    const incCustomerInfo = {
+      email: shippingState.email.value,
+      phoneNumber: shippingState.phoneNumber.value,
+    } as CustomerInfo;
+
+    updateAddress(incStripeAddress as StripeAddress);
+    updateCustomerInfo(incCustomerInfo);
+    setIsEditingAddress(false);
   };
+
 
   return (
     <form
-      onSubmit={(e) => {
-        e.preventDefault();
-      }}
+      onSubmit={(e) => e.preventDefault()}
       className="mt-2 flex flex-col gap-[29.5px]"
     >
       <div className="flex grid-cols-2 flex-col gap-[29.5px] lg:grid lg:gap-[14px]">
@@ -520,7 +550,6 @@ export default function AddressForm({
           required
           shippingState={shippingState}
           setShippingState={setShippingState}
-          errorMessage="Please enter your first name."
         />
         <CustomTextField
           label="Last Name"
@@ -612,59 +641,32 @@ export default function AddressForm({
         </p>
       </div>
 
-      <div className="flex grid-cols-2 flex-col gap-[29.5px] lg:grid lg:gap-[14px]">
-        <CustomTextField
-          label="Email"
-          type="email"
-          required
-          placeholder="Email"
-          shippingState={shippingState}
-          setShippingState={setShippingState}
-        />
-        <CustomTextField
-          label="Phone Number"
-          type="phoneNumber"
-          required
-          placeholder="Phone Number"
-          shippingState={shippingState}
-          setShippingState={setShippingState}
-        />
-      </div>
+      {!isBilling && (
+        <div className="flex grid-cols-2 flex-col gap-[29.5px] lg:grid lg:gap-[14px]">
+          <CustomTextField
+            label="Email"
+            type="email"
+            required
+            placeholder="Email"
+            shippingState={shippingState}
+            setShippingState={setShippingState}
+          />
+          <CustomTextField
+            label="Phone Number"
+            type="phoneNumber"
+            required
+            placeholder="Phone Number"
+            shippingState={shippingState}
+            setShippingState={setShippingState}
+          />
+        </div>
+      )}
 
       <Button
         type="submit"
         disabled={checkErrors()}
-        onClick={(e) => {
-          e.preventDefault();
-
-          const incStripeAddress = {
-            firstName: shippingState.firstName.value,
-            lastName: shippingState.lastName.value,
-            name:
-              shippingState.firstName.value +
-              ' ' +
-              shippingState.lastName.value,
-            phone: shippingState.phoneNumber.value,
-            address: {
-              city: shippingState.city.value,
-              line1: shippingState.line1.value,
-              line2: shippingState.line2.value,
-              postal_code: shippingState.postal_code.value,
-              state: shippingState.state.value,
-              country: 'US',
-            },
-          };
-
-          const incCustomerInfo = {
-            email: shippingState.email.value,
-            phoneNumber: shippingState.phoneNumber.value,
-          } as CustomerInfo;
-
-          updateAddress(incStripeAddress as StripeAddress);
-          updateCustomerInfo(incCustomerInfo);
-          setIsEditingAddress(false);
-        }}
-        className={`h-[48px] w-full cursor-pointer self-center rounded-lg bg-black text-base font-bold uppercase text-white lg:h-[63px] lg:max-w-[307px] lg:self-end lg:text-xl`}
+        onClick={handleSaveAndContinue}
+        className={`h-[48px] w-full cursor-pointer self-center rounded-lg bg-black text-base font-bold uppercase text-white disabled:bg-[#D6D6D6] disabled:text-[#767676] lg:mb-[70px] lg:mt-[19.5px] lg:max-w-[307px] lg:self-end lg:text-xl`}
       >
         Save & Continue
       </Button>

@@ -17,7 +17,7 @@ import { CvvPopover } from './CvvPopover';
 import LockIcon from './icons/LockIcon';
 import { CardLockIcon } from './icons/CardLockIcon';
 
-export const NewCheckout = () => {
+export const CreditCardSection = () => {
   const stripe = useStripe();
   const elements = useElements() ?? undefined;
   const router = useRouter();

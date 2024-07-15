@@ -20,7 +20,7 @@ export default function CartItemCard({ item }: { item: TCartItem }) {
   const imageUrl =
     type === 'Seat Covers' ? item?.product?.split(',')[0] : item?.feature;
   return (
-    <div className="flex flex-col px-4">
+    <div className="flex flex-col">
       <div className="flex w-full justify-items-center gap-2 text-2xl font-medium">
         <div className="h-9/12 w-3/12 justify-items-center ">
           <Image
@@ -32,8 +32,15 @@ export default function CartItemCard({ item }: { item: TCartItem }) {
           />
         </div>
         <div className="flex w-7/12 flex-col gap-1">
-          <div className="w-10/12 text-base font-bold lg:text-lg">
-            {item?.display_id}&trade; {item?.type}
+          <div className="items-center md:flex md:space-x-2">
+            <div className="w-10/12 text-base font-bold md:w-auto lg:text-lg">
+              {item?.display_id}&trade; {item?.type}
+            </div>
+            {item?.preorder && (
+              <div className="h-[27px] max-w-[90px] rounded bg-[#2BA45B] px-[8px] text-center text-sm font-bold leading-[27px] text-[#ffffff]">
+                Pre-Order
+              </div>
+            )}
           </div>
           <div
             className={`text-sm font-normal ${!item?.make && 'hidden'} text-[#707070] lg:text-base`}
@@ -71,7 +78,13 @@ export default function CartItemCard({ item }: { item: TCartItem }) {
           <div className="text-base font-bold lg:text-lg">
             $
             {item?.msrp
-              ? (parseFloat(item?.msrp) * item?.quantity).toFixed(2)
+              ? (
+                  (parseFloat(item?.msrp) -
+                    (item?.preorder && item?.preorder_discount
+                      ? parseFloat(item?.preorder_discount)
+                      : 0)) *
+                  item?.quantity
+                ).toFixed(2)
               : ''}
           </div>
           {item.msrp !== item.price && (
@@ -85,7 +98,7 @@ export default function CartItemCard({ item }: { item: TCartItem }) {
       <div className="flex items-end justify-between pb-2 pt-0">
         <div className="flex flex-col">
           <div className="pt-2 text-sm font-normal text-[#343434] lg:pt-0 lg:text-base">
-            Same-Day Shipping
+            {item?.preorder ? 'Pre-order Item' : 'Same-Day Shipping'}
           </div>
           <div className="flex items-center gap-3 pt-1 text-sm font-normal text-[#343434] lg:text-base">
             <div>Free Delivery</div>
