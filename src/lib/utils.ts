@@ -1,18 +1,8 @@
 import { TInitialProductDataDB } from './db/index';
 import { type ClassValue, clsx } from 'clsx';
 import { twMerge } from 'tailwind-merge';
-import {
-  DISCOUNT_25_LOWER_BOUND,
-  DISCOUNT_25_UPPER_BOUND,
-  NO_DISCOUNT_LOWER_BOUND,
-  NO_DISCOUNT_UPPER_BOUND,
-  modelStrings,
-} from './constants';
+import { modelStrings } from './constants';
 import { TCarCoverData } from '@/app/(main)/car-covers/components/CarPDP';
-import { TCartItem } from './cart/useCart';
-import { Dispatch, SetStateAction } from 'react';
-import { IProductData } from '@/utils';
-import { TSeatCoverDataDB } from './db/seat-covers';
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
