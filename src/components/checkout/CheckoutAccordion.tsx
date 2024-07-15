@@ -523,7 +523,7 @@ export default function CheckoutAccordion() {
                               )}
                               <Button
                                 variant={'default'}
-                                className={` min-h-[48px] w-full min-w-[307px] rounded-lg bg-black text-base font-bold uppercase text-white lg:min-h-[55px] lg:max-w-[307px] lg:text-xl`}
+                                className={` min-h-[48px] w-full min-w-[307px] rounded-lg bg-black text-base font-bold uppercase text-white lg:max-w-[307px]`}
                                 onClick={(e) => {
                                   setIsLoading(true);
                                   handleSubmit();
@@ -545,7 +545,7 @@ export default function CheckoutAccordion() {
                                 {submitErrorMessage}
                               </p>
                             )}
-                            <div className="w-full max-w-[307px] pb-[26px] self-end justify-self-end">
+                            <div className="w-full max-w-[307px] self-end justify-self-end pb-[26px]">
                               <PayPalButtonSection
                                 setPaypalSuccessMessage={
                                   setPaypalSuccessMessage
@@ -618,7 +618,7 @@ export default function CheckoutAccordion() {
 
                             <Button
                               variant={'default'}
-                              className={`mb-[70px] min-h-[48px] w-full rounded-lg bg-black text-base font-bold uppercase text-white lg:min-h-[55px] lg:text-xl`}
+                              className={`mb-[70px] min-h-[48px] w-full rounded-lg bg-black text-base font-bold uppercase text-white`}
                               onClick={(e) => {
                                 setIsLoading(true);
                                 handleSubmit();
