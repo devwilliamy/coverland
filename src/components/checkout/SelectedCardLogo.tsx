@@ -4,7 +4,7 @@ import Mastercard from '@/images/checkout/MastercardIcon.webp';
 import AMEX from '@/images/checkout/AMEX-Logo.webp';
 import Diners from '@/images/checkout/DCI_Logo.webp';
 import Discover from '@/images/checkout/DiscoverLogo.webp';
-import JCB from '@/images/checkout/JCB-LOGO.webp';
+import JCB from '@/images/checkout/JCB-Logo.webp';
 import UnionPay from '@/images/checkout/UnionPayLogo.webp';
 import CheckoutCard from './icons/CheckoutCard';
 
