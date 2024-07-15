@@ -7,10 +7,10 @@ export const RELATIONS_PRODUCT_TABLE = 'relations_product';
 export const TYPE_TABLE = 'Type';
 export const TYPE_MAKE_YEAR_DISTINCT = 'type_make_year_distinct';
 export const ADMIN_PANEL_ORDERS =
-  process.env.NEXT_PUBLIC_IS_PREVIEW === 'PREVIEW' ? '_Orders_TEST' : '_Orders';
+  process.env.NEXT_PUBLIC_IS_PREVIEW === 'PREVIEW' ? '_Orders_TEST_duplicate' : '_Orders';
 export const ADMIN_PANEL_ORDER_ITEMS =
   process.env.NEXT_PUBLIC_IS_PREVIEW === 'PREVIEW'
-    ? 'orderItems_table_TEST'
+    ? 'orderItems_table_TEST_duplicate'
     : 'orderItems_table';
 export const ADMIN_PANEL_PRODUCTS = 'Products';
 export const ADMIN_PANEL_CUSTOMERS = 'users';
