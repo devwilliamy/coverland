@@ -1,4 +1,10 @@
-import { HTMLAttributes, SyntheticEvent,MouseEvent, useEffect, useState } from 'react';
+import {
+  HTMLAttributes,
+  SyntheticEvent,
+  MouseEvent,
+  useEffect,
+  useState,
+} from 'react';
 import { Button } from '../ui/button';
 import { CustomerInfo, useCheckoutContext } from '@/contexts/CheckoutContext';
 import { StripeAddress } from '@/lib/types/checkout';
@@ -21,7 +27,6 @@ type FormString =
   | 'postal_code'
   | 'phoneNumber'
   | 'country';
-
 
 type AddressFormProps = {
   addressData: StripeAddress;
@@ -508,7 +513,7 @@ export default function AddressForm({
         <p>{text}</p>
       </li>
     );
-  }
+  };
   const handleSaveAndContinue = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     const incStripeAddress = {
@@ -535,7 +540,6 @@ export default function AddressForm({
     updateCustomerInfo(incCustomerInfo);
     setIsEditingAddress(false);
   };
-
 
   return (
     <form

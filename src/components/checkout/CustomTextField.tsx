@@ -1,6 +1,7 @@
 import { ChangeEvent, Dispatch, SetStateAction, useState } from 'react';
 import {
   FormControl,
+  FormHelperText,
   InputLabel,
   MenuItem,
   Select,
@@ -173,32 +174,6 @@ export const CustomTextField = ({
   };
 
   const formatPhoneNumber = (input: string) => {
-    // // Remove any non-digit characters
-    // const cleaned = ('' + input).replace(/\D/g, '');
-
-    // // Format based on the length of the cleaned number
-    // let match;
-    // if (cleaned.length === 7) {
-    //   match = cleaned.match(/^(\d{3})(\d{4})$/);
-    //   if (match) {
-    //     return `${match[1]}-${match[2]}`;
-    //   }
-    // } else if (cleaned.length === 10) {
-    //   match = cleaned.match(/^(\d{3})(\d{3})(\d{4})$/);
-    //   if (match) {
-    //     return `(${match[1]}) ${match[2]}-${match[3]}`;
-    //   }
-    // } else if (cleaned.length === 11) {
-    //   match = cleaned.match(/^(\d{1})(\d{3})(\d{3})(\d{4})$/);
-    //   if (match) {
-    //     return `${match[1]} (${match[2]}) ${match[3]}-${match[4]}`;
-    //   }
-    // } else if (cleaned.length <= 6) {
-    //   return cleaned;
-    // }
-
-    // If the number doesn't match any of the expected lengths
-    // return input;
     const parsedPhone = parsePhoneNumberFromString(input, 'US');
     const formattedPhone = parsedPhone?.formatNational();
     return formattedPhone;
@@ -284,6 +259,30 @@ export const CustomTextField = ({
     }
   };
 
+  const handleStateSelectionFocus = () => {
+    // setShippingState((prevState) => ({
+    //   ...prevState,
+    //   state: {
+    //     ...prevState.state,
+    //     visited: true,
+    //   },
+    // }));
+  };
+
+  const handleStateSelectionBlur = () => {
+    if (shippingState.state.value === '') {
+      setShippingState((prevState) => ({
+        ...prevState,
+        state: {
+          ...prevState.state,
+          message: 'Please select a state',
+          visited: true,
+          error: true,
+        },
+      }));
+    }
+  };
+
   return (
     <>
       {type !== 'state' && type !== 'phoneNumber' && type !== 'postal_code' && (
@@ -323,11 +322,6 @@ export const CustomTextField = ({
           onBlur={handleBlur}
           placeholder={placeholder}
           error={!!shippingStateOption.error}
-          // helperText={
-          //   errorMessage && shippingStateOption.visited
-          //     ? errorMessage
-          //     : shippingStateOption.message
-          // }
           helperText={
             shippingStateOption.visited && shippingStateOption.message
           }
@@ -377,7 +371,12 @@ export const CustomTextField = ({
       )}
       {type === 'state' && (
         <FormControl>
-          <InputLabel id="demo-simple-select-helper-label">State *</InputLabel>
+          <InputLabel
+            error={!!shippingStateOption.error}
+            id="demo-simple-select-helper-label"
+          >
+            State *
+          </InputLabel>
           <Select
             value={shippingState.state.value}
             label={label}
@@ -388,14 +387,19 @@ export const CustomTextField = ({
                 state: {
                   ...prevState.state,
                   value: e.target.value as string,
+                  message: '',
                   visited: true,
                   error: false,
                 },
               }));
             }}
+            onFocus={handleStateSelectionFocus}
+            onBlur={handleStateSelectionBlur}
+            error={!!shippingStateOption.error}
             required={required}
             sx={{
               margin: 0,
+              borderRadius: '8px',
               '.MuiInputBase-root': {
                 borderRadius: '8px',
               },
@@ -410,6 +414,9 @@ export const CustomTextField = ({
               </MenuItem>
             ))}
           </Select>
+          <FormHelperText error={!!shippingStateOption.error}>
+            {shippingStateOption.message}
+          </FormHelperText>
         </FormControl>
       )}
     </>
