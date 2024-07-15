@@ -84,7 +84,7 @@ export default function Payment({
     },
   };
 
-  const buttonStyle = `mb-3 w-full lg:max-w-[307px] font-[700] rounded-lg text-white disabled:bg-[#D6D6D6] disabled:text-[#767676] bg-[#1A1A1A] hover:bg-[#1A1A1A]/90  bg: text-center uppercase m-0 max-h-[48px] min-h-[48px] self-end justify-self-end text-[16px] leading-[17px]`;
+  const buttonStyle = `mb-3 w-full lg:max-w-[307px] font-[700] rounded-lg text-white disabled:bg-[#D6D6D6] disabled:text-[#767676] bg-[#1A1A1A] hover:bg-[#1A1A1A]/90 text-center uppercase m-0 max-h-[48px] min-h-[48px] self-end justify-self-end text-[16px] leading-[17px]`;
 
   const handleContinueWithCard = () => {
     setIsLoading(true);
@@ -217,7 +217,7 @@ export default function Payment({
       )}
       {/* Continue To Order Review Button */}
       {paymentMethod === 'creditCard' && !isReadyToPay && (
-        <div className="my-[48px] flex w-full  items-center justify-center lg:justify-end">
+        <div className="my-[48px] flex w-full items-center justify-center lg:justify-end">
           <Button
             variant={'default'}
             className={buttonStyle}
