@@ -3,6 +3,7 @@ import {
   getTotalPrice,
   getOrderSubtotal,
   getTotalDiscountPrice,
+  getTotalPreorderDiscount,
 } from '@/lib/utils/calculations';
 import {
   convertPriceToStripeFormat,
@@ -30,6 +31,10 @@ const calculateOrderTotalOriginalAmount = (items: TCartItem[]) => {
 const calculateOrderTotalDiscountAmount = (items: TCartItem[]) => {
   return getTotalDiscountPrice(items);
 };
+
+const calculateOrderTotalPreorderDiscount = (items: TCartItem[]) => {
+  return getTotalPreorderDiscount(items);
+}
 
 export async function POST(request: NextRequest) {
   const { items, promoCode } = await request.json();
@@ -80,6 +85,9 @@ export async function POST(request: NextRequest) {
         .toFixed(2)
         .toString(), // Stripe Payment Intent API requires all metadata to be sent as a string
       total_discount_amount: calculateOrderTotalDiscountAmount(items)
+        .toFixed(2)
+        .toString(),
+      total_preorder_discount: calculateOrderTotalPreorderDiscount(items)
         .toFixed(2)
         .toString(),
     },

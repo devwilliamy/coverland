@@ -40,6 +40,13 @@ export const getTotalDiscountPrice = (cartItems: TCartItem[]) => {
   );
 };
 
+export const getTotalPreorderDiscount = (cartItems: TCartItem[]) => {
+  return cartItems.reduce(
+      (total, item) => total + (item.preorder ? Number(item.preorder_discount) * item.quantity : 0),
+    0
+  );
+};
+
 export const getTotalCartQuantity = (cartItems: TCartItem[]) => {
   return cartItems.reduce((total, item) => total + item.quantity, 0);
 };

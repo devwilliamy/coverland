@@ -92,6 +92,7 @@ type OrderItem = {
   price: number;
   original_price: number;
   discount_amount: number;
+  preorder_discount: number;
 };
 
 const createOrderItems = (
@@ -125,14 +126,16 @@ const createOrderItems = (
       : Number(incomingMSRP) * quantity;
     const original_price = Number((product.price * quantity).toFixed(2));
     const discount_amount = original_price - totalProductPrice;
+    const preorderDiscount = product.preorder && product.preorder_discount ? Number((product.preorder_discount * quantity).toFixed(2)) : 0
 
     const orderItem: OrderItem = {
       order_id: order_id,
       product_id: product.id,
       quantity: quantity,
-      price: parseFloat(totalProductPricePlusPreorder).toFixed(2),
+      price: parseFloat(totalProductPricePlusPreorder.toFixed(2)),
       original_price: parseFloat(original_price.toFixed(2)),
       discount_amount: parseFloat(discount_amount.toFixed(2)),
+      preorder_discount: parseFloat(preorderDiscount.toFixed(2)),
     };
 
     return orderItem;

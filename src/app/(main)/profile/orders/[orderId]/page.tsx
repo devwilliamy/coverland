@@ -77,6 +77,12 @@ const OrderDetailPage = async ({ params }: OrderDetailProps) => {
                 <div>Sale-discount</div>
                 <div>- ${order.total_discount_amount}</div>
               </div>
+              {order.total_preorder_discount && (
+                              <div className="mb-1 flex justify-between">
+                              <div>Pre-Order Savings</div>
+                              <div>- ${order.total_preorder_discount}</div>
+                            </div>
+              )}
               <div className="mt-2 flex justify-between border-t pt-2 font-bold md:mt-3 md:pt-3">
                 <div>Order Total</div>
                 <div>${order.total_amount}</div>

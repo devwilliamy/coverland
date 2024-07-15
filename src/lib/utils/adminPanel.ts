@@ -30,6 +30,7 @@ export const mapPaymentIntentIdToOrder = (
     skus: metadata.skus,
     total_original_amount: Number(metadata.total_original_amount),
     total_discount_amount: Number(metadata.total_discount_amount),
+    total_preorder_discount: Number(metadata.total_preorder_discount),
   };
 };
 
