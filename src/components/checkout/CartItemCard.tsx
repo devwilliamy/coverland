@@ -20,7 +20,7 @@ export default function CartItemCard({ item }: { item: TCartItem }) {
   const imageUrl =
     type === 'Seat Covers' ? item?.product?.split(',')[0] : item?.feature;
   return (
-    <div className="flex flex-col px-4">
+    <div className="flex flex-col">
       <div className="flex w-full justify-items-center gap-2 text-2xl font-medium">
         <div className="h-9/12 w-3/12 justify-items-center ">
           <Image

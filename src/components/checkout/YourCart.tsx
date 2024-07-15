@@ -16,20 +16,18 @@ export default function YourCart() {
         </p>
       ) : (
         <div className="w-full">
-          <div className="lg:flex lg:flex-col">
+          <div className="max-lg:px-4 lg:flex lg:flex-col">
             {cartItems.map((item, i) => (
               <div
                 key={i}
-                className="border-b border-t pb-3 pt-3 transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted"
+                className="border-b border-t py-[26px] transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted"
               >
                 <CartItemCard item={item} />
               </div>
             ))}
-            <div className="px-4 pb-20 pt-4 lg:hidden">
+            <div className="pb-20 pt-4 lg:hidden">
               <div className="text-xl font-medium">Summary</div>
-              <div className="pt-6">
-                {/* <PromoCode /> */}
-              </div>
+              <div className="pt-6">{/* <PromoCode /> */}</div>
               <div className="pt-4">
                 <PriceBreakdown />
               </div>

@@ -19,21 +19,21 @@ export default function CheckoutSummarySection() {
 
   const isCartEmpty = getTotalCartQuantity() === 0;
   return (
-    <div className="px-4 pb-[4vh] ">
+    <div>
       <div className="flex items-center justify-between pb-12 lg:pb-8">
-        <div className="text-xl font-bold lg:text-[22px]">
+        <div className="text-xl font-bold  lg:pt-[38px]">
           {isCartStep ? 'Summary' : 'In Your Cart'}
         </div>
         {!isCartStep && (
           <div
             onClick={() => setCurrentStep(CheckoutStep.CART)}
-            className="cursor-pointer text-[#0C87B8] underline"
+            className="cursor-pointer font-[500] leading-[18px] underline lg:text-[16px]"
           >
             Edit
           </div>
         )}
       </div>
-      <div className="lg:pb-4">{/* <PromoCode /> */}</div>
+      {/* <div className="lg:pb-4"><PromoCode /></div> */}
       <PriceBreakdown />
       {isCartStep && (
         <div className="my-8 hidden w-full justify-center md:flex md:flex-col lg:w-[320px]">
