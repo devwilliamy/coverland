@@ -171,7 +171,12 @@ export default function EditVehicleDropdown({
       return;
     }
     // refreshRoute('/');
-    router.push(url);
+    if (submodel1 || submodel2) {
+      window.location.href = url;
+    } else {
+      router.push(url);
+    }
+
     closePopover();
   };
 

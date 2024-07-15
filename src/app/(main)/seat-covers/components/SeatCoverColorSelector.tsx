@@ -8,6 +8,7 @@ import CircleGray from '@/images/PDP/Product-Details-Redesign-2/seat-covers/cove
 import CircleBeige from '@/images/PDP/Product-Details-Redesign-2/seat-covers/cover-colors/beige/seat-circle-beige.webp';
 import { TSeatCoverDataDB } from '@/lib/db/seat-covers';
 import { isFullSet } from '@/lib/utils';
+import { getCompleteSelectionData } from '@/utils';
 
 const iconMap: Record<string, StaticImageData> = {
   'Solid Black with Red Stitching': CircleBlackRed,
@@ -16,11 +17,7 @@ const iconMap: Record<string, StaticImageData> = {
   Beige: CircleBeige,
 };
 
-export default function SeatCoverColorSelector({
-  isFinalSelection,
-}: {
-  isFinalSelection: unknown;
-}) {
+export default function SeatCoverColorSelector() {
   const store = useContext(SeatCoverSelectionContext);
   if (!store)
     throw new Error('Missing SeatCoverSelectionContext.Provider in the tree');
@@ -32,6 +29,12 @@ export default function SeatCoverColorSelector({
   const selectedColor = useStore(store, (state) => state.selectedColor);
   const availableColors = useStore(store, (s) => s.availableColors);
   const selectedSetDisplay = useStore(store, (s) => s.selectedSetDisplay);
+
+  const {
+    completeSelectionState: { isComplete },
+  } = getCompleteSelectionData({
+    data: modelData,
+  });
 
   const showColors = [
     {
@@ -102,7 +105,7 @@ export default function SeatCoverColorSelector({
   return (
     <section
       id="select-color"
-      className={` ${!isFinalSelection ? 'mb-[30px] mt-[24px]' : 'mb-[40px]'} py-1}  ml-[4px]  flex w-full flex-col`}
+      className={` ${!isComplete ? 'mb-[30px] mt-[24px]' : 'mb-[40px]'} py-1}  ml-[4px]  flex w-full flex-col`}
     >
       <div className="mb-[6px] flex flex-row content-center justify-start align-middle leading-[14px]">
         <h3 className=" max-h-[13px] pl-[3px] text-[16px] font-[400] text-black ">
@@ -113,7 +116,7 @@ export default function SeatCoverColorSelector({
             {allOutOfStock(getModelDataBySet)
               ? 'Out of Stock'
               : !availableColors.includes(selectedColor.toLowerCase()) ||
-                  selectedProduct.preorder && isFinalSelection // only displays Pre-Order if we are in a final selection product page such as seat-covers/leather/make/model/year and the selected product has preorder set to true
+                  (selectedProduct.preorder && isComplete) // only displays Pre-Order if we are in a final selection product page such as seat-covers/leather/make/model/year and the selected product has preorder set to true
                 ? `${selectedColor.charAt(0).toUpperCase()}${selectedColor.slice(1)} (Pre-Order)`
                 : selectedColor.charAt(0).toUpperCase() +
                   selectedColor.slice(1)}

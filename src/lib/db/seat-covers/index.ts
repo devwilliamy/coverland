@@ -5,7 +5,7 @@ import { slugToCoverType } from '@/lib/constants';
 import { slugify } from '@/lib/utils';
 
 // export type TSeatCoverDataDB = Tables<'Products'>;
-export type TSeatCoverDataDB = Tables<'Products_preorder_duplicate'>;
+export type TSeatCoverDataDB = Tables<'Products'>;
 
 // URL: supabase.com/dashboard/project/<project_id>/api?pages=tables-intro
 //If the table you want to access isn't listed in TableRow,
