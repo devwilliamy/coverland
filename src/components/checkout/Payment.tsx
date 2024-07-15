@@ -10,8 +10,7 @@ import { CreditCardSection } from './CreditCardSection';
 // import Klarna from '@/images/checkout/Klarna-Black.webp';
 import PayPalIcon from './icons/PayPalIcon';
 import Image from 'next/image';
-import VisaBlue from '@/images/checkout/VisaLogoBlue.webp';
-import Mastercard from '@/images/checkout/MastercardIcon.webp';
+
 import { useRouter } from 'next/navigation';
 import ApplePayIcon from './icons/ApplePayIcon';
 import GooglePayIcon from './icons/GooglePayIcon';
@@ -19,6 +18,7 @@ import { determineDeliveryByDate } from '@/lib/utils/deliveryDateUtils';
 import { SHIPPING_METHOD } from '@/lib/constants';
 import { useCartContext } from '@/providers/CartProvider';
 import { convertPriceToStripeFormat } from '@/lib/utils/stripe';
+import { SelectedCardLogo } from './SelectedCardLogo';
 
 export default function Payment({
   handleChangeAccordion,
@@ -84,17 +84,6 @@ export default function Payment({
     },
   };
 
-  const determineBrandLogo = (brand: string) => {
-    switch (brand) {
-      case 'visa':
-        return <Image alt="Visa" src={VisaBlue} />;
-      case 'mastercard':
-        return <Image alt="Mastercard" src={Mastercard} />;
-      default:
-        return null;
-    }
-  };
-
   const buttonStyle = `mb-3 w-full lg:max-w-[307px] font-[700] rounded-lg text-white disabled:bg-[#D6D6D6] disabled:text-[#767676] bg-[#1A1A1A] hover:bg-[#1A1A1A]/90  bg: text-center uppercase m-0 max-h-[48px] min-h-[48px] self-end justify-self-end text-[16px] leading-[17px]`;
 
   const handleContinueWithCard = () => {
@@ -149,10 +138,10 @@ export default function Payment({
                   {stripePaymentMethod &&
                     stripePaymentMethod.paymentMethod?.card && (
                       <div className="flex items-center gap-2 text-[16px] leading-[27px] text-[#767676]">
-                        <div className="flex max-h-[16px] max-w-[48px]">
-                          {determineBrandLogo(
-                            stripePaymentMethod.paymentMethod.card.brand
-                          )}
+                        <div className="flex max-h-[16px] max-w-[48px] items-center">
+                          <SelectedCardLogo
+                            brand={stripePaymentMethod.paymentMethod.card.brand}
+                          />
                         </div>
                         <div className="flex">
                           <p>
