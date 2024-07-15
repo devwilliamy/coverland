@@ -439,7 +439,7 @@ export default function AddressForm({
     <TextField
       {...params}
       key={`text-field-address-auto`}
-      label="Address"
+      label="Address*"
       placeholder="Start typing address"
       fullWidth
       error={!!shippingState.addressAutocomplete.error}
