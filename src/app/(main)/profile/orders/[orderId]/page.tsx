@@ -1,9 +1,16 @@
 // app/order/[order_id]/page.tsx
 import { TUserOrder, fetchUserOrderById } from '@/lib/db/profile/ordersHistory';
+import { SupabaseClient } from '@supabase/supabase-js';
+import { cookies } from 'next/headers';
+import { redirect } from 'next/navigation';
+import { createSupabaseServerClient } from '@/lib/db/supabaseClients';
 import OrderItem from '../components/OrderItem';
 import { Card, CardHeader } from '@/components/ui/card';
 import { getFullCountryName } from '@/lib/db/profile/utils/shipping';
 import { formatPhoneNumber } from '@/lib/db/profile/utils/phone';
+import { getPaymentMethodDetails } from '@/lib/db/profile/utils/getPaymentMethodDetails';
+import { generateTrackingUrl } from '@/lib/utils/generateTrackingUrl';
+import Image from 'next/image';
 
 type OrderDetailProps = {
   params: { orderId: number };
@@ -20,11 +27,38 @@ const OrderDetailPage = async ({ params }: OrderDetailProps) => {
   // there may be a small optimization where we can find the order by id through the fetched Orders list if it's already cached
   // const order: TUserOrder | undefined = orders.find(
   //   (order) => order.id.toString() === params.orderId
-  // );
+  // )
+
+  const cookieStore: ReadonlyRequestCookies = cookies();
+  const supabase: SupabaseClient = createSupabaseServerClient(cookieStore);
+  
+  try {
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
+
+    if (!user) {
+      redirect('/login');
+    }
+  } catch (error) {
+    console.error('Error getting user:', error);
+    redirect('/login'); // Redirect to login page in case of error
+  }
 
   if (!order) {
     return <div className="m-2">Order not found</div>;
   }
+
+  const hasShippingDetails =
+    order.shipping_tracking_number && order.shipping_carrier;
+
+  const paymentMethodDetails = getPaymentMethodDetails(order);
+  const {
+    logo: paymentMethodLogo,
+    alt: paymentMethodAlt,
+    text: paymentMethodText,
+    size: paymentLogoSize,
+  } = paymentMethodDetails;
 
   return (
     <>
@@ -38,8 +72,8 @@ const OrderDetailPage = async ({ params }: OrderDetailProps) => {
           Ordered on {order.payment_date} <span className="mx-2">|</span> Order
           #{order.order_id}
         </CardHeader>
-        <div className="border-t">
-          <ul className="py-2 md:pb-0 md:pt-8">
+        <div className="justify-between border-t md:flex md:pt-8">
+          <ul className="py-2 md:py-0">
             {order.items?.map((item) => (
               <OrderItem
                 key={item.id}
@@ -49,6 +83,23 @@ const OrderDetailPage = async ({ params }: OrderDetailProps) => {
               />
             ))}
           </ul>
+          <div className={`${order.shipping_tracking_number ? 'pb-8' : ''}`}>
+            <ul className="flex flex-col items-center">
+              {hasShippingDetails && (
+                <a
+                  href={generateTrackingUrl(
+                    order.shipping_tracking_number,
+                    order.shipping_carrier
+                  )}
+                  target="_blank"
+                >
+                  <button className="h-[40px] w-[235px] rounded bg-black px-4 py-2 text-sm font-bold tracking-wider text-white">
+                    TRACK PACKAGE
+                  </button>
+                </a>
+              )}
+            </ul>
+          </div>
         </div>
         <div className="border-t text-base leading-7">
           <div className="justify-between md:flex">
@@ -63,11 +114,20 @@ const OrderDetailPage = async ({ params }: OrderDetailProps) => {
               <div>{getFullCountryName(order.shipping_address_country)}</div>
               <div>{formatPhoneNumber(order.customer_phone)}</div>
             </div>
-            {/* <div className="mt-6 text-[#707070]">
-              <div className="font-bold text-black">Payment Method</div>
-              <div>Pending</div>
-            </div> */}
-            <div className="mt-8 md:mt-10 md:min-w-[223px]">
+            <div className="mt-8 text-[#707070] md:mt-10">
+              <div className="mb-1 font-bold text-black">Payment Method</div>
+              <div className="inline-flex">
+                <Image
+                  src={paymentMethodLogo}
+                  alt={`${paymentMethodAlt} logo`}
+                  layout="intrinsic"
+                  width={paymentLogoSize}
+                  height={paymentLogoSize}
+                />
+                <span className="pl-2">{paymentMethodText}</span>
+              </div>
+            </div>
+            <div className="mt-4 md:mt-10 md:min-w-[223px]">
               <div className="mb-1 font-bold">Order Summary</div>
               <div className="mb-1 flex justify-between">
                 <div>Order Subtotal</div>
