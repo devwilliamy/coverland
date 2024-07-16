@@ -545,7 +545,7 @@ export default function CheckoutAccordion() {
                                 {submitErrorMessage}
                               </p>
                             )}
-                            <div className="w-full max-w-[307px] pb-[26px] self-end justify-self-end">
+                            <div className="w-full max-w-[307px] self-end justify-self-end pb-[26px]">
                               <PayPalButtonSection
                                 setPaypalSuccessMessage={
                                   setPaypalSuccessMessage
@@ -594,8 +594,8 @@ export default function CheckoutAccordion() {
                     >
                       Order Review
                     </AccordionTrigger>
-                    <AccordionContent className="py-0">
-                      <section className="flex w-full flex-col ">
+                    <AccordionContent>
+                      <section className="flex flex-col">
                         {cartItems.map((cartItem, i) => (
                           <div
                             key={i}
@@ -611,7 +611,7 @@ export default function CheckoutAccordion() {
                           <>
                             <TermsOfUseStatement />
                             {submitErrorMessage && (
-                              <p className="w-full text-center font-[500] text-[red]">
+                              <p className="text-center font-[500] text-[red]">
                                 {submitErrorMessage}
                               </p>
                             )}
@@ -633,7 +633,7 @@ export default function CheckoutAccordion() {
                           </>
                         )}
                         {submitErrorMessage && (
-                          <p className="w-full text-center font-[500] text-[red]">
+                          <p className="text-center font-[500] text-[red]">
                             {submitErrorMessage}
                           </p>
                         )}
