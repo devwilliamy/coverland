@@ -58,7 +58,7 @@ function Header() {
       <header className="flex w-screen max-w-[1280px] flex-col items-stretch lg:hidden">
         <section className="min-h-[7px] w-full bg-black" />
         <section className="min-h-[27px] whitespace-nowrap bg-white  px-20 text-center text-[18px] font-[600] uppercase text-black ">
-          <p>June Special Sale!</p>
+          <p>{month} Special Sale!</p>
         </section>
         <section className="min-h-[27px] whitespace-nowrap bg-black  px-20 text-center text-[18px] font-[500] uppercase text-white ">
           <p>SAVE UP TO 50%</p>
