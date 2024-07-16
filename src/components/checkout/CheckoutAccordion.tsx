@@ -437,10 +437,6 @@ export default function CheckoutAccordion() {
 
   return (
     <div className="flex flex-col items-center">
-      <PayPalButtonSection
-        setPaypalSuccessMessage={setPaypalSuccessMessage}
-        setMessage={setSubmitErrorMessage}
-      />
       {!isMobile && currentStep !== CheckoutStep.CART && (
         <div className="w-full py-[80px] text-center text-[24px] font-[700] leading-[12px]">
           Checkout
