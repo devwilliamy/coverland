@@ -1,3 +1,4 @@
+import { SEAT_COVERS } from '@/lib/constants';
 import {
   getProductReviewsByPage,
   getProductReviewsByImage,
@@ -67,6 +68,11 @@ const useFilterHandler = ({
     try {
       setLoading(true);
       let newReviewData;
+      if (typeString === SEAT_COVERS) {
+        year = '';
+        make = '';
+        model = '';
+      }
 
       if (e.target.value === 'none') {
         newReviewData = await getProductReviewsByPage(
