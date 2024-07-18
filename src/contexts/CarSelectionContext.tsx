@@ -3,7 +3,7 @@ import { TReviewData } from '@/lib/types/review';
 // import CarCoverSelector from './CarCoverSelector';
 import { createStore } from 'zustand';
 import { createContext, useRef } from 'react';
-import { useParams, useRouter } from 'next/navigation';
+import { notFound, useParams, useRouter } from 'next/navigation';
 import { compareRawStrings } from '@/lib/utils';
 import {
   IProductData,
@@ -87,7 +87,9 @@ const createCarSelectionStore = ({
         compareRawStrings(model.submodel2, queryParams.submodel2 as string)
       )
     : initialDataWithSubmodels;
-
+  if (initialDataWithSecondSubmodels.length === 0) {
+    notFound();
+  }
   const reviewImageTracker: Record<string, boolean> = {};
 
   initialReviewData.forEach((reviewData) => {
