@@ -1,8 +1,7 @@
-import { ZodError, z } from 'zod';
+import { ZodError } from 'zod';
 
 import {
   CAR_COVERS_REVIEWS_TABLE,
-  PRODUCT_REVIEWS_TABLE,
   RPC_GET_DISTINCT_REVIEW_IMAGES,
   RPC_GET_PRODUCT_REVIEWS_SUMMARY,
   SEAT_COVERS_REVIEWS_TABLE,
@@ -95,7 +94,10 @@ export async function getProductReviewsByPage(
 
     const { from, to } = getPagination(page, limit);
     const fetchReviews = async () => {
-      const TABLE_NAME = productType === CAR_COVERS ? CAR_COVERS_REVIEWS_TABLE : SEAT_COVERS_REVIEWS_TABLE
+      const TABLE_NAME =
+        productType === CAR_COVERS
+          ? CAR_COVERS_REVIEWS_TABLE
+          : SEAT_COVERS_REVIEWS_TABLE;
       let fetch = supabaseDatabaseClient
         .from(TABLE_NAME)
         .select(
@@ -192,7 +194,10 @@ export async function getAllReviewsWithImages(
       sort,
       // search,
     } = validatedOptions;
-    const TABLE_NAME = productType === CAR_COVERS ? CAR_COVERS_REVIEWS_TABLE : SEAT_COVERS_REVIEWS_TABLE
+    const TABLE_NAME =
+      productType === CAR_COVERS
+        ? CAR_COVERS_REVIEWS_TABLE
+        : SEAT_COVERS_REVIEWS_TABLE;
 
     const fetchAllReviewsWithImages = async () => {
       const fetch = supabaseDatabaseClient.rpc(RPC_GET_DISTINCT_REVIEW_IMAGES, {
@@ -275,7 +280,10 @@ export async function getProductReviewSummary(
   try {
     const validatedFilters = ProductReviewsQueryFiltersSchema.parse(filters);
     const { productType, year, make, model } = validatedFilters;
-    const TABLE_NAME = productType === CAR_COVERS ? CAR_COVERS_REVIEWS_TABLE : SEAT_COVERS_REVIEWS_TABLE
+    const TABLE_NAME =
+      productType === CAR_COVERS
+        ? CAR_COVERS_REVIEWS_TABLE
+        : SEAT_COVERS_REVIEWS_TABLE;
 
     const fetchReviewSummary = async () => {
       const fetch = supabaseDatabaseClient.rpc(
@@ -331,7 +339,10 @@ export async function getProductReviewsByImage(
     const { productType, year, make, model } = validatedFilters;
     const { sort, filters } = validatedOptions;
     const fetchReviews = async () => {
-      const TABLE_NAME = productType === CAR_COVERS ? CAR_COVERS_REVIEWS_TABLE : SEAT_COVERS_REVIEWS_TABLE
+      const TABLE_NAME =
+        productType === CAR_COVERS
+          ? CAR_COVERS_REVIEWS_TABLE
+          : SEAT_COVERS_REVIEWS_TABLE;
 
       let fetch = supabaseDatabaseClient
         .from(TABLE_NAME)

@@ -1,10 +1,6 @@
-// useViewMoreHandler.ts
-import { useState } from 'react';
-import {
-  getProductReviewsByPage,
-  getProductReviewsByImage,
-} from '@/lib/db/review';
+import { getProductReviewsByPage } from '@/lib/db/review';
 import { TReviewData } from '@/lib/types/review';
+import { SEAT_COVERS } from '@/lib/constants';
 
 type ViewMoreHandlerProps = {
   typeString: string;
@@ -38,6 +34,12 @@ const useViewMoreHandler = ({
   const handleViewMore = async () => {
     try {
       setLoading(true);
+      if (typeString === SEAT_COVERS) {
+        year = '';
+        make = '';
+        model = '';
+      }
+      
       const newReviewData = await getProductReviewsByPage(
         {
           productType: typeString,
