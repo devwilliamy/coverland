@@ -190,7 +190,7 @@ export default function ReviewCard({
                       <Image
                         height={160}
                         width={160}
-                        className="flex aspect-square items-center"
+                        className="flex aspect-square items-center object-cover"
                         alt="review-card-image-trigger"
                         src={image}
                         onError={() => {
@@ -219,7 +219,7 @@ export default function ReviewCard({
               </div>
               <div className="relative flex min-h-full min-w-full">
                 {imageLoading && (
-                  <div className="flex min-h-full min-w-full animate-pulse items-center justify-center rounded-md bg-[#BE1B1B]/50">
+                  <div className="flex min-h-full min-w-full animate-pulse items-center justify-center rounded-md bg-[#F0F0F0]/50">
                     <AiOutlineLoading3Quarters
                       className="animate-spin"
                       fill="#BE1B1B"
