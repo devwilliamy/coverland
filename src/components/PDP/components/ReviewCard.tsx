@@ -2,7 +2,7 @@ import { useMediaQuery } from '@mui/material';
 import { FaRegThumbsUp, FaThumbsUp } from 'react-icons/fa6';
 import WouldRecomend from './WouldRecomend';
 import ReviewCardGallery from './ReviewCardGallery';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import ReviewRatingStar from '@/components/icons/ReviewRatingStar';
 import {
   ChevronDown,
@@ -36,24 +36,40 @@ export default function ReviewCard({
   const [isHelpful, setIsHelpful] = useState(false);
   const [reviewDialogOpen, setReviewDialogOpen] = useState(false);
   const reviewImagesSplit = review.review_image?.split(',');
-  const [selectedImage, setSelectedImage] = useState('');
   const [imageLoading, setImageLoading] = useState(true);
   const isMobile = useMediaQuery('(max-width: 375px)');
   const isMobile2 = useMediaQuery('(max-width: 430px)');
   const [current, setCurrent] = useState(0);
   const [api, setApi] = useState<CarouselApi>();
+  const [selectedImageIndex, setSelectedImageIndex] = useState(0);
+  const scrollTo = useCallback(
+    (index: number) => api && api.scrollTo(index),
+    [api]
+  );
 
   useEffect(() => {
     if (!api) {
       return;
     }
 
-    setCurrent(api.selectedScrollSnap() + 1);
+    // Currently if you try to click on an image, it's like it tries to scroll to it
+    // But doesn't. Weird thing is when you click on it, it finishes going to it. Not sure what's going on.
 
-    api.on('select', () => {
-      setCurrent(api.selectedScrollSnap() + 1);
-    });
-  }, [api]);
+    // api && scrollTo(selectedImageIndex);
+    // api.on('scroll', () => {
+    //   setSelectedImageIndex(api.selectedScrollSnap());
+    // });
+
+    const onSelect = () => {
+      setSelectedImageIndex(api.selectedScrollSnap());
+    };
+
+    api.on('select', onSelect);
+
+    return () => {
+      api.off('select', onSelect);
+    };
+  }, [api, selectedImageIndex, setSelectedImageIndex, scrollTo]);
   // const store = useContext(CarSelectionContext);
 
   function ReadMore() {
@@ -180,11 +196,11 @@ export default function ReviewCard({
                     <DialogTrigger
                       key={`review-card-image-${index}`}
                       onClick={() => {
-                        const thisImage = reviewImagesSplit[index];
                         if (!imageLoading) {
                           setImageLoading(true);
                         }
-                        setSelectedImage(thisImage);
+                        setSelectedImageIndex(index);
+                        scrollTo(index);
                       }}
                     >
                       <Image
@@ -239,7 +255,7 @@ export default function ReviewCard({
                         <Image
                           width={800}
                           height={800}
-                          className="flex aspect-square h-full w-full items-center"
+                          className="flex aspect-square h-full w-full items-center object-cover"
                           alt="selected-review-card-image-alt"
                           src={img}
                         />
@@ -250,12 +266,22 @@ export default function ReviewCard({
                     <CarouselPrevious
                       size={'icon'}
                       className="left-0 border-none bg-transparent hover:bg-transparent md:-left-20"
+                      onClick={() => {
+                        api.scrollPrev();
+                        setSelectedImageIndex((i) => i - 1);
+                      }}
                     >
                       <ChevronLeft size={40} stroke="white" />
                     </CarouselPrevious>
                   )}
                   {api?.canScrollNext() && (
-                    <CarouselNext className="right-0 border-none bg-transparent hover:bg-transparent md:-right-20">
+                    <CarouselNext
+                      className="right-0 border-none bg-transparent hover:bg-transparent md:-right-20"
+                      onClick={() => {
+                        api.scrollNext();
+                        setSelectedImageIndex((i) => i + 1);
+                      }}
+                    >
                       <ChevronRight size={40} stroke="white" />
                     </CarouselNext>
                   )}
