@@ -200,7 +200,6 @@ export default function ReviewCard({
                           setImageLoading(true);
                         }
                         setSelectedImageIndex(index);
-                        scrollTo(index);
                       }}
                     >
                       <Image
@@ -233,9 +232,9 @@ export default function ReviewCard({
                   }}
                 />
               </div>
-              <div className="relative flex min-h-full min-w-full">
+              <div className="relative flex min-w-full">
                 {imageLoading && (
-                  <div className="flex min-h-full min-w-full animate-pulse items-center justify-center rounded-md bg-[#F0F0F0]/50">
+                  <div className="flex h-96 min-w-full animate-pulse items-center justify-center rounded-md bg-[#F0F0F0]/50">
                     <AiOutlineLoading3Quarters
                       className="animate-spin"
                       fill="#BE1B1B"
@@ -255,7 +254,7 @@ export default function ReviewCard({
                         <Image
                           width={800}
                           height={800}
-                          className="flex aspect-square h-full w-full items-center object-cover"
+                          className="flex aspect-square items-center object-cover"
                           alt="selected-review-card-image-alt"
                           src={img}
                         />
