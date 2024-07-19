@@ -1,18 +1,14 @@
-// useSortHandler.ts
-import { useState } from 'react';
-import {
-  getProductReviewsByPage,
-  getProductReviewsByImage,
-} from '@/lib/db/review';
+import { getProductReviewsByPage } from '@/lib/db/review';
 import { FilterParams, SortParams, TReviewData } from '@/lib/types/review';
+import { SEAT_COVERS } from '@/lib/constants';
 
 type SortHandlerProps = {
-  typeString: string;
+  typeString: 'Car Covers' | 'SUV Covers' | 'Truck Covers' | 'Seat Covers';
   year: number;
   make: string;
   model: string;
   limit: number;
-  filters: FilterParams[]
+  filters: FilterParams[];
   setLoading: (loading: boolean) => void;
   setReviewData: (data: TReviewData[]) => void;
   setPage: (page: number) => void;
@@ -62,9 +58,6 @@ const useSortHandler = ({
       const newReviewData = await getProductReviewsByPage(
         {
           productType: typeString,
-          year,
-          make,
-          model,
         },
         {
           pagination: {
