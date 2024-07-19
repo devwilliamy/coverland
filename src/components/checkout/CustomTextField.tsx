@@ -284,6 +284,16 @@ export const CustomTextField = ({
     }
   };
 
+  const inputStyle = {
+    margin: 0,
+    borderColor: 'solid #2A2A2A 1px',
+    borderRadius: '8px',
+    '.MuiInputBase-root': {
+      borderRadius: '8px',
+      borderColor: '#2A2A2A',
+    },
+  };
+
   return (
     <>
       {type !== 'state' && type !== 'phoneNumber' && type !== 'postal_code' && (
@@ -299,12 +309,7 @@ export const CustomTextField = ({
             shippingStateOption.visited && shippingStateOption.message
           }
           required={required}
-          sx={{
-            margin: 0,
-            '.MuiInputBase-root': {
-              borderRadius: '8px',
-            },
-          }}
+          sx={inputStyle}
           style={{
             borderRadius: '20px',
           }}
@@ -332,14 +337,7 @@ export const CustomTextField = ({
             shippingStateOption.visited && shippingStateOption.message
           }
           required={required}
-          sx={{
-            margin: 0,
-            '.MuiInputBase-root': {
-              borderRadius: '8px',
-              color: '#707070',
-              borderColor: '#707070',
-            },
-          }}
+          sx={inputStyle}
           variant="outlined"
           fullWidth
           margin="normal"
@@ -364,12 +362,7 @@ export const CustomTextField = ({
           error={!!shippingStateOption.error}
           helperText={shippingStateOption.message}
           required={required}
-          sx={{
-            margin: 0,
-            '.MuiInputBase-root': {
-              borderRadius: '8px',
-            },
-          }}
+          sx={inputStyle}
           variant="outlined"
           fullWidth
           margin="normal"
@@ -394,12 +387,7 @@ export const CustomTextField = ({
               }));
             }}
             required={required}
-            sx={{
-              margin: 0,
-              '.MuiInputBase-root': {
-                borderRadius: '8px',
-              },
-            }}
+            sx={inputStyle}
           >
             <MenuItem value="" disabled>
               --Select a state--
