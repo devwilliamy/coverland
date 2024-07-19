@@ -3,7 +3,7 @@ import { FilterParams, SortParams, TReviewData } from '@/lib/types/review';
 import { SEAT_COVERS } from '@/lib/constants';
 
 type SortHandlerProps = {
-  typeString: string;
+  typeString: 'Car Covers' | 'SUV Covers' | 'Truck Covers' | 'Seat Covers';
   year: number;
   make: string;
   model: string;
@@ -54,18 +54,10 @@ const useSortHandler = ({
 
     try {
       setLoading(true);
-      if (typeString === SEAT_COVERS) {
-        year = '';
-        make = '';
-        model = '';
-      }
 
       const newReviewData = await getProductReviewsByPage(
         {
           productType: typeString,
-          year,
-          make,
-          model,
         },
         {
           pagination: {

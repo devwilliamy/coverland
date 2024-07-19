@@ -83,7 +83,7 @@ export async function getProductReviewsByPage(
 
     const validatedOptions = ProductReviewsQueryOptionsSchema.parse(options);
 
-    const { productType, year, make, model } = validatedFilters;
+    const { productType } = validatedFilters;
 
     const {
       pagination: { page, limit },
@@ -104,23 +104,6 @@ export async function getProductReviewsByPage(
           'review_image,review_description,review_title,rating_stars,review_author,helpful,reviewed_at'
         )
         .range(from, to);
-
-      // 6/20/24: Separating tables by type, testing to see if this works. If it does, remove.
-      // if (productType) {
-      //   fetch = fetch.eq('type', productType);
-      // }
-
-      if (make) {
-        fetch = fetch.eq('make_slug', generateSlug(make));
-      }
-
-      if (model) {
-        fetch = fetch.eq('model_slug', generateSlug(model));
-      }
-
-      if (year) {
-        fetch = fetch.eq('parent_generation', year);
-      }
 
       // Dynamically apply filters
       filters?.forEach(({ field, operator, value }) => {
@@ -189,7 +172,7 @@ export async function getAllReviewsWithImages(
     const validatedFilters =
       ProductReviewsQueryFiltersSchema.parse(productQueryFilters);
     const validatedOptions = ProductReviewsQueryOptionsSchema.parse(options);
-    const { productType, year, make, model } = validatedFilters;
+    const { productType } = validatedFilters;
     const {
       sort,
       // search,
@@ -203,9 +186,6 @@ export async function getAllReviewsWithImages(
       const fetch = supabaseDatabaseClient.rpc(RPC_GET_DISTINCT_REVIEW_IMAGES, {
         p_table_name: TABLE_NAME,
         p_type: productType,
-        p_make_slug: generateSlug(make as string) || null,
-        p_model_slug: generateSlug(model as string) || null,
-        p_parent_generation: year || null,
       });
 
       const { data, error } = await fetch;
@@ -279,7 +259,7 @@ export async function getProductReviewSummary(
 ): Promise<TProductReviewSummary> {
   try {
     const validatedFilters = ProductReviewsQueryFiltersSchema.parse(filters);
-    const { productType, year, make, model } = validatedFilters;
+    const { productType } = validatedFilters;
     const TABLE_NAME =
       productType === CAR_COVERS
         ? CAR_COVERS_REVIEWS_TABLE
@@ -291,9 +271,6 @@ export async function getProductReviewSummary(
         {
           table_name: TABLE_NAME,
           type: productType || null,
-          make: generateSlug(make as string) || null,
-          model: generateSlug(model as string) || null,
-          year: year || null,
         }
       );
 
@@ -336,7 +313,7 @@ export async function getProductReviewsByImage(
     const validatedFilters =
       ProductReviewsQueryFiltersSchema.parse(productQueryFilters);
     const validatedOptions = ProductReviewsQueryOptionsSchema.parse(options);
-    const { productType, year, make, model } = validatedFilters;
+    const { productType } = validatedFilters;
     const { sort, filters } = validatedOptions;
     const fetchReviews = async () => {
       const TABLE_NAME =
@@ -352,18 +329,6 @@ export async function getProductReviewsByImage(
 
       if (productType) {
         fetch = fetch.eq('type', productType);
-      }
-
-      if (make) {
-        fetch = fetch.eq('make_slug', generateSlug(make));
-      }
-
-      if (model) {
-        fetch = fetch.eq('model_slug', generateSlug(model));
-      }
-
-      if (year) {
-        fetch = fetch.eq('parent_generation', year);
       }
 
       // Dynamically apply filters
