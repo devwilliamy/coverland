@@ -6,7 +6,7 @@ export default function WouldRecomend() {
       <div className="flex h-4 w-4 flex-shrink items-center">
         <CheckIcon />
       </div>
-      <p>Would recommend</p>
+      <p className="text-[#1D8044]">Would recommend</p>
     </span>
   );
 }
