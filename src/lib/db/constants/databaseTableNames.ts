@@ -1,7 +1,7 @@
 /* Supabase Table Names */
 export const PRODUCT_REVIEWS_TABLE = 'reviews-2';
 export const CAR_COVERS_REVIEWS_TABLE = 'reviews_car_covers';
-export const SEAT_COVERS_REVIEWS_TABLE = 'reviews_seat_covers_20240718';
+export const SEAT_COVERS_REVIEWS_TABLE = 'reviews_seat_covers';
 export const PRODUCT_DATA_TABLE = 'Products';
 export const RELATIONS_PRODUCT_TABLE = 'relations_product';
 export const TYPE_TABLE = 'Type';
