@@ -1,4 +1,4 @@
-'use client';;
+'use client';
 import Image from 'next/image';
 import { Fragment, useEffect, useState } from 'react';
 import { useStore } from 'zustand';
@@ -43,7 +43,6 @@ const ReviewImageGallery = ({
   const [currentReview, setCurrentReview] = useState<TReviewData | null>(null);
   const [moreDetailsOpen, setMoreDetailsOpen] = useState(false);
   const [currentReviewImage, setCurrentReviewImage] = useState(0);
-
   const handleCloseMore = () => {
     moreDetailsOpen && setMoreDetailsOpen(false);
   };
@@ -148,8 +147,10 @@ const ReviewImageGallery = ({
                 </div>
               </div>
               <div className="flex gap-4 text-[12px] leading-[24px]">
-                <p className="text-[#1D8044]">Verified Purchase</p>
-                <WouldRecomend />
+                {currentReview.verified_status === 'yes' && (
+                  <p className="text-[#1D8044]">Verified Purchase</p>
+                )}
+                {currentReview.recommend === 'yes' && <WouldRecomend />}
               </div>
 
               <div className="flex flex-col pt-1.5 lg:mt-0 lg:gap-[104px]">

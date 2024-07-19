@@ -101,7 +101,7 @@ export async function getProductReviewsByPage(
       let fetch = supabaseDatabaseClient
         .from(TABLE_NAME)
         .select(
-          'review_image,review_description,review_title,rating_stars,review_author,helpful,reviewed_at'
+          'review_image,review_description,review_title,rating_stars,review_author,helpful,reviewed_at,verified_status,recommend'
         )
         .range(from, to);
 
@@ -189,7 +189,6 @@ export async function getAllReviewsWithImages(
       });
 
       const { data, error } = await fetch;
-
       if (error) {
         console.error('[GetAllReviewsWithImages] Error: ', error);
         throw error;
@@ -324,7 +323,7 @@ export async function getProductReviewsByImage(
       let fetch = supabaseDatabaseClient
         .from(TABLE_NAME)
         .select(
-          'review_image,review_description,review_title,rating_stars,review_author,helpful,reviewed_at'
+          'review_image,review_description,review_title,rating_stars,review_author,helpful,reviewed_at,verified_status,recommend'
         );
 
       if (productType) {
