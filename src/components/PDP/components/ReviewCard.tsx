@@ -129,10 +129,10 @@ export default function ReviewCard({
       </div>
 
       <div className="flex gap-4 text-[12px] leading-[24px]">
-        <p className="text-[#1D8044]">Verified Purchase</p>
-        {review.rating_stars && review.rating_stars >= 3 ? (
-          <WouldRecomend />
-        ) : null}
+        {review.verified_status === 'yes' && (
+          <p className="text-[#1D8044]">Verified Purchase</p>
+        )}
+        {review.recommend === 'yes' && <WouldRecomend />}
       </div>
 
       <div className="flex justify-between pt-0.5 lg:mt-0 lg:gap-[104px]">
