@@ -10,19 +10,16 @@ type PreorderBodyProps = {
   selectedProduct?: IProductData | null | undefined;
 };
 
-const PreorderBody = ({
-  selectedProduct,
-}: PreorderBodyProps) => {
+const PreorderBody = ({ selectedProduct }: PreorderBodyProps) => {
   const { cartItems, getTotalPreorderDiscount } = useCartContext();
   const sortedCartItems = selectedProduct
     ? cartItems.sort((a, b) => (b.sku === selectedProduct.sku ? 1 : -1))
     : cartItems;
 
-
-  const preorderWeeks = weeksFromCurrentDate(selectedProduct?.preorder_date);
+  const preorderWeeks = weeksFromCurrentDate(
+    selectedProduct?.preorder_date ?? ''
+  );
   const totalPreorderDiscount = getTotalPreorderDiscount();
-
-  console.log('totalPreorderDiscount', totalPreorderDiscount);
 
   return (
     <>
