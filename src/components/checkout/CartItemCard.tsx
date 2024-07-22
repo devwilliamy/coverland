@@ -5,7 +5,7 @@ import { IconContext } from 'react-icons';
 import { TCartItem } from '@/lib/cart/useCart';
 import { isFullSet } from '@/lib/utils';
 import { ChangeEvent, useState } from 'react';
-import { formatISODate } from '@/lib/utils/date';
+import { formatISODate, formatISODateNoTimeZone } from '@/lib/utils/date';
 
 export default function CartItemCard({ item }: { item: TCartItem }) {
   const { updateItemQuantity } = useCartContext();
@@ -16,7 +16,7 @@ export default function CartItemCard({ item }: { item: TCartItem }) {
     setQuantity(newQuantity);
     updateItemQuantity(item.sku ?? '', newQuantity);
   };
-  
+
   const { removeItemFromCart } = useCartContext();
   const { type } = item;
   const imageUrl =
@@ -106,7 +106,7 @@ export default function CartItemCard({ item }: { item: TCartItem }) {
             className={`flex items-center gap-3 pt-1 text-sm font-normal ${item?.preorder ? `text-[#2BA45B]` : `text-[#343434]`} lg:text-base`}
           >
             {item?.preorder
-              ? `Est. Ship Date: ${formatISODate(item?.preorder_date ?? '')}`
+              ? `Est. Ship Date: ${formatISODateNoTimeZone(item?.preorder_date ?? '')}`
               : `Free Delivery`}
           </div>
         </div>
