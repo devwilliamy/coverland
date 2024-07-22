@@ -1,20 +1,22 @@
-import { TableCell, TableRow } from '@/components/ui/table';
 import { useCartContext } from '@/providers/CartProvider';
 import Image from 'next/image';
 import { FaRegTrashAlt } from 'react-icons/fa';
 import { IconContext } from 'react-icons';
 import { TCartItem } from '@/lib/cart/useCart';
-import { detectFOrFB, isFullSet } from '@/lib/utils';
-import { useState } from 'react';
+import { isFullSet } from '@/lib/utils';
+import { ChangeEvent, useState } from 'react';
+import { formatISODate } from '@/lib/utils/date';
 
 export default function CartItemCard({ item }: { item: TCartItem }) {
   const { updateItemQuantity } = useCartContext();
   const [quantity, setQuantity] = useState(item?.quantity || 1);
-  const handleQuantityChange = (e) => {
+
+  const handleQuantityChange = (e: ChangeEvent<HTMLSelectElement>) => {
     const newQuantity = parseInt(e.target.value, 10);
     setQuantity(newQuantity);
-    updateItemQuantity(item.sku, newQuantity);
+    updateItemQuantity(item.sku ?? '', newQuantity);
   };
+  
   const { removeItemFromCart } = useCartContext();
   const { type } = item;
   const imageUrl =
@@ -22,13 +24,13 @@ export default function CartItemCard({ item }: { item: TCartItem }) {
   return (
     <div className="flex flex-col">
       <div className="flex w-full justify-items-center gap-2 text-2xl font-medium">
-        <div className="h-9/12 w-3/12 justify-items-center ">
+        <div className="h-9/12 w-3/12 justify-items-center">
           <Image
-            className="bg-gray-100 p-[6.5px] "
+            className="bg-gray-100 p-[6.5px]"
             src={(imageUrl as string) || ''}
             width={137.5}
             height={137.5}
-            alt={`The image for a ${item?.product_name || ''} car cover`}
+            alt={`The image for a ${item?.make ?? ''} car cover`}
           />
         </div>
         <div className="flex w-7/12 flex-col gap-1">
@@ -51,9 +53,9 @@ export default function CartItemCard({ item }: { item: TCartItem }) {
           <div
             className={`text-sm font-normal ${item?.type === 'Seat Covers' ? 'flex' : 'hidden'}  text-[#707070] lg:text-base`}
           >
-            {isFullSet(item.display_set).toLowerCase() == 'full'
+            {isFullSet(item.display_set ?? '').toLowerCase() == 'full'
               ? 'Full Seat Set (Front + Rear Seat Set)'
-              : ' Front Seats (Driver +  Passenger seats)'}
+              : 'Front Seats (Driver + Passenger seats)'}
           </div>
           <div className="text-sm font-normal text-[#707070] lg:text-base">
             Color: {item?.display_color}
@@ -97,11 +99,15 @@ export default function CartItemCard({ item }: { item: TCartItem }) {
       </div>
       <div className="flex items-end justify-between pb-2 pt-0">
         <div className="flex flex-col">
-          <div className="pt-2 text-sm font-normal text-[#343434] lg:pt-0 lg:text-base">
+          <div className="pt-2 text-sm font-normal text-[#343434] lg:pt-1 lg:text-base">
             {item?.preorder ? 'Pre-order Item' : 'Same-Day Shipping'}
           </div>
-          <div className="flex items-center gap-3 pt-1 text-sm font-normal text-[#343434] lg:text-base">
-            <div>Free Delivery</div>
+          <div
+            className={`flex items-center gap-3 pt-1 text-sm font-normal ${item?.preorder ? `text-[#2BA45B]` : `text-[#343434]`} lg:text-base`}
+          >
+            {item?.preorder
+              ? `Est. Ship Date: ${formatISODate(item?.preorder_date ?? '')}`
+              : `Free Delivery`}
           </div>
         </div>
         <IconContext.Provider
