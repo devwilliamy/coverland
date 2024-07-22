@@ -10,6 +10,7 @@ import { CreditCardSection } from './CreditCardSection';
 // import Klarna from '@/images/checkout/Klarna-Black.webp';
 import PayPalIcon from './icons/PayPalIcon';
 import { SelectedCardLogo } from './SelectedCardLogo';
+import LoadingButton from '../ui/loading-button';
 
 export default function Payment({
   handleChangeAccordion,
@@ -197,38 +198,28 @@ export default function Payment({
           <p className="w-full text-center font-medium text-[red]">{message}</p>
         )}
         {paymentMethod === 'creditCard' && !isReadyToPay && (
-          <Button
-            variant={'default'}
+          <LoadingButton
             className={buttonStyle}
-            disabled={isDisabledCard}
-            onClick={async () => handleContinueWithCard()}
-          >
-            {isLoading ? (
-              <AiOutlineLoading3Quarters className="animate-spin" />
-            ) : (
-              'Continue to Order Review'
-            )}
-          </Button>
+            isDisabled={isDisabledCard}
+            isLoading={isLoading}
+            onClick={handleContinueWithCard}
+            buttonText={'Continue to Order Review'}
+          />
         )}
         {(paymentMethod === 'klarna' ||
           paymentMethod === 'googlePay' ||
           paymentMethod === 'applePay' ||
           paymentMethod === 'paypal') &&
           !isReadyToPay && (
-            <Button
-              variant={'default'}
+            <LoadingButton
               className={buttonStyle}
-              onClick={async (e) => {
+              isLoading={isLoading}
+              onClick={() => {
                 handleChangeAccordion('orderReview');
                 updateIsReadyToPay(true);
               }}
-            >
-              {isLoading ? (
-                <AiOutlineLoading3Quarters className="animate-spin" />
-              ) : (
-                'Continue to Order Review'
-              )}
-            </Button>
+              buttonText={'Continue to Order Review'}
+            />
           )}
       </div>
     </section>
