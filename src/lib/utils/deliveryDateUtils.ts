@@ -52,7 +52,7 @@ export const determineDeliveryByDate = (format = 'LLL dd', preorder_date?: strin
       daysToAdd = 4;
       break;
     case 'America/New_York': // EST
-      daysToAdd = 5;
+      daysToAdd = 4;
       break;
     case 'Unknown':
       daysToAdd = 5;
