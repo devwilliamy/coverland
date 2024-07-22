@@ -41,7 +41,7 @@ export const getCurrentDateInPST = () => {
 };
 
 /**
- * 
+ *
  * @param isoDateString "2024-06-07T13:01:00-07:00"
  * @returns string "06/07/2024"
  */
@@ -50,7 +50,7 @@ export function formatISODate(isoDateString: string): string {
 
   // Check if the date is valid
   if (isNaN(date.getTime())) {
-      throw new Error('Invalid ISO date string');
+    throw new Error('Invalid ISO date string');
   }
 
   const month = String(date.getMonth() + 1).padStart(2, '0');
@@ -60,10 +60,25 @@ export function formatISODate(isoDateString: string): string {
   return `${month}/${day}/${year}`;
 }
 
+/**
+ * Need this one because without a timezone, it'll assume UTC midnight. This will cause the date to shift.
+ * @param isoDateString "2024-06-07"
+ * @returns string "06/07/2024"
+ */
+export function formatISODateNoTimeZone(isoDateString: string): string {
+  const [year, month, day] = isoDateString.split('-');
+
+  if (!year || !month || !day) {
+    throw new Error('Invalid ISO date string');
+  }
+
+  return `${month}/${day}/${year}`;
+}
+
 export function weeksFromCurrentDate(targetDate: string): number {
   const currentDate = new Date();
   const target = new Date(targetDate);
-  
+
   const diffInMilliseconds = target.getTime() - currentDate.getTime();
   const diffInDays = diffInMilliseconds / (1000 * 60 * 60 * 24);
   const diffInWeeks = diffInDays / 7;
@@ -73,9 +88,19 @@ export function weeksFromCurrentDate(targetDate: string): number {
 
 export function getCurrentMonth() {
   const monthNames = [
-    "January", "February", "March", "April", "May", "June",
-    "July", "August", "September", "October", "November", "December"
+    'January',
+    'February',
+    'March',
+    'April',
+    'May',
+    'June',
+    'July',
+    'August',
+    'September',
+    'October',
+    'November',
+    'December',
   ];
   const date = new Date();
   return monthNames[date.getMonth()];
-};
+}
