@@ -250,7 +250,7 @@ export function detectFOrFB(sku: string) {
   FOMU12, CHCM11, and CHCV11 do not have mirror pockets, 
   while all other custom sizes come with mirror pockets.
 */
-export function detectMirrors(sku: string) {
+export function hasMirrors(sku: string) {
   const skuSubstringsNoMirror = ['cn', 'fomu12', 'chcm11', 'chcv11'];
   const lowerStr = sku.toLowerCase();
 

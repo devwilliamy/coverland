@@ -2,7 +2,7 @@ import { Accordion } from '@/components/ui/accordion';
 import { useState } from 'react';
 import { Separator } from '../ui/separator';
 import { useStore } from 'zustand';
-import { detectMirrors } from '@/lib/utils';
+import { hasMirrors } from '@/lib/utils';
 import useStoreContext from '@/hooks/useStoreContext';
 import { getCompleteSelectionData } from '@/utils';
 import QuestionAccordionListItem from './QuestionAccordionListItem';
@@ -214,7 +214,7 @@ export function QuestionsAccordion() {
   });
 
   // Default to showing mirror FAQ
-  const isMirror = !isComplete || detectMirrors(selectedProduct.sku ?? '');
+  const isMirror = !isComplete || hasMirrors(selectedProduct.sku ?? '');
 
   const [accordionOpen, setAccordionOpen] = useState('');
 
