@@ -9,6 +9,7 @@ import QuestionAccordionListItem from './QuestionAccordionListItem';
 import AskQuestionMobile from './AskQuestionMobile';
 import AskQuestionDesktop from './AskQuestionDesktop';
 import useDetermineType from '@/hooks/useDetermineType';
+// TODO: - Move these into separate file
 const carCoverQuestions = [
   {
     name: 'General',
@@ -146,8 +147,30 @@ const seatCoverQuestions = [
       },
       {
         title: 'Is there a guide or manual available for installation?',
-        content:
-          'Yes, we provide multiple resources for installation guidance. You can access a video guide and a PDF manual. Additionally, a paper manual is included in every package.',
+        content: (
+          <div>
+            Yes, we provide multiple resources for installation guidance. You
+            can access a{' '}
+            <a
+              href="https://www.youtube.com/watch?v=FfPdvTS3vao"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="underline"
+            >
+              video guide
+            </a>{' '}
+            and a{' '}
+            <a
+              href="/guides/Seat Covers - Installation.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="underline"
+            >
+              PDF manual
+            </a>
+            . Additionally, a paper manual is included in every package.
+          </div>
+        ),
       },
       {
         title: 'Do you have a location in my city that will install it for me?',
