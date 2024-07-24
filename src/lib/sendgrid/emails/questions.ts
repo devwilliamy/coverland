@@ -7,32 +7,32 @@ type ContactEmailInput = {
   message: string;
 };
 const generateQuestionsEmail = ({
-    name,
-    email,
-    message,
+  name,
+  email,
+  message,
 }: ContactEmailInput) => {
   const additionalEmails = [
     'info@coverland.com',
-    'jeff.coverland@gmail.com',
     'dev.william.coverland@gmail.com',
     'vasiliy@coverland.com',
-    email?.toLowerCase()
-  ]
+    email?.toLowerCase(),
+  ];
 
- const removeDuplicates = [...new Set(additionalEmails)]
+  const removeDuplicates = [...new Set(additionalEmails)];
 
-  const  testEmail = 'jeff.coverland@gmail.com' // change for development emails
-  const  prodEmail =  process.env.NODE_ENV !== 'development' ? removeDuplicates : testEmail
+  const testEmail = 'dev.william.coverland@gmail.com'; // change for development emails
+  const prodEmail =
+    process.env.NODE_ENV !== 'development' ? removeDuplicates : testEmail;
   return {
     to: prodEmail,
     from: 'info@coverland.com', // Process ENV
-    subject:  'Customer Question',
+    subject: 'Customer Question',
     text:
       '\n' +
-     `Thank you for reaching out to us! We have received your message and appreciate your interest. Our team will review your inquiry and we\'ll reach back shortly` +
-     '\n' +
-     '\n' +
-     '\n' +
+      `Thank you for reaching out to us! We have received your message and appreciate your interest. Our team will review your inquiry and we\'ll reach back shortly` +
+      '\n' +
+      '\n' +
+      '\n' +
       `Here is a copy of your email:` +
       '\n' +
       `Customer Name: ${name}  ` +
@@ -46,10 +46,10 @@ const generateQuestionsEmail = ({
 
 export const sendQuestionsEmail = async (emailInput: ContactEmailInput) => {
   const msg = generateQuestionsEmail(emailInput);
-  console.log(msg)
+  console.log(msg);
   try {
     await sgMail.send(msg as MailDataRequired);
   } catch (error) {
-    console.error(error);
+    console.error('Send Question Email error:', error);
   }
 };
