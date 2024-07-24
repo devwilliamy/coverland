@@ -104,7 +104,7 @@ export default function ReviewHeaderGallery() {
                         </div>
                         <div className="relative flex min-h-full min-w-full">
                           {imageLoading && (
-                            <div className="flex min-h-full min-w-full animate-pulse items-center justify-center rounded-md bg-[#BE1B1B]/50">
+                            <div className="flex min-h-full min-w-full animate-pulse items-center justify-center rounded-md bg-[#F0F0F0]/50">
                               <AiOutlineLoading3Quarters
                                 className="animate-spin"
                                 fill="#BE1B1B"
@@ -214,7 +214,7 @@ export default function ReviewHeaderGallery() {
                         </div>
                         <div className="relative flex min-h-full min-w-full">
                           {imageLoading && (
-                            <div className="flex min-h-full min-w-full animate-pulse items-center justify-center rounded-md bg-[#BE1B1B]/50">
+                            <div className="flex min-h-full min-w-full animate-pulse items-center justify-center rounded-md bg-[#999999]/50">
                               <AiOutlineLoading3Quarters
                                 className="animate-spin"
                                 fill="#BE1B1B"

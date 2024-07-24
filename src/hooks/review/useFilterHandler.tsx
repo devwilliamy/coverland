@@ -1,3 +1,4 @@
+import { SEAT_COVERS } from '@/lib/constants';
 import {
   getProductReviewsByPage,
   getProductReviewsByImage,
@@ -5,7 +6,7 @@ import {
 import { FilterParams, SortParams, TReviewData } from '@/lib/types/review';
 
 type FilterHandlerProps = {
-  typeString: string;
+  typeString: 'Car Covers' | 'SUV Covers' | 'Truck Covers' | 'Seat Covers';
   year: number;
   make: string;
   model: string;
@@ -70,7 +71,7 @@ const useFilterHandler = ({
 
       if (e.target.value === 'none') {
         newReviewData = await getProductReviewsByPage(
-          { productType: typeString, year, make, model },
+          { productType: typeString },
           {
             pagination: { page: 0, limit },
             sort,
@@ -79,7 +80,7 @@ const useFilterHandler = ({
         setFilterImageOn(false);
       } else if (e.target.value === 'images') {
         newReviewData = await getProductReviewsByImage(
-          { productType: typeString, year, make, model },
+          { productType: typeString },
           {
             filters: [{ field, operator, value }],
             sort,
@@ -88,7 +89,7 @@ const useFilterHandler = ({
         setFilterImageOn(true);
       } else {
         newReviewData = await getProductReviewsByPage(
-          { productType: typeString, year, make, model },
+          { productType: typeString },
           {
             pagination: { page: 0, limit },
             filters: [{ field, operator, value }],

@@ -1,13 +1,9 @@
-// useViewMoreHandler.ts
-import { useState } from 'react';
-import {
-  getProductReviewsByPage,
-  getProductReviewsByImage,
-} from '@/lib/db/review';
+import { getProductReviewsByPage } from '@/lib/db/review';
 import { TReviewData } from '@/lib/types/review';
+import { SEAT_COVERS } from '@/lib/constants';
 
 type ViewMoreHandlerProps = {
-  typeString: string;
+  typeString: 'Car Covers' | 'SUV Covers' | 'Truck Covers' | 'Seat Covers';
   year: number;
   make: string;
   model: string;
@@ -38,12 +34,10 @@ const useViewMoreHandler = ({
   const handleViewMore = async () => {
     try {
       setLoading(true);
+
       const newReviewData = await getProductReviewsByPage(
         {
           productType: typeString,
-          year,
-          make,
-          model,
         },
         {
           pagination: {
@@ -58,7 +52,7 @@ const useViewMoreHandler = ({
       );
 
       addReviewData(newReviewData);
-      setPage((prevPage) => prevPage + 1);
+      setPage((prevPage: number) => prevPage + 1);
     } catch (error) {
       console.error(error);
     } finally {

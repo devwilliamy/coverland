@@ -92,9 +92,6 @@ export default async function SeatCoverDataLayer({
         getProductReviewsByPage(
           {
             productType: typeString,
-            make: params.make,
-            model: params.model,
-            year: params.year,
           },
           {
             pagination: {
@@ -109,16 +106,10 @@ export default async function SeatCoverDataLayer({
         ),
         getProductReviewSummary({
           productType: typeString,
-          make: params.make,
-          model: params.model,
-          year: params.year,
         }),
         getAllReviewsWithImages(
           {
             productType: typeString,
-            make: params.make,
-            model: params.model,
-            year: params.year,
           },
           {}
         ),
