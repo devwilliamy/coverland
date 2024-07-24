@@ -1,9 +1,4 @@
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from '@/components/ui/accordion';
+import { Accordion } from '@/components/ui/accordion';
 import {
   Dialog,
   DialogContent,
@@ -23,12 +18,15 @@ import {
   SheetTitle,
   SheetTrigger,
 } from '../ui/sheet';
-
 import { AiOutlineLoading3Quarters } from 'react-icons/ai';
 import { useStore } from 'zustand';
 import { detectMirrors } from '@/lib/utils';
 import useStoreContext from '@/hooks/useStoreContext';
 import { getCompleteSelectionData } from '@/utils';
+import QuestionAccordionListItem from './QuestionAccordionListItem';
+import AskQuestionOpenTrigger from './AskQuestionOpenTrigger';
+import AskQuestionMobile from './AskQuestionMobile';
+import AskQuestionDesktop from './AskQuestionDesktop';
 const qa = [
   {
     name: 'General',
@@ -104,48 +102,6 @@ const qa = [
   },
 ];
 
-interface AccordionProps {
-  isMirror: boolean;
-  titleName: string;
-  value: any;
-  index: number;
-  accordionState: string;
-  handleAccordionState: (value: string) => void;
-}
-export const AccordingListedItems = ({
-  isMirror,
-  titleName,
-  value,
-  index,
-  accordionState,
-  handleAccordionState,
-}: AccordionProps) => {
-  console.log('Alt Content:', value.altContent);
-  return (
-    <AccordionItem
-      className={`${accordionState === `item-${index}-${titleName}` ? 'bg-[#F9F9FB]' : 'bg-white'}  border-t p-2 lg:pl-7`}
-      value={`item-${index}-${titleName}`}
-    >
-      <AccordionTrigger
-        showPlus={true}
-        className="pb-3 text-left text-base font-black  text-[#1A1A1A] hover:no-underline md:text-xl lg:py-8 lg:text-[22px]"
-        onClick={() => {
-          handleAccordionState(
-            accordionState === `item-${index}-${titleName}`
-              ? ''
-              : `item-${index}-${titleName}`
-          );
-        }}
-      >
-        {value.title}
-      </AccordionTrigger>
-      <AccordionContent className="text-sm font-normal  text-[#636363]   md:text-lg">
-        {isMirror && value.altContent ? value.altContent : value.content}
-      </AccordionContent>
-    </AccordionItem>
-  );
-};
-
 export function QuestionsAccordion() {
   const store = useStoreContext();
   if (!store) throw new Error('Missing Provider in the tree');
@@ -159,67 +115,11 @@ export function QuestionsAccordion() {
   const isMirror = isComplete && detectMirrors(selectedProduct.sku ?? '');
 
   const [accordionOpen, setAccordionOpen] = useState('');
-  const [open, setOpen] = useState(false);
-  const [dialogOpen, setDialogOpen] = useState(false);
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [message, setMessage] = useState('');
-  const [formState, setFormState] = useState({
-    isLoading: false,
-    errorMessage: '',
-    successMessage: '',
-  });
 
   const handleAccordionExpand = (value: string) => {
     setAccordionOpen(value);
   };
 
-  const handleEmailSubmit = async () => {
-    try {
-      setFormState({ ...formState, isLoading: true });
-      const formData = {
-        name,
-        email,
-        message,
-      };
-      const response = await fetch('/api/email/question', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
-      });
-      if (!response.ok) {
-        setFormState({
-          ...formState,
-          errorMessage: 'An error occurred. Please try again.',
-        });
-        throw Error('Server Error : Email not sent');
-      }
-      console.log('we are here');
-      setFormState({
-        ...formState,
-        successMessage: 'Message submitted successfully!',
-      });
-      setName('');
-      setEmail('');
-      setMessage('');
-    } catch (error) {
-      setTimeout(() => {
-        setFormState({ ...formState, errorMessage: '', isLoading: false });
-      }, 3000);
-    }
-  };
-  const handleCloseForm = () => {
-    setFormState({
-      isLoading: false,
-      errorMessage: '',
-      successMessage: '',
-    });
-    setName('');
-    setEmail('');
-    setMessage('');
-  };
   return (
     <>
       <div className="min-h-[60vh] bg-white px-2 md:p-8 lg:max-h-none lg:p-14">
@@ -230,7 +130,7 @@ export function QuestionsAccordion() {
           qa?.map(({ name, questions }, index) => {
             return (
               <div key={`${name + index}`}>
-                <p className="my-2 mt-[36px] bg-white	px-2 text-lg font-medium capitalize text-[#C95656] lg:mt-20 lg:text-2xl lg:pb-7 lg:pl-7">
+                <p className="my-2 mt-[36px] bg-white	px-2 text-lg font-medium capitalize text-[#C95656] lg:mt-20 lg:pb-7 lg:pl-7 lg:text-2xl">
                   {name.toLowerCase()}
                 </p>
 
@@ -238,7 +138,7 @@ export function QuestionsAccordion() {
                   {questions.map((question, questionIndex) => {
                     return (
                       <div key={`qa-title-${questionIndex}`}>
-                        <AccordingListedItems
+                        <QuestionAccordionListItem
                           isMirror={isMirror}
                           titleName={name}
                           value={question}
@@ -253,300 +153,10 @@ export function QuestionsAccordion() {
               </div>
             );
           })}
-        <Sheet open={open} onOpenChange={setOpen}>
-          <SheetTrigger className="flex w-full items-center md:hidden">
-            <OpenTrigger />
-          </SheetTrigger>
-          <SheetContent
-            side={'bottom'}
-            className="max-h-[85vh] min-h-[80vh] overflow-y-scroll rounded-t-2xl px-4 "
-          >
-            <SheetHeader>
-              <div className="justify-left flex flex-col">
-                {formState.successMessage ? null : (
-                  <>
-                    <SheetTitle className="pb-4 pt-[32px] text-left text-[29px] font-black leading-[26px]">
-                      Have Questions?
-                    </SheetTitle>
-                    <SheetDescription className="mb-2 text-left text-[14px]">
-                      We&apos;re here for you! Let us know, and we&apos;ll get
-                      back to you shortly. Thanks!
-                    </SheetDescription>
-                  </>
-                )}
-
-                <SheetClose className="fixed right-0 z-[400] mr-[16px] flex items-center py-[4px]">
-                  <div
-                    id="CloseModalButton"
-                    className=" mt-[17px] justify-center rounded-full bg-gray-200 p-[5px] "
-                    onClick={() => {
-                      setOpen(false);
-                    }}
-                  >
-                    <X className="h-[24px] w-[24px]" />
-                  </div>
-                </SheetClose>
-              </div>
-            </SheetHeader>
-            <Separator />
-            {formState.isLoading ? (
-              <div className="flex items-center justify-center py-20">
-                <AiOutlineLoading3Quarters className=" size-24 animate-spin text-center" />
-              </div>
-            ) : formState.errorMessage ? (
-              <div className="flex items-center justify-center py-20">
-                <p>{formState.errorMessage}</p>
-              </div>
-            ) : formState.successMessage ? (
-              <div className="flex items-center justify-center py-20">
-                <div className="flex flex-col pb-[20px] pt-[43px] text-center">
-                  <p className="mb-3 text-3xl font-black">
-                    Thank you for reaching out to us!
-                  </p>
-                  <p className="text-[16px] text-[#767676]">
-                    {
-                      "Your message has been received, and we'll get back to you shortly. Thanks!"
-                    }
-                  </p>
-                </div>
-              </div>
-            ) : (
-              <div className="grid gap-4 py-4 pt-[38px]">
-                <div className="flex flex-col">
-                  <div className="flex flex-col ">
-                    <label
-                      htmlFor="name"
-                      className="pb-[6px] pl-2 font-bold capitalize		"
-                    >
-                      Name
-                    </label>
-                    <input
-                      className="rounded-lg border border-[#9C9C9C] p-2"
-                      value={name}
-                      onChange={(e) => setName(e.target.value)}
-                      name="name"
-                      type="text"
-                      placeholder="Your name"
-                    />
-                  </div>
-                  <div className="flex flex-col py-[16px]">
-                    <label
-                      htmlFor="email"
-                      className="pb-[6px] pl-2 font-bold capitalize		 "
-                    >
-                      Email
-                    </label>
-                    <input
-                      className="rounded-lg border border-[#9C9C9C] p-2"
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                      name="email"
-                      type="text"
-                      placeholder="Your email"
-                    />
-                  </div>
-                  <div className="flex flex-col pb-[22px]">
-                    <label
-                      htmlFor="leave_question"
-                      className="pb-[6px] pl-2 font-bold capitalize		"
-                    >
-                      Leave a question
-                    </label>
-                    <textarea
-                      className="h-[150px] rounded-lg border border-[#9C9C9C] p-2"
-                      value={message}
-                      onChange={(e) => setMessage(e.target.value)}
-                      name="leave_question"
-                      placeholder="Write your question here."
-                    />
-                  </div>
-                </div>
-                {formState.successMessage ? (
-                  <div className="w-[200px]">
-                    <Button
-                      onClick={() => {
-                        handleCloseForm();
-                        setOpen(false);
-                      }}
-                      className="mx-auto mt-5 flex h-12 w-full   rounded border  border-[#1A1A1A] bg-transparent text-lg font-bold  uppercase text-[#1A1A1A] hover:bg-[#1A1A1A] hover:text-white"
-                    >
-                      Close
-                    </Button>
-                  </div>
-                ) : (
-                  <div className="flex flex-col">
-                    <Button
-                      onClick={(e) => {
-                        e.preventDefault();
-                        handleEmailSubmit();
-                      }}
-                      className="mx-auto mt-3 flex h-12  w-full rounded border border-[#1A1A1A] bg-[#1A1A1A] text-lg font-bold  uppercase text-white hover:bg-transparent hover:text-[#1A1A1A]"
-                    >
-                      Submit
-                    </Button>
-                    <Button
-                      onClick={() => {
-                        handleCloseForm();
-                        setOpen(false);
-                      }}
-                      className="mx-auto mt-5 flex h-12 w-full   rounded border  border-[#1A1A1A] bg-transparent text-lg font-bold  uppercase text-[#1A1A1A] hover:bg-[#1A1A1A] hover:text-white"
-                    >
-                      Cancel
-                    </Button>
-                  </div>
-                )}
-              </div>
-            )}
-          </SheetContent>
-        </Sheet>
-        {/* </span> */}
-
-        {/* <span className="hidden lg:block"> */}
-        <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
-          <DialogTrigger className="hidden w-full items-center md:flex">
-            <OpenTrigger />
-          </DialogTrigger>
-          <DialogContent
-            className={`flex max-h-[86vh]  min-h-[85vh] min-w-[75vw]  flex-col items-center gap-0 rounded-t-2xl px-[200px] py-0 `}
-          >
-            {/* <DialogHeader>
-              <DialogClose className="fixed right-0 z-[400] mr-[16px] flex items-center py-[4px]">
-                <div
-                  id="CloseModalButton"
-                  className=" mt-[17px] justify-center rounded-full bg-gray-200 p-[5px] "
-                  onClick={() => {
-                    setOpen(false);
-                  }}
-                >
-                  <X className="h-[24px] w-[24px]" />
-                </div>
-              </DialogClose>
-                
-            </DialogHeader> */}
-            {formState.successMessage ? null : (
-              <div className="w-full pt-5">
-                <div className=" w-full pt-[30px]  text-left text-[38px] font-black	 ">
-                  Have Questions?
-                </div>
-                <DialogDescription className=" w-full py-2 text-left text-base font-normal">
-                  We&apos;re here for you! Let us know, and we&apos;ll get back
-                  to you shortly. Thanks!
-                </DialogDescription>
-              </div>
-            )}
-            <Separator
-              className={`${formState.successMessage ? 'mt-[121px]' : 'my-2'} `}
-            />
-            {formState.isLoading ? (
-              <AiOutlineLoading3Quarters className=" size-24 animate-spin" />
-            ) : formState.errorMessage ? (
-              <p>{formState.errorMessage}</p>
-            ) : formState.successMessage ? (
-              <div className="flex flex-col pb-[20px] pt-[43px] text-center">
-                <p className="mb-3 text-4xl font-black">
-                  Thank you for reaching out to us!
-                </p>
-                <p className="text-[20px] text-[#767676]">
-                  {
-                    "Your message has been received, and we'll get back to you shortly. Thanks!"
-                  }
-                </p>
-              </div>
-            ) : (
-              <div className="w-full">
-                <div className="flex w-full py-5">
-                  <div className="w-1/2 pr-4">
-                    <label className="pl-2 font-bold capitalize" htmlFor="name">
-                      Name
-                    </label>
-                    <input
-                      value={name}
-                      onChange={(e) => setName(e.target.value)}
-                      name="name"
-                      type="text"
-                      placeholder="Your name"
-                      className="w-full rounded border p-2"
-                    />
-                  </div>
-                  <div className="w-1/2 pl-4">
-                    <label
-                      className="pl-2 font-bold capitalize"
-                      htmlFor="email"
-                    >
-                      Email
-                    </label>
-                    <input
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                      name="email"
-                      type="text"
-                      placeholder="Your email"
-                      className="w-full rounded border p-2"
-                    />
-                  </div>
-                </div>
-                <div className="mt-4 w-full">
-                  <label className="pl-2 font-bold " htmlFor="leave_question">
-                    Leave your question
-                  </label>
-                  <div className="flex">
-                    <textarea
-                      value={message}
-                      onChange={(e) => setMessage(e.target.value)}
-                      name="leave_question"
-                      placeholder="Write your question here."
-                      className="h-[240px] flex-grow rounded border p-2"
-                    ></textarea>
-                  </div>
-                </div>
-              </div>
-            )}
-            <Separator className="my-8" />
-            {formState.successMessage ? (
-              <div className=" w-100">
-                <Button
-                  onClick={() => {
-                    setDialogOpen(false);
-                  }}
-                  className="mx-auto mt-5 flex h-12 w-[200px]   rounded  border border-[#1A1A1A]  bg-transparent text-base  font-bold  uppercase text-[#1A1A1A] hover:bg-[#1A1A1A] hover:text-white"
-                >
-                  ok
-                </Button>
-              </div>
-            ) : (
-              <div className="  flex  w-full flex-row justify-end">
-                <Button
-                  onClick={() => {
-                    handleCloseForm();
-                    setDialogOpen(false);
-                  }}
-                  className=" mx-2  h-12 w-1/5   rounded border  border-[#1A1A1A] bg-transparent text-lg font-bold  uppercase text-[#1A1A1A] hover:bg-[#1A1A1A] hover:text-white"
-                >
-                  Cancel
-                </Button>
-                <Button
-                  onClick={(e) => {
-                    e.preventDefault();
-                    handleEmailSubmit();
-                  }}
-                  className=" mx-2 h-12 w-1/5 rounded border border-[#1A1A1A] bg-[#1A1A1A] text-lg font-bold  uppercase text-white hover:bg-transparent hover:text-[#1A1A1A]"
-                >
-                  Submit
-                </Button>
-              </div>
-            )}
-          </DialogContent>
-        </Dialog>
-        {/* </span> */}
-
+        <AskQuestionMobile />
+        <AskQuestionDesktop />
         <Separator />
       </div>
     </>
   );
 }
-
-const OpenTrigger = () => (
-  <Button className="mx-auto my-10 mt-9 flex h-12 w-[216px] rounded border border-[#1A1A1A] bg-[#1A1A1A] text-lg font-bold  uppercase text-white hover:bg-transparent hover:text-[#1A1A1A]">
-    ask a question
-  </Button>
-);
