@@ -38,7 +38,7 @@ const QuestionAccordionListItem = ({
       >
         {value.title}
       </AccordionTrigger>
-      <AccordionContent className="text-sm font-normal  text-[#636363]   md:text-lg">
+      <AccordionContent className="text-sm font-normal  text-[#636363] lg:text-lg">
         {isMirror && value.altContent ? value.altContent : value.content}
       </AccordionContent>
     </AccordionItem>

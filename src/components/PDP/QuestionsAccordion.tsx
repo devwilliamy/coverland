@@ -27,7 +27,8 @@ import QuestionAccordionListItem from './QuestionAccordionListItem';
 import AskQuestionOpenTrigger from './AskQuestionOpenTrigger';
 import AskQuestionMobile from './AskQuestionMobile';
 import AskQuestionDesktop from './AskQuestionDesktop';
-const qa = [
+import useDetermineType from '@/hooks/useDetermineType';
+const carCoverQuestions = [
   {
     name: 'General',
     questions: [
@@ -101,6 +102,101 @@ const qa = [
     ],
   },
 ];
+const seatCoverQuestions = [
+  {
+    name: 'Compatibility and Fit',
+    questions: [
+      {
+        title: 'Are these seat covers custom-made or universal?',
+        content:
+          'They are custom-made only. Universal ones just never feel good.',
+      },
+      {
+        title: 'What materials are the seat covers made of?',
+        content:
+          "Our seat covers are crafted from faux leather with memory foam interiors. Additionally, we're in the process of introducing a luxury option made of sheepskin leather. These will be available soon at approximately $800. Contact us to be among the first to acquire them.",
+      },
+      {
+        title:
+          'Do the rear seat covers accommodate a split bench or a full bench seat?',
+        content:
+          'They accommodate a split bench, specifically 60/40, and even 40/20/40 to be precise.',
+      },
+      {
+        title:
+          'Do you offer a seat cover for the middle front seat, armrests, and console?',
+        content:
+          'Not currently. We are working on it and will have it available soon.',
+      },
+    ],
+  },
+  {
+    name: 'Material and Design',
+    questions: [
+      {
+        title: 'What materials are the seat covers made of?',
+        content:
+          "Our seat covers are crafted from faux leather with memory foam interiors. Additionally, we're in the process of introducing a luxury option made of sheepskin leather. These will be available soon at approximately $800. Contact us to be among the first to acquire them.",
+      },
+      {
+        title: 'Are the seat covers breathable and comfortable in hot weather?',
+        content:
+          "Absolutely! We've incorporated breathable cushioning for cool comfort in any climate.",
+      },
+      {
+        title:
+          'How durable are these seat covers? Will they withstand wear and tear?',
+        content:
+          'Our seat covers are highly durable, as evidenced by our 10-year warranty.',
+      },
+    ],
+  },
+  {
+    name: 'Installation',
+    questions: [
+      {
+        title: 'How easy are these seat covers to install?',
+        content:
+          'Installation is pretty straightforward, with just 8 simple steps that typically take around 15 minutes.',
+      },
+      {
+        title: 'Do I need any special tools to install these seat covers?',
+        content: "No, you won't need any special tools for installation.",
+      },
+      {
+        title: 'Is there a guide or manual available for installation?',
+        content:
+          'Yes, we provide multiple resources for installation guidance. You can access a video guide and a PDF manual. Additionally, a paper manual is included in every package.',
+      },
+      {
+        title: 'Do you have a location in my city that will install it for me?',
+        content:
+          'Our seat covers are designed for easy self-installation, without the need to remove seats or use special tools. However, if you prefer professional assistance, you can visit any local car service.',
+      },
+    ],
+  },
+  {
+    name: 'Additional questions',
+    questions: [
+      {
+        title: 'Do the seat covers come with a warranty?',
+        content:
+          'Yes, they come with a 10-year warranty, covering normal wear and tear as well as ripping and tears. However, please note that this warranty does not cover damage due to improper use or installation, alterations or modifications made to the cover, and damage caused by accidents, abuse, or neglect.',
+      },
+      {
+        title: 'How easy is it to clean them?',
+        content:
+          'Cleaning our seat covers is very simple. In most cases, a quick swipe with a wet cloth is sufficient. Use mild soap if needed.',
+      },
+      {
+        title:
+          'Are there any discounts currently available for veterans and military personnel?',
+        content:
+          "Typically, we offer a 20% veterans discount. However, this month, we're running a sale with a 50% discount available to everyone. Since discounts cannot be combined, applying your veteran status wouldn't provide additional savings during this sale period.",
+      },
+    ],
+  },
+];
 
 export function QuestionsAccordion() {
   const store = useStoreContext();
@@ -119,6 +215,9 @@ export function QuestionsAccordion() {
   const handleAccordionExpand = (value: string) => {
     setAccordionOpen(value);
   };
+  const { isSeatCover } = useDetermineType();
+
+  const qa = isSeatCover ? seatCoverQuestions : carCoverQuestions;
 
   return (
     <>
@@ -133,7 +232,6 @@ export function QuestionsAccordion() {
                 <p className="my-2 mt-[36px] bg-white	px-2 text-lg font-medium capitalize text-[#C95656] lg:mt-20 lg:pb-7 lg:pl-7 lg:text-2xl">
                   {name.toLowerCase()}
                 </p>
-
                 <Accordion type="single" collapsible className="w-full">
                   {questions.map((question, questionIndex) => {
                     return (
