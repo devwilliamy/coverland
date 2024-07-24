@@ -72,13 +72,6 @@ export default async function SeatCoverDataLayer({
   let reviewImages: TReviewData[] = [];
   const typeString = 'Seat Covers';
   try {
-    // modelData = await getSeatCoverProductData({
-    //   type: 'Seat Covers',
-    //   cover: params.seatType,
-    //   make: params.make,
-    // model: params.model,
-    // year: params.year,
-    // });
 
     [modelData, reviewData, reviewDataSummary, reviewImages] =
       await Promise.all([

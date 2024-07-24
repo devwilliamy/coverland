@@ -17,7 +17,6 @@ import { slugify } from '@/lib/utils';
 import { TQuery } from '../hero/dropdown/HeroDropdown';
 import { useStore } from 'zustand';
 import useStoreContext from '@/hooks/useStoreContext';
-import { getSeatCoverProductData } from '@/lib/db/seat-covers';
 import { TQueryParams } from '@/utils';
 import { getProductData } from '@/lib/db';
 
