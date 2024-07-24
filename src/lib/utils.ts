@@ -244,24 +244,23 @@ export function detectFOrFB(sku: string) {
   return 'Unknown';
 }
 
+/*
+  CN do not have mirrors, 
+  CS and CP include mirrors. 
+  FOMU12, CHCM11, and CHCV11 do not have mirror pockets, 
+  while all other custom sizes come with mirror pockets.
+*/
 export function detectMirrors(sku: string) {
+  const skuSubstringsNoMirror = ['cn', 'fomu12', 'chcm11', 'chcv11'];
   const lowerStr = sku.toLowerCase();
-  if (lowerStr.includes('cn')) {
+
+  if (
+    skuSubstringsNoMirror.some((substring) => lowerStr.includes(substring))
+  ) {
     return false;
   }
-  if (lowerStr.includes('chcv11')) {
-    if (lowerStr.includes('15')) {
-      return false;
-    }
-  }
-  if (
-    lowerStr.includes('cs') ||
-    lowerStr.includes('cp') ||
-    lowerStr.includes('15')
-  ) {
-    return true;
-  }
-  return false;
+
+  return lowerStr.includes('cs') || lowerStr.includes('cp');
 }
 
 export function isFullSet(displaySet: string): string {

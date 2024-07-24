@@ -1,30 +1,11 @@
 import { Accordion } from '@/components/ui/accordion';
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogTrigger,
-} from '@/components/ui/dialog';
-import { X } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { useContext, useState } from 'react';
+import { useState } from 'react';
 import { Separator } from '../ui/separator';
-import {
-  Sheet,
-  SheetClose,
-  SheetContent,
-  SheetDescription,
-  SheetHeader,
-  SheetTitle,
-  SheetTrigger,
-} from '../ui/sheet';
-import { AiOutlineLoading3Quarters } from 'react-icons/ai';
 import { useStore } from 'zustand';
 import { detectMirrors } from '@/lib/utils';
 import useStoreContext from '@/hooks/useStoreContext';
 import { getCompleteSelectionData } from '@/utils';
 import QuestionAccordionListItem from './QuestionAccordionListItem';
-import AskQuestionOpenTrigger from './AskQuestionOpenTrigger';
 import AskQuestionMobile from './AskQuestionMobile';
 import AskQuestionDesktop from './AskQuestionDesktop';
 import useDetermineType from '@/hooks/useDetermineType';
@@ -208,7 +189,9 @@ export function QuestionsAccordion() {
   } = getCompleteSelectionData({
     data: modelData,
   });
-  const isMirror = isComplete && detectMirrors(selectedProduct.sku ?? '');
+
+  // Default to showing mirror FAQ
+  const isMirror = !isComplete || detectMirrors(selectedProduct.sku ?? '');
 
   const [accordionOpen, setAccordionOpen] = useState('');
 
