@@ -10,9 +10,8 @@ import {
   DialogDescription,
   DialogTrigger,
 } from '@/components/ui/dialog';
-import {  X } from 'lucide-react';
+import { X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { track } from '@vercel/analytics';
 import { useContext, useState } from 'react';
 import { Separator } from '../ui/separator';
 import {
@@ -29,6 +28,7 @@ import { AiOutlineLoading3Quarters } from 'react-icons/ai';
 import { useStore } from 'zustand';
 import { detectMirrors } from '@/lib/utils';
 import useStoreContext from '@/hooks/useStoreContext';
+import { getCompleteSelectionData } from '@/utils';
 const qa = [
   {
     name: 'General',
@@ -41,8 +41,8 @@ const qa = [
       },
       {
         title: 'Will this fit my car? Is this a custom fit?  ',
-        content: `Certainly! Our car covers are tailored for a precise fit, using the vehicle's shape, with added elastic hems`,
-        altContent: `Certainly! Our car covers are tailored for a precise fit, using the vehicle's shape, with added elastic hems and mirror pockets to ensure a perfect fit.`
+        content: `Certainly! Our car covers are tailored for a precise fit, using the vehicle's shape, with added elastic hems to ensure a perfect fit.`,
+        altContent: `Certainly! Our car covers are tailored for a precise fit, using the vehicle's shape, with added elastic hems and mirror pockets to ensure a perfect fit.`,
       },
       {
         title: "What if I'm not happy with it? ",
@@ -73,7 +73,10 @@ const qa = [
         title: "Can dust blown under the cover scratch my car's paint?",
         content: `It can be a concern, but not with our covers. Our tight custom fit, elastic hem, and additional three straps underneath the car ensure the cover remains snug even in strong winds.`,
       },
-
+      {
+        title: 'Can I use your car cover on a windy day?',
+        content: `Yes, this car cover comes with an Anti-Gust 3-Strap system that holds the cover from the front, middle, and back, even in winds of up to 50 mph. Say goodbye to playing "find the car cover" in your neighbor's tree!`,
+      },
     ],
   },
   {
@@ -102,7 +105,7 @@ const qa = [
 ];
 
 interface AccordionProps {
-  isMirror:boolean;
+  isMirror: boolean;
   titleName: string;
   value: any;
   index: number;
@@ -117,9 +120,10 @@ export const AccordingListedItems = ({
   accordionState,
   handleAccordionState,
 }: AccordionProps) => {
+  console.log('Alt Content:', value.altContent);
   return (
     <AccordionItem
-      className={`${accordionState === `item-${index}-${titleName}` ? 'bg-[#F9F9FB]' : 'bg-white'}  border-t p-2`}
+      className={`${accordionState === `item-${index}-${titleName}` ? 'bg-[#F9F9FB]' : 'bg-white'}  border-t p-2 lg:pl-7`}
       value={`item-${index}-${titleName}`}
     >
       <AccordionTrigger
@@ -131,14 +135,12 @@ export const AccordingListedItems = ({
               ? ''
               : `item-${index}-${titleName}`
           );
-
-          track(`Opened Q&A${value.title}`);
         }}
       >
         {value.title}
       </AccordionTrigger>
       <AccordionContent className="text-sm font-normal  text-[#636363]   md:text-lg">
-        {!isMirror ? value.content : value.altContent}
+        {isMirror && value.altContent ? value.altContent : value.content}
       </AccordionContent>
     </AccordionItem>
   );
@@ -146,8 +148,16 @@ export const AccordingListedItems = ({
 
 export function QuestionsAccordion() {
   const store = useStoreContext();
+  if (!store) throw new Error('Missing Provider in the tree');
   const selectedProduct = useStore(store, (s) => s.selectedProduct);
-  const isMirror = detectMirrors(selectedProduct.sku)
+  const modelData = useStore(store, (s) => s.modelData);
+  const {
+    completeSelectionState: { isComplete },
+  } = getCompleteSelectionData({
+    data: modelData,
+  });
+  const isMirror = isComplete && detectMirrors(selectedProduct.sku ?? '');
+
   const [accordionOpen, setAccordionOpen] = useState('');
   const [open, setOpen] = useState(false);
   const [dialogOpen, setDialogOpen] = useState(false);
@@ -220,7 +230,7 @@ export function QuestionsAccordion() {
           qa?.map(({ name, questions }, index) => {
             return (
               <div key={`${name + index}`}>
-                <p className="my-2 mt-[36px] bg-white	px-2 text-2xl font-medium  capitalize text-[#C95656] lg:mt-20">
+                <p className="my-2 mt-[36px] bg-white	px-2 text-lg font-medium capitalize text-[#C95656] lg:mt-20 lg:text-2xl lg:pb-7 lg:pl-7">
                   {name.toLowerCase()}
                 </p>
 
@@ -303,51 +313,53 @@ export function QuestionsAccordion() {
             ) : (
               <div className="grid gap-4 py-4 pt-[38px]">
                 <div className="flex flex-col">
-                  <div className='flex flex-col '>        
-                  <label htmlFor="name" className="pl-2 pb-[6px] font-bold capitalize		">
-                    Name
-                  </label>
-                  <input
-                    className="rounded-lg border border-[#9C9C9C] p-2"
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                    name="name"
-                    type="text"
-                    placeholder="Your name"
-                  />
+                  <div className="flex flex-col ">
+                    <label
+                      htmlFor="name"
+                      className="pb-[6px] pl-2 font-bold capitalize		"
+                    >
+                      Name
+                    </label>
+                    <input
+                      className="rounded-lg border border-[#9C9C9C] p-2"
+                      value={name}
+                      onChange={(e) => setName(e.target.value)}
+                      name="name"
+                      type="text"
+                      placeholder="Your name"
+                    />
                   </div>
-                  <div className='flex flex-col py-[16px]'>
-
-                 
-                  <label htmlFor="email" className="pl-2 pb-[6px] font-bold capitalize		 ">
-                    Email
-                  </label>
-                  <input
-                    className="rounded-lg border border-[#9C9C9C] p-2"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    name="email"
-                    type="text"
-                    placeholder="Your email"
-                  />
-                   </div>
-                   <div className='flex flex-col pb-[22px]'>
-
-                
-                  <label
-                    htmlFor="leave_question"
-                    className="pl-2 font-bold capitalize pb-[6px]		"
-                  >
-                    Leave a question
-                  </label>
-                  <textarea
-                    className="h-[150px] rounded-lg border border-[#9C9C9C] p-2"
-                    value={message}
-                    onChange={(e) => setMessage(e.target.value)}
-                    name="leave_question"
-                    placeholder="Write your question here."
-                  />
-                     </div>
+                  <div className="flex flex-col py-[16px]">
+                    <label
+                      htmlFor="email"
+                      className="pb-[6px] pl-2 font-bold capitalize		 "
+                    >
+                      Email
+                    </label>
+                    <input
+                      className="rounded-lg border border-[#9C9C9C] p-2"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      name="email"
+                      type="text"
+                      placeholder="Your email"
+                    />
+                  </div>
+                  <div className="flex flex-col pb-[22px]">
+                    <label
+                      htmlFor="leave_question"
+                      className="pb-[6px] pl-2 font-bold capitalize		"
+                    >
+                      Leave a question
+                    </label>
+                    <textarea
+                      className="h-[150px] rounded-lg border border-[#9C9C9C] p-2"
+                      value={message}
+                      onChange={(e) => setMessage(e.target.value)}
+                      name="leave_question"
+                      placeholder="Write your question here."
+                    />
+                  </div>
                 </div>
                 {formState.successMessage ? (
                   <div className="w-[200px]">
