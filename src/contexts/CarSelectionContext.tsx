@@ -1,9 +1,9 @@
 'use client';
-import { TReviewData } from '@/lib/db';
+import { TReviewData } from '@/lib/types/review';
 // import CarCoverSelector from './CarCoverSelector';
 import { createStore } from 'zustand';
 import { createContext, useRef } from 'react';
-import { useParams, useRouter } from 'next/navigation';
+import { notFound, useParams, useRouter } from 'next/navigation';
 import { compareRawStrings } from '@/lib/utils';
 import {
   IProductData,
@@ -49,6 +49,7 @@ export interface ICarCoverSelectionState extends ICarCoverProps {
   query: TQuery;
   paramsYear: string;
   setReviewData: (newReviewData: TReviewData[]) => void;
+  addReviewData: (data: TReviewData[]) => void;
   setReviewDataSummary: (newReviewDataSummary: TProductReviewSummary) => void;
   reviewImageTracker: Record<string, boolean>;
   setReviewImageTracker: (newImageTracker: Record<string, boolean>) => void;
@@ -86,7 +87,9 @@ const createCarSelectionStore = ({
         compareRawStrings(model.submodel2, queryParams.submodel2 as string)
       )
     : initialDataWithSubmodels;
-
+  if (initialDataWithSecondSubmodels.length === 0) {
+    notFound();
+  }
   const reviewImageTracker: Record<string, boolean> = {};
 
   initialReviewData.forEach((reviewData) => {
@@ -202,6 +205,8 @@ const createCarSelectionStore = ({
     setReviewData: (newReviewData: TReviewData[]) => {
       set(() => ({ reviewData: newReviewData }));
     },
+    addReviewData: (data: TReviewData[]) =>
+      set((state) => ({ reviewData: [...state.reviewData, ...data] })),
     reviewDataSummary: initialReviewDataSummary,
     setReviewDataSummary: (newReviewDataSummary: TProductReviewSummary) => {
       set(() => ({ reviewDataSummary: newReviewDataSummary }));
@@ -227,7 +232,7 @@ const CarSelectionProvider = ({
   initialState,
 }: {
   children: React.ReactNode;
-  initialState: any
+  initialState: any;
 }) => {
   const {
     modelData: modelDataProps,

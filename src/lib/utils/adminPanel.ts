@@ -1,3 +1,4 @@
+import { cleanPhoneInput } from './../../app/(noFooter)/checkout/utils/index';
 import { PaymentIntent, PaymentMethod } from '@stripe/stripe-js';
 
 import {
@@ -6,6 +7,8 @@ import {
 } from './date';
 import { Tables } from '../db/types';
 import { TPayPalCaptureOrder, PayPalCompleteOrder } from '../types/paypal';
+import parsePhoneNumberFromString from 'libphonenumber-js';
+import { formatToE164 } from '../utils';
 
 type TOrdersDB = Tables<'_Orders'>;
 
@@ -25,6 +28,8 @@ export const mapPaymentIntentIdToOrder = (
     transaction_id: id,
     payment_status: status,
     skus: metadata.skus,
+    total_original_amount: Number(metadata.total_original_amount),
+    total_discount_amount: Number(metadata.total_discount_amount),
   };
 };
 
@@ -44,6 +49,9 @@ export const mapPaymentIntentAndMethodToOrder = (
     shipping,
   } = paymentIntentInput;
   const { type, card, billing_details } = paymentMethodInput;
+
+  const formattedPhone = formatToE164(billing_details.phone as string);
+
   return {
     order_id: metadata.orderId,
     order_date: convertUnixTimestampToISOString(created),
@@ -65,7 +73,7 @@ export const mapPaymentIntentAndMethodToOrder = (
     payment_date: getCurrentTimeInISOFormat(),
     customer_name: shipping?.name,
     customer_email: billing_details.email,
-    customer_phone: billing_details.phone,
+    customer_phone: formattedPhone, // Stored in E.164 format
     shipping_address_line_1: shipping?.address?.line1,
     shipping_address_line_2: shipping?.address?.line2,
     shipping_address_city: shipping?.address?.city,
@@ -108,13 +116,15 @@ export const mapPaymentMethodToCustomer = (
   const { shipping } = paymentIntentInput;
   const { billing_details } = paymentMethodInput;
   const splitName: string[] = billing_details?.name?.split(' ') || [];
+  const formattedPhone = formatToE164(billing_details.phone as string);
+
   return {
     address: billing_details?.address?.line1,
     address_2: billing_details?.address?.line2,
     city: billing_details?.address?.city,
     last_name: splitName[splitName.length - 1],
     name: splitName[0],
-    phone: billing_details?.phone,
+    phone: formattedPhone,
     pincode: billing_details?.address?.postal_code,
     state: billing_details?.address?.state,
     email: billing_details.email,
@@ -149,7 +159,6 @@ export const mapPaypalCompletionToOrder = (
   phone: string,
   customer_id: string
 ) => {
-  // console.log('[mapPaypalCompletionToOrder,PaypalPayload]', paypalPayload);
   const { id, status, purchase_units, payment_source, payer } = paypalPayload;
   const { reference_id: order_id, shipping, payments } = purchase_units[0];
   return {

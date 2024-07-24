@@ -1,9 +1,8 @@
-import { TReviewData, getProductData, getProductMetadata } from '@/lib/db';
+import { getProductData, getProductMetadata } from '@/lib/db';
 import { notFound, redirect } from 'next/navigation';
 import CarPDP from '@/app/(main)/[productType]/components/CarPDP';
 import { TPathParams } from '@/utils';
 import {
-  TProductReviewSummary,
   // filterReviewImages,
   getAllReviewsWithImages,
   getProductReviewSummary,
@@ -11,6 +10,7 @@ import {
 } from '@/lib/db/review';
 import { deslugify } from '@/lib/utils';
 import { PREMIUM_PLUS_URL_PARAM } from '@/lib/constants';
+import { TProductReviewSummary, TReviewData } from '@/lib/types/review';
 
 //TODO: Refactor code so we can generate our dynamic paths as static HTML for performance
 
@@ -35,7 +35,7 @@ import { PREMIUM_PLUS_URL_PARAM } from '@/lib/constants';
 //     year: year,
 //   }));
 // }
-export const revalidate = 0;
+export const revalidate = 300;
 
 export async function generateMetadata({ params }: { params: TPathParams }) {
   const desluggedProductType = deslugify(params.productType).slice(
@@ -83,6 +83,7 @@ export default async function CarPDPDataLayer({
     [modelData, reviewData, reviewDataSummary, reviewImages] =
       await Promise.all([
         getProductData({
+          type: typeString,
           model: params.model,
           make: params.make,
           year: params.year,
@@ -91,29 +92,24 @@ export default async function CarPDPDataLayer({
         getProductReviewsByPage(
           {
             productType: typeString,
-            make: params.make,
-            model: params.model,
-            year: params.year,
           },
           {
             pagination: {
               page: 0,
               limit: 8,
             },
+            sort: [
+              { field: 'sku', order: 'asc' },
+              { field: 'helpful', order: 'desc', nullsFirst: false },
+            ],
           }
         ),
         getProductReviewSummary({
           productType: typeString,
-          make: params?.make,
-          model: params.model,
-          year: params.year,
         }),
         getAllReviewsWithImages(
           {
             productType: typeString,
-            make: params?.make,
-            model: params.model,
-            year: params.year,
           },
           {}
         ),

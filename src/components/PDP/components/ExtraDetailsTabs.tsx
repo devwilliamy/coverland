@@ -11,7 +11,6 @@ import { useMediaQuery } from '@mantine/hooks';
 import { Separator } from '@/components/ui/separator';
 import ShippingPolicyContent from '@/components/policy/ShippingPolicyContent';
 import WarrantyPolicyContent from '@/components/policy/WarrantyPolicyContent';
-import SeatCoverReviewSection from '@/app/(main)/seat-covers/components/SeatCoverReviewSection';
 
 type TabsObj = {
   title: string;
@@ -189,11 +188,7 @@ export default function ExtraDetailsTabs() {
         </div>
         <Separator className="h-5 border-y-[1px] border-y-[#DADADA] bg-[#F1F1F1] lg:h-10" />
         <div id="Reviews">
-          {isSeatCover ? (
-            <SeatCoverReviewSection showHeader={false} />
-          ) : (
-            <ReviewSection showHeader />
-          )}
+          <ReviewSection showHeader />
         </div>
         <div id="Q&A">
           <QuestionsAccordion />

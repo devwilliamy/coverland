@@ -406,8 +406,6 @@ export const US_STATES_ABBRV_MAP: Record<string, string> = {
   // AA: 'Armed Forces Americas'
 };
 
-
-
 export const SHIPPING_RATES = [
   {
     shipping_type: 'Free Shipping',
@@ -450,9 +448,9 @@ export const slugToCoverType = {
   premium: 'Premium',
   'standard-pro': 'Standard Pro',
   standard: 'Standard',
-  'leatherette': 'Leatherette',
-  'leather': 'Leather',
-  'Leather': 'Leather',
+  leatherette: 'Leatherette',
+  leather: 'Leather',
+  Leather: 'Leather',
 };
 
 export const PRODUCT_PRICING_DATA = {
@@ -951,16 +949,16 @@ export const BASE_URL =
       ? 'https://coverland-2-0.vercel.app'
       : 'http://localhost:3000';
 
-export const CAR_COVERS = 'Car Covers'
-export const SUV_COVERS = 'SUV Covers'
-export const TRUCK_COVERS = 'Truck Covers'
-export const SEAT_COVERS = 'Seat Covers'
-export const CAR_COVERS_URL_PARAM = 'car-covers'
-export const SUV_COVERS_URL_PARAM = 'suv-covers'
-export const TRUCK_COVERS_URL_PARAM = 'truck-covers'
-export const SEAT_COVERS_URL_PARAM = 'seat-covers'
-export const SEAT_COVERS_LEATHER_URL_PARAM = 'seat-covers/leather'
-export const SEAT_COVERS_URL_PARAM_WITH_SLASH = '/seat-covers'
+export const CAR_COVERS = 'Car Covers';
+export const SUV_COVERS = 'SUV Covers';
+export const TRUCK_COVERS = 'Truck Covers';
+export const SEAT_COVERS = 'Seat Covers';
+export const CAR_COVERS_URL_PARAM = 'car-covers';
+export const SUV_COVERS_URL_PARAM = 'suv-covers';
+export const TRUCK_COVERS_URL_PARAM = 'truck-covers';
+export const SEAT_COVERS_URL_PARAM = 'seat-covers';
+export const SEAT_COVERS_LEATHER_URL_PARAM = 'seat-covers/leather';
+export const SEAT_COVERS_URL_PARAM_WITH_SLASH = '/seat-covers';
 
 export const PREMIUM_PLUS = 'Premium Plus';
 export const PREMIUM = 'Premium';
@@ -970,3 +968,67 @@ export const PREMIUM_PLUS_URL_PARAM = 'premium-plus';
 export const PREMIUM_URL_PARAM = 'premium';
 export const STANDARD_PRO_URL_PARAM = 'standard-pro';
 export const STANDARD_URL_PARAM = 'standard';
+
+export const SHIPPING_METHOD = 'Standard: UPS Ground - Free Shipping';
+
+export const NO_DISCOUNT_LOWER_BOUND = 0;
+export const NO_DISCOUNT_UPPER_BOUND = 2;
+export const DISCOUNT_25_LOWER_BOUND = 3;
+export const DISCOUNT_25_UPPER_BOUND = 5;
+
+export const GEORGE_DEFAULT_ADDRESS_DATA = {
+  email: {
+    value: 'george.icarcover@gmail.com',
+    visited: true,
+    message: '',
+    error: false,
+  },
+  firstName: {
+    value: 'George',
+    visited: true,
+    message: '',
+    error: false,
+  },
+  lastName: {
+    value: 'Anumba',
+    visited: true,
+    message: '',
+    error: false,
+  },
+  line1: {
+    value: '1231 S Hill St',
+    visited: true,
+    message: '',
+    error: false,
+  },
+  line2: {
+    value: 'P.O. Box 424',
+    visited: true,
+    message: '',
+    error: false,
+  },
+  city: {
+    value: 'Los Angeles',
+    visited: true,
+    message: '',
+    error: false,
+  },
+  state: {
+    value: 'CA',
+    visited: true,
+    message: '',
+    error: false,
+  },
+  postal_code: {
+    value: '90015',
+    visited: true,
+    message: '',
+    error: false,
+  },
+  phoneNumber: {
+    value: '+1 424 424 4242',
+    visited: true,
+    message: '',
+    error: false,
+  },
+};

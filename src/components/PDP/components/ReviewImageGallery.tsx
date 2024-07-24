@@ -1,14 +1,12 @@
 'use client';
-
 import Image from 'next/image';
-import { Fragment, useContext, useEffect, useState } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 import { useStore } from 'zustand';
-import { CarSelectionContext } from '@/contexts/CarSelectionContext';
 import { ChevronDown, ChevronUp, X } from 'lucide-react';
 import { Dialog } from '@/components/ui/dialog';
 import { DialogContent } from '@radix-ui/react-dialog';
-import { TReviewData } from '@/lib/db';
-import { ReviewChevronLeft, ReviewChevronRight, ThumbsUpIcon } from '../icons';
+import { TReviewData } from '@/lib/types/review';
+import { ReviewChevronLeft, ReviewChevronRight } from '../icons';
 import WouldRecomend from './WouldRecomend';
 import { Rating } from '@mui/material';
 import { Separator } from '@/components/ui/separator';
@@ -45,7 +43,6 @@ const ReviewImageGallery = ({
   const [currentReview, setCurrentReview] = useState<TReviewData | null>(null);
   const [moreDetailsOpen, setMoreDetailsOpen] = useState(false);
   const [currentReviewImage, setCurrentReviewImage] = useState(0);
-
   const handleCloseMore = () => {
     moreDetailsOpen && setMoreDetailsOpen(false);
   };
@@ -150,8 +147,10 @@ const ReviewImageGallery = ({
                 </div>
               </div>
               <div className="flex gap-4 text-[12px] leading-[24px]">
-                <p className="text-[#1D8044]">Verified Purchase</p>
-                <WouldRecomend />
+                {currentReview.verified_status === 'yes' && (
+                  <p className="text-[#1D8044]">Verified Purchase</p>
+                )}
+                {currentReview.recommend === 'yes' && <WouldRecomend />}
               </div>
 
               <div className="flex flex-col pt-1.5 lg:mt-0 lg:gap-[104px]">
@@ -182,7 +181,7 @@ const ReviewImageGallery = ({
                       <p>
                         {isHelpful
                           ? Number(currentReview?.helpful) + 1
-                          : currentReview.helpful}
+                          : currentReview.helpful ?? 0}
                       </p>
                     </div>
                   </div>

@@ -28,15 +28,19 @@ export async function paypalCreateOrder(
   shipping: number,
   shippingAddress: StripeAddress
 ): Promise<string | null> {
-  const itemsForPaypal = items.map((item) => ({
-    name: `${item.parent_generation} ${item.display_id} ${item.model} ${item.type} ${item.display_color}`,
-    quantity: item.quantity?.toString(),
-    sku: item.sku,
-    unit_amount: {
-      currency_code: 'USD',
-      value: item.msrp,
-    },
-  }));
+  const itemsForPaypal = items.map((item) => {
+    const itemPrice = item.preorder && item.preorder_discount ? item.msrp - item.preorder_discount : item.msrp;
+  
+    return {
+      name: `${item.parent_generation} ${item.display_id} ${item.model} ${item.type} ${item.display_color}`,
+      quantity: item.quantity?.toString(),
+      sku: item.sku,
+      unit_amount: {
+        currency_code: 'USD',
+        value: itemPrice,
+      },
+    };
+  });
 
   const shippingForPaypal = {
     type: 'SHIPPING',
@@ -170,13 +174,30 @@ export async function paypalCaptureOrder(orderID: string, phone: string) {
     });
 
     if (!response.ok) {
-      throw new Error('Network response was not ok');
+      const { error } = await response.json();
+      /*
+        Full UNPROCESSABLE_ENTITY Error:
+        An unexpected error occurred: 
+          Error: {
+            "name":"UNPROCESSABLE_ENTITY",
+            "details":[{"issue":"INSTRUMENT_DECLINED","description":"The instrument presented  was either declined by the processor or bank, or it can't be used for this payment."}],
+            "message":"The requested action could not be performed, semantically incorrect, or failed business validation.","debug_id":"2df44f01e4caa","links":[{"href":"https://developer.paypal.com/docs/api/orders/v2/#error-INSTRUMENT_DECLINED","rel":"information_link","method":"GET"},{"href":"https://www.sandbox.paypal.com/checkoutnow?token=61M72432BD444010V",
+            "rel":"redirect",
+            "method":"GET"}]}
+      */
+      if (error.includes('UNPROCESSABLE_ENTITY')) {
+        throw new Error(
+          `UNPROCESSABLE_ENTITY - INSTRUMENT_DECLINED: The instrument presented  was either declined by the processor or bank, or it can't be used for this payment.`
+        );
+      }
+      throw new Error(`Network response was not ok`);
     }
+
     const data = await response.json();
-    
     return data;
   } catch (err) {
-    console.error(err);
+    console.error(`[PaypalCaptureOrder] Error: `, err);
+    throw err;
   }
 }
 
@@ -235,3 +256,14 @@ export const getEligibleShippingOptions = () =>
     // }
     // return finalOptions;
   };
+
+export const cleanPhoneInput = (inputString: string) => {
+  const cleanedString = inputString
+    .replaceAll(' ', '')
+    .replaceAll('(', '')
+    .replaceAll(')', '')
+    .replaceAll('-', '')
+    .replaceAll('+', '');
+
+  return cleanedString;
+};

@@ -39,6 +39,11 @@ const nextConfig = {
         hostname: 'devstaging.shop',
         pathname: '/**',
       },
+      {
+        protocol: 'https',
+        hostname: 'coverland.sfo3.cdn.digitaloceanspaces.com',
+        pathname: '/**',
+      },
     ],
   },
   typescript: {

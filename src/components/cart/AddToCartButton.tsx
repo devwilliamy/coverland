@@ -1,30 +1,49 @@
 import { Button } from '@/components/ui/button';
 import { useState } from 'react';
-import { TPathParams } from '../../utils';
-import { useParams } from 'next/navigation';
+import { getCompleteSelectionData } from '../../utils';
 import CarMagnify from '@/components/icons/CarMagnify';
+import { FaSpinner } from 'react-icons/fa';
+import useStoreContext from '@/hooks/useStoreContext';
+import { useStore } from 'zustand';
 
 type AddToCartButtonProps = {
   handleAddToCartClicked: () => void;
+  preorder: boolean;
+  isColorAvailable: boolean;
+  isLoading: boolean;
 };
 export default function AddToCartButton({
-  handleAddToCartClicked
+  preorder,
+  isColorAvailable,
+  handleAddToCartClicked,
+  isLoading,
 }: AddToCartButtonProps) {
-  const params = useParams<TPathParams>();
-  const isFinalSelection = params?.year;
-  const [nonFinalButtonText, setNonFinalButtonText] = useState('Find your Custom-Cover');
+  const store = useStoreContext();
+  if (!store) throw new Error('Missing Provider in the tree');
+
+  const modelData = useStore(store, (s) => s.modelData);
+
+  const {
+    completeSelectionState: { isComplete },
+  } = getCompleteSelectionData({
+    data: modelData,
+  });
+  const [nonFinalButtonText, setNonFinalButtonText] = useState(
+    'Find your Custom-Cover'
+  );
   const blinkTime = 2;
   const blinkVel = 10;
-  
+
   return (
     <Button
-      className=" h-[48px] w-full rounded bg-[#BE1B1B] text-lg font-bold uppercase text-white disabled:bg-[#BE1B1B] lg:h-[62px]"
+      className="h-[48px] w-full rounded bg-[#BE1B1B] text-lg font-bold uppercase text-white disabled:bg-[#BE1B1B] lg:h-[62px]"
       onClick={handleAddToCartClicked}
+      disabled={!isColorAvailable}
     >
       <div
         className="flex gap-[10px]"
         style={
-          !isFinalSelection
+          !isComplete
             ? {
                 animation: `blink ${blinkTime}s cubic-bezier(0,-${blinkVel},1,${blinkVel}) infinite`,
               }
@@ -39,14 +58,22 @@ export default function AddToCartButton({
           });
         }}
       >
-        {nonFinalButtonText === 'Start Here' && (
-          // <Image alt="car-magnifying-glass" src={CarMag} />
-          <div className="flex min-h-[30px] min-w-[67px]">
-            <CarMagnify />
-          </div>
+        {isLoading ? (
+          <FaSpinner className="animate-spin" />
+        ) : (
+          nonFinalButtonText === 'Start Here' && (
+            // <Image alt="car-magnifying-glass" src={CarMag} />
+            <div className="flex min-h-[30px] min-w-[67px]">
+              <CarMagnify />
+            </div>
+          )
         )}
-        <p className="">
-          {!isFinalSelection ? nonFinalButtonText : 'Add To Cart'}
+        <p>
+          {!isComplete
+            ? nonFinalButtonText
+            : preorder
+              ? 'Pre-order & Save Big'
+              : 'Add To Cart'}
         </p>
       </div>
     </Button>

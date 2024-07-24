@@ -17,6 +17,7 @@ import { SeatCoverSelectionContext } from '@/contexts/SeatCoverContext';
 import { useStore } from 'zustand';
 import ProductVideo from '@/components/PDP/ProductVideo';
 import { Play } from 'lucide-react';
+import { isFullSet } from '@/lib/utils';
 
 export default function SeatCoverCarousel() {
   const store = useContext(SeatCoverSelectionContext);
@@ -24,7 +25,11 @@ export default function SeatCoverCarousel() {
     throw new Error('Missing SeatCoverSelectionContext.Provider in the tree');
   const selectedProduct = useStore(store, (s) => s.selectedProduct);
 
-  const galleryImages = selectedProduct?.product?.split(',');
+  const isFrontCover =
+    isFullSet(selectedProduct.display_set) === 'front' ? true : false;
+  const galleryImages = isFrontCover
+    ? selectedProduct?.product?.split(',').slice(0, -3)
+    : selectedProduct?.product?.split(',');
   const [api, setApi] = useState<CarouselApi>();
   const [current, setCurrent] = useState(0);
 

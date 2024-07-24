@@ -26,6 +26,9 @@ type ProductDetail = {
   id: number;
   sku: string;
   msrp: number | null;
+  price: number | null;
+  preorder: boolean;
+  preorder_discount: number | null;
 };
 
 type OrderItem = {
@@ -35,6 +38,8 @@ type OrderItem = {
   product_id: number;
   quantity: number;
   price: number;
+  original_price: number;
+  discount_amount: number;
 };
 
 const createOrderItems = (
@@ -54,13 +59,20 @@ const createOrderItems = (
       throw new Error(`No product details found for SKU: ${sku}`);
     }
 
-    const price = Number(product.msrp) * quantity;
+    const price =
+      product.preorder && product.preorder_discount
+        ? (Number(product.msrp) - Number(product.preorder_discount)) * quantity
+        : Number(product.msrp) * quantity;
+    const original_price = Number(product.price) * quantity;
+    const discount_amount = original_price - price;
 
     const orderItem: OrderItem = {
       order_id: order_id,
       product_id: product.id,
       quantity: quantity,
-      price: price,
+      price: parseFloat(price.toFixed(2)),
+      original_price: parseFloat(original_price.toFixed(2)),
+      discount_amount: parseFloat(discount_amount.toFixed(2)),
     };
 
     return orderItem;

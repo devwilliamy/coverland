@@ -29,16 +29,19 @@ export const generateOrderId = async (
   uniqueNumber: string
 ): Promise<string> => {
   const brand = uniqueNumber === 'TEST' ? 'CL-TEST' : 'CL';
+  const preorder = items.some((item) => item.preorder);
   const date = formatDate(new Date()); // Current date in YYMMDD format
   const productInitials = getProductInitials(items); // Initials based on item type
   const sequence = await getOrderIdSequence({
     productType: productInitials,
     date,
   });
+  const orderIdPrefix = preorder ? `${brand}-PRE` : brand;
+  const orderId = `${orderIdPrefix}-${date}-${productInitials}-${sequence}`;
   console.log(
-    `[Stripe.util.generateOrderId}: ${brand}-${date}-${productInitials}-${sequence}`
+    `[Stripe.util.generateOrderId}: ${orderId}`
   );
-  return `${brand}-${date}-${productInitials}-${sequence}`;
+  return orderId;
 };
 
 export const formatDate = (date: Date): string => {

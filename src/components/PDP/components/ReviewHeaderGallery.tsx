@@ -1,7 +1,5 @@
-'use client';
-
-import { useContext, useEffect, useState } from 'react';
-import { CarSelectionContext } from '@/contexts/CarSelectionContext';
+'use client';;
+import { Fragment, useEffect, useState } from 'react';
 import { useStore } from 'zustand';
 import ReviewImagesSheet from './ReviewImagesSheet';
 import Image from 'next/image';
@@ -63,7 +61,7 @@ export default function ReviewHeaderGallery() {
               {reviewImages?.slice(0, 3).map((image, index) => {
                 if (image)
                   return (
-                    <>
+                    <Fragment key={`review-card-image-${index}`}>
                       <span className="flex gap-2 overflow-x-auto">
                         <DialogTrigger
                           onClick={() => {
@@ -77,7 +75,6 @@ export default function ReviewHeaderGallery() {
                           }}
                         >
                           <Image
-                            key={`review-card-image-${index}`}
                             height={270}
                             width={160}
                             className=" aspect-square  h-full w-full items-center justify-center object-cover lg:max-w-[207px]"
@@ -107,7 +104,7 @@ export default function ReviewHeaderGallery() {
                         </div>
                         <div className="relative flex min-h-full min-w-full">
                           {imageLoading && (
-                            <div className="flex min-h-full min-w-full animate-pulse items-center justify-center rounded-md bg-[#BE1B1B]/50">
+                            <div className="flex min-h-full min-w-full animate-pulse items-center justify-center rounded-md bg-[#F0F0F0]/50">
                               <AiOutlineLoading3Quarters
                                 className="animate-spin"
                                 fill="#BE1B1B"
@@ -122,10 +119,11 @@ export default function ReviewHeaderGallery() {
                             }}
                           >
                             <CarouselContent>
-                              {reviewImages?.map((img) => (
-                                <CarouselItem>
+                              {reviewImages?.map((img, index) => (
+                                <CarouselItem
+                                  key={`selected-review-card-image-${index}`}
+                                >
                                   <Image
-                                    key={`selected-review-card-image`}
                                     width={800}
                                     height={800}
                                     className="flex aspect-square h-full w-full items-center"
@@ -153,7 +151,7 @@ export default function ReviewHeaderGallery() {
                           </Carousel>
                         </div>
                       </DialogContent>
-                    </>
+                    </Fragment>
                   );
               })}
             </Dialog>
@@ -173,7 +171,7 @@ export default function ReviewHeaderGallery() {
               {reviewImages?.slice(0, 5).map((image, index) => {
                 if (image)
                   return (
-                    <>
+                    <Fragment key={`review-card-image-${index}`}>
                       <span className="flex gap-2 overflow-x-auto">
                         <DialogTrigger
                           onClick={() => {
@@ -187,7 +185,6 @@ export default function ReviewHeaderGallery() {
                           }}
                         >
                           <Image
-                            key={`review-card-image-${index}`}
                             height={270}
                             width={160}
                             className=" aspect-square  h-full w-full items-center justify-center object-cover lg:max-w-[207px]"
@@ -217,7 +214,7 @@ export default function ReviewHeaderGallery() {
                         </div>
                         <div className="relative flex min-h-full min-w-full">
                           {imageLoading && (
-                            <div className="flex min-h-full min-w-full animate-pulse items-center justify-center rounded-md bg-[#BE1B1B]/50">
+                            <div className="flex min-h-full min-w-full animate-pulse items-center justify-center rounded-md bg-[#999999]/50">
                               <AiOutlineLoading3Quarters
                                 className="animate-spin"
                                 fill="#BE1B1B"
@@ -232,10 +229,11 @@ export default function ReviewHeaderGallery() {
                             }}
                           >
                             <CarouselContent>
-                              {reviewImages?.map((img) => (
-                                <CarouselItem>
+                              {reviewImages?.map((img, index) => (
+                                <CarouselItem
+                                  key={`selected-review-card-image-${index}`}
+                                >
                                   <Image
-                                    key={`selected-review-card-image`}
                                     width={800}
                                     height={800}
                                     className="flex aspect-square h-full w-full items-center"
@@ -263,7 +261,7 @@ export default function ReviewHeaderGallery() {
                           </Carousel>
                         </div>
                       </DialogContent>
-                    </>
+                    </Fragment>
                   );
               })}
             </Dialog>

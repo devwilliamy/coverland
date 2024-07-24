@@ -1,9 +1,8 @@
-import { TReviewData } from '@/lib/db';
 import { useMediaQuery } from '@mui/material';
 import { FaRegThumbsUp, FaThumbsUp } from 'react-icons/fa6';
 import WouldRecomend from './WouldRecomend';
 import ReviewCardGallery from './ReviewCardGallery';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import ReviewRatingStar from '@/components/icons/ReviewRatingStar';
 import {
   ChevronDown,
@@ -23,7 +22,7 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from '@/components/ui/carousel';
-import { DialogClose } from '@radix-ui/react-dialog';
+import { TReviewData } from '@/lib/types/review';
 
 export default function ReviewCard({
   review,
@@ -37,24 +36,40 @@ export default function ReviewCard({
   const [isHelpful, setIsHelpful] = useState(false);
   const [reviewDialogOpen, setReviewDialogOpen] = useState(false);
   const reviewImagesSplit = review.review_image?.split(',');
-  const [selectedImage, setSelectedImage] = useState('');
   const [imageLoading, setImageLoading] = useState(true);
   const isMobile = useMediaQuery('(max-width: 375px)');
   const isMobile2 = useMediaQuery('(max-width: 430px)');
   const [current, setCurrent] = useState(0);
   const [api, setApi] = useState<CarouselApi>();
+  const [selectedImageIndex, setSelectedImageIndex] = useState(0);
+  const scrollTo = useCallback(
+    (index: number) => api && api.scrollTo(index),
+    [api]
+  );
 
   useEffect(() => {
     if (!api) {
       return;
     }
 
-    setCurrent(api.selectedScrollSnap() + 1);
+    // Currently if you try to click on an image, it's like it tries to scroll to it
+    // But doesn't. Weird thing is when you click on it, it finishes going to it. Not sure what's going on.
 
-    api.on('select', () => {
-      setCurrent(api.selectedScrollSnap() + 1);
-    });
-  }, [api]);
+    // api && scrollTo(selectedImageIndex);
+    // api.on('scroll', () => {
+    //   setSelectedImageIndex(api.selectedScrollSnap());
+    // });
+
+    const onSelect = () => {
+      setSelectedImageIndex(api.selectedScrollSnap());
+    };
+
+    api.on('select', onSelect);
+
+    return () => {
+      api.off('select', onSelect);
+    };
+  }, [api, selectedImageIndex, setSelectedImageIndex, scrollTo]);
   // const store = useContext(CarSelectionContext);
 
   function ReadMore() {
@@ -114,10 +129,10 @@ export default function ReviewCard({
       </div>
 
       <div className="flex gap-4 text-[12px] leading-[24px]">
-        <p className="text-[#1D8044]">Verified Purchase</p>
-        {review.rating_stars && review.rating_stars >= 3 ? (
-          <WouldRecomend />
-        ) : null}
+        {review.verified_status === 'yes' && (
+          <p className="text-[#1D8044]">Verified Purchase</p>
+        )}
+        {review.recommend === 'yes' && <WouldRecomend />}
       </div>
 
       <div className="flex justify-between pt-0.5 lg:mt-0 lg:gap-[104px]">
@@ -158,7 +173,9 @@ export default function ReviewCard({
             {isHelpful ? <FaThumbsUp fill="#1D8044" /> : <FaRegThumbsUp />}
 
             <p>Helpful</p>
-            <p>({isHelpful ? Number(review?.helpful) + 1 : review.helpful})</p>
+            <p>
+              ({isHelpful ? Number(review?.helpful) + 1 : review.helpful ?? 0})
+            </p>
           </div>
         </div>
       )}
@@ -177,19 +194,18 @@ export default function ReviewCard({
                 if (image)
                   return (
                     <DialogTrigger
+                      key={`review-card-image-${index}`}
                       onClick={() => {
-                        const thisImage = reviewImagesSplit[index];
                         if (!imageLoading) {
                           setImageLoading(true);
                         }
-                        setSelectedImage(thisImage);
+                        setSelectedImageIndex(index);
                       }}
                     >
                       <Image
-                        key={`review-card-image-${index}`}
                         height={160}
                         width={160}
-                        className="flex aspect-square items-center"
+                        className="flex aspect-square items-center object-cover"
                         alt="review-card-image-trigger"
                         src={image}
                         onError={() => {
@@ -216,9 +232,9 @@ export default function ReviewCard({
                   }}
                 />
               </div>
-              <div className="relative flex min-h-full min-w-full">
+              <div className="relative flex min-w-full">
                 {imageLoading && (
-                  <div className="flex min-h-full min-w-full animate-pulse items-center justify-center rounded-md bg-[#BE1B1B]/50">
+                  <div className="flex h-96 min-w-full animate-pulse items-center justify-center rounded-md bg-[#F0F0F0]/50">
                     <AiOutlineLoading3Quarters
                       className="animate-spin"
                       fill="#BE1B1B"
@@ -233,13 +249,12 @@ export default function ReviewCard({
                   }}
                 >
                   <CarouselContent>
-                    {reviewImagesSplit?.map((img) => (
-                      <CarouselItem>
+                    {reviewImagesSplit?.map((img, index) => (
+                      <CarouselItem key={`selected-review-card-image-${index}`}>
                         <Image
-                          key={`selected-review-card-image`}
                           width={800}
                           height={800}
-                          className="flex aspect-square h-full w-full items-center"
+                          className="flex aspect-square items-center object-cover"
                           alt="selected-review-card-image-alt"
                           src={img}
                         />
@@ -250,12 +265,22 @@ export default function ReviewCard({
                     <CarouselPrevious
                       size={'icon'}
                       className="left-0 border-none bg-transparent hover:bg-transparent md:-left-20"
+                      onClick={() => {
+                        api.scrollPrev();
+                        setSelectedImageIndex((i) => i - 1);
+                      }}
                     >
                       <ChevronLeft size={40} stroke="white" />
                     </CarouselPrevious>
                   )}
                   {api?.canScrollNext() && (
-                    <CarouselNext className="right-0 border-none bg-transparent hover:bg-transparent md:-right-20">
+                    <CarouselNext
+                      className="right-0 border-none bg-transparent hover:bg-transparent md:-right-20"
+                      onClick={() => {
+                        api.scrollNext();
+                        setSelectedImageIndex((i) => i + 1);
+                      }}
+                    >
                       <ChevronRight size={40} stroke="white" />
                     </CarouselNext>
                   )}

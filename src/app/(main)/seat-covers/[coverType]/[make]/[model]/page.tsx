@@ -5,16 +5,15 @@ import {
   getSeatCoverProductsByDisplayColor,
 } from '@/lib/db/seat-covers';
 import {
-  TProductReviewSummary,
-  TReviewData,
   getAllReviewsWithImages,
   getProductReviewSummary,
   getProductReviewsByPage,
 } from '@/lib/db/review';
 import { deslugify } from '@/lib/utils';
 import SeatCoverDataWrapper from '../../../components/SeatCoverDataWrapper';
+import { TReviewData, TProductReviewSummary } from '@/lib/types/review';
 
-export const revalidate = 0
+export const revalidate = 300;
 
 export type TCarCoverSlugParams = {
   make: string;
@@ -77,24 +76,24 @@ export default async function SeatCoverDataLayer({
           model: params.model,
         }),
         getProductReviewsByPage(
-          { productType: typeString, make: params.make, model: params.model },
+          { productType: typeString },
           {
             pagination: {
               page: 0,
               limit: 8,
             },
+            sort: [
+              { field: 'sku', order: 'asc' },
+              { field: 'helpful', order: 'desc', nullsFirst: false },
+            ],
           }
         ),
         getProductReviewSummary({
           productType: typeString,
-          make: params.make,
-          model: params.model,
         }),
         getAllReviewsWithImages(
           {
             productType: typeString,
-            make: params.make,
-            model: params.model,
           },
           {}
         ),

@@ -8,7 +8,6 @@ import {
   RELATIONS_PRODUCT_TABLE,
   RPC_GET_MAKE_RELATION,
   RPC_GET_UNIQUE_YEARS,
-  SEAT_COVERS_TABLE,
   TYPE_TABLE,
 } from './constants/databaseTableNames';
 
@@ -18,7 +17,7 @@ const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_KEY ?? '';
 const supabase = createClient<Database>(supabaseUrl, supabaseKey);
 
 export type TInitialProductDataDB = Tables<'Products'>;
-export type TReviewData = Tables<'reviews-2'>;
+export type TSeatCoverDataDB = Tables<'Products'>;
 
 //If the table you want to access isn't listed in TableRow,
 //generate new types in the Supabase dashboard to update
@@ -73,9 +72,11 @@ export async function getProductData({
     fetch = fetch.eq('model_slug', model);
   }
 
-  fetch = fetch.neq('quantity', '0');
+  if (type !== 'Seat Covers') {
+    fetch = fetch.neq('quantity', '0');
+  }
 
-  const { data, error } = await fetch.limit(1000);
+  const { data, error } = await fetch.limit(750);
 
   if (error) {
     throw new Error(error.message);
@@ -130,20 +131,10 @@ export async function getAllUniqueMakesByYear({
   typeId: string;
   yearId: string;
 }) {
-  const { data, error } =
-    // type === 'Seat Covers'
-    //   ? await supabase
-    //       .from(SEAT_COVERS_TABLE) // OR PRODUCT_DATA_TABLE
-    //       .select('make, make_slug')
-    //       .eq('type', type)
-    //       .eq('display_id', cover)
-    //       .like('year_options', `%${year}%`)
-    //       .order('make_slug', { ascending: true })
-    //   :
-    await supabase.rpc(RPC_GET_MAKE_RELATION, {
-      type_id_web: typeId,
-      year_id_web: yearId,
-    });
+  const { data, error } = await supabase.rpc(RPC_GET_MAKE_RELATION, {
+    type_id_web: typeId,
+    year_id_web: yearId,
+  });
 
   if (error) {
     throw new Error(error.message);
@@ -175,20 +166,27 @@ export async function getAllUniqueModelsByYearMake({
   typeId: string;
   yearId: string;
 }) {
-  const { data, error } = await supabase
+  let query = supabase
     .from(RELATIONS_PRODUCT_TABLE)
     .select(
       `*,Model(*),${PRODUCT_DATA_TABLE}(id,model,model_slug, parent_generation, submodel1, submodel2, submodel3, quantity)`
     )
     .eq('year_id', yearId)
     .eq('type_id', typeId)
-    .eq('make_id', makeId)
-    .neq(`${PRODUCT_DATA_TABLE}.quantity`, 0)
-    .order('name', { foreignTable: 'Model', ascending: false });
+    .eq('make_id', makeId);
+
+  if (type !== 'Seat Covers') {
+    query = query.neq(`${PRODUCT_DATA_TABLE}.quantity`, 0);
+  }
+
+  query = query.order('name', { foreignTable: 'Model', ascending: false });
+
+  const { data, error } = await query;
 
   if (error) {
     throw new Error(error.message);
   }
+
   const allProductData = data
     .map((relation) => relation[PRODUCT_DATA_TABLE])
     .filter((item) => item !== null);

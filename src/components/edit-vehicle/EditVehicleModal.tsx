@@ -50,7 +50,7 @@ export default function EditVehicleModal({
         <SheetTrigger className="flex h-full items-center justify-between text-left text-base text-[#1A1A1A]">
           <div className="my-2 border-l-2 border-l-[#C8C7C7] pl-8 pr-8">
             <p className="text-[10px] leading-[14px] ">Your Vehicle</p>
-            <p className=" text-[18px] font-[500] capitalize leading-[22px] text-[#1A1A1A]">
+            <p className=" text-[18px] font-[500] leading-[22px] text-[#1A1A1A]">
               {productName}
             </p>
             <h2 className="text-[12px] leading-[15px] text-[#8F8F8F]">

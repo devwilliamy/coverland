@@ -1,74 +1,23 @@
-import { ZodError, z } from 'zod';
+import { ZodError } from 'zod';
 
 import {
-  PRODUCT_REVIEWS_TABLE,
+  CAR_COVERS_REVIEWS_TABLE,
   RPC_GET_DISTINCT_REVIEW_IMAGES,
   RPC_GET_PRODUCT_REVIEWS_SUMMARY,
-  SEAT_PRODUCT_REVIEWS_TABLE,
+  SEAT_COVERS_REVIEWS_TABLE,
 } from '../constants/databaseTableNames';
-import { Tables } from '../types';
 import { getPagination } from '../utils';
 import { supabaseDatabaseClient } from '../supabaseClients';
 
-export type TReviewData = Tables<'reviews-2'>;
-
-export type TProductReviewsQueryFilters = {
-  productType?: 'Car Covers' | 'SUV Covers' | 'Truck Covers' | 'Seat Covers';
-  year?: string;
-  make?: string;
-  model?: string;
-};
-
-export type FilterParams = {
-  field: string;
-  operator: 'eq' | 'neq' | 'gt' | 'lt' | 'gte' | 'lte' | 'notnull';
-  value: string | number;
-};
-
-export type SortParams = {
-  field: string;
-  order: 'asc' | 'desc';
-};
-
-export type TProductReviewsQueryOptions = {
-  pagination?: {
-    page?: number;
-    limit?: number;
-  };
-  sort?: SortParams;
-  filters?: FilterParams[];
-  search?: string;
-};
-
-export type TProductReviewSummary = {
-  total_reviews: number;
-  average_score: number;
-};
-
-export type TProductReviewDistinctImages = {
-  rating_stars: number;
-  helpful: number;
-  reviewed_at: string;
-  gpt_review_id: string;
-  model: string;
-  year_generation: string;
-  submodel1: string;
-  submodel2: string;
-  mirror: string;
-  review_description: string;
-  make_slug: string;
-  review_title: string;
-  review_author: string;
-  review_image: string;
-  model_slug: string;
-  size: string;
-  sku: string;
-  parent_generation: string;
-  product_type: string;
-  product_name: string;
-  type: string;
-  make: string;
-};
+import {
+  TProductReviewsQueryFilters,
+  TProductReviewsQueryOptions,
+  ProductReviewsQueryFiltersSchema,
+  ProductReviewsQueryOptionsSchema,
+  TProductReviewDistinctImages,
+} from './types';
+import { TReviewData, TProductReviewSummary } from '@/lib/types/review';
+import { CAR_COVERS } from '@/lib/constants';
 
 export const generateSlug = (text: string) => {
   if (!text) return ''; // Return an empty string if text is falsy
@@ -93,44 +42,35 @@ export const generateSlug = (text: string) => {
   return slug.trim();
 };
 
-const FilterSchema = z.object({
-  field: z.string(),
-  operator: z.enum(['eq', 'neq', 'gt', 'lt', 'gte', 'lte', 'notnull']),
-  value: z.union([z.string(), z.number()]), // Adjust as necessary
-});
-
-const ProductReviewsQueryFiltersSchema = z.object({
-  productType: z.optional(
-    z.union([
-      z.literal('Car Covers'),
-      z.literal('SUV Covers'),
-      z.literal('Truck Covers'),
-      z.literal('Seat Covers'),
-    ])
-  ),
-  year: z.string().optional(),
-  make: z.string().optional(),
-  model: z.string().optional(),
-});
-
-const ProductReviewsQueryOptionsSchema = z.object({
-  pagination: z
-    .object({
-      page: z.number().optional().default(1),
-      limit: z.number().optional().default(8),
-    })
-    .optional()
-    .default({ page: 1, limit: 8 }),
-  sort: z
-    .object({
-      field: z.string().default('helpful'),
-      order: z.enum(['asc', 'desc']).default('desc'),
-    })
-    .optional()
-    .default({ field: 'helpful', order: 'desc' }),
-  filters: z.array(FilterSchema).optional(),
-  search: z.string().optional(),
-});
+/**
+ * Takes in an async function and will retry the function call after a delay
+ * @param fn
+ * @param retries
+ * @param delay
+ * @returns
+ */
+const retry = async <T>(
+  fn: () => Promise<T>,
+  retries: number = 3,
+  delay: number = 2000
+): Promise<T> => {
+  for (let attempt = 1; attempt <= retries; attempt++) {
+    try {
+      return await fn();
+    } catch (error) {
+      if (attempt < retries) {
+        console.warn(
+          `Attempt ${attempt} failed. Retrying in ${delay / 1000} seconds...`
+        );
+        await new Promise((res) => setTimeout(res, delay));
+      } else {
+        console.error(`All ${retries} attempts failed.`);
+        throw error;
+      }
+    }
+  }
+  throw new Error('Unexpected error in retry logic.');
+};
 
 export async function getProductReviewsByPage(
   productQueryFilters: TProductReviewsQueryFilters,
@@ -140,81 +80,75 @@ export async function getProductReviewsByPage(
   try {
     const validatedFilters =
       ProductReviewsQueryFiltersSchema.parse(productQueryFilters);
+
     const validatedOptions = ProductReviewsQueryOptionsSchema.parse(options);
-    const { productType, year, make, model } = validatedFilters;
+
+    const { productType } = validatedFilters;
+
     const {
       pagination: { page, limit },
       sort,
       filters,
       // search,
     } = validatedOptions;
+
     const { from, to } = getPagination(page, limit);
+    const fetchReviews = async () => {
+      const TABLE_NAME =
+        productType === CAR_COVERS
+          ? CAR_COVERS_REVIEWS_TABLE
+          : SEAT_COVERS_REVIEWS_TABLE;
+      let fetch = supabaseDatabaseClient
+        .from(TABLE_NAME)
+        .select(
+          'review_image,review_description,review_title,rating_stars,review_author,helpful,reviewed_at,verified_status,recommend'
+        )
+        .range(from, to);
 
-    let fetch = supabaseDatabaseClient
-      .from(PRODUCT_REVIEWS_TABLE)
-      .select('*')
-      .range(from, to);
+      // Dynamically apply filters
+      filters?.forEach(({ field, operator, value }) => {
+        switch (operator) {
+          case 'eq':
+            fetch = fetch.eq(field, value);
+            break;
+          case 'neq':
+            fetch = fetch.neq(field, value);
+            break;
+          case 'gt':
+            fetch = fetch.gt(field, value);
+            break;
+          case 'lt':
+            fetch = fetch.lt(field, value);
+            break;
+          case 'gte':
+            fetch = fetch.gte(field, value);
+            break;
+          case 'lte':
+            fetch = fetch.lte(field, value);
+            break;
+          case 'notnull':
+            fetch = fetch.not(field, 'is', null);
+            break;
+          // Add cases for other operators as needed
+          default:
+            break;
+        }
+      });
 
-    if (productType) {
-      fetch = fetch.eq('type', productType);
-    }
+      sort.forEach(({ field, order, nullsFirst }) => {
+        fetch = fetch.order(field, { ascending: order === 'asc', nullsFirst });
+      });
 
-    if (make) {
-      fetch = fetch.textSearch('make_slug', generateSlug(make));
-    }
+      const { data, error } = await fetch;
 
-    if (model) {
-      fetch = fetch.textSearch('model_slug', generateSlug(model));
-    }
-
-    if (year) {
-      fetch = fetch.eq('parent_generation', year);
-    }
-
-    // Dynamically apply filters
-    filters?.forEach(({ field, operator, value }) => {
-      switch (operator) {
-        case 'eq':
-          fetch = fetch.eq(field, value);
-          break;
-        case 'neq':
-          fetch = fetch.neq(field, value);
-          break;
-        case 'gt':
-          fetch = fetch.gt(field, value);
-          break;
-        case 'lt':
-          fetch = fetch.lt(field, value);
-          break;
-        case 'gte':
-          fetch = fetch.gte(field, value);
-          break;
-        case 'lte':
-          fetch = fetch.lte(field, value);
-          break;
-        case 'notnull':
-          fetch = fetch.not(field, 'is', null);
-          break;
-        // Add cases for other operators as needed
-        default:
-          break;
+      if (error) {
+        console.error('[getProductReviewsByPage]:', error);
+        throw error;
       }
-    });
+      return data;
+    };
 
-    if (sort && sort.field) {
-      fetch = fetch.order(sort.field, { ascending: sort.order === 'asc' });
-    }
-
-    // if (search) {
-    //   fetch = fetch.textSearch('review_description', search);
-    // }
-
-    const { data, error } = await fetch;
-
-    if (error) {
-      console.error(error);
-      return [];
-    }
+    const data = await retry(fetchReviews, 3, 100);
 
     return filterDuplicateReviewImages({
       reviewData: data,
@@ -224,7 +158,7 @@ export async function getProductReviewsByPage(
     if (error instanceof ZodError) {
       console.error('ZodError:', error);
     }
-    console.error(error);
+    console.error('[getProductReviewsByPage] caught: ', error);
     return [];
   }
 }
@@ -238,49 +172,32 @@ export async function getAllReviewsWithImages(
     const validatedFilters =
       ProductReviewsQueryFiltersSchema.parse(productQueryFilters);
     const validatedOptions = ProductReviewsQueryOptionsSchema.parse(options);
-    const { productType, year, make, model } = validatedFilters;
+    const { productType } = validatedFilters;
     const {
       sort,
       // search,
     } = validatedOptions;
+    const TABLE_NAME =
+      productType === CAR_COVERS
+        ? CAR_COVERS_REVIEWS_TABLE
+        : SEAT_COVERS_REVIEWS_TABLE;
 
-    // let fetch = supabaseDatabaseClient
-    //   .from(PRODUCT_REVIEWS_TABLE)
-    //   .select('*')
-    //   .not('review_image', 'is', null);
+    const fetchAllReviewsWithImages = async () => {
+      const fetch = supabaseDatabaseClient.rpc(RPC_GET_DISTINCT_REVIEW_IMAGES, {
+        p_table_name: TABLE_NAME,
+        p_type: productType,
+      });
 
-    // if (productType) {
-    //   fetch = fetch.eq('type', productType);
-    // }
-    // if (make) {
-    //   fetch = fetch.textSearch('make_slug', generateSlug(make));
-    // }
+      const { data, error } = await fetch;
+      if (error) {
+        console.error('[GetAllReviewsWithImages] Error: ', error);
+        throw error;
+      }
 
-    // if (model) {
-    //   fetch = fetch.textSearch('model_slug', generateSlug(model));
-    // }
+      return data;
+    };
 
-    // if (year) {
-    //   fetch = fetch.eq('parent_generation', year);
-    // }
-
-    // if (sort && sort.field) {
-    //   fetch = fetch.order(sort.field, { ascending: sort.order === 'asc' });
-    // }
-
-    const fetch = supabaseDatabaseClient.rpc(RPC_GET_DISTINCT_REVIEW_IMAGES, {
-      p_type: productType,
-      p_make_slug: generateSlug(make as string) || null,
-      p_model_slug: generateSlug(model as string) || null,
-      p_parent_generation: year || null,
-    });
-
-    const { data, error } = await fetch;
-
-    if (error) {
-      console.error('[GetAllReviewsWithImages] Error: ', error);
-      return [];
-    }
+    const data = await retry(fetchAllReviewsWithImages, 3, 100);
 
     const filteredDuplicatedReviewImages:
       | TReviewData[]
@@ -296,7 +213,7 @@ export async function getAllReviewsWithImages(
     if (error instanceof ZodError) {
       console.error('ZodError:', error);
     }
-    console.error(error);
+    console.error('[GetAllReviewsWithImages] Caught Error: ', error);
     // return {};
     return [];
   }
@@ -341,20 +258,31 @@ export async function getProductReviewSummary(
 ): Promise<TProductReviewSummary> {
   try {
     const validatedFilters = ProductReviewsQueryFiltersSchema.parse(filters);
-    const { productType, year, make, model } = validatedFilters;
-    const fetch = supabaseDatabaseClient.rpc(RPC_GET_PRODUCT_REVIEWS_SUMMARY, {
-      type: productType || null,
-      make: generateSlug(make as string) || null,
-      model: generateSlug(model as string) || null,
-      year: year || null,
-    });
+    const { productType } = validatedFilters;
+    const TABLE_NAME =
+      productType === CAR_COVERS
+        ? CAR_COVERS_REVIEWS_TABLE
+        : SEAT_COVERS_REVIEWS_TABLE;
 
-    const { data, error } = await fetch;
+    const fetchReviewSummary = async () => {
+      const fetch = supabaseDatabaseClient.rpc(
+        RPC_GET_PRODUCT_REVIEWS_SUMMARY,
+        {
+          table_name: TABLE_NAME,
+          type: productType || null,
+        }
+      );
 
-    if (error) {
-      console.error(error);
-      return { total_reviews: 0, average_score: 0 };
-    }
+      const { data, error } = await fetch;
+
+      if (error) {
+        console.error('[getProductReviewsByPage]:', error);
+        throw error;
+      }
+      return data;
+    };
+
+    const data = await retry(fetchReviewSummary, 3, 100);
 
     return {
       total_reviews: data[0].total_reviews,
@@ -364,43 +292,8 @@ export async function getProductReviewSummary(
     if (error instanceof ZodError) {
       console.error('ZodError:', error);
     }
-    console.error(error);
+    console.error('[getProductReviewSummary] caught error: ', error);
     return { total_reviews: 0, average_score: 0 };
-  }
-}
-
-export async function getProductReviewData(
-  filters: TProductReviewsQueryFilters
-): Promise<TReviewData[]> {
-  try {
-    const validatedFilters = ProductReviewsQueryFiltersSchema.parse(filters);
-    const { year, make, model } = validatedFilters;
-
-    let fetch = supabaseDatabaseClient.from(PRODUCT_REVIEWS_TABLE).select('*');
-
-    if (make) {
-      fetch = fetch.textSearch('make', make);
-    }
-
-    if (model) {
-      fetch = fetch.textSearch('model', model);
-    }
-
-    const { data, error } = await fetch;
-
-    if (year) {
-    }
-    if (error) {
-      console.error(error);
-    }
-
-    return data || [];
-  } catch (error) {
-    if (error instanceof ZodError) {
-      console.error('ZodError:', error);
-    }
-    console.error(error);
-    return [];
   }
 }
 
@@ -419,51 +312,53 @@ export async function getProductReviewsByImage(
     const validatedFilters =
       ProductReviewsQueryFiltersSchema.parse(productQueryFilters);
     const validatedOptions = ProductReviewsQueryOptionsSchema.parse(options);
-    const { productType, year, make, model } = validatedFilters;
+    const { productType } = validatedFilters;
     const { sort, filters } = validatedOptions;
+    const fetchReviews = async () => {
+      const TABLE_NAME =
+        productType === CAR_COVERS
+          ? CAR_COVERS_REVIEWS_TABLE
+          : SEAT_COVERS_REVIEWS_TABLE;
 
-    let fetch = supabaseDatabaseClient.from(PRODUCT_REVIEWS_TABLE).select('*');
+      let fetch = supabaseDatabaseClient
+        .from(TABLE_NAME)
+        .select(
+          'review_image,review_description,review_title,rating_stars,review_author,helpful,reviewed_at,verified_status,recommend'
+        );
 
-    if (productType) {
-      fetch = fetch.eq('type', productType);
-    }
-
-    if (make) {
-      fetch = fetch.textSearch('make_slug', generateSlug(make));
-    }
-
-    if (model) {
-      fetch = fetch.textSearch('model_slug', generateSlug(model));
-    }
-
-    if (year) {
-      fetch = fetch.eq('parent_generation', year);
-    }
-
-    // Dynamically apply filters
-    // Special case, this should only be using review image
-    // Field SHOULD only be "review_image", operator SHOULD only be "neq"
-    filters?.forEach(({ field, operator, value }) => {
-      switch (operator) {
-        case 'neq':
-          fetch = fetch.neq(field, value);
-          break;
-        // Add cases for other operators as needed
-        default:
-          break;
+      if (productType) {
+        fetch = fetch.eq('type', productType);
       }
-    });
 
-    if (sort && sort.field) {
-      fetch = fetch.order(sort.field, { ascending: sort.order === 'asc' });
-    }
+      // Dynamically apply filters
+      // Special case, this should only be using review image
+      // Field SHOULD only be "review_image", operator SHOULD only be "neq"
+      filters?.forEach(({ field, operator, value }) => {
+        switch (operator) {
+          case 'neq':
+            fetch = fetch.neq(field, value);
+            break;
+          // Add cases for other operators as needed
+          default:
+            break;
+        }
+      });
 
-    const { data, error } = await fetch;
+      sort.forEach(({ field, order, nullsFirst }) => {
+        fetch = fetch.order(field, { ascending: order === 'asc', nullsFirst });
+      });
 
-    if (error) {
-      console.error(error);
-      return [];
-    }
+      const { data, error } = await fetch;
+
+      if (error) {
+        console.error('[getProductReviewsByImage] error:', error);
+        throw error;
+      }
+      return data;
+    };
+
+    const data = await retry(fetchReviews, 3, 100);
+
     const filteredDuplicatedReviewImages: TReviewData[] =
       filterDuplicateReviewImages({
         reviewData: data,
@@ -477,7 +372,8 @@ export async function getProductReviewsByImage(
     if (error instanceof ZodError) {
       console.error('ZodError:', error);
     }
-    console.error(error);
+    console.error('[getProductReviewsByImage] caught error:', error);
+
     return [];
   }
 }

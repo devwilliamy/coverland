@@ -8,7 +8,7 @@ import {
   CarouselNext,
 } from '@/components/ui/carousel';
 import { ReviewImageIndexContext } from '@/lib/contexts/ReviewImageIndexContext';
-import { TReviewData } from '@/lib/db';
+import { TReviewData } from '@/lib/types/review';
 import useReviewImageIndex from '@/lib/hooks/useReviewImageIndex';
 import { ChevronLeft, X } from 'lucide-react';
 import {
@@ -87,7 +87,7 @@ export default function ReviewImageGalleryDesktop({
                     alt={`customer-modal-image-${index}`}
                     width={520}
                     height={520}
-                    className="aspect-square cursor-pointer rounded-[3px]"
+                    className="aspect-square cursor-pointer rounded-[3px] object-cover"
                     src={img}
                     onError={() => {
                       console.log('image error', img);
@@ -148,7 +148,7 @@ export default function ReviewImageGalleryDesktop({
                         alt={`customer-tabs-image-${index}`}
                         width={300}
                         height={300}
-                        className="aspect-square h-full w-full cursor-pointer rounded-[3px]"
+                        className="aspect-square h-full w-full cursor-pointer rounded-[3px] object-cover"
                         src={imgStr}
                         onClick={() => {
                           setDesktopReviewDialogOpen(true);

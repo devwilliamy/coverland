@@ -2,8 +2,7 @@ import { TPathParams, TQueryParams } from '@/utils';
 import { TSeatCoverDataDB } from '@/lib/db/seat-covers';
 import SeatCoverSelectionProvider from '@/contexts/SeatCoverContext';
 import SeatCovers from './SeatCovers';
-import { TReviewData } from '@/lib/db';
-import { TProductReviewSummary } from '@/lib/db/review';
+import { TReviewData, TProductReviewSummary } from '@/lib/types/review';
 
 export default async function SeatCoverDataWrapper({
   modelData,

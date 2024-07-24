@@ -1,8 +1,19 @@
 import { TInitialProductDataDB } from './db/index';
 import { type ClassValue, clsx } from 'clsx';
 import { twMerge } from 'tailwind-merge';
-import { modelStrings } from './constants';
-import { TCarCoverData } from '@/app/(main)/car-covers/components/CarPDP';
+import {
+  DISCOUNT_25_LOWER_BOUND,
+  DISCOUNT_25_UPPER_BOUND,
+  NO_DISCOUNT_LOWER_BOUND,
+  NO_DISCOUNT_UPPER_BOUND,
+  modelStrings,
+} from './constants';
+
+import { TCartItem } from './cart/useCart';
+import { Dispatch, SetStateAction } from 'react';
+import { IProductData } from '@/utils';
+import { TSeatCoverDataDB } from './db/seat-covers';
+import { parsePhoneNumber } from 'libphonenumber-js';
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -20,7 +31,6 @@ export function stringToSlug(str: string) {
     .replace(/[^a-z0-9 ]/g, '') // Remove all non-word chars except spaces
     .replace(/\s+/g, '+'); // Replace spaces with +
 
-  // console.log(slug);
   return slug;
 }
 
@@ -38,7 +48,13 @@ export const deslugify = (slug: string) => {
 
   // Handle specific cases
   if (slug.toLowerCase() === 'bmw') return 'BMW';
+  if (slug.toLowerCase() === '1-series-hatchback') return '1-Series Hatchback';
+  if (slug.toLowerCase() === '2-series') return '2-Series';
   if (slug.toLowerCase() === '3-series') return '3-Series';
+  if (slug.toLowerCase() === '4-series') return '4-Series';
+  if (slug.toLowerCase() === '5-series') return '5-Series';
+  if (slug.toLowerCase() === '6-series') return '6-Series';
+  if (slug.toLowerCase() === '7-series') return '7-Series';
   if (slug.toLowerCase() === 'f-150') return 'F-150';
   if (slug.toLowerCase() === 'suv') return 'SUV';
   if (slug.toLowerCase() === 'suv covers') return 'SUV Covers';
@@ -121,7 +137,7 @@ export function groupProductsBy(
 }
 
 export const generateProductsLeft = (
-  selectedProduct: TCarCoverData | TInitialProductDataDB | null | undefined
+  selectedProduct: TInitialProductDataDB | null | undefined
 ): number => {
   let productAmount = 0;
   if (selectedProduct && selectedProduct.sku) {
@@ -140,6 +156,27 @@ export const generateProductsLeft = (
     }
   }
   return productAmount;
+};
+
+export const generateNumberFromCarBuild = (
+  type: string,
+  displayId: string,
+  make: string,
+  model: string,
+  yearGeneration: string
+): number => {
+  const combinedString = `${type}${displayId}${make}${model}${yearGeneration}`;
+
+  // Simple hash function to convert SKU to a numeric value
+  const hash = Array.from(combinedString).reduce((acc, char) => {
+    return acc + char.charCodeAt(0);
+  }, 0);
+  // Normalize the hash value to a range between 0 and 1
+  const normalizedHash = (hash % 1000) / 1000;
+
+  // Scale the normalized value to the range [4.6, 4.8]
+  const scaledValue = 4.5 + normalizedHash * 0.3;
+  return scaledValue;
 };
 
 // export function getColorOptions(data: Model[], selectedModel: { year_generation: number }): string[] {
@@ -200,31 +237,36 @@ export function detectFOrFB(sku: string) {
   if (parts[1] === 'SC') {
     if (parts[5] === 'B') {
       return 'Full';
-    }
-    else if (parts[3] === 'F') {
+    } else if (parts[3] === 'F') {
       return 'Front';
-    } 
+    }
   }
   return 'Unknown';
 }
 
-export function detectMirrors(sku:string){
-  const lowerStr = sku.toLowerCase()
-  if(lowerStr.includes('cn')){
+export function detectMirrors(sku: string) {
+  const lowerStr = sku.toLowerCase();
+  if (lowerStr.includes('cn')) {
     return false;
-   }
-  if(lowerStr.includes('chcv11')){
-    if(lowerStr.includes('15')){
-      return false 
+  }
+  if (lowerStr.includes('chcv11')) {
+    if (lowerStr.includes('15')) {
+      return false;
     }
   }
-  if(lowerStr.includes('cs') || lowerStr.includes('cp') ||  lowerStr.includes('15')){
+  if (
+    lowerStr.includes('cs') ||
+    lowerStr.includes('cp') ||
+    lowerStr.includes('15')
+  ) {
     return true;
   }
   return false;
-
 }
 
+export function isFullSet(displaySet: string): string {
+  return displaySet?.toLowerCase() === 'front seats' ? 'front' : 'full';
+}
 export const determineTypeString = (type: string) => {
   const typeOptions = ['Car Covers', 'SUV Covers', 'Truck Covers'];
   return type === 'car-covers'
@@ -281,4 +323,14 @@ export const determineShortReviewCount = (total_reviews: number) => {
     default:
       return total_reviews;
   }
+};
+
+export const formatToE164 = (num: string) => {
+  if (!num) {
+    return '';
+  }
+
+  const formattedPhone = parsePhoneNumber(num, 'US')?.format('E.164');
+  // console.log('[FORMAT TO E.164 FUNCTION: ]', { formattedPhone });
+  return formattedPhone;
 };
