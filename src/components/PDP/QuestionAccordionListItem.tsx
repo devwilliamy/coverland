@@ -20,7 +20,6 @@ const QuestionAccordionListItem = ({
   accordionState,
   handleAccordionState,
 }: AccordionProps) => {
-  console.log('Alt Content:', value.altContent);
   return (
     <AccordionItem
       className={`${accordionState === `item-${index}-${titleName}` ? 'bg-[#F9F9FB]' : 'bg-white'}  border-t p-2 lg:pl-7`}

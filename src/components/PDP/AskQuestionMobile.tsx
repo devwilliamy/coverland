@@ -35,7 +35,7 @@ export default function AskQuestionMobile() {
     setEmail('');
     setMessage('');
   };
-  
+
   const handleEmailSubmit = async () => {
     try {
       setFormState({ ...formState, isLoading: true });
@@ -58,7 +58,6 @@ export default function AskQuestionMobile() {
         });
         throw Error('Server Error : Email not sent');
       }
-      console.log('we are here');
       setFormState({
         ...formState,
         successMessage: 'Message submitted successfully!',
@@ -103,6 +102,7 @@ export default function AskQuestionMobile() {
                 className=" mt-[17px] justify-center rounded-full bg-gray-200 p-[5px] "
                 onClick={() => {
                   setOpen(false);
+                  handleCloseForm();
                 }}
               >
                 <X className="h-[24px] w-[24px]" />

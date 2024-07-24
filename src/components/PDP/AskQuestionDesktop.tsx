@@ -158,6 +158,7 @@ export default function AskQuestionDesktop() {
             <Button
               onClick={() => {
                 setOpen(false);
+                handleCloseForm();
               }}
               className="mx-auto mt-5 flex h-12 w-[200px]   rounded  border border-[#1A1A1A]  bg-transparent text-base  font-bold  uppercase text-[#1A1A1A] hover:bg-[#1A1A1A] hover:text-white"
             >
@@ -168,8 +169,8 @@ export default function AskQuestionDesktop() {
           <div className="  flex  w-full flex-row justify-end">
             <Button
               onClick={() => {
-                handleCloseForm();
                 setOpen(false);
+                handleCloseForm();
               }}
               className=" mx-2  h-12 w-1/5   rounded border  border-[#1A1A1A] bg-transparent text-lg font-bold  uppercase text-[#1A1A1A] hover:bg-[#1A1A1A] hover:text-white"
             >
