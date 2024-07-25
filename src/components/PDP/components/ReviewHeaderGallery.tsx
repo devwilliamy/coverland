@@ -1,4 +1,4 @@
-'use client';;
+'use client';
 import { Fragment, useEffect, useState } from 'react';
 import { useStore } from 'zustand';
 import ReviewImagesSheet from './ReviewImagesSheet';
@@ -16,21 +16,20 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from '@/components/ui/carousel';
+import ReviewCardCarousel from './ReviewCardCarousel';
+import ReviewSeeMoreImages from './ReviewSeeMoreImages';
 
 export default function ReviewHeaderGallery() {
   const store = useStoreContext();
 
   if (!store) throw new Error('Missing Provider in the tree');
   const reviewImages = useStore(store, (s) => s.reviewImages);
-  let imageCount = 0;
-
-  for (const obj of reviewImages) {
-    if (obj && obj.review_image) {
-      obj.review_image.split(',').map(() => {
-        imageCount++;
-      });
+  const imageCount = reviewImages.reduce((count, obj) => {
+    if (obj?.review_image) {
+      return count + obj.review_image.split(',').length;
     }
-  }
+    return count;
+  }, 0);
 
   // const reviewImageKeys = Object.keys(reviewImages);
   const [imageLoading, setImageLoading] = useState(false);
@@ -56,7 +55,9 @@ export default function ReviewHeaderGallery() {
     <div className="flex flex-col items-center">
       {reviewImages?.length > 0 && (
         <>
-          <section className="grid aspect-square h-full w-full grid-cols-2 items-center gap-[7px] lg:hidden">
+          <ReviewCardCarousel />
+          {/* Mobile */}
+          {/* <section className="grid aspect-square h-full w-full grid-cols-2 items-center gap-[7px] lg:hidden">
             <Dialog open={reviewDialogOpen} onOpenChange={setReviewDialogOpen}>
               {reviewImages?.slice(0, 3).map((image, index) => {
                 if (image)
@@ -156,17 +157,16 @@ export default function ReviewHeaderGallery() {
               })}
             </Dialog>
 
-            {reviewImages?.length > 0 ? (
+            {reviewImages?.length > 0 && (
               <div className="flex h-full w-full items-center justify-center border border-black">
-                <div className="font-normalc text-center text-base normal-case underline ">
-                  <SeeMoreImages />
+                <div className="text-center text-base font-normal normal-case underline ">
+                  <ReviewSeeMoreImages />
                 </div>
               </div>
-            ) : (
-              <></>
             )}
-          </section>
-          <section className="hidden max-h-fit w-full items-center gap-[7px] lg:grid lg:max-h-[207px] lg:grid-cols-6">
+          </section> */}
+          {/* Desktop */}
+          {/* <section className="hidden max-h-fit w-full items-center gap-[7px] lg:grid lg:max-h-[207px] lg:grid-cols-6">
             <Dialog open={reviewDialogOpen} onOpenChange={setReviewDialogOpen}>
               {reviewImages?.slice(0, 5).map((image, index) => {
                 if (image)
@@ -266,11 +266,11 @@ export default function ReviewHeaderGallery() {
               })}
             </Dialog>
             <div className="flex h-full w-full items-center justify-center border border-black">
-              <div className="font-normalc text-center text-base normal-case underline ">
+              <div className="font-normal text-center text-base normal-case underline ">
                 <SeeMoreImages />
               </div>
             </div>
-          </section>
+          </section> */}
         </>
       )}
       {reviewImages && (
@@ -281,29 +281,3 @@ export default function ReviewHeaderGallery() {
     </div>
   );
 }
-
-const SeeMoreImages = () => {
-  const [reviewDialogOpen, setReviewDialogOpen] = useState<boolean>(false);
-
-  return (
-    <>
-      {/* Mobile */}
-      <div className="lg:hidden">
-        <ReviewImagesSheet />
-      </div>
-      {/* Desktop */}
-      <div className="hidden lg:block">
-        <Dialog open={reviewDialogOpen} onOpenChange={setReviewDialogOpen}>
-          <DialogTrigger className="underline">
-            See more <br /> review images
-          </DialogTrigger>
-          <DialogContent className="flex max-h-[65vh] flex-col items-center  lg:max-h-[80vh] lg:min-w-[77vw] lg:max-w-[80%]">
-            <ReviewImageGalleryDesktop
-              setReviewDialogOpen={setReviewDialogOpen}
-            />
-          </DialogContent>
-        </Dialog>
-      </div>
-    </>
-  );
-};
