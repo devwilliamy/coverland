@@ -1,226 +1,50 @@
 'use client';
-import { useState } from 'react';
 import { useStore } from 'zustand';
-import { useMediaQuery } from '@mantine/hooks';
-import { AiOutlineLoading3Quarters } from 'react-icons/ai';
-import ReviewRatingStar from '@/components/icons/ReviewRatingStar';
 import useStoreContext from '@/hooks/useStoreContext';
 import ReviewCard from './ReviewCard';
 import ReviewHeaderGallery from './ReviewHeaderGallery';
-import ReviewPercentCircle from './ReviewPercentCircle';
-import { generateNumberFromCarBuild } from '@/lib/utils';
-import ReviewTotalCount from './ReviewTotalCount';
-import useFilterHandler from '@/hooks/review/useFilterHandler';
-import useViewMoreHandler from '@/hooks/review/useViewMoreHandler';
-import useSortHandler from '@/hooks/review/useSortHandler';
-import useDetermineType from '@/hooks/useDetermineType';
-import { FilterParams, SortParams } from '@/lib/types/review';
+import ReviewSummaryHeader from './ReviewSummaryHeader';
+import ReviewsLoadMoreButton from './ReviewsLoadMoreButton';
+import ReviewFilters from './ReviewFilters';
+import { ReviewProvider } from '@/contexts/ReviewContext';
 
 const ReviewSection = ({ showHeader }: { showHeader?: boolean }) => {
-  const isMobile = useMediaQuery('(max-width: 768px)');
   const store = useStoreContext();
   if (!store) throw new Error('Missing Provider in the tree');
   const reviewData = useStore(store, (s) => s.reviewData);
-  const setReviewData = useStore(store, (s) => s.setReviewData);
-  const addReviewData = useStore(store, (s) => s.addReviewData);
-  const reviewImageTracker = useStore(store, (s) => s.reviewImageTracker);
-  const selectedProduct = useStore(store, (s) => s.selectedProduct);
-  const { total_reviews, average_score } = useStore(
-    store,
-    (s) => s.reviewDataSummary
-  );
-  const { type, make, model } = useStore(store, (s) => s.query);
-  const year = useStore(store, (s) => s.paramsYear);
-
-  const [loading, setLoading] = useState(false);
-  const [page, setPage] = useState(1); // Starting at 1 because we're already starting at 0
-  const limit = 8;
-  const [sort, setSort] = useState<SortParams[]>([
-    {
-      field: 'sku',
-      order: 'asc',
-    },
-    {
-      field: 'helpful',
-      order: 'desc',
-      nullsFirst: false,
-    },
-  ]);
-  const [filters, setFilters] = useState<FilterParams[]>([]);
-  const { productType } = useDetermineType();
-
-  const areThereMoreReviews = reviewData.length < total_reviews;
-  const typeMappings: { [key: string]: string } = {
-    'suv-covers': 'SUV Covers',
-    'truck-covers': 'Truck Covers',
-    'car-covers': 'Car Covers',
-    'seat-covers': 'Seat Covers',
-  };
-  
-  const typeString = typeMappings[productType || ""] || 'Car Covers';
-
-  const generatedReviewScore =
-    selectedProduct &&
-    generateNumberFromCarBuild(
-      selectedProduct.type,
-      selectedProduct.display_id,
-      selectedProduct.make,
-      selectedProduct.model,
-      selectedProduct.year_generation
-    ).toFixed(1);
-  /**
-   * Sets reviewImage back to <string, false>
-   * Used for filterByImage quick fix, can get rid later
-   */
-
-  const { handleViewMore } = useViewMoreHandler({
-    typeString,
-    year,
-    make,
-    model,
-    limit,
-    page,
-    sort,
-    filters,
-    reviewImageTracker,
-    setLoading,
-    addReviewData,
-    setPage,
-  });
-
-  const { handleSortSelectionChange } = useSortHandler({
-    typeString,
-    year,
-    make,
-    model,
-    limit,
-    filters,
-    setLoading,
-    setReviewData,
-    setPage,
-    setSort,
-  });
-  // Special state. Will get rid of later once image duplicates aren't a problem
-  // This was for the filterByImage quickfix. Can be removed later.
-  const [filterImageOn, setFilterImageOn] = useState(false);
-
-  const { handleFilterSelectionChange } = useFilterHandler({
-    typeString,
-    year,
-    make,
-    model,
-    limit,
-    sort,
-    setLoading,
-    setReviewData,
-    setPage,
-    setFilters,
-    setFilterImageOn,
-  });
 
   return (
-    <div className="relative mb-[56px] flex w-full flex-col items-center px-[22px] lg:mb-0 lg:px-[59px] lg:py-2">
-      {showHeader && (
-        <p
-          className="flex items-center justify-center pt-[30px] text-center text-[30px]  font-black uppercase text-black md:text-3xl lg:block lg:pt-[80px] lg:text-[42px]"
-          id="reviews"
-        >
-          Reviews
-        </p>
-      )}
-      {reviewData?.length === 0 ? (
-        <div className="flex items-center justify-center py-4">
-          No Reviews Found
-        </div>
-      ) : (
-        <>
-          <header className="flex w-full flex-col items-center pb-[30px] lg:max-w-[1080px]  lg:flex-row lg:pb-[80px] lg:pt-[80px]">
-            <div className="flex w-full min-w-[188px] items-center lg:justify-center ">
-              <p className="pl-0.5 text-[40px] font-black lg:pl-0 lg:text-[60px]">
-                {generatedReviewScore || '4.9'}
-              </p>
-              <div className="flex flex-col items-stretch  gap-1 pl-4 text-yellow-300 ">
-                <div className="pt-[30px] lg:pt-[35px]">
-                  <ReviewRatingStar
-                    // rating={Number(average_score?.toFixed(1))}
-                    rating={4.5}
-                    size={isMobile ? 26 : 54}
-                  />
-                </div>
-                <p className="pl-4 text-sm font-normal text-[#767676] lg:text-lg">
-                  <ReviewTotalCount />
-                </p>
-              </div>
-            </div>
-            <div className="flex w-full items-center gap-2 lg:justify-center lg:gap-5">
-              <ReviewPercentCircle percent="95" />
-              <div className="flex flex-col">
-                <p className="whitespace-nowrap text-[18px] font-bold lg:text-[28px]">
-                  95% would recommend
-                </p>
-              </div>
-            </div>
-          </header>
-          <ReviewHeaderGallery />
-          {/* Review Sort & Filter Section */}
-          <div className="flex w-full items-center justify-end gap-1 pt-7 *:rounded-lg  lg:gap-4">
-            <select
-              className=" h-12 rounded border border-[#C8C7C7] bg-transparent px-4 text-lg font-normal capitalize text-[#1A1A1A] max-lg:max-w-[100px]"
-              onChange={handleSortSelectionChange}
-              defaultValue={'sort'}
-            >
-              <option disabled className="hidden" value="sort">
-                Sort
-              </option>
-              <option value="helpful">Most helpful</option>
-              <option value="newest">Most recent</option>
-              {/* <option value="oldest">Sort By Oldest</option> */}
-            </select>
-
-            <select
-              className=" h-12 rounded border border-[#C8C7C7] bg-transparent px-4 text-lg font-normal capitalize text-[#1A1A1A] max-lg:max-w-[100px] "
-              onChange={handleFilterSelectionChange}
-              defaultValue={'filter'}
-            >
-              <option disabled className="hidden" value="filter">
-                Filter
-              </option>
-              <option value="images">Images only</option>
-              {/* <option value="verified">Verified Purchases Only</option> */}
-              <option value="positive">Positive reviews</option>
-              <option value="critical">Critical reviews</option>
-            </select>
+    <ReviewProvider>
+      <div className="relative mb-[56px] flex w-full flex-col items-center px-[22px] lg:mb-0 lg:px-[59px] lg:py-2">
+        {showHeader && (
+          <p
+            className="flex items-center justify-center pt-[30px] text-center text-[30px]  font-black uppercase text-black md:text-3xl lg:block lg:pt-[80px] lg:text-[42px]"
+            id="reviews"
+          >
+            Reviews
+          </p>
+        )}
+        {reviewData?.length === 0 ? (
+          <div className="flex items-center justify-center py-4">
+            No Reviews Found
           </div>
-        </>
-      )}
-      {!!reviewData?.length && (
-        <div className="mt-4 flex flex-col items-center gap-6 lg:mt-[10px]">
-          {reviewData?.map((review, index) => (
-            <ReviewCard key={index} review={review} />
-          ))}
-
-          {areThereMoreReviews && !filterImageOn ? (
-            // Can remove filterImageOn later, just used for filterImageBy quickfix
-            <button
-              className="my-4 max-w-[160px] items-stretch justify-center whitespace-nowrap rounded-full border border-solid border-black bg-white px-8 py-3.5 font-black leading-4 tracking-wide text-black transition-colors duration-150 hover:bg-black hover:text-white"
-              aria-label="View more"
-              role="button"
-              onClick={() => {
-                handleViewMore();
-              }}
-            >
-              {loading ? (
-                <AiOutlineLoading3Quarters className="animate-spin" />
-              ) : (
-                `View ${limit} More`
-              )}
-            </button>
-          ) : (
-            <div className="py-3"></div>
-          )}
-        </div>
-      )}
-    </div>
+        ) : (
+          <>
+            <ReviewSummaryHeader />
+            <ReviewHeaderGallery />
+            <ReviewFilters />
+          </>
+        )}
+        {!!reviewData?.length && (
+          <div className="mt-4 flex flex-col items-center gap-6 lg:mt-[10px]">
+            {reviewData?.map((review, index) => (
+              <ReviewCard key={index} review={review} />
+            ))}
+            <ReviewsLoadMoreButton />
+          </div>
+        )}
+      </div>
+    </ReviewProvider>
   );
 };
 
