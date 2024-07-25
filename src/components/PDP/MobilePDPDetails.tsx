@@ -14,12 +14,11 @@ import {
   SheetTrigger,
 } from '@/components/ui/sheet';
 import { IoClose } from 'react-icons/io5';
-import { LegacyRef, useContext, useRef } from 'react';
+import { useContext, useRef } from 'react';
 import WarrantyPolicy from '@/app/(main)/policies/warranty-policy/page';
 import { Plus } from 'lucide-react';
 import ProductVideo from './ProductVideo';
 import ThreeSixtyVideo from '@/videos/https_x2kly621zrgfgwll.public.blob.vercel-storage.com_videos_360_20degree_mobile-4asLajZOfJp9h3V3q1XkSHFETp6T8h.mp4.json';
-import { track } from '@vercel/analytics';
 import { CarSelectionContext } from '@/contexts/CarSelectionContext';
 
 const CarCoverFeature = ({ children }: { children: string }) => (
@@ -240,9 +239,6 @@ const ScrollSheetTrigger = ({
           behavior: 'instant',
         });
       }, 200);
-      track('drawer_section_clicked', {
-        section: title,
-      });
     }}
   >
     {title}

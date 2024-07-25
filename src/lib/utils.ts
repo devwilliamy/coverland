@@ -8,7 +8,7 @@ import {
   NO_DISCOUNT_UPPER_BOUND,
   modelStrings,
 } from './constants';
-import { TCarCoverData } from '@/app/(main)/car-covers/components/CarPDP';
+
 import { TCartItem } from './cart/useCart';
 import { Dispatch, SetStateAction } from 'react';
 import { IProductData } from '@/utils';
@@ -137,7 +137,7 @@ export function groupProductsBy(
 }
 
 export const generateProductsLeft = (
-  selectedProduct: TCarCoverData | TInitialProductDataDB | null | undefined
+  selectedProduct: TInitialProductDataDB | null | undefined
 ): number => {
   let productAmount = 0;
   if (selectedProduct && selectedProduct.sku) {
@@ -243,6 +243,26 @@ export function detectFOrFB(sku: string) {
   }
   return 'Unknown';
 }
+
+/*
+  CN do not have mirrors, 
+  CS and CP include mirrors. 
+  FOMU12, CHCM11, and CHCV11 do not have mirror pockets, 
+  while all other custom sizes come with mirror pockets.
+*/
+export function hasMirrors(sku: string) {
+  const skuSubstringsNoMirror = ['cn', 'fomu12', 'chcm11', 'chcv11'];
+  const lowerStr = sku.toLowerCase();
+
+  if (
+    skuSubstringsNoMirror.some((substring) => lowerStr.includes(substring))
+  ) {
+    return false;
+  }
+
+  return lowerStr.includes('cs') || lowerStr.includes('cp');
+}
+
 export function isFullSet(displaySet: string): string {
   return displaySet?.toLowerCase() === 'front seats' ? 'front' : 'full';
 }
