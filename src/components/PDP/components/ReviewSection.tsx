@@ -1,9 +1,6 @@
 'use client';
 import { useState } from 'react';
-import { track } from '@vercel/analytics';
-
 import { useStore } from 'zustand';
-import { FilterParams } from '@/lib/db/review';
 import { useMediaQuery } from '@mantine/hooks';
 import { AiOutlineLoading3Quarters } from 'react-icons/ai';
 import ReviewRatingStar from '@/components/icons/ReviewRatingStar';
@@ -17,7 +14,7 @@ import useFilterHandler from '@/hooks/review/useFilterHandler';
 import useViewMoreHandler from '@/hooks/review/useViewMoreHandler';
 import useSortHandler from '@/hooks/review/useSortHandler';
 import useDetermineType from '@/hooks/useDetermineType';
-import { SortParams } from '@/lib/types/review';
+import { FilterParams, SortParams } from '@/lib/types/review';
 
 const ReviewSection = ({ showHeader }: { showHeader?: boolean }) => {
   const isMobile = useMediaQuery('(max-width: 768px)');
@@ -210,7 +207,6 @@ const ReviewSection = ({ showHeader }: { showHeader?: boolean }) => {
               role="button"
               onClick={() => {
                 handleViewMore();
-                track('Viewing 4 More Reviews');
               }}
             >
               {loading ? (

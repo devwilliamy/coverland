@@ -3,7 +3,7 @@ import { MoneyBackMobile } from './MoneyBackMobile';
 import { OurCarCovers } from './OurCarCovers';
 import { QuestionsAccordion } from './QuestionsAccordion';
 import { ProductChecklist } from './ProductChecklist';
-import AccordionDrawerItem from './components/AccordionDrawerItem';
+import AccordionDrawerItem from './AccordionDrawerItem';
 import { ClimateCrisisMobile } from './components/ClimateCrisisMobile';
 import { NoGarageMobile } from './components/NoGarageMobile';
 import dynamicImport from 'next/dynamic';
