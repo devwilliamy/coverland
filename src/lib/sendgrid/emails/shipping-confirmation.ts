@@ -1,8 +1,8 @@
 import sgMail, { MailDataRequired } from '@sendgrid/mail';
 sgMail.setApiKey(process.env.SENDGRID_API_KEY || '');
-const sgFromEmail = process.env.SENDGRID_FROM_EMAIL;
+const sgFromEmail = process.env.SENDGRID_FROM_EMAIL || '';
 const sgShippingConfirmationTemplateId =
-  process.env.SENDGRID_SHIPPING_CONFIRMATION_EMAIL_TEMPLATE_ID;
+  process.env.SENDGRID_SHIPPING_CONFIRMATION_EMAIL_TEMPLATE_ID || '';
 import { formatMoneyAsNumber } from '@/lib/utils/money';
 // import fetchUserOrderById
 // import { TUserOrder, TOrderItem, TOrderItemProduct, fetchUserOrderById } from '@/lib/db/profile/ordersHistory';
@@ -158,7 +158,6 @@ export const generateDynamicTemplateDataFromUserOrder = (
 };
 
 export const generateSendGridApiPayload = (data): MailDataRequired => {
-
   return {
     from: { email: sgFromEmail },
     template_id: sgShippingConfirmationTemplateId,
@@ -183,7 +182,11 @@ export const sendShippingConfirmationEmailToSendGrid = async (
       console.log('Email sent successfully - Status 202:', response[0].headers);
       // Optionally handle further processing
     } else {
-      console.error('Unexpected status:', response[0].statusCode, response[0].headers);
+      console.error(
+        'Unexpected status:',
+        response[0].statusCode,
+        response[0].headers
+      );
     }
   } catch (error) {
     console.error(error);

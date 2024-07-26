@@ -142,7 +142,7 @@ export default function PrivacyPolicyContent() {
             and no longer wish that we utilize your data, you may withdraw your
             consent for us to contact you, for the continued collection, use or
             disclosure of your information at any time, or modify your contact
-            information, by contacting us at info@coverland.com and indicate on
+            information, by contacting us at support@coverland.com and indicate on
             the subject line, “Privacy Compliance” or by mailing us at:
             CoverLand, 15529 Blackburn Ave. Norwalk, CA 90650, Attention:
             Privacy Compliance.
@@ -185,14 +185,14 @@ export default function PrivacyPolicyContent() {
             identity. The business must respond within forty-five (45) days of
             receiving a request for personal information. If you would like to
             exercise these rights, If you would like to exercise these rights,
-            please email us at info@coverland.com and indicate on the subject
+            please email us at support@coverland.com and indicate on the subject
             line: “Privacy Rights.”
           </PolicyDetail>
           <PolicyDetail>
             If you are a European resident, you have the right to access
             personal information we hold about you and to ask that your personal
             information be corrected, updated, or deleted. If you would like to
-            exercise this right, please contact us info@CoverLand.com and
+            exercise this right, please contact us support@coverland.com and
             indicate on the subject line, “Privacy Compliance,” or by mailing us
             at: Coverland, 15529 Blackburn Ave. Norwalk, CA 90650, Attention:
             Privacy Compliance.
@@ -412,7 +412,7 @@ export default function PrivacyPolicyContent() {
             <li>Coverland </li>
             <li>15529 Blackburn Ave</li>
             <li>Norwalk, CA 90650</li>
-            <li>info@coverland.com</li>
+            <li>support@coverland.com</li>
           </ul>
           <div className="pt-5 lg:pt-12"></div>
           <PolicyFurtherAssistance />

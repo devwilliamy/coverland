@@ -18,8 +18,8 @@ const generateContactEmail = ({
   text,
 }: ContactEmailInput) => {
   return {
-    to: ['info@coverland.com', email],
-    from: 'info@coverland.com', // Process ENV
+    to: ['support@coverland.com', email],
+    from: 'Coverland Support <support@coverland.com>', // Process ENV
     subject: subject,
     text:
       `Customer Name: ${name} ` +
@@ -29,7 +29,7 @@ const generateContactEmail = ({
       `${phoneNumber ? 'Customer Phone:' + phoneNumber : null}` +
       '\n' +
       '\n' +
-      `Thank you for your response! How can we help you?` +
+      `Thank you for contacting us! Our team will review your message and will reach back shortly. Here's a copy of your message: ` +
       '\n' +
       '\n' +
       `${text}`,
