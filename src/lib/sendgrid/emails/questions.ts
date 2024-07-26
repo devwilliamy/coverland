@@ -12,7 +12,7 @@ const generateQuestionsEmail = ({
   message,
 }: ContactEmailInput) => {
   const additionalEmails = [
-    'info@coverland.com',
+    'support@coverland.com',
     'dev.william.coverland@gmail.com',
     'vasiliy@coverland.com',
     email?.toLowerCase(),
@@ -25,11 +25,11 @@ const generateQuestionsEmail = ({
     process.env.NODE_ENV !== 'development' ? removeDuplicates : testEmail;
   return {
     to: prodEmail,
-    from: 'info@coverland.com', // Process ENV
+    from: 'Coverland Support <support@coverland.com>', // Process ENV
     subject: 'Customer Question',
     text:
       '\n' +
-      `Thank you for reaching out to us! We have received your message and appreciate your interest. Our team will review your inquiry and we\'ll reach back shortly` +
+      `Thank you for reaching out to us! We have received your question and appreciate your interest. Our team will review your inquiry and we\'ll reach back shortly` +
       '\n' +
       '\n' +
       '\n' +
