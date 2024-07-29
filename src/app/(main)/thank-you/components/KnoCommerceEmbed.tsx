@@ -38,8 +38,7 @@ export default function KnoCommerceEmbed({
         selector: 'div#knocommerce-div',
       },
     };
-    //   }, [customer, order, surveySelector]);
-  }, []);
+  }, [email, phone, id, total_price, line_items]);
 
   return (
     <div className="flex items-center justify-center">
