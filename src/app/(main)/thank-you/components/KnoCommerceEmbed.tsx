@@ -21,23 +21,25 @@ export default function KnoCommerceEmbed({
   order: { id, total_price, line_items },
 }: KnoCommerceEmbedProps) {
   useEffect(() => {
-    window.Kno = {
-      kno_id: process.env.NEXT_PUBLIC_KNOCOMMERCE_API,
-      customer: {
-        platform: 'Coverland', // or your e-commerce platform name
-        shop: 'https://coverland.com',
-        email,
-        phone,
-      },
-      order: {
-        id,
-        total_price,
-        line_items,
-      },
-      survey: {
-        selector: 'div#knocommerce-div',
-      },
-    };
+    if (!window.Kno) {
+      window.Kno = {
+        kno_id: process.env.NEXT_PUBLIC_KNOCOMMERCE_API,
+        customer: {
+          platform: 'Coverland', // or your e-commerce platform name
+          shop: 'https://coverland.com',
+          email,
+          phone,
+        },
+        order: {
+          id,
+          total_price,
+          line_items,
+        },
+        survey: {
+          selector: 'div#knocommerce-div',
+        },
+      };
+    }
   }, [email, phone, id, total_price, line_items]);
 
   return (
@@ -48,6 +50,7 @@ export default function KnoCommerceEmbed({
         strategy="afterInteractive"
         async
         defer
+        onLoad={() => console.log('KNO loaded successfully')}
         src="https://www.knocdn.com/v1/embed.js?id=21406a0a-f8eb-4166-a99e-3a359d690f09"
       />
     </div>

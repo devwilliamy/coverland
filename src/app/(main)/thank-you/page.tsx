@@ -73,7 +73,12 @@ async function OrderConfirmationPage({
       order: {
         id: mappedOrder.order_id,
         total_price: mappedOrder.total_amount,
-        line_items: mappedOrder.skus.split(',').map((sku: string) => ({ sku })),
+        line_items: mappedOrder.skus.split(',').map((sku: string) => ({
+          sku,
+          product_id: sku,
+          name: sku,
+          title: sku,
+        })),
       },
     };
 
