@@ -77,11 +77,6 @@ async function OrderConfirmationPage({
       },
     };
 
-    console.log('DEBUG: ', {
-      customerInput,
-      mappedOrder,
-    });
-
     // Add To OrderItem Table
     // await postAdminPanelOrderItem(
     //   updatedOrderResponse[0].id,
