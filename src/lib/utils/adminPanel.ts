@@ -36,7 +36,7 @@ export const mapPaymentIntentIdToOrder = (
 export const mapPaymentIntentAndMethodToOrder = (
   paymentIntentInput: PaymentIntent,
   paymentMethodInput: PaymentMethod,
-  customer_id
+  customer_id: number
 ) => {
   const {
     metadata,
