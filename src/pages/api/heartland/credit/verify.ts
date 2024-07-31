@@ -5,7 +5,9 @@ import {
   PorticoConfig,
   ReportingService,
   ServicesContainer,
+  TransactionSummary
 } from 'globalpayments-api';
+import verifyCard from '@/pages/lib/heartland/verifyCard';
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method === 'POST') {
@@ -16,21 +18,28 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     config.serviceUrl = 'https://cert.api2.heartlandportico.com';
     ServicesContainer.configureService(config);
 
-    const { token, cardInfo, additionalInformation } = req.body;
+    const { token, cardInfo, additionalInformation, address } = req.body;
+    console.log('VERIFY DEBUG:', {
+      token,
+      cardInfo,
+      address,
+      additionalInformation,
+    });
     const card = new CreditCardData();
     card.token = token;
-    const address = new Address();
-    address.postalCode = '12345';
+    // const address = new Address();
+    // address.postalCode = '12345';
 
     try {
-      const response = await card
-        .verify()
-        .withCurrency('USD')
-        .withAddress(address)
-        .withRequestMultiUseToken(true)
-        .withAllowDuplicates(true)
-        .execute();
+      // const response = await card
+      //   .verify()
+      //   .withCurrency('USD')
+      //   .withAddress(address)
+      //   .withRequestMultiUseToken(true)
+      //   .withAllowDuplicates(true)
+      //   .execute();
 
+      const response = await verifyCard(card, address);
       const txnDetailsResponse = await ReportingService.transactionDetail(
         response.transactionId
       ).execute();

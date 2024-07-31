@@ -87,7 +87,7 @@ const PaymentForm: React.FC = () => {
           console.log('DBUG:', { token, cardInfo });
 
           // fetch('/api/heartland/credit', {
-          fetch('/api/heartland/credit', {
+          fetch('/api/heartland/credit/verify', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ token, cardInfo, additionalInformation }),
@@ -140,56 +140,85 @@ const PaymentForm: React.FC = () => {
 
 export default PaymentForm;
 
-// import { useEffect } from 'react';
 
-// const PaymentForm = () => {
-//   useEffect(() => {
-//     // Load the external script
-//     const script = document.createElement('script');
-//     script.src = 'https://js.globalpay.com/v1/globalpayments.js';
-//     script.async = true;
-//     script.onload = () => {
-//       // Configure the account
-//       window.GlobalPayments.configure({
-//         publicApiKey: 'process.env.',
-//       });
-
-//       // Create the card form
-//       const cardForm = window.GlobalPayments.creditCard.form('#credit-card');
-
-//       cardForm.on('token-success', (resp) => {
-//         // Create a hidden input element for the token
-//         const token = document.createElement('input');
-//         token.type = 'hidden';
-//         token.name = 'payment_token';
-//         token.value = resp.paymentReference;
-
-//         // Submit the form with the token
-//         const form = document.getElementById('payment-form');
-//         form.appendChild(token);
-//         form.submit();
-//       });
-
-//       cardForm.on('token-error', (resp) => {
-//         // Handle the error
-//         console.error('Token error:', resp);
-//         // Show error to the consumer (you can customize this part)
-//       });
-//     };
-//     document.body.appendChild(script);
-
-//     // Cleanup function to remove the script when the component is unmounted
-//     return () => {
-//       document.body.removeChild(script);
-//     };
-//   }, []);
-
-//   return (
-//     <form id="payment-form" action="/your-backend-endpoint" method="POST">
-//       <div id="credit-card"></div>
-//       <button type="submit">Pay Now</button>
-//     </form>
-//   );
-// };
-
-// export default PaymentForm;
+/* Examples */
+/* <div className="mx-auto mt-[26px] max-w-[620px] rounded-[8px] border border-[#DBDBDB] p-[19px]">
+        <h1 className="mb-[32px] font-[700]">Add Card</h1>
+        <div className="grid gap-4 lg:grid-cols-[2fr_1fr_1fr]">
+          <div className="rounded-[8px] border border-[#DBDBDB] p-4">
+            <label className="block text-sm font-medium text-gray-700">
+              Card Number
+            </label>
+            <input
+              type="text"
+              className="w-full border-0 p-0 focus:outline-none focus:ring-0"
+              placeholder="1234 5678 9101 1121"
+            />
+          </div>
+          <div className="rounded-[8px] border border-[#DBDBDB] p-4">
+            <label className="block text-sm font-medium text-gray-700">
+              CVV
+            </label>
+            <input
+              type="text"
+              className="w-full border-0 p-0 focus:outline-none focus:ring-0"
+              placeholder="123"
+            />
+          </div>
+          <div className="rounded-[8px] border border-[#DBDBDB] p-4">
+            <label className="block text-sm font-medium text-gray-700">
+              MM / YY
+            </label>
+            <input
+              type="text"
+              className="w-full border-0 p-0 focus:outline-none focus:ring-0"
+              placeholder="12 / 23"
+            />
+          </div>
+        </div>
+        <div className="mt-4">
+          <button className="w-full rounded-[8px] border border-gray-400 bg-gray-100 px-4 py-2 hover:bg-gray-200">
+            Submit
+          </button>
+        </div>
+      </div>
+      <div className="mx-auto mt-[26px] max-w-[620px] rounded-[8px] border border-[#DBDBDB] p-[19px]">
+        <h1 className="mb-[32px] font-[700]">Add Card</h1>
+        <div className="flex flex-col lg:flex-row lg:space-x-4">
+          <div className="mb-4 flex-1 rounded-[8px] border border-[#DBDBDB] p-4 lg:mb-0">
+            <label className="block text-sm font-medium text-gray-700">
+              Card Number
+            </label>
+            <input
+              type="text"
+              className="w-full border-0 p-0 focus:outline-none focus:ring-0"
+              placeholder="1234 5678 9101 1121"
+            />
+          </div>
+          <div className="mb-4 flex-1 rounded-[8px] border border-[#DBDBDB] p-4 lg:mb-0">
+            <label className="block text-sm font-medium text-gray-700">
+              CVV
+            </label>
+            <input
+              type="text"
+              className="w-full border-0 p-0 focus:outline-none focus:ring-0"
+              placeholder="123"
+            />
+          </div>
+          <div className="flex-1 rounded-[8px] border border-[#DBDBDB] p-4">
+            <label className="block text-sm font-medium text-gray-700">
+              MM / YY
+            </label>
+            <input
+              type="text"
+              className="w-full border-0 p-0 focus:outline-none focus:ring-0"
+              placeholder="12 / 23"
+            />
+          </div>
+        </div>
+        <div className="mt-4">
+          <button className="w-full rounded-[8px] border border-gray-400 bg-gray-100 px-4 py-2 hover:bg-gray-200">
+            Submit
+          </button>
+        </div>
+      </div> */
