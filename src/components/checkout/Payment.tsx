@@ -1,14 +1,14 @@
 import { useElements, useStripe } from '@stripe/react-stripe-js';
 import { useState } from 'react';
-import { Button } from '../ui/button';
-import { AiOutlineLoading3Quarters } from 'react-icons/ai';
 import { useCheckoutContext } from '@/contexts/CheckoutContext';
 import PaymentSelector from './PaymentSelector';
 import BillingAddress from './BillingAddress';
 import { StripeCardNumberElement } from '@stripe/stripe-js';
-import { CreditCardSection } from './CreditCardSection';
-// import Klarna from '@/images/checkout/Klarna-Black.webp';
 import PayPalIcon from './icons/PayPalIcon';
+import Image from 'next/image';
+import VisaBlue from '@/images/checkout/VisaLogoBlue.webp';
+import Mastercard from '@/images/checkout/MastercardIcon.webp';
+import { CreditCardSection } from './CreditCardSection';
 import { SelectedCardLogo } from './SelectedCardLogo';
 import LoadingButton from '../ui/loading-button';
 
@@ -43,6 +43,11 @@ export default function Payment({
     Boolean(cardExpiryError.error || !cardExpiryError.visited) ||
     Boolean(cardCvvError.error || !cardCvvError.visited);
 
+  // const { name } = shippingAddress;
+  // const { city, line1, state, postal_code, country } = shippingAddress.address;
+  const buttonStyle = `mb-3 w-full lg:max-w-[307px] rounded-lg ${isDisabledCard ? 'bg-[#1A1A1A]/90' : 'bg-[#1A1A1A] hover:bg-[#1A1A1A]/90'} text-center uppercase m-0 max-h-[48px] min-h-[48px] self-end justify-self-end text-[16px] leading-[17px]`;
+  // const buttonStyle = `mb-3 w-full lg:max-w-[307px] font-[700] rounded-lg text-white disabled:bg-[#D6D6D6] disabled:text-[#767676] bg-[#1A1A1A] hover:bg-[#1A1A1A]/90  bg: text-center uppercase m-0 max-h-[48px] min-h-[48px] self-end justify-self-end text-base leading-[17px]`;
+
   const customerBilling = {
     email: customerInfo.email,
     name: billingAddress.name,
@@ -57,7 +62,16 @@ export default function Payment({
     },
   };
 
-  const buttonStyle = `mb-3 w-full lg:max-w-[307px] font-[700] rounded-lg text-white disabled:bg-[#D6D6D6] disabled:text-[#767676] bg-[#1A1A1A] hover:bg-[#1A1A1A]/90  bg: text-center uppercase m-0 max-h-[48px] min-h-[48px] self-end justify-self-end text-base leading-[17px]`;
+  const determineBrandLogo = (brand: string) => {
+    switch (brand) {
+      case 'visa':
+        return <Image alt="Visa" src={VisaBlue} />;
+      case 'mastercard':
+        return <Image alt="Mastercard" src={Mastercard} />;
+      default:
+        return null;
+    }
+  };
 
   const handleContinueWithCard = () => {
     setIsLoading(true);
@@ -99,7 +113,6 @@ export default function Payment({
 
   return (
     <section>
-      {/* <div className="mb-10 lg:hidden"><PromoCode /></div> */}
       {isReadyToPay ? (
         <span className="flex justify-between">
           <div className="flex flex-col">
@@ -178,15 +191,6 @@ export default function Payment({
                 <div>
                   You will be redirected to the PayPal site upon checkout.
                 </div>
-              )}
-              {paymentMethod === 'applePay' && (
-                <div>You will be redirected to Apple Pay upon checkout.</div>
-              )}
-              {paymentMethod === 'googlePay' && (
-                <div>You will be redirected to Google Pay upon checkout.</div>
-              )}
-              {paymentMethod === 'klarna' && (
-                <div>You will be redirected to Klarna upon checkout.</div>
               )}
             </div>
           )}

@@ -73,45 +73,6 @@ const PaymentSelector: React.FC<PaymentSelectorProps> = ({
         />
         <PayPalIcon />
       </div>
-      {/* {isIOS() && (
-        <div className={selctionStyle}>
-          <input
-            type="radio"
-            id="applePay"
-            name="paymentMethod"
-            value="applePay"
-            checked={selectedPaymentMethod === 'applePay'}
-            onChange={() => onPaymentMethodChange('applePay')}
-            className={inputStyle}
-          />
-          <ApplePayIcon />
-        </div>
-      )} */}
-      {/* <div className={selctionStyle}>
-        <input
-          type="radio"
-          id="googlePayInput"
-          name="paymentMethod"
-          value="googlePay"
-          checked={selectedPaymentMethod === 'googlePay'}
-          onChange={() => onPaymentMethodChange('googlePay')}
-          className={inputStyle}
-        />
-        <GooglePayIcon />
-      </div> */}
-      {/* <div className={selctionStyle}>
-        <input
-          type="radio"
-          id="klarnaInput"
-          name="paymentMethod"
-          value="klarna"
-          checked={selectedPaymentMethod === 'klarna'}
-          onChange={() => onPaymentMethodChange('klarna')}
-          className={inputStyle}
-        />
-        <KlarnaIcon />
-        <h2 className="w-full text-left"> 4 interest-free payments</h2>
-      </div> */}
     </div>
   );
 };
