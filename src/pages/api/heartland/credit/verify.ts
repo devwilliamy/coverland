@@ -5,7 +5,7 @@ import {
   PorticoConfig,
   ReportingService,
   ServicesContainer,
-  TransactionSummary
+  TransactionSummary,
 } from 'globalpayments-api';
 import verifyCard from '@/pages/lib/heartland/verifyCard';
 
@@ -55,6 +55,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
         additionalInformation,
       });
     } catch (error) {
+      console.error('Verify Error:', error);
       res.status(500).json({ success: false, error: (error as Error).message });
     }
   } else {

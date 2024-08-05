@@ -9,6 +9,7 @@ import { getPaymentIntent } from '@/lib/stripe/paymentIntent';
 import { getPaymentMethod } from '@/lib/stripe/paymentMethod';
 import { PaymentIntent, PaymentMethod } from '@stripe/stripe-js';
 import { updateAdminPanelOrder } from '@/lib/db/admin-panel/orders';
+import NotFoundClient from './NotFoundClient';
 
 type PaymentIntentSuccessParams = {
   searchParams: {
@@ -67,6 +68,7 @@ async function OrderConfirmationPage({
     return (
       <div className="flex flex-row items-center justify-center py-10 text-xl font-bold">
         Order not found
+        <NotFoundClient />
         {/* <Button onClick={() => redirect('/')}>Return Home</Button> */}
       </div>
     );

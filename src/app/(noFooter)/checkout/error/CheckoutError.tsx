@@ -1,0 +1,14 @@
+'use client';
+import { useSearchParams } from 'next/navigation';
+
+export default function CheckoutError() {
+  const searchParams = useSearchParams();
+  const responseMessage = searchParams?.get('RESPMSG') ?? '';
+  return (
+    <>
+      <h2>There was an error with your checkout</h2>
+      <p>Please try again or contact our support team</p>
+      <p>Error: {responseMessage}</p>
+    </>
+  );
+}

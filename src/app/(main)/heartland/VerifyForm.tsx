@@ -6,6 +6,7 @@ import LoadingButton from '@/components/ui/loading-button';
 import { useCheckoutContext } from '@/contexts/CheckoutContext';
 import React, { useEffect, useState } from 'react';
 import { AiOutlineLoading3Quarters } from 'react-icons/ai';
+import handleHeartlandTokenSuccess from './handleHeartlandTokenSuccess';
 
 const VerifyForm: React.FC = () => {
   const [scriptLoaded, setScriptLoaded] = useState(false);
@@ -44,6 +45,7 @@ const VerifyForm: React.FC = () => {
       [e.target.name]: e.target.value,
     });
   };
+  const { shippingAddress } = useCheckoutContext();
   useEffect(() => {
     if (!window.GlobalPayments) {
       const script = document.createElement('script');
@@ -149,100 +151,15 @@ const VerifyForm: React.FC = () => {
         console.log('Registration of all credit card fields occurred');
       });
 
-      cardForm.on('token-success', (resp: any) => {
-        resetError();
-        console.log('Addres:', address);
-        console.log('Token-Success:', resp);
-        if (!resp.details.cardSecurityCode) {
-          setError({
-            ...error,
-            cardCvv: 'CVV is required!',
-          });
-        } else if (!resp.details.expiryMonth || !resp.details.expiryYear) {
-          setError({
-            ...error,
-            cardExp: 'Expiry date is required!',
-          });
-        } else {
-          const token = resp.paymentReference;
-
-          const companyName = (
-            document.getElementById('streetAddress1') as HTMLInputElement
-          ).value;
-          const postalCode = (
-            document.getElementById('postalCode') as HTMLInputElement
-          ).value;
-          const additionalInformation = { companyName, postalCode };
-          const cardInfo = {
-            cardNumber: resp.details.cardNumber,
-            cardBin: resp.details.cardBin,
-            cardLast4: resp.details.cardLast4,
-            cardType: resp.details.cardType,
-            expiryMonth: resp.details.expiryMonth,
-            expiryYear: resp.details.expiryYear,
-            cardSecurityCode: JSON.stringify(resp.details.cardSecurityCode),
-          };
-
-          console.log('VERIFY FORM DEBUG:', {
-            token,
-            cardInfo,
-            address,
-            additionalInformation,
-          });
-
-          const newAddress = {
-            postalCode,
-          };
-
-          // fetch('/api/heartland/credit', {
-          fetch('/api/heartland/credit/verify', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              token,
-              cardInfo,
-              additionalInformation,
-              address: newAddress,
-              amount,
-            }),
-          })
-            .then((response) => {
-              if (!response.ok) {
-                throw new Error('Response failed');
-              }
-              return response.json();
-            })
-            .then((data) => {
-              console.log('Payment Successful:', data);
-              alert('Payment Successful!');
-            })
-            .catch((error) => {
-              console.error('Payment failed:', error);
-              alert('Payment failed!');
-            });
-        }
-      });
-      /*
-{
-    "error": true,
-    "reasons": [
-        {
-            "code": "INVALID_CARD_NUMBER",
-            "message": "Card number is invalid."
-        }
-    ]
-
-    {
-    "error": true,
-    "reasons": [
-        {
-            "code": "INVALID_CARD_EXPIRATION_DATE",
-            "message": "Card expiration year is invalid."
-        }
-    ]
-}
-}
-*/
+      cardForm.on('token-success', (resp: any) =>
+        handleHeartlandTokenSuccess(
+          resp,
+          setError,
+          resetError,
+          error,
+          shippingAddress
+        )
+      );
       cardForm.on('token-error', (resp: any) => {
         console.log('resp.error', resp);
         resetError();
@@ -279,39 +196,6 @@ const VerifyForm: React.FC = () => {
   return (
     <div>
       <form id="payment-form" action="#payment-form">
-        <div className="flex max-w-[600px]">
-          <div>
-            <label htmlFor="streetAddress1">Street Address: </label>
-            <input
-              id="streetAddress1"
-              name="streetAddress1"
-              type="text"
-              className="border-2 border-black"
-              value={address.streetAddress1}
-              onChange={handleChange}
-            />
-          </div>
-          <label htmlFor="postalCode">Billing Zip Code</label>
-          <input
-            id="postalCode"
-            name="postalCode"
-            type="text"
-            className="border-2 border-black"
-            value={address.postalCode}
-            onChange={handleChange}
-          />
-          <div>
-            <label htmlFor="amount">Amount: </label>
-            <input
-              id="amount"
-              name="amount"
-              type="text"
-              className="border-2 border-black"
-              value={amount}
-              onChange={(e) => setAmount(e.target.value)}
-            />
-          </div>
-        </div>
         <div className="max-w-[620px]">
           <div className="mt-[26px] flex w-full flex-col rounded-[8px] border border-[#DBDBDB] px-[19px] py-[25px]">
             <h1 className="mb-[32px] font-[700]">Add Card</h1>
@@ -360,97 +244,162 @@ const VerifyForm: React.FC = () => {
           </div>
         </div>
       </form>
-      {/* <LoadingButton
-        className="m-0 mb-3 max-h-[48px] min-h-[48px] w-full self-end justify-self-end rounded-lg bg-[#1A1A1A]  text-center text-base font-[700] uppercase leading-[17px] text-white hover:bg-[#1A1A1A]/90 disabled:bg-[#D6D6D6] disabled:text-[#767676] lg:max-w-[307px]"
-        // isDisabled={isDisabledCard}
-        // isLoading={isLoading}
-        onClick={handleContinueWithCard}
-        buttonText={'Continue to Order Review'}
-      /> */}
+ 
     </div>
   );
 };
 
 export default VerifyForm;
 
-/* Examples */
-/* <div className="mx-auto mt-[26px] max-w-[620px] rounded-[8px] border border-[#DBDBDB] p-[19px]">
-        <h1 className="mb-[32px] font-[700]">Add Card</h1>
-        <div className="grid gap-4 lg:grid-cols-[2fr_1fr_1fr]">
-          <div className="rounded-[8px] border border-[#DBDBDB] p-4">
-            <label className="block text-sm font-medium text-gray-700">
-              Card Number
-            </label>
-            <input
-              type="text"
-              className="w-full border-0 p-0 focus:outline-none focus:ring-0"
-              placeholder="1234 5678 9101 1121"
-            />
-          </div>
-          <div className="rounded-[8px] border border-[#DBDBDB] p-4">
-            <label className="block text-sm font-medium text-gray-700">
-              CVV
-            </label>
-            <input
-              type="text"
-              className="w-full border-0 p-0 focus:outline-none focus:ring-0"
-              placeholder="123"
-            />
-          </div>
-          <div className="rounded-[8px] border border-[#DBDBDB] p-4">
-            <label className="block text-sm font-medium text-gray-700">
-              MM / YY
-            </label>
-            <input
-              type="text"
-              className="w-full border-0 p-0 focus:outline-none focus:ring-0"
-              placeholder="12 / 23"
-            />
-          </div>
-        </div>
-        <div className="mt-4">
-          <button className="w-full rounded-[8px] border border-gray-400 bg-gray-100 px-4 py-2 hover:bg-gray-200">
-            Submit
-          </button>
-        </div>
-      </div>
-      <div className="mx-auto mt-[26px] max-w-[620px] rounded-[8px] border border-[#DBDBDB] p-[19px]">
-        <h1 className="mb-[32px] font-[700]">Add Card</h1>
-        <div className="flex flex-col lg:flex-row lg:space-x-4">
-          <div className="mb-4 flex-1 rounded-[8px] border border-[#DBDBDB] p-4 lg:mb-0">
-            <label className="block text-sm font-medium text-gray-700">
-              Card Number
-            </label>
-            <input
-              type="text"
-              className="w-full border-0 p-0 focus:outline-none focus:ring-0"
-              placeholder="1234 5678 9101 1121"
-            />
-          </div>
-          <div className="mb-4 flex-1 rounded-[8px] border border-[#DBDBDB] p-4 lg:mb-0">
-            <label className="block text-sm font-medium text-gray-700">
-              CVV
-            </label>
-            <input
-              type="text"
-              className="w-full border-0 p-0 focus:outline-none focus:ring-0"
-              placeholder="123"
-            />
-          </div>
-          <div className="flex-1 rounded-[8px] border border-[#DBDBDB] p-4">
-            <label className="block text-sm font-medium text-gray-700">
-              MM / YY
-            </label>
-            <input
-              type="text"
-              className="w-full border-0 p-0 focus:outline-none focus:ring-0"
-              placeholder="12 / 23"
-            />
-          </div>
-        </div>
-        <div className="mt-4">
-          <button className="w-full rounded-[8px] border border-gray-400 bg-gray-100 px-4 py-2 hover:bg-gray-200">
-            Submit
-          </button>
-        </div>
-      </div> */
+/*
+
+VERIFY DEBUG: {
+  token: 'supt_as9BwRXDa9qjJPcGsP7qzeua',   
+  cardInfo: {
+    cardNumber: '356600******7321',
+    cardBin: '356600',
+    cardLast4: '7321',
+    cardType: 'jcb',  
+    expiryMonth: '03',
+    expiryYear: '3333',
+    cardSecurityCode: 'true'
+  },
+  address: { postalCode: '' },
+  additionalInformation: { companyName: '', postalCode: '' }      
+}
+Transaction {
+  authorizedAmount: undefined,
+  avsAddressResponse: undefined,
+  balanceAmount: undefined,
+  pointsBalanceAmount:
+ undefined,
+  cardBrandTransactionId: '073122275700498',
+  commercialIndicator:
+ undefined,
+  responseCode: '00', 
+  responseMessage: 'Success',
+  transactionDescriptor: undefined,
+  referenceNumber: '421316191745',
+  recurringDataCode: undefined,
+  cvnResponseMessage: 'Match.',
+  cvnResponseCode: 'M',
+  cavvResponseCode: undefined,
+  multiCapture: undefined,
+  multiCapturePaymentCount: undefined,      
+  multiCaptureSequence: undefined,
+  cardLast4: undefined,
+  cardType: 'Disc',   
+  avsResponseMessage: 'AVS Not Requested.', 
+  avsResponseCode: '0',
+  availableBalance: undefined,
+  transactionReference: TransactionReference {
+    authCode: '007489',
+    orderId: undefined,
+    transactionId: '200071933013',
+    paymentMethodType:
+ 2,
+    clientTransactionId: undefined
+  },
+  token: undefined,   
+  giftCard: undefined,
+  clientTransactionId:
+ undefined,
+  timestamp: undefined,
+  batchId: undefined, 
+  batchSeqNbr: undefined,
+  payFacData: undefined,
+  payerDetails: undefined,
+  fingerprint: undefined,
+  fingerprintIndicator: undefined,
+  tokenUsageMode: undefined,
+  cardDetails: undefined,
+  threeDSecure: undefined,
+  accountNumberLast4: undefined,
+  accountType: undefined,
+  cardIssuerResponse: undefined
+}
+TransactionSummary {  
+  amount: '0.00',     
+  currency: undefined,
+  merchantId: undefined,
+  merchantHierarchy: undefined,
+  merchantName: undefined,
+  merchantDbaName: undefined,
+  accountDataSource: '@',
+  accountNumberLast4: undefined,
+  accountType: undefined,
+  aquirerReferenceNumber: undefined,        
+  authCode: '',       
+  authorizedAmount: '0.00',
+  batchCloseDate: Invalid Date,
+  batchSequenceNumber:
+ undefined,
+  brandReference: undefined,
+  cardHolderName: undefined,
+  cardSwiped: 'N',    
+  cardType: 'Disc',   
+  channel: undefined, 
+  clerkId: undefined, 
+  clientTransactionId:
+ undefined,
+  convenienceAmt: undefined,
+  country: undefined, 
+  deviceId: '7508557',
+  depositStatus: undefined,
+  depositReference: undefined,
+  depositTimeCreated: undefined,
+  entryMode: undefined,
+  issuerResponseCode: undefined,
+  issuerResponseMessage: undefined,
+  issuerTransactionId:
+ '421316191745000',   
+  gatewayResponseCode:
+ '00',
+  gatewayResponseMessage: 'Success',        
+  gratuityAmount: '0',
+  maskedCardNumber: '356600******7321',     
+  originalTransactionId: '0',
+  orderId: undefined, 
+  paymentType: undefined,
+  poNumber: undefined,
+  referenceNumber: '421316191745',
+  responseDate: 2024-08-01T05:27:58.980Z,   
+  serviceName: 'CreditAccountVerify',       
+  settlementAmount: '0',
+  shippingAmt: undefined,
+  siteTrace: '',      
+  status: 'I',        
+  taxAmount: undefined,
+  taxType: undefined, 
+  transactionDate: Invalid Date,
+  transactionLocalDate: undefined,
+  transactionId: '200071933013',
+  transactionStatus: undefined,
+  transactionType: undefined,
+  username: '777704047279SK',
+  description: undefined,
+  invoiceNumber: undefined,
+  customerId: undefined,
+  uniqueDeviceId: '', 
+  transactionDescriptor: undefined,
+  giftCurrency: undefined,
+  maskedAlias: undefined,
+  paymentMethodKey: undefined,
+  scheduleId: undefined,
+  oneTimePayment: undefined,
+  recurringDataCode: undefined,
+  surchargeAmount: undefined,
+  fraudRuleInfo: undefined,
+  repeatCount: undefined,
+  emvChipCondition: '',
+  hasEmvTags: undefined,
+  hasEcomPaymentData: undefined,
+  cavvResponseCode: '',
+  tokenPanLastFour: '',
+  companyName: '',    
+  customerFirstName: '',
+  customerLastName: '',
+  debtRepaymentIndicator: undefined,        
+  captureAmount: undefined,
+
+  */

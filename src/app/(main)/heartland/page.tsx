@@ -1,4 +1,5 @@
 import PaymentForm from './PaymentForm';
+import PaypalForm from './PaypalForm';
 import VerifyForm from './VerifyForm';
 
 export default function HeartlandPage() {
@@ -7,6 +8,7 @@ export default function HeartlandPage() {
       <VerifyForm />
       <br/>
       {/* <PaymentForm /> */}
+      <PaypalForm/>
     </div>
   );
 }
