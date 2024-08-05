@@ -1,9 +1,13 @@
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 
-export async function GET(req: Request, res: NextResponse) {
+export async function GET(req: NextRequest, res: NextResponse) {
   console.log('REquest:', req);
+  const searchParams = req.nextUrl.searchParams;
+  const orderId = searchParams.get('ORDERID');
   const body = await req.text();
   console.log('body', body);
+  console.log('searchParams', searchParams);
+  console.log('orderId', orderId);
 
   /*
     Things that are needed
@@ -15,7 +19,7 @@ export async function GET(req: Request, res: NextResponse) {
   try {
     // return NextResponse.redirect('http://localhost:3000/thank-you')
     // Process payment status and determine redirect URL
-    const redirectUrl = 'http://localhost:3000/thank-you';
+    const redirectUrl = `http://localhost:3000/thank-you?order_number=${orderId}&payment_gateway=paypal`;
 
     // Render a small HTML page with the JavaScript to break out of the iframe
     const htmlContent = `

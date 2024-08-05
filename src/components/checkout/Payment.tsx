@@ -11,6 +11,7 @@ import { CreditCardSection } from './CreditCardSection';
 import PayPalIcon from './icons/PayPalIcon';
 import { SelectedCardLogo } from './SelectedCardLogo';
 import LoadingButton from '../ui/loading-button';
+import PaypalForm from '@/app/(main)/heartland/PaypalForm';
 
 export default function Payment({
   handleChangeAccordion,
@@ -176,7 +177,7 @@ export default function Payment({
             <div className="pt-[15px]">
               {paymentMethod === 'paypal' && (
                 <div>
-                  You will be redirected to the PayPal site upon checkout.
+                  <PaypalForm/>
                 </div>
               )}
               {paymentMethod === 'applePay' && (
