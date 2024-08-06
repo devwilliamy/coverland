@@ -15,14 +15,14 @@ export async function POST(req: Request) {
   const uuid = uuidv4().replace(/-/g, '');
   console.log('uuidv4', uuid);
 
-  if (!body.amount || !body.orderId) {
+  if (!body.amount || !body.orderId || !body.currency) {
     return Response.json({
       success: false,
-      message: 'Please Provide order_price And User ID',
+      message: 'Please Provide amount And order id and currency',
     });
   }
 
-  const { amount, orderId } = body;
+  const { amount, orderId, currency } = body;
 
   try {
     const response = await fetch(payflowUrl, {
@@ -31,7 +31,7 @@ export async function POST(req: Request) {
         'Content-Type': 'application/x-www-form-urlencoded', // Set the content type to URL-encoded form data
       },
       // No CC
-      body: `PARTNER=${partner}&PWD=${pwd}&VENDOR=${vendor}&USER=${user}&TENDER=C&TRXTYPE=S&AMT=${amount}&CREATESECURETOKEN=Y&SECURETOKENID=${uuid}&ORDERID=${orderId}`,
+      body: `PARTNER=${partner}&PWD=${pwd}&VENDOR=${vendor}&USER=${user}&TENDER=C&TRXTYPE=S&AMT=${amount}&CURRENCY=${currency}&CREATESECURETOKEN=Y&SECURETOKENID=${uuid}&ORDERID=${orderId}`,
     });
     const result = await response.text();
     console.log(result);

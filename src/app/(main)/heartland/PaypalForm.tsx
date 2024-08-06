@@ -1,4 +1,6 @@
 'use client';
+import { useCheckoutContext } from '@/contexts/CheckoutContext';
+import { useCartContext } from '@/providers/CartProvider';
 import { useEffect, useState } from 'react';
 import { AiOutlineLoading3Quarters } from 'react-icons/ai';
 import { v4 as uuidv4 } from 'uuid';
@@ -16,6 +18,10 @@ export default function PaypalForm() {
   const [secureToken, setSecureToken] = useState('');
   const [secureTokenId, setSecureTokenId] = useState('');
   const [isLoading, setIsLoading] = useState(true);
+  const { orderNumber } = useCheckoutContext();
+  const { getTotalPrice } = useCartContext();
+  const totalMsrpPrice = getTotalPrice().toFixed(2) as unknown as number;
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -25,8 +31,9 @@ export default function PaypalForm() {
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({
-            amount: '1.01',
-            orderId: 'CL-TEST-123',
+            amount: totalMsrpPrice,
+            orderId: orderNumber || 'CL-TEST-12345',
+            currency: 'USD',
           }),
         });
         if (!response.ok) {
@@ -59,7 +66,7 @@ export default function PaypalForm() {
         <div className="h-[600px]">
           <div className="flex h-96 min-w-full animate-pulse items-center justify-center rounded-md bg-[#F0F0F0]/25">
             <AiOutlineLoading3Quarters
-              className="animate-spin h-8 w-8"
+              className="h-8 w-8 animate-spin"
               fill="#BE1B1B"
               opacity={1.0}
             />
@@ -71,41 +78,13 @@ export default function PaypalForm() {
             src={`${payflowUrl}/?SECURETOKEN=${secureToken}&SECURETOKENID=${secureTokenId}`}
             width="600"
             height="400"
+            scrolling="no"
             frameBorder="0"
             allowtransparency="true"
           >
             Your browser does not support iframes.
           </iframe>
-          <form
-            action={`${payflowUrl}/?SECURETOKEN=${secureToken}&SECURETOKENID=${secureTokenId}`}
-            method="POST"
-          >
-            <input type="hidden" name="AMOUNT" value="10.00" />
-            <input type="hidden" name="TYPE" value="S" />
-            <input
-              type="hidden"
-              name="DESCRIPTION"
-              value="YourProductDescription"
-            />
-            <input type="hidden" name="INVOICE" value="UniqueInvoiceID" />
-            <input type="hidden" name="CURRENCY" value="USD" />
-            <input
-              type="hidden"
-              name="RETURNURL"
-              value="http://localhost:3000/checkout/thank-you"
-            />
-            <input
-              type="hidden"
-              name="CANCELURL"
-              value="http://localhost:3000/checkout/cancel"
-            />
-            <input
-              type="hidden"
-              name="ERRORURL"
-              value="http://localhost:3000/checkout/error"
-            />
-            <input type="submit" value="Pay Now" />
-          </form>
+
         </>
       )}
     </div>
