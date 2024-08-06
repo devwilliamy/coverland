@@ -4,6 +4,7 @@ import { CustomerInfo, useCheckoutContext } from '@/contexts/CheckoutContext';
 import { StripeAddress } from '@/lib/types/checkout';
 import { CustomTextField } from './CustomTextField';
 import { updateOrdersShipping } from '@/lib/db/orders/updateOrders';
+import { cleanString } from '@/lib/utils/stringHelpers';
 
 type AddressFormProps = {
   addressData: StripeAddress;
@@ -142,33 +143,34 @@ export default function AddressForm({
   const handleSaveAndContinue = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     const stripeAddress = {
-      firstName: shipping.firstName.value.trim(),
-      lastName: shipping.lastName.value.trim(),
+      firstName: cleanString(shipping.firstName.value),
+      lastName: cleanString(shipping.lastName.value),
       name:
-        shipping.firstName.value.trim() + ' ' + shipping.lastName.value.trim(),
-      phone: shipping.phoneNumber.value.trim(),
+        cleanString(shipping.firstName.value) +
+        ' ' +
+        cleanString(shipping.lastName.value),
+      phone: cleanString(shipping.phoneNumber.value),
       address: {
-        city: shipping.city.value.trim(),
-        line1: shipping.line1.value.trim(),
-        line2: shipping.line2.value.trim(),
-        postal_code: shipping.postal_code.value.trim(),
-        state: shipping.state.value.trim(),
+        city: cleanString(shipping.city.value),
+        line1: cleanString(shipping.line1.value),
+        line2: cleanString(shipping.line2.value),
+        postal_code: cleanString(shipping.postal_code.value),
+        state: cleanString(shipping.state.value),
         country: 'US',
       },
     };
 
     const customerInfo = {
-      email: shipping.email.value.trim(),
-      phoneNumber: shipping.phoneNumber.value.trim(),
+      email: cleanString(shipping.email.value),
+      phoneNumber: cleanString(shipping.phoneNumber.value),
     } as CustomerInfo;
 
     updateAddress(stripeAddress as StripeAddress);
     updateCustomerInfo(customerInfo);
     setIsEditingAddress(false);
-    debugger;
     updateOrdersShipping(
       stripeAddress,
-      shipping.email.value.trim(),
+      cleanString(shipping.email.value),
       orderNumber
     );
   };
