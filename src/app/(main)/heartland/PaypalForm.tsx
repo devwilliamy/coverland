@@ -1,5 +1,6 @@
 'use client';
 import { useEffect, useState } from 'react';
+import { AiOutlineLoading3Quarters } from 'react-icons/ai';
 import { v4 as uuidv4 } from 'uuid';
 
 const partner = process.env.PAYPAL_PAYFLOW_PARTNER;
@@ -54,7 +55,17 @@ export default function PaypalForm() {
   return (
     <div>
       Paypal
-      {!isLoading && (
+      {isLoading ? (
+        <div className="h-[600px]">
+          <div className="flex h-96 min-w-full animate-pulse items-center justify-center rounded-md bg-[#F0F0F0]/25">
+            <AiOutlineLoading3Quarters
+              className="animate-spin h-8 w-8"
+              fill="#BE1B1B"
+              opacity={1.0}
+            />
+          </div>
+        </div>
+      ) : (
         <>
           <iframe
             src={`${payflowUrl}/?SECURETOKEN=${secureToken}&SECURETOKENID=${secureTokenId}`}

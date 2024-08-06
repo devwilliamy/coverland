@@ -3,6 +3,7 @@ import { Button } from '../ui/button';
 import { CustomerInfo, useCheckoutContext } from '@/contexts/CheckoutContext';
 import { StripeAddress } from '@/lib/types/checkout';
 import { CustomTextField } from './CustomTextField';
+import { updateOrdersShipping } from '@/lib/db/orders/updateOrders';
 
 type AddressFormProps = {
   addressData: StripeAddress;
@@ -47,13 +48,12 @@ export default function AddressForm({
     updateTwoLetterStateCode,
     updateBillingTwoLetterStateCode,
     isBillingSameAsShipping,
+    orderNumber,
   } = useCheckoutContext();
 
   // TODO: Extract this to checkout context or its own context
 
-  const [shippingState, setShippingState] = useState<
-    Record<string, ShippingStateType>
-  >({
+  const [shipping, setShipping] = useState<Record<string, ShippingStateType>>({
     email: { value: '', visited: false, message: '', error: null },
     firstName: { value: '', visited: false, message: '', error: null },
     lastName: { value: '', visited: false, message: '', error: null },
@@ -68,7 +68,7 @@ export default function AddressForm({
   useEffect(() => {
     // Populate the form fields when shippingAddress changes
     if (addressData.address.line1) {
-      setShippingState({
+      setShipping({
         email: {
           value: customerInfo.email,
           visited: true,
@@ -128,10 +128,10 @@ export default function AddressForm({
   }, [addressData, customerInfo]);
 
   const checkErrors = () => {
-    for (const key in shippingState) {
+    for (const key in shipping) {
       if (
         key !== 'line2' &&
-        (shippingState[key].error || shippingState[key].error === null)
+        (shipping[key].error || shipping[key].error === null)
       ) {
         return true;
       }
@@ -141,29 +141,36 @@ export default function AddressForm({
 
   const handleSaveAndContinue = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    const incStripeAddress = {
-      firstName: shippingState.firstName.value,
-      lastName: shippingState.lastName.value,
-      name: shippingState.firstName.value + ' ' + shippingState.lastName.value,
-      phone: shippingState.phoneNumber.value,
+    const stripeAddress = {
+      firstName: shipping.firstName.value.trim(),
+      lastName: shipping.lastName.value.trim(),
+      name:
+        shipping.firstName.value.trim() + ' ' + shipping.lastName.value.trim(),
+      phone: shipping.phoneNumber.value.trim(),
       address: {
-        city: shippingState.city.value,
-        line1: shippingState.line1.value,
-        line2: shippingState.line2.value,
-        postal_code: shippingState.postal_code.value,
-        state: shippingState.state.value,
+        city: shipping.city.value.trim(),
+        line1: shipping.line1.value.trim(),
+        line2: shipping.line2.value.trim(),
+        postal_code: shipping.postal_code.value.trim(),
+        state: shipping.state.value.trim(),
         country: 'US',
       },
     };
 
-    const incCustomerInfo = {
-      email: shippingState.email.value,
-      phoneNumber: shippingState.phoneNumber.value,
+    const customerInfo = {
+      email: shipping.email.value.trim(),
+      phoneNumber: shipping.phoneNumber.value.trim(),
     } as CustomerInfo;
 
-    updateAddress(incStripeAddress as StripeAddress);
-    updateCustomerInfo(incCustomerInfo);
+    updateAddress(stripeAddress as StripeAddress);
+    updateCustomerInfo(customerInfo);
     setIsEditingAddress(false);
+    debugger;
+    updateOrdersShipping(
+      stripeAddress,
+      shipping.email.value.trim(),
+      orderNumber
+    );
   };
 
   return (
@@ -177,16 +184,16 @@ export default function AddressForm({
           type="firstName"
           placeholder="First Name"
           required
-          shippingState={shippingState}
-          setShippingState={setShippingState}
+          shipping={shipping}
+          setShipping={setShipping}
         />
         <CustomTextField
           label="Last Name"
           type="lastName"
           required
           placeholder="Last Name"
-          shippingState={shippingState}
-          setShippingState={setShippingState}
+          shipping={shipping}
+          setShipping={setShipping}
         />
       </div>
       <CustomTextField
@@ -194,16 +201,16 @@ export default function AddressForm({
         type="line1"
         required
         placeholder="Start typing address"
-        shippingState={shippingState}
-        setShippingState={setShippingState}
+        shipping={shipping}
+        setShipping={setShipping}
       />
       <CustomTextField
         label="Company, C/O, Apt, Suite, Unit"
         type="line2"
         required={false}
         placeholder="Add Company, C/O, Apt, Suite, Unit"
-        shippingState={shippingState}
-        setShippingState={setShippingState}
+        shipping={shipping}
+        setShipping={setShipping}
       />
       <div className="flex grid-cols-3 flex-col gap-[29.5px] lg:grid lg:gap-[14px]">
         <CustomTextField
@@ -211,24 +218,24 @@ export default function AddressForm({
           type="city"
           required
           placeholder="City"
-          shippingState={shippingState}
-          setShippingState={setShippingState}
+          shipping={shipping}
+          setShipping={setShipping}
         />
         <CustomTextField
           label="State"
           type="state"
           required
           placeholder="State"
-          shippingState={shippingState}
-          setShippingState={setShippingState}
+          shipping={shipping}
+          setShipping={setShipping}
         />
         <CustomTextField
           label="ZIP"
           type="postal_code"
           required
           placeholder="ZIP"
-          shippingState={shippingState}
-          setShippingState={setShippingState}
+          shipping={shipping}
+          setShipping={setShipping}
         />
       </div>
 
@@ -239,16 +246,16 @@ export default function AddressForm({
             type="email"
             required
             placeholder="Email"
-            shippingState={shippingState}
-            setShippingState={setShippingState}
+            shipping={shipping}
+            setShipping={setShipping}
           />
           <CustomTextField
             label="Phone Number"
             type="phoneNumber"
             required
             placeholder="Phone Number"
-            shippingState={shippingState}
-            setShippingState={setShippingState}
+            shipping={shipping}
+            setShipping={setShipping}
           />
         </div>
       )}
