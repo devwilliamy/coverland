@@ -21,14 +21,14 @@ export default function CheckoutError() {
 
   useEffect(() => {
     console.log('Inside useEffect');
-    if (window.top !== window.self) {
+    if (window && window.top && window.top !== window.self) {
       window.top.location.href = redirectUrl;
     }
   }, []);
 
   return (
     <>
-      {window.top && window.top !== window.self ? (
+      {window && window.top && window.top !== window.self ? (
         <AiOutlineLoading3Quarters
           className="animate-spin h-8 w-8"
         />
@@ -47,6 +47,8 @@ function generateExtraMessage(result: string) {
   switch (result) {
     case '7':
       return 'If this token has never been used, try incognito mode.';
+    case '25':
+      return 'We do not accept this payment. Please try another provider.'
     case '109':
       return 'Try again in a minute.';
     default:

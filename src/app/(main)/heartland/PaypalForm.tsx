@@ -31,8 +31,9 @@ export default function PaypalForm() {
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({
-            amount: totalMsrpPrice,
-            orderId: orderNumber || 'CL-TEST-12345',
+            // amount: totalMsrpPrice,
+            amount: '1025.00',
+            orderId: orderNumber,
             currency: 'USD',
           }),
         });
@@ -60,7 +61,7 @@ export default function PaypalForm() {
   }, []);
 
   return (
-    <>
+    <div className="-ml-8 lg:ml-0">
       {isLoading ? (
         <div className="h-[600px]">
           <div className="flex h-96 min-w-full animate-pulse items-center justify-center rounded-md bg-[#F0F0F0]/25">
@@ -72,19 +73,17 @@ export default function PaypalForm() {
           </div>
         </div>
       ) : (
-        <>
-          <iframe
-            src={`${payflowUrl}/?SECURETOKEN=${secureToken}&SECURETOKENID=${secureTokenId}`}
-            width="600"
-            height="400"
-            scrolling="no"
-            frameBorder="0"
-            allowtransparency="true"
-          >
-            Your browser does not support iframes.
-          </iframe>
-        </>
+        <iframe
+          src={`${payflowUrl}/?SECURETOKEN=${secureToken}&SECURETOKENID=${secureTokenId}`}
+          width="600"
+          height="400"
+          // scrolling="no"
+          frameBorder="0"
+          allowtransparency="true"
+        >
+          Your browser does not support iframes.
+        </iframe>
       )}
-    </>
+    </div>
   );
 }
