@@ -1,7 +1,7 @@
 'use client';
 import { useCheckoutContext } from '@/contexts/CheckoutContext';
 import { useCartContext } from '@/providers/CartProvider';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { AiOutlineLoading3Quarters } from 'react-icons/ai';
 import { v4 as uuidv4 } from 'uuid';
 
@@ -21,7 +21,16 @@ export default function PaypalForm() {
   const { orderNumber, billingAddress } = useCheckoutContext();
   const { getTotalPrice } = useCartContext();
   const totalMsrpPrice = getTotalPrice().toFixed(2) as unknown as number;
+  const iframeRef = useRef(null);
 
+  useEffect(() => {
+    // Reload the iframe when the component mounts
+    if (iframeRef.current) {
+      console.log("Tryin to reload the iframe")
+      iframeRef.current.src += '';
+    }
+  }, []);
+  
   useEffect(() => {
     const fetchData = async () => {
       try {
