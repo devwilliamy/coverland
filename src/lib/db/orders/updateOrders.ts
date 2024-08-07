@@ -81,6 +81,7 @@ function mapBillingAddressToCustomer(
     city: address?.postal_code,
     pincode: address?.postal_code,
     state: address?.state,
+    email,
   };
 }
 
@@ -108,19 +109,13 @@ function mapShippingToOrder(
 
 function mapBillingToOrder(
   stripeAddress: StripeAddress,
-  email: string,
-  customer_id: number
 ) {
-  const { name, address, phone } = stripeAddress;
-  const formattedPhone = formatToE164(phone ?? '');
+  const { name, address } = stripeAddress;
   return {
-    customer_id,
-    customer_name: name,
-    customer_email: email,
-    customer_phone: formattedPhone,
+    billing_customer_name: name,
     billing_address_line_1: address?.line1,
     billing_address_line_2: address?.line2 || '', // currently don't see it
-    billing_address_city: address?.postal_code,
+    billing_address_city: address?.city,
     billing_address_state: address?.state,
     billing_address_postal_code: address?.postal_code,
     billing_address_country: address?.country,
