@@ -50,7 +50,7 @@ export default function BillingAddress() {
               <AddressForm
                 addressData={billingAddress}
                 updateAddress={updateBillingAddress}
-                setIsEditingAddress={setIsEditingAddress}
+                setIsEditingAddress={updateIsEditingAddress}
                 isBilling
               />
             </div>

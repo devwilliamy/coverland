@@ -3,7 +3,10 @@ import { Button } from '../ui/button';
 import { CustomerInfo, useCheckoutContext } from '@/contexts/CheckoutContext';
 import { StripeAddress } from '@/lib/types/checkout';
 import { CustomTextField } from './CustomTextField';
-import { updateOrdersShipping } from '@/lib/db/orders/updateOrders';
+import {
+  updateOrdersBilling,
+  updateOrdersShipping,
+} from '@/lib/db/orders/updateOrders';
 import { cleanString } from '@/lib/utils/stringHelpers';
 
 type AddressFormProps = {
@@ -168,11 +171,33 @@ export default function AddressForm({
     updateAddress(stripeAddress as StripeAddress);
     updateCustomerInfo(customerInfo);
     setIsEditingAddress(false);
-    updateOrdersShipping(
-      stripeAddress,
-      cleanString(shipping.email.value),
-      orderNumber
-    );
+    debugger
+    if (isBillingSameAsShipping) {
+      updateOrdersShipping(
+        stripeAddress,
+        cleanString(shipping.email.value),
+        orderNumber
+      );
+      updateOrdersBilling(
+        stripeAddress,
+        cleanString(shipping.email.value),
+        orderNumber
+      );
+    } else {
+      if (isBilling) {
+        updateOrdersBilling(
+          stripeAddress,
+          cleanString(shipping.email.value),
+          orderNumber
+        );
+      } else {
+        updateOrdersShipping(
+          stripeAddress,
+          cleanString(shipping.email.value),
+          orderNumber
+        );
+      }
+    }
   };
 
   return (
