@@ -31,8 +31,7 @@ export default function PaypalForm() {
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({
-            // amount: totalMsrpPrice,
-            amount: '1025.00',
+            amount: totalMsrpPrice,
             orderId: orderNumber,
             currency: 'USD',
           }),
