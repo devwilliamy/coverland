@@ -31,19 +31,36 @@ export default function PaypalForm() {
   //   }
   // }, []);
 
+  // useEffect(() => {
+  //   const handlePageShow = () => {
+  //     if (iframeRef.current) {
+  //       // Reload the iframe to ensure it is in a functional state
+  //       iframeRef.current.src = iframeRef.current.src;
+  //     }
+  //   };
+
+  //   window.addEventListener('pageshow', handlePageShow);
+
+  //   return () => {
+  //     window.removeEventListener('pageshow', handlePageShow);
+  //   };
+  // }, []);
+
   useEffect(() => {
-    const handlePageShow = () => {
-      if (iframeRef.current) {
-        // Reload the iframe to ensure it is in a functional state
-        iframeRef.current.src = iframeRef.current.src;
+    const handlePageShow = (event) => {
+      if (event.persisted) {
+        // Force a full page reload if the page was loaded from the cache
+        window.location.reload();
       }
     };
 
-    window.addEventListener('pageshow', handlePageShow);
+    if (isMobile()) {
+      window.addEventListener('pageshow', handlePageShow);
 
-    return () => {
-      window.removeEventListener('pageshow', handlePageShow);
-    };
+      return () => {
+        window.removeEventListener('pageshow', handlePageShow);
+      };
+    }
   }, []);
 
   useEffect(() => {
