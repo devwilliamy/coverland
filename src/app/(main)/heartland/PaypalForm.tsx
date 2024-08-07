@@ -18,7 +18,7 @@ export default function PaypalForm() {
   const [secureToken, setSecureToken] = useState('');
   const [secureTokenId, setSecureTokenId] = useState('');
   const [isLoading, setIsLoading] = useState(true);
-  const { orderNumber } = useCheckoutContext();
+  const { orderNumber, billingAddress } = useCheckoutContext();
   const { getTotalPrice } = useCartContext();
   const totalMsrpPrice = getTotalPrice().toFixed(2) as unknown as number;
 
@@ -34,6 +34,7 @@ export default function PaypalForm() {
             amount: totalMsrpPrice,
             orderId: orderNumber,
             currency: 'USD',
+            billingAddress,
           }),
         });
         if (!response.ok) {
@@ -47,7 +48,6 @@ export default function PaypalForm() {
           data: { secureToken, secureTokenId },
         } = await response.json();
         // const { secureToken, secureTokenId } = data.data;
-        console.log('Secure Token:', { secureToken, secureTokenId });
         setSecureToken(secureToken);
         setSecureTokenId(secureTokenId);
       } catch (error) {
@@ -57,7 +57,7 @@ export default function PaypalForm() {
       }
     };
     fetchData();
-  }, []);
+  }, [billingAddress]);
 
   return (
     <div className="-ml-8 lg:ml-0">

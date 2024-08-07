@@ -10,20 +10,24 @@ const payflowUrl = isPreview
   : 'https://payflowpro.paypal.com';
 
 export async function POST(req: Request) {
-    console.log("IsPreview: ", isPreview)
   const body = await req.json();
   const uuid = uuidv4().replace(/-/g, '');
-  console.log('uuidv4', uuid);
 
-  if (!body.amount || !body.orderId || !body.currency) {
+  if (!body.amount || !body.orderId || !body.currency || !body.billingAddress) {
     return Response.json({
       success: false,
       message: 'Please Provide amount And order id and currency',
     });
   }
 
-  const { amount, orderId, currency } = body;
-
+  const {
+    amount,
+    orderId,
+    currency,
+    billingAddress: {
+      address: { line1, postal_code },
+    },
+  } = body;
   try {
     const response = await fetch(payflowUrl, {
       method: 'POST',
@@ -31,7 +35,7 @@ export async function POST(req: Request) {
         'Content-Type': 'application/x-www-form-urlencoded', // Set the content type to URL-encoded form data
       },
       // No CC
-      body: `PARTNER=${partner}&PWD=${pwd}&VENDOR=${vendor}&USER=${user}&TENDER=C&TRXTYPE=S&AMT=${amount}&CURRENCY=${currency}&CREATESECURETOKEN=Y&SECURETOKENID=${uuid}&ORDERID=${orderId}`,
+      body: `PARTNER=${partner}&PWD=${pwd}&VENDOR=${vendor}&USER=${user}&TENDER=C&TRXTYPE=S&AMT=${amount}&CURRENCY=${currency}&CREATESECURETOKEN=Y&SECURETOKENID=${uuid}&ORDERID=${orderId}&BILLTOSTREET=${line1}&BILLTOZIP=${postal_code}`,
     });
     const result = await response.text();
     console.log(result);
