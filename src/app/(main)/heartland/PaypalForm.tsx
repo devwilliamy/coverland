@@ -60,8 +60,7 @@ export default function PaypalForm() {
   }, []);
 
   return (
-    <div>
-      Paypal
+    <>
       {isLoading ? (
         <div className="h-[600px]">
           <div className="flex h-96 min-w-full animate-pulse items-center justify-center rounded-md bg-[#F0F0F0]/25">
@@ -84,11 +83,8 @@ export default function PaypalForm() {
           >
             Your browser does not support iframes.
           </iframe>
-
         </>
       )}
-    </div>
+    </>
   );
 }
-
-// https://payflowlink.paypal.com/?SECURETOKEN=1aMXeBlOlj0K618SbEBPsAQpG&SECURETOKENID=5469e06a7c364d21a3bac1d6a17542c6
