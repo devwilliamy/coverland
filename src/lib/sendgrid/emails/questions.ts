@@ -13,8 +13,6 @@ const generateQuestionsEmail = ({
 }: ContactEmailInput) => {
   const additionalEmails = [
     'support@coverland.com',
-    'dev.william.coverland@gmail.com',
-    'vasiliy@coverland.com',
     email?.toLowerCase(),
   ];
 
