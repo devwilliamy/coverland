@@ -1,6 +1,6 @@
 'use client';
 import { usePathname, useSearchParams } from 'next/navigation';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { AiOutlineLoading3Quarters } from 'react-icons/ai';
 
 const isPreview = process.env.NEXT_PUBLIC_IS_PREVIEW === 'PREVIEW';
@@ -18,9 +18,10 @@ export default function CheckoutError() {
   const queryString = searchParams.toString();
   const fullUrl = `${pathname}${queryString ? `?${queryString}` : ''}`;
   const redirectUrl = `${coverlandUrl}${fullUrl}`;
+  const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
-    console.log('Inside useEffect');
+    setIsClient(true);
     if (window && window.top && window.top !== window.self) {
       window.top.location.href = redirectUrl;
     }
@@ -28,7 +29,7 @@ export default function CheckoutError() {
 
   return (
     <>
-      {window && window.top && window.top !== window.self ? (
+      {isClient && window && window.top && window.top !== window.self ? (
         <AiOutlineLoading3Quarters
           className="animate-spin h-8 w-8"
         />

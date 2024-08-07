@@ -62,7 +62,7 @@ export default function PaypalForm() {
   return (
     <div className="-ml-8 lg:ml-0">
       {isLoading ? (
-        <div className="h-[600px]">
+        <div className="h-[550px]">
           <div className="flex h-96 min-w-full animate-pulse items-center justify-center rounded-md bg-[#F0F0F0]/25">
             <AiOutlineLoading3Quarters
               className="h-8 w-8 animate-spin"
@@ -75,7 +75,7 @@ export default function PaypalForm() {
         <iframe
           src={`${payflowUrl}/?SECURETOKEN=${secureToken}&SECURETOKENID=${secureTokenId}`}
           width="600"
-          height="400"
+          height="550"
           // scrolling="no"
           frameBorder="0"
           allowtransparency="true"
