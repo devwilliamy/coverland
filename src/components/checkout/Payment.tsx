@@ -12,6 +12,7 @@ import PayPalIcon from './icons/PayPalIcon';
 import { SelectedCardLogo } from './SelectedCardLogo';
 import LoadingButton from '../ui/loading-button';
 import PaypalForm from '@/app/(main)/heartland/PaypalForm';
+import { TermsOfUseStatement } from './TermsOfUseStatement';
 
 export default function Payment({
   handleChangeAccordion,
@@ -182,6 +183,7 @@ export default function Payment({
                     isEditingAddress={isEditingAddress}
                     setIsEditingAddress={setIsEditingAddress}
                   />
+                  <TermsOfUseStatement isPaypal />
                 </div>
               )}
               {paymentMethod === 'applePay' && (

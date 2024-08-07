@@ -7,7 +7,7 @@ import {
   ServicesContainer,
   TransactionSummary,
 } from 'globalpayments-api';
-import verifyCard from '@/pages/lib/heartland/verifyCard';
+import verifyCard from '@/lib/heartland/verifyCard';
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method === 'POST') {
