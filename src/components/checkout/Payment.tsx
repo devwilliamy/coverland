@@ -176,8 +176,12 @@ export default function Payment({
           ) : (
             <div className="pt-[15px]">
               {paymentMethod === 'paypal' && (
-                <div>
-                  <PaypalForm/>
+                <div className="flex flex-col gap-4">
+                  <PaypalForm />
+                  <BillingAddress
+                    isEditingAddress={isEditingAddress}
+                    setIsEditingAddress={setIsEditingAddress}
+                  />
                 </div>
               )}
               {paymentMethod === 'applePay' && (
@@ -194,35 +198,38 @@ export default function Payment({
         </>
       )}
       {/* Continue To Order Review Button */}
-      <div className="my-[48px] flex w-full flex-col items-center justify-center lg:flex-row lg:justify-end">
-        {message && (
-          <p className="w-full text-center font-medium text-[red]">{message}</p>
-        )}
-        {paymentMethod === 'creditCard' && !isReadyToPay && (
-          <LoadingButton
-            className={buttonStyle}
-            isDisabled={isDisabledCard}
-            isLoading={isLoading}
-            onClick={handleContinueWithCard}
-            buttonText={'Continue to Order Review'}
-          />
-        )}
-        {(paymentMethod === 'klarna' ||
-          paymentMethod === 'googlePay' ||
-          paymentMethod === 'applePay' ||
-          paymentMethod === 'paypal') &&
-          !isReadyToPay && (
+      {paymentMethod !== 'paypal' && (
+        <div className="my-[48px] flex w-full flex-col items-center justify-center lg:flex-row lg:justify-end">
+          {message && (
+            <p className="w-full text-center font-medium text-[red]">
+              {message}
+            </p>
+          )}
+          {paymentMethod === 'creditCard' && !isReadyToPay && (
             <LoadingButton
               className={buttonStyle}
+              isDisabled={isDisabledCard}
               isLoading={isLoading}
-              onClick={() => {
-                handleChangeAccordion('orderReview');
-                updateIsReadyToPay(true);
-              }}
+              onClick={handleContinueWithCard}
               buttonText={'Continue to Order Review'}
             />
           )}
-      </div>
+          {(paymentMethod === 'klarna' ||
+            paymentMethod === 'googlePay' ||
+            paymentMethod === 'applePay') &&
+            !isReadyToPay && (
+              <LoadingButton
+                className={buttonStyle}
+                isLoading={isLoading}
+                onClick={() => {
+                  handleChangeAccordion('orderReview');
+                  updateIsReadyToPay(true);
+                }}
+                buttonText={'Continue to Order Review'}
+              />
+            )}
+        </div>
+      )}
     </section>
   );
 }

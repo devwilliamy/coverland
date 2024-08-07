@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import CheckoutCancel from './CheckoutCancel';
+import CheckoutCancel from '../../../../components/checkout/CheckoutCancel';
 
 export default function CheckoutCancelPage() {
   return (

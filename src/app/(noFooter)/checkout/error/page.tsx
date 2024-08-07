@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import CheckoutError from './CheckoutError';
+import CheckoutError from '../../../../components/checkout/CheckoutError';
 
 export default function CheckoutErrorPage() {
   return (
