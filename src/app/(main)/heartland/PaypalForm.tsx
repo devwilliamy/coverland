@@ -54,13 +54,11 @@ export default function PaypalForm() {
       }
     };
 
-    if (isMobile()) {
-      window.addEventListener('pageshow', handlePageShow);
+    window.addEventListener('pageshow', handlePageShow);
 
-      return () => {
-        window.removeEventListener('pageshow', handlePageShow);
-      };
-    }
+    return () => {
+      window.removeEventListener('pageshow', handlePageShow);
+    };
   }, []);
 
   useEffect(() => {
