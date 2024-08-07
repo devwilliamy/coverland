@@ -21,6 +21,14 @@ const colorMap: Record<string, StaticImageData> = {
   'Black Red Stripe': BlackRedStripe,
 };
 
+const colorText: Record<string, string> = {
+  'Black Red 2-Tone': 'Black / Red',
+  'Black Gray 2-Tone': 'Black / Gray',
+  'Black Gray Stripe': 'Black / Sky-Gray Stripe',
+  'Gray Black Stripe': 'Sky-Gray / Black Stripe',
+  'Black Red Stripe': 'Black / Red Stripe',
+};
+
 export default function CircleColorSelector() {
   const store = useContext(CarSelectionContext);
   if (!store) throw new Error('Missing CarContext.Provider in the tree');
@@ -53,17 +61,17 @@ export default function CircleColorSelector() {
       colors.push(colorMap[modelData.display_color]);
     }
   }
+
   return (
     <section
       id="select-color"
       className="mt-[24px] flex h-full w-full flex-col"
     >
       <h3 className="mb-[6px] max-h-[13px] text-[16px] font-[400] leading-[14px] text-black ">
-        Select Color
-        {/* {' '}
-        <span className="ml-1  text-[#BEBEBE]">
-          {selectedProduct?.display_color}
-        </span> */}
+        Color{' '}
+        <span className="ml-1  text-[#8F8F8F]">
+          {colorText[selectedProduct?.display_color ?? '']}
+        </span>
       </h3>
       <div className="flex w-full min-w-[288px]  gap-[11px] overflow-x-auto py-[1px] md:overflow-x-hidden">
         {uniqueColors &&
