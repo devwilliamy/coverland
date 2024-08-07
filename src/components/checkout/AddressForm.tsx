@@ -171,7 +171,7 @@ export default function AddressForm({
     updateAddress(stripeAddress as StripeAddress);
     updateCustomerInfo(customerInfo);
     setIsEditingAddress(false);
-    debugger
+    
     if (isBillingSameAsShipping) {
       updateOrdersShipping(
         stripeAddress,
