@@ -103,7 +103,7 @@ export default function CheckoutError() {
 function generateExtraMessage(result: string) {
   switch (result) {
     case '7':
-      return 'If this token has never been used, try incognito mode.';
+      return 'If you did not have a successful purchase, try opening a new tab, or use incognito mode.';
     case '25':
       return 'We do not accept this payment. Please try another provider.'
     case '109':
