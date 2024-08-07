@@ -23,14 +23,29 @@ export default function PaypalForm() {
   const totalMsrpPrice = getTotalPrice().toFixed(2) as unknown as number;
   const iframeRef = useRef(null);
 
+  // useEffect(() => {
+  //   // Reload the iframe when the component mounts
+  //   if (iframeRef.current) {
+  //     console.log("Tryin to reload the iframe")
+  //     iframeRef.current.src += '';
+  //   }
+  // }, []);
+
   useEffect(() => {
-    // Reload the iframe when the component mounts
-    if (iframeRef.current) {
-      console.log("Tryin to reload the iframe")
-      iframeRef.current.src += '';
-    }
+    const handlePageShow = () => {
+      if (iframeRef.current) {
+        // Reload the iframe to ensure it is in a functional state
+        iframeRef.current.src = iframeRef.current.src;
+      }
+    };
+
+    window.addEventListener('pageshow', handlePageShow);
+
+    return () => {
+      window.removeEventListener('pageshow', handlePageShow);
+    };
   }, []);
-  
+
   useEffect(() => {
     const fetchData = async () => {
       try {
