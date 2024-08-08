@@ -1,6 +1,5 @@
-import { useCheckoutContext } from '@/contexts/CheckoutContext';
-
 // Utility function to handle token success
+// TODO: Fill out types
 const handleHeartlandTokenSuccess = async (
   resp,
   setError,
@@ -8,9 +7,6 @@ const handleHeartlandTokenSuccess = async (
   error,
   _address
 ) => {
-  //   debugger;
-  console.log('INside handle heartland');
-  //   const address = {};
   const amount = 0;
   resetError();
   const address = {

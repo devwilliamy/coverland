@@ -4,10 +4,6 @@ import { useCartContext } from '@/providers/CartProvider';
 import { useEffect, useState } from 'react';
 import { AiOutlineLoading3Quarters } from 'react-icons/ai';
 
-const partner = process.env.PAYPAL_PAYFLOW_PARTNER;
-const pwd = process.env.PAYPAL_PAYFLOW_PWD;
-const vendor = process.env.PAYPAL_PAYFLOW_VENDOR;
-const user = process.env.PAYPAL_PAYFLOW_USER;
 const isPreview = process.env.NEXT_PUBLIC_IS_PREVIEW === 'PREVIEW';
 
 const payflowUrl = isPreview

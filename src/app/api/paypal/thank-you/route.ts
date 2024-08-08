@@ -36,18 +36,14 @@ export async function GET(req: NextRequest, res: NextResponse) {
     console.warn('Response Message Not Approved: ', searchparams);
   }
   try {
-    // Take the order and update orders
     const order =
       method === 'P'
         ? mapPaypalExpressCheckoutToorder(searchParams)
         : mapPaypalCreditCardToOrder(searchParams);
     const updatedOrder = await updateAdminPanelOrder(order, orderId);
 
-    // Check on RESPMSG = 'Approved' or I guess result???
-
-    // Maybe check if METHOD = 'CC'  vs 'P'
-
     const redirectUrl = `${coverlandUrl}/thank-you?order_number=${orderId}&payment_gateway=paypal`;
+    // If iframe window URL not the same as parent URL, propogate to parent
     const htmlContent = `
    <!DOCTYPE html>
    <html lang="en">

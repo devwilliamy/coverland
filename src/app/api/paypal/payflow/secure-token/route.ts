@@ -32,27 +32,25 @@ export async function POST(req: Request) {
     const response = await fetch(payflowUrl, {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/x-www-form-urlencoded', // Set the content type to URL-encoded form data
+        'Content-Type': 'application/x-www-form-urlencoded', 
       },
       // No CC
       body: `PARTNER=${partner}&PWD=${pwd}&VENDOR=${vendor}&USER=${user}&TENDER=C&TRXTYPE=S&AMT=${amount}&CURRENCY=${currency}&CREATESECURETOKEN=Y&SECURETOKENID=${uuid}&ORDERID=${orderId}&BILLTOSTREET=${line1}&BILLTOZIP=${postal_code}`,
     });
     const result = await response.text();
-    console.log(result);
     const params = new URLSearchParams(result);
 
     // Extract the SECURETOKEN value
     const secureToken = params.get('SECURETOKEN');
 
     if (secureToken) {
-      console.log('Secure Token:', secureToken); // Output: Secure Token: 4Zj4CVU6ANEKHgXENZl9YgAoE
       return Response.json({ data: { secureToken, secureTokenId: uuid } });
     } else {
       console.error('Secure Token not found in the response.');
       return Response.json({ error: 'Secure Token not found in the response' });
     }
   } catch (err) {
-    console.log('Secure Token Caught Error: ', err);
+    console.error('Secure Token Caught Error: ', err);
     return Response.json(
       { error: 'Secure Token Caught Error' },
       { status: 500 }
