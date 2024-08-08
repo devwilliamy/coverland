@@ -11,6 +11,8 @@ import { CreditCardSection } from './CreditCardSection';
 import PayPalIcon from './icons/PayPalIcon';
 import { SelectedCardLogo } from './SelectedCardLogo';
 import LoadingButton from '../ui/loading-button';
+import PaypalForm from '@/app/(main)/heartland/PaypalForm';
+import { TermsOfUseStatement } from './TermsOfUseStatement';
 
 export default function Payment({
   handleChangeAccordion,
@@ -175,8 +177,13 @@ export default function Payment({
           ) : (
             <div className="pt-[15px]">
               {paymentMethod === 'paypal' && (
-                <div>
-                  You will be redirected to the PayPal site upon checkout.
+                <div className="flex flex-col gap-4">
+                  <PaypalForm />
+                  <BillingAddress
+                    isEditingAddress={isEditingAddress}
+                    setIsEditingAddress={setIsEditingAddress}
+                  />
+                  <TermsOfUseStatement isPaypal />
                 </div>
               )}
               {paymentMethod === 'applePay' && (
@@ -193,35 +200,38 @@ export default function Payment({
         </>
       )}
       {/* Continue To Order Review Button */}
-      <div className="my-[48px] flex w-full flex-col items-center justify-center lg:flex-row lg:justify-end">
-        {message && (
-          <p className="w-full text-center font-medium text-[red]">{message}</p>
-        )}
-        {paymentMethod === 'creditCard' && !isReadyToPay && (
-          <LoadingButton
-            className={buttonStyle}
-            isDisabled={isDisabledCard}
-            isLoading={isLoading}
-            onClick={handleContinueWithCard}
-            buttonText={'Continue to Order Review'}
-          />
-        )}
-        {(paymentMethod === 'klarna' ||
-          paymentMethod === 'googlePay' ||
-          paymentMethod === 'applePay' ||
-          paymentMethod === 'paypal') &&
-          !isReadyToPay && (
+      {paymentMethod !== 'paypal' && (
+        <div className="my-[48px] flex w-full flex-col items-center justify-center lg:flex-row lg:justify-end">
+          {message && (
+            <p className="w-full text-center font-medium text-[red]">
+              {message}
+            </p>
+          )}
+          {paymentMethod === 'creditCard' && !isReadyToPay && (
             <LoadingButton
               className={buttonStyle}
+              isDisabled={isDisabledCard}
               isLoading={isLoading}
-              onClick={() => {
-                handleChangeAccordion('orderReview');
-                updateIsReadyToPay(true);
-              }}
+              onClick={handleContinueWithCard}
               buttonText={'Continue to Order Review'}
             />
           )}
-      </div>
+          {(paymentMethod === 'klarna' ||
+            paymentMethod === 'googlePay' ||
+            paymentMethod === 'applePay') &&
+            !isReadyToPay && (
+              <LoadingButton
+                className={buttonStyle}
+                isLoading={isLoading}
+                onClick={() => {
+                  handleChangeAccordion('orderReview');
+                  updateIsReadyToPay(true);
+                }}
+                buttonText={'Continue to Order Review'}
+              />
+            )}
+        </div>
+      )}
     </section>
   );
 }

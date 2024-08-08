@@ -95,7 +95,6 @@ async function OrderConfirmationPage({
     return (
       <div className="flex flex-row items-center justify-center py-10 text-xl font-bold">
         Order not found
-        {/* <Button onClick={() => redirect('/')}>Return Home</Button> */}
       </div>
     );
   }
