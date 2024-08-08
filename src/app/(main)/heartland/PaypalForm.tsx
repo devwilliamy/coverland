@@ -21,17 +21,6 @@ export default function PaypalForm() {
   const { orderNumber, billingAddress } = useCheckoutContext();
   const { getTotalPrice } = useCartContext();
   const totalMsrpPrice = getTotalPrice().toFixed(2) as unknown as number;
-  const [iframeStatus, setIframeStatus] = useState('loading');
-
-  const handleLoad = () => {
-    setIframeStatus('loaded');
-    console.log("Finished Loading:")
-  };
-
-  const handleError = () => {
-    setIframeStatus('error');
-    console.log("Error Loading:")
-  };
 
   useEffect(() => {
     const handlePageShow = (event: any) => {
@@ -102,12 +91,8 @@ export default function PaypalForm() {
           // scrolling="no"
           frameBorder="0"
           allowtransparency="true"
-          onLoad={handleLoad}
-          onError={handleError}
         >
           Your browser does not support iframes.
-          {iframeStatus === 'loading' && <p>Loading...</p>}
-          {iframeStatus === 'error' && <p>Failed to load content.</p>}
         </iframe>
       )}
     </div>
