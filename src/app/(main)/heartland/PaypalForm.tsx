@@ -1,9 +1,8 @@
 'use client';
 import { useCheckoutContext } from '@/contexts/CheckoutContext';
 import { useCartContext } from '@/providers/CartProvider';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { AiOutlineLoading3Quarters } from 'react-icons/ai';
-import { v4 as uuidv4 } from 'uuid';
 
 const partner = process.env.PAYPAL_PAYFLOW_PARTNER;
 const pwd = process.env.PAYPAL_PAYFLOW_PWD;
@@ -14,6 +13,7 @@ const isPreview = process.env.NEXT_PUBLIC_IS_PREVIEW === 'PREVIEW';
 const payflowUrl = isPreview
   ? 'https://pilot-payflowlink.paypal.com'
   : 'https://payflowlink.paypal.com';
+
 export default function PaypalForm() {
   const [secureToken, setSecureToken] = useState('');
   const [secureTokenId, setSecureTokenId] = useState('');
@@ -21,9 +21,20 @@ export default function PaypalForm() {
   const { orderNumber, billingAddress } = useCheckoutContext();
   const { getTotalPrice } = useCartContext();
   const totalMsrpPrice = getTotalPrice().toFixed(2) as unknown as number;
+  const [iframeStatus, setIframeStatus] = useState('loading');
+
+  const handleLoad = () => {
+    setIframeStatus('loaded');
+    console.log("Finished Loading:")
+  };
+
+  const handleError = () => {
+    setIframeStatus('error');
+    console.log("Error Loading:")
+  };
 
   useEffect(() => {
-    const handlePageShow = (event) => {
+    const handlePageShow = (event: any) => {
       if (event.persisted) {
         // Force a full page reload if the page was loaded from the cache
         window.location.reload();
@@ -53,20 +64,17 @@ export default function PaypalForm() {
           }),
         });
         if (!response.ok) {
-          // Handle error response
-          console.error('Error:', response.statusText);
+          console.error('Paypal Form Error:', response.statusText);
           return;
         }
 
-        // Process the response
         const {
           data: { secureToken, secureTokenId },
         } = await response.json();
-        // const { secureToken, secureTokenId } = data.data;
         setSecureToken(secureToken);
         setSecureTokenId(secureTokenId);
       } catch (error) {
-        console.error('Fetch error: ', error);
+        console.error('Paypal Form Fetch error: ', error);
       } finally {
         setIsLoading(false);
       }
@@ -94,8 +102,12 @@ export default function PaypalForm() {
           // scrolling="no"
           frameBorder="0"
           allowtransparency="true"
+          onLoad={handleLoad}
+          onError={handleError}
         >
           Your browser does not support iframes.
+          {iframeStatus === 'loading' && <p>Loading...</p>}
+          {iframeStatus === 'error' && <p>Failed to load content.</p>}
         </iframe>
       )}
     </div>
