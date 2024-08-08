@@ -8,12 +8,13 @@ type BillingAddressProps = {
   setIsEditingAddress: (isEditing: boolean) => void;
 };
 
-export default function BillingAddress() {
+export default function BillingAddress({
+  isEditingAddress,
+  setIsEditingAddress,
+}: BillingAddressProps) {
   const { isShippingAddressShown } = useCheckoutContext();
 
   const {
-    isEditingAddress,
-    updateIsEditingAddress,
     billingAddress,
     updateBillingAddress,
     isBillingSameAsShipping,
@@ -25,7 +26,7 @@ export default function BillingAddress() {
   };
 
   const handleEditAddress = () => {
-    updateIsEditingAddress(true);
+    setIsEditingAddress(true);
   };
 
   return (
@@ -50,7 +51,7 @@ export default function BillingAddress() {
               <AddressForm
                 addressData={billingAddress}
                 updateAddress={updateBillingAddress}
-                setIsEditingAddress={updateIsEditingAddress}
+                setIsEditingAddress={setIsEditingAddress}
                 isBilling
               />
             </div>
