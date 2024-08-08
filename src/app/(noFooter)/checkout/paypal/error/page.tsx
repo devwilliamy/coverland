@@ -1,13 +1,13 @@
 import Link from 'next/link';
-import CheckoutCancel from '../../../../components/checkout/CheckoutCancel';
+import CheckoutError from '../../../../../components/checkout/CheckoutError';
 import { Suspense } from 'react';
 
-export default function CheckoutCancelPage() {
+export default function CheckoutErrorPage() {
   return (
     <div className="flex w-full flex-col items-center">
-      <h5 className="text-[50px] font-bold">Order Canceled</h5>
+      <h5 className="text-[50px] font-bold">Order Error</h5>
       <Suspense>
-        <CheckoutCancel />
+        <CheckoutError />
       </Suspense>
       <Link
         className="my-4 rounded-[8px] bg-[#B9130C] px-10 py-4 text-[20px] font-[700]  text-white "
