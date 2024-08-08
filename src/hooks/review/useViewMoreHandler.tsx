@@ -1,40 +1,23 @@
 import { getProductReviewsByPage } from '@/lib/db/review';
-import { TReviewData } from '@/lib/types/review';
-import { SEAT_COVERS } from '@/lib/constants';
+import { useReviewContext } from '@/contexts/ReviewContext';
+import useStoreContext from '../useStoreContext';
+import { SEAT_COVERS, CAR_COVERS } from '@/lib/constants';
+import { useStore } from 'zustand';
+import useDetermineType from '../useDetermineType';
 
-type ViewMoreHandlerProps = {
-  typeString: 'Car Covers' | 'SUV Covers' | 'Truck Covers' | 'Seat Covers';
-  year: number;
-  make: string;
-  model: string;
-  limit: number;
-  page: number;
-  sort: any; // Adjust the type as needed
-  filters: any; // Adjust the type as needed
-  reviewImageTracker: Record<string, boolean>;
-  setLoading: (loading: boolean) => void;
-  addReviewData: (data: TReviewData[]) => void;
-  setPage: (page: number) => void;
-};
+const useViewMoreHandler = () => {
+  const { limit, page, sort, filters, setPage, setIsReviewLoading } =
+    useReviewContext();
+  const store = useStoreContext();
+  if (!store) throw new Error('Missing Provider in the tree');
+  const reviewImageTracker = useStore(store, (s) => s.reviewImageTracker);
+  const addReviewData = useStore(store, (s) => s.addReviewData);
+  const { isSeatCover } = useDetermineType();
+  const typeString = isSeatCover ? SEAT_COVERS : CAR_COVERS;
 
-const useViewMoreHandler = ({
-  typeString,
-  year,
-  make,
-  model,
-  limit,
-  page,
-  sort,
-  filters,
-  reviewImageTracker,
-  setLoading,
-  addReviewData,
-  setPage,
-}: ViewMoreHandlerProps) => {
   const handleViewMore = async () => {
     try {
-      setLoading(true);
-
+      setIsReviewLoading(true);
       const newReviewData = await getProductReviewsByPage(
         {
           productType: typeString,
@@ -56,7 +39,7 @@ const useViewMoreHandler = ({
     } catch (error) {
       console.error(error);
     } finally {
-      setLoading(false);
+      setIsReviewLoading(false);
     }
   };
 
