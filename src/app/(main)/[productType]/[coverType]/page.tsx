@@ -16,7 +16,7 @@ import {
 import { PREMIUM_PLUS_URL_PARAM } from '@/lib/constants';
 import { TReviewData, TProductReviewSummary } from '@/lib/types/review';
 
-export const revalidate = 300;
+export const revalidate = 86400;
 
 export async function generateStaticParams() {
   return combineOptions(coverOptions, productOptions);
