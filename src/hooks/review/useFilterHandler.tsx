@@ -1,38 +1,28 @@
-import { SEAT_COVERS } from '@/lib/constants';
+import { useReviewContext } from '@/contexts/ReviewContext';
+import { CAR_COVERS, SEAT_COVERS } from '@/lib/constants';
 import {
   getProductReviewsByPage,
   getProductReviewsByImage,
 } from '@/lib/db/review';
-import { FilterParams, SortParams, TReviewData } from '@/lib/types/review';
+import { useStore } from 'zustand';
+import useDetermineType from '../useDetermineType';
+import useStoreContext from '../useStoreContext';
 
-type FilterHandlerProps = {
-  typeString: 'Car Covers' | 'SUV Covers' | 'Truck Covers' | 'Seat Covers';
-  year: number;
-  make: string;
-  model: string;
-  limit: number;
-  sort: SortParams[];
-  setLoading: (loading: boolean) => void;
-  setReviewData: (data: TReviewData[]) => void;
-  setPage: (page: number) => void;
-  setFilters: (filters: FilterParams[]) => void;
-  setFilterImageOn: (on: boolean) => void;
-};
-
-const useFilterHandler = ({
-  typeString,
-  year,
-  make,
-  model,
-  limit,
-  sort,
-  setLoading,
-  setReviewData,
-  setPage,
-  setFilters,
-  setFilterImageOn,
-}: FilterHandlerProps) => {
+const useFilterHandler = () => {
   // Define the function that handles the filter selection change
+  const {
+    limit,
+    sort,
+    setIsReviewLoading,
+    setPage,
+    setFilters,
+    setFilterImageOn,
+  } = useReviewContext();
+  const { isSeatCover } = useDetermineType();
+  const typeString = isSeatCover ? SEAT_COVERS : CAR_COVERS;
+  const store = useStoreContext();
+  if (!store) throw new Error('Missing Provider in the tree');
+  const setReviewData = useStore(store, (s) => s.setReviewData);
   const handleFilterSelectionChange = async (
     e: React.ChangeEvent<HTMLSelectElement>
   ) => {
@@ -66,7 +56,7 @@ const useFilterHandler = ({
 
     // Try to fetch and update the review data based on the selected filter
     try {
-      setLoading(true);
+      setIsReviewLoading(true);
       let newReviewData;
 
       if (e.target.value === 'none') {
@@ -105,7 +95,7 @@ const useFilterHandler = ({
     } catch (error) {
       console.error(error);
     } finally {
-      setLoading(false);
+      setIsReviewLoading(false);
     }
   };
 
