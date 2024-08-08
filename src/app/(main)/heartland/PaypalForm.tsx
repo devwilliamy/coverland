@@ -50,7 +50,9 @@ export default function PaypalForm() {
     const handlePageShow = (event) => {
       if (event.persisted) {
         // Force a full page reload if the page was loaded from the cache
-        window.location.reload();
+        document
+          .getElementById('paypal-iframe')
+          .contentWindow.location.reload();
       }
     };
 
@@ -112,6 +114,7 @@ export default function PaypalForm() {
         </div>
       ) : (
         <iframe
+          id="paypal-iframe"
           src={`${payflowUrl}/?SECURETOKEN=${secureToken}&SECURETOKENID=${secureTokenId}`}
           width="600"
           height="550"
