@@ -142,8 +142,10 @@ export function ProductContent({
         <>Waterproof Outdoor Custom-Fit {`${productType} `}</>
       ) : (
         <>
+          {make === 'rivian' && 'Car Cover for '}
           {make && (selectedProduct.make as string)}{' '}
-          {model && (selectedProduct.model as string)} {`${productType} `}
+          {model && (selectedProduct.model as string)}{' '}
+          {make === 'rivian' ? '' : `${productType} `}
           {' - '}
           <br />
           <>Waterproof, Outdoor, Custom-Fit</>

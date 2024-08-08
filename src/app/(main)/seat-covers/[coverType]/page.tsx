@@ -3,7 +3,6 @@ import { TPathParams } from '@/utils';
 import SeatCoverDataWrapper from '../components/SeatCoverDataWrapper';
 import {
   TSeatCoverDataDB,
-  getSeatCoverProductData,
   getSeatCoverProductsByDisplayColor,
 } from '@/lib/db/seat-covers';
 import {

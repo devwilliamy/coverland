@@ -14,7 +14,6 @@ export const ADMIN_PANEL_ORDER_ITEMS =
     : 'orderItems_table';
 export const ADMIN_PANEL_PRODUCTS = 'Products';
 export const ADMIN_PANEL_CUSTOMERS = 'users';
-export const SEAT_COVERS_TABLE = 'seat_covers';
 export const MODEL_TABLE = 'Model';
 export const MAKE_TABLE = 'Make';
 export const PRODUCT_METADATA_TABLE = 'Product-Metadata';
