@@ -1,6 +1,4 @@
 'use client';
-
-import { calculateTimeTo2PM } from '@/components/PDP/components/TimeTo2PM';
 import { Separator } from '@/components/ui/separator';
 import {
   Sheet,
@@ -10,7 +8,6 @@ import {
   SheetTrigger,
 } from '@/components/ui/sheet';
 import { determineDeliveryByDate } from '@/lib/utils/deliveryDateUtils';
-import { formatISODate } from '@/lib/utils/date';
 import FreePackageItem from '@/images/PDP/PDP-Redesign-v3/free-package.webp';
 import {
   BoxIcon,
@@ -30,6 +27,7 @@ import useDetermineType from '@/hooks/useDetermineType';
 import useStoreContext from '@/hooks/useStoreContext';
 import { getCompleteSelectionData } from '@/utils';
 import { useStore } from 'zustand';
+import { calculateTimeTo2PM } from '@/lib/utils/date';
 
 type DetailItem = {
   icon: React.JSX.Element;
@@ -67,7 +65,7 @@ export default function FreeDetails() {
   const deliveryDate = determineDeliveryByDate(
     'LLL dd',
     selectedProduct?.preorder && isComplete
-      ? selectedProduct?.preorder_date ?? ""
+      ? selectedProduct?.preorder_date ?? ''
       : undefined
   );
 
