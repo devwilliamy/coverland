@@ -1,5 +1,8 @@
 import { Tables } from '../types';
-import { RPC_GET_SEAT_COVER_SORTED_BY_COLOR } from '../constants/databaseTableNames';
+import {
+  RPC_GET_DEFAULT_SEAT_COVER_SORTED_BY_COLOR,
+  RPC_GET_SEAT_COVER_SORTED_BY_COLOR,
+} from '../constants/databaseTableNames';
 import { supabaseDatabaseClient } from '../supabaseClients';
 
 // export type TSeatCoverDataDB = Tables<'Products'>;
@@ -40,6 +43,27 @@ export async function getSeatCoverProductsByDisplayColor({
       p_submodel: submodel,
       p_submodel2: submodel2,
       p_submodel3: submodel3,
+    }
+  );
+
+  if (error) {
+    throw new Error(error.message);
+  }
+  return data;
+}
+
+export async function getDefaultSeatCoverProductsByDisplayColor({
+  type,
+  cover,
+}: {
+  type: string;
+  cover?: string;
+}) {
+  const { data, error } = await supabaseDatabaseClient.rpc(
+    RPC_GET_DEFAULT_SEAT_COVER_SORTED_BY_COLOR,
+    {
+      p_type: type,
+      p_cover: 'Leather',
     }
   );
 
