@@ -1,4 +1,8 @@
-import { TInitialProductDataDB, getProductData } from '@/lib/db';
+import {
+  TInitialProductDataDB,
+  getDefaultProductData,
+  getProductData,
+} from '@/lib/db';
 import {
   getAllReviewsWithImages,
   getProductReviewSummary,
@@ -16,7 +20,7 @@ import {
 import { PREMIUM_PLUS_URL_PARAM } from '@/lib/constants';
 import { TReviewData, TProductReviewSummary } from '@/lib/types/review';
 
-export const revalidate = 86400;
+export const revalidate = 300;
 
 export async function generateStaticParams() {
   return combineOptions(coverOptions, productOptions);
@@ -68,10 +72,7 @@ export default async function CarPDPModelDataLayer({
   try {
     [modelData, reviewData, reviewDataSummary, reviewImages] =
       await Promise.all([
-        getProductData({
-          type: typeString,
-          cover: coverType,
-        }),
+        getDefaultProductData(),
         getProductReviewsByPage(
           { productType: typeString },
           {
