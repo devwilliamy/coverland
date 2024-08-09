@@ -19,7 +19,7 @@ export type TCarCoverSlugParams = {
 };
 
 //TODO: Refactor code so we can generate our dynamic paths as static HTML for performance
-export const revalidate = 300;
+export const revalidate = 86400;
 
 export async function generateStaticParams({
   params: { productType, coverType },
@@ -73,7 +73,6 @@ export default async function CarPDPDataLayer({
     [modelData, reviewData, reviewDataSummary, reviewImages] =
       await Promise.all([
         getProductData({
-          model: params.model,
           make: params.make,
           year: params.year,
           type: typeString,
@@ -81,7 +80,6 @@ export default async function CarPDPDataLayer({
         getProductReviewsByPage(
           {
             productType: typeString,
-            make: params?.make,
           },
           {
             pagination: {
@@ -96,12 +94,10 @@ export default async function CarPDPDataLayer({
         ),
         getProductReviewSummary({
           productType: typeString,
-          make: params?.make,
         }),
         getAllReviewsWithImages(
           {
             productType: typeString,
-            make: params?.make,
           },
           {}
         ),

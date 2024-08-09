@@ -8,6 +8,7 @@ import Link from 'next/link';
 import { UserRound } from 'lucide-react';
 import Cart from '@/components/header/Cart';
 import useStoreContext from '@/hooks/useStoreContext';
+import { getCurrentMonth } from '@/lib/utils/date';
 
 export default function ReviewImagesSheet({
   children,
@@ -19,6 +20,7 @@ export default function ReviewImagesSheet({
   const store = useStoreContext();
   if (!store) throw new Error('Missing Provider in the tree');
   const { total_reviews } = useStore(store, (s) => s.reviewDataSummary);
+  const month = getCurrentMonth();
 
   return (
     <Sheet open={reviewOpen} onOpenChange={setReviewsOpen}>
@@ -37,7 +39,7 @@ export default function ReviewImagesSheet({
           <header className="flex  flex-col items-stretch ">
             <section className="min-h-[7px] w-full bg-black" />
             <section className="whitespace-nowrap bg-white  px-20 text-center text-[18px] font-[600] uppercase text-black lg:text-4xl">
-              <p>April Special Sale!</p>
+              <p>{month} Special Sale!</p>
             </section>
             <section className="whitespace-nowrap bg-black  px-20 text-center text-[18px] font-[500] uppercase text-white lg:text-4xl">
               <p>SAVE UP TO 50%</p>

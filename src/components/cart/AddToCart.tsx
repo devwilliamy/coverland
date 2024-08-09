@@ -1,5 +1,4 @@
 'use client';
-import { track } from '@vercel/analytics/react';
 import { Suspense, useState } from 'react';
 import { useParams } from 'next/navigation';
 import {
@@ -69,9 +68,6 @@ export default function AddToCart({
       handleAddToCart();
       handleAddToCartGoogleTag(selectedProduct, params as TPathParams);
       selectedProduct?.sku &&
-        track('PDP_add_to_cart', {
-          sku: selectedProduct?.sku,
-        });
       setIsLoading(false);
       return; // Don't want to open add to cart selector
     }

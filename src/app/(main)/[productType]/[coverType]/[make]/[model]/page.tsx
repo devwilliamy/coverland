@@ -12,7 +12,7 @@ import { PREMIUM_PLUS_URL_PARAM } from '@/lib/constants';
 import { TReviewData, TProductReviewSummary } from '@/lib/types/review';
 
 //TODO: Refactor code so we can generate our dynamic paths as static HTML for performance
-export const revalidate = 300;
+export const revalidate = 86400;
 
 export async function generateStaticParams({
   params: { productType, coverType, make },
@@ -67,15 +67,13 @@ export default async function CarPDPDataLayer({
     [modelData, reviewData, reviewDataSummary, reviewImages] =
       await Promise.all([
         getProductData({
+          type: typeString,
           model: params.model,
           make: params.make,
-          year: params.year,
         }),
         getProductReviewsByPage(
           {
             productType: typeString,
-            make: params?.make,
-            model: params.model,
           },
           {
             pagination: {
@@ -90,14 +88,10 @@ export default async function CarPDPDataLayer({
         ),
         getProductReviewSummary({
           productType: typeString,
-          make: params?.make,
-          model: params.model,
         }),
         getAllReviewsWithImages(
           {
             productType: typeString,
-            make: params?.make,
-            model: params.model,
           },
           {}
         ),

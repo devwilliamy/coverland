@@ -14,7 +14,6 @@ export const ADMIN_PANEL_ORDER_ITEMS =
     : 'orderItems_table';
 export const ADMIN_PANEL_PRODUCTS = 'Products';
 export const ADMIN_PANEL_CUSTOMERS = 'users';
-export const SEAT_COVERS_TABLE = 'seat_covers';
 export const MODEL_TABLE = 'Model';
 export const MAKE_TABLE = 'Make';
 export const PRODUCT_METADATA_TABLE = 'Product-Metadata';
@@ -25,4 +24,5 @@ export const RPC_GET_UNIQUE_YEARS = 'get_unique_years';
 export const RPC_GET_DISTINCT_REVIEW_IMAGES = 'get_distinct_review_images';
 export const RPC_GET_PRODUCT_REVIEWS_SUMMARY = 'get_product_reviews_summary';
 export const RPC_GET_SEAT_COVER_SORTED_BY_COLOR = 'get_seat_cover_products_sorted_by_color';
+export const RPC_GET_DEFAULT_SEAT_COVER_SORTED_BY_COLOR = 'get_default_seat_cover_products_sorted_by_color';
   

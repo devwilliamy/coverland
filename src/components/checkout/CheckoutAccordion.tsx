@@ -45,7 +45,10 @@ import PayPalButtonSection from './PayPalButtonSection';
 import { generateSkuLabOrderInput } from '@/lib/utils/skuLabs';
 import { handlePurchaseGoogleTag } from '@/hooks/useGoogleTagDataLayer';
 import { SHIPPING_METHOD } from '@/lib/constants';
-import { determineDeliveryByDate } from '@/lib/utils/deliveryDateUtils';
+import {
+  checkTimeDifference,
+  determineDeliveryByDate,
+} from '@/lib/utils/deliveryDateUtils';
 import { TCartItem } from '@/lib/cart/useCart';
 import { ReadyCheck } from './icons/ReadyCheck';
 import { useMediaQuery } from '@mantine/hooks';
@@ -104,6 +107,9 @@ export default function CheckoutAccordion() {
   const [submitErrorMessage, setSubmitErrorMessage] = useState('');
   const [paypalSuccessMessage, setPaypalSuccessMessage] = useState('');
   const preorderDate = isCartPreorder ? cartPreorderDate : undefined;
+  const preOrderTimeDifferenceText: string = isCartPreorder
+    ? `approximately ${checkTimeDifference(cartPreorderDate)} from the date of purchase.`
+    : 'noted above.'; // If some random failure happens with checkTimeDifference, default here
 
   const shippingInfo = {
     shipping_method: SHIPPING_METHOD,
@@ -151,6 +157,12 @@ export default function CheckoutAccordion() {
         totalDiscount: getTotalDiscountPrice().toFixed(2),
         totalPreorderDiscount: getTotalPreorderDiscount().toFixed(2),
         isPreorder: isCartPreorder,
+        preorder_text: isCartPreorder
+          ? 'Please note that this item is a pre-order. ' +
+            'We will notify you with the exact fulfillment date once the item is shipped. ' +
+            `The estimated fulfillment timeframe is ${preOrderTimeDifferenceText} ` +
+            'We appreciate your patience and look forward to delivering your order!'
+          : '',
         hasDiscount: parseFloat(getTotalDiscountPrice().toFixed(2)) > 0,
       },
       shippingInfo: {
@@ -163,7 +175,7 @@ export default function CheckoutAccordion() {
         full_name: `${shippingAddress.firstName} ${shippingAddress.lastName}`,
         shipping_method: shippingInfo.shipping_method as string,
         shipping_date: shippingInfo.shipping_date as string,
-        delivery_fee: shippingInfo.delivery_fee.toFixed(2) as number,
+        delivery_fee: shippingInfo.delivery_fee.toFixed(2) as unknown as number,
         free_delivery: shippingInfo.delivery_fee === 0,
       },
       // billingInfo,
@@ -436,7 +448,7 @@ export default function CheckoutAccordion() {
   };
 
   return (
-    <div className="flex w-full flex-col items-center">
+    <div className="flex flex-col items-center">
       {!isMobile && currentStep !== CheckoutStep.CART && (
         <div className="w-full py-[80px] text-center text-[24px] font-[700] leading-[12px]">
           Checkout
@@ -594,8 +606,8 @@ export default function CheckoutAccordion() {
                     >
                       Order Review
                     </AccordionTrigger>
-                    <AccordionContent className="py-0">
-                      <section className="flex w-full flex-col ">
+                    <AccordionContent>
+                      <section className="flex flex-col">
                         {cartItems.map((cartItem, i) => (
                           <div
                             key={i}
@@ -611,7 +623,7 @@ export default function CheckoutAccordion() {
                           <>
                             <TermsOfUseStatement />
                             {submitErrorMessage && (
-                              <p className="w-full text-center font-[500] text-[red]">
+                              <p className="text-center font-[500] text-[red]">
                                 {submitErrorMessage}
                               </p>
                             )}
@@ -633,7 +645,7 @@ export default function CheckoutAccordion() {
                           </>
                         )}
                         {submitErrorMessage && (
-                          <p className="w-full text-center font-[500] text-[red]">
+                          <p className="text-center font-[500] text-[red]">
                             {submitErrorMessage}
                           </p>
                         )}

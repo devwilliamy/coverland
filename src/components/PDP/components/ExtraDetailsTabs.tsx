@@ -79,6 +79,9 @@ export default function ExtraDetailsTabs() {
       },
       {
         title: 'Reviews',
+      },
+      {
+        title: 'Q&A',
       }
     );
     mainTabs.splice(mainTabs.length - 1, 1);
@@ -190,6 +193,7 @@ export default function ExtraDetailsTabs() {
         <div id="Reviews">
           <ReviewSection showHeader />
         </div>
+        <Separator className="h-5 border-y-[1px] border-y-[#DADADA] bg-[#F1F1F1] lg:h-10" />
         <div id="Q&A">
           <QuestionsAccordion />
         </div>

@@ -1,5 +1,5 @@
 import { useElements, useStripe } from '@stripe/react-stripe-js';
-import { FormEvent, useState } from 'react';
+import { useState } from 'react';
 import { Button } from '../ui/button';
 import { AiOutlineLoading3Quarters } from 'react-icons/ai';
 import { useCheckoutContext } from '@/contexts/CheckoutContext';
@@ -9,16 +9,8 @@ import { StripeCardNumberElement } from '@stripe/stripe-js';
 import { CreditCardSection } from './CreditCardSection';
 // import Klarna from '@/images/checkout/Klarna-Black.webp';
 import PayPalIcon from './icons/PayPalIcon';
-import Image from 'next/image';
-
-import { useRouter } from 'next/navigation';
-import ApplePayIcon from './icons/ApplePayIcon';
-import GooglePayIcon from './icons/GooglePayIcon';
-import { determineDeliveryByDate } from '@/lib/utils/deliveryDateUtils';
-import { SHIPPING_METHOD } from '@/lib/constants';
-import { useCartContext } from '@/providers/CartProvider';
-import { convertPriceToStripeFormat } from '@/lib/utils/stripe';
 import { SelectedCardLogo } from './SelectedCardLogo';
+import LoadingButton from '../ui/loading-button';
 
 export default function Payment({
   handleChangeAccordion,
@@ -30,13 +22,10 @@ export default function Payment({
   const [isLoading, setIsLoading] = useState(false);
   const [isEditingAddress, setIsEditingAddress] = useState(false);
   const [message, setMessage] = useState<string>('');
-  const [paypalSuccessMessage, setPaypalSuccessMessage] = useState<string>('');
 
   const {
     billingAddress,
-    shippingAddress,
     customerInfo,
-    shipping,
     updateIsReadyToPay,
     isReadyToPay,
     paymentMethod,
@@ -46,23 +35,7 @@ export default function Payment({
     cardCvvError,
     stripePaymentMethod,
     updateStripePaymentMethod,
-    orderNumber,
-    paymentIntentId,
-    isBillingSameAsShipping,
-    twoLetterStateCode,
-    billingTwoLetterStateCode,
   } = useCheckoutContext();
-  const {
-    cartItems,
-    getTotalPrice,
-    getOrderSubtotal,
-    getTotalDiscountPrice,
-    getTotalCartQuantity,
-    clearLocalStorageCart,
-    isCartPreorder,
-    cartPreorderDate,
-    getTotalPreorderDiscount,
-  } = useCartContext();
 
   const isDisabledCard =
     isEditingAddress ||
@@ -88,6 +61,7 @@ export default function Payment({
 
   const handleContinueWithCard = () => {
     setIsLoading(true);
+    setMessage('');
     const cardNumberElement = elements?.getElement(
       'cardNumber'
     ) as StripeCardNumberElement;
@@ -110,6 +84,10 @@ export default function Payment({
           handleChangeAccordion('orderReview');
         }
       })
+      .catch((error) => {
+        console.error('Unknown error caught: ', error.message);
+        setMessage(error.message);
+      })
       .finally(() => {
         setIsLoading(false);
       });
@@ -125,19 +103,18 @@ export default function Payment({
       {isReadyToPay ? (
         <span className="flex justify-between">
           <div className="flex flex-col">
-            <p className="text-base font-[500]"> Payment Method</p>
+            <p className="text-base font-medium"> Payment Method</p>
             <div className="flex py-5">
               {paymentMethod === 'paypal' && (
                 <div className="flex items-center gap-2">
                   <PayPalIcon />
                 </div>
               )}
-
               {paymentMethod === 'creditCard' && (
                 <div className="flex items-center gap-2">
                   {stripePaymentMethod &&
                     stripePaymentMethod.paymentMethod?.card && (
-                      <div className="flex items-center gap-2 text-[16px] leading-[27px] text-[#767676]">
+                      <div className="flex items-center gap-2 text-base leading-[27px] text-[#767676]">
                         <div className="flex max-h-[16px] max-w-[48px] items-center">
                           <SelectedCardLogo
                             brand={stripePaymentMethod.paymentMethod.card.brand}
@@ -155,8 +132,8 @@ export default function Payment({
                 </div>
               )}
             </div>
-            <p className="text-base font-[500]"> Billing Details</p>
-            <div className="pb-[26px] text-[16px] font-[400] leading-[27px] text-[#767676]">
+            <p className="text-base font-medium"> Billing Details</p>
+            <div className="pb-[26px] text-base font-[400] leading-[27px] text-[#767676]">
               <p>{customerBilling.name}</p>
 
               <p>{customerBilling.address.line1}</p>
@@ -168,7 +145,7 @@ export default function Payment({
           </div>
           <div>
             <p
-              className="flex max-h-fit cursor-pointer font-[500] underline hover:text-[#0C87B8]"
+              className="flex max-h-fit cursor-pointer font-medium underline hover:text-[#0C87B8]"
               onClick={handleEditPayment}
             >
               Edit
@@ -177,7 +154,7 @@ export default function Payment({
         </span>
       ) : (
         <>
-          <h2 className="pb-[26px] text-[16px] font-[500] leading-[27px]">
+          <h2 className="pb-[26px] text-base font-medium leading-[27px]">
             Select Payment Method
           </h2>
           <PaymentSelector
@@ -216,44 +193,35 @@ export default function Payment({
         </>
       )}
       {/* Continue To Order Review Button */}
-      {paymentMethod === 'creditCard' && !isReadyToPay && (
-        <div className="my-[48px] flex w-full items-center justify-center lg:justify-end">
-          <Button
-            variant={'default'}
+      <div className="my-[48px] flex w-full flex-col items-center justify-center lg:flex-row lg:justify-end">
+        {message && (
+          <p className="w-full text-center font-medium text-[red]">{message}</p>
+        )}
+        {paymentMethod === 'creditCard' && !isReadyToPay && (
+          <LoadingButton
             className={buttonStyle}
-            disabled={isDisabledCard}
-            onClick={async () => handleContinueWithCard()}
-          >
-            {isLoading ? (
-              <AiOutlineLoading3Quarters className="animate-spin" />
-            ) : (
-              'Continue to Order Review'
-            )}
-          </Button>
-        </div>
-      )}
-      {(paymentMethod === 'klarna' ||
-        paymentMethod === 'googlePay' ||
-        paymentMethod === 'applePay' ||
-        paymentMethod === 'paypal') &&
-        !isReadyToPay && (
-          <div className="my-[48px] flex w-full items-center justify-center lg:justify-end">
-            <Button
-              variant={'default'}
+            isDisabled={isDisabledCard}
+            isLoading={isLoading}
+            onClick={handleContinueWithCard}
+            buttonText={'Continue to Order Review'}
+          />
+        )}
+        {(paymentMethod === 'klarna' ||
+          paymentMethod === 'googlePay' ||
+          paymentMethod === 'applePay' ||
+          paymentMethod === 'paypal') &&
+          !isReadyToPay && (
+            <LoadingButton
               className={buttonStyle}
-              onClick={async (e) => {
+              isLoading={isLoading}
+              onClick={() => {
                 handleChangeAccordion('orderReview');
                 updateIsReadyToPay(true);
               }}
-            >
-              {isLoading ? (
-                <AiOutlineLoading3Quarters className="animate-spin" />
-              ) : (
-                'Continue to Order Review'
-              )}
-            </Button>
-          </div>
-        )}
+              buttonText={'Continue to Order Review'}
+            />
+          )}
+      </div>
     </section>
   );
 }
