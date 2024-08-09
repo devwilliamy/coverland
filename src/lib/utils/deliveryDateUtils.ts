@@ -74,3 +74,22 @@ export const determineDeliveryByDate = (
 
   return deliveryDate.toFormat(format);
 };
+
+export const checkTimeDifference = (date: string): string => {
+  debugger;
+  const targetDate = DateTime.fromISO(date);
+  const now = DateTime.now();
+
+  const diffInWeeks = Math.abs(now.diff(targetDate, 'weeks').weeks);
+  const diffInMonths = Math.abs(now.diff(targetDate, 'months').months);
+
+  if (diffInWeeks <= 1) {
+    return '1 week';
+  } else if (diffInWeeks > 1 && diffInWeeks <= 4) {
+    return `${Math.round(diffInWeeks)} weeks`;
+  } else if (diffInMonths <= 1) {
+    return '1 month';
+  } else {
+    return `${Math.round(diffInMonths)} months`;
+  }
+};
