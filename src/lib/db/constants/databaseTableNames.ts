@@ -24,4 +24,5 @@ export const RPC_GET_UNIQUE_YEARS = 'get_unique_years';
 export const RPC_GET_DISTINCT_REVIEW_IMAGES = 'get_distinct_review_images';
 export const RPC_GET_PRODUCT_REVIEWS_SUMMARY = 'get_product_reviews_summary';
 export const RPC_GET_SEAT_COVER_SORTED_BY_COLOR = 'get_seat_cover_products_sorted_by_color';
+export const RPC_GET_DEFAULT_SEAT_COVER_SORTED_BY_COLOR = 'get_default_seat_cover_products_sorted_by_color';
   
