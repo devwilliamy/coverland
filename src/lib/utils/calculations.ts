@@ -1,6 +1,4 @@
-import { IProductData } from '@/utils';
 import { TCartItem } from '../cart/useCart';
-import { TSeatCoverDataDB } from '../db/seat-covers';
 
 export const getOrderSubtotal = (cartItems: TCartItem[]) => {
   return cartItems.reduce(
@@ -36,12 +34,4 @@ export const getTotalDiscountPrice = (cartItems: TCartItem[]) => {
 
 export const getTotalCartQuantity = (cartItems: TCartItem[]) => {
   return cartItems.reduce((total, item) => total + item.quantity, 0);
-};
-
-export const handleCheckLowQuantity = (
-  cartProduct: IProductData | TSeatCoverDataDB
-) => {
-  if (!cartProduct || !cartProduct.msrp) return;
-
-  return { discountPercent: 50, newMSRP: cartProduct.msrp };
 };

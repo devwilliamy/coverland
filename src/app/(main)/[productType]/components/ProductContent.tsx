@@ -118,7 +118,7 @@ export function ProductContent({
       </div>
       <Separator className="mt-[36px]" />
       <Suspense>
-        <FreeDetails />
+        <FreeDetails selectedProduct={selectedProduct} />
       </Suspense>
       <div className="lg:py-4"></div>
       <AddToCart

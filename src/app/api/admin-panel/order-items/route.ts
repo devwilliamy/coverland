@@ -1,8 +1,6 @@
 import { getProductAndPriceBySku } from '@/lib/db/admin-panel/products';
 import { createSupabaseAdminPanelServerClient } from '@/lib/db/adminPanelSupabaseClient';
 import { ADMIN_PANEL_ORDER_ITEMS } from '@/lib/db/constants/databaseTableNames';
-import { handleCheckLowQuantity } from '@/lib/utils/calculations';
-import { IProductData } from '@/utils';
 import { SupabaseClient } from '@supabase/supabase-js';
 import { ReadonlyRequestCookies } from 'next/dist/server/web/spec-extension/adapters/request-cookies';
 import { cookies } from 'next/headers';
@@ -108,15 +106,11 @@ const createOrderItems = (
       throw new Error(`No product price found for SKU: ${sku}`);
     }
 
-    const { newMSRP: incomingMSRP } = handleCheckLowQuantity(
-      product as IProductData
-    );
-
-    const totalProductPrice = Number((incomingMSRP * quantity).toFixed(2));
+    const totalProductPrice = Number((product.msrp * quantity).toFixed(2));
     const totalProductPricePlusPreorder = 
       product.preorder && product.preorder_discount
-      ? Number(Number(incomingMSRP) - Number(product.preorder_discount)) * quantity
-      : Number(incomingMSRP) * quantity;
+      ? Number(Number(product.msrp) - Number(product.preorder_discount)) * quantity
+      : Number(product.msrp) * quantity;
     const original_price = Number((product.price * quantity).toFixed(2));
     const discount_amount = original_price - totalProductPrice;
 
@@ -124,7 +118,7 @@ const createOrderItems = (
       order_id: order_id,
       product_id: product.id,
       quantity: quantity,
-      price: parseFloat(totalProductPricePlusPreorder).toFixed(2),
+      price: parseFloat(totalProductPricePlusPreorder.toFixed(2)),
       original_price: parseFloat(original_price.toFixed(2)),
       discount_amount: parseFloat(discount_amount.toFixed(2)),
     };
