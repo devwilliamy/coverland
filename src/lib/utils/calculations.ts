@@ -1,11 +1,5 @@
 import { IProductData } from '@/utils';
 import { TCartItem } from '../cart/useCart';
-import {
-  NO_DISCOUNT_LOWER_BOUND,
-  NO_DISCOUNT_UPPER_BOUND,
-  DISCOUNT_25_LOWER_BOUND,
-  DISCOUNT_25_UPPER_BOUND,
-} from '../constants';
 import { TSeatCoverDataDB } from '../db/seat-covers';
 
 export const getOrderSubtotal = (cartItems: TCartItem[]) => {

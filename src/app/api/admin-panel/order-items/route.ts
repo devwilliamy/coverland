@@ -1,9 +1,3 @@
-import {
-  DISCOUNT_25_LOWER_BOUND,
-  DISCOUNT_25_UPPER_BOUND,
-  NO_DISCOUNT_LOWER_BOUND,
-  NO_DISCOUNT_UPPER_BOUND,
-} from '@/lib/constants';
 import { getProductAndPriceBySku } from '@/lib/db/admin-panel/products';
 import { createSupabaseAdminPanelServerClient } from '@/lib/db/adminPanelSupabaseClient';
 import { ADMIN_PANEL_ORDER_ITEMS } from '@/lib/db/constants/databaseTableNames';
