@@ -1,4 +1,8 @@
-import { TInitialProductDataDB, getProductData } from '@/lib/db';
+import {
+  TInitialProductDataDB,
+  getDefaultProductData,
+  getProductData,
+} from '@/lib/db';
 import {
   getAllReviewsWithImages,
   getProductReviewSummary,
@@ -68,10 +72,7 @@ export default async function CarPDPModelDataLayer({
   try {
     [modelData, reviewData, reviewDataSummary, reviewImages] =
       await Promise.all([
-        getProductData({
-          type: typeString,
-          cover: coverType,
-        }),
+        getDefaultProductData(),
         getProductReviewsByPage(
           { productType: typeString },
           {
