@@ -76,7 +76,6 @@ export const determineDeliveryByDate = (
 };
 
 export const checkTimeDifference = (date: string): string => {
-  debugger;
   const targetDate = DateTime.fromISO(date);
   const now = DateTime.now();
 
