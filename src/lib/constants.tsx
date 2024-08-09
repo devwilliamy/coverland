@@ -689,7 +689,7 @@ const carImages: Partial<Record<(typeof colorOrder)[number], string[]>> = {
     'https://www.coverland.com/images/default-product-images/09-grbk-str-m.jpg',
     'https://www.coverland.com/images/default-product-images/10-grbk-str-m.jpg',
     'https://www.coverland.com/images/default-product-images/11-grbk-str-m.jpg',
-    'https://www.coverland.com/images/default-product-images/12-grbk-str-m.jpg',
+    'https://www.coverland.com/images/default-product-images/12-grbk-str-m.webp',
     'https://www.coverland.com/images/default-product-images/13-grbk-str-m.jpg',
     'https://www.coverland.com/images/default-product-images/14-grbk-str-m.jpg',
     'https://www.coverland.com/images/default-product-images/15.jpg',

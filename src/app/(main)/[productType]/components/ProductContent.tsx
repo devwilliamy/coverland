@@ -13,6 +13,7 @@ import CircleColorSelector from './CircleColorSelector';
 import ReviewsTextTrigger from './ReviewsTextTrigger';
 import KlarnaIcon from '@/components/icons/KlarnaIcon';
 import ProductTitle from './ProductTitle';
+import PreorderSheet from '@/components/cart/PreorderSheet';
 
 export function ProductContent({
   searchParams,
@@ -126,11 +127,19 @@ export function ProductContent({
         handleAddToCart={handleAddToCart}
         searchParams={searchParams}
       />
-      <CartSheet
-        open={addToCartOpen}
-        setOpen={setAddToCartOpen}
-        selectedProduct={selectedProduct}
-      />
+      {selectedProduct.preorder ? (
+        <PreorderSheet
+          open={addToCartOpen}
+          setOpen={setAddToCartOpen}
+          selectedProduct={selectedProduct}
+        />
+      ) : (
+        <CartSheet
+          open={addToCartOpen}
+          setOpen={setAddToCartOpen}
+          selectedProduct={selectedProduct}
+        />
+      )}
     </>
   );
 }
