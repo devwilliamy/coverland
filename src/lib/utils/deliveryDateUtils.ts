@@ -37,7 +37,6 @@ export const determineDeliveryByDate = (
   format = 'LLL dd',
   preorder_date?: string
 ): string => {
-  debugger;
   const clientTimeZone: string = getClientTimeZone();
   let now: DateTime = DateTime.now().setZone(clientTimeZone);
   let daysToAdd: number;
