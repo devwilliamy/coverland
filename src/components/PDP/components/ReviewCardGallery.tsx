@@ -88,7 +88,7 @@ function ReviewCardGallery({
               <Image
                 height={160}
                 width={160}
-                className={`flex aspect-square items-center`}
+                className={`flex aspect-square items-center object-cover`}
                 alt="review-card-gallery-image"
                 src={image}
               />

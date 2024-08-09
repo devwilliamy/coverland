@@ -273,7 +273,7 @@ export default function FreeDetails() {
           {
             text: 'Step 1: Submit a claim',
             description:
-              'Send photos/videos showing the damage, along with a brief description of the issue, your name, phone number, and shipping address to info@coverland.com.',
+              'Send photos/videos showing the damage, along with a brief description of the issue, your name, phone number, and shipping address to support@coverland.com.',
           },
           {
             text: 'Step 2: Processing',

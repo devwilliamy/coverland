@@ -3,7 +3,7 @@ import { TPathParams } from '@/utils';
 import SeatCoverDataWrapper from '../components/SeatCoverDataWrapper';
 import {
   TSeatCoverDataDB,
-  getSeatCoverProductData,
+  getDefaultSeatCoverProductsByDisplayColor,
   getSeatCoverProductsByDisplayColor,
 } from '@/lib/db/seat-covers';
 import {
@@ -14,7 +14,7 @@ import {
 import { TReviewData, TProductReviewSummary } from '@/lib/types/review';
 export const dynamicParams = false;
 
-export const revalidate = 300;
+export const revalidate = 86400;
 
 export async function generateStaticParams() {
   return [{ coverType: 'leather' }];
@@ -44,7 +44,7 @@ export default async function Leatherette({ params }: { params: TPathParams }) {
   try {
     [modelData, reviewData, reviewDataSummary, reviewImages] =
       await Promise.all([
-        getSeatCoverProductsByDisplayColor({
+        getDefaultSeatCoverProductsByDisplayColor({
           type: params.productType,
           cover: 'Leather',
         }),

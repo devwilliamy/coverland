@@ -6,6 +6,7 @@ export default function NotFound() {
       <h5 className="text-[100px]">404</h5>
       <h2>Not Found</h2>
       <p>Could not find requested resource</p>
+      <p>You either have a bad link, or this item is unavailable at the moment.</p>
       <Link
         className="my-4 rounded-[8px] bg-[#B9130C] px-20 py-4 text-[20px] font-[700]  text-white "
         href="/"
