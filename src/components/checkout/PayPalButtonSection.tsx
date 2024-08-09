@@ -24,7 +24,10 @@ import { hashData } from '@/lib/utils/hash';
 import { getCookie } from '@/lib/utils/cookie';
 import { v4 as uuidv4 } from 'uuid';
 import { generateSkuLabOrderInput } from '@/lib/utils/skuLabs';
-import { determineDeliveryByDate } from '@/lib/utils/deliveryDateUtils';
+import {
+  checkTimeDifference,
+  determineDeliveryByDate,
+} from '@/lib/utils/deliveryDateUtils';
 import { SHIPPING_METHOD } from '@/lib/constants';
 import parsePhoneNumberFromString from 'libphonenumber-js';
 import { formatToE164 } from '@/lib/utils';
@@ -65,6 +68,9 @@ export default function PayPalButtonSection({
   };
   const router = useRouter();
   const totalMsrpPrice = getTotalPrice().toFixed(2) as unknown as number;
+  const preOrderTimeDifferenceText: string = isCartPreorder
+    ? `approximately ${checkTimeDifference(cartPreorderDate)} from the date of purchase.`
+    : 'noted above.'; // If some random failure happens with checkTimeDifference, default here
 
   return (
     <PayPalScriptProvider
@@ -172,6 +178,12 @@ export default function PayPalButtonSection({
                   totalDiscount: getTotalDiscountPrice().toFixed(2),
                   totalPreorderDiscount: getTotalPreorderDiscount().toFixed(2),
                   isPreorder: isCartPreorder,
+                  preorder_text: isCartPreorder
+                    ? 'Please note that this item is a pre-order. ' +
+                      'We will notify you with the exact fulfillment date once the item is shipped. ' +
+                      `The estimated fulfillment timeframe is ${preOrderTimeDifferenceText} ` +
+                      'We appreciate your patience and look forward to delivering your order!'
+                    : '',
                   hasDiscount:
                     parseFloat(getTotalDiscountPrice().toFixed(2)) > 0,
                 },
@@ -185,7 +197,9 @@ export default function PayPalButtonSection({
                   full_name: `${shippingAddress.firstName} ${shippingAddress.lastName}`,
                   shipping_method: shippingInfo.shipping_method as string,
                   shipping_date: shippingInfo.shipping_date as string,
-                  delivery_fee: shippingInfo.delivery_fee.toFixed(2) as number,
+                  delivery_fee: shippingInfo.delivery_fee.toFixed(
+                    2
+                  ) as unknown as number,
                   free_delivery: shippingInfo.delivery_fee === 0,
                 },
                 // billingInfo,
