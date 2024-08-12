@@ -18,18 +18,17 @@ import {
   getSkusFromCartItems,
 } from '@/lib/utils/stripe';
 import { createOrUpdateUser } from '@/lib/db/admin-panel/customers';
-import { getCurrentDayInLocaleDateString } from '@/lib/utils/date';
+import {
+  getCurrentDayInLocaleDateString,
+  weeksFromCurrentDate,
+} from '@/lib/utils/date';
 import { handlePurchaseGoogleTag } from '@/hooks/useGoogleTagDataLayer';
 import { hashData } from '@/lib/utils/hash';
 import { getCookie } from '@/lib/utils/cookie';
 import { v4 as uuidv4 } from 'uuid';
 import { generateSkuLabOrderInput } from '@/lib/utils/skuLabs';
-import {
-  checkTimeDifference,
-  determineDeliveryByDate,
-} from '@/lib/utils/deliveryDateUtils';
+import { determineDeliveryByDate } from '@/lib/utils/deliveryDateUtils';
 import { SHIPPING_METHOD } from '@/lib/constants';
-import parsePhoneNumberFromString from 'libphonenumber-js';
 import { formatToE164 } from '@/lib/utils';
 
 type PaypalButtonSectionProps = {
@@ -69,7 +68,7 @@ export default function PayPalButtonSection({
   const router = useRouter();
   const totalMsrpPrice = getTotalPrice().toFixed(2) as unknown as number;
   const preOrderTimeDifferenceText: string = isCartPreorder
-    ? `approximately ${checkTimeDifference(cartPreorderDate)} from the date of purchase.`
+    ? `approximately ${weeksFromCurrentDate(cartPreorderDate)} weeks from the date of purchase.`
     : 'noted above.'; // If some random failure happens with checkTimeDifference, default here
 
   return (
