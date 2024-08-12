@@ -48,6 +48,7 @@ import CheckoutSummarySection from './CheckoutSummarySection';
 import OrderReview from './OrderReview';
 import { formatToE164 } from '@/lib/utils';
 import { TermsOfUseStatement } from './TermsOfUseStatement';
+import { generateTrustPilotPayload } from '@/lib/trustpilot';
 
 export default function CheckoutAccordion() {
   const stripe = useStripe();
@@ -126,7 +127,6 @@ export default function CheckoutAccordion() {
 
   const handleConversions = async (id: any, client_secret: any) => {
     const formattedPhone = formatToE164(customerInfo.phoneNumber);
-
     // -------------------- SendGrid Thank You Email ------------------------
     const emailInput = {
       to: customerInfo.email,
@@ -166,6 +166,7 @@ export default function CheckoutAccordion() {
         delivery_fee: shippingInfo.delivery_fee.toFixed(2) as unknown as number,
         free_delivery: shippingInfo.delivery_fee === 0,
       },
+      trustPilot: generateTrustPilotPayload(shippingAddress.name, customerInfo.email, orderNumber, cartItems)
       // billingInfo,
     };
     try {

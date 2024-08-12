@@ -155,6 +155,11 @@ const generateThankYouEmail = ({
   personalizations: [
     {
       to: [{ email: to }],
+      bcc: [
+        {
+          email: process.env.TRUST_PILOT_BCC_EMAIL,
+        },
+      ],
       dynamic_template_data: {
         first_name: name.firstName,
         order_date: orderInfo.orderDate,
