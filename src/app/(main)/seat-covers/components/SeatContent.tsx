@@ -127,7 +127,7 @@ export default function SeatContent({
           </div>
         </div>
       </div>
-      <div className=" flex items-end  gap-[9px] pt-[34px]   text-center text-[28px] font-[900]  lg:text-[32px] lg:leading-[37.5px] ">
+      <div className=" flex items-end  gap-[9px] pt-[18px] text-center text-[28px] font-[900] lg:text-[32px] lg:leading-[37.5px] ">
         <div className="leading-[20px]">${newMSRP}</div>
         {discountPercent && (
           <div className="flex gap-1.5 pb-[1px] text-[22px] font-[400] leading-[14px] text-[#BE1B1B] lg:text-[22px] ">
@@ -138,19 +138,17 @@ export default function SeatContent({
           </div>
         )}
       </div>
-      <div className="pb-4.5 mt-[15px] flex items-center gap-0.5">
+      <div className="pb-4.5 flex items-center gap-0.5">
         {installmentPrice && (
-          <p className="text-[14px] leading-[16px] text-[#767676] lg:text-[16px]">
+          <p className="text-[16px] leading-[16px] text-[#767676] lg:text-[16px]">
             4 interest-free installments of{' '}
-            <b className="font-[400] text-black">
+            <b className="font-[500] text-black">
               ${(installmentPrice / 4).toFixed(2)}
             </b>
           </p>
         )}
-        <KlarnaIcon className="flex max-h-[30px] w-fit max-w-[61px]" />
-        {/* <Info className="h-[17px] w-[17px] text-[#767676]" /> */}
+        <KlarnaIcon className="-ml-[5px] -mt-[1px] flex max-h-[35px] w-fit max-w-[65px]" />
       </div>
-
       {!!isComplete ? <SeatCoverSelection /> : null}
       <SeatCoverColorSelector />
       <FreeDetails />
