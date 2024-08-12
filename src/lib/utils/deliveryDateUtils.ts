@@ -75,8 +75,13 @@ export const determineDeliveryByDate = (
   return deliveryDate.toFormat(format);
 };
 
+/**
+ * Checks the time difference between now and the date.
+ * Will return 1-4 weeks, after that will do by months.
+ * @param date 
+ * @returns 
+ */
 export const checkTimeDifference = (date: string): string => {
-  debugger;
   const targetDate = DateTime.fromISO(date);
   const now = DateTime.now();
 

@@ -30,7 +30,7 @@ export default function PriceBreakdown() {
 
   return (
     <div className=" text-base font-normal text-[#343434]">
-      <div className="flex justify-between lg:flex">
+      <div className="flex justify-between pt-2 lg:flex">
         <div>Order Subtotal</div>
         <div>${orderSubtotal}</div>
       </div>

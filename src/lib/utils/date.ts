@@ -75,6 +75,12 @@ export function formatISODateNoTimeZone(isoDateString: string): string {
   return `${month}/${day}/${year}`;
 }
 
+/**
+ * Calculates value of weeks from current date.
+ * Note: Only returns the number. Don't forget to add "weeks" after
+ * @param targetDate 
+ * @returns 
+ */
 export function weeksFromCurrentDate(targetDate: string): number {
   const currentDate = new Date();
   const target = new Date(targetDate);

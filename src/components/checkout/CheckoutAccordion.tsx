@@ -11,7 +11,6 @@ import {
   AccordionTrigger,
 } from '../ui/accordion';
 import CartHeader from './CartHeader';
-import { Separator } from '../ui/separator';
 import { MouseEvent, useEffect, useState } from 'react';
 import InYourCart from './InYourCart';
 import { useCartContext } from '@/providers/CartProvider';
@@ -30,34 +29,23 @@ import {
   getSkuQuantityPriceFromCartItemsForMeta,
   getSkusFromCartItems,
 } from '@/lib/utils/stripe';
-import { getCurrentDayInLocaleDateString } from '@/lib/utils/date';
+import {
+  getCurrentDayInLocaleDateString,
+  weeksFromCurrentDate,
+} from '@/lib/utils/date';
 import { v4 as uuidv4 } from 'uuid';
 import { hashData } from '@/lib/utils/hash';
 import { getCookie } from '@/lib/utils/cookie';
-import {
-  CreatePaymentMethodKlarnaData,
-  PaymentMethodCreateParams,
-  PaymentRequestShippingOption,
-  StripeExpressCheckoutElementOptions,
-} from '@stripe/stripe-js';
 import { useRouter } from 'next/navigation';
 import PayPalButtonSection from './PayPalButtonSection';
 import { generateSkuLabOrderInput } from '@/lib/utils/skuLabs';
 import { handlePurchaseGoogleTag } from '@/hooks/useGoogleTagDataLayer';
 import { SHIPPING_METHOD } from '@/lib/constants';
-import {
-  checkTimeDifference,
-  determineDeliveryByDate,
-} from '@/lib/utils/deliveryDateUtils';
-import { TCartItem } from '@/lib/cart/useCart';
+import { determineDeliveryByDate } from '@/lib/utils/deliveryDateUtils';
 import { ReadyCheck } from './icons/ReadyCheck';
 import { useMediaQuery } from '@mantine/hooks';
 import CheckoutSummarySection from './CheckoutSummarySection';
 import OrderReview from './OrderReview';
-import parsePhoneNumberFromString, {
-  findPhoneNumbersInText,
-  parsePhoneNumber,
-} from 'libphonenumber-js';
 import { formatToE164 } from '@/lib/utils';
 import { TermsOfUseStatement } from './TermsOfUseStatement';
 
@@ -108,7 +96,7 @@ export default function CheckoutAccordion() {
   const [paypalSuccessMessage, setPaypalSuccessMessage] = useState('');
   const preorderDate = isCartPreorder ? cartPreorderDate : undefined;
   const preOrderTimeDifferenceText: string = isCartPreorder
-    ? `approximately ${checkTimeDifference(cartPreorderDate)} from the date of purchase.`
+    ? `approximately ${weeksFromCurrentDate(cartPreorderDate)} weeks from the date of purchase.`
     : 'noted above.'; // If some random failure happens with checkTimeDifference, default here
 
   const shippingInfo = {
