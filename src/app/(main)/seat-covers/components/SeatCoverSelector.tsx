@@ -5,7 +5,6 @@ import { useStore } from 'zustand';
 import { TSeatCoverDataDB } from '@/lib/db/seat-covers';
 import { isFullSet } from '@/lib/utils';
 
-
 export default function SeatCoverSelection() {
   const store = useContext(SeatCoverSelectionContext);
   if (!store)
@@ -37,11 +36,13 @@ export default function SeatCoverSelection() {
   const availableColors = (
     availableSeatCoversFiltered: TSeatCoverDataDB[]
   ): string[] => {
-    return availableSeatCoversFiltered
-      // .filter((seatCover) => seatCover.quantity !== '0')
-      .map((seatCover) => seatCover.display_color?.toLowerCase() as string)
-      .filter((color, index, self) => self.indexOf(color) === index)
-      .filter((color) => ['gray', 'black', 'beige'].includes(color as string));
+    return (
+      availableSeatCoversFiltered
+        // .filter((seatCover) => seatCover.quantity !== '0')
+        .map((seatCover) => seatCover.display_color?.toLowerCase() as string)
+        .filter((color, index, self) => self.indexOf(color) === index)
+        .filter((color) => ['gray', 'black', 'beige'].includes(color as string))
+    );
   };
 
   const isAllOutOfStock = (availableSeats: TSeatCoverDataDB[]): boolean => {
@@ -56,7 +57,7 @@ export default function SeatCoverSelection() {
     setSelectedSetDisplay(type);
   }
   return (
-    <div className="mb-[20px] py-1">
+    <div className="py-1">
       <DisplaySeatSetText
         containerClass="py-2"
         selectedCover={selectedSeatCoverType}
@@ -93,7 +94,7 @@ const DisplaySeatSetText = ({
 }: DisplaySeatSetProps) => {
   return (
     <div className={containerClass}>
-      <h3 className="my-[6px] ml-[4px]  max-h-[13px] text-[16px] font-[400] leading-[14px] text-black ">
+      <h3 className="my-[6px] ml-[4px] max-h-[13px] text-[16px] font-[400] leading-[14px] text-black ">
         Seat Set{' '}
         <span className="ml-[2px]  text-[#8F8F8F]">
           {!selectedCover.toLowerCase() ? null : selectedCover.toLowerCase() ===

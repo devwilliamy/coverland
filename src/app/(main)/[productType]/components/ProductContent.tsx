@@ -104,7 +104,7 @@ export function ProductContent({
               ${installmentPrice.toFixed(2)}
             </b>
           </p>
-          <KlarnaIcon className="-ml-[5px] -mt-[1px] flex max-h-[30px] w-fit max-w-[61px]" />
+          <KlarnaIcon className="-ml-[5px] -mt-[1px] flex max-h-[35px] w-fit max-w-[65px]" />
         </div>
       </section>
       <CircleColorSelector />
@@ -116,7 +116,7 @@ export function ProductContent({
           isSticky
         />
       </div>
-      <Separator className="mt-[36px]" />
+      {/* <Separator className="mt-[36px]" /> */}
       <Suspense>
         <FreeDetails />
       </Suspense>

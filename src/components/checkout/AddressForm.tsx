@@ -291,7 +291,7 @@ export default function AddressForm({
         type="submit"
         disabled={checkErrors()}
         onClick={handleSaveAndContinue}
-        className={`h-[48px] w-full cursor-pointer self-center rounded-lg bg-black text-base font-bold uppercase text-white disabled:bg-[#D6D6D6] disabled:text-[#767676] lg:mb-[70px] lg:mt-[19.5px] lg:max-w-[307px] lg:self-end lg:text-xl`}
+        className={`h-[48px] w-full cursor-pointer self-center rounded-lg bg-black text-base font-bold uppercase text-white disabled:bg-[#D6D6D6] disabled:text-[#767676] lg:mb-[70px] lg:mt-[19.5px] lg:max-w-[307px] lg:self-end`}
       >
         Save & Continue
       </Button>
