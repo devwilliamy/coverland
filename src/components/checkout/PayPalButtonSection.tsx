@@ -18,7 +18,10 @@ import {
   getSkusFromCartItems,
 } from '@/lib/utils/stripe';
 import { createOrUpdateUser } from '@/lib/db/admin-panel/customers';
-import { getCurrentDayInLocaleDateString } from '@/lib/utils/date';
+import {
+  getCurrentDayInLocaleDateString,
+  weeksFromCurrentDate,
+} from '@/lib/utils/date';
 import { handlePurchaseGoogleTag } from '@/hooks/useGoogleTagDataLayer';
 import { hashData } from '@/lib/utils/hash';
 import { getCookie } from '@/lib/utils/cookie';
@@ -26,6 +29,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { generateSkuLabOrderInput } from '@/lib/utils/skuLabs';
 import { determineDeliveryByDate } from '@/lib/utils/deliveryDateUtils';
 import { SHIPPING_METHOD } from '@/lib/constants';
+import { formatToE164 } from '@/lib/utils';
 
 type PaypalButtonSectionProps = {
   setPaypalSuccessMessage: (message: string) => void;
@@ -35,13 +39,15 @@ export default function PayPalButtonSection({
   setPaypalSuccessMessage,
   setMessage,
 }: PaypalButtonSectionProps) {
-  const { orderNumber, shipping, shippingAddress, customerInfo } =
-    useCheckoutContext();
-  const shippingInfo = {
-    shipping_method: SHIPPING_METHOD,
-    shipping_date: determineDeliveryByDate('EEE, LLL dd'),
-    delivery_fee: shipping,
-  };
+  const {
+    orderNumber,
+    shipping,
+    shippingAddress,
+    customerInfo,
+    billingAddress,
+    isBillingSameAsShipping,
+  } = useCheckoutContext();
+
   const {
     cartItems,
     getTotalPrice,
@@ -49,9 +55,21 @@ export default function PayPalButtonSection({
     getTotalDiscountPrice,
     getTotalCartQuantity,
     clearLocalStorageCart,
+    isCartPreorder,
+    cartPreorderDate,
+    getTotalPreorderDiscount,
   } = useCartContext();
+  const preorderDate = isCartPreorder ? cartPreorderDate : undefined;
+  const shippingInfo = {
+    shipping_method: SHIPPING_METHOD,
+    shipping_date: determineDeliveryByDate('EEE, LLL dd', preorderDate),
+    delivery_fee: shipping,
+  };
   const router = useRouter();
   const totalMsrpPrice = getTotalPrice().toFixed(2) as unknown as number;
+  const preOrderTimeDifferenceText: string = isCartPreorder
+    ? `approximately ${weeksFromCurrentDate(cartPreorderDate)} weeks from the date of purchase.`
+    : 'noted above.'; // If some random failure happens with checkTimeDifference, default here
 
   return (
     <PayPalScriptProvider
@@ -70,7 +88,9 @@ export default function PayPalButtonSection({
             shape: 'rect',
             label: 'pay',
             height: 50,
+            disableMaxWidth: true,
           }}
+          className="w-full lg:max-w-[307px] lg:self-end lg:text-xl"
           createOrder={async () => {
             setMessage(''); // If there was an error message previously, reset it
             const data = await paypalCreateOrder(
@@ -78,7 +98,7 @@ export default function PayPalButtonSection({
               cartItems,
               orderNumber,
               shipping,
-              shippingAddress
+              isBillingSameAsShipping ? shippingAddress : billingAddress
             );
             if (!data) {
               console.log('Error creating order');
@@ -92,19 +112,20 @@ export default function PayPalButtonSection({
             // console.log('[PaypalButton Section] Data: ', data);
             // This will get the order from paypal
             let response;
+
+            const formattedPhone = formatToE164(customerInfo.phoneNumber);
+
             try {
-              response = await paypalCaptureOrder(
-                data.orderID,
-                customerInfo.phoneNumber
-              );
+              response = await paypalCaptureOrder(data.orderID, formattedPhone);
               // console.log('Response:', response);
             } catch (error) {
               // debugger;
               throw error;
             }
+
             const customerInput = mapPaypalCompletionToCustomer(
               response.data,
-              customerInfo.phoneNumber
+              formattedPhone
             );
             // Create Customer for Paypal
             const createdCustomer =
@@ -113,7 +134,7 @@ export default function PayPalButtonSection({
             // This gets the paypal order ready
             const mappedData = mapPaypalCompletionToOrder(
               response.data,
-              customerInfo.phoneNumber,
+              formattedPhone,
               createdCustomer[0].id
             );
 
@@ -154,6 +175,14 @@ export default function PayPalButtonSection({
                   subtotal: getOrderSubtotal().toFixed(2),
                   total: (getTotalPrice() + shipping).toFixed(2), // may need to add taxes later
                   totalDiscount: getTotalDiscountPrice().toFixed(2),
+                  totalPreorderDiscount: getTotalPreorderDiscount().toFixed(2),
+                  isPreorder: isCartPreorder,
+                  preorder_text: isCartPreorder
+                    ? 'Please note that this item is a pre-order. ' +
+                      'We will notify you with the exact fulfillment date once the item is shipped. ' +
+                      `The estimated fulfillment timeframe is ${preOrderTimeDifferenceText} ` +
+                      'We appreciate your patience and look forward to delivering your order!'
+                    : '',
                   hasDiscount:
                     parseFloat(getTotalDiscountPrice().toFixed(2)) > 0,
                 },
@@ -167,7 +196,9 @@ export default function PayPalButtonSection({
                   full_name: `${shippingAddress.firstName} ${shippingAddress.lastName}`,
                   shipping_method: shippingInfo.shipping_method as string,
                   shipping_date: shippingInfo.shipping_date as string,
-                  delivery_fee: shippingInfo.delivery_fee.toFixed(2) as number,
+                  delivery_fee: shippingInfo.delivery_fee.toFixed(
+                    2
+                  ) as unknown as number,
                   free_delivery: shippingInfo.delivery_fee === 0,
                 },
                 // billingInfo,
@@ -192,7 +223,7 @@ export default function PayPalButtonSection({
                   action_source: 'website',
                   user_data: {
                     em: [hashData(customerInfo.email)],
-                    ph: [hashData(shippingAddress.phone || '')],
+                    ph: [hashData(formattedPhone || '')],
                     ct: [hashData(shippingAddress.address.city || '')],
                     country: [hashData(shippingAddress.address.country || '')],
                     fn: [hashData(shippingAddress.firstName || '')],
@@ -242,7 +273,7 @@ export default function PayPalButtonSection({
                   window.uetq.push('set', {
                     pid: {
                       em: customerInfo.email,
-                      ph: customerInfo.phoneNumber,
+                      ph: formattedPhone,
                     },
                   });
                   window.uetq.push('event', 'purchase', {
@@ -250,7 +281,7 @@ export default function PayPalButtonSection({
                     currency: 'USD',
                     pid: {
                       em: customerInfo.email,
-                      ph: customerInfo.phoneNumber,
+                      ph: formattedPhone,
                     },
                   });
                 }
@@ -279,7 +310,7 @@ export default function PayPalButtonSection({
 
                 const enhancedGoogleConversionInput = {
                   email: customerInfo.email || '',
-                  phone_number: shippingAddress.phone || '',
+                  phone_number: formattedPhone || '',
                   first_name: shippingAddress.firstName || '',
                   last_name: shippingAddress.lastName || '',
                   address_line1: shippingAddress.address.line1 || '',

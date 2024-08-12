@@ -1,22 +1,33 @@
 import { Button } from '@/components/ui/button';
 import { useState } from 'react';
-import { TPathParams } from '../../utils';
-import { useParams } from 'next/navigation';
+import { getCompleteSelectionData } from '../../utils';
 import CarMagnify from '@/components/icons/CarMagnify';
 import { FaSpinner } from 'react-icons/fa';
+import useStoreContext from '@/hooks/useStoreContext';
+import { useStore } from 'zustand';
 
 type AddToCartButtonProps = {
   handleAddToCartClicked: () => void;
+  preorder: boolean;
   isColorAvailable: boolean;
   isLoading: boolean;
 };
 export default function AddToCartButton({
+  preorder,
   isColorAvailable,
   handleAddToCartClicked,
   isLoading,
 }: AddToCartButtonProps) {
-  const params = useParams<TPathParams>();
-  const isFinalSelection = params?.year;
+  const store = useStoreContext();
+  if (!store) throw new Error('Missing Provider in the tree');
+
+  const modelData = useStore(store, (s) => s.modelData);
+
+  const {
+    completeSelectionState: { isComplete },
+  } = getCompleteSelectionData({
+    data: modelData,
+  });
   const [nonFinalButtonText, setNonFinalButtonText] = useState(
     'Find your Custom-Cover'
   );
@@ -32,7 +43,7 @@ export default function AddToCartButton({
       <div
         className="flex gap-[10px]"
         style={
-          !isFinalSelection
+          !isComplete
             ? {
                 animation: `blink ${blinkTime}s cubic-bezier(0,-${blinkVel},1,${blinkVel}) infinite`,
               }
@@ -58,7 +69,11 @@ export default function AddToCartButton({
           )
         )}
         <p>
-          {!isFinalSelection ? nonFinalButtonText : 'Add To Cart'}
+          {!isComplete
+            ? nonFinalButtonText
+            : preorder
+              ? 'Pre-order & Save Big'
+              : 'Add To Cart'}
         </p>
       </div>
     </Button>

@@ -13,7 +13,7 @@ import { deslugify } from '@/lib/utils';
 import SeatCoverDataWrapper from '../../components/SeatCoverDataWrapper';
 import { TProductReviewSummary, TReviewData } from '@/lib/types/review';
 
-export const revalidate = 300;
+export const revalidate = 86400;
 
 export type TCarCoverSlugParams = {
   make: string;
@@ -71,7 +71,7 @@ export default async function SeatCoverDataLayer({
           make: params.make,
         }),
         getProductReviewsByPage(
-          { productType: typeString, make: params.make },
+          { productType: typeString },
           {
             pagination: {
               page: 0,
@@ -85,12 +85,10 @@ export default async function SeatCoverDataLayer({
         ),
         getProductReviewSummary({
           productType: typeString,
-          make: params.make,
         }),
         getAllReviewsWithImages(
           {
             productType: typeString,
-            make: params.make,
           },
           {}
         ),

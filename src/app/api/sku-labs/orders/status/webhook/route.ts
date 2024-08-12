@@ -184,13 +184,13 @@ export async function POST(request: NextRequest): Promise<SkuLabOrderResponse> {
     }
   } catch (error) {
     console.error(
-      `${getTimestamp()} Error caught: No shipments found in the order data: ${order_number}. ${JSON.stringify(error)}`
+      `${getTimestamp()} Unexpected error happened: ${order_number}. ${JSON.stringify(error)}`
     );
     return NextResponse.json(
       {
-        message: `${getTimestamp()} No shipments found in the order data or does not start with CL: ${order_number}. ${JSON.stringify(error)}`,
+        message: `${getTimestamp()} Unexpected error happened: ${order_number}. ${JSON.stringify(error)}`,
       },
-      { status: 500 } // Keeping this as 500 because that means something went wrong
+      { status: 200 } // bad response gets sent as 200 until further investigation / changes
     );
   }
 }

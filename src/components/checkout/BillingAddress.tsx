@@ -8,13 +8,12 @@ type BillingAddressProps = {
   setIsEditingAddress: (isEditing: boolean) => void;
 };
 
-export default function BillingAddress({
-  isEditingAddress,
-  setIsEditingAddress,
-}: BillingAddressProps) {
+export default function BillingAddress() {
   const { isShippingAddressShown } = useCheckoutContext();
 
   const {
+    isEditingAddress,
+    updateIsEditingAddress,
     billingAddress,
     updateBillingAddress,
     isBillingSameAsShipping,
@@ -26,7 +25,7 @@ export default function BillingAddress({
   };
 
   const handleEditAddress = () => {
-    setIsEditingAddress(true);
+    updateIsEditingAddress(true);
   };
 
   return (
@@ -38,6 +37,7 @@ export default function BillingAddress({
           <div className="flex flex-row items-center pb-4">
             <input
               type="checkbox"
+              className="bg-black fill-black text-black"
               checked={isBillingSameAsShipping}
               onChange={handleCheckboxChange}
             />
@@ -50,17 +50,15 @@ export default function BillingAddress({
               <AddressForm
                 addressData={billingAddress}
                 updateAddress={updateBillingAddress}
-                setIsEditingAddress={setIsEditingAddress}
-                showEmail={false}
+                setIsEditingAddress={updateIsEditingAddress}
+                isBilling
               />
             </div>
           ) : (
-            <div className="mb-4">
-              <SavedBillingAddress
-                address={billingAddress}
-                handleClick={handleEditAddress}
-              />
-            </div>
+            <SavedBillingAddress
+              address={billingAddress}
+              handleClick={handleEditAddress}
+            />
           )}
         </div>
       )}

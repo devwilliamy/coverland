@@ -3,9 +3,9 @@ import sgMail, { MailDataRequired } from '@sendgrid/mail';
 import { formatMoneyAsNumber, trimToWholeNumber } from '@/lib/utils/money';
 import { isFullSet } from '@/lib/utils';
 sgMail.setApiKey(process.env.SENDGRID_API_KEY || '');
-const sgFromEmail = process.env.SENDGRID_FROM_EMAIL;
-const sgThankYouEmailTemplateId = process.env.SENDGRID_THANK_YOU_EMAIL_TEMPLATE_ID;
-
+const sgFromEmail = process.env.SENDGRID_FROM_EMAIL || '';
+const sgThankYouEmailTemplateId =
+  process.env.SENDGRID_THANK_YOU_EMAIL_TEMPLATE_ID || '';
 
 type OrderItem = {
   name: string;
@@ -45,7 +45,7 @@ type DynamicTemplateData = {
   cv_exp_date: string;
 };
 
-const trademark = "\u2122";
+const trademark = '\u2122';
 /**
  * example obj SendGrid expects us to send (there are more parameters available inside MailDataRequired type):
  * 
@@ -99,36 +99,50 @@ const trademark = "\u2122";
     }
   }
  */
-type ThankYouEmailInput = MailDataRequired & { dynamicTemplateData: DynamicTemplateData };
+type ThankYouEmailInput = MailDataRequired & {
+  dynamicTemplateData: DynamicTemplateData;
+};
 
 const generateOrderItems = (cartItems: TCartItem[]) => {
-  return cartItems.map(({ 
-    fullProductName,
-    display_id,
-    type, 
-    make, 
-    model, 
-    year_generation, 
-    submodel1 = '', 
-    submodel2 = '', 
-    submodel3 = '', 
-    display_color, 
-    quantity, 
-    msrp, 
-    mainImage,
-    feature,
-    product,
-    display_set, 
-  }) => ({
-    name: fullProductName || `${display_id}${trademark} ${type}`,
-    vehicle: `${make} ${model} ${year_generation} ${submodel1 || ''} ${submodel2 || ''} ${submodel3 || ''}`.trim(),
-    color: display_color,
-    quantity: quantity,
-    price: msrp,
-    total_price: formatMoneyAsNumber(msrp * quantity),
-    img_url: mainImage || feature || product.split(',')[0],
-    full_set: type === 'Seat Covers' ? isFullSet(display_set).toLowerCase() == "full" ? "Full Seat Set (Front + Rear Seat Set)": 'Front Seats (Driver +  Passenger seats)' : display_set,
-  }));
+  return cartItems.map(
+    ({
+      fullProductName,
+      display_id,
+      type,
+      make,
+      model,
+      year_generation,
+      submodel1 = '',
+      submodel2 = '',
+      submodel3 = '',
+      display_color,
+      quantity,
+      msrp,
+      preorder_discount = 0,
+      preorder = false,
+      mainImage,
+      feature,
+      product,
+      display_set,
+    }) => ({
+      name: fullProductName || `${display_id}${trademark} ${type}`,
+      vehicle:
+        `${make} ${model} ${year_generation} ${submodel1 || ''} ${submodel2 || ''} ${submodel3 || ''}`.trim(),
+      color: display_color,
+      quantity: quantity,
+      price: preorder ? msrp - preorder_discount : msrp,
+      total_price: formatMoneyAsNumber(
+        (preorder ? msrp - preorder_discount : msrp) * quantity
+      ),
+      img_url: mainImage || feature || product.split(',')[0],
+      full_set:
+        type === 'Seat Covers'
+          ? isFullSet(display_set).toLowerCase() == 'full'
+            ? 'Full Seat Set (Front + Rear Seat Set)'
+            : 'Front Seats (Driver +  Passenger seats)'
+          : display_set,
+    })
+  );
 };
 
 const generateThankYouEmail = ({
@@ -136,7 +150,7 @@ const generateThankYouEmail = ({
   name,
   orderInfo,
   shippingInfo,
-  billingInfo, 
+  billingInfo,
 }: ThankYouEmailInput) => ({
   personalizations: [
     {
@@ -156,6 +170,11 @@ const generateThankYouEmail = ({
         total_discount: orderInfo.totalDiscount,
         has_discount: orderInfo.hasDiscount,
         // taxes: orderInfo.taxes, // not yet implemented
+        is_preorder: orderInfo.isPreorder,
+        preorder_text: orderInfo.preorder_text,
+        total_preorder_discount: formatMoneyAsNumber(
+          orderInfo.totalPreorderDiscount
+        ),
         total: formatMoneyAsNumber(orderInfo.total),
       },
     },

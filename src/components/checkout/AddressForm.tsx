@@ -1,264 +1,300 @@
-import { useEffect, useState } from 'react';
-import { useForm } from 'react-hook-form';
-import OverlappingLabel from '../ui/overlapping-label';
+import { MouseEvent, useEffect, useState } from 'react';
 import { Button } from '../ui/button';
-import { useCheckoutContext } from '@/contexts/CheckoutContext';
+import { CustomerInfo, useCheckoutContext } from '@/contexts/CheckoutContext';
 import { StripeAddress } from '@/lib/types/checkout';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { z } from 'zod';
-import CustomPhoneInput from '../ui/phone-input';
-import { parsePhoneNumberFromString } from 'libphonenumber-js';
-import StateDropdown from '../ui/state-dropdown';
-
-type FormData = {
-  email: string;
-  firstName: string;
-  lastName: string;
-  line1: string;
-  line2: string;
-  city: string;
-  state: string;
-  postal_code: string;
-  phoneNumber: string;
-};
+import { CustomTextField } from './CustomTextField';
+import {
+  updateOrdersBilling,
+  updateOrdersShipping,
+} from '@/lib/db/orders/updateOrders';
+import { cleanString } from '@/lib/utils/stringHelpers';
 
 type AddressFormProps = {
   addressData: StripeAddress;
   updateAddress: (address: StripeAddress) => void;
   setIsEditingAddress: (isEditing: boolean) => void;
-  showEmail: boolean;
+  isBilling?: boolean;
+  handleChangeAccordion?: (accordionTitle: string) => void;
+  handleSelectTab?: (id: string) => void;
 };
 
-const formSchema = z.object({
-  firstName: z.string().min(1, 'First name is required'),
-  lastName: z.string().min(1, 'Last name is required'),
-  line1: z.string().min(1, 'Address line 1 is required'),
-  line2: z.string().optional(),
-  city: z.string().min(1, 'City is required'),
-  state: z.string().min(1, 'State is required'),
-  postal_code: z.string().min(1, 'Postal code is required'),
-  email: z.string().email({ message: 'Please provide a valid email' }),
-  // phoneNumber: z
-  //   .string()
-  //   .regex(
-  //     /^(?:\+([0-9]{1,3})[-. ]?)?\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/,
-  //     { message: 'Please provide a valid phone number' }
-  //   ),
-  phoneNumber: z.string().refine(
-    (value) => {
-      const phoneNumber = parsePhoneNumberFromString(value, 'US');
-      return phoneNumber && phoneNumber.isPossible();
-    },
-    {
-      message: 'Please provide a valid phone number',
-    }
-  ),
-});
+export type ShippingStateType = {
+  value: string;
+  visited: boolean;
+  message: string;
+  error: boolean | null;
+};
+
+export type CustomFieldTypes =
+  | 'email'
+  | 'firstName'
+  | 'lastName'
+  | 'line1'
+  | 'line2'
+  | 'city'
+  | 'state'
+  | 'postal_code'
+  | 'phoneNumber';
 
 export default function AddressForm({
   addressData,
   updateAddress,
   setIsEditingAddress,
-  showEmail,
+  isBilling,
+  handleChangeAccordion,
+  handleSelectTab,
 }: AddressFormProps) {
-  const { customerInfo, updateCustomerInfo, toggleIsShippingAddressShown } =
-    useCheckoutContext();
-
   const {
-    register,
-    setValue,
-    handleSubmit,
-    formState: { errors },
-    // trigger,
-  } = useForm<FormData>({ resolver: zodResolver(formSchema) });
+    customerInfo,
+    updateCustomerInfo,
+    toggleIsShippingAddressShown,
+    twoLetterStateCode,
+    updateTwoLetterStateCode,
+    updateBillingTwoLetterStateCode,
+    isBillingSameAsShipping,
+    orderNumber,
+  } = useCheckoutContext();
 
-  const onSubmit = handleSubmit(
-    ({
-      email,
-      firstName,
-      lastName,
-      line1,
-      line2,
-      city,
-      state,
-      postal_code,
-      phoneNumber,
-    }) => {
-      const formattedPhoneNumber =
-        parsePhoneNumberFromString(phoneNumber)?.format('E.164');
+  // TODO: Extract this to checkout context or its own context
 
-      const address: StripeAddress = {
-        name: `${firstName} ${lastName}`,
-        firstName,
-        lastName,
-        phone: formattedPhoneNumber,
-        address: {
-          line1,
-          line2,
-          city,
-          state,
-          postal_code,
-          country: 'US',
-        },
-      };
-      // console.log("Address:", address)
-      updateAddress(address as StripeAddress);
-      updateCustomerInfo({ email, phoneNumber });
-      setIsEditingAddress(false);
-      toggleIsShippingAddressShown(false);
-    }
-  );
-
-  console.log('Errors', errors);
+  const [shipping, setShipping] = useState<Record<string, ShippingStateType>>({
+    email: { value: '', visited: false, message: '', error: null },
+    firstName: { value: '', visited: false, message: '', error: null },
+    lastName: { value: '', visited: false, message: '', error: null },
+    line1: { value: '', visited: false, message: '', error: null },
+    line2: { value: '', visited: false, message: '', error: null },
+    city: { value: '', visited: false, message: '', error: null },
+    state: { value: '', visited: false, message: '', error: null },
+    postal_code: { value: '', visited: false, message: '', error: null },
+    phoneNumber: { value: '', visited: false, message: '', error: null },
+  });
 
   useEffect(() => {
     // Populate the form fields when shippingAddress changes
-    if (addressData) {
-      setValue('email', customerInfo.email || '');
-      setValue('firstName', addressData.firstName || '');
-      setValue('lastName', addressData.lastName || '');
-      setValue('line1', addressData.address.line1 || '');
-      setValue('line2', addressData.address.line2 || '');
-      setValue('city', addressData.address.city || '');
-      setValue('state', addressData.address.state || '');
-      setValue('postal_code', addressData.address.postal_code || '');
-      setValue('phoneNumber', customerInfo.phoneNumber || '');
+    if (addressData.address.line1) {
+      setShipping({
+        email: {
+          value: customerInfo.email,
+          visited: true,
+          message: '',
+          error: false,
+        },
+        firstName: {
+          value: addressData.firstName as string,
+          visited: true,
+          message: '',
+          error: false,
+        },
+        lastName: {
+          value: addressData.lastName as string,
+          visited: true,
+          message: '',
+          error: false,
+        },
+        line1: {
+          value: addressData.address.line1 as string,
+          visited: true,
+          message: '',
+          error: false,
+        },
+        line2: {
+          value: addressData.address.line2 as string,
+          visited: true,
+          message: '',
+          error: false,
+        },
+        city: {
+          value: addressData.address.city as string,
+          visited: true,
+          message: '',
+          error: false,
+        },
+        state: {
+          value: addressData.address.state as string,
+          visited: true,
+          message: '',
+          error: false,
+        },
+        postal_code: {
+          value: addressData.address.postal_code as string,
+          visited: true,
+          message: '',
+          error: false,
+        },
+        phoneNumber: {
+          value: customerInfo.phoneNumber,
+          visited: true,
+          message: '',
+          error: false,
+        },
+      });
     }
-  }, [addressData, customerInfo, setValue]);
+  }, [addressData, customerInfo]);
+
+  const checkErrors = () => {
+    for (const key in shipping) {
+      if (
+        key !== 'line2' &&
+        (shipping[key].error || shipping[key].error === null)
+      ) {
+        return true;
+      }
+    }
+    return false;
+  };
+
+  const handleSaveAndContinue = (e: MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    const stripeAddress = {
+      firstName: cleanString(shipping.firstName.value),
+      lastName: cleanString(shipping.lastName.value),
+      name:
+        cleanString(shipping.firstName.value) +
+        ' ' +
+        cleanString(shipping.lastName.value),
+      phone: cleanString(shipping.phoneNumber.value),
+      address: {
+        city: cleanString(shipping.city.value),
+        line1: cleanString(shipping.line1.value),
+        line2: cleanString(shipping.line2.value),
+        postal_code: cleanString(shipping.postal_code.value),
+        state: cleanString(shipping.state.value),
+        country: 'US',
+      },
+    };
+
+    const customerInfo = {
+      email: cleanString(shipping.email.value),
+      phoneNumber: cleanString(shipping.phoneNumber.value),
+    } as CustomerInfo;
+
+    updateAddress(stripeAddress as StripeAddress);
+    updateCustomerInfo(customerInfo);
+    setIsEditingAddress(false);
+
+    if (isBillingSameAsShipping) {
+      updateOrdersShipping(
+        stripeAddress,
+        cleanString(shipping.email.value),
+        orderNumber
+      );
+      updateOrdersBilling(
+        stripeAddress,
+        cleanString(shipping.email.value),
+        orderNumber
+      );
+    } else {
+      if (isBilling) {
+        updateOrdersBilling(
+          stripeAddress,
+          cleanString(shipping.email.value),
+          orderNumber
+        );
+      } else {
+        updateOrdersShipping(
+          stripeAddress,
+          cleanString(shipping.email.value),
+          orderNumber
+        );
+      }
+    }
+  };
 
   return (
-    <form onSubmit={onSubmit}>
-      {showEmail && (
-        <div className="pb-6 pt-2">
-          <OverlappingLabel
-            title="Email"
-            name="email"
-            errors={errors}
-            placeholder="abc@gmail.com"
-            register={register}
-            options={{ required: true }}
-            autoComplete="email"
+    <form
+      onSubmit={(e) => e.preventDefault()}
+      className="mt-2 flex flex-col gap-[29.5px]"
+    >
+      <div className="flex grid-cols-2 flex-col gap-[29.5px] lg:grid lg:gap-[14px]">
+        <CustomTextField
+          label="First Name"
+          type="firstName"
+          placeholder="First Name"
+          required
+          shipping={shipping}
+          setShipping={setShipping}
+        />
+        <CustomTextField
+          label="Last Name"
+          type="lastName"
+          required
+          placeholder="Last Name"
+          shipping={shipping}
+          setShipping={setShipping}
+        />
+      </div>
+      <CustomTextField
+        label="Address"
+        type="line1"
+        required
+        placeholder="Start typing address"
+        shipping={shipping}
+        setShipping={setShipping}
+      />
+      <CustomTextField
+        label="Company, C/O, Apt, Suite, Unit"
+        type="line2"
+        required={false}
+        placeholder="Add Company, C/O, Apt, Suite, Unit"
+        shipping={shipping}
+        setShipping={setShipping}
+      />
+      <div className="flex grid-cols-3 flex-col gap-[29.5px] lg:grid lg:gap-[14px]">
+        <CustomTextField
+          label="City"
+          type="city"
+          required
+          placeholder="City"
+          shipping={shipping}
+          setShipping={setShipping}
+        />
+        <CustomTextField
+          label="State"
+          type="state"
+          required
+          placeholder="State"
+          shipping={shipping}
+          setShipping={setShipping}
+        />
+        <CustomTextField
+          label="ZIP"
+          type="postal_code"
+          required
+          placeholder="ZIP"
+          shipping={shipping}
+          setShipping={setShipping}
+        />
+      </div>
+
+      {!isBilling && (
+        <div className="flex grid-cols-2 flex-col gap-[29.5px] lg:grid lg:gap-[14px]">
+          <CustomTextField
+            label="Email"
+            type="email"
+            required
+            placeholder="Email"
+            shipping={shipping}
+            setShipping={setShipping}
+          />
+          <CustomTextField
+            label="Phone Number"
+            type="phoneNumber"
+            required
+            placeholder="Phone Number"
+            shipping={shipping}
+            setShipping={setShipping}
           />
         </div>
       )}
 
-      <div className="flex flex-row pb-6">
-        <div className="mr-2 flex-grow">
-          <OverlappingLabel
-            title="First Name"
-            name="firstName"
-            errors={errors}
-            placeholder="John"
-            register={register}
-            options={{ required: true }}
-            autoComplete="given-name"
-          />
-        </div>
-        <div className="ml-2 flex-grow">
-          <OverlappingLabel
-            title="Last Name"
-            name="lastName"
-            errors={errors}
-            placeholder="Smith"
-            register={register}
-            options={{ required: true }}
-            autoComplete="family-name"
-          />
-        </div>
-      </div>
-      <div className="pb-6">
-        <OverlappingLabel
-          title="Address Line 1"
-          name="line1"
-          errors={errors}
-          placeholder="123 Main Street"
-          register={register}
-          options={{ required: true }}
-          autoComplete="address-line1"
-        />
-      </div>
-      <div className="pb-6">
-        <OverlappingLabel
-          title="Address Line 2"
-          name="line2"
-          errors={errors}
-          placeholder="P.O. Box 123"
-          register={register}
-          autoComplete="address-line2"
-        />
-      </div>
-      <div className="pb-6">
-        <OverlappingLabel
-          title="City"
-          name="city"
-          errors={errors}
-          placeholder="Los Angeles"
-          register={register}
-          options={{ required: true }}
-          autoComplete="address-level2"
-        />
-      </div>
-      <div className="flex flex-row pb-6">
-        <div className="mr-2 flex-grow">
-          {/* <OverlappingLabel
-            title="State"
-            name="state"
-            errors={errors}
-            placeholder="CA"
-            register={register}
-            options={{ required: true }}
-            autoComplete="address-level1"
-          /> */}
-          <StateDropdown
-            name="state"
-            label="State"
-            register={register}
-            errors={errors}
-          />
-        </div>
-        <div className="ml-2 flex-grow">
-          <OverlappingLabel
-            title="ZIP"
-            name="postal_code"
-            errors={errors}
-            placeholder="91801"
-            register={register}
-            options={{ required: true }}
-            autoComplete="postal-code"
-          />
-        </div>
-      </div>
-      <div className="pb-6">
-        {showEmail && (
-          // <OverlappingLabel
-          //   title="Phone Number"
-          //   name="phoneNumber"
-          //   errors={errors}
-          //   placeholder="+1 123 456 7890"
-          //   register={register}
-          //   options={{ required: true }}
-          //   autoComplete="tel"
-          // />
-          <CustomPhoneInput
-            label="Phone Number"
-            name="phoneNumber"
-            placeholder="+1 123 456 7890"
-            autoComplete="tel"
-            register={register}
-            errors={errors}
-            required={true}
-          />
-        )}
-      </div>
-      <div className="flex flex-col items-center justify-between lg:mt-11">
-        <Button
-          type="submit"
-          disabled={Object.keys(errors).length > 0}
-          className={`h-[48px] w-full max-w-[390px] cursor-pointer rounded-lg bg-black text-base font-bold uppercase text-white lg:h-[63px] lg:text-xl`}
-        >
-          Save & Continue
-        </Button>
-      </div>
+      <Button
+        type="submit"
+        disabled={checkErrors()}
+        onClick={handleSaveAndContinue}
+        className={`h-[48px] w-full cursor-pointer self-center rounded-lg bg-black text-base font-bold uppercase text-white disabled:bg-[#D6D6D6] disabled:text-[#767676] lg:mb-[70px] lg:mt-[19.5px] lg:max-w-[307px] lg:self-end`}
+      >
+        Save & Continue
+      </Button>
     </form>
   );
 }

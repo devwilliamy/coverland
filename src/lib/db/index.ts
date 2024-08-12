@@ -17,6 +17,7 @@ const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_KEY ?? '';
 const supabase = createClient<Database>(supabaseUrl, supabaseKey);
 
 export type TInitialProductDataDB = Tables<'Products'>;
+export type TSeatCoverDataDB = Tables<'Products'>;
 
 //If the table you want to access isn't listed in TableRow,
 //generate new types in the Supabase dashboard to update
@@ -71,9 +72,45 @@ export async function getProductData({
     fetch = fetch.eq('model_slug', model);
   }
 
-  fetch = fetch.neq('quantity', '0');
+  if (type !== 'Seat Covers') {
+    fetch = fetch.neq('quantity', '0');
+  }
 
-  const { data, error } = await fetch.limit(750);
+  const { data, error } = await fetch.limit(1000);
+
+  if (error) {
+    throw new Error(error.message);
+  }
+
+  return data;
+}
+
+/**
+ * Takes the first 10 ids of each color and grabs them for car covers
+ * This is to ensure /car-covers/premium-plus has all the colors displaying 
+ * and there's enough choices to activate searching for your custom cover
+ * @returns 
+ */
+export async function getDefaultProductData() {
+  const ids = [
+    // Black Red Stripe
+    1, 2, 3, 4, 5, 6, 7, 8, 9, 10,
+    // Black Gray Stripe
+    2283, 2284, 2285, 2286, 2287, 2288, 2289, 2290, 2291, 2292,
+    // Gray Black Stripe
+    4565, 4566, 4567, 4568, 4569, 4570, 4571, 4572, 4573, 4574,
+    // Black Gray 2-Tone
+    9129, 9130, 9131, 9132, 9133, 9134, 9135, 9136, 9137, 9138,
+    // Black Red 2-Tone
+    6847, 6848, 6849, 6850, 6851, 6852, 6853, 6854, 6855, 6856,
+  ];
+  let fetch = supabase
+    .from(PRODUCT_DATA_TABLE)
+    .select('*')
+    .in('id', ids)
+    .neq('quantity', '0');
+
+  const { data, error } = await fetch;
 
   if (error) {
     throw new Error(error.message);
@@ -163,20 +200,27 @@ export async function getAllUniqueModelsByYearMake({
   typeId: string;
   yearId: string;
 }) {
-  const { data, error } = await supabase
+  let query = supabase
     .from(RELATIONS_PRODUCT_TABLE)
     .select(
       `*,Model(*),${PRODUCT_DATA_TABLE}(id,model,model_slug, parent_generation, submodel1, submodel2, submodel3, quantity)`
     )
     .eq('year_id', yearId)
     .eq('type_id', typeId)
-    .eq('make_id', makeId)
-    .neq(`${PRODUCT_DATA_TABLE}.quantity`, 0)
-    .order('name', { foreignTable: 'Model', ascending: false });
+    .eq('make_id', makeId);
+
+  if (type !== 'Seat Covers') {
+    query = query.neq(`${PRODUCT_DATA_TABLE}.quantity`, 0);
+  }
+
+  query = query.order('name', { foreignTable: 'Model', ascending: false });
+
+  const { data, error } = await query;
 
   if (error) {
     throw new Error(error.message);
   }
+
   const allProductData = data
     .map((relation) => relation[PRODUCT_DATA_TABLE])
     .filter((item) => item !== null);

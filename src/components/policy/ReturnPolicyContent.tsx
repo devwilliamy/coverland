@@ -17,12 +17,12 @@ export default function ReturnPolicyContent() {
             satisfied or have simply changed your mind, feel free to contact us
             via email at
             <Link
-              href="mailto:info@coverland.com"
+              href="mailto:support@coverland.com"
               target="_blank"
               className="text-normal font-bold text-[#185CFF]"
             >
               {' '}
-              info@coverland.com{' '}
+              support@coverland.com{' '}
             </Link>
             or call us at (800)799-5165 and we will process the return. We will
             provide a free shipping return label anytime for the first 30-days

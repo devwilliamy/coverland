@@ -1,36 +1,20 @@
-// useSortHandler.ts
-import { useState } from 'react';
-import {
-  getProductReviewsByPage,
-  getProductReviewsByImage,
-} from '@/lib/db/review';
-import { FilterParams, SortParams, TReviewData } from '@/lib/types/review';
+import { getProductReviewsByPage } from '@/lib/db/review';
+import { SortParams } from '@/lib/types/review';
+import { CAR_COVERS, SEAT_COVERS } from '@/lib/constants';
+import { useReviewContext } from '@/contexts/ReviewContext';
+import { useStore } from 'zustand';
+import useStoreContext from '../useStoreContext';
+import useDetermineType from '../useDetermineType';
 
-type SortHandlerProps = {
-  typeString: string;
-  year: number;
-  make: string;
-  model: string;
-  limit: number;
-  filters: FilterParams[]
-  setLoading: (loading: boolean) => void;
-  setReviewData: (data: TReviewData[]) => void;
-  setPage: (page: number) => void;
-  setSort: (sort: SortParams[]) => void;
-};
+const useSortHandler = () => {
+  const { limit, filters, setPage, setIsReviewLoading, setSort } =
+    useReviewContext();
+  const store = useStoreContext();
+  if (!store) throw new Error('Missing Provider in the tree');
+  const { isSeatCover } = useDetermineType();
+  const typeString = isSeatCover ? SEAT_COVERS : CAR_COVERS;
+  const setReviewData = useStore(store, (s) => s.setReviewData);
 
-const useSortHandler = ({
-  typeString,
-  year,
-  make,
-  model,
-  limit,
-  filters,
-  setLoading,
-  setReviewData,
-  setPage,
-  setSort,
-}: SortHandlerProps) => {
   const handleSortSelectionChange = async (
     e: React.ChangeEvent<HTMLSelectElement>
   ) => {
@@ -57,14 +41,10 @@ const useSortHandler = ({
     }
 
     try {
-      setLoading(true);
-
+      setIsReviewLoading(true);
       const newReviewData = await getProductReviewsByPage(
         {
           productType: typeString,
-          year,
-          make,
-          model,
         },
         {
           pagination: {
@@ -75,14 +55,14 @@ const useSortHandler = ({
           sort: sortArray,
         }
       );
-
+      
       setSort(sortArray);
       setReviewData(newReviewData); // Only show the first 8 when a sort has been picked
       setPage(1);
     } catch (error) {
       console.error(error);
     } finally {
-      setLoading(false);
+      setIsReviewLoading(false);
     }
   };
 

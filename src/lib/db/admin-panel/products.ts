@@ -9,7 +9,7 @@ export async function getProductAndPriceBySku(skus: string[]) {
 
     const { data, error } = await supabaseAdminPanelDatabaseClient
       .from(PRODUCT_DATA_TABLE)
-      .select('id, sku, msrp, price, quantity')
+      .select('id, sku, msrp, price, quantity, preorder, preorder_discount')
       .in('sku', skus);
     if (error) {
       console.error('Error fetching product details:', error.message);

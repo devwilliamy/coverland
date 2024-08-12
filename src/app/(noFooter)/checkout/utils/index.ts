@@ -28,15 +28,19 @@ export async function paypalCreateOrder(
   shipping: number,
   shippingAddress: StripeAddress
 ): Promise<string | null> {
-  const itemsForPaypal = items.map((item) => ({
-    name: `${item.parent_generation} ${item.display_id} ${item.model} ${item.type} ${item.display_color}`,
-    quantity: item.quantity?.toString(),
-    sku: item.sku,
-    unit_amount: {
-      currency_code: 'USD',
-      value: item.msrp,
-    },
-  }));
+  const itemsForPaypal = items.map((item) => {
+    const itemPrice = item.preorder && item.preorder_discount ? item.msrp - item.preorder_discount : item.msrp;
+  
+    return {
+      name: `${item.parent_generation} ${item.display_id} ${item.model} ${item.type} ${item.display_color}`,
+      quantity: item.quantity?.toString(),
+      sku: item.sku,
+      unit_amount: {
+        currency_code: 'USD',
+        value: itemPrice,
+      },
+    };
+  });
 
   const shippingForPaypal = {
     type: 'SHIPPING',
@@ -252,3 +256,14 @@ export const getEligibleShippingOptions = () =>
     // }
     // return finalOptions;
   };
+
+export const cleanPhoneInput = (inputString: string) => {
+  const cleanedString = inputString
+    .replaceAll(' ', '')
+    .replaceAll('(', '')
+    .replaceAll(')', '')
+    .replaceAll('-', '')
+    .replaceAll('+', '');
+
+  return cleanedString;
+};
