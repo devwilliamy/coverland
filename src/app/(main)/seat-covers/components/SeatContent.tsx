@@ -147,21 +147,8 @@ export default function SeatContent({
             </b>
           </p>
         )}
-        {/* <KlarnaIcon className="flex max-h-[30px] w-fit max-w-[61px]" /> */}
         <KlarnaIcon className="-ml-[5px] -mt-[1px] flex max-h-[35px] w-fit max-w-[65px]" />
-        {/* <Info className="h-[17px] w-[17px] text-[#767676]" /> */}
       </div>
-      {/* <div className="mt-1 flex items-center gap-0.5 ">
-        <p className=" text-[16px] leading-[16px] text-[#767676] ">
-          4 interest-free installments of{' '}
-          <b className="font-[500] text-black">
-            ${(installmentPrice / 4).toFixed(2)}
-          </b>
-        </p>
-        <KlarnaIcon className="-ml-[5px] -mt-[1px] flex max-h-[30px] w-fit max-w-[61px]" />
-        <Info className="h-[17px] w-[17px] text-[#767676]" />
-      </div> */}
-
       {!!isComplete ? <SeatCoverSelection /> : null}
       <SeatCoverColorSelector />
       <FreeDetails />
