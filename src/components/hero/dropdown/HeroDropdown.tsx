@@ -88,6 +88,9 @@ export function HeroDropdown() {
     if (submodel2) {
       url += `&${createQueryString('submodel2', submodel2)}`;
     }
+    if (submodel3) {
+      url += `&${createQueryString('submodel3', submodel3)}`;
+    }
 
     if (submodel3) {
       url += `&${createQueryString('submodel2', submodel3)}`;
@@ -103,7 +106,7 @@ export function HeroDropdown() {
 
   return (
     <div
-      className={`relative z-[400]  grid w-full grid-cols-1 items-center justify-center gap-4 px-4 font-[500] lg:flex `}
+      className={`relative z-[400] grid w-full grid-cols-1 items-center justify-center gap-4 px-4 font-[500] lg:flex `}
     >
       <TypeSearch queryObj={queryObj} />
       <YearSearch queryObj={queryObj} />

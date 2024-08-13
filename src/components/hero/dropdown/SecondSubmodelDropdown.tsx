@@ -10,6 +10,7 @@ import {
 import { TQuery } from './HeroDropdown';
 import { ModelDropdown } from './ModelSearch';
 import HomeDropdown from './HomeDropdown';
+import { ThirdSubmodelDropdown } from './ThirdSubmodelDropdown';
 
 export function SecondSubmodelDropdown({
   queryObj,
@@ -22,9 +23,9 @@ export function SecondSubmodelDropdown({
   secondSubmodelData: ModelDropdown[];
 }) {
   // Leaving this for when third submodel becomes a thing
-  // const [thirdSubmodelData, setThirdSubmodelData] = useState<ModelDropdown[]>(
-  //   []
-  // );
+  const [thirdSubmodelData, setThirdSubmodelData] = useState<ModelDropdown[]>(
+    []
+  );
 
   const { query, setQuery } = queryObj;
   const { submodel1, submodel2 } = query;
@@ -47,15 +48,18 @@ export function SecondSubmodelDropdown({
   // }, [submodel1]);
 
   // Leaving this for when third submodel becomes a thing
-  // useEffect(() => {
-  //   // Check for thirdsubmodel
-  //   const thirdSubmodelData = secondSubmodelData.filter(
-  //     (vehicle) => vehicle.submodel1 === value && vehicle.submodel2 !== null
-  //   );
+  useEffect(() => {
+    // Check for thirdsubmodel
+    const thirdSubmodelData = secondSubmodelData.filter(
+      (vehicle) =>
+        vehicle.submodel1 === submodel1 &&
+        vehicle.submodel2 === submodel2 &&
+        vehicle.submodel3
+    );
 
-  //   setThirdSubmodelData(thirdSubmodelData);
-  //   console.log('ThirdSubmodel:', thirdSubmodelData);
-  // }, [value]);
+    setThirdSubmodelData(thirdSubmodelData);
+    console.log('ThirdSubmodel:', thirdSubmodelData);
+  }, [submodel1, submodel2]);
 
   const isDisabled =
     !query.make ||
@@ -76,29 +80,6 @@ export function SecondSubmodelDropdown({
 
   return (
     <>
-      {/* <div
-        className={`flex max-h-[53px] min-h-[53px] px-2 ${prevSelected ? ' w-full border-[5px] border-[#BE1B1B]' : 'w-[98%] border-[1px] border-[#767676] outline-[4px] outline-transparent'} items-center overflow-hidden rounded-[8px] bg-white  text-lg  md:max-h-[58px] lg:w-auto`}
-      >
-        <div className="ml-[10px] pr-[15px]">6</div>
-        <label htmlFor="secondsubmode"></label>
-        <select
-          value={value}
-          onChange={handleChange}
-          disabled={isDisabled}
-          className={`w-full cursor-pointer bg-transparent py-1 outline-none lg:py-3`}
-          aria-label="secondsubmodel"
-        >
-          <option value="">{`Submodel 2`}</option>
-          {filteredSecondSubmodelData?.sort()?.map((secondSubmodel) => (
-            <option
-              key={`model-${secondSubmodel}`}
-              value={secondSubmodel || ''}
-            >
-              {secondSubmodel}
-            </option>
-          ))}
-        </select>
-      </div> */}
       <HomeDropdown
         place={6}
         title="submodel2"
