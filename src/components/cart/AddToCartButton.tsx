@@ -43,7 +43,7 @@ export default function AddToCartButton({
       <div
         className="flex gap-[10px]"
         style={
-          !isComplete
+          !isComplete || preorder
             ? {
                 animation: `blink ${blinkTime}s cubic-bezier(0,-${blinkVel},1,${blinkVel}) infinite`,
               }
@@ -51,6 +51,10 @@ export default function AddToCartButton({
         }
         onAnimationIteration={() => {
           setNonFinalButtonText((e) => {
+            if (e === 'Pre-order & Save Big') {
+              return 'Pre-order & Save Big';
+            }
+
             if (e === 'Start Here') {
               return 'Find your Custom-Cover';
             }
@@ -61,7 +65,9 @@ export default function AddToCartButton({
         {isLoading ? (
           <FaSpinner className="animate-spin" />
         ) : (
-          nonFinalButtonText === 'Start Here' && (
+          nonFinalButtonText === 'Start Here' &&
+          !preorder &&
+          !isComplete && (
             // <Image alt="car-magnifying-glass" src={CarMag} />
             <div className="flex min-h-[30px] min-w-[67px]">
               <CarMagnify />
