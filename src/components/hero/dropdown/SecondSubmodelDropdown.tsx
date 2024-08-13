@@ -108,12 +108,12 @@ export function SecondSubmodelDropdown({
         items={filteredSecondSubmodelData as string[]}
         value={submodel2}
       />
-      {/* {showThirdSubmodelDropdown && (
+      {showThirdSubmodelDropdown && (
         <ThirdSubmodelDropdown
           queryObj={queryObj}
           thirdSubmodelData={thirdSubmodelData}
         />
-      )} */}
+      )}
     </>
   );
 }

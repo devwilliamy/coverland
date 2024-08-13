@@ -19,10 +19,11 @@ export type TQuery = {
   model: string;
   submodel1: string;
   submodel2: string;
-  typeId:string;
-  yearId:string;
-  makeId:string;
-  modelId:string;
+  submodel3: string;
+  typeId: string;
+  yearId: string;
+  makeId: string;
+  modelId: string;
   // submodel3: string;
 };
 
@@ -35,21 +36,31 @@ export function HeroDropdown() {
     model: '',
     submodel1: '',
     submodel2: '',
-    typeId:'',
-    yearId:'',
-    makeId:'',
-    modelId:'',
+    submodel3: '',
+    typeId: '',
+    yearId: '',
+    makeId: '',
+    modelId: '',
     // submodel3: '',
   });
   const [loading, setLoading] = useState(false);
   const router = useRouter();
-  const { year, type, make, model, submodel1, submodel2, parent_generation } =
-    query;
+  const {
+    year,
+    type,
+    make,
+    model,
+    submodel1,
+    submodel2,
+    submodel3,
+    parent_generation,
+  } = query;
 
   const queryObj = {
     query,
     setQuery,
   };
+
   const createQueryString = useCallback((name: string, value: string) => {
     const params = new URLSearchParams();
     params.set(name, value);
@@ -64,16 +75,22 @@ export function HeroDropdown() {
       localStorage.setItem('heroDropdownYear', year);
     }
     const yearInUrl = parent_generation;
-    
-    const coverType = slugify(type) === 'car-covers' ? 'premium-plus' : 'leather'
+
+    const coverType =
+      slugify(type) === 'car-covers' ? 'premium-plus' : 'leather';
 
     let url = `/${slugify(type)}/${coverType}/${slugify(make)}/${slugify(model)}/${yearInUrl}`;
 
     if (submodel1) {
       url += `?${createQueryString('submodel', submodel1)}`;
     }
+
     if (submodel2) {
       url += `&${createQueryString('submodel2', submodel2)}`;
+    }
+
+    if (submodel3) {
+      url += `&${createQueryString('submodel2', submodel3)}`;
     }
 
     if (url === BASE_URL) {

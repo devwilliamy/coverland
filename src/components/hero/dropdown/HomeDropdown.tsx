@@ -60,6 +60,7 @@ export default function HomeDropdown({
           model: '',
           submodel1: '',
           submodel2: '',
+          submodel3: '',
           parent_generation: '',
           typeId: id,
           yearId: '',
@@ -76,6 +77,7 @@ export default function HomeDropdown({
             model: '',
             submodel1: '',
             submodel2: '',
+            submodel3: '',
             parent_generation: '',
             yearId: id,
           };
@@ -89,6 +91,7 @@ export default function HomeDropdown({
             model: '',
             submodel1: '',
             submodel2: '',
+            submodel3: '',
             parent_generation: '',
             makeId: id,
           };
@@ -101,6 +104,7 @@ export default function HomeDropdown({
             model: newValue,
             submodel1: '',
             submodel2: '',
+            submodel3: '',
             parent_generation: '',
             modelId: id,
           };
@@ -112,7 +116,6 @@ export default function HomeDropdown({
             ...e,
             submodel1: newValue,
             submodel2: '',
-            // parent_generation: '',
           };
         });
         break;
@@ -121,7 +124,13 @@ export default function HomeDropdown({
           return {
             ...e,
             submodel2: newValue,
-            // parent_generation: '',
+          };
+        });
+      case 'submodel3':
+        setQuery((e) => {
+          return {
+            ...e,
+            submodel3: newValue,
           };
         });
         break;
@@ -276,17 +285,21 @@ export default function HomeDropdown({
 
   const isSubmodel1 = title === 'submodel1';
   const isSubmodel2 = title === 'submodel2';
-
-  const submodel1Text = isSubmodel1
-    ? 'Submodel'
-    : title.replace(title.charAt(0), title.charAt(0).toUpperCase());
-  const submodel2Text = isSubmodel2
-    ? 'Submodel 2'
-    : title.replace(title.charAt(0), title.charAt(0).toUpperCase());
-
+  const isSubmodel3 = title === 'submodel3';
   const capitalizeFirstLetter = (title: string) => {
     return title.replace(title.charAt(0), title.charAt(0).toUpperCase());
   };
+
+  const submodel1Text = isSubmodel1
+    ? 'Submodel'
+    : capitalizeFirstLetter(title);
+  const submodel2Text = isSubmodel2
+    ? 'Submodel 2'
+    : capitalizeFirstLetter(title);
+  const submodel3Text = isSubmodel3
+    ? 'Submodel 3'
+    : capitalizeFirstLetter(title);
+
   return (
     <div
       className={`relative flex min-h-[48px] w-full lg:h-[64px] lg:min-h-[64px]  ${dropdownOpen && !isMobile ? 'rounded-t-[8px] ' : 'rounded-[8px] '} ${!isDisabled ? ' bg-white outline outline-[1px] outline-black' : 'bg-gray-300/90'}`}
