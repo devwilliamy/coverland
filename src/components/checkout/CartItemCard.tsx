@@ -39,7 +39,7 @@ export default function CartItemCard({ item }: { item: TCartItem }) {
               {item?.display_id}&trade; {item?.type}
             </div>
             {item?.preorder && (
-              <div className="h-[27px] max-w-[90px] rounded bg-[#2BA45B] px-[8px] text-center text-sm font-bold leading-[27px] text-[#ffffff]">
+              <div className="h-[27px] max-w-[90px] rounded bg-[#2BA45B] px-[8px] text-center text-sm font-bold leading-[27px] text-[#ffffff] lg:min-w-[80px]">
                 Pre-Order
               </div>
             )}

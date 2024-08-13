@@ -1,13 +1,11 @@
-import { TCartItem } from '@/lib/cart/useCart';
 import { useCartContext } from '@/providers/CartProvider';
-import Image from 'next/image';
 import LineSeparator from '../ui/line-separator';
-import { IProductData } from '@/utils';
 import PriceBreakdown from '../checkout/PriceBreakdown';
 import { weeksFromCurrentDate } from '@/lib/utils/date';
+import { TInitialProductDataDB } from '@/lib/db';
 
 type PreorderBodyProps = {
-  selectedProduct?: IProductData | null | undefined;
+  selectedProduct?: TInitialProductDataDB | null | undefined;
 };
 
 const PreorderBody = ({ selectedProduct }: PreorderBodyProps) => {
