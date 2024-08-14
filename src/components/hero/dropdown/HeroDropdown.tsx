@@ -1,13 +1,11 @@
 'use client';
 import { AiOutlineLoading3Quarters } from 'react-icons/ai';
-import { Button } from '@/components/ui/button';
 import { YearSearch } from './YearSearch';
 import { TypeSearch } from './TypeSearch';
 import { MakeSearch } from './MakeSearch';
 import { ModelSearch } from './ModelSearch';
 import { useRouter } from 'next/navigation';
 import { useCallback, useEffect, useState } from 'react';
-// import { SubmodelDropdown } from './SubmodelDropdown';
 import { slugify } from '@/lib/utils';
 import { BASE_URL } from '@/lib/constants';
 
@@ -24,7 +22,6 @@ export type TQuery = {
   yearId: string;
   makeId: string;
   modelId: string;
-  // submodel3: string;
 };
 
 export function HeroDropdown() {
@@ -41,7 +38,6 @@ export function HeroDropdown() {
     yearId: '',
     makeId: '',
     modelId: '',
-    // submodel3: '',
   });
   const [loading, setLoading] = useState(false);
   const router = useRouter();

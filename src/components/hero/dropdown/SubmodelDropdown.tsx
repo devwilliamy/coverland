@@ -1,12 +1,6 @@
 'use client';
 
-import {
-  ChangeEvent,
-  Dispatch,
-  SetStateAction,
-  useEffect,
-  useState,
-} from 'react';
+import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { TQuery } from './HeroDropdown';
 import { ModelDropdown } from './ModelSearch';
 import { SecondSubmodelDropdown } from './SecondSubmodelDropdown';
@@ -22,12 +16,11 @@ export function SubmodelDropdown({
   };
   submodelData: ModelDropdown[];
 }) {
-  const [value, setValue] = useState('');
   const [secondSubmodelData, setSecondSubmodelData] = useState<ModelDropdown[]>(
     []
   );
 
-  const { query, setQuery } = queryObj;
+  const { query } = queryObj;
   const { model, submodel1 } = query;
 
   const filteredSubmodelData: (string | null)[] = Array.from(
@@ -43,15 +36,10 @@ export function SubmodelDropdown({
   }));
 
   useEffect(() => {
-    setValue('');
-  }, [model]);
-
-  useEffect(() => {
     // Check for second submodel
     const secondSubmodelData = submodelData.filter(
       (vehicle) => vehicle.submodel1 === submodel1 && vehicle.submodel2
     );
-
     setSecondSubmodelData(secondSubmodelData);
   }, [submodel1]);
 

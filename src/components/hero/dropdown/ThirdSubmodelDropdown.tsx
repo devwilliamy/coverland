@@ -1,12 +1,6 @@
 'use client';
 
-import {
-  ChangeEvent,
-  Dispatch,
-  SetStateAction,
-  useEffect,
-  useState,
-} from 'react';
+import { Dispatch, SetStateAction } from 'react';
 import { TQuery } from './HeroDropdown';
 import { ModelDropdown } from './ModelSearch';
 import HomeDropdown from './HomeDropdown';
@@ -21,7 +15,7 @@ export function ThirdSubmodelDropdown({
   };
   thirdSubmodelData: ModelDropdown[];
 }) {
-  const { query, setQuery } = queryObj;
+  const { query } = queryObj;
   const { submodel1, submodel2, submodel3 } = query;
   const filteredThirdSubmodelData: (string | null)[] = Array.from(
     new Set(
@@ -37,17 +31,6 @@ export function ThirdSubmodelDropdown({
   ).map((submodel) => ({
     name: submodel,
   }));
-
-  // Leaving this for when third submodel becomes a thing
-  // useEffect(() => {
-  //   // Check for thirdsubmodel
-  //   const thirdSubmodelData = thirdSubmodelData.filter(
-  //     (vehicle) => vehicle.submodel2 === value && vehicle.submodel3 !== null
-  //   );
-
-  //   setThirdSubmodelData(thirdSubmodelData);
-  //   console.log('ThirdSubmodel:', thirdSubmodelData);
-  // }, [value]);
 
   const isDisabled =
     !query.make ||
@@ -66,7 +49,6 @@ export function ThirdSubmodelDropdown({
       queryObj.query.submodel1 !== '' &&
       queryObj.query.submodel2 !== '' &&
       queryObj.query.submodel3 === '');
-  // const showThirdSubmodelDropdown = thirdSubmodelData.length > 0;
 
   return (
     <>
