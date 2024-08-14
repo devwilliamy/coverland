@@ -38,9 +38,7 @@ export const generateOrderId = async (
   });
   const orderIdPrefix = preorder ? `${brand}-PRE` : brand;
   const orderId = `${orderIdPrefix}-${date}-${productInitials}-${sequence}`;
-  console.log(
-    `[Stripe.util.generateOrderId}: ${orderId}`
-  );
+  console.log(`[Stripe.util.generateOrderId}: ${orderId}`);
   return orderId;
 };
 
@@ -113,7 +111,7 @@ export const generateLineItemsForStripe = (items, order_id) => {
     const itemName =
       `${item?.year_generation || ''} ${item?.make || ''} ${item?.model || ''} ${
         item?.submodel1 ? item?.submodel1 : ''
-      } ${item?.submodel2 ? item?.submodel2 : ''} ${type} ${item?.display_id} ${
+      } ${item?.submodel2 ? item?.submodel2 : ''}  ${item?.submodel3 ? item?.submodel3 : ''} ${type} ${item?.display_id} ${
         item?.display_color
       }`
         .replace(/\s+/g, ' ')

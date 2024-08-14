@@ -27,6 +27,7 @@ export type TProductReviewDistinctImages = {
   year_generation: string;
   submodel1: string;
   submodel2: string;
+  submodel3: string;
   mirror: string;
   review_description: string;
   make_slug: string;

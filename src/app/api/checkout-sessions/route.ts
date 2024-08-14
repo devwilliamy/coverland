@@ -42,7 +42,7 @@ export async function POST(req: NextRequest) {
     const itemName =
       `${item?.year_generation || ''} ${item?.make || ''} ${item?.model || ''} ${
         item?.submodel1 ? item?.submodel1 : ''
-      } ${item?.submodel2 ? item?.submodel2 : ''} ${type} ${item?.display_id} ${
+      } ${item?.submodel2 ? item?.submodel2 : ''} ${item?.submodel3 ? item?.submodel3 : ''} ${type} ${item?.display_id} ${
         item?.display_color
       } ${item?.sku} ${order_id}`.trim();
     console.log('StripeCheckout Item Name:', itemName);

@@ -28,12 +28,13 @@ export default function AddToCartButton({
   } = getCompleteSelectionData({
     data: modelData,
   });
+
   const [nonFinalButtonText, setNonFinalButtonText] = useState(
     'Find your Custom-Cover'
   );
   const blinkTime = 2;
   const blinkVel = 10;
-
+  
   return (
     <Button
       className="h-[48px] w-full rounded bg-[#BE1B1B] text-lg font-bold uppercase text-white disabled:bg-[#BE1B1B] lg:h-[62px]"

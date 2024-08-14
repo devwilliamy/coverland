@@ -85,6 +85,7 @@ export function modelDataTransformer({
         compareRawStrings(item.submodel2, queryParams.secondSubmodel as string)
       );
     }
+
     if (queryParams.thirdSubmodel) {
       filteredData = filteredData.filter((item) =>
         compareRawStrings(item.submodel3, queryParams.thirdSubmodel as string)
@@ -134,7 +135,11 @@ function generatePDPContent({
     model?: string;
     year?: string;
   };
-  queryParams: { submodel?: string; secondSubmodel?: string };
+  queryParams: {
+    submodel?: string;
+    secondSubmodel?: string;
+    thirdSubmodel?: string;
+  };
 }): IProductData[] {
   const { productType, make, model, year } = params;
   const { submodel, secondSubmodel, thirdSubmodel } = queryParams;
@@ -144,7 +149,6 @@ function generatePDPContent({
       : productType === 'suv-covers'
         ? DEFAULT_PRODUCT_IMAGES.suvImages
         : DEFAULT_PRODUCT_IMAGES.truckImages;
-
   return data.map((item) => {
     let fullProductName = '';
     const coverColor = item.display_color as (typeof colorOrder)[number];
@@ -153,12 +157,12 @@ function generatePDPContent({
 
     if (submodel || secondSubmodel || thirdSubmodel) {
       fullProductName =
-        `${item.year_generation ?? ''} ${item.make ?? ''} ${item.model ?? ''} ${submodel ?? ''} ${secondSubmodel ?? ''} ${thirdSubmodel ?? ''}`.trim();
+        `${item.year_generation ?? ''} ${item.make ?? ''} ${item.model ?? ''} ${item.submodel1 ?? ''} ${item.submodel2 ?? ''} ${item.submodel3 ?? ''}`.trim();
       mainImage = item.feature as string;
       productImages = item?.product?.split(',') as string[];
     } else if (submodel || secondSubmodel) {
       fullProductName =
-        `${item.year_generation ?? ''} ${item.make ?? ''} ${item.model ?? ''} ${submodel ?? ''} ${secondSubmodel ?? ''}`.trim();
+        `${item.year_generation ?? ''} ${item.make ?? ''} ${item.model ?? ''} ${item.submodel1 ?? ''} ${item.submodel2 ?? ''}`.trim();
       mainImage = item.feature as string;
       productImages = item?.product?.split(',') as string[];
     } else if (productType && make && model && year) {
