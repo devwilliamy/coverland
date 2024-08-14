@@ -23,7 +23,6 @@ export function ThirdSubmodelDropdown({
 }) {
   const { query, setQuery } = queryObj;
   const { submodel1, submodel2, submodel3 } = query;
-
   const filteredThirdSubmodelData: (string | null)[] = Array.from(
     new Set(
       thirdSubmodelData
@@ -40,15 +39,15 @@ export function ThirdSubmodelDropdown({
   }));
 
   // Leaving this for when third submodel becomes a thing
-  useEffect(() => {
-    // Check for thirdsubmodel
-    const thirdSubmodelData = thirdSubmodelData.filter(
-      (vehicle) => vehicle.submodel2 === value && vehicle.submodel3 !== null
-    );
+  // useEffect(() => {
+  //   // Check for thirdsubmodel
+  //   const thirdSubmodelData = thirdSubmodelData.filter(
+  //     (vehicle) => vehicle.submodel2 === value && vehicle.submodel3 !== null
+  //   );
 
-    setThirdSubmodelData(thirdSubmodelData);
-    console.log('ThirdSubmodel:', thirdSubmodelData);
-  }, [value]);
+  //   setThirdSubmodelData(thirdSubmodelData);
+  //   console.log('ThirdSubmodel:', thirdSubmodelData);
+  // }, [value]);
 
   const isDisabled =
     !query.make ||

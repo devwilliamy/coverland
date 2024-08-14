@@ -245,6 +245,7 @@ const CarSelectionProvider = ({
   const pathParams = useParams<TPathParams>();
   const submodelParams = searchParams?.submodel ?? '';
   const secondSubmodelParams = searchParams?.submodel2 ?? '';
+  const thirdSubmodelParams = searchParams?.submodel3 ?? '';
   if (modelDataProps.length === 0) {
     router.push('/404');
   }
@@ -253,6 +254,7 @@ const CarSelectionProvider = ({
     submodel: submodelParams,
     secondSubmodel: secondSubmodelParams,
     submodel2: secondSubmodelParams,
+    submodel3: thirdSubmodelParams,
   };
 
   const modelData = modelDataTransformer({

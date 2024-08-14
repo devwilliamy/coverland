@@ -26,7 +26,6 @@ export function SecondSubmodelDropdown({
   const [thirdSubmodelData, setThirdSubmodelData] = useState<ModelDropdown[]>(
     []
   );
-
   const { query, setQuery } = queryObj;
   const { submodel1, submodel2 } = query;
 
@@ -76,7 +75,7 @@ export function SecondSubmodelDropdown({
       queryObj.query.model !== '' &&
       queryObj.query.submodel1 !== '' &&
       queryObj.query.submodel2 === '');
-  // const showThirdSubmodelDropdown = thirdSubmodelData.length > 0;
+  const showThirdSubmodelDropdown = thirdSubmodelData.length > 0;
 
   return (
     <>

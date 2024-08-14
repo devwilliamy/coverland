@@ -116,6 +116,7 @@ export default function HomeDropdown({
             ...e,
             submodel1: newValue,
             submodel2: '',
+            submodel3: '',
           };
         });
         break;
@@ -124,8 +125,10 @@ export default function HomeDropdown({
           return {
             ...e,
             submodel2: newValue,
+            submodel3: '',
           };
         });
+        break;
       case 'submodel3':
         setQuery((e) => {
           return {
@@ -290,14 +293,12 @@ export default function HomeDropdown({
     return title.replace(title.charAt(0), title.charAt(0).toUpperCase());
   };
 
-  const submodel1Text = isSubmodel1
+  const submodel1Text = isSubmodel1 ? 'Submodel' : capitalizeFirstLetter(title);
+  const submodel2Text = isSubmodel2
     ? 'Submodel'
     : capitalizeFirstLetter(title);
-  const submodel2Text = isSubmodel2
-    ? 'Submodel 2'
-    : capitalizeFirstLetter(title);
   const submodel3Text = isSubmodel3
-    ? 'Submodel 3'
+    ? 'Submodel'
     : capitalizeFirstLetter(title);
 
   return (
@@ -317,11 +318,12 @@ export default function HomeDropdown({
             <div className={`flex w-full items-center`}>
               <p className={``}>{value === '' && place} &nbsp;</p>
               <p className="capitalize">
-                {value === '' && !isSubmodel1 && !isSubmodel2
+                {value === '' && !isSubmodel1 && !isSubmodel2 && !isSubmodel3
                   ? capitalizeFirstLetter(title)
                   : value}
                 {value === '' && isSubmodel1 && submodel1Text}
                 {value === '' && isSubmodel2 && submodel2Text}
+                {value === '' && isSubmodel3 && submodel3Text}
               </p>
             </div>
 
@@ -343,11 +345,15 @@ export default function HomeDropdown({
                   <div className={`flex w-full items-center`}>
                     <p className={``}>{value === '' && place} &nbsp;</p>
                     <p className="capitalize">
-                      {value === '' && !isSubmodel1 && !isSubmodel2
+                      {value === '' &&
+                      !isSubmodel1 &&
+                      !isSubmodel2 &&
+                      !isSubmodel3
                         ? capitalizeFirstLetter(title)
                         : value}
                       {value === '' && isSubmodel1 && submodel1Text}
                       {value === '' && isSubmodel2 && submodel2Text}
+                      {value === '' && isSubmodel3 && submodel3Text}
                     </p>
                   </div>
                   <div className="mr-[14px] flex items-center">

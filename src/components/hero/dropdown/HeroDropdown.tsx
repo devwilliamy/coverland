@@ -88,12 +88,9 @@ export function HeroDropdown() {
     if (submodel2) {
       url += `&${createQueryString('submodel2', submodel2)}`;
     }
+    
     if (submodel3) {
       url += `&${createQueryString('submodel3', submodel3)}`;
-    }
-
-    if (submodel3) {
-      url += `&${createQueryString('submodel2', submodel3)}`;
     }
 
     if (url === BASE_URL) {
