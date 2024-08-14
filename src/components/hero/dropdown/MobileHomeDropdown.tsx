@@ -1,5 +1,6 @@
 import { ChangeEvent } from 'react';
 import HomeChevronDown from './icons/HomeChevronDown';
+import { capitalizeFirstLetter } from '@/lib/utils/stringHelpers';
 
 type MobileHomeDropdownProps = {
   handleMobileSelectChange: (e: ChangeEvent<HTMLSelectElement>) => void;
@@ -7,7 +8,6 @@ type MobileHomeDropdownProps = {
   isDisabled: boolean;
   value: string;
   place: number;
-  capitalizeFirstLetter: (title: string) => string;
   selectedIndex: number;
   items: string[] | number[] | any[];
   filteredItems: string[] | number[] | any[];
@@ -18,11 +18,14 @@ export default function MobileHomeDropdown({
   isDisabled,
   value,
   place,
-  capitalizeFirstLetter,
   items,
   filteredItems,
   selectedIndex,
 }: MobileHomeDropdownProps) {
+  const isSubmodel =
+    title === 'submodel1' || title === 'submodel2' || title === 'submodel3';
+  const submodelText = isSubmodel ? 'Submodel' : capitalizeFirstLetter(title);
+  
   return (
     <>
       <select
@@ -39,7 +42,7 @@ export default function MobileHomeDropdown({
           className={`flex h-full w-full items-center pl-[20px]`}
         >
           {place} &nbsp;
-          {capitalizeFirstLetter(title)}
+          {isSubmodel ? submodelText : capitalizeFirstLetter(title)}
         </option>
         {items && items.length > 0 && (
           <>
