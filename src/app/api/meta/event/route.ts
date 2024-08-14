@@ -28,8 +28,8 @@ export async function POST(request: NextRequest) {
     );
 
     const data = await response.json();
-    console.log('[Meta CAPI]: Response:', data);
-    console.log('[Meta CAPI]: MetaCPIEvent', event);
+    console.info('[Meta CAPI]: Response:', data);
+    console.info('[Meta CAPI]: MetaCPIEvent', JSON.stringify(event, null, 2));
     if (!response.ok) {
       throw new Error(data.error.message || 'Error sending event');
     }
