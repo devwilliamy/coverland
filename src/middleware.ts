@@ -1,3 +1,6 @@
+/**
+ * [WY] 8/13/24 - I wasn't the one who wrote most of these. I tried adding some comments to some of the middleware if-else cases...but I did my best.
+ */
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 import {
@@ -74,8 +77,11 @@ export function middleware(request: NextRequest) {
     startsWithCarCoversAndPP ||
     startsWithSUVCoversAndPP ||
     startsWithTruckCoversAndPP;
+  // /{make}
   const slashMakeSegment = urlHasPremiumPlus ? segments[2] : segments[1];
+  // /{model}
   const slashModelSegment = urlHasPremiumPlus ? segments[3] : segments[2];
+  // /{year}
   const slashYearSegment = urlHasPremiumPlus ? segments[4] : segments[3];
   const isVehicleCover =
     slashStartSegment === CAR_COVERS_URL_PARAM ||
@@ -118,6 +124,10 @@ export function middleware(request: NextRequest) {
     return newString;
   };
 
+  /**
+   * I think this is trying to make an object out of params by splitting it
+   * @returns
+   */
   const generateSearchObj = () => {
     const searchParams = search.replace('?', '').split('&').filter(Boolean);
     const searchParamObj: Record<string, string> = {};
@@ -131,7 +141,10 @@ export function middleware(request: NextRequest) {
   const firstSegIsNum = !isNaN(Number(firstHyphenSegment));
   const thirdSegIsNum = !isNaN(Number(thirdHyphenSegment));
 
-  // Checking url of structure /{year}-{make}-{model}-{vehicle-type} or /{make}-{model}-{year}-{vehicle-type}
+  /**
+   * Checking url of structure /{year}-{make}-{model}-{vehicle-type} or /{make}-{model}-{year}-{vehicle-type}
+   * Checks to see if year is in the first or third part and tries to fix it / rearrange it
+   */
   if (isVehicleCover && (firstSegIsNum || thirdSegIsNum)) {
     const determineNextResponse = async () => {
       let urlString = '/';
@@ -197,7 +210,8 @@ export function middleware(request: NextRequest) {
         );
       }
     }
-
+    // If only has product type, anything else after product type should be premium plus.
+    // Not sure how this isn't affecting seat covers. Oh, because product type is only looking for car / suv / truck cover
     if (segments.length === 1) {
       return NextResponse.redirect(
         new URL(
@@ -206,10 +220,12 @@ export function middleware(request: NextRequest) {
         ),
         301
       );
-    }
-
-    // Redirect outdated types to premium-plus
-    else if (outdatedCoverTypes.some((type) => segments.includes(type))) {
+    } else if (outdatedCoverTypes.some((type) => segments.includes(type))) {
+      /**
+       * Used to have other cover types (premium, standard, standard pro)
+       * Replace it with premium-plus
+       * Keep the rest of the URL
+       */
       return NextResponse.redirect(
         new URL(
           `/${CAR_COVERS_URL_PARAM}/${PREMIUM_PLUS_URL_PARAM}/${segments.slice(2).join('/')}${search}`,
@@ -217,20 +233,35 @@ export function middleware(request: NextRequest) {
         ),
         301
       );
-    }
-
-    // Checking url of structure /{vehicleType}/{make}/{model}/?...year=1966-1976&...
-    else if (
+    } else if (
+      /**
+       * Checking url of structure /{vehicleType}/{make}/{model}/?...year=1966-1976&...
+       * I think this is trying to see if there are random query params that don't belong in here
+       * First check is if there's car cover, make, model. Not sure why year isn't part of the initial if case?
+       * Then seeing if there's query parameters
+       */
       isVehicleCover &&
       slashMakeSegment &&
       slashModelSegment &&
       search
     ) {
-      const paramsObj = generateSearchObj();
-      const objectLength = Object.keys(paramsObj).length;
+
+      const searchParamsObj = generateSearchObj();
+      const numOfParams = Object.keys(searchParamsObj).length;
       let urlString = `/${CAR_COVERS_URL_PARAM}/${PREMIUM_PLUS_URL_PARAM}/${slashMakeSegment.toLowerCase()}/${slashModelSegment.toLowerCase()}/`;
 
-      if (objectLength > 0 && !paramsObj.submodel && !paramsObj.submodel2) {
+      /**
+       * If there are query params but it's not submodel and submodel 2, don't put it in
+       * But that's confusing on it's own cus what about...just submodel...? How does this even work
+       * I guess it's seeing if we have a search parameter, but it's not submodel1-3
+       */
+      if (
+        numOfParams > 0 &&
+        !searchParamsObj.submodel &&
+        !searchParamsObj.submodel2 &&
+        !searchParamsObj.submodel3
+      ) {
+
         return NextResponse.redirect(
           new URL(
             `/${CAR_COVERS_URL_PARAM}/${PREMIUM_PLUS_URL_PARAM}/${segments.slice(2).join('/')}`,
@@ -239,17 +270,37 @@ export function middleware(request: NextRequest) {
           301
         );
       }
-      if (objectLength > 2 && paramsObj.submodel && paramsObj.submodel2) {
+      if (
+        numOfParams > 3 &&
+        searchParamsObj.submodel &&
+        searchParamsObj.submodel2 &&
+        searchParamsObj.submodel3
+      ) {
+
         return NextResponse.redirect(
           new URL(
-            `/${CAR_COVERS_URL_PARAM}/${PREMIUM_PLUS_URL_PARAM}/${segments.slice(2).join('/')}?submodel=${paramsObj.submodel}&submodel2=${paramsObj.submodel2}`,
+            `/${CAR_COVERS_URL_PARAM}/${PREMIUM_PLUS_URL_PARAM}/${segments.slice(2).join('/')}?submodel=${searchParamsObj.submodel}&submodel2=${searchParamsObj.submodel2}&submodel3=${searchParamsObj.submodel3}`,
+            request.url
+          ),
+          301
+        );
+      } else if (
+        numOfParams > 2 &&
+        searchParamsObj.submodel &&
+        searchParamsObj.submodel2 &&
+        !searchParamsObj.submodel3
+      ) {
+
+        return NextResponse.redirect(
+          new URL(
+            `/${CAR_COVERS_URL_PARAM}/${PREMIUM_PLUS_URL_PARAM}/${segments.slice(2).join('/')}?submodel=${searchParamsObj.submodel}&submodel2=${searchParamsObj.submodel2}`,
             request.url
           ),
           301
         );
       }
-      if (paramsObj.year) {
-        urlString += '/' + paramsObj.year + search;
+      if (searchParamsObj.year) {
+        urlString += '/' + searchParamsObj.year + search;
         return NextResponse.redirect(new URL(urlString, request.url), 301);
       }
     }
@@ -260,6 +311,7 @@ export function middleware(request: NextRequest) {
       segmentHasUnwantedSymbol(slashMakeSegment) &&
       isVehicleCover
     ) {
+
       const newMakeSegment = removeUnwantedSymbols(slashMakeSegment);
       return NextResponse.redirect(
         // Slicing modelSegment from url and replacing it with new segment
@@ -269,14 +321,15 @@ export function middleware(request: NextRequest) {
         ),
         301
       );
+      
     }
-
     // Checking model segment
     else if (
       slashModelSegment &&
       segmentHasUnwantedSymbol(slashModelSegment) &&
       isVehicleCover
     ) {
+
       const newModelSegment = removeUnwantedSymbols(slashModelSegment);
       // Removing specific cases from model
       return NextResponse.redirect(
@@ -294,6 +347,7 @@ export function middleware(request: NextRequest) {
       segments.length > 1 &&
       !coverTypes.some((type) => segments.includes(type))
     ) {
+
       return NextResponse.redirect(
         new URL(
           `/${CAR_COVERS_URL_PARAM}/${PREMIUM_PLUS_URL_PARAM}/${segments.slice(2).join('/')}${search}`,
@@ -316,14 +370,28 @@ export function middleware(request: NextRequest) {
   ) {
     return SEAT_COVERS_LEATHER_REDIRECT;
   }
-
+  /**
+   * Looks like if URL starts with suv-cover or truck-cover
+   * And it has all submodels
+   * We'll put it all back
+   * Otherwise just put them back to the base year for car-covers
+   * Not sure why this isn't covering just submodel
+   */
   if (
     slashStartSegment === SUV_COVERS_URL_PARAM ||
     slashStartSegment === TRUCK_COVERS_URL_PARAM
   ) {
     const searchObj = generateSearchObj();
 
-    if (searchObj.submodel && searchObj.submodel2) {
+    if (searchObj.submodel && searchObj.submodel2 && searchObj.submodel3) {
+      return NextResponse.redirect(
+        new URL(
+          `/${CAR_COVERS_URL_PARAM}/${PREMIUM_PLUS_URL_PARAM}/${segments.slice(2).join('/')}?submodel=${searchObj.submodel}&submodel2=${searchObj.submodel2}&submodel3=${searchObj.submodel3}`,
+          request.url
+        ),
+        301
+      );
+    } else if (searchObj.submodel && searchObj.submodel2) {
       return NextResponse.redirect(
         new URL(
           `/${CAR_COVERS_URL_PARAM}/${PREMIUM_PLUS_URL_PARAM}/${segments.slice(2).join('/')}?submodel=${searchObj.submodel}&submodel2=${searchObj.submodel2}`,
