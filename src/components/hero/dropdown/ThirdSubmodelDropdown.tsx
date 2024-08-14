@@ -17,7 +17,7 @@ export function ThirdSubmodelDropdown({
 }) {
   const { query } = queryObj;
   const { submodel1, submodel2, submodel3 } = query;
-  const filteredThirdSubmodelData: (string | null)[] = Array.from(
+  const filteredThirdSubmodelData = Array.from(
     new Set(
       thirdSubmodelData
         .filter(
@@ -58,7 +58,7 @@ export function ThirdSubmodelDropdown({
         queryObj={queryObj}
         isDisabled={isDisabled}
         prevSelected={prevSelected}
-        items={filteredThirdSubmodelData as string[]}
+        items={filteredThirdSubmodelData}
         value={submodel3}
       />
     </>

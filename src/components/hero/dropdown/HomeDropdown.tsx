@@ -33,7 +33,7 @@ export default function HomeDropdown({
     query: TQuery;
     setQuery: Dispatch<SetStateAction<TQuery>>;
   };
-  isLoading: boolean;
+  isLoading?: boolean;
 }) {
   const { setQuery } = queryObj;
 
