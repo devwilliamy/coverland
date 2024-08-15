@@ -72,11 +72,7 @@ export async function getProductData({
     fetch = fetch.eq('model_slug', model);
   }
 
-  if (type !== 'Seat Covers') {
-    fetch = fetch.neq('quantity', '0');
-  }
-
-  const { data, error } = await fetch.limit(1000);
+  const { data, error } = await fetch.limit(750);
 
   if (error) {
     throw new Error(error.message);
@@ -108,7 +104,6 @@ export async function getDefaultProductData() {
     .from(PRODUCT_DATA_TABLE)
     .select('*')
     .in('id', ids)
-    .neq('quantity', '0');
 
   const { data, error } = await fetch;
 
@@ -208,10 +203,6 @@ export async function getAllUniqueModelsByYearMake({
     .eq('year_id', yearId)
     .eq('type_id', typeId)
     .eq('make_id', makeId);
-
-  if (type !== 'Seat Covers') {
-    query = query.neq(`${PRODUCT_DATA_TABLE}.quantity`, 0);
-  }
 
   query = query.order('name', { foreignTable: 'Model', ascending: false });
 
