@@ -1,11 +1,5 @@
-import { ReadonlyRequestCookies } from 'next/dist/server/web/spec-extension/adapters/request-cookies';
-import {
-  createSupabaseAdminPanelServerClient,
-  supabaseAdminPanelDatabaseClient,
-} from '../adminPanelSupabaseClient';
+import { supabaseAdminPanelDatabaseClient } from '../adminPanelSupabaseClient';
 import { ADMIN_PANEL_ORDERS } from '../constants/databaseTableNames';
-import { cookies } from 'next/headers';
-import { SupabaseClient } from '@supabase/supabase-js';
 
 export async function getAllAdminPanelOrders() {
   const { data, error } = await supabaseAdminPanelDatabaseClient
@@ -17,6 +11,32 @@ export async function getAllAdminPanelOrders() {
   }
 
   return data;
+}
+
+export async function getAdminPanelOrderById(orderId: string) {
+  try {
+    const { data, error } = await supabaseAdminPanelDatabaseClient
+      .from(ADMIN_PANEL_ORDERS)
+      .select('*')
+      .eq('order_id', orderId) // Ensure the column name matches your table's ID column
+      .single(); // Use .single() to fetch exactly one record
+
+    if (error) {
+      throw new Error(
+        `[getAdminPanelOrderById]: Failed to fetch order with ID: ${orderId}. ${error.message}`
+      );
+    }
+
+    return data;
+  } catch (error) {
+    console.error(
+      `[getAdminPanelOrderById]: An unexpected error occurred`,
+      error
+    );
+    throw new Error(
+      `[getAdminPanelOrderById]: An unexpected error occurred ${error}`
+    );
+  }
 }
 
 type GetOrderSequenceParams = {
