@@ -151,13 +151,16 @@ const generateThankYouEmail = ({
   orderInfo,
   shippingInfo,
   billingInfo,
+  trustPilot,
 }: ThankYouEmailInput) => ({
   personalizations: [
     {
       to: [{ email: to }],
       bcc: [
         {
-          email: process.env.TRUST_PILOT_BCC_EMAIL,
+          email: orderInfo.orderNumber.includes('-SE-')
+            ? process.env.TRUST_PILOT_BCC_EMAIL
+            : '',
         },
       ],
       dynamic_template_data: {
@@ -181,6 +184,13 @@ const generateThankYouEmail = ({
           orderInfo.totalPreorderDiscount
         ),
         total: formatMoneyAsNumber(orderInfo.total),
+        // For Trust Pilot
+        recipientName: trustPilot.recipientName,
+        recipientEmail: trustPilot.recipientEmail,
+        referenceId: trustPilot.referenceId,
+        products: trustPilot.products,
+        has_gtin: orderInfo.orderNumber.includes('-SE-'), // Temporary check because car covers don't have GTIN info yet
+        // End For Trust Pilot
       },
     },
   ],

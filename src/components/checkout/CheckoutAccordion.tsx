@@ -166,7 +166,12 @@ export default function CheckoutAccordion() {
         delivery_fee: shippingInfo.delivery_fee.toFixed(2) as unknown as number,
         free_delivery: shippingInfo.delivery_fee === 0,
       },
-      trustPilot: generateTrustPilotPayload(shippingAddress.name, customerInfo.email, orderNumber, cartItems)
+      trustPilot: generateTrustPilotPayload(
+        shippingAddress.name,
+        customerInfo.email,
+        orderNumber,
+        cartItems
+      ),
       // billingInfo,
     };
     try {

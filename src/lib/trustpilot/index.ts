@@ -66,7 +66,8 @@ const createQueryString = (name: string, value: string) => {
  * @returns
  */
 const generateProductUrl = (cartItem: TCartItem) => {
-  const host = process.env.NEXT_PUBLIC_HOSTNAME;
+  // const host = process.env.NEXT_PUBLIC_HOSTNAME;
+  const host = "https://coverland.com"; // Will just default this to Coverland
   const type = cartItem?.type ?? '';
   const make = cartItem?.make ?? '';
   const model = cartItem?.model ?? '';
