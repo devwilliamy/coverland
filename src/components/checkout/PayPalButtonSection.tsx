@@ -30,6 +30,7 @@ import { generateSkuLabOrderInput } from '@/lib/utils/skuLabs';
 import { determineDeliveryByDate } from '@/lib/utils/deliveryDateUtils';
 import { SHIPPING_METHOD } from '@/lib/constants';
 import { formatToE164 } from '@/lib/utils';
+import { generateTrustPilotPayload } from '@/lib/trustpilot';
 
 type PaypalButtonSectionProps = {
   setPaypalSuccessMessage: (message: string) => void;
@@ -201,6 +202,12 @@ export default function PayPalButtonSection({
                   ) as unknown as number,
                   free_delivery: shippingInfo.delivery_fee === 0,
                 },
+                trustPilot: generateTrustPilotPayload(
+                  shippingAddress.name,
+                  customerInfo.email,
+                  orderNumber,
+                  cartItems
+                ),
                 // billingInfo,
               };
               const emailResponse = await fetch('/api/email/thank-you', {
