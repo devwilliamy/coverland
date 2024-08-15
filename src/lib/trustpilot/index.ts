@@ -73,6 +73,7 @@ const generateProductUrl = (cartItem: TCartItem) => {
   const parent_generation = cartItem?.parent_generation;
   const submodel1 = cartItem?.submodel1 ?? '';
   const submodel2 = cartItem?.submodel2 ?? '';
+  const submodel3 = cartItem?.submodel3 ?? '';
   const determineType = type !== 'Seat Covers' ? 'premium-plus' : 'leather';
   let url = `${host}/${slugify(type)}/${determineType}/${slugify(make)}/${slugify(model)}/${parent_generation}`;
   if (submodel1) {
@@ -80,6 +81,9 @@ const generateProductUrl = (cartItem: TCartItem) => {
   }
   if (submodel2) {
     url += `&${createQueryString('submodel2', submodel2)}`;
+  }
+  if (submodel3) {
+    url += `&${createQueryString('submodel3', submodel3)}`;
   }
   return url;
 };

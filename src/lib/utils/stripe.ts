@@ -123,12 +123,13 @@ export const generateItemName = (item: TCartItem) => {
     model = '',
     submodel1 = '',
     submodel2 = '',
+    submodel3 = '',
     display_id = '',
     display_color = '',
   } = item || {};
   const type = item.type === 'Seat Covers' ? 'Seat Cover' : 'Car Cover';
 
-  return `${year_generation} ${make} ${model} ${submodel1} ${submodel2} ${type} ${display_id} ${display_color}`
+  return `${year_generation} ${make} ${model} ${submodel1} ${submodel2} ${submodel3} ${type} ${display_id} ${display_color}`
     .replace(/\s+/g, ' ')
     .trim();
 };
