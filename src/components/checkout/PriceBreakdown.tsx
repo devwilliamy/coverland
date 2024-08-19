@@ -7,14 +7,14 @@ import EstimatedTaxPopover from './EstimatedTaxPopover';
 export default function PriceBreakdown() {
   const { currentStep, shipping, tax, showTax } = useCheckoutContext();
   const {
-    getTotalPrice,
+    getCartTotalPrice,
     getOrderSubtotal,
     getTotalDiscountPrice,
     getTotalCartQuantity,
     isCartPreorder,
     getTotalPreorderDiscount,
   } = useCartContext();
-  const totalMsrpPrice = (getTotalPrice() + shipping).toFixed(
+  const totalMsrpPrice = (getCartTotalPrice() + shipping).toFixed(
     2
   ) as unknown as number;
   const totalDiscountedPrice = getTotalDiscountPrice().toFixed(

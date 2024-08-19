@@ -51,7 +51,7 @@ export default function PayPalButtonSection({
 
   const {
     cartItems,
-    getTotalPrice,
+    getCartTotalPrice,
     getOrderSubtotal,
     getTotalDiscountPrice,
     getTotalCartQuantity,
@@ -67,7 +67,7 @@ export default function PayPalButtonSection({
     delivery_fee: shipping,
   };
   const router = useRouter();
-  const totalMsrpPrice = getTotalPrice().toFixed(2) as unknown as number;
+  const totalMsrpPrice = getCartTotalPrice().toFixed(2) as unknown as number;
   const preOrderTimeDifferenceText: string = isCartPreorder
     ? `approximately ${weeksFromCurrentDate(cartPreorderDate)} weeks from the date of purchase.`
     : 'noted above.'; // If some random failure happens with checkTimeDifference, default here
@@ -174,7 +174,7 @@ export default function PayPalButtonSection({
                   // products
                   totalItemQuantity: getTotalCartQuantity(),
                   subtotal: getOrderSubtotal().toFixed(2),
-                  total: (getTotalPrice() + shipping).toFixed(2), // may need to add taxes later
+                  total: (getCartTotalPrice() + shipping).toFixed(2), // may need to add taxes later
                   totalDiscount: getTotalDiscountPrice().toFixed(2),
                   totalPreorderDiscount: getTotalPreorderDiscount().toFixed(2),
                   isPreorder: isCartPreorder,
@@ -243,7 +243,7 @@ export default function PayPalButtonSection({
                   },
                   custom_data: {
                     currency: 'USD',
-                    value: parseFloat(getTotalPrice().toFixed(2)),
+                    value: parseFloat(getCartTotalPrice().toFixed(2)),
                     order_id: orderNumber,
                     content_ids: skus.join(','),
                     contents: skusWithQuantityMsrpForMeta,
@@ -265,7 +265,7 @@ export default function PayPalButtonSection({
                     'track',
                     'Purchase',
                     {
-                      value: parseFloat(getTotalPrice().toFixed(2)),
+                      value: parseFloat(getCartTotalPrice().toFixed(2)),
                       currency: 'USD',
                       contents: skusWithQuantityMsrpForMeta,
                       content_type: 'product',
@@ -284,7 +284,7 @@ export default function PayPalButtonSection({
                     },
                   });
                   window.uetq.push('event', 'purchase', {
-                    revenue_value: parseFloat(getTotalPrice().toFixed(2)),
+                    revenue_value: parseFloat(getCartTotalPrice().toFixed(2)),
                     currency: 'USD',
                     pid: {
                       em: customerInfo.email,
@@ -330,7 +330,7 @@ export default function PayPalButtonSection({
                 handlePurchaseGoogleTag(
                   cartItems,
                   orderNumber,
-                  getTotalPrice().toFixed(2),
+                  getCartTotalPrice().toFixed(2),
                   clearLocalStorageCart,
                   enhancedGoogleConversionInput
                 );

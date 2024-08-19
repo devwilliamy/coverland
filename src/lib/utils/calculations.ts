@@ -16,7 +16,7 @@ export const getMsrpTotal = (cartItems: TCartItem[]) => {
   );
 };
 
-export const getTotalPrice = (cartItems: TCartItem[]) => {
+export const getCartTotalPrice = (cartItems: TCartItem[]) => {
   return cartItems.reduce(
     (total, item) =>
       total +

@@ -56,7 +56,7 @@ export default function CheckoutAccordion() {
   const router = useRouter();
   const {
     cartItems,
-    getTotalPrice,
+    getCartTotalPrice,
     clearLocalStorageCart,
     getTotalCartQuantity,
     getOrderSubtotal,
@@ -88,8 +88,8 @@ export default function CheckoutAccordion() {
   } = useCheckoutContext();
 
   const orderSubtotal = getOrderSubtotal().toFixed(2);
-  const cartMSRP = getTotalPrice() + shipping;
-  const totalMsrpPrice = convertPriceToStripeFormat(getTotalPrice() + shipping);
+  const cartMSRP = getCartTotalPrice() + shipping;
+  const totalMsrpPrice = convertPriceToStripeFormat(getCartTotalPrice() + shipping);
   const isCartEmpty = getTotalCartQuantity() === 0;
   const [value, setValue] = useState(['shipping']);
   const [isLoading, setIsLoading] = useState(false);
@@ -141,7 +141,7 @@ export default function CheckoutAccordion() {
         // products
         totalItemQuantity: getTotalCartQuantity(),
         subtotal: getOrderSubtotal().toFixed(2),
-        total: (getTotalPrice() + shipping).toFixed(2), // may need to add taxes later
+        total: (getCartTotalPrice() + shipping).toFixed(2), // may need to add taxes later
         totalDiscount: getTotalDiscountPrice().toFixed(2),
         totalPreorderDiscount: getTotalPreorderDiscount().toFixed(2),
         isPreorder: isCartPreorder,
@@ -216,7 +216,7 @@ export default function CheckoutAccordion() {
         },
         custom_data: {
           currency: 'USD',
-          value: parseFloat(getTotalPrice().toFixed(2)),
+          value: parseFloat(getCartTotalPrice().toFixed(2)),
           order_id: orderNumber,
           content_ids: skus.join(','),
           contents: skusWithQuantityMsrpForMeta,
@@ -236,7 +236,7 @@ export default function CheckoutAccordion() {
           'track',
           'Purchase',
           {
-            value: parseFloat(getTotalPrice().toFixed(2)),
+            value: parseFloat(getCartTotalPrice().toFixed(2)),
             currency: 'USD',
             contents: skusWithQuantityMsrpForMeta,
             content_type: 'product',
@@ -256,7 +256,7 @@ export default function CheckoutAccordion() {
           },
         });
         window.uetq.push('event', 'purchase', {
-          revenue_value: parseFloat(getTotalPrice().toFixed(2)),
+          revenue_value: parseFloat(getCartTotalPrice().toFixed(2)),
           currency: 'USD',
           pid: {
             em: customerInfo.email,
@@ -300,7 +300,7 @@ export default function CheckoutAccordion() {
       handlePurchaseGoogleTag(
         cartItems,
         orderNumber,
-        getTotalPrice().toFixed(2),
+        getCartTotalPrice().toFixed(2),
         clearLocalStorageCart,
         enhancedGoogleConversionInput
       );
