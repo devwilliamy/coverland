@@ -74,7 +74,7 @@ export const getProductInitialsForType = (type: string): string => {
     case 'Accessories':
       return 'AC';
     default:
-      return 'MX';
+      return 'UN';
   }
 };
 
