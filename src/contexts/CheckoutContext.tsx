@@ -37,6 +37,10 @@ export type CheckoutContextType = {
   prevStep: () => void;
   shipping: number;
   setShipping: (shipping: number) => void;
+  tax: number;
+  setTax: (tax: number) => void;
+  showTax: boolean;
+  setShowTax: (showTax: boolean) => void;
   clientSecret: string;
   orderNumber: string;
   billingAddress: StripeAddress;
@@ -93,6 +97,10 @@ export const CheckoutContext = createContext<CheckoutContextType>({
   prevStep: () => {},
   shipping: 0,
   setShipping: () => {},
+  tax: 0,
+  setTax: () => {},
+  showTax: false,
+  setShowTax: () => {},
   clientSecret: '',
   orderNumber: '',
   billingAddress: {
@@ -149,6 +157,8 @@ export const CheckoutContext = createContext<CheckoutContextType>({
 const CheckoutProvider: FC<CheckoutProviderProps> = ({ children }) => {
   const [currentStep, setCurrentStep] = useState(CheckoutStep.CART);
   const [shipping, setShipping] = useState<number>(0);
+  const [tax, setTax] = useState<number>(0);
+  const [showTax, setShowTax] = useState<boolean>(false);
   const [isEditingAddress, setIsEditingAddress] = useState(true);
   const [isAddressComplete, setIsAddressComplete] = useState(false);
   const [billingAddress, setBillingAddress] = useState<StripeAddress>({
@@ -339,6 +349,10 @@ const CheckoutProvider: FC<CheckoutProviderProps> = ({ children }) => {
         setCurrentStep,
         shipping,
         setShipping,
+        tax,
+        setTax,
+        showTax,
+        setShowTax,
         clientSecret: stripeData.clientSecret,
         orderNumber: stripeData.orderNumber,
         billingAddress,

@@ -2,9 +2,10 @@ import { useCartContext } from '@/providers/CartProvider';
 import { Separator } from '../ui/separator';
 import { useCheckoutContext } from '@/contexts/CheckoutContext';
 import { CheckoutStep } from '@/lib/types/checkout';
+import EstimatedTaxPopover from './EstimatedTaxPopover';
 
 export default function PriceBreakdown() {
-  const { currentStep, shipping } = useCheckoutContext();
+  const { currentStep, shipping, tax, showTax } = useCheckoutContext();
   const {
     getTotalPrice,
     getOrderSubtotal,
@@ -51,6 +52,13 @@ export default function PriceBreakdown() {
           <div className="flex justify-between ">
             <div>Shipping</div>
             <div>{shippingText}</div>
+          </div>
+          <div className="flex justify-between ">
+            <div>
+              Estimated Tax <EstimatedTaxPopover />
+            </div>
+
+            <div>{showTax ? `${tax.toFixed(2)}` : '----'}</div>
           </div>
         </>
       )}
