@@ -6,6 +6,8 @@ import { useCheckoutContext } from '@/contexts/CheckoutContext';
 import SavedShippingBox from './SavedShippingBox';
 import AddressForm from './AddressForm';
 import { shippingOptions } from './ShippingOptions';
+import handleTaxjarCalculation from '@/lib/checkout/handleTaxjarCalculation';
+import { useCartContext } from '@/providers/CartProvider';
 
 type ShippingProps = {
   handleChangeAccordion: (accordionTitle: string) => void;
@@ -19,6 +21,7 @@ export default function Shipping({
   // const [isEditingAddress, setIsEditingAddress] = useState(true);
   const [isEditingShipping, setIsEditingShipping] = useState(true);
   const [isSelectingPayment, setIsSelectingPayment] = useState(false);
+  const { cartItems } = useCartContext();
   const {
     // isAddressComplete
     isEditingAddress,
@@ -34,11 +37,19 @@ export default function Shipping({
     isReadyToPay,
     twoLetterStateCode,
     updateIsReadyToPay,
+    setTax,
   } = useCheckoutContext();
 
   const { line1, line2, city, state, postal_code } = shippingAddress.address;
 
-  const handleToPayment = () => {
+  const handleToPayment = async () => {
+    const tax = await handleTaxjarCalculation(
+      cartItems,
+      shipping,
+      shippingAddress,
+      twoLetterStateCode
+    );
+    setTax(tax);
     setIsEditingShipping(false);
     toggleIsShippingAddressShown(false);
     updateIsReadyToShip(true);
@@ -116,12 +127,12 @@ export default function Shipping({
       {shippingAddress && !isEditingAddress && (
         <div>
           {isEditingShipping && !isReadyToShip && (
-            <div className="pb-[60px] max-lg:pt-[24px] pt-[40px]">
+            <div className="pb-[60px] pt-[40px] max-lg:pt-[24px]">
               <div className="flex w-full flex-col items-center justify-between  lg:items-end">
                 <Button
                   disabled={isEditingAddress}
                   onClick={handleToPayment}
-                  className={`h-[48px] max-h-[48px] w-full lg:max-w-[307px] cursor-pointer rounded-lg bg-black text-base font-bold uppercase text-white disabled:bg-[#D6D6D6] disabled:text-[#767676]`}
+                  className={`h-[48px] max-h-[48px] w-full cursor-pointer rounded-lg bg-black text-base font-bold uppercase text-white disabled:bg-[#D6D6D6] disabled:text-[#767676] lg:max-w-[307px]`}
                 >
                   Continue to Payment
                 </Button>
