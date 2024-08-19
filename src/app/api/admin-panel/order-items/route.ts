@@ -113,10 +113,11 @@ const createOrderItems = (
     );
 
     const totalProductPrice = Number((incomingMSRP * quantity).toFixed(2));
-    const totalProductPricePlusPreorder = 
+    const totalProductPricePlusPreorder =
       product.preorder && product.preorder_discount
-      ? Number(Number(incomingMSRP) - Number(product.preorder_discount)) * quantity
-      : Number(incomingMSRP) * quantity;
+        ? Number(Number(incomingMSRP) - Number(product.preorder_discount)) *
+          quantity
+        : Number(incomingMSRP) * quantity;
     const original_price = Number((product.price * quantity).toFixed(2));
     const discount_amount = original_price - totalProductPrice;
 
