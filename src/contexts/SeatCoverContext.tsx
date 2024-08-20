@@ -17,8 +17,10 @@ export type TQuery = {
   model: string;
   submodel: string; // Get rid of this in the future
   secondSubmodel: string; // Get rid of this in the future
+  thirdSubmodel: string; // Get rid of this in the future
   submodel1: string;
   submodel2: string;
+  submodel3: string;
   parent_generation: string;
 };
 
@@ -82,6 +84,12 @@ const createSeatCoverSelectionStore = ({
       )
     : modelDataWithFilteredSubmodelSelection;
 
+  const modelDataWithFilteredSubmodel3Selection = searchParams?.submodel3
+    ? modelDataWithFilteredSubmodelSelection.filter((model) =>
+        compareRawStrings(model.submodel3, searchParams.submodel3 as string)
+      )
+    : modelDataWithFilteredSubmodel2Selection;
+
   const reviewImageTracker: Record<string, boolean> = {};
 
   initialReviewData.forEach((reviewData) => {
@@ -101,21 +109,23 @@ const createSeatCoverSelectionStore = ({
     model: params?.model ?? '',
     submodel: searchParams?.submodel ?? '',
     secondSubmodel: searchParams?.submodel2 ?? '',
+    thirdSubmodel: searchParams?.submodel3 ?? '',
     submodel1: searchParams?.submodel ?? '',
     submodel2: searchParams?.submodel2 ?? '',
+    submodel3: searchParams?.submodel3 ?? '',
     parent_generation: '',
   };
 
   const {
     completeSelectionState: { isComplete },
   } = getCompleteSelectionData({
-    data: modelDataWithFilteredSubmodel2Selection,
+    data: modelDataWithFilteredSubmodel3Selection,
   });
 
-  const firstAvailableSet = modelDataWithFilteredSubmodel2Selection.filter(
+  const firstAvailableSet = modelDataWithFilteredSubmodel3Selection.filter(
     (seatCover) =>
       isFullSet(seatCover?.display_set ?? '') ===
-      isFullSet(modelDataWithFilteredSubmodel2Selection[0]?.display_set ?? '')
+      isFullSet(modelDataWithFilteredSubmodel3Selection[0]?.display_set ?? '')
   );
 
   const availableColors = new Set(['gray', 'black', 'beige']);
@@ -124,7 +134,7 @@ const createSeatCoverSelectionStore = ({
     .filter((color) => availableColors.has(color));
 
   return createStore<ISeatCoverCoverSelectionState>()((set, get) => ({
-    modelData: modelDataWithFilteredSubmodel2Selection,
+    modelData: modelDataWithFilteredSubmodel3Selection,
     query: initialQueryState,
     setQuery: (newQuery: Partial<TQuery>) => {
       set((state) => ({
@@ -135,7 +145,7 @@ const createSeatCoverSelectionStore = ({
         },
       }));
     },
-    selectedProduct: modelDataWithFilteredSubmodel2Selection[0],
+    selectedProduct: modelDataWithFilteredSubmodel3Selection[0],
     setSelectedProduct: (newProduct: TSeatCoverDataDB) => {
       set(() => ({
         selectedProduct: newProduct,
@@ -143,7 +153,7 @@ const createSeatCoverSelectionStore = ({
       }));
     },
     selectedColor:
-      modelDataWithFilteredSubmodel2Selection[0]?.display_color ?? '',
+      modelDataWithFilteredSubmodel3Selection[0]?.display_color ?? '',
     setSelectedColor: (newColor: string) =>
       set(() => ({ selectedColor: newColor })),
     isComplete,
@@ -168,7 +178,7 @@ const createSeatCoverSelectionStore = ({
       set(() => ({ reviewImages: newReviewImages }));
     },
     selectedSetDisplay: isFullSet(
-      modelDataWithFilteredSubmodel2Selection[0]?.display_set ?? ''
+      modelDataWithFilteredSubmodel3Selection[0]?.display_set ?? ''
     ),
     setSelectedSetDisplay: (selectedSet: string) => {
       set(() => ({ selectedSetDisplay: selectedSet }));

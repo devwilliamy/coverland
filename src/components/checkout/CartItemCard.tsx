@@ -48,7 +48,7 @@ export default function CartItemCard({ item }: { item: TCartItem }) {
             className={`text-sm font-normal ${!item?.make && 'hidden'} text-[#707070] lg:text-base`}
           >
             Vehicle: {item?.make} {item?.model} {item?.year_generation}{' '}
-            {item?.submodel1 ?? ''} {item?.submodel2 ?? ''}
+            {item?.submodel1 ?? ''} {item?.submodel2 ?? ''} {item?.submodel3 ?? ''}
           </div>
           <div
             className={`text-sm font-normal ${item?.type === 'Seat Covers' ? 'flex' : 'hidden'}  text-[#707070] lg:text-base`}

@@ -1,9 +1,8 @@
 'use client';
 
-import { ChangeEvent, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { TQuery } from './HeroDropdown';
 import { getAllUniqueMakesByYear, getProductDataByPage } from '@/lib/db';
-import { AiOutlineLoading3Quarters } from 'react-icons/ai';
 import HomeDropdown from './HomeDropdown';
 
 export type MakeDropdown = { make: string | null; make_slug: string | null };
@@ -16,14 +15,11 @@ export function MakeSearch({
     setQuery: React.Dispatch<React.SetStateAction<TQuery>>;
   };
 }) {
-  const [value, setValue] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const {
-    setQuery,
     query: { type, year, make, typeId, yearId },
   } = queryObj;
   const [makeData, setMakeData] = useState<MakeDropdown[]>([]);
-  const [makeDataStrings, setMakeDataStrings] = useState<string[]>([]);
   const isDisabled = !type || !year;
   const prevSelected = Boolean(
     queryObj &&
@@ -31,7 +27,6 @@ export function MakeSearch({
       queryObj.query.year &&
       queryObj.query.make === ''
   );
-  // console.log(prevSelected);
 
   useEffect(() => {
     // Doing this to warm up the DB
@@ -46,25 +41,18 @@ export function MakeSearch({
   }, []);
 
   useEffect(() => {
-    setValue('');
-  }, [type, year]);
-
-  useEffect(() => {
     const fetchData = async () => {
       try {
-        const cover = type === 'Seat Covers' ? 'Leather' : 'Premium Plus'; // TODO: - Extract cover from query obj or something
+        const cover = type === 'Seat Covers' ? 'Leather' : 'Premium Plus';
         setIsLoading(true);
         const response = await getAllUniqueMakesByYear({
           type,
-          cover, // TOOD: - Update this to make it work for premium as well.
+          cover,
           year,
           typeId,
           yearId,
         });
-        
         setMakeData(response);
-        // const uniqueStrings = Array.from(new Set(response.map(({ name,id }, index) => name)))
-        // setMakeDataStrings(uniqueStrings as string[]);
       } catch (error) {
         console.error('[Make Search]: ', error);
       } finally {
@@ -75,18 +63,6 @@ export function MakeSearch({
       fetchData();
     }
   }, [queryObj]);
-
-  const handleChange = (event: ChangeEvent<HTMLSelectElement>) => {
-    const newValue = event.target.value;
-    setValue(newValue);
-    setQuery((p) => ({
-      ...p,
-      make: newValue,
-      model: '',
-      submodel1: '',
-      submodel2: '',
-    }));
-  };
 
   return (
     <HomeDropdown

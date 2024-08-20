@@ -65,7 +65,11 @@ export default async function CarPDPDataLayer({
   searchParams,
 }: {
   params: TPathParams;
-  searchParams: { submodel?: string; second_submodel?: string };
+  searchParams: {
+    submodel?: string;
+    second_submodel?: string;
+    third_submodel?: string;
+  };
 }) {
   let modelData = [];
   let reviewData: TReviewData[] | null = [];

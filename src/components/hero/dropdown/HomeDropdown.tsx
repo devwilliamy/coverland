@@ -12,6 +12,7 @@ import { Search } from 'lucide-react';
 import { AiOutlineLoading3Quarters } from 'react-icons/ai';
 import { useMediaQuery } from '@mantine/hooks';
 import MobileHomeDropdown from './MobileHomeDropdown';
+import { capitalizeFirstLetter } from '@/lib/utils/stringHelpers';
 
 export default function HomeDropdown({
   queryObj,
@@ -33,7 +34,7 @@ export default function HomeDropdown({
     query: TQuery;
     setQuery: Dispatch<SetStateAction<TQuery>>;
   };
-  isLoading: boolean;
+  isLoading?: boolean;
 }) {
   const { setQuery } = queryObj;
 
@@ -60,6 +61,7 @@ export default function HomeDropdown({
           model: '',
           submodel1: '',
           submodel2: '',
+          submodel3: '',
           parent_generation: '',
           typeId: id,
           yearId: '',
@@ -76,6 +78,7 @@ export default function HomeDropdown({
             model: '',
             submodel1: '',
             submodel2: '',
+            submodel3: '',
             parent_generation: '',
             yearId: id,
           };
@@ -89,6 +92,7 @@ export default function HomeDropdown({
             model: '',
             submodel1: '',
             submodel2: '',
+            submodel3: '',
             parent_generation: '',
             makeId: id,
           };
@@ -101,6 +105,7 @@ export default function HomeDropdown({
             model: newValue,
             submodel1: '',
             submodel2: '',
+            submodel3: '',
             parent_generation: '',
             modelId: id,
           };
@@ -112,7 +117,7 @@ export default function HomeDropdown({
             ...e,
             submodel1: newValue,
             submodel2: '',
-            // parent_generation: '',
+            submodel3: '',
           };
         });
         break;
@@ -121,7 +126,15 @@ export default function HomeDropdown({
           return {
             ...e,
             submodel2: newValue,
-            // parent_generation: '',
+            submodel3: '',
+          };
+        });
+        break;
+      case 'submodel3':
+        setQuery((e) => {
+          return {
+            ...e,
+            submodel3: newValue,
           };
         });
         break;
@@ -274,19 +287,10 @@ export default function HomeDropdown({
     setIsFocused(true);
   };
 
-  const isSubmodel1 = title === 'submodel1';
-  const isSubmodel2 = title === 'submodel2';
+  const isSubmodel =
+    title === 'submodel1' || title === 'submodel2' || title === 'submodel3';
+  const submodelText = isSubmodel ? 'Submodel' : capitalizeFirstLetter(title);
 
-  const submodel1Text = isSubmodel1
-    ? 'Submodel'
-    : title.replace(title.charAt(0), title.charAt(0).toUpperCase());
-  const submodel2Text = isSubmodel2
-    ? 'Submodel 2'
-    : title.replace(title.charAt(0), title.charAt(0).toUpperCase());
-
-  const capitalizeFirstLetter = (title: string) => {
-    return title.replace(title.charAt(0), title.charAt(0).toUpperCase());
-  };
   return (
     <div
       className={`relative flex min-h-[48px] w-full lg:h-[64px] lg:min-h-[64px]  ${dropdownOpen && !isMobile ? 'rounded-t-[8px] ' : 'rounded-[8px] '} ${!isDisabled ? ' bg-white outline outline-[1px] outline-black' : 'bg-gray-300/90'}`}
@@ -304,11 +308,11 @@ export default function HomeDropdown({
             <div className={`flex w-full items-center`}>
               <p className={``}>{value === '' && place} &nbsp;</p>
               <p className="capitalize">
-                {value === '' && !isSubmodel1 && !isSubmodel2
-                  ? capitalizeFirstLetter(title)
+                {value === ''
+                  ? isSubmodel
+                    ? submodelText
+                    : capitalizeFirstLetter(title)
                   : value}
-                {value === '' && isSubmodel1 && submodel1Text}
-                {value === '' && isSubmodel2 && submodel2Text}
               </p>
             </div>
 
@@ -330,11 +334,11 @@ export default function HomeDropdown({
                   <div className={`flex w-full items-center`}>
                     <p className={``}>{value === '' && place} &nbsp;</p>
                     <p className="capitalize">
-                      {value === '' && !isSubmodel1 && !isSubmodel2
-                        ? capitalizeFirstLetter(title)
+                      {value === ''
+                        ? isSubmodel
+                          ? submodelText
+                          : capitalizeFirstLetter(title)
                         : value}
-                      {value === '' && isSubmodel1 && submodel1Text}
-                      {value === '' && isSubmodel2 && submodel2Text}
                     </p>
                   </div>
                   <div className="mr-[14px] flex items-center">
@@ -429,7 +433,6 @@ export default function HomeDropdown({
           isDisabled={isDisabled as boolean}
           value={value as string}
           place={place}
-          capitalizeFirstLetter={capitalizeFirstLetter}
           items={items as string[] | number[] | any[]}
           filteredItems={filteredItems as string[] | number[] | any[]}
           selectedIndex={selectedIndex}

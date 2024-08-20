@@ -23,8 +23,10 @@ export type TQuery = {
   model: string;
   submodel: string;
   secondSubmodel: string;
+  thirdSubmodel: string;
   submodel1: string;
   submodel2: string;
+  submodel3: string;
   parent_generation: string;
 };
 
@@ -73,9 +75,11 @@ const createCarSelectionStore = ({
   initialReviewImages: TReviewData[];
 }) => {
   const hasNoSubmodels = initialModelData.every(
-    (model) => !model.submodel1 && !model.submodel2
+    (model) => !model.submodel1 && !model.submodel2 && !model.submodel3
   );
 
+  // Filter down initial model data based on submodel1-3
+  // If there aren't any submodels, just take initial model data
   const initialDataWithSubmodels = queryParams?.submodel
     ? initialModelData.filter((model) =>
         compareRawStrings(model.submodel1, queryParams.submodel as string)
@@ -87,11 +91,18 @@ const createCarSelectionStore = ({
         compareRawStrings(model.submodel2, queryParams.submodel2 as string)
       )
     : initialDataWithSubmodels;
-  if (initialDataWithSecondSubmodels.length === 0) {
+
+  const initialDataWithThirdSubmodels = queryParams?.submodel3
+    ? initialDataWithSubmodels.filter((model) =>
+        compareRawStrings(model.submodel3, queryParams.submodel3 as string)
+      )
+    : initialDataWithSecondSubmodels;
+
+  if (initialDataWithThirdSubmodels.length === 0) {
     notFound();
   }
+  // Until we have actual photos, we don't want to have repeat photos in reviews
   const reviewImageTracker: Record<string, boolean> = {};
-
   initialReviewData.forEach((reviewData) => {
     !!reviewData.review_image &&
       reviewData.review_image.split(',').map((imageUrl) => {
@@ -107,8 +118,8 @@ const createCarSelectionStore = ({
       : '';
 
   return createStore<ICarCoverSelectionState>()((set, get) => ({
-    modelData: initialDataWithSecondSubmodels,
-    initialModelData: initialDataWithSecondSubmodels,
+    modelData: initialDataWithThirdSubmodels,
+    initialModelData: initialDataWithThirdSubmodels,
     query: {
       year: (params?.year && customerSelectedYear) || '',
       type: params?.productType ?? '',
@@ -117,16 +128,18 @@ const createCarSelectionStore = ({
       model: params?.model ?? '',
       submodel: queryParams?.submodel ?? '',
       secondSubmodel: queryParams?.submodel2 ?? '',
+      thirdSubmodel: queryParams?.submodel3 ?? '',
       submodel1: queryParams?.submodel ?? '',
       submodel2: queryParams?.submodel2 ?? '',
+      submodel3: queryParams?.submodel3 ?? '',
       parent_generation:
         (params?.year && hasNoSubmodels) || queryParams?.submodel
           ? (params?.year as string)
           : '',
     },
-    selectedProduct: initialDataWithSecondSubmodels[0],
-    featuredImage: initialDataWithSecondSubmodels[0]?.mainImage,
-    selectedColor: initialDataWithSecondSubmodels[0]?.display_color ?? '',
+    selectedProduct: initialDataWithThirdSubmodels[0],
+    featuredImage: initialDataWithThirdSubmodels[0]?.mainImage,
+    selectedColor: initialDataWithThirdSubmodels[0]?.display_color ?? '',
     reviewImages: initialReviewImages,
     reviewImageTracker,
     setReviewImageTracker: (newImageTracker: Record<string, boolean>) => {
@@ -146,7 +159,9 @@ const createCarSelectionStore = ({
       set(() => ({ featuredImage: newImage })),
     hasSubmodels: () => {
       const { modelData } = get();
-      return modelData.some((model) => !!model.submodel1 || !!model.submodel2);
+      return modelData.some(
+        (model) => !!model.submodel1 || !!model.submodel2 || !!model.submodel3
+      );
     },
     setQuery: (newQuery: Partial<TQuery>) => {
       set((state) => ({
@@ -199,6 +214,11 @@ const createCarSelectionStore = ({
           compareRawStrings(sku.submodel2, newQuery.secondSubmodel as string)
         );
       }
+      if (newQuery.thirdSubmodel) {
+        filteredData = filteredData.filter((sku) =>
+          compareRawStrings(sku.submodel3, newQuery.thirdSubmodel as string)
+        );
+      }
       set({ modelData: filteredData });
     },
     reviewData: initialReviewData,
@@ -245,6 +265,7 @@ const CarSelectionProvider = ({
   const pathParams = useParams<TPathParams>();
   const submodelParams = searchParams?.submodel ?? '';
   const secondSubmodelParams = searchParams?.submodel2 ?? '';
+  const thirdSubmodelParams = searchParams?.submodel3 ?? '';
   if (modelDataProps.length === 0) {
     router.push('/404');
   }
@@ -252,7 +273,9 @@ const CarSelectionProvider = ({
   const queryParams = {
     submodel: submodelParams,
     secondSubmodel: secondSubmodelParams,
+    thirdSubmodel: thirdSubmodelParams,
     submodel2: secondSubmodelParams,
+    submodel3: thirdSubmodelParams,
   };
 
   const modelData = modelDataTransformer({

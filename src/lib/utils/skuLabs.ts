@@ -72,7 +72,7 @@ const generateNote = (cartItems: TCartItem[], paymentMethod: string) => {
     const itemName =
       `${cartItem?.year_generation || ''} ${cartItem?.make || ''} ${cartItem?.model || ''} ${
         cartItem?.submodel1 ? cartItem?.submodel1 : ''
-      } ${cartItem?.submodel2 ? cartItem?.submodel2 : ''} ${cartItem.type} ${cartItem?.display_id} ${
+      } ${cartItem?.submodel2 ? cartItem?.submodel2 : ''}  ${cartItem?.submodel3 ? cartItem?.submodel3 : ''} ${cartItem.type} ${cartItem?.display_id} ${
         cartItem?.display_color
       }`
         .replace(/\s+/g, ' ')
