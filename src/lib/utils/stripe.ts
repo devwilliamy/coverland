@@ -101,7 +101,6 @@ export const generateLineItemsForStripe = (items, order_id) => {
     const unitAmount = item.msrp
       ? parseInt((parseFloat(item.msrp) * 100).toFixed(0))
       : 0;
-    const type = item.type === 'Seat Covers' ? 'Seat Cover' : 'Car Cover';
     const itemName = generateItemName(item);
     console.log('StripeCheckout Item Name:', itemName);
     return {
