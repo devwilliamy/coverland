@@ -1,7 +1,5 @@
 'use client';
-
 import {
-  ChangeEvent,
   Dispatch,
   SetStateAction,
   useEffect,
@@ -28,33 +26,14 @@ export function ModelSearch({
     setQuery: Dispatch<SetStateAction<TQuery>>;
   };
 }) {
-  const [value, setValue] = useState('');
   const [modelData, setModelData] = useState<ModelDropdown[]>([]);
   const [modelDataStrings, setModelDataStrings] = useState<string[]>([]);
-  const [filteredModelData, setFilteredModelData] = useState<ModelDropdown[]>(
-    []
-  );
   const [submodelData, setSubmodelData] = useState<ModelDropdown[]>([]);
-  const [submodelDataStrings, setSubmodelDataStrings] = useState<string[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const {
     query: { type, year, make, model, makeId, yearId, typeId },
     setQuery,
   } = queryObj;
-
-  const handleChange = (event: ChangeEvent<HTMLSelectElement>) => {
-    const newValue = event.target.value;
-    const parent_generation =
-      modelData.find((car) => car.model === newValue)?.parent_generation || '';
-    setValue(newValue);
-    setQuery((p) => ({
-      ...p,
-      model: newValue,
-      parent_generation,
-      submodel1: '',
-      submodel2: '',
-    }));
-  };
 
   useEffect(() => {
     if (model) {
@@ -64,18 +43,13 @@ export function ModelSearch({
         ...p,
         parent_generation,
       }));
-      // fetchData();
     }
   }, [model, modelData, setQuery]);
 
   useEffect(() => {
-    setValue('');
-  }, [type, year, make, makeId, typeId, yearId]);
-
-  useEffect(() => {
     const fetchData = async () => {
       try {
-        setIsLoading(true)
+        setIsLoading(true);
         const cover = type === 'Seat Covers' ? 'Leather' : 'Premium Plus'; // TODO: - Extract cover from query obj or something
         const response = await getAllUniqueModelsByYearMake({
           type,
@@ -86,17 +60,12 @@ export function ModelSearch({
           yearId,
           typeId,
         });
-        const uniqueModel = response.uniqueCars.filter(
-          (car, index, self) =>
-            index === self.findIndex((t) => t.model_slug === car.model_slug)
-        );
         setModelData(response.uniqueCars);
         setModelDataStrings(response.uniqueModels);
-        setFilteredModelData(response.uniqueModels);
       } catch (error) {
         console.error('[Model Search]: ', error);
       } finally {
-        setIsLoading(false)
+        setIsLoading(false);
       }
     };
     if (type && year && make) {
@@ -105,29 +74,14 @@ export function ModelSearch({
   }, [type, year, make]);
 
   useEffect(() => {
-    // Check for submodel
     const submodel = modelData.filter(
       (vehicle) => vehicle.model === model && vehicle.submodel1
     );
-
-    // setSubmodelDataStrings(() => {
-    //   const modelStrings = uniqueModel.map(({ model }) => model);
-    //   return modelStrings as string[];
-    // });
-
     setSubmodelData(submodel);
   }, [model]);
 
   const isDisabled = !type || !year || !make;
   const showSubmodelDropdown = submodelData.length > 0;
-  const prevSelected =
-    queryObj &&
-    Boolean(
-      queryObj.query.type &&
-        queryObj.query.year &&
-        queryObj.query.make &&
-        queryObj.query.model === ''
-    );
 
   return (
     <>

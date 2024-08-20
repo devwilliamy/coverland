@@ -84,7 +84,7 @@ const mapCartItemsToGTagItems = (cartItems: TCartItem[]) => {
       cartItem.make as string
     );
     const fullProductName =
-      `${cartItem.year_generation ?? ''} ${cartItem.make ?? ''} ${cartItem.model ?? ''} ${cartItem.submodel1 ?? ''} ${cartItem.submodel2 ?? ''}`.trim();
+      `${cartItem.year_generation ?? ''} ${cartItem.make ?? ''} ${cartItem.model ?? ''} ${cartItem.submodel1 ?? ''} ${cartItem.submodel2 ?? ''} ${cartItem.submodel3 ?? ''}`.trim();
     const productName = `${fullProductName} ${cleanedDisplayId} ${cartItem.type}`;
     // const price = parseFloat(cartItem?.price || '0') || 0;
     const msrp = parseFloat(cartItem?.msrp || '0') || 0;
@@ -214,9 +214,11 @@ export const handlePurchaseGoogleTag = (
       coupon: undefined, // will need to put in coupon for later but we don't track this ATM
       items: cartItemsToGTagItems,
     },
-    enhanced_conversion_data: createEnhancedGoogleConversionData({...enhancedParameterInput}),
+    enhanced_conversion_data: createEnhancedGoogleConversionData({
+      ...enhancedParameterInput,
+    }),
   });
-  
+
   if (cartItems.length > 0) {
     clearLocalStorageCart();
   }
@@ -260,7 +262,7 @@ export const createEnhancedGoogleConversionData = ({
 
 export const handleAddToCartGoogleTag = (
   cartProduct: IProductData,
-  params: TPathParams,
+  params: TPathParams
 ) => {
   // const price = parseFloat(cartProduct?.price || '0') || 0;
   const msrp = parseFloat(cartProduct?.msrp || '0') || 0;
@@ -270,7 +272,7 @@ export const handleAddToCartGoogleTag = (
     cartProduct.make as string
   );
   const fullProductName =
-    `${cartProduct.year_generation ?? ''} ${cartProduct.make ?? ''} ${cartProduct.model ?? ''} ${cartProduct.submodel1 ?? ''} ${cartProduct.submodel2 ?? ''}`.trim();
+    `${cartProduct.year_generation ?? ''} ${cartProduct.make ?? ''} ${cartProduct.model ?? ''} ${cartProduct.submodel1 ?? ''} ${cartProduct.submodel2 ?? ''} ${cartProduct.submodel3 ?? ''}`.trim();
   const productName = `${fullProductName} ${cleanedDisplayId} ${cartProduct.type}`;
   window?.dataLayer?.push({ ecommerce: null }); // Clear the previous ecommerce object.
   window?.dataLayer?.push({

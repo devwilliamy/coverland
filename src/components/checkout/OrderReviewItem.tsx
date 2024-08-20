@@ -32,12 +32,12 @@ export default function OrderReviewItem({
             className={`text-sm font-normal ${!item?.make && 'hidden'} text-[#707070] lg:text-base`}
           >
             Vehicle: {item?.make} {item?.model} {item?.year_generation}{' '}
-            {item?.submodel1 ?? ''} {item?.submodel2 ?? ''}
+            {item?.submodel1 ?? ''} {item?.submodel2 ?? ''} {item?.submodel3 ?? ''}
           </div>
           <div
             className={`text-sm font-normal ${item?.type === 'Seat Covers' ? 'flex' : 'hidden'}  text-[#707070] lg:text-base`}
           >
-            {isFullSet(item.display_set).toLowerCase() == 'full'
+            {isFullSet(item.display_set ?? "").toLowerCase() == 'full'
               ? 'Full Seat Set (Front + Rear Seat Set)'
               : ' Front Seats (Driver +  Passenger seats)'}
           </div>

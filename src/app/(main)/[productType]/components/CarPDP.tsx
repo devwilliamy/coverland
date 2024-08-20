@@ -18,7 +18,13 @@ export default async function CarPDP({
   reviewDataSummary: TProductReviewSummary;
   reviewImages: TReviewData[];
   searchParams?:
-    | { submodel?: string; second_submodel?: string; submodel2?: string }
+    | {
+        submodel?: string;
+        second_submodel?: string;
+        submodel2?: string;
+        third_submodel?: string;
+        submodel3?: string;
+      }
     | undefined;
 }) {
   const initialState = {
