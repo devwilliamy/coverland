@@ -8,7 +8,10 @@ import { createOrUpdateUser } from '@/lib/db/admin-panel/customers';
 import { getPaymentIntent } from '@/lib/stripe/paymentIntent';
 import { getPaymentMethod } from '@/lib/stripe/paymentMethod';
 import { PaymentIntent, PaymentMethod } from '@stripe/stripe-js';
-import { updateAdminPanelOrder } from '@/lib/db/admin-panel/orders';
+import {
+  getAdminPanelOrderById,
+  updateAdminPanelOrder,
+} from '@/lib/db/admin-panel/orders';
 import KnoCommerceEmbed, {
   KnoCommerceCustomer,
   KnoCommerceOrder,
@@ -91,6 +94,25 @@ async function OrderConfirmationPage({
     // If Paypal needs to do something here...
     // Oh, order items and customer have to be updated here
     // JK. Probably do whatever needs to be done here in PayPalButtonSection.tsx onApprove
+
+    const order = await getAdminPanelOrderById(orderNumber);
+    knoCommerceDTO = {
+      customer: {
+        email: order.customer_email ?? '',
+        phone: order.customer_phone ?? '',
+      },
+      order: {
+        id: orderNumber,
+        total_price: order.total_amount ?? 0,
+        line_items:
+          order.skus?.split(',').map((sku: string) => ({
+            sku,
+            product_id: sku,
+            name: sku,
+            title: sku,
+          })) || [],
+      },
+    };
   } else {
     return (
       <div className="flex flex-row items-center justify-center py-10 text-xl font-bold">

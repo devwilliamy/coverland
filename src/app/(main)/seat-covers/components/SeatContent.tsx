@@ -4,7 +4,7 @@ import { useState, useContext, useEffect } from 'react';
 import installments from '@/images/PDP/Product-Details-Redesign-2/paypal-installments.webp';
 import { Rating } from '@mui/material';
 import { useCartContext } from '@/providers/CartProvider';
-import { useParams, useRouter } from 'next/navigation';
+import { useParams, useRouter, useSearchParams } from 'next/navigation';
 import { SeatCoverSelectionContext } from '@/contexts/SeatCoverContext';
 import { useStore } from 'zustand';
 import SeatCoverColorSelector from './SeatCoverColorSelector';
@@ -43,10 +43,9 @@ export default function SeatContent({
   const selectedProduct = useStore(store, (s) => s.selectedProduct);
   const [addToCartOpen, setAddToCartOpen] = useState<boolean>(false);
   const { addToCart } = useCartContext();
-  const [coverPrice, setCoverPrice] = useState(320);
-
   const { make, model } = useDetermineType();
 
+  const [coverPrice, setCoverPrice] = useState(320);
   const [discountPercent, setDiscountPercent] = useState<number | null>(50);
   const [newMSRP, setNewMSRP] = useState<number | null>(selectedProduct.msrp);
   const [loading, setLoading] = useState(false);
@@ -67,8 +66,14 @@ export default function SeatContent({
   }, [selectedProduct]);
   const handleAddToCart = () => {
     // if (!cartProduct) return; I commented this out, cartProduct is undefined
-
-    if (newMSRP !== 0) {
+    // TODO: Get rid of all newMSRP stuff in her'e
+    if (!selectedProduct.sku) {
+      const params = {
+        ...searchParams,
+        submodel1: searchParams.submodel,
+      };
+      addToCart({ ...selectedProduct, ...params, quantity: 1 });
+    } else if (newMSRP !== 0) {
       addToCart({ ...selectedProduct, msrp: newMSRP, quantity: 1 });
     } else {
       addToCart({ ...selectedProduct, quantity: 1 });

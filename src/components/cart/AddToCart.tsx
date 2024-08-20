@@ -67,8 +67,7 @@ export default function AddToCart({
     if (isComplete) {
       handleAddToCart();
       handleAddToCartGoogleTag(selectedProduct, params as TPathParams);
-      selectedProduct?.sku &&
-      setIsLoading(false);
+      selectedProduct?.sku && setIsLoading(false);
       return; // Don't want to open add to cart selector
     }
     setIsLoading(false);

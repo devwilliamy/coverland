@@ -44,6 +44,11 @@ const nextConfig = {
         hostname: 'coverland.sfo3.cdn.digitaloceanspaces.com',
         pathname: '/**',
       },
+      {
+        protocol: 'http',
+        hostname: 'coverland.sfo3.cdn.digitaloceanspaces.com',
+        pathname: '/**',
+      },
     ],
   },
   typescript: {
