@@ -38,6 +38,7 @@ export default function Shipping({
     twoLetterStateCode,
     updateIsReadyToPay,
     setTax,
+    setShowTax,
   } = useCheckoutContext();
 
   const { line1, line2, city, state, postal_code } = shippingAddress.address;
@@ -46,10 +47,10 @@ export default function Shipping({
     const tax = await handleTaxjarCalculation(
       cartItems,
       shipping,
-      shippingAddress,
-      twoLetterStateCode
+      shippingAddress
     );
     setTax(tax);
+    setShowTax(true);
     setIsEditingShipping(false);
     toggleIsShippingAddressShown(false);
     updateIsReadyToShip(true);
@@ -58,12 +59,14 @@ export default function Shipping({
   };
 
   const handleEditAddress = () => {
+    setShowTax(false);
     setIsEditingAddress(true);
     toggleIsShippingAddressShown(true);
     handleChangeAccordion('shipping');
     handleSelectTab('shipping');
   };
   const handleEditShipping = () => {
+    setShowTax(false);
     setIsEditingShipping(true);
     setIsEditingAddress(true);
     updateIsReadyToShip(false);

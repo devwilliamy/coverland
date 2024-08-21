@@ -55,7 +55,7 @@ type SkuLabOrderDTO = {
 type SkuLabOrderInput = {
   orderNumber: string;
   cartItems: TCartItem[];
-  totalMsrpPrice: number;
+  orderTotal: number;
   shippingAddress: StripeAddress;
   customerInfo: CustomerInfo;
   paymentMethod: string;
@@ -86,7 +86,7 @@ const generateNote = (cartItems: TCartItem[], paymentMethod: string) => {
 export const generateSkuLabOrderInput = ({
   orderNumber,
   cartItems,
-  totalMsrpPrice,
+  orderTotal,
   shippingAddress,
   customerInfo,
   paymentMethod
@@ -114,7 +114,7 @@ export const generateSkuLabOrderInput = ({
       shipping: 0, // TODO: Currently no shipping, but need to update later
       financial_status: '',
       tax: 0, // Currently no tax
-      total: totalMsrpPrice,
+      total: orderTotal,
       shipping_information: {
         name: shippingAddress.name,
         phone: shippingAddress.phone || '',

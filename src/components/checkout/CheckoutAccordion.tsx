@@ -85,11 +85,14 @@ export default function CheckoutAccordion() {
     updateTotalTax,
     updateCustomerInfo,
     clientSecret,
+    tax,
   } = useCheckoutContext();
 
   const orderSubtotal = getOrderSubtotal().toFixed(2);
-  const cartMSRP = getCartTotalPrice() + shipping;
-  const totalMsrpPrice = convertPriceToStripeFormat(getCartTotalPrice() + shipping);
+  const orderTotal = (getCartTotalPrice() + shipping + tax).toFixed(
+    2
+  ) as unknown as number;
+  const orderTotalStripeFormat = convertPriceToStripeFormat(orderTotal);
   const isCartEmpty = getTotalCartQuantity() === 0;
   const [value, setValue] = useState(['shipping']);
   const [isLoading, setIsLoading] = useState(false);
@@ -141,7 +144,7 @@ export default function CheckoutAccordion() {
         // products
         totalItemQuantity: getTotalCartQuantity(),
         subtotal: getOrderSubtotal().toFixed(2),
-        total: (getCartTotalPrice() + shipping).toFixed(2), // may need to add taxes later
+        total: orderTotal, // may need to add taxes later
         totalDiscount: getTotalDiscountPrice().toFixed(2),
         totalPreorderDiscount: getTotalPreorderDiscount().toFixed(2),
         isPreorder: isCartPreorder,
@@ -268,7 +271,7 @@ export default function CheckoutAccordion() {
       const skuLabOrderInput = generateSkuLabOrderInput({
         orderNumber,
         cartItems,
-        totalMsrpPrice: convertPriceFromStripeFormat(totalMsrpPrice),
+        orderTotal,
         shippingAddress,
         customerInfo,
         paymentMethod: 'Stripe',
@@ -320,9 +323,6 @@ export default function CheckoutAccordion() {
 
     setIsLoading(true);
 
-    const taxSum = Number(Number(cartMSRP) + Number(totalTax)).toFixed(2);
-    const totalWithTax = convertPriceToStripeFormat(taxSum);
-
     const formattedPhone = formatToE164(customerInfo.phoneNumber);
 
     updateCustomerInfo({
@@ -337,7 +337,7 @@ export default function CheckoutAccordion() {
       },
       body: JSON.stringify({
         paymentIntentId,
-        amount: totalWithTax,
+        amount: orderTotalStripeFormat,
       }),
     });
 

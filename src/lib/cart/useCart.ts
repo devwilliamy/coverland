@@ -129,6 +129,9 @@ const useCart = () => {
     return cartItems.reduce((total, item) => total + item.quantity, 0);
   }, [cartItems]);
 
+  /**
+   * Returns cart total including discounts.
+   */
   const getCartTotalPrice = useCallback(() => {
     return cartItems.reduce(
       (total, item) =>

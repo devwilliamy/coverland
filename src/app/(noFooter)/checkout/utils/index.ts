@@ -22,15 +22,18 @@ function isValidShippingAddress({ address }: PaypalShipping) {
 }
 
 export async function paypalCreateOrder(
-  totalMsrpPrice: number,
+  orderTotal: number,
   items: TCartItem[],
   orderId: string,
   shipping: number,
   shippingAddress: StripeAddress
 ): Promise<string | null> {
   const itemsForPaypal = items.map((item) => {
-    const itemPrice = item.preorder && item.preorder_discount ? item.msrp - item.preorder_discount : item.msrp;
-  
+    const itemPrice =
+      item.preorder && item.preorder_discount
+        ? item.msrp - item.preorder_discount
+        : item.msrp;
+
     return {
       name: `${item.parent_generation} ${item.display_id} ${item.model} ${item.type} ${item.display_color}`,
       quantity: item.quantity?.toString(),
@@ -70,11 +73,11 @@ export async function paypalCreateOrder(
         : null,
       amount: {
         currency_code: 'USD',
-        value: (Number(totalMsrpPrice) + shipping).toFixed(2),
+        value: (Number(orderTotal) + shipping).toFixed(2),
         breakdown: {
           item_total: {
             currency_code: 'USD',
-            value: totalMsrpPrice.toString(),
+            value: orderTotal.toString(),
           },
           shipping: {
             currency_code: 'USD',
@@ -89,7 +92,7 @@ export async function paypalCreateOrder(
     },
   ];
   // console.log('Paypal Create body:', {
-  //   order_price: totalMsrpPrice,
+  //   order_price: orderTotal,
   //   // This one kinda useless, thinking about to do with it
   //   user_id: new Date().toISOString(),
   //   purchase_units,
@@ -102,7 +105,7 @@ export async function paypalCreateOrder(
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        order_price: totalMsrpPrice,
+        order_price: orderTotal,
         // This one kinda useless, thinking about to do with it
         user_id: new Date().toISOString(),
         purchase_units,

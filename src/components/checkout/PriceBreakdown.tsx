@@ -14,17 +14,11 @@ export default function PriceBreakdown() {
     isCartPreorder,
     getTotalPreorderDiscount,
   } = useCartContext();
-  const totalMsrpPrice = (getCartTotalPrice() + shipping).toFixed(
-    2
-  ) as unknown as number;
-  const totalDiscountedPrice = getTotalDiscountPrice().toFixed(
-    2
-  ) as unknown as number;
-  const orderSubtotal = getOrderSubtotal().toFixed(2) as unknown as number;
+  const orderTotal = (getCartTotalPrice() + shipping + tax).toFixed(2);
+  const totalDiscountedPrice = getTotalDiscountPrice().toFixed(2);
+  const orderSubtotal = getOrderSubtotal().toFixed(2);
 
-  const totalPreorderDiscount = getTotalPreorderDiscount().toFixed(
-    2
-  ) as unknown as number;
+  const totalPreorderDiscount = getTotalPreorderDiscount().toFixed(2);
 
   const shippingText = shipping === 0 ? 'FREE' : `$${shipping}`;
   const isCartEmpty = getTotalCartQuantity() === 0;
@@ -58,14 +52,14 @@ export default function PriceBreakdown() {
               Estimated Tax <EstimatedTaxPopover />
             </div>
 
-            <div>{showTax ? `${tax.toFixed(2)}` : '----'}</div>
+            <div>{showTax ? `$${tax.toFixed(2)}` : '----'}</div>
           </div>
         </>
       )}
       <div className="pb-3 pt-[26px]">
         <div className="flex justify-between border-y border-[#C8C7C7] py-5 font-semibold lg:flex-row lg:justify-between lg:font-bold">
           <div>Order Total: </div>
-          <div>${totalMsrpPrice}</div>
+          <div>${orderTotal}</div>
         </div>
       </div>
     </div>

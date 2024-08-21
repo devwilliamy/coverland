@@ -1,15 +1,13 @@
-import { ShippingAddress } from '@stripe/stripe-js';
 import { TCartItem } from '../cart/useCart';
-import { useCartContext } from '@/providers/CartProvider';
-import { useCheckoutContext } from '@/contexts/CheckoutContext';
 import { getCartTotalPrice } from '../utils/calculations';
+import { StripeAddress } from '../types/checkout';
 
 const handleTaxjarCalculation = async (
-  cartItems,
-  shipping,
-  shippingAddress,
-  twoLetterStateCode
+  cartItems: TCartItem[],
+  shipping: number,
+  shippingAddress: StripeAddress
 ) => {
+  console.log('ShippingAddres:', { shippingAddress });
   const cartMSRP = getCartTotalPrice(cartItems) + shipping;
 
   const taxItems = cartItems.map((item, index) => ({
@@ -22,7 +20,7 @@ const handleTaxjarCalculation = async (
   const bodyData = {
     to_country: shippingAddress.address.country,
     to_zip: shippingAddress.address.postal_code,
-    to_state: twoLetterStateCode,
+    to_state: shippingAddress.address.state,
     shipping: shipping,
     line_items: taxItems,
   };
@@ -35,7 +33,7 @@ const handleTaxjarCalculation = async (
   });
 
   const taxData = await response.json();
-  console.log('TaxData:', taxData);
+  console.log('TaxData:', JSON.stringify(taxData, null, 2));
   const amount_to_collect = taxData?.tax?.amount_to_collect;
   return amount_to_collect;
 

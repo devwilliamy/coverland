@@ -47,6 +47,7 @@ export default function PayPalButtonSection({
     customerInfo,
     billingAddress,
     isBillingSameAsShipping,
+    tax,
   } = useCheckoutContext();
 
   const {
@@ -67,7 +68,9 @@ export default function PayPalButtonSection({
     delivery_fee: shipping,
   };
   const router = useRouter();
-  const totalMsrpPrice = getCartTotalPrice().toFixed(2) as unknown as number;
+  const orderTotal = (getCartTotalPrice() + shipping + tax).toFixed(
+    2
+  ) as unknown as number;
   const preOrderTimeDifferenceText: string = isCartPreorder
     ? `approximately ${weeksFromCurrentDate(cartPreorderDate)} weeks from the date of purchase.`
     : 'noted above.'; // If some random failure happens with checkTimeDifference, default here
@@ -95,7 +98,7 @@ export default function PayPalButtonSection({
           createOrder={async () => {
             setMessage(''); // If there was an error message previously, reset it
             const data = await paypalCreateOrder(
-              totalMsrpPrice,
+              orderTotal,
               cartItems,
               orderNumber,
               shipping,
@@ -174,7 +177,7 @@ export default function PayPalButtonSection({
                   // products
                   totalItemQuantity: getTotalCartQuantity(),
                   subtotal: getOrderSubtotal().toFixed(2),
-                  total: (getCartTotalPrice() + shipping).toFixed(2), // may need to add taxes later
+                  total: orderTotal, // may need to add taxes later
                   totalDiscount: getTotalDiscountPrice().toFixed(2),
                   totalPreorderDiscount: getTotalPreorderDiscount().toFixed(2),
                   isPreorder: isCartPreorder,
@@ -296,7 +299,7 @@ export default function PayPalButtonSection({
                 const skuLabOrderInput = generateSkuLabOrderInput({
                   orderNumber,
                   cartItems,
-                  totalMsrpPrice,
+                  orderTotal,
                   shippingAddress,
                   customerInfo,
                   paymentMethod: 'Paypal',
