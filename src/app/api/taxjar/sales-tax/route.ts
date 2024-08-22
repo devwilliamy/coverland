@@ -22,8 +22,6 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
 
     const data: TaxJarResponse = await res.json();
 
-    console.log({ data, bodyData: JSON.stringify(bodyData, null, 2) });
-
     if (isTaxJarErrorResponse(data)) {
       return NextResponse.json(data, { status: data.status });
     }

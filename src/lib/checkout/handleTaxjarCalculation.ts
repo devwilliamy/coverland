@@ -144,7 +144,7 @@ async function updateTaxColumnsInDB(
       }
     }
   } else {
-    console.log(
+    console.warn(
       'No detailed tax breakdown available. Skipping detailed tax entry updates.'
     );
   }
@@ -167,8 +167,6 @@ export async function handleTaxjarCalculation(
   orderNumber: string
 ): Promise<number> {
   try {
-    console.log('ShippingAddress:', { shippingAddress });
-
     const bodyData = prepareTaxJarRequestBody(
       cartItems,
       shipping,
@@ -183,14 +181,11 @@ export async function handleTaxjarCalculation(
 
     await updateTaxColumnsInDB(orderId, orderNumber, taxData);
 
-    console.log('TaxData:', JSON.stringify(taxData, null, 2));
-
     const amountToCollect = taxData.tax.amount_to_collect ?? 0;
 
     return amountToCollect;
   } catch (error: unknown) {
     console.error('Error in TaxJar calculation:', error);
-
     if (error instanceof TaxJarApiError) {
       throw error; // Re-throw the TaxJarApiError to bubble up to the frontend
     } else if (error instanceof Error) {
