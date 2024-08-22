@@ -1,3 +1,6 @@
+/**
+ * This class is made to mimic calculations in useCart and is able to use them outside of the hook rules
+ */
 import { IProductData } from '@/utils';
 import { TCartItem } from '../cart/useCart';
 import { TSeatCoverDataDB } from '../db/seat-covers';
@@ -30,6 +33,27 @@ export const getTotalDiscountPrice = (cartItems: TCartItem[]) => {
   return cartItems.reduce(
     (total, item) =>
       total + Number(Number(item.price) - Number(item.msrp)) * item.quantity,
+    0
+  );
+};
+
+export const getTotalDiscountPricePlusPreorder = (cartItems: TCartItem[]) => {
+  return cartItems.reduce(
+    (total, item) =>
+      total +
+      Number(
+        Number(item.price) - Number(item.msrp) + Number(item?.preorder_discount)
+      ) *
+        item.quantity,
+    0
+  );
+};
+
+export const getTotalPreorderDiscount = (cartItems: TCartItem[]) => {
+  return cartItems.reduce(
+    (total, item) =>
+      total +
+      (item.preorder ? Number(item.preorder_discount) * item.quantity : 0),
     0
   );
 };
