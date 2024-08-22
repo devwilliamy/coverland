@@ -4,9 +4,12 @@ import { updateAdminPanelOrder } from '../db/admin-panel/orders';
 import { postTaxData } from '../db/taxjar';
 import { updateAdminPanelOrderItem } from '../db/admin-panel/orderItems';
 import {
+  TaxJarApiError,
+  TaxJarError,
   TaxJarLineItem,
   TaxJarRequestBody,
   TaxJarResponse,
+  isTaxJarErrorResponse,
 } from '../types/taxjar';
 
 // Prepare tax items from cart items
@@ -39,21 +42,30 @@ function prepareTaxJarRequestBody(
 async function getTaxJarTaxData(
   bodyData: TaxJarRequestBody
 ): Promise<TaxJarResponse> {
-  const response = await fetch('/api/taxjar/sales-tax', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({ bodyData }),
-  });
+  try {
+    const response = await fetch('/api/taxjar/sales-tax', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ bodyData }),
+    });
 
-  if (!response.ok) {
-    throw new Error(`HTTP error! status: ${response.status}`);
+    const data: TaxJarResponse = await response.json();
+
+    if (isTaxJarErrorResponse(data)) {
+      throw new TaxJarApiError(data);
+    }
+
+    return data;
+  } catch (error) {
+    if (error instanceof TaxJarApiError) {
+      throw error; // Re-throw TaxJarApiError
+    }
+    console.error('Error in getTaxJarTaxData:', error);
+    throw new Error('Failed to fetch tax data. Please try again later.');
   }
-
-  return response.json();
 }
-
 /**
  * Update Order, OrderItem, OrderTax tables with tax information
  * @param orderId
@@ -66,7 +78,7 @@ async function updateTaxColumnsInDB(
   taxData: TaxJarResponse
 ) {
   // Update database with tax information
-  const { tax } = taxData;
+  const { tax } = taxData as TaxJarResponse;
 
   // Update Orders table
   try {
@@ -147,22 +159,36 @@ export async function handleTaxjarCalculation(
 ): Promise<number> {
   try {
     console.log('ShippingAddress:', { shippingAddress });
-    debugger;
+
     const bodyData = prepareTaxJarRequestBody(
       cartItems,
       shipping,
       shippingAddress
     );
+
     const taxData = await getTaxJarTaxData(bodyData);
+
+    if (isTaxJarErrorResponse(taxData)) {
+      throw new Error(`TaxJar API Error: ${taxData.error} ${taxData.detail}`);
+    }
+
     await updateTaxColumnsInDB(orderId, orderNumber, taxData);
 
     console.log('TaxData:', JSON.stringify(taxData, null, 2));
-    const amountToCollect = taxData?.tax?.amount_to_collect ?? 0;
+
+    const amountToCollect = taxData.tax.amount_to_collect ?? 0;
 
     return amountToCollect;
-  } catch (error) {
+  } catch (error: unknown) {
     console.error('Error in TaxJar calculation:', error);
-    throw error;
+
+    if (error instanceof TaxJarApiError) {
+      throw error; // Re-throw the TaxJarApiError to bubble up to the frontend
+    } else if (error instanceof Error) {
+      throw new Error(`Failed to calculate tax: ${error.message}`);
+    } else {
+      throw new Error('An unexpected error occurred while calculating tax');
+    }
   }
 }
 

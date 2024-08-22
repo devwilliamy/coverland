@@ -92,7 +92,7 @@
   }
 }
  */
-export type TaxJarResponse = {
+export type TaxJarSuccessResponse = {
   tax: {
     amount_to_collect: number;
     breakdown: {
@@ -119,6 +119,20 @@ export type TaxJarResponse = {
   };
 };
 
+/**
+ * * Tax Jar Error Example
+ * @example
+ * {
+    status: 400,
+    error: 'Bad Request',
+    detail: 'to_zip 92782 is not used within to_state ME'
+  }
+ */
+export type TaxJarErrorResponse = {
+  status: number;
+  error: string;
+  detail: string;
+};
 export type TaxJarLineItem = {
   // Define the structure of a tax item
   // For example:
@@ -166,3 +180,23 @@ export type TaxJarRequestBody = {
   shipping: number;
   line_items: TaxJarLineItem[];
 };
+
+export type TaxJarResponse = TaxJarSuccessResponse | TaxJarErrorResponse;
+
+export function isTaxJarErrorResponse(
+  response: TaxJarResponse
+): response is TaxJarErrorResponse {
+  return 'error' in response && 'status' in response;
+}
+
+export class TaxJarApiError extends Error {
+  status: number;
+  detail: string;
+
+  constructor(errorResponse: TaxJarErrorResponse) {
+    super(errorResponse.error);
+    this.name = 'TaxJarApiError';
+    this.status = errorResponse.status;
+    this.detail = errorResponse.detail;
+  }
+}
