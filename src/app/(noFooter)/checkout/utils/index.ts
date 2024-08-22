@@ -1,7 +1,7 @@
 import { TCartItem } from '@/lib/cart/useCart';
 import { updateAdminPanelOrder } from '@/lib/db/admin-panel/orders';
 import { StripeAddress } from '@/lib/types/checkout';
-import { PaypalShipping } from '@/lib/types/paypal';
+import { PayPalPurchaseUnits, PaypalShipping } from '@/lib/types/paypal';
 import {
   mapPaypalCaptureCreateToOrder,
   mapPaypalCompletionToOrder,
@@ -22,11 +22,13 @@ function isValidShippingAddress({ address }: PaypalShipping) {
 }
 
 export async function paypalCreateOrder(
-  orderTotal: number,
+  orderTotal: number, // Currently being passed in a string pretending to be a number
   items: TCartItem[],
   orderId: string,
   shipping: number,
-  shippingAddress: StripeAddress
+  shippingAddress: StripeAddress,
+  tax: number, // these are actual numbers
+  cartTotal: number // these are actual numbers
 ): Promise<string | null> {
   const itemsForPaypal = items.map((item) => {
     const itemPrice =
@@ -63,7 +65,7 @@ export async function paypalCreateOrder(
   //   shippingForPaypal,
   //   valid: isValidShippingAddress(shippingForPaypal),
   // });
-  const purchase_units = [
+  const purchase_units: PayPalPurchaseUnits = [
     {
       reference_id: orderId, // order-id
       custom_id: orderId, //order-id
@@ -72,21 +74,22 @@ export async function paypalCreateOrder(
         ? shippingForPaypal
         : null,
       amount: {
+        // Not sure if these need to be wrapped in Number, but orderTotal is being weird so just making sure they're strings
         currency_code: 'USD',
-        value: (Number(orderTotal) + shipping).toFixed(2),
+        value: Number(orderTotal).toFixed(2),
         breakdown: {
           item_total: {
             currency_code: 'USD',
-            value: orderTotal.toString(),
+            value: cartTotal.toFixed(2),
           },
           shipping: {
             currency_code: 'USD',
-            value: shipping.toString(),
+            value: shipping.toFixed(2),
           },
-          // tax_total: {
-          //   currency_code: "USD",
-          //   value:""
-          // }
+          tax_total: {
+            currency_code: 'USD',
+            value: tax.toFixed(2),
+          },
         },
       },
     },

@@ -68,13 +68,15 @@ export default function PayPalButtonSection({
     delivery_fee: shipping,
   };
   const router = useRouter();
-  const orderTotal = (getCartTotalPrice() + shipping + tax).toFixed(
+  const cartTotal = getCartTotalPrice();
+  
+  // Not completely sure if this needs to be a number or a string... it's currently a string...pretending to a be number
+  const orderTotal = (cartTotal + shipping + tax).toFixed(
     2
   ) as unknown as number;
   const preOrderTimeDifferenceText: string = isCartPreorder
     ? `approximately ${weeksFromCurrentDate(cartPreorderDate)} weeks from the date of purchase.`
     : 'noted above.'; // If some random failure happens with checkTimeDifference, default here
-
   return (
     <PayPalScriptProvider
       options={{
@@ -102,7 +104,9 @@ export default function PayPalButtonSection({
               cartItems,
               orderNumber,
               shipping,
-              isBillingSameAsShipping ? shippingAddress : billingAddress
+              isBillingSameAsShipping ? shippingAddress : billingAddress,
+              tax,
+              cartTotal
             );
             if (!data) {
               console.log('Error creating order');
