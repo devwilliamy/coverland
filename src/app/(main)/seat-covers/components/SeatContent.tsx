@@ -70,7 +70,8 @@ export default function SeatContent({
     if (!selectedProduct.sku) {
       const params = {
         ...searchParams,
-        submodel1: searchParams.submodel,
+        type: 'Seat Covers',
+        submodel1: searchParams.submodel, // Because the search params is submodel instead of submodel1
       };
       addToCart({ ...selectedProduct, ...params, quantity: 1 });
     } else if (newMSRP !== 0) {

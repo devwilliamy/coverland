@@ -52,6 +52,7 @@ export default function EditVehicleDropdown({
     model: '',
     submodel1: '',
     submodel2: '',
+    submodel3: '',
     typeId: '',
     yearId: '',
     makeId: '',
@@ -60,8 +61,16 @@ export default function EditVehicleDropdown({
   const [loading, setLoading] = useState(false);
   const [jsonData, setJsonData] = useState<TProductJsonData[]>([]);
   const router = useRouter();
-  const { year, type, make, model, submodel1, submodel2, parent_generation } =
-    query;
+  const {
+    year,
+    type,
+    make,
+    model,
+    submodel1,
+    submodel2,
+    submodel3,
+    parent_generation,
+  } = query;
   useEffect(() => {
     const getSearchData = async () => {
       try {
@@ -153,7 +162,10 @@ export default function EditVehicleDropdown({
     const submodel2Param = searchParams?.second_submodel
       ? `&${createQueryString('submodel2', searchParams.second_submodel)}`
       : '';
-    const queryParams = [submodelParam, submodel2Param]
+    const submodel3Param = searchParams?.third_submodel
+      ? `&${createQueryString('submodel3', searchParams.third_submodel)}`
+      : '';
+    const queryParams = [submodelParam, submodel2Param, submodel3Param]
       .filter((param) => param)
       .join('&');
     const currentUrl = `${pathname}${queryParams ? `${queryParams}` : ''}`;
@@ -163,6 +175,9 @@ export default function EditVehicleDropdown({
     if (submodel2) {
       url += `&${createQueryString('submodel2', submodel2)}`;
     }
+    if (submodel3) {
+      url += `&${createQueryString('submodel3', submodel3)}`;
+    }
 
     if (url === currentUrl) {
       setLoading(false);
@@ -170,7 +185,7 @@ export default function EditVehicleDropdown({
       return;
     }
     // refreshRoute('/');
-    if (submodel1 || submodel2) {
+    if (submodel1 || submodel2 || submodel3) {
       window.location.href = url;
     } else {
       router.push(url);
