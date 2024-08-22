@@ -22,6 +22,7 @@ export type StripeData = {
   paymentIntentId: string;
   clientSecret: string;
   orderNumber: string;
+  orderId: number;
 };
 
 export type CardErrorData = {
@@ -43,6 +44,7 @@ export type CheckoutContextType = {
   setShowTax: (showTax: boolean) => void;
   clientSecret: string;
   orderNumber: string;
+  orderId: number;
   billingAddress: StripeAddress;
   updateAddressComplete: (address: StripeAddress) => void;
   updateBillingAddress: (address: StripeAddress) => void;
@@ -103,6 +105,7 @@ export const CheckoutContext = createContext<CheckoutContextType>({
   setShowTax: () => {},
   clientSecret: '',
   orderNumber: '',
+  orderId: 0,
   billingAddress: {
     name: '',
     address: {
@@ -185,6 +188,7 @@ const CheckoutProvider: FC<CheckoutProviderProps> = ({ children }) => {
     paymentIntentId: '',
     clientSecret: '',
     orderNumber: '',
+    orderId: 0,
   });
   const [isReadyToPay, setIsReadyToPay] = useState(false);
   const [paymentMethod, setPaymentMethod] =
@@ -355,6 +359,7 @@ const CheckoutProvider: FC<CheckoutProviderProps> = ({ children }) => {
         setShowTax,
         clientSecret: stripeData.clientSecret,
         orderNumber: stripeData.orderNumber,
+        orderId: stripeData.orderId,
         billingAddress,
         updateAddressComplete,
         updateBillingAddress,

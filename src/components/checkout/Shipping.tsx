@@ -8,6 +8,9 @@ import AddressForm from './AddressForm';
 import { shippingOptions } from './ShippingOptions';
 import handleTaxjarCalculation from '@/lib/checkout/handleTaxjarCalculation';
 import { useCartContext } from '@/providers/CartProvider';
+import { updateStripePaymentIntent } from '@/lib/stripe/paymentIntent';
+import { updateAdminPanelOrder } from '@/lib/db/admin-panel/orders';
+import { convertPriceToStripeFormat } from '@/lib/utils/stripe';
 
 type ShippingProps = {
   handleChangeAccordion: (accordionTitle: string) => void;
@@ -21,7 +24,7 @@ export default function Shipping({
   // const [isEditingAddress, setIsEditingAddress] = useState(true);
   const [isEditingShipping, setIsEditingShipping] = useState(true);
   const [isSelectingPayment, setIsSelectingPayment] = useState(false);
-  const { cartItems } = useCartContext();
+  const { cartItems, getCartTotalPrice } = useCartContext();
   const {
     // isAddressComplete
     isEditingAddress,
@@ -39,22 +42,39 @@ export default function Shipping({
     updateIsReadyToPay,
     setTax,
     setShowTax,
+    orderId,
+    orderNumber,
+    paymentIntentId,
   } = useCheckoutContext();
 
   const { line1, line2, city, state, postal_code } = shippingAddress.address;
 
+  // Calculates tax and updates appropriate tables and Stripe PaymentIntentID
   const handleToPayment = async () => {
     const tax = await handleTaxjarCalculation(
       cartItems,
       shipping,
-      shippingAddress
+      shippingAddress,
+      orderId,
+      orderNumber
     );
+    const orderTotal = (getCartTotalPrice() + shipping + tax).toFixed(
+      2
+    ) as unknown as number;
+    const orderTotalStripeFormat = convertPriceToStripeFormat(orderTotal);
+    await updateStripePaymentIntent({
+      paymentIntentId,
+      amount: orderTotalStripeFormat,
+      metadata: {
+        tax,
+      },
+    });
+    await updateAdminPanelOrder({ total_amount: orderTotal }, orderNumber);
     setTax(tax);
     setShowTax(true);
     setIsEditingShipping(false);
     toggleIsShippingAddressShown(false);
     updateIsReadyToShip(true);
-    // handleSelectTab('payment');
     handleChangeAccordion('payment');
   };
 

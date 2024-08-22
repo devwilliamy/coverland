@@ -89,6 +89,7 @@ export default function CheckoutAccordion() {
   } = useCheckoutContext();
 
   const orderSubtotal = getOrderSubtotal().toFixed(2);
+  // TODO: Figure out a way to get a function for orderTotal
   const orderTotal = (getCartTotalPrice() + shipping + tax).toFixed(
     2
   ) as unknown as number;

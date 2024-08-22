@@ -108,3 +108,38 @@ export const postAdminPanelOrderItem = async (
     console.error('An unexpected error occurred:', error);
   }
 };
+
+export const updateAdminPanelOrderItem = async (
+  orderItem,
+  orderItem_id,
+  orderId
+) => {
+  if (!orderItem_id) {
+    console.error('Order Item ID is required');
+    return;
+  }
+
+  try {
+    const { data, error } = await supabaseAdminPanelDatabaseClient
+      .from(ADMIN_PANEL_ORDER_ITEMS)
+      .update(orderItem)
+      .eq('product_id', orderItem_id)
+      .eq('order_id', orderId)
+      .select('*');
+
+    if (error) {
+      if (Number(error.code) === 23505) {
+        console.error('Order Item Already Exists');
+      } else {
+        console.error('An error occurred:', error.message);
+      }
+    }
+
+    if (data && data?.length === 0) {
+      console.error('No order found with the specified ID');
+    }
+    return data;
+  } catch (error) {
+    console.error('An unexpected error occurred:', error);
+  }
+};

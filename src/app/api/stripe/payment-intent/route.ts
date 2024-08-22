@@ -3,6 +3,8 @@ import {
   getCartTotalPrice,
   getOrderSubtotal,
   getTotalDiscountPrice,
+  getTotalDiscountPricePlusPreorder,
+  getTotalPreorderDiscount,
 } from '@/lib/utils/calculations';
 import {
   convertPriceToStripeFormat,
@@ -28,7 +30,7 @@ const calculateOrderTotalOriginalAmount = (items: TCartItem[]) => {
 };
 
 const calculateOrderTotalDiscountAmount = (items: TCartItem[]) => {
-  return getTotalDiscountPrice(items);
+  return getTotalDiscountPricePlusPreorder(items);
 };
 
 export async function POST(request: NextRequest) {
@@ -76,12 +78,12 @@ export async function POST(request: NextRequest) {
       skus: skus.join(','),
       skusWithQuantity: JSON.stringify(skusWithQuantity),
       line_items: veryFinalLineItem,
-      total_original_amount: calculateOrderTotalOriginalAmount(items)
-        .toFixed(2)
-        .toString(), // Stripe Payment Intent API requires all metadata to be sent as a string
-      total_discount_amount: calculateOrderTotalDiscountAmount(items)
-        .toFixed(2)
-        .toString(),
+      total_original_amount:
+        calculateOrderTotalOriginalAmount(items).toFixed(2), // Stripe Payment Intent API requires all metadata to be sent as a string
+      total_discount_amount:
+        calculateOrderTotalDiscountAmount(items).toFixed(2),
+      sale_discount_amount: getTotalDiscountPrice(items).toFixed(2),
+      preorder_discount_amount: getTotalPreorderDiscount(items).toFixed(2),
     },
   });
 
@@ -91,10 +93,11 @@ export async function POST(request: NextRequest) {
 }
 
 export async function PUT(request: NextRequest) {
-  const { paymentIntentId, amount } = await request.json();
+  const { paymentIntentId, amount, metadata } = await request.json();
 
   const paymentIntent = await stripe.paymentIntents.update(paymentIntentId, {
     amount,
+    metadata
   });
 
   return NextResponse.json({
