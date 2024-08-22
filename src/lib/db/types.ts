@@ -57,6 +57,7 @@ export type Database = {
           total_amount: number | null
           total_discount_amount: number | null
           total_original_amount: number | null
+          total_tax: number | null
           transaction_id: string | null
           updated_at: string | null
           wallet_type: string | null
@@ -108,6 +109,7 @@ export type Database = {
           total_amount?: number | null
           total_discount_amount?: number | null
           total_original_amount?: number | null
+          total_tax?: number | null
           transaction_id?: string | null
           updated_at?: string | null
           wallet_type?: string | null
@@ -159,6 +161,7 @@ export type Database = {
           total_amount?: number | null
           total_discount_amount?: number | null
           total_original_amount?: number | null
+          total_tax?: number | null
           transaction_id?: string | null
           updated_at?: string | null
           wallet_type?: string | null
@@ -172,6 +175,318 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
+      }
+      _Orders_20240812_backup: {
+        Row: {
+          billing_address_city: string | null
+          billing_address_country: string | null
+          billing_address_line_1: string | null
+          billing_address_line_2: string | null
+          billing_address_postal_code: string | null
+          billing_address_state: string | null
+          billing_customer_name: string | null
+          card_amount: number | null
+          card_brand: string | null
+          card_fingerprint: string | null
+          card_funding: string | null
+          created_at: string | null
+          created_at_pst: string | null
+          currency: string | null
+          customer_email: string | null
+          customer_id: number | null
+          customer_name: string | null
+          customer_phone: string | null
+          id: number | null
+          notes: string | null
+          order_date: string | null
+          order_id: string | null
+          payment_date: string | null
+          payment_gateway: string | null
+          payment_gateway_customer_id: string | null
+          payment_method: string | null
+          payment_method_id: string | null
+          payment_status: string | null
+          shipping_address_city: string | null
+          shipping_address_country: string | null
+          shipping_address_line_1: string | null
+          shipping_address_line_2: string | null
+          shipping_address_postal_code: string | null
+          shipping_address_state: string | null
+          shipping_carrier: string | null
+          shipping_previous_status: string | null
+          shipping_service: string | null
+          shipping_status: string | null
+          shipping_status_last_updated: string | null
+          shipping_status_last_updated_pst: string | null
+          shipping_tracking_number: string | null
+          skus: string | null
+          status: string | null
+          total_amount: number | null
+          total_discount_amount: number | null
+          total_original_amount: number | null
+          transaction_id: string | null
+          updated_at: string | null
+          wallet_type: string | null
+        }
+        Insert: {
+          billing_address_city?: string | null
+          billing_address_country?: string | null
+          billing_address_line_1?: string | null
+          billing_address_line_2?: string | null
+          billing_address_postal_code?: string | null
+          billing_address_state?: string | null
+          billing_customer_name?: string | null
+          card_amount?: number | null
+          card_brand?: string | null
+          card_fingerprint?: string | null
+          card_funding?: string | null
+          created_at?: string | null
+          created_at_pst?: string | null
+          currency?: string | null
+          customer_email?: string | null
+          customer_id?: number | null
+          customer_name?: string | null
+          customer_phone?: string | null
+          id?: number | null
+          notes?: string | null
+          order_date?: string | null
+          order_id?: string | null
+          payment_date?: string | null
+          payment_gateway?: string | null
+          payment_gateway_customer_id?: string | null
+          payment_method?: string | null
+          payment_method_id?: string | null
+          payment_status?: string | null
+          shipping_address_city?: string | null
+          shipping_address_country?: string | null
+          shipping_address_line_1?: string | null
+          shipping_address_line_2?: string | null
+          shipping_address_postal_code?: string | null
+          shipping_address_state?: string | null
+          shipping_carrier?: string | null
+          shipping_previous_status?: string | null
+          shipping_service?: string | null
+          shipping_status?: string | null
+          shipping_status_last_updated?: string | null
+          shipping_status_last_updated_pst?: string | null
+          shipping_tracking_number?: string | null
+          skus?: string | null
+          status?: string | null
+          total_amount?: number | null
+          total_discount_amount?: number | null
+          total_original_amount?: number | null
+          transaction_id?: string | null
+          updated_at?: string | null
+          wallet_type?: string | null
+        }
+        Update: {
+          billing_address_city?: string | null
+          billing_address_country?: string | null
+          billing_address_line_1?: string | null
+          billing_address_line_2?: string | null
+          billing_address_postal_code?: string | null
+          billing_address_state?: string | null
+          billing_customer_name?: string | null
+          card_amount?: number | null
+          card_brand?: string | null
+          card_fingerprint?: string | null
+          card_funding?: string | null
+          created_at?: string | null
+          created_at_pst?: string | null
+          currency?: string | null
+          customer_email?: string | null
+          customer_id?: number | null
+          customer_name?: string | null
+          customer_phone?: string | null
+          id?: number | null
+          notes?: string | null
+          order_date?: string | null
+          order_id?: string | null
+          payment_date?: string | null
+          payment_gateway?: string | null
+          payment_gateway_customer_id?: string | null
+          payment_method?: string | null
+          payment_method_id?: string | null
+          payment_status?: string | null
+          shipping_address_city?: string | null
+          shipping_address_country?: string | null
+          shipping_address_line_1?: string | null
+          shipping_address_line_2?: string | null
+          shipping_address_postal_code?: string | null
+          shipping_address_state?: string | null
+          shipping_carrier?: string | null
+          shipping_previous_status?: string | null
+          shipping_service?: string | null
+          shipping_status?: string | null
+          shipping_status_last_updated?: string | null
+          shipping_status_last_updated_pst?: string | null
+          shipping_tracking_number?: string | null
+          skus?: string | null
+          status?: string | null
+          total_amount?: number | null
+          total_discount_amount?: number | null
+          total_original_amount?: number | null
+          transaction_id?: string | null
+          updated_at?: string | null
+          wallet_type?: string | null
+        }
+        Relationships: []
+      }
+      _Orders_20240815_forIDFix_backup: {
+        Row: {
+          billing_address_city: string | null
+          billing_address_country: string | null
+          billing_address_line_1: string | null
+          billing_address_line_2: string | null
+          billing_address_postal_code: string | null
+          billing_address_state: string | null
+          billing_customer_name: string | null
+          card_amount: number | null
+          card_brand: string | null
+          card_fingerprint: string | null
+          card_funding: string | null
+          created_at: string | null
+          created_at_pst: string | null
+          currency: string | null
+          customer_email: string | null
+          customer_id: number | null
+          customer_name: string | null
+          customer_phone: string | null
+          id: number | null
+          notes: string | null
+          order_date: string | null
+          order_id: string | null
+          payment_date: string | null
+          payment_gateway: string | null
+          payment_gateway_customer_id: string | null
+          payment_method: string | null
+          payment_method_id: string | null
+          payment_status: string | null
+          shipping_address_city: string | null
+          shipping_address_country: string | null
+          shipping_address_line_1: string | null
+          shipping_address_line_2: string | null
+          shipping_address_postal_code: string | null
+          shipping_address_state: string | null
+          shipping_carrier: string | null
+          shipping_previous_status: string | null
+          shipping_service: string | null
+          shipping_status: string | null
+          shipping_status_last_updated: string | null
+          shipping_status_last_updated_pst: string | null
+          shipping_tracking_number: string | null
+          skus: string | null
+          status: string | null
+          total_amount: number | null
+          total_discount_amount: number | null
+          total_original_amount: number | null
+          transaction_id: string | null
+          updated_at: string | null
+          wallet_type: string | null
+        }
+        Insert: {
+          billing_address_city?: string | null
+          billing_address_country?: string | null
+          billing_address_line_1?: string | null
+          billing_address_line_2?: string | null
+          billing_address_postal_code?: string | null
+          billing_address_state?: string | null
+          billing_customer_name?: string | null
+          card_amount?: number | null
+          card_brand?: string | null
+          card_fingerprint?: string | null
+          card_funding?: string | null
+          created_at?: string | null
+          created_at_pst?: string | null
+          currency?: string | null
+          customer_email?: string | null
+          customer_id?: number | null
+          customer_name?: string | null
+          customer_phone?: string | null
+          id?: number | null
+          notes?: string | null
+          order_date?: string | null
+          order_id?: string | null
+          payment_date?: string | null
+          payment_gateway?: string | null
+          payment_gateway_customer_id?: string | null
+          payment_method?: string | null
+          payment_method_id?: string | null
+          payment_status?: string | null
+          shipping_address_city?: string | null
+          shipping_address_country?: string | null
+          shipping_address_line_1?: string | null
+          shipping_address_line_2?: string | null
+          shipping_address_postal_code?: string | null
+          shipping_address_state?: string | null
+          shipping_carrier?: string | null
+          shipping_previous_status?: string | null
+          shipping_service?: string | null
+          shipping_status?: string | null
+          shipping_status_last_updated?: string | null
+          shipping_status_last_updated_pst?: string | null
+          shipping_tracking_number?: string | null
+          skus?: string | null
+          status?: string | null
+          total_amount?: number | null
+          total_discount_amount?: number | null
+          total_original_amount?: number | null
+          transaction_id?: string | null
+          updated_at?: string | null
+          wallet_type?: string | null
+        }
+        Update: {
+          billing_address_city?: string | null
+          billing_address_country?: string | null
+          billing_address_line_1?: string | null
+          billing_address_line_2?: string | null
+          billing_address_postal_code?: string | null
+          billing_address_state?: string | null
+          billing_customer_name?: string | null
+          card_amount?: number | null
+          card_brand?: string | null
+          card_fingerprint?: string | null
+          card_funding?: string | null
+          created_at?: string | null
+          created_at_pst?: string | null
+          currency?: string | null
+          customer_email?: string | null
+          customer_id?: number | null
+          customer_name?: string | null
+          customer_phone?: string | null
+          id?: number | null
+          notes?: string | null
+          order_date?: string | null
+          order_id?: string | null
+          payment_date?: string | null
+          payment_gateway?: string | null
+          payment_gateway_customer_id?: string | null
+          payment_method?: string | null
+          payment_method_id?: string | null
+          payment_status?: string | null
+          shipping_address_city?: string | null
+          shipping_address_country?: string | null
+          shipping_address_line_1?: string | null
+          shipping_address_line_2?: string | null
+          shipping_address_postal_code?: string | null
+          shipping_address_state?: string | null
+          shipping_carrier?: string | null
+          shipping_previous_status?: string | null
+          shipping_service?: string | null
+          shipping_status?: string | null
+          shipping_status_last_updated?: string | null
+          shipping_status_last_updated_pst?: string | null
+          shipping_tracking_number?: string | null
+          skus?: string | null
+          status?: string | null
+          total_amount?: number | null
+          total_discount_amount?: number | null
+          total_original_amount?: number | null
+          transaction_id?: string | null
+          updated_at?: string | null
+          wallet_type?: string | null
+        }
+        Relationships: []
       }
       _Orders_backup_20240604_1658: {
         Row: {
@@ -305,170 +620,6 @@ export type Database = {
         }
         Relationships: []
       }
-      _Orders_duplicate: {
-        Row: {
-          billing_address_city: string | null
-          billing_address_country: string | null
-          billing_address_line_1: string | null
-          billing_address_line_2: string | null
-          billing_address_postal_code: string | null
-          billing_address_state: string | null
-          billing_customer_name: string | null
-          card_amount: number | null
-          card_brand: string | null
-          card_fingerprint: string | null
-          card_funding: string | null
-          created_at: string | null
-          created_at_pst: string | null
-          currency: string | null
-          customer_email: string | null
-          customer_id: number | null
-          customer_name: string | null
-          customer_phone: string | null
-          id: number
-          notes: string | null
-          order_date: string | null
-          order_id: string | null
-          payment_date: string | null
-          payment_gateway: string | null
-          payment_gateway_customer_id: string | null
-          payment_method: string | null
-          payment_method_id: string | null
-          payment_status: string | null
-          shipping_address_city: string | null
-          shipping_address_country: string | null
-          shipping_address_line_1: string | null
-          shipping_address_line_2: string | null
-          shipping_address_postal_code: string | null
-          shipping_address_state: string | null
-          shipping_carrier: string | null
-          shipping_previous_status: string | null
-          shipping_service: string | null
-          shipping_status: string | null
-          shipping_status_last_updated: string | null
-          shipping_status_last_updated_pst: string | null
-          shipping_tracking_number: string | null
-          skus: string | null
-          status: string | null
-          total_amount: number | null
-          total_discount_amount: number | null
-          total_original_amount: number | null
-          transaction_id: string | null
-          updated_at: string | null
-          wallet_type: string | null
-        }
-        Insert: {
-          billing_address_city?: string | null
-          billing_address_country?: string | null
-          billing_address_line_1?: string | null
-          billing_address_line_2?: string | null
-          billing_address_postal_code?: string | null
-          billing_address_state?: string | null
-          billing_customer_name?: string | null
-          card_amount?: number | null
-          card_brand?: string | null
-          card_fingerprint?: string | null
-          card_funding?: string | null
-          created_at?: string | null
-          created_at_pst?: string | null
-          currency?: string | null
-          customer_email?: string | null
-          customer_id?: number | null
-          customer_name?: string | null
-          customer_phone?: string | null
-          id?: number
-          notes?: string | null
-          order_date?: string | null
-          order_id?: string | null
-          payment_date?: string | null
-          payment_gateway?: string | null
-          payment_gateway_customer_id?: string | null
-          payment_method?: string | null
-          payment_method_id?: string | null
-          payment_status?: string | null
-          shipping_address_city?: string | null
-          shipping_address_country?: string | null
-          shipping_address_line_1?: string | null
-          shipping_address_line_2?: string | null
-          shipping_address_postal_code?: string | null
-          shipping_address_state?: string | null
-          shipping_carrier?: string | null
-          shipping_previous_status?: string | null
-          shipping_service?: string | null
-          shipping_status?: string | null
-          shipping_status_last_updated?: string | null
-          shipping_status_last_updated_pst?: string | null
-          shipping_tracking_number?: string | null
-          skus?: string | null
-          status?: string | null
-          total_amount?: number | null
-          total_discount_amount?: number | null
-          total_original_amount?: number | null
-          transaction_id?: string | null
-          updated_at?: string | null
-          wallet_type?: string | null
-        }
-        Update: {
-          billing_address_city?: string | null
-          billing_address_country?: string | null
-          billing_address_line_1?: string | null
-          billing_address_line_2?: string | null
-          billing_address_postal_code?: string | null
-          billing_address_state?: string | null
-          billing_customer_name?: string | null
-          card_amount?: number | null
-          card_brand?: string | null
-          card_fingerprint?: string | null
-          card_funding?: string | null
-          created_at?: string | null
-          created_at_pst?: string | null
-          currency?: string | null
-          customer_email?: string | null
-          customer_id?: number | null
-          customer_name?: string | null
-          customer_phone?: string | null
-          id?: number
-          notes?: string | null
-          order_date?: string | null
-          order_id?: string | null
-          payment_date?: string | null
-          payment_gateway?: string | null
-          payment_gateway_customer_id?: string | null
-          payment_method?: string | null
-          payment_method_id?: string | null
-          payment_status?: string | null
-          shipping_address_city?: string | null
-          shipping_address_country?: string | null
-          shipping_address_line_1?: string | null
-          shipping_address_line_2?: string | null
-          shipping_address_postal_code?: string | null
-          shipping_address_state?: string | null
-          shipping_carrier?: string | null
-          shipping_previous_status?: string | null
-          shipping_service?: string | null
-          shipping_status?: string | null
-          shipping_status_last_updated?: string | null
-          shipping_status_last_updated_pst?: string | null
-          shipping_tracking_number?: string | null
-          skus?: string | null
-          status?: string | null
-          total_amount?: number | null
-          total_discount_amount?: number | null
-          total_original_amount?: number | null
-          transaction_id?: string | null
-          updated_at?: string | null
-          wallet_type?: string | null
-        }
-        Relationships: [
-          {
-            foreignKeyName: "_Orders_duplicate_customer_id_fkey"
-            columns: ["customer_id"]
-            isOneToOne: false
-            referencedRelation: "users"
-            referencedColumns: ["id"]
-          },
-        ]
-      }
       _Orders_TEST: {
         Row: {
           billing_address_city: string | null
@@ -517,6 +668,7 @@ export type Database = {
           total_amount: number | null
           total_discount_amount: number | null
           total_original_amount: number | null
+          total_tax: number | null
           transaction_id: string | null
           updated_at: string | null
           wallet_type: string | null
@@ -568,6 +720,7 @@ export type Database = {
           total_amount?: number | null
           total_discount_amount?: number | null
           total_original_amount?: number | null
+          total_tax?: number | null
           transaction_id?: string | null
           updated_at?: string | null
           wallet_type?: string | null
@@ -619,6 +772,7 @@ export type Database = {
           total_amount?: number | null
           total_discount_amount?: number | null
           total_original_amount?: number | null
+          total_tax?: number | null
           transaction_id?: string | null
           updated_at?: string | null
           wallet_type?: string | null
@@ -626,173 +780,6 @@ export type Database = {
         Relationships: [
           {
             foreignKeyName: "_Orders_TEST_customer_id_fkey"
-            columns: ["customer_id"]
-            isOneToOne: false
-            referencedRelation: "users"
-            referencedColumns: ["id"]
-          },
-        ]
-      }
-      _Orders_TEST_duplicate: {
-        Row: {
-          billing_address_city: string | null
-          billing_address_country: string | null
-          billing_address_line_1: string | null
-          billing_address_line_2: string | null
-          billing_address_postal_code: string | null
-          billing_address_state: string | null
-          billing_customer_name: string | null
-          card_amount: number | null
-          card_brand: string | null
-          card_fingerprint: string | null
-          card_funding: string | null
-          created_at: string | null
-          created_at_pst: string | null
-          currency: string | null
-          customer_email: string | null
-          customer_id: number | null
-          customer_name: string | null
-          customer_phone: string | null
-          id: number
-          notes: string | null
-          order_date: string | null
-          order_id: string | null
-          payment_date: string | null
-          payment_gateway: string | null
-          payment_gateway_customer_id: string | null
-          payment_method: string | null
-          payment_method_id: string | null
-          payment_status: string | null
-          shipping_address_city: string | null
-          shipping_address_country: string | null
-          shipping_address_line_1: string | null
-          shipping_address_line_2: string | null
-          shipping_address_postal_code: string | null
-          shipping_address_state: string | null
-          shipping_carrier: string | null
-          shipping_previous_status: string | null
-          shipping_service: string | null
-          shipping_status: string | null
-          shipping_status_last_updated: string | null
-          shipping_status_last_updated_pst: string | null
-          shipping_tracking_number: string | null
-          skus: string | null
-          status: string | null
-          total_amount: number | null
-          total_discount_amount: number | null
-          total_original_amount: number | null
-          total_preorder_discount: number | null
-          transaction_id: string | null
-          updated_at: string | null
-          wallet_type: string | null
-        }
-        Insert: {
-          billing_address_city?: string | null
-          billing_address_country?: string | null
-          billing_address_line_1?: string | null
-          billing_address_line_2?: string | null
-          billing_address_postal_code?: string | null
-          billing_address_state?: string | null
-          billing_customer_name?: string | null
-          card_amount?: number | null
-          card_brand?: string | null
-          card_fingerprint?: string | null
-          card_funding?: string | null
-          created_at?: string | null
-          created_at_pst?: string | null
-          currency?: string | null
-          customer_email?: string | null
-          customer_id?: number | null
-          customer_name?: string | null
-          customer_phone?: string | null
-          id?: number
-          notes?: string | null
-          order_date?: string | null
-          order_id?: string | null
-          payment_date?: string | null
-          payment_gateway?: string | null
-          payment_gateway_customer_id?: string | null
-          payment_method?: string | null
-          payment_method_id?: string | null
-          payment_status?: string | null
-          shipping_address_city?: string | null
-          shipping_address_country?: string | null
-          shipping_address_line_1?: string | null
-          shipping_address_line_2?: string | null
-          shipping_address_postal_code?: string | null
-          shipping_address_state?: string | null
-          shipping_carrier?: string | null
-          shipping_previous_status?: string | null
-          shipping_service?: string | null
-          shipping_status?: string | null
-          shipping_status_last_updated?: string | null
-          shipping_status_last_updated_pst?: string | null
-          shipping_tracking_number?: string | null
-          skus?: string | null
-          status?: string | null
-          total_amount?: number | null
-          total_discount_amount?: number | null
-          total_original_amount?: number | null
-          total_preorder_discount?: number | null
-          transaction_id?: string | null
-          updated_at?: string | null
-          wallet_type?: string | null
-        }
-        Update: {
-          billing_address_city?: string | null
-          billing_address_country?: string | null
-          billing_address_line_1?: string | null
-          billing_address_line_2?: string | null
-          billing_address_postal_code?: string | null
-          billing_address_state?: string | null
-          billing_customer_name?: string | null
-          card_amount?: number | null
-          card_brand?: string | null
-          card_fingerprint?: string | null
-          card_funding?: string | null
-          created_at?: string | null
-          created_at_pst?: string | null
-          currency?: string | null
-          customer_email?: string | null
-          customer_id?: number | null
-          customer_name?: string | null
-          customer_phone?: string | null
-          id?: number
-          notes?: string | null
-          order_date?: string | null
-          order_id?: string | null
-          payment_date?: string | null
-          payment_gateway?: string | null
-          payment_gateway_customer_id?: string | null
-          payment_method?: string | null
-          payment_method_id?: string | null
-          payment_status?: string | null
-          shipping_address_city?: string | null
-          shipping_address_country?: string | null
-          shipping_address_line_1?: string | null
-          shipping_address_line_2?: string | null
-          shipping_address_postal_code?: string | null
-          shipping_address_state?: string | null
-          shipping_carrier?: string | null
-          shipping_previous_status?: string | null
-          shipping_service?: string | null
-          shipping_status?: string | null
-          shipping_status_last_updated?: string | null
-          shipping_status_last_updated_pst?: string | null
-          shipping_tracking_number?: string | null
-          skus?: string | null
-          status?: string | null
-          total_amount?: number | null
-          total_discount_amount?: number | null
-          total_original_amount?: number | null
-          total_preorder_discount?: number | null
-          transaction_id?: string | null
-          updated_at?: string | null
-          wallet_type?: string | null
-        }
-        Relationships: [
-          {
-            foreignKeyName: "_Orders_TEST_duplicate_customer_id_fkey"
             columns: ["customer_id"]
             isOneToOne: false
             referencedRelation: "users"
@@ -878,6 +865,618 @@ export type Database = {
         }
         Relationships: []
       }
+      car_cover_preorder_202408109: {
+        Row: {
+          banner: string | null
+          display_color: string | null
+          display_id: string | null
+          feature: string | null
+          gtin: string | null
+          id: number
+          make: string | null
+          make_slug: string | null
+          model: string | null
+          model_slug: string | null
+          MPN: string | null
+          msrp: number | null
+          parent_generation: string | null
+          preorder_date: string | null
+          preorder_discount: string | null
+          preorder_true: boolean | null
+          price: number | null
+          product: string | null
+          product_video_360: string | null
+          product_video_carousel: string | null
+          product_video_carousel_thumbnail: string | null
+          product_video_zoom: string | null
+          quantity: string | null
+          sku: string | null
+          "skulabs sku": string | null
+          submodel1: string | null
+          submodel2: string | null
+          submodel3: string | null
+          type: string | null
+          year_generation: string | null
+          year_options: string | null
+        }
+        Insert: {
+          banner?: string | null
+          display_color?: string | null
+          display_id?: string | null
+          feature?: string | null
+          gtin?: string | null
+          id: number
+          make?: string | null
+          make_slug?: string | null
+          model?: string | null
+          model_slug?: string | null
+          MPN?: string | null
+          msrp?: number | null
+          parent_generation?: string | null
+          preorder_date?: string | null
+          preorder_discount?: string | null
+          preorder_true?: boolean | null
+          price?: number | null
+          product?: string | null
+          product_video_360?: string | null
+          product_video_carousel?: string | null
+          product_video_carousel_thumbnail?: string | null
+          product_video_zoom?: string | null
+          quantity?: string | null
+          sku?: string | null
+          "skulabs sku"?: string | null
+          submodel1?: string | null
+          submodel2?: string | null
+          submodel3?: string | null
+          type?: string | null
+          year_generation?: string | null
+          year_options?: string | null
+        }
+        Update: {
+          banner?: string | null
+          display_color?: string | null
+          display_id?: string | null
+          feature?: string | null
+          gtin?: string | null
+          id?: number
+          make?: string | null
+          make_slug?: string | null
+          model?: string | null
+          model_slug?: string | null
+          MPN?: string | null
+          msrp?: number | null
+          parent_generation?: string | null
+          preorder_date?: string | null
+          preorder_discount?: string | null
+          preorder_true?: boolean | null
+          price?: number | null
+          product?: string | null
+          product_video_360?: string | null
+          product_video_carousel?: string | null
+          product_video_carousel_thumbnail?: string | null
+          product_video_zoom?: string | null
+          quantity?: string | null
+          sku?: string | null
+          "skulabs sku"?: string | null
+          submodel1?: string | null
+          submodel2?: string | null
+          submodel3?: string | null
+          type?: string | null
+          year_generation?: string | null
+          year_options?: string | null
+        }
+        Relationships: []
+      }
+      car_cover_preorder_202408109_2: {
+        Row: {
+          banner: string | null
+          display_color: string | null
+          display_id: string | null
+          feature: string | null
+          gtin: string | null
+          id: number
+          make: string | null
+          make_slug: string | null
+          model: string | null
+          model_slug: string | null
+          MPN: string | null
+          msrp: number | null
+          parent_generation: string | null
+          preorder_date: string | null
+          preorder_discount: number | null
+          preorder_true: boolean | null
+          price: number | null
+          product: string | null
+          product_video_360: string | null
+          product_video_carousel: string | null
+          product_video_carousel_thumbnail: string | null
+          product_video_zoom: string | null
+          quantity: string | null
+          sku: string | null
+          "skulabs sku": string | null
+          submodel1: string | null
+          submodel2: string | null
+          submodel3: string | null
+          type: string | null
+          year_generation: string | null
+          year_options: string | null
+        }
+        Insert: {
+          banner?: string | null
+          display_color?: string | null
+          display_id?: string | null
+          feature?: string | null
+          gtin?: string | null
+          id: number
+          make?: string | null
+          make_slug?: string | null
+          model?: string | null
+          model_slug?: string | null
+          MPN?: string | null
+          msrp?: number | null
+          parent_generation?: string | null
+          preorder_date?: string | null
+          preorder_discount?: number | null
+          preorder_true?: boolean | null
+          price?: number | null
+          product?: string | null
+          product_video_360?: string | null
+          product_video_carousel?: string | null
+          product_video_carousel_thumbnail?: string | null
+          product_video_zoom?: string | null
+          quantity?: string | null
+          sku?: string | null
+          "skulabs sku"?: string | null
+          submodel1?: string | null
+          submodel2?: string | null
+          submodel3?: string | null
+          type?: string | null
+          year_generation?: string | null
+          year_options?: string | null
+        }
+        Update: {
+          banner?: string | null
+          display_color?: string | null
+          display_id?: string | null
+          feature?: string | null
+          gtin?: string | null
+          id?: number
+          make?: string | null
+          make_slug?: string | null
+          model?: string | null
+          model_slug?: string | null
+          MPN?: string | null
+          msrp?: number | null
+          parent_generation?: string | null
+          preorder_date?: string | null
+          preorder_discount?: number | null
+          preorder_true?: boolean | null
+          price?: number | null
+          product?: string | null
+          product_video_360?: string | null
+          product_video_carousel?: string | null
+          product_video_carousel_thumbnail?: string | null
+          product_video_zoom?: string | null
+          quantity?: string | null
+          sku?: string | null
+          "skulabs sku"?: string | null
+          submodel1?: string | null
+          submodel2?: string | null
+          submodel3?: string | null
+          type?: string | null
+          year_generation?: string | null
+          year_options?: string | null
+        }
+        Relationships: []
+      }
+      car_cover_preorder_20240812: {
+        Row: {
+          banner: string | null
+          display_color: string | null
+          display_id: string | null
+          feature: string | null
+          id: number
+          make: string | null
+          make_slug: string | null
+          model: string | null
+          model_slug: string | null
+          msrp: number | null
+          parent_generation: string | null
+          preorder: boolean | null
+          preorder_date: string | null
+          preorder_discount: number | null
+          price: number | null
+          product: string | null
+          product_video_360: string | null
+          product_video_carousel: string | null
+          product_video_carousel_thumbnail: string | null
+          product_video_zoom: string | null
+          quantity: string | null
+          sku: string | null
+          "skulabs SKU": string | null
+          submodel1: string | null
+          submodel2: string | null
+          submodel3: string | null
+          type: string | null
+          year_generation: string | null
+          year_options: string | null
+        }
+        Insert: {
+          banner?: string | null
+          display_color?: string | null
+          display_id?: string | null
+          feature?: string | null
+          id: number
+          make?: string | null
+          make_slug?: string | null
+          model?: string | null
+          model_slug?: string | null
+          msrp?: number | null
+          parent_generation?: string | null
+          preorder?: boolean | null
+          preorder_date?: string | null
+          preorder_discount?: number | null
+          price?: number | null
+          product?: string | null
+          product_video_360?: string | null
+          product_video_carousel?: string | null
+          product_video_carousel_thumbnail?: string | null
+          product_video_zoom?: string | null
+          quantity?: string | null
+          sku?: string | null
+          "skulabs SKU"?: string | null
+          submodel1?: string | null
+          submodel2?: string | null
+          submodel3?: string | null
+          type?: string | null
+          year_generation?: string | null
+          year_options?: string | null
+        }
+        Update: {
+          banner?: string | null
+          display_color?: string | null
+          display_id?: string | null
+          feature?: string | null
+          id?: number
+          make?: string | null
+          make_slug?: string | null
+          model?: string | null
+          model_slug?: string | null
+          msrp?: number | null
+          parent_generation?: string | null
+          preorder?: boolean | null
+          preorder_date?: string | null
+          preorder_discount?: number | null
+          price?: number | null
+          product?: string | null
+          product_video_360?: string | null
+          product_video_carousel?: string | null
+          product_video_carousel_thumbnail?: string | null
+          product_video_zoom?: string | null
+          quantity?: string | null
+          sku?: string | null
+          "skulabs SKU"?: string | null
+          submodel1?: string | null
+          submodel2?: string | null
+          submodel3?: string | null
+          type?: string | null
+          year_generation?: string | null
+          year_options?: string | null
+        }
+        Relationships: []
+      }
+      car_cover_preorder_20240812_new_bkrd: {
+        Row: {
+          banner: string | null
+          display_color: string | null
+          display_id: string | null
+          feature: string | null
+          id: number
+          make: string | null
+          make_slug: string | null
+          model: string | null
+          model_slug: string | null
+          msrp: number | null
+          parent_generation: string | null
+          preorder_date: string | null
+          preorder_discount: number | null
+          preorder_true: boolean | null
+          price: number | null
+          product: string | null
+          product_video_360: string | null
+          product_video_carousel: string | null
+          product_video_carousel_thumbnail: string | null
+          product_video_zoom: string | null
+          quantity: string | null
+          sku: string | null
+          "skulabs sku": string | null
+          submodel1: string | null
+          submodel2: string | null
+          submodel3: string | null
+          type: string | null
+          year_generation: string | null
+          year_options: string | null
+        }
+        Insert: {
+          banner?: string | null
+          display_color?: string | null
+          display_id?: string | null
+          feature?: string | null
+          id: number
+          make?: string | null
+          make_slug?: string | null
+          model?: string | null
+          model_slug?: string | null
+          msrp?: number | null
+          parent_generation?: string | null
+          preorder_date?: string | null
+          preorder_discount?: number | null
+          preorder_true?: boolean | null
+          price?: number | null
+          product?: string | null
+          product_video_360?: string | null
+          product_video_carousel?: string | null
+          product_video_carousel_thumbnail?: string | null
+          product_video_zoom?: string | null
+          quantity?: string | null
+          sku?: string | null
+          "skulabs sku"?: string | null
+          submodel1?: string | null
+          submodel2?: string | null
+          submodel3?: string | null
+          type?: string | null
+          year_generation?: string | null
+          year_options?: string | null
+        }
+        Update: {
+          banner?: string | null
+          display_color?: string | null
+          display_id?: string | null
+          feature?: string | null
+          id?: number
+          make?: string | null
+          make_slug?: string | null
+          model?: string | null
+          model_slug?: string | null
+          msrp?: number | null
+          parent_generation?: string | null
+          preorder_date?: string | null
+          preorder_discount?: number | null
+          preorder_true?: boolean | null
+          price?: number | null
+          product?: string | null
+          product_video_360?: string | null
+          product_video_carousel?: string | null
+          product_video_carousel_thumbnail?: string | null
+          product_video_zoom?: string | null
+          quantity?: string | null
+          sku?: string | null
+          "skulabs sku"?: string | null
+          submodel1?: string | null
+          submodel2?: string | null
+          submodel3?: string | null
+          type?: string | null
+          year_generation?: string | null
+          year_options?: string | null
+        }
+        Relationships: []
+      }
+      csvhelper_20240820: {
+        Row: {
+          banner: string | null
+          display_color: string | null
+          display_id: string | null
+          display_set: string | null
+          feature: string | null
+          gtin: string | null
+          id: number | null
+          make: string | null
+          make_slug: string | null
+          model: string | null
+          model_slug: string | null
+          mpn: string | null
+          msrp: number | null
+          parent_generation: string | null
+          preorder: boolean | null
+          preorder_date: string | null
+          preorder_discount: number | null
+          price: number | null
+          product: string | null
+          product_video_360: string | null
+          product_video_carousel: string | null
+          product_video_carousel_thumbnail: string | null
+          product_video_zoom: string | null
+          quantity: string | null
+          sku: string | null
+          "skulabs SKU": string | null
+          submodel1: string | null
+          submodel2: string | null
+          submodel3: string | null
+          type: string | null
+          year_generation: string | null
+          year_options: string | null
+        }
+        Insert: {
+          banner?: string | null
+          display_color?: string | null
+          display_id?: string | null
+          display_set?: string | null
+          feature?: string | null
+          gtin?: string | null
+          id?: number | null
+          make?: string | null
+          make_slug?: string | null
+          model?: string | null
+          model_slug?: string | null
+          mpn?: string | null
+          msrp?: number | null
+          parent_generation?: string | null
+          preorder?: boolean | null
+          preorder_date?: string | null
+          preorder_discount?: number | null
+          price?: number | null
+          product?: string | null
+          product_video_360?: string | null
+          product_video_carousel?: string | null
+          product_video_carousel_thumbnail?: string | null
+          product_video_zoom?: string | null
+          quantity?: string | null
+          sku?: string | null
+          "skulabs SKU"?: string | null
+          submodel1?: string | null
+          submodel2?: string | null
+          submodel3?: string | null
+          type?: string | null
+          year_generation?: string | null
+          year_options?: string | null
+        }
+        Update: {
+          banner?: string | null
+          display_color?: string | null
+          display_id?: string | null
+          display_set?: string | null
+          feature?: string | null
+          gtin?: string | null
+          id?: number | null
+          make?: string | null
+          make_slug?: string | null
+          model?: string | null
+          model_slug?: string | null
+          mpn?: string | null
+          msrp?: number | null
+          parent_generation?: string | null
+          preorder?: boolean | null
+          preorder_date?: string | null
+          preorder_discount?: number | null
+          price?: number | null
+          product?: string | null
+          product_video_360?: string | null
+          product_video_carousel?: string | null
+          product_video_carousel_thumbnail?: string | null
+          product_video_zoom?: string | null
+          quantity?: string | null
+          sku?: string | null
+          "skulabs SKU"?: string | null
+          submodel1?: string | null
+          submodel2?: string | null
+          submodel3?: string | null
+          type?: string | null
+          year_generation?: string | null
+          year_options?: string | null
+        }
+        Relationships: []
+      }
+      fix_images_20240820: {
+        Row: {
+          banner: string | null
+          feature: string | null
+          id: number
+          product: string | null
+          product_video_360: string | null
+          product_video_carousel: string | null
+          product_video_carousel_thumbnail: string | null
+          product_video_zoom: string | null
+        }
+        Insert: {
+          banner?: string | null
+          feature?: string | null
+          id: number
+          product?: string | null
+          product_video_360?: string | null
+          product_video_carousel?: string | null
+          product_video_carousel_thumbnail?: string | null
+          product_video_zoom?: string | null
+        }
+        Update: {
+          banner?: string | null
+          feature?: string | null
+          id?: number
+          product?: string | null
+          product_video_360?: string | null
+          product_video_carousel?: string | null
+          product_video_carousel_thumbnail?: string | null
+          product_video_zoom?: string | null
+        }
+        Relationships: []
+      }
+      id_sku_being_updated_20240815: {
+        Row: {
+          created_at: string
+          id: number
+          new_display_color: string | null
+          new_display_set: string | null
+          new_id: number | null
+          new_make: string | null
+          new_model: string | null
+          new_parent_generation: string | null
+          new_sku: string | null
+          new_submodel1: string | null
+          new_submodel2: string | null
+          new_year_generation: string | null
+          old_display_color: string | null
+          old_display_set: string | null
+          old_id: number | null
+          old_make: string | null
+          old_model: string | null
+          old_new_id: number | null
+          old_parent_generation: string | null
+          old_sku: string | null
+          old_submodel1: string | null
+          old_submodel2: string | null
+          old_year_generation: string | null
+        }
+        Insert: {
+          created_at?: string
+          id?: number
+          new_display_color?: string | null
+          new_display_set?: string | null
+          new_id?: number | null
+          new_make?: string | null
+          new_model?: string | null
+          new_parent_generation?: string | null
+          new_sku?: string | null
+          new_submodel1?: string | null
+          new_submodel2?: string | null
+          new_year_generation?: string | null
+          old_display_color?: string | null
+          old_display_set?: string | null
+          old_id?: number | null
+          old_make?: string | null
+          old_model?: string | null
+          old_new_id?: number | null
+          old_parent_generation?: string | null
+          old_sku?: string | null
+          old_submodel1?: string | null
+          old_submodel2?: string | null
+          old_year_generation?: string | null
+        }
+        Update: {
+          created_at?: string
+          id?: number
+          new_display_color?: string | null
+          new_display_set?: string | null
+          new_id?: number | null
+          new_make?: string | null
+          new_model?: string | null
+          new_parent_generation?: string | null
+          new_sku?: string | null
+          new_submodel1?: string | null
+          new_submodel2?: string | null
+          new_year_generation?: string | null
+          old_display_color?: string | null
+          old_display_set?: string | null
+          old_id?: number | null
+          old_make?: string | null
+          old_model?: string | null
+          old_new_id?: number | null
+          old_parent_generation?: string | null
+          old_sku?: string | null
+          old_submodel1?: string | null
+          old_submodel2?: string | null
+          old_year_generation?: string | null
+        }
+        Relationships: []
+      }
       Make: {
         Row: {
           created_at: string
@@ -944,6 +1543,160 @@ export type Database = {
         }
         Relationships: []
       }
+      order_items_being_removed_20240816: {
+        Row: {
+          created_at: string | null
+          discount_amount: number | null
+          id: number | null
+          new_product_id: number | null
+          order_id: number | null
+          original_price: number | null
+          price: number | null
+          product_id: number | null
+          quantity: number | null
+          skus: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          discount_amount?: number | null
+          id?: number | null
+          new_product_id?: number | null
+          order_id?: number | null
+          original_price?: number | null
+          price?: number | null
+          product_id?: number | null
+          quantity?: number | null
+          skus?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          discount_amount?: number | null
+          id?: number | null
+          new_product_id?: number | null
+          order_id?: number | null
+          original_price?: number | null
+          price?: number | null
+          product_id?: number | null
+          quantity?: number | null
+          skus?: string | null
+        }
+        Relationships: []
+      }
+      order_items_being_removed_20240820: {
+        Row: {
+          created_at: string | null
+          discount_amount: number | null
+          id: number | null
+          new_product_id: number | null
+          order_id: number | null
+          original_price: number | null
+          price: number | null
+          product_id: number | null
+          quantity: number | null
+          skus: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          discount_amount?: number | null
+          id?: number | null
+          new_product_id?: number | null
+          order_id?: number | null
+          original_price?: number | null
+          price?: number | null
+          product_id?: number | null
+          quantity?: number | null
+          skus?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          discount_amount?: number | null
+          id?: number | null
+          new_product_id?: number | null
+          order_id?: number | null
+          original_price?: number | null
+          price?: number | null
+          product_id?: number | null
+          quantity?: number | null
+          skus?: string | null
+        }
+        Relationships: []
+      }
+      order_taxes: {
+        Row: {
+          id: number
+          jurisdiction: string
+          order_id: number
+          tax_amount: number
+          tax_rate: number
+          tax_type: string
+          taxable_amount: number
+        }
+        Insert: {
+          id?: number
+          jurisdiction: string
+          order_id: number
+          tax_amount: number
+          tax_rate: number
+          tax_type: string
+          taxable_amount: number
+        }
+        Update: {
+          id?: number
+          jurisdiction?: string
+          order_id?: number
+          tax_amount?: number
+          tax_rate?: number
+          tax_type?: string
+          taxable_amount?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "order_taxes_order_id_fkey"
+            columns: ["order_id"]
+            isOneToOne: false
+            referencedRelation: "_Orders"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      order_taxes_test: {
+        Row: {
+          id: number
+          jurisdiction: string
+          order_id: number
+          tax_amount: number
+          tax_rate: number
+          tax_type: string
+          taxable_amount: number
+        }
+        Insert: {
+          id?: number
+          jurisdiction: string
+          order_id: number
+          tax_amount: number
+          tax_rate: number
+          tax_type: string
+          taxable_amount: number
+        }
+        Update: {
+          id?: number
+          jurisdiction?: string
+          order_id?: number
+          tax_amount?: number
+          tax_rate?: number
+          tax_type?: string
+          taxable_amount?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "order_taxes_test_order_id_fkey"
+            columns: ["order_id"]
+            isOneToOne: false
+            referencedRelation: "_Orders_TEST"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       orderItems_table: {
         Row: {
           created_at: string
@@ -954,6 +1707,7 @@ export type Database = {
           price: number | null
           product_id: number | null
           quantity: number | null
+          tax_amount: number | null
         }
         Insert: {
           created_at?: string
@@ -964,6 +1718,7 @@ export type Database = {
           price?: number | null
           product_id?: number | null
           quantity?: number | null
+          tax_amount?: number | null
         }
         Update: {
           created_at?: string
@@ -974,6 +1729,7 @@ export type Database = {
           price?: number | null
           product_id?: number | null
           quantity?: number | null
+          tax_amount?: number | null
         }
         Relationships: [
           {
@@ -992,38 +1748,11 @@ export type Database = {
           },
         ]
       }
-      orderItems_table_20240618_backup: {
+      orderItems_table_20240812_backup: {
         Row: {
           created_at: string | null
-          id: number | null
-          order_id: number | null
-          price: number | null
-          product_id: number | null
-          quantity: number | null
-        }
-        Insert: {
-          created_at?: string | null
-          id?: number | null
-          order_id?: number | null
-          price?: number | null
-          product_id?: number | null
-          quantity?: number | null
-        }
-        Update: {
-          created_at?: string | null
-          id?: number | null
-          order_id?: number | null
-          price?: number | null
-          product_id?: number | null
-          quantity?: number | null
-        }
-        Relationships: []
-      }
-      orderItems_table_duplicate: {
-        Row: {
-          created_at: string
           discount_amount: number | null
-          id: number
+          id: number | null
           order_id: number | null
           original_price: number | null
           price: number | null
@@ -1031,9 +1760,9 @@ export type Database = {
           quantity: number | null
         }
         Insert: {
-          created_at?: string
+          created_at?: string | null
           discount_amount?: number | null
-          id?: number
+          id?: number | null
           order_id?: number | null
           original_price?: number | null
           price?: number | null
@@ -1041,9 +1770,75 @@ export type Database = {
           quantity?: number | null
         }
         Update: {
-          created_at?: string
+          created_at?: string | null
           discount_amount?: number | null
-          id?: number
+          id?: number | null
+          order_id?: number | null
+          original_price?: number | null
+          price?: number | null
+          product_id?: number | null
+          quantity?: number | null
+        }
+        Relationships: []
+      }
+      orderItems_table_20240815_forIDFix_backup: {
+        Row: {
+          created_at: string | null
+          discount_amount: number | null
+          id: number | null
+          order_id: number | null
+          original_price: number | null
+          price: number | null
+          product_id: number | null
+          quantity: number | null
+        }
+        Insert: {
+          created_at?: string | null
+          discount_amount?: number | null
+          id?: number | null
+          order_id?: number | null
+          original_price?: number | null
+          price?: number | null
+          product_id?: number | null
+          quantity?: number | null
+        }
+        Update: {
+          created_at?: string | null
+          discount_amount?: number | null
+          id?: number | null
+          order_id?: number | null
+          original_price?: number | null
+          price?: number | null
+          product_id?: number | null
+          quantity?: number | null
+        }
+        Relationships: []
+      }
+      orderItems_table_20240815_forIDFix_NEW: {
+        Row: {
+          created_at: string | null
+          discount_amount: number | null
+          id: number | null
+          order_id: number | null
+          original_price: number | null
+          price: number | null
+          product_id: number | null
+          quantity: number | null
+        }
+        Insert: {
+          created_at?: string | null
+          discount_amount?: number | null
+          id?: number | null
+          order_id?: number | null
+          original_price?: number | null
+          price?: number | null
+          product_id?: number | null
+          quantity?: number | null
+        }
+        Update: {
+          created_at?: string | null
+          discount_amount?: number | null
+          id?: number | null
           order_id?: number | null
           original_price?: number | null
           price?: number | null
@@ -1052,17 +1847,10 @@ export type Database = {
         }
         Relationships: [
           {
-            foreignKeyName: "orderItems_table_duplicate_order_id_fkey"
-            columns: ["order_id"]
-            isOneToOne: false
-            referencedRelation: "_Orders"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "orderItems_table_duplicate_product_id_fkey"
+            foreignKeyName: "orderItems_table_20240815_forIDFix_NEW_product_id_fkey"
             columns: ["product_id"]
             isOneToOne: false
-            referencedRelation: "Products_20240617_old"
+            referencedRelation: "Products_20240816_old_2"
             referencedColumns: ["id"]
           },
         ]
@@ -1077,6 +1865,8 @@ export type Database = {
           price: number | null
           product_id: number | null
           quantity: number | null
+          tax_amount: number | null
+          total_amount: number | null
         }
         Insert: {
           created_at?: string
@@ -1087,6 +1877,8 @@ export type Database = {
           price?: number | null
           product_id?: number | null
           quantity?: number | null
+          tax_amount?: number | null
+          total_amount?: number | null
         }
         Update: {
           created_at?: string
@@ -1097,6 +1889,8 @@ export type Database = {
           price?: number | null
           product_id?: number | null
           quantity?: number | null
+          tax_amount?: number | null
+          total_amount?: number | null
         }
         Relationships: [
           {
@@ -1110,7 +1904,48 @@ export type Database = {
             foreignKeyName: "orderItems_table_TEST_product_id_fkey"
             columns: ["product_id"]
             isOneToOne: false
-            referencedRelation: "Products"
+            referencedRelation: "Products_20240821_old"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      orderItems_table_TEST_20240815_forIDFix_NEW: {
+        Row: {
+          created_at: string | null
+          discount_amount: number | null
+          id: number | null
+          order_id: number | null
+          original_price: number | null
+          price: number | null
+          product_id: number | null
+          quantity: number | null
+        }
+        Insert: {
+          created_at?: string | null
+          discount_amount?: number | null
+          id?: number | null
+          order_id?: number | null
+          original_price?: number | null
+          price?: number | null
+          product_id?: number | null
+          quantity?: number | null
+        }
+        Update: {
+          created_at?: string | null
+          discount_amount?: number | null
+          id?: number | null
+          order_id?: number | null
+          original_price?: number | null
+          price?: number | null
+          product_id?: number | null
+          quantity?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "orderItems_table_TEST_20240815_forIDFix_NEW_product_id_fkey"
+            columns: ["product_id"]
+            isOneToOne: false
+            referencedRelation: "Products_20240816_old_2"
             referencedColumns: ["id"]
           },
         ]
@@ -1161,10 +1996,115 @@ export type Database = {
             foreignKeyName: "orderItems_table_TEST_duplicate_product_id_fkey"
             columns: ["product_id"]
             isOneToOne: false
-            referencedRelation: "Products"
+            referencedRelation: "Products_20240813_old"
             referencedColumns: ["id"]
           },
         ]
+      }
+      parent_generation_year_generation_fix_20240814: {
+        Row: {
+          banner: string | null
+          display_color: string | null
+          display_id: string | null
+          display_set: string | null
+          feature: string | null
+          gtin: string | null
+          id: number
+          make: string | null
+          make_slug: string | null
+          model: string | null
+          model_slug: string | null
+          mpn: string | null
+          msrp: number | null
+          parent_generation: string | null
+          preorder: string | null
+          preorder_date: string | null
+          preorder_discount: string | null
+          price: number | null
+          product: string | null
+          product_video_360: string | null
+          product_video_carousel: string | null
+          product_video_carousel_thumbnail: string | null
+          product_video_zoom: string | null
+          quantity: string | null
+          sku: string | null
+          "skulabs SKU": string | null
+          submodel1: string | null
+          submodel2: string | null
+          submodel3: string | null
+          type: string | null
+          year_generation: string | null
+          year_options: string | null
+        }
+        Insert: {
+          banner?: string | null
+          display_color?: string | null
+          display_id?: string | null
+          display_set?: string | null
+          feature?: string | null
+          gtin?: string | null
+          id: number
+          make?: string | null
+          make_slug?: string | null
+          model?: string | null
+          model_slug?: string | null
+          mpn?: string | null
+          msrp?: number | null
+          parent_generation?: string | null
+          preorder?: string | null
+          preorder_date?: string | null
+          preorder_discount?: string | null
+          price?: number | null
+          product?: string | null
+          product_video_360?: string | null
+          product_video_carousel?: string | null
+          product_video_carousel_thumbnail?: string | null
+          product_video_zoom?: string | null
+          quantity?: string | null
+          sku?: string | null
+          "skulabs SKU"?: string | null
+          submodel1?: string | null
+          submodel2?: string | null
+          submodel3?: string | null
+          type?: string | null
+          year_generation?: string | null
+          year_options?: string | null
+        }
+        Update: {
+          banner?: string | null
+          display_color?: string | null
+          display_id?: string | null
+          display_set?: string | null
+          feature?: string | null
+          gtin?: string | null
+          id?: number
+          make?: string | null
+          make_slug?: string | null
+          model?: string | null
+          model_slug?: string | null
+          mpn?: string | null
+          msrp?: number | null
+          parent_generation?: string | null
+          preorder?: string | null
+          preorder_date?: string | null
+          preorder_discount?: string | null
+          price?: number | null
+          product?: string | null
+          product_video_360?: string | null
+          product_video_carousel?: string | null
+          product_video_carousel_thumbnail?: string | null
+          product_video_zoom?: string | null
+          quantity?: string | null
+          sku?: string | null
+          "skulabs SKU"?: string | null
+          submodel1?: string | null
+          submodel2?: string | null
+          submodel3?: string | null
+          type?: string | null
+          year_generation?: string | null
+          year_options?: string | null
+        }
+        Relationships: []
       }
       "Product-Metadata": {
         Row: {
@@ -1289,27 +2229,15 @@ export type Database = {
         }
         Relationships: []
       }
-      Products_20240617_old: {
+      Products_20240617: {
         Row: {
-          banner: string | null
           display_color: string | null
           display_id: string | null
           display_set: string | null
-          feature: string | null
           id: number
           make: string | null
-          make_slug: string | null
           model: string | null
-          model_slug: string | null
-          msrp: number | null
           parent_generation: string | null
-          price: number | null
-          product: string | null
-          product_video_360: string | null
-          product_video_carousel: string | null
-          product_video_carousel_thumbnail: string | null
-          product_video_zoom: string | null
-          quantity: string | null
           sku: string | null
           "skulabs SKU": string | null
           submodel1: string | null
@@ -1317,28 +2245,15 @@ export type Database = {
           submodel3: string | null
           type: string | null
           year_generation: string | null
-          year_options: string | null
         }
         Insert: {
-          banner?: string | null
           display_color?: string | null
           display_id?: string | null
           display_set?: string | null
-          feature?: string | null
           id: number
           make?: string | null
-          make_slug?: string | null
           model?: string | null
-          model_slug?: string | null
-          msrp?: number | null
           parent_generation?: string | null
-          price?: number | null
-          product?: string | null
-          product_video_360?: string | null
-          product_video_carousel?: string | null
-          product_video_carousel_thumbnail?: string | null
-          product_video_zoom?: string | null
-          quantity?: string | null
           sku?: string | null
           "skulabs SKU"?: string | null
           submodel1?: string | null
@@ -1346,28 +2261,15 @@ export type Database = {
           submodel3?: string | null
           type?: string | null
           year_generation?: string | null
-          year_options?: string | null
         }
         Update: {
-          banner?: string | null
           display_color?: string | null
           display_id?: string | null
           display_set?: string | null
-          feature?: string | null
           id?: number
           make?: string | null
-          make_slug?: string | null
           model?: string | null
-          model_slug?: string | null
-          msrp?: number | null
           parent_generation?: string | null
-          price?: number | null
-          product?: string | null
-          product_video_360?: string | null
-          product_video_carousel?: string | null
-          product_video_carousel_thumbnail?: string | null
-          product_video_zoom?: string | null
-          quantity?: string | null
           sku?: string | null
           "skulabs SKU"?: string | null
           submodel1?: string | null
@@ -1375,139 +2277,23 @@ export type Database = {
           submodel3?: string | null
           type?: string | null
           year_generation?: string | null
-          year_options?: string | null
         }
         Relationships: []
       }
-      Products_20240709_backup: {
+      Products_20240812_backup: {
         Row: {
           banner: string | null
           display_color: string | null
           display_id: string | null
           display_set: string | null
           feature: string | null
-          id: number
-          make: string | null
-          make_slug: string | null
-          model: string | null
-          model_slug: string | null
-          msrp: number | null
-          parent_generation: string | null
-          preorder: boolean | null
-          preorder_date: string | null
-          preorder_discount: number | null
-          price: number | null
-          product: string | null
-          product_video_360: string | null
-          product_video_carousel: string | null
-          product_video_carousel_thumbnail: string | null
-          product_video_zoom: string | null
-          quantity: string | null
-          sku: string | null
-          "skulabs SKU": string | null
-          submodel1: string | null
-          submodel2: string | null
-          submodel3: string | null
-          type: string | null
-          year_generation: string | null
-          year_options: string | null
-        }
-        Insert: {
-          banner?: string | null
-          display_color?: string | null
-          display_id?: string | null
-          display_set?: string | null
-          feature?: string | null
-          id: number
-          make?: string | null
-          make_slug?: string | null
-          model?: string | null
-          model_slug?: string | null
-          msrp?: number | null
-          parent_generation?: string | null
-          preorder?: boolean | null
-          preorder_date?: string | null
-          preorder_discount?: number | null
-          price?: number | null
-          product?: string | null
-          product_video_360?: string | null
-          product_video_carousel?: string | null
-          product_video_carousel_thumbnail?: string | null
-          product_video_zoom?: string | null
-          quantity?: string | null
-          sku?: string | null
-          "skulabs SKU"?: string | null
-          submodel1?: string | null
-          submodel2?: string | null
-          submodel3?: string | null
-          type?: string | null
-          year_generation?: string | null
-          year_options?: string | null
-        }
-        Update: {
-          banner?: string | null
-          display_color?: string | null
-          display_id?: string | null
-          display_set?: string | null
-          feature?: string | null
-          id?: number
-          make?: string | null
-          make_slug?: string | null
-          model?: string | null
-          model_slug?: string | null
-          msrp?: number | null
-          parent_generation?: string | null
-          preorder?: boolean | null
-          preorder_date?: string | null
-          preorder_discount?: number | null
-          price?: number | null
-          product?: string | null
-          product_video_360?: string | null
-          product_video_carousel?: string | null
-          product_video_carousel_thumbnail?: string | null
-          product_video_zoom?: string | null
-          quantity?: string | null
-          sku?: string | null
-          "skulabs SKU"?: string | null
-          submodel1?: string | null
-          submodel2?: string | null
-          submodel3?: string | null
-          type?: string | null
-          year_generation?: string | null
-          year_options?: string | null
-        }
-        Relationships: []
-      }
-      Products_20240808_GTIN: {
-        Row: {
-          GTIN: string | null
-          id: number
-          MPN: string | null
-        }
-        Insert: {
-          GTIN?: string | null
-          id: number
-          MPN?: string | null
-        }
-        Update: {
-          GTIN?: string | null
-          id?: number
-          MPN?: string | null
-        }
-        Relationships: []
-      }
-      Products_20240809_backup: {
-        Row: {
-          banner: string | null
-          display_color: string | null
-          display_id: string | null
-          display_set: string | null
-          feature: string | null
+          gtin: string | null
           id: number | null
           make: string | null
           make_slug: string | null
           model: string | null
           model_slug: string | null
+          mpn: string | null
           msrp: number | null
           parent_generation: string | null
           preorder: boolean | null
@@ -1535,11 +2321,13 @@ export type Database = {
           display_id?: string | null
           display_set?: string | null
           feature?: string | null
+          gtin?: string | null
           id?: number | null
           make?: string | null
           make_slug?: string | null
           model?: string | null
           model_slug?: string | null
+          mpn?: string | null
           msrp?: number | null
           parent_generation?: string | null
           preorder?: boolean | null
@@ -1567,11 +2355,13 @@ export type Database = {
           display_id?: string | null
           display_set?: string | null
           feature?: string | null
+          gtin?: string | null
           id?: number | null
           make?: string | null
           make_slug?: string | null
           model?: string | null
           model_slug?: string | null
+          mpn?: string | null
           msrp?: number | null
           parent_generation?: string | null
           preorder?: boolean | null
@@ -1595,18 +2385,20 @@ export type Database = {
         }
         Relationships: []
       }
-      Products_20240809_backup_2: {
+      Products_20240813_backup: {
         Row: {
           banner: string | null
           display_color: string | null
           display_id: string | null
           display_set: string | null
           feature: string | null
+          gtin: string | null
           id: number | null
           make: string | null
           make_slug: string | null
           model: string | null
           model_slug: string | null
+          mpn: string | null
           msrp: number | null
           parent_generation: string | null
           preorder: boolean | null
@@ -1634,11 +2426,13 @@ export type Database = {
           display_id?: string | null
           display_set?: string | null
           feature?: string | null
+          gtin?: string | null
           id?: number | null
           make?: string | null
           make_slug?: string | null
           model?: string | null
           model_slug?: string | null
+          mpn?: string | null
           msrp?: number | null
           parent_generation?: string | null
           preorder?: boolean | null
@@ -1666,11 +2460,13 @@ export type Database = {
           display_id?: string | null
           display_set?: string | null
           feature?: string | null
+          gtin?: string | null
           id?: number | null
           make?: string | null
           make_slug?: string | null
           model?: string | null
           model_slug?: string | null
+          mpn?: string | null
           msrp?: number | null
           parent_generation?: string | null
           preorder?: boolean | null
@@ -1694,18 +2490,20 @@ export type Database = {
         }
         Relationships: []
       }
-      Products_backup_20240719: {
+      Products_20240813_old: {
         Row: {
           banner: string | null
           display_color: string | null
           display_id: string | null
           display_set: string | null
           feature: string | null
+          gtin: string | null
           id: number
           make: string | null
           make_slug: string | null
           model: string | null
           model_slug: string | null
+          mpn: string | null
           msrp: number | null
           parent_generation: string | null
           preorder: boolean | null
@@ -1733,11 +2531,13 @@ export type Database = {
           display_id?: string | null
           display_set?: string | null
           feature?: string | null
+          gtin?: string | null
           id: number
           make?: string | null
           make_slug?: string | null
           model?: string | null
           model_slug?: string | null
+          mpn?: string | null
           msrp?: number | null
           parent_generation?: string | null
           preorder?: boolean | null
@@ -1765,11 +2565,13 @@ export type Database = {
           display_id?: string | null
           display_set?: string | null
           feature?: string | null
+          gtin?: string | null
           id?: number
           make?: string | null
           make_slug?: string | null
           model?: string | null
           model_slug?: string | null
+          mpn?: string | null
           msrp?: number | null
           parent_generation?: string | null
           preorder?: boolean | null
@@ -1793,18 +2595,20 @@ export type Database = {
         }
         Relationships: []
       }
-      Products_backup_20240719_RLS: {
+      Products_20240815: {
         Row: {
           banner: string | null
           display_color: string | null
           display_id: string | null
           display_set: string | null
           feature: string | null
-          id: number
+          gtin: string | null
+          id: number | null
           make: string | null
           make_slug: string | null
           model: string | null
           model_slug: string | null
+          mpn: string | null
           msrp: number | null
           parent_generation: string | null
           preorder: boolean | null
@@ -1832,11 +2636,13 @@ export type Database = {
           display_id?: string | null
           display_set?: string | null
           feature?: string | null
-          id: number
+          gtin?: string | null
+          id?: number | null
           make?: string | null
           make_slug?: string | null
           model?: string | null
           model_slug?: string | null
+          mpn?: string | null
           msrp?: number | null
           parent_generation?: string | null
           preorder?: boolean | null
@@ -1864,11 +2670,1063 @@ export type Database = {
           display_id?: string | null
           display_set?: string | null
           feature?: string | null
+          gtin?: string | null
+          id?: number | null
+          make?: string | null
+          make_slug?: string | null
+          model?: string | null
+          model_slug?: string | null
+          mpn?: string | null
+          msrp?: number | null
+          parent_generation?: string | null
+          preorder?: boolean | null
+          preorder_date?: string | null
+          preorder_discount?: number | null
+          price?: number | null
+          product?: string | null
+          product_video_360?: string | null
+          product_video_carousel?: string | null
+          product_video_carousel_thumbnail?: string | null
+          product_video_zoom?: string | null
+          quantity?: string | null
+          sku?: string | null
+          "skulabs SKU"?: string | null
+          submodel1?: string | null
+          submodel2?: string | null
+          submodel3?: string | null
+          type?: string | null
+          year_generation?: string | null
+          year_options?: string | null
+        }
+        Relationships: []
+      }
+      Products_20240815_backup: {
+        Row: {
+          banner: string | null
+          display_color: string | null
+          display_id: string | null
+          display_set: string | null
+          feature: string | null
+          gtin: string | null
+          id: number | null
+          make: string | null
+          make_slug: string | null
+          model: string | null
+          model_slug: string | null
+          mpn: string | null
+          msrp: number | null
+          parent_generation: string | null
+          preorder: boolean | null
+          preorder_date: string | null
+          preorder_discount: number | null
+          price: number | null
+          product: string | null
+          product_video_360: string | null
+          product_video_carousel: string | null
+          product_video_carousel_thumbnail: string | null
+          product_video_zoom: string | null
+          quantity: string | null
+          sku: string | null
+          "skulabs SKU": string | null
+          submodel1: string | null
+          submodel2: string | null
+          submodel3: string | null
+          type: string | null
+          year_generation: string | null
+          year_options: string | null
+        }
+        Insert: {
+          banner?: string | null
+          display_color?: string | null
+          display_id?: string | null
+          display_set?: string | null
+          feature?: string | null
+          gtin?: string | null
+          id?: number | null
+          make?: string | null
+          make_slug?: string | null
+          model?: string | null
+          model_slug?: string | null
+          mpn?: string | null
+          msrp?: number | null
+          parent_generation?: string | null
+          preorder?: boolean | null
+          preorder_date?: string | null
+          preorder_discount?: number | null
+          price?: number | null
+          product?: string | null
+          product_video_360?: string | null
+          product_video_carousel?: string | null
+          product_video_carousel_thumbnail?: string | null
+          product_video_zoom?: string | null
+          quantity?: string | null
+          sku?: string | null
+          "skulabs SKU"?: string | null
+          submodel1?: string | null
+          submodel2?: string | null
+          submodel3?: string | null
+          type?: string | null
+          year_generation?: string | null
+          year_options?: string | null
+        }
+        Update: {
+          banner?: string | null
+          display_color?: string | null
+          display_id?: string | null
+          display_set?: string | null
+          feature?: string | null
+          gtin?: string | null
+          id?: number | null
+          make?: string | null
+          make_slug?: string | null
+          model?: string | null
+          model_slug?: string | null
+          mpn?: string | null
+          msrp?: number | null
+          parent_generation?: string | null
+          preorder?: boolean | null
+          preorder_date?: string | null
+          preorder_discount?: number | null
+          price?: number | null
+          product?: string | null
+          product_video_360?: string | null
+          product_video_carousel?: string | null
+          product_video_carousel_thumbnail?: string | null
+          product_video_zoom?: string | null
+          quantity?: string | null
+          sku?: string | null
+          "skulabs SKU"?: string | null
+          submodel1?: string | null
+          submodel2?: string | null
+          submodel3?: string | null
+          type?: string | null
+          year_generation?: string | null
+          year_options?: string | null
+        }
+        Relationships: []
+      }
+      Products_20240815_forIDFix_backup: {
+        Row: {
+          banner: string | null
+          display_color: string | null
+          display_id: string | null
+          display_set: string | null
+          feature: string | null
+          gtin: string | null
+          id: number | null
+          make: string | null
+          make_slug: string | null
+          model: string | null
+          model_slug: string | null
+          mpn: string | null
+          msrp: number | null
+          parent_generation: string | null
+          preorder: boolean | null
+          preorder_date: string | null
+          preorder_discount: number | null
+          price: number | null
+          product: string | null
+          product_video_360: string | null
+          product_video_carousel: string | null
+          product_video_carousel_thumbnail: string | null
+          product_video_zoom: string | null
+          quantity: string | null
+          sku: string | null
+          "skulabs SKU": string | null
+          submodel1: string | null
+          submodel2: string | null
+          submodel3: string | null
+          type: string | null
+          year_generation: string | null
+          year_options: string | null
+        }
+        Insert: {
+          banner?: string | null
+          display_color?: string | null
+          display_id?: string | null
+          display_set?: string | null
+          feature?: string | null
+          gtin?: string | null
+          id?: number | null
+          make?: string | null
+          make_slug?: string | null
+          model?: string | null
+          model_slug?: string | null
+          mpn?: string | null
+          msrp?: number | null
+          parent_generation?: string | null
+          preorder?: boolean | null
+          preorder_date?: string | null
+          preorder_discount?: number | null
+          price?: number | null
+          product?: string | null
+          product_video_360?: string | null
+          product_video_carousel?: string | null
+          product_video_carousel_thumbnail?: string | null
+          product_video_zoom?: string | null
+          quantity?: string | null
+          sku?: string | null
+          "skulabs SKU"?: string | null
+          submodel1?: string | null
+          submodel2?: string | null
+          submodel3?: string | null
+          type?: string | null
+          year_generation?: string | null
+          year_options?: string | null
+        }
+        Update: {
+          banner?: string | null
+          display_color?: string | null
+          display_id?: string | null
+          display_set?: string | null
+          feature?: string | null
+          gtin?: string | null
+          id?: number | null
+          make?: string | null
+          make_slug?: string | null
+          model?: string | null
+          model_slug?: string | null
+          mpn?: string | null
+          msrp?: number | null
+          parent_generation?: string | null
+          preorder?: boolean | null
+          preorder_date?: string | null
+          preorder_discount?: number | null
+          price?: number | null
+          product?: string | null
+          product_video_360?: string | null
+          product_video_carousel?: string | null
+          product_video_carousel_thumbnail?: string | null
+          product_video_zoom?: string | null
+          quantity?: string | null
+          sku?: string | null
+          "skulabs SKU"?: string | null
+          submodel1?: string | null
+          submodel2?: string | null
+          submodel3?: string | null
+          type?: string | null
+          year_generation?: string | null
+          year_options?: string | null
+        }
+        Relationships: []
+      }
+      Products_20240815_forIDFix_NEW_ENTRIES: {
+        Row: {
+          banner: string | null
+          display_color: string | null
+          display_id: string | null
+          display_set: string | null
+          feature: string | null
+          gtin: string | null
+          id: number | null
+          make: string | null
+          make_slug: string | null
+          model: string | null
+          model_slug: string | null
+          mpn: string | null
+          msrp: number | null
+          parent_generation: string | null
+          preorder: boolean | null
+          preorder_date: string | null
+          preorder_discount: number | null
+          price: number | null
+          product: string | null
+          product_video_360: string | null
+          product_video_carousel: string | null
+          product_video_carousel_thumbnail: string | null
+          product_video_zoom: string | null
+          quantity: string | null
+          sku: string | null
+          "skulabs SKU": string | null
+          submodel1: string | null
+          submodel2: string | null
+          submodel3: string | null
+          type: string | null
+          year_generation: string | null
+          year_options: string | null
+        }
+        Insert: {
+          banner?: string | null
+          display_color?: string | null
+          display_id?: string | null
+          display_set?: string | null
+          feature?: string | null
+          gtin?: string | null
+          id?: number | null
+          make?: string | null
+          make_slug?: string | null
+          model?: string | null
+          model_slug?: string | null
+          mpn?: string | null
+          msrp?: number | null
+          parent_generation?: string | null
+          preorder?: boolean | null
+          preorder_date?: string | null
+          preorder_discount?: number | null
+          price?: number | null
+          product?: string | null
+          product_video_360?: string | null
+          product_video_carousel?: string | null
+          product_video_carousel_thumbnail?: string | null
+          product_video_zoom?: string | null
+          quantity?: string | null
+          sku?: string | null
+          "skulabs SKU"?: string | null
+          submodel1?: string | null
+          submodel2?: string | null
+          submodel3?: string | null
+          type?: string | null
+          year_generation?: string | null
+          year_options?: string | null
+        }
+        Update: {
+          banner?: string | null
+          display_color?: string | null
+          display_id?: string | null
+          display_set?: string | null
+          feature?: string | null
+          gtin?: string | null
+          id?: number | null
+          make?: string | null
+          make_slug?: string | null
+          model?: string | null
+          model_slug?: string | null
+          mpn?: string | null
+          msrp?: number | null
+          parent_generation?: string | null
+          preorder?: boolean | null
+          preorder_date?: string | null
+          preorder_discount?: number | null
+          price?: number | null
+          product?: string | null
+          product_video_360?: string | null
+          product_video_carousel?: string | null
+          product_video_carousel_thumbnail?: string | null
+          product_video_zoom?: string | null
+          quantity?: string | null
+          sku?: string | null
+          "skulabs SKU"?: string | null
+          submodel1?: string | null
+          submodel2?: string | null
+          submodel3?: string | null
+          type?: string | null
+          year_generation?: string | null
+          year_options?: string | null
+        }
+        Relationships: []
+      }
+      Products_20240815_new: {
+        Row: {
+          banner: string | null
+          display_color: string | null
+          display_id: string | null
+          display_set: string | null
+          feature: string | null
+          gtin: string | null
+          id: number | null
+          make: string | null
+          make_slug: string | null
+          model: string | null
+          model_slug: string | null
+          mpn: string | null
+          msrp: number | null
+          parent_generation: string | null
+          preorder: boolean | null
+          preorder_date: string | null
+          preorder_discount: number | null
+          price: number | null
+          product: string | null
+          product_video_360: string | null
+          product_video_carousel: string | null
+          product_video_carousel_thumbnail: string | null
+          product_video_zoom: string | null
+          quantity: string | null
+          sku: string | null
+          "skulabs SKU": string | null
+          submodel1: string | null
+          submodel2: string | null
+          submodel3: string | null
+          type: string | null
+          year_generation: string | null
+          year_options: string | null
+        }
+        Insert: {
+          banner?: string | null
+          display_color?: string | null
+          display_id?: string | null
+          display_set?: string | null
+          feature?: string | null
+          gtin?: string | null
+          id?: number | null
+          make?: string | null
+          make_slug?: string | null
+          model?: string | null
+          model_slug?: string | null
+          mpn?: string | null
+          msrp?: number | null
+          parent_generation?: string | null
+          preorder?: boolean | null
+          preorder_date?: string | null
+          preorder_discount?: number | null
+          price?: number | null
+          product?: string | null
+          product_video_360?: string | null
+          product_video_carousel?: string | null
+          product_video_carousel_thumbnail?: string | null
+          product_video_zoom?: string | null
+          quantity?: string | null
+          sku?: string | null
+          "skulabs SKU"?: string | null
+          submodel1?: string | null
+          submodel2?: string | null
+          submodel3?: string | null
+          type?: string | null
+          year_generation?: string | null
+          year_options?: string | null
+        }
+        Update: {
+          banner?: string | null
+          display_color?: string | null
+          display_id?: string | null
+          display_set?: string | null
+          feature?: string | null
+          gtin?: string | null
+          id?: number | null
+          make?: string | null
+          make_slug?: string | null
+          model?: string | null
+          model_slug?: string | null
+          mpn?: string | null
+          msrp?: number | null
+          parent_generation?: string | null
+          preorder?: boolean | null
+          preorder_date?: string | null
+          preorder_discount?: number | null
+          price?: number | null
+          product?: string | null
+          product_video_360?: string | null
+          product_video_carousel?: string | null
+          product_video_carousel_thumbnail?: string | null
+          product_video_zoom?: string | null
+          quantity?: string | null
+          sku?: string | null
+          "skulabs SKU"?: string | null
+          submodel1?: string | null
+          submodel2?: string | null
+          submodel3?: string | null
+          type?: string | null
+          year_generation?: string | null
+          year_options?: string | null
+        }
+        Relationships: []
+      }
+      Products_20240816_old: {
+        Row: {
+          banner: string | null
+          display_color: string | null
+          display_id: string | null
+          display_set: string | null
+          feature: string | null
+          gtin: string | null
+          id: number
+          make: string | null
+          make_slug: string | null
+          model: string | null
+          model_slug: string | null
+          mpn: string | null
+          msrp: number | null
+          parent_generation: string | null
+          preorder: boolean | null
+          preorder_date: string | null
+          preorder_discount: number | null
+          price: number | null
+          product: string | null
+          product_video_360: string | null
+          product_video_carousel: string | null
+          product_video_carousel_thumbnail: string | null
+          product_video_zoom: string | null
+          quantity: string | null
+          sku: string | null
+          "skulabs SKU": string | null
+          submodel1: string | null
+          submodel2: string | null
+          submodel3: string | null
+          type: string | null
+          year_generation: string | null
+          year_options: string | null
+        }
+        Insert: {
+          banner?: string | null
+          display_color?: string | null
+          display_id?: string | null
+          display_set?: string | null
+          feature?: string | null
+          gtin?: string | null
+          id: number
+          make?: string | null
+          make_slug?: string | null
+          model?: string | null
+          model_slug?: string | null
+          mpn?: string | null
+          msrp?: number | null
+          parent_generation?: string | null
+          preorder?: boolean | null
+          preorder_date?: string | null
+          preorder_discount?: number | null
+          price?: number | null
+          product?: string | null
+          product_video_360?: string | null
+          product_video_carousel?: string | null
+          product_video_carousel_thumbnail?: string | null
+          product_video_zoom?: string | null
+          quantity?: string | null
+          sku?: string | null
+          "skulabs SKU"?: string | null
+          submodel1?: string | null
+          submodel2?: string | null
+          submodel3?: string | null
+          type?: string | null
+          year_generation?: string | null
+          year_options?: string | null
+        }
+        Update: {
+          banner?: string | null
+          display_color?: string | null
+          display_id?: string | null
+          display_set?: string | null
+          feature?: string | null
+          gtin?: string | null
           id?: number
           make?: string | null
           make_slug?: string | null
           model?: string | null
           model_slug?: string | null
+          mpn?: string | null
+          msrp?: number | null
+          parent_generation?: string | null
+          preorder?: boolean | null
+          preorder_date?: string | null
+          preorder_discount?: number | null
+          price?: number | null
+          product?: string | null
+          product_video_360?: string | null
+          product_video_carousel?: string | null
+          product_video_carousel_thumbnail?: string | null
+          product_video_zoom?: string | null
+          quantity?: string | null
+          sku?: string | null
+          "skulabs SKU"?: string | null
+          submodel1?: string | null
+          submodel2?: string | null
+          submodel3?: string | null
+          type?: string | null
+          year_generation?: string | null
+          year_options?: string | null
+        }
+        Relationships: []
+      }
+      Products_20240816_old_2: {
+        Row: {
+          banner: string | null
+          display_color: string | null
+          display_id: string | null
+          display_set: string | null
+          feature: string | null
+          gtin: string | null
+          id: number
+          make: string | null
+          make_slug: string | null
+          model: string | null
+          model_slug: string | null
+          mpn: string | null
+          msrp: number | null
+          parent_generation: string | null
+          preorder: boolean | null
+          preorder_date: string | null
+          preorder_discount: number | null
+          price: number | null
+          product: string | null
+          product_video_360: string | null
+          product_video_carousel: string | null
+          product_video_carousel_thumbnail: string | null
+          product_video_zoom: string | null
+          quantity: string | null
+          sku: string | null
+          "skulabs SKU": string | null
+          submodel1: string | null
+          submodel2: string | null
+          submodel3: string | null
+          type: string | null
+          year_generation: string | null
+          year_options: string | null
+        }
+        Insert: {
+          banner?: string | null
+          display_color?: string | null
+          display_id?: string | null
+          display_set?: string | null
+          feature?: string | null
+          gtin?: string | null
+          id: number
+          make?: string | null
+          make_slug?: string | null
+          model?: string | null
+          model_slug?: string | null
+          mpn?: string | null
+          msrp?: number | null
+          parent_generation?: string | null
+          preorder?: boolean | null
+          preorder_date?: string | null
+          preorder_discount?: number | null
+          price?: number | null
+          product?: string | null
+          product_video_360?: string | null
+          product_video_carousel?: string | null
+          product_video_carousel_thumbnail?: string | null
+          product_video_zoom?: string | null
+          quantity?: string | null
+          sku?: string | null
+          "skulabs SKU"?: string | null
+          submodel1?: string | null
+          submodel2?: string | null
+          submodel3?: string | null
+          type?: string | null
+          year_generation?: string | null
+          year_options?: string | null
+        }
+        Update: {
+          banner?: string | null
+          display_color?: string | null
+          display_id?: string | null
+          display_set?: string | null
+          feature?: string | null
+          gtin?: string | null
+          id?: number
+          make?: string | null
+          make_slug?: string | null
+          model?: string | null
+          model_slug?: string | null
+          mpn?: string | null
+          msrp?: number | null
+          parent_generation?: string | null
+          preorder?: boolean | null
+          preorder_date?: string | null
+          preorder_discount?: number | null
+          price?: number | null
+          product?: string | null
+          product_video_360?: string | null
+          product_video_carousel?: string | null
+          product_video_carousel_thumbnail?: string | null
+          product_video_zoom?: string | null
+          quantity?: string | null
+          sku?: string | null
+          "skulabs SKU"?: string | null
+          submodel1?: string | null
+          submodel2?: string | null
+          submodel3?: string | null
+          type?: string | null
+          year_generation?: string | null
+          year_options?: string | null
+        }
+        Relationships: []
+      }
+      Products_20240820_backup: {
+        Row: {
+          banner: string | null
+          display_color: string | null
+          display_id: string | null
+          display_set: string | null
+          feature: string | null
+          gtin: string | null
+          id: number | null
+          make: string | null
+          make_slug: string | null
+          model: string | null
+          model_slug: string | null
+          mpn: string | null
+          msrp: number | null
+          parent_generation: string | null
+          preorder: boolean | null
+          preorder_date: string | null
+          preorder_discount: number | null
+          price: number | null
+          product: string | null
+          product_video_360: string | null
+          product_video_carousel: string | null
+          product_video_carousel_thumbnail: string | null
+          product_video_zoom: string | null
+          quantity: string | null
+          sku: string | null
+          "skulabs SKU": string | null
+          submodel1: string | null
+          submodel2: string | null
+          submodel3: string | null
+          type: string | null
+          year_generation: string | null
+          year_options: string | null
+        }
+        Insert: {
+          banner?: string | null
+          display_color?: string | null
+          display_id?: string | null
+          display_set?: string | null
+          feature?: string | null
+          gtin?: string | null
+          id?: number | null
+          make?: string | null
+          make_slug?: string | null
+          model?: string | null
+          model_slug?: string | null
+          mpn?: string | null
+          msrp?: number | null
+          parent_generation?: string | null
+          preorder?: boolean | null
+          preorder_date?: string | null
+          preorder_discount?: number | null
+          price?: number | null
+          product?: string | null
+          product_video_360?: string | null
+          product_video_carousel?: string | null
+          product_video_carousel_thumbnail?: string | null
+          product_video_zoom?: string | null
+          quantity?: string | null
+          sku?: string | null
+          "skulabs SKU"?: string | null
+          submodel1?: string | null
+          submodel2?: string | null
+          submodel3?: string | null
+          type?: string | null
+          year_generation?: string | null
+          year_options?: string | null
+        }
+        Update: {
+          banner?: string | null
+          display_color?: string | null
+          display_id?: string | null
+          display_set?: string | null
+          feature?: string | null
+          gtin?: string | null
+          id?: number | null
+          make?: string | null
+          make_slug?: string | null
+          model?: string | null
+          model_slug?: string | null
+          mpn?: string | null
+          msrp?: number | null
+          parent_generation?: string | null
+          preorder?: boolean | null
+          preorder_date?: string | null
+          preorder_discount?: number | null
+          price?: number | null
+          product?: string | null
+          product_video_360?: string | null
+          product_video_carousel?: string | null
+          product_video_carousel_thumbnail?: string | null
+          product_video_zoom?: string | null
+          quantity?: string | null
+          sku?: string | null
+          "skulabs SKU"?: string | null
+          submodel1?: string | null
+          submodel2?: string | null
+          submodel3?: string | null
+          type?: string | null
+          year_generation?: string | null
+          year_options?: string | null
+        }
+        Relationships: []
+      }
+      Products_20240820_old: {
+        Row: {
+          banner: string | null
+          display_color: string | null
+          display_id: string | null
+          display_set: string | null
+          feature: string | null
+          gtin: string | null
+          id: number
+          make: string | null
+          make_slug: string | null
+          model: string | null
+          model_slug: string | null
+          mpn: string | null
+          msrp: number | null
+          parent_generation: string | null
+          preorder: boolean | null
+          preorder_date: string | null
+          preorder_discount: number | null
+          price: number | null
+          product: string | null
+          product_video_360: string | null
+          product_video_carousel: string | null
+          product_video_carousel_thumbnail: string | null
+          product_video_zoom: string | null
+          quantity: string | null
+          sku: string | null
+          "skulabs SKU": string | null
+          submodel1: string | null
+          submodel2: string | null
+          submodel3: string | null
+          type: string | null
+          year_generation: string | null
+          year_options: string | null
+        }
+        Insert: {
+          banner?: string | null
+          display_color?: string | null
+          display_id?: string | null
+          display_set?: string | null
+          feature?: string | null
+          gtin?: string | null
+          id: number
+          make?: string | null
+          make_slug?: string | null
+          model?: string | null
+          model_slug?: string | null
+          mpn?: string | null
+          msrp?: number | null
+          parent_generation?: string | null
+          preorder?: boolean | null
+          preorder_date?: string | null
+          preorder_discount?: number | null
+          price?: number | null
+          product?: string | null
+          product_video_360?: string | null
+          product_video_carousel?: string | null
+          product_video_carousel_thumbnail?: string | null
+          product_video_zoom?: string | null
+          quantity?: string | null
+          sku?: string | null
+          "skulabs SKU"?: string | null
+          submodel1?: string | null
+          submodel2?: string | null
+          submodel3?: string | null
+          type?: string | null
+          year_generation?: string | null
+          year_options?: string | null
+        }
+        Update: {
+          banner?: string | null
+          display_color?: string | null
+          display_id?: string | null
+          display_set?: string | null
+          feature?: string | null
+          gtin?: string | null
+          id?: number
+          make?: string | null
+          make_slug?: string | null
+          model?: string | null
+          model_slug?: string | null
+          mpn?: string | null
+          msrp?: number | null
+          parent_generation?: string | null
+          preorder?: boolean | null
+          preorder_date?: string | null
+          preorder_discount?: number | null
+          price?: number | null
+          product?: string | null
+          product_video_360?: string | null
+          product_video_carousel?: string | null
+          product_video_carousel_thumbnail?: string | null
+          product_video_zoom?: string | null
+          quantity?: string | null
+          sku?: string | null
+          "skulabs SKU"?: string | null
+          submodel1?: string | null
+          submodel2?: string | null
+          submodel3?: string | null
+          type?: string | null
+          year_generation?: string | null
+          year_options?: string | null
+        }
+        Relationships: []
+      }
+      Products_20240821_backup: {
+        Row: {
+          banner: string | null
+          display_color: string | null
+          display_id: string | null
+          display_set: string | null
+          feature: string | null
+          gtin: string | null
+          id: number | null
+          make: string | null
+          make_slug: string | null
+          model: string | null
+          model_slug: string | null
+          mpn: string | null
+          msrp: number | null
+          parent_generation: string | null
+          preorder: boolean | null
+          preorder_date: string | null
+          preorder_discount: number | null
+          price: number | null
+          product: string | null
+          product_video_360: string | null
+          product_video_carousel: string | null
+          product_video_carousel_thumbnail: string | null
+          product_video_zoom: string | null
+          quantity: string | null
+          sku: string | null
+          "skulabs SKU": string | null
+          submodel1: string | null
+          submodel2: string | null
+          submodel3: string | null
+          type: string | null
+          year_generation: string | null
+          year_options: string | null
+        }
+        Insert: {
+          banner?: string | null
+          display_color?: string | null
+          display_id?: string | null
+          display_set?: string | null
+          feature?: string | null
+          gtin?: string | null
+          id?: number | null
+          make?: string | null
+          make_slug?: string | null
+          model?: string | null
+          model_slug?: string | null
+          mpn?: string | null
+          msrp?: number | null
+          parent_generation?: string | null
+          preorder?: boolean | null
+          preorder_date?: string | null
+          preorder_discount?: number | null
+          price?: number | null
+          product?: string | null
+          product_video_360?: string | null
+          product_video_carousel?: string | null
+          product_video_carousel_thumbnail?: string | null
+          product_video_zoom?: string | null
+          quantity?: string | null
+          sku?: string | null
+          "skulabs SKU"?: string | null
+          submodel1?: string | null
+          submodel2?: string | null
+          submodel3?: string | null
+          type?: string | null
+          year_generation?: string | null
+          year_options?: string | null
+        }
+        Update: {
+          banner?: string | null
+          display_color?: string | null
+          display_id?: string | null
+          display_set?: string | null
+          feature?: string | null
+          gtin?: string | null
+          id?: number | null
+          make?: string | null
+          make_slug?: string | null
+          model?: string | null
+          model_slug?: string | null
+          mpn?: string | null
+          msrp?: number | null
+          parent_generation?: string | null
+          preorder?: boolean | null
+          preorder_date?: string | null
+          preorder_discount?: number | null
+          price?: number | null
+          product?: string | null
+          product_video_360?: string | null
+          product_video_carousel?: string | null
+          product_video_carousel_thumbnail?: string | null
+          product_video_zoom?: string | null
+          quantity?: string | null
+          sku?: string | null
+          "skulabs SKU"?: string | null
+          submodel1?: string | null
+          submodel2?: string | null
+          submodel3?: string | null
+          type?: string | null
+          year_generation?: string | null
+          year_options?: string | null
+        }
+        Relationships: []
+      }
+      Products_20240821_old: {
+        Row: {
+          banner: string | null
+          display_color: string | null
+          display_id: string | null
+          display_set: string | null
+          feature: string | null
+          gtin: string | null
+          id: number
+          make: string | null
+          make_slug: string | null
+          model: string | null
+          model_slug: string | null
+          mpn: string | null
+          msrp: number | null
+          parent_generation: string | null
+          preorder: boolean | null
+          preorder_date: string | null
+          preorder_discount: number | null
+          price: number | null
+          product: string | null
+          product_video_360: string | null
+          product_video_carousel: string | null
+          product_video_carousel_thumbnail: string | null
+          product_video_zoom: string | null
+          quantity: string | null
+          sku: string | null
+          "skulabs SKU": string | null
+          submodel1: string | null
+          submodel2: string | null
+          submodel3: string | null
+          type: string | null
+          year_generation: string | null
+          year_options: string | null
+        }
+        Insert: {
+          banner?: string | null
+          display_color?: string | null
+          display_id?: string | null
+          display_set?: string | null
+          feature?: string | null
+          gtin?: string | null
+          id: number
+          make?: string | null
+          make_slug?: string | null
+          model?: string | null
+          model_slug?: string | null
+          mpn?: string | null
+          msrp?: number | null
+          parent_generation?: string | null
+          preorder?: boolean | null
+          preorder_date?: string | null
+          preorder_discount?: number | null
+          price?: number | null
+          product?: string | null
+          product_video_360?: string | null
+          product_video_carousel?: string | null
+          product_video_carousel_thumbnail?: string | null
+          product_video_zoom?: string | null
+          quantity?: string | null
+          sku?: string | null
+          "skulabs SKU"?: string | null
+          submodel1?: string | null
+          submodel2?: string | null
+          submodel3?: string | null
+          type?: string | null
+          year_generation?: string | null
+          year_options?: string | null
+        }
+        Update: {
+          banner?: string | null
+          display_color?: string | null
+          display_id?: string | null
+          display_set?: string | null
+          feature?: string | null
+          gtin?: string | null
+          id?: number
+          make?: string | null
+          make_slug?: string | null
+          model?: string | null
+          model_slug?: string | null
+          mpn?: string | null
           msrp?: number | null
           parent_generation?: string | null
           preorder?: boolean | null
@@ -1994,65 +3852,65 @@ export type Database = {
       relations_product: {
         Row: {
           created_at: string | null
-          id: number
-          make_id: number
-          model_id: number
-          product_id: number
-          type_id: number
+          id: number | null
+          make_id: number | null
+          model_id: number | null
+          product_id: number | null
+          type_id: number | null
           updated_at: string | null
-          year_id: number
+          year_id: number | null
         }
         Insert: {
           created_at?: string | null
-          id?: number
-          make_id: number
-          model_id: number
-          product_id: number
-          type_id: number
+          id?: number | null
+          make_id?: number | null
+          model_id?: number | null
+          product_id?: number | null
+          type_id?: number | null
           updated_at?: string | null
-          year_id: number
+          year_id?: number | null
         }
         Update: {
           created_at?: string | null
-          id?: number
-          make_id?: number
-          model_id?: number
-          product_id?: number
-          type_id?: number
+          id?: number | null
+          make_id?: number | null
+          model_id?: number | null
+          product_id?: number | null
+          type_id?: number | null
           updated_at?: string | null
-          year_id?: number
+          year_id?: number | null
         }
         Relationships: [
           {
-            foreignKeyName: "relations_product_20240709_old_make_id_fkey"
+            foreignKeyName: "relations_product_20240821_make_id_fkey"
             columns: ["make_id"]
             isOneToOne: false
             referencedRelation: "Make"
             referencedColumns: ["id"]
           },
           {
-            foreignKeyName: "relations_product_20240709_old_model_id_fkey"
+            foreignKeyName: "relations_product_20240821_model_id_fkey"
             columns: ["model_id"]
             isOneToOne: false
             referencedRelation: "Model"
             referencedColumns: ["id"]
           },
           {
-            foreignKeyName: "relations_product_20240709_old_product_id_fkey"
+            foreignKeyName: "relations_product_20240821_product_id_fkey_2"
             columns: ["product_id"]
             isOneToOne: false
             referencedRelation: "Products"
             referencedColumns: ["id"]
           },
           {
-            foreignKeyName: "relations_product_20240709_old_type_id_fkey"
+            foreignKeyName: "relations_product_20240821_type_id_fkey"
             columns: ["type_id"]
             isOneToOne: false
             referencedRelation: "Type"
             referencedColumns: ["id"]
           },
           {
-            foreignKeyName: "relations_product_20240709_old_year_id_fkey"
+            foreignKeyName: "relations_product_20240821_year_id_fkey"
             columns: ["year_id"]
             isOneToOne: false
             referencedRelation: "Years"
@@ -2143,7 +4001,7 @@ export type Database = {
             foreignKeyName: "relations_product_20240709_backup_product_id_fkey"
             columns: ["product_id"]
             isOneToOne: false
-            referencedRelation: "Products"
+            referencedRelation: "Products_20240813_old"
             referencedColumns: ["id"]
           },
           {
@@ -2162,41 +4020,617 @@ export type Database = {
           },
         ]
       }
-      review_seat_cover_20240718_apostrophe_fix_raw: {
+      relations_product_20240813_backup: {
         Row: {
-          customer_name: string | null
-          date: string | null
-          helpful: number | null
-          image_link: string | null
-          rating: number | null
-          recommend: string | null
-          review_description: string | null
-          review_title: string | null
-          verfied_status: string | null
+          created_at: string | null
+          id: number | null
+          make_id: number | null
+          model_id: number | null
+          product_id: number | null
+          type_id: number | null
+          updated_at: string | null
+          year_id: number | null
         }
         Insert: {
-          customer_name?: string | null
-          date?: string | null
-          helpful?: number | null
-          image_link?: string | null
-          rating?: number | null
-          recommend?: string | null
-          review_description?: string | null
-          review_title?: string | null
-          verfied_status?: string | null
+          created_at?: string | null
+          id?: number | null
+          make_id?: number | null
+          model_id?: number | null
+          product_id?: number | null
+          type_id?: number | null
+          updated_at?: string | null
+          year_id?: number | null
         }
         Update: {
-          customer_name?: string | null
-          date?: string | null
-          helpful?: number | null
-          image_link?: string | null
-          rating?: number | null
-          recommend?: string | null
-          review_description?: string | null
-          review_title?: string | null
-          verfied_status?: string | null
+          created_at?: string | null
+          id?: number | null
+          make_id?: number | null
+          model_id?: number | null
+          product_id?: number | null
+          type_id?: number | null
+          updated_at?: string | null
+          year_id?: number | null
         }
         Relationships: []
+      }
+      relations_product_20240813_old: {
+        Row: {
+          created_at: string | null
+          id: number
+          make_id: number
+          model_id: number
+          product_id: number
+          type_id: number
+          updated_at: string | null
+          year_id: number
+        }
+        Insert: {
+          created_at?: string | null
+          id?: number
+          make_id: number
+          model_id: number
+          product_id: number
+          type_id: number
+          updated_at?: string | null
+          year_id: number
+        }
+        Update: {
+          created_at?: string | null
+          id?: number
+          make_id?: number
+          model_id?: number
+          product_id?: number
+          type_id?: number
+          updated_at?: string | null
+          year_id?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "relations_product_20240709_old_make_id_fkey"
+            columns: ["make_id"]
+            isOneToOne: false
+            referencedRelation: "Make"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "relations_product_20240709_old_model_id_fkey"
+            columns: ["model_id"]
+            isOneToOne: false
+            referencedRelation: "Model"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "relations_product_20240709_old_product_id_fkey"
+            columns: ["product_id"]
+            isOneToOne: false
+            referencedRelation: "Products_20240813_old"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "relations_product_20240709_old_type_id_fkey"
+            columns: ["type_id"]
+            isOneToOne: false
+            referencedRelation: "Type"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "relations_product_20240709_old_year_id_fkey"
+            columns: ["year_id"]
+            isOneToOne: false
+            referencedRelation: "Years"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      relations_product_20240814: {
+        Row: {
+          created_at: string | null
+          id: number | null
+          make_id: number | null
+          model_id: number | null
+          product_id: number | null
+          type_id: number | null
+          updated_at: string | null
+          year_id: number | null
+        }
+        Insert: {
+          created_at?: string | null
+          id?: number | null
+          make_id?: number | null
+          model_id?: number | null
+          product_id?: number | null
+          type_id?: number | null
+          updated_at?: string | null
+          year_id?: number | null
+        }
+        Update: {
+          created_at?: string | null
+          id?: number | null
+          make_id?: number | null
+          model_id?: number | null
+          product_id?: number | null
+          type_id?: number | null
+          updated_at?: string | null
+          year_id?: number | null
+        }
+        Relationships: []
+      }
+      relations_product_20240815: {
+        Row: {
+          created_at: string | null
+          id: number | null
+          make_id: number | null
+          model_id: number | null
+          product_id: number | null
+          type_id: number | null
+          updated_at: string | null
+          year_id: number | null
+        }
+        Insert: {
+          created_at?: string | null
+          id?: number | null
+          make_id?: number | null
+          model_id?: number | null
+          product_id?: number | null
+          type_id?: number | null
+          updated_at?: string | null
+          year_id?: number | null
+        }
+        Update: {
+          created_at?: string | null
+          id?: number | null
+          make_id?: number | null
+          model_id?: number | null
+          product_id?: number | null
+          type_id?: number | null
+          updated_at?: string | null
+          year_id?: number | null
+        }
+        Relationships: []
+      }
+      relations_product_20240815_forIDFix_backup: {
+        Row: {
+          created_at: string | null
+          id: number | null
+          make_id: number | null
+          model_id: number | null
+          product_id: number | null
+          type_id: number | null
+          updated_at: string | null
+          year_id: number | null
+        }
+        Insert: {
+          created_at?: string | null
+          id?: number | null
+          make_id?: number | null
+          model_id?: number | null
+          product_id?: number | null
+          type_id?: number | null
+          updated_at?: string | null
+          year_id?: number | null
+        }
+        Update: {
+          created_at?: string | null
+          id?: number | null
+          make_id?: number | null
+          model_id?: number | null
+          product_id?: number | null
+          type_id?: number | null
+          updated_at?: string | null
+          year_id?: number | null
+        }
+        Relationships: []
+      }
+      relations_product_20240815_forIDFix_NEW_ENTRIES: {
+        Row: {
+          created_at: string | null
+          id: number | null
+          make_id: number | null
+          model_id: number | null
+          product_id: number | null
+          type_id: number | null
+          updated_at: string | null
+          year_id: number | null
+        }
+        Insert: {
+          created_at?: string | null
+          id?: number | null
+          make_id?: number | null
+          model_id?: number | null
+          product_id?: number | null
+          type_id?: number | null
+          updated_at?: string | null
+          year_id?: number | null
+        }
+        Update: {
+          created_at?: string | null
+          id?: number | null
+          make_id?: number | null
+          model_id?: number | null
+          product_id?: number | null
+          type_id?: number | null
+          updated_at?: string | null
+          year_id?: number | null
+        }
+        Relationships: []
+      }
+      relations_product_20240816_old: {
+        Row: {
+          created_at: string | null
+          id: number | null
+          make_id: number | null
+          model_id: number | null
+          product_id: number | null
+          type_id: number | null
+          updated_at: string | null
+          year_id: number | null
+        }
+        Insert: {
+          created_at?: string | null
+          id?: number | null
+          make_id?: number | null
+          model_id?: number | null
+          product_id?: number | null
+          type_id?: number | null
+          updated_at?: string | null
+          year_id?: number | null
+        }
+        Update: {
+          created_at?: string | null
+          id?: number | null
+          make_id?: number | null
+          model_id?: number | null
+          product_id?: number | null
+          type_id?: number | null
+          updated_at?: string | null
+          year_id?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "relations_product_20240813_make_id_fkey"
+            columns: ["make_id"]
+            isOneToOne: false
+            referencedRelation: "Make"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "relations_product_20240813_model_id_fkey"
+            columns: ["model_id"]
+            isOneToOne: false
+            referencedRelation: "Model"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "relations_product_20240813_product_id_fkey_2"
+            columns: ["product_id"]
+            isOneToOne: false
+            referencedRelation: "Products_20240816_old"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "relations_product_20240813_type_id_fkey"
+            columns: ["type_id"]
+            isOneToOne: false
+            referencedRelation: "Type"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "relations_product_20240813_year_id_fkey"
+            columns: ["year_id"]
+            isOneToOne: false
+            referencedRelation: "Years"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      relations_product_20240816_old_2: {
+        Row: {
+          created_at: string | null
+          id: number
+          make_id: number | null
+          model_id: number | null
+          product_id: number | null
+          type_id: number | null
+          updated_at: string | null
+          year_id: number | null
+        }
+        Insert: {
+          created_at?: string | null
+          id?: number
+          make_id?: number | null
+          model_id?: number | null
+          product_id?: number | null
+          type_id?: number | null
+          updated_at?: string | null
+          year_id?: number | null
+        }
+        Update: {
+          created_at?: string | null
+          id?: number
+          make_id?: number | null
+          model_id?: number | null
+          product_id?: number | null
+          type_id?: number | null
+          updated_at?: string | null
+          year_id?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "relations_product_20240815_foridfix_new_make_id_fkey"
+            columns: ["make_id"]
+            isOneToOne: false
+            referencedRelation: "Make"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "relations_product_20240815_foridfix_new_model_id_fkey"
+            columns: ["model_id"]
+            isOneToOne: false
+            referencedRelation: "Model"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "relations_product_20240815_foridfix_new_product_id_fkey_2"
+            columns: ["product_id"]
+            isOneToOne: false
+            referencedRelation: "Products_20240816_old_2"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "relations_product_20240815_foridfix_new_type_id_fkey"
+            columns: ["type_id"]
+            isOneToOne: false
+            referencedRelation: "Type"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "relations_product_20240815_foridfix_new_year_id_fkey"
+            columns: ["year_id"]
+            isOneToOne: false
+            referencedRelation: "Years"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      relations_product_20240820_backup: {
+        Row: {
+          created_at: string | null
+          id: number | null
+          make_id: number | null
+          model_id: number | null
+          product_id: number | null
+          type_id: number | null
+          updated_at: string | null
+          year_id: number | null
+        }
+        Insert: {
+          created_at?: string | null
+          id?: number | null
+          make_id?: number | null
+          model_id?: number | null
+          product_id?: number | null
+          type_id?: number | null
+          updated_at?: string | null
+          year_id?: number | null
+        }
+        Update: {
+          created_at?: string | null
+          id?: number | null
+          make_id?: number | null
+          model_id?: number | null
+          product_id?: number | null
+          type_id?: number | null
+          updated_at?: string | null
+          year_id?: number | null
+        }
+        Relationships: []
+      }
+      relations_product_20240820_old: {
+        Row: {
+          created_at: string | null
+          id: number | null
+          make_id: number | null
+          model_id: number | null
+          product_id: number | null
+          type_id: number | null
+          updated_at: string | null
+          year_id: number | null
+        }
+        Insert: {
+          created_at?: string | null
+          id?: number | null
+          make_id?: number | null
+          model_id?: number | null
+          product_id?: number | null
+          type_id?: number | null
+          updated_at?: string | null
+          year_id?: number | null
+        }
+        Update: {
+          created_at?: string | null
+          id?: number | null
+          make_id?: number | null
+          model_id?: number | null
+          product_id?: number | null
+          type_id?: number | null
+          updated_at?: string | null
+          year_id?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "relations_product_20240816_make_id_fkey"
+            columns: ["make_id"]
+            isOneToOne: false
+            referencedRelation: "Make"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "relations_product_20240816_model_id_fkey"
+            columns: ["model_id"]
+            isOneToOne: false
+            referencedRelation: "Model"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "relations_product_20240816_product_id_fkey_2"
+            columns: ["product_id"]
+            isOneToOne: false
+            referencedRelation: "Products_20240820_old"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "relations_product_20240816_type_id_fkey"
+            columns: ["type_id"]
+            isOneToOne: false
+            referencedRelation: "Type"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "relations_product_20240816_year_id_fkey"
+            columns: ["year_id"]
+            isOneToOne: false
+            referencedRelation: "Years"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      relations_product_20240821_old: {
+        Row: {
+          created_at: string | null
+          id: number | null
+          make_id: number | null
+          model_id: number | null
+          product_id: number | null
+          type_id: number | null
+          updated_at: string | null
+          year_id: number | null
+        }
+        Insert: {
+          created_at?: string | null
+          id?: number | null
+          make_id?: number | null
+          model_id?: number | null
+          product_id?: number | null
+          type_id?: number | null
+          updated_at?: string | null
+          year_id?: number | null
+        }
+        Update: {
+          created_at?: string | null
+          id?: number | null
+          make_id?: number | null
+          model_id?: number | null
+          product_id?: number | null
+          type_id?: number | null
+          updated_at?: string | null
+          year_id?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "relations_product_20240820_make_id_fkey"
+            columns: ["make_id"]
+            isOneToOne: false
+            referencedRelation: "Make"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "relations_product_20240820_model_id_fkey"
+            columns: ["model_id"]
+            isOneToOne: false
+            referencedRelation: "Model"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "relations_product_20240820_product_id_fkey_2"
+            columns: ["product_id"]
+            isOneToOne: false
+            referencedRelation: "Products_20240821_old"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "relations_product_20240820_type_id_fkey"
+            columns: ["type_id"]
+            isOneToOne: false
+            referencedRelation: "Type"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "relations_product_20240820_year_id_fkey"
+            columns: ["year_id"]
+            isOneToOne: false
+            referencedRelation: "Years"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      relations_product_go_test: {
+        Row: {
+          created_at: string | null
+          id: number | null
+          make_id: number | null
+          model_id: number | null
+          product_id: number | null
+          type_id: number | null
+          updated_at: string | null
+          year_id: number | null
+        }
+        Insert: {
+          created_at?: string | null
+          id?: number | null
+          make_id?: number | null
+          model_id?: number | null
+          product_id?: number | null
+          type_id?: number | null
+          updated_at?: string | null
+          year_id?: number | null
+        }
+        Update: {
+          created_at?: string | null
+          id?: number | null
+          make_id?: number | null
+          model_id?: number | null
+          product_id?: number | null
+          type_id?: number | null
+          updated_at?: string | null
+          year_id?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "relations_product_go_test_make_id_fkey"
+            columns: ["make_id"]
+            isOneToOne: false
+            referencedRelation: "Make"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "relations_product_go_test_model_id_fkey"
+            columns: ["model_id"]
+            isOneToOne: false
+            referencedRelation: "Model"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "relations_product_go_test_product_id_fkey"
+            columns: ["product_id"]
+            isOneToOne: false
+            referencedRelation: "Products_20240820_old"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "relations_product_go_test_type_id_fkey"
+            columns: ["type_id"]
+            isOneToOne: false
+            referencedRelation: "Type"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "relations_product_go_test_year_id_fkey"
+            columns: ["year_id"]
+            isOneToOne: false
+            referencedRelation: "Years"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       reviews_car_covers: {
         Row: {
@@ -2279,162 +4713,6 @@ export type Database = {
           type?: string | null
           verified_status?: string | null
           year_generation?: string | null
-        }
-        Relationships: []
-      }
-      reviews_car_covers_20240719_2_raw: {
-        Row: {
-          customer_name: string | null
-          date: string | null
-          helpful: number | null
-          image_link: string | null
-          rating: number | null
-          recommend: string | null
-          review_description: string | null
-          review_title: string | null
-          verfied_status: string | null
-        }
-        Insert: {
-          customer_name?: string | null
-          date?: string | null
-          helpful?: number | null
-          image_link?: string | null
-          rating?: number | null
-          recommend?: string | null
-          review_description?: string | null
-          review_title?: string | null
-          verfied_status?: string | null
-        }
-        Update: {
-          customer_name?: string | null
-          date?: string | null
-          helpful?: number | null
-          image_link?: string | null
-          rating?: number | null
-          recommend?: string | null
-          review_description?: string | null
-          review_title?: string | null
-          verfied_status?: string | null
-        }
-        Relationships: []
-      }
-      reviews_car_covers_20240719_old: {
-        Row: {
-          gpt_review_id: string | null
-          helpful: number | null
-          id: number
-          make: string | null
-          make_slug: string | null
-          Mirror: string | null
-          model: string | null
-          model_slug: string | null
-          parent_generation: string | null
-          product_name: string | null
-          product_type: string | null
-          rating_stars: number | null
-          recommend: string | null
-          review_author: string | null
-          review_description: string | null
-          review_image: string | null
-          review_title: string | null
-          reviewed_at: string | null
-          Size: string | null
-          sku: string | null
-          submodel1: string | null
-          submodel2: string | null
-          type: string | null
-          verified_status: string | null
-          year_generation: string | null
-        }
-        Insert: {
-          gpt_review_id?: string | null
-          helpful?: number | null
-          id?: number
-          make?: string | null
-          make_slug?: string | null
-          Mirror?: string | null
-          model?: string | null
-          model_slug?: string | null
-          parent_generation?: string | null
-          product_name?: string | null
-          product_type?: string | null
-          rating_stars?: number | null
-          recommend?: string | null
-          review_author?: string | null
-          review_description?: string | null
-          review_image?: string | null
-          review_title?: string | null
-          reviewed_at?: string | null
-          Size?: string | null
-          sku?: string | null
-          submodel1?: string | null
-          submodel2?: string | null
-          type?: string | null
-          verified_status?: string | null
-          year_generation?: string | null
-        }
-        Update: {
-          gpt_review_id?: string | null
-          helpful?: number | null
-          id?: number
-          make?: string | null
-          make_slug?: string | null
-          Mirror?: string | null
-          model?: string | null
-          model_slug?: string | null
-          parent_generation?: string | null
-          product_name?: string | null
-          product_type?: string | null
-          rating_stars?: number | null
-          recommend?: string | null
-          review_author?: string | null
-          review_description?: string | null
-          review_image?: string | null
-          review_title?: string | null
-          reviewed_at?: string | null
-          Size?: string | null
-          sku?: string | null
-          submodel1?: string | null
-          submodel2?: string | null
-          type?: string | null
-          verified_status?: string | null
-          year_generation?: string | null
-        }
-        Relationships: []
-      }
-      reviews_car_covers_20240719_raw: {
-        Row: {
-          customer_name: string | null
-          date: string | null
-          helpful: number | null
-          image_link: string | null
-          rating: number | null
-          recommend: string | null
-          review_description: string | null
-          review_title: string | null
-          verfied_status: string | null
-        }
-        Insert: {
-          customer_name?: string | null
-          date?: string | null
-          helpful?: number | null
-          image_link?: string | null
-          rating?: number | null
-          recommend?: string | null
-          review_description?: string | null
-          review_title?: string | null
-          verfied_status?: string | null
-        }
-        Update: {
-          customer_name?: string | null
-          date?: string | null
-          helpful?: number | null
-          image_link?: string | null
-          rating?: number | null
-          recommend?: string | null
-          review_description?: string | null
-          review_title?: string | null
-          verfied_status?: string | null
         }
         Relationships: []
       }
@@ -2522,157 +4800,321 @@ export type Database = {
         }
         Relationships: []
       }
-      reviews_seat_covers_20240718_old: {
+      seat_cover_front_20240816: {
         Row: {
-          gpt_review_id: string | null
-          helpful: number | null
+          banner: string | null
+          display_color: string | null
+          display_id: string | null
+          display_set: string | null
+          feature: string | null
+          GTIN: string | null
           id: number
           make: string | null
           make_slug: string | null
-          Mirror: string | null
           model: string | null
           model_slug: string | null
+          MPN: string | null
+          msrp: number | null
           parent_generation: string | null
-          product_name: string | null
-          product_type: string | null
-          rating_stars: number | null
-          recommend: string | null
-          review_author: string | null
-          review_description: string | null
-          review_image: string | null
-          review_title: string | null
-          reviewed_at: string | null
-          Size: string | null
-          sku: string | null
-          submodel1: string | null
-          submodel2: string | null
-          type: string | null
-          verified_status: string | null
-          year_generation: string | null
-        }
-        Insert: {
-          gpt_review_id?: string | null
-          helpful?: number | null
-          id?: number
-          make?: string | null
-          make_slug?: string | null
-          Mirror?: string | null
-          model?: string | null
-          model_slug?: string | null
-          parent_generation?: string | null
-          product_name?: string | null
-          product_type?: string | null
-          rating_stars?: number | null
-          recommend?: string | null
-          review_author?: string | null
-          review_description?: string | null
-          review_image?: string | null
-          review_title?: string | null
-          reviewed_at?: string | null
-          Size?: string | null
-          sku?: string | null
-          submodel1?: string | null
-          submodel2?: string | null
-          type?: string | null
-          verified_status?: string | null
-          year_generation?: string | null
-        }
-        Update: {
-          gpt_review_id?: string | null
-          helpful?: number | null
-          id?: number
-          make?: string | null
-          make_slug?: string | null
-          Mirror?: string | null
-          model?: string | null
-          model_slug?: string | null
-          parent_generation?: string | null
-          product_name?: string | null
-          product_type?: string | null
-          rating_stars?: number | null
-          recommend?: string | null
-          review_author?: string | null
-          review_description?: string | null
-          review_image?: string | null
-          review_title?: string | null
-          reviewed_at?: string | null
-          Size?: string | null
-          sku?: string | null
-          submodel1?: string | null
-          submodel2?: string | null
-          type?: string | null
-          verified_status?: string | null
-          year_generation?: string | null
-        }
-        Relationships: []
-      }
-      reviews_seat_covers_20240718_raw: {
-        Row: {
-          customer_name: string | null
-          date: string | null
-          helpful: number | null
-          image_link: string | null
-          rating: number | null
-          recommend: string | null
-          review_description: string | null
-          review_title: string | null
-          verfied_status: string | null
-        }
-        Insert: {
-          customer_name?: string | null
-          date?: string | null
-          helpful?: number | null
-          image_link?: string | null
-          rating?: number | null
-          recommend?: string | null
-          review_description?: string | null
-          review_title?: string | null
-          verfied_status?: string | null
-        }
-        Update: {
-          customer_name?: string | null
-          date?: string | null
-          helpful?: number | null
-          image_link?: string | null
-          rating?: number | null
-          recommend?: string | null
-          review_description?: string | null
-          review_title?: string | null
-          verfied_status?: string | null
-        }
-        Relationships: []
-      }
-      seat_cover_preorder_20240719: {
-        Row: {
-          display_set: string | null
-          id: number | null
           preorder_date: string | null
           preorder_discount: number | null
           preorder_true: boolean | null
+          price: number | null
+          product: string | null
+          product_video_360: string | null
+          product_video_carousel: string | null
+          product_video_carousel_thumbnail: string | null
+          product_video_zoom: string | null
+          quantity: string | null
           sku: string | null
+          "skulabs sku": string | null
+          submodel1: string | null
+          submodel2: string | null
+          type: string | null
+          year_generation: string | null
+          year_options: string | null
         }
         Insert: {
+          banner?: string | null
+          display_color?: string | null
+          display_id?: string | null
           display_set?: string | null
-          id?: number | null
+          feature?: string | null
+          GTIN?: string | null
+          id: number
+          make?: string | null
+          make_slug?: string | null
+          model?: string | null
+          model_slug?: string | null
+          MPN?: string | null
+          msrp?: number | null
+          parent_generation?: string | null
           preorder_date?: string | null
           preorder_discount?: number | null
           preorder_true?: boolean | null
+          price?: number | null
+          product?: string | null
+          product_video_360?: string | null
+          product_video_carousel?: string | null
+          product_video_carousel_thumbnail?: string | null
+          product_video_zoom?: string | null
+          quantity?: string | null
           sku?: string | null
+          "skulabs sku"?: string | null
+          submodel1?: string | null
+          submodel2?: string | null
+          type?: string | null
+          year_generation?: string | null
+          year_options?: string | null
         }
         Update: {
+          banner?: string | null
+          display_color?: string | null
+          display_id?: string | null
           display_set?: string | null
-          id?: number | null
+          feature?: string | null
+          GTIN?: string | null
+          id?: number
+          make?: string | null
+          make_slug?: string | null
+          model?: string | null
+          model_slug?: string | null
+          MPN?: string | null
+          msrp?: number | null
+          parent_generation?: string | null
           preorder_date?: string | null
           preorder_discount?: number | null
           preorder_true?: boolean | null
+          price?: number | null
+          product?: string | null
+          product_video_360?: string | null
+          product_video_carousel?: string | null
+          product_video_carousel_thumbnail?: string | null
+          product_video_zoom?: string | null
+          quantity?: string | null
           sku?: string | null
+          "skulabs sku"?: string | null
+          submodel1?: string | null
+          submodel2?: string | null
+          type?: string | null
+          year_generation?: string | null
+          year_options?: string | null
         }
         Relationships: []
       }
-      seat_cover_preorder_20240730: {
+      seat_cover_full_20240816: {
+        Row: {
+          banner: string | null
+          display_color: string | null
+          display_id: string | null
+          display_set: string | null
+          feature: string | null
+          GTIN: string | null
+          id: number
+          make: string | null
+          make_slug: string | null
+          model: string | null
+          model_slug: string | null
+          MPN: string | null
+          msrp: number | null
+          parent_generation: string | null
+          preorder_date: string | null
+          preorder_discount: number | null
+          preorder_true: boolean | null
+          price: number | null
+          product: string | null
+          product_video_360: string | null
+          product_video_carousel: string | null
+          product_video_carousel_thumbnail: string | null
+          product_video_zoom: string | null
+          quantity: string | null
+          sku: string | null
+          "skulabs sku": string | null
+          submodel1: string | null
+          submodel2: string | null
+          submodel3: string | null
+          type: string | null
+          year_generation: string | null
+          year_options: string | null
+        }
+        Insert: {
+          banner?: string | null
+          display_color?: string | null
+          display_id?: string | null
+          display_set?: string | null
+          feature?: string | null
+          GTIN?: string | null
+          id: number
+          make?: string | null
+          make_slug?: string | null
+          model?: string | null
+          model_slug?: string | null
+          MPN?: string | null
+          msrp?: number | null
+          parent_generation?: string | null
+          preorder_date?: string | null
+          preorder_discount?: number | null
+          preorder_true?: boolean | null
+          price?: number | null
+          product?: string | null
+          product_video_360?: string | null
+          product_video_carousel?: string | null
+          product_video_carousel_thumbnail?: string | null
+          product_video_zoom?: string | null
+          quantity?: string | null
+          sku?: string | null
+          "skulabs sku"?: string | null
+          submodel1?: string | null
+          submodel2?: string | null
+          submodel3?: string | null
+          type?: string | null
+          year_generation?: string | null
+          year_options?: string | null
+        }
+        Update: {
+          banner?: string | null
+          display_color?: string | null
+          display_id?: string | null
+          display_set?: string | null
+          feature?: string | null
+          GTIN?: string | null
+          id?: number
+          make?: string | null
+          make_slug?: string | null
+          model?: string | null
+          model_slug?: string | null
+          MPN?: string | null
+          msrp?: number | null
+          parent_generation?: string | null
+          preorder_date?: string | null
+          preorder_discount?: number | null
+          preorder_true?: boolean | null
+          price?: number | null
+          product?: string | null
+          product_video_360?: string | null
+          product_video_carousel?: string | null
+          product_video_carousel_thumbnail?: string | null
+          product_video_zoom?: string | null
+          quantity?: string | null
+          sku?: string | null
+          "skulabs sku"?: string | null
+          submodel1?: string | null
+          submodel2?: string | null
+          submodel3?: string | null
+          type?: string | null
+          year_generation?: string | null
+          year_options?: string | null
+        }
+        Relationships: []
+      }
+      seat_cover_preorder_20240821: {
+        Row: {
+          banner: string | null
+          display_color: string | null
+          display_id: string | null
+          display_set: string | null
+          feature: string | null
+          gtin: string | null
+          id: number
+          make: string | null
+          make_slug: string | null
+          model: string | null
+          model_slug: string | null
+          MPN: string | null
+          msrp: number | null
+          parent_generation: string | null
+          preorder_date: string | null
+          preorder_discount: number | null
+          preorder_true: boolean | null
+          price: number | null
+          product: string | null
+          product_video_360: string | null
+          product_video_carousel: string | null
+          product_video_carousel_thumbnail: string | null
+          product_video_zoom: string | null
+          quantity: string | null
+          sku: string | null
+          "skulabs sku": string | null
+          submodel1: string | null
+          submodel2: string | null
+          type: string | null
+          year_generation: string | null
+          year_options: string | null
+        }
+        Insert: {
+          banner?: string | null
+          display_color?: string | null
+          display_id?: string | null
+          display_set?: string | null
+          feature?: string | null
+          gtin?: string | null
+          id: number
+          make?: string | null
+          make_slug?: string | null
+          model?: string | null
+          model_slug?: string | null
+          MPN?: string | null
+          msrp?: number | null
+          parent_generation?: string | null
+          preorder_date?: string | null
+          preorder_discount?: number | null
+          preorder_true?: boolean | null
+          price?: number | null
+          product?: string | null
+          product_video_360?: string | null
+          product_video_carousel?: string | null
+          product_video_carousel_thumbnail?: string | null
+          product_video_zoom?: string | null
+          quantity?: string | null
+          sku?: string | null
+          "skulabs sku"?: string | null
+          submodel1?: string | null
+          submodel2?: string | null
+          type?: string | null
+          year_generation?: string | null
+          year_options?: string | null
+        }
+        Update: {
+          banner?: string | null
+          display_color?: string | null
+          display_id?: string | null
+          display_set?: string | null
+          feature?: string | null
+          gtin?: string | null
+          id?: number
+          make?: string | null
+          make_slug?: string | null
+          model?: string | null
+          model_slug?: string | null
+          MPN?: string | null
+          msrp?: number | null
+          parent_generation?: string | null
+          preorder_date?: string | null
+          preorder_discount?: number | null
+          preorder_true?: boolean | null
+          price?: number | null
+          product?: string | null
+          product_video_360?: string | null
+          product_video_carousel?: string | null
+          product_video_carousel_thumbnail?: string | null
+          product_video_zoom?: string | null
+          quantity?: string | null
+          sku?: string | null
+          "skulabs sku"?: string | null
+          submodel1?: string | null
+          submodel2?: string | null
+          type?: string | null
+          year_generation?: string | null
+          year_options?: string | null
+        }
+        Relationships: []
+      }
+      seat_cover_preorder_front_20240815: {
         Row: {
           display_set: string | null
-          id: number
+          GTIN: string | null
+          id: number | null
+          MPN: string | null
           preorder_date: string | null
           preorder_discount: number | null
           preorder_true: boolean | null
@@ -2681,7 +5123,9 @@ export type Database = {
         }
         Insert: {
           display_set?: string | null
-          id: number
+          GTIN?: string | null
+          id?: number | null
+          MPN?: string | null
           preorder_date?: string | null
           preorder_discount?: number | null
           preorder_true?: boolean | null
@@ -2690,7 +5134,9 @@ export type Database = {
         }
         Update: {
           display_set?: string | null
-          id?: number
+          GTIN?: string | null
+          id?: number | null
+          MPN?: string | null
           preorder_date?: string | null
           preorder_discount?: number | null
           preorder_true?: boolean | null
@@ -2699,105 +5145,354 @@ export type Database = {
         }
         Relationships: []
       }
-      seat_cover_preorder_20240809: {
+      seat_cover_preorder_front_20240815_full: {
         Row: {
+          banner: string | null
           display_color: string | null
+          display_id: string | null
+          display_set: string | null
+          feature: string | null
+          GTIN: number | null
+          id: number
+          make: string | null
+          make_slug: string | null
+          model: string | null
+          model_slug: string | null
+          MPN: string | null
+          msrp: number | null
+          parent_generation: string | null
+          preorder_date: string | null
+          preorder_discount: number | null
+          preorder_true: boolean | null
+          price: number | null
+          product: string | null
+          product_video_360: string | null
+          product_video_carousel: string | null
+          product_video_carousel_thumbnail: string | null
+          product_video_zoom: string | null
+          quantity: string | null
+          sku: string | null
+          "skulabs sku": string | null
+          submodel1: string | null
+          submodel2: string | null
+          submodel3: string | null
+          type: string | null
+          year_generation: string | null
+          year_options: string | null
+        }
+        Insert: {
+          banner?: string | null
+          display_color?: string | null
+          display_id?: string | null
+          display_set?: string | null
+          feature?: string | null
+          GTIN?: number | null
+          id: number
+          make?: string | null
+          make_slug?: string | null
+          model?: string | null
+          model_slug?: string | null
+          MPN?: string | null
+          msrp?: number | null
+          parent_generation?: string | null
+          preorder_date?: string | null
+          preorder_discount?: number | null
+          preorder_true?: boolean | null
+          price?: number | null
+          product?: string | null
+          product_video_360?: string | null
+          product_video_carousel?: string | null
+          product_video_carousel_thumbnail?: string | null
+          product_video_zoom?: string | null
+          quantity?: string | null
+          sku?: string | null
+          "skulabs sku"?: string | null
+          submodel1?: string | null
+          submodel2?: string | null
+          submodel3?: string | null
+          type?: string | null
+          year_generation?: string | null
+          year_options?: string | null
+        }
+        Update: {
+          banner?: string | null
+          display_color?: string | null
+          display_id?: string | null
+          display_set?: string | null
+          feature?: string | null
+          GTIN?: number | null
+          id?: number
+          make?: string | null
+          make_slug?: string | null
+          model?: string | null
+          model_slug?: string | null
+          MPN?: string | null
+          msrp?: number | null
+          parent_generation?: string | null
+          preorder_date?: string | null
+          preorder_discount?: number | null
+          preorder_true?: boolean | null
+          price?: number | null
+          product?: string | null
+          product_video_360?: string | null
+          product_video_carousel?: string | null
+          product_video_carousel_thumbnail?: string | null
+          product_video_zoom?: string | null
+          quantity?: string | null
+          sku?: string | null
+          "skulabs sku"?: string | null
+          submodel1?: string | null
+          submodel2?: string | null
+          submodel3?: string | null
+          type?: string | null
+          year_generation?: string | null
+          year_options?: string | null
+        }
+        Relationships: []
+      }
+      seat_cover_preorder_front_20240816_full: {
+        Row: {
+          banner: string | null
+          display_color: string | null
+          display_id: string | null
+          display_set: string | null
+          feature: string | null
+          GTIN: number | null
+          id: number | null
+          make: string | null
+          make_slug: string | null
+          model: string | null
+          model_slug: string | null
+          MPN: string | null
+          msrp: number | null
+          parent_generation: string | null
+          preorder_date: string | null
+          preorder_discount: number | null
+          preorder_true: boolean | null
+          price: number | null
+          product: string | null
+          product_video_360: string | null
+          product_video_carousel: string | null
+          product_video_carousel_thumbnail: string | null
+          product_video_zoom: string | null
+          quantity: string | null
+          sku: string | null
+          "skulabs sku": string | null
+          submodel1: string | null
+          submodel2: string | null
+          submodel3: string | null
+          type: string | null
+          year_generation: string | null
+          year_options: string | null
+        }
+        Insert: {
+          banner?: string | null
+          display_color?: string | null
+          display_id?: string | null
+          display_set?: string | null
+          feature?: string | null
+          GTIN?: number | null
+          id?: number | null
+          make?: string | null
+          make_slug?: string | null
+          model?: string | null
+          model_slug?: string | null
+          MPN?: string | null
+          msrp?: number | null
+          parent_generation?: string | null
+          preorder_date?: string | null
+          preorder_discount?: number | null
+          preorder_true?: boolean | null
+          price?: number | null
+          product?: string | null
+          product_video_360?: string | null
+          product_video_carousel?: string | null
+          product_video_carousel_thumbnail?: string | null
+          product_video_zoom?: string | null
+          quantity?: string | null
+          sku?: string | null
+          "skulabs sku"?: string | null
+          submodel1?: string | null
+          submodel2?: string | null
+          submodel3?: string | null
+          type?: string | null
+          year_generation?: string | null
+          year_options?: string | null
+        }
+        Update: {
+          banner?: string | null
+          display_color?: string | null
+          display_id?: string | null
+          display_set?: string | null
+          feature?: string | null
+          GTIN?: number | null
+          id?: number | null
+          make?: string | null
+          make_slug?: string | null
+          model?: string | null
+          model_slug?: string | null
+          MPN?: string | null
+          msrp?: number | null
+          parent_generation?: string | null
+          preorder_date?: string | null
+          preorder_discount?: number | null
+          preorder_true?: boolean | null
+          price?: number | null
+          product?: string | null
+          product_video_360?: string | null
+          product_video_carousel?: string | null
+          product_video_carousel_thumbnail?: string | null
+          product_video_zoom?: string | null
+          quantity?: string | null
+          sku?: string | null
+          "skulabs sku"?: string | null
+          submodel1?: string | null
+          submodel2?: string | null
+          submodel3?: string | null
+          type?: string | null
+          year_generation?: string | null
+          year_options?: string | null
+        }
+        Relationships: []
+      }
+      seat_cover_preorder_full_20240815: {
+        Row: {
           display_set: string | null
           GTIN: string | null
-          id: number
+          id: number | null
           MPN: string | null
           preorder_date: string | null
           preorder_discount: number | null
           preorder_true: boolean | null
           sku: string | null
+          "skulabs sku": string | null
         }
         Insert: {
-          display_color?: string | null
           display_set?: string | null
           GTIN?: string | null
-          id: number
+          id?: number | null
           MPN?: string | null
           preorder_date?: string | null
           preorder_discount?: number | null
           preorder_true?: boolean | null
           sku?: string | null
+          "skulabs sku"?: string | null
         }
         Update: {
-          display_color?: string | null
           display_set?: string | null
           GTIN?: string | null
-          id?: number
+          id?: number | null
           MPN?: string | null
           preorder_date?: string | null
           preorder_discount?: number | null
           preorder_true?: boolean | null
           sku?: string | null
+          "skulabs sku"?: string | null
         }
         Relationships: []
       }
-      seat_cover_preorder_20240809_2: {
+      seat_cover_preorder_full_20240815_full: {
         Row: {
+          banner: string | null
           display_color: string | null
+          display_id: string | null
           display_set: string | null
-          id: number
+          feature: string | null
+          GTIN: number | null
+          id: number | null
+          make: string | null
+          make_slug: string | null
+          model: string | null
+          model_slug: string | null
+          MPN: string | null
+          msrp: number | null
+          parent_generation: string | null
           preorder_date: string | null
           preorder_discount: number | null
           preorder_true: boolean | null
+          price: number | null
+          product: string | null
+          product_video_360: string | null
+          product_video_carousel: string | null
+          product_video_carousel_thumbnail: string | null
+          product_video_zoom: string | null
+          quantity: string | null
           sku: string | null
+          "skulabs sku": string | null
+          submodel1: string | null
+          submodel2: string | null
+          submodel3: string | null
+          type: string | null
+          year_generation: string | null
+          year_options: string | null
         }
         Insert: {
+          banner?: string | null
           display_color?: string | null
+          display_id?: string | null
           display_set?: string | null
-          id: number
+          feature?: string | null
+          GTIN?: number | null
+          id?: number | null
+          make?: string | null
+          make_slug?: string | null
+          model?: string | null
+          model_slug?: string | null
+          MPN?: string | null
+          msrp?: number | null
+          parent_generation?: string | null
           preorder_date?: string | null
           preorder_discount?: number | null
           preorder_true?: boolean | null
+          price?: number | null
+          product?: string | null
+          product_video_360?: string | null
+          product_video_carousel?: string | null
+          product_video_carousel_thumbnail?: string | null
+          product_video_zoom?: string | null
+          quantity?: string | null
           sku?: string | null
+          "skulabs sku"?: string | null
+          submodel1?: string | null
+          submodel2?: string | null
+          submodel3?: string | null
+          type?: string | null
+          year_generation?: string | null
+          year_options?: string | null
         }
         Update: {
+          banner?: string | null
           display_color?: string | null
+          display_id?: string | null
           display_set?: string | null
-          id?: number
+          feature?: string | null
+          GTIN?: number | null
+          id?: number | null
+          make?: string | null
+          make_slug?: string | null
+          model?: string | null
+          model_slug?: string | null
+          MPN?: string | null
+          msrp?: number | null
+          parent_generation?: string | null
           preorder_date?: string | null
           preorder_discount?: number | null
           preorder_true?: boolean | null
+          price?: number | null
+          product?: string | null
+          product_video_360?: string | null
+          product_video_carousel?: string | null
+          product_video_carousel_thumbnail?: string | null
+          product_video_zoom?: string | null
+          quantity?: string | null
           sku?: string | null
-        }
-        Relationships: []
-      }
-      test_reivew: {
-        Row: {
-          customer_name: string | null
-          date: string | null
-          helpful: number | null
-          image_link: string | null
-          rating: number | null
-          recommend: string | null
-          review_description: string | null
-          review_title: string | null
-          verfied_status: string | null
-        }
-        Insert: {
-          customer_name?: string | null
-          date?: string | null
-          helpful?: number | null
-          image_link?: string | null
-          rating?: number | null
-          recommend?: string | null
-          review_description?: string | null
-          review_title?: string | null
-          verfied_status?: string | null
-        }
-        Update: {
-          customer_name?: string | null
-          date?: string | null
-          helpful?: number | null
-          image_link?: string | null
-          rating?: number | null
-          recommend?: string | null
-          review_description?: string | null
-          review_title?: string | null
-          verfied_status?: string | null
+          "skulabs sku"?: string | null
+          submodel1?: string | null
+          submodel2?: string | null
+          submodel3?: string | null
+          type?: string | null
+          year_generation?: string | null
+          year_options?: string | null
         }
         Relationships: []
       }
@@ -2972,66 +5667,42 @@ export type Database = {
         }
         Relationships: []
       }
-      users_rls: {
+      what_is_going_on_20240815: {
         Row: {
-          address: string | null
-          address_2: string | null
-          city: string | null
-          created_at: string
-          email: string | null
-          id: number
-          image_path: string | null
-          last_name: string | null
-          name: string | null
-          password: string | null
-          phone: string | null
-          pincode: string | null
-          shipping_address: string | null
-          shipping_address_2: string | null
-          shipping_city: string | null
-          shipping_pincode: string | null
-          shipping_state: string | null
-          state: string | null
+          make: string | null
+          model: string | null
+          new_id: number | null
+          new_sku: string | null
+          old_id: number | null
+          old_sku: string | null
+          parent_generation: string | null
+          submodel1: string | null
+          submodel2: string | null
+          year_generation: string | null
         }
         Insert: {
-          address?: string | null
-          address_2?: string | null
-          city?: string | null
-          created_at?: string
-          email?: string | null
-          id?: number
-          image_path?: string | null
-          last_name?: string | null
-          name?: string | null
-          password?: string | null
-          phone?: string | null
-          pincode?: string | null
-          shipping_address?: string | null
-          shipping_address_2?: string | null
-          shipping_city?: string | null
-          shipping_pincode?: string | null
-          shipping_state?: string | null
-          state?: string | null
+          make?: string | null
+          model?: string | null
+          new_id?: number | null
+          new_sku?: string | null
+          old_id?: number | null
+          old_sku?: string | null
+          parent_generation?: string | null
+          submodel1?: string | null
+          submodel2?: string | null
+          year_generation?: string | null
         }
         Update: {
-          address?: string | null
-          address_2?: string | null
-          city?: string | null
-          created_at?: string
-          email?: string | null
-          id?: number
-          image_path?: string | null
-          last_name?: string | null
-          name?: string | null
-          password?: string | null
-          phone?: string | null
-          pincode?: string | null
-          shipping_address?: string | null
-          shipping_address_2?: string | null
-          shipping_city?: string | null
-          shipping_pincode?: string | null
-          shipping_state?: string | null
-          state?: string | null
+          make?: string | null
+          model?: string | null
+          new_id?: number | null
+          new_sku?: string | null
+          old_id?: number | null
+          old_sku?: string | null
+          parent_generation?: string | null
+          submodel1?: string | null
+          submodel2?: string | null
+          year_generation?: string | null
         }
         Relationships: []
       }
@@ -3114,6 +5785,7 @@ export type Database = {
               total_amount: number | null
               total_discount_amount: number | null
               total_original_amount: number | null
+              total_tax: number | null
               transaction_id: string | null
               updated_at: string | null
               wallet_type: string | null
@@ -3171,6 +5843,7 @@ export type Database = {
               total_amount: number | null
               total_discount_amount: number | null
               total_original_amount: number | null
+              total_tax: number | null
               transaction_id: string | null
               updated_at: string | null
               wallet_type: string | null
@@ -3196,6 +5869,7 @@ export type Database = {
           p_cover?: string
         }
         Returns: {
+          id: number
           sku: string
           type: string
           make: string
@@ -3361,6 +6035,21 @@ export type Database = {
           year_options: string
         }[]
       }
+      get_hourly_orders_summary: {
+        Args: Record<PropertyKey, never>
+        Returns: {
+          hour: number
+          car_cover_orders_count: number
+          seat_cover_orders_count: number
+        }[]
+      }
+      get_hourly_orders_summary_last_few_days: {
+        Args: Record<PropertyKey, never>
+        Returns: {
+          hour: string
+          total_completed_orders_count: number
+        }[]
+      }
       get_last_day_orders: {
         Args: Record<PropertyKey, never>
         Returns: {
@@ -3428,6 +6117,42 @@ export type Database = {
         }
         Returns: string
       }
+      get_orders_summary_last_30_days: {
+        Args: Record<PropertyKey, never>
+        Returns: {
+          created_at_pst: string
+          complete_orders_count: number
+          completed_orders_count: number
+          total_completed_orders_count: number
+          pending_orders_count: number
+          cl_pre_orders_pending_count: number
+          cl_pre_orders_not_pending_count: number
+        }[]
+      }
+      get_orders_summary_last_7_days: {
+        Args: Record<PropertyKey, never>
+        Returns: {
+          created_at_pst: string
+          complete_orders_count: number
+          completed_orders_count: number
+          total_completed_orders_count: number
+          pending_orders_count: number
+          cl_pre_orders_pending_count: number
+          cl_pre_orders_not_pending_count: number
+        }[]
+      }
+      get_orders_summary_last_day: {
+        Args: Record<PropertyKey, never>
+        Returns: {
+          hour: string
+          complete_orders_count: number
+          completed_orders_count: number
+          total_completed_orders_count: number
+          pending_orders_count: number
+          cl_pre_orders_pending_count: number
+          cl_pre_orders_not_pending_count: number
+        }[]
+      }
       get_product_reviews_summary: {
         Args: {
           table_name: string
@@ -3458,6 +6183,12 @@ export type Database = {
           average_score: number
         }[]
       }
+      get_public_tables: {
+        Args: Record<PropertyKey, never>
+        Returns: {
+          table_name: string
+        }[]
+      }
       get_seat_cover_products_sorted_by_color: {
         Args: {
           p_type?: string
@@ -3470,6 +6201,46 @@ export type Database = {
           p_submodel3?: string
         }
         Returns: {
+          id: number
+          sku: string
+          type: string
+          make: string
+          model: string
+          year_generation: string
+          parent_generation: string
+          submodel1: string
+          submodel2: string
+          submodel3: string
+          product: string
+          display_color: string
+          msrp: number
+          price: number
+          quantity: string
+          display_id: string
+          make_slug: string
+          model_slug: string
+          year_options: string
+          display_set: string
+          preorder: boolean
+          preorder_date: string
+          preorder_discount: number
+          gtin: string
+          mpn: string
+        }[]
+      }
+      get_seat_cover_products_sorted_by_color_20240815_forIDFix_NEW: {
+        Args: {
+          p_type?: string
+          p_cover?: string
+          p_make?: string
+          p_model?: string
+          p_year?: string
+          p_submodel?: string
+          p_submodel2?: string
+          p_submodel3?: string
+        }
+        Returns: {
+          id: number
           sku: string
           type: string
           make: string
@@ -3571,6 +6342,14 @@ export type Database = {
       get_statement_timeout: {
         Args: Record<PropertyKey, never>
         Returns: string
+      }
+      get_table_columns: {
+        Args: {
+          p_table_name: string
+        }
+        Returns: {
+          column_name: string
+        }[]
       }
       get_unique_years: {
         Args: {

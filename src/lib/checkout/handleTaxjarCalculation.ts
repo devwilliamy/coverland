@@ -1,45 +1,16 @@
 import { TCartItem } from '../cart/useCart';
-import { getCartTotalPrice } from '../utils/calculations';
 import { StripeAddress } from '../types/checkout';
 import { updateAdminPanelOrder } from '../db/admin-panel/orders';
 import { postTaxData } from '../db/taxjar';
 import { updateAdminPanelOrderItem } from '../db/admin-panel/orderItems';
-import { updateStripePaymentIntent } from '../stripe/paymentIntent';
-
-type TaxJarResponse = {
-  tax: {
-    amount_to_collect: number;
-    breakdown: {
-      city_tax_collectable: number;
-      city_tax_rate: number;
-      county_tax_collectable: number;
-      county_tax_rate: number;
-      special_district_tax_collectable: number;
-      special_tax_rate: number;
-      state_tax_collectable: number;
-      state_tax_rate: number;
-      taxable_amount: number;
-      line_items: Array<{
-        id: string;
-        tax_collectable: number;
-        taxable_amount: number;
-      }>;
-    };
-    jurisdictions: {
-      city: string;
-      county: string;
-      state: string;
-    };
-  };
-};
+import {
+  TaxJarLineItem,
+  TaxJarRequestBody,
+  TaxJarResponse,
+} from '../types/taxjar';
 
 // Prepare tax items from cart items
-function prepareTaxItems(cartItems: TCartItem[]): Array<{
-  id: string | number;
-  quantity: string | number;
-  unit_price: number;
-  discount: number;
-}> {
+function prepareTaxItems(cartItems: TCartItem[]): TaxJarLineItem[] {
   return cartItems.map((item, index) => ({
     id: item.id ?? index,
     quantity: item.quantity ?? '0',
@@ -53,19 +24,21 @@ function prepareTaxJarRequestBody(
   cartItems: TCartItem[],
   shipping: number,
   shippingAddress: StripeAddress
-) {
+): TaxJarRequestBody {
   const taxItems = prepareTaxItems(cartItems);
 
   return {
     to_country: shippingAddress.address.country,
-    to_zip: shippingAddress.address.postal_code,
-    to_state: shippingAddress.address.state,
+    to_zip: shippingAddress.address.postal_code || '',
+    to_state: shippingAddress.address.state || '',
     shipping: shipping,
     line_items: taxItems,
   };
 }
 
-async function getTaxJarTaxData(bodyData: any): Promise<any> {
+async function getTaxJarTaxData(
+  bodyData: TaxJarRequestBody
+): Promise<TaxJarResponse> {
   const response = await fetch('/api/taxjar/sales-tax', {
     method: 'POST',
     headers: {
@@ -90,7 +63,7 @@ async function getTaxJarTaxData(bodyData: any): Promise<any> {
 async function updateTaxColumnsInDB(
   orderId: number,
   orderNumber: string,
-  taxData
+  taxData: TaxJarResponse
 ) {
   // Update database with tax information
   const { tax } = taxData;

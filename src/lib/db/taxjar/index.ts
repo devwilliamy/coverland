@@ -1,7 +1,10 @@
 import { ORDER_TAXES } from '../constants/databaseTableNames';
 import { supabaseDatabaseClient } from '../supabaseClients';
+import { Tables } from '../types';
 
-export const postTaxData = async (taxEntries) => {
+export type TOrderTaxDB = Tables<'order_taxes'>;
+
+export const postTaxData = async (taxEntries: TOrderTaxDB) => {
   try {
     const { data, error } = await supabaseDatabaseClient
       .from(ORDER_TAXES)
