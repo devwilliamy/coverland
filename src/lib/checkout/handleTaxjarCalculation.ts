@@ -78,8 +78,7 @@ async function updateTaxColumnsInDB(
   taxData: TaxJarResponse
 ) {
   // Update database with tax information
-  const { tax } = taxData as TaxJarResponse;
-
+  const { tax } = taxData;
   // Update Orders table
   try {
     const updatedOrder = await updateAdminPanelOrder(
@@ -93,50 +92,60 @@ async function updateTaxColumnsInDB(
     );
   }
   // Prepare tax entries
-  const taxEntries = [
-    {
-      order_id: orderId,
-      jurisdiction: tax.jurisdictions.state,
-      tax_type: 'state',
-      tax_rate: tax.breakdown.state_tax_rate,
-      taxable_amount: tax.breakdown.taxable_amount,
-      tax_amount: tax.breakdown.state_tax_collectable,
-    },
-    {
-      order_id: orderId,
-      jurisdiction: tax.jurisdictions.county,
-      tax_type: 'county',
-      tax_rate: tax.breakdown.county_tax_rate,
-      taxable_amount: tax.breakdown.taxable_amount,
-      tax_amount: tax.breakdown.county_tax_collectable,
-    },
-    {
-      order_id: orderId,
-      jurisdiction: tax.jurisdictions.city,
-      tax_type: 'city',
-      tax_rate: tax.breakdown.city_tax_rate,
-      taxable_amount: tax.breakdown.taxable_amount,
-      tax_amount: tax.breakdown.city_tax_collectable,
-    },
-    {
-      order_id: orderId,
-      jurisdiction: 'Special District',
-      tax_type: 'special',
-      tax_rate: tax.breakdown.special_tax_rate,
-      taxable_amount: tax.breakdown.taxable_amount,
-      tax_amount: tax.breakdown.special_district_tax_collectable,
-    },
-  ];
+  if (tax.breakdown && tax.jurisdictions) {
+    const taxEntries = [
+      {
+        order_id: orderId,
+        jurisdiction: tax.jurisdictions?.state,
+        tax_type: 'state',
+        tax_rate: tax.breakdown?.state_tax_rate,
+        taxable_amount: tax.breakdown?.taxable_amount,
+        tax_amount: tax.breakdown?.state_tax_collectable,
+      },
+      {
+        order_id: orderId,
+        jurisdiction: tax.jurisdictions?.county,
+        tax_type: 'county',
+        tax_rate: tax.breakdown?.county_tax_rate,
+        taxable_amount: tax.breakdown?.taxable_amount,
+        tax_amount: tax.breakdown?.county_tax_collectable,
+      },
+      {
+        order_id: orderId,
+        jurisdiction: tax.jurisdictions?.city,
+        tax_type: 'city',
+        tax_rate: tax.breakdown?.city_tax_rate,
+        taxable_amount: tax.breakdown?.taxable_amount,
+        tax_amount: tax.breakdown?.city_tax_collectable,
+      },
+      {
+        order_id: orderId,
+        jurisdiction: 'Special District',
+        tax_type: 'special',
+        tax_rate: tax.breakdown?.special_tax_rate,
+        taxable_amount: tax.breakdown?.taxable_amount,
+        tax_amount: tax.breakdown?.special_district_tax_collectable,
+      },
+    ];
 
-  // Insert tax entries
-  const taxEntriesResponse = await postTaxData(taxEntries);
+    // Only insert tax entries if we have any
+    if (taxEntries.length > 0) {
+      await postTaxData(taxEntries);
+    }
 
-  // Update OrderItems
-  for (const lineItem of tax.breakdown.line_items) {
-    const orderItem = await updateAdminPanelOrderItem(
-      { tax_amount: lineItem.tax_collectable },
-      lineItem.id,
-      orderId
+    // Update OrderItems only if line_items exist
+    if (tax.breakdown.line_items) {
+      for (const lineItem of tax.breakdown.line_items) {
+        await updateAdminPanelOrderItem(
+          { tax_amount: lineItem.tax_collectable },
+          lineItem.id,
+          orderId
+        );
+      }
+    }
+  } else {
+    console.log(
+      'No detailed tax breakdown available. Skipping detailed tax entry updates.'
     );
   }
 }

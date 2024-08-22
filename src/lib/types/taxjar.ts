@@ -95,7 +95,7 @@
 export type TaxJarSuccessResponse = {
   tax: {
     amount_to_collect: number;
-    breakdown: {
+    breakdown?: {
       city_tax_collectable: number;
       city_tax_rate: number;
       county_tax_collectable: number;
@@ -111,7 +111,7 @@ export type TaxJarSuccessResponse = {
         taxable_amount: number;
       }>;
     };
-    jurisdictions: {
+    jurisdictions?: {
       city: string;
       county: string;
       state: string;
