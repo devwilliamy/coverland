@@ -11,6 +11,7 @@ import { CreditCardSection } from './CreditCardSection';
 import PayPalIcon from './icons/PayPalIcon';
 import { SelectedCardLogo } from './SelectedCardLogo';
 import LoadingButton from '../ui/loading-button';
+import PaymentProcessingMessage from './PaymentProcessing';
 
 export default function Payment({
   handleChangeAccordion,
@@ -193,7 +194,7 @@ export default function Payment({
         </>
       )}
       {/* Continue To Order Review Button */}
-      <div className="my-[48px] flex w-full flex-col items-center justify-center lg:flex-row lg:justify-end">
+      <div className="my-[36px] flex w-full flex-col items-center justify-center lg:my-[48px] lg:flex-row lg:justify-end">
         {message && (
           <p className="w-full text-center font-medium text-[red]">{message}</p>
         )}
