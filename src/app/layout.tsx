@@ -2,7 +2,6 @@ import type { Metadata } from 'next';
 import { Roboto } from 'next/font/google';
 import './globals.css';
 import Providers from '@/providers';
-import { Analytics } from '@vercel/analytics/react';
 import AppScripts from './scripts/AppScripts';
 import Script from 'next/script';
 import { GoogleTagManager } from '@next/third-parties/google';
@@ -65,7 +64,6 @@ export default function RootLayout({
             {/* <ReactQueryDevtools initialIsOpen={false} /> */}
           </main>
         </Providers>
-        <Analytics />
         <AppScripts />
       </body>
       {/* <GoogleTagManager gtmId="GTM-PW897Z9Z" /> */}
