@@ -660,7 +660,7 @@ export default function CheckoutAccordion() {
                                 {submitErrorMessage}
                               </p>
                             )}
-                            {!paymentProcessing && <PaymentProcessingMessage />}
+                            {paymentProcessing && <PaymentProcessingMessage />}
 
                             <Button
                               variant={'default'}
