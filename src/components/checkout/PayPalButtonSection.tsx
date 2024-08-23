@@ -208,7 +208,7 @@ export default function PayPalButtonSection({
                     2
                   ) as unknown as number,
                   free_delivery: shippingInfo.delivery_fee === 0,
-                  tax,
+                  tax: tax.toFixed(2),
                 },
                 trustPilot: generateTrustPilotPayload(
                   shippingAddress.name,

@@ -172,7 +172,7 @@ export default function CheckoutAccordion() {
         shipping_date: shippingInfo.shipping_date as string,
         delivery_fee: shippingInfo.delivery_fee.toFixed(2) as unknown as number,
         free_delivery: shippingInfo.delivery_fee === 0,
-        tax,
+        tax: tax.toFixed(2),
       },
       trustPilot: generateTrustPilotPayload(
         shippingAddress.name,
