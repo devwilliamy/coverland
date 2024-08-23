@@ -188,8 +188,8 @@ export default function SeatCoverColorSelector() {
                       year_generation: getModelDataBySet[0].year_generation,
                       parent_generation: getModelDataBySet[0].parent_generation,
                       ...(selectedSetDisplay === 'full'
-                        ? { msrp: 379.95, price: 760 }
-                        : { msrp: 279.95, price: 560 }),
+                        ? { msrp: 279.95, price: 560 }
+                        : { msrp: 199.95, price: 400 }),
                     } as TSeatCoverDataDB);
                     setSelectedColor(matchingColor?.display_color as string);
                     return;
