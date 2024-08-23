@@ -172,7 +172,7 @@ export default function CheckoutAccordion() {
         shipping_date: shippingInfo.shipping_date as string,
         delivery_fee: shippingInfo.delivery_fee.toFixed(2) as unknown as number,
         free_delivery: shippingInfo.delivery_fee === 0,
-        tax
+        tax,
       },
       trustPilot: generateTrustPilotPayload(
         shippingAddress.name,
@@ -224,7 +224,7 @@ export default function CheckoutAccordion() {
         },
         custom_data: {
           currency: 'USD',
-          value: parseFloat(getCartTotalPrice().toFixed(2)),
+          value: parseFloat(orderTotal.toString()), // Also a weird moment because orderTotal is technically...a string.
           order_id: orderNumber,
           content_ids: skus.join(','),
           contents: skusWithQuantityMsrpForMeta,
@@ -244,7 +244,7 @@ export default function CheckoutAccordion() {
           'track',
           'Purchase',
           {
-            value: parseFloat(getCartTotalPrice().toFixed(2)),
+            value: parseFloat(orderTotal.toString()), // Also a weird moment because orderTotal is technically...a string.
             currency: 'USD',
             contents: skusWithQuantityMsrpForMeta,
             content_type: 'product',
@@ -264,7 +264,7 @@ export default function CheckoutAccordion() {
           },
         });
         window.uetq.push('event', 'purchase', {
-          revenue_value: parseFloat(getCartTotalPrice().toFixed(2)),
+          revenue_value: parseFloat(orderTotal.toString()), // Also a weird moment because orderTotal is technically...a string.
           currency: 'USD',
           pid: {
             em: customerInfo.email,
@@ -310,7 +310,8 @@ export default function CheckoutAccordion() {
         orderNumber,
         getCartTotalPrice().toFixed(2),
         clearLocalStorageCart,
-        enhancedGoogleConversionInput
+        enhancedGoogleConversionInput,
+        tax
       );
     }
 

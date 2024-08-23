@@ -1,7 +1,5 @@
 import { useElements, useStripe } from '@stripe/react-stripe-js';
 import { useState } from 'react';
-import { Button } from '../ui/button';
-import { AiOutlineLoading3Quarters } from 'react-icons/ai';
 import { useCheckoutContext } from '@/contexts/CheckoutContext';
 import PaymentSelector from './PaymentSelector';
 import BillingAddress from './BillingAddress';
@@ -11,7 +9,6 @@ import { CreditCardSection } from './CreditCardSection';
 import PayPalIcon from './icons/PayPalIcon';
 import { SelectedCardLogo } from './SelectedCardLogo';
 import LoadingButton from '../ui/loading-button';
-import PaymentProcessingMessage from './PaymentProcessing';
 
 export default function Payment({
   handleChangeAccordion,
