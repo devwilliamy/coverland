@@ -4,8 +4,8 @@ import { useCartContext } from '@/providers/CartProvider';
 
 export default function CartHeader() {
   const { currentStep } = useCheckoutContext();
-  const { getTotalCartQuantity, getTotalPrice } = useCartContext();
-  const totalMsrpPrice = getTotalPrice().toFixed(2) as unknown as number;
+  const { getTotalCartQuantity, getCartTotalPrice } = useCartContext();
+  const totalMsrpPrice = getCartTotalPrice().toFixed(2) as unknown as number;
   const cartQuantity = getTotalCartQuantity();
   const titleText = currentStep === CheckoutStep.CART ? 'Cart' : 'Checkout';
   const itemText = cartQuantity > 1 ? 'Items' : 'Item';

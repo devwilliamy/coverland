@@ -2,28 +2,23 @@ import { useCartContext } from '@/providers/CartProvider';
 import { Separator } from '../ui/separator';
 import { useCheckoutContext } from '@/contexts/CheckoutContext';
 import { CheckoutStep } from '@/lib/types/checkout';
+import EstimatedTaxPopover from './EstimatedTaxPopover';
 
 export default function PriceBreakdown() {
-  const { currentStep, shipping } = useCheckoutContext();
+  const { currentStep, shipping, tax, showTax } = useCheckoutContext();
   const {
-    getTotalPrice,
+    getCartTotalPrice,
     getOrderSubtotal,
     getTotalDiscountPrice,
     getTotalCartQuantity,
     isCartPreorder,
     getTotalPreorderDiscount,
   } = useCartContext();
-  const totalMsrpPrice = (getTotalPrice() + shipping).toFixed(
-    2
-  ) as unknown as number;
-  const totalDiscountedPrice = getTotalDiscountPrice().toFixed(
-    2
-  ) as unknown as number;
-  const orderSubtotal = getOrderSubtotal().toFixed(2) as unknown as number;
+  const orderTotal = (getCartTotalPrice() + shipping + tax).toFixed(2);
+  const totalDiscountedPrice = getTotalDiscountPrice().toFixed(2);
+  const orderSubtotal = getOrderSubtotal().toFixed(2);
 
-  const totalPreorderDiscount = getTotalPreorderDiscount().toFixed(
-    2
-  ) as unknown as number;
+  const totalPreorderDiscount = getTotalPreorderDiscount().toFixed(2);
 
   const shippingText = shipping === 0 ? 'FREE' : `$${shipping}`;
   const isCartEmpty = getTotalCartQuantity() === 0;
@@ -52,12 +47,19 @@ export default function PriceBreakdown() {
             <div>Shipping</div>
             <div>{shippingText}</div>
           </div>
+          <div className="flex justify-between ">
+            <div>
+              Estimated Tax <EstimatedTaxPopover />
+            </div>
+
+            <div>{showTax ? `$${tax.toFixed(2)}` : '----'}</div>
+          </div>
         </>
       )}
       <div className="pb-3 pt-[26px]">
         <div className="flex justify-between border-y border-[#C8C7C7] py-5 font-semibold lg:flex-row lg:justify-between lg:font-bold">
           <div>Order Total: </div>
-          <div>${totalMsrpPrice}</div>
+          <div>${orderTotal}</div>
         </div>
       </div>
     </div>

@@ -49,6 +49,8 @@ import OrderReview from './OrderReview';
 import { formatToE164 } from '@/lib/utils';
 import { TermsOfUseStatement } from './TermsOfUseStatement';
 import { generateTrustPilotPayload } from '@/lib/trustpilot';
+import PaymentProcessingMessage from './PaymentProcessing';
+import PayPalPaymentInstructions from './PaypalProcessingMessage';
 
 export default function CheckoutAccordion() {
   const stripe = useStripe();
@@ -56,7 +58,7 @@ export default function CheckoutAccordion() {
   const router = useRouter();
   const {
     cartItems,
-    getTotalPrice,
+    getCartTotalPrice,
     clearLocalStorageCart,
     getTotalCartQuantity,
     getOrderSubtotal,
@@ -85,14 +87,19 @@ export default function CheckoutAccordion() {
     updateTotalTax,
     updateCustomerInfo,
     clientSecret,
+    tax,
   } = useCheckoutContext();
 
   const orderSubtotal = getOrderSubtotal().toFixed(2);
-  const cartMSRP = getTotalPrice() + shipping;
-  const totalMsrpPrice = convertPriceToStripeFormat(getTotalPrice() + shipping);
+  // TODO: Figure out a way to get a function for orderTotal
+  const orderTotal = (getCartTotalPrice() + shipping + tax).toFixed(
+    2
+  ) as unknown as number;
+  const orderTotalStripeFormat = convertPriceToStripeFormat(orderTotal);
   const isCartEmpty = getTotalCartQuantity() === 0;
   const [value, setValue] = useState(['shipping']);
   const [isLoading, setIsLoading] = useState(false);
+  const [paymentProcessing, setPaymentProcessing] = useState(false);
   const [submitErrorMessage, setSubmitErrorMessage] = useState('');
   const [paypalSuccessMessage, setPaypalSuccessMessage] = useState('');
   const preorderDate = isCartPreorder ? cartPreorderDate : undefined;
@@ -141,7 +148,7 @@ export default function CheckoutAccordion() {
         // products
         totalItemQuantity: getTotalCartQuantity(),
         subtotal: getOrderSubtotal().toFixed(2),
-        total: (getTotalPrice() + shipping).toFixed(2), // may need to add taxes later
+        total: orderTotal, // may need to add taxes later
         totalDiscount: getTotalDiscountPrice().toFixed(2),
         totalPreorderDiscount: getTotalPreorderDiscount().toFixed(2),
         isPreorder: isCartPreorder,
@@ -165,6 +172,7 @@ export default function CheckoutAccordion() {
         shipping_date: shippingInfo.shipping_date as string,
         delivery_fee: shippingInfo.delivery_fee.toFixed(2) as unknown as number,
         free_delivery: shippingInfo.delivery_fee === 0,
+        tax: tax.toFixed(2),
       },
       trustPilot: generateTrustPilotPayload(
         shippingAddress.name,
@@ -216,7 +224,7 @@ export default function CheckoutAccordion() {
         },
         custom_data: {
           currency: 'USD',
-          value: parseFloat(getTotalPrice().toFixed(2)),
+          value: parseFloat(getCartTotalPrice().toFixed(2)),
           order_id: orderNumber,
           content_ids: skus.join(','),
           contents: skusWithQuantityMsrpForMeta,
@@ -236,7 +244,7 @@ export default function CheckoutAccordion() {
           'track',
           'Purchase',
           {
-            value: parseFloat(getTotalPrice().toFixed(2)),
+            value: parseFloat(getCartTotalPrice().toFixed(2)),
             currency: 'USD',
             contents: skusWithQuantityMsrpForMeta,
             content_type: 'product',
@@ -256,7 +264,7 @@ export default function CheckoutAccordion() {
           },
         });
         window.uetq.push('event', 'purchase', {
-          revenue_value: parseFloat(getTotalPrice().toFixed(2)),
+          revenue_value: parseFloat(orderTotal.toString()), // Also a weird moment because orderTotal is technically...a string.
           currency: 'USD',
           pid: {
             em: customerInfo.email,
@@ -268,10 +276,13 @@ export default function CheckoutAccordion() {
       const skuLabOrderInput = generateSkuLabOrderInput({
         orderNumber,
         cartItems,
-        totalMsrpPrice: convertPriceFromStripeFormat(totalMsrpPrice),
+        orderTotal,
         shippingAddress,
         customerInfo,
         paymentMethod: 'Stripe',
+        tax,
+        discount: Number(getTotalDiscountPrice().toFixed(2)),
+        shipping,
       });
 
       // SKU Labs Order Creation
@@ -300,11 +311,33 @@ export default function CheckoutAccordion() {
       handlePurchaseGoogleTag(
         cartItems,
         orderNumber,
-        getTotalPrice().toFixed(2),
+        getCartTotalPrice().toFixed(2),
         clearLocalStorageCart,
-        enhancedGoogleConversionInput
+        enhancedGoogleConversionInput,
+        tax
       );
     }
+    const skuLabOrderInput = generateSkuLabOrderInput({
+      orderNumber,
+      cartItems,
+      orderTotal,
+      shippingAddress,
+      customerInfo,
+      paymentMethod: 'Stripe',
+      tax,
+      discount: Number(getTotalDiscountPrice().toFixed(2)),
+      shipping,
+    });
+
+    // SKU Labs Order Creation
+    // Post Items
+    const skuLabCreateOrderResponse = await fetch('/api/sku-labs/orders', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ order: skuLabOrderInput }),
+    });
 
     router.push(
       `/thank-you?order_number=${orderNumber}&payment_intent=${id}&payment_intent_client_secret=${client_secret}`
@@ -319,9 +352,7 @@ export default function CheckoutAccordion() {
     }
 
     setIsLoading(true);
-
-    const taxSum = Number(Number(cartMSRP) + Number(totalTax)).toFixed(2);
-    const totalWithTax = convertPriceToStripeFormat(taxSum);
+    setPaymentProcessing(true);
 
     const formattedPhone = formatToE164(customerInfo.phoneNumber);
 
@@ -337,7 +368,7 @@ export default function CheckoutAccordion() {
       },
       body: JSON.stringify({
         paymentIntentId,
-        amount: totalWithTax,
+        amount: orderTotalStripeFormat,
       }),
     });
 
@@ -381,12 +412,14 @@ export default function CheckoutAccordion() {
                 error.type === 'validation_error'
               ) {
                 console.error('Error:', error.message);
+                setPaymentProcessing(false);
                 setSubmitErrorMessage(
                   error.message ||
                     "There's an error, but could not find error message"
                 );
               } else {
                 console.error('Error:', error.message);
+                setPaymentProcessing(false);
                 setSubmitErrorMessage(
                   error.message || 'An unexpected error occurred.'
                 );
@@ -516,22 +549,18 @@ export default function CheckoutAccordion() {
                         {paymentMethod === 'creditCard' && (
                           <>
                             <TermsOfUseStatement />
-                            <div className="mb-[70px] flex flex-col self-end">
+                            <div className="mb-[32px] flex flex-col self-end">
                               {submitErrorMessage && (
-                                <p className="w-full text-center font-[500] text-[red]">
+                                <p className="w-full pb-4 text-center font-[500] text-[red]">
                                   {submitErrorMessage}
                                 </p>
                               )}
-                              {paypalSuccessMessage && (
-                                <div className="font-base flex items-center justify-center text-lg text-red-500">
-                                  Error: {paypalSuccessMessage}
-                                </div>
-                              )}
                               <Button
                                 variant={'default'}
-                                className={` min-h-[48px] w-full min-w-[307px] rounded-lg bg-black text-base font-bold uppercase text-white lg:max-w-[307px]`}
+                                className={`min-h-[48px] w-full min-w-[307px] rounded-lg bg-black text-base font-bold uppercase text-white lg:max-w-[307px]`}
                                 onClick={(e) => {
                                   setIsLoading(true);
+                                  setPaymentProcessing(true);
                                   handleSubmit();
                                 }}
                               >
@@ -542,15 +571,25 @@ export default function CheckoutAccordion() {
                                 )}
                               </Button>
                             </div>
+                            {paymentProcessing && <PaymentProcessingMessage />}
                           </>
                         )}
                         {paymentMethod === 'paypal' && (
                           <div className={`flex flex-col gap-[26px]`}>
+                            <TermsOfUseStatement isPaypal />
+                            <PayPalPaymentInstructions />
+
                             {submitErrorMessage && (
                               <p className="w-full  text-center font-[500] text-[red]">
                                 {submitErrorMessage}
                               </p>
                             )}
+                            {paypalSuccessMessage && (
+                              <div className="font-base flex items-center justify-center text-lg text-[green]">
+                                {paypalSuccessMessage}
+                              </div>
+                            )}
+
                             <div className="w-full max-w-[307px] self-end justify-self-end pb-[26px]">
                               <PayPalButtonSection
                                 setPaypalSuccessMessage={
@@ -617,16 +656,18 @@ export default function CheckoutAccordion() {
                           <>
                             <TermsOfUseStatement />
                             {submitErrorMessage && (
-                              <p className="text-center font-[500] text-[red]">
+                              <p className="pb-4 text-center font-[500] text-[red]">
                                 {submitErrorMessage}
                               </p>
                             )}
+                            {paymentProcessing && <PaymentProcessingMessage />}
 
                             <Button
                               variant={'default'}
                               className={`mb-[70px] min-h-[48px] w-full rounded-lg bg-black text-base font-bold uppercase text-white`}
                               onClick={(e) => {
                                 setIsLoading(true);
+                                setPaymentProcessing(true);
                                 handleSubmit();
                               }}
                             >
@@ -638,21 +679,25 @@ export default function CheckoutAccordion() {
                             </Button>
                           </>
                         )}
-                        {submitErrorMessage && (
-                          <p className="text-center font-[500] text-[red]">
-                            {submitErrorMessage}
-                          </p>
-                        )}
-                        {paypalSuccessMessage && (
-                          <div className="font-base flex items-center justify-center text-lg text-[green]">
-                            {paypalSuccessMessage}
-                          </div>
-                        )}
                         {paymentMethod === 'paypal' && (
-                          <PayPalButtonSection
-                            setPaypalSuccessMessage={setPaypalSuccessMessage}
-                            setMessage={setSubmitErrorMessage}
-                          />
+                          <>
+                            {submitErrorMessage && (
+                              <p className="text-center font-[500] text-[red]">
+                                {submitErrorMessage}
+                              </p>
+                            )}
+                            {paypalSuccessMessage && (
+                              <div className="font-base flex items-center justify-center text-lg text-[green]">
+                                {paypalSuccessMessage}
+                              </div>
+                            )}
+                            <TermsOfUseStatement isPaypal />
+                            <PayPalPaymentInstructions />
+                            <PayPalButtonSection
+                              setPaypalSuccessMessage={setPaypalSuccessMessage}
+                              setMessage={setSubmitErrorMessage}
+                            />
+                          </>
                         )}
                       </section>
                     </AccordionContent>

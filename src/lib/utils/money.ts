@@ -53,3 +53,7 @@ export function trimToWholeNumber(num: number | string): number {
   // Truncate the number to remove the decimal places
   return Math.floor(parsedNum);
 }
+
+export const roundToTwoDecimals = (num: number): number => {
+  return Math.round((num + Number.EPSILON) * 100) / 100;
+};
