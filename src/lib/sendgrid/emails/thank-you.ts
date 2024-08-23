@@ -28,6 +28,7 @@ type ShippingInfo = {
   shipping_date: string;
   delivery_fee: number;
   free_delivery: boolean;
+  tax: number;
 };
 
 type DynamicTemplateData = {
@@ -47,8 +48,8 @@ type DynamicTemplateData = {
 
 const trademark = '\u2122';
 /**
- * example obj SendGrid expects us to send (there are more parameters available inside MailDataRequired type):
- * 
+ * * example obj SendGrid expects us to send (there are more parameters available inside MailDataRequired type):
+ * @example
  * thankYouEmailInput: ThankYouEmailInput = {
   to: 'pVWu5@example.com',
   from: 'hello@notreal.com',

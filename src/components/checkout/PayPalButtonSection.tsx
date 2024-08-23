@@ -251,7 +251,7 @@ export default function PayPalButtonSection({
                   },
                   custom_data: {
                     currency: 'USD',
-                    value: parseFloat(orderTotal.toString()), // Also a weird moment because orderTotal is technically...a string.
+                    value: parseFloat(getCartTotalPrice().toFixed(2)),
                     order_id: orderNumber,
                     content_ids: skus.join(','),
                     contents: skusWithQuantityMsrpForMeta,
@@ -273,7 +273,7 @@ export default function PayPalButtonSection({
                     'track',
                     'Purchase',
                     {
-                      value: parseFloat(orderTotal.toString()), // Also a weird moment because orderTotal is technically...a string.
+                      value: parseFloat(getCartTotalPrice().toFixed(2)),
                       currency: 'USD',
                       contents: skusWithQuantityMsrpForMeta,
                       content_type: 'product',
@@ -308,6 +308,9 @@ export default function PayPalButtonSection({
                   shippingAddress,
                   customerInfo,
                   paymentMethod: 'Paypal',
+                  tax,
+                  discount: Number(getTotalDiscountPrice().toFixed(2)),
+                  shipping,
                 });
 
                 // SKU Labs Order Creation

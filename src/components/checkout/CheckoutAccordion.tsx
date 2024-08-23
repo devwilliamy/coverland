@@ -224,7 +224,7 @@ export default function CheckoutAccordion() {
         },
         custom_data: {
           currency: 'USD',
-          value: parseFloat(orderTotal.toString()), // Also a weird moment because orderTotal is technically...a string.
+          value: parseFloat(getCartTotalPrice().toFixed(2)),
           order_id: orderNumber,
           content_ids: skus.join(','),
           contents: skusWithQuantityMsrpForMeta,
@@ -244,7 +244,7 @@ export default function CheckoutAccordion() {
           'track',
           'Purchase',
           {
-            value: parseFloat(orderTotal.toString()), // Also a weird moment because orderTotal is technically...a string.
+            value: parseFloat(getCartTotalPrice().toFixed(2)),
             currency: 'USD',
             contents: skusWithQuantityMsrpForMeta,
             content_type: 'product',
@@ -280,6 +280,9 @@ export default function CheckoutAccordion() {
         shippingAddress,
         customerInfo,
         paymentMethod: 'Stripe',
+        tax,
+        discount: Number(getTotalDiscountPrice().toFixed(2)),
+        shipping,
       });
 
       // SKU Labs Order Creation
@@ -314,6 +317,27 @@ export default function CheckoutAccordion() {
         tax
       );
     }
+    const skuLabOrderInput = generateSkuLabOrderInput({
+      orderNumber,
+      cartItems,
+      orderTotal,
+      shippingAddress,
+      customerInfo,
+      paymentMethod: 'Stripe',
+      tax,
+      discount: Number(getTotalDiscountPrice().toFixed(2)),
+      shipping,
+    });
+
+    // SKU Labs Order Creation
+    // Post Items
+    const skuLabCreateOrderResponse = await fetch('/api/sku-labs/orders', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ order: skuLabOrderInput }),
+    });
 
     router.push(
       `/thank-you?order_number=${orderNumber}&payment_intent=${id}&payment_intent_client_secret=${client_secret}`
@@ -636,7 +660,7 @@ export default function CheckoutAccordion() {
                                 {submitErrorMessage}
                               </p>
                             )}
-                            {paymentProcessing && <PaymentProcessingMessage />}
+                            {!paymentProcessing && <PaymentProcessingMessage />}
 
                             <Button
                               variant={'default'}

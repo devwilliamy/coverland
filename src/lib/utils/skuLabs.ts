@@ -59,6 +59,9 @@ type SkuLabOrderInput = {
   shippingAddress: StripeAddress;
   customerInfo: CustomerInfo;
   paymentMethod: string;
+  tax: number;
+  discount: number;
+  shipping: number;
 };
 
 // 
@@ -89,7 +92,10 @@ export const generateSkuLabOrderInput = ({
   orderTotal,
   shippingAddress,
   customerInfo,
-  paymentMethod
+  paymentMethod,
+  tax,
+  discount,
+  shipping
 }: SkuLabOrderInput): SkuLabOrderDTO => {
   const notes = generateNote(cartItems, paymentMethod);
   return {
@@ -110,10 +116,10 @@ export const generateSkuLabOrderInput = ({
         // lineName: '' // In the future need to grab SKU Lab lineName
         // lineId: '' // In the future will need to grab from SKU Lab
       })),
-      discount: 0, // TODO: Currently no promo, but need to update later
-      shipping: 0, // TODO: Currently no shipping, but need to update later
+      discount, // TODO: Currently no promo, but we have preorder
+      shipping, // TODO: Currently no shipping, but need to update later
       financial_status: '',
-      tax: 0, // Currently no tax
+      tax,
       total: orderTotal,
       shipping_information: {
         name: shippingAddress.name,
