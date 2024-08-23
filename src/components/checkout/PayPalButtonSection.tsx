@@ -47,11 +47,12 @@ export default function PayPalButtonSection({
     customerInfo,
     billingAddress,
     isBillingSameAsShipping,
+    tax,
   } = useCheckoutContext();
 
   const {
     cartItems,
-    getTotalPrice,
+    getCartTotalPrice,
     getOrderSubtotal,
     getTotalDiscountPrice,
     getTotalCartQuantity,
@@ -67,11 +68,15 @@ export default function PayPalButtonSection({
     delivery_fee: shipping,
   };
   const router = useRouter();
-  const totalMsrpPrice = getTotalPrice().toFixed(2) as unknown as number;
+  const cartTotal = getCartTotalPrice();
+
+  // Not completely sure if this needs to be a number or a string... it's currently a string...pretending to a be number
+  const orderTotal = (cartTotal + shipping + tax).toFixed(
+    2
+  ) as unknown as number;
   const preOrderTimeDifferenceText: string = isCartPreorder
     ? `approximately ${weeksFromCurrentDate(cartPreorderDate)} weeks from the date of purchase.`
     : 'noted above.'; // If some random failure happens with checkTimeDifference, default here
-
   return (
     <PayPalScriptProvider
       options={{
@@ -95,11 +100,13 @@ export default function PayPalButtonSection({
           createOrder={async () => {
             setMessage(''); // If there was an error message previously, reset it
             const data = await paypalCreateOrder(
-              totalMsrpPrice,
+              orderTotal,
               cartItems,
               orderNumber,
               shipping,
-              isBillingSameAsShipping ? shippingAddress : billingAddress
+              isBillingSameAsShipping ? shippingAddress : billingAddress,
+              tax,
+              cartTotal
             );
             if (!data) {
               console.log('Error creating order');
@@ -174,7 +181,7 @@ export default function PayPalButtonSection({
                   // products
                   totalItemQuantity: getTotalCartQuantity(),
                   subtotal: getOrderSubtotal().toFixed(2),
-                  total: (getTotalPrice() + shipping).toFixed(2), // may need to add taxes later
+                  total: orderTotal, // may need to add taxes later
                   totalDiscount: getTotalDiscountPrice().toFixed(2),
                   totalPreorderDiscount: getTotalPreorderDiscount().toFixed(2),
                   isPreorder: isCartPreorder,
@@ -201,6 +208,7 @@ export default function PayPalButtonSection({
                     2
                   ) as unknown as number,
                   free_delivery: shippingInfo.delivery_fee === 0,
+                  tax: tax.toFixed(2),
                 },
                 trustPilot: generateTrustPilotPayload(
                   shippingAddress.name,
@@ -243,7 +251,7 @@ export default function PayPalButtonSection({
                   },
                   custom_data: {
                     currency: 'USD',
-                    value: parseFloat(getTotalPrice().toFixed(2)),
+                    value: parseFloat(getCartTotalPrice().toFixed(2)),
                     order_id: orderNumber,
                     content_ids: skus.join(','),
                     contents: skusWithQuantityMsrpForMeta,
@@ -265,7 +273,7 @@ export default function PayPalButtonSection({
                     'track',
                     'Purchase',
                     {
-                      value: parseFloat(getTotalPrice().toFixed(2)),
+                      value: parseFloat(getCartTotalPrice().toFixed(2)),
                       currency: 'USD',
                       contents: skusWithQuantityMsrpForMeta,
                       content_type: 'product',
@@ -284,7 +292,7 @@ export default function PayPalButtonSection({
                     },
                   });
                   window.uetq.push('event', 'purchase', {
-                    revenue_value: parseFloat(getTotalPrice().toFixed(2)),
+                    value: parseFloat(orderTotal.toString()), // Also a weird moment because orderTotal is technically...a string.
                     currency: 'USD',
                     pid: {
                       em: customerInfo.email,
@@ -296,10 +304,13 @@ export default function PayPalButtonSection({
                 const skuLabOrderInput = generateSkuLabOrderInput({
                   orderNumber,
                   cartItems,
-                  totalMsrpPrice,
+                  orderTotal,
                   shippingAddress,
                   customerInfo,
                   paymentMethod: 'Paypal',
+                  tax,
+                  discount: Number(getTotalDiscountPrice().toFixed(2)),
+                  shipping,
                 });
 
                 // SKU Labs Order Creation
@@ -330,9 +341,10 @@ export default function PayPalButtonSection({
                 handlePurchaseGoogleTag(
                   cartItems,
                   orderNumber,
-                  getTotalPrice().toFixed(2),
+                  getCartTotalPrice().toFixed(2),
                   clearLocalStorageCart,
-                  enhancedGoogleConversionInput
+                  enhancedGoogleConversionInput,
+                  tax
                 );
               }
 

@@ -22,6 +22,7 @@ export type StripeData = {
   paymentIntentId: string;
   clientSecret: string;
   orderNumber: string;
+  orderId: number;
 };
 
 export type CardErrorData = {
@@ -37,8 +38,13 @@ export type CheckoutContextType = {
   prevStep: () => void;
   shipping: number;
   setShipping: (shipping: number) => void;
+  tax: number;
+  setTax: (tax: number) => void;
+  showTax: boolean;
+  setShowTax: (showTax: boolean) => void;
   clientSecret: string;
   orderNumber: string;
+  orderId: number;
   billingAddress: StripeAddress;
   updateAddressComplete: (address: StripeAddress) => void;
   updateBillingAddress: (address: StripeAddress) => void;
@@ -93,8 +99,13 @@ export const CheckoutContext = createContext<CheckoutContextType>({
   prevStep: () => {},
   shipping: 0,
   setShipping: () => {},
+  tax: 0,
+  setTax: () => {},
+  showTax: false,
+  setShowTax: () => {},
   clientSecret: '',
   orderNumber: '',
+  orderId: 0,
   billingAddress: {
     name: '',
     address: {
@@ -149,6 +160,8 @@ export const CheckoutContext = createContext<CheckoutContextType>({
 const CheckoutProvider: FC<CheckoutProviderProps> = ({ children }) => {
   const [currentStep, setCurrentStep] = useState(CheckoutStep.CART);
   const [shipping, setShipping] = useState<number>(0);
+  const [tax, setTax] = useState<number>(0);
+  const [showTax, setShowTax] = useState<boolean>(false);
   const [isEditingAddress, setIsEditingAddress] = useState(true);
   const [isAddressComplete, setIsAddressComplete] = useState(false);
   const [billingAddress, setBillingAddress] = useState<StripeAddress>({
@@ -175,6 +188,7 @@ const CheckoutProvider: FC<CheckoutProviderProps> = ({ children }) => {
     paymentIntentId: '',
     clientSecret: '',
     orderNumber: '',
+    orderId: 0,
   });
   const [isReadyToPay, setIsReadyToPay] = useState(false);
   const [paymentMethod, setPaymentMethod] =
@@ -339,8 +353,13 @@ const CheckoutProvider: FC<CheckoutProviderProps> = ({ children }) => {
         setCurrentStep,
         shipping,
         setShipping,
+        tax,
+        setTax,
+        showTax,
+        setShowTax,
         clientSecret: stripeData.clientSecret,
         orderNumber: stripeData.orderNumber,
+        orderId: stripeData.orderId,
         billingAddress,
         updateAddressComplete,
         updateBillingAddress,

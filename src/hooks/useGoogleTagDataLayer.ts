@@ -144,7 +144,7 @@ export const useItemViewedGoogleTag = (selectedProduct: IProductData) => {
 };
 
 export const useCheckoutViewedGoogleTag = () => {
-  const { cartItems, getTotalPrice } = useCartContext();
+  const { cartItems, getCartTotalPrice } = useCartContext();
   useEffect(() => {
     const cartItemsToGTagItems = mapCartItemsToGTagItems(cartItems);
     window?.dataLayer?.push({ ecommerce: null }); // Clear the previous ecommerce object.
@@ -152,16 +152,17 @@ export const useCheckoutViewedGoogleTag = () => {
       event: 'begin_checkout',
       ecommerce: {
         currency: 'USD',
-        value: parseFloat(getTotalPrice().toFixed(2)),
+        value: parseFloat(getCartTotalPrice().toFixed(2)),
         coupon: undefined,
         items: cartItemsToGTagItems,
       },
     });
-  }, [cartItems, getTotalPrice]);
+  }, [cartItems, getCartTotalPrice]);
 };
 
 export const useThankYouViewedGoogleTag = (orderNumber: string) => {
-  const { cartItems, getTotalPrice, clearLocalStorageCart } = useCartContext();
+  const { cartItems, getCartTotalPrice, clearLocalStorageCart } =
+    useCartContext();
   useEffect(() => {
     if (typeof window !== 'undefined' && window.performance) {
       const navigationType = window.performance.navigation.type;
@@ -175,7 +176,7 @@ export const useThankYouViewedGoogleTag = (orderNumber: string) => {
           ecommerce: {
             transaction_id: orderNumber,
             // Sum of (price * quantity) for all items.
-            value: parseFloat(getTotalPrice().toFixed(2)),
+            value: parseFloat(getCartTotalPrice().toFixed(2)),
             tax: 0.0, // Femi working on this
             shipping: 0.0, // Free shipping for now
             currency: 'USD',
@@ -190,7 +191,7 @@ export const useThankYouViewedGoogleTag = (orderNumber: string) => {
         }
       }
     }
-  }, [cartItems, getTotalPrice, orderNumber, clearLocalStorageCart]);
+  }, [cartItems, getCartTotalPrice, orderNumber, clearLocalStorageCart]);
 };
 
 export const handlePurchaseGoogleTag = (
@@ -198,7 +199,8 @@ export const handlePurchaseGoogleTag = (
   orderNumber: string,
   totalPrice: string,
   clearLocalStorageCart: () => void,
-  enhancedParameterInput: EnhancedGoogleConversionInput
+  enhancedParameterInput: EnhancedGoogleConversionInput,
+  tax: number
 ) => {
   const cartItemsToGTagItems = mapCartItemsToGTagItems(cartItems);
   window?.dataLayer?.push({ ecommerce: null }); // Clear the previous ecommerce object.
@@ -208,7 +210,7 @@ export const handlePurchaseGoogleTag = (
       transaction_id: orderNumber,
       // Sum of (price * quantity) for all items.
       value: parseFloat(totalPrice),
-      tax: 0.0, // Femi working on this
+      tax,
       shipping: 0.0, // Free shipping for now
       currency: 'USD',
       coupon: undefined, // will need to put in coupon for later but we don't track this ATM

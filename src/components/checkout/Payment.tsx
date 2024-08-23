@@ -1,7 +1,5 @@
 import { useElements, useStripe } from '@stripe/react-stripe-js';
 import { useState } from 'react';
-import { Button } from '../ui/button';
-import { AiOutlineLoading3Quarters } from 'react-icons/ai';
 import { useCheckoutContext } from '@/contexts/CheckoutContext';
 import PaymentSelector from './PaymentSelector';
 import BillingAddress from './BillingAddress';
@@ -193,7 +191,7 @@ export default function Payment({
         </>
       )}
       {/* Continue To Order Review Button */}
-      <div className="my-[48px] flex w-full flex-col items-center justify-center lg:flex-row lg:justify-end">
+      <div className="my-[36px] flex w-full flex-col items-center justify-center lg:my-[48px] lg:flex-row lg:justify-end">
         {message && (
           <p className="w-full text-center font-medium text-[red]">{message}</p>
         )}
