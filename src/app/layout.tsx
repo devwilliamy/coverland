@@ -6,7 +6,7 @@ import AppScripts from './scripts/AppScripts';
 import Script from 'next/script';
 import { GoogleTagManager } from '@next/third-parties/google';
 import Head from 'next/head';
-
+import { SpeedInsights } from "@vercel/speed-insights/next"
 const roboto = Roboto({
   weight: ['100', '300', '400', '500', '700', '900'],
   subsets: ['latin'],
@@ -64,6 +64,7 @@ export default function RootLayout({
             {/* <ReactQueryDevtools initialIsOpen={false} /> */}
           </main>
         </Providers>
+        <SpeedInsights/>
         <AppScripts />
       </body>
       {/* <GoogleTagManager gtmId="GTM-PW897Z9Z" /> */}
