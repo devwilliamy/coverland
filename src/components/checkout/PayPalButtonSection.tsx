@@ -309,7 +309,7 @@ export default function PayPalButtonSection({
                   customerInfo,
                   paymentMethod: 'Paypal',
                   tax,
-                  discount: Number(getTotalPreorderDiscount().toFixed(2)),
+                  discount: Number((getTotalPreorderDiscount() * -1).toFixed(2)),
                   shipping,
                 });
 
