@@ -281,7 +281,7 @@ export default function CheckoutAccordion() {
         customerInfo,
         paymentMethod: 'Stripe',
         tax,
-        discount: Number(getTotalDiscountPrice().toFixed(2)),
+        discount: Number(getTotalPreorderDiscount().toFixed(2)),
         shipping,
       });
 
