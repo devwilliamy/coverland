@@ -40,7 +40,7 @@ const PreorderFooter = ({
         className="my-3 h-[48px] w-full bg-[#BE1B1B] text-base font-bold uppercase text-white disabled:bg-[#BE1B1B] md:h-[62px] md:text-lg"
       >
         {currentStep === PREORDER_CONFIRM
-          ? 'Complete Checkout'
+          ? 'Checkout'
           : 'Pre-Order Now'}
       </Button>
     </div>

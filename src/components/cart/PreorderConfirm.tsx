@@ -42,7 +42,7 @@ export default function PreorderConfirm({
             checked={checked}
             disabled={disabled}
             onCheckedChange={setChecked}
-            className="mt-1 rounded-md border-[#343434]"
+            className="mt-1 rounded-md border-[#343434] data-[state=checked]:bg-[#343434]"
           />
           <label
             htmlFor="preorder-acceptance"
