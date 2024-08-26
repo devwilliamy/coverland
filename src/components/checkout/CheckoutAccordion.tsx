@@ -273,7 +273,7 @@ export default function CheckoutAccordion() {
         });
       }
 
-      const skuLabOrderInput = generateSkuLabOrderInput({
+      const skuLabOrderInput = await generateSkuLabOrderInput({
         orderNumber,
         cartItems,
         orderTotal,

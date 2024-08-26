@@ -12,7 +12,7 @@ export async function getSkuLabItemId(sku: string) {
     if (error) {
       if (error.code === 'PGRST116') {
         // This error code indicates no rows were returned
-        console.log(`[getSkuLabItemId]: No item found for sku: ${sku}`);
+        console.warn(`[getSkuLabItemId]: No item found for sku: ${sku}`);
         return null;
       }
       throw new Error(
