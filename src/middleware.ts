@@ -153,25 +153,25 @@ export function middleware(request: NextRequest) {
       let year;
       //     /{year}-{make}-{model}-{vehicle-type}
       if (firstSegIsNum && firstHyphenSegment.length === 4) {
-        const { year_generation } = await getProductWithoutType({
+        const result = await getProductWithoutType({
           year: firstHyphenSegment,
           make: secondHyphenSegment,
           model: thirdHyphenSegment,
         });
         make = secondHyphenSegment;
         model = thirdHyphenSegment;
-        year = year_generation;
+        year = result?.year_generation || '';
       }
       //    /{make}-{model}-{year}-{vehicle-type}
       else if (thirdSegIsNum && thirdHyphenSegment.length === 4) {
-        const { year_generation } = await getProductWithoutType({
+        const result = await getProductWithoutType({
           year: thirdHyphenSegment,
           make: firstHyphenSegment,
           model: secondHyphenSegment,
         });
         make = firstHyphenSegment;
         model = secondHyphenSegment;
-        year = year_generation;
+        year = result?.year_generation || '';
       }
       // Generate URL string for the NEXT response
       urlString +=
@@ -245,7 +245,6 @@ export function middleware(request: NextRequest) {
       slashModelSegment &&
       search
     ) {
-
       const searchParamsObj = generateSearchObj();
       const numOfParams = Object.keys(searchParamsObj).length;
       let urlString = `/${CAR_COVERS_URL_PARAM}/${PREMIUM_PLUS_URL_PARAM}/${slashMakeSegment.toLowerCase()}/${slashModelSegment.toLowerCase()}/`;
@@ -261,7 +260,6 @@ export function middleware(request: NextRequest) {
         !searchParamsObj.submodel2 &&
         !searchParamsObj.submodel3
       ) {
-
         return NextResponse.redirect(
           new URL(
             `/${CAR_COVERS_URL_PARAM}/${PREMIUM_PLUS_URL_PARAM}/${segments.slice(2).join('/')}`,
@@ -276,7 +274,6 @@ export function middleware(request: NextRequest) {
         searchParamsObj.submodel2 &&
         searchParamsObj.submodel3
       ) {
-
         return NextResponse.redirect(
           new URL(
             `/${CAR_COVERS_URL_PARAM}/${PREMIUM_PLUS_URL_PARAM}/${segments.slice(2).join('/')}?submodel=${searchParamsObj.submodel}&submodel2=${searchParamsObj.submodel2}&submodel3=${searchParamsObj.submodel3}`,
@@ -290,7 +287,6 @@ export function middleware(request: NextRequest) {
         searchParamsObj.submodel2 &&
         !searchParamsObj.submodel3
       ) {
-
         return NextResponse.redirect(
           new URL(
             `/${CAR_COVERS_URL_PARAM}/${PREMIUM_PLUS_URL_PARAM}/${segments.slice(2).join('/')}?submodel=${searchParamsObj.submodel}&submodel2=${searchParamsObj.submodel2}`,
@@ -311,7 +307,6 @@ export function middleware(request: NextRequest) {
       segmentHasUnwantedSymbol(slashMakeSegment) &&
       isVehicleCover
     ) {
-
       const newMakeSegment = removeUnwantedSymbols(slashMakeSegment);
       return NextResponse.redirect(
         // Slicing modelSegment from url and replacing it with new segment
@@ -321,7 +316,6 @@ export function middleware(request: NextRequest) {
         ),
         301
       );
-      
     }
     // Checking model segment
     else if (
@@ -329,7 +323,6 @@ export function middleware(request: NextRequest) {
       segmentHasUnwantedSymbol(slashModelSegment) &&
       isVehicleCover
     ) {
-
       const newModelSegment = removeUnwantedSymbols(slashModelSegment);
       // Removing specific cases from model
       return NextResponse.redirect(
@@ -347,7 +340,6 @@ export function middleware(request: NextRequest) {
       segments.length > 1 &&
       !coverTypes.some((type) => segments.includes(type))
     ) {
-
       return NextResponse.redirect(
         new URL(
           `/${CAR_COVERS_URL_PARAM}/${PREMIUM_PLUS_URL_PARAM}/${segments.slice(2).join('/')}${search}`,
