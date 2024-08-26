@@ -31,7 +31,9 @@ export async function POST(request: NextRequest): Promise<SkuLabOrderResponse> {
     });
 
     if (!response.ok) {
-      throw new Error('[SKU Labs Orders POST]: Network response was not ok');
+      throw new Error(
+        `[SKU Labs Orders POST]: Network response was not ok: ${JSON.stringify(order, null, 2)}`
+      );
     }
 
     const data = await response.json();
