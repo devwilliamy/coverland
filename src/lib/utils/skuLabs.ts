@@ -2,6 +2,7 @@ import { CustomerInfo } from '@/contexts/CheckoutContext';
 import { TCartItem } from '../cart/useCart';
 import { StripeAddress } from '../types/checkout';
 import { getCurrentDateInPST } from './date';
+import { getSkuLabItemId } from '../db/sku-labs';
 
 // Define the type for items within the stash
 type SkuLabItem = {
@@ -80,13 +81,13 @@ const generateNote = (cartItems: TCartItem[], paymentMethod: string) => {
       }`
         .replace(/\s+/g, ' ')
         .trim();
-    return `Payment Method: ${paymentMethod} ${cartItem.sku} ${itemName} Quantity: ${cartItem.quantity}`;
+    return `${cartItem.sku} ${itemName} Quantity: ${cartItem.quantity}`;
   });
 
-  return skuNameQuantity.join('\n');
+  return `Payment Method: ${paymentMethod}\n${skuNameQuantity.join('\n')}`;
 };
 
-export const generateSkuLabOrderInput = ({
+export const generateSkuLabOrderInput = async ({
   orderNumber,
   cartItems,
   orderTotal,
@@ -96,7 +97,7 @@ export const generateSkuLabOrderInput = ({
   tax,
   discount,
   shipping
-}: SkuLabOrderInput): SkuLabOrderDTO => {
+}: SkuLabOrderInput): Promise<SkuLabOrderDTO> => {
   const notes = generateNote(cartItems, paymentMethod);
   return {
     store_id: '62f0fcbffc3f4e916f865d6a', // Hard Coded for now
@@ -107,15 +108,15 @@ export const generateSkuLabOrderInput = ({
       id: orderNumber,
       notes: notes,
       date: getCurrentDateInPST() as string,
-      items: cartItems.map((cartItem) => ({
+      items: await Promise.all(cartItems.map(async (cartItem) => ({
         quantity: cartItem.quantity as number,
         price: cartItem.msrp as number,
         type: 'item', // Item Or Kit (for Full Seat Cover bundle)
         // lineSku: '', // In the future will need to grab the SKU Lab sku
-        // id: '' // In the future need to grab SKU Lab item id
+        id: await getSkuLabItemId(cartItem['skulabs SKU'] || "") // In the future need to grab SKU Lab item id
         // lineName: '' // In the future need to grab SKU Lab lineName
         // lineId: '' // In the future will need to grab from SKU Lab
-      })),
+      }))),
       discount, // TODO: Currently no promo, but we have preorder
       shipping, // TODO: Currently no shipping, but need to update later
       financial_status: '',
