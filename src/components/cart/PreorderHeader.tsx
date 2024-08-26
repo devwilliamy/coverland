@@ -1,11 +1,20 @@
-import { FaCheck } from 'react-icons/fa6';
+import { ArrowLeft } from 'lucide-react';
+import { PREORDER_CONFIRM, PreorderStep } from './PreorderSheet';
 
-const PreorderHeader = (): JSX.Element => {
+type PreorderHeaderProps = {
+  currentStep: PreorderStep;
+  handlePreviousStep: () => void;
+};
+const PreorderHeader = ({
+  currentStep,
+  handlePreviousStep,
+}: PreorderHeaderProps): JSX.Element => {
   return (
     <div>
       <div className="flex flex-row ">
-        {/* <FaCheck className="text-green-600" size={28} />
-        <p className="pl-3 text-xl font-black">Added to Cart</p> */}
+        {currentStep === PREORDER_CONFIRM && (
+          <ArrowLeft onClick={handlePreviousStep} />
+        )}
       </div>
     </div>
   );
