@@ -50,8 +50,7 @@ export default function PreorderConfirm({
               disabled ? 'cursor-not-allowed text-gray-500' : 'cursor-pointer'
             }`}
           >
-            I acknowledge that this is a preorder and understand my delivery will
-            be delayed.
+            I acknowledge that this is a preorder item and I accept the extended delivery time.
           </label>
         </div>
       </div>
