@@ -301,7 +301,7 @@ export default function PayPalButtonSection({
                   });
                 }
 
-                const skuLabOrderInput = generateSkuLabOrderInput({
+                const skuLabOrderInput = await generateSkuLabOrderInput({
                   orderNumber,
                   cartItems,
                   orderTotal,
@@ -309,7 +309,9 @@ export default function PayPalButtonSection({
                   customerInfo,
                   paymentMethod: 'Paypal',
                   tax,
-                  discount: Number((getTotalPreorderDiscount() * -1).toFixed(2)),
+                  discount: Number(
+                    (getTotalPreorderDiscount() * -1).toFixed(2)
+                  ),
                   shipping,
                 });
 
