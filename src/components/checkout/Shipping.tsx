@@ -6,6 +6,13 @@ import { useCheckoutContext } from '@/contexts/CheckoutContext';
 import SavedShippingBox from './SavedShippingBox';
 import AddressForm from './AddressForm';
 import { shippingOptions } from './ShippingOptions';
+import handleTaxjarCalculation from '@/lib/checkout/handleTaxjarCalculation';
+import { useCartContext } from '@/providers/CartProvider';
+import { updateStripePaymentIntent } from '@/lib/stripe/paymentIntent';
+import { updateAdminPanelOrder } from '@/lib/db/admin-panel/orders';
+import { convertPriceToStripeFormat } from '@/lib/utils/stripe';
+import LoadingButton from '../ui/loading-button';
+import { TaxJarApiError } from '@/lib/types/taxjar';
 
 type ShippingProps = {
   handleChangeAccordion: (accordionTitle: string) => void;
@@ -19,6 +26,9 @@ export default function Shipping({
   // const [isEditingAddress, setIsEditingAddress] = useState(true);
   const [isEditingShipping, setIsEditingShipping] = useState(true);
   const [isSelectingPayment, setIsSelectingPayment] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState('');
+  const { cartItems, getCartTotalPrice } = useCartContext();
   const {
     // isAddressComplete
     isEditingAddress,
@@ -34,25 +44,76 @@ export default function Shipping({
     isReadyToPay,
     twoLetterStateCode,
     updateIsReadyToPay,
+    setTax,
+    setShowTax,
+    orderId,
+    orderNumber,
+    paymentIntentId,
   } = useCheckoutContext();
 
   const { line1, line2, city, state, postal_code } = shippingAddress.address;
 
-  const handleToPayment = () => {
-    setIsEditingShipping(false);
-    toggleIsShippingAddressShown(false);
-    updateIsReadyToShip(true);
-    // handleSelectTab('payment');
-    handleChangeAccordion('payment');
+  // Calculates tax and updates appropriate tables and Stripe PaymentIntentID
+  const handleToPayment = async () => {
+    setIsLoading(true);
+    setError('');
+
+    try {
+      const tax = await handleTaxjarCalculation(
+        cartItems,
+        shipping,
+        shippingAddress,
+        orderId,
+        orderNumber
+      );
+
+      const orderTotal = (getCartTotalPrice() + shipping + tax).toFixed(
+        2
+      ) as unknown as number;
+      const orderTotalStripeFormat = convertPriceToStripeFormat(orderTotal);
+
+      await Promise.all([
+        updateStripePaymentIntent({
+          paymentIntentId,
+          amount: orderTotalStripeFormat,
+          metadata: { tax },
+        }),
+        updateAdminPanelOrder({ total_amount: orderTotal }, orderNumber),
+      ]);
+
+      setTax(tax);
+      setShowTax(true);
+      setIsEditingShipping(false);
+      toggleIsShippingAddressShown(false);
+      updateIsReadyToShip(true);
+      handleChangeAccordion('payment');
+    } catch (error: unknown) {
+      console.error('Error in handleToPayment:', error);
+      if (error instanceof TaxJarApiError) {
+        setError(
+          `TaxJar API Error (${error.status}): ${error.message}. Please verify your shipping address.`
+        );
+      } else if (error instanceof Error) {
+        setError(error.message);
+      } else {
+        setError('An unexpected error occurred. Please try again.');
+      }
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const handleEditAddress = () => {
+    setError('');
+    setShowTax(false);
     setIsEditingAddress(true);
     toggleIsShippingAddressShown(true);
     handleChangeAccordion('shipping');
     handleSelectTab('shipping');
   };
   const handleEditShipping = () => {
+    setError('');
+    setShowTax(false);
     setIsEditingShipping(true);
     setIsEditingAddress(true);
     updateIsReadyToShip(false);
@@ -116,16 +177,21 @@ export default function Shipping({
       {shippingAddress && !isEditingAddress && (
         <div>
           {isEditingShipping && !isReadyToShip && (
-            <div className="pb-[60px] pt-[40px]">
+            <div className="pb-[48px] pt-[40px] max-lg:pt-[24px]">
               <div className="flex w-full flex-col items-center justify-between  lg:items-end">
-                <Button
-                  disabled={isEditingAddress}
+                <LoadingButton
+                  className={`h-[48px] max-h-[48px] w-full cursor-pointer rounded-lg bg-black text-base font-bold uppercase text-white disabled:bg-[#D6D6D6] disabled:text-[#767676] lg:max-w-[307px]`}
+                  isDisabled={isEditingAddress}
+                  isLoading={isLoading}
                   onClick={handleToPayment}
-                  className={`h-[48px] w-full cursor-pointer rounded-lg bg-black text-base font-bold uppercase text-white disabled:bg-[#D6D6D6] disabled:text-[#767676] lg:h-[63px] lg:max-w-[390px] lg:text-xl`}
-                >
-                  Continue to Payment
-                </Button>
+                  buttonText={'Continue to Payment'}
+                />
               </div>
+              {error && (
+                <p className="w-full pt-8 text-center font-medium text-[red]">
+                  {error}
+                </p>
+              )}
             </div>
           )}
         </div>

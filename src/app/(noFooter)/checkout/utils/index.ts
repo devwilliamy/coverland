@@ -1,7 +1,7 @@
 import { TCartItem } from '@/lib/cart/useCart';
 import { updateAdminPanelOrder } from '@/lib/db/admin-panel/orders';
 import { StripeAddress } from '@/lib/types/checkout';
-import { PaypalShipping } from '@/lib/types/paypal';
+import { PayPalPurchaseUnits, PaypalShipping } from '@/lib/types/paypal';
 import {
   mapPaypalCaptureCreateToOrder,
   mapPaypalCompletionToOrder,
@@ -22,15 +22,20 @@ function isValidShippingAddress({ address }: PaypalShipping) {
 }
 
 export async function paypalCreateOrder(
-  totalMsrpPrice: number,
+  orderTotal: number, // Currently being passed in a string pretending to be a number
   items: TCartItem[],
   orderId: string,
   shipping: number,
-  shippingAddress: StripeAddress
+  shippingAddress: StripeAddress,
+  tax: number, // these are actual numbers
+  cartTotal: number // these are actual numbers
 ): Promise<string | null> {
   const itemsForPaypal = items.map((item) => {
-    const itemPrice = item.preorder && item.preorder_discount ? item.msrp - item.preorder_discount : item.msrp;
-  
+    const itemPrice =
+      item.preorder && item.preorder_discount
+        ? item.msrp - item.preorder_discount
+        : item.msrp;
+
     return {
       name: `${item.parent_generation} ${item.display_id} ${item.model} ${item.type} ${item.display_color}`,
       quantity: item.quantity?.toString(),
@@ -60,7 +65,7 @@ export async function paypalCreateOrder(
   //   shippingForPaypal,
   //   valid: isValidShippingAddress(shippingForPaypal),
   // });
-  const purchase_units = [
+  const purchase_units: PayPalPurchaseUnits = [
     {
       reference_id: orderId, // order-id
       custom_id: orderId, //order-id
@@ -69,27 +74,28 @@ export async function paypalCreateOrder(
         ? shippingForPaypal
         : null,
       amount: {
+        // Not sure if these need to be wrapped in Number, but orderTotal is being weird so just making sure they're strings
         currency_code: 'USD',
-        value: (Number(totalMsrpPrice) + shipping).toFixed(2),
+        value: Number(orderTotal).toFixed(2),
         breakdown: {
           item_total: {
             currency_code: 'USD',
-            value: totalMsrpPrice.toString(),
+            value: cartTotal.toFixed(2),
           },
           shipping: {
             currency_code: 'USD',
-            value: shipping.toString(),
+            value: shipping.toFixed(2),
           },
-          // tax_total: {
-          //   currency_code: "USD",
-          //   value:""
-          // }
+          tax_total: {
+            currency_code: 'USD',
+            value: tax.toFixed(2),
+          },
         },
       },
     },
   ];
   // console.log('Paypal Create body:', {
-  //   order_price: totalMsrpPrice,
+  //   order_price: orderTotal,
   //   // This one kinda useless, thinking about to do with it
   //   user_id: new Date().toISOString(),
   //   purchase_units,
@@ -102,7 +108,7 @@ export async function paypalCreateOrder(
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        order_price: totalMsrpPrice,
+        order_price: orderTotal,
         // This one kinda useless, thinking about to do with it
         user_id: new Date().toISOString(),
         purchase_units,

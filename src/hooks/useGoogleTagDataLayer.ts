@@ -84,7 +84,7 @@ const mapCartItemsToGTagItems = (cartItems: TCartItem[]) => {
       cartItem.make as string
     );
     const fullProductName =
-      `${cartItem.year_generation ?? ''} ${cartItem.make ?? ''} ${cartItem.model ?? ''} ${cartItem.submodel1 ?? ''} ${cartItem.submodel2 ?? ''}`.trim();
+      `${cartItem.year_generation ?? ''} ${cartItem.make ?? ''} ${cartItem.model ?? ''} ${cartItem.submodel1 ?? ''} ${cartItem.submodel2 ?? ''} ${cartItem.submodel3 ?? ''}`.trim();
     const productName = `${fullProductName} ${cleanedDisplayId} ${cartItem.type}`;
     // const price = parseFloat(cartItem?.price || '0') || 0;
     const msrp = parseFloat(cartItem?.msrp || '0') || 0;
@@ -144,7 +144,7 @@ export const useItemViewedGoogleTag = (selectedProduct: IProductData) => {
 };
 
 export const useCheckoutViewedGoogleTag = () => {
-  const { cartItems, getTotalPrice } = useCartContext();
+  const { cartItems, getCartTotalPrice } = useCartContext();
   useEffect(() => {
     const cartItemsToGTagItems = mapCartItemsToGTagItems(cartItems);
     window?.dataLayer?.push({ ecommerce: null }); // Clear the previous ecommerce object.
@@ -152,16 +152,17 @@ export const useCheckoutViewedGoogleTag = () => {
       event: 'begin_checkout',
       ecommerce: {
         currency: 'USD',
-        value: parseFloat(getTotalPrice().toFixed(2)),
+        value: parseFloat(getCartTotalPrice().toFixed(2)),
         coupon: undefined,
         items: cartItemsToGTagItems,
       },
     });
-  }, [cartItems, getTotalPrice]);
+  }, [cartItems, getCartTotalPrice]);
 };
 
 export const useThankYouViewedGoogleTag = (orderNumber: string) => {
-  const { cartItems, getTotalPrice, clearLocalStorageCart } = useCartContext();
+  const { cartItems, getCartTotalPrice, clearLocalStorageCart } =
+    useCartContext();
   useEffect(() => {
     if (typeof window !== 'undefined' && window.performance) {
       const navigationType = window.performance.navigation.type;
@@ -175,7 +176,7 @@ export const useThankYouViewedGoogleTag = (orderNumber: string) => {
           ecommerce: {
             transaction_id: orderNumber,
             // Sum of (price * quantity) for all items.
-            value: parseFloat(getTotalPrice().toFixed(2)),
+            value: parseFloat(getCartTotalPrice().toFixed(2)),
             tax: 0.0, // Femi working on this
             shipping: 0.0, // Free shipping for now
             currency: 'USD',
@@ -190,7 +191,7 @@ export const useThankYouViewedGoogleTag = (orderNumber: string) => {
         }
       }
     }
-  }, [cartItems, getTotalPrice, orderNumber, clearLocalStorageCart]);
+  }, [cartItems, getCartTotalPrice, orderNumber, clearLocalStorageCart]);
 };
 
 export const handlePurchaseGoogleTag = (
@@ -198,7 +199,8 @@ export const handlePurchaseGoogleTag = (
   orderNumber: string,
   totalPrice: string,
   clearLocalStorageCart: () => void,
-  enhancedParameterInput: EnhancedGoogleConversionInput
+  enhancedParameterInput: EnhancedGoogleConversionInput,
+  tax: number
 ) => {
   const cartItemsToGTagItems = mapCartItemsToGTagItems(cartItems);
   window?.dataLayer?.push({ ecommerce: null }); // Clear the previous ecommerce object.
@@ -208,15 +210,17 @@ export const handlePurchaseGoogleTag = (
       transaction_id: orderNumber,
       // Sum of (price * quantity) for all items.
       value: parseFloat(totalPrice),
-      tax: 0.0, // Femi working on this
+      tax,
       shipping: 0.0, // Free shipping for now
       currency: 'USD',
       coupon: undefined, // will need to put in coupon for later but we don't track this ATM
       items: cartItemsToGTagItems,
     },
-    enhanced_conversion_data: createEnhancedGoogleConversionData({...enhancedParameterInput}),
+    enhanced_conversion_data: createEnhancedGoogleConversionData({
+      ...enhancedParameterInput,
+    }),
   });
-  
+
   if (cartItems.length > 0) {
     clearLocalStorageCart();
   }
@@ -260,7 +264,7 @@ export const createEnhancedGoogleConversionData = ({
 
 export const handleAddToCartGoogleTag = (
   cartProduct: IProductData,
-  params: TPathParams,
+  params: TPathParams
 ) => {
   // const price = parseFloat(cartProduct?.price || '0') || 0;
   const msrp = parseFloat(cartProduct?.msrp || '0') || 0;
@@ -270,7 +274,7 @@ export const handleAddToCartGoogleTag = (
     cartProduct.make as string
   );
   const fullProductName =
-    `${cartProduct.year_generation ?? ''} ${cartProduct.make ?? ''} ${cartProduct.model ?? ''} ${cartProduct.submodel1 ?? ''} ${cartProduct.submodel2 ?? ''}`.trim();
+    `${cartProduct.year_generation ?? ''} ${cartProduct.make ?? ''} ${cartProduct.model ?? ''} ${cartProduct.submodel1 ?? ''} ${cartProduct.submodel2 ?? ''} ${cartProduct.submodel3 ?? ''}`.trim();
   const productName = `${fullProductName} ${cleanedDisplayId} ${cartProduct.type}`;
   window?.dataLayer?.push({ ecommerce: null }); // Clear the previous ecommerce object.
   window?.dataLayer?.push({

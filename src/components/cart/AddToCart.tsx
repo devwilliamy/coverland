@@ -67,8 +67,7 @@ export default function AddToCart({
     if (isComplete) {
       handleAddToCart();
       handleAddToCartGoogleTag(selectedProduct, params as TPathParams);
-      selectedProduct?.sku &&
-      setIsLoading(false);
+      selectedProduct?.sku && setIsLoading(false);
       return; // Don't want to open add to cart selector
     }
     setIsLoading(false);
@@ -99,7 +98,7 @@ export default function AddToCart({
       ) : ( */}
       <div className="fixed inset-x-0 bottom-0 z-20 flex bg-white p-4 lg:relative lg:p-1">
         <AddToCartButton
-          preorder={selectedProduct.preorder}
+          preorder={isComplete && selectedProduct.preorder}
           isColorAvailable={true} // since we are always allowing customers to add to cart, overriding isSelectedColorAvailable with true
           handleAddToCartClicked={handleAddToCartClicked}
           isLoading={isLoading}

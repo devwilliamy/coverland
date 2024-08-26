@@ -12,16 +12,23 @@ export const ADMIN_PANEL_ORDER_ITEMS =
   process.env.NEXT_PUBLIC_IS_PREVIEW === 'PREVIEW'
     ? 'orderItems_table_TEST'
     : 'orderItems_table';
+export const ORDER_TAXES =
+  process.env.NEXT_PUBLIC_IS_PREVIEW === 'PREVIEW'
+    ? 'order_taxes_test'
+    : 'order_taxes';
 export const ADMIN_PANEL_PRODUCTS = 'Products';
 export const ADMIN_PANEL_CUSTOMERS = 'users';
 export const MODEL_TABLE = 'Model';
 export const MAKE_TABLE = 'Make';
 export const PRODUCT_METADATA_TABLE = 'Product-Metadata';
+export const SKU_LAB_SKU_ITEM_ID_MAP_TABLE = 'sku_lab_sku_item_id_map';
 
 /* Supabase RPC Names */
 export const RPC_GET_MAKE_RELATION = 'get_make_relation';
 export const RPC_GET_UNIQUE_YEARS = 'get_unique_years';
 export const RPC_GET_DISTINCT_REVIEW_IMAGES = 'get_distinct_review_images';
 export const RPC_GET_PRODUCT_REVIEWS_SUMMARY = 'get_product_reviews_summary';
-export const RPC_GET_SEAT_COVER_SORTED_BY_COLOR = 'get_seat_cover_products_sorted_by_color';
-  
+export const RPC_GET_SEAT_COVER_SORTED_BY_COLOR =
+  'get_seat_cover_products_sorted_by_color';
+export const RPC_GET_DEFAULT_SEAT_COVER_SORTED_BY_COLOR =
+  'get_default_seat_cover_products_sorted_by_color';

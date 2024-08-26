@@ -5,8 +5,8 @@ import { useRouter } from 'next/navigation';
 
 const AddToCartFooter = () => {
   const router = useRouter();
-  const { getTotalPrice, getTotalCartQuantity, setCartOpen } = useCartContext();
-  const totalMsrpPrice = getTotalPrice().toFixed(2) as unknown as number;
+  const { getCartTotalPrice, getTotalCartQuantity, setCartOpen } = useCartContext();
+  const totalMsrpPrice = getCartTotalPrice().toFixed(2) as unknown as number;
   const cartQuantity = getTotalCartQuantity();
 
   const handleClick = () => {

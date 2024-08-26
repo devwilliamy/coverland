@@ -2,6 +2,7 @@ import { DateTime } from 'luxon';
 
 export const getClientTimeZone = (): string => {
   const timeZoneOffset: number = new Date().getTimezoneOffset();
+  const clientTimeZone: string = DateTime.local().zoneName;
   // Timezone offset in minutes for PST, MST, CST, EST
   const PST: number = 480; // UTC -8
   const MST: number = 420; // UTC -7
@@ -18,7 +19,7 @@ export const getClientTimeZone = (): string => {
   } else if (timeZoneOffset === EST) {
     return 'America/New_York';
   } else {
-    return 'Unknown';
+    return clientTimeZone || 'UTC';
   }
 };
 
@@ -28,11 +29,14 @@ export const getClientTimeZone = (): string => {
  * If after 2 PM, add another day.
  * For MST, it will be 3 days later. For CST, 4 days later. For EST, 5 days later.
  * Currently don't know what to do for other time zones and defaulting to 5 days later.
- * 
+ *
  * @param format string : format of the date output | default -> "Jul 15" | "EEE, LLL dd" -> "Mon, Jul 15"
  * @returns string
  */
-export const determineDeliveryByDate = (format = 'LLL dd', preorder_date?: string): string => {
+export const determineDeliveryByDate = (
+  format = 'LLL dd',
+  preorder_date?: string
+): string => {
   const clientTimeZone: string = getClientTimeZone();
   let now: DateTime = DateTime.now().setZone(clientTimeZone);
   let daysToAdd: number;
@@ -58,7 +62,7 @@ export const determineDeliveryByDate = (format = 'LLL dd', preorder_date?: strin
       daysToAdd = 5;
       break;
     default:
-      daysToAdd = 0; // Adjusted if needed
+      daysToAdd = 5; // Default for "other" cases
   }
 
   // If it's after 2 PM, add an extra day
@@ -69,4 +73,28 @@ export const determineDeliveryByDate = (format = 'LLL dd', preorder_date?: strin
   const deliveryDate: DateTime = now.plus({ days: daysToAdd });
 
   return deliveryDate.toFormat(format);
+};
+
+/**
+ * Checks the time difference between now and the date.
+ * Will return 1-4 weeks, after that will do by months.
+ * @param date 
+ * @returns 
+ */
+export const checkTimeDifference = (date: string): string => {
+  const targetDate = DateTime.fromISO(date);
+  const now = DateTime.now();
+
+  const diffInWeeks = Math.abs(now.diff(targetDate, 'weeks').weeks);
+  const diffInMonths = Math.abs(now.diff(targetDate, 'months').months);
+
+  if (diffInWeeks <= 1) {
+    return '1 week';
+  } else if (diffInWeeks > 1 && diffInWeeks <= 4) {
+    return `${Math.round(diffInWeeks)} weeks`;
+  } else if (diffInMonths <= 1) {
+    return '1 month';
+  } else {
+    return `${Math.round(diffInMonths)} months`;
+  }
 };

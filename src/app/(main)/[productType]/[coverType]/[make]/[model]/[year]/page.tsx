@@ -35,7 +35,7 @@ import { TProductReviewSummary, TReviewData } from '@/lib/types/review';
 //     year: year,
 //   }));
 // }
-export const revalidate = 300;
+export const revalidate = 86400;
 
 export async function generateMetadata({ params }: { params: TPathParams }) {
   const desluggedProductType = deslugify(params.productType).slice(
@@ -65,7 +65,11 @@ export default async function CarPDPDataLayer({
   searchParams,
 }: {
   params: TPathParams;
-  searchParams: { submodel?: string; second_submodel?: string };
+  searchParams: {
+    submodel?: string;
+    second_submodel?: string;
+    third_submodel?: string;
+  };
 }) {
   let modelData = [];
   let reviewData: TReviewData[] | null = [];

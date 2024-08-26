@@ -1,9 +1,3 @@
-import {
-  DISCOUNT_25_LOWER_BOUND,
-  DISCOUNT_25_UPPER_BOUND,
-  NO_DISCOUNT_LOWER_BOUND,
-  NO_DISCOUNT_UPPER_BOUND,
-} from '@/lib/constants';
 import { getProductAndPriceBySku } from '@/lib/db/admin-panel/products';
 import { createSupabaseAdminPanelServerClient } from '@/lib/db/adminPanelSupabaseClient';
 import { ADMIN_PANEL_ORDER_ITEMS } from '@/lib/db/constants/databaseTableNames';
@@ -119,10 +113,11 @@ const createOrderItems = (
     );
 
     const totalProductPrice = Number((incomingMSRP * quantity).toFixed(2));
-    const totalProductPricePlusPreorder = 
+    const totalProductPricePlusPreorder =
       product.preorder && product.preorder_discount
-      ? Number(Number(incomingMSRP) - Number(product.preorder_discount)) * quantity
-      : Number(incomingMSRP) * quantity;
+        ? Number(Number(incomingMSRP) - Number(product.preorder_discount)) *
+          quantity
+        : Number(incomingMSRP) * quantity;
     const original_price = Number((product.price * quantity).toFixed(2));
     const discount_amount = original_price - totalProductPrice;
 

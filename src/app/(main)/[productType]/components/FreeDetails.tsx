@@ -1,6 +1,4 @@
 'use client';
-
-import { calculateTimeTo2PM } from '@/components/PDP/components/TimeTo2PM';
 import { Separator } from '@/components/ui/separator';
 import {
   Sheet,
@@ -10,7 +8,6 @@ import {
   SheetTrigger,
 } from '@/components/ui/sheet';
 import { determineDeliveryByDate } from '@/lib/utils/deliveryDateUtils';
-import { formatISODate } from '@/lib/utils/date';
 import FreePackageItem from '@/images/PDP/PDP-Redesign-v3/free-package.webp';
 import {
   BoxIcon,
@@ -30,6 +27,7 @@ import useDetermineType from '@/hooks/useDetermineType';
 import useStoreContext from '@/hooks/useStoreContext';
 import { getCompleteSelectionData } from '@/utils';
 import { useStore } from 'zustand';
+import { calculateTimeTo2PM } from '@/lib/utils/date';
 
 type DetailItem = {
   icon: React.JSX.Element;
@@ -67,7 +65,7 @@ export default function FreeDetails() {
   const deliveryDate = determineDeliveryByDate(
     'LLL dd',
     selectedProduct?.preorder && isComplete
-      ? selectedProduct?.preorder_date ?? ""
+      ? selectedProduct?.preorder_date ?? ''
       : undefined
   );
 
@@ -273,7 +271,7 @@ export default function FreeDetails() {
           {
             text: 'Step 1: Submit a claim',
             description:
-              'Send photos/videos showing the damage, along with a brief description of the issue, your name, phone number, and shipping address to info@coverland.com.',
+              'Send photos/videos showing the damage, along with a brief description of the issue, your name, phone number, and shipping address to support@coverland.com.',
           },
           {
             text: 'Step 2: Processing',
@@ -419,8 +417,9 @@ export default function FreeDetails() {
   }
 
   return (
-    <div className=" flex flex-col items-center justify-start bg-[#FBFBFB]">
+    <div className="mt-[33px] flex flex-col items-center justify-start bg-[#FBFBFB] lg:mt-[48px]">
       <Sheet>
+        <Separator />
         {freeDetailItems.map((data, index) => (
           <FreeDetailItem
             key={`Free-Detail-Item-${index}`}

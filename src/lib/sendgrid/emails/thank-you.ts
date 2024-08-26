@@ -3,9 +3,9 @@ import sgMail, { MailDataRequired } from '@sendgrid/mail';
 import { formatMoneyAsNumber, trimToWholeNumber } from '@/lib/utils/money';
 import { isFullSet } from '@/lib/utils';
 sgMail.setApiKey(process.env.SENDGRID_API_KEY || '');
-const sgFromEmail = process.env.SENDGRID_FROM_EMAIL;
-const sgThankYouEmailTemplateId = process.env.SENDGRID_THANK_YOU_EMAIL_TEMPLATE_ID;
-
+const sgFromEmail = process.env.SENDGRID_FROM_EMAIL || '';
+const sgThankYouEmailTemplateId =
+  process.env.SENDGRID_THANK_YOU_EMAIL_TEMPLATE_ID || '';
 
 type OrderItem = {
   name: string;
@@ -28,6 +28,7 @@ type ShippingInfo = {
   shipping_date: string;
   delivery_fee: number;
   free_delivery: boolean;
+  tax: number;
 };
 
 type DynamicTemplateData = {
@@ -45,10 +46,10 @@ type DynamicTemplateData = {
   cv_exp_date: string;
 };
 
-const trademark = "\u2122";
+const trademark = '\u2122';
 /**
- * example obj SendGrid expects us to send (there are more parameters available inside MailDataRequired type):
- * 
+ * * example obj SendGrid expects us to send (there are more parameters available inside MailDataRequired type):
+ * @example
  * thankYouEmailInput: ThankYouEmailInput = {
   to: 'pVWu5@example.com',
   from: 'hello@notreal.com',
@@ -99,38 +100,50 @@ const trademark = "\u2122";
     }
   }
  */
-type ThankYouEmailInput = MailDataRequired & { dynamicTemplateData: DynamicTemplateData };
+type ThankYouEmailInput = MailDataRequired & {
+  dynamicTemplateData: DynamicTemplateData;
+};
 
 const generateOrderItems = (cartItems: TCartItem[]) => {
-  return cartItems.map(({ 
-    fullProductName,
-    display_id,
-    type, 
-    make, 
-    model, 
-    year_generation, 
-    submodel1 = '', 
-    submodel2 = '', 
-    submodel3 = '', 
-    display_color, 
-    quantity, 
-    msrp,
-    preorder_discount = 0,
-    preorder = false,
-    mainImage,
-    feature,
-    product,
-    display_set, 
-  }) => ({
-    name: fullProductName || `${display_id}${trademark} ${type}`,
-    vehicle: `${make} ${model} ${year_generation} ${submodel1 || ''} ${submodel2 || ''} ${submodel3 || ''}`.trim(),
-    color: display_color,
-    quantity: quantity,
-    price: preorder ? msrp - preorder_discount : msrp,
-    total_price: formatMoneyAsNumber((preorder ? msrp - preorder_discount : msrp) * quantity),
-    img_url: mainImage || feature || product.split(',')[0],
-    full_set: type === 'Seat Covers' ? isFullSet(display_set).toLowerCase() == "full" ? "Full Seat Set (Front + Rear Seat Set)": 'Front Seats (Driver +  Passenger seats)' : display_set,
-  }));
+  return cartItems.map(
+    ({
+      fullProductName,
+      display_id,
+      type,
+      make,
+      model,
+      year_generation,
+      submodel1 = '',
+      submodel2 = '',
+      submodel3 = '',
+      display_color,
+      quantity,
+      msrp,
+      preorder_discount = 0,
+      preorder = false,
+      mainImage,
+      feature,
+      product,
+      display_set,
+    }) => ({
+      name: fullProductName || `${display_id}${trademark} ${type}`,
+      vehicle:
+        `${make} ${model} ${year_generation} ${submodel1 || ''} ${submodel2 || ''} ${submodel3 || ''}`.trim(),
+      color: display_color,
+      quantity: quantity,
+      price: preorder ? msrp - preorder_discount : msrp,
+      total_price: formatMoneyAsNumber(
+        (preorder ? msrp - preorder_discount : msrp) * quantity
+      ),
+      img_url: mainImage || feature || product.split(',')[0],
+      full_set:
+        type === 'Seat Covers'
+          ? isFullSet(display_set).toLowerCase() == 'full'
+            ? 'Full Seat Set (Front + Rear Seat Set)'
+            : 'Front Seats (Driver +  Passenger seats)'
+          : display_set,
+    })
+  );
 };
 
 const generateThankYouEmail = ({
@@ -138,11 +151,13 @@ const generateThankYouEmail = ({
   name,
   orderInfo,
   shippingInfo,
-  billingInfo, 
+  billingInfo,
+  trustPilot,
 }: ThankYouEmailInput) => ({
   personalizations: [
     {
       to: [{ email: to }],
+      bcc: [process.env.TRUST_PILOT_BCC_EMAIL],
       dynamic_template_data: {
         first_name: name.firstName,
         order_date: orderInfo.orderDate,
@@ -159,8 +174,17 @@ const generateThankYouEmail = ({
         has_discount: orderInfo.hasDiscount,
         // taxes: orderInfo.taxes, // not yet implemented
         is_preorder: orderInfo.isPreorder,
-        total_preorder_discount: formatMoneyAsNumber(orderInfo.totalPreorderDiscount),
+        preorder_text: orderInfo.preorder_text,
+        total_preorder_discount: formatMoneyAsNumber(
+          orderInfo.totalPreorderDiscount
+        ),
         total: formatMoneyAsNumber(orderInfo.total),
+        // For Trust Pilot
+        recipientName: trustPilot.recipientName,
+        recipientEmail: trustPilot.recipientEmail,
+        referenceId: trustPilot.referenceId,
+        products: trustPilot.products,
+        // End For Trust Pilot
       },
     },
   ],

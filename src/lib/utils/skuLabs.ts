@@ -2,6 +2,7 @@ import { CustomerInfo } from '@/contexts/CheckoutContext';
 import { TCartItem } from '../cart/useCart';
 import { StripeAddress } from '../types/checkout';
 import { getCurrentDateInPST } from './date';
+import { getSkuLabItemId } from '../db/sku-labs';
 
 // Define the type for items within the stash
 type SkuLabItem = {
@@ -55,10 +56,13 @@ type SkuLabOrderDTO = {
 type SkuLabOrderInput = {
   orderNumber: string;
   cartItems: TCartItem[];
-  totalMsrpPrice: number;
+  orderTotal: number;
   shippingAddress: StripeAddress;
   customerInfo: CustomerInfo;
   paymentMethod: string;
+  tax: number;
+  discount: number;
+  shipping: number;
 };
 
 // 
@@ -72,25 +76,28 @@ const generateNote = (cartItems: TCartItem[], paymentMethod: string) => {
     const itemName =
       `${cartItem?.year_generation || ''} ${cartItem?.make || ''} ${cartItem?.model || ''} ${
         cartItem?.submodel1 ? cartItem?.submodel1 : ''
-      } ${cartItem?.submodel2 ? cartItem?.submodel2 : ''} ${cartItem.type} ${cartItem?.display_id} ${
+      } ${cartItem?.submodel2 ? cartItem?.submodel2 : ''}  ${cartItem?.submodel3 ? cartItem?.submodel3 : ''} ${cartItem.type} ${cartItem?.display_id} ${
         cartItem?.display_color
       }`
         .replace(/\s+/g, ' ')
         .trim();
-    return `Payment Method: ${paymentMethod} ${cartItem.sku} ${itemName} Quantity: ${cartItem.quantity}`;
+    return `${cartItem.sku} ${itemName} Quantity: ${cartItem.quantity}`;
   });
 
-  return skuNameQuantity.join('\n');
+  return `Payment Method: ${paymentMethod}\n${skuNameQuantity.join('\n')}`;
 };
 
-export const generateSkuLabOrderInput = ({
+export const generateSkuLabOrderInput = async ({
   orderNumber,
   cartItems,
-  totalMsrpPrice,
+  orderTotal,
   shippingAddress,
   customerInfo,
-  paymentMethod
-}: SkuLabOrderInput): SkuLabOrderDTO => {
+  paymentMethod,
+  tax,
+  discount,
+  shipping
+}: SkuLabOrderInput): Promise<SkuLabOrderDTO> => {
   const notes = generateNote(cartItems, paymentMethod);
   return {
     store_id: '62f0fcbffc3f4e916f865d6a', // Hard Coded for now
@@ -101,20 +108,20 @@ export const generateSkuLabOrderInput = ({
       id: orderNumber,
       notes: notes,
       date: getCurrentDateInPST() as string,
-      items: cartItems.map((cartItem) => ({
+      items: await Promise.all(cartItems.map(async (cartItem) => ({
         quantity: cartItem.quantity as number,
         price: cartItem.msrp as number,
         type: 'item', // Item Or Kit (for Full Seat Cover bundle)
         // lineSku: '', // In the future will need to grab the SKU Lab sku
-        // id: '' // In the future need to grab SKU Lab item id
+        id: await getSkuLabItemId(cartItem['skulabs SKU'] || "") // In the future need to grab SKU Lab item id
         // lineName: '' // In the future need to grab SKU Lab lineName
         // lineId: '' // In the future will need to grab from SKU Lab
-      })),
-      discount: 0, // TODO: Currently no promo, but need to update later
-      shipping: 0, // TODO: Currently no shipping, but need to update later
+      }))),
+      discount, // TODO: Currently no promo, but we have preorder
+      shipping, // TODO: Currently no shipping, but need to update later
       financial_status: '',
-      tax: 0, // Currently no tax
-      total: totalMsrpPrice,
+      tax,
+      total: orderTotal,
       shipping_information: {
         name: shippingAddress.name,
         phone: shippingAddress.phone || '',

@@ -129,7 +129,10 @@ const useCart = () => {
     return cartItems.reduce((total, item) => total + item.quantity, 0);
   }, [cartItems]);
 
-  const getTotalPrice = useCallback(() => {
+  /**
+   * Returns cart total including discounts.
+   */
+  const getCartTotalPrice = useCallback(() => {
     return cartItems.reduce(
       (total, item) =>
         total +
@@ -145,7 +148,7 @@ const useCart = () => {
     removeItemFromCart,
     updateItemQuantity,
     getMsrpTotal,
-    getTotalPrice,
+    getCartTotalPrice,
     getOrderSubtotal,
     getTotalPreorderDiscount,
     getTotalDiscountPrice,

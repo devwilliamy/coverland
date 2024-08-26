@@ -39,7 +39,7 @@ export default function CartItemCard({ item }: { item: TCartItem }) {
               {item?.display_id}&trade; {item?.type}
             </div>
             {item?.preorder && (
-              <div className="h-[27px] max-w-[90px] rounded bg-[#2BA45B] px-[8px] text-center text-sm font-bold leading-[27px] text-[#ffffff]">
+              <div className="h-[27px] max-w-[90px] rounded bg-[#2BA45B] px-[8px] text-center text-sm font-bold leading-[27px] text-[#ffffff] lg:min-w-[80px]">
                 Pre-Order
               </div>
             )}
@@ -48,7 +48,7 @@ export default function CartItemCard({ item }: { item: TCartItem }) {
             className={`text-sm font-normal ${!item?.make && 'hidden'} text-[#707070] lg:text-base`}
           >
             Vehicle: {item?.make} {item?.model} {item?.year_generation}{' '}
-            {item?.submodel1 ?? ''} {item?.submodel2 ?? ''}
+            {item?.submodel1 ?? ''} {item?.submodel2 ?? ''} {item?.submodel3 ?? ''}
           </div>
           <div
             className={`text-sm font-normal ${item?.type === 'Seat Covers' ? 'flex' : 'hidden'}  text-[#707070] lg:text-base`}

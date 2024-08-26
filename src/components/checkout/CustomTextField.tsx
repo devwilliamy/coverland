@@ -16,20 +16,20 @@ export const CustomTextField = ({
   label,
   type,
   placeholder,
-  shippingState,
-  setShippingState,
+  shipping,
+  setShipping,
   required,
   // errorMessage,
 }: {
   label: string;
   type: CustomFieldTypes;
   placeholder: string;
-  shippingState: Record<string, ShippingStateType>;
-  setShippingState: Dispatch<SetStateAction<Record<string, ShippingStateType>>>;
+  shipping: Record<string, ShippingStateType>;
+  setShipping: Dispatch<SetStateAction<Record<string, ShippingStateType>>>;
   required: boolean;
   // errorMessage?: string;
 }) => {
-  const shippingStateOption = shippingState[type];
+  const shippingStateOption = shipping[type];
   const { visited, error, value } = shippingStateOption;
 
   const validateEmail = (email: string) => {
@@ -111,7 +111,7 @@ export const CustomTextField = ({
     event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement> | undefined
   ) => {
     const value = event?.target.value as string;
-    setShippingState((prevState) => {
+    setShipping((prevState) => {
       return {
         ...prevState,
         [type]: { ...prevState[type], value: value, error: false },
@@ -120,7 +120,7 @@ export const CustomTextField = ({
 
     // Validate and update the error object
     if (type !== 'line2' && !isValidInput(value)) {
-      setShippingState((prevState) => ({
+      setShipping((prevState) => ({
         ...prevState,
         [type]: {
           ...prevState[type],
@@ -131,7 +131,7 @@ export const CustomTextField = ({
       }));
       return;
     } else {
-      setShippingState((prevState) => {
+      setShipping((prevState) => {
         return {
           ...prevState,
           [type]: { ...prevState[type], message: '', error: false },
@@ -143,7 +143,7 @@ export const CustomTextField = ({
   const handleBlur = () => {
     // When the user clicks away from the component
     if (type === 'line2') {
-      setShippingState((prevState) => {
+      setShipping((prevState) => {
         return {
           ...prevState,
           [type]: { ...prevState[type], visited: true, error: false },
@@ -152,7 +152,7 @@ export const CustomTextField = ({
       return;
     }
     if (!isValidInput(shippingStateOption.value)) {
-      setShippingState((prevState) => ({
+      setShipping((prevState) => ({
         ...prevState,
         [type]: {
           ...prevState[type],
@@ -163,7 +163,7 @@ export const CustomTextField = ({
       }));
       return;
     } else {
-      setShippingState((prevState) => {
+      setShipping((prevState) => {
         return {
           ...prevState,
           [type]: { ...prevState[type], visited: true, error: false },
@@ -205,7 +205,7 @@ export const CustomTextField = ({
   };
 
   const handlePhoneChange = (value: string) => {
-    setShippingState((prevState) => {
+    setShipping((prevState) => {
       return {
         ...prevState,
         phoneNumber: {
@@ -222,7 +222,7 @@ export const CustomTextField = ({
       type !== 'line2' &&
       !isValidInput(value)
     ) {
-      setShippingState((prevState) => ({
+      setShipping((prevState) => ({
         ...prevState,
         phoneNumber: {
           ...prevState.phoneNumber,
@@ -232,7 +232,7 @@ export const CustomTextField = ({
         },
       }));
     } else {
-      setShippingState((prevState) => {
+      setShipping((prevState) => {
         return {
           ...prevState,
           phoneNumber: { ...prevState.phoneNumber, message: '', error: false },
@@ -249,7 +249,7 @@ export const CustomTextField = ({
       return;
     }
 
-    setShippingState((prevState) => {
+    setShipping((prevState) => {
       return {
         ...prevState,
         postal_code: {
@@ -265,7 +265,7 @@ export const CustomTextField = ({
       type !== 'line2' &&
       !isValidInput(value)
     ) {
-      setShippingState((prevState) => ({
+      setShipping((prevState) => ({
         ...prevState,
         postal_code: {
           ...prevState.postal_code,
@@ -275,13 +275,23 @@ export const CustomTextField = ({
         },
       }));
     } else {
-      setShippingState((prevState) => {
+      setShipping((prevState) => {
         return {
           ...prevState,
           postal_code: { ...prevState.postal_code, message: '', error: false },
         };
       });
     }
+  };
+
+  const inputStyle = {
+    margin: 0,
+    borderColor: 'solid #2A2A2A 1px',
+    borderRadius: '8px',
+    '.MuiInputBase-root': {
+      borderRadius: '8px',
+      borderColor: '#2A2A2A',
+    },
   };
 
   return (
@@ -299,12 +309,7 @@ export const CustomTextField = ({
             shippingStateOption.visited && shippingStateOption.message
           }
           required={required}
-          sx={{
-            margin: 0,
-            '.MuiInputBase-root': {
-              borderRadius: '8px',
-            },
-          }}
+          sx={inputStyle}
           style={{
             borderRadius: '20px',
           }}
@@ -332,14 +337,7 @@ export const CustomTextField = ({
             shippingStateOption.visited && shippingStateOption.message
           }
           required={required}
-          sx={{
-            margin: 0,
-            '.MuiInputBase-root': {
-              borderRadius: '8px',
-              color: '#707070',
-              borderColor: '#707070',
-            },
-          }}
+          sx={inputStyle}
           variant="outlined"
           fullWidth
           margin="normal"
@@ -364,12 +362,7 @@ export const CustomTextField = ({
           error={!!shippingStateOption.error}
           helperText={shippingStateOption.message}
           required={required}
-          sx={{
-            margin: 0,
-            '.MuiInputBase-root': {
-              borderRadius: '8px',
-            },
-          }}
+          sx={inputStyle}
           variant="outlined"
           fullWidth
           margin="normal"
@@ -379,11 +372,11 @@ export const CustomTextField = ({
         <FormControl>
           <InputLabel id="demo-simple-select-helper-label">State *</InputLabel>
           <Select
-            value={shippingState.state.value}
+            value={shipping.state.value}
             label={label}
             fullWidth
             onChange={(e) => {
-              setShippingState((prevState) => ({
+              setShipping((prevState) => ({
                 ...prevState,
                 state: {
                   ...prevState.state,
@@ -394,12 +387,7 @@ export const CustomTextField = ({
               }));
             }}
             required={required}
-            sx={{
-              margin: 0,
-              '.MuiInputBase-root': {
-                borderRadius: '8px',
-              },
-            }}
+            sx={inputStyle}
           >
             <MenuItem value="" disabled>
               --Select a state--

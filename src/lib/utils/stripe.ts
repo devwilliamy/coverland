@@ -38,9 +38,7 @@ export const generateOrderId = async (
   });
   const orderIdPrefix = preorder ? `${brand}-PRE` : brand;
   const orderId = `${orderIdPrefix}-${date}-${productInitials}-${sequence}`;
-  console.log(
-    `[Stripe.util.generateOrderId}: ${orderId}`
-  );
+  console.log(`[Stripe.util.generateOrderId}: ${orderId}`);
   return orderId;
 };
 
@@ -76,7 +74,7 @@ export const getProductInitialsForType = (type: string): string => {
     case 'Accessories':
       return 'AC';
     default:
-      return 'MX';
+      return 'UN';
   }
 };
 
@@ -103,21 +101,7 @@ export const generateLineItemsForStripe = (items, order_id) => {
     const unitAmount = item.msrp
       ? parseInt((parseFloat(item.msrp) * 100).toFixed(0))
       : 0;
-    const type = item.type === 'Seat Covers' ? 'Seat Cover' : 'Car Cover';
-    // const itemName =
-    //   `${item?.year_generation || ''} ${item?.make || ''} ${item?.model || ''} ${
-    //     item?.submodel1 ? item?.submodel1 : ''
-    //   } ${item?.submodel2 ? item?.submodel2 : ''} ${type} ${item?.display_id} ${
-    //     item?.display_color
-    //   } ${item?.sku} ${order_id}`.replace(/\s+/g, ' ').trim();
-    const itemName =
-      `${item?.year_generation || ''} ${item?.make || ''} ${item?.model || ''} ${
-        item?.submodel1 ? item?.submodel1 : ''
-      } ${item?.submodel2 ? item?.submodel2 : ''} ${type} ${item?.display_id} ${
-        item?.display_color
-      }`
-        .replace(/\s+/g, ' ')
-        .trim();
+    const itemName = generateItemName(item);
     console.log('StripeCheckout Item Name:', itemName);
     return {
       price_data: {
@@ -130,6 +114,24 @@ export const generateLineItemsForStripe = (items, order_id) => {
       quantity: item.quantity,
     };
   });
+};
+
+export const generateItemName = (item: TCartItem) => {
+  const {
+    year_generation = '',
+    make = '',
+    model = '',
+    submodel1 = '',
+    submodel2 = '',
+    submodel3 = '',
+    display_id = '',
+    display_color = '',
+  } = item || {};
+  const type = item.type === 'Seat Covers' ? 'Seat Cover' : 'Car Cover';
+
+  return `${year_generation} ${make} ${model} ${submodel1 || ''} ${submodel2 || ''} ${submodel3 || ''} ${type} ${display_id} ${display_color}`
+    .replace(/\s+/g, ' ')
+    .trim();
 };
 
 export const getSkusFromCartItems = (items: TCartItem[]) => {

@@ -1,18 +1,8 @@
 import { TInitialProductDataDB } from './db/index';
 import { type ClassValue, clsx } from 'clsx';
 import { twMerge } from 'tailwind-merge';
-import {
-  DISCOUNT_25_LOWER_BOUND,
-  DISCOUNT_25_UPPER_BOUND,
-  NO_DISCOUNT_LOWER_BOUND,
-  NO_DISCOUNT_UPPER_BOUND,
-  modelStrings,
-} from './constants';
+import { modelStrings } from './constants';
 
-import { TCartItem } from './cart/useCart';
-import { Dispatch, SetStateAction } from 'react';
-import { IProductData } from '@/utils';
-import { TSeatCoverDataDB } from './db/seat-covers';
 import { parsePhoneNumber } from 'libphonenumber-js';
 
 export function cn(...inputs: ClassValue[]) {
@@ -254,13 +244,11 @@ export function hasMirrors(sku: string) {
   const skuSubstringsNoMirror = ['cn', 'fomu12', 'chcm11', 'chcv11'];
   const lowerStr = sku.toLowerCase();
 
-  if (
-    skuSubstringsNoMirror.some((substring) => lowerStr.includes(substring))
-  ) {
+  if (skuSubstringsNoMirror.some((substring) => lowerStr.includes(substring))) {
     return false;
   }
 
-  return lowerStr.includes('cs') || lowerStr.includes('cp');
+  return true;
 }
 
 export function isFullSet(displaySet: string): string {

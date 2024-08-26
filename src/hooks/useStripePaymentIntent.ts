@@ -45,6 +45,7 @@ export function useCreateStripePaymentIntent() {
           paymentIntentId: paymentIntent?.id,
           clientSecret: paymentIntent?.client_secret,
           orderNumber: paymentIntent?.metadata?.orderId,
+          orderId: newOrder[0].id,
         });
       } catch (error) {
         console.error('[GetStripeClientSecret]: ', error);

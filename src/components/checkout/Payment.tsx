@@ -1,7 +1,5 @@
 import { useElements, useStripe } from '@stripe/react-stripe-js';
 import { useState } from 'react';
-import { Button } from '../ui/button';
-import { AiOutlineLoading3Quarters } from 'react-icons/ai';
 import { useCheckoutContext } from '@/contexts/CheckoutContext';
 import PaymentSelector from './PaymentSelector';
 import BillingAddress from './BillingAddress';
@@ -57,7 +55,7 @@ export default function Payment({
     },
   };
 
-  const buttonStyle = `mb-3 w-full lg:max-w-[307px] font-[700] rounded-lg text-white disabled:bg-[#D6D6D6] disabled:text-[#767676] bg-[#1A1A1A] hover:bg-[#1A1A1A]/90  bg: text-center uppercase m-0 max-h-[48px] min-h-[48px] self-end justify-self-end text-base leading-[17px]`;
+  const buttonStyle = `mb-3 w-full lg:max-w-[307px] font-[700] rounded-lg text-white disabled:bg-[#D6D6D6] disabled:text-[#767676] bg-[#1A1A1A] hover:bg-[#1A1A1A]/90 text-center uppercase m-0 max-h-[48px] min-h-[48px] self-end justify-self-end text-[16px] leading-[17px]`;
 
   const handleContinueWithCard = () => {
     setIsLoading(true);
@@ -193,7 +191,7 @@ export default function Payment({
         </>
       )}
       {/* Continue To Order Review Button */}
-      <div className="my-[48px] flex w-full flex-col items-center justify-center lg:flex-row lg:justify-end">
+      <div className="my-[36px] flex w-full flex-col items-center justify-center lg:my-[48px] lg:flex-row lg:justify-end">
         {message && (
           <p className="w-full text-center font-medium text-[red]">{message}</p>
         )}
