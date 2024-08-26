@@ -21,6 +21,7 @@ export const ADMIN_PANEL_CUSTOMERS = 'users';
 export const MODEL_TABLE = 'Model';
 export const MAKE_TABLE = 'Make';
 export const PRODUCT_METADATA_TABLE = 'Product-Metadata';
+export const SKU_LAB_SKU_ITEM_ID_MAP_TABLE = 'sku_lab_sku_item_id_map';
 
 /* Supabase RPC Names */
 export const RPC_GET_MAKE_RELATION = 'get_make_relation';
