@@ -1,7 +1,7 @@
-import { Dialog, DialogTrigger, DialogContent } from '@radix-ui/react-dialog';
 import { useState } from 'react';
 import ReviewImageGalleryDesktop from './ReviewImageGalleryDesktop';
 import ReviewImagesSheet from './ReviewImagesSheet';
+import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';
 
 const ReviewSeeMoreImages = () => {
   const [reviewDialogOpen, setReviewDialogOpen] = useState<boolean>(false);
