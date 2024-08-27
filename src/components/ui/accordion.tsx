@@ -20,26 +20,33 @@ AccordionItem.displayName = 'AccordionItem';
 
 const AccordionTrigger = React.forwardRef<
   React.ElementRef<typeof AccordionPrimitive.Trigger>,
-  React.ComponentPropsWithoutRef<typeof AccordionPrimitive.Trigger>
->(({ className, children, ...props }, ref) => {
-  const showPlus = props.showPlus
-  return(
-  <AccordionPrimitive.Header className="flex">
-    <AccordionPrimitive.Trigger
-      ref={ref}
-      className={cn(
-        'flex flex-1 items-center justify-between py-4 font-medium transition-all hover:underline [&[data-state=open]>svg]:rotate-180',
-        className
-      )}
-      {...props}
-    >
-      {children}
-      {
-        showPlus ? ( <Plus color="#BE1B1B" className="h-6 w-6 shrink-0 transition-transform duration-200" />) : ( <ChevronDown className="h-6 w-6 shrink-0 transition-transform duration-200" />)
-      }
-    </AccordionPrimitive.Trigger>
-  </AccordionPrimitive.Header>
-)});
+  React.ComponentPropsWithoutRef<typeof AccordionPrimitive.Trigger> & {
+    showPlus: boolean;
+  }
+>(({ className, children, showPlus, ...props }, ref) => {
+  return (
+    <AccordionPrimitive.Header className="flex">
+      <AccordionPrimitive.Trigger
+        ref={ref}
+        className={cn(
+          'flex flex-1 items-center justify-between py-4 font-medium transition-all hover:underline [&[data-state=open]>svg]:rotate-180',
+          className
+        )}
+        {...props}
+      >
+        {children}
+        {showPlus ? (
+          <Plus
+            color="#BE1B1B"
+            className="h-6 w-6 shrink-0 transition-transform duration-200"
+          />
+        ) : (
+          <ChevronDown className="h-6 w-6 shrink-0 transition-transform duration-200" />
+        )}
+      </AccordionPrimitive.Trigger>
+    </AccordionPrimitive.Header>
+  );
+});
 AccordionTrigger.displayName = AccordionPrimitive.Trigger.displayName;
 
 const AccordionContent = React.forwardRef<
