@@ -613,11 +613,6 @@ export const ReviewHeaderGalleryMobile: React.FC = () => {
           />
         )}
       </Dialog>
-      {reviewMedia.length > 4 && (
-        <div className="flex h-10 w-full items-center justify-center border border-black">
-          <ReviewSeeMoreImages />
-        </div>
-      )}
     </section>
   );
 };

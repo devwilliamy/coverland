@@ -33,11 +33,6 @@ export default function ReviewHeaderGallery() {
       ) : (
         <ReviewHeaderGalleryMobile reviewImages={reviewImages} />
       )}
-      {reviewImages && (
-        <div className="flex items-center justify-center py-[10px] text-[14px] font-[400] normal-case leading-[24px] text-[#767676] lg:pb-[14px]">
-          {imageCount} Review Images
-        </div>
-      )}
     </div>
   );
 }

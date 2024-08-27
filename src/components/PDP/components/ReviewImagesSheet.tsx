@@ -1,7 +1,6 @@
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
-import { useContext, useState } from 'react';
+import { useState } from 'react';
 import { useStore } from 'zustand';
-import { CarSelectionContext } from '@/contexts/CarSelectionContext';
 import ReviewImageGallery from './ReviewImageGallery';
 import Logo from '@/components/header/Logo';
 import Link from 'next/link';
@@ -16,7 +15,6 @@ export default function ReviewImagesSheet({
   children?: JSX.Element[] | JSX.Element;
 }) {
   const [reviewOpen, setReviewsOpen] = useState<boolean>(false);
-
   const store = useStoreContext();
   if (!store) throw new Error('Missing Provider in the tree');
   const { total_reviews } = useStore(store, (s) => s.reviewDataSummary);
@@ -25,14 +23,10 @@ export default function ReviewImagesSheet({
   return (
     <Sheet open={reviewOpen} onOpenChange={setReviewsOpen}>
       <SheetTrigger
-        className={` ml-2 flex gap-3 ${!children && 'pb-4'} underline`}
+        className={`ml-2 flex gap-3 ${!children && 'pb-4'} underline`}
         disabled={!total_reviews}
       >
-        {children || (
-          <>
-            See more <br /> review images
-          </>
-        )}
+        {children}
       </SheetTrigger>
       <SheetContent className="w-full" side="right">
         <div className=" flex max-h-screen min-h-screen w-screen  flex-col overflow-y-auto">
