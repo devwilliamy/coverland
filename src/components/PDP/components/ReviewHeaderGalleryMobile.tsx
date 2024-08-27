@@ -6,6 +6,7 @@ import ReviewSeeMoreImages from './ReviewSeeMoreImages';
 import useStoreContext from '@/hooks/useStoreContext';
 import { useStore } from 'zustand';
 import { TReviewData } from '@/lib/types/review';
+import ReviewMediaSection from './ReviewMediaSection';
 type ReviewMedia = TReviewData & {
   review_video: string;
   review_video_thumbnail: string;
@@ -580,50 +581,30 @@ export const ReviewHeaderGalleryMobile: React.FC = () => {
 
   console.log('Videos:', videos);
   console.log('Images:', images);
-  const renderMediaRow = (
-    mediaItems: typeof reviewMedia,
-    rowType: 'video' | 'image'
-  ) => (
-    <div className="flex gap-2 overflow-x-auto">
-      {mediaItems.slice(0, 2).map((media, index) => (
-        <DialogTrigger
-          key={`review-${rowType}-${index}`}
-          onClick={() => setSelectedMediaIndex(reviewMedia.indexOf(media))}
-        >
-          <div className="relative aspect-square h-40 w-40">
-            <Image
-              layout="fill"
-              objectFit="cover"
-              src={
-                rowType === 'video'
-                  ? media.review_video_thumbnail ||
-                    media.review_image.split(',')[0]
-                  : media.review_image.split(',')[0]
-              }
-              alt={`review-${rowType}-${index}`}
-              onError={() => {
-                console.error(
-                  `Image: review-${rowType}-${index} | ERROR | `,
-                  media
-                );
-              }}
-            />
-            {rowType === 'video' && (
-              <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50">
-                <PlayIcon className="h-12 w-12 text-white" />
-              </div>
-            )}
-          </div>
-        </DialogTrigger>
-      ))}
-    </div>
-  );
 
   return (
-    <section className="flex flex-col gap-2 p-2 lg:hidden">
+    <section className="flex flex-col gap-4 p-2 lg:hidden">
       <Dialog open={reviewDialogOpen} onOpenChange={setReviewDialogOpen}>
-        {videos.length > 0 && renderMediaRow(videos, 'video')}
-        {images.length > 0 && renderMediaRow(images, 'image')}
+        <ReviewMediaSection
+          title="Reviews with videos"
+          emptyMessage="No video reviews available"
+          mediaItems={videos}
+          rowType="video"
+          onMediaClick={(index) => {
+            setSelectedMediaIndex(reviewMedia.indexOf(videos[index]));
+            setReviewDialogOpen(true);
+          }}
+        />
+        <ReviewMediaSection
+          title="Reviews with images"
+          emptyMessage="No image reviews available"
+          mediaItems={images}
+          rowType="image"
+          onMediaClick={(index) => {
+            setSelectedMediaIndex(reviewMedia.indexOf(images[index]));
+            setReviewDialogOpen(true);
+          }}
+        />
         {reviewDialogOpen && (
           <ReviewImageDialog
             onClose={() => setReviewDialogOpen(false)}
