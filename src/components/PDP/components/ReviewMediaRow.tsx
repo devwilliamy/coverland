@@ -58,7 +58,7 @@ export const ReviewMediaRow: React.FC<ReviewMediaRowProps> = ({
               />
             ) : (
               <DialogTrigger onClick={() => onMediaClick(index)}>
-                <div className="relative aspect-square overflow-hidden rounded-md">
+                <div className="relative aspect-square overflow-hidden rounded-lg">
                   <Image
                     width={190}
                     height={190}

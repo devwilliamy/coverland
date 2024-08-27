@@ -583,7 +583,7 @@ export const ReviewHeaderGalleryMobile: React.FC = () => {
   console.log('Images:', images);
 
   return (
-    <section className="flex flex-col gap-4 p-2 lg:hidden">
+    <section className="flex flex-col gap-4 lg:hidden">
       <Dialog open={reviewDialogOpen} onOpenChange={setReviewDialogOpen}>
         <ReviewMediaSection
           title="Reviews with videos"

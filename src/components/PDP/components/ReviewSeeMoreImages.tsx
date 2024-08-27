@@ -16,7 +16,7 @@ const ReviewSeeMoreImages: React.FC<ReviewSeeMoreImagesProps> = ({
   const [reviewDialogOpen, setReviewDialogOpen] = useState<boolean>(false);
 
   const seeMoreContent = (
-    <div className="relative aspect-square w-full overflow-hidden rounded-md">
+    <div className="relative aspect-square w-full overflow-hidden rounded-lg">
       <Image
         width={190}
         height={190}
