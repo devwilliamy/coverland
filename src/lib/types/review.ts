@@ -1,6 +1,6 @@
 import { Tables } from '../db/types';
 
-export type TReviewData = Tables<'reviews-2'>;
+export type TReviewData = Tables<'reviews_car_covers'>;
 
 export type TProductReviewSummary = {
   total_reviews: number;
