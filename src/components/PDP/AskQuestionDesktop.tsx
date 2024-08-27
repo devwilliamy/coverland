@@ -70,7 +70,7 @@ export default function AskQuestionDesktop() {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <div className="hidden lg:flex w-full items-center justify-center">
-        <DialogTrigger className="">
+        <DialogTrigger>
           <AskQuestionOpenTrigger />
         </DialogTrigger>
       </div>
