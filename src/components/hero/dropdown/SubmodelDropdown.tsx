@@ -20,7 +20,7 @@ export function SubmodelDropdown({
     []
   );
 
-  const { query } = queryObj;
+  const { query, setQuery } = queryObj;
   const { model, submodel1 } = query;
 
   const filteredSubmodelData = Array.from(
@@ -34,6 +34,17 @@ export function SubmodelDropdown({
   ).map((submodel) => ({
     name: submodel,
   }));
+
+  useEffect(() => {
+    if (submodel1) {
+      const parent_generation =
+        submodelData.find((car) => car.submodel1 === submodel1)?.parent_generation || '';
+      setQuery((p) => ({
+        ...p,
+        parent_generation,
+      }));
+    }
+  }, [submodel1, submodelData, setQuery]);
 
   useEffect(() => {
     // Check for second submodel
