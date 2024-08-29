@@ -1,4 +1,4 @@
-import { TCartItem } from '../cart/useCart';
+import { TOrderItem, TOrderItemProduct } from '../db/orders/getOrderByOrderId';
 import { slugify } from '../utils';
 import { generateItemName } from '../utils/stripe';
 
@@ -26,7 +26,7 @@ export const generateTrustPilotPayload = (
   name: string,
   email: string,
   orderNumber: string,
-  cartItems: TCartItem[]
+  orderItems: TOrderItem[]
 ): TrustPilotReviewInvitation => {
   return {
     recipientName: name,
@@ -34,17 +34,17 @@ export const generateTrustPilotPayload = (
     referenceId: orderNumber,
     // productReviewInvitationPreferredSendTime: '2018-12-25T13:00:00',
     // productReviewInvitationTemplateId: 'insert your product review template ID',
-    products: generateTrustPilotProducts(cartItems),
+    products: generateTrustPilotProducts(orderItems),
   };
 };
 
-const generateTrustPilotProducts = (cartItems: TCartItem[]) => {
-  return cartItems.map((item) => {
-    const { product, sku, gtin, mpn } = item;
+const generateTrustPilotProducts = (orderItems: TOrderItem[]) => {
+  return orderItems.map((item) => {
+    const { product, sku, gtin, mpn } = item.product;
     return {
-      productUrl: generateProductUrl(item),
+      productUrl: generateProductUrl(item.product),
       imageUrl: product?.split(',')[0] || '',
-      name: generateItemName(item),
+      name: generateItemName(item.product),
       sku: sku || '',
       gtin: gtin || '',
       mpn: mpn || '',
@@ -62,19 +62,19 @@ const createQueryString = (name: string, value: string) => {
 
 /**
  * Takes cart item and generates website URL from it
- * @param cartItem
+ * @param orderItemProduct
  * @returns
  */
-const generateProductUrl = (cartItem: TCartItem) => {
+const generateProductUrl = (orderItemProduct: TOrderItemProduct) => {
   // const host = process.env.NEXT_PUBLIC_HOSTNAME;
-  const host = "https://coverland.com"; // Will just default this to Coverland
-  const type = cartItem?.type ?? '';
-  const make = cartItem?.make ?? '';
-  const model = cartItem?.model ?? '';
-  const parent_generation = cartItem?.parent_generation;
-  const submodel1 = cartItem?.submodel1 ?? '';
-  const submodel2 = cartItem?.submodel2 ?? '';
-  const submodel3 = cartItem?.submodel3 ?? '';
+  const host = 'https://coverland.com'; // Will just default this to Coverland
+  const type = orderItemProduct?.type ?? '';
+  const make = orderItemProduct?.make ?? '';
+  const model = orderItemProduct?.model ?? '';
+  const parent_generation = orderItemProduct?.parent_generation;
+  const submodel1 = orderItemProduct?.submodel1 ?? '';
+  const submodel2 = orderItemProduct?.submodel2 ?? '';
+  const submodel3 = orderItemProduct?.submodel3 ?? '';
   const determineType = type !== 'Seat Covers' ? 'premium-plus' : 'leather';
   let url = `${host}/${slugify(type)}/${determineType}/${slugify(make)}/${slugify(model)}/${parent_generation}`;
   if (submodel1) {

@@ -139,29 +139,30 @@ export async function POST(request: NextRequest): Promise<SkuLabOrderResponse> {
         `[sku-labs/orders/status/webhook] ${getTimestamp()}: Order updated successfully: ${order_number}`
       );
       /*
-      
-        [TODO]: Send Tracking Number Email.
-
+        Send Tracking Number Email.
       */
 
       const fullOrderData = await fetchUserOrderById(data[0].id);
 
       const emailTo = fullOrderData?.customer_email;
+      if (fullOrderData) {
+        const toSendgrid = {
+          to: emailTo,
+          dynamic_template_data:
+            generateDynamicTemplateDataFromUserOrder(fullOrderData),
+        };
 
-      const toSendgrid = {
-        to: emailTo,
-        dynamic_template_data:
-          generateDynamicTemplateDataFromUserOrder(fullOrderData),
-      };
-
-      await sendShippingConfirmationEmailToSendGrid(
-        generateSendGridApiPayload(toSendgrid)
-      );
+        await sendShippingConfirmationEmailToSendGrid(
+          generateSendGridApiPayload(toSendgrid)
+        );
+      } else {
+        console.error(
+          '[/sku-labs/orders/status/webhook]: Could not find fullOrderData'
+        );
+      }
 
       /*
-      
         [TODO]: Have to update Stripe and Paypal Tracking Number Here too
-
       */
 
       return NextResponse.json(
