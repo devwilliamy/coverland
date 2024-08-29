@@ -33,7 +33,7 @@ const PreorderPreview = ({ selectedProduct }: PreorderPreviewProps) => {
               {preorderWeeks} Weeks
             </div>
             <div className="w-[75px] rounded bg-[#2BA45B] py-1 text-center text-[#ffffff]">
-              ${totalPreorderDiscount} Off
+              ${selectedProduct?.preorder_discount || 0} Off
             </div>
           </div>
         </div>
