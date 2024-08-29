@@ -65,11 +65,10 @@ type SkuLabOrderInput = {
   shipping: number;
 };
 
-// 
 /**
  * Generates the note for SKU Labs so CSRs can see SKU, item name, and quantity
- * @param cartItems 
- * @returns 
+ * @param cartItems
+ * @returns
  */
 const generateNote = (cartItems: TCartItem[], paymentMethod: string) => {
   const skuNameQuantity = cartItems.map((cartItem: TCartItem) => {
@@ -87,6 +86,32 @@ const generateNote = (cartItems: TCartItem[], paymentMethod: string) => {
   return `Payment Method: ${paymentMethod}\n${skuNameQuantity.join('\n')}`;
 };
 
+const determineSkuLabInventoryType = (cartItem: TCartItem) => {
+  return cartItem.display_set === 'Full Seat Set' ? 'kit' : 'item';
+};
+
+const generateItems = async (cartItems: TCartItem[]) => {
+  return Promise.all(
+    cartItems.map(async (cartItem) => {
+      const type = determineSkuLabInventoryType(cartItem);
+      const skuLabItemId = await getSkuLabItemId(
+        cartItem['skulabs SKU'] || '',
+        type
+      );
+
+      return {
+        quantity: cartItem.quantity as unknown as number,
+        price: cartItem.msrp as number,
+        type, // Item Or Kit (for Full Seat Cover bundle)
+        // lineSku: '', // In the future will need to grab the SKU Lab sku
+        id: skuLabItemId,
+        // lineName: '' // In the future need to grab SKU Lab lineName
+        // lineId: '' // In the future will need to grab from SKU Lab
+      };
+    })
+  );
+};
+
 export const generateSkuLabOrderInput = async ({
   orderNumber,
   cartItems,
@@ -96,9 +121,10 @@ export const generateSkuLabOrderInput = async ({
   paymentMethod,
   tax,
   discount,
-  shipping
+  shipping,
 }: SkuLabOrderInput): Promise<SkuLabOrderDTO> => {
   const notes = generateNote(cartItems, paymentMethod);
+  const items = await generateItems(cartItems);
   return {
     store_id: '62f0fcbffc3f4e916f865d6a', // Hard Coded for now
     order_number: orderNumber,
@@ -108,15 +134,7 @@ export const generateSkuLabOrderInput = async ({
       id: orderNumber,
       notes: notes,
       date: getCurrentDateInPST() as string,
-      items: await Promise.all(cartItems.map(async (cartItem) => ({
-        quantity: cartItem.quantity as number,
-        price: cartItem.msrp as number,
-        type: 'item', // Item Or Kit (for Full Seat Cover bundle)
-        // lineSku: '', // In the future will need to grab the SKU Lab sku
-        id: await getSkuLabItemId(cartItem['skulabs SKU'] || "") // In the future need to grab SKU Lab item id
-        // lineName: '' // In the future need to grab SKU Lab lineName
-        // lineId: '' // In the future will need to grab from SKU Lab
-      }))),
+      items,
       discount, // TODO: Currently no promo, but we have preorder
       shipping, // TODO: Currently no shipping, but need to update later
       financial_status: '',
