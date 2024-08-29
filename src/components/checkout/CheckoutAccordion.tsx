@@ -311,28 +311,6 @@ export default function CheckoutAccordion() {
       );
     }
 
-    const skuLabOrderInput = await generateSkuLabOrderInput({
-      orderNumber,
-      cartItems,
-      orderTotal,
-      shippingAddress,
-      customerInfo,
-      paymentMethod: 'Stripe',
-      tax,
-      discount: Number((getTotalPreorderDiscount() * -1).toFixed(2)),
-      shipping,
-    });
-
-    // SKU Labs Order Creation
-    // Post Items
-    const skuLabCreateOrderResponse = await fetch('/api/sku-labs/orders', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ order: skuLabOrderInput }),
-    });
-
     router.push(
       `/thank-you?order_number=${orderNumber}&payment_intent=${id}&payment_intent_client_secret=${client_secret}`
     );
