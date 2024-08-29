@@ -152,12 +152,10 @@ const generateThankYouEmail = ({
   orderInfo,
   shippingInfo,
   billingInfo,
-  trustPilot,
 }: ThankYouEmailInput) => ({
   personalizations: [
     {
       to: [{ email: to }],
-      bcc: [process.env.TRUST_PILOT_BCC_EMAIL],
       dynamic_template_data: {
         first_name: name.firstName,
         order_date: orderInfo.orderDate,
@@ -179,12 +177,6 @@ const generateThankYouEmail = ({
           orderInfo.totalPreorderDiscount
         ),
         total: formatMoneyAsNumber(orderInfo.total),
-        // For Trust Pilot
-        recipientName: trustPilot.recipientName,
-        recipientEmail: trustPilot.recipientEmail,
-        referenceId: trustPilot.referenceId,
-        products: trustPilot.products,
-        // End For Trust Pilot
       },
     },
   ],
