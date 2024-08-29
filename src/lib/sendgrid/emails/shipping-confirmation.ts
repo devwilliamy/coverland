@@ -3,13 +3,14 @@ sgMail.setApiKey(process.env.SENDGRID_API_KEY || '');
 const sgFromEmail = process.env.SENDGRID_FROM_EMAIL || '';
 const sgShippingConfirmationTemplateId =
   process.env.SENDGRID_SHIPPING_CONFIRMATION_EMAIL_TEMPLATE_ID || '';
-import { formatMoneyAsNumber } from '@/lib/utils/money';
 // import fetchUserOrderById
 // import { TUserOrder, TOrderItem, TOrderItemProduct, fetchUserOrderById } from '@/lib/db/profile/ordersHistory';
 import { SHIPPING_METHOD } from '@/lib/constants';
 import { determineDeliveryByDate } from '@/lib/utils/deliveryDateUtils';
 import { generateTrackingUrl } from '@/lib/utils/generateTrackingUrl';
 import { formatISODate } from '@/lib/utils/date';
+import { TUserOrder } from '@/lib/db/orders/getOrderByOrderId';
+import { generateTrustPilotPayload } from '@/lib/trustpilot';
 let shipping_fee; // this is a placeholder for later iteration
 
 const shippingConstants = {
@@ -72,6 +73,7 @@ export const generateDynamicTemplateDataFromUserOrder = (
     shipping_status_last_updated,
     shipping_tracking_number,
     customer_name,
+    customer_email,
     items,
   } = order;
 
@@ -109,6 +111,13 @@ export const generateDynamicTemplateDataFromUserOrder = (
     country: shipping_address_country,
     postal_code: shipping_address_postal_code,
   };
+
+  const trust_pilot = generateTrustPilotPayload(
+    customer_name || '',
+    customer_email || '',
+    order_id || '',
+    items
+  );
 
   // the order items are causing an error atm //
   /*
@@ -154,6 +163,7 @@ export const generateDynamicTemplateDataFromUserOrder = (
     main_data,
     // order_items,
     shipping_info,
+    trust_pilot,
   };
 };
 
@@ -164,6 +174,7 @@ export const generateSendGridApiPayload = (data): MailDataRequired => {
     personalizations: [
       {
         to: [{ email: data.to }], // data.to
+        bcc: [process.env.TRUST_PILOT_BCC_EMAIL],
         dynamicTemplateData: data.dynamic_template_data,
       },
     ],

@@ -48,7 +48,6 @@ import CheckoutSummarySection from './CheckoutSummarySection';
 import OrderReview from './OrderReview';
 import { formatToE164 } from '@/lib/utils';
 import { TermsOfUseStatement } from './TermsOfUseStatement';
-import { generateTrustPilotPayload } from '@/lib/trustpilot';
 import PaymentProcessingMessage from './PaymentProcessing';
 import PayPalPaymentInstructions from './PaypalProcessingMessage';
 
@@ -174,12 +173,6 @@ export default function CheckoutAccordion() {
         free_delivery: shippingInfo.delivery_fee === 0,
         tax: tax.toFixed(2),
       },
-      trustPilot: generateTrustPilotPayload(
-        shippingAddress.name,
-        customerInfo.email,
-        orderNumber,
-        cartItems
-      ),
       // billingInfo,
     };
     try {
