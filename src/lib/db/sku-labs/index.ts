@@ -1,12 +1,13 @@
 import { SKU_LAB_SKU_ITEM_ID_MAP_TABLE } from '../constants/databaseTableNames';
 import { supabaseDatabaseClient } from '../supabaseClients';
 
-export async function getSkuLabItemId(sku: string) {
+export async function getSkuLabItemId(sku: string, type: 'kit' | 'item') {
   try {
     const { data, error } = await supabaseDatabaseClient
       .from(SKU_LAB_SKU_ITEM_ID_MAP_TABLE)
       .select('item_id')
       .eq('sku', sku)
+      .eq('type', type)
       .maybeSingle();
 
     if (error) {
