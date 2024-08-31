@@ -15,15 +15,7 @@ import {
   VisaCard,
 } from '@/components/PDP/images/cards';
 import LiveChat from '@/components/LiveChat';
-import { FaYoutube } from 'react-icons/fa';
-import { PiInstagramLogoFill } from 'react-icons/pi';
-import { ReactNode } from 'react';
-
-const IconCircle = ({ children }: { children: ReactNode }) => (
-  <div className="flex aspect-square w-[30px] items-center justify-center rounded-full bg-white p-[5px]">
-    {children}
-  </div>
-);
+import SocialMediaLinks from './SocialMediaLinks';
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -53,24 +45,7 @@ const Footer = () => {
             id="social-icons=footer"
             className="flex w-full flex-row items-center justify-start gap-3.5"
           >
-            <Link
-              href="https://youtube.com/@CoverLandUSA?si=hcqFGwnMgWrRfIdP"
-              target="_blank"
-              aria-label="Go to Coverland Youtube page"
-            >
-              <IconCircle>
-                <FaYoutube className="h-full w-full" />
-              </IconCircle>
-            </Link>
-            <Link
-              href="https://www.instagram.com/coverland_us/"
-              target="_blank"
-              aria-label="Go to Coverland Instagram page"
-            >
-              <IconCircle>
-                <PiInstagramLogoFill className="h-full w-full" />
-              </IconCircle>
-            </Link>
+            <SocialMediaLinks />
           </div>
         </div>
 
