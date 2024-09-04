@@ -112,6 +112,14 @@ const generateItems = async (cartItems: TCartItem[]) => {
   );
 };
 
+function generateTags(orderNumber: string) {
+  let tags = ['Coverland'];
+  if (orderNumber.includes('PRE')) {
+    tags.push('PRE-ORDER');
+  }
+  return tags;
+}
+
 export const generateSkuLabOrderInput = async ({
   orderNumber,
   cartItems,
@@ -124,6 +132,7 @@ export const generateSkuLabOrderInput = async ({
   shipping,
 }: SkuLabOrderInput): Promise<SkuLabOrderDTO> => {
   const notes = generateNote(cartItems, paymentMethod);
+  const tags = generateTags(orderNumber);
   const items = await generateItems(cartItems);
   return {
     store_id: '62f0fcbffc3f4e916f865d6a', // Hard Coded for now
@@ -153,7 +162,7 @@ export const generateSkuLabOrderInput = async ({
         address_2: shippingAddress.address.line2 || '',
         method: '2 day free shipping',
       },
-      tags: ['Coverland'],
+      tags,
     },
   };
 };
