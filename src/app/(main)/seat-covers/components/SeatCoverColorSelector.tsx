@@ -7,8 +7,6 @@ import CircleBlack from '@/images/PDP/Product-Details-Redesign-2/seat-covers/cov
 import CircleGray from '@/images/PDP/Product-Details-Redesign-2/seat-covers/cover-colors/gray/seat-circle-gray.webp';
 import CircleBeige from '@/images/PDP/Product-Details-Redesign-2/seat-covers/cover-colors/beige/seat-circle-beige.webp';
 import CircleDarkGray from '@/images/PDP/Product-Details-Redesign-2/seat-covers/cover-colors/dark-gray/seat-circle-dg.webp';
-import CircleGreen from '@/images/PDP/Product-Details-Redesign-2/seat-covers/cover-colors/green/seat-circle-gr.webp';
-import CircleNavy from '@/images/PDP/Product-Details-Redesign-2/seat-covers/cover-colors/navy/seat-circle-nv.webp';
 import CircleRed from '@/images/PDP/Product-Details-Redesign-2/seat-covers/cover-colors/red/seat-circle-rd.webp';
 import CirclePink from '@/images/PDP/Product-Details-Redesign-2/seat-covers/cover-colors/pink/seat-circle-pk.webp';
 import CircleWhite from '@/images/PDP/Product-Details-Redesign-2/seat-covers/cover-colors/white/seat-circle-wh.webp';
@@ -24,8 +22,6 @@ const iconMap: Record<string, StaticImageData> = {
   Gray: CircleGray,
   Beige: CircleBeige,
   'Dark Gray': CircleDarkGray,
-  Green: CircleGreen,
-  Navy: CircleNavy,
   Red: CircleRed,
   Pink: CirclePink,
   White: CircleWhite,
@@ -71,16 +67,6 @@ export default function SeatCoverColorSelector() {
       display_color: 'dark gray',
       product:
         'https://coverland.sfo3.cdn.digitaloceanspaces.com/custom-leather-seat-cover/01-seatcover-pc-dg-1to.webp,https://coverland.sfo3.cdn.digitaloceanspaces.com/custom-leather-seat-cover/02-seatcover-pc-dg-1to.webp,https://coverland.sfo3.cdn.digitaloceanspaces.com/custom-leather-seat-cover/03-seatcover-pc-dg-1to.webp,https://coverland.sfo3.cdn.digitaloceanspaces.com/custom-leather-seat-cover/04-seatcover-pc-dg-1to.webp,https://coverland.sfo3.cdn.digitaloceanspaces.com/custom-leather-seat-cover/05-seatcover-pc-dg-1to.webp,https://coverland.sfo3.cdn.digitaloceanspaces.com/custom-leather-seat-cover/06-seatcover-pc-dg-1to.webp,https://coverland.sfo3.cdn.digitaloceanspaces.com/custom-leather-seat-cover/07-seatcover-pc-dg-1to.webp,https://coverland.sfo3.cdn.digitaloceanspaces.com/custom-leather-seat-cover/08-seatcover-pc-dg-1to.webp,https://coverland.sfo3.cdn.digitaloceanspaces.com/custom-leather-seat-cover/09-seatcover-pc-dg-1to.webp',
-    },
-    {
-      display_color: 'green',
-      product:
-        'https://coverland.sfo3.cdn.digitaloceanspaces.com/custom-leather-seat-cover/01-seatcover-pc-gn-1to.webp,https://coverland.sfo3.cdn.digitaloceanspaces.com/custom-leather-seat-cover/02-seatcover-pc-gn-1to.webp,https://coverland.sfo3.cdn.digitaloceanspaces.com/custom-leather-seat-cover/03-seatcover-pc-gn-1to.webp,https://coverland.sfo3.cdn.digitaloceanspaces.com/custom-leather-seat-cover/04-seatcover-pc-gn-1to.webp,https://coverland.sfo3.cdn.digitaloceanspaces.com/custom-leather-seat-cover/05-seatcover-pc-gn-1to.webp,https://coverland.sfo3.cdn.digitaloceanspaces.com/custom-leather-seat-cover/06-seatcover-pc-gn-1to.webp,https://coverland.sfo3.cdn.digitaloceanspaces.com/custom-leather-seat-cover/07-seatcover-pc-gn-1to.webp,https://coverland.sfo3.cdn.digitaloceanspaces.com/custom-leather-seat-cover/08-seatcover-pc-gn-1to.webp,https://coverland.sfo3.cdn.digitaloceanspaces.com/custom-leather-seat-cover/09-seatcover-pc-gn-1to.webp',
-    },
-    {
-      display_color: 'navy',
-      product:
-        'https://coverland.sfo3.cdn.digitaloceanspaces.com/custom-leather-seat-cover/01-seatcover-pc-nv-1to.webp,https://coverland.sfo3.cdn.digitaloceanspaces.com/custom-leather-seat-cover/02-seatcover-pc-nv-1to.webp,https://coverland.sfo3.cdn.digitaloceanspaces.com/custom-leather-seat-cover/03-seatcover-pc-nv-1to.webp,https://coverland.sfo3.cdn.digitaloceanspaces.com/custom-leather-seat-cover/04-seatcover-pc-nv-1to.webp,https://coverland.sfo3.cdn.digitaloceanspaces.com/custom-leather-seat-cover/05-seatcover-pc-nv-1to.webp,https://coverland.sfo3.cdn.digitaloceanspaces.com/custom-leather-seat-cover/06-seatcover-pc-nv-1to.webp,https://coverland.sfo3.cdn.digitaloceanspaces.com/custom-leather-seat-cover/07-seatcover-pc-nv-1to.webp,https://coverland.sfo3.cdn.digitaloceanspaces.com/custom-leather-seat-cover/08-seatcover-pc-nv-1to.webp,https://coverland.sfo3.cdn.digitaloceanspaces.com/custom-leather-seat-cover/09-seatcover-pc-nv-1to.webp',
     },
     {
       display_color: 'red',
