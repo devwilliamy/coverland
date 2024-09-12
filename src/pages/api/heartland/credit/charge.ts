@@ -10,12 +10,13 @@ import verifyCard from '@/lib/heartland/verifyCard';
 import chargeCard from '@/lib/heartland/chargeCard';
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
+  console.log('Inside charge API handler');
   if (req.method === 'POST') {
     const config = new PorticoConfig();
     config.secretApiKey = process.env.HEARTLAND_SECRET_KEY ?? '';
     config.developerId = process.env.HEARTLAND_DEVELOPER_ID ?? '';
     config.versionNumber = process.env.HEARTLAND_VERSION_NUMBER ?? '';
-    config.serviceUrl = 'https://cert.api2.heartlandportico.com';
+    config.serviceUrl = process.env.HEARTLAND_API_URL ?? '';
     ServicesContainer.configureService(config);
 
     const { token, cardInfo, additionalInformation } = req.body;
@@ -23,7 +24,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     const card = new CreditCardData();
     card.token = token;
     const address = new Address();
-    address.postalCode = '12345';
+    address.postalCode = '92782';
 
     try {
       // const response = await card
@@ -35,8 +36,8 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       //   .execute();
 
       const currency = 'USD';
-      const amount = '17.01';
-      const invoiceNumber = '123456';
+      const amount = '25.00';
+      const invoiceNumber = additionalInformation.orderNumber;
 
       const response = await chargeCard(
         card,
@@ -49,8 +50,8 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
         response.transactionId
       ).execute();
 
-      console.log(response);
-      console.log(txnDetailsResponse);
+      console.log('charge card response', response);
+      console.log('txnDetailsResponse', txnDetailsResponse);
 
       res.status(200).json({
         success: true,

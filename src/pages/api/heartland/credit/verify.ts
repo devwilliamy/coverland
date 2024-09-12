@@ -15,7 +15,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     config.secretApiKey = process.env.HEARTLAND_SECRET_KEY ?? '';
     config.developerId = process.env.HEARTLAND_DEVELOPER_ID ?? '';
     config.versionNumber = process.env.HEARTLAND_VERSION_NUMBER ?? '';
-    config.serviceUrl = 'https://cert.api2.heartlandportico.com';
+    config.serviceUrl = process.env.HEARTLAND_API_URL ?? "";
     ServicesContainer.configureService(config);
 
     const { token, cardInfo, additionalInformation, address } = req.body;
@@ -40,12 +40,14 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       //   .execute();
 
       const response = await verifyCard(card, address);
+      console.log("Verify REsponse:", response)
       const txnDetailsResponse = await ReportingService.transactionDetail(
         response.transactionId
       ).execute();
+      console.log("txnDetailsResponse", txnDetailsResponse)
 
-      console.log(response);
-      console.log(txnDetailsResponse);
+      // console.log(response);
+      // console.log(txnDetailsResponse);
 
       res.status(200).json({
         success: true,
