@@ -163,7 +163,7 @@ export const generateDynamicTemplateDataFromUserOrder = (
     main_data,
     // order_items,
     shipping_info,
-    trust_pilot,
+    // trust_pilot,
   };
 };
 
@@ -174,7 +174,7 @@ export const generateSendGridApiPayload = (data): MailDataRequired => {
     personalizations: [
       {
         to: [{ email: data.to }], // data.to
-        bcc: [process.env.TRUST_PILOT_BCC_EMAIL],
+        // bcc: [process.env.TRUST_PILOT_BCC_EMAIL],
         dynamicTemplateData: data.dynamic_template_data,
       },
     ],
