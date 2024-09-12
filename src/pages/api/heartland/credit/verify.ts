@@ -15,46 +15,25 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     config.secretApiKey = process.env.HEARTLAND_SECRET_KEY ?? '';
     config.developerId = process.env.HEARTLAND_DEVELOPER_ID ?? '';
     config.versionNumber = process.env.HEARTLAND_VERSION_NUMBER ?? '';
-    config.serviceUrl = process.env.HEARTLAND_API_URL ?? "";
+    config.serviceUrl = process.env.HEARTLAND_API_URL ?? '';
     ServicesContainer.configureService(config);
 
-    const { token, cardInfo, additionalInformation, address } = req.body;
-    console.log('VERIFY DEBUG:', {
-      token,
-      cardInfo,
-      address,
-      additionalInformation,
-    });
+    const { token, address } = req.body;
     const card = new CreditCardData();
     card.token = token;
-    // const address = new Address();
-    // address.postalCode = '12345';
 
     try {
-      // const response = await card
-      //   .verify()
-      //   .withCurrency('USD')
-      //   .withAddress(address)
-      //   .withRequestMultiUseToken(true)
-      //   .withAllowDuplicates(true)
-      //   .execute();
-
       const response = await verifyCard(card, address);
-      console.log("Verify REsponse:", response)
-      const txnDetailsResponse = await ReportingService.transactionDetail(
-        response.transactionId
-      ).execute();
-      console.log("txnDetailsResponse", txnDetailsResponse)
 
-      // console.log(response);
-      // console.log(txnDetailsResponse);
+      // Not sure if we need txn details. Will leave here while I contemplate.
+      // const txnDetailsResponse: HeartlandTransactionDetails = await ReportingService.transactionDetail(
+      //   response.transactionId
+      // ).execute();
 
       res.status(200).json({
         success: true,
         response,
-        txnDetailsResponse,
-        cardInfo,
-        additionalInformation,
+        // txnDetailsResponse,
       });
     } catch (error) {
       console.error('Verify Error:', error);

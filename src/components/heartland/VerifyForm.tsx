@@ -139,11 +139,11 @@ const VerifyForm: React.FC = ({ handleNextStep }) => {
         console.log('Registration of all credit card fields occurred');
       });
 
-      cardForm.on('token-success', (resp: any) => {
+      cardForm.on('token-success', async (resp: any) => {
         setIsLoading(true);
         console.log('resp:', resp);
         updateCardInfo(resp.details);
-        handleHeartlandTokenSuccess(
+        const response = await handleHeartlandTokenSuccess(
           resp,
           setError,
           resetError,
@@ -151,6 +151,7 @@ const VerifyForm: React.FC = ({ handleNextStep }) => {
           shippingAddress,
           orderNumber
         );
+        
 
         handleNextStep();
 
