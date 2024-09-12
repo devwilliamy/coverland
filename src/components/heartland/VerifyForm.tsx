@@ -9,21 +9,12 @@ import { AiOutlineLoading3Quarters } from 'react-icons/ai';
 import handleHeartlandTokenSuccess from './handleHeartlandTokenSuccess';
 import { useMediaQuery } from '@mantine/hooks';
 
-const VerifyForm: React.FC = () => {
+const VerifyForm: React.FC = ({ handleNextStep }) => {
   const isMobile = useMediaQuery('(max-width:1024px)');
 
   const [scriptLoaded, setScriptLoaded] = useState(false);
   const [amount, setAmount] = useState('0');
   const [isLoading, setIsLoading] = useState(false);
-  const [address, setAddress] = useState({
-    streetAddress1: '',
-    streetAddress2: '',
-    city: '',
-    state: '',
-    postalCode: '',
-  });
-
-  // const { updateIsReadyToPay } = usecheckoutContext();
 
   const [error, setError] = useState({
     cardNumber: '',
@@ -40,18 +31,7 @@ const VerifyForm: React.FC = () => {
       general: '',
     });
 
-  const handleChange = (e) => {
-    console.log('HANDLE CHANGE:', {
-      name: e.target.name,
-      value: e.target.value,
-      address,
-    });
-    setAddress({
-      ...address,
-      [e.target.name]: e.target.value,
-    });
-  };
-  const { shippingAddress, orderNumber } = useCheckoutContext();
+  const { shippingAddress, orderNumber, updateCardInfo } = useCheckoutContext();
   useEffect(() => {
     if (!window.GlobalPayments) {
       const script = document.createElement('script');
@@ -161,6 +141,8 @@ const VerifyForm: React.FC = () => {
 
       cardForm.on('token-success', (resp: any) => {
         setIsLoading(true);
+        console.log('resp:', resp);
+        updateCardInfo(resp.details);
         handleHeartlandTokenSuccess(
           resp,
           setError,
@@ -169,11 +151,13 @@ const VerifyForm: React.FC = () => {
           shippingAddress,
           orderNumber
         );
-        updateIsReadyToPay(true);
 
-        handleChangeAccordion('orderReview');
+        handleNextStep();
+
+        console.log('HUH?');
         setIsLoading(false);
       });
+
       cardForm.on('token-error', (resp: any) => {
         console.log('resp.error', resp);
         resetError();
@@ -206,7 +190,9 @@ const VerifyForm: React.FC = () => {
       });
     }
   }, [scriptLoaded]);
-  console.log('IsLoading', isLoading);
+
+  const buttonStyle = `mb-3 w-full lg:max-w-[307px] font-[700] rounded-lg text-white disabled:bg-[#D6D6D6] disabled:text-[#767676] bg-[#1A1A1A] hover:bg-[#1A1A1A]/90 text-center uppercase m-0 max-h-[48px] min-h-[48px] self-end justify-self-end text-[16px] leading-[17px]`;
+
   return (
     <div>
       <form id="payment-form" action="#payment-form">
@@ -250,12 +236,22 @@ const VerifyForm: React.FC = () => {
               <CvvPopover />
             </div>
           </div>
-          {/* <div className="pt-4"> */}
-          {/* <BillingAddress /> */}
-          {/* </div> */}
-          {/* <div className="flex w-full flex-col items-center justify-center pt-12 lg:flex-row lg:justify-end"> */}
-          {/* <div id="credit-card-submit"></div> */}
-          {/* </div> */}
+
+          <div className="pt-4">
+            <BillingAddress />
+          </div>
+          <div className="flex w-full flex-col items-center justify-center pt-12 lg:flex-row lg:justify-end">
+            {isLoading ? (
+              <LoadingButton
+                className={buttonStyle}
+                isLoading={isLoading}
+                buttonText={'Continue to Order Review'}
+                onClick={() => {}}
+              />
+            ) : (
+              <div id="credit-card-submit"></div>
+            )}
+          </div>
         </div>
       </form>
     </div>
