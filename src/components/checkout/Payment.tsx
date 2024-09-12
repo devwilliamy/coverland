@@ -9,7 +9,7 @@ import { CreditCardSection } from './CreditCardSection';
 import PayPalIcon from './icons/PayPalIcon';
 import { SelectedCardLogo } from './SelectedCardLogo';
 import LoadingButton from '../ui/loading-button';
-import VerifyForm from '../heartland/VerifyForm';
+import HeartlandVerifyCreditCardForm from '../heartland/HeartlandVerifyCreditCardForm';
 
 export default function Payment({
   handleChangeAccordion,
@@ -58,7 +58,8 @@ export default function Payment({
   };
 
   const buttonStyle = `mb-3 w-full lg:max-w-[307px] font-[700] rounded-lg text-white disabled:bg-[#D6D6D6] disabled:text-[#767676] bg-[#1A1A1A] hover:bg-[#1A1A1A]/90 text-center uppercase m-0 max-h-[48px] min-h-[48px] self-end justify-self-end text-[16px] leading-[17px]`;
-  console.log('cardInfo', cardInfo);
+
+  // Stripe Continue with Card
   const handleContinueWithCard = () => {
     setIsLoading(true);
     setMessage('');
@@ -92,11 +93,12 @@ export default function Payment({
         setIsLoading(false);
       });
   };
-  console.log('IsReadyToPay:', isReadyToPay);
+
   const handleEditPayment = () => {
     updateIsReadyToPay(false);
   };
-  const handleNextStep = () => {
+
+  const handleCardHasBeenVerified = () => {
     updateIsReadyToPay(true);
     handleChangeAccordion('orderReview');
   };
@@ -163,12 +165,9 @@ export default function Payment({
           />
           {paymentMethod === 'creditCard' ? (
             <div className="flex flex-col gap-4">
-              <VerifyForm handleNextStep={handleNextStep} />
-              {/* <form id="payment-form">
-                <CreditCardSection />
-              </form>
-              */}
-              {/* <BillingAddress /> */}
+              <HeartlandVerifyCreditCardForm
+                handleCardHasBeenVerified={handleCardHasBeenVerified}
+              />
             </div>
           ) : (
             <div className="pt-[15px]">
@@ -195,17 +194,6 @@ export default function Payment({
         {message && (
           <p className="w-full text-center font-medium text-[red]">{message}</p>
         )}
-        {/* <div id="credit-card-submit"></div> */}
-
-        {/* {paymentMethod === 'creditCard' && !isReadyToPay && (
-          <LoadingButton
-            className={buttonStyle}
-            isDisabled={isDisabledCard}
-            isLoading={isLoading}
-            onClick={handleContinueWithCard}
-            buttonText={'Continue to Order Review'}
-          />
-        )} */}
         {(paymentMethod === 'klarna' ||
           paymentMethod === 'googlePay' ||
           paymentMethod === 'applePay' ||

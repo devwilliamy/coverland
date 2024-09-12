@@ -1,5 +1,4 @@
 'use client';
-
 import BillingAddress from '@/components/checkout/BillingAddress';
 import { CvvPopover } from '@/components/checkout/CvvPopover';
 import LoadingButton from '@/components/ui/loading-button';
@@ -8,15 +7,22 @@ import React, { useEffect, useState } from 'react';
 import { AiOutlineLoading3Quarters } from 'react-icons/ai';
 import handleHeartlandTokenSuccess from './handleHeartlandTokenSuccess';
 import { useMediaQuery } from '@mantine/hooks';
+import {
+  HeartlandCreditCardFieldError,
+  HeartlandPaymentDetailsResponse,
+} from '@/lib/types/heartland';
 
-const VerifyForm: React.FC = ({ handleNextStep }) => {
+type HeartlandVerifyCreditCardFormProps = {
+  handleCardHasBeenVerified: () => void;
+};
+const HeartlandVerifyCreditCardForm: React.FC<
+  HeartlandVerifyCreditCardFormProps
+> = ({ handleCardHasBeenVerified }) => {
   const isMobile = useMediaQuery('(max-width:1024px)');
-
   const [scriptLoaded, setScriptLoaded] = useState(false);
-  const [amount, setAmount] = useState('0');
   const [isLoading, setIsLoading] = useState(false);
 
-  const [error, setError] = useState({
+  const [error, setError] = useState<HeartlandCreditCardFieldError>({
     cardNumber: '',
     cardCvv: '',
     cardExp: '',
@@ -31,7 +37,8 @@ const VerifyForm: React.FC = ({ handleNextStep }) => {
       general: '',
     });
 
-  const { shippingAddress, orderNumber, updateCardInfo } = useCheckoutContext();
+  const { shippingAddress, updateCardInfo } = useCheckoutContext();
+
   useEffect(() => {
     if (!window.GlobalPayments) {
       const script = document.createElement('script');
@@ -139,25 +146,41 @@ const VerifyForm: React.FC = ({ handleNextStep }) => {
         console.log('Registration of all credit card fields occurred');
       });
 
-      cardForm.on('token-success', async (resp: any) => {
-        setIsLoading(true);
-        console.log('resp:', resp);
-        updateCardInfo(resp.details);
-        const response = await handleHeartlandTokenSuccess(
-          resp,
-          setError,
-          resetError,
-          error,
-          shippingAddress,
-          orderNumber
-        );
-        
+      cardForm.on(
+        'token-success',
+        async (resp: HeartlandPaymentDetailsResponse) => {
+          setIsLoading(true);
+          updateCardInfo(resp.details);
+          resetError();
+          const response = await handleHeartlandTokenSuccess(
+            resp,
+            setError,
+            resetError,
+            error,
+            shippingAddress
+          );
 
-        handleNextStep();
-
-        console.log('HUH?');
-        setIsLoading(false);
-      });
+          if (
+            response?.response?.responseCode === '00' &&
+            response?.response?.responseMessage === 'Success'
+          ) {
+            handleCardHasBeenVerified();
+          } else if (response?.response) {
+            setError({
+              ...error,
+              general: `${response.response.responseCode} - ${response.response.responseMessage}`,
+            });
+          } else {
+            // Handle case when response or response.response is undefined
+            setError((prevError) => ({
+              ...prevError,
+              general:
+                'Unexpected error: Could not verify your card. Please contact our support team.',
+            }));
+          }
+          setIsLoading(false);
+        }
+      );
 
       cardForm.on('token-error', (resp: any) => {
         console.log('resp.error', resp);
@@ -229,29 +252,41 @@ const VerifyForm: React.FC = ({ handleNextStep }) => {
                 </div>
               </div>
             ) : (
-              <div className="flex justify-center py-4">
+              <div className="flex justify-center py-4 ">
                 <AiOutlineLoading3Quarters className="h-10 w-10 animate-spin" />
               </div>
             )}
-            <div className="flex pr-2 pt-8 lg:justify-end">
-              <CvvPopover />
+            <div
+              className={`flex-column flex ${isLoading ? 'justify-between' : 'flex-row-reverse'}`}
+            >
+              {isLoading ? (
+                <>
+                  <div className="flex pt-8 text-[green]">
+                    Verifying your card...
+                    <AiOutlineLoading3Quarters className="h-5 w-5 animate-spin" />
+                  </div>
+                  <div className="flex pr-2 pt-8 lg:justify-end">
+                    <CvvPopover />
+                  </div>
+                </>
+              ) : (
+                <div className="flex pr-2 pt-8 lg:justify-start">
+                  <CvvPopover />
+                </div>
+              )}
             </div>
           </div>
 
           <div className="pt-4">
             <BillingAddress />
           </div>
+
           <div className="flex w-full flex-col items-center justify-center pt-12 lg:flex-row lg:justify-end">
-            {isLoading ? (
-              <LoadingButton
-                className={buttonStyle}
-                isLoading={isLoading}
-                buttonText={'Continue to Order Review'}
-                onClick={() => {}}
-              />
-            ) : (
-              <div id="credit-card-submit"></div>
+            {error.general && (
+              <p className="px-2 py-2 font-bold text-[red]"> {error.general}</p>
             )}
+
+            <div id="credit-card-submit"></div>
           </div>
         </div>
       </form>
@@ -259,157 +294,4 @@ const VerifyForm: React.FC = ({ handleNextStep }) => {
   );
 };
 
-export default VerifyForm;
-
-/*
-
-VERIFY DEBUG: {
-  token: 'supt_as9BwRXDa9qjJPcGsP7qzeua',   
-  cardInfo: {
-    cardNumber: '356600******7321',
-    cardBin: '356600',
-    cardLast4: '7321',
-    cardType: 'jcb',  
-    expiryMonth: '03',
-    expiryYear: '3333',
-    cardSecurityCode: 'true'
-  },
-  address: { postalCode: '' },
-  additionalInformation: { companyName: '', postalCode: '' }      
-}
-Transaction {
-  authorizedAmount: undefined,
-  avsAddressResponse: undefined,
-  balanceAmount: undefined,
-  pointsBalanceAmount:
- undefined,
-  cardBrandTransactionId: '073122275700498',
-  commercialIndicator:
- undefined,
-  responseCode: '00', 
-  responseMessage: 'Success',
-  transactionDescriptor: undefined,
-  referenceNumber: '421316191745',
-  recurringDataCode: undefined,
-  cvnResponseMessage: 'Match.',
-  cvnResponseCode: 'M',
-  cavvResponseCode: undefined,
-  multiCapture: undefined,
-  multiCapturePaymentCount: undefined,      
-  multiCaptureSequence: undefined,
-  cardLast4: undefined,
-  cardType: 'Disc',   
-  avsResponseMessage: 'AVS Not Requested.', 
-  avsResponseCode: '0',
-  availableBalance: undefined,
-  transactionReference: TransactionReference {
-    authCode: '007489',
-    orderId: undefined,
-    transactionId: '200071933013',
-    paymentMethodType:
- 2,
-    clientTransactionId: undefined
-  },
-  token: undefined,   
-  giftCard: undefined,
-  clientTransactionId:
- undefined,
-  timestamp: undefined,
-  batchId: undefined, 
-  batchSeqNbr: undefined,
-  payFacData: undefined,
-  payerDetails: undefined,
-  fingerprint: undefined,
-  fingerprintIndicator: undefined,
-  tokenUsageMode: undefined,
-  cardDetails: undefined,
-  threeDSecure: undefined,
-  accountNumberLast4: undefined,
-  accountType: undefined,
-  cardIssuerResponse: undefined
-}
-TransactionSummary {  
-  amount: '0.00',     
-  currency: undefined,
-  merchantId: undefined,
-  merchantHierarchy: undefined,
-  merchantName: undefined,
-  merchantDbaName: undefined,
-  accountDataSource: '@',
-  accountNumberLast4: undefined,
-  accountType: undefined,
-  aquirerReferenceNumber: undefined,        
-  authCode: '',       
-  authorizedAmount: '0.00',
-  batchCloseDate: Invalid Date,
-  batchSequenceNumber:
- undefined,
-  brandReference: undefined,
-  cardHolderName: undefined,
-  cardSwiped: 'N',    
-  cardType: 'Disc',   
-  channel: undefined, 
-  clerkId: undefined, 
-  clientTransactionId:
- undefined,
-  convenienceAmt: undefined,
-  country: undefined, 
-  deviceId: '7508557',
-  depositStatus: undefined,
-  depositReference: undefined,
-  depositTimeCreated: undefined,
-  entryMode: undefined,
-  issuerResponseCode: undefined,
-  issuerResponseMessage: undefined,
-  issuerTransactionId:
- '421316191745000',   
-  gatewayResponseCode:
- '00',
-  gatewayResponseMessage: 'Success',        
-  gratuityAmount: '0',
-  maskedCardNumber: '356600******7321',     
-  originalTransactionId: '0',
-  orderId: undefined, 
-  paymentType: undefined,
-  poNumber: undefined,
-  referenceNumber: '421316191745',
-  responseDate: 2024-08-01T05:27:58.980Z,   
-  serviceName: 'CreditAccountVerify',       
-  settlementAmount: '0',
-  shippingAmt: undefined,
-  siteTrace: '',      
-  status: 'I',        
-  taxAmount: undefined,
-  taxType: undefined, 
-  transactionDate: Invalid Date,
-  transactionLocalDate: undefined,
-  transactionId: '200071933013',
-  transactionStatus: undefined,
-  transactionType: undefined,
-  username: '777704047279SK',
-  description: undefined,
-  invoiceNumber: undefined,
-  customerId: undefined,
-  uniqueDeviceId: '', 
-  transactionDescriptor: undefined,
-  giftCurrency: undefined,
-  maskedAlias: undefined,
-  paymentMethodKey: undefined,
-  scheduleId: undefined,
-  oneTimePayment: undefined,
-  recurringDataCode: undefined,
-  surchargeAmount: undefined,
-  fraudRuleInfo: undefined,
-  repeatCount: undefined,
-  emvChipCondition: '',
-  hasEmvTags: undefined,
-  hasEcomPaymentData: undefined,
-  cavvResponseCode: '',
-  tokenPanLastFour: '',
-  companyName: '',    
-  customerFirstName: '',
-  customerLastName: '',
-  debtRepaymentIndicator: undefined,        
-  captureAmount: undefined,
-
-  */
+export default HeartlandVerifyCreditCardForm;

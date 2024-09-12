@@ -8,6 +8,25 @@ import {
   TransactionSummary,
 } from 'globalpayments-api';
 import verifyCard from '@/lib/heartland/verifyCard';
+import { StripeAddress } from '@/lib/types/checkout';
+import { StripeCustomCheckoutAddress } from '@stripe/stripe-js';
+
+const convertStripeAddressToHeartlandAddress = (
+  address: StripeCustomCheckoutAddress
+): Address => {
+  return {
+    type: 1,
+    streetAddress1: address.line1 || '',
+    streetAddress2: address.line2 || '',
+    streetAddress3: '',
+    city: address.city || '',
+    state: address.state || '',
+    province: address.state || '',
+    postalCode: address.postal_code || '',
+    country: address.country || '',
+    countryCode: address.country || '',
+  };
+};
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method === 'POST') {
@@ -21,12 +40,12 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     const { token, address } = req.body;
     const card = new CreditCardData();
     card.token = token;
-
+    const heartlandAddress = convertStripeAddressToHeartlandAddress(address);
     try {
-      const response = await verifyCard(card, address);
+      const response = await verifyCard(card, heartlandAddress);
 
       // Not sure if we need txn details. Will leave here while I contemplate.
-      // const txnDetailsResponse: HeartlandTransactionDetails = await ReportingService.transactionDetail(
+      // const txnDetailsResponse: HeartlandTransactionDetailsSummary = await ReportingService.transactionDetail(
       //   response.transactionId
       // ).execute();
 
