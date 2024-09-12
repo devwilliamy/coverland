@@ -7,10 +7,14 @@ import { useCheckoutContext } from '@/contexts/CheckoutContext';
 import React, { useEffect, useState } from 'react';
 import { AiOutlineLoading3Quarters } from 'react-icons/ai';
 import handleHeartlandTokenSuccess from './handleHeartlandTokenSuccess';
+import { useMediaQuery } from '@mantine/hooks';
 
 const VerifyForm: React.FC = () => {
+  const isMobile = useMediaQuery('(max-width:1024px)');
+
   const [scriptLoaded, setScriptLoaded] = useState(false);
   const [amount, setAmount] = useState('0');
+  const [isLoading, setIsLoading] = useState(false);
   const [address, setAddress] = useState({
     streetAddress1: '',
     streetAddress2: '',
@@ -18,6 +22,8 @@ const VerifyForm: React.FC = () => {
     state: '',
     postalCode: '',
   });
+
+  // const { updateIsReadyToPay } = usecheckoutContext();
 
   const [error, setError] = useState({
     cardNumber: '',
@@ -45,7 +51,7 @@ const VerifyForm: React.FC = () => {
       [e.target.name]: e.target.value,
     });
   };
-  const { shippingAddress } = useCheckoutContext();
+  const { shippingAddress, orderNumber } = useCheckoutContext();
   useEffect(() => {
     if (!window.GlobalPayments) {
       const script = document.createElement('script');
@@ -90,8 +96,9 @@ const VerifyForm: React.FC = () => {
             target: '#credit-card-card-cvv',
           },
           submit: {
-            value: 'CONTINUE TO ORDER REVIEW',
+            value: 'Submit',
             target: '#credit-card-submit',
+            text: 'CONTINUE TO ORDER REVIEW',
           },
         },
         styles: {
@@ -105,6 +112,7 @@ const VerifyForm: React.FC = () => {
             'padding-top': '19px',
             'padding-bottom': '19px',
             'align-items': 'center',
+            'font-size': '14px',
             // 'background-color': 'red',
             // 'max-width': '620px',
             width: '100%',
@@ -115,13 +123,13 @@ const VerifyForm: React.FC = () => {
           },
           '#secure-payment-field.card-cvv': {
             // 'background-color': 'blue',
-            'max-width': '80px',
+            'max-width': isMobile ? '270px' : '80px',
           },
           '#secure-payment-field.card-expiration': {
-            'max-width': '80px',
+            'max-width': isMobile ? '270px' : '80px',
           },
           '#secure-payment-field.submit': {
-            margin: 0,
+            margin: '0',
             'margin-bottom': '12px', // 3 * 4px = 12px
             'max-height': '48px',
             'min-height': '48px',
@@ -132,7 +140,7 @@ const VerifyForm: React.FC = () => {
             'background-color': '#1A1A1A',
             'text-align': 'center',
             'font-size': '1rem', // 16px
-            'font-weight': 700,
+            'font-weight': '700',
             'text-transform': 'uppercase',
             'line-height': '17px',
             color: 'white',
@@ -151,15 +159,21 @@ const VerifyForm: React.FC = () => {
         console.log('Registration of all credit card fields occurred');
       });
 
-      cardForm.on('token-success', (resp: any) =>
+      cardForm.on('token-success', (resp: any) => {
+        setIsLoading(true);
         handleHeartlandTokenSuccess(
           resp,
           setError,
           resetError,
           error,
-          shippingAddress
-        )
-      );
+          shippingAddress,
+          orderNumber
+        );
+        updateIsReadyToPay(true);
+
+        handleChangeAccordion('orderReview');
+        setIsLoading(false);
+      });
       cardForm.on('token-error', (resp: any) => {
         console.log('resp.error', resp);
         resetError();
@@ -192,7 +206,7 @@ const VerifyForm: React.FC = () => {
       });
     }
   }, [scriptLoaded]);
-
+  console.log('IsLoading', isLoading);
   return (
     <div>
       <form id="payment-form" action="#payment-form">
@@ -208,22 +222,22 @@ const VerifyForm: React.FC = () => {
                     <p className="pl-1 pt-2 text-[red]"> {error.cardNumber}</p>
                   )}
                 </div>
-                <div className="flex flex-col">
-                  <div
-                    id="credit-card-card-cvv"
-                    className="max-w-[115px]"
-                  ></div>
-                  {error.cardCvv && (
-                    <p className="pl-1 pt-2 text-[red]"> {error.cardCvv}</p>
-                  )}
-                </div>
-                <div className="flex flex-col">
+                <div className="mt-8 flex flex-col lg:mt-0">
                   <div
                     id="credit-card-card-expiration"
-                    className="max-w-[115px]"
+                    className="lg:max-w-[115px]"
                   ></div>
                   {error.cardExp && (
                     <p className="pl-1 pt-2 text-[red]"> {error.cardExp}</p>
+                  )}
+                </div>
+                <div className="mt-8 flex flex-col lg:mt-0">
+                  <div
+                    id="credit-card-card-cvv"
+                    className="lg:max-w-[115px]"
+                  ></div>
+                  {error.cardCvv && (
+                    <p className="pl-1 pt-2 text-[red]"> {error.cardCvv}</p>
                   )}
                 </div>
               </div>
@@ -232,19 +246,18 @@ const VerifyForm: React.FC = () => {
                 <AiOutlineLoading3Quarters className="h-10 w-10 animate-spin" />
               </div>
             )}
-            <div className="flex pr-2 pt-4 lg:justify-end">
+            <div className="flex pr-2 pt-8 lg:justify-end">
               <CvvPopover />
             </div>
           </div>
-          <div className="pt-4">
-            <BillingAddress />
-          </div>
-          <div className="flex w-full flex-col items-center justify-center pt-12 lg:flex-row lg:justify-end">
-            <div id="credit-card-submit"></div>
-          </div>
+          {/* <div className="pt-4"> */}
+          {/* <BillingAddress /> */}
+          {/* </div> */}
+          {/* <div className="flex w-full flex-col items-center justify-center pt-12 lg:flex-row lg:justify-end"> */}
+          {/* <div id="credit-card-submit"></div> */}
+          {/* </div> */}
         </div>
       </form>
- 
     </div>
   );
 };

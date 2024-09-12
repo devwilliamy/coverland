@@ -7,6 +7,7 @@ const verifyCard = async (card: CreditCardData, address?: Address) => {
     .withAddress(address)
     .withAllowDuplicates(true)
     .execute();
+  console.log('INNER VERIFY:', response);
   return response;
 };
 

@@ -24,7 +24,7 @@ const chargeCard = async (
     .withInvoiceNumber(invoiceNumber)
     .withAllowDuplicates(true)
     .execute();
-  //   console.log('Response:', response);
+    console.log('Charge Card Response:', response);
   return response;
 };
 

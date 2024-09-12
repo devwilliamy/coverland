@@ -8,7 +8,7 @@ export const CvvPopover = () => {
   return (
     <Popover>
       <PopoverTrigger className="block max-w-fit">
-        <p className="pl-[11px] text-left text-[16px] font-[500] leading-[18.75px] underline lg:text-right">
+        <p className="text-left text-[16px] font-[500] leading-[18.75px] underline lg:text-right">
           Where is my CVV?
         </p>
       </PopoverTrigger>

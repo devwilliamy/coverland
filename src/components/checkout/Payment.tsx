@@ -9,6 +9,7 @@ import { CreditCardSection } from './CreditCardSection';
 import PayPalIcon from './icons/PayPalIcon';
 import { SelectedCardLogo } from './SelectedCardLogo';
 import LoadingButton from '../ui/loading-button';
+import VerifyForm from '../heartland/VerifyForm';
 
 export default function Payment({
   handleChangeAccordion,
@@ -161,14 +162,12 @@ export default function Payment({
           />
           {paymentMethod === 'creditCard' ? (
             <div className="flex flex-col gap-4">
-              <form id="payment-form">
+              <VerifyForm />
+              {/* <form id="payment-form">
                 <CreditCardSection />
               </form>
-
-              <BillingAddress
-                isEditingAddress={isEditingAddress}
-                setIsEditingAddress={setIsEditingAddress}
-              />
+              */}
+              <BillingAddress />
             </div>
           ) : (
             <div className="pt-[15px]">
@@ -195,7 +194,9 @@ export default function Payment({
         {message && (
           <p className="w-full text-center font-medium text-[red]">{message}</p>
         )}
-        {paymentMethod === 'creditCard' && !isReadyToPay && (
+        <div id="credit-card-submit"></div>
+
+        {/* {paymentMethod === 'creditCard' && !isReadyToPay && (
           <LoadingButton
             className={buttonStyle}
             isDisabled={isDisabledCard}
@@ -203,7 +204,7 @@ export default function Payment({
             onClick={handleContinueWithCard}
             buttonText={'Continue to Order Review'}
           />
-        )}
+        )} */}
         {(paymentMethod === 'klarna' ||
           paymentMethod === 'googlePay' ||
           paymentMethod === 'applePay' ||
