@@ -98,6 +98,8 @@ export type CheckoutContextType = {
   updateTotalTax: (tax: string) => void;
   cardInfo: HeartlandCardInfo;
   updateCardInfo: (newCardInfo: Partial<HeartlandCardInfo>) => void;
+  cardToken: string;
+  updateCardToken: (newCardToken: string) => void;
 };
 
 export type CheckoutProviderProps = {
@@ -177,6 +179,8 @@ export const CheckoutContext = createContext<CheckoutContextType>({
     cardSecurityCode: '',
   },
   updateCardInfo: () => {},
+  cardToken: '',
+  updateCardToken: () => {},
 });
 
 const CheckoutProvider: FC<CheckoutProviderProps> = ({ children }) => {
@@ -226,15 +230,6 @@ const CheckoutProvider: FC<CheckoutProviderProps> = ({ children }) => {
   const [cardCvvError, setCardCvvError] = useState<CardErrorData>({
     error: null,
     visited: false,
-  });
-  const [cardInfo, setCardInfo] = useState<HeartlandCardInfo>({
-    cardNumber: '',
-    cardBin: '',
-    cardLast4: '',
-    cardType: '',
-    expiryMonth: '',
-    expiryYear: '',
-    cardSecurityCode: '',
   });
 
   const nextStep = () => {
@@ -375,11 +370,26 @@ const CheckoutProvider: FC<CheckoutProviderProps> = ({ children }) => {
     setBillingTwoLetterStateCode(code);
   };
 
+  const [cardInfo, setCardInfo] = useState<HeartlandCardInfo>({
+    cardNumber: '',
+    cardBin: '',
+    cardLast4: '',
+    cardType: '',
+    expiryMonth: '',
+    expiryYear: '',
+    cardSecurityCode: '',
+  });
+
   const updateCardInfo = (newCardInfo: Partial<HeartlandCardInfo>) => {
     setCardInfo(() => ({
       ...cardInfo,
       ...newCardInfo,
     }));
+  };
+
+  const [cardToken, setCardToken] = useState<string>('');
+  const updateCardToken = (newCardToken: string) => {
+    setCardToken(newCardToken);
   };
 
   return (
@@ -436,6 +446,8 @@ const CheckoutProvider: FC<CheckoutProviderProps> = ({ children }) => {
         updateBillingTwoLetterStateCode,
         cardInfo,
         updateCardInfo,
+        cardToken,
+        updateCardToken,
       }}
     >
       {children}

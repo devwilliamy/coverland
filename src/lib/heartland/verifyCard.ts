@@ -5,6 +5,7 @@ const verifyCard = async (card: CreditCardData, address?: Address) => {
     .verify()
     .withCurrency('USD')
     .withAddress(address)
+    .withRequestMultiUseToken(true)
     .withAllowDuplicates(true)
     .execute();
   return response;

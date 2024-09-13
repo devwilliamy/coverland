@@ -137,3 +137,12 @@ export type HeartlandCreditCardFieldError = {
   cardExp: string;
   general: string;
 }
+
+export type HeartlandApiError = {
+  success: boolean;
+  error: string;
+}
+
+export function isHeartlandApiError(error: any): error is HeartlandApiError {
+  return (error as HeartlandApiError)?.success === false && typeof (error as HeartlandApiError)?.error === 'string';
+}

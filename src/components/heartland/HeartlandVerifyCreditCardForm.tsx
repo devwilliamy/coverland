@@ -18,17 +18,17 @@ type HeartlandVerifyCreditCardFormProps = {
 const HeartlandVerifyCreditCardForm: React.FC<
   HeartlandVerifyCreditCardFormProps
 > = ({ handleCardHasBeenVerified }) => {
+  const { shippingAddress, updateCardInfo, updateCardToken } =
+    useCheckoutContext();
   const isMobile = useMediaQuery('(max-width:1024px)');
   const [scriptLoaded, setScriptLoaded] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-
   const [error, setError] = useState<HeartlandCreditCardFieldError>({
     cardNumber: '',
     cardCvv: '',
     cardExp: '',
     general: '',
   });
-
   const resetError = () =>
     setError({
       cardNumber: '',
@@ -37,14 +37,12 @@ const HeartlandVerifyCreditCardForm: React.FC<
       general: '',
     });
 
-  const { shippingAddress, updateCardInfo } = useCheckoutContext();
-
   useEffect(() => {
     if (!window.GlobalPayments) {
       const script = document.createElement('script');
       script.src = 'https://js.globalpay.com/v1/globalpayments.js';
       script.onload = () => {
-        console.log('Global Payments script loaded');
+        console.info('Global Payments script loaded');
         setScriptLoaded(true);
       };
       script.onerror = () => {
@@ -58,7 +56,7 @@ const HeartlandVerifyCreditCardForm: React.FC<
 
   useEffect(() => {
     if (scriptLoaded) {
-      console.log('Initializing payment form');
+      console.info('Initializing payment form');
 
       window.GlobalPayments.configure({
         publicApiKey: process.env.NEXT_PUBLIC_HEARTLAND_PUBLIC_KEY,
@@ -149,20 +147,24 @@ const HeartlandVerifyCreditCardForm: React.FC<
       cardForm.on(
         'token-success',
         async (resp: HeartlandPaymentDetailsResponse) => {
+          // console.info('Token Success Resp:', resp);
           setIsLoading(true);
           updateCardInfo(resp.details);
+          updateCardToken(resp.paymentReference);
           resetError();
-          const response = await handleHeartlandTokenSuccess(
-            resp,
-            setError,
-            resetError,
-            error,
-            shippingAddress
-          );
+          // Temporarily taking out until I get a response on verify card
+          // const response = await handleHeartlandTokenSuccess(
+          //   resp,
+          //   setError,
+          //   resetError,
+          //   error,
+          //   shippingAddress
+          // );
 
           if (
-            response?.response?.responseCode === '00' &&
-            response?.response?.responseMessage === 'Success'
+            // response?.response?.responseCode === '00' &&
+            // response?.response?.responseMessage === 'Success'
+            true
           ) {
             handleCardHasBeenVerified();
           } else if (response?.response) {
@@ -183,7 +185,7 @@ const HeartlandVerifyCreditCardForm: React.FC<
       );
 
       cardForm.on('token-error', (resp: any) => {
-        console.log('resp.error', resp);
+        console.error('resp.error', resp);
         resetError();
         if (error && resp.reasons[0]) {
           switch (resp.reasons[0].code) {
@@ -210,7 +212,7 @@ const HeartlandVerifyCreditCardForm: React.FC<
       });
 
       cardForm.on('card-number', 'register', () => {
-        console.log('Registration of Card Number occurred');
+        console.info('Registration of Card Number occurred');
       });
     }
   }, [scriptLoaded]);

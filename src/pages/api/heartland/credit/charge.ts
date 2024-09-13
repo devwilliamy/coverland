@@ -5,9 +5,12 @@ import {
   PorticoConfig,
   ReportingService,
   ServicesContainer,
+  Transaction,
+  TransactionSummary,
 } from 'globalpayments-api';
 import verifyCard from '@/lib/heartland/verifyCard';
 import chargeCard from '@/lib/heartland/chargeCard';
+import { convertStripeAddressToHeartlandAddress } from '@/lib/utils/heartland';
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   console.log('Inside charge API handler');
@@ -19,36 +22,28 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     config.serviceUrl = process.env.HEARTLAND_API_URL ?? '';
     ServicesContainer.configureService(config);
 
-    const { token, cardInfo, additionalInformation } = req.body;
-    console.log('DEBUG:', { token, cardInfo });
+    const { token, address, additionalInformation, amount } = req.body;
     const card = new CreditCardData();
     card.token = token;
-    const address = new Address();
-    address.postalCode = '92782';
+    const heartlandAddress = convertStripeAddressToHeartlandAddress(address, 0);
 
     try {
-      // const response = await card
-      //   .verify()
-      //   .withCurrency('USD')
-      //   .withAddress(address)
-      //   .withRequestMultiUseToken(true)
-      //   .withAllowDuplicates(true)
-      //   .execute();
-
       const currency = 'USD';
       const amount = '25.00';
       const invoiceNumber = additionalInformation.orderNumber;
 
-      const response = await chargeCard(
+      const response: Transaction = await chargeCard(
         card,
-        address,
+        heartlandAddress,
         currency,
         amount,
         invoiceNumber
       );
-      const txnDetailsResponse = await ReportingService.transactionDetail(
-        response.transactionId
-      ).execute();
+
+      const txnDetailsResponse: TransactionSummary =
+        await ReportingService.transactionDetail(
+          response.transactionId
+        ).execute();
 
       console.log('charge card response', response);
       console.log('txnDetailsResponse', txnDetailsResponse);
@@ -57,10 +52,10 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
         success: true,
         response,
         txnDetailsResponse,
-        cardInfo,
         additionalInformation,
       });
     } catch (error) {
+      console.error('Charge Card Error: ', (error as Error).message);
       res.status(500).json({ success: false, error: (error as Error).message });
     }
   } else {

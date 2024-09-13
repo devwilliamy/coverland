@@ -1,4 +1,4 @@
-import { Address, CreditCardData } from 'globalpayments-api';
+import { Address, CreditCardData, Transaction } from 'globalpayments-api';
 
 /**
  *
@@ -15,16 +15,16 @@ const chargeCard = async (
   currency: string = 'USD',
   amount: string,
   invoiceNumber: string
-) => {
+): Promise<Transaction> => {
   const response = await card
     .charge()
     .withCurrency(currency)
     .withAmount(amount)
     .withAddress(address)
     .withInvoiceNumber(invoiceNumber)
+    .withRequestMultiUseToken(true)
     .withAllowDuplicates(true)
     .execute();
-    console.log('Charge Card Response:', response);
   return response;
 };
 
