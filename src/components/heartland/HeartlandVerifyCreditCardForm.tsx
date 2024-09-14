@@ -161,25 +161,24 @@ const HeartlandVerifyCreditCardForm: React.FC<
           //   shippingAddress
           // );
 
-          if (
-            // response?.response?.responseCode === '00' &&
-            // response?.response?.responseMessage === 'Success'
-            true
-          ) {
-            handleCardHasBeenVerified();
-          } else if (response?.response) {
-            setError({
-              ...error,
-              general: `${response.response.responseCode} - ${response.response.responseMessage}`,
-            });
-          } else {
-            // Handle case when response or response.response is undefined
-            setError((prevError) => ({
-              ...prevError,
-              general:
-                'Unexpected error: Could not verify your card. Please contact our support team.',
-            }));
-          }
+          // if (
+          //   response?.response?.responseCode === '00' &&
+          //   response?.response?.responseMessage === 'Success'
+          // ) {
+          handleCardHasBeenVerified();
+          // } else if (response?.response) {
+          //   setError({
+          //     ...error,
+          //     general: `${response.response.responseCode} - ${response.response.responseMessage}`,
+          //   });
+          // } else {
+          //   // Handle case when response or response.response is undefined
+          //   setError((prevError) => ({
+          //     ...prevError,
+          //     general:
+          //       'Unexpected error: Could not verify your card. Please contact our support team.',
+          //   }));
+          // }
           setIsLoading(false);
         }
       );
