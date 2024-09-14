@@ -13,7 +13,6 @@ import chargeCard from '@/lib/heartland/chargeCard';
 import { convertStripeAddressToHeartlandAddress } from '@/lib/utils/heartland';
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
-  console.log('Inside charge API handler');
   if (req.method === 'POST') {
     const config = new PorticoConfig();
     config.secretApiKey = process.env.HEARTLAND_SECRET_KEY ?? '';
@@ -29,7 +28,6 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
     try {
       const currency = 'USD';
-      const amount = '25.00';
       const invoiceNumber = additionalInformation.orderNumber;
 
       const response: Transaction = await chargeCard(
@@ -45,8 +43,8 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
           response.transactionId
         ).execute();
 
-      console.log('charge card response', response);
-      console.log('txnDetailsResponse', txnDetailsResponse);
+      // console.info('charge card response', response);
+      // console.info('txnDetailsResponse', txnDetailsResponse);
 
       res.status(200).json({
         success: true,
