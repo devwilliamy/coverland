@@ -35,10 +35,10 @@ export type HeartlandCardInfo = {
   cardNumber: string;
   cardBin: string;
   cardLast4: string;
-  cardType: 'visa' | 'mastercard' | 'amex' | 'discover' | string; // Extend as needed
-  expiryMonth: string; // You can consider narrowing this to '01' | '02' | '03' | ... | '12'
-  expiryYear: string; // If you want, you could restrict this to specific valid year ranges
-  cardSecurityCode: string; // Could be boolean if it represents a true/false condition
+  cardType: 'visa' | 'mastercard' | 'amex' | 'discover' | string;
+  expiryMonth: string;
+  expiryYear: string;
+  cardSecurityCode: string;
 };
 
 export type CheckoutContextType = {

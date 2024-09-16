@@ -59,6 +59,7 @@ import {
 } from '@/lib/utils/adminPanel';
 import { createOrUpdateUser } from '@/lib/db/admin-panel/customers';
 import { updateAdminPanelOrder } from '@/lib/db/admin-panel/orders';
+import { heartlandResponseCodeMap } from '@/lib/utils/heartland';
 
 export default function CheckoutAccordion() {
   const stripe = useStripe();
@@ -348,10 +349,9 @@ export default function CheckoutAccordion() {
         cardToken,
         orderTotal
       );
-
       if (
-        chargeCardResponse?.txnDetailsResponse?.gatewayResponseMessage ===
-        'Success'
+        chargeCardResponse?.response?.responseCode === '00' &&
+        chargeCardResponse?.response?.responseMessage === 'Success'
       ) {
         // some success
 
@@ -377,11 +377,23 @@ export default function CheckoutAccordion() {
           mappedData.order_id
         );
         handleConversions();
+      } else {
+        const responseCode = chargeCardResponse?.response?.responseCode;
+        console.error(
+          'Not successful',
+          `Payment was not successful. Please try again or contact support. Response Code: ${responseCode} - ${heartlandResponseCodeMap[responseCode] || ''}`
+        );
+        setSubmitErrorMessage(
+          `Payment was not successful. Please try again or contact support. Response Code: ${responseCode} - ${heartlandResponseCodeMap[responseCode] || ''}`
+        );
       }
     } catch (error) {
       if (isHeartlandApiError(error)) {
-        const errorMessage = error.error;
+        let errorMessage = error.error;
         // Handle the Heartland API error here (e.g., display an error message to the user)
+        if (error.error.includes('27')) {
+          errorMessage += ' Please input your card details again.';
+        }
         console.error('Heartland API Error:', errorMessage);
         setSubmitErrorMessage(errorMessage);
       } else {
@@ -400,101 +412,6 @@ export default function CheckoutAccordion() {
       setPaymentProcessing(false);
     }
   };
-
-  // Old Stripe HandleSubmit
-  // const handleSubmit = async () => {
-  //   if (!stripe || !elements) {
-  //     // Stripe.js hasn't yet loaded.
-  //     // Make sure to disable form submission until Stripe.js has loaded.
-  //     return;
-  //   }
-
-  //   setIsLoading(true);
-  //   setPaymentProcessing(true);
-
-  //   const formattedPhone = formatToE164(customerInfo.phoneNumber);
-
-  //   updateCustomerInfo({
-  //     ...customerInfo,
-  //     phoneNumber: formattedPhone,
-  //   });
-
-  //   const response = await fetch('/api/stripe/payment-intent', {
-  //     method: 'PUT',
-  //     headers: {
-  //       'Content-Type': 'application/json',
-  //     },
-  //     body: JSON.stringify({
-  //       paymentIntentId,
-  //       amount: orderTotalStripeFormat,
-  //     }),
-  //   });
-
-  //   const data = await response.json();
-  //   const { id, client_secret } = data.paymentIntent;
-  //   const retrievedSecret = client_secret;
-
-  //   const customerShipping = {
-  //     name: shippingAddress.name,
-  //     phone: formattedPhone,
-  //     address: {
-  //       city: shippingAddress.address.city as string,
-  //       country: shippingAddress.address.country as string,
-  //       line1: shippingAddress.address.line1 as string,
-  //       line2: shippingAddress.address.line2 as string,
-  //       postal_code: shippingAddress.address.postal_code as string,
-  //       state: shippingAddress.address.state as string,
-  //     },
-  //   };
-
-  //   const customerBilling = {
-  //     address: billingAddress.address,
-  //     email: customerInfo.email,
-  //     phone: formattedPhone,
-  //     name: billingAddress.name,
-  //   };
-
-  //   switch (paymentMethod) {
-  //     case 'creditCard':
-  //       stripe
-  //         .confirmCardPayment(String(retrievedSecret), {
-  //           // payment_method: { card: CardNumber as StripeCardNumberElement },
-  //           payment_method: stripePaymentMethod?.paymentMethod?.id,
-  //           shipping: customerShipping,
-  //         })
-  //         .then(async function (result) {
-  //           if (result.error) {
-  //             const { error } = result;
-  //             if (
-  //               error.type === 'card_error' ||
-  //               error.type === 'validation_error'
-  //             ) {
-  //               console.error('Error:', error.message);
-  //               setPaymentProcessing(false);
-  //               setSubmitErrorMessage(
-  //                 error.message ||
-  //                   "There's an error, but could not find error message"
-  //               );
-  //             } else {
-  //               console.error('Error:', error.message);
-  //               setPaymentProcessing(false);
-  //               setSubmitErrorMessage(
-  //                 error.message || 'An unexpected error occurred.'
-  //               );
-  //             }
-  //           } else if (
-  //             result.paymentIntent &&
-  //             result.paymentIntent.status === 'succeeded'
-  //           ) {
-  //             handleConversions(id, client_secret);
-  //           }
-  //           setIsLoading(false);
-  //         });
-  //       break;
-  //     default:
-  //       return;
-  //   }
-  // };
 
   useEffect(() => {
     if ((!isAddressComplete || isEditingAddress) && !isReadyToShip) {

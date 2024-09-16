@@ -1,16 +1,15 @@
-'use client';
+'use client';;
 import BillingAddress from '@/components/checkout/BillingAddress';
 import { CvvPopover } from '@/components/checkout/CvvPopover';
-import LoadingButton from '@/components/ui/loading-button';
 import { useCheckoutContext } from '@/contexts/CheckoutContext';
 import React, { useEffect, useState } from 'react';
 import { AiOutlineLoading3Quarters } from 'react-icons/ai';
-import handleHeartlandTokenSuccess from './handleHeartlandTokenSuccess';
 import { useMediaQuery } from '@mantine/hooks';
 import {
   HeartlandCreditCardFieldError,
   HeartlandPaymentDetailsResponse,
 } from '@/lib/types/heartland';
+import { cardIsExpired } from '@/lib/utils/date';
 
 type HeartlandVerifyCreditCardFormProps = {
   handleCardHasBeenVerified: () => void;
@@ -21,6 +20,7 @@ const HeartlandVerifyCreditCardForm: React.FC<
   const { shippingAddress, updateCardInfo, updateCardToken } =
     useCheckoutContext();
   const isMobile = useMediaQuery('(max-width:1024px)');
+
   const [scriptLoaded, setScriptLoaded] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<HeartlandCreditCardFieldError>({
@@ -29,6 +29,7 @@ const HeartlandVerifyCreditCardForm: React.FC<
     cardExp: '',
     general: '',
   });
+
   const resetError = () =>
     setError({
       cardNumber: '',
@@ -152,6 +153,29 @@ const HeartlandVerifyCreditCardForm: React.FC<
           updateCardInfo(resp.details);
           updateCardToken(resp.paymentReference);
           resetError();
+
+          if (!resp.details.cardSecurityCode) {
+            setError({
+              ...error,
+              cardCvv: 'CVV is required!',
+            });
+          } else if (!resp.details.expiryMonth || !resp.details.expiryYear) {
+            setError({
+              ...error,
+              cardExp: 'Expiry date is required!',
+            });
+          } else if (
+            cardIsExpired(resp.details.expiryMonth, resp.details.expiryYear)
+          ) {
+            console.log('Card is expired');
+            setError({
+              ...error,
+              cardExp: "Your card's expiration year is in the past.",
+            });
+          } else {
+            handleCardHasBeenVerified();
+          }
+
           // Temporarily taking out until I get a response on verify card
           // const response = await handleHeartlandTokenSuccess(
           //   resp,
@@ -160,12 +184,11 @@ const HeartlandVerifyCreditCardForm: React.FC<
           //   error,
           //   shippingAddress
           // );
-
           // if (
           //   response?.response?.responseCode === '00' &&
           //   response?.response?.responseMessage === 'Success'
           // ) {
-          handleCardHasBeenVerified();
+          //   handleCardHasBeenVerified();
           // } else if (response?.response) {
           //   setError({
           //     ...error,
@@ -215,8 +238,6 @@ const HeartlandVerifyCreditCardForm: React.FC<
       });
     }
   }, [scriptLoaded]);
-
-  const buttonStyle = `mb-3 w-full lg:max-w-[307px] font-[700] rounded-lg text-white disabled:bg-[#D6D6D6] disabled:text-[#767676] bg-[#1A1A1A] hover:bg-[#1A1A1A]/90 text-center uppercase m-0 max-h-[48px] min-h-[48px] self-end justify-self-end text-[16px] leading-[17px]`;
 
   return (
     <div>

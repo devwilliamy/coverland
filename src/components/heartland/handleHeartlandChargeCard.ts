@@ -39,6 +39,7 @@ const handleHeartlandChargeCard = async (
     }
 
     const data: HeartlandCreditChargeResponse = await response.json();
+    // console.info('Payment Successful: ', data);
     return data;
   } catch (error) {
     // console.error('Payment failed:', error);

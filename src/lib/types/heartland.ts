@@ -40,7 +40,7 @@ export type HeartlandTransactionDetailsSummary = {
   authorizedAmount: string;
   batchCloseDate: string | null;
   cardSwiped: 'Y' | 'N';
-  cardType: 'Visa' | 'MasterCard' | 'Amex' | 'Discover' | string; // Extend with more card types as needed
+  cardType: 'Visa' | 'MasterCard' | 'Amex' | 'Discover' | string;
   deviceId: string;
   issuerTransactionId: string;
   gatewayResponseCode: string;
@@ -53,7 +53,7 @@ export type HeartlandTransactionDetailsSummary = {
   serviceName: string;
   settlementAmount: string;
   siteTrace: string;
-  status: string; // You could restrict this to known status codes like 'I', 'C', etc.
+  status: string;
   transactionDate: string | null;
   transactionId: string;
   username: string;
@@ -96,7 +96,7 @@ export type HeartlandCardTransaction = {
   referenceNumber: string;
   cvnResponseMessage: string;
   cvnResponseCode: string;
-  cardType: 'Visa' | 'MasterCard' | 'Amex' | 'Discover' | string; // Extend with more card types as needed
+  cardType: 'Visa' | 'MasterCard' | 'Amex' | 'Discover' | string;
   avsResponseMessage: string;
   avsResponseCode: string;
   transactionReference: HeartlandTransactionReference;
@@ -106,10 +106,10 @@ type HeartlandPaymentDetails = {
   cardNumber: string;
   cardBin: string;
   cardLast4: string;
-  cardType: 'visa' | 'mastercard' | 'amex' | 'discover' | string; // Extend as needed
+  cardType: 'visa' | 'mastercard' | 'amex' | 'discover' | string;
   cardSecurityCode: boolean;
-  expiryMonth: string; // Could narrow down to specific months like '01' to '12'
-  expiryYear: string; // Could narrow down to a range of years if needed
+  expiryMonth: string;
+  expiryYear: string;
 };
 
 /**

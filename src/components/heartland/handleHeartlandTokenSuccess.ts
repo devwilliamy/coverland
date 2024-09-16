@@ -30,38 +30,39 @@ const handleHeartlandTokenSuccess = async (
       ...error,
       cardExp: "Your card's expiration year is in the past.",
     });
-  } else {
-    const token = resp.paymentReference;
-
-    try {
-      const response = await fetch('/api/heartland/credit/verify/', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          token,
-          address: address.address,
-        }),
-      });
-
-      if (!response.ok) {
-        const error = await response.json();
-        console.error('Failed response:', error);
-        throw error.error;
-      }
-      const data = await response.json();
-      return data;
-    } catch (error) {
-      console.error('Payment failed:', error);
-      if (error.includes('-21')) {
-        return {
-          response: {
-            responseCode: '-21',
-            responseMessage: 'Zip code is required for this cardtype',
-          },
-        };
-      }
-    }
   }
+  // else {
+  //   const token = resp.paymentReference;
+
+  //   try {
+  //     const response = await fetch('/api/heartland/credit/verify/', {
+  //       method: 'POST',
+  //       headers: { 'Content-Type': 'application/json' },
+  //       body: JSON.stringify({
+  //         token,
+  //         address: address.address,
+  //       }),
+  //     });
+
+  //     if (!response.ok) {
+  //       const error = await response.json();
+  //       console.error('Failed response:', error);
+  //       throw error.error;
+  //     }
+  //     const data = await response.json();
+  //     return data;
+  //   } catch (error) {
+  //     console.error('Payment failed:', error);
+  //     if (error.includes('-21')) {
+  //       return {
+  //         response: {
+  //           responseCode: '-21',
+  //           responseMessage: 'Zip code is required for this cardtype',
+  //         },
+  //       };
+  //     }
+  //   }
+  // }
 };
 
 export default handleHeartlandTokenSuccess;
