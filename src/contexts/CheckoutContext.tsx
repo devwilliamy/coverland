@@ -94,8 +94,6 @@ export type CheckoutContextType = {
   updateTwoLetterStateCode: (code: string) => void;
   billingTwoLetterStateCode: string;
   updateBillingTwoLetterStateCode: (code: string) => void;
-  totalTax: string | null;
-  updateTotalTax: (tax: string) => void;
   cardInfo: HeartlandCardInfo;
   updateCardInfo: (newCardInfo: Partial<HeartlandCardInfo>) => void;
   cardToken: string;
@@ -165,8 +163,6 @@ export const CheckoutContext = createContext<CheckoutContextType>({
   updateStripePaymentMethod: () => {},
   twoLetterStateCode: '',
   updateTwoLetterStateCode: () => {},
-  totalTax: null,
-  updateTotalTax: () => {},
   billingTwoLetterStateCode: '',
   updateBillingTwoLetterStateCode: () => {},
   cardInfo: {
@@ -358,11 +354,6 @@ const CheckoutProvider: FC<CheckoutProviderProps> = ({ children }) => {
     setTwoLetterStateCode(code);
   };
 
-  const [totalTax, setTotalTax] = useState<string | null>(null);
-  const updateTotalTax = (tax: string) => {
-    setTotalTax(tax);
-  };
-
   const [billingTwoLetterStateCode, setBillingTwoLetterStateCode] =
     useState('');
 
@@ -440,8 +431,6 @@ const CheckoutProvider: FC<CheckoutProviderProps> = ({ children }) => {
         updateStripePaymentMethod,
         twoLetterStateCode,
         updateTwoLetterStateCode,
-        totalTax,
-        updateTotalTax,
         billingTwoLetterStateCode,
         updateBillingTwoLetterStateCode,
         cardInfo,

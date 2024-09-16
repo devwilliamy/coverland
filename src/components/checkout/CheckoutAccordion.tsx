@@ -62,8 +62,6 @@ import { updateAdminPanelOrder } from '@/lib/db/admin-panel/orders';
 import { heartlandResponseCodeMap } from '@/lib/utils/heartland';
 
 export default function CheckoutAccordion() {
-  const stripe = useStripe();
-  const elements = useElements();
   const router = useRouter();
   const {
     cartItems,
@@ -84,18 +82,11 @@ export default function CheckoutAccordion() {
     shippingAddress,
     orderNumber,
     paymentMethod,
-    updatePaymentMethod,
-    paymentIntentId,
     isAddressComplete,
     isEditingAddress,
     isReadyToPay,
     isReadyToShip,
-    stripePaymentMethod,
-    twoLetterStateCode,
-    totalTax,
-    updateTotalTax,
     updateCustomerInfo,
-    clientSecret,
     tax,
     cardToken,
     cardInfo,
