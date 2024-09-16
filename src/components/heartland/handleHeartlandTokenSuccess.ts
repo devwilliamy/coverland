@@ -31,6 +31,7 @@ const handleHeartlandTokenSuccess = async (
       cardExp: "Your card's expiration year is in the past.",
     });
   }
+  // Will see if need verify code. If still unused, just remove.
   // else {
   //   const token = resp.paymentReference;
 

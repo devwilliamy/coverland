@@ -32,7 +32,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
           response.transactionId
         ).execute();
 
-      console.log('Verify Responses:', { response, txnDetailsResponse });
+      // console.info('Verify Responses:', { response, txnDetailsResponse });
 
       res.status(200).json({
         success: true,
