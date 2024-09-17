@@ -1,4 +1,4 @@
-'use client';;
+'use client';
 import BillingAddress from '@/components/checkout/BillingAddress';
 import { CvvPopover } from '@/components/checkout/CvvPopover';
 import { useCheckoutContext } from '@/contexts/CheckoutContext';
@@ -150,7 +150,7 @@ const HeartlandVerifyCreditCardForm: React.FC<
         async (resp: HeartlandPaymentDetailsResponse) => {
           // console.info('Token Success Resp:', resp);
           setIsLoading(true);
-          updateCardInfo(resp.details);
+          await updateCardInfo(resp.details);
           updateCardToken(resp.paymentReference);
           resetError();
 
