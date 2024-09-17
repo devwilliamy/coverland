@@ -43,7 +43,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
           response.transactionId
         ).execute();
 
-      console.info('[charge card response', response);
+      console.info('charge card response', response);
       console.info('txnDetailsResponse', txnDetailsResponse);
 
       res.status(200).json({
