@@ -9,6 +9,7 @@ import { CreditCardSection } from './CreditCardSection';
 import PayPalIcon from './icons/PayPalIcon';
 import { SelectedCardLogo } from './SelectedCardLogo';
 import LoadingButton from '../ui/loading-button';
+import HeartlandVerifyCreditCardForm from '../heartland/HeartlandVerifyCreditCardForm';
 
 export default function Payment({
   handleChangeAccordion,
@@ -33,6 +34,7 @@ export default function Payment({
     cardCvvError,
     stripePaymentMethod,
     updateStripePaymentMethod,
+    cardInfo,
   } = useCheckoutContext();
 
   const isDisabledCard =
@@ -57,6 +59,7 @@ export default function Payment({
 
   const buttonStyle = `mb-3 w-full lg:max-w-[307px] font-[700] rounded-lg text-white disabled:bg-[#D6D6D6] disabled:text-[#767676] bg-[#1A1A1A] hover:bg-[#1A1A1A]/90 text-center uppercase m-0 max-h-[48px] min-h-[48px] self-end justify-self-end text-[16px] leading-[17px]`;
 
+  // Stripe Continue with Card
   const handleContinueWithCard = () => {
     setIsLoading(true);
     setMessage('');
@@ -95,6 +98,11 @@ export default function Payment({
     updateIsReadyToPay(false);
   };
 
+  const handleCardHasBeenVerified = () => {
+    updateIsReadyToPay(true);
+    handleChangeAccordion('orderReview');
+  };
+
   return (
     <section>
       {/* <div className="mb-10 lg:hidden"><PromoCode /></div> */}
@@ -110,23 +118,19 @@ export default function Payment({
               )}
               {paymentMethod === 'creditCard' && (
                 <div className="flex items-center gap-2">
-                  {stripePaymentMethod &&
-                    stripePaymentMethod.paymentMethod?.card && (
-                      <div className="flex items-center gap-2 text-base leading-[27px] text-[#767676]">
-                        <div className="flex max-h-[16px] max-w-[48px] items-center">
-                          <SelectedCardLogo
-                            brand={stripePaymentMethod.paymentMethod.card.brand}
-                          />
-                        </div>
-                        <div className="flex">
-                          <p>
-                            {stripePaymentMethod.paymentMethod.card.last4} Exp:{' '}
-                            {stripePaymentMethod.paymentMethod.card.exp_month}/
-                            {stripePaymentMethod.paymentMethod.card.exp_year}
-                          </p>
-                        </div>
+                  {cardInfo && (
+                    <div className="flex items-center gap-2 text-base leading-[27px] text-[#767676]">
+                      <div className="flex max-h-[16px] max-w-[48px] items-center">
+                        <SelectedCardLogo brand={cardInfo.cardType} />
                       </div>
-                    )}
+                      <div className="flex">
+                        <p>
+                          {cardInfo.cardLast4} Exp: {cardInfo.expiryMonth}/
+                          {cardInfo.expiryYear}
+                        </p>
+                      </div>
+                    </div>
+                  )}
                 </div>
               )}
             </div>
@@ -161,13 +165,8 @@ export default function Payment({
           />
           {paymentMethod === 'creditCard' ? (
             <div className="flex flex-col gap-4">
-              <form id="payment-form">
-                <CreditCardSection />
-              </form>
-
-              <BillingAddress
-                isEditingAddress={isEditingAddress}
-                setIsEditingAddress={setIsEditingAddress}
+              <HeartlandVerifyCreditCardForm
+                handleCardHasBeenVerified={handleCardHasBeenVerified}
               />
             </div>
           ) : (
@@ -191,18 +190,9 @@ export default function Payment({
         </>
       )}
       {/* Continue To Order Review Button */}
-      <div className="my-[36px] flex w-full flex-col items-center justify-center lg:my-[48px] lg:flex-row lg:justify-end">
+      <div className="my-[18px] flex w-full flex-col items-center justify-center lg:my-[18px] lg:flex-row lg:justify-end">
         {message && (
           <p className="w-full text-center font-medium text-[red]">{message}</p>
-        )}
-        {paymentMethod === 'creditCard' && !isReadyToPay && (
-          <LoadingButton
-            className={buttonStyle}
-            isDisabled={isDisabledCard}
-            isLoading={isLoading}
-            onClick={handleContinueWithCard}
-            buttonText={'Continue to Order Review'}
-          />
         )}
         {(paymentMethod === 'klarna' ||
           paymentMethod === 'googlePay' ||

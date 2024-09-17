@@ -23,7 +23,7 @@ type PaymentIntentSuccessParams = {
     payment_intent_client_secret: string;
     redirect_status: string;
     order_number: string;
-    payment_gateway?: 'paypal' | 'stripe';
+    payment_gateway?: 'paypal' | 'stripe' | 'heartland';
   };
 };
 
@@ -90,7 +90,7 @@ async function OrderConfirmationPage({
     //   updatedOrderResponse[0].id,
     //   paymentIntent.metadata.skusWithQuantity
     // );
-  } else if (payment_gateway === 'paypal') {
+  } else if (payment_gateway === 'paypal' || payment_gateway === 'heartland') {
     // If Paypal needs to do something here...
     // Oh, order items and customer have to be updated here
     // JK. Probably do whatever needs to be done here in PayPalButtonSection.tsx onApprove
