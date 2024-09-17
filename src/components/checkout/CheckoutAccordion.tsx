@@ -423,7 +423,6 @@ export default function CheckoutAccordion() {
         setSubmitErrorMessage(errorMessage);
       } else {
         // Handle other types of errors (e.g., unexpected errors)
-
         console.error(
           'Unexpected Error:',
           (error as Error)?.message || 'An unknown error occurred.'
