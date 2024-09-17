@@ -13,7 +13,7 @@ import { Transaction, TransactionSummary } from 'globalpayments-api';
 import { CustomerInfo, HeartlandCardInfo } from '@/contexts/CheckoutContext';
 import { StripeAddress } from '../types/checkout';
 
-type TOrdersDB = Tables<'_Orders'>;
+export type TOrdersDB = Tables<'_Orders'>;
 
 export const mapPaymentIntentIdToOrder = (
   paymentIntentInput: PaymentIntent
