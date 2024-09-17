@@ -54,6 +54,7 @@ import handleHeartlandChargeCard from '../heartland/handleHeartlandChargeCard';
 import { HeartlandApiError, isHeartlandApiError } from '@/lib/types/heartland';
 import LoadingButton from '../ui/loading-button';
 import {
+  TOrdersDB,
   mapHeartlandResponseToCustomer,
   mapHeartlandResponseToOrder,
 } from '@/lib/utils/adminPanel';
@@ -372,19 +373,17 @@ export default function CheckoutAccordion() {
           cardInfo,
           createdCustomer[0].id
         );
-        const adminPanelOrder = await updateAdminPanelOrder(
-          mappedData,
-          mappedData.order_id
-        );
+        await updateAdminPanelOrder(mappedData, mappedData.order_id);
         handleConversions();
       } else {
         const { responseCode, avsResponseCode, avsResponseMessage } =
           chargeCardResponse?.response;
-
+        let mappedData: Partial<TOrdersDB> = {};
         if (responseCode === '04' && avsResponseCode === 'N') {
           setSubmitErrorMessage(
             `Payment was not successful. Please try again or contact support. Response Code: ${responseCode} - ${avsResponseMessage || ''}`
           );
+          mappedData.notes = `Response Code: ${responseCode} - ${avsResponseMessage || ''}`;
         } else {
           console.error(
             'Not successful',
@@ -393,7 +392,9 @@ export default function CheckoutAccordion() {
           setSubmitErrorMessage(
             `Payment was not successful. Please try again or contact support. Response Code: ${responseCode} - ${heartlandResponseCodeMap[responseCode] || ''}`
           );
+          mappedData.notes = `Response Code: ${responseCode} - ${heartlandResponseCodeMap[responseCode] || ''}`;
         }
+        await updateAdminPanelOrder(mappedData, orderNumber);
       }
     } catch (error) {
       if (isHeartlandApiError(error)) {
