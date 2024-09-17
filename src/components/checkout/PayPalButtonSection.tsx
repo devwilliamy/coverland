@@ -32,11 +32,11 @@ import { SHIPPING_METHOD } from '@/lib/constants';
 import { formatToE164 } from '@/lib/utils';
 
 type PaypalButtonSectionProps = {
-  setPaypalSuccessMessage: (message: string) => void;
+  setIsPaymentSuccessful: (isSuccess: boolean) => void;
   setMessage: (message: string) => void;
 };
 export default function PayPalButtonSection({
-  setPaypalSuccessMessage,
+  setIsPaymentSuccessful,
   setMessage,
 }: PaypalButtonSectionProps) {
   const {
@@ -164,9 +164,7 @@ export default function PayPalButtonSection({
 
             if (response.success) {
               setMessage('');
-              setPaypalSuccessMessage(
-                'Paypal Payment Accepted, please wait for the page to finish loading.'
-              );
+              setIsPaymentSuccessful(true);
               const emailInput = {
                 to: customerInfo.email,
                 name: {
