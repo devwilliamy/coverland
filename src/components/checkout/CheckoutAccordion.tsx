@@ -381,16 +381,16 @@ export default function CheckoutAccordion() {
         let mappedData: Partial<TOrdersDB> = {};
         if (responseCode === '04' && avsResponseCode === 'N') {
           setSubmitErrorMessage(
-            `Payment was not successful. Please try again or contact support. Response Code: ${responseCode} - ${avsResponseMessage || ''}`
+            `Payment was not successful. Please try again, try a different card, or contact support. Response Code: ${responseCode} - ${avsResponseMessage || ''}`
           );
           mappedData.notes = `Response Code: ${responseCode} - ${avsResponseMessage || ''}`;
         } else {
           console.error(
             'Not successful',
-            `Payment was not successful. Please try again or contact support. Response Code: ${responseCode} - ${heartlandResponseCodeMap[responseCode] || ''}`
+            `Payment was not successful. Please try again, try a different card, or contact support. Response Code: ${responseCode} - ${heartlandResponseCodeMap[responseCode] || ''}`
           );
           setSubmitErrorMessage(
-            `Payment was not successful. Please try again or contact support. Response Code: ${responseCode} - ${heartlandResponseCodeMap[responseCode] || ''}`
+            `Payment was not successful. Please try again, try a different card, or contact support. Response Code: ${responseCode} - ${heartlandResponseCodeMap[responseCode] || ''}`
           );
           mappedData.notes = `Response Code: ${responseCode} - ${heartlandResponseCodeMap[responseCode] || ''}`;
         }
