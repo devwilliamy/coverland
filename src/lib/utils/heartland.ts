@@ -38,7 +38,7 @@ export const heartlandResponseCodeMap: Record<string, string> = {
   '41': 'HOLD-CALL', // Lost card
   '43': 'HOLD-CALL', // Stolen Card
   '44': 'HOLD-CALL', // Pick up card
-  '51': 'DECLINE', // Insufficient funds
+  '51': 'DECLINE -- INSUFFICIENT FUNDS', // Insufficient funds
   '52': 'NO CHECK ACCOUNT', // Visa specific
   '53': 'NO SAVE ACCOUNT', // Visa specific
   '54': 'EXPIRED CARD',
