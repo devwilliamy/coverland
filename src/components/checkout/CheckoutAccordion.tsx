@@ -50,6 +50,16 @@ import { formatToE164 } from '@/lib/utils';
 import { TermsOfUseStatement } from './TermsOfUseStatement';
 import PaymentProcessingMessage from './PaymentProcessing';
 import PayPalPaymentInstructions from './PaypalProcessingMessage';
+import handleHeartlandChargeCard from '../heartland/handleHeartlandChargeCard';
+import { HeartlandApiError, isHeartlandApiError } from '@/lib/types/heartland';
+import LoadingButton from '../ui/loading-button';
+import {
+  mapHeartlandResponseToCustomer,
+  mapHeartlandResponseToOrder,
+} from '@/lib/utils/adminPanel';
+import { createOrUpdateUser } from '@/lib/db/admin-panel/customers';
+import { updateAdminPanelOrder } from '@/lib/db/admin-panel/orders';
+import { heartlandResponseCodeMap } from '@/lib/utils/heartland';
 
 export default function CheckoutAccordion() {
   const stripe = useStripe();
@@ -87,6 +97,8 @@ export default function CheckoutAccordion() {
     updateCustomerInfo,
     clientSecret,
     tax,
+    cardToken,
+    cardInfo,
   } = useCheckoutContext();
 
   const orderSubtotal = getOrderSubtotal().toFixed(2);
@@ -131,7 +143,7 @@ export default function CheckoutAccordion() {
   const handleChangeAccordion = (value: string) =>
     setValue((p) => [...p, value]);
 
-  const handleConversions = async (id: any, client_secret: any) => {
+  const handleConversions = async () => {
     const formattedPhone = formatToE164(customerInfo.phoneNumber);
     // -------------------- SendGrid Thank You Email ------------------------
     const emailInput = {
@@ -311,21 +323,18 @@ export default function CheckoutAccordion() {
       );
     }
 
+    // router.push(
+    //   `/thank-you?order_number=${orderNumber}&payment_intent=${id}&payment_intent_client_secret=${client_secret}`
+    // );
     router.push(
-      `/thank-you?order_number=${orderNumber}&payment_intent=${id}&payment_intent_client_secret=${client_secret}`
+      `/thank-you?order_number=${orderNumber}&payment_gateway=heartland`
     );
   };
 
   const handleSubmit = async () => {
-    if (!stripe || !elements) {
-      // Stripe.js hasn't yet loaded.
-      // Make sure to disable form submission until Stripe.js has loaded.
-      return;
-    }
-
     setIsLoading(true);
     setPaymentProcessing(true);
-
+    setSubmitErrorMessage('');
     const formattedPhone = formatToE164(customerInfo.phoneNumber);
 
     updateCustomerInfo({
@@ -333,80 +342,74 @@ export default function CheckoutAccordion() {
       phoneNumber: formattedPhone,
     });
 
-    const response = await fetch('/api/stripe/payment-intent', {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        paymentIntentId,
-        amount: orderTotalStripeFormat,
-      }),
-    });
+    try {
+      const chargeCardResponse = await handleHeartlandChargeCard(
+        billingAddress,
+        orderNumber,
+        cardToken,
+        orderTotal
+      );
+      if (
+        chargeCardResponse?.response?.responseCode === '00' &&
+        chargeCardResponse?.response?.responseMessage === 'Success'
+      ) {
+        // some success
 
-    const data = await response.json();
-    const { id, client_secret } = data.paymentIntent;
-    const retrievedSecret = client_secret;
+        const customerInput = mapHeartlandResponseToCustomer(
+          shippingAddress,
+          billingAddress,
+          customerInfo.email
+        );
+        // Create Customer for Paypal
+        const createdCustomer = (await createOrUpdateUser(customerInput)) || [];
 
-    const customerShipping = {
-      name: shippingAddress.name,
-      phone: formattedPhone,
-      address: {
-        city: shippingAddress.address.city as string,
-        country: shippingAddress.address.country as string,
-        line1: shippingAddress.address.line1 as string,
-        line2: shippingAddress.address.line2 as string,
-        postal_code: shippingAddress.address.postal_code as string,
-        state: shippingAddress.address.state as string,
-      },
-    };
+        const mappedData = mapHeartlandResponseToOrder(
+          chargeCardResponse?.txnDetailsResponse,
+          customerInfo,
+          shippingAddress,
+          billingAddress,
+          orderNumber,
+          cardInfo,
+          createdCustomer[0].id
+        );
+        const adminPanelOrder = await updateAdminPanelOrder(
+          mappedData,
+          mappedData.order_id
+        );
+        handleConversions();
+      } else {
+        const responseCode = chargeCardResponse?.response?.responseCode;
+        console.error(
+          'Not successful',
+          `Payment was not successful. Please try again or contact support. Response Code: ${responseCode} - ${heartlandResponseCodeMap[responseCode] || ''}`
+        );
+        setSubmitErrorMessage(
+          `Payment was not successful. Please try again or contact support. Response Code: ${responseCode} - ${heartlandResponseCodeMap[responseCode] || ''}`
+        );
+      }
+    } catch (error) {
+      if (isHeartlandApiError(error)) {
+        let errorMessage = error.error;
+        // Handle the Heartland API error here (e.g., display an error message to the user)
+        if (error.error.includes('27')) {
+          errorMessage += ' Please input your card details again.';
+        }
+        console.error('Heartland API Error:', errorMessage);
+        setSubmitErrorMessage(errorMessage);
+      } else {
+        // Handle other types of errors (e.g., unexpected errors)
 
-    const customerBilling = {
-      address: billingAddress.address,
-      email: customerInfo.email,
-      phone: formattedPhone,
-      name: billingAddress.name,
-    };
-
-    switch (paymentMethod) {
-      case 'creditCard':
-        stripe
-          .confirmCardPayment(String(retrievedSecret), {
-            // payment_method: { card: CardNumber as StripeCardNumberElement },
-            payment_method: stripePaymentMethod?.paymentMethod?.id,
-            shipping: customerShipping,
-          })
-          .then(async function (result) {
-            if (result.error) {
-              const { error } = result;
-              if (
-                error.type === 'card_error' ||
-                error.type === 'validation_error'
-              ) {
-                console.error('Error:', error.message);
-                setPaymentProcessing(false);
-                setSubmitErrorMessage(
-                  error.message ||
-                    "There's an error, but could not find error message"
-                );
-              } else {
-                console.error('Error:', error.message);
-                setPaymentProcessing(false);
-                setSubmitErrorMessage(
-                  error.message || 'An unexpected error occurred.'
-                );
-              }
-            } else if (
-              result.paymentIntent &&
-              result.paymentIntent.status === 'succeeded'
-            ) {
-              handleConversions(id, client_secret);
-            }
-            setIsLoading(false);
-          });
-        break;
-      default:
-        return;
+        console.error(
+          'Unexpected Error:',
+          (error as Error)?.message || 'An unknown error occurred.'
+        );
+        setSubmitErrorMessage(
+          `Unexpected Error: ${(error as Error)?.message || 'An unknown error occurred.'} Please contact our support team.`
+        );
+      }
+    } finally {
+      setIsLoading(false);
+      setPaymentProcessing(false);
     }
   };
 
@@ -521,29 +524,28 @@ export default function CheckoutAccordion() {
                         {paymentMethod === 'creditCard' && (
                           <>
                             <TermsOfUseStatement />
-                            <div className="mb-[32px] flex flex-col self-end">
-                              {submitErrorMessage && (
-                                <p className="w-full pb-4 text-center font-[500] text-[red]">
-                                  {submitErrorMessage}
-                                </p>
+                            {submitErrorMessage && (
+                              <p className="w-full pb-4 text-center font-[500] text-[red]">
+                                {submitErrorMessage}
+                              </p>
+                            )}
+                            <div className="mb-[32px] flex flex-col">
+                              {paymentProcessing && (
+                                <PaymentProcessingMessage />
                               )}
-                              <Button
-                                variant={'default'}
-                                className={`min-h-[48px] w-full min-w-[307px] rounded-lg bg-black text-base font-bold uppercase text-white lg:max-w-[307px]`}
-                                onClick={(e) => {
-                                  setIsLoading(true);
-                                  setPaymentProcessing(true);
-                                  handleSubmit();
-                                }}
-                              >
-                                {isLoading ? (
-                                  <AiOutlineLoading3Quarters className="animate-spin" />
-                                ) : (
-                                  'Submit Payment'
-                                )}
-                              </Button>
+                              <div className="flex justify-end">
+                                <LoadingButton
+                                  className={`min-h-[48px] w-full min-w-[307px] rounded-lg bg-black text-base font-bold uppercase text-white lg:max-w-[307px]`}
+                                  isLoading={isLoading}
+                                  onClick={() => {
+                                    setIsLoading(true);
+                                    setPaymentProcessing(true);
+                                    handleSubmit();
+                                  }}
+                                  buttonText={'Submit Payment'}
+                                />
+                              </div>
                             </div>
-                            {paymentProcessing && <PaymentProcessingMessage />}
                           </>
                         )}
                         {paymentMethod === 'paypal' && (
