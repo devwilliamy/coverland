@@ -1,8 +1,10 @@
+import { updateAdminPanelOrder } from '@/lib/db/admin-panel/orders';
 import {
   CheckoutStep,
   PaymentMethod,
   StripeAddress,
 } from '@/lib/types/checkout';
+import { TOrdersDB } from '@/lib/utils/adminPanel';
 import { PaymentMethodResult } from '@stripe/stripe-js';
 import {
   Dispatch,
@@ -380,11 +382,19 @@ const CheckoutProvider: FC<CheckoutProviderProps> = ({ children }) => {
     cardSecurityCode: '',
   });
 
-  const updateCardInfo = (newCardInfo: Partial<HeartlandCardInfo>) => {
+  const updateCardInfo = async (newCardInfo: Partial<HeartlandCardInfo>) => {
     setCardInfo(() => ({
       ...cardInfo,
       ...newCardInfo,
     }));
+
+    const mappedData: Partial<TOrdersDB> = {
+      card_brand: newCardInfo.cardType,
+      card_last_four: newCardInfo.cardLast4,
+      card_exp_month: newCardInfo.expiryMonth,
+      card_exp_year: newCardInfo.expiryYear,
+    };
+    await updateAdminPanelOrder(mappedData, stripeData.orderNumber);
   };
 
   const [cardToken, setCardToken] = useState<string>('');
