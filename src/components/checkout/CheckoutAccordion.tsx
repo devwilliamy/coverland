@@ -378,14 +378,22 @@ export default function CheckoutAccordion() {
         );
         handleConversions();
       } else {
-        const responseCode = chargeCardResponse?.response?.responseCode;
-        console.error(
-          'Not successful',
-          `Payment was not successful. Please try again or contact support. Response Code: ${responseCode} - ${heartlandResponseCodeMap[responseCode] || ''}`
-        );
-        setSubmitErrorMessage(
-          `Payment was not successful. Please try again or contact support. Response Code: ${responseCode} - ${heartlandResponseCodeMap[responseCode] || ''}`
-        );
+        const { responseCode, avsResponseCode, avsResponseMessage } =
+          chargeCardResponse?.response;
+
+        if (responseCode === '04' && avsResponseCode === 'N') {
+          setSubmitErrorMessage(
+            `Payment was not successful. Please try again or contact support. Response Code: ${responseCode} - ${avsResponseMessage || ''}`
+          );
+        } else {
+          console.error(
+            'Not successful',
+            `Payment was not successful. Please try again or contact support. Response Code: ${responseCode} - ${heartlandResponseCodeMap[responseCode] || ''}`
+          );
+          setSubmitErrorMessage(
+            `Payment was not successful. Please try again or contact support. Response Code: ${responseCode} - ${heartlandResponseCodeMap[responseCode] || ''}`
+          );
+        }
       }
     } catch (error) {
       if (isHeartlandApiError(error)) {
