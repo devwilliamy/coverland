@@ -1,6 +1,3 @@
-import Thumbnail from '@/video/Thumbnail.webp';
-import SixMinVideo from '@/videos/https_x2kly621zrgfgwll.public.blob.vercel-storage.com_videos_FINALIZE_WEBSTIE_16_9_OPTIMIZED.mp4';
-import ProductVideo from '../ProductVideo';
 import ProductDetailsHeader from './ProductDetailsHeader';
 import FabricMattersSection from './FabricMattersSection';
 import DifferenceGrid from '@/app/(main)/[productType]/components/DifferenceGrid';
@@ -19,13 +16,6 @@ export default function FeaturesSection() {
         className="absolute top-0  -mx-4 h-full object-cover"
       />
       <ProductDetailsHeader />
-      {/* <div className="w-full lg:hidden">
-        <ProductVideo
-          src={SixMinVideo}
-          imgSrc={Thumbnail}
-          aspectRatio="16 / 9"
-        />
-      </div> */}
       <div className="relative flex flex-col items-center justify-center lg:w-[850px]">
         <FabricMattersSection />
         <DifferenceGrid />
