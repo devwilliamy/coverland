@@ -43,6 +43,7 @@ import { removeWwwFromUrl } from '@/utils';
 import { CarouselPositionItem } from './MobileCarouselPositionItem';
 // import ReactPlayer from 'react-player';
 import { useMediaQuery } from '@mantine/hooks';
+import { LazyVideo } from '@/components/PDP/LazyVideo';
 const ReactPlayer = dynamic(() => import('react-player'), {
   loading: () => (
     <div className="flex h-full">
@@ -165,27 +166,19 @@ const MobileImageCarousel = () => {
                   key={String(baseListingVideo)}
                   className="bg-black"
                 >
-                  {/* <ProductVideo
-                    src={featured360}
-                    imgSrc={listingVideoThumbnail}
-                    autoplay
-                    loop
-                  /> */}
                   <Suspense>
-                    <ReactPlayer
-                      controls={true}
+                    <LazyVideo
+                      controls
+                      data-src={selectedProduct?.product_video_carousel || ''}
                       muted
-                      autoPlay
                       loop
-                      playsinline
-                      playing
+                      playsInline
+                      autoPlay
                       width="100%"
                       height="100%"
-                      url={selectedProduct?.product_video_carousel || ''}
-                      // light={
-                      //   selectedProduct?.product_video_carousel_thumbnail || ''
-                      // }
-                    />
+                    >
+                      Your browser does not support the video tag.
+                    </LazyVideo>
                   </Suspense>
                 </CarouselItem>
               );
@@ -247,13 +240,6 @@ const MobileImageCarousel = () => {
                     slot="poster"
                     src={
                       selectedProduct?.product_video_carousel_thumbnail || ''
-                      // (
-                      //   selectedProduct?.product_video_carousel_thumbnail as string
-                      // ).substring(
-                      //   (
-                      //     selectedProduct?.product_video_carousel_thumbnail as string
-                      //   ).indexOf('/video')
-                      // ) || ''
                     }
                     width={1600}
                     height={1600}

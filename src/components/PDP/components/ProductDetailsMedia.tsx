@@ -1,13 +1,11 @@
 'use client';
 import useDetermineType from '@/hooks/useDetermineType';
-import ProductVideo from '../ProductVideo';
-import CorvetteGif from '@/videos/Corvette Zoom.mp4';
 import DesktopHalfCover from '@/images/PDP/Product-Details-Redesign-2/dekstop-half-cover.webp';
 import Image from 'next/image';
-import ReactPlayer from 'react-player';
 import { useContext } from 'react';
 import { CarSelectionContext } from '@/contexts/CarSelectionContext';
 import { useStore } from 'zustand';
+import { LazyVideo } from '../LazyVideo';
 
 export default function ProductDetailsMedia() {
   const { isDefaultCoverType } = useDetermineType();
@@ -18,23 +16,17 @@ export default function ProductDetailsMedia() {
   return (
     <>
       {isDefaultCoverType ? (
-        // <ProductVideo
-        //   src={CorvetteGif}
-        //   autoplay
-        //   loop
-        //   aspectRatio="16/9"
-        //   controls={false}
-        // />
-        <ReactPlayer
-          url={selectedProduct?.product_video_zoom || ""}
+        <LazyVideo
+          data-src={selectedProduct?.product_video_zoom || ''}
           muted
-          // autoplay
           loop
-          playsinline
-          playing
+          playsInline
+          autoPlay
           width="100%"
           height="auto"
-        />
+        >
+          Your browser does not support the video tag.
+        </LazyVideo>
       ) : (
         <Image
           alt="product-content-half-cover-desktop"
