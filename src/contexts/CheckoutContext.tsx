@@ -1,8 +1,10 @@
+import { updateAdminPanelOrder } from '@/lib/db/admin-panel/orders';
 import {
   CheckoutStep,
   PaymentMethod,
   StripeAddress,
 } from '@/lib/types/checkout';
+import { TOrdersDB } from '@/lib/utils/adminPanel';
 import { PaymentMethodResult } from '@stripe/stripe-js';
 import {
   Dispatch,
@@ -29,6 +31,16 @@ export type CardErrorData = {
   error: 'empty' | 'invalid' | null;
   message?: string;
   visited: boolean;
+};
+
+export type HeartlandCardInfo = {
+  cardNumber: string;
+  cardBin: string;
+  cardLast4: string;
+  cardType: 'visa' | 'mastercard' | 'amex' | 'discover' | string;
+  expiryMonth: string;
+  expiryYear: string;
+  cardSecurityCode: string;
 };
 
 export type CheckoutContextType = {
@@ -86,6 +98,10 @@ export type CheckoutContextType = {
   updateBillingTwoLetterStateCode: (code: string) => void;
   totalTax: string | null;
   updateTotalTax: (tax: string) => void;
+  cardInfo: HeartlandCardInfo;
+  updateCardInfo: (newCardInfo: Partial<HeartlandCardInfo>) => void;
+  cardToken: string;
+  updateCardToken: (newCardToken: string) => void;
 };
 
 export type CheckoutProviderProps = {
@@ -155,6 +171,18 @@ export const CheckoutContext = createContext<CheckoutContextType>({
   updateTotalTax: () => {},
   billingTwoLetterStateCode: '',
   updateBillingTwoLetterStateCode: () => {},
+  cardInfo: {
+    cardNumber: '',
+    cardBin: '',
+    cardLast4: '',
+    cardType: '',
+    expiryMonth: '',
+    expiryYear: '',
+    cardSecurityCode: '',
+  },
+  updateCardInfo: () => {},
+  cardToken: '',
+  updateCardToken: () => {},
 });
 
 const CheckoutProvider: FC<CheckoutProviderProps> = ({ children }) => {
@@ -344,6 +372,36 @@ const CheckoutProvider: FC<CheckoutProviderProps> = ({ children }) => {
     setBillingTwoLetterStateCode(code);
   };
 
+  const [cardInfo, setCardInfo] = useState<HeartlandCardInfo>({
+    cardNumber: '',
+    cardBin: '',
+    cardLast4: '',
+    cardType: '',
+    expiryMonth: '',
+    expiryYear: '',
+    cardSecurityCode: '',
+  });
+
+  const updateCardInfo = async (newCardInfo: Partial<HeartlandCardInfo>) => {
+    setCardInfo(() => ({
+      ...cardInfo,
+      ...newCardInfo,
+    }));
+
+    const mappedData: Partial<TOrdersDB> = {
+      card_brand: newCardInfo.cardType,
+      card_last_four: newCardInfo.cardLast4,
+      card_exp_month: newCardInfo.expiryMonth,
+      card_exp_year: newCardInfo.expiryYear,
+    };
+    await updateAdminPanelOrder(mappedData, stripeData.orderNumber);
+  };
+
+  const [cardToken, setCardToken] = useState<string>('');
+  const updateCardToken = (newCardToken: string) => {
+    setCardToken(newCardToken);
+  };
+
   return (
     <CheckoutContext.Provider
       value={{
@@ -396,6 +454,10 @@ const CheckoutProvider: FC<CheckoutProviderProps> = ({ children }) => {
         updateTotalTax,
         billingTwoLetterStateCode,
         updateBillingTwoLetterStateCode,
+        cardInfo,
+        updateCardInfo,
+        cardToken,
+        updateCardToken,
       }}
     >
       {children}

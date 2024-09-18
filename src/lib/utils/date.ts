@@ -78,8 +78,8 @@ export function formatISODateNoTimeZone(isoDateString: string): string {
 /**
  * Calculates value of weeks from current date.
  * Note: Only returns the number. Don't forget to add "weeks" after
- * @param targetDate 
- * @returns 
+ * @param targetDate
+ * @returns
  */
 export function weeksFromCurrentDate(targetDate: string): number {
   const currentDate = new Date();
@@ -136,4 +136,22 @@ export function calculateTimeTo2PM() {
   }
 
   return `${hours} hours ${minutes} mins`;
+}
+
+export function cardIsExpired(
+  expiryMonth: string,
+  expiryYear: string
+): boolean {
+  // Get the current date
+  const currentDate = new Date();
+
+  // Create a Date object for the card expiry (set to the last day of the expiry month)
+  const expiryDate = new Date(
+    parseInt(expiryYear),
+    parseInt(expiryMonth) - 1 + 1,
+    0
+  );
+
+  // Check if the expiry date is before the current date
+  return expiryDate < currentDate;
 }

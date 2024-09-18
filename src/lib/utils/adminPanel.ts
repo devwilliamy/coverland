@@ -9,8 +9,11 @@ import { Tables } from '../db/types';
 import { TPayPalCaptureOrder, PayPalCompleteOrder } from '../types/paypal';
 import parsePhoneNumberFromString from 'libphonenumber-js';
 import { formatToE164 } from '../utils';
+import { Transaction, TransactionSummary } from 'globalpayments-api';
+import { CustomerInfo, HeartlandCardInfo } from '@/contexts/CheckoutContext';
+import { StripeAddress } from '../types/checkout';
 
-type TOrdersDB = Tables<'_Orders'>;
+export type TOrdersDB = Tables<'_Orders'>;
 
 export const mapPaymentIntentIdToOrder = (
   paymentIntentInput: PaymentIntent
@@ -219,5 +222,89 @@ export const mapPaypalCompletionToCustomer = (
     shipping_pincode: shipping?.address?.postal_code,
     shipping_state: shipping?.address?.admin_area_1,
     email: payment_source?.paypal?.email_address,
+  };
+};
+
+export const mapHeartlandResponseToOrder = (
+  chargeCardTransactionSummary: TransactionSummary,
+  customerInfo: CustomerInfo,
+  shipping: StripeAddress,
+  billing: StripeAddress,
+  orderNumber: string,
+  cardInfo: HeartlandCardInfo,
+  customerId: number
+): Partial<TOrdersDB> => {
+  const {
+    amount,
+    cardType,
+    gatewayResponseMessage,
+    transactionId,
+    serviceName,
+  } = chargeCardTransactionSummary;
+
+  const formattedPhone = formatToE164(customerInfo.phoneNumber as string);
+
+  return {
+    order_id: orderNumber,
+    // order_date: getCurrentTimeInISOFormat,
+    total_amount: parseFloat(amount), // [CK] - Please store as dollars 5/8/24,
+    currency: 'usd',
+    status: 'COMPLETE',
+    payment_gateway: 'heartland',
+    payment_method: 'card',
+    card_amount: parseFloat(amount),
+    card_brand: cardType,
+    payment_status: gatewayResponseMessage,
+    transaction_id: transactionId,
+    card_funding: serviceName,
+    payment_date: getCurrentTimeInISOFormat(),
+    customer_id: customerId,
+    customer_name: shipping?.name,
+    customer_email: customerInfo.email,
+    customer_phone: formattedPhone, // Stored in E.164 format
+    shipping_address_line_1: shipping?.address?.line1,
+    shipping_address_line_2: shipping?.address?.line2,
+    shipping_address_city: shipping?.address?.city,
+    shipping_address_state: shipping?.address?.state,
+    shipping_address_postal_code: shipping?.address?.postal_code,
+    shipping_address_country: shipping?.address?.country,
+    billing_customer_name: billing?.name,
+    billing_address_line_1: billing?.address?.line1,
+    billing_address_line_2: billing?.address?.line2,
+    billing_address_city: billing?.address?.city,
+    billing_address_state: billing?.address?.state,
+    billing_address_postal_code: billing?.address?.postal_code,
+    billing_address_country: billing?.address?.country,
+    updated_at: getCurrentTimeInISOFormat(),
+    card_last_four: cardInfo.cardLast4,
+    card_exp_month: cardInfo.expiryMonth,
+    card_exp_year: cardInfo.expiryYear,
+  };
+};
+
+export const mapHeartlandResponseToCustomer = (
+  shipping: StripeAddress,
+  billing: StripeAddress,
+  email: string
+): CustomerInput => {
+
+  const splitName: string[] = billing?.name?.split(' ') || [];
+  const formattedPhone = formatToE164(billing.phone as string);
+
+  return {
+    address: billing?.address?.line1,
+    address_2: billing?.address?.line2,
+    city: billing?.address?.city,
+    last_name: splitName[splitName.length - 1],
+    name: splitName[0],
+    phone: formattedPhone,
+    pincode: billing?.address?.postal_code,
+    state: billing?.address?.state,
+    email: email,
+    shipping_address: shipping?.address?.line1,
+    shipping_address_2: shipping?.address?.line2,
+    shipping_city: shipping?.address?.city,
+    shipping_state: shipping?.address?.state,
+    shipping_pincode: shipping?.address?.postal_code,
   };
 };
