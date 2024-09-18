@@ -284,7 +284,7 @@ export default function CheckoutAccordion() {
         orderTotal,
         shippingAddress,
         customerInfo,
-        paymentMethod: 'Stripe',
+        paymentMethod: 'Heartland',
         tax,
         discount: Number((getTotalPreorderDiscount() * -1).toFixed(2)),
         shipping,
