@@ -198,7 +198,6 @@ export const handlePurchaseGoogleTag = (
   cartItems: TCartItem[],
   orderNumber: string,
   totalPrice: string,
-  clearLocalStorageCart: () => void,
   enhancedParameterInput: EnhancedGoogleConversionInput,
   tax: number
 ) => {
@@ -220,10 +219,6 @@ export const handlePurchaseGoogleTag = (
       ...enhancedParameterInput,
     }),
   });
-
-  if (cartItems.length > 0) {
-    clearLocalStorageCart();
-  }
 };
 
 export type EnhancedGoogleConversionInput = {

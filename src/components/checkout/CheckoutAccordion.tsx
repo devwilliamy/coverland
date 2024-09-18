@@ -16,13 +16,8 @@ import InYourCart from './InYourCart';
 import { useCartContext } from '@/providers/CartProvider';
 import OrderReviewItem from './OrderReviewItem';
 import PriceBreakdown from './PriceBreakdown';
+import { ExpressCheckoutElement } from '@stripe/react-stripe-js';
 import {
-  ExpressCheckoutElement,
-  useElements,
-  useStripe,
-} from '@stripe/react-stripe-js';
-import {
-  convertPriceToStripeFormat,
   getSkuQuantityPriceFromCartItemsForMeta,
   getSkusFromCartItems,
 } from '@/lib/utils/stripe';
@@ -91,13 +86,10 @@ export default function CheckoutAccordion() {
     cardInfo,
   } = useCheckoutContext();
 
-  const orderSubtotal = getOrderSubtotal().toFixed(2);
   // TODO: Figure out a way to get a function for orderTotal
   const orderTotal = (getCartTotalPrice() + shipping + tax).toFixed(
     2
   ) as unknown as number;
-  const orderTotalStripeFormat = convertPriceToStripeFormat(orderTotal);
-  const isCartEmpty = getTotalCartQuantity() === 0;
   const [value, setValue] = useState(['shipping']);
   const [isLoading, setIsLoading] = useState(false);
   const [isSubmitPaymentDisabled, setIsSubmitPaymentDisabled] = useState(false);
@@ -134,8 +126,22 @@ export default function CheckoutAccordion() {
   const handleChangeAccordion = (value: string) =>
     setValue((p) => [...p, value]);
 
-  const handleConversions = async () => {
-    const formattedPhone = formatToE164(customerInfo.phoneNumber);
+  const processSuccessfulCheckout = async () => {
+    await sendThankYouEmail();
+    if (process.env.NEXT_PUBLIC_IS_PREVIEW !== 'PREVIEW') {
+      await processConversions();
+      await createSkuLabsOrder();
+
+      if (cartItems.length > 0) {
+        clearLocalStorageCart();
+      }
+    }
+    router.push(
+      `/thank-you?order_number=${orderNumber}&payment_gateway=heartland`
+    );
+  };
+
+  const sendThankYouEmail = async () => {
     // -------------------- SendGrid Thank You Email ------------------------
     const emailInput = {
       to: customerInfo.email,
@@ -193,133 +199,127 @@ export default function CheckoutAccordion() {
         error?.message || "There's an error, but could not find error message"
       );
     }
-    if (process.env.NEXT_PUBLIC_IS_PREVIEW !== 'PREVIEW') {
-      // Meta Conversion API
-      const skus = getSkusFromCartItems(cartItems);
-      const skusWithQuantityMsrpForMeta =
-        getSkuQuantityPriceFromCartItemsForMeta(cartItems);
-      const eventID = uuidv4();
+  };
 
-      const metaCPIEvent = {
-        event_name: 'Purchase',
-        event_time: Math.floor(Date.now() / 1000),
-        event_id: eventID,
-        action_source: 'website',
-        user_data: {
-          em: [hashData(customerInfo.email)],
-          ph: [hashData(formattedPhone || '')],
-          ct: [hashData(shippingAddress.address.city || '')],
-          country: [hashData(shippingAddress.address.country || '')],
-          fn: [hashData(shippingAddress.firstName || '')],
-          ln: [hashData(shippingAddress.lastName || '')],
-          st: [hashData(shippingAddress.address.state || '')],
-          zp: [hashData(shippingAddress.address.postal_code || '')],
-          fbp: getCookie('_fbp'),
-          // client_ip_address: '', // Replace with the user's IP address
-          client_user_agent: navigator.userAgent, // Browser user agent string
-        },
-        custom_data: {
-          currency: 'USD',
+  const processConversions = async () => {
+    const formattedPhone = formatToE164(customerInfo.phoneNumber);
+    // Meta Conversion API
+    const skus = getSkusFromCartItems(cartItems);
+    const skusWithQuantityMsrpForMeta =
+      getSkuQuantityPriceFromCartItemsForMeta(cartItems);
+    const eventID = uuidv4();
+
+    const metaCPIEvent = {
+      event_name: 'Purchase',
+      event_time: Math.floor(Date.now() / 1000),
+      event_id: eventID,
+      action_source: 'website',
+      user_data: {
+        em: [hashData(customerInfo.email)],
+        ph: [hashData(formattedPhone || '')],
+        ct: [hashData(shippingAddress.address.city || '')],
+        country: [hashData(shippingAddress.address.country || '')],
+        fn: [hashData(shippingAddress.firstName || '')],
+        ln: [hashData(shippingAddress.lastName || '')],
+        st: [hashData(shippingAddress.address.state || '')],
+        zp: [hashData(shippingAddress.address.postal_code || '')],
+        fbp: getCookie('_fbp'),
+        // client_ip_address: '', // Replace with the user's IP address
+        client_user_agent: navigator.userAgent, // Browser user agent string
+      },
+      custom_data: {
+        currency: 'USD',
+        value: parseFloat(getCartTotalPrice().toFixed(2)),
+        order_id: orderNumber,
+        content_ids: skus.join(','),
+        contents: skusWithQuantityMsrpForMeta,
+      },
+      event_source_url: origin,
+    };
+    const metaCAPIResponse = await fetch('/api/meta/event', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ metaCPIEvent }),
+    });
+    // Track the purchase event
+    if (typeof fbq === 'function') {
+      fbq(
+        'track',
+        'Purchase',
+        {
           value: parseFloat(getCartTotalPrice().toFixed(2)),
-          order_id: orderNumber,
-          content_ids: skus.join(','),
-          contents: skusWithQuantityMsrpForMeta,
-        },
-        event_source_url: origin,
-      };
-      const metaCAPIResponse = await fetch('/api/meta/event', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ metaCPIEvent }),
-      });
-      // Track the purchase event
-      if (typeof fbq === 'function') {
-        fbq(
-          'track',
-          'Purchase',
-          {
-            value: parseFloat(getCartTotalPrice().toFixed(2)),
-            currency: 'USD',
-            contents: skusWithQuantityMsrpForMeta,
-            content_type: 'product',
-          },
-          { eventID }
-        );
-      }
-
-      // Microsoft Conversion API Tracking
-      if (typeof window !== 'undefined') {
-        window.uetq = window.uetq || [];
-
-        window.uetq.push('set', {
-          pid: {
-            em: customerInfo.email,
-            ph: formattedPhone,
-          },
-        });
-        window.uetq.push('event', 'purchase', {
-          revenue_value: parseFloat(orderTotal.toString()), // Also a weird moment because orderTotal is technically...a string.
           currency: 'USD',
-          pid: {
-            em: customerInfo.email,
-            ph: formattedPhone,
-          },
-        });
-      }
-
-      const skuLabOrderInput = await generateSkuLabOrderInput({
-        orderNumber,
-        cartItems,
-        orderTotal,
-        shippingAddress,
-        customerInfo,
-        paymentMethod: 'Heartland',
-        tax,
-        discount: Number((getTotalPreorderDiscount() * -1).toFixed(2)),
-        shipping,
-      });
-
-      // SKU Labs Order Creation
-      // Post Items
-      const skuLabCreateOrderResponse = await fetch('/api/sku-labs/orders', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
+          contents: skusWithQuantityMsrpForMeta,
+          content_type: 'product',
         },
-        body: JSON.stringify({ order: skuLabOrderInput }),
-      });
-
-      // Google Conversion API
-      const enhancedGoogleConversionInput = {
-        email: customerInfo.email || '',
-        phone_number: formattedPhone || '',
-        first_name: shippingAddress.firstName || '',
-        last_name: shippingAddress.lastName || '',
-        address_line1: shippingAddress.address.line1 || '',
-        city: shippingAddress.address.city || '',
-        state: shippingAddress.address.state || '',
-        postal_code: shippingAddress.address.postal_code || '',
-        country: shippingAddress.address.country || '',
-      };
-
-      handlePurchaseGoogleTag(
-        cartItems,
-        orderNumber,
-        getCartTotalPrice().toFixed(2),
-        clearLocalStorageCart,
-        enhancedGoogleConversionInput,
-        tax
+        { eventID }
       );
     }
 
-    // router.push(
-    //   `/thank-you?order_number=${orderNumber}&payment_intent=${id}&payment_intent_client_secret=${client_secret}`
-    // );
-    router.push(
-      `/thank-you?order_number=${orderNumber}&payment_gateway=heartland`
+    // Microsoft Conversion API Tracking
+    if (typeof window !== 'undefined') {
+      window.uetq = window.uetq || [];
+
+      window.uetq.push('set', {
+        pid: {
+          em: customerInfo.email,
+          ph: formattedPhone,
+        },
+      });
+      window.uetq.push('event', 'purchase', {
+        revenue_value: parseFloat(orderTotal.toString()), // Also a weird moment because orderTotal is technically...a string.
+        currency: 'USD',
+        pid: {
+          em: customerInfo.email,
+          ph: formattedPhone,
+        },
+      });
+    }
+    // Google Conversion API
+    const enhancedGoogleConversionInput = {
+      email: customerInfo.email || '',
+      phone_number: formattedPhone || '',
+      first_name: shippingAddress.firstName || '',
+      last_name: shippingAddress.lastName || '',
+      address_line1: shippingAddress.address.line1 || '',
+      city: shippingAddress.address.city || '',
+      state: shippingAddress.address.state || '',
+      postal_code: shippingAddress.address.postal_code || '',
+      country: shippingAddress.address.country || '',
+    };
+    handlePurchaseGoogleTag(
+      cartItems,
+      orderNumber,
+      getCartTotalPrice().toFixed(2),
+      enhancedGoogleConversionInput,
+      tax
     );
+  };
+
+  const createSkuLabsOrder = async () => {
+    const skuLabOrderInput = await generateSkuLabOrderInput({
+      orderNumber,
+      cartItems,
+      orderTotal,
+      shippingAddress,
+      customerInfo,
+      paymentMethod: 'Heartland',
+      tax,
+      discount: Number((getTotalPreorderDiscount() * -1).toFixed(2)),
+      shipping,
+    });
+
+    // SKU Labs Order Creation
+    // Post Items
+    await fetch('/api/sku-labs/orders', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ order: skuLabOrderInput }),
+    });
   };
 
   const handleSubmit = async () => {
@@ -366,7 +366,7 @@ export default function CheckoutAccordion() {
           createdCustomer[0].id
         );
         await updateAdminPanelOrder(mappedData, mappedData.order_id);
-        await handleConversions();
+        await processSuccessfulCheckout();
       } else {
         const { responseCode, avsResponseCode, avsResponseMessage } =
           chargeCardResponse?.response;
