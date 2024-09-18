@@ -19,28 +19,33 @@ export const convertStripeAddressToHeartlandAddress = (
   };
 };
 
+// You can find the response codes here:
+// https://cert.api2.heartlandportico.com/Gateway/PorticoDevGuide/build/PorticoDeveloperGuide/#Issuer%20Response%20Codes.html
+// Can find the gateway codes here:
+// https://cert.api2.heartlandportico.com/Gateway/PorticoDevGuide/build/PorticoDeveloperGuide/#Gateway%20Response%20Codes.html
+// We'll be focused on issuer response codes here though.
 export const heartlandResponseCodeMap: Record<string, string> = {
-  '02': 'CALL',
+  '02': 'CALL', // Want to make sure cardholder is in possession of card
   '03': 'TERM ID ERROR',
-  '04': 'HOLD-CALL', // MasterCard specific
-  '05': 'DECLINE',
+  '04': 'HOLD-CALL', // Issuer would like merchant to take possession of card
+  '05': 'DECLINE -- EXCEEDED LIMITS', // Exceeded credit line
   '06': 'ERROR', // AMEX specific
   '12': 'INVALID TRANS',
   '13': 'AMOUNT ERROR',
-  '14': 'CARD NO ERROR', // Commonly used, slightly varies as "CARD NO. ERROR" in Discover
+  '14': 'CARD NO. ERROR. RE-ENTER.', // Commonly used, slightly varies as "CARD NO. ERROR" in Discover
   '15': 'NO SUCH ISSUER', // Not in Discover or AMEX
   '19': 'RE ENTER', // Visa specific
-  '41': 'HOLD-CALL',
-  '43': 'HOLD-CALL', // Not in Discover or AMEX
-  '44': 'HOLD-CALL', // Discover and AMEX
-  '51': 'DECLINE',
+  '41': 'HOLD-CALL', // Lost card
+  '43': 'HOLD-CALL', // Stolen Card
+  '44': 'HOLD-CALL', // Pick up card
+  '51': 'DECLINE -- INSUFFICIENT FUNDS', // Insufficient funds
   '52': 'NO CHECK ACCOUNT', // Visa specific
   '53': 'NO SAVE ACCOUNT', // Visa specific
   '54': 'EXPIRED CARD',
   '56': 'INVALID TRANS', // Discover specific (repeated with different code)
   '57': 'SERV NOT ALLOWED', // Discover specific (repeated with different code)
   '58': 'SERV NOT ALLOWED',
-  '61': 'DECLINE',
+  '61': 'DECLINE -- INSUFFICIENT FUNDS / EXCEEDED LIMITS', // Insufficient funds or Exceeded withdraw limit
   '62': 'DECLINE',
   '63': 'SEC VIOLATION', // MasterCard specific
   '65': 'DECLINE',
