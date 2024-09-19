@@ -1,33 +1,50 @@
+'use client';
+
+import { useInView } from 'react-intersection-observer';
+
 import Image, { StaticImageData } from 'next/image';
 import { Asset } from 'next-video/dist/assets.js';
 import dynamic from 'next/dynamic';
+import { forwardRef } from 'react';
+const Video = dynamic(() => import('@/components/PDP/WrappedNextVideo'));
 
-const Video = dynamic(() => import('next-video'));
-
-type ProductVideoProps = {
+type ProductVideoProps = VideoProps & {
   src: Asset;
   imgSrc?: StaticImageData;
-  autoplay?: boolean;
-  controls?: boolean;
-  loop?: boolean;
   aspectRatio?: string;
-  className?: string;
 };
+
+type VideoProps = React.ComponentProps<typeof Video>;
+
+// needed to pass ref to next-video + dynamic import
+// see https://stackoverflow.com/questions/63469232/forwardref-error-when-dynamically-importing-a-module-in-next-js
+const ForwardRefVideo = forwardRef<HTMLVideoElement, VideoProps>(
+  (props, ref) => <Video {...props} videoRef={ref} />
+);
+
+ForwardRefVideo.displayName = 'ForwardRefVideo';
 
 export default function ProductVideo({
   src,
   imgSrc,
-  autoplay = false,
+  autoPlay = false,
   controls = true,
   loop = false,
   aspectRatio = '1 / 1',
   className = '',
 }: ProductVideoProps) {
+  const [inViewRef, inView] = useInView({
+    threshold: 0,
+    rootMargin: '100px',
+    triggerOnce: true,
+  });
+
   return (
-    <Video
-      src={src}
+    <ForwardRefVideo
+      ref={inViewRef}
+      src={inView ? src : undefined}
       muted
-      autoPlay={autoplay}
+      autoPlay={inView && autoPlay ? autoPlay : false}
       loop={loop}
       playsInline
       className={className}
@@ -50,10 +67,9 @@ export default function ProductVideo({
           aria-hidden="true"
         />
       ) : null}
-    </Video>
+    </ForwardRefVideo>
   );
 }
-
 // '--seek-forward-button': 'none',
 // '--time-range': controls ? '' : 'none',
 // '--time-display': controls ? '' : 'none',

@@ -58,7 +58,7 @@ export default function ElevateComfortSection({
       <div className="flex w-screen max-w-[850px] items-center justify-center lg:w-full ">
         <ProductVideo
           src={ElevateHeaderVideo}
-          autoplay
+          autoPlay
           loop
           aspectRatio="4/3"
           controls={false}
@@ -95,7 +95,7 @@ export default function ElevateComfortSection({
             </p>
           </div>
           <ProductVideo
-            autoplay
+            autoPlay
             loop
             aspectRatio="4/3"
             controls={false}

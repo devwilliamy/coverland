@@ -88,7 +88,7 @@ export default function SeatCoverCarousel() {
                     <ProductVideo
                       src={SeatVideo}
                       imgSrc={SeatThumbnail}
-                      autoplay
+                      autoPlay
                     />
                   </CarouselItem>
                 );

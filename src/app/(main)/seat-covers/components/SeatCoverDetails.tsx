@@ -42,7 +42,7 @@ export default function SeatCoverDetails() {
           <ProductVideo
             src={installVideo}
             imgSrc={installThumbnail}
-            autoplay
+            autoPlay
             loop
             aspectRatio="16/9"
           />
