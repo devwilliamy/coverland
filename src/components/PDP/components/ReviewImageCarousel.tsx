@@ -12,6 +12,9 @@ import {
 } from '@/components/ui/carousel';
 import { ReviewMedia } from './ReviewHeaderGalleryMobile';
 import ImageWithLoader from './ImageWithLoader';
+import ProductVideo from '../ProductVideo';
+import Review1 from '@/videos/07-C.mp4';
+import Review2 from '@/videos/1966-mustang-fastback-yellow.mov';
 
 interface ReviewImageCarouselProps {
   mediaItems: ReviewMedia[];
@@ -43,12 +46,11 @@ const ReviewImageCarousel: React.FC<ReviewImageCarouselProps> = ({
   const renderMediaItem = (media: ReviewMedia, index: number) => {
     const content =
       rowType === 'video' ? (
-        <ImageWithLoader
-          src={media.review_video_thumbnail_url}
+        <ProductVideo
+          src={Review1}
+          // imgSrc={media.review_video_thumbnail_url}
           className="flex aspect-square h-full w-full items-center"
-          width={800}
-          height={800}
-          alt="selected-review-video-image-alt"
+
           // url={media.review_video_url} // Need to change the string[] to actually have { thumbnail_url, url, and rating? }
           // thumbnailUrl={media.review_video_thumbnail_url}
           // rating={5}
