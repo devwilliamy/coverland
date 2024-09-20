@@ -26,7 +26,7 @@ export default function ReviewImageDialog({
       className={`flex min-w-[100vw] flex-col items-center justify-center rounded-lg md:min-w-[45vw] ${rowType === 'video' ? 'aspect-[9/16]' : 'aspect-square'}`}
     >
       <div className="absolute right-0 top-0">
-        <X className="" onClick={onClose} />
+        <X className="stroke-[3px]" onClick={onClose} />
       </div>
       <div className="relative flex">
         <ReviewImageCarousel

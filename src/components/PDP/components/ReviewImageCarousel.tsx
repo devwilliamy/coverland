@@ -15,6 +15,7 @@ import ImageWithLoader from './ImageWithLoader';
 import ProductVideo from '../ProductVideo';
 import Review1 from '@/videos/07-C.mp4';
 import Review2 from '@/videos/1966-mustang-fastback-yellow.mov';
+import VideoWithLoader from './VideoWithLoader';
 
 interface ReviewImageCarouselProps {
   mediaItems: ReviewMedia[];
@@ -46,16 +47,7 @@ const ReviewImageCarousel: React.FC<ReviewImageCarouselProps> = ({
   const renderMediaItem = (media: ReviewMedia, index: number) => {
     const content =
       rowType === 'video' ? (
-        <ProductVideo
-          src={Review1}
-          // imgSrc={media.review_video_thumbnail_url}
-          className="flex aspect-[9/16] h-full w-full items-center"
-          aspectRatio="9 / 16"
-          // url={media.review_video_url} // Need to change the string[] to actually have { thumbnail_url, url, and rating? }
-          // thumbnailUrl={media.review_video_thumbnail_url}
-          // rating={5}
-          // onMediaClick={() => onMediaClick(index, rowType)}
-        />
+        <VideoWithLoader />
       ) : (
         <ImageWithLoader
           width={800}

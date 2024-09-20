@@ -186,15 +186,15 @@ export default function ExtraDetailsTabs() {
         ))}
       </div>
       <div>
-        <div id="Details">
+        {/* <div id="Details">
           {!isSeatCover ? <VehicleCoverDetails /> : <SeatCoverDetails />}
-        </div>
+        </div> */}
         <Separator className="h-5 border-y-[1px] border-y-[#DADADA] bg-[#F1F1F1] lg:h-10" />
         <div id="Reviews">
           <ReviewSection showHeader />
         </div>
         <Separator className="h-5 border-y-[1px] border-y-[#DADADA] bg-[#F1F1F1] lg:h-10" />
-        <div id="Q&A">
+        {/* <div id="Q&A">
           <QuestionsAccordion />
         </div>
         <div id="Shipping & Returns">
@@ -203,7 +203,7 @@ export default function ExtraDetailsTabs() {
 
         <div id="Warranty">
           <WarrantyPolicyContent showHeader={false} />
-        </div>
+        </div> */}
 
         {!isSeatCover && (
           <div id="Insights">
