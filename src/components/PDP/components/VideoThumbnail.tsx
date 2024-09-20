@@ -19,9 +19,7 @@ const VideoThumbnail: React.FC<VideoThumbnailProps> = ({
 }) => {
   const [duration, setDuration] = useState<number | null>(null);
   const [isReady, setIsReady] = useState(false);
-  console.log('url:', url);
   const handleDuration = (duration: number) => {
-    console.log('Duration:', duration);
     setDuration(duration);
     setIsReady(true);
   };

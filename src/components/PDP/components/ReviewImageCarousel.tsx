@@ -1,5 +1,5 @@
 // ReviewImageCarousel.tsx
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import Image from 'next/image';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import {
@@ -10,53 +10,71 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from '@/components/ui/carousel';
+import { ReviewMedia } from './ReviewHeaderGalleryMobile';
+import ImageWithLoader from './ImageWithLoader';
 
 interface ReviewImageCarouselProps {
-  reviewImages: Array<{ review_image: string }>;
-  onLoad: () => void;
+  mediaItems: ReviewMedia[];
+  rowType: 'video' | 'image';
   initialImageIndex: number;
-  onImageChange?: (index: number) => void;
 }
 
 const ReviewImageCarousel: React.FC<ReviewImageCarouselProps> = ({
-  reviewImages,
-  onLoad,
+  mediaItems,
+  rowType,
   initialImageIndex,
-  onImageChange,
 }) => {
   const [api, setApi] = useState<CarouselApi | null>(null);
+  const scrollToIndex = useCallback(
+    (index: number) => {
+      if (api) api.scrollTo(index);
+    },
+    [api]
+  );
 
   useEffect(() => {
     if (!api) {
       return;
     }
+    scrollToIndex(initialImageIndex);
+    api.reInit();
+  }, [api, scrollToIndex]);
 
-    const selectListener = () => {
-      onImageChange?.(api.selectedScrollSnap());
-    };
+  const renderMediaItem = (media: ReviewMedia, index: number) => {
+    const content =
+      rowType === 'video' ? (
+        <ImageWithLoader
+          src={media.review_video_thumbnail_url}
+          className="flex aspect-square h-full w-full items-center"
+          width={800}
+          height={800}
+          alt="selected-review-video-image-alt"
+          // url={media.review_video_url} // Need to change the string[] to actually have { thumbnail_url, url, and rating? }
+          // thumbnailUrl={media.review_video_thumbnail_url}
+          // rating={5}
+          // onMediaClick={() => onMediaClick(index, rowType)}
+        />
+      ) : (
+        <ImageWithLoader
+          width={800}
+          height={800}
+          className="flex aspect-square h-full w-full items-center rounded-lg"
+          alt="selected-review-card-image-alt"
+          src={media.review_image_url}
+        />
+      );
 
-    api.on('select', selectListener);
+    // </div>
 
-    // Move to the initial image
-    api.scrollTo(initialImageIndex);
-
-    return () => {
-      api.off('select', selectListener);
-    };
-  }, [api, initialImageIndex, onImageChange]);
+    return <>{content}</>;
+  };
 
   return (
-    <Carousel setApi={setApi} onLoad={onLoad}>
+    <Carousel setApi={setApi}>
       <CarouselContent>
-        {reviewImages?.map((img, index) => (
+        {mediaItems?.map((media, index) => (
           <CarouselItem key={`selected-review-card-image-${index}`}>
-            <Image
-              width={800}
-              height={800}
-              className="flex aspect-square h-full w-full items-center"
-              alt="selected-review-card-image-alt"
-              src={String(img.review_image?.split(',')[0])}
-            />
+            {renderMediaItem(media, index)}
           </CarouselItem>
         ))}
       </CarouselContent>

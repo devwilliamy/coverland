@@ -1,12 +1,15 @@
 import React from 'react';
 import ReviewMediaRow from './ReviewMediaRow';
+import { ReviewMedia } from './ReviewHeaderGalleryMobile';
 
 interface ReviewMediaSectionProps {
   title: string;
   emptyMessage: string;
-  mediaItems: Array<{ review_image: string; review_video_thumbnail?: string }>;
+  mediaItems: ReviewMedia[];
   rowType: 'video' | 'image';
-  onMediaClick: (index: number) => void;
+  onMediaClick: (index: number, rowType: 'video' | 'image') => void;
+  currentSlideIndex: number;
+  setCurrentSlideIndex: React.Dispatch<React.SetStateAction<number>>;
 }
 
 export const ReviewMediaSection: React.FC<ReviewMediaSectionProps> = ({
@@ -15,6 +18,8 @@ export const ReviewMediaSection: React.FC<ReviewMediaSectionProps> = ({
   mediaItems,
   rowType,
   onMediaClick,
+  currentSlideIndex,
+  setCurrentSlideIndex,
 }) => (
   <div>
     <h3 className="mb-2 text-lg font-semibold">{title}</h3>
@@ -23,6 +28,8 @@ export const ReviewMediaSection: React.FC<ReviewMediaSectionProps> = ({
         mediaItems={mediaItems}
         rowType={rowType}
         onMediaClick={onMediaClick}
+        currentSlideIndex={currentSlideIndex}
+        setCurrentSlideIndex={setCurrentSlideIndex}
       />
     ) : (
       <p className="italic text-gray-500">{emptyMessage}</p>
