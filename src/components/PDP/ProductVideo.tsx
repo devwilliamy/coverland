@@ -10,6 +10,7 @@ type ProductVideoProps = {
   autoplay?: boolean;
   controls?: boolean;
   loop?: boolean;
+  muted?: boolean;
   aspectRatio?: string;
   className?: string;
   onLoadedData?: () => void;
@@ -21,6 +22,7 @@ export default function ProductVideo({
   autoplay = false,
   controls = true,
   loop = false,
+  muted = true,
   aspectRatio = '1 / 1',
   className = '',
   onLoadedData,
@@ -28,7 +30,7 @@ export default function ProductVideo({
   return (
     <Video
       src={src}
-      muted
+      muted={muted}
       autoPlay={autoplay}
       loop={loop}
       playsInline

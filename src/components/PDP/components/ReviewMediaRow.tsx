@@ -60,7 +60,8 @@ export const ReviewMediaRow: React.FC<ReviewMediaRowProps> = ({
         <VideoThumbnail
           url={media.review_video_url} // Need to change the string[] to actually have { thumbnail_url, url, and rating? }
           thumbnailUrl={media.review_video_thumbnail_url}
-          rating={5}
+          rating={parseInt(media.rating_stars)}
+          duration={media.duration}
           onMediaClick={() => onMediaClick(index, rowType)}
         />
       ) : (

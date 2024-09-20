@@ -25,4 +25,5 @@ export type ReviewMedia = {
   review_video_thumbnail_url: string;
   review_video_url: string;
   rating_stars: string;
+  duration: string;
 };

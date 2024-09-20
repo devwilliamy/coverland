@@ -10,12 +10,12 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from '@/components/ui/carousel';
-import { ReviewMedia } from './ReviewHeaderGalleryMobile';
 import ImageWithLoader from './ImageWithLoader';
 import ProductVideo from '../ProductVideo';
 import Review1 from '@/videos/07-C.mp4';
 import Review2 from '@/videos/1966-mustang-fastback-yellow.mov';
 import VideoWithLoader from './VideoWithLoader';
+import { ReviewMedia } from '@/lib/types/review';
 
 interface ReviewImageCarouselProps {
   mediaItems: ReviewMedia[];
@@ -47,7 +47,7 @@ const ReviewImageCarousel: React.FC<ReviewImageCarouselProps> = ({
   const renderMediaItem = (media: ReviewMedia, index: number) => {
     const content =
       rowType === 'video' ? (
-        <VideoWithLoader />
+        <VideoWithLoader media={media} />
       ) : (
         <ImageWithLoader
           width={800}

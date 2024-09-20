@@ -2,9 +2,15 @@
 import React, { useState } from 'react';
 import { AiOutlineLoading3Quarters } from 'react-icons/ai';
 import ProductVideo from '../ProductVideo';
-import Review1 from '@/videos/07-C.mp4';
+import { ReviewMedia } from '@/lib/types/review';
 
-const VideoWithLoader: React.FC = ({ ...props }) => {
+type VideoWithLoaderProps = {
+  media: ReviewMedia;
+};
+const VideoWithLoader: React.FC<VideoWithLoaderProps> = ({
+  media,
+  ...props
+}) => {
   const [loading, setLoading] = useState(true);
 
   return (
@@ -19,17 +25,14 @@ const VideoWithLoader: React.FC = ({ ...props }) => {
         </div>
       )}
       <ProductVideo
-        src={Review1}
-        // imgSrc={media.review_video_thumbnail_url}
+        src={media.review_video_url}
+        imgSrc={media.review_video_thumbnail_url}
         className="flex aspect-[9/16] h-full w-full items-center"
         aspectRatio="9 / 16"
+        muted={false}
         onLoadedData={() => {
           setLoading(false);
         }}
-        // url={media.review_video_url} // Need to change the string[] to actually have { thumbnail_url, url, and rating? }
-        // thumbnailUrl={media.review_video_thumbnail_url}
-        // rating={5}
-        // onMediaClick={() => onMediaClick(index, rowType)}
       />
     </div>
   );
