@@ -1,6 +1,6 @@
 import React from 'react';
 import ReviewMediaRow from './ReviewMediaRow';
-import { ReviewMedia } from './ReviewHeaderGalleryMobile';
+import { ReviewMedia } from '@/lib/types/review';
 
 interface ReviewMediaSectionProps {
   title: string;

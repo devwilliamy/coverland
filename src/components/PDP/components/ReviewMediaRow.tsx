@@ -10,7 +10,7 @@ import {
 import ReviewImagesSheet from './ReviewImagesSheet';
 import ReviewSeeMoreImages from './ReviewSeeMoreImages';
 import VideoThumbnail from './VideoThumbnail';
-import { ReviewMedia } from './ReviewHeaderGalleryMobile';
+import { ReviewMedia } from '@/lib/types/review';
 
 interface ReviewMediaRowProps {
   mediaItems: ReviewMedia[];

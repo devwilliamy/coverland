@@ -2,7 +2,7 @@ import { X } from 'lucide-react';
 import { DialogContent } from '@/components/ui/dialog';
 import useStoreContext from '@/hooks/useStoreContext';
 import ReviewImageCarousel from './ReviewImageCarousel';
-import { ReviewMedia } from './ReviewHeaderGalleryMobile';
+import { ReviewMedia } from '@/lib/types/review';
 
 interface ReviewImageDialogProps {
   onClose: () => void;

@@ -18,3 +18,11 @@ export type FilterParams = {
   operator: 'eq' | 'neq' | 'gt' | 'lt' | 'gte' | 'lte' | 'notnull';
   value: string | number;
 };
+
+
+export type ReviewMedia = {
+  review_image_url: string;
+  review_video_thumbnail_url: string;
+  review_video_url: string;
+  rating_stars: string;
+};
