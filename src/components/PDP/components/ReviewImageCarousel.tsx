@@ -49,8 +49,8 @@ const ReviewImageCarousel: React.FC<ReviewImageCarouselProps> = ({
         <ProductVideo
           src={Review1}
           // imgSrc={media.review_video_thumbnail_url}
-          className="flex aspect-square h-full w-full items-center"
-
+          className="flex aspect-[9/16] h-full w-full items-center"
+          aspectRatio="9 / 16"
           // url={media.review_video_url} // Need to change the string[] to actually have { thumbnail_url, url, and rating? }
           // thumbnailUrl={media.review_video_thumbnail_url}
           // rating={5}

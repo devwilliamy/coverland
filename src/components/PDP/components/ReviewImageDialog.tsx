@@ -23,7 +23,7 @@ export default function ReviewImageDialog({
   return (
     <DialogContent
       id="review-modal"
-      className="flex aspect-square min-w-[100vw] flex-col items-center justify-center rounded-lg md:min-w-[45vw]"
+      className={`flex min-w-[100vw] flex-col items-center justify-center rounded-lg md:min-w-[45vw] ${rowType === 'video' ? 'aspect-[9/16]' : 'aspect-square'}`}
     >
       <div className="absolute right-0 top-0">
         <X className="" onClick={onClose} />
