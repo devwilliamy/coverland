@@ -28,7 +28,7 @@ export default function ReviewImageDialog({
       <div className="absolute right-0 top-0">
         <X className="" onClick={onClose} />
       </div>
-      <div className="relative flex min-h-full min-w-full">
+      <div className="relative flex">
         <ReviewImageCarousel
           mediaItems={mediaItems}
           rowType={rowType}
