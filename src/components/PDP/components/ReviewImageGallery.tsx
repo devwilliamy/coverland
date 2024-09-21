@@ -71,7 +71,7 @@ const ReviewImageGallery = ({
                       alt={`customer-tabs-image-${index}`}
                       width={109}
                       height={109}
-                      className="aspect-square h-full w-full cursor-pointer rounded-[3px]"
+                      className="aspect-square h-full w-full cursor-pointer rounded-[3px] object-cover"
                       src={imgStr}
                       onClick={() => {
                         setReviewDialogOpen(true);
@@ -224,7 +224,7 @@ const ReviewImageGallery = ({
                             alt={`customer-modal-image-${index}`}
                             width={109}
                             height={109}
-                            className="aspect-square h-full w-full cursor-pointer rounded-[3px]"
+                            className="aspect-square h-full w-full cursor-pointer rounded-[3px] object-cover"
                             src={img}
                             onError={() => {
                               console.log('image error', img);
