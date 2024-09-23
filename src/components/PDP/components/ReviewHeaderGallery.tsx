@@ -147,6 +147,7 @@ export default function ReviewHeaderGallery() {
   const reviewImages = useStore(store, (s) => s.reviewImages);
   const videoReviews = isSeatCover ? seatCoverVideoUrl : reviewVideoUrl;
   const photoReviews = processReviewData(reviewImages);
+  console.log('Photo reviews:', photoReviews);
   const isDesktop = useMediaQuery('(min-width: 1024px)');
 
   const imageCount = useMemo(() => {
