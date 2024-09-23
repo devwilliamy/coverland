@@ -22,7 +22,7 @@ export const ReviewMediaSection: React.FC<ReviewMediaSectionProps> = ({
   setCurrentSlideIndex,
 }) => (
   <div>
-    <h3 className="mb-2 text-lg font-semibold">{title}</h3>
+    <h3 className="mb-2 text-lg font-semibold lg:text-xl lg:font-bold">{title}</h3>
     {mediaItems.length > 0 ? (
       <ReviewMediaRow
         mediaItems={mediaItems}

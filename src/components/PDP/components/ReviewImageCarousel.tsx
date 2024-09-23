@@ -52,7 +52,7 @@ const ReviewImageCarousel: React.FC<ReviewImageCarouselProps> = ({
         <ImageWithLoader
           width={800}
           height={800}
-          className="flex aspect-square h-full w-full items-center rounded-lg"
+          className="flex aspect-square h-full w-full items-center rounded-lg  lg:max-w-[50vw]"
           alt="selected-review-card-image-alt"
           src={media.review_image_url}
         />
@@ -67,7 +67,7 @@ const ReviewImageCarousel: React.FC<ReviewImageCarouselProps> = ({
     <Carousel setApi={setApi}>
       <CarouselContent>
         {mediaItems?.map((media, index) => (
-          <CarouselItem key={`selected-review-card-image-${index}`}>
+          <CarouselItem key={`selected-review-card-image-${index}`} className="lg:pl-0">
             {renderMediaItem(media, index)}
           </CarouselItem>
         ))}

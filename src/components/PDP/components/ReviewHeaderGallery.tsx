@@ -31,8 +31,9 @@ import ReviewBaldGuySeatCoverThumbnail from '@/public/review/thumbnails/video-ou
 import ReviewDodgeRamSeatCoverVideo from '@/videos/video-output-759A5252-5A4F-46A3-928D-54E571645DFF.mov'; // 0:56
 import ReviewDodgeRamSeatCoverThumbnail from '@/public/review/thumbnails/video-output-759A5252-5A4F-46A3-928D-54E571645DFF.webp';
 import useDetermineType from '@/hooks/useDetermineType';
+import { ReviewMedia, TReviewData } from '@/lib/types/review';
 
-const reviewVideoUrl = [
+const reviewVideoUrl: ReviewMedia[] = [
   {
     review_image_url: '',
     review_video_thumbnail_url: Review01BFloridaBkRdCarCoverThumbnail,
@@ -115,26 +116,26 @@ const seatCoverVideoUrl = [
   },
 ];
 
-const buildReviewVideoUrlArray = (review) => {
+const buildReviewVideoUrlArray = (review: TReviewData): ReviewMedia[] => {
   // Split the review_image string by commas to get an array of URLs
   const reviewImages = review.review_image
     ? review.review_image.split(',')
     : [];
 
   // Map over each URL and create an object in the desired structure
-  return reviewImages.map((imageUrl) => ({
+  return reviewImages.map((imageUrl: string) => ({
     review_image_url: imageUrl,
     review_video_thumbnail_url: '', // Placeholder for video thumbnail URL
     review_video_url: '', // Placeholder for video URL
-    rating_stars: review.rating_stars.toString(), // Convert rating to string as in your original object
+    rating_stars: review.rating_stars?.toString(), // Convert rating to string as in your original object
     duration: '', // Placeholder for video duration
   }));
 };
 
-const processReviewData = (reviewDataArray) => {
+const processReviewData = (reviewDataArray: TReviewData[]) => {
   // Reduce the reviewDataArray to a single array of objects
-  return reviewDataArray.reduce((acc, review) => {
-    const reviewVideoUrls = buildReviewVideoUrlArray(review);
+  return reviewDataArray.reduce((acc: ReviewMedia[], review) => {
+    const reviewVideoUrls: ReviewMedia[] = buildReviewVideoUrlArray(review);
     return acc.concat(reviewVideoUrls);
   }, []);
 };

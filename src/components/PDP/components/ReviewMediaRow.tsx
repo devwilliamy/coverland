@@ -98,7 +98,7 @@ export const ReviewMediaRow: React.FC<ReviewMediaRowProps> = ({
         {displayedItems.map((media, index) => (
           <CarouselItem
             key={`review-${rowType}-${index}`}
-            className="basis-[47%] pl-2 md:basis-[45%] md:pl-4 lg:basis-[30%]"
+            className="basis-[47%] pl-2 md:basis-[45%] md:pl-4 lg:basis-[15%]"
           >
             {renderMediaItem(media, index)}
           </CarouselItem>

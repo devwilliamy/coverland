@@ -14,7 +14,7 @@ const VideoWithLoader: React.FC<VideoWithLoaderProps> = ({
   const [loading, setLoading] = useState(true);
 
   return (
-    <div className="relative h-full w-full">
+    <div className="relative h-full w-full lg:max-h-[75vh]">
       {loading && (
         <div className="absolute inset-0 flex animate-pulse items-center justify-center bg-[#F0F0F0]/50 lg:bg-[#999999]/50">
           <AiOutlineLoading3Quarters
