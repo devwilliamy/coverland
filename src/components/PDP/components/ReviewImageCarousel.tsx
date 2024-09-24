@@ -69,7 +69,7 @@ const ReviewImageCarousel: React.FC<ReviewImageCarouselProps> = ({
         loop: true,
       }}
     >
-      <CarouselContent className="ml-0 lg:-ml-4">
+      <CarouselContent className="ml-0 lg:-ml-2">
         {mediaItems?.map((media, index) => (
           <CarouselItem
             key={`selected-review-card-image-${index}`}
