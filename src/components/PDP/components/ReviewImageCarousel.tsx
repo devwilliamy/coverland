@@ -41,7 +41,6 @@ const ReviewImageCarousel: React.FC<ReviewImageCarouselProps> = ({
       return;
     }
     scrollToIndex(initialImageIndex);
-    api.reInit();
   }, [api, scrollToIndex]);
 
   const renderMediaItem = (media: ReviewMedia, index: number) => {
@@ -64,8 +63,13 @@ const ReviewImageCarousel: React.FC<ReviewImageCarouselProps> = ({
   };
 
   return (
-    <Carousel setApi={setApi}>
-      <CarouselContent className='ml-0 lg:-ml-4'>
+    <Carousel
+      setApi={setApi}
+      opts={{
+        loop: true,
+      }}
+    >
+      <CarouselContent className="ml-0 lg:-ml-4">
         {mediaItems?.map((media, index) => (
           <CarouselItem
             key={`selected-review-card-image-${index}`}
