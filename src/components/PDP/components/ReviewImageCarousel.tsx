@@ -52,7 +52,7 @@ const ReviewImageCarousel: React.FC<ReviewImageCarouselProps> = ({
         <ImageWithLoader
           width={800}
           height={800}
-          className="flex aspect-square h-[400px] w-[400px] items-center rounded-lg object-cover md:h-[800px] md:w-[800px]  lg:max-w-[50vw]"
+          className="flex aspect-square h-auto w-[400px] items-center rounded-lg object-cover md:h-auto md:w-[800px] "
           alt="selected-review-card-image-alt"
           src={media.review_image_url}
         />

@@ -23,7 +23,7 @@ const ImageWithLoader: React.FC<ImageWithLoaderProps> = ({ ...props }) => {
       )}
       <Image
         {...props}
-        onLoadingComplete={() => setLoading(false)}
+        onLoad={() => setLoading(false)}
         className={`${props.className} ${loading ? 'opacity-0' : 'opacity-100'}`}
       />
     </div>
