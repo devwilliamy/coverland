@@ -33,8 +33,10 @@ const ReviewHeaderGalleryDesktop: React.FC<ReviewHeaderGalleryDesktopProps> = ({
   };
 
   return (
-    <section className="flex flex-col max-h-fit w-full items-center">
-      <div>
+    <section className="flex max-h-fit w-full flex-col items-start">
+      <div className="w-full">
+        {' '}
+        {/* Added w-full */}
         <ReviewMediaSection
           title="Reviews with videos"
           emptyMessage="No video reviews available"
@@ -45,7 +47,7 @@ const ReviewHeaderGalleryDesktop: React.FC<ReviewHeaderGalleryDesktopProps> = ({
           setCurrentSlideIndex={setCurrentSlideIndex}
         />
       </div>
-      <div className="pt-4">
+      <div className="w-full pt-4">
         <ReviewMediaSection
           title="Reviews with images"
           emptyMessage="No image reviews available"
