@@ -1,214 +1,151 @@
 'use client';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
+import { useMediaQuery } from '@mantine/hooks';
+import StickyTabBar from './StickyTabBar';
 import ReviewSection from './ReviewSection';
-import { QuestionsAccordion } from '../QuestionsAccordion';
-
 import InsightsTab from './InsightsTab';
 import SeatCoverDetails from '@/app/(main)/seat-covers/components/SeatCoverDetails';
-import useDetermineType from '@/hooks/useDetermineType';
 import VehicleCoverDetails from '@/app/(main)/[productType]/components/VehicleCoverDetails';
-import { useMediaQuery } from '@mantine/hooks';
 import { Separator } from '@/components/ui/separator';
 import ShippingPolicyContent from '@/components/policy/ShippingPolicyContent';
 import WarrantyPolicyContent from '@/components/policy/WarrantyPolicyContent';
+import { QuestionsAccordion } from '../QuestionsAccordion';
+import useDetermineType from '@/hooks/useDetermineType';
 
 type TabsObj = {
   title: string;
-  jsx?: React.JSX.Element;
-  top?: number | null;
 };
 
 export default function ExtraDetailsTabs() {
   const { isSeatCover } = useDetermineType();
-
   const isSmall = useMediaQuery('(max-width: 768px)');
   const isMedium = useMediaQuery('(max-width: 1024px)');
 
+  const [currentTabIndex, setCurrentTabIndex] = useState(0);
+  const [defaultTabs, setDefaultTabs] = useState<TabsObj[]>([]);
+  const sectionRefs = useRef<Record<string, HTMLDivElement | null>>({});
+
   const calcOffset = () => {
-    switch (true) {
-      case isSeatCover:
-        return -45;
-      case isSmall:
-        return 70;
-      case isMedium:
-        return 200;
-      default:
-        return 195;
-    }
+    if (isSeatCover) return -45;
+    if (isSmall) return 70;
+    if (isMedium) return 200;
+    return 195;
   };
 
   const queryOffset = calcOffset();
-  const [currentTabIndex, setCurrentTabIndex] = useState(0);
-  let scrollDirection: 'up' | 'down' = 'down';
-  const [defaultTabs, setDefaultTabs] = useState<TabsObj[]>([]);
-  let lastScrollY = 0;
-  const mainTabs = [
-    {
-      title: 'Shipping & Returns',
-    },
-    {
-      title: 'Warranty',
-    },
-    {
-      title: 'Insights',
-    },
-  ];
-
-  if (!isSeatCover) {
-    mainTabs.splice(
-      0,
-      0,
-      {
-        title: 'Details',
-      },
-      {
-        title: 'Reviews',
-      },
-      {
-        title: 'Q&A',
-      }
-    );
-  }
-
-  if (isSeatCover) {
-    mainTabs.splice(
-      0,
-      0,
-      {
-        title: 'Details',
-      },
-      {
-        title: 'Reviews',
-      },
-      {
-        title: 'Q&A',
-      }
-    );
-    mainTabs.splice(mainTabs.length - 1, 1);
-  }
-
-  const determineTabIndex = (currentTop: number, nextTop: number) => {
-    if (window) {
-      if (window.scrollY < lastScrollY) {
-        scrollDirection = 'up';
-      } else {
-        scrollDirection = 'down';
-      }
-      lastScrollY = window.scrollY;
-
-      if (
-        scrollDirection === 'down' &&
-        mainTabs[currentTabIndex + 1] &&
-        window.scrollY > Number(nextTop)
-      ) {
-        setCurrentTabIndex(currentTabIndex + 1);
-      } else if (
-        scrollDirection === 'up' &&
-        currentTabIndex > 0 &&
-        window.scrollY < Number(currentTop)
-      ) {
-        setCurrentTabIndex(currentTabIndex - 1);
-      }
-    }
-  };
 
   useEffect(() => {
-    if (document) {
-      setDefaultTabs(mainTabs);
-      const tabsTopsObj: Record<string, number> = {
-        'Shipping & Returns':
-          (document.getElementById('Shipping & Returns')?.offsetTop as number) +
-          queryOffset,
-        Warranty:
-          (document.getElementById('Warranty')?.offsetTop as number) +
-          queryOffset,
-        Insights:
-          (document.getElementById('Insights')?.offsetTop as number) +
-          queryOffset,
-        Details:
-          (document.getElementById('Details')?.offsetTop as number) +
-          queryOffset,
-        Reviews:
-          (document.getElementById('Reviews')?.offsetTop as number) +
-          queryOffset,
-        'Q&A':
-          (document.getElementById('Q&A')?.offsetTop as number) + queryOffset,
-      };
+    const mainTabs: TabsObj[] = [
+      { title: 'Shipping & Returns' },
+      { title: 'Warranty' },
+      { title: 'Insights' },
+    ];
 
-      const logScroll = () => {
-        const currentTitle = mainTabs[currentTabIndex].title;
-        const nextTitle = mainTabs[currentTabIndex + 1]
-          ? mainTabs[currentTabIndex + 1].title
-          : mainTabs[currentTabIndex].title;
-        const currentTop = tabsTopsObj[currentTitle];
-        const nextTop = tabsTopsObj[nextTitle];
-        determineTabIndex(currentTop, nextTop);
-      };
-      if (document) {
-        document.addEventListener('scroll', logScroll);
-      }
-      return () => {
-        if (document) {
-          document.removeEventListener('scroll', logScroll);
-        }
-      };
+    if (!isSeatCover) {
+      mainTabs.unshift(
+        { title: 'Details' },
+        { title: 'Reviews' },
+        { title: 'Q&A' }
+      );
+    } else {
+      mainTabs.splice(mainTabs.length - 1, 1);
+      mainTabs.unshift(
+        { title: 'Details' },
+        { title: 'Reviews' },
+        { title: 'Q&A' }
+      );
     }
-  }, [document, currentTabIndex]);
+
+    setDefaultTabs(mainTabs);
+  }, [isSeatCover]);
 
   const handleSelectTab = (title: string, index: number) => {
     setCurrentTabIndex(index);
-    if (document) {
-      const el = document.getElementById(title);
-      const elTop = el?.offsetTop;
+    const el = sectionRefs.current[title];
+    if (el) {
       window.scrollTo({
-        top: (elTop as number) + queryOffset,
+        top: el.offsetTop + queryOffset,
         behavior: 'instant',
       });
     }
   };
 
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollPosition = window.scrollY - queryOffset;
+
+      const offsetPositions = defaultTabs.map((tab) => {
+        const el = sectionRefs.current[tab.title];
+        return el ? el.offsetTop : 0;
+      });
+
+      for (let i = 0; i < offsetPositions.length; i++) {
+        // The entire condition checks if the current scroll position is within section i
+        if (
+          // Checks if the current scroll position is below or at the top of section i. 
+          // This means the user has scrolled past the start of section i.
+          scrollPosition >= offsetPositions[i] && 
+          // Chekc last section OR Checks if the current scroll position is above the start of the next section.
+          (i === offsetPositions.length - 1 ||
+            scrollPosition < offsetPositions[i + 1])
+        ) {
+          if (currentTabIndex !== i) {
+            setCurrentTabIndex(i);
+          }
+          break;
+        }
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [defaultTabs, queryOffset, currentTabIndex]);
+
   return (
     <>
-      <div
-        id="Extra-Details-Tabs"
-        className="no-scrollbar sticky top-[-1px] z-[2] flex items-center justify-items-center overflow-x-auto bg-white lg:w-full "
-      >
-        {defaultTabs.map(({ title, jsx }, index) => (
-          <button
-            key={`Extra-Details-Tab-${index}`}
-            onClick={() => handleSelectTab(title, index)}
-            className={` flex w-full items-center whitespace-nowrap px-2 py-2 text-[16px] text-[#767676] max-lg:min-w-max ${currentTabIndex === index ? 'border-b-2 border-b-[#BE1B1B] font-[700] text-[#BE1B1B]' : 'font-[400]'}`}
-          >
-            <div className="flex w-full grow justify-center  px-2 py-1  ">
-              {title}
-            </div>
-          </button>
-        ))}
-      </div>
+      <StickyTabBar
+        tabs={defaultTabs}
+        currentTabIndex={currentTabIndex}
+        onSelectTab={handleSelectTab}
+      />
       <div>
-        {/* <div id="Details">
+        <div id="Details" ref={(el) => (sectionRefs.current['Details'] = el)}>
           {!isSeatCover ? <VehicleCoverDetails /> : <SeatCoverDetails />}
-        </div> */}
+        </div>
         <Separator className="h-5 border-y-[1px] border-y-[#DADADA] bg-[#F1F1F1] lg:h-10" />
-        <div id="Reviews">
+
+        <div id="Reviews" ref={(el) => (sectionRefs.current['Reviews'] = el)}>
           <ReviewSection showHeader />
         </div>
         <Separator className="h-5 border-y-[1px] border-y-[#DADADA] bg-[#F1F1F1] lg:h-10" />
-        {/* <div id="Q&A">
+
+        <div id="Q&A" ref={(el) => (sectionRefs.current['Q&A'] = el)}>
           <QuestionsAccordion />
         </div>
-        <div id="Shipping & Returns">
+        <Separator className="h-5 border-y-[1px] border-y-[#DADADA] bg-[#F1F1F1] lg:h-10" />
+
+        <div
+          id="Shipping & Returns"
+          ref={(el) => (sectionRefs.current['Shipping & Returns'] = el)}
+        >
           <ShippingPolicyContent showHeader={false} />
         </div>
+        <Separator className="h-5 border-y-[1px] border-y-[#DADADA] bg-[#F1F1F1] lg:h-10" />
 
-        <div id="Warranty">
+        <div id="Warranty" ref={(el) => (sectionRefs.current['Warranty'] = el)}>
           <WarrantyPolicyContent showHeader={false} />
-        </div> */}
+        </div>
 
         {!isSeatCover && (
-          <div id="Insights">
-            <InsightsTab />
-          </div>
+          <>
+            <Separator className="h-5 border-y-[1px] border-y-[#DADADA] bg-[#F1F1F1] lg:h-10" />
+            <div
+              id="Insights"
+              ref={(el) => (sectionRefs.current['Insights'] = el)}
+            >
+              <InsightsTab />
+            </div>
+          </>
         )}
       </div>
     </>
