@@ -1,5 +1,5 @@
 // ReviewImageCarousel.tsx
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import Image from 'next/image';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import {
@@ -11,9 +11,6 @@ import {
   CarouselPrevious,
 } from '@/components/ui/carousel';
 import ImageWithLoader from './ImageWithLoader';
-import ProductVideo from '../ProductVideo';
-import Review1 from '@/videos/07-C.mp4';
-import Review2 from '@/videos/1966-mustang-fastback-yellow.mov';
 import VideoWithLoader from './VideoWithLoader';
 import { ReviewMedia } from '@/lib/types/review';
 
@@ -29,6 +26,14 @@ const ReviewImageCarousel: React.FC<ReviewImageCarouselProps> = ({
   initialImageIndex,
 }) => {
   const [api, setApi] = useState<CarouselApi | null>(null);
+  const [currentIndex, setCurrentIndex] = useState(initialImageIndex);
+  const currentIndexRef = useRef(currentIndex);
+
+  // Update the ref whenever currentIndex changes
+  useEffect(() => {
+    currentIndexRef.current = currentIndex;
+  }, [currentIndex]);
+
   const scrollToIndex = useCallback(
     (index: number) => {
       if (api) api.scrollTo(index);
@@ -36,17 +41,50 @@ const ReviewImageCarousel: React.FC<ReviewImageCarouselProps> = ({
     [api]
   );
 
+  // Scroll to the initial index when the carousel is ready
+  useEffect(() => {
+    if (api) {
+      scrollToIndex(initialImageIndex);
+    }
+  }, [api, initialImageIndex, scrollToIndex]);
+
+  // Set up the event listener for slide changes
   useEffect(() => {
     if (!api) {
       return;
     }
-    scrollToIndex(initialImageIndex);
-  }, [api, scrollToIndex]);
+
+    const handleScroll = () => {
+      const newIndex = api.selectedScrollSnap();
+      if (newIndex !== currentIndexRef.current) {
+        setCurrentIndex(newIndex);
+      }
+    };
+
+    api.on('select', handleScroll);
+
+    // Cleanup
+    return () => {
+      api.off('select', handleScroll);
+    };
+  }, [api]);
 
   const renderMediaItem = (media: ReviewMedia, index: number) => {
+    const isActive = index === currentIndex;
+
     const content =
       rowType === 'video' ? (
-        <VideoWithLoader media={media} />
+        isActive ? (
+          <VideoWithLoader media={media} shouldAutoPlay={true} />
+        ) : (
+          <Image
+            src={media.review_video_thumbnail_url.src} // Need to change the string[] to actually have { thumbnail_url, url, and rating? }
+            width={900}
+            height={1600}
+            className="flex aspect-[9/16] h-auto w-[450px] items-center rounded-lg object-cover md:h-auto md:w-[450px] "
+            alt="selected-review-card-image-alt"
+          />
+        )
       ) : (
         <ImageWithLoader
           width={800}
@@ -56,9 +94,6 @@ const ReviewImageCarousel: React.FC<ReviewImageCarouselProps> = ({
           src={media.review_image_url}
         />
       );
-
-    // </div>
-
     return <>{content}</>;
   };
 

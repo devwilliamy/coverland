@@ -1,7 +1,7 @@
 import Image, { StaticImageData } from 'next/image';
 import { Asset } from 'next-video/dist/assets.js';
 import dynamic from 'next/dynamic';
-
+import { forwardRef } from 'react';
 const Video = dynamic(() => import('next-video'));
 
 type ProductVideoProps = {
@@ -14,50 +14,59 @@ type ProductVideoProps = {
   aspectRatio?: string;
   className?: string;
   onLoadedData?: () => void;
+  style?: React.CSSProperties;
 };
 
-export default function ProductVideo({
-  src,
-  imgSrc,
-  autoplay = false,
-  controls = true,
-  loop = false,
-  muted = true,
-  aspectRatio = '1 / 1',
-  className = '',
-  onLoadedData,
-}: ProductVideoProps) {
-  return (
-    <Video
-      src={src}
-      muted={muted}
-      autoPlay={autoplay}
-      loop={loop}
-      playsInline
-      className={className}
-      onLoadedData={onLoadedData}
-      style={{
-        aspectRatio: aspectRatio,
-        height: '100%',
-        '--controls': controls ? '' : 'none',
-        '--seek-backward-button': 'none',
-        '--seek-forward-button': 'none',
-        '--time-range': 'none',
-        '--time-display': 'none',
-        '--duration-display': 'none',
-      }}
-    >
-      {imgSrc ? (
-        <Image
-          alt="Video Thumbnail"
-          slot="poster"
-          src={imgSrc}
-          aria-hidden="true"
-        />
-      ) : null}
-    </Video>
-  );
-}
+const ProductVideo = forwardRef<HTMLVideoElement, ProductVideoProps>(
+  (
+    {
+      src,
+      imgSrc,
+      autoplay = false,
+      controls = true,
+      loop = false,
+      muted = true,
+      aspectRatio = '1 / 1',
+      className = '',
+      onLoadedData,
+      style,
+      ...rest
+    },
+    ref
+  ) => {
+    return (
+      <Video
+        ref={ref}
+        src={src}
+        muted={muted}
+        autoPlay={autoplay}
+        loop={loop}
+        playsInline
+        className={className}
+        onLoadedData={onLoadedData}
+        style={{
+          aspectRatio: aspectRatio,
+          height: '100%',
+          '--controls': controls ? '' : 'none',
+          '--seek-backward-button': 'none',
+          '--seek-forward-button': 'none',
+          '--time-range': 'none',
+          '--time-display': 'none',
+          '--duration-display': 'none',
+        }}
+      >
+        {imgSrc ? (
+          <Image
+            alt="Video Thumbnail"
+            slot="poster"
+            src={imgSrc}
+            aria-hidden="true"
+          />
+        ) : null}
+      </Video>
+    );
+  }
+);
 
 // '--seek-forward-button': 'none',
 // '--time-range': controls ? '' : 'none',
@@ -70,3 +79,5 @@ export default function ProductVideo({
 // '--playback-rate-button': controls ? '' : 'none',
 // '--fullscreen-button': controls ? '' : 'none',
 // '--volume-range': controls ? '' : 'none',
+
+export default ProductVideo;
