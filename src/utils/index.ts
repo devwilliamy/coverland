@@ -323,5 +323,5 @@ export function getCompleteSelectionData({
 // };
 
 export function removeWwwFromUrl(url: string): string {
-  return url.replace(/www\./, '');
+  return url?.replace(/www\./, '');
 }
