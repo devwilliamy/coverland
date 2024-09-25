@@ -82,7 +82,7 @@ const ReviewImageGallery = ({
                         });
                       }}
                       onError={() => {
-                        console.log('image error', imgStr);
+                        console.error('image error', imgStr);
                       }}
                     />
                   )

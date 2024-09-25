@@ -1,14 +1,11 @@
 // ReviewHeaderGallery.tsx
-'use client';
+'use client';;
 import { useMemo } from 'react';
 import { useStore } from 'zustand';
 import useStoreContext from '@/hooks/useStoreContext';
 import ReviewHeaderGalleryMobile from './ReviewHeaderGalleryMobile';
 import ReviewHeaderGalleryDesktop from './ReviewHeaderGalleryDesktop';
 import { useMediaQuery } from '@mantine/hooks';
-// Car Covers
-import Review01BFloridaBkRdCarCoverVideo from '@/videos/01-B.mp4'; // 1:38
-import Review01BFloridaBkRdCarCoverThumbnail from '@/public/review/thumbnails/01-B.webp';
 import Review07CBkGrStrTruckCoverVideo from '@/videos/07-C.mp4'; // 0:32
 import Review07CBkGrStrTruckCoverThumbnail from '@/public/review/thumbnails/07-C.webp';
 import ReviewCorvetteC8CarCoverVideo from '@/videos/video-output-5A9C531F-428B-49F1-9F71-E0C42504042D.mov'; // 1:15
@@ -34,13 +31,6 @@ import useDetermineType from '@/hooks/useDetermineType';
 import { ReviewMedia, TReviewData } from '@/lib/types/review';
 
 const reviewVideoUrl: ReviewMedia[] = [
-  {
-    review_image_url: '',
-    review_video_thumbnail_url: Review01BFloridaBkRdCarCoverThumbnail,
-    review_video_url: Review01BFloridaBkRdCarCoverVideo,
-    rating_stars: '5',
-    duration: '1:38',
-  },
   {
     review_image_url: '',
     review_video_thumbnail_url: Review07CBkGrStrTruckCoverThumbnail,
@@ -147,17 +137,7 @@ export default function ReviewHeaderGallery() {
   const reviewImages = useStore(store, (s) => s.reviewImages);
   const videoReviews = isSeatCover ? seatCoverVideoUrl : reviewVideoUrl;
   const photoReviews = processReviewData(reviewImages);
-  console.log('Photo reviews:', photoReviews);
   const isDesktop = useMediaQuery('(min-width: 1024px)');
-
-  const imageCount = useMemo(() => {
-    return reviewImages.reduce((count, obj) => {
-      if (obj?.review_image) {
-        return count + obj.review_image.split(',').length;
-      }
-      return count;
-    }, 0);
-  }, [reviewImages]);
 
   if (reviewImages.length === 0) return null;
 

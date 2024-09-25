@@ -27,7 +27,6 @@ export const ReviewHeaderGalleryMobile: React.FC<
   };
 
   const handleOnMediaClick = (index: number, rowType: 'video' | 'image') => {
-    console.log('Image Index/Type:', { index, rowType });
     setSelectedMediaIndex(index);
     setCurrentSlideIndex(index);
     setReviewDialogOpen(true);
