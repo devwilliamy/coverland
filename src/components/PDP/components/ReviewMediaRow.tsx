@@ -1,13 +1,11 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import Image from 'next/image';
-import { DialogTrigger } from '@/components/ui/dialog';
 import {
   Carousel,
   CarouselApi,
   CarouselContent,
   CarouselItem,
 } from '@/components/ui/carousel';
-import ReviewImagesSheet from './ReviewImagesSheet';
 import ReviewSeeMoreImages from './ReviewSeeMoreImages';
 import VideoThumbnail from './VideoThumbnail';
 import { ReviewMedia } from '@/lib/types/review';
@@ -58,9 +56,8 @@ export const ReviewMediaRow: React.FC<ReviewMediaRowProps> = ({
     const content =
       rowType === 'video' ? (
         <VideoThumbnail
-          url={media.review_video_url} // Need to change the string[] to actually have { thumbnail_url, url, and rating? }
           thumbnailUrl={media.review_video_thumbnail_url}
-          rating={parseInt(media.rating_stars)}
+          rating={parseInt(media?.rating_stars as string)}
           duration={media.duration}
           onMediaClick={() => onMediaClick(index, rowType)}
         />

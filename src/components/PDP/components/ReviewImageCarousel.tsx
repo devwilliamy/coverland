@@ -63,7 +63,6 @@ const ReviewImageCarousel: React.FC<ReviewImageCarouselProps> = ({
 
     api.on('select', handleScroll);
 
-    // Cleanup
     return () => {
       api.off('select', handleScroll);
     };
@@ -78,7 +77,7 @@ const ReviewImageCarousel: React.FC<ReviewImageCarouselProps> = ({
           <VideoWithLoader media={media} shouldAutoPlay={true} />
         ) : (
           <Image
-            src={media.review_video_thumbnail_url.src} // Need to change the string[] to actually have { thumbnail_url, url, and rating? }
+            src={media.review_video_thumbnail_url.src}
             width={900}
             height={1600}
             className="flex aspect-[9/16] h-auto w-[450px] items-center rounded-lg object-cover md:h-auto md:w-[450px] "

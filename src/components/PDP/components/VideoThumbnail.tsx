@@ -1,19 +1,17 @@
 import React, { useState } from 'react';
-import ReactPlayer from 'react-player';
-import Image from 'next/image';
+import Image, { StaticImageData } from 'next/image';
 import ReviewRatingStar from '@/components/icons/ReviewRatingStar';
 import { Play } from 'lucide-react';
+import { Asset } from 'next-video/dist/assets.js';
 
 interface VideoThumbnailProps {
-  url: string;
-  thumbnailUrl: string;
-  rating: number;
+  thumbnailUrl: string | StaticImageData;
+  rating: string | number | undefined;
   duration: string;
   onMediaClick: () => void;
 }
 
 const VideoThumbnail: React.FC<VideoThumbnailProps> = ({
-  url,
   thumbnailUrl,
   rating,
   duration,

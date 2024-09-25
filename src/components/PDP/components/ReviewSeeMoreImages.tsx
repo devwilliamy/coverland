@@ -42,7 +42,7 @@ const ReviewSeeMoreImages: React.FC<ReviewSeeMoreImagesProps> = ({
       <div className="hidden lg:block">
         <Dialog open={reviewDialogOpen} onOpenChange={setReviewDialogOpen}>
           <DialogTrigger className="underline">{seeMoreContent}</DialogTrigger>
-          <DialogContent className="flex max-h-[65vh] flex-col items-center  lg:max-h-[80vh] lg:min-w-[77vw] lg:max-w-[80%]">
+          <DialogContent className="flex max-h-[65vh] flex-col items-center lg:max-h-[80vh] lg:min-w-[77vw] lg:max-w-[80%]">
             <ReviewImageGalleryDesktop
               setReviewDialogOpen={setReviewDialogOpen}
             />

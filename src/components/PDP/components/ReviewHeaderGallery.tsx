@@ -1,6 +1,5 @@
 // ReviewHeaderGallery.tsx
-'use client';;
-import { useMemo } from 'react';
+'use client';
 import { useStore } from 'zustand';
 import useStoreContext from '@/hooks/useStoreContext';
 import ReviewHeaderGalleryMobile from './ReviewHeaderGalleryMobile';
@@ -107,18 +106,16 @@ const seatCoverVideoUrl = [
 ];
 
 const buildReviewVideoUrlArray = (review: TReviewData): ReviewMedia[] => {
-  // Split the review_image string by commas to get an array of URLs
   const reviewImages = review.review_image
     ? review.review_image.split(',')
     : [];
 
-  // Map over each URL and create an object in the desired structure
   return reviewImages.map((imageUrl: string) => ({
     review_image_url: imageUrl,
-    review_video_thumbnail_url: '', // Placeholder for video thumbnail URL
-    review_video_url: '', // Placeholder for video URL
-    rating_stars: review.rating_stars?.toString(), // Convert rating to string as in your original object
-    duration: '', // Placeholder for video duration
+    review_video_thumbnail_url: '',
+    review_video_url: '',
+    rating_stars: review.rating_stars?.toString(),
+    duration: '',
   }));
 };
 

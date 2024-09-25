@@ -1,11 +1,7 @@
-import React, { Fragment, useState, useMemo } from 'react';
-import Image from 'next/image';
-import { Dialog, DialogTrigger } from '@/components/ui/dialog';
+import React, { useState } from 'react';
+import { Dialog } from '@/components/ui/dialog';
 import ReviewImageDialog from './ReviewImageDialog';
-import ReviewSeeMoreImages from './ReviewSeeMoreImages';
-import useStoreContext from '@/hooks/useStoreContext';
-import { useStore } from 'zustand';
-import { ReviewMedia, TReviewData } from '@/lib/types/review';
+import { ReviewMedia } from '@/lib/types/review';
 import ReviewMediaSection from './ReviewMediaSection';
 
 type ReviewHeadergalleryMobileProps = {
@@ -17,7 +13,7 @@ export const ReviewHeaderGalleryMobile: React.FC<
 > = ({ videoReviews, photoReviews }) => {
   const [reviewDialogOpen, setReviewDialogOpen] = useState(false);
   const [selectedMediaIndex, setSelectedMediaIndex] = useState(0);
-  const [currentSlideIndex, setCurrentSlideIndex] = useState(0); // New state
+  const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
   const [selectedRowType, setSelectedRowType] = useState<'image' | 'video'>(
     'image'
   );

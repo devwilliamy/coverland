@@ -1,4 +1,3 @@
-// ReviewHeaderGalleryDesktop.tsx
 'use client';
 import { useState } from 'react';
 import { Dialog } from '@/components/ui/dialog';
@@ -15,7 +14,7 @@ const ReviewHeaderGalleryDesktop: React.FC<ReviewHeaderGalleryDesktopProps> = ({
 }) => {
   const [reviewDialogOpen, setReviewDialogOpen] = useState(false);
   const [selectedMediaIndex, setSelectedMediaIndex] = useState(0);
-  const [currentSlideIndex, setCurrentSlideIndex] = useState(0); // New state
+  const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
   const [selectedRowType, setSelectedRowType] = useState<'image' | 'video'>(
     'image'
   );
@@ -35,7 +34,6 @@ const ReviewHeaderGalleryDesktop: React.FC<ReviewHeaderGalleryDesktopProps> = ({
     <section className="flex max-h-fit w-full flex-col items-start">
       <div className="w-full">
         {' '}
-        {/* Added w-full */}
         <ReviewMediaSection
           title="Reviews with videos"
           emptyMessage="No video reviews available"
