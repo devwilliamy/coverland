@@ -255,8 +255,8 @@ const MobileImageCarousel = () => {
                 key={String(carouselItems[index])}
                 src={item}
                 index={index}
-                current={current}
                 handleClick={handleCarouselItemClick}
+                className={`relative flex min-h-[80px] min-w-[80px] items-center justify-center rounded-[4px] ${index === current && 'outline outline-1  '} `}
               />
             );
           })}
