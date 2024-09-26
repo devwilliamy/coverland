@@ -62,7 +62,7 @@ const Footer = () => {
             </p>
             <ul className="flex list-none flex-col items-start justify-start">
               <li className="mb-4 text-base font-normal text-[#DBDBDB]">
-                <p className="">Contact us 24/7</p>
+                <p className="">Contact us 24/7!</p>
               </li>
               <li className="mb-4 text-white">
                 <Link
