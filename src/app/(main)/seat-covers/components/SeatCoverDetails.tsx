@@ -21,7 +21,6 @@ const SeatCoverDetails = React.memo(() => {
 
   const installVideo = isFordF1502015 ? F150Install : TruckInstall;
   const installThumbnail = isFordF1502015 ? F150Thumbnail : TruckThumbnail;
-  console.log('Seat Cover Details Rerendered');
   return (
     <div className="flex w-full flex-col">
       {isFordF1502015 && (

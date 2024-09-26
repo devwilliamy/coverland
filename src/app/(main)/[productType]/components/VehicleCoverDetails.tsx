@@ -4,8 +4,9 @@ import ProvenSection from '@/components/PDP/components/ProvenSection';
 import RealTestSection from '@/components/PDP/components/RealTestSection';
 import WarrantySection from '@/components/PDP/components/WarrantySection';
 import useDetermineType from '@/hooks/useDetermineType';
+import React from 'react';
 
-export default function VehicleCoverDetails() {
+const VehicleCoverDetails = React.memo(() => {
   const { isDefaultCoverType } = useDetermineType();
 
   return (
@@ -24,4 +25,6 @@ export default function VehicleCoverDetails() {
       </section>
     </>
   );
-}
+});
+
+export default VehicleCoverDetails;
