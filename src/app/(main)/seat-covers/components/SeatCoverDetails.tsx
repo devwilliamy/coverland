@@ -12,7 +12,7 @@ import F150Install from '@/videos/F-150 Installation Video.mp4';
 import TruckThumbnail from '@/images/PDP/seat-covers-v2/Truck Installation Thumbnail.webp';
 import F150Thumbnail from '@/images/PDP/seat-covers-v2/F-150 Installation Thumbnail.webp';
 
-export default function SeatCoverDetails() {
+const SeatCoverDetails = React.memo(() => {
   const params = useParams();
   const isFordF1502015 =
     params?.make === 'ford' &&
@@ -21,7 +21,7 @@ export default function SeatCoverDetails() {
 
   const installVideo = isFordF1502015 ? F150Install : TruckInstall;
   const installThumbnail = isFordF1502015 ? F150Thumbnail : TruckThumbnail;
-
+  console.log('Seat Cover Details Rerendered');
   return (
     <div className="flex w-full flex-col">
       {isFordF1502015 && (
@@ -54,4 +54,6 @@ export default function SeatCoverDetails() {
       <WarrantySection />
     </div>
   );
-}
+});
+
+export default SeatCoverDetails;
