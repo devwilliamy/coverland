@@ -44,35 +44,33 @@ export default function CircleColorSelector() {
     data: modelData,
   });
 
-  const uniqueColors: IProductData[] = Array.from(
-    new Set(modelData.map((model) => model.display_color))
-  ).map((color) =>
-    modelData.find((model) => model.display_color === color)
-  ) as IProductData[];
+  const uniqueColorsMap = new Map<string, IProductData>();
+
+  modelData.forEach((model) => {
+    if (!uniqueColorsMap.has(model?.display_color || '')) {
+      uniqueColorsMap.set(model?.display_color || '', model);
+    }
+  });
+
+  const uniqueColors: IProductData[] = Array.from(uniqueColorsMap.values());
 
   const handleColorChange = (newSelectedProduct: IProductData) => {
     handleViewItemColorChangeGoogleTag(newSelectedProduct, params, isComplete);
   };
-
-  const colors = [];
-
-  for (const modelData of uniqueColors) {
-    if (modelData.display_color && colorMap[modelData.display_color]) {
-      colors.push(colorMap[modelData.display_color]);
-    }
-  }
 
   return (
     <section
       id="select-color"
       className="mt-[24px] flex h-full w-full flex-col"
     >
-      <h3 className="mb-[6px] max-h-[13px] text-[16px] font-[400] leading-[14px] text-black ">
-        Color{' '}
-        <span className="ml-1  text-[#8F8F8F]">
-          {selectedProduct?.display_color ?? ''}{' '}
-          {selectedProduct.preorder && isComplete && '(Pre-Order)'}
-        </span>
+      <h3 className="mb-[10px] flex max-h-[13px]">
+        <p className="font-bold leading-[14px] text-black ">
+          Color{' '}
+          <span className="ml-1 font-normal text-[#1A1A1A]">
+            {selectedProduct?.display_color ?? ''}{' '}
+            {selectedProduct.preorder && isComplete && '(Pre-Order)'}
+          </span>{' '}
+        </p>
       </h3>
       <div className="flex w-full min-w-[288px]  gap-[11px] overflow-x-auto py-[1px] md:overflow-x-hidden">
         {uniqueColors &&

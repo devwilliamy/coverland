@@ -40,6 +40,10 @@ export function mapShopifyToModelData(shopifyProduct: Product): IProductData[] {
     );
 
     const colorCode = determineColorCode(`${color1} ${color2}`);
+    const matchingFeatureImage = shopifyProduct.images.edges.find(
+      ({ node }) => node.altText === colorCode
+    );
+
     const matchedImages = shopifyProduct.images.edges
       .filter((image) => image.node.altText === colorCode)
       .map((image) => image.node.url);
@@ -54,7 +58,7 @@ export function mapShopifyToModelData(shopifyProduct: Product): IProductData[] {
       submodel1: submodel,
       submodel2: null, // Adjust based on actual submodel structure
       submodel3: null,
-      feature: shopifyProduct.images.edges[0]?.node.url || null,
+      feature: matchingFeatureImage?.node.url || null,
       product: matchedImages.join(','),
       product_video_carousel_thumbnail: null, // Add logic if available
       product_video_carousel: null,
