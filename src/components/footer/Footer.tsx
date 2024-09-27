@@ -148,7 +148,7 @@ const Footer = () => {
           </div>
         </div>
       </div>
-      <LiveChat />
+      {/* <LiveChat /> */}
     </footer>
   );
 };

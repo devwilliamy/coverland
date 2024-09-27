@@ -45,6 +45,50 @@ export default function AppScripts() {
         })
         (window,document,"script","//bat.bing.com/bat.js","uetq");`}
       </Script>
+      <Script id="velaro-chat-bot" async defer>
+        {`
+         window.__velaro = window.__velaro || {
+          siteId: "30907",
+          deploymentId: "default",
+          zIndex: "9999"
+        };
+        (function (n, t, c) {
+          function i(n) {
+            return e._h ? e._h.apply(null, n) : e._q.push(n);
+          }
+          var e = {
+            _q: [],
+            _h: null,
+            _v: "1.0",
+            on: function () {
+              i(["on", c.call(arguments)]);
+            },
+            once: function () {
+              i(["once", c.call(arguments)]);
+            },
+            off: function () {
+              i(["off", c.call(arguments)]);
+            },
+            get: function () {
+              if (!e._h)
+                throw new Error("[Messenger] You can't use getters before load.");
+              return i(["get", c.call(arguments)]);
+            },
+            call: function () {
+              i(["call", c.call(arguments)]);
+            },
+            init: function () {
+              var n = t.createElement("script");
+              (n.async = !0),
+                (n.type = "module"),
+                (n.src = "https://workspace.velaro.com/messenger/embed.js"),
+                t.head.appendChild(n);
+            }
+          };
+          !n.__velaro.asyncInit && e.init(), (n.Messenger = n.Messenger || e);
+        })(window, document, [].slice);
+        `}
+      </Script>
       {/*
       <Script id="UR_initiator" strategy="lazyOnload">
         {`(function () {
