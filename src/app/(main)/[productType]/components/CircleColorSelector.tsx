@@ -13,19 +13,19 @@ import { handleViewItemColorChangeGoogleTag } from '@/hooks/useGoogleTagDataLaye
 import { useParams } from 'next/navigation';
 
 const colorMap: Record<string, StaticImageData> = {
-  'Gray Black Tribe': GrayBlackTribe,
+  'Sky-Gray Black Tribe': GrayBlackTribe,
   'Black Red 2-Tone': BlackRed2Tone,
-  'Black Gray 2-Tone': BlackGray2Tone,
-  'Black Gray Stripe': BlackGrayStripe,
-  'Gray Black Stripe': GrayBlackStripe,
-  'Black Red Stripe': BlackRedStripe,
+  'Black Sky-Gray 2-Tone': BlackGray2Tone,
+  'Black / Sky-Gray Stripe': BlackGrayStripe,
+  'Sky-Gray / Black Stripe': GrayBlackStripe,
+  'Black / Red Stripe': BlackRedStripe,
 };
 
 const colorText: Record<string, string> = {
   'Black Red 2-Tone': 'Black / Red',
-  'Black Gray 2-Tone': 'Black / Gray',
-  'Black Gray Stripe': 'Black / Sky-Gray Stripe',
-  'Gray Black Stripe': 'Sky-Gray / Black Stripe',
+  'Black Sky-Gray 2-Tone': 'Black / Sky-Gray',
+  'Black Sky-Gray Stripe': 'Black / Sky-Gray Stripe',
+  'Sky-Gray Black Stripe': 'Sky-Gray / Black Stripe',
   'Black Red Stripe': 'Black / Red Stripe',
 };
 
@@ -70,7 +70,7 @@ export default function CircleColorSelector() {
       <h3 className="mb-[6px] max-h-[13px] text-[16px] font-[400] leading-[14px] text-black ">
         Color{' '}
         <span className="ml-1  text-[#8F8F8F]">
-          {colorText[selectedProduct?.display_color ?? '']}{' '}
+          {selectedProduct?.display_color ?? ''}{' '}
           {selectedProduct.preorder && isComplete && '(Pre-Order)'}
         </span>
       </h3>

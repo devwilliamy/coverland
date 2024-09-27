@@ -262,7 +262,6 @@ const CarSelectionProvider = ({
     reviewImages,
     searchParams,
   } = initialState;
-  debugger;
   const router = useRouter();
   const pathParams = useParams<TPathParams>();
   const submodelParams = searchParams?.submodel ?? '';

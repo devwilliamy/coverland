@@ -12,7 +12,8 @@ const ProductTitle = () => {
 
   return (
     <h1 className="mt-[24px] text-[24px] font-[900] leading-[27px] text-[#1A1A1A] lg:mt-0 lg:text-[28px] lg:leading-[30px] ">
-      {!make && !model ? (
+      {/* TODO: Remember to check Rivian when it's available */}
+      {/* {!make && !model ? (
         <>Waterproof Outdoor Custom-Fit {`${productType} `}</>
       ) : (
         <>
@@ -24,7 +25,8 @@ const ProductTitle = () => {
           <br />
           <>Waterproof, Outdoor, Custom-Fit</>
         </>
-      )}
+      )} */}
+      {selectedProduct.title}
     </h1>
   );
 };

@@ -1,0 +1,16 @@
+overwrite: true
+schema:
+  - 'https://8461ca-35.myshopify.com/api/2024-07/graphql.json':
+      headers:
+        X-Shopify-Storefront-Access-Token: 'ee55cbc3a6853addd29b339ac9c3a6e5'
+documents: 'src/**/*.{ts,tsx}' # Include .ts and .tsx files
+generates:
+  src/generated/graphql.tsx:
+    plugins:
+      - 'typescript'
+      - 'typescript-operations'
+      - 'typescript-react-apollo'
+    config:
+      withHooks: true
+      withHOC: false
+      withComponent: false

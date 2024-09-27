@@ -14,15 +14,15 @@ export const GET_PRODUCT_BY_HANDLE = gql`
           currencyCode
         }
       }
-      images(first: 20) {
+      images(first: 100) {
         edges {
           node {
             altText
-            originalSrc
+            url
           }
         }
       }
-      variants(first: 10) {
+      variants(first: 100) {
         edges {
           node {
             id

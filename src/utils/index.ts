@@ -23,10 +23,14 @@ export type TQueryParams = {
   third_submodel?: string;
 };
 
-export interface IProductData extends TInitialProductDataDB {
+export interface IProductData extends TInitialProductDataDB, TShopifyProductData {
   fullProductName: string;
   mainImage: string;
   productImages: string | string[];
+}
+
+export type TShopifyProductData = {
+  title: string
 }
 
 type ShopifyTransformer = {
