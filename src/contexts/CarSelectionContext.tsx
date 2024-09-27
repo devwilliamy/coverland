@@ -9,6 +9,7 @@ import {
   IProductData,
   TPathParams,
   TQueryParams,
+  modelDataShopifyTransformer,
   modelDataTransformer,
 } from '@/utils';
 import { TProductReviewSummary } from '@/lib/db/review';
@@ -261,6 +262,7 @@ const CarSelectionProvider = ({
     reviewImages,
     searchParams,
   } = initialState;
+  debugger;
   const router = useRouter();
   const pathParams = useParams<TPathParams>();
   const submodelParams = searchParams?.submodel ?? '';
@@ -272,13 +274,14 @@ const CarSelectionProvider = ({
 
   const queryParams = {
     submodel: submodelParams,
+    submodel1: submodelParams,
     secondSubmodel: secondSubmodelParams,
     thirdSubmodel: thirdSubmodelParams,
     submodel2: secondSubmodelParams,
     submodel3: thirdSubmodelParams,
   };
 
-  const modelData = modelDataTransformer({
+  const modelData = modelDataShopifyTransformer({
     data: modelDataProps,
     params: pathParams ?? ({} as TPathParams),
     queryParams,

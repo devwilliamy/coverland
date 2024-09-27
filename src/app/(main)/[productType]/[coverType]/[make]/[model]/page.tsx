@@ -10,6 +10,9 @@ import { TPathParams } from '@/utils';
 import { deslugify } from '@/lib/utils';
 import { PREMIUM_PLUS_URL_PARAM } from '@/lib/constants';
 import { TReviewData, TProductReviewSummary } from '@/lib/types/review';
+import client from '@/lib/apollo/apollo-client';
+import { GET_PRODUCT_BY_HANDLE } from '@/lib/graphql/queries/products';
+import { mapShopifyToModelData } from '@/lib/utils/shopify';
 
 //TODO: Refactor code so we can generate our dynamic paths as static HTML for performance
 export const revalidate = 86400;
@@ -63,39 +66,49 @@ export default async function CarPDPDataLayer({
   const typeString =
     params?.productType === 'car-covers' ? 'Car Covers' : SuvOrTruckType;
 
+  // const productHandle = params.handle; // Assuming your handle is passed as a param
+  const productHandle = 'ford-fairlane-galaxie-500-car-cover'; // Assuming your handle is passed as a param
+  const { data } = await client.query({
+    query: GET_PRODUCT_BY_HANDLE,
+    variables: { handle: productHandle },
+  });
+  const shopifyProduct = data.productByHandle;
+  modelData = mapShopifyToModelData(shopifyProduct);
+  console.log('ShopifyProduct:', shopifyProduct);
+  console.log('MOdelData:', modelData);
+
   try {
-    [modelData, reviewData, reviewDataSummary, reviewImages] =
-      await Promise.all([
-        getProductData({
-          type: typeString,
-          model: params.model,
-          make: params.make,
-        }),
-        getProductReviewsByPage(
-          {
-            productType: typeString,
-          },
-          {
-            pagination: {
-              page: 0,
-              limit: 8,
-            },
-            sort: [
-              { field: 'sku', order: 'asc' },
-              { field: 'helpful', order: 'desc', nullsFirst: false },
-            ],
-          }
-        ),
-        getProductReviewSummary({
+    [reviewData, reviewDataSummary, reviewImages] = await Promise.all([
+      // getProductData({
+      //   type: typeString,
+      //   model: params.model,
+      //   make: params.make,
+      // }),
+      getProductReviewsByPage(
+        {
           productType: typeString,
-        }),
-        getAllReviewsWithImages(
-          {
-            productType: typeString,
+        },
+        {
+          pagination: {
+            page: 0,
+            limit: 8,
           },
-          {}
-        ),
-      ]);
+          sort: [
+            { field: 'sku', order: 'asc' },
+            { field: 'helpful', order: 'desc', nullsFirst: false },
+          ],
+        }
+      ),
+      getProductReviewSummary({
+        productType: typeString,
+      }),
+      getAllReviewsWithImages(
+        {
+          productType: typeString,
+        },
+        {}
+      ),
+    ]);
     // filterReviewImages({ reviewData, reviewImages });
 
     if (!modelData || modelData.length === 0) {

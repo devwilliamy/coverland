@@ -49,6 +49,16 @@ const nextConfig = {
         hostname: 'coverland.sfo3.cdn.digitaloceanspaces.com',
         pathname: '/**',
       },
+      {
+        protocol: 'https',
+        hostname: 'cdn.shopify.com',
+        pathname: '/**',
+      },
+      {
+        protocol: 'http',
+        hostname: 'cdn.shopify.com',
+        pathname: '/**',
+      },
     ],
   },
   typescript: {

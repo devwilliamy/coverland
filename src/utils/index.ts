@@ -15,6 +15,7 @@ export type TPathParams = {
 
 export type TQueryParams = {
   submodel?: string;
+  submodel1?: string;
   secondSubmodel?: string;
   submodel2?: string;
   second_submodel?: string;
@@ -26,6 +27,102 @@ export interface IProductData extends TInitialProductDataDB {
   fullProductName: string;
   mainImage: string;
   productImages: string | string[];
+}
+
+type ShopifyTransformer = {
+  data: TInitialProductDataDB[];
+  params: TPathParams;
+  queryParams: TQueryParams;
+};
+
+export function modelDataShopifyTransformer({
+  data,
+  params,
+  queryParams,
+}: ShopifyTransformer): IProductData[] {
+  const { productType, make, model, year } = params;
+  const { submodel1, submodel2, submodel3 } = queryParams;
+
+  // Determine the default images based on product type
+  const defaultImages =
+    DEFAULT_PRODUCT_IMAGES[`${productType}Images`] ||
+    DEFAULT_PRODUCT_IMAGES.carImages;
+
+  // Helper function to build the full product name
+  const buildFullProductName = (item: TInitialProductDataDB) => {
+    return [
+      item.year_generation ?? '',
+      item.make ?? '',
+      item.model ?? '',
+      item.submodel1 ?? '',
+      item.submodel2 ?? '',
+      item.submodel3 ?? '',
+    ]
+      .filter(Boolean)
+      .join(' ')
+      .trim();
+  };
+
+  // Map over the data to generate the content
+  return data.map((item) => {
+    let fullProductName = buildFullProductName(item);
+    let mainImage = item.feature as string;
+    let productImages = item?.product?.split(',') as string[];
+
+    if (!submodel1 && !submodel2 && !submodel3) {
+      if (make && model && year) {
+        fullProductName = `${item.parent_generation} ${item.make} ${item.model}`;
+      } else if (make && model) {
+        fullProductName = `${item.make} ${item.model}`;
+        mainImage =
+          defaultImages[
+            item.display_color as keyof typeof DEFAULT_PRODUCT_IMAGES
+          ]?.[0] || mainImage;
+        productImages =
+          defaultImages[
+            item.display_color as keyof typeof DEFAULT_PRODUCT_IMAGES
+          ] || productImages;
+      } else if (make && !model && !year) {
+        fullProductName = `${item.make} ${item.type}`;
+        mainImage =
+          defaultImages[
+            item.display_color as keyof typeof DEFAULT_PRODUCT_IMAGES
+          ]?.[0] || mainImage;
+        productImages =
+          defaultImages[
+            item.display_color as keyof typeof DEFAULT_PRODUCT_IMAGES
+          ] || productImages;
+      } else if (!make && !model && !year && item.type) {
+        fullProductName = item.type as string;
+        mainImage =
+          defaultImages[
+            item.display_color as keyof typeof DEFAULT_PRODUCT_IMAGES
+          ]?.[0] || mainImage;
+        productImages =
+          defaultImages[
+            item.display_color as keyof typeof DEFAULT_PRODUCT_IMAGES
+          ] || productImages;
+      } else {
+        fullProductName = item.type as string;
+        mainImage =
+          defaultImages[
+            item.display_color as keyof typeof DEFAULT_PRODUCT_IMAGES
+          ]?.[0] || mainImage;
+        productImages =
+          defaultImages[
+            item.display_color as keyof typeof DEFAULT_PRODUCT_IMAGES
+          ] || productImages;
+      }
+    }
+
+    return {
+      ...item,
+      fullProductName: fullProductName,
+      display_id: make ? `${item.make} ${item.display_id}` : item.display_id,
+      mainImage: mainImage,
+      productImages: productImages,
+    } as IProductData;
+  });
 }
 
 export function modelDataTransformer({
