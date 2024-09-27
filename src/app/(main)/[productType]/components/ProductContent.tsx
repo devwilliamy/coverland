@@ -15,6 +15,7 @@ import ProductTitle from './ProductTitle';
 import PreorderSheet from '@/components/cart/PreorderSheet';
 import ProductPricing from '@/components/PDP/ProductPricing';
 import YearGenerationSelector from '@/components/PDP/YearGenerationSelector';
+import BodyTrimSelector from '@/components/PDP/BodyTrimSelector';
 
 export function ProductContent({
   searchParams,
@@ -68,6 +69,7 @@ export function ProductContent({
       <ProductPricing />
       <Separator className="my-[24px]" />
       <YearGenerationSelector />
+      <BodyTrimSelector />
       <CircleColorSelector />
       <div className="lg:hidden">
         <AddToCart
