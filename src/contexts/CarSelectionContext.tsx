@@ -58,6 +58,10 @@ export interface ICarCoverSelectionState extends ICarCoverProps {
   setReviewImageTracker: (newImageTracker: Record<string, boolean>) => void;
   customerSelectedYear: string;
   setCustomerSelectedYear: (year: string) => void;
+  selectedYearGeneration: string;
+  setSelectedYearGeneration: (year: string) => void;
+  selectedBodyTrim: string;
+  setSelectedBodyTrim: (bodyTrim: string) => void;
 }
 
 const createCarSelectionStore = ({
@@ -241,6 +245,13 @@ const createCarSelectionStore = ({
       localStorage.setItem('heroDropdownYear', year);
       set(() => ({ customerSelectedYear: year }));
     },
+    selectedYearGeneration:
+      initialDataWithThirdSubmodels[0]?.year_generation ?? '',
+    setSelectedYearGeneration: (year: string) =>
+      set(() => ({ selectedYearGeneration: year })),
+    selectedBodyTrim: initialDataWithThirdSubmodels[0]?.submodel1 ?? '',
+    setSelectedBodyTrim: (bodyTrim: string) =>
+      set(() => ({ selectedBodyTrim: bodyTrim })),
   }));
 };
 
