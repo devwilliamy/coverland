@@ -9,6 +9,7 @@ export default function BodyTrimSelector() {
   const modelData = useStore(store, (s) => s.modelData);
   const selectedProduct = useStore(store, (s) => s.selectedProduct);
   const setSelectedProduct = useStore(store, (s) => s.setSelectedProduct);
+  const selectedBodyTrim = useStore(store, (s) => s.selectedBodyTrim);
   const setSelectedBodyTrim = useStore(store, (s) => s.setSelectedBodyTrim);
   const params = useParams<TPathParams>();
   const {
@@ -38,7 +39,7 @@ export default function BodyTrimSelector() {
         <p className="font-bold capitalize leading-[14px] text-black">
           Body/Trim{' '}
           <span className="ml-1 font-normal text-[#1A1A1A]">
-            {selectedProduct?.submodel1 ?? ''}{' '}
+            {selectedBodyTrim ?? ''}{' '}
           </span>
         </p>
       </h3>
@@ -47,7 +48,7 @@ export default function BodyTrimSelector() {
           uniqueBodyTrims.map((modelData, index) => (
             <div
               key={`body-trim-${index}`}
-              className={`flex ${modelData?.submodel1 === selectedProduct?.submodel1 ? 'border-2 border-[#1A1A1A] font-bold' : 'border-[#DBDBDB]'} flex-col place-content-center rounded border px-[14.5px] py-2 capitalize`}
+              className={`flex ${modelData?.submodel1 === selectedBodyTrim ? 'border-2 border-[#1A1A1A] font-bold' : 'border-[#DBDBDB]'} flex-col place-content-center rounded border px-[14.5px] py-2 capitalize`}
               onClick={() => {
                 setSelectedProduct(modelData);
                 setSelectedBodyTrim(modelData.submodel1 as string);

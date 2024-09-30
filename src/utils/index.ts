@@ -340,11 +340,11 @@ export function getCompleteSelectionData({
     completeSelectionState.isComplete = !(
       completeSelectionState.shouldDisplayType ||
       completeSelectionState.shouldDisplayMake ||
-      completeSelectionState.shouldDisplayModel ||
-      completeSelectionState.shouldDisplayYears ||
-      completeSelectionState.shouldDisplaySubmodel ||
-      completeSelectionState.shouldDisplaySecondSubmodel ||
-      completeSelectionState.shouldDisplayThirdSubmodel
+      completeSelectionState.shouldDisplayModel // ||
+      // completeSelectionState.shouldDisplayYears ||
+      // completeSelectionState.shouldDisplaySubmodel ||
+      // completeSelectionState.shouldDisplaySecondSubmodel ||
+      // completeSelectionState.shouldDisplayThirdSubmodel
     );
   } else {
     completeSelectionState.isComplete = false;
