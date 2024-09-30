@@ -1,5 +1,36 @@
 import { gql } from '@apollo/client';
 
+export const FETCH_CART = gql`
+  query fetchCart($cartId: ID!) {
+    cart(id: $cartId) {
+      id
+      lines(first: 10) {
+        edges {
+          node {
+            id
+            quantity
+            merchandise {
+              ... on ProductVariant {
+                id
+                title
+                price {
+                  amount
+                  currencyCode
+                }
+              }
+            }
+          }
+        }
+      }
+      totalQuantity
+      totalPrice {
+        amount
+        currencyCode
+      }
+    }
+  }
+`;
+
 export const CREATE_CART = gql`
   mutation createCart($input: CartInput!) {
     cartCreate(input: $input) {
