@@ -16,16 +16,16 @@ import { detectFOrFB } from '@/lib/utils';
 
 
 
-type AddToCartSeatSelectProps = {
+type AddtoCartSeatSelectSheetProps = {
   handleAddToCart: () => void;
   selectSeatOpen: boolean;
   setSelectSeatOpen: (open: boolean) => void;
 };
-export default function AddtoCartSeatSelect({
+export default function AddtoCartSeatSelectSheet({
   handleAddToCart,
   selectSeatOpen,
   setSelectSeatOpen,
-}: AddToCartSeatSelectProps) {
+}: AddtoCartSeatSelectSheetProps) {
   const isMobile = useMediaQuery('(max-width:1024px)');
   const store = useContext(SeatCoverSelectionContext);
   if (!store)

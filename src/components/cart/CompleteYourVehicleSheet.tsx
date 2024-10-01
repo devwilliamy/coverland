@@ -12,20 +12,20 @@ import { X } from 'lucide-react';
 import EditVehicleDropdown from '@/components/PDP/EditVehicleDropdown';
 import { usePathname } from 'next/navigation';
 
-const AddToCartSelector = ({
-  addToCartSelectorOpen,
-  setAddToCartSelectorOpen,
+const CompleteYourVehicleSheet = ({
+  completeYourVehicleSelectorOpen,
+  setCompleteYourVehicleSelectorOpen,
   searchParams,
 }: {
-  addToCartSelectorOpen: boolean;
-  setAddToCartSelectorOpen: (value: SetStateAction<boolean>) => void;
+  completeYourVehicleSelectorOpen: boolean;
+  setCompleteYourVehicleSelectorOpen: (value: SetStateAction<boolean>) => void;
   searchParams: { submodel?: string; second_submodel?: string } | undefined;
 }) => {
   const isMobile = useMediaQuery('(max-width: 1023px)');
   return (
     <Sheet
-      open={addToCartSelectorOpen}
-      onOpenChange={(o) => setAddToCartSelectorOpen(o)}
+      open={completeYourVehicleSelectorOpen}
+      onOpenChange={(o) => setCompleteYourVehicleSelectorOpen(o)}
     >
       <SheetContent
         className="flex  flex-col justify-center rounded-t-2xl border   border-neutral-800 bg-neutral-800 pt-8 max-lg:max-h-[80vh]"
@@ -51,4 +51,4 @@ const AddToCartSelector = ({
     </Sheet>
   );
 };
-export default AddToCartSelector;
+export default CompleteYourVehicleSheet;
