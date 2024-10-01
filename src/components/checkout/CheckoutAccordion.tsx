@@ -59,13 +59,13 @@ import { createOrUpdateUser } from '@/lib/db/admin-panel/customers';
 import { updateAdminPanelOrder } from '@/lib/db/admin-panel/orders';
 import { heartlandResponseCodeMap } from '@/lib/utils/heartland';
 import PaymentSuccessfulMessage from './PaymentSuccessful';
+import { FETCH_CART } from '@/lib/graphql/queries/cart';
+import { useQuery } from '@apollo/client';
 
 export default function CheckoutAccordion() {
-  const stripe = useStripe();
-  const elements = useElements();
   const router = useRouter();
   const {
-    cartItems,
+    // cartItems,
     getCartTotalPrice,
     clearLocalStorageCart,
     getTotalCartQuantity,

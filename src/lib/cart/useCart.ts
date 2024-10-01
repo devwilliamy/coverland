@@ -3,20 +3,40 @@ import { useState, useCallback, useEffect } from 'react';
 import { IProductData } from '@/utils';
 import { SeatItem } from '@/providers/CartProvider';
 import { TSeatCoverDataDB } from '../db/seat-covers';
+import { FETCH_CART } from '../graphql/mutations/cart';
+import { addToCartMutation, fetchCart } from '../shopify/cart';
+import { mapShopifyCartToCartData } from '../utils/shopify';
 export type TCartItem = (IProductData & { quantity: 1 }) | TSeatCoverDataDB;
 
 const useCart = () => {
-  const [cartItems, setCartItems] = useState<TCartItem[]>(() => {
-    if (typeof window !== 'undefined') {
-      const localCartItems = localStorage.getItem('cartItems');
-      return localCartItems ? JSON.parse(localCartItems) : [];
-    }
-    return [];
-  });
-
+  const [cartItems, setCartItems] = useState<TCartItem[]>([]);
   const [cartOpen, setCartOpen] = useState(false);
   const [isCartPreorder, setIsCartPreorder] = useState(false);
   const [cartPreorderDate, setCartPreorderDate] = useState('');
+
+  useEffect(() => {
+    const shopifyCartId = localStorage.getItem('shopifyCartId');
+    const loadCart = async () => {
+      if (!shopifyCartId) return; // If no cart ID is available, exit early
+
+      try {
+        // Await the fetchCart function to get the cart data
+        const shopifyCart = await fetchCart(shopifyCartId);
+        console.log('ShopifyCart:', shopifyCart);
+
+        if (shopifyCart) {
+          // Map Shopify cart data to your cart item structure
+          const fetchedCartItems = mapShopifyCartToCartData(shopifyCart);
+
+          // Set cart items in state
+          setCartItems(fetchedCartItems);
+        }
+      } catch (error) {
+        console.error('Error fetching cart:', error);
+      }
+    };
+    loadCart();
+  }, []);
 
   useEffect(() => {
     const preorderItem = cartItems.find((item) => item?.preorder);
@@ -37,21 +57,19 @@ const useCart = () => {
     localStorage.setItem('cartItems', JSON.stringify(cartItems));
   }, [cartItems]);
 
-  const addToCart = useCallback((item: TCartItem) => {
-    if (!item?.msrp) {
-      return;
-    }
-    setCartItems((prevItems) => {
-      const existingItem = prevItems.find((i) => i.sku === item.sku);
-      if (existingItem) {
-        return prevItems.map((i) =>
-          i.sku === item.sku ? { ...i, quantity: i.quantity + 1 } : i
-        );
-      } else {
-        return [...prevItems, { ...item, quantity: 1 }];
+  const addToCart = useCallback(
+    async (item: TCartItem) => {
+      if (!item?.msrp) {
+        return;
       }
-    });
-  }, []);
+      try {
+        await addToCartMutation(item.id, 1);
+      } catch (error) {
+        console.error('Error adding to cart:', error);
+      }
+    },
+    [addToCartMutation]
+  );
 
   const removeItemFromCart = useCallback(
     (sku: TCartItem['sku'] | SeatItem['sku']) => {
@@ -98,7 +116,9 @@ const useCart = () => {
 
   const getTotalPreorderDiscount = useCallback(() => {
     return cartItems.reduce(
-      (total, item) => total + (item.preorder ? Number(item.preorder_discount) * item.quantity : 0),
+      (total, item) =>
+        total +
+        (item.preorder ? Number(item.preorder_discount) * item.quantity : 0),
       0
     );
   }, [cartItems]);

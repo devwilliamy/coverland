@@ -3,13 +3,29 @@ import { useCartContext } from '@/providers/CartProvider';
 import Image from 'next/image';
 import LineSeparator from '../ui/line-separator';
 import { IProductData } from '@/utils';
+import { useQuery } from '@apollo/client';
+import { FETCH_CART } from '@/lib/graphql/queries/cart';
 
 type AddToCartBodyProps = {
   selectedProduct?: IProductData | null | undefined;
 };
 
 const AddToCartBody = ({ selectedProduct }: AddToCartBodyProps) => {
-  const { cartItems } = useCartContext();
+  const cartId = localStorage.getItem('shopifyCartId');
+
+  const {
+    loading,
+    error,
+    data: cartItems,
+  } = useQuery(FETCH_CART, {
+    variables: { cartId },
+    skip: !cartId,
+    fetchPolicy: 'cache-and-network',
+  });
+
+  if (!cartId) return <p>No cart available. Start shopping!</p>;
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Error: {error.message}</p>;
   const sortedCartItems = selectedProduct
     ? cartItems.sort((a, b) => (b.sku === selectedProduct.sku ? 1 : -1))
     : cartItems;

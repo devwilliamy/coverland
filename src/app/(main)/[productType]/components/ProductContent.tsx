@@ -1,4 +1,4 @@
-'use client';;
+'use client';
 import { Separator } from '@/components/ui/separator';
 import { Rating } from '@mui/material';
 import { CarSelectionContext } from '@/contexts/CarSelectionContext';
@@ -22,22 +22,6 @@ export function ProductContent({
 }: {
   searchParams: TQueryParams;
 }) {
-  const [addToCartOpen, setAddToCartOpen] = useState<boolean>(false);
-  const store = useContext(CarSelectionContext);
-  if (!store) throw new Error('Missing CarContext.Provider in the tree');
-  const selectedProduct = useStore(store, (s) => s.selectedProduct);
-  const modelData = useStore(store, (s) => s.modelData);
-  const color = useStore(store, (s) => s.selectedColor);
-  const { addToCart } = useCartContext();
-
-  const cartProduct = modelData.find((p) => p.display_color === color);
-
-  const handleAddToCart = () => {
-    if (!cartProduct) return;
-    setAddToCartOpen(true);
-    return addToCart({ ...cartProduct, quantity: 1 });
-  };
-
   return (
     <>
       <div className="grid grid-cols-1 lg:mt-[60px]">
@@ -72,36 +56,14 @@ export function ProductContent({
       <BodyTrimSelector />
       <CircleColorSelector />
       <div className="lg:hidden">
-        <AddToCart
-          selectedProduct={selectedProduct}
-          handleAddToCart={handleAddToCart}
-          searchParams={searchParams}
-          isSticky
-        />
+        <AddToCart searchParams={searchParams} isSticky />
       </div>
       {/* <Separator className="mt-[36px]" /> */}
       <Suspense>
         <FreeDetails />
       </Suspense>
       <div className="lg:py-4"></div>
-      <AddToCart
-        selectedProduct={selectedProduct}
-        handleAddToCart={handleAddToCart}
-        searchParams={searchParams}
-      />
-      {selectedProduct.preorder ? (
-        <PreorderSheet
-          open={addToCartOpen}
-          setOpen={setAddToCartOpen}
-          selectedProduct={selectedProduct}
-        />
-      ) : (
-        <CartSheet
-          open={addToCartOpen}
-          setOpen={setAddToCartOpen}
-          selectedProduct={selectedProduct}
-        />
-      )}
+      <AddToCart searchParams={searchParams} />
     </>
   );
 }

@@ -1,5 +1,5 @@
 'use client';
-import { Suspense, useState } from 'react';
+import { Suspense, useCallback, useState } from 'react';
 import { useParams } from 'next/navigation';
 import {
   TPathParams,
@@ -8,50 +8,110 @@ import {
 } from '../../utils';
 import { useStore } from 'zustand';
 import { handleAddToCartGoogleTag } from '@/hooks/useGoogleTagDataLayer';
-import AddToCartSelector from './AddToCartSelector';
+import CompleteYourVehicleSheet from './CompleteYourVehicleSheet';
 import AddToCartButton from './AddToCartButton';
 import useDetermineType from '@/hooks/useDetermineType';
-import AddtoCartSeatSelect from '../../app/(main)/seat-covers/components/AddToCartSeatSelect';
 import useStoreContext from '@/hooks/useStoreContext';
-import { isFullSet } from '@/lib/utils';
+import {
+  ApolloCache,
+  MutationFunctionOptions,
+  useMutation,
+} from '@apollo/client';
+import { ADD_TO_CART, CREATE_CART } from '@/lib/graphql/mutations/cart';
+import CartSheet from './CartSheet';
+import PreorderSheet from './PreorderSheet';
+
+interface AddToCartVariables {
+  cartId: string;
+  variantId: string;
+  quantity: number;
+}
+
+function getOptimisticResponse(variables: AddToCartVariables) {
+  return {
+    cartLinesAdd: {
+      cart: {
+        id: variables.cartId,
+        lines: {
+          edges: [
+            {
+              node: {
+                id: `temp-line-id-${variables.variantId}`,
+                quantity: variables.quantity,
+                merchandise: {
+                  __typename: 'ProductVariant',
+                  id: variables.variantId,
+                  title: 'Adding to cart...',
+                  price: {
+                    amount: '0.00',
+                    currencyCode: 'USD',
+                  },
+                },
+              },
+            },
+          ],
+        },
+        __typename: 'Cart',
+      },
+      __typename: 'CartLinesAddPayload',
+    },
+  };
+}
+
+function updateCache(
+  cache: ApolloCache<any>,
+  mutationData: any,
+  cartId: string
+) {
+  const newLines = mutationData?.cartLinesAdd?.cart?.lines?.edges;
+  if (newLines) {
+    cache.modify({
+      id: cache.identify({ __typename: 'Cart', id: cartId }),
+      fields: {
+        lines(existingLines = []) {
+          return [...existingLines, ...newLines];
+        },
+      },
+    });
+  }
+}
+
+export function getAddToCartOptions(
+  variables: AddToCartVariables
+): MutationFunctionOptions {
+  return {
+    variables: {
+      cartId: variables.cartId,
+      lines: [
+        {
+          merchandiseId: variables.variantId,
+          quantity: variables.quantity,
+        },
+      ],
+    },
+    optimisticResponse: getOptimisticResponse(variables),
+    update: (cache, { data }) => updateCache(cache, data, variables.cartId),
+  };
+}
 
 export default function AddToCart({
-  selectedProduct,
-  handleAddToCart,
   searchParams,
   isSticky,
 }: {
-  selectedProduct: any;
-  handleAddToCart: () => void;
   searchParams: TQueryParams;
   isSticky?: boolean;
 }) {
   const params = useParams<TPathParams>();
   const store = useStoreContext();
   if (!store) throw new Error('Missing Provider in the tree');
+  const selectedProduct = useStore(store, (s) => s.selectedProduct);
   const modelData = useStore(store, (s) => s.modelData);
-  const selectedSetDisplay = useStore(store, (s) => s.selectedSetDisplay); // Not sure what to do about typing here, will research later
-  const selectedColor = useStore(store, (s) => s.selectedColor);
   const { isSeatCover } = useDetermineType();
-  const filteredData = isSeatCover
-    ? modelData.filter(
-        (product) =>
-          isFullSet(product.display_set ?? '') ===
-          selectedSetDisplay?.toLowerCase()
-      )
-    : modelData;
+  const [addToCart, { loading, error }] = useMutation(ADD_TO_CART);
 
-  const isSelectedColorAvailable = filteredData.some(
-    (product) =>
-      product?.display_color?.toLowerCase() === selectedColor.toLowerCase() &&
-      product.quantity !== '0'
-  );
-
-  const [addToCartSelectorOpen, setAddToCartSelectorOpen] =
+  const [addToCartOpen, setAddToCartOpen] = useState<boolean>(false);
+  const [completeYourVehicleSelectorOpen, setCompleteYourVehicleSelectorOpen] =
     useState<boolean>(false);
-  const initalLoadingState = false;
-  const [isLoading, setIsLoading] = useState<boolean>(initalLoadingState);
-  const [selectSeatOpen, setSelectSeatOpen] = useState<boolean>(false);
 
   const {
     completeSelectionState: { isComplete },
@@ -59,52 +119,106 @@ export default function AddToCart({
     data: modelData,
   });
 
-  const handleAddToCartClicked = () => {
-    // if (isSeatCover && isSelectedColorAvailable === false) {
-    //   return; // Don't want to open add to cart selector
-    // }
-    setIsLoading(true);
-    if (isComplete) {
-      handleAddToCart();
-      handleAddToCartGoogleTag(selectedProduct, params as TPathParams);
-      selectedProduct?.sku && setIsLoading(false);
-      return; // Don't want to open add to cart selector
+  const [createCart, { loading: createCartLoading, error: createCartError }] =
+    useMutation(CREATE_CART, {
+      update: (cache, { data: mutationData }) => {
+        const newCart = mutationData?.cartCreate?.cart;
+        cache.modify({
+          fields: {
+            cart(existingCartRefs = []) {
+              return [...existingCartRefs, newCart];
+            },
+          },
+        });
+      },
+    });
+
+  const handleAddToCart = useCallback(async () => {
+    let cartId = localStorage.getItem('shopifyCartId');
+    debugger;
+    if (!cartId) {
+      try {
+        const { data } = await createCart({
+          variables: {
+            input: {
+              lines: [
+                {
+                  // merchandiseId: selectedProduct.id,
+                  merchandiseId: 'gid://shopify/ProductVariant/46075846820007',
+                  quantity: 1,
+                },
+              ],
+            },
+          },
+        });
+
+        console.log('CreateCart Data:', data);
+        const newCartId = data?.cartCreate?.cart?.id;
+        if (newCartId) {
+          localStorage.setItem('shopifyCartId', newCartId);
+          cartId = newCartId;
+        } else {
+          throw new Error('Failed to create cart');
+        }
+      } catch (error) {
+        console.error('Error creating cart:', error);
+        return;
+      }
     }
-    setIsLoading(false);
-    setAddToCartSelectorOpen((p) => !p);
-  };
+
+    try {
+      const { data } = await addToCart(
+        getAddToCartOptions({
+          cartId,
+          variantId: selectedProduct.id,
+          quantity: 1,
+        })
+      );
+      console.log('Added to cart:', data?.cartLinesAdd?.cart);
+    } catch (error) {
+      console.error('Error adding to cart:', error);
+    }
+  }, [createCart, addToCart, selectedProduct]);
+
+  if (error) return <p>Error: Unable to add to cart</p>;
 
   return (
     <Suspense fallback={<></>}>
       <div className="z-20 w-full" id="selector">
         {isComplete && isSeatCover ? (
-          <AddtoCartSeatSelect
-            handleAddToCart={handleAddToCart}
-            selectSeatOpen={selectSeatOpen}
-            setSelectSeatOpen={setSelectSeatOpen}
-          />
+          <></>
         ) : (
-          <AddToCartSelector
-            addToCartSelectorOpen={addToCartSelectorOpen}
-            setAddToCartSelectorOpen={setAddToCartSelectorOpen}
+          <CompleteYourVehicleSheet
+            completeYourVehicleSelectorOpen={completeYourVehicleSelectorOpen}
+            setCompleteYourVehicleSelectorOpen={
+              setCompleteYourVehicleSelectorOpen
+            }
             searchParams={searchParams}
           />
         )}
       </div>
-
+      {selectedProduct.preorder ? (
+        <PreorderSheet
+          open={addToCartOpen}
+          setOpen={setAddToCartOpen}
+          selectedProduct={selectedProduct}
+        />
+      ) : (
+        <CartSheet
+          open={addToCartOpen}
+          setOpen={setAddToCartOpen}
+          selectedProduct={selectedProduct}
+        />
+      )}
       {/* Add to Cart Button */}
-      {/* {!isFinalSelection && !isSticky ? (
-        <VehicleSelector searchParams={searchParams} />
-      ) : ( */}
       <div className="fixed inset-x-0 bottom-0 z-20 flex bg-white p-4 lg:relative lg:p-1">
         <AddToCartButton
           preorder={isComplete && selectedProduct.preorder}
           isColorAvailable={true} // since we are always allowing customers to add to cart, overriding isSelectedColorAvailable with true
-          handleAddToCartClicked={handleAddToCartClicked}
-          isLoading={isLoading}
+          handleAddToCart={handleAddToCart}
+          isLoading={loading}
         />
       </div>
-      {/* )} */}
     </Suspense>
   );
 }

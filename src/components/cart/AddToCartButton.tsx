@@ -7,7 +7,7 @@ import useStoreContext from '@/hooks/useStoreContext';
 import { useStore } from 'zustand';
 
 type AddToCartButtonProps = {
-  handleAddToCartClicked: () => void;
+  handleAddToCart: () => void;
   preorder: boolean;
   isColorAvailable: boolean;
   isLoading: boolean;
@@ -15,7 +15,7 @@ type AddToCartButtonProps = {
 export default function AddToCartButton({
   preorder,
   isColorAvailable,
-  handleAddToCartClicked,
+  handleAddToCart,
   isLoading,
 }: AddToCartButtonProps) {
   const store = useStoreContext();
@@ -38,7 +38,7 @@ export default function AddToCartButton({
   return (
     <Button
       className="h-[48px] w-full rounded bg-[#BE1B1B] text-lg font-bold uppercase text-white disabled:bg-[#BE1B1B] lg:h-[62px]"
-      onClick={handleAddToCartClicked}
+      onClick={handleAddToCart}
       disabled={!isColorAvailable}
     >
       <div
