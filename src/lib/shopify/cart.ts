@@ -5,6 +5,23 @@ import {
   CREATE_CART,
   UPDATE_CART,
 } from '../graphql/mutations/cart';
+import { FETCH_CART } from '../graphql/queries/cart';
+
+export async function fetchCart(cartId: string) {
+  try {
+    const { data } = await client.query({
+      query: FETCH_CART,
+      variables: {
+        cartId,
+      },
+    });
+
+    return data.cart;
+  } catch (error) {
+    console.error('Error fetching cart: ', error);
+    return null;
+  }
+}
 
 export async function createCart(variantId: string, quantity: number) {
   try {
@@ -47,7 +64,7 @@ export async function createCart(variantId: string, quantity: number) {
   }
 }
 
-export async function addToCart(variantId: string, quantity: number) {
+export async function addToCartMutation(variantId: string, quantity: number) {
   const cartId = localStorage.getItem('shopifyCartId');
 
   if (!cartId) {
