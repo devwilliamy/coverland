@@ -69,11 +69,20 @@ export const REMOVE_FROM_CART = gql`
               merchandise {
                 ... on ProductVariant {
                   id
+                  image {
+                    url
+                  }
                   title
                   price {
                     amount
                     currencyCode
                   }
+                  product {
+                    id
+                    productType
+                    title
+                  }
+                  sku
                 }
               }
             }
