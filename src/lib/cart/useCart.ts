@@ -3,40 +3,76 @@ import { useState, useCallback, useEffect } from 'react';
 import { IProductData } from '@/utils';
 import { SeatItem } from '@/providers/CartProvider';
 import { TSeatCoverDataDB } from '../db/seat-covers';
-import { FETCH_CART } from '../graphql/mutations/cart';
+import { UPDATE_CART } from '../graphql/mutations/cart';
 import { addToCartMutation, fetchCart } from '../shopify/cart';
 import { mapShopifyCartToCartData } from '../utils/shopify';
+import { useMutation, useQuery } from '@apollo/client';
+import { FETCH_CART } from '../graphql/queries/cart';
 export type TCartItem = (IProductData & { quantity: 1 }) | TSeatCoverDataDB;
 
 const useCart = () => {
+  // const [cartItems, setCartItems] = useState<TCartItem[]>([]);
+  const [cartId, setCartId] = useState<string | null>(null);
   const [cartItems, setCartItems] = useState<TCartItem[]>([]);
   const [cartOpen, setCartOpen] = useState(false);
   const [isCartPreorder, setIsCartPreorder] = useState(false);
   const [cartPreorderDate, setCartPreorderDate] = useState('');
+  const [updateCartLines, { loading, error }] = useMutation(UPDATE_CART, {
+    update(cache, { data: { cartLinesUpdate } }) {
+      const existingCart = cache.readQuery({
+        query: FETCH_CART,
+        variables: { cartId },
+      });
 
+      const updatedLines = existingCart.cart.lines.edges.map((edge) => {
+        const updatedLine = cartLinesUpdate.cart.lines.edges.find(
+          (updateEdge) => updateEdge.node.id === edge.node.id
+        );
+        return updatedLine || edge;
+      });
+
+      cache.writeQuery({
+        query: FETCH_CART,
+        variables: { cartId },
+        data: {
+          cart: {
+            ...existingCart.cart,
+            lines: {
+              edges: updatedLines,
+              __typename: 'BaseCartLineConnection',
+            },
+          },
+        },
+      });
+    },
+  });
+  // Retrieve the cartId from localStorage in useEffect
   useEffect(() => {
     const shopifyCartId = localStorage.getItem('shopifyCartId');
-    const loadCart = async () => {
-      if (!shopifyCartId) return; // If no cart ID is available, exit early
-
-      try {
-        // Await the fetchCart function to get the cart data
-        const shopifyCart = await fetchCart(shopifyCartId);
-        console.log('ShopifyCart:', shopifyCart);
-
-        if (shopifyCart) {
-          // Map Shopify cart data to your cart item structure
-          const fetchedCartItems = mapShopifyCartToCartData(shopifyCart);
-
-          // Set cart items in state
-          setCartItems(fetchedCartItems);
-        }
-      } catch (error) {
-        console.error('Error fetching cart:', error);
-      }
-    };
-    loadCart();
+    setCartId(shopifyCartId);
   }, []);
+
+  // Use useQuery directly in the component to fetch the cart data
+  const {
+    data: shopifyCart,
+    loading: cartLoading,
+    error: cartError,
+  } = useQuery(FETCH_CART, {
+    variables: { cartId },
+    skip: !cartId, // Skip the query if no cartId is found
+    fetchPolicy: 'cache-and-network',
+  });
+
+  // Process the cart data when shopifyCart changes
+  useEffect(() => {
+    if (shopifyCart) {
+      const cartItems =
+        shopifyCart.cart?.lines.edges.map(({ node }) =>
+          mapShopifyCartToCartData(node)
+        ) || [];
+      setCartItems(cartItems);
+    }
+  }, [shopifyCart]);
 
   useEffect(() => {
     const preorderItem = cartItems.find((item) => item?.preorder);
@@ -84,14 +120,47 @@ const useCart = () => {
     }
   }, []);
 
-  const updateItemQuantity = useCallback((sku: string, quantity: number) => {
-    setCartItems((prevItems) => {
-      const updatedItems = prevItems
-        .map((item) => (item.sku === sku ? { ...item, quantity } : item))
-        .filter((item) => item.quantity !== 0);
-      return updatedItems;
-    });
-  }, []);
+  const updateItemQuantity = async (
+    lineItemId: string,
+    newQuantity: number
+  ) => {
+    console.log('UpdateItemQuantiyt lineItemId:', lineItemId);
+    try {
+      await updateCartLines({
+        variables: {
+          cartId,
+          lines: [{ id: lineItemId, quantity: newQuantity }],
+        },
+        optimisticResponse: {
+          cartLinesUpdate: {
+            cart: {
+              id: cartId,
+              lines: {
+                // __typename: 'BaseCartLineConnection',
+                edges: shopifyCart.cart.lines.edges.map((edge) =>
+                  edge.node.id === lineItemId
+                    ? {
+                        // __typename: 'BaseCartLineEdge',
+                        node: {
+                          ...edge.node,
+                          quantity: newQuantity,
+                          // __typename: 'CartLine',
+                        },
+                      }
+                    : edge
+                ),
+              },
+              // __typename: 'Cart',
+            },
+            userErrors: [],
+            __typename: 'CartLinesUpdatePayload',
+          },
+        },
+      });
+    } catch (err) {
+      console.error('Error updating cart:', err);
+    }
+  };
 
   const clearLocalStorageCart = useCallback(() => {
     if (typeof window !== 'undefined' && cartItems?.length > 0) {

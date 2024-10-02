@@ -25,7 +25,6 @@ export default function Checkout() {
   if (error) return <p>Error loading cart: {error.message}</p>;
 
   const cart = data?.cart;
-  console.log('Cart:', cart);
   return (
     <CheckoutProvider>
       <CheckoutAccordion />

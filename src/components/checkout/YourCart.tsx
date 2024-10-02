@@ -7,7 +7,6 @@ import StickyCheckoutButton from './StickyCheckoutButton';
 import PromoCode from './PromoCode';
 export default function YourCart() {
   const { cartItems } = useCartContext();
-
   return (
     <>
       {cartItems.length === 0 ? (

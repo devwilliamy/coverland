@@ -13,8 +13,7 @@ export default function CartItemCard({ item }: { item: TCartItem }) {
 
   const handleQuantityChange = (e: ChangeEvent<HTMLSelectElement>) => {
     const newQuantity = parseInt(e.target.value, 10);
-    setQuantity(newQuantity);
-    updateItemQuantity(item.sku ?? '', newQuantity);
+    updateItemQuantity(item.id as unknown as string, newQuantity);
   };
 
   const { removeItemFromCart } = useCartContext();
@@ -48,7 +47,8 @@ export default function CartItemCard({ item }: { item: TCartItem }) {
             className={`text-sm font-normal ${!item?.make && 'hidden'} text-[#707070] lg:text-base`}
           >
             Vehicle: {item?.make} {item?.model} {item?.year_generation}{' '}
-            {item?.submodel1 ?? ''} {item?.submodel2 ?? ''} {item?.submodel3 ?? ''}
+            {item?.submodel1 ?? ''} {item?.submodel2 ?? ''}{' '}
+            {item?.submodel3 ?? ''}
           </div>
           <div
             className={`text-sm font-normal ${item?.type === 'Seat Covers' ? 'flex' : 'hidden'}  text-[#707070] lg:text-base`}
@@ -64,7 +64,7 @@ export default function CartItemCard({ item }: { item: TCartItem }) {
             <div className="font-medium lg:text-base">Quantity</div>
             <select
               className="font-medium lg:text-base"
-              value={quantity}
+              value={item?.quantity}
               onChange={handleQuantityChange}
             >
               {/* Generate options dynamically based on a hypothetical max quantity */}
