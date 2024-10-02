@@ -50,3 +50,46 @@ export const getOptimisticCartRemoveResponse = (
     __typename: 'CartLinesRemovePayload',
   },
 });
+
+export const getOptimisticAddToCartResponse = (
+    cartId: string,
+    newLine: { id: string; quantity: number; title: string; price: number; currencyCode: string }
+  ) => ({
+    cartLinesAdd: {
+      cart: {
+        id: cartId,
+        lines: {
+          edges: [
+            {
+              node: {
+                id: newLine.id,
+                quantity: newLine.quantity,
+                merchandise: {
+                  __typename: 'ProductVariant',
+                  id: newLine.id,
+                  image: {
+                    url: newLine.url
+                  },
+                  title: newLine.title,
+                  price: {
+                    amount: newLine.price,
+                    currencyCode: newLine.currencyCode,
+                  },
+                  product: {
+                    id: newLine.productId,
+                    productType: newLine.productType,
+                    title: newLine.title
+                  },
+                  sku: newLine.sku
+                },
+                __typename: 'CartLine',
+              },
+              __typename: 'BaseCartLineEdge',
+            },
+          ],
+        },
+        __typename: 'Cart',
+      },
+      __typename: 'CartLinesAddPayload',
+    },
+  });

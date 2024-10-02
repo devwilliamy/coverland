@@ -3,7 +3,11 @@ import { useState, useCallback, useEffect } from 'react';
 import { IProductData } from '@/utils';
 import { SeatItem } from '@/providers/CartProvider';
 import { TSeatCoverDataDB } from '../db/seat-covers';
-import { REMOVE_FROM_CART, UPDATE_CART } from '../graphql/mutations/cart';
+import {
+  ADD_TO_CART,
+  REMOVE_FROM_CART,
+  UPDATE_CART,
+} from '../graphql/mutations/cart';
 import { addToCartMutation, fetchCart } from '../shopify/cart';
 import { mapShopifyCartToCartData } from '../utils/shopify';
 import { useMutation, useQuery } from '@apollo/client';
@@ -17,12 +21,13 @@ export type TCartItem = (IProductData & { quantity: 1 }) | TSeatCoverDataDB;
 
 const useCart = () => {
   // const [cartItems, setCartItems] = useState<TCartItem[]>([]);
-  const [cartId, setCartId] = useState<string | null>(null);
+  const [cartId, setCartId] = useState<string>('');
   const [cartItems, setCartItems] = useState<TCartItem[]>([]);
   const [cartOpen, setCartOpen] = useState(false);
   const [isCartPreorder, setIsCartPreorder] = useState(false);
   const [cartPreorderDate, setCartPreorderDate] = useState('');
-  const [updateCartLines, { loading, error }] = useMutation(UPDATE_CART, {
+  const [addCartLine] = useMutation(ADD_TO_CART);
+  const [updateCartLines] = useMutation(UPDATE_CART, {
     update: (cache, { data: { cartLinesUpdate } }) =>
       updateCartCache(cache, cartLinesUpdate, cartId),
   });
@@ -75,17 +80,25 @@ const useCart = () => {
   }, [cartItems]);
 
   const addToCart = useCallback(
-    async (item: TCartItem) => {
-      if (!item?.msrp) {
-        return;
-      }
+    async (newItem: TCartItem) => {
       try {
-        await addToCartMutation(item.id, 1);
+        await addCartLine({
+          variables: {
+            cartId,
+            lines: [
+              {
+                merchandiseId: newItem.id,
+                // merchandiseId: 'gid://shopify/ProductVariant/46075846820007',
+                quantity: 1,
+              },
+            ],
+          },
+        });
       } catch (error) {
         console.error('Error adding to cart:', error);
       }
     },
-    [addToCartMutation]
+    [cartId]
   );
 
   const removeItemFromCart = useCallback(

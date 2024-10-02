@@ -51,7 +51,7 @@ export function mapShopifyToModelData(shopifyProduct: Product): IProductData[] {
       .map((image) => image.node.url);
 
     return {
-      id: shopifyProduct.id,
+      id: variant.node.id,
       sku: variant.node.sku,
       parent_generation: yearGeneration, // Parse from title or store elsewhere
       year_generation: yearGeneration,
@@ -84,6 +84,7 @@ export function mapShopifyToModelData(shopifyProduct: Product): IProductData[] {
       gtin: variant.node.barcode || null,
       mpn: null, // Add logic if available
       title: shopifyProduct.title,
+      // productId: shopifyProduct.id
     };
   });
 }

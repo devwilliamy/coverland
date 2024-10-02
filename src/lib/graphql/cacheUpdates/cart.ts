@@ -63,3 +63,69 @@ export const removeCartCache = (
     });
   }
 };
+
+export const updateAddToCartCache = (
+  cache: ApolloCache<any>,
+  cartId: string,
+  newLine: {
+    id: string;
+    quantity: number;
+    title: string;
+    price: number;
+    currencyCode: string;
+  }
+) => {
+  // Read the existing cart from the cache
+  const existingCart = cache.readQuery({
+    query: FETCH_CART,
+    variables: { cartId },
+  });
+
+  if (!existingCart) return;
+
+  // Add the new cart line to the existing cart lines
+  const updatedLines = [
+    ...existingCart.cart.lines.edges,
+    {
+      node: {
+        id: newLine.id,
+        quantity: newLine.quantity,
+        merchandise: {
+          __typename: 'ProductVariant',
+          id: newLine.id,
+          image: {
+            url: newLine.url,
+          },
+          title: newLine.title,
+          price: {
+            amount: newLine.price,
+            currencyCode: newLine.currencyCode,
+          },
+          product: {
+            id: newLine.productId,
+            productType: newLine.productType,
+            title: newLine.title,
+          },
+          sku: newLine.sku,
+        },
+        __typename: 'CartLine',
+      },
+      __typename: 'BaseCartLineEdge',
+    },
+  ];
+
+  // Write the updated cart back into the cache
+  cache.writeQuery({
+    query: FETCH_CART,
+    variables: { cartId },
+    data: {
+      cart: {
+        ...existingCart.cart,
+        lines: {
+          edges: updatedLines,
+        },
+        __typename: 'Cart',
+      },
+    },
+  });
+};

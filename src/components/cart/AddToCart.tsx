@@ -20,6 +20,7 @@ import {
 import { ADD_TO_CART, CREATE_CART } from '@/lib/graphql/mutations/cart';
 import CartSheet from './CartSheet';
 import PreorderSheet from './PreorderSheet';
+import { useCartContext } from '@/providers/CartProvider';
 
 interface AddToCartVariables {
   cartId: string;
@@ -107,8 +108,8 @@ export default function AddToCart({
   const selectedProduct = useStore(store, (s) => s.selectedProduct);
   const modelData = useStore(store, (s) => s.modelData);
   const { isSeatCover } = useDetermineType();
-  const [addToCart, { loading, error }] = useMutation(ADD_TO_CART);
-
+  // const [addToCart, { loading, error }] = useMutation(ADD_TO_CART);
+  const { addToCart } = useCartContext();
   const [addToCartOpen, setAddToCartOpen] = useState<boolean>(false);
   const [completeYourVehicleSelectorOpen, setCompleteYourVehicleSelectorOpen] =
     useState<boolean>(false);
@@ -134,8 +135,8 @@ export default function AddToCart({
     });
 
   const handleAddToCart = useCallback(async () => {
-    let cartId = localStorage.getItem('shopifyCartId');
     debugger;
+    let cartId = localStorage.getItem('shopifyCartId');
     if (!cartId) {
       try {
         const { data } = await createCart({
@@ -167,20 +168,14 @@ export default function AddToCart({
     }
 
     try {
-      const { data } = await addToCart(
-        getAddToCartOptions({
-          cartId,
-          variantId: selectedProduct.id,
-          quantity: 1,
-        })
-      );
-      console.log('Added to cart:', data?.cartLinesAdd?.cart);
+      await addToCart(selectedProduct);
+      
     } catch (error) {
       console.error('Error adding to cart:', error);
     }
   }, [createCart, addToCart, selectedProduct]);
 
-  if (error) return <p>Error: Unable to add to cart</p>;
+  // if (error) return <p>Error: Unable to add to cart</p>;
 
   return (
     <Suspense fallback={<></>}>
@@ -216,7 +211,7 @@ export default function AddToCart({
           preorder={isComplete && selectedProduct.preorder}
           isColorAvailable={true} // since we are always allowing customers to add to cart, overriding isSelectedColorAvailable with true
           handleAddToCart={handleAddToCart}
-          isLoading={loading}
+          // isLoading={loading}
         />
       </div>
     </Suspense>
