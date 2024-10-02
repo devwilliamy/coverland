@@ -3,13 +3,16 @@ import { useState, useCallback, useEffect } from 'react';
 import { IProductData } from '@/utils';
 import { SeatItem } from '@/providers/CartProvider';
 import { TSeatCoverDataDB } from '../db/seat-covers';
-import { UPDATE_CART } from '../graphql/mutations/cart';
+import { REMOVE_FROM_CART, UPDATE_CART } from '../graphql/mutations/cart';
 import { addToCartMutation, fetchCart } from '../shopify/cart';
 import { mapShopifyCartToCartData } from '../utils/shopify';
 import { useMutation, useQuery } from '@apollo/client';
 import { FETCH_CART } from '../graphql/queries/cart';
-import { updateCartCache } from '../graphql/cacheUpdates/cart';
-import { getOptimisticCartUpdateResponse } from '../graphql/optimisticResponses/cart';
+import { removeCartCache, updateCartCache } from '../graphql/cacheUpdates/cart';
+import {
+  getOptimisticCartRemoveResponse,
+  getOptimisticCartUpdateResponse,
+} from '../graphql/optimisticResponses/cart';
 export type TCartItem = (IProductData & { quantity: 1 }) | TSeatCoverDataDB;
 
 const useCart = () => {
@@ -23,6 +26,7 @@ const useCart = () => {
     update: (cache, { data: { cartLinesUpdate } }) =>
       updateCartCache(cache, cartLinesUpdate, cartId),
   });
+  const [removeCartLine] = useMutation(REMOVE_FROM_CART);
   // Retrieve the cartId from localStorage in useEffect
   useEffect(() => {
     const shopifyCartId = localStorage.getItem('shopifyCartId');
@@ -85,10 +89,27 @@ const useCart = () => {
   );
 
   const removeItemFromCart = useCallback(
-    (sku: TCartItem['sku'] | SeatItem['sku']) => {
-      setCartItems((prevItems) => prevItems.filter((item) => item.sku !== sku));
+    async (lineItemId: string) => {
+      console.log('RemoveItemFromCart:', { lineItemId, cartId });
+      try {
+        await removeCartLine({
+          variables: {
+            cartId,
+            lineIds: [lineItemId],
+          },
+          optimisticResponse: getOptimisticCartRemoveResponse(
+            cartId,
+            lineItemId,
+            shopifyCart
+          ),
+          update: (cache, { data: { cartLinesRemove } }) =>
+            removeCartCache(cache, cartId, lineItemId),
+        });
+      } catch (error) {
+        console.error('Error removing from cart:', error);
+      }
     },
-    []
+    [cartId, shopifyCart]
   );
 
   const resetCart = useCallback(() => {
@@ -97,28 +118,27 @@ const useCart = () => {
     }
   }, []);
 
-  const updateItemQuantity = async (
-    lineItemId: string,
-    newQuantity: number
-  ) => {
-    console.log('UpdateItemQuantiyt lineItemId:', lineItemId);
-    try {
-      await updateCartLines({
-        variables: {
-          cartId,
-          lines: [{ id: lineItemId, quantity: newQuantity }],
-        },
-        optimisticResponse: getOptimisticCartUpdateResponse(
-          cartId,
-          lineItemId,
-          newQuantity,
-          shopifyCart
-        ),
-      });
-    } catch (err) {
-      console.error('Error updating cart:', err);
-    }
-  };
+  const updateItemQuantity = useCallback(
+    async (lineItemId: string, newQuantity: number) => {
+      try {
+        await updateCartLines({
+          variables: {
+            cartId,
+            lines: [{ id: lineItemId, quantity: newQuantity }],
+          },
+          optimisticResponse: getOptimisticCartUpdateResponse(
+            cartId,
+            lineItemId,
+            newQuantity,
+            shopifyCart
+          ),
+        });
+      } catch (error) {
+        console.error('Error updating cart:', error);
+      }
+    },
+    [cartId, shopifyCart]
+  );
 
   const clearLocalStorageCart = useCallback(() => {
     if (typeof window !== 'undefined' && cartItems?.length > 0) {

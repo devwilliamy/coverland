@@ -120,7 +120,7 @@ export default function CartItemCard({ item }: { item: TCartItem }) {
             size={20}
             color="grey"
             onClick={() => {
-              removeItemFromCart(item?.sku);
+              removeItemFromCart(item?.id);
             }}
           />
         </IconContext.Provider>

@@ -32,3 +32,34 @@ export const updateCartCache = (
     },
   });
 };
+
+export const removeCartCache = (
+  cache: ApolloCache<any>,
+  cartId: string,
+  lineId: string
+) => {
+  const existingCart = cache.readQuery({
+    query: FETCH_CART,
+    variables: { cartId },
+  });
+
+  if (existingCart && existingCart.cart) {
+    const updatedLines = existingCart.cart.lines.edges.filter(
+      (edge) => edge.node.id !== lineId
+    );
+
+    cache.writeQuery({
+      query: FETCH_CART,
+      variables: { cartId },
+      data: {
+        cart: {
+          ...existingCart.cart,
+          lines: {
+            __typename: 'BaseCartLineConnection',
+            edges: updatedLines,
+          },
+        },
+      },
+    });
+  }
+};
