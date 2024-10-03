@@ -124,29 +124,29 @@ export default function SeatCoverColorSelector() {
   };
 
   useEffect(() => {
-    const availableColorIndex = uniqueProductsByColor.findIndex(
+    const selectedProductDisplayColorIndex = uniqueProductsByColor.findIndex(
       (product) =>
         selectedColor.toLowerCase() === product?.display_color?.toLowerCase()
     );
-    setColorIndex(availableColorIndex);
+    setColorIndex(selectedProductDisplayColorIndex);
     // If color is available, use the product at that index
     // If there are no colors available, index will be -1
     // If that's the case, then the selected product will be 'black'
     // TODO: - Ideally we'd still change the colors but no time at the moment.
     setSelectedProduct(
-      filteredModelsByDisplaySet[availableColorIndex]
-        ? filteredModelsByDisplaySet[availableColorIndex]
-        : availableColorIndex === -1
+      filteredModelsByDisplaySet[selectedProductDisplayColorIndex]
+        ? filteredModelsByDisplaySet[selectedProductDisplayColorIndex]
+        : selectedProductDisplayColorIndex === -1
           ? filteredModelsByDisplaySet[0]
           : (uniqueProductsByColor[0] as TSeatCoverDataDB)
     );
 
     setSelectedColor(
       filteredModelsByDisplaySet[
-        availableColorIndex
+        selectedProductDisplayColorIndex
       ]?.display_color?.toLowerCase()
         ? (filteredModelsByDisplaySet[
-            availableColorIndex
+            selectedProductDisplayColorIndex
           ]?.display_color?.toLowerCase() as string)
         : (uniqueProductsByColor[0]?.display_color?.toLowerCase() as string)
     );
