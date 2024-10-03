@@ -108,7 +108,7 @@ export default function SeatCoverColorSelector() {
     ).values(),
   ];
 
-  const uniqueProductColors = Array.from(
+  const uniqueProductsByColor = Array.from(
     new Set(filteredModelsByDisplaySet.map((model) => model.display_color))
   ).map((color) =>
     filteredModelsByDisplaySet.find(
@@ -124,10 +124,9 @@ export default function SeatCoverColorSelector() {
   };
 
   useEffect(() => {
-    const availableColorIndex = uniqueProductColors.findIndex(
+    const availableColorIndex = uniqueProductsByColor.findIndex(
       (product) =>
-        availableColors[0]?.toLowerCase() ===
-        product?.display_color?.toLowerCase()
+        selectedColor.toLowerCase() === product?.display_color?.toLowerCase()
     );
     setColorIndex(availableColorIndex);
     // If color is available, use the product at that index
@@ -139,7 +138,7 @@ export default function SeatCoverColorSelector() {
         ? filteredModelsByDisplaySet[availableColorIndex]
         : availableColorIndex === -1
           ? filteredModelsByDisplaySet[0]
-          : (uniqueProductColors[0] as TSeatCoverDataDB)
+          : (uniqueProductsByColor[0] as TSeatCoverDataDB)
     );
 
     setSelectedColor(
@@ -149,7 +148,7 @@ export default function SeatCoverColorSelector() {
         ? (filteredModelsByDisplaySet[
             availableColorIndex
           ]?.display_color?.toLowerCase() as string)
-        : (uniqueProductColors[0]?.display_color?.toLowerCase() as string)
+        : (uniqueProductsByColor[0]?.display_color?.toLowerCase() as string)
     );
   }, [selectedSetDisplay]);
 
@@ -163,7 +162,7 @@ export default function SeatCoverColorSelector() {
           Color
         </h3>{' '}
         {!!selectedColor ? (
-          <span className="ml-[12px]  text-[#8F8F8F]">
+          <span className="ml-[12px]  capitalize text-[#8F8F8F]">
             {allOutOfStock(filteredModelsByDisplaySet)
               ? 'Out of Stock'
               : !availableColors.includes(selectedColor.toLowerCase()) ||
@@ -179,7 +178,7 @@ export default function SeatCoverColorSelector() {
 
       {allOutOfStock(filteredModelsByDisplaySet) ? (
         <div className="flex w-full min-w-[288px]  gap-[11px] overflow-x-auto py-[1px] md:overflow-x-hidden">
-          {uniqueProductColors.map((product, index) => (
+          {uniqueProductsByColor.map((product, index) => (
             <div
               key={`seat-color-${index}`}
               className={`flex ${index === colorIndex ? 'border-1 border border-[#6F6F6F] ' : ''} 
@@ -205,7 +204,7 @@ export default function SeatCoverColorSelector() {
         </div>
       ) : (
         <div className="flex w-full min-w-[288px]  gap-[11px] overflow-x-auto py-[1px] md:overflow-x-hidden">
-          {uniqueProductColors.map((product, index) => {
+          {uniqueProductsByColor.map((product, index) => {
             const isAvailableColor = availableColors.includes(
               product?.display_color?.toLowerCase() as string
             );
