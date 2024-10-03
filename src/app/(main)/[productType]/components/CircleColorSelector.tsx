@@ -46,9 +46,19 @@ export default function CircleColorSelector() {
 
   const uniqueColors: IProductData[] = Array.from(
     new Set(modelData.map((model) => model.display_color))
-  ).map((color) =>
-    modelData.find((model) => model.display_color === color)
-  ) as IProductData[];
+  )
+    .map((color) => modelData.find((model) => model.display_color === color))
+    .sort((a, b) => {
+      // Check for preorder
+      if (a?.preorder && !b?.preorder) {
+        return 1; // Place 'a' after 'b'
+      } else if (!a?.preorder && b?.preorder) {
+        return -1; // Place 'a' before 'b'
+      }
+
+      // You can add additional sorting logic here, e.g., by `display_color`
+      // return a?.display_color?.localeCompare(b?.display_color || '') || 0;
+    }) as IProductData[];
 
   const handleColorChange = (newSelectedProduct: IProductData) => {
     handleViewItemColorChangeGoogleTag(newSelectedProduct, params, isComplete);
