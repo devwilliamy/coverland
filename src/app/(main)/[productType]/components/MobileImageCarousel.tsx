@@ -41,9 +41,7 @@ import { FaCamera } from 'react-icons/fa';
 import { useStore } from 'zustand';
 import { removeWwwFromUrl } from '@/utils';
 import { CarouselPositionItem } from './MobileCarouselPositionItem';
-// import ReactPlayer from 'react-player';
 import { useMediaQuery } from '@mantine/hooks';
-import { LazyVideo } from '@/components/PDP/LazyVideo';
 const ReactPlayer = dynamic(() => import('react-player'), {
   loading: () => (
     <div className="flex h-full">
@@ -167,18 +165,20 @@ const MobileImageCarousel = () => {
                   className="bg-black"
                 >
                   <Suspense>
-                    <LazyVideo
-                      controls
-                      data-src={selectedProduct?.product_video_carousel || ''}
+                    <ReactPlayer
+                      controls={true}
                       muted
-                      loop
-                      playsInline
                       autoPlay
+                      loop
+                      playsinline
+                      playing
                       width="100%"
                       height="100%"
-                    >
-                      Your browser does not support the video tag.
-                    </LazyVideo>
+                      url={selectedProduct?.product_video_carousel || ''}
+                      // light={
+                      //   selectedProduct?.product_video_carousel_thumbnail || ''
+                      // }
+                    />
                   </Suspense>
                 </CarouselItem>
               );
