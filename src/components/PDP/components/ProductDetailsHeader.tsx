@@ -8,7 +8,8 @@ import ProtectHeaderText from './ProtectHeaderText';
 import dynamic from 'next/dynamic';
 import DetailsTabHeader from '@/app/(main)/[productType]/components/DetailsTabHeader';
 import useDetermineType from '@/hooks/useDetermineType';
-const ProductDetailsMedia = dynamic(() => import('./ProductDetailsMedia'));
+import ProductDetailsMedia from './ProductDetailsMedia';
+// const ProductDetailsMedia = dynamic(() => import('./ProductDetailsMedia'));
 export default function ProductDetailsHeader() {
   const threeIcons = [
     { title: 'Waterproof', icon: <GrayWaterIcon /> },

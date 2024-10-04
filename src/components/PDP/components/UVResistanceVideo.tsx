@@ -1,23 +1,16 @@
-import { LazyVideo } from '../LazyVideo';
-import UVThumbnail from '@/public/images/PDP/Product-Details-Redesign-2/UVProtectionThumbnail.webp';
+import ProductVideo from '../ProductVideo';
+import UVVideo from 'https://x2kly621zrgfgwll.public.blob.vercel-storage.com/videos/UVGIF-TlV19CyIwM0bRVnUtMrzWyWf7AJucy.mp4';
 
 export default function UVResistanceVideo() {
   return (
     <div className="mb-[-1px] w-full overflow-hidden rounded-t-xl">
-      <LazyVideo
-        data-src={
-          'https://x2kly621zrgfgwll.public.blob.vercel-storage.com/videos/UVGIF-TlV19CyIwM0bRVnUtMrzWyWf7AJucy.mp4'
-        }
-        muted
-        loop
-        playsInline
+      <ProductVideo
+        src={UVVideo}
         autoPlay
-        width="100%"
-        height="auto"
-        poster={UVThumbnail.src}
-      >
-        Your browser does not support the video tag.
-      </LazyVideo>
+        loop
+        aspectRatio="16 / 9"
+        controls={false}
+      />
     </div>
   );
 }

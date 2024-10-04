@@ -1,11 +1,11 @@
-'use client';
+'use client';;
 import useDetermineType from '@/hooks/useDetermineType';
 import DesktopHalfCover from '@/images/PDP/Product-Details-Redesign-2/dekstop-half-cover.webp';
 import Image from 'next/image';
 import { useContext } from 'react';
 import { CarSelectionContext } from '@/contexts/CarSelectionContext';
 import { useStore } from 'zustand';
-import { LazyVideo } from '../LazyVideo';
+import ReactPlayer from 'react-player';
 
 export default function ProductDetailsMedia() {
   const { isDefaultCoverType } = useDetermineType();
@@ -16,17 +16,17 @@ export default function ProductDetailsMedia() {
   return (
     <>
       {isDefaultCoverType ? (
-        <LazyVideo
-          data-src={selectedProduct?.product_video_zoom || ''}
+        <ReactPlayer
+          url={selectedProduct?.product_video_zoom || ''}
           muted
           loop
-          playsInline
-          autoPlay
+          playsinline
+          playing
           width="100%"
           height="auto"
         >
           Your browser does not support the video tag.
-        </LazyVideo>
+        </ReactPlayer>
       ) : (
         <Image
           alt="product-content-half-cover-desktop"
