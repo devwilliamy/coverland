@@ -11,21 +11,7 @@ type AddToCartBodyProps = {
 };
 
 const AddToCartBody = ({ selectedProduct }: AddToCartBodyProps) => {
-  const cartId = localStorage.getItem('shopifyCartId');
-
-  const {
-    loading,
-    error,
-    data: cartItems,
-  } = useQuery(FETCH_CART, {
-    variables: { cartId },
-    skip: !cartId,
-    fetchPolicy: 'cache-and-network',
-  });
-
-  if (!cartId) return <p>No cart available. Start shopping!</p>;
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error: {error.message}</p>;
+  const { cartItems } = useCartContext();
   const sortedCartItems = selectedProduct
     ? cartItems.sort((a, b) => (b.sku === selectedProduct.sku ? 1 : -1))
     : cartItems;
@@ -68,7 +54,7 @@ const CartItem = ({ item }: CartItemProps) => {
       </div>
       <div className="pb-3 pl-5">
         <div className="w-10/12 text-base font-bold lg:text-lg">
-          {item?.display_id}&trade; {item.type}
+          {item?.title}&trade; {item.type}
         </div>
         <div className="text-sm font-normal text-[#707070] lg:text-sm">
           Vehicle: {item?.make} {item.model} {item.year_generation}

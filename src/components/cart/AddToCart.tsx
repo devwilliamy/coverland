@@ -7,21 +7,13 @@ import {
   getCompleteSelectionData,
 } from '../../utils';
 import { useStore } from 'zustand';
-import { handleAddToCartGoogleTag } from '@/hooks/useGoogleTagDataLayer';
 import CompleteYourVehicleSheet from './CompleteYourVehicleSheet';
 import AddToCartButton from './AddToCartButton';
 import useDetermineType from '@/hooks/useDetermineType';
 import useStoreContext from '@/hooks/useStoreContext';
-import {
-  ApolloCache,
-  MutationFunctionOptions,
-  useMutation,
-} from '@apollo/client';
-import { ADD_TO_CART, CREATE_CART } from '@/lib/graphql/mutations/cart';
 import CartSheet from './CartSheet';
 import PreorderSheet from './PreorderSheet';
 import { useCartContext } from '@/providers/CartProvider';
-import { FETCH_CART } from '@/lib/graphql/queries/cart';
 
 interface AddToCartVariables {
   cartId: string;
@@ -55,9 +47,9 @@ export default function AddToCart({
   });
 
   const handleAddToCart = useCallback(async () => {
-
     try {
       await addToCart(selectedProduct);
+      setAddToCartOpen(true);
     } catch (error) {
       console.error('Error adding to cart:', error);
     }
