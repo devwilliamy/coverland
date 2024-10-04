@@ -67,7 +67,7 @@ export default async function CarPDPDataLayer({
     params?.productType === 'car-covers' ? 'Car Covers' : SuvOrTruckType;
 
   // const productHandle = params.handle; // Assuming your handle is passed as a param
-  const productHandle = 'ford-mustang-shelby-car-cover'; // Assuming your handle is passed as a param
+  const productHandle = 'acura-mdx-suv-car-cover'; // Assuming your handle is passed as a param
   const { data } = await client.query({
     query: GET_PRODUCT_BY_HANDLE,
     variables: { handle: productHandle },

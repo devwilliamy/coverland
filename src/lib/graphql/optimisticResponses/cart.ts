@@ -52,44 +52,56 @@ export const getOptimisticCartRemoveResponse = (
 });
 
 export const getOptimisticAddToCartResponse = (
-    cartId: string,
-    newLine: { id: string; quantity: number; title: string; price: number; currencyCode: string }
-  ) => ({
-    cartLinesAdd: {
-      cart: {
-        id: cartId,
-        lines: {
-          edges: [
-            {
-              node: {
+  cartId: string,
+  newLine: {
+    id: string;
+    quantity: number;
+    title: string;
+    price: number;
+    currencyCode: string;
+    url: string;
+    productId: string;
+    productType: string;
+    sku: string;
+    variantTitle: string;
+  }
+) => ({
+  cartLinesAdd: {
+    cart: {
+      id: cartId,
+      lines: {
+        __typename: 'BaseCartLineConnection',
+        edges: [
+          {
+            __typename: 'BaseCartLineEdge',
+            node: {
+              id: `temp-line-${Date.now()}`,
+              quantity: 1,
+              merchandise: {
+                __typename: 'ProductVariant',
                 id: newLine.id,
-                quantity: newLine.quantity,
-                merchandise: {
-                  __typename: 'ProductVariant',
-                  id: newLine.id,
-                  image: {
-                    url: newLine.url
-                  },
-                  title: newLine.title,
-                  price: {
-                    amount: newLine.price,
-                    currencyCode: newLine.currencyCode,
-                  },
-                  product: {
-                    id: newLine.productId,
-                    productType: newLine.productType,
-                    title: newLine.title
-                  },
-                  sku: newLine.sku
+                image: {
+                  url: newLine.url,
                 },
-                __typename: 'CartLine',
+                title: newLine.variantTitle,
+                price: {
+                  amount: newLine.price,
+                  currencyCode: newLine.currencyCode,
+                },
+                product: {
+                  id: newLine.productId,
+                  productType: newLine.productType,
+                  title: newLine.title,
+                },
+                sku: newLine.sku,
               },
-              __typename: 'BaseCartLineEdge',
+              __typename: 'CartLine',
             },
-          ],
-        },
-        __typename: 'Cart',
+          },
+        ],
       },
-      __typename: 'CartLinesAddPayload',
+      __typename: 'Cart',
     },
-  });
+    __typename: 'CartLinesAddPayload',
+  },
+});

@@ -8,6 +8,7 @@ export type SeatItem = TSeatCoverDataDB;
 
 const defaultCartValue = {
   cartItems: [] as TCartItem[],
+  createCart: () => {},
   addToCart: (item: TCartItem) => {},
   removeItemFromCart: (sku: TCartItem['sku']) => {},
   updateItemQuantity: (itemId: string, quantity: number) => {},

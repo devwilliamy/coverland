@@ -84,7 +84,8 @@ export function mapShopifyToModelData(shopifyProduct: Product): IProductData[] {
       gtin: variant.node.barcode || null,
       mpn: null, // Add logic if available
       title: shopifyProduct.title,
-      // productId: shopifyProduct.id
+      productId: shopifyProduct.id,
+      variantTitle: variant.node.title,
     };
   });
 }
@@ -134,5 +135,6 @@ export function mapShopifyCartToCartData(shopifyCartData: any): TCartItem[] {
     gtin: null, // Add logic if available
     mpn: null, // Add logic if available
     title: product?.title,
+    variantTitle: title,
   };
 }

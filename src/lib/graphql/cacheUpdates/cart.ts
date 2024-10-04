@@ -1,6 +1,21 @@
 import { ApolloCache } from '@apollo/client';
 import { FETCH_CART } from '../queries/cart';
 
+export const createCartCache = (cache: ApolloCache<any>, newCart: any) => {
+  debugger;
+  const existingCart = cache.readQuery({
+    query: FETCH_CART,
+    variables: { cartId: newCart.id },
+  });
+  cache.writeQuery({
+    query: FETCH_CART,
+    data: {
+      cart: newCart,
+    },
+    variables: { cartId: newCart.id },
+  });
+};
+
 export const updateCartCache = (
   cache: ApolloCache<any>,
   cartLinesUpdate: any,
@@ -73,6 +88,11 @@ export const updateAddToCartCache = (
     title: string;
     price: number;
     currencyCode: string;
+    url: string;
+    productId: string;
+    productType: string;
+    sku: string;
+    variantId: string;
   }
 ) => {
   // Read the existing cart from the cache
@@ -83,36 +103,47 @@ export const updateAddToCartCache = (
 
   if (!existingCart) return;
 
-  // Add the new cart line to the existing cart lines
-  const updatedLines = [
-    ...existingCart.cart.lines.edges,
-    {
-      node: {
-        id: newLine.id,
-        quantity: newLine.quantity,
-        merchandise: {
-          __typename: 'ProductVariant',
-          id: newLine.id,
-          image: {
-            url: newLine.url,
-          },
-          title: newLine.title,
-          price: {
-            amount: newLine.price,
-            currencyCode: newLine.currencyCode,
-          },
-          product: {
-            id: newLine.productId,
-            productType: newLine.productType,
-            title: newLine.title,
-          },
-          sku: newLine.sku,
+  const existingEdges = existingCart.cart.lines.edges;
+
+  // **Check if the newLine already exists in the cart**
+  const isLineExisting = existingEdges.some(
+    (edge) => edge.node.id === newLine.id
+  );
+
+  if (isLineExisting) {
+    // **Item already exists; do not add it again**
+    return;
+  }
+
+  // **Item doesn't exist; proceed to add it**
+  const newEdge = {
+    node: {
+      id: newLine.id,
+      quantity: newLine.quantity,
+      merchandise: {
+        __typename: 'ProductVariant',
+        id: newLine.variantId,
+        image: {
+          url: newLine.url,
         },
-        __typename: 'CartLine',
+        title: newLine.title,
+        price: {
+          amount: newLine.price,
+          currencyCode: newLine.currencyCode,
+        },
+        product: {
+          id: newLine.productId,
+          productType: newLine.productType,
+          title: newLine.title,
+        },
+        sku: newLine.sku,
       },
-      __typename: 'BaseCartLineEdge',
+      __typename: 'CartLine',
     },
-  ];
+    __typename: 'BaseCartLineEdge',
+  };
+
+  const updatedLines = [...existingEdges, newEdge];
 
   // Write the updated cart back into the cache
   cache.writeQuery({
@@ -122,6 +153,7 @@ export const updateAddToCartCache = (
       cart: {
         ...existingCart.cart,
         lines: {
+          __typename: 'BaseCartLineConnection',
           edges: updatedLines,
         },
         __typename: 'Cart',
