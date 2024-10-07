@@ -41,7 +41,7 @@ export default function StayNewSection() {
               <div className="flex  items-center">
                 <ProductVideo
                   src={src}
-                  autoplay
+                  autoPlay
                   loop
                   aspectRatio="16/9"
                   controls={false}

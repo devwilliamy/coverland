@@ -96,7 +96,7 @@ export const MobilePDPDetails = () => {
                 <div className="flex w-full flex-col ">
                   <ProductVideo
                     src={ThreeSixtyVideo}
-                    autoplay
+                    autoPlay
                     loop
                     aspectRatio="16 / 9"
                   />

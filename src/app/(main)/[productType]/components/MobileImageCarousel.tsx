@@ -41,7 +41,6 @@ import { FaCamera } from 'react-icons/fa';
 import { useStore } from 'zustand';
 import { removeWwwFromUrl } from '@/utils';
 import { CarouselPositionItem } from './MobileCarouselPositionItem';
-// import ReactPlayer from 'react-player';
 import { useMediaQuery } from '@mantine/hooks';
 const ReactPlayer = dynamic(() => import('react-player'), {
   loading: () => (
@@ -165,12 +164,6 @@ const MobileImageCarousel = () => {
                   key={String(baseListingVideo)}
                   className="bg-black"
                 >
-                  {/* <ProductVideo
-                    src={featured360}
-                    imgSrc={listingVideoThumbnail}
-                    autoplay
-                    loop
-                  /> */}
                   <Suspense>
                     <ReactPlayer
                       controls={true}
@@ -247,13 +240,6 @@ const MobileImageCarousel = () => {
                     slot="poster"
                     src={
                       selectedProduct?.product_video_carousel_thumbnail || ''
-                      // (
-                      //   selectedProduct?.product_video_carousel_thumbnail as string
-                      // ).substring(
-                      //   (
-                      //     selectedProduct?.product_video_carousel_thumbnail as string
-                      //   ).indexOf('/video')
-                      // ) || ''
                     }
                     width={1600}
                     height={1600}
@@ -269,8 +255,8 @@ const MobileImageCarousel = () => {
                 key={String(carouselItems[index])}
                 src={item}
                 index={index}
-                current={current}
                 handleClick={handleCarouselItemClick}
+                className={`relative flex min-h-[80px] min-w-[80px] items-center justify-center rounded-[4px] ${index === current && 'outline outline-1  '} `}
               />
             );
           })}

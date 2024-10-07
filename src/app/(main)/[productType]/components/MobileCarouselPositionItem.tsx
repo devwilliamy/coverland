@@ -4,21 +4,18 @@ import { removeWwwFromUrl } from '@/utils';
 
 export const CarouselPositionItem = ({
   index,
-  current,
   src,
   handleClick,
+  className,
 }: {
   index: number;
-  current: number;
   src: string | StaticImport;
   handleClick: (index: number) => void;
+  className: string;
 }) => (
-  <button
-    className={`relative flex min-h-[80px] min-w-[80px] items-center justify-center rounded-[4px] ${index === current && 'outline outline-1  '} `}
-    onClick={() => handleClick(index)}
-  >
+  <button className={className} onClick={() => handleClick(index)}>
     <Image
-      className="rounded-[4px]"
+      className="h-full w-full rounded-[4px]"
       width={74}
       height={74}
       src={removeWwwFromUrl(src as string) + '?v=1'}
