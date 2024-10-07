@@ -43,25 +43,25 @@ export const CustomTextField = ({
     return re.test(String(email).toLowerCase());
   };
 
-  const validateLengthGreaterThanOne = (inputString: string) => {
+  const validateLengthGreaterThanOne = (input: string) => {
     // Regex to match strings with more than one alphabetic character
 
-    if (!inputString) {
+    if (!input) {
       return false;
     }
 
     const pattern = /\b[a-zA-Z]{2,}\b/g;
-    return pattern.test(inputString);
+    return pattern.test(input);
   };
 
-  const validatePostal = (inputString: string) => {
+  const validatePostal = (input: string) => {
     // Regex pattern to check if the input is a number of max length 5
     const pattern = /^\d{5}$/;
-    return pattern.test(inputString);
+    return pattern.test(input);
   };
 
-  const isValidPhoneNumber = (inputString: string) => {
-    const cleanedInput = cleanPhoneInput(inputString);
+  const isValidPhoneNumber = (input: string) => {
+    const cleanedInput = cleanPhoneInput(input);
 
     if (cleanedInput.length < 10) {
       return false;
@@ -70,7 +70,17 @@ export const CustomTextField = ({
     // Regex pattern to check if the input is a valid phone number
     const pattern =
       /^\+?(\d{1,3})?[-.\s]?(\(\d{1,4}\)|\d{1,4})[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}$/;
-    return pattern.test(inputString);
+    return pattern.test(input);
+  };
+
+  const isValidAddressLine1 = (input: string) => {
+    const pattern = /^[a-zA-Z0-9\s\#\-\.\,\/\\]{3,100}$/;
+    return pattern.test(input);
+  };
+
+  const isValidAddressLine2 = (input: string) => {
+    const pattern = /[a-zA-Z0-9\s\#\-\.\,\/\\]{1,100}$/;
+    return pattern.test(input);
   };
 
   const isValidInput = (value: string) => {
@@ -81,6 +91,10 @@ export const CustomTextField = ({
         return validatePostal(value);
       case 'phoneNumber':
         return isValidPhoneNumber(value);
+      case 'line1':
+        return isValidAddressLine1(value);
+      case 'line2':
+        return isValidAddressLine2(value);
       default:
         return validateLengthGreaterThanOne(value);
     }

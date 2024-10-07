@@ -1,309 +1,156 @@
-'use client';;
-import { Fragment, useEffect, useState } from 'react';
+// ReviewHeaderGallery.tsx
+'use client';
 import { useStore } from 'zustand';
-import ReviewImagesSheet from './ReviewImagesSheet';
-import Image from 'next/image';
-import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';
-import ReviewImageGalleryDesktop from './ReviewImageGalleryDesktop';
 import useStoreContext from '@/hooks/useStoreContext';
-import { ChevronLeft, ChevronRight, X } from 'lucide-react';
-import { AiOutlineLoading3Quarters } from 'react-icons/ai';
-import {
-  Carousel,
-  CarouselApi,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from '@/components/ui/carousel';
+import ReviewHeaderGalleryMobile from './ReviewHeaderGalleryMobile';
+import ReviewHeaderGalleryDesktop from './ReviewHeaderGalleryDesktop';
+import { useMediaQuery } from '@mantine/hooks';
+import Review07CBkGrStrTruckCoverVideo from '@/videos/07-C.mp4'; // 0:32
+import Review07CBkGrStrTruckCoverThumbnail from '@/public/review/thumbnails/07-C.webp';
+import ReviewCorvetteC8CarCoverVideo from '@/videos/video-output-5A9C531F-428B-49F1-9F71-E0C42504042D.mov'; // 1:15
+import ReviewCorvetteC8CarCoverThumbnail from '@/public/review/thumbnails/video-output-5A9C531F-428B-49F1-9F71-E0C42504042D.webp';
+import ReviewCaliSpecialMustangGTCarCoverVideo from '@/videos/video-output-9FF6F9F1-7480-433A-A0CD-3F4F01EA4C0B.mov'; // 1:40
+import ReviewCaliSpecialMustangGTCarCoverThumbnail from '@/public/review/thumbnails/video-output-9FF6F9F1-7480-433A-A0CD-3F4F01EA4C0B.webp';
+import ReviewYellowMustangFastbackCarCoverVideo from '@/videos/video-output-58A1332F-8B43-43FA-BC5F-18E3EC710248.mov'; // 0:30
+import ReviewYellowMustangFastbackCarCoverThumbnail from '@/public/review/thumbnails/video-output-58A1332F-8B43-43FA-BC5F-18E3EC710248.webp';
+import ReviewDadRecBkRdCarCoverVideo from '@/videos/video-output-A2824621-3A62-48E1-AA36-13D578896BF4.mov'; // 1:14
+import ReviewDadRecBkRdCarCoverThumbnail from '@/public/review/thumbnails/video-output-A2824621-3A62-48E1-AA36-13D578896BF4.webp';
+import ReviewPurpleCarBkRdCarCoverVideo from '@/videos/video-output-C649EF00-7B86-4423-B3F8-7054872D77FC.mov'; // 0:58
+import ReviewPurpleCarBkRdCarCoverThumbnail from '@/public/review/thumbnails/video-output-C649EF00-7B86-4423-B3F8-7054872D77FC.webp';
+// Seat Covers
+import ReviewGirlGlassesSeatCoverVideo from '@/videos/video-output-4D0FAFC7-6552-4DDB-97E4-D09458515C9F.mov'; // 0:46
+import ReviewGirlGlassesSeatCoverThumbnail from '@/public/review/thumbnails/video-output-4D0FAFC7-6552-4DDB-97E4-D09458515C9F.webp';
+import ReviewHyundaiTusconSeatCoverVideo from '@/videos/video-output-9A8C21D5-9907-4C74-A428-DA683331946F.mov'; //1:14
+import ReviewHyundaiTusconSeatCoverThumbnail from '@/public/review/thumbnails/video-output-9A8C21D5-9907-4C74-A428-DA683331946F.webp';
+import ReviewBaldGuySeatCoverVideo from '@/videos/video-output-30CCCFA6-70E1-4E52-966F-2EA4DCDA1A71.mov'; //1:01
+import ReviewBaldGuySeatCoverThumbnail from '@/public/review/thumbnails/video-output-30CCCFA6-70E1-4E52-966F-2EA4DCDA1A71.webp';
+import ReviewDodgeRamSeatCoverVideo from '@/videos/video-output-759A5252-5A4F-46A3-928D-54E571645DFF.mov'; // 0:56
+import ReviewDodgeRamSeatCoverThumbnail from '@/public/review/thumbnails/video-output-759A5252-5A4F-46A3-928D-54E571645DFF.webp';
+import useDetermineType from '@/hooks/useDetermineType';
+import { ReviewMedia, TReviewData } from '@/lib/types/review';
+
+const reviewVideoUrl: ReviewMedia[] = [
+  {
+    review_image_url: '',
+    review_video_thumbnail_url: Review07CBkGrStrTruckCoverThumbnail,
+    review_video_url: Review07CBkGrStrTruckCoverVideo,
+    rating_stars: '5',
+    duration: '0:32',
+  },
+  {
+    review_image_url: '',
+    review_video_thumbnail_url: ReviewCorvetteC8CarCoverThumbnail,
+    review_video_url: ReviewCorvetteC8CarCoverVideo,
+    rating_stars: '5',
+    duration: '1:15',
+  },
+  {
+    review_image_url: '',
+    review_video_thumbnail_url: ReviewCaliSpecialMustangGTCarCoverThumbnail,
+    review_video_url: ReviewCaliSpecialMustangGTCarCoverVideo,
+    rating_stars: '5',
+    duration: '1:40',
+  },
+  {
+    review_image_url: '',
+    review_video_thumbnail_url: ReviewYellowMustangFastbackCarCoverThumbnail,
+    review_video_url: ReviewYellowMustangFastbackCarCoverVideo,
+    rating_stars: '5',
+    duration: '0:30',
+  },
+  {
+    review_image_url: '',
+    review_video_thumbnail_url: ReviewDadRecBkRdCarCoverThumbnail,
+    review_video_url: ReviewDadRecBkRdCarCoverVideo,
+    rating_stars: '5',
+    duration: '1:14',
+  },
+  {
+    review_image_url: '',
+    review_video_thumbnail_url: ReviewPurpleCarBkRdCarCoverThumbnail,
+    review_video_url: ReviewPurpleCarBkRdCarCoverVideo,
+    rating_stars: '5',
+    duration: '0:58',
+  },
+];
+
+const seatCoverVideoUrl = [
+  {
+    review_image_url: '',
+    review_video_thumbnail_url: ReviewGirlGlassesSeatCoverThumbnail,
+    review_video_url: ReviewGirlGlassesSeatCoverVideo,
+    rating_stars: '5',
+    duration: '0:46',
+  },
+  {
+    review_image_url: '',
+    review_video_thumbnail_url: ReviewHyundaiTusconSeatCoverThumbnail,
+    review_video_url: ReviewHyundaiTusconSeatCoverVideo,
+    rating_stars: '5',
+    duration: '1:14',
+  },
+  {
+    review_image_url: '',
+    review_video_thumbnail_url: ReviewBaldGuySeatCoverThumbnail,
+    review_video_url: ReviewBaldGuySeatCoverVideo,
+    rating_stars: '5',
+    duration: '1:01',
+  },
+  {
+    review_image_url: '',
+    review_video_thumbnail_url: ReviewDodgeRamSeatCoverThumbnail,
+    review_video_url: ReviewDodgeRamSeatCoverVideo,
+    rating_stars: '5',
+    duration: '0:56',
+  },
+];
+
+const buildReviewVideoUrlArray = (review: TReviewData): ReviewMedia[] => {
+  const reviewImages = review.review_image
+    ? review.review_image.split(',')
+    : [];
+
+  return reviewImages.map((imageUrl: string) => ({
+    review_image_url: imageUrl,
+    review_video_thumbnail_url: '',
+    review_video_url: '',
+    rating_stars: review.rating_stars?.toString(),
+    duration: '',
+  }));
+};
+
+const processReviewData = (reviewDataArray: TReviewData[]) => {
+  // Reduce the reviewDataArray to a single array of objects
+  return reviewDataArray.reduce((acc: ReviewMedia[], review) => {
+    const reviewVideoUrls: ReviewMedia[] = buildReviewVideoUrlArray(review);
+    return acc.concat(reviewVideoUrls);
+  }, []);
+};
 
 export default function ReviewHeaderGallery() {
+  const { isSeatCover } = useDetermineType();
   const store = useStoreContext();
-
   if (!store) throw new Error('Missing Provider in the tree');
   const reviewImages = useStore(store, (s) => s.reviewImages);
-  let imageCount = 0;
+  const videoReviews = isSeatCover ? seatCoverVideoUrl : reviewVideoUrl;
+  const photoReviews = processReviewData(reviewImages);
+  const isDesktop = useMediaQuery('(min-width: 1024px)');
 
-  for (const obj of reviewImages) {
-    if (obj && obj.review_image) {
-      obj.review_image.split(',').map(() => {
-        imageCount++;
-      });
-    }
-  }
-
-  // const reviewImageKeys = Object.keys(reviewImages);
-  const [imageLoading, setImageLoading] = useState(false);
-  const [selectedImage, setSelectedImage] = useState('');
-  const [reviewDialogOpen, setReviewDialogOpen] = useState(false);
-
-  const [current, setCurrent] = useState(0);
-  const [api, setApi] = useState<CarouselApi>();
-
-  useEffect(() => {
-    if (!api) {
-      return;
-    }
-
-    setCurrent(api.selectedScrollSnap() + 1);
-
-    api.on('select', () => {
-      setCurrent(api.selectedScrollSnap() + 1);
-    });
-  }, [api]);
+  if (reviewImages.length === 0) return null;
 
   return (
     <div className="flex flex-col items-center">
-      {reviewImages?.length > 0 && (
-        <>
-          <section className="grid aspect-square h-full w-full grid-cols-2 items-center gap-[7px] lg:hidden">
-            <Dialog open={reviewDialogOpen} onOpenChange={setReviewDialogOpen}>
-              {reviewImages?.slice(0, 3).map((image, index) => {
-                if (image)
-                  return (
-                    <Fragment key={`review-card-image-${index}`}>
-                      <span className="flex gap-2 overflow-x-auto">
-                        <DialogTrigger
-                          onClick={() => {
-                            const thisImage = reviewImages[index];
-                            if (!imageLoading) {
-                              setImageLoading(true);
-                            }
-                            setSelectedImage(
-                              String(thisImage.review_image?.split(',')[0])
-                            );
-                          }}
-                        >
-                          <Image
-                            height={270}
-                            width={160}
-                            className=" aspect-square  h-full w-full items-center justify-center object-cover lg:max-w-[207px]"
-                            alt="review-card-image-trigger"
-                            src={String(image.review_image?.split(',')[0])}
-                            onError={() => {
-                              console.error(
-                                `Image: review-card-image-${index} |  ERROR | `,
-                                image
-                              );
-                            }}
-                          />
-                        </DialogTrigger>
-                      </span>
-
-                      <DialogContent
-                        id="review-modal"
-                        className="flex aspect-square min-w-[100vw] flex-col items-center justify-center rounded-lg md:min-w-[45vw]"
-                      >
-                        <div className="absolute right-0 top-0 ">
-                          <X
-                            className=""
-                            onClick={() => {
-                              setReviewDialogOpen(false);
-                            }}
-                          />
-                        </div>
-                        <div className="relative flex min-h-full min-w-full">
-                          {imageLoading && (
-                            <div className="flex min-h-full min-w-full animate-pulse items-center justify-center rounded-md bg-[#F0F0F0]/50">
-                              <AiOutlineLoading3Quarters
-                                className="animate-spin"
-                                fill="#BE1B1B"
-                                opacity={0.5}
-                              />
-                            </div>
-                          )}
-                          <Carousel
-                            setApi={setApi}
-                            onLoad={() => {
-                              setImageLoading(false);
-                            }}
-                          >
-                            <CarouselContent>
-                              {reviewImages?.map((img, index) => (
-                                <CarouselItem
-                                  key={`selected-review-card-image-${index}`}
-                                >
-                                  <Image
-                                    width={800}
-                                    height={800}
-                                    className="flex aspect-square h-full w-full items-center"
-                                    alt="selected-review-card-image-alt"
-                                    src={String(
-                                      img.review_image?.split(',')[0]
-                                    )}
-                                  />
-                                </CarouselItem>
-                              ))}
-                            </CarouselContent>
-                            {api?.canScrollPrev() && (
-                              <CarouselPrevious
-                                size={'icon'}
-                                className="left-0 border-none bg-transparent hover:bg-transparent md:-left-20"
-                              >
-                                <ChevronLeft size={40} stroke="white" />
-                              </CarouselPrevious>
-                            )}
-                            {api?.canScrollNext() && (
-                              <CarouselNext className="right-0 border-none bg-transparent hover:bg-transparent md:-right-20">
-                                <ChevronRight size={40} stroke="white" />
-                              </CarouselNext>
-                            )}
-                          </Carousel>
-                        </div>
-                      </DialogContent>
-                    </Fragment>
-                  );
-              })}
-            </Dialog>
-
-            {reviewImages?.length > 0 ? (
-              <div className="flex h-full w-full items-center justify-center border border-black">
-                <div className="font-normalc text-center text-base normal-case underline ">
-                  <SeeMoreImages />
-                </div>
-              </div>
-            ) : (
-              <></>
-            )}
-          </section>
-          <section className="hidden max-h-fit w-full items-center gap-[7px] lg:grid lg:max-h-[207px] lg:grid-cols-6">
-            <Dialog open={reviewDialogOpen} onOpenChange={setReviewDialogOpen}>
-              {reviewImages?.slice(0, 5).map((image, index) => {
-                if (image)
-                  return (
-                    <Fragment key={`review-card-image-${index}`}>
-                      <span className="flex gap-2 overflow-x-auto">
-                        <DialogTrigger
-                          onClick={() => {
-                            const thisImage = reviewImages[index];
-                            if (!imageLoading) {
-                              setImageLoading(true);
-                            }
-                            setSelectedImage(
-                              String(thisImage.review_image?.split(',')[0])
-                            );
-                          }}
-                        >
-                          <Image
-                            height={270}
-                            width={160}
-                            className=" aspect-square  h-full w-full items-center justify-center object-cover lg:max-w-[207px]"
-                            alt="review-card-image-trigger"
-                            src={String(image.review_image?.split(',')[0])}
-                            onError={() => {
-                              console.error(
-                                `Image: review-card-image-${index} |  ERROR | `,
-                                image
-                              );
-                            }}
-                          />
-                        </DialogTrigger>
-                      </span>
-
-                      <DialogContent
-                        id="review-modal"
-                        className="flex aspect-square min-w-[100vw] flex-col items-center justify-center rounded-lg md:min-w-[45vw]"
-                      >
-                        <div className="absolute right-0 top-0 ">
-                          <X
-                            className=""
-                            onClick={() => {
-                              setReviewDialogOpen(false);
-                            }}
-                          />
-                        </div>
-                        <div className="relative flex min-h-full min-w-full">
-                          {imageLoading && (
-                            <div className="flex min-h-full min-w-full animate-pulse items-center justify-center rounded-md bg-[#999999]/50">
-                              <AiOutlineLoading3Quarters
-                                className="animate-spin"
-                                fill="#BE1B1B"
-                                opacity={0.5}
-                              />
-                            </div>
-                          )}
-                          <Carousel
-                            setApi={setApi}
-                            onLoad={() => {
-                              setImageLoading(false);
-                            }}
-                          >
-                            <CarouselContent>
-                              {reviewImages?.map((img, index) => (
-                                <CarouselItem
-                                  key={`selected-review-card-image-${index}`}
-                                >
-                                  <Image
-                                    width={800}
-                                    height={800}
-                                    className="flex aspect-square h-full w-full items-center"
-                                    alt="selected-review-card-image-alt"
-                                    src={String(
-                                      img.review_image?.split(',')[0]
-                                    )}
-                                  />
-                                </CarouselItem>
-                              ))}
-                            </CarouselContent>
-                            {api?.canScrollPrev() && (
-                              <CarouselPrevious
-                                size={'icon'}
-                                className="left-0 border-none bg-transparent hover:bg-transparent md:-left-20"
-                              >
-                                <ChevronLeft size={40} stroke="white" />
-                              </CarouselPrevious>
-                            )}
-                            {api?.canScrollNext() && (
-                              <CarouselNext className="right-0 border-none bg-transparent hover:bg-transparent md:-right-20">
-                                <ChevronRight size={40} stroke="white" />
-                              </CarouselNext>
-                            )}
-                          </Carousel>
-                        </div>
-                      </DialogContent>
-                    </Fragment>
-                  );
-              })}
-            </Dialog>
-            <div className="flex h-full w-full items-center justify-center border border-black">
-              <div className="font-normalc text-center text-base normal-case underline ">
-                <SeeMoreImages />
-              </div>
-            </div>
-          </section>
-        </>
-      )}
-      {reviewImages && (
-        <div className=" flex items-center justify-center py-[10px] text-[14px] font-[400] normal-case leading-[24px] text-[#767676] lg:pb-[14px]">
-          {imageCount} Review Images
-        </div>
+      {isDesktop ? (
+        <ReviewHeaderGalleryDesktop
+          videoReviews={videoReviews}
+          photoReviews={photoReviews}
+        />
+      ) : (
+        <ReviewHeaderGalleryMobile
+          videoReviews={videoReviews}
+          photoReviews={photoReviews}
+        />
       )}
     </div>
   );
 }
-
-const SeeMoreImages = () => {
-  const [reviewDialogOpen, setReviewDialogOpen] = useState<boolean>(false);
-
-  return (
-    <>
-      {/* Mobile */}
-      <div className="lg:hidden">
-        <ReviewImagesSheet />
-      </div>
-      {/* Desktop */}
-      <div className="hidden lg:block">
-        <Dialog open={reviewDialogOpen} onOpenChange={setReviewDialogOpen}>
-          <DialogTrigger className="underline">
-            See more <br /> review images
-          </DialogTrigger>
-          <DialogContent className="flex max-h-[65vh] flex-col items-center  lg:max-h-[80vh] lg:min-w-[77vw] lg:max-w-[80%]">
-            <ReviewImageGalleryDesktop
-              setReviewDialogOpen={setReviewDialogOpen}
-            />
-          </DialogContent>
-        </Dialog>
-      </div>
-    </>
-  );
-};
