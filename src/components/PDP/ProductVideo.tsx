@@ -7,7 +7,7 @@ const Video = dynamic(() => import('next-video'));
 type ProductVideoProps = {
   src: Asset;
   imgSrc?: StaticImageData;
-  autoplay?: boolean;
+  autoPlay?: boolean;
   controls?: boolean;
   loop?: boolean;
   muted?: boolean;
@@ -22,7 +22,7 @@ const ProductVideo = forwardRef<HTMLVideoElement, ProductVideoProps>(
     {
       src,
       imgSrc,
-      autoplay = false,
+      autoPlay = false,
       controls = true,
       loop = false,
       muted = true,
@@ -39,7 +39,7 @@ const ProductVideo = forwardRef<HTMLVideoElement, ProductVideoProps>(
         ref={ref}
         src={src}
         muted={muted}
-        autoPlay={autoplay}
+        autoPlay={autoPlay}
         loop={loop}
         playsInline
         className={className}

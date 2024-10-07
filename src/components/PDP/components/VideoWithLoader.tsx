@@ -48,7 +48,7 @@ const VideoWithLoader: React.FC<VideoWithLoaderProps> = ({
         className="flex aspect-[9/16] h-full w-full items-center"
         aspectRatio="9 / 16"
         muted={false}
-        autoplay={shouldAutoPlay}
+        autoPlay={shouldAutoPlay}
         controls={true}
         onLoadedData={() => {
           setLoading(false);
