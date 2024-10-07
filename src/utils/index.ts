@@ -206,9 +206,21 @@ export function modelDataTransformer({
   const filteredAndSortedData = finalFilteredData
     ?.filter((product) => product.msrp)
     .sort((a, b) => {
+      // Preorder items should come last
+      const preorderA = a.preorder ? 1 : 0;
+      const preorderB = b.preorder ? 1 : 0;
+
+      // If one of the items has preorder, sort it after the non-preorder items
+      if (preorderA !== preorderB) {
+        return preorderA - preorderB;
+      }
+
+      // Existing year matching logic
       const yearMatchA = a.year_generation === params.year ? 0 : 1;
       const yearMatchB = b.year_generation === params.year ? 0 : 1;
+
       if (yearMatchA !== yearMatchB) return yearMatchA - yearMatchB;
+
       let colorIndexA = colorOrder.indexOf(
         a?.display_color as (typeof colorOrder)[number]
       );
@@ -221,6 +233,7 @@ export function modelDataTransformer({
 
       return colorIndexA - colorIndexB;
     });
+
   return filteredAndSortedData;
 }
 
@@ -424,5 +437,5 @@ export function getCompleteSelectionData({
 // };
 
 export function removeWwwFromUrl(url: string): string {
-  return url.replace(/www\./, '');
+  return url?.replace(/www\./, '');
 }

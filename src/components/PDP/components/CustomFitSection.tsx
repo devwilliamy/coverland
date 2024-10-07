@@ -20,6 +20,7 @@ import useDetermineType from '@/hooks/useDetermineType';
 import ReactPlayer from 'react-player';
 import { CarSelectionContext } from '@/contexts/CarSelectionContext';
 import { useStore } from 'zustand';
+import { LazyVideo } from '../LazyVideo';
 
 const CustomFitSection = () => {
   const { productType, coverType, isPremiumPlus, model } = useDetermineType();
@@ -55,7 +56,6 @@ const CustomFitSection = () => {
   const isCorvette = model === 'corvette';
   const isChallenger = model === 'challenger';
   const ChallengerOrDefault = isChallenger ? Challenger360 : baseFeaturedVideo;
-  const featured360 = isCorvette ? Corvette360 : ChallengerOrDefault;
 
   const imageChoice = () => {
     switch (coverType) {
@@ -67,16 +67,17 @@ const CustomFitSection = () => {
         return <Image alt="standard image" src={StandardImage} />;
       default:
         return (
-          <ReactPlayer
-            url={selectedProduct?.product_video_360 || ''}
+          <LazyVideo
+            data-src={selectedProduct?.product_video_360 || ''}
             muted
-            // autoplay
             loop
-            playsinline
-            playing
+            playsInline
+            autoPlay
             width="100%"
             height="auto"
-          />
+          >
+            Your browser does not support the video tag.
+          </LazyVideo>
         );
     }
   };

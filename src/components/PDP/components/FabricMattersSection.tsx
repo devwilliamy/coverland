@@ -14,7 +14,7 @@ const FabricMattersSection = () => {
       {isDefault ? (
         <ProductVideo
           src={FabricVid}
-          autoplay
+          autoPlay
           loop
           aspectRatio="16/9"
           controls={false}

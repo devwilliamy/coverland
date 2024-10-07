@@ -12,12 +12,13 @@ import { Asset } from 'next-video/dist/assets.js';
 import SeatCover from '@/images/PDP/Product-Details-Redesign-2/seat-covers/featured-cover.webp';
 import SeatVideo from '@/videos/7_sec_seat_cover.mp4';
 import SeatThumbnail from '@/images/PDP/seat-covers-v2/seat-covers-listing-thumbnail.webp';
-import { useState, useEffect, useCallback, useContext } from 'react';
+import { useState, useEffect, useCallback, useContext, useMemo } from 'react';
 import { SeatCoverSelectionContext } from '@/contexts/SeatCoverContext';
 import { useStore } from 'zustand';
 import ProductVideo from '@/components/PDP/ProductVideo';
 import { Play } from 'lucide-react';
 import { isFullSet } from '@/lib/utils';
+import { CarouselPositionItem } from '../../[productType]/components/MobileCarouselPositionItem';
 
 export default function SeatCoverCarousel() {
   const store = useContext(SeatCoverSelectionContext);
@@ -26,10 +27,14 @@ export default function SeatCoverCarousel() {
   const selectedProduct = useStore(store, (s) => s.selectedProduct);
 
   const isFrontCover =
-    isFullSet(selectedProduct.display_set) === 'front' ? true : false;
-  const galleryImages = isFrontCover
-    ? selectedProduct?.product?.split(',').slice(0, -3)
-    : selectedProduct?.product?.split(',');
+    isFullSet(selectedProduct?.display_set || '') === 'front' ? true : false;
+  const galleryImages = useMemo(
+    () =>
+      isFrontCover
+        ? selectedProduct?.product?.split(',').slice(0, -3)
+        : selectedProduct?.product?.split(','),
+    [selectedProduct, isFrontCover]
+  );
   const [api, setApi] = useState<CarouselApi>();
   const [current, setCurrent] = useState(0);
 
@@ -51,27 +56,9 @@ export default function SeatCoverCarousel() {
     [api]
   );
 
-  const CarouselPositionItem = ({
-    index,
-    src,
-  }: {
-    index: number;
-    src: string | StaticImport;
-    video?: string | Asset;
-  }) => (
-    <button
-      onClick={() => scrollTo(index)}
-      className={`w-25% relative flex h-full min-h-[25%] min-w-[25%] items-center justify-center rounded-[4px] ${index === current && 'outline outline-1'} p-[2px]`}
-    >
-      <Image
-        className="h-full w-full rounded-[4px]"
-        src={src}
-        alt={`carousel-position-item-${index}`}
-        width={100}
-        height={100}
-      />
-    </button>
-  );
+  const handleCarouselItemClick = (index: number) => {
+    scrollTo(index);
+  };
 
   return (
     <section className="flex h-full lg:hidden ">
@@ -88,7 +75,7 @@ export default function SeatCoverCarousel() {
                     <ProductVideo
                       src={SeatVideo}
                       imgSrc={SeatThumbnail}
-                      autoplay
+                      autoPlay
                     />
                   </CarouselItem>
                 );
@@ -115,12 +102,20 @@ export default function SeatCoverCarousel() {
               if (index === 3) {
                 return (
                   <div
-                    key={image}
+                    key={`position-item-${index}`}
                     id="video-thumbnail"
-                    onClick={() => scrollTo(index)}
                     className={`w-25% relative flex h-full min-h-[25%] min-w-[25%] items-center justify-center `}
+                    onClick={() => scrollTo(index)}
                   >
-                    <CarouselPositionItem src={SeatThumbnail} index={index} />
+                    <Image
+                      id="video-thumbnail"
+                      alt="Video Thumbnail"
+                      slot="poster"
+                      src={SeatThumbnail.src}
+                      width={1600}
+                      height={1600}
+                      aria-hidden="true"
+                    />
                     <Play className="absolute rounded-full fill-white text-white" />
                   </div>
                 );
@@ -130,6 +125,8 @@ export default function SeatCoverCarousel() {
                   key={`position-item-${index}`}
                   src={image}
                   index={index}
+                  handleClick={handleCarouselItemClick}
+                  className={`w-25% relative flex h-full min-h-[25%] min-w-[25%] items-center justify-center rounded-[4px] ${index === current && 'outline outline-1'} p-[2px]`}
                 />
               );
             })}

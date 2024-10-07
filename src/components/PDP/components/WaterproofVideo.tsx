@@ -6,7 +6,7 @@ export default function WaterproofVideo() {
     <div className="mb-[-1px] w-full overflow-hidden rounded-t-xl">
       <ProductVideo
         src={WaterproofGif}
-        autoplay
+        autoPlay
         loop
         aspectRatio="16 / 9"
         controls={false}
