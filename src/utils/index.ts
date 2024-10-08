@@ -23,15 +23,17 @@ export type TQueryParams = {
   third_submodel?: string;
 };
 
-export interface IProductData extends TInitialProductDataDB, TShopifyProductData {
+export interface IProductData
+  extends TInitialProductDataDB,
+    TShopifyProductData {
   fullProductName: string;
   mainImage: string;
   productImages: string | string[];
 }
 
 export type TShopifyProductData = {
-  title: string
-}
+  title: string;
+};
 
 type ShopifyTransformer = {
   data: TInitialProductDataDB[];
@@ -321,9 +323,9 @@ export function getCompleteSelectionData({
     shouldDisplayMake: true,
     shouldDisplayModel: true,
     shouldDisplayYears: true,
-    shouldDisplaySubmodel: true,
-    shouldDisplaySecondSubmodel: true,
-    shouldDisplayThirdSubmodel: true,
+    // shouldDisplaySubmodel: true,
+    // shouldDisplaySecondSubmodel: true,
+    // shouldDisplayThirdSubmodel: true,
     isComplete: true,
   };
 
@@ -343,17 +345,19 @@ export function getCompleteSelectionData({
     completeSelectionState.shouldDisplayModel = !checkUniformity('model');
     completeSelectionState.shouldDisplayYears =
       !checkUniformity('year_generation');
-    completeSelectionState.shouldDisplaySubmodel =
-      !checkUniformity('submodel1');
-    completeSelectionState.shouldDisplaySecondSubmodel =
-      !checkUniformity('submodel2');
-    completeSelectionState.shouldDisplayThirdSubmodel =
-      !checkUniformity('submodel3');
+    // completeSelectionState.shouldDisplaySubmodel =
+    //   !checkUniformity('submodel1');
+    // completeSelectionState.shouldDisplaySecondSubmodel =
+    //   !checkUniformity('submodel2');
+    // completeSelectionState.shouldDisplayThirdSubmodel =
+    //   !checkUniformity('submodel3');
 
     completeSelectionState.isComplete = !(
-      completeSelectionState.shouldDisplayType ||
-      completeSelectionState.shouldDisplayMake ||
-      completeSelectionState.shouldDisplayModel // ||
+      (
+        completeSelectionState.shouldDisplayType ||
+        completeSelectionState.shouldDisplayMake ||
+        completeSelectionState.shouldDisplayModel
+      ) // ||
       // completeSelectionState.shouldDisplayYears ||
       // completeSelectionState.shouldDisplaySubmodel ||
       // completeSelectionState.shouldDisplaySecondSubmodel ||

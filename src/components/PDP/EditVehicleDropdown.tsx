@@ -154,30 +154,30 @@ export default function EditVehicleDropdown({
     setLoading(true);
 
     const determineType = type !== 'Seat Covers' ? 'premium-plus' : 'leather';
-    let url = `/${slugify(type)}/${determineType}/${slugify(make)}/${slugify(model)}/${yearInUrl}`;
+    let url = `/${slugify(type)}/${determineType}/${slugify(make)}/${slugify(model)}`;
 
-    const submodelParam = searchParams?.submodel
-      ? `?${createQueryString('submodel', searchParams.submodel)}`
-      : '';
-    const submodel2Param = searchParams?.second_submodel
-      ? `&${createQueryString('submodel2', searchParams.second_submodel)}`
-      : '';
-    const submodel3Param = searchParams?.third_submodel
-      ? `&${createQueryString('submodel3', searchParams.third_submodel)}`
-      : '';
-    const queryParams = [submodelParam, submodel2Param, submodel3Param]
-      .filter((param) => param)
-      .join('&');
-    const currentUrl = `${pathname}${queryParams ? `${queryParams}` : ''}`;
-    if (submodel1) {
-      url += `?${createQueryString('submodel', submodel1)}`;
-    }
-    if (submodel2) {
-      url += `&${createQueryString('submodel2', submodel2)}`;
-    }
-    if (submodel3) {
-      url += `&${createQueryString('submodel3', submodel3)}`;
-    }
+    // const submodelParam = searchParams?.submodel
+    //   ? `?${createQueryString('submodel', searchParams.submodel)}`
+    //   : '';
+    // const submodel2Param = searchParams?.second_submodel
+    //   ? `&${createQueryString('submodel2', searchParams.second_submodel)}`
+    //   : '';
+    // const submodel3Param = searchParams?.third_submodel
+    //   ? `&${createQueryString('submodel3', searchParams.third_submodel)}`
+    //   : '';
+    // const queryParams = [submodelParam, submodel2Param, submodel3Param]
+    //   .filter((param) => param)
+    //   .join('&');
+    const currentUrl = `${pathname}`;
+    // if (submodel1) {
+    //   url += `?${createQueryString('submodel', submodel1)}`;
+    // }
+    // if (submodel2) {
+    //   url += `&${createQueryString('submodel2', submodel2)}`;
+    // }
+    // if (submodel3) {
+    //   url += `&${createQueryString('submodel3', submodel3)}`;
+    // }
 
     if (url === currentUrl) {
       setLoading(false);
@@ -198,8 +198,8 @@ export default function EditVehicleDropdown({
     !year ||
     !type ||
     !make ||
-    !model ||
-    (subModelData.length > 1 && !submodel1);
+    !model //||
+    // (subModelData.length > 1 && !submodel1);
 
   return (
     <div className="z-100 relative flex w-full flex-col items-stretch  gap-[16px] *:flex-1">

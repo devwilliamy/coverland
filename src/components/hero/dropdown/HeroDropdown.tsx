@@ -70,24 +70,24 @@ export function HeroDropdown() {
     if (typeof window !== 'undefined') {
       localStorage.setItem('heroDropdownYear', year);
     }
-    const yearInUrl = parent_generation;
+    // const yearInUrl = parent_generation;
 
     const coverType =
       slugify(type) === 'car-covers' ? 'premium-plus' : 'leather';
 
-    let url = `/${slugify(type)}/${coverType}/${slugify(make)}/${slugify(model)}/${yearInUrl}`;
+    let url = `/${slugify(type)}/${coverType}/${slugify(make)}/${slugify(model)}`;
 
-    if (submodel1) {
-      url += `?${createQueryString('submodel', submodel1)}`;
-    }
+    // if (submodel1) {
+    //   url += `?${createQueryString('submodel', submodel1)}`;
+    // }
 
-    if (submodel2) {
-      url += `&${createQueryString('submodel2', submodel2)}`;
-    }
-    
-    if (submodel3) {
-      url += `&${createQueryString('submodel3', submodel3)}`;
-    }
+    // if (submodel2) {
+    //   url += `&${createQueryString('submodel2', submodel2)}`;
+    // }
+
+    // if (submodel3) {
+    //   url += `&${createQueryString('submodel3', submodel3)}`;
+    // }
 
     if (url === BASE_URL) {
       setLoading(false);

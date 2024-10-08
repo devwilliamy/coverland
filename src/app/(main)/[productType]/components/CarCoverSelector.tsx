@@ -8,10 +8,10 @@ import ViewItemGoogleTag from './ViewItemGoogleTag';
 import DetailsTabHeader from './DetailsTabHeader';
 import { TQueryParams } from '@/utils';
 
-const ExtraDetailsTabs = dynamic(
-  () => import('@/components/PDP/components/ExtraDetailsTabs'),
-  { ssr: false }
-);
+// const ExtraDetailsTabs = dynamic(
+//   () => import('@/components/PDP/components/ExtraDetailsTabs'),
+//   { ssr: false }
+// );
 export function CarCoverSelector({
   searchParams,
 }: {

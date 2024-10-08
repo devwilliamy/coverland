@@ -95,9 +95,9 @@ export function ModelSearch({
         items={modelDataStrings}
         isLoading={isLoading}
       />
-      {showSubmodelDropdown && (
+      {/* {showSubmodelDropdown && (
         <SubmodelDropdown queryObj={queryObj} submodelData={submodelData} />
-      )}
+      )} */}
     </>
   );
 }

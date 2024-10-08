@@ -66,16 +66,25 @@ export default async function CarPDPDataLayer({
   const typeString =
     params?.productType === 'car-covers' ? 'Car Covers' : SuvOrTruckType;
 
-  // const productHandle = params.handle; // Assuming your handle is passed as a param
-  const productHandle = 'acura-mdx-suv-car-cover'; // Assuming your handle is passed as a param
+  const product = await getProductData({
+    type: typeString,
+    make: params.make,
+    model: params.model,
+  });
+
+  // console.log('Product:', product);
+  const productHandles = [...new Set(product.map((p) => p.shopify_handle))];
+  // console.log('Unique Product Handles:', productHandles);
+  const productHandle = productHandles[0];
+  // console.log('ProductHandle:', productHandle);
   const { data } = await client.query({
     query: GET_PRODUCT_BY_HANDLE,
     variables: { handle: productHandle },
   });
   const shopifyProduct = data.productByHandle;
   modelData = mapShopifyToModelData(shopifyProduct);
-  console.log('ShopifyProduct:', shopifyProduct);
-  console.log('MOdelData:', modelData);
+  // console.log('ShopifyProduct:', shopifyProduct);
+  // console.log('MOdelData:', modelData);
 
   try {
     [reviewData, reviewDataSummary, reviewImages] = await Promise.all([

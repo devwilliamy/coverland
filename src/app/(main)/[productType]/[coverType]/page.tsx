@@ -1,8 +1,4 @@
-import {
-  TInitialProductDataDB,
-  getDefaultProductData,
-  getProductData,
-} from '@/lib/db';
+import { TInitialProductDataDB, getDefaultProductData } from '@/lib/db';
 import {
   getAllReviewsWithImages,
   getProductReviewSummary,
@@ -19,9 +15,6 @@ import {
 } from '@/lib/utils';
 import { PREMIUM_PLUS_URL_PARAM } from '@/lib/constants';
 import { TReviewData, TProductReviewSummary } from '@/lib/types/review';
-import client from '@/lib/apollo/apollo-client'; // Adjust the path as necessary
-import { GET_PRODUCT_BY_HANDLE } from '@/lib/graphql/queries/products';
-import { mapShopifyToModelData } from '@/lib/utils/shopify';
 export const revalidate = 86400;
 
 export async function generateStaticParams() {
@@ -72,46 +65,36 @@ export default async function CarPDPModelDataLayer({
   const typeString =
     productType === 'car-covers' ? 'Car Covers' : SuvOrTruckType;
 
-  // const productHandle = params.handle; // Assuming your handle is passed as a param
-  const productHandle = 'ford-ltd-car-cover'; // Assuming your handle is passed as a param
-  const { data } = await client.query({
-    query: GET_PRODUCT_BY_HANDLE,
-    variables: { handle: productHandle },
-  });
-  const shopifyProduct = data.productByHandle;
-  modelData = mapShopifyToModelData(shopifyProduct);
-  console.log('ShopifyProduct:', shopifyProduct);
-  console.log('MOdelData:', modelData);
-  // await fetchProducts();
   try {
-    [reviewData, reviewDataSummary, reviewImages] = await Promise.all([
-      // getDefaultProductData(),
-      getProductReviewsByPage(
-        { productType: typeString },
-        {
-          pagination: {
-            page: 0,
-            limit: 8,
-          },
-          sort: [
-            { field: 'sku', order: 'asc' },
-            { field: 'helpful', order: 'desc', nullsFirst: false },
-          ],
-        }
-      ),
-      getProductReviewSummary({
-        productType: typeString,
-      }),
-      getAllReviewsWithImages(
-        {
+    [modeldata, reviewData, reviewDataSummary, reviewImages] =
+      await Promise.all([
+        getDefaultProductData(),
+        getProductReviewsByPage(
+          { productType: typeString },
+          {
+            pagination: {
+              page: 0,
+              limit: 8,
+            },
+            sort: [
+              { field: 'sku', order: 'asc' },
+              { field: 'helpful', order: 'desc', nullsFirst: false },
+            ],
+          }
+        ),
+        getProductReviewSummary({
           productType: typeString,
-        },
-        {}
-      ),
-    ]);
+        }),
+        getAllReviewsWithImages(
+          {
+            productType: typeString,
+          },
+          {}
+        ),
+      ]);
 
     if (!modelData) {
-      console.log("Model Data Not Found")
+      console.log('Model Data Not Found');
       redirect('/404');
     }
   } catch (error) {
