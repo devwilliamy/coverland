@@ -106,6 +106,22 @@ const createCarSelectionStore = ({
   if (initialDataWithThirdSubmodels.length === 0) {
     notFound();
   }
+
+  const sortedInitialDataByYearGenerationAndSubmodel: IProductData[] =
+    initialDataWithThirdSubmodels.sort((a, b) => {
+      // Sort by year_generation (latest first)
+      const startYearA = parseInt(a.year_generation.split('-')[0], 10);
+      const startYearB = parseInt(b.year_generation.split('-')[0], 10);
+
+      if (startYearA !== startYearB) {
+        return startYearB - startYearA; // Sort by year generation (latest first)
+      }
+
+      // If year_generation is the same, sort by submodel1 alphabetically
+      if (a.submodel1 < b.submodel1) return -1;
+      if (a.submodel1 > b.submodel1) return 1;
+      return 0; // If submodel1 is the same, no sorting required
+    });
   // Until we have actual photos, we don't want to have repeat photos in reviews
   const reviewImageTracker: Record<string, boolean> = {};
   initialReviewData.forEach((reviewData) => {
@@ -123,8 +139,8 @@ const createCarSelectionStore = ({
       : '';
 
   return createStore<ICarCoverSelectionState>()((set, get) => ({
-    modelData: initialDataWithThirdSubmodels,
-    initialModelData: initialDataWithThirdSubmodels,
+    modelData: sortedInitialDataByYearGenerationAndSubmodel,
+    initialModelData: sortedInitialDataByYearGenerationAndSubmodel,
     query: {
       year: (params?.year && customerSelectedYear) || '',
       type: params?.productType ?? '',
@@ -142,9 +158,10 @@ const createCarSelectionStore = ({
           ? (params?.year as string)
           : '',
     },
-    selectedProduct: initialDataWithThirdSubmodels[0],
-    featuredImage: initialDataWithThirdSubmodels[0]?.mainImage,
-    selectedColor: initialDataWithThirdSubmodels[0]?.display_color ?? '',
+    selectedProduct: sortedInitialDataByYearGenerationAndSubmodel[0],
+    featuredImage: sortedInitialDataByYearGenerationAndSubmodel[0]?.mainImage,
+    selectedColor:
+      sortedInitialDataByYearGenerationAndSubmodel[0]?.display_color ?? '',
     reviewImages: initialReviewImages,
     reviewImageTracker,
     setReviewImageTracker: (newImageTracker: Record<string, boolean>) => {
@@ -246,10 +263,11 @@ const createCarSelectionStore = ({
       set(() => ({ customerSelectedYear: year }));
     },
     selectedYearGeneration:
-      initialDataWithThirdSubmodels[0]?.year_generation ?? '',
+      sortedInitialDataByYearGenerationAndSubmodel[0]?.year_generation ?? '',
     setSelectedYearGeneration: (year: string) =>
       set(() => ({ selectedYearGeneration: year })),
-    selectedBodyTrim: initialDataWithThirdSubmodels[0]?.submodel1 ?? '',
+    selectedBodyTrim:
+      sortedInitialDataByYearGenerationAndSubmodel[0]?.submodel1 ?? '',
     setSelectedBodyTrim: (bodyTrim: string) =>
       set(() => ({ selectedBodyTrim: bodyTrim })),
   }));

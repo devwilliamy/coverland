@@ -31,6 +31,10 @@ export const GET_PRODUCT_BY_HANDLE = gql`
               amount
               currencyCode
             }
+            selectedOptions {
+              name
+              value
+            }
             availableForSale
             sku
           }

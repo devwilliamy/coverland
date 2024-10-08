@@ -20,6 +20,10 @@ export const FETCH_CART = gql`
                   amount
                   currencyCode
                 }
+                selectedOptions {
+                  name
+                  value
+                }
                 product {
                   id
                   productType

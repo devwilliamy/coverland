@@ -9,6 +9,14 @@ export default function BodyTrimSelector() {
   const modelData = useStore(store, (s) => s.modelData);
   const selectedProduct = useStore(store, (s) => s.selectedProduct);
   const setSelectedProduct = useStore(store, (s) => s.setSelectedProduct);
+  const selectedYearGeneration = useStore(
+    store,
+    (s) => s.selectedYearGeneration
+  );
+  const setSelectedYearGeneration = useStore(
+    store,
+    (s) => s.setSelectedYearGeneration
+  );
   const selectedBodyTrim = useStore(store, (s) => s.selectedBodyTrim);
   const setSelectedBodyTrim = useStore(store, (s) => s.setSelectedBodyTrim);
   const params = useParams<TPathParams>();
@@ -28,7 +36,20 @@ export default function BodyTrimSelector() {
 
   const uniqueBodyTrims: IProductData[] = Array.from(
     uniqueBodyTrimsMap.values()
-  );
+  ).sort((a, b) => {
+    if (a.submodel1 < b.submodel1) return -1;
+    if (a.submodel1 > b.submodel1) return 1;
+    return 0; // If they are equal, no sorting required
+  });
+
+  // Determine if a year generation should be disabled based on selectedBodyTrim
+  const isBodyTrimDisabled = (bodyTrim: string) => {
+    return !modelData.some(
+      (model) =>
+        model.year_generation === selectedYearGeneration &&
+        model.submodel1 === bodyTrim
+    );
+  };
 
   return (
     <section
@@ -46,16 +67,22 @@ export default function BodyTrimSelector() {
       <div className="grid w-full grid-cols-2 gap-[11px] py-[1px]">
         {uniqueBodyTrims &&
           uniqueBodyTrims.map((modelData, index) => (
-            <div
+            <button
               key={`body-trim-${index}`}
-              className={`flex ${modelData?.submodel1 === selectedBodyTrim ? 'border-2 border-[#1A1A1A] font-bold' : 'border-[#DBDBDB]'} flex-col place-content-center rounded border px-[14.5px] py-2 capitalize`}
+              className={`inline-flex items-center justify-center whitespace-nowrap rounded border border-black bg-white px-4 py-2 text-[#1A1A1A] transition-all duration-300 hover:scale-105 hover:bg-black hover:font-bold hover:text-white focus:outline-none focus:ring-black ${
+                modelData?.submodel1 === selectedProduct?.submodel1
+                  ? ' border-2 border-[#1A1A1A] font-bold'
+                  : 'border-[#DBDBDB]'
+              } flex-col place-content-center rounded border px-[14.5px] py-2 
+            ${isBodyTrimDisabled(modelData.submodel1) ? ' cross font-normal	' : ''}`}
               onClick={() => {
                 setSelectedProduct(modelData);
                 setSelectedBodyTrim(modelData.submodel1 as string);
+                setSelectedYearGeneration(modelData.year_generation as string);
               }}
             >
               {modelData?.submodel1}
-            </div>
+            </button>
           ))}
       </div>
     </section>

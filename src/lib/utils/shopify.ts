@@ -11,35 +11,55 @@ const determineColorCode = (color: string): string => {
   return colorMap[color];
 };
 
-const determineVariants = (title: string) => {
-  const parts = title.split(' / ');
+type VariantOptions = {
+  color1: string;
+  color2: string;
+  yearRange: string;
+  bodyTrim: string;
+};
 
-  let yearGeneration: string | undefined;
-  let submodel: string | undefined;
-  let color1: string | undefined;
-  let color2: string | undefined;
+type SelectedOption = {
+  name: string;
+  value: string;
+};
 
-  if (parts.length === 4) {
-    [yearGeneration, submodel, color1, color2] = parts;
-  } else if (parts.length === 3) {
-    [yearGeneration, color1, color2] = parts;
-    submodel = undefined; // Optional: handle missing submodel
-  } else {
-    console.warn('Unexpected title format:', title);
-  }
-  return {
-    yearGeneration,
-    submodel,
-    color1,
-    color2,
+const determineVariants = (selectedOptions: SelectedOption[]) => {
+  const variables: VariantOptions = {
+    color1: '',
+    color2: '',
+    yearRange: '',
+    bodyTrim: '',
   };
+  selectedOptions?.forEach((option) => {
+    switch (option.name) {
+      case 'Year':
+        variables.yearRange = option.value;
+        break;
+      case 'Body/Trim':
+        variables.bodyTrim = option.value;
+        break;
+      case 'Color':
+        // Split color by '/' and trim any extra spaces
+        const colors = option.value.split('/').map((s) => s.trim());
+        variables.color1 = colors[0] || '';
+        variables.color2 = colors[1] || '';
+        break;
+      default:
+        break;
+    }
+  });
+
+  return variables;
+};
+
+const isYear = (component: string) => {
+  return /^\d{4}-\d{4}$/.test(component) || /^\d{4}$/.test(component);
 };
 
 export function mapShopifyToModelData(shopifyProduct: Product): IProductData[] {
-  return shopifyProduct.variants.edges.map((variant) => {
-    const { yearGeneration, submodel, color1, color2 } = determineVariants(
-      variant.node.title
-    );
+  return shopifyProduct?.variants?.edges?.map((variant) => {
+    const variables = determineVariants(variant.node.selectedOptions);
+    const { yearRange, bodyTrim, color1, color2 } = variables;
 
     const colorCode = determineColorCode(`${color1} ${color2}`);
     const matchingFeatureImage = shopifyProduct.images.edges.find(
@@ -49,15 +69,14 @@ export function mapShopifyToModelData(shopifyProduct: Product): IProductData[] {
     const matchedImages = shopifyProduct.images.edges
       .filter((image) => image.node.altText === colorCode)
       .map((image) => image.node.url);
-
     return {
       id: variant.node.id,
       sku: variant.node.sku,
-      parent_generation: yearGeneration, // Parse from title or store elsewhere
-      year_generation: yearGeneration,
+      parent_generation: yearRange, // Parse from title or store elsewhere
+      year_generation: yearRange,
       make: shopifyProduct.vendor,
       model: shopifyProduct.title.split(' ')[1], // Assuming model is the second word in title
-      submodel1: submodel,
+      submodel1: bodyTrim,
       submodel2: null, // Adjust based on actual submodel structure
       submodel3: null,
       feature: matchingFeatureImage?.node.url || null,
@@ -68,7 +87,7 @@ export function mapShopifyToModelData(shopifyProduct: Product): IProductData[] {
       product_video_360: null,
       banner: shopifyProduct.images.edges[0]?.node.url || null,
       type: 'Car Covers', // Assuming a default type
-      year_options: yearGeneration,
+      year_options: yearRange,
       make_slug: shopifyProduct.handle.split('-')[0], // Assuming the first part of the handle is the make
       model_slug: shopifyProduct.handle.split('-')[1], // Assuming the second part is the model
       msrp: shopifyProduct.priceRange.minVariantPrice.amount,
@@ -92,8 +111,9 @@ export function mapShopifyToModelData(shopifyProduct: Product): IProductData[] {
 
 export function mapShopifyCartToCartData(shopifyCartData: any): TCartItem[] {
   const { merchandise, quantity, id } = shopifyCartData;
-  const { product, title, price, image } = merchandise;
-  const { yearGeneration, submodel, color1, color2 } = determineVariants(title);
+  const { product, title, price, image, selectedOptions } = merchandise;
+  const { yearRange, bodyTrim, color1, color2 } =
+    determineVariants(selectedOptions);
   // Parse necessary fields
   const displayColor = `${color1} / ${color2}`;
 
@@ -104,11 +124,11 @@ export function mapShopifyCartToCartData(shopifyCartData: any): TCartItem[] {
   return {
     id: id,
     sku: merchandise?.sku, // Assuming SKU comes from variant ID
-    parent_generation: yearGeneration, // Adjust as necessary
-    year_generation: yearGeneration,
+    parent_generation: yearRange, // Adjust as necessary
+    year_generation: yearRange,
     make: make || null,
     model: model || null,
-    submodel1: null, // Adjust as necessary
+    submodel1: bodyTrim, // Adjust as necessary
     submodel2: null,
     submodel3: null,
     feature: image?.url || null, // Assuming this is the product image
@@ -119,7 +139,7 @@ export function mapShopifyCartToCartData(shopifyCartData: any): TCartItem[] {
     product_video_360: null,
     banner: image?.url || null, // Assuming banner is the product image for now
     type: product?.productType || 'Car Cover',
-    year_options: yearGeneration,
+    year_options: yearRange,
     make_slug: make?.toLowerCase() || null,
     model_slug: model?.toLowerCase() || null,
     msrp: price?.amount || null,
