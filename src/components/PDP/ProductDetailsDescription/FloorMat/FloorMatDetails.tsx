@@ -11,6 +11,8 @@ import DetailsTabHeader from '@/app/(main)/[productType]/components/DetailsTabHe
 import PerfectCustomFit from './PerfectCustomFit';
 import BuckleUpStaySecure from './BuckleUpStaySecure';
 import StepInWithConfidence from './StepInWithConfidence';
+import AllSeasonProtection from './AllSeasonProtection';
+import StayLookingClean from './StayLookingClean';
 
 const FloorMatDetails = React.memo(() => {
   const params = useParams();
@@ -32,27 +34,9 @@ const FloorMatDetails = React.memo(() => {
       <PerfectCustomFit />
       <BuckleUpStaySecure />
       <StepInWithConfidence />
+      <AllSeasonProtection />
+      <StayLookingClean />
 
-      {/* <ElevateComfortSection showBanner={isFordF1502015} /> */}
-      {/*  */}
-      {/* <div className="flex w-full flex-col items-center py-[60px] lg:py-[110px]">
-        <p className="text-[26px] font-[600] leading-[30px] lg:text-[45px] lg:font-[600] lg:leading-[52.73px] ">
-          Simple For All!
-        </p>
-        <p className="pt-1.5 text-[14px] font-[500] leading-[16.41px] lg:pt-[20px] lg:text-[26px] lg:font-[500] lg:leading-[26px] ">
-          No tool needed! Follow Our Step by Step Guide
-        </p>
-        <div className="flex w-full max-w-[840px] items-center pt-[18px] lg:pt-[40px] ">
-          <ProductVideo
-            src={installVideo}
-            imgSrc={installThumbnail}
-            aspectRatio="16/9"
-          />
-        </div>
-      </div> */}
-      {/* <StayNewSection />
-      <SafetyFirstSection />
-      <EnhancedPerformanceSection /> */}
       <WarrantySection />
     </div>
   );
