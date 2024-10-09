@@ -12,10 +12,10 @@ export default function ProductPricing() {
 
   return (
     <>
-      <div className="flex items-end gap-[9px] pt-[18px] text-center text-[28px] font-[900] lg:text-[32px] lg:leading-[37.5px] ">
+      <div className="flex items-center gap-[6px] pt-7 text-center text-2xl font-black lg:text-[32px] lg:leading-[37.5px] ">
         <div className="leading-[20px]">${msrp}</div>
         {discountPercent && (
-          <div className="flex gap-1.5 pb-[1px] text-[22px] font-[400] leading-[14px] text-[#BE1B1B] lg:text-[22px] ">
+          <div className="flex gap-1.5 pb-[1px] text-lg font-normal leading-[14px] text-[#BE1B1B] lg:text-[22px] ">
             <span className=" text-[#BEBEBE] line-through">${price}</span>
             <p>(-{discountPercent}%)</p>
           </div>
@@ -23,7 +23,7 @@ export default function ProductPricing() {
       </div>
       <div className="pb-4.5 flex items-center gap-0.5">
         {installmentPrice && (
-          <p className="text-[16px] leading-[16px] text-[#767676] lg:text-[16px]">
+          <p className="text-sm text-[#767676] lg:text-[16px]">
             4 interest-free installments of{' '}
             <b className="font-[500] text-black">
               ${(installmentPrice / 4).toFixed(2)}

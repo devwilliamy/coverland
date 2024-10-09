@@ -31,13 +31,9 @@ export default function ProductDetailsPanel({
   });
 
   const router = useRouter();
-
   const selectedProduct = useStore(store, (s) => s.selectedProduct);
   const [addToCartOpen, setAddToCartOpen] = useState<boolean>(false);
   const { addToCart } = useCartContext();
-
-  const [coverPrice, setCoverPrice] = useState(320);
-  const [loading, setLoading] = useState(false);
 
   const handleAddToCart = () => {
     addToCart({ ...selectedProduct, quantity: 1 });
@@ -50,7 +46,6 @@ export default function ProductDetailsPanel({
   };
 
   if (!selectedProduct.price) {
-    setLoading(false);
     throw new Error('No Selected Product Price in store');
   }
 
@@ -60,7 +55,7 @@ export default function ProductDetailsPanel({
         <Separator className="w-full bg-[#C8C7C7] lg:block" />
         <EditVehicle searchParams={searchParams} />
         <Separator className="w-full bg-[#C8C7C7]" />
-        <div className="mt-4 flex flex-col gap-0.5 lg:mt-10">
+        <div className="mt-6 flex flex-col gap-0.5 lg:mt-12">
           <ProductInfo />
         </div>
       </div>

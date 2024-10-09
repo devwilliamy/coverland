@@ -26,7 +26,10 @@ export default function FloorMats({ searchParams }: FloorMatsProps) {
 
       {/* Refactor TODO: Probably MobileCarousel */}
       <FloorMatCarousel />
-      <section className="flex h-max w-full lg:gap-[60px]">
+      <section
+        id="floor-mat-desktop-right-panel"
+        className="flex h-max w-full lg:gap-[60px]"
+      >
         {/* Refactor TODO: DesktopProductImageGallery */}
         <DesktopProductImageGallery />
         <ProductDetailsPanel searchParams={searchParams} />
