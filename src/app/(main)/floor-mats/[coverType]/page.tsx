@@ -22,8 +22,8 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }: { params: TPathParams }) {
   return {
-    title: `Seat Covers, Custom Fit - Coverland`,
-    description: `Seat Covers ᐉ Coverland ⭐ Free, Same-Day Shipping ✔️ Free Returns & Purchase Protection ✔️ Made from premium quality, heavy-duty materials with a soft inner fabric.`,
+    title: `Floor Mats, Custom Fit - Coverland`,
+    description: `Floor Mats ᐉ Coverland ⭐ Free, Same-Day Shipping ✔️ Free Returns & Purchase Protection ✔️ Made from premium quality, heavy-duty materials with a soft inner fabric.`,
   };
 }
 

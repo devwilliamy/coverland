@@ -5,7 +5,7 @@ import { SeatCoverSelectionContext } from '@/contexts/SeatCoverContext';
 import { FloorMatSelectionContext } from '@/contexts/FloorMatContext';
 import {
   CAR_COVERS_URL_PARAM,
-  FLOOR_MAT_URL_PARAM,
+  FLOOR_MATS_URL_PARAM,
   SEAT_COVERS_URL_PARAM,
 } from '@/lib/constants';
 
@@ -23,8 +23,9 @@ const useStoreContext = () => {
     case SEAT_COVERS_URL_PARAM:
       storeContext = seatCoverContext;
       break;
-    case FLOOR_MAT_URL_PARAM:
+    case FLOOR_MATS_URL_PARAM:
       storeContext = floorMatContext;
+      break;
     default:
       storeContext = null;
       break;

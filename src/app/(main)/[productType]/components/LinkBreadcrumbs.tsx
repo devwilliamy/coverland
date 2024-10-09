@@ -13,8 +13,7 @@ export default function LinkBreadcrumbs() {
   const paramValues = Object.values(params);
   const { isSeatCover } = useDetermineType();
   const store = useStoreContext();
-  if (!store)
-    throw new Error('Missing SeatCoverSelectionContext.Provider in the tree');
+  if (!store) throw new Error('Missing Provider in the tree');
 
   const selectedProduct = useStore(store, (s) => s.selectedProduct);
 

@@ -2,13 +2,14 @@ import { Separator } from '@/components/ui/separator';
 import dynamic from 'next/dynamic';
 import LinkBreadcrumbs from '@/app/(main)/[productType]/components/LinkBreadcrumbs';
 import FloorMatCarousel from './FloorMatCarousel';
+import DesktopProductImageGallery from './DesktopProductImageGallery/DesktopProductImageGallery';
 
 const ExtraDetailsTabs = dynamic(
   () => import('@/components/PDP/components/ExtraDetailsTabs'),
   { ssr: false }
 );
 
-// Refactor TODO: FloorMats would just be PDP or something 
+// Refactor TODO: FloorMats would just be PDP or something
 export default function FloorMats({
   searchParams,
 }: {
@@ -19,7 +20,7 @@ export default function FloorMats({
       <div className="pl-2 lg:pl-9">
         <LinkBreadcrumbs />
       </div>
-      
+
       {/* Refactor TODO: Probably MobileCarousel */}
       <FloorMatCarousel />
       <section className="flex h-max w-full lg:gap-[60px]">

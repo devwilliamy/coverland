@@ -1,8 +1,9 @@
 import {
   CAR_COVERS_URL_PARAM,
+  FLOOR_MATS_URL_PARAM,
+  FLOOR_MATS_URL_PARAM_WITH_SLASH,
   PREMIUM_PLUS_URL_PARAM,
   PREMIUM_URL_PARAM,
-  SEAT_COVERS,
   SEAT_COVERS_URL_PARAM,
   SEAT_COVERS_URL_PARAM_WITH_SLASH,
   STANDARD_PRO_URL_PARAM,
@@ -25,9 +26,17 @@ function useDetermineType() {
   const { make, model, year } = params as ParamsType;
 
   // Product Types
-  const isSeatCover = pathname.startsWith(SEAT_COVERS_URL_PARAM_WITH_SLASH);
+  const isSeatCover = pathname?.startsWith(SEAT_COVERS_URL_PARAM_WITH_SLASH);
+  const isFloorMat = pathname?.startsWith(FLOOR_MATS_URL_PARAM_WITH_SLASH);
 
-  const productType = isSeatCover ? SEAT_COVERS_URL_PARAM : params?.productType;
+  let productType = params?.productType; // Default to params productType
+
+  if (isSeatCover) {
+    productType = SEAT_COVERS_URL_PARAM;
+  } else if (isFloorMat) {
+    productType = FLOOR_MATS_URL_PARAM;
+  }
+
   const isTruckCover = productType === TRUCK_COVERS_URL_PARAM;
   const isSUVCover = productType === SUV_COVERS_URL_PARAM;
   const isCarCover = productType === CAR_COVERS_URL_PARAM;
