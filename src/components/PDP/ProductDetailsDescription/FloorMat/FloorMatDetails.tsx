@@ -9,6 +9,8 @@ import F150Thumbnail from '@/images/PDP/seat-covers-v2/F-150 Installation Thumbn
 import TruckInstallSmall from '@/videos/Seat Cover Installation_400.mp4';
 import DetailsTabHeader from '@/app/(main)/[productType]/components/DetailsTabHeader';
 import PerfectCustomFit from './PerfectCustomFit';
+import BuckleUpStaySecure from './BuckleUpStaySecure';
+import StepInWithConfidence from './StepInWithConfidence';
 
 const FloorMatDetails = React.memo(() => {
   const params = useParams();
@@ -28,6 +30,8 @@ const FloorMatDetails = React.memo(() => {
         </div>
       )}
       <PerfectCustomFit />
+      <BuckleUpStaySecure />
+      <StepInWithConfidence />
 
       {/* <ElevateComfortSection showBanner={isFordF1502015} /> */}
       {/*  */}
