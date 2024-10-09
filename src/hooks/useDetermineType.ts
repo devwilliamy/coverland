@@ -64,6 +64,7 @@ function useDetermineType() {
     isTruckCover,
     isVehicleCover,
     isSeatCover,
+    isFloorMat,
     coverType,
     isPremiumPlus,
     isPremium,

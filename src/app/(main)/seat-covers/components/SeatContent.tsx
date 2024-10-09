@@ -21,15 +21,15 @@ import useDetermineType from '@/hooks/useDetermineType';
 import { TSeatCoverDataDB } from '@/lib/db/seat-covers';
 import { handleCheckLowQuantity } from '@/lib/utils/calculations';
 import KlarnaIcon from '@/components/icons/KlarnaIcon';
+import useStoreContext from '@/hooks/useStoreContext';
 
 export default function SeatContent({
   searchParams,
 }: {
   searchParams: TQueryParams;
 }) {
-  const store = useContext(SeatCoverSelectionContext);
-  if (!store)
-    throw new Error('Missing SeatCoverSelectionContext.Provider in the tree');
+  const store = useStoreContext();
+  if (!store) throw new Error('Missing Provider in the tree');
   const modelData = useStore(store, (s) => s.modelData);
 
   const {
@@ -156,7 +156,7 @@ export default function SeatContent({
         <KlarnaIcon className="-ml-[5px] -mt-[1px] flex max-h-[35px] w-fit max-w-[65px]" />
       </div>
       {!!isComplete ? <SeatCoverSelection /> : null}
-      <SeatCoverColorSelector />
+      {/* <SeatCoverColorSelector /> */}
       <FreeDetails />
       {/* <CompatibleVehiclesTrigger /> */}
       <div className="lg:py-4"></div>

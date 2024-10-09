@@ -11,13 +11,14 @@ import ShippingPolicyContent from '@/components/policy/ShippingPolicyContent';
 import WarrantyPolicyContent from '@/components/policy/WarrantyPolicyContent';
 import { QuestionsAccordion } from '../QuestionsAccordion';
 import useDetermineType from '@/hooks/useDetermineType';
+import FloorMatDetails from '../ProductDetailsDescription/FloorMat/FloorMatDetails';
 
 type TabsObj = {
   title: string;
 };
 
 export default function ExtraDetailsTabs() {
-  const { isSeatCover } = useDetermineType();
+  const { isSeatCover, isFloorMat } = useDetermineType();
   const isSmall = useMediaQuery('(max-width: 768px)');
   const isMedium = useMediaQuery('(max-width: 1024px)');
 
@@ -41,14 +42,17 @@ export default function ExtraDetailsTabs() {
       { title: 'Insights' },
     ];
 
-    if (!isSeatCover) {
+    if (isSeatCover) {
+      mainTabs.splice(mainTabs.length - 1, 1);
       mainTabs.unshift(
         { title: 'Details' },
         { title: 'Reviews' },
         { title: 'Q&A' }
       );
-    } else {
+    } else if (isFloorMat) {
       mainTabs.splice(mainTabs.length - 1, 1);
+      mainTabs.unshift({ title: 'Details' });
+    } else {
       mainTabs.unshift(
         { title: 'Details' },
         { title: 'Reviews' },
@@ -82,9 +86,9 @@ export default function ExtraDetailsTabs() {
       for (let i = 0; i < offsetPositions.length; i++) {
         // The entire condition checks if the current scroll position is within section i
         if (
-          // Checks if the current scroll position is below or at the top of section i. 
+          // Checks if the current scroll position is below or at the top of section i.
           // This means the user has scrolled past the start of section i.
-          scrollPosition >= offsetPositions[i] && 
+          scrollPosition >= offsetPositions[i] &&
           // Chekc last section OR Checks if the current scroll position is above the start of the next section.
           (i === offsetPositions.length - 1 ||
             scrollPosition < offsetPositions[i + 1])
@@ -101,6 +105,14 @@ export default function ExtraDetailsTabs() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, [defaultTabs, queryOffset, currentTabIndex]);
 
+  const ProductDetails = isSeatCover ? (
+    <SeatCoverDetails />
+  ) : isFloorMat ? (
+    <FloorMatDetails />
+  ) : (
+    <VehicleCoverDetails />
+  );
+
   return (
     <>
       <StickyTabBar
@@ -110,7 +122,8 @@ export default function ExtraDetailsTabs() {
       />
       <div>
         <div id="Details" ref={(el) => (sectionRefs.current['Details'] = el)}>
-          {!isSeatCover ? <VehicleCoverDetails /> : <SeatCoverDetails />}
+          {/* Refactor TODO: This can be passed in */}
+          {ProductDetails}
         </div>
         <Separator className="h-5 border-y-[1px] border-y-[#DADADA] bg-[#F1F1F1] lg:h-10" />
 
