@@ -43,9 +43,4 @@ export default function StepInWithConfidence() {
   );
 }
 
-const TextWithDot = ({ text }: { text: string }) => (
-  <div className="flex flex-col items-center justify-center">
-    <div className="flex h-[3px] w-[3px] rounded-full bg-[#B23B4E]" />
-    <p className="text-[#B23B4E]">{text}</p>
-  </div>
-);
+

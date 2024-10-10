@@ -14,6 +14,7 @@ import StepInWithConfidence from './StepInWithConfidence';
 import AllSeasonProtection from './AllSeasonProtection';
 import StayLookingClean from './StayLookingClean';
 import SafeForFamily from './SafeForFamily';
+import YourAdventure from './YourAdventure';
 
 const FloorMatDetails = React.memo(() => {
   const params = useParams();
@@ -38,6 +39,7 @@ const FloorMatDetails = React.memo(() => {
       <AllSeasonProtection />
       <StayLookingClean />
       <SafeForFamily />
+      <YourAdventure/>
 
       <WarrantySection />
     </div>

@@ -125,18 +125,27 @@ export default function ExtraDetailsTabs() {
           {/* Refactor TODO: This can be passed in */}
           {ProductDetails}
         </div>
-        <Separator className="h-5 border-y-[1px] border-y-[#DADADA] bg-[#F1F1F1] lg:h-10" />
+        {!isFloorMat && (
+          <>
+            <Separator className="h-5 border-y-[1px] border-y-[#DADADA] bg-[#F1F1F1] lg:h-10" />
+            <div
+              id="Reviews"
+              ref={(el) => (sectionRefs.current['Reviews'] = el)}
+            >
+              <ReviewSection showHeader />
+            </div>
+          </>
+        )}
+        {!isFloorMat && (
+          <>
+            <Separator className="h-5 border-y-[1px] border-y-[#DADADA] bg-[#F1F1F1] lg:h-10" />
+            <div id="Q&A" ref={(el) => (sectionRefs.current['Q&A'] = el)}>
+              <QuestionsAccordion />
+            </div>
+          </>
+        )}
 
-        <div id="Reviews" ref={(el) => (sectionRefs.current['Reviews'] = el)}>
-          <ReviewSection showHeader />
-        </div>
         <Separator className="h-5 border-y-[1px] border-y-[#DADADA] bg-[#F1F1F1] lg:h-10" />
-
-        <div id="Q&A" ref={(el) => (sectionRefs.current['Q&A'] = el)}>
-          <QuestionsAccordion />
-        </div>
-        <Separator className="h-5 border-y-[1px] border-y-[#DADADA] bg-[#F1F1F1] lg:h-10" />
-
         <div
           id="Shipping & Returns"
           ref={(el) => (sectionRefs.current['Shipping & Returns'] = el)}

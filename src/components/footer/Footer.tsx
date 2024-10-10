@@ -42,7 +42,7 @@ const Footer = () => {
             </div>
           </div>
           <div
-            id="social-icons=footer"
+            id="social-icons-footer"
             className="flex w-full flex-row items-center justify-start gap-3.5"
           >
             <SocialMediaLinks />
