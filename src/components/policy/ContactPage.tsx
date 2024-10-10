@@ -40,7 +40,7 @@ const contactGrid = [
   },
   { img: Chat, text: 'Live Chat' },
   { img: Phone, text: '(800)-799-5165' },
-  { img: Mail, text: 'support@coverland.com' },
+  { img: Mail, text: 'cs@coverland.com' },
 ];
 type validObj = {
   value: string;
@@ -214,7 +214,7 @@ export default function ContactPage() {
     switch (img) {
       case Mail:
         const el = document.getElementById('emailTop');
-        // return (window.location.href = `mailto:support@coverland.com`);
+        // return (window.location.href = `mailto:cs@coverland.com`);
         const elTop = el?.offsetTop;
         window.scrollTo({
           top: (elTop as number) - 10,
