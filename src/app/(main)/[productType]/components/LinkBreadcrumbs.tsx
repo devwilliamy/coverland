@@ -11,7 +11,7 @@ export default function LinkBreadcrumbs() {
   const params = Object(useParams());
   const paramKeys = Object.keys(params);
   const paramValues = Object.values(params);
-  const { isSeatCover } = useDetermineType();
+  const { isSeatCover, isFloorMat } = useDetermineType();
   const store = useStoreContext();
   if (!store) throw new Error('Missing Provider in the tree');
 
@@ -22,6 +22,9 @@ export default function LinkBreadcrumbs() {
     for (let i = 0; i < index + 1; i++) {
       if (paramValues[i] === 'leather') {
         returnString = returnString + '/' + 'seat-covers';
+      }
+      if (paramValues[i] === 'textured') {
+        returnString = returnString + '/' + 'floor-mats';
       }
       returnString = returnString + '/' + paramValues[i];
     }
@@ -37,8 +40,19 @@ export default function LinkBreadcrumbs() {
             href={getUrlFromBreadcrumbs(0)}
             className={`capitalize hover:underline `}
           >
-            {/* Replacing hyphens with spaces (except for year_generation) */}
             Seat Covers
+          </a>
+          <p>/</p>
+        </div>
+      )}
+      {isFloorMat && (
+        <div className="flex gap-1">
+          <p> </p>
+          <a
+            href={getUrlFromBreadcrumbs(0)}
+            className={`capitalize hover:underline `}
+          >
+            Floor Mats
           </a>
           <p>/</p>
         </div>
@@ -57,11 +71,13 @@ export default function LinkBreadcrumbs() {
                 {key === 'productType' && selectedProduct.type}
                 {key === 'coverType' &&
                   params[key] !== 'leather' &&
+                  params[key] !== 'textured' &&
                   'Premium Plus'}
                 {key === 'make' && selectedProduct.make}
                 {key === 'model' && selectedProduct.model}
                 {key === 'year' && params[key]}
                 {params[key] === 'leather' && 'Leather'}
+                {params[key] === 'textured' && 'Textured'}
               </a>
               {index != paramKeys.length - 1 && <p>/</p>}
             </div>
