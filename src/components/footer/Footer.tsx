@@ -77,13 +77,13 @@ const Footer = () => {
               </li>
               <li className="mb-4 text-white">
                 <Link
-                  href="mailto:support@coverland.com"
+                  href="mailto:cs@coverland.com"
                   target="_blank"
                   className="flex flex-row items-center justify-center"
                 >
                   <BsFillEnvelopeFill color="#fff" size={15} />
                   <p className="hover-underline-animation ml-2 text-base font-normal text-[#DBDBDB] xl:ml-4">
-                    support@coverland.com
+                    cs@coverland.com
                   </p>
                 </Link>
               </li>

@@ -99,7 +99,7 @@ export function HeroDropdown() {
 
   return (
     <div
-      className={`relative z-[400] grid w-full grid-cols-1 items-center justify-center gap-4 px-4 font-[500] lg:flex `}
+      className={`relative z-[100] grid w-full grid-cols-1 items-center justify-center gap-4 px-4 font-[500] lg:flex `}
     >
       <TypeSearch queryObj={queryObj} />
       <YearSearch queryObj={queryObj} />

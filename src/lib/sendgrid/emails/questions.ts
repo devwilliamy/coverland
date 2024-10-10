@@ -12,7 +12,7 @@ const generateQuestionsEmail = ({
   message,
 }: ContactEmailInput) => {
   const additionalEmails = [
-    'support@coverland.com',
+    'cs@coverland.com',
     email?.toLowerCase(),
   ];
 
@@ -23,7 +23,7 @@ const generateQuestionsEmail = ({
     process.env.NODE_ENV !== 'development' ? removeDuplicates : testEmail;
   return {
     to: prodEmail,
-    from: 'Coverland Support <support@coverland.com>', // Process ENV
+    from: 'Coverland Support <cs@coverland.com>', // Process ENV
     subject: 'Customer Question',
     text:
       '\n' +

@@ -36,13 +36,13 @@ export const OrderConfirmationContent = ({
       </CardContent>
       <CardFooter className="text-center">
         <Link
-          href="mailto:support@coverland.com"
+          href="mailto:cs@coverland.com"
           target="_blank"
           className="flex w-full items-center justify-center text-center"
         >
           <BsFillEnvelopeFill color="#000000" size={15} />
           <p className="hover-underline-animation ml-2 xl:ml-4">
-            support@coverland.com
+            cs@coverland.com
           </p>
         </Link>
       </CardFooter>
