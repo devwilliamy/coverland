@@ -14,7 +14,7 @@ export default function StayLookingClean() {
   return (
     <section className="flex w-full flex-col items-center bg-[#1A1A1A] pb-12">
       <div className="pb-8 pt-[43px] lg:pb-[20px] lg:pt-[66px]">
-        <p className="text-center text-[26px] font-medium leading-[32px] text-white lg:text-[45px] lg:leading-[32px]">
+        <p className="text-center text-[26px] font-medium leading-[32px] text-white lg:text-[45px] lg:font-semibold lg:leading-[52px]">
           Clean Up In a Minute <br />
           Stay Looking Clean
         </p>

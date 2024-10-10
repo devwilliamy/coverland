@@ -6,8 +6,8 @@ export default function PerfectCustomFit() {
       <h2 className="flex w-full items-center justify-center pt-[60px] text-center text-[26px] font-[500] leading-[30px] text-white lg:pt-[110px] lg:text-[45px] lg:leading-[52px] ">
         The Perfect Custom Fit
       </h2>
-      <div className="pt-[10px]">
-        <p className="text-center text-sm font-light text-[#D3D3D3] lg:text-[28px] lg:font-light lg:leading-9">
+      <div className="pt-[10px] lg:pt-6">
+        <p className="text-center text-sm font-light text-[#D3D3D3] lg:text-[28px] lg:font-normal lg:leading-9">
           3D Engineered For Precise Fit <br />
           To Every Curve And Corner
         </p>
