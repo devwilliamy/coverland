@@ -451,6 +451,8 @@ export const slugToCoverType = {
   leatherette: 'Leatherette',
   leather: 'Leather',
   Leather: 'Leather',
+  textured: 'Textured',
+  Textured: 'Textured',
 };
 
 export const PRODUCT_PRICING_DATA = {

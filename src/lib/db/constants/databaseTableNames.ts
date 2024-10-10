@@ -2,8 +2,8 @@
 export const PRODUCT_REVIEWS_TABLE = 'reviews-2';
 export const CAR_COVERS_REVIEWS_TABLE = 'reviews_car_covers';
 export const SEAT_COVERS_REVIEWS_TABLE = 'reviews_seat_covers';
-export const PRODUCT_DATA_TABLE = 'Products';
-export const RELATIONS_PRODUCT_TABLE = 'relations_product';
+export const PRODUCT_DATA_TABLE = 'Products_Floor_Mat_20241010';
+export const RELATIONS_PRODUCT_TABLE = 'relations_product_floor_mat_20241010';
 export const TYPE_TABLE = 'Type';
 export const TYPE_MAKE_YEAR_DISTINCT = 'type_make_year_distinct';
 export const ADMIN_PANEL_ORDERS =

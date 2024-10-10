@@ -5,6 +5,7 @@ import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 import {
   CAR_COVERS_URL_PARAM,
+  FLOOR_MATS_URL_PARAM,
   PREMIUM_PLUS_URL_PARAM,
   PREMIUM_URL_PARAM,
   SEAT_COVERS_LEATHER_URL_PARAM,
@@ -52,6 +53,10 @@ export function middleware(request: NextRequest) {
   );
   const SEAT_COVERS_LEATHER_REDIRECT = NextResponse.redirect(
     new URL(`/seat-covers/leather`, request.url),
+    301
+  );
+  const FLOOR_MATS_TEXTURED_REDIRECT = NextResponse.redirect(
+    new URL(`/floor-mats/textured`, request.url),
     301
   );
 
@@ -361,6 +366,11 @@ export function middleware(request: NextRequest) {
     pathname.toLowerCase().startsWith(`/${SEAT_COVERS_URL_PARAM}`)
   ) {
     return SEAT_COVERS_LEATHER_REDIRECT;
+  } else if (
+    segments.length === 1 &&
+    pathname.toLowerCase().startsWith(`/${FLOOR_MATS_URL_PARAM}`)
+  ) {
+    return FLOOR_MATS_TEXTURED_REDIRECT;
   }
   /**
    * Looks like if URL starts with suv-cover or truck-cover

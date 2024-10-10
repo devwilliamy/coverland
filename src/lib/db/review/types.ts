@@ -2,7 +2,12 @@ import { z } from 'zod';
 import { FilterParams, SortParams } from '@/lib/types/review';
 
 export type TProductReviewsQueryFilters = {
-  productType?: 'Car Covers' | 'SUV Covers' | 'Truck Covers' | 'Seat Covers';
+  productType?:
+    | 'Car Covers'
+    | 'SUV Covers'
+    | 'Truck Covers'
+    | 'Seat Covers'
+    | 'Floor Mats';
   year?: string;
   make?: string;
   model?: string;
@@ -63,6 +68,7 @@ export const ProductReviewsQueryFiltersSchema = z.object({
       z.literal('SUV Covers'),
       z.literal('Truck Covers'),
       z.literal('Seat Covers'),
+      z.literal('Floor Mats'),
     ])
   ),
   year: z.string().optional(),

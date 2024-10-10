@@ -12,12 +12,13 @@ import {
 } from '@/lib/db/review';
 import { TReviewData, TProductReviewSummary } from '@/lib/types/review';
 import FloorMatDataWrapper from '@/components/data-wrapper/FloorMatDataWrapper';
+import { getProductData } from '@/lib/db';
 export const dynamicParams = false;
 
 export const revalidate = 86400;
 
 export async function generateStaticParams() {
-  return [{ coverType: 'leather' }];
+  return [{ coverType: 'textured' }];
 }
 
 export async function generateMetadata({ params }: { params: TPathParams }) {
@@ -27,7 +28,7 @@ export async function generateMetadata({ params }: { params: TPathParams }) {
   };
 }
 
-const coverTypes = ['leather'];
+const coverTypes = ['textured'];
 export default async function Leatherette({ params }: { params: TPathParams }) {
   if (!coverTypes.includes(params.coverType as string)) {
     return notFound();
@@ -39,14 +40,14 @@ export default async function Leatherette({ params }: { params: TPathParams }) {
     average_score: 0,
   };
   let reviewImages: TReviewData[] = [];
-  const typeString = 'Seat Covers';
+  const typeString = 'Floor Mat';
 
   try {
     [modelData, reviewData, reviewDataSummary, reviewImages] =
       await Promise.all([
-        getDefaultSeatCoverProductsByDisplayColor({
+        getProductData({
           type: typeString,
-          cover: 'Leather',
+          cover: 'Textured',
         }),
         getProductReviewsByPage(
           { productType: typeString },
