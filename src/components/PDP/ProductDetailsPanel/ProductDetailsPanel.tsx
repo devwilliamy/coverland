@@ -61,9 +61,9 @@ export default function ProductDetailsPanel({
       </div>
       <ProductPricing />
       {/* This would be a component I pass in probably */}
-      {isComplete ? <FloorMatSelection /> : null}
+      {/* {isComplete ? <FloorMatSelection /> : null} */}
       {/* I think I also pass in color selector */}
-      <FloorMatColorSelector />
+      {/* <FloorMatColorSelector /> */}
       <FreeDetails />
       {/* <CompatibleVehiclesTrigger /> */}
       <div className="lg:py-4"></div>

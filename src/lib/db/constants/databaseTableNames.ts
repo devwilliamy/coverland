@@ -2,9 +2,9 @@
 export const PRODUCT_REVIEWS_TABLE = 'reviews-2';
 export const CAR_COVERS_REVIEWS_TABLE = 'reviews_car_covers';
 export const SEAT_COVERS_REVIEWS_TABLE = 'reviews_seat_covers';
-export const PRODUCT_DATA_TABLE = 'Products_Floor_Mat_20241010';
-export const RELATIONS_PRODUCT_TABLE = 'relations_product_floor_mat_20241010';
-export const TYPE_TABLE = 'Type';
+export const PRODUCT_DATA_TABLE = 'Products_20240110';
+export const RELATIONS_PRODUCT_TABLE = 'relations_product_20240110';
+export const TYPE_TABLE = 'Type_20241010';
 export const TYPE_MAKE_YEAR_DISTINCT = 'type_make_year_distinct';
 export const ADMIN_PANEL_ORDERS =
   process.env.NEXT_PUBLIC_IS_PREVIEW === 'PREVIEW' ? '_Orders_TEST' : '_Orders';
@@ -24,8 +24,8 @@ export const PRODUCT_METADATA_TABLE = 'Product-Metadata';
 export const SKU_LAB_SKU_ITEM_ID_MAP_TABLE = 'sku_lab_sku_item_id_map';
 
 /* Supabase RPC Names */
-export const RPC_GET_MAKE_RELATION = 'get_make_relation';
-export const RPC_GET_UNIQUE_YEARS = 'get_unique_years';
+export const RPC_GET_MAKE_RELATION = 'get_make_relation_20240110';
+export const RPC_GET_UNIQUE_YEARS = 'get_unique_years_20240110';
 export const RPC_GET_DISTINCT_REVIEW_IMAGES = 'get_distinct_review_images';
 export const RPC_GET_PRODUCT_REVIEWS_SUMMARY = 'get_product_reviews_summary';
 export const RPC_GET_SEAT_COVER_SORTED_BY_COLOR =
