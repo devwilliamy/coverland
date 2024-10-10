@@ -3,26 +3,26 @@ import PerfectCustomFitFloorMat from '@/public/images/PDP/floor-mats/perfect-cus
 export default function PerfectCustomFit() {
   return (
     <section className="w-full bg-[#1A1A1A]">
-      <h2 className="flex w-full items-center justify-center pt-[60px] text-center text-[26px] font-[500] leading-[30px] text-white  lg:p-[6px] lg:pt-[60px] lg:text-[45px] lg:leading-[52px] ">
+      <h2 className="flex w-full items-center justify-center pt-[60px] text-center text-[26px] font-[500] leading-[30px] text-white lg:pt-[110px] lg:text-[45px] lg:leading-[52px] ">
         The Perfect Custom Fit
       </h2>
       <div className="pt-[10px]">
-        <p className="text-center text-sm font-light text-[#D3D3D3]">
+        <p className="text-center text-sm font-light text-[#D3D3D3] lg:text-[28px] lg:font-normal lg:leading-9">
           3D Engineered For Precise Fit <br />
           To Every Curve And Corner
         </p>
       </div>
-      <span className="grid max-w-[840px] grid-cols-2 grid-rows-2 justify-center justify-items-stretch gap-[22px] pt-[34px]  max-lg:grid-cols-1 ">
-        <div className="flex flex-col items-center text-center text-white ">
+      <section className="flex w-full flex-row justify-center pt-[34px] lg:pt-12 ">
+        <div className="flex justify-center">
           <Image
             alt={`perfect-custom-fit`}
-            width={375}
-            height={280}
+            width={873}
+            height={652}
             src={PerfectCustomFitFloorMat}
-            className="min-w-full lg:max-h-[221px] lg:max-w-[420px]"
+            className="min-w-full lg:max-h-[652px] lg:max-w-[873px]"
           />
         </div>
-      </span>
+      </section>
     </section>
   );
 }
