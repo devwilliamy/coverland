@@ -21,7 +21,7 @@ export default function ProductPricing() {
           </div>
         )}
       </div>
-      <div className="pb-4.5 flex items-center gap-0.5">
+      <div className="pb-4.5 flex items-center gap-0.5 lg:pt-[11px]">
         {installmentPrice && (
           <p className="text-sm text-[#767676] lg:text-[16px]">
             4 interest-free installments of{' '}

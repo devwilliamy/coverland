@@ -37,6 +37,7 @@ type DetailItem = {
   jsx: React.JSX.Element;
 };
 
+// Refactor TODO: Rename this to FreeDetailsList or something idk
 export default function FreeDetails() {
   const params = useParams();
   const store = useStoreContext();
@@ -53,7 +54,7 @@ export default function FreeDetails() {
     jsx: <></>,
   });
   const isMobile = useMediaQuery('(max-width: 1024px)');
-  const { isSeatCover } = useDetermineType();
+  const { isSeatCover, isFloorMat } = useDetermineType();
   const coverType = params?.coverType;
   const indentStyling = 'flex flex-col gap-4 pl-[30px] pt-5';
   let warrantyLength: string | number = 'Lifetime';
@@ -86,7 +87,7 @@ export default function FreeDetails() {
       break;
   }
 
-  if (isSeatCover) {
+  if (isSeatCover || isFloorMat) {
     warrantyLength = '10-Year';
   }
 
@@ -231,7 +232,7 @@ export default function FreeDetails() {
     'Ripping and Tears',
   ];
 
-  isSeatCover && warrantyItems.splice(1, 1);
+  (isSeatCover || isFloorMat) && warrantyItems.splice(1, 1);
 
   const Warranty = () => (
     <div className="flex flex-col px-5 ">
@@ -412,7 +413,7 @@ export default function FreeDetails() {
       jsx: <FreePackage />,
     },
   ];
-  if (isSeatCover) {
+  if (isSeatCover || isFloorMat) {
     freeDetailItems.splice(freeDetailItems.length - 1, 1);
   }
 

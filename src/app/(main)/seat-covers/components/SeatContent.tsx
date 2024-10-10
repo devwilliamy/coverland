@@ -156,7 +156,7 @@ export default function SeatContent({
         <KlarnaIcon className="-ml-[5px] -mt-[1px] flex max-h-[35px] w-fit max-w-[65px]" />
       </div>
       {!!isComplete ? <SeatCoverSelection /> : null}
-      {/* <SeatCoverColorSelector /> */}
+      <SeatCoverColorSelector />
       <FreeDetails />
       {/* <CompatibleVehiclesTrigger /> */}
       <div className="lg:py-4"></div>

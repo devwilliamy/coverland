@@ -4,6 +4,7 @@ import CAR from '@/images/hero/covers-grid/car-cover-home-icon.webp';
 import TRUCK from '@/images/hero/covers-grid/truck-cover-home-icon.webp';
 import SUV from '@/images/hero/covers-grid/suv-cover-home-icon.webp';
 import SEAT from '@/images/hero/covers-grid/main-seatcover.webp';
+import FLOOR_MAT from '@/images/hero/covers-grid/floor-mat-home-icon.webp';
 import Link from 'next/link';
 
 const coverTypes = [
@@ -24,7 +25,7 @@ const coverTypes = [
   {
     title: 'Floor Mats',
     description: 'Floor Mats',
-    // img: SEAT,
+    img: FLOOR_MAT,
     link: '/floor-mats/textured',
   },
 ];

@@ -76,25 +76,18 @@ export default function EditVehicleDropdown({
       try {
         setLoading(true);
         if (!make) return;
-        if (type !== 'Seat Covers') {
-          // const response = await fetch(
-          //   `/api/json-data?type=${slugify(type)}&make=${slugify(make)}`
-          // );
-          // const jsonData = await response.json();
-
-          // setJsonData(jsonData);
-          const response = await getProductData({
-            type,
-            cover: 'Premium Plus',
-            make: slugify(make),
-          });
-          setJsonData(response);
-          return;
+        let cover; // Declare the cover variable
+        if (type === 'Seat Covers') {
+          cover = 'Leather';
+        } else if (type === 'Car Covers') {
+          cover = 'Premium Plus';
+        } else if (type === 'Floor Mats') {
+          cover = 'Textured';
         }
 
         const response = await getProductData({
           type,
-          cover: 'Leather',
+          cover,
           make: slugify(make),
         });
         setJsonData(response);
@@ -153,7 +146,13 @@ export default function EditVehicleDropdown({
       return;
     setLoading(true);
 
-    const determineType = type !== 'Seat Covers' ? 'premium-plus' : 'leather';
+    const determineType = (() => {
+      if (type === 'Seat Covers') return 'leather';
+      if (type === 'Car Covers') return 'premium-plus';
+      if (type === 'Floor Mats') return 'textured';
+      return 'default-type'; // You can set a default or handle other cases here
+    })();
+
     let url = `/${slugify(type)}/${determineType}/${slugify(make)}/${slugify(model)}/${yearInUrl}`;
 
     const submodelParam = searchParams?.submodel
