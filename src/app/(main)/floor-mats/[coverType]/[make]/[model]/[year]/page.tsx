@@ -1,17 +1,15 @@
 import { notFound } from 'next/navigation';
 import { TPathParams } from '@/utils';
-import {
-  TSeatCoverDataDB,
-  getSeatCoverProductsByDisplayColor,
-} from '@/lib/db/seat-covers';
+import { TSeatCoverDataDB } from '@/lib/db/seat-covers';
 import {
   getAllReviewsWithImages,
   getProductReviewSummary,
   getProductReviewsByPage,
 } from '@/lib/db/review';
 import { deslugify } from '@/lib/utils';
-import SeatCoverDataWrapper from '@/app/(main)/seat-covers/components/SeatCoverDataWrapper';
 import { TReviewData, TProductReviewSummary } from '@/lib/types/review';
+import FloorMatDataWrapper from '@/components/data-wrapper/FloorMatDataWrapper';
+import { getProductData } from '@/lib/db';
 
 export const revalidate = 86400;
 
@@ -51,12 +49,12 @@ export async function generateMetadata({ params }: { params: TPathParams }) {
   const model = deslugify(params.model || '');
   const year = deslugify(params.year || '');
   return {
-    title: ` ${make} ${model} ${year} Seat Covers, Custom Fit - Coverland`,
-    description: ` ${make} ${model} ${year} Seat Covers ᐉ Coverland ⭐ Free, Same-Day Shipping ✔️ Free Returns & Purchase Protection ✔️ Made from premium quality, heavy-duty materials with a soft inner fabric.`,
+    title: ` ${make} ${model} ${year} Floor Mats, Custom Fit - Coverland`,
+    description: ` ${make} ${model} ${year} Floor Mats ᐉ Coverland ⭐ Free, Same-Day Shipping ✔️ Free Returns & Purchase Protection ✔️ Made from premium quality, heavy-duty materials with a soft inner fabric.`,
   };
 }
 
-export default async function SeatCoverDataLayer({
+export default async function FloorMatServerComponentStart({
   params,
   searchParams,
 }: {
@@ -70,14 +68,13 @@ export default async function SeatCoverDataLayer({
     average_score: 0,
   };
   let reviewImages: TReviewData[] = [];
-  const typeString = 'Seat Covers';
+  const typeString = 'Floor Mat';
   try {
-
     [modelData, reviewData, reviewDataSummary, reviewImages] =
       await Promise.all([
-        getSeatCoverProductsByDisplayColor({
+        getProductData({
           type: typeString,
-          cover: 'Leather',
+          cover: 'Textured',
           make: params.make,
           model: params.model,
           year: params.year,
@@ -116,10 +113,9 @@ export default async function SeatCoverDataLayer({
     notFound();
   }
   return (
-    <SeatCoverDataWrapper
+    <FloorMatDataWrapper
       modelData={modelData}
       params={params}
-      searchParams={searchParams}
       reviewData={reviewData}
       reviewDataSummary={reviewDataSummary}
       reviewImages={reviewImages}

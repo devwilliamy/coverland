@@ -10,8 +10,9 @@ import {
   getProductReviewsByPage,
 } from '@/lib/db/review';
 import { deslugify } from '@/lib/utils';
-import SeatCoverDataWrapper from '../../components/SeatCoverDataWrapper';
 import { TProductReviewSummary, TReviewData } from '@/lib/types/review';
+import { getProductData } from '@/lib/db';
+import FloorMatDataWrapper from '@/components/data-wrapper/FloorMatDataWrapper';
 
 export const revalidate = 86400;
 
@@ -43,16 +44,19 @@ export type TCarCoverSlugParams = {
 export async function generateMetadata({ params }: { params: TPathParams }) {
   const make = deslugify(params.make || '');
   return {
-    title: `${make} Seat Covers, Custom Fit - Coverland`,
-    description: `${make} Seat Covers ᐉ Coverland ⭐ Free, Same-Day Shipping ✔️ Free Returns & Purchase Protection ✔️ Made from premium quality, heavy-duty materials with a soft inner fabric.`,
+    title: `${make} Floor Mats, Custom Fit - Coverland`,
+    description: `${make} Floor Mats ᐉ Coverland ⭐ Free, Same-Day Shipping ✔️ Free Returns & Purchase Protection ✔️ Made from premium quality, heavy-duty materials with a soft inner fabric.`,
   };
 }
-
-export default async function SeatCoverDataLayer({
+const coverTypes = ['textured'];
+export default async function FloorMatServerComponentStart({
   params,
 }: {
   params: TPathParams;
 }) {
+  if (!coverTypes.includes(params.coverType as string)) {
+    return notFound();
+  }
   let modelData: TSeatCoverDataDB[] = [];
   let reviewData: TReviewData[] = [];
   let reviewDataSummary: TProductReviewSummary = {
@@ -60,14 +64,14 @@ export default async function SeatCoverDataLayer({
     average_score: 0,
   };
   let reviewImages: TReviewData[] = [];
-  const typeString = 'Seat Covers';
+  const typeString = 'Floor Mat';
 
   try {
     [modelData, reviewData, reviewDataSummary, reviewImages] =
       await Promise.all([
-        getSeatCoverProductsByDisplayColor({
+        getProductData({
           type: typeString,
-          cover: 'Leather',
+          cover: 'Textured',
           make: params.make,
         }),
         getProductReviewsByPage(
@@ -102,7 +106,7 @@ export default async function SeatCoverDataLayer({
     notFound();
   }
   return (
-    <SeatCoverDataWrapper
+    <FloorMatDataWrapper
       modelData={modelData}
       params={params}
       reviewData={reviewData}

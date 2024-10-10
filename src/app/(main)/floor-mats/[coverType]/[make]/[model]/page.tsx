@@ -10,8 +10,9 @@ import {
   getProductReviewsByPage,
 } from '@/lib/db/review';
 import { deslugify } from '@/lib/utils';
-import SeatCoverDataWrapper from '../../../components/SeatCoverDataWrapper';
 import { TReviewData, TProductReviewSummary } from '@/lib/types/review';
+import FloorMatDataWrapper from '@/components/data-wrapper/FloorMatDataWrapper';
+import { getProductData } from '@/lib/db';
 
 export const revalidate = 86400;
 
@@ -45,19 +46,22 @@ export async function generateMetadata({ params }: { params: TPathParams }) {
   const model = deslugify(params.model || '');
   const productType = deslugify(params.productType || '');
   return {
-    title: `${make} ${model} Seat Covers, Custom Fit - Coverland`,
-    description: `${make} ${model} Seat Covers ᐉ Coverland ⭐ Free, Same-Day Shipping ✔️ Free Returns & Purchase Protection ✔️ Made from premium quality, heavy-duty materials with a soft inner fabric.`,
+    title: `${make} ${model} Floor Mats, Custom Fit - Coverland`,
+    description: `${make} ${model} Floor Mats ᐉ Coverland ⭐ Free, Same-Day Shipping ✔️ Free Returns & Purchase Protection ✔️ Made from premium quality, heavy-duty materials with a soft inner fabric.`,
     alternates: {
       canonical: `/${productType}/${make}/${model}`,
     },
   };
 }
-
-export default async function SeatCoverDataLayer({
+const coverTypes = ['textured'];
+export default async function FloorMatServerComponentStart({
   params,
 }: {
   params: TPathParams;
 }) {
+  if (!coverTypes.includes(params.coverType as string)) {
+    return notFound();
+  }
   let modelData: TSeatCoverDataDB[] = [];
   let reviewData: TReviewData[] = [];
   let reviewDataSummary: TProductReviewSummary = {
@@ -65,13 +69,13 @@ export default async function SeatCoverDataLayer({
     average_score: 0,
   };
   let reviewImages: TReviewData[] = [];
-  const typeString = 'Seat Covers';
+  const typeString = 'Floor Mat';
   try {
     [modelData, reviewData, reviewDataSummary, reviewImages] =
       await Promise.all([
-        getSeatCoverProductsByDisplayColor({
+        getProductData({
           type: typeString,
-          cover: 'Leather',
+          cover: 'Textured',
           make: params.make,
           model: params.model,
         }),
@@ -107,7 +111,7 @@ export default async function SeatCoverDataLayer({
     notFound();
   }
   return (
-    <SeatCoverDataWrapper
+    <FloorMatDataWrapper
       modelData={modelData}
       params={params}
       reviewData={reviewData}

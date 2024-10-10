@@ -7,7 +7,8 @@ export type TProductReviewsQueryFilters = {
     | 'SUV Covers'
     | 'Truck Covers'
     | 'Seat Covers'
-    | 'Floor Mats';
+    | 'Floor Mats'
+    | 'Floor Mat';
   year?: string;
   make?: string;
   model?: string;
@@ -69,6 +70,7 @@ export const ProductReviewsQueryFiltersSchema = z.object({
       z.literal('Truck Covers'),
       z.literal('Seat Covers'),
       z.literal('Floor Mats'),
+      z.literal('Floor Mat'),
     ])
   ),
   year: z.string().optional(),

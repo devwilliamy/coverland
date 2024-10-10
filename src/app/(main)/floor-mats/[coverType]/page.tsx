@@ -1,10 +1,6 @@
 import { notFound } from 'next/navigation';
 import { TPathParams } from '@/utils';
-import {
-  TSeatCoverDataDB,
-  getDefaultSeatCoverProductsByDisplayColor,
-  getSeatCoverProductsByDisplayColor,
-} from '@/lib/db/seat-covers';
+import { TSeatCoverDataDB } from '@/lib/db/seat-covers';
 import {
   getAllReviewsWithImages,
   getProductReviewSummary,
@@ -29,7 +25,7 @@ export async function generateMetadata({ params }: { params: TPathParams }) {
 }
 
 const coverTypes = ['textured'];
-export default async function Leatherette({ params }: { params: TPathParams }) {
+export default async function FloorMatServerComponentStart({ params }: { params: TPathParams }) {
   if (!coverTypes.includes(params.coverType as string)) {
     return notFound();
   }
@@ -73,7 +69,7 @@ export default async function Leatherette({ params }: { params: TPathParams }) {
         ),
       ]);
   } catch (error) {
-    console.error('Leatherette Error: ', error);
+    console.error('Floor Mat Textured Error: ', error);
   }
   return (
     <FloorMatDataWrapper
