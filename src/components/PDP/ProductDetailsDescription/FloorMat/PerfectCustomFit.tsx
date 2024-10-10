@@ -7,7 +7,7 @@ export default function PerfectCustomFit() {
         The Perfect Custom Fit
       </h2>
       <div className="pt-[10px]">
-        <p className="text-center text-sm font-light text-[#D3D3D3] lg:text-[28px] lg:font-normal lg:leading-9">
+        <p className="text-center text-sm font-light text-[#D3D3D3] lg:text-[28px] lg:font-light lg:leading-9">
           3D Engineered For Precise Fit <br />
           To Every Curve And Corner
         </p>
