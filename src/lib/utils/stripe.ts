@@ -20,6 +20,7 @@ export const checkPromoCode = (promoCode: string, isDev: boolean): boolean => {
     SC for SUV Covers
     TC for Truck Covers
     SE for Seat Covers
+    FM for Floor Mats
     AC for Accessories
     NX for Mixed
     CL-240405-MX-AA01
@@ -73,6 +74,10 @@ export const getProductInitialsForType = (type: string): string => {
       return 'SE';
     case 'Accessories':
       return 'AC';
+    case 'Floor Mats':
+      return 'FM';
+    case 'Floor Mat':
+      return 'FM';
     default:
       return 'UN';
   }
@@ -127,7 +132,12 @@ export const generateItemName = (item: TCartItem) => {
     display_id = '',
     display_color = '',
   } = item || {};
-  const type = item.type === 'Seat Covers' ? 'Seat Cover' : 'Car Cover';
+  const type =
+    item.type === 'Seat Covers'
+      ? 'Seat Cover'
+      : item.type === 'Floor Mats' || item.type === 'Floor Mat'
+        ? 'Floor Mat'
+        : 'Car Cover';
 
   return `${year_generation} ${make} ${model} ${submodel1 || ''} ${submodel2 || ''} ${submodel3 || ''} ${type} ${display_id} ${display_color}`
     .replace(/\s+/g, ' ')

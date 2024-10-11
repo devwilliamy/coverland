@@ -1,16 +1,15 @@
-'use client';;
+'use client';
 import useDetermineType from '@/hooks/useDetermineType';
 import DesktopHalfCover from '@/images/PDP/Product-Details-Redesign-2/dekstop-half-cover.webp';
 import Image from 'next/image';
-import { useContext } from 'react';
-import { CarSelectionContext } from '@/contexts/CarSelectionContext';
 import { useStore } from 'zustand';
 import ReactPlayer from 'react-player';
+import useStoreContext from '@/hooks/useStoreContext';
 
 export default function ProductDetailsMedia() {
   const { isDefaultCoverType } = useDetermineType();
-  const store = useContext(CarSelectionContext);
-  if (!store) throw new Error('Missing CarContext.Provider in the tree');
+  const store = useStoreContext();
+  if (!store) throw new Error('Missing Provider in the tree');
   const selectedProduct = useStore(store, (s) => s.selectedProduct);
 
   return (

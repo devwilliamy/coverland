@@ -48,7 +48,8 @@ export default function CartItemCard({ item }: { item: TCartItem }) {
             className={`text-sm font-normal ${!item?.make && 'hidden'} text-[#707070] lg:text-base`}
           >
             Vehicle: {item?.make} {item?.model} {item?.year_generation}{' '}
-            {item?.submodel1 ?? ''} {item?.submodel2 ?? ''} {item?.submodel3 ?? ''}
+            {item?.submodel1 ?? ''} {item?.submodel2 ?? ''}{' '}
+            {item?.submodel3 ?? ''}
           </div>
           <div
             className={`text-sm font-normal ${item?.type === 'Seat Covers' ? 'flex' : 'hidden'}  text-[#707070] lg:text-base`}
@@ -57,9 +58,12 @@ export default function CartItemCard({ item }: { item: TCartItem }) {
               ? 'Full Seat Set (Front + Rear Seat Set)'
               : 'Front Seats (Driver + Passenger seats)'}
           </div>
-          <div className="text-sm font-normal text-[#707070] lg:text-base">
-            Color: {item?.display_color}
-          </div>
+          {item?.display_color && (
+            <div className="text-sm font-normal text-[#707070] lg:text-base">
+              Color: {item?.display_color}
+            </div>
+          )}
+
           <div className="flex gap-3 text-sm font-normal text-[#707070] lg:text-base">
             <div className="font-medium lg:text-base">Quantity</div>
             <select
