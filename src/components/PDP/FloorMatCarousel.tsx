@@ -70,20 +70,20 @@ export default function FloorMatCarousel() {
         <Carousel setApi={setApi}>
           <CarouselContent id={'carousel-content'} className="no-scrollbar">
             {galleryImages?.map((image, index) => {
-              if (index == 3) {
-                return (
-                  <CarouselItem
-                    key={`seat-video-${index}`}
-                    className="h-full w-full"
-                  >
-                    <ProductVideo
-                      src={FloorMatVideo}
-                      imgSrc={FloorMatThumbnail}
-                      autoPlay
-                    />
-                  </CarouselItem>
-                );
-              }
+              // if (index == 3) {
+              //   return (
+              //     <CarouselItem
+              //       key={`seat-video-${index}`}
+              //       className="h-full w-full"
+              //     >
+              //       <ProductVideo
+              //         src={FloorMatVideo}
+              //         imgSrc={FloorMatThumbnail}
+              //         autoPlay
+              //       />
+              //     </CarouselItem>
+              //   );
+              // }
 
               return (
                 <CarouselItem key={`carousel-item-${index}`}>
@@ -103,27 +103,27 @@ export default function FloorMatCarousel() {
         <section className="flex h-full w-full items-center pt-1">
           <span className="no-scrollbar flex flex-[80%] flex-row gap-1 overflow-x-auto whitespace-nowrap px-[6px] py-1">
             {galleryImages?.map((image, index) => {
-              if (index === 3) {
-                return (
-                  <div
-                    key={`position-item-${index}`}
-                    id="video-thumbnail"
-                    className={`w-25% relative flex h-full min-h-[25%] min-w-[25%] items-center justify-center `}
-                    onClick={() => scrollTo(index)}
-                  >
-                    <Image
-                      id="video-thumbnail"
-                      alt="Video Thumbnail"
-                      slot="poster"
-                      src={FloorMatThumbnail.src}
-                      width={1600}
-                      height={1600}
-                      aria-hidden="true"
-                    />
-                    <Play className="absolute rounded-full fill-white text-white" />
-                  </div>
-                );
-              }
+              // if (index === 3) {
+              //   return (
+              //     <div
+              //       key={`position-item-${index}`}
+              //       id="video-thumbnail"
+              //       className={`w-25% relative flex h-full min-h-[25%] min-w-[25%] items-center justify-center `}
+              //       onClick={() => scrollTo(index)}
+              //     >
+              //       <Image
+              //         id="video-thumbnail"
+              //         alt="Video Thumbnail"
+              //         slot="poster"
+              //         src={FloorMatThumbnail.src}
+              //         width={1600}
+              //         height={1600}
+              //         aria-hidden="true"
+              //       />
+              //       <Play className="absolute rounded-full fill-white text-white" />
+              //     </div>
+              //   );
+              // }
               return (
                 <CarouselPositionItem
                   key={`position-item-${index}`}
