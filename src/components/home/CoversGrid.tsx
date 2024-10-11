@@ -4,6 +4,7 @@ import CAR from '@/images/hero/covers-grid/car-cover-home-icon.webp';
 import TRUCK from '@/images/hero/covers-grid/truck-cover-home-icon.webp';
 import SUV from '@/images/hero/covers-grid/suv-cover-home-icon.webp';
 import SEAT from '@/images/hero/covers-grid/main-seatcover.webp';
+import FLOOR_MAT from '@/images/hero/covers-grid/floor-mat-home-icon.webp';
 import Link from 'next/link';
 
 const coverTypes = [
@@ -21,6 +22,12 @@ const coverTypes = [
     img: SEAT,
     link: '/seat-covers/leather',
   },
+  {
+    title: 'Floor Mats',
+    description: 'Floor Mats',
+    img: FLOOR_MAT,
+    link: '/floor-mats/textured',
+  },
 ];
 
 const CoversGrid = () => {
@@ -29,7 +36,10 @@ const CoversGrid = () => {
       <div className="grid h-full max-w-[1280px]  grid-cols-1 grid-rows-2 place-items-center gap-[7px] md:grid-cols-2 md:grid-rows-1  lg:gap-[20px]  ">
         {coverTypes.map(({ title, description, img, link }, i) => {
           return (
-            <div key={`${title}-${i}-block`} className="h-full w-full">
+            <div
+              key={`${title}-${i}-block`}
+              className="h-full w-full lg:min-h-[186px] lg:min-w-[451.83px]"
+            >
               <Link
                 href={link}
                 className="flex h-full min-w-[167px]  items-center justify-between rounded-[8px] px-[15px] py-[20px] shadow-md lg:flex-row lg:gap-[36px] lg:px-[50px]"
@@ -43,42 +53,17 @@ const CoversGrid = () => {
                 <div
                   className={`flex max-h-[146px] max-w-[160px] shrink lg:w-full `}
                 >
-                  <Image
-                    alt={`cover-image-${title}`}
-                    src={img}
-                    className=" flex-[0.3] shrink object-cover"
-                    loading="eager"
-                    width={175}
-                    height={152}
-                  />
+                  {img && (
+                    <Image
+                      alt={`cover-image-${title}`}
+                      src={img}
+                      className=" flex-[0.3] shrink object-cover"
+                      loading="eager"
+                      width={175}
+                      height={152}
+                    />
+                  )}
                 </div>
-                {/* {img === SEAT ? (
-                  <div
-                    className={`flex max-h-[128px] max-w-[114px] shrink lg:w-full `}
-                  >
-                    <Image
-                      alt={`cover-image-${title}`}
-                      src={img}
-                      className=" flex-[0.3] shrink object-cover"
-                      loading="eager"
-                      width={175}
-                      height={152}
-                    />
-                  </div>
-                ) : (
-                  <div
-                    className={`flex max-h-[146px] max-w-[160px] shrink lg:w-full `}
-                  >
-                    <Image
-                      alt={`cover-image-${title}`}
-                      src={img}
-                      className=" flex-[0.3] shrink object-cover"
-                      loading="eager"
-                      width={175}
-                      height={152}
-                    />
-                  </div>
-                )} */}
               </Link>
             </div>
           );

@@ -451,6 +451,8 @@ export const slugToCoverType = {
   leatherette: 'Leatherette',
   leather: 'Leather',
   Leather: 'Leather',
+  textured: 'Textured',
+  Textured: 'Textured',
 };
 
 export const PRODUCT_PRICING_DATA = {
@@ -786,8 +788,10 @@ export const CAR_COVERS_URL_PARAM = 'car-covers';
 export const SUV_COVERS_URL_PARAM = 'suv-covers';
 export const TRUCK_COVERS_URL_PARAM = 'truck-covers';
 export const SEAT_COVERS_URL_PARAM = 'seat-covers';
+export const FLOOR_MATS_URL_PARAM = 'floor-mats';
 export const SEAT_COVERS_LEATHER_URL_PARAM = 'seat-covers/leather';
 export const SEAT_COVERS_URL_PARAM_WITH_SLASH = '/seat-covers';
+export const FLOOR_MATS_URL_PARAM_WITH_SLASH = '/floor-mats';
 
 export const PREMIUM_PLUS = 'Premium Plus';
 export const PREMIUM = 'Premium';

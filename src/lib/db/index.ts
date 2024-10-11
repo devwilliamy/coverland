@@ -73,7 +73,6 @@ export async function getProductData({
   }
 
   const { data, error } = await fetch.limit(750);
-
   if (error) {
     throw new Error(error.message);
   }
@@ -83,9 +82,9 @@ export async function getProductData({
 
 /**
  * Takes the first 10 ids of each color and grabs them for car covers
- * This is to ensure /car-covers/premium-plus has all the colors displaying 
+ * This is to ensure /car-covers/premium-plus has all the colors displaying
  * and there's enough choices to activate searching for your custom cover
- * @returns 
+ * @returns
  */
 export async function getDefaultProductData() {
   const ids = [
@@ -100,10 +99,7 @@ export async function getDefaultProductData() {
     // Black Red 2-Tone
     6847, 6848, 6849, 6850, 6851, 6852, 6853, 6854, 6855, 6856,
   ];
-  let fetch = supabase
-    .from(PRODUCT_DATA_TABLE)
-    .select('*')
-    .in('id', ids)
+  let fetch = supabase.from(PRODUCT_DATA_TABLE).select('*').in('id', ids);
 
   const { data, error } = await fetch;
 

@@ -21,15 +21,15 @@ import useDetermineType from '@/hooks/useDetermineType';
 import { TSeatCoverDataDB } from '@/lib/db/seat-covers';
 import { handleCheckLowQuantity } from '@/lib/utils/calculations';
 import KlarnaIcon from '@/components/icons/KlarnaIcon';
+import useStoreContext from '@/hooks/useStoreContext';
 
 export default function SeatContent({
   searchParams,
 }: {
   searchParams: TQueryParams;
 }) {
-  const store = useContext(SeatCoverSelectionContext);
-  if (!store)
-    throw new Error('Missing SeatCoverSelectionContext.Provider in the tree');
+  const store = useStoreContext();
+  if (!store) throw new Error('Missing Provider in the tree');
   const modelData = useStore(store, (s) => s.modelData);
 
   const {
