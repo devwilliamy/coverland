@@ -31,7 +31,6 @@ function Header() {
   return (
     <>
       <header className="hidden w-screen max-w-[1280px] flex-col items-stretch sm:mb-0   lg:ml-auto lg:flex lg:w-auto lg:pt-2.5">
-        <AnnouncementDialog />
         <section className="flex w-full items-center justify-between px-16 max-md:max-w-full max-md:px-5">
           <Logo />
           <div className="flex max-h-[24px] min-h-[24px] items-center gap-[30px]">
