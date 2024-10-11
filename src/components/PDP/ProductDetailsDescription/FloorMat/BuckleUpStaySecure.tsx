@@ -2,7 +2,7 @@ import Image from 'next/image';
 import BuckleUpStaySecureImage from '@/public/images/PDP/floor-mats/buckle-up-stay-secure.webp';
 export default function BuckleUpStaySecure() {
   return (
-    <section className="w-full bg-[#1A1A1A]">
+    <section className="w-full bg-[#1A1A1A] pb-[60px]">
       <h2 className="flex w-full items-center justify-center pt-[60px] text-center text-[26px] font-[500] leading-[30px] text-white lg:pt-[110px] lg:text-[45px] lg:leading-[52px] ">
         Buckle Up, Stay secured
       </h2>

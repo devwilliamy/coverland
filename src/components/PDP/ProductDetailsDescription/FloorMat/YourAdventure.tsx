@@ -5,14 +5,14 @@ import Image from 'next/image';
 
 export default function YourAdventure() {
   return (
-    <section className="flex w-full flex-col items-center bg-[#E7E7E7] lg:pb-[127px]">
-      <div className="pb-[26px] pt-[43px] lg:pb-12 lg:pt-[110px]">
+    <section className="flex w-full flex-col items-center bg-[#E7E7E7] pb-16 lg:pb-[127px]">
+      <div className="pb-[34px] pt-[46px] lg:pb-12 lg:pt-[90px]">
         <p className="text-center text-[26px] font-semibold leading-[30px] lg:text-[45px] lg:leading-[32px]">
           For You & Your Adventure
         </p>
       </div>
 
-      <div className="w-full px-4">
+      <div className="flex w-full flex-col items-center px-4">
         <Image
           alt={`stay-fresh-item`}
           src={DogInTrunk}

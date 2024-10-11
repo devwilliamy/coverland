@@ -4,8 +4,8 @@ import AllSeasonIcons from './AllSeasonIcons';
 
 export default function AllSeasonProtection() {
   return (
-    <section className="flex w-full flex-col items-center bg-[#1A1A1A] text-center">
-      <div className="pb-[20px] pt-[43px] lg:pb-[20px] lg:pt-[66px]">
+    <section className="flex w-full flex-col items-center bg-[#1A1A1A] pb-4 text-center">
+      <div className="pb-[20px] pt-[43px] lg:pb-[20px] lg:pt-[110px]">
         <p className="text-[26px] font-medium leading-[32px] text-white lg:text-[45px] lg:leading-[56px]">
           All Season Weather <br />
           Year-Round Protection
@@ -28,7 +28,7 @@ export default function AllSeasonProtection() {
         src={AllSeasonProtectionImage}
         width={873}
         height={654}
-        className="w-full rounded-xl px-4 lg:max-h-[654px]  lg:max-w-[873px] "
+        className="w-full rounded-xl px-4 lg:max-h-[654px] lg:max-w-[873px] "
       />
       <AllSeasonIcons />
     </section>

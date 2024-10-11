@@ -12,8 +12,8 @@ const photosAndCaptions = [
 
 export default function StayLookingClean() {
   return (
-    <section className="flex w-full flex-col items-center bg-[#1A1A1A] pb-12">
-      <div className="pb-8 pt-[43px] lg:pb-[20px] lg:pt-[66px]">
+    <section className="flex w-full flex-col items-center bg-[#1A1A1A]">
+      <div className="pb-8 pt-[43px] lg:pb-12 lg:pt-[66px]">
         <p className="text-center text-[26px] font-medium leading-[32px] text-white lg:text-[45px] lg:font-semibold lg:leading-[52px]">
           Clean Up In a Minute <br />
           Stay Looking Clean
@@ -23,7 +23,7 @@ export default function StayLookingClean() {
       {photosAndCaptions.map(({ src, title }, index) => (
         <div
           key={title}
-          className="flex max-w-[621px] flex-col pb-[22px] text-center text-[#B5B5B5] max-md:px-4"
+          className="flex max-w-[621px] flex-col pb-12 text-center text-[#B5B5B5] max-md:px-4"
         >
           <Image
             alt={`stay-looking-clean-${index}`}

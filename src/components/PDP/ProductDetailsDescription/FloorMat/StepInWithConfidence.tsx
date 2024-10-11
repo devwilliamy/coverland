@@ -16,7 +16,7 @@ const stayNewData = [
 export default function StepInWithConfidence() {
   return (
     <section className="flex w-full flex-col items-center bg-white lg:pb-[84px]">
-      <div className="pb-[26px] pt-[43px] lg:pb-[20px] lg:pt-[66px]">
+      <div className="pb-[26px] pt-[43px] lg:pt-[110px]">
         <p className="text-[26px] font-semibold leading-[26px] lg:text-[45px] lg:leading-[32px]">
           Step In With Confidence
         </p>

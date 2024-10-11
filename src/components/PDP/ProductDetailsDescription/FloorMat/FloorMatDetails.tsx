@@ -40,7 +40,6 @@ const FloorMatDetails = React.memo(() => {
       <StayLookingClean />
       <SafeForFamily />
       <YourAdventure/>
-
       <WarrantySection />
     </div>
   );
