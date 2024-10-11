@@ -64,7 +64,7 @@ export default async function FloorMatServerComponentStart({
     average_score: 0,
   };
   let reviewImages: TReviewData[] = [];
-  const typeString = 'Floor Mat';
+  const typeString = 'Floor Mats';
 
   try {
     [modelData, reviewData, reviewDataSummary, reviewImages] =

@@ -72,9 +72,14 @@ export function HeroDropdown() {
     }
     const yearInUrl = parent_generation;
 
-    const coverType =
-      slugify(type) === 'car-covers' ? 'premium-plus' : 'leather';
-
+    let coverType; // Declare the cover variable
+    if (type === 'seat-covers') {
+      coverType = '';
+    } else if (slugify(type) === 'car-covers') {
+      coverType = 'premium-plus';
+    } else if (slugify(type) === 'floor-mats') {
+      coverType = 'textured';
+    }
     let url = `/${slugify(type)}/${coverType}/${slugify(make)}/${slugify(model)}/${yearInUrl}`;
 
     if (submodel1) {
@@ -84,7 +89,7 @@ export function HeroDropdown() {
     if (submodel2) {
       url += `&${createQueryString('submodel2', submodel2)}`;
     }
-    
+
     if (submodel3) {
       url += `&${createQueryString('submodel3', submodel3)}`;
     }

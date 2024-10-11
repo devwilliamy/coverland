@@ -132,7 +132,6 @@ export const generateItemName = (item: TCartItem) => {
     display_id = '',
     display_color = '',
   } = item || {};
-  console.log('item:', item.type);
   const type =
     item.type === 'Seat Covers'
       ? 'Seat Cover'
