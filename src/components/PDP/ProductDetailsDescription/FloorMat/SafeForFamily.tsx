@@ -38,22 +38,26 @@ export default function SafeForFamily() {
           height={656}
           className="w-full rounded-xl border-4 border-white lg:max-h-[656px] lg:max-w-[874px]"
         />
-        <div className="grid w-full grid-cols-2 gap-2 pt-3">
+        <div className="grid w-full grid-cols-2 gap-2 pt-3 lg:max-w-[874px]">
           {stayNewData.map(({ src, title, subtitle }, index) => (
             <div
               key={title}
-              className={`flex max-w-[428px] flex-col pb-[22px] text-[#7D7D7D] ${
-                index === 0 ? 'items-end text-right' : 'text-left'
-              }`}
+              className="flex flex-col pb-[22px] text-left text-[#7D7D7D] lg:text-center"
             >
-              <Image
-                alt={`stay-fresh-item-${index}`}
-                src={src}
-                width={428}
-                height={241}
-                className="min-w-full rounded-xl border-4 border-white lg:max-h-[241px] lg:max-w-[428px]"
-              />
-              <div className={index === 0 ? 'mr-2' : 'ml-2'}>
+              <div
+                className={`flex ${
+                  index === 0 ? 'justify-end' : 'justify-start'
+                }`} // Align image to the right for the left column and to the left for the right column
+              >
+                <Image
+                  alt={`stay-fresh-item-${index}`}
+                  src={src}
+                  width={428}
+                  height={241}
+                  className="rounded-xl border-4 border-white lg:max-h-[241px] lg:max-w-[428px]"
+                />
+              </div>
+              <div className="ml-2">
                 <p className="pt-[14px] text-base font-semibold capitalize text-black lg:pt-[20px] lg:text-[22px]">
                   {title}
                 </p>

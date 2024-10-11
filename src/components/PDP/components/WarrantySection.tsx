@@ -9,7 +9,7 @@ import useDetermineType from '@/hooks/useDetermineType';
 export default function WarrantySection() {
   const params = useParams();
   const pathname = usePathname();
-  const { isPremiumPlus } = useDetermineType();
+  const { isPremiumPlus, isSeatCover, isFloorMat } = useDetermineType();
   const coverType = params?.coverType;
   const isDefaultCoverType = isPremiumPlus || coverType === undefined;
   const warrantyData = [
@@ -19,9 +19,10 @@ export default function WarrantySection() {
     },
     {
       title: 'Normal Wear:',
-      body: pathname.startsWith('/seat-covers')
-        ? 'Covers daily use impacts.'
-        : ' Includes weather damage.',
+      body:
+        isSeatCover || isFloorMat
+          ? 'Covers daily use impacts.'
+          : ' Includes weather damage.',
     },
     {
       title: 'Lifetime Assurance:',
