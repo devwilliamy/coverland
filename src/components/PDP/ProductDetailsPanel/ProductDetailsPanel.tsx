@@ -1,11 +1,11 @@
 'use client';
 import { useState } from 'react';
 import { useCartContext } from '@/providers/CartProvider';
-import { useRouter } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
 import { useStore } from 'zustand';
 import PreorderSheet from '@/components/cart/PreorderSheet';
 import { Separator } from '@/components/ui/separator';
-import { getCompleteSelectionData, TQueryParams } from '@/utils';
+import { getCompleteSelectionData, TPathParams, TQueryParams } from '@/utils';
 import AddToCart from '@/components/cart/AddToCart';
 import EditVehicle from '@/components/edit-vehicle/EditVehicle';
 import useStoreContext from '@/hooks/useStoreContext';
@@ -14,12 +14,14 @@ import ProductPricing from './ProductPricing';
 import FloorMatSelection from '../ProductVariantSelections/FloorMatSelection';
 import FreeDetails from '@/app/(main)/[productType]/components/FreeDetails';
 import FloorMatColorSelector from '../VariantColorSelectors/FloorMatColorSelector';
+import { handlePreorderAddToCartGoogleTag } from '@/hooks/useGoogleTagDataLayer';
 
 export default function ProductDetailsPanel({
   searchParams,
 }: {
   searchParams: TQueryParams;
 }) {
+  const params = useParams<TPathParams>();
   const store = useStoreContext();
   if (!store) throw new Error('Missing Provider in the tree');
   const modelData = useStore(store, (s) => s.modelData);
@@ -38,6 +40,13 @@ export default function ProductDetailsPanel({
   const handleAddToCart = () => {
     addToCart({ ...selectedProduct, quantity: 1 });
     if (selectedProduct.preorder) {
+      if (process.env.NEXT_PUBLIC_IS_PREVIEW !== 'PREVIEW') {
+        handlePreorderAddToCartGoogleTag(
+          selectedProduct,
+          params as TPathParams,
+          'preorder_1_add-to-cart'
+        );
+      }
       setAddToCartOpen(true);
       return;
     } else {
