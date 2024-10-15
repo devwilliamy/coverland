@@ -20,12 +20,19 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: { params: TPathParams }) {
   return {
     title: `Floor Mats, Custom Fit - Coverland`,
-    description: `Floor Mats ᐉ Coverland ⭐ Free, Same-Day Shipping ✔️ Free Returns & Purchase Protection ✔️ Made from premium quality, heavy-duty materials with a soft inner fabric.`,
+    description: `Floor Mats ᐉ Coverland ⭐ Free, Same-Day Shipping ✔️ Free Returns & Purchase Protection ✔️ Custom-fit, all-weather car mats 🌦️ with a 10-year warranty 🛡️ and odor-free materials.
+    Anti-slip, flexible 🤸, and designed for full edge protection.
+    Easy to clean 🧼 and built to withstand any climate.
+    Enjoy 4.7-star quality, free returns, and direct pricing savings 💰!`,
   };
 }
 
 const coverTypes = ['textured'];
-export default async function FloorMatServerComponentStart({ params }: { params: TPathParams }) {
+export default async function FloorMatServerComponentStart({
+  params,
+}: {
+  params: TPathParams;
+}) {
   if (!coverTypes.includes(params.coverType as string)) {
     return notFound();
   }
