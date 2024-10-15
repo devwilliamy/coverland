@@ -12,6 +12,11 @@ import {
 import { deslugify } from '@/lib/utils';
 import SeatCoverDataWrapper from '@/app/(main)/seat-covers/components/SeatCoverDataWrapper';
 import { TReviewData, TProductReviewSummary } from '@/lib/types/review';
+import { getProductMetadata } from '@/lib/db';
+import {
+  SEAT_COVERS_LEATHER_URL_PARAM,
+  SEAT_COVERS_URL_PARAM,
+} from '@/lib/constants';
 
 export const revalidate = 86400;
 
@@ -50,9 +55,18 @@ export async function generateMetadata({ params }: { params: TPathParams }) {
   const make = deslugify(params.make || '');
   const model = deslugify(params.model || '');
   const year = deslugify(params.year || '');
+  const urlString = `https:/coverland.com/${SEAT_COVERS_LEATHER_URL_PARAM}/${params.make}/${params.model}/${params.year}`;
+  const productMetadata = await getProductMetadata(urlString);
+  const defaultMetadataDescription = `${year} ${make} ${model}  Seat Covers ᐉ Coverland ⭐ Free, Same-Day Shipping ✔️ Free Returns & Purchase Protection ✔️ Made from premium quality, heavy-duty materials with a soft inner fabric.`;
+  
   return {
     title: ` ${make} ${model} ${year} Seat Covers, Custom Fit - Coverland`,
-    description: ` ${make} ${model} ${year} Seat Covers ᐉ Coverland ⭐ Free, Same-Day Shipping ✔️ Free Returns & Purchase Protection ✔️ Made from premium quality, heavy-duty materials with a soft inner fabric.`,
+    description: productMetadata
+      ? productMetadata.description
+      : defaultMetadataDescription,
+    alternates: {
+      canonical: `/${SEAT_COVERS_LEATHER_URL_PARAM}/${params.make}/${params.model}/${params.year}`,
+    },
   };
 }
 
