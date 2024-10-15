@@ -52,11 +52,15 @@ const generateViewItemEvent = (
     discount: undefined,
     index: 0,
     item_brand: 'Coverland',
-    item_category: deslugify(params?.productType || ''),
-    item_category2: deslugify(params?.coverType || ''),
-    item_category3: deslugify(params?.make || ''),
-    item_category4: deslugify(params?.model || ''),
-    item_category5: params?.year || '',
+    item_category: deslugify(
+      params?.productType || selectedProduct?.type || ''
+    ),
+    item_category2: deslugify(
+      params?.coverType || selectedProduct?.display_id || ''
+    ),
+    item_category3: deslugify(params?.make || selectedProduct?.make || ''),
+    item_category4: deslugify(params?.model || selectedProduct?.model || ''),
+    item_category5: params?.year || selectedProduct?.parent_generation || '',
     item_category6: isComplete
       ? deslugify(selectedProduct?.submodel1 || '')
       : undefined,
@@ -275,7 +279,7 @@ export const handleAddToCartGoogleTag = (
   );
   const fullProductName =
     `${cartProduct.year_generation ?? ''} ${cartProduct.make ?? ''} ${cartProduct.model ?? ''} ${cartProduct.submodel1 ?? ''} ${cartProduct.submodel2 ?? ''} ${cartProduct.submodel3 ?? ''}`.trim();
-  const productName = `${fullProductName} ${cleanedDisplayId} ${cartProduct.type}`;
+  const productName = `${fullProductName} ${cleanedDisplayId} ${cartProduct?.type}`;
   window?.dataLayer?.push({ ecommerce: null }); // Clear the previous ecommerce object.
   window?.dataLayer?.push({
     event: 'add_to_cart',
@@ -292,7 +296,10 @@ export const handleAddToCartGoogleTag = (
           index: 0,
           item_brand: 'Coverland',
           item_category: deslugify(
-            params?.productType || cartProduct.product_type || ''
+            params?.productType ||
+              cartProduct?.product_type ||
+              cartProduct?.type ||
+              ''
           ),
           item_category2: deslugify(
             params?.coverType || cartProduct.display_id || ''
@@ -329,6 +336,66 @@ export const handleViewItemColorChangeGoogleTag = (
       currency: 'USD',
       value: isComplete ? msrp : undefined,
       items: [item],
+    },
+  });
+};
+
+export const handlePreorderAddToCartGoogleTag = (
+  cartProduct: IProductData,
+  params: TPathParams,
+  eventTitle:
+    | 'preorder_1_add-to-cart'
+    | 'preorder_2_discount-and-date'
+    | 'preorder_3_acknowledge-checkbox'
+) => {
+  // const price = parseFloat(cartProduct?.price || '0') || 0;
+  const msrp = parseFloat(cartProduct?.msrp || '0') || 0;
+  // const discount: number = price - msrp;
+  const cleanedDisplayId = removeMakeFromDisplayId(
+    cartProduct.display_id as string,
+    cartProduct.make as string
+  );
+  const fullProductName =
+    `${cartProduct.year_generation ?? ''} ${cartProduct.make ?? ''} ${cartProduct.model ?? ''} ${cartProduct.submodel1 ?? ''} ${cartProduct.submodel2 ?? ''} ${cartProduct.submodel3 ?? ''}`.trim();
+  const productName = `${fullProductName} ${cleanedDisplayId} ${cartProduct?.type}`;
+  window?.dataLayer?.push({ ecommerce: null }); // Clear the previous ecommerce object.
+  window?.dataLayer?.push({
+    event: eventTitle,
+    ecommerce: {
+      currency: 'USD',
+      value: msrp,
+      items: [
+        {
+          item_id: cartProduct.sku,
+          item_name: productName,
+          affiliation: undefined,
+          coupon: undefined,
+          discount: undefined, // Removed temporarily because we transfer the promotional price or something
+          index: 0,
+          item_brand: 'Coverland',
+          item_category: deslugify(
+            params?.productType ||
+              cartProduct?.product_type ||
+              cartProduct?.type ||
+              ''
+          ),
+          item_category2: deslugify(
+            params?.coverType || cartProduct.display_id || ''
+          ),
+          item_category3: deslugify(params?.make || cartProduct.make || ''),
+          item_category4: deslugify(params?.model || cartProduct.model || ''),
+          item_category5: params?.year || cartProduct.parent_generation || '',
+          item_category6: deslugify(cartProduct?.submodel1 || ''),
+          item_category7: deslugify(cartProduct?.submodel2 || ''),
+          item_category8: deslugify(cartProduct?.submodel3 || ''),
+          item_list_id: undefined,
+          item_list_name: undefined,
+          item_variant: cartProduct?.display_color,
+          location_id: undefined,
+          price: msrp,
+          quantity: 1,
+        },
+      ],
     },
   });
 };
