@@ -18,8 +18,8 @@ const generateContactEmail = ({
   text,
 }: ContactEmailInput) => {
   return {
-    to: ['cs@coverland.com', email],
-    from: 'Coverland Support <cs@coverland.com>', // Process ENV
+    to: ['support@coverland.com', email],
+    from: 'Coverland Support <support@coverland.com>', // Process ENV
     subject: subject,
     text:
       `Customer Name: ${name} ` +
