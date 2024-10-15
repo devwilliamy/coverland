@@ -50,11 +50,11 @@ export default function AnnouncementDialog() {
             We are currently updating our customer service email contact. For
             any inquiries or assistance, please reach out to us at{' '}
             <Link
-              href="mailto: cs@coverland.com"
+              href="mailto: support@coverland.com"
               target="_blank"
               className="font-bold underline"
             >
-              cs@coverland.com
+              support@coverland.com
             </Link>
             . Our team is here to help and will respond as promptly as possible.
             Thank you for your understanding and continued support!
