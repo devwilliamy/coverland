@@ -50,7 +50,10 @@ export async function generateMetadata({ params }: { params: TPathParams }) {
   const year = deslugify(params.year || '');
   return {
     title: ` ${make} ${model} ${year} Floor Mats, Custom Fit - Coverland`,
-    description: ` ${make} ${model} ${year} Floor Mats ᐉ Coverland ⭐ Free, Same-Day Shipping ✔️ Free Returns & Purchase Protection ✔️ Made from premium quality, heavy-duty materials with a soft inner fabric.`,
+    description: ` ${make} ${model} ${year} Floor Mats ᐉ Coverland ⭐ Free, Same-Day Shipping ✔️ Free Returns & Purchase Protection ✔️ Custom-fit, all-weather car mats 🌦️ with a 10-year warranty 🛡️ and odor-free materials.
+    Anti-slip, flexible 🤸, and designed for full edge protection.
+    Easy to clean 🧼 and built to withstand any climate.
+    Enjoy 4.7-star quality, free returns, and direct pricing savings 💰!`,
   };
 }
 
