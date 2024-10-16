@@ -30,7 +30,7 @@ export default function StayLookingClean() {
             src={src}
             width={800}
             height={800}
-            className="min-w-full lg:max-h-[328px] lg:max-w-[621px]"
+            className="min-w-full rounded-lg lg:max-h-[328px] lg:max-w-[621px]"
           />
           <p className="pt-3 text-lg font-medium capitalize lg:pt-[20px] lg:text-[22px]">
             {title}

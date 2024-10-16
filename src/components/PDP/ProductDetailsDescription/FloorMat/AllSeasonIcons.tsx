@@ -2,16 +2,23 @@ import Couch from '../../icons/Couch';
 import { GrayDualArrow } from '../../icons/GrayDualArrow';
 import { GrayDualBlackArrow } from '../../icons/GrayDualBlackArrow';
 import { GrayWrench } from '../../icons/GrayWrench';
+import ShieldWithCheck from '../../icons/ShieldWithCheck';
+import SunThermometer from '../../icons/SunThermometer';
+import Waterdrop from '../../icons/WaterDrop';
+import WindBlowingGerms from '../../icons/WindBlowingGerms';
 
 export default function AlLSeasonicons() {
   const icons = [
     {
       title: 'Heat/Cold Resistant',
-      icon: <GrayDualBlackArrow />,
+      icon: <SunThermometer width={100} height={100} />,
     },
-    { title: 'Waterproof', icon: <GrayDualBlackArrow /> },
-    { title: 'Stain Resistant', icon: <GrayDualBlackArrow /> },
-    { title: 'Odor-Free', icon: <GrayDualBlackArrow /> },
+    { title: 'Waterproof', icon: <Waterdrop width={100} height={100} /> },
+    {
+      title: 'Stain Resistant',
+      icon: <ShieldWithCheck width={100} height={100} />,
+    },
+    { title: 'Odor-Free', icon: <WindBlowingGerms width={100} height={100} /> },
   ];
   return (
     <div className="grid grid-cols-4 justify-center gap-[30px] pt-[15px] max-lg:max-w-[343px] lg:gap-[60px] lg:pt-[60px]">
