@@ -1,8 +1,9 @@
 import Image from 'next/image';
 import BuckleUpStaySecureImage from '@/public/images/PDP/floor-mats/buckle-up-stay-secure.webp';
+
 export default function BuckleUpStaySecure() {
   return (
-    <section className="w-full bg-[#1A1A1A] pb-[60px]">
+    <section className="relative w-full bg-[#1A1A1A]">
       <h2 className="flex w-full items-center justify-center pt-[60px] text-center text-[26px] font-[500] leading-[30px] text-white lg:pt-[110px] lg:text-[45px] lg:leading-[52px] ">
         Buckle Up, Stay secured
       </h2>
@@ -12,16 +13,18 @@ export default function BuckleUpStaySecure() {
           Keep Mats Securely Anchored
         </p>
       </div>
-      <section className="flex w-full flex-row justify-center pt-[34px] lg:pt-12 ">
-        <div className="flex justify-center">
+      <section className="relative flex w-full flex-row justify-center pt-[34px] lg:pt-12">
+        <div className="relative flex justify-center">
           <Image
             alt={`perfect-custom-fit`}
             width={889}
             height={1022}
             src={BuckleUpStaySecureImage}
-            className="min-w-full lg:max-h-[1022px] lg:max-w-[889px]"
+            className="z-[2] min-w-full lg:max-h-[1022px] lg:max-w-[889px]"
           />
+          {/* Gradient div */}
         </div>
+        <div className="absolute bottom-0 z-[1] h-[200px] w-full bg-gradient-to-t from-[#FFFFFF] to-[#1A1A1A] lg:h-[500px]"></div>
       </section>
     </section>
   );

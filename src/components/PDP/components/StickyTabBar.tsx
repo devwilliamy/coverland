@@ -18,7 +18,7 @@ export default function StickyTabBar({
   return (
     <div
       id="Extra-Details-Tabs"
-      className="no-scrollbar sticky top-[-1px] z-[2] flex items-center justify-items-center overflow-x-auto bg-white lg:w-full"
+      className="no-scrollbar sticky top-[-1px] z-[3] flex items-center justify-items-center overflow-x-auto bg-white lg:w-full"
     >
       {tabs.map(({ title }, index) => (
         <button
