@@ -12,7 +12,7 @@ export default function ProductPricing() {
 
   return (
     <>
-      <div className="flex items-center gap-[6px] pt-7 text-center text-2xl font-black lg:text-[32px] lg:leading-[37.5px] ">
+      <div className="flex items-center gap-[6px] pt-8 text-center text-2xl font-black lg:pt-9 lg:text-[32px] lg:leading-[37.5px] ">
         <div className="leading-[20px]">${msrp}</div>
         {discountPercent && (
           <div className="flex gap-1.5 pb-[1px] text-lg font-normal leading-[14px] text-[#BE1B1B] lg:text-[22px] ">

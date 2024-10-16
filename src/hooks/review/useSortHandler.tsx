@@ -1,6 +1,6 @@
 import { getProductReviewsByPage } from '@/lib/db/review';
 import { SortParams } from '@/lib/types/review';
-import { CAR_COVERS, SEAT_COVERS } from '@/lib/constants';
+import { CAR_COVERS, FLOOR_MATS, SEAT_COVERS } from '@/lib/constants';
 import { useReviewContext } from '@/contexts/ReviewContext';
 import { useStore } from 'zustand';
 import useStoreContext from '../useStoreContext';
@@ -11,8 +11,15 @@ const useSortHandler = () => {
     useReviewContext();
   const store = useStoreContext();
   if (!store) throw new Error('Missing Provider in the tree');
-  const { isSeatCover } = useDetermineType();
-  const typeString = isSeatCover ? SEAT_COVERS : CAR_COVERS;
+  const { isSeatCover, isFloorMat } = useDetermineType();
+  let typeString = ''; // Declare the typeString variable
+  if (isSeatCover) {
+    typeString = SEAT_COVERS;
+  } else if (isFloorMat) {
+    typeString = FLOOR_MATS;
+  } else {
+    typeString = CAR_COVERS;
+  }
   const setReviewData = useStore(store, (s) => s.setReviewData);
 
   const handleSortSelectionChange = async (
@@ -55,7 +62,7 @@ const useSortHandler = () => {
           sort: sortArray,
         }
       );
-      
+
       setSort(sortArray);
       setReviewData(newReviewData); // Only show the first 8 when a sort has been picked
       setPage(1);

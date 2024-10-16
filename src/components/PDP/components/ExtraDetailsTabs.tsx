@@ -51,7 +51,7 @@ export default function ExtraDetailsTabs() {
       );
     } else if (isFloorMat) {
       mainTabs.splice(mainTabs.length - 1, 1);
-      mainTabs.unshift({ title: 'Details' });
+      mainTabs.unshift({ title: 'Details' }, { title: 'Reviews' });
     } else {
       mainTabs.unshift(
         { title: 'Details' },
@@ -125,17 +125,10 @@ export default function ExtraDetailsTabs() {
           {/* Refactor TODO: This can be passed in */}
           {ProductDetails}
         </div>
-        {!isFloorMat && (
-          <>
-            <Separator className="h-5 border-y-[1px] border-y-[#DADADA] bg-[#F1F1F1] lg:h-10" />
-            <div
-              id="Reviews"
-              ref={(el) => (sectionRefs.current['Reviews'] = el)}
-            >
-              <ReviewSection showHeader />
-            </div>
-          </>
-        )}
+        <Separator className="h-5 border-y-[1px] border-y-[#DADADA] bg-[#F1F1F1] lg:h-10" />
+        <div id="Reviews" ref={(el) => (sectionRefs.current['Reviews'] = el)}>
+          <ReviewSection showHeader />
+        </div>
         {!isFloorMat && (
           <>
             <Separator className="h-5 border-y-[1px] border-y-[#DADADA] bg-[#F1F1F1] lg:h-10" />
