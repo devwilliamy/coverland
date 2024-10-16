@@ -7,7 +7,7 @@ import SunThermometer from '../../icons/SunThermometer';
 import Waterdrop from '../../icons/WaterDrop';
 import WindBlowingGerms from '../../icons/WindBlowingGerms';
 
-export default function AlLSeasonicons() {
+export default function AllSeasonIcons() {
   const icons = [
     {
       title: 'Heat/Cold Resistant',
