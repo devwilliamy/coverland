@@ -36,7 +36,7 @@ export default function SafeForFamily() {
           src={FamilyCar}
           width={874}
           height={656}
-          className="w-full rounded-xl border-4 border-white lg:max-h-[656px] lg:max-w-[874px]"
+          className="w-full rounded-xl border-4 border-white shadow-lg lg:max-h-[656px] lg:max-w-[874px]"
         />
         <div className="grid w-full grid-cols-2 gap-2 pt-3 lg:max-w-[874px]">
           {stayNewData.map(({ src, title, subtitle }, index) => (
@@ -54,7 +54,7 @@ export default function SafeForFamily() {
                   src={src}
                   width={428}
                   height={241}
-                  className="rounded-xl border-4 border-white lg:max-h-[241px] lg:max-w-[428px]"
+                  className="rounded-xl border-4 border-white shadow-lg lg:max-h-[241px] lg:max-w-[428px]"
                 />
               </div>
               <div className="ml-2">
