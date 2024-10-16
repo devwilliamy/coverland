@@ -784,6 +784,7 @@ export const CAR_COVERS = 'Car Covers';
 export const SUV_COVERS = 'SUV Covers';
 export const TRUCK_COVERS = 'Truck Covers';
 export const SEAT_COVERS = 'Seat Covers';
+export const FLOOR_MATS = 'Floor Mats';
 export const CAR_COVERS_URL_PARAM = 'car-covers';
 export const SUV_COVERS_URL_PARAM = 'suv-covers';
 export const TRUCK_COVERS_URL_PARAM = 'truck-covers';

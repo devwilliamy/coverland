@@ -28,7 +28,7 @@ export default function ProductInfo() {
         <br className="max-lg:hidden" /> Custom-Fit, Durable Protection
       </h2>
       {/* Rating(s) */}
-      {/* <div className="-ml-0.5 mt-1 flex items-end gap-1 lg:mt-2">
+      <div className="-ml-0.5 mt-1 flex items-end gap-1 lg:mt-2">
         <div className="flex gap-1 ">
           <Rating
             name="read-only"
@@ -47,7 +47,7 @@ export default function ProductInfo() {
           />
         </div>
         <ReviewsTextTrigger />
-      </div> */}
+      </div>
     </>
   );
 }

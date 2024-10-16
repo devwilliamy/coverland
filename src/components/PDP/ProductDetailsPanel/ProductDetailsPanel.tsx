@@ -75,7 +75,7 @@ export default function ProductDetailsPanel({
       {/* <FloorMatColorSelector /> */}
       <FreeDetails />
       {/* <CompatibleVehiclesTrigger /> */}
-      <div className="lg:py-4"></div>
+      <div className="lg:py-8"></div>
       <div className="lg:hidden">
         <AddToCart
           selectedProduct={selectedProduct}

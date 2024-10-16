@@ -1,10 +1,6 @@
-import Couch from '../../icons/Couch';
-import { GrayDualArrow } from '../../icons/GrayDualArrow';
-import { GrayDualBlackArrow } from '../../icons/GrayDualBlackArrow';
-import { GrayWrench } from '../../icons/GrayWrench';
 import ShieldWithCheck from '../../icons/ShieldWithCheck';
 import SunThermometer from '../../icons/SunThermometer';
-import Waterdrop from '../../icons/WaterDrop';
+import Waterdrop from '../../icons/Waterdrop';
 import WindBlowingGerms from '../../icons/WindBlowingGerms';
 
 export default function AllSeasonIcons() {

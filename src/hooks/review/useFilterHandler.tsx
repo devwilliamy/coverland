@@ -1,5 +1,5 @@
 import { useReviewContext } from '@/contexts/ReviewContext';
-import { CAR_COVERS, SEAT_COVERS } from '@/lib/constants';
+import { CAR_COVERS, FLOOR_MATS, SEAT_COVERS } from '@/lib/constants';
 import {
   getProductReviewsByPage,
   getProductReviewsByImage,
@@ -18,8 +18,15 @@ const useFilterHandler = () => {
     setFilters,
     setFilterImageOn,
   } = useReviewContext();
-  const { isSeatCover } = useDetermineType();
-  const typeString = isSeatCover ? SEAT_COVERS : CAR_COVERS;
+  const { isSeatCover, isFloorMat } = useDetermineType();
+  let typeString = ''; // Declare the typeString variable
+  if (isSeatCover) {
+    typeString = SEAT_COVERS;
+  } else if (isFloorMat) {
+    typeString = FLOOR_MATS;
+  } else {
+    typeString = CAR_COVERS;
+  }
   const store = useStoreContext();
   if (!store) throw new Error('Missing Provider in the tree');
   const setReviewData = useStore(store, (s) => s.setReviewData);
