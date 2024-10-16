@@ -23,13 +23,17 @@ export default function AllSeasonProtection() {
           <p>Fuel Your Adventures with Coverland!</p>
         </div>
       </div>
-      <Image
-        alt="all-season-protection"
-        src={AllSeasonProtectionImage}
-        width={873}
-        height={654}
-        className="w-full rounded-xl px-4 lg:max-h-[654px] lg:max-w-[873px] "
-      />
+      <div className="px-4">
+        <div className="w-full overflow-hidden rounded-lg lg:max-h-[654px] lg:max-w-[873px]">
+          <Image
+            alt="all-season-protection"
+            src={AllSeasonProtectionImage}
+            width={873}
+            height={654}
+            className="w-full"
+          />
+        </div>
+      </div>
       <AllSeasonIcons />
     </section>
   );
