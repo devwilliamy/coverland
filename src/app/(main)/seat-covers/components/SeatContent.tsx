@@ -10,7 +10,7 @@ import { useStore } from 'zustand';
 import SeatCoverColorSelector from './SeatCoverColorSelector';
 import PreorderSheet from '@/components/cart/PreorderSheet';
 import { Separator } from '@/components/ui/separator';
-import { getCompleteSelectionData, TQueryParams } from '@/utils';
+import { getCompleteSelectionData, TPathParams, TQueryParams } from '@/utils';
 import AddToCart from '@/components/cart/AddToCart';
 import EditVehicle from '@/components/edit-vehicle/EditVehicle';
 import FreeDetails from '../../[productType]/components/FreeDetails';
@@ -22,6 +22,7 @@ import { TSeatCoverDataDB } from '@/lib/db/seat-covers';
 import { handleCheckLowQuantity } from '@/lib/utils/calculations';
 import KlarnaIcon from '@/components/icons/KlarnaIcon';
 import useStoreContext from '@/hooks/useStoreContext';
+import { handlePreorderAddToCartGoogleTag } from '@/hooks/useGoogleTagDataLayer';
 
 export default function SeatContent({
   searchParams,
@@ -39,6 +40,7 @@ export default function SeatContent({
   });
 
   const router = useRouter();
+  const params = useParams<TPathParams>();
 
   const selectedProduct = useStore(store, (s) => s.selectedProduct);
   const [addToCartOpen, setAddToCartOpen] = useState<boolean>(false);
@@ -81,6 +83,13 @@ export default function SeatContent({
     }
 
     if (selectedProduct.preorder) {
+      if (process.env.NEXT_PUBLIC_IS_PREVIEW !== 'PREVIEW') {
+        handlePreorderAddToCartGoogleTag(
+          selectedProduct,
+          params as TPathParams,
+          'preorder_1_add-to-cart'
+        );
+      }
       setAddToCartOpen(true);
       return;
     } else {
